@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Get-FileLanguage — the real repository' -Tag 'L1', 'integrity',...`, written with `#`.
+Above `Describe 'Get-FileLanguage — the real repository'`, written with `#`.
 
 ```text
 The real repository against both registries: the tracks (Catzc.Base.Variants, variants.yml) and the file languages

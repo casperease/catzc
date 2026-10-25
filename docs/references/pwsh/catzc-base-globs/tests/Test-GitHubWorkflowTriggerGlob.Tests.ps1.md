@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Test-GitHubWorkflowTriggerGlob' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Test-GitHubWorkflowTriggerGlob'`, written with `#`.
 
 ```text
 Test-GitHubWorkflowTriggerGlob is a quality gate

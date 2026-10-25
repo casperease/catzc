@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Invoke-InBuiltCatzc' -Tag 'L1', 'logic',...`, written with `#`.
+Above `Describe 'Invoke-InBuiltCatzc'`, written with `#`.
 
 ```text
 Invoke-InBuiltCatzc against a stand-in build root: its Import-Catzc.ps1 is a fixture that sets the two roots

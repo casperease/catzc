@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Get-FixtureIdentityTokens' -Tag 'L1', 'logic' {`, written with `#`.
+Above `Describe 'Get-FixtureIdentityTokens'`, written with `#`.
 
 ```text
 Get-FixtureIdentityTokens over a fixture pwsh/ tree in $TestDrive (Get-RepositoryRoot mocked): the fixture

@@ -20,6 +20,9 @@ function New-VsCodeSettings {
         # The repository's filters, name to the include/exclude sets each claims by, in lamp order (Get-RepositoryFilter).
         [System.Collections.IDictionary] $RepositoryFilter = @{},
 
+        # The tagged languages the lamps offer, name to its tag and extensions, in the languages config's order.
+        [System.Collections.IDictionary] $LampLanguage = @{},
+
         # The settings file on disk, read for the rows another writer owns (the carried settings of vscode-settings.yml).
         [string] $CurrentPath = (Join-Path (Get-RepositoryRoot) '.vscode/settings.json'),
 
@@ -96,6 +99,13 @@ function New-VsCodeSettings {
             $filters[$name] = @($RepositoryFilter[$name])
         }
         $settings['catzc.trackLamps.filters'] = $filters
+    }
+    if ($LampLanguage.Count -gt 0) {
+        $languages = [ordered]@{}
+        foreach ($name in $LampLanguage.Keys) {
+            $languages[$name] = [ordered]@{ tag = $LampLanguage[$name].tag; extensions = @($LampLanguage[$name].extensions) }
+        }
+        $settings['catzc.trackLamps.languages'] = $languages
     }
 
     if ($config.carried.Count -gt 0 -and (Test-Path -LiteralPath $CurrentPath)) {

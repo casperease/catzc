@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'EngineSetCheck' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'EngineSetCheck'`, written with `#`.
 
 ```text
 EngineSetCheck maps the engine-set check's settings and matches its phrases against the engine names it is given —

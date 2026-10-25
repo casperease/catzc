@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Get-AdoBuildValidations' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Get-AdoBuildValidations'`, written with `#`.
 
 ```text
 The read side: policy configurations filtered to build-validation policies of THIS repository,

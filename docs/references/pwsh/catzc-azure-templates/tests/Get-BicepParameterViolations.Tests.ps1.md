@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Get-BicepParameterViolations' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Get-BicepParameterViolations'`, written with `#`.
 
 ```text
 Logic tests for Get-BicepParameterViolations (with its per-entry and Key Vault reference checks): each violation kind

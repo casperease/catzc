@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Repository Markdown titles' -Tag 'L2', 'integrity', 'source-only' {`, written with `#`.
+Above `Describe 'Repository Markdown titles'`, written with `#`.
 
 ```text
 The real repository titles every in-scope Markdown file with its path

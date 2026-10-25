@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Test-ShellScripts' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Test-ShellScripts'`, written with `#`.
 
 ```text
 Test-ShellScripts is a quality gate ([ADR-AUTO-TEST-QUALITYGATE](/docs/drs/automation/test-automation.md#rule-adr-auto-test-qualitygate)):
@@ -16,7 +16,7 @@ read the collected issues; the report goes to $TestDrive. Neutral fixture names
 
 ## comment:2
 
-Above `Describe 'Repository shell script integrity' -Tag 'L2', 'integrity',...`, written with `#`.
+Above `Describe 'Repository shell script integrity'`, written with `#`.
 
 ```text
 Integrity: every shell script the repository holds is LF and passes the pinned ShellCheck. L2 because it drives the

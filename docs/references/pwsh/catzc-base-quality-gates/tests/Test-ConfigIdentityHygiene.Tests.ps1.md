@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Test-ConfigIdentityHygiene' -Tag 'L1', 'integrity', 'source-only' {`, written with `#`.
+Above `Describe 'Test-ConfigIdentityHygiene'`, written with `#`.
 
 ```text
 Integrity — it reads the real shipped config (and derives from the real fixture configs). source-only: those are

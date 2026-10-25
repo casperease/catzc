@@ -45,6 +45,10 @@ function Expand-VsCodeRepeat {
         }
         $items = @($source['first'] | Where-Object { $null -ne $_ }) + @(& $read (Get-Config -Config $source['config']) $source['list']) +
         @($source['plus'] | Where-Object { $null -ne $_ })
+        # A source that names a where field keeps only the items that carry a value for it (the languages with a tag).
+        if ($source.Contains('where')) {
+            $items = @($items | Where-Object { & $read $_ $source['where'] })
+        }
         $position = 0
         $sources[$name] = @(foreach ($item in $items) {
                 $position++

@@ -32,6 +32,7 @@ Describe 'Build-RootConfig' -Tag 'L0', 'logic' {
                 )
             }
         }
+        # The warm-run skip reads the one writer memo, kept inside the fake root.
         $script:writers = [Catzc.Base.GeneratedFiles.GeneratedFilesConfig]::new([ordered]@{ writers = [ordered]@{
                     'Build-RootConfig' = [ordered]@{ inputs = @('sources/fixture.yml', 'fixture.yml', 'generated.txt') }
                 }
@@ -68,6 +69,7 @@ Describe 'Build-RootConfig' -Tag 'L0', 'logic' {
     }
 
     It 'treats a linked target as stale for a copy entry, even with identical content' {
+        # A link reads the same as its source, so only the is-link check can catch it.
         $sourceOnDisk = Join-Path $script:fake.Root 'sources/fixture.yml'
         New-Item -ItemType HardLink -Path $script:copyTarget -Target $sourceOnDisk | Out-Null
 
@@ -130,6 +132,7 @@ Describe 'Build-RootConfig — multi-file generator' -Tag 'L0', 'logic' {
     BeforeAll {
         Import-InternalModule TestKit
 
+        # One { Target; Content } record per file, each written and reported on its own row.
         $script:fake = New-FakeRepositoryRoot -Files @{
             'widgets/alpha/.keep' = ''
             'widgets/beta/.keep'  = ''
@@ -248,6 +251,7 @@ Describe 'Build-RootConfig — the real New-GoWorkspace generator, <_>/ root' -T
     BeforeAll {
         Import-InternalModule TestKit
 
+        # The wiring the L0 tests mock away: a real dispatch to New-GoWorkspace, written by Build-RootConfig.
         $script:goRoot = $_
         $script:fake = New-FakeRepositoryRoot -WorkingRootOnly -Files @{ "$($script:goRoot)/tests/widget/widget_test.go" = "package widget`n" }
         $script:registry = [Catzc.Base.RootConfig.RootConfigFiles]::new(@{

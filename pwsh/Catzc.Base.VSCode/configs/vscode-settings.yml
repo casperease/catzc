@@ -8,8 +8,6 @@ carried:
   # The track lamps add files.exclude rows at workspace scope and list them under their own key; the render keeps both as they are.
   files.exclude: catzc.trackLamps.owned
 
-# The .editorconfig sections New-VsCodeSettings renders into per-language settings, each glob to its VS Code language ids; [*] renders into
-# the top-level settings, and a section without a row here (the C# analyzer rules) stays for the tools that read .editorconfig.
 editorconfig:
   "*.{ps1,psm1,psd1}": [powershell]
   "*.md": [markdown]

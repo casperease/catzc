@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Get-GlobSetFile' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Get-GlobSetFile'`, written with `#`.
 
 ```text
 The member list: tracked universe ∩ globset membership, ordinally sorted

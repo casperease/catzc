@@ -134,20 +134,6 @@ double-clicking a .drawio.png shows the image; to EDIT the diagram, right-click 
 "Draw.io (Binary)". Pixels-first was the deliberate call: these diagrams are compared far more than edited.
 ```
 
-## comment:14
-
-Above `regexrobin.rules:`, written with `#`.
-
-```text
-Code links in comments — `[ADR-<CODE>#<n>](/docs/drs/<path>.md#rule-…)`
-([ADR-REPO-LINK-CODELINKS](/docs/drs/repository/markdown-links.md#rule-adr-repo-link-codelinks)) — are repository-rooted
-markdown links, which core VS Code does not link outside .md files. This Regex Robin rule (the extension is
-recommended in vscode-extensions.yml) makes the whole link Ctrl+clickable in every language by opening the
-ADR file in the workspace. The #fragment is not passed on: the editor opens files by line, not by heading.
-In .md files the built-in markdown links already resolve, and a markdown link there is relative, so the
-rule does not match it.
-```
-
 ## comment:15
 
 Above `go.toolsEnvVars:`, written with `#`.
@@ -244,4 +230,13 @@ Above `yaml.schemaStore.enable: false`, written with `#`.
 ```text
 No extension fetches a schema: the YAML extension never asks SchemaStore and JSON never downloads one; every schema the editor checks
 against is a local file named below.
+```
+
+## comment:25
+
+Above `editorconfig:`, written with `#`.
+
+```text
+The .editorconfig sections New-VsCodeSettings renders into per-language settings, each glob to its VS Code language ids; [*] renders into
+the top-level settings, and a section without a row here (the C# analyzer rules) stays for the tools that read .editorconfig.
 ```

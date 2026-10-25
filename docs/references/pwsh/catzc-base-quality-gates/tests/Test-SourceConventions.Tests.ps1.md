@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Test-SourceConventions' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Test-SourceConventions'`, written with `#`.
 
 ```text
 Test-SourceConventions over fixture trees in $TestDrive: the repository root is mocked, so each test writes the

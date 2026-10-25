@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Manual test plan covers every integrity check' -Tag 'L1',...`, written with `#`.
+Above `Describe 'Manual test plan covers every integrity check'`, written with `#`.
 
 ```text
 Keeps the manual test plan's category files (docs/how-to/pwsh/manual-test-plan/) in sync with the tests, through its quality gate

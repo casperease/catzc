@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Test-DrsEngineNeutrality' -Tag 'L0', 'logic',...`, written with `#`.
+Above `Describe 'Test-DrsEngineNeutrality'`, written with `#`.
 
 ```text
 Test-DrsEngineNeutrality over a fixture docs/drs tree in $TestDrive, a fixture DrsConfig, and a fixture DrsChecksConfig

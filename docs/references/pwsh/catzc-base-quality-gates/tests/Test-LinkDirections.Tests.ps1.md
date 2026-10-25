@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Test-LinkDirections' -Tag 'L0', 'logic',...`, written with `#`.
+Above `Describe 'Test-LinkDirections'`, written with `#`.
 
 ```text
 Test-LinkDirections judges every relation the link walk reads against the rows, in a TestDrive tree with its endpoints and rows

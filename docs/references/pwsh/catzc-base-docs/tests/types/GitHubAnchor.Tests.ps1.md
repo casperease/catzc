@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'GitHubAnchor' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'GitHubAnchor'`, written with `#`.
 
 ```text
 The GitHub slug and anchor set a markdown link's #fragment must name

@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Get-ScriptAnalyzerDiagnostics (real vendored analyzer)' -Tag 'L2',...`, written with `#`.
+Above `Describe 'Get-ScriptAnalyzerDiagnostics (real vendored analyzer)'`, written with `#`.
 
 ```text
 L2: drives the real PSScriptAnalyzer across background-job shards (the whole point of the helper), over

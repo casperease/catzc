@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Catzc.Base.VSCode.VscodeSettingsConfig' -Tag 'L0' {`, written with `#`.
+Above `Describe 'Catzc.Base.VSCode.VscodeSettingsConfig'`, written with `#`.
 
 ```text
 The vscode-settings.yml type: constructing it maps and validates the parsed YAML, so a malformed settings

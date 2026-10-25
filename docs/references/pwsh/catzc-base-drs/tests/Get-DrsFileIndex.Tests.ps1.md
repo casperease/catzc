@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Get-DrsFileIndex' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Get-DrsFileIndex'`, written with `#`.
 
 ```text
 Get-DrsFileIndex — every docs/drs/**/*.md keyed by "<domain folder>/<slug>", and each rule set mapped to its one file. A fixture

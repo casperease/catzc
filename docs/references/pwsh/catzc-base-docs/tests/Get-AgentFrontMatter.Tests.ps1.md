@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Get-AgentFrontMatter' -Tag 'L0', 'logic',...`, written with `#`.
+Above `Describe 'Get-AgentFrontMatter'`, written with `#`.
 
 ```text
 Get-AgentFrontMatter over fixture agent files in $TestDrive. Neutral fixture names

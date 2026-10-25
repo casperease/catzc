@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Resolve-InspirationRoot' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Resolve-InspirationRoot'`, written with `#`.
 
 ```text
 Resolve-InspirationRoot over a TestDrive workspace with neutral names (widget/gadget,

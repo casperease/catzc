@@ -16,7 +16,7 @@ fixtures.
 
 ## comment:2
 
-Above `Describe 'Measure-NoRawVsoCommand' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Measure-NoRawVsoCommand'`, written with `#`.
 
 ```text
 The per-case assertions run the rule function directly on a parsed AST (L0) — the rule is pure logic over a

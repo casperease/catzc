@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Get-ZshInstallLayout' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Get-ZshInstallLayout'`, written with `#`.
 
 ```text
 Get-ZshInstallLayout over a fixture zsh entry: Get-ToolConfig is mocked, so the shipped tools.yml is never read

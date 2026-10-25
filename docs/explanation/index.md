@@ -8,6 +8,7 @@ azure           how Azure resource names are assembled
 configuration   how configuration is read, cached and addressed
 design          the commit lifecycle, run modes, module aspects, tracks, the thin platform, the server remote
 flow            promotion, the pipeline runner, and the globsets that trigger pipelines
+model           the physical and meta models, where each is declared, and the zoom ladder
 pipelines       how Azure DevOps calls prove their credentials
 repository      how managed root files and repository variants are kept in shape
 ```
@@ -17,15 +18,8 @@ The documentation has four kinds of article. A [decision record](../drs/index.md
 module's responsibilities. An **explanation** article shows how one part of cats works and why it holds: each one narrates a single diagram,
 step by step, and points back to the DRS rules the diagram supports.
 
-Each diagram is drawn five times, through five lenses, so the same idea can be read at the depth a reader needs:
-
-| Lens               | Shows                                                                  |
-| ------------------ | ---------------------------------------------------------------------- |
-| **meta**           | the idea and the one rule that holds, with no function or file names   |
-| **architecture**   | the parts, their boundaries, and who depends on whom                   |
-| **implementation** | the real functions, files and configs, in the order the code runs them |
-| **operations**     | what a person or a pipeline runs, and what they see when it fails      |
-| **governance**     | which DRS rule constrains each step, and which gate checks it          |
+Each diagram is drawn through a lens, what it shows, and may stand at a zoom level, how far out it stands; the
+[zoom ladder](model/the-zoom-ladder.md) names the lenses and the five levels and how they cross.
 
 ## How to read the diagrams
 
@@ -60,5 +54,6 @@ The articles are grouped by the decision-record domain of the decision they expl
 - [Configuration](configuration/index.md) — how configuration is read, cached and addressed.
 - [Design](design/index.md) — the commit lifecycle, run modes, module aspects, tracks, the thin platform, and the server remote.
 - [Flow](flow/index.md) — promotion, the pipeline runner, and the globsets that trigger pipelines.
+- [Model](model/index.md) — the physical and meta models, where each is declared, and the zoom ladder.
 - [Repository](repository/index.md) — how managed root files and repository variants are kept in shape.
 - [Thesis](thesis/index.md) — the product thesis as a deck of slide files.

@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Measure-NoRawInformationStream' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Measure-NoRawInformationStream'`, written with `#`.
 
 ```text
 The per-case assertions run the rule function directly on a parsed AST (L0) — the rule is pure logic over a

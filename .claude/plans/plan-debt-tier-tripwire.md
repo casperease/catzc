@@ -32,9 +32,5 @@ only by a tier-filtered run (ADR-AUTO-TEST-PROCESSTRIPWIRE). The cause is in the
        task-user-runs-and-commits item 18): git still tracks the old spelling while the disk holds the new one. The other four non-launch
        failures landed (catzc-6b, 2026-10-23). Check: `Invoke-TestFile` on it green after the staging.
 
-2. [ ] Comment pages anchor on the Describe name before its first `-Tag`, not on the tag list, so a re-tier leaves them in step (the user,
-       2026-10-25): write the anchor rule in `docs/drs/repository/comments-in-docs.md`, then re-anchor the existing test-file pages once,
-       one file at a time. Check: `Test-Comments` clean on the touched pages.
-
 Landed 2026-10-23 (catzc-46): the per-Describe tripwire. L0 alone 7094 passed, 0 failed; L1 alone 667 passed, 1 failed (the rename of step
 1); a default run of QualityGates, Contracts and Execution with no tripwire hit.

@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Install-BicepStandalone' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Install-BicepStandalone'`, written with `#`.
 
 ```text
 Install-BicepStandalone (the Linux path of Install-Bicep) with its seams mocked

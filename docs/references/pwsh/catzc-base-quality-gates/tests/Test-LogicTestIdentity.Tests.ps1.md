@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Test-LogicTestIdentity' -Tag 'L1', 'integrity', 'source-only' {`, written with `#`.
+Above `Describe 'Test-LogicTestIdentity'`, written with `#`.
 
 ```text
 The integrity block binds the REAL shipped config (the live-identity set is derived from it), so it also names

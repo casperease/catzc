@@ -1,3 +1,11 @@
+<#
+---
+catzc:
+  docs: "../../docs/references/pwsh/catzc-base-file-limits/Get-FileLimit.ps1.md"
+  header: "generated"
+---
+#>
+
 function Get-FileLimit {
     [CmdletBinding()]
     [OutputType([Catzc.Base.FileLimits.ResolvedFileLimit])]

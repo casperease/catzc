@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Test-FileMetaProcessors' -Tag 'L0', 'logic',...`, written with `#`.
+Above `Describe 'Test-FileMetaProcessors'`, written with `#`.
 
 ```text
 Test-FileMetaProcessors over in-memory registries and fixture processor functions defined in the module scope.

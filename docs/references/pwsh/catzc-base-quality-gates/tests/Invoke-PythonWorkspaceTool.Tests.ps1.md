@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Invoke-PythonWorkspaceTool' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Invoke-PythonWorkspaceTool'`, written with `#`.
 
 ```text
 Invoke-PythonWorkspaceTool with uv mocked (Resolve-ToolExecutable, Invoke-Executable) over a fixture workspace in

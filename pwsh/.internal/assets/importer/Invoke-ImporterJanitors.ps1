@@ -29,10 +29,10 @@ function Invoke-ImporterJanitors {
 
     # A build janitor re-renders only when the changed set or a missing output makes its writer due; the writers it considers, in order, and
     # the lists are generated-files.yml's (at_import).
-    $due = Get-DueWriterRow
     $atImport = @(if (Get-Command Get-Config -ErrorAction Ignore) {
             (Get-Config -Config generated-files).writers.Values | Where-Object { $_.at_import } | ForEach-Object { $_.name }
         })
+    $due = Get-DueWriterRow -Name $atImport
     $saveStamp = Get-Command Save-GeneratedWriterStamp -ErrorAction Ignore
     # Keep the generated ADR pages current (Catzc.Base.Docs): [index](/docs/drs/index.md) from drs.yml and
     # [glossary](/docs/drs/glossary.md) from the glossary sources — committed so GitHub has them, rebuilt BEFORE

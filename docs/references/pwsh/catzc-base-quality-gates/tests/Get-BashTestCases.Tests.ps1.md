@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Get-BashTestCases' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Get-BashTestCases'`, written with `#`.
 
 ```text
 Get-BashTestCases over fixture .bats files in $TestDrive: the @test declarations of every .bats file, with the file

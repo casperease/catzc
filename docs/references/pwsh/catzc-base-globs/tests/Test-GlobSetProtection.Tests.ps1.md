@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Test-GlobSetProtection / Protect-GlobSet' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Test-GlobSetProtection / Protect-GlobSet'`, written with `#`.
 
 ```text
 The protected-glob skip ([ADR-REPO-PROTGLOB](/docs/drs/repository/protected-globs.md)): session-memory skip of a

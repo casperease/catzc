@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Get-PythonTestCases' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Get-PythonTestCases'`, written with `#`.
 
 ```text
 Get-PythonTestCases over fixture test files in $TestDrive: the top-level test functions of every test_*.py file,

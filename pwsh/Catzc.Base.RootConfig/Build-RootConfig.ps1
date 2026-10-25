@@ -45,6 +45,7 @@ function Build-RootConfig {
     # The per-file status lines are verbose-level detail — shown only when this function is run with -Verbose.
     $emitVerbose = $VerbosePreference -ne [System.Management.Automation.ActionPreference]::SilentlyContinue
 
+    # Only a whole run may skip on the shared writer memo; a targeted, dry or passthru run always renders.
     $whole = -not $Target -and -not $DryRun -and -not $PassThru
     if ($whole) {
         $row = @(Get-GeneratedWriterDue | Where-Object Name -ceq 'Build-RootConfig')
@@ -63,6 +64,7 @@ function Build-RootConfig {
             $files = @([pscustomobject]@{ Target = $entry.target; Content = $content; From = $entry.source })
         }
         else {
+            # A generator owns its whole output below the head: one file, or one record per wildcard match.
             foreach ($listed in $entry.sources) {
                 Assert-PathExist (Resolve-RepoPath $listed)
             }
@@ -83,12 +85,14 @@ function Build-RootConfig {
         foreach ($file in $files) {
             $targetPath = Resolve-RepoPath $file.Target
 
+            # A link target is always stale: writing through it would change the file it points at.
             $item = Get-Item -LiteralPath $targetPath -Force -ErrorAction Ignore
             $targetIsLink = [bool] ($item -and $item.LinkType)
             if ($targetIsLink -and -not $DryRun) {
                 [System.IO.File]::Delete($targetPath)
             }
 
+            # The one shared primitive canonicalises, compares EOL-insensitively and writes only on change.
             $changed = Write-FileIfChanged -Path $targetPath -Content $file.Content -DryRun:$DryRun
             if ($targetIsLink) {
                 $changed = $true

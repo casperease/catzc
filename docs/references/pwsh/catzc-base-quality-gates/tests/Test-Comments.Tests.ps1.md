@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Test-Comments' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Test-Comments'`, written with `#`.
 
 ```text
 Test-Comments is the gate that every long comment lives in its file's comment page and every section

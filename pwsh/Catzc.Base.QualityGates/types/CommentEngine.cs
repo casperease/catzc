@@ -207,17 +207,10 @@ public static class CommentEngine
         if (string.IsNullOrEmpty(repoRelativePath)) { throw new ArgumentException("comment engine: the file path is required"); }
         if (string.IsNullOrEmpty(pagePath)) { throw new ArgumentException("comment engine: the page path is required"); }
         IReadOnlyList<CommentBlock> blocks = FindBlocks(text, extension, language, config);
+        if (blocks.Count == 0) { return new CommentFileResult(repoRelativePath, pagePath, null, null, Array.Empty<CommentBlock>()); }
+
         Lines lines = Lines.Of(text);
         Page page = Page.Parse(existingPageText);
-        if (blocks.Count == 0)
-        {
-            var kept = new List<string>(lines.Count);
-            for (int i = 0; i < lines.Count; i++) { kept.Add(lines[i]); }
-            return Reanchor(page, kept)
-                ? new CommentFileResult(repoRelativePath, pagePath, text, page.With(Array.Empty<string>(), repoRelativePath, IgnoredWords(text, extension)), Array.Empty<CommentBlock>())
-                : new CommentFileResult(repoRelativePath, pagePath, null, null, Array.Empty<CommentBlock>());
-        }
-
         var output = new List<string>();
         var removedAt = new List<int>();
         int next = 0;
@@ -231,7 +224,6 @@ public static class CommentEngine
             if (blankBefore && next < lines.Count && lines[next].Trim().Length == 0) { next++; }
         }
         for (int i = next; i < lines.Count; i++) { output.Add(lines[i]); }
-        Reanchor(page, output);
 
         int number = page.HighestNumber;
         var sections = new List<string>();
@@ -302,13 +294,7 @@ public static class CommentEngine
     static string AnchorOf(string line)
     {
         Match describe = DescribeTags.Match(line.Trim());
-        return FullLineAnchorOf(describe.Success ? describe.Groups["name"].Value : line);
-    }
-
-    // The anchor a page written before the Describe rule names: the whole line, tags included.
-    static string FullLineAnchorOf(string line)
-    {
-        string trimmed = line.Trim();
+        string trimmed = describe.Success ? describe.Groups["name"].Value : line.Trim();
         if (trimmed.Length <= ContextLength) { return trimmed; }
         int cut = trimmed.LastIndexOf(' ', ContextLength - Ellipsis.Length);
         if (cut <= 0) { cut = ContextLength - Ellipsis.Length; }
@@ -322,30 +308,6 @@ public static class CommentEngine
         if (anchor == null) { return "At the end of the file" + written; }
         string which = occurrence > 1 ? string.Format(CultureInfo.InvariantCulture, " (occurrence {0})", occurrence) : string.Empty;
         return "Above " + CommentBlock.CodeSpan(anchor) + which + written;
-    }
-
-    // A section whose code line now anchors differently gets its context line rewritten; its number and fence stay as written.
-    static bool Reanchor(Page page, IReadOnlyList<string> lines)
-    {
-        bool changed = false;
-        foreach (KeyValuePair<int, PageSection> entry in page.Sections)
-        {
-            Placement placement = PlacementOf(entry.Key, entry.Value);
-            if (placement == null || placement.Anchor == null) { continue; }
-            int at = Place(lines, placement);
-            if (at < 0) { continue; }
-            string anchor = AnchorOf(lines[at]);
-            if (anchor == placement.Anchor) { continue; }
-            int occurrence = 1;
-            for (int i = 0; i < at; i++) { if (AnchorOf(lines[i]) == anchor) { occurrence++; } }
-            string context = Context(anchor, occurrence, placement.Marker);
-            PageSection section = entry.Value;
-            int start = section.Raw.IndexOf(section.Context, StringComparison.Ordinal);
-            section.Raw = section.Raw.Substring(0, start) + context + section.Raw.Substring(start + section.Context.Length);
-            section.Context = context;
-            changed = true;
-        }
-        return changed;
     }
 
     sealed class Placement
@@ -395,7 +357,7 @@ public static class CommentEngine
         int seen = 0;
         for (int i = 0; i < lines.Count; i++)
         {
-            if (AnchorOf(lines[i]) != placement.Anchor && FullLineAnchorOf(lines[i]) != placement.Anchor) { continue; }
+            if (AnchorOf(lines[i]) != placement.Anchor) { continue; }
             seen++;
             if (seen == placement.Occurrence) { return i; }
         }

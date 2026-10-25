@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Shipped asset integrity' -Tag 'L0', 'integrity' {`, written with `#`.
+Above `Describe 'Shipped asset integrity'`, written with `#`.
 
 ```text
 Integrity tests for the SHIPPED config assets + real templates. Unlike the logic unit tests, these

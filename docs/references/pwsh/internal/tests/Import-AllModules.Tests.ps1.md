@@ -74,7 +74,7 @@ changed body, an added function, a deleted function, and a deleted module.
 
 ## comment:8
 
-Above `Describe 'Run-mode eviction across code roots' -Tag 'L2', 'logic', 'greedy' {`, written with `#`.
+Above `Describe 'Run-mode eviction across code roots'`, written with `#`.
 
 ```text
 Greedy: one child pwsh dot-sources three importers in sequence (process-global module state), so it consumes the

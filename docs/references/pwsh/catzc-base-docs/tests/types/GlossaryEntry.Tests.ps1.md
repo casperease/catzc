@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'GlossaryEntry' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'GlossaryEntry'`, written with `#`.
 
 ```text
 Validates the compiled GlossaryEntry result type — one merged concept with its owning module, source path, and

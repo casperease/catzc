@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'GlobPattern' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'GlobPattern'`, written with `#`.
 
 ```text
 The dialect's truth table ([FDR-CD-GLOBS-REPOSITORYRELATIVEPATTERNS](/docs/drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-repositoryrelativepatterns)) and the

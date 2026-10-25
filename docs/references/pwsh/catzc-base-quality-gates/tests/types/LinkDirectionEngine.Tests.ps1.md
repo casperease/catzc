@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'LinkDirectionEngine' -Tag 'L0', 'logic',...`, written with `#`.
+Above `Describe 'LinkDirectionEngine'`, written with `#`.
 
 ```text
 The engine judges each relation by the first matching row, denies what no row allows, skips an exempt file, and reports an edge whose

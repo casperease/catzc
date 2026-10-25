@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Get-ConfigRegistry' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Get-ConfigRegistry'`, written with `#`.
 
 ```text
 Get-ConfigRegistry is private, so it is exercised through the module (InModuleScope, per
@@ -18,7 +18,7 @@ leaks into the rest of the run.
 
 ## comment:2
 
-Above `Describe 'Get-ConfigRegistry — shipped configs.yml' -Tag 'L1', 'integrity',...`, written with `#`.
+Above `Describe 'Get-ConfigRegistry — shipped configs.yml'`, written with `#`.
 
 ```text
 Reads the SHIPPED configs.yml through the real lookup (nothing mocked), so it runs in both the source run

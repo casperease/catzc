@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Install-Bicep' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Install-Bicep'`, written with `#`.
 
 ```text
 Install-Bicep and Uninstall-Bicep with the generic engine mocked: on Windows and macOS both delegate to the tools.yml

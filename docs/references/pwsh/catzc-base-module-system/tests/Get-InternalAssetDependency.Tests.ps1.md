@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Get-InternalAssetDependency' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Get-InternalAssetDependency'`, written with `#`.
 
 ```text
 The inventory of internal asset dependencies

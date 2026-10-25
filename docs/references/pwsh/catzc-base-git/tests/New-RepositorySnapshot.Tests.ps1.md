@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'New-RepositorySnapshot' -Tag 'L2', 'logic' {`, written with `#`.
+Above `Describe 'New-RepositorySnapshot'`, written with `#`.
 
 ```text
 L2: drives real git against a throwaway repository that holds every working-tree state a snapshot must

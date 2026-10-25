@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Catzc.Base.ModuleSystem.ProfilesConfig' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Catzc.Base.ModuleSystem.ProfilesConfig'`, written with `#`.
 
 ```text
 The profiles.yml type: constructing it maps and validates the parsed YAML, so a malformed profile map never

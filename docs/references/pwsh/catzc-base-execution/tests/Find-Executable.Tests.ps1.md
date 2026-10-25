@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Find-Executable' -Tag 'L1', 'logic' {`, written with `#`.
+Above `Describe 'Find-Executable'`, written with `#`.
 
 ```text
 Hermetic logic (L1): the candidate executables are fixture files under $TestDrive, reached through a fixture

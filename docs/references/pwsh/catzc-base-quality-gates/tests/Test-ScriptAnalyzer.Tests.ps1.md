@@ -25,7 +25,7 @@ each case sets $script:diagnostics for the mock to return.
 
 ## comment:3
 
-Above `Describe 'Test-ScriptAnalyzer (real analyzer)' -Tag 'L2', 'integrity',...`, written with `#`.
+Above `Describe 'Test-ScriptAnalyzer (real analyzer)'`, written with `#`.
 
 ```text
 The real-asset test of

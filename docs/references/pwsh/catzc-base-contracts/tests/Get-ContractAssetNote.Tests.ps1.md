@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Get-ContractAssetNote' -Tag 'L0', 'logic',...`, written with `#`.
+Above `Describe 'Get-ContractAssetNote'`, written with `#`.
 
 ```text
 A contract asset's note is the header comment its file can carry without changing what its check compares

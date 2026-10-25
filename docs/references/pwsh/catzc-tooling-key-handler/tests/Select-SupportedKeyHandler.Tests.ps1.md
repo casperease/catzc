@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Select-SupportedKeyHandler' -Tag 'L0', 'logic',...`, written with `#`.
+Above `Describe 'Select-SupportedKeyHandler'`, written with `#`.
 
 ```text
 Neutral fixture function names (widget/gadget) — Select-SupportedKeyHandler is pure classification logic,

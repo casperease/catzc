@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Watch-Blocking' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Watch-Blocking'`, written with `#`.
 
 ```text
 The contract these tests pin: ten evenly spaced ticks slept until each is due, a line per tick, one closing warning, the registry's

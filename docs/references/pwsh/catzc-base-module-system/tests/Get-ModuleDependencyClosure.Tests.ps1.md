@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Get-ModuleDependencyClosure' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Get-ModuleDependencyClosure'`, written with `#`.
 
 ```text
 Get-ModuleDependencyClosure is private (breadth-first over the declared dependency map). Tested via InModuleScope with

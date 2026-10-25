@@ -107,3 +107,21 @@ Above `$tracked = @(Get-GitTrackedPath '.')`, written with `#`.
 A diagram is the pair `<article-folder>/.assets/<name>.drawio.png` and `.drawio.yml`, found by a tracked png or a yml tracked or not,
 so a new diagram gets its first put; it is found, never listed.
 ```
+
+## comment:3
+
+Above ``$quoted = ($folders | ForEach-Object { "`"$(Join-Path $root $_)`"" }) -join ' '``, written with `#`.
+
+```text
+One renderer call takes every folder and splits it across its workers, each paying uv, python and the kit's imports once;
+it ends each folder with a JSON row, in folder order.
+```
+
+## comment:4
+
+Above `$rowsPath = Join-Path (Get-OutputRoot -EnsureExists) 'diagrams/query-rows.json'`, written with `#`.
+
+```text
+A C3 or C4 slide's cells are its query's rows, written to an address named here and handed to the renderer
+(DDR-VISUAL-ZOOMISANAXIS).
+```

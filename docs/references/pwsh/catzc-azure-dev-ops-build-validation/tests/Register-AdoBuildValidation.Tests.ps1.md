@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Register-AdoBuildValidation' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Register-AdoBuildValidation'`, written with `#`.
 
 ```text
 The write side: idempotent create-or-update of one globset's build-validation policy, everything

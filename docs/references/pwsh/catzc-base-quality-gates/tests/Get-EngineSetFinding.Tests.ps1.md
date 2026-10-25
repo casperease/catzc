@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Get-EngineSetFinding' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Get-EngineSetFinding'`, written with `#`.
 
 ```text
 Get-EngineSetFinding over fixture texts, with a fixture engine set — widget, gadget and sprocket stand in for the

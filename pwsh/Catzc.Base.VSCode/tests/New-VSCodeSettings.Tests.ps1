@@ -69,6 +69,15 @@ Describe 'New-VsCodeSettings' -Tag 'L0', 'logic' {
         $json.Keys | Should -Not -Contain '[cs]'
     }
 
+    It 'renders the tagged languages the lamps offer, each with its tag and extensions, in the order given' {
+        $languages = [ordered]@{ widget = @{ tag = 'wdg'; extensions = @('.wdg', '.wdgx') }; gadget = @{ tag = 'gdg'; extensions = @('.gdg') } }
+        $json = (New-VsCodeSettings -LampLanguage $languages -CurrentPath (Join-Path $TestDrive 'none.json')) | ConvertFrom-Json -AsHashtable
+        @($json['catzc.trackLamps.languages'].Keys) | Should -Be @('widget', 'gadget')
+        $json['catzc.trackLamps.languages']['widget']['tag'] | Should -Be 'wdg'
+        @($json['catzc.trackLamps.languages']['widget']['extensions']) | Should -Be @('.wdg', '.wdgx')
+        @($json['catzc.trackLamps.languages']['gadget']['extensions']) | Should -Be @('.gdg')
+    }
+
     It 'completes search.exclude with every managed target' {
         $text = New-VsCodeSettings -ManagedTarget 'importer.ps1', '.editorconfig'
         $json = ($text -split "`n" | Where-Object { $_ -notmatch '^//' }) -join "`n" | ConvertFrom-Json

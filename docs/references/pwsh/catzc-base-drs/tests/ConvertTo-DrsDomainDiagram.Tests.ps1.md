@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'ConvertTo-DrsDomainDiagram' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'ConvertTo-DrsDomainDiagram'`, written with `#`.
 
 ```text
 ConvertTo-DrsDomainDiagram — a pure renderer, fed fixture edges and a fixture DrsConfig for the node roles

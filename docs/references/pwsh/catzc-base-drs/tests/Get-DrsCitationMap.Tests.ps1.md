@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Get-DrsCitationMap' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Get-DrsCitationMap'`, written with `#`.
 
 ```text
 Get-DrsCitationMap builds the citation registry the link engine derives every code link from

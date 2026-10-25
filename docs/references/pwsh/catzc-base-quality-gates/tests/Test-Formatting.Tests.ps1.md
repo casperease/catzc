@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Test-Formatting' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Test-Formatting'`, written with `#`.
 
 ```text
 Test-Formatting is a quality gate ([ADR-AUTO-TEST-QUALITYGATE](/docs/drs/automation/test-automation.md#rule-adr-auto-test-qualitygate)):
@@ -15,7 +15,7 @@ the report goes to $TestDrive. Neutral fixture names ([ADR-AUTO-TEST-DISTINCTFIX
 
 ## comment:2
 
-Above `Describe 'Repository formatting integrity' -Tag 'L2', 'integrity',...`, written with `#`.
+Above `Describe 'Repository formatting integrity'`, written with `#`.
 
 ```text
 Integrity: the real repository is formatted — every language languages.yml gives a formatter, and the C# type

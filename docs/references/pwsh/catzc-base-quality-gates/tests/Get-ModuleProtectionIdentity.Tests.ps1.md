@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Get-ModuleProtectionIdentity' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Get-ModuleProtectionIdentity'`, written with `#`.
 
 ```text
 The composite protection identity

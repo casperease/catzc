@@ -24,7 +24,7 @@ A fixture source through the asset seam, so the logic never reads the shipped as
 
 ## comment:3
 
-Above `Describe 'Build-GitKeep — shipped assets/gitkeep' -Tag 'L1', 'integrity',...`, written with `#`.
+Above `Describe 'Build-GitKeep — shipped assets/gitkeep'`, written with `#`.
 
 ```text
 Reads the SHIPPED assets/gitkeep through Build-GitKeep's real lookup (nothing mocked on the read) and writes
@@ -43,7 +43,7 @@ shipped in the loaded Catzc.Base.Docs, so the code root stays on the loaded modu
 
 ## comment:5
 
-Above `Describe 'Build-GitKeep — managed .gitkeep files' -Tag 'L2', 'integrity',...`, written with `#`.
+Above `Describe 'Build-GitKeep — managed .gitkeep files'`, written with `#`.
 
 ```text
 Reads only the repository's own .gitkeep files and readme.yml mappings — the same answer in both run modes,

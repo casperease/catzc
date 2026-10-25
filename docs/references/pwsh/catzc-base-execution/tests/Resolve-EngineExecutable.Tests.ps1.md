@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Resolve-EngineExecutable' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Resolve-EngineExecutable'`, written with `#`.
 
 ```text
 Resolve-EngineExecutable with the tool probe mocked for the tool-located engines; pwsh is located beside the running

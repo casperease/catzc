@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Unregister-AdoBuildValidation' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Unregister-AdoBuildValidation'`, written with `#`.
 
 ```text
 Removal by the globset tie (the native path-filter projection): deletes the matched policy, no-ops when

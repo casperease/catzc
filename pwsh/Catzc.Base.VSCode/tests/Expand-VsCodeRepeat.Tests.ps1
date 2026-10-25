@@ -7,6 +7,9 @@ Describe 'Expand-VsCodeRepeat' -Tag 'L0', 'logic' {
                 Mock Get-Config -ParameterFilter { $Config -eq 'widgets' } {
                     [pscustomobject]@{ widgets = @([pscustomobject]@{ name = 'red'; title = 'the red widget' }, [pscustomobject]@{ name = 'blue'; title = 'the blue widget' }) }
                 }
+                Mock Get-Config -ParameterFilter { $Config -eq 'gadgets' } {
+                    [pscustomobject]@{ gadgets = @([pscustomobject]@{ name = 'cog'; tag = 'cg' }, [pscustomobject]@{ name = 'sprocket'; tag = $null }, [pscustomobject]@{ name = 'gear'; tag = 'gr' }) }
+                }
                 Expand-VsCodeRepeat -Contributes $Contributes
             }
         }

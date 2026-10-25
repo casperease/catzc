@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Test-ManagedGuids' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Test-ManagedGuids'`, written with `#`.
 
 ```text
 Test-ManagedGuids over a mocked scan, registry, and 'repository' globset, so each test pins one rule. Neutral

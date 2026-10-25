@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Format-MarkdownParagraph' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Format-MarkdownParagraph'`, written with `#`.
 
 ```text
 Format-MarkdownParagraph must fill text the way Prettier's proseWrap: always does, so the generated ADR index, glossary,

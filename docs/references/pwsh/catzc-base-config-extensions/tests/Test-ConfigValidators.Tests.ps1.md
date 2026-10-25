@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Test-ConfigValidators' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Test-ConfigValidators'`, written with `#`.
 
 ```text
 Test-ConfigValidators over a fixture code root in $TestDrive and two in-memory fixture modules whose private

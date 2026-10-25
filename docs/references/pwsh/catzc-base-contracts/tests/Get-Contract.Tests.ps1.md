@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Get-Contract' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Get-Contract'`, written with `#`.
 
 ```text
 Get-Contract lists contracts/<unit>/<version>/<module>/<path> and derives every fact from the asset's name and place

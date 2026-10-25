@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Get-RepositoryFile' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Get-RepositoryFile'`, written with `#`.
 
 ```text
 Get-RepositoryFile over a $TestDrive root (Get-RepositoryRoot mocked): path normalization against the root, never

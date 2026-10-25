@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Invoke-Pip' -Tag 'L2', 'logic' {`, written with `#`.
+Above `Describe 'Invoke-Pip'`, written with `#`.
 
 ```text
 The chain is Invoke-Pip → Invoke-Uv → uv pip <args>: uv is the tool that must exist, and it needs a

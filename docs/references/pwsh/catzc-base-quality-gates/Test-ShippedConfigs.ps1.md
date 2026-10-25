@@ -42,7 +42,7 @@ Test-ShippedConfigs
 
 ## comment:1
 
-Above `$raw = Get-Content -LiteralPath $file -Raw | ConvertFrom-Yaml -Ordered`, written with `#`.
+Above `$raw = if ($isFolder) {`, written with `#`.
 
 ```text
 The shipped file shows the defaults its type declares; a key may differ only with its reason in

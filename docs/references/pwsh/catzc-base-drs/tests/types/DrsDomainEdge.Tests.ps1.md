@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'DrsDomainEdge' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMODEL' {`, written with `#`.
+Above `Describe 'DrsDomainEdge'`, written with `#`.
 
 ```text
 DrsDomainEdge — one From/To edge of the ADR domain graph; the constructor holds both ends non-empty and distinct.

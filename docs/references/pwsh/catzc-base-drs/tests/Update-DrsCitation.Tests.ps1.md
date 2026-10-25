@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Update-DrsCitation' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Update-DrsCitation'`, written with `#`.
 
 ```text
 Update-DrsCitation rewrites one file's ADR references through a code map and a rule map. Every test writes its own

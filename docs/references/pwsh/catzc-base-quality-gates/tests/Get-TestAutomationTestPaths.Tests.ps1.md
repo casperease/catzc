@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Get-TestAutomationTestPaths' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Get-TestAutomationTestPaths'`, written with `#`.
 
 ```text
 Get-TestAutomationTestPaths over a fixture pwsh/ tree in $TestDrive (Get-RepositoryRoot and

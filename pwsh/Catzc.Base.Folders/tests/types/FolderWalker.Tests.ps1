@@ -54,6 +54,16 @@ Describe 'FolderWalker' -Tag 'L0', 'logic' {
         $listed | Should -Contain 'widget/gadget/sprocket/deep.txt'
     }
 
+    It 'lists files and folders apart in one walk, relative to a given root, the same sets the separate walks list' {
+        $widget = Join-Path $script:root 'widget'
+        $found = [Catzc.Base.Folders.FolderWalker]::WalkRelative($widget, 3, [string[]] @('node_modules'), $script:root)
+        $found[0] | Should -Be @('widget/.vendor/v.txt', 'widget/a.txt', 'widget/gadget/b.yml', 'widget/gadget/sprocket/deep.txt')
+        $found[1] | Should -Be @('widget/.vendor', 'widget/gadget', 'widget/gadget/sprocket')
+        $separate = & $script:relative ([Catzc.Base.Folders.FolderWalker]::Walk($widget, 3, [string[]] @('*'), $true, $true, [string[]] @('node_modules')))
+        @($found[0]) + @($found[1]) | Sort-Object { $_ } -Culture '' | Should -Be @($separate | Sort-Object { $_ } -Culture '')
+        { [Catzc.Base.Folders.FolderWalker]::WalkRelative((Join-Path $script:root 'absent'), 1, $null, $script:root) } | Should -Throw '*does not exist*'
+    }
+
     It 'returns the paths in ordinal order' {
         $listed = & $walk 4
         $sorted = [string[]] $listed.Clone()

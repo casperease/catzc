@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'TerminologyConfig' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'TerminologyConfig'`, written with `#`.
 
 ```text
 Validates the compiled TerminologyConfig / TerminologyTerm types directly — the constructor is the gate

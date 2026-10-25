@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Invoke-RuffFormat' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Invoke-RuffFormat'`, written with `#`.
 
 ```text
 The ruff engine with its seams mocked ([ADR-AUTO-TEST-NOOVERMOCKING](/docs/drs/automation/test-automation.md#rule-adr-auto-test-noovermocking)):

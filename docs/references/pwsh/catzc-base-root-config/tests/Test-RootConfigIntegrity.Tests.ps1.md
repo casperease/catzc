@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Managed root config files agree with .gitignore and git tracking'...`, written with `#`.
+Above `Describe 'Managed root config files agree with .gitignore and git tracking'`, written with `#`.
 
 ```text
 Integrity test for managed root config files, through the quality gates Test-RootConfigFiles and
@@ -33,7 +33,7 @@ L2: drives the real git CLI. Self-skip when git is absent or we are not inside a
 
 ## comment:3
 
-Above `Describe 'Root PSScriptAnalyzerSettings.psd1 copy' -Tag 'L1', 'integrity',...`, written with `#`.
+Above `Describe 'Root PSScriptAnalyzerSettings.psd1 copy'`, written with `#`.
 
 ```text
 The root PSScriptAnalyzerSettings.psd1 has a consumer-format contract of its own: PSScriptAnalyzer requires

@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'FileMetaConfig' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-METAKIND' {`, written with `#`.
+Above `Describe 'FileMetaConfig'`, written with `#`.
 
 ```text
 FileMetaConfig maps file-meta.yml and is the one declaration of its defaults

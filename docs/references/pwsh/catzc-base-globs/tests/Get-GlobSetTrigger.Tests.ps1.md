@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Get-GlobSetTrigger' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Get-GlobSetTrigger'`, written with `#`.
 
 ```text
 Get-GlobSetTrigger: project a globset's scan program into vendor-native path filters

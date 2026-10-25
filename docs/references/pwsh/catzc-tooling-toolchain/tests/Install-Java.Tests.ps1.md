@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Install-Java' -Tag 'L1', 'logic' {`, written with `#`.
+Above `Describe 'Install-Java'`, written with `#`.
 
 ```text
 Hermetic logic (L1): the tool manager (Install-Tool), the installed-version probe, command resolution and the

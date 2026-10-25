@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'GitIndex' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'GitIndex'`, written with `#`.
 
 ```text
 The index reader against hand-built index bytes in git's on-disk layout (DIRC v2-v4) — every shape a real

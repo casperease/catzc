@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Test-WorldMap' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Test-WorldMap'`, written with `#`.
 
 ```text
 Test-WorldMap reads the world map Get-WorldMap returns and reports its stack violations
@@ -20,7 +20,7 @@ Get-WorldMap.Tests.ps1.
 
 ## comment:2
 
-Above `Describe 'Test-WorldMap on the repository' -Tag 'L1', 'integrity',...`, written with `#`.
+Above `Describe 'Test-WorldMap on the repository'`, written with `#`.
 
 ```text
 The repository's own world map, through the quality gate. It reads only the git index and the registries, so its

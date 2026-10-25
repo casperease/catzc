@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Get-TestExcludeTag' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Get-TestExcludeTag'`, written with `#`.
 
 ```text
 Get-TestExcludeTag is private (the tier/category -> ExcludeTag logic shared by Test-Automation and

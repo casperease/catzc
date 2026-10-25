@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Test-Glossary' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Test-Glossary'`, written with `#`.
 
 ```text
 Test-Glossary orchestrates the six checks; here every check and the glossary readers are mocked, so the tests pin
@@ -16,7 +16,7 @@ themselves are covered by their own L0 files; the real-tree run is the L2 integr
 
 ## comment:2
 
-Above `Describe 'Test-Glossary — real glossary sources' -Tag 'L2', 'integrity',...`, written with `#`.
+Above `Describe 'Test-Glossary — real glossary sources'`, written with `#`.
 
 ```text
 The real glossary sources against the real ADRs, tests, and tracked files. G1 and G4 reach git (the tracked-file

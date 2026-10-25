@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'SyntaxSearch' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'SyntaxSearch'`, written with `#`.
 
 ```text
 The compiled searches return what a PowerShell predicate over FindAll returned. Neutral fixture names

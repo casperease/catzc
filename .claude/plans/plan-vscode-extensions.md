@@ -44,10 +44,9 @@ cats has no parity for (Ruff, Prettier, markdownlint, cspell). The recommendatio
 
 The small extensions folded into cats extensions.
 
-- [ ] A cats extension: a document link provider for `/docs/drs/` links; drop `regexrobin.rules` and `DanLevett.regex-robin`. Check: a
-      `/docs/drs/` link opens on click.
-- [ ] A cats extension: an ANSI view for `out/**/*.log`; drop `iliazeus.vscode-ansi` and `ibm.output-colorizer`. Check: a coloured log in
-      `out/` renders its colours.
+- [ ] Prove `catzc-drs-links` and `catzc-ansi-logs` in the editor, once the extensions are rebuilt and installed (`Build-VsCodeExtension`,
+      `Install-VsCodeExtension`). Check: a `/docs/drs/` link opens on click, and a coloured log in `out/` renders its colours with the
+      escapes hidden.
 
 ## Decided (the user, 2026-10-25)
 

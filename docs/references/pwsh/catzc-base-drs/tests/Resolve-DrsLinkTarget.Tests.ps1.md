@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Resolve-DrsLinkTarget' -Tag 'L0', 'logic',...`, written with `#`.
+Above `Describe 'Resolve-DrsLinkTarget'`, written with `#`.
 
 ```text
 Resolve-DrsLinkTarget — a markdown link in a file under docs/drs/, resolved relative to its file

@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'DrsChecksConfig' -Tag 'L0', 'logic',...`, written with `#`.
+Above `Describe 'DrsChecksConfig'`, written with `#`.
 
 ```text
 DrsChecksConfig — the ADR checks' settings (drs-checks.yml): every key optional with its default declared once on the type, and

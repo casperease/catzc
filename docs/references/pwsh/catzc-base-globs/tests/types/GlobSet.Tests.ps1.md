@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'GlobSet' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'GlobSet'`, written with `#`.
 
 ```text
 The globset record: membership is decided by the scan program — an ordered +/- rule list, last-match-wins

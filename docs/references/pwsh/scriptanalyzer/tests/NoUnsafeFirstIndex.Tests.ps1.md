@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Measure-NoUnsafeFirstIndex' -Tag 'L0', 'logic',...`, written with `#`.
+Above `Describe 'Measure-NoUnsafeFirstIndex'`, written with `#`.
 
 ```text
 The per-case assertions run the rule function directly on a parsed AST (L0). The engine-wiring proof lives once,

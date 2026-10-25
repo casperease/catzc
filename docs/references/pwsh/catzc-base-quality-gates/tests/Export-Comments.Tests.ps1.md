@@ -7,7 +7,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Export-Comments' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Export-Comments'`, written with `#`.
 
 ```text
 Export-Comments moves a file's long comments into its comment page, one-way and losslessly

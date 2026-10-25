@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Test-AnalyzerDrsMap' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Test-AnalyzerDrsMap'`, written with `#`.
 
 ```text
 Test-AnalyzerDrsMap over a mocked map, a mocked ADR rule-id set, and fixture rule files in $TestDrive. Neutral

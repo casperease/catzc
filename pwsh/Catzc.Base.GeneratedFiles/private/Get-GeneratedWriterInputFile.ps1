@@ -41,19 +41,21 @@ function Get-GeneratedWriterInputFile {
         }
     }
     $levels = { param([string] $Prefix) $Prefix.Split('/', [System.StringSplitOptions]::RemoveEmptyEntries).Count }
-    # The walker returns full paths under the root, so the relative path is one array-wide cut, never a loop per path.
-    $cut = '^.{' + ([System.IO.Path]::GetFullPath($RepositoryRoot).TrimEnd('\', '/').Length + 1) + '}'
+    # One walk per folder lists its files and folders apart, already relative to the root, so nothing is cut per path here.
+    $root = [System.IO.Path]::GetFullPath($RepositoryRoot)
+    $pruned = [Catzc.Base.Folders.PathSet]::Pruned((Get-Config -Config folder-walk))
     foreach ($prefix in @($walks.Keys | Sort-Object { & $levels $_ })) {
         $covered = @($walks.Keys | Where-Object {
                 $_ -ne $prefix -and $prefix.StartsWith($_, [System.StringComparison]::Ordinal) -and
                 ((& $levels $prefix) - (& $levels $_) + $walks[$prefix]) -le $walks[$_]
             }).Count -gt 0
-        $folder = Join-Path $RepositoryRoot $prefix
+        $folder = [System.IO.Path]::Combine($root, $prefix)
         if ($covered -or -not [System.IO.Directory]::Exists($folder)) {
             continue
         }
-        $files.UnionWith([string[]] @(@(Get-ChildPath $folder -File -Depth $walks[$prefix]) -replace $cut -replace '\\', '/'))
-        $folders.UnionWith([string[]] @(@(Get-ChildPath $folder -Directory -Depth $walks[$prefix]) -replace $cut -replace '\\', '/'))
+        $found = [Catzc.Base.Folders.FolderWalker]::WalkRelative($folder, $walks[$prefix], $pruned, $root)
+        $files.UnionWith($found[0])
+        $folders.UnionWith($found[1])
     }
     [pscustomobject]@{
         File   = [string[]] @($files)

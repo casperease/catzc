@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Repository markdown integrity' -Tag 'L2', 'integrity', 'source-only' {`, written with `#`.
+Above `Describe 'Repository markdown integrity'`, written with `#`.
 
 ```text
 Integrity: the ACTUAL repository markdown is lint-clean. Unlike the logic test above (real markdownlint over

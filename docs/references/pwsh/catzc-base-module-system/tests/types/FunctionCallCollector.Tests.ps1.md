@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'FunctionCallCollector' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'FunctionCallCollector'`, written with `#`.
 
 ```text
 FunctionCallCollector attributes every statically named call in a file to the top-level function whose body holds

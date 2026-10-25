@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Write-QualityGateReport' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Write-QualityGateReport'`, written with `#`.
 
 ```text
 Write-QualityGateReport is every quality gate's output. The settings come from the real ReportsConfig type over a

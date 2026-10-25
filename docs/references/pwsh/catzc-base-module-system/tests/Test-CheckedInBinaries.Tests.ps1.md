@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Test-CheckedInBinaries' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Test-CheckedInBinaries'`, written with `#`.
 
 ```text
 Test-CheckedInBinaries over fixture files in $TestDrive with the git CLI mocked: `ls-files --eol` and
@@ -15,7 +15,7 @@ Test-CheckedInBinaries over fixture files in $TestDrive with the git CLI mocked:
 
 ## comment:2
 
-Above `Describe 'Checked-in binaries are stored as binary, not text' -Tag 'L2',...`, written with `#`.
+Above `Describe 'Checked-in binaries are stored as binary, not text'`, written with `#`.
 
 ```text
 The real repository through the quality gate (Test-CheckedInBinaries —

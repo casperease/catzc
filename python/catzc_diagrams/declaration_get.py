@@ -5,6 +5,7 @@
 import re
 import xml.etree.ElementTree as ET
 
+import query_rows
 from declaration_cells import TAG_ID, TAGGED_KINDS
 from declaration_constants import (
     BAND,
@@ -345,6 +346,12 @@ def get(model, kind=None):
     about = {"adrs": adrs, "lens": lens}
     if "zoom-badge" in cells:  # the zoom badge prints the level, so the drawing carries it back
         about["zoom"] = plain(cells["zoom-badge"].get("value"))
+    # The query's cells are its rows', never the source's: the drawing gives them back to nobody (DDR-VISUAL-ZOOMISANAXIS).
+    content["glyphs"] = [g for g in content.get("glyphs") or [] if not query_rows.drawn_by_query(g["id"])]
+    content["edges"] = [
+        e for e in content.get("edges") or [] if not (query_rows.drawn_by_query(e["from"]) or query_rows.drawn_by_query(e["to"]))
+    ]
+    layout = {cid: box for cid, box in layout.items() if not query_rows.drawn_by_query(cid)}
     declaration = normalise({"about": about, "content": content, "layout": layout}, where="the drawing")
     # A cell that sits where the grid would put it needs no layout entry: the layout keeps only what a hand moved.
     # A layout entry stays only where put would not place the cell there anyway, given the entries already kept for what holds it:

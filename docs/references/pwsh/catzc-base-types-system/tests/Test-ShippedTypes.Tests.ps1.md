@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Test-ShippedTypes' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Test-ShippedTypes'`, written with `#`.
 
 ```text
 Test-ShippedTypes over a fixture code root in $TestDrive: one file named for a type the session has (System.String

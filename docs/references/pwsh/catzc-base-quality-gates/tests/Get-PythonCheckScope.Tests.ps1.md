@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Get-PythonCheckScope' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Get-PythonCheckScope'`, written with `#`.
 
 ```text
 Get-PythonCheckScope with the test folders and the git index mocked: the Python checks read the test folders and every

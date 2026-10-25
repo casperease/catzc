@@ -26,6 +26,7 @@ Describe 'Build-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' 
         Mock Get-GitChangedPath -ModuleName Catzc.Base.Slides { }
         Mock Resolve-ToolExecutable -ModuleName Catzc.Base.Slides { [pscustomobject]@{ Found = $true; Path = 'C:/tools/uv.exe' } }
         Mock Write-DiagramMinimapData -ModuleName Catzc.Base.Slides { }
+        Mock Write-DiagramQueryRows -ModuleName Catzc.Base.Slides { $Path }
         Mock Invoke-Executable -ModuleName Catzc.Base.Slides {
             $rows = @(if ($Command -match '--all (.+)$') {
                     [regex]::Matches($Matches[1], '"([^"]+)"') | ForEach-Object { @{ diagram = $_.Groups[1].Value; exit = 0 } | ConvertTo-Json -Compress }
@@ -75,14 +76,14 @@ Describe 'Build-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' 
         & $script:build @{ Path = 'docs/widgets/.assets/widget-a', 'docs/widgets/.assets/widget-b' } | Out-Null
         Should -Invoke Invoke-Executable -ModuleName Catzc.Base.Slides -Times 1 -Exactly
         Should -Invoke Invoke-Executable -ModuleName Catzc.Base.Slides -Times 1 -Exactly -ParameterFilter {
-            $Command -like '"C:/tools/uv.exe" run --project "*kit*" python "*kit*drawio_forward.py" --theme dark --workers 3 --all "*docs*widgets*.assets*widget-a" "*docs*widgets*.assets*widget-b"'
+            $Command -like '"C:/tools/uv.exe" run --project "*kit*" python "*kit*drawio_forward.py" --theme dark --workers 3 --rows "*query-rows.json" --all "*docs*widgets*.assets*widget-a" "*docs*widgets*.assets*widget-b"'
         }
     }
 
     It 'splits the renders across the workers it is given, the default 3 declared once on SlidesConfig' {
         [Catzc.Base.Slides.SlidesConfig]::DefaultRenderParallel | Should -Be 3
         & $script:build @{ Path = 'docs/widgets/.assets/widget-a', 'docs/widgets/.assets/widget-b'; Workers = 1 } | Out-Null
-        Should -Invoke Invoke-Executable -ModuleName Catzc.Base.Slides -Times 1 -Exactly -ParameterFilter { $Command -like '* --workers 1 --all *' }
+        Should -Invoke Invoke-Executable -ModuleName Catzc.Base.Slides -Times 1 -Exactly -ParameterFilter { $Command -like '* --workers 1 --rows "*" --all *' }
     }
 
     It 'renders every folder before it refuses the one the renderer failed on' {

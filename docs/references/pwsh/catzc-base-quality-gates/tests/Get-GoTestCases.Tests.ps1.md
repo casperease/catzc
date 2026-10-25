@@ -7,7 +7,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Get-GoTestCases' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Get-GoTestCases'`, written with `#`.
 
 ```text
 Get-GoTestCases over a fixture Go test folder in $TestDrive (the go config mocked to its defaults): the Go tests are

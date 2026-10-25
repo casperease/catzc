@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'LinkEngine edges' -Tag 'L0', 'logic',...`, written with `#`.
+Above `Describe 'LinkEngine edges'`, written with `#`.
 
 ```text
 The link walk records each relation it recognises when the caller asks for them, and none otherwise

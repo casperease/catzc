@@ -62,7 +62,7 @@ assertions cover every file of the build, so nothing is pruned.
 
 ## comment:7
 
-Above `Describe 'Invoke-ModuleBuild' -Tag 'L2', 'logic', 'source-only' -Skip:(-not...`, written with `#`.
+Above `Describe 'Invoke-ModuleBuild'`, written with `#`.
 
 ```text
 The fixture repository is committed with real git and the build reads what git stores, so the point of the file is the launch: L2.

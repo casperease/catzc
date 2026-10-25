@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Get-DrsRuleSet' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Get-DrsRuleSet'`, written with `#`.
 
 ```text
 Get-DrsRuleSet over a fixture DrsConfig (Get-Config mocked): the flattening and effective codes are DrsConfig
@@ -15,7 +15,7 @@ construction rules (its type test), so this pins only the projection and the -Do
 
 ## comment:2
 
-Above `Describe 'Get-DrsRuleSet integrity' -Tag 'L1', 'integrity',...`, written with `#`.
+Above `Describe 'Get-DrsRuleSet integrity'`, written with `#`.
 
 ```text
 Integrity: drs.yml and the ADR rule files agree, through the quality gate Test-DrsRegistry

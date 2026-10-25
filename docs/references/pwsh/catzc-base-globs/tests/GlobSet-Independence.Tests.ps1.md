@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'GlobSet independence' -Tag 'L2', 'integrity', 'source-only' {`, written with `#`.
+Above `Describe 'GlobSet independence'`, written with `#`.
 
 ```text
 Integrity: per-layer independence

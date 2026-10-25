@@ -7,7 +7,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Get-GlobSetHash' -Tag 'L1', 'logic' {`, written with `#`.
+Above `Describe 'Get-GlobSetHash'`, written with `#`.
 
 ```text
 The durable SHA ([FDR-CD-GLOBS-DURABLESHAIDENTITY](/docs/drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-durableshaidentity)):

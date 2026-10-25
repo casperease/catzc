@@ -4,16 +4,19 @@
 #   header: "generated"
 # ---
 
+# One source of truth per root file; optIn and committed both default to false.
 files:
   - target: PSScriptAnalyzerSettings.psd1
     source: pwsh/.internal/assets/PSScriptAnalyzerSettings.psd1
     optIn: true
+  # Swap generator New-Importer for the seed source on a first check-in; the next import self-heals it.
   - target: importer.ps1
     generator: New-Importer
     sources:
       - pwsh/.internal/Catzc.Internal.Importer.psm1
     committed: true
     optIn: true
+  # The bash and zsh entry that defines `cats`; committed because a fresh clone needs it before any import.
   - target: importer.sh
     source: pwsh/Catzc.Base.RootConfig/assets/root/importer.sh
     committed: true
@@ -24,6 +27,7 @@ files:
       - contracts/catzc/0.1.0
     committed: true
     optIn: true
+  # The three .vscode files are gitignored copies of the Catzc.Base.VSCode registries.
   - target: .vscode/settings.json
     generator: New-VsCodeSettings
     sources:
@@ -53,6 +57,7 @@ files:
       - pwsh/Catzc.Base.VSCode/configs/vscode-tasks.yml
     carrier: jsonc
     optIn: true
+  # The Go test workspace: go.work here, one go.mod per Go test module under go.yml's root.
   - target: go.work
     generator: New-GoWorkspace
     sources:
@@ -75,6 +80,7 @@ files:
       - pwsh/Catzc.Base.Execution/configs/tools.yml
     carrier: go-workspace
     optIn: true
+  # The uv workspace: a root pyproject.toml plus one member per Python test folder; uv owns .venv and uv.lock.
   - target: "*/pyproject.toml"
     generator: New-PythonProject
     sources:
@@ -128,6 +134,7 @@ files:
       - pwsh/Catzc.Base.RootConfig/assets/root/cspell-template.yml
       - pwsh/Catzc.Base.Globs/configs/globs.yml
     optIn: true
+  # JSON has no comments, so the managed-file marker is an ignored "//" property in the source.
   - target: dotnet-tools.json
     source: pwsh/Catzc.Base.RootConfig/assets/root/dotnet-tools.json
     optIn: true

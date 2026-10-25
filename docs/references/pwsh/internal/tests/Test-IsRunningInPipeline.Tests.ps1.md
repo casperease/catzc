@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Test-IsRunningInPipeline' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Test-IsRunningInPipeline'`, written with `#`.
 
 ```text
 Test-IsRunningInPipeline lives in Catzc.Internal.Loader, which both run modes import first and keep loaded, so

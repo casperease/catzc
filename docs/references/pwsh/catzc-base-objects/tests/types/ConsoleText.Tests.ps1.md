@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'ConsoleText' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMODEL' {`, written with `#`.
+Above `Describe 'ConsoleText'`, written with `#`.
 
 ```text
 ConsoleText — the shared console rendering behind every catzc type's ToString(), so an object held in pwsh reads

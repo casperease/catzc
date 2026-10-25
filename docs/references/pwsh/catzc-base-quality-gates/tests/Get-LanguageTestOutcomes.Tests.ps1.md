@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Get-LanguageTestOutcomes' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Get-LanguageTestOutcomes'`, written with `#`.
 
 ```text
 Get-LanguageTestOutcomes with the language runners mocked: every discovered test takes the outcome of its result,

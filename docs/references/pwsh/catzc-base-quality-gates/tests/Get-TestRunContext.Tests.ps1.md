@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Get-TestRunContext' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Get-TestRunContext'`, written with `#`.
 
 ```text
 Get-TestRunContext over fixture locations; the session actor and the tool lookup are mocked, so no real process or

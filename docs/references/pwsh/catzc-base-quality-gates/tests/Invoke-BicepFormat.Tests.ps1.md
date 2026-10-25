@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Invoke-BicepFormat' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Invoke-BicepFormat'`, written with `#`.
 
 ```text
 The bicep engine with the tool boundary mocked ([ADR-AUTO-TEST-NOOVERMOCKING](/docs/drs/automation/test-automation.md#rule-adr-auto-test-noovermocking)):

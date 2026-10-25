@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Get-ModuleGlobSet' -Tag 'L1', 'logic' {`, written with `#`.
+Above `Describe 'Get-ModuleGlobSet'`, written with `#`.
 
 ```text
 The derived globsets ([ADR-REPO-PROTGLOB-DERIVEDMODULEGLOBSETS](/docs/drs/repository/protected-globs.md#rule-adr-repo-protglob-derivedmoduleglobsets)): folder
@@ -26,7 +26,7 @@ set only needs to exist so the shadow-check has a registry to compare the derive
 
 ## comment:3
 
-Above `Describe 'GlobsConfig reserved names' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'GlobsConfig reserved names'`, written with `#`.
 
 ```text
 The reserved-name guard lives in the registry type itself

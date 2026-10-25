@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Get-TestFileModule' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Get-TestFileModule'`, written with `#`.
 
 ```text
 Get-TestFileModule with Get-RepositoryRoot and Get-LanguageTestFolders mocked: a run file maps to its unit for

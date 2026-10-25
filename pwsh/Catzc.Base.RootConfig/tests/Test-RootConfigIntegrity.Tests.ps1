@@ -11,6 +11,7 @@ Describe 'Managed root config files agree with .gitignore and git tracking' -Tag
         $script:repoRoot = Get-RepositoryRoot
         $script:skip = $null
 
+        # L2 drives the real git CLI, so it self-skips without git or outside a work tree.
         if (-not (Get-Command git -ErrorAction Ignore)) {
             $script:skip = 'tool_git_missing'
         }
@@ -47,6 +48,7 @@ Describe 'Managed root config files agree with .gitignore and git tracking' -Tag
     }
 }
 
+# PSScriptAnalyzer needs a literal-hashtable settings file at the path it is given.
 Describe 'Root PSScriptAnalyzerSettings.psd1 copy' -Tag 'L1', 'integrity', 'source-only' {
     It 'parses as a settings hashtable under its generated head' {
         $result = Test-RootAnalyzerSettings -PassThru -OutputFolder (Join-Path $TestDrive 'root-analyzer-settings')

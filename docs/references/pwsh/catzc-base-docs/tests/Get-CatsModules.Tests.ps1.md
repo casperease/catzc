@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Get-CatsModules' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Get-CatsModules'`, written with `#`.
 
 ```text
 Get-CatsModules is private, so it is exercised through the module (& (Get-Module …), per
@@ -23,7 +23,7 @@ infrastructure module, and one module loaded from outside the root.
 
 ## comment:3
 
-Above `Describe 'Get-CatsModules — loaded catzc modules' -Tag 'L1', 'integrity',...`, written with `#`.
+Above `Describe 'Get-CatsModules — loaded catzc modules'`, written with `#`.
 
 ```text
 Reads the REAL loaded session (nothing mocked), so it runs in both the source run and the build run and

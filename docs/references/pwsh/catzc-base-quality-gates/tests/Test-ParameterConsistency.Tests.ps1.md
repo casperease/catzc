@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Test-ParameterConsistency' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Test-ParameterConsistency'`, written with `#`.
 
 ```text
 Test-ParameterConsistency is a quality gate ([ADR-AUTO-TEST-QUALITYGATE](/docs/drs/automation/test-automation.md#rule-adr-auto-test-qualitygate)):
@@ -16,7 +16,7 @@ runs the gate over the real public functions. Neutral fixture names
 
 ## comment:2
 
-Above `Describe 'Parameter consistency of the public functions' -Tag 'L0',...`, written with `#`.
+Above `Describe 'Parameter consistency of the public functions'`, written with `#`.
 
 ```text
 The real public functions, through the gate.

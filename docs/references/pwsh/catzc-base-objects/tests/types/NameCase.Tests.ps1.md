@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'NameCase' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'NameCase'`, written with `#`.
 
 ```text
 An acronym written as one capitalised word splits at its case step like any other word: DevOps is two words, dev and ops, in every case,

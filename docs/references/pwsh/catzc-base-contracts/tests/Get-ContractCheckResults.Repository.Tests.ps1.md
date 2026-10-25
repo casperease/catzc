@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Get-ContractCheckResults on the repository' -Tag 'L1', 'integrity',...`, written with `#`.
+Above `Describe 'Get-ContractCheckResults on the repository'`, written with `#`.
 
 ```text
 Get-ContractCheckResults runs on the repository's own contracts/ tree

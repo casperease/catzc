@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'New-PythonProject' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'New-PythonProject'`, written with `#`.
 
 ```text
 New-PythonProject over a fixture repository in $TestDrive, with its two declared configs mocked: python.yml (Get-Config)

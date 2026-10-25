@@ -171,8 +171,11 @@ def committed(folder, bases=None):
     root = toplevel(stem.parent)
     if root is None:
         return None
-    # Never raises: a non-zero return code means that side is not committed.
-    show = lambda path: (lambda r: r.stdout if r.returncode == 0 else None)(git(root, "show", f"HEAD:{path}"))
+    def show(path):
+        # Never raises: a non-zero return code means that side is not committed.
+        shown = git(root, "show", f"HEAD:{path}")
+        return shown.stdout if shown.returncode == 0 else None
+
     return base_from(stem, root, show)
 
 

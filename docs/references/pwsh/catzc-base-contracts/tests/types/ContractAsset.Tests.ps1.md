@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'ContractAsset' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'ContractAsset'`, written with `#`.
 
 ```text
 ContractAsset holds every derived fact of one contract asset, with its paths in communication form

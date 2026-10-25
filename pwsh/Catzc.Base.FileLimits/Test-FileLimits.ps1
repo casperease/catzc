@@ -1,3 +1,11 @@
+<#
+---
+catzc:
+  docs: "../../docs/references/pwsh/catzc-base-file-limits/Test-FileLimits.ps1.md"
+  header: "generated"
+---
+#>
+
 function Test-FileLimits {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

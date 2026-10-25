@@ -14,7 +14,7 @@ passes through unchanged — so only the file-universe seam needs mocking.
 
 ## comment:2
 
-Above `Describe 'Repository guid integrity' -Tag 'L2', 'integrity', 'source-only' {`, written with `#`.
+Above `Describe 'Repository guid integrity'`, written with `#`.
 
 ```text
 source-only: it scans the repository's tracked files, which give the same answer in both run modes. The check is the

@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Import-PsReadLineKeyHandlerSet' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Import-PsReadLineKeyHandlerSet'`, written with `#`.
 
 ```text
 Import-PsReadLineKeyHandlerSet over fixture configs (Get-Config mocked to the real config types built from fixture

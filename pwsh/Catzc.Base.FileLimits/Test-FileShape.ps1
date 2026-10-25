@@ -1,3 +1,11 @@
+<#
+---
+catzc:
+  docs: "../../docs/references/pwsh/catzc-base-file-limits/Test-FileShape.ps1.md"
+  header: "generated"
+---
+#>
+
 function Test-FileShape {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

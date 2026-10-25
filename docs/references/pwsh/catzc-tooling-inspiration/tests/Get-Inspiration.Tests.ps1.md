@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Get-Inspiration' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Get-Inspiration'`, written with `#`.
 
 ```text
 Get-Inspiration over a fixture config (Get-Config mocked to the real InspirationConfig built from neutral widget/gadget

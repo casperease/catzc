@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Test-FunctionDependency' -Tag 'L1', 'integrity', 'source-only' {`, written with `#`.
+Above `Describe 'Test-FunctionDependency'`, written with `#`.
 
 ```text
 The integrity invariant — the real repository's function dependency graph is satisfied — needs exactly one

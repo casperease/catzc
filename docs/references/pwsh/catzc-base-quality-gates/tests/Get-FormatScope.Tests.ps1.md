@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Get-FormatScope' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Get-FormatScope'`, written with `#`.
 
 ```text
 Get-FormatScope with git mocked: the tracked files (Get-GitTrackedPath) and the .gitattributes classes

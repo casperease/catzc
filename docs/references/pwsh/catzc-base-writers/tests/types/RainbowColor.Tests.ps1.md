@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'RainbowColor' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'RainbowColor'`, written with `#`.
 
 ```text
 The <base>-rainbow colour profile

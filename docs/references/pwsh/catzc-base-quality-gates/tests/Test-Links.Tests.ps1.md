@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Test-Links' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Test-Links'`, written with `#`.
 
 ```text
 Test-Links is the link quality gate ([ADR-REPO-LINK-ALIGNEDBYTOOL](/docs/drs/repository/markdown-links.md#rule-adr-repo-link-alignedbytool)):

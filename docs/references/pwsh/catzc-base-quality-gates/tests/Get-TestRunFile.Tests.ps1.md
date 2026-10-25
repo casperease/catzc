@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Get-TestRunFile' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Get-TestRunFile'`, written with `#`.
 
 ```text
 Get-TestRunFile over fake Pester test objects (the shape the harness reads: .Block.BlockContainer.Data and

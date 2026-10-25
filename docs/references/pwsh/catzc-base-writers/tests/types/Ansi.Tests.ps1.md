@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Ansi' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Ansi'`, written with `#`.
 
 ```text
 The single ConsoleColor -> ANSI SGR map

@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Write-TestRunFailures' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Write-TestRunFailures'`, written with `#`.
 
 ```text
 Write-TestRunFailures over fixture rows and file entries, with the console seam (Write-Message / Write-Header /

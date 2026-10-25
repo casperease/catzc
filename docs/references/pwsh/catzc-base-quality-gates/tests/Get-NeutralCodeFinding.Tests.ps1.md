@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Get-NeutralCodeFinding' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Get-NeutralCodeFinding'`, written with `#`.
 
 ```text
 Get-NeutralCodeFinding over fixture test files: ADR-WIDGET-GADGET stands in for a code the ADR registry declares,

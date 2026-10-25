@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Uninstall-Java' -Tag 'L1', 'logic' {`, written with `#`.
+Above `Describe 'Uninstall-Java'`, written with `#`.
 
 ```text
 Hermetic logic (L1): every boundary that touches state outside the repository is mocked — the tool manager

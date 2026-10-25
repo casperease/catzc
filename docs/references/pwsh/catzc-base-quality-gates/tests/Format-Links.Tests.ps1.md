@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Format-Links' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Format-Links'`, written with `#`.
 
 ```text
 Format-Links is the link aligner and the repository-wide migration

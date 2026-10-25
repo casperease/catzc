@@ -7,7 +7,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Set-BicepTemplateConfiguration' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Set-BicepTemplateConfiguration'`, written with `#`.
 
 ```text
 These are L0 'logic' tests (mocked config/discovery, no real az/cspell) — they are NOT L2 and should not

@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Get-ContractFreezeFindings' -Tag 'L0', 'logic',...`, written with `#`.
+Above `Describe 'Get-ContractFreezeFindings'`, written with `#`.
 
 ```text
 A released version folder is immutable ([ADR-REPO-CONTRACT-RELEASEDIMMUTABLE](/docs/drs/repository/api-contracts.md#rule-adr-repo-contract-releasedimmutable)):

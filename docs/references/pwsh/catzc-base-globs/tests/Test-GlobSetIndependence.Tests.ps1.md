@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Test-GlobSetIndependence' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Test-GlobSetIndependence'`, written with `#`.
 
 ```text
 Test-GlobSetIndependence is a quality gate

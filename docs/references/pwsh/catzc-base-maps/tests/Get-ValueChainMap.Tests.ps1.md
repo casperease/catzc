@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Get-ValueChainMap' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Get-ValueChainMap'`, written with `#`.
 
 ```text
 Get-ValueChainMap builds the value-chain map from the registry's closed sets and its ADRs
@@ -16,7 +16,7 @@ the closed sets DrsConfig declares, read from the type, never spelled out here.
 
 ## comment:2
 
-Above `Describe 'Get-ValueChainMap — the real registry' -Tag 'L1', 'integrity',...`, written with `#`.
+Above `Describe 'Get-ValueChainMap — the real registry'`, written with `#`.
 
 ```text
 The registry's own value-chain map. It reads only drs.yml, so its answer cannot differ between the run modes

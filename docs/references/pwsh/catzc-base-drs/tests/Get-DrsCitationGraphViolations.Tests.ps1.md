@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Get-DrsCitationGraphViolations' -Tag 'L0', 'logic',...`, written with `#`.
+Above `Describe 'Get-DrsCitationGraphViolations'`, written with `#`.
 
 ```text
 Get-DrsCitationGraphViolations — a rule summary cites only its own domain or a domain its domain depends on, read as declared (not

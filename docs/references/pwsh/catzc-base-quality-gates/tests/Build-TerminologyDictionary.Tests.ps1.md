@@ -14,7 +14,7 @@ category, to prove per-category grouping plus lower-casing + de-duplication.
 
 ## comment:2
 
-Above `Describe 'Build-TerminologyDictionary — real registry' -Tag 'L2',...`, written with `#`.
+Above `Describe 'Build-TerminologyDictionary — real registry'`, written with `#`.
 
 ```text
 source-only: it compares the repository's generated .cspell/ dictionaries with the registry, which gives the

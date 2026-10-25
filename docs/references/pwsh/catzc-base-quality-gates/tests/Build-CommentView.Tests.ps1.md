@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Build-CommentView' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Build-CommentView'`, written with `#`.
 
 ```text
 Build-CommentView writes the inverse of Export-Comments: the annotated copy of every file that has a comment page,

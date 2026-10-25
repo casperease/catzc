@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Write-ReportModeFinding' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Write-ReportModeFinding'`, written with `#`.
 
 ```text
 Write-ReportModeFinding prints a report-mode check's work list and never fails the run

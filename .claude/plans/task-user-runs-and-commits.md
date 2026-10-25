@@ -111,7 +111,10 @@ final full run last.
     cache (Cache@2 "Cache restored") and skips the DLL build.
 22. plan-file-limits: untrack the 2 `__pycache__/*.pyc` files under `python/tests/catzc_base_repository/` (`git rm --cached`). Check:
     `git ls-files '*.pyc'` prints nothing.
-23. The final full run, in a fresh session, when the chunks in plan-master have landed. Once it is green and committed, the work is done and
+23. plan-vscode-extensions: rebuild and install the two new extensions (`Build-VsCodeExtension`, then `Install-VsCodeExtension`), reload VS
+    Code, click a `/docs/drs/` link in a markdown file and open a coloured `out/**/*.log`. Check: the link opens its ADR and the log shows
+    colours, not escape codes; then the plan's last step is struck and the plan deleted.
+24. The final full run, in a fresh session, when the chunks in plan-master have landed. Once it is green and committed, the work is done and
     every plan, task and prompt in `.claude/plans` is deleted (the user, 2026-10-20). Check: `.claude/plans` is empty.
 
 ## Report

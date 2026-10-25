@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Invoke-ConfigValidator' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Invoke-ConfigValidator'`, written with `#`.
 
 ```text
 Invoke-ConfigValidator over in-memory fixture modules whose private validators it must find and run in their

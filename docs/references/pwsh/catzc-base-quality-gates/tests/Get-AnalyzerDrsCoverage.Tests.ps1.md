@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'analyzer-adr-map integrity' -Tag 'L1', 'integrity', 'source-only',...`, written with `#`.
+Above `Describe 'analyzer-adr-map integrity'`, written with `#`.
 
 ```text
 source-only: it cross-checks the map against the repository's ADR tree and .scriptanalyzer rule files, which

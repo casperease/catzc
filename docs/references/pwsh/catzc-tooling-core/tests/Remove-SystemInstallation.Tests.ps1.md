@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Remove-SystemInstallation' -Tag 'L1', 'logic',...`, written with `#`.
+Above `Describe 'Remove-SystemInstallation'`, written with `#`.
 
 ```text
 Hermetic logic (L1): every boundary that touches state outside the repository is mocked — the install directory

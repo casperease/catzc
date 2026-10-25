@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Get-Glossary' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Get-Glossary'`, written with `#`.
 
 ```text
 Get-Glossary merges the glossary sources into GlossaryEntry records. Discovery is mocked at Get-GlossarySources

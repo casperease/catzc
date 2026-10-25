@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Format-Types' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Format-Types'`, written with `#`.
 
 ```text
 Format-Types maintains each C# type source's file-scoped namespace from its module folder; its -DryRun is the C#

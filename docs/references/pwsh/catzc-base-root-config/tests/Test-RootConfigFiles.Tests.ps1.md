@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Test-RootConfigFiles' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Test-RootConfigFiles'`, written with `#`.
 
 ```text
 Test-RootConfigFiles over fixture root files in $TestDrive: the registry entries, git's ignore check, and the index

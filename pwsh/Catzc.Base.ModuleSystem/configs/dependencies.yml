@@ -44,6 +44,7 @@ groups:
         Catzc.Base.Contracts,
         Catzc.Base.QualityGates,
         Catzc.Base.Maps,
+        Catzc.Base.ModuleSystem,
       ]
     Catzc.Base.Reports:
       [Catzc.Base.Config, Catzc.Base.Repository, Catzc.Base.Writers, Catzc.Base.Objects, Catzc.Base.Asserts, Catzc.Base.Folders]

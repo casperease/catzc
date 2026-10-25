@@ -16,7 +16,7 @@ committed clean fixture by its repo-relative path.
 
 ## comment:2
 
-Above `Describe 'Repository spelling integrity' -Tag 'L2', 'integrity', 'source-only' {`, written with `#`.
+Above `Describe 'Repository spelling integrity'`, written with `#`.
 
 ```text
 Integrity: the ACTUAL repository content is spell-clean. Unlike the logic test above (real cspell over a

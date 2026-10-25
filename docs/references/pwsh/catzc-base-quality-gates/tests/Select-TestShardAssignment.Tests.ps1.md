@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Select-TestShardAssignment' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Select-TestShardAssignment'`, written with `#`.
 
 ```text
 Longest-first scheduling of the parallel test files over the worker shards. Neutral fixture names

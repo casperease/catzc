@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'AgentsConfig' -Tag 'L0', 'logic', 'ADR-REPO-AGENTS-BACKEDBYRULE' {`, written with `#`.
+Above `Describe 'AgentsConfig'`, written with `#`.
 
 ```text
 Validates the compiled AgentsConfig type directly — the constructor stops a malformed agents.yml from ever

@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Test-Links — untracked link targets' -Tag 'L0', 'logic',...`, written with `#`.
+Above `Describe 'Test-Links — untracked link targets'`, written with `#`.
 
 ```text
 A markdown link must resolve on GitHub, which has only what git tracks

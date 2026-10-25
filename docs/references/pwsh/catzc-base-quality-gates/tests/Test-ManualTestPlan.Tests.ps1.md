@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Test-ManualTestPlan' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Test-ManualTestPlan'`, written with `#`.
 
 ```text
 Test-ManualTestPlan over a fixture repository in $TestDrive: the repository root is mocked, and each test writes the

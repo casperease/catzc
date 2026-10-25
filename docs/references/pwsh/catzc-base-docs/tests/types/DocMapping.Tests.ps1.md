@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'DocMapping' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'DocMapping'`, written with `#`.
 
 ```text
 Validates the compiled DocMapping type directly — the constructor is the gate that stops a malformed

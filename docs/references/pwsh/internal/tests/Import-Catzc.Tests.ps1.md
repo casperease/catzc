@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Import-Catzc loads a full build (walking skeleton)' -Tag 'L2',...`, written with `#`.
+Above `Describe 'Import-Catzc loads a full build (walking skeleton)'`, written with `#`.
 
 ```text
 Import-Catzc loads a build: Test-BuildArtifact builds the selection once into a temporary destination (Build-Modules,

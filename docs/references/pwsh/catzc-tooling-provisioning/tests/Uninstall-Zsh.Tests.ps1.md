@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Uninstall-Zsh' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Uninstall-Zsh'`, written with `#`.
 
 ```text
 Uninstall-Zsh on a fixture Git tree in $TestDrive with the layout mocked, so nothing outside $TestDrive changes

@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Get-WorldMap — the real repository' -Tag 'L1', 'integrity',...`, written with `#`.
+Above `Describe 'Get-WorldMap — the real repository'`, written with `#`.
 
 ```text
 The real repository: every tracked file of the git index gets a cell, and no live file breaks its track's

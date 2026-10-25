@@ -34,8 +34,9 @@ habit-dropped label. A comment that would go stale the moment the code is rewrit
 The move loses nothing. Each moved comment becomes one section of the page, `## comment:<n>`, holding its lines exactly as they stood in the
 file, comment markers and common indent removed, inside a fenced `text` block so no formatter rewrites them. Above the fence one line names
 where the comment stood: the code line it sat above (and which occurrence of that line, when the file repeats it), or the end of the file,
-and the comment marker it was written with. A section's number is its address for life: a new comment takes the next number after the page's
-highest, a number is never reused, and a section a person edits stays as edited.
+and the comment marker it was written with. A test's `Describe` line is named only up to its first `-Tag`, so re-tiering a test leaves its
+sections in place. A section's number is its address for life: a new comment takes the next number after the page's highest, a number is
+never reused, and a section a person edits stays as edited.
 
 - [A lossless move](#a-lossless-move)
 
@@ -98,7 +99,8 @@ clue, not a summary of the page. Being one line, it is below the export threshol
 keeps the full prose. The page does the pairing: each section says which code line its comment sat above.
 
 The price is that a section is addressed by the line beneath it, so editing that line can orphan the section. `Test-Comments` reports the
-orphan, and the fix is the same one-line edit of the section's context line a reviewer would make by hand.
+orphan, and the fix is the same one-line edit of the section's context line a reviewer would make by hand. A test's tags are the line it
+changes most, because a re-tier rewrites them, so a `Describe` line is addressed by its name alone.
 
 ### Clues, not narration
 

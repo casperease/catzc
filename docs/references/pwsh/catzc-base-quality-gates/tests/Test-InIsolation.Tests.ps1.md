@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Test-InIsolation (vendored Pester)' -Tag 'L1', 'integrity',...`, written with `#`.
+Above `Describe 'Test-InIsolation (vendored Pester)'`, written with `#`.
 
 ```text
 The real-asset test of

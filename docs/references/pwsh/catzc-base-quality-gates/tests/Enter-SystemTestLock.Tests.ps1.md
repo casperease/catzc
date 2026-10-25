@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Enter-SystemTestLock' -Tag 'L1', 'logic',...`, written with `#`.
+Above `Describe 'Enter-SystemTestLock'`, written with `#`.
 
 ```text
 L1: real named mutexes, held and abandoned from thread jobs. Every test passes its own unique lock name and

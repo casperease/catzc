@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Build-Bicep (walking skeleton — real az)' -Tag 'L2', 'logic',...`, written with `#`.
+Above `Describe 'Build-Bicep (walking skeleton — real az)'`, written with `#`.
 
 ```text
 Walking-skeleton L2 coverage for Build-Bicep: the few real `az bicep build` threads that exercise something

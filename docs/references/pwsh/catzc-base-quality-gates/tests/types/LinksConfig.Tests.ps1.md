@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'LinksConfig' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'LinksConfig'`, written with `#`.
 
 ```text
 LinksConfig maps links.yml and is the one declaration of its sensible defaults

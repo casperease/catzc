@@ -37,12 +37,12 @@ Describe 'Binding contract assets' -Tag 'L1', 'integrity', 'source-only', 'ADR-R
     }
 
     It '<Root> <Version> <Group>: <Path> -> <Target> (<Direction>) holds' -ForEach $script:assetCases {
-        $group = "$Root|$Version|$Group"
-        if (-not $script:groupContracts.ContainsKey($group)) {
-            $script:groupContracts[$group] = @(Get-Contract -Root ([WildcardPattern]::Escape($Root)) `
+        $groupKey = "$Root|$Version|$Group"
+        if (-not $script:groupContracts.ContainsKey($groupKey)) {
+            $script:groupContracts[$groupKey] = @(Get-Contract -Root ([WildcardPattern]::Escape($Root)) `
                     -Version ([WildcardPattern]::Escape($Version)) -Group ([WildcardPattern]::Escape($Group)))
         }
-        $assets = @($script:groupContracts[$group] | Where-Object { $_.AssetPath -ceq $AssetPath -and $_.Target -ceq $Target })
+        $assets = @($script:groupContracts[$groupKey] | Where-Object { $_.AssetPath -ceq $AssetPath -and $_.Target -ceq $Target })
         $assets.Count | Should -Be 1
         $result = Get-ContractCheckResults -Asset $assets[0]
         $result.Passed | Should -BeTrue -Because ($result.Findings -join "`n")

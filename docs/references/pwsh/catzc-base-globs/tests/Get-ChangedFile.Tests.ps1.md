@@ -7,7 +7,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Get-ChangedFile' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Get-ChangedFile'`, written with `#`.
 
 ```text
 The diff universe ([FDR-CD-GLOBS-TRACKEDFILESONLY](/docs/drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-trackedfilesonly)): changed paths

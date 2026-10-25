@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Test-DrsRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {`, written with `#`.
+Above `Describe 'Test-DrsRegistry'`, written with `#`.
 
 ```text
 Test-DrsRegistry over a fixture docs/drs tree in $TestDrive, a fixture DrsConfig, and a fixture DrsChecksConfig (Get-Config and

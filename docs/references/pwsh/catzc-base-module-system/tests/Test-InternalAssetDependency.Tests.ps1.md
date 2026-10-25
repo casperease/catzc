@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Test-InternalAssetDependency' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Test-InternalAssetDependency'`, written with `#`.
 
 ```text
 Test-InternalAssetDependency over a mocked inventory: the violation and coverage engines have their own tests, so

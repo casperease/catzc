@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Save-TestDurationHistory' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Save-TestDurationHistory'`, written with `#`.
 
 ```text
 The per-machine test duration history: Save-TestDurationHistory merges a run's measurements, Get-TestDurationHistory

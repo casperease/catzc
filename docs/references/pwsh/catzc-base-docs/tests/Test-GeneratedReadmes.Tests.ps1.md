@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Test-GeneratedReadmes' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Test-GeneratedReadmes'`, written with `#`.
 
 ```text
 Test-GeneratedReadmes over fixture READMEs in $TestDrive: the mappings, git's ignore check, and the index are mocked,
@@ -15,7 +15,7 @@ and the repository root is redirected to the fixture, so each test pins one rule
 
 ## comment:2
 
-Above `Describe 'Generated READMEs are gitignored, untracked, and current' -Tag...`, written with `#`.
+Above `Describe 'Generated READMEs are gitignored, untracked, and current'`, written with `#`.
 
 ```text
 The quality gate over the real repository. readme.yml (expanded by Get-ReadmeMappings) is the registry of folders whose

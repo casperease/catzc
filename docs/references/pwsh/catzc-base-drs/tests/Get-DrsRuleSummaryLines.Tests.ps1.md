@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Get-DrsRuleSummaryLines' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Get-DrsRuleSummaryLines'`, written with `#`.
 
 ```text
 Get-DrsRuleSummaryLines — the normative lines of every `### Rule` entry in one ADR file, numbered, with the rule in its citation

@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'ConvertFrom-PytestJunit' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'ConvertFrom-PytestJunit'`, written with `#`.
 
 ```text
 ConvertFrom-PytestJunit over a canned pytest JUnit report in tests/assets: one result per top-level test function,

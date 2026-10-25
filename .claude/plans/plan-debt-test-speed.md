@@ -38,11 +38,12 @@ folders. Heavy runs wait for a turn in the orchestrator's memory queue, one run 
       start, 2.5 s the L2 dotnet build, 0.1 s Roslyn per case in its own namespace, catzc-54, 2026-10-22). A file measured with no safe gain
       is recorded as left as it is (taken by the orchestrator as delegated, 2026-10-22). Check: `Invoke-TestFile` twice per file, the same
       test names and `Should` count, and `Test-ScriptAnalyzer -Path` at 0 on each changed file.
-- [ ] `pwsh/Catzc.Base.GeneratedFiles` (`Get-GeneratedWriterInputFile`, `Get-GeneratedWriterStamp`): the due step is 0.57 s, about half the
-      folder walk and half each writer's glob match run as PowerShell loops (a whole-root walk with buckets measured slower, 0.82 s); one C#
-      call on the type that owns globs walks once and returns the matched paths per writer, measured against the PowerShell version before
-      it lands. Check: `Get-GeneratedWriterDue.Tests.ps1` alone, a second fresh import's due step under 0.3 s, and `Test-GeneratedFiles`
-      clean.
+- [ ] `pwsh/Catzc.Base.GeneratedFiles` (`Get-GeneratedWriterInputFile`, `Get-GeneratedWriterStamp`): the due step measured 529 to 832 ms
+      (walk 341 to 448 ms over 5,464 files, stamps 219 to 327 ms); the array-wide path cuts landed (f0de76ad0) and measured 432 to 481 ms
+      (walk 225 to 247 ms, stamps 231 to 311 ms, catzc-ed, 2026-10-26). Left: one C# call on the type that owns globs walks once and returns
+      the matched paths per writer, and the stamps' `Get-InputStamp` metadata pass, each measured against the PowerShell version before it
+      lands. Build-EnglishDictionary has no saved stamp, so it is due on every import: a writer-side cause, outside this step. Check:
+      `Get-GeneratedWriterDue.Tests.ps1` alone, a second fresh import's due step under 0.3 s, and `Test-GeneratedFiles` clean.
 
 ## Decided
 

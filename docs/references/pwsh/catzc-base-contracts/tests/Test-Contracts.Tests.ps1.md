@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Test-Contracts' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Test-Contracts'`, written with `#`.
 
 ```text
 Test-Contracts runs every asset of each unit's current version folder, and the provided assets of every released
@@ -21,7 +21,7 @@ Get-ContractCheckResults.Tests.ps1, the freeze comparison by Get-ContractFreezeF
 
 ## comment:2
 
-Above `Describe 'Test-Contracts on the repository' -Tag 'L1', 'integrity',...`, written with `#`.
+Above `Describe 'Test-Contracts on the repository'`, written with `#`.
 
 ```text
 The repository's own contracts/ tree, through the quality gate. It reads only the repository's files, so its answer

@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Split-CachedFile' -Tag 'L0', 'logic',...`, written with `#`.
+Above `Describe 'Split-CachedFile'`, written with `#`.
 
 ```text
 The result-cache halves shared by Format-Code and the analyzer: Split-CachedFile reads, Update-ResultCache writes,

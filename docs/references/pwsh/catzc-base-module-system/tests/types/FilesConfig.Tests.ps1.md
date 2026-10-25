@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Catzc.Base.ModuleSystem.FilesConfig' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Catzc.Base.ModuleSystem.FilesConfig'`, written with `#`.
 
 ```text
 The files.yml type (module -> packages, for Copy-CatzcModule): constructing it maps and validates the parsed

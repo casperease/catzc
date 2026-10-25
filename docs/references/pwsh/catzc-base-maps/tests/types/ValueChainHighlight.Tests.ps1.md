@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'ValueChainHighlight' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'ValueChainHighlight'`, written with `#`.
 
 ```text
 ValueChainHighlight lights the value-chain map cells an ADR, or one of its rules, sits in

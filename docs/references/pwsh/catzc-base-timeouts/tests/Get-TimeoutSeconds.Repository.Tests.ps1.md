@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'TimeoutSeconds defaults come from the time safeguard' -Tag 'L1',...`, written with `#`.
+Above `Describe 'TimeoutSeconds defaults come from the time safeguard'`, written with `#`.
 
 ```text
 A function bounds its own long-running work through Get-TimeoutSeconds -Command and its [TimeLimit] decoration, never

@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Test-ConsoleReadyType' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Test-ConsoleReadyType'`, written with `#`.
 
 ```text
 Test-ConsoleReadyType — whether a shipped type renders as a readable line in pwsh: it overrides ToString(), or it is

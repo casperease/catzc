@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'BuildValidationConfig' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'BuildValidationConfig'`, written with `#`.
 
 ```text
 The build-validation.yml type (collect-all-then-throw), plus the shipped-config integrity check: every entry

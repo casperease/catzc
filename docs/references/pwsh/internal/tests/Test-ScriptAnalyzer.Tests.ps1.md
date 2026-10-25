@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'PSScriptAnalyzer' -Tag 'L2', 'integrity', 'greedy' {`, written with `#`.
+Above `Describe 'PSScriptAnalyzer'`, written with `#`.
 
 ```text
 greedy: the analysis shards across min(ProcessorCount - 1, 10) background pwsh processes of its own —

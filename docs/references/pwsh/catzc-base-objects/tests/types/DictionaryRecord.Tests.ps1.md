@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'DictionaryRecord' -Tag 'L0', 'logic',...`, written with `#`.
+Above `Describe 'DictionaryRecord'`, written with `#`.
 
 ```text
 DictionaryRecord — the shared base of the YAML-mirror records: a dictionary view over a derived record's own

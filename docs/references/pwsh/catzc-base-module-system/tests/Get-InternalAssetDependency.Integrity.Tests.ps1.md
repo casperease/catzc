@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Internal asset dependency coverage (real tree)' -Tag 'L1',...`, written with `#`.
+Above `Describe 'Internal asset dependency coverage (real tree)'`, written with `#`.
 
 ```text
 The coverage rule ([ADR-AUTO-ASSETDEP-ENFORCEDMECHANICALLY](/docs/drs/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-enforcedmechanically))

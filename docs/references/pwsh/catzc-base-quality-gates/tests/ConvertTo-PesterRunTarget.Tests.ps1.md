@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'ConvertTo-PesterRunTarget' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'ConvertTo-PesterRunTarget'`, written with `#`.
 
 ```text
 ConvertTo-PesterRunTarget over a fixture repository in $TestDrive (Get-RepositoryRoot and Get-LanguageTestFolders

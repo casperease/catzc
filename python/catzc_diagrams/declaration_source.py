@@ -297,6 +297,9 @@ def save(folder, declaration):
         zoom = declaration["about"].get("zoom") or held["about"].get("zoom")  # a drawing read back keeps the source's zoom level
         if zoom:
             about["zoom"] = zoom
+        point = declaration["about"].get("point") or held["about"].get("point")  # the drawing never carries the point of the tree
+        if point:
+            about["point"] = point
         declaration = {**declaration, "about": about, "content": undrawn(declaration["content"], held)}
         # The drawing carries a row only as its expansion: when the drawing still draws what the source's rows expand to, the source
         # keeps its rows (the layout is the drawing's); when it draws something else, the drawing wins.

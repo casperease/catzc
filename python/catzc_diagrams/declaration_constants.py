@@ -181,6 +181,7 @@ TOP_KEYS = ("description", "about", "content", "layout")
 # prints the relation without its parenthesis or not at all. get guesses each for a drawing without a source; a source keeps its own.
 SOURCE_ONLY = ("kind", "flow", "relation", "thick")
 
-ABOUT_KEYS = ("adrs", "lens", "zoom", "proves")  # the subject's ADR codes, its lens, its optional zoom level, an action diagram's proof file
+# the subject's ADR codes, its lens, its optional zoom level, a C3/C4 slide's point of the tree, an action diagram's proof file
+ABOUT_KEYS = ("adrs", "lens", "zoom", "point", "proves")
 # The subject's former lists: read and ignored, never written back, so a get or a save drops them (the minimaps' rework).
 RETIRED_ABOUT_KEYS = ("tracks", "languages", "modules", "files")

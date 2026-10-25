@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'ConvertFrom-BatsJunit' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'ConvertFrom-BatsJunit'`, written with `#`.
 
 ```text
 ConvertFrom-BatsJunit over a canned bats JUnit report (tests/assets/bats-widget.xml, written in the shape bats 1.14

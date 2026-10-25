@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'ConvertTo-ContractNoteMarkdown' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'ConvertTo-ContractNoteMarkdown'`, written with `#`.
 
 ```text
 A note is written as a comment, where a citation is a repository-rooted code link

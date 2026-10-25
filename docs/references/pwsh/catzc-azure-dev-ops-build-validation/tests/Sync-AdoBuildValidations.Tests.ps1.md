@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Sync-AdoBuildValidations' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Sync-AdoBuildValidations'`, written with `#`.
 
 ```text
 The config-driven reconcile: one Register-AdoBuildValidation per build-validation.yml entry, with

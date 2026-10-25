@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Folder & file conventions' -Tag 'L0', 'integrity' {`, written with `#`.
+Above `Describe 'Folder & file conventions'`, written with `#`.
 
 ```text
 The folder and file conventions over the real tree, through their quality gate (Test-FolderConventions,

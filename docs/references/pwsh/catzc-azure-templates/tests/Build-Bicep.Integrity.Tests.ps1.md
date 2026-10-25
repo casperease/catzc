@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Shipped template integrity' -Tag 'L0', 'integrity' {`, written with `#`.
+Above `Describe 'Shipped template integrity'`, written with `#`.
 
 ```text
 Integrity for the SHIPPED bicep templates (infrastructure/templates/): that they are NAMED so discovery

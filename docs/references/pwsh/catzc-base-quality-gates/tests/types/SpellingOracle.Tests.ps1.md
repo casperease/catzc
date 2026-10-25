@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'SpellingOracle.CoinedFragments (shipped dictionary)' -Tag 'L1',...`, written with `#`.
+Above `Describe 'SpellingOracle.CoinedFragments (shipped dictionary)'`, written with `#`.
 
 ```text
 source-only: it loads the repository's committed dictionary and .cspell/ lists — the inputs only the source-tree

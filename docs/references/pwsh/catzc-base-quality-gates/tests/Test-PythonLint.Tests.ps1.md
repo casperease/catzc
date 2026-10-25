@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Test-PythonLint' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Test-PythonLint'`, written with `#`.
 
 ```text
 Test-PythonLint is a quality gate ([ADR-AUTO-TEST-QUALITYGATE](/docs/drs/automation/test-automation.md#rule-adr-auto-test-qualitygate)):
@@ -15,7 +15,7 @@ $TestDrive. Neutral fixture names ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/do
 
 ## comment:2
 
-Above `Describe 'Repository Python lint integrity' -Tag 'L2', 'integrity',...`, written with `#`.
+Above `Describe 'Repository Python lint integrity'`, written with `#`.
 
 ```text
 Integrity: every Python file the repository holds passes ruff check — the Python tests and the agent helpers. L2

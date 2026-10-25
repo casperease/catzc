@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Test-BuildArtifact' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Test-BuildArtifact'`, written with `#`.
 
 ```text
 Test-BuildArtifact is a quality gate

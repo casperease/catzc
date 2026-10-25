@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'RepoRelativePath' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'RepoRelativePath'`, written with `#`.
 
 ```text
 Neutral, non-reserved path segments only. 'out' is deliberately avoided here: it is the reserved output

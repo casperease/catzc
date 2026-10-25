@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Source & test file conventions' -Tag 'L2', 'integrity',...`, written with `#`.
+Above `Describe 'Source & test file conventions'`, written with `#`.
 
 ```text
 The source and test file conventions over the real tree, through their quality gate (Test-SourceConventions —
@@ -17,7 +17,7 @@ source-only: it reads the per-function source files, which give the same answer 
 
 ## comment:2
 
-Above `Describe 'Test-Automation (vendored Pester)' -Tag 'L1', 'integrity',...`, written with `#`.
+Above `Describe 'Test-Automation (vendored Pester)'`, written with `#`.
 
 ```text
 The real-asset test of

@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Test-GlobSetTriggerCoverage' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Test-GlobSetTriggerCoverage'`, written with `#`.
 
 ```text
 Test-GlobSetTriggerCoverage over mocked globsets, projections, and members; the include patterns are real

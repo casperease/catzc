@@ -26,6 +26,51 @@ public static class FolderWalker
             throw new DirectoryNotFoundException("folder does not exist: " + root);
         }
 
+        List<string> results = new List<string>();
+        Collect(root, depth, patterns, files, directories, exclude, results, results);
+        results.Sort(StringComparer.Ordinal);
+        return results.ToArray();
+    }
+
+    // One pass that lists the files and the folders apart, each relative to relativeTo with '/' separators: the walk a caller
+    // that needs both would otherwise make twice, then cut path by path.
+    public static string[][] WalkRelative(string root, int depth, IEnumerable<string> exclude, string relativeTo)
+    {
+        if (string.IsNullOrEmpty(root))
+        {
+            throw new ArgumentException("root must not be empty", "root");
+        }
+        if (depth < 1)
+        {
+            throw new ArgumentOutOfRangeException("depth", depth, "depth must be at least 1 (1 lists the direct children only)");
+        }
+        if (!Directory.Exists(root))
+        {
+            throw new DirectoryNotFoundException("folder does not exist: " + root);
+        }
+
+        List<string> fileList = new List<string>();
+        List<string> folderList = new List<string>();
+        Collect(root, depth, null, true, true, exclude, fileList, folderList);
+        int cut = Path.GetFullPath(relativeTo).TrimEnd('\\', '/').Length + 1;
+        return new[] { Relative(fileList, cut), Relative(folderList, cut) };
+    }
+
+    private static string[] Relative(List<string> paths, int cut)
+    {
+        string[] relative = new string[paths.Count];
+        for (int index = 0; index < paths.Count; index++)
+        {
+            relative[index] = paths[index].Substring(cut).Replace('\\', '/');
+        }
+        Array.Sort(relative, StringComparer.Ordinal);
+        return relative;
+    }
+
+    private static void Collect(
+        string root, int depth, IEnumerable<string> patterns, bool files, bool directories, IEnumerable<string> exclude,
+        List<string> fileResults, List<string> directoryResults)
+    {
         List<string> filters = new List<string>(patterns ?? AllNames);
         if (filters.Count == 0)
         {
@@ -34,7 +79,6 @@ public static class FolderWalker
         HashSet<string> pruned = new HashSet<string>(exclude ?? new string[0], NameComparer);
         EnumerationOptions options = new EnumerationOptions { IgnoreInaccessible = true, RecurseSubdirectories = false, AttributesToSkip = 0 };
 
-        List<string> results = new List<string>();
         Stack<KeyValuePair<string, int>> pending = new Stack<KeyValuePair<string, int>>();
         pending.Push(new KeyValuePair<string, int>(root, 1));
         while (pending.Count > 0)
@@ -52,7 +96,7 @@ public static class FolderWalker
                 }
                 if (directories && Matches(filters, name))
                 {
-                    results.Add(directory);
+                    directoryResults.Add(directory);
                 }
                 if (level < depth && !IsLink(directory))
                 {
@@ -66,14 +110,11 @@ public static class FolderWalker
                 {
                     if (Matches(filters, Path.GetFileName(file)))
                     {
-                        results.Add(file);
+                        fileResults.Add(file);
                     }
                 }
             }
         }
-
-        results.Sort(StringComparer.Ordinal);
-        return results.ToArray();
     }
 
     private static bool Matches(List<string> filters, string name)

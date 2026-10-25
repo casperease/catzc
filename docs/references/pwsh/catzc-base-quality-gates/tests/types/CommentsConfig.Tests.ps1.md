@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'CommentsConfig' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'CommentsConfig'`, written with `#`.
 
 ```text
 CommentsConfig maps comments.yml and is the one declaration of its sensible defaults

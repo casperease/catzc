@@ -39,13 +39,17 @@ public static class InputStamp
 
         List<string> files = new List<string>();
         List<string> lines = new List<string>();
+        // A metadata stamp keeps the FileInfo the existence check already read, so each named file is stat'ed once.
+        Dictionary<string, FileInfo> known = new Dictionary<string, FileInfo>(StringComparer.Ordinal);
         EnumerationOptions options = new EnumerationOptions { RecurseSubdirectories = true };
         foreach (string entry in paths)
         {
             string full = Path.GetFullPath(entry);
-            if (File.Exists(full))
+            FileInfo named = new FileInfo(full);
+            if (named.Exists)
             {
                 files.Add(full);
+                known[full] = named;
             }
             else if (Directory.Exists(full))
             {
@@ -74,7 +78,7 @@ public static class InputStamp
         {
             if (identity == InputStampIdentity.Metadata)
             {
-                FileInfo info = new FileInfo(kept[i]);
+                FileInfo info = known.TryGetValue(kept[i], out FileInfo seen) ? seen : new FileInfo(kept[i]);
                 hashed[i] = Name(kept[i], rootFull) + "|" + info.LastWriteTimeUtc.Ticks.ToString(System.Globalization.CultureInfo.InvariantCulture) + "|" +
                     info.Length.ToString(System.Globalization.CultureInfo.InvariantCulture);
                 return;

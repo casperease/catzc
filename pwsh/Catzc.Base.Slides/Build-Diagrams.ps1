@@ -136,10 +136,12 @@ function Build-Diagrams {
         $render = $false
     }
     if ($render -and $folders.Count -gt 0) {
-        # One renderer call takes every folder and splits it across its workers, each paying uv, python and the kit's imports once;
-        # it ends each folder with a JSON row, in folder order.
         $quoted = ($folders | ForEach-Object { "`"$(Join-Path $root $_)`"" }) -join ' '
-        $arguments = "run --project `"$($diagramKit.Folder)`" python `"$renderer`" --theme $Theme --workers $Workers --all $quoted"
+        $rowsPath = Join-Path (Get-OutputRoot -EnsureExists) 'diagrams/query-rows.json'
+        if (-not $DryRun) {
+            $null = Write-DiagramQueryRows -Stem $declared -RepositoryRoot $root -Path $rowsPath
+        }
+        $arguments = "run --project `"$($diagramKit.Folder)`" python `"$renderer`" --theme $Theme --workers $Workers --rows `"$rowsPath`" --all $quoted"
         if ($DryRun) {
             Write-Message "Would run: uv $arguments"
         }

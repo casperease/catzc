@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Get-DrsDomainEdges' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Get-DrsDomainEdges'`, written with `#`.
 
 ```text
 Get-DrsDomainEdges over a fixture DrsConfig (Get-Config mocked): the registry's own construction holds the

@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Update-BatsVendor' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Update-BatsVendor'`, written with `#`.
 
 ```text
 Update-BatsVendor with the download and tar mocked: the mocked tar lays out a fixture release in the staging folder,

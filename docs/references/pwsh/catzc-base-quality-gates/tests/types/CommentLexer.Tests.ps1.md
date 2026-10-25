@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'CommentLexer' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'CommentLexer'`, written with `#`.
 
 ```text
 CommentLexer finds the comment spans a code link may live in

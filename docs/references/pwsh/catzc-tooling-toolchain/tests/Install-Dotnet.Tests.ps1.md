@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Install-Dotnet — shipped install scripts' -Tag 'L1', 'integrity',...`, written with `#`.
+Above `Describe 'Install-Dotnet — shipped install scripts'`, written with `#`.
 
 ```text
 Drives Install-Dotnet to the point where it resolves the vendored install script, then reads the REAL script
@@ -17,7 +17,7 @@ script's presence check is the stop point: it records the resolved path and halt
 
 ## comment:2
 
-Above `Describe 'Install-Dotnet' -Tag 'L1', 'logic' {`, written with `#`.
+Above `Describe 'Install-Dotnet'`, written with `#`.
 
 ```text
 Hermetic logic (L1): the install script, the version probes, the PATH seam (Add-PermanentPath) and the persistent

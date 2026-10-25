@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'ADO pipeline trigger globs match the globset projection' -Tag 'L2',...`, written with `#`.
+Above `Describe 'ADO pipeline trigger globs match the globset projection'`, written with `#`.
 
 ```text
 Integrity: every pipeline-bound globset's ADO pipeline (and the GitHub CI workflow) declares the trigger

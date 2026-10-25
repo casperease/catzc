@@ -85,7 +85,7 @@ render is stable.
 
 ## comment:3
 
-Above `if ($Filter.Count -gt 0) {`, written with `#`.
+Above `if ($RepositoryFilter.Count -gt 0) {`, written with `#`.
 
 ```text
 The lamps read what they hide from the settings, so the extension needs neither a config nor a session: each filter's include/exclude

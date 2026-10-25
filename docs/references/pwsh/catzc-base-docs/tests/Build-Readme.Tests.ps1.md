@@ -25,7 +25,7 @@ package — the guard is its own seam, asserted separately below.
 
 ## comment:3
 
-Above `Describe 'Build-Readme — real readme.yml' -Tag 'L2', 'integrity',...`, written with `#`.
+Above `Describe 'Build-Readme — real readme.yml'`, written with `#`.
 
 ```text
 Reads only the repository's readme.yml, folders, and .gitignore — the same answer in both run modes, so the

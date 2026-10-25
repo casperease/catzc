@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Built modules match their source folders' -Tag 'L2', 'integrity',...`, written with `#`.
+Above `Describe 'Built modules match their source folders'`, written with `#`.
 
 ```text
 Parity ([DDR-RUNMODE-SAMEMODULEINBOTH](/docs/drs/design/run-modes.md#rule-ddr-runmode-samemoduleinboth)): every built module is the same

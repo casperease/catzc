@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Get-ChangedGlobSet' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Get-ChangedGlobSet'`, written with `#`.
 
 ```text
 Get-ChangedGlobSet: the computed area-of-control of a diff

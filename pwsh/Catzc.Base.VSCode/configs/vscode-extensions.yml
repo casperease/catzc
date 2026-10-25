@@ -87,13 +87,11 @@ extensions:
     displayName: Catzc track lamps
     version: 0.26.0
     description: >-
-      Filter lamps in the Explorer's title row, one per repository filter (filters.yml), led by the open lamp; a click steps a lamp off,
-      on, veto. The tree is the union of the lit lamps minus the zones of the vetoed ones, and each lamp's colour is its
-      domain's condition: committed, staged, unstaged or failed.
+      Filter lamps in the Explorer's title row, one per repository filter (filters.yml), led by the open lamp; a click steps a lamp off, on,
+      veto. The tree is the union of the lit lamps minus the zones of the vetoed ones, and each lamp's colour is its domain's condition:
+      committed, staged, unstaged or failed.
     activationEvents: [onStartupFinished]
     contributes:
-      # One lamp per filter of filters.yml: each entry naming the repeat is written once per lamp. The open lamp is no switch: it stands
-      # before them, always lit, and its one command focuses the next editor.
       repeat:
         lamp:
           config: filters
@@ -173,6 +171,12 @@ extensions:
             type: object
             default: {}
             description: Each repository filter's paths and globs, in lamp order, rendered into the settings by Get-RepositoryFilter.
+          catzc.trackLamps.languages:
+            type: object
+            default: {}
+            description:
+              Each tagged language of the languages config, its tag and extensions, rendered into the settings by New-VsCodeSettings; the
+              languages button offers these as lamps.
           catzc.trackLamps.owned:
             type: array
             items: { type: string }

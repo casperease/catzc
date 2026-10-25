@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Invoke-TestFile (real worker)' -Tag 'L2', 'integrity', 'greedy' {`, written with `#`.
+Above `Describe 'Invoke-TestFile (real worker)'`, written with `#`.
 
 ```text
 L2: drives a real child pwsh worker through the same generator + runner chain as the harness.

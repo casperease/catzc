@@ -17,7 +17,7 @@ repository is the L2 integrity test in Test-Formatting.Tests.ps1.
 
 ## comment:2
 
-Above `Describe 'combined types assembly is committed and current' -Tag 'integrity' {`, written with `#`.
+Above `Describe 'combined types assembly is committed and current'`, written with `#`.
 
 ```text
 Mixed tiers: the git-status drift guard and the dotnet-build stamp check drive CLIs (L2 — process startup
@@ -38,7 +38,7 @@ genuinely separate C# implementation of the same hash; see native-csharp-types).
 
 ## comment:4
 
-Above `It 'is exactly one committed assembly whose hash matches the current sources...`, written with `#`.
+Above `It 'is exactly one committed manifest whose hash matches the current sources...`, written with `#`.
 
 ```text
 Drift guard: the importer (which ran before this test file) rebuilds pwsh/.compiled/Catzc.Types.<hash>.dll

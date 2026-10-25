@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Get-DrsDoraCoverageViolations' -Tag 'L0', 'logic',...`, written with `#`.
+Above `Describe 'Get-DrsDoraCoverageViolations'`, written with `#`.
 
 ```text
 Get-DrsDoraCoverageViolations — every rule set outside the domains its config exempts has exactly one section linking its ADR in its domain's

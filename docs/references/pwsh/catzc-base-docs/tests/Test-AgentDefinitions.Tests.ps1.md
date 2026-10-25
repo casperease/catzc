@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Test-AgentDefinitions' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Test-AgentDefinitions'`, written with `#`.
 
 ```text
 Test-AgentDefinitions over a fixture .claude/ tree in $TestDrive and a fixture AgentsConfig (Get-Config,
@@ -16,7 +16,7 @@ integrity block at the end of this file.
 
 ## comment:2
 
-Above `Describe 'Test-AgentDefinitions — real agent definitions' -Tag 'L1',...`, written with `#`.
+Above `Describe 'Test-AgentDefinitions — real agent definitions'`, written with `#`.
 
 ```text
 The real tree: every agent file, the shipped agents.yml, the real rule ids and commands, and .claude/CLAUDE.md.

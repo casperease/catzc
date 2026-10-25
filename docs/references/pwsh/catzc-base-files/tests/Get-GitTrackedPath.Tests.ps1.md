@@ -14,7 +14,7 @@ Catzc.Base.Git/tests/types/GitIndex.Tests.ps1; here only the seam, the pathspec,
 
 ## comment:2
 
-Above `Describe 'Get-GitTrackedPath (real git)' -Tag 'L2', 'integrity', 'source-only' {`, written with `#`.
+Above `Describe 'Get-GitTrackedPath (real git)'`, written with `#`.
 
 ```text
 The reader against the real thing: on this repository's own index, the in-process answer is byte-for-byte

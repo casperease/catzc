@@ -57,9 +57,8 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
 - repo-filters -> plan-repo-filters.md: the filters landed (sets from the model, union of lit lamps, coverage asserted, docs and out lamps);
   two steps left: the user's look at the lamps in VS Code (the `pipelines` and `infrastructure` lamps landed)
 - file-limits -> plan-file-limits.md: one declared length and width per file class, the Catzc.Base.FileLimits toolkit and gate, the tool
-  width configs generated from it; every tracked file limited in length and width, markdown included; four steps
-- diagram-speed -> plan-diagram-speed.md: Build-Diagrams optimized first (one libyaml loader, cheaper shadows, one git read), then parallel
-  workers, then bounded in timeouts.yml; two steps
+  width configs generated from it; every tracked file limited in length and width, markdown included; three steps workers, then bounded in
+  timeouts.yml; one step
 - track-model -> plan-track-model.md: tracks as members with generated and committed facts, catch-up vendor tracks and `out` for the root,
   globsets derived from tracks, a DDR-VENDOR for the vendor umbrella, normal-form track names, filter lamps per aspect plus a language
   field, minimaps and lamps out of the ADRs; eighteen steps, the first waiting on the user's example names
@@ -75,7 +74,7 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
 - session-learnings -> plan-session-learnings.md: catzc-49's lines only (waits on catzc-49).
 - drs-system -> plan-drs-system.md: four steps left, the user's CLAUDE.md edit (task-user-runs-and-commits).
 - debt-tier-tripwire -> plan-debt-tier-tripwire.md: 165 L0/L1 tests launch git and fail only when a tier runs alone; seams mocked, the
-  tripwire armed per container; two steps
+  tripwire armed per container; one step
 - diagram-review -> plan-diagram-review.md: the diagrams reviewed with the user one named slide at a time (read, one question in context,
   one plan step from the written answer, a redraw after each); the user names the slides
 - debt-agent-traffic -> plan-debt-agent-traffic.md: fewer messages and tool calls between the orchestrator and its workers (a run lock,

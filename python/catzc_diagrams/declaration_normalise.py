@@ -5,6 +5,7 @@ one shape."""
 
 import languages_table
 import minimaps
+import query_rows
 from declaration_action_content import action_content
 from declaration_constants import (
     ABOUT_KEYS,
@@ -32,6 +33,19 @@ from declaration_vocabulary import EDGE_KINDS, GLYPH_KINDS, DeclarationError, ch
 from drawio_png import DEFAULTS
 
 
+def about_point(about_raw, where):
+    """The point of the tree a C3 or C4 slide's query answers for, and the slide's zoom; a point needs one of those two levels."""
+    about_raw = about_raw if isinstance(about_raw, dict) else {}
+    point, zoom = about_raw.get("point"), about_raw.get("zoom")
+    if point is None:
+        return None, zoom
+    if not isinstance(point, str) or not point.strip():
+        raise DeclarationError(f"{where}: about.point is the repository path a C3 or C4 slide's query answers for")
+    if zoom not in query_rows.QUERY_LEVELS:
+        raise DeclarationError(f"{where}: about.point belongs to a slide at {' or '.join(query_rows.QUERY_LEVELS)}; this one's zoom is {zoom}")
+    return point.strip().strip("/"), zoom
+
+
 def normalise(raw, where="the declaration"):
     """The declaration with every default filled, every vocabulary checked, and every list in its canonical shape."""
     if not isinstance(raw, dict) or "content" not in raw:
@@ -46,6 +60,11 @@ def normalise(raw, where="the declaration"):
     content, generated = expand_rows(content, where)
     content, lane_generated = expand_lanes(content, where)
     generated |= lane_generated
+    # A C3 or C4 slide's cells are its query's rows for its point, written out like rows: (DDR-VISUAL-ZOOMISANAXIS).
+    point, zoom = about_point(raw.get("about"), where)
+    if point is not None:
+        content, query_generated = query_rows.expand(content, point, zoom, where)
+        generated |= query_generated
     out: dict = {"title": str(content.get("title", "")).strip()}
     # Only a declaration written with rows, lanes or rules carries them, and the ids their expansion wrote.
     for key in SHORTHAND:
@@ -70,6 +89,7 @@ def normalise(raw, where="the declaration"):
     if zoom is not None and str(zoom) not in DEFAULTS["zooms"]:
         choices(f"{where}: about.zoom", str(zoom), tuple(DEFAULTS["zooms"]))
     out["zoom"] = None if zoom is None else str(zoom)
+    out["point"] = point
     kind =content.get("kind", KINDS[0])
     if kind not in KINDS:
         choices(f"{where}: kind", kind, KINDS)
@@ -332,6 +352,8 @@ def normalise(raw, where="the declaration"):
     out["adrs"] = about["adrs"]
     if out["zoom"] is not None:
         about["zoom"] = out["zoom"]
+    if out["point"] is not None:
+        about["point"] = out["point"]
     # An action diagram's proof: the accosted file that holds every effect's observation, named relative to the repository root. The
     # drawing cannot carry it, so get leaves it out and save keeps the source's; Test-Diagrams is where it is required and proven.
     proves = about_raw.get("proves")

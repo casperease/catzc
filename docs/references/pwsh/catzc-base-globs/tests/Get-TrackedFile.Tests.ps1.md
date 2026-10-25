@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Get-TrackedFile' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Get-TrackedFile'`, written with `#`.
 
 ```text
 The matching universe ([FDR-CD-GLOBS-TRACKEDFILESONLY](/docs/drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-trackedfilesonly)): tracked
@@ -14,7 +14,7 @@ files as `git ls-files` defines them, repo-relative — answered by Get-GitTrack
 
 ## comment:2
 
-Above `Describe 'Get-TrackedFile (real index)' -Tag 'L1', 'integrity', 'source-only' {`, written with `#`.
+Above `Describe 'Get-TrackedFile (real index)'`, written with `#`.
 
 ```text
 The real universe: this repository's own tracked files come back repo-relative with forward slashes,

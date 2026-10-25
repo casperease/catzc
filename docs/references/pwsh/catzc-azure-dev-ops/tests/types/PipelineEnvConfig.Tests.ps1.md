@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Catzc.Azure.DevOps.PipelineEnvConfig' -Tag 'L0' {`, written with `#`.
+Above `Describe 'Catzc.Azure.DevOps.PipelineEnvConfig'`, written with `#`.
 
 ```text
 The pipeline-env.yml type: constructing it maps and validates the parsed YAML, so a malformed whitelist never

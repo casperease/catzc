@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Native-trigger projection coverage' -Tag 'L2', 'integrity',...`, written with `#`.
+Above `Describe 'Native-trigger projection coverage'`, written with `#`.
 
 ```text
 Coverage of the native-trigger projection over THIS repo's real tree

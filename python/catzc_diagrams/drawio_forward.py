@@ -13,7 +13,9 @@ lines) must appear in some cell label, whitespace-folded and case-folded. Exit 0
 file, nothing to forward. Prints one line per artifact (`src`, `result`, `model`, `report`), one per finding (`error`),
 then `status`.
 
-bulk:  uv run --with pillow python drawio_forward.py [--theme <theme>] [--workers <n>] --all <root> [<root> ...]
+bulk:  uv run --with pillow python drawio_forward.py [--theme <theme>] [--workers <n>] [--rows <file>] --all <root> [<root> ...]
+
+--rows names the query rows file a C3 or C4 slide's cells are expanded from (query_rows.py); without it, no slide is expanded.
 
 Rebuilds every diagram under <root> in place (the pair `<article-folder>/.assets/<name>.drawio.png` and `<name>.drawio.yml`;
 the root itself when it names one): each declared diagram is put in the theme, its minimaps drawn from their computed data with
@@ -29,6 +31,7 @@ into that many disjoint slices, one worker process each, and prints every slice'
 
 import html
 import json
+import os
 import re
 import sys
 import xml.etree.ElementTree as ET
@@ -327,6 +330,12 @@ def main():
             del args[i : i + 2]
             if theme not in THEMES:
                 raise SystemExit(f"theme '{theme}' is not one of: {', '.join(THEMES)}")
+        if "--rows" in args:  # the query rows' address, named by Build-Diagrams; the spawned workers inherit it (DDR-VISUAL-ZOOMISANAXIS)
+            i = args.index("--rows")
+            import query_rows
+
+            os.environ[query_rows.ROWS_VARIABLE] = str(Path(args[i + 1]).resolve())
+            del args[i : i + 2]
         workers = 1
         if "--workers" in args:
             i = args.index("--workers")
@@ -360,18 +369,20 @@ def batch_bases(roots):
     try:
         found = [f for root in roots for f in diagrams(root) if declaration.declared(f)]
         return declaration.committed_batch(found) if found else {}
-    except Exception:
+    except (*FORWARD, declaration.DeclarationError):
         return None
 
 
 def bulk_roots(roots, theme, bases=None):
     """Rebuild each root in turn in this process, each ending with its JSON row; returns the worst exit code."""
     # Many roots share one process, so the imports and the loaded registries are paid once; each root ends with its own row.
+    import declaration
+
     worst = 0
     for root in roots:
         try:
             code = bulk(root, theme, bases)
-        except Exception as e:
+        except (*FORWARD, declaration.DeclarationError) as e:
             print(f"error E_RENDER {root}: {e}")
             code = 1
         print(json.dumps({"diagram": str(root).replace("\\", "/"), "exit": code}))

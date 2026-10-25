@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Install-Go' -Tag 'L1', 'logic' {`, written with `#`.
+Above `Describe 'Install-Go'`, written with `#`.
 
 ```text
 Hermetic logic (L1): the release feed (Get-GoRelease), the verified download, the version and tar runs

@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Get-Inspiration over the shipped inspiration.yml' -Tag 'L1',...`, written with `#`.
+Above `Describe 'Get-Inspiration over the shipped inspiration.yml'`, written with `#`.
 
 ```text
 The shipped inspiration.yml through the real Get-Config and the real repository root. It asserts consistency, never

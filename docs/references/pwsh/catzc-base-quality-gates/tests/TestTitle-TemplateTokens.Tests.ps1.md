@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Test titles use angle-bracket templates only on data-driven tests'...`, written with `#`.
+Above `Describe 'Test titles use angle-bracket templates only on data-driven tests'`, written with `#`.
 
 ```text
 Poka-yoke backstop: no <token>-shaped text in a non-data-driven test title, over the real tree through its quality

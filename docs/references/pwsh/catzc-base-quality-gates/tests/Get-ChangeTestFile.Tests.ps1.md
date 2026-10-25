@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Get-ChangeTestFile' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Get-ChangeTestFile'`, written with `#`.
 
 ```text
 Get-ChangeTestFile over a fixture tree in $TestDrive. Neutral fixture names

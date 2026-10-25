@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Test-ValueChainMap' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Test-ValueChainMap'`, written with `#`.
 
 ```text
 Test-ValueChainMap reads the value-chain map Get-ValueChainMap returns and reports axes that are not the registry's
@@ -20,7 +20,7 @@ sets DrsConfig declares, read from the type.
 
 ## comment:2
 
-Above `Describe 'Test-ValueChainMap on the repository' -Tag 'L1', 'integrity',...`, written with `#`.
+Above `Describe 'Test-ValueChainMap on the repository'`, written with `#`.
 
 ```text
 The registry's own value-chain map, through the quality gate. It reads only drs.yml and maps.yml, so its answer

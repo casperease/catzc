@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'New-TestRunFinalManifest' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'New-TestRunFinalManifest'`, written with `#`.
 
 ```text
 New-TestRunFinalManifest over fixture inputs: the terminal run.json record, with and without a context, a worker
@@ -14,7 +14,7 @@ run, and an opt-out tag.
 
 ## comment:2
 
-Above `Describe 'New-TestRunFinalManifest — a snapshot run, written and read back'...`, written with `#`.
+Above `Describe 'New-TestRunFinalManifest — a snapshot run, written and read back'`, written with `#`.
 
 ```text
 The run.json a reader sees for a run that collided with another

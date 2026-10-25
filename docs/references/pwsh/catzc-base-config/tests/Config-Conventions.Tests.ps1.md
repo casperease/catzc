@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Config conventions' -Tag 'L0', 'integrity' {`, written with `#`.
+Above `Describe 'Config conventions'`, written with `#`.
 
 ```text
 Poka-yoke backstop for the config registry (see ADR module-config-loading): every shipped config has a

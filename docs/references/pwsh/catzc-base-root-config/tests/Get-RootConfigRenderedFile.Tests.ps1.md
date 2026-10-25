@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Get-RootConfigRenderedFile' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Get-RootConfigRenderedFile'`, written with `#`.
 
 ```text
 Get-RootConfigRenderedFile over a mocked generator dispatch: a single-file generator's string and a multi-file

@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'SourceConventionsConfig' -Tag 'L0' {`, written with `#`.
+Above `Describe 'SourceConventionsConfig'`, written with `#`.
 
 ```text
 SourceConventionsConfig maps source-conventions.yml: an omitted check takes every default of its type

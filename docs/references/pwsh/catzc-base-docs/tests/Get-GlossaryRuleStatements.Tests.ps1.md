@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Get-GlossaryRuleStatements' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Get-GlossaryRuleStatements'`, written with `#`.
 
 ```text
 Get-GlossaryRuleStatements is private, so it is exercised through the module (InModuleScope, per
