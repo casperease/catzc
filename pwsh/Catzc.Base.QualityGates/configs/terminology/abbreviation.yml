@@ -1,0 +1,173 @@
+# ---
+# catzc:
+#   docs: "../../../../docs/references/pwsh/catzc-base-quality-gates/configs/terminology.yml.md"
+#   header: "generated"
+# ---
+
+categories:
+  abbreviation:
+    description: "A short form standing for a full word or phrase; carries expands_to with the full form."
+terms:
+  abbreviation:
+    - term: auth
+      meaning: "authentication / authorization"
+      expands_to: "authentication"
+    - term: cmdb
+      meaning: "CMDB — the configuration management database the product thesis contrasts with the repository"
+      expands_to: "configuration management database"
+    - term: drs
+      meaning: "DRS — the decision record system: the records under docs/drs and their registry, the Catzc.Base.Drs module"
+      expands_to: "decision record system"
+    - term: LOCAL
+      meaning:
+        "LOCAL — the automation value-chain concern's six-letter column code on the value-chain minimap (DDR-TRACK-VALUECHAINCONCERN)"
+      expands_to: "automation"
+    - term: release
+      meaning: "RELEASE — the release value-chain concern's six-letter column code on the value-chain minimap (DDR-TRACK-VALUECHAINCONCERN)"
+      expands_to: "release"
+    - term: dora
+      meaning:
+        "DevOps Research and Assessment (DORA) — the research program and its DevOps capability model, cited as a cross-cutting source"
+      expands_to: "DevOps Research and Assessment"
+    - term: dsgn
+      meaning: "DSGN — the design stack row of the value chain (DrsConfig.Stacks)"
+      expands_to: "design"
+    - term: devops
+      meaning: "development and operations (DevOps)"
+      expands_to: "development and operations"
+    - term: mttr
+      meaning:
+        "mean time to recovery (MTTR) — DORA's earlier name for the failed-deployment recovery time metric, cited in the DORA metrics
+        reference"
+      expands_to: "mean time to recovery"
+    - term: slsa
+      meaning: "Supply-chain Levels for Software Artifacts (SLSA) — the supply-chain integrity framework, cited for build provenance"
+      expands_to: "Supply-chain Levels for Software Artifacts"
+    - term: depm
+      meaning:
+        "module dependencies — dependencies BETWEEN modules, never on systems (those are deps); the [Catzc.Module.Depm] type-accelerator
+        alias for ModuleDependencyFormat, and the $depm local (only when the value is specifically module-to-module dependencies)"
+      expands_to: "module dependencies"
+    - term: depms
+      meaning: "plural of depm (module dependencies)"
+      expands_to: "module dependencies"
+    - term: cfg
+      meaning: "configuration"
+      expands_to: "configuration"
+    - term: cmd
+      meaning: "command"
+      expands_to: "command"
+    - term: ctx
+      meaning: "context"
+      expands_to: "context"
+    - term: dir
+      meaning: "directory"
+      expands_to: "directory"
+    - term: init
+      meaning: "initialize"
+      expands_to: "initialize"
+    - term: msg
+      meaning: "message"
+      expands_to: "message"
+    - term: obj
+      meaning: "object"
+      expands_to: "object"
+    - term: org
+      meaning: "organization (also the org name component in the Azure naming standard)"
+      expands_to: "organization"
+    - term: repo
+      meaning: "repository"
+      expands_to: "repository"
+    - term: config
+      meaning: "configuration (conventional, e.g. $config, configPath)"
+      expands_to: "configuration"
+    - term: configs
+      meaning: "configurations"
+      expands_to: "configurations"
+    - term: params
+      meaning: "parameters (conventional; also the PowerShell splat idiom)"
+      expands_to: "parameters"
+    - term: param
+      meaning: "parameter"
+      expands_to: "parameter"
+    - term: args
+      meaning: "arguments (conventional; also the $args automatic variable)"
+      expands_to: "arguments"
+    - term: env
+      meaning: "environment (conventional, e.g. $env, envName)"
+      expands_to: "environment"
+    - term: envs
+      meaning: "environments"
+      expands_to: "environments"
+    - term: src
+      meaning: "source"
+      expands_to: "source"
+    - term: dest
+      meaning: "destination"
+      expands_to: "destination"
+    - term: tmp
+      meaning: "temporary (conventional, e.g. $tmp, tmpFile)"
+      expands_to: "temporary"
+    - term: dirs
+      meaning: "directories"
+      expands_to: "directories"
+    - term: cwd
+      meaning: "current working directory"
+      expands_to: "current working directory"
+    - term: expr
+      meaning: "expression"
+      expands_to: "expression"
+    - term: attr
+      meaning: "attribute"
+      expands_to: "attribute"
+    - term: stmt
+      meaning: "statement"
+      expands_to: "statement"
+    - term: defs
+      meaning: "definitions"
+      expands_to: "definitions"
+    - term: exts
+      meaning: "extensions (file extensions)"
+      expands_to: "extensions"
+    - term: buf
+      meaning: "buffer"
+      expands_to: "buffer"
+    - term: idx
+      meaning: "index"
+      expands_to: "index"
+    - term: dicts
+      meaning: "dictionaries"
+      expands_to: "dictionaries"
+    - term: fn
+      meaning: "function"
+      expands_to: "function"
+    - term: fns
+      meaning: "functions"
+      expands_to: "functions"
+    - term: func
+      meaning: "function"
+      expands_to: "function"
+    - term: cand
+      meaning: "candidate (coined shorthand, e.g. $cand)"
+      expands_to: "candidate"
+    - term: conv
+      meaning: "conversion / convert (coined shorthand)"
+      expands_to: "conversion"
+    - term: dedup
+      meaning: "de-duplicate"
+      expands_to: "de-duplicate"
+    - term: funcs
+      meaning: "functions"
+      expands_to: "functions"
+    - term: mgmt
+      meaning: "management"
+      expands_to: "management"
+    - term: pkgs
+      meaning: "packages"
+      expands_to: "packages"
+    - term: subdirs
+      meaning: "subdirectories"
+      expands_to: "subdirectories"
+    - term: svcs
+      meaning: "services"
+      expands_to: "services"

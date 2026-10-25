@@ -1,0 +1,19 @@
+# ---
+# catzc:
+#   docs: "../../../../docs/references/pwsh/catzc-base-quality-gates/configs/terminology.yml.md"
+#   header: "generated"
+# ---
+
+categories:
+  adr:
+    description: "An ADR rule-citation code — the short code naming a docs/drs rule."
+terms:
+  adr:
+    - term: adr
+      meaning: "the ADR- rule-citation prefix; every rule code has the form ADR-<NAME> (see docs/drs/index.md)"
+    - term: azcli
+      meaning: "'az cli' as one token (Invoke-AzCli, the prefer-az-cli decision of ADR-AZ-CLI)"
+    - term: poka
+      meaning: "the 'poka' of poka-yoke (prose)"
+    - term: zoomisanaxis
+      meaning: "the name part of the planned rule DDR-VISUAL-ZOOMISANAXIS (plan-model-atlas), cited before it lands"

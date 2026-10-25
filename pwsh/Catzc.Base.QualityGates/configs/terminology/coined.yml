@@ -1,0 +1,73 @@
+# ---
+# catzc:
+#   docs: "../../../../docs/references/pwsh/catzc-base-quality-gates/configs/terminology.yml.md"
+#   header: "generated"
+# ---
+
+categories:
+  coined:
+    description: "A word this codebase coined — a neologism (adjective, verb, or noun) not found in ordinary usage."
+terms:
+  coined:
+    - term: catzcbaserepository
+      meaning:
+        "the module Catzc.Base.Repository rendered in Go's flat naming case, its Go test folder name (ADR-AUTO-IDIOM-TESTFOLDERBYIDIOM)"
+    - term: getcommandcontract
+      meaning: "the command get_command_contract rendered in the flat naming case, the example of that case (ADR-AUTO-IDIOM-CLOSEDCASES)"
+    - term: drsonly
+      meaning:
+        "coined noun 'drsonly' — the diagram kit's glyph kind for something a decision record states that no code runs
+        (python/catzc_diagrams)"
+    - term: rebaser
+      meaning: "coined noun 'rebaser' — rewrites relative links for a new base folder (MarkdownLinkRebaser)"
+    - term: arrayifies
+      meaning: "coined verb (arrayifies) — wraps a scalar in an array"
+    - term: assertability
+      meaning: "coined noun 'assertability'"
+    - term: basenames
+      meaning: "plural of 'basename' — the final segment of a path, the file name without its folders"
+    - term: assertable
+      meaning: "coined adjective 'assertable'"
+    - term: capturable
+      meaning: "coined adjective 'capturable'"
+    - term: filetype
+      meaning: "coined noun 'filetype' — the head key naming a file's extension, which tells the sorts of file inside one language apart"
+    - term: moduletype
+      meaning:
+        "coined noun 'moduletype' — the head key naming the module type of the module a file is placed in (the module-types registry)"
+    - term: modtype
+      meaning: "segment of the ADR code DDR-MODTYPE — 'module type'"
+    - term: tracktype
+      meaning: "coined noun 'tracktype' — the head key naming the track type of the track a file lives in (the track-types registry)"
+    - term: foldered
+      meaning: "coined adjective 'foldered'"
+    - term: globset
+      meaning: "coined noun 'globset' — a named set of glob patterns defining a deployable unit (FDR-CD-GLOBS)"
+    - term: globsets
+      meaning: "plural of the coined noun 'globset'"
+    - term: greppable
+      meaning: "coined adjective 'greppable'"
+    - term: loggable
+      meaning: "coined adjective 'loggable' — a value safe to write to a log"
+    - term: miscased
+      meaning: "coined adjective 'miscased' — a tag/name written in the wrong letter case"
+    - term: mockable
+      meaning: "coined adjective 'mockable'"
+    - term: parseable
+      meaning: "coined adjective 'parseable'"
+    - term: pasteable
+      meaning: "coined adjective 'pasteable'"
+    - term: previewable
+      meaning: "coined adjective 'previewable'"
+    - term: protectable
+      meaning: "coined adjective 'protectable' - a scan the protected-glob skip may pass over (ADR-REPO-PROTGLOB)"
+    - term: stringly
+      meaning: "'stringly-typed' (stringly)"
+    - term: subkind
+      meaning: "coined noun 'subkind' — the narrowing of a file kind, such as gate under function (the file-kinds registry)"
+    - term: subkinds
+      meaning: "plural of the coined noun 'subkind'"
+    - term: suppressable
+      meaning: "coined adjective 'suppressable'"
+    - term: unparseable
+      meaning: "coined adjective 'unparseable'"

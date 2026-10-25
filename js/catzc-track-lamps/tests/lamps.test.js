@@ -2,7 +2,7 @@
 const test = require("node:test");
 const assert = require("node:assert");
 
-const { engine, set, filters, known } = require("./fixture.js");
+const { engine, set, filters } = require("./fixture.js");
 
 test("walks the red journey through the failed files in path order, round to the first, starting at the first when none is open", () => {
     const failed = ["mods/b.ps1", "mods/a.ps1", "docs/x.md"];
@@ -30,7 +30,7 @@ test("turns the open lamp red only while a red file is open, and back to the ope
     const other = "gadgets/a.ps1";
     // The red file's fault stays a fact after its tab closes (it is remembered), so only the open set decides the open lamp.
     const facts = { [red]: { fault: "failed" }, [other]: { change: "unstaged" } };
-    const condition = (open) => engine.evaluate(engine.lampSets(filters, "", known, open), new Set(["open"]), [], facts).conditions.open;
+    const condition = (open) => engine.evaluate(engine.lampSets(filters, open), new Set(["open"]), [], facts).conditions.open;
     assert.strictEqual(condition([red, other]), "failed", "a red file is open");
     assert.strictEqual(condition([other]), "unstaged", "the red file is closed, so the open lamp shows the open file's own colour");
     assert.strictEqual(condition([]), "empty", "with every document closed the open lamp claims nothing");
@@ -47,14 +47,11 @@ test("reads the open lamp's files from the editor's tabs: a text tab's file and 
     assert.deepStrictEqual(engine.openFiles(root, groups), ["gadgets/a.ps1", "mods/Widget/Get-Widget.ps1"]);
 });
 
-test("puts the open lamp first, the filters next and the languages lamp last, and makes an empty field an empty lamp", () => {
-    const sets = engine.lampSets(filters, "", known, ["mods/Widget/Get-Widget.ps1"]);
-    const names = Object.keys(sets);
-    assert.strictEqual(names[0], "open");
-    assert.strictEqual(names.at(-1), "languages");
-    const verdict = engine.evaluate(sets, new Set(["open"]), [], {});
-    assert.strictEqual(verdict.conditions.languages, "empty");
-    assert.strictEqual(verdict.conditions.open, "committed");
+test("puts the open lamp first and the filters next in their order, and makes no editor open an empty lamp", () => {
+    const sets = engine.lampSets(filters, ["mods/Widget/Get-Widget.ps1"]);
+    assert.deepStrictEqual(Object.keys(sets), ["open", ...Object.keys(filters)]);
+    assert.strictEqual(engine.evaluate(sets, new Set(["open"]), [], {}).conditions.open, "committed");
+    assert.strictEqual(engine.evaluate(engine.lampSets(filters, []), new Set(["open"]), [], {}).conditions.open, "empty");
 });
 
 test("counts every tab of every group as an open editor, so the open lamp moves focus only with two or more", () => {
@@ -64,5 +61,5 @@ test("counts every tab of every group as an open editor, so the open lamp moves 
 });
 
 test("keeps the open lamp's sets one include per open file", () => {
-    assert.deepStrictEqual(engine.lampSets(filters, "", known, ["a.md"]).open, [set(["a.md"])]);
+    assert.deepStrictEqual(engine.lampSets(filters, ["a.md"]).open, [set(["a.md"])]);
 });

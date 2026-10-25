@@ -45,3 +45,19 @@ Started 2026-10-25T19:43:41.2738963+01:00.
   reading each page and code site by hand.
 - 2026-10-25 Cats: Token tip: batch one module's Format-Code, Test-Comments and test files into one Invoke-CatzcCommand call, and re-run
   only a crashed test alone.
+- 2026-10-25 Cats: In hindsight I wish I knew this fact: a C# type edit that adds a call and its method must land in one Edit; another
+  session imports between two Edits and the whole repository fails to compile.
+- 2026-10-25 Cats: In hindsight I wish I knew this fact: the contracts system already declared a manifest-glob addressing mode
+  (ADR-REPO-CONTRACT-CONFIGUREDADDRESSING) before anything needed it; read the ADR before designing an extension.
+- 2026-10-25 Cats: In hindsight I wish I knew this fact: folder names that tooling reads are declared as track configuration (variants.yml
+  tracks, module-types.yml, languages.yml layout), and some code still spells them as literals.
+- 2026-10-25 Cats: In hindsight I wish I knew this fact: out/ is the output track; every default scope stays out of it through git-tracked
+  scopes, the folder-walk exclude and the markdown-scope exclude, and Test-PlaceRows was the one default pointing in.
+- 2026-10-25 Cats: In hindsight I wish I knew this fact: Pester treats \<name> in an It title as a template variable, and a hashtable key
+  with a hyphen needs quotes, or the test file fails before its tests run.
+- 2026-10-25 Cats: In hindsight I wish I knew this fact: Test-Comments anchors a comment section to its code line, cut at about 80
+  characters on a word boundary followed by ..., so editing an anchored line orphans its section.
+- 2026-10-25 Cats: Token tip: Next time, save tokens by: batching an icon tweak, its render and its install into one background script per
+  round instead of re-reading the gate output each time.
+- 2026-10-25 Cats: Token tip: Next time, save tokens by: settling a definition (conventional, semantic) with the user in one question before
+  rewriting a decision record, not across five rounds of edits.

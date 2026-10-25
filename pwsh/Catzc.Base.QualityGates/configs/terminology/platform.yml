@@ -1,0 +1,123 @@
+# ---
+# catzc:
+#   docs: "../../../../docs/references/pwsh/catzc-base-quality-gates/configs/terminology.yml.md"
+#   header: "generated"
+# ---
+
+categories:
+  platform:
+    description: "Operating-system, .NET, filesystem, registry, or low-level runtime and encoding vocabulary."
+terms:
+  platform:
+    - term: bugcheck
+      meaning: "a Windows kernel bug check (stop error), event 1001 in the System log"
+    - term: clr
+      meaning: "the Common Language Runtime (CLR)"
+    - term: memberwise
+      meaning: ".NET Object.MemberwiseClone, the shallow copy a C# type makes of itself"
+    - term: fafafa
+      meaning: "the hex colour FAFAFA, a light theme token's value in the diagram kit's drawio.yml (written without its hash)"
+    - term: eceff
+      meaning: "the hex colour ECEFF1 as cspell splits it, a light theme token's value in the diagram kit's drawio.yml"
+    - term: isinst
+      meaning: "the isinst CIL instruction, quoted in the unboxing reference"
+    - term: apos
+      meaning: "the &apos; HTML character reference SlidePattern decodes"
+    - term: watchpoint
+      meaning: "a watchpoint — a place where Watch-Blocking stands to show where a thread or process may be blocked"
+    - term: watchpoints
+      meaning: "the plural of watchpoint"
+    - term: consolas
+      meaning: "the Consolas monospace font (the VS Code markdown-preview font in vscode-settings.yml)"
+    - term: chdir
+      meaning: "the 'chdir' alias of Set-Location (listed by Measure-NeverDependOnPwd)"
+    - term: psmoduleinfo
+      meaning: "the PowerShell type accelerator for System.Management.Automation.PSModuleInfo, a loaded module's description"
+    - term: pwd
+      meaning: "the $PWD present-working-directory automatic variable (e.g. Measure-NeverDependOnPwd)"
+    - term: readlink
+      meaning: "POSIX readlink — resolves a symlink to its target (used in Remove-MacToolInstall)"
+    - term: stderr
+      meaning: "the standard error stream (stderr)"
+    - term: guid
+      meaning: "a globally unique identifier (GUID)"
+    - term: guids
+      meaning: "plural of GUID; the managed-GUID registry (Catzc.Base.QualityGates configs/guids.yml)"
+    - term: amsi
+      meaning: "Windows Antimalware Scan Interface (AMSI)"
+    - term: appdomain
+      meaning: ".NET AppDomain"
+    - term: bom
+      meaning: "byte order mark (BOM)"
+    - term: crlf
+      meaning: "carriage return + line feed (CRLF)"
+    - term: cultureinfo
+      meaning: ".NET CultureInfo"
+    - term: dfs
+      meaning: "Windows Distributed File System (DFS)"
+    - term: dpapi
+      meaning: "Windows Data Protection API (DPAPI) — encrypts SecureString at rest on Windows"
+    - term: getcwd
+      meaning: "POSIX getcwd()"
+    - term: hkcu
+      meaning: "registry hive HKEY_CURRENT_USER (HKCU)"
+    - term: hklm
+      meaning: "registry hive HKEY_LOCAL_MACHINE (HKLM)"
+    - term: isatty
+      meaning: "POSIX isatty()"
+    - term: libexec
+      meaning: "libexec directory"
+    - term: localappdata
+      meaning: "the %LOCALAPPDATA% path (localappdata)"
+    - term: windowsapps
+      meaning: 'the %LOCALAPPDATA%\Microsoft\WindowsApps directory — winget / App Installer command aliases'
+    - term: rstrtmgr
+      meaning: "rstrtmgr.dll — the Windows Restart Manager library (RmStartSession / RmGetList)"
+    - term: filetime
+      meaning: "Win32 FILETIME struct (100-ns ticks since 1601)"
+    - term: setext
+      meaning: "Setext heading — a markdown heading written as a text line underlined with === or ---"
+    - term: finalizer
+      meaning: "the importer's post-import phase (janitors) — the teardown counterpart of its session initializer"
+    - term: ntfs
+      meaning: "NTFS file system"
+    - term: osarchitecture
+      meaning: "CIM Win32_OperatingSystem 'OSArchitecture' property"
+    - term: pathext
+      meaning: "the %PATHEXT% variable (pathext)"
+    - term: settingchange
+      meaning: "the WM_SETTINGCHANGE 'settingchange' broadcast"
+    - term: sha
+      meaning: "SHA hash algorithm (sha)"
+    - term: shortnames
+      meaning: "8.3 short file names (shortnames)"
+    - term: symbolicname
+      meaning: "package 'symbolicName' field"
+    - term: unc
+      meaning: "UNC network path"
+    - term: utf
+      meaning: "UTF (Unicode Transformation Format)"
+    - term: wbin
+      meaning: "the Azure CLI 'wbin' scripts directory name"
+    - term: wdac
+      meaning: "Windows Defender Application Control (WDAC)"
+    - term: worktree
+      meaning: "git worktree"
+    - term: worktrees
+      meaning: "git worktrees (also the .git/worktrees/ folder)"
+    - term: readmes
+      meaning: "README.md files (plural of README)"
+    - term: gitdir
+      meaning: "the 'gitdir:' pointer a linked worktree's .git file holds"
+    - term: dirc
+      meaning: "the 'DIRC' signature that opens a git index file"
+    - term: commondir
+      meaning: "the 'commondir' file a linked worktree's git directory holds, naming the shared git directory"
+    - term: reftable
+      meaning: "git's reftable ref storage format (extensions.refStorage=reftable)"
+    - term: varint
+      meaning: "git's variable-length integer encoding (varint.c)"
+    - term: wsl
+      meaning: "Windows Subsystem for Linux (WSL)"
+    - term: mingw
+      meaning: "the MinGW toolchain — the mingw64 directory inside a Git for Windows install"

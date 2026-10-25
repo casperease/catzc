@@ -1,0 +1,103 @@
+# ---
+# catzc:
+#   docs: "../../../../docs/references/pwsh/catzc-base-quality-gates/configs/terminology.yml.md"
+#   header: "generated"
+# ---
+
+categories:
+  powershell:
+    description: "PowerShell language and runtime vocabulary — cmdlet/parameter names, automatic variables, and concepts."
+terms:
+  powershell:
+    - term: csplit
+      meaning: "the PowerShell parser's TokenKind member for the -csplit operator, named in NoUnsafeFirstIndex"
+    - term: cmdlet
+      meaning: "PowerShell cmdlet"
+    - term: cmdlets
+      meaning: "PowerShell cmdlets"
+    - term: cnotin
+      meaning: "PowerShell case-sensitive -cnotin containment operator"
+    - term: confirmpreference
+      meaning: "PowerShell $ConfirmPreference variable"
+    - term: erroraction
+      meaning: "PowerShell -ErrorAction common parameter"
+    - term: erroractionpreference
+      meaning: "PowerShell $ErrorActionPreference variable"
+    - term: functionstoexport
+      meaning: "module manifest FunctionsToExport key"
+    - term: hashtable
+      meaning: "PowerShell hashtable"
+    - term: hashtables
+      meaning: "PowerShell hashtables"
+    - term: informationaction
+      meaning: "PowerShell -InformationAction common parameter"
+    - term: lastexitcode
+      meaning: "PowerShell automatic variable $LASTEXITCODE"
+    - term: nestedmodules
+      meaning: "module manifest NestedModules key"
+    - term: nonewscope
+      meaning: "PowerShell -NoNewScope switch"
+    - term: noexit
+      meaning: "PowerShell -NoExit switch"
+    - term: noninteractive
+      meaning: "PowerShell -NonInteractive switch"
+    - term: encodedcommand
+      meaning: "PowerShell -EncodedCommand switch"
+    - term: noprofile
+      meaning: "PowerShell -NoProfile switch"
+    - term: passthru
+      meaning: "PowerShell -PassThru common switch"
+    - term: pscmdlet
+      meaning: "PowerShell $PSCmdlet automatic variable"
+    - term: pscore
+      meaning: "PowerShell Core (pscore)"
+    - term: pscustomobject
+      meaning: "PowerShell [pscustomobject]"
+    - term: psd1
+      meaning: "PowerShell data/manifest file extension (.psd1)"
+    - term: psgallery
+      meaning: "the PowerShell Gallery (PSGallery) module registry"
+    - term: pshome
+      meaning: "the $PSHOME location"
+    - term: psitem
+      meaning: "PowerShell $PSItem automatic variable"
+    - term: psm1
+      meaning: "PowerShell script module file extension (.psm1)"
+    - term: psmodulepath
+      meaning: "the PSModulePath environment variable"
+    - term: psobject
+      meaning: "the PowerShell [psobject] type"
+    - term: psscriptroot
+      meaning: "PowerShell $PSScriptRoot automatic variable"
+    - term: pwsh
+      meaning: "PowerShell 7+ executable (pwsh); also the PWSH ADR domain code (composes ADR-PWSH-<NAME>)"
+    - term: runspace
+      meaning: "PowerShell runspace"
+    - term: runspaces
+      meaning: "PowerShell runspaces"
+    - term: scriptblock
+      meaning: "PowerShell script block ([scriptblock])"
+    - term: scriptblocks
+      meaning: "PowerShell script blocks"
+    - term: shouldprocess
+      meaning: "PowerShell ShouldProcess"
+    - term: spacebar
+      meaning: "PSReadLine Spacebar key chord (e.g. Ctrl+Spacebar)"
+    - term: splat
+      meaning: "PowerShell splatting (splat)"
+    - term: splatting
+      meaning: "PowerShell splatting"
+    - term: steppable
+      meaning: "a PowerShell steppable pipeline"
+    - term: subexpression
+      meaning: "PowerShell subexpression operator $( )"
+    - term: warningaction
+      meaning: "PowerShell -WarningAction common parameter"
+    - term: warningpreference
+      meaning: "PowerShell $WarningPreference variable"
+    - term: whatifpreference
+      meaning: "PowerShell $WhatIfPreference variable"
+    - term: byid
+      meaning: "the ById parameter-set name in a command contract's normal (lower) form"
+    - term: comman
+      meaning: "a prefix of pwsh's -Command switch, which pwsh accepts abbreviated (-c … -command; GitFlowConfig's CommandSwitch)"

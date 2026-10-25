@@ -1,0 +1,45 @@
+# ---
+# catzc:
+#   docs: "../../../../docs/references/pwsh/catzc-base-quality-gates/configs/terminology.yml.md"
+#   header: "generated"
+# ---
+
+categories:
+  person:
+    description: "A cited author or thinker referenced in the docs."
+terms:
+  person:
+    - term: bown
+      meaning: "Richard Bown (surname of a cited author)"
+    - term: deming
+      meaning: "W. Edwards Deming (cited author)"
+    - term: hammant
+      meaning: "Paul Hammant (surname of a cited author; trunkbaseddevelopment.com)"
+    - term: hohpe
+      meaning: "Gregor Hohpe (surname of a cited author)"
+    - term: liskov
+      meaning: "Liskov substitution principle (cited)"
+    - term: ohno
+      meaning: "Taiichi Ohno (surname; cited)"
+    - term: pais
+      meaning: "Manuel Pais (surname of a cited author)"
+    - term: poppendieck
+      meaning: "Mary & Tom Poppendieck (cited authors)"
+    - term: poppendiecks
+      meaning: "Mary & Tom Poppendieck (plural of the cited authors' surname)"
+    - term: reinertsen
+      meaning: "Donald Reinertsen (cited author)"
+    - term: skelton
+      meaning: "Matthew Skelton (surname of a cited author)"
+    - term: taiichi
+      meaning: "Taiichi Ohno (given name; cited)"
+    - term: maslach
+      meaning: "Christina Maslach (surname of a cited author; burnout research)"
+    - term: goodhart
+      meaning: "Charles Goodhart (surname; Goodhart's law, cited in the DORA metrics reference)"
+    - term: shoup
+      meaning: "Randy Shoup (surname of a cited author)"
+    - term: goldratt
+      meaning: "Eliyahu M. Goldratt (cited author; Theory of Constraints, The Goal)"
+    - term: eliyahu
+      meaning: "Eliyahu M. Goldratt (given name of the cited author)"

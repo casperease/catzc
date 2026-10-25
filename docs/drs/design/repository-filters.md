@@ -25,9 +25,8 @@ and resolves nothing of its own.
 A **lamp** is a filter a reader switches on (lit), off, or to **veto**, one click stepping it round off, on, veto. The view is the **total
 union** of the lit lamps minus the zones of the vetoed lamps: a file is shown while at least one lit lamp claims it, so putting a lamp out
 hides only the files no other lit lamp claims, while a vetoed lamp hides every file it claims even when a lit lamp claims it too. Every lamp
-takes part the same way, the languages lamp (whose sets are the extensions of the languages a reader types) and the open lamp (whose sets
-are the files open in an editor, so lit it keeps them in the tree whatever else is out) included; only a veto hides over another lamp, and
-every lamp lit shows everything.
+takes part the same way, the open lamp included: its sets are the files open in an editor, and it is always lit, so it keeps them in the
+tree whatever else is out; only a veto hides over another lamp, and every lamp lit shows everything.
 
 - [Decision](#decision)
 - [Consequences](#consequences)

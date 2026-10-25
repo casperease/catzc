@@ -1,0 +1,97 @@
+# ---
+# catzc:
+#   docs: "../../../../docs/references/pwsh/catzc-base-quality-gates/configs/terminology.yml.md"
+#   header: "generated"
+# ---
+
+categories:
+  azure:
+    description: "Azure and cloud infrastructure: regions, resource types, network topology, and environment or subscription tokens."
+terms:
+  azure:
+    - term: cidr
+      meaning: "CIDR notation for an IP range (e.g. 10.0.0.0/16)"
+    - term: budg
+      meaning: "Azure budget resource-type token (budg) in the naming registry"
+    - term: privatelink
+      meaning: "Azure Private Link DNS name prefix (privatelink.<service>.<suffix>)"
+    - term: vaultcore
+      meaning: "privatelink.vaultcore.azure.net — the private DNS zone of Azure Key Vault"
+    - term: costcenter
+      meaning: "CAF's example tag key for cost allocation, run together (our key is cost-center)"
+    - term: showback
+      meaning: "reporting cloud cost to the team that caused it without charging it (CAF/WAF cost guidance)"
+    - term: multitenant
+      meaning: "Microsoft's spelling in CAF page titles for an estate spanning several Entra tenants"
+    - term: multifactor
+      meaning: "multifactor authentication — Microsoft Entra's sign-in with a second factor"
+    - term: gdap
+      meaning: "GDAP — granular delegated admin privileges, the CSP partner's access to a customer tenant"
+    - term: intune
+      meaning: "Microsoft Intune — device management; named in CAF identity guidance"
+    - term: hyperscale
+      meaning: "Azure SQL Database Hyperscale service tier"
+    - term: peerings
+      meaning: "Azure virtual network peerings (Microsoft.Network/virtualNetworks/virtualNetworkPeerings)"
+    - term: rg
+      meaning: "resource group (the Azure resource-type abbreviation, e.g. $rg)"
+    - term: ipg
+      meaning: "IP Group (Azure Firewall IP Groups)"
+    - term: burstable
+      meaning: "Azure 'burstable' VM SKU family"
+    - term: entra
+      meaning: "Microsoft Entra ID (identity service)"
+    - term: eus
+      meaning: "Azure region short code East US (eus)"
+    - term: hubspoke
+      meaning: "hub-and-spoke network topology"
+    - term: ipgs
+      meaning: "Azure Firewall IP Groups (IPGs)"
+    - term: jumpbox
+      meaning: "jumpbox (bastion host)"
+    - term: loadbalancers
+      meaning: "Azure 'loadBalancers' resource type"
+    - term: neu
+      meaning: "Azure region short code North Europe (neu)"
+    - term: nonprod
+      meaning: "non-production (nonprod) environment"
+    - term: northeurope
+      meaning: "Azure region 'northeurope'"
+    - term: onprem
+      meaning: "on-premises (onprem)"
+    - term: passwordless
+      meaning: "passwordless authentication"
+    - term: preprod
+      meaning: "pre-production (preprod) environment"
+    - term: protoport
+      meaning: "firewall column render mode 'protoport' (protocol + port)"
+    - term: scus
+      meaning: "Azure region short code South Central US (scus)"
+    - term: snet
+      meaning: "Azure subnet resource-name abbreviation (Cloud Adoption Framework 'snet')"
+    - term: spoke
+      meaning: "the 'spoke' side of a hub-and-spoke network"
+    - term: sqldb
+      meaning: "Azure SQL Database resource type (sqldb)"
+    - term: subdeploy
+      meaning: "subscription-scoped deployment ('subdeploy')"
+    - term: subenv
+      meaning: "sub-environment ('subenv') in the Azure data model"
+    - term: nsub
+      meaning: "the nonprod subscription token 'nsub' (azure.yml subscription model)"
+    - term: subnet
+      meaning: "subnet"
+    - term: subnets
+      meaning: "subnets"
+    - term: psub
+      meaning: "the prod subscription token 'psub' (azure.yml subscription model)"
+    - term: synw
+      meaning: "Azure Synapse workspace resource-type token (synw)"
+    - term: vnet
+      meaning: "Azure virtual network (VNet)"
+    - term: waf
+      meaning: "web-application firewall / Well-Architected Framework (WAF)"
+    - term: westeurope
+      meaning: "Azure region 'westeurope'"
+    - term: weu
+      meaning: "Azure region short code West Europe (weu)"

@@ -1,0 +1,23 @@
+# ---
+# catzc:
+#   docs: "../../../../docs/references/pwsh/catzc-base-quality-gates/configs/terminology.yml.md"
+#   header: "generated"
+# ---
+
+categories:
+  azure-live:
+    description:
+      "A LIVE Azure identity — a real customer, subscription, org, or shipped-template name that the demo config maps to (the live zone,
+      ADR-REPO-LANG). Guarded by integrity tests; forbidden in a logic test."
+    scope:
+      - "pwsh/Catzc.Azure*/configs/**"
+      - "infrastructure/**"
+      - "docs/**"
+terms:
+  azure-live:
+    - term: apex
+      meaning:
+        "live customer key 'apex' (Apex Industries) — a real customer in customer.yml / azure.yml (apex_nonprod) with its cd-apex deployable
+        unit"
+    - term: nova
+      meaning: "live customer key 'nova' (Nova Systems) in customer.yml / azure.yml (nova_nonprod)"

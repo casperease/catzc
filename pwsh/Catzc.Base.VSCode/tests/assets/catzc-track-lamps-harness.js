@@ -29,7 +29,7 @@ function stub(seed) {
         workspace: {
             workspaceFolders: [{ uri: { fsPath: root } }],
             getConfiguration: (section) => ({
-                get: (k) => (section === "catzc.trackLamps" ? { filters: seed.filters, languages: {}, trace: false }[k] : undefined),
+                get: (k) => (section === "catzc.trackLamps" ? { filters: seed.filters, trace: false }[k] : undefined),
                 inspect: (k) => ({ workspaceValue: section === "catzc.trackLamps" && k === "owned" ? owned : exclude }),
                 update: async (k, next) => {
                     if (section === "catzc.trackLamps" && k === "owned") {
@@ -127,14 +127,13 @@ const scenarios = {
         );
         const declared = settings["catzc.trackLamps.filters"] ?? {};
         const shipped = Object.fromEntries(Object.entries(declared).filter(([name]) => m.SHIPPED_LAMPS.includes(name)));
-        const known = settings["catzc.trackLamps.languages"] ?? {};
-        const lamps = ["open", ...Object.keys(shipped), "languages"];
+        const lamps = ["open", ...Object.keys(shipped)];
         const disk = await m.walkDisk(root);
         const states = [];
         for (const off of [...lamps.map((lamp) => [lamp]), lamps]) {
             for (const veto of [false, true]) {
                 const out = new Set(off);
-                const wanted = await m.hiddenGlobs(root, out, "", shipped, known, [], veto ? out : new Set(), disk);
+                const wanted = await m.hiddenGlobs(root, out, shipped, [], veto ? out : new Set(), disk);
                 states.push({
                     state: `${veto ? "veto" : "off"} ${off.length === lamps.length ? "(every lamp)" : off[0]}`,
                     size: m.excludeSize(Object.fromEntries(wanted.map((glob) => [glob, true]))),

@@ -161,7 +161,7 @@ Describe 'catzc-track-lamps — the real repository' -Tag 'L1', 'integrity', 'so
         [System.IO.File]::WriteAllText($filterFile, (ConvertTo-Json -InputObject $resolved -Depth 8 -Compress))
         $driver = "const m = require('$script'); const f = JSON.parse(require('fs').readFileSync(process.argv[1], 'utf8'));" +
         ' (async () => { const r = {}; for (const lamp of Object.keys(f)) { const out = new Set([lamp]);' +
-        " const g = await m.hiddenGlobs('$root', out, '', f, {}); const t = await m.census('$root', out, '', f, {}, g);" +
+        " const g = await m.hiddenGlobs('$root', out, f); const t = await m.census('$root', out, f, g);" +
         ' r[lamp] = { wrong: t.wrong.length, unclaimed: t.unclaimed.length, first: t.wrong.concat(t.unclaimed).slice(0, 3) }; }' +
         ' process.stdout.write(JSON.stringify(r)); })();'
         $result = & node -e $driver $filterFile | ConvertFrom-Json -AsHashtable
@@ -188,7 +188,7 @@ Describe 'catzc-track-lamps — the real repository' -Tag 'L1', 'integrity', 'so
         $pattern = '^catzc\.lamps\.([a-z_]+)\.(putOut|veto|light)(\.(staged|unstaged|failed|empty))?$'
         $commands.Where({ $_['command'] -notmatch $pattern }).ForEach({ $_['command'] }) | Should -BeNullOrEmpty
         $lamps = @($commands.ForEach({ $_['command'] -replace $pattern, '$1' }) | Select-Object -Unique)
-        $lamps | Should -Be (@($script:declared) + 'languages') -Because 'the filters lead in order and languages closes; the open lamp switches nothing'
+        $lamps | Should -Be @($script:declared) -Because 'the filters are the lamps, in order; the open lamp switches nothing'
         # Only the base glyphs are authored: every condition variant is rendered into the extension folder's media/.
         $rendered = InModuleScope Catzc.Base.VSCode -Parameters @{ Entry = $entry; Out = (Join-Path $TestDrive 'lamps') } {
             param($Entry, $Out)

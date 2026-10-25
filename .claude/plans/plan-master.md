@@ -45,11 +45,13 @@ plans stay the durable record; task files and this master are derived from them 
 Open, in execution order. A chunk without a task file is executed from its plan's open steps directly. The questions raised after the round
 of 2026-10-21 are decided (the second round of that day) and folded into their plans.
 
+- folder-name-settings -> plan-folder-name-settings.md: the literals 'private', 'tests', '.vendor', '.internal' read their settings
 - output-by-address -> plan-output-by-address.md: no default reaches out/ (Test-PlaceRows' default, folder addresses in out/, a lock test)
 - contracts-layout -> plan-contracts-layout.md: move the tree and the Contracts mechanism to one root per promiser, current at 0.1.0, flat,
   addressed by applies_to (the ADR landed 2026-10-25)
 - javascript-track -> plan-javascript-track.md: the js track and language, the extensions moved out of pwsh, node:test and tsc gates, the
   vscode manifest contract after contracts-layout
+- language-lamps -> plan-language-lamps.md: the languages button and its pick list, a lamp per ticked language from the languages config
 - vscode-extensions -> plan-vscode-extensions.md: trim the recommendations, then the cats file icon theme, then fold editorconfig,
   regex-robin and the ANSI pair into cats extensions or generated settings
 - repo-filters -> plan-repo-filters.md: the filters landed (sets from the model, union of lit lamps, coverage asserted, docs and out lamps);

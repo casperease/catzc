@@ -45,11 +45,21 @@ pwsh-to-extension boundary checked instead of implied.
   and `github`, holds the trimmed extension-manifest schema VS Code expects, and the pwsh build checks every rendered `package.json` against
   it before packing, in process and fast. It follows the layout of `plan-contracts-layout.md` and lands after that plan's move.
 
+## Open question
+
+- Proposed (not applied): a how-to `docs/how-to/getting-started/automation/add-a-language-track.md` listing the touch points a new
+  language track needs (variants.yml track, module-types.yml type, track-types.yml admits, the languages.yml row, `<language>.yml` with
+  its config type and configs.yml entry, the runner with its result type and junit parser, the case discovery, the bridge branch), so the
+  next language track is a checklist instead of a search. Answer: yes or no.
+
 ## Open steps
 
 - [ ] The stub-editor scenarios (`pwsh/Catzc.Base.VSCode/tests/assets/catzc-track-lamps-harness.js`) to node:test in
       `js/catzc-track-lamps/tests/`, and the shared lamp vectors read there too once they are JSON; the Pester copies deleted. Check:
       `Invoke-JavaScriptTest catzc-track-lamps`, case count kept, and `catzc-track-lamps.Tests.ps1` holds only the real-repository cases.
+- [ ] Node tests for `catzc-compiled-info`, `catzc-git-changes` and `catzc-save-ledger` (their pure parts exported, as the lamps' are), and
+      their rows out of `tests_optional` in `globs.yml`. Check: `Invoke-JavaScriptTest` per module, then
+      `Get-ModuleGlobSet.Repository.Tests.ps1`.
 - [ ] Test files for the new pieces: `JavaScriptConfig`, `JavaScriptTestResult`, `ConvertFrom-NodeTestJunit`, `Invoke-JavaScriptTest`,
       `Get-JavaScriptTestCases`, and their reference pages. Check: each Pester file, then `Test-Links` on the pages.
 - [ ] Phase 4, types: `typescript` in `tools.yml` (npm, like prettier), the generated `jsconfig.json`, `Test-JavaScriptTypes`. Check: the

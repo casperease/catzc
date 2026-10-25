@@ -1,0 +1,18 @@
+# ---
+# catzc:
+#   docs: "../../../../docs/references/pwsh/catzc-base-quality-gates/configs/terminology.yml.md"
+#   header: "generated"
+# ---
+
+categories:
+  adr-example:
+    description:
+      "A DESIGN-zone example token — a discovery-theme name (discovery/expedition/survey, Contoso) or documentation placeholder used only in
+      ADRs and reference docs (ADR-REPO-EXAMPLE, ADR-REPO-LANG)."
+    scope:
+      - "docs/**"
+terms:
+  adr-example:
+    - term: contoso
+      meaning:
+        "Microsoft's canonical fictional company name (Contoso) — a design-zone example in ADRs and reference docs (ADR-REPO-EXAMPLE)"

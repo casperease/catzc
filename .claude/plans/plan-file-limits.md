@@ -26,15 +26,17 @@ Long files are where agents lose context and reviews lose focus; widths drift si
   and **config** (`yml`, `yaml`, `json`, `psd1`, `xml`). Prose (`md`) keeps width only, no length.
 - Three layers per limit (the user, 2026-10-25): a **global default** per class, a **per-language override** that may push it, and
   **bounds** (`min`/`max`) no override may leave. Resolution: language value if set, else the class default; one lookup, no merging.
-- Global defaults: code length 500, config length 300 (≈ p99 of today); code width 120, config width 140, prose width 140.
-- Bounds: length `min 100` / `max 1500`; width `min 80` / `max 200`. A default or override outside its bounds fails the config load
-  (`FileLimitsConfig` asserts on construction, fail fast), so a wrong number never reaches a gate.
+- Global defaults: code length 400, config length 300 (under the cap, so a language has room to push); code width 120, config width 140,
+  prose width 140.
+- Bounds: length `min 100` / `max 500` (the user, 2026-10-25: the outer cap is 500 lines, no language goes past it); width `min 80` /
+  `max 200`. A default or override outside its bounds fails the config load (`FileLimitsConfig` asserts on construction, fail fast), so a
+  wrong number never reaches a gate.
 - Shape, one small block:
 
   ```yaml
-  bounds: { length: { min: 100, max: 1500 }, width: { min: 80, max: 200 } }
-  defaults: { code: { length: 500, width: 120 }, config: { length: 300, width: 140 }, prose: { width: 140 } }
-  languages: { python: { width: 140, length: 800 } }
+  bounds: { length: { min: 100, max: 500 }, width: { min: 80, max: 200 } }
+  defaults: { code: { length: 400, width: 120 }, config: { length: 300, width: 140 }, prose: { width: 140 } }
+  languages: { python: { width: 140, length: 500 } }
   ```
 
 - Fast: one streaming pass per file in the compiled `FileShape` type (line count and widest line together), limits resolved once per
@@ -54,6 +56,22 @@ Long files are where agents lose context and reviews lose focus; widths drift si
   config, so the "keep in sync" comments are deleted; `New-PythonProject` and `Get-LinkLineLimit` read `Get-FileLimit`.
 - `FunctionLength.psm1` reads its 300 from the same config (`max_function_body_length`).
 
+## Over the 500-line cap today (2026-10-25, tracked code and config, `out/over-500-lines.txt`)
+
+Out of scope by track (vendor or generated), no split: `pwsh/.compiled/Catzc.Types.*.json` (2020, generated),
+`pwsh/Catzc.Tooling.Toolchain/assets/scripts/dotnet-install.sh` (1887) and `.ps1` (1574) (third-party installers).
+
+To split, largest first: `python/catzc_diagrams/declaration.py` 3906, `python/catzc_diagrams/tests/test_declaration.py` 1591,
+`pwsh/Catzc.Base.QualityGates/configs/terminology.yml` 1376, `js/catzc-track-lamps/extension.js` 1211,
+`pwsh/Catzc.Base.Languages/types/LanguagesConfig.cs` 1041, `pwsh/.internal/Catzc.Internal.Types.psm1` 873,
+`pwsh/.internal/Catzc.Internal.Builder.psm1` 854, `pwsh/Catzc.Base.Docs/configs/glossary.yml` 728, `python/catzc_diagrams/drawio_png.py`
+727, `pwsh/.internal/Catzc.Internal.Bootstrap.psm1` 660, `pwsh/Catzc.Base.QualityGates/types/CommentEngine.cs` 631,
+`pwsh/Catzc.Base.Languages/tests/types/LanguagesConfig.Tests.ps1` 618, `pwsh/Catzc.Base.Maps/types/WorldMapPdf.cs` 549,
+`pwsh/.internal/tests/Import-CSharpTypes.Tests.ps1` 549, `pwsh/Catzc.Base.Timeouts/types/TimeoutsConfig.cs` 536,
+`pwsh/Catzc.Base.Drs/types/DrsCitationRewriter.cs` 534, `pwsh/Catzc.Base.Execution/tests/Invoke-Executable.Tests.ps1` 527,
+`pwsh/.internal/Catzc.Internal.Importer.psm1` 525, `python/catzc_diagrams/drawio_forward.py` 506,
+`pwsh/Catzc.Base.Maps/types/MapsConfig.cs` 506.
+
 ## Open steps
 
 1. [ ] ADR rule `ADR-AUTO-LIMIT-ONEDECLARATION` (new page `docs/drs/automation/file-limits.md`): limits per class, one source, generated
@@ -68,5 +86,5 @@ Long files are where agents lose context and reviews lose focus; widths drift si
 
 ## Open questions
 
-- Is 500/300 right, or start tighter (400/250) with a larger `exempt:` list to burn down? Are the bounds 100–1500 / 80–200 right?
+- Config files under the same 500 cap: `terminology.yml` and `glossary.yml` split by category into several files, or a config-only cap?
 - Should `md` get a length limit too (p99 459, max 2131)?

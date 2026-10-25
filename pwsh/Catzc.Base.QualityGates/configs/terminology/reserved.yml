@@ -1,0 +1,64 @@
+# ---
+# catzc:
+#   docs: "../../../../docs/references/pwsh/catzc-base-quality-gates/configs/terminology.yml.md"
+#   header: "generated"
+# ---
+
+categories:
+  reserved:
+    description:
+      "A reserved word that names one thing and nothing else, so it may appear only in the places that name that thing; Test-Terminology
+      fails it anywhere outside its scope (ADR-AUTO-ACCOSTED-RESERVEDNAME)."
+    scope:
+      - "docs/drs/automation/accosted-language.md"
+      - "docs/drs/automation/dora-explains.md"
+      - "docs/drs/index.md"
+      - "docs/drs/glossary.md"
+      - "docs/references/**/*accosted*"
+      - "docs/references/pwsh/catzc-base-contracts.md"
+      - "pwsh/Catzc.Base.Drs/configs/drs.yml"
+      - "pwsh/Catzc.Base.Languages/configs/languages.yml"
+      - "docs/references/pwsh/catzc-base-languages/configs/languages.yml.md"
+      - "pwsh/Catzc.Base.Languages/configs/file-carriers.yml"
+      - "pwsh/Catzc.Base.Languages/tests/types/LanguagesConfig.Tests.ps1"
+      - "pwsh/Catzc.Base.Languages/configs/glossary.yml"
+      - "pwsh/Catzc.Base.QualityGates/configs/terminology.yml"
+      - "pwsh/Catzc.Base.Timeouts/configs/timeouts.yml"
+      - "pwsh/Catzc.Base.Contracts/configs/accosted.yml"
+      - "pwsh/Catzc.Base.Config/configs/configs.yml"
+      - "pwsh/Catzc.Base.Contracts/**/*Accosted*"
+      - "pwsh/Catzc.Base.Contracts/accosted/**"
+      - "pwsh/*/accosted/**"
+      - "contracts/catzc/0.0.0/catzc.base.contracts/*accosted*"
+      - "docs/references/contracts/catzc.md"
+      - "pwsh/.internal/assets/importer-commands.sh"
+      - "docs/drs/design/visual-design.md"
+      - "docs/drs/repository/slides-as-markdown.md"
+      - "docs/**/.assets/*.drawio.yml"
+      - "python/catzc_diagrams/**"
+      - "docs/explanation/flow/for-developer/rdr-dora-trunk-4.slide.md"
+      - "docs/explanation/flow/jokes-automation/sarah-and-the-accosted.slide.md"
+      - "docs/explanation/flow/setting-travels/one-command-form.slide.md"
+      - "docs/explanation/flow/things-that-are-not/not-a-clone-with-authority.slide.md"
+      - "docs/explanation/flow/vendor-for-sre-lead/adr-az-cli-15.slide.md"
+      - "docs/references/pwsh/catzc-base-contracts/**/*Accosted*"
+      - "docs/references/pwsh/catzc-base-contracts/private/Get-CommandContractMap.ps1.md"
+      - "docs/how-to/pwsh/manual-test-plan/configs.md"
+      - "docs/explanation/automation/reading-an-accosted-file-writes-nothing.md"
+      - "docs/explanation/automation/index.md"
+      - "docs/explanation/automation/building-the-english-dictionary-writes-one-stamped-word-list.md"
+      - "docs/explanation/repository/building-the-contract-reference-writes-one-page-per-unit.md"
+      - "docs/explanation/automation/one-command-lays-out-the-python-workspace.md"
+      - "docs/explanation/repository/index.md"
+      - "pwsh/Catzc.Base.Slides/Test-Diagrams.ps1"
+      - "pwsh/Catzc.Base.Slides/**/Get-DiagramProofFinding*"
+      - "docs/references/pwsh/catzc-base-slides/**/Get-DiagramProofFinding*"
+      - "pwsh/Catzc.Base.Slides/tests/Test-Diagrams.Tests.ps1"
+      - "docs/references/pwsh/catzc-base-slides/Test-Diagrams.ps1.md"
+      - ".claude/plans/**"
+      - ".claude/learnings/**"
+      - ".claude/hindsight/**"
+terms:
+  reserved:
+    - term: accosted
+      meaning: "the accosted language, a flat list of harmless contracted calls (ADR-AUTO-ACCOSTED); reserved for it and nothing else"

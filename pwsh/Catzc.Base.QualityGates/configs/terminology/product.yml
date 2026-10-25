@@ -1,0 +1,330 @@
+# ---
+# catzc:
+#   docs: "../../../../docs/references/pwsh/catzc-base-quality-gates/configs/terminology.yml.md"
+#   header: "generated"
+# ---
+
+categories:
+  product:
+    description: "A real product, tool, protocol, or general technical term this codebase uses that fits no more specific category below."
+terms:
+  product:
+    - term: algorithmical
+      meaning:
+        "algorithmical insight — an authored one-line comment giving higher-level insight into code in its context
+        (ADR-REPO-COMMENTS-CLUESNOTNARRATION)"
+    - term: testkit
+      meaning: "catzc-internal-testkit"
+    - term: goroot
+      meaning: "GOROOT — the Go toolchain's installation root"
+    - term: gopath
+      meaning: "GOPATH — the Go workspace root (module cache and installed binaries)"
+    - term: gocache
+      meaning: "GOCACHE — the Go build cache directory"
+    - term: gotoolchain
+      meaning: "GOTOOLCHAIN — which Go toolchain go runs; local forbids switching to a downloaded one"
+    - term: gopls
+      meaning: "gopls — the Go language server editors use"
+    - term: pytest
+      meaning: "pytest — the Python test runner the Python test bridge runs (ADR-AUTO-PY)"
+    - term: uncopied
+      meaning: "not copied: an object returned as itself, not as a copy"
+    - term: junit
+      meaning: "JUnit XML — the test-report format pytest writes with --junitxml"
+    - term: linq
+      meaning: "LINQ (System.Linq) — .NET's language-integrated query library"
+    - term: nunit
+      meaning: "NUnit XML — the test-result format Pester writes, validated as the nunit-xml output format"
+    - term: junitxml
+      meaning: "--junitxml — pytest's option that writes a JUnit XML report"
+    - term: ruff
+      meaning: "ruff — the Python formatter and linter the Python tests are checked with"
+    - term: pyyaml
+      meaning: "PyYAML — the Python YAML library, a pinned test dependency in python.yml"
+    - term: jsonschema
+      meaning: "jsonschema — the Python JSON Schema validator the diagram kit checks minimap data with, pinned in python.yml"
+    - term: supersampling
+      meaning: "supersampling — rendering an image above its target size and scaling it down, so edges come out smooth"
+    - term: supersampled
+      meaning: "supersampled — rendered by supersampling, above the target size and scaled down"
+    - term: outputjson
+      meaning: "--outputjson — pyright's option that prints its diagnostics as one JSON report (Test-PythonTypes)"
+    - term: pyproject
+      meaning: "pyproject.toml — a Python project's declaration file"
+    - term: rootdir
+      meaning: "pytest's rootdir — the folder its test ids and report names are relative to"
+    - term: parametrised
+      meaning: "a pytest test run once per parameter set (pytest.mark.parametrize)"
+    - term: parametrize
+      meaning: "pytest.mark.parametrize — pytest's decorator that runs a test per parameter set"
+    - term: norc
+      meaning: "bash --norc — start bash without reading ~/.bashrc"
+    - term: shellcheck
+      meaning: "ShellCheck — the shell-script analyzer Test-ShellScripts runs (ADR-AUTO-BASH-SHELLSCRIPTSCHECKED)"
+    - term: koalaman
+      meaning: "koalaman.shellcheck — the winget package id of ShellCheck (its author's handle)"
+    - term: wekyb
+      meaning: "part of 8wekyb3d8bbwe, the winget source's publisher hash in a portable package's install folder"
+    - term: bbwe
+      meaning: "part of 8wekyb3d8bbwe, the winget source's publisher hash in a portable package's install folder"
+    - term: necho
+      meaning: "a newline escape followed by echo in a PowerShell string that writes a fixture shell script (`necho)"
+    - term: pipefail
+      meaning: "set -o pipefail — bash fails a pipeline when any command in it fails"
+    - term: setopt
+      meaning: "setopt — the zsh builtin that turns shell options on; zsh's strict mode is setopt ERR_EXIT NO_UNSET PIPE_FAIL"
+    - term: msys
+      meaning: "MSYS2 — the Windows POSIX runtime Git Bash is built on; zsh installs as its package into Git Bash's tree"
+    - term: zstd
+      meaning: "the .zst compression of an MSYS2 package, which Windows' tar reads (Install-Zsh)"
+    - term: pycache
+      meaning: "out/pycache — where Python writes compiled bytecode"
+    - term: pythonpycacheprefix
+      meaning: "PYTHONPYCACHEPREFIX — the variable that routes Python's bytecode cache to out/pycache"
+    - term: charliermarsh
+      meaning: "charliermarsh.ruff — the publisher and id of the Ruff VS Code extension"
+    - term: worldmap
+      meaning: "a world-map image the draw.io atlas helper (python/catzc_diagrams/atlas.py) draws on"
+    - term: adrs
+      meaning: "ADRs — plural of ADR; the drs.yml registry of ADR domain structure and citation codes"
+    - term: ast
+      meaning: "abstract syntax tree (AST) — the PowerShell parser's AST"
+    - term: trie
+      meaning: "trie (the prefix-tree data structure; cspell ships its dictionaries as tries)"
+    - term: mutex
+      meaning: "See. Semaphore"
+    - term: shortcode
+      meaning: "the 2-char customer/environment identifier in the Azure naming standard"
+    - term: shortcodes
+      meaning: "plural of shortcode"
+    - term: stackdump
+      meaning: bash.exe.stackdump
+    - term: squarified
+      meaning: "the squarified treemap layout: rows grown while their rectangles stay near square (SquarifiedTreemap)"
+    - term: esbenp
+      meaning: Prettier (esbenp.prettier-vscode)
+    - term: allman
+      meaning: "Allman brace style"
+    - term: alnum
+      meaning: "alphanumeric character class (alnum)"
+    - term: autoload
+      meaning: "autoload (automatic module loading)"
+    - term: autoloaded
+      meaning: "autoloaded"
+    - term: bareword
+      meaning: "bareword (an unquoted token)"
+    - term: buildvalidation
+      meaning: "reference-doc slug segment for the Catzc.Azure.DevOps.BuildValidation module"
+    - term: chokepoint
+      meaning: "a chokepoint"
+    - term: cli
+      meaning: "command-line interface (CLI)"
+    - term: provenance
+      meaning: "build provenance — verifiable evidence of how an artifact was produced (supply-chain integrity)"
+    - term: auditability
+      meaning: "auditability — the property of a system whose changes can be independently audited"
+    - term: attestation
+      meaning: "a signed attestation — a verifiable claim about how an artifact was built (SLSA)"
+    - term: reproducibility
+      meaning: "reproducibility — the property that a build yields bit-for-bit identical output from the same source"
+    - term: preapproved
+      meaning: "pre-approved — a change approved in advance under a standing policy (DORA streamlining-change-approval)"
+    - term: reprioritize
+      meaning: "reprioritize — reorder work by priority"
+    - term: reprioritized
+      meaning: "reprioritized — past tense of reprioritize"
+    - term: unautomated
+      meaning: "unautomated — a step not yet automated (still manual)"
+    - term: incentivizing
+      meaning: "incentivizing — creating incentives for a behaviour"
+    - term: centricity
+      meaning: "centricity — degree of user-centred focus (user-centricity)"
+    - term: aarrr
+      meaning: "AARRR pirate-metrics funnel — acquisition, activation, retention, referral, revenue"
+    - term: whitebox
+      meaning: "white-box monitoring — signals from a system's instrumented internals"
+    - term: blackbox
+      meaning: "black-box monitoring — a system observed only from the outside"
+    - term: likert
+      meaning: "Likert scale — an ordinal survey rating scale"
+    - term: trunkbaseddevelopment
+      meaning: "trunkbaseddevelopment.com — Paul Hammant's primary-source site on trunk-based development, cited by name"
+    - term: dotfiles
+      meaning: "dotfiles"
+    - term: dryrun
+      meaning: "the -DryRun switch (dryrun)"
+    - term: entrypoint
+      meaning: "entry-point script or function (entrypoint); a Copy-CatzcModule package name in files.yml"
+    - term: headerless
+      meaning: "headerless"
+    - term: idempotency
+      meaning: "idempotency"
+    - term: idempotent
+      meaning: "idempotent"
+    - term: idempotently
+      meaning: "idempotently"
+    - term: importer
+      meaning: "the repository's importer.ps1 loader"
+    - term: itsm
+      meaning: "IT service management (ITSM)"
+    - term: jidoka
+      meaning: "Lean 'jidoka' (automation with a human touch)"
+    - term: kaizen
+      meaning: "Lean 'kaizen' (continuous improvement)"
+    - term: andon
+      meaning: "Lean 'andon' (the stop-the-line signal cord)"
+    - term: genbutsu
+      meaning: "Lean 'genchi genbutsu' (go and see the real thing)"
+    - term: genchi
+      meaning: "Lean 'genchi genbutsu' (go and see the real thing)"
+    - term: kanban
+      meaning: "Lean 'kanban' (the pull signal / card)"
+    - term: muda
+      meaning: "Lean 'muda' (waste)"
+    - term: kebab
+      meaning: "kebab-case"
+    - term: keyhandler
+      meaning: "reference-doc slug segment for the Catzc.Tooling.KeyHandler module"
+    - term: modulesystem
+      meaning: "reference-doc slug segment for the Catzc.Base.ModuleSystem module"
+    - term: noassert
+      meaning: "the -NoAssert switch ('noassert') on Invoke-Executable"
+    - term: nullness
+      meaning: "nullness"
+    - term: optout
+      meaning: "opt-out (optout)"
+    - term: ordinally
+      meaning: "ordinally (by ordinal comparison)"
+    - term: parameterised
+      meaning: "parameterised (British spelling)"
+    - term: prepost
+      meaning: "the pre/post extension-module pattern ('prepost')"
+    - term: qualitygates
+      meaning: "reference-doc slug segment for the Catzc.Base.QualityGates module"
+    - term: configextensions
+      meaning: "reference-doc slug segment for the Catzc.Base.ConfigExtensions module"
+    - term: markdownmeta
+      meaning: "reference-doc slug segment for the Catzc.Base.MarkdownMeta module"
+    - term: reformatter
+      meaning: "a reformatter"
+    - term: regenerable
+      meaning: "regenerable (able to be regenerated from its source)"
+    - term: reflog
+      meaning: "the git reference log (git reflog) — the record of ref-tip movements pruned when rebuilding history"
+    - term: roundtrips
+      meaning: "round-trips (roundtrips)"
+    - term: systemwide
+      meaning: "system-wide ('systemwide'; controlling-systemwide-deps ADR)"
+    - term: typessystem
+      meaning: "reference-doc slug segment for the Catzc.Base.TypesSystem module"
+    - term: unioned
+      meaning: "unioned (combined as a set union)"
+    - term: upsert
+      meaning: "upsert (insert-or-update)"
+    - term: virtualenvs
+      meaning: "Python virtual environments (virtualenvs)"
+    - term: venv
+      meaning: "a Python virtual environment (python -m venv; uv venv)"
+    - term: venvs
+      meaning: "plural of venv"
+    - term: importlib
+      meaning: "Python importlib.metadata (stdlib) — reads an installed package's version without importing it"
+    - term: yoke
+      meaning: "the 'yoke' of poka-yoke"
+    - term: catzc
+      meaning:
+        'Catzc (this repository / module namespace) — the Cloud Automation Toolkit, Zero-Ceremony; the reserved source-code-level name;
+        "cats" is its conversational cover term'
+    - term: pathspec
+      meaning: "a git pathspec (the path-filter argument to git add/commit/grep/log)"
+    - term: pathspecs
+      meaning: "git pathspecs (the path-filter arguments passed to git grep/git log)"
+    - term: fileset
+      meaning: "the set of files a scan or globset covers (fileset)"
+    - term: filesets
+      meaning: "the sets of files scans or globsets cover (filesets); loose-filesets are the cross-cutting globset layer"
+    - term: workstream
+      meaning: "one labeled section of a plan's work breakdown (workstream, ADR-REPO-OUTDIR-PLANNOTES)"
+    - term: workstreams
+      meaning: "labeled sections of a plan's work breakdown (workstreams, ADR-REPO-OUTDIR-PLANNOTES)"
+    - term: quotepath
+      meaning: "the git core.quotepath setting (quotepath) - controls C-quoting of non-ASCII paths"
+    - term: rootconfig
+      meaning: "the rootconfig.yml registry and the Catzc.Base.RootConfig module (rootconfig)"
+    - term: stdlib
+      meaning: "a language's standard library (stdlib)"
+    - term: gpgsign
+      meaning: "git's commit.gpgsign config key (disabled in Test-GitHistoryClean test repos)"
+    - term: fxd
+      meaning: "the git clean -fxd flag set (force + remove ignored + directories; Reset-GitCleanFxd)"
+    - term: minimap
+      meaning: "a small overview map in an explanation diagram's sidebar that places the diagram (the axis minimap, the tree minimap)"
+    - term: minimaps
+      meaning: "plural of minimap (and the minimap_* scripts of python/catzc_diagrams)"
+    - term: treemap
+      meaning: "a map that tiles an area by size; the tree minimap tiles the repository's tracked files by folder"
+    - term: gitops
+      meaning:
+        "GitOps — delivery that reconciles a system to a version-controlled repository; a store's projection kind in truth-stores tests"
+    - term: deadzone
+      meaning: "the diagram kit's dead zone, the margin around a cell no edge or label may enter (drawio.yml, declaration.py)"
+    - term: keepout
+      meaning: "the diagram kit's keep-out area (KEEPOUT), the region a placement must avoid around the dead zone"
+    - term: callsite
+      meaning: "a call site, the place in code that calls a function (a diagram glyph and the anchors explanation)"
+    - term: vscdb
+      meaning: "VS Code's state database file extension (state.vscdb), read and written by Set-VsCodeHiddenAction"
+    - term: winsqlite
+      meaning: "winsqlite3.dll, the SQLite build Windows ships, P/Invoked by VscodeStateStore"
+    - term: errmsg
+      meaning: "SQLite's errmsg out-parameter and sqlite3_errmsg, the error text VscodeStateStore reports"
+    - term: dasharray
+      meaning: "SVG stroke-dasharray attribute, the dash pattern of a track-lamp icon"
+    - term: rrggbb
+      meaning: "the #rrggbb hex colour form a lamp palette range accepts"
+    - term: rrggbbaa
+      meaning: "the #rrggbbaa hex colour form with alpha a lamp palette range accepts"
+    - term: whatif
+      meaning: "PowerShell's -WhatIf common parameter, written lower-case in test names"
+    - term: enametoolong
+      meaning: "the ENAMETOOLONG error code a too-long file path raises (Node.js and POSIX)"
+    - term: mxgraph
+      meaning: "mxGraph, the diagram library draw.io styles are named after (mxgraph.* shape styles)"
+    - term: getmetrics
+      meaning: "Pillow's ImageFont.getmetrics(), a font's ascent and descent"
+    - term: textlength
+      meaning: "Pillow's ImageDraw.textlength(), the advance width of a string"
+    - term: segoeui
+      meaning: "segoeui.ttf, the Windows UI font file the slide renderer loads"
+    - term: segoeuib
+      meaning: "segoeuib.ttf, the bold Windows UI font file the slide renderer loads"
+    - term: arialbd
+      meaning: "arialbd.ttf, the bold Arial font file the slide renderer falls back to"
+    - term: dejavu
+      meaning: "DejaVu fonts, the slide renderer's fallback off Windows"
+    - term: tomoki
+      meaning: "VS Code extension publisher id (tomoki1207.pdf) in the extensions plan"
+    - term: pkief
+      meaning: "VS Code extension publisher id (PKief.material-icon-theme)"
+    - term: hnrobert
+      meaning: "VS Code extension publisher id (hnrobert) in the extensions plan"
+    - term: hilleer
+      meaning: "VS Code extension publisher id (hilleer) in the extensions plan"
+    - term: yzane
+      meaning: "VS Code extension publisher id (yzane.markdown-pdf)"
+    - term: mechatroner
+      meaning: "VS Code extension publisher id (mechatroner.rainbow-csv)"
+    - term: clysto
+      meaning: "VS Code extension publisher id (clysto) in the extensions plan"
+    - term: cucumberopen
+      meaning: "VS Code extension publisher id (CucumberOpen.cucumber-official)"
+    - term: getgauge
+      meaning: "VS Code extension publisher id (getgauge.gauge)"
+    - term: eridem
+      meaning: "VS Code extension publisher id (eridem) in the extensions plan"
+    - term: donjayamanne
+      meaning: "VS Code extension publisher id (donjayamanne.githistory)"
+    - term: githistory
+      meaning: "VS Code extension name (donjayamanne.githistory)"
+    - term: azurecli
+      meaning: "VS Code extension name (ms-vscode.azurecli)"

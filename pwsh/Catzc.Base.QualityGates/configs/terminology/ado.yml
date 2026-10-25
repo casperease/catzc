@@ -1,0 +1,89 @@
+# ---
+# catzc:
+#   docs: "../../../../docs/references/pwsh/catzc-base-quality-gates/configs/terminology.yml.md"
+#   header: "generated"
+# ---
+
+categories:
+  ado:
+    description: "Azure DevOps vocabulary: predefined pipeline variables, REST area names, and logging commands."
+terms:
+  ado:
+    - term: tf
+      meaning: "the TF_BUILD predefined pipeline variable (Team Foundation Build), e.g. $savedTfBuild"
+    - term: gh
+      meaning: "the GITHUB_ACTIONS predefined variable / GitHub, e.g. $origGhActions"
+    - term: accesstoken
+      meaning: "'accesstoken' as used in ADO/identity access-token field and variable forms"
+    - term: ado
+      meaning: "Azure DevOps (ADO)"
+    - term: artifactstagingdirectory
+      meaning: "ADO predefined variable Build.ArtifactStagingDirectory"
+    - term: binariesdirectory
+      meaning: "ADO predefined variable Build.BinariesDirectory"
+    - term: builddirectory
+      meaning: "ADO predefined Build.*Directory path segment"
+    - term: buildid
+      meaning: "ADO predefined variable Build.BuildId"
+    - term: buildnumber
+      meaning: "ADO predefined variable Build.BuildNumber"
+    - term: collectionuri
+      meaning: "ADO predefined variable System.CollectionUri"
+    - term: definitionname
+      meaning: "ADO predefined variable Build.DefinitionName"
+    - term: distributedtask
+      meaning: "ADO 'distributedtask' REST area name"
+    - term: environmentdeploymentrecords
+      meaning: "ADO 'environmentdeploymentrecords' REST resource name"
+    - term: issecret
+      meaning: "ADO logging-command property 'issecret'"
+    - term: jobdisplayname
+      meaning: "ADO predefined variable System/Agent JobDisplayName"
+    - term: lockbehavior
+      meaning: "ADO pipeline YAML 'lockBehavior' key"
+    - term: logissue
+      meaning: "ADO logging command 'logissue'"
+    - term: pipelinestarttime
+      meaning: "ADO predefined variable System.PipelineStartTime"
+    - term: pullrequests
+      meaning: "ADO 'pullrequests' REST area name"
+    - term: vssps
+      meaning: "the ADO Graph service host vssps.dev.azure.com (groups, memberships, users)"
+    - term: pullrequest
+      meaning: "ADO predefined-variable segment System.PullRequest.* (e.g. SYSTEM_PULLREQUEST_PULLREQUESTID)"
+    - term: pullrequestid
+      meaning: "ADO predefined variable System.PullRequest.PullRequestId"
+    - term: targetbranch
+      meaning: "ADO predefined variable System.PullRequest.TargetBranch"
+    - term: serviceendpoint
+      meaning: "ADO 'serviceendpoint' (service connection) REST area"
+    - term: setvariable
+      meaning: "ADO logging command 'setvariable'"
+    - term: sourcebranch
+      meaning: "ADO predefined variable Build.SourceBranch"
+    - term: sourcebranchname
+      meaning: "ADO predefined variable Build.SourceBranchName"
+    - term: sourcesdirectory
+      meaning: "ADO predefined variable Build.SourcesDirectory"
+    - term: sourceversion
+      meaning: "ADO predefined variable Build.SourceVersion"
+    - term: sourceversionauthor
+      meaning: "ADO predefined variable Build.SourceVersionAuthor"
+    - term: sourceversionmessage
+      meaning: "ADO predefined variable Build.SourceVersionMessage"
+    - term: subjectquery
+      meaning: "ADO Graph 'subjectquery' REST endpoint, which resolves a principal name to a user (Sync-AdoGraphGroupMembers)"
+    - term: teamproject
+      meaning: "ADO predefined variable System.TeamProject"
+    - term: tempdirectory
+      meaning: "ADO predefined variable Agent.TempDirectory"
+    - term: testresultsdirectory
+      meaning: "ADO predefined variable Common.TestResultsDirectory"
+    - term: toolsdirectory
+      meaning: "ADO predefined variable Agent.ToolsDirectory"
+    - term: vso
+      meaning: "'vso' (Visual Studio Online) ADO logging-command/task prefix"
+    - term: vssgp
+      meaning: "ADO Graph descriptor prefix of a group (vssgp.*), e.g. a project group's descriptor"
+    - term: vsts
+      meaning: "Visual Studio Team Services (VSTS), former name of Azure DevOps"

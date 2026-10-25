@@ -1,0 +1,147 @@
+# ---
+# catzc:
+#   docs: "../../../../docs/references/pwsh/catzc-base-quality-gates/configs/terminology.yml.md"
+#   header: "generated"
+# ---
+
+categories:
+  fixture:
+    description:
+      "A hermetic TEST token or documentation placeholder — a fixture identity or example value used in tests, doc examples, and
+      comment-based-help EXAMPLE blocks, but NEVER in shipped config DATA (a *.yml/*.json/*.bicep under configs/ or infrastructure/). The
+      test zone (ADR-REPO-LANG)."
+    scope:
+      - "**/tests/**"
+      - "docs/**"
+      - "**/*.ps1"
+      - "**/*.psm1"
+terms:
+  fixture:
+    - term: tmpl
+      meaning: "placeholder C# type name 'Tmpl' (template) in Get-CSharpTypeDependency tests, alongside Ctx/Use"
+    - term: appname
+      meaning: "placeholder scalar value 'appname' in Write-EnvironmentSet examples/tests"
+    - term: blockout
+      meaning: "placeholder script-block return value 'blockout' in Write-EnvironmentSet tests"
+    - term: capi
+      meaning: "sample ADO pipeline-variable name 'dev.capi' in Set-AdoPipelineVariable examples/tests"
+    - term: ghtest
+      meaning: "temp-repo directory prefix 'catzc-ghtest-' in Test-GitHistoryClean tests"
+    - term: thirdparty
+      meaning: "sample vendored file name 'thirdparty.txt' in Test-GitHistoryClean tests"
+    - term: discw
+      meaning: "resource-name shortcode used in Get-AzureResourceName test assets"
+    - term: errtext
+      meaning: "sample stderr text 'errtext' in Invoke-Executable tests"
+    - term: exped
+      meaning: "derived short_name of the 'expedition' example template (documentation-examples ADR)"
+    - term: fixtenant
+      meaning: "test fixture token 'fixtenant'"
+    - term: fixtype
+      meaning: "test fixture token 'fixtype'"
+    - term: widgeted
+      meaning: "fixture verb form of 'widget' in the qualified-forms check tests (G6)"
+    - term: widgeting
+      meaning: "fixture verb form of 'widget' in the qualified-forms check tests (G6)"
+    - term: gadgetwidget
+      meaning: "fixture compound word the qualified-forms check (G6) must not split"
+    - term: widgetry
+      meaning: "fixture longer word the qualified-forms check (G6) must not match"
+    - term: faketool
+      meaning: "placeholder tool name 'faketool' in Resolve-SessionToolHint tests"
+    - term: hintbin
+      meaning: "placeholder bin-directory name 'hintbin' in Resolve-SessionToolHint tests"
+    - term: emptybin
+      meaning: "placeholder empty bin-directory name 'emptybin' in Resolve-SessionToolHint tests"
+    - term: globex
+      meaning: "fictional customer name (Globex) in Azure test config"
+    - term: khuvslfy
+      meaning: "illustrative random Add-Type assembly name in the native-csharp-types ADR"
+    - term: myapp
+      meaning: "placeholder application name 'myapp' in examples"
+    - term: myconfig
+      meaning: "placeholder config name 'myconfig' in Get-ConfigValue / Write-EnvironmentSet examples and tests"
+    - term: mycor
+      meaning: "derived short_name of the 'my-core' folder-name example in BicepShortName tests"
+    - term: myproject
+      meaning: "placeholder project name 'myproject' in examples"
+    - term: myproperty
+      meaning: "placeholder config name 'myproperty' in config-value-addressing examples (global.myproperty.name)"
+    - term: mytem
+      meaning: "derived short_name of the 'my-template' example in the naming-standard ADR"
+    - term: myvalue
+      meaning: "invented placeholder token cited as a bad example in the spell-out-names ADR (ADR-PWSH-NAMES-THROWAWAYINTERMEDIATES)"
+    - term: myvar
+      meaning: "placeholder variable name 'myvar' in examples"
+    - term: objout
+      meaning: "test scratch folder name 'objout' (object output) in Firewall tests"
+    - term: plainliteral
+      meaning: "bare-string token 'plainliteral' rejected by Write-EnvironmentSet -Set (tests)"
+    - term: rline
+      meaning: "token from a carriage-return escape test string (line1`rline2) in ADO command tests"
+    - term: sekret
+      meaning: "deliberately-misspelled placeholder secret value 'sekret' in Write-EnvironmentSet tests"
+    - term: sidx
+      meaning: "resource-name shortcode in restricted-naming examples (Get-BicepResourceGroupName)"
+    - term: smod
+      meaning: "short_name 'smod' of the sample-with-module test template"
+    - term: smpl
+      meaning: "resource-name shortcode for the 'sample' template (smpl = sample)"
+    - term: sppp
+      meaning: "short_name 'sppp' of the sample-with-prepost test template"
+    - term: ssub
+      meaning: "short_name 'ssub' of the sample-subscription test template"
+    - term: stfw
+      meaning: "sample storage-account name 'stfw' in Firewall tests"
+    - term: stfwexports
+      meaning: "sample storage-account name 'stfwexports' in a Firewall function's doc comment"
+    - term: subx
+      meaning: "short_name 'subx' of the sample-subenv test template"
+    - term: surve
+      meaning: "derived short_name of the 'survey' example template (documentation-examples ADR)"
+    - term: widgetlib
+      meaning:
+        "placeholder pip/library package name 'widgetlib' (for command 'widget') in tool-install tests (Remove-*ToolInstall,
+        Install-PipTool)"
+    - term: wksp
+      meaning: "resource-name shortcode for 'workspace' (wksp) in test assets"
+    - term: catzcwidget
+      meaning: "placeholder Go module or Python package name 'catzcwidget' (catzc + widget) in language test-workspace tests"
+    - term: catzcgadget
+      meaning: "placeholder Go module or Python package name 'catzcgadget' (catzc + gadget) in language test-workspace tests"
+    - term: catzcgizmo
+      meaning: "placeholder Go module or Python package name 'catzcgizmo' (catzc + gizmo) in Get-LanguageTestFolders tests"
+    - term: catzcgadgetparts
+      meaning: "placeholder nested package name 'catzcgadgetparts' in Get-LanguageTestFolders tests"
+    - term: catzcleftover
+      meaning: "placeholder name of a stale workspace member 'catzcleftover' in New-GoWorkspace tests"
+    - term: catzcnothing
+      meaning: "placeholder name of an empty Go module 'catzcnothing' in Invoke-GoTest tests"
+    - term: widgetgadget
+      meaning: "placeholder name 'widgetgadget' (widget + gadget joined) in LanguagesConfig naming tests"
+    - term: widgetbasegadgetparts
+      meaning: "placeholder dotted-name join 'widgetbasegadgetparts' in LanguagesConfig naming tests"
+    - term: catzcbasealpha
+      meaning: "placeholder module-name join 'catzcbasealpha' in Get-ModuleGlobSet tests"
+    - term: catzcfakebeta
+      meaning: "placeholder module-name join 'catzcfakebeta' in Get-ModuleGlobSet tests"
+    - term: widgetconfig
+      meaning: "placeholder config name 'widgetconfig' in Get-CodeCaller tests"
+    - term: learnedgizmo
+      meaning: "placeholder learning file name 'learnedgizmo' in Add-SessionLearning tests"
+    - term: sbpp
+      meaning: "short name of the sample-bicepparam test template (sbpp) in Catzc.Azure.Templates test assets"
+    - term: btweutstsbppst
+      meaning: "a resource name composed from the sample-bicepparam template's shortcodes in Get-BicepTemplateConfiguration tests"
+    - term: rulename
+      meaning: "placeholder for a rule's name part in a rule code template (<code>-<RULENAME>) in the how-to docs"
+    - term: widgetish
+      meaning: "placeholder adjective 'widgetish' in catzc-track-lamps tests"
+    - term: widgetshell
+      meaning: "placeholder language name 'widgetshell' in the diagram kit's language tests"
+    - term: gadgetlang
+      meaning: "placeholder language name 'gadgetlang' in the diagram kit's language tests"
+    - term: gadgetkind
+      meaning: "placeholder kind name 'gadgetkind' in the diagram kit's declaration tests"
+    - term: getwidget
+      meaning: "placeholder function name 'getwidget' in the diagram kit's normal-form tests"

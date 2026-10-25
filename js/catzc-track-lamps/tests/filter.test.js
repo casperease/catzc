@@ -55,11 +55,6 @@ test("accounts for every file with a lamp vetoed: the written entries hide exact
     assert.deepStrictEqual(tally.unclaimed, []);
 });
 
-test("makes the languages lamp a lamp like the others: lit alone it shows the typed languages, and it ignores a language it does not know", async () => {
-    assert.deepStrictEqual(await hidden(["code", "tests", "tools", "generated", "docs"], " markdown ,widgetish"), ["**/*.ps1", "**/tests", "gadgets"]);
-    assert.deepStrictEqual(await hidden(["languages"], "markdown"), [], "every markdown file is claimed by a lit filter too");
-});
-
 test("writes a path in its on-disk spelling and matches without case on Windows", { skip: process.platform !== "win32" }, async () => {
     const lower = { code: [set(["mods/widget/get-widget.ps1"])] };
     assert.deepStrictEqual(await engine.hiddenGlobs(root, new Set(["code"]), lower), ["mods/Widget/*.ps1"]);

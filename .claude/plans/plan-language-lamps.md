@@ -1,0 +1,58 @@
+---
+plan:
+  status: active
+  value: medium
+  reviewed: 2026-10-25
+  class: feature
+  targets:
+    [
+      js/catzc-track-lamps,
+      pwsh/Catzc.Base.VSCode/configs/vscode-extensions.yml,
+      pwsh/Catzc.Base.VSCode/New-VSCodeSettings.ps1,
+      pwsh/Catzc.Base.Languages/configs/languages.yml,
+      docs/drs/design/repository-filters.md,
+    ]
+---
+
+# A languages button that clicks language lamps into the title row
+
+The typed-languages lamp was an experiment and is gone. Its replacement is a **button**, not a lamp: one click opens a pick list of the
+languages `languages.yml` declares, and every language ticked there becomes a lamp of its own, after the filters, with everything a lamp
+has: off, on and veto, its condition colour, the red journey, a place in the census and the status words. Unticking takes the lamp out of
+the row again.
+
+## Why its value is medium
+
+A reader often wants "only the Python" or "everything but the Bicep" for a while, which the filters do not cut. The lamp language already
+takes any set of globs, so a language lamp is one set per language and no new rule; the work is the editor surface.
+
+## Decided (2026-10-25)
+
+- **Which languages**: every `languages.yml` entry with a `tag` (the short word a diagram prints, e.g. `py`, `go`, `js`), its sets one
+  include per extension (`**/*<extension>`). The tag is the lamp's label, so a language without a tag is not offered.
+- **The data**: `New-VsCodeSettings` renders `catzc.trackLamps.languages` again, now name to `{ tag, extensions }` for the tagged languages
+  only, from the languages config; the engine reads only that setting.
+- **The button**: one command, `catzc.lamps.languages.pick`, right of the last filter lamp, opening a multi-select quick pick (each row the
+  tag, the language name and its extensions; the ticked ones pre-ticked). The ticked list lives in the workspace state, like the switches.
+- **The lamps' commands**: the manifest's menus are static, so the commands of every tagged language are declared ahead by a second repeat
+  over the languages config (`repeat: { language: { config: languages, list: languages, key: name } }`), the same veto/putOut/light commands
+  per condition as a filter lamp, each shown only while its `catzc.lamps.shown.lang-<name>` key is set; the key is set when ticked.
+- **The icons**: a generated label glyph per tag (the icon theme already draws label SVGs), recoloured per condition by the same renderer as
+  the filter glyphs; no hand-drawn SVG per language.
+- **Names**: a language lamp is `lang-<name>` in every key and in the status words (`catzc − lang-python`), so it never collides with a
+  filter of the same name.
+
+## Open steps
+
+- [ ] Settings: `catzc.trackLamps.languages` (tag and extensions per tagged language) rendered by `New-VsCodeSettings` from the languages
+      config, declared in the manifest's configuration. Check: `New-VSCodeSettings.Tests.ps1`, and `Build-RootConfig .vscode/settings.json`.
+- [ ] Manifest: the language repeat with its commands and menu entries, and `catzc.lamps.languages.pick` with its icon; the label glyphs
+      rendered per tag and condition. Check: `catzc-track-lamps.Tests.ps1` (every tagged language has its commands, icons and menu items),
+      `Expand-VsCodeRepeat.Tests.ps1`.
+- [ ] Engine: the pick list, the ticked list in the workspace state, `lang-<name>` sets added after the filters in `lampSets`, the shown
+      keys, and the lamps in the census and the status words. Check: node tests in `js/catzc-track-lamps/tests/` for the sets, the census
+      and the words with a language lamp ticked, off and vetoed.
+- [ ] Rule: DDR-FILTER-TOTALUNION names the language lamps as lamps a reader adds, with the button that adds them. Check: `Test-Links` and
+      `Test-Markdownlint` on `docs/drs/design/repository-filters.md`.
+- [ ] Install and reload; tick two languages, put one out, veto the other, untick both. Check: the user's eye on the title row and the
+      status line.

@@ -42,8 +42,15 @@ function Resolve-ConfigEntry {
             if (-not [System.IO.Directory]::Exists($configsDir)) {
                 continue
             }
-            foreach ($file in [System.IO.Directory]::EnumerateFiles($configsDir, '*.yml')) {
-                $configName = [System.IO.Path]::GetFileNameWithoutExtension($file)
+            # A config is one file, or a folder of disjoint parts (configs/<name>/*.yml) when one file would pass the length cap.
+            $sources = @([System.IO.Directory]::EnumerateFiles($configsDir, '*.yml')) + @([System.IO.Directory]::EnumerateDirectories($configsDir))
+            foreach ($file in $sources) {
+                $configName = if ([System.IO.Directory]::Exists($file)) {
+                    [System.IO.Path]::GetFileName($file)
+                }
+                else {
+                    [System.IO.Path]::GetFileNameWithoutExtension($file)
+                }
                 if (-not $script:configIndex.ContainsKey($configName)) {
                     $script:configIndex[$configName] = [System.Collections.Generic.List[hashtable]]::new()
                 }

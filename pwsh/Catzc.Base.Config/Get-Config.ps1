@@ -54,7 +54,20 @@ function Get-Config {
         return $script:configCache[$cacheKey]
     }
 
-    $raw = if ($entry.Path) {
+    $raw = if ($entry.Path -and [System.IO.Directory]::Exists($entry.Path)) {
+        # A split config: its parts merge in ordinal name order, and a key two parts both set fails the load.
+        $parts = [string[]] @([System.IO.Directory]::GetFiles($entry.Path, '*.yml'))
+        [System.Array]::Sort($parts, [System.StringComparer]::Ordinal)
+        Assert-True ($parts.Count -gt 0) -ErrorText "Config folder '$($entry.Path)' holds no *.yml part."
+        $merged = [ordered]@{}
+        foreach ($part in $parts) {
+            $partRaw = [System.IO.File]::ReadAllText($part) | ConvertFrom-Yaml -Ordered
+            Assert-True ($partRaw -is [System.Collections.IDictionary]) -ErrorText "Config part '$part' must be a map."
+            $merged = Merge-ConfigFragment -Base $merged -Fragment $partRaw -Disjoint
+        }
+        $merged
+    }
+    elseif ($entry.Path) {
         Assert-PathExist $entry.Path
         $text = [System.IO.File]::ReadAllText($entry.Path)
         Assert-True ($text.Length -gt 0) -ErrorText "Config file '$($entry.Path)' is empty (0 bytes): the read raced a writer, or the file was truncated on disk."

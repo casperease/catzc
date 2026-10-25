@@ -4,6 +4,13 @@
 #   header: "generated"
 # ---
 
+# A unit whose tests set may stay empty, each with its reason; plan-javascript-track.md holds the step that gives each its tests.
+tests_optional:
+  catzc-compiled-info-tests: an editor adapter with no pure core yet; its node tests are an open step of the js track
+  catzc-file-icons-tests: an icon theme rendered by pwsh, tested there; the script itself only registers the theme
+  catzc-git-changes-tests: an editor adapter with no pure core yet; its node tests are an open step of the js track
+  catzc-save-ledger-tests: an editor adapter with no pure core yet; its node tests are an open step of the js track
+
 globsets:
   pwsh:
     description: The pwsh track - the module system under pwsh/.
