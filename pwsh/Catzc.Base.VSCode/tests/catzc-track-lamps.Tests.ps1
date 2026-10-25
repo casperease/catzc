@@ -303,6 +303,15 @@ Describe 'catzc-track-lamps' -Tag 'L0', 'logic' {
         }
     }
 
+    It 'walks the red journey through the failed files in path order, round to the first, starting at the first when none is open' {
+        $failed = @('mods/b.ps1', 'mods/a.ps1', 'docs/x.md')
+        & $script:call nextFailed @($failed, $null) | Should -Be 'docs/x.md'
+        & $script:call nextFailed @($failed, 'docs/x.md') | Should -Be 'mods/a.ps1'
+        & $script:call nextFailed @($failed, 'mods/b.ps1') | Should -Be 'docs/x.md' -Because 'the journey goes round'
+        & $script:call nextFailed @($failed, 'gadgets/other.ps1') | Should -Be 'docs/x.md' -Because 'a file that is not failed starts the journey over'
+        & $script:call nextFailed @(@(), 'mods/a.ps1') | Should -BeNullOrEmpty
+    }
+
     It 'sums the whole repository into the orchestrator''s colour: red for any failure, blue for any work in progress, green for neither' {
         & $script:call summaryOf @(@{ 'a.ps1' = @{ change = 'unstaged' }; 'b.ps1' = @{ fault = 'failed' } }) | Should -Be 'red'
         & $script:call summaryOf @(@{ 'a.ps1' = @{ change = 'staged' } }) | Should -Be 'blue'

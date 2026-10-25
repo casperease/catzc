@@ -233,6 +233,15 @@ function revealFailed(conditions, out, vetoed) {
     return { out: [...nextOut], vetoed: [...nextVetoed] };
 }
 
+// The red journey's next stop: the failed file after the one in the editor, in path order, round to the first; the first when the
+// editor holds none of them.
+function nextFailed(failed, current) {
+    const ordered = [...(failed ?? [])].sort();
+    if (ordered.length === 0) return undefined;
+    const at = current === undefined ? -1 : ordered.findIndex((place) => key(place) === key(current));
+    return ordered[(at + 1) % ordered.length];
+}
+
 // The files and the folders on disk, '/'-separated from the root, in one walk; .git is no part of the tree.
 async function walkDisk(root) {
     const files = [];
@@ -644,6 +653,9 @@ function activateEngine(context, api) {
     // key whose value changed is sent, so a press costs the one or two keys it moves.
     let conditions = {};
     let markerCache = null;
+    // The facts and sets of the last judgement, which the red journey reads; it never judges itself.
+    let lastFacts = {};
+    let lastSets = {};
     const sent = new Map();
     const setKey = (name, value) => {
         if (sent.get(name) === value) return undefined;
@@ -719,6 +731,8 @@ function activateEngine(context, api) {
                 wanted[place] = [{ message: "its last test run failed", range: [0, 0, 0, 0], source: "tests" }];
         publish(root, wanted);
         const sets = lampSets(filters(), state.field, languages(), openFiles(root, vscode.window.tabGroups.all));
+        lastFacts = facts;
+        lastSets = sets;
         const next = evaluate(sets, new Set(Object.keys(sets).filter((name) => !state.out.has(name))), [], facts).conditions;
         await setKey("catzc.lamps.summary", summaryOf(facts));
         if (JSON.stringify(next) === JSON.stringify(conditions)) return;
@@ -868,6 +882,28 @@ function activateEngine(context, api) {
     // A command per lamp state, named for what its click does and shown with the icon of the state it leaves: light (off -> on) and veto
     // (on -> veto) per condition, each its own icon, committed the bare name; putOut (veto -> off) has the one veto icon. The manifest
     // declares the same names (a test holds it to filters.yml and the conditions).
+    // The red journey: a lit lamp that is red keeps its switch on a click and opens its next failed file instead, in the editor and the
+    // Explorer, at the file's first failing diagnostic; each click moves on, round to the first, so every failure is visited in turn.
+    const journey = async (lamp) => {
+        const root = rootOf();
+        if (!root || !lastSets[lamp]) return;
+        const claims = claimer(lastSets[lamp]);
+        const failed = Object.entries(lastFacts)
+            .filter(([place, fact]) => fact?.fault === "failed" && claims(place, place.split("/")))
+            .map(([place]) => place);
+        const active = vscode.window.activeTextEditor?.document.uri;
+        const current = active?.scheme === "file" ? relativeTo(root, active.fsPath) : undefined;
+        const place = nextFailed(failed, current);
+        if (!place) return;
+        const uri = vscode.Uri.file(path.join(root, place));
+        const first = (vscode.languages.getDiagnostics(uri) ?? []).find(fails);
+        try {
+            await vscode.window.showTextDocument(uri, { preview: false, preserveFocus: false, ...(first ? { selection: first.range } : {}) });
+            await vscode.commands.executeCommand("revealInExplorer", uri);
+        } catch (error) {
+            log.appendLine(`warning: the red journey could not open ${place}: ${error?.message ?? error}`);
+        }
+    };
     // The orchestrator: red until the first check says otherwise; a click while red lights every red lamp through the press queue, and
     // does nothing while blue or green.
     setKey("catzc.lamps.summary", "red");
@@ -890,7 +926,7 @@ function activateEngine(context, api) {
         for (const condition of [...CONDITIONS, EMPTY]) {
             const suffix = condition === "committed" ? "" : `.${condition}`;
             context.subscriptions.push(
-                vscode.commands.registerCommand(`catzc.lamps.${lamp}.veto${suffix}`, () => turn(lamp, "veto")),
+                vscode.commands.registerCommand(`catzc.lamps.${lamp}.veto${suffix}`, condition === "failed" ? () => journey(lamp) : () => turn(lamp, "veto")),
                 vscode.commands.registerCommand(
                     `catzc.lamps.${lamp}.light${suffix}`,
                     lamp === LANGUAGE ? chooseLanguages : () => turn(lamp, "on"),
@@ -1050,6 +1086,7 @@ module.exports = {
     isRemembered,
     lapsedFaults,
     remembering,
+    nextFailed,
     revealFailed,
     summaryOf,
     hiddenEntries,
