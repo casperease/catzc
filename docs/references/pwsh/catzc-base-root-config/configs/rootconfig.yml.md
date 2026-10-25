@@ -63,15 +63,6 @@ them and a fresh clone materialises them on the first import. Sources of truth: 
 registries (settings/extensions/launch).
 ```
 
-## comment:5
-
-Above `- target: .vscode/azure-pipelines-schema.json`, written with `#`.
-
-```text
-The Azure Pipelines schema the YAML extension validates our .yaml against (mapped via
-yaml.schemas in vscode-settings.yml). Gitignored generated copy like the others.
-```
-
 ## comment:6
 
 Above `- target: go.work`, written with `#`.

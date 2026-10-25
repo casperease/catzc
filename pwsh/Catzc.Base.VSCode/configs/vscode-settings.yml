@@ -136,6 +136,9 @@ settings:
     # Every .yaml in the tree is an Azure Pipelines file, checked against the depended-on schema in contracts/EXTERNAL-ado.
     ./contracts/EXTERNAL-ado/0.0.0/Catzc.Azure.DevOps/pipelines/pipeline.yaml.schema.json:
       - "**/*.yaml"
+    # A GitHub Actions workflow is checked against the depended-on schema in contracts/EXTERNAL-github.
+    ./contracts/EXTERNAL-github/0.0.0/Catzc.Tooling.Github/workflows/workflow.yml.schema.json:
+      - ".github/workflows/*.yml"
 
   # A compiled ARM template is checked against the local depended-on copy of Azure's schema (contracts/EXTERNAL-azure), never a download.
   json.schemas:

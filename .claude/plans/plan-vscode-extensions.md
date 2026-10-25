@@ -42,16 +42,13 @@ cats has no parity for (Ruff, Prettier, markdownlint, cspell). The recommendatio
 
 ## Open steps
 
-The offline pipeline schemas first, then the small extensions folded into cats extensions.
+The external units' freeze first, then the small extensions folded into cats extensions.
 
-- [ ] `contracts/EXTERNAL-ado/0.1.0/`: freeze the draft with `Publish-ContractRelease -Unit EXTERNAL-ado -Version 0.1.0` once the user has
-      staged the new unit. Check: the frozen-folder test passes on the released folder.
-- [ ] `New-VsCodePipelineSchema` renders `.vscode/azure-pipelines-schema.json` from that contract asset; delete
-      `vscode-pipeline-schema.yml`, `VscodePipelineSchemaConfig` and their tests and docs (one living version). Check:
-      `New-VsCodePipelineSchema.Tests.ps1`.
-- [ ] `contracts/EXTERNAL-github/0.0.0/Catzc.Tooling.Github/`: the trimmed GitHub Actions workflow schema, applied to
-      `.github/workflows/*.yml` and the workflow contract copies, mapped in `yaml.schemas`. Check: `Test-Contracts` passes on every
-      workflow.
+- [ ] `contracts/EXTERNAL-ado/0.1.0/` and `contracts/EXTERNAL-github/0.1.0/`: freeze each draft with
+      `Publish-ContractRelease -Unit <unit> -Version 0.1.0` once the user has staged the new units. Check: the frozen-folder test passes on
+      each released folder.
+- [ ] `ContractSchema`: `additionalProperties` as a schema, so the workflow schema checks each job and its steps, not only the top level.
+      Check: `ContractSchema.Tests.ps1`, then `Test-Contracts` on the workflows.
 - [ ] `New-VsCodeSettings`: renders `.editorconfig` into per-language settings; remove `editorconfig.editorconfig`. Check: the module's
       tests for `New-VsCodeSettings`.
 - [ ] A cats extension: a document link provider for `/docs/drs/` links; drop `regexrobin.rules` and `DanLevett.regex-robin`. Check: a
