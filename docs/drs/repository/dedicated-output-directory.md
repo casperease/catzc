@@ -39,7 +39,9 @@ artifact (one assembly for the whole repository) and lives there on purpose. Onl
 ### Rule ADR-REPO-OUTDIR-OUTGITIGNORED
 
 `out/` is gitignored: the directory exists via `.gitkeep` but its contents are never committed, so generated files never appear in
-`git status`.
+`git status`. It is still a track, the `output` track
+([DDR-TRACKTYPE-CLOSEDSETOFTYPES](../design/track-types.md#rule-ddr-tracktype-closedsetoftypes)): git ignores it, the tools operate on it,
+and its build destination is none.
 
 - [Consequences](#consequences)
 

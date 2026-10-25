@@ -63,6 +63,8 @@ function New-VsCodeExtensionFolder {
         $stroke = '(?<=<svg [^>]*\bstroke=")#[0-9a-fA-F]{6}'
         # A base glyph whose top-right corner is drawn on declares data-badge="bottom"; its badge then sits bottom-right.
         $corner = ' data-badge="bottom"'
+        # A base glyph that declares data-empty="hidden" is drawn fully transparent while its lamp claims nothing, keeping its place in the row.
+        $hidden = ' data-empty="hidden"'
         $badges = @{
             staged   = { param($c, $lit, $low) "  <rect x=`"11.3`" y=`"$(if ($low) { '11' } else { '0.8' })`" width=`"3.8`" height=`"3.8`" rx=`"0.8`" fill=`"$c`" stroke=`"none`"/>`n" }
             unstaged = { param($c, $lit, $low) "  <rect x=`"11.3`" y=`"$(if ($low) { '11' } else { '0.8' })`" width=`"3.8`" height=`"3.8`" rx=`"0.8`" fill=`"$c`" stroke=`"none`"/>`n" }
@@ -99,11 +101,15 @@ function New-VsCodeExtensionFolder {
                     'glyph_unlit'
                 }
                 $low = $glyphs[$state].Contains($corner)
-                $glyph = $glyphs[$state].Replace($corner, '')
+                $vanish = $glyphs[$state].Contains($hidden)
+                $glyph = $glyphs[$state].Replace($corner, '').Replace($hidden, '')
                 [System.IO.File]::WriteAllText((Join-Path $rendered "$lamp-$state.svg"), ($glyph -replace $stroke, $palette['committed'].$shade), $utf8)
                 foreach ($condition in 'staged', 'unstaged', 'failed', 'empty') {
                     $range = $palette[$condition]
                     $svg = ($glyph -replace $stroke, $range.$shade) -replace '</svg>\s*$', ((& $badges[$condition] $range.badge $lit $low) + '</svg>')
+                    if ($vanish -and $condition -eq 'empty') {
+                        $svg = $svg -replace '^<svg ', '<svg opacity="0" '
+                    }
                     [System.IO.File]::WriteAllText((Join-Path $rendered "$lamp-$state-$condition.svg"), $svg.TrimEnd() + "`n", $utf8)
                 }
             }

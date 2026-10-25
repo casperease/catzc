@@ -1,23 +1,32 @@
-# ADR: Conventional folders — every folder in the repository, by convention
+# ADR: Conventional folders — every folder semantic, its name the conventional default
 
 ## Rules: ADR-REPO-FOLDERS
 
-### Rule ADR-REPO-FOLDERS-EVERYFOLDERCONVENTIONAL
+### Rule ADR-REPO-FOLDERS-EVERYFOLDERSEMANTIC
 
-Every folder in the repository is conventional: its name infers its contents and purpose, for humans and for tooling. No folder needs a
-mapping file or a README to be understood — the name is the meaning. At the root this goes further: every root folder git tracks a file
-under names a **track** — the repository's unit of root concern — except `out/`, which holds gitignored output (`ADR-REPO-OUTDIR`); so
-adding a root folder is the decision to open a track (see [tracks](../design/tracks.md), code `DDR-TRACK`).
+Every folder in the repository is **conventional** and **semantic**. Conventional, because its name is a known, good locator for the data
+that rests in it, and that convention is encoded — as settings whose defaults are the conventional names
+(ADR-REPO-FOLDERS-DEFAULTCONFIGURATION) — so it can be enforced. Semantic, because the tooling does something with that meaning: the loader
+keeps `private/` private, the test runner runs `tests/`, a gate checks `configs/` as configuration. No folder needs a mapping file or a
+README to be understood: the encoded model says what each name means, and the semantics act on it. A repository that overrides a name
+changes the model, not the principle — the overridden folder is still conventional and still semantic, under its new name. At the root this
+goes further: every root folder names a **track** — the repository's unit of root concern — `out/` included, the `output` track git ignores
+and the tools operate on (`ADR-REPO-OUTDIR`); so adding a root folder is the decision to open a track (see [tracks](../design/tracks.md),
+code `DDR-TRACK`).
 
 - [The thesis](#the-thesis)
 
-### Rule ADR-REPO-FOLDERS-TWOKINDS
+### Rule ADR-REPO-FOLDERS-DEFAULTCONFIGURATION
 
-Two kinds of conventional folder. **Contract** folders have their literal name hardcoded by tooling — a wrong name makes the content
-structurally invisible or non-functional. **Semantic** folders carry meaning a reader infers, with a freeform internal layout no tool
-depends on. Know which kind a folder is before renaming it or adding to it.
+The convention model is encoded as the **sensible default configuration** of an ordered repository. A folder name the model gives meaning to
+is a setting whose default is the conventional name, declared once
+([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)) at one of three layers:
+a track's places (`variants.yml` `tracks`, [DDR-TRACKTYPE-DECLAREDONCE](../design/track-types.md#rule-ddr-tracktype-declaredonce)), the
+places of a track's modules (`module-types.yml`), or the folders a language lays out inside a module (`languages.yml` `layout`, each folder
+with its role). A repository renames any of them — `out/`, `pwsh/`, `private/` — by overriding that setting, and every tool follows the
+setting. A subfolder the model does not reach gets what its parent's role does with it, and its own name and layout are free.
 
-- [Contract folders and semantic folders](#contract-folders-and-semantic-folders)
+- [The default configuration of an ordered repository](#the-default-configuration-of-an-ordered-repository)
 
 ### Rule ADR-REPO-FOLDERS-CLOSEDROOTSET
 
@@ -47,62 +56,64 @@ decision-record **domain**: a group of decision records that `drs.yml` declares 
 
 - [Level 1: Repository root](#level-1-repository-root)
 
-### Rule ADR-REPO-FOLDERS-FIXEDMODULEFOLDERS
+### Rule ADR-REPO-FOLDERS-DEFAULTMODULEFOLDERS
 
-Module-internal folder names are fixed. Private helpers go in `private/`, tests in `tests/`, consumable assets in `assets/`, the module's
-own internal config in `configs/`, native C# sources in `types/` — never `internal/`, `helpers/`, `test/`, `spec/`, `resources/`, `config/`,
-etc. The name is the contract; a different name means tooling will not find the content.
+Module-internal folder names default to the conventional set the module's language layout declares: private helpers in `private/`, tests in
+`tests/`, consumable assets in `assets/`, the module's own internal config in `configs/`, native C# sources in `types/`. A module never
+invents another name for the same role (`internal/`, `helpers/`, `test/`, `spec/`, `resources/`, `config/`); a repository that wants another
+name overrides the layout's setting, and the name changes for every module of the track at once.
 
 - [Level 3: Module internals](#level-3-module-internals)
 - [Violation patterns](#violation-patterns)
 
-### Rule ADR-REPO-FOLDERS-LITERALNAMES
+### Rule ADR-REPO-FOLDERS-NAMESARESETTINGS
 
-Tooling hardcodes the conventional names as literal strings, not parameters or configuration: `Join-Path $ModulePath 'private'`, not
-`Join-Path $ModulePath $privateFolderName`. One exception: the root of every test language is a setting, by one convention. Its conventional
-names are the setting's sensible defaults — `<language>/` when the repository has that folder, else the dot-prefixed `.<language>/` —
-declared once on the language's config type, and one resolver returns the root, which every caller uses. The Go root (`go.yml`'s `root`,
+Tooling reads every folder name it relies on from its setting, through one resolver per setting that every caller uses, never from a literal
+of its own: the conventional name is the setting's default, declared once on its config type, so a repository that declares nothing gets the
+conventional layout and one that overrides a name gets it everywhere. The root of every test language already follows it: its defaults are
+`<language>/` when the repository has that folder, else the dot-prefixed `.<language>/` — the Go root (`go.yml`'s `root`,
 `GoConfig.ResolveRoot`), the Python root (`python.yml`'s `root`, `PythonConfig.ResolveRoot`) and the Bash root (`bash.yml`'s `root`,
-`BashConfig.ResolveRoot`) follow it.
+`BashConfig.ResolveRoot`). A literal folder name still in code is a setting not yet resolved, and it spells the setting's default.
 
-- [Hardcoded paths](#hardcoded-paths)
-- [A test-language root as a setting](#a-test-language-root-as-a-setting)
+- [Names are settings](#names-are-settings)
 - [How this is enforced](#how-this-is-enforced)
 
 ### Rule ADR-REPO-FOLDERS-NOMODULEOVERRIDE
 
-No module-level override of conventions. A module cannot opt out of the structure or rename a conventional folder; if `private/` means
-different things in different modules, tooling cannot rely on it.
+No module-level override of conventions. A module cannot opt out of the structure or rename a conventional folder on its own; a name is
+overridden for the whole repository or track, in its setting, so `private/` — or whatever the repository renamed it to — means the same in
+every module, and tooling can rely on it.
 
 - [Why convention](#why-convention)
 
 ### Rule ADR-REPO-FOLDERS-NEWFOLDERNEEDSADR
 
-New module-level folders require an ADR amendment. Adding a well-known folder name beyond `private/`, `tests/`, `assets/`, `configs/`,
-`types/` is a structural change to the contract all tooling programs against.
+New module-level folder roles require an ADR amendment. Adding a role beyond those of `private/`, `tests/`, `assets/`, `configs/`, `types/`
+adds a setting to a track's default configuration, which every tool serving the track reads; renaming an existing one is an override, not an
+amendment.
 
 - [Level 3: Module internals](#level-3-module-internals)
 
 ### Rule ADR-REPO-FOLDERS-UNKNOWNFOLDERSIGNORED
 
-Unknown folders are ignored, not errors. A non-conventional folder is silently skipped by the bootstrap module and test runner; the module
-just cannot expect tooling to interact with it.
+Unknown folders are ignored, not errors. A module folder that no layout role names is silently skipped by the bootstrap module and test
+runner; the module just cannot expect tooling to interact with it.
 
 - [Level 3: Module internals](#level-3-module-internals)
 
 ### Rule ADR-REPO-FOLDERS-CONTRACTSFOLDER
 
-Contracts live under the root `contracts/` folder, laid out as `contracts/<unit>/<version>/<module>/<path>`: `<unit>` is the deployable-unit
-that carries the contracts (`catzc`, the bundle, [ADR-REPO-CONTRACT-LAYOUT](api-contracts.md#rule-adr-repo-contract-layout)), `<version>` is
-that unit's version (`MAJOR.MINOR.PATCH`), `<module>` is the owning catzc module, and `<path>` is the path of the real file a contract asset
-constrains, relative to the owning module's target root — the repository root unless `contracts.yml` declares another folder
-([ADR-REPO-CONTRACT-LAYOUT](api-contracts.md#rule-adr-repo-contract-layout)) — and no folder under `contracts/` is dot-prefixed
-([ADR-REPO-CONTRACT-NODOTFOLDERS](api-contracts.md#rule-adr-repo-contract-nodotfolders)). There is no repository-wide version folder. Each
-unit's `0.0.0` is its one mutable draft, frozen only when that unit is released; every other version folder is frozen, a self-contained
-snapshot of that unit's contracts at that version — kept for a consumer that pins it, deliberately and equally live (see
-[one-living-version](../principles/one-living-version.md#rule-pdr-onelive-pinnedversionnotlegacy)), not legacy. The root carries a
-checked-in `.gitkeep`, so it stays tracked before any contract exists. What the contracts _are_ — the binding interfaces at the repository
-boundary, in both directions, and their testing discipline — is the [api-contracts](api-contracts.md) ADR (code `ADR-REPO-CONTRACT`).
+Contracts live under the root `contracts/` folder, laid out as `contracts/<root>/<version>/[<group>/]<asset>`
+([ADR-REPO-CONTRACT-LAYOUT](api-contracts.md#rule-adr-repo-contract-layout)): `<root>` names who made the promise — `catzc` for what we
+promise the world, a vendor's plain moniker (`github`, `ado`, `azure`) for what that vendor promised us — `<version>` is `0.1.0`, the
+current contracts every internal binding points at, or a frozen `catzc` release from `1.0.0` up
+([ADR-REPO-CONTRACT-CURRENTVERSION](api-contracts.md#rule-adr-repo-contract-currentversion)), and the optional `<group>` is one folder, the
+owning module in `catzc` or the vendor's area in a vendor root; no folder under `contracts/` is dot-prefixed
+([ADR-REPO-CONTRACT-NODOTFOLDERS](api-contracts.md#rule-adr-repo-contract-nodotfolders)). A release folder kept for a consumer that pins it
+is deliberately and equally live (see [one-living-version](../principles/one-living-version.md#rule-pdr-onelive-pinnedversionnotlegacy)),
+not legacy. The root carries a checked-in `.gitkeep`, so it stays tracked before any contract exists. What the contracts _are_ — the binding
+interfaces at the repository boundary, in both directions, and their testing discipline — is the [api-contracts](api-contracts.md) ADR (code
+`ADR-REPO-CONTRACT`).
 
 - [Level 1: Repository root](#level-1-repository-root)
 
@@ -124,40 +135,51 @@ and what the last person did. Over time the layout drifts — one module puts he
 `util/`. Tooling cannot program against a layout that changes per module, so configuration files, path arguments, and environment variables
 proliferate to bridge the gap.
 
-This platform takes the opposite approach. The folder structure is fixed, semantic, and the same everywhere. Tooling hardcodes the
-well-known names directly. There are no path parameters, no configuration files mapping folder names to meanings, and no per-module
-overrides. The folder name IS the contract.
+This platform takes the opposite approach. The folder structure is semantic and the same everywhere, because it ships as a sensible default
+configuration: every name that carries meaning for tooling is a setting whose default is the conventional name, declared once. A repository
+that declares nothing gets the ordered layout described here; a repository that wants `output/` instead of `out/`, or `src/` instead of
+`pwsh/`, overrides one setting and every tool follows. There are no per-module overrides and no path parameters.
 
 ### The thesis
 
 `The thesis: every folder infers its meaning`
 
-This is the organizing principle of the whole repository, not just of `pwsh/`: **every folder is conventional.** You can tell what a folder
-holds — and what new content belongs in it — from its name alone, without opening a README or consulting a mapping file. The repository is a
-tree of names that mean things, top to bottom: the root folders separate concerns (each a track, except the gitignored `out/`), `pwsh/`
-separates modules from infrastructure, and a module's internals separate public from private from tests from assets. The same idea repeats
-at every depth.
+This is the organizing principle of the whole repository, not just of `pwsh/`: **every folder is conventional and semantic.** A folder's
+name is a known locator for its data, encoded so it can be enforced, and the tooling acts on what that data is, so you can tell what a
+folder holds, what new content belongs in it, and what will be done with it, from its name alone, without opening a README or consulting a
+mapping file. The repository is a tree of names that mean things, top to bottom: the root folders separate concerns (each a track, the
+gitignored `out/` included), `pwsh/` separates modules from infrastructure, and a module's internals separate public from private from tests
+from assets. The same idea repeats at every depth.
 
-### Contract folders and semantic folders
+### The default configuration of an ordered repository
 
-Conventional folders come in two kinds, and the difference is _who relies on the name_:
+`The convention model is encoded as settings; the conventional names are their defaults`
 
-- **Contract folders** — a tool hardcodes the literal name and programs against it, so a wrong name makes the content structurally invisible
-  or non-functional. `pwsh/`, `private/`, `tests/`, `configs/`, `types/`, `.vendor/`, `out/`, `go/`, `python/`, `.ado/pipelines/steps/`,
-  `docs/drs/`, `docs/references/`, and `infrastructure/templates/<name>/configuration/[<customer>/]` are contract folders.
-- **Semantic folders** — a _reader_ infers the meaning; no tool hardcodes the name, and the internal layout is freeform. The topic
-  subfolders of `docs/`, `docs/how-to/`, `infrastructure/modules/`, and the ad-hoc workspaces under `out/` are semantic folders.
+The convention model is what makes the names both conventional and semantic: it encodes each name as the locator of one kind of data, which
+can be enforced, and the tooling acts on what is found there. It is encoded as settings, each with the conventional name as its default,
+declared once at one of three layers, from the widest to the narrowest:
 
-Both are conventional — the name infers the meaning either way. The distinction tells you the cost of getting a name wrong: renaming a
-contract folder breaks tooling; renaming a semantic folder is harmless. Know which kind you are touching.
+- **A track's place** — a root folder or a path a track covers, in `variants.yml` `tracks`: `pwsh/`, `pwsh/.vendor/`, `infrastructure/`,
+  `contracts/`, `.github/workflows/`, `go/`, `python/`. A vendor's own convention, such as `.github/workflows/` or `.vscode/`, enters the
+  tree here, as the place of the track that vendor reads. `out/` is the place of the `output` track, which git ignores and the tools operate
+  on.
+- **A module place** — where the modules of a track sit inside it, in `module-types.yml`: a folder under `pwsh/` is a module named by its
+  folder, `pwsh/.internal/` holds the internal ones, and a language track's `tests/` is its test holder, not a module.
+- **A language's layout** — the folders a language lays out inside a module, each with its role, in `languages.yml` `layout`: `private/`
+  holds private functions, `types/` C# types, `configs/` configuration, `accosted/` run lists.
+
+Inside a folder the model names, a subfolder the model does not reach — the topic subfolders of `docs/`, `docs/how-to/`,
+`infrastructure/modules/`, the ad-hoc workspaces under `out/` — gets what its parent's role does with it, and its own name and layout are
+free. Renaming one is harmless; renaming a folder the model names is overriding its setting, at the layer that declares it, and every tool
+serving the track follows.
 
 ### Why convention
 
 `Why conventional structure matters`
 
-**Tooling becomes trivial.** When every module puts private functions in `private/`, the bootstrap module can hardcode
-`Join-Path $ModulePath 'private'` and be done. No parameter, no config, no "discover the helpers folder" heuristic. `New-DynamicManifest`
-does not ask where private functions are — it knows, because the structure is a contract.
+**Tooling becomes trivial.** When every module of a track puts private functions in the same folder, the bootstrap module reads that one
+setting and is done. No per-module parameter, no "discover the helpers folder" heuristic: `New-DynamicManifest` does not ask a module where
+its private functions are — it knows, because the structure is declared once, for the whole track.
 
 **Onboarding is instant.** A new contributor opening any module sees the same layout: root `.ps1` files are public, `private/` is private,
 `tests/` is tests, `assets/` is everything else. There is nothing to learn per module. The structure is self-documenting because it is
@@ -167,59 +189,32 @@ uniform.
 importantly, `Test-Automation` will not find those tests, because it scans `tests/`. The structure enforces itself — non-conforming content
 is invisible to tooling. This is poka-yoke: the wrong thing does not silently work, it visibly does not work.
 
-**Configuration disappears.** Alternative designs require a mapping layer: a `module.yml` that says `helpers_dir: internal`, or a parameter
-`-PrivatePath 'helpers'`, or a convention file at the root. Every mapping layer is a source of truth that must stay in sync with the actual
-folders. When the folder name IS the meaning, there is no mapping to maintain, no configuration to drift, no abstraction to debug.
+**Configuration lives in one place per name.** Alternative designs scatter the mapping: a `module.yml` per module that says
+`helpers_dir: internal`, a parameter `-PrivatePath 'helpers'` at every call site, a convention file per tool. Each is a source of truth that
+drifts from the folders. Here each name is declared once, in its track's configuration, and holds for every module of the track, so there is
+one place to read it and one place to change it.
 
-### Hardcoded paths
+### Names are settings
 
-`Why hardcoding paths is a feature`
+`A name tooling reads is a setting with the conventional default`
 
-The instinct from application development is that hardcoded paths are a smell. In application code, that instinct is correct — you want to
-inject dependencies so you can test against fakes. In the product mono-repository's internal tooling
-([ADR-REPO-REPOKIND-THREEKINDS](repository-kinds.md#rule-adr-repo-repokind-threekinds)), the calculus is different:
+Repositories disagree on where things go: one keeps Go under a `go/` root, another keeps it out of the way under `.go/`; one calls its
+output `out/`, another `artifacts/`. Both are reasonable, and catzc must serve either without moving anyone's files. So every folder name
+tooling relies on is a setting, held to three conditions that keep what a literal gave:
 
-- **The paths are not external dependencies.** They are internal conventions under our control. Nobody is going to swap in a different
-  `private/` folder the way you swap a database connection. The flexibility that injection provides has no consumer.
+- **The conventional names are the defaults.** They are declared once, on the setting's config type
+  ([sensible-defaults](../automation/sensible-defaults.md)), so a repository that declares nothing gets the ordered layout of this ADR.
+- **One resolver per setting.** Every caller asks the same function for the name, so the setting is greppable through that one function,
+  just as a literal was, and it is self-evident: the resolver's name says what the folder is.
+- **Overridden for the repository or the track, never per module.** A module does not choose its own names
+  (ADR-REPO-FOLDERS-NOMODULEOVERRIDE), so a name means the same in every module it reaches.
 
-- **Indirection hides the contract.** If the bootstrap module takes a `$PrivatePath` parameter, every caller must know what to pass. The
-  parameter _looks_ like flexibility but in practice every call site passes `'private'`. The parameter adds noise without adding capability.
-
-- **Hardcoded names are greppable.** When tooling hardcodes `'private'`, you can search the codebase for `'private'` and find every place
-  that depends on that convention. When the name comes from a variable, you must trace the variable to its source — which is inevitably a
-  constant defined somewhere else.
-
-- **The convention is the documentation.** `Join-Path $ModulePath 'tests'` is self-evident. `Join-Path $ModulePath $testFolderName` requires
-  you to find where `$testFolderName` is defined and confirm it is `'tests'`.
-
-The codebase does this consistently: `New-DynamicManifest` hardcodes `'private'`, `Test-Automation` hardcodes `'tests'`, `Import-AllModules`
-filters on `'^\.'`, `Install-VendorModule` hardcodes `'pwsh/.vendor'`, and the importer (`importer.ps1` and its `Invoke-Importer` overlay)
-hardcodes `'.internal'` and `'.vendor'`.
-
-A literal folder name is for a module-internal contract folder like these, never for a track's place: where a track's files live varies by
-repository kind ([ADR-REPO-REPOKIND-THREEKINDS](repository-kinds.md#rule-adr-repo-repokind-threekinds)), so code finds a place, or a named
-kind inside one, through the track ([DDR-TRACK-SUBSCRIBABLENOTPATHCOUPLED](../design/tracks.md#rule-ddr-track-subscribablenotpathcoupled)).
-
-### A test-language root as a setting
-
-The arguments above hold for names catzc invents. A test language's root is different: it is where another ecosystem's code lives, and
-repositories disagree on where that is. Go repositories put Go code under a `go/` root when Go is one language among several, and keep it
-out of the way under a dot folder when Go is a guest; Python and the languages after it face the same choice. Both places are reasonable,
-and an editor must handle either. Hardcoding one would force the other repositories to move their code, and deciding it language by language
-would give every test language its own rule. So there is one convention for all of them.
-
-The root of every test language is a setting, held to three conditions that keep what hardcoding gives:
-
-- **The conventional names are the defaults, the same for every language.** `<language>/` when the repository has that folder (a root
-  track), else `.<language>/` (a dot-prefixed tooling folder). They are declared once, on the language's config type
-  ([sensible-defaults](../automation/sensible-defaults.md)), so a repository that declares nothing gets a conventional name.
-- **One resolver.** Every caller asks the same function for the root, so the setting is greppable through that one name, just as a hardcoded
-  literal is.
-- **Only the track root.** The folders inside the root (`tests/<module>/`) stay hardcoded.
-
-Three test languages follow it: Go (`go.yml`'s `root`, the defaults `go/` and `.go/`, `GoConfig.ResolveRoot`), Python (`python.yml`'s
-`root`, the defaults `python/` and `.python/`, `PythonConfig.ResolveRoot`), and Bash (`bash.yml`'s `root`, the defaults `bash/` and
-`.bash/`, `BashConfig.ResolveRoot`).
+The roots of the test languages follow it today: Go (`go.yml`'s `root`, the defaults `go/` and `.go/`, `GoConfig.ResolveRoot`), Python
+(`python.yml`'s `root`, the defaults `python/` and `.python/`, `PythonConfig.ResolveRoot`), and Bash (`bash.yml`'s `root`, the defaults
+`bash/` and `.bash/`, `BashConfig.ResolveRoot`), and a track's places are read through the track
+([DDR-TRACK-SUBSCRIBABLENOTPATHCOUPLED](../design/tracks.md#rule-ddr-track-subscribablenotpathcoupled)). Some module-internal names are
+still literals in code — `New-DynamicManifest` spells `'private'`, `Test-Automation`'s test-path helpers `'tests'`, `Install-VendorModule`
+`'.vendor'`, the importer `'.internal'` and `'.vendor'` — and each spells its setting's default until it reads the setting.
 
 ### Three levels of structure
 
@@ -233,32 +228,33 @@ Each level is defined below in the Decision section.
 
 ## Decision
 
-The repository uses a fixed, semantic folder layout at three levels. Tooling programs directly against these well-known paths. Folder names
-are contracts, not suggestions.
+The repository uses a semantic folder layout at three levels. Every name tooling relies on is declared once, as configuration of the track
+it belongs to — a track's place, a module place, or a language's layout — and tooling reads it from there. Declared names are not
+suggestions.
 
 ### Level 1: Repository root
 
-The root is a closed set of folders, each with a fixed meaning. The **Kind** column marks whether tooling hardcodes the name (_contract_) or
-a reader infers it (_semantic_).
+The root is a closed set of folders, each with a fixed meaning. The **Kind** column marks whether the name is declared as a track's place in
+`variants.yml` (_declared_) or a reader infers it (_free_); `out/` is declared too, the place of the `output` track.
 
 | Directory         | Kind     | Meaning                                                                                                                                                                | Programmed against by                                               |
 | ----------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `pwsh/`           | contract | Module system root — all PowerShell modules and infrastructure (Levels 2–3)                                                                                            | `importer.ps1`, `Test-Automation`, `Install-VendorModule`           |
+| `pwsh/`           | declared | Module system root — all PowerShell modules and infrastructure (Levels 2–3)                                                                                            | `importer.ps1`, `Test-Automation`, `Install-VendorModule`           |
 | `docs/`           | mixed    | Documentation — `adr/` decision records, `references/` reference articles, `how-to/` guides, `explanation/` articles, `.assets/` diagrams                              | `Build-DrsIndex`, `Build-Readme`; human consumption                 |
 | `infrastructure/` | mixed    | Bicep IaC — reusable `modules/` and deployable `templates/<name>/`                                                                                                     | Bicep build/deploy tooling, `Get-BicepTemplates`                    |
-| `contracts/`      | contract | Binding contracts at the repository boundary, both directions — `<unit>/<version>/<module>/<path>`; see [api-contracts](api-contracts.md)                              | The owning modules' contract tests; outside consumers and platforms |
-| `go/`             | contract | The Go root: black-box Go tests, `tests/<module>/`; see [go-test-artifacts](../automation/go/go-test-artifacts.md)                                                     | `GoConfig`, `New-GoWorkspace`, `Invoke-GoTest`                      |
-| `python/`         | contract | The Python root: black-box Python tests, `tests/<module>/`, and the generated test project; see [python-test-artifacts](../automation/python/python-test-artifacts.md) | `PythonConfig`, `New-PythonProject`, `Invoke-PythonTest`            |
-| `bash/`           | contract | The Bash root: black-box Bash tests, `tests/<module>/`, and the vendored bats runner; see [bash-test-artifacts](../automation/bash/bash-test-artifacts.md)             | `BashConfig`, `Invoke-BashTest`                                     |
-| `out/`            | contract | All output files (gitignored) — see [dedicated-output-directory](dedicated-output-directory.md)                                                                        | Output functions, CI artifacts, cleanup scripts                     |
-| `.github/`        | contract | GitHub Actions — `workflows/`, actions, templates                                                                                                                      | GitHub Actions runner                                               |
-| `.ado/`           | contract | Azure DevOps — `pipelines/` holds the ado pipelines, per-kind templates, and the runner                                                                                | Azure DevOps runner, `Invoke-AdoScript.ps1`                         |
-| `.vscode/`        | contract | Managed, generated editor config — every file reproduced on import; see [generated-root-configs](generated-root-configs.md)                                            | VS Code; `Build-RootConfig`                                         |
-| `.claude/`        | contract | Claude Code project config — `CLAUDE.md`, `settings.json`, the `agents/`, `hooks/`, and `drawio/` folders                                                              | Claude Code                                                         |
-| `.cspell/`        | contract | Generated cspell dictionaries — one `<category>.txt` per `terminology.yml` category; only `.gitkeep` is committed                                                      | `cspell.yml`; `Build-TerminologyDictionary`                         |
-| `.go/`            | contract | The Go root when the repository has no `go/` folder — the same layout as `go/`, dot-prefixed as tooling                                                                | `GoConfig`, `New-GoWorkspace`, `Invoke-GoTest`                      |
-| `.python/`        | contract | The Python root when the repository has no `python/` folder — the same layout as `python/`, dot-prefixed as tooling                                                    | `PythonConfig`, `New-PythonProject`, `Invoke-PythonTest`            |
-| `.bash/`          | contract | The Bash root when the repository has no `bash/` folder — the same layout as `bash/`, dot-prefixed as tooling                                                          | `BashConfig`, `Invoke-BashTest`                                     |
+| `contracts/`      | declared | Thin, binding promises at the repository boundary, both directions — `<root>/<version>/[<group>/]<asset>`; see [api-contracts](api-contracts.md)                       | The owning modules' contract tests; outside consumers and platforms |
+| `go/`             | declared | The Go root: black-box Go tests, `tests/<module>/`; see [go-test-artifacts](../automation/go/go-test-artifacts.md)                                                     | `GoConfig`, `New-GoWorkspace`, `Invoke-GoTest`                      |
+| `python/`         | declared | The Python root: black-box Python tests, `tests/<module>/`, and the generated test project; see [python-test-artifacts](../automation/python/python-test-artifacts.md) | `PythonConfig`, `New-PythonProject`, `Invoke-PythonTest`            |
+| `bash/`           | declared | The Bash root: black-box Bash tests, `tests/<module>/`, and the vendored bats runner; see [bash-test-artifacts](../automation/bash/bash-test-artifacts.md)             | `BashConfig`, `Invoke-BashTest`                                     |
+| `out/`            | declared | All output files (gitignored) — see [dedicated-output-directory](dedicated-output-directory.md)                                                                        | Output functions, CI artifacts, cleanup scripts                     |
+| `.github/`        | declared | GitHub Actions — `workflows/`, actions, templates                                                                                                                      | GitHub Actions runner                                               |
+| `.ado/`           | declared | Azure DevOps — `pipelines/` holds the ado pipelines, per-kind templates, and the runner                                                                                | Azure DevOps runner, `Invoke-AdoScript.ps1`                         |
+| `.vscode/`        | declared | Managed, generated editor config — every file reproduced on import; see [generated-root-configs](generated-root-configs.md)                                            | VS Code; `Build-RootConfig`                                         |
+| `.claude/`        | declared | Claude Code project config — `CLAUDE.md`, `settings.json`, the `agents/`, `hooks/`, and `drawio/` folders                                                              | Claude Code                                                         |
+| `.cspell/`        | declared | Generated cspell dictionaries — one `<category>.txt` per `terminology.yml` category; only `.gitkeep` is committed                                                      | `cspell.yml`; `Build-TerminologyDictionary`                         |
+| `.go/`            | declared | The Go root when the repository has no `go/` folder — the same layout as `go/`, dot-prefixed as tooling                                                                | `GoConfig`, `New-GoWorkspace`, `Invoke-GoTest`                      |
+| `.python/`        | declared | The Python root when the repository has no `python/` folder — the same layout as `python/`, dot-prefixed as tooling                                                    | `PythonConfig`, `New-PythonProject`, `Invoke-PythonTest`            |
+| `.bash/`          | declared | The Bash root when the repository has no `bash/` folder — the same layout as `bash/`, dot-prefixed as tooling                                                          | `BashConfig`, `Invoke-BashTest`                                     |
 | `.git/`           | —        | Git's own store. The boundary of _our_ conventions: git owns it, we do not document it.                                                                                | Git                                                                 |
 
 `pwsh/` is the only root the module system interacts with; its internals are Levels 2–3 below. The rest separate concerns at the repo level,
@@ -284,20 +280,18 @@ the configuration root is the shared platform's, and a subfolder is always a cus
 identity is a separate `short_name`, which the Azure domain's data model and naming standard govern.
 
 **`.ado/pipelines/`** is flat: ado pipelines are named `<type>-<name>.yaml` (`cron`/`ci`/`cd`/`cde`/`deploy`/`input`) directly in the
-folder, the runner `Invoke-AdoScript.ps1` sits at the root, and reusable fragments live in per-kind folders whose names are the include-kind
-contract — `steps/`, `jobs/`, `stages/`, `variables/`, `extends/`; the ado domain names and places each pipeline.
+folder, the runner `Invoke-AdoScript.ps1` sits at the root, and reusable fragments live in per-kind folders whose fixed names are the
+include kinds — `steps/`, `jobs/`, `stages/`, `variables/`, `extends/`; the ado domain names and places each pipeline.
 
 **`contracts/`** holds the repository's contracts — the binding interfaces at its boundary, proven by tests, in both directions: provided
-(what an outside consumer may rely on) and depended-on (what an outside platform, such as GitHub or Azure DevOps, expects of our files and
-calls). It has four levels. The first is the unit: `contracts/<unit>/`, the deployable-unit that carries the contracts — `catzc`, the
-bundle, the one unit a consumer pins; another unit that carries contracts gets its own folder beside it. The second is that unit's version:
-`contracts/<unit>/<version>/`, where the unit's `0.0.0` is its one mutable draft, frozen only when that unit is released, and every other
-version folder is frozen; there is no repository-wide version. The third is the owning catzc module: `contracts/<unit>/<version>/<module>/`,
-the module that talks to the outside party and holds the tests. The fourth repeats the real file's repository-relative path, so a contract
-asset and the file it constrains are found from each other without a mapping. Provided and depended-on contracts both version with their
-unit. A frozen version folder kept for a consumer that pins it is a separate, live set of contracts, not legacy: this is the one place the
-repo deliberately carries backwards compatibility, because here — unlike the internal code — external consumers genuinely exist (see
-[one-living-version](../principles/one-living-version.md#rule-pdr-onelive-pinnedversionnotlegacy)). The root carries a checked-in
+(what we promise the world) and depended-on (what a vendor, such as GitHub or Azure DevOps, promised us). It has at most four levels. The
+first is the root, who made the promise: `contracts/catzc/` for ours, `contracts/<vendor>/` for a vendor's. The second is the version:
+`0.1.0`, the current contracts, edited in place, which every internal binding points at; the rest of the `0.1` range is reserved, `0.0.0` is
+never a folder, and a version from `1.0.0` up is a frozen `catzc` release. The third, optional, is one group folder: the owning module in
+`catzc`, the vendor's area in a vendor root. The fourth is the asset itself; the files it binds are named in its version's `contract.yml`,
+not by a mirrored path. A release folder kept for a consumer that pins it is a separate, live set of contracts, not legacy: this is the one
+place the repo deliberately carries backwards compatibility, because here — unlike the internal code — external consumers genuinely exist
+(see [one-living-version](../principles/one-living-version.md#rule-pdr-onelive-pinnedversionnotlegacy)). The root carries a checked-in
 `.gitkeep`, so it stays tracked before any contract exists.
 
 **`go/`** is the Go root: the repository's Go code, which is black-box tests of the engine and never ships
@@ -312,18 +306,20 @@ root elsewhere when declared; the two names are the sensible defaults of that on
 module, named for that module in kebab case, and the generated uv workspace — the root `pyproject.toml`, one member `pyproject.toml` per
 test folder, and the one environment and lock uv makes from them — all gitignored. A repository with no `python/` folder keeps the same
 layout under the dot-prefixed `.python/`, and `python.yml`'s `root` places the Python root elsewhere when declared, by the convention every
-test-language root follows ([rule 7](#rule-adr-repo-folders-literalnames)); the code that reads it is `PythonConfig.ResolveRoot`.
+test-language root follows ([ADR-REPO-FOLDERS-NAMESARESETTINGS](#rule-adr-repo-folders-namesaresettings)); the code that reads it is
+`PythonConfig.ResolveRoot`.
 
 **`bash/`** is the Bash root: the repository's Bash tests, which are black-box tests of the engine through `importer.sh` and `cats`, and
 never ship ([bash-test-artifacts](../automation/bash/bash-test-artifacts.md)). It holds `tests/<module>/`, one Bash test folder per catzc
 module, named for that module in kebab case, and the vendored bats-core runner under `.vendor/bats-core/`, committed. A repository with no
 `bash/` folder keeps the same layout under the dot-prefixed `.bash/`, and `bash.yml`'s `root` places the Bash root elsewhere when declared,
-by the convention every test-language root follows ([rule 7](#rule-adr-repo-folders-literalnames)); the code that reads it is
-`BashConfig.ResolveRoot`.
+by the convention every test-language root follows ([ADR-REPO-FOLDERS-NAMESARESETTINGS](#rule-adr-repo-folders-namesaresettings)); the code
+that reads it is `BashConfig.ResolveRoot`.
 
-**`out/`** is the single home for all generated and transient files, gitignored except `.gitkeep`. The _root_ is the contract
-(`Get-OutputRoot`); the subfolders inside are ad-hoc workspaces with no fixed names. Nothing under `out/` is source. See
-[dedicated-output-directory](dedicated-output-directory.md).
+**`out/`** is the `output` track: the single home for all generated and transient files, gitignored except `.gitkeep`, and operated on like
+any track — the tools write their reports, renders and builds there and read them back. Its build destination is none, so it ships nothing.
+The track's place is the conventional part (`Get-OutputRoot`); the subfolders inside are ad-hoc workspaces with no conventional names.
+Nothing under `out/` is source. See [dedicated-output-directory](dedicated-output-directory.md).
 
 **Dot-prefixed roots** (`.github/`, `.vscode/`, `.claude/`, `.cspell/`, `.go/`, `.python/`, `.bash/`, `.git/`) are infrastructure/tooling —
 the same convention the dot-prefix carries inside `pwsh/` (Level 2): a leading dot means "infrastructure, not content."
@@ -377,7 +373,7 @@ file-scoped `namespace <module>;`** — derived from its `types/` folder, writte
 of one-function-per-file) — and rejects a dotted filename or a missing, mismatched, or block-scoped namespace. Every module's sources
 compile together into **one** committed assembly for the whole repository, `pwsh/.compiled/Catzc.Types.<hash>.dll` (vendored, hash-keyed,
 like `.vendor/`), so a fresh checkout and CI load it without invoking Roslyn. A module with no native types has no `types/` folder. The full
-contract — the single combined assembly, `namespace = module`, the cross-module references governed by the dependency graph, the cache-state
+rule set — the single combined assembly, `namespace = module`, the cross-module references governed by the dependency graph, the cache-state
 behaviour, the fail-fast on edit, and the one shared `DictionaryRecord` data-record base — lives in its own ADR,
 [native-csharp-types](../automation/BCL/native-csharp-types.md).
 
@@ -422,20 +418,20 @@ folder must exist.
 
 ### Violation patterns
 
-| Pattern                                                             | Problem                                                                                              | Fix                                                |
-| ------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | -------------------------------------------------- |
-| Private helpers in `internal/`, `helpers/`, or `util/`              | Bootstrap does not scan these — functions are invisible                                              | Rename to `private/`                               |
-| Tests in `test/`, `spec/`, or the module root                       | Test runner does not find them — they never execute                                                  | Move to `tests/` with `*.Tests.ps1` naming         |
-| The module's own config in the module root alongside `.ps1` files   | Config files could collide with function naming; unclear boundaries                                  | Move to `configs/` as a kebab-case `.yml`          |
-| Standalone scripts in the module root                               | Bootstrap treats them as public functions                                                            | Move to `assets/`                                  |
-| Using `config/` or `scripts/` as module subdirectories              | Not a conventional folder — tooling ignores them, convention test fails                              | Module config → `configs/`; scripts → `assets/`    |
-| The module's own config under `assets/config/` or bare in `assets/` | Internal config belongs in `configs/`, not `assets/`; the convention test fails on `assets/config/`  | Move to `configs/` as a flat kebab-case `.yml`     |
-| Test fixtures under `assets/test/`                                  | Fixtures and the tests that use them drift apart; the convention test fails on `assets/test/`        | Move to `tests/assets/` (packaged with the tests)  |
-| A non-dot folder under `pwsh/` that is not a module                 | `Import-AllModules` discovers it and tries to build a manifest                                       | Dot-prefix it (infrastructure) or make it a module |
-| A dot-prefixed module that should be discovered                     | `Import-AllModules` skips it — module is invisible                                                   | Remove the dot prefix                              |
-| Passing `-PrivatePath` or similar parameters to Bootstrap           | Adds indirection; the path is always `'private'`                                                     | Hardcode the name; remove the parameter            |
-| A `module.yml` mapping folder names to meanings                     | Second source of truth that drifts from the actual structure                                         | Remove the mapping; use the convention directly    |
-| Putting output files in `assets/`                                   | Mixes transient output with source — see [dedicated-output-directory](dedicated-output-directory.md) | Write to `out/`                                    |
+| Pattern                                                             | Problem                                                                                              | Fix                                                         |
+| ------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ----------------------------------------------------------- |
+| Private helpers in `internal/`, `helpers/`, or `util/`              | Bootstrap does not scan these — functions are invisible                                              | Rename to `private/`                                        |
+| Tests in `test/`, `spec/`, or the module root                       | Test runner does not find them — they never execute                                                  | Move to `tests/` with `*.Tests.ps1` naming                  |
+| The module's own config in the module root alongside `.ps1` files   | Config files could collide with function naming; unclear boundaries                                  | Move to `configs/` as a kebab-case `.yml`                   |
+| Standalone scripts in the module root                               | Bootstrap treats them as public functions                                                            | Move to `assets/`                                           |
+| Using `config/` or `scripts/` as module subdirectories              | Not a conventional folder — tooling ignores them, convention test fails                              | Module config → `configs/`; scripts → `assets/`             |
+| The module's own config under `assets/config/` or bare in `assets/` | Internal config belongs in `configs/`, not `assets/`; the convention test fails on `assets/config/`  | Move to `configs/` as a flat kebab-case `.yml`              |
+| Test fixtures under `assets/test/`                                  | Fixtures and the tests that use them drift apart; the convention test fails on `assets/test/`        | Move to `tests/assets/` (packaged with the tests)           |
+| A non-dot folder under `pwsh/` that is not a module                 | `Import-AllModules` discovers it and tries to build a manifest                                       | Dot-prefix it (infrastructure) or make it a module          |
+| A dot-prefixed module that should be discovered                     | `Import-AllModules` skips it — module is invisible                                                   | Remove the dot prefix                                       |
+| Passing `-PrivatePath` or similar parameters to Bootstrap           | A per-call name lets one caller disagree with the repository's setting                               | Read the setting through its resolver; remove the parameter |
+| A `module.yml` mapping folder names to meanings                     | Second source of truth that drifts from the actual structure                                         | Remove the mapping; use the convention directly             |
+| Putting output files in `assets/`                                   | Mixes transient output with source — see [dedicated-output-directory](dedicated-output-directory.md) | Write to `out/`                                             |
 
 ### Stable locators
 
@@ -447,13 +443,14 @@ task files of the plans folder hold to it too: each is named by its topic, and t
 
 ### How this is enforced
 
-- **`New-DynamicManifest`** — hardcodes `private/` when scanning for non-exported functions. Files not in `private/` or the module root are
-  not included in the manifest. A file in `helpers/` is structurally invisible.
+- **`New-DynamicManifest`** — scans `private/` for non-exported functions (a literal today, the setting's default). Files not in `private/`
+  or the module root are not included in the manifest. A file in `helpers/` is structurally invisible.
 
-- **`Import-AllModules`** — hardcodes the dot-prefix filter (`$_.Name -notmatch '^\.'`). Dot-prefixed folders are infrastructure. Non-dot
-  folders are modules. No configuration.
+- **`Import-AllModules`** — applies the dot-prefix filter (`$_.Name -notmatch '^\.'`). Dot-prefixed folders are infrastructure. Non-dot
+  folders are modules.
 
-- **`Test-Automation`** — hardcodes `tests/` when discovering test paths. Test files outside `tests/` are never executed.
+- **`Test-Automation`** — discovers test paths under `tests/` (a literal today, the setting's default). Test files outside `tests/` are
+  never executed.
 
 - **`Test-Automation.Tests.ps1`** — validates that every `.ps1` file in a module follows the one-function-per-file convention. It scans only
   the module root and `private/` — files in `assets/` or other folders are not subject to this validation.
@@ -468,7 +465,7 @@ task files of the plans folder hold to it too: each is named by its topic, and t
 
 - **Repo-wide conventions** — the closed root set (ADR-REPO-FOLDERS-CLOSEDROOTSET), the dot-prefixed roots
   (ADR-REPO-FOLDERS-DOTMEANSTOOLING), the markdown-only rule for `docs/` (ADR-REPO-FOLDERS-DOCUMENTATIONMARKDOWNONLY), and the
-  `contracts/<unit>/<version>/<module>/` layout with its root `.gitkeep` (ADR-REPO-FOLDERS-CONTRACTSFOLDER) — are enforced by **code
+  `contracts/<root>/<version>/[<group>/]` layout with its root `.gitkeep` (ADR-REPO-FOLDERS-CONTRACTSFOLDER) — are enforced by **code
   review** against this ADR; the deep `pwsh/` conventions above are additionally enforced mechanically by the tooling listed here.
 
 - **Code review.** Structural conventions that tooling cannot enforce (e.g., "this YAML file belongs in `configs/`, not the module root")
@@ -478,17 +475,19 @@ task files of the plans folder hold to it too: each is named by its topic, and t
 
 - One place to learn what any folder means and where new content belongs — for the whole repository, not just `pwsh/`. No per-folder README,
   no mapping file.
-- The contract/semantic distinction tells a contributor whether a folder name is load-bearing (renaming it breaks tooling) or a free label
-  (renaming it is harmless).
+- The declared/free distinction tells a contributor whether a folder name is load-bearing — a track's configuration, renamed at the layer
+  that declares it — or a free label (renaming it is harmless).
 - The folder structure is self-documenting. Opening any module reveals the same layout. `private/` is private, `tests/` is tests, `assets/`
   is everything else — no per-module learning curve.
 - Tooling is simple and stable. The bootstrap module, test runner, and importer have no configuration for folder names. They hardcode the
   names, and the names do not change.
 - New modules are created by copying the folder layout. There is no registration, no configuration file to update, no "folder structure"
   section in a setup guide. The layout is the same everywhere because the names are the same everywhere.
-- Adding a new conventional folder is a deliberate, documented decision. It changes the contract, so it goes through an ADR amendment.
+- Adding a new folder role to the conventional layout is a deliberate, documented decision. It adds a setting to a track's default
+  configuration, so it goes through an ADR amendment; renaming an existing folder is an override of its setting.
 - Non-conforming content is structurally invisible, not an error. A module with helpers in `internal/` does not crash the bootstrap module —
   it just has no private functions. This is poka-yoke: the wrong name does not cause a confusing failure, it causes a predictable absence
   that is easy to diagnose.
-- The tradeoff is rigidity. You cannot call the test folder `spec/` because you prefer RSpec conventions. You cannot call the private folder
-  `internal/` because Go uses that name. The platform's consistency is worth more than individual naming preferences.
+- The tradeoff is uniformity over local taste. A repository may call its test folder `spec/` by overriding the setting, and then every
+  module's tests are in `spec/`; no single module may call its own `spec/` or `internal/`. The platform's consistency is worth more than one
+  module's naming preference.

@@ -4,8 +4,8 @@
 
 ### Rule ADR-REPO-CMDCONTRACT-COMMANDCONTRACT
 
-A **command contract** is a contract asset, `<module>/<command>.command.yml` in a unit's version folder, both named in the repository normal
-form ([ADR-AUTO-IDIOM-NORMALFORM](../automation/idiomatic-names.md#rule-adr-auto-idiom-normalform):
+A **command contract** is a contract asset, `<module>/<command>.command.yml` in `contracts/catzc/0.1.0/`, both named in the repository
+normal form ([ADR-AUTO-IDIOM-NORMALFORM](../automation/idiomatic-names.md#rule-adr-auto-idiom-normalform):
 `catzc.base.contracts/get_command_contract.command.yml`), that states the call interface of one command, and it is provided: its consumers
 are the callers outside the module system, a POSIX shell through `cats`, a black-box test in another language, a pipeline step. A command is
 public exactly when a command contract names it. A function no contract names is not public and changes in place under
@@ -36,7 +36,7 @@ that is mandatory in one set and optional in another has no spec, so a command t
 ### Rule ADR-REPO-CMDCONTRACT-NOPLACEMENTFACTS
 
 A command contract stores nothing its placement says ([zero-ceremony](../automation/zero-ceremony-poka-yoke.md)): the command's name is the
-file name and the owning module is the folder, both in the repository normal form, the version is the unit's version folder, the
+file name and the owning module is the group folder, both in the repository normal form, the version is the current `0.1.0`, the
 implementation language is the language of the file that holds the command, and the engines the command runs under are every engine of the
 engine registry. The asset holds the call interface and, where a signature does not say what the command promises, the header comment of
 [ADR-REPO-CONTRACT-HEADERSAYSWHATITPINS](api-contracts.md#rule-adr-repo-contract-headersayswhatitpins).
@@ -72,13 +72,13 @@ value reaches the command in the type the contract names ([poka-yoke](../princip
 
 ### Rule ADR-REPO-CMDCONTRACT-VERSIONSWITHUNIT
 
-A command contract versions with its unit ([ADR-REPO-CONTRACT-LAYOUT](api-contracts.md#rule-adr-repo-contract-layout)): the draft `0.0.0` is
-where a signature is shaped, and a change to a contracted command's signature edits its asset in the same change, or the check fails. A
-released version folder pins the signature for every consumer of that version
-([ADR-REPO-CONTRACT-KEPTWHILEPINNED](api-contracts.md#rule-adr-repo-contract-keptwhilepinned)): the command keeps that call interface while
-the folder is in the tree, and the frozen asset's check fails the change that breaks it.
+A command contract lives in the current version, `contracts/catzc/0.1.0/`
+([ADR-REPO-CONTRACT-CURRENTVERSION](api-contracts.md#rule-adr-repo-contract-currentversion)): that is where a signature is shaped, and a
+change to a contracted command's signature edits its asset in the same change, or the check fails. A release folder pins the signature for
+every consumer of that release ([ADR-REPO-CONTRACT-KEPTWHILEPINNED](api-contracts.md#rule-adr-repo-contract-keptwhilepinned)): the command
+keeps that call interface while the folder is in the tree, and the frozen asset's check fails the change that breaks it.
 
-- [Pinned by the unit](#pinned-by-the-unit)
+- [Pinned by a release](#pinned-by-a-release)
 
 ## Context
 
@@ -105,7 +105,7 @@ contract gets none.
 `A signature in one line per parameter`
 
 ```yaml
-# contracts/catzc/0.0.0/catzc.base.widgets/get_widget.command.yml
+# contracts/catzc/0.1.0/catzc.base.widgets/get_widget.command.yml
 parameters:
   path: string! # mandatory
   strict: switch
@@ -115,7 +115,7 @@ output: catzc.base.widgets.widget
 ```
 
 ```yaml
-# contracts/catzc/0.0.0/catzc.base.widgets/find_gadget.command.yml
+# contracts/catzc/0.1.0/catzc.base.widgets/find_gadget.command.yml
 parameters:
   id: string! in id # only in the set id, mandatory there
   count: int! in random
@@ -153,7 +153,7 @@ per set, and that shape is rare enough to be refused rather than given a grammar
 `Nothing in the asset that the path already says`
 
 The folder names the module and the file names the command, so the asset carries neither. The real file is the command's file under the
-module's root, where its public functions sit, so the module needs no target root for its commands. The version is the unit's. The
+module's root, where its public functions sit, so the asset needs no `applies_to` entry. The version is the current `0.1.0`. The
 implementation language is read from that file, through the file-language registry, and the engines are the engine registry's: a command
 contracted for one engine would be a half-promise, and a consumer reaches the command through whichever engine it has.
 
@@ -180,13 +180,13 @@ than a quoted string. For a command with parameter sets, the call is held to the
 several, so a parameter from another set or a mandatory one missing from that set is rejected the same way. The lookup is generated from the
 contracts and committed beside the entry point's script, through the root-config generator, never edited by hand.
 
-### Pinned by the unit
+### Pinned by a release
 
 `A signature change is a contract change`
 
-Because the asset states the signature, a change to the signature is a change to the asset, in the same change, or the draft's check fails.
-That friction is the point: it makes a public signature change a reviewed, visible act. Once the unit is released, the frozen asset holds
-the signature a consumer of that version relies on, and the frozen folder's check fails any change that breaks it until the folder is
+Because the asset states the signature, a change to the signature is a change to the asset, in the same change, or the check of `0.1.0`
+fails. That friction is the point: it makes a public signature change a reviewed, visible act. Once `catzc` is released, the frozen asset
+holds the signature a consumer of that release relies on, and the release folder's check fails any change that breaks it until the folder is
 retired, the one place backwards compatibility is owed
 ([ADR-REPO-CONTRACT-KEPTWHILEPINNED](api-contracts.md#rule-adr-repo-contract-keptwhilepinned)).
 
@@ -223,8 +223,8 @@ call interface in the contract language: one string per parameter and an output 
 once on its type. A command is public exactly when a contract names it. Placement says the command, the module, the version, the
 implementation language and the engines. One checker per implementation language proves the contract from the parsed file, a language
 without a checker throws, and each engine's start resolves each contracted command. One reader parses it, the reference page shows it, and
-`cats` validates and types a call against it before any engine starts. It versions with its unit, so a signature change is a contract
-change, and a released folder pins the signature.
+`cats` validates and types a call against it before any engine starts. It lives in the current `0.1.0`, so a signature change is a contract
+change, and a release folder pins the signature.
 
 ### How this is enforced
 
@@ -254,7 +254,7 @@ change, and a released folder pins the signature.
 
 - A caller outside the module system has one stated interface per public command, in a notation a shell can read without PowerShell.
 - The public set is small and chosen: writing a contract is the act of making a command public, and every other function changes freely.
-- A signature change to a public command is a contract change, caught where it is made, in the draft's check or in the frozen folder's.
+- A signature change to a public command is a contract change, caught where it is made, in the check of `0.1.0` or of a release folder.
 - `cats` rejects a wrong call before an engine starts and passes typed values, so a switch is a flag and an integer is an integer.
 - Each implementation language needs its own checker before a command of that language is promised; until it has one, the attempt throws.
 - The cost is a hand-written asset per public command and the discipline of editing it with the signature; the first contracted set is a

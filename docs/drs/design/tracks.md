@@ -8,7 +8,8 @@ A **track** is a named, on-disk cluster of module contents: the tracked files of
 declares ([DDR-TRACKTYPE-DECLAREDONCE](track-types.md#rule-ddr-tracktype-declaredonce)). A place is a root folder (`pwsh`), a path inside
 one (`.github/workflows`, `pwsh/.vendor`), or a root folder of a tool (`.claude`). Every tracked file lies in exactly one track, found by
 the longest place that contains it ([DDR-TRACKTYPE-LONGESTPLACEWINS](track-types.md#rule-ddr-tracktype-longestplacewins)), or is a root file
-(DDR-TRACK-ROOTFILE); `out/` holds gitignored output and is in none. Tracks are what this mono repository is composed of.
+(DDR-TRACK-ROOTFILE). `out/` is a track too, the `output` track: git ignores its files, and the tools operate on them like any track's.
+Tracks are what this mono repository is composed of.
 
 - [What a track is](#what-a-track-is)
 
@@ -17,13 +18,14 @@ the longest place that contains it ([DDR-TRACKTYPE-LONGESTPLACEWINS](track-types
 Every track has exactly one **track type** ([DDR-TRACKTYPE-CLOSEDSETOFTYPES](track-types.md#rule-ddr-tracktype-closedsetoftypes)), stated
 once and carrying no second classification beside it: `modules` (`pwsh`, the core the other tracks rest on, and the other language tracks,
 `python`, `go` and `bash`, which hold their modules the same way), `infrastructure`, `pipelines`, `vendor-settings`, `vendored-code`,
-`contracts`, `documentation`, or `unordered` (`.unordered`, DDR-TRACK-UNORDEREDTRACK). The type's role is deployable or holder
-([DDR-TRACKTYPE-ONEROLE](track-types.md#rule-ddr-tracktype-onerole)). Each language track keeps a test holder, `<root>/tests/`, of black-box
-tests that verify the core from outside; a test file is never live and never ships, and a module of the track ships only what `files.yml`
-packages. `go` holds the Go black-box tests; a repository without a `go/` root keeps the same tests in the dot-prefixed `.go`, which is of
-the same class. `python` holds the Python ones, by the same convention: `.python` when the repository has no `python/` root. `bash` holds
-the Bash ones: `.bash` when the repository has no `bash/` root. Cross-cutting slices (e.g. the cats configs — every yml/config file across
-the modules track) are **scopes over tracks**, not tracks: they select through the roots rather than owning one.
+`contracts`, `documentation`, `unordered` (`.unordered`, DDR-TRACK-UNORDEREDTRACK), or `output` (`out/`, gitignored, built to no
+destination). The type's role is deployable or holder ([DDR-TRACKTYPE-ONEROLE](track-types.md#rule-ddr-tracktype-onerole)). Each language
+track keeps a test holder, `<root>/tests/`, of black-box tests that verify the core from outside; a test file is never live and never ships,
+and a module of the track ships only what `files.yml` packages. `go` holds the Go black-box tests; a repository without a `go/` root keeps
+the same tests in the dot-prefixed `.go`, which is of the same class. `python` holds the Python ones, by the same convention: `.python` when
+the repository has no `python/` root. `bash` holds the Bash ones: `.bash` when the repository has no `bash/` root. Cross-cutting slices
+(e.g. the cats configs — every yml/config file across the modules track) are **scopes over tracks**, not tracks: they select through the
+roots rather than owning one.
 
 - [The taxonomy](#the-taxonomy)
 

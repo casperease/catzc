@@ -19,7 +19,7 @@ Constructing an instance validates the file, collecting every violation into one
   - 'root' is the Bash root folder, repository-relative: slash-separated segments of letters, digits, '.', '_' and
     '-', no leading or trailing slash, no '.' or '..' segment. Omitted, it resolves per repository (ResolveRoot):
     'bash' when the repository has a bash/ folder, else '.bash' — the one convention every test language's root
-    follows ([ADR-REPO-FOLDERS-LITERALNAMES](/docs/drs/repository/conventional-folders.md#rule-adr-repo-folders-literalnames));
+    follows ([ADR-REPO-FOLDERS-NAMESARESETTINGS](/docs/drs/repository/conventional-folders.md#rule-adr-repo-folders-namesaresettings));
   - 'bats_version' is the vendored bats-core release (X.Y.Z), and 'bats_sha256' the SHA-256 of its source archive,
     both required: the vendored copy is reproducible from them.
 ```

@@ -80,21 +80,21 @@ extensions:
           priority: default
   catzc-track-lamps:
     displayName: Catzc track lamps
-    version: 0.23.0
+    version: 0.24.0
     description: >-
       Filter lamps in the Explorer's title row, one per repository filter (filters.yml) and one for a typed list of languages; a click steps
       a lamp off, on, veto. The tree is the union of the lit lamps minus the zones of the vetoed ones, and each lamp's colour is its
       domain's condition: committed, staged, unstaged or failed.
     activationEvents: [onStartupFinished]
     contributes:
-      # The open lamp, one lamp per filter of filters.yml, then the languages lamp: each entry naming the repeat is written once per lamp.
+      # One lamp per filter of filters.yml, then the languages lamp: each entry naming the repeat is written once per lamp. The open lamp
+      # is no switch: it stands before them, always lit, and its one command focuses the next editor.
       repeat:
         lamp:
           config: filters
           list: filters
           key: name
           title: title
-          first: [{ name: open, title: the files open in an editor }]
           plus: [{ name: languages, title: the typed languages }]
       commands:
         - command: catzc.lamps.orchestrate.red
@@ -109,6 +109,13 @@ extensions:
           title: "orchestrator: all good so far"
           icon: { light: "media/orchestrator-green.svg", dark: "media/orchestrator-green.svg" }
           category: Catzc lamps
+        # The open lamp's colour is the condition of the open files; with no editor open its icon is drawn invisible and keeps its place.
+        - command: catzc.lamps.open.next
+          title: "open, the files open in an editor (click to focus the next editor)"
+          icon: { light: "media/open-on.svg", dark: "media/open-on.svg" }
+          category: Catzc lamps
+          states: [staged, unstaged, failed, empty]
+          state_context: catzc.lamps.state.open
         # A click steps a lamp round off -> on -> veto -> off; each command shows the icon of the state it leaves.
         - repeat: lamp
           command: catzc.lamps.{lamp}.veto
@@ -140,6 +147,9 @@ extensions:
           - command: catzc.lamps.orchestrate.green
             when: "view == workbench.explorer.fileView && catzc.lamps.summary == green"
             group: navigation@0
+          - command: catzc.lamps.open.next
+            when: "view == workbench.explorer.fileView"
+            group: navigation@90
           - repeat: lamp
             command: catzc.lamps.{lamp}.veto
             when: "view == workbench.explorer.fileView && catzc.lamps.shown.{lamp} && !catzc.lamps.out.{lamp} && !catzc.lamps.veto.{lamp}"

@@ -42,10 +42,8 @@ cats has no parity for (Ruff, Prettier, markdownlint, cspell). The recommendatio
 
 ## Open steps
 
-The workflow schema's job checks first, then the small extensions folded into cats extensions.
+The small extensions folded into cats extensions.
 
-- [ ] `ContractSchema`: `additionalProperties` as a schema, so the workflow schema checks each job and its steps, not only the top level.
-      Check: `ContractSchema.Tests.ps1`, then `Test-Contracts` on the workflows.
 - [ ] `New-VsCodeSettings`: renders `.editorconfig` into per-language settings; remove `editorconfig.editorconfig`. Check: the module's
       tests for `New-VsCodeSettings`.
 - [ ] A cats extension: a document link provider for `/docs/drs/` links; drop `regexrobin.rules` and `DanLevett.regex-robin`. Check: a

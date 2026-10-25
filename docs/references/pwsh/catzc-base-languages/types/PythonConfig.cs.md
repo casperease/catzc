@@ -22,7 +22,7 @@ Constructing an instance validates the file, collecting every violation into one
     '-', no leading or trailing slash, no '.' or '..' segment. Omitted, it resolves per repository (ResolveRoot):
     'python' when the repository has a python/ folder (a Python root track), else '.python', the dot-prefixed tooling
     folder — the one convention every test language's root follows
-    ([ADR-REPO-FOLDERS-LITERALNAMES](/docs/drs/repository/conventional-folders.md#rule-adr-repo-folders-literalnames));
+    ([ADR-REPO-FOLDERS-NAMESARESETTINGS](/docs/drs/repository/conventional-folders.md#rule-adr-repo-folders-namesaresettings));
   - 'dependencies' maps a normalised distribution name (lowercase letters, digits, '-', '_', '.') to an exact
     version (digits and dots), kept in ordinal name order so a rendering never depends on the file's key order;
   - the tools the bridge runs are required: 'pytest' (the test runner) and 'ruff' (the formatter and linter).

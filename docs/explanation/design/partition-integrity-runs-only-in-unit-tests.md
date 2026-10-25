@@ -12,7 +12,7 @@ Partition integrity runs only in unit tests, and the per-aspect sha lock has no 
 7  AspectPartition.Validate      DRS-only on the real tree: runs in unit tests only
 8  Aspect sha lock               DRS-only: nothing writes one
 
-Supports DDR-ASPECT-ASPECTSAREDERIVED, DDR-ASPECT-TRACKPICKSCATCHALL, DDR-ASPECT-ASPECTISAGLOBSET, DDR-ASPECT-PARTITIONISCHECKED, ADR-PWSH-ONEFUNC-ONEFUNCTIONPERFILE, ADR-PWSH-MANIFEST-ONEDEFINITIONPERNAME, ADR-PWSH-MANIFEST-GENERATEDMANIFESTS, ADR-PWSH-MANIFEST-MANIFESTSGITIGNORED, ADR-REPO-FOLDERS-FIXEDMODULEFOLDERS and FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT (governance lens).
+Supports DDR-ASPECT-ASPECTSAREDERIVED, DDR-ASPECT-TRACKPICKSCATCHALL, DDR-ASPECT-ASPECTISAGLOBSET, DDR-ASPECT-PARTITIONISCHECKED, ADR-PWSH-ONEFUNC-ONEFUNCTIONPERFILE, ADR-PWSH-MANIFEST-ONEDEFINITIONPERNAME, ADR-PWSH-MANIFEST-GENERATEDMANIFESTS, ADR-PWSH-MANIFEST-MANIFESTSGITIGNORED, ADR-REPO-FOLDERS-DEFAULTMODULEFOLDERS and FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT (governance lens).
 ```
 
 Every stage of a cats module's folder layout is ruled by a decision record, and most of those rules have a gate: a quality gate, a guard at
@@ -34,7 +34,7 @@ about:
     - ADR-PWSH-MANIFEST-ONEDEFINITIONPERNAME
     - ADR-PWSH-MANIFEST-GENERATEDMANIFESTS
     - ADR-PWSH-MANIFEST-MANIFESTSGITIGNORED
-    - ADR-REPO-FOLDERS-FIXEDMODULEFOLDERS
+    - ADR-REPO-FOLDERS-DEFAULTMODULEFOLDERS
     - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
   lens: governance
 content:
@@ -76,7 +76,7 @@ content:
   chips:
     - { at: g-source-conventions, kind: rule, rule: ADR-PWSH-ONEFUNC-ONEFUNCTIONPERFILE }
     - { at: g-source-conventions, kind: rule, rule: ADR-PWSH-MANIFEST-ONEDEFINITIONPERNAME }
-    - { at: g-folder-conventions, kind: rule, rule: ADR-REPO-FOLDERS-FIXEDMODULEFOLDERS }
+    - { at: g-folder-conventions, kind: rule, rule: ADR-REPO-FOLDERS-DEFAULTMODULEFOLDERS }
     - { at: g-assert-unique, kind: rule, rule: ADR-PWSH-MANIFEST-ONEDEFINITIONPERNAME }
     - { at: g-manifest, kind: rule, rule: ADR-PWSH-MANIFEST-GENERATEDMANIFESTS, gated: false }
     - { at: g-manifest, kind: rule, rule: ADR-PWSH-MANIFEST-MANIFESTSGITIGNORED, gated: false }
@@ -112,7 +112,7 @@ layout:
    (ADR-PWSH-ONEFUNC-ONEFUNCTIONPERFILE), and that every function name, public or private, is defined in exactly one file, the integrity
    half of ADR-PWSH-MANIFEST-ONEDEFINITIONPERNAME.
 3. **Test-FolderConventions.** A quality gate. It checks that every module subfolder is a conventional one: `private`, `tests`, `assets`,
-   `types` or `configs` (ADR-REPO-FOLDERS-FIXEDMODULEFOLDERS). `assets/` is conventional but not in the live convention, so module assets
+   `types` or `configs` (ADR-REPO-FOLDERS-DEFAULTMODULEFOLDERS). `assets/` is conventional but not in the live convention, so module assets
    fall to `tests`; the DDR's Related section calls the bundle payload deliberately broader than `live`.
 4. **Assert-UniqueModuleFunctionName.** The import guard, shown shortened as `Assert-Unique…FunctionName`. `Import-AllModules` calls it
    before any module or type loads, and it fails fast on a duplicate exported name or one that shadows an imported command
@@ -133,7 +133,7 @@ layout:
   (ADR-PWSH-MANIFEST-ONEDEFINITIONPERNAME).
 - Manifests are generated from the filesystem on every import and never committed (ADR-PWSH-MANIFEST-GENERATEDMANIFESTS,
   ADR-PWSH-MANIFEST-MANIFESTSGITIGNORED).
-- Module-internal folder names are fixed (ADR-REPO-FOLDERS-FIXEDMODULEFOLDERS).
+- Module-internal folder names default to the conventional set (ADR-REPO-FOLDERS-DEFAULTMODULEFOLDERS).
 - Aspects are derived by ordered first match, the last one is the `**` remainder, and in the code track that remainder is `tests`
   (DDR-ASPECT-ASPECTSAREDERIVED, DDR-ASPECT-TRACKPICKSCATCHALL).
 - Each aspect is an immutable, independently versioned lock (DDR-ASPECT-ASPECTISAGLOBSET), and a file claimed by two aspects, or by none,

@@ -1,6 +1,7 @@
 // Filter lamps in the Explorer's title row, the editor's engine of the lamp language (DDR-FILTER): one lamp per repository filter
 // (filters.yml, rendered into catzc.trackLamps.filters by the root config generator) and a languages lamp whose sets are the extensions of
-// the languages typed in its field. A click steps a lamp round off -> on -> veto -> off. The core, evaluate, is the language itself: the
+// the languages typed in its field. A click steps a lamp round off -> on -> veto -> off, but the open lamp is always lit: its click
+// focuses the next open editor, and with no editor open its icon is invisible. The core, evaluate, is the language itself: the
 // tree is the total union of the lit lamps (a file shows while any lit lamp claims it) minus the zones of the vetoed lamps (a file one
 // claims is hidden even when a lit lamp claims it too), a file no lamp claims shows and is unaccounted, and each lamp's condition is the highest fact over the
 // files it claims, failed > unstaged > staged > committed, whether it is lit or not. Every lamp lit is the default and shows everything.
@@ -552,6 +553,11 @@ function merge(current, owned, wanted) {
     return { next, ours };
 }
 
+// How many editors are open, every tab of every group counted, whatever it shows.
+function editorCount(tabGroups) {
+    return (tabGroups ?? []).reduce((sum, group) => sum + (group?.tabs?.length ?? 0), 0);
+}
+
 // The files open in an editor, '/'-separated from the root, from the editor's tab groups: a text tab's file, a diff tab's modified side,
 // a notebook's file; a tab outside the root or not on disk is none.
 function openFiles(root, tabGroups) {
@@ -628,9 +634,10 @@ function activateEngine(context, api) {
     const rootOf = () => vscode.workspace.workspaceFolders?.[0]?.uri.fsPath;
 
     // The switches, one authoritative copy in memory: a press changes it at once, the workspace state only remembers it across reloads.
+    // The open lamp is always lit: it is no switch, so a remembered switch of it is dropped.
     const state = {
-        out: new Set(context.workspaceState.get(OUT, [])),
-        vetoed: new Set(context.workspaceState.get(VETO, [])),
+        out: new Set(context.workspaceState.get(OUT, []).filter((lamp) => lamp !== OPEN)),
+        vetoed: new Set(context.workspaceState.get(VETO, []).filter((lamp) => lamp !== OPEN)),
         field: context.workspaceState.get(FIELD, ""),
     };
     // The disk, indexed once and kept current from the editor's file events, so a press classifies files in memory and never walks the
@@ -962,7 +969,17 @@ function activateEngine(context, api) {
     for (const colour of ["red", "blue", "green"]) {
         context.subscriptions.push(vscode.commands.registerCommand(`catzc.lamps.orchestrate.${colour}`, orchestrate));
     }
+    // The open lamp's click focuses the next open editor, round through every group; with one editor or none it does nothing.
+    const focusNext = () => {
+        if (editorCount(vscode.window.tabGroups.all) < 2) return undefined;
+        return vscode.commands.executeCommand("workbench.action.nextEditor");
+    };
+    for (const condition of [...CONDITIONS, EMPTY]) {
+        const suffix = condition === "committed" ? "" : `.${condition}`;
+        context.subscriptions.push(vscode.commands.registerCommand(`catzc.lamps.${OPEN}.next${suffix}`, focusNext));
+    }
     for (const lamp of lamps()) {
+        if (lamp === OPEN) continue;
         context.subscriptions.push(vscode.commands.registerCommand(`catzc.lamps.${lamp}.putOut`, () => turn(lamp, "off")));
         for (const condition of [...CONDITIONS, EMPTY]) {
             const suffix = condition === "committed" ? "" : `.${condition}`;
@@ -1127,6 +1144,7 @@ module.exports = {
     census,
     claimer,
     diagnosticFacts,
+    editorCount,
     entryClaimer,
     errorPlaces,
     evaluate,

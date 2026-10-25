@@ -452,11 +452,14 @@ Describe 'catzc-track-lamps — the real repository' -Tag 'L1', 'integrity', 'so
         # The orchestrator is no lamp: one command per colour, each with its icon, leftmost in the title row.
         $orchestrator = @($all.Where({ $_['command'] -like 'catzc.lamps.orchestrate.*' }))
         @($orchestrator.ForEach({ $_['command'] })) | Should -Be @('catzc.lamps.orchestrate.red', 'catzc.lamps.orchestrate.blue', 'catzc.lamps.orchestrate.green')
-        $commands = @($all.Where({ $_['command'] -notlike 'catzc.lamps.orchestrate.*' }))
+        # The open lamp is no switch either: one next command per condition, its empty icon drawn invisible.
+        $next = @($all.Where({ $_['command'] -like 'catzc.lamps.open.next*' }))
+        @($next.ForEach({ $_['command'] })) | Should -Be @('catzc.lamps.open.next', 'catzc.lamps.open.next.staged', 'catzc.lamps.open.next.unstaged', 'catzc.lamps.open.next.failed', 'catzc.lamps.open.next.empty')
+        $commands = @($all.Where({ $_['command'] -notlike 'catzc.lamps.orchestrate.*' -and $_['command'] -notlike 'catzc.lamps.open.next*' }))
         $pattern = '^catzc\.lamps\.([a-z_]+)\.(putOut|veto|light)(\.(staged|unstaged|failed|empty))?$'
         $commands.Where({ $_['command'] -notmatch $pattern }).ForEach({ $_['command'] }) | Should -BeNullOrEmpty
         $lamps = @($commands.ForEach({ $_['command'] -replace $pattern, '$1' }) | Select-Object -Unique)
-        $lamps | Should -Be (@('open') + @($script:declared) + 'languages') -Because 'the open lamp leads, the filters follow in order, languages closes'
+        $lamps | Should -Be (@($script:declared) + 'languages') -Because 'the filters lead in order and languages closes; the open lamp switches nothing'
         # Only the base glyphs are authored: every condition variant is rendered into the extension folder's media/.
         $rendered = InModuleScope Catzc.Base.VSCode -Parameters @{ Entry = $entry; Out = (Join-Path $TestDrive 'lamps') } {
             param($Entry, $Out)
@@ -479,8 +482,20 @@ Describe 'catzc-track-lamps — the real repository' -Tag 'L1', 'integrity', 'so
             ([xml](Get-Content -LiteralPath (Join-Path $folder ($command['icon']['dark'] -replace '^media/', '')) -Raw)).DocumentElement.LocalName | Should -Be 'svg'
             @($menu.Where({ $_['command'] -ceq $command['command'] -and $_['group'] -ceq 'navigation@0' })) | Should -HaveCount 1 -Because "$($command['command']) shows leftmost, once"
         }
-        foreach ($command in $commands) {
+        foreach ($command in @($commands) + @($next)) {
             @($menu.Where({ $_['command'] -ceq $command['command'] })) | Should -HaveCount 1 -Because "$($command['command']) shows in the title row once"
         }
+        foreach ($command in $next) {
+            $svg = [xml](Get-Content -LiteralPath (Join-Path $folder ($command['icon']['dark'] -replace '^media/', '')) -Raw)
+            $invisible = $command['command'] -ceq 'catzc.lamps.open.next.empty'
+            ($svg.DocumentElement.GetAttribute('opacity') -eq '0') | Should -Be $invisible -Because "only the open lamp's empty icon is invisible ($($command['command']))"
+            $svg.DocumentElement.HasAttribute('data-empty') | Should -BeFalse -Because 'the marker is the renderer''s, never shipped'
+        }
+    }
+
+    It 'counts every tab of every group as an open editor, so the open lamp moves focus only with two or more' {
+        & $script:call editorCount @(, @()) | Should -Be 0
+        & $script:call editorCount @(, @(@{ tabs = @(1) })) | Should -Be 1
+        & $script:call editorCount @(, @(@{ tabs = @(1, 2) }, @{ tabs = @(3) })) | Should -Be 3
     }
 }

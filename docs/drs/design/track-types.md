@@ -5,11 +5,12 @@
 ### Rule DDR-TRACKTYPE-CLOSEDSETOFTYPES
 
 A **track type** is the sort of cluster a track is, and it is one of a closed set, each with a one-sentence definition: `modules`,
-`infrastructure`, `pipelines`, `vendor-settings`, `vendored-code`, `contracts`, `documentation` and `unordered`. Configuration is no track
-type: it is a file role (the `config` kind), static files kept in the repository inside a module or inside a vendor-settings track, and it
-follows its owner. A track has exactly one type. A new tech-stack that ships (a `services` or `frontend` track,
-[DDR-TRACK-ONETECHSTACK](tracks.md#rule-ddr-track-onetechstack)) adds its type to the set in the same change that opens the track, never
-before it.
+`infrastructure`, `pipelines`, `vendor-settings`, `vendored-code`, `contracts`, `documentation`, `unordered` and `output`. The `output`
+track, `out/`, is ignored by git yet operated on like any other: the tools write their reports, renders and builds there and read them back,
+and its build destination is none, so it ships nothing. Configuration is no track type: it is a file role (the `config` kind), static files
+kept in the repository inside a module or inside a vendor-settings track, and it follows its owner. A track has exactly one type. A new
+tech-stack that ships (a `services` or `frontend` track, [DDR-TRACK-ONETECHSTACK](tracks.md#rule-ddr-track-onetechstack)) adds its type to
+the set in the same change that opens the track, never before it.
 
 - [Track types](#track-types)
 

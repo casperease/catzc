@@ -12,7 +12,7 @@ Tracks and deployable-units are checked in code; one unit to one pipeline is hel
 7  scope globset           a cross-cutting slice is a scope over tracks, never a new root
 8  code review             the only check of the pipeline rule and the scope rule
 
-Supports DDR-TRACK-TRACKISPLACEDCLUSTER, DDR-TRACK-ONETRACKTYPE, DDR-TRACK-DEPLOYABLEUNIT, FDR-CD-GLOBS-EVERYSETHASLAYER, FDR-CD-GLOBS-COMPOSESETS, ADR-REPO-FOLDERS-EVERYFOLDERCONVENTIONAL and ADR-REPO-FOLDERS-CLOSEDROOTSET (governance lens).
+Supports DDR-TRACK-TRACKISPLACEDCLUSTER, DDR-TRACK-ONETRACKTYPE, DDR-TRACK-DEPLOYABLEUNIT, FDR-CD-GLOBS-EVERYSETHASLAYER, FDR-CD-GLOBS-COMPOSESETS, ADR-REPO-FOLDERS-EVERYFOLDERSEMANTIC and ADR-REPO-FOLDERS-CLOSEDROOTSET (governance lens).
 ```
 
 The tracks DDR sets rules at three levels: what a track is, how a deployable-unit is composed, and how a pipeline binds a unit. Cats checks
@@ -30,7 +30,7 @@ about:
     - DDR-TRACK-DEPLOYABLEUNIT
     - FDR-CD-GLOBS-EVERYSETHASLAYER
     - FDR-CD-GLOBS-COMPOSESETS
-    - ADR-REPO-FOLDERS-EVERYFOLDERCONVENTIONAL
+    - ADR-REPO-FOLDERS-EVERYFOLDERSEMANTIC
     - ADR-REPO-FOLDERS-CLOSEDROOTSET
   lens: governance
 content:
@@ -69,7 +69,7 @@ content:
     - { at: g-review, number: 8 }
   chips:
     - { at: g-track, kind: rule, rule: DDR-TRACK-TRACKISPLACEDCLUSTER }
-    - { at: g-track, kind: rule, rule: ADR-REPO-FOLDERS-EVERYFOLDERCONVENTIONAL }
+    - { at: g-track, kind: rule, rule: ADR-REPO-FOLDERS-EVERYFOLDERSEMANTIC }
     - { at: g-track, kind: rule, rule: ADR-REPO-FOLDERS-CLOSEDROOTSET }
     - { at: g-unit, kind: rule, rule: FDR-CD-GLOBS-EVERYSETHASLAYER }
     - { at: g-unit, kind: rule, rule: FDR-CD-GLOBS-COMPOSESETS }
@@ -118,8 +118,8 @@ layout:
 
 ## Why it holds
 
-- A track is one root folder, named by it, and every tracked root folder except `out/` is a track (DDR-TRACK-TRACKISPLACEDCLUSTER,
-  ADR-REPO-FOLDERS-EVERYFOLDERCONVENTIONAL); the root set is closed (ADR-REPO-FOLDERS-CLOSEDROOTSET).
+- A track is one root folder, named by it, and every root folder is a track, the gitignored `out/` included (DDR-TRACK-TRACKISPLACEDCLUSTER,
+  ADR-REPO-FOLDERS-EVERYFOLDERSEMANTIC); the root set is closed (ADR-REPO-FOLDERS-CLOSEDROOTSET).
 - Each track carries one class, and a cross-cutting slice is a scope, not a track (DDR-TRACK-ONETRACKTYPE).
 - A track owns one tech-stack, and a tech-stack is a set of file languages (DDR-TRACK-ONETECHSTACK, DDR-TRACK-FILELANGUAGE).
 - Tracks are subscribed to, never path-coupled (DDR-TRACK-SUBSCRIBABLENOTPATHCOUPLED).

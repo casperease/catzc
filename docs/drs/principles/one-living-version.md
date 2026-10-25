@@ -57,8 +57,8 @@ no "deprecated", "legacy", "as of vX", "we used to", "this replaces". That histo
 Version as a first-class contract is not legacy. Pinning an external tool, vendored module, or API version — or an explicit `schema_version`
 you own and validate — is a deliberate contract value, and versioned coexistence is legitimate there. The line from forbidden back-compat
 (PDR-ONELIVE-NOCOMPATIBILITYSHIMS): every supported version is **equally live and intended**, owned and tested — not a deprecated shadow
-kept only to defer changing callers. Versioned contracts have a structural home: `contracts/<unit>/<version>/<module>/`, versioned with the
-deployable-unit that carries them, never with the repository as a whole.
+kept only to defer changing callers. Versioned contracts have a structural home: `contracts/catzc/<version>/`, where `0.1.0` is the one
+current version and each release from `1.0.0` up is a frozen folder kept while pinned, never a version of the repository as a whole.
 
 - [Versioned contracts](#versioned-contracts)
 
@@ -79,9 +79,9 @@ the same tree. Nothing outside it pins a version of an internal function, config
 consumer that cannot be changed in lockstep, the only real reason a codebase carries backwards compatibility.
 
 The one place external consumers _do_ exist is the repository's deliberately published API surface, and that is exactly why it is versioned
-explicitly — as binding contracts under `contracts/<unit>/<version>/<module>/`, versioned with the unit that carries them and kept honest by
-contract testing. Back-compat for those consumers is legitimate and lives **there**, as separate live versions — never as a shim smeared
-through the internal code. Everything below is about the inside; the external API boundary is the deliberate, versioned exception
+explicitly — as binding contracts under `contracts/catzc/<version>/`, current at `0.1.0`, frozen per release, and kept honest by contract
+testing. Back-compat for those consumers is legitimate and lives **there**, as separate live versions — never as a shim smeared through the
+internal code. Everything below is about the inside; the external API boundary is the deliberate, versioned exception
 (PDR-ONELIVE-PINNEDVERSIONNOTLEGACY).
 
 Without that reason, legacy is pure cost. Two versions of a behaviour double the surface to read, test, and reason about; they drift; and
@@ -145,12 +145,11 @@ The tell that separates a versioned contract from legacy: in a versioned contrac
 — each fully owned and tested. In legacy, one version is the real one and the other is kept alive grudgingly to defer changing callers,
 which is what PDR-ONELIVE-NOCOMPATIBILITYSHIMS forbids. Versioned coexistence is fair for the former and forbidden for the latter.
 
-Versioned contracts also have a **structural home**, which keeps them from being mistaken for legacy: the root
-`contracts/<unit>/<version>/<module>/` convention — one folder per deployable-unit that carries contracts (`catzc`, the bundle), one folder
-per version of that unit inside it (the unit's `0.0.0` the mutable draft, frozen only when that unit is released), and one folder per owning
-module inside that. There is no repository-wide version. Each version is its own self-contained, checked-in folder, so coexistence is
-explicit and located — never an ad-hoc `V2` fork buried beside the original in the code. These are the repository's external-facing API
-contracts, binding and contract-tested.
+Versioned contracts also have a **structural home**, which keeps them from being mistaken for legacy: the root `contracts/<root>/<version>/`
+convention — one root per promiser (`catzc` for ours, one per vendor for theirs), and inside it `0.1.0`, the one current version every
+internal binding points at, beside one frozen folder per `catzc` release a consumer pins. There is no repository-wide version. Each release
+is its own self-contained, checked-in folder, so coexistence is explicit and located — never an ad-hoc `V2` fork buried beside the original
+in the code. These are the repository's external-facing API contracts, binding and contract-tested.
 
 ### Branch by abstraction
 
@@ -171,7 +170,7 @@ branch would. Use it to _get to_ one version; the failure mode is letting the se
 
 1. **Deprecation cycles in internal code** (mark an internal shape old, keep it for N releases) — rejected: a deprecation window serves
    external consumers who migrate on their own schedule, and internal code has none — all callers are in-tree and move with the change. At
-   the published API boundary it is different: retiring a released `contracts/<unit>/<version>/` folder is a deliberate, contract-tested
+   the published API boundary it is different: retiring a released `contracts/catzc/<version>/` folder is a deliberate, contract-tested
    deprecation, because external consumers genuinely pin it (PDR-ONELIVE-PINNEDVERSIONNOTLEGACY). What is rejected is deprecation as a hedge
    in internal code, not the versioned external contracts. (A bounded branch-by-abstraction swap is also not this: it has a deadline and a
    deletion plan, and serves the migration itself.)

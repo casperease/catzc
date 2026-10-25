@@ -1,108 +1,108 @@
-# ADR: Contracts at the repository boundary — both directions, versioned with their unit, proven by tests
+# ADR: Contracts at the repository boundary — thin promises in both directions, current at 0.1.0, proven by tests
 
 ## Rules: ADR-REPO-CONTRACT
 
 ### Rule ADR-REPO-CONTRACT-BINDINGINTERFACE
 
-A **contract** is a binding interface at the repository boundary, held under `contracts/`, and `contracts/` holds every one of them, in both
-directions. A **provided contract** is what an outside consumer may rely on: the only public API of the repository. A **depended-on
-contract** is what an outside platform expects of our files and calls — GitHub reading a workflow file, Azure DevOps reading a pipeline's
-trigger. Everything else in the repository is internal and governed by [one living version](../principles/one-living-version.md) (changed in
-place, no back-compat).
+A **contract** is a thin, checkable promise at the repository boundary, held under `contracts/`, and `contracts/` holds every one of them,
+in both directions. A **provided contract** is what we promise the world: the only public API of the repository. A **depended-on contract**
+is what the world promised us: the part of a vendor's shape our files and calls rely on, such as GitHub reading a workflow file or Azure
+DevOps reading a pipeline. A contract records only what is bound across the boundary, never a copy of the whole shape, so a vendor stays a
+vendor and not a dependency of every file. Everything else in the repository is internal and governed by
+[one living version](../principles/one-living-version.md) (changed in place, no back-compat).
 
 - [Both directions](#both-directions)
 - [The only public API](#the-only-public-api)
+- [Thin promises](#thin-promises)
 
 ### Rule ADR-REPO-CONTRACT-LAYOUT
 
-Contracts are laid out as `contracts/<unit>/<version>/<module>/<path>`. `<unit>` is the deployable-unit that carries the contracts —
-`catzc`, the bundle, the one unit a consumer pins; `<version>` is that unit's version, which `Resolve-CatzcBuildVersion` resolves;
-`<module>` is the owning catzc module, named in its repository normal form
-([ADR-AUTO-IDIOM-NORMALFORM](../automation/idiomatic-names.md#rule-adr-auto-idiom-normalform), `catzc.tooling.github`), the one that talks
-to the outside party and holds the tests that prove the contract, with its dependencies governed by `dependencies.yml`; and `<path>` is the
-path of the real file the asset constrains, relative to the module's **target root**. A module's target root is the repository-relative
-folder that `contracts.yml` declares for it, a configured setting whose default, the repository root, is declared once on the contracts
-config type; so with `Catzc.Tooling.Github`'s target root `.github`, the asset
-`contracts/catzc/0.0.0/catzc.tooling.github/workflows/release-automation.yml` constrains `.github/workflows/release-automation.yml`
-([conventional-folders](conventional-folders.md#rule-adr-repo-folders-contractsfolder)). Provided and depended-on contracts both version
-with their unit. There is no repository-wide version: another unit that carries contracts gets its own `contracts/<unit>/`, with its own
-versions.
+Contracts are laid out as `contracts/<root>/<version>/<asset>`, with at most one **group** folder between the version and the asset:
+`contracts/<root>/<version>/<group>/<asset>`. `<root>` names who made the promise: `catzc`, the repository itself, or one vendor by its
+plain moniker (`azure`, `ado`, `github`, `python`, `npm`). `<version>` is a version folder (ADR-REPO-CONTRACT-CURRENTVERSION). A group
+gathers related assets: in `catzc` it is the owning module in its repository normal form
+([ADR-AUTO-IDIOM-NORMALFORM](../automation/idiomatic-names.md#rule-adr-auto-idiom-normalform), `catzc.base.contracts`), the module that
+holds the tests that prove the contract; in a vendor root it is the vendor's area (`workflows`, `pipelines`, `templates`). No deeper folder
+exists.
 
-An outside party's own file shape, such as a vendor's schema, is held in an **external unit**, `contracts/EXTERNAL-<moniker>/`, where
-`<moniker>` names the vendor (`EXTERNAL-azure`). It carries depended-on assets only, each a trimmed, linkable check of the shape the outside
-party reads, never a copy of the party's whole schema, and its header says the vendor and the source it was trimmed from. An external unit
-is committed as two version folders: the draft `0.0.0`, the one that is checked and edited, and `0.1.0`, the draft frozen by
-`Publish-ContractRelease` as the unit's pin record.
+- [One root per promiser](#one-root-per-promiser)
+- [Flat by design](#flat-by-design)
 
-- [One folder per unit version, one per owning module](#one-folder-per-unit-version-one-per-owning-module)
-- [An external unit per vendor](#an-external-unit-per-vendor)
-- [A target root per module](#a-target-root-per-module)
+### Rule ADR-REPO-CONTRACT-CURRENTVERSION
+
+Every root's current contracts live in one version folder, `0.1.0`: one living version, edited in place and checked on every run, and every
+internal binding — a test, a generator, an editor setting, a link from one asset to another — points at `0.1.0`. The rest of the `0.1` range
+is reserved for internal contract glue and holds no folder until a decision gives it one. `0.0.0` is never a folder. A version from `1.0.0`
+up is a release of `catzc` (ADR-REPO-CONTRACT-RELEASEDIMMUTABLE). The local build version `6.6.666` names a build made on a devbox and is
+never a contract folder.
+
+- [One current version](#one-current-version)
+- [Three version ranges](#three-version-ranges)
 
 ### Rule ADR-REPO-CONTRACT-KEPTWHILEPINNED
 
-A released provided contract is kept while a consumer pins that version of its unit. This is the one sanctioned backwards-compatibility in
+A released provided contract is kept while a consumer pins that release of `catzc`. This is the one sanctioned backwards-compatibility in
 the repository: external consumers genuinely exist at this boundary and cannot change in lockstep
-([PDR-ONELIVE-PINNEDVERSIONNOTLEGACY](../principles/one-living-version.md#rule-pdr-onelive-pinnedversionnotlegacy)), and a released version
-folder is retired only when no consumer pins it — a deliberate, contract-driven deprecation, not a hedge. A depended-on contract follows its
-outside platform instead: a platform change is a new draft in its unit's `0.0.0`, never an old version kept beside the new one.
+([PDR-ONELIVE-PINNEDVERSIONNOTLEGACY](../principles/one-living-version.md#rule-pdr-onelive-pinnedversionnotlegacy)), and a release folder is
+retired only when no consumer pins it — a deliberate, contract-driven deprecation, not a hedge. A vendor root never releases: it follows its
+vendor, so a vendor's change is an edit in the vendor's `0.1.0`, never an old shape kept beside the new one.
 
 - [Where back-compat is owed](#where-back-compat-is-owed)
 
 ### Rule ADR-REPO-CONTRACT-PROVENBYTESTS
 
-Contracts are **binding**, proven by tests: the owning module verifies that the repository honours every asset of its unit's current version
-folder, and the provided assets of every released version folder still in the tree — released folders are the pin record, so retiring a
-version means deleting its folder. The depended-on assets of an older release are not re-checked: they follow their platform
-(ADR-REPO-CONTRACT-KEPTWHILEPINNED). A change that breaks a contract fails CI here, not a consumer or a platform in production. This is what
-makes "kept for back-compat" a guarantee rather than a hope.
+Contracts are **binding**, proven by tests: every asset of every root's `0.1.0` is checked against the repository on every run, and so are
+the provided assets of every `catzc` release folder still in the tree — release folders are the pin record, so retiring a release means
+deleting its folder. A change that breaks a contract fails CI here, not a consumer or a vendor in production. This is what makes "kept for
+back-compat" a guarantee rather than a hope.
 
 - [Binding, by contract testing](#binding-by-contract-testing)
 - [How this is enforced](#how-this-is-enforced)
 
 ### Rule ADR-REPO-CONTRACT-RELEASEDIMMUTABLE
 
-A released version folder is immutable. Evolving a contract means editing its unit's draft, `contracts/<unit>/0.0.0/`, the only mutable
-folder of that unit; releasing the unit freezes the draft as `contracts/<unit>/<version>/`, and that folder is never edited again. The draft
-freezes only when its own unit is released. The devbox build version `6.6.666` names no release, so it never freezes a folder. Releasing
-freezes the draft with `Publish-ContractRelease`, which writes the folder's `.frozen` record (the SHA-256 of each file), and
-`Test-Contracts` fails on any file changed, added, or removed since.
+A release folder, `contracts/catzc/<version>/` with a version from `1.0.0` up, is immutable. Releasing `catzc` copies its `0.1.0` as that
+folder with `Publish-ContractRelease`, which writes the folder's `.frozen` record (the SHA-256 of each file), and `Test-Contracts` fails on
+any file changed, added, or removed since. `0.1.0` is never frozen, and neither is the local build version.
 
-- [A released folder is frozen](#a-released-folder-is-frozen)
+- [A release folder is frozen](#a-release-folder-is-frozen)
 
 ### Rule ADR-REPO-CONTRACT-CONTRACTASSET
 
-A **contract asset** is one file under `contracts/<unit>/<version>/<module>/`, and its name alone picks its kind. With no suffix it is a
-fragment: the real file at the same path under its module's target root must exist and contain it — a key subset for YAML and JSON, the
-non-blank lines in order for any other text — and an empty fragment requires presence only. `<path>.schema.json` is a schema the real file
-at `<path>` validates against. `<name>.sample.<ext>` is a sample payload the owning module's tests produce or parse. `<command>.command.yml`
-is a command contract, the call interface of the command whose repository normal form is `<command>` (`get_command_contract`), of the module
-whose folder holds it ([command-contracts](command-contracts.md)).
+A **contract asset** is one file under a version folder, and its name alone picks its kind. With no suffix it is a fragment: each file it
+applies to must exist and contain it — a key subset for YAML and JSON, the non-blank lines in order for any other text — and an empty
+fragment requires presence only. `<name>.schema.json` is a schema each file it applies to validates against. `<name>.sample.<ext>` is a
+sample payload the owning module's tests produce or parse, validated against the `<name>.schema.json` beside it when one exists.
+`<command>.command.yml` is a command contract, the call interface of the command whose repository normal form is `<command>`
+(`get_command_contract`), of the module its group names ([command-contracts](command-contracts.md)).
 
 - [The name picks the kind](#the-name-picks-the-kind)
 
 ### Rule ADR-REPO-CONTRACT-DIRECTIONBYCONVENTION
 
-A contract asset's direction comes by convention: an asset that constrains a real repository file is depended-on, and a sample payload or a
-command contract is provided. A per-version `contract.yml`, at `contracts/<unit>/<version>/contract.yml`, overrides the direction of a
-single asset.
+A contract asset's direction comes from its root: every asset under `catzc` is provided, and every asset under a vendor root is depended-on.
+Nothing overrides it; an asset in the wrong direction is in the wrong root.
 
-- [Direction by convention](#direction-by-convention)
+- [One root per promiser](#one-root-per-promiser)
 
 ### Rule ADR-REPO-CONTRACT-CONFIGUREDADDRESSING
 
-How one asset addresses many files is a configured setting with a sensible default, declared once on the contracts config type. A mode that
-is not built throws `NotImplemented` when configured; a mode is switched on only once it is proven from every engine. The scan for matching
-files runs only when the configured mode says what to match — nothing is enumerated speculatively.
+A fragment or a schema names the repository files it applies to in its version folder's `contract.yml`, under `applies_to`: the asset's path
+inside the version folder, mapped to a list of repository-relative globs over the tracked files. An asset `applies_to` names checks every
+file its globs match, so one asset binds many files and one file may be bound by several assets. An entry that names no asset, names a
+sample or a command contract, or matches no tracked file is a finding; and a fragment, or a schema with no sample beside it, that
+`applies_to` does not name binds nothing and is a finding too. The tracked files are listed only once an entry asks for them.
 
-- [Addressing many files](#addressing-many-files)
+- [Addressing by the version's map](#addressing-by-the-versions-map)
 
 ### Rule ADR-REPO-CONTRACT-HEADERSAYSWHATITPINS
 
-An asset says what it pins in its own header comment — the leading `#` lines of a YAML asset, the `$comment` of a schema — and `contracts/`
-holds only assets. `Build-ContractReference` generates one committed page per unit, `docs/references/contracts/<unit>.md`, with one table
-per version folder listing every asset's module, target, direction, and kind, and the assets' notes in a list under the table. An asset
-whose check compares every byte or key — a presence asset, a text fragment, a JSON fragment or sample payload — carries no note. The writer
-removes only pages it wrote, so a hand-written page in that folder is never touched.
+An asset says what it pins in its own header comment — the leading `#` lines of a YAML asset, the `$comment` of a schema — and a vendor
+asset also says its source and the date it was taken, so a reviewer can compare it with the vendor. `contracts/` holds only assets and their
+`contract.yml` maps. `Build-ContractReference` generates one committed page per root, `docs/references/contracts/<root>.md`, with one table
+per version folder listing every asset's group, the files it applies to, its direction, and its kind, and the assets' notes in a list under
+the table. An asset whose check compares every byte or key — a presence asset, a text fragment, a JSON fragment or sample payload — carries
+no note. The writer removes only pages it wrote, so a hand-written page in that folder is never touched.
 
 - [How this is enforced](#how-this-is-enforced)
 
@@ -110,10 +110,9 @@ removes only pages it wrote, so a hand-written page in that folder is never touc
 
 `contracts/` holds no dot-prefixed folder at any depth. A dot prefix marks infrastructure at the repository root
 ([ADR-REPO-FOLDERS-DOTMEANSTOOLING](conventional-folders.md#rule-adr-repo-folders-dotmeanstooling)), and every folder under `contracts/` is
-a unit, a version, a module, or a folder of an asset's path: content, never infrastructure. An asset whose target sits under a dot-prefixed
-root, such as `.github/`, reaches it through its module's target root (ADR-REPO-CONTRACT-LAYOUT) and never repeats the dot folder. The rule
-covers folders, not file names: the root's `.gitkeep`, a released folder's `.frozen` record, and an asset that pins a dotfile by its own
-name keep their names, because a target root relocates a folder but never renames a file. `Test-Contracts` reports each dot-prefixed folder.
+a root, a version, or a group: content, never infrastructure. An asset that constrains a file under a dot-prefixed folder, such as
+`.github/`, reaches it through `applies_to`. The rule covers folders, not file names: the root's `.gitkeep` and a release's `.frozen` record
+keep their names. `Test-Contracts` reports each dot-prefixed folder.
 
 - [No dot-prefixed folder](#no-dot-prefixed-folder)
 - [How this is enforced](#how-this-is-enforced)
@@ -122,22 +121,22 @@ name keep their names, because a target root relocates a folder but never rename
 
 The [one-living-version](../principles/one-living-version.md) principle holds for the **inside** of the repository: every internal caller is
 in the tree and moves with a change, so there is no external consumer to keep a back-compat shim alive for. But the repository has an
-outside, and it meets that outside in two directions. Outside consumers build against what it provides, on their own upgrade schedule. And
-outside platforms read what it holds — GitHub reads the workflow files and renders the READMEs, Azure DevOps reads the pipeline triggers —
-and break the delivery when a file stops matching what they expect.
+outside, and it meets that outside in two directions. Outside consumers build against what it promises, on their own upgrade schedule. And
+vendors read what it holds — GitHub reads the workflow files and renders the READMEs, Azure DevOps reads the pipelines, Azure Resource
+Manager reads the compiled templates — and break the delivery when a file stops matching what they expect.
 
-`contracts/` is the structure for both. It makes the boundary explicit (so it is obvious what is a promise or an obligation to the outside
-versus an internal implementation detail), versioned with the unit that carries it (so a frozen version is never mutated under a consumer),
-and testable (so the boundary is verified mechanically, not asserted in a README).
+`contracts/` is the structure for both. It makes the boundary explicit (so it is obvious what is a promise to or from the outside versus an
+internal implementation detail), current at one version every binding points at (so nothing has to choose which one to trust), and testable
+(so the boundary is verified mechanically, not asserted in a README).
 
 ### Both directions
 
 `One tree, two directions`
 
-A provided contract is a promise the repository makes; a depended-on contract is an obligation it accepts. They differ in who moves first: a
-consumer upgrades when it chooses, so a provided contract must not move; a platform changes when it chooses, so a depended-on contract must
-follow it. They share everything else — a binding shape, an owning module, and a test that turns red when the shape breaks — so they share
-one tree, one layout, and one mechanism rather than two.
+A provided contract is a promise the repository makes; a depended-on contract is a promise a vendor made that the repository relies on. They
+differ in who moves first: a consumer upgrades when it chooses, so a released provided contract must not move; a vendor changes when it
+chooses, so a depended-on contract must follow it. They share everything else — a thin, binding shape, a check, and a test that turns red
+when the shape breaks — so they share one tree, one layout, and one mechanism rather than two.
 
 ### The only public API
 
@@ -145,75 +144,121 @@ one tree, one layout, and one mechanism rather than two.
 
 Everything outside `contracts/` is internal. A consumer that reaches past the provided contracts — into a module function, an internal
 config schema, a data record — gets no compatibility promise and may break on any change, exactly as internal code does. This keeps the
-public commitment small and deliberate: the repository promises what it puts in `contracts/`, and nothing else. A depended-on contract
-promises nothing to a consumer; it records what a platform requires, so the repository cannot break that platform unnoticed.
+public commitment small and deliberate: the repository promises what it puts in `contracts/catzc/`, and nothing else. A depended-on contract
+promises nothing to a consumer; it records what a vendor requires, so the repository cannot break that vendor unnoticed.
 
-### One folder per unit version, one per owning module
+### Thin promises
 
-`contracts/<unit>/<version>/<module>/<path>`
+`Bind to the part that matters, and stay decoupled from the rest`
 
-The first segment names the deployable-unit that carries the contracts, and the second is that unit's version, so one number tells a
-consumer which build of the unit and which contracts belong together, and the version folder is a self-contained snapshot of every contract
-of that unit at that version. The one such unit is `catzc`, the bundle: it is the one unit a consumer pins
-([ADR-AUTO-BUNDLE-AUTOVERSION](../automation/platform-bundle.md#rule-adr-auto-bundle-autoversion)), and the owning modules ship in it, so
-provided and depended-on contracts alike version with it. The repository is a product mono-repository
-([ADR-REPO-REPOKIND-THREEKINDS](repository-kinds.md#rule-adr-repo-repokind-threekinds)), not one monolithic application: inside the trunk
-everything is at HEAD, and a version exists only where a unit crosses the boundary. So there is no repository-wide version, and another
-deployable-unit that carries contracts gets its own `contracts/<unit>/` beside `catzc/`, with versions of its own.
+A vendor's full shape is neither small nor bounded — a workflow schema validates every action through hundreds of branches, a template
+schema refs hundreds of resource schemas — and most of it is no promise to us at all, only the vendor's own detail. A contract that copied
+it would bind every file to every corner of the vendor and break on changes that touch nothing we use. So a contract is thin: the keys,
+types, and patterns our files actually rely on, trimmed from the vendor's source and stating where it was taken from. The same holds for a
+provided contract: it promises the call interface or the payload shape a consumer reads, and leaves the implementation free under one living
+version.
 
-Inside a version folder, each owning module has its own folder: the module that talks to the outside party — `Catzc.Tooling.Github` for
-GitHub, `Catzc.Azure.DevOps` for Azure DevOps — is the one that holds the tests, and the module dependency graph governs it like any other
-code. Under the module, the path repeats the real file's path under the module's target root, so the asset and the file it constrains are
-found from each other through one declared folder per module.
+### One root per promiser
 
-```text
-contracts/
-  catzc/                                              # the unit: the bundle
-    0.0.0/                                            # the mutable draft: the bundle's next release
-      Catzc.Tooling.Github/                           # target root .github
-        workflows/ci-pwsh.yml                         # fragment of .github/workflows/ci-pwsh.yml: the keys GitHub reads
-        workflows/ci-pwsh.yml.schema.json             # schema: .github/workflows/ci-pwsh.yml validates against it
-        README.md                                     # presence of .github/README.md, the page GitHub renders
-      Catzc.Azure.DevOps/                             # target root .ado
-        pipelines/ci-pwsh.yaml                        # fragment of .ado/pipelines/ci-pwsh.yaml: the keys Azure Pipelines reads
-        rest/build-queue.sample.json                  # sample payload: the module produces or parses it
-      Catzc.Base.Widgets/
-        Get-Widget.command.yml                        # command contract: the call interface of Get-Widget
-    1.0.0/                                            # frozen when the bundle 1.0.0 is released
-```
+`Who promised it decides where it lives and which way it binds`
 
-### An external unit per vendor
-
-`The vendor's shape, trimmed, beside our own contracts`
-
-Some files we hold are read against a shape a vendor owns, such as the schema Azure Resource Manager publishes for a compiled template. The
-editor and the gate should check that shape without a download, and the vendor's full schema is neither small nor bounded: it refs hundreds
-of schemas of other versions and uses keywords the contract check does not support. So the contract is a trimmed verification of the part
-that matters, kept in `contracts/EXTERNAL-<moniker>/`, and it states in its header comment which vendor it follows and the address it was
-trimmed from, so a reviewer can compare it with the source. The unit follows its vendor, so it is not a version of `catzc`: the vendor pins
-nothing, and `0.0.0` is the shape in use ([Where back-compat is owed](#where-back-compat-is-owed)). `0.1.0` is the same shape frozen as the
-unit's record, written by `Publish-ContractRelease -Unit EXTERNAL-<moniker> -Version 0.1.0`; when the vendor changes what it expects,
-`0.0.0` changes and the unit is released again.
+The first folder names who made the promise. `catzc` is the repository, so everything under it is what we promise the world. Every other
+root is one vendor, named by its plain moniker, and everything under it is what that vendor promised us. The root is therefore the
+direction: no per-asset declaration, no override, no prefix to tell an external root from ours. A promise the repository makes about its own
+files to a vendor's reader — the keys GitHub reads from a workflow — is the vendor's promise to read them, so it lives under the vendor.
 
 ```text
 contracts/
-  EXTERNAL-azure/                                     # an external unit: the vendor's shape
-    0.0.0/                                            # the draft, checked and edited
-      Catzc.Azure.Templates/                          # target root pwsh/Catzc.Azure.Templates
-        tests/assets/parameter-model/main.json.schema.json   # schema: the compiled template validates against it
-    0.1.0/                                            # the draft frozen
+  catzc/                                              # what we promise the world
+    0.1.0/                                            # the current contracts, every internal binding points here
+      catzc.base.contracts/
+        get_command_contract.command.yml              # command contract: the call interface of Get-CommandContract
+      catzc.base.flow/
+        actionable-fact.schema.json                   # schema of the sample beside it
+        actionable-fact.sample.json                   # sample payload the module produces
+      contract.yml                                    # applies_to: each fragment or file schema to the files it binds
+    1.0.0/                                            # a release, frozen while a consumer pins it
+  github/                                             # what GitHub promised us
+    0.1.0/
+      workflows/
+        ci-pwsh.yml                                   # fragment: the keys GitHub reads from .github/workflows/ci-pwsh.yml
+        workflow.yml.schema.json                      # schema every workflow file validates against
+      contract.yml                                    # applies_to: each asset to the files it binds
+  ado/
+    0.1.0/
+      pipelines/
+        pipeline.yaml.schema.json
 ```
 
-### A target root per module
+### Flat by design
 
-`One declared folder per module, the repository root by default`
+`One group folder at most`
 
-Most owning modules constrain files across the repository, so their assets' paths are repository-relative, and the default target root, the
-repository root, needs no declaration. A module whose files all sit under one folder, such as `Catzc.Tooling.Github` under `.github/`,
-declares that folder once in `contracts.yml`, and its assets' paths start below it. The target root is a configured setting resolved like
-any other ([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)), so its
-default lives on the config type and no function restates it. One folder per module keeps the mapping as small as a mapping can be: the
-module folder and the path still find the real file with no per-asset declaration.
+A contract is found by who promised it and what it is called. A deeper tree would only repeat the path of the file it binds, and the files a
+contract binds are many, scattered, and often under dot-prefixed folders, so a mirrored path is either deep, dotted, or wrong. One optional
+group folder keeps related assets together — a module's command contracts, a vendor's workflow shapes — and the version's `contract.yml`
+says which files each asset binds.
+
+### One current version
+
+`Every internal binding points at 0.1.0`
+
+Below `1.0.0`, a version folder is not a snapshot in time: it is the current contracts, edited in place and checked on every run. One such
+folder per root is all the inside needs, so every test, generator, editor setting, and link between assets names `0.1.0` and never has to
+choose. Layering the current contracts across several low versions would make every binding pick a layer and every move between layers an
+edit of its callers, for an order the module dependency graph already keeps; so the rest of the `0.1` range stays reserved, empty until a
+decision gives a folder there a meaning. `0.0.0` reads as "no version", so it is never a folder.
+
+### Three version ranges
+
+`Current, releases, local builds`
+
+Every version a contract folder can carry falls in one range, and the range says what the folder is:
+
+- `0.1.0` — the current contracts (ADR-REPO-CONTRACT-CURRENTVERSION), in every root; the rest of the `0.1` range is reserved for internal
+  contract glue.
+- `1.0.0` and up — a release of `catzc`, frozen and kept while pinned (ADR-REPO-CONTRACT-RELEASEDIMMUTABLE,
+  ADR-REPO-CONTRACT-KEPTWHILEPINNED). A vendor root has no releases.
+- `6.6.666` — the local build version a devbox install carries
+  ([ADR-AUTO-BUNDLE-AUTOVERSION](../automation/platform-bundle.md#rule-adr-auto-bundle-autoversion)): a local convenience, never a contract
+  folder.
+
+### Addressing by the version's map
+
+`One map per version folder says which files each asset binds`
+
+An asset's name says what kind of check it is; the version folder's `contract.yml` says what it checks. `applies_to` maps each fragment or
+schema to repository-relative globs, matched against the tracked files only once an entry asks, so a thin workflow schema binds every
+workflow file and a fragment binds the one file it pins. The map is the only place a target is named, it is checked whole — every entry must
+name an asset and match a file, and every fragment and file schema must be named — so a moved file or a renamed asset turns the check red
+instead of silently binding nothing.
+
+```yaml
+# contracts/github/0.1.0/contract.yml
+applies_to:
+  workflows/workflow.yml.schema.json: [".github/workflows/*.yml"]
+  workflows/ci-pwsh.yml: [".github/workflows/ci-pwsh.yml"]
+```
+
+### The name picks the kind
+
+`Sensible defaults from the asset's own name`
+
+An asset's kind comes from its name ([zero-ceremony-poka-yoke](../automation/zero-ceremony-poka-yoke.md)). The five kinds are the five
+things a boundary can require:
+
+- **Presence** — an empty fragment: each file it applies to must exist.
+- **Fragment** — no suffix: each file it applies to must exist and contain the fragment. YAML and JSON compare by key subset, so the real
+  file may carry more keys than the fragment names; any other text compares by its non-blank lines, which must appear in the real file in
+  the same order.
+- **Schema** — `<name>.schema.json`: each file it applies to validates against the JSON Schema, applied to YAML after parsing. A schema that
+  shares its `<name>` with a sample payload beside it applies to that sample instead.
+- **Sample payload** — `<name>.sample.<ext>`: a payload the owning module's tests must produce or parse, validated against the schema beside
+  it when one exists.
+- **Command contract** — `<command>.command.yml`, the command's repository normal form: the call interface of the command the group's module
+  exports under that name, compared with the parse of the command's file ([command-contracts](command-contracts.md)).
+
+A fragment pins only what the outside party reads, so the rest of the file stays free to change under one living version.
 
 ### No dot-prefixed folder
 
@@ -223,167 +268,118 @@ A leading dot means "infrastructure, not content"
 ([ADR-REPO-FOLDERS-DOTMEANSTOOLING](conventional-folders.md#rule-adr-repo-folders-dotmeanstooling)), and the dot-prefixed roots are
 infrastructure of the repository itself. Repeating `.github/` inside `contracts/` would put a dot-prefixed folder below the root, where it
 marks nothing: the folder holds contract assets, which are content. Tools also treat a dot-prefixed folder as hidden, so a listing skips the
-very assets a reviewer must see. The target root carries the dot instead, once, in `contracts.yml`, where it names the real folder.
-
-File names are different. A dotfile's name is the file's identity (`.gitignore` has no other spelling), so an asset that pins it repeats the
-name, and the `.gitkeep` and `.frozen` records are files the mechanism itself defines. A target root can stand in for a folder, never for a
-file name, so the rule stops at folders.
+very assets a reviewer must see. `applies_to` names the dotted path instead, as a glob, where it names the real folder.
 
 ### Where back-compat is owed
 
 `Why this is the one place back-compat is owed`
 
 Backwards compatibility buys a grace period for consumers who cannot change in lockstep with the producer. Internally there are none, so
-internally it is rejected. At the provided boundary there genuinely are, so a released provided contract stays live while a consumer pins
-that version of its unit. There is no separate pin list: a released folder in the tree is pinned, and deleting it is the reviewed
-retirement. The cost (a maintained old version folder) buys something real: it is the difference between an external consumer that keeps
-working and one that breaks. Retirement is deliberate and evidence-based — a version folder goes away when no consumer pins it — not on a
-guessed-at calendar.
+internally it is rejected, and `0.1.0`, being current, owes none either. At the provided boundary there genuinely are consumers, so a
+released provided contract stays live while a consumer pins that release. There is no separate pin list: a release folder in the tree is
+pinned, and deleting it is the reviewed retirement. Retirement is deliberate and evidence-based — a release goes away when no consumer pins
+it — not on a guessed-at calendar.
 
-A depended-on contract owes no grace period, because its outside party pins no version of the unit; it reads the files as they are. When the
-platform changes what it expects, the only useful contract is the new expectation, so the change is made in the unit's draft and released
-with the unit's next release. An old expectation the platform has dropped protects nothing.
+A depended-on contract owes no grace period, because its vendor pins no release of ours; it reads the files as they are. When the vendor
+changes what it promises, the only useful contract is the new promise, so the vendor's `0.1.0` is edited in place. An old promise the vendor
+has dropped protects nothing.
 
 ### Binding, by contract testing
 
-A contract is only a promise if breaking it is caught. The owning module carries the tests that assert the repository satisfies its assets:
-every asset of its unit's current version folder (`0.0.0` on a devbox, the resolved version in a release build), and the provided assets of
-every released version a consumer pins. The check follows the asset's kind (ADR-REPO-CONTRACT-CONTRACTASSET), so a change that violates a
+A contract is only a promise if breaking it is caught. `Test-Contracts` checks every asset of every root's `0.1.0`, and the provided assets
+of every `catzc` release a consumer pins. The check follows the asset's kind (ADR-REPO-CONTRACT-CONTRACTASSET), so a change that violates a
 contract turns the test run red before it ships. Without the test, "we keep this working" is a hope; with it, it is enforced.
 
-### A released folder is frozen
+### A release folder is frozen
 
-Once a unit is released, that version's folder is not edited — a consumer builds against exactly those bytes. A fix or an evolution that
-changes a contract lands in the unit's draft, `contracts/<unit>/0.0.0/`, and reaches the outside with that unit's next release; releasing
-one unit freezes only that unit's draft. The draft exists precisely so a contract can be shaped before it becomes a binding promise. A
-devbox build carries the `6.6.666` placeholder
-([ADR-AUTO-BUNDLE-AUTOVERSION](../automation/platform-bundle.md#rule-adr-auto-bundle-autoversion)), which is a local convenience and not a
-release, so no `contracts/<unit>/6.6.666/` folder ever exists. This immutability is what lets a consumer pin a version and trust it does not
-move underneath them.
-
-### The name picks the kind
-
-`Sensible defaults from the asset's own path`
-
-An asset declares nothing: its kind, its target, and its owning module all come from where it sits and what it is called, with its module's
-target root as the one declared folder ([zero-ceremony-poka-yoke](../automation/zero-ceremony-poka-yoke.md)). The five kinds are the five
-things a boundary can require:
-
-- **Presence** — an empty fragment: the real file at the same path under the target root must exist.
-- **Fragment** — no suffix: the real file must exist and contain the fragment. YAML and JSON compare by key subset, so the real file may
-  carry more keys than the fragment names; any other text compares by its non-blank lines, which must appear in the real file in the same
-  order.
-- **Schema** — `<path>.schema.json`: the real file at `<path>` validates against the JSON Schema, applied to YAML after parsing. A schema
-  that shares its `<name>` with a sample payload beside it applies to that sample instead of a real file.
-- **Sample payload** — `<name>.sample.<ext>`: a payload the owning module's tests must produce or parse, validated against the schema beside
-  it when one exists.
-- **Command contract** — `<command>.command.yml`, the command's repository normal form: the call interface of the command the owning module
-  exports under that name, compared with the parse of the command's file ([command-contracts](command-contracts.md)).
-
-A fragment pins only what the outside party reads, so the rest of the file stays free to change under one living version.
-
-### Direction by convention
-
-`The convention decides, contract.yml overrides`
-
-An asset that constrains a real repository file — a fragment, presence, or a schema on that file's path — is depended-on, because an outside
-platform is what reads the file. A sample payload is provided, because it is a shape the repository hands to a consumer, and so is a command
-contract, because a command is what a consumer calls. The convention is right for most assets, so most version folders carry no
-`contract.yml`; the one at `contracts/<unit>/<version>/contract.yml` overrides a single asset's direction where the convention is wrong,
-such as a sample payload an outside platform requires of a call. It is part of the version folder, so it freezes with it.
-
-### Addressing many files
-
-`Do the scan once the mode is known`
-
-By default an asset addresses exactly one real file: the one at its own path (ADR-REPO-CONTRACT-CONTRACTASSET). Constraining many files with
-one asset — by a manifest glob, by a per-folder file — is a configured mode, resolved like any setting
-([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)). A mode that is not
-built throws `NotImplemented` rather than half-working, and it is switched on by configuration only after it is proven from every engine
-([ADR-AUTO-ENGINE](../automation/execution-engines.md)), since the mechanism runs under each of them. The match set is computed only once
-the configured mode says what to match, so no tree walk runs on speculation.
+Once `catzc` is released, that release's folder is not edited — a consumer builds against exactly those bytes. A fix or an evolution lands
+in `0.1.0` and reaches the outside with the next release, which freezes a copy of `0.1.0` again under its own version. A devbox build
+carries the `6.6.666` placeholder, which is a local convenience and not a release, so no `contracts/catzc/6.6.666/` folder ever exists. This
+immutability is what lets a consumer pin a release and trust it does not move underneath them.
 
 ### Rejected alternatives
 
-1. **One unversioned contract set, evolved in place** — rejected: every change becomes a potential break for some consumer, and there is no
-   way to support an old and a new shape at once. Version folders let the two coexist and be tested independently.
+1. **One unversioned contract set, evolved in place** — rejected: it cannot hold a frozen release beside the current shape. `0.1.0` is the
+   current shape, release folders the pins.
 
 2. **A version per contract (`contracts/<contract-name>/v<N>/`)** — rejected: a consumer upgrades the catzc bundle, not individual
-   contracts, so a separate number per contract forces a mapping from bundle to contract versions that the unit's version folder makes
-   unnecessary.
+   contracts, so a separate number per contract forces a mapping from bundle to contract versions that a release folder makes unnecessary.
 
-3. **One repository-wide version (`contracts/<version>/<module>/`)** — rejected: the repository is a product mono-repository
-   ([ADR-REPO-REPOKIND-THREEKINDS](repository-kinds.md#rule-adr-repo-repokind-threekinds)), not a monolithic application, so nothing
-   versions the repository as a whole. A version exists only where a unit crosses the boundary, and each such unit versions on its own; one
-   shared version would tie every unit's contracts to one release cadence that no consumer pins.
-
+3. **A mutable draft at `0.0.0`, frozen at every release** — rejected: `0.0.0` reads as "no version", and freezing a vendor's shape records
+   nothing the vendor will honour. `0.1.0` is current, and only `catzc` releases freeze.
 4. **Separate trees for provided and depended-on contracts** — rejected: both directions share the layout, the asset kinds, and the test
-   mechanism; two trees would duplicate all three and split one owning module's boundary in two.
+   mechanism; the root already tells them apart, so a second tree would only duplicate the first.
 
 5. **Documenting the boundary in a README and trusting both sides** — rejected: a prose promise is not verified, so it drifts from the code
-   and breaks consumers and platforms silently. A binding, tested contract catches the break in CI.
+   and breaks consumers and vendors silently. A binding, tested contract catches the break in CI.
 
 6. **A back-compat shim in internal code** (dual-read the old and new shape inside the implementation) — rejected: it smears the public
    boundary through internal code, which then can never reach [one living version](../principles/one-living-version.md). The compatibility
-   belongs at the boundary, as a frozen version folder, not inside.
+   belongs at the boundary, as a frozen release folder, not inside.
 
-7. **Repeating the real file's repository-relative path, dot-prefixed folders included** — rejected: it puts a dot-prefixed folder below the
-   root, where the dot marks content as infrastructure and hides the assets from a listing. A target root per module carries the dot once,
-   in configuration.
+7. **Mirroring each bound file's path under the version folder** — rejected: the bound files sit at any depth and under dot-prefixed
+   folders, so the mirror is deep, dotted, or needs a per-module target root to relocate it, and it still binds only one file per asset. The
+   version's `applies_to` names the files once, as globs, in a flat tree.
 
-8. **A target declared per asset** — rejected: it turns every asset into a registration and lets one module's assets scatter across
-   unrelated folders. One target root per module keeps the path the mapping.
+8. **A vendor marked by a prefix (`EXTERNAL-<vendor>`)** — rejected: the root already says who promised, and everything outside `catzc` is a
+   vendor, so the prefix only lengthens every path.
+
+9. **Copying a vendor's whole schema** — rejected: it binds our files to the vendor's every detail and breaks on changes we never use; a
+   thin contract binds the part we rely on.
+
+10. **Layers of current contracts across several low versions (`0.0.1`, `0.1.0`, `0.1.1`)** — rejected: every binding would have to pick a
+    layer and every move between layers would edit its callers, for an order the module dependency graph already keeps. One current version
+    is easier to maintain; the `0.1` range stays reserved.
 
 ## Decision
 
-`contracts/` holds every binding interface at the repository boundary: provided contracts, the only public API, and depended-on contracts,
-what outside platforms require of our files and calls. It is laid out as `contracts/<unit>/<version>/<module>/<path>`, where the unit is the
-deployable-unit that carries the contracts (`catzc`, the bundle), the version is that unit's, the module owns and tests the contract, and
-the path is the real file's, relative to the module's target root: the repository root unless `contracts.yml` declares another folder for
-the module. No folder under `contracts/` is dot-prefixed; a dot-prefixed root is reached through a target root. There is no repository-wide
-version. Each unit's draft `0.0.0` is its only mutable folder, frozen only when that unit is released; a released version folder is kept
-while a consumer pins its provided contracts. An asset's name picks its kind and its direction, a per-version `contract.yml` overrides the
-direction, and many-file addressing is a configured mode. Every contract is verified by its owning module's tests, so a break is caught in
-CI, not in production. Everything outside `contracts/` is internal and follows one living version.
+`contracts/` holds every thin promise at the repository boundary: `contracts/catzc/` what we promise the world, the only public API, and one
+root per vendor for what that vendor promised us. It is laid out as `contracts/<root>/<version>/[<group>/]<asset>`, at most one group deep.
+Every root's current contracts live in `0.1.0`, edited in place and always checked, and every internal binding points there; the rest of the
+`0.1` range is reserved, `0.0.0` is never a folder, `1.0.0` and up are frozen `catzc` releases kept while pinned, and `6.6.666` is a local
+build, never a folder. An asset's name picks its kind, its root its direction, and its version folder's `contract.yml` the files it binds.
+Every contract is verified by tests, so a break is caught in CI, not in production. Everything outside `contracts/` is internal and follows
+one living version.
 
 ### How this is enforced
 
-- **`Catzc.Base.Contracts`** owns the mechanism: it enumerates `contracts/<unit>/<version>/**`, derives each asset's kind, direction, owning
-  module, and target from the name, `contract.yml`, and the module's target root in `contracts.yml`, and runs the kind's check against the
-  real tree as a quality gate (`Test-Contracts`). One data-driven L1 test file generates a test per binding asset from the same enumeration,
-  so `Test-Automation` covers every contract with no hand-written test.
+- **`Catzc.Base.Contracts`** owns the mechanism: it enumerates `contracts/<root>/<version>/**`, derives each asset's kind from its name, its
+  direction from its root, and the files it binds from `contract.yml`, and runs the kind's check against the real tree as a quality gate
+  (`Test-Contracts`). One data-driven L1 test file generates a test per binding asset from the same enumeration, so `Test-Automation` covers
+  every contract with no hand-written test.
 
-- **The dot-folder check** in `Test-Contracts` reports each dot-prefixed folder under `contracts/` as one issue, and passes dot-prefixed
-  file names (ADR-REPO-CONTRACT-NODOTFOLDERS).
+- **The layout check** in `Test-Contracts` reports a version folder other than `0.1.0` below `1.0.0`, a `6.6.666` folder, a release folder
+  under a vendor root, a folder deeper than one group, and each dot-prefixed folder (ADR-REPO-CONTRACT-LAYOUT,
+  ADR-REPO-CONTRACT-CURRENTVERSION, ADR-REPO-CONTRACT-NODOTFOLDERS).
 
-- **The frozen-folder test** compares each released version folder with the `.frozen` record `Publish-ContractRelease` wrote at release, and
-  fails on any file changed, added, or removed (ADR-REPO-CONTRACT-RELEASEDIMMUTABLE).
+- **The frozen-folder test** compares each release folder with the `.frozen` record `Publish-ContractRelease` wrote at release, and fails on
+  any file changed, added, or removed (ADR-REPO-CONTRACT-RELEASEDIMMUTABLE).
 
-- **`Build-ContractReference`** writes the per-unit reference pages from the assets' header comments, and `Test-GeneratedFiles` fails when
-  one is stale (ADR-REPO-CONTRACT-HEADERSAYSWHATITPINS).
+- **`Build-ContractReference`** writes the per-root reference pages from the assets' header comments and the `contract.yml` maps, and
+  `Test-GeneratedFiles` fails when one is stale (ADR-REPO-CONTRACT-HEADERSAYSWHATITPINS).
 
-- **`.gitattributes`** marks every file in a version folder `catzc-contract`, generated from the `contract-asset` kind's `git` entry in the
+- **`.gitattributes`** marks every file under `contracts/` `catzc-contract`, generated from the `contract-asset` kind's `git` entry in the
   file-kinds registry ([ADR-REPO-ROOTCFG-FULLYMANAGED](generated-root-configs.md#rule-adr-repo-rootcfg-fullymanaged)), so the link and
-  Markdown-title tools leave an asset as written: its bytes are what its check compares (ADR-REPO-CONTRACT-CONTRACTASSET), and a released
+  Markdown-title tools leave an asset as written: its bytes are what its check compares (ADR-REPO-CONTRACT-CONTRACTASSET), and a release
   folder stays byte-for-byte frozen (ADR-REPO-CONTRACT-RELEASEDIMMUTABLE).
 
 - **Code review** guards what the tests cannot phrase: that the boundary stays confined to `contracts/`
-  (ADR-REPO-CONTRACT-BINDINGINTERFACE), that a retirement is justified by the absence of a pinning consumer
-  (ADR-REPO-CONTRACT-KEPTWHILEPINNED), and that a `contract.yml` override is the exception the convention calls for
-  (ADR-REPO-CONTRACT-DIRECTIONBYCONVENTION).
+  (ADR-REPO-CONTRACT-BINDINGINTERFACE), that a contract stays thin, and that a retirement is justified by the absence of a pinning consumer
+  (ADR-REPO-CONTRACT-KEPTWHILEPINNED).
 
 ## Consequences
 
-- The boundary is explicit and small: what is in `contracts/` is promised or required; everything else is free to change with one living
+- The boundary is explicit and small: what is in `contracts/` is promised or relied on; everything else is free to change with one living
   version.
-- A platform's expectations are tested like a consumer's promises, so a workflow edit that GitHub would reject fails CI here first.
-- An incompatible change to a provided contract never breaks a consumer silently — it reaches the outside only as a new version of its unit,
-  and the pinned version keeps passing its tests until it is deliberately retired.
-- Each unit that carries contracts versions on its own, so releasing one unit never freezes or re-versions another's contracts.
-- Assets need no registration: the path under the module's target root is the target, the suffix is the kind, and the convention is the
-  direction. A module whose files sit under one folder declares that folder once, not per asset.
-- Every folder under `contracts/` is visible content: a dot-prefixed root of the repository appears there only as a module's target root.
-- The internal code stays shim-free: backwards compatibility is a boundary concern, expressed as frozen version folders, not as dual-read
+- Who promised a contract is the first thing its path says, and the direction follows from it with no declaration.
+- A vendor's expectations are tested like a consumer's promises, so a workflow edit that GitHub would reject fails CI here first, and the
+  thin shape keeps the vendor's unrelated changes from breaking us.
+- Every internal binding names one version, `0.1.0`, so no caller chooses between versions and none moves when a contract changes.
+- An incompatible change to a provided contract never breaks a consumer silently — it reaches the outside only as a new release, and the
+  pinned release keeps passing its tests until it is deliberately retired.
+- The tree stays flat: one root, one version, at most one group, then the asset; the files an asset binds are named once, in its version's
+  map.
+- The internal code stays shim-free: backwards compatibility is a boundary concern, expressed as frozen release folders, not as dual-read
   paths threaded through implementations.
-- The cost is real and bounded: each pinned version's provided contracts are maintained and tested for as long as a consumer pins them. That
-  cost buys the one thing it should — external consumers that keep working across change.
+- The cost is real and bounded: each pinned release's provided contracts are maintained and tested for as long as a consumer pins them, and
+  each `contract.yml` must name every fragment and file schema it holds.
