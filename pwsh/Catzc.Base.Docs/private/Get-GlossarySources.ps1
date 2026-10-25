@@ -27,11 +27,19 @@ function Get-GlossarySources {
     }
 
     for ($i = 0; $i -lt $owners.Count; $i++) {
+        # A source split into a folder of parts is tracked when every part is.
+        $isTracked = if ([System.IO.Directory]::Exists($owners[$i].Path)) {
+            $parts = @([System.IO.Directory]::GetFiles($owners[$i].Path, '*.yml'))
+            $parts.Count -gt 0 -and @($parts | Where-Object { -not $tracked.Contains("$($paths[$i])/$([System.IO.Path]::GetFileName($_))") }).Count -eq 0
+        }
+        else {
+            $tracked.Contains($paths[$i])
+        }
         [pscustomobject]@{
             Owner   = $owners[$i].Module
             Path    = $paths[$i]
             Config  = Get-Config -Config glossary -Module $owners[$i].Module
-            Tracked = $tracked.Contains($paths[$i])
+            Tracked = $isTracked
         }
     }
 }

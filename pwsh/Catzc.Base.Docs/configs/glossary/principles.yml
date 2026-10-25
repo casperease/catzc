@@ -1,0 +1,25 @@
+# ---
+# catzc:
+#   docs: "../../../../docs/references/pwsh/catzc-base-docs/configs/glossary.yml.md"
+#   header: "generated"
+# ---
+
+concepts:
+  catzc:
+    key: catzc
+    domain: principles
+    defined_by: PDR-CATS-CATZCISSOURCENAME
+    short:
+      The source-level name of the system — the Catzc.* module prefix, the C# namespaces, the type-accelerator prefix, and the product token
+      in code and precise references.
+    realized_by: { kind: prose-only }
+    avoid:
+      - { phrase: .cats folder, say: .catzc/ }
+    contrasts:
+      cats: cats is the same system named to a person; catzc is its name to code and to the facts the tooling writes.
+  cats:
+    key: cats
+    domain: principles
+    defined_by: PDR-CATS-CATSISPERSONNAME
+    short: The product's name to a person — the executor outside pwsh, and the word in prose, docs and conversation.
+    realized_by: { kind: prose-only }

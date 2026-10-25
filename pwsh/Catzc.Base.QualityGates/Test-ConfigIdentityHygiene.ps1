@@ -28,9 +28,10 @@ function Test-ConfigIdentityHygiene {
     # The default set lives in its own variable: -Path's ValidatePathGiven would refuse an empty set on assignment.
     $files = $Path
     if (-not $Path) {
-        $terminology = 'configs/terminology.yml'
-        $moduleConfigs = Get-ChildPath (Join-Path $root (Get-CatzcModulesFolder)) -File -Filter '*.yml' -Depth 3 -PruneVendor $true |
-            Where-Object { $_ -match '[\\/]configs[\\/][^\\/]+\.yml$' -and ($_ -replace '\\', '/') -notlike "*$terminology" }
+        # A config is one file or a folder of parts (configs/<name>/*.yml); the terminology parts declare the fixture tokens themselves.
+        $terminology = 'configs/terminology/*'
+        $moduleConfigs = Get-ChildPath (Join-Path $root (Get-CatzcModulesFolder)) -File -Filter '*.yml' -Depth 4 -PruneVendor $true |
+            Where-Object { $_ -match '[\\/]configs[\\/]([^\\/]+[\\/])?[^\\/]+\.yml$' -and ($_ -replace '\\', '/') -notlike "*$terminology" }
         $infrastructureConfigs = foreach ($place in (Get-Track -Name infrastructure).places) {
             $placeRoot = Join-Path $root $place
             if ([System.IO.Directory]::Exists($placeRoot)) {

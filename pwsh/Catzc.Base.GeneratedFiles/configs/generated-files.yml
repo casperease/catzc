@@ -12,7 +12,7 @@ writers:
     outputs: [docs/drs/index.md]
   Build-Glossary:
     at_import: true
-    inputs: [docs/drs/**, pwsh/*/configs/glossary.yml, pwsh/Catzc.Base.Docs/**]
+    inputs: [docs/drs/**, pwsh/*/configs/glossary.yml, pwsh/*/configs/glossary/*.yml, pwsh/Catzc.Base.Docs/**]
     outputs: [docs/drs/glossary.md]
   Build-ContractReference:
     at_import: true

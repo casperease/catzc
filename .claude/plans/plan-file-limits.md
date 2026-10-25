@@ -41,6 +41,8 @@ Long files are where agents lose context and reviews lose focus; widths drift si
 
 - Fast: one streaming pass per file in the compiled `FileShape` type (line count and widest line together), limits resolved once per
   language and cached for the run; the gate reads the tracked list, no folder walk.
+- A config past the cap splits into a folder of disjoint parts, `configs/<name>/<part>.yml`, merged by `Get-Config` (the user, 2026-10-25:
+  split by category); `terminology/` per category and the Docs `glossary/` per domain are the first two.
 - Over-limit files today go in an `exempt:` map with a reason each, the `source-conventions.yml` shape; the list only shrinks.
 - Generated, vendor and `.unordered` files are out of scope by their track, not by a list.
 
@@ -61,16 +63,13 @@ Long files are where agents lose context and reviews lose focus; widths drift si
 Out of scope by track (vendor or generated), no split: `pwsh/.compiled/Catzc.Types.*.json` (2020, generated),
 `pwsh/Catzc.Tooling.Toolchain/assets/scripts/dotnet-install.sh` (1887) and `.ps1` (1574) (third-party installers).
 
-To split, largest first: `python/catzc_diagrams/declaration.py` 3906, `python/catzc_diagrams/tests/test_declaration.py` 1591,
-`pwsh/Catzc.Base.QualityGates/configs/terminology.yml` 1376, `js/catzc-track-lamps/extension.js` 1211,
-`pwsh/Catzc.Base.Languages/types/LanguagesConfig.cs` 1041, `pwsh/.internal/Catzc.Internal.Types.psm1` 873,
-`pwsh/.internal/Catzc.Internal.Builder.psm1` 854, `pwsh/Catzc.Base.Docs/configs/glossary.yml` 728, `python/catzc_diagrams/drawio_png.py`
-727, `pwsh/.internal/Catzc.Internal.Bootstrap.psm1` 660, `pwsh/Catzc.Base.QualityGates/types/CommentEngine.cs` 631,
-`pwsh/Catzc.Base.Languages/tests/types/LanguagesConfig.Tests.ps1` 618, `pwsh/Catzc.Base.Maps/types/WorldMapPdf.cs` 549,
-`pwsh/.internal/tests/Import-CSharpTypes.Tests.ps1` 549, `pwsh/Catzc.Base.Timeouts/types/TimeoutsConfig.cs` 536,
-`pwsh/Catzc.Base.Drs/types/DrsCitationRewriter.cs` 534, `pwsh/Catzc.Base.Execution/tests/Invoke-Executable.Tests.ps1` 527,
-`pwsh/.internal/Catzc.Internal.Importer.psm1` 525, `python/catzc_diagrams/drawio_forward.py` 506,
-`pwsh/Catzc.Base.Maps/types/MapsConfig.cs` 506.
+To split, largest first: `pwsh/Catzc.Base.Languages/types/LanguagesConfig.cs` 1041, `pwsh/.internal/Catzc.Internal.Types.psm1` 873,
+`pwsh/.internal/Catzc.Internal.Builder.psm1` 854, `python/catzc_diagrams/drawio_png.py` 727, `pwsh/.internal/Catzc.Internal.Bootstrap.psm1`
+660, `pwsh/Catzc.Base.QualityGates/types/CommentEngine.cs` 631, `pwsh/Catzc.Base.Languages/tests/types/LanguagesConfig.Tests.ps1` 618,
+`pwsh/Catzc.Base.Maps/types/WorldMapPdf.cs` 549, `pwsh/.internal/tests/Import-CSharpTypes.Tests.ps1` 549,
+`pwsh/Catzc.Base.Timeouts/types/TimeoutsConfig.cs` 536, `pwsh/Catzc.Base.Drs/types/DrsCitationRewriter.cs` 534,
+`pwsh/Catzc.Base.Execution/tests/Invoke-Executable.Tests.ps1` 527, `pwsh/.internal/Catzc.Internal.Importer.psm1` 525,
+`python/catzc_diagrams/drawio_forward.py` 506, `pwsh/Catzc.Base.Maps/types/MapsConfig.cs` 506.
 
 ## Open steps
 
@@ -86,5 +85,4 @@ To split, largest first: `python/catzc_diagrams/declaration.py` 3906, `python/ca
 
 ## Open questions
 
-- Config files under the same 500 cap: `terminology.yml` and `glossary.yml` split by category into several files, or a config-only cap?
 - Should `md` get a length limit too (p99 459, max 2131)?

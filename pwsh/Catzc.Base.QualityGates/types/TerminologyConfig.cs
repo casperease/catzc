@@ -31,7 +31,8 @@ public sealed class TerminologyConfig
     {
         if (string.IsNullOrEmpty(repositoryRoot)) { throw new ArgumentException("repositoryRoot must not be empty", "repositoryRoot"); }
         if (string.IsNullOrEmpty(modulesRoot)) { throw new ArgumentException("modulesRoot must not be empty", "modulesRoot"); }
-        var set = new Catzc.Base.Folders.PathSet().AddFile(modulesRoot, "Catzc.Base.QualityGates/configs/terminology.yml");
+        var set = new Catzc.Base.Folders.PathSet();
+        foreach (string category in categories) { set.AddFile(modulesRoot, "Catzc.Base.QualityGates/configs/terminology/" + category + ".yml"); }
         foreach (string category in categories) { set.AddFile(repositoryRoot, ".cspell/" + category + ".txt"); }
         return set.ToArray();
     }

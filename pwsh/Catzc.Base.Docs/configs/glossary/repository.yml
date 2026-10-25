@@ -1,6 +1,6 @@
 # ---
 # catzc:
-#   docs: "../../../docs/references/pwsh/catzc-base-docs/configs/glossary.yml.md"
+#   docs: "../../../../docs/references/pwsh/catzc-base-docs/configs/glossary.yml.md"
 #   header: "generated"
 # ---
 
@@ -315,161 +315,6 @@ concepts:
       published artifact:
         A published artifact is a file one stage produces and a later stage consumes within a run; a contract asset is a checked-in file
         that states what the repository boundary requires, frozen with its unit's release.
-  source of truth:
-    key: source_of_truth
-    domain: thesis
-    defined_by: TDR-ONETRUTH-ONESTOREDECIDES
-    short:
-      The one store whose content decides what is true about the delivered system — for catzc, the repository, changed through one change
-      process.
-    realized_by: { kind: prose-only }
-    contrasts:
-      adjacent store:
-        An adjacent store is a second store driven one way from the trunk's pipelines, a projection of the truth; the source of truth is the
-        record it is driven from.
-      truth store:
-        A truth store is any store of the three kinds; the source of truth is the one truth store that decides inside a responsibility
-        domain, the repository.
-  adjacent store:
-    key: adjacent_store
-    domain: thesis
-    defined_by: TDR-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD
-    short:
-      The one legitimate second store — a repository or service, such as a GitOps or configuration repository, or Azure DevOps Services or
-      GitHub SaaS, with its own history, driven one way from the trunk's pipelines and never edited beside it.
-    realized_by: { kind: prose-only }
-    contrasts:
-      fact source: A fact source is owned by a state machine and only read; an adjacent store is driven one way from the trunk's pipelines.
-  truth store:
-    key: truth_store
-    domain: thesis
-    defined_by: TDR-STORES-THREEKINDS
-    short:
-      Any store that holds part of the truth about a delivered system — a version-controlled repository, a fact source, or a state machine.
-    realized_by: { kind: prose-only }
-  version-controlled repository:
-    key: version_controlled_repository
-    domain: thesis
-    defined_by: TDR-STORES-VERSIONCONTROLLEDREPOSITORY
-    short: The kind of truth store whose content is a versioned history of reviewed changes; a git repository is one subgroup of it.
-    realized_by: { kind: prose-only }
-  responsibility domain:
-    key: responsibility_domain
-    domain: thesis
-    defined_by: TDR-STORES-RESPONSIBILITYDOMAIN
-    short:
-      The organisation, team, product, or person that one repository is the responsibility boundary for, set by where git's hard security
-      controls stop.
-    realized_by: { kind: prose-only }
-  fact source:
-    key: fact_source
-    domain: thesis
-    defined_by: TDR-STORES-FACTSOURCEREADONLY
-    short:
-      A state store — a database with a reachable live URL holding state about delivery outside the repository, such as the Azure DevOps
-      runtime state — whose state catzc reads only.
-    realized_by: { kind: prose-only }
-    contrasts:
-      state machine: A state machine is the application that owns and changes a fact source; a fact source is the store catzc reads.
-  state machine:
-    key: state_machine
-    domain: thesis
-    defined_by: TDR-STORES-STATEMACHINE
-    short:
-      An application that owns fact sources and changes their state by its own rules, met by catzc only at a junction, inbound or outbound.
-    realized_by: { kind: prose-only }
-  actionable fact:
-    key: actionable_fact
-    domain: thesis
-    defined_by: TDR-STORES-RECONCILEFACTS
-    short:
-      A fact found by synchronising truth stores that is verifiable, naming the store, address, and moment it was read, and names the one
-      change or report it calls for.
-    realized_by: { kind: prose-only }
-  query surface:
-    key: query_surface
-    domain: thesis
-    defined_by: TDR-ONETRUTH-TRUTHISQUERYABLE
-    short:
-      The tooling's Get-* cmdlets, each of which also emits its answer as data (JSON), through which every question about the system's state
-      is answered.
-    realized_by: { kind: prose-only }
-  eac normal form:
-    key: eac_normal_form
-    domain: thesis
-    defined_by: TDR-NORMALFORM-ANYCODEHASNORMALFORM
-    short:
-      The shape in which the repository can verify any code — verifiable within its enabling constraints and uncontested by its formatters,
-      tests, and asserts.
-    realized_by: { kind: prose-only }
-    contrasts:
-      repository normal form:
-        The repository normal form is the one language-neutral spelling of a name; the eac normal form is the verifiable shape of a whole
-        piece of code.
-    avoid:
-      - { phrase: "eac's normal form", say: "eac normal form (catzc's own term, not the sibling eac repository's form; ADR-REPO-INSPIRE)" }
-  unordered code fragment:
-    key: unordered_code_fragment
-    domain: thesis
-    defined_by: TDR-NORMALFORM-ANYCODEHASNORMALFORM
-    short: Code from outside the trunk, in whatever shape its origin left it, that is not yet in eac normal form and decides nothing.
-    realized_by: { kind: prose-only }
-  enabling constraints:
-    key: enabling_constraints
-    domain: thesis
-    defined_by: TDR-NORMALFORM-ENABLINGCONSTRAINTS
-    short: What a repository declares about itself — the sensible defaults, the catzc bundle, and the local configs — and nothing else.
-    realized_by: { kind: prose-only }
-  uncontested:
-    key: uncontested
-    domain: thesis
-    defined_by: TDR-NORMALFORM-UNCONTESTED
-    short: Of code, left unchanged by every formatter and failed by no test or assert of the repository; the fixed point of its checks.
-    realized_by: { kind: prose-only }
-  fragment migration:
-    key: fragment_migration
-    domain: thesis
-    defined_by: TDR-NORMALFORM-MIGRATIONREACHESTHEFORM
-    short: Bringing an unordered code fragment into eac normal form through the one change process.
-    realized_by: { kind: prose-only }
-  product mono-repository:
-    key: product_mono_repository
-    domain: thesis
-    defined_by: TDR-ONETRUTH-PRODUCTMONOREPOSITORY
-    short:
-      One repository that several teams contribute to for one product, bounded into tracks and deployable-units by path filters; catzc is
-      one.
-    realized_by: { kind: prose-only }
-    contrasts:
-      trunk:
-        The trunk is the one mainline of a product mono-repository, where everything is at HEAD; the product mono-repository is the
-        repository as a whole, with its tracks and deployable-units.
-  trunk:
-    key: trunk
-    domain: thesis
-    defined_by: TDR-ONETRUTH-PRODUCTMONOREPOSITORY
-    short:
-      The one mainline of a product mono-repository, where everything is at HEAD — no internal versions, and a shared change lands in one
-      commit with all its consumers.
-    realized_by: { kind: prose-only }
-    contrasts:
-      pin: A pin is an explicit version at the repository boundary; inside the trunk nothing is pinned, and everything is at HEAD.
-  pin:
-    key: pin
-    domain: thesis
-    defined_by: TDR-ONETRUTH-PRODUCTMONOREPOSITORY
-    short:
-      An explicit version, controlled by the consumer, of a dependency that crosses the repository boundary inward, stitched into an
-      immutable artifact at build time.
-    realized_by: { kind: prose-only }
-  config contribution:
-    key: config_contribution
-    domain: configuration
-    defined_by: ADR-CONF-MDCONTRIB-CONFIGCONTRIBUTION
-    short:
-      One config value, a key path and its value, that an author states in the config part of a tracked Markdown file's meta block and that
-      the config reader gathers into the config that opted in to it.
-    realized_by: { kind: prose-only }
   meta block:
     key: meta_block
     domain: repository
@@ -503,17 +348,6 @@ concepts:
       materialization:
         Materialization says when a resource comes into being and how long it holds; a meta head is where a generated file shows its commit
         key, body_sha.
-  materialization:
-    key: materialization
-    domain: automation
-    defined_by: ADR-AUTO-MATERIAL-MATERIALIZATION
-    short:
-      When a knowledge resource comes into being and how long it holds, on-demand (made when asked, held for the call or the session) or
-      commit (made at commit, keyed by the scoped sha of its inputs, never changing).
-    realized_by: { kind: prose-only }
-    avoid:
-      - { phrase: cached at commit, say: a commit resource }
-      - { phrase: materialized view, say: a commit resource }
   place facts:
     key: place_facts
     domain: repository
@@ -564,64 +398,6 @@ concepts:
     realized_by: { kind: prose-only }
     contrasts:
       file language: A file language groups the extensions of one kind of text; a file type is the single extension of one file.
-  staging slot:
-    key: staging_slot
-    domain: design
-    defined_by: FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
-    short:
-      The pre-prod rung: a slot inside the production subscription, inactive until it is activated, never a separate subscription.
-    realized_by: { kind: prose-only }
-  manual queue:
-    key: manual_queue
-    domain: flow
-    defined_by: FDR-CD-QUEUE-THREEQUEUES
-    short:
-      A point on the promotion ladder where a commit waits for a person's act before it climbs; the ladder has three, each with a named
-      server, a named store and a measured wait.
-    realized_by: { kind: prose-only }
-    contrasts:
-      gate: A gate is any check a commit climbs through, code or person; a manual queue is the wait in front of the gates a person serves.
-  release signature:
-    key: release_signature
-    domain: flow
-    defined_by: FDR-CD-QUEUE-SIGNATUREISTHEGATE
-    short:
-      One recorded act in the appointed security registry by a user with access, saying that a rung passed its check for one named commit;
-      it serves the RC gate for main-UAT and the RBC gate for release-uat.
-    realized_by: { kind: prose-only }
-  slot switch:
-    key: slot_switch
-    domain: flow
-    defined_by: FDR-CD-QUEUE-SLOTSWITCHISAUTOMATED
-    short:
-      The automated, monitored act that makes the pre-prod occupant the live production occupant and moves the former one into the staging
-      slot; never a manual queue.
-    realized_by: { kind: prose-only }
-  module type:
-    key: module_type
-    domain: design
-    defined_by: DDR-MODTYPE-MODULETYPEISSORT
-    short:
-      The sort of module, named by the module-types registry, which says where modules of each type are found and how a path in that place
-      names its module.
-    realized_by: { kind: prose-only }
-    contrasts:
-      track:
-        A track is the cluster of module contents and the concern it holds; a module type is the sort of module found at a place inside or
-        across tracks.
-      track type: A track type is the sort of cluster a track is; a module type is the sort of module placed in it.
-      module: A module is one named unit placed in a track; a module type is the sort of module found at a place, one of a closed set.
-      layout: A layout says what a module's own folders hold; a module type says where modules of a sort are found.
-  bundle:
-    key: bundle
-    domain: automation
-    defined_by: ADR-AUTO-BUNDLE-BUNDLEISBUILD
-    short: The toolset's build, one installable, versioned Catzc package of one named bundle, built from a profile of the exporter registry.
-    realized_by: { kind: prose-only }
-    contrasts:
-      deployable-unit:
-        A deployable-unit is what ships from the mono-repository, composed from a whole track or part of one; a bundle is one build of the
-        toolset.
   imprint step:
     key: imprint_step
     domain: repository
@@ -630,50 +406,6 @@ concepts:
       A step the file-language registry lists under imprint, global or for one language, which Format-Code runs after the formatter to write
       one derived fact into the file.
     realized_by: { kind: prose-only }
-  catzc:
-    key: catzc
-    domain: principles
-    defined_by: PDR-CATS-CATZCISSOURCENAME
-    short:
-      The source-level name of the system — the Catzc.* module prefix, the C# namespaces, the type-accelerator prefix, and the product token
-      in code and precise references.
-    realized_by: { kind: prose-only }
-    avoid:
-      - { phrase: .cats folder, say: .catzc/ }
-    contrasts:
-      cats: cats is the same system named to a person; catzc is its name to code and to the facts the tooling writes.
-  cats:
-    key: cats
-    domain: principles
-    defined_by: PDR-CATS-CATSISPERSONNAME
-    short: The product's name to a person — the executor outside pwsh, and the word in prose, docs and conversation.
-    realized_by: { kind: prose-only }
-  automation:
-    key: automation
-    domain: automation
-    defined_by: ADR-AUTO-LAYERS-AUTOMATIONISABSTRACT
-    short:
-      The abstract, the commands and behaviours the repository offers and the doctrine that governs them, independent of language, shell and
-      folder; the decision-record domain, the value-chain row and the concern carry the name.
-    realized_by: { kind: prose-only }
-    contrasts:
-      importer: The importer brings a mix of languages, engines and modules into a session; automation is what the loaded modules offer.
-    avoid:
-      - { phrase: automation folder, say: the pwsh track folder (pwsh/) }
-      - { phrase: automation track, say: pwsh track }
-      - { phrase: automation modules, say: pwsh modules / catzc modules }
-      - { phrase: automation layer, say: automation (the abstract) / the pwsh modules (the code) }
-      - { phrase: PowerShell automation, say: pwsh modules / PowerShell code }
-  command:
-    key: command
-    domain: automation
-    defined_by: ADR-AUTO-LAYERS-COMMANDISPUBLICFUNCTION
-    short: One public function of the module system, the unit a contract describes, written in one implementation language.
-    realized_by: { kind: prose-only }
-    contrasts:
-      command contract:
-        A command contract is the asset that states a command's call interface at the boundary; the command is the function that implements
-        it.
   command contract:
     key: command_contract
     domain: repository
@@ -697,32 +429,3 @@ concepts:
       file language:
         A file language is the kind of text a file holds, named by its extension; the contract language is a notation inside one YAML file,
         not a file language of its own.
-  implementation language:
-    key: implementation_language
-    domain: automation
-    defined_by: ADR-AUTO-LAYERS-COMMANDISPUBLICFUNCTION
-    short:
-      The file language a command's source is written in, one whose languages.yml entry sets executable, which are PowerShell with its
-      hosted C#, Bash, Python and Go.
-    realized_by: { kind: prose-only }
-    contrasts:
-      file language:
-        A file language is any language the registry names by extension; an implementation language is one a command is written in.
-    avoid:
-      - { phrase: automation language, say: implementation language }
-  pwsh:
-    key: pwsh
-    domain: automation
-    defined_by: ADR-AUTO-LAYERS-TOOLSRUNTHROUGHENGINE
-    short: The name of the PowerShell track and of the engine that runs it; the PowerShell product itself is called PowerShell in prose.
-    realized_by: { kind: prose-only }
-    contrasts:
-      execution engine: pwsh is one of the three execution engines, and the name the PowerShell track takes from it.
-  run mode:
-    key: run_mode
-    domain: design
-    defined_by: DDR-RUNMODE-TWORUNMODES
-    short: How the toolset is loaded, source mode from a repository root or build mode from a built package; exactly two exist.
-    realized_by: { kind: prose-only }
-    contrasts:
-      importer: The importer decides which modules, languages and engines a session loads; a run mode says where it reads the modules from.

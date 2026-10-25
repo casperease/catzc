@@ -41,6 +41,26 @@ Describe 'Get-Config' -Tag 'L0' {
             @($configuration.Keys) | Should -Be @('gadget', 'widget')
         }
 
+        It 'merges a config folder''s parts in ordinal name order, and fails a key two parts both set' {
+            $dir = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
+            New-Item -ItemType Directory -Path $dir | Out-Null
+            Set-Content -Path (Join-Path $dir 'gadget.yml') -Value @('parts:', '  gadget: 2')
+            Set-Content -Path (Join-Path $dir 'widget.yml') -Value @('parts:', '  widget: 1')
+            Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -eq 'widget-parts' } -MockWith {
+                @{ Name = 'widget-parts'; Module = 'Catzc.Base.Config'; Path = $dir }
+            }
+            @((Get-Config -Config widget-parts).parts.Keys) | Should -Be @('gadget', 'widget')
+
+            $clash = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
+            New-Item -ItemType Directory -Path $clash | Out-Null
+            Set-Content -Path (Join-Path $clash 'gadget.yml') -Value @('parts:', '  widget: 2')
+            Set-Content -Path (Join-Path $clash 'widget.yml') -Value @('parts:', '  widget: 1')
+            Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -eq 'widget-clash' } -MockWith {
+                @{ Name = 'widget-clash'; Module = 'Catzc.Base.Config'; Path = $clash }
+            }
+            { Get-Config -Config widget-clash } | Should -Throw "*key 'widget' is set by more than one part*"
+        }
+
         It 'throws for an unknown config name' {
             { Get-Config -Config does-not-exist } | Should -Throw '*No config*'
         }

@@ -1,0 +1,75 @@
+# ---
+# catzc:
+#   docs: "../../../../docs/references/pwsh/catzc-base-docs/configs/glossary.yml.md"
+#   header: "generated"
+# ---
+
+concepts:
+  materialization:
+    key: materialization
+    domain: automation
+    defined_by: ADR-AUTO-MATERIAL-MATERIALIZATION
+    short:
+      When a knowledge resource comes into being and how long it holds, on-demand (made when asked, held for the call or the session) or
+      commit (made at commit, keyed by the scoped sha of its inputs, never changing).
+    realized_by: { kind: prose-only }
+    avoid:
+      - { phrase: cached at commit, say: a commit resource }
+      - { phrase: materialized view, say: a commit resource }
+  bundle:
+    key: bundle
+    domain: automation
+    defined_by: ADR-AUTO-BUNDLE-BUNDLEISBUILD
+    short: The toolset's build, one installable, versioned Catzc package of one named bundle, built from a profile of the exporter registry.
+    realized_by: { kind: prose-only }
+    contrasts:
+      deployable-unit:
+        A deployable-unit is what ships from the mono-repository, composed from a whole track or part of one; a bundle is one build of the
+        toolset.
+  automation:
+    key: automation
+    domain: automation
+    defined_by: ADR-AUTO-LAYERS-AUTOMATIONISABSTRACT
+    short:
+      The abstract, the commands and behaviours the repository offers and the doctrine that governs them, independent of language, shell and
+      folder; the decision-record domain, the value-chain row and the concern carry the name.
+    realized_by: { kind: prose-only }
+    contrasts:
+      importer: The importer brings a mix of languages, engines and modules into a session; automation is what the loaded modules offer.
+    avoid:
+      - { phrase: automation folder, say: the pwsh track folder (pwsh/) }
+      - { phrase: automation track, say: pwsh track }
+      - { phrase: automation modules, say: pwsh modules / catzc modules }
+      - { phrase: automation layer, say: automation (the abstract) / the pwsh modules (the code) }
+      - { phrase: PowerShell automation, say: pwsh modules / PowerShell code }
+  command:
+    key: command
+    domain: automation
+    defined_by: ADR-AUTO-LAYERS-COMMANDISPUBLICFUNCTION
+    short: One public function of the module system, the unit a contract describes, written in one implementation language.
+    realized_by: { kind: prose-only }
+    contrasts:
+      command contract:
+        A command contract is the asset that states a command's call interface at the boundary; the command is the function that implements
+        it.
+  implementation language:
+    key: implementation_language
+    domain: automation
+    defined_by: ADR-AUTO-LAYERS-COMMANDISPUBLICFUNCTION
+    short:
+      The file language a command's source is written in, one whose languages.yml entry sets executable, which are PowerShell with its
+      hosted C#, Bash, Python and Go.
+    realized_by: { kind: prose-only }
+    contrasts:
+      file language:
+        A file language is any language the registry names by extension; an implementation language is one a command is written in.
+    avoid:
+      - { phrase: automation language, say: implementation language }
+  pwsh:
+    key: pwsh
+    domain: automation
+    defined_by: ADR-AUTO-LAYERS-TOOLSRUNTHROUGHENGINE
+    short: The name of the PowerShell track and of the engine that runs it; the PowerShell product itself is called PowerShell in prose.
+    realized_by: { kind: prose-only }
+    contrasts:
+      execution engine: pwsh is one of the three execution engines, and the name the PowerShell track takes from it.

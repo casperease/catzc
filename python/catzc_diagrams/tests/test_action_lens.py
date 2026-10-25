@@ -19,6 +19,7 @@ import yaml
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 import declaration
+import declaration_settings
 
 FIXTURES = Path(__file__).resolve().parent / "action-lens"
 OUT = Path(__file__).resolve().parents[3] / "out" / "drawio"
@@ -308,12 +309,12 @@ def test_the_stick_man_is_drawn_last_over_the_drawing_and_read_by_nobody(monkeyp
     assert 'id="cause" value="&lt;b&gt;An author&lt;/b&gt;"' in model  # the fragment keeps the words: it is his head
     back = declaration.get(model, kind="explanation")
     assert back["content"]["cause"] == {"label": "An author"} and declaration.put(back) == model
-    monkeypatch.setattr(declaration, "ACTOR", False)
+    monkeypatch.setattr(declaration_settings, "ACTOR", False)
     assert "actor-" not in declaration.put(first)
 
 
 def test_a_word_on_a_line_between_zones_becomes_a_transition_bubble_on_the_ring_in_the_word_presentation(monkeypatch):
-    monkeypatch.setattr(declaration, "EDGE_LABEL", "word")
+    monkeypatch.setattr(declaration_settings, "EDGE_LABEL", "word")
     first = normalised(sample("action-site-sample"))
     model = declaration.put(first)
     bubble = re.search(r'<mxCell id="e-effect-index-effect-recount-word" value="&lt;b&gt;affects&lt;/b&gt;" [^\n]*\n\s*<mxGeometry x="(\d+)" y="(\d+)" width="(\d+)" height="(\d+)"', model)

@@ -1,0 +1,15 @@
+# ---
+# catzc:
+#   docs: "../../../../docs/references/pwsh/catzc-base-docs/configs/glossary.yml.md"
+#   header: "generated"
+# ---
+
+concepts:
+  config contribution:
+    key: config_contribution
+    domain: configuration
+    defined_by: ADR-CONF-MDCONTRIB-CONFIGCONTRIBUTION
+    short:
+      One config value, a key path and its value, that an author states in the config part of a tracked Markdown file's meta block and that
+      the config reader gathers into the config that opted in to it.
+    realized_by: { kind: prose-only }

@@ -22,7 +22,7 @@ categories:
       - "pwsh/Catzc.Base.Languages/configs/file-carriers.yml"
       - "pwsh/Catzc.Base.Languages/tests/types/LanguagesConfig.Tests.ps1"
       - "pwsh/Catzc.Base.Languages/configs/glossary.yml"
-      - "pwsh/Catzc.Base.QualityGates/configs/terminology.yml"
+      - "pwsh/Catzc.Base.QualityGates/configs/terminology/*.yml"
       - "pwsh/Catzc.Base.Timeouts/configs/timeouts.yml"
       - "pwsh/Catzc.Base.Contracts/configs/accosted.yml"
       - "pwsh/Catzc.Base.Config/configs/configs.yml"

@@ -124,7 +124,7 @@ Describe 'TerminologyConfig' -Tag 'L0', 'logic' {
         { [Catzc.Base.QualityGates.TerminologyConfig]::new($raw) } | Should -Throw "*unknown top-level key 'widget' (allowed: categories, terms)*"
     }
 
-    It 'names the files that define the terms: the registry and one dictionary per category, full paths in ordinal order' {
+    It 'names the files that define the terms: one registry part and one dictionary per category, full paths in ordinal order' {
         $c = & $script:make @{ product = @(@{ term = 'bicep'; meaning = 'Azure Bicep' }) }
         $root = Join-Path $TestDrive 'repo'
         $files = $c.DefiningFiles($root, (Join-Path $root 'modules'))
@@ -132,7 +132,9 @@ Describe 'TerminologyConfig' -Tag 'L0', 'logic' {
             (Join-Path $root '.cspell/abbreviation.txt')
             (Join-Path $root '.cspell/fixture.txt')
             (Join-Path $root '.cspell/product.txt')
-            (Join-Path $root 'modules/Catzc.Base.QualityGates/configs/terminology.yml')
+            (Join-Path $root 'modules/Catzc.Base.QualityGates/configs/terminology/abbreviation.yml')
+            (Join-Path $root 'modules/Catzc.Base.QualityGates/configs/terminology/fixture.yml')
+            (Join-Path $root 'modules/Catzc.Base.QualityGates/configs/terminology/product.yml')
         ) | ForEach-Object { [System.IO.Path]::GetFullPath($_) }
         $files | Should -Be $expected
         { $c.DefiningFiles('', $root) } | Should -Throw '*repositoryRoot must not be empty*'

@@ -1,0 +1,37 @@
+# ---
+# catzc:
+#   docs: "../../../../docs/references/pwsh/catzc-base-docs/configs/glossary.yml.md"
+#   header: "generated"
+# ---
+
+concepts:
+  staging slot:
+    key: staging_slot
+    domain: design
+    defined_by: FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+    short:
+      The pre-prod rung: a slot inside the production subscription, inactive until it is activated, never a separate subscription.
+    realized_by: { kind: prose-only }
+  module type:
+    key: module_type
+    domain: design
+    defined_by: DDR-MODTYPE-MODULETYPEISSORT
+    short:
+      The sort of module, named by the module-types registry, which says where modules of each type are found and how a path in that place
+      names its module.
+    realized_by: { kind: prose-only }
+    contrasts:
+      track:
+        A track is the cluster of module contents and the concern it holds; a module type is the sort of module found at a place inside or
+        across tracks.
+      track type: A track type is the sort of cluster a track is; a module type is the sort of module placed in it.
+      module: A module is one named unit placed in a track; a module type is the sort of module found at a place, one of a closed set.
+      layout: A layout says what a module's own folders hold; a module type says where modules of a sort are found.
+  run mode:
+    key: run_mode
+    domain: design
+    defined_by: DDR-RUNMODE-TWORUNMODES
+    short: How the toolset is loaded, source mode from a repository root or build mode from a built package; exactly two exist.
+    realized_by: { kind: prose-only }
+    contrasts:
+      importer: The importer decides which modules, languages and engines a session loads; a run mode says where it reads the modules from.

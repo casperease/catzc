@@ -135,8 +135,6 @@ terms:
       meaning: "a resource name composed from the sample-bicepparam template's shortcodes in Get-BicepTemplateConfiguration tests"
     - term: rulename
       meaning: "placeholder for a rule's name part in a rule code template (<code>-<RULENAME>) in the how-to docs"
-    - term: widgetish
-      meaning: "placeholder adjective 'widgetish' in catzc-track-lamps tests"
     - term: widgetshell
       meaning: "placeholder language name 'widgetshell' in the diagram kit's language tests"
     - term: gadgetlang

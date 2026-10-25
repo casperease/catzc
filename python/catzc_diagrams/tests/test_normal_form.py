@@ -11,6 +11,7 @@ import pytest
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 import declaration
+import declaration_action_content
 import normal_form
 
 
@@ -60,7 +61,7 @@ def test_the_wrap_breaks_come_from_drawio_yml_and_wrap_and_unwrap_stay_exact_inv
     line = "get_widget: { path: pwsh/Catzc.Widget/accosted/widgets.accosted.yml, mode: fast }"
     assert declaration.unwrap_lines("\n".join(declaration.wrap_line(line, 30))) == line
     # A different configuration breaks elsewhere, and the two functions still agree.
-    monkeypatch.setattr(declaration, "WRAP_GLUED", ("/", "-"))
-    monkeypatch.setattr(declaration, "WRAP_LATE", (".", "_"))
+    monkeypatch.setattr(declaration_action_content, "WRAP_GLUED", ("/", "-"))
+    monkeypatch.setattr(declaration_action_content, "WRAP_LATE", (".", "_"))
     other = "get_widget: { path: pwsh/Catzc.Widget-parts/accosted/widgets_by.accosted.yml, mode: fast }"
     assert declaration.unwrap_lines("\n".join(declaration.wrap_line(other, 30))) == other

@@ -15,7 +15,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import declaration
-from test_declaration import WIDGETS
+import declaration_source
+from conftest import WIDGETS
 
 HEAD = "# ---\n# catzc:\n#   immutable:\n#     with_body_sha: 0123456789ab\n# ---\n\n"
 BODY = "description: Widgets flow into gadgets through a gate.\n" + WIDGETS.lstrip("\n")
@@ -103,7 +104,7 @@ def test_carry_refuses_on_a_parity_loss_and_restores_every_file(pair, monkeypatc
         held = real(raw, where=where)
         return held if len(calls) == 1 else {**held, "description": "something else"}
 
-    monkeypatch.setattr(declaration, "normalise", drifting)
+    monkeypatch.setattr(declaration_source, "normalise", drifting)
     with pytest.raises(declaration.DeclarationError, match="differs, so nothing was moved"):
         declaration.carry(stem, "article")
     assert declaration.source_of(stem).read_text(encoding="utf-8") == HEAD + BODY

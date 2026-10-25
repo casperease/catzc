@@ -51,7 +51,9 @@ Describe 'catzc-track-lamps' -Tag 'L0', 'logic' {
                 if ($WithEngine) {
                     $engine = Join-Path $root 'js/catzc-track-lamps/extension.js'
                     $null = New-Item -ItemType Directory -Force -Path (Split-Path $engine)
-                    Copy-Item -LiteralPath $script:script -Destination $engine
+                    foreach ($part in [System.IO.Directory]::GetFiles((Split-Path $script:script), '*.js')) {
+                        Copy-Item -LiteralPath $part -Destination (Split-Path $engine)
+                    }
                 }
                 $output = & node $script:harness $Name ($root -replace '\\', '/') $script:script 2>&1
                 $LASTEXITCODE | Should -Be 0 -Because "the $Name scenario runs to its end: $output"

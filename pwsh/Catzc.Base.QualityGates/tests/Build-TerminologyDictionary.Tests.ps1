@@ -83,9 +83,10 @@ Describe 'Build-TerminologyDictionary — real registry' -Tag 'L2', 'integrity',
     }
 }
 
-Describe 'Build-TerminologyDictionary — shipped configs/terminology.yml' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP-COVEREDBYREALTEST' {
-    It 'finds the registry it names as its source in the loaded module' {
-        $registry = [System.IO.File]::ReadAllText((Get-CatzcModuleRoot 'configs/terminology.yml' -Module Catzc.Base.QualityGates)) | ConvertFrom-Yaml -Ordered
-        @($registry['categories'].Keys).Count | Should -BeGreaterThan 0
+Describe 'Build-TerminologyDictionary — shipped configs/terminology/' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP-COVEREDBYREALTEST' {
+    It 'finds the registry parts it names as its source in the loaded module' {
+        $folder = Get-CatzcModuleRoot 'configs/terminology' -Module Catzc.Base.QualityGates
+        @([System.IO.Directory]::GetFiles($folder, '*.yml')).Count | Should -BeGreaterThan 0
+        @((Get-Config -Config terminology).categories).Count | Should -BeGreaterThan 0
     }
 }

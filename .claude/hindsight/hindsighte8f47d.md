@@ -11,9 +11,6 @@ Started 2026-10-22T04:59:45.8045278+02:00.
 - 2026-10-22 Jack: If only Jack had read past his own complaint: docs/references/pwsh/catzc-base-quality-gates/Invoke-TestFile.ps1.md:37-39
   now says a failed priming import stops the run with its exit code and last ten lines, keeps the output in out/test-snapshot-priming/ and
   writes no run.json, so the earlier line of this log saying no line tells how priming fails is stale.
-- 2026-10-22 Jack: If only the article agreed with the engine: docs/references/pwsh/catzc-base-quality-gates/Export-Comments.ps1.md:23 still
-  scopes the export to tracked files outside tests/ and private/Get-CommentScope.ps1.md:17 excludes tests by default, yet test pages such as
-  tests/Export-Comments.Tests.ps1.md exist, so a page written for a new test file is learned against its own documentation.
 - 2026-10-22 Jack: If only a worker knew whose head it moves: pwsh/Catzc.Base.QualityGates/configs/file-meta.yml:34-37 derives the test edge
   of a function or type from its test file existing, so a new test changes its code file head by declaration, but no capability and no
   catzc-worker line says that re-imprint is a file to ask its owner for.
@@ -38,14 +35,9 @@ Started 2026-10-22T04:59:45.8045278+02:00.
 - 2026-10-22 Jack: If only the session had read the pitfalls ADR: docs/drs/automation/pwsh/automatic-variable-pitfalls.md:196 says every
   -match or -replace overwrites Matches and :320 that variable names are case-insensitive, so a param named Where and a nested -match were
   both on file as traps before they sprang.
-- 2026-10-22 Jack: If only the Pester ADR had said what a mock sees: docs/drs/automation/pwsh/pester-testing.md:21-24 rules where and how to
-  mock, but nothing in the tree says a Mock body runs without the It block locals, so the literal is learned from the first null.
 - 2026-10-22 Jack: If only the session had read the gate article: docs/references/pwsh/catzc-base-docs/Test-AgentDefinitions.ps1.md:35
   counts every capability line outside its catzc head toward roofs.capability_lines, front matter included, and lists no width check among
   its findings, so the width was the formatter job by omission.
-- 2026-10-22 Jack: If only the how-to had read the ADR: docs/drs/repository/function-help.md:68 and :111 say Get-Help shows no catzc help
-  and the comment page is read instead, yet docs/how-to/getting-started/pwsh/run-tests-and-checks.md:35 still sends a newcomer to Get-Help
-  Test-Automation -Full, a dead end on the first page they open.
 - 2026-10-22 Jack: If only the session had read the parameter list:
   docs/references/pwsh/catzc-base-quality-gates/Test-ParameterConsistency.ps1.md:17 reads every public function file and :25-29 offer only
   OutputFolder and PassThru, so a -Path was never on offer.
@@ -58,8 +50,6 @@ Started 2026-10-22T04:59:45.8045278+02:00.
 - 2026-10-22 Jack: If only the session had loaded catzc-run: .claude/skills/catzc-run/SKILL.md:30-31 already names a root asset under
   pwsh/Catzc.Base.RootConfig/assets/root/ live for every import with a HOLD first, since pwsh/.internal/Catzc.Internal.Importer.psm1:406-407
   runs Build-RootConfig -Silent on each load, so the lesson was a capability line before three sessions learned it.
-- 2026-10-22 Jack: If only someone had said where backslashes survive: nothing in the tree, no capability, how-to or CLAUDE.md line, says a
-  script holding backslashes is written with the Write tool rather than through a bash heredoc, so the second rewrite stays the teacher.
 - 2026-10-22 Jack: If only the planner split its reading: .claude/agents/its-a-chore-but-i-will-do-better.md:24 reads every hindsight file
   itself, newest first, and nothing in the tree hands one file to a read-only helper with a fixed verdict table, so the whole log still
   lands in one context.

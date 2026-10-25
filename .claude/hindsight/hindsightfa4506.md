@@ -18,9 +18,6 @@ Started 2026-10-22T01:08:38.5211231+02:00.
   the file.
 - 2026-10-22 Jack: If only the learning had waited for the rename: pwsh/Catzc.Base.Drs/types/DrsCodeForm.cs:32 and :48 now build the kind
   group from the registered kinds, so a map to a new record kind no longer dies on a hard-coded ADR pattern.
-- 2026-10-22 Jack: If only the parking rule covered types: .claude/CLAUDE.md says a C# type edit needs a fresh pwsh and
-  .claude/skills/catzc-run/SKILL.md:27-29 parks a shared yml in out/ during a peer burst, but no line says the same of a types/*.cs edit,
-  which the next import of every session compiles.
 - 2026-10-22 Jack: If only the gate said what a test is: docs/drs/repository/markdown-links.md:48-49 (ADR-REPO-LINK-STRINGSAREDATA) exempts
   strings in tests, yet docs/references/pwsh/catzc-base-quality-gates/Test-Links.ps1.md never says which files count as tests, so the
   narrower exemption is found by a finding.
@@ -80,9 +77,6 @@ Started 2026-10-22T01:08:38.5211231+02:00.
 - 2026-10-22 Jack: If only the session had read the pitfalls ADR: docs/drs/automation/pwsh/automatic-variable-pitfalls.md:47 and :319
   already say a validation attribute runs again when the parameter is reassigned, so the computed default belonged in a local by rule, twice
   learned in one session.
-- 2026-10-22 Jack: If only the Pester ADR had finished the sentence: docs/drs/automation/pwsh/pester-testing.md:327 warns that a -like
-  pattern treats brackets as a character class, but nothing in the tree says the backtick is its escape, so a pattern with literal backticks
-  never matches until StartsWith takes over.
 - 2026-10-22 Jack: If only the cost had a home: pwsh/Catzc.Base.Timeouts/configs/timeouts.yml holds no diagram entry and nothing in the tree
   records that Build-Diagrams -Stale over the tree takes about 210 s, so the 360 s roof is met by the call that adds Test-Diagrams after it.
 - 2026-10-22 Jack: If only Jack had grepped as well as he gloats: .claude/skills/plans-orchestrate/SKILL.md:26 appends every message and
@@ -122,8 +116,6 @@ Started 2026-10-22T01:08:38.5211231+02:00.
 - 2026-10-22 Jack: If only the swap had a rule for publics: .claude/skills/catzc-run/SKILL.md:25 runs a private inside its module and
   forbids dot-sourcing its file, but nothing in the tree says a dot-sourced staged copy leaves the exported command of a public function
   untouched, so the old definition answers until a real swap.
-- 2026-10-22 Jack: If only the grep had a capability: nothing in the tree, no SKILL.md and no CLAUDE.md line, says a wide markdown table is
-  searched with only-matching output or a count, so printing whole table rows stays the token tip it was.
 - 2026-10-22 Jack: If only the session had loaded git-readonly before the bulk compare: .claude/skills/git-readonly/SKILL.md:17-18 decodes
   git show output as utf-8, never the Windows code page, so the many reported losses were the false differences that line prevents and the
   byte-wise diff was its symptom.
@@ -136,6 +128,3 @@ Started 2026-10-22T01:08:38.5211231+02:00.
 - 2026-10-22 Jack: If only Jack had waited for the gate: docs/references/pwsh/catzc-base-quality-gates/Test-Plans.ps1.md:22-23 now fails a
   chunk line or value row whose stated step count differs from the open steps (ADR-REPO-PLANS-THREEPARTS), so the earlier line of this log
   saying nothing compares them is stale and the sync is a gate, not a habit.
-- 2026-10-22 Jack: If only the drs module had an article: docs/references/pwsh/catzc-base-drs/Test-DrsRegistry.ps1.md:10 names the one
-  registry-wide gate, but docs/references/pwsh/ holds no catzc-base-drs.md beside every other module article, so Test-Drs and Test-DrsCodes
-  are guessed three times before the page is found.

@@ -215,7 +215,7 @@ const scenarios = {
         await sleep(1200);
         const first = { light: current.record.commands.has("catzc.lamps.code.light"), registered: current.record.registered };
         fs.appendFileSync(engine, "\n// a saved change\n");
-        await current.fire("js/catzc-track-lamps/extension.js", "change", engine);
+        await current.fire("js/catzc-track-lamps/*.js", "change", engine);
         await sleep(1500);
         const swapped = {
             light: current.record.commands.has("catzc.lamps.code.light"),
@@ -223,7 +223,7 @@ const scenarios = {
             disposed: current.record.disposed,
         };
         fs.appendFileSync(engine, "\nthis is no javascript {\n");
-        await current.fire("js/catzc-track-lamps/extension.js", "change", engine);
+        await current.fire("js/catzc-track-lamps/*.js", "change", engine);
         await sleep(1500);
         return {
             first,
