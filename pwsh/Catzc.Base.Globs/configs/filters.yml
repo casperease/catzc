@@ -20,3 +20,21 @@ filters:
   - { name: generated, title: every generated artifact, select: [generated] }
   - { name: docs, title: the documentation and the licence, select: [track.docs, glob.LICENSE] }
   - { name: out, title: the run output, select: [glob.out/**] }
+  # Preview lamps: declared and resolved like every other, kept out of the Explorer's title row by the extension's preview flag until
+  # they ship (the extension asserts that only the shipped lamps above reach the menu).
+  - { name: az, title: "the Azure resources: the Bicep tree", select: [track.infrastructure] }
+  - { name: ado, title: the Azure DevOps Services pipelines, select: [glob..ado/**] }
+  - { name: ado_server, title: the Azure DevOps Server pipelines, select: [glob..ado/**] }
+  - { name: git, title: the git settings, select: [glob..gitignore, glob..gitattributes, glob.**/.gitkeep] }
+  - { name: gh, title: the GitHub settings and workflows, select: [glob..github/**] }
+  - { name: draw, title: the draw.io diagrams, select: [glob.**/*.drawio.yml, glob.**/*.drawio.png] }
+  - { name: bash, title: the bash engine, select: [glob.**/*.sh, glob.**/*.bats] }
+  - { name: pwsh, title: the PowerShell engine, select: [glob.**/*.ps1, glob.**/*.psm1, glob.**/*.psd1] }
+  - { name: zsh, title: the zsh engine, select: [glob.**/*.zsh] }
+  - { name: csharp, title: the C# code, select: [glob.**/*.cs] }
+  - { name: bcl, title: the BCL types, select: [glob.pwsh/**/types/*.cs] }
+  - { name: python, title: the Python code, select: [glob.**/*.py] }
+  - { name: js, title: the JavaScript code, select: [glob.**/*.js] }
+  - { name: yml, title: the YAML files, select: [glob.**/*.yml, glob.**/*.yaml] }
+  - { name: plans, title: the plans, select: [glob..claude/plans/**] }
+  - { name: deploy, title: the deployment pipelines, select: [glob..ado/pipelines/cd-*.yaml, glob..ado/pipelines/deploy-*.yaml] }

@@ -54,7 +54,27 @@ const CONDITIONS = ["committed", "staged", "unstaged", "failed"];
 const EMPTY = "empty";
 
 const config = () => vscode.workspace.getConfiguration("catzc.trackLamps");
-const filters = () => config().get("filters") ?? {};
+// The feature flag of the preview lamps: off, only the shipped lamps take part (the title row, the filter, the conditions) and the
+// preview filters of filters.yml are left out as if undeclared; on, every declared lamp does. Flip it here to try the preview lamps.
+const PREVIEW_LAMPS = false;
+// The shipped lamps, in their title-row order; with the flag off, the lamps that reach the menu must be exactly these, first and alone.
+const SHIPPED_LAMPS = ["open", "code", "configs", "tests", "tools", "pipelines", "infrastructure", "generated", "docs", "out", "languages"];
+const declaredFilters = () => config().get("filters") ?? {};
+const filters = () => {
+    const declared = declaredFilters();
+    if (PREVIEW_LAMPS) return declared;
+    return Object.fromEntries(Object.entries(declared).filter(([name]) => SHIPPED_LAMPS.includes(name)));
+};
+// The flag as an assert: with it off, the lamps in play are the shipped ones in their order, or the extension says so and keeps to them.
+const assertShipped = (lamps) => {
+    if (PREVIEW_LAMPS) return lamps;
+    const ok = lamps.length === SHIPPED_LAMPS.length && lamps.every((lamp, at) => lamp === SHIPPED_LAMPS[at]);
+    if (!ok) {
+        log?.appendLine(`error: the lamps in play [${lamps.join(", ")}] are not the shipped lamps [${SHIPPED_LAMPS.join(", ")}] in order; only the shipped ones are shown`);
+        return SHIPPED_LAMPS.filter((lamp) => lamps.includes(lamp));
+    }
+    return lamps;
+};
 const languages = () => config().get("languages") ?? {};
 const typed = (text) =>
     (text ?? "")
@@ -515,7 +535,9 @@ function activate(context) {
     vscode = require("vscode");
     log = vscode.window.createOutputChannel("Catzc track lamps");
     context.subscriptions.push(log);
-    const lamps = () => [OPEN, ...Object.keys(filters()), LANGUAGE];
+    const lamps = () => assertShipped([OPEN, ...Object.keys(filters()), LANGUAGE]);
+    // Every declared lamp, the preview ones included: the title row shows a lamp only while its shown key is set.
+    const declaredLamps = () => [OPEN, ...Object.keys(declaredFilters()), LANGUAGE];
     const rootOf = () => vscode.workspace.workspaceFolders?.[0]?.uri.fsPath;
 
     // The switches, one authoritative copy in memory: a press changes it at once, the workspace state only remembers it across reloads.
@@ -529,8 +551,12 @@ function activate(context) {
     const show = async () => {
         const out = state.out;
         const vetoed = state.vetoed;
+        const inPlay = new Set(lamps());
         await Promise.all(
-            lamps().flatMap((lamp) => [
+            declaredLamps().map((lamp) => vscode.commands.executeCommand("setContext", `catzc.lamps.shown.${lamp}`, inPlay.has(lamp))),
+        );
+        await Promise.all(
+            [...inPlay].flatMap((lamp) => [
                 vscode.commands.executeCommand("setContext", `catzc.lamps.out.${lamp}`, out.has(lamp) && !vetoed.has(lamp)),
                 vscode.commands.executeCommand("setContext", `catzc.lamps.veto.${lamp}`, out.has(lamp) && vetoed.has(lamp)),
                 vscode.commands.executeCommand("setContext", `catzc.lamps.state.${lamp}`, conditions[lamp] ?? "committed"),
