@@ -16,7 +16,7 @@ groups:
     Catzc.Base.CodeMeta: [Catzc.Base.Repository, Catzc.Base.Objects, Catzc.Base.Asserts, Catzc.Base.MarkdownMeta]
     Catzc.Base.Config: [Catzc.Base.Repository, Catzc.Base.Objects, Catzc.Base.Asserts]
     Catzc.Base.Folders: [Catzc.Base.Config, Catzc.Base.Objects]
-    Catzc.Base.FileLimits: [Catzc.Base.Config, Catzc.Base.Objects]
+    Catzc.Base.FileLimits: [Catzc.Base.Config, Catzc.Base.Objects, Catzc.Base.Languages]
     Catzc.Base.Flow: [Catzc.Base.Drs, Catzc.Base.Config, Catzc.Base.Objects]
     Catzc.Base.Slides:
       [

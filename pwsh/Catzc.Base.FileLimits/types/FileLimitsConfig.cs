@@ -14,9 +14,11 @@ public sealed class FileLimitsConfig
     public const int DefaultWidthMin = 80;
     public const int DefaultWidthMax = 200;
 
+    public const string Unmeasured = "none";
+
     public static readonly string[] Classes = { "code", "config", "prose" };
 
-    private static readonly string[] AllowedKeys = { "bounds", "defaults", "languages" };
+    private static readonly string[] AllowedKeys = { "bounds", "classes", "defaults", "languages" };
     private static readonly string[] LimitKeys = { "length", "width" };
     private static readonly string[] BoundKeys = { "min", "max" };
 
@@ -27,12 +29,25 @@ public sealed class FileLimitsConfig
         ["prose"] = new FileLimit(400, 140),
     };
 
+    private static readonly Dictionary<string, string> DefaultClasses = new Dictionary<string, string>(StringComparer.Ordinal)
+    {
+        ["powershell"] = "code", ["bcl"] = "code", ["bicep"] = "code", ["python"] = "code", ["go"] = "code", ["bash"] = "code",
+        ["javascript"] = "code", ["css"] = "code", ["html"] = "code",
+        ["yaml"] = "config", ["pipeline-yaml"] = "config", ["accosted"] = "config", ["json"] = "config", ["jsonl"] = "config",
+        ["xml"] = "config", ["solution"] = "config",
+        ["markdown"] = "prose",
+        ["stamp"] = Unmeasured, ["asset"] = Unmeasured,
+    };
+
+    private readonly Dictionary<string, ResolvedFileLimit> resolved = new Dictionary<string, ResolvedFileLimit>(StringComparer.Ordinal);
+
     public int length_min { get; }
     public int length_max { get; }
     public int width_min { get; }
     public int width_max { get; }
     public IReadOnlyDictionary<string, FileLimit> defaults { get; }
     public IReadOnlyDictionary<string, FileLimit> languages { get; }
+    public IReadOnlyDictionary<string, string> classes { get; }
 
     public FileLimitsConfig(IDictionary raw)
     {
@@ -40,6 +55,7 @@ public sealed class FileLimitsConfig
         int lengthMin = DefaultLengthMin, lengthMax = DefaultLengthMax, widthMin = DefaultWidthMin, widthMax = DefaultWidthMax;
         Dictionary<string, FileLimit> defaultsValue = new Dictionary<string, FileLimit>(DefaultLimits, StringComparer.Ordinal);
         Dictionary<string, FileLimit> languagesValue = new Dictionary<string, FileLimit>(StringComparer.Ordinal);
+        Dictionary<string, string> classesValue = new Dictionary<string, string>(DefaultClasses, StringComparer.Ordinal);
 
         if (raw != null)
         {
@@ -67,6 +83,25 @@ public sealed class FileLimitsConfig
                             FileLimit shipped = DefaultLimits[name];
                             defaultsValue[name] = new FileLimit(given.length ?? shipped.length, given.width ?? shipped.width);
                         }
+                    }
+                }
+            }
+
+            IDictionary classesRaw = Section(raw, "classes", errors);
+            if (classesRaw != null)
+            {
+                classesValue.Clear();
+                foreach (object key in classesRaw.Keys)
+                {
+                    string name = Convert.ToString(key, CultureInfo.InvariantCulture);
+                    string value = classesRaw[key] as string;
+                    if (value == null || (value != Unmeasured && Array.IndexOf(Classes, value) < 0))
+                    {
+                        errors.Add(string.Format(CultureInfo.InvariantCulture, "classes.{0} '{1}' must be one of {2}, {3}", name, classesRaw[key], string.Join(", ", Classes), Unmeasured));
+                    }
+                    else
+                    {
+                        classesValue[name] = value;
                     }
                 }
             }
@@ -123,6 +158,40 @@ public sealed class FileLimitsConfig
         width_max = widthMax;
         defaults = defaultsValue;
         languages = languagesValue;
+        classes = classesValue;
+    }
+
+    // One lookup per language, cached for the run: the language value if set, else its class default; no merging.
+    public ResolvedFileLimit Resolve(string language)
+    {
+        if (resolved.TryGetValue(language, out ResolvedFileLimit hit))
+        {
+            return hit;
+        }
+
+        if (!classes.TryGetValue(language, out string fileClass))
+        {
+            throw new ArgumentException(string.Format(CultureInfo.InvariantCulture, "language '{0}' has no class in file-limits classes (allowed classes: {1}, {2})", language, string.Join(", ", Classes), Unmeasured));
+        }
+
+        ResolvedFileLimit result;
+        if (fileClass == Unmeasured)
+        {
+            result = new ResolvedFileLimit(language, fileClass, null, null, null, null);
+        }
+        else
+        {
+            FileLimit classLimit = defaults[fileClass];
+            languages.TryGetValue(language, out FileLimit own);
+            bool ownLength = own != null && own.length.HasValue;
+            bool ownWidth = own != null && own.width.HasValue;
+            result = new ResolvedFileLimit(language, fileClass,
+                ownLength ? own.length : classLimit.length, ownLength ? "languages." + language : "defaults." + fileClass,
+                ownWidth ? own.width : classLimit.width, ownWidth ? "languages." + language : "defaults." + fileClass);
+        }
+
+        resolved[language] = result;
+        return result;
     }
 
     private static void CheckKeys(IDictionary map, string[] allowed, string where, List<string> errors)

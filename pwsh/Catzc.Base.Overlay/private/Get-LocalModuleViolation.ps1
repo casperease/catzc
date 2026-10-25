@@ -23,6 +23,7 @@ function Get-LocalModuleViolation {
         return
     }
 
+    $privateFolderName = (Get-Config -Config languages).FolderOf('private-function')
     $functionFiles = [System.Collections.Generic.List[string]]::new()
     # A violation anywhere in the module must surface, so the walk prunes nothing, a vendor folder included.
     $files = [string[]] @(Get-ChildPath $Path -File -Depth 64 -Exclude @() -PruneVendor $false)
@@ -30,7 +31,7 @@ function Get-LocalModuleViolation {
     foreach ($file in $files) {
         $relative = [System.IO.Path]::GetRelativePath($Path, $file).Replace('\', '/')
         $segments = $relative.Split('/')
-        $isFolderFunction = $segments.Count -eq 1 -or ($segments.Count -eq 2 -and $segments[0] -ceq 'private')
+        $isFolderFunction = $segments.Count -eq 1 -or ($segments.Count -eq 2 -and $segments[0] -ceq $privateFolderName)
         $isFunctionFile = $isFolderFunction -and $relative.EndsWith('.ps1', [System.StringComparison]::OrdinalIgnoreCase)
         if ($isFunctionFile) {
             $functionFiles.Add($file)
@@ -43,7 +44,7 @@ function Get-LocalModuleViolation {
         }
         elseif (-not (($segments.Count -eq 2 -and $segments[0] -ceq 'configs' -and $relative.EndsWith('.yml', [System.StringComparison]::Ordinal)) -or
                 ($segments.Count -ge 2 -and $segments[0] -cin 'assets', 'tests'))) {
-            "${RelativePath}/${relative}: not part of a module; a local module holds <Function>.ps1, private/<Function>.ps1, configs/<config>.yml, assets/<path> and tests/<path>"
+            "${RelativePath}/${relative}: not part of a module; a local module holds <Function>.ps1, $privateFolderName/<Function>.ps1, configs/<config>.yml, assets/<path> and tests/<path>"
         }
     }
     if ($functionFiles.Count -eq 0) {
@@ -51,7 +52,7 @@ function Get-LocalModuleViolation {
     }
 
     foreach ($file in $functionFiles) {
-        if ([System.IO.Path]::GetFileName([System.IO.Path]::GetDirectoryName($file)) -ceq 'private') {
+        if ([System.IO.Path]::GetFileName([System.IO.Path]::GetDirectoryName($file)) -ceq $privateFolderName) {
             continue
         }
         $public = [System.IO.Path]::GetFileNameWithoutExtension($file)

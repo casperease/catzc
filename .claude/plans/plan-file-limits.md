@@ -73,8 +73,6 @@ step 4's `exempt:` map starts empty.
 
 ## Open steps
 
-1. [ ] Module skeleton, `file-limits.yml`, `FileLimitsConfig` with defaults; L0 tests (widget/gadget fixtures). In progress by a drone
-       (2026-10-25); check what landed under `pwsh/Catzc.Base.FileLimits/` first. Check: its tests.
 2. [ ] `Measure-FileShape`, `Get-FileLimit`, `Test-FileShape` + L0 tests (incl. out-of-bounds config rejected). Check: their Pester files.
 3. [ ] `Test-FileLimits` gate; measure widths first and decide width defaults from the counts per language. Check: gate green.
 4. [ ] `Build-WidthConfigs`; re-point `.editorconfig`, `.prettierrc.yml`, `.markdownlint.yml`, `New-PythonProject`, `Get-LinkLineLimit`,

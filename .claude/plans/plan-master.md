@@ -57,7 +57,7 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
 - repo-filters -> plan-repo-filters.md: the filters landed (sets from the model, union of lit lamps, coverage asserted, docs and out lamps);
   two steps left: the user's look at the lamps in VS Code (the `pipelines` and `infrastructure` lamps landed)
 - file-limits -> plan-file-limits.md: one declared length and width per file class, the Catzc.Base.FileLimits toolkit and gate, the tool
-  width configs generated from it; every tracked file limited in length and width, markdown included; five steps
+  width configs generated from it; every tracked file limited in length and width, markdown included; four steps
 - diagram-speed -> plan-diagram-speed.md: Build-Diagrams optimized first (one libyaml loader, cheaper shadows, one git read), then parallel
   workers, then bounded in timeouts.yml; three steps
 - track-model -> plan-track-model.md: tracks as members with generated and committed facts, catch-up vendor tracks and `out` for the root,

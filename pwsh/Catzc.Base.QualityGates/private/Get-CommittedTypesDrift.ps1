@@ -19,29 +19,19 @@ function Get-CommittedTypesDrift {
     $compiled = "$modulesFolder/.compiled"
     $currentHash = (Get-CombinedTypeHash (Join-Path $RepositoryRoot $modulesFolder)).CombinedHash
 
+    # Git keeps only the manifest; the DLL is a per-machine build in the shadow root (ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD).
     $compiledRoot = Join-Path $RepositoryRoot $compiled
-    # @() around the whole loop: a single match must stay an array (.Count under strict mode).
-    $dlls = @(foreach ($dll in [Catzc.Base.Folders.PathSet]::new().AddPattern($compiledRoot, 'Catzc.Types.*.dll', 1).ToArray()) {
-            [System.IO.Path]::GetFileName($dll)
-        })
-
     $reasons = [System.Collections.Generic.List[string]]::new()
-    $expected = "Catzc.Types.$currentHash.dll"
-    if ($dlls.Count -ne 1) {
-        $reasons.Add("$compiled holds $($dlls.Count) Catzc.Types.*.dll ($($dlls -join ', ')); expected exactly $expected — run the importer")
-    }
-    elseif ($dlls[0] -ne $expected) {
-        $reasons.Add("$compiled/$($dlls[0]) is not the current assembly $expected — run the importer")
-    }
     $expectedManifest = "Catzc.Types.$currentHash.json"
+    # @() around the whole loop: a single match must stay an array (.Count under strict mode).
     $manifests = @(foreach ($manifest in [Catzc.Base.Folders.PathSet]::new().AddPattern($compiledRoot, 'Catzc.Types.*.json', 1).ToArray()) {
             [System.IO.Path]::GetFileName($manifest)
         })
     if ($manifests.Count -ne 1 -or $manifests[0] -ne $expectedManifest) {
-        $reasons.Add("$compiled holds $($manifests.Count) Catzc.Types.*.json ($($manifests -join ', ')); expected exactly $expectedManifest beside the assembly — run the importer")
+        $reasons.Add("$compiled holds $($manifests.Count) Catzc.Types.*.json ($($manifests -join ', ')); expected exactly $expectedManifest — run the importer")
     }
     if (Test-GitPathChanged $compiled) {
-        $reasons.Add("$compiled has pending git changes — commit the rebuilt Catzc.Types.<hash>.dll")
+        $reasons.Add("$compiled has pending git changes — commit the rebuilt Catzc.Types.<hash>.json")
     }
 
     [string[]] $reasons.ToArray()

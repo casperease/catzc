@@ -16,7 +16,10 @@ function Test-FolderConventions {
     )
 
     # The conventional module folders are the layout's; the modules are the resolver's.
-    $allowedModuleSubdirs = @((Get-Config -Config languages).LayoutFolders())
+    $languages = Get-Config -Config languages
+    $allowedModuleSubdirs = @($languages.LayoutFolders())
+    $privateFolderName = $languages.FolderOf('private-function')
+    $testFolderName = $languages.FolderOf('test')
     $allowedText = $allowedModuleSubdirs -join ', '
     $kebabYml = '^[a-z0-9]+(-[a-z0-9]+)*\.yml$'
 
@@ -42,7 +45,7 @@ function Test-FolderConventions {
         foreach ($path in [Catzc.Base.Folders.PathSet]::new($walk).AddPattern($moduleDirectory, '*.ps1', 1).ToArray()) {
             $name = [System.IO.Path]::GetFileName($path)
             if ($name -like '*.Tests.ps1') {
-                $issues.Add("$module/${name}: a test file at the module root — tests belong in tests/")
+                $issues.Add("$module/${name}: a test file at the module root — tests belong in $testFolderName/")
                 continue
             }
             $base = [System.IO.Path]::GetFileNameWithoutExtension($path)
@@ -52,9 +55,9 @@ function Test-FolderConventions {
             $functionOwners[$base].Add($module)
         }
 
-        $privateDirectory = Join-Path $moduleDirectory 'private'
+        $privateDirectory = Join-Path $moduleDirectory $privateFolderName
         foreach ($path in [Catzc.Base.Folders.PathSet]::new($walk).AddPattern($privateDirectory, '*.Tests.ps1', 1).ToArray()) {
-            $issues.Add("$module/private/$([System.IO.Path]::GetFileName($path)): a test file in private/ — tests belong in tests/")
+            $issues.Add("$module/$privateFolderName/$([System.IO.Path]::GetFileName($path)): a test file in $privateFolderName/ — tests belong in $testFolderName/")
         }
 
         $configsDirectory = Join-Path $moduleDirectory 'configs'

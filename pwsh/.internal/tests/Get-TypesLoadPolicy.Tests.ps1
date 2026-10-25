@@ -130,6 +130,25 @@ Describe 'Get-TypesLoadPolicy' -Tag 'L0', 'logic' {
             { Get-ModePolicy 'console.windows.source' @{ ConfigPath = $bad } } | Should -Throw '*true or false*'
         }
 
+        It 'stacks builds only in a console source mode, and defaults every other mode to one generation' {
+            foreach ($mode in $modes) {
+                $expected = if ($mode -like 'console.*.source') {
+                    4
+                }
+                else {
+                    1
+                }
+                (Get-ModePolicy $mode).Generations | Should -Be $expected -Because $mode
+            }
+        }
+
+        It 'throws for more than one generation outside a console source mode, and for a generation below one' {
+            $bad = New-PolicyConfig "cells:`n  headless.windows.source:`n    load: eager`n    trigger: none`n    generations: 2`n"
+            { Get-ModePolicy 'headless.windows.source' @{ ConfigPath = $bad } } | Should -Throw '*only a console.*.source row*'
+            $zero = New-PolicyConfig "cells:`n  console.windows.source:`n    generations: 0`n"
+            { Get-ModePolicy 'console.windows.source' @{ ConfigPath = $zero } } | Should -Throw '*at least 1*'
+        }
+
         It 'throws for a missing config file and for a config without cells' {
             { Get-ModePolicy 'console.windows.source' @{ ConfigPath = (Join-Path $TestDrive 'absent.yml') } } | Should -Throw '*does not exist*'
             $noCells = New-PolicyConfig "other: 1`n"

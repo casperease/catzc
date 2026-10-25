@@ -21,7 +21,7 @@ Describe 'Build-RootConfig' -Tag 'L0', 'logic' {
         # The fake root is not the loaded code root, so the derived run mode reads 'build'; pin the source mode.
         Mock Get-CatzcRunMode -ModuleName Catzc.Base.RootConfig { 'source' }
         # The fake root is no git checkout, so the generated head reads no file as tracked.
-        Mock Get-GitTrackedPath -ModuleName Catzc.Base.Languages { }
+        Set-GitTrackedPathMock
         Mock Invoke-RootConfigGenerator -ModuleName Catzc.Base.RootConfig { "rendered output`n" }
         Mock Get-Config -ModuleName Catzc.Base.RootConfig {
             [pscustomobject]@{
@@ -145,7 +145,7 @@ Describe 'Build-RootConfig — multi-file generator' -Tag 'L0', 'logic' {
         Mock Write-Message -ModuleName Catzc.Base.RootConfig { }
         Mock Get-CatzcRunMode -ModuleName Catzc.Base.RootConfig { 'source' }
         # The fake root is no git checkout, so the generated head reads no file as tracked.
-        Mock Get-GitTrackedPath -ModuleName Catzc.Base.Languages { }
+        Set-GitTrackedPathMock
         Mock Invoke-RootConfigGenerator -ModuleName Catzc.Base.RootConfig {
             [pscustomobject]@{ Target = 'widgets/alpha/gadget.txt'; Content = "alpha`n" }
             [pscustomobject]@{ Target = 'widgets/beta/gadget.txt'; Content = "beta`n" }
@@ -262,7 +262,7 @@ Describe 'Build-RootConfig — the real New-GoWorkspace generator, <_>/ root' -T
         Mock Assert-SourceTree -ModuleName Catzc.Base.QualityGates { }
         # The fake root is no git checkout, so no file is tracked and none carries a stamp to check.
         Mock Get-GitTrackedPath -ModuleName Catzc.Base.QualityGates { @() }
-        Mock Get-GitTrackedPath -ModuleName Catzc.Base.Languages { }
+        Set-GitTrackedPathMock
         $script:report = Join-Path $TestDrive 'generated-files'
         $script:work = Join-Path $script:fake.Root 'go.work'
         $script:modTarget = "$($script:goRoot)/tests/widget/go.mod"

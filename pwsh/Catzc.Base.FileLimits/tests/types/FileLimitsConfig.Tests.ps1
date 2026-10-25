@@ -53,6 +53,30 @@ Describe 'FileLimitsConfig' -Tag 'L0', 'logic' {
         { [Catzc.Base.FileLimits.FileLimitsConfig]::new(@{ bounds = @{ length = @{ min = 600 } } }) } | Should -Throw '*min 600 is above max 500*'
     }
 
+    It 'resolves a language value over its class default, naming the source of each' {
+        $config = [Catzc.Base.FileLimits.FileLimitsConfig]::new(@{ classes = @{ widget = 'code' }; languages = @{ widget = @{ width = 150 } } })
+        $limit = $config.Resolve('widget')
+        $limit.file_class | Should -Be 'code'
+        $limit.width | Should -Be 150
+        $limit.width_source | Should -Be 'languages.widget'
+        $limit.length | Should -Be 400
+        $limit.length_source | Should -Be 'defaults.code'
+    }
+
+    It 'resolves an unmeasured class to no limits' {
+        $limit = [Catzc.Base.FileLimits.FileLimitsConfig]::new(@{ classes = @{ gadget = 'none' } }).Resolve('gadget')
+        $limit.length | Should -BeNullOrEmpty
+        $limit.width | Should -BeNullOrEmpty
+    }
+
+    It 'fails fast on a language with no class' {
+        { [Catzc.Base.FileLimits.FileLimitsConfig]::new(@{ classes = @{} }).Resolve('widget') } | Should -Throw '*language ''widget'' has no class*'
+    }
+
+    It 'rejects a class that is not declared' {
+        { [Catzc.Base.FileLimits.FileLimitsConfig]::new(@{ classes = @{ widget = 'gadget' } }) } | Should -Throw '*classes.widget ''gadget'' must be one of*'
+    }
+
     It 'reports every violation in one exception' {
         { [Catzc.Base.FileLimits.FileLimitsConfig]::new(@{ gadget = 1; languages = @{ widget = @{ width = 9 } } }) } | Should -Throw '*unknown key*widget.width*'
     }

@@ -27,7 +27,7 @@ function Get-ModuleSourceFile {
             }
         }
 
-        $privatePath = Join-Path $moduleDir 'private'
+        $privatePath = Join-Path $moduleDir (Get-Config -Config languages).FolderOf('private-function')
         if (Test-Path $privatePath) {
             foreach ($script in Get-ChildPath $privatePath -File -Filter '*.ps1' -Depth 1) {
                 $files.Add($script)

@@ -28,7 +28,7 @@ Describe 'combined types assembly is committed and current' -Tag 'integrity' {
         $script:currentHash = (Get-CombinedTypeHash (Get-CatzcModulesRoot)).CombinedHash
     }
 
-    It 'is exactly one committed assembly whose hash matches the current sources (Test-BuildArtifact)' -Tag 'L2', 'source-only' {
+    It 'is exactly one committed manifest whose hash matches the current sources (Test-BuildArtifact)' -Tag 'L2', 'source-only' {
         if (-not (Get-Command git -ErrorAction Ignore)) {
             Set-ItResult -Skipped -Because 'tool_git_missing'; return
         }

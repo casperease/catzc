@@ -18,7 +18,7 @@ function Get-ModuleSourceFunctions {
     )
 
     $folder = Join-Path $ModulesRoot $Name
-    $privateFolder = Join-Path $folder 'private'
+    $privateFolder = Join-Path $folder (Get-Config -Config languages).FolderOf('private-function')
     $names = {
         param([string] $Directory)
         $found = [string[]] @(foreach ($file in [Catzc.Base.Folders.PathSet]::new().AddPattern($Directory, '*.ps1', 1).ToArray()) {

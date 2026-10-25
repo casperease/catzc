@@ -16,6 +16,7 @@ function Get-CatzcOverlay {
         return
     }
     $modulesRoot = Get-CatzcModulesRoot
+    $privateFolderName = (Get-Config -Config languages).FolderOf('private-function')
     # The overlay root names its own track folder, so the records carry one and never spell a track folder of their own.
     $prefix = ".catzc/$([System.IO.Path]::GetFileName($overlayRoot.TrimEnd('\', '/')))"
     # The overlay's own folders, every one: an overlay is listed whole, nothing pruned.
@@ -50,7 +51,7 @@ function Get-CatzcOverlay {
                 $target = [System.IO.Path]::GetFileNameWithoutExtension($relative)
                 $visibility = 'public'
             }
-            elseif ($segments.Count -eq 2 -and $segments[0] -ceq 'private' -and $relative.EndsWith('.ps1', [System.StringComparison]::OrdinalIgnoreCase)) {
+            elseif ($segments.Count -eq 2 -and $segments[0] -ceq $privateFolderName -and $relative.EndsWith('.ps1', [System.StringComparison]::OrdinalIgnoreCase)) {
                 $kind = 'FunctionOverride'
                 $target = [System.IO.Path]::GetFileNameWithoutExtension($relative)
                 $visibility = 'private'

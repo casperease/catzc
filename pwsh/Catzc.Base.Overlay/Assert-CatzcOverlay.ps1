@@ -14,11 +14,12 @@ function Assert-CatzcOverlay {
 
     $violations = [System.Collections.Generic.List[string]]::new()
     $sealed = @((Get-Config -Config configs).sealedConfigs)
+    $privateFolderName = (Get-Config -Config languages).FolderOf('private-function')
 
     foreach ($item in $Entry) {
         switch ($item.Kind) {
             'Unknown' {
-                $violations.Add("$($item.RelativePath): not an override point; under a bundled module's folder the overlay holds <Function>.ps1, private/<Function>.ps1, configs/<config>.yml, assets/<path> and tests/<path>")
+                $violations.Add("$($item.RelativePath): not an override point; under a bundled module's folder the overlay holds <Function>.ps1, $privateFolderName/<Function>.ps1, configs/<config>.yml, assets/<path> and tests/<path>")
             }
             'FunctionOverride' {
                 $shape = @(Get-FunctionFileViolation -Path $item.File -RelativePath $item.RelativePath)
@@ -38,11 +39,11 @@ function Assert-CatzcOverlay {
                 }
                 $isExported = $module.ExportedFunctions.ContainsKey($item.Target)
                 if ($item.Visibility -eq 'public' -and -not $isExported) {
-                    $violations.Add("$($item.RelativePath): $($item.Target) is private in $($item.Module); override it under private/")
+                    $violations.Add("$($item.RelativePath): $($item.Target) is private in $($item.Module); override it under $privateFolderName/")
                     break
                 }
                 if ($item.Visibility -eq 'private' -and $isExported) {
-                    $violations.Add("$($item.RelativePath): $($item.Target) is public in $($item.Module); override it at the module folder's root, not under private/")
+                    $violations.Add("$($item.RelativePath): $($item.Target) is public in $($item.Module); override it at the module folder's root, not under $privateFolderName/")
                     break
                 }
                 foreach ($violation in @(Get-OverlayContractViolation -Original $original -Path $item.File -RelativePath $item.RelativePath)) {

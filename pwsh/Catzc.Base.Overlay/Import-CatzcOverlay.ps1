@@ -27,8 +27,9 @@ function Import-CatzcOverlay {
         $override
     }
 
+    $privateFolderName = (Get-Config -Config languages).FolderOf('private-function')
     foreach ($local in @($entries | Where-Object { $_.Kind -eq 'LocalModule' })) {
-        $privateFolder = [System.IO.Path]::Combine($local.File, 'private')
+        $privateFolder = [System.IO.Path]::Combine($local.File, $privateFolderName)
         $privateFiles = [string[]] @(if ([System.IO.Directory]::Exists($privateFolder)) {
                 Get-ChildPath $privateFolder -File -Depth 1 -Filter '*.ps1' -Exclude @() -PruneVendor $false
             })

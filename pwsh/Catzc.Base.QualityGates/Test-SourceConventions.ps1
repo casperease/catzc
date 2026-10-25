@@ -19,6 +19,9 @@ function Test-SourceConventions {
     $repositoryRoot = [System.IO.Path]::GetFullPath((Get-RepositoryRoot))
     $modulesRoot = Join-Path $repositoryRoot (Get-CatzcModulesFolder)
     $settings = Get-Config -Config source-conventions
+    $languages = Get-Config -Config languages
+    $privateFolderName = $languages.FolderOf('private-function')
+    $testFolderName = $languages.FolderOf('test')
     # Every file is parsed once; the source checks below reuse the trees the naming checks parsed.
     $parsed = [System.Collections.Generic.Dictionary[string, System.Management.Automation.Language.Ast]]::new([System.StringComparer]::OrdinalIgnoreCase)
     $parse = {
@@ -57,7 +60,7 @@ function Test-SourceConventions {
                     $paths.Add($path)
                 }
             }
-            foreach ($path in & $list (Join-Path $moduleDirectory 'private') '*.ps1') {
+            foreach ($path in & $list (Join-Path $moduleDirectory $privateFolderName) '*.ps1') {
                 if ([System.IO.Path]::GetFileName($path) -notlike '_*') {
                     $paths.Add($path)
                 }
@@ -91,7 +94,7 @@ function Test-SourceConventions {
         if ($module -in '.vendor', '.scriptanalyzer') {
             continue
         }
-        $testsDirectory = Join-Path $moduleDirectory 'tests'
+        $testsDirectory = Join-Path $moduleDirectory $testFolderName
         foreach ($path in & $list $testsDirectory '*.Tests.ps1') {
             $testCount++
             $name = [System.IO.Path]::GetFileName($path)

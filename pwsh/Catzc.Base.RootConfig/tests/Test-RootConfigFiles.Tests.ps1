@@ -23,7 +23,8 @@ Describe 'Test-RootConfigFiles' -Tag 'L0', 'logic' {
             }
         }
         # The copies are rendered outside a git checkout, so the generated head reads no file as tracked.
-        Mock Get-GitTrackedPath -ModuleName Catzc.Base.Languages { }
+        Import-InternalModule TestKit
+        Set-GitTrackedPathMock
         $script:gadgetCopy = & $copyOf 'gadget.json' 'src/gadget.json'
         [System.IO.File]::WriteAllText((Join-Path $root 'gadget.json'), $script:gadgetCopy)
         [System.IO.File]::WriteAllText((Join-Path $root 'widget.json'), (& $copyOf 'widget.json' 'src/widget.json'))
