@@ -82,7 +82,7 @@ extensions:
           priority: default
   catzc-track-lamps:
     displayName: Catzc track lamps
-    version: 0.18.0
+    version: 0.19.0
     description: >-
       Filter lamps in the Explorer's title row, one per repository filter (filters.yml) and one for a typed list of languages; a click steps
       a lamp off, on, veto. The tree is the union of the lit lamps minus the zones of the vetoed ones, and each lamp's colour is its domain's
@@ -99,6 +99,20 @@ extensions:
           first: [{ name: open, title: the files open in an editor }]
           plus: [{ name: languages, title: the typed languages }]
       commands:
+        # The orchestrator, leftmost and always shown: its colour sums the whole repository (red a failure, blue work in progress, green
+        # neither; red until the first check), and a click while red lights every red lamp so every failing file is visible.
+        - command: catzc.lamps.orchestrate.red
+          title: "orchestrator: something failed (click to show every failing file)"
+          icon: { light: "media/orchestrator-red.svg", dark: "media/orchestrator-red.svg" }
+          category: Catzc lamps
+        - command: catzc.lamps.orchestrate.blue
+          title: "orchestrator: work in progress, nothing failed so far"
+          icon: { light: "media/orchestrator-blue.svg", dark: "media/orchestrator-blue.svg" }
+          category: Catzc lamps
+        - command: catzc.lamps.orchestrate.green
+          title: "orchestrator: all good so far"
+          icon: { light: "media/orchestrator-green.svg", dark: "media/orchestrator-green.svg" }
+          category: Catzc lamps
         # A click steps a lamp round off -> on -> veto -> off; each command shows the icon of the state it leaves.
         - repeat: lamp
           command: catzc.lamps.{lamp}.veto
@@ -121,6 +135,15 @@ extensions:
           state_context: catzc.lamps.state.{lamp}
       menus:
         view/title:
+          - command: catzc.lamps.orchestrate.red
+            when: "view == workbench.explorer.fileView && catzc.lamps.summary != blue && catzc.lamps.summary != green"
+            group: navigation@0
+          - command: catzc.lamps.orchestrate.blue
+            when: "view == workbench.explorer.fileView && catzc.lamps.summary == blue"
+            group: navigation@0
+          - command: catzc.lamps.orchestrate.green
+            when: "view == workbench.explorer.fileView && catzc.lamps.summary == green"
+            group: navigation@0
           - repeat: lamp
             command: catzc.lamps.{lamp}.veto
             when: "view == workbench.explorer.fileView && catzc.lamps.shown.{lamp} && !catzc.lamps.out.{lamp} && !catzc.lamps.veto.{lamp}"

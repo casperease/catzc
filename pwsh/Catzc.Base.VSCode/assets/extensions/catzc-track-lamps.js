@@ -211,6 +211,28 @@ function evaluate(sets, lit, files, facts = {}, vetoed = []) {
     return { shown, unaccounted, signatures, conditions };
 }
 
+// The orchestrator's colour over the whole repository's facts: red for any failure, blue for any work in progress, green for neither.
+// It assumes the worst: the caller shows red until the first facts are in.
+function summaryOf(facts) {
+    const all = Object.values(facts ?? {});
+    if (all.some((fact) => fact?.fault === "failed")) return "red";
+    if (all.some((fact) => fact?.change === "staged" || fact?.change === "unstaged")) return "blue";
+    return "green";
+}
+
+// The orchestrator's click: every red lamp lit and its veto lifted, every other lamp as it was, so no failing file stays hidden (a lamp
+// is red exactly when it claims a failed file, lit or not). Returns the new switches.
+function revealFailed(conditions, out, vetoed) {
+    const nextOut = new Set(out);
+    const nextVetoed = new Set(vetoed);
+    for (const [lamp, condition] of Object.entries(conditions ?? {})) {
+        if (condition !== "failed") continue;
+        nextOut.delete(lamp);
+        nextVetoed.delete(lamp);
+    }
+    return { out: [...nextOut], vetoed: [...nextVetoed] };
+}
+
 // The files and the folders on disk, '/'-separated from the root, in one walk; .git is no part of the tree.
 async function walkDisk(root) {
     const files = [];
@@ -677,6 +699,7 @@ function activateEngine(context, api) {
         publish(root, wanted);
         const sets = lampSets(filters(), state.field, languages(), openFiles(root, vscode.window.tabGroups.all));
         const next = evaluate(sets, new Set(Object.keys(sets).filter((name) => !state.out.has(name))), [], facts).conditions;
+        await setKey("catzc.lamps.summary", summaryOf(facts));
         if (JSON.stringify(next) === JSON.stringify(conditions)) return;
         conditions = next;
         trace(
@@ -824,6 +847,23 @@ function activateEngine(context, api) {
     // A command per lamp state, named for what its click does and shown with the icon of the state it leaves: light (off -> on) and veto
     // (on -> veto) per condition, each its own icon, committed the bare name; putOut (veto -> off) has the one veto icon. The manifest
     // declares the same names (a test holds it to filters.yml and the conditions).
+    // The orchestrator: red until the first check says otherwise; a click while red lights every red lamp through the press queue, and
+    // does nothing while blue or green.
+    setKey("catzc.lamps.summary", "red");
+    const orchestrate = () => {
+        if (sent.get("catzc.lamps.summary") !== "red") return undefined;
+        const next = revealFailed(conditions, state.out, state.vetoed);
+        state.out = new Set(next.out);
+        state.vetoed = new Set(next.vetoed);
+        const remembered = Promise.all([context.workspaceState.update(OUT, [...state.out]), context.workspaceState.update(VETO, [...state.vetoed])]);
+        show().catch((error) => log.appendLine(`show failed: ${error?.message ?? error}`));
+        rejudge();
+        requestApply();
+        return remembered;
+    };
+    for (const colour of ["red", "blue", "green"]) {
+        context.subscriptions.push(vscode.commands.registerCommand(`catzc.lamps.orchestrate.${colour}`, orchestrate));
+    }
     for (const lamp of lamps()) {
         context.subscriptions.push(vscode.commands.registerCommand(`catzc.lamps.${lamp}.putOut`, () => turn(lamp, "off")));
         for (const condition of [...CONDITIONS, EMPTY]) {
@@ -985,6 +1025,8 @@ module.exports = {
     isRemembered,
     lapsedFaults,
     remembering,
+    revealFailed,
+    summaryOf,
     hiddenEntries,
     hiddenGlobs,
     lampSets,

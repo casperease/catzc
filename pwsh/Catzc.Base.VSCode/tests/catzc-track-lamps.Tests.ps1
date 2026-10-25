@@ -220,6 +220,20 @@ Describe 'catzc-track-lamps' -Tag 'L0', 'logic' {
         $answer.conditions['open'] | Should -Be 'failed'
     }
 
+    It 'sums the whole repository into the orchestrator''s colour: red for any failure, blue for any work in progress, green for neither' {
+        & $script:call summaryOf @(@{ 'a.ps1' = @{ change = 'unstaged' }; 'b.ps1' = @{ fault = 'failed' } }) | Should -Be 'red'
+        & $script:call summaryOf @(@{ 'a.ps1' = @{ change = 'staged' } }) | Should -Be 'blue'
+        & $script:call summaryOf @(@{}) | Should -Be 'green'
+    }
+
+    It 'lights every red lamp on the orchestrator''s click, lifting its veto, and leaves every other lamp as it was' {
+        $conditions = @{ code = 'failed'; tests = 'unstaged'; docs = 'failed'; tools = 'committed' }
+        $next = & $script:call revealFailed @($conditions, @('code', 'tests', 'docs'), @('docs', 'tests'))
+        # Sets come back as arrays through JSON.
+        @($next.out) | Should -Be @('tests') -Because 'code and docs are red, so they are lit; tests is not red, so it stays out'
+        @($next.vetoed) | Should -Be @('tests') -Because 'docs was vetoed and red, so its veto is lifted; tests keeps its veto'
+    }
+
     It 'turns the open lamp red only while a red file is open, and back to the open files'' own colour once it is closed' {
         $red = 'mods/Widget/Get-Widget.ps1'
         $other = 'gadgets/a.ps1'
