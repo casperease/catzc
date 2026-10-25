@@ -18,7 +18,12 @@ public sealed class FileLimitsConfig
 
     public static readonly string[] Classes = { "code", "config", "prose" };
 
-    private static readonly string[] AllowedKeys = { "bounds", "classes", "defaults", "languages" };
+    private static readonly string[] AllowedKeys = { "bounds", "classes", "defaults", "extensions", "languages" };
+
+    private static readonly Dictionary<string, string> DefaultExtensions = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+    {
+        [".psd1"] = "config",
+    };
     private static readonly string[] LimitKeys = { "length", "width" };
     private static readonly string[] BoundKeys = { "min", "max" };
 
@@ -48,6 +53,7 @@ public sealed class FileLimitsConfig
     public IReadOnlyDictionary<string, FileLimit> defaults { get; }
     public IReadOnlyDictionary<string, FileLimit> languages { get; }
     public IReadOnlyDictionary<string, string> classes { get; }
+    public IReadOnlyDictionary<string, string> extensions { get; }
 
     public FileLimitsConfig(IDictionary raw)
     {
@@ -56,6 +62,7 @@ public sealed class FileLimitsConfig
         Dictionary<string, FileLimit> defaultsValue = new Dictionary<string, FileLimit>(DefaultLimits, StringComparer.Ordinal);
         Dictionary<string, FileLimit> languagesValue = new Dictionary<string, FileLimit>(StringComparer.Ordinal);
         Dictionary<string, string> classesValue = new Dictionary<string, string>(DefaultClasses, StringComparer.Ordinal);
+        Dictionary<string, string> extensionsValue = new Dictionary<string, string>(DefaultExtensions, StringComparer.OrdinalIgnoreCase);
 
         if (raw != null)
         {
@@ -102,6 +109,29 @@ public sealed class FileLimitsConfig
                     else
                     {
                         classesValue[name] = value;
+                    }
+                }
+            }
+
+            IDictionary extensionsRaw = Section(raw, "extensions", errors);
+            if (extensionsRaw != null)
+            {
+                extensionsValue.Clear();
+                foreach (object key in extensionsRaw.Keys)
+                {
+                    string name = Convert.ToString(key, CultureInfo.InvariantCulture);
+                    string value = extensionsRaw[key] as string;
+                    if (string.IsNullOrEmpty(name) || name[0] != '.')
+                    {
+                        errors.Add(string.Format(CultureInfo.InvariantCulture, "extensions: '{0}' must be an extension starting with a dot", name));
+                    }
+                    else if (value == null || (value != Unmeasured && Array.IndexOf(Classes, value) < 0))
+                    {
+                        errors.Add(string.Format(CultureInfo.InvariantCulture, "extensions.{0} '{1}' must be one of {2}, {3}", name, extensionsRaw[key], string.Join(", ", Classes), Unmeasured));
+                    }
+                    else
+                    {
+                        extensionsValue[name] = value;
                     }
                 }
             }
@@ -159,6 +189,29 @@ public sealed class FileLimitsConfig
         defaults = defaultsValue;
         languages = languagesValue;
         classes = classesValue;
+        extensions = extensionsValue;
+    }
+
+    // An extension override is applied before the language lookup: it takes its class's defaults, never the language's own values.
+    public ResolvedFileLimit ResolveFile(string path, string language)
+    {
+        string extension = System.IO.Path.GetExtension(path ?? string.Empty);
+        if (string.IsNullOrEmpty(extension) || !extensions.TryGetValue(extension, out string fileClass))
+        {
+            return Resolve(language);
+        }
+
+        string cacheKey = "extensions." + extension.ToLowerInvariant();
+        if (resolved.TryGetValue(cacheKey, out ResolvedFileLimit hit))
+        {
+            return hit;
+        }
+
+        ResolvedFileLimit result = fileClass == Unmeasured
+            ? new ResolvedFileLimit(language, fileClass, null, null, null, null)
+            : new ResolvedFileLimit(language, fileClass, defaults[fileClass].length, cacheKey, defaults[fileClass].width, cacheKey);
+        resolved[cacheKey] = result;
+        return result;
     }
 
     // One lookup per language, cached for the run: the language value if set, else its class default; no merging.

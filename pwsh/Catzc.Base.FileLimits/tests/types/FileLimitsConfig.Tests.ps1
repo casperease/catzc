@@ -73,6 +73,19 @@ Describe 'FileLimitsConfig' -Tag 'L0', 'logic' {
         { [Catzc.Base.FileLimits.FileLimitsConfig]::new(@{ classes = @{} }).Resolve('widget') } | Should -Throw '*language ''widget'' has no class*'
     }
 
+    It 'applies an extension override before the language, with its class defaults' {
+        $config = [Catzc.Base.FileLimits.FileLimitsConfig]::new(@{ classes = @{ widget = 'code' }; extensions = @{ '.gadget' = 'config' }; languages = @{ widget = @{ width = 150 } } })
+        $limit = $config.ResolveFile('a/b.GADGET', 'widget')
+        $limit.file_class | Should -Be 'config'
+        $limit.width | Should -Be 140
+        $config.ResolveFile('a/b.widget', 'widget').width | Should -Be 150
+    }
+
+    It 'rejects an extension override without a dot or with an undeclared class' {
+        { [Catzc.Base.FileLimits.FileLimitsConfig]::new(@{ extensions = @{ gadget = 'config' } }) } | Should -Throw '*starting with a dot*'
+        { [Catzc.Base.FileLimits.FileLimitsConfig]::new(@{ extensions = @{ '.gadget' = 'widget' } }) } | Should -Throw '*must be one of*'
+    }
+
     It 'rejects a class that is not declared' {
         { [Catzc.Base.FileLimits.FileLimitsConfig]::new(@{ classes = @{ widget = 'gadget' } }) } | Should -Throw '*classes.widget ''gadget'' must be one of*'
     }

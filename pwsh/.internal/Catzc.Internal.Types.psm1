@@ -280,13 +280,16 @@ function Register-DeferredTypes {
         [Parameter(Mandatory)]
         [string] $Path,
 
-        [bool] $ShadowCopy = $true
+        [bool] $ShadowCopy = $true,
+
+        # Which build of this root the session loads: 1 for the first, more when changed builds stack (types-load.yml generations).
+        [int] $Generation = 1
     )
 
     if (-not (Get-Variable -Name '__CatzcDeferredTypes' -Scope Global -ValueOnly -ErrorAction Ignore)) {
         $global:__CatzcDeferredTypes = @{}
     }
-    $global:__CatzcDeferredTypes[$RootKey] = @{ Path = $Path; ShadowCopy = $ShadowCopy; Loaded = $false }
+    $global:__CatzcDeferredTypes[$RootKey] = @{ Path = $Path; ShadowCopy = $ShadowCopy; Loaded = $false; Generation = $Generation }
 }
 
 function Initialize-Types {
@@ -320,10 +323,18 @@ function Initialize-Types {
         $aliases = 0
         $displayed = 0
         $accelerators = [psobject].Assembly.GetType('System.Management.Automation.TypeAccelerators')
+        # A full type name keeps resolving to the first-loaded build, so each accelerator takes its type from this build's assembly.
+        $assembly = @([System.AppDomain]::CurrentDomain.GetAssemblies() | Where-Object { -not $_.IsDynamic -and $_.Location -eq $loadedFrom }) | Select-Object -Last 1
         foreach ($type in $manifest.types) {
+            $resolved = if ($assembly) {
+                $assembly.GetType($type.name)
+            }
+            else {
+                ([System.Management.Automation.PSTypeName]$type.name).Type
+            }
             foreach ($alias in @($type.aliases)) {
                 [void] $accelerators::Remove($alias)
-                $accelerators::Add($alias, ([System.Management.Automation.PSTypeName]$type.name).Type)
+                $accelerators::Add($alias, $resolved)
                 $aliases++
             }
             if (@($type.display).Count -gt 0) {

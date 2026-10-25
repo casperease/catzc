@@ -94,6 +94,7 @@ function Import-CSharpTypes {
     $typeState = Get-LoadedTypeDrift -ModulesRoot $ModulesRoot -HashResult $hashResult
     $loaded = $typeState.Loaded
     $rootKey = $typeState.RootKey
+    $stackGeneration = 0
     if (-not $typeState.Current) {
         $changeSummary = $typeState.Summary
         if ($typeState.Drift.Count) {
@@ -112,6 +113,26 @@ function Import-CSharpTypes {
         if (Test-IsRunningInPipeline) {
             throw "$changeSummary Restart PowerShell to pick up the change."
         }
+        # A developer's console source session may load the new build beside the old one and re-point the Catzc.*
+        # accelerators, up to the policy's generations; past that cap, or in any other cell, the paths below hold.
+        if (-not $PrebuiltOnly -and $typeState.LoadedHash) {
+            $deferredRecords = Get-Variable -Name '__CatzcDeferredTypes' -Scope Global -ValueOnly -ErrorAction Ignore
+            $generation = if ($deferredRecords -and $deferredRecords.ContainsKey($rootKey) -and $deferredRecords[$rootKey].ContainsKey('Generation')) {
+                $deferredRecords[$rootKey].Generation
+            }
+            else {
+                1
+            }
+            $stackPolicy = Get-TypesLoadPolicy -HostKind $HostKind -RunMode source
+            if ($stackPolicy.Generations -gt $generation) {
+                $stackGeneration = $generation + 1
+            }
+        }
+    }
+    if ($stackGeneration) {
+        $loaded = $false
+    }
+    elseif (-not $typeState.Current) {
         # A throw cannot restart VS Code's terminal or host, so the session keeps the loaded assembly, whatever drifted, and names it.
         if (Test-IsRunningInVsCode) {
             $loadedDll = if ($typeState.LoadedHash) {
@@ -221,9 +242,19 @@ function Import-CSharpTypes {
                 throw "The types-load config names eager type '$eagerType' for $($policy.Cell), but no module declares it."
             }
         }
-        Register-DeferredTypes -RootKey $rootKey -Path $dll -ShadowCopy $policy.ShadowCopy
+        Register-DeferredTypes -RootKey $rootKey -Path $dll -ShadowCopy $policy.ShadowCopy -Generation $(if ($stackGeneration) {
+                $stackGeneration
+            }
+            else {
+                1
+            })
         $relativeDll = ([System.IO.Path]::GetRelativePath($env:RepositoryRoot, $dll)) -replace '\\', '/'
-        if ($policy.Load -eq 'eager' -or $policy.EagerTypes.Count -gt 0) {
+        if ($stackGeneration) {
+            foreach ($result in @(Initialize-Types)) {
+                Write-ImporterMessage "Loaded changed types $relativeDll beside the earlier build (build $stackGeneration of $($stackPolicy.Generations)); Catzc.* accelerators now name the new types" -StateChange
+            }
+        }
+        elseif ($policy.Load -eq 'eager' -or $policy.EagerTypes.Count -gt 0) {
             # Publish [PSTypeAlias("Name")] accelerators from the freshly loaded types, so `[Name]` resolves to the
             # decorated type (e.g. [Catzc.Module.Depm]::Puml). This is registration only — Add-Type above stays the
             # sole compiler; the editor-facing MSBuild pathway is Invoke-BuildForVsCode. The alias literal lives in

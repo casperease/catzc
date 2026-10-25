@@ -4,3 +4,6 @@
 bounds: { length: { min: 100, max: 500 }, width: { min: 80, max: 200 } }
 defaults: { code: { length: 400, width: 120 }, config: { length: 300, width: 140 }, prose: { length: 400, width: 140 } }
 languages: { python: { width: 140, length: 500 } }
+
+# Applied before the language lookup; replaces the default map, never extends it.
+extensions: { .psd1: config }

@@ -75,8 +75,14 @@ Describe 'Build-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' 
         & $script:build @{ Path = 'docs/widgets/.assets/widget-a', 'docs/widgets/.assets/widget-b' } | Out-Null
         Should -Invoke Invoke-Executable -ModuleName Catzc.Base.Slides -Times 1 -Exactly
         Should -Invoke Invoke-Executable -ModuleName Catzc.Base.Slides -Times 1 -Exactly -ParameterFilter {
-            $Command -like '"C:/tools/uv.exe" run --project "*kit*" python "*kit*drawio_forward.py" --theme dark --all "*docs*widgets*.assets*widget-a" "*docs*widgets*.assets*widget-b"'
+            $Command -like '"C:/tools/uv.exe" run --project "*kit*" python "*kit*drawio_forward.py" --theme dark --workers 3 --all "*docs*widgets*.assets*widget-a" "*docs*widgets*.assets*widget-b"'
         }
+    }
+
+    It 'splits the renders across the workers it is given, the default 3 declared once on SlidesConfig' {
+        [Catzc.Base.Slides.SlidesConfig]::DefaultRenderParallel | Should -Be 3
+        & $script:build @{ Path = 'docs/widgets/.assets/widget-a', 'docs/widgets/.assets/widget-b'; Workers = 1 } | Out-Null
+        Should -Invoke Invoke-Executable -ModuleName Catzc.Base.Slides -Times 1 -Exactly -ParameterFilter { $Command -like '* --workers 1 --all *' }
     }
 
     It 'renders every folder before it refuses the one the renderer failed on' {

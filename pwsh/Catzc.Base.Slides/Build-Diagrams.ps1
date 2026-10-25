@@ -17,6 +17,9 @@ function Build-Diagrams {
 
         [string] $Theme = (Get-Config -Config slides).theme,
 
+        [ValidateRange(1, [int]::MaxValue)]
+        [int] $Workers = (Get-Config -Config slides).render_parallel,
+
         [string] $RepositoryRoot = (Get-RepositoryRoot),
 
         [switch] $FromDrawing,
@@ -133,9 +136,10 @@ function Build-Diagrams {
         $render = $false
     }
     if ($render -and $folders.Count -gt 0) {
-        # One renderer process takes every folder, so uv, python and the kit's imports start once; it ends each folder with a JSON row.
+        # One renderer call takes every folder and splits it across its workers, each paying uv, python and the kit's imports once;
+        # it ends each folder with a JSON row, in folder order.
         $quoted = ($folders | ForEach-Object { "`"$(Join-Path $root $_)`"" }) -join ' '
-        $arguments = "run --project `"$($diagramKit.Folder)`" python `"$renderer`" --theme $Theme --all $quoted"
+        $arguments = "run --project `"$($diagramKit.Folder)`" python `"$renderer`" --theme $Theme --workers $Workers --all $quoted"
         if ($DryRun) {
             Write-Message "Would run: uv $arguments"
         }
@@ -173,7 +177,7 @@ function Build-Diagrams {
             Write-Message "render $($runs.Count)/$($folders.Count) $folderPath $($run.Status)"
         }
         if (-not $DryRun) {
-            Write-Message "render: $($folders.Count) folder(s) in one process ($([Math]::Round($step.Elapsed.TotalSeconds, 1)) s)"
+            Write-Message "render: $($folders.Count) folder(s) across $Workers worker(s) ($([Math]::Round($step.Elapsed.TotalSeconds, 1)) s)"
             $findingFolders = @($runs | Where-Object Status -EQ 'findings' | ForEach-Object Folder)
             $failedFolders = @($runs | Where-Object Status -EQ 'failed' | ForEach-Object Folder)
             Assert-True ($findingFolders.Count -eq 0) -ErrorText "Build-Diagrams: the renderer reported findings on $($findingFolders -join ', '), each an error; see their bulk reports under out/drawio/."

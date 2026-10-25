@@ -13,7 +13,7 @@ lines) must appear in some cell label, whitespace-folded and case-folded. Exit 0
 file, nothing to forward. Prints one line per artifact (`src`, `result`, `model`, `report`), one per finding (`error`),
 then `status`.
 
-bulk:  uv run --with pillow python drawio_forward.py [--theme <theme>] --all <root> [<root> ...]
+bulk:  uv run --with pillow python drawio_forward.py [--theme <theme>] [--workers <n>] --all <root> [<root> ...]
 
 Rebuilds every diagram under <root> in place (the pair `<article-folder>/.assets/<name>.drawio.png` and `<name>.drawio.yml`;
 the root itself when it names one): each declared diagram is put in the theme, its minimaps drawn from their computed data with
@@ -23,7 +23,8 @@ minimaps can be rebuilt only once it has a declaration. A theme other than the d
 out/drawio/themes/<theme>/ and leaves the committed rasters and the diagrams without a declaration alone. A legend diagram (its
 drawio.yml role) is rendered from the kit's glyphs.xml, painted in the default theme. Same exit codes;
 the report is out/drawio/bulk/<root>/bulk.md. One process rebuilds every root given in turn, prints one JSON row
-`{"diagram": <root>, "exit": <code>}` after each, and exits with the worst code (1 when a root raised).
+`{"diagram": <root>, "exit": <code>}` after each, and exits with the worst code (1 when a root raised). --workers splits the roots
+into that many disjoint slices, one worker process each, and prints every slice's lines in root order after all of them end.
 """
 
 import html

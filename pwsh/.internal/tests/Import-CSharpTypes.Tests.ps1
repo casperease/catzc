@@ -174,6 +174,28 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
             Initialize-Types | Out-Null
         }
 
+        It 'stacks a changed build beside the loaded one up to the generations cap, then keeps the old types' {
+            $namespace = "CatzcTestStack$runId"
+            $root = New-FixtureRoot @{ $namespace = @{ Widget = 'public class Widget { }' } }
+            $cap = @{ Generations = 2 }
+            Mock Get-TypesLoadPolicy {
+                [pscustomobject]@{ Cell = 'console.windows.source'; Engine = 'pwsh'; Load = 'eager'; Trigger = 'none'; EagerTypes = @(); ShadowCopy = $true; Generations = $cap.Generations }
+            }.GetNewClosure() -ModuleName Catzc.Internal.Bootstrap
+            InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R -HostKind console }
+            $types = Join-Path $root "$namespace/types"
+
+            [System.IO.File]::WriteAllText((Join-Path $types 'Gadget.cs'), "namespace $namespace;`npublic class Gadget { }")
+            InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R -HostKind console }
+            ([System.Management.Automation.PSTypeName]"$namespace.Gadget").Type | Should -Not -BeNullOrEmpty
+            $global:__CatzcDeferredTypes[[System.IO.Path]::GetFullPath($root)].Generation | Should -Be 2
+            Should -Invoke Write-ImporterMessage -ModuleName Catzc.Internal.Bootstrap -ParameterFilter { "$Message" -like 'Loaded changed types*build 2 of 2*' }
+
+            [System.IO.File]::WriteAllText((Join-Path $types 'Gizmo.cs'), "namespace $namespace;`npublic class Gizmo { }")
+            { InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R -HostKind console } } |
+                Should -Throw '*Restart PowerShell*'
+            ([System.Management.Automation.PSTypeName]"$namespace.Gizmo").Type | Should -BeNullOrEmpty
+        }
+
         It 'loads at import when the policy names an eager type, and refuses a name no module declares' {
             $namespace = "CatzcTestEager$runId"
             $root = New-FixtureRoot @{ $namespace = @{ Nu = 'public class Nu { }' } }

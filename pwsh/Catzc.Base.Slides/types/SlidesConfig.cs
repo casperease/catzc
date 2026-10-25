@@ -18,8 +18,9 @@ public sealed class SlidesConfig
     public const string SlideSuffix = ".slide.md";
     public const string DeckFile = "deck.md";
     public const string DefaultTheme = "dark";
+    public const int DefaultRenderParallel = 3;
 
-    private static readonly string[] AllowedKeys = { "kit", "drawio_kit", "theme" };
+    private static readonly string[] AllowedKeys = { "kit", "drawio_kit", "theme", "render_parallel" };
 
     public string kit { get; }
 
@@ -29,12 +30,16 @@ public sealed class SlidesConfig
     // The theme a build renders in when it names none: the one whose diagram rasters are committed. Each kit declares its themes.
     public string theme { get; }
 
+    // The worker processes a diagram build splits its renders across, each with a disjoint slice of the diagrams.
+    public int render_parallel { get; }
+
     public SlidesConfig(IDictionary raw)
     {
         List<string> errors = new List<string>();
         string kitValue = DefaultKit;
         string drawioValue = DefaultDrawioKit;
         string themeValue = DefaultTheme;
+        int parallelValue = DefaultRenderParallel;
 
         if (raw != null)
         {
@@ -61,6 +66,17 @@ public sealed class SlidesConfig
                     themeValue = value;
                 }
             }
+            if (raw.Contains("render_parallel") && raw["render_parallel"] != null)
+            {
+                if (!int.TryParse(Convert.ToString(raw["render_parallel"], CultureInfo.InvariantCulture), NumberStyles.None, CultureInfo.InvariantCulture, out int parsed) || parsed < 1)
+                {
+                    errors.Add(string.Format(CultureInfo.InvariantCulture, "render_parallel '{0}' must be a whole number of workers, 1 or more", raw["render_parallel"]));
+                }
+                else
+                {
+                    parallelValue = parsed;
+                }
+            }
         }
 
         if (errors.Count > 0)
@@ -71,6 +87,7 @@ public sealed class SlidesConfig
         kit = kitValue;
         drawio_kit = drawioValue;
         theme = themeValue;
+        render_parallel = parallelValue;
     }
 
     static string Folder(IDictionary raw, string key, string fallback, List<string> errors)
