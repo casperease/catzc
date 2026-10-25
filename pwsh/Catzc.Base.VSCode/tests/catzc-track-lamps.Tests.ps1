@@ -348,7 +348,11 @@ Describe 'catzc-track-lamps — the real repository' -Tag 'L1', 'integrity', 'so
             param($Contributes)
             Expand-VsCodeCommandState -Contributes (Expand-VsCodeRepeat -Contributes $Contributes)
         }
-        $commands = @($contributes['commands'])
+        $all = @($contributes['commands'])
+        # The orchestrator is no lamp: one command per colour, each with its icon, leftmost in the title row.
+        $orchestrator = @($all.Where({ $_['command'] -like 'catzc.lamps.orchestrate.*' }))
+        @($orchestrator.ForEach({ $_['command'] })) | Should -Be @('catzc.lamps.orchestrate.red', 'catzc.lamps.orchestrate.blue', 'catzc.lamps.orchestrate.green')
+        $commands = @($all.Where({ $_['command'] -notlike 'catzc.lamps.orchestrate.*' }))
         $pattern = '^catzc\.lamps\.([a-z_]+)\.(putOut|veto|light)(\.(staged|unstaged|failed|empty))?$'
         $commands.Where({ $_['command'] -notmatch $pattern }).ForEach({ $_['command'] }) | Should -BeNullOrEmpty
         $lamps = @($commands.ForEach({ $_['command'] -replace $pattern, '$1' }) | Select-Object -Unique)
@@ -365,6 +369,10 @@ Describe 'catzc-track-lamps — the real repository' -Tag 'L1', 'integrity', 'so
             }
             $icons | Should -Contain "media/$lamp-veto.svg"
             ([xml](Get-Content -LiteralPath (Join-Path $folder "$lamp-veto.svg") -Raw)).DocumentElement.LocalName | Should -Be 'svg'
+        }
+        foreach ($command in $orchestrator) {
+            ([xml](Get-Content -LiteralPath (Join-Path $folder ($command['icon']['dark'] -replace '^media/', '')) -Raw)).DocumentElement.LocalName | Should -Be 'svg'
+            @($menu.Where({ $_['command'] -ceq $command['command'] -and $_['group'] -ceq 'navigation@0' })) | Should -HaveCount 1 -Because "$($command['command']) shows leftmost, once"
         }
         foreach ($command in $commands) {
             @($menu.Where({ $_['command'] -ceq $command['command'] })) | Should -HaveCount 1 -Because "$($command['command']) shows in the title row once"
