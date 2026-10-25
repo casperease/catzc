@@ -23,8 +23,8 @@ Describe 'Get-RepositoryFilter — the real repository' -Tag 'L1', 'integrity', 
 
     It 'carries an aspect''s sets as the aspect model holds them, its excludes included' {
         $aspects = Get-AspectGlobSet
-        $code = $script:filters.Where({ $_.name -ceq 'code' })[0]
-        @($code.sets).Count | Should -Be @($aspects['live']).Count
+        $live = $script:filters.Where({ $_.name -ceq 'live' })[0]
+        @($live.sets).Count | Should -Be @($aspects['live']).Count
         $tests = $script:filters.Where({ $_.name -ceq 'tests' })[0]
         @($tests.sets).Where({ @($_.exclude).Count -gt 0 }).Count | Should -BeGreaterThan 0 -Because 'a module''s tests set is the unit minus its live patterns'
     }
@@ -53,10 +53,30 @@ Describe 'Get-RepositoryFilter — the real repository' -Tag 'L1', 'integrity', 
         }
         foreach ($path in 'pwsh/Catzc.Base.Globs/configs/filters.yml', 'infrastructure/templates/discovery/configuration/apex/nsub.yml', 'python/catzc_diagrams/configs/drawio.yml') {
             & $claims 'configs' $path | Should -BeTrue -Because "'$path' is configuration"
-            & $claims 'code' $path | Should -BeTrue -Because "'$path' stays live"
+            & $claims 'live' $path | Should -BeTrue -Because "'$path' stays live"
+            & $claims 'code' $path | Should -BeFalse -Because "'$path' is configuration, not code"
         }
         & $claims 'configs' 'pwsh/Catzc.Base.Globs/Get-RepositoryFilter.ps1' | Should -BeFalse -Because 'a function is code, not configuration'
         { Get-RepositoryFilter -Name code | Out-Null } | Should -Not -Throw
+    }
+
+    It 'splits the live aspect: code is its executable part by extension, live is all of it, and neither takes a test' {
+        $claims = {
+            param([string] $Filter, [string] $Path)
+            $sets = & $script:globSets @($script:filters.Where({ $_.name -ceq $Filter })[0].sets)
+            $sets.Where({ $_.Matches($Path) }, 'First').Count -gt 0
+        }
+        foreach ($path in 'pwsh/Catzc.Base.Globs/Get-RepositoryFilter.ps1', 'pwsh/Catzc.Base.Globs/types/FiltersConfig.cs', 'pwsh/Catzc.Base.VSCode/assets/extensions/catzc-track-lamps.js', 'infrastructure/modules/data-factory.bicep') {
+            & $claims 'code' $path | Should -BeTrue -Because "'$path' is live code"
+            & $claims 'live' $path | Should -BeTrue -Because "'$path' is live"
+        }
+        foreach ($path in 'pwsh/Catzc.Base.VSCode/assets/extensions/catzc-track-lamps/code-on.svg', 'pwsh/Catzc.Base.Globs/configs/filters.yml') {
+            & $claims 'code' $path | Should -BeFalse -Because "'$path' is live but no code"
+            & $claims 'live' $path | Should -BeTrue -Because "'$path' is live"
+        }
+        foreach ($filter in 'code', 'live') {
+            & $claims $filter 'pwsh/Catzc.Base.Globs/tests/Get-RepositoryFilter.Tests.ps1' | Should -BeFalse -Because 'a test is the tests aspect'
+        }
     }
 
     It 'claims every tracked file by at least one filter' {

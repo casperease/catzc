@@ -78,6 +78,11 @@ public sealed class RepositoryFilter
 
     public IReadOnlyList<string> select { get; }
 
+    // The file extensions the selected sets are narrowed to ('.ps1'), so a filter can be a part of an aspect; empty keeps them whole.
+    public IReadOnlyList<string> extensions { get; }
+
+    private static readonly Regex Extension = new Regex("^\\.[A-Za-z0-9]+$");
+
     public RepositoryFilter(IDictionary entry)
     {
         if (entry == null) { throw new ArgumentException("a filter must be a mapping of name and select"); }
@@ -85,8 +90,24 @@ public sealed class RepositoryFilter
         foreach (object key in entry.Keys)
         {
             string k = Convert.ToString(key, CultureInfo.InvariantCulture);
-            if (k != "name" && k != "title" && k != "select") { errors.Add(string.Format(CultureInfo.InvariantCulture, "filter: unknown key '{0}' (allowed: name, title, select)", k)); }
+            if (k != "name" && k != "title" && k != "select" && k != "extensions") { errors.Add(string.Format(CultureInfo.InvariantCulture, "filter: unknown key '{0}' (allowed: name, title, select, extensions)", k)); }
         }
+        List<string> narrowed = new List<string>();
+        if (entry.Contains("extensions"))
+        {
+            IList rawExtensions = entry["extensions"] as IList;
+            if (rawExtensions == null || entry["extensions"] is string) { errors.Add(string.Format(CultureInfo.InvariantCulture, "filter '{0}': extensions must be a list", entry.Contains("name") ? entry["name"] : null)); }
+            else
+            {
+                foreach (object item in rawExtensions)
+                {
+                    string extension = item as string;
+                    if (extension == null || !Extension.IsMatch(extension)) { errors.Add(string.Format(CultureInfo.InvariantCulture, "filter '{0}': extension '{1}' must be a dot and letters or digits, such as '.ps1'", entry.Contains("name") ? entry["name"] : null, item)); }
+                    else { narrowed.Add(extension); }
+                }
+            }
+        }
+        extensions = narrowed.AsReadOnly();
         name = entry.Contains("name") ? entry["name"] as string : null;
         object rawTitle = entry.Contains("title") ? entry["title"] : null;
         if (rawTitle != null && !(rawTitle is string)) { errors.Add(string.Format(CultureInfo.InvariantCulture, "filter '{0}': title must be a string", name)); }

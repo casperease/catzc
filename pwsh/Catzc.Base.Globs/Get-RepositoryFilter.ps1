@@ -87,6 +87,27 @@ function Get-RepositoryFilter {
                 $sets.Add($set)
             }
         }
+        # A filter with extensions is that part of its sets: a tree include ('<folder>/**', '**') keeps only those extensions below it, a
+        # file include ('<folder>/*.ps1', a literal path) stays when its extension is one of them, and the excludes stay as they are.
+        if (@($filter.extensions).Count -gt 0) {
+            $wanted = @($filter.extensions)
+            $narrowed = foreach ($set in $sets) {
+                $include = @(foreach ($glob in $set.include) {
+                        if ($glob -ceq '**' -or $glob.EndsWith('/**')) {
+                            foreach ($extension in $wanted) { "$glob/*$extension" }
+                        }
+                        elseif ([System.IO.Path]::GetExtension($glob)) {
+                            if ($wanted -contains [System.IO.Path]::GetExtension($glob)) { $glob }
+                        }
+                        else {
+                            foreach ($extension in $wanted) { "$glob/**/*$extension" }
+                        }
+                    })
+                if ($include.Count -gt 0) { [ordered]@{ include = $include; exclude = @($set.exclude) } }
+            }
+            $sets = [System.Collections.Generic.List[object]]::new()
+            foreach ($set in @($narrowed)) { $sets.Add($set) }
+        }
         [pscustomobject]@{ name = $filter.name; sets = $sets.ToArray() }
     }
 }

@@ -9,7 +9,12 @@
 # ---
 
 filters:
-  - { name: code, title: the live modules and configs, select: [aspect.live] }
+  # The live aspect splits in two lamps: code, the executable part of it, and live, all of it (assets, contract bytes, kits, configs).
+  - name: code
+    title: the live code
+    select: [aspect.live]
+    extensions: [.ps1, .psm1, .cs, .py, .js, .sh, .go, .bicep, .yaml]
+  - { name: live, title: everything live, select: [aspect.live] }
   - { name: configs, title: the configuration part of everything as code, select: [kind.config] }
   - { name: tests, title: the tests aspect, select: [aspect.tests] }
   - name: tools

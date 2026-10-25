@@ -58,7 +58,7 @@ const config = () => vscode.workspace.getConfiguration("catzc.trackLamps");
 // preview filters of filters.yml are left out as if undeclared; on, every declared lamp does. Flip it here to try the preview lamps.
 const PREVIEW_LAMPS = false;
 // The shipped lamps, in their title-row order; with the flag off, the lamps that reach the menu must be exactly these, first and alone.
-const SHIPPED_LAMPS = ["open", "code", "configs", "tests", "tools", "pipelines", "infrastructure", "generated", "docs", "out", "languages"];
+const SHIPPED_LAMPS = ["open", "code", "live", "configs", "tests", "tools", "pipelines", "infrastructure", "generated", "docs", "out", "languages"];
 const declaredFilters = () => config().get("filters") ?? {};
 const filters = () => {
     const declared = declaredFilters();
