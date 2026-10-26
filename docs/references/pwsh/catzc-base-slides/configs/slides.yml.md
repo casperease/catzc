@@ -11,3 +11,12 @@ Above `kit: python/diagrams/assets/slides`, written with `#`.
 Where the slides kit lives, as a repository-relative folder (ADR-REPO-SLIDES-SLIDEFILEKIND). The kit's own defaults, its patterns and its style
 guide are read from there; the default is declared once on SlidesConfig, so this file states only a deviation from it.
 ```
+
+## comment:2
+
+Above `name_mentions:`, written with `#`.
+
+```text
+The pictures whose naming of catzc or cats is a contrast or the thing itself, each with why
+([DDR-VISUAL-NONAMEINPICTURE](/docs/drs/design/visual-design.md#rule-ddr-visual-nonameinpicture)).
+```

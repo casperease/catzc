@@ -25,8 +25,8 @@ names are checked against the surfaces.
        Get-ContractGroup), written only when a module's surface moves, and the global `pwsh.internal.types` sample goes in the same change
        (one living version); each file is a registered generated target. Check: Write-TypesContract tests, Test-GeneratedFiles.
 2. [ ] The schema: one `types.schema.json` the per-group files validate against. Check: Test-Contracts.
-3. [ ] The drift check: Get-TypesContractDrift and the build's surface comparison read the per-group files. Check: Get-TypesContractDrift
-       and Invoke-ModuleBuild tests.
+3. [ ] The drift check: Get-TypesContractDrift and the build's surface comparison read the per-group files. Check: `Invoke-TestFile` on
+       Get-TypesContractDrift.Tests.ps1 and Invoke-ModuleBuild.Tests.ps1.
 4. [ ] The cross-check: every type a command contract names in `parameters` or `output` exists in some group's `types.json`, a
        Test-Contracts finding otherwise. Check: Test-Contracts with an L0 case per direction and the real tree at 0.
 5. [ ] The rule text in `docs/drs/repository/api-contracts.md` and `docs/drs/automation/caching.md`. Check: Test-DrsRegistry and

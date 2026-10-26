@@ -7,8 +7,6 @@
 # Only a deviation from SlidesConfig's default; the kit's patterns and style guide are read from this folder.
 kit: python/diagrams/assets/slides
 
-# The pictures whose naming of catzc or cats is a contrast or the thing itself, each with why
-# ([DDR-VISUAL-NONAMEINPICTURE](/docs/drs/design/visual-design.md#rule-ddr-visual-nonameinpicture)).
 name_mentions:
   docs/explanation/repository/.assets/building-the-contract-reference-writes-one-page-per-unit: the catzc contract unit is one of the units drawn
   docs/explanation/thesis/product-thesis/.assets/truth-stores: the system itself is a node among the stores it holds
