@@ -1,18 +1,13 @@
 """The subtitle a slide says it supports (`<codes> · <lens>`) and the article's Supports line held against it.
 
-usage (repo root, background): timeout 120 uv run -q --with pillow==12.3.0 --with pytest==9.1.1 python -m pytest python/diagrams/tests
+usage (repo root, background): timeout 120 uv run --project python python -m pytest python/diagrams/tests/test_slide_facts.py
 """
 
-import sys
 from pathlib import Path
 
 import pytest
-
-# The kit folder joins the path first, so its scripts import by bare name as they do beside each other.
-sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-
-import drawio_forward
-from drawio_png import DEFAULTS
+from catzc.diagrams import drawio_forward
+from catzc.diagrams.drawio_png import DEFAULTS
 
 
 def model(subtitle):

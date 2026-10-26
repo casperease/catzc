@@ -3,10 +3,11 @@
 """What reading a drawn model back needs: the model embedded in a diagram's png, the signature of a style in the default theme, and
 the shift span room gave a drawing area."""
 
-from declaration_constants import SHIFT_KEY, SIGNATURE_KEYS
-from declaration_source import slide_of
-from drawio_png import decode, mxfile_chunk, paint, style_map
 from PIL import Image
+
+from .declaration_constants import SHIFT_KEY, SIGNATURE_KEYS
+from .declaration_source import slide_of
+from .drawio_png import decode, mxfile_chunk, paint, style_map
 
 # ---- get: the model becomes the declaration ------------------------------------------------------------------------
 

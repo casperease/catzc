@@ -1,16 +1,12 @@
 # cspell:ignore mxfile getpixel mxgraph
 """Re-rendering a .drawio.png from the model it carries, with and without a page override.
 
-usage (repo root, background): timeout 120 uv run -q --with pillow==12.3.0 --with pytest==9.1.1 python -m pytest python/diagrams/tests
+usage (repo root, background): timeout 120 uv run --project python python -m pytest python/diagrams/tests/test_drawio_png.py
 """
 
 import sys
-from pathlib import Path
 
-# The kit folder joins the path first, so its scripts import by bare name as they do beside each other.
-sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-
-import drawio_png
+from catzc.diagrams import drawio_png
 from PIL import Image
 
 MODEL = (
@@ -231,7 +227,7 @@ def test_the_draw_io_colour_keywords_still_render():
 
 
 def test_a_legend_folder_renders_the_glyph_library_painted_in_the_default_theme(tmp_path):
-    import drawio_forward
+    from catzc.diagrams import drawio_forward
     target = drawio_forward.put_legend(tmp_path)
     model = drawio_png.decode(drawio_png.mxfile_chunk(Image.open(target)))
     assert "@" not in model and 'id="e-read"' in model and 'id="g-set"' in model

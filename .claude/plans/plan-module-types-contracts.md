@@ -27,20 +27,10 @@ names are checked against the surfaces.
 
 ## Open steps
 
-1. [ ] The landed writer and drift check still owe two checks: the registered generated target `contracts/catzc/0.1.0/*/types.json` and the
-       build's surface comparison (Builder, catzc-2b's files). Check: Test-GeneratedFiles, and `Invoke-TestFile` on
-       Invoke-ModuleBuild.Tests.ps1.
-2. [ ] The cross-check: every type a command contract names in `parameters` or `output` exists in some group's `types.json`, a
-       Test-Contracts finding otherwise; and each group Get-TypesContractPath derives from a namespace equals Get-ContractGroup, with
-       Get-TypesContractPath's file name equal to ContractLayout.TypesSurfaceName. Check: Test-Contracts with an L0 case per direction and
-       the real tree at 0.
-3. [ ] Format-Code -Language json selects no file under `contracts/` (0 of 0), so the generated types.json are formatter-clean only by the
+1. [ ] Format-Code -Language json selects no file under `contracts/` (0 of 0), so the generated types.json are formatter-clean only by the
        writer's own form (0 of 44 changed off-tree). Check: Format-Code -Language json on a types.json reports 1 file checked.
-4. [ ] Files the import writes during a burst are not in the burst journal, so a rollback leaves them behind (a failed burst left 44
+2. [ ] Files the import writes during a burst are not in the burst journal, so a rollback leaves them behind (a failed burst left 44
        generated types.json in the live tree and broke every import); the burst journals every path the import writes. Check: a failed burst
        leaves git status unchanged.
-5. [ ] Invoke-StagedBurst's restore re-creates a missing parent folder (a step that deleted a staged file's folder left the journal restore
+3. [ ] Invoke-StagedBurst's restore re-creates a missing parent folder (a step that deleted a staged file's folder left the journal restore
        half done). Check: a burst whose step deletes a staged file's folder still rolls back clean.
-6. [ ] The rule text in `docs/drs/repository/api-contracts.md` (ADR-REPO-CONTRACT's asset-kind list gains the types surface) and
-       `docs/drs/automation/caching.md`, and the old path in `docs/drs/automation/BCL/native-csharp-types.md` and
-       `docs/how-to/pwsh/manual-test-plan/csharp-types.md`. Check: Test-DrsRegistry and Test-Links.

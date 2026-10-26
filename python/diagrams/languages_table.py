@@ -9,8 +9,8 @@ has: one tag per execution engine, then the contract's. `lang:` on a glyph is th
 
 import re
 
-from declaration_constants import load_yaml
-from module_paths import contracts_root, module_file
+from .declaration_constants import load_yaml
+from .module_paths import contracts_root, module_file
 
 TABLE = module_file("Catzc.Base.Languages", "configs", "languages.yml")
 ENGINES = module_file("Catzc.Base.Engines", "types", "ExecutionEngines.cs")

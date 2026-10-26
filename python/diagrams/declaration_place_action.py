@@ -7,10 +7,10 @@ import html
 import math
 import re
 
-import declaration_settings
-from declaration_action_content import call_line, cause_radius, wrap_line
-from declaration_cells import cell, chrome, edge_cell
-from declaration_constants import (
+from . import declaration_settings
+from .declaration_action_content import call_line, cause_radius, wrap_line
+from .declaration_cells import cell, chrome, edge_cell
+from .declaration_constants import (
     ACTION,
     ACTION_CLEARANCE,
     ACTION_LANE,
@@ -30,9 +30,9 @@ from declaration_constants import (
     PROOF_SHOWN,
     TEXT,
 )
-from declaration_finish import finish
-from declaration_routes import cross_circle, label_spot, marker_xy, transition
-from declaration_vocabulary import LIB, DeclarationError
+from .declaration_finish import finish
+from .declaration_routes import cross_circle, label_spot, marker_xy, transition
+from .declaration_vocabulary import LIB, DeclarationError
 
 
 def place_action(declaration):

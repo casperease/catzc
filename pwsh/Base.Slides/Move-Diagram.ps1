@@ -217,7 +217,7 @@ function Move-Diagram {
             $kitCode = [Catzc.Base.Slides.DrawioKit]::new((Get-RepositoryRoot), $Kit)
             $tool = Resolve-ToolExecutable -Tool uv
             Assert-True $tool.Found -ErrorText 'Move-Diagram: uv is not installed (no managed uv found). Run Install-Uv.'
-            Invoke-Executable "`"$($tool.Path)`" run --project `"$($kitCode.Folder)`" python `"$($kitCode.Declaration)`" rekey `"$from`" `"$to`" `"$kitConfig`"" -WorkingDirectory $root -Silent | Out-Null
+            Invoke-Executable "`"$($tool.Path)`" run --project `"$($kitCode.Folder)`" python -m $($kitCode.DeclarationModule()) rekey `"$from`" `"$to`" `"$kitConfig`"" -WorkingDirectory $root -Silent | Out-Null
         }
         $pages = @(foreach ($edit in $edits) {
                 if ($edit.Page.EndsWith('.md', [System.StringComparison]::OrdinalIgnoreCase)) {

@@ -79,7 +79,29 @@ Describe 'New-PythonProject' -Tag 'L0', 'logic' {
     It 'renders a module member named for its full name in kebab case, at the module root' -Tag 'DDR-TRACK-MODULENAMESPACE' {
         $content = (New-PythonProject -LineLength 140 -Target 'python/widget_kit/pyproject.toml').Content
         $content | Should -Match '(?m)^name = "catzc-widget-kit"$'
-        $content | Should -Match '(?m)^package = false$'
+        $content | Should -Match '(?m)^package = true$'
+    }
+
+    It 'renders a module member as a package: the declared build backend, its import name mapped onto the short folder' -Tag 'DDR-TRACK-MODULENAMESPACE' {
+        $content = (New-PythonProject -LineLength 140 -Target 'python/widget_kit/pyproject.toml').Content
+        # -Match on the escaped text: a [section] header is a wildcard class to -BeLike.
+        $content | Should -Match ('^' + [regex]::Escape((@(
+                    '[build-system]'
+                    "requires = [`"$([Catzc.Base.Languages.PythonConfig]::DefaultBuildDistribution)==$([Catzc.Base.Languages.PythonConfig]::DefaultBuildVersion)`"]"
+                    "build-backend = `"$([Catzc.Base.Languages.PythonConfig]::DefaultBuildModule)`""
+                    ''
+                    '[project]'
+                ) -join "`n")))
+        $content | Should -Match ([regex]::Escape((@(
+                        '[tool.setuptools]'
+                        'packages = ["catzc.widget_kit"]'
+                        ''
+                        '[tool.setuptools.package-dir]'
+                        '"catzc.widget_kit" = "."'
+                        ''
+                        '[tool.uv]'
+                        'package = true'
+                    ) -join "`n") + "`n") + '$')
     }
 
     It 'renders each member named for its full name, its folder under the namespace, at the python pin, with the pinned dependencies in name order' {

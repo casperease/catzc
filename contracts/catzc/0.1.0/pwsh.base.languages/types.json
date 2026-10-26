@@ -791,6 +791,18 @@
           "kind": "method"
         },
         {
+          "name": "build_distribution",
+          "kind": "property"
+        },
+        {
+          "name": "build_module",
+          "kind": "property"
+        },
+        {
+          "name": "build_version",
+          "kind": "property"
+        },
+        {
           "name": "dependencies",
           "kind": "property"
         },

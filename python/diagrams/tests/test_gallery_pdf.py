@@ -1,6 +1,6 @@
 """The assets gallery PDF: one page per PNG, and a description page after a PNG that has one.
 
-usage (repo root, background): timeout 120 uv run -q --with pillow==12.3.0 --with pytest==9.1.1 python -m pytest python/diagrams/tests
+usage (repo root, background): timeout 120 uv run --project python python -m pytest python/diagrams/tests/test_gallery_pdf.py
 """
 
 import re
@@ -9,10 +9,17 @@ import subprocess
 import sys
 from pathlib import Path
 
-from module_paths import module_file
+from catzc.diagrams.module_paths import module_file
 from PIL import Image
 
 KIT = Path(__file__).resolve().parents[1]
+# The mirror's kit is not installed, so the run binds catzc.diagrams to the mirror's folder before it runs the script as a module.
+RUN_MIRROR = (
+    "import importlib.util, runpy, sys; kit = sys.argv.pop(1); "
+    "spec = importlib.util.spec_from_file_location('catzc.diagrams', kit + '/__init__.py', submodule_search_locations=[kit]); "
+    "package = importlib.util.module_from_spec(spec); sys.modules['catzc.diagrams'] = package; spec.loader.exec_module(package); "
+    "runpy.run_module('catzc.diagrams.gallery_pdf', run_name='__main__', alter_sys=True)"
+)
 REPO = KIT.parents[1]
 # The files the script reads, at the places the resolver derives from the modules' full names, never spelled.
 CARRIERS = module_file("Catzc.Base.Languages", "configs", "file-carriers.yml").relative_to(REPO)
@@ -23,7 +30,7 @@ def mirror(root):
     """The kit's script and the leaf it imports, under a copy of the repository's layout with the files they read."""
     kit = root / KIT.relative_to(REPO)
     kit.mkdir(parents=True)
-    for script in ("gallery_pdf.py", "module_paths.py"):
+    for script in ("__init__.py", "gallery_pdf.py", "module_paths.py"):
         shutil.copy2(KIT / script, kit)
     for read in (CARRIERS, VARIANTS):
         (root / read).parent.mkdir(parents=True, exist_ok=True)
@@ -42,7 +49,7 @@ def test_two_pngs_one_with_a_companion_make_three_pages(tmp_path):
     (assets / "widget.md").write_text("# Widget\n\nThe widget's description.\n", encoding="utf-8")
 
     done = subprocess.run(
-        [sys.executable, str(mirror_kit / "gallery_pdf.py"), "--assets", "assets"],
+        [sys.executable, "-c", RUN_MIRROR, str(mirror_kit), "--assets", "assets"],
         cwd=tmp_path,
         capture_output=True,
         text=True,
@@ -66,7 +73,7 @@ def test_a_declared_diagram_is_described_by_its_yml_description(tmp_path):
     (assets / "widget-flow.drawio.yml").write_text("description: >-\n  Widgets flow into gadgets.\ncontent:\n  title: Widgets\n", encoding="utf-8")
 
     done = subprocess.run(
-        [sys.executable, str(mirror_kit / "gallery_pdf.py"), "--assets", "assets"],
+        [sys.executable, "-c", RUN_MIRROR, str(mirror_kit), "--assets", "assets"],
         cwd=tmp_path,
         capture_output=True,
         text=True,

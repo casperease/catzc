@@ -81,7 +81,7 @@ function Test-Diagrams {
         $quoted = ($folders | ForEach-Object { "`"$_`"" }) -join ' '
         $rowsPath = Join-Path (Get-OutputRoot -EnsureExists) 'diagrams/query-rows.json'
         $null = Write-DiagramQueryRows -Stem $declared -RepositoryRoot $root -Path $rowsPath
-        $result = Invoke-Executable "`"$($tool.Path)`" run --project `"$($diagramKit.Folder)`" python `"$declaration`" --rows `"$rowsPath`" check $quoted" -WorkingDirectory $root -PassThru -NoAssert -Silent
+        $result = Invoke-Executable "`"$($tool.Path)`" run --project `"$($diagramKit.Folder)`" python -m $($diagramKit.DeclarationModule()) --rows `"$rowsPath`" check $quoted" -WorkingDirectory $root -PassThru -NoAssert -Silent
         Assert-True ($result.ExitCode -eq 0) -ErrorText "Test-Diagrams: the drift check failed (exit $($result.ExitCode)): $(@($result.Output -split "`r?`n" | Select-Object -Last 5) -join ' | ')"
         # One JSON line per diagram: conflicted cells, drifted cells, stale minimaps, or an error.
         foreach ($line in @($result.Output -split "`r?`n" | Where-Object { $_.StartsWith('{') })) {

@@ -1,6 +1,6 @@
 """The article carrier: a diagram declared in a `yml drawio` block directly above the image in its article, the way a mermaid block is.
 
-usage (repo root, background): timeout 120 uv run -q --project python/diagrams python -m pytest python/diagrams/tests
+usage (repo root, background): timeout 120 uv run -q --project python python -m pytest python/diagrams/tests
 """
 
 import sys
@@ -9,13 +9,10 @@ from pathlib import Path
 import pytest
 import yaml
 
-# The kit folder joins the path first, so its scripts import by bare name as they do beside each other; the tests folder joins too,
-# so the shared widget fixture imports by name under any import mode.
-sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+# The tests folder joins the path, so the shared widget fixture imports by name under any import mode.
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-import declaration
-import drawio_forward
+from catzc.diagrams import declaration, drawio_forward
 from conftest import WIDGETS
 
 BODY = "description: Widgets flow into gadgets through a gate.\n" + WIDGETS.lstrip("\n")

@@ -4,12 +4,12 @@
 
 import re
 
-from declaration_action_content import cause_radius, cause_sizes, parse_call
-from declaration_constants import ACTION_LENS, KINDS, PROOF_LENS, PROOF_SHOWN, SIDEBAR
-from declaration_normalise import normalise
-from declaration_read import matches, signature
-from declaration_vocabulary import LIB, DeclarationError
-from drawio_png import DEFAULTS, plain
+from .declaration_action_content import cause_radius, cause_sizes, parse_call
+from .declaration_constants import ACTION_LENS, KINDS, PROOF_LENS, PROOF_SHOWN, SIDEBAR
+from .declaration_normalise import normalise
+from .declaration_read import matches, signature
+from .declaration_vocabulary import LIB, DeclarationError
+from .drawio_png import DEFAULTS, plain
 
 
 def cause_read(label, radius):

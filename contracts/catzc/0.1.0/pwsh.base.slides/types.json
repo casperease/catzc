@@ -10,12 +10,24 @@
           "kind": "property"
         },
         {
+          "name": "DeclarationModule",
+          "kind": "method"
+        },
+        {
           "name": "Declaration",
           "kind": "property"
         },
         {
           "name": "Folder",
           "kind": "property"
+        },
+        {
+          "name": "Manifest",
+          "kind": "property"
+        },
+        {
+          "name": "RendererModule",
+          "kind": "method"
         },
         {
           "name": "Renderer",

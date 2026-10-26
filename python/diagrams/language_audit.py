@@ -3,16 +3,14 @@ the tags it would print, and whether it prints none (`untagged`: its label match
 declaration.
 
 usage (repo root):
-  uv run --no-sync --project python python python/diagrams/language_audit.py [--out out] [--stem <name-substring>]
+  uv run --no-sync --project python python -m catzc.diagrams.language_audit [--out out] [--stem <name-substring>]
 """
 
 import sys
 from collections import Counter
 from pathlib import Path
 
-import declaration
-import edge_audit
-import languages_table
+from . import declaration, edge_audit, languages_table
 
 REPO = edge_audit.REPO
 

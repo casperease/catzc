@@ -8,9 +8,10 @@ import xml.etree.ElementTree as ET
 import zlib
 from pathlib import Path
 
-from drawio_png import DEFAULTS, decode, encode, mxfile_chunk, plain, render
 from PIL import Image
 from PIL.PngImagePlugin import PngInfo
+
+from .drawio_png import DEFAULTS, decode, encode, mxfile_chunk, plain, render
 
 PAGE_LINES = 66
 # A transport failure of any step becomes a finding and the artifacts still land: the exceptions the steps can raise.

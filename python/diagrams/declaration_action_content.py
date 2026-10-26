@@ -5,9 +5,10 @@ zones, effects and cause of an action read into the cells the lens places."""
 
 import re
 
-import normal_form
 import yaml
-from declaration_constants import (
+
+from . import normal_form
+from .declaration_constants import (
     ACTION,
     ACTION_KEYS,
     ACTION_LENS,
@@ -20,9 +21,9 @@ from declaration_constants import (
     WHERES,
     load_yaml,
 )
-from declaration_dump import _flow, entry
-from declaration_vocabulary import DeclarationError, choices
-from drawio_png import DEFAULTS
+from .declaration_dump import _flow, entry
+from .declaration_vocabulary import DeclarationError, choices
+from .drawio_png import DEFAULTS
 
 
 def contract_call(raw, where, what):

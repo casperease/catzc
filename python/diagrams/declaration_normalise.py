@@ -3,11 +3,9 @@
 """The normal form of a declaration: every key checked against the kit's vocabulary and every shorthand written out, so put and get see
 one shape."""
 
-import languages_table
-import minimaps
-import query_rows
-from declaration_action_content import action_content
-from declaration_constants import (
+from . import languages_table, minimaps, query_rows
+from .declaration_action_content import action_content
+from .declaration_constants import (
     ABOUT_KEYS,
     ACTION_KEYS,
     ACTION_LENS,
@@ -26,11 +24,11 @@ from declaration_constants import (
     SPAN_ROW,
     TOP_KEYS,
 )
-from declaration_dump import entry, legend_phrases
-from declaration_edges import EDGE_COUNT, between_edge, edge_semantics_findings, orient_edges, relation_pairing
-from declaration_expand import expand_lanes, expand_rows, shown_minimaps
-from declaration_vocabulary import EDGE_KINDS, GLYPH_KINDS, DeclarationError, choices, span_vocabulary
-from drawio_png import DEFAULTS
+from .declaration_dump import entry, legend_phrases
+from .declaration_edges import EDGE_COUNT, between_edge, edge_semantics_findings, orient_edges, relation_pairing
+from .declaration_expand import expand_lanes, expand_rows, shown_minimaps
+from .declaration_vocabulary import EDGE_KINDS, GLYPH_KINDS, DeclarationError, choices, span_vocabulary
+from .drawio_png import DEFAULTS
 
 
 def about_point(about_raw, where):

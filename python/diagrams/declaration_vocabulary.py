@@ -6,10 +6,9 @@ glyph and edge kinds, and the span words."""
 import xml.etree.ElementTree as ET
 from typing import NoReturn
 
-import edge_rules
-import minimaps
-from declaration_constants import KIT
-from drawio_png import DEFAULTS, plain
+from . import edge_rules, minimaps
+from .declaration_constants import KIT
+from .drawio_png import DEFAULTS, plain
 
 
 class DeclarationError(ValueError):

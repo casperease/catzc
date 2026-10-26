@@ -14,7 +14,7 @@ any other diagram with its own `relation` is audited like any other and also lis
 labels are read as the author wrote them, so a label the kit derives from the kind pair is not counted as one.
 
 usage (repo root):
-  uv run --no-sync --project python python python/diagrams/edge_audit.py [--out out] [--stem <name-substring>] [--crossings]
+  uv run --no-sync --project python python -m catzc.diagrams.edge_audit [--out out] [--stem <name-substring>] [--crossings]
 prints the table and writes <out>/edge-audit.md and <out>/edge-audit.csv.
 """
 
@@ -24,9 +24,9 @@ import sys
 from collections import Counter
 from pathlib import Path
 
-import declaration
-import edge_rules
 import yaml
+
+from . import declaration, edge_rules
 
 REPO = Path(__file__).resolve().parents[2]
 
