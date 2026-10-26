@@ -7,10 +7,10 @@ plan:
   targets:
     [
       docs/drs,
-      pwsh/Catzc.Base.Drs/configs/drs.yml,
-      pwsh/Catzc.Base.Drs/types/DrsConfig.cs,
+      pwsh/Base.Drs/configs/drs.yml,
+      pwsh/Base.Drs/types/DrsConfig.cs,
       docs/drs/repository/drs-code-language.md,
-      pwsh/Catzc.Base.Docs/configs/glossary,
+      pwsh/Base.Docs/configs/glossary,
     ]
 ---
 

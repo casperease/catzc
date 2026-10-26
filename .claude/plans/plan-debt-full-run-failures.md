@@ -4,7 +4,7 @@ plan:
   value: high
   reviewed: 2026-10-22
   class: feature
-  targets: [pwsh/Catzc.Base.QualityGates/tests, pwsh/Catzc.Base.Globs/tests, pwsh/.internal/tests]
+  targets: [pwsh/Base.QualityGates/tests, pwsh/Base.Globs/tests, pwsh/.internal/tests]
 ---
 
 # Debt full-run failures: the failing files of the last full run, rerun one at a time
@@ -19,7 +19,7 @@ on 2026-10-22 with five sessions running tests). A red file has its cause report
 ## Open steps
 
 - [ ] `Get-DynamicManifestContent.Tests.ps1`, still red on 2026-10-22 (`Facts['Modules']` is 0, `out/test-file/20261022-031430-d26183`): the
-      cause (catzc-54, `out/catzc-54-full-run-2-5.md`) is a case-only rename git does not track, `pwsh/Catzc.Base.VSCode/*-VsCode*.ps1` on
+      cause (catzc-54, `out/catzc-54-full-run-2-5.md`) is a case-only rename git does not track, `pwsh/Base.VSCode/*-VsCode*.ps1` on
       disk against `*-VSCode*.ps1` in the index, so the builder's case-sensitive index check drops every file and builds nothing. The fix is
       the user's (task-user-runs-and-commits). The same rename keeps `Test-CatzcBuild.Parity.Tests.ps1` red (Catzc.Base.Asserts exports
       `Assert-IsRunningInVsCode` while the build lists VSCode), now that the bundle types-hash defect is fixed (catzc-46, 2026-10-23).

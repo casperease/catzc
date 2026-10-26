@@ -37,26 +37,26 @@ Generated READMEs and `.gitkeep` files, Markdown lint and titles, and repository
 
 ### 1. Build-GitKeep — managed .gitkeep files
 
-**Test file:** `pwsh/Catzc.Base.Docs/tests/Build-GitKeep.Tests.ps1` (L2), block `Build-GitKeep — managed .gitkeep files`.
+**Test file:** `pwsh/Base.Docs/tests/Build-GitKeep.Tests.ps1` (L2), block `Build-GitKeep — managed .gitkeep files`.
 
 **Guards:** Every .gitkeep carries its source content, which is generic (`Test-GeneratedFiles -Generator Build-GitKeep` reports 0 issues),
 and every .gitkeep folder is a readme-mapped target with a reference article.
 
 ### 2. Build-GitKeep — shipped assets/gitkeep
 
-**Test file:** `pwsh/Catzc.Base.Docs/tests/Build-GitKeep.Tests.ps1` (L1), block `Build-GitKeep — shipped assets/gitkeep`.
+**Test file:** `pwsh/Base.Docs/tests/Build-GitKeep.Tests.ps1` (L1), block `Build-GitKeep — shipped assets/gitkeep`.
 
 **Guards:** Build-GitKeep writes the content of the `assets/gitkeep` shipped in the loaded module (ADR-AUTO-ASSETDEP-COVEREDBYREALTEST).
 
 ### 3. Get-CatsModules — loaded catzc modules
 
-**Test file:** `pwsh/Catzc.Base.Docs/tests/Get-CatsModules.Tests.ps1` (L1), block `Get-CatsModules — loaded catzc modules`.
+**Test file:** `pwsh/Base.Docs/tests/Get-CatsModules.Tests.ps1` (L1), block `Get-CatsModules — loaded catzc modules`.
 
 **Guards:** Show-Cats' module list is read from the loaded modules under the code root: exact exports, no privates, no infrastructure.
 
 ### 4. Repository code links (automation comments)
 
-**Test file:** `pwsh/Catzc.Base.QualityGates/tests/Test-Links.Repository.Tests.ps1` (L1), block
+**Test file:** `pwsh/Base.QualityGates/tests/Test-Links.Repository.Tests.ps1` (L1), block
 `Repository code links (automation comments)`.
 
 **Guards:** Every decision-record reference in an automation comment is a canonical, resolving code link, and every docs path in an
@@ -64,14 +64,14 @@ automation string names an existing file.
 
 ### 5. Repository Markdown titles
 
-**Test file:** `pwsh/Catzc.Base.QualityGates/tests/Test-MarkdownTitle.Repository.Tests.ps1` (L1), block `Repository Markdown titles`.
+**Test file:** `pwsh/Base.QualityGates/tests/Test-MarkdownTitle.Repository.Tests.ps1` (L1), block `Repository Markdown titles`.
 
 **Guards:** Every in-scope tracked Markdown file opens with an H1 that is its title, not its repository path (Format-MarkdownTitle leaves
 the tree unchanged).
 
 ### 6. Repository markdown integrity
 
-**Test file:** `pwsh/Catzc.Base.QualityGates/tests/Test-Markdownlint.Tests.ps1` (L2), block `Repository markdown integrity`.
+**Test file:** `pwsh/Base.QualityGates/tests/Test-Markdownlint.Tests.ps1` (L2), block `Repository markdown integrity`.
 
 **Guards:** all in-scope repository markdown is lint-clean.
 
@@ -83,14 +83,14 @@ the tree unchanged).
 
 ### 7. Build-Readme — real readme.yml
 
-**Test file:** `pwsh/Catzc.Base.Docs/tests/Build-Readme.Tests.ps1` (L2), block `Build-Readme — real readme.yml`.
+**Test file:** `pwsh/Base.Docs/tests/Build-Readme.Tests.ps1` (L2), block `Build-Readme — real readme.yml`.
 
 **Guards:** Every generated README's source exists, every README is current (`Test-GeneratedFiles -Generator Build-Readme` reports 0
 issues), the pattern covers every automation module, and mapped READMEs stay gitignored.
 
 ### 8. Generated READMEs are gitignored, untracked, and current
 
-**Test file:** `pwsh/Catzc.Base.Docs/tests/Test-GeneratedReadmes.Tests.ps1` (L2), block
+**Test file:** `pwsh/Base.Docs/tests/Test-GeneratedReadmes.Tests.ps1` (L2), block
 `Generated READMEs are gitignored, untracked, and current`.
 
 **Guards:** `Test-GeneratedReadmes` reports 0 issues: every generated README is gitignored, untracked in git, and current with its authored
@@ -98,25 +98,25 @@ source, links rebased to its folder (a derived artifact, never committed).
 
 ### 9. Repository links (every tracked file)
 
-**Test file:** `pwsh/Catzc.Base.QualityGates/tests/Test-Links.Repository.Tests.ps1` (L2), block `Repository links (every tracked file)`.
+**Test file:** `pwsh/Base.QualityGates/tests/Test-Links.Repository.Tests.ps1` (L2), block `Repository links (every tracked file)`.
 
 **Guards:** Every markdown and code link in a tracked file is aligned and resolves (fragments included), Format-Links is a no-op on the
 tree, and the VS Code registries carry the code-link rule.
 
 ### 10. Get-CommentPage (the shipped comment-pages config)
 
-**Test file:** `pwsh/Catzc.Base.CodeMeta/tests/Get-CommentPage.Tests.ps1` (L1), block `Get-CommentPage (the shipped comment-pages config)`.
+**Test file:** `pwsh/Base.CodeMeta/tests/Get-CommentPage.Tests.ps1` (L1), block `Get-CommentPage (the shipped comment-pages config)`.
 
 **Guards:** a code file's long comment resolves to a comment page that exists.
 
 **Checks:**
 
-- `Get-CommentPage` over the shipped `comment-pages` config maps `python/catzc_diagrams/configs/drawio.yml` to
+- `Get-CommentPage` over the shipped `comment-pages` config maps `python/diagrams/configs/drawio.yml` to
   `docs/references/python/catzc_diagrams/configs/drawio.yml.md`, and that file exists.
 
 ### 11. Test-GeneratedFiles — real tree
 
-**Test file:** `pwsh/Catzc.Base.QualityGates/tests/Test-GeneratedFiles.Tests.ps1` (L1), block `Test-GeneratedFiles — real tree`.
+**Test file:** `pwsh/Base.QualityGates/tests/Test-GeneratedFiles.Tests.ps1` (L1), block `Test-GeneratedFiles — real tree`.
 
 **Guards:** every generated file in the tree is current with its generator.
 
@@ -126,7 +126,7 @@ tree, and the VS Code registries carry the code-link rule.
 
 ### 12. Repository link directions (every tracked file)
 
-**Test file:** `pwsh/Catzc.Base.QualityGates/tests/Test-LinkDirections.Repository.Tests.ps1` (L2), block
+**Test file:** `pwsh/Base.QualityGates/tests/Test-LinkDirections.Repository.Tests.ps1` (L2), block
 `Repository link directions (every tracked file)`.
 
 **Guards:** Every relation in a tracked file points a way its first matching link-directions row allows.

@@ -1341,7 +1341,7 @@ Summary (ours): Plan each workload's networking with the Zero Trust deployment p
 
 #### What 42 means here
 
-Workload networking is planned once, in `pwsh/Catzc.Azure/configs/network.yml`: private ranges only, no overlap, and a subnet map per
+Workload networking is planned once, in `pwsh/Azure/configs/network.yml`: private ranges only, no overlap, and a subnet map per
 subscription ([ADR-AZ-NETWORK-ONEIPPLAN](../azure-network-model.md#rule-adr-az-network-oneipplan),
 [ADR-AZ-NETWORK-NOOVERLAP](../azure-network-model.md#rule-adr-az-network-nooverlap)). The landing zone gives each workload subnet a network
 security group that denies inbound internet traffic, and the workload reaches its data only through private endpoints. What the Zero Trust

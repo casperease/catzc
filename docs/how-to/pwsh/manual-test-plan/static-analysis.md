@@ -49,7 +49,7 @@ a check.
 
 ### 1. analyzer-adr-map integrity
 
-**Test file:** `pwsh/Catzc.Base.QualityGates/tests/Get-AnalyzerDrsCoverage.Tests.ps1` (L1), block `analyzer-adr-map integrity`.
+**Test file:** `pwsh/Base.QualityGates/tests/Get-AnalyzerDrsCoverage.Tests.ps1` (L1), block `analyzer-adr-map integrity`.
 
 **Guards:** `Test-AnalyzerDrsMap` reports 0 issues: every analyzer→rule mapping cites a real rule, and every custom analyzer rule is listed
 in analyzer-drs-map.yml.
@@ -83,33 +83,33 @@ manifest never churns when it is later re-formatted.
 
 ### 4. Format-Code (real vendored analyzer and settings)
 
-**Test file:** `pwsh/Catzc.Base.QualityGates/tests/Format-Code.Tests.ps1` (L2), block `Format-Code (real vendored analyzer and settings)`.
+**Test file:** `pwsh/Base.QualityGates/tests/Format-Code.Tests.ps1` (L2), block `Format-Code (real vendored analyzer and settings)`.
 
 **Guards:** Format-Code's PSScriptAnalyzer engine loads PSScriptAnalyzer and its settings from the active code root (`.vendor`,
 `.internal/assets`).
 
 ### 5. Get-ScriptAnalyzerDiagnostics (real vendored analyzer)
 
-**Test file:** `pwsh/Catzc.Base.QualityGates/tests/Get-ScriptAnalyzerDiagnostics.Tests.ps1` (L2), block
+**Test file:** `pwsh/Base.QualityGates/tests/Get-ScriptAnalyzerDiagnostics.Tests.ps1` (L2), block
 `Get-ScriptAnalyzerDiagnostics (real vendored analyzer)`.
 
 **Guards:** The analysis engine imports the vendored PSScriptAnalyzer from the active code root and reports real diagnostics.
 
 ### 6. Test-ScriptAnalyzer (real analyzer)
 
-**Test file:** `pwsh/Catzc.Base.QualityGates/tests/Test-ScriptAnalyzer.Tests.ps1` (L2), block `Test-ScriptAnalyzer (real analyzer)`.
+**Test file:** `pwsh/Base.QualityGates/tests/Test-ScriptAnalyzer.Tests.ps1` (L2), block `Test-ScriptAnalyzer (real analyzer)`.
 
 **Guards:** The analyzer quality gate runs the vendored PSScriptAnalyzer with the shipped settings from the active code root.
 
 ### 7. Repository formatting integrity
 
-**Test file:** `pwsh/Catzc.Base.QualityGates/tests/Test-Formatting.Tests.ps1` (L2), block `Repository formatting integrity`.
+**Test file:** `pwsh/Base.QualityGates/tests/Test-Formatting.Tests.ps1` (L2), block `Repository formatting integrity`.
 
 **Guards:** Every file language with a formatter in languages.yml, and the C# type namespaces, are formatted (Test-Formatting reports none).
 
 ### 8. TimeoutSeconds defaults come from the time safeguard
 
-**Test file:** `pwsh/Catzc.Base.Timeouts/tests/Get-TimeoutSeconds.Repository.Tests.ps1` (L1), block
+**Test file:** `pwsh/Base.Timeouts/tests/Get-TimeoutSeconds.Repository.Tests.ps1` (L1), block
 `TimeoutSeconds defaults come from the time safeguard`.
 
 **Guards:** No shipped function defaults a `-TimeoutSeconds` parameter to a number literal; long-running functions declare `[TimeLimit]`
@@ -117,28 +117,28 @@ manifest never churns when it is later re-formatted.
 
 ### 9. Repository Python lint integrity
 
-**Test file:** `pwsh/Catzc.Base.QualityGates/tests/Test-PythonLint.Tests.ps1` (L2), block `Repository Python lint integrity`.
+**Test file:** `pwsh/Base.QualityGates/tests/Test-PythonLint.Tests.ps1` (L2), block `Repository Python lint integrity`.
 
 **Guards:** Every Python file the repository holds — the Python tests and the agent helpers — passes the pinned `ruff check`
 (ADR-AUTO-PY-EVERYFILELINTED).
 
 ### 10. Repository shell script integrity
 
-**Test file:** `pwsh/Catzc.Base.QualityGates/tests/Test-ShellScripts.Tests.ps1` (L2), block `Repository shell script integrity`.
+**Test file:** `pwsh/Base.QualityGates/tests/Test-ShellScripts.Tests.ps1` (L2), block `Repository shell script integrity`.
 
 **Guards:** Every shell script the repository tracks is LF, carries the executable bit when it has a shebang, and passes the pinned
 ShellCheck (ADR-AUTO-BASH-SHELLSCRIPTSCHECKED).
 
 ### 11. Format-Code engines
 
-**Test file:** `pwsh/Catzc.Base.QualityGates/tests/Format-Code.Tests.ps1` (L0), block `Format-Code engines`.
+**Test file:** `pwsh/Base.QualityGates/tests/Format-Code.Tests.ps1` (L0), block `Format-Code engines`.
 
 **Guards:** Every formatter engine languages.yml may name has its adapter, and the shipped languages.yml gives every file language a
 formatter or the reason it has none (PDR-CONFIG-NEWINSTANCEISCONFIGCHANGE, PDR-CONFIG-EXCEPTIONISCONFIGENTRY).
 
 ### 12. The shipped format engines' keyed settings
 
-**Test file:** `pwsh/Catzc.Base.QualityGates/tests/Get-FormatEngineStamp.Tests.ps1` (L1), block
+**Test file:** `pwsh/Base.QualityGates/tests/Get-FormatEngineStamp.Tests.ps1` (L1), block
 `The shipped format engines' keyed settings`.
 
 **Guards:** Each shipped format engine's keyed settings name a top-level key that exists in their file, and an engine never lists the whole
@@ -146,14 +146,14 @@ tool registry again (ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS).
 
 ### 13. Repository Python type integrity
 
-**Test file:** `pwsh/Catzc.Base.QualityGates/tests/Test-PythonTypes.Tests.ps1` (L2), block `Repository Python type integrity`.
+**Test file:** `pwsh/Base.QualityGates/tests/Test-PythonTypes.Tests.ps1` (L2), block `Repository Python type integrity`.
 
 **Guards:** Every Python file the repository holds passes pyright in the mode python.yml names, the one the editor runs
 (ADR-AUTO-PY-EVERYFILETYPECHECKED).
 
 ### 14. Format-FileMeta on the repository
 
-**Test file:** `pwsh/Catzc.Base.QualityGates/tests/Format-FileMeta.Tests.ps1` (L2), block `Format-FileMeta on the repository`.
+**Test file:** `pwsh/Base.QualityGates/tests/Format-FileMeta.Tests.ps1` (L2), block `Format-FileMeta on the repository`.
 
 **Guards:** a generated page's head belongs to its generator, never to the head formatter (ADR-REPO-FILEMETA-HEADPOLICY).
 
@@ -163,7 +163,7 @@ tool registry again (ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS).
 
 ### 15. Test-FileLimits — the real tree
 
-**Test file:** `pwsh/Catzc.Base.FileLimits/tests/Test-FileLimits.Tests.ps1` (L1), block `Test-FileLimits — the real tree`.
+**Test file:** `pwsh/Base.FileLimits/tests/Test-FileLimits.Tests.ps1` (L1), block `Test-FileLimits — the real tree`.
 
 **Guards:** every tracked file in scope is within its length limit, and the gate runs inside its timeouts.yml roof.
 
@@ -173,7 +173,7 @@ tool registry again (ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS).
 
 ### 16. Test-TrackMemberCommitted — the real tree
 
-**Test file:** `pwsh/Catzc.Base.QualityGates/tests/Test-TrackMemberCommitted.Tests.ps1` (L1), block
+**Test file:** `pwsh/Base.QualityGates/tests/Test-TrackMemberCommitted.Tests.ps1` (L1), block
 `Test-TrackMemberCommitted — the real tree`.
 
 **Guards:** every declared track member is in step with the git index.
@@ -184,7 +184,7 @@ tool registry again (ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS).
 
 ### 17. Get-OutputRoot — no default reaches the output track
 
-**Test file:** `pwsh/Catzc.Base.Repository/tests/Get-OutputRoot.OutputOnlyByAddress.Tests.ps1` (L1), block
+**Test file:** `pwsh/Base.Repository/tests/Get-OutputRoot.OutputOnlyByAddress.Tests.ps1` (L1), block
 `Get-OutputRoot — no default reaches the output track`.
 
 **Guards:** no exported check command defaults a parameter into the output track.

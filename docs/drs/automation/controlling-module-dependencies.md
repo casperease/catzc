@@ -5,7 +5,7 @@
 ### Rule ADR-AUTO-DEPM-CODEBUILTFROM
 
 A module dependency (`ADR-AUTO-DEPM`) is code the toolset is built from. Its internal edges — module A needing module B among the
-repository's own modules — are declared in `pwsh/Catzc.Base.ModuleSystem/configs/dependencies.yml`; the declaration is the allow-list, and
+repository's own modules — are declared in `pwsh/Base.ModuleSystem/configs/dependencies.yml`; the declaration is the allow-list, and
 an actual edge with no declaration fails the build.
 
 - [The declared graph](#the-declared-graph)
@@ -99,7 +99,7 @@ mechanically, not by review vigilance — and it keeps a single, legible answer 
 ## Decision
 
 Module dependencies are declared in one place and checked against the code. The declaration lives in
-`pwsh/Catzc.Base.ModuleSystem/configs/dependencies.yml`; the actual function-call and C# type edges are extracted and checked against it.
+`pwsh/Base.ModuleSystem/configs/dependencies.yml`; the actual function-call and C# type edges are extracted and checked against it.
 
 ### The declared graph
 
@@ -197,7 +197,7 @@ describes, and adding or moving a dependency is a reviewed change.
 
 ## How this is enforced
 
-- **`dependencies.yml`** (`pwsh/Catzc.Base.ModuleSystem/configs/`) — the single declared allow-list of module edges, with its `groups:` and
+- **`dependencies.yml`** (`pwsh/Base.ModuleSystem/configs/`) — the single declared allow-list of module edges, with its `groups:` and
   `modules:` sections.
 - **`DependenciesConfig`** — the config type that validates the declaration at load: resolvable targets, closed groups, acyclic module and
   group graphs.

@@ -4,7 +4,7 @@ plan:
   value: medium
   reviewed: 2026-10-22
   class: feature
-  targets: [pwsh/Catzc.Base.VSCode/Get-VsCodeSession.ps1, pwsh/.internal/Catzc.Internal.Importer.psm1]
+  targets: [pwsh/Base.VSCode/Get-VsCodeSession.ps1, pwsh/.internal/Catzc.Internal.Importer.psm1]
 ---
 
 # VS Code session binding: the decision observed, the hang caught from the inside
@@ -29,9 +29,9 @@ it.
 
 ## Open steps
 
-1. [ ] `pwsh/Catzc.Base.VSCode/Get-VsCodeSession.ps1`: when the hang recurs, the user runs `Get-VsCodeSession` in the hung session's sibling
+1. [ ] `pwsh/Base.VSCode/Get-VsCodeSession.ps1`: when the hang recurs, the user runs `Get-VsCodeSession` in the hung session's sibling
        and pastes its one line; the command then grows what the line lacked, one property at a time (check:
-       `Invoke-TestFile -Path pwsh/Catzc.Base.VSCode/tests/Get-VsCodeSession.Tests.ps1`).
+       `Invoke-TestFile -Path pwsh/Base.VSCode/tests/Get-VsCodeSession.Tests.ps1`).
 
 ## Decided (the orchestrator as delegated, 2026-10-23)
 

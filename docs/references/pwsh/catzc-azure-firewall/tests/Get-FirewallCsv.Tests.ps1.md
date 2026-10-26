@@ -1,4 +1,4 @@
-# pwsh/Catzc.Azure.Firewall/tests/Get-FirewallCsv.Tests.ps1
+# pwsh/Azure.Firewall/tests/Get-FirewallCsv.Tests.ps1
 
 <!-- cspell:ignore etwork -->
 

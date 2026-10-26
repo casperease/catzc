@@ -80,7 +80,7 @@ a UNC/network share, and point the user at the one-time fix below (see `Invoke-I
 
 `The one-time fix for network user paths`
 
-The slow-network-path problem is solved by `pwsh/Catzc.Base.Environment/assets/Set-LocalPsModulePath.ps1`, a one-time helper the user runs
+The slow-network-path problem is solved by `pwsh/Base.Environment/assets/Set-LocalPsModulePath.ps1`, a one-time helper the user runs
 themselves. It writes a user-scope `powershell.config.json` (under `Documents\PowerShell`, even when that is on DFS) that overrides the
 CurrentUser module path to a local directory (`$env:LOCALAPPDATA\PowerShell\Modules`). PowerShell reads that single config file once at
 startup — fast — instead of recursively scanning a network share on every lookup.

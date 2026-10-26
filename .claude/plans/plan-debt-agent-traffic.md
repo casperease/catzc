@@ -10,8 +10,8 @@ plan:
       .claude/skills/report-fixed/SKILL.md,
       .claude/agents/catzc-drone.md,
       .claude/skills/plans-orchestrate/SKILL.md,
-      pwsh/Catzc.Base.QualityGates/Test-Plans.ps1,
-      pwsh/Catzc.Base.Timeouts/configs/timeouts.yml,
+      pwsh/Base.QualityGates/Test-Plans.ps1,
+      pwsh/Base.Timeouts/configs/timeouts.yml,
       docs/references/pwsh/catzc-base-quality-gates/Test-Plans.ps1.md,
       .claude/hooks,
     ]

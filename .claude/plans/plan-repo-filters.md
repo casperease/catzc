@@ -4,7 +4,7 @@ plan:
   value: high
   reviewed: 2026-10-24
   class: feature
-  targets: [js/catzc-track-lamps]
+  targets: [js/track-lamps]
 ---
 
 # Repository filters: named, overlapping views over the hard model, one lamp each
@@ -76,7 +76,7 @@ one resolver, makes every new view a config line, and moving the extra units int
 
 ## Open steps
 
-1. [ ] `js/catzc-track-lamps` (0.13.0, installed by the importer): the user reloads VS Code and judges the lamps (open, code, configs,
+1. [ ] `js/track-lamps` (0.13.0, installed by the importer): the user reloads VS Code and judges the lamps (open, code, configs,
        tests, tools, pipelines, infrastructure, generated, docs, out, languages; the pipeline and workflow files claimed by `code` and
        `pipelines` and no longer by `tools`, the Bicep tree by `code` and `infrastructure`, the module and template configuration by `code`
        and `configs`; the pipeline-stages, factory, sliders and note-being-edited icons): a click steps each lamp off → on → veto → off

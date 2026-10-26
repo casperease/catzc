@@ -10,7 +10,7 @@ registry's `categories:`).
 
 ## How these files exist
 
-- **Source of truth:** `pwsh/Catzc.Base.QualityGates/configs/terminology.yml`. Add or remove vocabulary there — never in the generated
+- **Source of truth:** `pwsh/Base.QualityGates/configs/terminology.yml`. Add or remove vocabulary there — never in the generated
   lists.
 - **Generator:** `Build-TerminologyDictionary` writes `.cspell/<category>.txt`, each with a `#` header comment naming this source. The
   importer runs it on every load (see `importer.ps1`), so the lists stay current.

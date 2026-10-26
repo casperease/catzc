@@ -9,7 +9,7 @@ C4  code         the module's tracked files but its tests, each in the kind its 
 Supports DDR-VISUAL-ZOOMISANAXIS, ADR-AUTO-DEPM-UNIFIEDGRAPH and ADR-AUTO-MODULE-EXISTSBYLAYOUT.
 ```
 
-The fourth ladder stands at `pwsh/Catzc.Base.Config/`, one module of the [pwsh ladder](zoom-pwsh.md).
+The fourth ladder stands at `pwsh/Base.Config/`, one module of the [pwsh ladder](zoom-pwsh.md).
 
 ## C3: the module among its neighbours
 

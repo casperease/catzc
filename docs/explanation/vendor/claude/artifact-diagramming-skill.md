@@ -6,7 +6,7 @@ The skill's judgement (draw the mechanism, label the arrows, one figure one clai
 to one place only: a page a session publishes with the Artifact tool. Nothing under docs/ is ever an SVG.
 
 claude.ai page      the Diagram Waves Review page and any ad-hoc page    inline SVG, the skill's mechanics
-docs/.assets        every slide an article embeds                         .drawio.png, the kit (python/catzc_diagrams/assets/STYLE.md)
+docs/.assets        every slide an article embeds                         .drawio.png, the kit (python/diagrams/assets/STYLE.md)
 ```
 
 The `/artifact-diagramming` skill is vendor know-how that Claude Code loads into a session on request. It is not one of our capabilities
@@ -19,7 +19,7 @@ A diagram in cats lives in exactly one of two lanes, and the lane decides which 
 
 - **The docs lane.** A diagram is a pair of files in an `.assets/` beside its article: the `<name>.drawio.yml` that declares it element by
   element and the `<name>.drawio.png` put from it, a draw.io model embedded in a PNG, with an article in `docs/explanation/` that narrates
-  it. The kit in `python/catzc_diagrams/assets/STYLE.md` owns its words, glyphs, colours and sidebar; the kit renderer is the one way its
+  it. The kit in `python/diagrams/assets/STYLE.md` owns its words, glyphs, colours and sidebar; the kit renderer is the one way its
   raster is made, put from the diagram's yml (`drawio-declaration` step 1). The `drawio-*` capabilities and the three diagram robots work
   only in this lane.
 - **The page lane.** A claude.ai page a session publishes with the Artifact tool. Today that is the Diagram Waves Review page the

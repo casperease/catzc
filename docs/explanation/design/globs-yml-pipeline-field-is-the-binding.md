@@ -79,7 +79,7 @@ layout:
 
 ## Walkthrough
 
-1. **globs.yml.** The registry at `pwsh/Catzc.Base.Globs/configs/globs/globs.yml`, joined by its derived part `track-sets.yml`.
+1. **globs.yml.** The registry at `pwsh/Base.Globs/configs/globs/globs.yml`, joined by its derived part `track-sets.yml`.
    `GlobsConfig` reads it on load and rejects a layer that is not declared, an unknown key, or a `compose:` reference that does not resolve
    or forms a cycle. Only the bindings and the composition are drawn here.
 2. **`pwsh:`.** `layer: loose-fileset`, `pipeline: ci-pwsh`, `include: pwsh/**`. The GitHub workflow `.github/workflows/ci-pwsh.yml`

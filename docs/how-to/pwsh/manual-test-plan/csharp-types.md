@@ -38,7 +38,7 @@ The shipped C# types: they parse, compile, resolve, and the committed combined a
 
 ### 2. integrity (real repo) — Get-CSharpTypeDependency
 
-**Test file:** `pwsh/Catzc.Base.TypesSystem/tests/Get-CSharpTypeDependency.Tests.ps1` (L1), block `integrity (real repo)`.
+**Test file:** `pwsh/Base.TypesSystem/tests/Get-CSharpTypeDependency.Tests.ps1` (L1), block `integrity (real repo)`.
 
 **Guards:** every shipped C# type loads and declares its module namespace.
 
@@ -49,7 +49,7 @@ The shipped C# types: they parse, compile, resolve, and the committed combined a
 
 ### 3. never plans the live combined build for deletion (real repo, DryRun)
 
-**Test file:** `pwsh/Catzc.Base.TypesSystem/tests/Clear-ModuleTypeCache.Tests.ps1` (L1), block
+**Test file:** `pwsh/Base.TypesSystem/tests/Clear-ModuleTypeCache.Tests.ps1` (L1), block
 `never plans the live combined build for deletion (real repo, DryRun)`.
 
 **Guards:** the type-cache janitor never deletes the live combined types DLL.
@@ -75,7 +75,7 @@ sources build to.
 
 ### 5. integrity (shipped bcl.yml and the tracked solutions and projects)
 
-**Test file:** `pwsh/Catzc.Base.Languages/tests/types/BclConfig.Tests.ps1` (L0), block
+**Test file:** `pwsh/Base.Languages/tests/types/BclConfig.Tests.ps1` (L0), block
 `integrity (shipped bcl.yml and the tracked solutions and projects)`.
 
 **Guards:** The shipped `bcl.yml` loads as `BclConfig`, every host binding names an existing type source, and every tracked non-vendored
@@ -83,14 +83,14 @@ sources build to.
 
 ### 6. Test-BclReferences — the shipped bcl.yml over the real type sources
 
-**Test file:** `pwsh/Catzc.Base.QualityGates/tests/Test-BclReferences.Tests.ps1` (L1), block
+**Test file:** `pwsh/Base.QualityGates/tests/Test-BclReferences.Tests.ps1` (L1), block
 `Test-BclReferences — the shipped bcl.yml over the real type sources`.
 
 **Guards:** Every type source that uses `System.Management.Automation` has its `bcl.yml` row, and every row is live.
 
 ### 7. CodeMetaHead and the types hash agree on every C# type
 
-**Test file:** `pwsh/Catzc.Base.CodeMeta/tests/types/CodeMetaHead.Tests.ps1` (L2), block
+**Test file:** `pwsh/Base.CodeMeta/tests/types/CodeMetaHead.Tests.ps1` (L2), block
 `CodeMetaHead and the types hash agree on every C# type`.
 
 **Guards:** the bootstrap strip that hashes the types and `CodeMetaHead` read a C# head the same way (ADR-REPO-CODEMETA-CODEFILEHEAD).

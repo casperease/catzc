@@ -33,7 +33,7 @@ metadata:
    a code line whose long comment moved to a `docs/references/` comment page edits that page's "Above `…`" line too. A shared config
    (`file-meta.yml`, `generated-head.yml`, `glossary.yml`) is live for every session's next import, so its edit lands with its code in one
    pass and is parked in `out/` during a peer's burst, as is a `pwsh/*/types/*.cs` edit (every import compiles it), and a gate after a
-   `Format-Code` on C# (it moves the DLL key) runs in a fresh import; a root asset (`pwsh/Catzc.Base.RootConfig/assets/root/*`) too, which
+   `Format-Code` on C# (it moves the DLL key) runs in a fresh import; a root asset (`pwsh/Base.RootConfig/assets/root/*`) too, which
    every import's Build-RootConfig materialises, so its edit starts with a HOLD to every live peer. A script holding backslashes (Windows
    paths, regexes) is written with the Write tool, never a heredoc or echo, and an `out/` script carries the session's name, since peers'
    scripts share the folder; one reading `git show` sets `[Console]::OutputEncoding` to UTF-8; a path a bats test or shell script hands to

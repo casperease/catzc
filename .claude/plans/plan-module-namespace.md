@@ -6,14 +6,14 @@ plan:
   class: feature
   targets:
     [
-      pwsh/Catzc.Base.Variants/configs/variants.yml,
-      pwsh/Catzc.Base.Variants/types/VariantTrack.cs,
+      pwsh/Base.Variants/configs/variants.yml,
+      pwsh/Base.Variants/types/VariantTrack.cs,
       pwsh/.internal/assets/bootstrap/Import-AllModules.ps1,
       pwsh/.internal/assets/builder/Write-ModuleBuildOutput.ps1,
       pwsh/.internal/Catzc.Internal.Bootstrap.psm1,
-      pwsh/Catzc.Base.Globs/configs/file-kinds.yml,
-      pwsh/Catzc.Base.Maps/types/MapsMinimapPlaces.cs,
-      pwsh/Catzc.Base.Overlay/private/Get-LocalModuleViolation.ps1,
+      pwsh/Base.Globs/configs/file-kinds.yml,
+      pwsh/Base.Maps/types/MapsMinimapPlaces.cs,
+      pwsh/Base.Overlay/private/Get-LocalModuleViolation.ps1,
       docs/drs/design/tracks.md,
       docs/drs/principles/cats-and-catzc.md,
     ]
@@ -21,7 +21,7 @@ plan:
 
 # Module namespace: the track declares it, the disk drops it
 
-A pwsh module folder loses its `Catzc.` prefix on disk only: `pwsh/Catzc.Base.Git/` becomes `pwsh/Base.Git/`. The module keeps its full name
+A pwsh module folder loses its `Catzc.` prefix on disk only: `pwsh/Base.Git/` becomes `pwsh/Base.Git/`. The module keeps its full name
 `Catzc.Base.Git` everywhere else: the generated manifest, `Get-Module`, `-Module` arguments, C# namespaces, the type accelerators and the
 docs. The prefix moves from every folder name into one declaration on the `pwsh` track, the **namespace** of the track, so the full name is
 folder name joined to the track's namespace. It depends on `plan-track-model.md` (the track's data model); its steps land after that plan's

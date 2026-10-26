@@ -34,5 +34,5 @@ and free to change in place (ADR-REPO-CONTRACT-CURRENTVERSION). The tracked file
 
 - Should `Test-Plans` accept a new plan's missing master chunk line while `plan-master.md` is dirty in a peer session, reporting it as a
   pending step instead of a failure? Recommendation: yes, it blocks every solo session that lands a plan.
-- Should `js/catzc-file-icons` gain a short README naming where glyphs live and that the theme has no folder icons, so the next icon task
+- Should `js/file-icons` gain a short README naming where glyphs live and that the theme has no folder icons, so the next icon task
   skips the search? Recommendation: yes, one paragraph.

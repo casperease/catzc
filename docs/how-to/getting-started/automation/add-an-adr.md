@@ -7,7 +7,7 @@ it. The rules for what a decision record says and how it is shaped are the
 
 ## Steps
 
-1. **Pick the domain and the code.** The domain is the folder whose decisions this one belongs to, as `pwsh/Catzc.Base.Drs/configs/drs.yml`
+1. **Pick the domain and the code.** The domain is the folder whose decisions this one belongs to, as `pwsh/Base.Drs/configs/drs.yml`
    lists them; the code is the domain's prefix plus a segment that names the decision (`TDR-NORMALFORM`), each rule's code that plus one
    more segment.
 2. **Write the page** at `docs/drs/<domain-folder>/<kebab-title>.md`: the rule registry first, one normative summary per rule, then the

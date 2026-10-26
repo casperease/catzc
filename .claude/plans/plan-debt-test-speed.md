@@ -4,7 +4,7 @@ plan:
   value: medium
   reviewed: 2026-10-22
   class: feature
-  targets: [pwsh/Catzc.Base.QualityGates/tests/Test-Formatting.Tests.ps1]
+  targets: [pwsh/Base.QualityGates/tests/Test-Formatting.Tests.ps1]
 ---
 
 # Debt test speed: the slowest Pester files measured and fixed one at a time

@@ -6,9 +6,9 @@ plan:
   class: feature
   targets:
     [
-      pwsh/Catzc.Base.Languages,
-      pwsh/Catzc.Base.QualityGates,
-      pwsh/Catzc.Base.Contracts,
+      pwsh/Base.Languages,
+      pwsh/Base.QualityGates,
+      pwsh/Base.Contracts,
       contracts/catzc/0.1.0,
       python,
       go,
@@ -50,9 +50,9 @@ Every decision is a rule of [idiomatic-names](../../docs/drs/automation/idiomati
 ### 1. Wire it in
 
 Turn the gate on, last, when it is green; `Test-IdiomaticNames` reads the git index (ADR-AUTO-TRACKED), and the three folder renames are
-tracked (`python/catzc_diagrams/`, `python/tests/catzc_base_repository/`, `go/tests/catzcbaserepository/`):
+tracked (`python/diagrams/`, `python/tests/base_repository/`, `go/tests/baserepository/`):
 
-- [ ] `pwsh/Catzc.Base.Languages/configs/languages.yml`: add `Test-IdiomaticNames` to the `checks` of `powershell`, `python`, `go` and
+- [ ] `pwsh/Base.Languages/configs/languages.yml`: add `Test-IdiomaticNames` to the `checks` of `powershell`, `python`, `go` and
       `bash` (check: `Test-IdiomaticNames` reports no issue; `Invoke-TestFile` on `tests/types/LanguagesConfig.Tests.ps1`).
 
 ### 2. The repository normal form
@@ -64,5 +64,5 @@ L1 round trip in `ConvertTo-NormalName.Tests.ps1` passes once the user commits t
 
 - [idiomatic-names](../../docs/drs/automation/idiomatic-names.md), [command-contracts](../../docs/drs/repository/command-contracts.md),
   [api-contracts](../../docs/drs/repository/api-contracts.md)
-- `pwsh/Catzc.Base.Languages/types/LanguageNaming.cs`, `types/LanguagesConfig.cs` (`MisnamedPaths`), `configs/languages.yml`
-- `pwsh/Catzc.Base.QualityGates/Test-IdiomaticNames.ps1`, `Assert-IdiomaticNames.ps1`
+- `pwsh/Base.Languages/types/LanguageNaming.cs`, `types/LanguagesConfig.cs` (`MisnamedPaths`), `configs/languages.yml`
+- `pwsh/Base.QualityGates/Test-IdiomaticNames.ps1`, `Assert-IdiomaticNames.ps1`

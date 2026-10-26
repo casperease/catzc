@@ -31,7 +31,7 @@ says how to run a check.
 
 ### 1. Build-EnglishDictionary — committed dictionary drift guard
 
-**Test file:** `pwsh/Catzc.Base.QualityGates/tests/Build-EnglishDictionary.Tests.ps1` (L1), block
+**Test file:** `pwsh/Base.QualityGates/tests/Build-EnglishDictionary.Tests.ps1` (L1), block
 `Build-EnglishDictionary — committed dictionary drift guard`.
 
 **Guards:** The committed English word list matches its stamp and the pinned cspell version
@@ -39,21 +39,21 @@ says how to run a check.
 
 ### 2. SpellingOracle.CoinedFragments (shipped dictionary)
 
-**Test file:** `pwsh/Catzc.Base.QualityGates/tests/types/SpellingOracle.Tests.ps1` (L1), block
+**Test file:** `pwsh/Base.QualityGates/tests/types/SpellingOracle.Tests.ps1` (L1), block
 `SpellingOracle.CoinedFragments (shipped dictionary)`.
 
 **Guards:** The spelling oracle recognizes real words and flags coined fragments against the shipped dictionary.
 
 ### 3. Build-Glossary — generated glossary page
 
-**Test file:** `pwsh/Catzc.Base.Docs/tests/Build-Glossary.Tests.ps1` (L2), block `Build-Glossary — generated glossary page`.
+**Test file:** `pwsh/Base.Docs/tests/Build-Glossary.Tests.ps1` (L2), block `Build-Glossary — generated glossary page`.
 
 **Guards:** The generated docs/drs/glossary.md is current: `Test-GeneratedFiles -Generator Build-Glossary` reports no drift from the
 modules' configs/glossary.yml sources.
 
 ### 4. Repository spelling integrity
 
-**Test file:** `pwsh/Catzc.Base.QualityGates/tests/Test-Spelling.Tests.ps1` (L2), block `Repository spelling integrity`.
+**Test file:** `pwsh/Base.QualityGates/tests/Test-Spelling.Tests.ps1` (L2), block `Repository spelling integrity`.
 
 **Guards:** all in-scope repository content is spell-clean.
 
@@ -65,7 +65,7 @@ modules' configs/glossary.yml sources.
 
 ### 5. Build-TerminologyDictionary — real registry
 
-**Test file:** `pwsh/Catzc.Base.QualityGates/tests/Build-TerminologyDictionary.Tests.ps1` (L2), block
+**Test file:** `pwsh/Base.QualityGates/tests/Build-TerminologyDictionary.Tests.ps1` (L2), block
 `Build-TerminologyDictionary — real registry`.
 
 **Guards:** the checked-in terminology dictionaries reflect the authored registry.
@@ -78,7 +78,7 @@ modules' configs/glossary.yml sources.
 
 ### 6. Terminology registry integrity
 
-**Test file:** `pwsh/Catzc.Base.QualityGates/tests/Test-Terminology.Tests.ps1` (L2), block `Terminology registry integrity`.
+**Test file:** `pwsh/Base.QualityGates/tests/Test-Terminology.Tests.ps1` (L2), block `Terminology registry integrity`.
 
 **Guards:** the shipped terminology registry passes every `Test-Terminology` check.
 
@@ -89,21 +89,21 @@ modules' configs/glossary.yml sources.
 
 ### 7. Test-Glossary — real glossary sources
 
-**Test file:** `pwsh/Catzc.Base.Docs/tests/Test-Glossary.Tests.ps1` (L2), block `Test-Glossary — real glossary sources`.
+**Test file:** `pwsh/Base.Docs/tests/Test-Glossary.Tests.ps1` (L2), block `Test-Glossary — real glossary sources`.
 
 **Guards:** At least one glossary source exists, and the real sources pass every glossary check (G1–G5) over the real ADRs, tests, and
 tracked files.
 
 ### 8. Build-Glossary — shipped configs/drs.yml and types
 
-**Test file:** `pwsh/Catzc.Base.Docs/tests/Build-Glossary.Tests.ps1` (L1), block `Build-Glossary — shipped configs/drs.yml and types`.
+**Test file:** `pwsh/Base.Docs/tests/Build-Glossary.Tests.ps1` (L1), block `Build-Glossary — shipped configs/drs.yml and types`.
 
 **Guards:** Build-Glossary finds the domain registry and the C# type sources it stamps in the loaded module
 (ADR-AUTO-ASSETDEP-COVEREDBYREALTEST).
 
 ### 9. Build-TerminologyDictionary — shipped configs/terminology/
 
-**Test file:** `pwsh/Catzc.Base.QualityGates/tests/Build-TerminologyDictionary.Tests.ps1` (L1), block
+**Test file:** `pwsh/Base.QualityGates/tests/Build-TerminologyDictionary.Tests.ps1` (L1), block
 `Build-TerminologyDictionary — shipped configs/terminology/`.
 
 **Guards:** Build-TerminologyDictionary finds the registry it stamps in the loaded module (ADR-AUTO-ASSETDEP-COVEREDBYREALTEST).

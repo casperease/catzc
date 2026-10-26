@@ -46,7 +46,7 @@ Three things can sit in front matter, and only the first is a fact:
 
 ## Where each fact comes from
 
-Every imprinted kind is an entry of `pwsh/Catzc.Base.QualityGates/configs/file-meta.yml` with a `Get-<Kind>FileMetaFact` processor
+Every imprinted kind is an entry of `pwsh/Base.QualityGates/configs/file-meta.yml` with a `Get-<Kind>FileMetaFact` processor
 ([ADR-REPO-FILEMETA-METAKIND](../drs/repository/file-meta.md#rule-adr-repo-filemeta-metakind),
 [ADR-REPO-FILEMETA-SUBSCRIBEBYFUNCTION](../drs/repository/file-meta.md#rule-adr-repo-filemeta-subscribebyfunction)). A kind's id names its
 subscriber, so kind `drs-codes` calls `Get-DrsCodesFileMetaFact`, and renaming either means renaming both. Each kind derives from outside

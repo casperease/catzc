@@ -6,9 +6,9 @@ plan:
   class: feature
   targets:
     [
-      pwsh/Catzc.Base.Languages/New-PythonProject.ps1,
+      pwsh/Base.Languages/New-PythonProject.ps1,
       python/pyproject.toml,
-      python/catzc_diagrams/pyproject.toml,
+      python/diagrams/pyproject.toml,
       docs/drs/automation/python/python-test-artifacts.md,
     ]
 ---

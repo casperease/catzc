@@ -17,7 +17,7 @@ Supports FDR-CD-GLOBS-EVERYSETHASLAYER and FDR-CD-GLOBS-NOOVERLAPWITHINLAYER (im
 
 The gate `Test-GlobSetIndependence` takes every declared and derived globset, computes each one's own members, groups the sets by `Layer`,
 skips the `loose-fileset` group, and tests every pair inside the other groups for a shared file. Where a set's layer comes from therefore
-decides whether it is ever compared with anything. All paths below are under `pwsh/Catzc.Base.Globs/`.
+decides whether it is ever compared with anything. All paths below are under `pwsh/Base.Globs/`.
 
 ```yml drawio
 description:

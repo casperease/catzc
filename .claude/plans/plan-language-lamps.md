@@ -6,10 +6,10 @@ plan:
   class: feature
   targets:
     [
-      js/catzc-track-lamps,
-      pwsh/Catzc.Base.VSCode/configs/vscode-extensions.yml,
-      pwsh/Catzc.Base.VSCode/New-VSCodeSettings.ps1,
-      pwsh/Catzc.Base.Languages/configs/languages.yml,
+      js/track-lamps,
+      pwsh/Base.VSCode/configs/vscode-extensions.yml,
+      pwsh/Base.VSCode/New-VsCodeSettings.ps1,
+      pwsh/Base.Languages/configs/languages.yml,
       docs/drs/design/repository-filters.md,
     ]
 ---

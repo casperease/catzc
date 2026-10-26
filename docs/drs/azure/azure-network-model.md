@@ -63,7 +63,7 @@ environment must get a non-overlapping block, and the same block must be referen
 environment's network. If the ranges lived in each template's per-slot `configuration/[<customer>/]<env>.yml`, the plan would be duplicated
 across templates and drift — the exact failure [the data model](azure-data-model.md) avoids by giving every fact one source of truth.
 
-So the IP plan is a **single source of truth** sitting beside `azure.yml`: `pwsh/Catzc.Azure/configs/network.yml`. A template reads the
+So the IP plan is a **single source of truth** sitting beside `azure.yml`: `pwsh/Azure/configs/network.yml`. A template reads the
 right ranges at build time — through its PrePost prepare hook or a config address in its parameter file — so the central plan is read, never
 copied.
 

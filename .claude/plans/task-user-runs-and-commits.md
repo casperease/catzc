@@ -19,15 +19,15 @@ final full run last.
 
 ## Steps
 
-1. Commit `pwsh/Catzc.Base.Slides/Build-Diagrams.ps1`: one `Write-Message` line per folder for the minimap, render and sync stages, and the
-   total time on the closing line. Check: `Invoke-TestFile pwsh/Catzc.Base.Slides/tests/Build-Diagrams.Tests.ps1` passes.
+1. Commit `pwsh/Base.Slides/Build-Diagrams.ps1`: one `Write-Message` line per folder for the minimap, render and sync stages, and the
+   total time on the closing line. Check: `Invoke-TestFile pwsh/Base.Slides/tests/Build-Diagrams.Tests.ps1` passes.
 2. Edit `.claude/CLAUDE.md:26` to read "nothing internal reads or defaults to the track" (plan-listen-internal-readers.md). Check:
    `Test-AgentDefinitions` passes.
 3. Edit `.claude/CLAUDE.md`, the "Run PowerShell yourself" rule, to name
    `timeout <s> pwsh -NoProfile -File pwsh/.internal/assets/Invoke-CatzcCommand.ps1 "<cmd>"` in place of
    `pwsh -NoProfile -Command ". ./importer.ps1; <cmd>"` (plan-agent-shortcuts.md step 5). Check: `Test-AgentDefinitions` passes.
-4. Stage the idiomatic-names moves (`python/tests/catzc_base_repository/`, `go/tests/catzcbaserepository/`, and later
-   `python/catzc_diagrams/`): `Test-IdiomaticNames` reads the git index, so plan-idiomatic-names' gate-on step waits on it. Check:
+4. Stage the idiomatic-names moves (`python/tests/base_repository/`, `go/tests/baserepository/`, and later
+   `python/diagrams/`): `Test-IdiomaticNames` reads the git index, so plan-idiomatic-names' gate-on step waits on it. Check:
    `Test-IdiomaticNames` no longer lists the old folders.
 5. Cut `.claude/CLAUDE.md`, section Sub-agents, to the agent names and one clause each, and in the same edit name
    `docs/references/pwsh/index.md` on the `docs/references/` line as where a design round starts (plan-claude-diet.md steps 1-2). Check:
@@ -45,7 +45,7 @@ final full run last.
    `Catzc.Base.Environment/assets/Set-LocalPSModulePath`, `Catzc.Base.QualityGates/private/Invoke-PSScriptAnalyzerFormat`,
    `Catzc.Tooling.KeyHandler/{Import,Save}-PSReadLineKeyHandlerSet`, `Catzc.Base.VSCode/{Build,Install}-VSCodeExtension`,
    `Catzc.Base.VSCode/private/New-VSCodeExtensionFolder`, `Catzc.Base.VSCode/New-VSCode{Tasks,Settings,Launch,Extensions,PipelineSchema}`,
-   `Catzc.Base.Asserts/Assert-IsRunningInVSCode`, and `pwsh/.internal/tests/Test-IsRunningInVSCode.Tests.ps1`. Check: `git ls-files` lists
+   `Catzc.Base.Asserts/Assert-IsRunningInVSCode`, and `pwsh/.internal/tests/Test-IsRunningInVsCode.Tests.ps1`. Check: `git ls-files` lists
    no old spelling, and the L1 round trip in `ConvertTo-NormalName.Tests.ps1` passes.
 9. Commit the contracts normal form (plan-idiomatic-names). Re-stage the whole working tree first: the index holds stale partial copies
    (`MM` on `Get-CommandContract.ps1` and five private readers; `AD` on `ConvertTo-NormalFormContract.ps1` and its tests, deleted on disk).
@@ -58,9 +58,9 @@ final full run last.
    Inside them the 112 `Verb-Noun.command.yml` files are `verb_noun.command.yml`. Check: `git ls-files contracts` lists no `Catzc.` folder
    and `Test-Contracts` reports 0.
 10. Commit the git topic commands (plan-git-topic-commands, done and deleted; the hook's deny now matches an invocation only):
-    `pwsh/Catzc.Base.Git` (GitFlowConfig, `git.yml`, `Get-SyncPoint`, `Save-Topic`, `Sync-Topic`, `Push-Topic`, the L1 flow test), the VS
+    `pwsh/Base.Git` (GitFlowConfig, `git.yml`, `Get-SyncPoint`, `Save-Topic`, `Sync-Topic`, `Push-Topic`, the L1 flow test), the VS
     Code tasks, the `Assert-BashTimeout` deny, and the deletion of `Push-Dirty.ps1`, its test and its page. Check: `Invoke-TestFile` on
-    `pwsh/Catzc.Base.Git/tests/Push-Topic.Flow.Tests.ps1` passes.
+    `pwsh/Base.Git/tests/Push-Topic.Flow.Tests.ps1` passes.
 11. Edit `.claude/CLAUDE.md`, section Project structure: one line saying the `types/*.cs` files are written in BCL, a subset of .NET, hosted
     by pwsh (plan-bcl-language.md, the CLAUDE.md step). Check: `Test-AgentDefinitions` passes.
 12. The live proof of the Language bridge's setup-error step (plan-test-signal-proposals, done and deleted): run
@@ -107,7 +107,7 @@ final full run last.
     `Test-Links -Path docs/references/pwsh/CLAUDE.md`.
 21. plan-types-build-local step 9: one ci-pwsh pipeline run once `cache-types.yaml` lands. Check: the second run of a job restores the types
     cache (Cache@2 "Cache restored") and skips the DLL build.
-22. plan-file-limits: untrack the 2 `__pycache__/*.pyc` files under `python/tests/catzc_base_repository/` (`git rm --cached`). Check:
+22. plan-file-limits: untrack the 2 `__pycache__/*.pyc` files under `python/tests/base_repository/` (`git rm --cached`). Check:
     `git ls-files '*.pyc'` prints nothing.
 23. plan-vscode-extensions: rebuild and install the two new extensions (`Build-VsCodeExtension`, then `Install-VsCodeExtension`), reload VS
     Code, click a `/docs/drs/` link in a markdown file and open a coloured `out/**/*.log`. Check: the link opens its ADR and the log shows

@@ -7,7 +7,7 @@ template article; when in doubt, match `foundation.md` (the smallest complete ex
 
 Each article is also the **source** that its folder's generated `README.md` links to (module `Catzc.Base.Docs`; see
 [generated-readmes](../../drs/repository/generated-readmes.md)): the README is a filesystem link to the article, not a copy. The mapping
-from folder to source lives in `pwsh/Catzc.Base.Docs/configs/readme.yml`. Author links relative to _this_ directory — the docs tree is the
+from folder to source lives in `pwsh/Base.Docs/configs/readme.yml`. Author links relative to _this_ directory — the docs tree is the
 reading surface where they resolve; the README is a pointer to the article, not a second rendering.
 
 > **Time safeguard.** ALL Bash tool calls and pwsh processes by agent/Claude execution MUST run within a time safeguard: every foreground
@@ -54,6 +54,6 @@ An article cites ADRs (`../../drs/...`), sibling articles (`foundation.md`), and
 
 1. Copy `_template.md` to `<template>.md` and fill in the five parts.
 2. Add a row to the table in `index.md` (article link, one-line summary).
-3. Add it to `mappings:` in `pwsh/Catzc.Base.Docs/configs/readme.yml` so its README generates: `folder: infrastructure/templates/<name>` →
+3. Add it to `mappings:` in `pwsh/Base.Docs/configs/readme.yml` so its README generates: `folder: infrastructure/templates/<name>` →
    `source: docs/references/infrastructure/<template>.md`.
 4. Run the three gates above, then `. ./importer.ps1` to generate the README.

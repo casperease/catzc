@@ -33,7 +33,7 @@ check.
 
 ### 1. integrity (shipped tools.yml) — ToolsConfig
 
-**Test file:** `pwsh/Catzc.Base.Execution/tests/types/ToolsConfig.Tests.ps1` (L0), block `integrity (shipped tools.yml)`.
+**Test file:** `pwsh/Base.Execution/tests/types/ToolsConfig.Tests.ps1` (L0), block `integrity (shipped tools.yml)`.
 
 **Guards:** the shipped `tools.yml` conforms to its config type.
 
@@ -43,7 +43,7 @@ check.
 
 ### 2. shipped tools.yml (generic invariant)
 
-**Test file:** `pwsh/Catzc.Tooling.Core/tests/Get-ToolInstallOrder.Tests.ps1` (L0), block `shipped tools.yml (generic invariant)`.
+**Test file:** `pwsh/Tooling.Core/tests/Get-ToolInstallOrder.Tests.ps1` (L0), block `shipped tools.yml (generic invariant)`.
 
 **Guards:** the `tools.yml` dependency graph is acyclic and install order is valid.
 
@@ -54,7 +54,7 @@ check.
 
 ### 3. asset dependencies
 
-**Test file:** `pwsh/Catzc.Tooling.Core/tests/Get-ToolConfig.Tests.ps1` (L0), block `asset dependencies`.
+**Test file:** `pwsh/Tooling.Core/tests/Get-ToolConfig.Tests.ps1` (L0), block `asset dependencies`.
 
 **Guards:** the tooling's required asset files are present.
 
@@ -64,7 +64,7 @@ check.
 
 ### 4. structural validation
 
-**Test file:** `pwsh/Catzc.Tooling.Core/tests/Get-ToolConfig.Tests.ps1` (L0), block `structural validation`.
+**Test file:** `pwsh/Tooling.Core/tests/Get-ToolConfig.Tests.ps1` (L0), block `structural validation`.
 
 **Guards:** every `tools.yml` entry is well-formed.
 
@@ -76,7 +76,7 @@ check.
 
 ### 5. Install/Uninstall function coverage
 
-**Test file:** `pwsh/Catzc.Tooling.Core/tests/Get-ToolConfig.Tests.ps1` (L0), block `Install/Uninstall function coverage`.
+**Test file:** `pwsh/Tooling.Core/tests/Get-ToolConfig.Tests.ps1` (L0), block `Install/Uninstall function coverage`.
 
 **Guards:** every tool has install and uninstall functions.
 
@@ -86,7 +86,7 @@ check.
 
 ### 6. Asset dependencies (Toolchain)
 
-**Test file:** `pwsh/Catzc.Tooling.Toolchain/tests/Install-Dotnet.Tests.ps1` (L1), block `Install-Dotnet — shipped install scripts`.
+**Test file:** `pwsh/Tooling.Toolchain/tests/Install-Dotnet.Tests.ps1` (L1), block `Install-Dotnet — shipped install scripts`.
 
 **Guards:** the vendored .NET install scripts ship with the `Catzc.Tooling.Toolchain` module.
 
@@ -96,7 +96,7 @@ check.
 
 ### 7. Resolve-ToolExecutable on the shipped bash entry
 
-**Test file:** `pwsh/Catzc.Base.Execution/tests/Resolve-ToolExecutable.Tests.ps1` (L0), block
+**Test file:** `pwsh/Base.Execution/tests/Resolve-ToolExecutable.Tests.ps1` (L0), block
 `Resolve-ToolExecutable on the shipped bash entry`.
 
 **Guards:** The shipped tools.yml bash entry resolves through the executable probe and never accepts the WSL launcher (System32 or
@@ -104,7 +104,7 @@ WindowsApps bash.exe).
 
 ### 8. Get-EngineCaseTable — every shipped engine case table
 
-**Test file:** `pwsh/Catzc.Tooling.Core/tests/Get-EngineCaseTable.Tests.ps1` (L1), block
+**Test file:** `pwsh/Tooling.Core/tests/Get-EngineCaseTable.Tests.ps1` (L1), block
 `Get-EngineCaseTable — every shipped engine case table`.
 
 **Guards:** Every `tests/assets/engine-cases/*.yml` table fills every engine column (ExecutionEngines) for every case, or names why not
@@ -112,7 +112,7 @@ WindowsApps bash.exe).
 
 ### 9. Get-Inspiration over the shipped inspiration.yml
 
-**Test file:** `pwsh/Catzc.Tooling.Inspiration/tests/Get-Inspiration.Shipped.Tests.ps1` (L1), block
+**Test file:** `pwsh/Tooling.Inspiration/tests/Get-Inspiration.Shipped.Tests.ps1` (L1), block
 `Get-Inspiration over the shipped inspiration.yml`.
 
 **Guards:** the shipped `inspiration.yml` conforms to its config type and resolves on this machine.
@@ -124,7 +124,7 @@ WindowsApps bash.exe).
 
 ### 10. Catzc.Tooling.Listen over the shipped configs
 
-**Test file:** `pwsh/Catzc.Tooling.Listen/tests/Start-DocListener.Integrity.Tests.ps1` (L1), block
+**Test file:** `pwsh/Tooling.Listen/tests/Start-DocListener.Integrity.Tests.ps1` (L1), block
 `Catzc.Tooling.Listen over the shipped configs`.
 
 **Guards:** The shipped `listen.yml` loads as its typed model, names only declared file kinds, and watches a folder that exists.

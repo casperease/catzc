@@ -79,7 +79,7 @@ Decision records capture a decision so it can be cited and enforced. They follow
 [`docs/drs/index.md`](../../../drs/index.md) ("Authoring conventions") in full before writing, and copy the structure of an existing
 decision record. The essentials:
 
-1. **Pick the domain and a code.** Decision records are grouped into the domains `pwsh/Catzc.Base.Drs/configs/drs.yml` lists, each in its
+1. **Pick the domain and a code.** Decision records are grouped into the domains `pwsh/Base.Drs/configs/drs.yml` lists, each in its
    own folder under `docs/drs/`. The code is the domain's prefix plus a segment that names the decision (e.g. `TDR-NORMALFORM`), as
    [drs-code-language](../../../drs/repository/drs-code-language.md) sets out.
 2. **Create `docs/drs/<domain-folder>/<kebab-title>.md`.** Start with the rule registry: a `## Rules: <code>` section followed by one

@@ -18,7 +18,7 @@ metadata:
    names one slide (a diagram PNG) and nothing else; the plan's order is only a suggestion when asked.
 2. Read the named PNG yourself (drawio-look) and keep what you see; decide every fix for each logical or visual "this should be different"
    the read found, by the governing rules; never ask the user a question, and never leave a finding for them to decide.
-3. Land each fix in its file: the `yml drawio` block in its article, `<name>.drawio.yml`, `drawio.yml` or `python/catzc_diagrams/`; a
+3. Land each fix in its file: the `yml drawio` block in its article, `<name>.drawio.yml`, `drawio.yml` or `python/diagrams/`; a
    yml-language change keeps every declaration valid or corrects all of them (PDR-ONELIVE) and lands with its tests and its sentence in the
    slides decision record; the article's text block and walkthrough follow the markers.
 4. Redraw (`Build-Diagrams -Path`, or `declaration.py put` by name when the pair conflicts with HEAD), read the PNG again, and report in

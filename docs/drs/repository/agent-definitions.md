@@ -11,7 +11,7 @@ Each sub-agent is defined in one file, `.claude/agents/<name>.md`. Its front mat
 
 ### Rule ADR-REPO-AGENTS-BACKEDBYRULE
 
-Every sub-agent exists because a DRS rule supports it. It is registered in `pwsh/Catzc.Base.Docs/configs/agents.yml` with `supported_by`,
+Every sub-agent exists because a DRS rule supports it. It is registered in `pwsh/Base.Docs/configs/agents.yml` with `supported_by`,
 the rule citations (`ADR-<CODE>#<n>`) that justify it, and `checks`, the gate and check functions it runs or guards. An agent that runs and
 guards no catzc check declares `checks: []`, so the absence is stated, never implied.
 
@@ -87,7 +87,7 @@ Skill tool. A `skills` list never names either kind.
 
 ### Rule ADR-REPO-AGENTS-CAPABILITYREGISTERED
 
-Every capability is registered in `pwsh/Catzc.Base.Docs/configs/capabilities.yml` with `supported_by` and `checks`, the way an agent is in
+Every capability is registered in `pwsh/Base.Docs/configs/capabilities.yml` with `supported_by` and `checks`, the way an agent is in
 `agents.yml`; neither registry repeats the model floor or the `skills` list, which live in their one file each. `Test-AgentDefinitions`
 enforces rules 6 to 11 together with rules 1 to 5.
 

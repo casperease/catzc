@@ -151,9 +151,9 @@ loudly, hold guards on-demand, and make generated tracked files and the analyzer
 
 ### How this is enforced
 
-- **`Test-GeneratedFiles`** (`pwsh/Catzc.Base.QualityGates`) — compares every generated tracked file's `body_sha` with its body, the check
+- **`Test-GeneratedFiles`** (`pwsh/Base.QualityGates`) — compares every generated tracked file's `body_sha` with its body, the check
   that a commit copy matches the tree (ADR-AUTO-MATERIAL-GENERATEDFILESARECOMMITRESOURCES).
-- **`Test-Formatting`'s cache stamp tests** (`pwsh/Catzc.Base.QualityGates/tests`) — prove that every declared input of the analyzer's
+- **`Test-Formatting`'s cache stamp tests** (`pwsh/Base.QualityGates/tests`) — prove that every declared input of the analyzer's
   result cache invalidates it (ADR-AUTO-MATERIAL-SCOPEDSHACOMMITKEY, ADR-AUTO-MATERIAL-GENERATEDFILESARECOMMITRESOURCES).
 - **Code review** — a kind that keeps a copy across sessions without declaring commit, a stored or displayed resolved value, a silent
   fallback, or a guard that remembers a verdict is a finding against the rule it breaks.

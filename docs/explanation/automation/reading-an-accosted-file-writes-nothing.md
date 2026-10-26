@@ -67,11 +67,11 @@ observation on the drawing occurs in them verbatim
 
 ```yml accosted
 runs:
-  - - get_repository_file: { path: pwsh/Catzc.Base.Contracts/accosted/contracts.accosted.yml }
-    - get_accosted_file: { path: pwsh/Catzc.Base.Contracts/accosted/contracts.accosted.yml }
-    - get_repository_file: { path: pwsh/Catzc.Base.Contracts/accosted/contracts.accosted.yml }
+  - - get_repository_file: { path: pwsh/Base.Contracts/accosted/contracts.accosted.yml }
+    - get_accosted_file: { path: pwsh/Base.Contracts/accosted/contracts.accosted.yml }
+    - get_repository_file: { path: pwsh/Base.Contracts/accosted/contracts.accosted.yml }
   - - get_contract_check_results:
-    - get_accosted_file: { path: pwsh/Catzc.Base.Contracts/accosted/contracts.accosted.yml }
+    - get_accosted_file: { path: pwsh/Base.Contracts/accosted/contracts.accosted.yml }
     - get_contract_check_results:
 ```
 
@@ -79,12 +79,12 @@ The same runs in PowerShell, rendered from that file by `Get-AccostedFragment` (
 ([ADR-AUTO-ACCOSTED-ARTICLERENDERING](../../drs/automation/accosted-language.md#rule-adr-auto-accosted-articlerendering)):
 
 ```powershell
-Get-RepositoryFile -Path 'pwsh/Catzc.Base.Contracts/accosted/contracts.accosted.yml'
-Get-AccostedFile -Path 'pwsh/Catzc.Base.Contracts/accosted/contracts.accosted.yml'
-Get-RepositoryFile -Path 'pwsh/Catzc.Base.Contracts/accosted/contracts.accosted.yml'
+Get-RepositoryFile -Path 'pwsh/Base.Contracts/accosted/contracts.accosted.yml'
+Get-AccostedFile -Path 'pwsh/Base.Contracts/accosted/contracts.accosted.yml'
+Get-RepositoryFile -Path 'pwsh/Base.Contracts/accosted/contracts.accosted.yml'
 
 Get-ContractCheckResults
-Get-AccostedFile -Path 'pwsh/Catzc.Base.Contracts/accosted/contracts.accosted.yml'
+Get-AccostedFile -Path 'pwsh/Base.Contracts/accosted/contracts.accosted.yml'
 Get-ContractCheckResults
 ```
 

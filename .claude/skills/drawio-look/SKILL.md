@@ -16,7 +16,7 @@ metadata:
 # drawio-look
 
 1. Read the PNG with the Read tool; name every band, glyph, label, marker, edge and sidebar piece in the kit's vocabulary
-   (`python/catzc_diagrams/assets/STYLE.md`), in reading order left to right; an action or proof diagram (`about.lens`) adds the cause, the
+   (`python/diagrams/assets/STYLE.md`), in reading order left to right; an action or proof diagram (`about.lens`) adds the cause, the
    action, zones, effects, the proof box, transition pills and the one legend band.
 2. Name each colour against the dark tokens of STYLE.md; a colour outside the tokens, a dark label on the dark page, or text cut by its box
    is a finding naming the cell's label.

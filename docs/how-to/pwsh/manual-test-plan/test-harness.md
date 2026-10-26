@@ -27,7 +27,7 @@ The test runner, its vendored Pester, fixture-identity hygiene, and this plan's 
 
 ### 1. Manual test plan covers every integrity check
 
-**Test file:** `pwsh/Catzc.Base.QualityGates/tests/ManualTestPlan-Coverage.Tests.ps1` (L1), block
+**Test file:** `pwsh/Base.QualityGates/tests/ManualTestPlan-Coverage.Tests.ps1` (L1), block
 `Manual test plan covers every integrity check`.
 
 **Guards:** the manual test plan stays in sync with the tests (the drift guard for this plan).
@@ -41,38 +41,38 @@ The test runner, its vendored Pester, fixture-identity hygiene, and this plan's 
 
 ### 2. Test-LogicTestIdentity
 
-**Test file:** `pwsh/Catzc.Base.QualityGates/tests/Test-LogicTestIdentity.Tests.ps1` (L1), block `Test-LogicTestIdentity`.
+**Test file:** `pwsh/Base.QualityGates/tests/Test-LogicTestIdentity.Tests.ps1` (L1), block `Test-LogicTestIdentity`.
 
 **Guards:** The automation logic tests use neutral fixtures, not live identities (ADR-REPO-LANG) — no live-identity leaks in the tree.
 
 ### 3. Test-ConfigIdentityHygiene
 
-**Test file:** `pwsh/Catzc.Base.QualityGates/tests/Test-ConfigIdentityHygiene.Tests.ps1` (L1), block `Test-ConfigIdentityHygiene`.
+**Test file:** `pwsh/Base.QualityGates/tests/Test-ConfigIdentityHygiene.Tests.ps1` (L1), block `Test-ConfigIdentityHygiene`.
 
 **Guards:** The real shipped config stays identity-clean against the fixture-derived token set (no fixture-identity leak into shipped data).
 
 ### 4. Test-Automation (vendored Pester)
 
-**Test file:** `pwsh/Catzc.Base.QualityGates/tests/Test-Automation.Tests.ps1` (L1), block `Test-Automation (vendored Pester)`.
+**Test file:** `pwsh/Base.QualityGates/tests/Test-Automation.Tests.ps1` (L1), block `Test-Automation (vendored Pester)`.
 
 **Guards:** Test-Automation lazy-loads the vendored Pester from the active code root, and it is the version the session runs.
 
 ### 5. Test-InIsolation (vendored Pester)
 
-**Test file:** `pwsh/Catzc.Base.QualityGates/tests/Test-InIsolation.Tests.ps1` (L1), block `Test-InIsolation (vendored Pester)`.
+**Test file:** `pwsh/Base.QualityGates/tests/Test-InIsolation.Tests.ps1` (L1), block `Test-InIsolation (vendored Pester)`.
 
 **Guards:** Test-InIsolation lazy-loads the vendored Pester from the active code root, and it is the version the session runs.
 
 ### 6. Invoke-TestFile (real worker)
 
-**Test file:** `pwsh/Catzc.Base.QualityGates/tests/Invoke-TestFile.Tests.ps1` (L2), block `Invoke-TestFile (real worker)`.
+**Test file:** `pwsh/Base.QualityGates/tests/Invoke-TestFile.Tests.ps1` (L2), block `Invoke-TestFile (real worker)`.
 
 **Guards:** The manual single-check entry point runs a strict-hostile file green through the worker chain — harness parity
 (ADR-AUTO-TEST-FILEPARALLELISM).
 
 ### 7. worker execution (real pwsh through PesterRunner)
 
-**Test file:** `pwsh/Catzc.Base.QualityGates/tests/New-TestAutomationShardScript.Tests.ps1` (L2), block
+**Test file:** `pwsh/Base.QualityGates/tests/New-TestAutomationShardScript.Tests.ps1` (L2), block
 `worker execution (real pwsh through PesterRunner)`.
 
 **Guards:** A generated shard worker runs in a real pwsh and loads Pester from the active code root's `.vendor/Pester`.

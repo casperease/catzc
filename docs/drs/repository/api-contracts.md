@@ -233,7 +233,7 @@ instead of silently binding nothing.
 # contracts/catzc/0.1.0/contract.yml
 applies_to:
   catzc.tooling.github/workflow.yml.schema.json: [".github/workflows/*.yml"]
-  catzc.base.globs/file-kinds.yml: ["pwsh/Catzc.Base.Globs/configs/file-kinds.yml"]
+  catzc.base.globs/file-kinds.yml: ["pwsh/Base.Globs/configs/file-kinds.yml"]
 ```
 
 ### The name picks the kind

@@ -7,8 +7,8 @@ plan:
   targets:
     [
       pwsh/.internal/assets,
-      pwsh/Catzc.Base.Languages/Format-GeneratedFileHead.ps1,
-      pwsh/Catzc.Base.QualityGates/private/Get-GitAttributeValue.ps1,
+      pwsh/Base.Languages/Format-GeneratedFileHead.ps1,
+      pwsh/Base.QualityGates/private/Get-GitAttributeValue.ps1,
     ]
 ---
 

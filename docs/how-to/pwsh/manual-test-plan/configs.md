@@ -87,7 +87,7 @@ Config discovery, the config registry, and the shipped configs that are not Azur
 
 ### 1. Config conventions
 
-**Test file:** `pwsh/Catzc.Base.Config/tests/Config-Conventions.Tests.ps1` (L0), block `Config conventions`.
+**Test file:** `pwsh/Base.Config/tests/Config-Conventions.Tests.ps1` (L0), block `Config conventions`.
 
 **Guards:** every shipped config has a C# config type
 ([ADR-CONF-LOADING-CSHARPCONFIGTYPE](../../../drs/configuration/module-config-loading.md#rule-adr-conf-loading-csharpconfigtype)) and loads
@@ -100,7 +100,7 @@ through it.
 
 ### 2. discovery + raw default
 
-**Test file:** `pwsh/Catzc.Base.Config/tests/Get-Config.Tests.ps1` (L0), block `discovery + raw default`.
+**Test file:** `pwsh/Base.Config/tests/Get-Config.Tests.ps1` (L0), block `discovery + raw default`.
 
 **Guards:** a real config is discovered in its owning module and loads.
 
@@ -111,7 +111,7 @@ through it.
 
 ### 3. Config validator coverage
 
-**Test file:** `pwsh/Catzc.Base.ConfigExtensions/tests/Test-ConfigValidators.Tests.ps1` (L0), block `Config validator coverage`.
+**Test file:** `pwsh/Base.ConfigExtensions/tests/Test-ConfigValidators.Tests.ps1` (L0), block `Config validator coverage`.
 
 **Guards:** every PowerShell config validator — the extension point for a config that cannot ship a C# type
 ([ADR-CONF-LOADING-POWERSHELLVALIDATOR](../../../drs/configuration/module-config-loading.md#rule-adr-conf-loading-powershellvalidator)) —
@@ -124,32 +124,32 @@ belongs to a real config.
 
 ### 4. integrity (shipped variants.yml)
 
-**Test file:** `pwsh/Catzc.Base.Variants/tests/types/VariantsConfig.Tests.ps1` (L0), block `integrity (shipped variants.yml)`.
+**Test file:** `pwsh/Base.Variants/tests/types/VariantsConfig.Tests.ps1` (L0), block `integrity (shipped variants.yml)`.
 
 **Guards:** The shipped variants.yml loads through `VariantsConfig` — ado_naming is a known order and have_customers is false, all, or a
 valid customer-name list.
 
 ### 5. against a real shipped config
 
-**Test file:** `pwsh/Catzc.Base.Config/tests/Get-ConfigValue.Tests.ps1` (L0), block `against a real shipped config`.
+**Test file:** `pwsh/Base.Config/tests/Get-ConfigValue.Tests.ps1` (L0), block `against a real shipped config`.
 
 **Guards:** `Get-ConfigValue` resolves a real shipped config subtree end-to-end through the live `Get-Config`.
 
 ### 6. integrity (shipped vendor.yml)
 
-**Test file:** `pwsh/Catzc.Base.Vendor/tests/types/VendorConfig.Tests.ps1` (L0), block `integrity (shipped vendor.yml)`.
+**Test file:** `pwsh/Base.Vendor/tests/types/VendorConfig.Tests.ps1` (L0), block `integrity (shipped vendor.yml)`.
 
 **Guards:** The shipped vendor.yml loads through `VendorConfig` (known keys, a source that is set, a source URL that is absolute).
 
 ### 7. exporter.yml
 
-**Test file:** `pwsh/Catzc.Base.Exporter/tests/types/ExporterConfig.Tests.ps1` (L0), block `exporter.yml`.
+**Test file:** `pwsh/Base.Exporter/tests/types/ExporterConfig.Tests.ps1` (L0), block `exporter.yml`.
 
 **Guards:** The shipped exporter.yml loads through `ExporterConfig`.
 
 ### 8. registry self-validation (shipped configs.yml)
 
-**Test file:** `pwsh/Catzc.Base.Config/tests/Get-ConfigRegistry.Tests.ps1` (L1), block `Get-ConfigRegistry — shipped configs.yml`.
+**Test file:** `pwsh/Base.Config/tests/Get-ConfigRegistry.Tests.ps1` (L1), block `Get-ConfigRegistry — shipped configs.yml`.
 
 **Guards:** the shipped `configs.yml` registry itself validates.
 
@@ -159,32 +159,32 @@ valid customer-name list.
 
 ### 9. LinksConfig (shipped links.yml)
 
-**Test file:** `pwsh/Catzc.Base.QualityGates/tests/types/LinksConfig.Tests.ps1` (L1), block `LinksConfig (shipped links.yml)`.
+**Test file:** `pwsh/Base.QualityGates/tests/types/LinksConfig.Tests.ps1` (L1), block `LinksConfig (shipped links.yml)`.
 
 **Guards:** The shipped links.yml loads through Get-Config as a valid LinksConfig (wrap mode and line-limit settings for Format-Links).
 
 ### 10. integrity (shipped timeouts.yml)
 
-**Test file:** `pwsh/Catzc.Base.Timeouts/tests/types/TimeoutsConfig.Tests.ps1` (L0), block `integrity (shipped timeouts.yml)`.
+**Test file:** `pwsh/Base.Timeouts/tests/types/TimeoutsConfig.Tests.ps1` (L0), block `integrity (shipped timeouts.yml)`.
 
 **Guards:** The shipped timeouts.yml loads through `TimeoutsConfig`.
 
 ### 11. integrity (shipped go.yml)
 
-**Test file:** `pwsh/Catzc.Base.Languages/tests/types/GoConfig.Tests.ps1` (L0), block `integrity (shipped go.yml)`.
+**Test file:** `pwsh/Base.Languages/tests/types/GoConfig.Tests.ps1` (L0), block `integrity (shipped go.yml)`.
 
 **Guards:** The shipped go.yml loads through `GoConfig`.
 
 ### 12. integrity (shipped timeout-exemptions.yml)
 
-**Test file:** `pwsh/Catzc.Base.Timeouts/tests/types/TimeoutExemptionsConfig.Tests.ps1` (L0), block
+**Test file:** `pwsh/Base.Timeouts/tests/types/TimeoutExemptionsConfig.Tests.ps1` (L0), block
 `integrity (shipped timeout-exemptions.yml)`.
 
 **Guards:** The shipped timeout-exemptions.yml loads through `TimeoutExemptionsConfig`, and every GUID it names is a registered budget.
 
 ### 13. Build-AgentHook — Assert-BashTimeout parity with Get-TimeoutSeconds
 
-**Test file:** `pwsh/Catzc.Base.TypesSystem/tests/Build-AgentHook.Tests.ps1` (L1), block
+**Test file:** `pwsh/Base.TypesSystem/tests/Build-AgentHook.Tests.ps1` (L1), block
 `Build-AgentHook — Assert-BashTimeout parity with Get-TimeoutSeconds`.
 
 **Guards:** The published Bash hook, reading the shipped timeouts.yml, allows exactly the foreground and background limits
@@ -192,31 +192,31 @@ valid customer-name list.
 
 ### 14. integrity (shipped languages.yml)
 
-**Test file:** `pwsh/Catzc.Base.Languages/tests/types/LanguagesConfig.Tests.ps1` (L0), block `integrity (shipped languages.yml)`.
+**Test file:** `pwsh/Base.Languages/tests/types/LanguagesConfig.Tests.ps1` (L0), block `integrity (shipped languages.yml)`.
 
 **Guards:** The shipped languages.yml loads through `LanguagesConfig`.
 
 ### 15. integrity (shipped python.yml)
 
-**Test file:** `pwsh/Catzc.Base.Languages/tests/types/PythonConfig.Tests.ps1` (L0), block `integrity (shipped python.yml)`.
+**Test file:** `pwsh/Base.Languages/tests/types/PythonConfig.Tests.ps1` (L0), block `integrity (shipped python.yml)`.
 
 **Guards:** The shipped python.yml loads through `PythonConfig`, pinning pytest and ruff.
 
 ### 16. integrity (shipped bash.yml)
 
-**Test file:** `pwsh/Catzc.Base.Languages/tests/types/BashConfig.Tests.ps1` (L0), block `integrity (shipped bash.yml)`.
+**Test file:** `pwsh/Base.Languages/tests/types/BashConfig.Tests.ps1` (L0), block `integrity (shipped bash.yml)`.
 
 **Guards:** The shipped bash.yml loads through `BashConfig`, pinning the vendored bats-core release and its archive digest.
 
 ### 17. integrity (shipped maps.yml)
 
-**Test file:** `pwsh/Catzc.Base.Maps/tests/types/MapsConfig.Tests.ps1` (L1), block `integrity (shipped maps.yml)`.
+**Test file:** `pwsh/Base.Maps/tests/types/MapsConfig.Tests.ps1` (L1), block `integrity (shipped maps.yml)`.
 
 **Guards:** The shipped maps.yml loads through `MapsConfig`.
 
 ### 18. integrity (shipped parameter-consistency.yml)
 
-**Test file:** `pwsh/Catzc.Base.QualityGates/tests/types/ParameterConsistencyConfig.Tests.ps1` (L0), block
+**Test file:** `pwsh/Base.QualityGates/tests/types/ParameterConsistencyConfig.Tests.ps1` (L0), block
 `integrity (shipped parameter-consistency.yml)`.
 
 **Guards:** The shipped parameter-consistency.yml loads through `ParameterConsistencyConfig`, and every exempt parameter name carries its
@@ -224,35 +224,35 @@ reason.
 
 ### 19. the shipped registry seals the engine-intrinsic configs
 
-**Test file:** `pwsh/Catzc.Base.Config/tests/Get-Config.Tests.ps1` (L0), block `the shipped registry seals the engine-intrinsic configs`.
+**Test file:** `pwsh/Base.Config/tests/Get-Config.Tests.ps1` (L0), block `the shipped registry seals the engine-intrinsic configs`.
 
 **Guards:** The shipped configs.yml registry (`ConfigsConfig`) seals the engine-intrinsic configs: configs, dependencies, profiles,
 exporter, and glossary.
 
 ### 20. integrity (shipped source-conventions.yml)
 
-**Test file:** `pwsh/Catzc.Base.QualityGates/tests/types/SourceConventionsConfig.Tests.ps1` (L1), block
+**Test file:** `pwsh/Base.QualityGates/tests/types/SourceConventionsConfig.Tests.ps1` (L1), block
 `integrity (shipped source-conventions.yml)`.
 
 **Guards:** The shipped source-conventions.yml loads through `SourceConventionsConfig`.
 
 ### 21. CommentsConfig (shipped comments.yml)
 
-**Test file:** `pwsh/Catzc.Base.QualityGates/tests/types/CommentsConfig.Tests.ps1` (L1), block `CommentsConfig (shipped comments.yml)`.
+**Test file:** `pwsh/Base.QualityGates/tests/types/CommentsConfig.Tests.ps1` (L1), block `CommentsConfig (shipped comments.yml)`.
 
 **Guards:** The shipped comments.yml loads through Get-Config as a valid `CommentsConfig` (the comment-page languages, keep lists, pages map
 and excludes).
 
 ### 22. integrity (shipped file-carriers.yml)
 
-**Test file:** `pwsh/Catzc.Base.Languages/tests/types/FileCarriersConfig.Tests.ps1` (L0), block `integrity (shipped file-carriers.yml)`.
+**Test file:** `pwsh/Base.Languages/tests/types/FileCarriersConfig.Tests.ps1` (L0), block `integrity (shipped file-carriers.yml)`.
 
 **Guards:** The shipped file-carriers.yml loads through `FileCarriersConfig`, and every file language of languages.yml has a carrier entry
 (ADR-REPO-FILEMETA-HEADPOLICY).
 
 ### 23. resolves with the shipped registries, every language file to its entry
 
-**Test file:** `pwsh/Catzc.Base.QualityGates/tests/types/FileCarrierResolver.Tests.ps1` (L0), block
+**Test file:** `pwsh/Base.QualityGates/tests/types/FileCarrierResolver.Tests.ps1` (L0), block
 `resolves with the shipped registries, every language file to its entry`.
 
 **Guards:** `FileCarrierResolver`, built from the shipped file-carriers.yml and languages.yml, resolves a real file of each kind to its
@@ -260,7 +260,7 @@ carrier entry (ADR-REPO-FILEMETA-KINDSCOPE).
 
 ### 24. names the steps it may list, each with an adapter in Format-Code
 
-**Test file:** `pwsh/Catzc.Base.Languages/tests/types/LanguagesConfig.Tests.ps1` (L0), block
+**Test file:** `pwsh/Base.Languages/tests/types/LanguagesConfig.Tests.ps1` (L0), block
 `names the steps it may list, each with an adapter in Format-Code`.
 
 **Guards:** `LanguagesConfig.ImprintSteps` lists exactly the imprint steps `Format-Code` has an adapter for
@@ -268,14 +268,14 @@ carrier entry (ADR-REPO-FILEMETA-KINDSCOPE).
 
 ### 25. FolderWalkConfig (shipped folder-walk.yml)
 
-**Test file:** `pwsh/Catzc.Base.Folders/tests/types/FolderWalkConfig.Tests.ps1` (L1), block `FolderWalkConfig (shipped folder-walk.yml)`.
+**Test file:** `pwsh/Base.Folders/tests/types/FolderWalkConfig.Tests.ps1` (L1), block `FolderWalkConfig (shipped folder-walk.yml)`.
 
 **Guards:** The shipped folder-walk.yml loads through `FolderWalkConfig` and is readable at the global address
 `global.folder-walk.prune_vendor_in_searches`.
 
 ### 26. integrity (shipped languages.yml layout)
 
-**Test file:** `pwsh/Catzc.Base.Languages/tests/types/LanguageNaming.Tests.ps1` (L0), block
+**Test file:** `pwsh/Base.Languages/tests/types/LanguageNaming.Tests.ps1` (L0), block
 `integrity (shipped languages.yml layout)`.
 
 **Guards:** The shipped languages.yml layout places the five live folders the aspects were written with, and the shared tests folder is not
@@ -283,32 +283,32 @@ live (ADR-AUTO-MODULE-EXISTSBYLAYOUT).
 
 ### 27. SlidesConfig (shipped slides.yml)
 
-**Test file:** `pwsh/Catzc.Base.Slides/tests/types/SlidesConfig.Tests.ps1` (L1), block `SlidesConfig (shipped slides.yml)`.
+**Test file:** `pwsh/Base.Slides/tests/types/SlidesConfig.Tests.ps1` (L1), block `SlidesConfig (shipped slides.yml)`.
 
 **Guards:** The shipped slides.yml loads through `SlidesConfig` and points at the kit.
 
 ### 28. RungsConfig (shipped rungs.yml)
 
-**Test file:** `pwsh/Catzc.Base.Flow/tests/types/RungsConfig.Tests.ps1` (L1), block `RungsConfig (shipped rungs.yml)`.
+**Test file:** `pwsh/Base.Flow/tests/types/RungsConfig.Tests.ps1` (L1), block `RungsConfig (shipped rungs.yml)`.
 
 **Guards:** The shipped rungs.yml loads through `RungsConfig` (FDR-CD-RUNGSREGISTRY).
 
 ### 29. ImporterConfig (shipped importer.yml)
 
-**Test file:** `pwsh/Catzc.Base.ModuleSystem/tests/types/ImporterConfig.Tests.ps1` (L1), block `ImporterConfig (shipped importer.yml)`.
+**Test file:** `pwsh/Base.ModuleSystem/tests/types/ImporterConfig.Tests.ps1` (L1), block `ImporterConfig (shipped importer.yml)`.
 
 **Guards:** The shipped importer.yml loads through `ImporterConfig` (ADR-AUTO-IMPORTER-DECIDESMIX).
 
 ### 30. RungsConfig declared ladder
 
-**Test file:** `pwsh/Catzc.Base.Flow/tests/types/RungsConfig.Tests.ps1` (L1), block `RungsConfig declared ladder`.
+**Test file:** `pwsh/Base.Flow/tests/types/RungsConfig.Tests.ps1` (L1), block `RungsConfig declared ladder`.
 
 **Guards:** An omitted rungs key takes the declared ladder in climbing order, main-uat to prod, each with its environment, gate and rules
 (ADR-AUTO-DEFAULT-ONERESOLUTIONORDER).
 
 ### 31. Get-AccostedFile over the shipped contracts.accosted.yml
 
-**Test file:** `pwsh/Catzc.Base.Contracts/tests/Get-AccostedFile.Integrity.Tests.ps1` (L1), block
+**Test file:** `pwsh/Base.Contracts/tests/Get-AccostedFile.Integrity.Tests.ps1` (L1), block
 `Get-AccostedFile over the shipped contracts.accosted.yml`.
 
 **Guards:** the shipped accosted-contracts file loads as its typed model.
@@ -320,7 +320,7 @@ live (ADR-AUTO-MODULE-EXISTSBYLAYOUT).
 
 ### 32. integrity (shipped markdownlint.yml)
 
-**Test file:** `pwsh/Catzc.Base.QualityGates/tests/types/MarkdownlintConfig.Tests.ps1` (L0), block `integrity (shipped markdownlint.yml)`.
+**Test file:** `pwsh/Base.QualityGates/tests/types/MarkdownlintConfig.Tests.ps1` (L0), block `integrity (shipped markdownlint.yml)`.
 
 **Guards:** the shipped markdownlint.yml loads and takes the declared default.
 
@@ -330,7 +330,7 @@ live (ADR-AUTO-MODULE-EXISTSBYLAYOUT).
 
 ### 33. Build-AgentHook — no package feed reaches a hook build
 
-**Test file:** `pwsh/Catzc.Base.TypesSystem/tests/Build-AgentHook.Tests.ps1` (L2), block
+**Test file:** `pwsh/Base.TypesSystem/tests/Build-AgentHook.Tests.ps1` (L2), block
 `Build-AgentHook — no package feed reaches a hook build`.
 
 **Guards:** a hook build contacts no package feed, because NuGet reads its config from the project's folder up and finds the generated root
@@ -343,7 +343,7 @@ config's cleared feeds alone.
 
 ### 34. Get-ChangeCheckPlan — the shipped languages.yml and plans.yml
 
-**Test file:** `pwsh/Catzc.Base.QualityGates/tests/Get-ChangeCheckPlan.Tests.ps1` (L1), block
+**Test file:** `pwsh/Base.QualityGates/tests/Get-ChangeCheckPlan.Tests.ps1` (L1), block
 `Get-ChangeCheckPlan — the shipped languages.yml and plans.yml`.
 
 **Guards:** a quality gate that governs one folder is given only the changed files under it.
@@ -356,7 +356,7 @@ config's cleared feeds alone.
 
 ### 35. Get-FileLimit (shipped registry)
 
-**Test file:** `pwsh/Catzc.Base.FileLimits/tests/Get-FileLimit.Tests.ps1` (L1), block `Get-FileLimit (shipped registry)`.
+**Test file:** `pwsh/Base.FileLimits/tests/Get-FileLimit.Tests.ps1` (L1), block `Get-FileLimit (shipped registry)`.
 
 **Guards:** every language the shipped registry declares resolves to a file-limits class.
 
@@ -366,7 +366,7 @@ config's cleared feeds alone.
 
 ### 36. FileLimitsConfig (shipped file-limits.yml)
 
-**Test file:** `pwsh/Catzc.Base.FileLimits/tests/types/FileLimitsConfig.Tests.ps1` (L1), block `FileLimitsConfig (shipped file-limits.yml)`.
+**Test file:** `pwsh/Base.FileLimits/tests/types/FileLimitsConfig.Tests.ps1` (L1), block `FileLimitsConfig (shipped file-limits.yml)`.
 
 **Guards:** the shipped file-limits.yml loads as its type and gives the FunctionLength rule the declared body length.
 
@@ -377,7 +377,7 @@ config's cleared feeds alone.
 
 ### 37. TrackTypesConfig — the shipped track types
 
-**Test file:** `pwsh/Catzc.Base.Variants/tests/types/TrackTypesConfig.Tests.ps1` (L1), block `TrackTypesConfig — the shipped track types`.
+**Test file:** `pwsh/Base.Variants/tests/types/TrackTypesConfig.Tests.ps1` (L1), block `TrackTypesConfig — the shipped track types`.
 
 **Guards:** the shipped track types declare the output type as a holder that admits no module type.
 

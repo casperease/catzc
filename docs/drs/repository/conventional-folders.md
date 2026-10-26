@@ -315,7 +315,7 @@ The root is a closed set of folders, each with a fixed meaning. The **Kind** col
 and each has its own conventional sub-layout:
 
 **`docs/`** holds five folders. `adr/` is the Architecture Decision Records, one subfolder per domain declared in
-`pwsh/Catzc.Base.Drs/configs/drs.yml`: `thesis/`, `principles/`, `process/`, `design/`, `flow/`, `automation/`, `pwsh/`, `configuration/`,
+`pwsh/Base.Drs/configs/drs.yml`: `thesis/`, `principles/`, `process/`, `design/`, `flow/`, `automation/`, `pwsh/`, `configuration/`,
 `ado/`, `github/`, `azure/`, `repository/` (this ADR), and `research/`. Its `index.md` is generated from that registry and describes each
 domain, so the registry — not this paragraph — is the authoritative list of domains. `references/` holds the authored reference articles,
 including the sources the generated READMEs are copied from ([generated-readmes](generated-readmes.md)) and the DORA research reference
@@ -470,7 +470,7 @@ organize content — the internal structure is freeform. The module's own config
 **`configs/`** holds the module's own internal configuration — the checked-in YAML a module loads to configure its own behaviour. Each entry
 is a flat, kebab-case `.yml` file (`<kebab-name>.yml`, never `.yaml`); the folder is flat, with no subdirectories. Module functions read
 these files through `Get-Config`, which locates them under the module's folder in the active code root (in source mode,
-`Get-CatzcModuleRoot -ChildPath 'configs/tools.yml'` in `Catzc.Base.Execution` resolves to `pwsh/Catzc.Base.Execution/configs/tools.yml`). A
+`Get-CatzcModuleRoot -ChildPath 'configs/tools.yml'` in `Catzc.Base.Execution` resolves to `pwsh/Base.Execution/configs/tools.yml`). A
 module's own config goes in `configs/`, and `assets/` is reserved for templates, scripts, schemas, fixtures, and other consumable assets.
 Live examples: `Catzc.Base.Execution/configs/tools.yml`, `Catzc.Base.ModuleSystem/configs/dependencies.yml`,
 `Catzc.Azure.DevOps/configs/{ado,pipeline-env}.yml`, `Catzc.Azure/configs/{azure,network}.yml`. This is enforced by

@@ -18,7 +18,7 @@ skills: [test-speed, catzc-run, catzc-check, catzc-subset, git-readonly, report-
 
 Make the suite faster one measured file at a time; every test keeps proving exactly what it proved before.
 
-1. Read the roofs from `pwsh/Catzc.Base.Timeouts/configs/timeouts.yml` (`tests.run_seconds`, `tests.level_ms`,
+1. Read the roofs from `pwsh/Base.Timeouts/configs/timeouts.yml` (`tests.run_seconds`, `tests.level_ms`,
    `limits.devbox.bash.background`) and quote them.
 2. Measure from the latest run under `out/test-automation/<run>/` (`results-shard-*.xml`, `rows-shard-*.json`): per-file, per-module and
    per-shard seconds, the slowest 25 tests with tier, every test over its tier's `level_ms`; write the table to the report before changing

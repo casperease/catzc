@@ -69,8 +69,8 @@ observation on the drawing occurs in them verbatim
 
 ```yml accosted
 runs:
-  - - get_repository_file: { path: pwsh/Catzc.Base.QualityGates/assets/english.txt.gz }
-  - - get_repository_file: { path: pwsh/Catzc.Base.QualityGates/assets/english.stamp }
+  - - get_repository_file: { path: pwsh/Base.QualityGates/assets/english.txt.gz }
+  - - get_repository_file: { path: pwsh/Base.QualityGates/assets/english.stamp }
   - - test_generated_files: { generator: Build-EnglishDictionary }
 ```
 
@@ -78,9 +78,9 @@ The same runs in PowerShell, rendered from that file by `Get-AccostedFragment`, 
 ([ADR-AUTO-ACCOSTED-ARTICLERENDERING](../../drs/automation/accosted-language.md#rule-adr-auto-accosted-articlerendering)):
 
 ```powershell
-Get-RepositoryFile -Path 'pwsh/Catzc.Base.QualityGates/assets/english.txt.gz'
+Get-RepositoryFile -Path 'pwsh/Base.QualityGates/assets/english.txt.gz'
 
-Get-RepositoryFile -Path 'pwsh/Catzc.Base.QualityGates/assets/english.stamp'
+Get-RepositoryFile -Path 'pwsh/Base.QualityGates/assets/english.stamp'
 
 Test-GeneratedFiles -Generator 'Build-EnglishDictionary'
 ```

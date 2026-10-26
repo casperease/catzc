@@ -8,7 +8,7 @@ about:
     - ADR-REPO-README-AUTHOREDSOURCES
     - DDR-VISUAL-ACTIONISALENS
   lens: action
-  proves: pwsh/Catzc.Base.Contracts/accosted/contract-reference.accosted.yml
+  proves: pwsh/Base.Contracts/accosted/contract-reference.accosted.yml
 content:
   title: Building the contract reference writes one page per unit
   kind: explanation

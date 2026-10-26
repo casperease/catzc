@@ -3,7 +3,7 @@ plan:
   status: active
   value: medium
   reviewed: 2026-10-25
-  targets: [pwsh/Catzc.Base.VSCode, pwsh/Catzc.Base.Languages/configs/languages.yml]
+  targets: [pwsh/Base.VSCode, pwsh/Base.Languages/configs/languages.yml]
 ---
 
 # VS Code extensions: recommend the minimum, replace what cats tooling already does

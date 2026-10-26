@@ -9,7 +9,7 @@ about:
     - ADR-AUTO-PY-EVERYFILETYPECHECKED
     - ADR-AUTO-IDIOM-LANGUAGEIDIOM
   lens: action
-  proves: pwsh/Catzc.Base.Languages/accosted/python-workspace.accosted.yml
+  proves: pwsh/Base.Languages/accosted/python-workspace.accosted.yml
 content:
   title: One command lays out the Python workspace that uv handles
   kind: explanation
@@ -28,7 +28,7 @@ content:
       where: local
       show: words
       says: The diagram kit's member file is rendered beside its code
-      proves: { get_repository_file: { path: python/catzc_diagrams/pyproject.toml } }
+      proves: { get_repository_file: { path: python/diagrams/pyproject.toml } }
     - id: effect-kind
       zone: 2
       where: local
@@ -41,7 +41,7 @@ content:
       where: local
       show: words
       says: The member file belongs to the Python language
-      proves: { get_file_language: { path: python/catzc_diagrams/pyproject.toml } }
+      proves: { get_file_language: { path: python/diagrams/pyproject.toml } }
       after: effect-member
     - id: effect-drift
       zone: 2

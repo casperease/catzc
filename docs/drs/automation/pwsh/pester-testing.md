@@ -197,12 +197,12 @@ A hermetic logic test (both seams isolated, fixture identities):
 Describe 'Get-AzureEnvironment' -Tag 'L1', 'logic' {
     BeforeEach {
         Mock Get-BicepTemplatesRoot -ModuleName Catzc.Azure.Templates {
-            Join-Path (Get-RepositoryRoot) 'pwsh/Catzc.Azure.Templates/tests/assets/templates'
+            Join-Path (Get-RepositoryRoot) 'pwsh/Azure.Templates/tests/assets/templates'
         }
         # Redirect the 'azure' config to the fixture file via the discovery seam.
         Mock Resolve-ConfigEntry {
             @{ Name = 'azure'; Module = 'Catzc.Azure.Templates'
-               Path = Join-Path (Get-RepositoryRoot) 'pwsh/Catzc.Azure.Templates/tests/assets/config/azure.yml' }
+               Path = Join-Path (Get-RepositoryRoot) 'pwsh/Azure.Templates/tests/assets/config/azure.yml' }
         } -ParameterFilter { $Config -eq 'azure' } -ModuleName Catzc.Base.Config
     }
     It 'resolves the environment identity against a named subscription' {
@@ -370,7 +370,7 @@ them as Pester tests.
   `InModuleScope` block's parameter into a `{ ... } | Should -Throw` block nested inside it (probed on PSScriptAnalyzer 1.25.0), so the call
   that uses the parameter sits inside the throw block,
   `{ InModuleScope <Module> -Parameters @{ ... } { param($Entry) ... } } | Should -Throw`, and needs no `SuppressMessageAttribute` (the
-  shape of the `throws when the build's entry does not exist` case in `pwsh/Catzc.Base.Languages/tests/Get-EngineContract.Tests.ps1`).
+  shape of the `throws when the build's entry does not exist` case in `pwsh/Base.Languages/tests/Get-EngineContract.Tests.ps1`).
 - **Cold-import isolation belongs in a child process, not an in-process runspace.** A fresh runspace looks like cheap isolation, but env
   vars are process-global — the importer's `$env:RepositoryRoot`/`$env:PSModulePath` writes leak into the parent (breaking the real
   session's lazy Pester/PSScriptAnalyzer resolution) — and a loaded assembly cannot be unloaded, so the sandbox's `powershell-yaml` DLL

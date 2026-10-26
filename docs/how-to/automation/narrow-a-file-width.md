@@ -40,6 +40,6 @@ at its pipes and commas. `Format-Code` keeps the result in the language's format
 
 ## Change a class's width
 
-The widths, their bounds and the per-language overrides are declared once in `pwsh/Catzc.Base.FileLimits/configs/file-limits.yml`.
+The widths, their bounds and the per-language overrides are declared once in `pwsh/Base.FileLimits/configs/file-limits.yml`.
 `Build-WidthConfigs` renders `.editorconfig`, the prettier and the markdownlint widths from that one declaration at the next import, so a
 change lands in one place and every tool follows it.

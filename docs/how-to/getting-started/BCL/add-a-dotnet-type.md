@@ -29,7 +29,7 @@ is in [native-csharp-types](../../../drs/automation/BCL/native-csharp-types.md);
 
 ## Example: a plain result type
 
-This is `pwsh/Catzc.Base.Execution/types/CliResult.cs` — the object `Invoke-Executable -PassThru` returns. Note the file-scoped
+This is `pwsh/Base.Execution/types/CliResult.cs` — the object `Invoke-Executable -PassThru` returns. Note the file-scoped
 `namespace Catzc.Base.Execution;` matching the module, and the filename matching the class.
 
 ```csharp

@@ -3,7 +3,7 @@ about:
   adrs: [ADR-AUTO-MODULE-EXISTSBYLAYOUT, ADR-REPO-LINKS-EVERYLINKHASADIRECTION, DDR-VISUAL-ZOOMISANAXIS]
   lens: implementation
   zoom: C4
-  point: pwsh/Catzc.Base.Config
+  point: pwsh/Base.Config
 content:
   title: The config module's tracked files, by kind
   kind: explanation

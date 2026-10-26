@@ -6,8 +6,8 @@ plan:
   class: meta
   targets:
     [
-      pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml,
-      pwsh/Catzc.Base.Variants/configs/track-types.yml,
+      pwsh/Base.ModuleSystem/configs/glossary.yml,
+      pwsh/Base.Variants/configs/track-types.yml,
       docs/how-to/automation/sort-an-import.md,
       .claude/CLAUDE.md,
     ]

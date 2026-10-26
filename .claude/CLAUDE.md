@@ -64,10 +64,10 @@ Which catzc ADR decides each aspect you might take an idea for:
 ## Sub-agents
 
 Sub-agent definitions live in `.claude/agents/<name>.md`. Every agent exists because an ADR rule supports it, and is mapped to the gates and
-checks it runs or guards; the registry is `pwsh/Catzc.Base.Docs/configs/agents.yml`, and `Test-AgentDefinitions` keeps the files, the
+checks it runs or guards; the registry is `pwsh/Base.Docs/configs/agents.yml`, and `Test-AgentDefinitions` keeps the files, the
 registry, and this list in step (`ADR-REPO-AGENTS`, [agent-definitions](../docs/drs/repository/agent-definitions.md)). Every agent is a
 robot: a body of at most 20 lines on a named model, loading its shared know-how from capabilities, `.claude/skills/<domain>-<job>/SKILL.md`
-files of at most 10 lines with a model floor, registered in `pwsh/Catzc.Base.Docs/configs/capabilities.yml`. Every robot and capability
+files of at most 10 lines with a model floor, registered in `pwsh/Base.Docs/configs/capabilities.yml`. Every robot and capability
 reads the AI agent contract first, [ADR-REPO-AI](../docs/drs/repository/ai-agent-contract.md); it is named once, here and as `contracts` in
 `agents.yml`, never in a file's front matter.
 
@@ -137,7 +137,7 @@ reads the AI agent contract first, [ADR-REPO-AI](../docs/drs/repository/ai-agent
   `timeout: 3000`; longer work is `run_in_background: true` behind a `timeout <seconds>` prefix (at most 360 s) around **one** command, no
   `cd … &&`, pipes or `;`, with multi-step work in a script under `out/`. Exit 124 means the safeguard stopped it. The hook
   `.claude/hooks/Assert-BashTimeout/` denies a call that breaks this and logs it to `out/time-safeguard.log`. Work that legitimately needs
-  longer gets its limit in `pwsh/Catzc.Base.Timeouts/configs/timeouts.yml` or a command's `TimeLimit`, never a workaround; a denial is
+  longer gets its limit in `pwsh/Base.Timeouts/configs/timeouts.yml` or a command's `TimeLimit`, never a workaround; a denial is
   raised (to the user, or a subagent's coordinator), never retried larger.
 - **Probe with the fastest runner that can answer:** plain bash (`cat`, `ls`, `grep`, `git`) or Read/Grep/Glob for state; `pwsh -NoProfile`
   without the importer when only PowerShell is needed; `. ./importer.ps1` only for a catzc command, in the background.

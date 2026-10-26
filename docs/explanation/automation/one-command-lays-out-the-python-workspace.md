@@ -6,7 +6,7 @@ A maintainer adds a Python folder; one command renders the uv workspace, the tre
 1  A maintainer adds a Python folder   the cause: a new Python folder needs its place in the workspace
 2  new_python_project                                the action: one command, in the contract form
 3  The workspace root                                zone 1, local: get_repository_file shows python/pyproject.toml
-4  The kit's member file                             zone 1, local: get_repository_file shows python/catzc_diagrams/pyproject.toml
+4  The kit's member file                             zone 1, local: get_repository_file shows python/diagrams/pyproject.toml
 5  A known file kind                                 zone 2, local, after 3: get_path_file_type names the root file's kind
 6  The Python language                               zone 2, local, after 4: get_file_language puts the member's file in Python
 7  The root-config drift check                        zone 3, local, after 3: test_generated_files sees no drift for Build-RootConfig
@@ -55,7 +55,7 @@ sidebar.
    ([ADR-AUTO-PY-ONEPYTHONVERSION](../../drs/automation/python/python-test-artifacts.md#rule-adr-auto-py-onepythonversion),
    [ADR-AUTO-UVPY-UVHANDLESPYTHON](../../drs/automation/uv-python-handler.md#rule-adr-auto-uvpy-uvhandlespython)).
 4. **The kit's member file.** In the same zone, the same run renders a member file per Python folder; the diagram kit's own,
-   `python/catzc_diagrams/pyproject.toml`, is the one shown. The two files are parallel effects of one run.
+   `python/diagrams/pyproject.toml`, is the one shown. The two files are parallel effects of one run.
 5. **A known file kind.** The second zone holds what the rendered files cause. A file in the tree is classified by the repository's file
    kinds, and `get_path_file_type` on the root file names its kind; this follows the root, so the edge comes from it.
 6. **The Python language.** The member file belongs to the Python language, which is how every Python quality gate finds it:
@@ -78,9 +78,9 @@ observation on the drawing occurs in them verbatim
 ```yml accosted
 runs:
   - - get_repository_file: { path: python/pyproject.toml }
-  - - get_repository_file: { path: python/catzc_diagrams/pyproject.toml }
+  - - get_repository_file: { path: python/diagrams/pyproject.toml }
   - - get_path_file_type: { path: python/pyproject.toml }
-  - - get_file_language: { path: python/catzc_diagrams/pyproject.toml }
+  - - get_file_language: { path: python/diagrams/pyproject.toml }
   - - test_generated_files: { generator: Build-RootConfig }
   - - test_python_types:
   - - test_formatting: { language: python }
@@ -92,11 +92,11 @@ The same runs in PowerShell, rendered from that file by `Get-AccostedFragment`, 
 ```powershell
 Get-RepositoryFile -Path 'python/pyproject.toml'
 
-Get-RepositoryFile -Path 'python/catzc_diagrams/pyproject.toml'
+Get-RepositoryFile -Path 'python/diagrams/pyproject.toml'
 
 Get-PathFileType -Path 'python/pyproject.toml'
 
-Get-FileLanguage -Path 'python/catzc_diagrams/pyproject.toml'
+Get-FileLanguage -Path 'python/diagrams/pyproject.toml'
 
 Test-GeneratedFiles -Generator 'Build-RootConfig'
 

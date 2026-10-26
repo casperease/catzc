@@ -51,7 +51,7 @@ of the [manual test plan](../manual-test-plan.md), which says how to run a check
 
 ### 1. integrity (shipped config) — DependenciesConfig
 
-**Test file:** `pwsh/Catzc.Base.ModuleSystem/tests/types/DependenciesConfig.Tests.ps1` (L0), block `integrity (shipped config)`.
+**Test file:** `pwsh/Base.ModuleSystem/tests/types/DependenciesConfig.Tests.ps1` (L0), block `integrity (shipped config)`.
 
 **Guards:** the shipped `dependencies.yml` is internally consistent.
 
@@ -62,7 +62,7 @@ of the [manual test plan](../manual-test-plan.md), which says how to run a check
 
 ### 2. Get-FunctionDependency
 
-**Test file:** `pwsh/Catzc.Base.ModuleSystem/tests/Get-FunctionDependency.Tests.ps1` (L0), block `Get-FunctionDependency`.
+**Test file:** `pwsh/Base.ModuleSystem/tests/Get-FunctionDependency.Tests.ps1` (L0), block `Get-FunctionDependency`.
 
 **Guards:** cross-module function dependencies are correctly identified.
 
@@ -72,7 +72,7 @@ of the [manual test plan](../manual-test-plan.md), which says how to run a check
 
 ### 3. Get-ModuleDependency
 
-**Test file:** `pwsh/Catzc.Base.ModuleSystem/tests/Get-ModuleDependency.Tests.ps1` (L0), block `Get-ModuleDependency`.
+**Test file:** `pwsh/Base.ModuleSystem/tests/Get-ModuleDependency.Tests.ps1` (L0), block `Get-ModuleDependency`.
 
 **Guards:** module dependency edges are extracted correctly.
 
@@ -83,7 +83,7 @@ of the [manual test plan](../manual-test-plan.md), which says how to run a check
 
 ### 4. Module dependencies
 
-**Test file:** `pwsh/Catzc.Base.QualityGates/tests/Test-Automation.Tests.ps1` (L0), block `Module dependencies`.
+**Test file:** `pwsh/Base.QualityGates/tests/Test-Automation.Tests.ps1` (L0), block `Module dependencies`.
 
 **Guards:** the module dependency graph has no cycles.
 
@@ -94,7 +94,7 @@ of the [manual test plan](../manual-test-plan.md), which says how to run a check
 
 ### 5. integrity (shipped config) — ArtifactsConfig
 
-**Test file:** `pwsh/Catzc.Base.ModuleSystem/tests/types/ArtifactsConfig.Tests.ps1` (L0), block `integrity (shipped config)`.
+**Test file:** `pwsh/Base.ModuleSystem/tests/types/ArtifactsConfig.Tests.ps1` (L0), block `integrity (shipped config)`.
 
 **Guards:** the shipped `artifacts.yml` (the module-manifest publish targets) is well-formed.
 
@@ -104,7 +104,7 @@ of the [manual test plan](../manual-test-plan.md), which says how to run a check
 
 ### 6. integrity (shipped config + real code) — Test-ModuleDependency
 
-**Test file:** `pwsh/Catzc.Base.ModuleSystem/tests/Test-ModuleDependency.Tests.ps1` (L1), block `integrity (shipped config + real code)`.
+**Test file:** `pwsh/Base.ModuleSystem/tests/Test-ModuleDependency.Tests.ps1` (L1), block `integrity (shipped config + real code)`.
 
 **Guards:** real code conforms to the declared module dependency graph.
 
@@ -115,7 +115,7 @@ of the [manual test plan](../manual-test-plan.md), which says how to run a check
 
 ### 7. integrity (shipped config) — Get-ModuleGroupConfig
 
-**Test file:** `pwsh/Catzc.Base.ModuleSystem/tests/Get-ModuleGroupConfig.Tests.ps1` (L1), block `integrity (shipped config)`.
+**Test file:** `pwsh/Base.ModuleSystem/tests/Get-ModuleGroupConfig.Tests.ps1` (L1), block `integrity (shipped config)`.
 
 **Guards:** the shipped `dependencies.yml` `groups` section is loadable.
 
@@ -125,7 +125,7 @@ of the [manual test plan](../manual-test-plan.md), which says how to run a check
 
 ### 8. Test-FunctionDependency
 
-**Test file:** `pwsh/Catzc.Base.ModuleSystem/tests/Test-FunctionDependency.Tests.ps1` (L1), block `Test-FunctionDependency`.
+**Test file:** `pwsh/Base.ModuleSystem/tests/Test-FunctionDependency.Tests.ps1` (L1), block `Test-FunctionDependency`.
 
 **Guards:** every cross-module function call in the real repo is declared.
 
@@ -135,7 +135,7 @@ of the [manual test plan](../manual-test-plan.md), which says how to run a check
 
 ### 9. Internal asset dependency coverage (real tree)
 
-**Test file:** `pwsh/Catzc.Base.ModuleSystem/tests/Get-InternalAssetDependency.Integrity.Tests.ps1` (L1), block
+**Test file:** `pwsh/Base.ModuleSystem/tests/Get-InternalAssetDependency.Integrity.Tests.ps1` (L1), block
 `Internal asset dependency coverage (real tree)`.
 
 **Guards:** Every internal asset dependency is a literal `Get-CatzcModuleRoot` call and has a real-asset
@@ -143,7 +143,7 @@ of the [manual test plan](../manual-test-plan.md), which says how to run a check
 
 ### 10. Function dependencies
 
-**Test file:** `pwsh/Catzc.Base.QualityGates/tests/Test-Automation.Tests.ps1` (L2), block `Function dependencies`.
+**Test file:** `pwsh/Base.QualityGates/tests/Test-Automation.Tests.ps1` (L2), block `Function dependencies`.
 
 **Guards:** every non-builtin function call resolves to a defined function.
 
@@ -153,7 +153,7 @@ of the [manual test plan](../manual-test-plan.md), which says how to run a check
 
 ### 11. Get-ModuleProfile — real profiles.yml
 
-**Test file:** `pwsh/Catzc.Base.ModuleSystem/tests/Get-ModuleProfile.Tests.ps1` (L2), block `Get-ModuleProfile — real profiles.yml`.
+**Test file:** `pwsh/Base.ModuleSystem/tests/Get-ModuleProfile.Tests.ps1` (L2), block `Get-ModuleProfile — real profiles.yml`.
 
 **Guards:** Every shipped profile in profiles.yml resolves to a non-empty set of real on-disk modules.
 
@@ -173,7 +173,7 @@ tree) and loads exactly its modules in a fresh pwsh, configs and accelerators in
 
 ### 14. Built modules match their source folders
 
-**Test file:** `pwsh/Catzc.Base.QualityGates/tests/Test-CatzcBuild.Parity.Tests.ps1` (L2), block `Built modules match their source folders`.
+**Test file:** `pwsh/Base.QualityGates/tests/Test-CatzcBuild.Parity.Tests.ps1` (L2), block `Built modules match their source folders`.
 
 **Guards:** `Test-BuildArtifact -Facet Parity` reports 0 issues: every built module exports exactly its source folder's public functions and
 carries exactly its private ones.
@@ -187,13 +187,13 @@ carries exactly its private ones.
 
 ### 16. Get-Aspect on the repository
 
-**Test file:** `pwsh/Catzc.Base.Modules/tests/Get-Aspect.Tests.ps1` (L1), block `Get-Aspect on the repository`.
+**Test file:** `pwsh/Base.Modules/tests/Get-Aspect.Tests.ps1` (L1), block `Get-Aspect on the repository`.
 
 **Guards:** The code track has the five live folders the aspects were written with (ADR-AUTO-MODULE-EXISTSBYLAYOUT).
 
 ### 17. Get-CatzcModule on the repository
 
-**Test file:** `pwsh/Catzc.Base.Modules/tests/Get-CatzcModule.Tests.ps1` (L1), block `Get-CatzcModule on the repository`.
+**Test file:** `pwsh/Base.Modules/tests/Get-CatzcModule.Tests.ps1` (L1), block `Get-CatzcModule on the repository`.
 
 **Guards:** `Get-CatzcModule` resolves every module folder of the code track, the same set the loader imports, each root under a place of
 its track, every language within the track's declared languages, and every file inside the layout (ADR-AUTO-MODULE-DEPLOYABLETRACKMODULE,
@@ -201,7 +201,7 @@ ADR-AUTO-MODULE-EXISTSBYLAYOUT, ADR-AUTO-MODULE-LANGUAGESFROMFILES, DDR-MODTYPE-
 
 ### 18. Get-ModuleOrder on the repository
 
-**Test file:** `pwsh/Catzc.Base.ModuleSystem/tests/Get-ModuleOrder.Tests.ps1` (L1), block `Get-ModuleOrder on the repository`.
+**Test file:** `pwsh/Base.ModuleSystem/tests/Get-ModuleOrder.Tests.ps1` (L1), block `Get-ModuleOrder on the repository`.
 
 **Guards:** `Get-ModuleOrder` orders every module of the code track once, each after every module it is declared to depend on
 (ADR-AUTO-MODULE-TOPOLOGICALORDER).

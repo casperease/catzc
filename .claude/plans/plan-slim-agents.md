@@ -8,8 +8,8 @@ plan:
     [
       .claude/agents,
       .claude/skills,
-      pwsh/Catzc.Base.Docs/configs/agents.yml,
-      pwsh/Catzc.Base.Docs/configs/capabilities.yml,
+      pwsh/Base.Docs/configs/agents.yml,
+      pwsh/Base.Docs/configs/capabilities.yml,
       docs/drs/repository/agent-definitions.md,
     ]
 ---
@@ -112,7 +112,7 @@ Kit skills kept as they are, loaded by a job skill's steps: `drawio-declaration`
        the open-question search matches all three shapes in one grep (`## Open questions`, `[ ] Open question`,
        `Proposed ... Answer: yes or no`), and every option's description carries its why and its outcome in the tree (the user, 2026-10-25).
        Check: `Test-AgentDefinitions` after each.
-4. [ ] `pwsh/Catzc.Tooling.Claude/types/ClaudeDroneConfig.cs` and its config: the default agent `catzc-drone` is removed;
+4. [ ] `pwsh/Tooling.Claude/types/ClaudeDroneConfig.cs` and its config: the default agent `catzc-drone` is removed;
        `Start-ClaudeDrone` takes a required skill and resolves the drone from its `model_floor`, its tests with it. Check: `Invoke-TestFile`
        on `ClaudeDroneConfig.Tests.ps1` and `Start-ClaudeDrone.Tests.ps1`.
 5. [ ] `.claude/CLAUDE.md` Sub-agents section: four bullets and one line saying jobs are the skills in `capabilities.yml`; this replaces

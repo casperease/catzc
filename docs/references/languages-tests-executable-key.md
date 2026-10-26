@@ -3,7 +3,7 @@
 ## What the key said
 
 A file language with test artifacts names how they run in a `tests` block of its entry in the languages registry
-(`pwsh/Catzc.Base.Languages/configs/languages.yml`):
+(`pwsh/Base.Languages/configs/languages.yml`):
 
 ```yaml
 go:

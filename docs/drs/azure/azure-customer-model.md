@@ -7,7 +7,7 @@ enabled-customer set is the `have_customers` repo variant.
 
 ### Rule ADR-AZ-CUSTOMER-ONECATALOGUE
 
-Customer **definitions** live only in `pwsh/Catzc.Azure/configs/customer.yml` — the catalogue of who the repo's customers are, each a
+Customer **definitions** live only in `pwsh/Azure/configs/customer.yml` — the catalogue of who the repo's customers are, each a
 readable `key` plus a 2-char `shortcode` (and optional `details`). It is separate from `azure.yml` (as `network.yml` holds the IP plan),
 loaded by `Get-Config -Config customer` and validated by its config type, `CustomerConfig`.
 

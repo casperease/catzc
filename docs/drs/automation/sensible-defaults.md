@@ -99,7 +99,7 @@ mandatory. The test is: **does a reasonable default exist?** If yes, use it. If 
 
 In order of preference:
 
-1. **Configuration files.** Tool versions come from `pwsh/Catzc.Base.Execution/configs/tools.yml`. Environment settings come from
+1. **Configuration files.** Tool versions come from `pwsh/Base.Execution/configs/tools.yml`. Environment settings come from
    `Catzc.Azure/configs/azure.yml`. The function reads config internally — the caller does not need to know where the value lives.
 
 2. **Convention.** Output verbosity defaults to `Detailed`. A test run's top tier defaults to `3`, capped by its location

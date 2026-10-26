@@ -286,7 +286,7 @@ have public IPs" ([ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-
 and the repository maintains no custom definition.
 
 Keeping them current is a matter of their ids. `discovery/main.bicep` pins each definition by its tenant-level id in one map, and each id is
-registered in `pwsh/Catzc.Base.QualityGates/configs/guids.yml` (`policy_allowed_locations`, `policy_require_tag_on_resources`,
+registered in `pwsh/Base.QualityGates/configs/guids.yml` (`policy_allowed_locations`, `policy_require_tag_on_resources`,
 `policy_nic_no_public_ip`), so no unexplained GUID enters the tree ([ADR-AUTO-GUIDS](../../automation/managed-guids.md)). Microsoft revises
 a built-in definition in place, under the same id, so an assignment follows the current version with no change here. When a definition is
 deprecated or a better one appears, the id in `main.bicep` and its `guids.yml` entry change together in one reviewed change, and the next

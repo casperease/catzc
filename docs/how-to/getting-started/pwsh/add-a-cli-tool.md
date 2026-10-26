@@ -7,7 +7,7 @@ engine. Adding or upgrading a tool is a config change, not new install code. The
 
 ## The model
 
-`pwsh/Catzc.Base.Execution/configs/tools.yml` is the source of truth. Each entry is keyed by a snake_case tool name and carries the version
+`pwsh/Base.Execution/configs/tools.yml` is the source of truth. Each entry is keyed by a snake_case tool name and carries the version
 plus the install metadata each platform needs. The generic engine in `Catzc.Tooling.Core` (`Install-Tool`, `Uninstall-Tool`, `Assert-Tool`,
 `Get-ToolConfig`, `Get-ToolInstallOrder`) reads the config and picks the mechanism:
 
@@ -22,7 +22,7 @@ plus the install metadata each platform needs. The generic engine in `Catzc.Tool
   declare `depends_on: <it>`.
 
 ```yaml
-# pwsh/Catzc.Base.Execution/configs/tools.yml
+# pwsh/Base.Execution/configs/tools.yml
 java:
   version: "25"
   command: java

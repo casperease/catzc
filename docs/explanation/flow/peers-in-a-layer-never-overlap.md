@@ -66,7 +66,7 @@ layout:
 3. **Module space.** The `module` layer is derived from the folders and never declared: aspect sets per module folder, one set per internal
    shared module file, and a catch-all for module-space files no module owns. A module never consumes another module's files.
 4. **Peers disjoint.** The one rule: peers in a layer are disjoint on their own files, with composition ignored, and a gate checks it for
-   the `deployable-unit` and `module` layers. A file under `pwsh/Catzc.Base.Globs/` still belongs to the `pwsh` track, to a module set and,
+   the `deployable-unit` and `module` layers. A file under `pwsh/Base.Globs/` still belongs to the `pwsh` track, to a module set and,
    if it ships, to a deployable-unit, because overlap across layers is expected.
 
 ## Why it holds

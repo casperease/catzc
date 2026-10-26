@@ -8,26 +8,26 @@ about:
     - DDR-VISUAL-ACTIONISALENS
     - DDR-VISUAL-PROOFISTHEACCOSTEDFILE
   lens: action
-  proves: pwsh/Catzc.Base.Contracts/accosted/contracts.accosted.yml
+  proves: pwsh/Base.Contracts/accosted/contracts.accosted.yml
 content:
   title: Reading an accosted file writes nothing and leaves the contract checks as they were
   kind: explanation
   cause: { label: An author }
   action:
-    call: { get_accosted_file: { path: pwsh/Catzc.Base.Contracts/accosted/contracts.accosted.yml } }
+    call: { get_accosted_file: { path: pwsh/Base.Contracts/accosted/contracts.accosted.yml } }
   effects:
     - id: effect-read
       zone: 1
       where: local
       show: words
       says: The accosted file is read from the repository
-      proves: { get_repository_file: { path: pwsh/Catzc.Base.Contracts/accosted/contracts.accosted.yml } }
+      proves: { get_repository_file: { path: pwsh/Base.Contracts/accosted/contracts.accosted.yml } }
     - id: effect-unwritten
       zone: 1
       where: local
       show: words
       says: Nothing is written to the file
-      proves: { get_repository_file: { path: pwsh/Catzc.Base.Contracts/accosted/contracts.accosted.yml } }
+      proves: { get_repository_file: { path: pwsh/Base.Contracts/accosted/contracts.accosted.yml } }
     - id: effect-checks
       zone: 2
       where: local

@@ -85,7 +85,7 @@ layout:
 ## Walkthrough
 
 1. **timeouts.yml.** `Main` finds the repository root three folders up from the published program and loads
-   `pwsh/Catzc.Base.Timeouts/configs/timeouts.yml` with its own YAML loader, typing a plain integer as a number and a quoted scalar as a
+   `pwsh/Base.Timeouts/configs/timeouts.yml` with its own YAML loader, typing a plain integer as a number and a quoted scalar as a
    string, the way the module's loader does.
 2. **TimeoutsConfig.** The loaded map becomes a `TimeoutsConfig`, which validates it and fills in the sensible defaults. The file has no
    `limits:` section today, so the bash limits are the defaults: 3 s foreground and 360 s background at a devbox, 600 s and 3600 s in a

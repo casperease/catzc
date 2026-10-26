@@ -2,7 +2,7 @@
 
 ## What the key said
 
-The file-kinds registry (`pwsh/Catzc.Base.Globs/configs/file-kinds.yml`) carried one kind for the Markdown files beside a diagram:
+The file-kinds registry (`pwsh/Base.Globs/configs/file-kinds.yml`) carried one kind for the Markdown files beside a diagram:
 
 ```yaml
 asset-description:

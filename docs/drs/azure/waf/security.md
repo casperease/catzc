@@ -138,7 +138,7 @@ endpoints only, TLS 1.2 at minimum, a managed identity, and Entra ID authenticat
 those settings as secure defaults, so a caller gets them without asking. The guardrails of
 [ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-threebuiltinpolicies) — allowed locations, a required tag, and no public
 IP address on a network interface — turn part of the baseline into policy as code, and `policy_enforcement` in
-`pwsh/Catzc.Azure/configs/azure.yml` decides whether they deny or only audit
+`pwsh/Azure/configs/azure.yml` decides whether they deny or only audit
 ([ADR-AZ-DATAMOD-POLICYENFORCEMENTMODE](../azure-data-model.md#rule-adr-az-datamod-policyenforcementmode)).
 
 No external benchmark is assigned: the Microsoft cloud security benchmark initiative is not part of any landing zone, and nothing measures a
@@ -260,7 +260,7 @@ adds to it; clear ownership of each segment speeds up incident response.
 #### What SE:04 means here
 
 The segments come from the data model and the network plan. Each customer has its own subscriptions, one per tier
-(`pwsh/Catzc.Azure/configs/azure.yml`), and each configuration slot is one resource group
+(`pwsh/Azure/configs/azure.yml`), and each configuration slot is one resource group
 ([ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION](../azure-data-model.md#rule-adr-az-datamod-onefileonesubscription)). The landing zones form a
 hub-and-spoke network ([ADR-AZ-LZ-HUBANDSPOKE](../landing-zones.md#rule-adr-az-lz-hubandspoke),
 [ADR-AZ-NETWORK-NETWORKPERSUBSCRIPTION](../azure-network-model.md#rule-adr-az-network-networkpersubscription)) whose ranges never overlap
@@ -351,7 +351,7 @@ The workload is private by default. `storage-account.bicep` and `sql-server.bice
 network rules deny by default, and the SQL "allow Azure services" rule exists only when public access is enabled. Each data service is
 reached through `private-endpoint.bicep`, registered in the hub's private DNS zones
 ([ADR-AZ-LZ-WORKLOADOWNSNONE](../landing-zones.md#rule-adr-az-lz-workloadownsnone)). The network plan lives in
-`pwsh/Catzc.Azure/configs/network.yml` and uses private ranges only
+`pwsh/Azure/configs/network.yml` and uses private ranges only
 ([ADR-AZ-NETWORK-ONEIPPLAN](../azure-network-model.md#rule-adr-az-network-oneipplan)). The policy against public IP addresses on network
 interfaces closes the most common way to expose a virtual machine
 ([ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-threebuiltinpolicies)).

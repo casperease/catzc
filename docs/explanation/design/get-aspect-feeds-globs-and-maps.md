@@ -105,12 +105,12 @@ layout:
    `Catzc.Base.Variants`, in declared order. A track with no entry gets the layout's convention.
 5. **Get-ModuleGlobSet.** The derived-globset function of `Catzc.Base.Globs`. It calls `Get-Aspect -Track pwsh` once, turns each
    `VariantAspect` into an `Aspect`, and then visits every non-dot folder under `pwsh/`.
-6. **AspectPartition.Compile.** For one unit root such as `pwsh/Catzc.Base.Globs`, aspect _k_ becomes a `CompiledAspect` whose include
+6. **AspectPartition.Compile.** For one unit root such as `pwsh/Base.Globs`, aspect _k_ becomes a `CompiledAspect` whose include
    patterns are its own, prefixed by the root, and whose exclude patterns are every earlier aspect's. A leaf scan program runs the includes
    as `+` and the excludes as `-`, last match wins, which is exactly first-match slicing.
 7. **The live set.** `Get-ModuleGlobSet` builds one `GlobSet` per compiled aspect in the `module` layer, named by the module's kebab form
-   plus the aspect: `catzc-base-globs-live` includes the five patterns under `pwsh/Catzc.Base.Globs/` and excludes nothing.
-8. **The tests set.** `catzc-base-globs-tests` includes `pwsh/Catzc.Base.Globs/**` and excludes the live patterns, so it is the remainder.
+   plus the aspect: `catzc-base-globs-live` includes the five patterns under `pwsh/Base.Globs/` and excludes nothing.
+8. **The tests set.** `catzc-base-globs-tests` includes `pwsh/Base.Globs/**` and excludes the live patterns, so it is the remainder.
    Three more includes reach outside the module root: the module's Go, Python and Bash test folders.
 9. **Get-WorldMap.** The world-map entry point of `Catzc.Base.Maps`. It asks `Test-AspectDeclaration` which tracks have an entry and calls
    `Get-Aspect -Track <track>` for each of them, infrastructure included, then hands the lists to the builder.
