@@ -68,12 +68,21 @@ Describe 'Build-TrackGlobSets' -Tag 'L0', 'logic', 'FDR-CD-GLOBS-TRACKSETDERIVED
     }
 }
 
+Describe 'Build-TrackGlobSets — its assets' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP-COVEREDBYREALTEST' {
+    It 'reads its declared part and writes its derived part where the module ships them, in the repository and in a bundle' {
+        $result = Build-TrackGlobSets -DryRun -PassThru -Silent
+        $result.Path | Should -BeLike '*configs/globs/track-sets.yml'
+        Get-GlobSet -Name pwsh | Should -Not -BeNullOrEmpty -Because 'the joined config resolves the derived set'
+    }
+}
+
 Describe 'Build-TrackGlobSets — the real tree' -Tag 'L1', 'integrity', 'source-only', 'FDR-CD-GLOBS-TRACKSETDERIVED' {
     It 'finds the committed derived part current, with the generated READMEs out of the infrastructure trigger' {
         (Build-TrackGlobSets -DryRun -PassThru -Silent).Changed | Should -BeFalse -Because 'run Build-TrackGlobSets'
         $set = Get-GlobSet -Name infrastructure
         $set.Matches('infrastructure/README.md') | Should -BeFalse
         $set.Matches('infrastructure/templates/foundation/main.bicep') | Should -BeTrue
-        (Get-GlobSet -Name pwsh).Matches('pwsh/.vendor/Pester/Pester.psd1') | Should -BeTrue -Because 'a nested track with no pipeline of its own stays in its parent''s set'
+        $vendored = "$((Get-Track -Name pwsh-vendor).places[0])/Pester/Pester.psd1"
+        (Get-GlobSet -Name pwsh).Matches($vendored) | Should -BeTrue -Because 'a nested track with no pipeline of its own stays in its parent''s set'
     }
 }

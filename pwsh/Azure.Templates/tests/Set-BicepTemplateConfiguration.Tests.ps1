@@ -9,7 +9,7 @@ catzc:
 # cspell:ignore toolong gmweutstsmplst alweutstsmplst
 Describe 'Set-BicepTemplateConfiguration' -Tag 'L0', 'logic' {
     BeforeAll {
-        $script:fixtureTemplates = Join-Path (Get-CatzcModulesRoot) 'Catzc.Azure.Templates/tests/assets/templates'
+        $script:fixtureTemplates = Join-Path (Get-CatzcModuleRoot -Module Catzc.Azure.Templates) 'tests/assets/templates'
 
         Mock Get-BicepTemplatesRoot { $script:templatesRoot } -ModuleName Catzc.Azure.Templates
         # The templates root is a copy outside the checkout, so the generated head reads no file as tracked.
@@ -17,7 +17,7 @@ Describe 'Set-BicepTemplateConfiguration' -Tag 'L0', 'logic' {
         Set-GitTrackedPathMock
         Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -in 'azure', 'network', 'customer' } -MockWith {
             @{ Name = $Config; Module = 'Catzc.Azure.Templates'
-                Path = Join-Path (Get-CatzcModulesRoot) "Catzc.Azure.Templates/tests/assets/config/$Config.yml"
+                Path = Join-Path (Get-CatzcModuleRoot -Module Catzc.Azure.Templates) "tests/assets/config/$Config.yml"
             }
         }
     }

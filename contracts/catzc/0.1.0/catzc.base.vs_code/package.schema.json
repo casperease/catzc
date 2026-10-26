@@ -3,7 +3,7 @@
   "title": "A cats extension's package.json",
   "description": "The trimmed extension manifest VS Code expects of a cats extension, the fields New-VsCodeExtensionFolder renders from vscode-extensions.yml. Build-VsCodeExtension validates every rendered package.json against this schema before packing and fails the build on a mismatch; the rendered manifests live under out/ and are reached only by address, so package.sample.json beside it is what Test-Contracts checks it against. contributes is VS Code's vocabulary and is held open.",
   "type": "object",
-  "required": ["name", "displayName", "description", "version", "publisher", "engines", "main", "activationEvents"],
+  "required": ["name", "displayName", "description", "version", "publisher", "engines", "main", "activationEvents", "catzc"],
   "properties": {
     "name": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
     "displayName": { "type": "string" },
@@ -18,6 +18,13 @@
     },
     "main": { "const": "./extension.js" },
     "activationEvents": { "type": "array", "items": { "type": "string" } },
+    "catzc": {
+      "description": "What the installed shell needs from the repository: source is the extension's folder, repository-relative, resolved from its name through the js track, so the shell spells no folder of its own.",
+      "type": "object",
+      "required": ["source"],
+      "properties": { "source": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*(/[a-z0-9]+(-[a-z0-9]+)*)+$" } },
+      "additionalProperties": false
+    },
     "contributes": { "type": "object" }
   },
   "additionalProperties": false

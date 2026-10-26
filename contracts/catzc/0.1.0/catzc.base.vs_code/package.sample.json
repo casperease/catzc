@@ -6,5 +6,6 @@
   "publisher": "catzc",
   "engines": { "vscode": "^1.90.0" },
   "main": "./extension.js",
-  "activationEvents": ["onStartupFinished"]
+  "activationEvents": ["onStartupFinished"],
+  "catzc": { "source": "js/drs-links" }
 }

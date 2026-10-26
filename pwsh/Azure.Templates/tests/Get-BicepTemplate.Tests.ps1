@@ -10,11 +10,11 @@ Describe 'Get-BicepTemplate' -Tag 'L0', 'logic' {
     BeforeAll {
         # Discover from the test fixtures, never the shipped infrastructure/templates.
         Mock Get-BicepTemplatesRoot {
-            Join-Path (Get-CatzcModulesRoot) 'Catzc.Azure.Templates/tests/assets/templates'
+            Join-Path (Get-CatzcModuleRoot -Module Catzc.Azure.Templates) 'tests/assets/templates'
         } -ModuleName Catzc.Azure.Templates
         Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -in 'azure', 'network', 'customer' } -MockWith {
             @{ Name = $Config; Module = 'Catzc.Azure.Templates'
-                Path = Join-Path (Get-CatzcModulesRoot) "Catzc.Azure.Templates/tests/assets/config/$Config.yml"
+                Path = Join-Path (Get-CatzcModuleRoot -Module Catzc.Azure.Templates) "tests/assets/config/$Config.yml"
             }
         }
         InModuleScope Catzc.Base.Config { $script:configCache = $null }

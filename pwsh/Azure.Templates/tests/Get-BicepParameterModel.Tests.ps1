@@ -10,17 +10,17 @@ Describe 'Get-BicepParameterModel' -Tag 'L0', 'logic' {
     BeforeAll {
         Mock Get-BicepTemplatesOutputRoot { Join-Path $TestDrive 'out' } -ModuleName Catzc.Azure.Templates
         Mock Get-BicepTemplatesRoot {
-            Join-Path (Get-CatzcModulesRoot) 'Catzc.Azure.Templates/tests/assets/templates'
+            Join-Path (Get-CatzcModuleRoot -Module Catzc.Azure.Templates) 'tests/assets/templates'
         } -ModuleName Catzc.Azure.Templates
         Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -in 'azure', 'network', 'customer' } -MockWith {
             @{ Name = $Config; Module = 'Catzc.Azure.Templates'
-                Path = Join-Path (Get-CatzcModulesRoot) "Catzc.Azure.Templates/tests/assets/config/$Config.yml"
+                Path = Join-Path (Get-CatzcModuleRoot -Module Catzc.Azure.Templates) "tests/assets/config/$Config.yml"
             }
         }
         InModuleScope Catzc.Base.Config { $script:configCache = $null }
 
         $script:fixtureJson = [System.IO.File]::ReadAllText(
-            (Join-Path (Get-CatzcModulesRoot) 'Catzc.Azure.Templates/tests/assets/parameter-model/main.json'))
+            (Join-Path (Get-CatzcModuleRoot -Module Catzc.Azure.Templates) 'tests/assets/parameter-model/main.json'))
         $script:outputFolder = (Get-BicepTemplate sample).output_folder
         $script:mainJson = Join-Path $script:outputFolder 'main.json'
 

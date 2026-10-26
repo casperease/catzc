@@ -19,11 +19,11 @@ Describe 'sample-bicepparam (a bicepparam slot beside a yml slot)' -Tag 'L0', 'l
         Mock Assert-Tool { } -ModuleName Catzc.Azure.Templates
         Mock Assert-AzCliBicep { } -ModuleName Catzc.Azure.Templates
         Mock Get-BicepTemplatesRoot {
-            Join-Path (Get-CatzcModulesRoot) 'Catzc.Azure.Templates/tests/assets/templates'
+            Join-Path (Get-CatzcModuleRoot -Module Catzc.Azure.Templates) 'tests/assets/templates'
         } -ModuleName Catzc.Azure.Templates
         Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -in 'azure', 'network', 'customer' } -MockWith {
             @{ Name = $Config; Module = 'Catzc.Azure.Templates'
-                Path = Join-Path (Get-CatzcModulesRoot) "Catzc.Azure.Templates/tests/assets/config/$Config.yml"
+                Path = Join-Path (Get-CatzcModuleRoot -Module Catzc.Azure.Templates) "tests/assets/config/$Config.yml"
             }
         }
         InModuleScope Catzc.Base.Config { $script:configCache = $null }
@@ -51,7 +51,7 @@ Describe 'sample-bicepparam (a bicepparam slot beside a yml slot)' -Tag 'L0', 'l
             $text = [System.IO.File]::ReadAllText((Join-Path $script:outputRoot "parameters.$config.bicepparam"))
             $using = [regex]::Match($text, "(?m)^using '(?<path>[^']+)'").Groups['path'].Value
             [System.IO.Path]::GetFullPath((Join-Path $script:outputRoot $using)) |
-                Should -BeExactly ([System.IO.Path]::GetFullPath((Join-Path (Get-CatzcModulesRoot) 'Catzc.Azure.Templates/tests/assets/templates/sample-bicepparam/main.bicep')))
+                Should -BeExactly ([System.IO.Path]::GetFullPath((Join-Path (Get-CatzcModuleRoot -Module Catzc.Azure.Templates) 'tests/assets/templates/sample-bicepparam/main.bicep')))
         }
     }
 

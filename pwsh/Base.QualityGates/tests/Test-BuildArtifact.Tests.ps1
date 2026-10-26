@@ -17,8 +17,8 @@ Describe 'Test-BuildArtifact' -Tag 'L0', 'logic' {
                 Repository     = $RepositoryRoot
                 RunMode        = 'build'
                 Modules        = @(
-                    [pscustomobject]@{ Name = 'Catzc.Base.Config'; Base = (Join-Path $BuildRoot 'Base.Config'); Exported = @('Get-Widget'); Defined = @('Get-Widget', 'Resolve-Widget'); Instances = 1 }
-                    [pscustomobject]@{ Name = 'Catzc.Gadget'; Base = (Join-Path $BuildRoot 'Gadget'); Exported = @('Get-Gadget'); Defined = @('Get-Gadget'); Instances = 1 }
+                    [pscustomobject]@{ Name = 'Catzc.Base.Config'; Base = (Join-Path $BuildRoot 'Catzc.Base.Config'); Exported = @('Get-Widget'); Defined = @('Get-Widget', 'Resolve-Widget'); Instances = 1 }
+                    [pscustomobject]@{ Name = 'Catzc.Gadget'; Base = (Join-Path $BuildRoot 'Catzc.Gadget'); Exported = @('Get-Gadget'); Defined = @('Get-Gadget'); Instances = 1 }
                 )
                 InternalBases  = @(Join-Path $BuildRoot '.internal')
                 TypesAssembly  = 'Catzc.Types.abcd1234.dll'
@@ -26,7 +26,7 @@ Describe 'Test-BuildArtifact' -Tag 'L0', 'logic' {
                 HasConfig      = $true
                 ConfigCount    = 2
                 ConfigFailures = @()
-                ModuleRoot     = (Join-Path $BuildRoot 'Base.Config/configs/configs.yml')
+                ModuleRoot     = (Join-Path $BuildRoot 'Catzc.Base.Config/configs/configs.yml')
                 Private        = $false
                 InModuleScope  = $true
             }

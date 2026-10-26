@@ -34,3 +34,13 @@ Describe 'Build-WidthConfigs' -Tag 'L1', 'integrity', 'ADR-REPO-FORMAT-CONFIGURE
         { Build-WidthConfigs -Target '.prettierignore' } | Should -Throw
     }
 }
+
+Describe 'Build-WidthConfigs — shipped assets/root templates' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP-COVEREDBYREALTEST' {
+    It 'renders every target from the template the loaded RootConfig module ships, each width token filled' {
+        foreach ($target in '.editorconfig', '.prettierrc.yml', '.markdownlint.yml') {
+            $text = Build-WidthConfigs -Target $target
+            $text | Should -Not -BeNullOrEmpty -Because "the shipped template for $target is found"
+            $text | Should -Not -Match '[$]width[.]' -Because "every width token of $target is filled"
+        }
+    }
+}

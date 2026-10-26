@@ -13,7 +13,7 @@ Describe 'Build-Bicep (sample-with-prepost merge seam)' -Tag 'L0', 'logic' {
         InModuleScope Catzc.Base.Config { $script:configCache = $null }
         Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -in 'azure', 'network', 'customer' } -MockWith {
             @{ Name = $Config; Module = 'Catzc.Azure.Templates'
-                Path = Join-Path (Get-CatzcModulesRoot) "Catzc.Azure.Templates/tests/assets/config/$Config.yml"
+                Path = Join-Path (Get-CatzcModuleRoot -Module Catzc.Azure.Templates) "tests/assets/config/$Config.yml"
             }
         }
         $script:alphaNetwork = (Get-Config -Config network).environments.alpha
@@ -35,13 +35,13 @@ Describe 'Build-Bicep (sample-with-prepost merge seam)' -Tag 'L0', 'logic' {
         # The Bicep CLI guard lives in Catzc.Azure.Cli; mock the boundary so its internal az probe never runs.
         Mock Assert-AzCliBicep { } -ModuleName Catzc.Azure.Templates
         Mock Get-BicepTemplatesRoot {
-            Join-Path (Get-CatzcModulesRoot) 'Catzc.Azure.Templates/tests/assets/templates'
+            Join-Path (Get-CatzcModuleRoot -Module Catzc.Azure.Templates) 'tests/assets/templates'
         } -ModuleName Catzc.Azure.Templates
 
         Get-Config -Config azure | Out-Null
         Get-BicepTemplates | Out-Null
 
-        $script:configRoot = Join-Path (Get-CatzcModulesRoot) 'Catzc.Azure.Templates/tests/assets/templates/sample-with-prepost/configuration'
+        $script:configRoot = Join-Path (Get-CatzcModuleRoot -Module Catzc.Azure.Templates) 'tests/assets/templates/sample-with-prepost/configuration'
         if (Test-Path $script:outputRoot) {
             Remove-Item $script:outputRoot -Recurse -Force
         }

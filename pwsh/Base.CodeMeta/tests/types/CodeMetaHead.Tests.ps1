@@ -203,7 +203,7 @@ Describe 'CodeMetaHead and the types hash agree on every C# type' -Tag 'L2', 'in
             return
         }
         $root = Get-RepositoryRoot
-        $declared = (ConvertFrom-Yaml ([System.IO.File]::ReadAllText((Join-Path (Get-CatzcModulesRoot) 'Catzc.Base.Languages/configs/file-carriers.yml'))))['carriers']['bcl']
+        $declared = (ConvertFrom-Yaml ([System.IO.File]::ReadAllText((Join-Path (Get-CatzcModuleRoot -Module Catzc.Base.Languages) 'configs/file-carriers.yml'))))['carriers']['bcl']
         $block = [string[]] @($declared['block'])
         $form = [Catzc.Base.CodeMeta.HeadForm]::ForBlock($block[0], $block[1])
         $files = @(Invoke-Executable 'git -c core.quotepath=off ls-files -- "pwsh/*/types/*.cs"' -WorkingDirectory $root -PassThru -Silent).Output -split "`r?`n" | Where-Object { $_ }

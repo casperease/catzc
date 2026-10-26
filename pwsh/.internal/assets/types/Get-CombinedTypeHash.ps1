@@ -56,7 +56,7 @@ function Get-CombinedTypeHash {
     $files = [System.Collections.Generic.List[object]]::new()
     foreach ($moduleDir in [System.IO.Directory]::EnumerateDirectories($ModulesRoot)) {
         $moduleName = [System.IO.Path]::GetFileName($moduleDir)
-        if ($moduleName.StartsWith('.') -or ($null -ne $selected -and -not $selected.Contains($moduleName))) {
+        if ($moduleName.StartsWith('.') -or ($null -ne $selected -and -not $selected.Contains((Resolve-ModuleName -Folder $moduleName -Namespace $ModuleNamespace)))) {
             continue
         }
         $typesDir = [System.IO.Path]::Combine($moduleDir, 'types')
@@ -106,6 +106,10 @@ function Get-CombinedTypeHash {
 
     $languagesFolder = Resolve-ModuleName -FullName 'Catzc.Base.Languages' -Namespace $ModuleNamespace
     $carriers = [System.IO.Path]::Combine($ModulesRoot, $languagesFolder, 'configs', 'file-carriers.yml')
+    # A build ships the carriers beside its type sources, so a reduced build without the Languages module hashes the same bodies.
+    if (-not [System.IO.File]::Exists($carriers)) {
+        $carriers = [System.IO.Path]::Combine($ModulesRoot, '.compiled', 'types', 'file-carriers.yml')
+    }
     $block = $null
     if ([System.IO.File]::Exists($carriers)) {
         $declared = (ConvertFrom-Yaml ([System.IO.File]::ReadAllText($carriers)))['carriers']['bcl']

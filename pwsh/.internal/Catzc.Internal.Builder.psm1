@@ -17,6 +17,7 @@ $script:runtimeInternalFiles = @(
     'Catzc.Internal.Types.psm1'
     'Catzc.Internal.Vendor.psm1'
     'assets/ErrorView.format.ps1xml'
+    'assets/Wait-CatzcRunLock.ps1'
     'assets/bootstrap/Get-ModuleNamespace.ps1'
     'assets/bootstrap/Import-AllModules.ps1'
     'assets/bootstrap/Import-CSharpTypes.ps1'
@@ -24,13 +25,16 @@ $script:runtimeInternalFiles = @(
     'assets/importer/Get-DueWriterRow.ps1'
     'assets/importer/Invoke-ImporterJanitors.ps1'
     'assets/importer/Test-WriterDue.ps1'
+    'assets/importer/Wait-ImportBurst.ps1'
     'assets/types-load.yml'
     'assets/types/Build-CombinedTypeAssembly.ps1'
     'assets/types/Get-CombinedTypeHash.ps1'
     'assets/types/Get-LoadedTypeDrift.ps1'
     'assets/types/Get-TypeSourceBody.ps1'
     'assets/types/Get-TypesAssemblyManifest.ps1'
+    'assets/types/Get-TypesContractDrift.ps1'
     'assets/types/Write-TypesAssemblyManifest.ps1'
+    'assets/types/Write-TypesContract.ps1'
 )
 
 $script:fullPolicyInternalFiles = @(

@@ -28,11 +28,11 @@ Describe 'sample-customer (per-customer build)' -Tag 'L0', 'logic' {
         # The Bicep CLI guard lives in Catzc.Azure.Cli; mock the boundary so its internal az probe never runs.
         Mock Assert-AzCliBicep { } -ModuleName Catzc.Azure.Templates
         Mock Get-BicepTemplatesRoot {
-            Join-Path (Get-CatzcModulesRoot) 'Catzc.Azure.Templates/tests/assets/templates'
+            Join-Path (Get-CatzcModuleRoot -Module Catzc.Azure.Templates) 'tests/assets/templates'
         } -ModuleName Catzc.Azure.Templates
         Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -in 'azure', 'network', 'customer' } -MockWith {
             @{ Name = $Config; Module = 'Catzc.Azure.Templates'
-                Path = Join-Path (Get-CatzcModulesRoot) "Catzc.Azure.Templates/tests/assets/config/$Config.yml"
+                Path = Join-Path (Get-CatzcModuleRoot -Module Catzc.Azure.Templates) "tests/assets/config/$Config.yml"
             }
         }
         InModuleScope Catzc.Base.Config { $script:configCache = $null }

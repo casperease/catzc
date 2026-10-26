@@ -10,7 +10,7 @@ Describe 'Get-AzureCustomer' -Tag 'L0', 'logic' {
     BeforeAll {
         Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -eq 'customer' } -MockWith {
             @{ Name = 'customer'; Module = 'Catzc.Azure'
-                Path = Join-Path (Get-CatzcModulesRoot) 'Catzc.Azure/tests/assets/config/customer.yml'
+                Path = Join-Path (Get-CatzcModuleRoot -Module Catzc.Azure) 'tests/assets/config/customer.yml'
             }
         }
         InModuleScope Catzc.Base.Config { $script:configCache = $null }

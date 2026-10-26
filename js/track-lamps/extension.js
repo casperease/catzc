@@ -39,10 +39,16 @@ const {
 const { SHIPPED_LAMPS } = require("./host.js");
 const { activateEngine } = require("./engine.js");
 
-// The engine's file in the repository, as the shell finds it under the workspace folder.
-const ENGINE = "js/catzc-track-lamps/extension.js";
-// The parts beside it, which the shell reloads with the engine.
-const PARTS = "js/catzc-track-lamps/*.js";
+// The engine's folder in the repository, under the workspace folder: the build writes it into the installed package (catzc.source),
+// resolved from the extension's name, so the shell spells no folder of its own. The repository's copy has no package beside it, and runs
+// as the engine.
+const SOURCE = (() => {
+    try {
+        return /** @type {string | undefined} */ (JSON.parse(fs.readFileSync(path.join(__dirname, "package.json"), "utf8")).catzc?.source);
+    } catch {
+        return undefined;
+    }
+})();
 
 // The shell, which is all the installed package does: it runs the repository's engine, so the engine is always the working tree's, and
 // on a save of that file or of a part beside it it disposes the running engine and starts the new one with the same remembered state,
@@ -52,9 +58,12 @@ const PARTS = "js/catzc-track-lamps/*.js";
 function activate(context) {
     const api = require("vscode");
     const root = api.workspace.workspaceFolders?.[0]?.uri.fsPath;
-    const source = root ? path.join(root, ENGINE) : undefined;
+    const engineFolder = SOURCE;
+    // The engine's file, and the parts beside it, which the shell reloads with the engine.
+    const source = root && engineFolder ? path.join(root, engineFolder, "extension.js") : undefined;
     const same = (/** @type {string} */ a, /** @type {string} */ b) => key(path.resolve(a)) === key(path.resolve(b));
-    if (!root || !source || !fs.existsSync(source) || same(source, __filename)) return activateEngine(context, api);
+    if (!root || !engineFolder || !source || !fs.existsSync(source) || same(source, __filename)) return activateEngine(context, api);
+    const parts = `${engineFolder}/*.js`;
     const shellLog = api.window.createOutputChannel("Catzc track lamps (shell)");
     /** @type {import("./host.js").EngineContext | undefined} */
     let running;
@@ -96,7 +105,7 @@ function activate(context) {
     start();
     /** @type {ReturnType<typeof setTimeout> | undefined} */
     let swap;
-    const watcher = api.workspace.createFileSystemWatcher(new api.RelativePattern(root, PARTS));
+    const watcher = api.workspace.createFileSystemWatcher(new api.RelativePattern(root, parts));
     const restart = () => {
         clearTimeout(swap);
         swap = setTimeout(() => (stop(), start()), 300);

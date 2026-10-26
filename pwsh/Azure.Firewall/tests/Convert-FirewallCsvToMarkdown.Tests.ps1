@@ -8,7 +8,7 @@ catzc:
 
 Describe 'Convert-FirewallCsvToMarkdown' -Tag 'L2', 'logic' {
     BeforeAll {
-        $script:assets = Join-Path (Get-CatzcModulesRoot) 'Catzc.Azure.Firewall/tests/assets'
+        $script:assets = Join-Path (Get-CatzcModuleRoot -Module Catzc.Azure.Firewall) 'tests/assets'
         $script:appCsv = Join-Path $assets 'application.csv'
         $script:netCsv = Join-Path $assets 'network.csv'
         Mock Write-Message -ModuleName Catzc.Azure.Firewall {}

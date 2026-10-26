@@ -108,12 +108,12 @@ function Assert-CatzcBundle {
                     }
                 }
                 if ($sourcesComplete) {
-                    $carriers = [System.IO.Path]::Combine($root, 'Catzc.Base.Languages', 'configs', 'file-carriers.yml')
+                    # The build ships the carriers beside its type sources; staged the same way, the hash reads the same bodies.
+                    $carriers = [System.IO.Path]::Combine($root, '.compiled', 'types', 'file-carriers.yml')
                     if ([System.IO.File]::Exists($carriers)) {
-                        $stagedConfigs = [System.IO.Path]::Combine($staging, 'Catzc.Base.Languages', 'configs')
-                        [System.IO.Directory]::CreateDirectory($stagedConfigs) | Out-Null
-                        [System.IO.File]::Copy($carriers, [System.IO.Path]::Combine($stagedConfigs,
-                                'file-carriers.yml'), $true)
+                        $stagedTypes = [System.IO.Path]::Combine($staging, '.compiled', 'types')
+                        [System.IO.Directory]::CreateDirectory($stagedTypes) | Out-Null
+                        [System.IO.File]::Copy($carriers, [System.IO.Path]::Combine($stagedTypes, 'file-carriers.yml'), $true)
                     }
                     Import-InternalModule Types
                     $actualTypesHash = (Get-CombinedTypeHash -ModulesRoot $staging).CombinedHash

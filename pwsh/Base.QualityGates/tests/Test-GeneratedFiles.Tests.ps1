@@ -89,8 +89,12 @@ Describe 'Test-GeneratedFiles' -Tag 'L0', 'logic' {
     It 'throws naming the known generators when a generator is unknown' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
         $thrown = { Test-GeneratedFiles -Generator Build-Widget -OutputFolder $script:reportFolder } |
             Should -Throw -PassThru
-        $thrown.Exception.Message |
-            Should -BeLike "Unknown generator 'Build-Widget'. The generators are: Build-DrsIndex*"
+        $message = $thrown.Exception.Message
+        $message | Should -BeLike "Unknown generator 'Build-Widget'. The generators are: *"
+        # The registry's order is no contract; the message names every known generator.
+        foreach ($generator in 'Build-DrsIndex', 'Build-Glossary', 'Build-Readme') {
+            $message | Should -BeLike "*$generator*"
+        }
     }
 
     It 'attributes a rendered root file to its generator and a copied one to Build-RootConfig' {
@@ -167,7 +171,7 @@ Describe 'Test-GeneratedFiles' -Tag 'L0', 'logic' {
         }
 
         It 'passes a generator change whose output was re-rendered, and does not run a writer none of the changed paths touch' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
-            Mock Get-GitChangedPath -ModuleName Catzc.Base.QualityGates { ConvertTo-RepoRelativePath (Join-Path (Get-CatzcModulesRoot) 'Catzc.Base.Drs/Build-DrsIndex.ps1'); 'docs/drs/index.md' }
+            Mock Get-GitChangedPath -ModuleName Catzc.Base.QualityGates { ConvertTo-RepoRelativePath (Join-Path (Get-CatzcModuleRoot -Module Catzc.Base.Drs) 'Build-DrsIndex.ps1'); 'docs/drs/index.md' }
 
             $result = Test-GeneratedFiles -Changed -PassThru -OutputFolder $script:reportFolder
             $result.IssueCount | Should -Be 0
@@ -192,7 +196,7 @@ Describe 'Test-GeneratedFiles' -Tag 'L0', 'logic' {
         }
 
         It 'fails a generator change whose output was not re-rendered' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
-            Mock Get-GitChangedPath -ModuleName Catzc.Base.QualityGates { ConvertTo-RepoRelativePath (Join-Path (Get-CatzcModulesRoot) 'Catzc.Base.Drs/Build-DrsIndex.ps1') }
+            Mock Get-GitChangedPath -ModuleName Catzc.Base.QualityGates { ConvertTo-RepoRelativePath (Join-Path (Get-CatzcModuleRoot -Module Catzc.Base.Drs) 'Build-DrsIndex.ps1') }
             Mock Build-DrsIndex -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ Path = 'docs/drs/index.md'; Changed = $true; DryRun = $true } }
 
             $result = Test-GeneratedFiles -Changed -PassThru -OutputFolder $script:reportFolder
@@ -264,5 +268,13 @@ Describe 'Test-GeneratedFiles — real tree' -Tag 'L2', 'integrity', 'source-onl
         $result = Test-GeneratedFiles -PassThru -OutputFolder (Join-Path $TestDrive 'generated-files')
         $result.Issues | Should -BeNullOrEmpty
         $result.IssueCount | Should -Be 0
+    }
+}
+
+Describe 'Test-GeneratedFiles — shipped assets/english.txt.gz' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP-COVEREDBYREALTEST' {
+    It 'finds the committed word list and its stamp in the loaded QualityGates module' {
+        $assets = [Catzc.Base.QualityGates.SpellingOracle]::AssetsFolder((Get-CatzcModuleRoot -Module Catzc.Base.QualityGates))
+        [Catzc.Base.QualityGates.SpellingOracle]::DictionaryPath($assets) | Should -Exist
+        [Catzc.Base.QualityGates.SpellingOracle]::DictionaryStampPath($assets) | Should -Exist
     }
 }

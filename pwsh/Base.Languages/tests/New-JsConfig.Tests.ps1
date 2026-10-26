@@ -1,7 +1,7 @@
 Describe 'New-JsConfig' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:root = Join-Path $TestDrive 'repo'
-        $null = New-Item -ItemType Directory -Path (Join-Path $script:root 'js/catzc-widget') -Force
+        $null = New-Item -ItemType Directory -Path (Join-Path $script:root 'js/widget') -Force
         $script:strict = @()
         Mock Get-Config -ModuleName Catzc.Base.Languages -ParameterFilter { $Config -eq 'javascript' } {
             [Catzc.Base.Languages.JavaScriptConfig]::new([ordered]@{ strict = @($script:strict) })
@@ -26,17 +26,33 @@ Describe 'New-JsConfig' -Tag 'L0', 'logic' {
         @((& $script:render 'jsconfig.lenient.json' | ConvertFrom-Json -AsHashtable)['include']) | Should -HaveCount 0
     }
 
-    It 'gives the editor''s project the raised modules, strictly, and the lenient one every other module' {
+    It 'gives the editor''s project the raised modules, strictly, each at the folder its name resolves to, and the lenient one every other module' {
         $script:strict = @('catzc-widget', 'catzc-gadget')
         $editor = & $script:render | ConvertFrom-Json -AsHashtable
         $editor['compilerOptions']['strict'] | Should -BeTrue
-        @($editor['include']) | Should -Be @('js/catzc-widget/**/*.js', 'js/catzc-gadget/**/*.js')
+        @($editor['include']) | Should -Be @('js/widget/**/*.js', 'js/gadget/**/*.js')
         $editor.Keys | Should -Not -Contain 'exclude'
         $lenient = & $script:render 'jsconfig.lenient.json' | ConvertFrom-Json -AsHashtable
         $lenient['extends'] | Should -Be './jsconfig.json'
         $lenient['compilerOptions']['strict'] | Should -BeFalse
         @($lenient['include']) | Should -Be @('js/**/*.js')
-        @($lenient['exclude']) | Should -Be @('js/catzc-widget/**/*.js', 'js/catzc-gadget/**/*.js')
+        @($lenient['exclude']) | Should -Be @('js/widget/**/*.js', 'js/gadget/**/*.js')
+    }
+
+    It 'gives the editor''s project the whole track in one glob when every extension is strict, and lists them while one is lenient' -Tag 'DDR-TRACK-MODULENAMESPACE' {
+        $tree = Join-Path $TestDrive 'track'
+        foreach ($folder in 'widget', 'gadget') {
+            $null = New-Item -ItemType File -Path (Join-Path $tree "js/$folder/extension.js") -Force
+        }
+        $script:strict = @('catzc-widget', 'catzc-gadget')
+        $editor = New-JsConfig -RepositoryRoot $tree | ConvertFrom-Json -AsHashtable
+        @($editor['include']) | Should -Be @('js/**/*.js')
+        @((New-JsConfig -Target 'jsconfig.lenient.json' -RepositoryRoot $tree | ConvertFrom-Json -AsHashtable)['exclude']) | Should -Be @('js/**/*.js')
+
+        $null = New-Item -ItemType File -Path (Join-Path $tree 'js/sprocket/extension.js') -Force
+        $editor = New-JsConfig -RepositoryRoot $tree | ConvertFrom-Json -AsHashtable
+        @($editor['include']) | Should -Be @('js/widget/**/*.js', 'js/gadget/**/*.js') -Because 'catzc-sprocket stays lenient'
+        @($editor['include']) | Should -Not -Match 'catzc-' -Because 'a listed extension is named by its folder, never by its full name'
     }
 
     It 'names its type root relatively, the folder javascript.yml declares, with no machine or user path in either file' {

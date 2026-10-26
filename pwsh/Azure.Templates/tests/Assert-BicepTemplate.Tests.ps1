@@ -9,14 +9,14 @@ catzc:
 # cspell:ignore brkn
 Describe 'Assert-BicepTemplate' -Tag 'L0', 'logic' {
     BeforeAll {
-        $script:fixtureTemplates = Join-Path (Get-CatzcModulesRoot) 'Catzc.Azure.Templates/tests/assets/templates'
+        $script:fixtureTemplates = Join-Path (Get-CatzcModuleRoot -Module Catzc.Azure.Templates) 'tests/assets/templates'
 
         InModuleScope Catzc.Base.Config { $script:configCache = $null }
         InModuleScope Catzc.Azure.Templates { $script:bicepTemplatesCache = $null }
 
         Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -in 'azure', 'network', 'customer' } -MockWith {
             @{ Name = $Config; Module = 'Catzc.Azure.Templates'
-                Path = Join-Path (Get-CatzcModulesRoot) "Catzc.Azure.Templates/tests/assets/config/$Config.yml"
+                Path = Join-Path (Get-CatzcModuleRoot -Module Catzc.Azure.Templates) "tests/assets/config/$Config.yml"
             }
         }
     }

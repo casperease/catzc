@@ -159,6 +159,14 @@ function Get-ModuleBuildPlan {
                 $entries.Add([pscustomobject]@{ Path = ".compiled/types/$fullName/$($file.Base).cs"; Kind = 'Copy'; Source = $file.Path; Content = $null; Exports = $null; Normalize = $normalize })
             }
         }
+        # The bcl carrier's head form is an input of the hash, so the build ships the carriers beside the type sources: a reduced
+        # build without the Languages module still hashes the bodies the source does.
+        $carriers = [System.IO.Path]::Combine($SourceRoot, (Resolve-ModuleName -FullName 'Catzc.Base.Languages' -Namespace $moduleNamespace),
+            'configs', 'file-carriers.yml')
+        if ([System.IO.File]::Exists($carriers)) {
+            $normalize = Test-BuildSourceLfOnly -Index $Index -SourceRoot $SourceRoot -Path $carriers
+            $entries.Add([pscustomobject]@{ Path = '.compiled/types/file-carriers.yml'; Kind = 'Copy'; Source = $carriers; Content = $null; Exports = $null; Normalize = $normalize })
+        }
         # Git keeps no DLL
         # ([ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD](/docs/drs/automation/caching.md#rule-adr-auto-cache-compiledtypeprebuild)), so the build compiles it, and its manifest, into the bundle.
         $entries.Add([pscustomobject]@{ Path = ".compiled/Catzc.Types.$typeHash.dll"; Kind = 'Types'; Source = $null; Content = $null; Exports = $null })

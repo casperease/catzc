@@ -4,7 +4,7 @@ Describe 'Assert-AzCliIsConnected' -Tag 'L0', 'logic' {
         InModuleScope Catzc.Base.Config { $script:configCache = $null }
         Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -in 'azure', 'network', 'customer' } -MockWith {
             @{ Name = $Config; Module = 'Catzc.Azure'
-                Path = Join-Path (Get-CatzcModulesRoot) "Catzc.Azure.Cli/tests/assets/config/$Config.yml"
+                Path = Join-Path (Get-CatzcModuleRoot -Module Catzc.Azure.Cli) "tests/assets/config/$Config.yml"
             }
         }
         # The subscription/tenant the function resolves and forwards to the generic primitive.

@@ -68,8 +68,7 @@ function Test-BuildArtifact {
             if ($null -ne $build) {
                 $buildRoot = [string] $build.BuildRoot
                 $builtModules = [string[]] @($build.Modules)
-                # The build lays its modules out as the source does: each folder drops the namespace its name carries (DDR-TRACK-MODULENAMESPACE).
-                $modulesTrack = Get-Track -Name pwsh
+                # A build is no track place: each built folder carries its module's full name, as PowerShell's module path needs.
                 $facts.Modules = $builtModules.Count
                 $facts.TypesHash = "$($build.TypesHash)"
 
@@ -115,7 +114,7 @@ function Test-BuildArtifact {
                                     continue
                                 }
                                 $entry = $loaded[$name]
-                                if ($entry.Base -ne (Join-Path $buildRoot $modulesTrack.FolderNameOf($name))) {
+                                if ($entry.Base -ne (Join-Path $buildRoot $name)) {
                                     $issues.Add("[load] $name loads from '$($entry.Base)', not the build root")
                                 }
                                 if (@($entry.Exported).Count -eq 0) {
@@ -147,8 +146,7 @@ function Test-BuildArtifact {
                                 foreach ($failure in @($observed.ConfigFailures)) {
                                     $issues.Add("[load] a shipped config does not load: $failure")
                                 }
-                                $configFolder = $modulesTrack.FolderNameOf('Catzc.Base.Config')
-                                if ($observed.ModuleRoot -ne (Join-Path $buildRoot "$configFolder/configs/configs.yml")) {
+                                if ($observed.ModuleRoot -ne (Join-Path $buildRoot 'Catzc.Base.Config/configs/configs.yml')) {
                                     $issues.Add("[load] module content resolves to '$($observed.ModuleRoot)', not under the build")
                                 }
                                 if ($observed.Private) {
@@ -194,7 +192,7 @@ function Test-BuildArtifact {
 
                 if ('Manifest' -in $selected) {
                     $manifests = @(Join-Path $buildRoot 'Catzc.psd1') + @(foreach ($name in $builtModules) {
-                            Join-Path $buildRoot "$($modulesTrack.FolderNameOf($name))/$name.psd1"
+                            Join-Path $buildRoot "$name/$name.psd1"
                         })
                     foreach ($result in @(Format-Code -Language powershell -Path $manifests -DryRun -PassThru)) {
                         foreach ($file in $result.ChangedFiles) {

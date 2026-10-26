@@ -9,15 +9,24 @@ const { execFileSync } = require("child_process");
 const { folder } = require("./fixture.js");
 
 const extension = path.resolve(__dirname, "../extension.js").split(path.sep).join("/");
+// The extension's folder, repository-relative, as the build writes it into the installed package's catzc.source.
+const source = path.relative(path.resolve(__dirname, "../../.."), path.dirname(extension)).split(path.sep).join("/");
 const scenario = (/** @type {string} */ name, withEngine = false) => {
     const root = folder(["code/a.ps1", "docs/x.md"]);
+    let driven = extension;
     if (withEngine) {
-        const engine = path.join(root, "js/catzc-track-lamps");
-        fs.mkdirSync(engine, { recursive: true });
-        for (const part of fs.readdirSync(path.dirname(extension)).filter((file) => file.endsWith(".js")))
-            fs.copyFileSync(path.join(path.dirname(extension), part), path.join(engine, part));
+        // The workspace's engine at its source folder, and an installed package beside it whose shell loads that engine.
+        const parts = fs.readdirSync(path.dirname(extension)).filter((file) => file.endsWith(".js"));
+        const engine = path.join(root, source);
+        const installed = path.join(folder([]), "installed");
+        for (const target of [engine, installed]) {
+            fs.mkdirSync(target, { recursive: true });
+            for (const part of parts) fs.copyFileSync(path.join(path.dirname(extension), part), path.join(target, part));
+        }
+        fs.writeFileSync(path.join(installed, "package.json"), JSON.stringify({ catzc: { source } }));
+        driven = path.join(installed, "extension.js").split(path.sep).join("/");
     }
-    const output = execFileSync(process.execPath, [path.join(__dirname, "stub-editor.js"), name, root, extension], {
+    const output = execFileSync(process.execPath, [path.join(__dirname, "stub-editor.js"), name, root, driven], {
         encoding: "utf8",
         timeout: 60000,
     });

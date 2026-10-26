@@ -21,7 +21,10 @@ function New-VsCodeExtensionFolder {
         [string] $AssetDirectory = (Join-Path (Get-RepositoryRoot) (Get-TrackPlace -Track js -TrackKind extensions))
     )
 
-    $script = Join-Path $AssetDirectory "$($Extension.name)/extension.js"
+    # The source folder drops the js track's namespace, so the extension's name resolves to it (DDR-TRACK-MODULENAMESPACE); the installed
+    # folder keeps the name, the extension's id.
+    $sourceFolder = (Get-Track -Name js).FolderNameOf($Extension.name)
+    $script = Join-Path $AssetDirectory "$sourceFolder/extension.js"
     Assert-PathExist $script -ErrorText "New-VsCodeExtensionFolder: extension '$($Extension.name)' has no script at '$script'."
 
     $manifest = [ordered]@{
@@ -33,6 +36,8 @@ function New-VsCodeExtensionFolder {
         engines          = [ordered]@{ vscode = $Extension.engine }
         main             = './extension.js'
         activationEvents = @($Extension.activationEvents)
+        # The source the installed shell loads from the workspace, so the shell spells no folder of its own.
+        catzc            = [ordered]@{ source = "$(Get-TrackPlace -Track js -TrackKind extensions)/$sourceFolder" }
     }
     if ($Extension.contributes.Count -gt 0) {
         $manifest.contributes = Resolve-LampPaletteShade -InputObject (Expand-VsCodeCommandState -Contributes (Expand-VsCodeRepeat -Contributes $Extension.contributes))
@@ -56,14 +61,15 @@ function New-VsCodeExtensionFolder {
         }
         Copy-Item -LiteralPath $part -Destination (Join-Path $folder $name)
     }
-    $media = Join-Path $AssetDirectory "$($Extension.name)/assets"
+    $media = Join-Path $AssetDirectory "$sourceFolder/assets"
     if (Test-Path -LiteralPath $media -PathType Container) {
         Copy-Item -LiteralPath $media -Destination (Join-Path $folder 'media') -Recurse
     }
     $rendered = Join-Path $folder 'media'
     # An extension that contributes an icon theme gets the theme rendered from file-icons.yml into its media.
     if ($Extension.contributes.Contains('iconThemes')) {
-        $null = New-VsCodeFileIconTheme -MediaDirectory $rendered -GlyphDirectory @((Join-Path $AssetDirectory "$($Extension.name)/assets"), (Join-Path $AssetDirectory 'catzc-track-lamps/assets'))
+        $null = New-VsCodeFileIconTheme -MediaDirectory $rendered -GlyphDirectory @((Join-Path $AssetDirectory "$sourceFolder/assets"),
+            (Join-Path $AssetDirectory "$((Get-Track -Name js).FolderNameOf('catzc-track-lamps'))/assets"))
     }
     $repeats = if ($Extension.contributes.Contains('repeat')) {
         $Extension.contributes['repeat']

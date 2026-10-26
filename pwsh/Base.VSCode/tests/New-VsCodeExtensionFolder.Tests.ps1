@@ -41,6 +41,26 @@ Describe 'New-VsCodeExtensionFolder' -Tag 'L0', 'logic' {
         $script:manifest.contributes.colors[0].id | Should -Be 'widget.background'
     }
 
+    It 'writes the source folder the installed shell loads, repository-relative under the js track' {
+        $script:manifest.catzc.source | Should -BeExactly "$(Get-TrackPlace -Track js -TrackKind extensions)/widget-ext"
+    }
+
+    It 'reads a namespaced extension from its short folder, and installs it under its full name' -Tag 'DDR-TRACK-MODULENAMESPACE' {
+        $null = New-Item -ItemType Directory -Path (Join-Path $script:assets 'gadget') -Force
+        Set-Content -LiteralPath (Join-Path $script:assets 'gadget/extension.js') -Value 'module.exports = { gadget: true };'
+        $gadget = [Catzc.Base.VSCode.VscodeOwnExtension]::new('catzc-gadget',
+            [ordered]@{ displayName = 'Gadget'; description = 'A gadget.'; activationEvents = @('onStartupFinished') })
+        $installed = InModuleScope Catzc.Base.VSCode -Parameters @{ Entry = $gadget; Out = (Join-Path $TestDrive 'out'); Assets = $script:assets } {
+            param($Entry, $Out, $Assets)
+            New-VsCodeExtensionFolder -Extension $Entry -OutputDirectory $Out -AssetDirectory $Assets
+        }
+        Split-Path $installed -Leaf | Should -BeExactly 'catzc-gadget'
+        $manifest = Get-Content -LiteralPath (Join-Path $installed 'package.json') -Raw | ConvertFrom-Json
+        $manifest.name | Should -BeExactly 'catzc-gadget'
+        $manifest.catzc.source | Should -BeExactly "$(Get-TrackPlace -Track js -TrackKind extensions)/gadget"
+        Get-Content -LiteralPath (Join-Path $installed 'extension.js') -Raw | Should -Match 'gadget: true'
+    }
+
     It 'copies the script from the asset folder to extension.js' {
         Get-Content -LiteralPath (Join-Path $script:folder 'extension.js') -Raw |
             Should -Be (Get-Content -LiteralPath (Join-Path $script:assets 'widget-ext/extension.js') -Raw)

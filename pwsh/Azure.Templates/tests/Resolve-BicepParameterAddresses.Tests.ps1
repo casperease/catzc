@@ -94,7 +94,7 @@ Describe 'Resolve-BicepParameterAddresses (through the config reader)' -Tag 'L0'
         # The real Get-ConfigValue over the module's test identity fixture (tests/assets/config/azure.yml, org 'tst').
         Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -in 'azure', 'network', 'customer' } -MockWith {
             @{ Name = $Config; Module = 'Catzc.Azure.Templates'
-                Path = Join-Path (Get-CatzcModulesRoot) "Catzc.Azure.Templates/tests/assets/config/$Config.yml"
+                Path = Join-Path (Get-CatzcModuleRoot -Module Catzc.Azure.Templates) "tests/assets/config/$Config.yml"
             }
         }
         InModuleScope Catzc.Base.Config { $script:configCache = $null }

@@ -11,7 +11,7 @@ Describe 'Get-AzCliSessionSubscription' -Tag 'L0', 'logic' {
     BeforeAll {
         Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -in 'azure', 'customer' } -MockWith {
             @{ Name = $Config; Module = 'Catzc.Azure.Cli'
-                Path = Join-Path (Get-CatzcModulesRoot) "Catzc.Azure.Cli/tests/assets/config/$Config.yml"
+                Path = Join-Path (Get-CatzcModuleRoot -Module Catzc.Azure.Cli) "tests/assets/config/$Config.yml"
             }
         }
         InModuleScope Catzc.Base.Config { $script:configCache = $null }

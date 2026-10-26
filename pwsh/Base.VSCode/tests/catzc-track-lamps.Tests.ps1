@@ -8,7 +8,9 @@ catzc:
 
 Describe 'catzc-track-lamps' -Tag 'L0', 'logic' {
     BeforeAll {
-        $script:script = (Resolve-Path (Join-Path (Get-RepositoryRoot) 'js/catzc-track-lamps/extension.js')).Path -replace '\\', '/'
+        # The extension's folder, resolved from its name through the js track (DDR-TRACK-MODULENAMESPACE).
+        $script:lampsFolder = "$(Get-TrackPlace -Track js -TrackKind extensions)/$((Get-Track -Name js).FolderNameOf('catzc-track-lamps'))"
+        $script:script = (Resolve-Path (Join-Path (Get-RepositoryRoot) "$script:lampsFolder/extension.js")).Path -replace '\\', '/'
         # Runs one exported function of the extension under node with JSON arguments and returns its JSON result.
         $script:call = {
             param([string] $Function, [object[]] $Arguments)
@@ -26,7 +28,8 @@ Describe 'catzc-track-lamps' -Tag 'L0', 'logic' {
     }
 
     It 'answers every shared vector of the lamp language: the files shown, the files no lamp claims, each lamp''s condition' {
-        $vectors = Get-Content -LiteralPath (Join-Path $PSScriptRoot '../../Catzc.Base.Globs/tests/assets/lamp-vectors.yml') -Raw | ConvertFrom-Yaml -Ordered
+        $globs = (Get-Track -Name (Get-CatzcModulesFolder)).FolderNameOf('Catzc.Base.Globs')
+        $vectors = Get-Content -LiteralPath (Join-Path (Get-CatzcModulesRoot) "$globs/tests/assets/lamp-vectors.yml") -Raw | ConvertFrom-Yaml -Ordered
         $vectors.cases.Count | Should -BeGreaterThan 0
         foreach ($case in $vectors.cases) {
             $answer = & $script:call evaluate @($vectors.lamps, @($case.lit), @($vectors.files), $case.facts)
@@ -42,7 +45,7 @@ Describe 'catzc-track-lamps' -Tag 'L0', 'logic' {
 
     It 'keeps files.exclude under the roof the editor''s processes take, for each shipped lamp off and vetoed in turn and for every lamp off' -Tag 'L1' {
         $repository = (Resolve-Path (Join-Path $PSScriptRoot '../../..')).Path -replace '\\', '/'
-        $harness = (Resolve-Path (Join-Path $repository 'js/catzc-track-lamps/tests/stub-editor.js')).Path
+        $harness = (Resolve-Path (Join-Path $repository "$script:lampsFolder/tests/stub-editor.js")).Path
         $output = & node $harness roof $repository $script:script 2>&1
         $LASTEXITCODE | Should -Be 0 -Because "the roof scenario runs: $output"
         $result = $output | ConvertFrom-Json -AsHashtable
@@ -98,7 +101,8 @@ Describe 'catzc-track-lamps — the real repository' -Tag 'L1', 'integrity', 'so
 
     It 'accounts for every file on disk with each filter off in turn: none against its filters, none unclaimed' {
         $root = (Get-RepositoryRoot) -replace '\\', '/'
-        $script = (Resolve-Path (Join-Path $root 'js/catzc-track-lamps/extension.js')).Path -replace '\\', '/'
+        $lamps = "$(Get-TrackPlace -Track js -TrackKind extensions)/$((Get-Track -Name js).FolderNameOf('catzc-track-lamps'))"
+        $script = (Resolve-Path (Join-Path $root "$lamps/extension.js")).Path -replace '\\', '/'
         $filterFile = Join-Path $TestDrive 'filters.json'
         $resolved = [ordered]@{}
         foreach ($filter in Get-RepositoryFilter) {

@@ -71,3 +71,10 @@ Describe 'ConvertTo-PesterRunTarget' -Tag 'L0', 'logic' {
         $target.Container[0].Data['Executable'] | Should -Be ''
     }
 }
+
+Describe 'ConvertTo-PesterRunTarget — shipped tests/Language.Bridge.ps1' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP-COVEREDBYREALTEST' {
+    It 'finds the language bridge in the loaded QualityGates module' {
+        Join-Path (Get-CatzcModuleRoot -Module Catzc.Base.QualityGates) "$((Get-Config -Config languages).FolderOf('test'))/Language.Bridge.ps1" |
+            Should -Exist
+    }
+}

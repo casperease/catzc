@@ -1,6 +1,6 @@
 Describe 'Get-AccostedFile over the shipped contracts.accosted.yml' -Tag 'L1', 'integrity' {
     BeforeAll {
-        $script:path = Join-Path (Get-CatzcModulesRoot) 'Catzc.Base.Contracts/accosted/contracts.accosted.yml'
+        $script:path = Join-Path (Get-CatzcModuleRoot -Module Catzc.Base.Contracts) 'accosted/contracts.accosted.yml'
     }
 
     It 'loads the shipped file as its typed model, every command contracted, harmless and called with fitting literals' {

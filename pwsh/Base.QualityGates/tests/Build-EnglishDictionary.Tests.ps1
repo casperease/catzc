@@ -26,3 +26,11 @@ Describe 'Build-EnglishDictionary — committed dictionary drift guard' -Tag 'L2
         $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")
     }
 }
+
+Describe 'Build-EnglishDictionary — shipped assets/english.txt.gz' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP-COVEREDBYREALTEST' {
+    It 'finds the word list and its stamp where it writes them, in the loaded QualityGates module' {
+        $assets = [Catzc.Base.QualityGates.SpellingOracle]::AssetsFolder((Get-CatzcModuleRoot -Module Catzc.Base.QualityGates))
+        [Catzc.Base.QualityGates.SpellingOracle]::DictionaryPath($assets) | Should -Exist
+        [Catzc.Base.QualityGates.SpellingOracle]::DictionaryStampPath($assets) | Should -Exist
+    }
+}
