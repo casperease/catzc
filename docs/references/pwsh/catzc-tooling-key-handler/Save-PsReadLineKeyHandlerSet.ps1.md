@@ -1,4 +1,4 @@
-# pwsh/Catzc.Tooling.KeyHandler/Save-PsReadLineKeyHandlerSet.ps1
+# pwsh/Tooling.KeyHandler/Save-PsReadLineKeyHandlerSet.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -18,7 +18,7 @@ so re-capturing an unchanged session is a no-op.
 
 ### parameter `Path`
 
-Target file. Defaults to the catzc source tree's pwsh/Catzc.Tooling.KeyHandler/configs/key-handler-bindings.yml — the authored config that
+Target file. Defaults to the catzc source tree's pwsh/Tooling.KeyHandler/configs/key-handler-bindings.yml — the authored config that
 Import-PsReadLineKeyHandlerSet reads back once loaded. The default needs a session running the source tree (Assert-SourceTree), so a capture
 is never written into a built package.
 

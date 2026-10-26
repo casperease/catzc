@@ -30,5 +30,5 @@ reason. Change one field of the payload per run, so each run proves one rule.
 ## Make it a test
 
 A payload worth keeping becomes a case in the hook's Pester test,
-[`Build-AgentHook.Tests.ps1`](../../../pwsh/Catzc.Base.TypesSystem/tests/Build-AgentHook.Tests.ps1), which pipes the payload string into the
+[`Build-AgentHook.Tests.ps1`](../../../pwsh/Base.TypesSystem/tests/Build-AgentHook.Tests.ps1), which pipes the payload string into the
 published exe from PowerShell (`$Payload | & $program`), so no POSIX shell stands between the test and the JSON.

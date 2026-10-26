@@ -1,7 +1,7 @@
 # cspell:ignore mxfile getpixel mxgraph
 """Re-rendering a .drawio.png from the model it carries, with and without a page override.
 
-usage (repo root, background): timeout 120 uv run -q --with pillow==12.3.0 --with pytest==9.1.1 python -m pytest python/catzc_diagrams/tests
+usage (repo root, background): timeout 120 uv run -q --with pillow==12.3.0 --with pytest==9.1.1 python -m pytest python/diagrams/tests
 """
 
 import sys

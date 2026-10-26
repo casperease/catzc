@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Modules/Get-CatzcModule.ps1
+# pwsh/Base.Modules/Get-CatzcModule.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -124,4 +124,14 @@ Above `$language = $null -eq $row -or $row.live ? $languages.ForPath($file) : $n
 ```text
 The languages of a module are those of its live files: a test, or a README, is no second
 tech-stack.
+```
+
+## comment:6
+
+Above `$fullName = $entry.Shape -ceq 'folder' ? $trackEntry.FullNameOf($entry.Name)...`, written with `#`.
+
+```text
+A module is named by its full name, its folder joined to the track's namespace
+([DDR-TRACK-MODULENAMESPACE](/docs/drs/design/tracks.md#rule-ddr-track-modulenamespace)).
+A file-shaped module (a pwsh/.internal Catzc.Internal.*.psm1) already carries its full name: a declared global exemption.
 ```

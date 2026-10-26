@@ -18,7 +18,7 @@ skills: [artifact-publish, drawio-declaration, catzc-run, git-readonly, report-f
 
 Publish what is on disk, exactly as it is now; never draw, edit or move a diagram, never write an answer.
 
-1. Background Bash `timeout 60 uv run -q python <repo>/python/catzc_diagrams/catalogue.py`; it writes `out/print-artifacts/catalogue.json`
+1. Background Bash `timeout 60 uv run -q python <repo>/python/diagrams/catalogue.py`; it writes `out/print-artifacts/catalogue.json`
    and prints one line per diagram.
 2. Run artifact-publish steps 1 to 3 with the page URL and that catalogue.
 3. Print the page link and one line: diagrams, drawings, and what changed since the last publish (drawings added, drawings removed).

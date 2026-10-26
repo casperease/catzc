@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Slides/private/Get-SlidesKit.ps1
+# pwsh/Base.Slides/private/Get-SlidesKit.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -16,7 +16,7 @@ once (ADR-REPO-SLIDES-PATTERN). A kit folder, a defaults file or a patterns fold
 
 ### parameter `Kit`
 
-The kit folder, repository-relative, such as python/catzc_diagrams/assets/slides.
+The kit folder, repository-relative, such as python/diagrams/assets/slides.
 
 ### parameter `RepositoryRoot`
 

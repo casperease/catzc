@@ -233,7 +233,7 @@ Above `if (-not $SkipJanitors -and $IsWindows) {`, written with `#`.
 ```text
 Warn if PSModulePath contains a network share. The permanent fix is a one-time
 script that writes a local PSModulePath to the user-scope powershell.config.json.
-See: pwsh/Catzc.Base.Environment/assets/README.md
+See: pwsh/Base.Environment/assets/README.md
 ```
 
 ## comment:21

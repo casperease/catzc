@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  docs: "../../docs/references/pwsh/catzc-base-types-system/Invoke-BuildForVSCode.ps1.md"
+  docs: "../../docs/references/pwsh/catzc-base-types-system/Invoke-BuildForVsCode.ps1.md"
   header: "generated"
 ---
 #>

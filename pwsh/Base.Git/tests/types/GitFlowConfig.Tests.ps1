@@ -32,8 +32,8 @@ Describe 'GitFlowConfig' -Tag 'L0', 'logic', 'PDR-CONFIG-DEFAULTDECLAREDONCE' {
             Should -BeExactly 'Push-Topic'
         $config.UserCommandIn('pwsh -c "sync-topic"') | Should -BeExactly 'Sync-Topic'
         $config.UserCommandIn('pwsh -c "Get-SyncPoint"') | Should -BeNullOrEmpty
-        $config.UserCommandIn('timeout 330 pwsh -File out/run.ps1 -Path pwsh/Catzc.Base.Git/tests/Save-Topic.Tests.ps1') | Should -BeNullOrEmpty
-        $config.UserCommandIn('cat pwsh/Catzc.Base.Git/Push-Topic.ps1') | Should -BeNullOrEmpty
+        $config.UserCommandIn('timeout 330 pwsh -File out/run.ps1 -Path pwsh/Base.Git/tests/Save-Topic.Tests.ps1') | Should -BeNullOrEmpty
+        $config.UserCommandIn('cat pwsh/Base.Git/Push-Topic.ps1') | Should -BeNullOrEmpty
         $config.UserCommandIn('') | Should -BeNullOrEmpty
     }
 

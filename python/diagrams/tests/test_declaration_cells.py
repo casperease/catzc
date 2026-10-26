@@ -1,7 +1,7 @@
 # cspell:ignore minimaps widgetese getpixel miny
 """The declaration of a diagram, tested: chips, commits, spans, markers, drift, and the conflict and sync of a committed pair.
 
-usage (repo root, background): timeout 120 uv run --project python python -m pytest python/catzc_diagrams/tests/test_declaration_cells.py
+usage (repo root, background): timeout 120 uv run --project python python -m pytest python/diagrams/tests/test_declaration_cells.py
 """
 
 import sys

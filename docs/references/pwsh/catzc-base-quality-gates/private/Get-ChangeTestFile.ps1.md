@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.QualityGates/private/Get-ChangeTestFile.ps1
+# pwsh/Base.QualityGates/private/Get-ChangeTestFile.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -37,5 +37,5 @@ Widen to every test file of each module a change touches.
 ### example 1
 
 ```powershell
-Get-ChangeTestFile -Path 'pwsh/Catzc.Base.Files/Get-GitChangedPath.ps1' -RepositoryRoot (Get-RepositoryRoot)
+Get-ChangeTestFile -Path 'pwsh/Base.Files/Get-GitChangedPath.ps1' -RepositoryRoot (Get-RepositoryRoot)
 ```

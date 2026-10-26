@@ -1,6 +1,6 @@
 """A C3 or C4 slide's query rows, tested: the file's shape, the cells written out in the first band, and a source that never holds them.
 
-usage (repo root, background): timeout 120 uv run --project python python -m pytest python/catzc_diagrams/tests/test_query_rows.py
+usage (repo root, background): timeout 120 uv run --project python python -m pytest python/diagrams/tests/test_query_rows.py
 """
 
 import json

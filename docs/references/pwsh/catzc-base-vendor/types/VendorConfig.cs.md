@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Vendor/types/VendorConfig.cs
+# pwsh/Base.Vendor/types/VendorConfig.cs
 
 The typed record for `vendor.yml`, the vendor registry
 ([ADR-PWSH-VENDOR](../../../../drs/automation/pwsh/vendor-toolset-dependencies.md)). It is registered in

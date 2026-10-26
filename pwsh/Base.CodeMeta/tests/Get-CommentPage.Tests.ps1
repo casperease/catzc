@@ -16,8 +16,8 @@ Describe 'Get-CommentPage' -Tag 'L0', 'logic', 'ADR-REPO-COMMENTS-COMMENTPAGEPLA
 
 Describe 'Get-CommentPage (the shipped comment-pages config)' -Tag 'L1', 'integrity', 'ADR-REPO-COMMENTS-COMMENTPAGEPLACE' {
     It 'maps a python package file to its page under the package''s own folder name, a page that exists' {
-        $page = Get-CommentPage -Path 'python/catzc_diagrams/configs/drawio.yml' -Config (Get-Config -Config comment-pages)
-        $page | Should -BeExactly 'docs/references/python/catzc_diagrams/configs/drawio.yml.md'
+        $page = Get-CommentPage -Path 'python/diagrams/configs/drawio.yml' -Config (Get-Config -Config comment-pages)
+        $page | Should -BeExactly 'docs/references/python/diagrams/configs/drawio.yml.md'
         Join-Path (Get-RepositoryRoot) $page | Should -Exist
     }
 }

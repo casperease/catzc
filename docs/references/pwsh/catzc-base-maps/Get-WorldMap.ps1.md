@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Maps/Get-WorldMap.ps1
+# pwsh/Base.Maps/Get-WorldMap.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -19,7 +19,7 @@ Gathers the repository's own registries and builds the map with Catzc.Base.Maps.
 uses; an ADR lights its own file, never its domain's), the owners of the repository-root files (files.yml, read through Get-Config), the
 globsets (Get-GlobSet), and the globs of the files whose citations light nothing (maps.yml highlight.citation_exclude; by default the
 generated slide descriptions under docs/.assets/, the explanation articles under docs/explanation/ and the drawing tooling under
-python/catzc_diagrams/, so a slide's minimap lights the repository's citations of its ADRs, never the slide's own words).
+python/diagrams/, so a slide's minimap lights the repository's citations of its ADRs, never the slide's own words).
 
 The root folder gives a file's track and its extension gives its file language; a file under no track or in no file language lands in a
 bucket row or column, so every file has exactly one cell. A live file whose file language its track does not declare is a stack violation

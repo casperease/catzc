@@ -90,3 +90,12 @@ Above `function New-EvictionRoot {`, written with `#`.
 Two complete sandbox roots (importer + .internal + .vendor) — stand-ins for a source tree and a build.
 Each holds a module only it ships and a same-named module that reports which root it came from.
 ```
+
+## comment:10
+
+Above `$timeoutsConfigs = New-Item -Path (Join-Path $sandboxAuto...`, written with `#`.
+
+```text
+The importer waits on the run lock before any module loads, so the sandbox carries the timeouts config too; it names no track,
+so both sit under their full-name folders.
+```

@@ -1,6 +1,6 @@
 """A diagram's zoom, tested: the optional about.zoom, its closed list beside the lenses, and the source that keeps it.
 
-usage (repo root, background): timeout 120 uv run --project python python -m pytest python/catzc_diagrams/tests/test_zoom.py
+usage (repo root, background): timeout 120 uv run --project python python -m pytest python/diagrams/tests/test_zoom.py
 """
 
 import sys

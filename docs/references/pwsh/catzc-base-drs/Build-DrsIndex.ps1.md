@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Drs/Build-DrsIndex.ps1
+# pwsh/Base.Drs/Build-DrsIndex.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -12,7 +12,7 @@ domain structure.
 
 ### description
 
-index.md is a derived projection of pwsh/Catzc.Base.Drs/configs/drs.yml: authored preamble and authoring-convention prose wrapped around one
+index.md is a derived projection of pwsh/Base.Drs/configs/drs.yml: authored preamble and authoring-convention prose wrapped around one
 code-registry table per domain (in declared order). Every ADR row is `| ``<external>`` | [<slug>](<path>) |` — the format Get-CatsDrsIndex
 parses and the citation grammar Show-Cats presents. Each link path is resolved to the real `docs/drs/<domain>/**/<slug>.md` file.
 

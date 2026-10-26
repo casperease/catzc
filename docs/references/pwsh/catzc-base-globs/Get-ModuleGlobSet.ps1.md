@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Globs/Get-ModuleGlobSet.ps1
+# pwsh/Base.Globs/Get-ModuleGlobSet.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -144,4 +144,13 @@ Above `$codeTrack = Get-Track -Path (Get-CatzcModulesFolder)`, written with `#`.
 ```text
 The code track is the one whose place is the catzc modules folder; its first place is the root every module and
 infra folder sits under.
+```
+
+## comment:10
+
+Above `if ($compiled.Name -eq 'tests') {`, written with `#`.
+
+```text
+Each language's test folder for the module, named from the module's folder (which drops the namespace) in that
+language's folder case.
 ```

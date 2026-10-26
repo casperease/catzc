@@ -21,8 +21,6 @@ function New-VsCodeExtensionFolder {
         [string] $AssetDirectory = (Join-Path (Get-RepositoryRoot) (Get-TrackPlace -Track js -TrackKind extensions))
     )
 
-    # The source folder drops the js track's namespace, so the extension's name resolves to it (DDR-TRACK-MODULENAMESPACE); the installed
-    # folder keeps the name, the extension's id.
     $sourceFolder = (Get-Track -Name js).FolderNameOf($Extension.name)
     $script = Join-Path $AssetDirectory "$sourceFolder/extension.js"
     Assert-PathExist $script -ErrorText "New-VsCodeExtensionFolder: extension '$($Extension.name)' has no script at '$script'."

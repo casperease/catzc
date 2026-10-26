@@ -44,15 +44,11 @@ public sealed class VariantTrack
     // The module namespace ([DDR-TRACK-MODULENAMESPACE](/docs/drs/design/tracks.md#rule-ddr-track-modulenamespace)): joined to a folder name, it gives the module's full name; empty when undeclared.
     public string @namespace { get; }
 
-    // The join a track's language spells between its namespace and a folder name: catzc + "-" + track-lamps on the js track; empty for one
-    // that joins with nothing, as go does.
     public string join { get; }
 
     // The join a track declares none of: the dot of a PowerShell module's full name.
     public const string DefaultJoin = ".";
 
-    // The globs of the files that keep the namespace on disk because they name the product, not a module folder
-    // (DDR-TRACK-MODULENAMESPACE): a loader psm1 PowerShell names its module after, the types assembly's identity.
     public IReadOnlyList<string> namespace_exempt { get; }
 
     private readonly Catzc.Base.Objects.GlobPattern[] exemptPatterns;
@@ -85,10 +81,6 @@ public sealed class VariantTrack
         this.languages = languages == null ? Array.Empty<string>() : (string[])languages.Clone();
     }
 
-    // The first segment of a '/'-separated repository-relative path below one of the track's places that spells the namespace in the
-    // track's join form, as the path up to that segment; null when none does, the track declares no namespace, or an exempt glob
-    // matches the path. The match is ordinal, as FolderNameOf strips: a segment spelling another track's form (catzc- under Catzc.)
-    // names that track's identity, not this track's namespace.
     public string NamespaceSegmentOf(string path)
     {
         if (@namespace.Length == 0 || string.IsNullOrEmpty(path)) { return null; }
@@ -156,8 +148,6 @@ public sealed class VariantTrack
         return best;
     }
 
-    // The length of the longest member that contains a '/'-separated repository-relative path, or -1 when none does; a glob member
-    // counts by its pattern's length, so a glob inside another track's place takes the files it names.
     public int PlaceLengthOf(string path)
     {
         int best = -1;

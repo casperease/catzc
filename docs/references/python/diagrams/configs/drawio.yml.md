@@ -1,4 +1,4 @@
-# python/catzc_diagrams/configs/drawio.yml
+# python/diagrams/configs/drawio.yml
 
 <!-- cspell:ignore callsite -->
 

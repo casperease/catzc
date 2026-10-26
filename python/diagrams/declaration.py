@@ -16,15 +16,15 @@ get:  the XML embedded in the .drawio.png becomes the declaration again, written
       same declaration, get then put the same XML.
 
 usage (repo root, background):
-  uv run --no-sync --project python python python/catzc_diagrams/declaration.py put <diagram> [--xml <out.xml>]
-  uv run --no-sync --project python python python/catzc_diagrams/declaration.py get <diagram>
-  uv run --no-sync --project python python python/catzc_diagrams/declaration.py check <diagram>...
-  uv run --no-sync --project python python python/catzc_diagrams/declaration.py sync <diagram>
-  uv run --no-sync --project python python python/catzc_diagrams/declaration.py tidy <diagram>
-  uv run --no-sync --project python python python/catzc_diagrams/declaration.py minimaps <diagram>
-  uv run --no-sync --project python python python/catzc_diagrams/declaration.py reflow <diagram>
-  uv run --no-sync --project python python python/catzc_diagrams/declaration.py carry <diagram> article|file
-  uv run --no-sync --project python python python/catzc_diagrams/declaration.py rekey <from-stem> <to-stem> [<drawio.yml>]
+  uv run --no-sync --project python python python/diagrams/declaration.py put <diagram> [--xml <out.xml>]
+  uv run --no-sync --project python python python/diagrams/declaration.py get <diagram>
+  uv run --no-sync --project python python python/diagrams/declaration.py check <diagram>...
+  uv run --no-sync --project python python python/diagrams/declaration.py sync <diagram>
+  uv run --no-sync --project python python python/diagrams/declaration.py tidy <diagram>
+  uv run --no-sync --project python python python/diagrams/declaration.py minimaps <diagram>
+  uv run --no-sync --project python python python/diagrams/declaration.py reflow <diagram>
+  uv run --no-sync --project python python python/diagrams/declaration.py carry <diagram> article|file
+  uv run --no-sync --project python python python/diagrams/declaration.py rekey <from-stem> <to-stem> [<drawio.yml>]
 (<diagram> is the stem `.assets/<name>` or either file of its pair; `--rows <file>` before any direction names the query rows a C3 or C4
 slide is expanded from, as the renderer takes it)
 

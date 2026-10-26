@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Overlay/private/Get-LocalModuleViolation.ps1
+# pwsh/Base.Overlay/private/Get-LocalModuleViolation.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -37,4 +37,14 @@ Above `$files = [string[]] @(Get-ChildPath $Path -File -Depth 64 -Exclude @()...
 ```text
 A named whole-tree walk ([ADR-PWSH-ENUM-ALWAYSBOUNDED](/docs/drs/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): a
 violation anywhere in the module must show, so nothing is pruned.
+```
+
+## comment:2
+
+Above `$name = [System.IO.Path]::GetFileName($Path)`, written with `#`.
+
+```text
+A folder never spells the modules track's namespace
+([DDR-TRACK-MODULENAMESPACE](/docs/drs/design/tracks.md#rule-ddr-track-modulenamespace)): the folder resolves to its full name, the
+bundle names the fix.
 ```

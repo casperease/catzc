@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Files/Get-GitChangedPath.ps1
+# pwsh/Base.Files/Get-GitChangedPath.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -36,5 +36,5 @@ Get-GitChangedPath
 ### example 2
 
 ```powershell
-Get-GitChangedPath 'pwsh/Catzc.Base.Files', 'docs'
+Get-GitChangedPath 'pwsh/Base.Files', 'docs'
 ```

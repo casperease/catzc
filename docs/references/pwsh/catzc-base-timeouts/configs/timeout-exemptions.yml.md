@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Timeouts/configs/timeout-exemptions.yml
+# pwsh/Base.Timeouts/configs/timeout-exemptions.yml
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -13,7 +13,7 @@ Get-Config -Config timeout-exemptions and validated by the TimeoutExemptionsConf
 Get-TimeoutExemption, Test-IsTimeoutExempt and Assert-IsNotTimeoutExempt.
 
 A piece of work is identified by an immutable budget GUID: minted with ConvertTo-Guid so it spells its name,
-registered in pwsh/Catzc.Base.QualityGates/configs/guids.yml, and passed by the call site as -Budget
+registered in pwsh/Base.QualityGates/configs/guids.yml, and passed by the call site as -Budget
 (Invoke-WithTimeout, Assert-CompletesWithin, Test-CompletesWithin, Get-TimeoutSeconds). Renaming the call site
 never changes it.
 

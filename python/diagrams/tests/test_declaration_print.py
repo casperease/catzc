@@ -1,7 +1,7 @@
 # cspell:ignore minimaps widgetese getpixel miny
 """The declaration of a diagram, tested: layering under the drawing, conflicts by drawing, the printed form of the source, reflow and the deadzone.
 
-usage (repo root, background): timeout 120 uv run --project python python -m pytest python/catzc_diagrams/tests/test_declaration_print.py
+usage (repo root, background): timeout 120 uv run --project python python -m pytest python/diagrams/tests/test_declaration_print.py
 """
 
 import sys

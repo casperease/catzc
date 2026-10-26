@@ -27,7 +27,8 @@ public sealed class TerminologyConfig
     private static readonly string[] AllowedKeys = { "categories", "terms" };
 
     // The files that define the terms, which the orphan search leaves out: the registry, and one generated dictionary per category. The
-    // caller passes the QualityGates module's root, since its folder drops the namespace its name carries (DDR-TRACK-MODULENAMESPACE).
+    // caller passes the QualityGates module's root, since its folder drops the namespace its name carries
+    // ([DDR-TRACK-MODULENAMESPACE](/docs/drs/design/tracks.md#rule-ddr-track-modulenamespace)).
     public string[] DefiningFiles(string repositoryRoot, string moduleRoot)
     {
         if (string.IsNullOrEmpty(repositoryRoot)) { throw new ArgumentException("repositoryRoot must not be empty", "repositoryRoot"); }

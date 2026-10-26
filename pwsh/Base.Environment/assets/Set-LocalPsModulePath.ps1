@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-environment/assets/Set-LocalPSModulePath.ps1.md"
+  docs: "../../../docs/references/pwsh/catzc-base-environment/assets/Set-LocalPsModulePath.ps1.md"
   header: "generated"
 ---
 #>

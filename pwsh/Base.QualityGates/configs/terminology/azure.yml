@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   docs: "../../../../docs/references/pwsh/catzc-base-quality-gates/configs/terminology.yml.md"
-#   header: "generated"
-# ---
-
 categories:
   azure:
     description: "Azure and cloud infrastructure: regions, resource types, network topology, and environment or subscription tokens."

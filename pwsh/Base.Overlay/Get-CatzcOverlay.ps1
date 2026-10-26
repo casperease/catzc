@@ -22,8 +22,6 @@ function Get-CatzcOverlay {
     # The overlay's own folders, every one: an overlay is listed whole, nothing pruned.
     $folders = [string[]] @(Get-ChildPath $overlayRoot -Directory -Depth 1 -Exclude @() -PruneVendor $false)
     [System.Array]::Sort($folders, [System.StringComparer]::Ordinal)
-    # An overlay folder mirrors a bundled module's folder, which never spells the namespace; the record carries the folder and the full name
-    # the resolver gives it (DDR-TRACK-MODULENAMESPACE). A local module's name is its folder's.
     $namespace = (Get-Track -Name pwsh).namespace
     foreach ($folder in $folders) {
         $folderName = [System.IO.Path]::GetFileName($folder)

@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.QualityGates/Build-EnglishDictionary.ps1
+# pwsh/Base.QualityGates/Build-EnglishDictionary.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -14,7 +14,7 @@ dictionaries so the two checks agree on "what is a word".
 
 Reads cspell's bundled en_US and en_GB tries (the same dictionaries cspell.yml's `language: en,en-GB` resolves), flattens each to a word
 list with `cspell-trie reader`, unions them, keeps only lower-cased pure-alpha words of length >= 2, and writes the sorted, de-duplicated
-result gzip-compressed to pwsh/Catzc.Base.QualityGates/assets/english.txt.gz.
+result gzip-compressed to pwsh/Base.QualityGates/assets/english.txt.gz.
 
 Unlike the `.cspell/*.txt` term lists (regenerated cheaply from terminology.yml on every import), this list is EXPENSIVE to regenerate — it
 needs node, npx, and cspell's bundled tries — and it is needed on a fresh checkout by the L2 analyzer rule (Measure-SpellOutIdentifiers). So

@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.VSCode/private/New-VsCodeFileIconTheme.ps1
+# pwsh/Base.VSCode/private/New-VsCodeFileIconTheme.ps1
 
 <!-- cspell:ignore Segoe linejoin linecap dasharray -->
 

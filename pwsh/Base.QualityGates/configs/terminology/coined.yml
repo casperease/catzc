@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   docs: "../../../../docs/references/pwsh/catzc-base-quality-gates/configs/terminology.yml.md"
-#   header: "generated"
-# ---
-
 categories:
   coined:
     description: "A word this codebase coined — a neologism (adjective, verb, or noun) not found in ordinary usage."

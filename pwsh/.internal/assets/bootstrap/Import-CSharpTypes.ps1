@@ -55,7 +55,8 @@ function Import-CSharpTypes {
     # ordinally sorted.
     $moduleNamespace = Get-ModuleNamespace -ModulesRoot $ModulesRoot
     $arr = [object[]]@(foreach ($file in $hashResult.Files) {
-            # The namespace a type declares is its module's full name, resolved from the folder (DDR-TRACK-MODULENAMESPACE).
+            # The namespace a type declares is its module's full name, resolved from the folder
+            # ([DDR-TRACK-MODULENAMESPACE](/docs/drs/design/tracks.md#rule-ddr-track-modulenamespace)).
             $folderName = $file.Module
             $moduleName = Resolve-ModuleName -Folder $folderName -Namespace $moduleNamespace
             $base = $file.Base

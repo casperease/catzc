@@ -1,7 +1,7 @@
 # cspell:ignore lstrip makedirs pathlib setdefault startswith keepends
 """Inventory the review drawings on disk for the Diagram Waves Review page.
 
-usage: uv run -q python python/catzc_diagrams/catalogue.py
+usage: uv run -q python python/diagrams/catalogue.py
 
 Writes out/print-artifacts/catalogue.json, one entry per diagram id (<area>.<name>) with its versions (wave, png path,
 size, and the check-note counts when a .verify.md sits beside the drawing), and prints one line per diagram and a total.

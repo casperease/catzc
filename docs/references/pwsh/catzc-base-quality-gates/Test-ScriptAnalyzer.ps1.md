@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.QualityGates/Test-ScriptAnalyzer.ps1
+# pwsh/Base.QualityGates/Test-ScriptAnalyzer.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -65,7 +65,7 @@ $result.IssueCount
 ### example 3
 
 ```powershell
-Test-ScriptAnalyzer -Path pwsh/Catzc.Base.QualityGates
+Test-ScriptAnalyzer -Path pwsh/Base.QualityGates
 Analyze just one module.
 ```
 

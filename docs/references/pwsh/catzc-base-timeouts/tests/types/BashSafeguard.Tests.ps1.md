@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Timeouts/tests/types/BashSafeguard.Tests.ps1
+# pwsh/Base.Timeouts/tests/types/BashSafeguard.Tests.ps1
 
 <!-- cspell:ignore tmain tforeground tbackground tsleep tsubagent tpipeline -->
 

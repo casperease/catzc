@@ -112,7 +112,7 @@ tree, and the VS Code registries carry the code-link rule.
 **Checks:**
 
 - `Get-CommentPage` over the shipped `comment-pages` config maps `python/diagrams/configs/drawio.yml` to
-  `docs/references/python/catzc_diagrams/configs/drawio.yml.md`, and that file exists.
+  `docs/references/python/diagrams/configs/drawio.yml.md`, and that file exists.
 
 ### 11. Test-GeneratedFiles — real tree
 

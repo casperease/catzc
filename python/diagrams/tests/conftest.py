@@ -126,7 +126,7 @@ def claimed():
         "tracks": ["python"],
         "languages": ["python"],
         "modules": ["Catzc.Base.Repository"],
-        "files": ["python/catzc_diagrams/minimaps.py"],
+        "files": ["python/diagrams/minimaps.py"],
     }
     raw["content"]["minimaps"] = ["code-locations", "module-neighbourhood", "axis"]
     return raw

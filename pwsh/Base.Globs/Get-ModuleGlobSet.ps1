@@ -69,8 +69,6 @@ function Get-ModuleGlobSet {
                 throw "Declared globset '$aspectKebab' in globs.yml shadows the derived aspect of module '$moduleName' — derived and declared sets share one name space (ADR-REPO-PROTGLOB); rename the declared set."
             }
             $include = [string[]]$compiled.Include
-            # Each language's test folder for the module, named from the module's folder (which drops the namespace) in that
-            # language's folder case.
             if ($compiled.Name -eq 'tests') {
                 $folder = [System.IO.Path]::GetFileName($module.root)
                 $include += "$goRoot/tests/$($languages.TestFolderOf('go', $folder))/**"

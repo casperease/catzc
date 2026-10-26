@@ -201,7 +201,6 @@ Describe 'Get-CatzcModule on the repository' -Tag 'L1', 'integrity', 'ADR-AUTO-M
         $folders = [System.IO.Directory]::EnumerateDirectories((Get-CatzcModulesRoot)).Where({ -not [System.IO.Path]::GetFileName($_).StartsWith('.') }).ForEach({ [System.IO.Path]::GetFileName($_) })
         $sorted = [string[]]$folders
         [System.Array]::Sort($sorted, [System.StringComparer]::Ordinal)
-        # Each folder resolves to its module's full name under the track's namespace (DDR-TRACK-MODULENAMESPACE).
         $script:codeModules.name | Should -Be @($sorted | ForEach-Object { $script:codeTrack.FullNameOf($_) })
     }
 

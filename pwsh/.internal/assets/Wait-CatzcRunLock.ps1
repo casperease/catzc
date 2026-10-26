@@ -29,7 +29,8 @@ function Get-CatzcRunLockSetting {
         [string] $Path
     )
 
-    # The timeouts module's folder, resolved from its full name under the modules track's namespace (DDR-TRACK-MODULENAMESPACE).
+    # The timeouts module's folder, resolved from its full name under the modules track's namespace
+    # ([DDR-TRACK-MODULENAMESPACE](/docs/drs/design/tracks.md#rule-ddr-track-modulenamespace)).
     if (-not $Path) {
         $modulesRoot = [System.IO.Path]::GetFullPath((Join-Path $PSScriptRoot '../..'))
         . (Join-Path $PSScriptRoot 'bootstrap/Resolve-ModuleName.ps1')

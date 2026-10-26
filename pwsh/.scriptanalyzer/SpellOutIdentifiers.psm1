@@ -32,7 +32,8 @@ function Initialize-SpellingOracle {
         Import-TypesAssembly -Path $typesDll | Out-Null
     }
 
-    # The QualityGates folder, resolved from its full name under the modules track's namespace before any import (DDR-TRACK-MODULENAMESPACE).
+    # The QualityGates folder, resolved from its full name under the modules track's namespace before any import
+    # ([DDR-TRACK-MODULENAMESPACE](/docs/drs/design/tracks.md#rule-ddr-track-modulenamespace)).
     . (Join-Path $modulesRoot '.internal/assets/bootstrap/Resolve-ModuleName.ps1')
     . (Join-Path $modulesRoot '.internal/assets/bootstrap/Get-ModuleNamespace.ps1')
     $qualityGates = Join-Path $modulesRoot (Resolve-ModuleName -FullName 'Catzc.Base.QualityGates' -Namespace (Get-ModuleNamespace -ModulesRoot $modulesRoot))

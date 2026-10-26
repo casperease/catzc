@@ -29,3 +29,12 @@ Above `$parent = $node.Parent`, written with `#`.
 The bare place is also a word with other senses (an ADR domain, a layer), so alone it counts only where a path
 is built.
 ```
+
+## comment:4
+
+Above `. (Join-Path $modulesRoot '.internal/assets/bootstrap/Resolve-ModuleName.ps1')`, written with `#`.
+
+```text
+Module folders resolve from their full names under the track's namespace, read before any import
+([DDR-TRACK-MODULENAMESPACE](/docs/drs/design/tracks.md#rule-ddr-track-modulenamespace)).
+```

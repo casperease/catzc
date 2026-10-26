@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Maps/private/Get-MinimapPlace.ps1
+# pwsh/Base.Maps/private/Get-MinimapPlace.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -29,7 +29,7 @@ The file's facts (Get-MinimapFact): its track and the module that holds it.
 ### example 1
 
 ```powershell
-Get-MinimapPlace -Path pwsh/Catzc.Azure/configs/azure.yml -Facts @{ track = 'pwsh'; module = 'Catzc.Azure' }
+Get-MinimapPlace -Path pwsh/Azure/configs/azure.yml -Facts @{ track = 'pwsh'; module = 'Catzc.Azure' }
 ```
 
 ## comment:1

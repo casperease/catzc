@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Config/private/Resolve-ConfigEntry.ps1
+# pwsh/Base.Config/private/Resolve-ConfigEntry.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -65,4 +65,13 @@ Above `$registry = Get-ConfigRegistry`, written with `#`.
 ```text
 A registered type with no shipped file is still a config, built from an empty map, so every key takes its
 declared default.
+```
+
+## comment:5
+
+Above `$manifests = @([System.IO.Directory]::EnumerateFiles($moduleDir, '*.psd1'))`, written with `#`.
+
+```text
+The folder drops the namespace its module's full name carries; the manifest the bootstrap wrote from the resolver
+spells it, and a local overlay module, which carries no namespace, has its folder name.
 ```

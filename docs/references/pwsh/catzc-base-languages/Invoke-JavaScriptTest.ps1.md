@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Languages/Invoke-JavaScriptTest.ps1
+# pwsh/Base.Languages/Invoke-JavaScriptTest.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
 comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -19,4 +19,15 @@ Above `$jsRelative = (Get-Config -Config javascript).ResolveRoot($root)`, writte
 ```text
 The JavaScript root from javascript.yml (JavaScriptConfig.ResolveRoot: the declared root, else js/ when present,
 else .js/).
+```
+
+## comment:3
+
+Above `$extensionFolder = (Get-Track -Path $jsRelative).FolderNameOf($Module)`, written with `#`.
+
+```text
+A module's folder drops its track's namespace, so the full name resolves to it
+([DDR-TRACK-MODULENAMESPACE](/docs/drs/design/tracks.md#rule-ddr-track-modulenamespace)): an extension through the
+js
+track, a pwsh module whose js tests sit in the tests holder through the modules track.
 ```

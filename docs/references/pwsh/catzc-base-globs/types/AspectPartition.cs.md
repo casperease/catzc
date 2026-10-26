@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Globs/types/AspectPartition.cs
+# pwsh/Base.Globs/types/AspectPartition.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -8,7 +8,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 Above `public static IReadOnlyList<CompiledAspect> Compile(IReadOnlyList<Aspect>...`, written with `//`.
 
 ```text
-Compile the ordered aspect convention onto a unit root (e.g. "pwsh/Catzc.Base.Globs"): each
+Compile the ordered aspect convention onto a unit root (e.g. "pwsh/Base.Globs"): each
 aspect's Include is its own patterns, Exclude is every earlier aspect's patterns, all prefixed by the
 unit root. The last aspect (the '**' catch-all) thus becomes "everything under the root minus every
 earlier aspect" — the remainder.

@@ -1,4 +1,4 @@
-# pwsh/Catzc.Tooling.KeyHandler/configs/key-handler-supported.yml
+# pwsh/Tooling.KeyHandler/configs/key-handler-supported.yml
 
 <!-- cspell:ignore begining -->
 

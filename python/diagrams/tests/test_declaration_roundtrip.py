@@ -1,7 +1,7 @@
 # cspell:ignore minimaps widgetese getpixel miny
 """The declaration of a diagram, tested: put and get round-trips, the vocabulary errors, the declared minimaps and the source file.
 
-usage (repo root, background): timeout 120 uv run --project python python -m pytest python/catzc_diagrams/tests/test_declaration_roundtrip.py
+usage (repo root, background): timeout 120 uv run --project python python -m pytest python/diagrams/tests/test_declaration_roundtrip.py
 """
 
 import re

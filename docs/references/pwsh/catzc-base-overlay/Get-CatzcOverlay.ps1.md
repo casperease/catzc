@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Overlay/Get-CatzcOverlay.ps1
+# pwsh/Base.Overlay/Get-CatzcOverlay.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -62,4 +62,14 @@ Above `$files = [string[]] @(Get-ChildPath $folder -File -Depth 64 -Exclude @().
 ```text
 Every file of a consumer module is classified, so the walk prunes nothing: a skipped file would be an override
 nobody sees.
+```
+
+## comment:4
+
+Above `$namespace = (Get-Track -Name pwsh).namespace`, written with `#`.
+
+```text
+An overlay folder mirrors a bundled module's folder, which never spells the namespace; the record carries the folder and the full name
+the resolver gives it ([DDR-TRACK-MODULENAMESPACE](/docs/drs/design/tracks.md#rule-ddr-track-modulenamespace)). A local module's name
+is its folder's.
 ```

@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.QualityGates/private/Get-LanguageTestFolders.ps1
+# pwsh/Base.QualityGates/private/Get-LanguageTestFolders.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -79,4 +79,13 @@ Above `if (-not @(Get-ChildPath $folder -File -Filter $language.Pattern -Depth..
 ```text
 A module folder holds its test files directly or in a package one level down; the third level is
 headroom.
+```
+
+## comment:5
+
+Above `$engineTrack = $engineModules.Count -gt 0 ? (Get-Track -Name...`, written with `#`.
+
+```text
+A test folder is named for its module's folder, which drops the track's namespace
+([DDR-TRACK-MODULENAMESPACE](/docs/drs/design/tracks.md#rule-ddr-track-modulenamespace)).
 ```

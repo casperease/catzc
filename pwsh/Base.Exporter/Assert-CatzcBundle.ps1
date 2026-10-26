@@ -108,7 +108,6 @@ function Assert-CatzcBundle {
                     }
                 }
                 if ($sourcesComplete) {
-                    # The build ships the carriers beside its type sources; staged the same way, the hash reads the same bodies.
                     $carriers = [System.IO.Path]::Combine($root, '.compiled', 'types', 'file-carriers.yml')
                     if ([System.IO.File]::Exists($carriers)) {
                         $stagedTypes = [System.IO.Path]::Combine($staging, '.compiled', 'types')

@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.CodeMeta/Get-CommentPage.ps1
+# pwsh/Base.CodeMeta/Get-CommentPage.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -30,5 +30,5 @@ The comment-pages config: a Catzc.Base.CodeMeta.CommentPagesConfig.
 ### example 1
 
 ```powershell
-Get-CommentPage -Path 'pwsh/Catzc.Base.CodeMeta/Get-CommentPage.ps1' -Config (Get-Config -Config comment-pages)
+Get-CommentPage -Path 'pwsh/Base.CodeMeta/Get-CommentPage.ps1' -Config (Get-Config -Config comment-pages)
 ```

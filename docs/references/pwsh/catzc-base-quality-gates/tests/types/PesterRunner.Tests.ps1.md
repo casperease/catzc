@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.QualityGates/tests/types/PesterRunner.Tests.ps1
+# pwsh/Base.QualityGates/tests/types/PesterRunner.Tests.ps1
 
 <!-- cspell:ignore nexit -->
 

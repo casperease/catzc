@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Exporter/tests/New-CatzcNuGetPackage.Tests.ps1
+# pwsh/Base.Exporter/tests/New-CatzcNuGetPackage.Tests.ps1
 
 <!-- cspell:ignore nfunction -->
 

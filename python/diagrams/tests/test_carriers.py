@@ -1,6 +1,6 @@
 """The carrier of a diagram's declaration: derived from what is on disk, with the kit's drawio.yml declaring only the default for a diagram with neither.
 
-usage (repo root, background): timeout 120 uv run -q --project python/catzc_diagrams python -m pytest python/catzc_diagrams/tests
+usage (repo root, background): timeout 120 uv run -q --project python/diagrams python -m pytest python/diagrams/tests
 """
 
 import sys

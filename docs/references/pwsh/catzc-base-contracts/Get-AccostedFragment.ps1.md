@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Contracts/Get-AccostedFragment.ps1
+# pwsh/Base.Contracts/Get-AccostedFragment.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -40,5 +40,5 @@ The root a relative path and the command contracts resolve against. Default: the
 ### example 1
 
 ```powershell
-Get-AccostedFragment -Path pwsh/Catzc.Base.Contracts/accosted/contracts.accosted.yml -RunNumber 3
+Get-AccostedFragment -Path pwsh/Base.Contracts/accosted/contracts.accosted.yml -RunNumber 3
 ```

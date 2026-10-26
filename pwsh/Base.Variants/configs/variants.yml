@@ -27,8 +27,6 @@ aspects:
     - live: ["**"]
 
 tracks:
-  # The gitignored build outputs are members too, so a clean finds them in the model; each one's generated fact comes from its
-  # generator's target.
   pwsh:
     {
       members:
@@ -44,8 +42,6 @@ tracks:
       languages: [powershell, bcl, yaml, json, jsonl, bash, xml, css, javascript, solution, stamp, asset],
       execution_engines: [pwsh],
       namespace: Catzc,
-      # The files that name the product, not a module folder, so they keep the namespace on disk: the loaders PowerShell names its
-      # modules after, and the types assembly's identity.
       namespace_exempt:
         [
           "pwsh/.internal/Catzc.Internal.*.psm1",

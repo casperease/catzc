@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.QualityGates/Export-Comments.ps1
+# pwsh/Base.QualityGates/Export-Comments.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -50,11 +50,11 @@ Return one Catzc.Base.QualityGates.CommentFileResult per file that changes.
 ### example 1
 
 ```powershell
-Export-Comments -Path pwsh/Catzc.Base.Files -DryRun -PassThru
+Export-Comments -Path pwsh/Base.Files -DryRun -PassThru
 ```
 
 ### example 2
 
 ```powershell
-Export-Comments -Path pwsh/Catzc.Base.Files/Write-FileIfChanged.ps1
+Export-Comments -Path pwsh/Base.Files/Write-FileIfChanged.ps1
 ```

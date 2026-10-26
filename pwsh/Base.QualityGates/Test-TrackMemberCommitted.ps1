@@ -19,8 +19,6 @@ function Test-TrackMemberCommitted {
 
     $root = Get-RepositoryRoot
     $members = @(Get-TrackMember)
-    # A member a catzc generator writes takes its generated fact from that generator's target, never from its own
-    # declaration as well.
     $targets = @(Get-GeneratedTarget)
     $issues = @(foreach ($member in $members) {
             if ($member.generated) {

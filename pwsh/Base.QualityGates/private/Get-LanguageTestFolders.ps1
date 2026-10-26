@@ -16,7 +16,6 @@ function Get-LanguageTestFolders {
     $testFolderName = $languagesConfig.FolderOf('test')
     $engineModules = @(Get-CatzcModule -EngineTrack)
     $moduleNames = @($engineModules.name.Where({ [Catzc.Base.Objects.NameCase]::IsInCase('pascal-dotted', $_) }))
-    # A test folder is named for its module's folder, which drops the track's namespace (DDR-TRACK-MODULENAMESPACE).
     $engineTrack = $engineModules.Count -gt 0 ? (Get-Track -Name $engineModules[0].track) : $null
     $languages = @(foreach ($entry in $languagesConfig.languages) {
             if ($entry.tests) {

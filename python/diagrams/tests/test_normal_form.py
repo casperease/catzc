@@ -1,6 +1,6 @@
 """The repository normal form of a name is read from the languages config, never copied; wrap breaks are read from drawio.yml.
 
-usage (repo root, background): timeout 120 uv run --no-sync --project python python -m pytest python/catzc_diagrams/tests/test_normal_form.py
+usage (repo root, background): timeout 120 uv run --no-sync --project python python -m pytest python/diagrams/tests/test_normal_form.py
 """
 
 import sys

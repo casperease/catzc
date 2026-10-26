@@ -23,7 +23,8 @@ function Get-BuildClosureViolation {
     $selected = [System.Collections.Generic.HashSet[string]]::new([string[]] @($Module),
         [System.StringComparer]::Ordinal)
 
-    # The dependency scan and the folders name modules by folder; the selection names them in full (DDR-TRACK-MODULENAMESPACE).
+    # The dependency scan and the folders name modules by folder; the selection names them in full
+    # ([DDR-TRACK-MODULENAMESPACE](/docs/drs/design/tracks.md#rule-ddr-track-modulenamespace)).
     $moduleNamespace = Get-ModuleNamespace -ModulesRoot $SourceRoot
     foreach ($call in @(Get-FunctionDependency -ModulesRoot $SourceRoot -ParsedScripts $ParsedScripts)) {
         $caller = Resolve-ModuleName -Folder $call.CallerModule -Namespace $moduleNamespace

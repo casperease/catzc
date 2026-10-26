@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1
+# pwsh/Base.Globs/tests/types/GlobsConfig.Tests.ps1
 
 <!-- cspell:ignore dedupe -->
 

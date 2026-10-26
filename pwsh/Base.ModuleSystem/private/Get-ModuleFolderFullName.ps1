@@ -1,3 +1,11 @@
+<#
+---
+catzc:
+  docs: "../../../docs/references/pwsh/catzc-base-module-system/private/Get-ModuleFolderFullName.ps1.md"
+  header: "generated"
+---
+#>
+
 function Get-ModuleFolderFullName {
     [CmdletBinding()]
     [OutputType([string])]
@@ -6,8 +14,6 @@ function Get-ModuleFolderFullName {
         [string] $Path
     )
 
-    # A module folder drops the namespace its full name carries: the loaded module names it, else the manifest the bootstrap
-    # wrote from the resolver, else the folder is its own name (a local module carries no namespace).
     $full = [System.IO.Path]::GetFullPath($Path).TrimEnd('\', '/')
     $loaded = Get-Module | Where-Object { [System.IO.Path]::GetFullPath($_.ModuleBase).TrimEnd('\', '/') -eq $full } |
         Select-Object -First 1

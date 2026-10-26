@@ -32,3 +32,12 @@ Above `$modulesRoot = [System.IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..
 The rule sits in the modules root, so it reads file-limits.yml from there; an analyzer shard process has no
 Get-Config.
 ```
+
+## comment:4
+
+Above `. (Join-Path $modulesRoot '.internal/assets/bootstrap/Resolve-ModuleName.ps1')`, written with `#`.
+
+```text
+Module folders resolve from their full names under the track's namespace, read before any import
+([DDR-TRACK-MODULENAMESPACE](/docs/drs/design/tracks.md#rule-ddr-track-modulenamespace)).
+```

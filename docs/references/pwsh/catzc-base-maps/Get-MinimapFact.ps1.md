@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Maps/Get-MinimapFact.ps1
+# pwsh/Base.Maps/Get-MinimapFact.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -26,7 +26,7 @@ The repository-relative paths of the subject files; repeats are read once.
 ### example 1
 
 ```powershell
-Get-MinimapFact -Path pwsh/Catzc.Base.Maps/Get-WorldMap.ps1
+Get-MinimapFact -Path pwsh/Base.Maps/Get-WorldMap.ps1
 ```
 
 ## comment:1

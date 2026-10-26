@@ -8,7 +8,8 @@ catzc:
 
 Describe 'catzc-track-lamps' -Tag 'L0', 'logic' {
     BeforeAll {
-        # The extension's folder, resolved from its name through the js track (DDR-TRACK-MODULENAMESPACE).
+        # The extension's folder, resolved from its name through the js track
+        # ([DDR-TRACK-MODULENAMESPACE](/docs/drs/design/tracks.md#rule-ddr-track-modulenamespace)).
         $script:lampsFolder = "$(Get-TrackPlace -Track js -TrackKind extensions)/$((Get-Track -Name js).FolderNameOf('catzc-track-lamps'))"
         $script:script = (Resolve-Path (Join-Path (Get-RepositoryRoot) "$script:lampsFolder/extension.js")).Path -replace '\\', '/'
         # Runs one exported function of the extension under node with JSON arguments and returns its JSON result.
@@ -109,8 +110,6 @@ Describe 'catzc-track-lamps — the real repository' -Tag 'L1', 'integrity', 'so
             $resolved[$filter.name] = @($filter.sets)
         }
         [System.IO.File]::WriteAllText($filterFile, (ConvertTo-Json -InputObject $resolved -Depth 8 -Compress))
-        # The disk is walked once, and each lamp's census reads the verdict its plan reached, as the live engine does
-        # ([ADR-AUTO-TEST-SETUPONCE](/docs/drs/automation/test-automation.md#rule-adr-auto-test-setuponce)).
         $driver = "const m = require('$script'); const f = JSON.parse(require('fs').readFileSync(process.argv[1], 'utf8'));" +
         " (async () => { const r = {}; const disk = await m.walkDisk('$root'); for (const lamp of Object.keys(f)) { const out = new Set([lamp]);" +
         " const p = await m.hiddenPlan('$root', out, f, [], [], disk); const t = await m.census('$root', out, f, p.globs, [], [], disk, p.verdict);" +

@@ -3,7 +3,7 @@
 `action-lens/`: two sample declarations and the accosted file their proofs name; the kit checks the shape alone, and Test-Diagrams
 proves the calls against the contracts and the proof file.
 
-usage (repo root, background): timeout 120 uv run --project python python -m pytest python/catzc_diagrams/tests/test_action_lens.py
+usage (repo root, background): timeout 120 uv run --project python python -m pytest python/diagrams/tests/test_action_lens.py
 """
 
 import copy
@@ -127,7 +127,7 @@ def test_a_long_argument_wraps_at_its_breaks_and_comes_back_whole():
     import html
 
     raw = sample()
-    path = "pwsh/Catzc.Base.Contracts/accosted/contracts.accosted.yml"
+    path = "pwsh/Base.Contracts/accosted/contracts.accosted.yml"
     raw["content"]["action"] = {"call": {"get_widget": {"path": path}}}
     raw["content"]["effects"][0]["proves"] = {"get_widget": {"path": path}}
     raw["content"]["effects"][0]["says"] = "The widget's file is read from the repository and nothing else is touched"
@@ -330,15 +330,15 @@ def test_a_word_on_a_line_between_zones_becomes_a_transition_bubble_on_the_ring_
 
 
 def test_a_long_value_starts_on_its_own_line_under_its_key():
-    line = "get_widget: { path: pwsh/Catzc.Base.Contracts/accosted/contracts.accosted.yml }"
+    line = "get_widget: { path: pwsh/Base.Contracts/accosted/contracts.accosted.yml }"
     lines = declaration.wrap_line(line, 38)
-    assert lines[0] == "get_widget: { path:" and lines[1].startswith("pwsh/Catzc.Base.Contracts/")
+    assert lines[0] == "get_widget: { path:" and lines[1].startswith("pwsh/Base.Contracts/")
     assert declaration.unwrap_lines("\n".join(lines)) == line
     assert declaration.wrap_line("get_widget: { path: a.yml }", 38) == ["get_widget: { path: a.yml }"]  # a short value stays beside its key
 
 
 def test_wrap_and_unwrap_are_inverse():
-    line = "get_widget: { path: pwsh/Catzc.Base.Contracts/accosted/contracts.accosted.yml, name: a b c }"
+    line = "get_widget: { path: pwsh/Base.Contracts/accosted/contracts.accosted.yml, name: a b c }"
     lines = declaration.wrap_line(line, 30)
     assert len(lines) > 1 and all(len(piece) <= 30 for piece in lines)
     assert declaration.unwrap_lines("\n".join(lines)) == line

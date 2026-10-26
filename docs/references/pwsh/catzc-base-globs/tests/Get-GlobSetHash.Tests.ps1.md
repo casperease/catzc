@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Globs/tests/Get-GlobSetHash.Tests.ps1
+# pwsh/Base.Globs/tests/Get-GlobSetHash.Tests.ps1
 
 <!-- cspell:ignore ntwo -->
 

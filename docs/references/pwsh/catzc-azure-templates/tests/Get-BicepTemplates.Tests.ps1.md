@@ -1,4 +1,4 @@
-# pwsh/Catzc.Azure.Templates/tests/Get-BicepTemplates.Tests.ps1
+# pwsh/Azure.Templates/tests/Get-BicepTemplates.Tests.ps1
 
 <!-- cspell:ignore sampl deriv -->
 

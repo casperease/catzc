@@ -16,7 +16,7 @@ metadata:
 # drawio-declaration
 
 1. The yml is the one source; put renders it into the png, get folds a draw.io edit back (ADR-REPO-SLIDES-TWODIRECTIONS), by diagram, in the
-   background: `timeout 360 uv run -q --project <repo>/python python <repo>/python/catzc_diagrams/declaration.py put|get <name>.drawio.yml`.
+   background: `timeout 360 uv run -q --project <repo>/python python <repo>/python/diagrams/declaration.py put|get <name>.drawio.yml`.
 2. `Build-Diagrams -Path <name>.drawio.yml -FromDrawing` runs get, put and Test-Diagrams in one call; `-Stale` rebuilds stale minimaps;
    `declaration.py minimaps` reads the data only `Build-Diagrams` refreshes, so the order is Build-Diagrams, minimaps, Build-Diagrams;
    `-Theme <name>` renders to `out/drawio/themes/<name>/`. A pair whose yml and png both moved since HEAD is a conflict: only put or get by

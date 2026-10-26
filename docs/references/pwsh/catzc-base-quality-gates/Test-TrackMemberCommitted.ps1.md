@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.QualityGates/Test-TrackMemberCommitted.ps1
+# pwsh/Base.QualityGates/Test-TrackMemberCommitted.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -53,4 +53,13 @@ Above `$root = Get-RepositoryRoot`, written with `#`.
 A member's committed fact is declared, and the git index is what it must agree with
 ([DDR-TRACK-TRACKISPLACEDCLUSTER](/docs/drs/design/tracks.md#rule-ddr-track-trackisplacedcluster)); a committed
 member with nothing on disk yet, such as an empty landing address, has nothing to disagree with.
+```
+
+## comment:2
+
+Above `$targets = @(Get-GeneratedTarget)`, written with `#`.
+
+```text
+A member a catzc generator writes takes its generated fact from that generator's target, never from its own
+declaration as well.
 ```

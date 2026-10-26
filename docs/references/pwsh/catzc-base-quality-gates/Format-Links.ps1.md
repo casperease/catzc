@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.QualityGates/Format-Links.ps1
+# pwsh/Base.QualityGates/Format-Links.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -72,5 +72,5 @@ Format-Links -DryRun -PassThru
 ### example 3
 
 ```powershell
-Format-Links -Path pwsh/Catzc.Base.Docs -Kind Code
+Format-Links -Path pwsh/Base.Docs -Kind Code
 ```

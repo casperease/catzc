@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  docs: "../../docs/references/pwsh/catzc-tooling-key-handler/Save-PSReadLineKeyHandlerSet.ps1.md"
+  docs: "../../docs/references/pwsh/catzc-tooling-key-handler/Save-PsReadLineKeyHandlerSet.ps1.md"
   header: "generated"
 ---
 #>

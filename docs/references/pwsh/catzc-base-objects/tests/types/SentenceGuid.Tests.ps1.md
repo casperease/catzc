@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Objects/tests/types/SentenceGuid.Tests.ps1
+# pwsh/Base.Objects/tests/types/SentenceGuid.Tests.ps1
 
 <!-- cspell:ignore oilzstgq -->
 

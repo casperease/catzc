@@ -1,5 +1,7 @@
 function Get-ModuleNamespace {
-    # The module namespace the modules root's track declares (DDR-TRACK-MODULENAMESPACE), read before the types load.
+    # The module namespace the modules root's track declares
+    # ([DDR-TRACK-MODULENAMESPACE](/docs/drs/design/tracks.md#rule-ddr-track-modulenamespace)), read before the types
+    # load.
     [CmdletBinding()]
     [OutputType([string])]
     param(
@@ -16,7 +18,8 @@ function Get-ModuleNamespace {
         return $script:moduleNamespaces[$root]
     }
 
-    # The bootstrap reads the declaration as text, one level, like the folder walk (ADR-PWSH-ENUM-EARLYLOADINGCODE): the track's entry
+    # The bootstrap reads the declaration as text, one level, like the folder walk
+    # ([ADR-PWSH-ENUM-EARLYLOADINGCODE](/docs/drs/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-earlyloadingcode)): the track's entry
     # under tracks:, in its flow or block form, and its namespace key; none found means no namespace.
     $namespace = ''
     # A built bundle is no track place: its folders carry the full names PowerShell's module path needs, so it has no namespace.
@@ -24,7 +27,7 @@ function Get-ModuleNamespace {
         $script:moduleNamespaces[$root] = $namespace
         return $namespace
     }
-    $track =[System.IO.Path]::GetFileName($root.TrimEnd([System.IO.Path]::DirectorySeparatorChar, [System.IO.Path]::AltDirectorySeparatorChar))
+    $track = [System.IO.Path]::GetFileName($root.TrimEnd([System.IO.Path]::DirectorySeparatorChar, [System.IO.Path]::AltDirectorySeparatorChar))
     $configs = @(foreach ($module in [System.IO.Directory]::GetDirectories($root)) {
             $path = [System.IO.Path]::Combine($module, 'configs', 'variants.yml')
             if ([System.IO.File]::Exists($path)) {

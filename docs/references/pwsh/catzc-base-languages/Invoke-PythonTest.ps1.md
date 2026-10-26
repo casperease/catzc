@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Languages/Invoke-PythonTest.ps1
+# pwsh/Base.Languages/Invoke-PythonTest.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -42,7 +42,7 @@ CATZC_REPOSITORY_ROOT    the repository root.
 Returns one PythonTestResult per top-level test function (parametrised cases fold into it), with its category from its name:
 `test_integrity*` is integrity, everything else is logic. A failing test is a result, not an error. The call throws, with the uv output,
 when uv sync or ruff check fails, and when pytest fails without a failing test (a collection error, or no tests). Under Pester the ruff
-throw lands in the `BeforeAll` of `pwsh/Catzc.Base.QualityGates/tests/Language.Bridge.ps1`, so one lint line fails every case of every
+throw lands in the `BeforeAll` of `pwsh/Base.QualityGates/tests/Language.Bridge.ps1`, so one lint line fails every case of every
 engine: read the first failure's message before the case count.
 
 ### parameter `Module`
@@ -95,7 +95,7 @@ Invoke-PythonTest Catzc.Base.Repository -EntryScript out/build/Import-Catzc.ps1
 A kit's own Python tests: name the catzc module the kit serves and the kit's tests folder.
 
 ```powershell
-Invoke-PythonTest Catzc.Base.Slides -Folder python/catzc_diagrams/tests
+Invoke-PythonTest Catzc.Base.Slides -Folder python/diagrams/tests
 ```
 
 ## comment:1

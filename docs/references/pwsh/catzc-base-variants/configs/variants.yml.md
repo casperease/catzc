@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Variants/configs/variants.yml
+# pwsh/Base.Variants/configs/variants.yml
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -88,4 +88,22 @@ Above `ado-pipelines:`, written with `#`.
 ```text
 The repository's own pipeline definitions are live as the Bicep tree is: a pipeline or workflow is what runs, a test asset under tests/
 is the tests aspect.
+```
+
+## comment:8
+
+Above `pwsh:`, written with `#`.
+
+```text
+The gitignored build outputs are members too, so a clean finds them in the model; each one's generated fact comes from its
+generator's target.
+```
+
+## comment:9
+
+Above `namespace_exempt:`, written with `#`.
+
+```text
+The files that name the product, not a module folder, so they keep the namespace on disk: the loaders PowerShell names its
+modules after, and the types assembly's identity.
 ```

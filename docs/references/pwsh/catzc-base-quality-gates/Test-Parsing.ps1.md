@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.QualityGates/Test-Parsing.ps1
+# pwsh/Base.QualityGates/Test-Parsing.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -38,5 +38,5 @@ Throws on any file that does not parse; with -PassThru, returns the result objec
 ### example 1
 
 ```powershell
-Test-Parsing -Path 'pwsh/Catzc.Base.Docs/private/Get-GlossarySourceViolations.ps1', 'pwsh/Catzc.Base.Docs/configs/glossary.yml'
+Test-Parsing -Path 'pwsh/Base.Docs/private/Get-GlossarySourceViolations.ps1', 'pwsh/Base.Docs/configs/glossary.yml'
 ```

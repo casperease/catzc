@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.VSCode/tests/New-VsCodeSettings.Tests.ps1
+# pwsh/Base.VSCode/tests/New-VsCodeSettings.Tests.ps1
 
 <!-- cspell:ignore gopls -->
 

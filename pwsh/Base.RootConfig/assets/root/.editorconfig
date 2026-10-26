@@ -56,7 +56,7 @@ indent_size = 2
 #  - IDE1006 "Naming rule violation": config-mirroring records use snake_case / lowercase property names so
 #    the YAML key and the C# property are the same identifier (ADR-BCL-TYPES-SNAKECASEMIRRORSYAML) — not PascalCase.
 #  - IDE0130 "Namespace does not match folder structure": each file's namespace is its MODULE (ADR-BCL-TYPES-NAMESPACEISMODULE) —
-#    e.g. Catzc.Azure for pwsh/Catzc.Azure/types/*.cs — a flat, module-encoding convention, NOT the IDE
+#    e.g. Catzc.Azure for pwsh/Azure/types/*.cs — a flat, module-encoding convention, NOT the IDE
 #    project's physical path (Catzc.Types.pwsh.Catzc.Azure.types). We turn the underlying preference off
 #    (stating the policy as code) and mute the diagnostic; this rule is an editor hint, invisible to dotnet build.
 # CA1050 "Declare types in namespaces" is deliberately NOT suppressed: every source declares its module's

@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Globs/configs/globs/globs.yml
+# pwsh/Base.Globs/configs/globs/globs.yml
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -141,4 +141,13 @@ module that is unconstrained, carries integrity tests, or is an infra test unit.
 safe — it can only cause a redundant run, never a wrong skip — and integrity tests hold each scan's
 subset relation. A repeated local run is skipped only while no tracked file anywhere has changed since
 its last green run in the session.
+```
+
+## comment:12
+
+Above `pwsh:`, written with `#`.
+
+```text
+A whole track's set names its track; its include and exclude are derived from the track's members into track-sets.yml by
+Build-TrackGlobSets ([FDR-CD-GLOBS-TRACKSETDERIVED](/docs/drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-tracksetderived)).
 ```

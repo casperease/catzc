@@ -1,7 +1,7 @@
 # cspell:ignore minimaps
 """A minimap drawn from its contract data: every shape of data draws, and what is lit is what shows.
 
-usage (repo root, background): timeout 120 uv run --project python/catzc_diagrams python -m pytest python/catzc_diagrams/tests/test_minimap_drawing.py
+usage (repo root, background): timeout 120 uv run --project python/diagrams python -m pytest python/diagrams/tests/test_minimap_drawing.py
 """
 
 import copy

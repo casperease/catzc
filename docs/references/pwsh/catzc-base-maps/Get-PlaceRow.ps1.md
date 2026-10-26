@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Maps/Get-PlaceRow.ps1
+# pwsh/Base.Maps/Get-PlaceRow.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -26,5 +26,5 @@ The repository-relative paths to print the row of; a path outside every track pr
 ### example 1
 
 ```powershell
-Get-PlaceRow -Path pwsh/Catzc.Azure.Templates/types/AzureTemplate.cs
+Get-PlaceRow -Path pwsh/Azure.Templates/types/AzureTemplate.cs
 ```

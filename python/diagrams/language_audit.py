@@ -3,7 +3,7 @@ the tags it would print, and whether it prints none (`untagged`: its label match
 declaration.
 
 usage (repo root):
-  uv run --no-sync --project python python python/catzc_diagrams/language_audit.py [--out out] [--stem <name-substring>]
+  uv run --no-sync --project python python python/diagrams/language_audit.py [--out out] [--stem <name-substring>]
 """
 
 import sys

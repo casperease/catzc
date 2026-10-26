@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  docs: "../../docs/references/pwsh/catzc-base-asserts/Assert-IsRunningInVSCode.ps1.md"
+  docs: "../../docs/references/pwsh/catzc-base-asserts/Assert-IsRunningInVsCode.ps1.md"
   header: "generated"
 ---
 #>

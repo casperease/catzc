@@ -16,8 +16,6 @@ function Get-CatzcModuleRoot {
         [string] $Module
     )
 
-    # The module's folder comes from the loaded module, never from its name: the folder drops the namespace the name carries
-    # (DDR-TRACK-MODULENAMESPACE).
     $loaded = if ($Module) {
         Get-Module -Name $Module | Select-Object -First 1
     }

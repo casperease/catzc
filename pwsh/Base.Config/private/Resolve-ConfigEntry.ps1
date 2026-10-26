@@ -39,8 +39,6 @@ function Resolve-ConfigEntry {
             if ($folderName.StartsWith('.')) {
                 continue
             }
-            # The folder drops the namespace its module's full name carries; the manifest the bootstrap wrote from the resolver
-            # spells it, and a local overlay module, which carries no namespace, has its folder name.
             $manifests = @([System.IO.Directory]::EnumerateFiles($moduleDir, '*.psd1'))
             $moduleName = if ($manifests.Count -eq 1) {
                 [System.IO.Path]::GetFileNameWithoutExtension($manifests[0])

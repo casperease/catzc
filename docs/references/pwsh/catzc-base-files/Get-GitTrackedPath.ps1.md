@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Files/Get-GitTrackedPath.ps1
+# pwsh/Base.Files/Get-GitTrackedPath.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -36,13 +36,13 @@ in the same order and form.
 ### example 1
 
 ```powershell
-Get-GitTrackedPath 'pwsh/Catzc.Base.Docs/configs/glossary.yml'
+Get-GitTrackedPath 'pwsh/Base.Docs/configs/glossary.yml'
 ```
 
 ### example 2
 
 ```powershell
-Get-GitTrackedPath 'pwsh/Catzc.Base.Docs/configs', 'docs/drs'
+Get-GitTrackedPath 'pwsh/Base.Docs/configs', 'docs/drs'
 ```
 
 ### example 3

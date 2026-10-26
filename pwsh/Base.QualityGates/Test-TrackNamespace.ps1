@@ -1,3 +1,11 @@
+<#
+---
+catzc:
+  docs: "../../docs/references/pwsh/catzc-base-quality-gates/Test-TrackNamespace.ps1.md"
+  header: "generated"
+---
+#>
+
 function Test-TrackNamespace {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]
@@ -9,8 +17,6 @@ function Test-TrackNamespace {
 
     Assert-SourceTree
 
-    # A folder or file under a track drops the namespace its track declares; only a file the track exempts keeps it
-    # (DDR-TRACK-MODULENAMESPACE).
     $tracked = @(Get-GitTrackedPath '.')
     $tracks = @(Get-Track | Where-Object { $_.namespace })
     $found = [System.Collections.Generic.SortedSet[string]]::new([System.StringComparer]::Ordinal)

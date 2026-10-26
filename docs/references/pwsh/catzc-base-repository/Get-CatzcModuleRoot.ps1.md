@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Repository/Get-CatzcModuleRoot.ps1
+# pwsh/Base.Repository/Get-CatzcModuleRoot.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -48,4 +48,13 @@ Get-CatzcModuleRoot 'assets/gitkeep'
 
 ```powershell
 Get-CatzcModuleRoot 'configs/configs.yml' -Module Catzc.Base.Config
+```
+
+## comment:1
+
+Above `$loaded = if ($Module) {`, written with `#`.
+
+```text
+The module's folder comes from the loaded module, never from its name: the folder drops the namespace the name carries
+([DDR-TRACK-MODULENAMESPACE](/docs/drs/design/tracks.md#rule-ddr-track-modulenamespace)).
 ```

@@ -18,7 +18,7 @@ public static class SpellingOracle
     public const int MinFragmentLength = 2;
 
     // The folder the English word list ships in: the QualityGates module's assets. The caller passes that module's root, since its folder
-    // drops the namespace its name carries (DDR-TRACK-MODULENAMESPACE).
+    // drops the namespace its name carries ([DDR-TRACK-MODULENAMESPACE](/docs/drs/design/tracks.md#rule-ddr-track-modulenamespace)).
     public static string AssetsFolder(string moduleRoot)
     {
         if (string.IsNullOrEmpty(moduleRoot)) { throw new ArgumentException("moduleRoot must not be empty", "moduleRoot"); }

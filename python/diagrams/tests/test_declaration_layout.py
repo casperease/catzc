@@ -1,7 +1,7 @@
 # cspell:ignore minimaps widgetese getpixel miny
 """The declaration of a diagram, tested: vocabularies, themes, notes, rows, lanes and ladders.
 
-usage (repo root, background): timeout 120 uv run --project python python -m pytest python/catzc_diagrams/tests/test_declaration_layout.py
+usage (repo root, background): timeout 120 uv run --project python python -m pytest python/diagrams/tests/test_declaration_layout.py
 """
 
 import sys

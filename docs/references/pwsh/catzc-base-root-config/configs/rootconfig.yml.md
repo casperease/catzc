@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.RootConfig/configs/rootconfig.yml
+# pwsh/Base.RootConfig/configs/rootconfig.yml
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -36,7 +36,7 @@ Above `- target: importer.ps1`, written with `#`.
 importer.ps1 has TWO valid source-of-truth forms, swapped by editing this entry alone:
   generator: New-Importer  — the live form: the full shim, rendered from the Invoke-Importer overlay's
                              param block on every import (the drift guard in New-Importer.Tests.ps1).
-  source: pwsh/Catzc.Base.RootConfig/assets/root/importer.ps1 (comment: none)
+  source: pwsh/Base.RootConfig/assets/root/importer.ps1 (comment: none)
                            — the SEED form for a first check-in: a minimal bootstrap that just performs
                              one full import; the importer tail's Build-RootConfig then materialises
                              whatever THIS entry names, so switching back to the generator self-heals
@@ -98,4 +98,31 @@ Above `- target: catzc.sln`, written with `#`.
 ```text
 MSBuild's solution parser requires the 'Format Version' line at the top, so the managed-file note lives
 inside the source's own '#' comment block (which the format allows only after that line).
+```
+
+## comment:12
+
+Above `- target: .editorconfig`, written with `#`.
+
+```text
+The first width-bearing tool config, its asset template with every width filled from file-limits.yml. It renders before
+.vscode/settings.json, whose generator reads it from disk, so a tree without it (a fresh clone, a test snapshot) renders both at once.
+```
+
+## comment:13
+
+Above `- target: jsconfig.json`, written with `#`.
+
+```text
+The project the editor and the js track's types gate read; its type root is the repository-relative folder Install-TypeScript fills, so
+it is the same on every machine.
+```
+
+## comment:14
+
+Above `- target: jsconfig.lenient.json`, written with `#`.
+
+```text
+The modules javascript.yml's strict list does not raise yet, checked leniently; it extends jsconfig.json, and holds no file once every
+module is raised.
 ```

@@ -1,6 +1,6 @@
 """The minimap contract: the kit accepts the contract's sample and rejects a minimap JSON that breaks the schema.
 
-usage (repo root, background): timeout 120 uv run -q --project python/catzc_diagrams python -m pytest python/catzc_diagrams/tests/test_minimap_contract.py
+usage (repo root, background): timeout 120 uv run -q --project python/diagrams python -m pytest python/diagrams/tests/test_minimap_contract.py
 """
 
 import json

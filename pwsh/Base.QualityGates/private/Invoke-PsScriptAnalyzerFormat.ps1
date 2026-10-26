@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Invoke-PSScriptAnalyzerFormat.ps1.md"
+  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Invoke-PsScriptAnalyzerFormat.ps1.md"
   header: "generated"
 ---
 #>

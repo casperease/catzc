@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.VSCode/private/New-VsCodeExtensionFolder.ps1
+# pwsh/Base.VSCode/private/New-VsCodeExtensionFolder.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -83,4 +83,13 @@ Above `$hidden = ' data-empty="hidden"'`, written with `#`.
 ```text
 A base glyph that declares data-empty="hidden" is drawn fully transparent while its lamp claims nothing,
 keeping its place in the row.
+```
+
+## comment:6
+
+Above `$sourceFolder = (Get-Track -Name js).FolderNameOf($Extension.name)`, written with `#`.
+
+```text
+The source folder drops the js track's namespace, so the extension's name resolves to it (DDR-TRACK-MODULENAMESPACE); the installed
+folder keeps the name, the extension's id.
 ```

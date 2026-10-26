@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Exporter/tests/Assert-CatzcBundle.Tests.ps1
+# pwsh/Base.Exporter/tests/Assert-CatzcBundle.Tests.ps1
 
 <!-- cspell:ignore nfunction -->
 

@@ -141,7 +141,7 @@ session into a 30-second re-run with diagnostics on.
 ```text
 GOOD — diagnostic lines capture the decisions the function made
 Cache hit for tool 'python' — skipping version check
-Resolved config path: /repo/pwsh/Catzc.Base.Config/configs/configs.yml
+Resolved config path: /repo/pwsh/Base.Config/configs/configs.yml
 python is already installed — skipping
 
 BAD — diagnostic lines restate what the code obviously does

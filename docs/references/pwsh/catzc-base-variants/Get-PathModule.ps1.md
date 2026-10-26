@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Variants/Get-PathModule.ps1
+# pwsh/Base.Variants/Get-PathModule.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -29,7 +29,7 @@ A repository-relative path ('/' or '\' separated).
 ### example 1
 
 ```powershell
-(Get-PathModule 'pwsh/Catzc.Base.Variants/Get-Track.ps1').name   # -> Catzc.Base.Variants
+(Get-PathModule 'pwsh/Base.Variants/Get-Track.ps1').name   # -> Catzc.Base.Variants
 ```
 
 ### example 2

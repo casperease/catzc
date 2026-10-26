@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Config/Get-Config.ps1
+# pwsh/Base.Config/Get-Config.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -106,4 +106,13 @@ Above `$type = [type] $registered['type']`, written with `#`.
 ```text
 The registered C# type maps and validates the parsed dictionary at construction
 ([ADR-CONF-LOADING-CSHARPCONFIGTYPE](/docs/drs/configuration/module-config-loading.md#rule-adr-conf-loading-csharpconfigtype)).
+```
+
+## comment:6
+
+Above `$folder = if ($entry['Folder']) {`, written with `#`.
+
+```text
+An overlay folder is named like the bundled module's folder, which drops the namespace its full name carries; a
+registered type with no shipped file finds its folder through its loaded module.
 ```

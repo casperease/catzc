@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Environment/tests/Sync-SessionPath.Tests.ps1
+# pwsh/Base.Environment/tests/Sync-SessionPath.Tests.ps1
 
 <!-- cspell:ignore machinebin userbin -->
 

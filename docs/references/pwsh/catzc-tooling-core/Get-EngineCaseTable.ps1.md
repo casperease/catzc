@@ -1,4 +1,4 @@
-# pwsh/Catzc.Tooling.Core/Get-EngineCaseTable.ps1
+# pwsh/Tooling.Core/Get-EngineCaseTable.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -35,7 +35,7 @@ Return only the rows that apply (skip the "n/a" cells).
 ### example 1
 
 ```powershell
-Get-EngineCaseTable pwsh/Catzc.Base.Timeouts/tests/assets/engine-cases/bounded-command.yml -Applicable
+Get-EngineCaseTable pwsh/Base.Timeouts/tests/assets/engine-cases/bounded-command.yml -Applicable
 ```
 
 ## comment:1

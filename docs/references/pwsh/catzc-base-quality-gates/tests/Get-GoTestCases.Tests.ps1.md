@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.QualityGates/tests/Get-GoTestCases.Tests.ps1
+# pwsh/Base.QualityGates/tests/Get-GoTestCases.Tests.ps1
 
 <!-- cspell:ignore Testlowercase -->
 

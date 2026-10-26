@@ -5,7 +5,7 @@
 The living style kit for the `drawio-diagram-waves` agent and every maker it launches. The lead updates it whenever a review teaches
 something.
 
-Tool: `uv run -q --with pillow python python/catzc_diagrams/drawio_png.py <name>.xml <name>.drawio.png`. It embeds the model, draws a
+Tool: `uv run -q --with pillow python python/diagrams/drawio_png.py <name>.xml <name>.drawio.png`. It embeds the model, draws a
 preview raster, and asserts the round-trip. The XML root is
 `<mxGraphModel …><root><mxCell id="0"/><mxCell id="1" parent="0"/>…</root></mxGraphModel>`.
 
@@ -180,7 +180,7 @@ Glyph styles come from [`glyphs.xml`](glyphs.xml). These are the chrome and line
   longer leg and its route derived, never written to the declaration. An edge leaves the side its two ends face, at its even share of that
   side (one alone at the middle), and a cell that is no end of it, grown by the 8 px deadzone with its marker, is a keep-out zone: a path
   through one is an `E_KEEPOUT` error. An A code glyph (code, private, runner, type) prints a right-aligned row of small language tags on
-  its top edge, in the tag style of the library: the words come from the one table `pwsh/Catzc.Base.Languages/configs/languages.yml` (a
+  its top edge, in the tag style of the library: the words come from the one table `pwsh/Base.Languages/configs/languages.yml` (a
   language row's `tag` and `shapes`) by the shape of the label, never from the declaration, and a label that matches no shape prints no tag,
   and `lang:` on a glyph is the only override; a command with a contract lists every form it has (one tag per engine, then `contract`).
   `get` never writes a tag back. When every flow edge says one word, no pill is drawn and the plain arrow's legend entry reads

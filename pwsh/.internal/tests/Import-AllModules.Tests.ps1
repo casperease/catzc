@@ -17,8 +17,6 @@ BeforeAll {
     # The bootstrap reads the private-function folder from the languages config before any module loads.
     $languagesConfigs = New-Item -Path (Join-Path $sandboxAuto 'Catzc.Base.Languages/configs') -ItemType Directory -Force
     Copy-Item -Path (Get-CatzcModuleRoot 'configs/languages.yml' -Module Catzc.Base.Languages) -Destination $languagesConfigs
-    # The importer waits on the run lock before any module loads, so the sandbox carries the timeouts config too; it names no track,
-    # so both sit under their full-name folders.
     $timeoutsConfigs = New-Item -Path (Join-Path $sandboxAuto 'Catzc.Base.Timeouts/configs') -ItemType Directory -Force
     Copy-Item -Path (Get-CatzcModuleRoot 'configs/timeouts.yml' -Module Catzc.Base.Timeouts) -Destination $timeoutsConfigs
 

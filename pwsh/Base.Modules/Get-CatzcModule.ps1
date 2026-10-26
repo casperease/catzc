@@ -81,8 +81,6 @@ function Get-CatzcModule {
                 }
 
                 foreach ($entry in Get-PlaceModuleEntry -Place $place -Directory $directory) {
-                    # A module is named by its full name, its folder joined to the track's namespace (DDR-TRACK-MODULENAMESPACE).
-                    # A file-shaped module (a pwsh/.internal Catzc.Internal.*.psm1) already carries its full name: a declared global exemption.
                     $fullName = $entry.Shape -ceq 'folder' ? $trackEntry.FullNameOf($entry.Name) : $entry.Name
                     if ($Name -and $Name -cnotcontains $fullName) {
                         continue

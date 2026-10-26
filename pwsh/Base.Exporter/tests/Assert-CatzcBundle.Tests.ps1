@@ -170,7 +170,7 @@ Describe 'Assert-CatzcBundle' -Tag 'L0', 'logic' {
         # The build ships the carriers beside its type sources, so the check reads them there.
         & $write '.compiled/types/file-carriers.yml' "carriers:`n  bcl: { block: ['/*', '*/'] }`n"
         & $write 'Catzc.Base.Languages/Catzc.Base.Languages.psd1' "@{ NestedModules = @('Catzc.Base.Languages.functions.ps1'); FunctionsToExport = @('Get-Gizmo') }"
-        & $write 'Catzc.Base.Languages/Catzc.Base.Languages.functions.ps1' "# source: pwsh/Catzc.Base.Languages/Get-Gizmo.ps1`nfunction Get-Gizmo { 'gizmo' }`n"
+        & $write 'Catzc.Base.Languages/Catzc.Base.Languages.functions.ps1' "# source: pwsh/Base.Languages/Get-Gizmo.ps1`nfunction Get-Gizmo { 'gizmo' }`n"
         $fixture.Build.modules = @('Catzc.Base.Widget', 'Catzc.Base.Languages')
         & $write 'Catzc.Base.Widget/types/Widget.cs' "/*`n---`ncatzc:`n  edges:`n    docs: widget.md`n---`n*/`n`nnamespace Catzc.Base.Widget; public class Widget { }`n"
 

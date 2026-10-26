@@ -106,7 +106,7 @@ pwsh/.compiled/** linguist-generated
 
 # catzc: the root-file sources are copied to the repository root under the head Build-RootConfig writes into each copy,
 # so a head here would sit beside it with the source's path (docs/drs/repository/file-meta.md, ADR-REPO-FILEMETA-COMPOSEDFILES).
-/pwsh/Catzc.Base.RootConfig/assets/root/** -catzc-meta
+/pwsh/Base.RootConfig/assets/root/** -catzc-meta
 
 # catzc: the .gitkeep source is likewise copied into every .gitkeep under the head Build-GitKeep writes there.
-/pwsh/Catzc.Base.Docs/assets/gitkeep -catzc-meta
+/pwsh/Base.Docs/assets/gitkeep -catzc-meta

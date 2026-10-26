@@ -1,7 +1,7 @@
 # cspell:ignore minimaps widgetese getpixel miny
 """The declaration of a diagram, tested: edge semantics, labels and pills, ranks, counts, routes and the uniform word.
 
-usage (repo root, background): timeout 120 uv run --project python python -m pytest python/catzc_diagrams/tests/test_declaration_edges.py
+usage (repo root, background): timeout 120 uv run --project python python -m pytest python/diagrams/tests/test_declaration_edges.py
 """
 
 import re

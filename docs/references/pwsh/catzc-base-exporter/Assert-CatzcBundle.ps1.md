@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Exporter/Assert-CatzcBundle.ps1
+# pwsh/Base.Exporter/Assert-CatzcBundle.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -72,9 +72,9 @@ Vendored modules are verbatim copies (powershell-yaml carries its own Tests/).
 
 ## comment:4
 
-Above `$carriers = [System.IO.Path]::Combine($root, 'Catzc.Base.Languages',...`, written with `#`.
+Above `$carriers = [System.IO.Path]::Combine($root, '.compiled', 'types',...`, written with `#`.
 
 ```text
 The hash leaves each file's meta head out and reads the head's delimiters from the carriers
-config, so the build's own copy rides along.
+config, so the build's own copy rides along, shipped beside the type sources and staged there too.
 ```

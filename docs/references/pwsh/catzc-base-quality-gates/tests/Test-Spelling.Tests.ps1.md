@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.QualityGates/tests/Test-Spelling.Tests.ps1
+# pwsh/Base.QualityGates/tests/Test-Spelling.Tests.ps1
 
 <!-- cspell:ignore mispeld -->
 

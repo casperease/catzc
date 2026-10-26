@@ -19,8 +19,6 @@ function New-JsConfig {
     # The js track's root, its default declared once on JavaScriptConfig: js when the folder exists, else .js.
     $javascript = Get-Config -Config javascript
     $root = $javascript.ResolveRoot($RepositoryRoot)
-    # The strict list names extensions; each one's folder drops the js track's namespace (DDR-TRACK-MODULENAMESPACE). When every extension
-    # of the track is strict, the one glob of the whole track says so; the extensions are listed only while some stay lenient.
     $track = Get-Track -Path $root
     $trackFolder = Join-Path $RepositoryRoot $root
     $extensions = @(if ($null -ne $track -and [System.IO.Directory]::Exists($trackFolder)) {
