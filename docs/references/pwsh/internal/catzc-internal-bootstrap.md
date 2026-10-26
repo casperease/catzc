@@ -52,7 +52,7 @@ Bootstrap is the part of the load sequence that turns a folder of `.ps1` files i
   bytes and no write, and parallel workers never race on the manifest files. The L2 tests guard the canonical form.
 - **Private-function folder** — `Get-PrivateFunctionFolder` is the pre-types reader of the powershell layout's private-function row in
   `languages.yml`; once types load, `LanguagesConfig.FolderOf` reads the same row
-  ([ADR-REPO-FOLDERS-NAMESARESETTINGS](../../../drs/repository/folders.md#rule-adr-repo-folders-namesaresettings)).
+  ([ADR-REPO-FOLDERS-NAMESARESETTINGS](../../../drs/repository/conventional-folders.md#rule-adr-repo-folders-namesaresettings)).
 
 ## Collision guard details
 
