@@ -23,7 +23,7 @@ public sealed class DrsChecksConfig
     public DrsNeutralityCheck engine_neutrality { get; }
     public DrsCheck citation_graph { get; }
     public DrsDoraCheck dora_coverage { get; }
-    public DrsCheck code_language { get; }
+    public DrsCodeLanguageCheck code_language { get; }
 
     public DrsChecksConfig(IDictionary raw)
     {
@@ -33,7 +33,7 @@ public sealed class DrsChecksConfig
         engine_neutrality = new DrsNeutralityCheck(Section(raw, "engine_neutrality", errors), "engine_neutrality", errors);
         citation_graph = new DrsCheck(Section(raw, "citation_graph", errors), "citation_graph", errors);
         dora_coverage = new DrsDoraCheck(Section(raw, "dora_coverage", errors), "dora_coverage", errors);
-        code_language = new DrsCheck(Section(raw, "code_language", errors), "code_language", errors);
+        code_language = new DrsCodeLanguageCheck(Section(raw, "code_language", errors), "code_language", errors);
 
         if (errors.Count > 0)
         {

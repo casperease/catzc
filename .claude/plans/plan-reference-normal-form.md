@@ -61,3 +61,10 @@ A reference page's path is derived from its source file, so no code head carries
        (`docs/drs/repository/comments-in-docs.md`) and the file-meta head policy. Check: `Test-DrsRegistry` and `Test-Links` on both pages.
 6. [ ] Split the Importer article (`docs/references/pwsh/internal/catzc-internal-importer.md`, 473 lines after the step 4a merge) into a
        folder of linked pages, then drop its file-limits.yml exception. Check: `Test-FileLimits` on the page passes without the exception.
+7. [ ] After the user's item 28 rename (catzc-2b, from its staging): add `.burst-delete` markers for the moved pages of
+       `Get-RelativeEdgesFileMetaFact.ps1` and `Get-RelativeEdgeCandidate.ps1`; drop the `-HeaderText` parameter sections from the pages of
+       Format-CodeMetaHead, Format-PropertyMetaHead and Format-MarkdownMetaBlock; write the `-MoveMap` section of Format-Links' page and the
+       new Update-MovedLinks page; re-check every `.burst-base`; then swap the 1+2+4a staging in one burst and, in the same lock window, run
+       `Format-FileMeta -NoCache` and `Format-Links -MoveMap out/ns5/ref-map.csv`. Check: the burst's tests pass, and `Test-Comments`,
+       `Test-FileMeta` and `Test-Links` read 0 (the 2026-10-26 copy run: strip 14.3 s, re-point 4.3 s, only [Untracked] links left before a
+       git mv).

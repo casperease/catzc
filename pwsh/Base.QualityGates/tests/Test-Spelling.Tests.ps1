@@ -13,12 +13,17 @@ Describe 'Test-Spelling' -Tag 'L0', 'logic' {
         $script:cspellOut = 'CSpell: Files checked: 12, Issues found: 0 in 0 files.'
         $script:reportBase = Join-Path $TestDrive 'reports'
 
-        # Mock the tool boundary — never launch a real process in a unit test.
-        Mock Invoke-Executable -ModuleName Catzc.Base.QualityGates {
-            [pscustomobject]@{
-                ExitCode = $script:cspellExit
-                Full     = $script:cspellOut
-                Output   = $script:cspellOut
+        # One answer per command: the .md shard carries the test's scenario, every other default shard matched no file.
+        $script:answer = {
+            param($Line)
+            if ($Line -match '--no-must-find-files' -and $Line -notmatch "'\*\*/\*\.md'") {
+                return [pscustomobject]@{ ExitCode = 0; Full = 'CSpell: Files checked: 0, Issues found: 0 in 0 files.'; Output = '' }
+            }
+            [pscustomobject]@{ ExitCode = $script:cspellExit; Full = $script:cspellOut; Output = $script:cspellOut }
+        }
+        Mock Invoke-ExecutableParallel -ModuleName Catzc.Base.QualityGates {
+            foreach ($line in $Command) {
+                & $script:answer $line
             }
         }
         Mock Test-Command -ModuleName Catzc.Base.QualityGates { $true }
@@ -64,7 +69,7 @@ Describe 'Test-Spelling' -Tag 'L0', 'logic' {
         $script:cspellOut = "widget.md:1:1 - Unknown word (foo)`nCSpell: Files checked: 50, Issues found: 1 in 1 files."
         $paths = 1..120 | ForEach-Object { "gadget-$_.md" }
         $result = Test-Spelling -Path $paths -OutputFolder $script:reportBase -PassThru
-        Should -Invoke Invoke-Executable -ModuleName Catzc.Base.QualityGates -Times 3 -Exactly
+        Should -Invoke Invoke-ExecutableParallel -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter { @($Command).Count -eq 3 }
         $result.IssueCount | Should -Be 3
         $result.Facts['ExitCode'] | Should -Be 1
     }
@@ -91,8 +96,15 @@ Describe 'Test-Spelling' -Tag 'L0', 'logic' {
 
     It 'keeps a batch without a summary a finding even when a later batch counts its files' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
         $script:cspellOut = 'CSpell: done.'
-        Mock Invoke-Executable -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Command -match "'gadget-50\.md'" } {
-            [pscustomobject]@{ ExitCode = 0; Full = 'CSpell: Files checked: 50, Issues found: 0 in 0 files.'; Output = '' }
+        $script:answer = {
+            param($Line)
+            $out = if ($Line -match "'gadget-50\.md'") {
+                'CSpell: Files checked: 50, Issues found: 0 in 0 files.'
+            }
+            else {
+                $script:cspellOut
+            }
+            [pscustomobject]@{ ExitCode = 0; Full = $out; Output = '' }
         }
         $result = Test-Spelling -Path @(0..99 | ForEach-Object { "gadget-$_.md" }) -OutputFolder $script:reportBase -PassThru
         ($result.Issues -join "`n") | Should -BeLike '*could not count the files checked*'
@@ -108,16 +120,23 @@ Describe 'Test-Spelling' -Tag 'L0', 'logic' {
     It 'passes when only some batches check files' {
         $paths = 1..60 | ForEach-Object { "gadget-$_.md" }
         $script:cspellOut = 'CSpell: Files checked: 0, Issues found: 0 in 0 files.'
-        Mock Invoke-Executable -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Command -match "'gadget-1\.md'" } {
-            [pscustomobject]@{ ExitCode = 0; Full = 'CSpell: Files checked: 50, Issues found: 0 in 0 files.'; Output = '' }
+        $script:answer = {
+            param($Line)
+            $out = if ($Line -match "'gadget-1\.md'") {
+                'CSpell: Files checked: 50, Issues found: 0 in 0 files.'
+            }
+            else {
+                $script:cspellOut
+            }
+            [pscustomobject]@{ ExitCode = 0; Full = $out; Output = '' }
         }
         (Test-Spelling -Path $paths -OutputFolder $script:reportBase -PassThru).IssueCount | Should -Be 0
     }
 
     It 'spells the files under dot folders and leaves the git-ignored ones out' {
         Test-Spelling -OutputFolder $script:reportBase | Out-Null
-        Should -Invoke Invoke-Executable -ModuleName Catzc.Base.QualityGates -ParameterFilter {
-            $Command -match ' --dot ' -and $Command -match ' --gitignore '
+        Should -Invoke Invoke-ExecutableParallel -ModuleName Catzc.Base.QualityGates -ParameterFilter {
+            @($Command | Where-Object { $_ -match ' --dot ' -and $_ -match ' --gitignore ' }).Count -eq @($Command).Count
         }
     }
 
@@ -129,22 +148,35 @@ Describe 'Test-Spelling' -Tag 'L0', 'logic' {
 
     It 'passes the repo config and the requested paths to cspell' {
         Test-Spelling -Path '**/*.md' -OutputFolder $script:reportBase | Out-Null
-        Should -Invoke Invoke-Executable -ModuleName Catzc.Base.QualityGates -ParameterFilter {
-            $Command -match 'lint' -and $Command -match 'cspell\.yml' -and $Command -match '\*\*/\*\.md'
+        Should -Invoke Invoke-ExecutableParallel -ModuleName Catzc.Base.QualityGates -ParameterFilter {
+            @($Command).Count -eq 1 -and $Command[0] -match 'lint' -and $Command[0] -match 'cspell\.yml' -and $Command[0] -match '\*\*/\*\.md'
         }
     }
 
     It 'passes no --exclude by default, so cspell.yml ignorePaths is the whole scope' {
         Test-Spelling -OutputFolder $script:reportBase | Out-Null
-        Should -Invoke Invoke-Executable -ModuleName Catzc.Base.QualityGates -ParameterFilter {
-            $Command -notmatch '--exclude'
+        Should -Invoke Invoke-ExecutableParallel -ModuleName Catzc.Base.QualityGates -ParameterFilter {
+            @($Command | Where-Object { $_ -match '--exclude' }).Count -eq 0
         }
     }
 
     It 'passes a custom -Exclude through to cspell and omits the defaults' {
         Test-Spelling -Exclude 'foo/**' -OutputFolder $script:reportBase | Out-Null
-        Should -Invoke Invoke-Executable -ModuleName Catzc.Base.QualityGates -ParameterFilter {
-            $Command -match "--exclude 'foo/\*\*'" -and $Command -notmatch "--exclude 'out/\*\*'"
+        Should -Invoke Invoke-ExecutableParallel -ModuleName Catzc.Base.QualityGates -ParameterFilter {
+            @($Command | Where-Object { $_ -match "--exclude 'foo/\*\*'" -and $_ -notmatch "--exclude 'out/\*\*'" }).Count -eq @($Command).Count
+        }
+    }
+
+    It 'runs the default scope as one shard per extension, each glob once, a longer extension in its shorter one''s shard' {
+        Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'languages' } {
+            [pscustomobject]@{} | Add-Member -MemberType ScriptMethod -Name ExtensionsCheckedBy -Value { @('.md', '.yml', '.widget.yml', '.ps1') } -PassThru
+        }
+        Test-Spelling -OutputFolder $script:reportBase | Out-Null
+        Should -Invoke Invoke-ExecutableParallel -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter {
+            $lines = @($Command)
+            $yml = @($lines | Where-Object { $_ -match "'\*\*/\*\.yml'" })
+            $lines.Count -eq 3 -and $yml.Count -eq 1 -and $yml[0] -match "'\*\*/\*\.widget\.yml'" -and
+            @($lines | Where-Object { $_ -match ' --no-must-find-files$' }).Count -eq 3
         }
     }
 

@@ -1,6 +1,12 @@
 {
   "types": [
     {
+      "name": "Catzc.Base.Drs.DrsCapitalization",
+      "aliases": [],
+      "display": [],
+      "members": []
+    },
+    {
       "name": "Catzc.Base.Drs.DrsCheck",
       "aliases": [],
       "display": [],
@@ -272,6 +278,33 @@
         {
           "name": "ToString",
           "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Drs.DrsCodeLanguageCheck",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "Violation",
+          "kind": "method"
+        },
+        {
+          "name": "capitalization",
+          "kind": "property"
+        },
+        {
+          "name": "max_rule_chars",
+          "kind": "property"
+        },
+        {
+          "name": "mode",
+          "kind": "property"
         }
       ]
     },

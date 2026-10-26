@@ -53,6 +53,10 @@
           "kind": "method"
         },
         {
+          "name": "RunMany",
+          "kind": "method"
+        },
+        {
           "name": "Run",
           "kind": "method"
         },

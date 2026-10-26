@@ -189,3 +189,13 @@ Above `$assembly = @([System.AppDomain]::CurrentDomain.GetAssemblies() |...`, wr
 A full type name keeps resolving to the first-loaded build, so each accelerator takes its type from this
 build's assembly.
 ```
+
+## comment:13
+
+Above `function Get-TypesPruneAfter {`, written with `#`.
+
+```text
+How long a build in the shared shadow root lives after its last load. Every tree's sessions share the root, and each load refreshes its
+build's write time, so a build younger than this may be another tree's current one: the loader's prune and Clear-ModuleTypeCache both
+keep it.
+```

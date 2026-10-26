@@ -40,9 +40,6 @@ folders. Heavy runs wait for a turn in the orchestrator's memory queue, one run 
       open question below (catzc-68, 2026-10-26). A red file is made green by its owner before its speed is touched, and a file measured
       with no safe gain is recorded as left as it is. Check: `Invoke-TestFile` twice per file, the same test names and `Should` count, an
       A/B of each cause with identical output, and `Test-ScriptAnalyzer -Path` at 0 on each changed file.
-- [ ] `Test-Spelling` runs its default globs as extension shards through `Invoke-ExecutableParallel`, `.accosted.yml` excluded from the
-      `*.yml` shard so "Files checked" sums exactly. Check: the issues identical on a seeded misspelling in each shard, "Files checked"
-      equal to one process's, `Test-Spelling.Tests.ps1` green, and the time measured against 19.3 s.
 
 ## Open questions
 

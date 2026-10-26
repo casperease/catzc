@@ -53,7 +53,7 @@ public class CliRunner
         return RunDirect(commandLine, parsed.Executable, parsed.Arguments, silent, workingDirectory, timeoutSeconds, drainSeconds, input);
     }
 
-    // Silent, undecoded stdout bytes, with stdin empty and closed.
+    // Silent, raw stdout bytes, with stdin empty and closed.
     public static CliRunner RunBytes(string commandLine, string workingDirectory, int timeoutSeconds, int drainSeconds)
     {
         AssertLimits(timeoutSeconds, drainSeconds);

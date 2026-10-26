@@ -163,6 +163,10 @@
           "kind": "property"
         },
         {
+          "name": "parallel",
+          "kind": "property"
+        },
+        {
           "name": "run_lock",
           "kind": "property"
         },

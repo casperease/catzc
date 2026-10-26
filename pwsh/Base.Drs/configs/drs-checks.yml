@@ -34,3 +34,6 @@ dora_coverage:
 # The segment grammar of ADR codes and named rule headings ([ADR-REPO-DRSCODE](/docs/drs/repository/drs-code-language.md)).
 code_language:
   mode: gate
+  # On: every segment upper case, the one casing mode today; quoted, since YAML reads a bare on as true.
+  capitalization: 'on'
+  max_rule_chars: 24
