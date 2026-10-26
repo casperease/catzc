@@ -72,7 +72,7 @@ function Get-BicepDeploymentContext {
     $subscription = $sessionSubscription.name
     $customer = $sessionSubscription.customer
 
-    # The addressed slot is (session customer, environment, slot); the session subscription must serve the environment.
+    # The configuration slot is the session's customer, the environment and the slot; the subscription must serve the environment.
     $wantSlot = [string]$Slot
     $slotMatch = @($templateDescriptor.slots | Where-Object { $_.environment -eq $Environment -and $_.slot -eq $wantSlot -and $_.customer -eq $customer })
     if ($slotMatch.Count -eq 0) {

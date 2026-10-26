@@ -40,7 +40,8 @@ function Build-Diagrams {
     # -Stale rebuilds only the diagrams whose minimaps a tree change left stale: the set Test-Diagrams reports.
     if ($Stale) {
         Assert-True (-not $Path) -ErrorText 'Build-Diagrams: -Stale finds its diagrams itself; pass no -Path.'
-        $stalePaths = @((Test-Diagrams -Kit $Kit -RepositoryRoot $root -PassThru).Facts['StaleDiagrams'])
+        # The stale set is checked before it becomes -Path, whose ValidatePathGiven refuses an empty list on assignment too.
+        $stalePaths =@((Test-Diagrams -Kit $Kit -RepositoryRoot $root -PassThru).Facts['StaleDiagrams'])
         if ($stalePaths.Count -eq 0) {
             Write-Message 'Build-Diagrams: no diagram carries a stale minimap.'
             return
@@ -51,9 +52,11 @@ function Build-Diagrams {
     # A diagram is found by its tracked png or its yml, never listed, so a new one gets its first put.
     $tracked = @(Get-GitTrackedPath '.')
     $candidates = @($tracked) + @(Get-GitChangedPath 'docs')
-    $found = @($candidates | Where-Object { $_ -cmatch '^docs/(.+/)?\.assets/[^/]+\.drawio\.(png|yml)$' } |
+    # A diagram is the pair <article-folder>/.assets/<name>.drawio.png and .yml, named by its stem.
+    $found =@($candidates | Where-Object { $_ -cmatch '^docs/(.+/)?\.assets/[^/]+\.drawio\.(png|yml)$' } |
             Where-Object { $_.EndsWith('.png') -or (Test-Path -LiteralPath (Join-Path $root $_) -PathType Leaf) } |
             ForEach-Object { $_ -creplace '\.drawio\.(png|yml)$', '' } | Select-Object -Unique)
+    # A diagram in the article carrier has no yml beside its png, and before its first put no png either: its block names it.
     $found = @($found) + @(Get-DiagramArticleStem -RepositoryRoot $root -Candidate $candidates | Where-Object { $found -cnotcontains $_ })
     $folders = @(if ($Path) {
             @(foreach ($folderPath in $Path) {
@@ -68,6 +71,7 @@ function Build-Diagrams {
             $found
         })
 
+    # Every article and slide that embeds a diagram's png, wherever it sits; each one's Supports line is held against the yml.
     $embedders = Get-DiagramEmbedder -Tracked $tracked -RepositoryRoot $root
     $articles = @{}
     $findings = [System.Collections.Generic.List[string]]::new()
@@ -101,6 +105,7 @@ function Build-Diagrams {
     # -Stale found its set through Test-Diagrams, which has just written the minimap data of every declared diagram.
     if (-not $DryRun -and -not $Stale -and $declared.Count -gt 0) {
         Write-Message "Build-Diagrams: writing the minimap data of $($declared.Count) declared diagram(s), then $(if ($FromDrawing) { 'syncing' } else { 'rendering' }) $($folders.Count)."
+        # One call builds the world map once for every diagram; each diagram's target streams back as its data is written.
         $index = 0
         $step = [System.Diagnostics.Stopwatch]::StartNew()
         Write-DiagramMinimapData -Stem $declared -RepositoryRoot $root | ForEach-Object {
@@ -140,6 +145,7 @@ function Build-Diagrams {
     if ($render -and $folders.Count -gt 0) {
         # One renderer call for every folder: each worker pays the imports once, and each folder ends with its JSON row.
         $quoted = ($folders | ForEach-Object { "`"$(Join-Path $root $_)`"" }) -join ' '
+        # A C3 or C4 slide's cells are its query's rows, written to an address named here and handed to the renderer.
         $rowsPath = Join-Path (Get-OutputRoot -EnsureExists) 'diagrams/query-rows.json'
         if (-not $DryRun) {
             $null = Write-DiagramQueryRows -Stem $declared -RepositoryRoot $root -Path $rowsPath

@@ -106,7 +106,7 @@ function Get-ModuleGlobSet {
         $derived[$internalName] = $set
     }
 
-    # A reserved scope is a unit too: its root .psm1 files are live, the rest tests.
+    # A reserved umbrella is a unit too: its root .psm1 files are live, the rest tests.
     $scopeAspects = [System.Collections.Generic.List[Catzc.Base.Globs.Aspect]]::new()
     foreach ($aspect in $aspectList) {
         $patterns = [string[]]@($aspect.Patterns)
