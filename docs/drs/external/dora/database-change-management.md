@@ -16,21 +16,24 @@ Binds to [PDR-EAC-EVERYTHINGCOMMITTED](../../principles/everything-as-code.md#ru
 Every migration is a uniquely sequenced script, and every database instance carries a record of which migrations have already run against
 it, so the current schema state is always derivable and re-applying the set of migrations is safe.
 
-- [How to apply](#how-to-apply)
+Source: [DORA, Database change management](../../../references/dora/capabilities.md#database-change-management)
 
 ### Rule EDR-DORA-DBCHANGE-VISIBLEPENDINGCHANGES
 
 Pending database changes are visible to, and discussed with, the people who own the production database before the change reaches it —
 coordination happens ahead of the deployment, not as a late-stage escalation.
 
-- [Why it matters](#why-it-matters)
+Source: [DORA, Database change management](../../../references/dora/capabilities.md#database-change-management)
 
 ### Rule EDR-DORA-DBCHANGE-EXPANDCONTRACT
 
 A schema change that must not incur downtime adds new structures alongside the old ones and cuts traffic over later, rather than modifying
 or deleting a live structure in place; the old and new structures coexist only until the cutover completes.
 
-- [Common pitfalls](#common-pitfalls)
+Source: [DORA, Database change management](../../../references/dora/capabilities.md#database-change-management)
+
+Binds to [PDR-ONELIVE-BRANCHBYABSTRACTION](../../principles/one-living-version.md#rule-pdr-onelive-branchbyabstraction) and
+[PDR-ONELIVE-NOCOMPATIBILITYSHIMS](../../principles/one-living-version.md#rule-pdr-onelive-nocompatibilityshims).
 
 ### Rule EDR-DORA-DBCHANGE-MEASUREDWORK
 
@@ -38,7 +41,7 @@ Database change work is measured, not treated as invisible overhead — the fail
 database work adds, any scheduled downtime, and the proportion of changes that are fully automated are tracked toward a "push-button"
 target.
 
-- [Summary](#summary)
+Source: [DORA, Database change management](../../../references/dora/capabilities.md#database-change-management)
 
 ## Context
 

@@ -127,6 +127,15 @@ involves a per-subscription environment, or whose staging environment is served 
 
 - [Staging slots](#staging-slots)
 
+### Rule ADR-AZ-DATAMOD-ONETENANT
+
+The repository works in one Entra tenant: `azure.yml` declares it, every subscription names it, every customer lives in it as a pair of
+subscriptions, and every deploy proves the session's subscription against the declaration. Billing structure (Enterprise Agreement, Microsoft
+Customer Agreement, partner offers), tenant administration (custom names, sign-on, Global Administrators, PIM, Conditional Access), and
+cross-tenant tooling (Lighthouse, B2B) sit above the repository and are not its to set.
+
+- [One tenant](#one-tenant)
+
 ## Context
 
 `Catzc.Azure.Templates` is configured by **two layers**:
@@ -241,6 +250,43 @@ a partial map, and a fresh checkout behave alike: the type fills each key the fi
 key or mode is rejected at load, with every other violation of the file, in one error. A template reads the mode by config address
 (`global.azure.policy_enforcement.production`, see [Config-addressed parameters](#config-addressed-parameters)), so no template restates it
 and changing it is one edit to `azure.yml`.
+
+### One tenant
+
+`azure.yml` holds the tenants as a map keyed by name, and the shipped file declares exactly one, `placeholder`, whose id is a minted GUID
+registered in `guids.yml` as `tenant_placeholder`. Every subscription names it in its `tenant` field and `AzureConfig` rejects a
+subscription whose tenant is not declared; `ado.yml` names the same tenant as the directory behind the DevOps organisation. The model could
+hold more tenants, and a second would need only a second `tenants` entry and the service connections of its subscriptions.
+
+Each deploy proves its subscription: `Get-AzCliSessionSubscription` resolves the session's subscription against `azure.yml` and throws on
+one the file does not declare ([ADR-AZ-SESSION-REVERSELOOKUP](az-session-verification.md#rule-adr-az-session-reverselookup)), and
+`-SubscriptionIdAssertIs` pins the expected one. The CD pipelines carry one service connection per subscription. The tenant is declared
+beside the subscription, but the deploy path compares the subscription only; `Assert-AzCliIsConnected` compares both tenant and subscription
+([ADR-AZ-SESSION-CONFIGDEFINESCORRECT](az-session-verification.md#rule-adr-az-session-configdefinescorrect)) and the deploy path does not
+call it, so a subscription created in another directory deploys, and its first sign of trouble is a SQL server whose administrator group
+does not exist there. Some resources fix their tenant at creation (the Key Vault and SQL server modules default to
+`subscription().tenantId`), so a later change of directory leaves the vault stale and the administrator group in the old directory. There is
+no separate test tenant; changes reach non-production subscriptions before production ones.
+
+Every customer is a subscription pair in the one tenant ([ADR-AZ-CUSTOMER-TWOBINDINGS](azure-customer-model.md#rule-adr-az-customer-twobindings)),
+and its isolation comes from the subscription: its own landing zone, network, budget, workspace, vault, CD pipeline, and service
+connections. The landing zone depends on it: a spoke peers to the hub in a shared subscription, the hub's private DNS zones link to every
+spoke, and a workload registers its private endpoints in the hub's zones ([ADR-AZ-LZ-HUBANDSPOKE](landing-zones.md#rule-adr-az-lz-hubandspoke)).
+Within one tenant each join needs only a role on the other side, and the one SQL administrator group administers every customer's server. A
+customer whose contract or regulation demands its own directory would be a second `tenants` entry and a design change, needing a hub of its
+own. Experiments run as an extra configuration slot of a non-production subscription (`apex/dev-blu.yml` beside `apex/dev.yml`), inside the
+same tenant and behind the same guardrails; an experiment needing what the landing zone denies would be the trigger for a sandbox
+subscription declared in the same tenant.
+
+Everything above the subscription is not adopted, because the repository deploys into subscriptions it is given and needs no right above
+them ([ADR-AZ-LZ-LANDINGZONE](landing-zones.md#rule-adr-az-lz-landingzone)): it holds no billing role and creates no subscription, grants no
+role to a person, manages no Entra user, and streams no Entra log (those diagnostic settings are made at tenant level, and `foundation`'s
+workspace is where they would go). It uses Lighthouse nowhere and is no ISV, no CSP customer, and no multitenant application. Notification
+contacts, offers, budgets above a subscription, and charge visibility are billing administration; the repository budgets each subscription
+instead. SQL administration goes through an Entra group
+([ADR-AZ-LZ-SQLENTRAADMINS](landing-zones.md#rule-adr-az-lz-sqlentraadmins)), so the tenant's MFA, Conditional Access, and PIM reach it with
+no change here; the break-glass SQL login is the one deliberate path outside them, kept for when the directory is unavailable, and
+deployment identities are service connections that sign in without MFA by nature.
 
 ### Staging slots
 

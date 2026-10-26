@@ -1,4 +1,4 @@
-# Research: DORA — Deployment automation
+# EDR: DORA — Deployment automation
 
 ## Rules: EDR-DORA-DEPLOY
 
@@ -7,7 +7,9 @@
 Deployment automation means deploying to any environment, including production, with the push of a button — from a CI-generated package, the
 deployment scripts and configuration that place it, and environment-specific information, with all three kept in version control.
 
-- [Summary](#summary)
+Source: [DORA, Deployment automation](../../../references/dora/capabilities.md#deployment-automation)
+
+Binds to [FDR-TYPE-ONEDEPLOYPATH](../../flow/pipeline-types.md#rule-fdr-type-onedeploypath).
 
 ### Rule EDR-DORA-DEPLOY-IDENTICALPROCESS
 
@@ -15,7 +17,10 @@ The deployment process is identical across every environment, including producti
 what makes the production run trustworthy; a distinct "special" production procedure is untested by every non-production deploy that
 preceded it.
 
-- [How to apply](#how-to-apply)
+Source: [DORA, Deployment automation](../../../references/dora/capabilities.md#deployment-automation)
+
+Binds to [FDR-RUNNER-DEVELOPERREPRODUCIBLE](../../flow/pipeline-runner-pattern.md#rule-fdr-runner-developerreproducible) and
+[FDR-TYPE-DEPLOYISPINNED](../../flow/pipeline-types.md#rule-fdr-type-deployispinned).
 
 ### Rule EDR-DORA-DEPLOY-ONDEMAND
 
@@ -23,7 +28,9 @@ Any credentialed person can deploy any artifact version to any environment on de
 approval delay built into the mechanism itself. Environment-specific configuration is kept separate from the deployable package so the same
 tested artifact reaches every environment unchanged.
 
-- [How to apply](#how-to-apply)
+Source: [DORA, Deployment automation](../../../references/dora/capabilities.md#deployment-automation)
+
+Binds to [FDR-CD-PRODPROGRESSIONISDEPLOY](../../flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-prodprogressionisdeploy).
 
 ### Rule EDR-DORA-DEPLOY-SIMPLEUNITS
 
@@ -31,7 +38,7 @@ Automate deployable units that are themselves simple, idempotent, and order-inde
 process produces fragile automation — the target for automation is decoupled, independently deployable services, not a snapshot of today's
 manual orchestration.
 
-- [Common pitfalls](#common-pitfalls)
+Source: [DORA, Deployment automation](../../../references/dora/capabilities.md#deployment-automation)
 
 ### Rule EDR-DORA-DEPLOY-APIDRIVENSTEPS
 
@@ -39,7 +46,9 @@ Give every deployment step an API- or configuration-driven interface. A step tha
 automation, not an acceptable manual exception, and it is where developers and operators drift onto different, inconsistent deployment
 methods.
 
-- [Common pitfalls](#common-pitfalls)
+Source: [DORA, Deployment automation](../../../references/dora/capabilities.md#deployment-automation)
+
+Binds to [ADR-AUTO-IDEM-ALREADYDONEISFINE](../../automation/idempotent-state-functions.md#rule-adr-auto-idem-alreadydoneisfine).
 
 ## Context
 
@@ -68,15 +77,6 @@ feedback by making comprehensive testing possible immediately after a code chang
 process. A team that must hand-run or manually sequence a deploy either tests less than it should to keep pace, or pays a growing tax in
 lead time as the manual steps accumulate. Automating the deploy removes that trade-off: the same low-risk, repeatable process can run as
 often as changes arrive, so testing and shipping stop competing with each other.
-
-## How to apply
-
-This platform's pipeline runner pattern gives every deployment step one entry point regardless of which environment it targets — the same
-`RunCommand` a pipeline runs is the command a developer reproduces locally, which is what keeps the deployment process identical across
-environments rather than diverging as it approaches production. The CI-discipline and promotion-flow design carries one build-once, tagged
-artifact through non-production and into production without any stage rebuilding it, so the artifact a later environment receives is
-byte-identical to the one an earlier environment already exercised. State-changing deployment functions are required to be idempotent and
-safe to re-run, which is what keeps a retried or partially-failed deploy safe rather than compounding into duplicate or inconsistent state.
 
 ## Common pitfalls
 

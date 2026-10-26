@@ -1,4 +1,4 @@
-# Research: DORA — Documentation quality
+# EDR: DORA — Documentation quality
 
 ## Rules: EDR-DORA-DOCS
 
@@ -7,7 +7,7 @@
 Documentation is an active engineering deliverable, created and maintained deliberately alongside the systems it describes, not a byproduct
 assembled once and left to age.
 
-- [Summary](#summary)
+Source: [DORA, Documentation quality](../../../references/dora/capabilities.md#documentation-quality)
 
 ### Rule EDR-DORA-DOCS-THREEDIMENSIONS
 
@@ -15,28 +15,32 @@ Quality is judged along three dimensions — clarity, discoverability, and relia
 capability: accurate but unreadable, readable but undiscoverable, and discoverable but wrong are each as unhelpful as no documentation at
 all.
 
-- [Summary](#summary)
+Source: [DORA, Documentation quality](../../../references/dora/capabilities.md#documentation-quality)
+
+Binds to [ADR-REPO-EXAMPLE-DISCOVERYTHEME](../../repository/documentation-examples.md#rule-adr-repo-example-discoverytheme).
 
 ### Rule EDR-DORA-DOCS-QUALITYMULTIPLIER
 
 Documentation quality is treated as a multiplier that amplifies every other technical capability — trunk-based development, continuous
 integration, continuous delivery, supply chain security, and SRE practices — rather than a standalone practice measured in isolation.
 
-- [Why it matters](#why-it-matters)
+Source: [DORA, Documentation quality](../../../references/dora/capabilities.md#documentation-quality)
 
 ### Rule EDR-DORA-DOCS-EXPLICITOWNERSHIP
 
 Ownership of documentation currency is explicit — guidelines, training, style guides, or a documentation champion own keeping authored
 material accurate — rather than leaving currency to whichever contributor happens to notice drift.
 
-- [How to apply](#how-to-apply)
+Source: [DORA, Documentation quality](../../../references/dora/capabilities.md#documentation-quality)
 
 ### Rule EDR-DORA-DOCS-STALEISDEFECT
 
 Stale or duplicated documentation is treated as an active defect, not a passive gap: two copies of the same material are a drift risk from
 the moment they are created, whether or not either copy has yet gone wrong.
 
-- [Common pitfalls](#common-pitfalls)
+Source: [DORA, Documentation quality](../../../references/dora/capabilities.md#documentation-quality)
+
+Binds to [ADR-REPO-README-GENERATEDCOPY](../../repository/generated-readmes.md#rule-adr-repo-readme-generatedcopy).
 
 ## Context
 
@@ -69,11 +73,8 @@ capability is otherwise implemented.
 
 ## How to apply
 
-This platform realizes clarity and findability by keeping documentation examples on one consistent, obviously-fictional theme so a reader
-recognizes illustrative material instantly and is never confused about whether an example is live data. It realizes reliability by removing
-the chance of drift at the source: a generated `README.md` is a filesystem link to its single authored source rather than a hand-kept copy,
-so the two can never diverge. Both patterns follow DORA's broader guidance to invest in organizational guidelines, training, style guides,
-and named documentation ownership rather than leaving currency to incidental effort.
+Invest in organizational guidelines, training, style guides, and named documentation ownership rather than leaving currency to incidental
+effort.
 
 ## Common pitfalls
 
