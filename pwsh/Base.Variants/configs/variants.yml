@@ -90,7 +90,8 @@ tracks:
   vendor_git.root_configs:
     { members: [.github, .gitattributes, .gitignore], type: vendor-settings, vendor: git, languages: [yaml, markdown] }
   vendor_cspell: { members: [.cspell, cspell.yml], type: vendor-settings, vendor: cspell }
-  vendor_ai.claude: { members: [.claude], type: vendor-settings, vendor: ai, languages: [markdown, python, bcl, json, xml, html, powershell] }
+  vendor_ai.claude:
+    { members: [.claude], type: vendor-settings, vendor: ai, languages: [markdown, python, bcl, json, xml, html, powershell] }
   vendor_vscode: { members: [{ path: .vscode, committed: false }], type: vendor-settings, vendor: vscode, languages: [json] }
   vendor_editorconfig: { members: [.editorconfig], type: vendor-settings, vendor: editorconfig }
   vendor_markdownlint: { members: [.markdownlint.yml, .markdownlintignore], type: vendor-settings, vendor: markdownlint }

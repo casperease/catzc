@@ -16,8 +16,8 @@ per-user shadow root (Get-TypesShadowRoot), a per-machine cache that git never h
 ([ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD](../../../drs/automation/caching.md#rule-adr-auto-cache-compiledtypeprebuild)). This tidies that
 cache: it keeps the build whose name matches the current combined hash of every module's `types/*.cs`, and any build whose last load is
 younger than the prune age (Get-TypesPruneAfter, the age the loader prunes by), and deletes every other build with its manifest. Every
-tree's sessions share the shadow root and each load refreshes its build's write time, so a young build of another hash may be another
-tree's current one. The importer runs this on every devbox import, silently.
+tree's sessions share the shadow root and each load refreshes its build's write time, so a young build of another hash may be another tree's
+current one. The importer runs this on every devbox import, silently.
 
 The combined hash comes from the one shared implementation (Get-CombinedTypeHash in the .internal Types module) that the loader also calls,
 so the janitor cannot drift from the loader and plan the live build for deletion; a test against the real repository guards that the live

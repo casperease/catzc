@@ -23,3 +23,12 @@ returns nothing when the declarations agree.
 ```powershell
 Test-TrackDeclaration
 ```
+
+## comment:1
+
+Above `$normalForm = (Get-Config -Config languages).naming_normal_form`, written with `#`.
+
+```text
+A track's name is its definitive name in the repository normal form (DDR-TRACKTYPE-NAMEFROMMEMBERS); the form is declared
+once, in the languages config, so the config type holds no naming policy.
+```

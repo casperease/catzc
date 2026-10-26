@@ -66,9 +66,9 @@ track type or a place: a command, a gate and a globset read them through `Get-Tr
 ### Rule DDR-TRACKTYPE-LONGESTPLACEWINS
 
 A file belongs to the track with the **longest member** that contains it, so a narrower member wins over a wider one: a file under
-`.github/workflows` is in the `vendor_github.pipelines` track, and the rest of `.github` is in the `vendor_git.root_configs` track. Two members of
-different tracks that are equally long and both contain a file, a member that no file resolves to, and a tracked file in no track that is
-not a root file are load failures. The answer to "which track holds this file" is therefore one value, computed.
+`.github/workflows` is in the `vendor_github.pipelines` track, and the rest of `.github` is in the `vendor_git.root_configs` track. Two
+members of different tracks that are equally long and both contain a file, a member that no file resolves to, and a tracked file in no track
+that is not a root file are load failures. The answer to "which track holds this file" is therefore one value, computed.
 
 - [Where the declarations live](#where-the-declarations-live)
 

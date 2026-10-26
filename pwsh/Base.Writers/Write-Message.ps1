@@ -56,6 +56,7 @@ function Write-Message {
         return
     }
 
+    # -Warning is yellow on the information stream, never the warning stream; its parameter set keeps it apart from -ForegroundColor.
     if ($Warning) {
         Write-InformationColored $line -ForegroundColor Yellow -NoNewline:$NoNewline
     }

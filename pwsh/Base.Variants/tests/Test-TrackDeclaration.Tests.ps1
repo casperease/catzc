@@ -38,7 +38,7 @@ Describe 'Test-TrackDeclaration' -Tag 'L0', 'logic', 'DDR-MODTYPE-TRACKTYPEADMIT
         $err = { Test-TrackDeclaration } | Should -Throw -PassThru
         $err.Exception.Message | Should -BeLike "*track 'widget-works': the name is not in the repository normal form*"
         $err.Exception.Message | Should -BeLike "*track '.gadget': the name is not in the repository normal form*"
-        $err.Exception.Message | Should -Not -BeLike "*vendor_gizmo.cogs*"
+        $err.Exception.Message | Should -Not -BeLike '*vendor_gizmo.cogs*'
         $err.Exception.Message | Should -BeLike '*2 violation(s)*'
     }
 

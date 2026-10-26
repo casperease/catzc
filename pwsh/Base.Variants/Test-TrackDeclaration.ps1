@@ -14,8 +14,6 @@ function Test-TrackDeclaration {
     $trackTypes = Get-Config -Config track-types
     $moduleTypes = Get-Config -Config module-types
     $violations = [System.Collections.Generic.List[string]]::new()
-    # A track's name is its definitive name in the repository normal form (DDR-TRACKTYPE-NAMEFROMMEMBERS); the form is declared
-    # once, in the languages config, so the config type holds no naming policy.
     $normalForm = (Get-Config -Config languages).naming_normal_form
 
     foreach ($track in Get-Track) {
