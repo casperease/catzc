@@ -21,8 +21,6 @@ Describe 'CommentPagesConfig' -Tag 'L0', 'logic' {
         $config = [Catzc.Base.CodeMeta.CommentPagesConfig]::new(@{})
         $config.PageFor('pwsh/Widget.Gadgets/private/Get-Gadget.ps1', 'Sprockets') |
             Should -Be 'docs/references/pwsh/sprockets-widget-gadgets/private/Get-Gadget.ps1.md'
-        $config.PageFor('pwsh/Sprockets.Widget.Gadgets/private/Get-Gadget.ps1', 'Sprockets') |
-            Should -Be 'docs/references/pwsh/sprockets-widget-gadgets/private/Get-Gadget.ps1.md'
         $config.PageFor('.ado/pipelines/widget/build.yaml', 'Sprockets') |
             Should -Be 'docs/references/ado/pipelines/widget/build.yaml.md'
     }

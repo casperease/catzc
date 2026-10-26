@@ -22,7 +22,7 @@ Describe 'Test-Comments' -Tag 'L0', 'logic' {
             $root = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
             & $script:writeFile $root '.editorconfig' ((@('[*.{ps1,psm1,psd1}]', 'max_line_length = 120',
                         '') -join "`n"))
-            & $script:writeFile $root "$(Get-CatzcModulesFolder)/Catzc.Widget/Get-Widget.ps1" ((@(
+            & $script:writeFile $root "$(Get-CatzcModulesFolder)/Widget/Get-Widget.ps1" ((@(
                         'function Get-Widget {'
                         '    # Sorted first, so the gadget order is stable'
                         '    # across runs and the cache key never changes.'
@@ -32,7 +32,7 @@ Describe 'Test-Comments' -Tag 'L0', 'logic' {
                     ) -join "`n"))
             $root
         }
-        $script:file = "$(Get-CatzcModulesFolder)/Catzc.Widget/Get-Widget.ps1"
+        $script:file = "$(Get-CatzcModulesFolder)/Widget/Get-Widget.ps1"
         $script:pageRelative = 'docs/references/pwsh/catzc-widget/Get-Widget.ps1.md'
         $script:check = {
             param([string] $Root)

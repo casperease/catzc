@@ -7,7 +7,7 @@
 # What the types system writes: the combined types manifest, the IDE-only project's output, and the compiled agent hooks.
 targets:
   - { path: pwsh/.compiled/**, generator: Catzc.Internal.Loader }
-  - { path: contracts/catzc/0.1.0/catzc.internal.types/types.sample.json, generator: Write-TypesContract }
+  - { path: contracts/catzc/0.1.0/pwsh.internal.types/types.sample.json, generator: Write-TypesContract }
   - { path: pwsh/.internal/assets/bin/**, generator: dotnet build }
   - { path: pwsh/.internal/assets/obj/**, generator: dotnet build }
   - { path: .claude/hooks/bin/**, generator: Build-AgentHook }

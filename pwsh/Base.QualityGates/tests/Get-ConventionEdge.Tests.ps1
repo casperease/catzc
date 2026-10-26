@@ -9,13 +9,8 @@ catzc:
 Describe 'Get-ConventionEdge' -Tag 'L0', 'logic', 'ADR-REPO-LINKS-CONVENTIONSAREDERIVED' {
     BeforeEach {
         InModuleScope Catzc.Base.QualityGates {
-            # The config's PageFor decides the page, as the comment-pages config does.
-            $pages = [pscustomobject] @{} | Add-Member -PassThru ScriptMethod PageFor {
-                param($Path)
-                if ($Path -like 'mods/*.ps1') {
-                    'docs/references/' + $Path + '.md'
-                }
-            }
+            # A comment-pages config whose one plain map puts a module file's page under docs/references, path for path.
+            $pages = [Catzc.Base.CodeMeta.CommentPagesConfig]::new(@{ pages = @(@{ source = 'mods'; docs = 'docs/references/mods' }) })
             Mock Get-Config -ParameterFilter { $Config -eq 'comment-pages' } { $pages }.GetNewClosure()
             Mock Get-CatzcModulesFolder { 'mods' }
             Mock Get-ModuleDependencyEdges {

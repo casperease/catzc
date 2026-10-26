@@ -57,7 +57,7 @@ Describe 'GitFlowConfig' -Tag 'L0', 'logic', 'PDR-CONFIG-DEFAULTDECLAREDONCE' {
 
     It 'finds the shipped config under the modules folder' -Tag 'L1' {
         ([Catzc.Base.Git.GitFlowConfig]::FindConfig((Get-RepositoryRoot))).Replace('\', '/') |
-            Should -BeLike '*/Catzc.Base.Git/configs/git.yml'
+            Should -BeExactly ((Get-CatzcModuleRoot -Module Catzc.Base.Git 'configs/git.yml').Replace('\', '/'))
     }
 
     It 'rejects <case>' -ForEach @(

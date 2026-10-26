@@ -9,8 +9,19 @@ catzc:
 Describe 'Get-ReadmeMappings' -Tag 'L0', 'logic' {
     BeforeAll {
         Mock Assert-SourceTree -ModuleName Catzc.Base.Docs { }
+        # A module folder drops its track's namespace, and its article is named for the module's full name.
+        $script:fixtureTracks = [Catzc.Base.Variants.VariantsConfig]::new([ordered]@{
+                tracks = [ordered]@{
+                    widgets = [ordered]@{ members = @('widgets'); type = 'modules'; namespace = 'Catzc' }
+                    gadgets = [ordered]@{ members = @('gadgets'); type = 'modules'; namespace = 'catzc'; join = '_' }
+                }
+            }).tracks
+        Mock Get-Track -ModuleName Catzc.Base.Docs {
+            $script:fixtureTracks | Where-Object { $place = $_.places[0]; $Path -ceq $place -or $Path.StartsWith("$place/") } |
+                Select-Object -First 1
+        }
         $script:root = Join-Path $TestDrive ([guid]::NewGuid())
-        foreach ($d in 'widgets/Catzc.Azure.DevOps', 'widgets/Catzc.Base.Files', 'widgets/Catzc.NoDoc',
+        foreach ($d in 'widgets/Azure.DevOps', 'widgets/Base.Files', 'widgets/NoDoc',
             'widgets/.vendor', 'docs/references/pwsh') {
             [System.IO.Directory]::CreateDirectory((Join-Path $script:root $d)) | Out-Null
         }
@@ -18,7 +29,7 @@ Describe 'Get-ReadmeMappings' -Tag 'L0', 'logic' {
         [System.IO.File]::WriteAllText((Join-Path $script:root 'docs/references/pwsh/catzc-base-files.md'), '# x')
     }
 
-    It 'derives a kebab source per matched non-dot folder whose source exists' {
+    It 'derives a kebab source per matched non-dot folder whose source exists, from the module''s full name' {
         InModuleScope Catzc.Base.Docs -Parameters @{ Root = $script:root } {
             param($Root)
             $config = [pscustomobject]@{
@@ -26,17 +37,17 @@ Describe 'Get-ReadmeMappings' -Tag 'L0', 'logic' {
                 mappings = @()
             }
             $result = Get-ReadmeMappings -Config $config -RepositoryRoot $Root
-            @($result.folder) | Should -Contain 'widgets/Catzc.Azure.DevOps'
-            @($result.folder) | Should -Contain 'widgets/Catzc.Base.Files'
-            ($result | Where-Object folder -EQ 'widgets/Catzc.Azure.DevOps').source |
+            @($result.folder) | Should -Contain 'widgets/Azure.DevOps'
+            @($result.folder) | Should -Contain 'widgets/Base.Files'
+            ($result | Where-Object folder -EQ 'widgets/Azure.DevOps').source |
                 Should -Be 'docs/references/pwsh/catzc-azure-dev-ops.md'
         }
     }
 
-    It 'derives a {name} source from the folder name as written, as a python package''s article is named' {
+    It 'derives a {name} source from the module''s full name in its track''s join form, as a python package''s article is named' {
         InModuleScope Catzc.Base.Docs -Parameters @{ Root = $script:root } {
             param($Root)
-            [System.IO.Directory]::CreateDirectory((Join-Path $Root 'gadgets/catzc_widget_kit')) | Out-Null
+            [System.IO.Directory]::CreateDirectory((Join-Path $Root 'gadgets/widget_kit')) | Out-Null
             [System.IO.Directory]::CreateDirectory((Join-Path $Root 'docs/references/gadgets')) | Out-Null
             [System.IO.File]::WriteAllText((Join-Path $Root 'docs/references/gadgets/catzc_widget_kit.md'), '# x')
             $config = [pscustomobject]@{
@@ -44,7 +55,7 @@ Describe 'Get-ReadmeMappings' -Tag 'L0', 'logic' {
                 mappings = @()
             }
             $result = Get-ReadmeMappings -Config $config -RepositoryRoot $Root
-            ($result | Where-Object folder -EQ 'gadgets/catzc_widget_kit').source |
+            ($result | Where-Object folder -EQ 'gadgets/widget_kit').source |
                 Should -Be 'docs/references/gadgets/catzc_widget_kit.md'
         }
     }
@@ -57,7 +68,7 @@ Describe 'Get-ReadmeMappings' -Tag 'L0', 'logic' {
                 mappings = @()
             }
             $result = Get-ReadmeMappings -Config $config -RepositoryRoot $Root
-            @($result.folder) | Should -Not -Contain 'widgets/Catzc.NoDoc'
+            @($result.folder) | Should -Not -Contain 'widgets/NoDoc'
         }
     }
 
@@ -69,7 +80,7 @@ Describe 'Get-ReadmeMappings' -Tag 'L0', 'logic' {
                 mappings = @()
             }
             $missing = @(Get-ReadmeMappings -Config $config -RepositoryRoot $Root -Missing)
-            @($missing.folder) | Should -Be @('widgets/Catzc.NoDoc')
+            @($missing.folder) | Should -Be @('widgets/NoDoc')
             $missing[0].source | Should -Be 'docs/references/pwsh/catzc-no-doc.md'
         }
     }
@@ -104,10 +115,10 @@ Describe 'Get-ReadmeMappings' -Tag 'L0', 'logic' {
             param($Root)
             $config = [pscustomobject]@{
                 patterns = @([pscustomobject]@{ glob = 'widgets/*'; source = 'docs/references/pwsh/{kebab}.md' })
-                mappings = @([pscustomobject]@{ folder = 'widgets/Catzc.Azure.DevOps'; source = 'docs/custom/override.md' })
+                mappings = @([pscustomobject]@{ folder = 'widgets/Azure.DevOps'; source = 'docs/custom/override.md' })
             }
             $result = Get-ReadmeMappings -Config $config -RepositoryRoot $Root
-            ($result | Where-Object folder -EQ 'widgets/Catzc.Azure.DevOps').source |
+            ($result | Where-Object folder -EQ 'widgets/Azure.DevOps').source |
                 Should -Be 'docs/custom/override.md'
         }
     }

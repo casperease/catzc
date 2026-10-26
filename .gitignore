@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: aef8533e7625
+#     with_body_sha: "8c266fad422a"
 #     warning: "Do Not Edit, this file is generated"
 # ---
 
@@ -90,7 +90,7 @@ pwsh/**/*.psd1
 # ── Compiled C# types — a per-machine build, never committed ────────────────────────────────────────────────────────
 # The combined assembly and its manifest are a per-machine build in the per-user shadow root, keyed by the source hash
 # (see docs/drs/automation/caching.md), so git keeps no file under pwsh/.compiled. What a consumer binds to, the types
-# surface, is the provided contract in contracts/catzc/0.1.0/catzc.internal.types/.
+# surface, is the provided contract in contracts/catzc/0.1.0/pwsh.internal.types/.
 pwsh/.compiled/
 
 # ── IDE-only C# project build output ────────────────────────────────────────────────────────────────────────────────

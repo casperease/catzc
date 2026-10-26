@@ -140,17 +140,17 @@ settings:
   json.schemaDownload.enable: false
   yaml.schemas:
     # Every .yaml in the tree is an Azure Pipelines file, checked against our pipeline schema in contracts/catzc.
-    ./contracts/catzc/0.1.0/catzc.azure.dev_ops/pipeline.yaml.schema.json:
+    ./contracts/catzc/0.1.0/pwsh.azure.dev_ops/pipeline.yaml.schema.json:
       - "**/*.yaml"
     # A GitHub Actions workflow is checked against our workflow schema in contracts/catzc.
-    ./contracts/catzc/0.1.0/catzc.tooling.github/workflow.yml.schema.json:
+    ./contracts/catzc/0.1.0/pwsh.tooling.github/workflow.yml.schema.json:
       - ".github/workflows/*.yml"
 
   # A compiled ARM template is checked against our local schema of Azure's template (contracts/catzc), never a download.
   json.schemas:
     - fileMatch:
         - "**/main.json"
-      url: ./contracts/catzc/0.1.0/catzc.azure.templates/main.json.schema.json
+      url: ./contracts/catzc/0.1.0/pwsh.azure.templates/main.json.schema.json
 
   workbench.editorAssociations:
     "*.drawio.png": imagePreview.previewEditor

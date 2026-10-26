@@ -35,7 +35,7 @@ Describe 'Test-ParameterConsistency' -Tag 'L0', 'logic' {
         $result = Test-ParameterConsistency -PassThru -OutputFolder $script:report
         $result.Issues | Should -Be @(
             '-Count: one name, more than one type — [int] in Get-Widget; [string] in Set-Gadget. Give it one type, or exempt it in parameter-consistency.yml with the reason'
-            "$(Get-CatzcModulesFolder)/Catzc.Base.QualityGates/configs/parameter-consistency.yml: -Gone is exempt but no longer conflicts — remove the entry"
+            "$(Get-CatzcModulesFolder)/Base.QualityGates/configs/parameter-consistency.yml: -Gone is exempt but no longer conflicts — remove the entry"
         )
         $result.Facts['Exempt'] | Should -Be 2
     }

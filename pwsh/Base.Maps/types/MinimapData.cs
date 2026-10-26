@@ -6,7 +6,7 @@ using System.Text.Json;
 
 namespace Catzc.Base.Maps;
 
-// The data one minimap draws, in the shape of the minimap contract (contracts/catzc/0.1.0/catzc.base.maps/minimap.schema.json).
+// The data one minimap draws, in the shape of the minimap contract (contracts/catzc/0.1.0/pwsh.base.maps/minimap.schema.json).
 [Catzc.Base.Objects.ConsoleDisplay(nameof(Id), nameof(Axes))]
 public sealed class MinimapData
 {

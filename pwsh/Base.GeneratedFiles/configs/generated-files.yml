@@ -51,7 +51,7 @@ writers:
   Write-TypesContract:
     check: none
     inputs: [pwsh/*/types/**, pwsh/.internal/assets/types/**]
-    outputs: [contracts/catzc/0.1.0/catzc.internal.types/types.sample.json]
+    outputs: [contracts/catzc/0.1.0/pwsh.internal.types/types.sample.json]
   Build-EnglishDictionary:
     check: english-dictionary
     inputs: [pwsh/Base.Execution/configs/tools.yml, pwsh/Base.QualityGates/**]

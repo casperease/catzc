@@ -3,7 +3,7 @@ function Get-TypesContractDrift {
     #     Names how a built types assembly's surface differs from the committed types contract.
     # .DESCRIPTION
     #     The surface is each public type's name, aliases and display, read from the assembly's metadata; the contract is
-    #     contracts/catzc/0.1.0/catzc.internal.types/types.sample.json under the repository root. One reason for a missing
+    #     types.sample.json in this module's group under the repository root (Get-TypesContractPath). One reason for a missing
     #     contract, else one naming every added, removed and changed type; nothing when they agree. It reads git nothing, so a
     #     bundle build and the Types facet share it, and the facet adds its own git reason beside it.
     # .PARAMETER Path
@@ -24,7 +24,7 @@ function Get-TypesContractDrift {
         [string] $RepositoryRoot
     )
 
-    $contract = 'contracts/catzc/0.1.0/catzc.internal.types/types.sample.json'
+    $contract = Get-TypesContractPath -RepositoryRoot $RepositoryRoot
     $contractPath = [System.IO.Path]::Combine($RepositoryRoot, $contract)
     if (-not [System.IO.File]::Exists($contractPath)) {
         return [string[]] @("$contract is missing — run the importer, which writes the types surface")

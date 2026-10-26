@@ -155,8 +155,7 @@ A projection of the repository is computed by a `Get-*` command over the generat
 source that shows it: the source holds only the inputs the projection is computed from and the parts its author rejects, so a file that is
 added or moves changes the projection and leaves the source as it is. The projection's data is contract JSON
 ([ADR-REPO-CONTRACT](api-contracts.md)), written to `out/` by the commands that build and check it and never written back; whatever draws it
-only validates and draws it. A source whose projection is missing does not render. A diagram's minimaps are one such projection
-([minimaps](../../explanation/repository/minimaps.md)).
+only validates and draws it. A source whose projection is missing does not render. A diagram's minimaps are one such projection.
 
 - [The declaration is the source](#the-declaration-is-the-source)
 

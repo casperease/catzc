@@ -17,7 +17,7 @@ function Get-CommittedTypesDrift {
     Import-InternalModule Types
     $modulesFolder = Get-CatzcModulesFolder
     $currentHash = (Get-CombinedTypeHash (Join-Path $RepositoryRoot $modulesFolder)).CombinedHash
-    $contract = 'contracts/catzc/0.1.0/catzc.internal.types/types.sample.json'
+    $contract = Get-TypesContractPath -RepositoryRoot $RepositoryRoot
     $reasons = [System.Collections.Generic.List[string]]::new()
 
     # The surface the current sources build to, read from their build in the shadow root, against the committed contract.

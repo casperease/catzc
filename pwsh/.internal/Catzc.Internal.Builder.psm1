@@ -33,6 +33,7 @@ $script:runtimeInternalFiles = @(
     'assets/types/Get-TypeSourceBody.ps1'
     'assets/types/Get-TypesAssemblyManifest.ps1'
     'assets/types/Get-TypesContractDrift.ps1'
+    'assets/types/Get-TypesContractPath.ps1'
     'assets/types/Write-TypesAssemblyManifest.ps1'
     'assets/types/Write-TypesContract.ps1'
 )

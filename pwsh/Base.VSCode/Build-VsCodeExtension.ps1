@@ -21,8 +21,9 @@ function Build-VsCodeExtension {
     Assert-PathExist $manifestPath
     $text = Get-Content -LiteralPath $manifestPath -Raw
     $repositoryRoot = Get-RepositoryRoot
-    $contract = @(Get-Contract catzc -Group catzc.base.vs_code -Path package.schema.json -RepositoryRoot $repositoryRoot)
-    Assert-True ($contract.Count -eq 1) -ErrorText 'Build-VsCodeExtension: the extension manifest contract (contracts/catzc/0.1.0/catzc.base.vs_code/package.schema.json) is missing.'
+    $group = Get-ContractGroup -Module Catzc.Base.VSCode -RepositoryRoot $repositoryRoot
+    $contract = @(Get-Contract catzc -Group $group -Path package.schema.json -RepositoryRoot $repositoryRoot)
+    Assert-True ($contract.Count -eq 1) -ErrorText "Build-VsCodeExtension: the extension manifest contract ($group/package.schema.json under contracts/catzc) is missing."
     $schema = ConvertTo-BclValue ([System.IO.File]::ReadAllText((Join-Path $repositoryRoot $contract[0].AssetPath)) | ConvertFrom-Json -AsHashtable -NoEnumerate)
     $findings = @([Catzc.Base.Contracts.ContractSchema]::Validate($schema,
             (ConvertTo-BclValue ($text | ConvertFrom-Json -AsHashtable -NoEnumerate))))

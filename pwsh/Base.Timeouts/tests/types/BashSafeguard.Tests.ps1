@@ -177,7 +177,7 @@ Describe 'BashSafeguard.FindConfig' -Tag 'L0', 'logic', 'ADR-AUTO-LAYERS-TOOLSRU
         $script:root = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
         function script:New-Config {
             param([string] $Folder)
-            $path = Join-Path $script:root "$Folder/Catzc.Base.Timeouts/configs/timeouts.yml"
+            $path = Join-Path $script:root "$Folder/Base.Timeouts/configs/timeouts.yml"
             [void][System.IO.Directory]::CreateDirectory([System.IO.Path]::GetDirectoryName($path))
             [System.IO.File]::WriteAllText($path, 'limits: {}')
             $path

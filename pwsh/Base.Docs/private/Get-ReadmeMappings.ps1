@@ -51,8 +51,16 @@ function Get-ReadmeMappings {
                 continue   # an explicit mapping already owns this folder
             }
 
-            $kebab = [Catzc.Base.Objects.NameCase]::Render($leaf, 'kebab')
-            $source = $pattern.source.Replace('{kebab}', $kebab).Replace('{name}', $leaf)
+            # An article is named for the module, so a module folder, which drops the namespace, takes its track's full name.
+            $track = Get-Track -Path $folder
+            $name = if ($track -and $prefix -cin $track.places) {
+                $track.FullNameOf($leaf)
+            }
+            else {
+                $leaf
+            }
+            $kebab = [Catzc.Base.Objects.NameCase]::Render($name, 'kebab')
+            $source = $pattern.source.Replace('{kebab}', $kebab).Replace('{name}', $name)
             $sourcePath = Join-Path $RepositoryRoot $source
             if (-not (Test-Path $sourcePath -PathType Leaf)) {
                 $absent.Add([pscustomobject]@{ folder = $folder; source = $source })

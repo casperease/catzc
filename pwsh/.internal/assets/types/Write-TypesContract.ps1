@@ -4,7 +4,7 @@ function Write-TypesContract {
     # .DESCRIPTION
     #     The surface is each public type's name, aliases and display, read from the assembly's metadata, sorted by
     # name; it is
-    #     what a consumer binds to, so it is the contract contracts/catzc/0.1.0/catzc.internal.types/types.sample.json
+    #     what a consumer binds to, so it is the contract types.sample.json in this module's group (Get-TypesContractPath)
     # and the
     #     source hash stays a local cache key. The text is compared with the file first, so an equal surface leaves git
     # clean;
@@ -33,8 +33,7 @@ function Write-TypesContract {
         [string] $RepositoryRoot
     )
 
-    $contract = [System.IO.Path]::Combine($RepositoryRoot, 'contracts', 'catzc', '0.1.0', 'catzc.internal.types',
-        'types.sample.json')
+    $contract = [System.IO.Path]::Combine($RepositoryRoot, (Get-TypesContractPath -RepositoryRoot $RepositoryRoot))
     $types = @((Get-TypesAssemblyManifest -Path $Path).Types | Sort-Object -Property Name -CaseSensitive | ForEach-Object {
             [ordered]@{ name = $_.Name; aliases = @($_.Aliases); display = @($_.Display) }
         })

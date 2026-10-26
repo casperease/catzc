@@ -6,6 +6,10 @@ terms:
     - term: catzcbaserepository
       meaning:
         "the module Catzc.Base.Repository rendered in Go's flat naming case, its Go test folder name (ADR-AUTO-IDIOM-TESTFOLDERBYIDIOM)"
+    - term: baserepository
+      meaning:
+        "the module folder Base.Repository rendered in Go's flat naming case, its Go test folder go/tests/baserepository (the folder drops
+        the namespace, DDR-TRACK-MODULENAMESPACE)"
     - term: spawnable
       meaning: "able to be spawned as a sub-agent; an agent file is spawnable only in a session started after it lands"
     - term: getcommandcontract

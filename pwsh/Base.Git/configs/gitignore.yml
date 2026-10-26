@@ -87,7 +87,7 @@ sections:
     why: >
       The combined assembly and its manifest are a per-machine build in the per-user shadow root, keyed by the source hash (see
       docs/drs/automation/caching.md), so git keeps no file under pwsh/.compiled. What a consumer binds to, the types surface, is the
-      provided contract in contracts/catzc/0.1.0/catzc.internal.types/.
+      provided contract in contracts/catzc/0.1.0/pwsh.internal.types/.
     patterns:
       - pwsh/.compiled/
 

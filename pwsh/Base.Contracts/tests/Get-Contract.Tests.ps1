@@ -278,7 +278,7 @@ Describe 'Get-Contract' -Tag 'L0', 'logic' {
         }
 
         It 'targets the command file, named in PowerShell''s function case, under the module root the one resolver gives, and is provided' {
-            Add-Asset 'contracts/catzc/0.1.0/catzc.widget/get_widget.command.yml' 'parameters:'
+            Add-Asset 'contracts/catzc/0.1.0/pwsh.widget/get_widget.command.yml' 'parameters:'
             $asset = Get-Contract -RepositoryRoot $script:root
             $asset.Kind | Should -Be ([Catzc.Base.Contracts.ContractAssetKind]::Command)
             $asset.Target | Should -Be 'widgets/Catzc.Widget/Get-Widget.ps1'
@@ -287,9 +287,9 @@ Describe 'Get-Contract' -Tag 'L0', 'logic' {
         }
 
         It 'resolves the module once for all its command contracts, and not at all without one' {
-            Add-Asset 'contracts/catzc/0.1.0/catzc.widget/get_widget.command.yml' 'parameters:'
-            Add-Asset 'contracts/catzc/0.1.0/catzc.widget/set_widget.command.yml' 'parameters:'
-            Add-Asset 'contracts/catzc/0.1.0/catzc.gadget/gadget.sample.json' '{}'
+            Add-Asset 'contracts/catzc/0.1.0/pwsh.widget/get_widget.command.yml' 'parameters:'
+            Add-Asset 'contracts/catzc/0.1.0/pwsh.widget/set_widget.command.yml' 'parameters:'
+            Add-Asset 'contracts/catzc/0.1.0/pwsh.gadget/gadget.sample.json' '{}'
             @(Get-Contract -RepositoryRoot $script:root).Count | Should -Be 3
             Should -Invoke -ModuleName Catzc.Base.Contracts Get-CatzcModule -Times 1 -Exactly -ParameterFilter { $Name -ceq 'Catzc.Widget' }
         }
@@ -300,7 +300,7 @@ Describe 'Get-Contract' -Tag 'L0', 'logic' {
         }
 
         It 'throws on a command contract whose file name is not in the normal form' {
-            Add-Asset 'contracts/catzc/0.1.0/catzc.widget/Get-Widget.command.yml' 'parameters:'
+            Add-Asset 'contracts/catzc/0.1.0/pwsh.widget/Get-Widget.command.yml' 'parameters:'
             { Get-Contract -RepositoryRoot $script:root } |
                 Should -Throw "*the command 'Get-Widget' is not in the repository normal form, snake*"
         }

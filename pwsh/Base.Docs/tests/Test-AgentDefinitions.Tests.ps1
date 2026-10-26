@@ -158,11 +158,11 @@ Describe 'Test-AgentDefinitions' -Tag 'L0', 'logic' {
         $issues = (Test-AgentDefinitions -OutputFolder $out -PassThru).Issues
         $issues | Should -Contain '.claude/skills/widget-spin/SKILL.md: has no entry in capabilities.yml'
         $issues |
-            Should -Contain "$(Get-CatzcModulesFolder)/Catzc.Base.Docs/configs/capabilities.yml: capability 'gadget-turn' has no file .claude/skills/gadget-turn/SKILL.md"
+            Should -Contain "$(ConvertTo-RepoRelativePath (Get-CatzcModuleRoot -Module Catzc.Base.Docs))/configs/capabilities.yml: capability 'gadget-turn' has no file .claude/skills/gadget-turn/SKILL.md"
         $issues |
-            Should -Contain "$(Get-CatzcModulesFolder)/Catzc.Base.Docs/configs/capabilities.yml: capability 'gadget-turn' supported_by 'ADR-WI-ONE-MISSING' names no ADR rule"
+            Should -Contain "$(ConvertTo-RepoRelativePath (Get-CatzcModuleRoot -Module Catzc.Base.Docs))/configs/capabilities.yml: capability 'gadget-turn' supported_by 'ADR-WI-ONE-MISSING' names no ADR rule"
         $issues |
-            Should -Contain "$(Get-CatzcModulesFolder)/Catzc.Base.Docs/configs/capabilities.yml: capability 'gadget-turn' checks 'Test-GadgetWidgetGizmo' names no command"
+            Should -Contain "$(ConvertTo-RepoRelativePath (Get-CatzcModuleRoot -Module Catzc.Base.Docs))/configs/capabilities.yml: capability 'gadget-turn' checks 'Test-GadgetWidgetGizmo' names no command"
         $issues | Should -HaveCount 4
     }
 
@@ -200,7 +200,7 @@ Describe 'Test-AgentDefinitions' -Tag 'L0', 'logic' {
         $issues = (Test-AgentDefinitions -OutputFolder $out -PassThru).Issues
         $issues | Should -Contain '.claude/agents/gizmo.md: has no entry in agents.yml'
         $issues |
-            Should -Contain "$(Get-CatzcModulesFolder)/Catzc.Base.Docs/configs/agents.yml: agent 'gadget' has no file .claude/agents/gadget.md"
+            Should -Contain "$(ConvertTo-RepoRelativePath (Get-CatzcModuleRoot -Module Catzc.Base.Docs))/configs/agents.yml: agent 'gadget' has no file .claude/agents/gadget.md"
     }
 
     It 'reports front matter that is missing or does not parse' -Tag 'ADR-REPO-AGENTS-ONEFILEPERAGENT' {
@@ -231,9 +231,9 @@ Describe 'Test-AgentDefinitions' -Tag 'L0', 'logic' {
         )
         $issues = (Test-AgentDefinitions -OutputFolder $out -PassThru).Issues
         $issues |
-            Should -Contain "$(Get-CatzcModulesFolder)/Catzc.Base.Docs/configs/agents.yml: agent 'gadget' supported_by 'ADR-WI-ONE-MISSING' names no ADR rule"
+            Should -Contain "$(ConvertTo-RepoRelativePath (Get-CatzcModuleRoot -Module Catzc.Base.Docs))/configs/agents.yml: agent 'gadget' supported_by 'ADR-WI-ONE-MISSING' names no ADR rule"
         $issues |
-            Should -Contain "$(Get-CatzcModulesFolder)/Catzc.Base.Docs/configs/agents.yml: agent 'gadget' checks 'Test-GadgetWidgetGizmo' names no command"
+            Should -Contain "$(ConvertTo-RepoRelativePath (Get-CatzcModuleRoot -Module Catzc.Base.Docs))/configs/agents.yml: agent 'gadget' checks 'Test-GadgetWidgetGizmo' names no command"
         $issues | Should -HaveCount 2
     }
 

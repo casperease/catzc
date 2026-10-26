@@ -13,15 +13,21 @@ function Get-CatsModules {
         [string] $ModulesRoot = (Get-CatzcModulesRoot)
     )
 
+    # A module folder drops the namespace the module's name carries, so a loaded module is matched to its folder by the folder it
+    # loaded from, never by name.
+    $all = @(Get-Module)
     $loaded = foreach ($folder in @(Get-ChildPath -Path $ModulesRoot -Depth 1 -Directory)) {
         $name = [System.IO.Path]::GetFileName("$folder".TrimEnd('\', '/'))
         if ($name.StartsWith('.')) {
             continue
         }
-        foreach ($module in @(Get-Module -Name $name)) {
+        $full = [System.IO.Path]::GetFullPath("$folder").TrimEnd('\', '/')
+        foreach ($module in $all) {
+            if (-not $module.Path) {
+                continue
+            }
             $from = [System.IO.Path]::GetFullPath([System.IO.Path]::GetDirectoryName($module.Path)).TrimEnd('\', '/')
-            if ($from -ieq [System.IO.Path]::GetFullPath("$folder").TrimEnd('\', '/') -and
-                [System.IO.Path]::GetExtension($module.Path) -ne '.ps1') {
+            if ($from -ieq $full -and [System.IO.Path]::GetExtension($module.Path) -ne '.ps1') {
                 $module
             }
         }

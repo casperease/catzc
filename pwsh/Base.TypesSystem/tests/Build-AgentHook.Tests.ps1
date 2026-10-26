@@ -51,8 +51,8 @@ Describe 'Build-AgentHook' -Tag 'L0', 'logic' {
     It 'records the linked module sources in the hash, so a change to them republishes' {
         $null = Build-AgentHook Assert-BashTimeout -OutputDirectory $script:outputDirectory
         $stamp = Get-Content -LiteralPath (Join-Path $script:outputDirectory 'Assert-BashTimeout.source.sha256') -Raw
-        $stamp | Should -BeLike '*Catzc.Base.Timeouts/types/TimeoutsConfig.cs:*'
-        $stamp | Should -BeLike '*Catzc.Base.Timeouts/types/BashSafeguard.cs:*'
+        $stamp | Should -BeLike '*Base.Timeouts/types/TimeoutsConfig.cs:*'
+        $stamp | Should -BeLike '*Base.Timeouts/types/BashSafeguard.cs:*'
     }
 
     It 'publishes every hook folder under .claude/hooks when none is named, each with its own stamp' {
@@ -67,7 +67,7 @@ Describe 'Build-AgentHook' -Tag 'L0', 'logic' {
             Should -Be @('Assert-BashTimeout', 'Record-AgentWrite', 'Record-SessionMessage', 'Show-EditReminder')
         Join-Path $script:outputDirectory 'Record-AgentWrite.source.sha256' | Should -Exist
         Get-Content -LiteralPath (Join-Path $script:outputDirectory 'Record-AgentWrite.source.sha256') -Raw |
-            Should -BeLike '*Catzc.Tooling.Listen/types/WriteLedger.cs:*'
+            Should -BeLike '*Tooling.Listen/types/WriteLedger.cs:*'
     }
 
     It 'with -Test names a stale hook and builds nothing, and names none once it is current' {
@@ -137,7 +137,7 @@ Describe 'Build-AgentHook — the published Assert-BashTimeout' -Tag 'L2', 'logi
         }
         # Publish the real program into the test drive, with a copy of the repository layout it locates its config by.
         $script:root = Join-Path $TestDrive 'repo'
-        $configDirectory = Join-Path $script:root "$(Get-CatzcModulesFolder)/Catzc.Base.Timeouts/configs"
+        $configDirectory = Join-Path $script:root "$(Get-CatzcModulesFolder)/Base.Timeouts/configs"
         $null = New-Item -ItemType Directory -Force -Path $configDirectory
         Set-Content -LiteralPath (Join-Path $configDirectory 'timeouts.yml') -Value @'
 limits:
