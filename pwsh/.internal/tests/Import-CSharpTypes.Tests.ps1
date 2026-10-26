@@ -35,6 +35,23 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
             }
             $root
         }
+
+        # The import writes the DLL and its manifest into its build directory (the mocked shadow root), named by the fixture's hash.
+        function Get-FixtureManifest {
+            param([string] $Root)
+            Join-Path $script:shadowRoot "Catzc.Types.$((Get-CombinedTypeHash -ModulesRoot $Root).CombinedHash).json"
+        }
+
+        # A bundle ships the DLL beside its manifest in its own .compiled.
+        function Copy-FixtureBundleBuild {
+            param([string] $Root)
+            $manifest = Get-FixtureManifest -Root $Root
+            $compiled = [System.IO.Directory]::CreateDirectory((Join-Path $Root '.compiled')).FullName
+            foreach ($source in $manifest, [System.IO.Path]::ChangeExtension($manifest, 'dll')) {
+                [System.IO.File]::Copy($source, (Join-Path $compiled ([System.IO.Path]::GetFileName($source))))
+            }
+            Join-Path $compiled ([System.IO.Path]::GetFileName($manifest))
+        }
     }
 
     AfterAll {
@@ -64,12 +81,10 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
             InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R }
 
             ([System.Management.Automation.PSTypeName]"$namespace.Alpha").Type | Should -Not -BeNullOrEmpty
-            $compiled = Join-Path $root '.compiled'
-            @([System.IO.Directory]::EnumerateFiles($compiled, 'Catzc.Types.*.dll')).Count | Should -Be 0
-            @([System.IO.Directory]::EnumerateFiles($compiled, 'Catzc.Types.*.json')).Count | Should -Be 1
-            $hash = [System.IO.Path]::GetFileNameWithoutExtension(([System.IO.Directory]::EnumerateFiles($compiled,
-                        'Catzc.Types.*.json') | Select-Object -First 1))
-            [System.IO.File]::Exists((Join-Path $script:shadowRoot "$hash.dll")) | Should -BeTrue
+            [System.IO.Directory]::Exists((Join-Path $root '.compiled')) | Should -BeFalse -Because 'a source tree never holds a build'
+            $manifest = Get-FixtureManifest -Root $root
+            [System.IO.File]::Exists($manifest) | Should -BeTrue
+            [System.IO.File]::Exists([System.IO.Path]::ChangeExtension($manifest, 'dll')) | Should -BeTrue
         }
 
         It 'compiles MULTIPLE sources in ONE module into ONE assembly (intra-module base + derived)' {
@@ -113,9 +128,8 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
             $namespace = "CatzcTestManifest$runId"
             $root = New-FixtureRoot @{ $namespace = @{ Omega = 'public class Omega { }' } }
             InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R }
-            $manifests = @([System.IO.Directory]::EnumerateFiles((Join-Path $root '.compiled'), 'Catzc.Types.*.json'))
-            $manifests.Count | Should -Be 1
-            @(([System.IO.File]::ReadAllText($manifests[0]) | ConvertFrom-Json).types.name) |
+            $manifest = Get-FixtureManifest -Root $root
+            @(([System.IO.File]::ReadAllText($manifest) | ConvertFrom-Json).types.name) |
                 Should -Be @("$namespace.Omega")
         }
 
@@ -123,8 +137,7 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
             $namespace = "CatzcTestRestore$runId"
             $root = New-FixtureRoot @{ $namespace = @{ Psi = 'public class Psi { }' } }
             InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R }
-            $manifest = [System.IO.Directory]::EnumerateFiles((Join-Path $root '.compiled'), 'Catzc.Types.*.json') |
-                Select-Object -First 1
+            $manifest = Get-FixtureManifest -Root $root
             [System.IO.File]::Delete($manifest)
             InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R }
             [System.IO.File]::Exists($manifest) | Should -BeTrue
@@ -134,11 +147,7 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
             $namespace = "CatzcTestBundle$runId"
             $root = New-FixtureRoot @{ $namespace = @{ Chi = 'public class Chi { }' } }
             InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R }
-            $manifest = [System.IO.Directory]::EnumerateFiles((Join-Path $root '.compiled'), 'Catzc.Types.*.json') |
-                Select-Object -First 1
-            # A bundle ships the DLL beside its manifest in .compiled.
-            $dll = [System.IO.Path]::ChangeExtension($manifest, 'dll')
-            [System.IO.File]::Copy((Join-Path $script:shadowRoot ([System.IO.Path]::GetFileName($dll))), $dll)
+            $manifest = Copy-FixtureBundleBuild -Root $root
             [System.IO.File]::Delete($manifest)
             { InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R -PrebuiltOnly } } |
                 Should -Throw '*missing its prebuilt types manifest*'
@@ -164,11 +173,7 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
             $namespace = "CatzcTestLazyBundle$runId"
             $root = New-FixtureRoot @{ $namespace = @{ Mu = 'public class Mu { }' } }
             InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R -HostKind console }
-            # A bundle ships the DLL beside its manifest in .compiled.
-            $manifest = [System.IO.Directory]::EnumerateFiles((Join-Path $root '.compiled'), 'Catzc.Types.*.json') |
-                Select-Object -First 1
-            $dll = [System.IO.Path]::ChangeExtension($manifest, 'dll')
-            [System.IO.File]::Copy((Join-Path $script:shadowRoot ([System.IO.Path]::GetFileName($dll))), $dll)
+            $dll = [System.IO.Path]::ChangeExtension((Copy-FixtureBundleBuild -Root $root), 'dll')
             $stamp = [System.IO.File]::GetLastWriteTimeUtc($dll)
 
             InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R -HostKind console -PrebuiltOnly }
@@ -283,9 +288,7 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
             $namespace = "CatzcTestEpsilon$runId"
             $root = New-FixtureRoot @{ $namespace = @{ Epsilon = 'public class Epsilon { }' } }
             InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R }
-            $manifest = [System.IO.Directory]::EnumerateFiles((Join-Path $root '.compiled'), 'Catzc.Types.*.json') |
-                Select-Object -First 1
-            $dll = Join-Path $script:shadowRoot ([System.IO.Path]::GetFileNameWithoutExtension($manifest) + '.dll')
+            $dll = [System.IO.Path]::ChangeExtension((Get-FixtureManifest -Root $root), 'dll')
             $dll | Should -Not -BeNullOrEmpty
 
             Remove-Item $dll -Force                                  # types stay loaded; advisory lock on Unix allows this
