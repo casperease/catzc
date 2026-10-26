@@ -1,5 +1,7 @@
+# An on-demand fixture library: a synthetic repository on disk, with $env:RepositoryRoot pointed at it and restored after.
 Set-StrictMode -Version Latest   # this module's scope: every function here runs strict
 
+# One module folder under a fake repository root: public files at its root, private/ files, and any extra files.
 function New-ModuleFolder {
     [CmdletBinding()]
     [OutputType([string])]
@@ -45,6 +47,7 @@ function New-ModuleFolder {
     $moduleDirectory
 }
 
+# Returns a handle { Root; ModulesRoot; Saved } that Remove-FakeRepositoryRoot uses to restore both roots.
 function New-FakeRepositoryRoot {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '',
         Justification = 'Test fixture: the swap lives inside one test''s lifecycle and Remove-FakeRepositoryRoot restores it (the split form of ADR-AUTO-CONSOLE-SILENTTRANSIENTCHANGES); its output belongs to Pester')]
@@ -86,6 +89,7 @@ function New-FakeRepositoryRoot {
         [System.IO.File]::WriteAllText($path, [string] $Files[$relative], $utf8)
     }
 
+    # Both roots move together, so the fake tree reads as source mode: its code root is its own pwsh/ folder.
     $saved = @{ RepositoryRoot = $env:RepositoryRoot; CatzcModulesRoot = $env:CatzcModulesRoot }
     $modulesRoot = Join-Path $root $modulesFolder
     $env:RepositoryRoot = $root

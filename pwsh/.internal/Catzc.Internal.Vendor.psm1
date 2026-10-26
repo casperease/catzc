@@ -1,5 +1,7 @@
+# Vendored modules load before any catzc module exists, so their loader lives in .internal, not in a module.
 Set-StrictMode -Version Latest   # this module's scope: every function here runs strict
 
+# The system copy is dropped from PSModulePath so the vendored version wins; a changed version on disk needs a restart.
 function Import-VendorModules {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '',
         Justification = '$global:__CatzcLoadTimings is session-global import diagnostics collected across all modules, surfaced by importer.ps1 -DiagnoseLoadTime')]
@@ -10,6 +12,7 @@ function Import-VendorModules {
 
         [string[]]$Lazy = @(),
 
+        # A vendor import loads .NET assemblies an enterprise antivirus scans on first load, the usual slow-start suspect.
         [switch]$DiagnoseLoadTime
     )
 
@@ -19,6 +22,7 @@ function Import-VendorModules {
     }
 
     $sep = [System.IO.Path]::PathSeparator
+    # One level, inline: this module loads before the bounded walker exists.
     $vendorDirs = [System.IO.DirectoryInfo]::new($VendorRoot).GetDirectories()
 
     foreach ($dir in $vendorDirs) {
@@ -29,6 +33,7 @@ function Import-VendorModules {
 
         $existing = Get-Module $dir.Name -ErrorAction SilentlyContinue
 
+        # Already loaded from the vendor path: a re-import can fail on .NET assemblies that cannot be replaced in-process.
         if ($existing -and $existing.ModuleBase -like "$VendorRoot*") {
             $vendorVersion = (Split-Path $existing.ModuleBase -Leaf)
             $onDiskVersions = $dir.GetDirectories().Name
@@ -45,6 +50,7 @@ function Import-VendorModules {
             Remove-Module $existing.Name -Force -ErrorAction SilentlyContinue
         }
 
+        # The module's system paths leave PSModulePath, so auto-loading cannot bring the system version back.
         $before = @($env:PSModulePath -split $sep)
         $env:PSModulePath = ($before |
                 Where-Object {

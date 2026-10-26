@@ -135,8 +135,6 @@ public sealed class CommentPageMap
     // A folder or module name in the normal form: Base.QualityGates is base-quality-gates; a namespace never appears in a folder.
     static string Normal(string segment) => Catzc.Base.Objects.NameCase.Render(segment, NormalCase);
 
-    // A file name in the normal form with its trailing language extension and its .Tests role dropped; an inner part of the name is kept,
-    // so Get-OutputRoot.OutputOnlyByAddress.Tests.ps1 is get-output-root-output-only-by-address.
     static string FileStem(string fileName)
     {
         string stem = fileName;

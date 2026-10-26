@@ -3,8 +3,6 @@ function Get-Glossary {
     [OutputType([Catzc.Base.Docs.GlossaryEntry[]])]
     param()
 
-    # The strict-clean probe of a lazy cache entry
-    # ([ADR-PWSH-CACHE-STRICTSAFEPROBE](/docs/drs/automation/pwsh/script-scope-caching.md#rule-adr-pwsh-cache-strictsafeprobe)).
     if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:glossaryCache')) {
         $script:glossaryCache = @{}
     }

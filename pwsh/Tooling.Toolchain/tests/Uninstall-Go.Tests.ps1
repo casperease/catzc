@@ -28,4 +28,20 @@ Describe 'Uninstall-Go' -Tag 'L1', 'logic' {
         Should -Invoke Remove-PermanentPath -ModuleName Catzc.Tooling.Toolchain -Times 0 -Exactly
         Should -Invoke Write-Message -ModuleName Catzc.Tooling.Toolchain -Times 1 -Exactly -ParameterFilter { $Message -like '*nothing to do' }
     }
+
+    It 'escalates to Remove-Go only under -Remove, passing -Force through' -Tag 'ADR-AUTO-REMOVE-ONECALLESCALATION' {
+        Mock Remove-Go { } -ModuleName Catzc.Tooling.Toolchain
+        Uninstall-Go
+        Should -Invoke Remove-Go -ModuleName Catzc.Tooling.Toolchain -Times 0 -Exactly
+        Uninstall-Go -Remove -Force
+        Should -Invoke Remove-Go -ModuleName Catzc.Tooling.Toolchain -Times 1 -Exactly -ParameterFilter { $Force }
+    }
+
+    It 'escalates even when the managed uninstall fails, under -Remove' -Tag 'ADR-AUTO-REMOVE-ONECALLESCALATION' {
+        Mock Remove-Go { } -ModuleName Catzc.Tooling.Toolchain
+        Mock Get-ScriptInstallDir { throw 'widget failure' } -ModuleName Catzc.Tooling.Toolchain
+        { Uninstall-Go } | Should -Throw '*widget failure*'
+        Uninstall-Go -Remove
+        Should -Invoke Remove-Go -ModuleName Catzc.Tooling.Toolchain -Times 1 -Exactly
+    }
 }

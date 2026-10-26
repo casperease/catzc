@@ -1,5 +1,6 @@
 Set-StrictMode -Version Latest   # this module's scope: every function here runs strict
 
+# The one bootstrap constant, read before any registry loads; later code reads it back through Get-CatzcModulesRoot.
 $script:modulesFolder = 'pwsh'
 
 # The functions that outgrew this file live one per file beside it; they share its scope.
@@ -8,6 +9,7 @@ $script:modulesFolder = 'pwsh'
 . (Join-Path $PSScriptRoot 'assets/importer/Test-WriterDue.ps1')
 . (Join-Path $PSScriptRoot 'assets/importer/Wait-ImportBurst.ps1')
 
+# The one living copy of the load sequence; New-Importer generates importer.ps1 from this parameter block.
 function Invoke-Importer {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingWriteHost', '',
         Justification = 'Importer console output runs before the module system (Write-Message) is available')]
@@ -19,12 +21,16 @@ function Invoke-Importer {
         [switch] $AllowWarnings,
         [switch] $DiagnoseLoadTime,
 
+        # Deletes every compiled type DLL first, so each type is rebuilt from source.
         [switch] $ClearCompiledTypes,
 
+        # A lean load for a copied subset: no post-import janitors and no PSModulePath check.
         [switch] $SkipJanitors,
 
+        # Opts in to a whitelisted deep clean first; the janitors after it regenerate what it removed.
         [switch] $CleanClone,
 
+        # An installed bundle: honours a pre-set CatzcModulesRoot and forces -SkipJanitors.
         [switch] $Bundle,
 
         [string[]] $Languages,
@@ -32,6 +38,7 @@ function Invoke-Importer {
         [string[]] $Engines
     )
 
+    # 7.4 is the floor: the vendor functions use the PSResourceGet it first shipped.
     if ($PSVersionTable.PSVersion -lt [version]'7.4') {
         throw "The Catzc toolset requires PowerShell 7.4 or later (found $($PSVersionTable.PSVersion))."
     }
@@ -42,6 +49,7 @@ function Invoke-Importer {
     # Before any file is read: a burst mid-swap is waited out, so the import never loads a half-applied change.
     Wait-ImportBurst
 
+    # The stack is [0] Invoke-Importer, [1] importer.ps1, [2] its caller; an empty ScriptName there means a console dot-source.
     $stack = Get-PSCallStack
     $callerScriptName = if ($stack.Count -gt 2) {
         $stack[2].ScriptName
@@ -60,6 +68,7 @@ function Invoke-Importer {
         $global:__CatzcLoadTimings = [System.Collections.Generic.List[object]]::new()
     }
 
+    # -Verbose shows the importer's own state-change record.
     $showStateChanges = $VerbosePreference -ne 'SilentlyContinue'
     $callerVerbosePreference = $global:VerbosePreference
     $global:VerbosePreference = 'SilentlyContinue'
@@ -77,11 +86,14 @@ function Invoke-Importer {
         }
         $global:InformationPreference = 'Continue'
 
+        # A redirected session writes UTF-8, the encoding relays stream, so a captured log has one encoding.
         $outputEncodingChanged = Set-RedirectedOutputEncoding
 
+        # The working root (out/, repository-relative paths, git), set by the shim before it calls here.
         $repoRoot = $env:RepositoryRoot
         Write-Verbose "RepositoryRoot: $repoRoot"
 
+        # The code anchor that config, type and vendor discovery follow; in the mono repo it is <repoRoot>/pwsh.
         if ($Bundle -and $env:CatzcModulesRoot) {
             $modulesRoot = $env:CatzcModulesRoot
         }
@@ -96,6 +108,7 @@ function Invoke-Importer {
             $SkipJanitors = $true
         }
 
+        # Bootstrap does the import-time discovery and is removed at the end; the loader, Types and Vendor stay loaded.
         Import-InternalModule Bootstrap -Force
         Import-InternalModule Types -Force
         Import-InternalModule Vendor -Force
@@ -109,6 +122,7 @@ function Invoke-Importer {
         $errorViewPath = Join-Path $modulesRoot '.internal/assets/ErrorView.format.ps1xml'
         Update-FormatData -PrependPath $errorViewPath
 
+        # Every lasting change to the caller's session is announced: the preferences, the error view, then the roots.
         Write-ImporterMessage ("Session: ErrorActionPreference=$global:ErrorActionPreference, WarningPreference=$global:WarningPreference, " +
             "InformationPreference=$global:InformationPreference, error view '$errorViewPath'") -StateChange
         if ($outputEncodingChanged) {
@@ -127,11 +141,13 @@ function Invoke-Importer {
             Write-LoadTime 'Vendor modules loaded'
         }
 
+        # Every module is discovered and imported from the code anchor; -ClearCompiledTypes wipes the DLLs first.
         if ($ClearCompiledTypes) {
             Clear-CompiledType -ModulesRoot $modulesRoot
         }
 
         Write-Verbose "Discovering modules in: $modulesRoot"
+        # Only an interactive dot-source is a console host; every other load runs the types and janitors at import.
         $hostKind = if ($isConsoleSession -and (Test-IsInteractiveHost) -and -not (Test-IsRunningInPipeline)) {
             'console'
         }
@@ -142,6 +158,7 @@ function Invoke-Importer {
         if ($isConsoleSession) {
             $finalizerStart = $sw.Elapsed
         }
+        # The two run modes never coexist: this proves the eviction before any janitor touches the tree.
         Assert-CatzcRunModeExclusive -ModulesRoot $modulesRoot
 
         if ($Bundle) {
@@ -151,6 +168,7 @@ function Invoke-Importer {
             Write-LoadTime 'All modules loaded'
         }
 
+        # The mix is resolved once the modules are loaded and kept as the session record; modules outside it are removed.
         $mixArgs = @{}
         foreach ($axis in 'Languages', 'Engines') {
             if ($PSBoundParameters.ContainsKey($axis)) {
@@ -175,6 +193,7 @@ function Invoke-Importer {
 
         $deferJanitors = -not $SkipJanitors -and $hostKind -eq 'console' -and -not $CleanClone
         if ($deferMix) {
+            # A console import stays types-free: the mix needs the types, so it resolves after the first prompt.
             $show = $showStateChanges
             Enable-DeferredJanitors -Action {
                 [void] (Set-ImportMix)
@@ -191,13 +210,16 @@ function Invoke-Importer {
             Write-Verbose 'Import mix deferred until the first prompt has shown'
         }
         elseif ($deferJanitors) {
+            # The janitors call catzc commands, so a console import runs them after the first prompt.
             Enable-DeferredJanitors -ShowStateChanges:$showStateChanges
             Write-Verbose 'Janitors deferred until the first prompt has shown'
         }
+        # The post-import janitors in their fixed order; an isolated copy and a bundle skip the whole chain.
         if (-not $SkipJanitors -and -not $deferJanitors) {
             Invoke-ImporterJanitors -CleanClone:$CleanClone -ShowStateChanges:$showStateChanges
         }
 
+        # A network share in PSModulePath slows every load; the fix is in pwsh/Base.Environment/assets/README.md.
         if (-not $SkipJanitors -and $IsWindows) {
             $hasUncModulePath = ($env:PSModulePath -split [IO.Path]::PathSeparator) -match '^\\\\' |
                 Select-Object -First 1
@@ -221,9 +243,11 @@ function Invoke-Importer {
             $writeMessage = Get-Command Write-Message -ErrorAction Ignore
             if ($writeMessage) {
                 $totalSeconds = [math]::Round($sw.Elapsed.TotalSeconds, 1)
+                # The three parts sum to the total: initializer before the vendor import, module import, then the finalizer.
                 $initializerSeconds = [math]::Round($initializerEnd.TotalSeconds, 1)
                 $importSeconds = [math]::Round(($finalizerStart - $initializerEnd).TotalSeconds, 1)
                 $finalizerSeconds = [math]::Round(($sw.Elapsed - $finalizerStart).TotalSeconds, 1)
+                # Called through its command info: a lookup by name is a first use and would load the pending types.
                 & $writeMessage "Loaded in $totalSeconds seconds (session initializer ${initializerSeconds}s, module import ${importSeconds}s, session finalizer ${finalizerSeconds}s)"
             }
         }
@@ -233,6 +257,7 @@ function Invoke-Importer {
     }
 }
 
+# A bundle without the overlay module cannot apply overrides, so the load stops instead of ignoring them.
 function Invoke-ConsumerOverlay {
     [CmdletBinding()]
     param(
@@ -255,6 +280,7 @@ function Invoke-ConsumerOverlay {
     }
 }
 
+# Every loaded catzc module must sit under the active code root, the same predicate the eviction sweep uses.
 function Assert-CatzcRunModeExclusive {
     [CmdletBinding()]
     param(
@@ -280,6 +306,7 @@ function Assert-CatzcRunModeExclusive {
     throw ((@($header) + @($lines) + @($footer)) -join "`n")
 }
 
+# A redirected host writes the OEM codepage while relays stream UTF-8, which mangled box drawing in logs.
 function Set-RedirectedOutputEncoding {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-NoRawConsoleWrite', '',
         Justification = 'The one sanctioned console-property assignment (ADR-PWSH-ANNOUNCE-INFORMATIONSTREAMCHOKEPOINT): UTF-8 output for a redirected session, announced by Invoke-Importer on its load record.')]
@@ -294,6 +321,7 @@ function Set-RedirectedOutputEncoding {
     $true
 }
 
+# A superseded build it cannot delete is one red line, never a failed load.
 function Invoke-TypeCacheJanitor {
     [CmdletBinding()]
     param(
@@ -311,6 +339,7 @@ function Invoke-TypeCacheJanitor {
     }
 }
 
+# The one line a janitor prints instead of working inside VS Code: what it left undone, and the command to run outside.
 function Write-InsideVsCodeNotice {
     [CmdletBinding()]
     param(
@@ -327,6 +356,7 @@ function Write-InsideVsCodeNotice {
     Write-ImporterMessage "${Subject}: $State from inside VS Code — run $Command from a terminal outside the editor." -ForegroundColor Yellow
 }
 
+# A checkout without the hooks' code or dotnet is told, never stopped: Install-Dotnet needs this import.
 function Invoke-AgentHookJanitor {
     [CmdletBinding()]
     param()
@@ -359,6 +389,7 @@ function Invoke-AgentHookJanitor {
     }
 }
 
+# Installs the repository's own editor extensions when missing or stale, so loading the repo is the whole setup.
 function Invoke-EditorExtensionJanitor {
     [CmdletBinding()]
     param()
@@ -403,6 +434,7 @@ function Invoke-GeneratedFilesJanitor {
     }
 }
 
+# A call before the clock exists starts it instead of throwing on the unset variable.
 function Write-LoadTime {
     [CmdletBinding()]
     param(
@@ -418,6 +450,7 @@ function Write-LoadTime {
     $script:diagSw.Restart()
 }
 
+# It writes through the transient bootstrap, so it must run while that is still loaded.
 function Write-LoadTimeSummary {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '',
         Justification = 'Reads $global:__CatzcLoadTimings, the cross-module load-timing collector Invoke-Importer creates under -DiagnoseLoadTime')]
@@ -426,11 +459,13 @@ function Write-LoadTimeSummary {
 
     Write-ImporterMessage '  ---- summary ----' -ForegroundColor DarkGray
 
+    # The raw read isolates cold file-read I/O from the parse; small does not prove no antivirus, as it is warm after first access.
     $scanMs = [int](($global:__CatzcLoadTimings | Measure-Object ReadMs -Sum).Sum)
     $scanFiles = [int](($global:__CatzcLoadTimings | Measure-Object FileCount -Sum).Sum)
     $parseMs = [int](($global:__CatzcLoadTimings | Measure-Object ImportMs -Sum).Sum)
     Write-ImporterMessage ('  file-read I/O (cold; warm-cached after 1st access): {0}ms across {1} .ps1 files' -f $scanMs, $scanFiles) -ForegroundColor DarkGray
     Write-ImporterMessage ('  Import-Module parse/compile (incl. any AV/AMSI scan-on-parse): {0}ms' -f $parseMs) -ForegroundColor DarkGray
+    # The C# types show as one row: compile+load is a cold cache, cache load reused the committed DLL.
     $top = $global:__CatzcLoadTimings | Sort-Object Ms -Descending | Select-Object -First 3
     foreach ($t in $top) {
         Write-ImporterMessage ('  slowest: {0,6}ms  {1}' -f $t.Ms, $t.Stage) -ForegroundColor DarkGray

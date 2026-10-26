@@ -7,3 +7,12 @@ placeholder expands to the leaf as written. Both are repository-root-relative, '
 
 It derives from `Catzc.Base.Objects.DictionaryRecord`, so an instance also presents as a read-only dictionary over its own properties and
 its constructor uses the base's `Req` extraction helper.
+
+## comment:1
+
+Above `public string glob { get; }`, written with `//`.
+
+```text
+Repository-relative glob whose matched module folders each receive a generated README. Required. A folder's README source is its
+module article, which the comment-pages resolver derives, so a pattern names no source of its own.
+```

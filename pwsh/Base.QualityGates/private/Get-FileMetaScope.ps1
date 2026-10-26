@@ -30,8 +30,6 @@ function Get-FileMetaScope {
         if ($Resolver.IsExcluded($carrier, $tracked)) {
             continue
         }
-        # Every file whose carrier can hold a head is in scope, kind or no kind: the imprint renders the whole head from config and
-        # facts, so a file no kind selects gets the empty head, and any block an earlier shape left goes with it.
         $candidates.Add([pscustomobject]@{ Path = $tracked; Carrier = $carrier; Class = $fileKinds.Resolve($tracked).Class })
     }
     if ($candidates.Count -eq 0) {

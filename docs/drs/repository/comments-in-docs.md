@@ -9,12 +9,8 @@ order it depends on, the edge it guards, the reason a branch exists. A comment t
 the file's **comment page** and leaves at most one authored line of **algorithmical insight** at its place
 ([ADR-REPO-COMMENTS-CLUESNOTNARRATION](#rule-adr-repo-comments-cluesnotnarration)), short enough to stay below the export threshold so the
 exporter never takes it again; it leaves no marker and no link. The comment's rule citations move with the rest of its prose and are found
-there. The way from a file to its page is the `pages` map of the `comment-pages` config
-([ADR-REPO-COMMENTS-COMMENTPAGEPLACE](#rule-adr-repo-comments-commentpageplace)), so it is derived from the file's path, never a line of
-code. The file's head shows that way as its `docs` edge, a link for a reader
-([ADR-REPO-FILEMETA-HEADPOLICY](file-meta.md#rule-adr-repo-filemeta-headpolicy),
-[ADR-REPO-FILEMETA-FEWLINKS](file-meta.md#rule-adr-repo-filemeta-fewlinks)), and no tool reads it back
-([ADR-REPO-FILEMETA-NOREADBACK](file-meta.md#rule-adr-repo-filemeta-noreadback)).
+there. The way from a file to its page is its derived path ([ADR-REPO-COMMENTS-COMMENTPAGEPLACE](#rule-adr-repo-comments-commentpageplace)),
+never a line of code: no file carries a link to its page and no page carries a link back.
 
 - [One line of insight in place](#one-line-of-insight-in-place)
 
@@ -42,14 +38,18 @@ never reused, and a section a person edits stays as edited.
 
 ### Rule ADR-REPO-COMMENTS-COMMENTPAGEPLACE
 
-A file's comment page lives under `docs/references/`, at the place the `pages` map of the `comment-pages` config gives its source folder,
-and keeps the file's own name and extension plus `.md`, so a page maps back to exactly one file. What moves — the file languages in scope,
-the shortest comment that moves, the comment heads each language keeps — is configured in `comments.yml`, each config with its defaults
-declared once on its config type. A kept head keeps only its own line, but a head the configuration lists to keep its run (`keep_run:`)
-keeps the whole contiguous run it opens, and the front matter of a block comment that opens with such a head is kept whole, so the meta head
-of a code file ([ADR-REPO-CODEMETA-CODEFILEHEAD](code-file-meta.md#rule-adr-repo-codemeta-codefilehead)) is never moved as prose, while
-prose directly under a kept spell-checker line still is. A delimited block that holds a kept head, such as the comment-based help a script
-analyzer rule carries, stays whole.
+A file's comment page lives at a path derived from the file's own: `docs/references/<language>/<module>/<aspect path>/<file>.md`, where the
+language is the file's track folder, the module is its module folder in the normal form with no namespace, the aspect path is every folder
+between the module and the file in the normal form (none for a module's public root files), and the file is its name in the normal form with
+only its trailing language extension and a `.Tests` role dropped. A module's reference article is its folder's `index.md`. One resolver maps
+a file to its page and a page back to its file, so a page maps back to exactly one file, and a collision, two files of one module and aspect
+path with one page, is a finding of `Test-ReferencePages`, never resolved silently. What moves — the file languages in scope, the shortest
+comment that moves, the comment heads each language keeps — is configured in `comments.yml`, each config with its defaults declared once on
+its config type. A kept head keeps only its own line, but a head the configuration lists to keep its run (`keep_run:`) keeps the whole
+contiguous run it opens, and the front matter of a block comment that opens with such a head is kept whole, so the meta head of a code file
+([ADR-REPO-CODEMETA-CODEFILEHEAD](code-file-meta.md#rule-adr-repo-codemeta-codefilehead)) is never moved as prose, while prose directly
+under a kept spell-checker line still is. A delimited block that holds a kept head, such as the comment-based help a script analyzer rule
+carries, stays whole.
 
 - [Where a page lives](#where-a-page-lives)
 
@@ -125,9 +125,11 @@ Numbers are addresses. A link from elsewhere may name a section's anchor, so a n
 
 ### Where a page lives
 
-The page sits next to the module's reference article, in a folder named for the module, so the prose of a module's files is browsable in one
-place and the article can link it. The mapping from source folders to page folders is configuration, the same shape as the README map,
-because which folders carry comment pages is a per-repository choice ([configure-not-program](../principles/configure-not-program.md)).
+The page sits in its module's folder beside the module's reference article, so the prose of a module's files is browsable in one place and
+the article can link it. Its path is a projection of the source path, both ways, so neither side keeps a pointer to the other: a link kept
+in a head or a page is a second copy of a fact the path already holds, and it drifts the day a file moves
+([one-living-version](../principles/one-living-version.md)). The namespace is inferred, never spelled in the path, and the normal form keeps
+every page name in one shape whatever its source's casing.
 
 ### The view
 

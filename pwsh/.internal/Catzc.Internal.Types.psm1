@@ -14,6 +14,7 @@ Set-StrictMode -Version Latest   # this module's scope: every function here runs
 . (Join-Path $PSScriptRoot 'assets/types/Write-TypesContract.ps1')
 . (Join-Path $PSScriptRoot 'assets/types/Get-TypesContractDrift.ps1')
 
+# Shared by every session and clone: a shadow copy is named by its source hash, so equal names mean equal types.
 function Get-TypesShadowRoot {
     [OutputType([string])]
     param()
@@ -26,6 +27,7 @@ function Get-TypesShadowRoot {
     }
 }
 
+# A build younger than this may be another tree's current one, since every tree's sessions share the shadow folder.
 function Get-TypesPruneAfter {
     [OutputType([TimeSpan])]
     param()
@@ -46,6 +48,7 @@ function Get-TypesStampPath {
     [System.IO.Path]::Combine((Get-TypesShadowRoot), "stamp-$digest.json")
 }
 
+# Windows locks a loaded DLL, so loading in place would pin a superseded build; a load uses a shadow copy.
 function Import-TypesAssembly {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '',
         Justification = 'Writes only the per-user shadow cache, an internal load-time detail of the importer; the load itself is announced by the caller (Import-CSharpTypes).')]
@@ -60,6 +63,7 @@ function Import-TypesAssembly {
 
         [TimeSpan] $PruneAfter = (Get-TypesPruneAfter),
 
+        # False loads the file in place: a system that does not lock a loaded file needs no copy.
         [bool] $ShadowCopy = $true
     )
 
@@ -119,6 +123,7 @@ function Import-TypesAssembly {
     $shadow
 }
 
+# Reads the metadata only, so the assembly is never loaded into the process and its file is never locked.
 function Test-TypesAssemblyContent {
     [CmdletBinding()]
     [OutputType([void])]
@@ -143,6 +148,7 @@ function Test-TypesAssemblyContent {
 }
 
 
+# The default row lives here, not on a C# type: the policy is read while the types assembly is still unloaded.
 $script:typesLoadDefault = [ordered]@{ Load = 'lazy'; Trigger = 'lookup-hook'; EagerTypes = @(); ShadowCopy = $true; Generations = 1 }
 $script:typesLoadHosts = 'console', 'headless'
 $script:typesLoadSystems = 'windows', 'unix'
@@ -151,6 +157,7 @@ $script:typesLoadLoads = 'lazy', 'eager'
 $script:typesLoadTriggers = 'lookup-hook', 'none'
 $script:typesLoadKeys = 'load', 'trigger', 'shadowCopy', 'eagerTypes', 'generations'
 
+# A setting resolves in one order: the explicit value, the mode's row, the default row; only pwsh can load an assembly.
 function Get-TypesLoadPolicy {
     [CmdletBinding()]
     [OutputType([pscustomobject])]
@@ -264,6 +271,7 @@ function Get-TypesLoadPolicy {
     if ($policy.Generations -isnot [int] -or $policy.Generations -lt 1) {
         throw "Row '$cell' has generations '$($policy.Generations)'; it is a whole number of at least 1."
     }
+    # Builds stack only in a developer's interactive session in the source tree; every other cell keeps one.
     if ($policy.Generations -gt 1 -and $cell -notlike 'console.*.source') {
         throw "Row '$cell' has generations $($policy.Generations); only a console.*.source row may stack more than 1 build."
     }
@@ -273,6 +281,7 @@ function Get-TypesLoadPolicy {
     [pscustomobject]$policy
 }
 
+# The pending record is session-global, so it survives a re-import of this module; it is keyed by code root.
 function Register-DeferredTypes {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '',
         Justification = 'Session-global by design: the pending record must survive a re-import of this module, like $global:__CatzcTypes')]
@@ -288,6 +297,7 @@ function Register-DeferredTypes {
 
         [bool] $ShadowCopy = $true,
 
+        # 1 for the first build of this root, more when changed builds stack.
         [int] $Generation = 1
     )
 
@@ -297,6 +307,7 @@ function Register-DeferredTypes {
     $global:__CatzcDeferredTypes[$RootKey] = @{ Path = $Path; ShadowCopy = $ShadowCopy; Loaded = $false; Generation = $Generation }
 }
 
+# The first use of a catzc command calls it through the lookup hook, so a session that never uses a type never loads one.
 function Initialize-Types {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '',
         Justification = 'Reads and marks $global:__CatzcDeferredTypes, the session-global pending record')]
@@ -331,6 +342,7 @@ function Initialize-Types {
         $aliases = 0
         $displayed = 0
         $accelerators = [psobject].Assembly.GetType('System.Management.Automation.TypeAccelerators')
+        # A full type name keeps resolving to the first-loaded build, so each accelerator takes this build's type.
         $assembly = @([System.AppDomain]::CurrentDomain.GetAssemblies() | Where-Object { -not $_.IsDynamic -and $_.Location -eq $loadedFrom }) | Select-Object -Last 1
         foreach ($type in $manifest.types) {
             $resolved = if ($assembly) {
@@ -356,6 +368,7 @@ function Initialize-Types {
 
 $script:deferredTypesCommands = [System.Collections.Generic.HashSet[string]]::new()
 
+# A guard in the body is too late: a typed parameter resolves before it runs, so the hook fires before binding.
 function Enable-DeferredTypesLoad {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '',
         Justification = 'Reads $global:__CatzcDeferredTypes, the session-global pending record')]

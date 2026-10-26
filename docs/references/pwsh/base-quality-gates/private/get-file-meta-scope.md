@@ -42,3 +42,12 @@ Above `$paths = @(if ($lookup.Count -gt 0) {`, written with `#`.
 A file named in -Path counts only while git tracks it, as a folder lists its tracked files: an untracked authored
 file carries no head.
 ```
+
+## comment:2
+
+Above `$candidates.Add([pscustomobject]@{ Path = $tracked; Carrier = $carrier; Class...`, written with `#`.
+
+```text
+Every file whose carrier can hold a head is in scope, kind or no kind: the imprint renders the whole head from config and
+facts, so a file no kind selects gets the empty head, and any block an earlier shape left goes with it.
+```

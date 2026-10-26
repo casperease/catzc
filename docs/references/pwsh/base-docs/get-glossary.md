@@ -33,3 +33,12 @@ the importer to pick up an edited glossary. Callers treat it as read-only (the s
 ```powershell
 Get-Glossary | Format-Table { $_.Concept.term }, Owner, { $_.Concept.defined_by }
 ```
+
+## comment:1
+
+Above `if ($null -eq...`, written with `#`.
+
+```text
+The strict-clean probe of a lazy cache entry
+([ADR-PWSH-CACHE-STRICTSAFEPROBE](/docs/drs/automation/pwsh/script-scope-caching.md#rule-adr-pwsh-cache-strictsafeprobe)).
+```

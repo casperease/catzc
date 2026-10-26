@@ -25,3 +25,12 @@ pattern other than a trailing `/*` in `source`, a `docs` outside `docs/` or hold
 The page of a file is `<docs>/<path relative to the matched folder>.md`, so `pwsh/Base.QualityGates/private/Get-FormatScope.ps1` has the
 page `docs/references/pwsh/catzc-base-quality-gates/private/Get-FormatScope.ps1.md`. The extension stays in the name, so a page maps back to
 exactly one file. A file directly under the prefix, or under a dot-prefixed folder, has no page from a `/*` entry.
+
+## comment:1
+
+Above `static string FileStem(string fileName)`, written with `//`.
+
+```text
+A file name in the normal form with its trailing language extension and its .Tests role dropped; an inner part of the name is kept,
+so Get-OutputRoot.OutputOnlyByAddress.Tests.ps1 is get-output-root-output-only-by-address.
+```

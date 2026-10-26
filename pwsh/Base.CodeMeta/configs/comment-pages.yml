@@ -1,5 +1,3 @@
-# First match wins. A page is <docs>/[<module>/][<aspect path>/]<file>.md, every part in the normal form and the file's trailing
-# extension and .Tests role dropped; a module folder's article is <docs>/<module>/index.md. Every page maps back to exactly one source.
 pages:
   - source: pwsh/*
     docs: docs/references/pwsh

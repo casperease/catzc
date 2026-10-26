@@ -26,3 +26,12 @@ their job and are listed in its description
 
 A robot that reads a long log caps its probes per line and writes in batches: a turn roof once ended the hindsight robot's first run before
 its one write.
+
+## comment:1
+
+Above `agents:`, written with `#`.
+
+```text
+One entry per .claude/agents/<name>.md
+([ADR-REPO-AGENTS](/docs/drs/repository/agent-definitions.md)), checked against the files and CLAUDE.md by Test-AgentDefinitions.
+```

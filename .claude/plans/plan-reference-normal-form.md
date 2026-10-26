@@ -34,37 +34,10 @@ A reference page's path is derived from its source file, so no code head carries
 - Pages with no source: authored articles go in a declared `articles:` list in comment-pages.yml; the six internal module articles merge
   into their `.psm1` pages; the python map becomes `python/*` (`python/diagrams/index.md`); stale config pages re-point or go; the obj/
   build-artifact page goes.
-- Steps 1 and 2 are staged in the building session's scratchpad (out/ is cleared by hand) and swap together with step 4, after the user's
-  run of step 3's script; that script reads the map csv, which is refreshed from the committed tree before the run.
-- The staging (catzc-68, 2026-10-26, from catzc-2b), mirroring the repository with a `.burst-base` beside each changed file: the staging
-  folder in catzc-68's session scratchpad (ask catzc-68 for the absolute path), holding Base.CodeMeta's CommentPageMap.cs,
-  CommentPagesConfig.cs, comment-pages.yml, Get-CommentPage.ps1 and their two tests; Base.QualityGates' new Test-ReferencePages.ps1 and
-  test, file-meta.yml and five file-meta test fixtures; Base.Docs' DocPattern.cs, Get-ReadmeMappings.ps1, readme.yml and three tests; and
-  Base.ModuleSystem's dependencies.yml (Docs gains CodeMeta).
 
 ## Open steps
 
-1. [ ] The resolver: `Get-CommentPage` (and its CommentPagesConfig rule) maps a source file to its derived page and a page back to its file,
-       through the track (`FolderNameOf`) and `ConvertTo-NormalName`; tests both ways and the collision case. Check: `Invoke-TestFile` on
-       the Get-CommentPage and CommentPagesConfig tests.
-2. [ ] The gate: every reference page maps back to exactly one source file, and no two sources share a page. Check: its L1 real-tree test
-       at 0.
-3. [ ] After step 1's resolver, `out/ns5/Rename-ReferencePages.ps1` and its map generator: the generator derives a csv (old, new, source) of
-       every tracked page and module article from the resolver; the script reads that csv, refuses before moving anything when a page or a
-       target is listed twice, a page is missing or a target exists, moves a case-only rename through a `.tmp` name, runs one git mv per
-       page, stops on the first git error, edits no content, and lists each move under `-WhatIf`; the user runs it
-       (task-user-runs-and-commits step 28). Check: the `-WhatIf` lists each page once and no target exists.
-4. [ ] The repair: every code head's `docs:` key and every page's link back removed (Format-FileMeta, Sync-FileMeta), the readers
-       (Build-CommentView, Export-Comments, Test-Comments, Get-ReadmeMappings) resolving through step 1, and every inbound link to a
-       reference page re-pointed from the csv. Check: `Test-Comments`, `Test-FileMeta`, `Test-Links` and `Test-GeneratedFiles` at 0.
-5. [ ] The rule text: the derived path (language, module, aspect path, file) and the no-link rule in the comments ADR
+1. [ ] The rule text: the derived path (language, module, aspect path, file) and the no-link rule in the comments ADR
        (`docs/drs/repository/comments-in-docs.md`) and the file-meta head policy. Check: `Test-DrsRegistry` and `Test-Links` on both pages.
-6. [ ] Split the Importer article (`docs/references/pwsh/internal/catzc-internal-importer.md`, 473 lines after the step 4a merge) into a
+2. [ ] Split the Importer article (`docs/references/pwsh/internal/catzc-internal-importer.md`, 473 lines after the step 4a merge) into a
        folder of linked pages, then drop its file-limits.yml exception. Check: `Test-FileLimits` on the page passes without the exception.
-7. [ ] After the user's item 28 rename (catzc-68, from its staging): add `.burst-delete` markers for the moved pages of
-       `Get-RelativeEdgesFileMetaFact.ps1` and `Get-RelativeEdgeCandidate.ps1`; drop the `-HeaderText` parameter sections from the pages of
-       Format-CodeMetaHead, Format-PropertyMetaHead and Format-MarkdownMetaBlock; write the `-MoveMap` section of Format-Links' page and the
-       new Update-MovedLinks page; re-check every `.burst-base`; then swap the 1+2+4a staging in one burst and, in the same lock window, run
-       `Format-FileMeta -NoCache` and `Format-Links -MoveMap out/ns5/ref-map.csv`. Check: the burst's tests pass, and `Test-Comments`,
-       `Test-FileMeta` and `Test-Links` read 0 (the 2026-10-26 copy run: strip 14.3 s, re-point 4.3 s, only [Untracked] links left before a
-       git mv).

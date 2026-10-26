@@ -23,8 +23,8 @@ comment, and the page ready for the next `Export-Comments` run.
 - Future-proof by construction: `Page.Parse` keeps all text before the first `## comment:N` heading, so the next export appends new sections
   below the article and touches nothing else. A page left with no sections and no prose is not left empty: it gets at least the lead.
 - Links in article prose are relative (`../../../drs/...`); the repository-rooted links copied from comments fail `Test-Links`.
-- Pilot done and gated in `docs/references/pwsh/catzc-base-vendor/` (vendor.yml, VendorConfig.cs, Install-VendorModule.ps1): it is the
-  pattern to copy.
+- Pilot done and gated in `docs/references/pwsh/base-vendor/` (vendor.yml, VendorConfig.cs, Install-VendorModule.ps1): it is the pattern to
+  copy.
 
 ## Open steps
 

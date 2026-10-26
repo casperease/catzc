@@ -181,6 +181,22 @@ function Get-ToolsStatus {
             }
         }
 
+        # A managed copy can still lose to an unmanaged one first on the Machine;User PATH every GUI app builds, which this session's PATH hides.
+        if ($managedByExpected) {
+            $shadow = Find-ShadowingCommand $config.command
+            if ($shadow -and $shadow -ine $location -and
+                -not (Test-ExpectedPackageManager -Config $config -WingetListCache $wingetCache -Path $shadow)) {
+                $status = 'Shadowed'
+                $location = $shadow
+                $action = if (Get-Command "Remove-$command" -ErrorAction SilentlyContinue) {
+                    "Run Remove-$command"
+                }
+                else {
+                    "Uninstall the copy at '$shadow', which shadows the managed one outside this session"
+                }
+            }
+        }
+
         [Catzc.Tooling.Provisioning.ToolStatus]::new($toolName, "$($config.version).x", $installed, $status, $location,
             $manager, $scope, $action)
     }
@@ -202,6 +218,9 @@ function Get-ToolsStatus {
                 }
                 'WrongVersion' {
                     'wrong version'
+                }
+                'Shadowed' {
+                    'shadowed'
                 }
                 'Missing' {
                     'missing'

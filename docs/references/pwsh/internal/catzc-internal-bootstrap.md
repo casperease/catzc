@@ -1,8 +1,5 @@
 # pwsh/.internal/Catzc.Internal.Bootstrap.psm1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
-
 The import-time engine. It does the heavy lifting the [Importer overlay](catzc-internal-importer.md) delegates to: discovering the modules
 on disk, generating each module's manifest, compiling and loading every module's native C# types into one assembly, and guarding against
 function-name collisions — all before any `pwsh/*` module's functions exist. It is **transient**: loaded early and removed at the tail of

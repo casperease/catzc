@@ -1,5 +1,6 @@
 Set-StrictMode -Version Latest   # this module's scope: every function here runs strict
 
+# Wipes every compiled build before import in any context, skipping only a locked DLL; the next import rebuilds from source.
 function Clear-CompiledType {
     [CmdletBinding()]
     param(
@@ -35,6 +36,7 @@ function Get-PrivateFunctionFolder {
         [string] $ModulesRoot
     )
 
+    # The pre-types reader of the private-function folder row; once types load, LanguagesConfig.FolderOf reads the same row.
     if ($script:privateFunctionFolder -and $script:privateFunctionFolder.Root -ceq $ModulesRoot) {
         return $script:privateFunctionFolder.Folder
     }
@@ -61,6 +63,7 @@ function Get-PrivateFunctionFolder {
     $folder
 }
 
+# Writes a module's generated .psd1; a module that is not one function per file passes both lists instead of being enumerated.
 function New-DynamicManifest {
     [CmdletBinding(DefaultParameterSetName = 'Derived')]
     param(
@@ -69,6 +72,7 @@ function New-DynamicManifest {
 
         [switch]$ExportPrivates,
 
+        # A bundle load: the manifest must already exist, so a read-only install is never written to.
         [switch]$ReadOnly,
 
         [Parameter(Mandatory, ParameterSetName = 'Explicit')]
@@ -119,6 +123,7 @@ function New-DynamicManifest {
         return $null
     }
 
+    # Private files first, then public, each ordinal-sorted with forward slashes, so the manifest is the same on every system.
     $privateRelative = [string[]] @(foreach ($f in $privateFiles) {
             $f.Substring($pathPrefixLength).Replace('\', '/')
         })
@@ -138,6 +143,7 @@ function New-DynamicManifest {
     Write-DynamicManifest -Path $manifestPath -Content $content
 }
 
+# Every derived manifest's one NestedModule, relative to a module folder beside .internal.
 $script:moduleFilesLoader = '../.internal/assets/Import-ModuleFiles.ps1'
 $script:privateFunctionFolder = $null
 
@@ -147,6 +153,7 @@ $script:privateFunctionFolder = $null
 . (Join-Path $PSScriptRoot 'assets/bootstrap/Import-CSharpTypes.ps1')
 . (Join-Path $PSScriptRoot 'assets/bootstrap/Import-AllModules.ps1')
 
+# Writes only when the text differs, so parallel workers never race on an unchanged manifest.
 function Write-DynamicManifest {
     [CmdletBinding()]
     [OutputType([string])]
@@ -166,6 +173,7 @@ function Write-DynamicManifest {
     return $Path
 }
 
+# Canonical .psd1 text by construction: formatter-stable, with nothing aligned by hand.
 function Get-DynamicManifestContent {
     [CmdletBinding()]
     [OutputType([string])]
@@ -202,6 +210,7 @@ function Get-DynamicManifestContent {
         $exports = '@()'
     }
 
+    # The '=' column follows the longest key, so a new field re-aligns the block by itself.
     $fields = [ordered]@{
         RootModule        = "''"
         ModuleVersion     = "'0.1.0'"
@@ -231,6 +240,7 @@ function Get-DynamicManifestContent {
     "@{`n" + ($lines -join "`n") + "`n}`n"
 }
 
+# PowerShell lets the last import shadow a command silently, so a name collision fails the import instead.
 function Assert-UniqueModuleFunctionName {
     [CmdletBinding()]
     param(
@@ -285,9 +295,11 @@ function Assert-UniqueModuleFunctionName {
         }
     }
 
+    # A catzc function may not shadow a shipped command already imported: a vendored one or a built-in.
     $shipped = @{}
     foreach ($m in Get-Module) {
         $base = $m.ModuleBase
+        # Shipped means loaded before the catzc modules: built-ins under $PSHOME and vendored modules under .vendor.
         $isShipped = ($base -like "$PSHOME*") -or ($base -match '[\\/]\.vendor[\\/]') -or ($base -match '[\\/]\.internal([\\/]|$)')
         if (-not $isShipped) {
             continue
@@ -315,6 +327,7 @@ function Assert-UniqueModuleFunctionName {
     }
 }
 
+# The package module belongs to a root whose parent is its ModuleBase, since its code root is pwsh/.
 function Get-ForeignCatzcModule {
     [CmdletBinding()]
     [OutputType([psmoduleinfo])]

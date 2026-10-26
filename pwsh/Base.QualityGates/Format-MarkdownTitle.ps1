@@ -1,5 +1,3 @@
-# -DryRun, never ShouldProcess/-WhatIf
-# ([ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT](/docs/drs/automation/dry-run.md#rule-adr-auto-dryrun-branchbeforesideeffect)).
 function Format-MarkdownTitle {
     [CmdletBinding()]
     [OutputType([string[]])]

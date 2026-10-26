@@ -123,8 +123,6 @@ public sealed class CommentPagesConfig
     public bool IsInScope(string page) =>
         !string.IsNullOrEmpty(page) && pages.Any(map => page.StartsWith(map.docs + "/", StringComparison.Ordinal));
 
-    // Page to source, the projection's other way: the normal form cannot be read back, so the files map forward once and the result is
-    // inverted. Each page lists every source that renders to it (a module folder for its article); two or more is a collision.
     public IReadOnlyDictionary<string, IReadOnlyList<string>> PageIndex(IEnumerable<string> repoRelativePaths)
     {
         var index = new SortedDictionary<string, List<string>>(StringComparer.Ordinal);

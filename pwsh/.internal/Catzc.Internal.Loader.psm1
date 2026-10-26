@@ -1,7 +1,9 @@
+# The always-loaded entry to .internal: the shared code both the bootstrap and the catzc modules call.
 Set-StrictMode -Version Latest   # this module's scope: every function here runs strict
 
 $script:internalRoot = $PSScriptRoot
 
+# Idempotent, so a hot-path cover function pays nothing; only the importer's first load passes -Force.
 function Import-InternalModule {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '',
         Justification = 'The loader runs before any writer exists; Invoke-Importer announces the internal modules it loads (its Roots line), and a post-import call is the idempotent no-op')]
@@ -20,14 +22,17 @@ function Import-InternalModule {
     Import-Module (Join-Path $script:internalRoot "$moduleName.psm1") -Scope Global -Force
 }
 
+# In the always-loaded loader, so the bootstrap pre-pass and every module ask the same function.
 function Test-IsRunningInPipeline {
     [CmdletBinding()]
     [OutputType([bool])]
     param()
 
+    # Azure DevOps sets TF_BUILD, GitHub Actions sets GITHUB_ACTIONS.
     [bool]$env:TF_BUILD -or [bool]$env:GITHUB_ACTIONS
 }
 
+# VS Code marks every terminal it opens, the PowerShell extension's own included; this is the one reader of that mark.
 function Test-IsRunningInVsCode {
     [CmdletBinding()]
     [OutputType([bool])]
@@ -36,6 +41,7 @@ function Test-IsRunningInVsCode {
     $env:TERM_PROGRAM -eq 'vscode'
 }
 
+# A -File, -Command or -NonInteractive host exits when its command ends and never shows a prompt, unless -NoExit keeps it.
 function Test-IsInteractiveHost {
     [CmdletBinding()]
     [OutputType([bool])]
@@ -71,6 +77,7 @@ function Test-IsInteractiveHost {
 
 $script:deferredJanitors = $null
 
+# The first prompt renders untouched; the second runs the janitors and restores the prompt.
 function Enable-DeferredJanitors {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '',
         Justification = 'Installs an in-memory prompt hook for this session; nothing outside the session changes')]
@@ -138,6 +145,7 @@ function Invoke-DeferredJanitorsPrompt {
     }
 }
 
+# The importer's one writer before Write-Message exists, silent during a Pester run.
 function Write-ImporterMessage {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '',
         Justification = '$global:__PesterRunning (set by Test-Automation) silences the chokepoint during a test run, as in Write-InformationColored; global is required to cross module session-state boundaries')]
@@ -173,8 +181,10 @@ function Write-ImporterMessage {
     Write-Information $line -InformationAction Continue
 }
 
+# Module state, living as long as the loader: a fresh import starts it at $false.
 $script:importerVerbose = $false
 
+# The bootstrap and vendor functions do not inherit -Verbose, so Invoke-Importer hands the setting over here once.
 function Set-ImporterVerbosity {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '',
         Justification = 'Sets a bootstrap-private output flag for the duration of one import; nothing to confirm')]

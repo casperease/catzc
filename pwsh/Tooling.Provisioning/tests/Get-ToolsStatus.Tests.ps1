@@ -88,4 +88,23 @@ Describe 'Get-ToolsStatus' -Tag 'L0', 'logic' {
         $status.Action |
             Should -Be ($IsMacOS ? 'Provided by the platform, not the toolchain — install it (bash on Windows: Install-Git)' : 'Run Install-Gadget')
     }
+
+    It 'reports a managed tool Shadowed when an unmanaged copy comes first on the Machine;User PATH, naming its Remove-' {
+        Mock Test-Tool { [Catzc.Base.Execution.ExecutableProbe]::new('widget', 'C:\managed\widget.exe', 'probe', '5.2', '5',
+                $true, 1, 1, 'Person') } -ModuleName Catzc.Tooling.Provisioning
+        Mock Find-ShadowingCommand { 'C:\machine\widget.exe' } -ModuleName Catzc.Tooling.Provisioning
+        Mock Test-ExpectedPackageManager { $Path -ne 'C:\machine\widget.exe' } -ModuleName Catzc.Tooling.Provisioning
+        Mock Get-Command { [pscustomobject]@{ Name = 'Remove-Widget' } } -ModuleName Catzc.Tooling.Provisioning -ParameterFilter { $Name -eq 'Remove-Widget' }
+        $status = Get-ToolsStatus
+        "$($status.Status)" | Should -Be 'Shadowed'
+        $status.Location | Should -Be 'C:\machine\widget.exe'
+        $status.Action | Should -Be 'Run Remove-Widget'
+    }
+
+    It 'keeps a managed tool OK when the first copy on the Machine;User PATH is the managed one' {
+        Mock Test-Tool { [Catzc.Base.Execution.ExecutableProbe]::new('widget', 'C:\managed\widget.exe', 'probe', '5.2', '5',
+                $true, 1, 1, 'Person') } -ModuleName Catzc.Tooling.Provisioning
+        Mock Find-ShadowingCommand { 'C:\managed\widget.exe' } -ModuleName Catzc.Tooling.Provisioning
+        "$((Get-ToolsStatus).Status)" | Should -Be 'OK'
+    }
 }

@@ -12,7 +12,7 @@ plan:
       .claude/skills/plans-orchestrate/SKILL.md,
       pwsh/Base.QualityGates/Test-Plans.ps1,
       pwsh/Base.Timeouts/configs/timeouts.yml,
-      docs/references/pwsh/catzc-base-quality-gates/Test-Plans.ps1.md,
+      docs/references/pwsh/base-quality-gates/test-plans.md,
       .claude/hooks,
     ]
 ---

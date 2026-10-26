@@ -19,3 +19,12 @@ The page keeps the file's name and extension plus `.md`, so every page maps back
 
 A `<prefix>/*` source never matches a dot-prefixed subfolder, so `.vendor` has no pages and `.scriptanalyzer` and `.internal` are listed by
 name, each with an entry of its own.
+
+## comment:1
+
+Above `pages:`, written with `#`.
+
+```text
+First match wins. A page is <docs>/[<module>/][<aspect path>/]<file>.md, every part in the normal form and the file's trailing
+extension and .Tests role dropped; a module folder's article is <docs>/<module>/index.md. Every page maps back to exactly one source.
+```

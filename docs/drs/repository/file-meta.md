@@ -11,16 +11,18 @@ carries a fact worth its lines. A **generated file**, Markdown included, carries
 the file the head also carries `with_body_sha`, the body it is immutable with, and nothing else; an untracked generated file carries the
 warning only, no sha ([ADR-REPO-FILEMETA-COMPOSEDFILES](#rule-adr-repo-filemeta-composedfiles)). An **authored file tracked in git**, a
 source, config or template of any class, Markdown included (a Markdown doc is a config subtype of code, so one rule serves every authored
-class), carries a head only when it has a comment page under `docs/references`, shown first as `docs`, its plain path from the file's own
-folder ([ADR-REPO-FILEMETA-FEWLINKS](#rule-adr-repo-filemeta-fewlinks)), and nothing else: no rule codes (the codes a file cites are derived
-from its text on demand, [ADR-REPO-FILEMETA-NOREADBACK](#rule-adr-repo-filemeta-noreadback)), no `with_body_sha`, no `test` or `code` edge.
-Such a head closes with `header: "generated"`, a plain note that the head itself is generated, its value declared once on the meta-kind
-registry's type and shown in `file-meta.yml`; an authored head carries no `warning`, which belongs to a wholly generated file alone, and a
-file with no fact to show carries no head for the note alone. A binary file is format-managed with no head possible. Every other file
-carries no head, and a `Format-*` run removes a head the policy does not call for. The policy has three values, set per file class in
-`file-meta.yml`: **facts**, the default, a block holding the facts above, and none when every fact is empty; **forbidden**, no `catzc` block
-at all, for an agent definition, whose front matter belongs to the tool that loads it, and for a diagram declaration; and **config**, a
-block holding only the authored `config` part, for a capability definition and a slide, which keep their own tool's front matter as authored
+class), has no edges and so carries no head for facts: its comment page is found by its derived path
+([ADR-REPO-COMMENTS-COMMENTPAGEPLACE](comments-in-docs.md#rule-adr-repo-comments-commentpageplace),
+[ADR-REPO-FILEMETA-FEWLINKS](#rule-adr-repo-filemeta-fewlinks)), and it shows nothing else: no rule codes (the codes a file cites are
+derived from its text on demand, [ADR-REPO-FILEMETA-NOREADBACK](#rule-adr-repo-filemeta-noreadback)), no `with_body_sha`, no `test` or
+`code` edge. A head an authored file does carry, the authored `config` part of a capability or a slide, closes with `header: "generated"`, a
+plain note that the head itself is generated, its value declared once on the meta-kind registry's type and shown in `file-meta.yml`; an
+authored head carries no `warning`, which belongs to a wholly generated file alone, and a file with no fact to show carries no head for the
+note alone. A binary file is format-managed with no head possible. Every other file carries no head, and a `Format-*` run removes a head the
+policy does not call for. The policy has three values, set per file class in `file-meta.yml`: **facts**, the default, a block holding the
+facts above, and none when every fact is empty; **forbidden**, no `catzc` block at all, for an agent definition, whose front matter belongs
+to the tool that loads it, and for a diagram declaration; and **config**, a block holding only the authored `config` part, for a capability
+definition and a slide, which keep their own tool's front matter as authored
 ([ADR-REPO-AGENTS-NAMEDMODEL](agent-definitions.md#rule-adr-repo-agents-namedmodel)). A file whose block disagrees with its policy, absent
 where the policy calls for it or present where it does not, is a finding. The block holds the facts the tooling owns about the file, written
 into the file's carrier. A Markdown file's carrier is the reserved front-matter key `catzc`, holding a generated file's head under
@@ -150,14 +152,12 @@ is an `exclude` entry of the carrier registry with the reason.
 ### Rule ADR-REPO-FILEMETA-FEWLINKS
 
 The head is a map of facts about its own file, so it holds as few links to other files as possible, and only those that cost to derive and
-truly define a relationship. A file has one **relative** edge, `docs`: its comment page under `docs/references`
-([ADR-REPO-COMMENTS-ONELINEOFINSIGHT](comments-in-docs.md#rule-adr-repo-comments-onelineofinsight)), written as the page's plain path from
-the file's own folder, never a Markdown link, so the head stays one short line. A file has no `test` or `code` edge: a test is found by
-convention, its stem under `tests/`, so a head would only repeat it. The page sits in the file's own docs section, never in another module,
-so modules relate to each other by name and never through a file path (encapsulation), and a page knows its code by its name, so it records
-no edge back. The edge and the rule that fills it are the `relative-edges` kind's settings in `file-meta.yml`, so a new edge is a registry
-entry, never a new mechanism. The edge points at a page that exists on disk, and with no page it is left out. No file carries a pointer of
-its own in its code: the head is the one place a file names its page.
+truly define a relationship. An authored file has no edges. Its comment page under `docs/references` is found by its derived path
+([ADR-REPO-COMMENTS-COMMENTPAGEPLACE](comments-in-docs.md#rule-adr-repo-comments-commentpageplace)), one resolver mapping a file to its page
+and a page back to its file, so no file carries a link to its page and no page a link back. A file has no `test` or `code` edge either: a
+test is found by convention, its stem under `tests/`, so a head would only repeat it. The page sits in the file's own module section, never
+in another module, so modules relate to each other by name and never through a file path (encapsulation). A new kind of edge is a registry
+entry, never a new mechanism.
 
 - [Relatives](#relatives)
 
@@ -180,15 +180,16 @@ subkind and never by glob, and a consumer extends the registry with a config fra
 
 A file is a node, and its meta block says two things about it, each in a part of its own. `immutable` holds the **place facts** a reader of
 the head needs, and only a generated head has any: its `with_body_sha` while git tracks it and its `warning`, written by its writer
-([ADR-REPO-FILEMETA-COMPOSEDFILES](#rule-adr-repo-filemeta-composedfiles)); an authored head has no `immutable` part, it holds its edges at
-the block's first level and the `header` note after them ([ADR-REPO-FILEMETA-HEADPOLICY](#rule-adr-repo-filemeta-headpolicy)). Every other
-place fact, what the repository's own configuration makes of the file's location, is derived on demand from a registry and never shown. An
-**edge** is a named relation leaving the file to another file, and a head shows one: `docs`, its comment page; no `test` or `code` edge,
-since a test is found by convention, and no rule codes, since the codes a file cites are read from its text on demand by the commands that
-need them ([ADR-REPO-FILEMETA-NOREADBACK](#rule-adr-repo-filemeta-noreadback)). The edges are imprinted and `immutable` is written by the
-file's writer, never by hand, and both are fixed by the file: a place fact until the file moves or a registry changes, an edge until the
-file's page appears or goes. An edge is written on its source only, so the target holds no copy, and an edge is named for the relation,
-never for the type of its target. A tracked generated file's `immutable` opens with `with_body_sha`, the hash of the body below the head
+([ADR-REPO-FILEMETA-COMPOSEDFILES](#rule-adr-repo-filemeta-composedfiles)); an authored head has no `immutable` part and no edge, and holds
+the `header` note ([ADR-REPO-FILEMETA-HEADPOLICY](#rule-adr-repo-filemeta-headpolicy)). Every other place fact, what the repository's own
+configuration makes of the file's location, is derived on demand from a registry and never shown. An **edge** is a named relation leaving
+the file to another file, and an authored file has none: its comment page is found by its derived path
+([ADR-REPO-COMMENTS-COMMENTPAGEPLACE](comments-in-docs.md#rule-adr-repo-comments-commentpageplace)), a test by convention, and the codes a
+file cites are read from its text on demand by the commands that need them
+([ADR-REPO-FILEMETA-NOREADBACK](#rule-adr-repo-filemeta-noreadback)). `immutable` is written by the file's writer, never by hand, and is
+fixed by the file: a place fact until the file moves or a registry changes. An edge, where a registry declares one, is written on its source
+only, so the target holds no copy, and an edge is named for the relation, never for the type of its target. A tracked generated file's
+`immutable` opens with `with_body_sha`, the hash of the body below the head
 ([ADR-REPO-FILEMETA-IMPRINTEDPARTS](#rule-adr-repo-filemeta-imprintedparts)). A head holds no `repo_status`: whether a file is generated is
 told by the writer registry, and the states only git knows, edited, staged, committed and pushed, and `ready` (tracked and unchanged), are
 computed on demand by `Get-RepoStatus` from git, read-only, since writing them would change them. An imprint kind of the registry writes the
@@ -326,15 +327,12 @@ relation, so a new relation is a new name and a registry entry, and the target o
 
 ### Relatives
 
-`A file names the one companion that costs to find, in the head`
+`A file's companions are found by convention and derivation, never named in the head`
 
-A file has one companion a reader wants one step away that costs to find: the page that holds its moved comments. Its test costs nothing,
-since the convention places it, its stem under `tests/`, so a head that named it would only repeat the convention and churn with it. Writing
-the page as a link in the code would put a pointer in the file and a line to keep in step with the page. The head already holds derived
-facts, so the page is an edge with a fixed name, the only relative edge, and the head stays a map of facts about its own file. The registry
-holds the edge and its path rule, and an edge whose page does not exist is not written, so an entry in the head is always a working pointer.
-The edge is written as the page's plain path from the file's own folder, the way an editor and GitHub resolve a relative path, and the head
-stays two short lines: the path and the header note.
+A file has two companions a reader wants one step away: its test and the page that holds its moved comments. Both cost nothing to find:
+the convention places the test, its stem under `tests/`, and the page sits at a path derived from the file's own
+([ADR-REPO-COMMENTS-COMMENTPAGEPLACE](comments-in-docs.md#rule-adr-repo-comments-commentpageplace)). A head that named either would only
+repeat the rule and churn with every move, so the head names neither, and an authored file carries no edge at all.
 
 ### File kinds
 
@@ -364,13 +362,12 @@ A block is worth its bytes where a reader cannot easily derive what it says, and
 read past on each file they open, and churn on every edit of the body. So every file on disk is format-managed, the default is no head, and
 a format run prints one only where it pays. A generated file carries the warning, so a reader is told not to edit it; while git tracks it,
 its head also stamps the body its writer composed, the body it is immutable with, and an untracked generated file, which no commit compares,
-carries the warning alone. An authored file tracked in git, Markdown as much as code and config, is opened on GitHub or in an editor by a
-reader who wants its comment page one step away, so it carries `docs` when it has one, and nothing else: a body hash on an authored file
+carries the warning alone. An authored file tracked in git, Markdown as much as code and config, carries no head: its comment page is found
+by its derived path, so a link to it would only repeat what the path says and churn when a file moves, a body hash on an authored file
 changes on every edit and tells a reader nothing, its test is found by convention, and the rules it cites are in its own text, where a list
-in the head would only repeat them and churn with every citation. An authored file without a page carries no head, so a format run clears
-the head it no longer calls for. A diagram declaration's facts are all in its own body, so it carries none, and a binary has no place for
-one. An agent, skill or slide definition's front matter is its own tool's keys, so the policy leaves it as authored; a capability keeps the
-authored `config` part its tool reads.
+in the head would only repeat them and churn with every citation. A format run clears a head the policy no longer calls for. A diagram
+declaration's facts are all in its own body, so it carries none, and a binary has no place for one. An agent, skill or slide definition's
+front matter is its own tool's keys, so the policy leaves it as authored; a capability keeps the authored `config` part its tool reads.
 
 ### How this is enforced
 
@@ -379,8 +376,9 @@ authored `config` part its tool reads.
 - **`Test-FileKindReachability.Tests.ps1`** (`Catzc.Base.Globs`) fails a kind no tracked file reaches, and a kind mostly shadowed by an
   earlier one that the registry's `overlaps` does not pair it with (ADR-REPO-FILEMETA-ROLE).
 - **`Test-ModuleDependency`** keeps the layers apart ([ADR-AUTO-DEPM](../automation/controlling-module-dependencies.md)).
-- **`Test-LinkDirections`** fails a link that points the wrong way (ADR-REPO-FILEMETA-FEWLINKS): a comment page outside the file's own docs
-  section, or a module that links another by file path instead of naming it ([links-in-repository](links-in-repository.md)).
+- **`Test-LinkDirections`** fails a link that points the wrong way (ADR-REPO-FILEMETA-FEWLINKS): a comment page outside the file's own
+  module section of `docs/references`, or a module that links another by file path instead of naming it
+  ([links-in-repository](links-in-repository.md)).
 
 ## Consequences
 
