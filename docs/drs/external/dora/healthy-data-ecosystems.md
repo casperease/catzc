@@ -1,4 +1,4 @@
-# Research: DORA — Healthy data ecosystems
+# EDR: DORA — Healthy data ecosystems
 
 ## Rules: EDR-DORA-DATAECO
 
@@ -7,21 +7,23 @@
 A data ecosystem is healthy along three properties at once — high-quality, easily accessible, and unified — and all three matter together;
 improving one while neglecting the others still leaves the ecosystem unhealthy.
 
-- [Summary](#summary)
+Source: [DORA, Healthy data ecosystems](../../../references/dora/capabilities.md#healthy-data-ecosystems)
+
+Binds to [ADR-CONF-ADDRESSING-GLOBALADDRESSFORM](../../configuration/config-value-addressing.md#rule-adr-conf-addressing-globaladdressform).
 
 ### Rule EDR-DORA-DATAECO-HEALTHMODERATESAI
 
 Data health is a moderator of AI's effect on performance, not an independent contributor: the same AI adoption compounds the strengths of a
 healthy data ecosystem and compounds the dysfunctions of an unhealthy one, so data health decides which direction the amplification runs.
 
-- [Why it matters](#why-it-matters)
+Source: [DORA, Healthy data ecosystems](../../../references/dora/capabilities.md#healthy-data-ecosystems)
 
 ### Rule EDR-DORA-DATAECO-NAMEDSTEWARD
 
 Every critical data domain has a named owner or steward accountable for its accuracy, its metadata, and its access policy; data is treated
 as a product with consumers, never as incidental exhaust from the applications that happen to produce it.
 
-- [How to apply](#how-to-apply)
+Source: [DORA, Healthy data ecosystems](../../../references/dora/capabilities.md#healthy-data-ecosystems)
 
 ### Rule EDR-DORA-DATAECO-TESTEDLIKECODE
 
@@ -29,21 +31,23 @@ Data quality is checked the way code is tested — with automated, continuous ch
 critical dataset carries documentation and metadata alongside it, versioned as a code artifact rather than kept in a separate system that
 drifts out of sync.
 
-- [How to apply](#how-to-apply)
+Source: [DORA, Healthy data ecosystems](../../../references/dora/capabilities.md#healthy-data-ecosystems)
+
+Binds to [ADR-CONF-LOADING-CSHARPCONFIGTYPE](../../configuration/module-config-loading.md#rule-adr-conf-loading-csharpconfigtype).
 
 ### Rule EDR-DORA-DATAECO-GOVERNEDACCESS
 
 Quality data is discoverable and accessible under governance, never locked away behind a single tool or team; a platform that makes data
 hard to find or reach is indistinguishable, in effect, from data that does not exist.
 
-- [How to apply](#how-to-apply)
+Source: [DORA, Healthy data ecosystems](../../../references/dora/capabilities.md#healthy-data-ecosystems)
 
 ### Rule EDR-DORA-DATAECO-STARTWITHPILOT
 
 Data health work starts with a pilot on one high-value dataset or service and expands from a working example, rather than attempting to fix
 an entire data estate at once.
 
-- [Common pitfalls](#common-pitfalls)
+Source: [DORA, Healthy data ecosystems](../../../references/dora/capabilities.md#healthy-data-ecosystems)
 
 ## Context
 
@@ -76,15 +80,6 @@ outputs," because AI tools are only as effective as the context and data they ar
 
 The mechanism is amplification, not simple addition: a healthy data ecosystem compounds the return on AI adoption, and an unhealthy one
 compounds its cost. Treating data health as optional while investing in AI adoption risks paying for the acceleration of the wrong outcomes.
-
-## How to apply
-
-The templating data model resolves every Azure identity fact through one config layer, keyed by name and validated by its config type,
-`AzureConfig` — one source of truth per record rather than a fact duplicated, and free to drift, across templates. Config-value addressing
-turns any committed config node into a citable, dereferenceable handle (`global.<config>.<key>`) instead of a copied literal, keeping the
-documentation of "where a value comes from" next to the value rather than in a separate note. Module config loading's single reader and
-typed validation give every named config exactly one cache and one automated check — every shipped config has a C# config type that
-validates it once on load — rather than ad hoc, per-caller checks that drift apart over time.
 
 ## Common pitfalls
 

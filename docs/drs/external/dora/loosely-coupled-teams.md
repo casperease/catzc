@@ -1,4 +1,4 @@
-# Research: DORA — Loosely coupled teams
+# EDR: DORA — Loosely coupled teams
 
 ## Rules: EDR-DORA-LOOSETEAMS
 
@@ -7,14 +7,18 @@
 A team makes large-scale changes to the design of its own system without needing permission from anybody outside the team and without
 depending on another team's schedule to ship — that independence, not the presence of service boundaries, is the capability.
 
-- [Summary](#summary)
+Source: [DORA, Loosely coupled teams](../../../references/dora/capabilities.md#loosely-coupled-teams)
+
+Binds to [ADR-AUTO-EXTEND-ADDNOTEDIT](../../automation/open-closed-architecture.md#rule-adr-auto-extend-addnotedit).
 
 ### Rule EDR-DORA-LOOSETEAMS-INDEPENDENTDEPLOYABILITY
 
 Independent deployability is the test of loose coupling: a service deploys on demand regardless of the state of the services it depends on,
 and its functional tests run against test doubles rather than a shared, fully integrated environment.
 
-- [Why it matters](#why-it-matters)
+Source: [DORA, Loosely coupled teams](../../../references/dora/capabilities.md#loosely-coupled-teams)
+
+Binds to [DDR-TRACK-DEPLOYABLEUNIT](../../design/tracks.md#rule-ddr-track-deployableunit).
 
 ### Rule EDR-DORA-LOOSETEAMS-TOPOLOGYMATCHESDESIGN
 
@@ -64,20 +68,6 @@ communication overhead let small teams stay productive even as the organization 
 metrics directly: it improves deployment frequency, shortens lead time for changes to reach production, and reduces the time to detect and
 recover from problems, because a failure or a change stays inside the boundary where it originated instead of forcing cross-team
 coordination to resolve.
-
-## How to apply
-
-This platform draws the same boundary DORA describes at the repository level: a **track** is one named root concern with one tech-stack,
-classified core, external port, or adapter, and a consumer subscribes to a track only through its declared module dependencies or the
-globset's native trigger projection — never by hand-matching another track's source paths. That subscription surface is what keeps a change
-in one track from rebuilding, or blocking on, every other track's teams.
-
-Within a track, the same discipline applies one level down: the allowed edge between two modules is declared once in `dependencies.yml` and
-gated against the actual code, so a module's dependents are a checked-in fact rather than whatever the code happens to call. And the
-platform stays open for extension without ever editing shared infrastructure to accommodate a new consumer — a new module, function, or
-dependency is a new file, never a hand-edited registration that every other contributor must route around. Together these three give a
-concrete, computed answer to "does this change require coordinating with, or waiting on, another team" — the question this capability is
-built to keep answered "no."
 
 ## Common pitfalls
 

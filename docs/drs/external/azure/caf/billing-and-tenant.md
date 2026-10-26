@@ -15,8 +15,8 @@ the repository's own summary, never a quotation. The repository's decision on ea
 
 Make creating and managing subscriptions an automated, self-service process: subscription vending, for an Enterprise Agreement (EA).
 
-Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-enterprise-agreement (recommendation 1,
-retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-enterprise-agreement (recommendation 1, retrieved
+2026-10-14)
 
 Binds to [ADR-AZ-LZ-LANDINGZONE](../../../azure/landing-zones.md#rule-adr-az-lz-landingzone) and
 [ADR-AZ-LZ-CAFPRINCIPLES](../../../azure/landing-zones.md#rule-adr-az-lz-cafprinciples).
@@ -25,8 +25,8 @@ Binds to [ADR-AZ-LZ-LANDINGZONE](../../../azure/landing-zones.md#rule-adr-az-lz-
 
 Give every EA role a work or school (Entra) account, never a personal Microsoft account.
 
-Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-enterprise-agreement (recommendation 2,
-retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-enterprise-agreement (recommendation 2, retrieved
+2026-10-14)
 
 Binds to [ADR-AZ-DATAMOD-ONETENANT](../../../azure/azure-data-model.md#rule-adr-az-datamod-onetenant).
 
@@ -34,8 +34,8 @@ Binds to [ADR-AZ-DATAMOD-ONETENANT](../../../azure/azure-data-model.md#rule-adr-
 
 Set the enrollment's notification contact to a shared group mailbox.
 
-Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-enterprise-agreement (recommendation 3,
-retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-enterprise-agreement (recommendation 3, retrieved
+2026-10-14)
 
 Binds to [ADR-AZ-DATAMOD-ONETENANT](../../../azure/azure-data-model.md#rule-adr-az-datamod-onetenant).
 
@@ -43,8 +43,8 @@ Binds to [ADR-AZ-DATAMOD-ONETENANT](../../../azure/azure-data-model.md#rule-adr-
 
 Shape EA departments and accounts after the organisation (by function, division, geography, or a mix) to split billing.
 
-Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-enterprise-agreement (recommendation 4,
-retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-enterprise-agreement (recommendation 4, retrieved
+2026-10-14)
 
 Binds to [ADR-AZ-DATAMOD-ONETENANT](../../../azure/azure-data-model.md#rule-adr-az-datamod-onetenant).
 
@@ -52,8 +52,8 @@ Binds to [ADR-AZ-DATAMOD-ONETENANT](../../../azure/azure-data-model.md#rule-adr-
 
 Use Cost Management's reports and views to analyse spend, sliced by Azure metadata such as tags and location.
 
-Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-enterprise-agreement (recommendation 5,
-retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-enterprise-agreement (recommendation 5, retrieved
+2026-10-14)
 
 Binds to [ADR-AZ-LZ-COSTATTRIBUTION](../../../azure/landing-zones.md#rule-adr-az-lz-costattribution) and
 [ADR-AZ-LZ-THREEBUILTINPOLICIES](../../../azure/landing-zones.md#rule-adr-az-lz-threebuiltinpolicies).
@@ -62,8 +62,8 @@ Binds to [ADR-AZ-LZ-COSTATTRIBUTION](../../../azure/landing-zones.md#rule-adr-az
 
 Restrict EA account owners to a few people, because each one gains administrative reach over subscriptions and resources.
 
-Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-enterprise-agreement (recommendation 6,
-retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-enterprise-agreement (recommendation 6, retrieved
+2026-10-14)
 
 Binds to [ADR-AZ-DATAMOD-ONETENANT](../../../azure/azure-data-model.md#rule-adr-az-datamod-onetenant).
 
@@ -71,8 +71,8 @@ Binds to [ADR-AZ-DATAMOD-ONETENANT](../../../azure/azure-data-model.md#rule-adr-
 
 Give each EA department and account a budget, with an alert on it.
 
-Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-enterprise-agreement (recommendation 7,
-retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-enterprise-agreement (recommendation 7, retrieved
+2026-10-14)
 
 Binds to [ADR-AZ-LZ-COSTATTRIBUTION](../../../azure/landing-zones.md#rule-adr-az-lz-costattribution).
 
@@ -80,8 +80,8 @@ Binds to [ADR-AZ-LZ-COSTATTRIBUTION](../../../azure/landing-zones.md#rule-adr-az
 
 Create a separate IT department in the enrollment only where a business unit genuinely runs its own IT.
 
-Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-enterprise-agreement (recommendation 8,
-retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-enterprise-agreement (recommendation 8, retrieved
+2026-10-14)
 
 Binds to [ADR-AZ-DATAMOD-ONETENANT](../../../azure/azure-data-model.md#rule-adr-az-datamod-onetenant).
 
@@ -89,8 +89,8 @@ Binds to [ADR-AZ-DATAMOD-ONETENANT](../../../azure/azure-data-model.md#rule-adr-
 
 With several tenants, make each account owner a member of the tenant its account's subscriptions are created in.
 
-Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-enterprise-agreement (recommendation 9,
-retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-enterprise-agreement (recommendation 9, retrieved
+2026-10-14)
 
 Binds to [ADR-AZ-DATAMOD-ONETENANT](../../../azure/azure-data-model.md#rule-adr-az-datamod-onetenant).
 
@@ -316,7 +316,7 @@ Binds to [ADR-AZ-DATAMOD-ONETENANT](../../../azure/azure-data-model.md#rule-adr-
 
 ### Rule EDR-AZ-CAF-BILL-R34
 
-Add the organisation's custom domain names to the tenant; when synchronising with Entra Connect, check that the user principal names in
+Add the organisation's own DNS names to the tenant; when synchronising with Entra Connect, check that the user principal names in
 on-premises Active Directory use them.
 
 Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-ad-define (recommendation 34, retrieved 2026-10-14)
@@ -333,8 +333,8 @@ Binds to [ADR-AZ-DATAMOD-ONETENANT](../../../azure/azure-data-model.md#rule-adr-
 
 ### Rule EDR-AZ-CAF-BILL-R36
 
-An organisation with no identity infrastructure starts cloud-only on Entra ID, adding Entra Domain Services and Intune or EMS to protect its
-SaaS, applications, and devices.
+An organisation with no identity infrastructure starts cloud-only on Entra ID, adding Entra's managed directory service and Intune or EMS to
+protect its SaaS, applications, and devices.
 
 Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-ad-define (recommendation 36, retrieved 2026-10-14)
 
@@ -444,8 +444,8 @@ Binds to [ADR-AZ-DATAMOD-ONETENANT](../../../azure/azure-data-model.md#rule-adr-
 
 ### Rule EDR-AZ-CAF-BILL-R48
 
-Create the EA and MCA account owners, invoice-section owners, and subscription creators in the destination tenant, so that new
-subscriptions are born there and never need a change of directory afterwards.
+Create the EA and MCA account owners, invoice-section owners, and subscription creators in the destination tenant, so that new subscriptions
+are born there and never need a change of directory afterwards.
 
 Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/multi-tenant/considerations-recommendations (recommendation 48,
 retrieved 2026-10-15)
@@ -579,8 +579,7 @@ Binds to [ADR-AZ-DATAMOD-ONETENANT](../../../azure/azure-data-model.md#rule-adr-
 Microsoft's Cloud Adoption Framework (CAF) is its guidance for adopting Azure across an organisation. The billing and tenant design area
 covers how the organisation pays for Azure (an Enterprise Agreement, a Microsoft Customer Agreement, or a Cloud Solution Provider partner),
 how subscriptions are created and budgeted, and how the Microsoft Entra tenants behind them are defined, secured, and, where unavoidable,
-multiplied. The live text is published under the
-[Microsoft Learn Terms of Use](https://learn.microsoft.com/en-us/legal/termsofuse), which grant no licence to copy it into a shared
-repository, so nothing is quoted.
+multiplied. The live text is published under the [Microsoft Learn Terms of Use](https://learn.microsoft.com/en-us/legal/termsofuse), which
+grant no licence to copy it into a shared repository, so nothing is quoted.
 
 The [CAF reference](../../../../references/caf/index.md) lists every CAF record in this repository and the Microsoft pages each one cites.

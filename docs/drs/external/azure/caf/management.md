@@ -1,7 +1,7 @@
 # EDR: CAF management — Microsoft's management design recommendations, as the repository reads them
 
-Binds to [`landing-zones`](../../../azure/landing-zones.md) (the landing zone that streams the activity log and the network diagnostics)
-and [`operational-excellence`](../waf/operational-excellence.md) (the monitoring stack and the incident process these rules build on).
+Binds to [`landing-zones`](../../../azure/landing-zones.md) (the landing zone that streams the activity log and the network diagnostics) and
+[`operational-excellence`](../waf/operational-excellence.md) (the monitoring stack and the incident process these rules build on).
 
 ## Rules: EDR-AZ-CAF-MGMT
 
@@ -91,8 +91,7 @@ Binds to [ADR-AZ-LZ-CAFMANAGEMENT](../../../azure/landing-zones.md#rule-adr-az-l
 
 ### Rule EDR-AZ-CAF-MGMT-R10
 
-Rely on the replication and failover that platform services provide themselves, with Azure Policy to audit and enforce their
-configuration.
+Rely on the replication and failover that platform services provide themselves, with Azure Policy to audit and enforce their configuration.
 
 Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/management-business-continuity-disaster-recovery
 (recommendation 10, retrieved 2026-10-15)
@@ -136,8 +135,8 @@ Binds to [ADR-AZ-NETWORK-NOOVERLAP](../../../azure/azure-network-model.md#rule-a
 Patch Windows and Linux virtual machines with Azure Update Manager, enforced by policy so every machine is covered, with workload teams
 setting their own schedules and the central team keeping visibility.
 
-Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/management-operational-compliance (recommendation 14,
-retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/management-operational-compliance (recommendation 14, retrieved
+2026-10-15)
 
 Binds to [ADR-AZ-LZ-CAFMANAGEMENT](../../../azure/landing-zones.md#rule-adr-az-lz-cafmanagement).
 
@@ -145,8 +144,8 @@ Binds to [ADR-AZ-LZ-CAFMANAGEMENT](../../../azure/landing-zones.md#rule-adr-az-l
 
 Audit configuration drift inside virtual machines with Machine Configuration, assigned through Azure Policy.
 
-Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/management-operational-compliance (recommendation 15,
-retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/management-operational-compliance (recommendation 15, retrieved
+2026-10-15)
 
 Binds to [ADR-AZ-LZ-CAFMANAGEMENT](../../../azure/landing-zones.md#rule-adr-az-lz-cafmanagement).
 
@@ -154,8 +153,7 @@ Binds to [ADR-AZ-LZ-CAFMANAGEMENT](../../../azure/landing-zones.md#rule-adr-az-l
 
 Collect the logs and metrics of infrastructure and platform services alike in a Log Analytics workspace.
 
-Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/management-workloads (recommendation 16, retrieved
-2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/management-workloads (recommendation 16, retrieved 2026-10-15)
 
 Binds to [ADR-AZ-LZ-CAFMANAGEMENT](../../../azure/landing-zones.md#rule-adr-az-lz-cafmanagement) and
 [ADR-AZ-LZ-EVERYPILLAR](../../../azure/landing-zones.md#rule-adr-az-lz-everypillar).
@@ -164,8 +162,7 @@ Binds to [ADR-AZ-LZ-CAFMANAGEMENT](../../../azure/landing-zones.md#rule-adr-az-l
 
 Govern who can read a workspace and its logs with Azure role-based access control.
 
-Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/management-workloads (recommendation 17, retrieved
-2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/management-workloads (recommendation 17, retrieved 2026-10-15)
 
 Binds to [ADR-AZ-LZ-CAFMANAGEMENT](../../../azure/landing-zones.md#rule-adr-az-lz-cafmanagement).
 
@@ -173,18 +170,16 @@ Binds to [ADR-AZ-LZ-CAFMANAGEMENT](../../../azure/landing-zones.md#rule-adr-az-l
 
 Use Azure Monitor Metrics, a time-series store, for fast alerting and performance analysis, and correlate it with logs to find root causes.
 
-Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/management-workloads (recommendation 18, retrieved
-2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/management-workloads (recommendation 18, retrieved 2026-10-15)
 
 Binds to [ADR-AZ-LZ-CAFMANAGEMENT](../../../azure/landing-zones.md#rule-adr-az-lz-cafmanagement).
 
 ### Rule EDR-AZ-CAF-MGMT-R19
 
-Use Azure Monitor Logs to analyse and report across the data of many services; shared landing-zone storage accounts may hold the logs of
-the virtual machine diagnostics extension.
+Use Azure Monitor Logs to analyse and report across the data of many services; shared landing-zone storage accounts may hold the logs of the
+virtual machine diagnostics extension.
 
-Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/management-workloads (recommendation 19, retrieved
-2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/management-workloads (recommendation 19, retrieved 2026-10-15)
 
 Binds to [ADR-AZ-LZ-CAFMANAGEMENT](../../../azure/landing-zones.md#rule-adr-az-lz-cafmanagement).
 
@@ -192,8 +187,7 @@ Binds to [ADR-AZ-LZ-CAFMANAGEMENT](../../../azure/landing-zones.md#rule-adr-az-l
 
 Generate operational alerts with Azure Monitor alerts across metrics and logs, with actions and smart grouping of related alerts.
 
-Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/management-workloads (recommendation 20, retrieved
-2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/management-workloads (recommendation 20, retrieved 2026-10-15)
 
 Binds to [ADR-AZ-LZ-CAFMANAGEMENT](../../../azure/landing-zones.md#rule-adr-az-lz-cafmanagement) and
 [ADR-AZ-LZ-COSTATTRIBUTION](../../../azure/landing-zones.md#rule-adr-az-lz-costattribution).
@@ -202,8 +196,7 @@ Binds to [ADR-AZ-LZ-CAFMANAGEMENT](../../../azure/landing-zones.md#rule-adr-az-l
 
 Group a workload's resources across subscriptions and resource groups with Azure Service Groups, to make monitoring them simpler.
 
-Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/management-workloads (recommendation 21, retrieved
-2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/management-workloads (recommendation 21, retrieved 2026-10-15)
 
 Binds to [ADR-AZ-LZ-CAFMANAGEMENT](../../../azure/landing-zones.md#rule-adr-az-lz-cafmanagement).
 
@@ -211,8 +204,7 @@ Binds to [ADR-AZ-LZ-CAFMANAGEMENT](../../../azure/landing-zones.md#rule-adr-az-l
 
 Model the health of a service group's resources and their dependencies with Azure Monitor health models (in preview).
 
-Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/management-workloads (recommendation 22, retrieved
-2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/management-workloads (recommendation 22, retrieved 2026-10-15)
 
 Binds to [ADR-AZ-LZ-CAFMANAGEMENT](../../../azure/landing-zones.md#rule-adr-az-lz-cafmanagement).
 

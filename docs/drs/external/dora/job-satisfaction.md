@@ -1,4 +1,4 @@
-# Research: DORA — Job satisfaction
+# EDR: DORA — Job satisfaction
 
 ## Rules: EDR-DORA-JOBSAT
 
@@ -7,14 +7,18 @@
 Job satisfaction is treated as the product of challenging, meaningful work and the room to exercise skill and judgment — not as a proxy for
 compensation. Employees rate meaningful work as being about as important as salary, so work design carries as much weight as pay.
 
-- [Summary](#summary)
+Source: [DORA, Job satisfaction](../../../references/dora/capabilities.md#job-satisfaction)
+
+Binds to [ADR-AUTO-ZERO-CEREMONYAUTOMATION](../../automation/zero-ceremony-poka-yoke.md#rule-adr-auto-zero-ceremonyautomation).
 
 ### Rule EDR-DORA-JOBSAT-EMPOWERINGTOOLS
 
 Empowerment includes the tools people use to do their work. Teams that can choose their own tools do better at continuous delivery, so
 mandating a fixed toolset from a central authority works against the capability rather than for it.
 
-- [Why it matters](#why-it-matters)
+Source: [DORA, Job satisfaction](../../../references/dora/capabilities.md#job-satisfaction)
+
+Binds to [DDR-SELFSERV-CONSUMERSPROVISION](../../design/self-service.md#rule-ddr-selfserv-consumersprovision).
 
 ### Rule EDR-DORA-JOBSAT-UPSTREAMOFPERFORMANCE
 
@@ -22,28 +26,28 @@ Job satisfaction sits upstream of performance, not downstream of it: satisfied p
 delivery performance, and delivery performance lifts organizational performance. Treat it as a leading driver to invest in, not a perk to
 hand out once performance is already high.
 
-- [Why it matters](#why-it-matters)
+Source: [DORA, Job satisfaction](../../../references/dora/capabilities.md#job-satisfaction)
 
 ### Rule EDR-DORA-JOBSAT-NOTFROMTELEMETRY
 
 Never infer job satisfaction from system telemetry. There is no reliable proxy for it in commit logs, ticket counts, or deployment metrics —
 it is measured by asking people directly, and it stays a perceptual measure even where every other DORA capability has a system-data signal.
 
-- [How to apply](#how-to-apply)
+Source: [DORA, Job satisfaction](../../../references/dora/capabilities.md#job-satisfaction)
 
 ### Rule EDR-DORA-JOBSAT-RELUCTANCEISFINDING
 
 Treat reluctance to answer job-satisfaction questions honestly as a finding in itself, not as missing data to work around. When people will
 not say how they feel about the work, that reluctance points at an organizational problem worth investigating on its own.
 
-- [Common pitfalls](#common-pitfalls)
+Source: [DORA, Job satisfaction](../../../references/dora/capabilities.md#job-satisfaction)
 
 ### Rule EDR-DORA-JOBSAT-BUDGETFORCHANGE
 
 Budget real time and resources for people to adjust during a technology or process change. A transformation that changes tools or ways of
 working without giving people time to build the new skills spends the change against job satisfaction rather than for it.
 
-- [Common pitfalls](#common-pitfalls)
+Source: [DORA, Job satisfaction](../../../references/dora/capabilities.md#job-satisfaction)
 
 ## Context
 
@@ -80,16 +84,7 @@ treating it as a nice-to-have rather than a design input for how work gets assig
 
 ## How to apply
 
-This platform treats zero-ceremony automation as a job-satisfaction lever, not only an engineering-efficiency one: removing boilerplate,
-registration, and ceremony from adding a function or module leaves people's time and judgment for the work that is actually challenging,
-rather than for fighting the platform. Self-service gives consumers the autonomy DORA's definition calls for — provisioning and changing
-managed infrastructure themselves, through the CLI, without a ticket queue standing between judgment and action. Vendoring every dependency
-and assuming no local admin keeps tool access itself from becoming a source of friction — a team blocked from installing the tools it needs
-cannot exercise the tool-choice autonomy this capability depends on.
-
-None of these substitutes for asking people directly how satisfied they are with their work — no system-data proxy exists for that — but
-they remove some of the concrete, structural sources of dissatisfaction: ceremony that wastes skilled time, gatekeeping that removes
-autonomy, and tooling friction that blocks the tools a team would otherwise choose.
+Ask people directly how satisfied they are with their work — no system-data proxy exists for that.
 
 ## Common pitfalls
 

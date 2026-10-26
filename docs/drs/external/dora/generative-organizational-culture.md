@@ -1,4 +1,4 @@
-# Research: DORA — Generative organizational culture
+# EDR: DORA — Generative organizational culture
 
 ## Rules: EDR-DORA-CULTURE
 
@@ -7,35 +7,40 @@
 Organizational culture is classified by how information flows through it, using Ron Westrum's typology of pathological (power-oriented),
 bureaucratic (rule-oriented), and generative (performance-oriented) cultures — not by any other axis of team behavior.
 
-- [Summary](#summary)
+Source: [DORA, Generative organizational culture](../../../references/dora/capabilities.md#generative-organizational-culture)
 
 ### Rule EDR-DORA-CULTURE-SIXTRAITS
 
 A generative culture is defined by six concrete traits, not a slogan: high cooperation, trained messengers, shared risk, encouraged bridging
 across roles, failure met with inquiry, and novelty implemented rather than resisted. Treat all six as the working definition.
 
-- [Summary](#summary)
+Source: [DORA, Generative organizational culture](../../../references/dora/capabilities.md#generative-organizational-culture)
+
+Binds to [WDR-BUILTIN-QUALITYBUILTIN](../../process/build-quality-in.md#rule-wdr-builtin-qualitybuiltin).
 
 ### Rule EDR-DORA-CULTURE-BEHAVIOURFIRST
 
 Change behavior first and let belief follow. Culture shifts by changing what people do — how a postmortem runs, who owns a system in
 production, how an idea gets tried — not by first trying to change how people think.
 
-- [How to apply](#how-to-apply)
+Source: [DORA, Generative organizational culture](../../../references/dora/capabilities.md#generative-organizational-culture)
 
 ### Rule EDR-DORA-CULTURE-FAILUREISINFORMATION
 
 Treat a failure as information about the system, never as a reason to find someone to blame. Punishing the messenger, or the person nearest
 the incident, teaches people to hide problems instead of surfacing them.
 
-- [Common pitfalls](#common-pitfalls)
+Source: [DORA, Generative organizational culture](../../../references/dora/capabilities.md#generative-organizational-culture)
+
+Binds to [WDR-ANDON-STOPPINGISCHEAP](../../process/holding-the-line.md#rule-wdr-andon-stoppingischeap) and
+[WDR-KAIZEN-ADAPTFROMEVIDENCE](../../process/inspect-and-adapt.md#rule-wdr-kaizen-adaptfromevidence).
 
 ### Rule EDR-DORA-CULTURE-MEASUREPERCEPTION
 
 Measure culture as a perception, not an artifact count. Westrum's six survey items, scored on a Likert scale and averaged into one score,
 are the validated instrument for this capability — not a proxy derived from delivery metrics.
 
-- [Why it matters](#why-it-matters)
+Source: [DORA, Generative organizational culture](../../../references/dora/capabilities.md#generative-organizational-culture)
 
 ## Context
 
@@ -77,13 +82,9 @@ ideas are welcomed. Averaging the six gives a team a single Westrum culture scor
 ## How to apply
 
 DORA's implementation guidance is behavioral: change how people behave first, and belief follows, rather than trying to change minds before
-changing practice. This platform's failure response works that way. Holding the line treats a stopped line as the system working, not as a
-fault to find someone responsible for — punishing whoever pulled the cord teaches people to route around it, the same messenger-punishing
-pattern a generative culture avoids. Inspect-and-adapt responds to a failure with a root-cause countermeasure drawn from evidence, not with
-blame, which is Westrum's "failure leads to inquiry" applied to the platform's own gates. Building quality in removes the separate
-inspection phase and makes quality everyone's job rather than one team's, which is the shared-risk trait a generative culture requires.
+changing practice.
 
-Beyond what these decision records encode, apply the capability directly: run blameless postmortems that ask what happened rather than who
+Run blameless postmortems that ask what happened rather than who
 did it, give developers ownership of their code once it runs in production, break down silos through shared planning and informal
 cross-functional conversation, and protect real time for people to try an idea rather than only tolerating the idea in theory.
 

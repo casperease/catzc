@@ -130,9 +130,9 @@ involves a per-subscription environment, or whose staging environment is served 
 ### Rule ADR-AZ-DATAMOD-ONETENANT
 
 The repository works in one Entra tenant: `azure.yml` declares it, every subscription names it, every customer lives in it as a pair of
-subscriptions, and every deploy proves the session's subscription against the declaration. Billing structure (Enterprise Agreement, Microsoft
-Customer Agreement, partner offers), tenant administration (custom names, sign-on, Global Administrators, PIM, Conditional Access), and
-cross-tenant tooling (Lighthouse, B2B) sit above the repository and are not its to set.
+subscriptions, and every deploy proves the session's subscription against the declaration. Billing structure (Enterprise Agreement,
+Microsoft Customer Agreement, partner offers), tenant administration (custom names, sign-on, Global Administrators, PIM, Conditional
+Access), and cross-tenant tooling (Lighthouse, B2B) sit above the repository and are not its to set.
 
 - [One tenant](#one-tenant)
 
@@ -268,25 +268,24 @@ does not exist there. Some resources fix their tenant at creation (the Key Vault
 `subscription().tenantId`), so a later change of directory leaves the vault stale and the administrator group in the old directory. There is
 no separate test tenant; changes reach non-production subscriptions before production ones.
 
-Every customer is a subscription pair in the one tenant ([ADR-AZ-CUSTOMER-TWOBINDINGS](azure-customer-model.md#rule-adr-az-customer-twobindings)),
-and its isolation comes from the subscription: its own landing zone, network, budget, workspace, vault, CD pipeline, and service
-connections. The landing zone depends on it: a spoke peers to the hub in a shared subscription, the hub's private DNS zones link to every
-spoke, and a workload registers its private endpoints in the hub's zones ([ADR-AZ-LZ-HUBANDSPOKE](landing-zones.md#rule-adr-az-lz-hubandspoke)).
-Within one tenant each join needs only a role on the other side, and the one SQL administrator group administers every customer's server. A
-customer whose contract or regulation demands its own directory would be a second `tenants` entry and a design change, needing a hub of its
-own. Experiments run as an extra configuration slot of a non-production subscription (`apex/dev-blu.yml` beside `apex/dev.yml`), inside the
-same tenant and behind the same guardrails; an experiment needing what the landing zone denies would be the trigger for a sandbox
-subscription declared in the same tenant.
+Every customer is a subscription pair in the one tenant
+([ADR-AZ-CUSTOMER-TWOBINDINGS](azure-customer-model.md#rule-adr-az-customer-twobindings)), and its isolation comes from the subscription:
+its own landing zone, network, budget, workspace, vault, CD pipeline, and service connections. The landing zone depends on it: a spoke peers
+to the hub in a shared subscription, the hub's private DNS zones link to every spoke, and a workload registers its private endpoints in the
+hub's zones ([ADR-AZ-LZ-HUBANDSPOKE](landing-zones.md#rule-adr-az-lz-hubandspoke)). Within one tenant each join needs only a role on the
+other side, and the one SQL administrator group administers every customer's server. A customer whose contract or regulation demands its own
+directory would be a second `tenants` entry and a design change, needing a hub of its own. Experiments run as an extra configuration slot of
+a non-production subscription (`apex/dev-blu.yml` beside `apex/dev.yml`), inside the same tenant and behind the same guardrails; an
+experiment needing what the landing zone denies would be the trigger for a sandbox subscription declared in the same tenant.
 
 Everything above the subscription is not adopted, because the repository deploys into subscriptions it is given and needs no right above
 them ([ADR-AZ-LZ-LANDINGZONE](landing-zones.md#rule-adr-az-lz-landingzone)): it holds no billing role and creates no subscription, grants no
 role to a person, manages no Entra user, and streams no Entra log (those diagnostic settings are made at tenant level, and `foundation`'s
 workspace is where they would go). It uses Lighthouse nowhere and is no ISV, no CSP customer, and no multitenant application. Notification
 contacts, offers, budgets above a subscription, and charge visibility are billing administration; the repository budgets each subscription
-instead. SQL administration goes through an Entra group
-([ADR-AZ-LZ-SQLENTRAADMINS](landing-zones.md#rule-adr-az-lz-sqlentraadmins)), so the tenant's MFA, Conditional Access, and PIM reach it with
-no change here; the break-glass SQL login is the one deliberate path outside them, kept for when the directory is unavailable, and
-deployment identities are service connections that sign in without MFA by nature.
+instead. SQL administration goes through an Entra group ([ADR-AZ-LZ-SQLENTRAADMINS](landing-zones.md#rule-adr-az-lz-sqlentraadmins)), so the
+tenant's MFA, Conditional Access, and PIM reach it with no change here; the break-glass SQL login is the one deliberate path outside them,
+kept for when the directory is unavailable, and deployment identities are service connections that sign in without MFA by nature.
 
 ### Staging slots
 

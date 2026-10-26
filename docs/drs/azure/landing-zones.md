@@ -90,10 +90,10 @@ are not yet deployed, and the resource groups that `Deploy-Bicep` creates for `f
 
 ### Rule ADR-AZ-LZ-CAFPRINCIPLES
 
-The landing zone follows the five CAF design principles at subscription level and deviates from two on purpose. Subscriptions are the unit of
-management and are given to the repository, never vended by it, and policy is assigned per subscription, never inherited from a management
-group. Every change is an Azure Resource Manager deployment through Bicep and the az CLI, and every service is Azure-native. Monitoring is
-one Log Analytics workspace per subscription, not one central workspace.
+The landing zone follows the five CAF design principles at subscription level and deviates from two on purpose. Subscriptions are the unit
+of management and are given to the repository, never vended by it, and policy is assigned per subscription, never inherited from a
+management group. Every change is an Azure Resource Manager deployment through Bicep and the az CLI, and every service is Azure-native.
+Monitoring is one Log Analytics workspace per subscription, not one central workspace.
 
 - [CAF design principles](#caf-design-principles)
 
@@ -236,9 +236,9 @@ group through `infrastructure/modules/resource-group.bicep`, so its resource gro
 ### CAF design principles
 
 Subscription democratization is partly followed. `azure.yml` declares every subscription, and a customer subscription carries a `customer`
-key ([ADR-AZ-CUSTOMER-TWOBINDINGS](azure-customer-model.md#rule-adr-az-customer-twobindings)). The shared platform holds `shared_nonprod` and
-`shared_prod`, and each customer its own pair or a non-production subscription alone. A non-production subscription serves `dev`, `test` and
-`nsub`, a production one `preprod`, `prod` and `psub`; `dev` and `test` are kept apart by resource group, one per configuration slot
+key ([ADR-AZ-CUSTOMER-TWOBINDINGS](azure-customer-model.md#rule-adr-az-customer-twobindings)). The shared platform holds `shared_nonprod`
+and `shared_prod`, and each customer its own pair or a non-production subscription alone. A non-production subscription serves `dev`, `test`
+and `nsub`, a production one `preprod`, `prod` and `psub`; `dev` and `test` are kept apart by resource group, one per configuration slot
 ([ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION](azure-data-model.md#rule-adr-az-datamod-onefileonesubscription)). Self-service is a pull request
 ([DDR-SELFSERV-CONSUMERSPROVISION](../design/self-service.md#rule-ddr-selfserv-consumersprovision)): a team adds a subscription entry, a
 network and one config per template. Subscription vending and management groups are not adopted, because the repository deploys into
@@ -247,13 +247,13 @@ non-production subscription govern `dev` and `test` alike.
 
 Policy-driven governance is partly followed. The three built-in policies are the tool-agnostic guardrails, and CI adds guards before deploy
 that policy cannot: every template compiles and every rendered parameters file is checked against the compiled parameter model
-([ADR-AZ-DATAMOD-PARAMETERCONTRACT](azure-data-model.md#rule-adr-az-datamod-parametercontract)). The set is narrow: public network access
-on a data service, a missing diagnostic setting, and a TLS minimum are set by the shared modules and not guarded against another tool. Each
+([ADR-AZ-DATAMOD-PARAMETERCONTRACT](azure-data-model.md#rule-adr-az-datamod-parametercontract)). The set is narrow: public network access on
+a data service, a missing diagnostic setting, and a TLS minimum are set by the shared modules and not guarded against another tool. Each
 landing zone assigns its own copy, with no management group to inherit from, so outside the three policies compliance rests on module
 defaults and review, and outside production the default mode audits and does not block.
 
-Control and management plane: the control plane is Azure Resource Manager. `Deploy-Bicep` runs `az deployment group create` or `az
-deployment sub create`, and `-DryRun` runs Azure's `--what-if` ([ADR-AZ-CLI-AZBYDEFAULT](prefer-az-cli.md#rule-adr-az-cli-azbydefault)).
+Control and management plane: the control plane is Azure Resource Manager. `Deploy-Bicep` runs `az deployment group create` or
+`az deployment sub create`, and `-DryRun` runs Azure's `--what-if` ([ADR-AZ-CLI-AZBYDEFAULT](prefer-az-cli.md#rule-adr-az-cli-azbydefault)).
 catzc is a command line in front of Azure, kept thin: it delegates to Bicep and the az CLI and never clones the vendor's behaviour
 ([DDR-THINPLAT-DELEGATENOTREIMPLEMENT](../design/thin-platforms.md#rule-ddr-thinplat-delegatenotreimplement)). The management plane
 deviates: `foundation` gives each subscription its own Log Analytics workspace, and the landing zone and the workload of that subscription
@@ -266,8 +266,8 @@ modules include `vm.bicep`, so an IaaS workload would land in the same subnets u
 
 Azure-native design is followed: Bicep from the shared modules, Azure built-in policy, Azure Monitor, Key Vault, Private DNS and Entra ID,
 with no third-party firewall, agent or secret store. `azure.yml` pins `bicep_min_version`, and `Assert-AzCliBicep` fails a Bicep build on an
-older CLI. Resource API versions are written in each module by hand and several are older or preview (`2021-05-01-preview` on the
-diagnostic settings), so a new capability reaches the templates when someone updates a module.
+older CLI. Resource API versions are written in each module by hand and several are older or preview (`2021-05-01-preview` on the diagnostic
+settings), so a new capability reaches the templates when someone updates a module.
 
 ### CAF management
 
@@ -275,8 +275,8 @@ The workspace is per subscription on purpose: each customer's telemetry stays in
 non-production and production stay apart. A workspace holds the default 30 days (`retentionInDays` accepts 30 to 730 and `foundation` does
 not pass it), no example customer needs logs kept for years, and so no export to immutable storage exists; a longer retention per
 environment class is a config value, and a customer with a longer obligation adds a data export beside the workspace
-([EDR-AZ-WAF-OE-OE07](../external/azure/waf/operational-excellence.md#rule-edr-az-waf-oe-oe07)). Access to a workspace is the role-based access
-of its subscription; `log-analytics.bicep` sets no access-control mode, and the templates assign no role to people.
+([EDR-AZ-WAF-OE-OE07](../external/azure/waf/operational-excellence.md#rule-edr-az-waf-oe-oe07)). Access to a workspace is the role-based
+access of its subscription; `log-analytics.bicep` sets no access-control mode, and the templates assign no role to people.
 
 Diagnostics exist when a deploy succeeds, because `diagnostic-setting.bicep` (kinds fixed by its `@allowed` decorator, categories by the
 `allLogs` group plus the kind's metrics) is part of the template, which a deploy-if-not-exists policy cannot promise. The subscription's
@@ -286,12 +286,12 @@ nothing, though the module supports it. Platform metrics sit in Azure Monitor wi
 beside the logs; the logs are queryable per subscription, and no saved query, workbook, or dashboard exists.
 
 Alerting is only the budget's: `budget.bicep` sends its thresholds to the subscription's `Owner` role. The shape of the rest follows the
-same rule, one action group per subscription in `foundation` addressed to `Owner`, and alert rules in the templates that own the
-resources, never Microsoft's baseline alerts deployed by policy
-([ADR-AZ-LZ-THREEBUILTINPOLICIES](#rule-adr-az-lz-threebuiltinpolicies)). Service Health and Resource Health alerts belong to `discovery`.
-No module places a lock; the hub's virtual network and private DNS zones, and `foundation`'s Key Vault with the break-glass password, are
-the resources one would protect. The network security groups and the virtual network send logs and metrics, not flows, so no Traffic
-Analytics exists; it would arrive with flow logs into the workspace and a flow-log storage account in `foundation`.
+same rule, one action group per subscription in `foundation` addressed to `Owner`, and alert rules in the templates that own the resources,
+never Microsoft's baseline alerts deployed by policy ([ADR-AZ-LZ-THREEBUILTINPOLICIES](#rule-adr-az-lz-threebuiltinpolicies)). Service
+Health and Resource Health alerts belong to `discovery`. No module places a lock; the hub's virtual network and private DNS zones, and
+`foundation`'s Key Vault with the break-glass password, are the resources one would protect. The network security groups and the virtual
+network send logs and metrics, not flows, so no Traffic Analytics exists; it would arrive with flow logs into the workspace and a flow-log
+storage account in `foundation`.
 
 The workload relies on the platform's own redundancy and backup: zone-redundant storage in every environment, a production database that is
 zone-redundant with geo-redundant backups, short-term retention (`databaseBackupRetentionDays` 35 in production, 7 in development) and blob
@@ -303,8 +303,8 @@ the same check ([ADR-AZ-NETWORK-NOOVERLAP](azure-network-model.md#rule-adr-az-ne
 Recommendations that assume a virtual machine (Site Recovery, Update Manager, Machine Configuration) or a hybrid link (ExpressRoute, an
 on-premises monitoring system) have nothing to act on: `vm.bicep` exists among the shared modules but no template uses it, the hub's
 `GatewaySubnet` holds nothing, every environment maps to one region, and every log stays in Azure. A workload sits in one resource group of
-one subscription, named by the `workload` tag, which gives the grouping an Azure Service Group would add; Azure Monitor health models are
-in preview and build on Service Groups, so the tool of a health model is chosen when that work begins.
+one subscription, named by the `workload` tag, which gives the grouping an Azure Service Group would add; Azure Monitor health models are in
+preview and build on Service Groups, so the tool of a health model is chosen when that work begins.
 
 ### SQL authentication
 

@@ -3,10 +3,10 @@
 The repository's GitHub integration: everything that faces GitHub, as a platform that reads our files and as a remote that stores our
 history. Two jobs make it up. It holds the GitHub-facing contracts — what GitHub requires of the files it reads, kept under
 `contracts/catzc/0.1.0/catzc.tooling.github/`
-([ADR-REPO-CONTRACT-LAYOUT](../../../drs/repository/api-contracts.md#rule-adr-repo-contract-layout)). And it erases a token — a leaked secret,
-or a name being scrubbed — from a GitHub repository's entire history and its remote object store, then proves it is gone. Erasure needs a
-module of its own because an ordinary force-push erases nothing: the old commits become unreachable but stay stored on the server until
-GitHub garbage-collects them, so a fetch of a known old SHA keeps resolving. Deleting and recreating the repository is the only way to
+([ADR-REPO-CONTRACT-LAYOUT](../../../drs/repository/api-contracts.md#rule-adr-repo-contract-layout)). And it erases a token — a leaked
+secret, or a name being scrubbed — from a GitHub repository's entire history and its remote object store, then proves it is gone. Erasure
+needs a module of its own because an ordinary force-push erases nothing: the old commits become unreachable but stay stored on the server
+until GitHub garbage-collects them, so a fetch of a known old SHA keeps resolving. Deleting and recreating the repository is the only way to
 destroy those remote objects. It owns that whole workflow — rewrite the local history token-free, assert the irreversible step is safe,
 purge and republish on GitHub, and verify the result across every surface a token can hide in (file content, file paths, and commit
 messages). It is not a general git or `gh` wrapper, and it drives every external command through the process boundary in
@@ -21,7 +21,7 @@ messages). It is not a general git or `gh` wrapper, and it drives every external
 | responsibility:3 | preflight | [Purge preflight](#responsibility3--purge-preflight)                       |
 | responsibility:4 | verify    | [Token-absence verification](#responsibility4--token-absence-verification) |
 | responsibility:5 | contracts | [GitHub-facing contracts](#responsibility5--github-facing-contracts)       |
-| responsibility:6 | flow | [Workflow flow reading](#responsibility6--workflow-flow-reading) |
+| responsibility:6 | flow      | [Workflow flow reading](#responsibility6--workflow-flow-reading)           |
 
 ### responsibility:1 — Remote purge and publish
 
@@ -63,10 +63,10 @@ it against a ref whose upstream still tracks un-purged history, which would fals
 
 Owning our schema of the workflow files GitHub reads, an inner contract in the module's group,
 `contracts/catzc/0.1.0/catzc.tooling.github/workflow.yml.schema.json`
-([ADR-REPO-CONTRACT-LAYOUT](../../../drs/repository/api-contracts.md#rule-adr-repo-contract-layout)), bound to every `.github/workflows/*.yml`
-by the version's `applies_to`
-([ADR-REPO-CONTRACT-CONFIGUREDADDRESSING](../../../drs/repository/api-contracts.md#rule-adr-repo-contract-configuredaddressing)). It pins only
-what GitHub reads, never an internal value
+([ADR-REPO-CONTRACT-LAYOUT](../../../drs/repository/api-contracts.md#rule-adr-repo-contract-layout)), bound to every
+`.github/workflows/*.yml` by the version's `applies_to`
+([ADR-REPO-CONTRACT-CONFIGUREDADDRESSING](../../../drs/repository/api-contracts.md#rule-adr-repo-contract-configuredaddressing)). It pins
+only what GitHub reads, never an internal value
 ([ADR-REPO-CONTRACT-CONTRACTASSET](../../../drs/repository/api-contracts.md#rule-adr-repo-contract-contractasset)): a workflow's `on` and
 `jobs`. The contract mechanism in `Catzc.Base.Contracts` generates one test per bound file, so a change GitHub would reject fails CI here
 first. A platform change edits the schema in `0.1.0` in place, never an old shape kept beside the new one.
@@ -75,8 +75,8 @@ first. A platform change edits the schema in `0.1.0` in place, never an old shap
 
 Reading the workflow files GitHub runs into the one row a flow diagram draws
 ([DDR-VISUAL-FLOWISALENS](../../../drs/design/visual-design.md#rule-ddr-visual-flowisalens)): a lane per workflow, its pipeline type from
-the file name's prefix, its triggers from the `on` events, and its jobs, steps and environments. The row has the same shape the Azure
-DevOps reader returns, so the renderer lays out either engine's lanes the same way.
+the file name's prefix, its triggers from the `on` events, and its jobs, steps and environments. The row has the same shape the Azure DevOps
+reader returns, so the renderer lays out either engine's lanes the same way.
 
 ## What the module does
 
@@ -111,4 +111,4 @@ The module's public functions and contract assets, sorted into the responsibilit
 | responsibility:3 — Purge preflight            | `Assert-GitHubPurgeReady`  |
 | responsibility:4 — Token-absence verification | `Test-GitHistoryClean`     |
 | responsibility:5 — GitHub-facing contracts    | `workflow.yml.schema.json` |
-| responsibility:6 — Workflow flow reading | `Get-GithubFlowRows` |
+| responsibility:6 — Workflow flow reading      | `Get-GithubFlowRows`       |

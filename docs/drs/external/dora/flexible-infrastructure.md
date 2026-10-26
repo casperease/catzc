@@ -1,4 +1,4 @@
-# Research: DORA — Flexible infrastructure
+# EDR: DORA — Flexible infrastructure
 
 ## Rules: EDR-DORA-FLEXINFRA
 
@@ -8,35 +8,42 @@ Flexible infrastructure means five NIST characteristics together — on-demand s
 elasticity, and measured service — not any single one of them in isolation; a system that scales but still needs a human to provision it is
 not flexible infrastructure.
 
-- [Summary](#summary)
+Source: [DORA, Flexible infrastructure](../../../references/dora/capabilities.md#flexible-infrastructure)
+
+Binds to [DDR-SELFSERV-CONSUMERSPROVISION](../../design/self-service.md#rule-ddr-selfserv-consumersprovision).
 
 ### Rule EDR-DORA-FLEXINFRA-INFRASTRUCTUREASCODE
 
 Infrastructure configuration is checked into version control, and provisioning, configuration changes, and deployments happen through an
 automated mechanism — never through console clicks, manual tickets, or an undocumented runbook.
 
-- [How to apply](#how-to-apply)
+Source: [DORA, Flexible infrastructure](../../../references/dora/capabilities.md#flexible-infrastructure)
+
+Binds to [PDR-EAC-EVERYTHINGCOMMITTED](../../principles/everything-as-code.md#rule-pdr-eac-everythingcommitted) and
+[DDR-SELFSERV-REPOSITORYISTRUTH](../../design/self-service.md#rule-ddr-selfserv-repositoryistruth).
 
 ### Rule EDR-DORA-FLEXINFRA-CROSSFUNCTIONALCHANGE
 
 Adopting infrastructure as code is a cross-functional change, not a tooling swap — it touches information-security controls and approval
 policy as much as it touches provisioning scripts, so it rolls out through a single, low-risk pilot application before it scales org-wide.
 
-- [How to apply](#how-to-apply)
+Source: [DORA, Flexible infrastructure](../../../references/dora/capabilities.md#flexible-infrastructure)
 
 ### Rule EDR-DORA-FLEXINFRA-GUARDRAILNOTGATE
 
 Self-service infrastructure stays a guardrail, never a gate: an Internal Developer Platform that mandates rigid, one-size-fits-all
 infrastructure or requires a manual ticket to reach cloud resources has negated the capability it claims to offer.
 
-- [Common pitfalls](#common-pitfalls)
+Source: [DORA, Flexible infrastructure](../../../references/dora/capabilities.md#flexible-infrastructure)
+
+Binds to [DDR-SELFSERV-TRUNKWITHGUARDRAILS](../../design/self-service.md#rule-ddr-selfserv-trunkwithguardrails).
 
 ### Rule EDR-DORA-FLEXINFRA-MEASUREPREDICTEDOUTCOMES
 
 Measure the capability by what NIST's characteristics predict — time to provision, self-service adoption rate, elasticity, and cost
 transparency — never by the raw percentage of workloads hosted on cloud servers or by migration volume and speed.
 
-- [Common pitfalls](#common-pitfalls)
+Source: [DORA, Flexible infrastructure](../../../references/dora/capabilities.md#flexible-infrastructure)
 
 ## Context
 
@@ -78,11 +85,7 @@ real engineering effort and touches policy, including how information-security c
 automated process on a single, low-risk application before scaling it further.
 
 Flexible infrastructure is the engine that platform engineering runs on: an Internal Developer Platform built on top of it can prioritize
-self-service and autonomy, so developers focus on writing application code instead of waiting on infrastructure. This platform realizes that
-model as a thin CLI over the Azure control plane, with self-service provisioning made safe by routing every change through a single
-versioned source of truth and trunk-based guardrails rather than a manual ticket. The Azure data model turns environment, subscription, and
-resource-group identity into resolved, config-driven values instead of hand-typed ones, which is what lets provisioning scale elastically
-across environments and customers without hand-authored drift.
+self-service and autonomy, so developers focus on writing application code instead of waiting on infrastructure.
 
 Align incentives alongside the technical change — give system owners both the visibility to build more efficient systems and the incentive
 to do so, so efficiency gains are pursued rather than left on the table.

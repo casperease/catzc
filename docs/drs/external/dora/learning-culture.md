@@ -1,4 +1,4 @@
-# Research: DORA — Learning culture
+# EDR: DORA — Learning culture
 
 ## Rules: EDR-DORA-LEARNING
 
@@ -7,35 +7,39 @@
 Treat learning as a strategic investment necessary for growth, not a grudging burden and not something avoided — the organization's stance
 on learning is a deliberate choice, not an accident of how much slack happens to exist.
 
-- [Summary](#summary)
+Source: [DORA, Learning culture](../../../references/dora/capabilities.md#learning-culture)
 
 ### Rule EDR-DORA-LEARNING-FUNDEDLEARNING
 
 Fund learning concretely: keep a training budget, protect time for informal exploration, and cover the cost of conferences and
 certifications, so the commitment is a resourced practice rather than a stated value with nothing behind it.
 
-- [How to apply](#how-to-apply)
+Source: [DORA, Learning culture](../../../references/dora/capabilities.md#learning-culture)
 
 ### Rule EDR-DORA-LEARNING-SAFETOFAIL
 
 Make it safe to fail. Treat failures as data for improvement — blameless post-mortems, not blame — so people keep taking the reasonable
 risks that learning and experimentation require.
 
-- [Why it matters](#why-it-matters)
+Source: [DORA, Learning culture](../../../references/dora/capabilities.md#learning-culture)
+
+Binds to [WDR-ANDON-STOPPINGISCHEAP](../../process/holding-the-line.md#rule-wdr-andon-stoppingischeap).
 
 ### Rule EDR-DORA-LEARNING-STANDINGKNOWLEDGESHARING
 
 Keep knowledge-sharing on a standing cadence — recurring forums such as lightning talks, brown-bag sessions, or lunch-and-learns, and a
 share-back expectation after conferences or training — rather than leaving it to depend on individual initiative.
 
-- [How to apply](#how-to-apply)
+Source: [DORA, Learning culture](../../../references/dora/capabilities.md#learning-culture)
+
+Binds to [WDR-KAIZEN-AMPLIFYLEARNING](../../process/inspect-and-adapt.md#rule-wdr-kaizen-amplifylearning).
 
 ### Rule EDR-DORA-LEARNING-MEASURECLIMATE
 
 Measure the climate for learning directly, by asking people whether their organization treats learning as an investment, rather than
 inferring it from a training budget line that nobody actually uses.
 
-- [Common pitfalls](#common-pitfalls)
+Source: [DORA, Learning culture](../../../references/dora/capabilities.md#learning-culture)
 
 ## Context
 
@@ -69,14 +73,6 @@ Learning that stays in one person's head is also learning the organization has n
 absent or leaves, and every new joiner relearns it from scratch. A climate that funds and schedules sharing turns individual insight into an
 organizational asset instead of a personal one, which is why DORA's research finds this climate predictive of delivery performance and, in
 other fields such as accounting, of organizational performance generally.
-
-## How to apply
-
-Catzc treats capturing what is learned as a first-class step in its own improvement loop rather than an optional afterthought: when
-something is learned, it is encoded as a convention, a gate, or a decision record so the next person inherits the knowledge instead of
-rediscovering it, which is the direct countermeasure to relearning, the relearning waste. The platform's stopped-line discipline treats a
-caught defect as a root-cause investigation rather than a blame event, and warns explicitly that punishing a stop teaches people to route
-around it — the same safety-to-fail stance DORA describes for post-mortems, applied to the gate that catches the defect in the first place.
 
 ## Common pitfalls
 

@@ -16,8 +16,8 @@ unit of management, development, test and production are separated by subscripti
 and they sit in a scalable management group hierarchy. A design that runs operations centrally pays in adapted resource organisation and in
 teams that wait for subscriptions or create ungoverned ones.
 
-Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-principles#subscription-democratization (recommendation 1,
-retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-principles#subscription-democratization (recommendation 1, retrieved
+2026-10-14)
 
 Binds to [ADR-AZ-LZ-CAFPRINCIPLES](../../../azure/landing-zones.md#rule-adr-az-lz-cafprinciples),
 [ADR-AZ-LZ-LANDINGZONE](../../../azure/landing-zones.md#rule-adr-az-lz-landingzone) and
@@ -50,8 +50,8 @@ Binds to [ADR-AZ-LZ-CAFPRINCIPLES](../../../azure/landing-zones.md#rule-adr-az-l
 
 ### Rule EDR-AZ-CAF-PRIN-R04
 
-Application-centric service model: organise migration and development around applications rather than moving infrastructure as it is,
-treat old and new, IaaS and PaaS applications alike, and give every application a secure environment. Segmenting workloads other than by the
+Application-centric service model: organise migration and development around applications rather than moving infrastructure as it is, treat
+old and new, IaaS and PaaS applications alike, and give every application a secure environment. Segmenting workloads other than by the
 reference management group options complicates policy and access control.
 
 Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-principles#application-centric-service-model (recommendation 4,
@@ -76,9 +76,9 @@ Binds to [ADR-AZ-LZ-CAFPRINCIPLES](../../../azure/landing-zones.md#rule-adr-az-l
 
 Microsoft's Cloud Adoption Framework (CAF) is its guidance for taking an organisation onto Azure. Its "Ready" methodology describes the
 Azure landing zone: the platform an organisation prepares before workloads arrive, built from design areas (billing and tenant, identity,
-resource organisation, network, security, management, governance, platform automation). Above the design areas stand five design
-principles, which Microsoft states as aspirational targets and for each of which it names the cost of deviating. The live text is published
-under the [Microsoft Learn Terms of Use](https://learn.microsoft.com/en-us/legal/termsofuse), which grant no licence to copy it into a
-shared repository, so nothing is quoted.
+resource organisation, network, security, management, governance, platform automation). Above the design areas stand five design principles,
+which Microsoft states as aspirational targets and for each of which it names the cost of deviating. The live text is published under the
+[Microsoft Learn Terms of Use](https://learn.microsoft.com/en-us/legal/termsofuse), which grant no licence to copy it into a shared
+repository, so nothing is quoted.
 
 The [CAF reference](../../../../references/caf/index.md) lists every CAF record in this repository and the Microsoft pages each one cites.
