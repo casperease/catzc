@@ -34,3 +34,6 @@ names are checked against the surfaces.
        leaves git status unchanged.
 3. [ ] Invoke-StagedBurst's restore re-creates a missing parent folder (a step that deleted a staged file's folder left the journal restore
        half done). Check: a burst whose step deletes a staged file's folder still rolls back clean.
+4. [ ] A peer that imports while a C# + .ps1 burst's steps run (after the swap) loads the new .ps1 against its old types build; the
+       importer waits on the run lock for the whole burst, not just the swap, when the burst staged a .cs. Check: a peer import during
+       such a burst waits, then loads green.

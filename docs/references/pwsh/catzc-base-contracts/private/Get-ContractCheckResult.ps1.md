@@ -42,3 +42,12 @@ The asset to check.
 ```powershell
 Get-ContractCheckResult -RepositoryRoot $root -Asset $asset
 ```
+
+## comment:1
+
+Above `$schema = try {`, written with `#`.
+
+```text
+A schema says what it guarantees in its $comment, one plain sentence; with no synopsis behind it the check is form only.
+A schema that does not parse is already a finding above, so it has no $comment to judge.
+```

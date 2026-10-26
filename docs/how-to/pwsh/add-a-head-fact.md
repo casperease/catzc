@@ -78,8 +78,8 @@ the declared default. The code-locations and track-placement maps light nothing.
 
 ## Add the kind
 
-1. Add an entry under `kinds:` in `pwsh/Base.QualityGates/configs/file-meta.yml`: its keys in order, the `section` (`immutable` or
-   `edges`), and `select` by class and language, never by glob. A one-line comment above it says what the kind writes.
+1. Add an entry under `kinds:` in `pwsh/Base.QualityGates/configs/file-meta.yml`: its keys in order, the `section` (`immutable` or `edges`),
+   and `select` by class and language, never by glob. A one-line comment above it says what the kind writes.
 2. Write the processor `Get-<Kind>FileMetaFact.ps1` in the module that owns the fact. It is found by its name, so no engine changes; it
    returns exactly the keys the kind declares.
 3. Write its test beside it, with neutral fixture names, and run it:

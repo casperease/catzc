@@ -11,7 +11,8 @@ Describe 'Get-ContractDescriptionFindings' -Tag 'L0', 'logic', 'ADR-REPO-CONTRAC
 
     It 'passes a plain description that equals the stripped synopsis' {
         & $script:find @{ AssetPath = 'w/get_widget.command.yml'; Key = 'description'; Description = 'Returns the widget.'
-            Synopsis = 'Returns the [widget](widget.md) (ADR-WIDGET-RULE).' } | Should -BeNullOrEmpty
+            Synopsis = 'Returns the [widget](widget.md) (ADR-WIDGET-RULE).'
+        } | Should -BeNullOrEmpty
     }
 
     It 'passes a plain schema $comment with no synopsis to equal' {
@@ -30,7 +31,8 @@ Describe 'Get-ContractDescriptionFindings' -Tag 'L0', 'logic', 'ADR-REPO-CONTRAC
 
     It 'names a description that differs from the synopsis and writes the one it should hold' {
         & $script:find @{ AssetPath = 'w/get_widget.command.yml'; Key = 'description'; Description = 'Returns a widget.'
-            Synopsis = 'Returns the widget.' } |
+            Synopsis = 'Returns the widget.'
+        } |
             Should -Be @("'w/get_widget.command.yml': description is not the command's synopsis as plain text; write 'Returns the widget.', or change the synopsis on its comment page")
     }
 }

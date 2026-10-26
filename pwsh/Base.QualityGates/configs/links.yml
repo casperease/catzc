@@ -13,8 +13,7 @@ default_line_limit: 140
 
 string_citations:
   exempt:
-    pwsh/Base.QualityGates/tests/Format-Links.Tests.ps1:
-      its fixtures carry numbered citations the aligner leaves as written and reports
+    pwsh/Base.QualityGates/tests/Format-Links.Tests.ps1: its fixtures carry numbered citations the aligner leaves as written and reports
     pwsh/Base.QualityGates/tests/Test-Links.Tests.ps1: its fixtures carry numbered citations the gate reports as StringNumbered
     pwsh/Base.QualityGates/tests/Get-TestRuleTags.Tests.ps1: the numbered and ':' tags are the malformed tags it proves are refused
     pwsh/Base.QualityGates/tests/Get-TestTagViolations.Tests.ps1: a numbered test tag is the malformed tag it proves is reported
