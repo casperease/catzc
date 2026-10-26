@@ -292,7 +292,8 @@ domains:
       (`network.yml`), the deterministic resource-naming standard, and the landing zones. It applies the principles and design domains to
       one vendor, enforced by the `Catzc.Azure*` modules. Beside its own decisions it holds the vendor's recommendations as records: the
       Well-Architected Framework pillars in `waf/` and the Cloud Adoption Framework landing-zone design areas in `caf/`, one rule per vendor
-      item, each citing Microsoft's page and saying what the repository does about it.
+      item, each citing Microsoft's page and saying what the repository does about it. A citation reads `Source: learn <path>`, the path
+      under the one base `https://learn.microsoft.com/en-us`.
     depends_on: [research, principles, design, automation, flow, ado]
     stack: CLOUD
     concern: [deploy] # the substrate catzc deploys onto

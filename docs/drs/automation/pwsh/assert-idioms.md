@@ -93,7 +93,7 @@ function Invoke-Poetry {
         [string] $Arguments
     )
 
-    Assert-NotNullOrWhitespace $Arguments           # validate input, redundant because of Mandatory, but shown here for demo. Contract check with caller
+    Assert-NotNullOrWhitespace $Arguments           # validate input, redundant with Mandatory, shown for demo. Contract check with caller
     Assert-Command poetry                           # tool exists. Contract check with system
     Assert-ToolVersion -Tool 'Poetry'               # correct version. Contract check with system
 

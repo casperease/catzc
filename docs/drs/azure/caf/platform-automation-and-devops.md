@@ -729,8 +729,8 @@ Realised — deny effects block a non-compliant resource in production, and no p
 ```text
 CAF platform automation and DevOps — DevOps considerations, DevOps recommendations: Define your DevOps framework — recommendation 13
 Source: learn /azure/cloud-adoption-framework/ready/considerations/devops-principles-and-practices (retrieved 2026-10-15)
-Summary (ours): Start from available frameworks — the Microsoft DevOps Resource Center and the DevOps Dojo taxonomy — rather than inventing
-  one.
+Summary (ours): Start from available frameworks — the Microsoft DevOps Resource Center and the DevOps Dojo taxonomy — rather than
+  inventing one.
 ```
 
 #### What 13 means here
@@ -765,7 +765,8 @@ Realised — both pages are reviewed here, the first as rules, the second as con
 ### 15 — Plan the DevOps journey in steps
 
 ```text
-CAF platform automation and DevOps — DevOps considerations, DevOps recommendations: Plan your DevOps implementation journey — recommendation 15
+CAF platform automation and DevOps — DevOps considerations, DevOps recommendations: Plan your DevOps implementation journey
+  — recommendation 15
 Source: learn /azure/cloud-adoption-framework/ready/considerations/devops-principles-and-practices (retrieved 2026-10-15)
 Summary (ours): Assess current practices, team structure, and operating model, define the target from the adoption plan, and get there by an
   incremental roadmap.
@@ -807,7 +808,8 @@ Partly realised — the DORA metrics are the chosen measures, while collecting t
 ### 17 — Choose the toolchain deliberately
 
 ```text
-CAF platform automation and DevOps — DevOps considerations, DevOps recommendations: Define your DevOps technology ecosystem — recommendation 17
+CAF platform automation and DevOps — DevOps considerations, DevOps recommendations: Define your DevOps technology ecosystem
+  — recommendation 17
 Source: learn /azure/cloud-adoption-framework/ready/considerations/devops-principles-and-practices (retrieved 2026-10-15)
 Summary (ours): Choose tools per DevOps activity, balancing team fit against standardisation; the toolchain shapes practices, security, and
   the landing zone lifecycle.

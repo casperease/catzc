@@ -9,6 +9,6 @@ Above `Describe 'Test-ManualTestPlan'`, written with `#`.
 
 ```text
 Test-ManualTestPlan over a fixture repository in $TestDrive: the repository root is mocked, and each test writes the
-test files and the plan rows it needs. Neutral fixture names
+test files and the plan checks it needs. Neutral fixture names
 ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```

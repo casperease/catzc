@@ -15,7 +15,7 @@ Describe 'Manual test plan covers every integrity check' -Tag 'L1', 'integrity',
         $result.Facts['IntegrityBlocks'] | Should -BeGreaterThan 30
     }
 
-    It 'every integrity block has exactly one index row (matched on file + block name)' {
+    It 'every integrity block has exactly one check section (matched on file + block name)' {
         $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")
     }
 }

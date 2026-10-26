@@ -48,13 +48,15 @@ const PARTS = "js/catzc-track-lamps/*.js";
 // on a save of that file or of a part beside it it disposes the running engine and starts the new one with the same remembered state,
 // without an install or a window reload. A package change (new commands, icons, menu entries) still takes a reinstall and a reload.
 // Outside this repository, or when the repository's engine fails to load, the package's own copy runs.
+/** @param {import("vscode").ExtensionContext} context */
 function activate(context) {
     const api = require("vscode");
     const root = api.workspace.workspaceFolders?.[0]?.uri.fsPath;
     const source = root ? path.join(root, ENGINE) : undefined;
-    const same = (a, b) => key(path.resolve(a)) === key(path.resolve(b));
-    if (!source || !fs.existsSync(source) || same(source, __filename)) return activateEngine(context, api);
+    const same = (/** @type {string} */ a, /** @type {string} */ b) => key(path.resolve(a)) === key(path.resolve(b));
+    if (!root || !source || !fs.existsSync(source) || same(source, __filename)) return activateEngine(context, api);
     const shellLog = api.window.createOutputChannel("Catzc track lamps (shell)");
+    /** @type {import("./host.js").EngineContext | undefined} */
     let running;
     const stop = () => {
         for (const part of running?.subscriptions ?? []) {
@@ -65,6 +67,7 @@ function activate(context) {
         running = undefined;
     };
     const start = () => {
+        /** @type {import("./host.js").EngineContext} */
         const engineContext = {
             subscriptions: [],
             workspaceState: context.workspaceState,
@@ -83,12 +86,13 @@ function activate(context) {
                 } catch {}
             }
             engineContext.subscriptions.length = 0;
-            shellLog.appendLine(`error: the repository's engine did not load, the package's copy runs instead: ${error?.stack ?? error}`);
+            shellLog.appendLine(`error: the repository's engine did not load, the package's copy runs instead: ${error instanceof Error ? error.stack : error}`);
             activateEngine(engineContext, api);
         }
         running = engineContext;
     };
     start();
+    /** @type {ReturnType<typeof setTimeout> | undefined} */
     let swap;
     const watcher = api.workspace.createFileSystemWatcher(new api.RelativePattern(root, PARTS));
     const restart = () => {

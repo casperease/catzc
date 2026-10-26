@@ -4,30 +4,33 @@ This plan lists every **integrity** check among all tests. These are the tests t
 `azure.yml`/`network.yml`/`tools.yml`/`ado.yml`/`dependencies.yml`, real templates, the module/type/function graph, checked-in binaries, and
 file & folder conventions. Logic tests (hermetic, run on mocks and fixtures) are out of scope.
 
-The checks are split by subject into category files, one per category and at most 13. Each category file has an index table followed by
-details. In the details, section _N_ corresponds to row _N_ of that file's index, and the row gives the `Test file` and `FullNameFilter` to
-paste into the single-check command.
+The checks are split by subject into category files, one per category and at most 13. Each category file has a short index followed by one
+section per check. Section _N_ is row _N_ of that file's index, and its **Test file:** line gives the test file and the block (the
+`FullNameFilter`) to paste into the single-check command; `Test-ManualTestPlan` reads those lines.
 
 The whole plan is just one command (`Test-Automation -Category Integrity -Level 2`) decomposed so a tester can run, and reason about, each
 check on its own.
 
 ## Categories
 
-| Category                                                             | Covers                                                                                    |
-| -------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
-| [Repository conventions](manual-test-plan/repository-conventions.md) | Folder, file, and naming conventions, repository paths, the git index, managed GUIDs      |
-| [C# types](manual-test-plan/csharp-types.md)                         | Shipped C# types and the committed combined assembly                                      |
-| [Configs](manual-test-plan/configs.md)                               | Config discovery, the config registry, and the shipped non-Azure configs                  |
-| [Module system](manual-test-plan/module-system.md)                   | Module and function dependency graphs, test order, profiles, asset deps, the built bundle |
-| [Tooling](manual-test-plan/tooling.md)                               | The shipped `tools.yml` and tool install machinery                                        |
-| [Azure](manual-test-plan/azure.md)                                   | The shipped Azure configs and bicep templates                                             |
-| [Pipelines and globs](manual-test-plan/pipelines-and-globs.md)       | Azure DevOps configs, the pipelines tree, and globset trigger projections                 |
-| [Static analysis](manual-test-plan/static-analysis.md)               | PSScriptAnalyzer, the formatter, and the analyzer-to-ADR map                              |
-| [Spelling and language](manual-test-plan/spelling-and-language.md)   | Spell-checking, terminology, dictionaries, and the glossary                               |
-| [DRS registry](manual-test-plan/adr-registry.md)                     | DRS rule-sets, the domain graph, the DRS index, and rule enforcers                        |
-| [Docs and links](manual-test-plan/docs-and-links.md)                 | Generated READMEs and `.gitkeep` files, Markdown lint and titles, links                   |
-| [Root config and editor](manual-test-plan/root-config-and-editor.md) | Managed root config files, the importer, `.gitignore`, and VS Code registries             |
-| [Test harness](manual-test-plan/test-harness.md)                     | The test runner, vendored Pester, fixture-identity hygiene, and this plan's drift guard   |
+- **[Repository conventions](manual-test-plan/repository-conventions.md)**: Folder, file, and naming conventions, repository paths, the git
+  index, managed GUIDs
+- **[C# types](manual-test-plan/csharp-types.md)**: Shipped C# types and the committed combined assembly
+- **[Configs](manual-test-plan/configs.md)**: Config discovery, the config registry, and the shipped non-Azure configs
+- **[Module system](manual-test-plan/module-system.md)**: Module and function dependency graphs, test order, profiles, asset deps, the built
+  bundle
+- **[Tooling](manual-test-plan/tooling.md)**: The shipped `tools.yml` and tool install machinery
+- **[Azure](manual-test-plan/azure.md)**: The shipped Azure configs and bicep templates
+- **[Pipelines and globs](manual-test-plan/pipelines-and-globs.md)**: Azure DevOps configs, the pipelines tree, and globset trigger
+  projections
+- **[Static analysis](manual-test-plan/static-analysis.md)**: PSScriptAnalyzer, the formatter, and the analyzer-to-ADR map
+- **[Spelling and language](manual-test-plan/spelling-and-language.md)**: Spell-checking, terminology, dictionaries, and the glossary
+- **[DRS registry](manual-test-plan/adr-registry.md)**: DRS rule-sets, the domain graph, the DRS index, and rule enforcers
+- **[Docs and links](manual-test-plan/docs-and-links.md)**: Generated READMEs and `.gitkeep` files, Markdown lint and titles, links
+- **[Root config and editor](manual-test-plan/root-config-and-editor.md)**: Managed root config files, the importer, `.gitignore`, and VS
+  Code registries
+- **[Test harness](manual-test-plan/test-harness.md)**: The test runner, vendored Pester, fixture-identity hygiene, and this plan's drift
+  guard
 
 ## How to run a check
 
@@ -42,8 +45,8 @@ Test-Automation -Category Integrity -Modules Catzc.Azure        # one module's i
 Test-Automation -Category Integrity -Level 2 -Output Detailed   # one line per assertion
 ```
 
-**Run one check (precise):** take the `Test file` and `FullNameFilter` from the row in its category file and hand them to the single-check
-entry point:
+**Run one check (precise):** take the test file and the block from the check's **Test file:** line in its category file and hand them to the
+single-check entry point:
 
 ```powershell
 . ./importer.ps1

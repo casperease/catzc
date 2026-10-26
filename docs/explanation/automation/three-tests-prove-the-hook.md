@@ -3,7 +3,8 @@
 ```text
 One rule bounds every agent call, three tests prove the hook at three tiers, and the exemption route is DRS-only.
 
-1  TimeoutsConfig             the limits, validated at load, defaults declared once (ADR-AUTO-FAILFAST-BOUNDEVERYWAIT, ADR-AUTO-DEFAULT-ONERESOLUTIONORDER)
+1  TimeoutsConfig             the limits, validated at load, defaults declared once (ADR-AUTO-FAILFAST-BOUNDEVERYWAIT,
+                              ADR-AUTO-DEFAULT-ONERESOLUTIONORDER)
 2  BashSafeguard.Decide       the verdict that applies the bash limits to a call (ADR-AUTO-FAILFAST-BOUNDEVERYWAIT)
 3  Assert-BashTimeout         the hook that denies a call outside them (ADR-AUTO-FAILFAST-BOUNDEVERYWAIT)
 4  BashSafeguard (L0 logic)   the verdict against fixture limits: every rule, actor and wording

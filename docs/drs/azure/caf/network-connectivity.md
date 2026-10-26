@@ -827,7 +827,8 @@ Not adopted, because no workload is global.
 
 ```text
 CAF network topology and connectivity — Plan for inbound and outbound internet connectivity — recommendation 22
-Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity
+  (retrieved 2026-10-15)
 Summary (ours): Make NAT Gateway the default for outbound internet traffic that leaves directly: it scales source network address
   translation, gives static outbound addresses, relieves port exhaustion on load balancers, firewalls, and App Service, and allows
   outbound traffic only.
@@ -865,7 +866,8 @@ Not adopted, because the planned egress path is the hub firewall, and no workloa
 
 ```text
 CAF network topology and connectivity — Plan for inbound and outbound internet connectivity — recommendation 23
-Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity
+  (retrieved 2026-10-15)
 Summary (ours): Use Azure Firewall to control outbound internet traffic, inbound traffic that is not HTTP or HTTPS, and traffic
   between networks inside Azure where that needs filtering.
 ```
@@ -905,7 +907,8 @@ Planned (follow-up) — a firewall in each hub with spoke routes to it, the egre
 
 ```text
 CAF network topology and connectivity — Plan for inbound and outbound internet connectivity — recommendation 24
-Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity
+  (retrieved 2026-10-15)
 Summary (ours): Enable the firewall's management NIC: create AzureFirewallManagementSubnet (at least /26) in advance, give it a
   public IP address, and keep gateway route propagation off on its route table.
 ```
@@ -943,7 +946,8 @@ ADR-AZ-NETWORK-NETWORKPERSUBSCRIPTION.
 
 ```text
 CAF network topology and connectivity — Plan for inbound and outbound internet connectivity — recommendation 25
-Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity
+  (retrieved 2026-10-15)
 Summary (ours): Use Azure Firewall Premium where TLS inspection, intrusion detection and prevention, URL filtering, or web categories are
   needed; Standard and Premium need the management NIC enabled when they are created, while Basic always has it.
 ```
@@ -962,7 +966,8 @@ Not adopted, because no firewall is deployed; the firewall follow-up picks the S
 
 ```text
 CAF network topology and connectivity — Plan for inbound and outbound internet connectivity — recommendation 26
-Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity
+  (retrieved 2026-10-15)
 Summary (ours): Manage the firewalls of Virtual WAN hubs and of hub virtual networks through Azure Firewall Manager.
 ```
 
@@ -979,7 +984,8 @@ Not adopted, because no firewall is deployed.
 
 ```text
 CAF network topology and connectivity — Plan for inbound and outbound internet connectivity — recommendation 27
-Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity
+  (retrieved 2026-10-15)
 Summary (ours): Where the same addresses and ranges recur in firewall rules, collect them in IP Groups and reuse them across rules,
   firewalls, regions, and subscriptions.
 ```
@@ -998,7 +1004,8 @@ Not adopted, because no firewall rule exists.
 
 ```text
 CAF network topology and connectivity — Plan for inbound and outbound internet connectivity — recommendation 28
-Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity
+  (retrieved 2026-10-15)
 Summary (ours): In user-defined routes that steer traffic to Azure platform services, use service tags as the prefixes so Azure keeps
   the addresses current; do not attach a custom route table to the firewall's management subnet, or keep a default route to the
   internet on it if one is needed.
@@ -1033,7 +1040,8 @@ Not adopted, because platform services are reached through private endpoints, no
 
 ```text
 CAF network topology and connectivity — Plan for inbound and outbound internet connectivity — recommendation 29
-Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity
+  (retrieved 2026-10-15)
 Summary (ours): Create one global Azure Firewall policy, assigned to every firewall, as the organisation's baseline security posture.
 ```
 
@@ -1050,7 +1058,8 @@ Not adopted, because no firewall is deployed to take a policy.
 
 ```text
 CAF network topology and connectivity — Plan for inbound and outbound internet connectivity — recommendation 30
-Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity
+  (retrieved 2026-10-15)
 Summary (ours): Let regional security teams own child firewall policies for regional needs, delegated through role-based access control.
 ```
 
@@ -1067,7 +1076,8 @@ Not adopted, because there is no firewall policy and every landing zone deploys 
 
 ```text
 CAF network topology and connectivity — Plan for inbound and outbound internet connectivity — recommendation 31
-Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity
+  (retrieved 2026-10-15)
 Summary (ours): Protect inbound HTTP and HTTPS traffic from the internet with a web application firewall inside the landing-zone
   virtual network.
 ```
@@ -1085,7 +1095,8 @@ Not adopted, because no workload takes inbound web traffic.
 
 ```text
 CAF network topology and connectivity — Plan for inbound and outbound internet connectivity — recommendation 32
-Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity
+  (retrieved 2026-10-15)
 Summary (ours): Protect global inbound HTTP and HTTPS traffic with Front Door and web application firewall policies, after reading the
   global routing redundancy guidance.
 ```
@@ -1103,7 +1114,8 @@ Not adopted, because no workload is global or reached from the internet.
 
 ```text
 CAF network topology and connectivity — Plan for inbound and outbound internet connectivity — recommendation 33
-Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity
+  (retrieved 2026-10-15)
 Summary (ours): When Front Door and Application Gateway protect web applications together, put the firewall policies on Front Door and
   let Application Gateway accept traffic from Front Door only.
 ```
@@ -1120,7 +1132,8 @@ Not adopted, because neither Front Door nor Application Gateway is used.
 
 ```text
 CAF network topology and connectivity — Plan for inbound and outbound internet connectivity — recommendation 34
-Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity
+  (retrieved 2026-10-15)
 Summary (ours): When partner network virtual appliances handle inbound web traffic, deploy them in the landing-zone network beside the
   applications they expose.
 ```
@@ -1138,7 +1151,8 @@ Not adopted, because no inbound appliance exists.
 
 ```text
 CAF network topology and connectivity — Plan for inbound and outbound internet connectivity — recommendation 35
-Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity
+  (retrieved 2026-10-15)
 Summary (ours): Never depend on Azure's default outbound internet access: it risks port exhaustion, is open by default, and uses
   addresses the organisation does not own and that can change.
 ```
@@ -1173,7 +1187,8 @@ Planned (follow-up) — default outbound access off on every subnet, as a secure
 
 ```text
 CAF network topology and connectivity — Plan for inbound and outbound internet connectivity — recommendation 36
-Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity
+  (retrieved 2026-10-15)
 Summary (ours): Landing zones that are not connected to the hub use NAT Gateway for outbound traffic when no firewall or appliance has
   to inspect it.
 ```
@@ -1192,7 +1207,8 @@ Not adopted, because every landing zone is connected to a hub.
 
 ```text
 CAF network topology and connectivity — Plan for inbound and outbound internet connectivity — recommendation 37
-Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity
+  (retrieved 2026-10-15)
 Summary (ours): Where the organisation uses software-as-a-service security providers for outbound protection, connect them through
   Firewall Manager.
 ```
@@ -1210,7 +1226,8 @@ Not adopted, because there is no firewall or Firewall Manager to integrate a pro
 
 ```text
 CAF network topology and connectivity — Plan for inbound and outbound internet connectivity — recommendation 38
-Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity
+  (retrieved 2026-10-15)
 Summary (ours): With partner appliances protecting traffic between networks or to and from the internet, place them in a separate
   appliance network connected to the hub in a Virtual WAN design, or in the central hub otherwise.
 ```
@@ -1229,7 +1246,8 @@ Not adopted, because the planned filtering device is Azure Firewall, not a partn
 
 ```text
 CAF network topology and connectivity — Plan for inbound and outbound internet connectivity — recommendation 39
-Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity
+  (retrieved 2026-10-15)
 Summary (ours): Expose no management port of a virtual machine to the internet: block virtual machines with public IP addresses by policy
   and reach jump hosts through Bastion.
 ```
@@ -1271,7 +1289,8 @@ address from `vm.bicep` is planned (follow-up).
 
 ```text
 CAF network topology and connectivity — Plan for inbound and outbound internet connectivity — recommendation 40
-Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity
+  (retrieved 2026-10-15)
 Summary (ours): Protect the public endpoints in virtual networks with Azure DDoS Protection plans.
 ```
 
@@ -1288,7 +1307,8 @@ Not adopted, because no network holds a public endpoint.
 
 ```text
 CAF network topology and connectivity — Plan for inbound and outbound internet connectivity — recommendation 41
-Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity
+  (retrieved 2026-10-15)
 Summary (ours): Do not rebuild on-premises perimeter network and demilitarised-zone designs in Azure; use patterns made for the cloud.
 ```
 

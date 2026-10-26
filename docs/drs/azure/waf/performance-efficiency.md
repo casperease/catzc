@@ -452,10 +452,10 @@ Not adopted, because the example workload has no flows to rate; customers are is
 ```text
 PE:10 — Optimize operational tasks
 Source: learn /azure/well-architected/performance-efficiency/optimize-operational-tasks (retrieved 2026-10-15)
-Summary (ours): Routine operations — deployments, backups, secret rotation, virus scans, index rebuilds — share resources with the workload,
-so measure their effect on performance, keep it small, and count it in the performance targets. Deploy blue-green or canary with gradual
-traffic shift and without dropping instance counts; test in-place upgrades first and schedule them off-peak; tune security tooling; and use
-incremental or platform backups and lightweight logging.
+Summary (ours): Routine operations — deployments, backups, secret rotation, virus scans, index rebuilds — share resources with the
+workload, so measure their effect on performance, keep it small, and count it in the performance targets. Deploy blue-green or canary
+with gradual traffic shift and without dropping instance counts; test in-place upgrades first and schedule them off-peak; tune security
+tooling; and use incremental or platform backups and lightweight logging.
 ```
 
 #### What PE:10 means here

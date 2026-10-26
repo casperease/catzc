@@ -11,6 +11,11 @@ const editor = () => {
     return host.vscode;
 };
 
+/**
+ * @typedef {{ subscriptions: { dispose(): unknown }[], workspaceState: import("vscode").Memento, globalState: import("vscode").Memento,
+ *   extensionPath: string, extensionUri: import("vscode").Uri }} EngineContext
+ * what the engine is activated with: the editor's extension context, or the shell's own copy of the parts it reads
+ */
 /** @typedef {Record<string, { tag?: string, extensions?: string[] }>} Languages each tagged language, its tag and extensions */
 
 // The output channel is silent while all is well: a warning or an error is always written, the narration of each step only with

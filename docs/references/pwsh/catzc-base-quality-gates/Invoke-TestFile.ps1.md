@@ -50,7 +50,8 @@ The test file(s) to run — absolute, or repository-root-relative (never resolve
 
 ### parameter `FullNameFilter`
 
-Filter to tests whose full name contains this text (wrapped in wildcards) — the manual-test-plan row's FullNameFilter column, verbatim.
+Filter to tests whose full name contains this text (wrapped in wildcards) — the block a manual-test-plan check names on its **Test file:**
+line, verbatim.
 
 ### parameter `Output`
 

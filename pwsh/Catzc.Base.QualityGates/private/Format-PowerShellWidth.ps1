@@ -86,7 +86,21 @@ function Format-PowerShellWidth {
             }
             if ($candidate) {
                 $at = $candidate.Extent.EndColumnNumber - 1
-                $break = @{ Line = $index; Head = $line.Substring(0, $at).TrimEnd(); Tail = "$indent    " + $line.Substring($at).TrimStart() }
+                # A line that already continues the one above keeps its indent; the first break of a statement indents one level.
+                $previous = if ($index -gt 0) {
+                    $lines[$index - 1].TrimEnd()
+                }
+                else {
+                    ''
+                }
+                $continued = $previous -match '(\||,|-and|-or)$'
+                $tailIndent = if ($continued) {
+                    $indent
+                }
+                else {
+                    "$indent    "
+                }
+                $break = @{ Line = $index; Head = $line.Substring(0, $at).TrimEnd(); Tail = $tailIndent + $line.Substring($at).TrimStart() }
             }
             else {
                 $null = $skipped.Add($number)
@@ -114,8 +128,8 @@ function Format-PowerShellWidth {
         param($Tokens)
         (@($Tokens | Where-Object Kind -EQ 'Comment' | ForEach-Object { $_.Text -replace '^#+', '' }) -join ' ') -split '\s+' | Where-Object { $_ }
     }
-    $sameCode = (Compare-Object (& $code $before.Tokens) (& $code $after.Tokens) -SyncWindow 0 -CaseSensitive | Measure-Object).Count -eq 0
-    $sameWords = (Compare-Object @(& $words $before.Tokens) @(& $words $after.Tokens) -SyncWindow 0 -CaseSensitive | Measure-Object).Count -eq 0
+    $sameCode = (@(& $code $before.Tokens) -join "`n") -ceq (@(& $code $after.Tokens) -join "`n")
+    $sameWords = (@(& $words $before.Tokens) -join ' ') -ceq (@(& $words $after.Tokens) -join ' ')
     if (@($after.Errors).Count -gt 0 -or -not $sameCode -or -not $sameWords) {
         return [pscustomobject]@{ Text = $Text; Changed = $false; Refused = 'a break would change the code; left as it is' }
     }

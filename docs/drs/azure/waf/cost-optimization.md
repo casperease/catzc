@@ -328,9 +328,9 @@ Not adopted, because rates and commitments are set at the billing account, above
 ```text
 CO:06 — Align usage to billing increments
 Source: learn /azure/well-architected/cost-optimization/align-usage-to-billing-increments (retrieved 2026-10-15)
-Summary (ours): Learn how each service is metered — time, requests, data transferred, storage — and shape the service choice or the usage
-  so consumption matches the meter. A short proof of concept confirms the billing assumptions for the main cost drivers before the design
-  is committed.
+Summary (ours): Learn how each service is metered — time, requests, data transferred, storage — and shape the service choice or the
+  usage so consumption matches the meter. A short proof of concept confirms the billing assumptions for the main cost drivers before the
+  design is committed.
 ```
 
 #### What CO:06 means here
@@ -403,9 +403,9 @@ Partly realised — the inventory, owners, and redeploy-based recovery exist; an
 ```text
 CO:08 — Optimize environment costs
 Source: learn /azure/well-architected/cost-optimization/optimize-environment-costs (retrieved 2026-10-15)
-Summary (ours): Spend on each environment — production, pre-production, recovery, operations — in proportion to its value and risk instead
-  of making them all alike. Non-production stays close enough to production to catch problems, with deliberate, governed reductions in
-  scale, tier, and running hours.
+Summary (ours): Spend on each environment — production, pre-production, recovery, operations — in proportion to its value and risk
+  instead of making them all alike. Non-production stays close enough to production to catch problems, with deliberate, governed reductions
+  in scale, tier, and running hours.
 ```
 
 #### What CO:08 means here

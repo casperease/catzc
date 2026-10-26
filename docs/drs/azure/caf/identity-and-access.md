@@ -486,7 +486,8 @@ storage account and a SQL database behind private endpoints).
 
 ```text
 CAF identity and access — Hybrid identity with Active Directory and Microsoft Entra ID — recommendation 1
-Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity
+  (retrieved 2026-10-14)
 Summary (ours): Record which authentication provider each application relies on, and choose the identity services from that
   inventory with the help of the identity architecture guidance.
 ```
@@ -506,7 +507,8 @@ elsewhere.
 
 ```text
 CAF identity and access — Hybrid identity with Active Directory and Microsoft Entra ID — recommendation 2
-Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity
+  (retrieved 2026-10-14)
 Summary (ours): For applications that need legacy domain protocols, prefer a new Entra Domain Services managed domain with the
   legacy protocols turned off over extending an on-premises domain that keeps them on.
 ```
@@ -524,7 +526,8 @@ private endpoints. A managed directory becomes a question with the first workloa
 
 ```text
 CAF identity and access — Hybrid identity with Active Directory and Microsoft Entra ID — recommendation 3
-Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity
+  (retrieved 2026-10-14)
 Summary (ours): Entra ID is globally redundant, but Domain Services and self-run AD DS are not; design them for resilience,
   considering deployment to more than one region.
 ```
@@ -543,7 +546,8 @@ need a second region the network plan does not have.
 
 ```text
 CAF identity and access — Hybrid identity with Active Directory and Microsoft Entra ID — recommendation 4
-Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity
+  (retrieved 2026-10-14)
 Summary (ours): When extending on-premises AD DS into Azure, define each Azure region as an AD site with subnet objects for its
   address ranges, so clients authenticate against directory servers in their own region.
 ```
@@ -562,7 +566,8 @@ of `pwsh/Catzc.Azure/configs/network.yml`, the one home of every address
 
 ```text
 CAF identity and access — Hybrid identity with Active Directory and Microsoft Entra ID — recommendation 5
-Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity
+  (retrieved 2026-10-14)
 Summary (ours): For access by guests, customers, or partners, decide between Entra B2B collaboration and Entra External ID.
 ```
 
@@ -579,7 +584,8 @@ an audience outside the tenant, and inviting guests is a directory operation.
 
 ```text
 CAF identity and access — Hybrid identity with Active Directory and Microsoft Entra ID — recommendation 6
-Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity
+  (retrieved 2026-10-14)
 Summary (ours): Do not route internal (intranet) access through Entra application proxy, because it adds latency.
 ```
 
@@ -596,7 +602,8 @@ endpoints ([ADR-AZ-LZ-WORKLOADOWNSNONE](../landing-zones.md#rule-adr-az-lz-workl
 
 ```text
 CAF identity and access — Hybrid identity with Active Directory and Microsoft Entra ID — recommendation 7
-Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity
+  (retrieved 2026-10-14)
 Summary (ours): When Entra Connect is the synchronisation tool, keep a staging server in a second region for recovery, or spread
   it across availability zones when there is only one region.
 ```
@@ -613,7 +620,8 @@ Synchronisation runs between an on-premises directory and the tenant; the reposi
 
 ```text
 CAF identity and access — Hybrid identity with Active Directory and Microsoft Entra ID — recommendation 8
-Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity
+  (retrieved 2026-10-14)
 Summary (ours): When Entra Cloud Sync is the synchronisation tool, install at least three agents on separate servers spread over
   regions or availability zones.
 ```
@@ -630,7 +638,8 @@ As rule 7: there is no directory to synchronise.
 
 ```text
 CAF identity and access — Hybrid identity with Active Directory and Microsoft Entra ID — recommendation 9
-Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity
+  (retrieved 2026-10-14)
 Summary (ours): Pick the synchronisation tool that fits the requirements, Entra Connect or Entra Cloud Sync.
 ```
 
@@ -646,7 +655,8 @@ As rule 7: there is no directory to synchronise, so there is no tool to choose.
 
 ```text
 CAF identity and access — Hybrid identity with Active Directory and Microsoft Entra ID — recommendation 10
-Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity
+  (retrieved 2026-10-14)
 Summary (ours): When AD FS is a requirement, deploy it in Azure by following Microsoft's AD FS deployment guide.
 ```
 
@@ -663,7 +673,8 @@ FS.
 
 ```text
 CAF identity and access — Hybrid identity with Active Directory and Microsoft Entra ID — recommendation 11
-Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity
+  (retrieved 2026-10-14)
 Summary (ours): When AD FS federates with Entra ID, keep password hash synchronisation as a fallback; Microsoft also advises
   moving off AD FS to Entra ID authentication unless AD FS is truly needed.
 ```
@@ -680,7 +691,8 @@ As rule 10: there is no AD FS, so the end state Microsoft advises, Entra ID auth
 
 ```text
 CAF identity and access — Hybrid identity with Active Directory and Microsoft Entra ID — recommendation 12
-Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity
+  (retrieved 2026-10-14)
 Summary (ours): Publish web applications that use on-premises authentication to remote users through Entra application proxy,
   with no VPN; it is one instance for the whole tenant, so application owners and the identity team configure it together.
 ```
@@ -698,7 +710,8 @@ administrators would run.
 
 ```text
 CAF identity and access — Hybrid identity with Active Directory and Microsoft Entra ID — recommendation 13
-Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity
+  (retrieved 2026-10-14)
 Summary (ours): Check each workload against both AD DS on Windows Server and Entra Domain Services before choosing one.
 ```
 
@@ -714,7 +727,8 @@ The workload of `expedition` is two platform services that need no directory bey
 
 ```text
 CAF identity and access — Hybrid identity with Active Directory and Microsoft Entra ID — recommendation 14
-Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity
+  (retrieved 2026-10-14)
 Summary (ours): Deploy domain controller virtual machines or Domain Services replica sets into the identity platform
   subscription, under the platform management group.
 ```
@@ -733,7 +747,8 @@ subscription, because no template deploys an identity resource, and there is no 
 
 ```text
 CAF identity and access — Hybrid identity with Active Directory and Microsoft Entra ID — recommendation 15
-Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity
+  (retrieved 2026-10-14)
 Summary (ours): Put the domain controllers in their own subnet behind a network security group, with no direct path to the
   internet, and route to that subnet only from applications that need identity services.
 ```
@@ -752,7 +767,8 @@ plan, its own network security group denying inbound internet traffic ([ADR-AZ-W
 
 ```text
 CAF identity and access — Hybrid identity with Active Directory and Microsoft Entra ID — recommendation 16
-Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity
+  (retrieved 2026-10-14)
 Summary (ours): Use Azure Virtual Network Manager network groups, filled by policy or by tags, so that only the virtual networks
   that need AD services can reach the domain controller subnet.
 ```
@@ -770,7 +786,8 @@ There is no directory subnet to reach. The repository declares peering staticall
 
 ```text
 CAF identity and access — Hybrid identity with Active Directory and Microsoft Entra ID — recommendation 17
-Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity
+  (retrieved 2026-10-14)
 Summary (ours): Control-plane roles such as Contributor or Virtual Machine Contributor can run commands on domain controllers;
   limit who holds them in the identity subscription and keep broad roles from being inherited from above.
 ```
@@ -788,7 +805,8 @@ returns with the first template that deploys one.
 
 ```text
 CAF identity and access — Hybrid identity with Active Directory and Microsoft Entra ID — recommendation 18
-Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity
+  (retrieved 2026-10-14)
 Summary (ours): When Azure Arc manages on-premises domain controllers or identity servers, keep their Arc resources in the
   identity subscription under the same strict access.
 ```
@@ -805,7 +823,8 @@ The repository manages no server outside Azure, through Arc or otherwise.
 
 ```text
 CAF identity and access — Hybrid identity with Active Directory and Microsoft Entra ID — recommendation 19
-Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity
+  (retrieved 2026-10-14)
 Summary (ours): Keep core applications in or near the region of the Domain Services replica sets; deploy Domain Services in the
   core platform's region and extend it with up to four more replica sets in peered virtual networks of one subscription.
 ```
@@ -822,7 +841,8 @@ No template deploys a managed directory, so there is no replica set to place app
 
 ```text
 CAF identity and access — Hybrid identity with Active Directory and Microsoft Entra ID — recommendation 20
-Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity
+  (retrieved 2026-10-14)
 Summary (ours): Spread AD DS domain controllers over several regions and availability zones, or availability sets, for resilience.
 ```
 
@@ -839,7 +859,8 @@ database ([ADR-AZ-LZ-EVERYPILLAR](../landing-zones.md#rule-adr-az-lz-everypillar
 
 ```text
 CAF identity and access — Hybrid identity with Active Directory and Microsoft Entra ID — recommendation 21
-Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity
+  (retrieved 2026-10-14)
 Summary (ours): Weigh the Entra ID authentication methods (cloud only, hybrid, or on-premises) as part of identity planning.
 ```
 
@@ -857,7 +878,8 @@ pipeline through its service connection, and both are verified against `azure.ym
 
 ```text
 CAF identity and access — Hybrid identity with Active Directory and Microsoft Entra ID — recommendation 22
-Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity
+  (retrieved 2026-10-14)
 Summary (ours): For Kerberos access to Azure Files, use Entra Kerberos rather than deploying domain controllers in the cloud.
 ```
 

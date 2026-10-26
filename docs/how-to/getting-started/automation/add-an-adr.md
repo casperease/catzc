@@ -28,7 +28,8 @@ script is needed:
 ```powershell
 pwsh -NoProfile -File pwsh/.internal/assets/Invoke-CatzcCommand.ps1 "Build-DrsIndex" "Build-Glossary"
 pwsh -NoProfile -File pwsh/.internal/assets/Invoke-CatzcCommand.ps1 "Format-Code -Path docs/drs/<domain-folder>/<kebab-title>.md"
-pwsh -NoProfile -File pwsh/.internal/assets/Invoke-CatzcCommand.ps1 "Test-DrsRegistry" "Test-Glossary" "Test-Links -Path docs/drs/<domain-folder>"
+pwsh -NoProfile -File pwsh/.internal/assets/Invoke-CatzcCommand.ps1 "Test-DrsRegistry" "Test-Glossary" `
+    "Test-Links -Path docs/drs/<domain-folder>"
 ```
 
 `Test-DrsRegistry` holds the page against `drs.yml`, the code grammar and the domain's `dora-explains.md`; `Test-Glossary` holds the terms

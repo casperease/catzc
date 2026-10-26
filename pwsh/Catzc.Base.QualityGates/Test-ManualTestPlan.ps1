@@ -76,22 +76,52 @@ function Test-ManualTestPlan {
     if ($categoryFiles.Count -gt $maxCategories) {
         $issues.Add("${planRelative}/: $($categoryFiles.Count) category files, at most $maxCategories — merge categories")
     }
-    $rows = @(foreach ($categoryFile in $categoryFiles) {
-            [System.IO.File]::ReadAllText($categoryFile) -split '\r?\n' |
-                Where-Object { $_.TrimStart().StartsWith('|') -and $_ -match '\.Tests\.ps1' }
-        })
-
-    foreach ($block in $blocks) {
-        $matched = @($rows | Where-Object { $_.Contains($block.File) -and $_.Contains($block.Block) })
-        if ($matched.Count -eq 0) {
-            $issues.Add("$($block.File) :: $($block.Block): no manual-test-plan row — add one (or remove the integrity tag)")
+    # One check per "### N." section: its heading and its "**Test file:**" paragraph, which names the test file and the block; the formatter
+    # wraps a long paragraph, so it runs to the next blank line.
+    $checks = [System.Collections.Generic.List[string]]::new()
+    foreach ($categoryFile in $categoryFiles) {
+        $categoryRelative = $categoryFile.Substring($repositoryRoot.Length + 1) -replace '\\', '/'
+        $heading = $null
+        $fileLine = $null
+        $inFileLine = $false
+        foreach ($line in @([System.IO.File]::ReadAllText($categoryFile) -split '\r?\n') + '## ') {
+            if (-not ($line.StartsWith('## ') -or $line.StartsWith('### '))) {
+                if ($inFileLine -and $line.Trim()) {
+                    $fileLine = "$fileLine $($line.Trim())"
+                    continue
+                }
+                $inFileLine = $false
+                if ($heading -and -not $fileLine -and $line.StartsWith('**Test file:**')) {
+                    $fileLine = $line
+                    $inFileLine = $true
+                }
+                continue
+            }
+            $inFileLine = $false
+            if ($heading) {
+                if ($fileLine) {
+                    $checks.Add("$heading $fileLine")
+                }
+                else {
+                    $issues.Add("${categoryRelative}: section '$heading' has no **Test file:** line naming its test file and block")
+                }
+            }
+            $heading = if ($line -match '^### \d+\. ') { $line } else { $null }
+            $fileLine = $null
         }
     }
-    if ($rows.Count -ne $blocks.Count) {
-        $issues.Add("${planRelative}: $($rows.Count) index rows for $($blocks.Count) integrity blocks — a stale or duplicate row, or a renamed or removed block")
+
+    foreach ($block in $blocks) {
+        $matched = @($checks | Where-Object { $_.Contains($block.File) -and $_.Contains($block.Block) })
+        if ($matched.Count -eq 0) {
+            $issues.Add("$($block.File) :: $($block.Block): no manual-test-plan check — add one (or remove the integrity tag)")
+        }
+    }
+    if ($checks.Count -ne $blocks.Count) {
+        $issues.Add("${planRelative}: $($checks.Count) checks for $($blocks.Count) integrity blocks — a stale or duplicate check, or a renamed or removed block")
     }
 
     Write-QualityGateReport -Subject 'manual-test-plan' -Title 'Test-ManualTestPlan' -Issues $issues `
-        -Facts ([ordered]@{ IntegrityBlocks = $blocks.Count; PlanRows = $rows.Count; CategoryFiles = $categoryFiles.Count }) `
+        -Facts ([ordered]@{ IntegrityBlocks = $blocks.Count; PlanChecks = $checks.Count; CategoryFiles = $categoryFiles.Count }) `
         -OutputFolder $OutputFolder -PassThru:$PassThru
 }

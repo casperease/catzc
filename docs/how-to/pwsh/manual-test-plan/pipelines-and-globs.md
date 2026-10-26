@@ -5,25 +5,41 @@ The Azure DevOps configs, the ado pipelines tree, and the globset projections th
 
 ## Index
 
-| #   | Tier | Test file                                                                           | FullNameFilter                                             | Guards                                                                                                                                                                                                                                           |
-| --- | ---- | ----------------------------------------------------------------------------------- | ---------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| 1   | L0   | pwsh/Catzc.Azure.DevOps/tests/Get-AdoYamlFiles.Tests.ps1                            | scanning real repo YAML                                    | The repo's ADO YAML is discoverable, parseable, and classifiable.                                                                                                                                                                                |
-| 2   | L0   | pwsh/Catzc.Azure.DevOps/tests/types/AdoConfig.Tests.ps1                             | passes for the shipped ado.yml                             | The shipped `ado.yml` loads through `AdoConfig`.                                                                                                                                                                                                 |
-| 3   | L0   | pwsh/Catzc.Azure.DevOps/tests/Get-AdoYamlFiles.Tests.ps1                            | excludes .git directory by default                         | The `.git` directory is excluded from YAML discovery.                                                                                                                                                                                            |
-| 4   | L0   | pwsh/Catzc.Azure.DevOps.BuildValidation/tests/types/BuildValidationConfig.Tests.ps1 | Shipped build-validation config integrity                  | The shipped build-validation.yml loads through `BuildValidationConfig` (a guarded branch plus well-formed validation entries), and every entry ties to a declared globset that resolves a pipeline.                                              |
-| 5   | L1   | pwsh/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1                              | Test-Pipelines — real .ado/pipelines/ tree                 | The shipped .ado/pipelines/ tree satisfies the naming-and-placement contract (ADR-ADO-NAME): valid type prefixes, flat placement, per-kind template folders, the .yaml extension, and absolute template references.                              |
-| 6   | L2   | pwsh/Catzc.Base.Globs/tests/PipelineTrigger-Integrity.Tests.ps1                     | ADO pipeline trigger globs match the globset projection    | `Test-AdoPipelineTriggerGlob` reports 0 issues: every pipeline-bound globset's ADO pipeline exists and declares exactly the trigger path filters its projection computes — a `paths:` filter hand-edited out of sync with globs.yml fails.       |
-| 7   | L2   | pwsh/Catzc.Base.Globs/tests/GlobSet-Independence.Tests.ps1                          | GlobSet independence                                       | `Test-GlobSetIndependence` reports 0 issues: within each layer, no two globsets select a common file on their own contribution (FDR-CD-GLOBS-NOOVERLAPWITHINLAYER); the loose-fileset layer is exempt.                                           |
-| 8   | L2   | pwsh/Catzc.Base.Globs/tests/GlobSetTrigger-Coverage.Tests.ps1                       | Native-trigger projection coverage                         | `Test-GlobSetTriggerCoverage` reports 0 issues: over the real tree, every member of a pipeline-bound globset matches at least one ADO include pattern — an include-only trigger is a safe superset that can never under-trigger (miss a deploy). |
-| 9   | L2   | pwsh/Catzc.Base.Globs/tests/PipelineTrigger-Integrity.Tests.ps1                     | GitHub workflow trigger globs match the globset projection | `Test-GitHubWorkflowTriggerGlob` reports 0 issues: the GitHub CI workflow (`.github/workflows/ci-pwsh.yml`) triggers on exactly the pwsh globset's native projection — a drifted `paths:` filter fails.                                          |
-| 10  | L0   | pwsh/Catzc.Azure.DevOps/tests/types/PipelineEnvConfig.Tests.ps1                     | integrity (shipped config)                                 | The shipped `pipeline-env.yml` loads through `PipelineEnvConfig`: a unique list of environment variable names for the pipeline diagnostic.                                                                                                       |
-| 11  | L0   | pwsh/Catzc.Azure.DevOps/tests/types/EnvironmentApprovalsConfig.Tests.ps1            | integrity (shipped config)                                 | The shipped `environment-approvals.yml` loads through `EnvironmentApprovalsConfig`: the approver group, the timeout and the prod-tier environments that `Sync-AdoEnvironmentApprovals` applies.                                                  |
-| 12  | L2   | pwsh/Catzc.Base.Globs/tests/Get-ModuleGlobSet.Repository.Tests.ps1                  | Repository unit aspects (every laid-out unit)              | Every laid-out unit derives a tests set that claims at least one tracked file, and `tests_optional` names only units that have one.                                                                                                              |
-| 13  | L1   | pwsh/Catzc.Base.Globs/tests/Get-RepositoryFilter.Tests.ps1                          | Get-RepositoryFilter — the real repository                 | The shipped repository filters resolve over the real tree, each to the include and exclude sets it claims by.                                                                                                                                    |
+| #   | Tier | Check                                                            |
+| --- | ---- | ---------------------------------------------------------------- |
+| 1   | L0   | [scanning real repo YAML][c1]                                    |
+| 2   | L0   | [passes for the shipped ado.yml][c2]                             |
+| 3   | L0   | [excludes .git directory by default][c3]                         |
+| 4   | L0   | [Shipped build-validation config integrity][c4]                  |
+| 5   | L1   | [Test-Pipelines — real .ado/pipelines/ tree][c5]                 |
+| 6   | L2   | [ADO pipeline trigger globs match the globset projection][c6]    |
+| 7   | L2   | [GlobSet independence][c7]                                       |
+| 8   | L2   | [Native-trigger projection coverage][c8]                         |
+| 9   | L2   | [GitHub workflow trigger globs match the globset projection][c9] |
+| 10  | L0   | [integrity (shipped config)][c10]                                |
+| 11  | L0   | [integrity (shipped config)][c11]                                |
+| 12  | L2   | [Repository unit aspects (every laid-out unit)][c12]             |
+| 13  | L1   | [Get-RepositoryFilter — the real repository][c13]                |
+
+[c1]: #1-scanning-real-repo-yaml
+[c2]: #2-passes-for-the-shipped-adoyml
+[c3]: #3-excludes-git-directory-by-default
+[c4]: #4-shipped-build-validation-config-integrity
+[c5]: #5-test-pipelines--real-adopipelines-tree
+[c6]: #6-ado-pipeline-trigger-globs-match-the-globset-projection
+[c7]: #7-globset-independence
+[c8]: #8-native-trigger-projection-coverage
+[c9]: #9-github-workflow-trigger-globs-match-the-globset-projection
+[c10]: #10-integrity-shipped-config
+[c11]: #11-integrity-shipped-config
+[c12]: #12-repository-unit-aspects-every-laid-out-unit
+[c13]: #13-get-repositoryfilter--the-real-repository
 
 ## Checks
 
 ### 1. scanning real repo YAML
+
+**Test file:** `pwsh/Catzc.Azure.DevOps/tests/Get-AdoYamlFiles.Tests.ps1` (L0), block `scanning real repo YAML`.
 
 **Guards:** the repo's Azure Pipelines YAML is discoverable and parseable.
 
@@ -34,6 +50,8 @@ The Azure DevOps configs, the ado pipelines tree, and the globset projections th
 
 ### 2. passes for the shipped ado.yml
 
+**Test file:** `pwsh/Catzc.Azure.DevOps/tests/types/AdoConfig.Tests.ps1` (L0), block `passes for the shipped ado.yml`.
+
 **Guards:** the shipped `ado.yml` is valid.
 
 **Checks:**
@@ -42,8 +60,83 @@ The Azure DevOps configs, the ado pipelines tree, and the globset projections th
 
 ### 3. excludes .git directory by default
 
+**Test file:** `pwsh/Catzc.Azure.DevOps/tests/Get-AdoYamlFiles.Tests.ps1` (L0), block `excludes .git directory by default`.
+
 **Guards:** the `.git` directory is excluded from YAML discovery.
 
 **Checks:**
 
 - `Get-AdoYamlFiles -Path <repo>` returns no file under `.git/`.
+
+### 4. Shipped build-validation config integrity
+
+**Test file:** `pwsh/Catzc.Azure.DevOps.BuildValidation/tests/types/BuildValidationConfig.Tests.ps1` (L0), block
+`Shipped build-validation config integrity`.
+
+**Guards:** The shipped build-validation.yml loads through `BuildValidationConfig` (a guarded branch plus well-formed validation entries),
+and every entry ties to a declared globset that resolves a pipeline.
+
+### 5. Test-Pipelines — real .ado/pipelines/ tree
+
+**Test file:** `pwsh/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1` (L1), block `Test-Pipelines — real .ado/pipelines/ tree`.
+
+**Guards:** The shipped .ado/pipelines/ tree satisfies the naming-and-placement contract (ADR-ADO-NAME): valid type prefixes, flat
+placement, per-kind template folders, the .yaml extension, and absolute template references.
+
+### 6. ADO pipeline trigger globs match the globset projection
+
+**Test file:** `pwsh/Catzc.Base.Globs/tests/PipelineTrigger-Integrity.Tests.ps1` (L2), block
+`ADO pipeline trigger globs match the globset projection`.
+
+**Guards:** `Test-AdoPipelineTriggerGlob` reports 0 issues: every pipeline-bound globset's ADO pipeline exists and declares exactly the
+trigger path filters its projection computes — a `paths:` filter hand-edited out of sync with globs.yml fails.
+
+### 7. GlobSet independence
+
+**Test file:** `pwsh/Catzc.Base.Globs/tests/GlobSet-Independence.Tests.ps1` (L2), block `GlobSet independence`.
+
+**Guards:** `Test-GlobSetIndependence` reports 0 issues: within each layer, no two globsets select a common file on their own contribution
+(FDR-CD-GLOBS-NOOVERLAPWITHINLAYER); the loose-fileset layer is exempt.
+
+### 8. Native-trigger projection coverage
+
+**Test file:** `pwsh/Catzc.Base.Globs/tests/GlobSetTrigger-Coverage.Tests.ps1` (L2), block `Native-trigger projection coverage`.
+
+**Guards:** `Test-GlobSetTriggerCoverage` reports 0 issues: over the real tree, every member of a pipeline-bound globset matches at least
+one ADO include pattern — an include-only trigger is a safe superset that can never under-trigger (miss a deploy).
+
+### 9. GitHub workflow trigger globs match the globset projection
+
+**Test file:** `pwsh/Catzc.Base.Globs/tests/PipelineTrigger-Integrity.Tests.ps1` (L2), block
+`GitHub workflow trigger globs match the globset projection`.
+
+**Guards:** `Test-GitHubWorkflowTriggerGlob` reports 0 issues: the GitHub CI workflow (`.github/workflows/ci-pwsh.yml`) triggers on exactly
+the pwsh globset's native projection — a drifted `paths:` filter fails.
+
+### 10. integrity (shipped config)
+
+**Test file:** `pwsh/Catzc.Azure.DevOps/tests/types/PipelineEnvConfig.Tests.ps1` (L0), block `integrity (shipped config)`.
+
+**Guards:** The shipped `pipeline-env.yml` loads through `PipelineEnvConfig`: a unique list of environment variable names for the pipeline
+diagnostic.
+
+### 11. integrity (shipped config)
+
+**Test file:** `pwsh/Catzc.Azure.DevOps/tests/types/EnvironmentApprovalsConfig.Tests.ps1` (L0), block `integrity (shipped config)`.
+
+**Guards:** The shipped `environment-approvals.yml` loads through `EnvironmentApprovalsConfig`: the approver group, the timeout and the
+prod-tier environments that `Sync-AdoEnvironmentApprovals` applies.
+
+### 12. Repository unit aspects (every laid-out unit)
+
+**Test file:** `pwsh/Catzc.Base.Globs/tests/Get-ModuleGlobSet.Repository.Tests.ps1` (L2), block
+`Repository unit aspects (every laid-out unit)`.
+
+**Guards:** Every laid-out unit derives a tests set that claims at least one tracked file, and `tests_optional` names only units that have
+one.
+
+### 13. Get-RepositoryFilter — the real repository
+
+**Test file:** `pwsh/Catzc.Base.Globs/tests/Get-RepositoryFilter.Tests.ps1` (L1), block `Get-RepositoryFilter — the real repository`.
+
+**Guards:** The shipped repository filters resolve over the real tree, each to the include and exclude sets it claims by.

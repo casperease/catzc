@@ -454,7 +454,8 @@ Not adopted, because there is no on-premises system to forward to.
 
 ```text
 CAF management — Business continuity and disaster recovery, Design recommendations — recommendation 9
-Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/management-business-continuity-disaster-recovery (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/management-business-continuity-disaster-recovery
+  (retrieved 2026-10-15)
 Summary (ours): Use Azure Site Recovery to replicate virtual machines to another region, for low recovery point and time objectives and
   drills that do not disrupt production, with policy to enable and audit the replication.
 ```
@@ -474,7 +475,8 @@ Not adopted, because no virtual machine is deployed and there is no second regio
 
 ```text
 CAF management — Business continuity and disaster recovery, Design recommendations — recommendation 10
-Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/management-business-continuity-disaster-recovery (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/management-business-continuity-disaster-recovery
+  (retrieved 2026-10-15)
 Summary (ours): Rely on the replication and failover that platform services provide themselves, with Azure Policy to audit and enforce
   their configuration.
 ```
@@ -510,7 +512,8 @@ build-time check is planned (follow-up).
 
 ```text
 CAF management — Business continuity and disaster recovery, Design recommendations — recommendation 11
-Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/management-business-continuity-disaster-recovery (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/management-business-continuity-disaster-recovery
+  (retrieved 2026-10-15)
 Summary (ours): Back up with Azure Backup and the backup features built into platform services rather than third-party tools, with
   policy to enforce the backup configuration.
 ```
@@ -544,7 +547,8 @@ Partly realised — native backups with per-class retention; a policy that enfor
 
 ```text
 CAF management — Business continuity and disaster recovery, Design recommendations — recommendation 12
-Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/management-business-continuity-disaster-recovery (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/management-business-continuity-disaster-recovery
+  (retrieved 2026-10-15)
 Summary (ours): Connect to on-premises over ExpressRoute from several regions and peering locations, so the link survives a regional or
   provider outage.
 ```
@@ -564,7 +568,8 @@ Not adopted, because there is no hybrid connectivity to make redundant.
 
 ```text
 CAF management — Business continuity and disaster recovery, Design recommendations — recommendation 13
-Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/management-business-continuity-disaster-recovery (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/management-business-continuity-disaster-recovery
+  (retrieved 2026-10-15)
 Summary (ours): Give production and recovery networks address ranges that do not overlap, so a failover needs no re-addressing and every
   site can be connected at once.
 ```

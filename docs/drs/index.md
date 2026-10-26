@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "7249bc7b469d"
+    with_body_sha: "561650007412"
     warning: "Do Not Edit, this file is generated"
 ---
 
@@ -291,8 +291,8 @@ per-template configuration tree under `infrastructure/templates/`, the customer 
 (`network.yml`), the deterministic resource-naming standard, and the landing zones. It applies the principles and design domains to one
 vendor, enforced by the `Catzc.Azure*` modules. Beside its own decisions it holds the vendor's recommendations as records: the
 Well-Architected Framework pillars in `waf/` and the Cloud Adoption Framework landing-zone design areas in `caf/`, one rule per vendor item,
-each citing Microsoft's page and saying what the repository does about it. A citation reads `Source: learn <path>`, the path under the
-one base `https://learn.microsoft.com/en-us`.
+each citing Microsoft's page and saying what the repository does about it. A citation reads `Source: learn <path>`, the path under the one
+base `https://learn.microsoft.com/en-us`.
 
 **Role:** `implementation` — **depends on:** `research`, `principles`, `design`, `automation`, `flow`, `ado`.
 

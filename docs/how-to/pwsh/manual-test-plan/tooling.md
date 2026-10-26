@@ -5,22 +5,35 @@ check.
 
 ## Index
 
-| #   | Tier | Test file                                                              | FullNameFilter                                        | Guards                                                                                                                                           |
-| --- | ---- | ---------------------------------------------------------------------- | ----------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| 1   | L0   | pwsh/Catzc.Base.Execution/tests/types/ToolsConfig.Tests.ps1            | integrity (shipped tools.yml)                         | The shipped `tools.yml` constructs a `ToolsConfig` (snake_case keys).                                                                            |
-| 2   | L0   | pwsh/Catzc.Tooling.Core/tests/Get-ToolInstallOrder.Tests.ps1           | shipped tools.yml (generic invariant)                 | The `tools.yml` dependency graph is acyclic and install order is valid.                                                                          |
-| 3   | L0   | pwsh/Catzc.Tooling.Core/tests/Get-ToolConfig.Tests.ps1                 | asset dependencies                                    | Required tooling asset files are present.                                                                                                        |
-| 4   | L0   | pwsh/Catzc.Tooling.Core/tests/Get-ToolConfig.Tests.ps1                 | structural validation                                 | Every `tools.yml` entry has required fields and a valid install method.                                                                          |
-| 5   | L0   | pwsh/Catzc.Tooling.Core/tests/Get-ToolConfig.Tests.ps1                 | Install/Uninstall function coverage                   | Every tool has matching `Install-*` and `Uninstall-*` functions.                                                                                 |
-| 6   | L1   | pwsh/Catzc.Tooling.Toolchain/tests/Install-Dotnet.Tests.ps1            | Install-Dotnet — shipped install scripts              | The vendored .NET install scripts (dotnet-install.ps1/.sh) ship inside the loaded Toolchain module and accept the options Install-Dotnet passes. |
-| 7   | L0   | pwsh/Catzc.Base.Execution/tests/Resolve-ToolExecutable.Tests.ps1       | Resolve-ToolExecutable on the shipped bash entry      | The shipped tools.yml bash entry resolves through the executable probe and never accepts the WSL launcher (System32 or WindowsApps bash.exe).    |
-| 8   | L1   | pwsh/Catzc.Tooling.Core/tests/Get-EngineCaseTable.Tests.ps1            | Get-EngineCaseTable — every shipped engine case table | Every `tests/assets/engine-cases/*.yml` table fills every engine column (ExecutionEngines) for every case, or names why not (`n/a: <reason>`).   |
-| 9   | L1   | pwsh/Catzc.Tooling.Inspiration/tests/Get-Inspiration.Shipped.Tests.ps1 | Get-Inspiration over the shipped inspiration.yml      | The shipped `inspiration.yml` loads as `InspirationConfig`, and eac's availability matches whether its workspace root exists.                    |
-| 10  | L1   | pwsh/Catzc.Tooling.Listen/tests/Start-DocListener.Integrity.Tests.ps1  | Catzc.Tooling.Listen over the shipped configs         | The shipped `listen.yml` loads as its typed model, names only declared file kinds, and watches a folder that exists.                             |
+| #   | Tier | Check                                                       |
+| --- | ---- | ----------------------------------------------------------- |
+| 1   | L0   | [integrity (shipped tools.yml) — ToolsConfig][c1]           |
+| 2   | L0   | [shipped tools.yml (generic invariant)][c2]                 |
+| 3   | L0   | [asset dependencies][c3]                                    |
+| 4   | L0   | [structural validation][c4]                                 |
+| 5   | L0   | [Install/Uninstall function coverage][c5]                   |
+| 6   | L1   | [Asset dependencies (Toolchain)][c6]                        |
+| 7   | L0   | [Resolve-ToolExecutable on the shipped bash entry][c7]      |
+| 8   | L1   | [Get-EngineCaseTable — every shipped engine case table][c8] |
+| 9   | L1   | [Get-Inspiration over the shipped inspiration.yml][c9]      |
+| 10  | L1   | [Catzc.Tooling.Listen over the shipped configs][c10]        |
+
+[c1]: #1-integrity-shipped-toolsyml--toolsconfig
+[c2]: #2-shipped-toolsyml-generic-invariant
+[c3]: #3-asset-dependencies
+[c4]: #4-structural-validation
+[c5]: #5-installuninstall-function-coverage
+[c6]: #6-asset-dependencies-toolchain
+[c7]: #7-resolve-toolexecutable-on-the-shipped-bash-entry
+[c8]: #8-get-enginecasetable--every-shipped-engine-case-table
+[c9]: #9-get-inspiration-over-the-shipped-inspirationyml
+[c10]: #10-catzctoolinglisten-over-the-shipped-configs
 
 ## Checks
 
 ### 1. integrity (shipped tools.yml) — ToolsConfig
+
+**Test file:** `pwsh/Catzc.Base.Execution/tests/types/ToolsConfig.Tests.ps1` (L0), block `integrity (shipped tools.yml)`.
 
 **Guards:** the shipped `tools.yml` conforms to its config type.
 
@@ -29,6 +42,8 @@ check.
 - The `ToolsConfig` constructor accepts the shipped `tools.yml` (all keys snake_case).
 
 ### 2. shipped tools.yml (generic invariant)
+
+**Test file:** `pwsh/Catzc.Tooling.Core/tests/Get-ToolInstallOrder.Tests.ps1` (L0), block `shipped tools.yml (generic invariant)`.
 
 **Guards:** the `tools.yml` dependency graph is acyclic and install order is valid.
 
@@ -39,6 +54,8 @@ check.
 
 ### 3. asset dependencies
 
+**Test file:** `pwsh/Catzc.Tooling.Core/tests/Get-ToolConfig.Tests.ps1` (L0), block `asset dependencies`.
+
 **Guards:** the tooling's required asset files are present.
 
 **Checks:**
@@ -46,6 +63,8 @@ check.
 - `configs/tools.yml` and the `dotnet-install.ps1`/`.sh` scripts exist.
 
 ### 4. structural validation
+
+**Test file:** `pwsh/Catzc.Tooling.Core/tests/Get-ToolConfig.Tests.ps1` (L0), block `structural validation`.
 
 **Guards:** every `tools.yml` entry is well-formed.
 
@@ -57,6 +76,8 @@ check.
 
 ### 5. Install/Uninstall function coverage
 
+**Test file:** `pwsh/Catzc.Tooling.Core/tests/Get-ToolConfig.Tests.ps1` (L0), block `Install/Uninstall function coverage`.
+
 **Guards:** every tool has install and uninstall functions.
 
 **Checks:**
@@ -65,13 +86,34 @@ check.
 
 ### 6. Asset dependencies (Toolchain)
 
+**Test file:** `pwsh/Catzc.Tooling.Toolchain/tests/Install-Dotnet.Tests.ps1` (L1), block `Install-Dotnet — shipped install scripts`.
+
 **Guards:** the vendored .NET install scripts ship with the `Catzc.Tooling.Toolchain` module.
 
 **Checks:**
 
 - `dotnet-install.ps1` and `dotnet-install.sh` exist under `Catzc.Tooling.Toolchain/assets/scripts/`.
 
+### 7. Resolve-ToolExecutable on the shipped bash entry
+
+**Test file:** `pwsh/Catzc.Base.Execution/tests/Resolve-ToolExecutable.Tests.ps1` (L0), block
+`Resolve-ToolExecutable on the shipped bash entry`.
+
+**Guards:** The shipped tools.yml bash entry resolves through the executable probe and never accepts the WSL launcher (System32 or
+WindowsApps bash.exe).
+
+### 8. Get-EngineCaseTable — every shipped engine case table
+
+**Test file:** `pwsh/Catzc.Tooling.Core/tests/Get-EngineCaseTable.Tests.ps1` (L1), block
+`Get-EngineCaseTable — every shipped engine case table`.
+
+**Guards:** Every `tests/assets/engine-cases/*.yml` table fills every engine column (ExecutionEngines) for every case, or names why not
+(`n/a: <reason>`).
+
 ### 9. Get-Inspiration over the shipped inspiration.yml
+
+**Test file:** `pwsh/Catzc.Tooling.Inspiration/tests/Get-Inspiration.Shipped.Tests.ps1` (L1), block
+`Get-Inspiration over the shipped inspiration.yml`.
 
 **Guards:** the shipped `inspiration.yml` conforms to its config type and resolves on this machine.
 
@@ -79,3 +121,10 @@ check.
 
 - `Get-Config -Config inspiration` returns an `InspirationConfig`.
 - `Get-Inspiration -Id eac` resolves to `eac` beside the repository, and `Available` matches whether that folder exists.
+
+### 10. Catzc.Tooling.Listen over the shipped configs
+
+**Test file:** `pwsh/Catzc.Tooling.Listen/tests/Start-DocListener.Integrity.Tests.ps1` (L1), block
+`Catzc.Tooling.Listen over the shipped configs`.
+
+**Guards:** The shipped `listen.yml` loads as its typed model, names only declared file kinds, and watches a folder that exists.

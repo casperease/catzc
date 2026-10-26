@@ -420,8 +420,8 @@ RE:09 — Implement structured, tested, and documented disaster recovery (DR) pl
 Source: learn /azure/well-architected/reliability/disaster-recovery (retrieved 2026-10-15)
 Summary (ours): Write a disaster recovery plan, derived from business criticality, that says when an event counts as a disaster, who
 decides and communicates, and the ordered steps that recover components, data and the whole workload. Prepare the secondary region,
-replicate data to match the RPO, plan the return to the primary region separately, automate recovery as idempotent deployments, drill the plan regularly,
-keep it in step with the architecture, and store it where a regional outage cannot reach it.
+replicate data to match the RPO, plan the return to the primary region separately, automate recovery as idempotent deployments,
+drill the plan regularly, keep it in step with the architecture, and store it where a regional outage cannot reach it.
 ```
 
 #### What RE:09 means here

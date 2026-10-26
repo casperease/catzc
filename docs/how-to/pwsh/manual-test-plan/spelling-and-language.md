@@ -5,21 +5,55 @@ says how to run a check.
 
 ## Index
 
-| #   | Tier | Test file                                                                | FullNameFilter                                             | Guards                                                                                                                                                                                 |
-| --- | ---- | ------------------------------------------------------------------------ | ---------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1   | L1   | pwsh/Catzc.Base.QualityGates/tests/Build-EnglishDictionary.Tests.ps1     | Build-EnglishDictionary — committed dictionary drift guard | The committed English word list matches its stamp and the pinned cspell version (`Test-GeneratedFiles -Generator Build-EnglishDictionary` reports 0 issues).                           |
-| 2   | L1   | pwsh/Catzc.Base.QualityGates/tests/types/SpellingOracle.Tests.ps1        | SpellingOracle.CoinedFragments (shipped dictionary)        | The spelling oracle recognizes real words and flags coined fragments against the shipped dictionary.                                                                                   |
-| 3   | L2   | pwsh/Catzc.Base.Docs/tests/Build-Glossary.Tests.ps1                      | Build-Glossary — generated glossary page                   | The generated docs/drs/glossary.md is current: `Test-GeneratedFiles -Generator Build-Glossary` reports no drift from the modules' configs/glossary.yml sources.                        |
-| 4   | L2   | pwsh/Catzc.Base.QualityGates/tests/Test-Spelling.Tests.ps1               | Repository spelling integrity                              | All in-scope repository content passes spell-check.                                                                                                                                    |
-| 5   | L2   | pwsh/Catzc.Base.QualityGates/tests/Build-TerminologyDictionary.Tests.ps1 | Build-TerminologyDictionary — real registry                | The generated terminology dictionaries match the registry (`Test-GeneratedFiles -Generator Build-TerminologyDictionary` reports 0 issues) and are lower-cased, unique, ordinal-sorted. |
-| 6   | L2   | pwsh/Catzc.Base.QualityGates/tests/Test-Terminology.Tests.ps1            | Terminology registry integrity                             | The shipped terminology registry passes every check: no drift, no orphans, every entry justified.                                                                                      |
-| 7   | L2   | pwsh/Catzc.Base.Docs/tests/Test-Glossary.Tests.ps1                       | Test-Glossary — real glossary sources                      | At least one glossary source exists, and the real sources pass every glossary check (G1–G5) over the real ADRs, tests, and tracked files.                                              |
-| 8   | L1   | pwsh/Catzc.Base.Docs/tests/Build-Glossary.Tests.ps1                      | Build-Glossary — shipped configs/drs.yml and types         | Build-Glossary finds the domain registry and the C# type sources it stamps in the loaded module (ADR-AUTO-ASSETDEP-COVEREDBYREALTEST).                                                 |
-| 9   | L1   | pwsh/Catzc.Base.QualityGates/tests/Build-TerminologyDictionary.Tests.ps1 | Build-TerminologyDictionary — shipped configs/terminology/ | Build-TerminologyDictionary finds the registry it stamps in the loaded module (ADR-AUTO-ASSETDEP-COVEREDBYREALTEST).                                                                   |
+| #   | Tier | Check                                                            |
+| --- | ---- | ---------------------------------------------------------------- |
+| 1   | L1   | [Build-EnglishDictionary — committed dictionary drift guard][c1] |
+| 2   | L1   | [SpellingOracle.CoinedFragments (shipped dictionary)][c2]        |
+| 3   | L2   | [Build-Glossary — generated glossary page][c3]                   |
+| 4   | L2   | [Repository spelling integrity][c4]                              |
+| 5   | L2   | [Build-TerminologyDictionary — real registry][c5]                |
+| 6   | L2   | [Terminology registry integrity][c6]                             |
+| 7   | L2   | [Test-Glossary — real glossary sources][c7]                      |
+| 8   | L1   | [Build-Glossary — shipped configs/drs.yml and types][c8]         |
+| 9   | L1   | [Build-TerminologyDictionary — shipped configs/terminology/][c9] |
+
+[c1]: #1-build-englishdictionary--committed-dictionary-drift-guard
+[c2]: #2-spellingoraclecoinedfragments-shipped-dictionary
+[c3]: #3-build-glossary--generated-glossary-page
+[c4]: #4-repository-spelling-integrity
+[c5]: #5-build-terminologydictionary--real-registry
+[c6]: #6-terminology-registry-integrity
+[c7]: #7-test-glossary--real-glossary-sources
+[c8]: #8-build-glossary--shipped-configsdrsyml-and-types
+[c9]: #9-build-terminologydictionary--shipped-configsterminology
 
 ## Checks
 
+### 1. Build-EnglishDictionary — committed dictionary drift guard
+
+**Test file:** `pwsh/Catzc.Base.QualityGates/tests/Build-EnglishDictionary.Tests.ps1` (L1), block
+`Build-EnglishDictionary — committed dictionary drift guard`.
+
+**Guards:** The committed English word list matches its stamp and the pinned cspell version
+(`Test-GeneratedFiles -Generator Build-EnglishDictionary` reports 0 issues).
+
+### 2. SpellingOracle.CoinedFragments (shipped dictionary)
+
+**Test file:** `pwsh/Catzc.Base.QualityGates/tests/types/SpellingOracle.Tests.ps1` (L1), block
+`SpellingOracle.CoinedFragments (shipped dictionary)`.
+
+**Guards:** The spelling oracle recognizes real words and flags coined fragments against the shipped dictionary.
+
+### 3. Build-Glossary — generated glossary page
+
+**Test file:** `pwsh/Catzc.Base.Docs/tests/Build-Glossary.Tests.ps1` (L2), block `Build-Glossary — generated glossary page`.
+
+**Guards:** The generated docs/drs/glossary.md is current: `Test-GeneratedFiles -Generator Build-Glossary` reports no drift from the
+modules' configs/glossary.yml sources.
+
 ### 4. Repository spelling integrity
+
+**Test file:** `pwsh/Catzc.Base.QualityGates/tests/Test-Spelling.Tests.ps1` (L2), block `Repository spelling integrity`.
 
 **Guards:** all in-scope repository content is spell-clean.
 
@@ -31,6 +65,9 @@ says how to run a check.
 
 ### 5. Build-TerminologyDictionary — real registry
 
+**Test file:** `pwsh/Catzc.Base.QualityGates/tests/Build-TerminologyDictionary.Tests.ps1` (L2), block
+`Build-TerminologyDictionary — real registry`.
+
 **Guards:** the checked-in terminology dictionaries reflect the authored registry.
 
 **Checks:**
@@ -41,9 +78,32 @@ says how to run a check.
 
 ### 6. Terminology registry integrity
 
+**Test file:** `pwsh/Catzc.Base.QualityGates/tests/Test-Terminology.Tests.ps1` (L2), block `Terminology registry integrity`.
+
 **Guards:** the shipped terminology registry passes every `Test-Terminology` check.
 
 **Checks:**
 
 - `Test-Terminology` over the shipped `terminology.yml` reports 0 issues: no drift, no orphans, and every entry is justified (a category and
   a meaning, with an expansion for each abbreviation).
+
+### 7. Test-Glossary — real glossary sources
+
+**Test file:** `pwsh/Catzc.Base.Docs/tests/Test-Glossary.Tests.ps1` (L2), block `Test-Glossary — real glossary sources`.
+
+**Guards:** At least one glossary source exists, and the real sources pass every glossary check (G1–G5) over the real ADRs, tests, and
+tracked files.
+
+### 8. Build-Glossary — shipped configs/drs.yml and types
+
+**Test file:** `pwsh/Catzc.Base.Docs/tests/Build-Glossary.Tests.ps1` (L1), block `Build-Glossary — shipped configs/drs.yml and types`.
+
+**Guards:** Build-Glossary finds the domain registry and the C# type sources it stamps in the loaded module
+(ADR-AUTO-ASSETDEP-COVEREDBYREALTEST).
+
+### 9. Build-TerminologyDictionary — shipped configs/terminology/
+
+**Test file:** `pwsh/Catzc.Base.QualityGates/tests/Build-TerminologyDictionary.Tests.ps1` (L1), block
+`Build-TerminologyDictionary — shipped configs/terminology/`.
+
+**Guards:** Build-TerminologyDictionary finds the registry it stamps in the loaded module (ADR-AUTO-ASSETDEP-COVEREDBYREALTEST).

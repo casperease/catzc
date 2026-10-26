@@ -104,7 +104,8 @@ function Get-AdoAuthorizationHeader {
         $collectionUri = "$env:SYSTEM_COLLECTIONURI".TrimEnd('/')
         $org = "$((Get-Config -Config ado).organization)".TrimEnd('/')
         if ($collectionUri -and $collectionUri -ne $org) {
-            throw "Pipeline collection '$collectionUri' does not match ado.yml organization '$org' — refusing the agent token for a different org."
+            throw ("Pipeline collection '$collectionUri' does not match ado.yml organization '$org' — " +
+                'refusing the agent token for a different org.')
         }
         return @{ 'Authorization' = "Bearer $env:SYSTEM_ACCESSTOKEN" }
     }
@@ -146,7 +147,8 @@ steps:
     inputs:
       targetType: inline
       script: |
-        . './.ado/pipelines/Invoke-AdoScript.ps1' -Command '${{ parameters.RunCommand }}' -ExposeAccessToken:$${{ parameters.ExposeAccessToken }}
+        . './.ado/pipelines/Invoke-AdoScript.ps1' -Command '${{ parameters.RunCommand }}' `
+          -ExposeAccessToken:$${{ parameters.ExposeAccessToken }}
       pwsh: true
     ${{ if parameters.ExposeAccessToken }}:
       env:

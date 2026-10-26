@@ -11,8 +11,9 @@ Copy the shape of one that holds today,
 the one reader, `Get-CommandContract`:
 
 ```yaml
-# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT and ADR-REPO-CMDCONTRACT-ONEREADER): the call interface of Get-CommandContract, the one reader of command
-# contracts. RepositoryRoot defaults to the repository root, a computed default the contract does not restate.
+# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT and ADR-REPO-CMDCONTRACT-ONEREADER): the call interface of
+# Get-CommandContract, the one reader of command contracts. RepositoryRoot defaults to the repository root, a computed
+# default the contract does not restate.
 parameters:
   name: string[] = *
   module: string[] = *

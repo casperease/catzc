@@ -4,23 +4,37 @@ The shipped Azure configs and bicep templates. Part of the [manual test plan](..
 
 ## Index
 
-| #   | Tier | Test file                                                                  | FullNameFilter                                                                  | Guards                                                                                                                                                                                                 |
-| --- | ---- | -------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| 1   | L0   | pwsh/Catzc.Azure/tests/types/AzureConfig.Tests.ps1                         | integrity (shipped azure.yml)                                                   | The shipped `azure.yml` loads through `AzureConfig` (schema + cross-record validation), and its customer references resolve.                                                                           |
-| 2   | L0   | pwsh/Catzc.Azure/tests/types/NetworkConfig.Tests.ps1                       | integrity (shipped network.yml)                                                 | The shipped `network.yml` loads through `NetworkConfig`: well-formed entries with valid CIDRs.                                                                                                         |
-| 3   | L0   | pwsh/Catzc.Azure.Templates/tests/Build-Bicep.Integrity.Tests.ps1           | Shipped template integrity                                                      | Every shipped template is discoverable, well-formed, and structurally valid.                                                                                                                           |
-| 4   | L0   | pwsh/Catzc.Azure.Templates/tests/Get-Config.Integrity.Tests.ps1            | Shipped asset integrity                                                         | Templates reference only defined environments and customers.                                                                                                                                           |
-| 5   | L0   | pwsh/Catzc.Azure/tests/types/CustomerConfig.Tests.ps1                      | integrity (shipped customer.yml)                                                | The shipped customer.yml loads through `CustomerConfig` — customer keys/shortcodes are well-formed, unique, and non-colliding.                                                                         |
-| 6   | L0   | pwsh/Catzc.Azure/tests/Test-AzureNetworkPlan.Tests.ps1                     | Azure network plan sync                                                         | `Test-AzureNetworkPlan` reports 0 issues: the shipped `network.yml` and the `azure.yml` environments are in sync (ADR-AZ-NETWORK-KEYEDBYENVIRONMENT).                                                  |
-| 7   | L2   | pwsh/Catzc.Azure.Templates/tests/Get-BicepParameterModel.Shipped.Tests.ps1 | Shipped template parameter model                                                | Every shipped template's rendered parameters files satisfy its compiled parameter model (ADR-AZ-DATAMOD-PARAMETERCONTRACT); `Test-Automation -Suite infrastructure` runs it (ADR-AUTO-TEST-TESTSUITE). |
-| 8   | L1   | pwsh/Catzc.Azure.Templates/tests/Get-BicepTemplatesRoot.Tests.ps1          | Get-BicepTemplatesRoot — the real repository                                    | `Get-BicepTemplatesRoot` resolves the folder that holds the shipped templates.                                                                                                                         |
-| 9   | L2   | pwsh/Catzc.Azure.Templates/tests/types/BicepParamWriter.Tests.ps1          | BicepParamWriter — bicep format leaves the render unchanged                     | A slot rendered by `BicepParamWriter` is left unchanged by `bicep format` at the pin.                                                                                                                  |
-| 10  | L2   | pwsh/Catzc.Azure.Templates/tests/ConvertTo-BicepParam.Tests.ps1            | ConvertTo-BicepParam — every shipped yml slot renders as bicep format leaves it | Every shipped yml slot, addresses resolved, renders as `bicep format` leaves it.                                                                                                                       |
-| 11  | L2   | pwsh/Catzc.Azure.Templates/tests/Build-Bicep.Integrity.Tests.ps1           | Every slot compiles through the .bicepparam path to the same parameters         | Every yml slot compiled through `bicep build-params` holds exactly the values of its `ConvertTo-Json` parameters file.                                                                                 |
+| #   | Tier | Check                                                                                  |
+| --- | ---- | -------------------------------------------------------------------------------------- |
+| 1   | L0   | [integrity (shipped azure.yml)][c1]                                                    |
+| 2   | L0   | [integrity (shipped network.yml)][c2]                                                  |
+| 3   | L0   | [Shipped template integrity][c3]                                                       |
+| 4   | L0   | [Shipped asset integrity][c4]                                                          |
+| 5   | L0   | [integrity (shipped customer.yml)][c5]                                                 |
+| 6   | L0   | [Azure network plan sync][c6]                                                          |
+| 7   | L2   | [Shipped template parameter model][c7]                                                 |
+| 8   | L1   | [Get-BicepTemplatesRoot — the real repository][c8]                                     |
+| 9   | L2   | [BicepParamWriter — bicep format leaves the render unchanged][c9]                      |
+| 10  | L2   | [ConvertTo-BicepParam — every shipped yml slot renders as bicep format leaves it][c10] |
+| 11  | L2   | [Every slot compiles through the .bicepparam path to the same parameters][c11]         |
+
+[c1]: #1-integrity-shipped-azureyml
+[c2]: #2-integrity-shipped-networkyml
+[c3]: #3-shipped-template-integrity
+[c4]: #4-shipped-asset-integrity
+[c5]: #5-integrity-shipped-customeryml
+[c6]: #6-azure-network-plan-sync
+[c7]: #7-shipped-template-parameter-model
+[c8]: #8-get-biceptemplatesroot--the-real-repository
+[c9]: #9-bicepparamwriter--bicep-format-leaves-the-render-unchanged
+[c10]: #10-convertto-bicepparam--every-shipped-yml-slot-renders-as-bicep-format-leaves-it
+[c11]: #11-every-slot-compiles-through-the-bicepparam-path-to-the-same-parameters
 
 ## Checks
 
 ### 1. integrity (shipped azure.yml)
+
+**Test file:** `pwsh/Catzc.Azure/tests/types/AzureConfig.Tests.ps1` (L0), block `integrity (shipped azure.yml)`.
 
 **Guards:** the shipped `azure.yml` is schema-valid and internally consistent.
 
@@ -32,6 +46,8 @@ The shipped Azure configs and bicep templates. Part of the [manual test plan](..
 
 ### 2. integrity (shipped network.yml)
 
+**Test file:** `pwsh/Catzc.Azure/tests/types/NetworkConfig.Tests.ps1` (L0), block `integrity (shipped network.yml)`.
+
 **Guards:** the shipped `network.yml` is valid on its own; its sync with `azure.yml` is row 6.
 
 **Checks:**
@@ -39,6 +55,8 @@ The shipped Azure configs and bicep templates. Part of the [manual test plan](..
 - The shipped `network.yml` loads through `Get-Config` as a `NetworkConfig` (well-formed entries, valid CIDRs).
 
 ### 3. Shipped template integrity
+
+**Test file:** `pwsh/Catzc.Azure.Templates/tests/Build-Bicep.Integrity.Tests.ps1` (L0), block `Shipped template integrity`.
 
 **Guards:** every shipped bicep template is discoverable and structurally valid.
 
@@ -50,6 +68,8 @@ The shipped Azure configs and bicep templates. Part of the [manual test plan](..
 
 ### 4. Shipped asset integrity
 
+**Test file:** `pwsh/Catzc.Azure.Templates/tests/Get-Config.Integrity.Tests.ps1` (L0), block `Shipped asset integrity`.
+
 **Guards:** cross-asset referential integrity across `azure.yml`, `network.yml`, and templates.
 
 **Checks:**
@@ -57,7 +77,22 @@ The shipped Azure configs and bicep templates. Part of the [manual test plan](..
 - `azure.yml` and `network.yml` load through their config types (`AzureConfig`, `NetworkConfig`).
 - Every template slot references environments and customers defined in `azure.yml`.
 
+### 5. integrity (shipped customer.yml)
+
+**Test file:** `pwsh/Catzc.Azure/tests/types/CustomerConfig.Tests.ps1` (L0), block `integrity (shipped customer.yml)`.
+
+**Guards:** The shipped customer.yml loads through `CustomerConfig` — customer keys/shortcodes are well-formed, unique, and non-colliding.
+
+### 6. Azure network plan sync
+
+**Test file:** `pwsh/Catzc.Azure/tests/Test-AzureNetworkPlan.Tests.ps1` (L0), block `Azure network plan sync`.
+
+**Guards:** `Test-AzureNetworkPlan` reports 0 issues: the shipped `network.yml` and the `azure.yml` environments are in sync
+(ADR-AZ-NETWORK-KEYEDBYENVIRONMENT).
+
 ### 7. Shipped template parameter model
+
+**Test file:** `pwsh/Catzc.Azure.Templates/tests/Get-BicepParameterModel.Shipped.Tests.ps1` (L2), block `Shipped template parameter model`.
 
 **Guards:** every shipped template's parameters files keep the contract its compiled `main.json` declares
 (ADR-AZ-DATAMOD-PARAMETERCONTRACT).
@@ -70,3 +105,31 @@ The shipped Azure configs and bicep templates. Part of the [manual test plan](..
   `@allowed` values and bounds, and names a declared parameter; every parameter without a default is supplied; a secure parameter carries a
   well-formed Key Vault reference, never a literal.
 - It runs with `Test-Automation -Suite infrastructure`, the `infrastructure` globset's verify scope (ADR-AUTO-TEST-TESTSUITE).
+
+### 8. Get-BicepTemplatesRoot — the real repository
+
+**Test file:** `pwsh/Catzc.Azure.Templates/tests/Get-BicepTemplatesRoot.Tests.ps1` (L1), block
+`Get-BicepTemplatesRoot — the real repository`.
+
+**Guards:** `Get-BicepTemplatesRoot` resolves the folder that holds the shipped templates.
+
+### 9. BicepParamWriter — bicep format leaves the render unchanged
+
+**Test file:** `pwsh/Catzc.Azure.Templates/tests/types/BicepParamWriter.Tests.ps1` (L2), block
+`BicepParamWriter — bicep format leaves the render unchanged`.
+
+**Guards:** A slot rendered by `BicepParamWriter` is left unchanged by `bicep format` at the pin.
+
+### 10. ConvertTo-BicepParam — every shipped yml slot renders as bicep format leaves it
+
+**Test file:** `pwsh/Catzc.Azure.Templates/tests/ConvertTo-BicepParam.Tests.ps1` (L2), block
+`ConvertTo-BicepParam — every shipped yml slot renders as bicep format leaves it`.
+
+**Guards:** Every shipped yml slot, addresses resolved, renders as `bicep format` leaves it.
+
+### 11. Every slot compiles through the .bicepparam path to the same parameters
+
+**Test file:** `pwsh/Catzc.Azure.Templates/tests/Build-Bicep.Integrity.Tests.ps1` (L2), block
+`Every slot compiles through the .bicepparam path to the same parameters`.
+
+**Guards:** Every yml slot compiled through `bicep build-params` holds exactly the values of its `ConvertTo-Json` parameters file.

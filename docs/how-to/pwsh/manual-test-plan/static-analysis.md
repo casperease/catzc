@@ -5,26 +5,50 @@ a check.
 
 ## Index
 
-| #   | Tier | Test file                                                                  | FullNameFilter                                         | Guards                                                                                                                                                                                                                                  |
-| --- | ---- | -------------------------------------------------------------------------- | ------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1   | L1   | pwsh/Catzc.Base.QualityGates/tests/Get-AnalyzerDrsCoverage.Tests.ps1       | analyzer-adr-map integrity                             | `Test-AnalyzerDrsMap` reports 0 issues: every analyzer→rule mapping cites a real rule, and every custom analyzer rule is listed in analyzer-drs-map.yml.                                                                                |
-| 2   | L2   | pwsh/.internal/tests/Test-ScriptAnalyzer.Tests.ps1                         | PSScriptAnalyzer                                       | All module code passes PSScriptAnalyzer (style + custom rules).                                                                                                                                                                         |
-| 3   | L2   | pwsh/.internal/tests/Get-DynamicManifestContent.Tests.ps1                  | Get-DynamicManifestContent is formatter-stable         | Every built module manifest is byte-stable under the repo formatter (`Test-BuildArtifact -Facet Manifest` reports 0 issues).                                                                                                            |
-| 4   | L2   | pwsh/Catzc.Base.QualityGates/tests/Format-Code.Tests.ps1                   | Format-Code (real vendored analyzer and settings)      | Format-Code's PSScriptAnalyzer engine loads PSScriptAnalyzer and its settings from the active code root (`.vendor`, `.internal/assets`).                                                                                                |
-| 5   | L2   | pwsh/Catzc.Base.QualityGates/tests/Get-ScriptAnalyzerDiagnostics.Tests.ps1 | Get-ScriptAnalyzerDiagnostics (real vendored analyzer) | The analysis engine imports the vendored PSScriptAnalyzer from the active code root and reports real diagnostics.                                                                                                                       |
-| 6   | L2   | pwsh/Catzc.Base.QualityGates/tests/Test-ScriptAnalyzer.Tests.ps1           | Test-ScriptAnalyzer (real analyzer)                    | The analyzer quality gate runs the vendored PSScriptAnalyzer with the shipped settings from the active code root.                                                                                                                       |
-| 7   | L2   | pwsh/Catzc.Base.QualityGates/tests/Test-Formatting.Tests.ps1               | Repository formatting integrity                        | Every file language with a formatter in languages.yml, and the C# type namespaces, are formatted (Test-Formatting reports none).                                                                                                        |
-| 8   | L1   | pwsh/Catzc.Base.Timeouts/tests/Get-TimeoutSeconds.Repository.Tests.ps1     | TimeoutSeconds defaults come from the time safeguard   | No shipped function defaults a `-TimeoutSeconds` parameter to a number literal; long-running functions declare `[TimeLimit]` (ADR-PWSH-ASSERT-DECLAREDTIMELIMIT).                                                                       |
-| 9   | L2   | pwsh/Catzc.Base.QualityGates/tests/Test-PythonLint.Tests.ps1               | Repository Python lint integrity                       | Every Python file the repository holds — the Python tests and the agent helpers — passes the pinned `ruff check` (ADR-AUTO-PY-EVERYFILELINTED).                                                                                         |
-| 10  | L2   | pwsh/Catzc.Base.QualityGates/tests/Test-ShellScripts.Tests.ps1             | Repository shell script integrity                      | Every shell script the repository tracks is LF, carries the executable bit when it has a shebang, and passes the pinned ShellCheck (ADR-AUTO-BASH-SHELLSCRIPTSCHECKED).                                                                 |
-| 11  | L0   | pwsh/Catzc.Base.QualityGates/tests/Format-Code.Tests.ps1                   | Format-Code engines                                    | Every formatter engine languages.yml may name has its adapter, and the shipped languages.yml gives every file language a formatter or the reason it has none (PDR-CONFIG-NEWINSTANCEISCONFIGCHANGE, PDR-CONFIG-EXCEPTIONISCONFIGENTRY). |
-| 12  | L1   | pwsh/Catzc.Base.QualityGates/tests/Get-FormatEngineStamp.Tests.ps1         | The shipped format engines' keyed settings             | Each shipped format engine's keyed settings name a top-level key that exists in their file, and an engine never lists the whole tool registry again (ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS).                                        |
-| 13  | L2   | pwsh/Catzc.Base.QualityGates/tests/Test-PythonTypes.Tests.ps1              | Repository Python type integrity                       | Every Python file the repository holds passes pyright in the mode python.yml names, the one the editor runs (ADR-AUTO-PY-EVERYFILETYPECHECKED).                                                                                         |
-| 14  | L2   | pwsh/Catzc.Base.QualityGates/tests/Format-FileMeta.Tests.ps1               | Format-FileMeta on the repository                      | `Format-FileMeta` leaves a generated page's head to its generator: the page is outside the scope, so a run changes nothing (ADR-REPO-FILEMETA-HEADPOLICY).                                                                              |
+| #   | Tier | Check                                                        |
+| --- | ---- | ------------------------------------------------------------ |
+| 1   | L1   | [analyzer-adr-map integrity][c1]                             |
+| 2   | L2   | [PSScriptAnalyzer][c2]                                       |
+| 3   | L2   | [Get-DynamicManifestContent is formatter-stable][c3]         |
+| 4   | L2   | [Format-Code (real vendored analyzer and settings)][c4]      |
+| 5   | L2   | [Get-ScriptAnalyzerDiagnostics (real vendored analyzer)][c5] |
+| 6   | L2   | [Test-ScriptAnalyzer (real analyzer)][c6]                    |
+| 7   | L2   | [Repository formatting integrity][c7]                        |
+| 8   | L1   | [TimeoutSeconds defaults come from the time safeguard][c8]   |
+| 9   | L2   | [Repository Python lint integrity][c9]                       |
+| 10  | L2   | [Repository shell script integrity][c10]                     |
+| 11  | L0   | [Format-Code engines][c11]                                   |
+| 12  | L1   | [The shipped format engines' keyed settings][c12]            |
+| 13  | L2   | [Repository Python type integrity][c13]                      |
+| 14  | L2   | [Format-FileMeta on the repository][c14]                     |
+
+[c1]: #1-analyzer-adr-map-integrity
+[c2]: #2-psscriptanalyzer
+[c3]: #3-get-dynamicmanifestcontent-is-formatter-stable
+[c4]: #4-format-code-real-vendored-analyzer-and-settings
+[c5]: #5-get-scriptanalyzerdiagnostics-real-vendored-analyzer
+[c6]: #6-test-scriptanalyzer-real-analyzer
+[c7]: #7-repository-formatting-integrity
+[c8]: #8-timeoutseconds-defaults-come-from-the-time-safeguard
+[c9]: #9-repository-python-lint-integrity
+[c10]: #10-repository-shell-script-integrity
+[c11]: #11-format-code-engines
+[c12]: #12-the-shipped-format-engines-keyed-settings
+[c13]: #13-repository-python-type-integrity
+[c14]: #14-format-filemeta-on-the-repository
 
 ## Checks
 
+### 1. analyzer-adr-map integrity
+
+**Test file:** `pwsh/Catzc.Base.QualityGates/tests/Get-AnalyzerDrsCoverage.Tests.ps1` (L1), block `analyzer-adr-map integrity`.
+
+**Guards:** `Test-AnalyzerDrsMap` reports 0 issues: every analyzer→rule mapping cites a real rule, and every custom analyzer rule is listed
+in analyzer-drs-map.yml.
+
 ### 2. PSScriptAnalyzer
+
+**Test file:** `pwsh/.internal/tests/Test-ScriptAnalyzer.Tests.ps1` (L2), block `PSScriptAnalyzer`.
 
 **Guards:** all PowerShell module code meets the analyzer rule set.
 
@@ -37,6 +61,8 @@ a check.
 
 ### 3. Get-DynamicManifestContent is formatter-stable
 
+**Test file:** `pwsh/.internal/tests/Get-DynamicManifestContent.Tests.ps1` (L2), block `Get-DynamicManifestContent is formatter-stable`.
+
 **Guards:** a generated module manifest's canonical form equals what the repo formatter produces, so a published (immutable, versioned)
 manifest never churns when it is later re-formatted.
 
@@ -47,7 +73,79 @@ manifest never churns when it is later re-formatted.
 
 **Prerequisite:** PSScriptAnalyzer (vendored).
 
+### 4. Format-Code (real vendored analyzer and settings)
+
+**Test file:** `pwsh/Catzc.Base.QualityGates/tests/Format-Code.Tests.ps1` (L2), block `Format-Code (real vendored analyzer and settings)`.
+
+**Guards:** Format-Code's PSScriptAnalyzer engine loads PSScriptAnalyzer and its settings from the active code root (`.vendor`,
+`.internal/assets`).
+
+### 5. Get-ScriptAnalyzerDiagnostics (real vendored analyzer)
+
+**Test file:** `pwsh/Catzc.Base.QualityGates/tests/Get-ScriptAnalyzerDiagnostics.Tests.ps1` (L2), block
+`Get-ScriptAnalyzerDiagnostics (real vendored analyzer)`.
+
+**Guards:** The analysis engine imports the vendored PSScriptAnalyzer from the active code root and reports real diagnostics.
+
+### 6. Test-ScriptAnalyzer (real analyzer)
+
+**Test file:** `pwsh/Catzc.Base.QualityGates/tests/Test-ScriptAnalyzer.Tests.ps1` (L2), block `Test-ScriptAnalyzer (real analyzer)`.
+
+**Guards:** The analyzer quality gate runs the vendored PSScriptAnalyzer with the shipped settings from the active code root.
+
+### 7. Repository formatting integrity
+
+**Test file:** `pwsh/Catzc.Base.QualityGates/tests/Test-Formatting.Tests.ps1` (L2), block `Repository formatting integrity`.
+
+**Guards:** Every file language with a formatter in languages.yml, and the C# type namespaces, are formatted (Test-Formatting reports none).
+
+### 8. TimeoutSeconds defaults come from the time safeguard
+
+**Test file:** `pwsh/Catzc.Base.Timeouts/tests/Get-TimeoutSeconds.Repository.Tests.ps1` (L1), block
+`TimeoutSeconds defaults come from the time safeguard`.
+
+**Guards:** No shipped function defaults a `-TimeoutSeconds` parameter to a number literal; long-running functions declare `[TimeLimit]`
+(ADR-PWSH-ASSERT-DECLAREDTIMELIMIT).
+
+### 9. Repository Python lint integrity
+
+**Test file:** `pwsh/Catzc.Base.QualityGates/tests/Test-PythonLint.Tests.ps1` (L2), block `Repository Python lint integrity`.
+
+**Guards:** Every Python file the repository holds — the Python tests and the agent helpers — passes the pinned `ruff check`
+(ADR-AUTO-PY-EVERYFILELINTED).
+
+### 10. Repository shell script integrity
+
+**Test file:** `pwsh/Catzc.Base.QualityGates/tests/Test-ShellScripts.Tests.ps1` (L2), block `Repository shell script integrity`.
+
+**Guards:** Every shell script the repository tracks is LF, carries the executable bit when it has a shebang, and passes the pinned
+ShellCheck (ADR-AUTO-BASH-SHELLSCRIPTSCHECKED).
+
+### 11. Format-Code engines
+
+**Test file:** `pwsh/Catzc.Base.QualityGates/tests/Format-Code.Tests.ps1` (L0), block `Format-Code engines`.
+
+**Guards:** Every formatter engine languages.yml may name has its adapter, and the shipped languages.yml gives every file language a
+formatter or the reason it has none (PDR-CONFIG-NEWINSTANCEISCONFIGCHANGE, PDR-CONFIG-EXCEPTIONISCONFIGENTRY).
+
+### 12. The shipped format engines' keyed settings
+
+**Test file:** `pwsh/Catzc.Base.QualityGates/tests/Get-FormatEngineStamp.Tests.ps1` (L1), block
+`The shipped format engines' keyed settings`.
+
+**Guards:** Each shipped format engine's keyed settings name a top-level key that exists in their file, and an engine never lists the whole
+tool registry again (ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS).
+
+### 13. Repository Python type integrity
+
+**Test file:** `pwsh/Catzc.Base.QualityGates/tests/Test-PythonTypes.Tests.ps1` (L2), block `Repository Python type integrity`.
+
+**Guards:** Every Python file the repository holds passes pyright in the mode python.yml names, the one the editor runs
+(ADR-AUTO-PY-EVERYFILETYPECHECKED).
+
 ### 14. Format-FileMeta on the repository
+
+**Test file:** `pwsh/Catzc.Base.QualityGates/tests/Format-FileMeta.Tests.ps1` (L2), block `Format-FileMeta on the repository`.
 
 **Guards:** a generated page's head belongs to its generator, never to the head formatter (ADR-REPO-FILEMETA-HEADPOLICY).
 

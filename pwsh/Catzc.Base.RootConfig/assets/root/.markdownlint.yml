@@ -6,7 +6,8 @@
 #
 # FORMAT: YAML, with native `#` comments. markdownlint and the VS Code extension
 # (DavidAnson.vscode-markdownlint) auto-discover `.markdownlint.yml`. We use `.yml` (not `.yaml`)
-# deliberately: per the pipeline-concept ADR ([FDR-CD-PIPELINE-EXECUTABLEYAMLEXTENSION](/docs/drs/flow/pipeline-concept.md#rule-fdr-cd-pipeline-executableyamlextension))
+# deliberately: per the pipeline-concept ADR
+# ([FDR-CD-PIPELINE-EXECUTABLEYAMLEXTENSION](/docs/drs/flow/pipeline-concept.md#rule-fdr-cd-pipeline-executableyamlextension))
 # `.yml` is config data our tooling parses, while
 # `.yaml` is reserved for executable ado pipelines — and .vscode/settings.json maps `*.yaml` to the
 # Azure Pipelines schema, which would mis-highlight this file.
@@ -116,10 +117,10 @@ MD042: true # no-empty-links — a link must have a destination
 MD045: true # no-alt-text — images have alt text
 MD047: true # single-trailing-newline — file ends with exactly one newline (matches insert_final_newline)
 # MD051 link-fragments — OFF: markdownlint's slugger cannot reproduce GitHub's anchors for the `Verb:N`
-# rule-citation headings (a colon with no following space, e.g. `### Rule ADR-AUTO-TEST-ONECATEGORY` -> GitHub `#rule-adr-auto-test-onecategory`),
-# so it false-positives on valid same-file links. It only validates SAME-FILE `#fragment` links anyway
-# (cross-file `file.md#frag` is never checked). Every fragment, same-file and cross-file, is checked against
-# GitHub's own slugs by Test-Links ([ADR-REPO-LINK-MARKDOWNRELATIVE](/docs/drs/repository/markdown-links.md#rule-adr-repo-link-markdownrelative)) instead.
+# rule-citation headings (a colon with no following space, e.g. `### Rule ADR-AUTO-TEST-ONECATEGORY` -> GitHub
+# `#rule-adr-auto-test-onecategory`), so it false-positives on valid same-file links. It only validates SAME-FILE `#fragment` links anyway
+# (cross-file `file.md#frag` is never checked). Every fragment, same-file and cross-file, is checked against GitHub's own slugs by
+# Test-Links ([ADR-REPO-LINK-MARKDOWNRELATIVE](/docs/drs/repository/markdown-links.md#rule-adr-repo-link-markdownrelative)) instead.
 MD051: false
 MD052: true # reference-links-images — reference-style links/images resolve to a definition
 MD053: true # link-image-reference-definitions — no unused reference definitions

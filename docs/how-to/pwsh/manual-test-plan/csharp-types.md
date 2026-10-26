@@ -5,19 +5,29 @@ The shipped C# types: they parse, compile, resolve, and the committed combined a
 
 ## Index
 
-| #   | Tier | Test file                                                            | FullNameFilter                                                       | Guards                                                                                                                                                                                     |
-| --- | ---- | -------------------------------------------------------------------- | -------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| 1   | L0   | pwsh/.internal/tests/Import-CSharpTypes.Tests.ps1                    | shipped C# types                                                     | Every shipped C# type resolves into the process (`Test-ShippedTypes` reports 0 issues) and declares its module namespace (`Test-Formatting -Language bcl` reports 0 issues).               |
-| 2   | L1   | pwsh/Catzc.Base.TypesSystem/tests/Get-CSharpTypeDependency.Tests.ps1 | integrity (real repo)                                                | All shipped C# type sources parse without syntax errors.                                                                                                                                   |
-| 3   | L1   | pwsh/Catzc.Base.TypesSystem/tests/Clear-ModuleTypeCache.Tests.ps1    | never plans the live combined build for deletion (real repo, DryRun) | The live combined types DLL is never marked for deletion.                                                                                                                                  |
-| 4   | L2   | pwsh/.internal/tests/Import-CSharpTypes.Tests.ps1                    | combined types assembly is committed and current                     | The committed combined types DLL matches current sources (`Test-BuildArtifact -Facet Types` reports 0 issues), and the IDE project stamps the current hash.                                |
-| 5   | L0   | pwsh/Catzc.Base.Languages/tests/types/BclConfig.Tests.ps1            | integrity (shipped bcl.yml and the tracked solutions and projects)   | The shipped `bcl.yml` loads as `BclConfig`, every host binding names an existing type source, and every tracked non-vendored `.sln` and `.csproj` declares only the configured build pair. |
-| 6   | L1   | pwsh/Catzc.Base.QualityGates/tests/Test-BclReferences.Tests.ps1      | Test-BclReferences — the shipped bcl.yml over the real type sources  | Every type source that uses `System.Management.Automation` has its `bcl.yml` row, and every row is live.                                                                                   |
-| 7   | L2   | pwsh/Catzc.Base.CodeMeta/tests/types/CodeMetaHead.Tests.ps1          | CodeMetaHead and the types hash agree on every C# type               | `CodeMetaHead` and the types hash read the head of every tracked `types/*.cs` the same, under the bcl form `file-carriers.yml` declares (ADR-REPO-CODEMETA-CODEFILEHEAD).                  |
+| #   | Tier | Check                                                                      |
+| --- | ---- | -------------------------------------------------------------------------- |
+| 1   | L0   | [shipped C# types][c1]                                                     |
+| 2   | L1   | [integrity (real repo) — Get-CSharpTypeDependency][c2]                     |
+| 3   | L1   | [never plans the live combined build for deletion (real repo, DryRun)][c3] |
+| 4   | L2   | [combined types assembly is committed and current][c4]                     |
+| 5   | L0   | [integrity (shipped bcl.yml and the tracked solutions and projects)][c5]   |
+| 6   | L1   | [Test-BclReferences — the shipped bcl.yml over the real type sources][c6]  |
+| 7   | L2   | [CodeMetaHead and the types hash agree on every C# type][c7]               |
+
+[c1]: #1-shipped-c-types
+[c2]: #2-integrity-real-repo--get-csharptypedependency
+[c3]: #3-never-plans-the-live-combined-build-for-deletion-real-repo-dryrun
+[c4]: #4-combined-types-assembly-is-committed-and-current
+[c5]: #5-integrity-shipped-bclyml-and-the-tracked-solutions-and-projects
+[c6]: #6-test-bclreferences--the-shipped-bclyml-over-the-real-type-sources
+[c7]: #7-codemetahead-and-the-types-hash-agree-on-every-c-type
 
 ## Checks
 
 ### 1. shipped C# types
+
+**Test file:** `pwsh/.internal/tests/Import-CSharpTypes.Shipped.Tests.ps1` (L0), block `shipped C# types`.
 
 **Guards:** every shipped automation C# type compiles and resolves into the process.
 
@@ -28,6 +38,8 @@ The shipped C# types: they parse, compile, resolve, and the committed combined a
 
 ### 2. integrity (real repo) — Get-CSharpTypeDependency
 
+**Test file:** `pwsh/Catzc.Base.TypesSystem/tests/Get-CSharpTypeDependency.Tests.ps1` (L1), block `integrity (real repo)`.
+
 **Guards:** every shipped C# type loads and declares its module namespace.
 
 **Checks:**
@@ -37,6 +49,9 @@ The shipped C# types: they parse, compile, resolve, and the committed combined a
 
 ### 3. never plans the live combined build for deletion (real repo, DryRun)
 
+**Test file:** `pwsh/Catzc.Base.TypesSystem/tests/Clear-ModuleTypeCache.Tests.ps1` (L1), block
+`never plans the live combined build for deletion (real repo, DryRun)`.
+
 **Guards:** the type-cache janitor never deletes the live combined types DLL.
 
 **Checks:**
@@ -44,6 +59,8 @@ The shipped C# types: they parse, compile, resolve, and the committed combined a
 - `Clear-ModuleTypeCache -DryRun` over the real repo never plans the current-hash DLL for deletion.
 
 ### 4. combined types assembly is committed and current
+
+**Test file:** `pwsh/.internal/tests/Import-CSharpTypes.Shipped.Tests.ps1` (L2), block `combined types assembly is committed and current`.
 
 **Guards:** the committed combined types DLL reflects current source.
 
@@ -55,7 +72,25 @@ The shipped C# types: they parse, compile, resolve, and the committed combined a
 
 **Prerequisite:** git.
 
+### 5. integrity (shipped bcl.yml and the tracked solutions and projects)
+
+**Test file:** `pwsh/Catzc.Base.Languages/tests/types/BclConfig.Tests.ps1` (L0), block
+`integrity (shipped bcl.yml and the tracked solutions and projects)`.
+
+**Guards:** The shipped `bcl.yml` loads as `BclConfig`, every host binding names an existing type source, and every tracked non-vendored
+`.sln` and `.csproj` declares only the configured build pair.
+
+### 6. Test-BclReferences — the shipped bcl.yml over the real type sources
+
+**Test file:** `pwsh/Catzc.Base.QualityGates/tests/Test-BclReferences.Tests.ps1` (L1), block
+`Test-BclReferences — the shipped bcl.yml over the real type sources`.
+
+**Guards:** Every type source that uses `System.Management.Automation` has its `bcl.yml` row, and every row is live.
+
 ### 7. CodeMetaHead and the types hash agree on every C# type
+
+**Test file:** `pwsh/Catzc.Base.CodeMeta/tests/types/CodeMetaHead.Tests.ps1` (L2), block
+`CodeMetaHead and the types hash agree on every C# type`.
 
 **Guards:** the bootstrap strip that hashes the types and `CodeMetaHead` read a C# head the same way (ADR-REPO-CODEMETA-CODEFILEHEAD).
 
