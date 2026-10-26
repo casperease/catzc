@@ -16,6 +16,7 @@ function Get-CatzcModuleRoot {
         [string] $Module
     )
 
+    # The folder comes from the loaded module, never its name, which carries the namespace the folder drops.
     $loaded = if ($Module) {
         Get-Module -Name $Module | Select-Object -First 1
     }

@@ -6,6 +6,7 @@ catzc:
 ---
 #>
 
+# Each compiled search returns exactly what a PowerShell predicate over FindAll returns, so swapping one for the other changes nothing.
 Describe 'SyntaxSearch' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:parse = {

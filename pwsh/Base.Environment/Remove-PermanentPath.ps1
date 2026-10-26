@@ -41,6 +41,7 @@ function Remove-PermanentPath {
         Write-Message "Session PATH: removed '$Path'"
     }
 
+    # The persistent PATH goes through a thin read and write seam, so a test stands in for it and never touches the machine's.
     if ($IsWindows) {
         $userPath = Get-EnvironmentPath -Scope User
         if ($userPath) {

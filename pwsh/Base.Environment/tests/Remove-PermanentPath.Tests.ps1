@@ -19,6 +19,7 @@ Describe 'Remove-PermanentPath' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:originalPath = $env:PATH
 
+        # The persistent PATH lives in memory behind its seam, so no run mutates the machine's PATH or broadcasts a settings change.
         $script:fakeUserPath = $null
         Mock Get-EnvironmentPath { $script:fakeUserPath } -ModuleName Catzc.Base.Environment
         Mock Set-EnvironmentPath { $script:fakeUserPath = $Value } -ModuleName Catzc.Base.Environment

@@ -21,6 +21,7 @@ function Get-ModuleFullName {
     if ($manifests.Count -eq 1) {
         return [System.IO.Path]::GetFileNameWithoutExtension($manifests[0])
     }
+    # A staged burst copy, marked by a .burst-base here or one level down, is named by the live module folder it mirrors.
     $levels = @($full) + @([System.IO.Directory]::EnumerateDirectories($full))
     $isStaged = @($levels | Where-Object { @([System.IO.Directory]::EnumerateFiles($_, '*.burst-base')).Count -gt 0 }).Count -gt 0
     if ($isStaged) {

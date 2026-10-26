@@ -39,7 +39,7 @@ that uses it.
 
 ### The track places the kinds
 
-The `infrastructure` track keeps its places, which decide membership as for every track (the longest place wins), and adds a `kinds:` map
+The `vendor_azure.bicep` track keeps its places, which decide membership as for every track (the longest place wins), and adds a `kinds:` map
 from each kind to a place pattern inside one of those places. A pattern may hold one `*` segment, so the configuration folders of every
 template are one kind (`infrastructure/templates/*/configuration`). The tooling resolves a kind through `Get-TrackPlace`; a kind the track
 does not name is an error that names the track's kinds and the config to declare it in.

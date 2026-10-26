@@ -32,4 +32,4 @@ Zoomed: ci-pwsh, the first rung and the one BVT gate, with on-demand and main-UA
 
 ## Notes
 
-Check it: docs/drs/flow/commit-lifecycle.md, rule DISCARDISTERMINAL; the ci-pwsh pipeline under ado-pipelines.
+Check it: docs/drs/flow/commit-lifecycle.md, rule DISCARDISTERMINAL; the ci-pwsh pipeline under vendor_ado.pipelines.

@@ -33,8 +33,8 @@ session state or pass it between functions.
 
 A pipeline is the automated process that takes a change from a commit towards production: it runs on a trigger, invokes the automation,
 passes or fails its gates, and hands its artifacts on. That concept does not depend on the vendor that runs it. The repository holds two
-vendor variants of it: the azure devops pipelines under `.ado/pipelines/` (the `ado-pipelines` track) and the GitHub workflows under
-`.github/workflows/` (the `github-workflows` track). Both tracks have the track type `pipelines`, the concept
+vendor variants of it: the azure devops pipelines under `.ado/pipelines/` (the `vendor_ado.pipelines` track) and the GitHub workflows under
+`.github/workflows/` (the `vendor_github.pipelines` track). Both tracks have the track type `pipelines`, the concept
 ([DDR-TRACK-ONETRACKTYPE](../design/tracks.md#rule-ddr-track-onetracktype)).
 
 The flow domain already decides most of what a pipeline is:

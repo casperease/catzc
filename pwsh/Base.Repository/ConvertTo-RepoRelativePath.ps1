@@ -16,6 +16,7 @@ function ConvertTo-RepoRelativePath {
 
     $full = [IO.Path]::GetFullPath($Path)
 
+    # The output anchor wins first, so an artifact stays out/... even when the output root lies outside the repository.
     $outputRoot = [IO.Path]::GetFullPath((Get-OutputRoot))
     $fromOutput = [IO.Path]::GetRelativePath($outputRoot, $full)
     if ($fromOutput -ne $full -and -not $fromOutput.StartsWith('..')) {

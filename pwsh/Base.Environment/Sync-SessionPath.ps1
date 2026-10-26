@@ -37,6 +37,7 @@ function Sync-SessionPath {
         }
     }
 
+    # Wrapped in @() so an empty set of kept entries is an empty array, which the set's constructor accepts where it rejects null.
     $seen = [System.Collections.Generic.HashSet[string]]::new(
         [string[]]@($kept | ForEach-Object { $_.TrimEnd('\', '/') }),
         [System.StringComparer]::OrdinalIgnoreCase
@@ -47,6 +48,7 @@ function Sync-SessionPath {
         }
     }
 
+    # Rewritten and announced only when an entry arrives or leaves, so a settled machine imports in silence.
     $added = @($newPaths)
     $dropped = @($currentPaths | Where-Object { $_ -notin @($kept) })
     if ($added.Count -or $dropped.Count) {

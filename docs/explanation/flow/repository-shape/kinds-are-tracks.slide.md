@@ -18,7 +18,7 @@ catzc:
 
 ## Lead
 
-pwsh, docs, python, bash, ado-pipelines, .claude: each track has its language and its engine axes, and a file's registration is its
+pwsh, docs, python, bash, vendor_ado.pipelines, vendor_ai.claude: each track has its language and its engine axes, and a file's registration is its
 placement.
 
 ## Image
