@@ -46,7 +46,8 @@ function Get-PrivateFunctionFolder {
     if ($script:privateFunctionFolder -and $script:privateFunctionFolder.Root -ceq $ModulesRoot) {
         return $script:privateFunctionFolder.Folder
     }
-    $configPath = [System.IO.Path]::Combine($ModulesRoot, 'Catzc.Base.Languages', 'configs', 'languages.yml')
+    $languagesFolder = Resolve-ModuleName -FullName 'Catzc.Base.Languages' -Namespace (Get-ModuleNamespace -ModulesRoot $ModulesRoot)
+    $configPath = [System.IO.Path]::Combine($ModulesRoot, $languagesFolder, 'configs', 'languages.yml')
     if (-not [System.IO.File]::Exists($configPath)) {
         throw "The languages config '$configPath' does not exist; the bootstrap reads the private-function folder from it."
     }

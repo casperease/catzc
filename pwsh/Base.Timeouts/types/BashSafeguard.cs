@@ -15,7 +15,8 @@ namespace Catzc.Base.Timeouts;
 
 public static class BashSafeguard
 {
-    public const string ConfigModulePath = "Catzc.Base.Timeouts/configs/timeouts.yml";
+    // The module's folder, without the namespace: the hook runs before any session and cannot resolve it (DDR-TRACK-MODULENAMESPACE).
+    public const string ConfigModulePath = "Base.Timeouts/configs/timeouts.yml";
 
     public static string FindConfig(string repositoryRoot)
     {

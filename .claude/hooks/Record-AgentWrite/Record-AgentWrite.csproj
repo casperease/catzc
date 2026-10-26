@@ -23,18 +23,18 @@
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="../../../$(CatzcModulesFolder)/Catzc.Base.Objects/types/ConsoleText.cs"
+    <Compile Include="../../../$(CatzcModulesFolder)/Base.Objects/types/ConsoleText.cs"
       Link="linked/ConsoleText.cs" />
     <Compile
-      Include="../../../$(CatzcModulesFolder)/Catzc.Base.Objects/types/ConsoleDisplayAttribute.cs"
+      Include="../../../$(CatzcModulesFolder)/Base.Objects/types/ConsoleDisplayAttribute.cs"
       Link="linked/ConsoleDisplayAttribute.cs" />
-    <Compile Include="../../../$(CatzcModulesFolder)/Catzc.Base.Objects/types/TypeShape.cs"
+    <Compile Include="../../../$(CatzcModulesFolder)/Base.Objects/types/TypeShape.cs"
       Link="linked/TypeShape.cs" />
-    <Compile Include="../../../$(CatzcModulesFolder)/Catzc.Base.Objects/types/DictionaryRecord.cs"
+    <Compile Include="../../../$(CatzcModulesFolder)/Base.Objects/types/DictionaryRecord.cs"
       Link="linked/DictionaryRecord.cs" />
-    <Compile Include="../../../$(CatzcModulesFolder)/Catzc.Base.Globs/types/DurableHash.cs"
+    <Compile Include="../../../$(CatzcModulesFolder)/Base.Globs/types/DurableHash.cs"
       Link="linked/DurableHash.cs" />
-    <Compile Include="../../../$(CatzcModulesFolder)/Catzc.Tooling.Listen/types/WriteLedger.cs"
+    <Compile Include="../../../$(CatzcModulesFolder)/Tooling.Listen/types/WriteLedger.cs"
       Link="linked/WriteLedger.cs" />
   </ItemGroup>
   <Target Name="RequireCatzcModulesFolder" BeforeTargets="BeforeBuild"

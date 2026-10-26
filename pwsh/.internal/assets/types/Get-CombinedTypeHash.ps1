@@ -121,7 +121,8 @@ function Get-CombinedTypeHash {
     # The hash is the body's: a head-only change (the file-meta imprint) keeps it, so the dll is not rebuilt for a
     # comment. The head's form is
     # the bcl carrier's in file-carriers.yml; a modules root without the Languages module hashes whole files.
-    $carriers = [System.IO.Path]::Combine($ModulesRoot, 'Catzc.Base.Languages', 'configs', 'file-carriers.yml')
+    $languagesFolder = Resolve-ModuleName -FullName 'Catzc.Base.Languages' -Namespace (Get-ModuleNamespace -ModulesRoot $ModulesRoot)
+    $carriers = [System.IO.Path]::Combine($ModulesRoot, $languagesFolder, 'configs', 'file-carriers.yml')
     $block = $null
     if ([System.IO.File]::Exists($carriers)) {
         $declared = (ConvertFrom-Yaml ([System.IO.File]::ReadAllText($carriers)))['carriers']['bcl']

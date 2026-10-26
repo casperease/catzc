@@ -21,7 +21,7 @@ public sealed class EditRemindersConfig
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
     // Where the config sits under the modules folder, so the hook finds it without a PowerShell session.
-    public const string ConfigModulePath = "Catzc.Base.QualityGates/configs/edit-reminders.yml";
+    public const string ConfigModulePath = "Base.QualityGates/configs/edit-reminders.yml";
 
     private const string Failed = "edit-reminders configuration validation failed:\n";
     private static readonly string[] AllowedKeys = { "reminders" };

@@ -9,6 +9,8 @@ catzc:
 Set-StrictMode -Version Latest   # this module's scope: every function here runs strict
 
 # The type-assembly build functions live one per file beside this module; they share its scope.
+. (Join-Path $PSScriptRoot 'assets/bootstrap/Resolve-ModuleName.ps1')
+. (Join-Path $PSScriptRoot 'assets/bootstrap/Get-ModuleNamespace.ps1')
 . (Join-Path $PSScriptRoot 'assets/types/Get-TypeSourceBody.ps1')
 . (Join-Path $PSScriptRoot 'assets/types/Get-CombinedTypeHash.ps1')
 . (Join-Path $PSScriptRoot 'assets/types/Get-LoadedTypeDrift.ps1')

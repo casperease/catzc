@@ -23,17 +23,17 @@
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="../../../$(CatzcModulesFolder)/Catzc.Base.Objects/types/ConsoleText.cs"
+    <Compile Include="../../../$(CatzcModulesFolder)/Base.Objects/types/ConsoleText.cs"
       Link="linked/ConsoleText.cs" />
     <Compile
-      Include="../../../$(CatzcModulesFolder)/Catzc.Base.Objects/types/ConsoleDisplayAttribute.cs"
+      Include="../../../$(CatzcModulesFolder)/Base.Objects/types/ConsoleDisplayAttribute.cs"
       Link="linked/ConsoleDisplayAttribute.cs" />
-    <Compile Include="../../../$(CatzcModulesFolder)/Catzc.Base.Objects/types/TypeShape.cs"
+    <Compile Include="../../../$(CatzcModulesFolder)/Base.Objects/types/TypeShape.cs"
       Link="linked/TypeShape.cs" />
-    <Compile Include="../../../$(CatzcModulesFolder)/Catzc.Base.Objects/types/DictionaryRecord.cs"
+    <Compile Include="../../../$(CatzcModulesFolder)/Base.Objects/types/DictionaryRecord.cs"
       Link="linked/DictionaryRecord.cs" />
     <Compile
-      Include="../../../$(CatzcModulesFolder)/Catzc.Base.QualityGates/types/EditRemindersConfig.cs"
+      Include="../../../$(CatzcModulesFolder)/Base.QualityGates/types/EditRemindersConfig.cs"
       Link="linked/EditRemindersConfig.cs" />
   </ItemGroup>
   <ItemGroup>

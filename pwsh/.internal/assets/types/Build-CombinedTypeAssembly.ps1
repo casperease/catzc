@@ -67,10 +67,19 @@ function Build-CombinedTypeAssembly {
         }
         # The carrier's head form is an input of the hash too, so the frozen copy hashes the bodies the live root
         # hashes.
-        $carriers = [System.IO.Path]::Combine('Catzc.Base.Languages', 'configs', 'file-carriers.yml')
+        $moduleNamespace = Get-ModuleNamespace -ModulesRoot $ModulesRoot
+        $languagesFolder = Resolve-ModuleName -FullName 'Catzc.Base.Languages' -Namespace $moduleNamespace
+        # The frozen copy carries the variants config as well, so it resolves the same module folders as the live root.
+        $variants = [System.IO.Path]::Combine((Resolve-ModuleName -FullName 'Catzc.Base.Variants' -Namespace $moduleNamespace), 'configs',
+            'variants.yml')
+        if ([System.IO.File]::Exists([System.IO.Path]::Combine($ModulesRoot, $variants))) {
+            [System.IO.Directory]::CreateDirectory([System.IO.Path]::GetDirectoryName([System.IO.Path]::Combine($frozenRoot, $variants))) |
+                Out-Null
+            [System.IO.File]::Copy([System.IO.Path]::Combine($ModulesRoot, $variants), [System.IO.Path]::Combine($frozenRoot, $variants))
+        }
+        $carriers = [System.IO.Path]::Combine($languagesFolder, 'configs', 'file-carriers.yml')
         if ([System.IO.File]::Exists([System.IO.Path]::Combine($ModulesRoot, $carriers))) {
-            [System.IO.Directory]::CreateDirectory([System.IO.Path]::Combine($frozenRoot, 'Catzc.Base.Languages',
-                    'configs')) | Out-Null
+            [System.IO.Directory]::CreateDirectory([System.IO.Path]::Combine($frozenRoot, $languagesFolder, 'configs')) | Out-Null
             [System.IO.File]::Copy([System.IO.Path]::Combine($ModulesRoot, $carriers),
                 [System.IO.Path]::Combine($frozenRoot, $carriers))
         }

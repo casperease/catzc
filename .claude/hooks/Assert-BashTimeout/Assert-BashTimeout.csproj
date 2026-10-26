@@ -27,19 +27,19 @@
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="../../../$(CatzcModulesFolder)/Catzc.Base.Objects/types/DictionaryRecord.cs" Link="linked/DictionaryRecord.cs" />
-    <Compile Include="../../../$(CatzcModulesFolder)/Catzc.Base.Objects/types/ConsoleText.cs" Link="linked/ConsoleText.cs" />
-    <Compile Include="../../../$(CatzcModulesFolder)/Catzc.Base.Objects/types/ConsoleDisplayAttribute.cs"
+    <Compile Include="../../../$(CatzcModulesFolder)/Base.Objects/types/DictionaryRecord.cs" Link="linked/DictionaryRecord.cs" />
+    <Compile Include="../../../$(CatzcModulesFolder)/Base.Objects/types/ConsoleText.cs" Link="linked/ConsoleText.cs" />
+    <Compile Include="../../../$(CatzcModulesFolder)/Base.Objects/types/ConsoleDisplayAttribute.cs"
              Link="linked/ConsoleDisplayAttribute.cs" />
-    <Compile Include="../../../$(CatzcModulesFolder)/Catzc.Base.Objects/types/TypeShape.cs" Link="linked/TypeShape.cs" />
-    <Compile Include="../../../$(CatzcModulesFolder)/Catzc.Base.Engines/types/ExecutionEngine.cs" Link="linked/ExecutionEngine.cs" />
-    <Compile Include="../../../$(CatzcModulesFolder)/Catzc.Base.Engines/types/ExecutionEngines.cs" Link="linked/ExecutionEngines.cs" />
-    <Compile Include="../../../$(CatzcModulesFolder)/Catzc.Base.Timeouts/types/TimeoutsConfig.cs" Link="linked/TimeoutsConfig.cs" />
-    <Compile Include="../../../$(CatzcModulesFolder)/Catzc.Base.Timeouts/types/TimeoutsReaders.cs" Link="linked/TimeoutsReaders.cs" />
-    <Compile Include="../../../$(CatzcModulesFolder)/Catzc.Base.Timeouts/types/TestTiers.cs" Link="linked/TestTiers.cs" />
-    <Compile Include="../../../$(CatzcModulesFolder)/Catzc.Base.Timeouts/types/BashSafeguard.cs" Link="linked/BashSafeguard.cs" />
-    <Compile Include="../../../$(CatzcModulesFolder)/Catzc.Base.Timeouts/types/BoundedCommand.cs" Link="linked/BoundedCommand.cs" />
-    <Compile Include="../../../$(CatzcModulesFolder)/Catzc.Base.Git/types/GitFlowConfig.cs" Link="linked/GitFlowConfig.cs" />
+    <Compile Include="../../../$(CatzcModulesFolder)/Base.Objects/types/TypeShape.cs" Link="linked/TypeShape.cs" />
+    <Compile Include="../../../$(CatzcModulesFolder)/Base.Engines/types/ExecutionEngine.cs" Link="linked/ExecutionEngine.cs" />
+    <Compile Include="../../../$(CatzcModulesFolder)/Base.Engines/types/ExecutionEngines.cs" Link="linked/ExecutionEngines.cs" />
+    <Compile Include="../../../$(CatzcModulesFolder)/Base.Timeouts/types/TimeoutsConfig.cs" Link="linked/TimeoutsConfig.cs" />
+    <Compile Include="../../../$(CatzcModulesFolder)/Base.Timeouts/types/TimeoutsReaders.cs" Link="linked/TimeoutsReaders.cs" />
+    <Compile Include="../../../$(CatzcModulesFolder)/Base.Timeouts/types/TestTiers.cs" Link="linked/TestTiers.cs" />
+    <Compile Include="../../../$(CatzcModulesFolder)/Base.Timeouts/types/BashSafeguard.cs" Link="linked/BashSafeguard.cs" />
+    <Compile Include="../../../$(CatzcModulesFolder)/Base.Timeouts/types/BoundedCommand.cs" Link="linked/BoundedCommand.cs" />
+    <Compile Include="../../../$(CatzcModulesFolder)/Base.Git/types/GitFlowConfig.cs" Link="linked/GitFlowConfig.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="YamlDotNet">

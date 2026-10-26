@@ -53,8 +53,11 @@ function Import-CSharpTypes {
     # does not match its module folder (or is missing/block-scoped) is rejected — the same invariant
     # Test-Formatting enforces, checked here at load; Format-Types repairs all of them. The source list is already
     # ordinally sorted.
+    $moduleNamespace = Get-ModuleNamespace -ModulesRoot $ModulesRoot
     $arr = [object[]]@(foreach ($file in $hashResult.Files) {
-            $moduleName = $file.Module
+            # The namespace a type declares is its module's full name, resolved from the folder (DDR-TRACK-MODULENAMESPACE).
+            $folderName = $file.Module
+            $moduleName = Resolve-ModuleName -Folder $folderName -Namespace $moduleNamespace
             $base = $file.Base
             if ($base.Contains('.')) {
                 throw "C# type file 'types/$base.cs' in module '$moduleName' must be named for the bare type only (e.g. 'CliResult.cs'); the namespace is derived from the module. Remove the dotted prefix."
@@ -62,21 +65,21 @@ function Import-CSharpTypes {
             $content = [System.IO.File]::ReadAllText($file.Path)
             if ($content -match '(?m)^\s*namespace\s+(\S+?)\s*;\s*$') {
                 if ($Matches[1] -ne $moduleName) {
-                    throw "C# type file 'types/$base.cs' in module '$moduleName' declares namespace '$($Matches[1])' but must declare 'namespace $moduleName;' (its module folder). Run Format-Types."
+                    throw "C# type file 'types/$base.cs' in module '$moduleName' declares namespace '$($Matches[1])' but must declare 'namespace $moduleName;' (its module full name). Run Format-Types."
                 }
             }
             elseif ($content -match '(?m)^\s*namespace\s+(\S+?)\s*\{') {
                 throw "C# type file 'types/$base.cs' in module '$moduleName' uses a block-scoped namespace '$($Matches[1])'; it must declare a file-scoped 'namespace $moduleName;'. Run Format-Types."
             }
             else {
-                throw "C# type file 'types/$base.cs' in module '$moduleName' declares no namespace; it must declare 'namespace $moduleName;' (its module folder). Run Format-Types."
+                throw "C# type file 'types/$base.cs' in module '$moduleName' declares no namespace; it must declare 'namespace $moduleName;' (its module full name). Run Format-Types."
             }
             [pscustomobject]@{
                 Module = $moduleName
                 Base   = $base
                 Type   = "$moduleName.$base"
                 Key    = $file.Key
-                File   = "$moduleName/types/$base.cs"
+                File   = "$folderName/types/$base.cs"
                 Path   = $file.Path
             }
         })

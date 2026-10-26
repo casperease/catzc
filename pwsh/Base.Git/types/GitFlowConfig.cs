@@ -100,7 +100,7 @@ public sealed class GitFlowConfig
     }
 
     // Where the config sits under the modules folder, so the Bash hook finds it without a PowerShell session.
-    public const string ConfigModulePath = "Catzc.Base.Git/configs/git.yml";
+    public const string ConfigModulePath = "Base.Git/configs/git.yml";
 
     // The config file under the one top-level folder of the repository that holds it, or null when none does.
     public static string FindConfig(string repositoryRoot)

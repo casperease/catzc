@@ -211,7 +211,8 @@ function Invoke-Importer {
                 Select-Object -First 1
 
             if ($hasUncModulePath) {
-                $fixScript = Join-Path $modulesRoot 'Catzc.Base.Environment/assets/Set-LocalPsModulePath.ps1'
+                $environmentFolder = (Get-Track -Name (Split-Path $modulesRoot -Leaf)).FolderNameOf('Catzc.Base.Environment')
+                $fixScript = Join-Path $modulesRoot "$environmentFolder/assets/Set-LocalPsModulePath.ps1"
                 Write-ImporterMessage ''
                 Write-ImporterMessage 'WARNING: PSModulePath contains a network share.' -ForegroundColor Yellow
                 Write-ImporterMessage 'PowerShell will be slow — module lookups scan the network.' -ForegroundColor Yellow

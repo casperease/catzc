@@ -26,8 +26,17 @@
 
 function Get-CatzcRunLockSetting {
     param(
-        [string] $Path = (Join-Path $PSScriptRoot '../../Catzc.Base.Timeouts/configs/timeouts.yml')
+        [string] $Path
     )
+
+    # The timeouts module's folder, resolved from its full name under the modules track's namespace (DDR-TRACK-MODULENAMESPACE).
+    if (-not $Path) {
+        $modulesRoot = [System.IO.Path]::GetFullPath((Join-Path $PSScriptRoot '../..'))
+        . (Join-Path $PSScriptRoot 'bootstrap/Resolve-ModuleName.ps1')
+        . (Join-Path $PSScriptRoot 'bootstrap/Get-ModuleNamespace.ps1')
+        $folder = Resolve-ModuleName -FullName 'Catzc.Base.Timeouts' -Namespace (Get-ModuleNamespace -ModulesRoot $modulesRoot)
+        $Path = Join-Path $modulesRoot "$folder/configs/timeouts.yml"
+    }
 
     # The run lock is taken before any import, so the entry is read as text; the defaults live on TimeoutsConfig and the
     # shipped file shows
