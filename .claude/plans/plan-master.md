@@ -59,8 +59,6 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
   field, minimaps and lamps out of the ADRs; eighteen steps, the first waiting on the user's example names
 - reference-normal-form -> plan-reference-normal-form.md: reference pages at a derived four-part path
   (`docs/references/<language>/<module>/<aspect>/<file>.md`), no `docs:` links; a user-run git mv, then the repair
-- contract-groups -> plan-contract-groups.md: contract group folders name the language first (`pwsh.azure`), never catzc; a configurable
-  mapping with the track folder as default; a user-run git mv, then the repair
 - module-types-contracts -> plan-module-types-contracts.md: each module group publishes its compiled type surface as `types.json` beside its
   command contracts, replacing the global sample; command contracts' types checked against it
 - python-namespace-package -> plan-python-namespace-package.md: the diagram kit becomes a package that code imports as `catzc.diagrams`
