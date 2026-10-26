@@ -24,7 +24,6 @@ public sealed class VariantsConfig : Catzc.Base.Objects.DictionaryRecord
     private static readonly string[] AllowedJoins = { ".", "-", "_", "" };
     private static readonly Regex CustomerName = new Regex("^[a-z][a-z0-9]+$");
     private static readonly Regex AspectName = new Regex("^[a-z][a-z0-9]*(-[a-z0-9]+)*$");
-    private static readonly Regex TrackName = new Regex("^\\.?[a-z][a-z0-9]*(-[a-z0-9]+)*$");
     private static readonly Regex PlacePath = new Regex("^[A-Za-z0-9._-]+(/[A-Za-z0-9._-]+)*$");
     private static readonly Regex TrackTypeName = new Regex("^[a-z][a-z0-9]*(-[a-z0-9]+)*$");
 
@@ -34,7 +33,7 @@ public sealed class VariantsConfig : Catzc.Base.Objects.DictionaryRecord
 
     // The built-in aspect convention of a track that declares none of its own: a deployment ships everything but an explicit tests/ folder.
     public static IReadOnlyDictionary<string, IReadOnlyList<VariantAspect>> DefaultAspects =>
-        ReadAspects(new Hashtable { ["infrastructure"] = new object[] { new Hashtable { ["tests"] = new object[] { "**/tests/**" } }, new Hashtable { ["live"] = new object[] { "**" } } } }, new List<string>());
+        ReadAspects(new Hashtable { ["vendor_azure.bicep"] = new object[] { new Hashtable { ["tests"] = new object[] { "**/tests/**" } }, new Hashtable { ["live"] = new object[] { "**" } } } }, new List<string>());
 
     // Azure resource-name component order: 'standard' or 'classic'.
     public string ado_naming { get; }
@@ -244,11 +243,9 @@ public sealed class VariantsConfig : Catzc.Base.Objects.DictionaryRecord
         Dictionary<string, string> placeOwner = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
         foreach (object nameKey in map.Keys)
         {
+            // A track's name is checked in the repository normal form by Test-TrackDeclaration, which reads the languages config's
+            // normal form; the config type holds no naming policy.
             string name = Text(nameKey);
-            if (!TrackName.IsMatch(name))
-            {
-                errors.Add(string.Format("tracks: invalid track name '{0}' (kebab-case, optionally dot-prefixed)", name));
-            }
             IDictionary entry = map[nameKey] as IDictionary;
             if (entry == null)
             {
@@ -274,10 +271,6 @@ public sealed class VariantsConfig : Catzc.Base.Objects.DictionaryRecord
                 if ((!member.glob && !PlacePath.IsMatch(place)) || place.Split('/').Any(s => s == "." || s == ".."))
                 {
                     errors.Add(string.Format("tracks['{0}']: invalid member '{1}' (a repository-relative path with '/' separators, e.g. pwsh or .github/workflows)", name, place));
-                }
-                else if (place == "out" || place.StartsWith("out/", StringComparison.OrdinalIgnoreCase))
-                {
-                    errors.Add(string.Format("tracks['{0}']: member '{1}' is gitignored output, never a track (DDR-TRACK-TRACKISPLACEDCLUSTER)", name, place));
                 }
                 else if (placeOwner.ContainsKey(place))
                 {

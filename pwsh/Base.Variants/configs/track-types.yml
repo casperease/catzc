@@ -48,15 +48,15 @@ vendors:
   ado:
     definition: Azure DevOps, whose pipeline definitions the repository keeps.
   github:
-    definition: GitHub, whose workflows and repository settings the repository keeps under .github.
-  claude:
-    definition: Claude Code, whose settings, agents and hooks the repository keeps under .claude.
+    definition: GitHub Actions, whose workflows the repository keeps under .github/workflows.
+  ai:
+    definition: The AI coding agents, Claude Code among them, whose settings, agents and hooks the repository keeps under .claude.
   cspell:
     definition: The cspell spell checker, whose dictionaries the repository keeps under .cspell.
   vscode:
     definition: Visual Studio Code, whose workspace settings the repository keeps under .vscode.
   git:
-    definition: Git, whose root configuration files (.gitignore, .gitattributes) the repository keeps.
+    definition: Git and its host, whose root configuration (.gitignore, .gitattributes) and repository settings (.github) the repository keeps.
   pwsh:
     definition: PowerShell, whose third-party modules the repository vendors under pwsh/.vendor.
   bash:

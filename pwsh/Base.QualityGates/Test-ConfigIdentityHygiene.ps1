@@ -32,7 +32,7 @@ function Test-ConfigIdentityHygiene {
         $moduleConfigs = Get-ChildPath (Join-Path $root (Get-CatzcModulesFolder)) -File -Filter '*.yml' -Depth 4 -PruneVendor $true |
             Where-Object { $_ -match '[\\/]configs[\\/]([^\\/]+[\\/])?[^\\/]+\.yml$' -and ($_ -replace '\\',
                     '/') -notlike "*$terminology" }
-        $infrastructureConfigs = foreach ($place in (Get-Track -Name infrastructure).places) {
+        $infrastructureConfigs = foreach ($place in (Get-Track -Name vendor_azure.bicep).places) {
             $placeRoot = Join-Path $root $place
             if ([System.IO.Directory]::Exists($placeRoot)) {
                 Get-ChildPath $placeRoot -File -Filter '*.yml' -Depth 4

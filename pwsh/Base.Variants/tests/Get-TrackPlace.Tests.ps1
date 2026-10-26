@@ -45,6 +45,6 @@ Describe 'Get-TrackPlace — the real repository' -Tag 'L1', 'integrity', 'sourc
         @{ Kind = 'configs'; Expected = 'infrastructure/templates/*/configuration' }
         @{ Kind = 'modules'; Expected = 'infrastructure/modules' }
     ) {
-        Get-TrackPlace -Track infrastructure -TrackKind $Kind | Should -BeExactly $Expected
+        Get-TrackPlace -Track vendor_azure.bicep -TrackKind $Kind | Should -BeExactly $Expected
     }
 }

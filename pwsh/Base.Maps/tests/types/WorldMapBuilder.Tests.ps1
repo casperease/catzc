@@ -108,13 +108,13 @@ Describe 'WorldMapBuilder' -Tag 'L0', 'logic' {
         }
 
         It 'orders the axes ordinally with the bucket last, and the cells row by row' {
-            $script:map.Tracks | Should -Be @('ado-pipelines', 'docs', 'gadgets', 'probes', 'widgets', '(no track)')
+            $script:map.Tracks | Should -Be @('docs', 'gadgets', 'probes', 'vendor_ado.pipelines', 'widgets', '(no track)')
             $script:map.FileLanguages | Should -Be @('gadget-pipe', 'notes', 'probe-lang', 'widget-config',
                 'widget-script', '(other)')
             $script:map.Cells.Count | Should -Be 36
-            $script:map.Cells[0].Track | Should -Be 'ado-pipelines'
-            $script:map.Cells[0].FileLanguage | Should -Be 'gadget-pipe'
-            $script:map.Cells[12].Track | Should -Be 'gadgets'
+            $script:map.Cells[18].Track | Should -Be 'vendor_ado.pipelines'
+            $script:map.Cells[18].FileLanguage | Should -Be 'gadget-pipe'
+            $script:map.Cells[6].Track | Should -Be 'gadgets'
             $script:map.Placements[0].Path | Should -Be 'README.md'
         }
 
@@ -246,7 +246,7 @@ Describe 'WorldMapBuilder' -Tag 'L0', 'logic' {
 
         It 'renders console-ready' {
             "$($script:map)" | Should -BeLike 'WorldMap {*FileCount = 20*'
-            "$($script:map.Cells[0])" | Should -BeLike 'MapCell {*Track = ado-pipelines*'
+            "$($script:map.Cells[18])" | Should -BeLike 'MapCell {*Track = vendor_ado.pipelines*'
             "$($script:map.Placements[0])" | Should -BeLike 'MapPlacement {*Path = README.md*'
         }
     }

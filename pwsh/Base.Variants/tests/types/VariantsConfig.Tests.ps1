@@ -41,8 +41,8 @@ Describe 'VariantsConfig' -Tag 'L0' {
             $config.ado_naming | Should -Be 'standard'
             $config.git_workspace | Should -Be 'main-direct'
             $config.have_customers | Should -BeFalse
-            $config.aspects.Keys | Should -Be @('infrastructure')
-            $config.aspects['infrastructure'].Name | Should -Be @('tests', 'live')
+            $config.aspects.Keys | Should -Be @('vendor_azure.bicep')
+            $config.aspects['vendor_azure.bicep'].Name | Should -Be @('tests', 'live')
         }
 
         It 'reads a null key as an omitted one: both take the default' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
@@ -62,8 +62,8 @@ Describe 'VariantsConfig' -Tag 'L0' {
         }
 
         It 'lays a declared convention over the built-in one, a declared track replacing its built-in' {
-            $config = & $script:make ([ordered]@{ aspects = [ordered]@{ infrastructure = @([ordered]@{ live = @('**') }); gizmos = @([ordered]@{ live = @('**') }) } })
-            $config.aspects['infrastructure'].Name | Should -Be @('live')
+            $config = & $script:make ([ordered]@{ aspects = [ordered]@{ 'vendor_azure.bicep' = @([ordered]@{ live = @('**') }); gizmos = @([ordered]@{ live = @('**') }) } })
+            $config.aspects['vendor_azure.bicep'].Name | Should -Be @('live')
             $config.aspects['gizmos'].Name | Should -Be @('live')
         }
 
@@ -200,9 +200,13 @@ Describe 'VariantsConfig' -Tag 'L0' {
             }
         }
 
-        It 'throws on an out member (gitignored output, never a track)' {
-            { & $script:make ([ordered]@{ tracks = [ordered]@{ widget = [ordered]@{ members = @('out/deep'); type = 'widget-works' } } }) } |
-                Should -Throw "*member 'out/deep' is gitignored output*"
+        It 'accepts out as the member of the output track, generated and not committed (DDR-TRACK-TRACKISPLACEDCLUSTER)' {
+            $config = & $script:make ([ordered]@{ tracks = [ordered]@{
+                        out = [ordered]@{ members = @([ordered]@{ path = 'out'; generated = $true; committed = $false }); type = 'output' }
+                    }
+                })
+            $config.tracks[0].places | Should -Be @('out')
+            $config.tracks[0].type | Should -Be 'output'
         }
 
         It 'throws on an unknown track key, a bad language name, and a duplicate language' {

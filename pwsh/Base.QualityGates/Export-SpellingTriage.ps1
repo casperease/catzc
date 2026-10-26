@@ -16,7 +16,7 @@ function Export-SpellingTriage {
             'out/**'
             'docs/notes/**'
             '.unordered/**'
-            "$(Get-TrackPlace -Track infrastructure -TrackKind configs)/**"
+            "$(Get-TrackPlace -Track vendor_azure.bicep -TrackKind configs)/**"
         ),
 
         [switch] $DryRun

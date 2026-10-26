@@ -33,7 +33,7 @@ function Get-Track {
 
     if ($PSCmdlet.ParameterSetName -eq 'Path') {
         $segments = @($Path.Replace('\', '/').Split('/') | Where-Object { $_ -and $_ -ne '.' })
-        if ($segments.Count -eq 0 -or $segments[0] -eq 'out') {
+        if ($segments.Count -eq 0) {
             return
         }
         $normalized = $segments -join '/'

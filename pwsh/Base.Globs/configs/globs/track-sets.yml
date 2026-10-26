@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "8014ae15125f"
+#     with_body_sha: "51ad41ad98ce"
 #     warning: "Do Not Edit, this file is generated"
 # ---
 
@@ -9,6 +9,8 @@
 globsets:
   pwsh:
     include:
+      - "PSScriptAnalyzerSettings.psd1/**"
+      - "importer.ps1/**"
       - "pwsh/**"
     exclude:
       - "pwsh/*/*.psd1"

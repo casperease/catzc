@@ -22,7 +22,7 @@ globsets:
     verify:
       modules: [Catzc.Azure.Templates]
       level: 2
-    track: infrastructure
+    track: vendor_azure.bicep
 
   templates:
     description: All infrastructure templates' shared surface - every template excluding deployment configuration.

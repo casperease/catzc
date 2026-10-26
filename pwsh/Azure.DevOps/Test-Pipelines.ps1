@@ -17,7 +17,7 @@ function Test-Pipelines {
         [switch] $PassThru
     )
 
-    $place = (Get-Track -Name ado-pipelines).places[0]
+    $place = (Get-Track -Name vendor_ado.pipelines).places[0]
     $pipelinesRoot = if ($Path) {
         $Path
     }

@@ -14,7 +14,7 @@ public sealed class MapsPin
     // The ADR code, or one rule of it (an index code, or a rule code that extends it).
     public string adr { get; }
 
-    // The cell's track: a key of the `tracks` map in variants.yml (e.g. pwsh, .github).
+    // The cell's track: a key of the `tracks` map in variants.yml (e.g. pwsh, vendor_git.root_configs).
     public string track { get; }
 
     // The cell's file language: a key of the registry in languages.yml (e.g. powershell).

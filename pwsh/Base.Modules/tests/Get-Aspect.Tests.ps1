@@ -35,7 +35,7 @@ Describe 'Get-Aspect' -Tag 'L0', 'logic', 'ADR-AUTO-MODULE-EXISTSBYLAYOUT' {
     }
 
     It 'defaults infrastructure to live-as-catch-all (a deployment ships everything but tests/)' {
-        $aspects = @(Get-Aspect -Track infrastructure)
+        $aspects = @(Get-Aspect -Track vendor_azure.bicep)
         $aspects.Name | Should -Be @('tests', 'live')
         $aspects[-1].Patterns | Should -Be @('**')
     }

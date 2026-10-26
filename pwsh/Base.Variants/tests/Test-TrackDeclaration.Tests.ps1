@@ -25,6 +25,21 @@ Describe 'Test-TrackDeclaration' -Tag 'L0', 'logic', 'DDR-MODTYPE-TRACKTYPEADMIT
         Mock Get-Config -ModuleName Catzc.Base.Variants -ParameterFilter { $Config -eq 'variants' } { $script:variants }
         Mock Get-Config -ModuleName Catzc.Base.Variants -ParameterFilter { $Config -eq 'track-types' } { $script:trackTypes }
         Mock Get-Config -ModuleName Catzc.Base.Variants -ParameterFilter { $Config -eq 'module-types' } { $script:moduleTypes }
+        Mock Get-Config -ModuleName Catzc.Base.Variants -ParameterFilter { $Config -eq 'languages' } { [pscustomobject]@{ naming_normal_form = 'snake' } }
+    }
+
+    It 'names each track whose name is not in the normal form, and takes a dotted snake name' -Tag 'DDR-TRACKTYPE-NAMEFROMMEMBERS' {
+        $script:moduleTypes = [Catzc.Base.Variants.ModuleTypesConfig]::new([ordered]@{ module_types = [ordered]@{} })
+        Use-Variants ([ordered]@{
+                'widget-works'      = [ordered]@{ members = @('widget'); type = 'widget-works' }
+                '.gadget'           = [ordered]@{ members = @('gadget'); type = 'gadget-shelf' }
+                'vendor_gizmo.cogs' = [ordered]@{ members = @('cogs'); type = 'gadget-shelf'; vendor = 'gizmo' }
+            })
+        $err = { Test-TrackDeclaration } | Should -Throw -PassThru
+        $err.Exception.Message | Should -BeLike "*track 'widget-works': the name is not in the repository normal form*"
+        $err.Exception.Message | Should -BeLike "*track '.gadget': the name is not in the repository normal form*"
+        $err.Exception.Message | Should -Not -BeLike "*vendor_gizmo.cogs*"
+        $err.Exception.Message | Should -BeLike '*2 violation(s)*'
     }
 
     It 'passes when every type and vendor is declared and every module place lies in a track that admits it' {

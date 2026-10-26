@@ -12,13 +12,13 @@ have_customers: all
 
 # A code track's aspects are derived from the layout in languages.yml (Get-Aspect), so only the other deployable tracks declare theirs.
 aspects:
-  infrastructure:
+  vendor_azure.bicep:
     - tests: ["**/tests/**"]
     - live: ["**"]
-  ado-pipelines:
+  vendor_ado.pipelines:
     - tests: ["**/tests/**"]
     - live: ["**"]
-  github-workflows:
+  vendor_github.pipelines:
     - tests: ["**/tests/**"]
     - live: ["**"]
   # The boundary contracts ship as they are, so live is the catch-all; a contract kept for a test asset under tests/ is the tests aspect.
@@ -32,6 +32,8 @@ tracks:
       members:
         [
           pwsh,
+          importer.ps1,
+          PSScriptAnalyzerSettings.psd1,
           { path: pwsh/*/*.psd1, committed: false },
           { path: pwsh/.compiled/*.dll, committed: false },
           { path: pwsh/.compiled/*.tmp, committed: false },
@@ -50,8 +52,8 @@ tracks:
           pwsh/Base.TypesSystem/assets/Catzc.Types.csproj.xml,
         ],
     }
-  pwsh-vendor: { members: [pwsh/.vendor], type: vendored-code }
-  infrastructure:
+  vendor_pwsh.modules: { members: [pwsh/.vendor], type: vendored-code, vendor: pwsh }
+  vendor_azure.bicep:
     {
       members: [infrastructure],
       type: infrastructure,
@@ -59,19 +61,41 @@ tracks:
       languages: [bicep, yaml, markdown],
       kinds: { templates: infrastructure/templates, configs: "infrastructure/templates/*/configuration", modules: infrastructure/modules },
     }
-  ado-pipelines: { members: [.ado/pipelines], type: pipelines, vendor: ado, languages: [pipeline-yaml, powershell] }
-  github-workflows: { members: [.github/workflows], type: pipelines, vendor: github, languages: [yaml] }
+  vendor_ado.pipelines: { members: [.ado/pipelines], type: pipelines, vendor: ado, languages: [pipeline-yaml, powershell] }
+  vendor_github.pipelines: { members: [.github/workflows], type: pipelines, vendor: github, languages: [yaml] }
   docs: { members: [docs], type: documentation, languages: [markdown, asset, yaml] }
-  contracts: { members: [contracts], type: contracts, languages: [markdown, pipeline-yaml, yaml, json] }
-  go: { members: [go], type: modules, languages: [go], namespace: catzc, join: "" }
-  python: { members: [python], type: modules, languages: [python, html, markdown, xml, yaml], namespace: catzc, join: _ }
-  bash: { members: [bash], type: modules, languages: [bash], namespace: catzc, join: "-" }
-  bash-vendor: { members: [bash/.vendor], type: vendored-code }
+  contracts: { members: [contracts, LICENSE], type: contracts, languages: [markdown, pipeline-yaml, yaml, json] }
+  go: { members: [go, go.work], type: modules, languages: [go], namespace: catzc, join: "" }
+  python:
+    {
+      members: [python, { path: .ruff_cache, generated: true, committed: false }],
+      type: modules,
+      languages: [python, html, markdown, xml, yaml],
+      namespace: catzc,
+      join: _,
+    }
+  bash: { members: [bash, importer.sh], type: modules, languages: [bash], namespace: catzc, join: "-" }
+  vendor_bash.modules: { members: [bash/.vendor], type: vendored-code, vendor: bash }
   # The type declarations Install-TypeScript installs for the js track's types gate: downloaded third-party code, never committed.
-  .typescript: { members: [{ path: .typescript, committed: false }], type: vendored-code }
-  js: { members: [js], type: modules, languages: [javascript, json, asset], kinds: { extensions: js }, namespace: catzc, join: "-" }
-  .github: { members: [.github], type: vendor-settings, vendor: github, languages: [yaml, markdown] }
-  .cspell: { members: [.cspell], type: vendor-settings, vendor: cspell }
-  .claude: { members: [.claude], type: vendor-settings, vendor: claude, languages: [markdown, python, bcl, json, xml, html, powershell] }
-  .vscode: { members: [{ path: .vscode, committed: false }], type: vendor-settings, vendor: vscode, languages: [json] }
-  .unordered: { members: [.unordered], type: unordered, languages: [markdown] }
+  vendor_typescript.types: { members: [{ path: .typescript, committed: false }], type: vendored-code, vendor: typescript }
+  js:
+    {
+      members: [js, jsconfig.json, jsconfig.lenient.json],
+      type: modules,
+      languages: [javascript, json, asset],
+      kinds: { extensions: js },
+      namespace: catzc,
+      join: "-",
+    }
+  vendor_git.root_configs:
+    { members: [.github, .gitattributes, .gitignore], type: vendor-settings, vendor: git, languages: [yaml, markdown] }
+  vendor_cspell: { members: [.cspell, cspell.yml], type: vendor-settings, vendor: cspell }
+  vendor_ai.claude: { members: [.claude], type: vendor-settings, vendor: ai, languages: [markdown, python, bcl, json, xml, html, powershell] }
+  vendor_vscode: { members: [{ path: .vscode, committed: false }], type: vendor-settings, vendor: vscode, languages: [json] }
+  vendor_editorconfig: { members: [.editorconfig], type: vendor-settings, vendor: editorconfig }
+  vendor_markdownlint: { members: [.markdownlint.yml, .markdownlintignore], type: vendor-settings, vendor: markdownlint }
+  vendor_prettier: { members: [.prettierrc.yml, .prettierignore], type: vendor-settings, vendor: prettier }
+  vendor_dotnet: { members: [catzc.sln, Directory.Build.props, dotnet-tools.json], type: vendor-settings, vendor: dotnet }
+  vendor_nuget: { members: [nuget.config], type: vendor-settings, vendor: nuget }
+  unordered: { members: [.unordered], type: unordered, languages: [markdown] }
+  out: { members: [{ path: out, generated: true, committed: false }], type: output }

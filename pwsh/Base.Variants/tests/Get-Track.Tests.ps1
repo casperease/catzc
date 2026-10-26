@@ -73,7 +73,7 @@ Describe 'Get-Track' -Tag 'L0', 'logic' {
 
 Describe 'Get-Track — the real repository' -Tag 'L1', 'integrity', 'source-only', 'DDR-TRACK-UNORDEREDTRACK' {
     It 'declares the unordered track where imports land, and resolves a file at a landing address to it' {
-        (Get-Track -Name '.unordered').type | Should -Be 'unordered'
-        (Get-Track -Path '.unordered/widget-tools/Spin-Widget.ps1').name | Should -Be '.unordered'
+        (Get-Track -Name 'unordered').type | Should -Be 'unordered'
+        (Get-Track -Path '.unordered/widget-tools/Spin-Widget.ps1').name | Should -Be 'unordered'
     }
 }

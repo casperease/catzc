@@ -14,8 +14,14 @@ function Test-TrackDeclaration {
     $trackTypes = Get-Config -Config track-types
     $moduleTypes = Get-Config -Config module-types
     $violations = [System.Collections.Generic.List[string]]::new()
+    # A track's name is its definitive name in the repository normal form (DDR-TRACKTYPE-NAMEFROMMEMBERS); the form is declared
+    # once, in the languages config, so the config type holds no naming policy.
+    $normalForm = (Get-Config -Config languages).naming_normal_form
 
     foreach ($track in Get-Track) {
+        if (-not [Catzc.Base.Objects.NameCase]::IsNormal($track.name, $normalForm)) {
+            $violations.Add("track '$($track.name)': the name is not in the repository normal form ($normalForm segments joined by '.')")
+        }
         $trackType = $trackTypes.TypeOf($track.type)
         if (-not $trackType) {
             $violations.Add("track '$($track.name)': track type '$($track.type)' is not declared in track-types.yml")

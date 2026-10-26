@@ -16,7 +16,7 @@ namespace Catzc.Base.Maps;
 public static class WorldMapBuilder
 {
     // The track whose files fall back to their globset's citations.
-    public const string AdoPipelinesTrack = "ado-pipelines";
+    public const string AdoPipelinesTrack = "vendor_ado.pipelines";
 
     public static WorldMap Build(IEnumerable tracks, IEnumerable fileLanguages, IEnumerable paths, IDictionary aspects, IDictionary adrIndex,
         IDictionary adrFiles, IDictionary texts, IDictionary rootOwners, IEnumerable globSets, IEnumerable citationExclude = null)

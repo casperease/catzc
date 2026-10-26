@@ -35,9 +35,11 @@ function Get-AspectGlobSet {
         foreach ($aspect in $declared[$track.name]) {
             $aspects.Add([Catzc.Base.Globs.Aspect]::new($aspect.Name, [string[]]$aspect.Patterns))
         }
+        # A globset name is kebab-case and a track name is the normal form, so the one name converter renders it (vendor-azure-bicep-tests).
+        $setPrefix = [Catzc.Base.Objects.NameCase]::Render($track.name, 'kebab')
         foreach ($place in $track.places) {
             foreach ($compiled in [Catzc.Base.Globs.AspectPartition]::Compile($aspects, $place)) {
-                & $add $compiled.Name ([Catzc.Base.Globs.GlobSet]::new("$($track.name)-$($compiled.Name)",
+                & $add $compiled.Name ([Catzc.Base.Globs.GlobSet]::new("$setPrefix-$($compiled.Name)",
                         "Track aspect - $place [$($compiled.Name)]", 'module',
                         [string[]]$compiled.Include, [string[]]$compiled.Exclude, @(), @(), -1, $null))
             }

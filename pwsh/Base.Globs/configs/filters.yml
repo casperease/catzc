@@ -18,13 +18,13 @@ filters:
     title: the vendor configuration
     select: [track_type.vendor_settings, track_type.vendored_code, root_config]
   - { name: pipelines, title: the pipeline and workflow definitions, select: [track_type.pipelines] }
-  - { name: infrastructure, title: "the Bicep tree: modules, templates and their configuration", select: [track.infrastructure] }
+  - { name: infrastructure, title: "the Bicep tree: modules, templates and their configuration", select: [track.vendor_azure.bicep] }
   # The contracts track owns every file under contracts/ as its primary home: live by its own aspect, apart from every other track's live.
   - { name: contracts, title: "the boundary contracts: frozen artifacts", select: [track.contracts] }
   - { name: generated, title: every generated artifact, select: [generated] }
   - { name: docs, title: the documentation and the licence, select: [track.docs, glob.LICENSE] }
   - { name: out, title: the run output, select: [glob.out/**] }
-  - { name: az, title: "the Azure resources: the Bicep tree", select: [track.infrastructure] }
+  - { name: az, title: "the Azure resources: the Bicep tree", select: [track.vendor_azure.bicep] }
   - { name: ado, title: the Azure DevOps Services pipelines, select: [glob..ado/**] }
   - { name: ado_server, title: the Azure DevOps Server pipelines, select: [glob..ado/**] }
   - { name: git, title: the git settings, select: [glob..gitignore, glob..gitattributes, glob.**/.gitkeep] }

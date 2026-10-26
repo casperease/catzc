@@ -19,7 +19,7 @@ function Test-AdoPipelineTriggerGlob {
     )
 
     $root = Get-RepositoryRoot
-    $place = (Get-Track -Name ado-pipelines).places[0]
+    $place = (Get-Track -Name vendor_ado.pipelines).places[0]
     $sets = if ($PSBoundParameters.ContainsKey('Name')) {
         Get-GlobSet -Name $Name
     }

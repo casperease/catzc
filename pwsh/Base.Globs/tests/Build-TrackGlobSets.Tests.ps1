@@ -82,7 +82,7 @@ Describe 'Build-TrackGlobSets — the real tree' -Tag 'L1', 'integrity', 'source
         $set = Get-GlobSet -Name infrastructure
         $set.Matches('infrastructure/README.md') | Should -BeFalse
         $set.Matches('infrastructure/templates/foundation/main.bicep') | Should -BeTrue
-        $vendored = "$((Get-Track -Name pwsh-vendor).places[0])/Pester/Pester.psd1"
+        $vendored = "$((Get-Track -Name vendor_pwsh.modules).places[0])/Pester/Pester.psd1"
         (Get-GlobSet -Name pwsh).Matches($vendored) | Should -BeTrue -Because 'a nested track with no pipeline of its own stays in its parent''s set'
     }
 }
