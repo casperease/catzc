@@ -30,6 +30,11 @@ Long files are where agents lose context and reviews lose focus; widths drift si
   code included, with no URL exemption (MD013 rendered with `code_blocks`, `tables` and `headings` on and `strict`), so the gate and
   markdownlint measure the same lines; a long URL moves to a reference-style link definition, which counts too. Generated md (`Build-*`
   output with a warning head) is out by its track.
+- A line whose part past the width lies wholly inside one string literal does not breach (the user, 2026-10-26, through the orchestrator: "a
+  line whose part past the width lies wholly inside one string literal doesn't breach"). `string_overflow: exempt` in `file-limits.yml`, its
+  default on `FileLimitsConfig`, judged by each language's own tokenizer: PowerShell strings, YAML scalars, XML attribute values; a language
+  with no tokenizer exempts nothing. The two drawio XML assets wrap one attribute per line so their long values end their lines (the
+  orchestrator, 2026-10-26, under the strict rule).
 - Three layers per limit (the user, 2026-10-25): a **global default** per class, a **per-language override** that may push it, and
   **bounds** (`min`/`max`) no override may leave. Resolution: language value if set, else the class default; one lookup, no merging.
 - Global defaults: code length 400, config length 300 (under the cap, so a language has room to push); prose length 400; code width 120,
@@ -76,8 +81,12 @@ No class has a width count of 0 yet (2026-10-26, catzc-5c, `out/catzc-5c-widths/
 `report`. Each step below flips its class's `width_mode` to `fail` once its count reaches 0 and, in the same step, moves `Get-LinkLineLimit`
 from the rendered `.editorconfig` to `Get-FileLimit` for that class's extensions (catzc-f2, 2026-10-26).
 
-7. [ ] **prose, fences**: 99 files with fenced lines over 140 (369 lines, `out/catzc-5c-widths/list-fence.txt`), shortened by hand. Check:
-       no fenced line over 140 in the folder, `Test-Markdownlint` on it.
+7. [ ] **prose, new breaches**: 16 files over 140 that landed after the tables pass (2026-10-26 recount, `out/catzc-5c-widths/kinds.ps1`):
+       long table-of-contents links in 6 CAF and WAF pages (`landing-zone-security`, `network-connectivity`, `network-topology`,
+       `operational-excellence`, `performance-efficiency`, `reliability`), which take reference labels; 7 inline diagram embeds in
+       `docs/explanation/` pages, which take the kit's reference form; a heading in `network-topology.md`; a citation in
+       `docs/explanation/model/zoom-pwsh.md`; and a code span in `an-edit-lands-at-the-next-import.md`. Check: none of the 16 over 140,
+       `Test-Markdownlint`, `Test-Links` and `Test-Diagrams` on them.
 8. [ ] **prose, leftover** (tables done elsewhere, catzc-5c, 2026-10-26): the 3 `.claude/plans/` files (`plan-slim-agents.md`,
        `plan-vscode-extensions.md`, `value-of-plan.md`); `docs/drs/design/visual-design.md` and `docs/drs/azure/azure-naming-standard.md`
        (another session's, skipped while dirty); `docs/explanation/thesis/product-thesis/nowaste.slide.md` (its `## Rows` table is slide-kit
@@ -85,6 +94,7 @@ from the rendered `.editorconfig` to `Get-FileLimit` for that class's extensions
 9. [ ] **prose, the flip**: once steps 7 and 8 leave 0, `width_mode.prose: fail`, the MD013 `tables` and `code_blocks` true in the
        `.markdownlint.yml` template (Build-WidthConfigs), and `Get-LinkLineLimit` moved to `Get-FileLimit` for `.md`. Check: the prose width
        count is 0, `Test-FileLimits` and `Test-Markdownlint` over the tree pass, and `Test-Links` over the tree passes.
-10. [ ] **config**: 155 files over 140 columns (pipeline YAML, configs). Check: as for prose, with `width_mode.config: fail`.
-11. [ ] **code**: 1830 files over 120 columns (the `.cs`, `.go` and `.js` link-wrap widths change with the move, from 140 to 120). Check: as
-        for prose, with `width_mode.code: fail`.
+10. [ ] **config**: 32 files over 140 columns (2026-10-26 recount) (pipeline YAML, configs). Check: as for prose, with
+        `width_mode.config: fail`.
+11. [ ] **code**: 1719 files over 120 columns (2026-10-26 recount) (the `.cs`, `.go` and `.js` link-wrap widths change with the move, from
+        140 to 120). Check: as for prose, with `width_mode.code: fail`.

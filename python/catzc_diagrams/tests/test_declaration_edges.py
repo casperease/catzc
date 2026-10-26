@@ -115,7 +115,7 @@ def test_the_default_meaning_and_the_labels_are_declared_once_and_the_legend_rea
 
 def pill(model, edge):
     return re.search(
-        rf'<mxCell id="{edge}-word" value="&lt;b&gt;([^&]*)&lt;/b&gt;" style="rounded=1;arcSize=50;[^"]*" [^\n]*\n\s*<mxGeometry x="(-?\d+)" y="(-?\d+)" width="(\d+)" height="(\d+)"',
+        rf'<mxCell\s+id="{edge}-word"\s+value="&lt;b&gt;([^&]*)&lt;/b&gt;"\s+style="rounded=1;arcSize=50;[^"]*"[^>]*>\s*<mxGeometry\s+x="(-?\d+)"\s+y="(-?\d+)"\s+width="(\d+)"\s+height="(\d+)"',
         model,
     )
 

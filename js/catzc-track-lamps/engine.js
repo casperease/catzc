@@ -465,7 +465,10 @@ function activateEngine(context, api) {
         const api = (extension.isActive ? extension.exports : await extension.activate()).getAPI(1);
         const attach = () => {
             const root = key(rootOf() ?? "");
-            const found = api.repositories.find((/** @type {{ rootUri: import("vscode").Uri }} */ candidate) => key(candidate.rootUri.fsPath) === root) ?? api.repositories[0];
+            const found =
+                api.repositories.find(
+                    (/** @type {{ rootUri: import("vscode").Uri }} */ candidate) => key(candidate.rootUri.fsPath) === root,
+                ) ?? api.repositories[0];
             if (!found || found === repository) return;
             repository = found;
             context.subscriptions.push(found.state.onDidChange(rejudge));

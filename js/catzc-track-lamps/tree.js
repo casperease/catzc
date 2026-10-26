@@ -229,6 +229,7 @@ function merge(current, owned, wanted) {
 }
 
 // What files.exclude costs on a command line: each glob and a flag with its quotes.
-const excludeSize = (/** @type {Record<string, unknown>} */ exclude) => Object.keys(exclude).reduce((total, glob) => total + glob.length + 6, 0);
+const excludeSize = (/** @type {Record<string, unknown>} */ exclude) =>
+    Object.keys(exclude).reduce((total, glob) => total + glob.length + 6, 0);
 
 module.exports = { EXCLUDE_ROOF, walkDisk, hiddenEntries, hiddenGlobs, census, merge, excludeSize };

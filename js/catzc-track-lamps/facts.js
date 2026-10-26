@@ -122,7 +122,8 @@ function storedError(diagnostic) {
 }
 
 // A diagnostic this extension published for a closed file's remembered Error; the live diagnostics are read without them.
-const isRemembered = (/** @type {Diagnostic} */ diagnostic) => typeof diagnostic.source === "string" && diagnostic.source.endsWith(REMEMBERED);
+const isRemembered = (/** @type {Diagnostic} */ diagnostic) =>
+    typeof diagnostic.source === "string" && diagnostic.source.endsWith(REMEMBERED);
 
 // The files whose Error stays a fault while the editor's diagnostics fall silent: a language server reports a file's Error only while the
 // file is open (a closed preview tab clears it) and while it is not re-analysing, and red always wins over the change colours. held maps

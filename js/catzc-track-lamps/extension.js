@@ -86,7 +86,9 @@ function activate(context) {
                 } catch {}
             }
             engineContext.subscriptions.length = 0;
-            shellLog.appendLine(`error: the repository's engine did not load, the package's copy runs instead: ${error instanceof Error ? error.stack : error}`);
+            shellLog.appendLine(
+                `error: the repository's engine did not load, the package's copy runs instead: ${error instanceof Error ? error.stack : error}`,
+            );
             activateEngine(engineContext, api);
         }
         running = engineContext;

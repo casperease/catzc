@@ -25,9 +25,16 @@ const folder = (/** @type {string[]} */ files = [], /** @type {string[]} */ fold
     for (const inner of folders) fs.mkdirSync(path.join(root, inner), { recursive: true });
     return root;
 };
-const root = folder(["mods/Widget/Get-Widget.ps1", "mods/Widget/tests/Get-Widget.Tests.ps1", "mods/Widget/README.md", "gadgets/a.ps1", "docs/x.md"]);
+const root = folder([
+    "mods/Widget/Get-Widget.ps1",
+    "mods/Widget/tests/Get-Widget.Tests.ps1",
+    "mods/Widget/README.md",
+    "gadgets/a.ps1",
+    "docs/x.md",
+]);
 
 // The globs the lamps write for the switches given: out the unlit lamps, vetoed the lamps that hide their zone.
-const hidden = (/** @type {string[]} */ out, at = root, /** @type {string[]} */ vetoed = []) => engine.hiddenGlobs(at, new Set(out), filters, [], vetoed);
+const hidden = (/** @type {string[]} */ out, at = root, /** @type {string[]} */ vetoed = []) =>
+    engine.hiddenGlobs(at, new Set(out), filters, [], vetoed);
 
 module.exports = { engine, set, filters, folder, root, hidden };

@@ -34,7 +34,9 @@ function stub(seed) {
     /** @type {any} */
     let owned;
     const disposable = (/** @type {Callback | undefined} */ on = undefined) => ({ dispose: () => (record.disposed++, on && on()) });
-    const event = (/** @type {Callback[] | undefined} */ list = undefined) => (/** @type {Callback} */ callback) => (list && list.push(callback), disposable());
+    const event =
+        (/** @type {Callback[] | undefined} */ list = undefined) =>
+        (/** @type {Callback} */ callback) => (list && list.push(callback), disposable());
     const memento = (/** @type {Record<string, any>} */ values) => ({
         get: (/** @type {string} */ k, /** @type {any} */ d) => (k in values ? values[k] : d),
         update: async (/** @type {string} */ k, /** @type {any} */ v) => void (values[k] = v),
@@ -43,8 +45,13 @@ function stub(seed) {
         workspace: {
             workspaceFolders: [{ uri: { fsPath: root } }],
             getConfiguration: (/** @type {string} */ section) => ({
-                get: (/** @type {string} */ k) => (section === "catzc.trackLamps" ? /** @type {Record<string, unknown>} */ ({ filters: seed.filters, trace: false })[k] : undefined),
-                inspect: (/** @type {string} */ k) => ({ workspaceValue: section === "catzc.trackLamps" && k === "owned" ? owned : exclude }),
+                get: (/** @type {string} */ k) =>
+                    section === "catzc.trackLamps"
+                        ? /** @type {Record<string, unknown>} */ ({ filters: seed.filters, trace: false })[k]
+                        : undefined,
+                inspect: (/** @type {string} */ k) => ({
+                    workspaceValue: section === "catzc.trackLamps" && k === "owned" ? owned : exclude,
+                }),
                 update: async (/** @type {string} */ k, /** @type {any} */ next) => {
                     if (section === "catzc.trackLamps" && k === "owned") {
                         owned = next;
@@ -75,7 +82,11 @@ function stub(seed) {
             textDocuments: [],
         },
         window: {
-            createOutputChannel: (/** @type {string} */ name) => ({ appendLine: (/** @type {string} */ line) => record.logs.push(`${name}: ${line}`), show() {}, ...disposable() }),
+            createOutputChannel: (/** @type {string} */ name) => ({
+                appendLine: (/** @type {string} */ line) => record.logs.push(`${name}: ${line}`),
+                show() {},
+                ...disposable(),
+            }),
             createStatusBarItem: () => ({ show() {}, ...disposable() }),
             tabGroups: { all: [], onDidChangeTabs: event() },
             onDidChangeActiveTextEditor: event(),
@@ -95,7 +106,8 @@ function stub(seed) {
                 record.registered++;
                 return disposable(() => record.commands.get(name) === callback && record.commands.delete(name));
             },
-            executeCommand: async (/** @type {string} */ name, /** @type {unknown} */ key, /** @type {unknown} */ value) => void (name === "setContext" && record.contexts.push([key, value])),
+            executeCommand: async (/** @type {string} */ name, /** @type {unknown} */ key, /** @type {unknown} */ value) =>
+                void (name === "setContext" && record.contexts.push([key, value])),
         },
         extensions: { getExtension: () => undefined },
         StatusBarAlignment: { Left: 1 },
@@ -110,7 +122,11 @@ function stub(seed) {
         Diagnostic: function () {},
         DiagnosticSeverity: { Error: 0 },
     };
-    const context = { subscriptions: /** @type {{ dispose(): unknown }[]} */ ([]), workspaceState: memento(seed.state ?? {}), globalState: memento({}) };
+    const context = {
+        subscriptions: /** @type {{ dispose(): unknown }[]} */ ([]),
+        workspaceState: memento(seed.state ?? {}),
+        globalState: memento({}),
+    };
     const fire = (/** @type {string} */ pattern, /** @type {"create" | "change" | "delete"} */ kind, /** @type {string} */ file) =>
         Promise.all(
             record.watchers.filter((w) => w.pattern === pattern).flatMap((w) => w[kind].map((cb) => cb({ fsPath: file, scheme: "file" }))),
@@ -130,7 +146,8 @@ Module._load = function (request, ...rest) {
     return request === "vscode" ? current.vscode : original.call(this, request, ...rest);
 };
 
-const filters = (/** @type {string[]} */ names) => Object.fromEntries(names.map((name) => [name, [{ include: [name, `${name}/**`], exclude: [] }]]));
+const filters = (/** @type {string[]} */ names) =>
+    Object.fromEntries(names.map((name) => [name, [{ include: [name, `${name}/**`], exclude: [] }]]));
 
 const scenarios = {
     // The roof over the real repository: the files.exclude of each shipped lamp off and vetoed in turn, and of every lamp off, by the
@@ -256,7 +273,8 @@ const scenarios = {
     },
 };
 
-/** @type {Record<string, () => Promise<unknown>>} */ (scenarios)[scenario]()
+/** @type {Record<string, () => Promise<unknown>>} */ (scenarios)
+    [scenario]()
     .then((/** @type {unknown} */ result) => {
         process.stdout.write(JSON.stringify(result));
         process.exit(0);

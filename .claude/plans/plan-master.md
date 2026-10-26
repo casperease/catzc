@@ -47,8 +47,6 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
 
 - types-build-local -> plan-types-build-local.md: commit the types manifest only, build the DLL per machine, stack builds in a
   console.*.source session up to a cap; the untracking is the user's git step
-- javascript-track -> plan-javascript-track.md: the js track and language, the extensions moved out of pwsh, node:test and tsc gates, the
-  vscode manifest contract after contracts-layout
 - language-lamps -> plan-language-lamps.md: the languages button and its pick list, a lamp per ticked language from the languages config
 - vscode-extensions -> plan-vscode-extensions.md: trim the recommendations, then the cats file icon theme, then fold editorconfig,
   regex-robin and the ANSI pair into cats extensions or generated settings

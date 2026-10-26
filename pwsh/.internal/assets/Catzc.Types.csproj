@@ -19,7 +19,7 @@
   <PropertyGroup Label="catzc">
     <CatzcMeta><![CDATA[catzc:
   immutable:
-    with_body_sha: "903fbc2572ba"
+    with_body_sha: "9afb4e3876a2"
     warning: "Do Not Edit, this file is generated"]]></CatzcMeta>
   </PropertyGroup>
 
@@ -76,7 +76,8 @@
   <!--
     Stamp this project's version from the sources' identity. The RUNTIME (Import-CSharpTypes) writes
     pwsh/.compiled/Catzc.Types.<hash>.dll, where <hash> is the combined hash of every module's
-    types/*.cs (ADR caching, [ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD](/docs/drs/automation/caching.md#rule-adr-auto-cache-compiledtypeprebuild)) — that
+    types/*.cs (ADR caching,
+    [ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD](/docs/drs/automation/caching.md#rule-adr-auto-cache-compiledtypeprebuild)) — that
     hash IS the assembly's identity. The project asks the one living measure for it, Get-CombinedTypeHash in
     Catzc.Internal.Types (PDR-ONELIVE: a copy of the algorithm kept here drifted the moment the loader left the
     generated head of each source out of the hash, and warned on every build until the copy went), and stamps it, so

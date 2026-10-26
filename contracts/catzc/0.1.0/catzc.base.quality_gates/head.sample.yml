@@ -1,6 +1,6 @@
 # Provided sample of a file's meta head
-# ([ADR-REPO-CONTRACT-CONTRACTASSET](/docs/drs/repository/api-contracts.md#rule-adr-repo-contract-contractasset)): the shape a tool may rely on when it reads the
-# `catzc` block of a head. A head has two shapes. The head of an authored file, this sample, holds its one edge first, `docs`, its comment
+# ([ADR-REPO-CONTRACT-CONTRACTASSET](/docs/drs/repository/api-contracts.md#rule-adr-repo-contract-contractasset)): the shape a tool may
+# rely on when it reads the `catzc` block of a head. A head has two shapes. The head of an authored file, this sample, holds its one edge first, `docs`, its comment
 # page's plain path from the file's own folder, then `header`, a note that the head itself is generated; it carries no warning, and a file
 # with no comment page carries no head. The rule codes a file cites are read from its text, never from a head. A wholly generated file's
 # head holds `with_body_sha` while git tracks the file, then `warning`, under `immutable`. Every other fact about a file is derived on

@@ -20,7 +20,8 @@ const editor = () => {
 
 // The output channel is silent while all is well: a warning or an error is always written, the narration of each step only with
 // catzc.trackLamps.trace on.
-const trace = (/** @type {string} */ text) => editor().workspace.getConfiguration("catzc.trackLamps").get("trace") && host.log?.appendLine(text);
+const trace = (/** @type {string} */ text) =>
+    editor().workspace.getConfiguration("catzc.trackLamps").get("trace") && host.log?.appendLine(text);
 
 const config = () => editor().workspace.getConfiguration("catzc.trackLamps");
 // The feature flag of the preview lamps: off, only the shipped lamps take part (the title row, the filter, the conditions) and the

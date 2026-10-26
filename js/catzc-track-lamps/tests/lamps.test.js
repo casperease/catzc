@@ -20,7 +20,11 @@ test("sums the whole repository into the orchestrator's colour: red for any fail
 });
 
 test("lights every red lamp on the orchestrator's click, lifting its veto, and leaves every other lamp as it was", () => {
-    const next = engine.revealFailed({ code: "failed", tests: "unstaged", docs: "failed", tools: "committed" }, ["code", "tests", "docs"], ["docs", "tests"]);
+    const next = engine.revealFailed(
+        { code: "failed", tests: "unstaged", docs: "failed", tools: "committed" },
+        ["code", "tests", "docs"],
+        ["docs", "tests"],
+    );
     assert.deepStrictEqual(next.out, ["tests"], "code and docs are red, so they are lit; tests is not red, so it stays out");
     assert.deepStrictEqual(next.vetoed, ["tests"], "docs was vetoed and red, so its veto is lifted; tests keeps its veto");
 });
@@ -30,7 +34,8 @@ test("turns the open lamp red only while a red file is open, and back to the ope
     const other = "gadgets/a.ps1";
     // The red file's fault stays a fact after its tab closes (it is remembered), so only the open set decides the open lamp.
     const facts = { [red]: { fault: "failed" }, [other]: { change: "unstaged" } };
-    const condition = (/** @type {string[]} */ open) => engine.evaluate(engine.lampSets(filters, open), new Set(["open"]), [], facts).conditions.open;
+    const condition = (/** @type {string[]} */ open) =>
+        engine.evaluate(engine.lampSets(filters, open), new Set(["open"]), [], facts).conditions.open;
     assert.strictEqual(condition([red, other]), "failed", "a red file is open");
     assert.strictEqual(condition([other]), "unstaged", "the red file is closed, so the open lamp shows the open file's own colour");
     assert.strictEqual(condition([]), "empty", "with every document closed the open lamp claims nothing");
@@ -40,8 +45,19 @@ test("reads the open lamp's files from the editor's tabs: a text tab's file and 
     const root = "/widget-repo";
     const uri = (/** @type {string} */ fsPath, scheme = "file") => ({ scheme, fsPath });
     const groups = [
-        { tabs: [{ input: { uri: uri(`${root}/mods/Widget/Get-Widget.ps1`) } }, { input: { modified: uri(`${root}/gadgets/a.ps1`), original: uri(`${root}/gadgets/a.ps1`, "git") } }] },
-        { tabs: [{ input: { uri: uri(`${root}/mods/Widget/Get-Widget.ps1`) } }, { input: { uri: uri("untitled-1", "untitled") } }, { input: null }] },
+        {
+            tabs: [
+                { input: { uri: uri(`${root}/mods/Widget/Get-Widget.ps1`) } },
+                { input: { modified: uri(`${root}/gadgets/a.ps1`), original: uri(`${root}/gadgets/a.ps1`, "git") } },
+            ],
+        },
+        {
+            tabs: [
+                { input: { uri: uri(`${root}/mods/Widget/Get-Widget.ps1`) } },
+                { input: { uri: uri("untitled-1", "untitled") } },
+                { input: null },
+            ],
+        },
         { tabs: [{ input: { uri: uri("/elsewhere/x.ps1") } }] },
     ];
     assert.deepStrictEqual(engine.openFiles(root, groups), ["gadgets/a.ps1", "mods/Widget/Get-Widget.ps1"]);

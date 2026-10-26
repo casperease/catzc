@@ -37,7 +37,7 @@ Describe 'Get-StringOverflowLine' -Tag 'L0', 'logic' {
     }
 
     It 'exempts nothing in a language with no tokenizer, or in text the tokenizer cannot read' {
-        @(& $script:lines ("x" * 80) 'markdown') | Should -BeNullOrEmpty
+        @(& $script:lines ('x' * 80) 'markdown') | Should -BeNullOrEmpty
         @(& $script:lines "<widget><unclosed style=`"$('a' * 80)`"></widget>" 'xml') | Should -BeNullOrEmpty
     }
 }

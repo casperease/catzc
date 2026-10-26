@@ -93,10 +93,11 @@ def diagram_role(folder):
 
 
 def legend_model():
-    """The kit's glyph library as a legend diagram's png carries it: glyphs.xml without its comments, its tokens painted in the
-    default theme, and the language tags of its code glyphs added."""
-    lines = (KIT / "assets" / "glyphs.xml").read_text(encoding="utf-8").splitlines()
-    return tagged_library(paint(chr(10).join(line for line in lines if not line.lstrip().startswith("<!--")).strip()))
+    """The kit's glyph library as a legend diagram's png carries it: glyphs.xml without its comments, each tag joined back onto one
+    line (the file holds a long tag one attribute per line), its tokens painted in the default theme, and the language tags of its
+    code glyphs added."""
+    text = re.sub(r'\n[ \t]+(?=[\w:.-]+=")', " ", (KIT / "assets" / "glyphs.xml").read_text(encoding="utf-8"))
+    return tagged_library(paint(chr(10).join(line for line in text.splitlines() if not line.lstrip().startswith("<!--")).strip()))
 
 
 TAGGED_SAMPLES = {"g-code": "Get-Thing", "g-private": "Get-Thing", "g-runner": "Invoke-Thing", "g-type": "ThingConfig", "g-command-sample": None}  # the library glyphs that are code: each shows its tag row
@@ -110,7 +111,8 @@ def tagged_library(model):
     import declaration
 
     cell = lambda cell_id: re.search(
-        rf'<mxCell id="{cell_id}" value="([^"]*)" style="([^"]*)"[^>]*>\s*<mxGeometry x="(-?\d+)" y="(-?\d+)" width="(\d+)" height="(\d+)"', model
+        rf'<mxCell\s+id="{cell_id}"\s+value="([^"]*)"\s+style="([^"]*)"[^>]*>\s*<mxGeometry\s+x="(-?\d+)"\s+y="(-?\d+)"\s+width="(\d+)"\s+height="(\d+)"',
+        model,
     )
     sheet = cell("g-type-tag")
     assert sheet, "the library holds its type-tag sheet, g-type-tag"
