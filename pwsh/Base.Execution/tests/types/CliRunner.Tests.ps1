@@ -34,3 +34,21 @@ Describe 'CliRunner.ExecutableName' -Tag 'L0', 'logic' {
         [Catzc.Base.Execution.CliRunner]::ExecutableName($_) | Should -BeExactly ''
     }
 }
+
+Describe 'CliRunner.RunMany' -Tag 'L0', 'logic' {
+    It 'refuses <case> before starting anything' -ForEach @(
+        @{ case = 'a null command list'; Commands = $null; Limits = [int[]] @(); Throttle = 1; Message = '*commandLines*' }
+        @{ case = 'a time limit per command missing'; Commands = [string[]] @('widget'); Limits = [int[]] @(); Throttle = 1
+            Message = '*own time limit*'
+        }
+        @{ case = 'a throttle below one'; Commands = [string[]] @('widget'); Limits = [int[]] @(5); Throttle = 0
+            Message = '*at least one process*'
+        }
+    ) {
+        { [Catzc.Base.Execution.CliRunner]::RunMany($Commands, $TestDrive, $Limits, 5, $Throttle) } | Should -Throw $Message
+    }
+
+    It 'returns an empty result for an empty command list, starting nothing' {
+        @([Catzc.Base.Execution.CliRunner]::RunMany([string[]] @(), $TestDrive, [int[]] @(), 5, 4)) | Should -HaveCount 0
+    }
+}

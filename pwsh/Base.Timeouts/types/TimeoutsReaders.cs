@@ -67,6 +67,27 @@ public static class TimeoutsReaders
         janitorGeneratedFilesSeconds = number.Value;
     }
 
+    private static readonly string[] ParallelKeys = { "processes" };
+
+    internal static void ReadParallel(object value, List<string> errors, ref int parallelProcesses)
+    {
+        IDictionary map = value as IDictionary;
+        if (map == null)
+        {
+            errors.Add("invalid parallel (must be a map of processes)");
+            return;
+        }
+        CheckKeys(map, ParallelKeys, "parallel.", errors);
+        if (!map.Contains("processes") || map["processes"] == null) { return; }
+        int? number = PositiveSeconds(map["processes"]);
+        if (number == null)
+        {
+            errors.Add(string.Format("invalid parallel.processes '{0}' (must be a positive whole number)", map["processes"]));
+            return;
+        }
+        parallelProcesses = number.Value;
+    }
+
     internal static void ReadRunLock(object value, List<string> errors, Dictionary<string, int> runLock)
     {
         IDictionary map = value as IDictionary;

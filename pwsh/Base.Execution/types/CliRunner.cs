@@ -10,11 +10,14 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Runtime.ExceptionServices;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Catzc.Base.Execution;
 
+// Runs the executable with no shell, streaming and capturing both outputs, and kills the whole tree past its limit.
 [Catzc.Base.Objects.ConsoleDisplay(nameof(ExitCode))]
 public class CliRunner
 {
@@ -29,8 +32,10 @@ public class CliRunner
     // The process exit code.
     public int ExitCode { get; private set; }
 
+    // Set by RunBytes only, for a stream such as git cat-file --batch whose sizes count bytes.
     public byte[] StdoutBytes { get; private set; }
 
+    // One command, no shell operators; past timeoutSeconds the process tree is killed and the run throws.
     public static CliRunner Run(string commandLine, bool silent, string workingDirectory, int timeoutSeconds, int drainSeconds,
         string input = null)
     {
@@ -48,6 +53,7 @@ public class CliRunner
         return RunDirect(commandLine, parsed.Executable, parsed.Arguments, silent, workingDirectory, timeoutSeconds, drainSeconds, input);
     }
 
+    // Silent, undecoded stdout bytes, with stdin empty and closed.
     public static CliRunner RunBytes(string commandLine, string workingDirectory, int timeoutSeconds, int drainSeconds)
     {
         AssertLimits(timeoutSeconds, drainSeconds);
@@ -84,11 +90,64 @@ public class CliRunner
         return runner;
     }
 
+    // Each command runs as Run does, silently, at most throttle at a time, each bounded by its own limit; results keep the commands' order.
+    public static CliRunner[] RunMany(string[] commandLines, string workingDirectory, int[] timeoutSeconds, int drainSeconds,
+        int throttle)
+    {
+        if (commandLines == null)
+        {
+            throw new ArgumentNullException(nameof(commandLines));
+        }
+        if (timeoutSeconds == null || timeoutSeconds.Length != commandLines.Length)
+        {
+            throw new ArgumentException("every command needs its own time limit", nameof(timeoutSeconds));
+        }
+        if (throttle <= 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(throttle), "at least one process must run at a time");
+        }
+
+        var results = new CliRunner[commandLines.Length];
+        var failures = new Exception[commandLines.Length];
+        Parallel.For(0, commandLines.Length, new ParallelOptions { MaxDegreeOfParallelism = throttle }, index =>
+        {
+            try
+            {
+                results[index] = Run(commandLines[index], true, workingDirectory, timeoutSeconds[index], drainSeconds);
+            }
+            catch (Exception failure)
+            {
+                failures[index] = failure;
+            }
+        });
+
+        // Every command has finished, each within its limit, before any failure is raised: none is left running behind the throw.
+        var thrown = new List<Exception>();
+        foreach (var failure in failures)
+        {
+            if (failure != null)
+            {
+                thrown.Add(failure);
+            }
+        }
+        if (thrown.Count == 1)
+        {
+            ExceptionDispatchInfo.Capture(thrown[0]).Throw();
+        }
+        if (thrown.Count > 1)
+        {
+            throw new AggregateException($"{thrown.Count} of {commandLines.Length} commands failed", thrown);
+        }
+        return results;
+    }
+
+    // The first token, unquoted: the name the command's time limit is looked up by.
     public static string ExecutableName(string commandLine)
     {
         return ParseCommand(commandLine ?? "").Executable ?? "";
     }
 
+    // A reader still blocked after drainSeconds waits on a pipe a started process still holds open.
     private static void AssertLimits(int timeoutSeconds, int drainSeconds)
     {
         if (timeoutSeconds <= 0)
@@ -108,6 +167,7 @@ public class CliRunner
         var stdoutSb = new StringBuilder();
         var stderrSb = new StringBuilder();
 
+        // No one can answer a prompt here, so the child gets an empty, closed stdin rather than hang on an inherited pipe.
         var psi = NewStartInfo(executable, arguments, workingDirectory, redirectInput: input != null || silent || Console.IsInputRedirected);
         if (input != null)
         {
@@ -120,6 +180,7 @@ public class CliRunner
     private static ProcessStartInfo NewStartInfo(string executable, List<string> arguments, string workingDirectory,
         bool redirectInput)
     {
+        // Resolved on PATH first: Process.Start finds no .cmd or .bat, and az, npm and poetry are .cmd on Windows.
         var psi = new ProcessStartInfo
         {
             FileName = ResolveExecutable(executable),
@@ -144,6 +205,7 @@ public class CliRunner
         return psi;
     }
 
+    // A background thread, so a reader stuck on a leftover pipe never keeps the host alive.
     private static Thread Reader(Action read)
     {
         return new Thread(() =>
@@ -160,6 +222,7 @@ public class CliRunner
         { IsBackground = true };
     }
 
+    // Bounded twice: the process by its limit, then its readers, so a held pipe fails the run instead of hanging it.
     private static void Supervise(string commandLine, Process process, int timeoutSeconds, TimeSpan drainLimit, Thread stdoutThread,
         Thread stderrThread)
     {
@@ -259,6 +322,7 @@ public class CliRunner
 
     // --- Executable resolution ---
 
+    // PATHEXT order on Windows (.exe, .cmd, .bat, .com), the bare name on Unix.
     private static string ResolveExecutable(string name)
     {
         // Already a full/relative path with directory separator — use as-is
@@ -303,6 +367,7 @@ public class CliRunner
         public string ShellOperator;
     }
 
+    // Quotes are honoured; an unquoted | && || needs a shell, so it is refused.
     private static ParsedCommand ParseCommand(string commandLine)
     {
         var result = new ParsedCommand();

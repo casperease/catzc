@@ -251,6 +251,21 @@ Describe 'TimeoutsConfig' -Tag 'L0' {
             { New-TimeoutsConfig ([ordered]@{ janitors = $janitors }) } | Should -Throw $message
         }
 
+        It 'resolves four parallel processes when parallel is absent, and overrides it' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
+            (New-TimeoutsConfig ([ordered]@{})).parallel['processes'] |
+                Should -Be ([Catzc.Base.Timeouts.TimeoutsConfig]::ParallelDefaultProcesses)
+            [Catzc.Base.Timeouts.TimeoutsConfig]::ParallelDefaultProcesses | Should -Be 4
+            (New-TimeoutsConfig ([ordered]@{ parallel = @{ processes = 2 } })).parallel['processes'] | Should -Be 2
+        }
+
+        It 'rejects a bad parallel section: <case>' -ForEach @(
+            @{ case = 'an unknown key'; parallel = @{ threads = 1 }; message = "*unknown key 'parallel.threads'*" }
+            @{ case = 'a zero'; parallel = @{ processes = 0 }; message = "*invalid parallel.processes '0'*" }
+            @{ case = 'a shape that is not a map'; parallel = 3; message = '*invalid parallel (must be a map*' }
+        ) {
+            { New-TimeoutsConfig ([ordered]@{ parallel = $parallel }) } | Should -Throw $message
+        }
+
         It 'reads per-command limits, case-insensitively, and answers null for a command without one' -Tag 'ADR-PWSH-ASSERT-DECLAREDTIMELIMIT' {
             $config = New-TimeoutsConfig ([ordered]@{ commands = @{ 'Sync-Widget' = 45 } })
             $config.SecondsForCommand('sync-widget') | Should -Be 45

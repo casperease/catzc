@@ -16,7 +16,10 @@ namespace Catzc.Base.Timeouts;
 
 public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
 {
-    private static readonly string[] AllowedKeys = { "limits", "executables", "commands", "tests", "wait", "run_lock", "janitors" };
+    private static readonly string[] AllowedKeys =
+    {
+        "limits", "executables", "commands", "tests", "wait", "run_lock", "janitors", "parallel",
+    };
     private static readonly string[] TestKeys = { "level_ms", "run_seconds", "engine_start_seconds", "run_list_seconds" };
     internal static readonly string[] WaitKeys = { "seconds", "milliseconds", "drain_seconds" };
     public const int WaitDefaultSeconds = 1;
@@ -28,6 +31,8 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
     public const int RunLockDefaultBudgetSeconds = 280;
     // The import janitor's roof for Test-GeneratedFiles -Changed: the changed set costs about 5 s, so 10 s still catches a regression.
     public const int JanitorDefaultGeneratedFilesSeconds = 10;
+    // Invoke-ExecutableParallel's processes at once: enough to halve a batched tool's time, few enough to spare a shared devbox.
+    public const int ParallelDefaultProcesses = 4;
     private static readonly string[] TestLevels = TestTiers.Names;
 
     private static readonly Dictionary<string, int> TestLevelDefaults = new Dictionary<string, int>(StringComparer.Ordinal)
@@ -82,7 +87,11 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
     // The import janitors' roofs, filled in: janitors[generated_files_seconds].
     public IDictionary janitors { get; }
 
+    // The parallel run settings, filled in: parallel[processes].
+    public IDictionary parallel { get; }
+
     private int janitorGeneratedFilesSeconds = JanitorDefaultGeneratedFilesSeconds;
+    private int parallelProcesses = ParallelDefaultProcesses;
     private readonly Dictionary<string, int> testLevelMs = new Dictionary<string, int>(TestLevelDefaults, StringComparer.Ordinal);
     private int testRunSeconds = TestRunDefaultSeconds;
     private int engineStartSeconds = EngineStartDefaultSeconds;
@@ -210,6 +219,11 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
             ReadJanitors(d["janitors"], errors, ref janitorGeneratedFilesSeconds);
         }
 
+        if (d != null && d.Contains("parallel") && d["parallel"] != null)
+        {
+            ReadParallel(d["parallel"], errors, ref parallelProcesses);
+        }
+
         if (errors.Count > 0)
         {
             throw new ArgumentException("timeouts configuration validation failed:\n" + string.Join("\n", errors));
@@ -255,6 +269,11 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
         janitors = new Hashtable(StringComparer.OrdinalIgnoreCase)
         {
             { "generated_files_seconds", janitorGeneratedFilesSeconds },
+        };
+
+        parallel = new Hashtable(StringComparer.OrdinalIgnoreCase)
+        {
+            { "processes", parallelProcesses },
         };
     }
 
