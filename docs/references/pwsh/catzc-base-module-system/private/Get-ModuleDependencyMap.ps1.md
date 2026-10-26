@@ -1,7 +1,7 @@
 # pwsh/Base.ModuleSystem/private/Get-ModuleDependencyMap.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Builds the declared module-to-dependency-set map from `dependencies.yml`, the edges of the declared graph. `Get-ModuleOrder` (topological
+order) and `Get-ModuleDependencyClosure` (subset closure) share it.
 
 ## help
 
@@ -32,21 +32,7 @@ $dependencyMap = Get-ModuleDependencyMap
 $dependencyMap['Catzc.Azure.Templates']   # -> the modules it depends on
 ```
 
-## comment:1
+## The loop variable
 
-Above `$dependencyMap = @{}`, written with `#`.
-
-```text
-module -> the set of modules it depends on. The loop variable must NOT be named $module: it would
-collide (names are case-insensitive) with the [string[]] $Module parameter, whose type constraint
-persists on the shared variable and would coerce each scalar element back into a 1-element array.
-```
-
-## comment:2
-
-Above `foreach ($moduleName in $allowed.Keys) {`, written with `#`.
-
-```text
-2) Per-module allowed deps. A specific-module target is a direct edge. A GROUP target adds every member
-   of that group — EXCEPT when the module is itself a member of that group (see .DESCRIPTION).
-```
+The loop variable is `$moduleName`, never `$module`. Variable names are case-insensitive, so `$module` would be the typed `[string[]] $Module`
+parameter's own variable, whose type constraint persists on it and would coerce each scalar element back into a one-element array.

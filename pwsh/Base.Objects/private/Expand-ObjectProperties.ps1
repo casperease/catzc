@@ -34,6 +34,7 @@ function Expand-ObjectProperties {
         return
     }
 
+    # Dictionaries and arrays before PSCustomObject: a PSObject-wrapped dictionary is a PSCustomObject and would show Count and Keys.
     if ($Value -is [System.Collections.IDictionary]) {
         foreach ($key in $Value.Keys) {
             $path = if ($Prefix) {
@@ -75,6 +76,7 @@ function Expand-ObjectProperties {
         return
     }
 
+    # A complex CLR object, such as a typed config model, flattens by reflecting its public members; strings and value types stay leaves.
     if (-not $Value.GetType().IsValueType -and $Value -isnot [string] -and
         $Value -isnot [System.Collections.IEnumerable]) {
         $properties = @($Value.PSObject.Properties | Where-Object { $_.MemberType -in @('Property', 'NoteProperty') })

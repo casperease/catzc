@@ -1,37 +1,21 @@
 # pwsh/Base.Drs/types/DrsCitationMap.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The ADR citation registry as one immutable lookup: each citation code (`ADR-<CODE>`) to its ADR's repository-relative path and declared rule
+numbers, plus the reverse path-to-code map and a unique-slug-to-path map. `Get-DrsCitationMap` builds it from the ADR index.
 
-## comment:1
+## Why it exists
 
-Above `using System;`, written with `//`.
+The link engine reads it and derives every code link's destination from the citation code
+([ADR-REPO-LINK-CODELINKS](../../../../drs/repository/markdown-links.md#rule-adr-repo-link-codelinks)). The code is the source of truth, so
+a moved ADR re-points every link to it.
 
-```text
-The ADR citation registry as one immutable lookup: each citation code (ADR-<CODE>) to its ADR's
-repository-relative path and declared rule numbers, plus the reverse path -> code map and a unique-slug
--> path map. Built from the ADR index (Get-DrsCitationMap) and read by the link engine, which derives every
-code link's destination from the citation code
-([ADR-REPO-LINK-CODELINKS](/docs/drs/repository/markdown-links.md#rule-adr-repo-link-codelinks)): the code is the source of truth, so a
-moved ADR re-points every link to it.
-```
+## Constructor
 
-## comment:2
+`entries` maps a code to `{ path = '<repo-relative, /-separated .md path>'; rules = <int[]> }`. `documents` is every ADR-folder markdown
+path, repository-relative, including the code-less ones (the index and the DORA files), so a slug or a stale path can be resolved against
+the files that actually exist.
 
-Above `public DrsCitationMap(IDictionary entries, IEnumerable documents)`, written with `//`.
+## Domain mentions
 
-```text
-entries: code -> { path = '<repo-relative, /-separated .md path>'; rules = <int[]> }.
-documents: every ADR-folder markdown path (repo-relative), including the code-less ones (index, dora-explains),
-so a slug or stale path can be resolved against the files that actually exist.
-```
-
-## comment:3
-
-Above `int dash = code.IndexOf('-', code.IndexOf('-') + 1);`, written with `//`.
-
-```text
-Every hyphen-prefix of a code (ADR-AUTO for
-[ADR-PWSH-ERROR](/docs/drs/automation/pwsh/error-handling.md)) names its domain; a domain code or a
-domain wildcard (ADR-AUTO-*) is a valid mention, not an unknown ADR.
-```
+Every hyphen-prefix of a code names its domain: `ADR-AUTO` for [ADR-PWSH-ERROR](../../../../drs/automation/pwsh/error-handling.md). A domain
+code or a domain wildcard (`ADR-AUTO-*`) is a valid mention, not an unknown ADR.

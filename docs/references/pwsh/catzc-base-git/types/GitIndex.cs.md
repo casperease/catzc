@@ -20,5 +20,5 @@ SHA-1 repository; a split index (the `link` extension) or a sparse index (direct
 
 ## The trailer
 
-The trailer is the SHA-1 of everything before it, or all zeros when git skips it (`index.skipHash`). A mismatch is a corrupt file or a SHA-256
-repository, whose 32-byte object ids this reader does not parse.
+The trailer is the SHA-1 of everything before it, or all zeros when git skips it (`index.skipHash`). A mismatch is a corrupt file or a
+SHA-256 repository, whose 32-byte object ids this reader does not parse.

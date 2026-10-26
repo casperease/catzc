@@ -1,7 +1,6 @@
 # pwsh/Base.VSCode/Build-VsCodeExtension.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The command that packs one rendered extension folder into a `.vsix` the editor installs.
 
 ## help
 
@@ -35,11 +34,6 @@ The folder the .vsix is written to. Default: the vsix folder under the output ro
 Build-VsCodeExtension out/vscode-extensions/catzc-git-changes
 ```
 
-## comment:1
+## The manifest contract
 
-Above `$repositoryRoot = Get-RepositoryRoot`, written with `#`.
-
-```text
-Every rendered manifest is held against the extension manifest contract before it is packed; a mismatch stops the
-build.
-```
+Every rendered manifest is held against the extension manifest contract before it is packed; a mismatch stops the build.

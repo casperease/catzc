@@ -1,7 +1,6 @@
 # pwsh/Base.Maps/Get-GridMinimapData.ps1
 
-The data of the grid minimap: the world map's own grid of tracks by file languages, with the cells lit where a diagram's subject files
-are.
+The data of the grid minimap: the world map's own grid of tracks by file languages, with the cells lit where a diagram's subject files are.
 
 ## help
 

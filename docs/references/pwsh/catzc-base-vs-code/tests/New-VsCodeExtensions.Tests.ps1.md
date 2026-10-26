@@ -1,32 +1,12 @@
 # pwsh/Base.VSCode/tests/New-VsCodeExtensions.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The L0 tests of `New-VsCodeExtensions`.
 
-## comment:1
+## Fixtures
 
-Above `Mock Get-Config -ModuleName Catzc.Base.VSCode {`, written with `#`.
+They isolate through the config seam
+([ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS](../../../../drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-isolatethroughseams)): a small
+fixture registry stands in for the shipped one. `Get-Config` constructs the `VscodeExtensionsConfig` type on load, so a render is also the
+shape proof. The engines' extensions arrive as the root-config generator passes them.
 
-```text
-Isolate through the config seam
-([ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS](/docs/drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-isolatethroughseams)): a small
-fixture registry.
-```
-
-## comment:2
-
-Above `$engineExtension = @((Get-Config -Config languages).formatters.Values |...`, written with `#`.
-
-```text
-Get-Config constructs the VscodeExtensionsConfig type on load, so a render is also the shape proof. The
-engines' extensions arrive as the root-config generator passes them.
-```
-
-## comment:3
-
-Above `@($json.recommendations) | Should -Contain 'golang.go'`, written with `#`.
-
-```text
-The Go language server for the Go tests, under either Go root (go/ or .go/): it reads the repository-root
-go.work.
-```
+The Go language server is expected for the Go tests under either Go root (`go/` or `.go/`), since it reads the repository-root `go.work`.

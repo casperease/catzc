@@ -1,7 +1,7 @@
 # pwsh/Base.VSCode/private/New-VsCodeExtensionFolder.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The private renderer of one of the repository's own editor extensions into a folder the editor can pack, from its registry entry and its
+script.
 
 ## help
 
@@ -40,56 +40,19 @@ The folder that holds the extension scripts. Default: the module's assets/extens
 New-VsCodeExtensionFolder -Extension $entry -OutputDirectory (Join-Path (Get-OutputRoot) 'vscode-extensions')
 ```
 
-## comment:1
+## The extension source
 
-Above `$rendered = Join-Path $folder 'media'`, written with `#`.
+Each extension is a module of the js track: `<folder>/extension.js`, with its own files in `<folder>/assets/`, shipped as `media/`. The
+source folder is the extension's name without the js track's namespace, so the name resolves to it
+([DDR-TRACK-MODULENAMESPACE](../../../../drs/design/tracks.md#rule-ddr-track-modulenamespace)); the installed folder keeps the name, the
+extension's id.
 
-```text
-A lamp is authored as its two green base glyphs, <lamp>-on.svg and <lamp>-off.svg; every condition variant is rendered from them
-with the lamp palette: the stroke takes the range's glyph shade, the condition adds its badge, and veto strikes the unlit glyph.
-```
+## Lamp glyphs
 
-## comment:2
+A lamp is authored as its two green base glyphs, `<lamp>-on.svg` and `<lamp>-off.svg`. Every condition variant is rendered from them with the
+lamp palette: the stroke takes the range's glyph shade, the condition adds its badge, and veto strikes the unlit glyph.
 
-Above `$repeats = if ($Extension.contributes.Contains('repeat')) {`, written with `#`.
-
-```text
-A repeat source that names glyphs draws one label glyph per item, <glyphs><key>-on/off.svg with the item's title as its label, so
-the lamps it repeats need no hand-drawn icon; the pass below recolours them per condition like every other base glyph.
-```
-
-## comment:3
-
-Above `$script = Join-Path $AssetDirectory "$sourceFolder/extension.js"`, written with `#`.
-
-```text
-Each extension is a module of the js track: <folder>/extension.js, the folder its name without the track's namespace, its own
-files in <folder>/assets/, shipped as media/.
-```
-
-## comment:4
-
-Above `$corner = ' data-badge="bottom"'`, written with `#`.
-
-```text
-A base glyph whose top-right corner is drawn on declares data-badge="bottom"; its badge then sits
-bottom-right.
-```
-
-## comment:5
-
-Above `$hidden = ' data-empty="hidden"'`, written with `#`.
-
-```text
-A base glyph that declares data-empty="hidden" is drawn fully transparent while its lamp claims nothing,
-keeping its place in the row.
-```
-
-## comment:6
-
-Above `$sourceFolder = (Get-Track -Name js).FolderNameOf($Extension.name)`, written with `#`.
-
-```text
-The source folder drops the js track's namespace, so the extension's name resolves to it (DDR-TRACK-MODULENAMESPACE); the installed
-folder keeps the name, the extension's id.
-```
+- A base glyph whose top-right corner is drawn on declares `data-badge="bottom"`; its badge then sits bottom-right.
+- A base glyph that declares `data-empty="hidden"` is drawn fully transparent while its lamp claims nothing, keeping its place in the row.
+- A repeat source that names glyphs draws one label glyph per item, `<glyphs><key>-on/off.svg` with the item's title as its label, so the
+  lamps it repeats need no hand-drawn icon; the pass that recolours the base glyphs per condition recolours them too.

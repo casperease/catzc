@@ -1,7 +1,6 @@
 # pwsh/Base.ModuleSystem/private/Resolve-ImportMix.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Gathers the session's facts and hands them to `ImportMix.Resolve`, the one place the import mix is decided.
 
 ## help
 
@@ -28,20 +27,12 @@ The caller's engines; when not given, the configuration's.
 
 `[Catzc.Base.ModuleSystem.ImportMix]` The resolved mix.
 
-## comment:1
+## Code languages of a module
 
-Above `$languageConfig = Get-Config -Config languages`, written with `#`.
+A module's code languages are the executable languages of the files that a language's own layout row places. The shared rows, assets and
+tests, never count.
 
-```text
-A module's code languages are the executable languages of the files a language's own layout row places; the shared
-rows (assets, tests) never count.
-```
+## Errors
 
-## comment:2
-
-Above `throw $_.Exception.InnerException`, written with `#`.
-
-```text
-The resolution's own error (an unknown name, an absent engine, an unhandled language) surfaces as itself, not
-as the call's wrapper.
-```
+The resolution's own error surfaces as itself, not as the call's wrapper, so the caller sees the unknown name, the absent engine or the
+unhandled language directly.

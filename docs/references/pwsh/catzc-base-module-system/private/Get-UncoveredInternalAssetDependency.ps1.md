@@ -1,7 +1,7 @@
 # pwsh/Base.ModuleSystem/private/Get-UncoveredInternalAssetDependency.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The engine of the internal-asset coverage gate: it takes the inventory of `Get-InternalAssetDependency` and lists the functions that no
+qualifying test covers. `Test-InternalAssetDependency` reports its result.
 
 ## help
 

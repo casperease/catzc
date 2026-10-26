@@ -1,7 +1,7 @@
 # pwsh/Base.Git/Import-RepositoryWithHistory.ps1
 
-The import of an outside repository with its full history: it lands the source's files at one address under the unordered track and joins the
-history by a subtree merge.
+The import of an outside repository with its full history: it lands the source's files at one address under the unordered track and joins
+the history by a subtree merge.
 
 ## help
 

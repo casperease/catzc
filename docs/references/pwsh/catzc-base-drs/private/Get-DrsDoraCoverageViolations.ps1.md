@@ -1,6 +1,7 @@
 # pwsh/Base.Drs/private/Get-DrsDoraCoverageViolations.ps1
 
-The private helper of `Test-DrsRegistry` that finds rule sets whose ADR is linked from no section, or more than one, of its domain's DORA file.
+The private helper of `Test-DrsRegistry` that finds rule sets whose ADR is linked from no section, or more than one, of its domain's DORA
+file.
 
 ## help
 

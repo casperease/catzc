@@ -31,9 +31,9 @@ It is loaded via `Get-Config -Config rootconfig`, and `Catzc.Base.RootConfig.Roo
 
 - `generator: New-Importer` is the live form: the full shim, rendered from the `Invoke-Importer` overlay's param block on every import (the
   drift guard in `New-Importer.Tests.ps1`).
-- `source: pwsh/Base.RootConfig/assets/root/importer.ps1` (comment: none) is the seed form for a first check-in: a minimal bootstrap that just
-  performs one full import. The importer tail's `Build-RootConfig` then materialises whatever this entry names, so switching back to the
-  generator self-heals the seed into the full shim on the very next load.
+- `source: pwsh/Base.RootConfig/assets/root/importer.ps1` (comment: none) is the seed form for a first check-in: a minimal bootstrap that
+  just performs one full import. The importer tail's `Build-RootConfig` then materialises whatever this entry names, so switching back to
+  the generator self-heals the seed into the full shim on the very next load.
 
 `importer.sh` is the bash (and zsh) entry: sourced, it defines the `cats` dispatcher that runs catzc commands through pwsh
 ([ADR-AUTO-ENGINE](../../../../drs/automation/execution-engines.md)). It is committed for the same reason as `importer.ps1`: a fresh clone
@@ -46,18 +46,18 @@ needs it before any import.
 - The Go test workspace (`Catzc.Base.Languages`, `New-GoWorkspace`) is `go.work` at the repository root, and one `go.mod` per Go test module
   under the Go root (`go.yml` `root`: `go/` when present, else `.go/`). They are gitignored generated copies.
 - The Python test workspace (`Catzc.Base.Languages`, `New-PythonProject`) is the uv workspace root `pyproject.toml` in the Python root
-  (`python.yml` `root`: `python/` when present, else `.python/`), and one member `pyproject.toml` per Python test folder. They are gitignored
-  generated copies; uv makes the one `.venv` and `uv.lock` beside the workspace root.
+  (`python.yml` `root`: `python/` when present, else `.python/`), and one member `pyproject.toml` per Python test folder. They are
+  gitignored generated copies; uv makes the one `.venv` and `uv.lock` beside the workspace root.
 - `.editorconfig` is the first width-bearing tool config, its asset template with every width filled from `file-limits.yml`. It renders
   before `.vscode/settings.json`, whose generator reads it from disk, so a tree without it (a fresh clone, a test snapshot) renders both at
   once.
 - `jsconfig.json` is the project the editor and the js track's types gate read; its type root is the repository-relative folder
-  `Install-TypeScript` fills, so it is the same on every machine. `jsconfig.lenient.json` holds the modules `javascript.yml`'s strict list does
-  not raise yet, checked leniently; it extends `jsconfig.json`, and holds no file once every module is raised.
+  `Install-TypeScript` fills, so it is the same on every machine. `jsconfig.lenient.json` holds the modules `javascript.yml`'s strict list
+  does not raise yet, checked leniently; it extends `jsconfig.json`, and holds no file once every module is raised.
 
 ## Where the managed-file marker lives
 
 - JSON has no comment syntax (and the dotnet manifest parser rejects `//` line comments), so for `dotnet-tools.json` the managed-file marker
   travels in the authored source as an ignored `//` property.
-- MSBuild's solution parser requires the `Format Version` line at the top, so for `catzc.sln` the managed-file note lives inside the source's
-  own `#` comment block (which the format allows only after that line).
+- MSBuild's solution parser requires the `Format Version` line at the top, so for `catzc.sln` the managed-file note lives inside the
+  source's own `#` comment block (which the format allows only after that line).

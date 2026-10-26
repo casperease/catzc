@@ -1,7 +1,7 @@
 # pwsh/Base.Git/New-GitIgnore.ps1
 
-The renderer of the repository-root `.gitignore`: a pure function from the gitignore registry, and from what the caller injects, to the file's
-text.
+The renderer of the repository-root `.gitignore`: a pure function from the gitignore registry, and from what the caller injects, to the
+file's text.
 
 ## help
 

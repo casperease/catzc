@@ -25,6 +25,7 @@ function ConvertTo-BclValue {
         }
 
         if ($Object -is [hashtable]) {
+            # Clone keeps the table's key comparer; values are replaced on the copy, never on the caller's table.
             $copy = $Object.Clone()
             foreach ($key in @($copy.Keys)) {
                 $copy[$key] = Expand-WrappedValue $copy[$key]

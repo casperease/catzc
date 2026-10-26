@@ -2,8 +2,7 @@
 
 <!-- cspell:ignore Segoe linejoin linecap dasharray -->
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The private renderer of the cats file icon theme, its SVGs and its theme JSON, from `file-icons.yml` into an extension's media folder.
 
 ## help
 
@@ -35,38 +34,17 @@ the catzc-track-lamps assets.
 
 The language system's languages, each with its name and extensions. Default: the shipped languages config.
 
-## comment:1
+## Labels
 
-Above `$labelSvg = {`, written with `#`.
+A label's size shrinks with its length so four characters still fit the 16-pixel square. The prompt style underlines it with a console
+chevron and a cursor instead of a plain bar.
 
-```text
-A label's size shrinks with its length so four characters still fit the 16-pixel square; the prompt style underlines it with a
-console chevron and a cursor instead of a plain bar.
-```
+## Glyphs and languages
 
-## comment:2
+A glyph is looked up in the folders of `-GlyphDirectory`, in order: the icon theme's own glyphs (`<glyph>.svg`), then the lamp glyphs
+(`<glyph>-on.svg`). An icon's `language` names a language of the languages config; each language's extensions come from there, never
+restated in `file-icons.yml`.
 
-Above `[string[]] $GlyphDirectory = @(`, written with `#`.
+## Unmarked files and folders
 
-```text
-The folders a glyph is looked up in, in order: the icon theme's own glyphs (<glyph>.svg), then the lamp glyphs
-(<glyph>-on.svg).
-```
-
-## comment:3
-
-Above `$Languages = (Get-Config -Config languages).languages`, written with `#`.
-
-```text
-The language system an icon's 'language' names; each language's extensions come from here, never restated in
-file-icons.yml.
-```
-
-## comment:4
-
-Above ``& $write '_file' "<svg xmlns=`"http://www.w3.org/2000/svg`" width=`"16`"...``, written with `#`.
-
-```text
-A file no icon marks is a leaf, one dot. The theme names no folder icon, so a folder is marked by the Explorer's
-own chevron alone.
-```
+A file no icon marks is a leaf, one dot. The theme names no folder icon, so a folder is marked by the Explorer's own chevron alone.

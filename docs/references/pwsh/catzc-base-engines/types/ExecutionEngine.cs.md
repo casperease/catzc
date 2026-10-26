@@ -7,8 +7,8 @@ no caller restates a flag, a quote rule or a file name.
 ## What it holds
 
 How the engine's executable is named and located, which script files it runs, how it is started non-interactively, how it loads an entry
-script and runs a command, its strict mode, its time safeguard, the line endings and executable bit its scripts need, and its importer entry.
-The three instances live in `ExecutionEngines`. The type has no public constructor, so no caller invents a fourth.
+script and runs a command, its strict mode, its time safeguard, the line endings and executable bit its scripts need, and its importer
+entry. The three instances live in `ExecutionEngines`. The type has no public constructor, so no caller invents a fourth.
 
 A model type, so its properties are PascalCase
 ([ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](../../../../drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).

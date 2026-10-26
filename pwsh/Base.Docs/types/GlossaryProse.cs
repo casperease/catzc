@@ -96,6 +96,7 @@ public static class GlossaryProse
             segments.Add(Segment(isHelp ? "help" : "comments", token.Extent.StartLineNumber, WithoutImmutableFacts(token.Text)));
         }
 
+        // Message carriers: everything after a writer's command name, the operand of throw, and the value of -ErrorText or -Because.
         List<Ast> carriers = new List<Ast>();
         foreach (Ast node in ast.FindAll(n => n is ThrowStatementAst, true))
         {
@@ -128,6 +129,7 @@ public static class GlossaryProse
         {
             foreach (Ast found in carrier.FindAll(n => n is StringConstantExpressionAst || n is ExpandableStringExpressionAst, true))
             {
+                // A string inside an expandable string's sub-expression is code, not message text; its parent string drops it with the sub-expression.
                 bool inExpandable = false;
                 for (Ast parent = found.Parent; parent != null; parent = parent.Parent)
                 {
@@ -160,6 +162,7 @@ public static class GlossaryProse
         return segments.ToArray();
     }
 
+    // A head's immutable: block holds computed facts, not prose: its lines are blanked but kept, so later lines keep their numbers.
     static string WithoutImmutableFacts(string comment)
     {
         if (comment == null || !comment.Contains("\n  immutable:")) { return comment; }

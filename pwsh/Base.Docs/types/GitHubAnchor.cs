@@ -14,6 +14,7 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Base.Docs;
 
+// The slug: markup to text, lowercased, all but letters, digits, space, hyphen and underscore removed, spaces to hyphens; duplicates take -1, -2.
 public static class GitHubAnchor
 {
     static readonly Regex Image = new Regex(@"!\[([^\]]*)\]\([^)]*\)", RegexOptions.Compiled);

@@ -8,4 +8,5 @@ A scratch server and clones are made and driven with real git (clone, rebase, pu
 
 ## The nowhere folder
 
-Every flow command names its clone; a git call that fell back to the loaded repository would land in a folder that is no repository and fail.
+Every flow command names its clone; a git call that fell back to the loaded repository would land in a folder that is no repository and
+fail.

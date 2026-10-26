@@ -10,5 +10,5 @@ both into this record. The pattern text is never rewritten: what the registry sa
 
 ## Base type
 
-It derives from `Catzc.Base.Objects.DictionaryRecord`, so an instance also presents as a read-only dictionary over its own properties and its
-constructor uses the base's extraction helpers.
+It derives from `Catzc.Base.Objects.DictionaryRecord`, so an instance also presents as a read-only dictionary over its own properties and
+its constructor uses the base's extraction helpers.

@@ -80,6 +80,7 @@ public sealed class AgentEntry : Catzc.Base.Objects.DictionaryRecord
         if (errors.Count > 0) { throw new ArgumentException(string.Join("\n", errors)); }
     }
 
+    // Shared with CapabilityEntry, whose registry entries have the same two lists.
     internal static IReadOnlyList<string> ReadList(IDictionary d, string key, Regex pattern, string what, List<string> errors)
     {
         List<string> values = new List<string>();

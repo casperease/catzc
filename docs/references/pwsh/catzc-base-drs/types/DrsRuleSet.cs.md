@@ -1,19 +1,16 @@
 # pwsh/Base.Drs/types/DrsRuleSet.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+One ADR rule set, an ADR, as `drs.yml` declares it. `DrsConfig` builds and validates it. It is a processed record, not a raw YAML mirror, so
+its properties are PascalCase ([ADR-BCL-TYPES](../../../../drs/automation/BCL/native-csharp-types.md),
+[ADR-BCL-TYPES-NATIVETYPEDMODEL](../../../../drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-nativetypedmodel)).
 
-## comment:1
+## Properties
 
-Above `using System.Collections.Generic;`, written with `//`.
-
-```text
-One ADR rule-set (an ADR) as declared in drs.yml: its internal kebab Slug, full External citation code
-(ADR-<DC>-<NAME>), the effective domain Code (a leaf override, else the domain default DomainCode), the
-folder-owning Domain and its Role, the optional Terminology token, the domain's row of the value-chain stack
-(Stack), and the effective value-chain Concerns (a ruleset override, else the domain default DomainConcerns).
-A processed record built and validated by DrsConfig — not a raw YAML mirror, so PascalCase
-([ADR-BCL-TYPES](/docs/drs/automation/BCL/native-csharp-types.md),
-[ADR-BCL-TYPES-NATIVETYPEDMODEL](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-nativetypedmodel),
-[DDR-TRACK-VALUECHAINCONCERN](/docs/drs/design/tracks.md#rule-ddr-track-valuechainconcern)).
-```
+- `Slug` — the internal kebab name.
+- `External` — the full citation code, for example `ADR-<DC>-<NAME>`.
+- `Code` — the effective domain code: a leaf override, else the domain default `DomainCode`.
+- `Domain` and its `Role` — the folder-owning domain.
+- `Terminology` — the optional terminology token.
+- `Stack` — the domain's row of the value-chain stack.
+- `Concerns` — the effective value-chain concerns: a rule set override, else the domain default `DomainConcerns`
+  ([DDR-TRACK-VALUECHAINCONCERN](../../../../drs/design/tracks.md#rule-ddr-track-valuechainconcern)).

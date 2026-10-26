@@ -1,14 +1,9 @@
 # pwsh/Base.RootConfig/tests/Test-RootConfigFiles.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The tests of `Test-RootConfigFiles` over fixture root files in `$TestDrive`: the registry entries, git's ignore check and the index are
+mocked, so each test pins one agreement rule.
 
-## comment:1
+## The link stand-in
 
-Above `Describe 'Test-RootConfigFiles'`, written with `#`.
-
-```text
-Test-RootConfigFiles over fixture root files in $TestDrive: the registry entries, git's ignore check, and the index
-are mocked, so each test pins one agreement rule. A hard link stands in for a materialised link (no privilege
-needed). Neutral fixture names ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
-```
+A hard link stands in for a materialised link, which needs no privilege. The fixture names are neutral
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).

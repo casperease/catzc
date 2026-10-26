@@ -1,7 +1,7 @@
 # pwsh/Base.ModuleSystem/private/Get-ModuleDependencyConfig.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Loads the `modules:` section of `dependencies.yml` through `Get-Config` as a read-only map from module to the names it may depend on. The
+typed record validates it at load, so a malformed file throws here.
 
 ## help
 

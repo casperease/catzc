@@ -1,7 +1,7 @@
 # pwsh/Base.ModuleSystem/Get-ModuleDependency.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Collapses the function-level call graph of `Get-FunctionDependency` into unique module-to-module edges, each with its call count and the
+functions involved. These are the actual edges that `Test-ModuleDependency` compares with the declared graph.
 
 ## help
 

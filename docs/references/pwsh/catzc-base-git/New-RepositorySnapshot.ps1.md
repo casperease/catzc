@@ -1,7 +1,7 @@
 # pwsh/Base.Git/New-RepositorySnapshot.ps1
 
-The builder of a repository snapshot: a throwaway copy of the working tree, as it is right now, verified against the source and marked so that
-only `Remove-RepositorySnapshot` deletes it.
+The builder of a repository snapshot: a throwaway copy of the working tree, as it is right now, verified against the source and marked so
+that only `Remove-RepositorySnapshot` deletes it.
 
 ## help
 
@@ -82,17 +82,17 @@ one it may delete. A cleanup that fails (a file another process holds) is announ
 
 ## The verification gate
 
-The snapshot's status must equal the source's. `--no-optional-locks` keeps the source's index untouched (a plain status may rewrite it, racing
-other git commands on the source). The counts are relative to HEAD: `1`, `2` and `u` lines are changed entries (deleted when either side of
-the XY code is `D`), `?` lines are untracked files.
+The snapshot's status must equal the source's. `--no-optional-locks` keeps the source's index untouched (a plain status may rewrite it,
+racing other git commands on the source). The counts are relative to HEAD: `1`, `2` and `u` lines are changed entries (deleted when either
+side of the XY code is `D`), `?` lines are untracked files.
 
 ## The committed form
 
-The committed form checks the commit out in the snapshot itself: nothing of the source's working tree reaches it, so it cannot differ from its
-source and needs no verification.
+The committed form checks the commit out in the snapshot itself: nothing of the source's working tree reaches it, so it cannot differ from
+its source and needs no verification.
 
 ## Folder case
 
 A folder renamed only in case keeps its old case in the index (`core.ignorecase` never records it), so each target folder takes the name its
-source folder has on disk, resolved once per folder. The walk is the bounded walker, one level, nothing pruned: a tracked file under `.vendor`
-or `out` keeps its folder's case too.
+source folder has on disk, resolved once per folder. The walk is the bounded walker, one level, nothing pruned: a tracked file under
+`.vendor` or `out` keeps its folder's case too.

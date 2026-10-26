@@ -1,7 +1,7 @@
 # pwsh/Base.ModuleSystem/Get-ModuleDependencyEdges.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Returns the module dependency graph as typed [ModuleDependencyEdge](types/ModuleDependencyEdge.cs.md) objects, either the actual edges of the
+code or, with `-Declared`, the allowed edges of `dependencies.yml`. `ConvertTo-ModuleDependencyDiagram` renders them.
 
 ## help
 

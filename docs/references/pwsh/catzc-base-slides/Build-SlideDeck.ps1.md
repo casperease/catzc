@@ -1,7 +1,7 @@
 # pwsh/Base.Slides/Build-SlideDeck.ps1
 
-The renderer of a slide deck: it reads a deck folder's slide files, renders each through its pattern from the slides kit and writes the result
-and every fault found, without publishing.
+The renderer of a slide deck: it reads a deck folder's slide files, renders each through its pattern from the slides kit and writes the
+result and every fault found, without publishing.
 
 ## help
 

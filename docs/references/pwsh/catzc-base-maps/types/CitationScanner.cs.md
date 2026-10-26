@@ -2,8 +2,8 @@
 
 Finds the decision-record citations in a file's text and maps each to its domain through the adrs index (the external codes of the docs
 module's `drs.yml`, each with the domain it belongs to). Code cites records in its help and comments
-([ADR-REPO-LINK-CODELINKS](../../../../drs/repository/markdown-links.md#rule-adr-repo-link-codelinks)), so the citations drive the
-world-map highlight.
+([ADR-REPO-LINK-CODELINKS](../../../../drs/repository/markdown-links.md#rule-adr-repo-link-codelinks)), so the citations drive the world-map
+highlight.
 
 ## What counts as a citation
 

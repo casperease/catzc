@@ -37,8 +37,8 @@ The depth reached so far; callers leave it at 0 and the recursion raises it.
 
 A dictionary and an array are checked before a `PSCustomObject`. A top-level value arrives wrapped in a `PSObject`, because
 `ConvertTo-FlatSettingSet` binds `[PSObject[]]`, and a wrapped dictionary matches `-is [PSCustomObject]`. Routing it there would reflect the
-dictionary's own CLR members (`Count`, `Keys`, `SyncRoot`) instead of its entries. Matching the more specific shapes first keeps a dictionary
-a dictionary and an array an array, wrapped or not.
+dictionary's own CLR members (`Count`, `Keys`, `SyncRoot`) instead of its entries. Matching the more specific shapes first keeps a
+dictionary a dictionary and an array an array, wrapped or not.
 
 ## Complex CLR objects
 

@@ -1,32 +1,16 @@
 # pwsh/Base.ModuleSystem/tests/Test-CheckedInBinaries.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The tests of the `Test-CheckedInBinaries` gate, in two parts.
 
-## comment:1
+## Logic tests
 
-Above `Describe 'Test-CheckedInBinaries'`, written with `#`.
+They run over fixture files in `$TestDrive` with the git CLI mocked: `ls-files --eol` and `check-attr binary` answer from each test's listing,
+so each test pins one storage rule. The fixture names are neutral
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 
-```text
-Test-CheckedInBinaries over fixture files in $TestDrive with the git CLI mocked: `ls-files --eol` and
-`check-attr binary` answer from each test's listing, so each test pins one storage rule. Neutral fixture names
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
-```
+## The real repository
 
-## comment:2
-
-Above `Describe 'Checked-in binaries are stored as binary, not text'`, written with `#`.
-
-```text
-The real repository through the quality gate (Test-CheckedInBinaries —
-[ADR-AUTO-TEST-QUALITYGATE](/docs/drs/automation/test-automation.md#rule-adr-auto-test-qualitygate)).
-```
-
-## comment:3
-
-Above `if (-not (Get-Command git -ErrorAction Ignore)) {`, written with `#`.
-
-```text
-L2: drives the real git CLI. Self-skip when git is absent or we are not inside a work tree
-(e.g. running from an exported tarball), per the test-automation tiering ADR.
-```
+The L2 test runs the gate over the real repository
+([ADR-AUTO-TEST-QUALITYGATE](../../../../drs/automation/test-automation.md#rule-adr-auto-test-qualitygate)). It drives the real git CLI, so it
+skips itself when git is absent or the run is not inside a work tree, for example from an exported tarball, as the test-automation tiering
+requires.

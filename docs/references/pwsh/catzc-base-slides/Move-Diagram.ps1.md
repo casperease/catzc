@@ -1,7 +1,7 @@
 # pwsh/Base.Slides/Move-Diagram.ps1
 
-The move of a diagram, or any file or folder, that keeps every relative link right: it stages the move with `git mv` and re-points the links in
-and into the moved path.
+The move of a diagram, or any file or folder, that keeps every relative link right: it stages the move with `git mv` and re-points the links
+in and into the moved path.
 
 ## help
 
@@ -57,20 +57,20 @@ Move-Diagram docs/explanation/configuration/.assets/an-address-is-a-read-only-wa
 
 ## What moves
 
-A diagram is the pair `<stem>.drawio.png` and `<stem>.drawio.yml`, named by either file or by its stem, and it moves whole; any other path, a
-file or a folder, moves as it is.
+A diagram is the pair `<stem>.drawio.png` and `<stem>.drawio.yml`, named by either file or by its stem, and it moves whole; any other path,
+a file or a folder, moves as it is.
 
 ## The kit's role entry
 
-The kit's `drawio.yml` keys a diagram's role by its stem, and a repository without one has no legend. A stem's role entry follows the diagram,
-so `drawio.yml` keeps naming it after the move; the kit's one editor re-keys it.
+The kit's `drawio.yml` keys a diagram's role by its stem, and a repository without one has no legend. A stem's role entry follows the
+diagram, so `drawio.yml` keeps naming it after the move; the kit's one editor re-keys it.
 
 ## Article-carried diagrams
 
 A diagram is article-carried when it is a pair with no yml beside its png (its declaration is a block in an article). The block declares the
-png below it only from a page beside its `.assets`, so it moves to the one page there that embeds the png. An image of the png is inline, or a
-reference whose definition on the same page names it. A page whose links were re-pointed already has an entry; the block-moved text replaces
-it, and a page with none is simply added.
+png below it only from a page beside its `.assets`, so it moves to the one page there that embeds the png. An image of the png is inline, or
+a reference whose definition on the same page names it. A page whose links were re-pointed already has an entry; the block-moved text
+replaces it, and a page with none is simply added.
 
 ## Formatting
 

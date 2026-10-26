@@ -6,9 +6,8 @@ objects, each read exactly once.
 ## Input and speed
 
 The input is the byte stream of `git cat-file --batch-all-objects --batch --unordered`: git's own C code decompresses the objects, and this
-type indexes them, walks what the roots reach, and searches. Scanning each distinct blob once (rather than once per revision that contains it,
-as `git grep <revs>` does) is what makes the scan fast
-([ADR-AUTO-TRACKED](../../../../drs/automation/tracked-files-from-the-index.md)).
+type indexes them, walks what the roots reach, and searches. Scanning each distinct blob once (rather than once per revision that contains
+it, as `git grep <revs>` does) is what makes the scan fast ([ADR-AUTO-TRACKED](../../../../drs/automation/tracked-files-from-the-index.md)).
 
 ## Matching
 

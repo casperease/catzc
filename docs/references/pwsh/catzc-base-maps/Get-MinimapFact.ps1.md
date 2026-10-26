@@ -1,7 +1,7 @@
 # pwsh/Base.Maps/Get-MinimapFact.ps1
 
-The place lookup the minimap data commands share: for each subject path, its track, module and language, read once for a caller that
-draws many minimaps.
+The place lookup the minimap data commands share: for each subject path, its track, module and language, read once for a caller that draws
+many minimaps.
 
 ## help
 
@@ -31,5 +31,4 @@ Get-MinimapFact -Path pwsh/Base.Maps/Get-WorldMap.ps1
 
 ## Where it sits
 
-A file's place is read from where it sits in the tree, never from its head. The language comes from the extension and the languages
-config.
+A file's place is read from where it sits in the tree, never from its head. The language comes from the extension and the languages config.

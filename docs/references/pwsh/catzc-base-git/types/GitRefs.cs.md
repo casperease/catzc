@@ -11,13 +11,13 @@ correctly, the reftable ref store or a loose annotated tag whose commit sits ins
 
 ## The members
 
-- `GitDirectory` is the git directory of a checkout: `<root>/.git` when it is a directory, or the target of a `gitdir: <path>` pointer file (a
-  linked worktree or a submodule), resolved against the root when relative.
+- `GitDirectory` is the git directory of a checkout: `<root>/.git` when it is a directory, or the target of a `gitdir: <path>` pointer file
+  (a linked worktree or a submodule), resolved against the root when relative.
 - `CommonDirectory` is the directory shared refs live in: the `commondir` a linked worktree's git directory names, else the git directory
   itself.
-- `ResolveCommit` is the full object id a name resolves to: a full id, `HEAD`, a full ref (`refs/...`), or a short name looked up as git does
-  (`refs/<name>`, `refs/tags/<name>`, `refs/heads/<name>`, `refs/remotes/<name>`, `refs/remotes/<name>/HEAD`). An annotated tag resolves to
-  the commit it points at. It throws when nothing matches.
+- `ResolveCommit` is the full object id a name resolves to: a full id, `HEAD`, a full ref (`refs/...`), or a short name looked up as git
+  does (`refs/<name>`, `refs/tags/<name>`, `refs/heads/<name>`, `refs/remotes/<name>`, `refs/remotes/<name>/HEAD`). An annotated tag
+  resolves to the commit it points at. It throws when nothing matches.
 
 ## Annotated tags
 

@@ -36,5 +36,5 @@ Return the data as JSON in the minimap contract's shape instead of the object.
 
 ## Where the rows come from
 
-The `minimap_axis` setting of the maps config ([configs/maps.yml](configs/maps.yml.md)) names the rows and their value-chain stacks. Each row
-is one top ADR domain gathering its stacks. A cell holds the ADRs placed there and is lit by the codes the diagram covers.
+The `minimap_axis` setting of the maps config ([configs/maps.yml](configs/maps.yml.md)) names the rows and their value-chain stacks. Each
+row is one top ADR domain gathering its stacks. A cell holds the ADRs placed there and is lit by the codes the diagram covers.

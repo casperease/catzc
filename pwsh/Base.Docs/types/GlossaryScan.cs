@@ -21,6 +21,7 @@ public static class GlossaryScan
     static readonly Regex Number = new Regex(@"^\d+$", RegexOptions.Compiled);
     static readonly Regex Whitespace = new Regex(@"\s+", RegexOptions.Compiled);
 
+    // Words that only point at, count, own or join a noun, never a qualifier that names a kind of it.
     static readonly HashSet<string> FunctionWords = new HashSet<string>(new[]
     {
         "a", "an", "the", "this", "that", "these", "those", "each", "every", "any", "all", "no", "some", "both", "either",
@@ -94,6 +95,7 @@ public static class GlossaryScan
                     e.Concept.defined_by,
                     Allowed = new HashSet<string>(e.Concept.forms, StringComparer.OrdinalIgnoreCase),
                     Forms = string.Join(", ", e.Concept.forms.Select(f => f + " " + head).Concat(new[] { head })),
+                    // The qualifier is the last word before the head ('commit' in 'pre-commit gate'), joined by spaces, one line break or a hyphen.
                     Qualified = new Regex("(?<![A-Za-z0-9.])(?<q>[A-Za-z0-9]+)(?:[ \\t]+|[ \\t]*\\n[ \\t]*|-)(?<w>" + Regex.Escape(head) + "s?)(?![\\w-])", RegexOptions.IgnoreCase),
                     // A verb form counts after a hyphen too (`double-gated`).
                     e.Concept.verbs,

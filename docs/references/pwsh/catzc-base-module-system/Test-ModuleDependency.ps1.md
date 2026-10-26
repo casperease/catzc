@@ -1,7 +1,7 @@
 # pwsh/Base.ModuleSystem/Test-ModuleDependency.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+A quality gate that holds the real module edges to the declared dependency graph. The rules live in the private query
+`Get-ModuleDependencyViolations`. This command reports its findings through the quality-gate report.
 
 ## help
 

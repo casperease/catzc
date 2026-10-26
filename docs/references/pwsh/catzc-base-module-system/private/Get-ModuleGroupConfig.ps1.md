@@ -1,7 +1,7 @@
 # pwsh/Base.ModuleSystem/private/Get-ModuleGroupConfig.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Loads the optional `groups:` section of `dependencies.yml` through `Get-Config` and projects each group to its member map, the layering
+contract inside the group. A file with no `groups` key yields an empty map.
 
 ## help
 

@@ -1,25 +1,20 @@
 # pwsh/Base.RootConfig/types/RootConfigFiles.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The typed record of the root-config registry (`configs/rootconfig.yml`) and its validity rules.
 
-## comment:1
+## Shape and validation
 
-Above `using System;`, written with `//`.
+It requires a `files` list of managed root-file entries, each validated by `RootConfigFile`, with unique targets. Constructing an instance
+validates the registry, collecting every malformed entry into one error, and exposes the parsed entries to the generator
+(`Build-RootConfig`).
 
-```text
-The root-config registry (configs/rootconfig.yml) and its validity rules: a required 'files' list of
-managed root-file entries, each validated by RootConfigFile, with unique targets. Constructing an instance
-validates the registry (collecting every malformed entry into one error) and exposes the parsed entries to
-the generator (Build-RootConfig). Registered as the `rootconfig` config's type override in
-Catzc.Base.Config/configs/configs.yml. See [ADR-CONF-LOADING](/docs/drs/configuration/module-config-loading.md) and
-[ADR-REPO-ROOTCFG](/docs/drs/repository/generated-root-configs.md).
-```
+## Registration
 
-## comment:2
+It is registered as the `rootconfig` config's type override in `Catzc.Base.Config/configs/configs.yml`. See
+[ADR-CONF-LOADING](../../../../drs/configuration/module-config-loading.md) and
+[ADR-REPO-ROOTCFG](../../../../drs/repository/generated-root-configs.md).
 
-Above `public static string SpellingConfigPath(string repositoryRoot) =>...`, written with `//`.
+## Settings paths
 
-```text
-The spell checker's and the Markdown linter's settings: root files rootconfig.yml materialises, named here once for every gate that runs them.
-```
+`SpellingConfigPath` and its sibling name the spell checker's and the Markdown linter's settings: root files `rootconfig.yml` materialises,
+named here once for every gate that runs them.

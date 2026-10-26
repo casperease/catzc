@@ -1,7 +1,7 @@
 # pwsh/Base.ModuleSystem/Test-FolderConventions.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+A quality gate that checks every module folder of the modules track against the folder and file conventions. The convention is the module
+system's own contract (folder is module, location is visibility), so the gate lives here rather than in `.internal`.
 
 ## help
 
@@ -19,7 +19,8 @@ collects every issue ([ADR-REPO-FOLDERS](../../../drs/repository/conventional-fo
 - no test file (`*.Tests.ps1`) sits at the module root or in private/ — tests belong in tests/;
 - no public function (a module-root .ps1, named for its function) is exported by more than one module — the last-loaded module would win
   silently;
-- configs/ is flat and holds only kebab-case .yml files (dot-prefixed entries are tooling and are skipped);
+- configs/ holds only kebab-case .yml files, or a split config, a kebab-case folder of kebab-case .yml files one level deep (dot-prefixed
+  entries are tooling and are skipped);
 - no module keeps internal config in assets/config/ (it belongs in configs/) or test fixtures in assets/test/ (they belong in
   tests/assets/).
 
@@ -50,20 +51,12 @@ Test-FolderConventions
 (Test-FolderConventions -PassThru).Issues
 ```
 
-## comment:1
+## Module-root scripts
 
-Above `foreach ($path in...`, written with `#`.
+A `.ps1` at a module root is a public function whose file basename is the exported name (one function per file). A test there is misplaced.
+The others are tracked, so the same name in two modules is reported as a cross-module duplicate export.
 
-```text
-Module-root .ps1: a test is misplaced; the rest are public functions whose file basename is the exported
-name (one function per file), tracked for the cross-module duplicate-export check.
-```
+## Dot-prefixed entries
 
-## comment:2
-
-Above `if ($name -match '^\.') {`, written with `#`.
-
-```text
-Dot-prefixed entries are tooling (a schema sidecar, an editor dotfile), not module config
-([ADR-REPO-FOLDERS-DOTMEANSTOOLING](/docs/drs/repository/conventional-folders.md#rule-adr-repo-folders-dotmeanstooling)).
-```
+Dot-prefixed entries in `configs/` are tooling, such as a schema sidecar or an editor dotfile, not module config
+([ADR-REPO-FOLDERS-DOTMEANSTOOLING](../../../drs/repository/conventional-folders.md#rule-adr-repo-folders-dotmeanstooling)).

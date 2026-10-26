@@ -6,8 +6,8 @@ weight. The world map's tree view lays out the tracks by file count with it, and
 ## How it tiles
 
 Items are added to a row along the box's shorter side only while that keeps the row's worst aspect ratio from growing, so the rectangles
-stay close to square. A row is laid as a column at the left of a wide box (top to bottom) or a band at the top of a tall one (left to right).
-The last row takes the whole remaining box, so rounding never leaves a sliver or overflows the bounds.
+stay close to square. A row is laid as a column at the left of a wide box (top to bottom) or a band at the top of a tall one (left to
+right). The last row takes the whole remaining box, so rounding never leaves a sliver or overflows the bounds.
 
 ## Deterministic
 

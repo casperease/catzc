@@ -58,7 +58,8 @@ Reports whether the on-disk index is stale without writing it.
 The authored prose in `drs-index.yml` is wrapped for reading there, not for the page. Every paragraph and list item goes through
 `Format-MarkdownParagraph` (Prettier's fill), so the generated page is formatter-stable
 ([ADR-REPO-FORMAT-GENERATEDARTIFACTSFORMATTED](../../../drs/repository/uniform-formatting.md#rule-adr-repo-format-generatedartifactsformatted)).
-A heading and a blank line pass through. A `- ` line opens a list item, and an indented or plain line continues the open block.
+A heading and a blank line pass through. A line starting with `-` and a space opens a list item, and an indented or plain line continues the
+open block.
 
 ## Code tables
 

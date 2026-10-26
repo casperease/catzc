@@ -1,7 +1,7 @@
 # pwsh/Base.VSCode/New-VsCodeSettings.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The renderer of `.vscode/settings.json` from the `vscode-settings` registry, completed with the machine-resolved settings, the formatters, the
+lamps' filters and the `.editorconfig` baseline.
 
 ## help
 
@@ -75,74 +75,16 @@ The .editorconfig whose sections render into the editor settings, vscode-setting
 New-VsCodeSettings -ManagedTarget '/PSScriptAnalyzerSettings.psd1', 'importer.ps1'
 ```
 
-## comment:1
+## What completes the authored settings
 
-Above `foreach ($key in ($MachineSetting.Keys | Sort-Object)) {`, written with `#`.
+An authored setting wins over a rendered one on a shared key, and every merge is sorted, so the render is stable.
 
-```text
-Machine-resolved settings complete the authored ones, which win on a shared key; sorted, so the render is
-stable.
-```
-
-## comment:2
-
-Above `foreach ($id in ($LanguageFormatter.Keys | Sort-Object)) {`, written with `#`.
-
-```text
-Each language's editor formatter, merged into its [<id>] block (authored keys in the block win); sorted, so the
-render is stable.
-```
-
-## comment:3
-
-Above `if ($RepositoryFilter.Count -gt 0) {`, written with `#`.
-
-```text
-The lamps read what they hide from the settings, so the extension needs neither a config nor a session: each filter's include/exclude
-sets, in lamp order, and each language's extensions.
-```
-
-## comment:4
-
-Above `if ($config.carried.Count -gt 0 -and (Test-Path -LiteralPath $CurrentPath)) {`, written with `#`.
-
-```text
-A carried map keeps the rows another writer added (the lamps' files.exclude), as listed under that writer's owner key on disk; a row
-the registry authors stays the registry's.
-```
-
-## comment:5
-
-Above `[System.Collections.IDictionary] $RepositoryFilter = @{},`, written with `#`.
-
-```text
-The repository's filters, name to the include/exclude sets each claims by, in lamp order
-(Get-RepositoryFilter).
-```
-
-## comment:6
-
-Above `[string] $CurrentPath = (Join-Path (Get-RepositoryRoot)...`, written with `#`.
-
-```text
-The settings file on disk, read for the rows another writer owns (the carried settings of
-vscode-settings.yml).
-```
-
-## comment:7
-
-Above `[string] $EditorConfigPath = (Join-Path (Get-RepositoryRoot) '.editorconfig')`, written with `#`.
-
-```text
-The .editorconfig whose sections render into the editor settings (vscode-settings.yml editorconfig maps them
-to languages).
-```
-
-## comment:8
-
-Above `if (Test-Path -LiteralPath $EditorConfigPath -PathType Leaf) {`, written with `#`.
-
-```text
-The .editorconfig baseline, so the editor follows it with no extension; an authored setting wins over a rendered
-one.
-```
+- **Machine-resolved settings** complete the authored ones.
+- **The `.editorconfig` baseline**, read from `-EditorConfigPath`, lets the editor follow it with no extension; the `editorconfig` map of
+  `vscode-settings.yml` maps its sections to languages.
+- **Each language's editor formatter** is merged into its `[<id>]` block, where authored keys in the block win.
+- **The lamps' filters** (`-RepositoryFilter`, from `Get-RepositoryFilter`: name to the include and exclude sets each claims by, in lamp
+  order) and each language's extensions are written into the settings, because the lamps read what they hide from the settings, so the
+  extension needs neither a config nor a session.
+- **Carried rows**: a carried map keeps the rows another writer added (the lamps' `files.exclude`), as listed under that writer's owner key
+  in the settings file on disk (`-CurrentPath`); a row the registry authors stays the registry's.

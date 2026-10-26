@@ -1,7 +1,7 @@
 # pwsh/Base.ModuleSystem/Test-InternalAssetDependency.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+A quality gate that enforces the coverage rule for internal asset dependencies: every call site must be inventoriable, and every function that
+reads an internal asset must have a test that runs in both run modes.
 
 ## help
 

@@ -1,13 +1,9 @@
 # pwsh/Base.VSCode/configs/lamp-palette.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The lamp palette: the shades of every range the track lamps and the icon theme draw with.
 
-## comment:1
+## Ranges
 
-Above `ranges: {}`, written with `#`.
-
-```text
-Every shade of each range (committed, staged, unstaged, failed, empty, veto) has its default on LampPaletteConfig;
-a shade set here overrides it, e.g. ranges: { unstaged: { text: "#b3c3d8" } }.
-```
+Every shade of each range (committed, staged, unstaged, failed, empty, veto) has its default on `LampPaletteConfig`. A shade set here
+overrides it, for example `ranges: { unstaged: { text: "#b3c3d8" } }`. Settings and manifests name a shade as `palette.<range>.<shade>`, and
+`Resolve-LampPaletteShade` replaces it with the hex.

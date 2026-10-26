@@ -1,7 +1,7 @@
 # pwsh/Base.Objects/types/ConsoleDisplayAttribute.cs
 
-The attribute that names the identity properties of the type it decorates: the few that tell one instance from another at a glance. It is BCL
-only and declares its module namespace, file-scoped, per the type loader.
+The attribute that names the identity properties of the type it decorates: the few that tell one instance from another at a glance. It is
+BCL only and declares its module namespace, file-scoped, per the type loader.
 
 ## One declaration, two surfaces
 

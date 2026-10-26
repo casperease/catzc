@@ -81,8 +81,8 @@ canonicalises, compares EOL-insensitively and writes on change through the one s
 
 ## Links
 
-A target that is currently a link is stale regardless of content equality: the compare would read through the link, and the write would reach
-the file it points at, so the link is deleted first and the copy is written as a file of its own.
+A target that is currently a link is stale regardless of content equality: the compare would read through the link, and the write would
+reach the file it points at, so the link is deleted first and the copy is written as a file of its own.
 
 ## Skipping a whole run
 

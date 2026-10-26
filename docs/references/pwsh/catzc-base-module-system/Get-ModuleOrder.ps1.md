@@ -1,7 +1,7 @@
 # pwsh/Base.ModuleSystem/Get-ModuleOrder.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The one function that sorts the declared module graph into foundation-first order, so a module comes after every module it may depend on. Every
+command that needs modules in dependency order calls it and never sorts again.
 
 ## help
 

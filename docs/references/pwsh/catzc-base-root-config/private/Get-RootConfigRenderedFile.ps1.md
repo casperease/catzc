@@ -1,7 +1,7 @@
 # pwsh/Base.RootConfig/private/Get-RootConfigRenderedFile.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The normaliser of a generator entry's output: whether the generator returns a string or per-file records, it yields one
+`{ Target; Content }` record per file the entry names.
 
 ## help
 

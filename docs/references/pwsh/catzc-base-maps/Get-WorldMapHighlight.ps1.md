@@ -1,7 +1,7 @@
 # pwsh/Base.Maps/Get-WorldMapHighlight.ps1
 
-The command that lights the world map's cells: for ADR codes, for named files, or for the files the working tree changes. It answers
-"where on the map does this sit".
+The command that lights the world map's cells: for ADR codes, for named files, or for the files the working tree changes. It answers "where
+on the map does this sit".
 
 ## help
 

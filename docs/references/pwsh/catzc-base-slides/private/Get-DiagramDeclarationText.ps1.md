@@ -1,6 +1,7 @@
 # pwsh/Base.Slides/private/Get-DiagramDeclarationText.ps1
 
-The reader of a diagram's declaration: it returns the YAML text from whichever carrier the diagram has on disk, the yml file or the article block.
+The reader of a diagram's declaration: it returns the YAML text from whichever carrier the diagram has on disk, the yml file or the article
+block.
 
 ## help
 

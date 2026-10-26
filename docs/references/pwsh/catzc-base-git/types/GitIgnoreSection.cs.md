@@ -14,5 +14,5 @@ of the render-time pattern provider (for example `rootconfig-committed-false`).
 
 ## Base type
 
-It derives from `Catzc.Base.Objects.DictionaryRecord`, so an instance also presents as a read-only dictionary over its own properties and its
-constructor uses the base's extraction helpers.
+It derives from `Catzc.Base.Objects.DictionaryRecord`, so an instance also presents as a read-only dictionary over its own properties and
+its constructor uses the base's extraction helpers.

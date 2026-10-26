@@ -1,88 +1,54 @@
 # pwsh/Base.Drs/types/DrsConfig.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The typed record of `drs.yml`, the ADR domain-structure registry (the wiring of rules to domains). Constructing an instance maps and
+validates the parsed YAML, throwing with every violation collected, and exposes the typed `Domains`, the flattened `RuleSets`, and the
+domain dependency `Edges` (`DrsDomainEdge`, one per `depends_on` link).
 
-## comment:1
+## Registration
 
-Above `using System;`, written with `//`.
+It is registered in `Catzc.Base.Config/configs/configs.yml`, so `Get-Config -Config drs` returns this typed model rather than a slippery
+ordered dictionary
+([ADR-CONF-LOADING-CSHARPCONFIGTYPE](../../../../drs/configuration/module-config-loading.md#rule-adr-conf-loading-csharpconfigtype),
+[ADR-BCL-TYPES-NATIVETYPEDMODEL](../../../../drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-nativetypedmodel)).
 
-```text
-drs.yml — the ADR domain-structure registry (RULES ↔ domains wiring). Constructing an instance MAPS and
-VALIDATES the parsed YAML (throwing with every violation collected) and exposes the typed Domains, the
-flattened RuleSets, and the domain dependency Edges (DrsDomainEdge, one per depends_on link). Registered in Catzc.Base.Config/configs/configs.yml (type: Catzc.Base.Drs.DrsConfig)
-so Get-Config -Config drs returns this typed model rather than a slippery ordered dictionary
-([ADR-CONF-LOADING-CSHARPCONFIGTYPE](/docs/drs/configuration/module-config-loading.md#rule-adr-conf-loading-csharpconfigtype),
-[ADR-BCL-TYPES-NATIVETYPEDMODEL](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-nativetypedmodel)).
+## Keys
 
-Load-time rules (self-contained — no filesystem or other-config reads; folder↔domain and terminology-token
-cross-checks are the quality gate Test-DrsRegistry and shipped-asset integrity tests, mirroring the one-directional coupling of the customer
-model, [ADR-AZ-CUSTOMER-REFERENCENOTVALIDATEDONLOAD](/docs/drs/azure/azure-customer-model.md#rule-adr-az-customer-referencenotvalidatedonload)):
-  - domains is a non-empty map; each domain has code (^[A-Z]{2,4}$, optionally a compound of two segments
-    like FLOW-CD), a non-empty role, a non-empty description, a depends_on list, and a non-empty rulesets map;
-  - every depends_on target resolves to a declared domain, no self-edge, and the domain graph is acyclic;
-  - each ruleset external is ADR-<NAME> or ADR-<code>-<NAME>… (^ADR-[A-Z]+(-[A-Z]+)*$, one or more uppercase
-    segments), the leaf code (if any) matches the domain-code pattern, and when the external has a domain
-    segment the EFFECTIVE code (leaf override else domain code) is that segment — the external is
-    'ADR-<effective>' or begins 'ADR-<effective>-' (a one-segment external such as ADR-REPO-AI has none to match; so a
-    compound-code domain cites its root ADR as [FDR-CD](/docs/drs/flow/cd-discipline-and-promotion-flow.md) and the rest as
-[FDR-CD](/docs/drs/flow/cd-discipline-and-promotion-flow.md)-<NAME>); every
-    external is unique;
-  - each domain declares its row of the value-chain stack (stack: one of Stacks,
-    [DDR-TRACK-VALUECHAINSTACK](/docs/drs/design/tracks.md#rule-ddr-track-valuechainstack)) and its default value-chain concerns
-    (concern: a list of one or more of Concerns); a ruleset may override the default with its own concern list, so
-    every ADR resolves to at least one value-chain concern
-    ([DDR-TRACK-VALUECHAINCONCERN](/docs/drs/design/tracks.md#rule-ddr-track-valuechainconcern)). The allowed rows and concerns are
-    declared once, here, in value-chain order
-    ([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/drs/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder));
-  - a domain or ruleset key outside the declared keys is rejected, so a misspelled key never falls back to a default.
-```
+The top level takes `root`, `kinds`, `domains` and `domain_classes`. A domain takes `kind`, `code`, `role`, `description`, `depends_on`,
+`stack`, `concern`, `folder` and `rulesets`. A rule set takes `external`, `code`, `concern` and `layer`. A key outside these is rejected, so
+a misspelled key never falls back to a default.
 
-## comment:2
+## Load-time rules
 
-Above `public static readonly IReadOnlyList<string> Concerns =...`, written with `//`.
+The rules are self-contained: no filesystem or other-config reads. The folder-to-domain and terminology-token cross-checks belong to the
+quality gate `Test-DrsRegistry` and to shipped-asset integrity tests, which mirrors the one-directional coupling of the customer model
+([ADR-AZ-CUSTOMER-REFERENCENOTVALIDATEDONLOAD](../../../../drs/azure/azure-customer-model.md#rule-adr-az-customer-referencenotvalidatedonload)).
 
-```text
-The value-chain concerns, in value-chain order, left to right
-([DDR-TRACK-VALUECHAINCONCERN](/docs/drs/design/tracks.md#rule-ddr-track-valuechainconcern)).
-```
+- `domains` is a non-empty map. Each domain has a role, a description, a `depends_on` list and a non-empty `rulesets` map.
+- Every `depends_on` target resolves to a declared domain, there is no self-edge, and the domain graph is acyclic.
+- Every `external` is unique and matches the code grammar. When the external has a domain segment, the effective code (the rule set's
+  override, else the domain's code) is that segment. A one-segment external such as `ADR-REPO-AI` has none to match.
+- Each domain declares its row of the value-chain stack (`stack`, one of `Stacks`,
+  [DDR-TRACK-VALUECHAINSTACK](../../../../drs/design/tracks.md#rule-ddr-track-valuechainstack)) and its default value-chain concerns
+  (`concern`, a list of one or more of `Concerns`). A rule set may override the default with its own `concern` list, so every ADR resolves
+  to at least one concern ([DDR-TRACK-VALUECHAINCONCERN](../../../../drs/design/tracks.md#rule-ddr-track-valuechainconcern)). The allowed
+  rows and concerns are declared once, in value-chain order
+  ([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../../../../drs/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)).
 
-## comment:3
+## Domain prefix
 
-Above `string expectedPrefix = effective == null ? domainKind : domainKind + "-" +...`, written with `//`.
+The external starts with its domain's prefix: the kind and the effective code under a shared kind, the kind alone under a kind one domain
+owns. The external is either the domain-root citation `<kind>-<effective>` or a named `<kind>-<effective>-<NAME>`. A compound domain code,
+such as `FLOW-CD`, is matched by this prefix rule without splitting on a specific dash. A one-segment external has no dash after the prefix,
+carries no domain segment and skips the match.
 
-```text
-The external starts with its domain's prefix: the kind and the effective code under a shared kind, the kind alone under a kind one
-domain owns. The external is either the domain-root citation '<kind>-<effective>' or a named '<kind>-<effective>-<NAME>'. A compound
-domain code (e.g. FLOW-CD, whose ADRs cite [FDR-CD](/docs/drs/flow/cd-discipline-and-promotion-flow.md) and
-[FDR-CD](/docs/drs/flow/cd-discipline-and-promotion-flow.md)-<NAME>) is matched
-by this prefix rule without splitting on a specific dash. A one-segment external
-('ADR-<NAME>', no dash after the prefix) carries no domain segment and skips the match.
-```
+## Kinds
 
-## comment:4
+When `drs.yml` declares no kinds, the record kind is the one shared kind `ADR`
+([ADR-REPO-DRSCODE-PATHOFSEGMENTS](../../../../drs/repository/drs-code-language.md#rule-adr-repo-drscode-pathofsegments)). A shared kind's
+domains each add a code. A kind one domain owns stands for it, with no code
+([ADR-REPO-DRSCODE-DOMAINSEGMENT](../../../../drs/repository/drs-code-language.md#rule-adr-repo-drscode-domainsegment)). `CodeForm` is the
+code grammar over these kinds, which every parser of a code reads.
 
-Above `public const string DefaultKind = "ADR";`, written with `//`.
+## Concerns
 
-```text
-The record kinds when drs.yml declares none: the one shared kind ADR
-([ADR-REPO-DRSCODE-PATHOFSEGMENTS](/docs/drs/repository/drs-code-language.md#rule-adr-repo-drscode-pathofsegments)).
-```
-
-## comment:5
-
-Above `public DrsCodeForm CodeForm { get; }`, written with `//`.
-
-```text
-The code grammar over these kinds, which every parser of a code reads
-([ADR-REPO-DRSCODE-PATHOFSEGMENTS](/docs/drs/repository/drs-code-language.md#rule-adr-repo-drscode-pathofsegments)).
-```
-
-## comment:6
-
-Above `string domainKind = d.Contains("kind") && d["kind"] != null ?...`, written with `//`.
-
-```text
-A shared kind's domains each add a code; a kind one domain owns stands for it, with no code
-([ADR-REPO-DRSCODE-DOMAINSEGMENT](/docs/drs/repository/drs-code-language.md#rule-adr-repo-drscode-domainsegment)).
-```
+`Concerns` lists the value-chain concerns in value-chain order, left to right.

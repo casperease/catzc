@@ -1,7 +1,6 @@
 # pwsh/Base.VSCode/private/ConvertFrom-EditorConfig.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The private converter of an `.editorconfig` into VS Code settings, so the editor follows the one file the formatters read.
 
 ## help
 
@@ -35,11 +34,7 @@ Each section glob to the VS Code language ids it renders into (vscode-settings.y
 ConvertFrom-EditorConfig -Text (Get-Content -Raw .editorconfig) -Section $map
 ```
 
-## comment:1
+## Which properties convert
 
-Above `$convert = {`, written with `#`.
-
-```text
-The editorconfig properties VS Code has a setting for; every other property stays for the tools that read
-.editorconfig itself.
-```
+Only the `.editorconfig` properties VS Code has a setting for are converted; every other property stays for the tools that read
+`.editorconfig` itself.

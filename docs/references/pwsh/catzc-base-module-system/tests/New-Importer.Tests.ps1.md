@@ -1,23 +1,15 @@
 # pwsh/Base.ModuleSystem/tests/New-Importer.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The tests of `New-Importer`, including the drift guards for the committed `importer.ps1`, which is generated from the `Invoke-Importer`
+overlay.
 
-## comment:1
+## Drift guards
 
-Above `BeforeAll {` (occurrence 2), written with `#`.
+Two guards cover the two ways the committed file can drift. Its parameter set must equal the overlay's, where the signature is the parameter
+set and no tagging is involved. Its whole content below its generated-file head must equal the output of `New-Importer`. To fix a failure, run
+`Build-RootConfig` and commit `importer.ps1`.
 
-```text
-The committed importer.ps1 is generated from the Invoke-Importer overlay. These guard the two ways it can
-drift: its parameter set must equal the overlay's (signature = parameter set, no tagging), and its whole
-content below its generated-file head must equal New-Importer's output. To fix a failure, run Build-RootConfig and commit importer.ps1.
-```
+## Signature helper
 
-## comment:2
-
-Above `function script:Get-ParamSignature {`, written with `#`.
-
-```text
-The '<name> [<type-as-written>]' list of a param block — the script's own (FunctionName $null) or a
-named function's within a module file. AST parse, so the overlay need not be loaded.
-```
+`Get-ParamSignature` builds the `<name> [<type-as-written>]` list of a parameter block, either the script's own or a named function's inside a
+module file. It parses the source, so the overlay need not be loaded.

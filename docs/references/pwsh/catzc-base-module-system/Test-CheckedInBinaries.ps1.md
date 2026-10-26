@@ -1,7 +1,7 @@
 # pwsh/Base.ModuleSystem/Test-CheckedInBinaries.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+A quality gate that keeps every tracked binary byte-exact: git must not apply line-ending conversion to it, and a `.gitattributes` rule must
+mark it binary. It follows the content, never an extension list.
 
 ## help
 

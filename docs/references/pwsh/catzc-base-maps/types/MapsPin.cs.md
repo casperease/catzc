@@ -5,8 +5,7 @@ of it, the code followed by `#n`), the cell it names (a track and a file languag
 
 ## Pin and exception
 
-A pin lights the cell for the ADR. An exception keeps the cell dark although the ADR's citations would light it, which is a passing
-mention.
+A pin lights the cell for the ADR. An exception keeps the cell dark although the ADR's citations would light it, which is a passing mention.
 
 ## Validation
 

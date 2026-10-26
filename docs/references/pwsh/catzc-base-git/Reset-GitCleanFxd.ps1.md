@@ -48,5 +48,5 @@ Reset-GitCleanFxd
 ## Why it is shaped so
 
 It uses `-DryRun`, not ShouldProcess or `-WhatIf`
-([ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT](../../../drs/automation/dry-run.md#rule-adr-auto-dryrun-branchbeforesideeffect)). Git's own dry run is
-the source of the candidates: exactly what `git clean -fxd` would remove, with no re-implementation of ignore semantics.
+([ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT](../../../drs/automation/dry-run.md#rule-adr-auto-dryrun-branchbeforesideeffect)). Git's own dry
+run is the source of the candidates: exactly what `git clean -fxd` would remove, with no re-implementation of ignore semantics.

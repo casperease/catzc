@@ -1,47 +1,26 @@
 # pwsh/Base.Objects/types/GlobPattern.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+One glob pattern of the durable-sha-globs dialect: repository-relative and `/`-separated
+([FDR-CD-GLOBS](../../../../drs/flow/durable-sha-globs.md),
+[FDR-CD-GLOBS-REPOSITORYRELATIVEPATTERNS](../../../../drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-repositoryrelativepatterns)).
 
-## comment:1
+## Dialect
 
-Above `using System;`, written with `//`.
+`**` is the only cross-segment operator: a whole segment that consumes zero or more path segments. Within a segment the semantics are
+exactly PowerShell wildcards (`*`, `?`, `[abc]`, `[a-z]`), delegated to the host's `System.Management.Automation.WildcardPattern` and
+matched case-sensitively.
 
-```text
-One glob pattern of the durable-sha-globs dialect: repo-relative, '/'-separated; '**' is the only
-cross-segment operator (a whole segment, consuming zero or more path segments); within a segment the
-semantics are exactly PowerShell wildcards ('*', '?', '[abc]'/'[a-z]'), delegated to the host's
-System.Management.Automation.WildcardPattern, matched case-sensitively. The constructor is the gate:
-it rejects '\', a leading '/', empty segments, '.'/'..' segments, a backtick (the dialect has no escape
-character), and '**' embedded inside a segment — a malformed pattern never produces an instance.
-See [FDR-CD-GLOBS](/docs/drs/flow/durable-sha-globs.md)
-([FDR-CD-GLOBS-REPOSITORYRELATIVEPATTERNS](/docs/drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-repositoryrelativepatterns),
-[FDR-CD-GLOBS-MALFORMEDPATTERNREJECTED](/docs/drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-malformedpatternrejected)).
-```
+## Constructor guard
 
-## comment:2
+The constructor is the gate
+([FDR-CD-GLOBS-MALFORMEDPATTERNREJECTED](../../../../drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-malformedpatternrejected)). It rejects
+`\`, a leading `/`, empty segments, `.` and `..` segments, a backtick (the dialect has no escape character), and `**` embedded inside a
+segment, so a malformed pattern never produces an instance. `WildcardPattern` parses lazily, so the constructor forces the parse and a
+malformed segment, such as an unclosed `[`, fails at construction and not at first match.
 
-Above `wildcard.IsMatch(string.Empty);`, written with `//`.
+## Matching
 
-```text
-WildcardPattern parses lazily; force the parse so a malformed segment (e.g. an unclosed
-'[') fails here, at construction, not at first match.
-```
-
-## comment:3
-
-Above `private bool MatchFrom(int patternIndex, string[] path, int pathIndex)`, written with `//`.
-
-```text
-The '**' walk: align pattern segments to path segments left to right; at a '**', try every number of
-consumed path segments (zero or more) and backtrack on failure.
-```
-
-## comment:4
-
-Above `public static string[] MatchingPaths(string[] patterns, string[]...`, written with `//`.
-
-```text
-The paths, in their order, that at least one of the patterns matches; each pattern is tried only on the paths under its literal
-prefix, so a list of many paths is matched in one call.
-```
+- **The `**` walk** — it aligns pattern segments to path segments left to right. At a `**` it tries every number of consumed path segments,
+  zero or more, and backtracks on failure.
+- **`MatchingPaths`** — the paths, in their order, that at least one of the patterns matches. Each pattern is tried only on the paths under
+  its literal prefix, so a list of many paths is matched in one call.

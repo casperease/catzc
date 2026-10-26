@@ -1,6 +1,6 @@
 # pwsh/Base.Objects/ConvertTo-BclValue.ps1
 
-The unwrapper that gives a .NET type plain BCL values: it strips PowerShell's PSObject wrapper from a value and everything nested in it.
+The step that hands a .NET type plain BCL values: it strips PowerShell's PSObject wrapper from a value and everything nested in it.
 
 ## help
 

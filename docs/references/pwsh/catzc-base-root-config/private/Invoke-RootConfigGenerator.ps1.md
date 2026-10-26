@@ -39,23 +39,23 @@ The entry's target: a repository-relative path, or a wildcard pattern over a mul
   from this module's own registry (the `committed: false` targets, root-anchored), so the ignored-copies list lives once in `rootconfig.yml`
   and the dependency edge stays one-way (RootConfig to Git; `New-GitIgnore` never reads `rootconfig.yml`).
 - **The VS Code workspace settings** are rendered from the vscode-settings registry (`Catzc.Base.VSCode`). Every opted-in managed target is
-  injected into `search.exclude` here, from this module's own registry, so find-all lands on sources of truth, never generated copies, and the
-  dependency edge stays one-way (RootConfig to VSCode; `New-VsCodeSettings` never reads `rootconfig.yml`).
+  injected into `search.exclude` here, from this module's own registry, so find-all lands on sources of truth, never generated copies, and
+  the dependency edge stays one-way (RootConfig to VSCode; `New-VsCodeSettings` never reads `rootconfig.yml`).
 - **The VS Code extension recommendations** are rendered from the vscode-extensions registry (`Catzc.Base.VSCode`), completed with every
   formatter engine's editor extension from the file-language registry.
-- **`New-GoWorkspace`** renders the Go test workspace (`Catzc.Base.Languages`): the root `go.work` and one `go.mod` per `go/tests/<folder>/`,
-  as one record per file; the entry's target selects which.
+- **`New-GoWorkspace`** renders the Go test workspace (`Catzc.Base.Languages`): the root `go.work` and one `go.mod` per
+  `go/tests/<folder>/`, as one record per file; the entry's target selects which.
 - **`New-PythonProject`** renders the Python test workspace (`Catzc.Base.Languages`): the uv workspace root and one member per Python test
   folder, as one record per file; the entry's target selects which.
 
 ## Editor settings
 
-- The managed Go toolchain, when found at the pin: the Go extension and gopls otherwise run whichever `go` comes first on PATH, and on Windows
-  a machine-wide Go precedes the user-scope managed one
+- The managed Go toolchain, when found at the pin: the Go extension and gopls otherwise run whichever `go` comes first on PATH, and on
+  Windows a machine-wide Go precedes the user-scope managed one
   ([ADR-AUTO-GO-MANAGEDTOOLCHAIN](../../../../drs/automation/go/go-test-artifacts.md#rule-adr-auto-go-managedtoolchain)).
 - The Python test workspace's one environment
-  ([ADR-AUTO-PY-GENERATEDWORKSPACE](../../../../drs/automation/python/python-test-artifacts.md#rule-adr-auto-py-generatedworkspace)), under the
-  resolved Python root and in this platform's layout: the Python extension resolves the tests' imports and runs them in it. Pylance runs
+  ([ADR-AUTO-PY-GENERATEDWORKSPACE](../../../../drs/automation/python/python-test-artifacts.md#rule-adr-auto-py-generatedworkspace)), under
+  the resolved Python root and in this platform's layout: the Python extension resolves the tests' imports and runs them in it. Pylance runs
   pyright in the mode `Test-PythonTypes` runs it in
   ([ADR-AUTO-PY-EVERYFILETYPECHECKED](../../../../drs/automation/python/python-test-artifacts.md#rule-adr-auto-py-everyfiletypechecked)).
 - Each language's editor formatter comes from the file-language registry: Format Document runs the engine `Format-Code` runs

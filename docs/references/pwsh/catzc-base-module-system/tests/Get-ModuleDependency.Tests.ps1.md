@@ -1,13 +1,4 @@
 # pwsh/Base.ModuleSystem/tests/Get-ModuleDependency.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
-
-## comment:1
-
-Above `$violations = @($edges | Where-Object { $_.CallCount -le 0 })`, written with `#`.
-
-```text
-One Should over the violating set — a Should per edge pays Pester's per-assertion cost
-times the whole discovered graph.
-```
+The tests of `Get-ModuleDependency`. The real-graph check makes one assertion over the violating set, because an assertion per edge would pay
+Pester's per-assertion cost times the whole discovered graph.

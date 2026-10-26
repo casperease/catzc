@@ -1,13 +1,4 @@
 # pwsh/Base.ModuleSystem/tests/Sync-GeneratedFile.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
-
-## comment:1
-
-Above `Sync-GeneratedFile | Should -Not -BeNullOrEmpty` (occurrence 5), written with `#`.
-
-```text
-The commit is pathspec-limited inside Invoke-GitCommit, so a dirty (or staged) tree never holds
-the stamp commit back and never leaks into it.
-```
+The tests of `Sync-GeneratedFile`. The commit is limited by pathspec inside `Invoke-GitCommit`, so a dirty or staged tree never holds the
+stamp commit back and never leaks into it, and the tests pin that.

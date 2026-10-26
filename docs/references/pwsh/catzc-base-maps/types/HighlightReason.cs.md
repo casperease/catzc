@@ -11,8 +11,8 @@ back to the file and the citation behind it.
 - the requested citation that covers it;
 - the citation sites the request covers, which are where the file, or its owner's or globset's files, cite it.
 
-An adr-file reason names the requested ADR's own file and has no site. A file lit only by comment sites is a passing mention (`Mention`),
-so a reader can tell a lit file's subject from a mention.
+An adr-file reason names the requested ADR's own file and has no site. A file lit only by comment sites is a passing mention (`Mention`), so
+a reader can tell a lit file's subject from a mention.
 
 ## Shape
 

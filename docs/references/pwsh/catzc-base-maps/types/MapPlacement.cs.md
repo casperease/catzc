@@ -1,7 +1,7 @@
 # pwsh/Base.Maps/types/MapPlacement.cs
 
-Where one tracked file sits on the world map, and what lights it. The cell is exact: the root folder gives the track and the extension
-gives the file language.
+Where one tracked file sits on the world map, and what lights it. The cell is exact: the root folder gives the track and the extension gives
+the file language.
 
 ## Highlight relation
 
@@ -12,8 +12,8 @@ and for a file nothing lights.
 
 ## Live
 
-`Live` is true when the file is in its track's live aspect. It is false for a test file, a vendored file, a file of a verification track
-and a file under no track.
+`Live` is true when the file is in its track's live aspect. It is false for a test file, a vendored file, a file of a verification track and
+a file under no track.
 
 ## Shape
 

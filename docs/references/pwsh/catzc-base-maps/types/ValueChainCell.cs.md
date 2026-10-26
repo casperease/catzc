@@ -1,25 +1,15 @@
 # pwsh/Base.Maps/types/ValueChainCell.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+One cell of the value-chain map: a row of the value-chain stack crossed with a value-chain concern, and the ADRs that sit in it
+([DDR-TRACK-VALUECHAINMAP](../../../../drs/design/tracks.md#rule-ddr-track-valuechainmap),
+[DDR-TRACK-CELL](../../../../drs/design/tracks.md#rule-ddr-track-cell)).
 
-## comment:1
+## Adrs
 
-Above `using System;`, written with `//`.
+`Adrs` holds the ADR codes of the cell. On the map it holds every ADR of the cell in `drs.yml` order, and on a highlight the requested ADRs
+that light it, in request order. It is empty for an empty cell of the grid.
 
-```text
-One cell of the value-chain map: a row of the value-chain stack crossed with a value-chain concern, and the ADRs
-that sit in it ([DDR-TRACK-VALUECHAINMAP](/docs/drs/design/tracks.md#rule-ddr-track-valuechainmap),
-[DDR-TRACK-CELL](/docs/drs/design/tracks.md#rule-ddr-track-cell)). On the map, Adrs holds every ADR of the cell;
-on a highlight, the requested ADRs that light it. A result type, so the properties are PascalCase
-([ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
-```
+## Shape
 
-## comment:2
-
-Above `public IReadOnlyList<string> Adrs { get; }`, written with `//`.
-
-```text
-The ADR codes (ADR-<CODE>) in the cell: on the map in drs.yml order, on a highlight in request order. Empty for an
-empty cell of the grid.
-```
+It is a result type, so its properties are PascalCase
+([ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](../../../../drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).

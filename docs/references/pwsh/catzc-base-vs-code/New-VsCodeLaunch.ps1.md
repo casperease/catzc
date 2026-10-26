@@ -1,7 +1,6 @@
 # pwsh/Base.VSCode/New-VsCodeLaunch.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The renderer of `.vscode/launch.json`, the debug launch profiles, from the `vscode-launch` registry.
 
 ## help
 

@@ -27,5 +27,5 @@ The repository root the paths are under.
 
 ## Resolving links
 
-An image link resolves from the page's own folder, or from the repository root for a link that starts with `/`. Any number of pages may embed
-one diagram; the diagram names none of them.
+An image link resolves from the page's own folder, or from the repository root for a link that starts with `/`. Any number of pages may
+embed one diagram; the diagram names none of them.

@@ -31,5 +31,5 @@ Remove-RepositorySnapshot $snapshot.Path
 ## The walk prunes nothing
 
 Clearing read-only files is a named whole-tree walk
-([ADR-PWSH-ENUM-ALWAYSBOUNDED](../../../drs/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): the read-only files are
-mostly git objects under `.git`, so nothing is pruned.
+([ADR-PWSH-ENUM-ALWAYSBOUNDED](../../../drs/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): the read-only files
+are mostly git objects under `.git`, so nothing is pruned.

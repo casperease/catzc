@@ -101,17 +101,17 @@ conflict before put; the drift gate then checks the diagrams. The renderer does 
 
 ## Finding the diagrams
 
-A diagram is the pair `<article-folder>/.assets/<name>.drawio.png` and `.drawio.yml`, named by its stem `<article-folder>/.assets/<name>`. It
-is found by a tracked png or a yml tracked or not, so a new diagram gets its first put; it is found, never listed. A diagram in the article
-carrier has no yml beside its png, and before its first put no png either: its block names it.
+A diagram is the pair `<article-folder>/.assets/<name>.drawio.png` and `.drawio.yml`, named by its stem `<article-folder>/.assets/<name>`.
+It is found by a tracked png or a yml tracked or not, so a new diagram gets its first put; it is found, never listed. A diagram in the
+article carrier has no yml beside its png, and before its first put no png either: its block names it.
 
 Every article and slide that embeds a diagram's png is found wherever it sits, and each one's Supports line is held against the yml.
 
 ## One renderer call
 
-One renderer call takes every folder and splits it across its workers, each paying uv, python and the kit's imports once; it ends each folder
-with a JSON row, in folder order. One call also builds the world map once for every diagram; each diagram's target streams back as its data is
-written.
+One renderer call takes every folder and splits it across its workers, each paying uv, python and the kit's imports once; it ends each
+folder with a JSON row, in folder order. One call also builds the world map once for every diagram; each diagram's target streams back as
+its data is written.
 
 The renderer's exit codes: 0 clean, 2 findings (errors) with every artifact delivered, 3 nothing to render; no row is a failure.
 

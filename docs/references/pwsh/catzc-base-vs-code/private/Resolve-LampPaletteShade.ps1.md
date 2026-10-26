@@ -1,7 +1,6 @@
 # pwsh/Base.VSCode/private/Resolve-LampPaletteShade.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The private resolver of lamp-palette references: it replaces each one in a settings or manifest tree with the hex of the shade it names.
 
 ## help
 
@@ -23,11 +22,6 @@ The tree to resolve: a map, a list, or a single value.
 
 The lamp palette to resolve against. Default: the shipped lamp-palette config, read on the first reference only.
 
-## comment:1
+## The tree
 
-Above `[AllowNull()]`, written with `#`.
-
-```text
-A settings or manifest tree; every string 'palette.<range>.<shade>' in it, optionally '/<aa>' to set the
-alpha, becomes its hex.
-```
+Every string `palette.<range>.<shade>` in the tree, optionally followed by `/<aa>` to set the alpha, becomes its hex.

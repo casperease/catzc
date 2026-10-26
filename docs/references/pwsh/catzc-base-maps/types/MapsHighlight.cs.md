@@ -7,8 +7,8 @@ dark, and the globs of the files whose citations light nothing (`citation_exclud
 
 The pin and exception lists default to empty, so the highlight follows the derived order alone. `citation_exclude` defaults to
 `DefaultCitationExclude`: the session logs and plans under `.claude/`, every asset under `docs/**/.assets/` (the generated slide
-descriptions), the explanation articles the slides illustrate under `docs/explanation/`, and the drawing tooling under `python/diagrams/`.
-A slide's minimap then lights the repository's citations of its ADRs, never the slide's own words or the tool that drew it
+descriptions), the explanation articles the slides illustrate under `docs/explanation/`, and the drawing tooling under `python/diagrams/`. A
+slide's minimap then lights the repository's citations of its ADRs, never the slide's own words or the tool that drew it
 ([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../../../../drs/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)).
 
 ## Excluded files

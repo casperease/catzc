@@ -78,6 +78,7 @@ public sealed class GlossaryOptions : Catzc.Base.Objects.DictionaryRecord
         if (errors.Count > 0) { throw new ArgumentException(string.Join("; ", errors)); }
     }
 
+    // A list restricted to a closed set: absent is the whole set, and an explicit empty list is allowed (the structural check still runs).
     private static IReadOnlyList<string> ClosedList(IDictionary d, string key, IReadOnlyList<string> allowed, List<string> errors)
     {
         if (d == null || !d.Contains(key)) { return allowed; }

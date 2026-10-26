@@ -1,51 +1,42 @@
 # pwsh/Base.Drs/configs/drs.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The authored source of the ADR domain structure, the wiring of rules to domains, and the single source of truth for how the decision space
+is organised and cited. `Get-Config -Config drs` loads it, and its config type `DrsConfig` validates it. `index.md` is a generated
+projection of this file (`Build-DrsIndex`), see [ADR-REPO-README](../../../../drs/repository/generated-readmes.md).
 
-## comment:1
+## Domains
 
-Above `domains:`, written with `#`.
+`domains` has one entry per `docs/drs/<area>/` folder, the unit the dependency graph connects. Each carries:
 
-```text
-drs.yml — the AUTHORED source of the ADR domain structure (RULES ↔ domains wiring).
+- `code` — the 2 to 4 letter default domain code that composes the citation `ADR-<code>-<NAME>`;
+- `role` — its function in the system;
+- `description` — the reader-facing paragraph rendered under the domain's heading in `index.md`;
+- `depends_on` — the acyclic domain DAG, rendered through `Get-DrsDomainEdges | ConvertTo-DrsDomainDiagram`, mirroring the module dependency
+  graph;
+- `stack` — its row of the value-chain stack: PRIN, DSGN, AUTO, PIPE or CLOUD
+  ([DDR-TRACK-VALUECHAINSTACK](../../../../drs/design/tracks.md#rule-ddr-track-valuechainstack));
+- `concern` — its default value-chain concerns, a list of automation, build, quality-control, release, deploy and access
+  ([DDR-TRACK-VALUECHAINCONCERN](../../../../drs/design/tracks.md#rule-ddr-track-valuechainconcern)).
 
-Single source of truth for how the decision space is organised and cited. It declares:
-  domains:  one per docs/drs/<area>/ folder — the unit the dependency graph connects. Each carries a
-            `code` (2-4 letter DEFAULT domain code that composes the citation ADR-<code>-<NAME>), a `role`
-            (its function in the system), a `description` (the reader-facing paragraph rendered under the
-            domain's heading in index.md), and `depends_on` (the acyclic domain DAG, rendered via
-            Get-DrsDomainEdges | ConvertTo-DrsDomainDiagram, mirroring the module dependency graph). Each also
-            declares its row of the value-chain stack (`stack`: PRIN, DSGN, AUTO, PIPE, or CLOUD) and its default
-            value-chain concerns (`concern`: a list of automation, build, quality-control, release, deploy, access),
-            [DDR-TRACK-VALUECHAINSTACK](/docs/drs/design/tracks.md#rule-ddr-track-valuechainstack) and
-            [DDR-TRACK-VALUECHAINCONCERN](/docs/drs/design/tracks.md#rule-ddr-track-valuechainconcern).
-  rulesets: within a domain, keyed by INTERNAL kebab name (= the ADR file slug). Each declares its full
-            EXTERNAL citation code (`ADR-<DC>-<NAME>`, or a one-segment `ADR-<NAME>` such as `ADR-REPO-AI`, fully
-            spelled) and, when the code body is a registered spelling token, its `terminology` link into the
-            `adr:` category of terminology.yml. `code` may be set on a LEAF to OVERRIDE the domain default; the
-            validator asserts a two-segment external's DC-segment equals the effective code (`^[A-Z]{2,4}$`),
-            and a one-segment external has no DC-segment to match. `concern` may be set on a LEAF to OVERRIDE
-            the domain default, only when the ADR's place in the value chain differs from its domain's.
+## Rule sets
 
-Loaded via Get-Config -Config drs; validated by its config type, DrsConfig. index.md is a generated projection of
-this file (Build-DrsIndex) — see [ADR-REPO-README](/docs/drs/repository/generated-readmes.md) pattern.
-```
+Within a domain, `rulesets` is keyed by the internal kebab name, which is the ADR file slug. Each rule set declares:
 
-## comment:2
+- its full `external` citation code, `ADR-<DC>-<NAME>`, or a one-segment `ADR-<NAME>` such as `ADR-REPO-AI`, fully spelled;
+- when the code body is a registered spelling token, its `terminology` link into the `adr:` category of `terminology.yml`;
+- optionally a `code` on the leaf, which overrides the domain default. The validator asserts that a two-segment external's domain segment
+  equals the effective code, and a one-segment external has no domain segment to match;
+- optionally a `concern` on the leaf, which overrides the domain default only when the ADR's place in the value chain differs from its
+  domain's.
 
-Above `reliability: { external: ADR-AZ-WAF-RE }`, written with `#`.
+## Vendor recommendations
 
-```text
-Vendor recommendation, one rule per vendor item: the Well-Architected Framework pillars (azure/waf/) and the Cloud Adoption
-Framework landing-zone design areas (azure/caf/), each citing Microsoft's page and summarising it in our words.
-```
+The Azure vendor domains hold one rule set per vendor item: the Well-Architected Framework pillars (`azure/waf/`) and the Cloud Adoption
+Framework landing-zone design areas (`azure/caf/`), each citing Microsoft's page and summarising it in the repository's own words.
 
-## comment:3
+## Kinds
 
-Above `kinds:`, written with `#`.
-
-```text
-The record kinds, each a code's first segment (ADR-REPO-DRSCODE-PATHOFSEGMENTS): a shared kind's domains each add their code, a kind one
-domain owns stands for it (ADR-REPO-DRSCODE-DOMAINSEGMENT).
-```
+`kinds` lists the record kinds, each a code's first segment
+([ADR-REPO-DRSCODE-PATHOFSEGMENTS](../../../../drs/repository/drs-code-language.md#rule-adr-repo-drscode-pathofsegments)). A shared kind's
+domains each add their code. A kind one domain owns stands for it
+([ADR-REPO-DRSCODE-DOMAINSEGMENT](../../../../drs/repository/drs-code-language.md#rule-adr-repo-drscode-domainsegment)).

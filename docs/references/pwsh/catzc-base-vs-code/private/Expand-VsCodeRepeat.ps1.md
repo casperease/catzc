@@ -1,7 +1,6 @@
 # pwsh/Base.VSCode/private/Expand-VsCodeRepeat.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The private expander that writes each extension command and menu entry naming a repeat once per item of the repeat's source.
 
 ## help
 
@@ -25,11 +24,7 @@ The extension's contributes block as the config declares it.
 
 `[System.Collections.Specialized.OrderedDictionary]` The contributes block with every repeating entry written out.
 
-## comment:1
+## The sources
 
-Above `$sources = @{}`, written with `#`.
-
-```text
-Each source: the declared leading items, the items of a config's list, then the declared trailing items, as {
-value, title, position }.
-```
+Each source is the declared leading items, the items of a config's list, then the declared trailing items, each as `{ value, title,
+position }`.

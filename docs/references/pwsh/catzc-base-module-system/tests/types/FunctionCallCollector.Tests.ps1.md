@@ -1,14 +1,5 @@
 # pwsh/Base.ModuleSystem/tests/types/FunctionCallCollector.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
-
-## comment:1
-
-Above `Describe 'FunctionCallCollector'`, written with `#`.
-
-```text
-FunctionCallCollector attributes every statically named call in a file to the top-level function whose body holds
-it, and lists the functions nested inside each — the walk Test-FunctionDependency resolves calls from. Each case
-parses the source of a small widget/gadget script.
-```
+The tests of [FunctionCallCollector](../../types/FunctionCallCollector.cs.md). It must attribute every statically named call in a file to the
+top-level function whose body holds it, and list the functions nested inside each, the walk `Test-FunctionDependency` resolves calls from. Each
+case parses the source of a small widget and gadget script.

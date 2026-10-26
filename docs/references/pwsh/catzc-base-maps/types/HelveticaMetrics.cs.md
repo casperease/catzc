@@ -1,8 +1,8 @@
 # pwsh/Base.Maps/types/HelveticaMetrics.cs
 
 The advance widths of the two base-14 fonts `PdfDocument` writes, Helvetica and Helvetica-Bold, from their Adobe font metrics, in
-thousandths of the font size. A viewer draws those fonts with these widths, so `WorldMapPdf` measures a label with them to shrink or
-shorten it before it overflows its box.
+thousandths of the font size. A viewer draws those fonts with these widths, so `WorldMapPdf` measures a label with them to shrink or shorten
+it before it overflows its box.
 
 ## Coverage
 

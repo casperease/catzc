@@ -2,74 +2,38 @@
 
 <!-- cspell:ignore nbeta nmodule -->
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The tests of `Build-RootConfig`: they materialise fixture registries into a fixture repository root and read what was written.
 
-## comment:1
+## Isolation
 
-Above `$script:fake = New-FakeRepositoryRoot -Files @{`, written with `#`.
+The tests isolate through the seams
+([ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS](../../../../drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-isolatethroughseams)): they
+mock the config seam (`Get-Config`) and the generator dispatch, and redirect the repository root to a fixture tree (TestKit) so
+`Resolve-RepoPath` binds inside it.
 
-```text
-Isolate through the seams
-([ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS](/docs/drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-isolatethroughseams)): mock the
-config seam (Get-Config) and the generator
-dispatch, and redirect the repository root to a fixture tree (TestKit) so Resolve-RepoPath binds
-inside it.
-```
+## Links
 
-## comment:3
+A target left as a link reads the same as its source, so only the is-link check converts it into an independent file, and the source is
+never written through it.
 
-Above `$sourceOnDisk = Join-Path $script:fake.Root 'sources/fixture.yml'`, written with `#`.
+## Wildcard entries
 
-```text
-A target left as a link reads the same as its source, so only the is-link check converts it into an
-independent file, and the source is never written through it.
-```
+A wildcard entry's generator renders one `{ Target; Content }` record per file; every file is written on its own and reported in its own
+row. The fixture names are neutral
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 
-## comment:4
+## The wiring
 
-Above `$script:fake = New-FakeRepositoryRoot -Files @{` (occurrence 2), written with `#`.
+The wiring the L0 tests mock away on both sides: a fixture registry names `New-GoWorkspace`, the real dispatch calls it, and
+`Build-RootConfig` writes what it renders. Only the registry, the run mode and the go pin are mocked, so the result is independent of the
+shipped config ([ADR-AUTO-TEST-LOGICANDINTEGRITY](../../../../drs/automation/test-automation.md#rule-adr-auto-test-logicandintegrity)).
 
-```text
-A wildcard entry whose generator renders one { Target; Content } record per file; every file is written
-on its own and reported in its own row. Neutral fixture names
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
-```
+## The warm-run skip
 
-## comment:5
+The warm-run skip reads the one writer memo: the fixture declares the writer's inputs (its source and both targets), and the memo stays
+inside the fake root.
 
-Above `$script:goRoot = $_`, written with `#`.
+## The generated head
 
-```text
-The wiring the L0 tests mock away on both sides: a fixture registry names New-GoWorkspace, the real dispatch
-calls it, and Build-RootConfig writes what it renders. Only the registry, the run mode, and the go pin are
-mocked, so the result is independent of the shipped config
-([ADR-AUTO-TEST-LOGICANDINTEGRITY](/docs/drs/automation/test-automation.md#rule-adr-auto-test-logicandintegrity)).
-```
-
-## comment:6
-
-Above `$script:writers =...`, written with `#`.
-
-```text
-The warm-run skip reads the one writer memo: the fixture declares the writer's inputs (its source and both targets), and the memo
-stays inside the fake root.
-```
-
-## comment:7
-
-Above `$script:headed = {`, written with `#`.
-
-```text
-The pattern of the generated head a generator's file carries, over the content the generator rendered; the
-body hash is any 12 hex digits.
-```
-
-## comment:8
-
-Above `$script:rendered = Build-RootConfig -DryRun -PassThru -Silent`, written with `#`.
-
-```text
--DryRun composes every opted-in target's content — a source file that is missing, or an unknown generator,
-throws.
-```
+The pattern of the generated head a generator's file carries is matched over the content the generator rendered; the body hash is any 12 hex
+digits. `-DryRun` composes every opted-in target's content, so a source file that is missing, or an unknown generator, throws.

@@ -1,7 +1,7 @@
 # pwsh/Base.ModuleSystem/Test-ModuleCycles.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+A quality gate that finds cycles in the real cross-module call graph. It covers every module, including those the declared allow-list leaves
+unconstrained, so it catches what `Test-ModuleDependency` cannot.
 
 ## help
 

@@ -1,251 +1,111 @@
 # pwsh/Base.VSCode/configs/vscode-settings.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The VS Code workspace-settings registry: the single authored source for `.vscode/settings.json`. Edit this file, never `settings.json`.
 
-## comment:1
+## Rendering and validation
 
-Above `settings:`, written with `#`.
+The settings file the editor reads is a managed, gitignored copy rendered from this registry by `New-VsCodeSettings` (wired through
+`Build-RootConfig`; see `rootconfig.yml` and [ADR-REPO-ROOTCFG](../../../../drs/repository/generated-root-configs.md)). Explanations live in
+the registry as comments; the rendered JSON carries only a generated-file header, which is legal since VS Code reads JSONC.
 
-```text
-VS Code workspace-settings registry — the single authored source for .vscode/settings.json. The settings
-file the editor reads is a managed, gitignored copy rendered from this registry by New-VsCodeSettings
-(wired through Build-RootConfig; see rootconfig.yml and [ADR-REPO-ROOTCFG](/docs/drs/repository/generated-root-configs.md)) —
-edit THIS file, never settings.json. Explanations live here as comments; the rendered JSON carries only a
-generated-file header (VS Code reads JSONC, so the header is legal).
+`Get-Config -Config vscode-settings` loads it as `Catzc.Base.VSCode.VscodeSettingsConfig`. The settings stay a free-form, ordered passthrough
+map of VS Code keys; the type checks the shape: only `settings`, non-empty; a `[language]` override is a map; `search.exclude` maps each glob
+to true or false.
 
-The `search.exclude` map is COMPLETED at render time: every managed root-config target (rootconfig.yml,
-opted-in) is added automatically, so find-all always hits the source of truth, never a generated copy —
-the editor stays glued to the tooling with no second list to maintain. Authored entries below win over an
-injected key of the same name.
+The `search.exclude` map is completed at render time. Every managed root-config target (`rootconfig.yml`, opted in) is added automatically,
+so find-all always hits the source of truth, never a generated copy, and the editor stays glued to the tooling with no second list to
+maintain. Authored entries win over an injected key of the same name.
 
-Loaded via Get-Config -Config vscode-settings as Catzc.Base.VSCode.VscodeSettingsConfig: the settings stay a
-free-form, ordered passthrough map of VS Code keys; the type checks the shape (only `settings`, non-empty; a
-`[language]` override is a map; `search.exclude` maps each glob to true/false).
-```
+## Markdown
 
-## comment:2
+Link validation runs while editing, as early feedback for what `Test-Links` gates
+([ADR-REPO-LINK-MARKDOWNRELATIVE](../../../../drs/repository/markdown-links.md#rule-adr-repo-link-markdownrelative)): dangling files and bad
+heading fragments are flagged as warnings in the Problems pane, and http(s) links are never checked. Reference-link validation is off: VS
+Code reads every footnote use (`[^1]`) as an undefined reference link, and markdownlint MD052 already gates real reference links.
 
-Above `markdown.validate.enabled: true`, written with `#`.
+## PowerShell formatting
 
-```text
-Markdown link validation while editing — early feedback for what Test-Links gates
-([ADR-REPO-LINK-MARKDOWNRELATIVE](/docs/drs/repository/markdown-links.md#rule-adr-repo-link-markdownrelative)): dangling files and bad
-heading fragments are flagged as warnings in the Problems pane. http(s) links are never checked.
-```
+"Format Document" uses the `powershell.codeFormatting` settings, not the `psd1`, so they are kept in step with
+`PSScriptAnalyzerSettings.psd1`, or the formatter and the analyzer disagree:
 
-## comment:3
+- Pipeline indentation matches the psd1's `PSUseConsistentIndentation` `PipelineIndentation`, otherwise the formatter leaves a piped line
+  under-indented and the analyzer flags it.
+- Hashtable key and value pairs are aligned on format. This matches the psd1's `PSUseConsistentWhitespace`
+  `IgnoreAssignmentOperatorInsideHashTable = $true`, so the analyzer accepts the aligned `=`.
+- One-line blocks (`if ($x) { ... }`) are broken across lines on format, so no block keeps its braces on a single line. This matches the
+  psd1's `PSPlaceOpenBrace` and `PSPlaceCloseBrace` `IgnoreOneLineBlock = $false`.
 
-Above `markdown.validate.referenceLinks.enabled: ignore`, written with `#`.
+The formatter of `[markdown]`, and of every language `languages.yml` gives a formatter engine, is injected by the generator from that registry
+([ADR-REPO-FORMAT-CONFIGUREDFORMATTERS](../../../../drs/repository/uniform-formatting.md#rule-adr-repo-format-configuredformatters)), so
+Format Document runs the engine `Format-Code` runs. Format-on-save stays off: formatting is on demand and enforced by `Test-Formatting`. XML
+is never reformatted: no engine formats it (`languages.yml`), and the editor's XML formatter rewraps element text.
 
-```text
-Off: VS Code reads every footnote use ([^1]) as an undefined reference link; markdownlint MD052 already
-gates real reference links
-```
+## What the editor hides, searches and watches
 
-## comment:4
+- **`search.exclude`** leaves out vendored modules and generated module manifests. The manifests (`pwsh/**/*.psd1`) are gitignored build
+  output, canonical by their generator (Bootstrap), so they are not authored here and should not clutter search. The authored analyzer
+  config lives under `pwsh/.internal/assets` and would fall under that glob, so it is explicitly un-excluded (a more specific `false` wins)
+  to keep it searchable and visible.
+- **`files.watcherExclude`** does not watch or reformat generated manifests, which the importer regenerates. The authored analyzer config is
+  hand-edited, so it stays watched. The installed tool trees (the Python test environment, node packages) hold thousands of files nobody
+  edits, so they are not watched. `out/` stays watched: the explorer shows each new run's report as it lands.
+- **`files.exclude`** hides ignored paths that have no `!` exception, everywhere (explorer, search, quick open). The globs with exceptions
+  (`README.md`, `*.psd1`, `*.pdf`) stay visible, because `files.exclude` would hide the tracked files too. `explorer.excludeGitIgnore` is not
+  set: it would hide the generated settings folders (`.vscode` and the root config copies), which are ignored on purpose and still wanted in
+  the explorer.
+- **`hidden_actions`** lists the editor actions kept off its menus, by menu id: the Explorer's title row shows only the track lamps. VS Code
+  keeps this in its own state store, never in `settings.json`; `Set-VsCodeHiddenAction` writes it there while VS Code is closed.
 
-Above `powershell.codeFormatting.pipelineIndentationStyle:...`, written with `#`.
+## File associations and editors
 
-```text
-PowerShell: "Format Document" uses these codeFormatting settings — NOT the psd1 — so they must be
-kept in sync with PSScriptAnalyzerSettings.psd1, or the formatter and analyzer disagree.
-Pipeline indentation: match the psd1's PSUseConsistentIndentation PipelineIndentation setting,
-otherwise the formatter leaves a piped line under-indented and the analyzer flags it.
-```
-
-## comment:5
-
-Above `powershell.codeFormatting.alignPropertyValuePairs: true`, written with `#`.
-
-```text
-Vertically align hashtable key/value pairs on format. Matches the psd1's PSUseConsistentWhitespace
-IgnoreAssignmentOperatorInsideHashTable = $true, so the analyzer accepts the aligned '='.
-```
-
-## comment:6
-
-Above `powershell.codeFormatting.ignoreOneLineBlock: false`, written with `#`.
-
-```text
-Break one-line blocks (if ($x) { ... }) across multiple lines on format, so no block keeps its
-{ } on a single line. Matches the psd1's PSPlaceOpenBrace/PSPlaceCloseBrace IgnoreOneLineBlock = $false.
-```
-
-## comment:7
-
-Above `search.exclude:`, written with `#`.
-
-```text
-Exclude vendored modules and generated module manifests from search. Manifests (pwsh/**/*.psd1)
-are gitignored build output — canonical by their generator (Bootstrap) — so they are not authored here
-and should not clutter search. The authored analyzer config lives under pwsh/.internal/assets and
-would fall under that glob, so it is explicitly un-excluded (a more specific `false` wins) to keep it
-searchable and visible. The managed root-config targets are injected into this map at render time.
-```
-
-## comment:8
-
-Above `files.watcherExclude:`, written with `#`.
-
-```text
-Do not watch/reformat generated manifests — they are regenerated by the importer, not hand-edited. The
-authored analyzer config is hand-edited, so keep watching it (un-exclude past the manifest glob). The
-installed tool trees (the Python test environment, node packages) hold thousands of files nobody edits, so
-the editor does not watch them. out/ stays watched: the explorer shows each new run's report as it lands.
-```
-
-## comment:9
-
-Above `"[markdown]":`, written with `#`.
-
-```text
-The formatter of [markdown] — and of every language languages.yml gives a formatter engine — is injected by the
-generator from that registry ([ADR-REPO-FORMAT-CONFIGUREDFORMATTERS](/docs/drs/repository/uniform-formatting.md#rule-adr-repo-format-configuredformatters)),
-so Format Document runs the engine Format-Code runs. Format-on-save stays off: formatting is on demand and enforced
-by Test-Formatting.
-```
-
-## comment:10
-
-Above `files.associations:`, written with `#`.
-
-```text
-Treat LICENSE files as plain text so markdownlint ignores them
-.yml -> generic YAML, .yaml -> Azure Pipelines YAML
-.markdownlintignore -> "ignore" (the built-in .gitignore language) so it is treated as a
-gitignore-syntax ignore file, not as Markdown.
-Captured console output under out/ -> "ansi" (iliazeus.vscode-ansi), so the writers' colors render and the
+`files.associations` treats LICENSE files as plain text so markdownlint ignores them, maps `.yml` to generic YAML and `.yaml` to Azure
+Pipelines YAML, maps `.markdownlintignore` to the built-in `ignore` (`.gitignore`) language so it is treated as a gitignore-syntax ignore file
+and not as Markdown, and maps captured console output under `out/` to `ansi` (`iliazeus.vscode-ansi`), so the writers' colours render and the
 escape codes are hidden.
-```
 
-## comment:11
+`workbench.editorAssociations` routes `*.drawio.png` to VS Code's built-in image preview editor (viewType `imagePreview.previewEditor`, from
+the bundled media-preview extension) instead of the Draw.io extension's binary custom editor. That is what makes git Compare show a real
+raw-pixel image diff (side by side or slider), which the Draw.io editor cannot give. The value must be the image-preview viewType, not
+`default`: `default` is the built-in text editor and yields "file is binary or uses an unsupported encoding" on a PNG. VS Code has no way to
+pick an editor by diff versus open, so the association also applies to a plain open: double-clicking a `.drawio.png` shows the image, and
+editing the diagram is right-click, Reopen Editor With, "Draw.io (Binary)". Pixels first was the deliberate call: these diagrams are compared
+far more than edited.
 
-Above `workbench.editorAssociations:`, written with `#`.
+## Languages and tools
 
-```text
-Route *.drawio.png to VS Code's built-in image preview editor (viewType imagePreview.previewEditor, from
-the bundled media-preview extension) instead of the Draw.io extension's binary custom editor. This is
-what makes git Compare show a real raw-pixel image diff (side-by-side / slider) instead of the Draw.io
-tool, which cannot diff. NOTE: the value must be the image-preview viewType, NOT "default" — "default"
-is the built-in *text* editor and yields "file is binary or uses an unsupported encoding" on a PNG.
-VS Code has no way to pick an editor by diff-vs-open, so this association also applies to a plain open:
-double-clicking a .drawio.png shows the image; to EDIT the diagram, right-click -> Reopen Editor With ->
-"Draw.io (Binary)". Pixels-first was the deliberate call: these diagrams are compared far more than edited.
-```
+- **Go** (the golang.go extension and gopls): the tools run with `GOTOOLCHAIN=local`, so the editor never downloads the toolchain `go.work`
+  asks for; it runs the managed go, which the generator injects as `go.goroot` on a machine where `Install-Go` has run
+  ([ADR-AUTO-GO-MANAGEDTOOLCHAIN](../../../../drs/automation/go/go-test-artifacts.md#rule-adr-auto-go-managedtoolchain)).
+- **Python** (the ms-python extension): the generator injects `python.defaultInterpreterPath`, the Python test project's environment
+  ([ADR-AUTO-PY-GENERATEDWORKSPACE](../../../../drs/automation/python/python-test-artifacts.md#rule-adr-auto-py-generatedworkspace)), so the
+  editor resolves and runs the tests in it. A terminal is never activated into it: the integrated terminal stays the catzc pwsh session, and
+  the tests run through `Test-Automation`, not an activated venv. Both activation keys are set: the Python extension reads the first, the
+  Python Environments extension the second. Python writes its bytecode cache to `out/pycache` in every terminal of the editor, as
+  `Invoke-PythonTest` has it, never beside the sources.
+- **Schemas**: no extension fetches a schema. The YAML extension never asks SchemaStore and JSON never downloads one; every schema the editor
+  checks against is a local file named in the settings.
+- **Spell checking**: the single repository dictionary lives in `/cspell.yml`, auto-discovered by Code Spell Checker; the extension is
+  recommended in `.vscode/extensions.json`.
 
-## comment:15
+## Terminals
 
-Above `go.toolsEnvVars:`, written with `#`.
+`terminal.integrated.environmentChangesRelaunch` is false. Extensions (git, python, debugpy, go, copilot) contribute environment variables
+after a terminal has started, and by default VS Code then relaunches every terminal not yet typed into, killing its pwsh and the import it
+holds. A terminal keeps the environment it started with: the contributions are PATH entries and helper variables no cats command reads. The
+stale-environment indicator stays on.
 
-```text
-Go (the golang.go extension and gopls): the tools run with GOTOOLCHAIN=local, so the editor never downloads
-the toolchain go.work asks for; it runs the managed go, which the generator injects as go.goroot on a
-machine where Install-Go has run ([ADR-AUTO-GO-MANAGEDTOOLCHAIN](/docs/drs/automation/go/go-test-artifacts.md#rule-adr-auto-go-managedtoolchain)).
-```
+## Git state
 
-## comment:16
+The Git decorations on the open file take the lamps' one mapping (DDR-FILTER), with the shades named from the lamp palette, in the explorer and
+the tab title. The gutter, right-hand ruler and minimap show the working tree's changes, so unstaged.
 
-Above `python.terminal.activateEnvironment: false`, written with `#`.
+## editorconfig
 
-```text
-Python (the ms-python extension): the generator injects python.defaultInterpreterPath, the Python test
-project's environment ([ADR-AUTO-PY-GENERATEDWORKSPACE](/docs/drs/automation/python/python-test-artifacts.md#rule-adr-auto-py-generatedworkspace)),
-so the editor resolves and runs the tests in it. A terminal is never activated into it: the integrated
-terminal stays the catzc pwsh session, and the tests run through Test-Automation, not an activated venv.
-Both keys: the Python extension reads the first, the Python Environments extension the second.
-```
+The `editorconfig` map lists the `.editorconfig` sections `New-VsCodeSettings` renders into per-language settings, each glob to its VS Code
+language ids. `[*]` renders into the top-level settings, and a section without a row here (the C# analyzer rules) stays for the tools that
+read `.editorconfig`.
 
-## comment:17
+## carried
 
-Above `cSpell.enabled: true`, written with `#`.
-
-```text
-Spell checking — the single repo dictionary lives in /cspell.yml (auto-discovered by Code Spell
-Checker; the extension is recommended in .vscode/extensions.json).
-```
-
-## comment:18
-
-Above `files.exclude:`, written with `#`.
-
-```text
-Ignored paths that have no '!' exception, hidden everywhere (explorer, search, quick open). The globs with exceptions (README.md,
-*.psd1, *.pdf) stay visible, because files.exclude would hide the tracked files too. explorer.excludeGitIgnore is not set: it would hide
-the generated settings folders (.vscode and the root config copies), which are ignored on purpose and still wanted in the explorer.
-```
-
-## comment:19
-
-Above `terminal.integrated.environmentChangesRelaunch: false`, written with `#`.
-
-```text
-Extensions (git, python, debugpy, go, copilot) contribute environment variables after a terminal has started. By default VS Code
-relaunches every terminal not yet typed into when that happens, killing the pwsh and the import it holds, and marks the others with a
-yellow "Terminal Environment Changes" warning. A terminal keeps the environment it started with: the contributions are PATH entries
-and helper variables no cats command reads.
-```
-
-## comment:20
-
-Above `terminal.integrated.environmentChangesRelaunch: false`, written with `#`.
-
-```text
-Extensions (git, python, debugpy, go, copilot) contribute environment variables after a terminal has started. By default VS Code then
-relaunches every terminal not yet typed into, killing its pwsh and the import it holds. A terminal keeps the environment it started
-with: the contributions are PATH entries and helper variables no cats command reads. The stale-environment indicator stays on.
-```
-
-## comment:21
-
-Above `hidden_actions:`, written with `#`.
-
-```text
-The editor actions kept off its menus, by menu id: the Explorer's title row shows only the track lamps. VS Code keeps this in its own
-state store, never in settings.json; Set-VsCodeHiddenAction writes it there while VS Code is closed.
-```
-
-## comment:22
-
-Above `git.decorations.enabled: true`, written with `#`.
-
-```text
-Git state on the open file, the lamps' one mapping (DDR-FILTER): unstaged = yellowish, staged = dark brown (explorer, tab title; the
-gutter, right-hand ruler and minimap show the working tree's changes, so unstaged).
-```
-
-## comment:23
-
-Above `terminal.integrated.env.windows:`, written with `#`.
-
-```text
-Python writes its bytecode cache to out/pycache in every terminal of the editor, as Invoke-PythonTest has it, never beside the
-sources (a bare python or pytest run included).
-```
-
-## comment:24
-
-Above `yaml.schemaStore.enable: false`, written with `#`.
-
-```text
-No extension fetches a schema: the YAML extension never asks SchemaStore and JSON never downloads one; every schema the editor checks
-against is a local file named below.
-```
-
-## comment:25
-
-Above `editorconfig:`, written with `#`.
-
-```text
-The .editorconfig sections New-VsCodeSettings renders into per-language settings, each glob to its VS Code language ids; [*] renders into
-the top-level settings, and a section without a row here (the C# analyzer rules) stays for the tools that read .editorconfig.
-```
-
-## comment:26
-
-Above `xml.format.enabled: false`, written with `#`.
-
-```text
-XML is never reformatted: no engine formats it (languages.yml), and the editor's XML formatter rewraps element text,
-which broke a project's <HintPath> once. Width is measured, never forced, so nothing needs the rewrap.
-```
+`carried` names the map settings another writer adds rows to: the map setting key, to the setting key that lists the rows that writer owns.
+The track lamps add `files.exclude` rows at workspace scope this way, and the render keeps both sets as they are.

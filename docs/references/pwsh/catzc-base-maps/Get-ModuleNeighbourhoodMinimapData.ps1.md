@@ -1,7 +1,7 @@
 # pwsh/Base.Maps/Get-ModuleNeighbourhoodMinimapData.ps1
 
-The data of the module neighbourhood minimap: the modules a diagram's subject sits in, ringed by the modules they depend on and the
-modules that depend on them.
+The data of the module neighbourhood minimap: the modules a diagram's subject sits in, ringed by the modules they depend on and the modules
+that depend on them.
 
 ## help
 
@@ -45,5 +45,5 @@ Return the data as JSON in the minimap contract's shape instead of the object.
 
 ## Rings
 
-The three rings are read from the `dependencies` config: the subject's own modules, the modules they depend on, and the modules that
-depend on them.
+The three rings are read from the `dependencies` config: the subject's own modules, the modules they depend on, and the modules that depend
+on them.

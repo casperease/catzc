@@ -1,28 +1,17 @@
 # pwsh/Base.Objects/types/PSTypeAliasAttribute.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The attribute that declares a PowerShell type-accelerator alias for the type it decorates. The type loader (`Import-CSharpTypes`) reads
+these after loading the combined assembly and registers each `Name` with `System.Management.Automation.TypeAccelerators`, so `[Name]`
+resolves to the type. For example, `[Catzc.Base.Objects.PSTypeAlias("Catzc.Module.Depm")]` on an enum makes `[Catzc.Module.Depm]::Puml`
+work.
 
-## comment:1
+## Where the alias lives
 
-Above `using System;`, written with `//`.
+The alias literal lives in the C# source, so it greps straight back to the declaring `types/*.cs`: a workspace search for the alias lands on
+this attribute. `AllowMultiple` lets a type publish more than one alias. The attribute is BCL only and declares its module namespace,
+file-scoped, per the type loader.
 
-```text
-Declares a PowerShell type-accelerator alias for the type it decorates. The type loader
-(Import-CSharpTypes) reads these after loading the combined assembly and registers each Name with
-System.Management.Automation.TypeAccelerators, so `[Name]` resolves to the type — e.g.
-[Catzc.Base.Objects.PSTypeAlias("Catzc.Module.Depm")] on an enum makes [Catzc.Module.Depm]::Puml work.
+## Name
 
-The alias literal lives here in the C# source, so it greps straight back to the declaring types/*.cs (a
-workspace search for the alias lands on this attribute). AllowMultiple, so a type may publish more than
-one alias. BCL only; declares its module namespace (file-scoped), per the type loader.
-```
-
-## comment:2
-
-Above `public string Name { get; }`, written with `//`.
-
-```text
-The accelerator name to register, e.g. "Catzc.Module.Depm". Namespaced with a Catzc. prefix so it never
-reclaims another module's accelerator.
-```
+The accelerator name to register, such as `Catzc.Module.Depm`. It is namespaced with a `Catzc.` prefix so it never reclaims another module's
+accelerator.

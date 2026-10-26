@@ -1,13 +1,8 @@
 # pwsh/Base.VSCode/configs/vscode-tasks.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The VS Code task registry: the single authored source for `.vscode/tasks.json`, rendered by `New-VsCodeTasks`.
 
-## comment:1
+## The git topic flow
 
-Above `- label: Sync`, written with `#`.
-
-```text
-The git topic flow ([FDR-GIT](/docs/drs/flow/git-topic-flow.md)), each step at the user's hand: rebase the topic onto the sync
-point. Bind keys to these in your user keybindings.
-```
+The tasks follow the git topic flow ([FDR-GIT](../../../../drs/flow/git-topic-flow.md)), each step at the user's hand: Sync rebases the topic
+onto the sync point. Bind keys to these tasks in your user keybindings.

@@ -1,7 +1,7 @@
 # pwsh/Base.ModuleSystem/ConvertTo-ModuleDependencyDiagram.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Renders module dependency edges, as `Get-ModuleDependencyEdges` returns them, to JSON, YAML, Markdown or PlantUML, so one graph can be read in
+the form the reader needs.
 
 ## help
 

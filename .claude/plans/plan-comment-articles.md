@@ -32,9 +32,9 @@ comment, and the page ready for the next `Export-Comments` run.
       (their peers are writing source lines there): delegated to `catzc-drone`, at most 8 modules in flight, each brief naming its module's
       page folder and source folder as the files it owns and the vendor pilot as the pattern. Per page: write the article, keep `## help`,
       add a source line only for gold, then check each module. Check: `Format-Code -Language markdown -Path <page folder>`, then
-      `Test-Markdownlint`, `Test-Spelling` and `Test-Links` on the pages report 0 issues, `Test-Comments -Path <source folder>` reports 0
-      issues, `Export-Comments -Path <source folder> -DryRun` moves nothing, and the tests of every changed source file pass after a fresh
-      import.
+      `Test-Markdownlint`, `Test-Spelling`, `Test-Links` and `Test-Glossary` on the pages report 0 issues,
+      `Test-Comments -Path <source folder>` reports 0 issues, `Export-Comments -Path <source folder> -DryRun` moves nothing, and the tests
+      of every changed source file pass after a fresh import.
 - [ ] The non-module trees last: `docs/references/python/`, `pwsh/.internal`, `scriptanalyzer`, `claude-hooks`. Check: as per module.
 
 ## Open questions

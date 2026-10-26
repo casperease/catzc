@@ -1,7 +1,7 @@
 # pwsh/Base.ModuleSystem/private/Get-ModuleDependencyViolations.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The query behind the `Test-ModuleDependency` gate: it compares the real module edges, function calls and C# type references, against the
+declared allow-list and returns one message per violation.
 
 ## help
 
@@ -39,20 +39,12 @@ query behind the Test-ModuleDependency quality gate.
 Get-ModuleDependencyViolations
 ```
 
-## comment:1
+## Resolving a source
 
-Above `$resolveAllowed = {`, written with `#`.
+`$resolveAllowed` resolves a source module to `{ Constrained; Allowed }`. A source with no constraint, neither a declared module nor a group
+member, is skipped by its callers whatever its empty `Allowed` set says.
 
-```text
-Resolves a source module to { Constrained; Allowed }. A source with no constraint (not a declared
-module and not a group member) is skipped by callers regardless of its (empty) Allowed set.
-```
+## Type references
 
-## comment:2
-
-Above `$typeEdges = Get-CSharpTypeDependency`, written with `#`.
-
-```text
-Same allow-list, applied to cross-module C# type references (one combined types assembly, so the
-compiler permits them — see Get-CSharpTypeDependency).
-```
+The same allow-list applies to cross-module C# type references. One combined types assembly means the compiler permits them, so this check is
+what keeps them inside the declared graph (see `Get-CSharpTypeDependency`).

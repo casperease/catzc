@@ -30,6 +30,7 @@ public sealed class GlossaryConcept : Catzc.Base.Objects.DictionaryRecord
     // A machine key: snake_case ('test_suite', 'all_tests').
     public static readonly Regex KeyRe = new Regex("^[a-z][a-z0-9]*(_[a-z0-9]+)*$", RegexOptions.Compiled);
 
+    // A rule code of any kind as DrsCodeForm.AnyKind gives it: a two-to-four-letter kind prefix and at least two more -NAME segments.
     public static readonly Regex CitationRe = new Regex("^" + DrsCodeForm.AnyKind.Rule + "$", RegexOptions.Compiled);
 
     // One qualifier word in a concept's forms ('quality', 'CI').

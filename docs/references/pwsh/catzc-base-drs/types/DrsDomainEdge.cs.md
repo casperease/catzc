@@ -1,15 +1,9 @@
 # pwsh/Base.Drs/types/DrsDomainEdge.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+One edge of the ADR domain dependency graph from `drs.yml`: `From` depends on `To`, one per declared `depends_on` link. `DrsConfig` builds
+it from its already-validated domains and exposes it as `DrsConfig.Edges`.
 
-## comment:1
+## Invariant
 
-Above `using System;`, written with `//`.
-
-```text
-One edge of the ADR domain dependency graph from drs.yml: From depends on To (one per declared depends_on
-link). Built by DrsConfig from its already-validated domains and exposed as DrsConfig.Edges; the constructor
-holds the edge's own invariant — both ends non-empty and distinct (no self-edge)
-([ADR-BCL-TYPES-NATIVETYPEDMODEL](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-nativetypedmodel)).
-```
+The constructor holds the edge's own invariant: both ends are non-empty and distinct, so there is no self-edge
+([ADR-BCL-TYPES-NATIVETYPEDMODEL](../../../../drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-nativetypedmodel)).

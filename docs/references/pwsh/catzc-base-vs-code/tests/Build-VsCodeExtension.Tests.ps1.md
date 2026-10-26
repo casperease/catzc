@@ -1,13 +1,4 @@
 # pwsh/Base.VSCode/tests/Build-VsCodeExtension.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
-
-## comment:1
-
-Above `Describe 'Build-VsCodeExtension'`, written with `#`.
-
-```text
-Rests on
-[ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS](/docs/drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-isolatethroughseams).
-```
+The L0 tests of `Build-VsCodeExtension`. They rest on
+[ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS](../../../../drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-isolatethroughseams).

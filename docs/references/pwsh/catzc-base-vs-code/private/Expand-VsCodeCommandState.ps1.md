@@ -1,7 +1,6 @@
 # pwsh/Base.VSCode/private/Expand-VsCodeCommandState.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The private expander that turns each extension command declaring states into one command per state, with its menu items to match.
 
 ## help
 
@@ -24,12 +23,8 @@ The extension's contributes block as the config declares it.
 
 `[System.Collections.Specialized.OrderedDictionary]` The contributes block with every stated command expanded.
 
-## comment:1
+## One command per state
 
-Above `$expanded = [ordered]@{}`, written with `#`.
-
-```text
-A command that declares states (and the context key that holds the current one) becomes one command per state: the bare command is
-the default state, each other state its own command, '<command>.<state>', with the icon '<icon>-<state>.svg' and its title marked.
-Every menu item naming the command is repeated per state, its when narrowed by the context key, so the title row shows exactly one.
-```
+A command that declares states (and the context key that holds the current one) becomes one command per state: the bare command is the
+default state, and each other state is its own command, `<command>.<state>`, with the icon `<icon>-<state>.svg` and its title marked. Every
+menu item naming the command is repeated per state, its `when` narrowed by the context key, so the title row shows exactly one.

@@ -1,7 +1,6 @@
 # pwsh/Base.RootConfig/Test-RootConfigFiles.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The gate of the managed root config files: it checks that the registry, `.gitignore` and git's tracked set agree on every opted-in target.
 
 ## help
 

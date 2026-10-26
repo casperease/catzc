@@ -1,23 +1,15 @@
 # pwsh/Base.VSCode/types/VscodeLaunchConfig.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The typed record of the VS Code launch-profile registry, `configs/vscode-launch.yml`: the single authored source that `New-VsCodeLaunch`
+renders to the managed `.vscode/launch.json` ([ADR-REPO-ROOTCFG](../../../../drs/repository/generated-root-configs.md)). It is registered in
+`Catzc.Base.Config/configs/configs.yml` (`type: Catzc.Base.VSCode.VscodeLaunchConfig`), so `Get-Config -Config vscode-launch` returns this
+typed model. Its properties mirror the YAML mapping
+([ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](../../../../drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
 
-## comment:1
+## Validation
 
-Above `using System;`, written with `//`.
+Constructing an instance maps and validates the parsed YAML, collecting every violation into one throw:
 
-```text
-The VS Code launch-profile registry, configs/vscode-launch.yml — the single authored source that New-VsCodeLaunch
-renders to the managed .vscode/launch.json ([ADR-REPO-ROOTCFG](/docs/drs/repository/generated-root-configs.md)).
-Constructing an instance MAPS and VALIDATES the parsed YAML, collecting every violation into one throw.
-Registered in Catzc.Base.Config/configs/configs.yml (type: Catzc.Base.VSCode.VscodeLaunchConfig), so
-Get-Config -Config vscode-launch returns this typed model. Mirrors the YAML mapping (snake_case keys,
-[ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
-
-Load-time rules:
-  - only the top-level keys 'version' and 'configurations';
-  - 'version' is a non-empty string (the VS Code launch schema version, e.g. '0.2.0');
-  - 'configurations' is a non-empty list of well-formed profiles (VscodeLaunchProfile), names unique
-    case-insensitively.
-```
+- only the top-level keys `version` and `configurations` are allowed;
+- `version` is a non-empty string, the VS Code launch schema version, for example `0.2.0`;
+- `configurations` is a non-empty list of well-formed profiles (`VscodeLaunchProfile`), with names unique case-insensitively.

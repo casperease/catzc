@@ -1,7 +1,7 @@
 # pwsh/Base.Maps/Test-WorldMap.ps1
 
-The quality gate over the world map: it checks that every tracked file sits in a declared track and tech-stack, and that every label the
-map prints names a glossary term.
+The quality gate over the world map: it checks that every tracked file sits in a declared track and tech-stack, and that every label the map
+prints names a glossary term.
 
 ## help
 

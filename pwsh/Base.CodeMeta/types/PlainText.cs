@@ -50,6 +50,7 @@ public static class PlainText
         return string.Join(" ", parts);
     }
 
+    // Links reduced to their words, rule codes and their emptied brackets removed, code spans and emphasis unmarked, white space one space.
     public static string Plain(string text)
     {
         if (string.IsNullOrEmpty(text)) { return ""; }
@@ -62,6 +63,7 @@ public static class PlainText
         return plain.Trim();
     }
 
+    // Null when the text is one line of letters, digits, spaces and . , - ( ) ' only, so a YAML plain scalar holds it as written.
     public static string PlainScalarFinding(string text)
     {
         if (string.IsNullOrWhiteSpace(text)) { return "is empty"; }

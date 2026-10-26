@@ -1,8 +1,8 @@
 # pwsh/Base.Maps/types/MapsLimits.cs
 
-The `limits` section of `configs/maps.yml`: the page size in PDF points, the smallest font size a label may shrink to, and the longest
-track and file-language name a row or column header prints before it is shortened. `MapsConfig` validates the section (every value
-positive) and builds one.
+The `limits` section of `configs/maps.yml`: the page size in PDF points, the smallest font size a label may shrink to, and the longest track
+and file-language name a row or column header prints before it is shortened. `MapsConfig` validates the section (every value positive) and
+builds one.
 
 ## Defaults
 

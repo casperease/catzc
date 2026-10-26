@@ -45,5 +45,5 @@ Return the data as JSON in the minimap contract's shape instead of the object.
 
 ## Rungs
 
-The rungs come from `Get-Rung` in climbing order. A subject file lights a rung when it cites one of the rung's rules, or the ADR that
-holds the rule.
+The rungs come from `Get-Rung` in climbing order. A subject file lights a rung when it cites one of the rung's rules, or the ADR that holds
+the rule.

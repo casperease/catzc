@@ -3,8 +3,8 @@
 The map settings: the palette, the limits and the printed labels of the world map and the value-chain map, the minimaps, the reviewed
 highlight pins and exceptions, and the folder the PDFs are written to. The shipped file is empty (`{}`): every key has its default on
 `Catzc.Base.Maps.MapsConfig` and the section types it holds
-([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../../../../drs/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)), and a
-key is set only to change it. `Get-Config -Config maps` loads it.
+([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../../../../drs/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)), and a key
+is set only to change it. `Get-Config -Config maps` loads it.
 
 ## Keys
 
@@ -29,11 +29,10 @@ key is set only to change it. `Get-Config -Config maps` loads it.
 
 ## Why the labels name terms
 
-The catch-all row prints the root files
-([DDR-TRACK-ROOTFILE](../../../../drs/design/tracks.md#rule-ddr-track-rootfile)) and the catch-all column the unlisted files
-([DDR-TRACK-UNLISTEDFILE](../../../../drs/design/tracks.md#rule-ddr-track-unlistedfile)). The value-chain labels follow
-[DDR-TRACK-VALUECHAINMAP](../../../../drs/design/tracks.md#rule-ddr-track-valuechainmap). `Test-WorldMap` checks the world-map labels and
-`Test-ValueChainMap` the value-chain ones.
+The catch-all row prints the root files ([DDR-TRACK-ROOTFILE](../../../../drs/design/tracks.md#rule-ddr-track-rootfile)) and the catch-all
+column the unlisted files ([DDR-TRACK-UNLISTEDFILE](../../../../drs/design/tracks.md#rule-ddr-track-unlistedfile)). The value-chain labels
+follow [DDR-TRACK-VALUECHAINMAP](../../../../drs/design/tracks.md#rule-ddr-track-valuechainmap). `Test-WorldMap` checks the world-map labels
+and `Test-ValueChainMap` the value-chain ones.
 
 ## Default citation exclusions
 

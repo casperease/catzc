@@ -1,7 +1,6 @@
 # pwsh/Base.VSCode/Install-VsCodeExtension.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The command that installs the repository's own editor extensions through the editor's CLI, and skips the ones already current.
 
 ## help
 
@@ -52,29 +51,9 @@ Install-VsCodeExtension
 Install-VsCodeExtension -Name catzc-git-changes -Force
 ```
 
-## comment:1
+## When an extension is current
 
-Above `if (-not $renderedNow -and (Test-Path -LiteralPath $installed)) {`, written with `#`.
-
-```text
-A current stamp is only ever stored after every extension installed cleanly, so an unchanged folder with its copy present
-is that copy; the file-by-file comparison is for a folder rendered now.
-```
-
-## comment:2
-
-Above `$current = -not $Force -and -not @(Get-GeneratedWriterDue -Name...`, written with `#`.
-
-```text
-The folders are judged once for every extension, so one rendered extension never makes the next look current while
-it is stale.
-```
-
-## comment:3
-
-Above `$manifestText = { param([string] $Path) $json = Get-Content -LiteralPath...`, written with `#`.
-
-```text
-The editor writes its own __metadata into the installed package.json, so the manifest is compared without
-it.
-```
+The folders are judged once for every extension, so one rendered extension never makes the next look current while it is stale. A current
+stamp is only ever stored after every extension installed cleanly, so an unchanged folder with its copy present is that copy; the
+file-by-file comparison is for a folder rendered now. The editor writes its own `__metadata` into the installed `package.json`, so the
+manifest is compared without it.

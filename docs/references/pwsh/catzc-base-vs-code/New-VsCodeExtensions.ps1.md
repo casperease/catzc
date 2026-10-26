@@ -1,7 +1,6 @@
 # pwsh/Base.VSCode/New-VsCodeExtensions.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The renderer of `.vscode/extensions.json`, the list of recommended extensions, from the `vscode-extensions` registry.
 
 ## help
 

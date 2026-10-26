@@ -1,7 +1,6 @@
 # pwsh/Base.VSCode/Set-VsCodeHiddenAction.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The command that writes the declared hidden editor actions into VS Code's own state store, through `VscodeStateStore`.
 
 ## help
 
@@ -31,11 +30,6 @@ The editor's process; the command stops while it runs. Default: `Code`.
 
 `[hashtable]` menu id to the command ids hidden there, as written.
 
-## comment:1
+## The editor's value
 
-Above `$key = 'menu.hiddenCommands'`, written with `#`.
-
-```text
-The editor's own value: menu id -> the command ids hidden there. The declared ones join it; what the user hid by
-hand stays.
-```
+The editor's own value maps a menu id to the command ids hidden there. The declared ones join it, and what the user hid by hand stays.

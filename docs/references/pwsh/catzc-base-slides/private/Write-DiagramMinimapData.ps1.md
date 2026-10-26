@@ -43,12 +43,12 @@ Each declared folder's three minimaps are computed from its ADR codes by the dat
 
 ## What the declaration holds
 
-The declaration lists only the inputs: each shown minimap is an id, or `{ id: { exclude: [cells] } }` naming the lit cells its author rejects
-as their `at` values joined by `/`; a declaration that lists none shows its kind's defaults. The drawn data is the computed one less the
-excluded cells; nothing computed is written back to the declaration.
+The declaration lists only the inputs: each shown minimap is an id, or `{ id: { exclude: [cells] } }` naming the lit cells its author
+rejects as their `at` values joined by `/`; a declaration that lists none shows its kind's defaults. The drawn data is the computed one less
+the excluded cells; nothing computed is written back to the declaration.
 
 ## Shared reads
 
 The world map is built once for every folder of the call, and the file facts of every folder's subject are read in one call; a minimap that
-draws on either is handed it rather than building its own. The drawing's own glyphs are handed to the minimaps that place them: the labels as
-written, resolved by the maps module, never stored.
+draws on either is handed it rather than building its own. The drawing's own glyphs are handed to the minimaps that place them: the labels
+as written, resolved by the maps module, never stored.

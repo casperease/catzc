@@ -6,9 +6,9 @@ One cell of the world map: a track (the row) crossed with a file language (the c
 
 ## Stack violation
 
-A cell breaks "one tech-stack per track"
-([DDR-TRACK-ONETECHSTACK](../../../../drs/design/tracks.md#rule-ddr-track-onetechstack)) when it holds a live file whose file language the
-track does not declare. `WorldMapBuilder` decides that per file (`MapPlacement.StackViolation`) and the cell carries the result.
+A cell breaks "one tech-stack per track" ([DDR-TRACK-ONETECHSTACK](../../../../drs/design/tracks.md#rule-ddr-track-onetechstack)) when it
+holds a live file whose file language the track does not declare. `WorldMapBuilder` decides that per file (`MapPlacement.StackViolation`)
+and the cell carries the result.
 
 ## Shape
 

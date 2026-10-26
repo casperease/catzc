@@ -1,7 +1,7 @@
 # pwsh/Base.ModuleSystem/private/Get-ModuleDependencyClosure.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Expands a set of seed modules to their transitive declared-dependency closure, so copying the result yields a loadable subset.
+`Get-ModuleProfile` uses it.
 
 ## help
 
