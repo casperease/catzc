@@ -36,8 +36,8 @@ A reference page's path is derived from its source file, so no code head carries
   build-artifact page goes.
 - Steps 1 and 2 are staged in the building session's scratchpad (out/ is cleared by hand) and swap together with step 4, after the user's
   run of step 3's script; that script reads the map csv, which is refreshed from the committed tree before the run.
-- The staging (catzc-98, 2026-10-26), mirroring the repository with a `.burst-base` beside each changed file:
-  `C:/Users/caspe/AppData/Local/Temp/claude/C--projects-catzc/3ff2c2e4-753d-4b91-918e-813cf64f8af1/scratchpad/refnf-staged`, holding
+- The staging (catzc-2b, 2026-10-26, from catzc-98), mirroring the repository with a `.burst-base` beside each changed file:
+  `C:/Users/caspe/AppData/Local/Temp/claude/C--projects-catzc/b95cbc16-8786-4de2-b7fa-4d16798453a7/scratchpad/refnf-staged`, holding
   Base.CodeMeta's CommentPageMap.cs, CommentPagesConfig.cs, comment-pages.yml, Get-CommentPage.ps1 and their two tests; Base.QualityGates'
   new Test-ReferencePages.ps1 and test, file-meta.yml and five file-meta test fixtures; Base.Docs' DocPattern.cs, Get-ReadmeMappings.ps1,
   readme.yml and three tests; and Base.ModuleSystem's dependencies.yml (Docs gains CodeMeta).

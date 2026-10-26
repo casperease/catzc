@@ -58,6 +58,7 @@ stale or superseded item is recorded as such, with the reason.
 | high   | plan-comment-insights       | ADR-REPO-COMMENTS text: the one-line insight a long comment leaves                                               | Test-Comments and each module's tests                                                                      | new                                              |
 | high   | plan-comment-articles       | ADR-REPO-COMMENTS-PAGEISAUTHORED text: sections folded into the page article                                     | Test-Comments, Test-Links, Test-Spelling, Test-Markdownlint per module                                     | new                                              |
 | high   | plan-slim-agents            | ADR-REPO-AGENTS rewrite                                                                                          | Test-AgentDefinitions                                                                                      | new                                              |
+| medium | plan-flow-lens |  |  | new |
 
 ## Pending deletion
 

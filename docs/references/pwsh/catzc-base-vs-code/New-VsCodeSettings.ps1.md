@@ -60,6 +60,11 @@ The settings file on disk, read for the rows another writer owns: each `carried`
 lists, and the owner key itself, so a regenerated file keeps the lamps' working view. Default: `.vscode/settings.json` under the repository
 root.
 
+### parameter `EditorConfigPath`
+
+The .editorconfig whose sections render into the editor settings, vscode-settings.yml's `editorconfig` mapping them to languages
+(ConvertFrom-EditorConfig). Default: `.editorconfig` under the repository root.
+
 ### outputs
 
 `[string]` The rendered settings.json content (LF-joined; the writer canonicalises).

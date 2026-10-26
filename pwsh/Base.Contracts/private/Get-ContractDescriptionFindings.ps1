@@ -1,3 +1,11 @@
+<#
+---
+catzc:
+  docs: "../../../docs/references/pwsh/catzc-base-contracts/private/Get-ContractDescriptionFindings.ps1.md"
+  header: "generated"
+---
+#>
+
 function Get-ContractDescriptionFindings {
     [CmdletBinding()]
     [OutputType([string[]])]

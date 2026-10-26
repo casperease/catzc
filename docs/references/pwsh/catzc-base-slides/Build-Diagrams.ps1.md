@@ -52,6 +52,10 @@ The draw.io kit folder that holds `drawio_forward.py`. Default: `drawio_kit` of 
 The theme the renderer puts in. The default theme writes the committed png; another theme puts the declared diagrams to
 `out/drawio/themes/<theme>/` and leaves the tree alone. Default: `theme` of `slides.yml`, declared once on SlidesConfig.
 
+### parameter `Workers`
+
+The worker processes the one renderer call splits the diagrams across, each with a disjoint slice. Default: `render_parallel` of slides.yml.
+
 ### parameter `RepositoryRoot`
 
 The repository root the diagrams are relative to. Default: the loaded repository root.
@@ -60,10 +64,6 @@ The repository root the diagrams are relative to. Default: the loaded repository
 
 Sync the diagrams named by -Path after an edit, instead of running the renderer: get when the drawing moved since HEAD, then put, then
 Test-Diagrams on the diagrams. A pair whose yml and png both moved since HEAD and disagree stops before put, naming its cells.
-
-### parameter `Workers`
-
-The worker processes the one renderer call splits the diagrams across, each with a disjoint slice. Default: `render_parallel` of slides.yml.
 
 ### parameter `Stale`
 

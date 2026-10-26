@@ -154,7 +154,7 @@ final full run last.
     (`git rm --cached -r pwsh/.compiled`; the folder is gitignored). Check: `git ls-files pwsh/.compiled` prints nothing,
     `git status --short contracts` is clean, and `Test-BuildArtifact -Facet Types` reports no issues.
 
-28. plan-reference-normal-form step 3: move every reference page to its derived path. First ask catzc-98, the step's keeper, to refresh
+28. plan-reference-normal-form step 3: move every reference page to its derived path. First ask catzc-2b, the step's keeper, to refresh
     `out/ns5/ref-map.csv` from the committed tree (New-ReferencePageMap.ps1). Then run
     `pwsh -NoProfile -File out/ns5/Rename-ReferencePages.ps1 -WhatIf`, then the same without `-WhatIf`, and tell the orchestrator, so steps
     1, 2 and 4 land in one burst. Check: the `-WhatIf` lists each page once and refuses nothing, and after the run

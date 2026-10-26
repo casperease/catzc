@@ -56,7 +56,7 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
   globsets derived from tracks, a DDR-VENDOR for the vendor umbrella, normal-form track names, filter lamps per aspect plus a language
   field, minimaps and lamps out of the ADRs; eighteen steps, the first waiting on the user's example names
 - reference-normal-form -> plan-reference-normal-form.md: reference pages at a derived path
-  (`docs/references/<language>/<module>/<aspect path>/<file>.md`), no `docs:` links; steps 1 and 2 staged by catzc-98 in its scratchpad,
+  (`docs/references/<language>/<module>/<aspect path>/<file>.md`), no `docs:` links; steps 1 and 2 staged by catzc-2b in its scratchpad,
   then the step-3 rename script, then the user's rename
 - module-types-contracts -> plan-module-types-contracts.md: each module group publishes its compiled type surface as `types.json` beside its
   command contracts, replacing the global sample; command contracts' types checked against it
@@ -92,6 +92,7 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
 - comment-articles -> plan-comment-articles.md: every comment page pruned into a small reference article on its source file, gold back in
   source as one line, ready for the next export
 - slim-agents -> plan-slim-agents.md: four model drones, every job a skill; 22 robots to 4, duplicates merged
+- flow-lens -> plan-flow-lens.md: flow lens: CI/CD flow diagrams of the ADO and GitHub pipelines, drawn with a three-symbol glyph set
 - user-runs-and-commits -> task-user-runs-and-commits.md: the user's steps, the only list of them.
 - closing-sweep -> task-closing-sweep.md: runs after every batch; done plans deleted, done steps pruned; last of all, after the user's full
   run, the master and the task files go with the last plan.
