@@ -24,6 +24,7 @@ function Get-RepositoryFilter {
     $generated = $null
     $kinds = $null
 
+    # A literal path claims itself and what lies under it, so a new file is classified by the model's patterns.
     $literal = { param([string[]] $Paths) foreach ($path in $Paths) {
             [ordered]@{ include = @($path, "$path/**"); exclude = @() }
         } }
@@ -38,6 +39,7 @@ function Get-RepositoryFilter {
                 & $literal @($item)
             }
         } }
+    # A track's places, less the places of the tracks nested in it, since each file is in exactly one track.
     $owned = {
         param([object[]] $Selected)
         foreach ($track in $Selected) {
@@ -90,6 +92,7 @@ function Get-RepositoryFilter {
                         & $owned $match
                     }
                     'kind' {
+                        # A kind's globs as file-kinds.yml declares them, its subkinds' included.
                         $kinds ??= (Get-Config -Config file-kinds).kinds
                         $match = @($kinds.Where({ $_.role -ceq $argument -and -not $_.subkind }))
                         if ($match.Count -eq 0) {
@@ -126,6 +129,7 @@ function Get-RepositoryFilter {
             }
             $sets = $kept
         }
+        # Extensions narrow a tree include to those files; a file include stays when its extension is listed.
         if (@($filter.extensions).Count -gt 0) {
             $wanted = @($filter.extensions)
             $narrowed = foreach ($set in $sets) {

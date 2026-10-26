@@ -13,6 +13,7 @@ Describe 'GlobsConfig' -Tag 'L0', 'logic' {
             param([hashtable] $globsets)
             [Catzc.Base.Globs.GlobsConfig]::new(@{ globsets = $globsets })
         }
+        # A set's flattened scan program as '+ pattern' and '- pattern' lines: the ordered membership.
         $script:program = {
             param($set)
             foreach ($rule in $set.ScanProgram()) {
@@ -29,6 +30,7 @@ Describe 'GlobsConfig' -Tag 'L0', 'logic' {
 
     Context 'a valid registry' {
         It 'constructs and exposes the sets with lookup' {
+            # Neutral names, not the shipped set names.
             $c = & $script:make @{
                 'widget' = @{ description = 'the widget surface'; layer = 'loose-fileset'; include = @('src/**',
                         'main.ps1')
@@ -93,6 +95,7 @@ Describe 'GlobsConfig' -Tag 'L0', 'logic' {
                         'leaf'); include = @('top/**')
                 }
             }
+            # Raw +leaf, +mid, +leaf, +top; keeping each rule's last occurrence gives +mid, +leaf, +top.
             (& $script:program $c.Get('top')) | Should -Be @('+ mid/**', '+ leaf/**', '+ top/**')
         }
 

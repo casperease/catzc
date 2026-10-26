@@ -15,11 +15,13 @@ function Test-GlobSetIndependence {
         [switch] $PassThru
     )
 
+    # Loose filesets cut across layers and may overlap; every other layer is checked.
     $exemptLayer = 'loose-fileset'
 
     $sets = @(Get-GlobSet) + @(Get-ModuleGlobSet)
     $tracked = [string[]] @(Get-TrackedFile)
 
+    # Each set's own members (compose ignored), as a set once, so every intersection is O(1).
     $own = @{}
     foreach ($set in $sets) {
         $own[$set.Name] = [System.Collections.Generic.HashSet[string]]::new(

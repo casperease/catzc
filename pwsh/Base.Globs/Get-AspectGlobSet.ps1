@@ -11,6 +11,7 @@ function Get-AspectGlobSet {
     [OutputType([System.Collections.Specialized.OrderedDictionary])]
     param()
 
+    # Aspect name to its globsets, from the aspect model alone: the module layer's sets and each aspect-declaring track's.
     $aspectSet = [ordered]@{}
     $add = {
         param([string] $Name, [Catzc.Base.Globs.GlobSet] $Set)
@@ -18,6 +19,7 @@ function Get-AspectGlobSet {
     }
     $codeTrack = Get-Track -Path (Get-CatzcModulesFolder)
     $aspectNames = @(Get-Aspect -Track $codeTrack.name).ForEach({ $_.Name })
+    # A single-file module's set is the degenerate one-aspect partition: live.
     $singleFile = @(Get-CatzcModule -Track $codeTrack.name -IncludeInternal).Where({ $_.shape -ceq 'file' }).ForEach({ [Catzc.Base.Objects.NameCase]::Render($_.name, 'kebab') })
     foreach ($set in @(Get-ModuleGlobSet).Where({ $_.Layer -ceq 'module' })) {
         if ($set.Name -cin $singleFile) {

@@ -20,6 +20,7 @@ function Get-ModuleGlobSet {
 
     Assert-SourceTree
 
+    # The code track's place is the modules folder; its first place is the root every module sits under.
     $codeTrack = Get-Track -Path (Get-CatzcModulesFolder)
     $codeRoot = $codeTrack.places[0]
     $config = Get-Config -Config globs
@@ -33,6 +34,7 @@ function Get-ModuleGlobSet {
         'compiled'       = "$codeRoot/.compiled/**"
         'scriptanalyzer' = "$codeRoot/.scriptanalyzer/**"
     }
+    # The reserved umbrellas are overlap-exempt loose filesets, not module-layer sets.
     foreach ($reservedName in [Catzc.Base.Globs.GlobsConfig]::ReservedNames) {
         $set = [Catzc.Base.Globs.GlobSet]::new(
             $reservedName, "Derived infra scope - $($reserved[$reservedName])", 'loose-fileset',
@@ -40,12 +42,14 @@ function Get-ModuleGlobSet {
         $derived[$reservedName] = $set
     }
 
+    # Each module folder partitions into disjoint, exhaustive aspect sets, so a test-only change never re-keys live.
     $aspectList = [System.Collections.Generic.List[Catzc.Base.Globs.Aspect]]::new()
     foreach ($aspectDef in Get-Aspect -Track $codeTrack.name) {
         $aspectList.Add([Catzc.Base.Globs.Aspect]::new($aspectDef.Name, [string[]]$aspectDef.Patterns))
     }
     # bare module name/kebab -> its aspect sets, so a caller can ask for "the module" and get both aspects.
     $moduleAspects = @{}
+    # A module's Go, Python and Bash test folders belong to its tests aspect, never its live one.
     $goRoot = (Get-Config -Config go).ResolveRoot((Get-RepositoryRoot))
     $pythonRoot = (Get-Config -Config python).ResolveRoot((Get-RepositoryRoot))
     $bashRoot = (Get-Config -Config bash).ResolveRoot((Get-RepositoryRoot))
@@ -69,6 +73,7 @@ function Get-ModuleGlobSet {
                 throw "Declared globset '$aspectKebab' in globs.yml shadows the derived aspect of module '$moduleName' — derived and declared sets share one name space (ADR-REPO-PROTGLOB); rename the declared set."
             }
             $include = [string[]]$compiled.Include
+            # Each language's test folder is named from the module's folder, in that language's folder case.
             if ($compiled.Name -eq 'tests') {
                 $folder = [System.IO.Path]::GetFileName($module.root)
                 $include += "$goRoot/tests/$($languages.TestFolderOf('go', $folder))/**"
@@ -86,6 +91,7 @@ function Get-ModuleGlobSet {
         $moduleAspects[$moduleName] = $aspectSets
     }
 
+    # An internal shared module's .psm1 is its registration, so it gets a single-file set of its own.
     foreach ($module in $codeModules.Where({ $_.shape -ceq 'file' })) {
         $internalName = $module.name
         $kebab = [Catzc.Base.Objects.NameCase]::Render($internalName, 'kebab')
@@ -99,6 +105,7 @@ function Get-ModuleGlobSet {
         $derived[$internalName] = $set
     }
 
+    # A reserved scope is a unit too: its root .psm1 files are live, the rest tests.
     $scopeAspects = [System.Collections.Generic.List[Catzc.Base.Globs.Aspect]]::new()
     foreach ($aspect in $aspectList) {
         $patterns = [string[]]@($aspect.Patterns)
@@ -122,6 +129,7 @@ function Get-ModuleGlobSet {
         }
     }
 
+    # Other laid-out tracks partition by their own convention; their root holder is no unit.
     foreach ($track in @(Get-Track).Where({ $_.name -cne $codeTrack.name -and $languages.IsLaidOut($_.languages) })) {
         $trackAspects = [System.Collections.Generic.List[Catzc.Base.Globs.Aspect]]::new()
         foreach ($aspectDef in Get-Aspect -Track $track.name) {
@@ -146,9 +154,11 @@ function Get-ModuleGlobSet {
         }
     }
 
+    # The module layer's catch-all for a stray file under the modules folder; empty in a clean tree.
     if ('module-leftovers' -in $declaredNames) {
         throw "Declared globset 'module-leftovers' in globs.yml shadows the derived module-space catch-all — derived and declared sets share one name space (ADR-REPO-PROTGLOB); rename the declared set."
     }
+    # Sorted ordinally, so the marker body is byte-identical on every machine.
     $leftoverExcludes = @($moduleFolderGlobs) + @($reserved.Values)
     [System.Array]::Sort($leftoverExcludes, [System.StringComparer]::Ordinal)
     $derived['module-leftovers'] = [Catzc.Base.Globs.GlobSet]::new(

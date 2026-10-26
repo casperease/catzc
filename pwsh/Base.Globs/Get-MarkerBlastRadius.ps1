@@ -26,6 +26,7 @@ function Get-MarkerBlastRadius {
         return
     }
 
+    # Declared sets first, in registry order, then the derived module sets: one answer per set either way.
     foreach ($set in @(Get-GlobSet) + @(Get-ModuleGlobSet)) {
         foreach ($file in $files) {
             if ($set.Matches($file)) {

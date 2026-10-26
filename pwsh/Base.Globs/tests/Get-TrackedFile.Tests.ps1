@@ -17,6 +17,7 @@ Describe 'Get-TrackedFile' -Tag 'L0', 'logic' {
 
 Describe 'Get-TrackedFile (real index)' -Tag 'L1', 'integrity', 'source-only' {
     It 'lists this repository''s tracked files as /-separated repo-relative paths' {
+        # Wrapped in @(): under strict mode .Count on a scalar or an empty result throws.
         $files = @(InModuleScope Catzc.Base.Globs { Get-TrackedFile })
         $files.Count | Should -BeGreaterThan 100
         $files | Should -Contain 'importer.ps1'

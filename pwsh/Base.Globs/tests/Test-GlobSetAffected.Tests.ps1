@@ -8,6 +8,7 @@ catzc:
 
 Describe 'Test-GlobSetAffected' -Tag 'L0', 'logic' {
     BeforeAll {
+        # Neutral names, so the shipped globs.yml never changes this test.
         $script:config = [Catzc.Base.Globs.GlobsConfig]::new(@{
                 globsets = [ordered]@{
                     'widget' = @{ description = 'the widget surface'; layer = 'loose-fileset'; include = @('src/**') }

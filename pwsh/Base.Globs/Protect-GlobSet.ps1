@@ -23,12 +23,14 @@ function Protect-GlobSet {
         return
     }
 
+    # The strict-safe probe of a lazy cache entry.
     if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:protectedGlobSets')) {
         $script:protectedGlobSets = @{}
         $script:pendingGlobProtections = @{}
     }
 
     $key = "$Test|$Name"
+    # Never $hash: variable names ignore case, so it would overwrite the $Hash parameter.
     $identity = $script:pendingGlobProtections[$key]
     if (-not $identity) {
         $identity = if ($Hash) {

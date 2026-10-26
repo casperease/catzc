@@ -16,6 +16,7 @@ Describe 'Get-ModuleGlobSet' -Tag 'L1', 'logic' {
             ((Get-CatzcModulesFolder) + '/.internal/Catzc.Internal.Alpha.psm1') = 'function Test-InternalAlpha {}'
             ((Get-CatzcModulesFolder) + '/.internal/Catzc.Internal.Beta.psm1')  = 'function Test-InternalBeta {}'
         }
+        # A neutral declared set, there only so the shadow check has a registry to compare against.
         $script:config = [Catzc.Base.Globs.GlobsConfig]::new(@{
                 globsets = @{ widget = @{ description = 'd'; layer = 'loose-fileset'; include = @('src/**') } }
             })

@@ -30,6 +30,7 @@ Describe 'Get-GlobSetTrigger' -Tag 'L0', 'logic' {
     }
 
     It 'nets a base exclude that a later include re-adds to an ADO include (the compose re-add case)' {
+        # GitHub keeps the ordered program; ADO collapses each pattern to its last select, so the re-add is an include.
         $script:config = [Catzc.Base.Globs.GlobsConfig]::new(@{
                 globsets = [ordered]@{
                     'base' = @{ description = 'b'; layer = 'deployable-unit'; include = @('lib/**'); exclude = @('lib/configuration/*/**') }
@@ -44,6 +45,7 @@ Describe 'Get-GlobSetTrigger' -Tag 'L0', 'logic' {
     }
 
     It 'collapses an exclude re-added at the SAME pattern to a net include (no contradictory ADO entry)' {
+        # The last select wins, so the same pattern is an ADO include only, never both.
         $script:config = [Catzc.Base.Globs.GlobsConfig]::new(@{
                 globsets = [ordered]@{
                     'base' = @{ description = 'b'; layer = 'deployable-unit'; include = @('lib/**'); exclude = @('lib/configuration/*.yml') }
