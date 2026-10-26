@@ -1,8 +1,8 @@
 ---
 name: catzc-verify
 description:
-  The per-file and end-of-task checks a delegated change must pass, and the shared files it may never edit; for catzc-drone and
-  build-inspiration-module; input is the list of files the brief owns.
+  The per-file and end-of-task checks a delegated change must pass, and the shared files it may never edit; for catzc-module and
+  diagram-review; input is the list of files the brief owns.
 user-invocable: false
 allowed-tools: Bash, Read
 metadata:
@@ -14,7 +14,7 @@ metadata:
 
 # catzc-verify
 
-1. Per file right after its edit, through catzc-check: `Test-Parsing -Path <ps1, psm1, psd1, yml>` (a stray `'` breaks every import), then
+1. Per file right after its edit, through catzc-gate: `Test-Parsing -Path <ps1, psm1, psd1, yml>` (a stray `'` breaks every import), then
    `Invoke-TestFile -Path <its test file>`; re-read a file right before editing it and never overwrite another session's in-flight edit. A
    rename of a folder or command the tooling names lands its import-path readers (`rootconfig.yml` and Build-RootConfig's writers,
    `Get-LanguageTestFolders`, the `.internal` loaders, the contract readers) in the same pass inside a burst, never a HOLD or GO message:

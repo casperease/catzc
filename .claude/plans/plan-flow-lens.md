@@ -86,7 +86,7 @@ of the same symbols as the VS Code file icons, so the editor tree and the diagra
       FDR-CD-TYPE-SIXTYPES, Approve from the rung gates, Review from the pull-request trigger), each with its context section. (check:
       `Test-Links` on the file; `Test-Glossary` reports no collision)
 - [ ] `pwsh/Base.QualityGates/configs/terminology/` and the owning `configs/glossary.yml`: add the coined term `spanner` and the flow lens
-      before any article uses them, through glossary-keeper. (check: `Test-Glossary` reports no issue)
+      before any article uses them, through glossary-keep. (check: `Test-Glossary` reports no issue)
 - [ ] `python/diagrams/configs/drawio.yml`: add `flow` to `lenses:`, a `flow-lens:` block (lane height, slot size, stroke widths 1.6 and 1,
       the glyph kinds) and the closed `flow-glyphs:` list of id, word, meaning and `hint:`. (check: `Invoke-PythonTest` on the kit passes)
 - [ ] `python/diagrams/flow_glyphs.py`: the word renderer: three slots, `O`/`0` the same circle with or without the dot, `@ink` strokes, an

@@ -6,8 +6,7 @@ plan:
   class: feature
   targets:
     [
-      .claude/agents/diagram-review.md,
-      .claude/skills/drawio-review/SKILL.md,
+      .claude/skills/diagram-review/SKILL.md,
       python/diagrams/declaration.py,
       python/diagrams/configs/drawio.yml,
     ]
@@ -33,7 +32,7 @@ named slide replaced it the same day.)
 
 ## The agent
 
-`diagram-review` (`.claude/agents/diagram-review.md`, capability `drawio-review`, which reuses `drawio-look`). It greets with the sentence
+`diagram-review` (the user skill `.claude/skills/diagram-review/SKILL.md`, which reuses `drawio-look`). It greets with the sentence
 above, reads the named slide's PNG itself, asks one question in context ending with "I spotted: ..." for each logical or visual "this should
 be different", takes the user's written text as the source of one open step, lands it, redraws and greets again. The user's text is the
 source of every step; the agent's own taste is never one.

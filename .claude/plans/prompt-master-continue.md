@@ -21,4 +21,4 @@ the whole tree; run the one test file or gate the step names. The typed DLL unde
 `.claude/plans`, run `Format-Code -Language markdown -Path .claude/plans` and `Test-Plans`.
 
 Stop and ask the user when a step needs a decision the plan does not record, a mutating git command, or an external binding. End with the
-report-fixed shape: files touched, checks run with each verdict line verbatim, left undone with the reason, and the next chunk's name.
+catzc-core report shape: files touched, checks run with each verdict line verbatim, left undone with the reason, and the next chunk's name.

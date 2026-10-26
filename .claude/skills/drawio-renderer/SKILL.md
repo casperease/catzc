@@ -2,7 +2,7 @@
 name: drawio-renderer
 description:
   Fail-forward render of a given .drawio.png, always a source copy and a result PNG, model XML, a page of asserted text and the slide's
-  minimaps regenerated when asked; for drawio-diagram-waves; input is the PNG's repository path, optional model XML, asserted-text path,
+  minimaps regenerated when asked; for drawio-waves; input is the PNG's repository path, optional model XML, asserted-text path,
   page, minimaps.
 user-invocable: false
 allowed-tools: Bash, Read
@@ -24,4 +24,4 @@ metadata:
 2. Forward the `src`, `result`, `model`, `slide`, `report` paths and every `warn` line verbatim; never retry, never edit the source or
    drawio.yml, never judge a warning away.
 3. AI-bound remainder: none by default; only when the user asks for a look, Read the source copy and the result PNG and list what differs,
-   or hand the parameter the user gave ("change this colour") to edit-diagram-yml.
+   or hand the parameter the user gave ("change this colour") to drawio-edit.

@@ -78,3 +78,19 @@ Started 2026-10-26T16:36:54.9565876+01:00.
   that adds rules can push a neighbouring file over its roof.
 - 2026-10-26 Cats: Build-Diagrams refuses a diagram no article embeds, so every new diagram lands with its article and an index row.
 - 2026-10-26 Cats: Token tip: subscribe with notify_when_idle instead of waiting on a busy worker.
+- 2026-10-26 Cats: In hindsight I wish I knew this fact: the plans do not name the live orchestrator; it announces itself by message, so a
+  worker can wait instead of asking the user.
+- 2026-10-26 Cats: Token tip: Next time, save tokens by: as a worker with no brief, wait for the orchestrator message rather than grepping
+  plans for its name.
+- 2026-10-26 Cats: In hindsight I wish I knew this fact: a DRS rule rename is atomic with its domain registry and file moves, because
+  DrsConfig refuses a code outside its domain prefix.
+- 2026-10-26 Cats: In hindsight I wish I knew this fact: Update-DrsCitation and Format-Links turn a bare rule code in a comment into a long
+  link, so a one-line insight comment cites no code.
+- 2026-10-26 Cats: In hindsight I wish I knew this fact: Test-Glossary G6 rejects a new adjective before gate, scope, source, domain, layer,
+  slot or zone, the commonest failure of drone-written prose.
+- 2026-10-26 Cats: In hindsight I wish I knew this fact: an import-path .ps1 or .cs edit is proven by a staged copy plus a byte-exact
+  base-plus-comment-lines check before the swap.
+- 2026-10-26 Cats: In hindsight I wish I knew this fact: Rename-ReferencePages stops on a concurrent git index.lock; -Resume classifies rows
+  against the git index, case-exact.
+- 2026-10-26 Cats: Token tip: Next time, save tokens by: splitting a drone batch at about 15 records, so no drone hits the 50-turn roof and
+  needs resuming.

@@ -55,7 +55,7 @@ Describe 'Get-PathModule on the shipped module-types registry' -Tag 'L0', 'logic
         @{ Path = "$(Get-CatzcModulesFolder)/.internal/Catzc.Internal.Types.psm1"; Name = 'Catzc.Internal.Types'; Type = 'pwsh-psm1' }
         @{ Path = "$(Get-CatzcModulesFolder)/.internal/tests/Assert-CatzcRunModeExclusive.Tests.ps1"; Name = 'Catzc.Internal.Tests'; Type = 'pwsh-folder' }
         @{ Path = "$(Get-CatzcModulesFolder)/.internal/assets/obj/Debug/x.cs"; Name = 'Catzc.Internal.Assets'; Type = 'pwsh-folder' }
-        @{ Path = '.claude/agents/catzc-drone.md'; Name = '.claude'; Type = 'settings' }
+        @{ Path = '.claude/agents/drone-sonnet.md'; Name = '.claude'; Type = 'settings' }
         @{ Path = '.github/README.md'; Name = '.github'; Type = 'settings' }
         @{ Path = '.cspell/adr.txt'; Name = '.cspell'; Type = 'settings' }
         @{ Path = '.github/workflows/ci-pwsh.yml'; Name = 'workflows'; Type = 'pipeline' }

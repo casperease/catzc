@@ -5,18 +5,16 @@ capabilities:
     supported_by: [ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
     checks: []
 
-  # One gate or test file per run, its verdict forwarded verbatim.
-  - name: catzc-check
-    supported_by: [ADR-AUTO-TEST-QUALITYGATE, WDR-BUILTIN-GATESAREPARTOFWORK]
-    checks: [Invoke-TestFile, Test-Links, Test-AgentDefinitions]
-
-  # Small isolated background slices of test automation on a named path subset, one verdict per gate.
-  - name: catzc-subset
+  # One gate, one test file or a path subset's slices, each verdict verbatim; read-only.
+  - name: catzc-gate
+    invoked_by: brief
+    read_only: true
     supported_by: [ADR-AUTO-FAILFAST-BOUNDEVERYWAIT, ADR-AUTO-TEST-QUALITYGATE, WDR-BUILTIN-GATESAREPARTOFWORK]
-    checks: [Test-Change, Invoke-TestFile, Test-Spelling, Test-Links]
+    checks: [Invoke-TestFile, Test-Change, Test-Links, Test-AgentDefinitions]
 
-  # How a cats module is built to the domain rules, one file at a time with its tests.
+  # How a cats module is built or changed to the domain rules, one file at a time with its tests.
   - name: catzc-module
+    invoked_by: brief
     supported_by:
       [
         ADR-PWSH-ONEFUNC-ONEFUNCTIONPERFILE,
@@ -28,12 +26,14 @@ capabilities:
 
   # Diagnosing and fixing one slow test file by the speed rules, nothing lost.
   - name: test-speed
+    invoked_by: brief
     supported_by:
       [ADR-AUTO-TEST-MEASUREFIRST, ADR-AUTO-TEST-SETUPONCE, ADR-AUTO-TEST-COLLAPSEINPUTCLUSTERS, ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS]
     checks: [Invoke-TestFile, Test-ScriptAnalyzer]
 
   # The per-file and end-of-task checks of a delegated change, and the shared files it never edits.
   - name: catzc-verify
+    invoked_by: brief
     supported_by: [WDR-BUILTIN-GATESAREPARTOFWORK, ADR-AUTO-TEST-QUALITYGATE, ADR-REPO-AGENTS-STANDARDDRONE]
     checks:
       [
@@ -50,8 +50,34 @@ capabilities:
         Test-GeneratedFiles,
       ]
 
+  # Keeping the glossary sources in step with the rules that bold each term, one term at a time.
+  - name: glossary-keep
+    invoked_by: brief
+    supported_by: [ADR-REPO-VOCAB-DEFINEDTERM]
+    checks: [Test-Glossary, Build-Glossary]
+
+  # Read-only review of a file set against the rules that govern it, each finding with its rule code.
+  - name: drs-review
+    invoked_by: brief
+    read_only: true
+    supported_by: [WDR-BUILTIN-GATESAREPARTOFWORK, ADR-REPO-LINK-ONECITATIONSPELLING]
+    checks: []
+
+  # Building the inspiration module to the inspiration policy.
+  - name: inspiration-build
+    invoked_by: brief
+    supported_by: [ADR-REPO-INSPIRE-SIBLINGFORIDEAS, ADR-REPO-INSPIRE-CATZCADRSDECIDE]
+    checks: [Invoke-TestFile, Test-ShippedConfigs, Test-ModuleDependency]
+
+  # Measuring what a session cost and why and proposing the changes; writes only to out/ and the plan's lever lines.
+  - name: cost-audit
+    invoked_by: brief
+    supported_by: [EDR-LEAN-SEVENWASTES, WDR-KAIZEN-ADAPTFROMEVIDENCE, ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
+    checks: []
+
   # Finding the rules that govern a file set and citing them by code, without sweeping the DRS.
   - name: drs-cite
+    invoked_by: brief
     supported_by: [ADR-REPO-LINK-ONECITATIONSPELLING]
     checks: []
 
@@ -72,57 +98,74 @@ capabilities:
 
   # Check and repair the links of one markdown file, one link at a time.
   - name: md-links
+    invoked_by: brief
     supported_by: [ADR-REPO-LINK-KINDBYFILE, ADR-REPO-LINK-ONECITATIONSPELLING]
     checks: [Test-Links, Format-Links]
 
-  # Republishing the Diagram Waves Review page from the catalogue on disk, its answers kept.
-  - name: artifact-publish
+  # Republishing the Diagram Waves Review page from the catalogue on disk, its answers kept, and printing the drawings and answers.
+  - name: artifact-print
+    invoked_by: user
     supported_by: [EDR-DORA-VISUAL-DISPLAYPROCESSSTATE, EDR-DORA-VISUAL-CHOSENWITHTEAM]
     checks: []
 
   # Put, get, sync, theme and stale-rebuild of a diagram from its yml declaration.
   - name: drawio-declaration
+    invoked_by: brief
     supported_by:
       [ADR-REPO-SLIDES-DECLARATION, ADR-REPO-SLIDES-TWODIRECTIONS, ADR-REPO-SLIDES-CONFLICTNEEDSAPICK, ADR-REPO-SLIDES-THEMESELECTOR]
     checks: [Test-Diagrams]
 
+  # Changing what one diagram says by editing its yml declaration and putting the png from it.
+  - name: drawio-edit
+    invoked_by: brief
+    supported_by: [ADR-REPO-SLIDES-DECLARATION, ADR-REPO-SLIDES-TWODIRECTIONS, DDR-VISUAL-FIXEDCOMMITPALETTE]
+    checks: [Test-Diagrams, Test-CheckedInBinaries]
+
   # Looking at one diagram PNG in the kit's vocabulary, never a meaning.
   - name: drawio-look
+    invoked_by: brief
     supported_by: [DDR-VISUAL-LEFTTORIGHTISTIME]
     checks: []
 
   # The wave protocol for authoring new diagrams: bounded fan-out, fixed briefs, one shared kit.
   - name: drawio-waves
+    invoked_by: user
     supported_by: [DDR-VISUAL-LEFTTORIGHTISTIME, DDR-VISUAL-FIXEDCOMMITPALETTE, ADR-REPO-FOLDERS-DOCSMARKDOWNONLY]
     checks: [Test-CheckedInBinaries, Test-Links]
 
-  # The one-slide cycle of the visual review of the diagrams: a named slide, one question in context, one plan step per answer.
-  - name: drawio-review
+  # The one-slide cycle of the visual review of the diagrams: a named slide read by the agent, every fix decided and landed by it.
+  - name: diagram-review
+    invoked_by: user
     supported_by: [DDR-VISUAL-LEFTTORIGHTISTIME, ADR-REPO-PLANS-OPENSTEP, PDR-ONELIVE-ONEVERSION]
     checks: [Test-Diagrams, Test-Plans]
 
   # Fail-forward render of a .drawio.png with its minimaps, on the dark page by default.
   - name: drawio-renderer
+    invoked_by: brief
     supported_by: [DDR-VISUAL-FIXEDCOMMITPALETTE]
     checks: [Test-CheckedInBinaries]
 
-  # The verdict rules for one plan file.
-  - name: plan-shape
-    supported_by: [PDR-ONELIVE-ONEVERSION, EDR-LEAN-SEVENWASTES]
-    checks: []
+  # Cleaning the plans to the plan rules, one verdict and one file at a time.
+  - name: plan-clear
+    invoked_by: brief
+    supported_by: [ADR-REPO-PLANS-DONEPLANDELETED, PDR-ONELIVE-ONEVERSION, EDR-LEAN-SEVENWASTES]
+    checks: [Test-Links, Test-Plans]
 
-  # Landing a pasted continuation prompt in the plans, nothing discarded.
+  # Landing a pasted continuation prompt in the plans, nothing discarded, every done claim checked against the tree.
   - name: plan-intake
+    invoked_by: brief
     supported_by: [PDR-ONELIVE-HISTORYINGIT, EDR-LEAN-SEVENWASTES]
-    checks: []
+    checks: [Test-Links]
 
   # A decision round over the plans' open questions.
   - name: plan-decide
+    invoked_by: user
     supported_by: [PDR-CONFIG-DEFAULTANSWERSINSTANCE, EDR-LEAN-SEVENWASTES]
-    checks: []
+    checks: [Test-Links]
 
   # Ranking a plan by value and by the docs and tests it needs.
   - name: plan-value
+    invoked_by: brief
     supported_by: [EDR-LEAN-SEVENWASTES, WDR-PULLWORK-PULLNOTPUSH]
     checks: []
 
@@ -136,28 +179,47 @@ capabilities:
     supported_by: [EDR-LEAN-SEVENWASTES, WDR-KAIZEN-ADAPTFROMEVIDENCE, ADR-REPO-PLANS-OPENSTEP]
     checks: [Test-Plans]
 
-  # The message protocol between an orchestrator and the live sessions it drives over the master plan.
-  - name: plans-orchestrate
-    supported_by: [WDR-PULLWORK-PULLNOTPUSH, WDR-PULLWORK-LIMITWORKINPROGRESS, ADR-REPO-AI-NEVERDECIDEFORUSER]
-    checks: []
+  # Driving the master plan's open chunks through the sessions the user started, by message; implements nothing, spawns nothing.
+  - name: orchestrate
+    invoked_by: user
+    supported_by:
+      [ADR-REPO-PLANS-MASTERANDTASKS, WDR-PULLWORK-PULLNOTPUSH, WDR-PULLWORK-LIMITWORKINPROGRESS, ADR-REPO-AI-NEVERDECIDEFORUSER]
+    checks: [Test-Plans]
+
+  # The listen mode's processor: the editor's notes become repository-wide plans, never asking whether the editor is right.
+  - name: listen
+    invoked_by: user
+    supported_by: [ADR-REPO-AI-EDITORISFACT, WDR-KAIZEN-ADAPTFROMEVIDENCE, ADR-REPO-PLANS-DECISIONSBECOMERULES]
+    checks: [Test-Plans, Format-Code]
 
   # How the listen mode's processor reads the listener's notes and keeps its own ledger.
   - name: listen-notes
+    invoked_by: brief
     supported_by: [ADR-REPO-AI-EDITORISFACT, ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
     checks: []
 
   # The listen mode's tiers and its one search over the committed reference.
   - name: listen-tiers
+    invoked_by: brief
     supported_by: [ADR-REPO-AI-EDITORISFACT, ADR-REPO-PLANS-DECISIONSBECOMERULES]
     checks: []
 
   # How one note of the editor becomes a pattern and a repository-wide plan.
   - name: listen-insight
+    invoked_by: brief
     supported_by: [ADR-REPO-AI-EDITORISFACT, WDR-KAIZEN-ADAPTFROMEVIDENCE, ADR-REPO-PLANS-ONETOPICONEFILE]
     checks: [Test-Plans]
 
+  # One statement checked against the tree and its words against the glossary, then a DevOps counter in two lines; read-only.
+  - name: fact-check
+    invoked_by: brief
+    read_only: true
+    supported_by: [ADR-REPO-AI-TRUSTTHETREE, ADR-REPO-VOCAB-DEFINEDTERM, ADR-REPO-AI-NEVERDECIDEFORUSER]
+    checks: []
+
   # Where a devbox's Windows, VS Code and process evidence lives and how a line of it is read.
   - name: devbox-diagnose
+    invoked_by: brief
     supported_by: [ADR-REPO-AI-TRUSTTHETREE, ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
     checks: []
 

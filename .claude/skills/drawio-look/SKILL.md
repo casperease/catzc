@@ -1,7 +1,7 @@
 ---
 name: drawio-look
 description:
-  Look at one diagram PNG and say what is drawn, never what it means; for edit-diagram-yml, drawio-diagram-waves and diagram-review-chunks;
+  Look at one diagram PNG and say what is drawn, never what it means; for drawio-edit, drawio-waves and diagram-review;
   input is the PNG's repository path.
 user-invocable: false
 allowed-tools: Read

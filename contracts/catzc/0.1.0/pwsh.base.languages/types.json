@@ -136,6 +136,10 @@
           "kind": "property"
         },
         {
+          "name": "banner",
+          "kind": "property"
+        },
+        {
           "name": "block",
           "kind": "property"
         },

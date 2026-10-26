@@ -2,7 +2,8 @@ function Start-ClaudeDrone {
     [CmdletBinding()]
     [OutputType([string[]])]
     param(
-        [string] $Agent = (Get-Config -Config claude-drone).agent,
+        [Parameter(Mandatory)]
+        [string] $Skill,
 
         [string] $Model,
 
@@ -21,8 +22,14 @@ function Start-ClaudeDrone {
     )
 
     $root = Get-RepositoryRoot
+    $agent = Resolve-ClaudeSkillDrone -Skill $Skill -RepositoryRoot $root
+    # The brief names its skill first, as every drone's first step reads it; one line, since the launcher quotes it into a command line.
+    $brief = "skill: $Skill"
+    if ($Prompt) {
+        $brief = "$brief. $Prompt"
+    }
     for ($index = 1; $index -le $Count; $index++) {
-        $launch = Get-ClaudeDroneLaunch -Agent $Agent -Model $Model -Prompt $Prompt -Launcher $Launcher -WorkingDirectory $root -Index $index
+        $launch = Get-ClaudeDroneLaunch -Agent $agent -Model $Model -Prompt $brief -Launcher $Launcher -WorkingDirectory $root -Index $index
         if ($DryRun) {
             $launch.CommandLine
             continue

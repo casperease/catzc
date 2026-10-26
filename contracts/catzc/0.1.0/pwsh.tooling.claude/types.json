@@ -14,10 +14,6 @@
           "kind": "method"
         },
         {
-          "name": "agent",
-          "kind": "property"
-        },
-        {
           "name": "launcher",
           "kind": "property"
         }

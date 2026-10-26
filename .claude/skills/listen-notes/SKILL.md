@@ -1,7 +1,7 @@
 ---
 name: listen-notes
 description:
-  How the processor of the listen mode reads the listener's notes and keeps its own ledger; for listen-very-carefully-to-doc-changes; input
+  How the processor of the listen mode reads the listener's notes and keeps its own ledger; for listen-process; input
   is the session folder under out/listen.
 user-invocable: false
 allowed-tools: Bash, Read

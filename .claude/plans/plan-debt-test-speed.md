@@ -9,7 +9,7 @@ plan:
 
 # Debt test speed: the slowest Pester files measured and fixed one at a time
 
-The test-optimization role ranked the files of the last full run, `out/test-automation/20261021-032407` (a failed run, 895 files, 1373 s
+The test-speed job ranked the files of the last full run, `out/test-automation/20261021-032407` (a failed run, 895 files, 1373 s
 summed). `Invoke-TestFile.Tests.ps1` was measured at 55.1 s and 43.4 s and stays as it is: its cost is the snapshot path it proves. Left
 out: `Test-ScriptAnalyzer.Tests.ps1` and `Get-ContractCheckResults.Assets.Tests.ps1` (catzc-e9 handled them), `Test-Spelling.Tests.ps1` and
 `Test-Automation.Tests.ps1` (catzc-e9 checks whether they are still red), and the `Language.Bridge.ps1` rows, which run the language test

@@ -1,4 +1,4 @@
-# The 2020-hindsight log: learnings.yml's rolling shape in its own folder; every other key keeps LearningsConfig's default.
+# The hindsight log: learnings.yml's rolling shape in its own folder; every other key keeps LearningsConfig's default.
 folder: .claude/hindsight
 prefix: hindsight
 title: Hindsight

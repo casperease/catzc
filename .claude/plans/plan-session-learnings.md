@@ -55,6 +55,11 @@ reach.
   gains one line, "a comment-only edit is proven by a diff showing only comment lines, never by a parse"; (3) `Invoke-StagedBurst` refuses a
   staged folder under `out/`, which the user clears by hand; (4) a lock-only "one editor" claim for a shared config (`timeouts.yml`,
   `dependencies.yml`) during a session's edit. Recommendation: yes to all four, each with its own check.
+- From catzc-68's finalize (2026-10-26), three shrink proposals, not applied: (1) the `catzc-drone` brief pattern gains "write every file
+  with the Edit tool; a script that writes files is refused", since three drones generated records by script and one dropped facts; (2)
+  `catzc-verify` lists the glossary's family heads once (gate, scope, source, domain, layer, slot, zone), so a new heading avoids a G6 hit
+  without a gate round; (3) a drone brief over more than about 15 records is split before spawning, since every such drone hit its 50-turn
+  roof. Recommendation: yes to all three.
 
 ## Delegated (the orchestrator, 2026-10-22, on the user's "don't wait, go on")
 

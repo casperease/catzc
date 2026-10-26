@@ -59,32 +59,13 @@ Each agent is `.claude/agents/<name>.md`, registered in `pwsh/Base.Docs/configs/
 registry and this list in step ([agent-definitions](../docs/drs/repository/agent-definitions.md)). Every agent and its capabilities read
 [ADR-REPO-AI](../docs/drs/repository/ai-agent-contract.md) first.
 
-- **`catzc-drone`** — the standard agent for one delegated task, when no specialised agent fits.
 - **`drone-haiku`** — runs one job skill a brief names, on the haiku model.
 - **`drone-sonnet`** — runs one job skill a brief names, on the sonnet model.
 - **`drone-opus`** — runs one job skill a brief names, on the opus model.
 - **`drone-fable`** — runs one job skill a brief names, on the fable model.
-- **`drawio-diagram-waves`** — authors new draw.io diagrams in bounded parallel waves.
-- **`edit-diagram-yml`** — changes a diagram by its `<name>.drawio.yml` and re-renders it.
-- **`2020-hindsight`** — keeps the hindsight log, each lesson checked against the tree.
-- **`its-a-chore-but-i-will-do-better`** — plans the hindsight log's debt reductions.
-- **`diagram-review`** — reviews the diagrams one slide at a time with the user.
-- **`print-artifacts`** — republishes the diagram review artifact.
-- **`build-inspiration-module`** — creates or extends the inspiration module.
-- **`session-cost-audit`** — measures what a session cost and proposes the changes.
-- **`plan-clear`** — cleans the plans to the plan rules.
-- **`plan-intake`** — lands a pasted continuation prompt in the plans.
-- **`plan-decide`** — runs a decision round over the plans' open questions.
-- **`gate-runner`** — runs one gate or test file and brings its verdict back.
-- **`link-fixer`** — repairs the links of named markdown files.
-- **`drs-reviewer`** — reviews a file set against the rules that govern it.
-- **`fact-checker`** — checks one statement against the tree and the glossary.
-- **`listen-very-carefully-to-doc-changes`** — the listen mode's processor.
-- **`doc-pattern-scout`** — finds one pattern in a listen session's reference.
-- **`glossary-keeper`** — keeps the glossary in step with the rules.
-- **`test-optimization`** — makes the tests faster without weakening any.
-- **`implementation-orchestrator`** — drives plan-master's chunks through the live sessions.
-- **`devbox-vscode-diagnostics`** — finds why pwsh or VS Code misbehaves on this devbox.
+
+Every job is a skill registered in `pwsh/Base.Docs/configs/capabilities.yml`: a brief names it as `skill: <name>` and the skill's
+`model_floor` picks the drone; a job that needs the user or the session's peers is a user skill, run in the main session.
 
 ## Rules
 

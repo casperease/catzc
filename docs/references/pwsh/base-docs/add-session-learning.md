@@ -31,7 +31,7 @@ markdown lint as written; a line is counted by the line that starts it. When a n
 deleted: git keeps it once committed. Lines are never edited and a repeat across calls is kept, since a line that recurs shows what keeps
 mattering; only a sentence given twice in one call (a relayed batch) is written once, and each skip is reported with a warning. Every log is
 one LearningsConfig instance, registered in configs.yml under its own name: the learnings log (`learned<sha>.md`, "Session learnings") and
-the hindsight log the 2020-hindsight robot keeps (`hindsight<sha>.md`, "Hindsight", in .claude/hindsight). The defaults (5 files of 50
+the hindsight log the hindsight-log skill keeps (`hindsight<sha>.md`, "Hindsight", in .claude/hindsight). The defaults (5 files of 50
 lines) are declared once on LearningsConfig.
 
 ### parameter `Learning`
@@ -44,7 +44,7 @@ The config name of the log to append to, a LearningsConfig in configs.yml. Defau
 
 ### parameter `Author`
 
-The person name of the robot writing the lines, its persona in agents.yml (Jack, Susan from HR); the line then reads
+The person name of the job writing the lines, its skill's persona in capabilities.yml (Jack, Susan from HR); the line then reads
 `- <yyyy-MM-dd> <Author>: <sentence>`, so a log says who wrote what. Default: none, the line carries the date only.
 
 ### parameter `Date`

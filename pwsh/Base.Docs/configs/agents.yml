@@ -6,23 +6,6 @@ roofs:
 contracts: [ADR-REPO-AI]
 
 agents:
-  # The standard agent: one task from a coordinator's brief, each file verified with the gates before the next.
-  - name: catzc-drone
-    model_reason: writes code, tests and docs that must pass the analyzer and the gates on the first run, across several files of one brief
-    supported_by: [ADR-REPO-AGENTS-STANDARDDRONE, PDR-REDUCEVAR-EXPLICITDIFFERENCES, WDR-BUILTIN-GATESAREPARTOFWORK]
-    checks:
-      - Invoke-TestFile
-      - Test-ScriptAnalyzer
-      - Test-Spelling
-      - Format-Types
-      - Format-Code
-      - Test-Links
-      - Test-Glossary
-      - Build-Readme
-      - Build-Glossary
-      - Build-DrsIndex
-      - Test-GeneratedFiles
-
   # A drone on haiku: runs one job skill a brief names, the skills whose model_floor is haiku.
   - name: drone-haiku
     supported_by: [ADR-REPO-AGENTS-STANDARDDRONE, PDR-REDUCEVAR-EXPLICITDIFFERENCES, WDR-BUILTIN-GATESAREPARTOFWORK]
@@ -46,79 +29,6 @@ agents:
     supported_by: [ADR-REPO-AGENTS-STANDARDDRONE, PDR-REDUCEVAR-EXPLICITDIFFERENCES, WDR-BUILTIN-GATESAREPARTOFWORK]
     checks: [Invoke-TestFile, Format-Code, Test-Links]
 
-  # Authors new diagrams in the visual grammar and lands the approved ones under docs/.assets/, embedded in their ADRs.
-  - name: drawio-diagram-waves
-    supported_by: [DDR-VISUAL-LEFTTORIGHTISTIME, DDR-VISUAL-FIXEDCOMMITPALETTE, ADR-REPO-FOLDERS-DOCSMARKDOWNONLY]
-    checks: [Test-CheckedInBinaries, Test-Links]
-    model_reason: leads other agents, ranks candidates and writes briefs in the ADRs' exact terms
-
-  # Reviews one named diagram with the user: reads it, asks one question in context, takes the written answer as a plan step, redraws.
-  - name: diagram-review
-    supported_by: [DDR-VISUAL-LEFTTORIGHTISTIME, ADR-REPO-PLANS-OPENSTEP, PDR-ONELIVE-ONEVERSION]
-    checks: [Test-Diagrams, Test-Plans]
-
-  # Changes what a diagram says by editing its yml declaration and putting the png from it.
-  - name: edit-diagram-yml
-    supported_by: [ADR-REPO-SLIDES-DECLARATION, ADR-REPO-SLIDES-TWODIRECTIONS, DDR-VISUAL-FIXEDCOMMITPALETTE]
-    checks: [Test-Diagrams, Test-CheckedInBinaries]
-
-  # Shows the diagram review state on one shared page; it publishes from out/ and runs no catzc check.
-  - name: print-artifacts
-    supported_by: [EDR-DORA-VISUAL-DISPLAYPROCESSSTATE, EDR-DORA-VISUAL-CHOSENWITHTEAM]
-    checks: []
-
-  # Builds the inspiration module to the inspiration policy.
-  - name: build-inspiration-module
-    supported_by: [ADR-REPO-INSPIRE-SIBLINGFORIDEAS, ADR-REPO-INSPIRE-CATZCADRSDECIDE]
-    checks: [Invoke-TestFile, Test-ShippedConfigs, Test-ModuleDependency]
-    model_reason: writes a typed config, a resolver and their tests that must pass the analyzer and the gates on the first run
-
-  # Measures what a session cost and why, and proposes the changes; it writes only to out/ and runs no catzc check.
-  - name: session-cost-audit
-    supported_by: [EDR-LEAN-SEVENWASTES, WDR-KAIZEN-ADAPTFROMEVIDENCE, ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
-    checks: []
-
-  # Cleans the plans in .claude/plans to the plan rules, one verdict and one file at a time; sonnet because it judges across files.
-  - name: plan-clear
-    supported_by: [ADR-REPO-PLANS-DONEPLANDELETED, PDR-ONELIVE-ONEVERSION, EDR-LEAN-SEVENWASTES]
-    checks: [Test-Links, Test-Plans]
-    model_reason: judging whether a plan's data is in the tree reads several files against each other
-
-  # Lands a pasted continuation prompt in the plans, nothing discarded, every done claim checked against the tree.
-  - name: plan-intake
-    supported_by: [PDR-ONELIVE-HISTORYINGIT, EDR-LEAN-SEVENWASTES]
-    checks: [Test-Links]
-
-  # Runs a decision round over the plans' open questions: recommendation first, every answer recorded with its outcome.
-  - name: plan-decide
-    supported_by: [PDR-CONFIG-DEFAULTANSWERSINSTANCE, EDR-LEAN-SEVENWASTES]
-    checks: [Test-Links]
-
-  # Runs one gate or test file in the background and brings its verdict back verbatim.
-  - name: gate-runner
-    supported_by: [ADR-AUTO-FAILFAST-BOUNDEVERYWAIT, ADR-AUTO-TEST-QUALITYGATE]
-    checks: [Invoke-TestFile, Test-Automation]
-  # Repairs the links of a named set of markdown files, one file and one target at a time.
-  - name: link-fixer
-    supported_by: [ADR-REPO-LINK-KINDBYFILE, ADR-REPO-LINK-ONECITATIONSPELLING]
-    checks: [Test-Links, Format-Links]
-
-  # Read-only review of a file set against the rules that govern it, each finding with its rule code.
-  - name: drs-reviewer
-    supported_by: [WDR-BUILTIN-GATESAREPARTOFWORK, ADR-REPO-LINK-ONECITATIONSPELLING]
-    checks: []
-    model_reason: weighs a rule's prose against code across several decision records and files
-
-  # Keeps the glossary sources in step with the rules that bold each term, one term at a time.
-  - name: glossary-keeper
-    supported_by: [ADR-REPO-VOCAB-DEFINEDTERM]
-    checks: [Test-Glossary, Build-Glossary]
-
-  # Checks one statement against the tree and its words against the glossary, then answers with a DevOps counter in two lines.
-  - name: fact-checker
-    supported_by: [ADR-REPO-AI-TRUSTTHETREE, ADR-REPO-VOCAB-DEFINEDTERM, ADR-REPO-AI-NEVERDECIDEFORUSER]
-    checks: []
-
   # A log-reading robot caps its probes per line and writes in batches: a 40-turn roof ended its first run before its one write.
   - name: 2020-hindsight
     persona: Jack
@@ -134,37 +44,3 @@ agents:
     supported_by: [WDR-KAIZEN-ADAPTFROMEVIDENCE, EDR-LEAN-SEVENWASTES, ADR-REPO-PLANS-ONETOPICONEFILE, ADR-REPO-PLANS-OPENSTEP]
     checks: [Test-Plans, Format-Code, Test-Links]
     model_reason: groups hindsight lines into debt items across the plans and chooses each item's owning plan and cheapest change
-
-  # Makes the test suite faster under the timeouts.yml roofs without losing any test or assertion, one measured file at a time.
-  - name: test-optimization
-    supported_by: [ADR-AUTO-TEST-MEASUREFIRST, ADR-AUTO-TEST-SETUPONCE, ADR-AUTO-TEST-COLLAPSEINPUTCLUSTERS, EDR-LEAN-SEVENWASTES]
-    checks: [Invoke-TestFile, Test-ScriptAnalyzer]
-    model_reason: diagnoses where a test's time goes and changes production code without changing what it proves
-
-  # Drives the master plan's open chunks through the sessions the user started, by message; implements nothing, spawns nothing.
-  - name: implementation-orchestrator
-    supported_by:
-      [ADR-REPO-PLANS-MASTERANDTASKS, WDR-PULLWORK-PULLNOTPUSH, WDR-PULLWORK-LIMITWORKINPROGRESS, ADR-REPO-AI-NEVERDECIDEFORUSER]
-    checks: [Test-Plans]
-    model_reason:
-      maps every session's free-text reply to a task file and chooses the next chunk against the master's order and the files live sessions
-      hold
-
-  # The listen mode's processor: turns the editor's notes into repository-wide plans, never asking whether the editor is right.
-  - name: listen-very-carefully-to-doc-changes
-    supported_by: [ADR-REPO-AI-EDITORISFACT, WDR-KAIZEN-ADAPTFROMEVIDENCE, ADR-REPO-PLANS-DECISIONSBECOMERULES]
-    checks: [Test-Plans, Format-Code]
-    model_reason: infers why the editor made an edit and generalises it across doc types into plans the orchestrator runs as fact
-
-  # Finds one pattern in one slice of a listen session's committed reference; judges nothing.
-  - name: doc-pattern-scout
-    supported_by: [ADR-REPO-AI-EDITORISFACT, ADR-REPO-AI-TRUSTTHETREE]
-    checks: []
-
-  # Finds why a pwsh session or the editor misbehaves on this devbox from the logs and the process table; every claim with its line.
-  - name: devbox-vscode-diagnostics
-    supported_by: [ADR-REPO-AI-TRUSTTHETREE, ADR-AUTO-FAILFAST-BOUNDEVERYWAIT, ADR-BCL-TYPES-ONEDRIFTMEASURE]
-    checks: []
-    model_reason:
-      correlates the Windows, VS Code, extension and process evidence by timestamp and tells a reload, a stale report and a crash apart;
-      haiku names a cause no line shows

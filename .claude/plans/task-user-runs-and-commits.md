@@ -46,4 +46,4 @@ under `Invoke-TestFile`, one gate on named paths, a grep or a file read. The one
 
 ## Report
 
-As report-fixed: which steps the user reported done, with each verdict line.
+As catzc-core's report: which steps the user reported done, with each verdict line.

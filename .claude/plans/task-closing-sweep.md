@@ -29,4 +29,4 @@ as needed, and last of all. The sweep deletes from disk; git is the user's.
 
 ## Report
 
-As report-fixed; the candidate list verbatim.
+As catzc-core's report; the candidate list verbatim.

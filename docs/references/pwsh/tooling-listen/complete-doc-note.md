@@ -16,7 +16,7 @@ The ledger is the processor's own file, as the notes are the listener's: one wri
 does not hold is refused.
 
 A fact-check never stands alone: the verdict is always written with the reason that supports it (what in the reference holds or breaks, with
-its path:line), so a reader of the ledger can check the verdict without running the fact-checker again. A reason that only repeats the
+its path:line), so a reader of the ledger can check the verdict without running the fact-check again. A reason that only repeats the
 verdict is refused, and so is a value holding a `|` or a line break, which the ledger line cannot carry.
 
 ### parameter `Session`
@@ -29,11 +29,11 @@ The note's four-digit id.
 
 ### parameter `FactCheck`
 
-The fact-checker's verdict on the repository against the note: holds, partly, or does not hold.
+The fact-check's verdict on the repository against the note: holds, partly, or does not hold.
 
 ### parameter `FactCheckReason`
 
-Why the verdict is what it is: the fact-checker's reasoning, with the path:line it rests on. Required with every verdict, and more than the
+Why the verdict is what it is: the fact-check's reasoning, with the path:line it rests on. Required with every verdict, and more than the
 verdict itself.
 
 ### parameter `Pattern`
