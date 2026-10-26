@@ -37,3 +37,6 @@ names are checked against the surfaces.
 4. [ ] A peer that imports while a C# + .ps1 burst's steps run (after the swap) loads the new .ps1 against its old types build; the
        importer waits on the run lock for the whole burst, not just the swap, when the burst staged a .cs. Check: a peer import during
        such a burst waits, then loads green.
+5. [ ] Format-Types resolves a staged .cs copy under `out/` to no manifest and imprints its namespace without `Catzc`; Get-ModuleFullName
+       (or Format-Types) maps a staged path to its live module folder through the burst's `.burst-base` mirror. Check: Format-Code on a
+       staged copy of a `types/*.cs` leaves `namespace Catzc.<Module>;`.

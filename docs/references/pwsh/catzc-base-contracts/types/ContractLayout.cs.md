@@ -30,3 +30,13 @@ Above `public const string ProvidedRoot = "catzc";`, written with `//`.
 The one root whose assets are provided; every other root is a vendor and its assets are depended-on
 ([ADR-REPO-CONTRACT-DIRECTIONBYCONVENTION](/docs/drs/repository/api-contracts.md#rule-adr-repo-contract-directionbyconvention)).
 ```
+
+## comment:4
+
+Above `public const string TypesSurfaceName = "types.json";`, written with `//`.
+
+```text
+A module group's generated types surface and the one schema every group's surface validates against, in the
+contracts tooling's group; the bootstrap writer runs before this type loads and spells the surface name once in
+Get-TypesContractPath, which a test pins to this constant.
+```

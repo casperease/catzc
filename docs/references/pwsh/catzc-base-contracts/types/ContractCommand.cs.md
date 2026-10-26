@@ -29,3 +29,12 @@ Above `public string ToAssetText(Func<string, string> rename)`, written with `//
 The asset text of the contract, the inverse of the grammar: each parameter name, set name and catzc type name passes through rename,
 and the base types, flags, defaults and order stay as read; void output and no default set are left out, as the defaults are.
 ```
+
+## comment:4
+
+Above `public string description { get; }`, written with `//`.
+
+```text
+What the command guarantees, one plain sentence: its help synopsis stripped of links, codes and markup. A contract requires it; a
+signature read from a command file carries none.
+```

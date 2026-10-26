@@ -35,8 +35,13 @@ def audit(root=REPO, needle=""):
             words = languages_table.tags(label, lang)
             rows.append(
                 {
-                    "stem": name, "id": glyph["id"], "kind": glyph["kind"], "label": label, "language": language or "none",
-                    "tags": " ".join(words), "untagged": not words,
+                    "stem": name,
+                    "id": glyph["id"],
+                    "kind": glyph["kind"],
+                    "label": label,
+                    "language": language or "none",
+                    "tags": " ".join(words),
+                    "untagged": not words,
                 }
             )
     return rows

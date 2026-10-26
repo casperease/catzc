@@ -24,11 +24,11 @@ folders. Heavy runs wait for a turn in the orchestrator's memory queue, one run 
 - [ ] The ten slowest test files, each measured alone and fixed one cause at a time, slowest first (ranked 2026-10-26 by catzc-2f from the
       2026-10-25 sharded run's `durations.json`, its top 16 re-timed alone; `Import-Catzc.Tests.ps1` and `Test-CatzcBuild.Parity.Tests.ps1`
       wait on the VSCode case-only rename, the step above): `Invoke-TestFile.Tests.ps1` (77.4 s), `Test-Spelling.Tests.ps1` (18.5 s, 1 test
-      red before any change), `Test-Formatting.Tests.ps1` (17.6 s, 1 test red before any change) and `Get-RepositoryFilter.Tests.ps1`
-      (16.1 s). `Test-Automation.Tests.ps1` (15.6 s) is left as it is: its cost is one `Test-SourceConventions` run over the tree, the C#
-      visitor open question below (catzc-68, 2026-10-26). A red file is made green by its owner before its speed is touched, and a file measured with
-      no safe gain is recorded as left as it is. Check: `Invoke-TestFile` twice per file, the same test names and `Should` count, an A/B of
-      each cause with identical output, and `Test-ScriptAnalyzer -Path` at 0 on each changed file.
+      red before any change), `Test-Formatting.Tests.ps1` (17.6 s, 1 test red before any change) and `Get-RepositoryFilter.Tests.ps1` (16.1
+      s). `Test-Automation.Tests.ps1` (15.6 s) is left as it is: its cost is one `Test-SourceConventions` run over the tree, the C# visitor
+      open question below (catzc-68, 2026-10-26). A red file is made green by its owner before its speed is touched, and a file measured
+      with no safe gain is recorded as left as it is. Check: `Invoke-TestFile` twice per file, the same test names and `Should` count, an
+      A/B of each cause with identical output, and `Test-ScriptAnalyzer -Path` at 0 on each changed file.
 
 ## Open questions
 
@@ -38,12 +38,12 @@ folders. Heavy runs wait for a turn in the orchestrator's memory queue, one run 
 - Should a janitor keep `out/` to a retention (old `test-file/`, `burst/` journals, drone scratch)? Every test that walks the disk pays for
   it: on 2026-10-26 the track lamps' walk held 51,471 files, 36,678 under `out/` (`test-file` 8,788, `drone27-pre` 6,089, `burst` 4,979,
   `test-generated-files` 2,670, `minimaps` 2,296, `slides` 1,748), measured by catzc-2b. Undecided.
-- Should the AST scans of `Test-SourceConventions` run in a C# visitor? Measured by catzc-68 on 2026-10-26: the gate takes 13.2 s warm
-  (20.9 s cold), of it the engine-set loop 6.3 s and the neutral-codes loop 4.3 s; each file is already parsed once. The cost is the
-  PowerShell scriptblock predicate of `Ast.FindAll`: one scriptblock walk over all 2,010 trees (878,424 nodes) takes 3.5 s, a typed-delegate
-  walk 0.9 s, and the engine set walks every tree once, the neutral codes every test tree twice; `Get-NeutralCodeFinding` also pays 1.4 s
-  of per-call setup over its 1,025 calls. Recommendation: a C# `AstVisitor2` collecting the list nodes and the string and block nodes in
-  one walk per tree, measured against the PowerShell first (type-first optimization); expected about 8 s off the 13 s.
+- Should the AST scans of `Test-SourceConventions` run in a C# visitor? Measured by catzc-68 on 2026-10-26: the gate takes 13.2 s warm (20.9
+  s cold), of it the engine-set loop 6.3 s and the neutral-codes loop 4.3 s; each file is already parsed once. The cost is the PowerShell
+  scriptblock predicate of `Ast.FindAll`: one scriptblock walk over all 2,010 trees (878,424 nodes) takes 3.5 s, a typed-delegate walk 0.9
+  s, and the engine set walks every tree once, the neutral codes every test tree twice; `Get-NeutralCodeFinding` also pays 1.4 s of per-call
+  setup over its 1,025 calls. Recommendation: a C# `AstVisitor2` collecting the list nodes and the string and block nodes in one walk per
+  tree, measured against the PowerShell first (type-first optimization); expected about 8 s off the 13 s.
 
 ## Decided
 
