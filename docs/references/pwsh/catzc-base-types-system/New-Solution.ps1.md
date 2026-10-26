@@ -18,7 +18,7 @@ sentence of its name ("catzc types project", "record agent write hook project", 
 and only the two Visual Studio type ids are registered in guids.yml. The RootConfig janitor writes the result to the root catzc.sln
 (gitignored) on every load; a hand edit there is lost.
 
-### example
+### example 1
 
 ```powershell
 New-Solution | Set-Content out/catzc.sln.new -NoNewline

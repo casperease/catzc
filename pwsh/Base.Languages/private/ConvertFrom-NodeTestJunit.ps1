@@ -1,3 +1,11 @@
+<#
+---
+catzc:
+  docs: "../../../docs/references/pwsh/catzc-base-languages/private/ConvertFrom-NodeTestJunit.ps1.md"
+  header: "generated"
+---
+#>
+
 function ConvertFrom-NodeTestJunit {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Languages.JavaScriptTestResult])]

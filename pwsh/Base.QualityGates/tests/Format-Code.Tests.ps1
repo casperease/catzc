@@ -25,6 +25,7 @@ Describe 'Format-Code' -Tag 'L0', 'logic' {
 
     BeforeEach {
         Mock Assert-SourceTree -ModuleName Catzc.Base.QualityGates { }
+        Mock Get-FormatEngineVersion -ModuleName Catzc.Base.QualityGates { '1.0.0' }
         Mock Write-Message -ModuleName Catzc.Base.QualityGates { }
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.QualityGates { $script:root }
         Mock Get-OutputRoot -ModuleName Catzc.Base.QualityGates { Join-Path $TestDrive "out-$([guid]::NewGuid().ToString('N'))" }
@@ -114,6 +115,7 @@ Describe 'Format-Code engine grouping and result cache' -Tag 'L0', 'logic' {
         Remove-Item -LiteralPath $script:outRoot -Recurse -Force -ErrorAction Ignore
         $script:handed = [System.Collections.Generic.List[string]]::new()
         Mock Assert-SourceTree -ModuleName Catzc.Base.QualityGates { }
+        Mock Get-FormatEngineVersion -ModuleName Catzc.Base.QualityGates { '1.0.0' }
         Mock Write-Message -ModuleName Catzc.Base.QualityGates { }
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.QualityGates { $script:root }
         Mock Get-OutputRoot -ModuleName Catzc.Base.QualityGates { $script:outRoot }
@@ -175,6 +177,16 @@ Describe 'Format-Code engine grouping and result cache' -Tag 'L0', 'logic' {
         finally {
             Remove-Item -LiteralPath Function:\Invoke-WidgetFormatAdapter -ErrorAction Ignore
         }
+    }
+
+    It 'checks every file again when the installed tool of its engine reports another version' -Tag 'ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS' {
+        $script:toolVersion = '1.0.0'
+        Mock Get-FormatEngineVersion -ModuleName Catzc.Base.QualityGates { $script:toolVersion }
+        $null = Format-Code -DryRun
+        $script:handed.Clear()
+        $script:toolVersion = '1.1.0'
+        $null = Format-Code -DryRun
+        $script:handed | Should -Be @($script:widgetFile, $script:gadgetFile) -Because 'a verdict of the old tool says nothing about the new'
     }
 
     It 'does not record a file the engine would still change' -Tag 'ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS' {
@@ -264,6 +276,7 @@ Describe 'Format-Code imprint steps' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT-CONFIG
         $script:stepUnfixable = @{ 'file-meta' = @{}; 'bcl-namespace' = @{} }
         $script:stepRuns = [System.Collections.Generic.List[string]]::new()
         Mock Assert-SourceTree -ModuleName Catzc.Base.QualityGates { }
+        Mock Get-FormatEngineVersion -ModuleName Catzc.Base.QualityGates { '1.0.0' }
         Mock Write-Message -ModuleName Catzc.Base.QualityGates { }
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.QualityGates { $script:root }
         Mock Get-OutputRoot -ModuleName Catzc.Base.QualityGates { $script:outRoot }

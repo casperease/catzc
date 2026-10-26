@@ -25,7 +25,12 @@ function Save-BurstJournalWrite {
     # Read once per module: an import writes many files, and only the first call pays for the declaration.
     $declared = Get-Variable -Name burstJournalDeclared -Scope Script -ValueOnly -ErrorAction Ignore
     if ($null -eq $declared) {
-        $declared = Import-PowerShellDataFile -LiteralPath ([System.IO.Path]::Combine($PSScriptRoot, 'burst-journal.psd1'))
+        # A copy of the tree without the declaration, such as a test snapshot of the committed files, runs no burst.
+        $declaration = [System.IO.Path]::Combine($PSScriptRoot, 'burst-journal.psd1')
+        if (-not [System.IO.File]::Exists($declaration)) {
+            return
+        }
+        $declared = Import-PowerShellDataFile -LiteralPath $declaration
         Set-Variable -Name burstJournalDeclared -Scope Script -Value $declared
     }
     $journal = [System.Environment]::GetEnvironmentVariable($declared.Variable)

@@ -26,8 +26,17 @@ Python form of go.work with one go.mod per module:
                                        python.yml's exact pins, in name order.
 ```
 
+A module of the python track (a folder the module-type registry names, holding Python code) is a member too, at `<root>/<module>/`: a
+package named for the track's namespace and its folder (`catzc.diagrams`), which the build backend PythonConfig declares maps onto the short
+folder. Its manifest carries `[build-system]`, the package, its package-dir and package data, and `package = true`; the workspace root names
+each package's editable mode under `[tool.uv.config-settings-package]`, the one place uv reads a build's settings.
+
 uv makes one environment (`<root>/.venv`) and one lock (`<root>/uv.lock`) for the whole workspace when the test bridge syncs it; both are
-gitignored, as these files are. A repository without Python test folders renders nothing.
+gitignored, as these files are. A repository without Python test folders or modules renders nothing.
+
+### parameter `LineLength`
+
+The ruff line length, from the caller: the width the file limits declare for `.py` files, rendered as `line-length` on the workspace root.
 
 This is a pure renderer: it returns the content and writes nothing. It is the `generator` the root-config registry names for the workspace
 targets, and Build-RootConfig owns the write; the entry's target selects which files.

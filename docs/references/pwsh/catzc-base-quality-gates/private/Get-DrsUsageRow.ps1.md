@@ -38,6 +38,27 @@ The comment-pages config, which finds a Markdown file's comment page so the link
 The comment syntax of a code file (a Catzc.Base.CodeMeta.HeadForm), so a head it may carry is set apart from its text. Omitted for a
 Markdown file.
 
+### parameter `RepositoryRoot`
+
+The repository the file is read from. It is one of the drs config's constants, which a caller over many files resolves once and passes in.
+Default: the current repository.
+
+### parameter `CodeForm`
+
+The drs code form the citations are spelled in. Default: the `CodeForm` of the `drs` config.
+
+### parameter `DomainClasses`
+
+The file classes whose citations also count the code of a whole ADR domain. Default: the `domain_classes` of drs.yml.
+
+### parameter `FileClass`
+
+The file's kind class, which a scope that already resolved it passes in. Default: the class `Get-FileKind` gives the path.
+
+### parameter `Scanner`
+
+The compiled citation scan, built once per run from the code form and the map. Default: a scanner over `CodeForm` and `Map`.
+
 ### outputs
 
 `[pscustomobject]` one @{ Path; Code; Rule; Source } per row, with Source `cites` or `link`.

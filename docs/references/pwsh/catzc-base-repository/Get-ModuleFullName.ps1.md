@@ -21,6 +21,11 @@ through this lookup on every import.
 
 The module folder, relative or absolute.
 
+### parameter `RepositoryRoot`
+
+The live repository the folder is read against: a staged burst copy is named by the live module folder it mirrors under this root. Default:
+the current repository.
+
 ### example 1
 
 ```powershell

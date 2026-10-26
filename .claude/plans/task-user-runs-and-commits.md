@@ -178,7 +178,10 @@ final full run last.
     (new) and their comment pages, `pwsh/Base.QualityGates/private/Get-EngineSetFinding.ps1`,
     `pwsh/Base.QualityGates/private/Get-NeutralCodeFinding.ps1`, and the host-binding row in `pwsh/Base.Languages/configs/bcl.yml`. The test
     files: `pwsh/Azure.Templates/tests/Get-BicepParameterModel.Shipped.Tests.ps1`, `pwsh/.internal/tests/Wait-CatzcRunLock.Tests.ps1`,
-    `pwsh/Azure.Templates/tests/Build-Bicep.L2.Tests.ps1` and `pwsh/Azure.Templates/tests/Build-Bicep.Integrity.Tests.ps1`. Check:
+    `pwsh/Azure.Templates/tests/Build-Bicep.L2.Tests.ps1` and `pwsh/Azure.Templates/tests/Build-Bicep.Integrity.Tests.ps1`. The help pages of
+    plan-debt-function-help steps 3, 4, 5, 7, 8 and 10 under `docs/references/pwsh/` (FileLimits, GeneratedFiles, Globs with the new
+    `Build-TrackGlobSets.ps1.md` and its head in `pwsh/Base.Globs/Build-TrackGlobSets.ps1`, six QualityGates pages, Repository,
+    TypesSystem). Check:
     `git status --short pwsh/Base.QualityGates pwsh/Azure.Templates/tests pwsh/.internal/tests docs/references` lists these files.
 
 31. Commit the contracts `arm/` folder (catzc-98, 2026-10-26): `contracts/catzc/0.1.0/pwsh.azure.templates/main.json.schema.json` moved to
@@ -196,7 +199,23 @@ final full run last.
     a tracked file stays tracked). Check: `git ls-files | grep -E "egg-info|__pycache__"` prints nothing, and `git status --short python`
     lists neither.
 
-33. The final full run, in a fresh session, when the chunks in plan-master have landed. Once it is green and committed, the work is done and
+33. Commit the formatting gate and cache fixes (catzc-2b, 2026-10-26): in `pwsh/Base.QualityGates` the comment-page width
+    (`types/CommentEngine.cs`, `types/CommentPageText.cs`, `Export-Comments.ps1` with its `-StagedFolder`, `private/Move-FunctionHelp.ps1`,
+    the new `private/Get-MarkdownWidth.ps1`), the per-file formatter catch (`private/Invoke-PsScriptAnalyzerFormat.ps1`, `Format-Code.ps1`,
+    `private/Invoke-FormatterEngine.ps1`), the cache stamp (`private/Get-FormatEngineStamp.ps1` and the new
+    `private/Get-FormatEngineAdapter.ps1`, `private/Get-ImprintStepAdapter.ps1`, `private/Get-FormatEngineVersion.ps1`), their tests
+    (`tests/types/CommentEngine.Tests.ps1`, `tests/Export-Comments.Tests.ps1`, `tests/Format-Code.Tests.ps1`) and the new pages under
+    `docs/references/pwsh/catzc-base-quality-gates/`; the Builder's include globs (`pwsh/Base.Exporter/types/ExporterConfig.cs` and its
+    tests, `pwsh/.internal/Catzc.Internal.Builder.psm1`, `pwsh/.internal/assets/builder/Get-ModuleBuildPlan.ps1`,
+    `pwsh/.internal/tests/Invoke-ModuleBuild.Tests.ps1`); the track lamps' signature cache (`js/track-lamps/tree.js`,
+    `js/track-lamps/language.js`); `pwsh/Base.Globs/tests/Get-RepositoryFilter.Tests.ps1`; the spelling fixes
+    (`pwsh/Base.RootConfig/assets/root/cspell-template.yml` with its `out/` rule, `pwsh/Base.QualityGates/configs/terminology/tool.yml`,
+    `pwsh/Base.CodeMeta/tests/types/PlainText.Tests.ps1`); the files reflowed by Format-Code across `docs/`, `.claude/` and the configs; and
+    `.claude/plans/plan-debt-function-help.md` with its value and master rows. Check:
+    `git status --short pwsh/Base.QualityGates js/track-lamps docs/references/pwsh/catzc-base-quality-gates` lists these files, and
+    `Invoke-TestFile -Path pwsh/Base.QualityGates/tests/Format-Code.Tests.ps1` passes.
+
+34. The final full run, in a fresh session, when the chunks in plan-master have landed. Once it is green and committed, the work is done and
     every plan, task and prompt in `.claude/plans` is deleted (the user, 2026-10-20). Check: `.claude/plans` is empty.
 
 ## Report

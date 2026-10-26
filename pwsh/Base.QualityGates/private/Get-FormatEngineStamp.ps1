@@ -45,6 +45,8 @@ function Get-FormatEngineStamp {
     # A formatter engine's verdict also rests on its adapter's code, so a changed adapter re-checks every file it judged.
     $adapters = @(if ($Engine -cin [Catzc.Base.Languages.LanguagesConfig]::FormatterEngines) {
             Get-FormatEngineAdapter -Engine $Engine
+            # The installed tool's own answer, not its pin: an upgrade the pin never saw still re-checks every file.
+            $keyed.Add("tool:$(Get-FormatEngineVersion -Engine $Engine)")
         }
         elseif ($Engine.StartsWith('imprint:', [System.StringComparison]::Ordinal) -and
             $Engine.Substring(8) -cin [Catzc.Base.Languages.LanguagesConfig]::ImprintSteps) {

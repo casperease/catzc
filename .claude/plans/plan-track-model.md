@@ -71,30 +71,30 @@ has a track.
 ## Decided (the user, 2026-10-26)
 
 - The example track names, with the 2026-10-24 decision winning where they differ: `.claude` → `vendor_ai.claude`; `.github`, `.gitignore`
-  and the other root dotfiles of git → `vendor_git.root_configs`; `.vscode` → `vendor_vscode`; `.cspell` → `vendor_cspell`; `pwsh/.vendor`
-  → `vendor_pwsh.modules`; `bash/.vendor` → `vendor_bash.modules`; `.typescript` → `vendor_typescript.types`; `infrastructure` →
+  and the other root dotfiles of git → `vendor_git.root_configs`; `.vscode` → `vendor_vscode`; `.cspell` → `vendor_cspell`; `pwsh/.vendor` →
+  `vendor_pwsh.modules`; `bash/.vendor` → `vendor_bash.modules`; `.typescript` → `vendor_typescript.types`; `infrastructure` →
   `vendor_azure.bicep`, renamed with every pipeline trigger, globset and deployable unit in the same pass; `ado-pipelines` →
   `vendor_ado.pipelines`; `github-workflows` → `vendor_github.pipelines`.
+- A track rename changes every `track:` value and caller and regenerates `track-sets.yml`, but never a globset key, a pipeline id or a lamp
+  name: `infrastructure` (globset), `ci-infrastructure` (pipeline) and the `infrastructure` lamp are deployable-unit and ADO identities, not
+  track names (the orchestrator, 2026-10-26). `jsconfig*.json` join `js`, and `vendor_ado.pipelines` covers `.ado`, which holds only
+  pipelines.
 
 ## Open steps
 
-1. [ ] `docs/drs/design/track-types.md` (the user names three or four real paths and their track names first): the naming rule of a track in
-       ADR-AUTO-IDIOM terms, `vendor_<tool>[.<part>]` for a vendor's track and the tail computed from the members' paths, written where the
-       examples settle it (check: every track name the user gave is what the rule computes, read by hand against the examples).
-2. [ ] `docs/drs/design/tracks.md`, DDR-TRACK-TRACKISPLACEDCLUSTER: replace "per DDR-TRACKTYPE naming (pending)" with the naming rule once
-       step 1 lands (check: `Test-Links -Path docs/drs/design/tracks.md`).
-3. [ ] `pwsh/Base.Variants/configs/track-types.yml`: every vendor named by its tool, once step 1 settles the names (check:
-       `Invoke-TestFile -Path pwsh/Base.Variants/tests/types/TrackTypesConfig.Tests.ps1`).
-4. [ ] `pwsh/Base.Variants/types/VariantsConfig.cs`: the track name checked in the normal form through
-       `Catzc.Base.Objects.NameCase.IsNormal` once step 1 lands (check:
-       `Invoke-TestFile -Path pwsh/Base.Variants/tests/types/VariantsConfig.Tests.ps1`).
-5. [ ] `pwsh/Base.Variants/configs/variants.yml`: every track renamed to its normal-form name, the catch-up tracks, `out`, and the root
-       files moved into their tracks; every caller of an old track name changed in the same pass (check: `Test-TrackDeclaration`, and
-       `Get-Track -Path` answers `vendor_git.root_configs` for `.gitignore`).
-6. [ ] `pwsh/Base.QualityGates/Test-TrackMemberCommitted.ps1`: every root entry on disk lies in a track, `LICENSE` in `contracts`, once step
-       5 moves the root files into their tracks (check:
+1. [ ] `pwsh/Base.Variants/configs/variants.yml`: every track renamed to its normal-form name (DDR-TRACKTYPE-NAMEFROMMEMBERS), the vendor id
+       `claude` renamed `ai` in `track-types.yml` with `.github` moved to the git vendor, the catch-up tracks, `out`, and the root files
+       moved into their tracks; every caller of an old track name changed in the same pass, `infrastructure` with its pipeline triggers,
+       globsets and deployable units (check: `Test-TrackDeclaration`, and `Get-Track -Path` answers `vendor_git.root_configs` for
+       `.gitignore`).
+2. [ ] `Test-TrackDeclaration`: every track name checked in the normal form through `Catzc.Base.Objects.NameCase.IsNormal` with
+       `(Get-Config -Config languages).naming_normal_form`, each offender listed; `VariantsConfig` keeps no naming policy (the orchestrator,
+       2026-10-26), edited in place after step 1's renames (check: `Invoke-TestFile` on Test-TrackDeclaration's test, and the real tree at
+       0).
+3. [ ] `pwsh/Base.QualityGates/Test-TrackMemberCommitted.ps1`: every root entry on disk lies in a track, `LICENSE` in `contracts`, once step
+       1 moves the root files into their tracks (check:
        `Invoke-TestFile -Path pwsh/Base.QualityGates/tests/Test-TrackMemberCommitted.Tests.ps1`).
-7. [ ] `pwsh/Base.Git/private/Get-AutoControlledGlobs.ps1`: `out` and `out/*` come from the out track's gitignored member once step 5
+4. [ ] `pwsh/Base.Git/private/Get-AutoControlledGlobs.ps1`: `out` and `out/*` come from the out track's gitignored member once step 1
        declares it, and their hand-written lines are deleted (check:
        `Invoke-TestFile -Path pwsh/Base.Git/tests/Get-AutoControlledGlobs.Tests.ps1`).
 

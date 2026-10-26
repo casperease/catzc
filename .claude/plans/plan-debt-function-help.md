@@ -16,30 +16,12 @@ code's parameters.
 
 ## Open steps
 
-1. [ ] Base.Config: `private/Merge-ConfigFragment.ps1` (parameter Disjoint undocumented). Check: `Test-Formatting -Path` on it reports no
-       help hand edit.
 2. [ ] Base.Contracts: `Get-ContractGroup.ps1` and `private/Get-ContractTypeFindings.ps1` (pages without `## help`),
        `private/Get-ContractDescriptionFindings.ps1` (no page). Check: `Test-Formatting -Path` on the three reports no help hand edit.
-3. [ ] Base.FileLimits: `private/Get-StringOverflowLine.ps1` (page without `## help`). Check: `Test-Formatting -Path` on it reports no help
-       hand edit.
-4. [ ] Base.GeneratedFiles: `private/Get-GeneratedWriterStamp.ps1` (InputGlob documented but gone, Writer undocumented, outputs differ).
-       Check: `Test-Formatting -Path` on it reports no help hand edit.
-5. [ ] Base.Globs: `Build-TrackGlobSets.ps1` (no page). Check: `Test-Formatting -Path` on it reports no help hand edit.
-6. [ ] Base.Languages: `New-JsConfig.ps1` and `private/Get-ModuleTestFolder.ps1` (pages without `## help`), `New-PythonProject.ps1`
-       (LineLength undocumented), `private/ConvertFrom-NodeTestJunit.ps1` (no page). Check: `Test-Formatting -Path` on the four reports no
-       help hand edit.
-7. [ ] Base.QualityGates: `Test-JavaScriptTypes.ps1`, `Test-TrackNamespace.ps1` and `private/Get-JavaScriptTestCases.ps1` (pages without
-       `## help`), `private/Get-DrsCitation.ps1`, `private/Get-DrsDefinedRule.ps1` and `private/Get-DrsUsageRow.ps1` (parameters
-       undocumented). Check: `Test-Formatting -Path` on the six reports no help hand edit.
-8. [ ] Base.Repository: `Get-ModuleFullName.ps1` (RepositoryRoot undocumented). Check: `Test-Formatting -Path` on it reports no help hand
-       edit.
-9. [ ] Base.Slides: `Build-Diagrams.ps1` (Workers undocumented), `private/Get-DiagramCodeRows.ps1`, `private/Get-DiagramComponentRows.ps1`,
+3. [ ] Base.Slides: `Build-Diagrams.ps1` (Workers undocumented), `private/Get-DiagramCodeRows.ps1`, `private/Get-DiagramComponentRows.ps1`,
        `private/Get-DiagramImageReference.ps1`, `private/Get-NameMentionFinding.ps1` and `private/Write-DiagramQueryRows.ps1` (pages without
        `## help`). Check: `Test-Formatting -Path` on the six reports no help hand edit.
-10. [ ] Base.TypesSystem: `New-Solution.ps1` (an `### example` subsection, text before the first subsection). Check:
-        `Test-Formatting -Path` on it reports no help hand edit.
-11. [ ] Base.VSCode: `New-VsCodeSettings.ps1` (Filter documented but gone, RepositoryFilter and LampLanguage undocumented),
-        `private/ConvertFrom-EditorConfig.ps1` (page without `## help`). Check: `Test-Formatting -Path` on the two reports no help hand
-        edit.
-12. [ ] Tooling.Node: `Install-TypeScript.ps1` (page without `## help`), `Uninstall-TypeScript.ps1` (no page). Check:
-        `Test-Formatting -Path` on the two reports no help hand edit.
+4. [ ] Base.VSCode: `New-VsCodeSettings.ps1` (Filter documented but gone, RepositoryFilter and LampLanguage undocumented),
+       `private/ConvertFrom-EditorConfig.ps1` (page without `## help`). Check: `Test-Formatting -Path` on the two reports no help hand edit.
+5. [ ] Tooling.Node: `Install-TypeScript.ps1` (page without `## help`), `Uninstall-TypeScript.ps1` (no page). Check: `Test-Formatting -Path`
+       on the two reports no help hand edit.

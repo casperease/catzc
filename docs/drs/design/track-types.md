@@ -45,10 +45,10 @@ naming what its members hold whenever the vendor has more than one track or one 
 `vendor_cspell`; `.claude` is `vendor_ai.claude`, the AI vendor's Claude part; `.github`, `.gitignore` and git's other root dotfiles are
 `vendor_git.root_configs`; the vendored code under a language's track is `modules` of that language, so `pwsh/.vendor` is
 `vendor_pwsh.modules` and `bash/.vendor` is `vendor_bash.modules`; the type declarations under `.typescript` are `vendor_typescript.types`;
-the Bicep infrastructure is `vendor_azure.bicep`; and a vendor's pipeline definitions are `vendor_<vendor>.pipelines`, `vendor_ado.pipelines`
-and `vendor_github.pipelines`. A track with no vendor is named by the place it covers, without a leading dot: `pwsh`, `docs`, `contracts`,
-`unordered`. The name is computed from the members, so two tracks never share one, and a track whose members move is renamed with every
-caller in the same change.
+the Bicep infrastructure is `vendor_azure.bicep`; and a vendor's pipeline definitions are `vendor_<vendor>.pipelines`,
+`vendor_ado.pipelines` and `vendor_github.pipelines`. A track with no vendor is named by the place it covers, without a leading dot: `pwsh`,
+`docs`, `contracts`, `unordered`. The name is computed from the members, so two tracks never share one, and a track whose members move is
+renamed with every caller in the same change.
 
 - [Vendors](#vendors)
 

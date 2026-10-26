@@ -3,6 +3,41 @@
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
 
+## help
+
+### synopsis
+
+Renders the JavaScript type-check projects of the js track: jsconfig.json, which the editor reads, or jsconfig.lenient.json.
+
+### description
+
+TypeScript checks the js track's JavaScript with no build: `allowJs`, `checkJs` and `noEmit`, node's own `node16` resolution, and the node
+and vscode declarations from the folder Install-TypeScript fills. The modules javascript.yml's `strict` list names are checked strictly; the
+rest are checked leniently. tsc has no per-folder strict, so the two are split across two projects, each file checked once in its module's
+mode: jsconfig.json covers the strict modules (or the whole track while none is strict), and jsconfig.lenient.json extends it with whatever
+is left, strict off. Once every extension of the track is strict, one glob of the whole track says so.
+
+This is a pure renderer: it returns the JSON text and writes nothing. It is the `generator` the root-config registry names for both targets,
+and Build-RootConfig owns the write.
+
+### parameter `Target`
+
+The project to render: `jsconfig.json` (the default) or `jsconfig.lenient.json`.
+
+### parameter `RepositoryRoot`
+
+The repository whose js track is rendered. Default: the current repository.
+
+### outputs
+
+`[string]` The project's JSON, ending in a newline.
+
+### example 1
+
+```powershell
+New-JsConfig -Target jsconfig.lenient.json
+```
+
 ## comment:1
 
 Above `$config = if ($Target -eq 'jsconfig.lenient.json') {`, written with `#`.

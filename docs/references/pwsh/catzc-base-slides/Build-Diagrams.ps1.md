@@ -61,6 +61,11 @@ The repository root the diagrams are relative to. Default: the loaded repository
 Sync the diagrams named by -Path after an edit, instead of running the renderer: get when the drawing moved since HEAD, then put, then
 Test-Diagrams on the diagrams. A pair whose yml and png both moved since HEAD and disagree stops before put, naming its cells.
 
+### parameter `Workers`
+
+The worker processes the one renderer call splits the diagrams across, each with a disjoint slice. Default: `render_parallel` of
+slides.yml.
+
 ### parameter `Stale`
 
 Rebuild only the diagrams whose minimaps a tree change left stale, the set Test-Diagrams reports; takes no -Path.

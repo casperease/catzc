@@ -20,6 +20,10 @@ It rests on [ADR-REPO-LINK-ONECITATIONSPELLING](../../../../drs/repository/markd
 
 The Markdown body to read.
 
+### parameter `Form`
+
+The drs code form, which a caller over many texts resolves once and passes in. Default: the `CodeForm` of the `drs` config.
+
 ### outputs
 
 `[string[]]` one `ADR-<CODE>#<n>` per defined rule, without duplicates.

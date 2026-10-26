@@ -7,17 +7,18 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-The stamp of a generated-file writer's inputs as they stand on disk.
+The stamps of generated-file writers' inputs as they stand on disk, one per writer.
 
 ### description
 
-Hashes every file the input globs match among the walk's files (Get-InputStamp), salted with the folders a wildcard glob's leaf could be
-written into. The match is one call over the whole walk (GlobPattern.MatchingPaths). With no file matched, the stamp is the hash of the salt
+For each writer, hashes every file its input globs match among the walk's files, salted with the folders a wildcard glob's leaf could be
+written into. The match is one call over the whole walk (GlobPattern.MatchingPaths), and one InputStamp.ComputeMany call stamps every writer
+with a matched file, so a file several writers read is read once for all of them. A writer with no file matched gets the hash of its salt
 alone, so an empty input set still has a stable stamp.
 
-### parameter `InputGlob`
+### parameter `Writer`
 
-The writer's input globs, as generated-files.yml declares them.
+The writer entries, as generated-files.yml declares them: each with its `name` and its `inputs` globs.
 
 ### parameter `Walk`
 
@@ -29,12 +30,12 @@ The root the matched files are read under.
 
 ### outputs
 
-`[string]` The stamp, as hexadecimal.
+`[hashtable]` Each writer's name to its stamp, as hexadecimal.
 
 ### example 1
 
 ```powershell
-Get-GeneratedWriterStamp -InputGlob 'widget/**' -Walk $walk -RepositoryRoot $root
+Get-GeneratedWriterStamp -Writer @(@{ name = 'widget'; inputs = @('widget/**') }) -Walk $walk -RepositoryRoot $root
 ```
 
 ## comment:1

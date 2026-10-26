@@ -23,14 +23,16 @@ folders. Heavy runs wait for a turn in the orchestrator's memory queue, one run 
       names and `Should` count, and `Test-ScriptAnalyzer -Path` at 0 on each changed file.
 - [ ] The ten slowest test files, each measured alone and fixed one cause at a time, slowest first (ranked 2026-10-26 by catzc-2f from the
       2026-10-25 sharded run's `durations.json`, its top 16 re-timed alone; `Import-Catzc.Tests.ps1` and `Test-CatzcBuild.Parity.Tests.ps1`
-      wait on the VSCode case-only rename, the step above): `Invoke-TestFile.Tests.ps1` (77.4 s), `Test-Formatting.Tests.ps1` (17.6 s, 1
-      test red before any change) and `Get-RepositoryFilter.Tests.ps1` (16.1 s). `Test-Automation.Tests.ps1` (15.6 s) is left as it is: its
-      cost is one `Test-SourceConventions` run over the tree (catzc-68, 2026-10-26). `Test-Spelling.Tests.ps1` (18.5 s) is left as it is:
-      its cost is one cspell process over 5,669 files (19.3 s measured); a 4-way extension shard measured 10.1 s, but parallel cspell needs
-      a fan-out seam in Base.Execution that the L0 mocks can reach, the open question below (catzc-68, 2026-10-26). A red file is made green
-      by its owner before its speed is touched, and a file measured with no safe gain is recorded as left as it is. Check: `Invoke-TestFile`
-      twice per file, the same test names and `Should` count, an A/B of each cause with identical output, and `Test-ScriptAnalyzer -Path` at
-      0 on each changed file.
+      wait on the VSCode case-only rename, the step above): `Invoke-TestFile.Tests.ps1` (77.4 s), `Test-Formatting.Tests.ps1` (parked by
+      catzc-68, 2026-10-26: its repository test ran 125.2 s cold, 20.4 s warm and 129.6 s cold again as the format cache re-keyed; it waits
+      on the 35 findings it reports, plan-debt-function-help's help entries and peers' unformatted files, and on catzc-2b's remaining stamp
+      steps, then a per-engine profile, three cold and three warm) and `Get-RepositoryFilter.Tests.ps1` (16.1 s).
+      `Test-Automation.Tests.ps1` (15.6 s) is left as it is: its cost is one `Test-SourceConventions` run over the tree (catzc-68,
+      2026-10-26). `Test-Spelling.Tests.ps1` (18.5 s) is left as it is: its cost is one cspell process over 5,669 files (19.3 s measured); a
+      4-way extension shard measured 10.1 s, but parallel cspell needs a fan-out seam in Base.Execution that the L0 mocks can reach, the
+      open question below (catzc-68, 2026-10-26). A red file is made green by its owner before its speed is touched, and a file measured
+      with no safe gain is recorded as left as it is. Check: `Invoke-TestFile` twice per file, the same test names and `Should` count, an
+      A/B of each cause with identical output, and `Test-ScriptAnalyzer -Path` at 0 on each changed file.
 
 ## Open questions
 

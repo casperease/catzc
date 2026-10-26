@@ -32,6 +32,32 @@ The file's repository-relative path.
 
 The file classes whose citations also count the code of a whole ADR domain. Default: the `domain_classes` of drs.yml.
 
+### parameter `RepositoryRoot`
+
+The repository the file is read from. It is one of the run's constants, which a caller over many files resolves once and passes in. Default:
+the current repository.
+
+### parameter `Map`
+
+The ADR citation map. Default: `Get-DrsCitationMap` over the repository.
+
+### parameter `Pages`
+
+The comment-pages config, which finds a file's comment page so the citations on it count as the file's own. Default: the `comment-pages`
+config.
+
+### parameter `Form`
+
+The drs code form the citations are spelled in. Default: the `CodeForm` of the `drs` config.
+
+### parameter `FileClass`
+
+The file's kind class, which a scope that already resolved it passes in. Default: the class `Get-FileKind` gives the path.
+
+### parameter `Scanner`
+
+The compiled citation scan, built once per run from the form and the map. Default: a scanner over `Form` and `Map`.
+
 ### outputs
 
 `[string[]]` the cited codes, a bare record code standing for its rules.

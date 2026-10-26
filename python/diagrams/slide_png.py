@@ -83,7 +83,7 @@ def wrapped(d, text, f, width):
 
 
 def scaled(img, scale):
-    return img.resize((max(1, round(img.width * scale)), max(1, round(img.height * scale))), Image.NEAREST)
+    return img.resize((max(1, round(img.width * scale)), max(1, round(img.height * scale))), Image.Resampling.NEAREST)
 
 
 def viewed(img, spec, bg):
@@ -92,16 +92,16 @@ def viewed(img, spec, bg):
     if tilt:
         y = float(tilt.get("y", 1))
         shear = float(tilt.get("shear", 0))
-        img = img.resize((img.width, max(1, round(img.height * y))), Image.BILINEAR)
+        img = img.resize((img.width, max(1, round(img.height * y))), Image.Resampling.BILINEAR)
         if shear:
             extra = round(abs(shear) * img.height)
             canvas = Image.new("RGB", (img.width + extra, img.height), bg)
             # The lean samples input x + shear * y: a positive shear pulls the lower rows left, so the picture starts `extra` in.
             canvas.paste(img, (extra if shear > 0 else 0, 0))
-            img = canvas.transform(canvas.size, Image.AFFINE, (1, shear, 0, 0, 1, 0), Image.BILINEAR, fillcolor=bg)
+            img = canvas.transform(canvas.size, Image.Transform.AFFINE, (1, shear, 0, 0, 1, 0), Image.Resampling.BILINEAR, fillcolor=bg)
     rotate = float(spec.get("rotate", 0))
     if rotate:
-        img = img.rotate(rotate, expand=True, fillcolor=bg, resample=Image.BILINEAR)
+        img = img.rotate(rotate, expand=True, fillcolor=bg, resample=Image.Resampling.BILINEAR)
     return img
 
 
@@ -221,11 +221,11 @@ def render(slide, out=None):
         if under:
             room_h = height - int(layout["footer_bottom"]) - int(scale["caption"]) - gap - y - 2 * caption_h
             ratio = min(column / pic.width, room_h / pic.height, 1)
-            pic = pic.resize((round(pic.width * ratio), round(pic.height * ratio)), Image.NEAREST)
+            pic = pic.resize((round(pic.width * ratio), round(pic.height * ratio)), Image.Resampling.NEAREST)
             px, py, cap_x, cap_w = gutter + (column - pic.width) // 2, y + gap, gutter, column
         else:
             ratio = min(pic_w / pic.width, pic_h / pic.height, 1)
-            pic = pic.resize((round(pic.width * ratio), round(pic.height * ratio)), Image.NEAREST)
+            pic = pic.resize((round(pic.width * ratio), round(pic.height * ratio)), Image.Resampling.NEAREST)
             px, py, cap_x, cap_w = width - gutter - pic_w + (pic_w - pic.width) // 2, (height - pic.height) // 2 - gap, width - gutter - pic_w, pic_w
         img.paste(pic, (px, py))
         cy = py + pic.height + caption_h // 2

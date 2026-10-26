@@ -18,7 +18,22 @@ Describe 'Save-BurstJournalWrite' -Tag 'L0', 'logic' {
     It 'does nothing outside a burst' {
         [System.Environment]::SetEnvironmentVariable($script:declared.Variable, $null)
         Save-BurstJournalWrite -Path $script:file
-        @(Get-ChildItem -LiteralPath $script:journal) | Should -BeNullOrEmpty
+        [System.IO.Directory]::GetFileSystemEntries($script:journal) | Should -BeNullOrEmpty
+    }
+
+    It 'does nothing, and does not throw, in a copy of the tree that lacks the declaration' {
+        $copy = Join-Path $TestDrive "copy-$([guid]::NewGuid().ToString('N'))"
+        $null = New-Item -ItemType Directory -Path $copy
+        Copy-Item -LiteralPath (Join-Path $PSScriptRoot '../assets/types/Save-BurstJournalWrite.ps1') -Destination $copy
+        [System.Environment]::SetEnvironmentVariable($script:declared.Variable, $script:journal)
+        # A fresh process has read no declaration yet; an earlier case of this file may have cached one.
+        Remove-Variable -Name burstJournalDeclared -Scope Script -ErrorAction Ignore
+        $result = & {
+            . (Join-Path $copy 'Save-BurstJournalWrite.ps1')
+            Save-BurstJournalWrite -Path $script:file
+        }
+        $result | Should -BeNullOrEmpty
+        [System.IO.Directory]::GetFileSystemEntries($script:journal) | Should -BeNullOrEmpty
     }
 
     It 'records an absent file once, and the content of an existing one, first write only' {

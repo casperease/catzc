@@ -66,12 +66,3 @@ Above `$registry = Get-ConfigRegistry`, written with `#`.
 A registered type with no shipped file is still a config, built from an empty map, so every key takes its
 declared default.
 ```
-
-## comment:5
-
-Above `$manifests = @([System.IO.Directory]::EnumerateFiles($moduleDir, '*.psd1'))`, written with `#`.
-
-```text
-The folder drops the namespace its module's full name carries; the manifest the bootstrap wrote from the resolver
-spells it, and a local overlay module, which carries no namespace, has its folder name.
-```
