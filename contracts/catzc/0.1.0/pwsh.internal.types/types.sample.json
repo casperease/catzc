@@ -45,6 +45,7 @@
     {"name":"Catzc.Base.CodeMeta.CommentPagesConfig","aliases":[],"display":[]},
     {"name":"Catzc.Base.CodeMeta.HeadAnchor","aliases":[],"display":[]},
     {"name":"Catzc.Base.CodeMeta.HeadForm","aliases":[],"display":["Line","BlockOpen","BlockClose","Anchor","PreambleLines"]},
+    {"name":"Catzc.Base.CodeMeta.PlainText","aliases":[],"display":[]},
     {"name":"Catzc.Base.CodeMeta.PropertyHead","aliases":[],"display":["Property","IsObject","HasHead","Foreign"]},
     {"name":"Catzc.Base.Config.ConfigDefaultDifference","aliases":[],"display":[]},
     {"name":"Catzc.Base.Config.ConfigsConfig","aliases":[],"display":[]},

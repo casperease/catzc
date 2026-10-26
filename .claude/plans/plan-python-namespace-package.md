@@ -15,12 +15,11 @@ plan:
 
 # Python namespace package: code imports catzc.diagrams
 
-After `plan-module-namespace.md`, the diagram kit lives in `python/diagrams/`, and its namespace lives only in its manifest
-(`[project] name = "catzc-diagrams"`). Today it is a script folder: there is no `__init__.py`, its manifest has `package = false` and no
-build backend, its modules import each other flat (`import edge_rules`), and its tools run by path
-(`python python/diagrams/declaration.py put …`). This plan makes it a real package under the python track's namespace, so code imports
-`catzc.diagrams`, while the folder keeps its short name (DDR-TRACK-MODULENAMESPACE). It starts only once the tree is green after the folder
-moves.
+The diagram kit lives in `python/diagrams/`, and its namespace lives only in its manifest (`[project] name = "catzc-diagrams"`). Today it is
+a script folder: there is no `__init__.py`, its manifest has `package = false` and no build backend, its modules import each other flat
+(`import edge_rules`), and its tools run by path (`python python/diagrams/declaration.py put …`). This plan makes it a real package under
+the python track's namespace, so code imports `catzc.diagrams`, while the folder keeps its short name (DDR-TRACK-MODULENAMESPACE). It starts
+only once the tree is green after the folder moves.
 
 ## Open steps
 

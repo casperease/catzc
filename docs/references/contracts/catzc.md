@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "6002582967df"
+    with_body_sha: "4d071a32e354"
     warning: "Do Not Edit, this file is generated"
 ---
 
@@ -11,9 +11,9 @@ catzc:
 
 The contract assets of the `catzc` root: one table per version folder, then the notes of its assets.
 
-`Build-ContractReference` writes this page from `contracts/catzc/`: edit an asset or its header comment, never this page.
+`Build-ContractReference` writes this page from `contracts/catzc/`: edit an asset, its description or its header comment, never this page.
 
-Each note is the asset's own header comment: the leading `#` lines of a YAML asset, or the `$comment` of a schema.
+Each note is the asset's own: the `description` of a command contract, the `$comment` of a schema, or the leading `#` lines of another YAML asset.
 
 A presence asset, a text fragment, and a JSON fragment or sample payload carry no note: a comment would change what they pin.
 
@@ -187,259 +187,133 @@ The current version: edited in place
 
 Notes:
 
-- `pwsh.azure/test_azure_network_plan.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of
-  Test-AzureNetworkPlan, the quality gate that checks the network plan against the azure config's environments and subscriptions and returns
-  its result under -PassThru.
-- `pwsh.azure.dev_ops/pipeline.yaml.schema.json`: Our schema of an Azure Pipelines file, an inner contract
-  (ADR-REPO-CONTRACT-CONTRACTASSET): the shape Azure DevOps reads, kept local so an editor and a gate need no download. source:
-  <https://github.com/microsoft/azure-pipelines-vscode> service-schema.json (the full schema models a step's task as one anyOf branch per
-  known task version, which offline reports every branch that does not match), trimmed to the top-level shape, the container types, and one
-  loose step whose task is Name@Major or a template expression. Every pipeline file is bound to it by contract.yml's applies_to. Taken
-  2026-10-25.
-- `pwsh.azure.dev_ops/pipeline.yaml.schema.json`: Our schema of an Azure Pipelines file, an inner contract
-  (ADR-REPO-CONTRACT-CONTRACTASSET): the shape Azure DevOps reads, kept local so an editor and a gate need no download. source:
-  <https://github.com/microsoft/azure-pipelines-vscode> service-schema.json (the full schema models a step's task as one anyOf branch per
-  known task version, which offline reports every branch that does not match), trimmed to the top-level shape, the container types, and one
-  loose step whose task is Name@Major or a template expression. Every pipeline file is bound to it by contract.yml's applies_to. Taken
-  2026-10-25.
-- `pwsh.azure.dev_ops/pipeline.yaml.schema.json`: Our schema of an Azure Pipelines file, an inner contract
-  (ADR-REPO-CONTRACT-CONTRACTASSET): the shape Azure DevOps reads, kept local so an editor and a gate need no download. source:
-  <https://github.com/microsoft/azure-pipelines-vscode> service-schema.json (the full schema models a step's task as one anyOf branch per
-  known task version, which offline reports every branch that does not match), trimmed to the top-level shape, the container types, and one
-  loose step whose task is Name@Major or a template expression. Every pipeline file is bound to it by contract.yml's applies_to. Taken
-  2026-10-25.
-- `pwsh.azure.dev_ops/pipeline.yaml.schema.json`: Our schema of an Azure Pipelines file, an inner contract
-  (ADR-REPO-CONTRACT-CONTRACTASSET): the shape Azure DevOps reads, kept local so an editor and a gate need no download. source:
-  <https://github.com/microsoft/azure-pipelines-vscode> service-schema.json (the full schema models a step's task as one anyOf branch per
-  known task version, which offline reports every branch that does not match), trimmed to the top-level shape, the container types, and one
-  loose step whose task is Name@Major or a template expression. Every pipeline file is bound to it by contract.yml's applies_to. Taken
-  2026-10-25.
-- `pwsh.azure.dev_ops/pipeline.yaml.schema.json`: Our schema of an Azure Pipelines file, an inner contract
-  (ADR-REPO-CONTRACT-CONTRACTASSET): the shape Azure DevOps reads, kept local so an editor and a gate need no download. source:
-  <https://github.com/microsoft/azure-pipelines-vscode> service-schema.json (the full schema models a step's task as one anyOf branch per
-  known task version, which offline reports every branch that does not match), trimmed to the top-level shape, the container types, and one
-  loose step whose task is Name@Major or a template expression. Every pipeline file is bound to it by contract.yml's applies_to. Taken
-  2026-10-25.
-- `pwsh.azure.dev_ops/pipeline.yaml.schema.json`: Our schema of an Azure Pipelines file, an inner contract
-  (ADR-REPO-CONTRACT-CONTRACTASSET): the shape Azure DevOps reads, kept local so an editor and a gate need no download. source:
-  <https://github.com/microsoft/azure-pipelines-vscode> service-schema.json (the full schema models a step's task as one anyOf branch per
-  known task version, which offline reports every branch that does not match), trimmed to the top-level shape, the container types, and one
-  loose step whose task is Name@Major or a template expression. Every pipeline file is bound to it by contract.yml's applies_to. Taken
-  2026-10-25.
-- `pwsh.azure.dev_ops/pipeline.yaml.schema.json`: Our schema of an Azure Pipelines file, an inner contract
-  (ADR-REPO-CONTRACT-CONTRACTASSET): the shape Azure DevOps reads, kept local so an editor and a gate need no download. source:
-  <https://github.com/microsoft/azure-pipelines-vscode> service-schema.json (the full schema models a step's task as one anyOf branch per
-  known task version, which offline reports every branch that does not match), trimmed to the top-level shape, the container types, and one
-  loose step whose task is Name@Major or a template expression. Every pipeline file is bound to it by contract.yml's applies_to. Taken
-  2026-10-25.
-- `pwsh.azure.dev_ops/pipeline.yaml.schema.json`: Our schema of an Azure Pipelines file, an inner contract
-  (ADR-REPO-CONTRACT-CONTRACTASSET): the shape Azure DevOps reads, kept local so an editor and a gate need no download. source:
-  <https://github.com/microsoft/azure-pipelines-vscode> service-schema.json (the full schema models a step's task as one anyOf branch per
-  known task version, which offline reports every branch that does not match), trimmed to the top-level shape, the container types, and one
-  loose step whose task is Name@Major or a template expression. Every pipeline file is bound to it by contract.yml's applies_to. Taken
-  2026-10-25.
-- `pwsh.azure.dev_ops/pipeline.yaml.schema.json`: Our schema of an Azure Pipelines file, an inner contract
-  (ADR-REPO-CONTRACT-CONTRACTASSET): the shape Azure DevOps reads, kept local so an editor and a gate need no download. source:
-  <https://github.com/microsoft/azure-pipelines-vscode> service-schema.json (the full schema models a step's task as one anyOf branch per
-  known task version, which offline reports every branch that does not match), trimmed to the top-level shape, the container types, and one
-  loose step whose task is Name@Major or a template expression. Every pipeline file is bound to it by contract.yml's applies_to. Taken
-  2026-10-25.
-- `pwsh.azure.dev_ops/pipeline.yaml.schema.json`: Our schema of an Azure Pipelines file, an inner contract
-  (ADR-REPO-CONTRACT-CONTRACTASSET): the shape Azure DevOps reads, kept local so an editor and a gate need no download. source:
-  <https://github.com/microsoft/azure-pipelines-vscode> service-schema.json (the full schema models a step's task as one anyOf branch per
-  known task version, which offline reports every branch that does not match), trimmed to the top-level shape, the container types, and one
-  loose step whose task is Name@Major or a template expression. Every pipeline file is bound to it by contract.yml's applies_to. Taken
-  2026-10-25.
-- `pwsh.azure.dev_ops/pipeline.yaml.schema.json`: Our schema of an Azure Pipelines file, an inner contract
-  (ADR-REPO-CONTRACT-CONTRACTASSET): the shape Azure DevOps reads, kept local so an editor and a gate need no download. source:
-  <https://github.com/microsoft/azure-pipelines-vscode> service-schema.json (the full schema models a step's task as one anyOf branch per
-  known task version, which offline reports every branch that does not match), trimmed to the top-level shape, the container types, and one
-  loose step whose task is Name@Major or a template expression. Every pipeline file is bound to it by contract.yml's applies_to. Taken
-  2026-10-25.
-- `pwsh.azure.dev_ops/pipeline.yaml.schema.json`: Our schema of an Azure Pipelines file, an inner contract
-  (ADR-REPO-CONTRACT-CONTRACTASSET): the shape Azure DevOps reads, kept local so an editor and a gate need no download. source:
-  <https://github.com/microsoft/azure-pipelines-vscode> service-schema.json (the full schema models a step's task as one anyOf branch per
-  known task version, which offline reports every branch that does not match), trimmed to the top-level shape, the container types, and one
-  loose step whose task is Name@Major or a template expression. Every pipeline file is bound to it by contract.yml's applies_to. Taken
-  2026-10-25.
-- `pwsh.azure.dev_ops/pipeline.yaml.schema.json`: Our schema of an Azure Pipelines file, an inner contract
-  (ADR-REPO-CONTRACT-CONTRACTASSET): the shape Azure DevOps reads, kept local so an editor and a gate need no download. source:
-  <https://github.com/microsoft/azure-pipelines-vscode> service-schema.json (the full schema models a step's task as one anyOf branch per
-  known task version, which offline reports every branch that does not match), trimmed to the top-level shape, the container types, and one
-  loose step whose task is Name@Major or a template expression. Every pipeline file is bound to it by contract.yml's applies_to. Taken
-  2026-10-25.
-- `pwsh.azure.dev_ops/pipeline.yaml.schema.json`: Our schema of an Azure Pipelines file, an inner contract
-  (ADR-REPO-CONTRACT-CONTRACTASSET): the shape Azure DevOps reads, kept local so an editor and a gate need no download. source:
-  <https://github.com/microsoft/azure-pipelines-vscode> service-schema.json (the full schema models a step's task as one anyOf branch per
-  known task version, which offline reports every branch that does not match), trimmed to the top-level shape, the container types, and one
-  loose step whose task is Name@Major or a template expression. Every pipeline file is bound to it by contract.yml's applies_to. Taken
-  2026-10-25.
-- `pwsh.azure.dev_ops/pipeline.yaml.schema.json`: Our schema of an Azure Pipelines file, an inner contract
-  (ADR-REPO-CONTRACT-CONTRACTASSET): the shape Azure DevOps reads, kept local so an editor and a gate need no download. source:
-  <https://github.com/microsoft/azure-pipelines-vscode> service-schema.json (the full schema models a step's task as one anyOf branch per
-  known task version, which offline reports every branch that does not match), trimmed to the top-level shape, the container types, and one
-  loose step whose task is Name@Major or a template expression. Every pipeline file is bound to it by contract.yml's applies_to. Taken
-  2026-10-25.
-- `pwsh.azure.dev_ops/pipeline.yaml.schema.json`: Our schema of an Azure Pipelines file, an inner contract
-  (ADR-REPO-CONTRACT-CONTRACTASSET): the shape Azure DevOps reads, kept local so an editor and a gate need no download. source:
-  <https://github.com/microsoft/azure-pipelines-vscode> service-schema.json (the full schema models a step's task as one anyOf branch per
-  known task version, which offline reports every branch that does not match), trimmed to the top-level shape, the container types, and one
-  loose step whose task is Name@Major or a template expression. Every pipeline file is bound to it by contract.yml's applies_to. Taken
-  2026-10-25.
-- `pwsh.azure.dev_ops/test_pipelines.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of
-  Test-Pipelines, the quality gate that checks the .ado/pipelines/ tree against the naming-and-placement contract and returns its result
-  under -PassThru.
-- `pwsh.azure.dev_ops.build_validation/register_ado_build_validation.command.yml`: Provided command contract
-  (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Register-AdoBuildValidation, which creates or updates the build-validation
-  branch policy tied to a globset. Branch, Project, Organization and RepositoryName default to the configured values, computed defaults the
-  contract does not restate; DryRun reports the change instead of making it.
-- `pwsh.azure.templates/get_bicep_parameter_model.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call
-  interface of Get-BicepParameterModel, which returns a template's Bicep parameter model, every parameter its compiled main.json declares.
-- `pwsh.azure.templates/get_bicep_template_names.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call
-  interface of Get-BicepTemplateNames, which returns the names of all discovered Bicep templates; it takes no parameters.
-- `pwsh.azure.templates/main.json.schema.json`: Our schema of a compiled ARM template, an inner contract (ADR-REPO-CONTRACT-CONTRACTASSET):
-  the skeleton Azure Resource Manager reads, kept local so an editor and a gate need no download. source:
-  <https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json> (the full schema, 186 KB, refs hundreds of
-  per-API-version resource schemas and uses oneOf/anyOf/allOf, outside the bounded subset of ContractSchema), trimmed to the top-level
-  shape. Only the top-level sections are checked, never a resource body. Every compiled template is bound to it by contract.yml's
-  applies_to. Taken 2026-10-17.
-- `pwsh.base.config_extensions/test_config_validators.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the
-  call interface of Test-ConfigValidators, the quality gate that checks every config validator maps to a config of its own module and
-  returns its result under -PassThru.
-- `pwsh.base.contracts/build_contract_reference.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call
-  interface of Build-ContractReference, the generator of the contract reference pages. RepositoryRoot defaults to the repository root, a
-  computed default the contract does not restate.
-- `pwsh.base.contracts/get_accosted_file.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface
-  of Get-AccostedFile, the one reader of an accosted file (ADR-AUTO-ACCOSTED-ONEREADER). RepositoryRoot defaults to the repository root, a
-  computed default the contract does not restate.
-- `pwsh.base.contracts/get_accosted_fragment.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call
-  interface of Get-AccostedFragment, which renders the commands of an accosted file as a PowerShell fragment through the one reader
-  (ADR-AUTO-ACCOSTED-ONEREADER). RepositoryRoot defaults to the repository root, a computed default the contract does not restate.
-- `pwsh.base.contracts/get_command_contract.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT and
-  ADR-REPO-CMDCONTRACT-ONEREADER): the call interface of Get-CommandContract, the one reader of command contracts. RepositoryRoot defaults
-  to the repository root, a computed default the contract does not restate.
-- `pwsh.base.contracts/get_contract_check_results.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call
-  interface of Get-ContractCheckResults, the per-asset contract check; the assets arrive by parameter or from the pipeline. RepositoryRoot
-  defaults to the repository root, a computed default the contract does not restate.
-- `pwsh.base.contracts/invoke_accosted.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of
-  Invoke-Accosted, which runs every run of an accosted file under each named engine, each run bounded (ADR-AUTO-ACCOSTED-RUNNER). Engine
-  defaults to every engine of the engine registry and RepositoryRoot to the repository root, computed defaults the contract does not
-  restate.
-- `pwsh.base.contracts/publish_contract_release.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT and
-  ADR-REPO-CMDCONTRACT-VERSIONSWITHUNIT): the call interface of Publish-ContractRelease, which freezes the current contracts of a root as a
-  released version folder. RepositoryRoot defaults to the repository root, a computed default the contract does not restate.
-- `pwsh.base.contracts/test_accosted_command.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call
-  interface of Test-AccostedCommand, which lists the faults of one accosted-form call against its command contract through the one reader
-  (ADR-AUTO-ACCOSTED-ONEREADER), without asking whether it is harmless. RepositoryRoot defaults to the repository root, a computed default
-  the contract does not restate.
-- `pwsh.base.contracts/test_contracts.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of
-  Test-Contracts, the quality gate that checks the repository honours every binding contract asset and every released folder is unchanged,
-  and returns its result under -PassThru.
-- `pwsh.base.docs/test_agent_definitions.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface
-  of Test-AgentDefinitions, the quality gate that checks the sub-agent definitions, their capabilities, both registries and the CLAUDE.md
-  list agree, and returns its result under -PassThru.
-- `pwsh.base.docs/test_generated_readmes.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface
-  of Test-GeneratedReadmes, the quality gate that checks every generated README is gitignored, untracked and current, and returns its result
-  under -PassThru.
-- `pwsh.base.docs/test_glossary.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of
-  Test-Glossary, the quality gate that checks the controlled vocabulary against the repository and returns its result under -PassThru.
-- `pwsh.base.drs/test_drs_engine_neutrality.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call
-  interface of Test-DrsEngineNeutrality, the quality gate that checks the configured ADR domains' rule summaries carry no engine-specific
-  syntax and returns its result under -PassThru.
-- `pwsh.base.drs/test_drs_registry.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of
-  Test-DrsRegistry, the quality gate that checks the ADR registry and the ADR rule files agree and returns its result, with each configured
-  check's findings, under -PassThru.
-- `pwsh.base.flow/actionable-fact.schema.json`: Provided schema of one actionable fact, validated against the sample beside it
-  (TDR-STORES-RECONCILEFACTS, ADR-REPO-CONTRACT-CONTRACTASSET): verifiable, because its origin names the truth store, the address read and
-  the moment of reading, so anyone can read it again; actionable, because it names the one change or the one report it calls for.
-- `pwsh.base.flow/junction-inbound.schema.json`: Provided schema of one inbound junction call, validated against the sample beside it
-  (TDR-STORES-STATEMACHINE, ADR-REPO-CONTRACT-CONTRACTASSET): a state machine calls catzc's outer boundary at a point it defines, such as an
-  approval check, and catzc answers with a verdict and the actionable facts it rests on.
-- `pwsh.base.flow/junction-outbound.schema.json`: Provided schema of one outbound junction message, validated against the sample beside it
-  (TDR-STORES-STATEMACHINE, ADR-REPO-CONTRACT-CONTRACTASSET): catzc messages a state machine to report facts proactively, such as a
-  deployment it has made or evidence a gate has produced; every fact carries its origin.
-- `pwsh.base.globs/clear_glob_set_protection.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call
-  interface of Clear-GlobSetProtection, which drops every recorded glob protection so the next run of every protected scan scans in full; it
-  takes no parameters.
+- `pwsh.azure/test_azure_network_plan.command.yml`: Checks that the network plan (network.yml) and the azure config's environments and
+  subscriptions are in sync.
+- `pwsh.azure.dev_ops/pipeline.yaml.schema.json`: Our schema of an Azure Pipelines file, the shape Azure DevOps reads, kept local so an
+  editor and a gate need no download.
+- `pwsh.azure.dev_ops/pipeline.yaml.schema.json`: Our schema of an Azure Pipelines file, the shape Azure DevOps reads, kept local so an
+  editor and a gate need no download.
+- `pwsh.azure.dev_ops/pipeline.yaml.schema.json`: Our schema of an Azure Pipelines file, the shape Azure DevOps reads, kept local so an
+  editor and a gate need no download.
+- `pwsh.azure.dev_ops/pipeline.yaml.schema.json`: Our schema of an Azure Pipelines file, the shape Azure DevOps reads, kept local so an
+  editor and a gate need no download.
+- `pwsh.azure.dev_ops/pipeline.yaml.schema.json`: Our schema of an Azure Pipelines file, the shape Azure DevOps reads, kept local so an
+  editor and a gate need no download.
+- `pwsh.azure.dev_ops/pipeline.yaml.schema.json`: Our schema of an Azure Pipelines file, the shape Azure DevOps reads, kept local so an
+  editor and a gate need no download.
+- `pwsh.azure.dev_ops/pipeline.yaml.schema.json`: Our schema of an Azure Pipelines file, the shape Azure DevOps reads, kept local so an
+  editor and a gate need no download.
+- `pwsh.azure.dev_ops/pipeline.yaml.schema.json`: Our schema of an Azure Pipelines file, the shape Azure DevOps reads, kept local so an
+  editor and a gate need no download.
+- `pwsh.azure.dev_ops/pipeline.yaml.schema.json`: Our schema of an Azure Pipelines file, the shape Azure DevOps reads, kept local so an
+  editor and a gate need no download.
+- `pwsh.azure.dev_ops/pipeline.yaml.schema.json`: Our schema of an Azure Pipelines file, the shape Azure DevOps reads, kept local so an
+  editor and a gate need no download.
+- `pwsh.azure.dev_ops/pipeline.yaml.schema.json`: Our schema of an Azure Pipelines file, the shape Azure DevOps reads, kept local so an
+  editor and a gate need no download.
+- `pwsh.azure.dev_ops/pipeline.yaml.schema.json`: Our schema of an Azure Pipelines file, the shape Azure DevOps reads, kept local so an
+  editor and a gate need no download.
+- `pwsh.azure.dev_ops/pipeline.yaml.schema.json`: Our schema of an Azure Pipelines file, the shape Azure DevOps reads, kept local so an
+  editor and a gate need no download.
+- `pwsh.azure.dev_ops/pipeline.yaml.schema.json`: Our schema of an Azure Pipelines file, the shape Azure DevOps reads, kept local so an
+  editor and a gate need no download.
+- `pwsh.azure.dev_ops/pipeline.yaml.schema.json`: Our schema of an Azure Pipelines file, the shape Azure DevOps reads, kept local so an
+  editor and a gate need no download.
+- `pwsh.azure.dev_ops/pipeline.yaml.schema.json`: Our schema of an Azure Pipelines file, the shape Azure DevOps reads, kept local so an
+  editor and a gate need no download.
+- `pwsh.azure.dev_ops/test_pipelines.command.yml`: Checks the ado pipelines tree against the naming-and-placement contract and returns its
+  result.
+- `pwsh.azure.dev_ops.build_validation/register_ado_build_validation.command.yml`: Registers (creates or updates) the build-validation
+  branch policy tied to a globset. Idempotent.
+- `pwsh.azure.templates/get_bicep_parameter_model.command.yml`: Returns a template's Bicep parameter model, every parameter its compiled
+  main.json declares with its type, default, allowed values and bounds.
+- `pwsh.azure.templates/get_bicep_template_names.command.yml`: Returns the names of all discovered bicep templates as a flat string array.
+- `pwsh.azure.templates/main.json.schema.json`: Our schema of a compiled ARM template, the top-level skeleton Azure Resource Manager reads,
+  kept local so an editor and a gate need no download.
+- `pwsh.base.config_extensions/test_config_validators.command.yml`: Checks that every config validator maps to the config file of the same
+  name in its own module.
+- `pwsh.base.contracts/build_contract_reference.command.yml`: Generates the contract reference, one page per root listing every contract
+  asset of every version folder with its note.
+- `pwsh.base.contracts/get_accosted_file.command.yml`: Reads an accosted file and checks every call in it against its command contract.
+- `pwsh.base.contracts/get_accosted_fragment.command.yml`: Renders the commands of an accosted file as a PowerShell fragment for an article,
+  through the one reader.
+- `pwsh.base.contracts/get_command_contract.command.yml`: Reads the command contracts, all of them or by command, module, root or version,
+  as typed ContractCommand records.
+- `pwsh.base.contracts/get_contract_check_results.command.yml`: Checks contract assets against the real repository and returns one result
+  per asset.
+- `pwsh.base.contracts/invoke_accosted.command.yml`: Runs every run of an accosted file under each execution engine and returns one result
+  per run and engine.
+- `pwsh.base.contracts/publish_contract_release.command.yml`: Freezes the current catzc contracts as a released version folder, with the
+  .frozen record that keeps it unchanged.
+- `pwsh.base.contracts/test_accosted_command.command.yml`: Lists the faults of one accosted-form call against its command contract, through
+  the one contract reader.
+- `pwsh.base.contracts/test_contracts.command.yml`: Checks that the repository honours every binding contract asset, that every released
+  version folder is unchanged, and that the contracts folder holds no dot-prefixed folder.
+- `pwsh.base.docs/test_agent_definitions.command.yml`: Checks that the sub-agent definitions, their capabilities, both registries and the
+  agent list in CLAUDE.md agree.
+- `pwsh.base.docs/test_generated_readmes.command.yml`: Checks that every generated README is gitignored, untracked and current with its
+  source.
+- `pwsh.base.docs/test_glossary.command.yml`: Checks the controlled vocabulary against the repository with every glossary check, every issue
+  in one report.
+- `pwsh.base.drs/test_drs_engine_neutrality.command.yml`: Checks that the rule summaries of the configured ADR domains carry no
+  engine-specific syntax.
+- `pwsh.base.drs/test_drs_registry.command.yml`: Checks that the ADR registry (drs.yml) and the ADR rule files agree.
+- `pwsh.base.flow/actionable-fact.schema.json`: The schema of one actionable fact, verifiable by the truth store, address and moment its
+  origin names, and actionable by the one change or report it calls for.
+- `pwsh.base.flow/junction-inbound.schema.json`: The schema of one inbound junction call, a state machine calling catzc at a point it
+  defines and catzc answering with a verdict and the actionable facts it rests on.
+- `pwsh.base.flow/junction-outbound.schema.json`: The schema of one outbound junction message, catzc reporting facts to a state machine
+  proactively, every fact with its origin.
+- `pwsh.base.globs/clear_glob_set_protection.command.yml`: Drops every recorded glob protection, forcing the next run of every protected
+  scan to scan in full.
 - `pwsh.base.globs/file-kinds.yml`: Provided fragment of pwsh/Base.Globs/configs/file-kinds.yml
   ([ADR-REPO-CONTRACT-CONTRACTASSET](../../drs/repository/api-contracts.md#rule-adr-repo-contract-contractasset)): the kinds and subkinds a
   consumer may rely on to be in the file-kinds registry, so the `kind` and `subkind` a file's meta head names keep their meaning. A null
   value pins only that the key exists; the definitions and the globs may change, and a consumer extends the registry with a config fragment
   of its own.
-- `pwsh.base.globs/test_ado_pipeline_trigger_glob.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call
-  interface of Test-AdoPipelineTriggerGlob, the quality gate that checks each named ADO pipeline's trigger path filters against its
-  globset's projection and returns its result under -PassThru.
-- `pwsh.base.globs/test_git_hub_workflow_trigger_glob.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the
-  call interface of Test-GitHubWorkflowTriggerGlob, the quality gate that checks a GitHub workflow's trigger path filters against a
-  globset's projection and returns its result under -PassThru.
-- `pwsh.base.globs/test_glob_set_affected.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface
-  of Test-GlobSetAffected, which says whether the current context's change touches the named globset.
-- `pwsh.base.globs/test_glob_set_independence.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call
-  interface of Test-GlobSetIndependence, the quality gate that checks no two globsets of one layer select a common file on their own
-  contribution, and returns its result under -PassThru.
-- `pwsh.base.globs/test_glob_set_trigger_coverage.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call
-  interface of Test-GlobSetTriggerCoverage, the quality gate that checks every member of a pipeline-bound globset matches one of its ADO
-  trigger include patterns, and returns its result under -PassThru.
-- `pwsh.base.languages/get_file_language.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface
-  of Get-FileLanguage, the file-language reader: every language with no argument, the languages by name, or the language of one file by
-  path.
-- `pwsh.base.languages/get_path_file_type.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface
-  of Get-PathFileType, which names the file type a path resolves to through the file-language registry.
-- `pwsh.base.languages/invoke_bash_test.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface
-  of Invoke-BashTest, the bash test runner of one module.
-- `pwsh.base.languages/invoke_go_test.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of
-  Invoke-GoTest, the Go test runner of one module. Engine defaults to the pwsh engine of the engine registry, a computed default the
-  contract does not restate.
-- `pwsh.base.languages/invoke_python_test.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface
-  of Invoke-PythonTest, the Python test runner of one module. Engine defaults to the pwsh engine of the engine registry, a computed default
-  the contract does not restate.
-- `pwsh.base.languages/new_go_workspace.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface
-  of New-GoWorkspace, the go.work generator; Target selects the verification modules it renders for, every one by default.
-- `pwsh.base.languages/new_python_project.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface
-  of New-PythonProject, the pyproject generator; Target selects the verification modules it renders for, every one by default; LineLength is
-  the ruff line length its caller passes.
-- `pwsh.base.maps/export_world_map_pdf.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of
-  Export-WorldMapPdf, which writes the world map as PDFs, the grid view, the tree view or both, plain or with the cells of named ADRs or
-  paths highlighted, and returns the paths it wrote.
-- `pwsh.base.maps/minimap.schema.json`: Provided schema of one minimap's data, validated against the sample beside it
-  (ADR-REPO-CONTRACT-CONTRACTASSET): the shape Catzc.Base.Maps writes through MinimapData and the diagram kit draws. The axes come outermost
-  first; a cell names one value per axis, in axis order, with what it holds; a lit cell carries at least one reason, its subject (a file
-  path or an ADR code), the basis that lights it, the request it answers and a note. A place list also carries place_rows, the rows it draws
-  and its counters line, computed beside the data so the drawing only draws them.
-- `pwsh.base.maps/query-rows.schema.json`: Provided schema of the query rows a C3 or C4 slide is drawn from, validated against the sample
-  beside it (ADR-REPO-CONTRACT-CONTRACTASSET, DDR-VISUAL-ZOOMISANAXIS): the file Build-Diagrams writes through Write-DiagramQueryRows and
-  hands the diagram kit by address (--rows). Each row is the answer of one level's query for one point of the tree: its nodes, each a glyph
-  of a kind of the kit's vocabulary, and the edges between two of them, which the kit counts on the nodes.
-- `pwsh.base.maps/test_value_chain_map.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of
-  Test-ValueChainMap, the quality gate that checks every ADR sits in a cell of the value-chain map and every label it prints is a glossary
-  term, and returns its result under -PassThru.
-- `pwsh.base.maps/test_world_map.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of
-  Test-WorldMap, the quality gate that checks every tracked file sits in a declared track and its tech-stack and every label the map prints
-  is a glossary term, and returns its result under -PassThru.
-- `pwsh.base.module_system/test_checked_in_binaries.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call
-  interface of Test-CheckedInBinaries, the quality gate that checks every checked-in binary is stored byte-exact and returns its result
-  under -PassThru.
-- `pwsh.base.module_system/test_folder_conventions.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call
-  interface of Test-FolderConventions, the quality gate that checks every module folder under pwsh/ follows the folder and file conventions,
-  and returns its result under -PassThru.
-- `pwsh.base.module_system/test_function_dependency.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call
-  interface of Test-FunctionDependency, the quality gate that checks every function-to-function call resolves to a defined command, and
-  returns its result under -PassThru.
-- `pwsh.base.module_system/test_module_cycles.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call
-  interface of Test-ModuleCycles, the quality gate that checks the real module-to-module call graph has no cycle, and returns its result
-  under -PassThru.
-- `pwsh.base.module_system/test_module_dependency.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call
-  interface of Test-ModuleDependency, the quality gate that checks the actual module dependencies conform to the declared graph, and returns
-  its result under -PassThru.
-- `pwsh.base.quality_gates/build_english_dictionary.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call
-  interface of Build-EnglishDictionary, which generates the committed English word list the spell-out-names analyzer rule checks identifiers
-  against.
-- `pwsh.base.quality_gates/export_spelling_triage.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call
-  interface of Export-SpellingTriage, which collects the spell-checker's flagged tokens into a triage queue. Path and Exclude default to the
-  repository's own globs, a default the contract does not restate.
-- `pwsh.base.quality_gates/format_markdown_title.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call
-  interface of Format-MarkdownTitle, which makes the H1 of every in-scope Markdown file its title. RepositoryRoot defaults to the repository
-  root, a computed default the contract does not restate.
+- `pwsh.base.globs/test_ado_pipeline_trigger_glob.command.yml`: Checks each ADO pipeline's trigger path filters against its globset's
+  projection, the trigger-drift quality gate.
+- `pwsh.base.globs/test_git_hub_workflow_trigger_glob.command.yml`: Checks a GitHub workflow's trigger path filters against a globset's
+  projection, the trigger-drift quality gate for GitHub Actions.
+- `pwsh.base.globs/test_glob_set_affected.command.yml`: Returns whether the current context's change touches a globset, the in-pipeline
+  check for anything to process.
+- `pwsh.base.globs/test_glob_set_independence.command.yml`: Checks per-layer independence, that no two same-layer globsets select a common
+  file on their own contribution.
+- `pwsh.base.globs/test_glob_set_trigger_coverage.command.yml`: Checks that every member of a pipeline-bound globset matches one of its ADO
+  trigger include patterns.
+- `pwsh.base.languages/get_file_language.command.yml`: Returns the repository's file languages, all of them, the named ones, or the one a
+  file is written in.
+- `pwsh.base.languages/get_path_file_type.command.yml`: Returns the file type of a path, the extension of its file name without the dot.
+- `pwsh.base.languages/invoke_bash_test.command.yml`: Runs a catzc module's Bash tests and returns one result per Bash test.
+- `pwsh.base.languages/invoke_go_test.command.yml`: Runs a catzc module's Go tests and returns one result per Go test.
+- `pwsh.base.languages/invoke_python_test.command.yml`: Runs a catzc module's Python tests and returns one result per Python test.
+- `pwsh.base.languages/new_go_workspace.command.yml`: Renders the Go test workspace, the repository-root go.work and one go.mod per Go test
+  folder, from the go config.
+- `pwsh.base.languages/new_python_project.command.yml`: Renders the Python test workspace, the uv workspace root pyproject.toml and one
+  member pyproject.toml per Python test folder.
+- `pwsh.base.maps/export_world_map_pdf.command.yml`: Writes the world map as PDFs, the grid view, the tree view or both, optionally with a
+  highlight.
+- `pwsh.base.maps/minimap.schema.json`: The schema of one minimap's data, the axes and cells the maps module writes and the diagram kit
+  draws, every lit cell with its reason.
+- `pwsh.base.maps/query-rows.schema.json`: The schema of the query rows a C3 or C4 slide is drawn from, one row per level and point of the
+  tree with its nodes and the edges between them.
+- `pwsh.base.maps/test_value_chain_map.command.yml`: Checks that every ADR sits in a cell of the value-chain map and that every label the
+  value-chain map prints is a glossary term.
+- `pwsh.base.maps/test_world_map.command.yml`: Checks that every tracked file sits in a declared track and its tech-stack, and that every
+  label the world map prints is a glossary term.
+- `pwsh.base.module_system/test_checked_in_binaries.command.yml`: Checks that every checked-in binary in the repository is stored
+  byte-exact.
+- `pwsh.base.module_system/test_folder_conventions.command.yml`: Checks that every module folder of the modules track follows the folder and
+  file conventions.
+- `pwsh.base.module_system/test_function_dependency.command.yml`: Checks that every function-to-function call resolves to a defined command.
+- `pwsh.base.module_system/test_module_cycles.command.yml`: Checks that the real module-to-module call graph has no cycle.
+- `pwsh.base.module_system/test_module_dependency.command.yml`: Checks that the actual module dependencies conform to the declared graph.
+- `pwsh.base.quality_gates/build_english_dictionary.command.yml`: Generates the committed English word list the spell-out-names analyzer
+  rule checks identifiers against, flattened from cspell's own bundled dictionaries so the two checks agree on what a word is.
+- `pwsh.base.quality_gates/export_spelling_triage.command.yml`: Collects the spell-checker's flagged tokens into a triage queue for
+  classification, the on-ramp to the terminology registry, never an automatic acceptance.
+- `pwsh.base.quality_gates/format_markdown_title.command.yml`: Makes the H1 of every in-scope Markdown file its title and brings its
+  headings into normal form.
 - `pwsh.base.quality_gates/head.sample.yml`: Provided sample of a file's meta head
   ([ADR-REPO-CONTRACT-CONTRACTASSET](../../drs/repository/api-contracts.md#rule-adr-repo-contract-contractasset)): the shape a tool may rely
   on when it reads the `catzc` block of a head. A head has two shapes. The head of an authored file, this sample, holds its one edge first,
@@ -448,241 +322,117 @@ Notes:
   generated file's head holds `with_body_sha` while git tracks the file, then `warning`, under `immutable`. Every other fact about a file is
   derived on demand, never shown. No key is required, and a fact a file has no value for is left out. Its schema, head.schema.json, lists
   the keys of both shapes.
-- `pwsh.base.quality_gates/head.schema.json`: Provided schema of a file's meta head, validated against the sample beside it
-  (ADR-REPO-CONTRACT-CONTRACTASSET): the keys of the catzc block, which a tool may rely on. The head of an authored file holds its one edge
-  first, its comment page's plain path from the file's own folder (docs), then a note that the head itself is generated (catzc.header), and
-  no warning; a file with no comment page carries no head, and the rule codes a file cites are read from its text, never from a head. A
-  wholly generated file's head holds warning, and with_body_sha while git tracks the file, under immutable. Every other fact about a file is
-  derived on demand. A fact a file has no value for is left out, so no key is required.
-- `pwsh.base.quality_gates/test_analyzer_drs_map.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call
-  interface of Test-AnalyzerDrsMap, the quality gate that checks the analyzer map cites only real ADR rules and maps every custom analyzer
-  rule, and returns its result under -PassThru.
-- `pwsh.base.quality_gates/test_automation.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call
-  interface of Test-Automation, the source run of all tests: it runs the tests in scope in worker shards, writes its report under
-  out/test-automation and returns the run's result under -PassThru.
-- `pwsh.base.quality_gates/test_build_artifact.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call
-  interface of Test-BuildArtifact, the quality gate that builds the selected modules once into a temporary destination, verifies the built
-  artifact by facet, and returns its result under -PassThru.
-- `pwsh.base.quality_gates/test_catzc_build.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call
-  interface of Test-CatzcBuild, the build run of all tests: it builds the selected modules into a disposable build, runs their tests against
-  it and returns the run's result under -PassThru.
-- `pwsh.base.quality_gates/test_change.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of
-  Test-Change, the quality gate over what changed: it runs the tests and checks of the changed files and returns its result under -PassThru,
-  or the planned set under -DryRun.
-- `pwsh.base.quality_gates/test_config_identity_hygiene.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the
-  call interface of Test-ConfigIdentityHygiene, the quality gate that checks no shipped config carries a test-fixture identity in its data,
-  and returns its result under -PassThru.
-- `pwsh.base.quality_gates/test_file_meta_processors.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the
-  call interface of Test-FileMetaProcessors, the quality gate that checks every meta kind resolves to a processor and every processor
-  belongs to a kind, and returns its result under -PassThru.
-- `pwsh.base.quality_gates/test_formatting.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call
-  interface of Test-Formatting, the quality gate that checks formatting would leave the repository unchanged, for every file language or the
-  named ones, and returns its result under -PassThru.
-- `pwsh.base.quality_gates/test_generated_files.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call
-  interface of Test-GeneratedFiles, the quality gate that checks every generated file equals what its generator would write now, and returns
-  its result under -PassThru.
-- `pwsh.base.quality_gates/test_in_isolation.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call
-  interface of Test-InIsolation, which copies a module profile or named modules into a sandbox, runs their tests there and returns the run's
-  result under -PassThru.
-- `pwsh.base.quality_gates/test_link_directions.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call
-  interface of Test-LinkDirections, the link-direction quality gate that fails on any relation the direction rows deny or no row allows, and
-  returns its result under -PassThru.
-- `pwsh.base.quality_gates/test_links.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of
-  Test-Links, the link quality gate that fails on any off-form, dangling or dead link or citation, and returns its result, with the
-  report-mode findings, under -PassThru.
-- `pwsh.base.quality_gates/test_logic_test_identity.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call
-  interface of Test-LogicTestIdentity, the quality gate that checks no logic test names a live production identity, and returns its result
-  under -PassThru.
-- `pwsh.base.quality_gates/test_managed_guids.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call
-  interface of Test-ManagedGuids, the quality gate that checks every guid in tracked text is registered, none is denied and every entry is
-  live, and returns its result under -PassThru.
-- `pwsh.base.quality_gates/test_markdown_title.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call
-  interface of Test-MarkdownTitle, the quality gate that fails on any in-scope Markdown file whose title or headings are not in normal form,
-  and returns its result under -PassThru.
-- `pwsh.base.quality_gates/test_markdownlint.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call
-  interface of Test-Markdownlint, the quality gate that lints the repository's Markdown with markdownlint-cli2 and returns its result under
-  -PassThru.
-- `pwsh.base.quality_gates/test_parameter_consistency.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the
-  call interface of Test-ParameterConsistency, the quality gate that checks one parameter name means one type across the public functions,
-  and returns its result under -PassThru.
-- `pwsh.base.quality_gates/test_python_lint.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call
-  interface of Test-PythonLint, the quality gate that lints every Python file the repository holds with ruff, and returns its result under
-  -PassThru.
-- `pwsh.base.quality_gates/test_python_types.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call
-  interface of Test-PythonTypes, the quality gate that type-checks every Python file the repository holds with pyright, and returns its
-  result under -PassThru.
-- `pwsh.base.quality_gates/test_script_analyzer.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call
-  interface of Test-ScriptAnalyzer, the quality gate that analyzes the PowerShell with PSScriptAnalyzer, and returns its result under
-  -PassThru.
-- `pwsh.base.quality_gates/test_shell_scripts.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call
-  interface of Test-ShellScripts, the quality gate that checks every shell script for LF line endings, the executable bit and its syntax
-  check, and returns its result under -PassThru.
-- `pwsh.base.quality_gates/test_shipped_configs.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call
-  interface of Test-ShippedConfigs, the quality gate that checks every shipped config has a registered C# config type and loads through it,
-  and returns its result under -PassThru.
-- `pwsh.base.quality_gates/test_spelling.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface
-  of Test-Spelling, the quality gate that spell-checks the repository's known file types with cspell, and returns its result under
-  -PassThru.
-- `pwsh.base.quality_gates/test_terminology.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call
-  interface of Test-Terminology, the quality gate that checks the terminology registry has no drift, no orphans and no unjustified entries,
-  and returns its result under -PassThru.
-- `pwsh.base.repository/get_repository_file.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call
-  interface of Get-RepositoryFile, which returns the full, normalized path to a file relative to the repository root.
-- `pwsh.base.root_config/test_root_analyzer_settings.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the
-  call interface of Test-RootAnalyzerSettings, the quality gate that checks the root analyzer settings parse as a settings hashtable through
-  their link, and returns its result under -PassThru.
-- `pwsh.base.root_config/test_root_config_files.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call
-  interface of Test-RootConfigFiles, the quality gate that checks every managed root config file agrees with rootconfig.yml on tracking,
-  .gitignore and link mechanism, and returns its result under -PassThru.
-- `pwsh.base.types_system/test_shipped_types.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call
-  interface of Test-ShippedTypes, the quality gate that checks every shipped C# type resolves in the session by its module and file name,
-  and returns its result under -PassThru.
-- `pwsh.internal.types/types.schema.json`: The types surface of the combined catzc types assembly, a provided contract
-  (ADR-REPO-CONTRACT-CONTRACTASSET): every public type's full name, the PSTypeAlias accelerators it declares, and the ConsoleDisplay
-  properties that apply to it, sorted by name. It pins what a consumer binds to, never the build: the source hash that names a build is a
-  local cache key and is not part of it. Write-TypesContract regenerates types.sample.json beside it from the compiled assembly and writes
-  it only when the surface moves.
-- `pwsh.tooling.claude/start_claude_drone.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface
-  of Start-ClaudeDrone, which opens Count new Claude Code drone sessions in terminals of their own, in the repository root. Agent and
-  Launcher default to the claude-drone config; Model is passed only when given; DryRun starts nothing and returns each launch's command
-  line, PassThru returns each command line after it started.
-- `pwsh.tooling.github/remove_token_from_history.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call
-  interface of Remove-TokenFromHistory, which scrubs a token from a git history's blob content and commit messages. RepositoryPath defaults
-  to the repository root, a computed default the contract does not restate; SkipMessages leaves the commit messages alone, and DryRun
-  reports what would change.
-- `pwsh.tooling.github/workflow.yml.schema.json`: Our schema of a GitHub Actions workflow, an inner contract
-  (ADR-REPO-CONTRACT-CONTRACTASSET): the shape GitHub reads, kept local so an editor and a gate need no download. source:
-  <https://json.schemastore.org/github-workflow.json> (the full schema validates every job and step through patternProperties and oneOf,
-  outside the bounded subset of ContractSchema), trimmed to the top-level shape and each job: on and jobs are required, as GitHub needs both
-  to run a workflow, every known top-level key has its type, and every job, keyed by its own name, needs runs-on and a steps array. That is
-  our shape, stricter than GitHub's: a job that calls a reusable workflow through uses has neither, and none of ours does. Every workflow
-  file is bound to it by contract.yml's applies_to. Taken 2026-10-25.
-- `pwsh.tooling.github/workflow.yml.schema.json`: Our schema of a GitHub Actions workflow, an inner contract
-  (ADR-REPO-CONTRACT-CONTRACTASSET): the shape GitHub reads, kept local so an editor and a gate need no download. source:
-  <https://json.schemastore.org/github-workflow.json> (the full schema validates every job and step through patternProperties and oneOf,
-  outside the bounded subset of ContractSchema), trimmed to the top-level shape and each job: on and jobs are required, as GitHub needs both
-  to run a workflow, every known top-level key has its type, and every job, keyed by its own name, needs runs-on and a steps array. That is
-  our shape, stricter than GitHub's: a job that calls a reusable workflow through uses has neither, and none of ours does. Every workflow
-  file is bound to it by contract.yml's applies_to. Taken 2026-10-25.
-- `pwsh.tooling.inspiration/get_inspiration.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call
-  interface of Get-Inspiration, which lists the inspirations catzc reads for ideas: all of them, one by id, or a count of them at random
-  with an optional seed.
-- `pwsh.tooling.node/install_cspell.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of
-  Install-Cspell, which installs cspell. Version defaults to the version tools.yml locks for 'cspell', a computed default the contract does
-  not restate; Force reinstalls over a present install.
-- `pwsh.tooling.node/install_markdownlint.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface
-  of Install-Markdownlint, which installs markdownlint. Version defaults to the version tools.yml locks for 'markdownlint', a computed
-  default the contract does not restate; Force reinstalls over a present install.
-- `pwsh.tooling.node/install_node_js.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of
-  Install-NodeJs, which installs Node.js. Version defaults to the version tools.yml locks for 'node_js', a computed default the contract
-  does not restate; Force reinstalls over a present install.
-- `pwsh.tooling.node/install_prettier.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of
-  Install-Prettier, which installs Prettier. Version defaults to the version tools.yml locks for 'prettier', a computed default the contract
-  does not restate; Force reinstalls over a present install.
-- `pwsh.tooling.node/remove_node_js.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of
-  Remove-NodeJs, which removes a manually installed Node.js and its PATH entries. InstallDir defaults to the install it finds, a computed
-  default the contract does not restate; without Force it shows what it would remove (ADR-AUTO-REMOVE-DOUBLYGUARDED).
-- `pwsh.tooling.node/uninstall_cspell.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of
-  Uninstall-Cspell, which uninstalls cspell, the global npm package; it takes no parameters and skips when cspell or npm is absent.
-- `pwsh.tooling.node/uninstall_markdownlint.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call
-  interface of Uninstall-Markdownlint, which uninstalls markdownlint-cli2, the global npm package; it takes no parameters and skips when it
-  or npm is absent.
-- `pwsh.tooling.node/uninstall_node_js.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of
-  Uninstall-NodeJs, which uninstalls Node.js through the platform package manager. Version defaults to the version tools.yml locks, a
-  computed default the contract does not restate; Remove escalates to Remove-NodeJs for an off-config install, and Force confirms that
-  destructive step (ADR-AUTO-REMOVE-DOUBLYGUARDED).
-- `pwsh.tooling.node/uninstall_prettier.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface
-  of Uninstall-Prettier, which uninstalls Prettier, the global npm package; it takes no parameters and skips when it or npm is absent.
-- `pwsh.tooling.provisioning/assert_dev_box_tools_status.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the
-  call interface of Assert-DevBoxToolsStatus, which throws unless every tool is available at its locked version; it takes no parameters.
-- `pwsh.tooling.provisioning/install_dev_box_tools.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call
-  interface of Install-DevBoxTools, which provisions the local development environment with every required tool; Force reinstalls over
-  present installs.
-- `pwsh.tooling.provisioning/uninstall_chocolatey.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call
-  interface of Uninstall-Chocolatey, which uninstalls Chocolatey from the current machine; it takes no parameters.
-- `pwsh.tooling.provisioning/uninstall_dev_box_tools.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the
-  call interface of Uninstall-DevBoxTools, which removes every tool Install-DevBoxTools installed; it takes no parameters.
-- `pwsh.tooling.provisioning/uninstall_git.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call
-  interface of Uninstall-Git, which uninstalls the Git Install-Git installed; it takes no parameters.
-- `pwsh.tooling.provisioning/uninstall_postman.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call
-  interface of Uninstall-Postman, which uninstalls the Postman desktop app; it takes no parameters.
-- `pwsh.tooling.provisioning/uninstall_zsh.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call
-  interface of Uninstall-Zsh, which uninstalls the zsh Install-Zsh placed; it takes no parameters.
-- `pwsh.tooling.python/install_poetry.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of
-  Install-Poetry, which installs Poetry. Version defaults to the version tools.yml locks for 'poetry', a computed default the contract does
-  not restate; Force reinstalls over a present install.
-- `pwsh.tooling.python/install_py_spark.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface
-  of Install-PySpark, which installs PySpark. Version defaults to the version tools.yml locks for 'py_spark', a computed default the
-  contract does not restate; Force reinstalls over a present install.
-- `pwsh.tooling.python/install_python.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of
-  Install-Python, which installs Python. Version defaults to the version tools.yml locks for 'python', a computed default the contract does
-  not restate; Force reinstalls over a present install.
-- `pwsh.tooling.python/invoke_poetry.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of
-  Invoke-Poetry, which runs poetry with the given arguments.
-- `pwsh.tooling.python/remove_python.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of
-  Remove-Python, which removes a manually installed Python and its PATH entries. InstallDir defaults to the install it finds, a computed
-  default the contract does not restate; without Force it shows what it would remove (ADR-AUTO-REMOVE-DOUBLYGUARDED).
-- `pwsh.tooling.python/uninstall_poetry.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface
-  of Uninstall-Poetry, which uninstalls Poetry; it takes no parameters.
-- `pwsh.tooling.python/uninstall_py_spark.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface
-  of Uninstall-PySpark, which uninstalls PySpark from the uv-managed Python; it takes no parameters.
-- `pwsh.tooling.python/uninstall_python.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface
-  of Uninstall-Python, which uninstalls the uv-provisioned Python. Version defaults to the version tools.yml locks, a computed default the
-  contract does not restate.
-- `pwsh.tooling.toolchain/install_az_cli.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface
-  of Install-AzCli, which installs the Azure CLI. Version defaults to the version tools.yml locks for 'az_cli', a computed default the
-  contract does not restate; Force reinstalls over a present install.
-- `pwsh.tooling.toolchain/install_bicep.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface
-  of Install-Bicep, which installs the Bicep CLI. Version defaults to the version tools.yml locks for 'bicep', a computed default the
-  contract does not restate; Force reinstalls over a present install.
-- `pwsh.tooling.toolchain/install_dotnet.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface
-  of Install-Dotnet, which installs the .NET SDK. Version defaults to the version tools.yml locks for 'dotnet', a computed default the
-  contract does not restate; Force reinstalls over a present install.
-- `pwsh.tooling.toolchain/install_go.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of
-  Install-Go, which installs Go. Version defaults to the version tools.yml locks for 'go', a computed default the contract does not restate;
-  Force reinstalls over a present install.
-- `pwsh.tooling.toolchain/install_java.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of
-  Install-Java, which installs Java. Version defaults to the version tools.yml locks for 'java', a computed default the contract does not
-  restate; Force reinstalls over a present install.
-- `pwsh.tooling.toolchain/install_shellcheck.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call
-  interface of Install-Shellcheck, which installs ShellCheck. Version defaults to the version tools.yml locks for 'shellcheck', a computed
-  default the contract does not restate; Force reinstalls over a present install.
-- `pwsh.tooling.toolchain/install_terraform.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call
-  interface of Install-Terraform, which installs Terraform. Version defaults to the version tools.yml locks for 'terraform', a computed
-  default the contract does not restate; Force reinstalls over a present install.
-- `pwsh.tooling.toolchain/install_uv.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of
-  Install-Uv, which installs uv. Version defaults to the version tools.yml locks for 'uv', a computed default the contract does not restate;
-  Force reinstalls over a present install.
-- `pwsh.tooling.toolchain/remove_az_cli.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface
-  of Remove-AzCli, which evicts an off-config install. InstallDir defaults to the install it finds, a computed default the contract does not
-  restate; without Force it shows what it would remove (ADR-AUTO-REMOVE-DOUBLYGUARDED).
-- `pwsh.tooling.toolchain/remove_dotnet.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface
-  of Remove-Dotnet, which evicts an off-config install. InstallDir defaults to the install it finds, a computed default the contract does
-  not restate; without Force it shows what it would remove (ADR-AUTO-REMOVE-DOUBLYGUARDED).
-- `pwsh.tooling.toolchain/remove_java.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of
-  Remove-Java, which evicts an off-config install. InstallDir defaults to the install it finds, a computed default the contract does not
-  restate; without Force it shows what it would remove (ADR-AUTO-REMOVE-DOUBLYGUARDED).
-- `pwsh.tooling.toolchain/uninstall_az_cli.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call
-  interface of Uninstall-AzCli, which uninstalls the managed install. Remove escalates to Remove-AzCli for an off-config install, and Force
-  confirms that destructive step (ADR-AUTO-REMOVE-DOUBLYGUARDED).
-- `pwsh.tooling.toolchain/uninstall_bicep.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface
-  of Uninstall-Bicep, which uninstalls the tool. Version defaults to the installed or locked version, a computed default the contract does
-  not restate.
-- `pwsh.tooling.toolchain/uninstall_dotnet.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call
-  interface of Uninstall-Dotnet, which uninstalls the managed install. Remove escalates to Remove-Dotnet for an off-config install, and
-  Force confirms that destructive step (ADR-AUTO-REMOVE-DOUBLYGUARDED).
-- `pwsh.tooling.toolchain/uninstall_go.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of
-  Uninstall-Go, which uninstalls the Go toolchain Install-Go installed; it takes no parameters.
-- `pwsh.tooling.toolchain/uninstall_java.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface
-  of Uninstall-Java, which uninstalls Java through the platform package manager. Version defaults to the version tools.yml locks, a computed
-  default the contract does not restate; Remove escalates to Remove-Java for an off-config install, and Force confirms that destructive step
-  (ADR-AUTO-REMOVE-DOUBLYGUARDED).
-- `pwsh.tooling.toolchain/uninstall_shellcheck.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call
-  interface of Uninstall-Shellcheck, which uninstalls the tool. Version defaults to the installed or locked version, a computed default the
-  contract does not restate.
-- `pwsh.tooling.toolchain/uninstall_terraform.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call
-  interface of Uninstall-Terraform, which uninstalls the tool. Version defaults to the installed or locked version, a computed default the
-  contract does not restate.
-- `pwsh.tooling.toolchain/uninstall_uv.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of
-  Uninstall-Uv, which uninstalls the tool. Version defaults to the installed or locked version, a computed default the contract does not
-  restate.
+- `pwsh.base.quality_gates/head.schema.json`: The schema of a file's meta head, the keys of the catzc block a tool may rely on, none of them
+  required.
+- `pwsh.base.quality_gates/test_analyzer_drs_map.command.yml`: Checks that analyzer-drs-map.yml cites only real ADR rules and maps every
+  custom analyzer rule.
+- `pwsh.base.quality_gates/test_automation.command.yml`: Runs all Pester tests found across the catzc modules, sharded across parallel
+  worker processes.
+- `pwsh.base.quality_gates/test_build_artifact.command.yml`: Builds the selected modules once into a temporary destination and verifies the
+  built artifact.
+- `pwsh.base.quality_gates/test_catzc_build.command.yml`: Runs a build run, the same tests as Test-Automation, against a fresh build of the
+  selected modules.
+- `pwsh.base.quality_gates/test_change.command.yml`: Runs the tests and the checks of the changed files and reports only their issues.
+- `pwsh.base.quality_gates/test_config_identity_hygiene.command.yml`: Checks that no shipped config carries a test-fixture identity in its
+  data, the reverse of Test-LogicTestIdentity, closing the other half of the language-zone separation.
+- `pwsh.base.quality_gates/test_file_meta_processors.command.yml`: Checks that every meta kind resolves to a processor function and that
+  every convention-named processor function belongs to a kind.
+- `pwsh.base.quality_gates/test_formatting.command.yml`: Checks that formatting would leave the repository unchanged.
+- `pwsh.base.quality_gates/test_generated_files.command.yml`: Checks that every generated file equals what its generator would write now.
+- `pwsh.base.quality_gates/test_in_isolation.command.yml`: Copies a module profile into a temporary sandbox and runs its tests in isolation,
+  in a clean child pwsh or the current session, so a subset of the toolset is verified deterministically.
+- `pwsh.base.quality_gates/test_link_directions.command.yml`: Checks link directions and fails on every relation that points a way the
+  direction rows do not allow.
+- `pwsh.base.quality_gates/test_links.command.yml`: Checks links and fails on any off-form, dangling or dead link or citation.
+- `pwsh.base.quality_gates/test_logic_test_identity.command.yml`: Checks that no logic test names a live production identity (a real
+  customer, subscription, org, template or ADO project) as a code string literal, the tag-aware, comment-blind enforcer of the separation of
+  the test and live zones.
+- `pwsh.base.quality_gates/test_managed_guids.command.yml`: Checks that every guid in tracked text is registered in guids.yml, that none is
+  denied, and that every entry is live.
+- `pwsh.base.quality_gates/test_markdown_title.command.yml`: Checks Markdown titles and headings and fails on any in-scope file whose H1 is
+  not a title or whose headings are not in normal form.
+- `pwsh.base.quality_gates/test_markdownlint.command.yml`: Lints the repository's Markdown with markdownlint-cli2 and writes a report to the
+  output folder.
+- `pwsh.base.quality_gates/test_parameter_consistency.command.yml`: Checks that one parameter name means one type across the public
+  functions.
+- `pwsh.base.quality_gates/test_python_lint.command.yml`: Lints every Python file the repository holds with ruff.
+- `pwsh.base.quality_gates/test_python_types.command.yml`: Type-checks every Python file the repository holds with pyright, the engine
+  Pylance runs in the editor.
+- `pwsh.base.quality_gates/test_script_analyzer.command.yml`: Analyzes the automation PowerShell with PSScriptAnalyzer and writes a report
+  to the output folder.
+- `pwsh.base.quality_gates/test_shell_scripts.command.yml`: Checks every shell script the repository holds for LF line endings, the
+  executable bit, and ShellCheck or zsh's syntax check on the repository's own.
+- `pwsh.base.quality_gates/test_shipped_configs.command.yml`: Checks that every shipped config has a registered config type and loads
+  through it.
+- `pwsh.base.quality_gates/test_spelling.command.yml`: Spell-checks the repository's known file types with cspell and writes a report to the
+  output folder.
+- `pwsh.base.quality_gates/test_terminology.command.yml`: Checks the terminology registry for drift, orphans and unjustified entries and
+  writes a report to the output folder.
+- `pwsh.base.repository/get_repository_file.command.yml`: Returns the full, normalized path to a file relative to the repository root.
+- `pwsh.base.root_config/test_root_analyzer_settings.command.yml`: Checks that the root PSScriptAnalyzerSettings.psd1 parses as a settings
+  hashtable through its link.
+- `pwsh.base.root_config/test_root_config_files.command.yml`: Checks that every managed root config file agrees with rootconfig.yml on git
+  tracking, the gitignore and the link mechanism.
+- `pwsh.base.types_system/test_shipped_types.command.yml`: Checks that every shipped compiled type resolves in the session under its
+  module's namespace and file name.
+- `pwsh.base.vs_code/package.schema.json`: The schema of the trimmed extension manifest VS Code expects of a cats extension, checked on
+  every rendered package.json before packing.
+- `pwsh.internal.types/types.schema.json`: The schema of the types surface of the combined catzc types assembly, every public type with its
+  accelerators and display properties, what a consumer binds to and never the build.
+- `pwsh.tooling.claude/start_claude_drone.command.yml`: Starts new Claude Code drone sessions, each in a terminal window of its own, in the
+  repository root.
+- `pwsh.tooling.github/remove_token_from_history.command.yml`: Scrubs a token from a git history's blob content and commit messages with
+  git-filter-repo, the fallback route to New-SyntheticHistory.
+- `pwsh.tooling.github/workflow.yml.schema.json`: Our schema of a GitHub Actions workflow, the shape GitHub reads, kept local so an editor
+  and a gate need no download.
+- `pwsh.tooling.github/workflow.yml.schema.json`: Our schema of a GitHub Actions workflow, the shape GitHub reads, kept local so an editor
+  and a gate need no download.
+- `pwsh.tooling.inspiration/get_inspiration.command.yml`: Lists the inspirations catzc reads for ideas, and whether each is available on
+  this machine.
+- `pwsh.tooling.node/install_cspell.command.yml`: Installs cspell (the Code Spell Checker CLI) globally via npm.
+- `pwsh.tooling.node/install_markdownlint.command.yml`: Installs markdownlint-cli2 (the Markdown linter CLI) globally via npm.
+- `pwsh.tooling.node/install_node_js.command.yml`: Installs Node.js via the platform package manager.
+- `pwsh.tooling.node/install_prettier.command.yml`: Installs Prettier (the prettier formatter engine's CLI) globally via npm.
+- `pwsh.tooling.node/remove_node_js.command.yml`: Removes a manually installed Node.js and cleans up system PATH.
+- `pwsh.tooling.node/uninstall_cspell.command.yml`: Uninstalls cspell (the global npm package).
+- `pwsh.tooling.node/uninstall_markdownlint.command.yml`: Uninstalls markdownlint-cli2 (the global npm package).
+- `pwsh.tooling.node/uninstall_node_js.command.yml`: Uninstalls Node.js via the platform package manager.
+- `pwsh.tooling.node/uninstall_prettier.command.yml`: Uninstalls Prettier (the global npm package).
+- `pwsh.tooling.provisioning/assert_dev_box_tools_status.command.yml`: Asserts all tools are available at the correct version.
+- `pwsh.tooling.provisioning/install_dev_box_tools.command.yml`: Provisions the local development environment with all required tools.
+- `pwsh.tooling.provisioning/uninstall_chocolatey.command.yml`: Uninstalls Chocolatey from the current machine.
+- `pwsh.tooling.provisioning/uninstall_dev_box_tools.command.yml`: Removes all tools installed by Install-DevBoxTools.
+- `pwsh.tooling.provisioning/uninstall_git.command.yml`: Uninstalls Git installed by Install-Git.
+- `pwsh.tooling.provisioning/uninstall_postman.command.yml`: Uninstalls the Postman desktop app.
+- `pwsh.tooling.provisioning/uninstall_zsh.command.yml`: Uninstalls the zsh Install-Zsh placed, in Git Bash's tree on Windows and the
+  apt-get package on Linux.
+- `pwsh.tooling.python/install_poetry.command.yml`: Installs Poetry as an isolated uv tool.
+- `pwsh.tooling.python/install_py_spark.command.yml`: Installs PySpark into the uv-managed Python via uv pip.
+- `pwsh.tooling.python/install_python.command.yml`: Provisions Python via uv.
+- `pwsh.tooling.python/invoke_poetry.command.yml`: Runs poetry with the given arguments.
+- `pwsh.tooling.python/remove_python.command.yml`: Removes a manually installed Python and cleans up system PATH.
+- `pwsh.tooling.python/uninstall_poetry.command.yml`: Uninstalls Poetry.
+- `pwsh.tooling.python/uninstall_py_spark.command.yml`: Uninstalls PySpark from the uv-managed Python via uv pip.
+- `pwsh.tooling.python/uninstall_python.command.yml`: Uninstalls the uv-provisioned Python.
+- `pwsh.tooling.toolchain/install_az_cli.command.yml`: Installs the Azure CLI, user-space into a dedicated uv venv.
+- `pwsh.tooling.toolchain/install_bicep.command.yml`: Installs the Bicep CLI, the formatter engine for the infrastructure templates, at the
+  tools.yml pin.
+- `pwsh.tooling.toolchain/install_dotnet.command.yml`: Installs the .NET SDK via official Microsoft install scripts (user-space).
+- `pwsh.tooling.toolchain/install_go.command.yml`: Installs the Go toolchain from the official go.dev archive into a user-space home.
+- `pwsh.tooling.toolchain/install_java.command.yml`: Installs Microsoft OpenJDK via the platform package manager.
+- `pwsh.tooling.toolchain/install_shellcheck.command.yml`: Installs ShellCheck, the analyzer for the repository's shell scripts, at the
+  tools.yml pin.
+- `pwsh.tooling.toolchain/install_terraform.command.yml`: Installs Terraform via the platform package manager.
+- `pwsh.tooling.toolchain/install_uv.command.yml`: Installs or upgrades uv, Astral's Python handler.
+- `pwsh.tooling.toolchain/remove_az_cli.command.yml`: Destructively evicts an off-config Azure CLI so the managed (uv-venv) build can win.
+- `pwsh.tooling.toolchain/remove_dotnet.command.yml`: Evicts an off-config .NET install, one the tooling's managed user-space install does
+  not own.
+- `pwsh.tooling.toolchain/remove_java.command.yml`: Removes a manually installed Java JDK and cleans up system PATH.
+- `pwsh.tooling.toolchain/uninstall_az_cli.command.yml`: Uninstalls the Azure CLI.
+- `pwsh.tooling.toolchain/uninstall_bicep.command.yml`: Uninstalls the Bicep CLI that Install-Bicep installed.
+- `pwsh.tooling.toolchain/uninstall_dotnet.command.yml`: Uninstalls the .NET SDK installed by Install-Dotnet.
+- `pwsh.tooling.toolchain/uninstall_go.command.yml`: Uninstalls the Go toolchain installed by Install-Go.
+- `pwsh.tooling.toolchain/uninstall_java.command.yml`: Uninstalls Java via the platform package manager.
+- `pwsh.tooling.toolchain/uninstall_shellcheck.command.yml`: Uninstalls ShellCheck installed by Install-Shellcheck.
+- `pwsh.tooling.toolchain/uninstall_terraform.command.yml`: Uninstalls Terraform via the platform package manager.
+- `pwsh.tooling.toolchain/uninstall_uv.command.yml`: Uninstalls uv.
