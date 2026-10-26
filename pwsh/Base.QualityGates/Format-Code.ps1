@@ -95,15 +95,21 @@ function Format-Code {
                 $wrapFree[$file] = Get-WrapFreeStamp -Path $file
             }
         }
-        $changed = @(Invoke-FormatterEngine -Engine $engine -File $pending -DryRun:$DryRun | ForEach-Object { $_ })
-        $changedSet = [System.Collections.Generic.HashSet[string]]::new([string[]] $changed,
-            [System.StringComparer]::OrdinalIgnoreCase)
+        # An engine answers with the changed paths, plus a { Path, Problem } for each file it could not format at all.
+        $answer = @(Invoke-FormatterEngine -Engine $engine -File $pending -DryRun:$DryRun | ForEach-Object { $_ })
+        $changed = [string[]] @($answer | Where-Object { $_ -is [string] })
+        $problems = [System.Collections.Generic.Dictionary[string, string]]::new([System.StringComparer]::OrdinalIgnoreCase)
+        foreach ($item in @($answer | Where-Object { $_ -isnot [string] })) {
+            $problems[[System.IO.Path]::GetFullPath($item.Path)] = $item.Problem
+        }
+        $changedSet = [System.Collections.Generic.HashSet[string]]::new($changed, [System.StringComparer]::OrdinalIgnoreCase)
 
         if ($DryRun) {
-            Update-ResultCache -Cache $cache -Key $split.Key -Checked $pending -Flagged $changed
+            Update-ResultCache -Cache $cache -Key $split.Key -Checked $pending -Flagged @(@($changed) + @($problems.Keys))
         }
         else {
-            Update-ResultCache -Cache $cache -Key $split.Key -Checked $pending -Stamp $stamp -RekeyFromDisk
+            Update-ResultCache -Cache $cache -Key $split.Key -Checked @($pending | Where-Object {
+                    -not $problems.ContainsKey([System.IO.Path]::GetFullPath($_)) }) -Stamp $stamp -RekeyFromDisk
         }
 
         foreach ($name in $languageFiles.Keys) {
@@ -113,6 +119,12 @@ function Format-Code {
                 Files     = $files
                 Changed   = [System.Collections.Generic.List[string]]::new([string[]] @($files | Where-Object { $changedSet.Contains($_) }))
                 Unfixable = [System.Collections.Generic.Dictionary[string, string]]::new()
+            }
+            foreach ($file in $files) {
+                $full = [System.IO.Path]::GetFullPath($file)
+                if ($problems.ContainsKey($full)) {
+                    $outcomes[$name].Unfixable[$file] = $problems[$full]
+                }
             }
         }
     }

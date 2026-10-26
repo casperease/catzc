@@ -54,3 +54,21 @@ Above `public const string DefaultEditableMode = "strict";`, written with `//`.
 How the backend installs a member for editing: strict builds a link tree a static .pth names, which pyright reads; the backend's
 own default hooks the import system at run time, which only Python follows.
 ```
+
+## comment:5
+
+Above `public const string DefaultEditableMode = "strict";`, written with `//`.
+
+```text
+How the backend installs a package member for editing: strict links it into a tree a static .pth names, which pyright reads; the
+backend's own default hooks the import system at run time, which only Python follows.
+```
+
+## comment:6
+
+Above `public static readonly string[] DefaultPackageData = { "configs/**/*",...`, written with `//`.
+
+```text
+A package's data is what its conventional folders hold, so a strict install links what the code reads beside itself; never a
+catch-all, which would take in the build/ link tree the install writes under the package.
+```

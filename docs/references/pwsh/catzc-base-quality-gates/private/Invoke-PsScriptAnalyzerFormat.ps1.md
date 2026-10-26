@@ -36,7 +36,8 @@ List the files that would change without writing them.
 
 ### outputs
 
-`[string[]]` Absolute paths of the files changed (or, under -DryRun, that would change).
+`[object[]]` Absolute paths of the files changed (or, under -DryRun, that would change), and a `{ Path, Problem }` for each file the
+formatter throws on, so Format-Code names it as unfixable and the other files still run.
 
 ## comment:1
 

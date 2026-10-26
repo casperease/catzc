@@ -8,7 +8,7 @@ catzc:
 
 function Invoke-FormatterEngine {
     [CmdletBinding()]
-    [OutputType([string[]])]
+    [OutputType([string[]], [pscustomobject])]
     param(
         [Parameter(Mandatory)]
         [string] $Engine,

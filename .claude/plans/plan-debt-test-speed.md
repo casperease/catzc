@@ -23,12 +23,14 @@ folders. Heavy runs wait for a turn in the orchestrator's memory queue, one run 
       names and `Should` count, and `Test-ScriptAnalyzer -Path` at 0 on each changed file.
 - [ ] The ten slowest test files, each measured alone and fixed one cause at a time, slowest first (ranked 2026-10-26 by catzc-2f from the
       2026-10-25 sharded run's `durations.json`, its top 16 re-timed alone; `Import-Catzc.Tests.ps1` and `Test-CatzcBuild.Parity.Tests.ps1`
-      wait on the VSCode case-only rename, the step above): `Invoke-TestFile.Tests.ps1` (77.4 s), `Test-Spelling.Tests.ps1` (18.5 s, 1 test
-      red before any change), `Test-Formatting.Tests.ps1` (17.6 s, 1 test red before any change) and `Get-RepositoryFilter.Tests.ps1` (16.1
-      s). `Test-Automation.Tests.ps1` (15.6 s) is left as it is: its cost is one `Test-SourceConventions` run over the tree (catzc-68,
-      2026-10-26). A red file is made green by its owner before its speed is touched, and a file measured with no safe gain is recorded as
-      left as it is. Check: `Invoke-TestFile` twice per file, the same test names and `Should` count, an A/B of each cause with identical
-      output, and `Test-ScriptAnalyzer -Path` at 0 on each changed file.
+      wait on the VSCode case-only rename, the step above): `Invoke-TestFile.Tests.ps1` (77.4 s), `Test-Formatting.Tests.ps1` (17.6 s, 1
+      test red before any change) and `Get-RepositoryFilter.Tests.ps1` (16.1 s). `Test-Automation.Tests.ps1` (15.6 s) is left as it is: its
+      cost is one `Test-SourceConventions` run over the tree (catzc-68, 2026-10-26). `Test-Spelling.Tests.ps1` (18.5 s) is left as it is:
+      its cost is one cspell process over 5,669 files (19.3 s measured); a 4-way extension shard measured 10.1 s, but parallel cspell needs
+      a fan-out seam in Base.Execution that the L0 mocks can reach, the open question below (catzc-68, 2026-10-26). A red file is made green
+      by its owner before its speed is touched, and a file measured with no safe gain is recorded as left as it is. Check: `Invoke-TestFile`
+      twice per file, the same test names and `Should` count, an A/B of each cause with identical output, and `Test-ScriptAnalyzer -Path` at
+      0 on each changed file.
 
 ## Open questions
 
@@ -38,6 +40,11 @@ folders. Heavy runs wait for a turn in the orchestrator's memory queue, one run 
 - Should a janitor keep `out/` to a retention (old `test-file/`, `burst/` journals, drone scratch)? Every test that walks the disk pays for
   it: on 2026-10-26 the track lamps' walk held 51,471 files, 36,678 under `out/` (`test-file` 8,788, `drone27-pre` 6,089, `burst` 4,979,
   `test-generated-files` 2,670, `minimaps` 2,296, `slides` 1,748), measured by catzc-2b. Undecided.
+- Should Base.Execution offer a parallel fan-out seam (`Invoke-ExecutableParallel -Command [string[]] -ThrottleLimit`), starting the
+  processes itself, each bounded by `Get-TimeoutSeconds` for its executable, and returning `Invoke-Executable`-shaped results in order, so a
+  gate can run independent tool calls side by side while its L0 tests mock one seam? First caller: `Test-Spelling`'s default globs, sharded
+  by extension (coverage identical by construction, `.accosted.yml` excluded from the `*.yml` shard), measured by catzc-68 on 2026-10-26 at
+  19.3 s in one cspell process and 10.1 s in four. Undecided: judge it with any other caller that would use it.
 
 ## Decided
 

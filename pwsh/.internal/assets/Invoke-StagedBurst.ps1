@@ -16,10 +16,12 @@
     The swap is never left half done. The journal is complete before the first target is touched, the restore runs in a finally block, and
     a journal found at the start, left by a call killed mid-swap, is restored before anything else happens.
 
-    timeout 360 pwsh -NoProfile -File pwsh/.internal/assets/Invoke-StagedBurst.ps1 -StagedFolder out/topic/staged -Seconds 240 'Test-Parsing -Path pwsh/x.ps1' 'Invoke-TestFile -Path pwsh/tests/x.Tests.ps1'
+    timeout 360 pwsh -NoProfile -File pwsh/.internal/assets/Invoke-StagedBurst.ps1 -StagedFolder <scratchpad>/topic/staged -Seconds 240 'Test-Parsing -Path pwsh/x.ps1' 'Invoke-TestFile -Path pwsh/tests/x.Tests.ps1'
 
 .PARAMETER StagedFolder
-    The folder of staged files, mirroring the repository root, relative to it or absolute.
+    The folder of staged files, mirroring the repository root, relative to it or absolute. It sits outside the repository, such as in the
+    session scratchpad: its journal sits beside it, and a swap is refused when that would be inside the repository, where a cleanup of the
+    output folder could delete the only copy a rollback restores from.
 
 .PARAMETER Command
     The cats commands that test the swap, each one line, run in one import. They are the arguments left after the named ones.
@@ -149,7 +151,7 @@ function Restore-Journal {
                 Remove-Item -LiteralPath $entry.path -Force
             }
             $folder = Split-Path -Parent $entry.path
-            if ((Test-Path -LiteralPath $folder -PathType Container) -and -not (Get-ChildItem -LiteralPath $folder -Force)) {
+            if ([System.IO.Directory]::Exists($folder) -and -not [System.IO.Directory]::EnumerateFileSystemEntries($folder).GetEnumerator().MoveNext()) {
                 Remove-Item -LiteralPath $folder -Force
             }
         }
@@ -158,7 +160,7 @@ function Restore-Journal {
     $foldersLog = Join-Path $journal 'folders.json'
     if (Test-Path -LiteralPath $foldersLog -PathType Leaf) {
         foreach ($folder in @(Get-Content -LiteralPath $foldersLog -Raw | ConvertFrom-Json | Sort-Object -Property Length -Descending)) {
-            if ((Test-Path -LiteralPath $folder -PathType Container) -and -not (Get-ChildItem -LiteralPath $folder -Force)) {
+            if ([System.IO.Directory]::Exists($folder) -and -not [System.IO.Directory]::EnumerateFileSystemEntries($folder).GetEnumerator().MoveNext()) {
                 Remove-Item -LiteralPath $folder -Force
             }
         }
@@ -254,6 +256,13 @@ foreach ($relative in $relatives) {
             throw "Invoke-StagedBurst: the staged folder marks '$doomed' for deletion, but it does not exist."
         }
     }
+}
+
+# The journal is the only copy of what a rollback restores, so it never lives inside the repository, where a cleanup
+# of its output folder can delete it mid-burst: a staged folder there is refused before anything is touched.
+$rootPrefix = $root.TrimEnd('\', '/') + [System.IO.Path]::DirectorySeparatorChar
+if ($journal.StartsWith($rootPrefix, [System.StringComparison]::OrdinalIgnoreCase)) {
+    throw "Invoke-StagedBurst: the journal '$journal' would live inside the repository, where a cleanup can delete it mid-burst; stage in a folder outside '$root', such as the session scratchpad."
 }
 
 # The journal is complete before the first target is touched.

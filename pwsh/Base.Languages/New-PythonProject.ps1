@@ -90,8 +90,6 @@ function New-PythonProject {
     $workspace.Add('[tool.pyright]')
     $workspace.Add("pythonVersion = `"$pythonVersion`"")
     $workspace.Add("typeCheckingMode = `"$($config.type_checking)`"")
-    $files.Add([Catzc.Base.Languages.PythonWorkspaceFile]::new("$pythonRoot/pyproject.toml",
-            ($workspace -join "`n") + "`n"))
 
     $track = Get-Track -Path $pythonRoot
     $fullName = { param([string] $Folder) if ($null -ne $track) {
@@ -115,6 +113,17 @@ function New-PythonProject {
                 Package = (& $importName $module)
             }
         })
+    # uv reads a build's config settings only at the workspace root, so each package's editable mode is named there by its distribution.
+    $packages = @($members | Where-Object Package)
+    if ($packages.Count) {
+        $workspace.Add('')
+        $workspace.Add('[tool.uv.config-settings-package]')
+        foreach ($entry in $packages) {
+            $workspace.Add("$($entry.Name) = { editable_mode = `"$($config.build_editable_mode)`" }")
+        }
+    }
+    $files.Add([Catzc.Base.Languages.PythonWorkspaceFile]::new("$pythonRoot/pyproject.toml",
+            ($workspace -join "`n") + "`n"))
     foreach ($entry in $members) {
         $member = [System.Collections.Generic.List[string]]::new()
         if ($entry.Package) {
@@ -140,6 +149,10 @@ function New-PythonProject {
             $member.Add('')
             $member.Add('[tool.setuptools.package-dir]')
             $member.Add("`"$($entry.Package)`" = `".`"")
+            $member.Add('')
+            $globs = @($config.build_package_data | ForEach-Object { '"' + $_ + '"' }) -join ', '
+            $member.Add('[tool.setuptools.package-data]')
+            $member.Add("`"$($entry.Package)`" = [$globs]")
             $member.Add('')
         }
         $member.Add('[tool.uv]')

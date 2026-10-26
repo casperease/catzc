@@ -171,6 +171,22 @@ Describe 'Format-Code engine grouping and result cache' -Tag 'L0', 'logic' {
         $script:handed | Should -Be @($script:gadgetFile)
     }
 
+    It 'names a file the engine cannot format at all as unfixable, still runs the rest, and checks it again next run' -Tag 'ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS' {
+        Mock Invoke-FormatterEngine -ModuleName Catzc.Base.QualityGates {
+            foreach ($file in $File) {
+                $script:handed.Add($file)
+            }
+            , [object[]] @([pscustomobject]@{ Path = $script:gadgetFile; Problem = 'the formatter throws on it: widget state' })
+        }
+        $results = @(Format-Code -DryRun -PassThru)
+        $gadget = $results.Where({ $_.Language -eq 'gadget' })[0]
+        $gadget.Unfixable[$script:gadgetFile] | Should -Be 'the formatter throws on it: widget state'
+        $results.Where({ $_.Language -eq 'widget' })[0].Unfixable.Count | Should -Be 0
+        $script:handed.Clear()
+        $null = Format-Code -DryRun
+        $script:handed | Should -Be @($script:gadgetFile) -Because 'a file never formatted is never cached as clean'
+    }
+
     It 'reports how many changed files changed in content and how many only in wrapping' {
         [System.IO.File]::WriteAllText($script:widgetFile, "one two`nthree")
         [System.IO.File]::WriteAllText($script:gadgetFile, 'one two three')

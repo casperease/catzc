@@ -20,6 +20,19 @@ Describe 'Get-ModuleFullName' -Tag 'L0', 'logic', 'DDR-TRACK-MODULENAMESPACE' {
         Get-ModuleFullName (Join-Path $script:root 'Gadget') | Should -BeExactly 'Catzc.Base.Gizmo'
     }
 
+    It 'names a staged burst copy of a module folder by the live module it mirrors' {
+        Mock Get-Module -ModuleName Catzc.Base.Repository { }
+        $live = Join-Path $script:root 'repo'
+        New-Item -ItemType Directory -Path (Join-Path $live 'gizmos/Base.Widget') | Out-Null
+        Set-Content -LiteralPath (Join-Path $live 'gizmos/Base.Widget/Catzc.Base.Widget.psd1') -Value '@{}'
+        $copy = Join-Path $script:root 'scratch/staged/gizmos/Base.Widget'
+        New-Item -ItemType Directory -Path (Join-Path $copy 'types') | Out-Null
+        Set-Content -LiteralPath (Join-Path $copy 'types/Lever.cs') -Value 'namespace Catzc.Base.Widget;'
+        Set-Content -LiteralPath (Join-Path $copy 'types/Lever.cs.burst-base') -Value 'ABCD'
+        Get-ModuleFullName $copy -RepositoryRoot $live | Should -BeExactly 'Catzc.Base.Widget'
+        Get-ModuleFullName (Join-Path $script:root 'Gadget') -RepositoryRoot $live | Should -BeExactly 'Gadget' -Because 'only a staged copy is mapped'
+    }
+
     It 'names an unloaded folder by its manifest, and a folder with none by itself' {
         Mock Get-Module -ModuleName Catzc.Base.Repository { }
         Get-ModuleFullName (Join-Path $script:root 'Base.Widget') | Should -BeExactly 'Catzc.Base.Widget'

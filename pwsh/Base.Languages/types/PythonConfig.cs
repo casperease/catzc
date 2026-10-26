@@ -40,9 +40,14 @@ public sealed class PythonConfig : Catzc.Base.Objects.DictionaryRecord
     public const string DefaultBuildVersion = "80.9.0";
     public const string DefaultBuildModule = "setuptools.build_meta";
 
+    public const string DefaultEditableMode = "strict";
+    private static readonly string[] EditableModes = { "strict", "compat", "lenient" };
+
+    public static readonly string[] DefaultPackageData = { "configs/**/*", "assets/**/*" };
+
     private const string Failed = "python config validation failed:\n";
     private static readonly string[] AllowedKeys = { "root", "dependencies", "type_checking", "pytest_cache", "pycache", "build_backend" };
-    private static readonly string[] BuildBackendKeys = { "distribution", "version", "module" };
+    private static readonly string[] BuildBackendKeys = { "distribution", "version", "module", "editable_mode", "package_data" };
     private static readonly Regex ModuleName = new Regex(@"^[A-Za-z_][A-Za-z0-9_]*(\.[A-Za-z_][A-Za-z0-9_]*)*$");
     private static readonly string[] RequiredDependencies = { "pyright", "pytest", "ruff" };
     private static readonly string[] TypeCheckingModes = { "off", "basic", "standard", "strict" };
@@ -72,6 +77,12 @@ public sealed class PythonConfig : Catzc.Base.Objects.DictionaryRecord
 
     // Its backend module, the [build-system] build-backend.
     public string build_module { get; } = DefaultBuildModule;
+
+    // The backend's editable mode, named for each package member on the workspace root, the one place uv reads a build's settings.
+    public string build_editable_mode { get; } = DefaultEditableMode;
+
+    // The package-data globs of every package member, relative to its folder.
+    public IReadOnlyList<string> build_package_data { get; } = DefaultPackageData;
 
     public PythonConfig(IDictionary raw)
     {
@@ -148,6 +159,30 @@ public sealed class PythonConfig : Catzc.Base.Objects.DictionaryRecord
                     else
                     {
                         errors.Add(string.Format(CultureInfo.InvariantCulture, "invalid build_backend.module '{0}' (a dotted Python module name)", module));
+                    }
+                    string editable = backend.Contains("editable_mode") ? Convert.ToString(backend["editable_mode"], CultureInfo.InvariantCulture) : DefaultEditableMode;
+                    if (Array.IndexOf(EditableModes, editable) >= 0) { build_editable_mode = editable; }
+                    else
+                    {
+                        errors.Add(string.Format(CultureInfo.InvariantCulture, "invalid build_backend.editable_mode '{0}' (one of {1})", editable, string.Join(", ", EditableModes)));
+                    }
+                    if (backend.Contains("package_data") && backend["package_data"] != null)
+                    {
+                        List<string> globs = new List<string>();
+                        if (backend["package_data"] is IEnumerable items && backend["package_data"] is not string)
+                        {
+                            foreach (object item in items)
+                            {
+                                string glob = Convert.ToString(item, CultureInfo.InvariantCulture);
+                                if (string.IsNullOrWhiteSpace(glob) || glob.Contains('"'))
+                                {
+                                    errors.Add(string.Format(CultureInfo.InvariantCulture, "invalid build_backend.package_data entry '{0}' (a glob relative to the package folder)", glob));
+                                }
+                                else { globs.Add(glob); }
+                            }
+                        }
+                        if (globs.Count == 0) { errors.Add("invalid build_backend.package_data (a list of globs relative to the package folder, e.g. [\"configs/**/*\"])"); }
+                        else { build_package_data = globs; }
                     }
                 }
             }

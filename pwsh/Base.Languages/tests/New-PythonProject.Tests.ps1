@@ -62,6 +62,9 @@ Describe 'New-PythonProject' -Tag 'L0', 'logic' {
                     '[tool.pyright]'
                     'pythonVersion = "3.13"'
                     'typeCheckingMode = "standard"'
+                    ''
+                    '[tool.uv.config-settings-package]'
+                    "catzc-widget-kit = { editable_mode = `"$([Catzc.Base.Languages.PythonConfig]::DefaultEditableMode)`" }"
                 ) -join "`n") + "`n")
     }
 
@@ -98,6 +101,9 @@ Describe 'New-PythonProject' -Tag 'L0', 'logic' {
                         ''
                         '[tool.setuptools.package-dir]'
                         '"catzc.widget_kit" = "."'
+                        ''
+                        '[tool.setuptools.package-data]'
+                        ('"catzc.widget_kit" = [' + (@([Catzc.Base.Languages.PythonConfig]::DefaultPackageData | ForEach-Object { '"' + $_ + '"' }) -join ', ') + ']')
                         ''
                         '[tool.uv]'
                         'package = true'

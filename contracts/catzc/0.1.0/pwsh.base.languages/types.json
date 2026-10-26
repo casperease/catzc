@@ -795,7 +795,15 @@
           "kind": "property"
         },
         {
+          "name": "build_editable_mode",
+          "kind": "property"
+        },
+        {
           "name": "build_module",
+          "kind": "property"
+        },
+        {
+          "name": "build_package_data",
           "kind": "property"
         },
         {

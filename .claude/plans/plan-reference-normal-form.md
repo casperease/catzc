@@ -7,7 +7,7 @@ plan:
   targets: [docs/references, pwsh/Base.CodeMeta, pwsh/Base.Docs]
 ---
 
-# Reference normal form: every reference page sits at a derived, four-part path, and no file links to its page
+# Reference normal form: every reference page sits at a path derived from its source, and no file links to its page
 
 A reference page's path is derived from its source file, so no code head carries a `docs:` link and no page carries a link back:
 `docs/references/<language>/<module>/<aspect>/<file>.md`, every part in the normal form, catzc inferred and never spelled. Example:
@@ -19,6 +19,10 @@ A reference page's path is derived from its source file, so no code head carries
 - Four parts below `docs/references`, catzc inferred as the root (part 0): 1. the language (the track folder), 2. the module (its folder in
   the normal form, no namespace), 3. the non-live aspect (`tests`, `private`, `types`, `configs`, `assets`, …; none for a module's public
   root files), 4. the file name in the normal form, its extensions dropped, folding into the module's namespace.
+- The aspect may be a path (2026-10-26): every folder between the module and the file, each in the normal form, so `tests/types/X.Tests.ps1`
+  has a five-part page.
+- Only the trailing language extension and the `.Tests` role are dropped; an inner part of the name (`Get-OutputRoot.OutputOnlyByAddress`)
+  is kept, normal-formed and joined with `-` (the orchestrator, 2026-10-26).
 - The path is a projection both ways: source to page and page to source, one resolver, so code heads drop their `docs:` key and pages drop
   their link back (catzc is a namespace, not a path; configure, don't program).
 - Two phases, as the module move: a user-run git mv script, then the repair with the repo's tools.
@@ -35,7 +39,7 @@ A reference page's path is derived from its source file, so no code head carries
 
 ## Open steps
 
-1. [ ] The resolver: `Get-CommentPage` (and its CommentPagesConfig rule) maps a source file to the four-part page and a page back to its
+1. [ ] The resolver: `Get-CommentPage` (and its CommentPagesConfig rule) maps a source file to its derived page and a page back to its
        file, through the track (`FolderNameOf`) and `ConvertTo-NormalName`; tests both ways and the collision case. Check: `Invoke-TestFile`
        on the Get-CommentPage and CommentPagesConfig tests.
 2. [ ] The gate: every reference page maps back to exactly one source file, and no two sources share a page. Check: its L1 real-tree test
@@ -48,5 +52,5 @@ A reference page's path is derived from its source file, so no code head carries
 4. [ ] The repair: every code head's `docs:` key and every page's link back removed (Format-FileMeta, Sync-FileMeta), the readers
        (Build-CommentView, Export-Comments, Test-Comments, Get-ReadmeMappings) resolving through step 1, and every inbound link to a
        reference page re-pointed from the csv. Check: `Test-Comments`, `Test-FileMeta`, `Test-Links` and `Test-GeneratedFiles` at 0.
-5. [ ] The rule text: the four-part path and the no-link rule in the comments ADR (`docs/drs/repository/comments-in-docs.md`) and the
+5. [ ] The rule text: the derived path (language, module, aspect path, file) and the no-link rule in the comments ADR (`docs/drs/repository/comments-in-docs.md`) and the
        file-meta head policy. Check: `Test-DrsRegistry` and `Test-Links` on both pages.

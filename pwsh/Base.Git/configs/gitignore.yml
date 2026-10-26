@@ -127,9 +127,11 @@ sections:
       The Python test workspace is generated (ADR-AUTO-PY): its pyproject.toml files are managed root-config copies, ignored through their
       rootconfig entries. The one environment and lock uv makes beside the workspace root in the Python root (python/ or .python/), and the
       linter's cache, are per-machine output, never committed. Invoke-PythonTest routes Python's bytecode cache to out/pycache, but any
-      other run (the editor's Python, a bare pytest) writes __pycache__ beside the sources, so it is ignored wherever it lands.
+      other run (the editor's Python, a bare pytest) writes __pycache__ beside the sources, so it is ignored wherever it lands. A package member installs for editing in strict mode, so the build backend links its package under
+      the member's build/ folder.
     patterns:
       - /*/.venv/
       - /*/uv.lock
       - .ruff_cache/
       - __pycache__/
+      - /*/*/build/

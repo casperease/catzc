@@ -147,17 +147,18 @@ final full run last.
     `Get-ContractTypeFindings.ps1` and its test, `Test-Contracts.ps1`); the writer, drift and manifest (`pwsh/.internal/assets/types/`,
     `Import-CSharpTypes.ps1`, `Get-CommittedTypesDrift.ps1`, their tests); the burst journal (`Invoke-StagedBurst.ps1` and its tests, the
     new `Save-BurstJournalWrite.ps1`, its test and `burst-journal.psd1`, `Catzc.Internal.Types.psm1`, `Write-FileIfChanged.ps1` and its
-    test); the registrations (`generated-files.yml`, `Base.TypesSystem/configs/generated.yml`); and the rule text (`api-contracts.md`,
-    `caching.md`, `native-csharp-types.md`, `csharp-types.md`). Before committing, check `git status` on `contracts/`: an earlier `git add`
-    staged the types.json while they were briefly deleted on disk. Separately, untrack the old hash-named manifest with
-    `out/untrack-compiled.ps1` (`git rm --cached -r pwsh/.compiled`; the folder is gitignored). Check: `git ls-files pwsh/.compiled` prints
-    nothing, `git status --short contracts` is clean, and `Test-BuildArtifact -Facet Types` reports no issues.
+    test, `Get-ModuleFullName.ps1` and its test, `.claude/skills/catzc-verify/SKILL.md`); the registrations (`generated-files.yml`,
+    `Base.TypesSystem/configs/generated.yml`); and the rule text (`api-contracts.md`, `caching.md`, `native-csharp-types.md`,
+    `csharp-types.md`). Before committing, check `git status` on `contracts/`: an earlier `git add` staged the types.json while they were
+    briefly deleted on disk. Separately, untrack the old hash-named manifest with `out/untrack-compiled.ps1`
+    (`git rm --cached -r pwsh/.compiled`; the folder is gitignored). Check: `git ls-files pwsh/.compiled` prints nothing,
+    `git status --short contracts` is clean, and `Test-BuildArtifact -Facet Types` reports no issues.
 
 28. Blocked: plan-reference-normal-form steps 1 and 2 are rebuilt first (their staging and this step's script were lost when out/ was
     cleared on 2026-10-26), then the orchestrator hands this step its script under out/. Once unblocked: plan-reference-normal-form step 3,
-    move every reference page to its four-part path. First refresh the map csv from the committed tree (ask the orchestrator for the
-    refresh), then run the script with `-WhatIf`, then without it; then tell the orchestrator, so steps 1, 2 and 4 swap in together. Check:
-    the `-WhatIf` lists each page once and no target exists, and after the run `git status --short docs/references` shows only renames.
+    move every reference page to its derived path. First refresh the map csv from the committed tree (ask the orchestrator for the refresh),
+    then run the script with `-WhatIf`, then without it; then tell the orchestrator, so steps 1, 2 and 4 swap in together. Check: the
+    `-WhatIf` lists each page once and no target exists, and after the run `git status --short docs/references` shows only renames.
 
 29. plan-python-namespace-package: commit the kit as the package `catzc.diagrams`: `python/diagrams/__init__.py` (new) and every kit module
     and test under `python/diagrams` (package-relative imports, `python -m catzc.diagrams.<tool>` usage lines); the build backend pinned at

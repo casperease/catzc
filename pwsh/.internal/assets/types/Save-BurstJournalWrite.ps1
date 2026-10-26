@@ -44,11 +44,12 @@ function Save-BurstJournalWrite {
         }
     }
     $existed = [System.IO.File]::Exists($full)
-    $backup = [System.IO.Path]::Combine($journal, $declared.WrittenFolder, "$($entries.Count).bak")
+    $backup = $null
     if ($existed) {
+        $backup = [System.IO.Path]::Combine($journal, $declared.WrittenFolder, "$($entries.Count).bak")
         [System.IO.Directory]::CreateDirectory([System.IO.Path]::GetDirectoryName($backup)) | Out-Null
         [System.IO.File]::Copy($full, $backup, $true)
     }
-    $entries.Add([pscustomobject]@{ path = $full; existed = $existed; backup = $(if ($existed) { $backup } else { $null }) })
+    $entries.Add([pscustomobject]@{ path = $full; existed = $existed; backup = $backup })
     [System.IO.File]::WriteAllText($log, (ConvertTo-Json -InputObject @($entries.ToArray()) -Depth 3))
 }

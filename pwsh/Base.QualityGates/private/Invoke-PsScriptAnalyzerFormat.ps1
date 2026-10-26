@@ -10,7 +10,7 @@ function Invoke-PsScriptAnalyzerFormat {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '',
         Justification = 'The shard worker''s analyzer import runs inside each background Start-Job process, never in this session')]
     [CmdletBinding()]
-    [OutputType([string[]])]
+    [OutputType([object[]])]
     param(
         [Parameter(Mandatory)]
         [AllowEmptyCollection()]
@@ -30,7 +30,14 @@ function Invoke-PsScriptAnalyzerFormat {
         $utf8NoBom = [System.Text.UTF8Encoding]::new($false)
         foreach ($path in $Files) {
             $original = [System.IO.File]::ReadAllText($path)
-            $text = Invoke-Formatter -ScriptDefinition $original -Settings $Settings
+            # A file the formatter throws on is named, never allowed to end the run nameless.
+            try {
+                $text = Invoke-Formatter -ScriptDefinition $original -Settings $Settings
+            }
+            catch {
+                [pscustomobject]@{ Path = $path; Problem = "PSScriptAnalyzer's formatter throws on it: $($_.Exception.Message)" }
+                continue
+            }
             $text = $text -replace "`r`n", "`n"         # end_of_line = lf
             $text = $text -replace '(?m)[ \t]+$', ''    # trim_trailing_whitespace = true
             $text = $text.TrimEnd("`n") + "`n"          # insert_final_newline = true
@@ -51,7 +58,7 @@ function Invoke-PsScriptAnalyzerFormat {
             Write-Message 'Loading PSScriptAnalyzer (first use this session)...'
             Import-Module (Join-Path (Get-CatzcModulesRoot) '.vendor/PSScriptAnalyzer') -Force
         }
-        return , [string[]] @(& $formatFiles $File $settingsPath ([bool] $DryRun))
+        return , [object[]] @(& $formatFiles $File $settingsPath ([bool] $DryRun))
     }
 
     $shards = @{}
@@ -81,13 +88,19 @@ function Invoke-PsScriptAnalyzerFormat {
     try {
         $null = $jobs | Wait-Job
         $changedSet = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
+        $problems = [System.Collections.Generic.List[object]]::new()
         foreach ($job in $jobs) {
             # A failed shard would silently drop its files' changes, so fail loudly.
             if ($job.State -ne 'Completed') {
                 throw "PSScriptAnalyzer format shard job $($job.Id) ended in state '$($job.State)': $(($job.ChildJobs.JobStateInfo.Reason.Message) -join '; ')"
             }
-            foreach ($path in @(Receive-Job -Job $job -ErrorAction Stop)) {
-                [void] $changedSet.Add([string] $path)
+            foreach ($item in @(Receive-Job -Job $job -ErrorAction Stop)) {
+                if ($item -is [string]) {
+                    [void] $changedSet.Add($item)
+                }
+                else {
+                    $problems.Add([pscustomobject]@{ Path = [string] $item.Path; Problem = [string] $item.Problem })
+                }
             }
         }
     }
@@ -95,5 +108,5 @@ function Invoke-PsScriptAnalyzerFormat {
         $jobs | Remove-Job -Force
     }
 
-    , [string[]] @($File | Where-Object { $changedSet.Contains($_) })
+    , [object[]] @(@($File | Where-Object { $changedSet.Contains($_) }) + $problems.ToArray())
 }
