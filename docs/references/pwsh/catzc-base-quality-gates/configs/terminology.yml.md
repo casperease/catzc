@@ -24,9 +24,9 @@ category. Each category is a mapping with a required `description` and an option
 `scope` is a list of repository-relative, `/`-separated globs that declare which language zone a category's terms belong to: the test zone,
 the live zone, the design zone ([ADR-REPO-LANG](../../../../drs/repository/domain-language-separation.md)). It is a declaration of intent,
 not a cspell rule. cspell tokenizes text, not meaning, and example and fixture vocabulary legitimately appears in comments, doc-example
-blocks and demo data across every file type, so a file-glob dictionary scope cannot tell fixture-as-illustration from
+blocks and demo data across every file type, so the file globs a dictionary is scoped by cannot tell fixture-as-illustration from
 fixture-as-leaked-production-data. All categories are effectively global to cspell, and the zone separation is enforced by
-[ADR-AUTO-TEST](../../../../drs/automation/test-automation.md) and code review. An empty scope list makes the category global.
+[ADR-AUTO-TEST](../../../../drs/automation/test-automation.md) and code review. A scope list with no entries makes the category global.
 
 The one scope matched today is the `reserved` category's, by Test-Terminology. It matches case-insensitively: the glob and the tracked path
 are both lowercased before the match, as the term itself is matched ignoring case.

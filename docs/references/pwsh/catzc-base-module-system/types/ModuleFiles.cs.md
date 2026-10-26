@@ -1,7 +1,8 @@
 # pwsh/Base.ModuleSystem/types/ModuleFiles.cs
 
-One module's entry in `files.yml` (`modules: <module>: { packages: { <package>: [paths] } }`): the named packages of repository-root-relative
-file artifacts the module owns beyond its own folder, which `Copy-CatzcModule` copies with it. Its properties mirror the YAML keys
+One module's entry in `files.yml` (`modules: <module>: { packages: { <package>: [paths] } }`): the named packages of
+repository-root-relative file artifacts the module owns beyond its own folder, which `Copy-CatzcModule` copies with it. Its properties
+mirror the YAML keys
 ([ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](../../../../drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
 
 ## Validation

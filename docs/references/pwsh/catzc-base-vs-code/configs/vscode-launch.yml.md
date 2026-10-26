@@ -1,6 +1,6 @@
 # pwsh/Base.VSCode/configs/vscode-launch.yml
 
-The VS Code launch-profile registry: the single authored source for `.vscode/launch.json`. Edit this file, never `launch.json`.
+The VS Code launch-profile registry: the one authored file that `.vscode/launch.json` is rendered from. Edit this file, never `launch.json`.
 
 ## Rendering and validation
 

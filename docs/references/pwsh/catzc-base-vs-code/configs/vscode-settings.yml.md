@@ -1,6 +1,6 @@
 # pwsh/Base.VSCode/configs/vscode-settings.yml
 
-The VS Code workspace-settings registry: the single authored source for `.vscode/settings.json`. Edit this file, never `settings.json`.
+The VS Code workspace-settings registry: the one authored file that `.vscode/settings.json` is rendered from. Edit this file, never `settings.json`.
 
 ## Rendering and validation
 
@@ -13,15 +13,15 @@ map of VS Code keys; the type checks the shape: only `settings`, non-empty; a `[
 to true or false.
 
 The `search.exclude` map is completed at render time. Every managed root-config target (`rootconfig.yml`, opted in) is added automatically,
-so find-all always hits the source of truth, never a generated copy, and the editor stays glued to the tooling with no second list to
+so find-all always hits the authored file, never a generated copy, and the editor stays glued to the tooling with no second list to
 maintain. Authored entries win over an injected key of the same name.
 
 ## Markdown
 
-Link validation runs while editing, as early feedback for what `Test-Links` gates
+Link validation runs while editing, as early feedback for what `Test-Links` enforces
 ([ADR-REPO-LINK-MARKDOWNRELATIVE](../../../../drs/repository/markdown-links.md#rule-adr-repo-link-markdownrelative)): dangling files and bad
 heading fragments are flagged as warnings in the Problems pane, and http(s) links are never checked. Reference-link validation is off: VS
-Code reads every footnote use (`[^1]`) as an undefined reference link, and markdownlint MD052 already gates real reference links.
+Code reads every footnote use (`[^1]`) as an undefined reference link, and markdownlint MD052 already checks real reference links.
 
 ## PowerShell formatting
 
@@ -81,7 +81,7 @@ far more than edited.
   editor resolves and runs the tests in it. A terminal is never activated into it: the integrated terminal stays the catzc pwsh session, and
   the tests run through `Test-Automation`, not an activated venv. Both activation keys are set: the Python extension reads the first, the
   Python Environments extension the second. Python writes its bytecode cache to `out/pycache` in every terminal of the editor, as
-  `Invoke-PythonTest` has it, never beside the sources.
+  `Invoke-PythonTest` has it, never beside the code files.
 - **Schemas**: no extension fetches a schema. The YAML extension never asks SchemaStore and JSON never downloads one; every schema the editor
   checks against is a local file named in the settings.
 - **Spell checking**: the single repository dictionary lives in `/cspell.yml`, auto-discovered by Code Spell Checker; the extension is
@@ -108,4 +108,4 @@ read `.editorconfig`.
 ## carried
 
 `carried` names the map settings another writer adds rows to: the map setting key, to the setting key that lists the rows that writer owns.
-The track lamps add `files.exclude` rows at workspace scope this way, and the render keeps both sets as they are.
+The track lamps add `files.exclude` rows to the workspace's settings this way, and the render keeps both sets as they are.

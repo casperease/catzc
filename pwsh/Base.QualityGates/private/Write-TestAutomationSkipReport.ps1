@@ -44,7 +44,7 @@ function Write-TestAutomationSkipReport {
         }
     }
 
-    # Grouped by tier and category, showing what a wider scope would add.
+    # Grouped by tier and category, showing what a wider -Level or -Category would add.
     if ($notRun.Count -gt 0) {
         $scopeParts = @("-MaxLevel $MaxLevel")
         if ($MinLevel -gt 0) {

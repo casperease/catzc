@@ -1,6 +1,6 @@
 # pwsh/Base.QualityGates/Test-IdiomaticNames.ps1
 
-The naming gate: every tracked file and the folders that hold it must be named in the idiom of the file's language, and so must the
+The quality gate for naming: every tracked file and the folders that hold it must be named in the idiom of the file's language, and so must the
 functions and types the files define.
 
 ## help

@@ -1,6 +1,6 @@
 # pwsh/Base.QualityGates/Test-Spelling.ps1
 
-The spelling gate: it runs cspell over the repository's known file types and writes a report to the output folder.
+The quality gate for spelling: it runs cspell over the repository's known file types and writes a report to the output folder.
 
 ## help
 

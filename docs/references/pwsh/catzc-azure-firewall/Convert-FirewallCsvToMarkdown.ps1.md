@@ -136,7 +136,7 @@ trims the candidates to the headers the CSV has, and a requested column the CSV 
 ## Preamble and times
 
 The document opens with a title and a provenance preamble. Every time is rendered in UTC, and the conversion time is taken now in UTC, so
-the same CSV gives the same page on a workstation in another time zone and on a build agent.
+the same CSV gives the same page on a workstation in another timezone and on a build agent.
 
 PowerShell binds a nullable date as a plain `[datetime]`, so the generated-time value is null-checked and cast. `HasValue` and `Value` do
 not exist on the unwrapped struct.

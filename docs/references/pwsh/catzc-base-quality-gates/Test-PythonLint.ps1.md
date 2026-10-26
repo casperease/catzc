@@ -1,6 +1,6 @@
 # pwsh/Base.QualityGates/Test-PythonLint.ps1
 
-The Python lint gate: it lints every Python file the repository holds with ruff.
+The quality gate that lints Python: it lints every Python file the repository holds with ruff.
 
 ## help
 

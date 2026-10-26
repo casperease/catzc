@@ -1,6 +1,6 @@
 # pwsh/Base.QualityGates/Test-Parsing.ps1
 
-The parse gate: it fails on any named PowerShell or YAML file that does not parse, before an import reads it.
+The quality gate for parsing: it fails on any named PowerShell or YAML file that does not parse, before an import reads it.
 
 ## help
 

@@ -34,7 +34,7 @@ $headers = Get-AdoAuthorizationHeader
 Invoke-RestMethod -Uri $url -Headers $headers
 ```
 
-## Credential sources
+## Where the credential comes from
 
 The sources run in a fixed order, the first that applies winning
 ([ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE](../../../drs/ado/dual-authentication.md#rule-adr-ado-auth-fixedcredentialprecedence)):

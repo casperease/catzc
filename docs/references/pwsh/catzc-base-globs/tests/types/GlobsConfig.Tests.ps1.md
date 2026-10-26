@@ -6,7 +6,7 @@ The tests of `GlobsConfig`, the guard of the `globs.yml` registry.
 
 ## What it proves
 
-The shape is strict, so unknown keys are rejected. Every entry is a valid `GlobSet` with a declared layer
+The shape is strict, so unknown keys are rejected. Every entry is a valid `GlobSet` with a layer set
 ([FDR-CD-GLOBS-EVERYSETHASLAYER](../../../../../drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-everysethaslayer)), and compose resolves
 acyclically to declared sets ([FDR-CD-GLOBS-COMPOSESETS](../../../../../drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-composesets)).
 

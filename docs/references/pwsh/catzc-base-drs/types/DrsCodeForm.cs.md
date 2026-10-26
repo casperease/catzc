@@ -14,7 +14,7 @@ TDR-<ADR>                   the whole ADR
 
 A code is a kind and a path of upper-case segments, and a prefix selects everything below it. There is no number, group or range. The kinds
 come from `drs.yml` (`DrsConfig.CodeForm`). `AnyKind` reads any kind of the shape `AnyKindShape`, for a config read without the registry,
-whose codes the registry gates check.
+whose codes the registry checks verify.
 
 ## Minimize
 

@@ -6,7 +6,7 @@ The tests of `Get-ModuleGlobSet`, the derived globsets
 ## What it proves
 
 A folder is a module is a set, with a readme-kebab name. Each internal `.psm1` module has one single-file set, the reserved infra scopes are
-derived, and the derived names share one name space with the declared registry. Derived sets never enter `GlobsConfig`, but they scope
+derived, and the derived names share one name space with the declared registry. Derived sets never enter `GlobsConfig`, but they bound
 protection and blast radius through the same `Matches()` machinery.
 
 ## Fixtures

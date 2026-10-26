@@ -24,7 +24,7 @@ quality gate `Test-DrsRegistry` and to shipped-asset integrity tests, which mirr
 ([ADR-AZ-CUSTOMER-REFERENCENOTVALIDATEDONLOAD](../../../../drs/azure/azure-customer-model.md#rule-adr-az-customer-referencenotvalidatedonload)).
 
 - `domains` is a non-empty map. Each domain has a role, a description, a `depends_on` list and a non-empty `rulesets` map.
-- Every `depends_on` target resolves to a declared domain, there is no self-edge, and the domain graph is acyclic.
+- Every `depends_on` target resolves to a domain the file declares, there is no self-edge, and the graph of domains is acyclic.
 - Every `external` is unique and matches the code grammar. When the external has a domain segment, the effective code (the rule set's
   override, else the domain's code) is that segment. A one-segment external such as `ADR-REPO-AI` has none to match.
 - Each domain declares its row of the value-chain stack (`stack`, one of `Stacks`,
@@ -37,9 +37,9 @@ quality gate `Test-DrsRegistry` and to shipped-asset integrity tests, which mirr
 ## Domain prefix
 
 The external starts with its domain's prefix: the kind and the effective code under a shared kind, the kind alone under a kind one domain
-owns. The external is either the domain-root citation `<kind>-<effective>` or a named `<kind>-<effective>-<NAME>`. A compound domain code,
-such as `FLOW-CD`, is matched by this prefix rule without splitting on a specific dash. A one-segment external has no dash after the prefix,
-carries no domain segment and skips the match.
+owns. The external is either the domain-root citation `<kind>-<effective>` or a named `<kind>-<effective>-<NAME>`. A compound code of a
+domain, such as `FLOW-CD`, is matched by this prefix rule without splitting on a specific dash. A one-segment external has no dash after the
+prefix, carries no domain segment and skips the match.
 
 ## Kinds
 

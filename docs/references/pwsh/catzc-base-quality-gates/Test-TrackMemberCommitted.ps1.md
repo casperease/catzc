@@ -1,6 +1,6 @@
 # pwsh/Base.QualityGates/Test-TrackMemberCommitted.ps1
 
-The track gate: every track member's committed fact must agree with the git index.
+The quality gate for tracks: every track member's committed fact must agree with the git index.
 
 ## help
 

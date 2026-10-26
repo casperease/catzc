@@ -51,7 +51,7 @@ needs it before any import.
 - `.editorconfig` is the first width-bearing tool config, its asset template with every width filled from `file-limits.yml`. It renders
   before `.vscode/settings.json`, whose generator reads it from disk, so a tree without it (a fresh clone, a test snapshot) renders both at
   once.
-- `jsconfig.json` is the project the editor and the js track's types gate read; its type root is the repository-relative folder
+- `jsconfig.json` is the project the editor and the js track's type check read; its type root is the repository-relative folder
   `Install-TypeScript` fills, so it is the same on every machine. `jsconfig.lenient.json` holds the modules `javascript.yml`'s strict list
   does not raise yet, checked leniently; it extends `jsconfig.json`, and holds no file once every module is raised.
 

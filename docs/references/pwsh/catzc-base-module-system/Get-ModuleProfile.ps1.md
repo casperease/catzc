@@ -1,7 +1,8 @@
 # pwsh/Base.ModuleSystem/Get-ModuleProfile.ps1
 
-Expands a named profile of `profiles.yml`, or an explicit seed list, to the full set of module names to copy: the declared-dependency closure of
-the seed plus the fixed infrastructure needed to load and test. `Copy-CatzcModule` and `Test-InIsolation` take their module set from it.
+Expands a named profile of `profiles.yml`, or an explicit seed list, to the full set of module names to copy: the declared-dependency
+closure of the seed plus the fixed infrastructure needed to load and test. `Copy-CatzcModule` and `Test-InIsolation` take their module set
+from it.
 
 ## help
 

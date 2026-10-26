@@ -1,6 +1,6 @@
 # pwsh/Base.QualityGates/Test-LinkDirections.ps1
 
-The direction gate: it fails on every relation that points a way the direction rows of `link-directions.yml` do not allow.
+The quality gate for link directions: it fails on every relation that points a way the direction rows of `link-directions.yml` do not allow.
 
 ## help
 

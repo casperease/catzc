@@ -1,6 +1,6 @@
 # pwsh/Azure.DevOps/private/Get-PipelineTemplateReference.ps1
 
-The private function that extracts the `template:` references from a pipeline YAML file, the paths the naming-and-placement gate checks for
+The private function that extracts the `template:` references from a pipeline YAML file, the paths the naming-and-placement check tests for
 absoluteness.
 
 ## help

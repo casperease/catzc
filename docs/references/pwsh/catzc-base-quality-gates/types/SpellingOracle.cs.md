@@ -5,7 +5,7 @@ The word oracle behind the spell-out-names analyzer rule (`Measure-SpellOutIdent
 fragments are neither a real English word nor approved repository vocabulary, that is, invented local abbreviations that must be spelled
 out.
 
-The rule decides which identifiers to feed and applies the AST-level exemptions (automatic variables, drive scopes). This type is
+The rule decides which identifiers to feed and applies the AST-level exemptions (automatic variables, variables of a drive). This type is
 deliberately dumb and fast: it only tokenizes and looks up.
 
 ## Dictionary

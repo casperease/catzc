@@ -1,6 +1,6 @@
 # pwsh/Base.QualityGates/Test-ParameterConsistency.ps1
 
-The parameter gate: one parameter name must mean one type across the public functions, except where `parameter-consistency.yml` exempts it.
+The quality gate for parameters: one parameter name must mean one type across the public functions, except where `parameter-consistency.yml` exempts it.
 
 ## help
 

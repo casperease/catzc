@@ -97,7 +97,7 @@ Build-Diagrams -Path docs/explanation/configuration/.assets/an-address-is-a-read
 ## Syncing after an edit
 
 `-FromDrawing` syncs the named diagrams after an edit: the kit's sync runs get when the drawing moved since HEAD, then put, and stops on a
-conflict before put; the drift gate then checks the diagrams. The renderer does not run.
+conflict before put; the drift check then runs over the diagrams. The renderer does not run.
 
 ## Finding the diagrams
 

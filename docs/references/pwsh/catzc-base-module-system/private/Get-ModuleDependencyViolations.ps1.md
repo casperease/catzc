@@ -46,5 +46,5 @@ member, is skipped by its callers whatever its empty `Allowed` set says.
 
 ## Type references
 
-The same allow-list applies to cross-module C# type references. One combined types assembly means the compiler permits them, so this check is
-what keeps them inside the declared graph (see `Get-CSharpTypeDependency`).
+The same allow-list applies to cross-module C# type references. One combined types assembly means the compiler permits them, so this check
+is what keeps them inside the declared graph (see `Get-CSharpTypeDependency`).

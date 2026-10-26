@@ -1,6 +1,6 @@
 # pwsh/Base.QualityGates/types/IdentityTokenRule.cs
 
-One live-identity declaration of an identity-tokens source: which values of one of the declaring module's own configs are live production
+One live-identity declaration of an identity-token source: which values of one of the declaring module's own configs are live production
 identities that a hermetic logic test must never name
 ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 `Get-LiveIdentityTokens` walks `path` in the named config and yields each token with this rule's kind, suggestion and match mode.

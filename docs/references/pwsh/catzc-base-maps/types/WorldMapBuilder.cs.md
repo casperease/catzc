@@ -42,5 +42,5 @@ A file a `citation_exclude` glob matches cites nothing at any step: it sits in i
 
 ## Why the registry types are named in full
 
-The registry types are named in full, so the module dependency gate sees each cross-module edge
+The registry types are named in full, so the module dependency check sees each cross-module edge
 ([ADR-BCL-TYPES-REFERENCESFOLLOWDEPENDENCIES](../../../../drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-referencesfollowdependencies)).

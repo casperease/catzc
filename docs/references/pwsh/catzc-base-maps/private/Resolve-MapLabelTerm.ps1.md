@@ -1,6 +1,6 @@
 # pwsh/Base.Maps/private/Resolve-MapLabelTerm.ps1
 
-The helper that finds the glossary term a printed map label names, so the map gates can reject a label that names none.
+The helper that finds the glossary term a printed map label names, so the map checks can reject a label that names none.
 
 ## help
 

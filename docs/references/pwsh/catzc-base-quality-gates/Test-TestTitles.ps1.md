@@ -1,6 +1,6 @@
 # pwsh/Base.QualityGates/Test-TestTitles.ps1
 
-The test title gate: no test title may carry an angle-bracket template token unless its block is data-driven.
+The quality gate for test titles: no test title may carry an angle-bracket template token unless its block is data-driven.
 
 ## help
 

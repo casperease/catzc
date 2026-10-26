@@ -1,7 +1,7 @@
 # pwsh/Base.Globs/private/Get-PipelineTrigger.ps1
 
 The private reader of the on-disk side of trigger drift: the trigger path filters a pipeline or workflow YAML actually declares, which the
-drift gates compare against `Get-GlobSetTrigger`'s projection.
+drift checks compare against `Get-GlobSetTrigger`'s projection.
 
 ## help
 

@@ -52,8 +52,9 @@ consumer reuses it. Re-running the importer resets the `$script:` state, which i
 ([ADR-AUTO-CACHE-IMPORTERINVALIDATES](../../../drs/automation/caching.md#rule-adr-auto-cache-importerinvalidates)). A fixture root passed by
 a test gets its own entry, so it cannot collide with the real tree
 ([ADR-AUTO-TEST-SAFESEAMSWAPS](../../../drs/automation/test-automation.md#rule-adr-auto-test-safeseamswaps)). Callers treat the result as
-read-only ([ADR-AUTO-CACHE-READONLYVALUES](../../../drs/automation/caching.md#rule-adr-auto-cache-readonlyvalues)). The cache entry is probed
-strict-clean ([ADR-PWSH-CACHE-STRICTSAFEPROBE](../../../drs/automation/pwsh/script-scope-caching.md#rule-adr-pwsh-cache-strictsafeprobe)).
+read-only ([ADR-AUTO-CACHE-READONLYVALUES](../../../drs/automation/caching.md#rule-adr-auto-cache-readonlyvalues)). The cache entry is
+probed strict-clean
+([ADR-PWSH-CACHE-STRICTSAFEPROBE](../../../drs/automation/pwsh/script-scope-caching.md#rule-adr-pwsh-cache-strictsafeprobe)).
 
 ## One parse per file
 

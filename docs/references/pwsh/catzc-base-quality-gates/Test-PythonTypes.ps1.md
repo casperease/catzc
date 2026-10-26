@@ -1,6 +1,6 @@
 # pwsh/Base.QualityGates/Test-PythonTypes.ps1
 
-The Python type gate: it checks every Python file the repository holds with pyright, the engine Pylance runs in the editor.
+The quality gate for Python types: it checks every Python file the repository holds with pyright, the engine Pylance runs in the editor.
 
 ## help
 

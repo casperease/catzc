@@ -1,7 +1,7 @@
 # pwsh/Base.ModuleSystem/Get-ModuleOrder.ps1
 
-The one function that sorts the declared module graph into foundation-first order, so a module comes after every module it may depend on. Every
-command that needs modules in dependency order calls it and never sorts again.
+The one function that sorts the declared module graph into foundation-first order, so a module comes after every module it may depend on.
+Every command that needs modules in dependency order calls it and never sorts again.
 
 ## help
 

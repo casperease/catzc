@@ -1,7 +1,7 @@
 # pwsh/Base.Drs/types/DrsDomainEdge.cs
 
 One edge of the ADR domain dependency graph from `drs.yml`: `From` depends on `To`, one per declared `depends_on` link. `DrsConfig` builds
-it from its already-validated domains and exposes it as `DrsConfig.Edges`.
+it from the domains it has already validated and exposes it as `DrsConfig.Edges`.
 
 ## Invariant
 

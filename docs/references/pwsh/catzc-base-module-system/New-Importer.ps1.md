@@ -69,5 +69,5 @@ this generator names no folder of its own and the shim spells the folder from th
 
 ## Line endings
 
-The output uses LF throughout and one trailing newline. The explanation, parameter block and body join, and the end-of-file newline, match the
-committed `importer.ps1` below its generated-file head byte for byte. The drift test compares them insensitive to line endings.
+The output uses LF throughout and one trailing newline. The explanation, parameter block and body join, and the end-of-file newline, match
+the committed `importer.ps1` below its generated-file head byte for byte. The drift test compares them insensitive to line endings.

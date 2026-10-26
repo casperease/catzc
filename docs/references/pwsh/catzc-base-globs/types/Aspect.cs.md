@@ -16,7 +16,7 @@ Compilation reuses the leaf scan program
 `GlobSet` with its include set to k's own patterns and its exclude set to every earlier aspect's patterns, all prefixed by the unit root. A
 leaf program is the includes as `+` then the excludes as `-`, last match wins, which is exactly first-match slicing: a file is in aspect k
 if it matches k's patterns and no earlier aspect's. Disjoint and exhaustive hold by construction, and `AspectPartition.Validate` re-checks
-against a real file universe for the integrity gate.
+against a real file universe for the integrity check.
 
 ## CompiledAspect
 

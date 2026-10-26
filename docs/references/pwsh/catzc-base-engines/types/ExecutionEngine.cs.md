@@ -25,8 +25,9 @@ through the engine's `tools.yml` entry, named by `ToolKey` (the existence check 
 
 ## Command prefix
 
-`CommandPrefix` is what goes before a catzc command in this engine: nothing in pwsh, where the commands are native, and `cats ` in bash and
-zsh, the dispatcher `importer.sh` defines, which runs the command through pwsh. A command's text is the same in every engine.
+`CommandPrefix` is what goes before a catzc command in this engine: nothing in pwsh, where the commands are native, and `cats` followed by a
+space in bash and zsh, the dispatcher `importer.sh` defines, which runs the command through pwsh. A command's text is the same in every
+engine.
 
 ## Quote
 

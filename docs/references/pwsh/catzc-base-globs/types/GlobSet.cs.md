@@ -5,8 +5,8 @@ authored include and exclude patterns, and the optional composition. See [FDR-CD
 
 ## Shape
 
-The constructor guards the shape: a kebab-case name, a required description, a declared layer, an include or compose present, and no
-duplicate patterns. The layer is `deployable-unit` or `loose-fileset`
+The constructor guards the shape: a kebab-case name, a required description, a layer set, an include or compose present, and no duplicate
+patterns. The layer is `deployable-unit` or `loose-fileset`
 ([FDR-CD-GLOBS-EVERYSETHASLAYER](../../../../drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-everysethaslayer)); the derived module layer
 never appears in the registry. `Verify` (the test blast-radius scope) and `Pipeline` (the trigger-role binding) are declarative meta
 annotations. A globset never composes itself and the compose graph is acyclic
@@ -17,10 +17,10 @@ the whole registry at construction.
 
 `DeclaredLayers` holds the layers that may be declared: `deployable-unit`, a configurable unit that ships, and `loose-fileset`, a
 cross-cutting check surface that carries a demonstrated use, such as a pipeline, and deliberately overlaps the boundaries it cuts across.
-Examples are a track's root concern like automation or infrastructure, a scan scope, and the reserved umbrellas. The third layer, `module`,
-is derived ([ADR-REPO-PROTGLOB](../../../../drs/repository/protected-globs.md)): the per-folder module partition plus the `module-leftovers`
-catch-all. It is a valid `GlobSet` layer, since `Get-ModuleGlobSet` constructs them, but `GlobsConfig` rejects it in the declared registry.
-Within every layer but `loose-fileset` the sets are pairwise disjoint on own membership
+Examples are a track's root concern like automation or infrastructure, a scan scope, and the reserved umbrellas. The third kind of layer,
+`module`, is derived ([ADR-REPO-PROTGLOB](../../../../drs/repository/protected-globs.md)): the per-folder module partition plus the
+`module-leftovers` catch-all. `GlobSet` accepts it as a layer, since `Get-ModuleGlobSet` constructs them, but `GlobsConfig` rejects it in
+the declared registry. Within every layer but `loose-fileset` the sets are pairwise disjoint on own membership
 ([FDR-CD-GLOBS-NOOVERLAPWITHINLAYER](../../../../drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-nooverlapwithinlayer)).
 
 ## The scan program
@@ -51,8 +51,8 @@ over exactly what the program selects.
 - **`OwnMatches`** is own membership
   ([FDR-CD-GLOBS-NOOVERLAPWITHINLAYER](../../../../drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-nooverlapwithinlayer)): the set's own
   program only, its includes as `+` then its excludes as `-`, with compose ignored. That is the slice the set maps independent of any base
-  it composes: a file belongs when the set selects it without help from a base. The per-layer independence gate is defined on this, never on
-  effective (`Matches`) membership, because compose means depends on a base, a deliberate cross-layer overlap and not a peer overlap.
+  it composes: a file belongs when the set selects it without help from a base. The independence check per layer is defined on this, never
+  on effective (`Matches`) membership, because compose means depends on a base, a deliberate cross-layer overlap and not a peer overlap.
 - **`SelectMembers`** returns the members of a tracked-file universe (`git ls-files`, fetched once by the caller and passed in) that the set
   selects, in ordinal order: one call per set instead of one `Matches` call per path from PowerShell. The universe is never cached here,
   since staging changes it.

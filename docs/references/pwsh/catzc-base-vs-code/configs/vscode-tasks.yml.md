@@ -1,6 +1,6 @@
 # pwsh/Base.VSCode/configs/vscode-tasks.yml
 
-The VS Code task registry: the single authored source for `.vscode/tasks.json`, rendered by `New-VsCodeTasks`.
+The VS Code task registry: the one authored file that `.vscode/tasks.json` is rendered from, rendered by `New-VsCodeTasks`.
 
 ## The git topic flow
 

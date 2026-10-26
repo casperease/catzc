@@ -1,6 +1,6 @@
 # pwsh/Base.QualityGates/Test-MarkdownTitle.ps1
 
-The title gate: it fails on any in-scope Markdown file whose H1 is not a title or whose headings are not in normal form.
+The quality gate for titles: it fails on any in-scope Markdown file whose H1 is not a title or whose headings are not in normal form.
 Format-MarkdownTitle is its fixing half.
 
 ## help

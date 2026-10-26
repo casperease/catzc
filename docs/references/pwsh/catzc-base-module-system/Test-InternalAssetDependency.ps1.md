@@ -1,7 +1,7 @@
 # pwsh/Base.ModuleSystem/Test-InternalAssetDependency.ps1
 
-A quality gate that enforces the coverage rule for internal asset dependencies: every call site must be inventoriable, and every function that
-reads an internal asset must have a test that runs in both run modes.
+A quality gate that enforces the coverage rule for internal asset dependencies: every call site must be one the inventory can list, and every function
+that reads an internal asset must have a test that runs in both run modes.
 
 ## help
 

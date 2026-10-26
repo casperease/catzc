@@ -1,6 +1,6 @@
 # pwsh/Base.QualityGates/Test-SourceConventions.ps1
 
-The source gate: every source and test file under `pwsh/` must follow the naming and one-function conventions.
+The quality gate for source conventions: every source and test file under `pwsh/` must follow the naming and one-function conventions.
 
 ## help
 

@@ -1,6 +1,6 @@
 # pwsh/Base.QualityGates/Test-ScriptAnalyzer.ps1
 
-The analyzer gate: it runs PSScriptAnalyzer over the automation PowerShell and writes a report to the output folder.
+The quality gate for the analyzer: it runs PSScriptAnalyzer over the automation PowerShell and writes a report to the output folder.
 
 ## help
 

@@ -46,7 +46,7 @@ Test-GlobSetIndependence
 (Test-GlobSetIndependence -PassThru).Issues
 ```
 
-## Exempt layer
+## The exempt globset layer
 
 Loose filesets are cross-cutting and overlap-exempt
 ([FDR-CD-GLOBS-EVERYSETHASLAYER](../../../drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-everysethaslayer)/10). Every other layer is

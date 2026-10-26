@@ -1,6 +1,6 @@
 # pwsh/Base.Globs/private/Test-GlobListEqual.ps1
 
-The private comparison of two glob-pattern lists, ordered for GitHub and as a set for Azure DevOps, used by the trigger-drift gates.
+The private comparison of two glob-pattern lists, ordered for GitHub and as a set for Azure DevOps, used by the trigger-drift checks.
 
 ## help
 

@@ -8,7 +8,7 @@ its properties are PascalCase ([ADR-BCL-TYPES](../../../../drs/automation/BCL/na
 
 - `Slug` — the internal kebab name.
 - `External` — the full citation code, for example `ADR-<DC>-<NAME>`.
-- `Code` — the effective domain code: a leaf override, else the domain default `DomainCode`.
+- `Code` — the effective code of the domain: a leaf override, else the default of the domain, `DomainCode`.
 - `Domain` and its `Role` — the folder-owning domain.
 - `Terminology` — the optional terminology token.
 - `Stack` — the domain's row of the value-chain stack.

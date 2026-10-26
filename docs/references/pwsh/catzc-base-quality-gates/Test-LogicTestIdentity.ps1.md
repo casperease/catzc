@@ -1,6 +1,6 @@
 # pwsh/Base.QualityGates/Test-LogicTestIdentity.ps1
 
-The neutral-fixture gate: it checks that no logic test names a live production identity, such as a real customer, subscription, org,
+The quality gate for neutral fixtures: it checks that no logic test names a live production identity, such as a real customer, subscription, org,
 template or ADO project, as a code string.
 
 ## help

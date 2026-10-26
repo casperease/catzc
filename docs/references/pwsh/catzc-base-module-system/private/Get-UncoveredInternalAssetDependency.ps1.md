@@ -1,6 +1,6 @@
 # pwsh/Base.ModuleSystem/private/Get-UncoveredInternalAssetDependency.ps1
 
-The engine of the internal-asset coverage gate: it takes the inventory of `Get-InternalAssetDependency` and lists the functions that no
+The engine of the internal-asset coverage check: it takes the inventory of `Get-InternalAssetDependency` and lists the functions that no
 qualifying test covers. `Test-InternalAssetDependency` reports its result.
 
 ## help

@@ -46,7 +46,7 @@ command whose default is the whole repository.
 ## Comment pages
 
 The comments step writes a file and its comment page, so the page is a companion of the file and not a second subject of the step. The paths
-stay absolute, because the link scope resolves a relative `-Path` against the current location, which is not the root.
+stay absolute, because the link check resolves a relative `-Path` against the current location, which is not the root.
 
 The help step reads the `## help` section of the file's comment page. It only reports what a person must settle and changes no file.
 

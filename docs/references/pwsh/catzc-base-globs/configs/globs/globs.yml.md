@@ -15,7 +15,7 @@ Every set declares its layer
   overlaps the boundaries it cuts across.
 
 The `module` layer is derived from the folders and the internal `.psm1` files, never declared, and carries its own `module-leftovers`
-catch-all. Derived sets scope protection and blast radius
+catch-all. Derived sets bound protection and blast radius
 ([ADR-REPO-PROTGLOB-DERIVEDMODULEGLOBSETS](../../../../../drs/repository/protected-globs.md#rule-adr-repo-protglob-derivedmoduleglobsets)).
 
 ## Independence and composition

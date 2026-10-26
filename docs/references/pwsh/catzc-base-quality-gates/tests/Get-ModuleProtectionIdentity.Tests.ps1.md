@@ -2,7 +2,7 @@
 
 The L0 logic test of `Get-ModuleProtectionIdentity`, the composite protection identity of a module
 ([ADR-REPO-PROTGLOB-COMPOSITEIDENTITY](../../../../drs/repository/protected-globs.md#rule-adr-repo-protglob-compositeidentity)): the
-module's own set, plus its declared dependency closure, plus the infrastructure scopes and the runner. The identity widens to the
+module's own set, plus its declared dependency closure, plus the scopes of the infrastructure and the runner. The identity widens to the
 repository-wide set for integrity tests, unconstrained modules and the infrastructure test units, and it is memoized per run.
 
 ## Fixture

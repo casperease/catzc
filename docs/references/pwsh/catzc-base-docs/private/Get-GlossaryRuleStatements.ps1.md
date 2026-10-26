@@ -1,7 +1,7 @@
 # pwsh/Base.Docs/private/Get-GlossaryRuleStatements.ps1
 
-The shared text source of checks G2 and G3: it maps every indexed rule id to its normative summary, with inline code spans removed, so a
-mention in backticks never counts as a definition.
+The shared reader of the rule text for checks G2 and G3: it maps every indexed rule id to its normative summary, with inline code spans
+removed, so a mention in backticks never counts as a definition.
 
 ## help
 

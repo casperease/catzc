@@ -68,7 +68,7 @@ which drops the namespace, in that language's folder case.
 ## Internal shared modules
 
 Each internal shared module gets one single-file set per `pwsh/.internal/<Name>.psm1`: the file is the registration, exactly as the folder
-is for a module. The whole-folder `internal` scope remains the protection dependency, and these sets carry the per-module identity.
+is for a module. The `internal` set over the whole folder remains the protection dependency, and these sets carry the per-module identity.
 
 ## Reserved umbrellas
 
@@ -78,7 +78,7 @@ set, and `vendor`, `compiled` and `scriptanalyzer` cover whole dot-folders. They
 whose sets are the pairwise-disjoint per-folder modules
 ([FDR-CD-GLOBS-NOOVERLAPWITHINLAYER](../../../drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-nooverlapwithinlayer)).
 
-The reserved code scopes are units too
+The reserved sets of the code track are units too
 ([DDR-ASPECT-ASPECTISAGLOBSET](../../../drs/design/module-aspects.md#rule-ddr-aspect-aspectisaglobset)): their root `.psm1` files are the
 code they run, live beside the code convention, and the rest falls to tests. A single-file module keeps its own set, so the scope's sets
 leave its file out.

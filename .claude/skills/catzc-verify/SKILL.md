@@ -36,12 +36,13 @@ metadata:
    changes the types hash; a new test file or a new or changed comment page puts its code file in that `-Path` to re-imprint it, since the
    head's `test:`, `docs:` and `cites:` derive from them; it formats only its `-Path`, so a file an imprint or generator writes besides goes
    in that `-Path` too; a body diff after it may be a comment moved to its page, so check the page first) then
-   `Test-Links -Path <md> -PassThru` (links in docs prose are relative; Test-Links rejects repository-rooted ones), `Test-Glossary -PassThru` (issues naming an owned file), and after a generated file's source changed
-   its generator (`Build-Readme`, `Build-Glossary`, `Build-DrsIndex`) then `Test-GeneratedFiles -PassThru`; a new L1 `integrity` block needs
-   its check in a manual-test-plan category page (an ask, since those pages are shared), and a new file gets its head from `Format-FileMeta`
-   before its gates; never the full `Test-Automation`, and in a burst no tier above L1 (L0 78 s, L1 33 s, L2 past the roof); a new command's
-   task closes only on one live run of it, its output reported verbatim, never on green tests alone; a command's help is proved by a read of
-   its page under `docs/references/`, never by `Get-Help`; a test red before the edit has its name grepped in `.claude/plans` first, since a
+   `Test-Links -Path <md> -PassThru` (links in docs prose are relative; Test-Links rejects repository-rooted ones),
+   `Test-Glossary -PassThru` (issues naming an owned file), and after a generated file's source changed its generator (`Build-Readme`,
+   `Build-Glossary`, `Build-DrsIndex`) then `Test-GeneratedFiles -PassThru`; a new L1 `integrity` block needs its check in a
+   manual-test-plan category page (an ask, since those pages are shared), and a new file gets its head from `Format-FileMeta` before its
+   gates; never the full `Test-Automation`, and in a burst no tier above L1 (L0 78 s, L1 33 s, L2 past the roof); a new command's task
+   closes only on one live run of it, its output reported verbatim, never on green tests alone; a command's help is proved by a read of its
+   page under `docs/references/`, never by `Get-Help`; a test red before the edit has its name grepped in `.claude/plans` first, since a
    plan may already hold its cause.
 3. Shared files are the coordinator's unless the brief names them owned: `dependencies.yml`, `configs.yml`, `rootconfig.yml`,
    `gitignore.yml`, `globs.yml`, `terminology.yml`, `guids.yml`, every `glossary.yml`, `docs/drs/glossary.md`, `docs/drs/index.md`,

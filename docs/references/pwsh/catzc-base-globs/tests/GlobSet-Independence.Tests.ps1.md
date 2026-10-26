@@ -6,10 +6,10 @@ repository.
 
 ## What it proves
 
-Within every non-loose layer, no two globsets, declared or derived, select a common file on their own contribution. The loose-fileset layer
-is exempt: its sets are cross-cutting check surfaces (a track's root concern, a scan scope, the reserved umbrellas) and overlap by design. A
-module or deployable unit that starts containing part of a peer, such as a mis-scoped include or an umbrella declared as a module, fails
-here, locally and in CI.
+Within every layer except the exempt one, no two globsets, declared or derived, select a common file on their own contribution. The
+loose-fileset layer is exempt: its sets are cross-cutting check surfaces (a track's root concern, a scan scope, the reserved umbrellas) and
+overlap by design. A module or deployable unit that starts containing part of a peer, such as a mis-scoped include or an umbrella declared
+as a module, fails here, locally and in CI.
 
 ## Tier
 

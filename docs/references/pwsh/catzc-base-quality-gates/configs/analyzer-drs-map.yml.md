@@ -7,7 +7,7 @@ Test-Automation rule-coverage report (Get-AnalyzerDrsCoverage).
 
 Under `analyzers:`, each key is an enabled rule and its value is the list of rule codes it enforces. Both kinds of rule appear: the custom
 `Measure-*` rules in `pwsh/.scriptanalyzer/*.psm1` and the enabled built-ins. A rule listed here is credited as mechanically enforced on
-every run, because the L2 PSScriptAnalyzer gate runs inside Test-Automation. A rule that maps to no ADR is simply absent.
+every run, because the L2 quality gate for PSScriptAnalyzer runs inside Test-Automation. A rule that maps to no ADR is simply absent.
 
 ## Rules for the map
 

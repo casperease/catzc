@@ -89,7 +89,8 @@ Copy-CatzcModule -Destination ./vendor/catzc -ExcludePackages gitignore -DryRun
 ## Sources
 
 The copy list is repository-root-relative: each selected module's folder plus its packages' paths, minus the excluded packages. A module's
-folder is the root the resolver gives it. An infrastructure folder (`.internal`, `.compiled`, `.vendor`) sits in the code track's first place.
+folder is the root the resolver gives it. An infrastructure folder (`.internal`, `.compiled`, `.vendor`) sits in the code track's first
+place.
 
 ## Bounded walks
 

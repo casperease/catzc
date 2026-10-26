@@ -1,6 +1,6 @@
 # pwsh/Base.VSCode/types/VscodeSettingsConfig.cs
 
-The typed record of the VS Code workspace-settings registry, `configs/vscode-settings.yml`: the single authored source that
+The typed record of the VS Code workspace-settings registry, `configs/vscode-settings.yml`: the one authored file that
 `New-VsCodeSettings` renders to the managed `.vscode/settings.json`
 ([ADR-REPO-ROOTCFG](../../../../drs/repository/generated-root-configs.md)). It is registered in `Catzc.Base.Config/configs/configs.yml`
 (`type: Catzc.Base.VSCode.VscodeSettingsConfig`), so `Get-Config -Config vscode-settings` returns this typed model. Its properties mirror the

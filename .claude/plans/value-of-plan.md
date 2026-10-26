@@ -31,6 +31,7 @@ stale or superseded item is recorded as such, with the reason.
 | medium  | plan-claude-diet             | Every session stops reading about 3500 bytes that agents.yml, each description and the DRS index already hold.            | none (the agents registry holds the text)           | Test-AgentDefinitions, Test-Links on CLAUDE.md                                      | the user's CLAUDE.md edit, then four capability lines |
 | medium  | plan-language-lamps          | A languages button picks language lamps into the title row, each a full lamp, from the languages config.                  | DDR-FILTER-TOTALUNION names language lamps          | node tests of the engine, catzc-track-lamps.Tests.ps1, New-VSCodeSettings.Tests.ps1 | planned                                               |
 | medium  | plan-vscode-extensions       | The recommendations shrink to vendor languages and known linters; cats tooling replaces the rest, icons included.         | none                                                | the VSCode module's tests, Test-Plans                                               | icons, offline schemas done; small extensions open    |
+| high | plan-drs-code-simplify | Every decision record code is short, unique and names its source; external guidance moves to the EDR kind. | ADR-REPO-DRSCODE rewritten for the budget, unique names and EDR | Test-DrsRegistry, Test-Links, Test-Spelling | new |
 
 ## Feature plans (a capability of cats), here with class: feature in the head
 

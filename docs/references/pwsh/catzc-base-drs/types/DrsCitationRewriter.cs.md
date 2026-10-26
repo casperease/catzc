@@ -39,7 +39,7 @@ paths are repository-relative and `/`-separated, so the result depends only on t
 
 The code grammar is built over the registered record kinds, the markers of a code
 ([ADR-REPO-DRSCODE-PATHOFSEGMENTS](../../../../drs/repository/drs-code-language.md#rule-adr-repo-drscode-pathofsegments)). A new code may be
-a bare kind: a framing domain's code becomes its kind
+a bare kind: the code of a domain that only frames becomes its kind
 ([ADR-REPO-DRSCODE-DOMAINSEGMENT](../../../../drs/repository/drs-code-language.md#rule-adr-repo-drscode-domainsegment)).
 
 ## Path references

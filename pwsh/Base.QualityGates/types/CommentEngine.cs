@@ -259,7 +259,8 @@ public static class CommentEngine
     public static string FreshPage(string repoRelativePath, int width) =>
         "# " + repoRelativePath + "\n\n"
         + Wrap("The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its"
-            + " comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.", width);
+            + " comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading. Prose written above the"
+            + " first section survives every later export.", width);
 
     // Prose filled greedily to the width, as prettier's proseWrap fills it; a word longer than the width stands on its own line.
     static string Wrap(string prose, int width)

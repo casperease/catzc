@@ -1,6 +1,6 @@
 # pwsh/Base.QualityGates/Test-ShellScripts.ps1
 
-The shell script gate: every shell script the repository holds must have LF line endings and the executable bit where it needs one, and it
+The quality gate for shell scripts: every shell script the repository holds must have LF line endings and the executable bit where it needs one, and it
 must pass ShellCheck, or zsh's own syntax check for a zsh script.
 
 ## help

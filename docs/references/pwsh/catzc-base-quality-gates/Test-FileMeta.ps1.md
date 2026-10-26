@@ -1,6 +1,6 @@
 # pwsh/Base.QualityGates/Test-FileMeta.ps1
 
-The file meta gate: it fails on any in-scope file whose meta block differs from what Format-FileMeta would write.
+The quality gate for file meta: it fails on any in-scope file whose meta block differs from what Format-FileMeta would write.
 
 ## help
 

@@ -85,7 +85,7 @@ function Invoke-ImprintStep {
             if ($File.Count -eq 0) {
                 return $outcome
             }
-            # The comment page is the file's companion; paths stay absolute, as the link scope resolves relative ones elsewhere.
+            # The comment page is the file's companion; paths stay absolute, as Get-LinkScope resolves relative ones elsewhere.
             $moved = @(Export-Comments -Path $File -RepositoryRoot $root -DryRun:$DryRun)
             $outcome.Changed = [string[]] @($moved | ForEach-Object { & $absolute $_ })
         }

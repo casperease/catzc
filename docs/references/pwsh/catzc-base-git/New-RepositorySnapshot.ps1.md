@@ -80,7 +80,7 @@ New-RepositorySnapshot -SourceRoot C:\projects\other -Destination C:\tmp\other-s
 The provenance marker is written first, so the cleanup (and any later `Remove-RepositorySnapshot`) recognises even a half-built snapshot as
 one it may delete. A cleanup that fails (a file another process holds) is announced, never thrown in place of the failure that caused it.
 
-## The verification gate
+## The status check
 
 The snapshot's status must equal the source's. `--no-optional-locks` keeps the source's index untouched (a plain status may rewrite it,
 racing other git commands on the source). The counts are relative to HEAD: `1`, `2` and `u` lines are changed entries (deleted when either

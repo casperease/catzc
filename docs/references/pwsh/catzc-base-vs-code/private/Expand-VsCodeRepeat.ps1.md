@@ -1,6 +1,6 @@
 # pwsh/Base.VSCode/private/Expand-VsCodeRepeat.ps1
 
-The private expander that writes each extension command and menu entry naming a repeat once per item of the repeat's source.
+The private expander that writes each extension command and menu entry naming a repeat once per item of the repeat's list.
 
 ## help
 
@@ -24,7 +24,7 @@ The extension's contributes block as the config declares it.
 
 `[System.Collections.Specialized.OrderedDictionary]` The contributes block with every repeating entry written out.
 
-## The sources
+## The item lists
 
-Each source is the declared leading items, the items of a config's list, then the declared trailing items, each as `{ value, title,
+Each repeat's list is the declared leading items, the items of a config's list, then the declared trailing items, each as `{ value, title,
 position }`.

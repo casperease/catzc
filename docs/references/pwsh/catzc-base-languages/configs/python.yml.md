@@ -1,6 +1,6 @@
 # pwsh/Base.Languages/configs/python.yml
 
-The Python test workspace: the one declared source that `New-PythonProject` renders the uv workspace from, the root `<root>/pyproject.toml`
+The Python test workspace: the one declaration that `New-PythonProject` renders the uv workspace from, the root `<root>/pyproject.toml`
 and one member `<root>/tests/<folder>/pyproject.toml` per Python test folder. Python code in this repository is test artifacts only:
 black-box tests under `<root>/tests/<module-in-kebab>/`, and nothing Python-specific is committed but the `test_*.py` files. The workspace
 is generated and virtual (it builds no package); its one environment (`<root>/.venv`) and one lock (`<root>/uv.lock`) are made by uv in the

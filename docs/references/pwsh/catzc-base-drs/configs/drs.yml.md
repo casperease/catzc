@@ -8,11 +8,11 @@ projection of this file (`Build-DrsIndex`), see [ADR-REPO-README](../../../../dr
 
 `domains` has one entry per `docs/drs/<area>/` folder, the unit the dependency graph connects. Each carries:
 
-- `code` — the 2 to 4 letter default domain code that composes the citation `ADR-<code>-<NAME>`;
+- `code` — the 2 to 4 letter default code of the domain that composes the citation `ADR-<code>-<NAME>`;
 - `role` — its function in the system;
 - `description` — the reader-facing paragraph rendered under the domain's heading in `index.md`;
-- `depends_on` — the acyclic domain DAG, rendered through `Get-DrsDomainEdges | ConvertTo-DrsDomainDiagram`, mirroring the module dependency
-  graph;
+- `depends_on` — the acyclic DAG of domains, rendered through `Get-DrsDomainEdges | ConvertTo-DrsDomainDiagram`, mirroring the module
+  dependency graph;
 - `stack` — its row of the value-chain stack: PRIN, DSGN, AUTO, PIPE or CLOUD
   ([DDR-TRACK-VALUECHAINSTACK](../../../../drs/design/tracks.md#rule-ddr-track-valuechainstack));
 - `concern` — its default value-chain concerns, a list of automation, build, quality-control, release, deploy and access
@@ -31,8 +31,8 @@ Within a domain, `rulesets` is keyed by the internal kebab name, which is the AD
 
 ## Vendor recommendations
 
-The Azure vendor domains hold one rule set per vendor item: the Well-Architected Framework pillars (`azure/waf/`) and the Cloud Adoption
-Framework landing-zone design areas (`azure/caf/`), each citing Microsoft's page and summarising it in the repository's own words.
+The Azure domains hold one rule set per vendor item: the Well-Architected Framework pillars (`azure/waf/`) and the Cloud Adoption Framework
+landing-zone design areas (`azure/caf/`), each citing Microsoft's page and summarising it in the repository's own words.
 
 ## Kinds
 

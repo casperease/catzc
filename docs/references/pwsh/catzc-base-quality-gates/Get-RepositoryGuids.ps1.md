@@ -1,6 +1,6 @@
 # pwsh/Base.QualityGates/Get-RepositoryGuids.ps1
 
-The scanner behind the managed-GUID gate: it reads the tracked text files and returns one record per GUID literal it finds.
+The scanner behind the quality gate for managed GUIDs: it reads the tracked text files and returns one record per GUID literal it finds.
 
 ## help
 

@@ -40,10 +40,10 @@ The folder that holds the extension scripts. Default: the module's assets/extens
 New-VsCodeExtensionFolder -Extension $entry -OutputDirectory (Join-Path (Get-OutputRoot) 'vscode-extensions')
 ```
 
-## The extension source
+## The extension folder
 
 Each extension is a module of the js track: `<folder>/extension.js`, with its own files in `<folder>/assets/`, shipped as `media/`. The
-source folder is the extension's name without the js track's namespace, so the name resolves to it
+folder is the extension's name without the js track's namespace, so the name resolves to it
 ([DDR-TRACK-MODULENAMESPACE](../../../../drs/design/tracks.md#rule-ddr-track-modulenamespace)); the installed folder keeps the name, the
 extension's id.
 
@@ -54,5 +54,5 @@ lamp palette: the stroke takes the range's glyph shade, the condition adds its b
 
 - A base glyph whose top-right corner is drawn on declares `data-badge="bottom"`; its badge then sits bottom-right.
 - A base glyph that declares `data-empty="hidden"` is drawn fully transparent while its lamp claims nothing, keeping its place in the row.
-- A repeat source that names glyphs draws one label glyph per item, `<glyphs><key>-on/off.svg` with the item's title as its label, so the
+- A repeat that names glyphs draws one label glyph per item, `<glyphs><key>-on/off.svg` with the item's title as its label, so the
   lamps it repeats need no hand-drawn icon; the pass that recolours the base glyphs per condition recolours them too.

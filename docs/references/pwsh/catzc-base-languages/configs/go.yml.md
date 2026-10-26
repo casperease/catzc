@@ -1,6 +1,6 @@
 # pwsh/Base.Languages/configs/go.yml
 
-The Go workspace: the one declared source that `New-GoWorkspace` renders the repository-root `go.work` and every `go.mod` from, one per test
+The Go workspace: the one declaration that `New-GoWorkspace` renders the repository-root `go.work` and every `go.mod` from, one per test
 module under `<root>/tests/<module-in-kebab>/` and one per module folder of the go track. Nothing Go-specific is committed but the Go files
 themselves.
 

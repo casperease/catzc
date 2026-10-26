@@ -71,7 +71,7 @@ function New-VsCodeExtensionFolder {
         $null = New-VsCodeFileIconTheme -MediaDirectory $rendered -GlyphDirectory @((Join-Path $AssetDirectory "$sourceFolder/assets"),
             (Join-Path $AssetDirectory "$((Get-Track -Name js).FolderNameOf('catzc-track-lamps'))/assets"))
     }
-    # A repeat source naming glyphs draws one label glyph per item, so its lamps need no hand-drawn icon.
+    # A repeat that names glyphs draws one label glyph per item, so its lamps need no hand-drawn icon.
     $repeats = if ($Extension.contributes.Contains('repeat')) {
         $Extension.contributes['repeat']
     }

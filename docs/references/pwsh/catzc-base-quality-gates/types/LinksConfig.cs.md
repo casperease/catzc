@@ -21,4 +21,4 @@ An unknown key throws.
 - **`string_citations`** — the check that a rule citation in a code string literal is spelled `ADR-<CODE>#<n>`, never with a `:` outside a
   `### Rule` heading
   ([ADR-REPO-LINK-ONECITATIONSPELLING](../../../../drs/repository/markdown-links.md#rule-adr-repo-link-onecitationspelling)). It is a
-  `SourceCheck`: its mode and exempt globs, default gate with nothing exempt.
+  `SourceCheck`: its mode and exempt globs, by default it fails with nothing exempt.

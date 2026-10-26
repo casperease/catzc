@@ -1,7 +1,7 @@
 # pwsh/Base.Globs/Get-GlobSetTrigger.ps1
 
 The projection of a globset's scan program into vendor-native pipeline path filters, in the GitHub and the Azure DevOps dialect. The drift
-gates `Test-AdoPipelineTriggerGlob` and `Test-GitHubWorkflowTriggerGlob` compare the pipeline files against its output.
+checks `Test-AdoPipelineTriggerGlob` and `Test-GitHubWorkflowTriggerGlob` compare the pipeline files against its output.
 
 ## help
 

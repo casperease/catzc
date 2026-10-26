@@ -39,7 +39,7 @@ Install-NodeJs
 Install-NodeJs -Force
 ```
 
-## Linux source
+## Where Linux gets Node
 
 The distro `nodejs` package trails the pinned major badly (Ubuntu jammy ships Node 12), so the Linux install uses the NodeSource apt
 repository for the locked major, set up the way `Install-Terraform` sets up the HashiCorp repository. The repository url embeds the major,

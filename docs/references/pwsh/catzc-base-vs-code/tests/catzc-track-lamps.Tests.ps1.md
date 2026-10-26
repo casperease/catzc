@@ -9,9 +9,9 @@ The engine-core cases run in node, in `js/track-lamps/tests/` (`Invoke-JavaScrip
 disk is walked once, and each lamp's census reads the verdict its plan reached, as the live engine does
 ([ADR-AUTO-TEST-SETUPONCE](../../../../drs/automation/test-automation.md#rule-adr-auto-test-setuponce)).
 
-## Scope
+## What is covered
 
-Aspects belong to units, so only a unit's tests are in scope; vendored code is no unit, and its test folders are tools. Every tagged language
+Aspects belong to units, so only a unit's tests count; vendored code is no unit, and its test folders are tools. Every tagged language
 of the languages config is a lamp of its own, `lang-<name>`, with a lamp's commands, rendered icons and menu items.
 
 The extension's folder is resolved from its name through the js track

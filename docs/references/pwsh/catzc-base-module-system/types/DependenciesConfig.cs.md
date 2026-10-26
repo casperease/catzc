@@ -1,8 +1,8 @@
 # pwsh/Base.ModuleSystem/types/DependenciesConfig.cs
 
 The typed record for `dependencies.yml`, the declared (allowed) module dependency graph
-([ADR-AUTO-DEPM](../../../../drs/automation/controlling-module-dependencies.md)). It is registered in `Catzc.Base.Config/configs/configs.yml`,
-so `Get-Config -Config dependencies` returns it. Its properties mirror the YAML keys
+([ADR-AUTO-DEPM](../../../../drs/automation/controlling-module-dependencies.md)). It is registered in
+`Catzc.Base.Config/configs/configs.yml`, so `Get-Config -Config dependencies` returns it. Its properties mirror the YAML keys
 ([ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](../../../../drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
 
 ## Validation
@@ -16,10 +16,10 @@ finding, not a load failure.
 - each module maps to a list of names, never a single string and never itself, and each target is a declared module or a declared group, so
   the declared graph is closed;
 - the module graph is acyclic, and the first cycle found is reported. Only edges between declared modules are walked. Group references are a
-  lower layer and cannot form a module-level cycle.
+  layer below and cannot form a module-level cycle.
 
-A module absent from `modules:` is unconstrained. Names match case-insensitively, like the PowerShell ordered dictionary the YAML parses into,
-so a name declared twice in different case is a violation. The list helpers are shared with groups through
+A module absent from `modules:` is unconstrained. Names match case-insensitively, like the PowerShell ordered dictionary the YAML parses
+into, so a name declared twice in different case is a violation. The list helpers are shared with groups through
 [DependencyGraph](DependencyGraph.cs.md).
 
 ## Properties

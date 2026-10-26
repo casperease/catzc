@@ -33,6 +33,6 @@ another process". Scratch lives in temp, not `out/`
 
 The caches are cleared once, so discovery re-derives against the fresh copy, and then warmed in `BeforeAll` and not on the first test. An
 unwarmed cache makes the first `It` pay a full cold discovery at parameter binding, about six times inflated under mock interception, and
-warming in setup keeps that off the L0 gate. The write tests target distinct config paths and never invalidate the templates cache, which is
+warming in setup keeps that off the L0 tier. The write tests target distinct config paths and never invalidate the templates cache, which is
 session-scoped ([ADR-AUTO-CACHE-IMPORTERINVALIDATES](../../../../drs/automation/caching.md#rule-adr-auto-cache-importerinvalidates)), so one
 warm-up serves every test ([ADR-AUTO-TEST-SETUPONCE](../../../../drs/automation/test-automation.md#rule-adr-auto-test-setuponce)).

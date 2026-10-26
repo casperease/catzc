@@ -1,7 +1,7 @@
 # pwsh/Base.ModuleSystem/ConvertTo-ModuleDependencyDiagram.ps1
 
-Renders module dependency edges, as `Get-ModuleDependencyEdges` returns them, to JSON, YAML, Markdown or PlantUML, so one graph can be read in
-the form the reader needs.
+Renders module dependency edges, as `Get-ModuleDependencyEdges` returns them, to JSON, YAML, Markdown or PlantUML, so one graph can be read
+in the form the reader needs.
 
 ## help
 

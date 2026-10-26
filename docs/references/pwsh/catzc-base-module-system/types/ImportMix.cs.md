@@ -8,8 +8,8 @@ importer configuration.
 
 Each axis is the caller's value when given, else the configuration's, where `auto` resolves from the session's facts:
 
-- `presentEngines` are the engines whose executable is located, `moduleLanguages` maps each module to its code languages, and `knownLanguages`,
-  `executableLanguages` and `handledLanguages` are language names of the languages configuration, in its order.
+- `presentEngines` are the engines whose executable is located, `moduleLanguages` maps each module to its code languages, and
+  `knownLanguages`, `executableLanguages` and `handledLanguages` are language names of the languages configuration, in its order.
 - With `auto` engines, every present engine is served and the rest are listed in `skipped_engines`. An explicit engine whose executable is
   absent stops the resolution.
 - With `auto` languages, the executable languages that some loaded module uses are loaded. An explicit language outside the languages

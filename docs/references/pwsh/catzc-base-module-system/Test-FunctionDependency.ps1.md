@@ -57,19 +57,19 @@ Test-FunctionDependency
 
 Every source `.ps1` is listed and parsed once, and the definition map and the call-resolution walk reuse those parses
 ([ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS](../../../drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-systemioonhotpaths)). The walk
-itself is [FunctionCallCollector](types/FunctionCallCollector.cs.md), one C# pass per function. Each collected call that resolves to nothing is
-flagged. `Get-Command` runs once per distinct external name, memoised, because a whole-session snapshot measures slower than the few dozen
-lookups the memo leaves.
+itself is [FunctionCallCollector](types/FunctionCallCollector.cs.md), one C# pass per function. Each collected call that resolves to nothing
+is flagged. `Get-Command` runs once per distinct external name, memoised, because a whole-session snapshot measures slower than the few
+dozen lookups the memo leaves.
 
 ## Module-relative paths
 
 Whether a file counts as private or as an asset is decided on the module-relative path, never the absolute one. An absolute temporary or CI
-path can itself sit under a `/private/` or `/assets/` segment (the macOS `$TestDrive` resolves under `/private/var/folders/...`), which would
-otherwise classify every fixture file as private.
+path can itself sit under a `/private/` or `/assets/` segment (the macOS `$TestDrive` resolves under `/private/var/folders/...`), which
+would otherwise classify every fixture file as private.
 
 ## Duplicate names
 
-Two public (module-root) definitions of one name are a real collision, because the module imported last silently shadows the other. The check
-is defense in depth: the importer's `Assert-UniqueModuleFunctionName` already blocks it at load. Duplicate private names across modules are
-legal, since privates are module-scoped and not exported. The first definition wins, but a public definition is preferred over a private one
-for resolution and reporting.
+Two public (module-root) definitions of one name are a real collision, because the module imported last silently shadows the other. The
+check is defense in depth: the importer's `Assert-UniqueModuleFunctionName` already blocks it at load. Duplicate private names across
+modules are legal, since privates are module-scoped and not exported. The first definition wins, but a public definition is preferred over a
+private one for resolution and reporting.

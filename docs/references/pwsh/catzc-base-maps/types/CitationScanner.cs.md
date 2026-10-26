@@ -14,8 +14,8 @@ cite are read (`CitingExtensions`: `.cs`, `.md`, `.ps1`, `.yaml`, `.yml`).
 
 ## The index
 
-`Index` turns any dictionary, such as a PowerShell hashtable, into an ordinal code-to-domain map. A key that is not a code, or an empty
-domain, throws.
+`Index` turns any dictionary, such as a PowerShell hashtable, into an ordinal code-to-domain map. A key that is not a code, or a domain with
+no name, throws.
 
 ## Sites
 

@@ -1,6 +1,6 @@
 # pwsh/Base.QualityGates/Test-Links.ps1
 
-The link gate: it checks links and citations and fails on any off-form, dangling or dead one.
+The quality gate for links: it checks links and citations and fails on any off-form, dangling or dead one.
 
 ## help
 

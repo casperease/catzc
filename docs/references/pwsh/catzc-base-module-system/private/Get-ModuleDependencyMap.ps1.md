@@ -34,5 +34,6 @@ $dependencyMap['Catzc.Azure.Templates']   # -> the modules it depends on
 
 ## The loop variable
 
-The loop variable is `$moduleName`, never `$module`. Variable names are case-insensitive, so `$module` would be the typed `[string[]] $Module`
-parameter's own variable, whose type constraint persists on it and would coerce each scalar element back into a one-element array.
+The loop variable is `$moduleName`, never `$module`. Variable names are case-insensitive, so `$module` would be the typed
+`[string[]] $Module` parameter's own variable, whose type constraint persists on it and would coerce each scalar element back into a
+one-element array.

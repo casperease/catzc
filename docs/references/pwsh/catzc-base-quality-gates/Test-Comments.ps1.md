@@ -1,6 +1,6 @@
 # pwsh/Base.QualityGates/Test-Comments.ps1
 
-The comment-page gate: every long comment lives in its file's comment page, and every page section still names a code line of the file.
+The quality gate for comment pages: every long comment lives in its file's comment page, and every page section still names a code line of the file.
 
 ## help
 

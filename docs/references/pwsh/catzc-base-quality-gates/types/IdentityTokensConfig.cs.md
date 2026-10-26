@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/types/IdentityTokensConfig.cs
 
-The typed record for one identity-tokens source, a module's `configs/identity-tokens.yml`: the live production identities that module's own
-configs carry, declared as rules (`IdentityTokenRule`) so the logic-test identity gate never names another module's config itself. Any
+The typed record for one identity-token source, a module's `configs/identity-tokens.yml`: the live production identities that module's own
+configs carry, declared as rules (`IdentityTokenRule`) so the quality gate for logic-test identities never names another module's config itself. Any
 module that owns live identities ships one. It is registered in `Catzc.Base.Config/configs/configs.yml`.
 
 `Get-LiveIdentityTokens` lists the owners (`Get-Config -Config identity-tokens -ListOwners`) and reads each with `-Module`, so a bundle

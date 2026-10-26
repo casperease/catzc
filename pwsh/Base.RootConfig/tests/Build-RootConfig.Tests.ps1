@@ -221,7 +221,7 @@ Describe 'Build-RootConfig — multi-file generator' -Tag 'L0', 'logic' {
 
 Describe 'Build-RootConfig — real rootconfig.yml' -Tag 'L2', 'integrity', 'source-only' {
     BeforeAll {
-        # -DryRun composes every opted-in target's content; a missing source file or an unknown generator throws.
+        # -DryRun composes every opted-in target's content; a template file that is missing or an unknown generator throws.
         $script:rendered = Build-RootConfig -DryRun -PassThru -Silent
     }
 

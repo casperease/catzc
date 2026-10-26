@@ -27,7 +27,7 @@ Every compose reference names a declared set, never the set itself, and the refe
 through the references ([FDR-CD-GLOBS-COMPOSESETS](../../../../drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-composesets)).
 
 - A broken compose graph makes `Matches` unsafe, since a cycle would recurse forever, so construction fails at once with everything
-  collected so far. That is the final validation gate.
+  collected so far. That is the final validation step.
 - `FindComposeCycle` is a depth-first walk of the compose references that returns the cycle path when one exists, else null. It walks the
   name map only, so it is guarded against unresolved references, which are already reported.
 

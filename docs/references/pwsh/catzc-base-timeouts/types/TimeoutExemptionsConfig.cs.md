@@ -25,16 +25,16 @@ Each `exempt` entry names its budgets as exactly one of:
 - `range: { from: <guid>, to: <guid> }`, every GUID from..to inclusive: a block of minted GUIDs that share a leading group, ordered as
   written (canonical form, ordinal), the same ordering as `Test-IsGuidInRange`.
 
-An entry also takes an optional scope `{ environment: devbox | pipeline, shell: pwsh | bash | zsh }` (an omitted axis covers every value),
-and a non-empty reason.
+An entry may also narrow where it applies, `{ environment: devbox | pipeline, shell: pwsh | bash | zsh }` (an omitted axis covers every
+value), and a non-empty reason.
 
 ## Validation
 
 Constructing an instance validates the file, collecting every violation into one `ArgumentException`:
 
 - only known keys at every level; every ceiling a positive whole number;
-- each entry: exactly one of `single` or `range`, canonical GUIDs that are not the all-zeros GUID, `from` <= `to`, a known scope, a
-  non-empty reason;
+- each entry: exactly one of `single` or `range`, canonical GUIDs that are not the all-zeros GUID, `from` <= `to`, only known environments
+  and shells, a non-empty reason;
 - no two entries overlap: a GUID matches at most one entry in any (environment, shell) cell.
 
 Whether each GUID is a registered, live budget is the integrity test's job, since the managed-GUID registry lives in another module.

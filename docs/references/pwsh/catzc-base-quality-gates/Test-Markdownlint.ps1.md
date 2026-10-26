@@ -1,6 +1,6 @@
 # pwsh/Base.QualityGates/Test-Markdownlint.ps1
 
-The Markdown lint gate: it runs markdownlint-cli2 over the repository's Markdown and writes a report to the output folder.
+The quality gate that lints Markdown: it runs markdownlint-cli2 over the repository's Markdown and writes a report to the output folder.
 
 ## help
 

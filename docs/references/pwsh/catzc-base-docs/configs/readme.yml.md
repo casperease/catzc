@@ -26,5 +26,5 @@ are expanded by `Get-ReadmeMappings`. All paths are repository-root-relative and
 
 - The ADR folder's README is generated from its index. It is the same folder, so the index's relative links need no rebasing
   ([ADR-REPO-README-WORKINGLINKS](../../../../drs/repository/generated-readmes.md#rule-adr-repo-readme-workinglinks)).
-- Every `.gitkeep` folder is backed by a reference article (the `Build-GitKeep` integrity gate), because the generic `.gitkeep` points at
+- Every `.gitkeep` folder is backed by a reference article (the `Build-GitKeep` integrity check), because the generic `.gitkeep` points at
   the README these mappings copy in. The three template-kind folders share one source.

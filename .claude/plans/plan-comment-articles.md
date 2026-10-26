@@ -37,13 +37,6 @@ comment, and the page ready for the next `Export-Comments` run.
       of every changed source file pass after a fresh import.
 - [ ] The non-module trees last: `docs/references/python/`, `pwsh/.internal`, `scriptanalyzer`, `claude-hooks`. Check: as per module.
 
-## Open questions
-
-- From this session's finalize (2026-10-25), two proposals, not applied: (1) `Export-Comments`' fresh-page line could say that prose above
-  the first section survives every export, so the next reader need not read `Page.Parse` to learn it; (2) the `catzc-verify` capability
-  gains one line, "links in docs prose are relative; `Test-Links` rejects repository-rooted ones", which every rollout drone needs.
-  Recommendation: yes to both, each landing with the rollout's first module.
-
 ## Close-out
 
 - [ ] Close-out, then this plan is deleted. Check: `grep -rl "The comments of the file that outgrew one line" docs/references` returns

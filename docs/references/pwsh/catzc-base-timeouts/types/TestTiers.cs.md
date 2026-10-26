@@ -6,7 +6,7 @@ The test tiers, declared once: the tier tags a test may carry and the top tier a
 
 ## One list, many readers
 
-The test run's tag check, run-scope filters and timing report, and `timeouts.yml`'s per-tier limits all read this list, so adding a tier is
+The test run's tag check, its tier filters and timing report, and `timeouts.yml`'s per-tier limits all read this list, so adding a tier is
 one edit. It lives with the time safeguards because their config validates the tier keys and sits below the test tooling in the dependency
 graph.
 

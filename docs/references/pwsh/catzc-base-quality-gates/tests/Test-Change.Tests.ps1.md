@@ -5,7 +5,7 @@ units and are mocked here. `Invoke-TestFile` is the mocked test-run boundary. Th
 lookup and the `[string[]]` `-Path` test decide how each is called. The fixtures use neutral names
 ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 
-## The fixture gates
+## The fixture checks
 
-There are three fixture gates: one that takes the changed files, one that only runs whole, and one that throws. Each names every path it was
+There are three fixture checks: one that takes the changed files, one that only runs whole, and one that throws. Each names every path it was
 given, so its issue shows what `Test-Change` passed.

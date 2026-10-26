@@ -1,6 +1,6 @@
 # pwsh/Base.Drs/private/Get-DrsRuleSummaryLines.ps1
 
-The private helper that returns the normative lines of every rule summary in one ADR file, for the engine-neutrality gate.
+The private helper that returns the normative lines of every rule summary in one ADR file, for the engine-neutrality check.
 
 ## help
 

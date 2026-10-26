@@ -93,7 +93,7 @@ the first `v` (`Get-ToolVersion` matches unanchored).
 
 ## typescript
 
-The TypeScript compiler is the js track's types gate (`Test-JavaScriptTypes`). It and the type declarations it checks against are each
+The TypeScript compiler is the js track's types check (`Test-JavaScriptTypes`). It and the type declarations it checks against are each
 installed by `Install-TypeScript` into npm's global root, which the generated `jsconfig.json` names as its type roots; nothing lands in the
 repository.
 

@@ -1,6 +1,6 @@
 # pwsh/Base.VSCode/configs/vscode-extensions.yml
 
-The VS Code extension registry: the single authored source for `.vscode/extensions.json` and for the repository's own editor extensions, the
+The VS Code extension registry: the one authored file that `.vscode/extensions.json` is rendered from and for the repository's own editor extensions, the
 track lamps and the file icon theme. Edit this file, never `extensions.json`.
 
 ## The recommendation list
@@ -20,7 +20,7 @@ also carry the language services: the PowerShell extension's debugging, and gopl
 extension serves the Python tests under `python/tests/`: the settings generator points it at the generated test project's environment
 (`python/.venv`), so imports and the test explorer resolve with no setting.
 
-C# Dev Kit is the language service for the native C# type sources: it loads `catzc.sln`, whose project compiles and analyzes the types the
+C# Dev Kit is the language service for the native C# type files: it loads `catzc.sln`, whose project compiles and analyzes the types the
 importer builds with `Add-Type` (the `.editorconfig` rules apply in the editor).
 
 ## The repository's own extensions

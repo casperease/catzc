@@ -54,7 +54,8 @@ Describe 'CommentEngine' -Tag 'L0', 'logic' {
             $prose = $lines[2..($lines.Count - 1)]
             ($prose -join ' ') |
                 Should -Be ('The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code ' +
-                    'line its comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.')
+                    'line its comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading. ' +
+                    'Prose written above the first section survives every later export.')
             foreach ($index in 0..($prose.Count - 1)) {
                 $prose[$index].Length | Should -BeLessOrEqual $width
                 if ($index -lt $prose.Count - 1) {

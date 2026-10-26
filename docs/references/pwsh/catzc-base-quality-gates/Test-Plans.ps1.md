@@ -1,6 +1,6 @@
 # pwsh/Base.QualityGates/Test-Plans.ps1
 
-The plans gate: it holds every file of the plans folder to the plan rules and ends through Write-QualityGateReport.
+The quality gate for plans: it holds every file of the plans folder to the plan rules and ends through Write-QualityGateReport.
 
 ## help
 
