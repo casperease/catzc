@@ -395,6 +395,50 @@ with its reason. `Test-Diagrams` reports each remaining mention in a declaration
 
 - [No name in the picture](#no-name-in-the-picture)
 
+### Rule DDR-VISUAL-FLOWISALENS
+
+The **flow lens** is the value `flow` of `lenses:`, beside `source` and `action`: a diagram under it draws how a commit flows through the
+repository's pipelines and workflows, one lane per pipeline or workflow, time left to right. Its badge prints FLOW. The lens is a switch
+inside the one declaration format and the one renderer (DDR-VISUAL-ACTIONISALENS), and its name stands apart from the `content.flow`
+direction key. A flow declaration stores its inputs alone, the pipeline and workflow files in `about.point`, and carries no content key
+beyond `title` and `kind`; `Build-Diagrams` asks the engine readers for those files' rows and hands them to the renderer by address, the
+same handoff a zoom slide rides (DDR-VISUAL-ZOOMISANAXIS). Each engine has one reader that maps its files to the same rows (lane, type,
+stage, job, step, environment, trigger, edge), so a new engine adds a reader, never a branch in the renderer, and the renderer never parses
+pipeline YAML. A lane's environments are the rungs its unit deploys to, read from the rungs registry, and a deploy pipeline joins its
+certifying run by the shared unit name, drawn with the operator word `pins`.
+
+- [The flow lens](#the-flow-lens)
+
+### Rule DDR-VISUAL-FLOWGLYPHSAREWORDS
+
+A flow glyph is a **word** of exactly three symbols from the one alphabet `O 0 - _ = .`, drawn in three equal slots of its box: `O` an empty
+circle and `0` the same circle with a dot, the dot their only difference; `-` a middle line and `_` a bottom line, with a riser where two
+lines of different heights meet; `=` a thin double line, stroke 1 against 1.6 for the rest; `.` a dot. The words are one closed list,
+`flow-glyphs:` in the renderer's vocabulary, each with its id, word, meaning and a `hint:` naming the editor file icon it is styled after;
+the hint is for the reader only, so the editor icons and the diagram glyphs stay two sets. One generator renders every word to an SVG with
+`@ink` strokes, which the renderer resolves to the theme's colour on embedding; a word not three symbols long, or a symbol outside the
+alphabet, is refused naming it.
+
+- [Glyphs are words](#glyphs-are-words)
+
+### Rule DDR-VISUAL-RHOMBUSINFLOWLENS
+
+Under the flow lens an environment is a **rhombus**, its name under it and its occupant commit inside it in that commit's state colour.
+Everything DDR-VISUAL-ENVIRONMENTISCONTAINER says of the environment box holds; only the shape differs, and only in this lens. The rhombus
+is a container glyph of the kit beside the environment box, not a word, since it holds a commit rather than standing for one.
+
+- [The rhombus](#the-rhombus)
+
+### Rule DDR-VISUAL-SPANNERSNAMETAXONOMY
+
+A **spanner** is a span bar on the `spans` layer, capped with its taxonomy glyph, in one row of words over the lanes of a flow diagram.
+Three kinds stand there, each read from what the tree declares, never declared again for the picture: the pipeline type over a lane, read
+from its file name's prefix and named from the one list of [FDR-CD-TYPE-SIXTYPES](../flow/pipeline-types.md#rule-fdr-cd-type-sixtypes);
+**Approve** over a rung whose gate is not `none`, read from the rungs registry; and **Review** over a lane a pull request triggers. A frame
+spanning one route from trigger to production is the full flow, drawn as a lane with its start `O` and end `0` caps.
+
+- [Spanners](#spanners)
+
 ## One axis, read left to right
 
 Time, the value chain, the delivery process, and git history all advance together from left to right, so one horizontal axis carries all of
@@ -669,3 +713,28 @@ A picture that says "catzc does it" tells the reader nothing the frame does not 
 Naming what acts, the importer, the modules or the platform band, carries the meaning instead. The name stays where it is the thing itself:
 an identifier, a bundle a build prints, a product cover, or a band drawn against another system. Those exceptions are few, so each is
 declared once with its reason rather than guessed by a pattern, and the check holds the rest at zero.
+
+## The flow lens
+
+The pipelines and workflows already declare how a commit moves: their files, the rungs registry and the pipeline-type naming. A third lens
+draws that from them, so the picture of the delivery flow can never drift from the files that run it. Keeping the rows in PowerShell, where
+the pipeline knowledge already lives, leaves one reader of pipeline YAML; the renderer only lays out rows, as it does for a zoom slide.
+Environments come from the rungs because a deploy stage names its environment through a template expression, which a static read cannot
+resolve, and a deploy pipeline is joined to its certifying run by name because nothing in its trigger points back.
+
+## Glyphs are words
+
+A small alphabet read in fixed slots lets a reader learn the set once: the same circle open or dotted, a line high or low, a double line for
+a thin link. Three symbols are enough to tell the pipeline, stage, job, step, template and variables apart, and short enough to read at a
+lane's height. The glyphs echo the editor's file icons, so the tree and the diagrams look like one family, but the hint only points at the
+icon; the two sets are drawn for different sizes and stay apart.
+
+## The rhombus
+
+In a flow diagram the lanes are full of boxes, so an environment drawn as one more box would read as a step. A different shape keeps it a
+place a commit arrives at; the occupant rule stays the one rule every diagram follows.
+
+## Spanners
+
+A reader of a flow wants to see at a glance which lanes are CI or CD, where a person approves, and where review happens. A span bar over the
+lanes, each with its glyph, carries that without crowding the lanes, and reading each from the tree keeps the bars as current as the files.

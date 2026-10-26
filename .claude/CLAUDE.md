@@ -17,7 +17,7 @@ PowerShell 7.4+ module system with zero-ceremony module authoring.
 
 - `importer.ps1` — root script that imports all modules; always **dot-sourced** (`.\importer.ps1` is dot-sourcing), so it runs in the
   caller's scope and its global state (the prompt hook, `$env:RepositoryRoot`, `$isConsoleSession`, …) takes effect
-- `pwsh/` — module folders containing `.ps1` function files
+- `pwsh/` — module folders containing `.ps1` function files, named without the catzc prefix (the track declares the namespace)
 - `pwsh/.internal/` — internal infrastructure, the `Catzc.Internal.*.psm1` modules: `Loader`, `Types`, and `Vendor` stay loaded; `Bootstrap`
   and `Importer` load first and are removed after import; `Builder` and `TestKit` load when a build or a test run needs them; plus build
   `assets/`
@@ -46,18 +46,8 @@ similar model built in Go, so never copy its structure or code as the answer, an
 Treat what you read there as an idea to weigh against the domain rules here, and say so when an idea came from it. If it is absent, carry on
 without it.
 
-Which catzc ADR decides each aspect you might take an idea for:
+The domain rules in [`docs/drs/index.md`](../docs/drs/index.md) decide each aspect you might take an idea for. Two need saying here:
 
-- **Module and command design:** [ADR-PWSH-ONEFUNC](../docs/drs/automation/pwsh/one-function-per-file.md),
-  [ADR-PWSH-PARAM](../docs/drs/automation/pwsh/parameter-design.md), and the one resolution order of a setting,
-  [ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../docs/drs/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder).
-- **Docs and ADR structure:** the [authoring conventions](../docs/drs/index.md#authoring-conventions).
-- **Contracts:** [ADR-REPO-CONTRACT](../docs/drs/repository/api-contracts.md).
-- **Testing:** [ADR-AUTO-TEST](../docs/drs/automation/test-automation.md).
-- **Pipelines:** [FDR-CD](../docs/drs/flow/cd-discipline-and-promotion-flow.md) and
-  [FDR-CD-RUNNER](../docs/drs/flow/pipeline-runner-pattern.md).
-- **Tooling:** [ADR-AUTO-PKGMGR](../docs/drs/automation/use-proper-package-managers.md) and
-  [ADR-AUTO-UVPY](../docs/drs/automation/uv-python-handler.md).
 - **Go itself:** [ADR-AUTO-GO](../docs/drs/automation/go/go-test-artifacts.md): Go in catzc is test artifacts only. A Go idea from eac
   beyond that scope opens a question for the user. It is never a precedent.
 - **Copying anything across:** [PDR-ONELIVE](../docs/drs/principles/one-living-version.md). Catzc carries one living version of each
