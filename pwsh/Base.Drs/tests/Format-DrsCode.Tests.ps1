@@ -1,0 +1,32 @@
+<#
+---
+catzc:
+  docs: "../../../docs/references/pwsh/catzc-base-drs/tests/Format-DrsCode.Tests.ps1.md"
+  header: "generated"
+---
+#>
+
+Describe 'Format-DrsCode' -Tag 'L0', 'logic' {
+    BeforeAll {
+        $script:checks = [Catzc.Base.Drs.DrsChecksConfig]::new([ordered]@{})
+    }
+
+    BeforeEach {
+        Mock Get-Config -ModuleName Catzc.Base.Drs -ParameterFilter { $Config -eq 'drs-checks' } { $script:checks }
+    }
+
+    It 'compacts one rule code into each form' {
+        Format-DrsCode 'ADR-WIDGET-GADGET-SPIN' | Should -Be 'ADR-WIDGET-GADGET-SPIN'
+        Format-DrsCode 'ADR-WIDGET-GADGET-SPIN' -Form RecordRule | Should -Be 'GADGET-SPIN'
+        Format-DrsCode 'ADR-WIDGET-GADGET-SPIN' -Form KindRule | Should -Be 'ADR-SPIN'
+        Format-DrsCode 'ADR-WIDGET-GADGET-SPIN' -Form Rule | Should -Be 'SPIN'
+    }
+
+    It 'formats every code of the pipeline' {
+        @('ADR-WIDGET-SPIN', 'PDR-GADGET-LIFT' | Format-DrsCode -Form Rule) | Should -Be @('SPIN', 'LIFT')
+    }
+
+    It 'throws on a code that is no rule' {
+        { Format-DrsCode 'ADR-WIDGET' } | Should -Throw '*no rule*'
+    }
+}
