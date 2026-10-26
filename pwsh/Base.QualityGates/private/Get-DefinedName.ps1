@@ -17,6 +17,7 @@ function Get-DefinedName {
         [string] $RepositoryRoot = (Get-RepositoryRoot)
     )
 
+    # One reader per language: PowerShell's parser, Python's and Go's definition keywords.
     $patterns = @{
         python = @{ function = '(?m)^[ \t]*(?:async[ \t]+)?def[ \t]+([A-Za-z_][A-Za-z0-9_]*)'; type = '(?m)^[ \t]*class[ \t]+([A-Za-z_][A-Za-z0-9_]*)' }
         go     = @{ function = '(?m)^func[ \t]+(?:\([^)]*\)[ \t]*)?([A-Za-z_][A-Za-z0-9_]*)'; type = '(?m)^type[ \t]+([A-Za-z_][A-Za-z0-9_]*)' }
@@ -35,6 +36,7 @@ function Get-DefinedName {
         if ($language.name -ceq 'powershell') {
             $ast = [System.Management.Automation.Language.Parser]::ParseFile($full, [ref] $null, [ref] $null)
             foreach ($definition in $ast.FindAll({ param($node) $node -is [System.Management.Automation.Language.FunctionDefinitionAst] }, $true)) {
+                # A scope qualifier sits outside the case: script:New-Widget is a verb-noun name.
                 [pscustomobject]@{ Path = $relative; Kind = 'function'; Name = [Catzc.Base.Repository.SyntaxSearch]::BareName($definition) }
             }
             foreach ($definition in $ast.FindAll({ param($node) $node -is [System.Management.Automation.Language.TypeDefinitionAst] }, $true)) {

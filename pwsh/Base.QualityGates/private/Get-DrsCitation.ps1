@@ -50,5 +50,6 @@ function Get-DrsCitation {
     }
 
     $withDomain = [Catzc.Base.QualityGates.FileMetaKind]::InClasses($DomainClasses, $FileClass)
+    # Only a code the ADR index registers is a citation; numbered and wildcard forms are mentions.
     [string[]] $Scanner.Citations($text, $withDomain)
 }

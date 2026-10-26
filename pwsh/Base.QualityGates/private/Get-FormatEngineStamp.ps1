@@ -31,6 +31,7 @@ function Get-FormatEngineStamp {
         $relative = $entry.Substring(0, $hash)
         $key = $entry.Substring($hash + 1)
         $path = Join-Path $RepositoryRoot $relative
+        # A missing file or key hashes as missing, so adding or removing one changes the stamp.
         $value = 'missing'
         if ([System.IO.File]::Exists($path)) {
             $document = ConvertFrom-Yaml -Yaml ([System.IO.File]::ReadAllText($path)) -Ordered

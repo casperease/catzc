@@ -16,6 +16,7 @@ function Get-MarkdownListItem {
         [string[]] $Line
     )
 
+    # An item is a '-' or 'N.' line with its indented continuation, as prettier wraps it; a blank, unindented or next item ends it.
     $start = 0
     $first = $null
     $text = $null

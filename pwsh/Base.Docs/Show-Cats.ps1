@@ -31,6 +31,7 @@ function Show-Cats {
             break
         }
         'adr' {
+            # Plain assignment: the getter returns a comma-wrapped array, and @() would nest it a level too deep.
             $entries = Get-CatsDrsIndex
             if ($Query) {
                 $matched = @($entries | Where-Object { $_.Code -like "*$Query*" -or $_.Title -like "*$Query*" })
@@ -53,6 +54,7 @@ function Show-Cats {
                         }
                         Write-Message "  $($rule.Id)  $summary" -NoHeader
 
+                        # What mechanically enforces the rule, the tests and analyzer rules, keyed by its code.
                         $entryEnforcers = $enforcers[$rule.Id]
                         if ($entryEnforcers) {
                             $parts = @()

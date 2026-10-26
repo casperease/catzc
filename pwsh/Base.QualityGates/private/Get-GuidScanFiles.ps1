@@ -10,6 +10,7 @@ function Get-GuidScanFiles {
     [CmdletBinding()]
     param()
 
+    # The scan's universe and exclusions are the source repository's layout.
     Assert-SourceTree
 
     $tracked = Get-GitTrackedPath '.'

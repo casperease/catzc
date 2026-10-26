@@ -15,6 +15,7 @@ function Assert-LinkDirectionsConfig {
         [System.Collections.IDictionary] $Config
     )
 
+    # Every row's value is declared at its facet's source, and every because is a registered rule code.
     $typed = [Catzc.Base.QualityGates.LinkDirectionsConfig]::new($Config)
     $classes = [System.Collections.Generic.List[string]]::new()
     $walk = {

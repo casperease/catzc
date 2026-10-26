@@ -48,6 +48,7 @@ function Get-CommentScope {
         $candidates = @($candidates | Where-Object { -not $ignored.Contains($_) })
     }
 
+    # The registry's own ForPath, once: cheaper than a function call per file.
     $languageRegistry = Get-Config -Config languages
     $fileKinds = Get-Config -Config file-kinds
     foreach ($file in $candidates) {

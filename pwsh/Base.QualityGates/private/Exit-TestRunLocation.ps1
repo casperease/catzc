@@ -43,6 +43,7 @@ function Exit-TestRunLocation {
     }
 
     if ($Location.Snapshot) {
+        # The snapshot's result caches go home first: keyed on content, they hold for the working folder too.
         $snapshotCache = Join-Path $Location.Snapshot.Path 'out/cache'
         if ([System.IO.Directory]::Exists($snapshotCache)) {
             foreach ($file in [System.IO.Directory]::GetFiles($snapshotCache, '*.json')) {

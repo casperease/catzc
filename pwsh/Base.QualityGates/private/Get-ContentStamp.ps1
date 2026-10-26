@@ -35,6 +35,7 @@ function Get-ContentStamp {
                 [void] [System.Management.Automation.Language.Parser]::ParseFile($path, [ref] $tokens,
                     [ref] $parseErrors)
                 if (-not $parseErrors) {
+                    # Comments go, and a run of line ends counts as one: a blank line separates no statements.
                     $previousWasLineEnd = $true
                     $code = foreach ($token in $tokens) {
                         if ($token.Kind -eq [System.Management.Automation.Language.TokenKind]::Comment) {

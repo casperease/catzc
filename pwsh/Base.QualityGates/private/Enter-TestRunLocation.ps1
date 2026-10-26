@@ -83,16 +83,19 @@ function Enter-TestRunLocation {
     Write-Message "Running in an isolated snapshot instead: $destination" -ForegroundColor Yellow
     $location.Snapshot = New-RepositorySnapshot -SourceRoot $sourceRoot -Destination $destination
 
+    # The snapshot starts with the working folder's result caches, keyed on content and input stamps.
     $sourceCache = Join-Path (Get-OutputRoot) 'cache'
     if ([System.IO.Directory]::Exists($sourceCache)) {
         Copy-Directory $sourceCache (Join-Path $location.Snapshot.Path 'out/cache')
     }
 
+    # One full import, as a fresh clone's, materialises the gitignored generated files.
     Write-Message 'Priming the snapshot: one import materialises its generated files...'
     $start = ([Catzc.Base.Engines.ExecutionEngines]::Pwsh.NonInteractiveArguments) -join ' '
     $priming = Invoke-Executable "pwsh $start -File `"$(Join-Path $location.Snapshot.Path 'importer.ps1')`"" `
         -WorkingDirectory $location.Snapshot.Path -PassThru -Silent -NoAssert
     if ($priming.ExitCode -ne 0) {
+        # The failed import's output is kept as a log, the snapshot left for a look, and its tail thrown.
         $logFolder = Join-Path (Get-OutputRoot) 'test-snapshot-priming'
         [void] [System.IO.Directory]::CreateDirectory($logFolder)
         $log = Join-Path $logFolder "$([System.IO.Path]::GetFileName($location.Snapshot.Path)).log"

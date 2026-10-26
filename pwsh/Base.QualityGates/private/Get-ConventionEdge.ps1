@@ -16,6 +16,7 @@ function Get-ConventionEdge {
         [string[]] $Path
     )
 
+    # Each relation is derived from its declaration on every call, never read from a file.
     $files = @($Path | ForEach-Object { $_.Replace('\', '/') } | Select-Object -Unique)
     $known = [System.Collections.Generic.HashSet[string]]::new([string[]] $files, [System.StringComparer]::Ordinal)
     $edges = [System.Collections.Generic.List[Catzc.Base.QualityGates.LinkEdge]]::new()
@@ -50,6 +51,7 @@ function Get-ConventionEdge {
         }
     }
 
+    # A file points at its tracked comment page, asked of the config's PageFor directly.
     $commentPages = Get-Config -Config comment-pages
     foreach ($file in $files) {
         $page = Get-CommentPage -Path $file -Config $commentPages
@@ -58,6 +60,7 @@ function Get-ConventionEdge {
         }
     }
 
+    # A module points at each dependency it declares, by its folder; a group name is no module.
     $modulesFolder = Get-CatzcModulesFolder
     $folders = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
     foreach ($file in $files) {

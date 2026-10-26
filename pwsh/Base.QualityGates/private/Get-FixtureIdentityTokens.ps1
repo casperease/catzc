@@ -20,6 +20,7 @@ function Get-FixtureIdentityTokens {
         }
     }
 
+    # Every tests/assets/config/ tree's identities, unioned; fixtures live only in the source tree.
     Assert-SourceTree
     $registry = (Get-Config -Config configs).configs
     $modulesRoot = Get-CatzcModulesRoot
@@ -57,6 +58,7 @@ function Get-FixtureIdentityTokens {
         }
     }
 
+    # The neutral fixtures logic tests construct inline, in no config file.
     foreach ($token in 'widget', 'gadget', 'faketool') {
         & $add $token
     }
