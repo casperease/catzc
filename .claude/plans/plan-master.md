@@ -53,18 +53,13 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
 - vscode-extensions -> plan-vscode-extensions.md: landed; blocked_on the user's editor check (task-user-runs-and-commits item 4)
 - repo-filters -> plan-repo-filters.md: the filters landed (sets from the model, union of lit lamps, coverage asserted, docs and out lamps);
   one step left: the user's look at the lamps in VS Code (the `pipelines` and `infrastructure` lamps landed)
-- idiomatic-names -> plan-idiomatic-names.md: one step left, the naming gate wired into languages.yml once the user's commit lands the folder
-  moves (task-user-runs-and-commits item 1).
-- agent-friction -> plan-agent-friction.md: the CLAUDE.md trims landed; one step left, an agent's: the gate pages' `-Path` notes
-  (`Test-ScriptAnalyzer` folder and glob; `Test-Spelling` already says it takes globs).
+- idiomatic-names -> plan-idiomatic-names.md: one step left, the naming gate wired into languages.yml once the user's commit lands the
+  folder moves (task-user-runs-and-commits item 1).
 - claude-diet -> plan-claude-diet.md: the Sub-agents cut and the pwsh index landed; one step left, the user's Inspiration cut in
   `.claude/CLAUDE.md` (task-user-runs-and-commits), plus four open questions.
 - session-learnings -> plan-session-learnings.md: catzc-49's lines only (waits on catzc-49).
 - diagram-review -> plan-diagram-review.md: the diagrams reviewed with the user one named slide at a time (read, one question in context,
   one plan step from the written answer, a redraw after each); the user names the slides
-- debt-agent-traffic -> plan-debt-agent-traffic.md: fewer messages and tool calls between the orchestrator and its workers (a run lock,
-  one-line reports, pre-approved rule edits, derived step counts, an automatic log); the drone line and the registered hook landed; one
-  step left, an agent's: the `plans-orchestrate` skill names the hook as the log writer
 - debt-test-speed -> plan-debt-test-speed.md: the slowest Pester files measured one at a time in the memory queue, and the import every test
   run pays; one step
 - vscode-session-binding -> plan-vscode-session-binding.md: the one-instance-per-session decision observed in VS Code: the hang proven gone

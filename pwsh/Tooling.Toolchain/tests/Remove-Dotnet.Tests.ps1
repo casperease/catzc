@@ -54,8 +54,8 @@ Describe 'Remove-Dotnet' -Tag 'L0', 'logic', 'ADR-AUTO-REMOVE-REMOVEREFUSESMANAG
         # Registered products are reported whether or not the folder is still there; the dry run only names their commands.
         Remove-Dotnet -InstallDir 'C:\Program Files\dotnet'
         Should -Invoke Remove-SystemInstallation -ModuleName Catzc.Tooling.Toolchain -Times 0
-        Should -Invoke Write-Message -ModuleName Catzc.Tooling.Toolchain -Times 1 -Exactly -ParameterFilter { $Message -like '  msiexec /x {widget} /qn /norestart*`[Msi`]' }
-        Should -Invoke Write-Message -ModuleName Catzc.Tooling.Toolchain -Times 1 -Exactly -ParameterFilter { $Message -like '  "C:\gadget\setup.exe" /uninstall /quiet*`[Other`]' }
+        Should -Invoke Write-Message -ModuleName Catzc.Tooling.Toolchain -Times 1 -Exactly -ParameterFilter { $Message -like "  msiexec /x '{widget}' /qn /norestart*``[Msi``]" }
+        Should -Invoke Write-Message -ModuleName Catzc.Tooling.Toolchain -Times 1 -Exactly -ParameterFilter { $Message -like '  & "C:\gadget\setup.exe" /uninstall /quiet*`[Other`]' }
     }
 
     It 'names only the installer bundles while any is registered — they take the MSI products they hold with them' -Tag 'ADR-AUTO-REMOVE-THREEPLATFORMCORES' {
@@ -69,7 +69,7 @@ Describe 'Remove-Dotnet' -Tag 'L0', 'logic', 'ADR-AUTO-REMOVE-REMOVEREFUSESMANAG
         } -ModuleName Catzc.Tooling.Toolchain
         Remove-Dotnet -InstallDir 'C:\Program Files\dotnet'
         Should -Invoke Remove-SystemInstallation -ModuleName Catzc.Tooling.Toolchain -Times 0
-        Should -Invoke Write-Message -ModuleName Catzc.Tooling.Toolchain -Times 1 -Exactly -ParameterFilter { $Message -like '  "C:\cache\widget-runtime.exe" /uninstall /quiet*`[Bundle`]' }
+        Should -Invoke Write-Message -ModuleName Catzc.Tooling.Toolchain -Times 1 -Exactly -ParameterFilter { $Message -like '  & "C:\cache\widget-runtime.exe" /uninstall /quiet*`[Bundle`]' }
         Should -Invoke Write-Message -ModuleName Catzc.Tooling.Toolchain -Times 0 -ParameterFilter { $Message -like '*msiexec*' }
         Should -Invoke Write-Message -ModuleName Catzc.Tooling.Toolchain -Times 1 -Exactly -ParameterFilter { $Message -like '*installer bundles*' }
     }

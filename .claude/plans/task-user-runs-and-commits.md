@@ -35,10 +35,10 @@ under `Invoke-TestFile`, one gate on named paths, a grep or a file read. The one
    - `Invoke-TestFile -Path pwsh/Base.ModuleSystem/tests/Test-FunctionDependency.Tests.ps1` passes: the commit carries the one-character fix
      at `pwsh/Tooling.Toolchain/private/Install-UvStandalone.ps1:57` (`Get-ChildPath $extractDirectory`).
 2. Evict the machine Go 1.24.4 that shadows the managed Go 1.27 (Get-ToolsStatus: go Shadowed): in a catzc session run `Remove-Go` (dry run;
-   it names the registered MSI and its uninstall command), run that command from an elevated shell, run `Remove-Go` again (and
-   `Remove-Go -Force` elevated only if it still says "Would remove"), then restart VS Code. Check: `Get-ToolsStatus` shows go OK.
-3. plan-types-build-local step 9: one ci-pwsh pipeline run once `cache-types.yaml` lands. Check: the second run of a job restores the types
-   cache (Cache@2 "Cache restored") and skips the DLL build.
+   it names the registered MSI), then in an elevated catzc session (`Test-IsAdministrator` True) run `Remove-Go -Force`, which runs the
+   MSI's own uninstaller and removes what is left, then restart VS Code. Check: `Get-ToolsStatus` shows go OK.
+3. One ci-pwsh pipeline run, now that `.ado/pipelines/steps/cache-types.yaml` is committed (the types cache). Check: the second run of a job
+   restores the types cache (Cache@2 "Cache restored") and skips the DLL build.
 4. plan-vscode-extensions: rebuild and install the two new extensions (`Build-VsCodeExtension`, then `Install-VsCodeExtension`), reload VS
    Code, click a `/docs/drs/` link in a markdown file and open a coloured `out/**/*.log`. Check: the link opens its ADR and the log shows
    colours, not escape codes. In the same reload (plan-language-lamps step 5): rebuild and install `catzc-track-lamps`, press the languages

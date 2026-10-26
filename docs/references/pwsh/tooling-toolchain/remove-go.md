@@ -15,10 +15,13 @@ The destructive escape hatch beside Install-/Uninstall-Go ([ADR-AUTO-REMOVE](../
 the managed install — Uninstall-Go owns that — and decides "managed" for the folder it is about to remove, not for whatever `go` resolves to
 on PATH.
 
-Windows: the target folder defaults to the install above the `go` on PATH, or, when that is the managed install, the machine-wide
-C:\Program Files\Go. A folder that the Windows-registered Go installer owns (the "Go Programming Language" entry in Apps & features) is not
-deleted by hand — that would orphan the entry — so the product is listed with the command that removes it by its own installer, and nothing
-is touched. Only an unregistered folder is deleted, with its bin entry on the machine PATH and GOROOT (needs Administrator,
+Windows: the target folder defaults to the install above the `go` on PATH, or, when that is the managed install, the machine-wide C:\Program
+Files\Go. A folder that the Windows-registered Go installer owns (the "Go Programming Language" entry in Apps & features) is not deleted by
+hand — that would orphan the entry. Without -Force the product is listed with its uninstall command, printed so it pastes into pwsh as is,
+and nothing is touched. With -Force, from an elevated shell, the command runs that uninstaller itself: one child process per product,
+bundles first, each bounded by the command's time limit, its exit code checked (0, or 1641 / 3010 when Windows wants a restart), its output
+kept in a transcript under out/remove-go/; it then re-reads the registration and deletes what is left of the folder, with its bin entry on
+the machine PATH and GOROOT (needs Administrator,
 [ADR-AUTO-REMOVE-ELEVATIONFOLLOWSMECHANISM](../../../drs/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-elevationfollowsmechanism)).
 
 Linux / macOS: evicts an off-config install by the mechanism that placed it (native package / uv-Python pip / stray binary).
@@ -30,7 +33,7 @@ machine-wide C:\Program Files\Go when the one on PATH is the managed install.
 
 ### parameter `Force`
 
-Actually perform the removal. Without this, shows what would be removed.
+Actually perform the removal, running any registered installer's uninstall first. Without this, shows what would be removed.
 
 ### example 1
 

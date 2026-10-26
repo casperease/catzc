@@ -24,6 +24,11 @@ and free to change in place (ADR-REPO-CONTRACT-CURRENTVERSION). The tracked file
 - One living version (PDR-ONELIVE): no file under `pwsh/.compiled` is tracked; the copy-into-`.compiled` code and the old tracked manifest
   go in the same change, no fallback read.
 
+## Open steps
+
+1. [ ] A decision round on the two open questions below (`plan-decide`), each answer folded in as a step or dropped. Check: `Test-Plans`,
+       and no open question left in this file.
+
 ## Open questions
 
 - Should `Test-Plans` accept a new plan's missing master chunk line while `plan-master.md` is dirty in a peer session, reporting it as a

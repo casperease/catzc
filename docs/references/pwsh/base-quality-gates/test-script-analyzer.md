@@ -82,6 +82,13 @@ repository-relative, never relative to the working folder
 ([ADR-AUTO-NOPWD-NOWORKINGDIRECTORYPATHS](../../../drs/automation/never-depend-on-pwd.md#rule-adr-auto-nopwd-noworkingdirectorypaths)).
 Third-party files are not authored here, so the analyzer never judges them. A file outside the repository is never third-party.
 
+## Naming what to analyze
+
+`-Path` takes a folder or a file. A folder is walked for `*.ps1` and `*.psm1` files, four levels deep, so `-Path pwsh/Base.QualityGates`
+analyzes the whole module. A file must exist. A glob such as `pwsh/Base.QualityGates/**/*.ps1` is not expanded into a file list: it passes
+the existence check when it matches a file, then reaches the analyzer as one path, so it analyzes one file at most. Name a folder, or list
+the files.
+
 ## Sharded run
 
 The analysis is sharded across background processes with live progress (Get-ScriptAnalyzerDiagnostics), because a serial pass is about 90

@@ -26,4 +26,5 @@ metadata:
    sends `question: <what>, recommend <x>` to the orchestrator and works on. The orchestrator reads the governing ADRs and decides every
    one, recorded as delegated in the owning plan; only git, settings.json and CLAUDE.md go to the user. A burst sends no message: the run
    lock's holder record says who bursts, and bursts chain from one drone to the next.
-4. Every message sent and every reply is appended to `out/orchestrator-<date>.log` with the session name; the log is output, never input.
+4. The `Record-SessionMessage` hook appends every message sent and every reply to `out/orchestrator-<date>.log` with the session name; the
+   orchestrator writes nothing there itself, and the log is output, never input.

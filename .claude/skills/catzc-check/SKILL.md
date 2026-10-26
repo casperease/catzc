@@ -16,7 +16,8 @@ metadata:
 
 1. One gate per run, through catzc-run: `Invoke-TestFile -Path <file>` for a test file, or the quality gate the brief names, with its paths
    (`Test-Links -Path <files>`, `Test-AgentDefinitions`); `Test-DrsRegistry` checks the decision records, registry-wide with no `-Path`, and
-   `Test-Parsing -Path` takes files and `Test-Diagrams` diagram paths, never a folder; the one Python test call is
+   `Test-Parsing -Path` takes files and `Test-Diagrams` diagram paths, never a folder, so a dot folder such as `pwsh/.internal` goes to
+   `Invoke-TestFile` or `Test-Parsing` as its file list; the one Python test call is
    `Invoke-PythonTest <Pascal.Dotted>`, the module's own `tests/` found first, and the diagram kit's suite runs as
    `uv run -q --no-sync --project python python -m pytest python/diagrams/tests`.
 2. Read the output file; the verdict is the gate's own summary line and its report path; failing lines are pasted verbatim, at most 20,

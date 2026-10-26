@@ -55,7 +55,7 @@ Describe 'Remove-Go' -Tag 'L0', 'logic', 'ADR-AUTO-REMOVE-REMOVEREFUSESMANAGED' 
         Should -Invoke Remove-SystemInstallation -ModuleName Catzc.Tooling.Toolchain -Times 0
         Should -Invoke Assert-IsAdministrator -ModuleName Catzc.Tooling.Toolchain -Times 0
         Should -Invoke Get-RegisteredInstallProduct -ModuleName Catzc.Tooling.Toolchain -Times 1 -Exactly -ParameterFilter { $NamePattern -eq '^Go Programming Language\b' }
-        Should -Invoke Write-Message -ModuleName Catzc.Tooling.Toolchain -Times 1 -Exactly -ParameterFilter { $Message -like '  msiexec /x {widget} /qn /norestart*`[Msi`]' }
+        Should -Invoke Write-Message -ModuleName Catzc.Tooling.Toolchain -Times 1 -Exactly -ParameterFilter { $Message -like "  msiexec /x '{widget}' /qn /norestart*``[Msi``]" }
         Should -Invoke Write-Message -ModuleName Catzc.Tooling.Toolchain -Times 1 -Exactly -ParameterFilter { $Message -like '*Remove-Go -Force runs their own uninstallers*' }
     }
 

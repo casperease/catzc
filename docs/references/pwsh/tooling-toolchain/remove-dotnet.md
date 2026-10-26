@@ -17,9 +17,11 @@ one.
 
 Windows: the target folder defaults to the `dotnet` on PATH, or, when that is the managed install, the machine-wide C:\Program Files\dotnet.
 A folder that Windows-registered products own (the .NET SDK / runtime installers, listed in Apps & features) is not deleted by hand — that
-would orphan every entry — so the products are listed with the command that removes each by its own installer, and nothing is touched.
-Installer bundles come first and alone: a bundle holds the MSI products it installed, which go only with it, so the next run names whatever
-is left. Only an unregistered folder is deleted, with its machine PATH entry and DOTNET_ROOT (needs Administrator,
+would orphan every entry. Without -Force the products are listed with each one's uninstall command, printed so it pastes into pwsh as is,
+and nothing is touched. Installer bundles come first and alone: a bundle holds the MSI products it installed, which go only with it. With
+-Force, from an elevated shell, the command runs those uninstallers itself, one child process each, bounded by the command's time limit,
+exit code checked, output kept in a transcript under out/remove-dotnet/; it re-reads the registrations, runs whatever is left the same way,
+then deletes the folder, with its machine PATH entry and DOTNET_ROOT (needs Administrator,
 [ADR-AUTO-REMOVE-ELEVATIONFOLLOWSMECHANISM](../../../drs/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-elevationfollowsmechanism)).
 
 Linux / macOS: evicts an off-config install by the mechanism that placed it (native package / uv-Python pip / stray binary).
@@ -65,7 +67,8 @@ registrations are checked before the folder itself, so registrations whose files
 place their products in the machine-wide folders; a stray copy elsewhere is nobody's.
 
 A bundle holds the MSI products it installed as their dependent, so uninstalling one of those directly reports success and removes nothing.
-While any bundle is registered, only the bundles are named, each takes its products with it, and the next run names whatever is left.
+While any bundle is registered, only the bundles are named and run, each takes its products with it, and the next round reads whatever is
+left; after three rounds with a product still registered, the command stops and names it.
 
 ## Elevation
 

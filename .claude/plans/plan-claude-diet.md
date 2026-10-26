@@ -31,10 +31,10 @@ It cuts a cost paid by every session and every spawn that loads the project inst
 ## Open steps
 
 1. [ ] Susan from HR: `.claude/CLAUDE.md`, section Inspiration (1989 bytes, 2026-10-23), the user's edit (hindsight rule: merge beats add,
-       delete beats merge): the six pointer bullets Module and command design, Docs and ADR structure, Contracts, Testing,
-       Pipelines and Tooling (about 900 bytes, each only a link to a record `docs/drs/index.md` already lists) become one clause, "the
-       domain rules in `docs/drs/index.md` decide each aspect"; the Go bullet (its scope rule) and the copying bullet (PDR-ONELIVE) stay.
-       Saves about 830 bytes (about 210 tokens) per session. Check: `Test-Links -Path .claude/CLAUDE.md`, `Test-AgentDefinitions`, and
+       delete beats merge): the six pointer bullets Module and command design, Docs and ADR structure, Contracts, Testing, Pipelines and
+       Tooling (about 900 bytes, each only a link to a record `docs/drs/index.md` already lists) become one clause, "the domain rules in
+       `docs/drs/index.md` decide each aspect"; the Go bullet (its scope rule) and the copying bullet (PDR-ONELIVE) stay. Saves about 830
+       bytes (about 210 tokens) per session. Check: `Test-Links -Path .claude/CLAUDE.md`, `Test-AgentDefinitions`, and
        `wc -c .claude/CLAUDE.md` at least 800 bytes below its size before the edit.
 
 ## Open questions

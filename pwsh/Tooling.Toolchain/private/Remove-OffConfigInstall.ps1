@@ -1,5 +1,4 @@
 function Remove-OffConfigInstall {
-    [Catzc.Base.Timeouts.TimeLimit(600)]
     [CmdletBinding()]
     param(
         [Parameter(Mandatory)]
@@ -71,8 +70,13 @@ function Remove-OffConfigInstall {
         if ($bundles.Count -gt 0) {
             Write-Message "  $($bundles.Count) of them are installer bundles, which remove the products they installed:"
         }
+        # Printed pwsh-safe, as the user pastes it into pwsh: a bare {GUID} would parse as a script block, a leading quoted path as a string.
         foreach ($product in $toRemove) {
-            Write-Message "  $($product.UninstallCommand)   # $($product.DisplayName) $($product.DisplayVersion) [$($product.Kind)]"
+            $line = $product.UninstallCommand -replace '(?<![''"])(\{[^\s{}''"]+\})', '''$1'''
+            if ($line.StartsWith('"')) {
+                $line = "& $line"
+            }
+            Write-Message "  $line   # $($product.DisplayName) $($product.DisplayVersion) [$($product.Kind)]"
         }
         Write-Message "It runs them one at a time, re-reads the registrations, then removes what is left."
         return
@@ -81,7 +85,7 @@ function Remove-OffConfigInstall {
     if ($products.Count -gt 0) {
         # A machine installer's uninstall needs Administrator, asserted for this step.
         Assert-IsAdministrator
-        $seconds = Get-TimeoutSeconds -Command 'Remove-OffConfigInstall'
+        $seconds = Get-TimeoutSeconds -Executable 'msiexec'
         $transcript = Join-Path (Get-OutputRoot) "remove-$($Tool.ToLowerInvariant())/$((Get-Date).ToString('yyyyMMdd-HHmmss')).log"
         [System.IO.Directory]::CreateDirectory((Split-Path $transcript -Parent)) | Out-Null
         # Each uninstaller is a child process with its output in the transcript, bundles first; 1605 is gone already, 1641 and 3010 want a reboot.

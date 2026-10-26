@@ -12,6 +12,7 @@ executables:
   terraform: 1800 # plan / apply
   az: 1800 # deployments
   winget: 1800 # installs
+  msiexec: 900 # a registered product's uninstall in Remove-<Tool> -Force; a bundle's own uninstaller takes the same limit
   brew: 1800 # installs
   sudo: 1800 # system package installs
   tar: 300 # archive extraction
