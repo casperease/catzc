@@ -4,8 +4,10 @@
 #   header: "generated"
 # ---
 
+# The placeholder every devbox build carries, obviously no real number; a rebuild overwrites it in place, and a pipeline never uses it.
 direct_install_version: 6.6.666
 
+# Each bundle is a release identity of its own: a mono repo, so no bundle's version moves another's.
 bundles:
   full:
     profile: full
@@ -24,6 +26,7 @@ bundles:
     max_bytes: 2950000
 default_bundle: full
 
+# Package identity, written into the build's top-level Catzc.psd1, the manifest Install-PSResource and the Gallery read.
 module_guid: 211b36c7-f7eb-4f3c-93f5-9132b535fa56
 package:
   author: Casper Leon Nielsen

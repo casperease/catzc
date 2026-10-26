@@ -16,6 +16,7 @@ function Get-ContractGroup {
         [string] $RepositoryRoot = (Get-RepositoryRoot)
     )
 
+    # The group names where the module lives, never its namespace (pwsh.base.vs_code for Catzc.Base.VSCode).
     $found = @(Get-CatzcModule -Name $Module -RepositoryRoot $RepositoryRoot)
     if ($found.Count -ne 1) {
         throw "Get-ContractGroup: no module named '$Module', so it has no contract group."

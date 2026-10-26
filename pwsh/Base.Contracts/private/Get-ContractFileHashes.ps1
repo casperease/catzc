@@ -14,6 +14,7 @@ function Get-ContractFileHashes {
         [string] $Folder
     )
 
+    # A named whole-tree walk: a frozen contract is hashed in full, so nothing is pruned.
     $files = [string[]] @(Get-ChildPath $Folder -File -Depth 64 -Exclude @() -PruneVendor $false)
     $paths = [string[]] @($files |
             ForEach-Object { [System.IO.Path]::GetRelativePath($Folder, $_) -replace '\\', '/' } |

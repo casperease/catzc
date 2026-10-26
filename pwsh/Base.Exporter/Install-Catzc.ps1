@@ -6,6 +6,7 @@ catzc:
 ---
 #>
 
+# -DryRun, not ShouldProcess or -WhatIf: the branch comes before any side effect.
 function Install-Catzc {
     [CmdletBinding(DefaultParameterSetName = 'Root')]
     [OutputType([pscustomobject])]
@@ -53,10 +54,12 @@ function Install-Catzc {
                 [System.IO.Directory]::Delete($moduleTarget, $true)
             }
             Copy-Directory -Path $Source -Destination $moduleTarget
+            # A copy drops the executable bit, which an engine whose scripts need it (bash) requires on Unix.
             if (-not $IsWindows) {
                 $execute = [System.IO.UnixFileMode]::UserExecute -bor [System.IO.UnixFileMode]::GroupExecute -bor [System.IO.UnixFileMode]::OtherExecute
                 foreach ($engine in @([Catzc.Base.Engines.ExecutionEngines]::All | Where-Object RequiresExecutableBit)) {
                     foreach ($extension in $engine.ScriptExtensions) {
+                        # A named whole-tree walk: every shebang script of the installed module is re-marked.
                         foreach ($script in Get-ChildPath $moduleTarget -File -Filter "*$extension" -Depth 64 -Exclude @() -PruneVendor $false) {
                             if ([System.IO.File]::ReadLines($script) | Select-Object -First 1 | Where-Object { $_.StartsWith('#!') }) {
                                 [System.IO.File]::SetUnixFileMode($script,

@@ -8,6 +8,7 @@ catzc:
 
 Describe 'Install-Catzc' -Tag 'L0', 'logic' {
     BeforeEach {
+        # A fixture build with neutral names; its integrity guard is a boundary here, tested on its own.
         $script:source = Join-Path $TestDrive "$([System.Guid]::NewGuid().ToString('N'))/Catzc/1.2.3"
         [System.IO.Directory]::CreateDirectory((Join-Path $source 'Catzc.Base.Widget')) | Out-Null
         [System.IO.File]::WriteAllText((Join-Path $source 'Catzc.Base.Widget/Catzc.Base.Widget.ps1'),

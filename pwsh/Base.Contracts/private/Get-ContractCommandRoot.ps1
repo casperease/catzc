@@ -17,6 +17,7 @@ function Get-ContractCommandRoot {
         [string] $RepositoryRoot
     )
 
+    # The group is an exception's module, else the module's track and its normal-form folder.
     $name = (Get-Config -Config contracts).ExceptionModuleOf($Module)
     if (-not $name) {
         $languages = Get-Config -Config languages

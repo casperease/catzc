@@ -49,6 +49,7 @@ function Resolve-ContractAsset {
         $direction = [Catzc.Base.Contracts.ContractDirection]::Provided
     }
     $isNamed = $AppliesTo.ContainsKey($key)
+    # A subfolder sorts schemas, fragments, presence assets and samples; the rest sit at group level.
     if ($Path.Contains('/') -and ($kind -eq [Catzc.Base.Contracts.ContractAssetKind]::Command -or
             $kind -eq [Catzc.Base.Contracts.ContractAssetKind]::Types -or
             $name -ceq [Catzc.Base.Contracts.ContractLayout]::TypesSchemaName)) {
@@ -103,6 +104,7 @@ function Resolve-ContractAsset {
             return [Catzc.Base.Contracts.ContractAsset]::new($Root, $Version, $Group, $Path, $kind,
                 "$folder$($samples[0])", $direction)
         }
+        # The one types schema binds every group's types surface on disk, committed or not.
         if ($name -ceq [Catzc.Base.Contracts.ContractLayout]::TypesSchemaName) {
             if ($isNamed) {
                 throw "${manifest}: applies_to names '$key', the types schema, which applies to every group's types surface; it takes no files (ADR-REPO-CONTRACT-CONFIGUREDADDRESSING)."
@@ -119,6 +121,7 @@ function Resolve-ContractAsset {
         }
     }
 
+    # A presence, fragment or sample-less schema binds exactly the files its applies_to names.
     if (-not $isNamed) {
         throw "${manifest}: '$key', a $kind asset, is not named in applies_to, so it binds no file (ADR-REPO-CONTRACT-CONFIGUREDADDRESSING)."
     }

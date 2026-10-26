@@ -33,5 +33,6 @@ function Read-ContractData {
     catch {
         throw "'$Path' does not parse as ${format}: $($_.Exception.Message)"
     }
+    # Unenumerated, a top-level array goes out whole; Write-Output -NoEnumerate would wrap it in a list.
     $PSCmdlet.WriteObject($data, $false)
 }

@@ -6,6 +6,7 @@ catzc:
 ---
 #>
 
+# One case per binding asset, generated at discovery, so every contract is proven with no hand-written test.
 BeforeDiscovery {
     $script:assetCases = @(foreach ($asset in InModuleScope Catzc.Base.Contracts { Get-ContractBindingAssets -Version 0.1.0 -RepositoryRoot (Get-RepositoryRoot) }) {
             @{
@@ -33,6 +34,7 @@ BeforeDiscovery {
 
 Describe 'Binding contract assets' -Tag 'L1', 'integrity', 'source-only', 'ADR-REPO-CONTRACT-PROVENBYTESTS' {
     BeforeAll {
+        # One filtered lookup per unit, version and module, shared by every case.
         $script:groupContracts = @{}
     }
 

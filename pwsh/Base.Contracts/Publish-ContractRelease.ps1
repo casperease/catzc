@@ -49,6 +49,7 @@ function Publish-ContractRelease {
     }
 
     try {
+        # A named whole-tree walk: a release copies the whole version, so nothing is pruned.
         $files = [string[]] @(Get-ChildPath $source -File -Depth 64 -Exclude @() -PruneVendor $false)
         $null = [System.IO.Directory]::CreateDirectory($target)
         foreach ($file in $files) {

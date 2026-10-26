@@ -9,6 +9,7 @@ catzc:
 # cspell:ignore nfunction  -- the escape-sequence artifact in the "`nfunction" fixture strings
 Describe 'Assert-CatzcBundle' -Tag 'L0', 'logic' {
     BeforeAll {
+        # A hand-made, well-formed build of two neutral modules, one selected and one not, so each guard is pinned on its own.
         $script:newFixtureBuild = {
             $root = Join-Path $TestDrive "$([System.Guid]::NewGuid().ToString('N'))/Catzc/1.2.3"
             $write = {
@@ -53,6 +54,7 @@ Describe 'Assert-CatzcBundle' -Tag 'L0', 'logic' {
             [pscustomobject]@{ Root = $root; TypesHash = $typesHash; Build = $build }
         }
 
+        # Rewrites build.json after a fixture mutation, keeping the content hash current so only the mutated property is under test.
         $script:resealBuild = {
             param($fixture)
             $buildFile = Join-Path $fixture.Root 'build.json'

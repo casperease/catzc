@@ -41,6 +41,7 @@ function Invoke-Accosted {
         $runIndex = 0
         foreach ($run in $file.runs) {
             $runIndex++
+            # Every command of the run takes the engine prefix itself; && stops at the first failure.
             $calls = @(foreach ($command in $run.commands) {
                     ConvertTo-AccostedCallText -Command $command -Contract $contracts[$command.name] -Engine $model
                 })

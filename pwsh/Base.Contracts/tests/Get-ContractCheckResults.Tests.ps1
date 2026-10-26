@@ -15,6 +15,7 @@ Describe 'Get-ContractCheckResults' -Tag 'L0', 'logic' {
             [System.IO.File]::WriteAllText($file, $Content)
         }
 
+        # By the path of the file it binds; a sample, a command contract and a sample's schema sit in their group.
         function Add-Asset {
             param([string] $Relative, [string] $Content = '')
             $slash = $Relative.LastIndexOf('/')

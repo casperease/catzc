@@ -41,6 +41,7 @@ function Get-ContractCheckResult {
                         Get-ContractSchemaFindings -RepositoryRoot $RepositoryRoot -SchemaPath $Asset.AssetPath -InstancePath $Asset.Target
                     }
                 }
+                # A schema states its guarantee in its $comment; an unparsable one is already a finding.
                 $schema = try {
                     Read-ContractData -RepositoryRoot $RepositoryRoot -Path $Asset.AssetPath
                 }

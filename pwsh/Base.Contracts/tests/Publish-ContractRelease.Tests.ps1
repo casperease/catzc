@@ -21,6 +21,7 @@ Describe 'Publish-ContractRelease' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT-RELEAS
             if (-not [System.IO.Directory]::Exists($folder)) {
                 return @()
             }
+            # A whole-tree walk: the frozen copy is compared file for file.
             $paths = [string[]] @(Get-ChildPath $folder -File -Depth 64 -Exclude @() -PruneVendor $false |
                     ForEach-Object { [System.IO.Path]::GetRelativePath($folder, $_) -replace '\\', '/' })
             [System.Array]::Sort($paths, [System.StringComparer]::Ordinal)

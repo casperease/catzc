@@ -38,11 +38,13 @@ function Assert-CatzcBundle {
         }
     }
 
+    # Every file once, build-relative and forward-slashed, through a named whole-tree walk: the tests/ scan and the type sources read it.
     $files = foreach ($file in Get-ChildPath $root -File -Depth 64 -Exclude @() -PruneVendor $false) {
         [System.IO.Path]::GetRelativePath($root, $file).Replace('\', '/')
     }
     $files = @($files)
 
+    # No test folder ships, since tests/ is never live by the layout; vendored modules are verbatim copies and keep theirs.
     $leaked = @($files | Where-Object { -not $_.StartsWith('.vendor/') -and "/$_" -match '(?i)/tests/' })
     if ($leaked.Count -gt 0) {
         $violations.Add("$($leaked.Count) test file(s) shipped in the build: $(@($leaked | Select-Object -First 5) -join ', ')")
@@ -81,6 +83,7 @@ function Assert-CatzcBundle {
                 }
             }
 
+            # Staged in the one layout Get-CombinedTypeHash reads, so the hash comes from that one implementation, never a copy of its recipe.
             $staging = [System.IO.Path]::Combine([System.IO.Path]::GetTempPath(),
                 "catzc-types-$([System.Guid]::NewGuid().ToString('N'))")
             try {
@@ -108,6 +111,7 @@ function Assert-CatzcBundle {
                     }
                 }
                 if ($sourcesComplete) {
+                    # The hash reads each head's delimiters from the carriers config, so the build's own copy ships and is staged too.
                     $carriers = [System.IO.Path]::Combine($root, '.compiled', 'types', 'file-carriers.yml')
                     if ([System.IO.File]::Exists($carriers)) {
                         $stagedTypes = [System.IO.Path]::Combine($staging, '.compiled', 'types')

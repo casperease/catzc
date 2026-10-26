@@ -21,6 +21,7 @@ Describe 'Get-ContractAssetNote' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT-CONTRACT
             $null = [System.IO.Directory]::CreateDirectory([System.IO.Path]::GetDirectoryName($file))
             [System.IO.File]::WriteAllText($file, $Content)
             if ($leaf -notmatch '\.sample\.') {
+                # Every fixture written so far stays named, so a second note still finds the first bound.
                 $manifest = Join-Path $script:root 'contracts/widget/0.1.0/contract.yml'
                 if (-not [System.IO.File]::Exists($manifest)) {
                     [System.IO.File]::WriteAllText($manifest, "applies_to:`n")

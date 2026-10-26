@@ -113,6 +113,7 @@ Describe 'Get-ContractFreezeFindings' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT-REL
     }
 }
 
+# One case per released version folder on disk: a folder changed since its release fails.
 BeforeDiscovery {
     $contractsRoot = Join-Path (Get-RepositoryRoot) 'contracts'
     $script:releasedCases = @(if ([System.IO.Directory]::Exists($contractsRoot)) {

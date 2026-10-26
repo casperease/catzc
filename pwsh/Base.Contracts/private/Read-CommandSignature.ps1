@@ -76,6 +76,7 @@ function Read-CommandSignature {
                     $hasParameterAttribute = $true
                 }
             }
+            # No [Parameter()] or no set name binds in every set, as PowerShell does.
             $inEverySet = $withoutSet -or -not $hasParameterAttribute
             $mandatory = $mandatoryBySet.Count -gt 0 -and $mandatoryBySet[0]
             if (@($mandatoryBySet | Select-Object -Unique).Count -gt 1) {

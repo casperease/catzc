@@ -13,6 +13,7 @@ function New-CatsCommandLookup {
         [string] $RepositoryRoot = (Get-RepositoryRoot)
     )
 
+    # Each name keys by its normal form and carries its kebab (cats) and PowerShell (pwsh) renderings.
     $languages = Get-Config -Config languages
     $normalForm = $languages.naming_normal_form
     $commandLanguage = $languages.languages | Where-Object name -ceq 'powershell' | Select-Object -First 1

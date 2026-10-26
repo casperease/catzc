@@ -19,6 +19,7 @@ function Get-CatzcContentHash {
     Assert-PathExist $Path -PathType Container
 
     $rootFull = [System.IO.Path]::GetFullPath($Path)
+    # A named whole-tree walk: the hash covers every file, so nothing is pruned and no depth drops one.
     $files = Get-ChildPath $rootFull -File -Depth 64 -Exclude @() -PruneVendor $false
 
     $relativePaths = [System.Collections.Generic.List[string]]::new()

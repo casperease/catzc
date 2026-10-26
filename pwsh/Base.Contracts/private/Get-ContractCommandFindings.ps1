@@ -43,6 +43,7 @@ function Get-ContractCommandFindings {
         return $findings | ForEach-Object { "'$($Asset.AssetPath)': $_" }
     }
 
+    # The file spells names in PowerShell's idiom; in the normal form they compare with the contract's.
     $toNormal = [Func[string, string]] {
         param([string] $text)
         [Catzc.Base.Objects.NameCase]::IsNormal($text,

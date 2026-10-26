@@ -37,6 +37,7 @@ function Build-ContractReference {
     $results = [System.Collections.Generic.List[pscustomobject]]::new()
     foreach ($rootName in $roots) {
         $rootAssets = @($assets | Where-Object { $_.Root -ceq $rootName })
+        # A root whose contracts do not all parse shows no signatures; Test-Contracts names the asset.
         $signatures = @{}
         if (@($rootAssets | Where-Object { $_.Kind -eq [Catzc.Base.Contracts.ContractAssetKind]::Command }).Count -gt 0) {
             try {
@@ -45,6 +46,7 @@ function Build-ContractReference {
                 }
             }
             catch {
+                # One unreadable contract fails the whole read, so each is read alone and only it shows none.
                 foreach ($asset in @($rootAssets | Where-Object { $_.Kind -eq [Catzc.Base.Contracts.ContractAssetKind]::Command })) {
                     try {
                         $one = Get-CommandContract -Root ([WildcardPattern]::Escape($asset.Root)) -Version ([WildcardPattern]::Escape($asset.Version)) `

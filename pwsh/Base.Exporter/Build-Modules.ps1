@@ -6,6 +6,7 @@ catzc:
 ---
 #>
 
+# -DryRun, not ShouldProcess or -WhatIf: the branch comes before any side effect.
 function Build-Modules {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseSingularNouns', '',
         Justification = 'Builds a set of modules; the plural is the contract name (ADR-AUTO-BUNDLE-BUNDLEISBUILD)')]
@@ -69,11 +70,13 @@ function Build-Modules {
         $engineArguments.ModuleProfile = $ModuleProfile
     }
 
+    # The engine is an .internal module loaded on demand and invoked by name, which keeps it off the static dependency graph.
     Import-InternalModule Builder
     $engine = 'Invoke-ModuleBuild'
     $result = & $engine @engineArguments
 
     if (-not $DryRun) {
+        # The footprint limits describe the bundle as declared; a build with an overridden selection or vendor policy is not it.
         $isDeclaredBundle = -not ($PSBoundParameters.ContainsKey('Module') -or
             $PSBoundParameters.ContainsKey('ModuleProfile') -or
             $PSBoundParameters.ContainsKey('VendorPolicy'))

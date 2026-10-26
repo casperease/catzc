@@ -19,6 +19,7 @@ function Get-ContractDotFolderFindings {
         return
     }
 
+    # A named whole-tree walk: the gate hunts stray folders, so nothing is pruned.
     $folders = [string[]] @(Get-ChildPath $contractsRoot -Directory -Depth 64 -Exclude @() -PruneVendor $false |
             ForEach-Object { [System.IO.Path]::GetRelativePath($contractsRoot, $_) -replace '\\', '/' })
     [System.Array]::Sort($folders, [System.StringComparer]::Ordinal)

@@ -21,6 +21,7 @@ function Assert-BundleFootprint {
     $files = 0
     $bytes = [long] 0
     $byFolder = @{}
+    # A named whole-tree walk: the footprint counts every shipped byte, so nothing is pruned.
     foreach ($file in Get-ChildPath $root -File -Depth 64 -Exclude @() -PruneVendor $false) {
         $length = [System.IO.FileInfo]::new($file).Length
         $files++
