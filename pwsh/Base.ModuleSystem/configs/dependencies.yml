@@ -311,6 +311,7 @@ groups:
         Catzc.Base.Modules,
         Catzc.Base.Asserts,
         Catzc.Base.Execution,
+        Catzc.Base.Variants,
       ]
 
   AzureExt:

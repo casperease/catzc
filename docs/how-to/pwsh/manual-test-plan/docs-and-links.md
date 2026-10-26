@@ -19,6 +19,7 @@ Generated READMEs and `.gitkeep` files, Markdown lint and titles, and repository
 | 10  | L1   | [Get-CommentPage (the shipped comment-pages config)][c10]      |
 | 11  | L1   | [Test-GeneratedFiles — real tree][c11]                         |
 | 12  | L2   | [Repository link directions (every tracked file)][c12]         |
+| 14  | L1   | [Get-NameMentionFinding (real tree)][c14]                      |
 
 [c1]: #1-build-gitkeep--managed-gitkeep-files
 [c2]: #2-build-gitkeep--shipped-assetsgitkeep
@@ -32,6 +33,7 @@ Generated READMEs and `.gitkeep` files, Markdown lint and titles, and repository
 [c10]: #10-get-commentpage-the-shipped-comment-pages-config
 [c11]: #11-test-generatedfiles--real-tree
 [c12]: #12-repository-link-directions-every-tracked-file
+[c14]: #14-get-namementionfinding-real-tree
 
 ## Checks
 
@@ -137,3 +139,14 @@ tree, and the VS Code registries carry the code-link rule.
 
 **Guards:** `Test-GeneratedFiles` finds the committed word list and its stamp in the loaded QualityGates module
 (ADR-AUTO-ASSETDEP-COVEREDBYREALTEST).
+
+### 14. Get-NameMentionFinding (real tree)
+
+**Test file:** `pwsh/Base.Slides/tests/Get-NameMentionFinding.Tests.ps1` (L1), block `Get-NameMentionFinding (real tree)`.
+
+**Guards:** no diagram declaration or slide names catzc or cats as a word, outside the contrasts `slides.yml` declares under
+`name_mentions` (DDR-VISUAL-NONAMEINPICTURE).
+
+**Checks:**
+
+- `Get-NameMentionFinding` over every declared diagram and every slide reports 0 findings.

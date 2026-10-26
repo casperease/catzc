@@ -22,7 +22,7 @@ public sealed class ToolConfig : Catzc.Base.Objects.DictionaryRecord
         "max_python", "uv_python", "script_install", "system_provided", "windows_only", "admin_only",
         "linux_admin_only", "windows_install_dir", "unix_install_dir", "depends_on", "session_path_hints",
         "session_host_probes", "windows_probes", "windows_pipeline_probes", "unix_probes", "unix_pipeline_probes",
-        "probe_excludes", "msys2_url", "msys2_sha256",
+        "probe_excludes", "msys2_url", "msys2_sha256", "installed_by",
     };
 
     // The locked version the tool must satisfy. Required.
@@ -72,6 +72,9 @@ public sealed class ToolConfig : Catzc.Base.Objects.DictionaryRecord
     public bool script_install { get; }
 
     public bool system_provided { get; }
+
+    // The tool whose installer installs this one alongside itself, so it has no Install- or Uninstall- function of its own. Default none.
+    public string installed_by { get; }
 
     // True when the tool exists only on Windows — skipped on macOS/Linux by the provisioning and status loops.
     public bool windows_only { get; }
@@ -147,6 +150,7 @@ public sealed class ToolConfig : Catzc.Base.Objects.DictionaryRecord
         uv_python = Flag(d, "uv_python");
         script_install = Flag(d, "script_install");
         system_provided = Flag(d, "system_provided");
+        installed_by = OptStr(d, "installed_by");
         windows_only = Flag(d, "windows_only");
         admin_only = Flag(d, "admin_only");
         linux_admin_only = Flag(d, "linux_admin_only");

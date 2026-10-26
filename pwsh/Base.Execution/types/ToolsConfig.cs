@@ -68,6 +68,11 @@ public sealed class ToolsConfig : ReadOnlyDictionary<string, ToolConfig>
             {
                 errors.Add(string.Format("tool '{0}': depends_on '{1}' is not a declared tool", name, dependency));
             }
+            string installer = Dictionary[name].installed_by;
+            if (installer != null && (installer == name || !Dictionary.ContainsKey(installer)))
+            {
+                errors.Add(string.Format("tool '{0}': installed_by '{1}' is not another declared tool", name, installer));
+            }
         }
 
         CheckPythonPin(errors);

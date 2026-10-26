@@ -157,6 +157,7 @@ types_node:
   command: npm
   depends_on: node_js
   npm_package: "@types/node"
+  installed_by: typescript
   version_command: "npm ls --prefix .typescript @types/node --depth=0"
   version_pattern: "@types/node@(?<ver>[\\d.]+)"
 
@@ -166,6 +167,7 @@ types_vscode:
   command: npm
   depends_on: node_js
   npm_package: "@types/vscode"
+  installed_by: typescript
   version_command: "npm ls --prefix .typescript @types/vscode --depth=0"
   version_pattern: "@types/vscode@(?<ver>[\\d.]+)"
 

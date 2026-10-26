@@ -70,6 +70,15 @@ Describe 'ToolsConfig' -Tag 'L0' {
             { & $script:make $bad } | Should -Throw "*depends_on 'gadget' is not a declared tool*"
         }
 
+        It 'accepts installed_by naming another declared tool, and throws for itself or an undeclared one' {
+            $ok = [ordered]@{ widget = (& $script:tool @{}); gadget = (& $script:tool @{ installed_by = 'widget' }) }
+            { & $script:make $ok } | Should -Not -Throw
+            $self = [ordered]@{ gadget = (& $script:tool @{ installed_by = 'gadget' }) }
+            { & $script:make $self } | Should -Throw "*installed_by 'gadget' is not another declared tool*"
+            $missing = [ordered]@{ gadget = (& $script:tool @{ installed_by = 'sprocket' }) }
+            { & $script:make $missing } | Should -Throw "*installed_by 'sprocket' is not another declared tool*"
+        }
+
         It 'throws when a tool declares no install mechanism' {
             $entry = & $script:tool
             $entry.Remove('winget_id')

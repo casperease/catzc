@@ -25,6 +25,11 @@ function Uninstall-DevBoxTools {
             continue
         }
 
+        # A tool another tool's installer installs alongside itself has no installer of its own.
+        if ($config.installed_by) {
+            continue
+        }
+
         # OS-provided tools (winget) are supplied by the OS — the toolchain never uninstalls them.
         if ($config.system_provided) {
             continue

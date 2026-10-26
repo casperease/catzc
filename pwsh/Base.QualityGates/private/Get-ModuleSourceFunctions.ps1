@@ -17,7 +17,8 @@ function Get-ModuleSourceFunctions {
         [string] $Name
     )
 
-    $folder = Join-Path $ModulesRoot $Name
+    # A source module's folder drops the namespace its name carries, so the name resolves through the modules track.
+    $folder = Join-Path $ModulesRoot (Get-Track -Name pwsh).FolderNameOf($Name)
     $privateFolder = Join-Path $folder (Get-Config -Config languages).FolderOf('private-function')
     $names = {
         param([string] $Directory)

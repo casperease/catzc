@@ -6,7 +6,7 @@
 
 A **command contract** is a contract asset, `<module>/<command>.command.yml` in `contracts/catzc/0.1.0/`, both named in the repository
 normal form ([ADR-AUTO-IDIOM-NORMALFORM](../automation/idiomatic-names.md#rule-adr-auto-idiom-normalform):
-`catzc.base.contracts/get_command_contract.command.yml`), that states the call interface of one command, and it is provided: its consumers
+`pwsh.base.contracts/get_command_contract.command.yml`), that states the call interface of one command, and it is provided: its consumers
 are the callers outside the module system, a POSIX shell through `cats`, a black-box test in another language, a pipeline step. A command is
 public exactly when a command contract names it. A function no contract names is not public and changes in place under
 [one living version](../principles/one-living-version.md): it is **internal** when only its own module calls it, placed in the module's
@@ -105,7 +105,7 @@ contract gets none.
 `A signature in one line per parameter`
 
 ```yaml
-# contracts/catzc/0.1.0/catzc.base.widgets/get_widget.command.yml
+# contracts/catzc/0.1.0/pwsh.base.widgets/get_widget.command.yml
 parameters:
   path: string! # mandatory
   strict: switch

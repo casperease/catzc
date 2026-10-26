@@ -22,10 +22,11 @@ Contracts are laid out as `contracts/<root>/<version>/<asset>`, with at most one
 plain moniker (`azure`, `ado`, `github`, `python`, `npm`). A shape we wrote is an inner contract and lives in `catzc` under its owning
 module's group, even when it describes a file a vendor reads; a vendor root exists only to hold a shape the vendor ships, copied verbatim,
 so today `catzc` is the only root. `<version>` is a version folder (ADR-REPO-CONTRACT-CURRENTVERSION). A group gathers related assets: in
-`catzc` it is the owning module in its repository normal form
-([ADR-AUTO-IDIOM-NORMALFORM](../automation/idiomatic-names.md#rule-adr-auto-idiom-normalform), `catzc.base.contracts`), the module that
-holds the tests that prove the contract; in a vendor root it is the vendor's area (`workflows`, `pipelines`, `templates`). No deeper folder
-exists.
+`catzc` it names the owning module, the module that holds the tests that prove the contract, by where the module lives: its track and its
+folder in the repository normal form ([ADR-AUTO-IDIOM-NORMALFORM](../automation/idiomatic-names.md#rule-adr-auto-idiom-normalform),
+`pwsh.base.contracts` for `Catzc.Base.Contracts`), never the namespace the module carries. The form and its rare exceptions are declared
+once, in the contracts config, and one resolver turns a module into its group and back. In a vendor root a group is the vendor's area
+(`workflows`, `pipelines`, `templates`). No deeper folder exists.
 
 - [One root per promiser](#one-root-per-promiser)
 - [Flat by design](#flat-by-design)
@@ -173,14 +174,14 @@ files to a vendor's reader — the keys GitHub reads from a workflow — is the 
 contracts/
   catzc/                                              # what we promise the world
     0.1.0/                                            # the current contracts, every internal binding points here
-      catzc.azure.dev_ops/
+      pwsh.azure.dev_ops/                             # a group: the owning module's track and folder
         pipeline.yaml.schema.json                     # our schema of the pipeline files Azure DevOps reads
-      catzc.base.contracts/
+      pwsh.base.contracts/
         get_command_contract.command.yml              # command contract: the call interface of Get-CommandContract
-      catzc.base.flow/
+      pwsh.base.flow/
         actionable-fact.schema.json                   # schema of the sample beside it
         actionable-fact.sample.json                   # sample payload the module produces
-      catzc.tooling.github/
+      pwsh.tooling.github/
         workflow.yml.schema.json                      # our schema of the workflow files GitHub reads
       contract.yml                                    # applies_to: each fragment or file schema to the files it binds
     1.0.0/                                            # a release, frozen while a consumer pins it
@@ -193,7 +194,9 @@ contracts/
 A contract is found by who promised it and what it is called. A deeper tree would only repeat the path of the file it binds, and the files a
 contract binds are many, scattered, and often under dot-prefixed folders, so a mirrored path is either deep, dotted, or wrong. One optional
 group folder keeps related assets together — a module's command contracts, its schemas of the files a vendor reads — and the version's
-`contract.yml` says which files each asset binds.
+`contract.yml` says which files each asset binds. The group is named by the module's track, not its namespace: the namespace is already the
+root, so repeating it in every group says nothing, while the track says which language the contract's module is written in, and a group read
+in a listing points straight at the folder that holds the module.
 
 ### One current version
 
@@ -232,8 +235,8 @@ instead of silently binding nothing.
 ```yaml
 # contracts/catzc/0.1.0/contract.yml
 applies_to:
-  catzc.tooling.github/workflow.yml.schema.json: [".github/workflows/*.yml"]
-  catzc.base.globs/file-kinds.yml: ["pwsh/Base.Globs/configs/file-kinds.yml"]
+  pwsh.tooling.github/workflow.yml.schema.json: [".github/workflows/*.yml"]
+  pwsh.base.globs/file-kinds.yml: ["pwsh/Base.Globs/configs/file-kinds.yml"]
 ```
 
 ### The name picks the kind

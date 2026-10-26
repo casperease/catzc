@@ -33,6 +33,11 @@ function Install-DevBoxTools {
             continue
         }
 
+        # A tool another tool's installer installs alongside itself has no installer of its own.
+        if ($config.installed_by) {
+            continue
+        }
+
         if ($config.system_provided) {
             Assert-True (Test-Tool $toolName -SkipVersionCheck) -ErrorText (
                 "$toolName is required but is provided by the platform, not the toolchain — install it and re-run " +

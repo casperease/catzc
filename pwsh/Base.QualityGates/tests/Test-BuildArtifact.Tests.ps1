@@ -211,8 +211,8 @@ Describe 'Get-CommittedTypesDrift' -Tag 'L0', 'logic' {
 Describe 'Get-ModuleSourceFunctions' -Tag 'L0', 'logic' {
     It 'reads the public and private function names from the module folder' {
         $modulesRoot = Join-Path $TestDrive 'widget-modules'
-        foreach ($file in 'Catzc.Gadget/Set-Gadget.ps1', 'Catzc.Gadget/Get-Gadget.ps1',
-            'Catzc.Gadget/private/Resolve-Gadget.ps1') {
+        # A source folder drops the namespace: module Catzc.Gadget lives in Gadget/.
+        foreach ($file in 'Gadget/Set-Gadget.ps1', 'Gadget/Get-Gadget.ps1', 'Gadget/private/Resolve-Gadget.ps1') {
             $path = Join-Path $modulesRoot $file
             [System.IO.Directory]::CreateDirectory((Split-Path $path -Parent)) | Out-Null
             [System.IO.File]::WriteAllText($path, '')

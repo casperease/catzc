@@ -16,7 +16,9 @@ function Install-TypeScript {
     Assert-Tool 'node_js'
 
     $folder = Join-Path (Get-RepositoryRoot) (Get-Config -Config javascript).types_folder
-    foreach ($tool in 'typescript', 'types_node', 'types_vscode') {
+    # TypeScript itself, then every tool the tools config says it installs alongside itself.
+    $tools = (Get-Config -Config tools).Keys | Where-Object { (Get-ToolConfig -Tool $_).installed_by -ceq 'typescript' }
+    foreach ($tool in @('typescript') + @($tools)) {
         $config = Get-ToolConfig -Tool $tool
         $installed = if (Test-Command $config.command) {
             Get-ToolVersion -Config $config

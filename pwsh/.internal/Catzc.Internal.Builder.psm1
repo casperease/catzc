@@ -54,88 +54,10 @@ $script:mergedFileSuffix = '.functions.ps1'
 . (Join-Path $PSScriptRoot 'assets/builder/Format-CatzcPackageManifest.ps1')
 . (Join-Path $PSScriptRoot 'assets/builder/Write-ModuleBuildOutput.ps1')
 . (Join-Path $PSScriptRoot 'assets/builder/Clear-StaleBuildFile.ps1')
-
-function Get-BuildSourceIndex {
-    [CmdletBinding()]
-    [OutputType([System.Collections.Generic.Dictionary[string, bool]])]
-    param(
-        [Parameter(Mandatory)]
-        [string] $SourceRoot
-    )
-
-    $listing = Invoke-Executable 'git -c core.quotepath=off ls-files --eol' -WorkingDirectory $SourceRoot -PassThru -Silent -NoAssert
-    if ($listing.ExitCode -ne 0) {
-        throw "Invoke-ModuleBuild: a bundle is built from the files git tracks, but git cannot list them under '$SourceRoot' ($($listing.Errors))."
-    }
-    $index = [System.Collections.Generic.Dictionary[string, bool]]::new([System.StringComparer]::Ordinal)
-    foreach ($line in ([string] $listing.Output).Split("`n")) {
-        $tab = $line.IndexOf("`t")
-        if ($tab -lt 0) {
-            continue
-        }
-        $index[$line.Substring($tab + 1).TrimEnd("`r")] = $line.StartsWith('i/lf ', [System.StringComparison]::Ordinal)
-    }
-    $untracked = Invoke-Executable 'git -c core.quotepath=off ls-files --others --exclude-standard' -WorkingDirectory $SourceRoot -PassThru -Silent
-    foreach ($line in ([string] $untracked.Output).Split("`n")) {
-        $path = $line.TrimEnd("`r")
-        if ($path) {
-            $index[$path] = $false   # no stored form to restore: a byte copy
-        }
-    }
-    , $index
-}
-
-function Test-BuildSourceDirty {
-    [CmdletBinding()]
-    [OutputType([bool])]
-    param(
-        [Parameter(Mandatory)]
-        [string] $SourceRoot
-    )
-
-    $changed = Invoke-Executable 'git --no-optional-locks diff --quiet HEAD -- .' -WorkingDirectory $SourceRoot -PassThru -Silent -NoAssert
-    if ($changed.ExitCode -ne 0) {
-        return $true
-    }
-    $untracked = Invoke-Executable 'git --no-optional-locks ls-files --others --exclude-standard -- .' -WorkingDirectory $SourceRoot -PassThru -Silent
-    -not [string]::IsNullOrWhiteSpace([string] $untracked.Output)
-}
-
-function Test-BuildSourceLfOnly {
-    [CmdletBinding()]
-    [OutputType([bool])]
-    param(
-        [Parameter(Mandatory)]
-        [System.Collections.Generic.Dictionary[string, bool]] $Index,
-
-        [Parameter(Mandatory)]
-        [string] $SourceRoot,
-
-        [Parameter(Mandatory)]
-        [string] $Path
-    )
-
-    $isLfOnly = $false
-    [void] $Index.TryGetValue([System.IO.Path]::GetRelativePath($SourceRoot, $Path).Replace('\', '/'), [ref] $isLfOnly)
-    $isLfOnly
-}
-
-function Test-BuildSourceShippable {
-    [CmdletBinding()]
-    [OutputType([bool])]
-    param(
-        [Parameter(Mandatory)]
-        [System.Collections.Generic.Dictionary[string, bool]] $Index,
-
-        [Parameter(Mandatory)]
-        [string] $SourceRoot,
-
-        [Parameter(Mandatory)]
-        [string] $Path
-    )
-
-    $Index.ContainsKey([System.IO.Path]::GetRelativePath($SourceRoot, $Path).Replace('\', '/'))
-}
+. (Join-Path $PSScriptRoot 'assets/builder/Get-BuildSourceIndex.ps1')
+. (Join-Path $PSScriptRoot 'assets/builder/Test-BuildSourceDirty.ps1')
+. (Join-Path $PSScriptRoot 'assets/builder/Test-BuildSourceLfOnly.ps1')
+. (Join-Path $PSScriptRoot 'assets/builder/Test-BuildSourceShippable.ps1')
 
 function Resolve-BuildModuleSet {
     [CmdletBinding()]

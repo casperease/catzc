@@ -63,7 +63,7 @@ Describe 'Build-ContractReference' -Tag 'L0', 'logic' {
         Build-ContractReference -RepositoryRoot $script:root -Silent | Out-Null
         $page = Read-Page
         $page | Should -Match '(?m)^\| Group +\| Asset +\| Bound file +\| Direction +\| Kind +\| Signature +\|$'
-        $rows = @($page -split "`n" | Where-Object { $_.StartsWith('| `catzc.') } | ForEach-Object {
+        $rows = @($page -split "`n" | Where-Object { $_.StartsWith('| `pwsh.') } | ForEach-Object {
                 , @($_.Trim().Trim('|') -split ' \| ' | ForEach-Object { $_.Trim() })
             })
 
@@ -74,7 +74,7 @@ Describe 'Build-ContractReference' -Tag 'L0', 'logic' {
 
     It 'shows a command contract''s signature in its own column, from the one reader' -Tag 'ADR-REPO-CMDCONTRACT-ONEREADER' {
         Build-ContractReference -RepositoryRoot $script:root -Silent | Out-Null
-        $rows = @((Read-Page) -split "`n" | Where-Object { $_.StartsWith('| `catzc.') } | ForEach-Object {
+        $rows = @((Read-Page) -split "`n" | Where-Object { $_.StartsWith('| `pwsh.') } | ForEach-Object {
                 , @($_.Trim().Trim('|') -split ' \| ' | ForEach-Object { $_.Trim() })
             })
         $rows[3] | Should -Be @('`pwsh.widget`', '`get_widget.command.yml`', '`widgets/Catzc.Widget/Get-Widget.ps1`',
@@ -85,7 +85,7 @@ Describe 'Build-ContractReference' -Tag 'L0', 'logic' {
         Add-File 'contracts/catzc/0.1.0/pwsh.widget/get_widget.command.yml' "parameters:`n  path: text`n"
         Build-ContractReference -RepositoryRoot $script:root -Silent | Out-Null
         (Read-Page) |
-            Should -Match '(?m)^\| `catzc\.widget` +\| `get_widget\.command\.yml` .*\| not readable \(Test-Contracts reports it\) +\|$'
+            Should -Match '(?m)^\| `pwsh\.widget` +\| `get_widget\.command\.yml` .*\| not readable \(Test-Contracts reports it\) +\|$'
     }
 
     It 'lists the notes under the table, one item per asset that carries one' -Tag 'ADR-REPO-CONTRACT-HEADERSAYSWHATITPINS' {
@@ -97,7 +97,7 @@ Describe 'Build-ContractReference' -Tag 'L0', 'logic' {
         $first | Should -BeGreaterThan 0
         $lines[$first + 1] |
             Should -BeExactly '  [ADR-TST-WIDGET-TURN](../../drs/repository/widget-thing.md#rule-adr-tst-widget-turn).'
-        (Read-Page) | Should -Match "(?m)^\| ``catzc\.widget``.*\|\n\nNotes:\n\n- "
+        (Read-Page) | Should -Match "(?m)^\| ``pwsh\.widget``.*\|\n\nNotes:\n\n- "
     }
 
     It 'fills a long note across lines at the prose width' -Tag 'ADR-REPO-FORMAT-GENERATEDARTIFACTSFORMATTED' {

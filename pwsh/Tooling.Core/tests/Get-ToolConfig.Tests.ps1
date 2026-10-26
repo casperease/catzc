@@ -13,7 +13,8 @@ Describe 'Get-ToolConfig' -Tag 'L0' {
         @{ Tool = $key; Config = $script:allTools[$key] }
     }
     # OS-provided tools (winget) are asserted, never installed — they have no Install-/Uninstall- functions.
-    $script:installableEntries = $script:toolEntries | Where-Object { -not $_.Config['system_provided'] }
+    # A tool another tool's installer installs alongside itself (installed_by) has no pair of its own either.
+    $script:installableEntries = $script:toolEntries | Where-Object { -not $_.Config['system_provided'] -and -not $_.Config['installed_by'] }
     $script:depEntries = foreach ($entry in $script:toolEntries) {
         if ($entry.Config['depends_on']) {
             @{ Tool = $entry.Tool; DependsOn = $entry.Config['depends_on'] }
