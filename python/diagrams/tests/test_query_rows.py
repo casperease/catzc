@@ -13,6 +13,7 @@ import pytest
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 import declaration
+import module_paths
 import query_rows
 from conftest import WIDGETS
 
@@ -120,7 +121,7 @@ def test_rows_holding_nothing_for_the_point_are_refused(rows):
         declaration.normalise(raw_at(point="widgets/Other"))
 
 
-SCHEMA = Path(__file__).resolve().parents[3] / "contracts/catzc/0.1.0/pwsh.base.maps/query-rows.schema.json"
+SCHEMA = module_paths.contract_file("Catzc.Base.Maps", "query-rows.schema.json")
 
 
 @pytest.mark.parametrize("payload", ["sample", "fixture"])

@@ -76,12 +76,22 @@ function Test-BurstHeld { `$event = `$null; if (-not [System.Threading.EventWait
         [System.IO.File]::ReadAllText($script:target) | Should -BeExactly 'staged'
     }
 
-    It 'stops before touching a target when the staged folder holds no file' {
-        Remove-Item -LiteralPath (Join-Path $script:staged 'widgets') -Recurse -Force
-        $lines = @(& $script:burst -StagedFolder 'out/widget/staged' -RepositoryRoot $script:root -Importer $script:importer -LockName $script:lockName -LockSeconds 1 -Seconds 30 'Test-Swapped')
-        $LASTEXITCODE | Should -Be 1
+    It 'runs the commands under the run lock alone, touching no target and writing no journal, when <Case>' -ForEach @(
+        @{ Case = 'the staged folder holds no file'; Remove = 'widgets' }
+        @{ Case = 'the staged folder is absent'; Remove = '' }
+    ) {
+        $folder = if ($Remove) {
+            Join-Path $script:staged $Remove
+        }
+        else {
+            $script:staged
+        }
+        Remove-Item -LiteralPath $folder -Recurse -Force
+        $lines = @(& $script:burst -StagedFolder 'out/widget/staged' -RepositoryRoot $script:root -Importer $script:importer -LockName $script:lockName -LockSeconds 1 -Seconds 30 'Test-BurstHeld')
+        $LASTEXITCODE | Should -Be 0
         [System.IO.File]::ReadAllText($script:target) | Should -BeExactly 'original'
-        ($lines -join "`n") | Should -BeLike '*holds no file*'
+        Test-Path -LiteralPath "$script:staged.backup" | Should -BeFalse
+        $lines | Should -Contain '[Invoke-StagedBurst] nothing staged; 1 command(s) passed under the run lock'
     }
 
     Context 'a staged base' {

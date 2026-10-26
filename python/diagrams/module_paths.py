@@ -5,6 +5,7 @@ spells a module folder: Catzc.Base.Drs lives in pwsh/Base.Drs. The variants file
 read once per process. A leaf of the kit that imports none of it, so a script copied out with it still runs.
 """
 
+import re
 from functools import cache
 from pathlib import Path
 
@@ -40,3 +41,28 @@ def module_path(full_name, *parts):
 def module_file(full_name, *parts):
     """A file of the module, absolute under this repository."""
     return REPO / module_path(full_name, *parts)
+
+
+CONTRACTS_TRACK = "contracts"
+
+
+def _normal_form(pascal_dotted):
+    """A pascal-dotted folder name in the snake-dotted normal form, the twin of NameCase.ToNormal: DevOps becomes dev_ops."""
+    words = re.compile(r"(?<=[a-z0-9])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])")
+    return ".".join(words.sub("_", part).lower() for part in pascal_dotted.split("."))
+
+
+@cache
+def _contracts_version_root():
+    """The one contract version folder under the contracts track and the modules track's namespace."""
+    namespace, _ = _track()
+    found = sorted(p for p in (REPO / CONTRACTS_TRACK / namespace.lower()).glob("*") if p.is_dir())
+    if len(found) != 1:
+        raise FileNotFoundError(f"{CONTRACTS_TRACK}/{namespace.lower()}/*: expected one contract version, found {len(found)}")
+    return found[0]
+
+
+def contract_file(full_name, *parts):
+    """A contract file of the module, absolute: the version folder, then the module's group (the twin of Get-ContractGroup), then the parts."""
+    group = MODULES_TRACK + "." + _normal_form(module_folder_name(full_name))
+    return _contracts_version_root() / group / Path(*parts)

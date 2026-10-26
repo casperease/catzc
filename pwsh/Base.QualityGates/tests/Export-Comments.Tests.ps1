@@ -77,4 +77,23 @@ Describe 'Export-Comments' -Tag 'L0', 'logic' {
         & $readFile $root "$(Get-CatzcModulesFolder)/Widget/Get-Widget.ps1" | Should -BeExactly $source
         Test-Path (Join-Path $root $pageRelative) | Should -BeFalse
     }
+
+    It 'exports a staged copy into the staged folder and leaves the repository untouched under -StagedFolder' -Tag 'ADR-REPO-COMMENTS-ONELINEOFINSIGHT' {
+        $root = & $newRepository
+        & $writeFile $root "$(Get-CatzcModulesFolder)/Widget/Get-Widget.ps1" "function Get-Widget {`n}`n"
+        & $writeFile $root $pageRelative "# Get-Widget`n"
+        $staged = Join-Path $root 'out/staged'
+        & $writeFile $staged "$(Get-CatzcModulesFolder)/Widget/Get-Widget.ps1" $source
+        $changed = Export-Comments -RepositoryRoot $root -StagedFolder 'out/staged'
+        $changed | Should -Be @("$(Get-CatzcModulesFolder)/Widget/Get-Widget.ps1")
+        & $readFile $staged "$(Get-CatzcModulesFolder)/Widget/Get-Widget.ps1" |
+            Should -BeExactly "function Get-Widget {`n    Get-Gadget | Sort-Object`n}`n"
+        $page = & $readFile $staged $pageRelative
+        $page.StartsWith("# Get-Widget`n") | Should -BeTrue -Because 'the staged page builds on the repository page'
+        $page.Contains('across runs and the cache key never changes.') | Should -BeTrue
+        & $readFile $staged "$pageRelative.burst-base" |
+            Should -Be (Get-FileHash -Algorithm SHA256 -LiteralPath (Join-Path $root $pageRelative)).Hash
+        & $readFile $root "$(Get-CatzcModulesFolder)/Widget/Get-Widget.ps1" | Should -BeExactly "function Get-Widget {`n}`n"
+        & $readFile $root $pageRelative | Should -BeExactly "# Get-Widget`n"
+    }
 }

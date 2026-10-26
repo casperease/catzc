@@ -45,17 +45,15 @@ plans stay the durable record; task files and this master are derived from them 
 Open, in execution order. A chunk without a task file is executed from its plan's open steps directly. The questions raised after the round
 of 2026-10-21 are decided (the second round of that day) and folded into their plans.
 
-- types-build-local -> plan-types-build-local.md: commit the types manifest only, build the DLL per machine, stack builds in a
-  console.*.source session up to a cap; the untracking is the user's git step
-- types-contract -> plan-types-contract.md: the types surface is the catzc contract catzc.internal.types at 0.1.0, nothing under
-  pwsh/.compiled stays tracked; the untracking is the user's git step
-- language-lamps -> plan-language-lamps.md: the languages button and its pick list, a lamp per ticked language from the languages config
-- vscode-extensions -> plan-vscode-extensions.md: trim the recommendations, then the cats file icon theme, then fold editorconfig,
-  regex-robin and the ANSI pair into cats extensions or generated settings
+- types-build-local -> plan-types-build-local.md: landed; blocked_on the user's untrack (task-user-runs-and-commits item 27)
+- types-contract -> plan-types-contract.md: landed as pwsh.internal.types; blocked_on the user's untrack (task-user-runs-and-commits
+  item 27)
+- language-lamps -> plan-language-lamps.md: landed; blocked_on the user's editor check (task-user-runs-and-commits item 23)
+- vscode-extensions -> plan-vscode-extensions.md: landed; blocked_on the user's editor check (task-user-runs-and-commits item 23)
 - repo-filters -> plan-repo-filters.md: the filters landed (sets from the model, union of lit lamps, coverage asserted, docs and out lamps);
   one step left: the user's look at the lamps in VS Code (the `pipelines` and `infrastructure` lamps landed)
-- namespace-test-runners -> plan-namespace-test-runners.md: Invoke-PythonTest and Invoke-JavaScriptTest name a module's test folder through
-  its track, as the go and bash runners do
+- namespace-test-runners -> plan-namespace-test-runners.md: the runners landed; one step left, the folder-to-full-name lookup held once in
+  Base.Repository
 - track-model -> plan-track-model.md: tracks as members with generated and committed facts, catch-up vendor tracks and `out` for the root,
   globsets derived from tracks, a DDR-VENDOR for the vendor umbrella, normal-form track names, filter lamps per aspect plus a language
   field, minimaps and lamps out of the ADRs; eighteen steps, the first waiting on the user's example names
@@ -79,7 +77,8 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
 - session-learnings -> plan-session-learnings.md: catzc-49's lines only (waits on catzc-49).
 - drs-system -> plan-drs-system.md: one step left, the user's CLAUDE.md edit (task-user-runs-and-commits).
 - debt-tier-tripwire -> plan-debt-tier-tripwire.md: 165 L0/L1 tests launch git and fail only when a tier runs alone; seams mocked, the
-  tripwire armed per container; one step
+  tripwire armed per container; blocked_on the user's case-only staging (task-user-runs-and-commits item 18), then the
+  ConvertTo-NormalName.Tests.ps1 L1 rerun
 - debt-new-file-checklist -> plan-debt-new-file-checklist.md: what a new type, asset or staged file needs before its gates pass; three open
   questions
 - diagram-review -> plan-diagram-review.md: the diagrams reviewed with the user one named slide at a time (read, one question in context,

@@ -29,8 +29,7 @@ function Invoke-JavaScriptTest {
         "$jsRelative/$extensionFolder/tests"
     }
     else {
-        $moduleFolder = (Get-Track -Name (Get-CatzcModulesFolder)).FolderNameOf($Module)
-        "$jsRelative/tests/$((Get-Config -Config languages).TestFolderOf('javascript', $moduleFolder))"
+        "$jsRelative/tests/$(Get-ModuleTestFolder javascript $Module)"
     }
     $folder = Join-Path $root $relative
     if (-not (Test-Path -LiteralPath $folder -PathType Container)) {

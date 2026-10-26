@@ -135,7 +135,7 @@ final full run last.
     `docs/references/pwsh/CLAUDE.md` line 136 to read "2. Add an item to the list in `index.md` (module name, one-line summary), keeping the
     foundation-first order." Check: `grep -n "Add an item to the list" docs/references/pwsh/CLAUDE.md` finds line 136.
 
-27. plan-types-contract: commit the new types contract `contracts/catzc/0.1.0/catzc.internal.types/` (`types.schema.json` and the generated
+27. plan-types-contract: commit the new types contract `contracts/catzc/0.1.0/pwsh.internal.types/` (`types.schema.json` and the generated
     `types.sample.json`), and untrack the old hash-named manifest (`git rm --cached pwsh/.compiled/Catzc.Types.*.json`; the file stays on
     disk until the gitignore step of the same plan ignores the whole folder). Check: `git ls-files pwsh/.compiled` prints nothing, and
     `Test-BuildArtifact -Facet Types` reports no issues.

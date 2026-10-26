@@ -18,6 +18,11 @@ names are checked against the surfaces.
 - A types contract per module group, `contracts/catzc/<version>/<group>/types.json`, beside the group's command contracts.
 - Its content comes from the compiled DLL (the Add-Type build), never written by hand: a generated contract, as the global types sample is
   today.
+- A type's group comes from its namespace, `Catzc.<module folder>`, matched to the one group folder ending in the folder's normal form (as
+  Get-TypesContractPath matches); a missing group is an error naming the module, never a folder the writer creates, and Test-Contracts
+  pins that each mapping equals Get-ContractGroup (the orchestrator, 2026-10-26).
+- Each type lists name, aliases, display and its public members: property and method names, sorted, each with its kind, no signatures or
+  bodies; a body edit leaves the file unchanged, a new public member moves it (the orchestrator, 2026-10-26).
 
 ## Open steps
 

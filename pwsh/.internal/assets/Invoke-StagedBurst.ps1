@@ -10,7 +10,8 @@
     backup journal beside the staged folder (<staged>.backup), copies the staged files over their targets, and runs -Command in one
     Invoke-CatzcCommand -InBurst call, which is the one fresh import. When any command fails, or anything throws, every target is
     restored from the journal (a target the swap created is deleted) and the call exits 1; when all pass, the journal is removed and the
-    staged copies stay for the caller to delete.
+    staged copies stay for the caller to delete. An empty or absent staged folder is a lock-only burst: the commands run under the run lock
+    with nothing swapped and no journal.
 
     The swap is never left half done. The journal is complete before the first target is touched, the restore runs in a finally block, and
     a journal found at the start, left by a call killed mid-swap, is restored before anything else happens.
@@ -157,7 +158,7 @@ elseif (Test-Path -LiteralPath $journal) {
 }
 
 if (-not (Test-Path -LiteralPath $staged -PathType Container)) {
-    throw "Invoke-StagedBurst: the staged folder '$staged' does not exist."
+    $null = New-Item -ItemType Directory -Path $staged -Force
 }
 # A bounded walk, one level at a time: a staged tree deeper than the roof is a mistake, never a silent subset. It is
 # written out here with
@@ -195,8 +196,21 @@ foreach ($base in $bases) {
     }
 }
 $relatives = @($relatives)
+# Nothing staged is a lock-only burst, the common re-render: the commands run under the lock, with no swap and no
+# journal.
 if ($relatives.Count -eq 0) {
-    throw "Invoke-StagedBurst: the staged folder '$staged' holds no file."
+    $arguments = @{ InBurst = $true; LockName = $LockName; Command = $Command }
+    if ($Importer) {
+        $arguments.Importer = $Importer
+    }
+    $global:LASTEXITCODE = 0
+    & (Join-Path $PSScriptRoot 'Invoke-CatzcCommand.ps1') @arguments
+    if ($global:LASTEXITCODE -ne 0) {
+        "[Invoke-StagedBurst] nothing staged; the commands failed (exit code $global:LASTEXITCODE)"
+        exit 1
+    }
+    "[Invoke-StagedBurst] nothing staged; $($Command.Count) command(s) passed under the run lock"
+    return
 }
 
 # A staged '<path>.burst-delete' marker deletes its target instead of swapping a file in; the target must exist, and is

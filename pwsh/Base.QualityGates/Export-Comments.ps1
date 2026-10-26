@@ -15,6 +15,8 @@ function Export-Comments {
 
         [string] $RepositoryRoot = (Get-RepositoryRoot),
 
+        [string] $StagedFolder,
+
         [switch] $DryRun,
 
         [switch] $PassThru
@@ -28,13 +30,28 @@ function Export-Comments {
     # Several files may share a page only by configuration error; each page is read once and carried forward.
     $pageTexts = @{}
     $results = [System.Collections.Generic.List[Catzc.Base.QualityGates.CommentFileResult]]::new()
-    $scope = @(Get-CommentScope -RepositoryRoot $RepositoryRoot -Path $Path)
+    # A staged folder mirrors the repository: its files are the scope, a page is read from its staged copy or else the
+    # repository, and both are written back into the folder, the page with the burst base that guards a peer's edit.
+    $sourceRoot = $RepositoryRoot
+    if ($StagedFolder) {
+        $sourceRoot = [System.IO.Path]::GetFullPath($StagedFolder, [System.IO.Path]::GetFullPath($RepositoryRoot))
+        if (-not $Path) {
+            $Path = @($sourceRoot)
+        }
+    }
+    $scope = @(Get-CommentScope -RepositoryRoot $sourceRoot -Path $Path)
     foreach ($entry in $scope) {
-        $filePath = Join-Path $RepositoryRoot $entry.File
-        $pagePath = Join-Path $RepositoryRoot $entry.Page
+        $filePath = Join-Path $sourceRoot $entry.File
+        $pagePath = Join-Path $sourceRoot $entry.Page
         if (-not $pageTexts.ContainsKey($entry.Page)) {
-            $pageTexts[$entry.Page] = if (Test-Path -LiteralPath $pagePath -PathType Leaf) {
-                [System.IO.File]::ReadAllText($pagePath)
+            $readPath = if ($StagedFolder -and -not (Test-Path -LiteralPath $pagePath -PathType Leaf)) {
+                Join-Path $RepositoryRoot $entry.Page
+            }
+            else {
+                $pagePath
+            }
+            $pageTexts[$entry.Page] = if (Test-Path -LiteralPath $readPath -PathType Leaf) {
+                [System.IO.File]::ReadAllText($readPath)
             }
         }
         $text = [System.IO.File]::ReadAllText($filePath)
@@ -47,6 +64,12 @@ function Export-Comments {
         $pageTexts[$entry.Page] = $result.PageText
         $results.Add($result)
         if (-not $DryRun) {
+            $repositoryPage = Join-Path $RepositoryRoot $entry.Page
+            $basePath = "$pagePath.burst-base"
+            if ($StagedFolder -and -not (Test-Path -LiteralPath $basePath) -and (Test-Path -LiteralPath $repositoryPage -PathType Leaf)) {
+                $null = New-Item -ItemType Directory -Path (Split-Path -Parent $pagePath) -Force
+                [System.IO.File]::WriteAllText($basePath, (Get-FileHash -Algorithm SHA256 -LiteralPath $repositoryPage).Hash)
+            }
             Write-FileIfChanged -Path $pagePath -Content $result.PageText | Out-Null
             [System.IO.File]::WriteAllText($filePath, $result.Text, $utf8NoBom)
         }
