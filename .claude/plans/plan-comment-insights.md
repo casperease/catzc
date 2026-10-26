@@ -25,11 +25,8 @@ place: on a declaration or first code line, one line that says something useful 
 
 ## Open steps
 
-- [ ] `pwsh/Catzc.Base.TypesSystem`: 18 lines are written (catzc-27), and the four sections that only summarise a test file get no line; its
-      checks are left. Check: `Format-Code -Path` on each changed file moves no line, `Test-Comments -Path pwsh/Catzc.Base.TypesSystem`
-      reports no issues, and its tests pass one file at a time after a fresh import.
-- [ ] `pwsh/Catzc.Base.RootConfig`: 26 lines are written (catzc-5c); its `types/RootConfigFile.cs` and `types/RootConfigFiles.cs` (6
-      sections) are left while the types build is in hand (catzc-ed). Check: as for TypesSystem, on the two type files.
-- [ ] `pwsh/Catzc.Base.Slides`, started by no one yet (catzc-44 left it; catzc-2f holds the diagram kit). Check: as for TypesSystem.
+- [ ] `pwsh/Catzc.Base.Slides`, started by no one yet (catzc-44 left it; catzc-2f holds the diagram kit). Check: `Format-Code -Path` on each
+      changed file moves no line, `Test-Comments -Path pwsh/Catzc.Base.Slides` reports no issues, and its tests pass one file at a time
+      after a fresh import.
 - [ ] The rollout after the user's review: one module per step, in the master's order. Check: per module, `Test-Comments -Path` on it
       reports no long comment and no orphan section, and its tests pass one file at a time.

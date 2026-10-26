@@ -29,31 +29,31 @@ aspects:
 tracks:
   pwsh:
     {
-      places: [pwsh],
+      members: [pwsh],
       type: modules,
       languages: [powershell, bcl, yaml, json, jsonl, bash, xml, css, javascript, solution, stamp, asset],
       execution_engines: [pwsh],
     }
-  pwsh-vendor: { places: [pwsh/.vendor], type: vendored-code }
+  pwsh-vendor: { members: [pwsh/.vendor], type: vendored-code }
   infrastructure:
     {
-      places: [infrastructure],
+      members: [infrastructure],
       type: infrastructure,
       vendor: azure,
       languages: [bicep, yaml, markdown],
       kinds: { templates: infrastructure/templates, configs: "infrastructure/templates/*/configuration", modules: infrastructure/modules },
     }
-  ado-pipelines: { places: [.ado/pipelines], type: pipelines, vendor: ado, languages: [pipeline-yaml, powershell] }
-  github-workflows: { places: [.github/workflows], type: pipelines, vendor: github, languages: [yaml] }
-  docs: { places: [docs], type: documentation, languages: [markdown, asset, yaml] }
-  contracts: { places: [contracts], type: contracts, languages: [markdown, pipeline-yaml, yaml, json] }
-  go: { places: [go], type: modules, languages: [go] }
-  python: { places: [python], type: modules, languages: [python, html, markdown, xml, yaml] }
-  bash: { places: [bash], type: modules, languages: [bash] }
-  bash-vendor: { places: [bash/.vendor], type: vendored-code }
-  js: { places: [js], type: modules, languages: [javascript, json, asset], kinds: { extensions: js } }
-  .github: { places: [.github], type: vendor-settings, vendor: github, languages: [yaml, markdown] }
-  .cspell: { places: [.cspell], type: vendor-settings, vendor: cspell }
-  .claude: { places: [.claude], type: vendor-settings, vendor: claude, languages: [markdown, python, bcl, json, xml, html, powershell] }
-  .vscode: { places: [.vscode], type: vendor-settings, vendor: vscode, languages: [json] }
-  .unordered: { places: [.unordered], type: unordered, languages: [markdown] }
+  ado-pipelines: { members: [.ado/pipelines], type: pipelines, vendor: ado, languages: [pipeline-yaml, powershell] }
+  github-workflows: { members: [.github/workflows], type: pipelines, vendor: github, languages: [yaml] }
+  docs: { members: [docs], type: documentation, languages: [markdown, asset, yaml] }
+  contracts: { members: [contracts], type: contracts, languages: [markdown, pipeline-yaml, yaml, json] }
+  go: { members: [go], type: modules, languages: [go] }
+  python: { members: [python], type: modules, languages: [python, html, markdown, xml, yaml] }
+  bash: { members: [bash], type: modules, languages: [bash] }
+  bash-vendor: { members: [bash/.vendor], type: vendored-code }
+  js: { members: [js], type: modules, languages: [javascript, json, asset], kinds: { extensions: js } }
+  .github: { members: [.github], type: vendor-settings, vendor: github, languages: [yaml, markdown] }
+  .cspell: { members: [.cspell], type: vendor-settings, vendor: cspell }
+  .claude: { members: [.claude], type: vendor-settings, vendor: claude, languages: [markdown, python, bcl, json, xml, html, powershell] }
+  .vscode: { members: [.vscode], type: vendor-settings, vendor: vscode, languages: [json] }
+  .unordered: { members: [.unordered], type: unordered, languages: [markdown] }

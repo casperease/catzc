@@ -1,5 +1,6 @@
-description:
-  The repository's containers are its tracks, each a placed cluster of one track type in its own languages, crossed into the world map.
+description: >-
+  The repository's containers are its tracks, each a placed cluster of one track type in its own languages; the pipelines call the pwsh
+  modules, and the other tracks hold code, delivery and records.
 about:
   adrs: [DDR-TRACK-TRACKISPLACEDCLUSTER, DDR-TRACK-WORLDMAP, DDR-VISUAL-ZOOMISANAXIS]
   lens: architecture
@@ -10,23 +11,21 @@ content:
   flow: left-to-right
   theme: dark
   bands:
+    - { id: band-pipelines, label: PIPELINES }
     - { id: band-modules, label: MODULES }
     - { id: band-delivery, label: DELIVERY }
     - { id: band-records, label: RECORDS }
   glyphs:
+    - { id: r-ado, kind: runner, label: ado-pipelines, in: band-pipelines }
+    - { id: r-github, kind: runner, label: github-workflows, in: band-delivery }
+    - { id: f-infra, kind: file, label: infrastructure, in: band-delivery }
     - { id: m-pwsh, kind: module, label: pwsh, in: band-modules }
     - { id: m-python, kind: module, label: python, in: band-modules }
     - { id: m-go, kind: module, label: go, in: band-modules }
     - { id: m-bash, kind: module, label: bash, in: band-modules }
     - { id: m-js, kind: module, label: js, in: band-modules }
-    - { id: f-infra, kind: file, label: infrastructure, in: band-delivery }
-    - { id: r-ado, kind: runner, label: ado-pipelines, in: band-delivery }
-    - { id: r-github, kind: runner, label: github-workflows, in: band-delivery }
     - { id: f-docs, kind: file, label: docs, in: band-records }
     - { id: f-contracts, kind: file, label: contracts, in: band-records }
   edges:
     - { from: r-ado, to: m-pwsh, kind: flow, label: calls }
-    - { from: r-ado, to: f-infra, kind: read }
-    - { from: m-pwsh, to: f-contracts, kind: read }
-    - { from: m-pwsh, to: f-docs, kind: read }
   legend: auto

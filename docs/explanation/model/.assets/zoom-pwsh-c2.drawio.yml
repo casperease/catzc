@@ -1,6 +1,6 @@
 description: >-
-  The pwsh track as a container: its modules, the internal modules that load them, and the vendored modules beside them, run on the
-  engines the modules name.
+  The pwsh track as a container: the internal modules load its catzc modules, which call the vendored modules beside them, and the three
+  engines run them.
 about:
   adrs: [ADR-AUTO-MODULE-EXISTSBYLAYOUT, ADR-AUTO-ENGINE-THREEENGINES, DDR-VISUAL-ZOOMISANAXIS]
   lens: architecture
@@ -11,19 +11,17 @@ content:
   flow: left-to-right
   theme: dark
   bands:
-    - { id: band-track, label: PWSH TRACK }
     - { id: band-engines, label: ENGINES }
+    - { id: band-load, label: LOADS }
+    - { id: band-modules, label: MODULES }
+    - { id: band-vendor, label: VENDORED }
   glyphs:
-    - { id: m-modules, kind: set, label: Catzc modules, in: band-track }
-    - { id: m-internal, kind: module, label: .internal, in: band-track }
-    - { id: m-vendor, kind: set, label: .vendor, in: band-track }
-    - { id: e-pwsh, kind: env, label: pwsh, in: band-engines }
-    - { id: e-bash, kind: env, label: bash, in: band-engines }
-    - { id: e-zsh, kind: env, label: zsh, in: band-engines }
+    - { id: e-engines, kind: env, label: pwsh bash zsh, in: band-engines }
+    - { id: m-internal, kind: module, label: .internal, in: band-load }
+    - { id: m-modules, kind: set, label: Catzc modules, in: band-modules }
+    - { id: m-vendor, kind: set, label: .vendor, in: band-vendor }
   edges:
+    - { from: e-engines, to: m-internal, kind: flow, label: runs }
     - { from: m-internal, to: m-modules, kind: flow, label: loads }
     - { from: m-modules, to: m-vendor, kind: flow, label: calls }
-    - { from: e-pwsh, to: m-modules, kind: flow, label: runs }
-    - { from: e-bash, to: m-modules, kind: flow, label: runs }
-    - { from: e-zsh, to: m-modules, kind: flow, label: runs }
   legend: auto

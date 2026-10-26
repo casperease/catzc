@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `standard: catzc-drone`, written with `#`.
+Above `roofs:`, written with `#`.
 
 ```text
 The sub-agent registry: one entry per sub-agent definition .claude/agents/<name>.md
@@ -15,7 +15,7 @@ The sub-agent registry: one entry per sub-agent definition .claude/agents/<name>
   checks        the gate and check functions the agent runs or guards; `[]` when it has none;
   persona       the person name a robot with a personality signs its log lines with (Add-SessionLearning -Author), e.g. Jack;
                 left out for a robot that keeps no log.
-`standard` names the standard sub-agent for delegated work
+There is no standard sub-agent: a brief names its job skill, and the skill's model floor picks the drone
 ([ADR-REPO-AGENTS-STANDARDDRONE](/docs/drs/repository/agent-definitions.md#rule-adr-repo-agents-standarddrone)).
 
 Loaded via Get-Config -Config agents (shape-validated by the AgentsConfig type). The quality gate

@@ -11,6 +11,7 @@ functions that resolve and check a file's limits. It deliberately does **not** o
 | ---------------- | -------- | -------------------------------------------------------------------------------- |
 | responsibility:1 | defaults | [Limits in the registry](#responsibility1--limits-in-the-registry)               |
 | responsibility:2 | measure  | [Measuring and checking a file](#responsibility2--measuring-and-checking-a-file) |
+| responsibility:3 | tools    | [Tool widths](#responsibility3--tool-widths) |
 
 ### responsibility:1 — Limits in the registry
 
@@ -25,6 +26,11 @@ Reading a file once for its line count and its widest line, resolving the file's
 breach with the file, the line, the limit and where the limit came from. A file no language declares fails at once instead of escaping
 unlimited. The gate runs this over every tracked file in scope: a length breach fails it unless the file is exempt with a reason, and a
 width breach is reported until its class is switched to fail.
+
+### responsibility:3 — Tool widths
+
+The width settings of the editor, the formatter and the Markdown linter, rendered from the one declared width: each tool's template names
+the extension whose width it takes, and the root-config build writes the filled copy, so no tool carries a width of its own.
 
 ## What the module does
 
@@ -45,3 +51,4 @@ The module's public functions and configuration, sorted into the responsibilitie
 | responsibility:2 — Measuring and checking a file | `Measure-FileShape` |
 |                                                  | `Test-FileShape`    |
 |                                                  | `Test-FileLimits`   |
+| responsibility:3 — Tool widths | `Build-WidthConfigs` |

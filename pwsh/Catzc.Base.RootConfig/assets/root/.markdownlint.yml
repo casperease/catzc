@@ -43,15 +43,14 @@ default: true
 MD007:
   indent: 2
 
-# MD013 line-length — prose target 140 (uniform-formatting ADR; .editorconfig max_line_length = 140).
+# MD013 line-length — the prose width of file-limits.yml, filled in by Build-WidthConfigs (uniform-formatting ADR).
 # Tables exempt (never wrap a table) and code blocks exempt (wrapping code / log output is wrong).
-# The root .prettierrc.yml sets proseWrap: always + printWidth: 140, so Prettier (Format Document /
-# Format-Code) wraps prose to satisfy this rule. Keep .prettierrc printWidth, this
-# line_length, and .editorconfig [*.md] max_line_length in sync at 140.
+# The root .prettierrc.yml sets proseWrap: always at the same printWidth, so Prettier (Format Document /
+# Format-Code) wraps prose to satisfy this rule.
 MD013:
-  line_length: 140
-  heading_line_length: 140
-  code_block_line_length: 140
+  line_length: $width.md
+  heading_line_length: $width.md
+  code_block_line_length: $width.md
   code_blocks: false
   tables: false
   headings: true

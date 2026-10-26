@@ -277,13 +277,15 @@ def place_marks(frame, delta):
         k = placed[c["at"], c["kind"]] = placed.get((c["at"], c["kind"]), -1) + 1  # the chip's number on its place, for its id
         corner = c.get("corner", CHIP_CORNER[c["kind"]])
         j = row[c["at"], corner] = row.get((c["at"], corner), -1) + 1  # several chips on one corner stand in a row inward
-        cx = box["x"] + 4 + j * 34 if corner.endswith("left") else box["x"] + box["w"] - 30 - j * 34
-        cy = box["y"] - 9 if corner.startswith("top") else box["y"] + box["h"] - 9
         if c["kind"] == "rule":
             value, style = f"#{content['adrs'].index(c['rule']) + 1}", mark["style"] + ("" if c.get("gated", True) else "dashed=1;")
         else:
             value, style = c["text"], mark["style"]
-        cells.append(cell(f"chip-{c['kind']}-{c['at']}-{k}", value, style, cx, cy, mark["size"][0], mark["size"][1]))
+        # A chip grows to its text, about 7 px a character, so a longer count reads on one line; a short one keeps the mark's size.
+        w = max(mark["size"][0], 7 * len(value) + 12)
+        cx = box["x"] + 4 + j * 34 if corner.endswith("left") else box["x"] + box["w"] - w - j * 34
+        cy = box["y"] - 9 if corner.startswith("top") else box["y"] + box["h"] - 9
+        cells.append(cell(f"chip-{c['kind']}-{c['at']}-{k}", value, style, cx, cy, w, mark["size"][1]))
 
 
 def place(declaration, check_routes=False):

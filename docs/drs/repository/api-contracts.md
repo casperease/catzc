@@ -87,13 +87,15 @@ Nothing overrides it; an asset in the wrong direction is in the wrong root.
 
 ### Rule ADR-REPO-CONTRACT-CONFIGUREDADDRESSING
 
-A fragment or a schema names the repository files it applies to in its version folder's `contract.yml`, under `applies_to`: the asset's path
-inside the version folder, mapped to a list of repository-relative globs over the tracked files. An asset `applies_to` names checks every
-file its globs match, so one asset binds many files and one file may be bound by several assets. An entry that names no asset, names a
-sample or a command contract, or matches no tracked file is a finding; and a fragment, or a schema with no sample beside it, that
-`applies_to` does not name binds nothing and is a finding too. The tracked files are listed only once an entry asks for them.
+A `catzc` fragment or schema names the repository files it applies to in its version folder's `contract.yml`, under `applies_to`: the
+asset's path inside the version folder, mapped to a list of repository-relative globs over the tracked files. A vendor root holds nothing
+local, so its assets are bound from the consumer end: the module that owns the bound files declares, in its `contract-bindings.yml`, which
+vendor asset each of its globs depends on, and a vendor version folder has no `contract.yml`. Either way, an asset checks every file its
+globs match, so one asset binds many files and one file may be bound by several assets. An entry that names no asset, names a sample or a
+command contract, or matches no tracked file is a finding; and a fragment, or a schema with no sample beside it, that no entry names binds
+nothing and is a finding too. The tracked files are listed only once an entry asks for them.
 
-- [Addressing by the version's map](#addressing-by-the-versions-map)
+- [Addressing from the right end](#addressing-from-the-right-end)
 
 ### Rule ADR-REPO-CONTRACT-HEADERSAYSWHATITPINS
 
@@ -111,8 +113,9 @@ no note. The writer removes only pages it wrote, so a hand-written page in that 
 `contracts/` holds no dot-prefixed folder at any depth. A dot prefix marks infrastructure at the repository root
 ([ADR-REPO-FOLDERS-DOTMEANSTOOLING](conventional-folders.md#rule-adr-repo-folders-dotmeanstooling)), and every folder under `contracts/` is
 a root, a version, or a group: content, never infrastructure. An asset that constrains a file under a dot-prefixed folder, such as
-`.github/`, reaches it through `applies_to`. The rule covers folders, not file names: the root's `.gitkeep` and a release's `.frozen` record
-keep their names. `Test-Contracts` reports each dot-prefixed folder.
+`.github/`, reaches it through a glob: in `applies_to` for a `catzc` asset, in the owning module's `contract-bindings.yml` for a vendor
+asset. The rule covers folders, not file names: the root's `.gitkeep` and a release's `.frozen` record keep their names. `Test-Contracts`
+reports each dot-prefixed folder.
 
 - [No dot-prefixed folder](#no-dot-prefixed-folder)
 - [How this is enforced](#how-this-is-enforced)
@@ -176,18 +179,16 @@ contracts/
       catzc.base.flow/
         actionable-fact.schema.json                   # schema of the sample beside it
         actionable-fact.sample.json                   # sample payload the module produces
-      contract.yml                                    # applies_to: each fragment or file schema to the files it binds
+      contract.yml                                    # applies_to: each catzc fragment or file schema to the files it binds
     1.0.0/                                            # a release, frozen while a consumer pins it
-  github/                                             # what GitHub promised us
+  github/                                             # what GitHub promised us: the vendor's shapes, nothing local
     0.1.0/
       workflows/
-        ci-pwsh.yml                                   # fragment: the keys GitHub reads from .github/workflows/ci-pwsh.yml
-        workflow.yml.schema.json                      # schema every workflow file validates against
-      contract.yml                                    # applies_to: each asset to the files it binds
+        workflow.yml.schema.json                      # the workflow shape GitHub reads
   ado/
     0.1.0/
       pipelines/
-        pipeline.yaml.schema.json
+        pipeline.yaml.schema.json                     # the pipeline shape Azure DevOps reads
 ```
 
 ### Flat by design
@@ -223,21 +224,29 @@ Every version a contract folder can carry falls in one range, and the range says
   ([ADR-AUTO-BUNDLE-AUTOVERSION](../automation/platform-bundle.md#rule-adr-auto-bundle-autoversion)): a local convenience, never a contract
   folder.
 
-### Addressing by the version's map
+### Addressing from the right end
 
-`One map per version folder says which files each asset binds`
+`The party that owns the bound files names them`
 
-An asset's name says what kind of check it is; the version folder's `contract.yml` says what it checks. `applies_to` maps each fragment or
-schema to repository-relative globs, matched against the tracked files only once an entry asks, so a thin workflow schema binds every
-workflow file and a fragment binds the one file it pins. The map is the only place a target is named, it is checked whole — every entry must
-name an asset and match a file, and every fragment and file schema must be named — so a moved file or a renamed asset turns the check red
-instead of silently binding nothing.
+An asset's name says what kind of check it is; a glob map says what it checks, and the map sits with whoever owns the bound files. A `catzc`
+asset is ours on both sides, so its version folder's `contract.yml` `applies_to` names the files. A vendor asset is the vendor's promise,
+copied and hard-locked, and holds nothing of ours: no vendor asset is named after a repository file, and a vendor version folder has no
+`contract.yml`. The module that owns the files a vendor reads declares the binding instead, in its `contract-bindings.yml`, so the vendor
+root changes only when the vendor does, and a moved pipeline is a change in the module that moved it.
+
+Every map is checked whole: every entry must name an asset and match a file, and every fragment and file schema must be named, so a moved
+file or a renamed asset turns the check red instead of silently binding nothing.
 
 ```yaml
-# contracts/github/0.1.0/contract.yml
+# pwsh/Catzc.Tooling.Github/configs/contract-bindings.yml
+bindings:
+  ".github/workflows/*.yml": github/0.1.0/workflows/workflow.yml.schema.json
+```
+
+```yaml
+# contracts/catzc/0.1.0/contract.yml
 applies_to:
-  workflows/workflow.yml.schema.json: [".github/workflows/*.yml"]
-  workflows/ci-pwsh.yml: [".github/workflows/ci-pwsh.yml"]
+  catzc.base.globs/file-kinds.yml: ["pwsh/Catzc.Base.Globs/configs/file-kinds.yml"]
 ```
 
 ### The name picks the kind
@@ -268,7 +277,8 @@ A leading dot means "infrastructure, not content"
 ([ADR-REPO-FOLDERS-DOTMEANSTOOLING](conventional-folders.md#rule-adr-repo-folders-dotmeanstooling)), and the dot-prefixed roots are
 infrastructure of the repository itself. Repeating `.github/` inside `contracts/` would put a dot-prefixed folder below the root, where it
 marks nothing: the folder holds contract assets, which are content. Tools also treat a dot-prefixed folder as hidden, so a listing skips the
-very assets a reviewer must see. `applies_to` names the dotted path instead, as a glob, where it names the real folder.
+very assets a reviewer must see. The binding glob names the dotted path instead, where it names the real folder: in `applies_to`, or in the
+owning module's `contract-bindings.yml`.
 
 ### Where back-compat is owed
 
@@ -331,22 +341,26 @@ immutability is what lets a consumer pin a release and trust it does not move un
     layer and every move between layers would edit its callers, for an order the module dependency graph already keeps. One current version
     is easier to maintain; the `0.1` range stays reserved.
 
+11. **A vendor version folder's own `applies_to`** — rejected: it puts our file names inside the vendor's hard-locked promise, so moving a
+    pipeline edits the vendor root, and a vendor update has to merge around our paths. The module that owns the files binds them.
+
 ## Decision
 
 `contracts/` holds every thin promise at the repository boundary: `contracts/catzc/` what we promise the world, the only public API, and one
 root per vendor for what that vendor promised us. It is laid out as `contracts/<root>/<version>/[<group>/]<asset>`, at most one group deep.
 Every root's current contracts live in `0.1.0`, edited in place and always checked, and every internal binding points there; the rest of the
 `0.1` range is reserved, `0.0.0` is never a folder, `1.0.0` and up are frozen `catzc` releases kept while pinned, and `6.6.666` is a local
-build, never a folder. An asset's name picks its kind, its root its direction, and its version folder's `contract.yml` the files it binds.
-Every contract is verified by tests, so a break is caught in CI, not in production. Everything outside `contracts/` is internal and follows
-one living version.
+build, never a folder. An asset's name picks its kind and its root its direction; a `catzc` asset's version folder `contract.yml` names the
+files it binds, and a vendor asset's bound files are named by the module that owns them, in its `contract-bindings.yml`. Every contract is
+verified by tests, so a break is caught in CI, not in production. Everything outside `contracts/` is internal and follows one living
+version.
 
 ### How this is enforced
 
 - **`Catzc.Base.Contracts`** owns the mechanism: it enumerates `contracts/<root>/<version>/**`, derives each asset's kind from its name, its
-  direction from its root, and the files it binds from `contract.yml`, and runs the kind's check against the real tree as a quality gate
-  (`Test-Contracts`). One data-driven L1 test file generates a test per binding asset from the same enumeration, so `Test-Automation` covers
-  every contract with no hand-written test.
+  direction from its root, and the files it binds from `contract.yml` or the owning module's `contract-bindings.yml`, and runs the kind's
+  check against the real tree as a quality gate (`Test-Contracts`). One data-driven L1 test file generates a test per binding asset from the
+  same enumeration, so `Test-Automation` covers every contract with no hand-written test.
 
 - **The layout check** in `Test-Contracts` reports a version folder other than `0.1.0` below `1.0.0`, a `6.6.666` folder, a release folder
   under a vendor root, a folder deeper than one group, and each dot-prefixed folder (ADR-REPO-CONTRACT-LAYOUT,

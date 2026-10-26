@@ -1,5 +1,5 @@
-description:
-  The repository is one of three kinds of truth store; around it sit the fact sources it only reads, the state machines it meets at a
+description: >-
+  The repository is one of three kinds of truth store; around it sit the fact sources it only reads, the state machines it reports to at a
   junction, and the adjacent store its pipelines drive one way.
 about:
   adrs: [TDR-STORES-THREEKINDS, TDR-STORES-FACTSOURCEREADONLY, TDR-STORES-STATEMACHINE, DDR-VISUAL-ZOOMISANAXIS]
@@ -8,24 +8,23 @@ about:
 content:
   title: The repository among the truth stores
   kind: explanation
-  flow: left-to-right
+  flow: top-to-bottom
   theme: dark
   bands:
+    - { id: band-facts, label: READ ONLY }
     - { id: band-repo, label: REPOSITORY }
-    - { id: band-facts, label: FACT SOURCES }
-    - { id: band-machines, label: STATE MACHINES }
-    - { id: band-adjacent, label: ADJACENT STORE }
+    - { id: band-out, label: WRITTEN TO }
   glyphs:
-    - { id: s-repo, kind: store, label: Repository at one commit, in: band-repo }
     - { id: s-ado-runtime, kind: store, label: ADO runtime, in: band-facts }
     - { id: s-azure, kind: store, label: Azure state, in: band-facts }
-    - { id: x-itsm, kind: external, label: ITSM or CMDB, in: band-machines }
-    - { id: x-qa, kind: external, label: QA system, in: band-machines }
-    - { id: s-ado-config, kind: store, label: ADO configuration, in: band-adjacent }
+    - { id: s-repo, kind: store, label: Repository at one commit, in: band-repo }
+    - { id: x-itsm, kind: external, label: ITSM or CMDB, in: band-out }
+    - { id: x-qa, kind: external, label: QA system, in: band-out }
+    - { id: s-ado-config, kind: store, label: ADO configuration, in: band-out }
   edges:
     - { from: s-repo, to: s-ado-runtime, kind: read }
     - { from: s-repo, to: s-azure, kind: read }
-    - { from: s-repo, to: x-itsm, kind: flow, label: reports to }
-    - { from: s-repo, to: x-qa, kind: flow, label: reports to }
+    - { from: s-repo, to: x-itsm, kind: flow, label: writes }
+    - { from: s-repo, to: x-qa, kind: flow, label: writes }
     - { from: s-repo, to: s-ado-config, kind: flow, label: writes }
   legend: auto

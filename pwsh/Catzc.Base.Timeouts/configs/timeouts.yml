@@ -26,6 +26,7 @@ executables:
   markdownlint-cli2: 120 # whole-repo lint: 2.1 s alone, kept clear of the default under load
   bash: 1800 # Linux/macOS install scripts (dotnet-install.sh downloads the SDK)
   dpkg: 600 # Linux package removal
+  node: 120 # node --test runs: the lamps' stub-editor scenarios start one node each, about 4 s apiece (2026-10-26)
   go: 900 # module downloads, go vet and go test runs: the first compile of the Go runtime alone takes over 9 s
 commands:
   Build-Diagrams: 300 # a whole -Stale batch of 149 diagrams took 146 s on 3 render workers (2026-10-26, out/step5-measure.ps1)

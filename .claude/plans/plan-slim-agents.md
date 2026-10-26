@@ -101,12 +101,11 @@ Kit skills kept as they are, loaded by a job skill's steps: `drawio-declaration`
 
 ## Open steps
 
-2. [ ] `AgentsConfig`, `CapabilityEntry` and `Test-AgentDefinitions` in `pwsh/Catzc.Base.Docs`: the fable floor, `invoked_by: brief`, the
-       read-only `allowed-tools` check, the new roof; the standard agent's description no longer lists every job. Check: `Invoke-TestFile`
-       on the module's `Test-AgentDefinitions` tests.
-3. [ ] `catzc-core` from `catzc-run`, `git-readonly` and `report-fixed`, with the peer-dirty line and one line that a new agent type appears
-       only in a session started after its file lands, so a new job skill is tried through a stand-in drone at once (decided by catzc-5c
-       from the harness fact, 2026-10-26); the three files deleted. Check: `Test-AgentDefinitions`.
+3. [ ] Parked with step 4 behind task-user-runs-and-commits item 25 (the four CLAUDE.md bullets); the drafts of both steps are in
+       `out/catzc-5c-drones/`, landed in one pass, and the three old skills are deleted when step 5 removes the last robot that preloads
+       them. `catzc-core` from `catzc-run`, `git-readonly` and `report-fixed`, with the peer-dirty line and one line that a new agent type
+       appears only in a session started after its file lands, so a new job skill is tried through a stand-in drone at once (decided by
+       catzc-5c from the harness fact, 2026-10-26); the three files deleted. Check: `Test-AgentDefinitions`.
 4. [ ] The four drone files and their `agents.yml` entries (`model_reason` on sonnet, opus and fable). Check: `Test-AgentDefinitions`.
 5. [ ] One job skill per row of the mapping, one file at a time: the robot's body folded into its skill, the duplicate lines dropped, the
        robot file and its `agents.yml` entry deleted, the `capabilities.yml` entry updated. The `plan-decide` skill gains one merged line:

@@ -47,22 +47,18 @@ pwsh-to-extension boundary checked instead of implied.
 
 ## Open steps
 
-- [ ] The stub-editor scenarios (`pwsh/Catzc.Base.VSCode/tests/assets/catzc-track-lamps-harness.js`) to node:test in
-      `js/catzc-track-lamps/tests/`, and the shared lamp vectors read there too once they are JSON; the Pester copies deleted. Check:
-      `Invoke-JavaScriptTest catzc-track-lamps`, case count kept, and `catzc-track-lamps.Tests.ps1` holds only the real-repository cases.
-- [ ] Node tests for `catzc-compiled-info`, `catzc-git-changes` and `catzc-save-ledger` (their pure parts exported, as the lamps' are), and
-      their rows out of `tests_optional` in `globs.yml`. Check: `Invoke-JavaScriptTest` per module, then
-      `Get-ModuleGlobSet.Repository.Tests.ps1`.
-- [ ] Test files for the new pieces: `JavaScriptConfig`, `JavaScriptTestResult`, `ConvertFrom-NodeTestJunit`, `Invoke-JavaScriptTest`,
-      `Get-JavaScriptTestCases`, and their reference pages. Check: each Pester file, then `Test-Links` on the pages.
-- [ ] Phase 4, types: `typescript` in `tools.yml` (npm, like prettier), the generated `jsconfig.json`, `Test-JavaScriptTypes`. Check: the
-      gate green on all five extensions.
+- [ ] Phase 4, types: `typescript`, `types_node` and `types_vscode` in `tools.yml` (npm, pinned, installed by the tooling only;
+      `@types/vscode` pinned to the manifests' `engines.vscode`, a test pinning that agreement), the generated `jsconfig.json` (`checkJs`,
+      `strict: false`, `typeRoots` the tooling's install folder, never a repository `node_modules`), `Test-JavaScriptTypes`, landed as one
+      staged burst. Check: the gate green on all seven extensions.
+- [ ] Strict types for `catzc-drs-links` (JSDoc, its own `strict` in the generated `jsconfig.json`). Check: `Test-JavaScriptTypes` green.
+- [ ] Strict types for `catzc-ansi-logs`. Check: `Test-JavaScriptTypes` green.
+- [ ] Strict types for `catzc-file-icons`. Check: `Test-JavaScriptTypes` green.
+- [ ] Strict types for `catzc-save-ledger`. Check: `Test-JavaScriptTypes` green.
+- [ ] Strict types for `catzc-git-changes`. Check: `Test-JavaScriptTypes` green.
+- [ ] Strict types for `catzc-compiled-info`. Check: `Test-JavaScriptTypes` green.
+- [ ] Strict types for `catzc-track-lamps`, last, one part per change with its node tests and the lamp vectors after each. Check:
+      `Test-JavaScriptTypes` green, `Invoke-JavaScriptTest catzc-track-lamps`, `catzc-track-lamps.Tests.ps1`.
 - [ ] Phase 5, contract (after `plan-contracts-layout.md`'s move): `contracts/vscode/0.1.0/extensions/package.schema.json`, the trimmed
       manifest schema, bound in its `contract.yml`; `Build-VsCodeExtension` refuses a rendered `package.json` that breaks it. Check:
       `Build-VsCodeExtension.Tests.ps1` with one passing and one broken manifest, then `Test-Contracts`.
-- [ ] Phase 6, rules and docs: `docs/drs/automation/javascript/` (ADR-AUTO-JS, index row in `docs/drs/index.md`), DDR-TRACK-ONETRACKTYPE
-      names `js`, the Catzc.Base.VSCode reference re-cut. Check: `Test-Links`, `Test-Markdownlint`.
-- [ ] `docs/how-to/getting-started/automation/add-a-language-track.md`: the touch points a new language track needs (variants.yml track,
-      module-types.yml type, track-types.yml admits, the languages.yml row, `<language>.yml` with its config type and configs.yml entry, the
-      runner with its result type and junit parser, the case discovery, the bridge branch), so the next track is a checklist (the user,
-      2026-10-25). Check: `Test-Links` and `Test-Markdownlint` on the page.

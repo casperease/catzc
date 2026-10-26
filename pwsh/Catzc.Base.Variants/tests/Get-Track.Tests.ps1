@@ -2,10 +2,10 @@ Describe 'Get-Track' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:fixture = [Catzc.Base.Variants.VariantsConfig]::new([ordered]@{
                 tracks = [ordered]@{
-                    widget   = [ordered]@{ places = @('widget'); type = 'widget-works'; languages = @('widget-lang') }
-                    gadget   = [ordered]@{ places = @('gadget'); type = 'gadget-shelf'; vendor = 'gizmo'; languages = @('gadget-lang', 'widget-lang') }
-                    '.gizmo' = [ordered]@{ places = @('.gizmo', 'gadget/gizmo-settings'); type = 'gizmo-settings'; vendor = 'gizmo' }
-                    sprocket = [ordered]@{ places = @('.sprocket'); type = 'sprocket-tests' }
+                    widget   = [ordered]@{ members = @('widget'); type = 'widget-works'; languages = @('widget-lang') }
+                    gadget   = [ordered]@{ members = @('gadget'); type = 'gadget-shelf'; vendor = 'gizmo'; languages = @('gadget-lang', 'widget-lang') }
+                    '.gizmo' = [ordered]@{ members = @('.gizmo', 'gadget/gizmo-settings'); type = 'gizmo-settings'; vendor = 'gizmo' }
+                    sprocket = [ordered]@{ members = @('.sprocket'); type = 'sprocket-tests' }
                 }
             })
     }

@@ -54,7 +54,7 @@ Describe 'ContractSchema' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT-CONTRACTASSET' 
 
         It 'reads a pattern only on a string, and reports a pattern that is no regular expression' {
             @(Get-SchemaFinding '{"pattern":"^w"}' '7') | Should -BeNullOrEmpty
-            @(Get-SchemaFinding '{"pattern":"("}' '"w"')[0] | Should -BeLike 'schema #/pattern: pattern is not a valid regular expression:*'
+            Get-SchemaFinding '{"pattern":"("}' '"w"' | Select-Object -First 1 | Should -BeLike 'schema #/pattern: pattern is not a valid regular expression:*'
         }
 
         It 'reads a $ref only to a local definition, and reports one that loops or names nothing' -ForEach @(
@@ -63,7 +63,7 @@ Describe 'ContractSchema' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT-CONTRACTASSET' 
             @{ Schema = '{"definitions":{"widget":{"$ref":"#/definitions/widget"}},"$ref":"#/definitions/widget"}'; Finding = 'schema #/definitions/widget/$ref: the $ref chain from #/definitions/widget returns to itself' }
             @{ Schema = '{"properties":{"widget":{"definitions":{}}}}'; Finding = 'schema #/properties/widget/definitions: definitions are read at the root of a schema only' }
         ) {
-            @(Get-SchemaFinding $Schema '"widget"')[0] | Should -BeLike $Finding
+            Get-SchemaFinding $Schema '"widget"' | Select-Object -First 1 | Should -BeLike $Finding
         }
 
         It 'ignores the annotation <Keyword>, which constrains no value' -ForEach @(

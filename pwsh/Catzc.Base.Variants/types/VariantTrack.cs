@@ -18,7 +18,10 @@ public sealed class VariantTrack
     // The track's name: its key in the `tracks` map (e.g. pwsh).
     public string name { get; }
 
-    // The places the track covers: repository-relative paths with '/' separators (e.g. pwsh, .github/workflows).
+    // The track's members, each a folder or a file with its generated and committed facts; the one declaration of what the track holds.
+    public IReadOnlyList<VariantMember> members { get; }
+
+    // The members' paths (e.g. pwsh, .github/workflows), computed for the callers that need only paths; never declared beside the members.
     public IReadOnlyList<string> places { get; }
 
     // The track's type: the id of a track type of the track-types registry ([DDR-TRACKTYPE-CLOSEDSETOFTYPES](/docs/drs/design/track-types.md#rule-ddr-tracktype-closedsetoftypes)).
@@ -37,7 +40,7 @@ public sealed class VariantTrack
 
     public IReadOnlyDictionary<string, string> kinds { get; }
 
-    public VariantTrack(string name, string[] places, string type, string vendor, string[] languages, string[] executionEngines = null,
+    public VariantTrack(string name, VariantMember[] members, string type, string vendor, string[] languages, string[] executionEngines = null,
         IDictionary<string, string[]> moduleExecutionEngines = null, IDictionary<string, string> kinds = null)
     {
         this.kinds = kinds == null
@@ -51,7 +54,11 @@ public sealed class VariantTrack
         }
         this.module_execution_engines = overrides;
         this.name = name;
-        this.places = places == null ? Array.Empty<string>() : (string[])places.Clone();
+        VariantMember[] declared = members == null ? Array.Empty<VariantMember>() : (VariantMember[])members.Clone();
+        this.members = declared;
+        string[] paths = new string[declared.Length];
+        for (int i = 0; i < declared.Length; i++) { paths[i] = declared[i].path; }
+        this.places = paths;
         this.type = type;
         this.vendor = string.IsNullOrEmpty(vendor) ? null : vendor;
         this.languages = languages == null ? Array.Empty<string>() : (string[])languages.Clone();
@@ -69,6 +76,18 @@ public sealed class VariantTrack
     {
         string pattern;
         return kind != null && kinds.TryGetValue(kind, out pattern) ? pattern : null;
+    }
+
+    // The member whose place is the longest that contains a '/'-separated repository-relative path, or null when none does.
+    public VariantMember MemberOf(string path)
+    {
+        VariantMember best = null;
+        foreach (VariantMember member in members)
+        {
+            bool contains = path == member.path || path.StartsWith(member.path + "/", StringComparison.Ordinal);
+            if (contains && (best == null || member.path.Length > best.path.Length)) { best = member; }
+        }
+        return best;
     }
 
     // The length of the longest place that contains a '/'-separated repository-relative path, or -1 when none does.

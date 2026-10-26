@@ -79,7 +79,7 @@ function New-PythonProject {
     $workspace.Add(']')
     $workspace.Add('')
     $workspace.Add('[tool.ruff]')
-    $workspace.Add('line-length = 140')
+    $workspace.Add("line-length = $((Get-FileLimit -Path 'width.py').width)")
     $workspace.Add("target-version = `"py$($pythonVersion.Replace('.', ''))`"")
     $workspace.Add('')
     $workspace.Add('[tool.pyright]')

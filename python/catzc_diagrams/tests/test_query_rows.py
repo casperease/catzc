@@ -57,8 +57,16 @@ def test_the_rows_are_written_out_in_the_first_band_with_query_ids(rows):
     glyphs = {g["id"]: g for g in declared["content"]["glyphs"]}
     assert glyphs["query-get-widget"]["in"] == "band-widgets" and glyphs["query-get-widget"]["kind"] == "code"
     assert glyphs["query-widget-config"]["label"] == "widget.yml"
-    assert any(e["from"] == "query-get-widget" and e["to"] == "query-widget-config" for e in declared["content"]["edges"])
     assert {"query-get-widget", "query-widget-config"} <= declared["content"]["generated"]
+
+
+def test_the_query_edges_are_counted_on_their_cells_and_never_drawn(rows):
+    rows()
+    declared = declaration.normalise(raw_at())
+    assert not [e for e in declared["content"]["edges"] if e["from"].startswith("query-") or e["to"].startswith("query-")]
+    chips = {c["at"]: c["text"] for c in declared["content"]["chips"] if c["kind"] == "count"}
+    assert chips["query-get-widget"] == "0 in 1 out"
+    assert chips["query-widget-config"] == "1 in 0 out"
 
 
 def test_the_source_holds_the_point_and_never_the_cells(rows):
@@ -75,6 +83,7 @@ def test_a_drawing_read_back_leaves_the_query_cells_out(rows):
     back = declaration.get(model, kind="explanation")
     ids = [g["id"] for g in back["content"]["glyphs"]]
     assert not [i for i in ids if i.startswith("query-")]
+    assert not [c for c in back["content"]["chips"] if c["at"].startswith("query-")]
     assert back["about"]["zoom"] == "C4"
 
 
@@ -94,6 +103,27 @@ def test_rows_holding_nothing_for_the_point_are_refused(rows):
     rows()
     with pytest.raises(declaration.DeclarationError, match="hold nothing for widgets/Other at C4"):
         declaration.normalise(raw_at(point="widgets/Other"))
+
+
+SCHEMA = Path(__file__).resolve().parents[3] / "contracts/catzc/0.1.0/catzc.base.maps/query-rows.schema.json"
+
+
+@pytest.mark.parametrize("payload", ["sample", "fixture"])
+def test_the_published_schema_holds_the_sample_and_the_rows_the_kit_reads(payload):
+    jsonschema = pytest.importorskip("jsonschema")
+    schema = json.loads(SCHEMA.read_text(encoding="utf-8"))
+    data = json.loads(SCHEMA.with_name("query-rows.sample.json").read_text(encoding="utf-8")) if payload == "sample" else ROWS
+    jsonschema.validate(data, schema)
+    if payload == "sample":
+        query_rows._loaded.clear()
+        assert {key[1] for key in query_rows.read(SCHEMA.with_name("query-rows.sample.json"))} == {"C3", "C4"}
+
+
+def test_the_published_schema_refuses_a_level_no_query_answers():
+    jsonschema = pytest.importorskip("jsonschema")
+    schema = json.loads(SCHEMA.read_text(encoding="utf-8"))
+    with pytest.raises(jsonschema.ValidationError):
+        jsonschema.validate({"rows": [{"point": "widgets", "level": "C2", "nodes": [], "edges": []}]}, schema)
 
 
 @pytest.mark.parametrize(

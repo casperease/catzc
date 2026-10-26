@@ -7,7 +7,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Derives one contract asset's facts from its name and place, and returns them as a ContractAsset.
+Derives one contract asset's facts from its name and place, and returns a ContractAsset for each file it binds.
 
 ### description
 
@@ -15,64 +15,55 @@ Zero ceremony ([ADR-AUTO-ZERO](../../../../drs/automation/zero-ceremony-poka-yok
 
 - Kind, from the file name (Get-ContractAssetKind,
   [ADR-REPO-CONTRACT-CONTRACTASSET](../../../../drs/repository/api-contracts.md#rule-adr-repo-contract-contractasset)).
-- Target: a presence or fragment constrains the real file at its own path under the module's target root; a `<path>.schema.json` constrains
-  the real file at `<path>` under that root, unless a sample payload of the same `<name>` sits beside it (`<name>.sample.<ext>`), in which
-  case it applies to that sample; a sample payload constrains no file
-  ([ADR-REPO-CONTRACT-LAYOUT](../../../../drs/repository/api-contracts.md#rule-adr-repo-contract-layout)).
-- A command contract `<Verb-Noun>.command.yml` constrains the command's file under the module's root, `<CommandRoot>/<Verb-Noun>.ps1`
+- Direction, from the root
+  ([ADR-REPO-CONTRACT-DIRECTIONBYCONVENTION](../../../../drs/repository/api-contracts.md#rule-adr-repo-contract-directionbyconvention)):
+  Provided under catzc, DependedOn under a vendor root.
+- A sample payload constrains no file. A `<name>.schema.json` with a `<name>.sample.<ext>` beside it applies to that sample.
+- A command contract `<verb_noun>.command.yml` sits in its module's group and constrains the command's file, `<CommandRoot>/<Verb-Noun>.ps1`
   ([ADR-REPO-CMDCONTRACT-NOPLACEMENTFACTS](../../../../drs/repository/command-contracts.md#rule-adr-repo-cmdcontract-noplacementfacts)).
-- Direction, by convention
-  ([ADR-REPO-CONTRACT-DIRECTIONBYCONVENTION](../../../../drs/repository/api-contracts.md#rule-adr-repo-contract-directionbyconvention)): an
-  asset that constrains a real repository file is DependedOn; a sample payload, the schema that applies to it, and a command contract are
-  Provided. An entry for `<module>/<path>` in -Override replaces the convention.
+- A presence asset, a fragment, or a schema with no sample beside it binds the tracked files its applies_to entry matches, one asset per
+  file ([ADR-REPO-CONTRACT-CONFIGUREDADDRESSING](../../../../drs/repository/api-contracts.md#rule-adr-repo-contract-configuredaddressing));
+  one that is not named, an entry that matches nothing, and an entry for a sample, a command or a sample's schema each throw.
 
-### parameter `Unit`
+### parameter `Root`
 
-The deployable-unit folder name.
+The contract root folder name.
 
 ### parameter `Version`
 
-The unit's version folder name.
+The root's version folder name.
 
-### parameter `Module`
+### parameter `Group`
 
-The owning module folder name.
+The group folder name; the empty string for an asset directly in the version folder.
 
 ### parameter `Path`
 
-The asset's path under its module folder, '/'-separated.
+The asset's file name in its group.
 
 ### parameter `File`
 
 The asset's absolute path, read to tell an empty fragment and to find a sample beside a schema.
 
-### parameter `TargetRoot`
-
-The module's target root, repository-relative; the empty path is the repository root. Default: ContractsConfig's DefaultTargetRoot, the
-repository root.
-
-### parameter `Override`
-
-The version's contract.yml direction overrides, keyed by `<module>/<path>`. Default: none.
-
 ### parameter `CommandRoot`
 
-The module's root, repository-relative, where a command contract's command file sits as `<Verb-Noun>.ps1`
-([ADR-REPO-CMDCONTRACT-NOPLACEMENTFACTS](../../../../drs/repository/command-contracts.md#rule-adr-repo-cmdcontract-noplacementfacts)); a
-command contract is Provided and sits directly in its module folder. Required for a command contract, unused otherwise.
+The module's root, repository-relative, where a command contract's command file sits as `<Verb-Noun>.ps1`. Required for a command contract,
+unused otherwise.
+
+### parameter `AppliesTo`
+
+The version's contract.yml applies_to, asset key to repository-relative globs. Default: none.
+
+### parameter `Tracked`
+
+A holder the first glob match fills with the tracked files, shared across one version's assets, so nothing is listed until an entry asks.
 
 ### outputs
 
-`[Catzc.Base.Contracts.ContractAsset]`
+`[Catzc.Base.Contracts.ContractAsset[]]` One per bound file, or one for an asset that binds none.
 
 ### example 1
 
 ```powershell
-Resolve-ContractAsset -Unit widget -Version 0.0.0 -Module Catzc.Widget -Path gadget.yml -File $file
-```
-
-### example 2
-
-```powershell
-Resolve-ContractAsset -Unit widget -Version 0.0.0 -Module Catzc.Widget -Path gadget.yml -File $file -TargetRoot .widget
+Resolve-ContractAsset -Root widget -Version 0.1.0 -Group gadgets -Path gadget.yml -File $file -AppliesTo $appliesTo -Tracked @{}
 ```

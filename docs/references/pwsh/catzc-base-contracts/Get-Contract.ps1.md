@@ -7,54 +7,42 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Lists the repository's contract assets, with every fact derived from each asset's name.
+Lists the repository's contract assets, with every fact derived from each asset's name and place.
 
 ### description
 
-Enumerates `contracts/<unit>/<version>/<module>/<path>`
-([ADR-REPO-CONTRACT-LAYOUT](../../../drs/repository/api-contracts.md#rule-adr-repo-contract-layout)) and returns one ContractAsset per file
-under a module folder. Nothing is registered: the unit, version, and owning module come from the folders; the kind from the file name
-([ADR-REPO-CONTRACT-CONTRACTASSET](../../../drs/repository/api-contracts.md#rule-adr-repo-contract-contractasset)); the target from the path
-under the module, placed under the module's target root (the repository root unless contracts.yml's target_roots names one); and the
-direction from the convention, which a version's contract.yml overrides for a single asset
-([ADR-REPO-CONTRACT-DIRECTIONBYCONVENTION](../../../drs/repository/api-contracts.md#rule-adr-repo-contract-directionbyconvention)). Every
-path is in communication form
+Enumerates `contracts/<root>/<version>/[<group>/]<asset>`
+([ADR-REPO-CONTRACT-LAYOUT](../../../drs/repository/api-contracts.md#rule-adr-repo-contract-layout)) and returns one ContractAsset per asset
+and bound file. Nothing is registered: the root, version and group come from the folders; the kind from the file name
+([ADR-REPO-CONTRACT-CONTRACTASSET](../../../drs/repository/api-contracts.md#rule-adr-repo-contract-contractasset)); the direction from the
+root, Provided under catzc and DependedOn under a vendor
+([ADR-REPO-CONTRACT-DIRECTIONBYCONVENTION](../../../drs/repository/api-contracts.md#rule-adr-repo-contract-directionbyconvention)); and the
+files a fragment, presence asset or file schema binds from its version's contract.yml applies_to, as repository-relative globs
+([ADR-REPO-CONTRACT-CONFIGUREDADDRESSING](../../../drs/repository/api-contracts.md#rule-adr-repo-contract-configuredaddressing)). Every path
+is in communication form
 ([ADR-AUTO-PATH-COMMUNICATIONFORM](../../../drs/automation/path-representation.md#rule-adr-auto-path-communicationform)).
 
 It lists and derives only: it never reads the real files the assets constrain. Files directly under contracts/ (its README) are not assets,
 and neither is a released version folder's .frozen record
 ([ADR-REPO-CONTRACT-RELEASEDIMMUTABLE](../../../drs/repository/api-contracts.md#rule-adr-repo-contract-releasedimmutable)). A version folder
-whose name is not `<major>.<minor>.<patch>`, a file outside a module folder, and a contract.yml entry naming no asset each throw. A missing
-or empty contracts/ gives an empty result.
+whose name is not `<major>.<minor>.<patch>`, a folder below a group, and an applies_to entry that names no asset or matches no tracked file
+each throw. A missing or empty contracts/ gives an empty result.
 
-The addressing mode decides how an asset addresses files
-([ADR-REPO-CONTRACT-CONFIGUREDADDRESSING](../../../drs/repository/api-contracts.md#rule-adr-repo-contract-configuredaddressing)); only
-full-path is built, and selecting a declared mode that is not built throws NotImplementedException before anything is enumerated.
+### parameter `Root`
 
-### parameter `Unit`
-
-The deployable-units to list, by folder name; wildcards allowed. Default: every unit.
+The contract roots to list, by folder name; wildcards allowed. Default: every root.
 
 ### parameter `Version`
 
-The unit versions to list, by folder name; wildcards allowed. Default: 0.0.0, each unit's draft.
+The versions to list, by folder name; wildcards allowed. Default: 0.1.0, the current version.
 
-### parameter `Module`
+### parameter `Group`
 
-The owning modules to list; wildcards allowed. Default: every module.
+The groups to list, by folder name; wildcards allowed. Default: every group, and the assets directly in the version folder.
 
 ### parameter `Path`
 
-Keeps the assets whose path under the module, or whose target, matches; wildcards allowed. Default: every asset.
-
-### parameter `Addressing`
-
-How an asset addresses many files. Default: contracts.yml's addressing.
-
-### parameter `TargetRoot`
-
-Each owning module's target root, module name to repository-relative folder; a module it does not name takes the repository root. Default:
-contracts.yml's target_roots.
+Keeps the assets whose path in their group, or whose target, matches; wildcards allowed. Default: every asset.
 
 ### parameter `RepositoryRoot`
 
@@ -62,7 +50,7 @@ The repository root that holds contracts/. Default: the loaded repository root.
 
 ### outputs
 
-`[Catzc.Base.Contracts.ContractAsset[]]` in ordinal order of unit, version, module, then path.
+`[Catzc.Base.Contracts.ContractAsset[]]` in ordinal order of root, version, group, then path.
 
 ### example 1
 
@@ -73,7 +61,7 @@ Get-Contract
 ### example 2
 
 ```powershell
-Get-Contract -Unit catzc -Version *
+Get-Contract -Root catzc -Version *
 ```
 
 ### example 3

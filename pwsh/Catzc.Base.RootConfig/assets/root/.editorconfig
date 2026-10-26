@@ -13,8 +13,8 @@ end_of_line = lf
 
 [*.{ps1,psm1,psd1}]
 indent_size = 4
-# Aligned with PSAvoidLongLines default: MaximumLineLength = 120
-max_line_length = 120
+# The width file-limits.yml declares for .ps1; Build-WidthConfigs fills it in.
+max_line_length = $width.ps1
 
 [*.md]
 # Markdown trailing spaces can be significant (line breaks)
@@ -23,8 +23,8 @@ trim_trailing_whitespace = false
 # matching markdownlint MD007 (ul-indent) whose default is 2. Inheriting 4 from [*]
 # made Prettier indent sublists 4 spaces, which the linter then flagged.
 indent_size = 2
-# Prose target — tables are exempt (no wrapping)
-max_line_length = 140
+# The prose width file-limits.yml declares; tables are exempt (no wrapping)
+max_line_length = $width.md
 
 [*.{yml,yaml}]
 indent_size = 2
@@ -41,7 +41,7 @@ indent_style = tab
 # python/pyproject.toml.
 [*.py]
 indent_size = 4
-max_line_length = 140
+max_line_length = $width.py
 
 # Bicep: 2 spaces, the Bicep formatter's default.
 [*.bicep]

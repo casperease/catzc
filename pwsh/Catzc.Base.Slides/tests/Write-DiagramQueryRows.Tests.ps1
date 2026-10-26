@@ -42,6 +42,12 @@ Describe 'Write-DiagramQueryRows' -Tag 'L0', 'logic', 'DDR-VISUAL-ZOOMISANAXIS' 
         Should -Invoke Get-DiagramComponentRows -ModuleName Catzc.Base.Slides -Times 1 -Exactly
     }
 
+    It 'writes a file the published query-rows schema holds' -Tag 'ADR-REPO-CONTRACT-CONTRACTASSET' {
+        $null = Invoke-Writer -Stem $script:widget, $script:gadget
+        $schema = [System.IO.File]::ReadAllText((Join-Path (Get-RepositoryRoot) 'contracts/catzc/0.1.0/catzc.base.maps/query-rows.schema.json'))
+        Test-Json -Json ([System.IO.File]::ReadAllText((Join-Path $script:root 'rows/query-rows.json'))) -Schema $schema | Should -BeTrue
+    }
+
     It 'writes an empty rows list when no diagram names a point' {
         @((Invoke-Writer -Stem $script:plain).rows).Count | Should -Be 0
     }

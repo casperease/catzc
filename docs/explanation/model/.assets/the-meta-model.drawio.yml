@@ -23,7 +23,6 @@ content:
     - { from: s-graph, to: m-modules, kind: read }
     - { from: s-order, to: s-graph, kind: read }
     - { from: e-engines, to: m-modules, kind: flow, label: runs }
-    - { from: d-records, to: m-modules, kind: adr }
     - { from: f-glossary, to: d-records, kind: read }
   markers:
     - { at: m-modules, number: 1 }

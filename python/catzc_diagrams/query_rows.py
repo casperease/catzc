@@ -2,7 +2,7 @@
 
 Build-Diagrams asks the query and writes the rows to a file whose address it names (`--rows <file>`); the renderer hands the address to its
 workers through ROWS_VARIABLE, and the declaration expands a slide's rows into generated cells, as it expands `rows:`, so the source holds
-only its inputs (`about.zoom`, `about.point`) and never the cells. Without an address nothing is expanded: get, sync and the tests read the
+only its inputs (`about.zoom`, `about.point`) and never the cells. The cells carry count chips of their edges, not the edges themselves. Without an address nothing is expanded: get, sync and the tests read the
 declaration alone.
 
 The file: {"rows": [{"point": <path>, "level": C3|C4, "nodes": [{"id", "label", "kind"}], "edges": [{"from", "to", "label"?}]}]}
@@ -79,17 +79,21 @@ def expand(content, point, level, where, path=None):
     if not bands:
         raise DeclarationError(f"{where}: a {level} slide places its query's cells in its first band; it has none")
     band = bands[0]["id"] if isinstance(bands[0], dict) else str(bands[0])
-    glyphs, edges, generated = list(content.get("glyphs") or []), list(content.get("edges") or []), set()
+    # The grid has no graph layout, so a query's edges are not drawn: each cell carries a count chip of its edges in and out instead.
+    glyphs, chips, generated = list(content.get("glyphs") or []), list(content.get("chips") or []), set()
+    ins = {str(n["id"]): 0 for n in rows["nodes"]}
+    outs = dict(ins)
+    for edge in rows["edges"]:
+        outs[str(edge["from"])] += 1
+        ins[str(edge["to"])] += 1
     for node in rows["nodes"]:
-        gid = PREFIX + str(node["id"])
+        nid = str(node["id"])
+        gid = PREFIX + nid
         glyphs.append({"id": gid, "kind": str(node["kind"]), "label": str(node["label"]), "in": band})
         generated.add(gid)
-    for edge in rows["edges"]:
-        e = {"from": PREFIX + str(edge["from"]), "to": PREFIX + str(edge["to"])}
-        if edge.get("label"):
-            e["label"] = str(edge["label"])
-        edges.append(e)
-    return {**content, "glyphs": glyphs, "edges": edges}, generated
+        if ins[nid] or outs[nid]:
+            chips.append({"at": gid, "kind": "count", "text": f"{ins[nid]} in {outs[nid]} out"})
+    return {**content, "glyphs": glyphs, "chips": chips}, generated
 
 
 def drawn_by_query(cid):

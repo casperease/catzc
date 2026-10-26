@@ -1,5 +1,5 @@
 {
-  "hash": "ac2d9cb8",
+  "hash": "486858c2",
   "types": [
     {
       "name": "Catzc.Azure.AzureConfig",
@@ -1942,6 +1942,11 @@
       "display": []
     },
     {
+      "name": "Catzc.Base.Variants.TrackMember",
+      "aliases": [],
+      "display": []
+    },
+    {
       "name": "Catzc.Base.Variants.TrackTypeEntry",
       "aliases": [],
       "display": []
@@ -1953,6 +1958,11 @@
     },
     {
       "name": "Catzc.Base.Variants.VariantAspect",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Variants.VariantMember",
       "aliases": [],
       "display": []
     },

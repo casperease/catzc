@@ -4,12 +4,16 @@
 
 ### Rule DDR-TRACK-TRACKISPLACEDCLUSTER
 
-A **track** is a named, on-disk cluster of module contents: the tracked files of one concern, selected by the **place** or places the track
-declares ([DDR-TRACKTYPE-DECLAREDONCE](track-types.md#rule-ddr-tracktype-declaredonce)). A place is a root folder (`pwsh`), a path inside
-one (`.github/workflows`, `pwsh/.vendor`), or a root folder of a tool (`.claude`). Every tracked file lies in exactly one track, found by
-the longest place that contains it ([DDR-TRACKTYPE-LONGESTPLACEWINS](track-types.md#rule-ddr-tracktype-longestplacewins)), or is a root file
-(DDR-TRACK-ROOTFILE). `out/` is a track too, the `output` track: git ignores its files, and the tools operate on them like any track's.
-Tracks are what this mono repository is composed of.
+A **track** is a named, on-disk cluster of one concern's files, declared once as a set of **members**
+([DDR-TRACKTYPE-DECLAREDONCE](track-types.md#rule-ddr-tracktype-declaredonce)). A member is a folder, a file or a glob, and it carries two
+facts: **generated**, whether a writer renders it rather than a person authoring it, and **committed**, whether git tracks it or it is
+gitignored. `generated` is a member fact, never a track: a member a catzc generator writes takes it from that generator's declaration, a
+member only a vendor tool writes declares it on the member, and both at once is a load failure. `committed` is declared on the member and
+agrees with the git index. A **place** is the path of one member: a track's places are computed from its members and never declared beside
+them. Every file on disk lies in exactly one track, found by the longest member that contains it
+([DDR-TRACKTYPE-LONGESTPLACEWINS](track-types.md#rule-ddr-tracktype-longestplacewins)), or is a root file (DDR-TRACK-ROOTFILE). `out/` is a
+track too, the `output` track, its one member generated and not committed. A track's name is its one definitive name, per DDR-TRACKTYPE
+naming (pending). Tracks are what this mono repository is composed of.
 
 - [What a track is](#what-a-track-is)
 
@@ -17,15 +21,16 @@ Tracks are what this mono repository is composed of.
 
 Every track has exactly one **track type** ([DDR-TRACKTYPE-CLOSEDSETOFTYPES](track-types.md#rule-ddr-tracktype-closedsetoftypes)), stated
 once and carrying no second classification beside it: `modules` (`pwsh`, the core the other tracks rest on, and the other language tracks,
-`python`, `go` and `bash`, which hold their modules the same way), `infrastructure`, `pipelines`, `vendor-settings`, `vendored-code`,
+`python`, `go`, `bash` and `js`, which hold their modules the same way), `infrastructure`, `pipelines`, `vendor-settings`, `vendored-code`,
 `contracts`, `documentation`, `unordered` (`.unordered`, DDR-TRACK-UNORDEREDTRACK), or `output` (`out/`, gitignored, built to no
 destination). The type's role is deployable or holder ([DDR-TRACKTYPE-ONEROLE](track-types.md#rule-ddr-tracktype-onerole)). Each language
 track keeps a test holder, `<root>/tests/`, of black-box tests that verify the core from outside; a test file is never live and never ships,
 and a module of the track ships only what `files.yml` packages. `go` holds the Go black-box tests; a repository without a `go/` root keeps
 the same tests in the dot-prefixed `.go`, which is of the same class. `python` holds the Python ones, by the same convention: `.python` when
-the repository has no `python/` root. `bash` holds the Bash ones: `.bash` when the repository has no `bash/` root. Cross-cutting slices
-(e.g. the cats configs — every yml/config file across the modules track) are **scopes over tracks**, not tracks: they select through the
-roots rather than owning one.
+the repository has no `python/` root. `bash` holds the Bash ones: `.bash` when the repository has no `bash/` root. `js` holds the editor
+extensions, each module keeping its node tests in its own `tests/`: `.js` when the repository has no `js/` root. Cross-cutting slices (e.g.
+the cats configs — every yml/config file across the modules track) are **scopes over tracks**, not tracks: they select through the roots
+rather than owning one.
 
 - [The taxonomy](#the-taxonomy)
 
@@ -67,9 +72,9 @@ languages it owns, so a file in a language outside that set is a second tech-sta
 
 ### Rule DDR-TRACK-ROOTFILE
 
-A **root file** is a tracked file that no track holds: a file at the repository root itself (`LICENSE`, `importer.ps1`, `.gitignore`), or a
-file under the one root folder that no place names (`out/`). Root files belong to the repository as a whole, so the track-by-file-language
-map gives them their own row, never a track's.
+A **root file** is a file on disk that no track's member names. Every file a track's concern owns joins that track as a member, the files at
+the repository root included, so a root file is the exception the track declaration has not yet placed, never a home by design. Root files
+belong to the repository as a whole, so the track-by-file-language map gives them their own row, never a track's.
 
 - [Root files and unlisted files](#root-files-and-unlisted-files)
 
@@ -195,11 +200,13 @@ together, and the rules below keep them tied.
 The unit of "concern" in this repository is the cluster of module contents, and the root folder is its usual home. `pwsh/` is the automation
 platform; `infrastructure/` is the IaC tree; `.ado/pipelines` holds the azure devops pipelines and `.github/workflows` the GitHub ones;
 `docs/` is the documentation; `contracts/` is the repository boundary's binding contracts, in both directions; each `.<foldername>`
-configures exactly one external system (the repository's boundary for that concern); a `.vendor` folder holds third-party code. A place may
-be narrower than a root (`.github/workflows`) so that two tracks share a root without sharing a file. `out/` is a root folder but not a
-concern: it holds the output every run writes, gitignored. Naming the concept makes the mapping normative: the declared places are the
-registration, and asking "which track does this file belong to?" always has exactly one answer. That single-answer property is what every
-consumer below builds on.
+configures exactly one external system (the repository's boundary for that concern); a `.vendor` folder holds third-party code. A member may
+be narrower than a root (`.github/workflows`), or a single file (`importer.ps1` joins `pwsh`), so that two tracks share a root without
+sharing a file. `out/` is the output track: it holds what every run writes, generated and gitignored. Naming the concept makes the mapping
+normative: the declared members are the registration, and asking "which track does this file belong to?" always has exactly one answer. The
+two facts on each member answer the next two questions from the same declaration, "is it generated?" and "does git track it?", so a filter,
+a gate and a pipeline trigger ask one model instead of keeping their own lists of shapes. That single-answer property is what every consumer
+below builds on.
 
 ### The taxonomy
 
@@ -257,11 +264,12 @@ text a file holds.
 ### Root files and unlisted files
 
 Crossing the tracks with the file languages places a file only when it has both. Two kinds of file have one but not the other, and naming
-them keeps the map whole instead of dropping them. A root file has no track: the license, the importer scripts, the git settings at the top
-of the tree, and the placeholder that keeps `out/` in git. An unlisted file has no file language: a `.gitkeep`, a `LICENSE`, or an extension
-no entry of the file-language registry lists yet. The root files get one row of their own and the unlisted files one column, and a file that
-is both sits where they cross, so the map's file count equals the tracked file count. An unlisted file in a track's live aspect is still a
-second tech-stack (DDR-TRACK-ONETECHSTACK) when it has an extension: an extension nobody registered is a language nobody declared.
+them keeps the map whole instead of dropping them. A root file has no track: once each root file joins the track whose concern owns it (the
+importer scripts their language tracks, the git settings a vendor's track, the license the contracts track), the row stays as the place a
+file not yet declared shows up, never as a home. An unlisted file has no file language: a `.gitkeep`, a `LICENSE`, or an extension no entry
+of the file-language registry lists yet. The root files get one row of their own and the unlisted files one column, and a file that is both
+sits where they cross, so the map's file count equals the tracked file count. An unlisted file in a track's live aspect is still a second
+tech-stack (DDR-TRACK-ONETECHSTACK) when it has an extension: an extension nobody registered is a language nobody declared.
 
 ### The world map
 

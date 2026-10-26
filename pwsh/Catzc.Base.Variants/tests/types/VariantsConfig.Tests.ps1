@@ -8,7 +8,7 @@ Describe 'VariantsConfig' -Tag 'L0' {
                 $full[$key] = $raw[$key]
             }
             if (-not $full.Contains('tracks')) {
-                $full['tracks'] = [ordered]@{ widgets = [ordered]@{ places = @('widgetry'); type = 'modules' } }
+                $full['tracks'] = [ordered]@{ widgets = [ordered]@{ members = @('widgetry'); type = 'modules' } }
             }
             [Catzc.Base.Variants.VariantsConfig]::new($full)
         }
@@ -136,8 +136,8 @@ Describe 'VariantsConfig' -Tag 'L0' {
 
         It 'accepts tracks in declared order, with a vendor and languages optional' {
             $config = & $script:make ([ordered]@{ tracks = [ordered]@{
-                        widget    = [ordered]@{ places = @('widget'); type = 'widget-works'; languages = @('widget-lang', 'gadget-lang') }
-                        '.gadget' = [ordered]@{ places = @('.gadget', '.gadget/deep'); type = 'gadget-shelf'; vendor = 'gizmo' }
+                        widget    = [ordered]@{ members = @('widget'); type = 'widget-works'; languages = @('widget-lang', 'gadget-lang') }
+                        '.gadget' = [ordered]@{ members = @('.gadget', '.gadget/deep'); type = 'gadget-shelf'; vendor = 'gizmo' }
                     }
                 })
             $config.tracks.name | Should -Be @('widget', '.gadget')
@@ -151,6 +151,30 @@ Describe 'VariantsConfig' -Tag 'L0' {
             $config.tracks[1].languages.Count | Should -Be 0
         }
 
+        It 'reads a plain member as authored and committed, and a map member with the facts it states' -Tag 'DDR-TRACK-TRACKISPLACEDCLUSTER' {
+            $config = & $script:make ([ordered]@{ tracks = [ordered]@{
+                        widget = [ordered]@{ members = @('widget', [ordered]@{ path = 'widget.cache'; generated = $true; committed = $false }); type = 'widget-works' }
+                    }
+                })
+            $members = $config.tracks[0].members
+            $members.path | Should -Be @('widget', 'widget.cache')
+            @($members[0].generated, $members[0].committed) | Should -Be @($false, $true)
+            @($members[1].generated, $members[1].committed) | Should -Be @($true, $false)
+            $config.tracks[0].places | Should -Be @('widget', 'widget.cache') -Because 'places are the members'' paths, computed'
+            $config.tracks[0].MemberOf('widget/deep/a.txt').path | Should -BeExactly 'widget'
+            $config.tracks[0].MemberOf('widget.cache').generated | Should -BeTrue
+            $config.tracks[0].MemberOf('gadget/a.txt') | Should -BeNullOrEmpty
+        }
+
+        It 'throws on a glob member, an unknown member key and a fact that is not a boolean' -ForEach @(
+            @{ Member = 'widget/*.txt'; Message = "*track member 'widget/`*.txt' is a glob; glob members wait on the step that first needs one*" }
+            @{ Member = [ordered]@{ path = 'widget'; colour = 'blue' }; Message = "*member has unknown key 'colour'*" }
+            @{ Member = [ordered]@{ path = 'widget'; committed = 'yes' }; Message = "*member 'widget' committed must be true or false*" }
+        ) {
+            { & $script:make ([ordered]@{ tracks = [ordered]@{ widget = [ordered]@{ members = @($Member); type = 'widget-works' } } }) } |
+                Should -Throw $Message
+        }
+
         It 'gives the length of the longest place that contains a path, and -1 when none does' -ForEach @(
             @{ Path = 'widget/a/b.txt'; Length = 6 }
             @{ Path = 'widget'; Length = 6 }
@@ -158,51 +182,51 @@ Describe 'VariantsConfig' -Tag 'L0' {
             @{ Path = 'widgets/a.txt'; Length = -1 }
             @{ Path = 'gadget/a.txt'; Length = -1 }
         ) {
-            $config = & $script:make ([ordered]@{ tracks = [ordered]@{ widget = [ordered]@{ places = @('widget', 'widget/deep'); type = 'widget-works' } } })
+            $config = & $script:make ([ordered]@{ tracks = [ordered]@{ widget = [ordered]@{ members = @('widget', 'widget/deep'); type = 'widget-works' } } })
             $config.tracks[0].PlaceLengthOf($Path) | Should -Be $Length
         }
 
         It 'throws on a missing or malformed type' {
-            { & $script:make ([ordered]@{ tracks = [ordered]@{ widget = [ordered]@{ places = @('widget') } } }) } | Should -Throw "*invalid type ''*"
-            { & $script:make ([ordered]@{ tracks = [ordered]@{ widget = [ordered]@{ places = @('widget'); type = 'Core' } } }) } | Should -Throw "*invalid type 'Core'*"
+            { & $script:make ([ordered]@{ tracks = [ordered]@{ widget = [ordered]@{ members = @('widget') } } }) } | Should -Throw "*invalid type ''*"
+            { & $script:make ([ordered]@{ tracks = [ordered]@{ widget = [ordered]@{ members = @('widget'); type = 'Core' } } }) } | Should -Throw "*invalid type 'Core'*"
         }
 
         It 'throws on a malformed vendor' {
-            { & $script:make ([ordered]@{ tracks = [ordered]@{ widget = [ordered]@{ places = @('widget'); type = 'widget-works'; vendor = 'Gizmo' } } }) } |
+            { & $script:make ([ordered]@{ tracks = [ordered]@{ widget = [ordered]@{ members = @('widget'); type = 'widget-works'; vendor = 'Gizmo' } } }) } |
                 Should -Throw "*invalid vendor 'Gizmo'*"
         }
 
-        It 'throws on a place two tracks share' {
+        It 'throws on a member two tracks share' {
             $config = [ordered]@{ tracks = [ordered]@{
-                    widget = [ordered]@{ places = @('widget'); type = 'widget-works' }
-                    gadget = [ordered]@{ places = @('widget'); type = 'gadget-shelf' }
+                    widget = [ordered]@{ members = @('widget'); type = 'widget-works' }
+                    gadget = [ordered]@{ members = @('widget'); type = 'gadget-shelf' }
                 }
             }
-            { & $script:make $config } | Should -Throw "*place 'widget' is already a place of track 'widget'*"
+            { & $script:make $config } | Should -Throw "*member 'widget' is already a member of track 'widget'*"
         }
 
-        It 'throws on an empty or missing places list' {
-            { & $script:make ([ordered]@{ tracks = [ordered]@{ widget = [ordered]@{ places = @(); type = 'widget-works' } } }) } |
-                Should -Throw '*needs at least one place*'
+        It 'throws on an empty or missing members list' {
+            { & $script:make ([ordered]@{ tracks = [ordered]@{ widget = [ordered]@{ members = @(); type = 'widget-works' } } }) } |
+                Should -Throw '*needs at least one member*'
             { & $script:make ([ordered]@{ tracks = [ordered]@{ widget = [ordered]@{ type = 'widget-works' } } }) } |
-                Should -Throw '*needs at least one place*'
+                Should -Throw '*needs at least one member*'
         }
 
-        It 'throws on a place that is not a clean relative path' {
+        It 'throws on a member that is not a clean relative path' {
             foreach ($place in 'widget/', '/widget', 'widget//gadget', '..', 'widget/../gadget') {
-                { & $script:make ([ordered]@{ tracks = [ordered]@{ widget = [ordered]@{ places = @($place); type = 'widget-works' } } }) } |
-                    Should -Throw '*invalid place*'
+                { & $script:make ([ordered]@{ tracks = [ordered]@{ widget = [ordered]@{ members = @($place); type = 'widget-works' } } }) } |
+                    Should -Throw '*invalid member*'
             }
         }
 
-        It 'throws on the out place (gitignored output, never a track)' {
-            { & $script:make ([ordered]@{ tracks = [ordered]@{ widget = [ordered]@{ places = @('out/deep'); type = 'widget-works' } } }) } |
-                Should -Throw "*place 'out/deep' is gitignored output*"
+        It 'throws on an out member (gitignored output, never a track)' {
+            { & $script:make ([ordered]@{ tracks = [ordered]@{ widget = [ordered]@{ members = @('out/deep'); type = 'widget-works' } } }) } |
+                Should -Throw "*member 'out/deep' is gitignored output*"
         }
 
         It 'throws on an unknown track key, a bad language name, and a duplicate language' {
             $config = [ordered]@{ tracks = [ordered]@{
-                    widget = [ordered]@{ places = @('widget'); type = 'widget-works'; languages = @('Gadget', 'widget-lang', 'widget-lang'); colour = 'blue' }
+                    widget = [ordered]@{ members = @('widget'); type = 'widget-works'; languages = @('Gadget', 'widget-lang', 'widget-lang'); colour = 'blue' }
                 }
             }
             $err = { & $script:make $config } | Should -Throw -PassThru
@@ -212,7 +236,7 @@ Describe 'VariantsConfig' -Tag 'L0' {
         }
 
         It 'refuses the removed root and class keys' {
-            $err = { & $script:make ([ordered]@{ tracks = [ordered]@{ widget = [ordered]@{ places = @('widget'); type = 'widget-works'; root = 'widget'; class = 'core' } } }) } |
+            $err = { & $script:make ([ordered]@{ tracks = [ordered]@{ widget = [ordered]@{ members = @('widget'); type = 'widget-works'; root = 'widget'; class = 'core' } } }) } |
                 Should -Throw -PassThru
             $err.Exception.Message | Should -BeLike "*unknown key 'root'*"
             $err.Exception.Message | Should -BeLike "*unknown key 'class'*"
@@ -222,8 +246,8 @@ Describe 'VariantsConfig' -Tag 'L0' {
             $first = [Catzc.Base.Engines.ExecutionEngines]::Names[0]
             $second = [Catzc.Base.Engines.ExecutionEngines]::Names[1]
             $config = & $script:make ([ordered]@{ tracks = [ordered]@{
-                        widget = [ordered]@{ places = @('widget'); type = 'widget-works'; execution_engines = @($first); module_execution_engines = [ordered]@{ Widget_Gadget = @($first, $second) } }
-                        gadget = [ordered]@{ places = @('gadget'); type = 'widget-works' }
+                        widget = [ordered]@{ members = @('widget'); type = 'widget-works'; execution_engines = @($first); module_execution_engines = [ordered]@{ Widget_Gadget = @($first, $second) } }
+                        gadget = [ordered]@{ members = @('gadget'); type = 'widget-works' }
                     }
                 })
             $config.tracks[0].execution_engines | Should -Be @($first)
@@ -238,7 +262,7 @@ Describe 'VariantsConfig' -Tag 'L0' {
             $first = [Catzc.Base.Engines.ExecutionEngines]::Names[0]
             $second = [Catzc.Base.Engines.ExecutionEngines]::Names[1]
             $err = { & $script:make ([ordered]@{ tracks = [ordered]@{
-                            widget = [ordered]@{ places = @('widget'); type = 'widget-works'; execution_engines = @($first, $first, 'fish')
+                            widget = [ordered]@{ members = @('widget'); type = 'widget-works'; execution_engines = @($first, $first, 'fish')
                                 module_execution_engines = [ordered]@{ A = @(); B = @($first, $first) }
                             }
                         }
@@ -247,21 +271,21 @@ Describe 'VariantsConfig' -Tag 'L0' {
             $err.Exception.Message | Should -BeLike "*duplicate execution engine '$first'*"
             $err.Exception.Message | Should -Match ([regex]::Escape("module_execution_engines['A'] must name at least one engine"))
             { & $script:make ([ordered]@{ tracks = [ordered]@{
-                            widget = [ordered]@{ places = @('widget'); type = 'widget-works'; execution_engines = @($first, $second); module_execution_engines = [ordered]@{ A = @($first, $second) } }
+                            widget = [ordered]@{ members = @('widget'); type = 'widget-works'; execution_engines = @($first, $second); module_execution_engines = [ordered]@{ A = @($first, $second) } }
                         }
                     }) } | Should -Throw "*repeats the track's engines*"
             { & $script:make ([ordered]@{ tracks = [ordered]@{
-                            widget = [ordered]@{ places = @('widget'); type = 'widget-works'; module_execution_engines = @('A') }
+                            widget = [ordered]@{ members = @('widget'); type = 'widget-works'; module_execution_engines = @('A') }
                         }
                     }) } | Should -Throw '*module_execution_engines must be a map*'
         }
 
         It 'reads a track''s named kinds, a wildcard segment kept, and leaves them empty when unnamed' {
             $config = & $script:make ([ordered]@{ tracks = [ordered]@{
-                        widget = [ordered]@{ places = @('widget/parts', 'widget/spares'); type = 'widget-works'
+                        widget = [ordered]@{ members = @('widget/parts', 'widget/spares'); type = 'widget-works'
                             kinds = [ordered]@{ parts = 'widget/parts'; sheets = 'widget/parts/*/sheets'; spares = 'widget/spares' }
                         }
-                        gadget = [ordered]@{ places = @('gadget'); type = 'widget-works' }
+                        gadget = [ordered]@{ members = @('gadget'); type = 'widget-works' }
                     }
                 })
             $config.tracks[0].KindPlace('sheets') | Should -BeExactly 'widget/parts/*/sheets'
@@ -279,14 +303,14 @@ Describe 'VariantsConfig' -Tag 'L0' {
             @{ Kinds = [ordered]@{ Sheets = 'widget/parts' }; Message = "*invalid kind name 'Sheets'*" }
             @{ Kinds = @('widget/parts'); Message = '*kinds must be a map of kind -> place pattern*' }
         ) {
-            { & $script:make ([ordered]@{ tracks = [ordered]@{ widget = [ordered]@{ places = @('widget/parts'); type = 'widget-works'; kinds = $Kinds } } }) } |
+            { & $script:make ([ordered]@{ tracks = [ordered]@{ widget = [ordered]@{ members = @('widget/parts'); type = 'widget-works'; kinds = $Kinds } } }) } |
                 Should -Throw -ExpectedMessage $Message
         }
 
         It 'throws when tracks is empty, not a map, or holds a non-map entry' {
             { & $script:make ([ordered]@{ tracks = [ordered]@{} }) } | Should -Throw '*at least one track*'
             { & $script:make ([ordered]@{ tracks = @('widget') }) } | Should -Throw '*invalid tracks*'
-            { & $script:make ([ordered]@{ tracks = [ordered]@{ widget = 'widget' } }) } | Should -Throw '*must be a mapping { places, type, vendor, languages }*'
+            { & $script:make ([ordered]@{ tracks = [ordered]@{ widget = 'widget' } }) } | Should -Throw '*must be a mapping { members, type, vendor, languages }*'
         }
 
         It 'reports every violation in one throw' {

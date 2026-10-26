@@ -83,3 +83,12 @@ Describe 'TrackTypesConfig' -Tag 'L0', 'logic', 'DDR-TRACKTYPE-CLOSEDSETOFTYPES'
         }
     }
 }
+
+Describe 'TrackTypesConfig — the shipped track types' -Tag 'L1', 'integrity', 'DDR-TRACK-ONETRACKTYPE' {
+    It 'declares the output type, a holder that admits no module type' {
+        $output = (Get-Config -Config track-types).TypeOf('output')
+        $output | Should -Not -BeNullOrEmpty
+        $output.role | Should -BeExactly 'holder'
+        @($output.admits).Count | Should -Be 0
+    }
+}

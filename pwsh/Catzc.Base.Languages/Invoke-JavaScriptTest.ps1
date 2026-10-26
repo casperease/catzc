@@ -21,9 +21,11 @@ function Invoke-JavaScriptTest {
     $root = Get-RepositoryRoot
     # The JavaScript root from javascript.yml (JavaScriptConfig.ResolveRoot: the declared root, else js/ when present, else .js/).
     $jsRelative = (Get-Config -Config javascript).ResolveRoot($root)
-    # The test folder: the one named (a module's own tests/), else the module's folder under the root's test holder.
     $relative = if ($Folder) {
         [System.IO.Path]::GetRelativePath($root, [System.IO.Path]::GetFullPath($Folder, $root)).Replace('\', '/').TrimEnd('/')
+    }
+    elseif (Test-Path -LiteralPath (Join-Path $root "$jsRelative/$Module/tests") -PathType Container) {
+        "$jsRelative/$Module/tests"
     }
     else {
         "$jsRelative/tests/$((Get-Config -Config languages).TestFolderOf('javascript', $Module))"

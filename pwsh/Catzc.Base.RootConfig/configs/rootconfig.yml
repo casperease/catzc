@@ -106,19 +106,29 @@ files:
   - target: .vscode/markdown-preview-dark.css
     source: pwsh/Catzc.Base.VSCode/assets/markdown-preview-dark.css
     optIn: true
+  # The three width-bearing tool configs: their asset templates with every width filled from file-limits.yml.
   - target: .editorconfig
-    source: pwsh/Catzc.Base.RootConfig/assets/root/.editorconfig
+    generator: Build-WidthConfigs
+    sources:
+      - pwsh/Catzc.Base.RootConfig/assets/root/.editorconfig
+      - pwsh/Catzc.Base.FileLimits/configs/file-limits.yml
     carrier: dotfile
     optIn: true
   - target: .markdownlint.yml
-    source: pwsh/Catzc.Base.RootConfig/assets/root/.markdownlint.yml
+    generator: Build-WidthConfigs
+    sources:
+      - pwsh/Catzc.Base.RootConfig/assets/root/.markdownlint.yml
+      - pwsh/Catzc.Base.FileLimits/configs/file-limits.yml
     optIn: true
   - target: .markdownlintignore
     source: pwsh/Catzc.Base.RootConfig/assets/root/.markdownlintignore
     carrier: dotfile
     optIn: true
   - target: .prettierrc.yml
-    source: pwsh/Catzc.Base.RootConfig/assets/root/.prettierrc.yml
+    generator: Build-WidthConfigs
+    sources:
+      - pwsh/Catzc.Base.RootConfig/assets/root/.prettierrc.yml
+      - pwsh/Catzc.Base.FileLimits/configs/file-limits.yml
     optIn: true
   - target: .prettierignore
     source: pwsh/Catzc.Base.RootConfig/assets/root/.prettierignore

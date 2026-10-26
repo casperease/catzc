@@ -67,3 +67,15 @@ Started 2026-10-25T23:52:39.8581500+01:00.
   plan-master.md is dirty in a peer session.
 - 2026-10-26 Cats: Token tip: Next time, save tokens by: putting multi-step pwsh in an out/ script from the start, since a background call
   allows exactly one command.
+- 2026-10-26 Cats: In hindsight I wish I knew this fact: Test-Plans requires a plan's steps under the exact heading '## Open steps'
+  (ADR-REPO-PLANS-ONESHAPE).
+- 2026-10-26 Cats: In hindsight I wish I knew this fact: a pwsh module's name is its folder name today; Import-AllModules lists folders with
+  no prefix logic, so a namespace resolver has one place to go.
+- 2026-10-26 Cats: In hindsight I wish I knew this fact: a peer's half-done C# type edit breaks the importer for every session, so a gate
+  run can fail with nothing of mine in it.
+- 2026-10-26 Cats: In hindsight I wish I knew this fact: inside bash double quotes, a pwsh variable like $p is expanded by bash, so a
+  -Command with variables must be single-quoted.
+- 2026-10-26 Cats: Token tip: Next time, save tokens by: reading one existing plan's headings before writing a new plan.
+- 2026-10-26 Cats: Token tip: Next time, save tokens by: putting a multi-step pwsh run in one out/ script from the start.
+- 2026-10-26 Cats: In hindsight I wish I knew this fact: each open step of a plan is a numbered checkbox line, '1. [ ] …'
+  (ADR-REPO-PLANS-OPENSTEP).

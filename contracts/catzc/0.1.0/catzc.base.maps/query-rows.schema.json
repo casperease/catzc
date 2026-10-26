@@ -1,0 +1,46 @@
+{
+  "$comment": "Provided schema of the query rows a C3 or C4 slide is drawn from, validated against the sample beside it (ADR-REPO-CONTRACT-CONTRACTASSET, DDR-VISUAL-ZOOMISANAXIS): the file Build-Diagrams writes through Write-DiagramQueryRows and hands the diagram kit by address (--rows). Each row is the answer of one level's query for one point of the tree: its nodes, each a glyph of a kind of the kit's vocabulary, and the edges between two of them, which the kit counts on the nodes.",
+  "type": "object",
+  "required": ["rows"],
+  "additionalProperties": false,
+  "properties": {
+    "rows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["point", "level", "nodes", "edges"],
+        "additionalProperties": false,
+        "properties": {
+          "point": { "type": "string" },
+          "level": { "type": "string", "enum": ["C3", "C4"] },
+          "nodes": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["id", "label", "kind"],
+              "additionalProperties": false,
+              "properties": {
+                "id": { "type": "string" },
+                "label": { "type": "string" },
+                "kind": { "type": "string" }
+              }
+            }
+          },
+          "edges": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["from", "to"],
+              "additionalProperties": false,
+              "properties": {
+                "from": { "type": "string" },
+                "to": { "type": "string" },
+                "label": { "type": "string" }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -2,11 +2,11 @@
 # [markdown] formatter in .vscode/settings.json; Format-Code runs the same engine).
 #
 # proseWrap: always makes the formatter OWN line length — it wraps prose at printWidth so Markdown
-# satisfies markdownlint MD013 (line-length 140). printWidth is pinned to 140 to match
-# .markdownlint.yml MD013 and .editorconfig [*.md] max_line_length. Keep these three in sync.
+# satisfies markdownlint MD013. Build-WidthConfigs fills printWidth, MD013 and .editorconfig's [*.md]
+# max_line_length from the one prose width in file-limits.yml.
 #
 # .yml (not .yaml) per pipeline-concept [FDR-CD-PIPELINE-EXECUTABLEYAMLEXTENSION](/docs/drs/flow/pipeline-concept.md#rule-fdr-cd-pipeline-executableyamlextension) — config
 # data our tooling reads, not an executable
 # ADO pipeline. Prettier auto-discovers .prettierrc.yml.
-printWidth: 140
+printWidth: $width.md
 proseWrap: always

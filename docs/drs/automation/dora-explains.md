@@ -587,6 +587,20 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   nothing Go-specific to keep in step by hand.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
+## The JavaScript track
+
+[ADR-AUTO-JS](javascript/javascript-track.md)
+
+> DORA research ties delivery performance to automated tests that run on every change and that developers trust. The editor extensions,
+> central to daily work, get their own language's runner and a type check, and their tests run in the same test run as every other test, so
+> a change to the lamps is checked before it merges like any other code.
+
+- [Test automation](../../references/dora/capabilities.md#test-automation) — node's own runner tests each extension's pure parts and a
+  recording editor stub, through the same harness and report as the Pester tests.
+- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — the type check reaches the extensions with no build
+  step, and the tooling installs every package it needs outside the repository.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+
 ## Python test artifacts
 
 `Python test artifacts — black-box tests of the engine, never shipped`

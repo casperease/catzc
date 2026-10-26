@@ -1,6 +1,6 @@
-description:
-  The decision records' containers are their domains, each of one decision kind; the thesis frames them, the principles state its
-  mechanics, and the architecture domains share one kind.
+description: >-
+  The decision records' containers are their domains, each of one decision kind; the thesis frames them, and every other domain cites it
+  through the principles.
 about:
   adrs: [ADR-REPO-DRSCODE-PATHOFSEGMENTS, ADR-REPO-DRSCODE-DOMAINSEGMENT, DDR-VISUAL-ZOOMISANAXIS]
   lens: governance
@@ -8,24 +8,19 @@ about:
 content:
   title: The record domains are the decision records' containers
   kind: explanation
-  flow: top-to-bottom
+  flow: left-to-right
   theme: dark
   bands:
     - { id: band-framing, label: FRAMING }
-    - { id: band-way, label: WAY OF WORKING }
-    - { id: band-architecture, label: ARCHITECTURE }
+    - { id: band-mechanics, label: MECHANICS }
+    - { id: band-domains, label: DOMAINS }
+    - { id: band-research, label: RESEARCH }
   glyphs:
     - { id: d-thesis, kind: drsonly, label: thesis TDR, in: band-framing }
-    - { id: d-principles, kind: drsonly, label: principles PDR, in: band-framing }
-    - { id: d-research, kind: drsonly, label: research RDR, in: band-framing }
-    - { id: d-process, kind: drsonly, label: process WDR, in: band-way }
-    - { id: d-design, kind: drsonly, label: design DDR, in: band-way }
-    - { id: d-flow, kind: drsonly, label: flow FDR, in: band-way }
-    - { id: d-adr, kind: set, label: ADR domains, in: band-architecture }
+    - { id: d-research, kind: drsonly, label: research RDR, in: band-research }
+    - { id: d-principles, kind: drsonly, label: principles PDR, in: band-mechanics }
+    - { id: d-others, kind: set, label: WDR DDR FDR ADR domains, in: band-domains }
   edges:
     - { from: d-principles, to: d-thesis, kind: flow, label: cites }
-    - { from: d-design, to: d-principles, kind: flow, label: cites }
-    - { from: d-flow, to: d-principles, kind: flow, label: cites }
-    - { from: d-process, to: d-principles, kind: flow, label: cites }
-    - { from: d-adr, to: d-principles, kind: flow, label: cites }
+    - { from: d-others, to: d-principles, kind: flow, label: cites }
   legend: auto

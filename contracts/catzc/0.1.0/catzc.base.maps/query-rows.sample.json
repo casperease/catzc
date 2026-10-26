@@ -1,0 +1,22 @@
+{
+  "rows": [
+    {
+      "point": "widgets/Widget.Kit",
+      "level": "C4",
+      "nodes": [
+        { "id": "get-widget-ps1", "label": "Get-Widget.ps1", "kind": "code" },
+        { "id": "configs-widget-yml", "label": "widget.yml", "kind": "file" }
+      ],
+      "edges": [{ "from": "get-widget-ps1", "to": "configs-widget-yml" }]
+    },
+    {
+      "point": "widgets",
+      "level": "C3",
+      "nodes": [
+        { "id": "widget-kit", "label": "Widget.Kit", "kind": "module" },
+        { "id": "widget-base", "label": "Widget.Base", "kind": "module" }
+      ],
+      "edges": [{ "from": "widget-kit", "to": "widget-base", "label": "calls" }]
+    }
+  ]
+}

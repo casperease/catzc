@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "063a27415940"
+    with_body_sha: "7249bc7b469d"
     warning: "Do Not Edit, this file is generated"
 ---
 
@@ -185,6 +185,7 @@ github, and azure domains build on it.
 | `ADR-AUTO-GO`       | [go-test-artifacts](automation/go/go-test-artifacts.md)                          |
 | `ADR-AUTO-PY`       | [python-test-artifacts](automation/python/python-test-artifacts.md)              |
 | `ADR-AUTO-BASH`     | [bash-test-artifacts](automation/bash/bash-test-artifacts.md)                    |
+| `ADR-AUTO-JS`       | [javascript-track](automation/javascript/javascript-track.md)                    |
 | `ADR-AUTO-ENGINE`   | [execution-engines](automation/execution-engines.md)                             |
 | `ADR-AUTO-MODULE`   | [module-model](automation/module-model.md)                                       |
 | `ADR-AUTO-LAYERS`   | [layers](automation/layers.md)                                                   |

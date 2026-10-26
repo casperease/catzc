@@ -10,16 +10,16 @@ content:
   flow: left-to-right
   theme: dark
   bands:
-    - { id: band-where, label: WHERE }
-    - { id: band-what, label: WHAT }
-    - { id: band-between, label: BETWEEN }
+    - { id: band-tree, label: TREE }
+    - { id: band-where, label: PLACED }
+    - { id: band-what, label: CLASSIFIED }
   glyphs:
-    - { id: f-tree, kind: file, label: The tree, in: band-where }
+    - { id: s-links, kind: set, label: Link relations, in: band-tree }
+    - { id: f-tree, kind: file, label: The tree, in: band-tree }
     - { id: s-tracks, kind: set, label: Tracks, in: band-where }
-    - { id: s-languages, kind: set, label: File languages, in: band-what }
     - { id: s-worldmap, kind: set, label: World map, in: band-what }
+    - { id: s-languages, kind: set, label: File languages, in: band-what }
     - { id: s-aspects, kind: set, label: Aspects, in: band-what }
-    - { id: s-links, kind: set, label: Link relations, in: band-between }
   edges:
     - { from: s-tracks, to: f-tree, kind: read }
     - { from: s-worldmap, to: s-tracks, kind: read }

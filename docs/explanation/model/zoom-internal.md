@@ -22,5 +22,5 @@ loads these modules first. No dependency query covers them, so the slide draws t
 
 ![The internal files and the links between them](.assets/zoom-internal-c4.drawio.png)
 
-This slide is drawn from `Get-LinkEdge` at every build: one glyph per file, and one edge per link between two of them
+This slide is drawn from `Get-LinkEdge` at every build: one glyph per file, its chip counting the links between it and the other files
 ([ADR-REPO-LINKS-EVERYLINKHASADIRECTION](../../drs/repository/links-in-repository.md#rule-adr-repo-links-everylinkhasadirection)).

@@ -19,7 +19,7 @@ Describe 'Test-AgentDefinitions' -Tag 'L0', 'logic' {
 
         function New-AgentsFixture {
             param([object[]] $Agents)
-            [Catzc.Base.Docs.AgentsConfig]::new([ordered]@{ standard = 'widget'; agents = $Agents; contracts = @('ADR-WI') })
+            [Catzc.Base.Docs.AgentsConfig]::new([ordered]@{ agents = $Agents; contracts = @('ADR-WI') })
         }
 
         function New-CapabilitiesFixture {
@@ -81,20 +81,20 @@ Describe 'Test-AgentDefinitions' -Tag 'L0', 'logic' {
         Write-AgentFixture 'agents/gadget.md' @('---', 'name: gadget', 'description: The gadget agent. Do NOT use it for widget work.', 'tools: Read', 'model: inherit', '---', '# Gadget')
         Write-AgentFixture 'skills/widget-spin/SKILL.md' ($script:spinFile -replace 'model_floor: haiku', 'model_floor: sonnet')
         $issues = (Test-AgentDefinitions -OutputFolder $out -PassThru).Issues
-        $issues | Should -Contain '.claude/agents/gadget.md: front matter must name a model (haiku, sonnet or opus), never inherit'
+        $issues | Should -Contain '.claude/agents/gadget.md: front matter must name a model (haiku, sonnet, opus or fable), never inherit'
         $issues | Should -Contain ".claude/agents/widget.md: model 'haiku' is below the model_floor 'sonnet' of capability 'widget-spin'"
         $issues | Should -HaveCount 2
     }
 
     It 'reports a capability over its roof, with a wrong name, user-invocable, without allowed-tools or a floor' -Tag 'ADR-REPO-AGENTS-CAPABILITYFILE' {
-        $over = @('---', 'name: widget-spun', 'description: Spin.', 'user-invocable: true', 'metadata:', '  catzc:', '    config:', '      needs: []', '---') + @(1..7 | ForEach-Object { "$_. step" })
+        $over = @('---', 'name: widget-spun', 'description: Spin.', 'user-invocable: true', 'metadata:', '  catzc:', '    config:', '      needs: []', '---') + @(1..27 | ForEach-Object { "$_. step" })
         Write-AgentFixture 'skills/widget-spin/SKILL.md' $over
         $issues = (Test-AgentDefinitions -OutputFolder $out -PassThru).Issues
         $issues | Should -Contain ".claude/skills/widget-spin/SKILL.md: front-matter name 'widget-spun' must equal the folder name 'widget-spin'"
         $issues | Should -Contain '.claude/skills/widget-spin/SKILL.md: front matter must set user-invocable: false'
         $issues | Should -Contain '.claude/skills/widget-spin/SKILL.md: front matter has no allowed-tools'
-        $issues | Should -Contain '.claude/skills/widget-spin/SKILL.md: metadata.catzc.config.model_floor must be haiku, sonnet or opus'
-        $issues | Should -Contain '.claude/skills/widget-spin/SKILL.md: has 11 lines outside its catzc head (4 front-matter keys and 7 body lines), the roof is 10 (roofs.capability_lines)'
+        $issues | Should -Contain '.claude/skills/widget-spin/SKILL.md: metadata.catzc.config.model_floor must be haiku, sonnet, opus or fable'
+        $issues | Should -Contain '.claude/skills/widget-spin/SKILL.md: has 31 lines outside its catzc head (4 front-matter keys and 27 body lines), the roof is 30 (roofs.capability_lines)'
     }
 
     It 'reports a robot and a capability body line past 140 columns' -Tag 'ADR-REPO-AGENTS-ROBOTBODYLIMIT' {
@@ -204,10 +204,25 @@ Describe 'Test-AgentDefinitions' -Tag 'L0', 'logic' {
         $issues | Should -HaveCount 2
     }
 
-    It 'reports a specialised agent the standard agent does not name' -Tag 'ADR-REPO-AGENTS-STANDARDDRONE' {
-        Write-AgentFixture 'agents/widget.md' @('---', 'name: widget', 'description: The standard agent. Do NOT use it for special work.', 'tools: Read', 'model: haiku', 'skills: [widget-spin]', '---')
+    It 'passes a brief skill no robot preloads, and reports one a robot preloads' -Tag 'ADR-REPO-AGENTS-STANDARDDRONE', 'ADR-REPO-AGENTS-NOORPHANNOGHOST' {
+        $turnFile = @('---', 'name: gadget-turn', 'description: Turn a gadget; for a brief; input is the gadget.', 'user-invocable: false', 'allowed-tools: Read',
+            'metadata:', '  catzc:', '    config:', '      model_floor: fable', '      needs: []', '---', '1. Turn it.')
+        Write-AgentFixture 'skills/gadget-turn/SKILL.md' $turnFile
+        $script:capabilities = New-CapabilitiesFixture @($script:spinEntry, [ordered]@{ name = 'gadget-turn'; supported_by = @('ADR-WI-ONE-SPIN'); checks = @(); invoked_by = 'brief' })
+        (Test-AgentDefinitions -OutputFolder $out -PassThru).Issues | Should -BeNullOrEmpty
+
+        Write-AgentFixture 'agents/gadget.md' ($script:gadgetFile -replace 'model: haiku', "model: fable`nskills: [gadget-turn]")
         $issues = (Test-AgentDefinitions -OutputFolder $out -PassThru).Issues
-        $issues | Should -Be @(".claude/agents/widget.md: the standard agent's description does not name specialised agent 'gadget'")
+        $issues | Should -Be @(".claude/agents/gadget.md: skills names 'gadget-turn', a brief skill that a drone loads with the Skill tool, never preloads")
+    }
+
+    It 'reports a read_only skill whose allowed-tools hold Write or Edit' -Tag 'ADR-REPO-AGENTS-CAPABILITYFILE' {
+        $script:capabilities = New-CapabilitiesFixture @([ordered]@{ name = 'widget-spin'; supported_by = @('ADR-WI-ONE-TURN'); checks = @(); read_only = $true })
+        (Test-AgentDefinitions -OutputFolder $out -PassThru).Issues | Should -BeNullOrEmpty
+
+        Write-AgentFixture 'skills/widget-spin/SKILL.md' ($script:spinFile -replace 'allowed-tools: Read', 'allowed-tools: Read, Edit')
+        $issues = (Test-AgentDefinitions -OutputFolder $out -PassThru).Issues
+        $issues | Should -Be @(".claude/skills/widget-spin/SKILL.md: a read_only skill's allowed-tools must hold no Write or Edit")
     }
 
     It 'throws once listing every issue without -PassThru' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
@@ -230,7 +245,8 @@ Describe 'Test-AgentDefinitions — shipped configs/agents.yml and configs/capab
     It 'finds both registries it names in the loaded module' {
         $agents = [System.IO.File]::ReadAllText((Get-CatzcModuleRoot 'configs/agents.yml' -Module Catzc.Base.Docs)) | ConvertFrom-Yaml -Ordered
         $capabilities = [System.IO.File]::ReadAllText((Get-CatzcModuleRoot 'configs/capabilities.yml' -Module Catzc.Base.Docs)) | ConvertFrom-Yaml -Ordered
-        @($agents['agents'] | ForEach-Object { $_['name'] }) | Should -Contain $agents['standard']
+        @($agents['agents']).Count | Should -BeGreaterThan 0
+        $agents.Contains('standard') | Should -BeFalse
         @($capabilities['capabilities']).Count | Should -BeGreaterThan 0
     }
 }

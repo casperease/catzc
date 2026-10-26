@@ -47,6 +47,9 @@ already exist into a map anyone can read, and every slide is generated from thos
        contracts-layout. Check: the contract tests of `catzc.base.maps`, and the sample read.
 4. [ ] The four `docs/explanation/model/` articles each gain their one narrated diagram (a `yml drawio` block and its png). Waits on
        contracts-layout, as every render does. Check: `Test-Diagrams` and `Test-Links` on the articles.
+6. [ ] Engine: a graph layout for a query slide's generated rows (`query_rows.py` and the drawing engine), so a C3 or C4 slide draws its
+       edges, not only their count chips; then `DDR-VISUAL-ZOOMISANAXIS` says the slide draws them. Check: the five query slides
+       (`zoom-pwsh-c3`, `zoom-config-c3`, `zoom-drs-c3`, `zoom-drs-c4`, `zoom-internal-c4`) render with their edges and no `E_KEEPOUT`.
 5. [ ] The five ladders of the points listed above as `.drawio.yml` declarations plus pngs under `docs/explanation/model/.assets/`, one
        article per ladder (`zoom-<point>.md`). Check: `Test-Diagrams`, `Test-Slides`, `Test-Links`.
 

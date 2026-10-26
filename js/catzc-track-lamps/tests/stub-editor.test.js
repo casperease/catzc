@@ -17,7 +17,10 @@ const scenario = (name, withEngine = false) => {
         for (const part of fs.readdirSync(path.dirname(extension)).filter((file) => file.endsWith(".js")))
             fs.copyFileSync(path.join(path.dirname(extension), part), path.join(engine, part));
     }
-    const output = execFileSync(process.execPath, [path.join(__dirname, "stub-editor.js"), name, root, extension], { encoding: "utf8", timeout: 60000 });
+    const output = execFileSync(process.execPath, [path.join(__dirname, "stub-editor.js"), name, root, extension], {
+        encoding: "utf8",
+        timeout: 60000,
+    });
     return JSON.parse(output);
 };
 

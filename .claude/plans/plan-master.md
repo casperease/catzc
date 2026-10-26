@@ -62,6 +62,8 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
 - track-model -> plan-track-model.md: tracks as members with generated and committed facts, catch-up vendor tracks and `out` for the root,
   globsets derived from tracks, a DDR-VENDOR for the vendor umbrella, normal-form track names, filter lamps per aspect plus a language
   field, minimaps and lamps out of the ADRs; eighteen steps, the first waiting on the user's example names
+- module-namespace -> plan-module-namespace.md: the `Catzc.` prefix leaves pwsh module folders only, declared once as the pwsh track's
+  namespace and resolved to the full module name; seven steps after track-model
 - idiomatic-names -> plan-idiomatic-names.md: three steps left, the naming gate wired into languages.yml once the user stages the folder
   moves (task-user-runs-and-commits).
 - listen-internal-readers -> plan-listen-internal-readers.md: one step left, the user's `.claude/CLAUDE.md` edit

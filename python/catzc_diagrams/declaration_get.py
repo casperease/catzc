@@ -352,6 +352,7 @@ def get(model, kind=None):
         e for e in content.get("edges") or [] if not (query_rows.drawn_by_query(e["from"]) or query_rows.drawn_by_query(e["to"]))
     ]
     layout = {cid: box for cid, box in layout.items() if not query_rows.drawn_by_query(cid)}
+    content["chips"] = [c for c in content.get("chips") or [] if not query_rows.drawn_by_query(c["at"])]
     declaration = normalise({"about": about, "content": content, "layout": layout}, where="the drawing")
     # A cell that sits where the grid would put it needs no layout entry: the layout keeps only what a hand moved.
     # A layout entry stays only where put would not place the cell there anyway, given the entries already kept for what holds it:

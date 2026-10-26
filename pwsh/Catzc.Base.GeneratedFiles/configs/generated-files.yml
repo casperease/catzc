@@ -61,6 +61,8 @@ writers:
       - pwsh/Catzc.Base.Languages/New-GoWorkspace.ps1
       - pwsh/Catzc.Base.Languages/New-PythonProject.ps1
       - pwsh/Catzc.Base.Languages/New-NuGetConfig.ps1
+      - pwsh/Catzc.Base.FileLimits/configs/file-limits.yml
+      - pwsh/Catzc.Base.FileLimits/Build-WidthConfigs.ps1
       - pwsh/Catzc.Base.Languages/configs/generated-head.yml
       - pwsh/Catzc.Base.Languages/configs/go.yml
       - pwsh/Catzc.Base.Languages/configs/languages.yml

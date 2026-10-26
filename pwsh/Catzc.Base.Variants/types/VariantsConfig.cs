@@ -17,7 +17,7 @@ namespace Catzc.Base.Variants;
 public sealed class VariantsConfig : Catzc.Base.Objects.DictionaryRecord
 {
     private static readonly string[] AllowedKeys = { "ado_naming", "git_workspace", "have_customers", "aspects", "tracks" };
-    private static readonly string[] AllowedTrackKeys = { "places", "type", "vendor", "languages", "execution_engines", "module_execution_engines", "kinds" };
+    private static readonly string[] AllowedTrackKeys = { "members", "type", "vendor", "languages", "execution_engines", "module_execution_engines", "kinds" };
     private static readonly Regex CustomerName = new Regex("^[a-z][a-z0-9]+$");
     private static readonly Regex AspectName = new Regex("^[a-z][a-z0-9]*(-[a-z0-9]+)*$");
     private static readonly Regex TrackName = new Regex("^\\.?[a-z][a-z0-9]*(-[a-z0-9]+)*$");
@@ -227,7 +227,7 @@ public sealed class VariantsConfig : Catzc.Base.Objects.DictionaryRecord
         IDictionary map = value as IDictionary;
         if (map == null)
         {
-            errors.Add("invalid tracks (must be a map of track -> { places, type, vendor, languages })");
+            errors.Add("invalid tracks (must be a map of track -> { members, type, vendor, languages })");
             return null;
         }
         if (map.Count == 0)
@@ -248,7 +248,7 @@ public sealed class VariantsConfig : Catzc.Base.Objects.DictionaryRecord
             IDictionary entry = map[nameKey] as IDictionary;
             if (entry == null)
             {
-                errors.Add(string.Format("tracks['{0}'] must be a mapping {{ places, type, vendor, languages }}", name));
+                errors.Add(string.Format("tracks['{0}'] must be a mapping {{ members, type, vendor, languages }}", name));
                 continue;
             }
             foreach (object k in entry.Keys)
@@ -260,31 +260,35 @@ public sealed class VariantsConfig : Catzc.Base.Objects.DictionaryRecord
                 }
             }
 
+            List<VariantMember> members = new List<VariantMember>();
             List<string> places = new List<string>();
-            foreach (object item in Items(Has(entry, "places") ? entry["places"] : null))
+            foreach (object item in Items(Has(entry, "members") ? entry["members"] : null))
             {
-                string place = Text(item);
+                VariantMember member = ReadMember(name, item, errors);
+                if (member == null) { continue; }
+                string place = member.path;
                 if (!PlacePath.IsMatch(place) || place.Split('/').Any(s => s == "." || s == ".."))
                 {
-                    errors.Add(string.Format("tracks['{0}']: invalid place '{1}' (a repository-relative path with '/' separators, e.g. pwsh or .github/workflows)", name, place));
+                    errors.Add(string.Format("tracks['{0}']: invalid member '{1}' (a repository-relative path with '/' separators, e.g. pwsh or .github/workflows)", name, place));
                 }
                 else if (place == "out" || place.StartsWith("out/", StringComparison.OrdinalIgnoreCase))
                 {
-                    errors.Add(string.Format("tracks['{0}']: place '{1}' is gitignored output, never a track (DDR-TRACK-TRACKISPLACEDCLUSTER)", name, place));
+                    errors.Add(string.Format("tracks['{0}']: member '{1}' is gitignored output, never a track (DDR-TRACK-TRACKISPLACEDCLUSTER)", name, place));
                 }
                 else if (placeOwner.ContainsKey(place))
                 {
-                    errors.Add(string.Format("tracks['{0}']: place '{1}' is already a place of track '{2}' (a place belongs to one track)", name, place, placeOwner[place]));
+                    errors.Add(string.Format("tracks['{0}']: member '{1}' is already a member of track '{2}' (a member belongs to one track)", name, place, placeOwner[place]));
                 }
                 else
                 {
                     placeOwner[place] = name;
                     places.Add(place);
+                    members.Add(member);
                 }
             }
-            if (places.Count == 0)
+            if (members.Count == 0)
             {
-                errors.Add(string.Format("tracks['{0}'] needs at least one place", name));
+                errors.Add(string.Format("tracks['{0}'] needs at least one member", name));
             }
 
             string trackType = Has(entry, "type") ? Text(entry["type"]) : "";
@@ -348,9 +352,50 @@ public sealed class VariantsConfig : Catzc.Base.Objects.DictionaryRecord
 
             Dictionary<string, string> kinds = ReadKinds(name, Has(entry, "kinds") ? entry["kinds"] : null, places, errors);
 
-            result.Add(new VariantTrack(name, places.ToArray(), trackType, vendor, languages.ToArray(), engines.ToArray(), moduleEngines, kinds));
+            result.Add(new VariantTrack(name, members.ToArray(), trackType, vendor, languages.ToArray(), engines.ToArray(), moduleEngines, kinds));
         }
         return result;
+    }
+
+    private static readonly string[] AllowedMemberKeys = { "path", "generated", "committed" };
+
+    // A member is a plain path (authored and committed) or a map { path, generated, committed } for a member whose facts differ.
+    private static VariantMember ReadMember(string track, object item, List<string> errors)
+    {
+        IDictionary map = item as IDictionary;
+        try
+        {
+            if (map == null)
+            {
+                return new VariantMember(Text(item));
+            }
+            foreach (object k in map.Keys)
+            {
+                string key = Text(k);
+                if (Array.IndexOf(AllowedMemberKeys, key) < 0)
+                {
+                    errors.Add(string.Format("tracks['{0}']: member has unknown key '{1}' (allowed: {2})", track, key, string.Join(", ", AllowedMemberKeys)));
+                }
+            }
+            bool generated = false;
+            bool committed = true;
+            if (Has(map, "generated") && !(map["generated"] is bool))
+            {
+                errors.Add(string.Format("tracks['{0}']: member '{1}' generated must be true or false", track, Text(map["path"])));
+            }
+            else if (Has(map, "generated")) { generated = (bool)map["generated"]; }
+            if (Has(map, "committed") && !(map["committed"] is bool))
+            {
+                errors.Add(string.Format("tracks['{0}']: member '{1}' committed must be true or false", track, Text(map["path"])));
+            }
+            else if (Has(map, "committed")) { committed = (bool)map["committed"]; }
+            return new VariantMember(Has(map, "path") ? Text(map["path"]) : null, generated, committed);
+        }
+        catch (ArgumentException e)
+        {
+            errors.Add(string.Format("tracks['{0}']: {1}", track, e.Message.Split(new[] { " (Parameter" }, StringSplitOptions.None)[0]));
+            return null;
+        }
     }
 
     // A track's named kinds: kind -> a place pattern inside one of its places, with at most one '*' segment.

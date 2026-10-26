@@ -29,8 +29,8 @@ Describe 'Test-TrackDeclaration' -Tag 'L0', 'logic', 'DDR-MODTYPE-TRACKTYPEADMIT
 
     It 'passes when every type and vendor is declared and every module place lies in a track that admits it' {
         Use-Variants ([ordered]@{
-                widget = [ordered]@{ places = @('widget'); type = 'widget-works' }
-                gadget = [ordered]@{ places = @('gadget'); type = 'widget-works'; vendor = 'gizmo' }
+                widget = [ordered]@{ members = @('widget'); type = 'widget-works' }
+                gadget = [ordered]@{ members = @('gadget'); type = 'widget-works'; vendor = 'gizmo' }
             })
         { Test-TrackDeclaration } | Should -Throw '*gadget-tool*does not admit*'
         $script:moduleTypes = [Catzc.Base.Variants.ModuleTypesConfig]::new([ordered]@{
@@ -40,7 +40,7 @@ Describe 'Test-TrackDeclaration' -Tag 'L0', 'logic', 'DDR-MODTYPE-TRACKTYPEADMIT
     }
 
     It 'names a track whose type is not declared and a vendor that is not declared' {
-        Use-Variants ([ordered]@{ widget = [ordered]@{ places = @('widget'); type = 'sprocket-works'; vendor = 'cog' } })
+        Use-Variants ([ordered]@{ widget = [ordered]@{ members = @('widget'); type = 'sprocket-works'; vendor = 'cog' } })
         $err = { Test-TrackDeclaration } | Should -Throw -PassThru
         $err.Exception.Message | Should -BeLike "*track type 'sprocket-works' is not declared*"
         $err.Exception.Message | Should -BeLike "*vendor 'cog' is not declared*"
@@ -50,7 +50,7 @@ Describe 'Test-TrackDeclaration' -Tag 'L0', 'logic', 'DDR-MODTYPE-TRACKTYPEADMIT
         $script:trackTypes = [Catzc.Base.Variants.TrackTypesConfig]::new([ordered]@{
                 track_types = [ordered]@{ 'widget-works' = [ordered]@{ definition = 'A deployable cluster of widgets.'; role = 'deployable'; admits = @('widget-folder', 'sprocket') } }
             })
-        Use-Variants ([ordered]@{ widget = [ordered]@{ places = @('widget'); type = 'widget-works' } })
+        Use-Variants ([ordered]@{ widget = [ordered]@{ members = @('widget'); type = 'widget-works' } })
         { Test-TrackDeclaration } | Should -Throw "*admitted module type 'sprocket' is not declared*"
     }
 }

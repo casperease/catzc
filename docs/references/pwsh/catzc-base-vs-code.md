@@ -10,21 +10,24 @@ renderers are pure functions that return content and write nothing; the `.vscode
 
 ## Responsibilities
 
-| Responsibility   | Area     | Name                                                                    |
-| ---------------- | -------- | ----------------------------------------------------------------------- |
-| responsibility:1 | render   | [Editor-file rendering](#responsibility1--editor-file-rendering)        |
-| responsibility:2 | registry | [The editor registries](#responsibility2--the-editor-registries)        |
-| responsibility:3 | session  | [The session's own binding](#responsibility3--the-sessions-own-binding) |
+| Responsibility   | Area     | Name                                                                            |
+| ---------------- | -------- | ------------------------------------------------------------------------------- |
+| responsibility:1 | render   | [Editor-file rendering](#responsibility1--editor-file-rendering)                |
+| responsibility:2 | registry | [The editor registries](#responsibility2--the-editor-registries)                |
+| responsibility:3 | session  | [The session's own binding](#responsibility3--the-sessions-own-binding)         |
+| responsibility:4 | package  | [The cats extensions' packages](#responsibility4--the-cats-extensions-packages) |
 
 ### responsibility:1 — Editor-file rendering
 
 Turning the registries into the `.vscode/` contents. Three renderers emit a generated-file header (JSONC — VS Code reads comments in
 `settings.json`, `extensions.json`, and `launch.json`) followed by the authored content as JSON, in registry order; the fourth, the Azure
 Pipelines schema, is consumed by the extension's validator as **strict** JSON, so its provenance marker is a `$comment` key rather than a
-`//` header. Settings rendering performs the one render-time completion: every managed target passed by the caller joins `search.exclude`,
-an authored entry winning over an injected key of the same name (an explicit `false` un-exclude survives). Extensions, launch, and the
-pipeline schema render their registries verbatim — the generators are the seam should any ever need dynamic content. The authored
-explanations live as comments in the yml — the searched, reviewed artifact — not in the renderings.
+`//` header. Settings rendering performs the render-time completions, an authored entry always winning over a rendered one: every managed
+target passed by the caller joins `search.exclude` (an explicit `false` un-exclude survives); the `.editorconfig` sections render into the
+editor's top-level and per-language settings; and the lamps' filters and tagged languages render into the lamps' own settings, so an
+extension reads catzc's configs through the settings alone. Extensions, launch, and the pipeline schema render their registries verbatim —
+the generators are the seam should any ever need dynamic content. The authored explanations live as comments in the yml — the searched,
+reviewed artifact — not in the renderings.
 
 ### responsibility:2 — The editor registries
 
@@ -54,6 +57,14 @@ loaded and the sources' hash with the drift between them, the committed builds a
 editor and its extensions contributed, and the editor's newest log session with the extension log's start and stop lines. The command
 refuses to run outside VS Code (`Assert-IsRunningInVsCode`).
 
+### responsibility:4 — The cats extensions' packages
+
+Turning each cats extension into a package the editor installs. The extensions themselves are modules of the `js` track
+([javascript-track](../../drs/automation/javascript/javascript-track.md)); this module owns only what depends on catzc: the manifest
+rendered from the extensions registry (its repeats expanded over a catzc config, its colours resolved from the lamp palette), the lamp
+glyphs recoloured per condition and the label glyphs drawn per repeated item, the icon theme rendered from `file-icons.yml`, packing, and
+installing. It reaches an extension through its rendered manifest and settings, never through its code.
+
 ## What the module does
 
 The module makes the workspace's editor behaviour a declared, explained artifact that cannot drift from the tooling it mirrors. All five
@@ -71,16 +82,16 @@ same one-source-injection shape as [Catzc.Base.Git](catzc-base-git.md)'s managed
 
 The module's public surface, sorted into the responsibilities above.
 
-| Responsibility                               | Function                  |
-| -------------------------------------------- | ------------------------- |
-| responsibility:1 — Editor-file rendering     | `New-VsCodeSettings`      |
-|                                              | `New-VsCodeExtensions`    |
-|                                              | `New-VsCodeLaunch`        |
-|                                              | `New-VsCodeTasks`         |
-|                                              | `Build-VsCodeExtension`   |
-|                                              | `Install-VsCodeExtension` |
-| responsibility:2 — The editor registries     | `vscode-settings.yml`     |
-|                                              | `vscode-extensions.yml`   |
-|                                              | `vscode-launch.yml`       |
-|                                              | `vscode-tasks.yml`        |
-| responsibility:3 — The session's own binding | `Get-VsCodeSession`       |
+| Responsibility                                   | Function                  |
+| ------------------------------------------------ | ------------------------- |
+| responsibility:1 — Editor-file rendering         | `New-VsCodeSettings`      |
+|                                                  | `New-VsCodeExtensions`    |
+|                                                  | `New-VsCodeLaunch`        |
+|                                                  | `New-VsCodeTasks`         |
+| responsibility:2 — The editor registries         | `vscode-settings.yml`     |
+|                                                  | `vscode-extensions.yml`   |
+|                                                  | `vscode-launch.yml`       |
+|                                                  | `vscode-tasks.yml`        |
+| responsibility:3 — The session's own binding     | `Get-VsCodeSession`       |
+| responsibility:4 — The cats extensions' packages | `Build-VsCodeExtension`   |
+|                                                  | `Install-VsCodeExtension` |

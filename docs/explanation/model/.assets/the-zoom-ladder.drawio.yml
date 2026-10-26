@@ -10,14 +10,17 @@ content:
   flow: top-to-bottom
   theme: dark
   bands:
-    - { id: band-drawn, label: DRAWN BY HAND }
-    - { id: band-queried, label: DRAWN FROM A QUERY }
+    - { id: band-c0, label: BY HAND }
+    - { id: band-c1, label: BY HAND }
+    - { id: band-c2, label: BY HAND }
+    - { id: band-c3, label: FROM A QUERY }
+    - { id: band-c4, label: FROM A QUERY }
   glyphs:
-    - { id: z-c0, kind: store, label: C0 landscape, in: band-drawn }
-    - { id: z-c1, kind: env, label: C1 context, in: band-drawn }
-    - { id: z-c2, kind: set, label: C2 containers, in: band-drawn }
-    - { id: z-c3, kind: module, label: C3 components, in: band-queried }
-    - { id: z-c4, kind: code, label: C4 code, in: band-queried }
+    - { id: z-c0, kind: set, label: C0 landscape, in: band-c0 }
+    - { id: z-c1, kind: set, label: C1 context, in: band-c1 }
+    - { id: z-c2, kind: set, label: C2 containers, in: band-c2 }
+    - { id: z-c3, kind: set, label: C3 components, in: band-c3 }
+    - { id: z-c4, kind: set, label: C4 code, in: band-c4 }
   edges:
     - { from: z-c0, to: z-c1, kind: flow, label: zooms in }
     - { from: z-c1, to: z-c2, kind: flow, label: zooms in }

@@ -4,11 +4,12 @@
 
 ### Rule FDR-CD-GLOBS-NAMEDGLOBSETS
 
-One source of truth: named globsets in `globs.yml` (owned by `Catzc.Base.Globs`) map each area-of-control — a deployable unit, a track
-(`DDR-TRACK`), or a scan scope — onto its files under version control. The globset is the mechanism; it plays three roles, all **derived**
-and **none committed per set**: the **trigger** — pipelines, workflows, and build-validation policies path-filter on the globset's native
-projection (`Get-GlobSetTrigger`), never on a committed marker; the **PR area-of-control report** — the sets a change touches, computed from
-git (`Get-ChangedGlobSet`); and **test blast-radius / protection** — scoping derives from the same identities.
+One source of truth: named globsets (owned by `Catzc.Base.Globs`) map each area-of-control — a deployable unit, a track (`DDR-TRACK`), or a
+scan scope — onto its files under version control; a whole track's globset is derived from its members (FDR-CD-GLOBS-TRACKSETDERIVED), and
+`globs.yml` declares the rest. The globset is the mechanism; it plays three roles, all **derived** and **none committed per set**: the
+**trigger** — pipelines, workflows, and build-validation policies path-filter on the globset's native projection (`Get-GlobSetTrigger`),
+never on a committed marker; the **PR area-of-control report** — the sets a change touches, computed from git (`Get-ChangedGlobSet`); and
+**test blast-radius / protection** — scoping derives from the same identities.
 
 - [One configuration point](#one-configuration-point)
 - [How this is enforced](#how-this-is-enforced)
@@ -101,6 +102,17 @@ pipeline. The flattened program is what both the native projection (FDR-CD-GLOBS
 
 - [One configuration point](#one-configuration-point)
 
+### Rule FDR-CD-GLOBS-TRACKSETDERIVED
+
+A whole track's globset is **derived** from the track's members
+([DDR-TRACK-TRACKISPLACEDCLUSTER](../design/tracks.md#rule-ddr-track-trackisplacedcluster)), never written by hand in `globs.yml`: the track
+declaration is its one source, so a member that joins or leaves a track joins or leaves its globset in the same edit. A buildable track's
+globset, the one that starts its pipeline, leaves out the track's **generated** members, so a regeneration (a rendered README, a generated
+root file) never starts a pipeline by itself. A vendor's track globset classifies and filters, and starts no pipeline. `globs.yml` keeps
+only the globsets that are not a whole track: the deployable-units and the slices of a track.
+
+- [One configuration point](#one-configuration-point)
+
 ### Rule FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
 
 Whether a change touches a unit is **computed from git at real refs**, never from a committed hash. `Get-ChangedGlobSet` diffs a commit
@@ -146,13 +158,16 @@ committed per set, so there is no whole-set hash to go stale.
 
 ### One configuration point
 
-`globs.yml` holds every globset: a kebab-case name, a description, its layer (`FDR-CD-GLOBS-EVERYSETHASLAYER`), an `include:` pattern list
-and optional `exclude:` list, optional `compose:` references (`FDR-CD-GLOBS-COMPOSESETS`), an optional `verify:` blast-radius scope, and —
-on a configured deployable-unit — the `pipeline:` it binds (a base unit composed by others binds none, `FDR-CD-GLOBS-EVERYSETHASLAYER`).
-`Catzc.Base.Globs` owns the file, the dialect, the durable SHA, the native projection, and the git-reflection query; nothing else parses the
-config. Adding or removing files from a unit — or adding a whole customer — is a config edit; the projected triggers regenerate from it.
-Test blast-radius and protection derive from the same identities, and the `module` layer's sets are derived from the module folders, never
-declared in `globs.yml`.
+`globs.yml` holds every globset that is not a whole track: a kebab-case name, a description, its layer (`FDR-CD-GLOBS-EVERYSETHASLAYER`), an
+`include:` pattern list and optional `exclude:` list, optional `compose:` references (`FDR-CD-GLOBS-COMPOSESETS`), an optional `verify:`
+blast-radius scope, and — on a configured deployable-unit — the `pipeline:` it binds (a base unit composed by others binds none,
+`FDR-CD-GLOBS-EVERYSETHASLAYER`). `Catzc.Base.Globs` owns the file, the dialect, the durable SHA, the native projection, and the
+git-reflection query; nothing else parses the config. Adding or removing files from a unit — or adding a whole customer — is a config edit;
+the projected triggers regenerate from it. Test blast-radius and protection derive from the same identities, and two kinds of set are
+derived, never declared in `globs.yml`: the `module` layer's sets from the module folders, and each whole track's set from its members, its
+generated members left out of a buildable track's trigger (FDR-CD-GLOBS-TRACKSETDERIVED). That is why a regenerated
+`infrastructure/README.md` cannot start `ci-infrastructure`: the file is a generated member of its track, so the track's trigger never names
+it.
 
 ### The dialect
 

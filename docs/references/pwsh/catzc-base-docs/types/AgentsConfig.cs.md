@@ -9,18 +9,16 @@ Above `using System;`, written with `//`.
 
 ```text
 The sub-agent registry (configs/agents.yml): one entry per sub-agent definition under .claude/agents/, with the
-ADR rules that support it and the checks it runs or guards, plus the one standard agent
-([ADR-REPO-AGENTS-BACKEDBYRULE](/docs/drs/repository/agent-definitions.md#rule-adr-repo-agents-backedbyrule),
-[ADR-REPO-AGENTS-STANDARDDRONE](/docs/drs/repository/agent-definitions.md#rule-adr-repo-agents-standarddrone)). Registered in
+ADR rules that support it and the checks it runs or guards
+([ADR-REPO-AGENTS-BACKEDBYRULE](/docs/drs/repository/agent-definitions.md#rule-adr-repo-agents-backedbyrule)). Registered in
 Catzc.Base.Config/configs/configs.yml (type: Catzc.Base.Docs.AgentsConfig), so Get-Config -Config agents returns
 this typed record ([ADR-CONF-LOADING-CSHARPCONFIGTYPE](/docs/drs/configuration/module-config-loading.md#rule-adr-conf-loading-csharpconfigtype)).
 Mirrors the YAML mapping (snake_case keys,
 [ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
 
 Constructing an instance validates the file, collecting every violation into one ArgumentException:
-  - only the top-level keys standard and agents, both required;
-  - agents is a non-empty LIST of well-formed AgentEntry mappings with distinct names;
-  - standard names one of the entries.
+  - only the top-level keys agents (required), roofs and contracts;
+  - agents is a non-empty LIST of well-formed AgentEntry mappings with distinct names.
 The cross-checks against the agent files, the rule ids, the commands, and .claude/CLAUDE.md are the quality gate
 Test-AgentDefinitions.
 ```
@@ -45,7 +43,7 @@ The most body lines an agent file may have, the default declared once here and o
 
 ## comment:4
 
-Above `public int capability_lines { get; } = 10;`, written with `//`.
+Above `public int capability_lines { get; } = 30;`, written with `//`.
 
 ```text
 The most lines a capability file may have outside its catzc head, delimiters excluded

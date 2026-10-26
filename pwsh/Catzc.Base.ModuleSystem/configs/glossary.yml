@@ -83,8 +83,8 @@ concepts:
     domain: design
     defined_by: DDR-TRACK-TRACKISPLACEDCLUSTER
     short:
-      A named, on-disk cluster of module contents — the tracked files of one concern, selected by the places the track declares, and of one
-      track type.
+      A named, on-disk cluster of one concern's files, declared once as a set of members that each say whether they are generated and
+      committed, and of one track type.
     realized_by: { kind: prose-only }
     contrasts:
       language track:
@@ -94,8 +94,7 @@ concepts:
         A file language is the kind of text a file holds, named by its extension; a track is the cluster the file lives in, and its
         tech-stack is a set of file languages.
       root file:
-        A root file is a tracked file no track holds, at the repository root or under out/; a track is a cluster of places and every file
-        under them.
+        A root file is a file on disk that no track's member names; a track is a cluster of members and every file under them.
       value-chain concern:
         A value-chain concern is where along delivery a decision acts; a track is a concern of the repository, the cluster where files live.
       track type: A track type is the sort of cluster a track is, one of a closed set; a track is the named cluster itself.
@@ -170,14 +169,14 @@ concepts:
     domain: design
     defined_by: DDR-TRACK-TRACKISPLACEDCLUSTER
     short:
-      A path a track declares it covers — a root folder, a path inside one, or a tool's root folder; the longest place that contains a file
+      The path of one member of a track, computed from the members and never declared beside them; the longest place that contains a file
       names its track.
     realized_by: { kind: prose-only }
   root file:
     key: root_file
     domain: design
     defined_by: DDR-TRACK-ROOTFILE
-    short: A tracked file no track holds — at the repository root itself, or under out/ — the world map's own row.
+    short: A file on disk that no track's member names, the world map's own row.
     realized_by: { kind: prose-only }
     contrasts:
       unlisted file:

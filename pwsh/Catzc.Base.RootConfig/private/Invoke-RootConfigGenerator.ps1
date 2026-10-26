@@ -102,6 +102,9 @@ function Invoke-RootConfigGenerator {
             # One record per file; the entry's target picks go.work or a go.mod.
             New-GoWorkspace -Target $Target
         }
+        'Build-WidthConfigs' {
+            Build-WidthConfigs -Target $Target
+        }
         'New-PythonProject' {
             # One record per file; the entry's target picks the workspace root or a member.
             New-PythonProject -Target $Target

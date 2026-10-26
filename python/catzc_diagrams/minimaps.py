@@ -57,8 +57,9 @@ def read_registry(full):
 
 @cache
 def tracks():
-    """Every track and the folder it lives in (its first place), from variants.yml."""
-    return {name: (entry.get("places") or [name])[0] for name, entry in registry("pwsh/Catzc.Base.Variants/configs/variants.yml")["tracks"].items()}
+    """Every track and the folder it lives in (its first member's path), from variants.yml."""
+    first = {name: (entry.get("members") or [name])[0] for name, entry in registry("pwsh/Catzc.Base.Variants/configs/variants.yml")["tracks"].items()}
+    return {name: member["path"] if isinstance(member, dict) else member for name, member in first.items()}
 
 
 @cache

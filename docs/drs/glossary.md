@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "1303f18eb8b9"
+    with_body_sha: "80e865f79c11"
     warning: "Do Not Edit, this file is generated"
 ---
 
@@ -392,7 +392,7 @@ The one commit an always-on environment holds, deployed there as its release can
 
 ### place
 
-A path a track declares it covers — a root folder, a path inside one, or a tool's root folder; the longest place that contains a file names
+The path of one member of a track, computed from the members and never declared beside them; the longest place that contains a file names
 its track.
 
 - **Defined by:** [DDR-TRACK-TRACKISPLACEDCLUSTER](design/tracks.md#rule-ddr-track-trackisplacedcluster)
@@ -403,14 +403,13 @@ its track.
 
 ### root file
 
-A tracked file no track holds — at the repository root itself, or under out/ — the world map's own row.
+A file on disk that no track's member names, the world map's own row.
 
 - **Defined by:** [DDR-TRACK-ROOTFILE](design/tracks.md#rule-ddr-track-rootfile)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
-  - [track](#track): A root file is a tracked file no track holds, at the repository root or under out/; a track is a cluster of places and
-    every file under them.
+  - [track](#track): A root file is a file on disk that no track's member names; a track is a cluster of members and every file under them.
   - [unlisted file](#unlisted-file): An unlisted file is a tracked file outside every file language, whatever its track; a root file is one
     outside every track, whatever its file language.
 
@@ -458,8 +457,8 @@ System.Collections.Specialized.OrderedDictionary
 
 ### track
 
-A named, on-disk cluster of module contents — the tracked files of one concern, selected by the places the track declares, and of one track
-type.
+A named, on-disk cluster of one concern's files, declared once as a set of members that each say whether they are generated and committed,
+and of one track type.
 
 - **Defined by:** [DDR-TRACK-TRACKISPLACEDCLUSTER](design/tracks.md#rule-ddr-track-trackisplacedcluster)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
@@ -476,8 +475,8 @@ type.
     found at a place inside or across tracks.
   - [place](#place): A place is one path a track covers; a track is the cluster of module contents, whatever places select it.
   - [role](#role): A track is the cluster a file lives in; a role is the part it plays, wherever it lives.
-  - [root file](#root-file): A root file is a tracked file no track holds, at the repository root or under out/; a track is a cluster of
-    places and every file under them.
+  - [root file](#root-file): A root file is a file on disk that no track's member names; a track is a cluster of members and every file
+    under them.
   - [track type](#track-type): A track type is the sort of cluster a track is, one of a closed set; a track is the named cluster itself.
   - [value-chain concern](#value-chain-concern): A value-chain concern is where along delivery a decision acts; a track is a concern of the
     repository, the cluster where files live.

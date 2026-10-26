@@ -119,7 +119,21 @@ final full run last.
 24. plan-comment-insights: review the RootConfig pilot, 26 one-line insights in `Build-RootConfig.ps1`, `rootconfig.yml`,
     `Invoke-RootConfigGenerator.ps1` and two test files, and say go or what to change; the rollout (its step 3) and plan-comment-articles'
     rollout wait on it. Check: the user's answer is recorded in plan-comment-insights.md.
-25. The final full run, in a fresh session, when the chunks in plan-master have landed. Once it is green and committed, the work is done and
+25. plan-slim-agents steps 3 and 4: insert these four bullets at the top of `.claude/CLAUDE.md`, section Sub-agents, above `catzc-drone`,
+    leaving the other bullets as they are (step 5 removes them one robot at a time):
+
+    ```markdown
+    - **`drone-haiku`** — runs a job skill whose `model_floor` is haiku: the brief names the skill (`skill: <name>`), the drone loads it
+      with the Skill tool, edits only the files it owns, asks the coordinator every question and ends with the fixed report.
+    - **`drone-sonnet`** — the same drone for a job skill whose `model_floor` is sonnet.
+    - **`drone-opus`** — the same drone for a job skill whose `model_floor` is opus.
+    - **`drone-fable`** — the same drone for a job skill whose `model_floor` is fable.
+    ```
+
+    catzc-5c then lands the drafts in `out/catzc-5c-drones/` (the four drone files, `catzc-core` and their registry entries). Check:
+    `Test-AgentDefinitions` reports no issues after the drafts land.
+
+26. The final full run, in a fresh session, when the chunks in plan-master have landed. Once it is green and committed, the work is done and
     every plan, task and prompt in `.claude/plans` is deleted (the user, 2026-10-20). Check: `.claude/plans` is empty.
 
 ## Report

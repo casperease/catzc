@@ -40,7 +40,7 @@ Describe 'catzc-track-lamps' -Tag 'L0', 'logic' {
 
     It 'keeps files.exclude under the roof the editor''s processes take, for each shipped lamp off and vetoed in turn and for every lamp off' -Tag 'L1' {
         $repository = (Resolve-Path (Join-Path $PSScriptRoot '../../..')).Path -replace '\\', '/'
-        $harness = (Resolve-Path (Join-Path $PSScriptRoot 'assets/catzc-track-lamps-harness.js')).Path
+        $harness = (Resolve-Path (Join-Path $repository 'js/catzc-track-lamps/tests/stub-editor.js')).Path
         $output = & node $harness roof $repository $script:script 2>&1
         $LASTEXITCODE | Should -Be 0 -Because "the roof scenario runs: $output"
         $result = $output | ConvertFrom-Json -AsHashtable
