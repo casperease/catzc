@@ -7,6 +7,7 @@ catzc:
 #>
 
 function Set-BicepTemplateConfiguration {
+    # A state-changing command that previews with -DryRun, not ShouldProcess.
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '',
         Justification = 'Uses -DryRun instead of ShouldProcess — see ADR-PWSH-DRYRUN-SUPPRESSSHOULDPROCESS')]
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '',
@@ -48,6 +49,7 @@ function Set-BicepTemplateConfiguration {
         throw "Invalid -Slot '$Slot' — must be 1-3 lowercase alphanumeric chars (e.g. 001)."
     }
 
+    # Held to the conventional tree discovery enforces: a defined customer subfolder, and a coordinate that resolves to exactly one subscription.
     $loc = if ([string]::IsNullOrEmpty($Customer)) {
         "configuration/$Environment.yml"
     }

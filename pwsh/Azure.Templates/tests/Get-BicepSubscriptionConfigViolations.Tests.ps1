@@ -8,6 +8,7 @@ catzc:
 
 Describe 'Get-BicepSubscriptionConfigViolations' -Tag 'L0', 'logic' {
     BeforeAll {
+        # A shared pair, a customer pair (acme), and a rogue non-customer subscription that overlaps core_lower on beta (the root-ambiguity case).
         $script:azure = [ordered]@{
             subscriptions = [ordered]@{
                 core_lower = [ordered]@{ environments = @('alpha', 'beta', 'nsub') }
@@ -17,6 +18,7 @@ Describe 'Get-BicepSubscriptionConfigViolations' -Tag 'L0', 'logic' {
                 acme_upper = [ordered]@{ customer = 'acme'; environments = @('gamma', 'psub') }
             }
         }
+        # The candidates rule normalizes a non-matching raw token through Get-AzureCustomer, so the catalogue reads are mocked whole.
         Mock Get-AzureCustomers { @('acme', 'globex') } -ModuleName Catzc.Azure.Templates
         Mock Get-AzureCustomer { [ordered]@{ key = $Name; shortcode = ''; details = '' } } -ModuleName Catzc.Azure.Templates
         $script:run = {

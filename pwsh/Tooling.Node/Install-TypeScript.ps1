@@ -15,6 +15,7 @@ function Install-TypeScript {
     # npm ships with Node.js — assert it is present and at the locked version first.
     Assert-Tool 'node_js'
 
+    # The declarations land in a repository-relative gitignored folder the generated jsconfig names relatively, so no machine path reaches a generated file.
     $folder = Join-Path (Get-RepositoryRoot) (Get-Config -Config javascript).types_folder
     # TypeScript itself, then every tool the tools config says it installs alongside itself.
     $tools = (Get-Config -Config tools).Keys | Where-Object { (Get-ToolConfig -Tool $_).installed_by -ceq 'typescript' }

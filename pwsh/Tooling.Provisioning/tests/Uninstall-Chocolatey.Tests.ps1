@@ -7,6 +7,7 @@ catzc:
 #>
 
 Describe 'Uninstall-Chocolatey' -Tag 'L0', 'logic' {
+    # The seams' real registry round trips are their own L3 system tests, so every outside boundary is mocked here.
     BeforeEach {
         Mock Assert-IsAdministrator { } -ModuleName Catzc.Tooling.Provisioning
         Mock Remove-Item { } -ModuleName Catzc.Tooling.Provisioning

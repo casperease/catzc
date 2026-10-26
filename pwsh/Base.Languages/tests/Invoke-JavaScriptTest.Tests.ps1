@@ -9,6 +9,7 @@ catzc:
 Describe 'Invoke-JavaScriptTest' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:root = Join-Path $TestDrive 'repo'
+        # A js module has its own tests/; one without is looked for under the root's test holder.
         $script:own = Join-Path $script:root 'js/widget/tests'
         $null = New-Item -ItemType Directory -Path $script:own -Force
         Set-Content -LiteralPath (Join-Path $script:own 'spin.test.js') -Value 'test("spins", () => {});'

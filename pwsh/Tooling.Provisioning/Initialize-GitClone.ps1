@@ -6,6 +6,7 @@ catzc:
 ---
 #>
 
+# Branches on -DryRun, not ShouldProcess, so the dry run is a plain report.
 function Initialize-GitClone {
     [CmdletBinding()]
     param(
@@ -21,10 +22,12 @@ function Initialize-GitClone {
     $workTree = Invoke-Executable 'git rev-parse --is-inside-work-tree' -WorkingDirectory $Repository -PassThru -NoAssert -Silent
     Assert-True ($workTree.ExitCode -eq 0) -ErrorText "'$Repository' is not a git repository. Clone first, then run Initialize-GitClone."
 
+    # pull.rebase keeps a plain git pull working when local generated-file commits diverge from the remote.
     $settings = [ordered]@{ 'pull.rebase' = 'true' }
     if (Test-IsWslSession) {
         $credentialManager = Find-WindowsGitCredentialManager
         if ($credentialManager) {
+            # git runs the helper value through sh, so spaces in the /mnt/c path are escaped inside the value.
             $settings['credential.helper'] = $credentialManager -replace ' ', '\ '
         }
         else {
@@ -51,6 +54,7 @@ function Initialize-GitClone {
         Invoke-Executable $command -WorkingDirectory $Repository
     }
 
+    # An unset identity is not invented here, but the next commit fails without one, so report the remediation.
     foreach ($identityKey in @('user.name', 'user.email')) {
         $identity = Invoke-Executable "git config --get $identityKey" -WorkingDirectory $Repository -PassThru -NoAssert -Silent
         if ($identity.ExitCode -ne 0 -or -not "$($identity.Output)".Trim()) {

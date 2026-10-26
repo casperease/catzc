@@ -37,6 +37,7 @@ function Install-Git {
         $asset = $release.assets | Where-Object { $_.name -match '^PortableGit-.*-64-bit\.7z\.exe$' }
         Assert-NotNull $asset -ErrorText "No PortableGit 64-bit archive found in release $($release.tag_name)"
 
+        # No committed hash exists for a latest tool, so verify the release's per-asset SHA-256 and hard-fail when it is absent.
         $digest = if ($asset.PSObject.Properties['digest']) {
             $asset.digest
         }
@@ -48,6 +49,7 @@ function Install-Git {
         $exePath = Join-Path ([IO.Path]::GetTempPath()) $asset.name
         Save-VerifiedDownload -Uri $asset.browser_download_url -OutFile $exePath -Sha256 $digest | Out-Null
 
+        # PortableGit is a self-extracting archive: -o sets the output directory, -y suppresses prompts.
         Write-Message "Extracting to '$installDir'"
         Invoke-Executable "$exePath -o`"$installDir`" -y"
         Remove-Item $exePath -Force
@@ -74,6 +76,7 @@ function Install-Git {
         Write-Message 'Git installed successfully via brew'
     }
     elseif ($IsLinux) {
+        # The idempotent guard comes first so a box that already has git never trips the root assert below.
         if ((Test-Command git) -and -not $Force) {
             Write-Message 'Git is already installed'
             return

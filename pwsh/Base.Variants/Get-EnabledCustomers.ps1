@@ -19,6 +19,7 @@ function Get-EnabledCustomers {
         return @()
     }
 
+    # A lone 'all' is the every-customer sentinel; any other list is the enabled names.
     $names = @($value | Where-Object { -not [string]::IsNullOrEmpty("$_") } | ForEach-Object { "$_" })
     if ($names.Count -eq 0) {
         return @()

@@ -39,6 +39,7 @@ function Get-BicepTemplateConfiguration {
         throw "Invalid -Slot '$Slot' — must be 1-3 lowercase alphanumeric chars (e.g. 001)."
     }
 
+    # The coordinate is the file address: root for the shared platform, configuration/<customer>/ for a customer deployment.
     $configName = Get-BicepConfigName $Environment $Slot
     $folder = if ([string]::IsNullOrEmpty($Customer)) {
         $templateDescriptor.configuration_folder
@@ -53,6 +54,7 @@ function Get-BicepTemplateConfiguration {
     else {
         "under configuration/$Customer/"
     }
+    # The Bicep compiler reads a bicepparam slot, so its descriptor carries only the source path.
     $bicepParamFile = Join-Path $folder "$configName.bicepparam"
     if ([System.IO.File]::Exists($bicepParamFile)) {
         return [ordered]@{ BicepParamFile = $bicepParamFile }

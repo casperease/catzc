@@ -19,6 +19,7 @@ function Install-PipTool {
     $command = Get-ToolCommandSuffix -Tool $Tool
     Assert-NotNullOrWhitespace $config.pip_package -ErrorText "$Tool has no pip_package in tools.yml — cannot install via uv pip"
 
+    # The interpreter is pinned, so a library lands in the managed Python the toolchain probes and never drifts to a stray one.
     $pythonVersion = (Get-ToolConfig -Tool 'python').version
 
     # Idempotent: skip if already installed at the correct version.
@@ -43,10 +44,12 @@ function Install-PipTool {
         }
     }
 
+    # --system plus --break-system-packages is what makes uv's own managed CPython (PEP 668 marked) accept the install, no venv traps the library.
     Invoke-Pip "install --python $pythonVersion --system --break-system-packages $($config.pip_package)==$Version.*"
 
     Sync-SessionPath
 
+    # A library may put nothing on PATH, so it is confirmed through the version probe, never by asserting a command exists.
     $actualVersion = Get-ToolVersion -Config $config
 
     if (-not $actualVersion) {

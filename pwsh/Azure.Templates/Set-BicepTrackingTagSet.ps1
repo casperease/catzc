@@ -7,6 +7,7 @@ catzc:
 #>
 
 function Set-BicepTrackingTagSet {
+    # A state-changing command that previews with -DryRun, not ShouldProcess.
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '',
         Justification = 'Uses -DryRun instead of ShouldProcess — see ADR-PWSH-DRYRUN-SUPPRESSSHOULDPROCESS')]
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '',
@@ -83,6 +84,7 @@ function Set-BicepTrackingTagSet {
         return
     }
 
+    # -NoAssert so a failure throws here with scope, command and az's stderr (a tag-policy denial, an auth error), not a bare exit-code assertion.
     $result = Invoke-AzCli $command -PassThru -NoAssert
     if ($result.ExitCode -ne 0) {
         $detail = @(

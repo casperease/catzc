@@ -38,6 +38,7 @@ Describe 'Update-BatsVendor' -Tag 'L0', 'logic' {
 
     It 'replaces the vendored folder with the runner''s files only, and removes the staging folder' {
         Update-BatsVendor
+        # The vendored runner is compared file for file, so the walk prunes nothing.
         $files = @(Get-ChildPath $script:target -File -Depth 64 -Exclude @() -PruneVendor $false | ForEach-Object {
                 [System.IO.Path]::GetRelativePath($script:target, $_).Replace('\', '/')
             } | Sort-Object)

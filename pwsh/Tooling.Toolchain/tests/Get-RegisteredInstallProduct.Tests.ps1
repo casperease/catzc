@@ -8,6 +8,7 @@ catzc:
 
 Describe 'Get-RegisteredInstallProduct' -Tag 'L0', 'logic', 'ADR-AUTO-REMOVE-THREEPLATFORMCORES' {
     BeforeEach {
+        # The bundle registers only in the 32-bit view and its MSI in the 64-bit one under the same display name, as the .NET installers leave it.
         $script:entries = @{
             '{widget-msi}'    = [pscustomobject]@{ DisplayName = 'Microsoft Widget Runtime - 6.0 (x64)'; DisplayVersion = '48.1'; WindowsInstaller = 1 }
             '{widget-bundle}' = [pscustomobject]@{

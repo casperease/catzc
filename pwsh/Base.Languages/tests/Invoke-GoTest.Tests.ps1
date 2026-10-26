@@ -8,6 +8,7 @@ catzc:
 
 Describe 'Invoke-GoTest' -Tag 'L0', 'logic' {
     BeforeAll {
+        # Isolated through the seams: a fixture root, a managed go at a path with a space, and canned streams.
         $script:root = Join-Path $TestDrive 'repo'
         $script:folder = Join-Path $script:root 'go/tests/widget'
         $null = New-Item -ItemType Directory -Path $script:folder -Force

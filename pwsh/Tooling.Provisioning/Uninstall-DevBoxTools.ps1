@@ -14,6 +14,7 @@ function Uninstall-DevBoxTools {
     Uninstall-Postman
     Uninstall-Git
 
+    # The @() keeps a single or null result an array, which [array]::Reverse needs.
     $order = @(Get-ToolInstallOrder)
     [array]::Reverse($order)
 
@@ -35,11 +36,13 @@ function Uninstall-DevBoxTools {
             continue
         }
 
+        # A tool that needed elevation to install needs it to uninstall; skip and report when not elevated.
         if ((Test-ToolRequiresElevation $config) -and -not (Test-IsAdministrator)) {
             Write-Message "Skipping $toolName — requires elevation on this platform to uninstall. Re-run elevated."
             continue
         }
 
+        # The raw snake_case key resolves only for one-word tools (node_js never reaches Uninstall-NodeJs), so map it.
         $uninstallCmd = "Uninstall-$(Get-ToolCommandSuffix -Tool $toolName)"
         if (-not (Get-Command $uninstallCmd -ErrorAction SilentlyContinue)) {
             throw "No $uninstallCmd function found for tool '$toolName' defined in tools.yml"

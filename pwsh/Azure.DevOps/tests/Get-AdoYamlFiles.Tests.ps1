@@ -179,6 +179,7 @@ Describe 'Get-AdoYamlFiles' -Tag 'L0' {
         }
 
         It 'uses forward slashes in RelativePath' {
+            # One Should over the violating set, since a Should per file costs Pester's per-assertion price times the YAML count.
             $violations = @(foreach ($result in $results) {
                     if ($result.RelativePath -match '\\') {
                         $result.RelativePath
@@ -206,6 +207,7 @@ Describe 'Get-AdoYamlFiles' -Tag 'L0' {
             $errors | Should -BeNullOrEmpty
         }
 
+        # Its own integrity tag keeps this a named check in the manual test plan while it reuses the one scan above.
         It 'excludes .git directory by default' -Tag 'integrity' {
             $gitFiles = @($results | Where-Object { $_.RelativePath -match '^\\.git/' -or $_.RelativePath -match '^\.git/' })
             $gitFiles | Should -BeNullOrEmpty

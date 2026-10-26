@@ -19,6 +19,7 @@ function Test-ShippedTypes {
     $typeCount = 0
     $modulesRoot = Get-CatzcModulesRoot
     $walk = Get-Config -Config folder-walk
+    # A type's namespace is its module's full name: the folder joined to the track's namespace.
     $trackName = [System.IO.Path]::GetFileName($modulesRoot.TrimEnd('\', '/'))
     $track = @(Get-Track | Where-Object name -ceq $trackName) | Select-Object -First 1
     foreach ($moduleDirectory in @(Get-ChildPath $modulesRoot -Directory -Depth 1)) {

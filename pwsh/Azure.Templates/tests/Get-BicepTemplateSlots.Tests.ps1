@@ -7,6 +7,7 @@ catzc:
 #>
 
 Describe 'Get-BicepTemplateSlots' -Tag 'L0', 'logic' {
+    # Read-only resolver: mocks and the cache reset run once, since the mocked config is identical every test and none mutates it.
     BeforeAll {
         Mock Get-BicepTemplatesRoot {
             Join-Path (Get-CatzcModuleRoot -Module Catzc.Azure.Templates) 'tests/assets/templates'
@@ -40,6 +41,7 @@ Describe 'Get-BicepTemplateSlots' -Tag 'L0', 'logic' {
     }
 
     It 'filters slots by customer (omitted = configuration-root slots only)' {
+        # sample-customer's root config carries no slot, while acme mixes a base config with a slotted one, so only the acme view offers a discriminator.
         @(Get-BicepTemplateSlots 'sample-customer') | Should -BeNullOrEmpty
         @(Get-BicepTemplateSlots 'sample-customer' -Customer 'acme') | Should -Be @('001')
     }
@@ -55,6 +57,7 @@ Describe 'Get-BicepTemplateSlots' -Tag 'L0', 'logic' {
 }
 
 Describe 'Slot ArgumentCompleter wiring' -Tag 'L0', 'logic' {
+    # Read-only resolver: mocks and the cache reset run once, since the mocked config is identical every test and none mutates it.
     BeforeAll {
         Mock Get-BicepTemplatesRoot {
             Join-Path (Get-CatzcModuleRoot -Module Catzc.Azure.Templates) 'tests/assets/templates'
@@ -67,6 +70,7 @@ Describe 'Slot ArgumentCompleter wiring' -Tag 'L0', 'logic' {
         InModuleScope Catzc.Base.Config { $script:configCache = $null }
     }
 
+    # Every deploy and name path that takes a slot exposes the completer, and the private resource-group helper carries it for uniformity.
     $commands = @(
         'Deploy-Bicep'
         'Get-BicepResourceName'

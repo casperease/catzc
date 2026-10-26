@@ -29,6 +29,7 @@ function Clear-TempFolders {
             continue
         }
 
+        # .NET delete, not Remove-Item, whose per-item overhead costs minutes over tens of thousands of entries; a locked entry throws and is skipped.
         $removed = 0
         $skipped = 0
         foreach ($file in [System.IO.Directory]::GetFiles($folder)) {

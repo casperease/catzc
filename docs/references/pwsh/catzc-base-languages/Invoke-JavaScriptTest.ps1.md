@@ -17,7 +17,7 @@ its tools.yml entry, never a bare node off PATH. When no managed node is found, 
 and no npm script runs.
 
 The test folder is the one -Folder names. Otherwise it is the module's own tests/ folder under the JavaScript root, for a js extension. As a
-last fallback, it is the module's folder under the root's tests holder (Get-ModuleTestFolder), named without the namespace its track
+last fallback, it is the module's folder under the root's tests holder (LanguagesConfig.TestFolderOf), named without the namespace its track
 declares.
 
 A failing test is a result, not an error. The call throws when the folder is missing or holds no `*.test.js` file, when the junit report

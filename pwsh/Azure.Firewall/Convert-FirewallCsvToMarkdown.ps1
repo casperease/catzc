@@ -105,10 +105,12 @@ function Convert-FirewallCsvToMarkdown {
             $MarkdownPath = Join-Path $OutputFolder $markdownName
         }
 
+        # Filled here, not as a default: a piped path binds after defaults are evaluated, so a default never sees it.
         if (-not $SourceName) {
             $SourceName = Split-Path -Path $CsvPath -Leaf
         }
 
+        # Asserted in both modes, so a wrong CSV path fails here by name and never as a raw read error.
         Assert-PathExist $CsvPath -PathType Leaf
 
         $rows = @(Import-Csv -Path $CsvPath)
@@ -119,6 +121,7 @@ function Convert-FirewallCsvToMarkdown {
                 @()
             })
 
+        # Firewall evaluation order: group priority, then collection priority, then name; an unknown sorts last, never first.
         $sortProps = @()
         if ('RuleCollectionGroup' -in $present) {
             $sortProps += @{ Expression = {
@@ -143,6 +146,7 @@ function Convert-FirewallCsvToMarkdown {
             $rows = @($rows | Sort-Object -Property $sortProps)
         }
 
+        # Columns are built and validated in one place, so a requested column the CSV lacks fails there, not vanishes here.
         $columnParams = @{
             RuleNameColumn         = $RuleNameColumn
             CompositeColumns       = $CompositeColumns
@@ -160,6 +164,7 @@ function Convert-FirewallCsvToMarkdown {
         $convertedUtc = [datetime]::UtcNow.ToString('yyyy-MM-dd HH:mm',
             [System.Globalization.CultureInfo]::InvariantCulture)
         if ($null -ne $GeneratedAt) {
+            # A nullable date arrives unwrapped as a plain date, so null-check and cast; HasValue and Value do not exist on it.
             $generatedUtc = ([datetime]$GeneratedAt).ToUniversalTime().ToString('yyyy-MM-dd HH:mm',
                 [System.Globalization.CultureInfo]::InvariantCulture)
             [void]$ret.AppendLine("CSV generated $generatedUtc UTC · converted to Markdown $convertedUtc UTC.")

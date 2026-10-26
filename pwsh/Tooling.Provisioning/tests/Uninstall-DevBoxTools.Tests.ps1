@@ -7,6 +7,7 @@ catzc:
 #>
 
 Describe 'Uninstall-DevBoxTools' -Tag 'L0', 'logic' {
+    # The multi-word key (node_js) is the regression guard: unmapped to its PascalCase suffix it silently never dispatches.
     BeforeEach {
         Mock Uninstall-Postman { } -ModuleName Catzc.Tooling.Provisioning
         Mock Uninstall-Git { } -ModuleName Catzc.Tooling.Provisioning

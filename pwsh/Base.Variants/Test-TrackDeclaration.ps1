@@ -14,6 +14,7 @@ function Test-TrackDeclaration {
     $trackTypes = Get-Config -Config track-types
     $moduleTypes = Get-Config -Config module-types
     $violations = [System.Collections.Generic.List[string]]::new()
+    # The normal form is the languages config's, so the config type holds no naming policy.
     $normalForm = (Get-Config -Config languages).naming_normal_form
 
     foreach ($track in Get-Track) {

@@ -15,6 +15,7 @@ function Get-FunctionDependency {
 
     Assert-SourceTree
 
+    # Filesystem-derived, so cached for the session on first use and keyed on the resolved modules root.
     if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:functionDependencyCache')) {
         $script:functionDependencyCache = @{}
     }
@@ -22,6 +23,7 @@ function Get-FunctionDependency {
         return $script:functionDependencyCache[$ModulesRoot]
     }
 
+    # Every source .ps1 is listed and parsed once, through [System.IO]: Get-ChildItem -Recurse costs about 20 ms a call in the provider.
     $parsed = [System.Collections.Generic.List[object]]::new()
     $definitions = @{}
 

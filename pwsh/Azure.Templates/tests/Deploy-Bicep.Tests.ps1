@@ -10,10 +10,12 @@ Describe 'Deploy-Bicep' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:tempArtifacts = Join-Path ([IO.Path]::GetTempPath()) ('catzc-deploy-' + [Guid]::NewGuid())
 
+        # Static fixtures and mocks are set up once; only the hook marker files are per test, and System.IO writes the rest in ~0.1 ms against ~20 ms a cmdlet.
         [System.IO.Directory]::CreateDirectory($script:tempArtifacts) | Out-Null
         [System.IO.File]::WriteAllText((Join-Path $script:tempArtifacts 'main.json'), '{}')
         [System.IO.File]::WriteAllText((Join-Path $script:tempArtifacts 'parameters.alpha.json'), '{}')
 
+        # No default hook loads from assets: Deploy-Bicep runs only what the template's own PrePost.psm1 exports, and these hooks record their calls to marker files.
         $prepostContent = @'
 function Invoke-BicepPreDeploy {
     param($DeployInvocation, $TemplateDescriptor, $ConfigurationDescriptor, $EnvironmentDescriptor, [switch]$DryRun)
@@ -27,12 +29,15 @@ function Invoke-BicepPostDeploy {
 '@
         [System.IO.File]::WriteAllText((Join-Path $script:tempArtifacts 'PrePost.psm1'), $prepostContent)
 
+        # Reset once, not per test: the fixture config is the same every test, and this drops any real-config entry a prior file left.
         InModuleScope Catzc.Base.Config { $script:configCache = $null }
 
+        # These exercise the devbox path; under CI the real detector returns true and Deploy-Bicep would throw that it requires -SubscriptionIdAssertIs.
         Mock Test-IsRunningInPipeline { $false } -ModuleName Catzc.Azure.Templates
         Mock Get-BicepTemplatesRoot {
             Join-Path (Get-CatzcModuleRoot -Module Catzc.Azure.Templates) 'tests/assets/templates'
         } -ModuleName Catzc.Azure.Templates
+        # 'customer' is mocked too, so discovery checks sample-customer against the fixture customer.yml; without it the file passed only after a sibling populated the cache.
         Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -in 'azure', 'network', 'customer' } -MockWith {
             @{ Name = $Config; Module = 'Catzc.Azure.Templates'
                 Path = Join-Path (Get-CatzcModuleRoot -Module Catzc.Azure.Templates) "tests/assets/config/$Config.yml"
@@ -82,11 +87,13 @@ function Invoke-BicepPostDeploy {
             }
         } -ModuleName Catzc.Azure.Templates
 
+        # Warms the fixture config and template-discovery caches once, so no test pays the cold derive.
         Get-Config -Config azure | Out-Null
         Get-BicepTemplates | Out-Null
     }
 
     BeforeEach {
+        # Only the hook marker files are cleared, since several tests assert one is absent (DryRun skips PostDeploy, DoNotRun runs no hooks).
         foreach ($m in 'pre-called.json', 'post-called.json') {
             $p = Join-Path $script:tempArtifacts $m
             if ([System.IO.File]::Exists($p)) {

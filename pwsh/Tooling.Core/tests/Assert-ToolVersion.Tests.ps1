@@ -8,6 +8,7 @@ catzc:
 
 # cspell:ignore lockedtool
 Describe 'Assert-ToolVersion' -Tag 'L0', 'logic' {
+    # Every collaborator is mocked in module scope, so the assertions bind to the version-check logic, never the shipped tools.yml.
     BeforeEach {
         # The per-session pass cache would short-circuit repeated tool checks — clear it between cases.
         & (Get-Module Catzc.Tooling.Core) { $script:toolVersionCache = @{} }

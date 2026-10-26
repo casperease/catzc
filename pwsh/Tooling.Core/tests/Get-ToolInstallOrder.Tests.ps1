@@ -8,6 +8,7 @@ catzc:
 
 Describe 'Get-ToolInstallOrder' -Tag 'L0' {
     Context 'topological sort (fixture graph)' -Tag 'logic' {
+        # The config seam is mocked to a controlled graph, so this proves the algorithm, never the production tool set.
         It 'orders every dependency before its dependents (diamond + independent root)' {
             $fixture = [ordered]@{
                 base = @{}
@@ -50,8 +51,10 @@ Describe 'Get-ToolInstallOrder' -Tag 'L0' {
     }
 
     Context 'shipped tools.yml (generic invariant)' -Tag 'integrity' {
+        # Binds to the shipped config as a set, asserting invariants that hold for every tool, never a tool name or a hardcoded pairing.
         BeforeAll {
             $script:order = & (Get-Module Catzc.Tooling.Core) { Get-ToolInstallOrder }
+            # Read raw from the owning module, so the set compared against is the YAML itself, not the typed model Get-ToolInstallOrder reads.
             $script:allTools = Get-Content (Get-Config -Config tools -ListOwners).Path -Raw | ConvertFrom-Yaml
         }
 

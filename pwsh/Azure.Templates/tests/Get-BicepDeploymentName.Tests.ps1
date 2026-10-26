@@ -38,6 +38,7 @@ Describe 'Get-BicepDeploymentName' -Tag 'L0', 'logic' {
         }
     }
 
+    # The platform is picked by which run-id variable is set, so each case clears the other's: these tests also run where GITHUB_RUN_ID is already set.
     Context 'pipeline (Azure DevOps)' {
         BeforeEach {
             Mock Test-IsRunningInPipeline { $true } -ModuleName Catzc.Azure.Templates

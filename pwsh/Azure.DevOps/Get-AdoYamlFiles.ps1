@@ -28,6 +28,7 @@ function Get-AdoYamlFiles {
 
     Write-Message "Scanning for YAML files in: $scanRoot"
 
+    # The bounded walker prunes the folder-walk config's folders (.git, node_modules); the depth is the inventory's.
     $ret = @(Get-ChildPath $scanRoot -File -Filter '*.yml', '*.yaml' -Depth $Depth)
 
     Write-Message "Found $($ret.Count) YAML files"
@@ -51,6 +52,7 @@ function Get-AdoYamlFiles {
                 $parseError = 'File is empty'
             }
             else {
+                # Template expressions are not valid YAML, so each is replaced by a unique token, or duplicate keys error.
                 $counter = @{ i = 0 }
                 $sanitized = [regex]::Replace($content, '\$\{\{.+?\}\}', { $counter.i++; "__ado_expr_$($counter.i)__" })
                 $yaml = $sanitized | ConvertFrom-Yaml -Ordered

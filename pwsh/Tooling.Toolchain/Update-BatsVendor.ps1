@@ -24,6 +24,7 @@ function Update-BatsVendor {
         $fileName = "v$($config.bats_version).tar.gz"
         $uri = "https://github.com/bats-core/bats-core/archive/refs/tags/$fileName"
         $null = Save-VerifiedDownload -Uri $uri -OutFile (Join-Path $staging $fileName) -Sha256 $config.bats_sha256
+        # A relative name inside staging keeps a drive letter's colon out of the path, which GNU tar reads as a remote host.
         Invoke-Executable "tar -xzf `"$fileName`"" -WorkingDirectory $staging -Silent
         $extracted = Join-Path $staging "bats-core-$($config.bats_version)"
         Assert-PathExist (Join-Path $extracted 'bin/bats') -PathType Leaf

@@ -16,6 +16,7 @@ function New-DotnetBuildProps {
         throw "tools.yml dotnet.version '$version' is not a .NET major.minor version (e.g. '10.0'), so it names no target framework."
     }
 
+    # The one target framework is the installed SDK's, so no reference pack is ever downloaded.
     @"
 <Project>
   <PropertyGroup>

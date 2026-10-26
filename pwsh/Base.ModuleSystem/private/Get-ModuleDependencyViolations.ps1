@@ -27,6 +27,7 @@ function Get-ModuleDependencyViolations {
         }
     }
 
+    # A source no module entry and no group constrains is skipped by the callers, whatever its empty allow-list says.
     $resolveAllowed = {
         param([string] $From)
 
@@ -80,6 +81,7 @@ function Get-ModuleDependencyViolations {
         }
     }
 
+    # The same allow-list holds for C# type references, which one combined types assembly lets the compiler accept.
     $typeEdges = Get-CSharpTypeDependency
     foreach ($edge in $typeEdges) {
         $resolved = & $resolveAllowed $edge.From

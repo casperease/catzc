@@ -33,6 +33,7 @@ function Get-BicepParameterEntryViolations {
         return Get-BicepKeyVaultReferenceViolations -Reference $reference
     }
 
+    # A secure parameter takes its value from a Key Vault at deploy time, so a literal is a secret in the repository; report it without echoing it.
     if ($Parameter.IsSecure) {
         return "is a $($Parameter.Type) parameter set to a literal value — it takes only a Key Vault reference"
     }

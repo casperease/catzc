@@ -7,6 +7,7 @@ catzc:
 #>
 
 Describe 'Install-Postman' -Tag 'L0', 'logic' {
+    # The live download is proved by an L2 or manual run; L0 covers only the idempotent skip, with every boundary mocked.
     BeforeEach {
         Mock Invoke-WebRequest { } -ModuleName Catzc.Tooling.Provisioning
         Mock Invoke-Executable { [pscustomobject]@{ ExitCode = 0 } } -ModuleName Catzc.Tooling.Provisioning

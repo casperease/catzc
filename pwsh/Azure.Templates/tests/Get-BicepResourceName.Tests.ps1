@@ -8,6 +8,7 @@ catzc:
 
 # cspell:ignore alweutstsmplst alweutstsmplacst
 Describe 'Get-BicepResourceName' -Tag 'L0', 'logic' {
+    # Read-only resolver: mocks and the cache reset run once, since a per-test reset would re-derive the fixture config cold (~80 ms) every test.
     BeforeAll {
         Mock Get-BicepTemplatesRoot {
             Join-Path (Get-CatzcModuleRoot -Module Catzc.Azure.Templates) 'tests/assets/templates'

@@ -26,6 +26,7 @@ function Get-Aspect {
         return
     }
 
+    # The type holds the declared conventions over its built-in ones, so one lookup covers both.
     $aspects = Get-AspectDeclaration
     if ($aspects.ContainsKey($Track)) {
         $aspects[$Track]

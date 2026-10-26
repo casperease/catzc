@@ -21,12 +21,14 @@ Describe 'Shipped asset integrity' -Tag 'L0', 'integrity' {
         $azure = Get-Config -Config azure
         $envs = @($azure.environments.Keys)
 
+        # One Should over the violating set: a Should per template slot would pay Pester's per-assertion cost across the whole template tree.
         $violations = foreach ($t in (Get-BicepTemplates)) {
             foreach ($slot in $t.slots) {
                 if ($slot.environment -notin $envs) {
                     "template '$($t.name)' config '$($slot.name)': environment '$($slot.environment)' is not defined in azure.yml"
                 }
                 if (-not [string]::IsNullOrEmpty($slot.customer)) {
+                    # slot.customer is the raw token (a key or a shortcode) and must resolve to a defined customer; Get-AzureCustomer throws otherwise.
                     try {
                         $null = Get-AzureCustomer $slot.customer
                     }

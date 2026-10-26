@@ -11,6 +11,7 @@ catzc:
 param()
 
 Describe 'Set-AdoPipelineVariable' -Tag 'L0', 'logic' {
+    # The ##vso line passes a writer chokepoint a test run silences, so the guard is lifted and put back after.
     BeforeAll {
         $script:guard = Get-Variable -Name '__PesterRunning' -Scope Global -ErrorAction Ignore
         $script:savedGuard = if ($script:guard) {

@@ -21,6 +21,7 @@ function Remove-MacToolInstall {
 
     $source = (Get-Command $Config.command).Source
 
+    # A brew binary is a symlink into the Cellar whose path names the formula, and brew uninstall is user-space.
     if (Test-Command brew) {
         $prefixResult = Invoke-Executable 'brew --prefix' -PassThru -NoAssert -Silent
         $prefix = if ($prefixResult.Output) {

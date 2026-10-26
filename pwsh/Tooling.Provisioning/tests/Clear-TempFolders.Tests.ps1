@@ -24,6 +24,7 @@ Describe 'Clear-TempFolders' -Tag 'L0', 'logic' {
     }
 
     It 'leaves a locked file in place and counts it as skipped' {
+        # FileShare.None is a mandatory lock only on Windows; on Unix it is advisory, so this case cannot be set up.
         if (-not $IsWindows) {
             Set-ItResult -Skipped -Because 'windows_only_file_lock'; return
         }
@@ -68,6 +69,7 @@ Describe 'Clear-TempFolders' -Tag 'L0', 'logic' {
         New-Item -ItemType Directory -Path $folder | Out-Null
         Set-Content -Path (Join-Path $folder 'once.tmp') -Value 'x'
 
+        # The platform separator matters: a hardcoded backslash is a filename character on Unix, a different path.
         $result = Clear-TempFolders -Path @($folder, $folder, ($folder + [System.IO.Path]::DirectorySeparatorChar))
 
         $result.Removed | Should -Be 1

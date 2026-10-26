@@ -21,6 +21,7 @@ function Remove-LinuxToolInstall {
 
     $source = (Get-Command $Config.command).Source
 
+    # dpkg -S names the owning package whatever manager the config declares (apt owns /usr/bin/az though az_cli is a uv tool); apt needs root.
     if (Test-Command dpkg) {
         $owner = Invoke-Executable "dpkg -S $source" -PassThru -NoAssert -Silent
         if ($owner.ExitCode -eq 0 -and $owner.Output) {

@@ -17,6 +17,7 @@ function Get-EngineCaseTable {
         [switch] $Applicable
     )
 
+    # The engines are declared once, so Get throws, naming them, for any other name.
     if ($Engine) {
         $null = [Catzc.Base.Engines.ExecutionEngines]::Get($Engine)
     }

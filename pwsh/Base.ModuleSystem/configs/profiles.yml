@@ -4,6 +4,7 @@
 #   header: "generated"
 # ---
 
+# Each profile is a seed list of modules, expanded to its declared-dependency closure for Copy-CatzcModule and Test-InIsolation.
 profiles:
   minimal:
     - Catzc.Base.Asserts

@@ -62,6 +62,7 @@ function Assert-BicepTemplate {
             'standard'
         }
 
+        # An explicit customer_deployment: true is allowed only when customers are enabled; absent, it follows the have_customers variant.
         $customerDeploymentOption = if ($options.Contains('customer_deployment')) {
             [bool]$options.customer_deployment
         }
@@ -78,6 +79,7 @@ function Assert-BicepTemplate {
             [bool](Test-HaveCustomers)
         }
 
+        # BicepShortName throws on a malformed override or an underivable folder name, and the resolved value feeds the uniqueness check.
         $shortNameOverride = if ($options.Contains('short_name')) {
             "$($options.short_name)"
         }
@@ -209,6 +211,7 @@ function Assert-BicepTemplate {
                 $errors.Add("[$name] -Build requested but 'az' is not installed")
             }
             else {
+                # Render and compile in full, so the rendered parameters files are checked against the compiled parameter model.
                 $built = $false
                 try {
                     Build-Bicep $name | Out-Null

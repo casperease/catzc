@@ -8,6 +8,7 @@ catzc:
 
 Describe 'Install-DevBoxTools' -Tag 'L0', 'logic' {
     BeforeAll {
+        # The mocks return the typed record like Get-ToolConfig, so every flag an entry omits reads as its default.
         function New-TestToolConfig {
             param([hashtable] $Keys)
             $entry = @{ version = '1.0'; command = 'widget'; version_command = 'widget --version'; version_pattern = '(?<ver>.+)' }

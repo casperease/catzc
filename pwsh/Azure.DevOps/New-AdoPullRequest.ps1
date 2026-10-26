@@ -63,6 +63,7 @@ function New-AdoPullRequest {
     }
 
     $pr = Invoke-AdoRestMethod -Uri "$apiBase/git/repositories/$($repo.id)/pullrequests?api-version=7.1" -Method Post -Body $body
+    # A non-throwing response with no id means the create did not take effect, so fail here and return no phantom result.
     Assert-NotNull $pr.pullRequestId -ErrorText "Pull request creation returned no pullRequestId for '$Title' ($sourceRef -> $targetRef) — the PR was not created."
     Write-Message "Created PR #$($pr.pullRequestId): $Title ($sourceRef -> $targetRef)"
     $pr

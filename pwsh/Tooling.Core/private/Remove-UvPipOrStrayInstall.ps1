@@ -32,6 +32,7 @@ function Remove-UvPipOrStrayInstall {
         }
     }
 
+    # A stray binary no manager owns: only the resolved file goes, and a root-owned path fails the delete loudly, never force-removed.
     if ([System.IO.File]::Exists($Source)) {
         Write-Message "Removing stray '$($Config.command)' at '$Source'"
         [System.IO.File]::Delete($Source)

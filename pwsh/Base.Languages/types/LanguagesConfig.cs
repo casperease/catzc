@@ -127,15 +127,26 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
         return segments.Take(segments.Length - 1).Any(s => naming_exempt_folders.Contains(s)) ? null : language;
     }
 
-    // The folder a catzc module's tests have under a language's tests/, in that language's folder case.
-    public string TestFolderOf(string languageName, string module)
+    // The folder a catzc module's tests have under a language's tests/, in that language's folder case: the module's folder, which
+    // drops the namespace of the track that prefixes it, so a caller passes the module's name and never strips it itself.
+    public string TestFolderOf(string languageName, Catzc.Base.Variants.VariantsConfig variants, string module)
     {
         FileLanguage language = languages.FirstOrDefault(l => l.name == languageName);
         if (language == null || language.naming == null)
         {
             throw new ArgumentException(string.Format(CultureInfo.InvariantCulture, "languages['{0}']: no naming entry names its test folders' case", languageName));
         }
-        return language.naming.TestFolderOf(module);
+        string folder = module;
+        foreach (Catzc.Base.Variants.VariantTrack track in variants?.tracks ?? Enumerable.Empty<Catzc.Base.Variants.VariantTrack>())
+        {
+            string stripped = track.FolderNameOf(module);
+            if (!string.Equals(stripped, module, StringComparison.Ordinal))
+            {
+                folder = stripped;
+                break;
+            }
+        }
+        return language.naming.TestFolderOf(folder);
     }
 
     // The one layout: every language's rows in declared order, then the shared rows. No folder is named twice.

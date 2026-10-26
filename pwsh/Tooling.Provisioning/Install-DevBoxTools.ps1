@@ -12,6 +12,7 @@ function Install-DevBoxTools {
         [switch] $Force
     )
 
+    # This toolset uses winget on Windows, so a Chocolatey left behind is removed first.
     Uninstall-Chocolatey
 
     # Report tools that work but aren't managed by us — left untouched.
@@ -21,6 +22,7 @@ function Install-DevBoxTools {
         Write-Message "Skipping $($tool.Tool) — $($tool.Installed) already installed, not managed by tools system"
     }
 
+    # Git is a base tool outside tools.yml that the locked set builds on; on Windows its Git Bash is the asserted bash.
     Install-Git -Force:$Force
 
     # Version-locked tools (from tools.yml, dependency-ordered via DependsOn)
@@ -38,6 +40,7 @@ function Install-DevBoxTools {
             continue
         }
 
+        # A platform-provided tool is asserted present, never installed, so its dependents fail fast when it is absent.
         if ($config.system_provided) {
             Assert-True (Test-Tool $toolName -SkipVersionCheck) -ErrorText (
                 "$toolName is required but is provided by the platform, not the toolchain — install it and re-run " +
@@ -47,12 +50,14 @@ function Install-DevBoxTools {
             continue
         }
 
+        # Skip and report instead of failing the whole provision; an elevated re-run installs these.
         if ((Test-ToolRequiresElevation $config) -and -not (Test-IsAdministrator)) {
             Write-Message "Skipping $toolName — requires elevation on this platform. Re-run Install-DevBoxTools elevated to install it."
             $skipped.Add($toolName) | Out-Null
             continue
         }
 
+        # A tool whose dependency was skipped (and is not already available) is skipped with the same remediation.
         if ($config.depends_on -and $skipped.Contains([string] $config.depends_on)) {
             $dependencyCommand = (Get-ToolConfig -Tool $config.depends_on).command
             if (-not (Test-Command $dependencyCommand)) {

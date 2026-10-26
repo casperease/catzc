@@ -77,6 +77,7 @@ Describe 'Install-Uv' -Tag 'L1', 'logic' {
 
 Describe 'Install-UvStandalone' -Tag 'L1', 'logic' {
     BeforeAll {
+        # Releases run newest first like the GitHub API, one per matching case, with both architectures so the test is machine-agnostic.
         $script:newAsset = {
             param($tag)
             foreach ($architecture in 'x86_64', 'aarch64') {
@@ -96,6 +97,7 @@ Describe 'Install-UvStandalone' -Tag 'L1', 'logic' {
     }
 
     BeforeEach {
+        # The helper reads HOME and prepends to PATH, so both are snapshotted and restored after each test.
         $script:savedHome = $env:HOME
         $script:savedPath = $env:PATH
         $env:HOME = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
@@ -104,6 +106,7 @@ Describe 'Install-UvStandalone' -Tag 'L1', 'logic' {
         Mock Invoke-RestMethod -ModuleName Catzc.Tooling.Toolchain { $script:releases }
         Mock Save-VerifiedDownload -ModuleName Catzc.Tooling.Toolchain { }
         Mock Assert-Command -ModuleName Catzc.Tooling.Toolchain { }
+        # The mock plants the extracted tree into the directory the tar command names, as the real tar would.
         Mock Invoke-Executable -ModuleName Catzc.Tooling.Toolchain -ParameterFilter { $Command -like 'tar *' } -MockWith {
             $null = $Command -match '-C "([^"]+)"'
             $extracted = Join-Path $Matches[1] 'uv-x86_64-unknown-linux-gnu'

@@ -7,6 +7,7 @@ catzc:
 #>
 
 function Deploy-Bicep {
+    # A state-changing command that previews with -DryRun, not ShouldProcess.
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '',
         Justification = 'Uses -DryRun instead of ShouldProcess — see ADR-PWSH-DRYRUN-SUPPRESSSHOULDPROCESS')]
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '',
@@ -37,10 +38,12 @@ function Deploy-Bicep {
         [switch] $DryRun
     )
 
+    # A pipeline must pin its target, so a re-wired service connection can never silently retarget a deploy.
     if ((Test-IsRunningInPipeline) -and [string]::IsNullOrEmpty($SubscriptionIdAssertIs)) {
         throw "Deploy-Bicep requires -SubscriptionIdAssertIs in a pipeline — the pipeline must pin the subscription GUID its service connection is expected to target, for template '$Template' ($Environment)."
     }
 
+    # Everything downstream reads the one resolved identity off the context, so config, artifacts and tags agree.
     $context = Get-BicepDeploymentContext `
         -Environment $Environment `
         -Template $Template `
@@ -67,11 +70,13 @@ function Deploy-Bicep {
     $templateDescriptor = Get-BicepTemplate $Template
     $configurationDescriptor = Get-BicepTemplateConfiguration $Template $Environment -Slot $Slot -Customer $customerFromContext
 
+    # A template's own PrePost.psm1 may export the pre- and post-deploy hooks; an absent hook is a no-op.
     $preDeployHook = $null
     $postDeployHook = $null
     if ($null -ne $context.artifacts.prepost_module) {
         Write-Message "Importing per-template PrePost: $($context.artifacts.prepost_module)"
         $prepostModule = Import-Module (Resolve-RepoPath $context.artifacts.prepost_module) -Scope Local -Force -PassThru
+        # Hooks run strict whoever wrote them, like every catzc module.
         . $prepostModule { Set-StrictMode -Version Latest }
         if ($prepostModule.ExportedCommands.ContainsKey('Invoke-BicepPreDeploy')) {
             $preDeployHook = $prepostModule.ExportedCommands['Invoke-BicepPreDeploy']
@@ -81,6 +86,7 @@ function Deploy-Bicep {
         }
     }
 
+    # DryRun is its own first-class hook parameter, the side-effect kill switch, not an entry in this bag.
     $deployInvocation = [ordered]@{
         Template     = $Template
         Environment  = $Environment
@@ -96,6 +102,7 @@ function Deploy-Bicep {
         EnvironmentDescriptor   = $context.environment
     }
 
+    # Pre-deploy runs before the what-if branch so it receives -DryRun and must honor it; post-deploy runs only after a real deploy.
     if ($preDeployHook) {
         & $preDeployHook @hookSplat -DryRun:$DryRun
     }
@@ -104,6 +111,7 @@ function Deploy-Bicep {
         Deploy-AzureResourceGroup -SubscriptionId $context.environment.subscription.id -Region $context.environment.region -ResourceGroup $context.deployment.resource_group -DryRun:$DryRun | Out-Null
     }
 
+    # Paths are repo-relative or absolute; az runs from the repo root, so either resolves independent of the shell's $PWD.
     $templateFile = $context.artifacts.template_file
     $parametersFile = $context.artifacts.parameters_file
 
@@ -130,6 +138,7 @@ function Deploy-Bicep {
         ) -join ' '
     }
 
+    # The az deployment calls use -NoAssert so a failure throws here with the deployment name, command and az's stderr, where the cause lives.
     if ($DryRun) {
         Write-Message 'DryRun: running az --what-if preview'
         $whatIf = Invoke-AzCli "$baseCommand --what-if" -PassThru -NoAssert

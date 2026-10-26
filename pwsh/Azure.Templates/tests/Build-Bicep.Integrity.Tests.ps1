@@ -8,6 +8,7 @@ catzc:
 
 Describe 'Shipped template integrity' -Tag 'L0', 'integrity' {
     BeforeAll {
+        # Discovery throws on a naming, schema or identity violation; capturing the outcome lets each facet report cleanly instead of aborting the block.
         $script:discoveryError = $null
         $script:templates = @()
         try {
@@ -33,6 +34,7 @@ Describe 'Shipped template integrity' -Tag 'L0', 'integrity' {
                 ForEach-Object { "$($_.Name): $((@($_.Group | ForEach-Object { $_.name })) -join ', ')" }
         )
 
+        # Full structural validation without -Build, with every problem reported in one message.
         $script:validationError = $null
         try {
             Assert-BicepTemplate
@@ -68,6 +70,7 @@ Describe 'Shipped template integrity' -Tag 'L0', 'integrity' {
     }
 
     It 'every shipped template is structurally valid WITHOUT building it (Assert-BicepTemplate, no -Build)' {
+        # No -Build on purpose: compiling production templates is the pipeline's step, and end-to-end build is covered by the fixture-based L2 tests.
         $validationError |
             Should -BeNullOrEmpty -Because "shipped templates must satisfy Assert-BicepTemplate (no build):`n$validationError"
     }

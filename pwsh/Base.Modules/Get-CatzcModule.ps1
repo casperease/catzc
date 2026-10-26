@@ -32,6 +32,7 @@ function Get-CatzcModule {
     $languages = Get-Config -Config languages
     $byName = [System.Comparison[Catzc.Base.Modules.Module]] { param($a, $b) [string]::CompareOrdinal($a.name,
             $b.name) }
+    # The engine this resolver runs in: the track whose modules run under it is the one the relocatable modules root holds.
     $engine = [Catzc.Base.Engines.ExecutionEngines]::Pwsh.Name
 
     $allTracks = @(Get-Track)
@@ -54,6 +55,7 @@ function Get-CatzcModule {
         $relocated = $anchored -and $trackEntry.execution_engines -ccontains $engine
         $admitted = @($moduleTypes.types.Where({ $typeEntry.admits -ccontains $_.id }))
         $admittedPlaces = @($admitted | ForEach-Object { $_.places })
+        # A place of another track nested under this track's places holds its own files: the longest place wins.
         $nestedPlaces = @($allTracks.Where({ $_.name -cne $trackEntry.name }) | ForEach-Object { $_.places } |
                 Where-Object {
                     $nested = $_
@@ -81,6 +83,7 @@ function Get-CatzcModule {
                 }
 
                 foreach ($entry in Get-PlaceModuleEntry -Place $place -Directory $directory) {
+                    # A folder module's full name is its folder joined to the namespace; a file-shaped module already carries its own.
                     $fullName = $entry.Shape -ceq 'folder' ? $trackEntry.FullNameOf($entry.Name) : $entry.Name
                     if ($Name -and $Name -cnotcontains $fullName) {
                         continue
@@ -91,10 +94,12 @@ function Get-CatzcModule {
                         $files.Add($entry.Root.Substring($place.root.Length + 1))
                     }
                     else {
+                        # A whole module tree, a named exception to the bounded walk: test fixtures nest six levels down.
                         $prefixLength = $entry.Folder.TrimEnd('\', '/').Length + 1
                         foreach ($path in Get-ChildPath $entry.Folder -File -Depth 8) {
                             $relative = $path.Substring($prefixLength).Replace('\', '/')
                             if ($entry.Shape -ceq 'root') {
+                                # The track's own module holds what no other place names, no nested track holds and no dot folder caches.
                                 $full = "$($entry.Root)/$relative"
                                 $slash = $relative.IndexOf('/')
                                 if ($slash -gt 0 -and $relative.StartsWith('.')) {
@@ -120,6 +125,7 @@ function Get-CatzcModule {
                         if ($laidOut -and $entry.Shape -ceq 'folder' -and $null -eq $row) {
                             $unplaced.Add($file)
                         }
+                        # A module's languages are those of its live files: a test, or a README, is no second tech-stack.
                         $language = $null -eq $row -or $row.live ? $languages.ForPath($file) : $null
                         if ($language) {
                             [void] $languageNames.Add($language.name)

@@ -38,7 +38,11 @@ under `Invoke-TestFile`, one gate on named paths, a grep or a file read. The one
    - `git ls-files` lists no old case spelling, no `Catzc.` folder under `contracts`, and nothing matching `egg-info|__pycache__` or
      `pwsh/.compiled`;
    - `Test-Contracts` and `Test-BuildArtifact -Facet Types` report no issues;
-   - `Test-Formatting` lists no function help hand edit outside Base.Contracts.
+   - `Test-Formatting` lists no function help hand edit outside Base.Contracts;
+   - `Test-Diagrams` reports no issues: the commit carries the two query diagrams re-rendered after the track renames
+     (`docs/explanation/model/.assets/zoom-internal-c4.drawio.png`, `docs/explanation/model/.assets/zoom-pwsh-c3.drawio.png`);
+   - `Invoke-TestFile -Path pwsh/Base.ModuleSystem/tests/Test-FunctionDependency.Tests.ps1` passes: the commit carries the one-character fix
+     at `pwsh/Tooling.Toolchain/private/Install-UvStandalone.ps1:57` (`Get-ChildPath $extractDirectory`).
 4. plan-reference-normal-form step 3: move every reference page to its derived path. First ask catzc-2b, the step's keeper, to refresh
    `out/ns5/ref-map.csv` from the committed tree (`out/ns5/New-ReferencePageMap.ps1`). Then run
    `pwsh -NoProfile -File out/ns5/Rename-ReferencePages.ps1 -WhatIf`, then the same without `-WhatIf`, and tell the orchestrator. Check: the

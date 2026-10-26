@@ -145,6 +145,7 @@ Describe 'Install-Zsh' -Tag 'L0', 'logic' {
         }
     }
 
+    # The shared apt installer reads the package from the entry's apt_package, so Install-Zsh names only the tool.
     Context 'on Linux' {
         BeforeEach {
             Mock Install-Tool -ModuleName Catzc.Tooling.Provisioning { }

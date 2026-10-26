@@ -7,6 +7,7 @@ catzc:
 #>
 
 Describe 'Uninstall-Git' -Tag 'L0', 'logic' {
+    # The L0 tripwire throws on a real Invoke-Executable, so every filesystem, PATH and CLI boundary is mocked.
     BeforeEach {
         Mock Remove-Item { } -ModuleName Catzc.Tooling.Provisioning
         Mock Remove-PermanentPath { } -ModuleName Catzc.Tooling.Provisioning

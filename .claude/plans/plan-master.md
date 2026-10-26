@@ -52,9 +52,6 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
 - vscode-extensions -> plan-vscode-extensions.md: landed; blocked_on the user's editor check (task-user-runs-and-commits item 23)
 - repo-filters -> plan-repo-filters.md: the filters landed (sets from the model, union of lit lamps, coverage asserted, docs and out lamps);
   one step left: the user's look at the lamps in VS Code (the `pipelines` and `infrastructure` lamps landed)
-- track-model -> plan-track-model.md: tracks as members with generated and committed facts, catch-up vendor tracks and `out` for the root,
-  globsets derived from tracks, a DDR-VENDOR for the vendor umbrella, normal-form track names, filter lamps per aspect plus a language
-  field, minimaps and lamps out of the ADRs; eighteen steps, the first waiting on the user's example names
 - reference-normal-form -> plan-reference-normal-form.md: reference pages at a derived path
   (`docs/references/<language>/<module>/<aspect path>/<file>.md`), no `docs:` links; steps 1 and 2 staged by catzc-2b in its scratchpad,
   then the step-3 rename script, then the user's rename

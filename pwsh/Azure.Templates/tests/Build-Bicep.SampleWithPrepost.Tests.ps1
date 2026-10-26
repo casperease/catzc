@@ -16,6 +16,7 @@ Describe 'Build-Bicep (sample-with-prepost merge seam)' -Tag 'L0', 'logic' {
                 Path = Join-Path (Get-CatzcModuleRoot -Module Catzc.Azure.Templates) "tests/assets/config/$Config.yml"
             }
         }
+        # The merge seam injects the vnet ranges from the network fixture, so the expected per-environment values are read from the asset.
         $script:alphaNetwork = (Get-Config -Config network).environments.alpha
         $script:betaNetwork = (Get-Config -Config network).environments.beta
 
@@ -38,9 +39,11 @@ Describe 'Build-Bicep (sample-with-prepost merge seam)' -Tag 'L0', 'logic' {
             Join-Path (Get-CatzcModuleRoot -Module Catzc.Azure.Templates) 'tests/assets/templates'
         } -ModuleName Catzc.Azure.Templates
 
+        # Warms the path-keyed session caches once, not per test.
         Get-Config -Config azure | Out-Null
         Get-BicepTemplates | Out-Null
 
+        # One build of all environments is the single observation every assertion reads; under the greedy run each Build-Bicep call costs ~5-6x its solo time.
         $script:configRoot = Join-Path (Get-CatzcModuleRoot -Module Catzc.Azure.Templates) 'tests/assets/templates/sample-with-prepost/configuration'
         if (Test-Path $script:outputRoot) {
             Remove-Item $script:outputRoot -Recurse -Force
@@ -82,6 +85,7 @@ Describe 'Build-Bicep (sample-with-prepost merge seam)' -Tag 'L0', 'logic' {
     }
 
     It 'injects an ARM Key Vault reference for sharedReference, derived from fixture identity not config' {
+        # The config carries no value: the hook injects a Key Vault reference, keeping deploy-time secrets out of the repository.
         $configuration = Get-Content (Join-Path $script:configRoot 'alpha.yml') -Raw | ConvertFrom-Yaml
         $configuration.ParametersFile.parameters.Contains('sharedReference') |
             Should -BeFalse -Because 'the KV reference is injected by the hook, not carried by config'

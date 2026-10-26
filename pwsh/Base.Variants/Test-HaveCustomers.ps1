@@ -32,6 +32,7 @@ function Test-HaveCustomers {
     if ($isAll) {
         return $true
     }
+    # Both sides are lowercase-validated, so plain -in membership is exact.
     foreach ($customer in $Name) {
         if ("$customer" -notin $enabledList) {
             return $false

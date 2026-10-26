@@ -11,6 +11,7 @@ Describe 'Assert-BicepTemplate' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:fixtureTemplates = Join-Path (Get-CatzcModuleRoot -Module Catzc.Azure.Templates) 'tests/assets/templates'
 
+        # Reset once, not per test: the mocked fixture config is the same every test, so a per-test reset only forces a cold re-parse.
         InModuleScope Catzc.Base.Config { $script:configCache = $null }
         InModuleScope Catzc.Azure.Templates { $script:bicepTemplatesCache = $null }
 
@@ -22,6 +23,7 @@ Describe 'Assert-BicepTemplate' -Tag 'L0', 'logic' {
     }
 
     Context 'valid templates (read-only)' {
+        # These never mutate the tree, so they validate the committed fixtures directly, without a per-test copy.
         BeforeAll {
             Mock Get-BicepTemplatesRoot { $script:fixtureTemplates } -ModuleName Catzc.Azure.Templates
         }
@@ -49,6 +51,7 @@ Describe 'Assert-BicepTemplate' -Tag 'L0', 'logic' {
 
     Context 'bicepparam violations (ADR-AZ-DATAMOD-BICEPPARAMSLOT)' {
         BeforeEach {
+            # A fresh unique copy per test, since each corrupts the fixtures differently; a never re-deleted root cannot race a scanner holding a file open.
             $script:templatesRoot = Join-Path $TestDrive ([Guid]::NewGuid())
             Copy-Directory $script:fixtureTemplates $script:templatesRoot
             $script:sampleTemplate = Join-Path $script:templatesRoot 'sample-bicepparam'
@@ -90,6 +93,7 @@ Describe 'Assert-BicepTemplate' -Tag 'L0', 'logic' {
         }
 
         It 'accepts a template that MIXES slotted and non-slotted configs (slot is per-config)' {
+            # beta resolves to core_lower, so beta-001 is a valid slotted root config beside the non-slotted ones.
             [System.IO.File]::WriteAllText((Join-Path $script:templatesRoot 'sample/configuration/beta-001.yml'),
                 "ParametersFile:`n  parameters: {}")
             { Assert-BicepTemplate sample } | Should -Not -Throw
@@ -103,6 +107,7 @@ Describe 'Assert-BicepTemplate' -Tag 'L0', 'logic' {
         }
 
         It 'reports a config whose coordinate resolves to no subscription' {
+            # globex is a defined customer with no subscription in the fixture azure.yml, so its config can never resolve.
             [System.IO.Directory]::CreateDirectory((Join-Path $script:templatesRoot 'sample/configuration/globex')) |
                 Out-Null
             [System.IO.File]::WriteAllText((Join-Path $script:templatesRoot 'sample/configuration/globex/alpha.yml'),
@@ -133,6 +138,7 @@ Describe 'Assert-BicepTemplate' -Tag 'L0', 'logic' {
         }
 
         It 'collects multiple violations into one consolidated error' {
+            # One config trips two rules: a per-subscription env on a standard template, and a parameter main.bicep does not declare.
             [System.IO.File]::WriteAllText((Join-Path $script:templatesRoot 'sample/configuration/nsub.yml'),
                 "ParametersFile:`n  parameters:`n    bogusParam:`n      value: 1")
             $err = $null
@@ -148,6 +154,7 @@ Describe 'Assert-BicepTemplate' -Tag 'L0', 'logic' {
     }
 
     Context '-Build (the parameter model check)' {
+        # Build and parameter check are each tested on their own; with both mocked here, this proves only the wiring.
         BeforeAll {
             Mock Get-BicepTemplatesRoot { $script:fixtureTemplates } -ModuleName Catzc.Azure.Templates
             Mock Get-Command { [pscustomobject]@{ Name = 'az' } } -ModuleName Catzc.Azure.Templates -ParameterFilter { $Name -eq 'az' }

@@ -86,6 +86,7 @@ Describe 'Get-AzureResourceName' -Tag 'L0', 'logic' {
     }
 
     Context 'the render matrix — 4 patterns x 2 orders (env alpha / shortcode al, base slot)' {
+        # The pattern picks the env segment and the separator, the order arranges the segments, and the base slot drops the slot segment.
         BeforeAll {
             $script:parts = @{ Env = 'alpha'; Shortcode = 'al'; RegionCode = 'weu'; Org = 'tst'; ShortName = 'smpl' }
         }

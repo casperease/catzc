@@ -14,6 +14,7 @@ Describe 'Remove-LinuxToolInstall' -Tag 'L1', 'logic' {
         Mock Assert-IsAdministrator { } -ModuleName Catzc.Tooling.Core
         Mock Get-Command { [pscustomobject]@{ Source = '/usr/bin/widget' } } -ParameterFilter { $Name -eq 'widget' } -ModuleName Catzc.Tooling.Core
 
+        # Defaults: the tool is on PATH, dpkg and uv are absent, every external probe reports not found; each test enables the mechanism it exercises.
         Mock Test-Command { $false } -ModuleName Catzc.Tooling.Core
         Mock Test-Command { $true } -ParameterFilter { $Command -eq 'widget' } -ModuleName Catzc.Tooling.Core
         Mock Invoke-Executable { [pscustomobject]@{ ExitCode = 1; Output = '' } } -ModuleName Catzc.Tooling.Core
@@ -58,6 +59,7 @@ Describe 'Remove-LinuxToolInstall' -Tag 'L1', 'logic' {
     }
 
     It 'deletes a stray on-PATH binary no manager owns, user-space' -Tag 'ADR-AUTO-REMOVE-ELEVATIONFOLLOWSMECHANISM', 'ADR-AUTO-REMOVE-THREEPLATFORMCORES' {
+        # With dpkg and uv both absent it falls through to the stray delete, so the command points at a real file under TestDrive.
         $strayPath = Join-Path $TestDrive 'widget'
         [System.IO.File]::WriteAllText($strayPath, 'binary')
         Mock Get-Command { [pscustomobject]@{ Source = $strayPath } } -ParameterFilter { $Name -eq 'widget' } -ModuleName Catzc.Tooling.Core

@@ -34,7 +34,7 @@ one resolver, makes every new view a config line, and moving the extra units int
   DDR-ASPECT-TRACKPICKSCATCHALL) and its files have one lamp, `contracts` (the user, 2026-10-25): `code` and `live` leave them out
   (`except: [track.contracts]`), apart from every other track's live files.
 - `LICENSE` is authored, not generated (no generator or `rootconfig.yml` target writes it); it is docs (the `docs` filter) and live through
-  the contracts track, which it joins in `plan-track-model.md`.
+  the contracts track, which it is a member of.
 - Combination is the **union** of the lit lamps: a file shows while at least one lit filter claims it, so putting a lamp out hides only what
   no other lit lamp claims (DDR-FILTER-TOTALUNION).
 - Coverage is asserted: every file on disk is claimed by at least one filter. The census counts files per membership signature (the set of

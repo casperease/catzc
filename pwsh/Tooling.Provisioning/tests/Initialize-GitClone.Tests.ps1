@@ -7,6 +7,7 @@ catzc:
 #>
 
 Describe 'Initialize-GitClone' -Tag 'L0', 'logic' {
+    # Every git call goes through Invoke-Executable, so one mock covers the boundary; the config writes are what the tests count.
     BeforeEach {
         Mock Assert-Command { } -ModuleName Catzc.Tooling.Provisioning
         Mock Test-IsWslSession { $false } -ModuleName Catzc.Tooling.Provisioning

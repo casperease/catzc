@@ -38,8 +38,10 @@ function Format-GeneratedFileHead {
 
     # The head says what not to touch; every other fact about the file is derived on demand.
     $values = @{ warning = $Head.warning }
+    # A tracked file's head also carries its body's hash; an untracked one carries the warning only.
     $tracked = @(Get-GitTrackedPath $relative) -contains $relative
     if ($tracked) {
+        # The body below the carrier's head, so a second run over the written file finds the same hash.
         $body = switch ($entry.carrier) {
             ([Catzc.Base.Languages.CarrierKind]::CommentHead) {
                 $state = Get-CodeMetaState -Text $Text -Form $entry.Form()

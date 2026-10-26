@@ -38,6 +38,7 @@ function Install-Go {
         }
     }
     else {
+        # A foreign Go at the right version satisfies the contract; a wrong one does not block, since the managed home goes first on PATH.
         $probe = Test-Tool 'go' -PassThru
         if ($probe.Version -and $probe.Version.StartsWith($Version)) {
             Write-Message "Go $Version is already installed at '$($probe.Path)'"
@@ -52,6 +53,7 @@ function Install-Go {
             Assert-Command tar -ErrorText 'Install-Go extracts the Go archive with tar, which is not on PATH.'
         }
 
+        # Staging beside the home keeps it on the same volume and the swap-in atomic, so a failed extraction never leaves a half-written home.
         $staging = "$installDir.staging"
         if (Test-Path -LiteralPath $staging) {
             Remove-Item -LiteralPath $staging -Recurse -Force
@@ -62,6 +64,7 @@ function Install-Go {
             Out-Null
 
         Write-Message "Extracting $($release.version) to '$installDir'"
+        # The zip is extracted in-process because Git's GNU tar, first on PATH there, reads no zip and takes a drive letter's colon for a remote host.
         if ($isZip) {
             [System.IO.Compression.ZipFile]::ExtractToDirectory($archive, $staging)
         }

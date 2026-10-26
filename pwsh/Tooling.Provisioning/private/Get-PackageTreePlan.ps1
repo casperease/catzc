@@ -20,6 +20,7 @@ function Get-PackageTreePlan {
     $sourceRoot = [System.IO.Path]::GetFullPath($Source)
     $destinationRoot = [System.IO.Path]::GetFullPath($Destination)
 
+    # A copy plan must see every file: no folder name is pruned, and a real package tree reaches ten levels deep.
     $sourceDirectories = [System.Collections.Generic.List[string]]::new()
     foreach ($directory in Get-ChildPath $sourceRoot -Directory -Depth 64 -Exclude @() -PruneVendor $false) {
         $sourceDirectories.Add([System.IO.Path]::GetRelativePath($sourceRoot, $directory).Replace('\', '/'))

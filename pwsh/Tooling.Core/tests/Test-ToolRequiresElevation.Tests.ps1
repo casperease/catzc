@@ -8,6 +8,7 @@ catzc:
 
 Describe 'Test-ToolRequiresElevation' -Tag 'L0', 'logic' {
     BeforeAll {
+        # The production input is the typed record Get-ToolConfig returns, so a flag the record does not map is absent here exactly as in production.
         function New-TestToolConfig {
             param([hashtable] $Flags)
             $entry = @{ version = '1.0'; command = 'faketool'; version_command = 'faketool --version'; version_pattern = '(?<ver>.+)' }

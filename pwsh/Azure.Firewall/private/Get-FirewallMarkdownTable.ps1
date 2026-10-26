@@ -66,6 +66,7 @@ function Get-FirewallMarkdownTable {
     foreach ($row in $Rows) {
         $cells = foreach ($column in $Columns) {
             $cell = if ($column.Render -eq 'protoport') {
+                # An application rule already carries its port inside the protocol, so it passes through unpaired.
                 $protocols = @()
                 $ports = @()
                 foreach ($candidate in $column.Candidates) {
@@ -92,6 +93,7 @@ function Get-FirewallMarkdownTable {
                 }
             }
             else {
+                # Candidate order is kept, because a rule may fill several and the firewall unions them group by group.
                 $values = foreach ($candidate in $column.Candidates) {
                     $raw = [string]$row.$candidate
                     if (-not [string]::IsNullOrWhiteSpace($raw)) {
@@ -105,6 +107,7 @@ function Get-FirewallMarkdownTable {
                 @($values) -join $CellListSeparator
             }
 
+            # A code span where Markdown would read emphasis or a bare URL, so a value renders exactly as the firewall holds it.
             if ($cell -match '^[*_]|[*_]$|\s[*_]|[*_]\s|https?://|ftp://|[a-z0-9-]+\.[a-z]{2,}') {
                 '`' + $cell + '`'
             }

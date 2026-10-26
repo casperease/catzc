@@ -7,6 +7,7 @@ catzc:
 #>
 
 Describe 'Assert-DevBoxToolsStatus' -Tag 'L0', 'logic' {
+    # Get-ToolsStatus is the only boundary, mocked to fabricated rows with non-production tool names.
     BeforeAll {
         $script:ok = [Catzc.Tooling.Provisioning.ToolStatus]::new('alpha', '1.x', '1.2', 'OK', '/bin/alpha', 'winget',
             'user', 'None')

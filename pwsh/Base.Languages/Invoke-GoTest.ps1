@@ -26,12 +26,13 @@ function Invoke-GoTest {
     )
 
     $root = Get-RepositoryRoot
+    # The folder named, else the module's own tests/ or the holder's, else its folder under the Go root's tests/.
     $relative = if ($Folder) {
         [System.IO.Path]::GetRelativePath($root, [System.IO.Path]::GetFullPath($Folder, $root)).Replace('\',
             '/').TrimEnd('/')
     }
     else {
-        "$((Get-Config -Config go).ResolveRoot($root))/tests/$(Get-ModuleTestFolder go $Module)"
+        "$((Get-Config -Config go).ResolveRoot($root))/tests/$((Get-Config -Config languages).TestFolderOf('go', (Get-Config -Config variants), $Module))"
     }
     $folder = Join-Path $root $relative
     if (-not (Test-Path -LiteralPath $folder -PathType Container)) {
@@ -44,6 +45,7 @@ function Invoke-GoTest {
         throw "$relative/go.mod is missing — it is generated; regenerate with: Build-RootConfig"
     }
 
+    # The managed go by its path, the caller's or located from tools.yml; never a bare go off PATH.
     $goPath = if ($GoExecutable) {
         Assert-PathExist $GoExecutable -PathType Leaf
         $GoExecutable
@@ -60,6 +62,7 @@ function Invoke-GoTest {
     }
     $goCommand = "`"$goPath`""
 
+    # The engine contract is set for these commands only; GOTOOLCHAIN=local stops go downloading go.work's toolchain.
     $environment = Get-EngineContract -Engine $Engine -EngineExecutable $EngineExecutable -EntryScript $EntryScript
     $environment['GOTOOLCHAIN'] = 'local'
     $saved = @{}

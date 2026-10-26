@@ -27,14 +27,17 @@ function Invoke-PythonTest {
 
     $root = Get-RepositoryRoot
     $python = Get-Config -Config python
+    # The uv workspace root: python.yml's declared root, else python/ when present, else .python/.
     $pythonRelative = $python.ResolveRoot($root)
     $pythonRoot = Join-Path $root $pythonRelative
+    # The folder named, else the module's own tests/ or the holder's, else its folder under the holder's tests/.
     $relative = if ($Folder) {
         [System.IO.Path]::GetRelativePath($root, [System.IO.Path]::GetFullPath($Folder, $root)).Replace('\',
             '/').TrimEnd('/')
     }
     else {
-        $moduleFolder = Get-ModuleTestFolder python $Module
+        # Named for the module's folder, which drops the modules track's namespace.
+        $moduleFolder = (Get-Config -Config languages).TestFolderOf('python', (Get-Config -Config variants), $Module)
         $own = "$pythonRelative/$moduleFolder/tests"
         if (Test-Path -LiteralPath (Join-Path $root $own) -PathType Container) {
             $own
@@ -59,6 +62,7 @@ function Invoke-PythonTest {
         throw "$relative/pyproject.toml is missing — it is generated; regenerate with: Build-RootConfig"
     }
 
+    # The managed uv by its path, the caller's or located from tools.yml; never a bare uv off PATH.
     $uvPath = if ($UvExecutable) {
         Assert-PathExist $UvExecutable -PathType Leaf
         $UvExecutable
@@ -79,6 +83,7 @@ function Invoke-PythonTest {
 
     $cacheDir = Join-Path $root $python.pytest_cache
 
+    # The engine contract is set for these commands only; UV_PYTHON_DOWNLOADS=never keeps uv on the pinned interpreter.
     $environment = Get-EngineContract -Engine $Engine -EngineExecutable $EngineExecutable -EntryScript $EntryScript
     $environment['UV_PYTHON_DOWNLOADS'] = 'never'
     $environment['PYTHONPYCACHEPREFIX'] = Join-Path $root $python.pycache
@@ -127,6 +132,7 @@ function Invoke-PythonTest {
         throw "pytest failed in $relative/ (exit $($run.ExitCode)): $($_.Exception.Message)`n$($run.Full)"
     }
 
+    # pytest exits 1 for a failed test; any other exit, or 1 with none failed, failed around the tests.
     if ($run.ExitCode -ne 0 -and -not ($run.ExitCode -eq 1 -and
             @($results | Where-Object { $_.Outcome -eq 'fail' }).Count)) {
         throw "pytest failed in $relative/ (exit $($run.ExitCode)) with no failing test:`n$($run.Full)"

@@ -147,7 +147,7 @@ tests/ in python's folder case.
 
 ## comment:6
 
-Above `$moduleFolder = Get-ModuleTestFolder python $Module`, written with `#`.
+Above `$moduleFolder = (Get-Config -Config languages).TestFolderOf('python', (Get-Config -Config variants), $Module)`, written with `#`.
 
 ```text
 A test folder is named for its module's folder, which drops the modules track's namespace

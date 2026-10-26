@@ -25,6 +25,7 @@ function Invoke-Uv {
     }
 
     if ($Prerelease) {
+        # A message, not a warning: the toolchain stops on warnings and an opted-in pre-release resolution is expected, not an anomaly.
         Write-Message "uv: allowing pre-release/dev package versions (--prerelease=allow) for: uv $Arguments"
         $Arguments = "$Arguments --prerelease=allow"
     }

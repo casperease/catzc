@@ -8,8 +8,10 @@ catzc:
 
 # cspell:ignore alweutstsmplst
 Describe 'Build-Bicep' -Tag 'L0', 'logic' {
+    # Mocks and the config-cache reset run once; only the build output folder is wiped per test, since the tests write into it.
     BeforeAll {
         . (Join-Path $PSScriptRoot 'BicepParams.Fixture.ps1')
+        # Own output root through the seam, so a sibling worker building the sample fixture cannot race the shared out/template/sample.
         $script:outputRoot = Join-Path (Get-RepositoryRoot) 'out/test-isolation/build-bicep/template/sample'
         Mock Get-BicepTemplatesOutputRoot {
             Join-Path (Get-RepositoryRoot) 'out/test-isolation/build-bicep'
@@ -40,6 +42,7 @@ Describe 'Build-Bicep' -Tag 'L0', 'logic' {
         }
         InModuleScope Catzc.Base.Config { $script:configCache = $null }
 
+        # Warms the discovery and config caches here, so the cold re-derive after the reset is setup cost, not the first test's duration.
         Get-BicepTemplates | Out-Null
         Get-Config -Config azure | Out-Null
     }
@@ -111,6 +114,7 @@ Describe 'Build-Bicep' -Tag 'L0', 'logic' {
     }
 
     It 'asserts the Bicep CLI is available before building' {
+        # The guard throws, so Build-Bicep stops before any az bicep build runs; its own az behaviour is covered in the Cli tests.
         Mock Assert-AzCliBicep { throw 'Bicep CLI not available. Run az bicep install.' } -ModuleName Catzc.Azure.Templates
         { Build-Bicep sample -Environments alpha } | Should -Throw '*az bicep install*'
         Should -Invoke Invoke-AzCli -ModuleName Catzc.Azure.Templates -Times 0 -ParameterFilter { $Arguments -match 'bicep build' }
@@ -133,6 +137,7 @@ Describe 'Build-Bicep' -Tag 'L0', 'logic' {
 
 Describe 'Build-Bicep (real az)' -Tag 'L2', 'logic' {
     BeforeAll {
+        # Same isolated root as the mocked-az block; one file runs in one worker, so its blocks never overlap.
         $script:outputRoot = Join-Path (Get-RepositoryRoot) 'out/test-isolation/build-bicep/template/sample'
     }
 

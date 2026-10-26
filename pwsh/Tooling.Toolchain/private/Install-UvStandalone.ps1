@@ -18,6 +18,7 @@ function Install-UvStandalone {
     Write-Message "Resolving the astral-sh/uv release for the locked $Version.x"
     $releases = Invoke-RestMethod -Uri 'https://api.github.com/repos/astral-sh/uv/releases?per_page=100' -Headers @{ Accept = 'application/vnd.github+json' }
     $escaped = [regex]::Escape($Version)
+    # Select-Object -First 1 yields $null on no match, where indexing an empty array would throw under strict, so the assert reports it.
     $release = $releases | Where-Object { ($_.tag_name -replace '^v', '') -match "^$escaped(\.|$)" } |
         Select-Object -First 1
     Assert-NotNull $release -ErrorText "No astral-sh/uv release matches the locked $Version.x — bump the uv pin in tools.yml."
@@ -29,9 +30,11 @@ function Install-UvStandalone {
         'x86_64'
     }
     $assetName = "uv-$architecture-unknown-linux-gnu.tar.gz"
+    # Same $null-on-no-match shape, so the assert below names the missing asset.
     $asset = $release.assets | Where-Object { $_.name -eq $assetName } | Select-Object -First 1
     Assert-NotNull $asset -ErrorText "astral-sh/uv release $($release.tag_name) has no asset '$assetName'."
 
+    # The release asset publishes its SHA-256; hard-fail rather than run an unverified binary, as Install-Git does.
     $digest = if ($asset.PSObject.Properties['digest']) {
         $asset.digest
     }
@@ -50,6 +53,7 @@ function Install-UvStandalone {
         $binDirectory = Join-Path $env:HOME '.local/bin'
         [System.IO.Directory]::CreateDirectory($binDirectory) | Out-Null
         foreach ($binary in 'uv', 'uvx') {
+            # The binaries sit one folder down in the archive; depth 3 is headroom, and no match yields $null for the assert.
             $found = Get-ChildPath $extractDirectory -File -Filter $binary -Depth 3 |
                 Select-Object -First 1
             Assert-NotNullOrWhitespace $found -ErrorText "'$binary' was not found in the extracted uv archive."
@@ -63,6 +67,7 @@ function Install-UvStandalone {
         Remove-Item $extractDirectory -Recurse -Force -ErrorAction Ignore
     }
 
+    # The tool-bin is normally on the persistent PATH already; this makes it resolve in the current session.
     if (($env:PATH -split [System.IO.Path]::PathSeparator) -notcontains $binDirectory) {
         $env:PATH = "$binDirectory$([System.IO.Path]::PathSeparator)$env:PATH"
     }

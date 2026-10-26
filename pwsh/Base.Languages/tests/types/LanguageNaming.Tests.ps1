@@ -85,12 +85,27 @@ Describe 'LanguagesConfig naming and layout' -Tag 'L0' {
                         bare   = [ordered]@{ extensions = @('.bre'); no_formatter = 'never' }
                     }
                 })
-            $config.TestFolderOf('widget', 'Widget.Base.GadgetParts') | Should -BeExactly 'widget_base_gadget_parts'
-            $config.TestFolderOf('gadget', 'Widget.Base.GadgetParts') | Should -BeExactly 'widgetbasegadgetparts'
-            { $config.TestFolderOf('plain', 'Widget.Base') } | Should -Throw '*names no folder case*'
-            { $config.TestFolderOf('bare', 'Widget.Base') } | Should -Throw "*languages?'bare'?: no naming entry*"
-            { $config.TestFolderOf('widget', '.internal') } |
+            $config.TestFolderOf('widget', $null, 'Widget.Base.GadgetParts') | Should -BeExactly 'widget_base_gadget_parts'
+            $config.TestFolderOf('gadget', $null, 'Widget.Base.GadgetParts') | Should -BeExactly 'widgetbasegadgetparts'
+            { $config.TestFolderOf('plain', $null, 'Widget.Base') } | Should -Throw '*names no folder case*'
+            { $config.TestFolderOf('bare', $null, 'Widget.Base') } | Should -Throw "*languages?'bare'?: no naming entry*"
+            { $config.TestFolderOf('widget', $null, '.internal') } |
                 Should -Throw "*module '.internal' is not a pascal-dotted name*"
+        }
+
+        It 'names a module''s test folder from its folder, dropping the namespace of the track that prefixes it, and keeps any other name whole' -Tag 'DDR-TRACK-MODULENAMESPACE' {
+            $config = & $script:make ([ordered]@{ languages = [ordered]@{
+                        widget = [ordered]@{ extensions = @('.wdg'); no_formatter = 'never'; naming = [ordered]@{ folder = 'kebab' } }
+                    }
+                })
+            $variants = [Catzc.Base.Variants.VariantsConfig]::new([ordered]@{
+                    tracks = [ordered]@{
+                        widgets = [ordered]@{ members = @('widgets'); type = 'modules'; namespace = 'Widget' }
+                        gadgets = [ordered]@{ members = @('gadgets'); type = 'modules' }
+                    }
+                })
+            $config.TestFolderOf('widget', $variants, 'Widget.Base.Repository') | Should -BeExactly 'base-repository'
+            $config.TestFolderOf('widget', $variants, 'Gadget.Spring') | Should -BeExactly 'gadget-spring'
         }
 
         It 'judges a defined function or type by its kind''s cases and its round trip, past exempt files and folders' -Tag 'ADR-AUTO-IDIOM-ROUNDTRIP' {
@@ -161,6 +176,7 @@ Describe 'LanguagesConfig naming and layout' -Tag 'L0' {
             $config.IsLaidOut(@('bash')) | Should -BeTrue
             $config.IsLaidOut(@('javascript')) | Should -BeTrue
             $config.IsLaidOut(@('markdown', 'asset')) | Should -BeFalse
+            # The extension and run-list folders are laid out but neither live nor shipped, like the shared tests folder.
             $config.LayoutFolders() | Should -Be @('private', 'extension', 'types', 'configs', 'accosted', 'assets',
                 'tests')
             $config.ShippedFolders() | Should -Be @('types', 'configs', 'assets')

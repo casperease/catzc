@@ -24,6 +24,7 @@ Describe 'Get-BicepParameterModel' -Tag 'L0', 'logic' {
         $script:outputFolder = (Get-BicepTemplate sample).output_folder
         $script:mainJson = Join-Path $script:outputFolder 'main.json'
 
+        # Written, not copied: a copy keeps the source timestamp, and a build reads as current only when main.json is as new as the template inputs.
         function Write-FixtureBuild {
             [System.IO.Directory]::CreateDirectory($script:outputFolder) | Out-Null
             [System.IO.File]::WriteAllText($script:mainJson, $script:fixtureJson)

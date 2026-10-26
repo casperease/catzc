@@ -8,7 +8,9 @@ catzc:
 
 # cspell:ignore alweutstsmodst
 Describe 'sample-with-module (reusable module consumer)' -Tag 'L0', 'logic' {
+    # Mocks and the config-cache reset run once; only the build output folder is wiped per test, since the tests write into it.
     BeforeAll {
+        # Redirects build output to this file's TestDrive, so it never shares out/template/<name> with another build test file.
         Mock Get-BicepTemplatesOutputRoot { Join-Path $TestDrive 'out' } -ModuleName Catzc.Azure.Templates
         $script:outputRoot = Join-Path $TestDrive 'out/template/sample-with-module'
 
@@ -37,6 +39,7 @@ Describe 'sample-with-module (reusable module consumer)' -Tag 'L0', 'logic' {
         }
         InModuleScope Catzc.Base.Config { $script:configCache = $null }
 
+        # Warms the discovery and config caches once, so no It pays the cold derive inside its own timing.
         Get-BicepTemplate sample-with-module | Out-Null
     }
 

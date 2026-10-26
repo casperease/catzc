@@ -15,6 +15,7 @@ function Assert-ToolVersion {
 
     # Cached for session lifetime. Reset by reimporting (.\importer.ps1).
     if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:toolVersionCache')) {
+        # The probe reads the entry through GetValue, so a never-set cache does not throw under strict mode.
         $script:toolVersionCache = @{}
     }
 
@@ -31,6 +32,7 @@ function Assert-ToolVersion {
         throw "$Tool is not functional — '$($config.version_command)' did not return a valid version. Run Install-$command."
     }
 
+    # The locked version is always accepted; a devbox, outside a pipeline, also takes the devbox_version lever, while a pipeline enforces the lock alone.
     $accepted = [System.Collections.Generic.List[string]]::new()
     $accepted.Add($config.version)
     if ($config.devbox_version -and -not (Test-IsRunningInPipeline)) {

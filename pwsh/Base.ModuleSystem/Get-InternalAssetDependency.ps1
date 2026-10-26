@@ -24,6 +24,7 @@ function Get-InternalAssetDependency {
     # The repository-relative labels name the modules folder by the root's own name, never a literal.
     $modulesFolder = [System.IO.Path]::GetFileName($ModulesRoot.TrimEnd('\', '/'))
 
+    # The helper's own parameter metadata decides how each argument binds, so a prefix, an alias or a common parameter reads right.
     $helperName = 'Get-CatzcModuleRoot'
     $helperParameters = (Get-Command $helperName -CommandType Function).Parameters
     $resolveParameter = {

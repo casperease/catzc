@@ -43,6 +43,7 @@ function Get-AdoYamlInventory {
         }
     }
 
+    # ADO paths are repo-root relative but scan paths are scan-root relative, so a subfolder scan shows a prefix mismatch.
     $pathPrefix = ''
     foreach ($file in $files) {
         foreach ($definition in $definitions) {

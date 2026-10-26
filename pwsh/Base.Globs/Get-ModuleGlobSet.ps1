@@ -76,9 +76,10 @@ function Get-ModuleGlobSet {
             # Each language's test folder is named from the module's folder, in that language's folder case.
             if ($compiled.Name -eq 'tests') {
                 $folder = [System.IO.Path]::GetFileName($module.root)
-                $include += "$goRoot/tests/$($languages.TestFolderOf('go', $folder))/**"
-                $include += "$pythonRoot/tests/$($languages.TestFolderOf('python', $folder))/**"
-                $include += "$bashRoot/tests/$($languages.TestFolderOf('bash', $folder))/**"
+                # The module's folder carries no namespace to drop, so no tracks are passed.
+                $include += "$goRoot/tests/$($languages.TestFolderOf('go', $null, $folder))/**"
+                $include += "$pythonRoot/tests/$($languages.TestFolderOf('python', $null, $folder))/**"
+                $include += "$bashRoot/tests/$($languages.TestFolderOf('bash', $null, $folder))/**"
             }
             $set = [Catzc.Base.Globs.GlobSet]::new(
                 $aspectKebab, "Derived module aspect - $($module.root) [$($compiled.Name)]", 'module',

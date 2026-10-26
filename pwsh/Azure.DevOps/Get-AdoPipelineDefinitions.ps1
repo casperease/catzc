@@ -28,6 +28,7 @@ function Get-AdoPipelineDefinitions {
 
     $count = ($definitions | Measure-Object).Count
 
+    # includeAllProperties should return process.yamlFilename inline, but older ADO Server versions ignore it.
     $hasProcessDetails = $definitions | Where-Object { $_.process.yamlFilename } | Select-Object -First 1
     if (-not $hasProcessDetails -and $count -gt 0) {
         Write-Message "Found $count pipeline definitions, fetching details individually"

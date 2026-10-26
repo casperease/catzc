@@ -34,6 +34,7 @@ function Get-BicepConfigSubscriptionCandidates {
         if ([string]::IsNullOrEmpty($token)) {
             continue
         }
+        # The raw token matches first (by key); only a non-match resolves through the catalogue (by shortcode), keeping the read lazy.
         if ($token -ceq $Customer -or (Get-AzureCustomer $token).key -ceq $Customer) {
             $ret.Add($subscriptionName)
         }

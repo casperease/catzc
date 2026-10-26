@@ -14,9 +14,11 @@ function Uninstall-Java {
         [switch] $Force
     )
 
+    # Best-effort only under -Remove, where a failure is logged and the escalation proceeds; otherwise it propagates.
     try {
         Uninstall-Tool -Tool 'java' -Version $Version
 
+        # The removal is announced only when there was something to remove.
         if ($env:JAVA_HOME) {
             $env:JAVA_HOME = $null
             Write-Message 'Session: removed JAVA_HOME'

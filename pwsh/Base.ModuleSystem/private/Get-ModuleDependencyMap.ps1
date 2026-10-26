@@ -21,6 +21,7 @@ function Get-ModuleDependencyMap {
         $groupMembers[$group] = @($groups[$group].Keys)
     }
 
+    # The loop variable is never $module: it would share the typed [string[]] $Module parameter's variable and be coerced.
     $dependencyMap = @{}
     foreach ($moduleName in $Module) {
         $dependencyMap[$moduleName] = [System.Collections.Generic.HashSet[string]]::new()
@@ -38,6 +39,7 @@ function Get-ModuleDependencyMap {
         }
     }
 
+    # A group target adds every member of that group, except when the module is itself a member of it.
     foreach ($moduleName in $allowed.Keys) {
         if (-not $dependencyMap.ContainsKey($moduleName)) {
             continue

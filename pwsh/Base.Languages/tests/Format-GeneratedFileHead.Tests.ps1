@@ -31,6 +31,7 @@ Describe 'Format-GeneratedFileHead' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-COMPO
     }
 
     BeforeEach {
+        # A fixture for whether git tracks the path, which the index read answers in production.
         $script:tracked = $true
         Mock Get-GitTrackedPath -ModuleName Catzc.Base.Languages { if ($script:tracked) {
                 $Path
@@ -86,6 +87,7 @@ Describe 'Format-GeneratedFileHead' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-COMPO
     It 'hashes the body only, which the head itself and the line endings never move' {
         $arguments = @{ Path = 'docs/gen.wdg' } + $script:arguments
         $once = Format-GeneratedFileHead -Text "body`n" @arguments
+        # A hash that opens with a digit is quoted, or YAML would not read it back as the same string.
         $once | Should -BeLike "*#     with_body_sha: `"9e2ec912af5d`"`n*"
         Format-GeneratedFileHead -Text $once @arguments | Should -BeLike '*with_body_sha: "9e2ec912af5d"*'
         Format-GeneratedFileHead -Text "body`r`n" @arguments | Should -BeLike '*with_body_sha: "9e2ec912af5d"*'

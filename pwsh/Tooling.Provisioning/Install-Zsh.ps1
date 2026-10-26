@@ -13,6 +13,7 @@ function Install-Zsh {
     )
 
     if ($IsLinux) {
+        # The shared apt installer checks presence before asking for root, so a box at the pinned version installs nothing.
         Install-Tool -Tool zsh -Force:$Force
         Assert-Tool zsh
         return
@@ -49,6 +50,7 @@ function Install-Zsh {
         throw "zsh at '$($layout.Executable)' is not the pinned package '$package' (installed: $($installed ?? 'not by Install-Zsh')). Run Install-Zsh -Force to replace it."
     }
 
+    # Past the early return a manifest is a -Force replacement or a cut-short install; its files go first so the new manifest lists them all.
     if ($installed) {
         Write-Verbose "Removing the installed zsh ($installed) before installing $package"
         Uninstall-Zsh
@@ -69,6 +71,7 @@ function Install-Zsh {
         # Relative names from the work folder, so the command line carries no drive-letter path.
         Invoke-Executable "`"$tar`" -xf `"$package`" -C package" -WorkingDirectory $work -Silent
 
+        # An MSYS2 package keeps its metadata files at the archive root and its payload under etc/ and usr/; only the payload ships.
         foreach ($metadata in [System.IO.Directory]::GetFiles($staging)) {
             [System.IO.File]::Delete($metadata)
         }

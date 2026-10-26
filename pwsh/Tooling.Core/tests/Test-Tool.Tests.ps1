@@ -7,7 +7,9 @@ catzc:
 #>
 
 Describe 'Test-Tool' -Tag 'L0', 'logic' {
+    # Every collaborator is mocked in module scope, so the assertions bind to the version-check logic (pin, devbox lever, pipeline), never the shipped tools.yml.
     BeforeAll {
+        # Get-ToolConfig returns the typed record, so the mocks do too: every key the entry omits reads as its default, as in production.
         function New-TestToolConfig {
             param([string] $Command, [string] $Version, [string] $DevboxVersion)
             $entry = @{ version = $Version; command = $Command; version_command = "$Command --version"; version_pattern = '(?<ver>.+)' }

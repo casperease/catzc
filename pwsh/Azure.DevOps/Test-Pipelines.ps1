@@ -62,18 +62,21 @@ function Test-Pipelines {
             continue
         }
 
+        # Executable YAML under pipelines/ is .yaml, never .yml.
         if ($extension -eq '.yml') {
             $violations.Add((New-Violation -RelativePath $rel -Rule 'FDR-CD-PIPELINE-EXECUTABLEYAMLEXTENSION' -Message "Executable pipeline YAML must be '.yaml', not '.yml'."))
             continue
         }
 
         if ($segments.Count -eq 0) {
+            # At the root of pipelines/ a file is an entry point, so its name starts with a valid type token.
             $prefix = ($name -split '-', 2)[0]
             if ($prefix -notin $typePrefixes) {
                 $violations.Add((New-Violation -RelativePath $rel -Rule 'FDR-CD-PIPELINE-TYPEPREFIX' -Message "Pipeline name must start with a type ($($typePrefixes -join ' | ')); got '$prefix'."))
             }
         }
         else {
+            # In a subfolder the name must be a per-kind template folder from the closed set, one level deep.
             if ($topFolder -notin $templateFolders) {
                 $violations.Add((New-Violation -RelativePath $rel -Rule 'ADR-ADO-NAME-TEMPLATEKINDFOLDER' -Message "Template folder '$topFolder' is not one of: $($templateFolders -join ' | ')."))
             }
@@ -81,9 +84,11 @@ function Test-Pipelines {
                 $violations.Add((New-Violation -RelativePath $rel -Rule 'ADR-ADO-NAME-FLATPIPELINESFOLDER' -Message "Templates live directly in '$topFolder/', not nested deeper ('$dir/')."))
             }
             else {
+                # A structural pipeline has no business inside a template folder.
                 if ($record.Classification -eq 'Pipeline') {
                     $violations.Add((New-Violation -RelativePath $rel -Rule 'ADR-ADO-NAME-FLATPIPELINESFOLDER' -Message "A pipeline (trigger/pr/… shape) must live flat in $place/, not inside '$topFolder/'."))
                 }
+                # A fragment's structural kind must match its folder; extends/ is exempt.
                 elseif ($folderKind.ContainsKey($topFolder) -and $record.TemplateType -and
                     "$($record.TemplateType)" -ne $folderKind[$topFolder]) {
                     $violations.Add((New-Violation -RelativePath $rel -Rule 'ADR-ADO-NAME-TEMPLATEKINDFOLDER' -Message "A '$($record.TemplateType)' template does not belong in '$topFolder/' (expected $($folderKind[$topFolder]))."))
@@ -91,6 +96,7 @@ function Test-Pipelines {
             }
         }
 
+        # Template references are absolute (/pipelines/<kind>/<name>.yaml), never relative.
         foreach ($ref in (Get-PipelineTemplateReference -Path $record.Path)) {
             if (-not $ref.StartsWith($templatePrefix, [System.StringComparison]::Ordinal)) {
                 $violations.Add((New-Violation -RelativePath $rel -Rule 'ADR-ADO-NAME-ABSOLUTETEMPLATEPATH' -Message "Template reference '$ref' must be an absolute path starting with $templatePrefix."))

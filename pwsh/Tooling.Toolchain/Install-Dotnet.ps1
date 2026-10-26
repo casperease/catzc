@@ -28,6 +28,7 @@ function Install-Dotnet {
         Join-Path $installDir 'dotnet'
     }
 
+    # Even a skipped download still converges the environment below, so a re-run repairs a lost PATH or DOTNET_ROOT persistence.
     $needsInstall = $true
     if (Test-Path $ourBinary) {
         # Check the specific binary (not PATH) — can't use Get-ToolVersion here
@@ -51,6 +52,7 @@ function Install-Dotnet {
         }
     }
     elseif (Test-Command $config.command) {
+        # A foreign dotnet at the right version is not ours to manage; a wrong one does not block, since ours installs side by side.
         $installed = Get-ToolVersion -Config $config
         if ($installed -and $installed.StartsWith($Version)) {
             Write-Message "Dotnet $Version is already installed"
@@ -59,6 +61,7 @@ function Install-Dotnet {
     }
 
     if ($needsInstall) {
+        # The install script is the vendored copy shipped in this module's assets.
         if ($IsWindows) {
             $scriptPath = Get-CatzcModuleRoot 'assets/scripts/dotnet-install.ps1'
             Assert-PathExist $scriptPath
@@ -73,6 +76,7 @@ function Install-Dotnet {
         }
     }
 
+    # This PATH is how non-repo processes such as an editor's language server find dotnet; each change is announced only when it changes something.
     if ($env:DOTNET_ROOT -ne $installDir) {
         $env:DOTNET_ROOT = $installDir
         Write-Message "Session: DOTNET_ROOT='$installDir'"

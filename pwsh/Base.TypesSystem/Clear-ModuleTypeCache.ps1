@@ -27,9 +27,11 @@ function Clear-ModuleTypeCache {
         }
     }
 
+    # The builds are a per-machine cache in the shadow root; git keeps only the manifest.
     Import-InternalModule Types
     $compiledDir = Get-TypesShadowRoot
 
+    # In a pipeline nothing is deleted: CI makes no source-control changes, and the shadow root is a devbox cache.
     if (Test-IsRunningInPipeline) {
         if (-not $Silent) {
             Write-Message 'type cache: skipped — running in a pipeline (CI makes no source-control changes).'
@@ -105,6 +107,7 @@ function Clear-ModuleTypeCache {
         }
     }
 
+    # A build another process still holds is that process's own until it exits: a fact to name, never an error or a wait.
     if ($failed.Count -and -not $Silent) {
         # Best-effort: the holder only enriches the message, so a lookup failure leaves the delete error alone.
         $details = foreach ($entry in $failed) {

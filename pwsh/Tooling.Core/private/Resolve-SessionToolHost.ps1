@@ -89,5 +89,6 @@ function Resolve-SessionToolHost {
         Write-Message "Session PATH: $($Config.command) now runs from '$chosen'"
     }
 
+    # -First 1, since the command may still resolve in several PATH dirs and an array's .Source would break the [string] -Location binding downstream.
     Get-Command $Config.command -CommandType Application -ErrorAction Ignore | Select-Object -First 1
 }

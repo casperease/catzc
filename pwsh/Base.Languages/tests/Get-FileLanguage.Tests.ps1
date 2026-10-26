@@ -71,6 +71,7 @@ Describe 'Get-FileLanguage — the real repository' -Tag 'L1', 'integrity', 'sou
         $script:tracked = @(Get-GitTrackedPath '.')
         $script:tracks = @(Get-Track)
 
+        # '**/' is any folder prefix, '**' anything, and '*' and '?' stay inside one segment.
         $script:globRegex = {
             param([string] $Glob)
             $builder = [System.Text.StringBuilder]::new('^')
@@ -104,6 +105,7 @@ Describe 'Get-FileLanguage — the real repository' -Tag 'L1', 'integrity', 'sou
             $builder.ToString()
         }
 
+        # The unit is the track root's first folder; a file directly under the root is its own unit.
         $script:isLive = {
             param([string] $File, $Track)
             if ($Track.type -eq 'vendored-code') {
@@ -128,6 +130,7 @@ Describe 'Get-FileLanguage — the real repository' -Tag 'L1', 'integrity', 'sou
     }
 
     It 'places every folder git tracks a file in inside a track, except out/' {
+        # A track's places may sit below its root folder, so every folder is checked, not just the root ones.
         $folders = @($script:tracked | Where-Object { $_.Contains('/') } | ForEach-Object { $_.Substring(0,
                     $_.LastIndexOf('/')) } |
                 Sort-Object -Unique | Where-Object { $_.Split('/')[0] -ne 'out' })

@@ -37,6 +37,7 @@ function Uninstall-Zsh {
     }
     [System.IO.File]::Delete($layout.Manifest)
 
+    # Reverse ordinal order removes children before parents; a folder still holding foreign files stays.
     $directories = [System.Collections.Generic.List[string]]::new([string[]] @($manifest.Directories))
     $directories.Sort([System.StringComparer]::Ordinal)
     $directories.Reverse()

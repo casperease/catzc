@@ -15,6 +15,7 @@ function Get-ToolInstallOrder {
     # Build adjacency: tool → list of tools it depends on
     $dependencies = @{}
     foreach ($name in $allTools.Keys) {
+        # depends_on is optional, so it is indexed: a dotted read of an absent key throws under strict mode.
         $dependency = $allTools[$name]['depends_on']
         $dependencies[$name] = [string[]] @(
             if ($dependency) {
@@ -27,6 +28,7 @@ function Get-ToolInstallOrder {
     $order = [System.Collections.Generic.List[string]]::new()
     $noDependencies = [System.Collections.Generic.Queue[string]]::new()
 
+    # The edge runs from dependency to dependent, so a tool's in-degree is its own depends_on count and a tool with none starts ready.
     $inDegree = @{}
     foreach ($name in $dependencies.Keys) {
         $inDegree[$name] = $dependencies[$name].Count

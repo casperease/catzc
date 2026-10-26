@@ -63,6 +63,7 @@ Describe 'Get-ModuleProfile — real profiles.yml' -Tag 'L2', 'integrity' {
         $names.Count | Should -BeGreaterThan 0
         $allowed = @((Get-CatzcModule -EngineTrack).name) + @('.internal', '.compiled', '.vendor') |
             Select-Object -Unique
+        # One Should over the violating set: a Should per profile and module pays the per-assertion cost times the registry.
         $violations = foreach ($name in $names) {
             $resolved = Get-ModuleProfile -Name $name
             if (@($resolved).Count -eq 0) {

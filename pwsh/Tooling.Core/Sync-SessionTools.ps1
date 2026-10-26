@@ -12,6 +12,7 @@ function Sync-SessionTools {
         [switch] $Silent
     )
 
+    # In CI the pipeline owns tool provisioning, and PATH nudging there is noise that could shadow image-provided tools.
     if (Test-IsRunningInPipeline) {
         return
     }
@@ -23,6 +24,7 @@ function Sync-SessionTools {
     $foreignNames = [System.Collections.Generic.List[string]]::new()
     $foreignLocations = [System.Collections.Generic.List[string]]::new()
 
+    # The key is the tool registry plus the PATH as it stood, so the same key re-applies the PATH the pass left without a probe.
     $memoPath = Join-Path (Get-OutputRoot) 'cache/session-tools.json'
     $keyText = ($allTools | ConvertTo-Json -Depth 8 -Compress) + "`n" + $env:PATH + "`n" + $env:PATHEXT
     $key = [System.Convert]::ToHexString([System.Security.Cryptography.SHA256]::HashData([System.Text.Encoding]::UTF8.GetBytes($keyText))).ToLowerInvariant()
@@ -35,6 +37,7 @@ function Sync-SessionTools {
             Write-Verbose "Ignoring the unreadable session-tools memo '$memoPath': $($_.Exception.Message)"
         }
     }
+    # The memo answers to the PATH the pass started from and the one it left, so a second pass in the same session hits too.
     if ($memo -is [hashtable] -and @($memo['keys']) -ccontains $key -and $memo['path'] -is [string]) {
         if ($env:PATH -cne $memo['path']) {
             $env:PATH = $memo['path']
@@ -51,6 +54,7 @@ function Sync-SessionTools {
         $config = Get-ToolConfig -Tool $toolName
 
         $cmd = Get-Command $config.command -CommandType Application -ErrorAction Ignore | Select-Object -First 1
+        # With several installs the best one runs (session_host_probes); the others stay in place.
         $hosted = Resolve-SessionToolHost -Config $config
         if ($hosted) {
             $cmd = $hosted
@@ -70,6 +74,7 @@ function Sync-SessionTools {
     }
 
     if (-not $Silent -and $foreignNames.Count -gt 0) {
+        # The names are the advisory; the locations are diagnostic detail that surfaces only under this call's -Verbose.
         Write-Message "Session tools not managed by the installer layer: $($foreignNames -join '; ')"
         Write-Message "Locations: $($foreignLocations -join '; ')" -Verbose:($VerbosePreference -eq 'Continue')
     }

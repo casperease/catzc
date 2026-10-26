@@ -8,7 +8,9 @@ catzc:
 
 # cspell:ignore sampl deriv
 Describe 'Get-BicepTemplates' -Tag 'L0', 'logic' {
+    # Mocks and the cache reset run once; the cache-behavior tests invalidate bicepTemplatesCache inside their own It.
     BeforeAll {
+        # Discovery reads the test fixtures, never the shipped templates, and identity resolves from the fixture config, never the shipped azure.yml.
         Mock Get-BicepTemplatesRoot {
             Join-Path (Get-CatzcModuleRoot -Module Catzc.Azure.Templates) 'tests/assets/templates'
         } -ModuleName Catzc.Azure.Templates
@@ -23,6 +25,7 @@ Describe 'Get-BicepTemplates' -Tag 'L0', 'logic' {
     It 'discovers from the test fixtures (tests/assets/templates), not the shipped templates' {
         $sample = (Get-BicepTemplates) | Where-Object { $_.name -eq 'sample' } | Select-Object -First 1
         $sample.folder | Should -BeLike '*tests*assets*templates*sample*'
+        # Matched against the actual shipped root, not an 'infrastructure*templates' substring, since the fixture path legitimately contains both words.
         $shippedRoot = Join-Path (Get-RepositoryRoot) 'infrastructure/templates'
         $sample.folder | Should -Not -BeLike "$shippedRoot*"
     }

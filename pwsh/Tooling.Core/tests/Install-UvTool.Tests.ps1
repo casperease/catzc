@@ -8,6 +8,7 @@ catzc:
 
 Describe 'Install-UvTool' -Tag 'L0', 'logic' {
     BeforeAll {
+        # Get-ToolConfig returns the typed record, so the mocks do too: an optional key the entry omits reads as its default, as in production.
         function New-TestToolConfig {
             param([hashtable] $Keys)
             $entry = @{ version = '2.87'; command = 'az'; version_command = 'az --version'; version_pattern = '(?<ver>.+)' }

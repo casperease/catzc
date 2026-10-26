@@ -8,6 +8,7 @@ catzc:
 
 # cspell:ignore weutstsidxst
 Describe 'sample-indexed (indexed slots)' -Tag 'L0', 'logic' {
+    # Mocks and the config-cache reset run once; only the build output folder is wiped per test, since the tests write into it.
     BeforeAll {
         $script:outputRoot = Join-Path (Get-RepositoryRoot) 'out/template/sample-indexed'
 
@@ -26,6 +27,7 @@ Describe 'sample-indexed (indexed slots)' -Tag 'L0', 'logic' {
         Mock Assert-Tool { } -ModuleName Catzc.Azure.Templates
         # The Bicep CLI guard lives in Catzc.Azure.Cli; mock the boundary so its internal az probe never runs.
         Mock Assert-AzCliBicep { } -ModuleName Catzc.Azure.Templates
+        # Devbox path: under CI the real detector returns true and the deployment-name test then needs ADO-only BUILD_BUILDID, which GitHub Actions lacks.
         Mock Test-IsRunningInPipeline { $false } -ModuleName Catzc.Azure.Templates
         Mock Get-BicepTemplatesRoot {
             Join-Path (Get-CatzcModuleRoot -Module Catzc.Azure.Templates) 'tests/assets/templates'
@@ -37,6 +39,7 @@ Describe 'sample-indexed (indexed slots)' -Tag 'L0', 'logic' {
         }
         InModuleScope Catzc.Base.Config { $script:configCache = $null }
 
+        # Warms the discovery and config caches once; BeforeEach wipes only the build output, not the caches.
         Get-BicepTemplate sample-indexed | Out-Null
     }
 
@@ -64,6 +67,7 @@ Describe 'sample-indexed (indexed slots)' -Tag 'L0', 'logic' {
     }
 
     It "a slot-less call selects the env's base slot, which this template does not have" {
+        # Without -Slot, alpha resolves to config 'alpha', which this indexed-only template lacks (it has alpha-001 and alpha-002).
         { Get-BicepTemplateConfiguration sample-indexed alpha } | Should -Throw "*no config 'alpha.yml'*"
     }
 

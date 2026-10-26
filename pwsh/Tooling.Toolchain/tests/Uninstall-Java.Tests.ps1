@@ -8,6 +8,7 @@ catzc:
 
 Describe 'Uninstall-Java' -Tag 'L1', 'logic' {
     BeforeAll {
+        # The managed body clears the session JAVA_HOME, so it is restored to leave the process as found.
         $script:savedProcessJavaHome = $env:JAVA_HOME
     }
     AfterAll {

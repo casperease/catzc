@@ -7,6 +7,7 @@ catzc:
 #>
 
 Describe 'Get-ToolsStatus' -Tag 'L0', 'logic' {
+    # A tool with candidate paths takes its location and version from the probe record and never starts a version job.
     BeforeAll {
         $script:tools = [Catzc.Base.Execution.ToolsConfig]::new([ordered]@{
                 widget = @{
@@ -14,6 +15,7 @@ Describe 'Get-ToolsStatus' -Tag 'L0', 'logic' {
                     version_pattern = 'version (?<ver>[\d.]+)'; unix_probes = @('/opt/widget'); windows_probes = @('C:\widget.exe')
                 }
             })
+        # An MSYS2 package for Windows, an apt package for Linux and none for macOS, so each platform takes exactly one manager.
         $script:twoMechanismTools = [Catzc.Base.Execution.ToolsConfig]::new([ordered]@{
                 gadget = @{
                     version = '5'; command = 'gadget'; version_command = 'gadget --version'; version_pattern = 'gadget (?<ver>[\d.]+)'

@@ -8,6 +8,7 @@ catzc:
 
 Describe 'Build-Bicep (walking skeleton — real az)' -Tag 'L2', 'logic', 'greedy' {
     BeforeAll {
+        # Redirects build output to this file's TestDrive, so the real-az builds never share out/template/<name> with the L0 sample files.
         Mock Get-BicepTemplatesOutputRoot { Join-Path $TestDrive 'out' } -ModuleName Catzc.Azure.Templates
         Mock Get-BicepTemplatesRoot {
             Join-Path (Get-CatzcModuleRoot -Module Catzc.Azure.Templates) 'tests/assets/templates'
@@ -42,6 +43,7 @@ Describe 'Build-Bicep (walking skeleton — real az)' -Tag 'L2', 'logic', 'greed
             Remove-Item $script:outputRoot -Recurse -Force
         }
         Build-Bicep sample-customer | Out-Null
+        # main.json proves the real compiler ran and --outdir was wired; the rendered parameter files are pure PowerShell, asserted at L0.
         Join-Path $script:outputRoot 'main.json' | Should -Exist
     }
 

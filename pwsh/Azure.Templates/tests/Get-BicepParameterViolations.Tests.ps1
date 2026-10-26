@@ -29,6 +29,7 @@ Describe 'Get-BicepParameterViolations' -Tag 'L0', 'logic' {
         # The subscription id is built at runtime: a literal empty guid is denied in tracked text (Test-ManagedGuids).
         $script:vaultId = "/subscriptions/$([guid]::Empty)/resourceGroups/widget-rg/providers/Microsoft.KeyVault/vaults/widget-kv"
 
+        # A parameters file that satisfies the fixture model; each test starts from it and changes one thing.
         function New-ConformingParameterSet {
             [ordered]@{
                 widgetName   = @{ value = 'widget-one' }

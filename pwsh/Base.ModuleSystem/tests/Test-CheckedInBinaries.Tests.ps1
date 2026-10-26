@@ -98,6 +98,7 @@ Describe 'Checked-in binaries are stored as binary, not text' -Tag 'L2', 'integr
         $script:repoRoot = Get-RepositoryRoot
         $script:skip = $null
 
+        # L2 drives the real git CLI, so it skips itself without git or outside a work tree, as from an exported tarball.
         if (-not (Get-Command git -ErrorAction Ignore)) {
             $script:skip = 'tool_git_missing'
         }

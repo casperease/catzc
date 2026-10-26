@@ -17,6 +17,7 @@ Describe 'Assert-AdoDeploymentHistory' -Tag 'L0', 'logic' {
     }
 
     BeforeEach {
+        # Run 10 built commit aaa and 11 built bbb; runs 20 and 21 are DEPLOY runs naming a CI run, and 30 is a CD run.
         $script:runs = @{
             '10' = [pscustomobject]@{ sourceVersion = 'aaa' }
             '11' = [pscustomobject]@{ sourceVersion = 'bbb' }

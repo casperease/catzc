@@ -28,6 +28,7 @@ function Install-Postman {
 
         $setupPath = Join-Path ([IO.Path]::GetTempPath()) 'Postman-win64-setup.exe'
 
+        # Postman publishes no checksum and is a sanctioned latest base tool, so this download is TLS-only.
         Write-Message 'Downloading Postman from dl.pstmn.io'
         Invoke-WebRequest -Uri 'https://dl.pstmn.io/download/latest/win64' -OutFile $setupPath -UseBasicParsing
         Assert-PathExist $setupPath
@@ -71,6 +72,7 @@ function Install-Postman {
 
         $tarPath = Join-Path ([IO.Path]::GetTempPath()) 'postman-linux-x64.tar.gz'
 
+        # Postman publishes no checksum and is a sanctioned latest base tool, so this download is TLS-only.
         Write-Message 'Downloading Postman from dl.pstmn.io'
         Invoke-WebRequest -Uri 'https://dl.pstmn.io/download/latest/linux_64' -OutFile $tarPath -UseBasicParsing
         Assert-PathExist $tarPath

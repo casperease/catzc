@@ -8,6 +8,7 @@ catzc:
 
 Describe 'Invoke-BashTest' -Tag 'L0', 'logic' {
     BeforeAll {
+        # Isolated through the seams: a fixture root with a stub bats, a mocked engine probe and a mocked bash.
         $script:root = Join-Path $TestDrive 'repo'
         $script:bashRoot = Join-Path $script:root 'bash'
         $null = New-Item -ItemType Directory -Path (Join-Path $script:bashRoot 'tests/widget') -Force

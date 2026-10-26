@@ -7,6 +7,7 @@ catzc:
 #>
 
 Describe 'Install-Git' -Tag 'L0', 'logic' {
+    # The live download earns its confidence from an L2 or manual run; L0 covers only the idempotent skip and platform delegation.
     BeforeEach {
         Mock Invoke-RestMethod { } -ModuleName Catzc.Tooling.Provisioning
         Mock Save-VerifiedDownload { } -ModuleName Catzc.Tooling.Provisioning

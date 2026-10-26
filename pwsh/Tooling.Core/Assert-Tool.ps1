@@ -17,6 +17,7 @@ function Assert-Tool {
     $config = Get-ToolConfig -Tool $Tool
     $command = Get-ToolCommandSuffix -Tool $Tool
 
+    # A tool with declared candidate paths is located by the probe, never by its bare name on PATH, which for bash on Windows can be the WSL launcher.
     if ($config.HasProbes()) {
         $probe = Resolve-ToolExecutable -Tool $Tool
         $remedy = if (Get-Command "Install-$command" -ErrorAction Ignore) {

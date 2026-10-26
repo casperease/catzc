@@ -13,6 +13,7 @@ function Sync-GeneratedFile {
         [switch] $DryRun
     )
 
+    # The generated paths the janitor owns, each with the commit subject naming it; the modules folder comes from its resolver.
     $modulesFolder = Get-CatzcModulesFolder
     $compiled = "$modulesFolder/.compiled"
     $generatedPaths = [ordered]@{
@@ -52,8 +53,10 @@ function Sync-GeneratedFile {
         return
     }
 
+    # What actually changed decides the commit's pathspec and message, so the stamp commit names exactly what this sync did.
     $changed = @($generatedPaths.Keys | Where-Object { Test-GitPathChanged $_ })
 
+    # .compiled holds exactly the current build; a superseded DLL a session still holds would otherwise be committed beside it.
     if ($changed -contains $compiled) {
         $surplus = @(Clear-ModuleTypeCache -DryRun -Silent)
         if ($surplus.Count) {
@@ -63,6 +66,7 @@ function Sync-GeneratedFile {
         }
     }
 
+    # The build is named for the working-tree sources' hash, so while any differs from HEAD it is held back, never committed.
     if ($changed -contains $compiled -and (Test-GitPathChanged "$modulesFolder/*/types/*.cs")) {
         Write-Message "Skipped ${compiled}: type sources (types/*.cs) differ from HEAD, so this build is not the one HEAD produces. Commit the type sources, then re-import." -ForegroundColor Yellow
         $changed = @($changed | Where-Object { $_ -ne $compiled })

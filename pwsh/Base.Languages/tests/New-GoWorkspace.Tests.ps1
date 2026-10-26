@@ -8,6 +8,7 @@ catzc:
 
 Describe 'New-GoWorkspace' -Tag 'L0', 'logic' {
     BeforeAll {
+        # Isolated through the seams: a fixture config, a fixture go pin and a fixture root.
         $script:root = Join-Path $TestDrive 'repo'
         foreach ($file in 'go/tests/catzcwidget/widget_test.go', 'go/tests/catzcgadget/inner/gadget_test.go',
             'go/tests/.hidden/hidden_test.go') {

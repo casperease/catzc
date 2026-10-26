@@ -8,6 +8,7 @@ catzc:
 
 Describe 'Get-BicepCustomerClassViolations' -Tag 'L0', 'logic' {
     BeforeAll {
+        # Runs the private function in the module scope; a config's customer is its subfolder name, empty for a root config.
         $script:check = {
             param($customer, $customerDeployment)
             & (Get-Module Catzc.Azure.Templates) {

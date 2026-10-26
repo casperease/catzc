@@ -4,6 +4,7 @@
 #   header: "generated"
 # ---
 
+# The vocabulary of what ships and how it advances: deployable units, their release candidates, and the environments' occupants.
 concepts:
   deployable-unit:
     key: deployable_unit

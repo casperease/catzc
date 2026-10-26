@@ -34,9 +34,11 @@ function Uninstall-Chocolatey {
     # Remove Chocolatey directory
     Write-Verbose "Removing Chocolatey directory: $chocoDir"
     Remove-Item $chocoDir -Recurse -Force
+    # The seam announces each removal and does nothing in a scope where the variable is unset.
     Set-PermanentEnvironmentVariable ChocolateyInstall $null -Scope Machine
     Set-PermanentEnvironmentVariable ChocolateyInstall $null -Scope User
 
+    # PATH goes through the PATH seams, which announce the change.
     foreach ($scope in 'Machine', 'User') {
         $path = Get-EnvironmentPath -Scope $scope
         if (-not $path) {

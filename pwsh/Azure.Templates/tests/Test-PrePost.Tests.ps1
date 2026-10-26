@@ -6,6 +6,7 @@ catzc:
 ---
 #>
 
+# Production never loads the PrePost starter, so these tests import it explicitly to prove it is a working no-op baseline.
 BeforeAll {
     Import-Module (Join-Path $PSScriptRoot '../assets/PrePost.psm1') -Force
 }
@@ -25,6 +26,7 @@ Describe 'Invoke-BicepPrepareParameterSet (starter no-op)' -Tag 'L0', 'logic' {
     }
 
     It 'requires BuildInvocation, TemplateDescriptor, and ConfigurationDescriptor' {
+        # Null the parameter under test, so mandatory binding throws; omitting it would hang an interactive host on a prompt.
         { Invoke-BicepPrepareParameterSet -BuildInvocation $null -TemplateDescriptor @{} -ConfigurationDescriptor @{} } | Should -Throw
         { Invoke-BicepPrepareParameterSet -BuildInvocation @{} -TemplateDescriptor $null -ConfigurationDescriptor @{} } | Should -Throw
         { Invoke-BicepPrepareParameterSet -BuildInvocation @{} -TemplateDescriptor @{} -ConfigurationDescriptor $null } | Should -Throw
@@ -63,6 +65,7 @@ Describe 'Invoke-BicepPostDeploy (starter no-op)' -Tag 'L0', 'logic' {
     }
 
     It 'requires DeploymentOutput' {
+        # DeploymentOutput is passed as an explicit null so mandatory binding throws instead of prompting for it.
         {
             Invoke-BicepPostDeploy `
                 -DeployInvocation ([ordered]@{}) `

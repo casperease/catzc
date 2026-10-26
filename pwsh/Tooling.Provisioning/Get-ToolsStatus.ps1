@@ -23,10 +23,12 @@ function Get-ToolsStatus {
         $wingetCache = $wingetResult.Full
     }
 
+    # Probes spawn subprocesses so they run concurrently; a tool with candidate paths is located by the probe, since its bare name on PATH may be another program (WSL's bash).
     $versionJobs = @{}
     foreach ($toolName in $allTools.Keys) {
         $config = $allTools[$toolName]
         if (-not $config.HasProbes() -and (Test-Command $config.command)) {
+            # The tokenizer honours quoted arguments, so the probe runs by call operator, not Invoke-Expression.
             $tokens = [System.Management.Automation.PSParser]::Tokenize($config.version_command, [ref]$null) |
                 Where-Object { $_.Type -notin 'NewLine', 'StatementSeparator', 'Comment' }
             $versionExe = $tokens[0].Content
@@ -63,12 +65,14 @@ function Get-ToolsStatus {
     $ret = foreach ($toolName in $allTools.Keys) {
         $config = $allTools[$toolName]
 
+        # Off Windows a windows-only tool is skipped, not reported Missing.
         if ($config.windows_only -and -not $IsWindows) {
             continue
         }
 
         $command = Get-ToolCommandSuffix -Tool $toolName
 
+        # The branch order mirrors Test-ExpectedPackageManager; an MSYS2 package is Windows-only and elsewhere falls to the platform entry.
         $expectedManager = if ($config.system_provided) {
             'system'
         }
@@ -153,6 +157,7 @@ function Get-ToolsStatus {
         $action = $null
 
         if ($versionOk -and $managedByExpected) {
+            # Scope does not matter: a tool our manager installed machine-wide is still ours to control.
             $status = 'OK'
             $action = 'None'
         }
@@ -173,6 +178,7 @@ function Get-ToolsStatus {
             $action = "Run Install-$command -Force"
         }
         else {
+            # Installing via the expected manager would succeed, but the old binary on Machine PATH would still shadow it.
             $status = 'WrongVersion'
             $hasRemove = [bool](Get-Command "Remove-$command" -ErrorAction SilentlyContinue)
             $action = if ($hasRemove) {
@@ -187,6 +193,7 @@ function Get-ToolsStatus {
             $manager, $scope, $action)
     }
 
+    # Chocolatey is no tools.yml tool but an unwanted package manager; it is reported only when found.
     if ($IsWindows -and (Test-Command choco)) {
         $ret += [Catzc.Tooling.Provisioning.ToolStatus]::new('Chocolatey', $null, 'present', 'Unwanted',
             (Get-Command choco).Source, $null, $null, 'Run Uninstall-Chocolatey')

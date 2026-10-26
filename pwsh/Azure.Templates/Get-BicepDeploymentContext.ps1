@@ -61,6 +61,7 @@ function Get-BicepDeploymentContext {
         return $null
     }
 
+    # The az session decides the target (in a pipeline, what the service connection logged into); the assert guard only pins it, never retargets.
     $sessionSubscription = Get-AzCliSessionSubscription
     if (-not [string]::IsNullOrEmpty($SubscriptionIdAssertIs)) {
         Assert-IsGuid $SubscriptionIdAssertIs
@@ -71,6 +72,7 @@ function Get-BicepDeploymentContext {
     $subscription = $sessionSubscription.name
     $customer = $sessionSubscription.customer
 
+    # The addressed slot is (session customer, environment, slot); the session subscription must serve the environment.
     $wantSlot = [string]$Slot
     $slotMatch = @($templateDescriptor.slots | Where-Object { $_.environment -eq $Environment -and $_.slot -eq $wantSlot -and $_.customer -eq $customer })
     if ($slotMatch.Count -eq 0) {
@@ -131,6 +133,7 @@ function Get-BicepDeploymentContext {
         $templateDescriptor.deployment_target,
         $resourceGroup)   # $null for Subscription-target — the plan exposes resource_group = $null
 
+    # Checked as absolute paths, stored repo-relative where possible; an external pipeline artifact area has no relative form and stays absolute.
     $prepostArtifact = $null
     if ($null -ne $templateDescriptor.prepost_module) {
         $prepostInBuild = Join-Path $buildFolder (Split-Path $templateDescriptor.prepost_module -Leaf)

@@ -15,10 +15,12 @@ function Remove-AzCli {
 
     $config = Get-ToolConfig -Tool 'az_cli'
 
+    # A tool our manager owns is refused and redirected to Uninstall-AzCli.
     if (Test-ExpectedPackageManager -Config $config) {
         throw 'Azure CLI is managed by the tooling system. Use Uninstall-AzCli instead.'
     }
 
+    # An off-config install is evicted by the mechanism that placed it, and elevation is scoped to that mechanism, so no admin assert here.
     if ($IsLinux -or $IsMacOS) {
         if (-not $Force) {
             Write-Message 'Would evict an off-config Azure CLI (native package / uv-Python pip / stray binary). Run with -Force to execute.'

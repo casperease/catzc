@@ -18,6 +18,7 @@ function Install-Tool {
     $config = Get-ToolConfig -Tool $Tool
     $command = Get-ToolCommandSuffix -Tool $Tool
 
+    # Failing here, before -Force routes into Uninstall-Tool, makes the message name Install-$command rather than a stray winget detail.
     if ($config.npm_package) {
         throw "$Tool is an npm-managed tool. Install-Tool manages winget/brew/apt packages only — use Install-$command (npm) instead."
     }
@@ -52,6 +53,7 @@ function Install-Tool {
         Assert-Command winget
         $packageId = $config.winget_id -f $Version
 
+        # --force, because winget may see a Store stub or stale alias and report already installed with no real installation.
         if ($config.winget_scope -eq 'user') {
             Invoke-Executable "winget install --id $packageId --scope user --accept-source-agreements --accept-package-agreements --silent --force"
         }
@@ -68,6 +70,7 @@ function Install-Tool {
     }
     elseif ($IsLinux) {
         Assert-NotNullOrWhitespace $config.apt_package -ErrorText "$Tool has no AptPackage — use Install-$command directly"
+        # apt-get needs root; the uv-family tools never route here, since uv is bootstrapped from Astral's standalone release.
         Assert-IsAdministrator -ErrorText "Install-$command on Linux requires root (apt-get). Run as root or install $Tool manually."
         Assert-Command apt-get
         $package = $config.apt_package -f $Version
@@ -80,9 +83,11 @@ function Install-Tool {
 
     Sync-SessionPath
 
+    # A winget portable package links through WinGet\Links, which needs Developer Mode, so on a plain account the command lands unreachable under Packages.
     if ($IsWindows -and -not (Get-Command $config.command -CommandType Application -ErrorAction Ignore)) {
         $pkgRoot = Join-Path $env:LOCALAPPDATA 'Microsoft\WinGet\Packages'
         if (Test-Path $pkgRoot) {
+            # Installed commands sit at most three levels below the packages folder, and -PruneVendor $false lets the walk enter every package folder.
             $exe = Get-ChildPath $pkgRoot -File -Filter "$($config.command).exe" -Depth 5 -Exclude @() -PruneVendor $false |
                 Select-Object -First 1
             $exeDirectory = if ($exe) {

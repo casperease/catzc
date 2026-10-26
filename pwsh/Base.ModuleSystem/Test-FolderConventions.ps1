@@ -43,6 +43,7 @@ function Test-FolderConventions {
             }
         }
 
+        # A module-root .ps1 is a public function named by its file, tracked for the duplicate-export check; a test there is misplaced.
         foreach ($path in [Catzc.Base.Folders.PathSet]::new($walk).AddPattern($moduleDirectory, '*.ps1', 1).ToArray()) {
             $name = [System.IO.Path]::GetFileName($path)
             if ($name -like '*.Tests.ps1') {
@@ -66,6 +67,7 @@ function Test-FolderConventions {
         if ([System.IO.Directory]::Exists($configsDirectory)) {
             foreach ($entry in (Get-ChildPath $configsDirectory -Depth 1)) {
                 $name = [System.IO.Path]::GetFileName($entry)
+                # A dot-prefixed entry is tooling (a schema sidecar, an editor dotfile), not module config.
                 if ($name -match '^\.') {
                     continue
                 }

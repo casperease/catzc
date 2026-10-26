@@ -7,6 +7,7 @@ catzc:
 #>
 
 Describe 'Test-ToolLocationManaged' -Tag 'L0', 'logic' {
+    # Set-ItResult is legal only per test, so the non-Windows skip lives here, not in BeforeAll, which would fail the whole Describe off-Windows.
     BeforeEach {
         if (-not $IsWindows) {
             Set-ItResult -Skipped -Because 'windows_only_paths'
@@ -23,6 +24,7 @@ Describe 'Test-ToolLocationManaged' -Tag 'L0', 'logic' {
 
     It 'treats a winget user-scope installer package (%LOCALAPPDATA%\Programs, e.g. OpenJDK) as managed' {
         InModuleScope Catzc.Tooling.Core {
+            # winget installs OpenJDK user-scope under Programs, not WinGet\Packages, so this root must count or a winget JDK reads as foreign.
             $config = Get-ToolConfig -Tool 'java'
             $loc = Join-Path $env:LOCALAPPDATA 'Programs\Microsoft\jdk-17.0.10.7-hotspot\bin\java.exe'
             Test-ToolLocationManaged -Config $config -Location $loc | Should -BeTrue
@@ -31,6 +33,7 @@ Describe 'Test-ToolLocationManaged' -Tag 'L0', 'logic' {
 
     It 'treats a standalone uv under ~/.local/bin as managed' {
         InModuleScope Catzc.Tooling.Core {
+            # Install-Uv treats a uv outside the winget root as a managed, self-updating install, so the janitor agrees rather than flagging it foreign.
             $config = Get-ToolConfig -Tool 'uv'
             $loc = Join-Path $env:USERPROFILE '.local\bin\uv.exe'
             Test-ToolLocationManaged -Config $config -Location $loc | Should -BeTrue

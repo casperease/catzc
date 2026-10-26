@@ -12,6 +12,7 @@ Describe 'New-AdoPullRequest' -Tag 'L0', 'logic' {
             @{ organization = 'https://dev.azure.com/org'; project = 'proj' }
         } -ModuleName Catzc.Azure.DevOps
 
+        # Match pullrequests first, since the PR URL also contains git/repositories/<id>/.
         Mock Invoke-AdoRestMethod {
             if ($Uri -like '*pullrequests*') {
                 return [PSCustomObject]@{ pullRequestId = 42 }

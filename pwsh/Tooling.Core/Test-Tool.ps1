@@ -42,6 +42,7 @@ function Test-Tool {
         if ($installed.StartsWith($config.version)) {
             return $true
         }
+        # The devbox lever mirrors Assert-ToolVersion, so a levered off-pin tool reads as usable for quality gates too, not just runtime asserts.
         if ($config.devbox_version -and -not (Test-IsRunningInPipeline)) {
             return $installed.StartsWith($config.devbox_version)
         }

@@ -11,6 +11,7 @@ Describe 'Set-BicepTemplateConfiguration' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:fixtureTemplates = Join-Path (Get-CatzcModuleRoot -Module Catzc.Azure.Templates) 'tests/assets/templates'
 
+        # Get-BicepTemplatesRoot reads the current $script:templatesRoot at call time, so each context just repoints that variable.
         Mock Get-BicepTemplatesRoot { $script:templatesRoot } -ModuleName Catzc.Azure.Templates
         # The templates root is a copy outside the checkout, so the generated head reads no file as tracked.
         Import-InternalModule TestKit
@@ -25,9 +26,11 @@ Describe 'Set-BicepTemplateConfiguration' -Tag 'L0', 'logic' {
     Context 'validation and read-only' {
         # None of these write to the tree, so one copy + one discovery is shared across all of them.
         BeforeAll {
+            # A fresh unique root is never re-deleted mid-run, so it cannot race a scanner holding a just-copied file open; Copy-Directory is ~15x faster than Copy-Item.
             $script:templatesRoot = Join-Path $TestDrive ([Guid]::NewGuid())
             Copy-Directory $script:fixtureTemplates $script:templatesRoot
 
+            # Cleared once, then warmed here: the -Template ValidateScript runs discovery at binding, which is ~6x inflated under Mock interception.
             InModuleScope Catzc.Base.Config { $script:configCache = $null }
             InModuleScope Catzc.Azure.Templates { $script:bicepTemplatesCache = $null }
             Get-BicepTemplates | Out-Null
@@ -67,10 +70,12 @@ Describe 'Set-BicepTemplateConfiguration' -Tag 'L0', 'logic' {
     }
 
     Context 'writes' {
+        # Each test writes a distinct config path, so one shared copy and one discovery keep the cache warm without interference or order dependence.
         BeforeAll {
             $script:templatesRoot = Join-Path $TestDrive ([Guid]::NewGuid())
             Copy-Directory $script:fixtureTemplates $script:templatesRoot
 
+            # Cleared once, then warmed here; writes never invalidate the session-scoped templates cache, so one warm-up serves every test.
             InModuleScope Catzc.Base.Config { $script:configCache = $null }
             InModuleScope Catzc.Azure.Templates { $script:bicepTemplatesCache = $null }
             Get-BicepTemplates | Out-Null

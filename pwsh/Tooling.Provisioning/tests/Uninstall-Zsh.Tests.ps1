@@ -91,6 +91,7 @@ Describe 'Uninstall-Zsh' -Tag 'L0', 'logic' {
         }
     }
 
+    # The shared apt uninstaller owns the presence check and the root assert, so the mock removes nothing.
     Context 'on Linux' {
         BeforeEach {
             Mock Uninstall-Tool -ModuleName Catzc.Tooling.Provisioning { }

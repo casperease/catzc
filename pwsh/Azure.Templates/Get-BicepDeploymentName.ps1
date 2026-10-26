@@ -35,6 +35,7 @@ function Get-BicepDeploymentName {
     $commit = 'xxxxxxx'
 
     if (Test-IsRunningInPipeline) {
+        # Read only the run-id and commit data variables; the detection variables belong to Test-IsRunningInPipeline alone.
         if ($env:GITHUB_RUN_ID) {
             Assert-NotNullOrWhitespace $env:GITHUB_SHA
             $buildId = $env:GITHUB_RUN_ID

@@ -7,6 +7,7 @@ catzc:
 #>
 
 Describe 'Get-BicepTemplateCustomers' -Tag 'L0', 'logic' {
+    # Read-only resolver: mocks and the cache reset run once, since the mocked config is identical every test and none mutates it.
     BeforeAll {
         Mock Get-BicepTemplatesRoot {
             Join-Path (Get-CatzcModuleRoot -Module Catzc.Azure.Templates) 'tests/assets/templates'
@@ -42,6 +43,7 @@ Describe 'Get-BicepTemplateCustomers' -Tag 'L0', 'logic' {
 }
 
 Describe 'Customer ArgumentCompleter wiring' -Tag 'L0', 'logic' {
+    # Read-only resolver: mocks and the cache reset run once, since the mocked config is identical every test and none mutates it.
     BeforeAll {
         Mock Get-BicepTemplatesRoot {
             Join-Path (Get-CatzcModuleRoot -Module Catzc.Azure.Templates) 'tests/assets/templates'
@@ -54,6 +56,7 @@ Describe 'Customer ArgumentCompleter wiring' -Tag 'L0', 'logic' {
         InModuleScope Catzc.Base.Config { $script:configCache = $null }
     }
 
+    # Only the naming and file-addressing paths take -Customer (the deploy paths are session-determined); each exposes the completer.
     $commands = @(
         'Get-BicepResourceName'
         'Get-BicepTemplateConfiguration'

@@ -13,6 +13,7 @@ Describe 'BclConfig' -Tag 'L0' {
             $script:config = Get-Config -Config bcl
             $script:root = Get-RepositoryRoot
             $script:tracked = @(Get-GitTrackedPath '.' | Where-Object { $_ -match '\.csproj$' -and $_ -notmatch '(^|/)\.vendor/' })
+            # The one solution is rendered and gitignored, so its text is the generator's.
             $script:solutions = @{ 'catzc.sln' = New-Solution }
         }
 

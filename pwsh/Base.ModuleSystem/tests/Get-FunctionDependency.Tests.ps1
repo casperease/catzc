@@ -12,6 +12,7 @@ Describe 'Get-FunctionDependency' -Tag 'L0', 'integrity', 'source-only' {
     }
 
     It 'CrossModule is true when CallerModule != TargetModule' {
+        # One Should over the violating set: a Should per edge costs about 0.5 ms times about 1000 edges, past the L0 limit.
         $violations = foreach ($dependency in $dependencies) {
             if ($dependency.CrossModule -and $dependency.CallerModule -eq $dependency.TargetModule) {
                 $dependency

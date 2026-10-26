@@ -9,6 +9,7 @@ catzc:
 # cspell:ignore nproperties
 Describe 'Deploy-AzureResourceGroup' -Tag 'L0', 'logic' {
     BeforeAll {
+        # The caller passes subscription and region in; the function never re-resolves them, so the group lands in the deployment's subscription.
         $script:subId = '50a0ed00-de00-50b0-0000-000000000000'
     }
 

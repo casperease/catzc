@@ -70,6 +70,7 @@ Describe 'Get-AzureResourceTypeSet' -Tag 'L0', 'logic' {
     }
 
     It 'only long-pattern types may use a 5-char abbreviation' {
+        # The restricted storage and vm patterns cannot spare a fifth character, so this derives from the pattern, not a flag.
         $types = Get-AzureResourceTypeSet
         foreach ($k in $types.Keys) {
             if ($types[$k].pattern -ne 'long') {

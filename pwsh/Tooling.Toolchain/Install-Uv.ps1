@@ -15,6 +15,7 @@ function Install-Uv {
 
     $config = Get-ToolConfig -Tool 'uv'
 
+    # Linux bootstraps Astral's standalone release into ~/.local/bin, since there is no uv apt package; winget and brew go through Install-Tool.
     if (-not (Test-Command 'uv')) {
         if ($IsLinux) {
             Install-UvStandalone -Version $Version
@@ -31,7 +32,9 @@ function Install-Uv {
         return
     }
 
+    # Re-assert the configured install rather than `uv self update`, which refuses a tarball, winget or brew install.
     if ($IsLinux) {
+        # Re-downloading the pinned build also replaces an off-config uv, such as a leftover pip one, in the tool-bin.
         Install-UvStandalone -Version $Version
         return
     }
@@ -42,6 +45,7 @@ function Install-Uv {
         return
     }
 
+    # A uv on PATH outside the winget root came from Astral's script and carries a self-update receipt; a winget one upgrades through winget.
     $wingetRoot = Join-Path $env:LOCALAPPDATA 'Microsoft\WinGet\Packages'
     if ((Get-Command uv).Source.StartsWith($wingetRoot, [System.StringComparison]::OrdinalIgnoreCase)) {
         Install-Tool -Tool 'uv' -Version $Version -Force:$Force

@@ -37,11 +37,13 @@ function Install-UvVenvTool {
         Join-Path $venvDir 'bin'
     }
 
+    # --seed adds pip, setuptools and wheel so packages that import pkg_resources can load.
     Invoke-Uv "venv `"$venvDir`" --python $pythonVersion --clear --seed"
     Invoke-Uv "pip install --python `"$venvDir`" $($config.uv_venv)==$Version.*" -Prerelease:$config.uv_allow_prerelease
 
     Sync-SessionPath
 
+    # Appended, not prepended: the venv Scripts dir holds its own python.exe, which would shadow the uv-managed python.
     if (($env:PATH -split [System.IO.Path]::PathSeparator) -notcontains $scriptsDir) {
         $env:PATH = "$env:PATH$([System.IO.Path]::PathSeparator)$scriptsDir"
         Write-Message "Session PATH: appended '$scriptsDir'"

@@ -8,6 +8,7 @@ catzc:
 
 Describe 'Save-VerifiedDownload' -Tag 'L0', 'logic' {
 
+    # The mocked download writes exactly the three bytes of 'abc' with no newline, whose SHA-256 is the NIST test vector.
     It 'returns the path when the SHA-256 matches (tolerates a sha256: prefix)' {
         InModuleScope Catzc.Tooling.Core {
             Mock Invoke-WebRequest { Set-Content -Path $OutFile -Value 'abc' -NoNewline }

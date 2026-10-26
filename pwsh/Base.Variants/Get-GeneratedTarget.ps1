@@ -11,6 +11,7 @@ function Get-GeneratedTarget {
     [OutputType([Catzc.Base.Variants.GeneratedTarget])]
     param()
 
+    # Each opted-in root config is Build-RootConfig's target, copied or rendered.
     foreach ($file in (Get-Config -Config rootconfig).files.Where({ $_.optIn })) {
         [Catzc.Base.Variants.GeneratedTarget]::new($file.target,
             ($file.generator ? $file.generator : 'Build-RootConfig'))
@@ -25,6 +26,7 @@ function Get-GeneratedTarget {
         [Catzc.Base.Variants.GeneratedTarget]::new("$($mapping.folder)/README.md", 'Build-Readme')
     }
 
+    # The comment pages are Format-Code's output, one tree per page root.
     $pageRoots = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
     foreach ($page in (Get-Config -Config comment-pages).pages) {
         $root = $page.docs -replace '\{[^}]+\}', '*'

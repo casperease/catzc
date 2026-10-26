@@ -31,6 +31,7 @@ function Get-BicepTemplateSlots {
         return @()
     }
 
+    # Slots are ordered dictionaries, so the script-block filter is needed (Where-Object -EQ does not bind their keys); empty means the root slots.
     $wantCustomer = [string]$Customer
     @($templateDescriptor.slots |
             Where-Object { -not [string]::IsNullOrEmpty($_.slot) } |

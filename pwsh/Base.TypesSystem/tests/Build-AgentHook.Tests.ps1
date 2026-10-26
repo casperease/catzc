@@ -373,6 +373,7 @@ Describe 'Build-AgentHook — no package feed reaches a hook build' -Tag 'L2', '
         }
     }
 
+    # NuGet reads its config from the project's folder up, so each hook folder must see the generated root config's cleared feeds alone.
     It 'lists no package feed from the hook folder <name>' -ForEach @(
         foreach ($folder in [System.IO.Directory]::GetDirectories((Join-Path (Get-RepositoryRoot) '.claude/hooks'))) {
             if ([System.IO.Directory]::GetFiles($folder, '*.csproj').Count -gt 0) {

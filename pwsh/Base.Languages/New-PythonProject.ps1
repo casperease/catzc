@@ -19,6 +19,7 @@ function New-PythonProject {
     )
 
     $config = Get-Config -Config python
+    # The one Python version: the python tool's tools.yml pin, read by address.
     $pythonVersion = "$(Get-ConfigValue -Address 'global.tools.python.version')"
     if ($pythonVersion -cnotmatch '^3\.(0|[1-9][0-9]*)$') {
         throw "tools.yml python.version '$pythonVersion' is not a Python minor version for requires-python (3.N, e.g. '3.13')."
@@ -91,6 +92,7 @@ function New-PythonProject {
     $workspace.Add("pythonVersion = `"$pythonVersion`"")
     $workspace.Add("typeCheckingMode = `"$($config.type_checking)`"")
 
+    # A member's name is its full name; the folder drops the python track's namespace.
     $track = Get-Track -Path $pythonRoot
     $fullName = { param([string] $Folder) if ($null -ne $track) {
             $track.FullNameOf($Folder)
@@ -105,6 +107,7 @@ function New-PythonProject {
         else {
             $Folder
         } }
+    # The holder's folders, each by its folder, then the modules, each by its name in kebab case.
     $members = @(foreach ($folder in $folders) {
             [pscustomobject]@{ Name = (& $fullName $folder); Folder = "tests/$folder"; Package = $null }
         }) +

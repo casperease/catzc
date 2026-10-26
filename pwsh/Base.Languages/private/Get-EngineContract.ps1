@@ -35,6 +35,7 @@ function Get-EngineContract {
         Resolve-EngineExecutable -Engine $model.Name
     }
 
+    # pwsh loads the PowerShell entry; any other engine its own importer, forward-slashed for a POSIX shell on Windows.
     $entry = if ($model.Name -eq [Catzc.Base.Engines.ExecutionEngines]::Pwsh.Name) {
         $powerShellEntry
     }

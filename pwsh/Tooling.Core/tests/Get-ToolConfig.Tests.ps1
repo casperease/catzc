@@ -7,11 +7,13 @@ catzc:
 #>
 
 Describe 'Get-ToolConfig' -Tag 'L0' {
+    # Discovery-time, so -ForEach data exists before tests run; tools.yml is found through its registered owner, which is another module.
     $script:configPath = (Get-Config -Config tools -ListOwners).Path
     $script:allTools = Get-Content $configPath -Raw | ConvertFrom-Yaml
     $script:toolEntries = foreach ($key in $script:allTools.Keys) {
         @{ Tool = $key; Config = $script:allTools[$key] }
     }
+    # OS-provided tools and tools another installer installs alongside (installed_by) have no Install-/Uninstall- pair of their own.
     $script:installableEntries = $script:toolEntries | Where-Object { -not $_.Config['system_provided'] -and -not $_.Config['installed_by'] }
     $script:depEntries = foreach ($entry in $script:toolEntries) {
         if ($entry.Config['depends_on']) {
@@ -86,6 +88,7 @@ Describe 'Get-ToolConfig' -Tag 'L0' {
         }
 
         It 'caches across calls' {
+            # The mock returns one stable typed ToolsConfig, so both calls see one ToolConfig through Get-Config's same-reference caching.
             $script:toolsFixture = [Catzc.Base.Execution.ToolsConfig]::new(@{ faketool = @{
                         version         = '1.0'
                         command         = 'faketool'

@@ -13,6 +13,7 @@ function Uninstall-AzCli {
         [switch] $Force
     )
 
+    # Catching only under -Remove is the escalation's one purpose, not catch-and-continue; otherwise the failure propagates.
     try {
         Uninstall-UvVenvTool -Tool 'az_cli'
     }

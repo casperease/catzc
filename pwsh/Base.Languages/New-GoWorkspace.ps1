@@ -14,6 +14,7 @@ function New-GoWorkspace {
     )
 
     $config = Get-Config -Config go
+    # The go tool's tools.yml pin, read by address; a major.minor pin is a valid go directive.
     $goVersion = "$(Get-ConfigValue -Address 'global.tools.go.version')"
     if ($goVersion -cnotmatch '^1\.(0|[1-9][0-9]*)(\.(0|[1-9][0-9]*))?$') {
         throw "tools.yml go.version '$goVersion' is not a Go language version for the go directive (1.N or 1.N.P, e.g. '1.27')."
@@ -45,6 +46,7 @@ function New-GoWorkspace {
     }
     $folders.Sort([System.StringComparer]::Ordinal)
 
+    # One Go module per module folder of the track that holds Go code.
     $modules = [System.Collections.Generic.List[string]]::new()
     $goRoot = Join-Path $repositoryRoot $goRelative
     if (Test-Path -LiteralPath $goRoot -PathType Container) {
@@ -62,6 +64,7 @@ function New-GoWorkspace {
     }
     $modules.Sort([System.StringComparer]::Ordinal)
 
+    # The holder's folders under tests/, then the modules, each with its module path under module_root.
     $members = @(foreach ($folder in $folders) {
             [pscustomobject]@{ Folder = "$testsRelative/$folder"; Path = "$($config.module_root)/tests/$folder" }
         }) +

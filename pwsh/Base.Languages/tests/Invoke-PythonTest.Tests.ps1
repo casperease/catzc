@@ -8,6 +8,7 @@ catzc:
 
 Describe 'Invoke-PythonTest' -Tag 'L0', 'logic' {
     BeforeAll {
+        # Isolated through the seams: a fixture root, a managed uv at a path with a space, and a canned JUnit report.
         $script:root = Join-Path $TestDrive 'repo'
         $script:pythonRoot = Join-Path $script:root 'python'
         $script:folder = Join-Path $script:pythonRoot 'tests/widget'

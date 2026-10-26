@@ -9,6 +9,7 @@ catzc:
 # cspell:ignore deriv abcdef gadge gadgetry getry gadg
 Describe 'BicepShortName' -Tag 'L0', 'logic' {
 
+    # The type is loaded by the Import-CSharpTypes pre-pass and referenced here by its full name.
     Context 'Derive (folder name -> short_name)' {
         It 'takes the first 5 [a-z0-9] characters' {
             [Catzc.Azure.Templates.BicepShortName]::Derive('my-core') | Should -Be 'mycor'

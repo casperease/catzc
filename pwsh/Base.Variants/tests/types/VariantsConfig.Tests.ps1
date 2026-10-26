@@ -8,6 +8,7 @@ catzc:
 
 Describe 'VariantsConfig' -Tag 'L0' {
     BeforeAll {
+        # tracks is required, so a fixture about another key gets one neutral track.
         $script:make = {
             param([System.Collections.IDictionary] $raw)
             $full = [ordered]@{}

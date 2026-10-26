@@ -4,7 +4,9 @@
 #   header: "generated"
 # ---
 
+# The allowed module dependency graph, checked against the real code by Test-ModuleDependency.
 groups:
+  # The Catzc.Base cluster, foundation-first: each member lists the members it may depend on.
   Base:
     Catzc.Base.Asserts: []
     Catzc.Base.Engines: []
@@ -315,6 +317,7 @@ groups:
         Catzc.Base.Variants,
       ]
 
+  # Every Azure module but the Catzc.Azure root; cross-group edges are declared per member.
   AzureExt:
     Catzc.Azure.Cli: []
     Catzc.Azure.DevOps: [Catzc.Azure.Cli]
@@ -322,6 +325,7 @@ groups:
     Catzc.Azure.Firewall: [Catzc.Azure.Cli]
     Catzc.Azure.Templates: [Catzc.Azure.Cli]
 
+  # The non-vendored external CLI tools, with Core as the foundation of every install and version check.
   Tooling:
     Catzc.Tooling.Core: []
     Catzc.Tooling.Environment: []

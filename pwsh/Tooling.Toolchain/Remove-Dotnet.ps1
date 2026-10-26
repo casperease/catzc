@@ -17,6 +17,7 @@ function Remove-Dotnet {
 
     $config = Get-ToolConfig -Tool 'dotnet'
 
+    # An off-config install is evicted by its own mechanism with no admin assert here; the one on PATH is the off-config one, so the managed check asks about PATH.
     if ($IsLinux -or $IsMacOS) {
         if (Test-ExpectedPackageManager -Config $config) {
             throw 'Dotnet is managed by the tooling system. Use Uninstall-Dotnet instead.'
@@ -39,10 +40,12 @@ function Remove-Dotnet {
 
     $resolvedDir = [System.IO.Path]::GetFullPath($InstallDir).TrimEnd('\', '/')
 
+    # A managed install is Uninstall-Dotnet's, judged for this folder.
     if (Test-ExpectedPackageManager -Config $config -Path $resolvedDir) {
         throw "'$resolvedDir' is the managed .NET install. Use Uninstall-Dotnet instead."
     }
 
+    # Registered products are removed by their mechanism, checked before the folder so registrations whose files are gone are still reported.
     $machineFolders = @('C:\Program Files\dotnet', 'C:\Program Files (x86)\dotnet')
     # Assigned in the branch: an `if` expression would turn an empty @() into $null.
     [object[]] $products = @()
@@ -50,6 +53,7 @@ function Remove-Dotnet {
         $products = @(Get-RegisteredInstallProduct '^Microsoft (ASP\.NET Core|\.NET|Windows Desktop Runtime)\b|^Microsoft\.NET\.')
     }
     if ($products.Count -gt 0) {
+        # Removing a bundle's MSI product directly reports success and removes nothing, so only bundles are named while any is registered.
         [object[]] $bundles = @($products | Where-Object Kind -EQ 'Bundle')
         $toRemove = $bundles.Count -gt 0 ? $bundles : $products
         Write-Message ("'$resolvedDir' is owned by $($products.Count) Windows-registered .NET product(s); deleting it by hand would " +
@@ -75,6 +79,7 @@ function Remove-Dotnet {
         return
     }
 
+    # Elevation is asserted for this step only: deleting the folder and the machine PATH entry.
     Assert-IsAdministrator
     Write-Message "Removing: $resolvedDir"
     $pathChanged = Remove-SystemInstallation -InstallDir $resolvedDir -EnvironmentVariables 'DOTNET_ROOT'

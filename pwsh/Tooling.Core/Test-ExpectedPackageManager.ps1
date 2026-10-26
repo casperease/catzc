@@ -23,6 +23,7 @@ function Test-ExpectedPackageManager {
         return [bool](Test-Command $Config.command)
     }
 
+    # Script-installed and, on Windows, MSYS2-package tools install into the tree Get-ScriptInstallDir names, and are managed only inside it.
     if ($Config.script_install -or ($Config.msys2_url -and $IsWindows)) {
         $expectedDir = [System.IO.Path]::GetFullPath((Get-ScriptInstallDir -Config $Config)).TrimEnd('\', '/')
         if ($Path) {
@@ -59,6 +60,7 @@ function Test-ExpectedPackageManager {
         return (Get-Command $Config.command).Source -like "$venvRoot*"
     }
 
+    # --managed-python excludes system pythons uv merely discovered (a winget 3.11, say), which would false-positive.
     if ($Config.uv_python) {
         if (-not (Test-Command uv)) {
             return $false
@@ -67,13 +69,16 @@ function Test-ExpectedPackageManager {
         return [bool]$result.Output
     }
 
+    # A platform package manager counts only when the tool declares the field for the current platform.
     if ($IsWindows -and $Config.winget_id) {
         if (-not (Test-Command winget)) {
             return $false
         }
 
+        # The search prefix matches any version of the tool: a format-string id like Python.Python.{0} becomes Python.Python.
         $baseId = ($Config.winget_id -replace '\{0\}', '').TrimEnd('.', '-')
 
+        # An id without a placeholder may carry a hardcoded version as its last segment (Microsoft.DotNet.SDK.10), stripped so any installed version is found.
         if ($Config.winget_id -notmatch '\{0\}') {
             $parts = $baseId -split '\.'
             if ($parts.Count -gt 2 -and $parts[-1] -match '^\d') {
@@ -108,6 +113,7 @@ function Test-ExpectedPackageManager {
         return $result.ExitCode -eq 0
     }
 
+    # uv pip show --system inspects the global interpreter without importing the package.
     if ($Config.pip_package) {
         if (-not (Test-Command uv)) {
             return $false
@@ -125,6 +131,7 @@ function Test-ExpectedPackageManager {
         return $result.ExitCode -eq 0
     }
 
+    # An MSYS2-package tool off Windows with no manager declared (zsh on macOS) is the system's, so managed means simply present.
     if ($Config.msys2_url) {
         return [bool](Test-Command $Config.command)
     }

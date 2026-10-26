@@ -42,6 +42,7 @@ function Install-UvTool {
         }
     }
 
+    # Pre-release resolution, for packages that pin a beta dependency, is threaded through Invoke-Uv's -Prerelease switch.
     Invoke-Uv "tool install $($config.uv_tool)==$Version.*" -Prerelease:$config.uv_allow_prerelease
 
     Sync-SessionPath

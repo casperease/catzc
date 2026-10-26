@@ -6,6 +6,7 @@ catzc:
 ---
 #>
 
+# A strict stand-in for `bicep build-params` that reads only the forms BicepParamWriter writes and throws on any other line; the real compile is proven at L2.
 $script:readBicepParams = {
     param([string[]] $Lines, [string] $Source)
 
@@ -137,6 +138,7 @@ $script:readBicepParams = {
     $parameters
 }
 
+# A literal-only stand-in for `bicep build-params` that throws on any other line, never guessing; the real compile is proven at L2.
 $script:compileBicepParams = {
     param([string] $Arguments)
     if ($Arguments -notmatch 'bicep build-params --file "(?<file>[^"]+)" --outfile "(?<out>[^"]+)"') {

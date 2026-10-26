@@ -12,6 +12,7 @@ Describe 'Get-ModuleDependency' -Tag 'integrity', 'source-only' {
     }
 
     It 'CallCount is greater than zero for all edges' -Tag 'L0' {
+        # One Should over the violating set: a Should per edge pays Pester's per-assertion cost times the whole graph.
         $violations = @($edges | Where-Object { $_.CallCount -le 0 })
         $violations | Should -BeNullOrEmpty
     }

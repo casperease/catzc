@@ -29,6 +29,7 @@ function Install-Python {
         }
     }
 
+    # --default sits behind uv's preview flag, so it is opted into explicitly, or uv's experimental warning halts a run that stops on warnings.
     $reinstall = if ($Force) {
         ' --reinstall'
     }

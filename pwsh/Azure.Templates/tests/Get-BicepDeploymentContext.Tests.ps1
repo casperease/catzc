@@ -7,12 +7,15 @@ catzc:
 #>
 
 Describe 'Get-BicepDeploymentContext (devbox)' -Tag 'L0', 'logic' {
+    # Mocked and reset once: Get-Config caches on the resolved fixture path, so a per-test reset would re-derive it cold (~80 ms) every test.
     BeforeAll {
+        # Own output root through the seam, so a sibling worker building the sample fixture cannot race the shared out/template/sample.
         $script:outputRoot = Join-Path (Get-RepositoryRoot) 'out/test-isolation/deployment-context/template/sample'
         Mock Get-BicepTemplatesOutputRoot {
             Join-Path (Get-RepositoryRoot) 'out/test-isolation/deployment-context'
         } -ModuleName Catzc.Azure.Templates
 
+        # Stub artifacts are written with System.IO, not the file cmdlets (~0.1 ms against ~20 ms a call), without invoking az.
         Mock Build-Bicep {
             $outputFolder = (Get-BicepTemplate $Template).output_folder
             [System.IO.Directory]::CreateDirectory($outputFolder) | Out-Null
@@ -22,6 +25,7 @@ Describe 'Get-BicepDeploymentContext (devbox)' -Tag 'L0', 'logic' {
             $outputFolder
         } -ModuleName Catzc.Azure.Templates
 
+        # The session subscription stands in for the service connection or az account set, mocked at the whole module boundary.
         Mock Get-AzCliSessionSubscription {
             [ordered]@{ name = 'core_lower'; id = '50a0ed00-de00-50b0-0000-000000000000'; customer = ''
                 tenant = [ordered]@{ name = 'fixtenant'; id = 'fa0e0000-7e0a-0700-1d00-000000000000' }
@@ -39,6 +43,7 @@ Describe 'Get-BicepDeploymentContext (devbox)' -Tag 'L0', 'logic' {
         }
         InModuleScope Catzc.Base.Config { $script:configCache = $null }
 
+        # Warms the fixture config and template-discovery caches once, so the cold derive is not paid by whichever test runs first.
         Get-Config -Config azure | Out-Null
         Get-BicepTemplates | Out-Null
     }
@@ -135,6 +140,7 @@ Describe 'Get-BicepDeploymentContext (devbox)' -Tag 'L0', 'logic' {
 }
 
 Describe 'Get-BicepDeploymentContext (per-customer)' -Tag 'L0', 'logic' {
+    # Mocked and reset once; per test only the build folder is wiped.
     BeforeAll {
         # Own output root through the seam (see the devbox block's note).
         $script:sampleCustomerOutputRoot = Join-Path (Get-RepositoryRoot) 'out/test-isolation/deployment-context/template/sample-customer'
@@ -224,6 +230,7 @@ Describe 'Get-BicepDeploymentContext (per-customer)' -Tag 'L0', 'logic' {
 }
 
 Describe 'Get-BicepDeploymentContext (pipeline)' -Tag 'L0', 'logic' {
+    # None of these tests mutate the artifacts folder or the env vars, so the fixture folder and pipeline-env stand-ins are set up and torn down once.
     BeforeAll {
         Mock Test-IsRunningInPipeline { $true } -ModuleName Catzc.Azure.Templates
         Mock Get-AzCliSessionSubscription {
@@ -287,6 +294,7 @@ Describe 'Get-BicepDeploymentContext (pipeline)' -Tag 'L0', 'logic' {
 }
 
 Describe 'Get-BicepDeploymentContext (DoNotRun guard)' -Tag 'L0', 'logic' {
+    # Mocked and reset once; per test only the build folder is wiped, and one test builds into it.
     BeforeAll {
         # Own output root through the seam (see the devbox block's note).
         $script:outputRoot = Join-Path (Get-RepositoryRoot) 'out/test-isolation/deployment-context/template/sample'
@@ -310,6 +318,7 @@ Describe 'Get-BicepDeploymentContext (DoNotRun guard)' -Tag 'L0', 'logic' {
         }
         InModuleScope Catzc.Base.Config { $script:configCache = $null }
 
+        # Stands in for a DoNotRun template but keeps the rest of the real sample descriptor, so full resolution still works when overridden.
         Mock Get-BicepTemplate {
             $real = (Get-BicepTemplates) | Where-Object { $_.name -eq 'sample' } | Select-Object -First 1
             # BicepTemplate is immutable (get-only) — reconstruct the DoNotRun variant via the ctor.

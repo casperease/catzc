@@ -4,6 +4,7 @@
 #   header: "generated"
 # ---
 
+# A module's packages: the repository files it owns beyond its own folder, which Copy-CatzcModule carries with it.
 modules:
   .internal:
     packages:

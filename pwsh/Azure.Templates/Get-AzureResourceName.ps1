@@ -36,6 +36,7 @@ function Get-AzureResourceName {
     Assert-True $patterns.Contains($specification.pattern) -ErrorText "Type '$Type' references unknown name pattern '$($specification.pattern)' (known: $(@($patterns.Keys) -join ', '))"
     $pattern = $patterns[$specification.pattern]
 
+    # A type may omit components (the vm's 15-char cap drops org, customer and role, which the resource group encodes); type is never omitted.
     $omit = @(if ($specification.Contains('omit')) {
             @($specification.omit)
         }
@@ -43,6 +44,7 @@ function Get-AzureResourceName {
             @()
         })
 
+    # The generous long pattern gets the readable env name, the restricted patterns the 2-char shortcode.
     $envValue = if ($specification.pattern -eq 'long') {
         $Env
     }
@@ -51,6 +53,7 @@ function Get-AzureResourceName {
         $Shortcode
     }
 
+    # The customer follows the same split as env, and applies only when one is given.
     $customerValue = ''
     if ((-not [string]::IsNullOrEmpty($Customer)) -and ('customer' -notin $omit)) {
         $customerValue = if ($specification.pattern -eq 'long') {
@@ -62,6 +65,7 @@ function Get-AzureResourceName {
         }
     }
 
+    # Every component is checked case-sensitively as lowercase.
     $checks = [ordered]@{
         Env        = @{ value = $Env; pattern = '^[a-z][a-z0-9]+$'; desc = '2+ alphanumeric, leading letter' }
         RegionCode = @{ value = $RegionCode; pattern = '^[a-z]{3}$'; desc = '3 lowercase letters' }

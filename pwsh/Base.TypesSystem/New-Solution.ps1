@@ -11,6 +11,7 @@ function New-Solution {
     [OutputType([string])]
     param()
 
+    # Every project id is minted from a sentence of its path, so a new hook enters the solution with its id once its folder exists.
     $csharpType = '9A19103F-16F7-4668-BE54-9A1E7A4F7556'
     $folderType = '2150E333-8FDC-42A3-9474-1A3956D46DE8'
     $id = { param($Sentence) "$(ConvertTo-Guid $Sentence)".ToUpperInvariant() }

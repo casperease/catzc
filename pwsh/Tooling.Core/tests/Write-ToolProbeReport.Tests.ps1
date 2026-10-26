@@ -7,6 +7,7 @@ catzc:
 #>
 
 Describe 'Write-ToolProbeReport' -Tag 'L0', 'logic' {
+    # The report renders the records it is given as one plain table through Write-Message -NoHeader.
     BeforeEach {
         Mock Write-Message { } -ModuleName Catzc.Tooling.Core
         $script:found = [Catzc.Base.Execution.ExecutableProbe]::new('widget', '/opt/widget/bin/widget', 'probe',

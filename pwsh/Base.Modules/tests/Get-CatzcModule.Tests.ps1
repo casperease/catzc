@@ -18,6 +18,7 @@ Describe 'Get-CatzcModule' -Tag 'L0', 'logic', 'ADR-AUTO-MODULE-DEPLOYABLETRACKM
                     }
                     gizmos         = [ordered]@{ members = @('gizmo'); type = 'gizmo-shelf'; languages = @('gizmo-script') }
                     notes          = [ordered]@{ members = @('notes'); type = 'note-pile'; languages = @('widget-data') }
+                    # A third language's track, the shape every language track takes: folder modules, its own test holder, a nested vendor.
                     shelves        = [ordered]@{ members = @('shelf'); type = 'shelf-works'; languages = @('shelf-script') }
                     'shelf-vendor' = [ordered]@{ members = @('shelf/.vendor'); type = 'note-pile'; languages = @('shelf-script') }
                 }
@@ -201,6 +202,7 @@ Describe 'Get-CatzcModule on the repository' -Tag 'L1', 'integrity', 'ADR-AUTO-M
         $folders = [System.IO.Directory]::EnumerateDirectories((Get-CatzcModulesRoot)).Where({ -not [System.IO.Path]::GetFileName($_).StartsWith('.') }).ForEach({ [System.IO.Path]::GetFileName($_) })
         $sorted = [string[]]$folders
         [System.Array]::Sort($sorted, [System.StringComparer]::Ordinal)
+        # Each folder resolves to its module's full name under the track's namespace.
         $script:codeModules.name | Should -Be @($sorted | ForEach-Object { $script:codeTrack.FullNameOf($_) })
     }
 

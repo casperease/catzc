@@ -30,6 +30,7 @@ function Build-Bicep {
     $templateDescriptor = Get-BicepTemplate $Template
     $outputFolder = $templateDescriptor.output_folder
 
+    # Every slot by default; -Environments narrows by environment, -Customers and -Shared by configuration axis, unioned when both are given.
     $targetSlots = @($templateDescriptor.slots)
     if ($Environments) {
         $targetSlots = @($targetSlots | Where-Object { $_.environment -in $Environments })
@@ -43,6 +44,7 @@ function Build-Bicep {
         throw "No slots to build for template '$Template' (requested environments: $($Environments -join ', '); customers: $($Customers -join ', ')$(if ($Shared) { ' + shared' }); available environments: $($templateDescriptor.environments -join ', '))"
     }
 
+    # Before the output is wiped: a missing or blocked Bicep install can make az bicep build exit 0 and write no main.json.
     Assert-AzCliBicep
 
     if (Test-Path $outputFolder -PathType Container) {
@@ -50,17 +52,20 @@ function Build-Bicep {
     }
     New-Item -ItemType Directory -Path $outputFolder -Force | Out-Null
 
+    # A template's own PrePost.psm1 may export the prepare hook; absent, the slot's configuration is used unchanged.
     $prepareHook = $null
     $havePrePost = $null -ne $templateDescriptor.prepost_module
     if ($havePrePost) {
         Write-Message "Importing per-template PrePost module: $($templateDescriptor.prepost_module)"
         $prepostModule = Import-Module $templateDescriptor.prepost_module -Scope Local -Force -PassThru
+        # Hooks run strict whoever wrote them, like every catzc module.
         . $prepostModule { Set-StrictMode -Version Latest }
         if ($prepostModule.ExportedCommands.ContainsKey('Invoke-BicepPrepareParameterSet')) {
             $prepareHook = $prepostModule.ExportedCommands['Invoke-BicepPrepareParameterSet']
         }
     }
 
+    # Every slot deploys as a .bicepparam in the output folder whose using names main.bicep in the tree, so its module tree resolves.
     $using = [System.IO.Path]::GetRelativePath($outputFolder, $templateDescriptor.main).Replace('\', '/')
     $usingLine = [regex]::new("(?m)^(\s*using\s+)'[^']*'")
     foreach ($slot in $targetSlots) {
@@ -77,11 +82,13 @@ function Build-Bicep {
 
         $flat = $configurationDescriptor | ConvertTo-FlatSettingSet
         foreach ($key in $flat.Keys) {
+            # String-first and case-sensitive: -eq would coerce a boolean true or a number to equal the marker.
             if ($flat[$key] -is [string] -and 'UNDEFINED' -ceq $flat[$key]) {
                 throw "Undefined config key '$key' for slot '$($slot.name)' in template '$Template'"
             }
         }
 
+        # Addressed parameters resolve to their value before the hook, so the hook and the parameters file see only ARM entries.
         if ($configurationDescriptor.Contains('ParametersFile') -and
             $configurationDescriptor.ParametersFile -is [System.Collections.IDictionary] -and
             $configurationDescriptor.ParametersFile.Contains('parameters') -and
@@ -95,6 +102,7 @@ function Build-Bicep {
             $configurationDescriptor.ParametersFile.parameters = Resolve-BicepParameterAddresses -Parameters $configurationDescriptor.ParametersFile.parameters -ConfigFile (Join-Path $configFolder "$($slot.name).yml")
         }
 
+        # Hooks read their dimensions from this invocation, not raw params, so a new dimension never changes the hook signature.
         $buildInvocation = [ordered]@{
             Template     = $Template
             Environment  = $environment
@@ -122,6 +130,7 @@ function Build-Bicep {
     Write-Message "Building $($templateDescriptor.main) to $outputFolder"
     Invoke-AzCli "bicep build --file `"$($templateDescriptor.main)`" --outdir `"$outputFolder`""
 
+    # Asserted here because the Bicep CLI is proved available, so a missing main.json is an unexpected build failure, not a missing install.
     $mainJson = Join-Path $outputFolder 'main.json'
     Assert-PathExist $mainJson -PathType Leaf -ErrorText (
         "az bicep build reported success (exit 0) but wrote no main.json to '$outputFolder'. " +

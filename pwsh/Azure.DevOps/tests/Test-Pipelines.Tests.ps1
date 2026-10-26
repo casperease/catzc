@@ -31,6 +31,7 @@ Describe 'Test-Pipelines' -Tag 'L0', 'logic' {
         $script:records = @()
         $script:refs = @()
 
+        # Isolated through the classifier and reference-scan seams, so records and refs are the only inputs.
         Mock Get-AdoYamlFiles -ModuleName Catzc.Azure.DevOps { $script:records }
         Mock Get-PipelineTemplateReference -ModuleName Catzc.Azure.DevOps { $script:refs }
         Mock Assert-PathExist -ModuleName Catzc.Azure.DevOps { }

@@ -75,6 +75,7 @@ function Install-Java {
         return
     }
 
+    # Sets the current session; the change is announced only when it changes something.
     if ($env:JAVA_HOME -ne $javaHome) {
         $env:JAVA_HOME = $javaHome
         Write-Message "Session: JAVA_HOME='$javaHome'"

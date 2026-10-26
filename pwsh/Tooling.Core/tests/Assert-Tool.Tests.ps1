@@ -7,6 +7,7 @@ catzc:
 #>
 
 Describe 'Assert-Tool' -Tag 'L0', 'logic' {
+    # The probe is mocked whole, so a tool with candidate paths is asserted from the probe record, never by its bare name on PATH.
     BeforeEach {
         Mock Get-ToolConfig {
             [Catzc.Base.Execution.ToolConfig]::new(@{ version = '5'; command = 'widget'; version_command = 'widget --version'; version_pattern = '(?<ver>.+)'; unix_probes = @('/opt/widget'); windows_probes = @('C:\widget.exe') })

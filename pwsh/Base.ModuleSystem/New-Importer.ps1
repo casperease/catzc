@@ -19,12 +19,14 @@ function New-Importer {
 
     Assert-SourceTree
 
+    # Read back through the resolver, so this generator names no folder of its own and the shim spells it from the same place.
     $modulesFolder = [System.IO.Path]::GetRelativePath((Get-RepositoryRoot), (Get-CatzcModulesRoot)) -replace '\\', '/'
     $overlayPath = Join-Path $RepositoryRoot "$modulesFolder/.internal/Catzc.Internal.Importer.psm1"
     if (-not (Test-Path -LiteralPath $overlayPath -PathType Leaf)) {
         throw "New-Importer: overlay not found at '$overlayPath' — the repository must carry the .internal toolset first."
     }
 
+    # The overlay's parameter block is read from source, since the overlay is not loaded after the import; each parameter is one line.
     $parseErrors = $null
     $ast = [System.Management.Automation.Language.Parser]::ParseFile($overlayPath, [ref] $null, [ref] $parseErrors)
     if ($parseErrors) {
@@ -50,10 +52,13 @@ function New-Importer {
         }
         "    [$typeText] `$$($parameter.Name.VariablePath.UserPath)"
     }
+    # The shim sets $env:RepositoryRoot, but Invoke-Importer announces it on its Roots line, the first point a writer is loaded.
     $suppression = "[Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '', " +
     "Justification = 'Invoke-Importer announces RepositoryRoot on its Roots line, the first point a writer is loaded')]"
+    # [CmdletBinding()] lets the shim take -Verbose and forward it, which shows the importer's own state-change record.
     $paramBlock = "$suppression`n" + "[CmdletBinding()]`n" + "param(`n" + ($paramLines -join ",`n") + "`n)"
 
+    # The one living copy of the shim body; single-quoted here-strings keep $env:, $PSScriptRoot and @PSBoundParameters literal.
     $explanation = @'
 # This shim carries only the importer's outer parameter form and delegates the whole load sequence to
 # Invoke-Importer in {{modules-folder}}/.internal/Catzc.Internal.Importer.psm1 (the single living copy). It is
@@ -79,6 +84,7 @@ finally {
 }
 '@
 
+    # LF throughout and one trailing newline, so the join matches the committed importer.ps1 below its head byte for byte.
     $content = ($explanation + "`n" + $paramBlock + "`n`n" + $body + "`n").Replace('{{modules-folder}}', $modulesFolder)
 
     if ($DryRun) {

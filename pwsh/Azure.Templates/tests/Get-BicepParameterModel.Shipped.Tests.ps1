@@ -14,6 +14,7 @@ Describe 'Shipped template parameter model' -Tag 'L2', 'integrity', 'greedy', 'A
     BeforeAll {
         Mock Get-BicepTemplatesOutputRoot { Join-Path $TestDrive 'out' } -ModuleName Catzc.Azure.Templates
 
+        # The Bicep CLI is verified once for the whole template set, since each probe is a 2 s child process.
         if (Get-Command az -ErrorAction Ignore) {
             Assert-AzCliBicep
             Mock Assert-AzCliBicep { } -ModuleName Catzc.Azure.Templates

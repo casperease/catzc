@@ -20,6 +20,7 @@ Describe 'Get-BicepDeploymentContext (sample-subscription)' -Tag 'L0', 'logic' {
         } -ModuleName Catzc.Azure.Templates
 
         Mock Test-IsRunningInPipeline { $false } -ModuleName Catzc.Azure.Templates
+        # The session subscription is the deploy target, mocked at the whole module boundary.
         Mock Get-AzCliSessionSubscription {
             [ordered]@{ name = 'core_lower'; id = '50a0ed00-de00-50b0-0000-000000000000'; customer = ''
                 tenant = [ordered]@{ name = 'fixtenant'; id = 'fa0e0000-7e0a-0700-1d00-000000000000' }
@@ -35,6 +36,7 @@ Describe 'Get-BicepDeploymentContext (sample-subscription)' -Tag 'L0', 'logic' {
             }
         }
 
+        # Warms the path-keyed session caches once, not per test.
         Get-Config -Config azure | Out-Null
         Get-Config -Config network | Out-Null
         Get-BicepTemplates | Out-Null
@@ -79,6 +81,7 @@ Describe 'Deploy-Bicep (sample-subscription sub create)' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:tempArtifacts = Join-Path ([IO.Path]::GetTempPath()) ('catzc-subdeploy-' + [Guid]::NewGuid())
 
+        # Devbox path: under CI the real detector returns true and Deploy-Bicep would throw that it requires -SubscriptionIdAssertIs.
         Mock Test-IsRunningInPipeline { $false } -ModuleName Catzc.Azure.Templates
         Mock Get-BicepTemplatesRoot {
             Join-Path (Get-CatzcModuleRoot -Module Catzc.Azure.Templates) 'tests/assets/templates'
@@ -122,6 +125,7 @@ Describe 'Deploy-Bicep (sample-subscription sub create)' -Tag 'L0', 'logic' {
             }
         } -ModuleName Catzc.Azure.Templates
 
+        # Warms the path-keyed session caches once, not per test.
         Get-Config -Config azure | Out-Null
         Get-BicepTemplates | Out-Null
     }
@@ -172,6 +176,7 @@ Describe 'Get-BicepTrackTagNameSet (sample-subscription)' -Tag 'L0', 'logic' {
             }
         }
 
+        # Warms the path-keyed session caches once, not per test.
         Get-Config -Config azure | Out-Null
         Get-BicepTemplates | Out-Null
     }

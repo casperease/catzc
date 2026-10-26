@@ -42,8 +42,10 @@ function Get-BicepResourceName {
 
     $templateDescriptor = Get-BicepTemplate $Template
     $azure = Get-Config -Config azure
+    # Naming needs only the environment's identity, never a subscription: the subscription group is no name component.
     $envEntry = $azure.environments[$Environment]
 
+    # Both env forms and the slot are passed; the namer picks the form by the type's pattern.
     $nameArgs = @{
         Env        = $Environment
         Shortcode  = $envEntry.shortcode
@@ -57,6 +59,7 @@ function Get-BicepResourceName {
         $nameArgs['Slot'] = $Slot
     }
     if (-not [string]::IsNullOrEmpty($Customer)) {
+        # Accepts the key or the 2-char shortcode and yields both, since long names render the key and restricted ones the shortcode.
         $resolvedCustomer = Get-AzureCustomer $Customer
         $nameArgs['Customer'] = $resolvedCustomer.key
         $nameArgs['CustomerShortcode'] = $resolvedCustomer.shortcode

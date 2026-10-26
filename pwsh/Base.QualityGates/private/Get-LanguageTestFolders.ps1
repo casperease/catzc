@@ -16,13 +16,12 @@ function Get-LanguageTestFolders {
     $testFolderName = $languagesConfig.FolderOf('test')
     $engineModules = @(Get-CatzcModule -EngineTrack)
     $moduleNames = @($engineModules.name.Where({ [Catzc.Base.Objects.NameCase]::IsInCase('pascal-dotted', $_) }))
-    $engineTrack = $engineModules.Count -gt 0 ? (Get-Track -Name $engineModules[0].track) : $null
+    $variants = Get-Config -Config variants
     $languages = @(foreach ($entry in $languagesConfig.languages) {
             if ($entry.tests) {
                 $modulesByFolder = @{}
                 foreach ($module in $moduleNames) {
-                    $folderName = $null -ne $engineTrack ? $engineTrack.FolderNameOf($module) : $module
-                    $modulesByFolder[$languagesConfig.TestFolderOf($entry.name, $folderName)] = $module
+                    $modulesByFolder[$languagesConfig.TestFolderOf($entry.name, $variants, $module)] = $module
                 }
                 [pscustomobject]@{
                     Language = $entry.name

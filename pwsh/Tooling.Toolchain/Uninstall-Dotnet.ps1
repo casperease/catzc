@@ -13,6 +13,7 @@ function Uninstall-Dotnet {
         [switch] $Force
     )
 
+    # Best-effort only under -Remove, where a failure is logged and the escalation proceeds; otherwise it propagates.
     try {
         $config = Get-ToolConfig -Tool 'dotnet'
 

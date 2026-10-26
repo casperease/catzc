@@ -8,6 +8,7 @@ catzc:
 
 Describe 'Resolve-BicepParameterAddresses' -Tag 'L0', 'logic' {
     BeforeAll {
+        # Runs the private function in the module scope, with the config reader mocked at its boundary using neutral widget and gadget addresses.
         $script:resolve = {
             param([System.Collections.IDictionary] $parameters)
             & (Get-Module Catzc.Azure.Templates) {

@@ -7,6 +7,7 @@ catzc:
 #>
 
 Describe 'Get-PipelineTemplateReference' -Tag 'L0', 'logic' {
+    # The function is private, so it is exercised through the module.
     BeforeAll {
         function New-Yaml {
             param([string] $Content)

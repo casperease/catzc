@@ -40,6 +40,7 @@ Describe 'Test-ExpectedPackageManager — script-installed tools' -Tag 'L0', 'lo
 }
 
 Describe 'Test-ExpectedPackageManager — MSYS2-package tools' -Tag 'L0', 'logic', 'ADR-AUTO-REMOVE-REMOVEREFUSESMANAGED' {
+    # An entry whose mechanism is an MSYS2 package, installed on Windows into the tree Get-ScriptInstallDir names.
     BeforeEach {
         $script:tree = Join-Path $TestDrive 'gadget'
         Mock Get-ScriptInstallDir { $script:tree } -ModuleName Catzc.Tooling.Core
@@ -90,6 +91,7 @@ Describe 'Test-ExpectedPackageManager — MSYS2-package tools' -Tag 'L0', 'logic
 }
 
 Describe 'Test-ExpectedPackageManager — MSYS2-package tools that also declare an apt package' -Tag 'L0', 'logic', 'ADR-AUTO-REMOVE-REMOVEREFUSESMANAGED' {
+    # Each platform takes one manager: the MSYS2 package on Windows, the apt package on Linux, and nothing declared for macOS.
     BeforeEach {
         $script:tree = Join-Path $TestDrive 'gadget'
         Mock Get-ScriptInstallDir { $script:tree } -ModuleName Catzc.Tooling.Core

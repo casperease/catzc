@@ -13,7 +13,9 @@ function Get-BicepTemplates {
     $infrastructureRoot = Get-BicepTemplatesRoot
     $outputRoot = Get-BicepTemplatesOutputRoot
 
+    # Cached for the session by discovery root and output root; only a re-import invalidates, and callers treat the shared result as read-only.
     if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:bicepTemplatesCache')) {
+        # Strict-safe probe of the lazy cache entry.
         $script:bicepTemplatesCache = @{}
     }
     $cacheKey = "$infrastructureRoot|$outputRoot"
@@ -25,10 +27,12 @@ function Get-BicepTemplates {
         return @()
     }
 
+    # A config sits at the configuration root (shared platform) or under configuration/<customer>/; both coordinate checks run here at discovery.
     $azure = Get-Config -Config azure
 
     $templates = [System.Collections.Generic.List[object]]::new()
     $walk = Get-Config -Config folder-walk
+    # Get-ChildPath returns the folders sorted ordinally, so discovery is deterministic, without Get-ChildItem's per-call provider overhead.
     foreach ($folderPath in (Get-ChildPath $infrastructureRoot -Depth 1 -Directory)) {
         $name = [System.IO.Path]::GetFileName($folderPath)
 
@@ -39,6 +43,7 @@ function Get-BicepTemplates {
         Assert-PathExist $configurationFolder -PathType Container
 
         $options = Read-BicepTemplateOptions $folderPath
+        # Env-class bit (standard or subscription, default standard) that every config must match; the slot is per config, not per template.
         $environmentKind = if ($options.Contains('environment_kind')) {
             "$($options.environment_kind)"
         }
@@ -46,6 +51,7 @@ function Get-BicepTemplates {
             'standard'
         }
 
+        # Customer-class bit: defaults to the have_customers variant, and an explicit true is allowed only when customers are enabled.
         $customerDeploymentOption = if ($options.Contains('customer_deployment')) {
             [bool]$options.customer_deployment
         }
@@ -62,6 +68,7 @@ function Get-BicepTemplates {
             [bool](Test-HaveCustomers)
         }
 
+        # short_name derives from the folder name unless overridden; BicepShortName throws, naming the template, on a malformed override or underivable folder.
         $shortNameOverride = if ($options.Contains('short_name')) {
             "$($options.short_name)"
         }
@@ -71,6 +78,7 @@ function Get-BicepTemplates {
         $shortName = [Catzc.Azure.Templates.BicepShortName]::Resolve($name, $shortNameOverride)
 
         $hasPrePost = Test-Path (Join-Path $folderPath 'PrePost.psm1') -PathType Leaf
+        # Root configs first, then the customer subfolders, each sorted, so the output stays deterministic.
         $configEntries = [System.Collections.Generic.List[object]]::new()
         $configFolders = @([pscustomobject]@{ path = $configurationFolder; customer = '' }) + @(
             Get-ChildPath $configurationFolder -Depth 1 -Directory |
@@ -84,6 +92,7 @@ function Get-BicepTemplates {
             else {
                 'configuration'
             }
+            # One config per coordinate: never a yml and a bicepparam of the same name.
             foreach ($pair in @($files | Group-Object { [System.IO.Path]::GetFileNameWithoutExtension($_) } |
                         Where-Object Count -GT 1)) {
                 throw "Template '$name' has both $relativeFolder/$($pair.Name).yml and $relativeFolder/$($pair.Name).bicepparam for one coordinate; keep one."
@@ -96,6 +105,7 @@ function Get-BicepTemplates {
             }
         }
 
+        # One config file is one slot: one (customer, env, slot) coordinate, one subscription, one resource group; default.yml is a reserved skip.
         $slots = [System.Collections.Generic.List[object]]::new()
         $configurationFiles = [System.Collections.Generic.List[string]]::new()
         foreach ($entry in $configEntries) {
@@ -160,6 +170,7 @@ function Get-BicepTemplates {
             customer_deployment  = $customerDeployment
         }
 
+        # short_name, environment_kind and customer_deployment are already applied above, so the overlay skips all three.
         foreach ($key in @($options.Keys)) {
             if ($key -in 'short_name', 'environment_kind', 'customer_deployment') {
                 continue

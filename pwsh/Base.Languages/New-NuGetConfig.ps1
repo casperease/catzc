@@ -11,6 +11,7 @@ function New-NuGetConfig {
     [OutputType([string])]
     param()
 
+    # Package and audit feeds are cleared, so no dotnet run reaches a package manager.
     @'
 <?xml version="1.0" encoding="utf-8"?>
 <configuration>

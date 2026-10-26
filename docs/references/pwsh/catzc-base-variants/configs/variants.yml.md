@@ -83,7 +83,7 @@ through Get-Track; validated by the VariantsConfig type.
 
 ## comment:7
 
-Above `ado-pipelines:`, written with `#`.
+Above `vendor_ado.pipelines:`, written with `#`.
 
 ```text
 The repository's own pipeline definitions are live as the Bicep tree is: a pipeline or workflow is what runs, a test asset under tests/

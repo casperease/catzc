@@ -30,6 +30,7 @@ function Test-ToolLocationManaged {
         return $loc.StartsWith($dir, [System.StringComparison]::OrdinalIgnoreCase)
     }
 
+    # On Windows an MSYS2-package tool lives in the tree it installs into; elsewhere it is the system's, owned wherever the OS puts it.
     if ($Config.msys2_url) {
         if (-not $IsWindows) {
             return $true
@@ -50,7 +51,9 @@ function Test-ToolLocationManaged {
         return $loc.StartsWith($venvRoot.TrimEnd('\', '/'), [System.StringComparison]::OrdinalIgnoreCase)
     }
 
+    # uv shims go to uv's bin (~/.local/bin on every platform), while managed pythons may also resolve to uv's data dir directly.
     if ($Config.uv_tool -or $Config.uv_python) {
+        # uv's data dir is %APPDATA%\uv (Roaming) on Windows and ~/.local/share/uv on Unix, verified via uv tool dir and uv python dir.
         $uvRoots = @(if ($IsWindows) {
                 @((Join-Path $env:USERPROFILE '.local\bin'), (Join-Path $env:APPDATA 'uv'))
             }
@@ -65,6 +68,7 @@ function Test-ToolLocationManaged {
         return $false
     }
 
+    # Winget has two user-scope layouts, portable under Packages and installer packages under Programs, so both roots count or a winget JDK reads as foreign; Program Files stays out on purpose.
     $roots = @(if ($IsWindows) {
             @(
                 (Join-Path $env:LOCALAPPDATA 'Microsoft\WinGet\Packages'),

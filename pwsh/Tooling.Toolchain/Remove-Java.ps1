@@ -15,10 +15,12 @@ function Remove-Java {
 
     $config = Get-ToolConfig -Tool 'java'
 
+    # A tool our manager owns is refused and redirected to Uninstall-Java.
     if (Test-ExpectedPackageManager -Config $config) {
         throw 'Java is managed by the tooling system. Use Uninstall-Java instead.'
     }
 
+    # An off-config install is evicted by the mechanism that placed it, and elevation is scoped to that mechanism, so no admin assert here.
     if ($IsLinux -or $IsMacOS) {
         if (-not $Force) {
             Write-Message 'Would evict an off-config Java (native package / uv-Python pip / stray binary). Run with -Force to execute.'
