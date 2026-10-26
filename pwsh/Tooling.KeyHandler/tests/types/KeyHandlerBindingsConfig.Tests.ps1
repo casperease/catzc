@@ -57,10 +57,10 @@ Describe 'Catzc.Tooling.KeyHandler.KeyHandlerBindingsConfig' -Tag 'L0', 'logic' 
 }
 
 Describe 'KeyHandlerBindingsConfig.SourcePath' -Tag 'L0', 'logic' {
-    It 'names the module''s own key-handler-bindings.yml under the modules root, and refuses an empty root' {
-        $root = Join-Path $TestDrive 'widget-modules'
+    It 'names the module''s own key-handler-bindings.yml under the module root its caller passes, and refuses an empty root' {
+        $root = Join-Path $TestDrive 'widget-modules/Gadget.Keys'
         [Catzc.Tooling.KeyHandler.KeyHandlerBindingsConfig]::SourcePath($root) |
-            Should -Be ([System.IO.Path]::GetFullPath((Join-Path $root 'Catzc.Tooling.KeyHandler/configs/key-handler-bindings.yml')))
-        { [Catzc.Tooling.KeyHandler.KeyHandlerBindingsConfig]::SourcePath('') } | Should -Throw '*modulesRoot*'
+            Should -Be ([System.IO.Path]::GetFullPath((Join-Path $root 'configs/key-handler-bindings.yml')))
+        { [Catzc.Tooling.KeyHandler.KeyHandlerBindingsConfig]::SourcePath('') } | Should -Throw '*moduleRoot*'
     }
 }

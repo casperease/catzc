@@ -29,7 +29,7 @@ function Invoke-BashTest {
             '/').TrimEnd('/')
     }
     else {
-        "$bashRelative/tests/$((Get-Config -Config languages).TestFolderOf('bash', $Module))"
+        "$bashRelative/tests/$(Get-ModuleTestFolder bash $Module)"
     }
     if (-not (Test-Path -LiteralPath (Join-Path $root $relative) -PathType Container)) {
         throw "Module '$Module' has no Bash tests: $relative/ does not exist."

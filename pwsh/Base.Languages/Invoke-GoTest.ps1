@@ -31,7 +31,7 @@ function Invoke-GoTest {
             '/').TrimEnd('/')
     }
     else {
-        "$((Get-Config -Config go).ResolveRoot($root))/tests/$((Get-Config -Config languages).TestFolderOf('go', $Module))"
+        "$((Get-Config -Config go).ResolveRoot($root))/tests/$(Get-ModuleTestFolder go $Module)"
     }
     $folder = Join-Path $root $relative
     if (-not (Test-Path -LiteralPath $folder -PathType Container)) {

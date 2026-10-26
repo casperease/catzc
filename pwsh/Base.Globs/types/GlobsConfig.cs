@@ -17,7 +17,7 @@ public sealed class GlobsConfig
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
     // The config, as lookup errors name it: by its module, so no modules folder is spelled.
-    public const string ConfigPath = "Catzc.Base.Globs/configs/globs/";
+    public const string ConfigPath = "the globs config of Catzc.Base.Globs (configs/globs/)";
 
     public static readonly string[] ReservedNames = { "internal", "vendor", "compiled", "scriptanalyzer" };
 

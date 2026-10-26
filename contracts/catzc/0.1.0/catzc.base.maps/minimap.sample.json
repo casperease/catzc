@@ -14,7 +14,7 @@
     {
       "at": ["pwsh", "powershell"],
       "count": 3,
-      "reasons": [{ "subject": "pwsh/Catzc.Widget/Get-Widget.ps1", "basis": "citation", "requested": "ADR-WIDGET", "note": null }]
+      "reasons": [{ "subject": "pwsh/Widget/Get-Widget.ps1", "basis": "citation", "requested": "ADR-WIDGET", "note": null }]
     }
   ]
 }

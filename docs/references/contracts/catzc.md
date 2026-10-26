@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: be3d4c91d3ff
+    with_body_sha: "4ebef4d51cb2"
     warning: "Do Not Edit, this file is generated"
 ---
 
@@ -361,7 +361,7 @@ Notes:
 - `catzc.base.globs/clear_glob_set_protection.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call
   interface of Clear-GlobSetProtection, which drops every recorded glob protection so the next run of every protected scan scans in full; it
   takes no parameters.
-- `catzc.base.globs/file-kinds.yml`: Provided fragment of pwsh/Catzc.Base.Globs/configs/file-kinds.yml
+- `catzc.base.globs/file-kinds.yml`: Provided fragment of pwsh/Base.Globs/configs/file-kinds.yml
   ([ADR-REPO-CONTRACT-CONTRACTASSET](../../drs/repository/api-contracts.md#rule-adr-repo-contract-contractasset)): the kinds and subkinds a
   consumer may rely on to be in the file-kinds registry, so the `kind` and `subkind` a file's meta head names keep their meaning. A null
   value pins only that the key exists; the definitions and the globs may change, and a consumer extends the registry with a config fragment

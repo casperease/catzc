@@ -43,7 +43,7 @@ ignoreRegExpList:
   - /(?<![\s(\[*_>|/,]|^)`[nrt](?=[a-z])/gm
 # Approved-vocabulary dictionaries — one per registry category
 # ([ADR-AUTO-SPELL-CATEGORYANDMEANING](/docs/drs/automation/spell-out-names.md#rule-adr-auto-spell-categoryandmeaning)) — generated from
-# the terminology registry (pwsh/Catzc.Base.QualityGates/configs/terminology/) by Build-TerminologyDictionary. The
+# the terminology registry (pwsh/Base.QualityGates/configs/terminology/) by Build-TerminologyDictionary. The
 # .cspell/<category>.txt lists are GITIGNORED and regenerated at the importer tail (the registry is the
 # single source of truth), so run `. ./importer.ps1` once on a fresh clone before cspell can resolve them.
 # Never hand-edit the lists; add or remove vocabulary in the registry. See .cspell/README.md and

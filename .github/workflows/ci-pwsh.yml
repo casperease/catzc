@@ -18,7 +18,7 @@ on:
       - "!pwsh/.internal/assets/bin/**"
       - "!pwsh/.internal/assets/importer-commands.sh"
       - "!pwsh/.internal/assets/obj/**"
-      - "!pwsh/Catzc.Base.Globs/configs/globs/track-sets.yml"
+      - "!pwsh/Base.Globs/configs/globs/track-sets.yml"
   pull_request:
     branches: [main]
     paths:
@@ -30,7 +30,7 @@ on:
       - "!pwsh/.internal/assets/bin/**"
       - "!pwsh/.internal/assets/importer-commands.sh"
       - "!pwsh/.internal/assets/obj/**"
-      - "!pwsh/Catzc.Base.Globs/configs/globs/track-sets.yml"
+      - "!pwsh/Base.Globs/configs/globs/track-sets.yml"
   workflow_dispatch:
 
 jobs:

@@ -1,4 +1,4 @@
-# Provided fragment of pwsh/Catzc.Base.Globs/configs/file-kinds.yml
+# Provided fragment of pwsh/Base.Globs/configs/file-kinds.yml
 # ([ADR-REPO-CONTRACT-CONTRACTASSET](/docs/drs/repository/api-contracts.md#rule-adr-repo-contract-contractasset)): the kinds and subkinds
 # a consumer may rely on to be in the file-kinds registry, so the `kind` and `subkind` a file's meta head names keep their meaning. A null
 # value pins only that the key exists; the definitions and the globs may change, and a consumer extends the registry with a config fragment

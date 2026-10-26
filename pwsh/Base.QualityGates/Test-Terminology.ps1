@@ -38,8 +38,8 @@ function Test-Terminology {
             )
         }
 
-        $corpus = Get-TerminologyCorpus -Root $root -Exclude $config.DefiningFiles($root,
-            (Join-Path $root (Get-CatzcModulesFolder)))
+        $qualityGates = Join-Path $root "$(Get-CatzcModulesFolder)/$((Get-Track -Name pwsh).FolderNameOf('Catzc.Base.QualityGates'))"
+        $corpus = Get-TerminologyCorpus -Root $root -Exclude $config.DefiningFiles($root, $qualityGates)
         foreach ($term in $config.terms) {
             if (-not $corpus.Contains($term.term.ToLowerInvariant())) {
                 $issues.Add(

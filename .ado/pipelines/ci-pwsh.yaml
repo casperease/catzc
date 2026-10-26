@@ -17,7 +17,7 @@ trigger:
       - pwsh/.internal/assets/bin/**
       - pwsh/.internal/assets/importer-commands.sh
       - pwsh/.internal/assets/obj/**
-      - pwsh/Catzc.Base.Globs/configs/globs/track-sets.yml
+      - pwsh/Base.Globs/configs/globs/track-sets.yml
 
 pr:
   branches:
@@ -32,7 +32,7 @@ pr:
       - pwsh/.internal/assets/bin/**
       - pwsh/.internal/assets/importer-commands.sh
       - pwsh/.internal/assets/obj/**
-      - pwsh/Catzc.Base.Globs/configs/globs/track-sets.yml
+      - pwsh/Base.Globs/configs/globs/track-sets.yml
 
 jobs:
   - job: UnitTests
