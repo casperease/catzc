@@ -7,7 +7,7 @@ Describe 'GlobSet' -Tag 'L0', 'logic' {
         }
     }
 
-    Context 'membership (FDR-CD-GLOBS-TRACKEDFILESONLY)' {
+    Context 'membership (FDR-GLOBS-TRACKEDFILESONLY)' {
         It 'belongs when any include matches and no exclude does' {
             $set = & $script:make 'unit' @('src/**', 'importer.ps1') @('**/*.md')
             $set.Matches('src/a.cs') | Should -BeTrue

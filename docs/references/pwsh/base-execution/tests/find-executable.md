@@ -7,7 +7,7 @@ The tests of `Find-Executable`, hermetic logic at L1.
 The candidate executables are fixture files under `$TestDrive`, reached through a fixture environment variable so the `%VAR%` expansion is
 exercised. The session actor, the PATH lookup and the version run (`Get-ExecutableVersion`, the probe's only process start) are mocked.
 Fixture tokens are neutral
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+([ADR-AUTO-TEST-DISTINCTFIXTURES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtures)).
 
 ## Cold cache
 

@@ -12,9 +12,8 @@ Resolves a global config address to the value at that node (a leaf or a subtree)
 
 A global config address is a by-reference handle into a named config: `global.<config>.<key>[.<key>...]` (see ADR-CONF-ADDRESSING).
 Get-ConfigValue strips the 'global.' marker, reads the named config through Get-Config (the one reader and one cache,
-[ADR-CONF-LOADING-ONEREADER](../../../drs/configuration/module-config-loading.md#rule-adr-conf-loading-onereader)), and walks the remaining
-key segments with Resolve-ConfigKeyPath. It never opens a file or caches anything of its own — it is a view over what Get-Config already
-loaded and validated.
+[ADR-CONF-LOADING-CONFIGONEREADER][r1]), and walks the remaining key segments with Resolve-ConfigKeyPath. It never opens a file or caches
+anything of its own — it is a view over what Get-Config already loaded and validated.
 
 The first segment after 'global.' is the config's global lowercase name
 ([ADR-CONF-LOADING-EXISTENCEDISCOVERED](../../../drs/configuration/module-config-loading.md#rule-adr-conf-loading-existencediscovered)); the
@@ -50,3 +49,5 @@ Get-ConfigValue -Address 'global.myproperty.name'
 Get-ConfigValue -Address 'global.database'
 # the whole 'database' config as a subtree
 ```
+
+[r1]: ../../../drs/configuration/module-config-loading.md#rule-adr-conf-loading-configonereader

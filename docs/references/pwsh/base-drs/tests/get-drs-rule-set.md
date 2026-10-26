@@ -6,7 +6,7 @@ The tests of `Get-DrsRuleSet`, in two parts: the command over a fixture `DrsConf
 
 The command runs over a fixture `DrsConfig` with `Get-Config` mocked. The flattening and the effective codes are `DrsConfig` construction
 rules, covered by its type test, so these tests pin only the projection and the `-Domain` filter. The fixture names are neutral
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+([ADR-AUTO-TEST-DISTINCTFIXTURES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtures)).
 
 ## Integrity
 

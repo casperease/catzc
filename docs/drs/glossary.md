@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "6ec994608847"
+    with_body_sha: d7219ee6bfd1
     warning: "Do Not Edit, this file is generated"
 ---
 
@@ -30,8 +30,7 @@ or report it calls for.
 The one legitimate second store — a repository or service, such as a GitOps or configuration repository, or Azure DevOps Services or GitHub
 SaaS, with its own history, driven one way from the trunk's pipelines and never edited beside it.
 
-- **Defined by:**
-  [TDR-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD](thesis/one-source-of-truth.md#rule-tdr-onetruth-repositoryisconfigurationrecord)
+- **Defined by:** [TDR-ONETRUTH-REPOSITORYISRECORD](thesis/one-source-of-truth.md#rule-tdr-onetruth-repositoryisrecord)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Base.Docs/configs/glossary`
 - **Contrasts:**
@@ -173,7 +172,7 @@ with all its consumers.
 
 Any store that holds part of the truth about a delivered system — a version-controlled repository, a fact source, or a state machine.
 
-- **Defined by:** [TDR-STORES-THREEKINDS](thesis/truth-stores.md#rule-tdr-stores-threekinds)
+- **Defined by:** [TDR-STORES-THREESTOREKINDS](thesis/truth-stores.md#rule-tdr-stores-threestorekinds)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Base.Docs/configs/glossary`
 - **Contrasts:**
@@ -200,7 +199,7 @@ Code from outside the trunk, in whatever shape its origin left it, that is not y
 
 The kind of truth store whose content is a versioned history of reviewed changes; a git repository is one subgroup of it.
 
-- **Defined by:** [TDR-STORES-VERSIONCONTROLLEDREPOSITORY](thesis/truth-stores.md#rule-tdr-stores-versioncontrolledrepository)
+- **Defined by:** [TDR-STORES-VERSIONEDREPOSITORY](thesis/truth-stores.md#rule-tdr-stores-versionedrepository)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Base.Docs/configs/glossary`
 
@@ -210,7 +209,7 @@ The kind of truth store whose content is a versioned history of reviewed changes
 
 The product's name to a person — the executor outside pwsh, and the word in prose, docs and conversation.
 
-- **Defined by:** [PDR-CATS-CATSISPERSONNAME](principles/cats-and-catzc.md#rule-pdr-cats-catsispersonname)
+- **Defined by:** [PDR-CATS-ISPERSONNAME](principles/cats-and-catzc.md#rule-pdr-cats-ispersonname)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Base.Docs/configs/glossary`
 - **Contrasts:**
@@ -386,7 +385,7 @@ its module.
 
 The one commit an always-on environment holds, deployed there as its release candidate — named by its environment.
 
-- **Defined by:** [FDR-CD-LIFE-ONECOMMITPERENVIRONMENT](flow/commit-lifecycle.md#rule-fdr-cd-life-onecommitperenvironment)
+- **Defined by:** [FDR-LIFE-ONECOMMITPERENVIRONMENT](flow/commit-lifecycle.md#rule-fdr-life-onecommitperenvironment)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
@@ -404,7 +403,7 @@ The one commit an always-on environment holds, deployed there as its release can
 The path of one member of a track, computed from the members and never declared beside them; the longest place that contains a file names
 its track.
 
-- **Defined by:** [DDR-TRACK-TRACKISPLACEDCLUSTER](design/tracks.md#rule-ddr-track-trackisplacedcluster)
+- **Defined by:** [DDR-TRACK-ISPLACEDCLUSTER](design/tracks.md#rule-ddr-track-isplacedcluster)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
@@ -460,7 +459,7 @@ A world-map cell holding a live file whose file language its track does not decl
 
 System.Collections.Specialized.OrderedDictionary
 
-- **Defined by:** [FDR-CD-LIFE-ONECOMMITPERENVIRONMENT](flow/commit-lifecycle.md#rule-fdr-cd-life-onecommitperenvironment)
+- **Defined by:** [FDR-LIFE-ONECOMMITPERENVIRONMENT](flow/commit-lifecycle.md#rule-fdr-life-onecommitperenvironment)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Base.Docs/configs/glossary`
 
@@ -469,7 +468,7 @@ System.Collections.Specialized.OrderedDictionary
 A named, on-disk cluster of one concern's files, declared once as a set of members that each say whether they are generated and committed,
 and of one track type.
 
-- **Defined by:** [DDR-TRACK-TRACKISPLACEDCLUSTER](design/tracks.md#rule-ddr-track-trackisplacedcluster)
+- **Defined by:** [DDR-TRACK-ISPLACEDCLUSTER](design/tracks.md#rule-ddr-track-isplacedcluster)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
@@ -572,7 +571,7 @@ declares one.
 A tool, core, plugin or external dependency vendored into the repository, named by the tool — its code and its settings sit under one vendor
 umbrella, so HEAD stays reproducible.
 
-- **Defined by:** [DDR-VENDOR-VENDORISVENDORED](design/vendoring.md#rule-ddr-vendor-vendorisvendored)
+- **Defined by:** [DDR-VENDOR-ISVENDORED](design/vendoring.md#rule-ddr-vendor-isvendored)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
@@ -626,7 +625,7 @@ A check whose verdict decides whether work may proceed — automated (a quality 
 A point on the promotion ladder where a commit waits for a person's act before it climbs; the ladder has three, each with a named server, a
 named store and a measured wait.
 
-- **Defined by:** [FDR-CD-QUEUE-THREEQUEUES](flow/manual-queues.md#rule-fdr-cd-queue-threequeues)
+- **Defined by:** [FDR-QUEUE-THREEQUEUES](flow/manual-queues.md#rule-fdr-queue-threequeues)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Base.Docs/configs/glossary`
 - **Contrasts:**
@@ -660,7 +659,7 @@ The immutable, tagged artifact a CI component builds from one commit — version
 One recorded act in the appointed security registry by a user with access, saying that a rung passed its check for one named commit; it
 serves the RC gate for main-UAT and the RBC gate for release-uat.
 
-- **Defined by:** [FDR-CD-QUEUE-SIGNATUREISTHEGATE](flow/manual-queues.md#rule-fdr-cd-queue-signatureisthegate)
+- **Defined by:** [FDR-QUEUE-SIGNATUREISTHEGATE](flow/manual-queues.md#rule-fdr-queue-signatureisthegate)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Base.Docs/configs/glossary`
 
@@ -669,7 +668,7 @@ serves the RC gate for main-UAT and the RBC gate for release-uat.
 The automated, monitored act that makes the pre-prod occupant the live production occupant and moves the former one into the staging slot;
 never a manual queue.
 
-- **Defined by:** [FDR-CD-QUEUE-SLOTSWITCHISAUTOMATED](flow/manual-queues.md#rule-fdr-cd-queue-slotswitchisautomated)
+- **Defined by:** [FDR-QUEUE-SLOTSWITCHISAUTOMATED](flow/manual-queues.md#rule-fdr-queue-slotswitchisautomated)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Base.Docs/configs/glossary`
 
@@ -756,7 +755,7 @@ The BVT — the verification that precedes every promotion and every creation of
 
 The toolset's build, one installable, versioned Catzc package of one named bundle, built from a profile of the exporter registry.
 
-- **Defined by:** [ADR-AUTO-BUNDLE-BUNDLEISBUILD](automation/platform-bundle.md#rule-adr-auto-bundle-bundleisbuild)
+- **Defined by:** [ADR-AUTO-BUNDLE-ISBUILD](automation/platform-bundle.md#rule-adr-auto-bundle-isbuild)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Base.Docs/configs/glossary`
 - **Contrasts:**
@@ -1153,15 +1152,14 @@ The one SQL login beside a server's Entra ID admin group, its password a Key Vau
 The six tag keys every resource carries — workload, environment, owner, cost-center, criticality, data-classification; cost-center is
 required by policy.
 
-- **Defined by:**
-  [ADR-AZ-CAF-NAME-DEFINETAGGINGREQUIREMENTS](azure/caf/naming-and-tagging.md#rule-adr-az-caf-name-definetaggingrequirements)
+- **Defined by:** [EDR-AZ-CAF-NAME-R11](external/azure/caf/naming-and-tagging.md#rule-edr-az-caf-name-r11)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Azure.Templates/configs/glossary.yml`
 
 ### cloud adoption framework
 
 Microsoft's guidance for preparing an Azure estate; its landing-zone design principles and design areas are recorded as vendor
-recommendation in docs/drs/azure/caf/, one rule per recommendation.
+recommendation in docs/drs/external/azure/caf/, one rule per recommendation.
 
 - **Defined by:** [ADR-AZ-LZ-LANDINGZONE](azure/landing-zones.md#rule-adr-az-lz-landingzone)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
@@ -1212,7 +1210,7 @@ An Azure container above subscriptions for policy and access; this repository de
 ### pillar
 
 One of the Well-Architected Framework's five qualities — reliability, security, cost optimization, operational excellence, performance
-efficiency — each one ADR in docs/drs/azure/waf/.
+efficiency — each one ADR in docs/drs/external/azure/waf/.
 
 - **Defined by:** [ADR-AZ-LZ-EVERYPILLAR](azure/landing-zones.md#rule-adr-az-lz-everypillar)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
@@ -1244,15 +1242,14 @@ The landing zone of a customer subscription — peered to the hub of its tier, h
 Onboarding a subscription by pull request — its azure.yml entry, its range in network.yml, and one config per template; the subscription
 itself is created outside the repository.
 
-- **Defined by:**
-  [ADR-AZ-CAF-RESORG-SUBSCRIPTIONVENDINGPROCESS](azure/caf/resource-organization.md#rule-adr-az-caf-resorg-subscriptionvendingprocess)
+- **Defined by:** [EDR-AZ-CAF-RESORG-R19](external/azure/caf/resource-organization.md#rule-edr-az-caf-resorg-r19)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Azure.Templates/configs/glossary.yml`
 
 ### well-architected framework
 
-Microsoft's checklist of a workload's quality in five pillars; each checklist item is a rule in docs/drs/azure/waf/, numbered as Microsoft
-numbers it.
+Microsoft's checklist of a workload's quality in five pillars; each checklist item is a rule in docs/drs/external/azure/waf/, numbered as
+Microsoft numbers it.
 
 - **Defined by:** [ADR-AZ-LZ-EVERYPILLAR](azure/landing-zones.md#rule-adr-az-lz-everypillar)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
@@ -1429,8 +1426,7 @@ vocabulary, and where a moved cell sits; put renders it into the drawing and get
 
 A group of decision records — one docs/drs/ subfolder — that drs.yml declares with its role and the domains it depends on.
 
-- **Defined by:**
-  [ADR-REPO-FOLDERS-DOCUMENTATIONMARKDOWNONLY](repository/conventional-folders.md#rule-adr-repo-folders-documentationmarkdownonly)
+- **Defined by:** [ADR-REPO-FOLDERS-DOCSMARKDOWNONLY](repository/conventional-folders.md#rule-adr-repo-folders-docsmarkdownonly)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Base.Docs/configs/glossary`
 - **Forms:** `ADR domain`, `record domain`, `thesis domain`, `principles domain`, `process domain`, `design domain`, `flow domain`,
@@ -1671,7 +1667,7 @@ A contract an outside consumer may rely on — the repository's only public API,
 
 ### record kind
 
-The first segment of a decision record code (ADR, TDR, PDR, WDR, DDR, FDR or RDR), registered in drs.yml; together the XDR kinds.
+The first segment of a decision record code (ADR, TDR, PDR, WDR, DDR, FDR or EDR), registered in drs.yml; together the XDR kinds.
 
 - **Defined by:** [ADR-REPO-DRSCODE-DECISIONRECORDSSYSTEM](repository/drs-code-language.md#rule-adr-repo-drscode-decisionrecordssystem)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce

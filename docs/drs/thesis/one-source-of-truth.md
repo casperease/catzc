@@ -12,7 +12,7 @@ synchronisation between stores inside its responsibility domain.
 - [The problem](#the-problem)
 - [One source of truth, one change process](#one-source-of-truth-one-change-process)
 
-### Rule TDR-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD
+### Rule TDR-ONETRUTH-REPOSITORYISRECORD
 
 The repository is the configuration record of everything it delivers. Infrastructure is reproducible from a commit, so no second database is
 kept in parity with it, and nothing about delivery state has its source of truth (for BVT) outside it. An **adjacent store** is the one
@@ -88,9 +88,9 @@ Collapse the distributed system of information into one source of truth, the rep
 
 Everything delivery touches is code in the repository. Changing anything and delivering it are the same motion: a reviewed commit, with its
 diff and its history, integrated into the trunk and delivered by its pipelines. That is what keeps the trunk always releasable, which is
-continuous delivery as the DORA research defines it ([continuous-delivery](../research/continuous-delivery.md)) and as catzc's flow model
-implements it. The thesis describes the product; the research is the authority it rests on. Audit and retrospection are answered once, by
-the history.
+continuous delivery as the DORA research defines it ([continuous-delivery](../external/dora/continuous-delivery.md)) and as catzc's flow
+model implements it. The thesis describes the product; the research is the authority it rests on. Audit and retrospection are answered once,
+by the history.
 
 The one source of truth covers the responsibility domain the repository holds. Outside it, the stores catzc does not own are truth stores of
 other kinds ([TDR-STORES](truth-stores.md)).

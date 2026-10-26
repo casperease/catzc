@@ -1,4 +1,4 @@
-Describe 'Test-TrackMemberCommitted' -Tag 'L0', 'logic', 'DDR-TRACK-TRACKISPLACEDCLUSTER' {
+Describe 'Test-TrackMemberCommitted' -Tag 'L0', 'logic', 'DDR-TRACK-ISPLACEDCLUSTER' {
     BeforeAll {
         function script:New-Member {
             param([string] $Path, [bool] $Committed = $true, [bool] $Generated = $false)
@@ -70,7 +70,7 @@ Describe 'Test-TrackMemberCommitted' -Tag 'L0', 'logic', 'DDR-TRACK-TRACKISPLACE
     }
 }
 
-Describe 'Test-TrackMemberCommitted — the real tree' -Tag 'L1', 'integrity', 'source-only', 'DDR-TRACK-TRACKISPLACEDCLUSTER' {
+Describe 'Test-TrackMemberCommitted — the real tree' -Tag 'L1', 'integrity', 'source-only', 'DDR-TRACK-ISPLACEDCLUSTER' {
     It 'finds every declared member in step with the git index' {
         $result = Test-TrackMemberCommitted -PassThru -OutputFolder (Join-Path $TestDrive 'report')
         $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")

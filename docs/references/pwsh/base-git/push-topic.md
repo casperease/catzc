@@ -17,7 +17,7 @@ HEAD, squashed again, and asserted to be exactly one commit ahead and none behin
 main-via-pr pushes the topic branch with --force-with-lease, its own history being the author's
 ([FDR-GIT-TOPICHISTORYISTHEAUTHORS](../../../drs/flow/git-topic-flow.md#rule-fdr-git-topichistoryistheauthors)); main-direct fast-pushes the
 one commit to main, and a rejected push stops with the commit kept
-([FDR-CD-LIFE-FASTPUSHLANDS](../../../drs/flow/commit-lifecycle.md#rule-fdr-cd-life-fastpushlands)). Main is never forced. It runs git that
+([FDR-LIFE-FASTPUSHLANDS](../../../drs/flow/commit-lifecycle.md#rule-fdr-life-fastpushlands)). Main is never forced. It runs git that
 changes the repository, so only the user invokes it ([FDR-GIT-USERRUNSGIT](../../../drs/flow/git-topic-flow.md#rule-fdr-git-userrunsgit)). A
 conflict stops it like Sync-Topic.
 

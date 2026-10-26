@@ -9,7 +9,7 @@ A pipeline step only names a command, and a developer can run that same command 
 4  same command   runs with the same modules, in the scope of the load
 5  developer      loads the modules and types the same command; no gate checks it
 
-Supports FDR-CD-RUNNER-NOINLINEPOWERSHELL and FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE (meta lens).
+Supports FDR-RUNNER-NOINLINEPOWERSHELL and FDR-RUNNER-DEVELOPERREPRODUCIBLE (meta lens).
 ```
 
 A pipeline step in cats does not hold PowerShell. It names a command, and one runner turns that name into the same command a developer runs
@@ -21,7 +21,7 @@ description:
   A pipeline step names a command and holds no PowerShell; the pipeline task adds the authentication and the runner loads the modules once,
   so the command runs exactly as a developer runs it after loading the modules, with no gate checking that.
 about:
-  adrs: [FDR-CD-RUNNER-NOINLINEPOWERSHELL, FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE]
+  adrs: [FDR-RUNNER-NOINLINEPOWERSHELL, FDR-RUNNER-DEVELOPERREPRODUCIBLE]
   lens: meta
 content:
   title: A pipeline step only names a command that a developer can run locally
@@ -77,8 +77,8 @@ the runner's own failure modes.
 
 ## Why it holds
 
-- YAML steps never contain inline PowerShell; all PowerShell runs through the runner (FDR-CD-RUNNER-NOINLINEPOWERSHELL).
-- Whatever string a step names can be pasted into a local terminal after the importer (FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE).
+- YAML steps never contain inline PowerShell; all PowerShell runs through the runner (FDR-RUNNER-NOINLINEPOWERSHELL).
+- Whatever string a step names can be pasted into a local terminal after the importer (FDR-RUNNER-DEVELOPERREPRODUCIBLE).
 
 ## Where the code and the decision record differ
 

@@ -9,7 +9,7 @@ agents:
   # The standard agent: one task from a coordinator's brief, each file verified with the gates before the next.
   - name: catzc-drone
     model_reason: writes code, tests and docs that must pass the analyzer and the gates on the first run, across several files of one brief
-    supported_by: [ADR-REPO-AGENTS-STANDARDDRONE, PDR-REDUCEVAR-ESSENTIALDIFFERENCESEXPLICIT, WDR-BUILTIN-GATESAREPARTOFWORK]
+    supported_by: [ADR-REPO-AGENTS-STANDARDDRONE, PDR-REDUCEVAR-EXPLICITDIFFERENCES, WDR-BUILTIN-GATESAREPARTOFWORK]
     checks:
       - Invoke-TestFile
       - Test-ScriptAnalyzer
@@ -25,30 +25,30 @@ agents:
 
   # A drone on haiku: runs one job skill a brief names, the skills whose model_floor is haiku.
   - name: drone-haiku
-    supported_by: [ADR-REPO-AGENTS-STANDARDDRONE, PDR-REDUCEVAR-ESSENTIALDIFFERENCESEXPLICIT, WDR-BUILTIN-GATESAREPARTOFWORK]
+    supported_by: [ADR-REPO-AGENTS-STANDARDDRONE, PDR-REDUCEVAR-EXPLICITDIFFERENCES, WDR-BUILTIN-GATESAREPARTOFWORK]
     checks: [Invoke-TestFile, Format-Code, Test-Links]
 
   # A drone on sonnet: runs one job skill a brief names, the skills whose model_floor is sonnet.
   - name: drone-sonnet
     model_reason: runs the job skills whose model_floor is sonnet, the jobs that write code or docs that must pass the gates first time
-    supported_by: [ADR-REPO-AGENTS-STANDARDDRONE, PDR-REDUCEVAR-ESSENTIALDIFFERENCESEXPLICIT, WDR-BUILTIN-GATESAREPARTOFWORK]
+    supported_by: [ADR-REPO-AGENTS-STANDARDDRONE, PDR-REDUCEVAR-EXPLICITDIFFERENCES, WDR-BUILTIN-GATESAREPARTOFWORK]
     checks: [Invoke-TestFile, Format-Code, Test-Links]
 
   # A drone on opus: runs one job skill a brief names, the skills whose model_floor is opus.
   - name: drone-opus
     model_reason: runs the job skills whose model_floor is opus, the jobs that judge evidence across the whole tree
-    supported_by: [ADR-REPO-AGENTS-STANDARDDRONE, PDR-REDUCEVAR-ESSENTIALDIFFERENCESEXPLICIT, WDR-BUILTIN-GATESAREPARTOFWORK]
+    supported_by: [ADR-REPO-AGENTS-STANDARDDRONE, PDR-REDUCEVAR-EXPLICITDIFFERENCES, WDR-BUILTIN-GATESAREPARTOFWORK]
     checks: [Invoke-TestFile, Format-Code, Test-Links]
 
   # A drone on fable: runs one job skill a brief names, the skills whose model_floor is fable.
   - name: drone-fable
     model_reason: runs the job skills whose model_floor is fable, the hardest reasoning a brief can hand over
-    supported_by: [ADR-REPO-AGENTS-STANDARDDRONE, PDR-REDUCEVAR-ESSENTIALDIFFERENCESEXPLICIT, WDR-BUILTIN-GATESAREPARTOFWORK]
+    supported_by: [ADR-REPO-AGENTS-STANDARDDRONE, PDR-REDUCEVAR-EXPLICITDIFFERENCES, WDR-BUILTIN-GATESAREPARTOFWORK]
     checks: [Invoke-TestFile, Format-Code, Test-Links]
 
   # Authors new diagrams in the visual grammar and lands the approved ones under docs/.assets/, embedded in their ADRs.
   - name: drawio-diagram-waves
-    supported_by: [DDR-VISUAL-LEFTTORIGHTISTIME, DDR-VISUAL-FIXEDCOMMITPALETTE, ADR-REPO-FOLDERS-DOCUMENTATIONMARKDOWNONLY]
+    supported_by: [DDR-VISUAL-LEFTTORIGHTISTIME, DDR-VISUAL-FIXEDCOMMITPALETTE, ADR-REPO-FOLDERS-DOCSMARKDOWNONLY]
     checks: [Test-CheckedInBinaries, Test-Links]
     model_reason: leads other agents, ranks candidates and writes briefs in the ADRs' exact terms
 
@@ -64,7 +64,7 @@ agents:
 
   # Shows the diagram review state on one shared page; it publishes from out/ and runs no catzc check.
   - name: print-artifacts
-    supported_by: [RDR-DORA-VISUAL-DISPLAYPROCESSSTATE, RDR-DORA-VISUAL-CHOSENWITHTEAM]
+    supported_by: [EDR-DORA-VISUAL-DISPLAYPROCESSSTATE, EDR-DORA-VISUAL-CHOSENWITHTEAM]
     checks: []
 
   # Builds the inspiration module to the inspiration policy.
@@ -75,23 +75,23 @@ agents:
 
   # Measures what a session cost and why, and proposes the changes; it writes only to out/ and runs no catzc check.
   - name: session-cost-audit
-    supported_by: [PDR-NOWASTE-SEVENWASTES, WDR-KAIZEN-ADAPTFROMEVIDENCE, ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
+    supported_by: [EDR-LEAN-SEVENWASTES, WDR-KAIZEN-ADAPTFROMEVIDENCE, ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
     checks: []
 
   # Cleans the plans in .claude/plans to the plan rules, one verdict and one file at a time; sonnet because it judges across files.
   - name: plan-clear
-    supported_by: [ADR-REPO-PLANS-DONEPLANDELETED, PDR-ONELIVE-ONEVERSION, PDR-NOWASTE-SEVENWASTES]
+    supported_by: [ADR-REPO-PLANS-DONEPLANDELETED, PDR-ONELIVE-ONEVERSION, EDR-LEAN-SEVENWASTES]
     checks: [Test-Links, Test-Plans]
     model_reason: judging whether a plan's data is in the tree reads several files against each other
 
   # Lands a pasted continuation prompt in the plans, nothing discarded, every done claim checked against the tree.
   - name: plan-intake
-    supported_by: [PDR-ONELIVE-HISTORYINGIT, PDR-NOWASTE-SEVENWASTES]
+    supported_by: [PDR-ONELIVE-HISTORYINGIT, EDR-LEAN-SEVENWASTES]
     checks: [Test-Links]
 
   # Runs a decision round over the plans' open questions: recommendation first, every answer recorded with its outcome.
   - name: plan-decide
-    supported_by: [PDR-CONFIG-DEFAULTANSWERSINSTANCEQUESTIONS, PDR-NOWASTE-SEVENWASTES]
+    supported_by: [PDR-CONFIG-DEFAULTANSWERSINSTANCE, EDR-LEAN-SEVENWASTES]
     checks: [Test-Links]
 
   # Runs one gate or test file in the background and brings its verdict back verbatim.
@@ -122,8 +122,7 @@ agents:
   # A log-reading robot caps its probes per line and writes in batches: a 40-turn roof ended its first run before its one write.
   - name: 2020-hindsight
     persona: Jack
-    supported_by:
-      [WDR-KAIZEN-ADAPTFROMEVIDENCE, PDR-NOWASTE-SEVENWASTES, ADR-REPO-AI-TRUSTTHETREE, PDR-CONFIG-DEFAULTANSWERSINSTANCEQUESTIONS]
+    supported_by: [WDR-KAIZEN-ADAPTFROMEVIDENCE, EDR-LEAN-SEVENWASTES, ADR-REPO-AI-TRUSTTHETREE, PDR-CONFIG-DEFAULTANSWERSINSTANCE]
     checks: []
     model_reason:
       judges whether a learning is already automated, declared once as a default, or a gap, across the module articles, configs,
@@ -132,13 +131,13 @@ agents:
   # Turns the hindsight log's gaps into planned debt reductions, the .claude weight first; edits plans only, never the code they plan for.
   - name: its-a-chore-but-i-will-do-better
     persona: Susan from HR
-    supported_by: [WDR-KAIZEN-ADAPTFROMEVIDENCE, PDR-NOWASTE-SEVENWASTES, ADR-REPO-PLANS-ONETOPICONEFILE, ADR-REPO-PLANS-OPENSTEP]
+    supported_by: [WDR-KAIZEN-ADAPTFROMEVIDENCE, EDR-LEAN-SEVENWASTES, ADR-REPO-PLANS-ONETOPICONEFILE, ADR-REPO-PLANS-OPENSTEP]
     checks: [Test-Plans, Format-Code, Test-Links]
     model_reason: groups hindsight lines into debt items across the plans and chooses each item's owning plan and cheapest change
 
   # Makes the test suite faster under the timeouts.yml roofs without losing any test or assertion, one measured file at a time.
   - name: test-optimization
-    supported_by: [ADR-AUTO-TEST-MEASUREFIRST, ADR-AUTO-TEST-SETUPONCE, ADR-AUTO-TEST-COLLAPSEINPUTCLUSTERS, PDR-NOWASTE-SEVENWASTES]
+    supported_by: [ADR-AUTO-TEST-MEASUREFIRST, ADR-AUTO-TEST-SETUPONCE, ADR-AUTO-TEST-COLLAPSEINPUTCLUSTERS, EDR-LEAN-SEVENWASTES]
     checks: [Invoke-TestFile, Test-ScriptAnalyzer]
     model_reason: diagnoses where a test's time goes and changes production code without changing what it proves
 

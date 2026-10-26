@@ -3,7 +3,7 @@ description:
   defaults; and its use inside pwsh, which compiles the types in the session's own runtime, unwraps the values its callers pass, and lets a
   type bind to the host only by a bcl.yml row that the gate checks."
 about:
-  adrs: [ADR-BCL-TYPES-BCLREFERENCESET, ADR-BCL-TYPES-DEBUGANYCPU, ADR-PWSH-TYPES-HOSTGUARANTEEDASSEMBLIES, ADR-PWSH-TYPES-ADDTYPECOMPILES]
+  adrs: [ADR-BCL-TYPES-REFERENCESET, ADR-BCL-TYPES-DEBUGANYCPU, ADR-PWSH-TYPES-HOSTGUARANTEEDASSEMBLIES, ADR-PWSH-TYPES-ADDTYPECOMPILES]
   lens: architecture
 content:
   title: BCL is a language; pwsh hosts it, and binds only by row

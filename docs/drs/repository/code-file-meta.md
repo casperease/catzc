@@ -24,8 +24,8 @@ are read from the file and its comment page on demand by the commands that need 
 which would change on every edit of the body and tell a reader nothing, and no `test` or `code` edge, since a test is found by convention,
 its stem under `tests/`. Every place fact, the path, the role, the language, the track, the module and the visibility, is derived on demand
 and never written into the head. A code head has no `config` part: a code file's prose, its help included, lives on its comment page
-([ADR-REPO-HELP-HELPONCOMMENTPAGE](function-help.md#rule-adr-repo-help-helponcommentpage)). A generated code file carries the generated-file
-head instead ([ADR-REPO-FILEMETA-COMPOSEDFILES](file-meta.md#rule-adr-repo-filemeta-composedfiles)).
+([ADR-REPO-HELP-ONCOMMENTPAGE](function-help.md#rule-adr-repo-help-oncommentpage)). A generated code file carries the generated-file head
+instead ([ADR-REPO-FILEMETA-COMPOSEDFILES](file-meta.md#rule-adr-repo-filemeta-composedfiles)).
 
 - [What the head holds](#what-the-head-holds)
 
@@ -42,7 +42,7 @@ they apply to every file the policy gives a head.
 
 - [Scope](#scope)
 
-### Rule ADR-REPO-CODEMETA-IMPRINTSTEP
+### Rule ADR-REPO-CODEMETA-CODEHEADIMPRINT
 
 `Format-Code` writes the head as an imprint step
 ([ADR-REPO-FORMAT-CONFIGUREDFORMATTERS](uniform-formatting.md#rule-adr-repo-format-configuredformatters)). The step is global: the

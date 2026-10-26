@@ -14,7 +14,7 @@ catzc:
 
 ## Eyebrow
 
-7 / 30 · fact for the Developer · RDR-DORA-CI
+7 / 30 · fact for the Developer · EDR-DORA-CI
 
 ## Lead
 
@@ -31,5 +31,5 @@ From the catalogue, reduced: one reader one cache per session.
 
 ## Notes
 
-Check it: the record RDR-DORA-CI in docs/drs/index.md, and the diagram
+Check it: the record EDR-DORA-CI in docs/drs/index.md, and the diagram
 docs/explanation/configuration/.assets/one-reader-one-cache-per-session.drawio.png.

@@ -12,9 +12,9 @@ Three rung checks run in code: PR build validation, the BVT and the failure stop
 7  two-slot activation       stage inactive in pre-prod, then activate live; an actuation, DRS-only
 8  failure stops downstream  each Deploy_* stage runs only when the stage before it succeeded
 
-Supports FDR-CD-LIFE-ONESTATEADVANCESONERUNG, FDR-CD-LIFE-DISCARDISTERMINAL, FDR-CD-LIFE-RETIREMENTISNOTDISCARD,
-FDR-CD-LIFE-SUPERSESSIONABANDONSOVERTAKEN, FDR-CD-LIFE-ONECOMMITPERENVIRONMENT, FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD,
-FDR-CD-LIFE-FAILEDSTAYSUPSTREAM, FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND, FDR-CD-INNERANDOUTERLOOP, FDR-CD-CDSTAYSINNONPROD,
+Supports FDR-LIFE-ONESTATEADVANCESONERUNG, FDR-LIFE-DISCARDISTERMINAL, FDR-LIFE-RETIREMENTISNOTDISCARD,
+FDR-LIFE-SUPERSESSIONABANDONS, FDR-LIFE-ONECOMMITPERENVIRONMENT, FDR-LIFE-SYNCFROMVERIFIEDHEAD,
+FDR-LIFE-FAILEDSTAYSUPSTREAM, FDR-LIFE-TOPICDEPLOYSOUTOFBAND, FDR-CD-INNERANDOUTERLOOP, FDR-CD-CDSTAYSINNONPROD,
 FDR-CD-TWORELEASEGATES, FDR-CD-TWOENVIRONMENTACTIVATION, ADR-AUTO-TEST-BUILDVERIFICATIONTEST
 and DDR-VISUAL-FIXEDCOMMITPALETTE (governance lens).
 ```
@@ -30,14 +30,14 @@ description:
   stop are checked in code, and every gate from L3 up to production is stated by the ADRs and enforced by nothing yet."
 about:
   adrs:
-    - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
-    - FDR-CD-LIFE-DISCARDISTERMINAL
-    - FDR-CD-LIFE-RETIREMENTISNOTDISCARD
-    - FDR-CD-LIFE-SUPERSESSIONABANDONSOVERTAKEN
-    - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
-    - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
-    - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
-    - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+    - FDR-LIFE-ONESTATEADVANCESONERUNG
+    - FDR-LIFE-DISCARDISTERMINAL
+    - FDR-LIFE-RETIREMENTISNOTDISCARD
+    - FDR-LIFE-SUPERSESSIONABANDONS
+    - FDR-LIFE-ONECOMMITPERENVIRONMENT
+    - FDR-LIFE-SYNCFROMVERIFIEDHEAD
+    - FDR-LIFE-FAILEDSTAYSUPSTREAM
+    - FDR-LIFE-TOPICDEPLOYSOUTOFBAND
     - FDR-CD-INNERANDOUTERLOOP
     - FDR-CD-CDSTAYSINNONPROD
     - FDR-CD-TWORELEASEGATES
@@ -98,18 +98,18 @@ content:
     - { at: a-two-slot, number: 7 }
     - { at: g-failure-stop, number: 8 }
   chips:
-    - { at: c-topic, kind: rule, rule: FDR-CD-LIFE-ONESTATEADVANCESONERUNG, gated: false }
+    - { at: c-topic, kind: rule, rule: FDR-LIFE-ONESTATEADVANCESONERUNG, gated: false }
     - { at: g-pr-validation, kind: rule, rule: FDR-CD-INNERANDOUTERLOOP, corner: bottom-right }
-    - { at: c-landed, kind: rule, rule: FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND, gated: false, corner: bottom-right }
+    - { at: c-landed, kind: rule, rule: FDR-LIFE-TOPICDEPLOYSOUTOFBAND, gated: false, corner: bottom-right }
     - { at: g-bvt, kind: rule, rule: ADR-AUTO-TEST-BUILDVERIFICATIONTEST, corner: bottom-right }
     - { at: a-l3-at, kind: rule, rule: FDR-CD-CDSTAYSINNONPROD, gated: false, corner: bottom-right }
-    - { at: c-main-uat, kind: rule, rule: FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD, gated: false }
+    - { at: c-main-uat, kind: rule, rule: FDR-LIFE-SYNCFROMVERIFIEDHEAD, gated: false }
     - { at: a-rc, kind: rule, rule: FDR-CD-TWORELEASEGATES, gated: false, corner: bottom-right }
     - { at: a-rbc, kind: rule, rule: FDR-CD-TWORELEASEGATES, gated: false, corner: bottom-right }
-    - { at: a-rbc, kind: rule, rule: FDR-CD-LIFE-DISCARDISTERMINAL, gated: false, corner: bottom-left }
+    - { at: a-rbc, kind: rule, rule: FDR-LIFE-DISCARDISTERMINAL, gated: false, corner: bottom-left }
     - { at: a-two-slot, kind: rule, rule: FDR-CD-TWOENVIRONMENTACTIVATION, gated: false, corner: bottom-right }
-    - { at: c-production, kind: rule, rule: FDR-CD-LIFE-RETIREMENTISNOTDISCARD, gated: false }
-    - { at: g-failure-stop, kind: rule, rule: FDR-CD-LIFE-FAILEDSTAYSUPSTREAM, corner: bottom-right }
+    - { at: c-production, kind: rule, rule: FDR-LIFE-RETIREMENTISNOTDISCARD, gated: false }
+    - { at: g-failure-stop, kind: rule, rule: FDR-LIFE-FAILEDSTAYSUPSTREAM, corner: bottom-right }
   legend: auto
   minimaps: [code-locations, grid, axis]
 layout:
@@ -158,15 +158,15 @@ layout:
 
 ## Why it holds
 
-- A commit holds one state at a time and only climbs; a new attempt is a new commit (FDR-CD-LIFE-ONESTATEADVANCESONERUNG).
-- Discard is rejection at a named stage: BVT and L3 discard automatically, `release-uat` by hand at RBC (FDR-CD-LIFE-DISCARDISTERMINAL).
-- Retirement is a successful end of life, never a discard (FDR-CD-LIFE-RETIREMENTISNOTDISCARD).
-- Supersession abandons a still-valid commit without rejecting it, so no gate decides it (FDR-CD-LIFE-SUPERSESSIONABANDONSOVERTAKEN).
-- Each always-on environment holds one occupant, and no gate checks it (FDR-CD-LIFE-ONECOMMITPERENVIRONMENT).
+- A commit holds one state at a time and only climbs; a new attempt is a new commit (FDR-LIFE-ONESTATEADVANCESONERUNG).
+- Discard is rejection at a named stage: BVT and L3 discard automatically, `release-uat` by hand at RBC (FDR-LIFE-DISCARDISTERMINAL).
+- Retirement is a successful end of life, never a discard (FDR-LIFE-RETIREMENTISNOTDISCARD).
+- Supersession abandons a still-valid commit without rejecting it, so no gate decides it (FDR-LIFE-SUPERSESSIONABANDONS).
+- Each always-on environment holds one occupant, and no gate checks it (FDR-LIFE-ONECOMMITPERENVIRONMENT).
 - The BVT-verified server head is the stable integration point, and the same commit goes into `main-uat` first
-  (FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD).
-- A commit that fails a stage cannot go downstream (FDR-CD-LIFE-FAILEDSTAYSUPSTREAM).
-- An out-of-band deploy of a topic commit is not an integration (FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND).
+  (FDR-LIFE-SYNCFROMVERIFIEDHEAD).
+- A commit that fails a stage cannot go downstream (FDR-LIFE-FAILEDSTAYSUPSTREAM).
+- An out-of-band deploy of a topic commit is not an integration (FDR-LIFE-TOPICDEPLOYSOUTOFBAND).
 - PR build validation is the inner CI gate (FDR-CD-INNERANDOUTERLOOP); L3 runs in CD (FDR-CD-CDSTAYSINNONPROD); RC and RBC are the manual
   gates (FDR-CD-TWORELEASEGATES); deploy-to-prod is a two-environment activation (FDR-CD-TWOENVIRONMENTACTIVATION).
 - The BVT includes the built-artifact checks of `Test-BuildArtifact` (ADR-AUTO-TEST-BUILDVERIFICATIONTEST).

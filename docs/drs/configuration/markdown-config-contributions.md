@@ -13,11 +13,11 @@ never a contribution. The value lives beside the prose it describes, and the con
 
 ### Rule ADR-CONF-MDCONTRIB-GATHEREDINSIDEREADER
 
-Contributions are gathered inside the one reader, never beside it
-([ADR-CONF-LOADING-ONEREADER](module-config-loading.md#rule-adr-conf-loading-onereader)). `Get-Config` merges them key by key with the same
-merge an overlay fragment uses, so one mechanism joins every source. A setting resolves in this order: the caller's explicit value; the
-consumer overlay fragment; the contributions, in ordinal order of their file paths; the bundled `configs/<name>.yml`; the setting's declared
-default ([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)).
+Contributions are gathered inside the one reader, never beside it ([ADR-CONF-LOADING-CONFIGONEREADER][r2]). `Get-Config` merges them key by
+key with the same merge an overlay fragment uses, so one mechanism joins every source. A setting resolves in this order: the caller's
+explicit value; the consumer overlay fragment; the contributions, in ordinal order of their file paths; the bundled `configs/<name>.yml`;
+the setting's declared default
+([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)).
 
 - [One reader, one order](#one-reader-one-order)
 
@@ -135,7 +135,7 @@ for addresses: nothing a contribution states is secret.
 `The reader for a kind is a function a module ships`
 
 A kind is declared in the meta-kind registry, and its reader is a function found by convention, so a new kind is a registry entry and a
-function file, with no edit to `Get-Config`. The loader stays content-agnostic ([ADR-AUTO-EXTEND-CONTENTAGNOSTICINFRASTRUCTURE][r1]).
+function file, with no edit to `Get-Config`. The loader stays content-agnostic ([ADR-AUTO-EXTEND-CONTENTAGNOSTICCORE][r1]).
 
 ### How this is enforced
 
@@ -154,4 +154,5 @@ function file, with no edit to `Get-Config`. The loader stays content-agnostic (
 - A contribution is only as safe as the config's type: a config whose type accepts anything accepts anything from prose too, which is why
   the registry requires a typed config to opt in.
 
-[r1]: ../automation/open-closed-architecture.md#rule-adr-auto-extend-contentagnosticinfrastructure
+[r1]: ../automation/open-closed-architecture.md#rule-adr-auto-extend-contentagnosticcore
+[r2]: module-config-loading.md#rule-adr-conf-loading-configonereader

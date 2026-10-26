@@ -16,24 +16,33 @@ exempt:
   docs/drs/automation/pwsh/pester-testing.md: "401 lines against the prose limit 400; splits by section into a folder of linked pages"
   docs/drs/automation/test-automation.md: "867 lines against the prose limit 400; splits by section into a folder of linked pages"
   docs/drs/azure/azure-data-model.md: "467 lines against the prose limit 400; splits by section into a folder of linked pages"
-  docs/drs/azure/caf/billing-and-tenant.md: "CAF reference corpus, one Microsoft area per page; splits by section into a folder of pages"
-  docs/drs/azure/caf/governance.md: "CAF reference corpus, one Microsoft area per page; splits by section into a folder of pages"
-  docs/drs/azure/caf/identity-and-access.md: "CAF reference corpus, one Microsoft area per page; splits by section into a folder of pages"
-  docs/drs/azure/caf/landing-zone-security.md: "CAF reference corpus, one Microsoft area per page; splits by section into a folder of pages"
-  docs/drs/azure/caf/management.md: "CAF reference corpus, one Microsoft area per page; splits by section into a folder of pages"
-  docs/drs/azure/caf/naming-and-tagging.md: "CAF reference corpus, one Microsoft area per page; splits by section into a folder of pages"
-  docs/drs/azure/caf/network-connectivity.md: "CAF reference corpus, one Microsoft area per page; splits by section into a folder of pages"
-  docs/drs/azure/caf/network-private-access.md:
+  docs/drs/external/azure/caf/billing-and-tenant.md:
     "CAF reference corpus, one Microsoft area per page; splits by section into a folder of pages"
-  docs/drs/azure/caf/network-topology.md: "CAF reference corpus, one Microsoft area per page; splits by section into a folder of pages"
-  docs/drs/azure/caf/platform-automation-and-devops.md:
+  docs/drs/external/azure/caf/governance.md: "CAF reference corpus, one Microsoft area per page; splits by section into a folder of pages"
+  docs/drs/external/azure/caf/identity-and-access.md:
     "CAF reference corpus, one Microsoft area per page; splits by section into a folder of pages"
-  docs/drs/azure/caf/resource-organization.md: "CAF reference corpus, one Microsoft area per page; splits by section into a folder of pages"
-  docs/drs/azure/waf/cost-optimization.md: "WAF pillar reference, one pillar per page; splits by section into a folder of pages"
-  docs/drs/azure/waf/operational-excellence.md: "WAF pillar reference, one pillar per page; splits by section into a folder of pages"
-  docs/drs/azure/waf/performance-efficiency.md: "WAF pillar reference, one pillar per page; splits by section into a folder of pages"
-  docs/drs/azure/waf/reliability.md: "WAF pillar reference, one pillar per page; splits by section into a folder of pages"
-  docs/drs/azure/waf/security.md: "WAF pillar reference, one pillar per page; splits by section into a folder of pages"
+  docs/drs/external/azure/caf/landing-zone-security.md:
+    "CAF reference corpus, one Microsoft area per page; splits by section into a folder of pages"
+  docs/drs/external/azure/caf/management.md: "CAF reference corpus, one Microsoft area per page; splits by section into a folder of pages"
+  docs/drs/external/azure/caf/naming-and-tagging.md:
+    "CAF reference corpus, one Microsoft area per page; splits by section into a folder of pages"
+  docs/drs/external/azure/caf/network-connectivity.md:
+    "CAF reference corpus, one Microsoft area per page; splits by section into a folder of pages"
+  docs/drs/external/azure/caf/network-private-access.md:
+    "CAF reference corpus, one Microsoft area per page; splits by section into a folder of pages"
+  docs/drs/external/azure/caf/network-topology.md:
+    "CAF reference corpus, one Microsoft area per page; splits by section into a folder of pages"
+  docs/drs/external/azure/caf/platform-automation-and-devops.md:
+    "CAF reference corpus, one Microsoft area per page; splits by section into a folder of pages"
+  docs/drs/external/azure/caf/resource-organization.md:
+    "CAF reference corpus, one Microsoft area per page; splits by section into a folder of pages"
+  docs/drs/external/azure/waf/cost-optimization.md: "WAF pillar reference, one pillar per page; splits by section into a folder of pages"
+  docs/drs/external/azure/waf/operational-excellence.md:
+    "WAF pillar reference, one pillar per page; splits by section into a folder of pages"
+  docs/drs/external/azure/waf/performance-efficiency.md:
+    "WAF pillar reference, one pillar per page; splits by section into a folder of pages"
+  docs/drs/external/azure/waf/reliability.md: "WAF pillar reference, one pillar per page; splits by section into a folder of pages"
+  docs/drs/external/azure/waf/security.md: "WAF pillar reference, one pillar per page; splits by section into a folder of pages"
   docs/drs/design/visual-design.md: "644 lines against the prose limit 400; splits by section into a folder of linked pages"
   docs/drs/flow/cd-discipline-and-promotion-flow.md:
     "524 lines against the prose limit 400; splits by section into a folder of linked pages"

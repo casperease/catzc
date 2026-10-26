@@ -19,8 +19,8 @@ compares every released folder with its record, so a later edit fails the qualit
 It refuses, before writing anything: a vendor root, which never releases and follows its vendor in 0.1.0
 ([ADR-REPO-CONTRACT-KEPTWHILEPINNED](../../../drs/repository/api-contracts.md#rule-adr-repo-contract-keptwhilepinned)); a version below
 1.0.0; the devbox build version (exporter.yml direct_install_version, 6.6.666), which names no release
-([ADR-AUTO-BUNDLE-AUTOVERSION](../../../drs/automation/platform-bundle.md#rule-adr-auto-bundle-autoversion)); a target folder that already
-exists, since a released folder is never written again; and a missing current version. A copy that fails part-way removes the target again.
+([ADR-AUTO-BUNDLE-BUNDLEVERSION][r1]); a target folder that already exists, since a released folder is never written again; and a missing
+current version. A copy that fails part-way removes the target again.
 
 It writes files only: it never commits, and it does not check the assets. A release build resolves the version (Resolve-CatzcBuildVersion),
 runs this, runs Test-Contracts -Version `<version>`, and commits the folder in its own step. Publish is the approved verb for making a
@@ -63,3 +63,5 @@ Publish-ContractRelease -Root catzc -Version (Resolve-CatzcBuildVersion) -WhatIf
 The release copies the whole current version, so the file walk is a named whole-tree walk
 ([ADR-PWSH-ENUM-ALWAYSBOUNDED](../../../drs/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): no name is pruned and
 no depth drops a file.
+
+[r1]: ../../../drs/automation/platform-bundle.md#rule-adr-auto-bundle-bundleversion

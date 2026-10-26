@@ -2,7 +2,7 @@
 
 ## Rules: ADR-AUTO-GO
 
-### Rule ADR-AUTO-GO-MODULESBYLAYOUT
+### Rule ADR-AUTO-GO-GOMODULESBYLAYOUT
 
 Go code in the repository is either a module of the `go` track, a folder under the Go root that exists by the layout
 (ADR-AUTO-MODULE-EXISTSBYLAYOUT, ADR-AUTO-MODULE-EVERYLANGUAGETRACKALIKE), or a black-box test under the track's test holder,
@@ -22,7 +22,7 @@ test module explicitly, and every go command runs inside its module folder, so e
 
 - [The layout](#the-layout)
 
-### Rule ADR-AUTO-GO-BLACKBOXTESTS
+### Rule ADR-AUTO-GO-GOBLACKBOX
 
 A Go test is a black-box test: it starts the engine from the contract its runner sets (ADR-AUTO-ENGINE-STARTENVIRONMENT) —
 `CATZC_ENGINE_EXECUTABLE`, with the `CATZC_ENGINE_START` arguments, which load the run's entry and end in the test's command — runs
@@ -32,7 +32,7 @@ source run and the build's entry script in a build run (ADR-AUTO-TEST-SAMETESTSB
 
 - [The engine start environment](#the-engine-start-environment)
 
-### Rule ADR-AUTO-GO-GENERATEDWORKSPACE
+### Rule ADR-AUTO-GO-GOWORKSPACE
 
 The Go workspace is generated and gitignored: nothing Go-specific is committed but the `*_test.go` files. `New-GoWorkspace` renders
 `go.work` and every `go.mod` from `go.yml` — pure text, offline, and byte-stable — and `Build-RootConfig` writes them on import through a
@@ -58,7 +58,7 @@ user-space from the go.dev archive; a machine-wide Go is left in place, and the 
 
 - [The managed toolchain](#the-managed-toolchain)
 
-### Rule ADR-AUTO-GO-LANGUAGEBRIDGE
+### Rule ADR-AUTO-GO-GOBRIDGE
 
 `Test-Automation` runs the Go tests through a bridge: discovery maps each Go test module to its catzc module, so ordering, protection,
 `-Modules`, `-Suite`, the tiers, and both runs apply as to the module's own tests, and the bridge turns every top-level Go test into one
@@ -189,10 +189,10 @@ so a Go comment is outside their reach.
 ## Decision
 
 Go is a language track whose modules exist by the layout and ship only what is packaged, and the repository's first black-box test language
-(ADR-AUTO-GO-MODULESBYLAYOUT). Its tests of the engine live in one Go test module per catzc module under the Go root
-(ADR-AUTO-GO-ONEGOROOT), start the engine from the entry the run names (ADR-AUTO-GO-BLACKBOXTESTS), build against a generated, gitignored
-workspace (ADR-AUTO-GO-GENERATEDWORKSPACE) at the one pinned Go version (ADR-AUTO-GO-ONEGOVERSION) with the managed toolchain
-(ADR-AUTO-GO-MANAGEDTOOLCHAIN), and run through `Test-Automation` as `L2` tests (ADR-AUTO-GO-LANGUAGEBRIDGE), under the checks that read Go
+(ADR-AUTO-GO-GOMODULESBYLAYOUT). Its tests of the engine live in one Go test module per catzc module under the Go root
+(ADR-AUTO-GO-ONEGOROOT), start the engine from the entry the run names (ADR-AUTO-GO-GOBLACKBOX), build against a generated, gitignored
+workspace (ADR-AUTO-GO-GOWORKSPACE) at the one pinned Go version (ADR-AUTO-GO-ONEGOVERSION) with the managed toolchain
+(ADR-AUTO-GO-MANAGEDTOOLCHAIN), and run through `Test-Automation` as `L2` tests (ADR-AUTO-GO-GOBRIDGE), under the checks that read Go
 (ADR-AUTO-GO-GOCHECKS).
 
 ### How this is enforced

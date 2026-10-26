@@ -2,7 +2,7 @@
 
 ## Rules: ADR-ADO-AUTH
 
-### Rule ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE
+### Rule ADR-ADO-AUTH-FIXEDCREDENTIALORDER
 
 Select the credential by which one is configured, in fixed precedence (in-pipeline token → PAT → az CLI), with no fallback on auth failure —
 the failure of the source that was selected raises its own error rather than degrading to the next.

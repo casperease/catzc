@@ -56,7 +56,7 @@ public sealed class DrsDoraCheck
                     if (folder.Length == 0 || folder.StartsWith("/", System.StringComparison.Ordinal) || folder.EndsWith("/", System.StringComparison.Ordinal)
                         || folder.IndexOf('\\') >= 0 || folder.IndexOf('/') < 0)
                     {
-                        errors.Add(string.Format("{0}: exempt folder '{1}' must be a '/'-separated subfolder of a domain, e.g. azure/caf", where, folder));
+                        errors.Add(string.Format("{0}: exempt folder '{1}' must be a '/'-separated subfolder of a domain, e.g. external/azure/caf", where, folder));
                         continue;
                     }
                     if (string.IsNullOrWhiteSpace(reason))

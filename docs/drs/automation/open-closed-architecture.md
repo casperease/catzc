@@ -11,7 +11,7 @@ importer entries and the bootstrap loader — to accommodate new content. The sa
 
 - [How the platform does it](#how-the-platform-does-it)
 
-### Rule ADR-AUTO-EXTEND-CONTENTAGNOSTICINFRASTRUCTURE
+### Rule ADR-AUTO-EXTEND-CONTENTAGNOSTICCORE
 
 Keep infrastructure content-agnostic: the importer and bootstrap module must not reference specific module names, function names, or
 business logic. They operate on conventions and treat all conforming content identically.
@@ -108,7 +108,7 @@ The platform must remain open for extension and closed for modification. Concret
   bootstrap module, or any other module's files (ADR-AUTO-EXTEND-ADDNOTEDIT).
 - **The infrastructure knows conventions, not content.** The importer and the bootstrap module discover modules, exports, and visibility
   from names and locations alone; they never name a specific module, function, or business rule
-  (ADR-AUTO-EXTEND-CONTENTAGNOSTICINFRASTRUCTURE).
+  (ADR-AUTO-EXTEND-CONTENTAGNOSTICCORE).
 - **Non-conforming code is fixed, not accommodated.** Code that does not follow file name = function name, folder = module, and root =
   public is not discovered; the remedy is to rename or move it, never to teach the loader an exception
   (ADR-AUTO-EXTEND-MANDATORYCONVENTIONS).

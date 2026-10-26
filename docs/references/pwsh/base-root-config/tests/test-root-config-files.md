@@ -6,4 +6,4 @@ mocked, so each test pins one agreement rule.
 ## The link stand-in
 
 A hard link stands in for a materialised link, which needs no privilege. The fixture names are neutral
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+([ADR-AUTO-TEST-DISTINCTFIXTURES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtures)).

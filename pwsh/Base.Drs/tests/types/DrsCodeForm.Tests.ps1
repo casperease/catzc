@@ -2,7 +2,7 @@
 
 Describe 'DrsCodeForm' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMODEL' {
     BeforeAll {
-        # ADR is shared, GDR owned, and HDR owned with a group segment, as RDR-DORA-<NAME> is.
+        # ADR is shared, GDR owned, and HDR owned with a group segment, as EDR-DORA-<NAME> is.
         $script:form = [Catzc.Base.Drs.DrsCodeForm]::new([ordered]@{ ADR = 3; GDR = 2; HDR = 3 })
         $entry = { param($rules) @{ path = 'docs/drs/widget/x.md'; rules = [string[]] $rules } }
         $script:registry = [Catzc.Base.Drs.DrsCitationMap]::new([ordered]@{

@@ -9,14 +9,14 @@ same steps, the same tools and versions, and a uniform artifact structure.
 
 - [Principle](#principle)
 
-### Rule PDR-REDUCEVAR-STANDARDIZEPROCESSNOTDESIGN
+### Rule PDR-REDUCEVAR-PROCESSNOTDESIGN
 
 Standardize the process and tooling, not the design space — uniformity in how work is delivered must not constrain architectural or creative
 judgment.
 
 - [Principle](#principle)
 
-### Rule PDR-REDUCEVAR-ESSENTIALDIFFERENCESEXPLICIT
+### Rule PDR-REDUCEVAR-EXPLICITDIFFERENCES
 
 Eliminate accidental differences and make essential ones explicit; prefer convention over configuration, derived behavior over manual
 registration, and one way to do something over many.

@@ -370,7 +370,7 @@ public sealed class DrsConfig
         RuleSets = allRuleSets;
         Edges = edges;
 
-        // A kind's rule has one segment more than its shortest registered ADR code, so a group segment (RDR-DORA-<NAME>) is an ADR's.
+        // A kind's rule has one segment more than its shortest registered ADR code, so a group segment (EDR-DORA-<NAME>) is an ADR's.
         OrderedDictionary ruleSegments = new OrderedDictionary();
         foreach (string kind in kinds)
         {

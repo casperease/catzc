@@ -42,7 +42,7 @@ function Test-WorldMap {
         $undeclared[$rootFolder] = $undeclared.ContainsKey($rootFolder) ? $undeclared[$rootFolder] + 1 : 1
     }
     foreach ($rootFolder in $undeclared.Keys) {
-        $issues.Add("undeclared root folder: $rootFolder/ holds $($undeclared[$rootFolder]) tracked file(s) but no track names it (DDR-TRACK-TRACKISPLACEDCLUSTER)")
+        $issues.Add("undeclared root folder: $rootFolder/ holds $($undeclared[$rootFolder]) tracked file(s) but no track names it (DDR-TRACK-ISPLACEDCLUSTER)")
     }
 
     # Printed labels: each names a glossary term.
@@ -64,7 +64,7 @@ function Test-WorldMap {
         }
     }
     $axes = @(
-        @{ Term = 'track'; Names = @($map.Tracks | Where-Object { $_ -cne [Catzc.Base.Maps.WorldMap]::NoTrack }); Rule = 'DDR-TRACK-TRACKISPLACEDCLUSTER' }
+        @{ Term = 'track'; Names = @($map.Tracks | Where-Object { $_ -cne [Catzc.Base.Maps.WorldMap]::NoTrack }); Rule = 'DDR-TRACK-ISPLACEDCLUSTER' }
         @{ Term = 'file language'; Names = @($map.FileLanguages | Where-Object { $_ -cne [Catzc.Base.Maps.WorldMap]::NoFileLanguage }); Rule = 'DDR-TRACK-FILELANGUAGE' }
     )
     foreach ($axis in $axes) {

@@ -45,7 +45,7 @@ shadowing binary — the operator escalates in place instead of hunting the fore
 
 - [The escalation in one call](#the-escalation-in-one-call)
 
-### Rule ADR-AUTO-REMOVE-ELEVATIONFOLLOWSMECHANISM
+### Rule ADR-AUTO-REMOVE-ELEVATIONBYMECHANISM
 
 Elevation follows the mechanism, never the verb. A removal asserts Administrator / root only for the step that needs it — the Windows
 machine `PATH`, an `apt-get remove` — while user-space evictions (`uv pip uninstall --system`, deleting a stray `~/.local/bin` binary)

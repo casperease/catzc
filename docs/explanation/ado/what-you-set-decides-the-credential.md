@@ -12,7 +12,7 @@ What you set decides the credential, and each wrong setup stops with its own mes
 7  No ADO token available     the message when the session yields no token
 8  Authorization header       what a working setup gives the REST call
 
-Supports ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE, ADR-ADO-AUTH-PROVETARGET, ADR-ADO-AUTH-ASSERTWHENNOTOKEN
+Supports ADR-ADO-AUTH-FIXEDCREDENTIALORDER, ADR-ADO-AUTH-PROVETARGET, ADR-ADO-AUTH-ASSERTWHENNOTOKEN
 and ADR-ADO-AUTH-TEMPLATESMAPSYSTEMTOKEN (operations lens).
 ```
 
@@ -26,7 +26,7 @@ description:
   one gives the REST call its Authorization header.
 about:
   adrs:
-    - ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE
+    - ADR-ADO-AUTH-FIXEDCREDENTIALORDER
     - ADR-ADO-AUTH-PROVETARGET
     - ADR-ADO-AUTH-ASSERTWHENNOTOKEN
     - ADR-ADO-AUTH-TEMPLATESMAPSYSTEMTOKEN
@@ -109,7 +109,7 @@ Each failure carries a verbatim fragment of its message; the full messages are q
 ## Why it holds
 
 - The first configured credential is used, and a configured one that fails stops the call rather than dropping to the next
-  (ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE).
+  (ADR-ADO-AUTH-FIXEDCREDENTIALORDER).
 - The pipeline token and the az CLI session must prove they belong to the organization and tenant in `ado.yml` (ADR-ADO-AUTH-PROVETARGET).
 - When nothing yields a token, the message names the two fixes (ADR-ADO-AUTH-ASSERTWHENNOTOKEN).
 - The step template, not the function, decides whether a step gets the token, so the pipeline YAML is the audit trail

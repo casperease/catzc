@@ -10,7 +10,7 @@ A new template is one folder in the templates place, found through the track and
 5  Get-TrackPlace    how the tooling finds the new folder: through the track's templates place, never a path in code
 6  CD path filters   the pipelines name each template's folder, so the new one is added there before it deploys
 
-Supports ADR-AZ-IACKIND-THREEKINDS and ADR-AZ-IACKIND-TRACKPLACESKINDS (operations lens).
+Supports ADR-AZ-IACKIND-THREEIACKINDS and ADR-AZ-IACKIND-TRACKPLACESKINDS (operations lens).
 ```
 
 A template is the unit that deploys, so adding one is adding a folder: the folder's name is the template's name, and its files are the same
@@ -23,7 +23,7 @@ description:
   configuration folder holding its first slot; the tooling finds it through the track, and the CD pipelines' path filters name it before any
   pipeline deploys it.
 about:
-  adrs: [ADR-AZ-IACKIND-THREEKINDS, ADR-AZ-IACKIND-TRACKPLACESKINDS]
+  adrs: [ADR-AZ-IACKIND-THREEIACKINDS, ADR-AZ-IACKIND-TRACKPLACESKINDS]
   lens: operations
 content:
   title: A new template is one folder in the templates place, found through the track and named in the pipelines that deploy it
@@ -95,7 +95,7 @@ layout:
 ## Why it holds
 
 - An IaC template is a folder holding a deployable `main.bicep` and its `options.yml`, and every infrastructure file is of one kind
-  (ADR-AZ-IACKIND-THREEKINDS).
+  (ADR-AZ-IACKIND-THREEIACKINDS).
 - The tooling finds a kind only through `Get-TrackPlace`, never through a path written in code, so a new template needs no tooling change
   (ADR-AZ-IACKIND-TRACKPLACESKINDS).
 

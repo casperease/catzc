@@ -12,8 +12,8 @@ The bicep formatter engine: formats the given Bicep files with the managed Bicep
 ### description
 
 One Format-Code engine adapter
-([PDR-CONFIG-NEWINSTANCEISCONFIGCHANGE](../../../../drs/principles/configure-not-program.md#rule-pdr-config-newinstanceisconfigchange)). The
-Bicep CLI is the one at the tools.yml pin (Install-Bicep), never whichever bicep is first on PATH; a missing or off-pin CLI throws, naming
+([PDR-CONFIG-NEWINSTANCEISCONFIG](../../../../drs/principles/configure-not-program.md#rule-pdr-config-newinstanceisconfig)). The Bicep CLI
+is the one at the tools.yml pin (Install-Bicep), never whichever bicep is first on PATH; a missing or off-pin CLI throws, naming
 Install-Bicep.
 
 The CLI starts slowly, so it runs once for all the files: each is copied into a temporary folder, `bicep format --pattern` formats the

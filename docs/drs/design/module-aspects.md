@@ -2,7 +2,7 @@
 
 ## Rules: DDR-ASPECT
 
-### Rule DDR-ASPECT-MODULESPARTITIONINTOASPECTS
+### Rule DDR-ASPECT-MODULESPARTITIONED
 
 Every module (and, at track granularity, every delivery package) **partitions** its tracked files into named **aspects** that are pairwise
 **disjoint** and jointly **exhaustive** — a true partition, no file in two aspects and no file in none. The aspect set is an ordered
@@ -34,7 +34,7 @@ aspect uses it.
 - [Decision](#decision)
 - [Consequences](#consequences)
 
-### Rule DDR-ASPECT-ASPECTISAGLOBSET
+### Rule DDR-ASPECT-ISAGLOBSET
 
 Each aspect is its own derived globset, `<unit>-<aspect>`, with its own live durable-SHA identity and nothing committed per set. A unit's
 two aspects are therefore **two independent identities** — one `live`, one `tests`: a `tests`-only change never re-keys `live`, and a

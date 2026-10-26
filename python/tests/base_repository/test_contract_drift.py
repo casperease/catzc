@@ -1,7 +1,7 @@
 """Black-box contract drift test of Catzc.Base.Repository's provided command Get-RepositoryFile.
 
 The caller below calls the command the way an outside consumer does. It takes the call shape from the command contract,
-read through the one reader, Get-CommandContract (ADR-REPO-CMDCONTRACT-ONEREADER), as the contract's one-line signature,
+read through the one reader, Get-CommandContract (ADR-REPO-CMDCONTRACT-CONTRACTONEREADER), as the contract's one-line signature,
 never by parsing the asset itself. When the asset changes and this caller does not, the shape check fails before any call
 is made. The contract is read from CATZC_REPOSITORY_ROOT, so pointing it at a copy with one edited asset proves the test
 fails.

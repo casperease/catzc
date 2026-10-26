@@ -6,4 +6,4 @@ The L0 tests of `Select-SupportedKeyHandler`, the pure classification of capture
 
 The function names are neutral (widget, gadget), because the command is pure classification logic and a logic fixture must not borrow real
 PSReadLine function names
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+([ADR-AUTO-TEST-DISTINCTFIXTURES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtures)).

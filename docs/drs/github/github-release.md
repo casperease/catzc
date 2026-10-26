@@ -38,7 +38,7 @@ place. The GitHub token can never publish to PSGallery; that is the one place a 
 
 The **published version is the calculated pipeline version** — `MAJOR.MINOR` from `exporter.yml`'s `version`, `PATCH` the first-parent
 commit count of the built commit — distinct from the `6.6.666` local-build placeholder
-([platform-bundle](../automation/platform-bundle.md#rule-adr-auto-bundle-autoversion)). Package identity — the stable module GUID and the
+([platform-bundle](../automation/platform-bundle.md#rule-adr-auto-bundle-bundleversion)). Package identity — the stable module GUID and the
 author/description/tags of the manifest — is that same one export config, so what the package claims about itself is reviewed data, not
 workflow literals.
 

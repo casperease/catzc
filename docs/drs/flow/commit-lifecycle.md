@@ -8,9 +8,9 @@ build-once-deploy-many) are owned by [cd-discipline-and-promotion-flow](cd-disci
 grammar_ (colours, lanes, ghosts, numbers) by [visual-design](../design/visual-design.md) (`DDR-VISUAL`). This FDR owns the commit's
 lifecycle states and the upstream/downstream sync semantics.
 
-## Rules: FDR-CD-LIFE
+## Rules: FDR-LIFE
 
-### Rule FDR-CD-LIFE-ONESTATEADVANCESONERUNG
+### Rule FDR-LIFE-ONESTATEADVANCESONERUNG
 
 **A commit holds one lifecycle state at a time; the state advances one rung along the promotion ladder or leaves it, and never moves
 backward.** The ladder is: topic (brown) → landed on main (grey) → BVT-verified (yellow) → L3-verified (blue) → main-UAT / main-AT-verified
@@ -21,7 +21,7 @@ superseded). It never regresses to an earlier rung — a commit is not "re-verif
 
 - [The ladder](#the-ladder)
 
-### Rule FDR-CD-LIFE-DISCARDISTERMINAL
+### Rule FDR-LIFE-DISCARDISTERMINAL
 
 **Discard is terminal rejection at a named stage, and the discarded commit stays in history.** A process rejects a candidate: **BVT** and
 **L3** discard automatically, **release-uat** discards through its manual gate (**RBC**), and **main-UAT** can kill a commit that fails
@@ -31,7 +31,7 @@ different facts about the same outcome.
 
 - [Discard](#discard)
 
-### Rule FDR-CD-LIFE-RETIREMENTISNOTDISCARD
+### Rule FDR-LIFE-RETIREMENTISNOTDISCARD
 
 **Retirement is a successful end-of-life, and it is not a discard.** A commit that reached production, served there, and was then superseded
 by a newer production commit is **retired** — it did its job and was decommissioned. Retirement and discard both mean "no longer live", but
@@ -40,7 +40,7 @@ diagram that paints a retired commit the same red as a discarded one erases that
 
 - [Retirement](#retirement)
 
-### Rule FDR-CD-LIFE-SUPERSESSIONABANDONSOVERTAKEN
+### Rule FDR-LIFE-SUPERSESSIONABANDONS
 
 **Supersession (rollover) abandons a still-valid commit that a newer commit overtook.** When a newer commit rolls over an older one that was
 still progressing toward the same environment, the older is **superseded**: it was never rejected — it was valid — but a fresher commit
@@ -49,7 +49,7 @@ and "delivered then retired": valid, but not chosen.
 
 - [Supersession](#supersession)
 
-### Rule FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+### Rule FDR-LIFE-ONECOMMITPERENVIRONMENT
 
 **Each always-on environment hosts exactly one commit, plus a history.** `main-UAT`, `release-uat`, `pre-prod`, and `production` are
 stateful, not pass-through: at any moment each holds one **occupant** — the commit deployed there, as the release candidate built from it —
@@ -61,28 +61,28 @@ that environment right now.
 
 - [One occupant per environment](#one-occupant-per-environment)
 
-### Rule FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+### Rule FDR-LIFE-SYNCFROMVERIFIEDHEAD
 
 **The stable integration point is the BVT-verified server head, and upstream integrators sync from it — never from the raw HEAD.** The
 BVT-verified server head is the newest commit on the server's main that the BVT has verified and no later stage has failed. It is also the
 commit that goes into `main-UAT` first, so once it is deployed it is the `main-UAT` occupant too: the commit synced from and the commit
-`main-UAT` takes are one. Nobody syncs from a landed head the BVT has not judged yet (FDR-CD-LIFE-LANDEDUNTILFAILED) or from a dirty HEAD
-(FDR-CD-LIFE-DIRTYHEADUNSAFE). While the server marks no BVT-verified head, a topic syncs from the current server HEAD and says so
+`main-UAT` takes are one. Nobody syncs from a landed head the BVT has not judged yet (FDR-LIFE-LANDEDUNTILFAILED) or from a dirty HEAD
+(FDR-LIFE-DIRTYHEADUNSAFE). While the server marks no BVT-verified head, a topic syncs from the current server HEAD and says so
 (FDR-GIT-SYNCPOINT, FDR-GIT-FALLBACKISANNOUNCED).
 
 - [Sync from the verified head](#sync-from-the-verified-head)
 
-### Rule FDR-CD-LIFE-DIRTYHEADUNSAFE
+### Rule FDR-LIFE-DIRTYHEADUNSAFE
 
 **The dirty HEAD is the latest commit on main and is not a source that is safe to sync or promote from.** HEAD is simply the newest commit;
 it may have _failed_ a downstream stage (for example, died in `main-UAT`). Such a commit is the **dirty HEAD**: it is the tip of main, but
 it must not be synced from and cannot be promoted downstream. Consumers who naively track HEAD are pointed instead at the BVT-verified
-server head (FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD). "Latest" and "safe to build on" are different questions, and the model keeps them separate.
-A newest commit that no stage has judged yet is _landed_, not dirty (FDR-CD-LIFE-LANDEDUNTILFAILED).
+server head (FDR-LIFE-SYNCFROMVERIFIEDHEAD). "Latest" and "safe to build on" are different questions, and the model keeps them separate. A
+newest commit that no stage has judged yet is _landed_, not dirty (FDR-LIFE-LANDEDUNTILFAILED).
 
 - [The dirty HEAD](#the-dirty-head)
 
-### Rule FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+### Rule FDR-LIFE-FAILEDSTAYSUPSTREAM
 
 **A commit that fails a stage cannot go downstream.** Failure at any environment stops both _promotion_ (it will not advance to a later
 environment) and _downstream consumption_ (nothing may build on it). Downstream flow proceeds only from the last successful state, so a
@@ -90,7 +90,7 @@ failure is a hard stop, not a soft warning.
 
 - [Failure stops downstream](#failure-stops-downstream)
 
-### Rule FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+### Rule FDR-LIFE-TOPICDEPLOYSOUTOFBAND
 
 **A topic commit can be deployed out-of-band by a workflow without integrating into main/master.** A workflow or pipeline may deploy a
 commit that still lives on a topic branch — a hotfix or an experiment — even though it has not reached main/master. That deploy is
@@ -99,7 +99,7 @@ state on the mainline.
 
 - [Out-of-band topic deploys](#out-of-band-topic-deploys)
 
-### Rule FDR-CD-LIFE-NUMBERISIDENTITY
+### Rule FDR-LIFE-NUMBERISIDENTITY
 
 **A commit's number is its time-ordered identity, and its terminal appearance is where its story ends.** Numbers run in commit time (`0`
 before `1` … before `10`); the same number reappears in each lane in its state-of-the-moment colour, and its last appearance names its
@@ -109,21 +109,21 @@ canonical encoding of this lifecycle (they render the grammar of
 
 - [One number, one story](#one-number-one-story)
 
-### Rule FDR-CD-LIFE-FASTPUSHLANDS
+### Rule FDR-LIFE-FASTPUSHLANDS
 
 **In `main-direct`, the client lands a commit by one fast push to main, and a push is never a history change.** Every commit reaches the
 server as a single push from the client, carrying the text-field message or `...` when the field is empty. The push fast-forwards the
 server's main; a rejected push (main moved) stops and reports, and the client integrates by hand. A force push, an amend of a pushed commit,
-and an administrator's history change are not supported (FDR-CD-LIFE-DISCARDISTERMINAL). In `main-via-pr` the push is refused locally while
+and an administrator's history change are not supported (FDR-LIFE-DISCARDISTERMINAL). In `main-via-pr` the push is refused locally while
 standing on main/master, the `git_workspace` variant's one stop condition.
 
 - [Fast push to main](#fast-push-to-main)
 
-### Rule FDR-CD-LIFE-LANDEDUNTILFAILED
+### Rule FDR-LIFE-LANDEDUNTILFAILED
 
 **A pushed head is _landed_ until a stage fails it; only a failed head is the dirty HEAD.** A head on main that no stage has verified yet is
-**landed** (grey, FDR-CD-LIFE-ONESTATEADVANCESONERUNG). It becomes the dirty HEAD (FDR-CD-LIFE-DIRTYHEADUNSAFE) only when a downstream stage
-fails it, and the repair is a successor commit that fixes forward, never a rewrite of the failed one.
+**landed** (grey, FDR-LIFE-ONESTATEADVANCESONERUNG). It becomes the dirty HEAD (FDR-LIFE-DIRTYHEADUNSAFE) only when a downstream stage fails
+it, and the repair is a successor commit that fixes forward, never a rewrite of the failed one.
 
 - [Landed, then dirty](#landed-then-dirty)
 
@@ -139,8 +139,8 @@ terminal.
 
 The RC and RBC gates and the acceptance testing that clears them belong to the flow model:
 [FDR-CD-TWORELEASEGATES](cd-discipline-and-promotion-flow.md#rule-fdr-cd-tworeleasegates) defines the gates, and
-[FDR-CD-ACCEPTANCETESTINGISNOTUAT](cd-discipline-and-promotion-flow.md#rule-fdr-cd-acceptancetestingisnotuat) separates the acceptance
-testing from the environment it runs in.
+[FDR-CD-ACCEPTANCEISNOTUAT](cd-discipline-and-promotion-flow.md#rule-fdr-cd-acceptanceisnotuat) separates the acceptance testing from the
+environment it runs in.
 
 ```yml drawio
 description:
@@ -149,11 +149,11 @@ description:
   took over production."
 about:
   adrs:
-    - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
-    - FDR-CD-LIFE-DISCARDISTERMINAL
-    - FDR-CD-LIFE-RETIREMENTISNOTDISCARD
-    - FDR-CD-LIFE-SUPERSESSIONABANDONSOVERTAKEN
-    - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+    - FDR-LIFE-ONESTATEADVANCESONERUNG
+    - FDR-LIFE-DISCARDISTERMINAL
+    - FDR-LIFE-RETIREMENTISNOTDISCARD
+    - FDR-LIFE-SUPERSESSIONABANDONS
+    - FDR-LIFE-FAILEDSTAYSUPSTREAM
     - DDR-VISUAL-DISTINCTENDINGS
   lens: architecture
 content:
@@ -323,10 +323,10 @@ description:
 about:
   adrs:
     - DDR-REMOTE-INTEGRATEFROMVERIFIED
-    - FDR-CD-LIFE-DIRTYHEADUNSAFE
-    - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
-    - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
-    - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+    - FDR-LIFE-DIRTYHEADUNSAFE
+    - FDR-LIFE-SYNCFROMVERIFIEDHEAD
+    - FDR-LIFE-ONECOMMITPERENVIRONMENT
+    - FDR-LIFE-FAILEDSTAYSUPSTREAM
   lens: architecture
 content:
   title: Upstream consumers sync from the BVT-verified HEAD, never from the dirty tip

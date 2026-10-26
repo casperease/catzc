@@ -62,7 +62,7 @@ opens the head of a generated file git tracks. An authored head carries none: a 
 nothing, so the imprint writes only the edges ([ADR-REPO-FILEMETA-HEADPOLICY](#rule-adr-repo-filemeta-headpolicy)). A hash an author keeps
 in the `config` part is the author's, left alone and never maintained. A second run changes no file. The output is stable under the
 formatter of the file's language, so the formatter and the imprint never undo each other
-([ADR-REPO-FORMAT-GENERATEDARTIFACTSFORMATTED](uniform-formatting.md#rule-adr-repo-format-generatedartifactsformatted)).
+([ADR-REPO-FORMAT-GENERATEDFORMATTED](uniform-formatting.md#rule-adr-repo-format-generatedformatted)).
 
 - [Imprinted, never hand-edited](#imprinted-never-hand-edited)
 

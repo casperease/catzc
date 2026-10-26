@@ -13,8 +13,7 @@ Runs one imprint step over the given files and returns what it changed and what 
 
 A language is never named here: which language runs which step is configuration, not code.
 
-It rests on
-[PDR-CONFIG-NEWINSTANCEISCONFIGCHANGE](../../../../drs/principles/configure-not-program.md#rule-pdr-config-newinstanceisconfigchange) and
+It rests on [PDR-CONFIG-NEWINSTANCEISCONFIG](../../../../drs/principles/configure-not-program.md#rule-pdr-config-newinstanceisconfig) and
 [ADR-REPO-FORMAT-CONFIGUREDFORMATTERS](../../../../drs/repository/uniform-formatting.md#rule-adr-repo-format-configuredformatters).
 
 ### parameter `Step`

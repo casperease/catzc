@@ -11,7 +11,7 @@ The import materialises every managed root file, and two quality gates catch dri
 6  Test-RootConfigFiles       the integrity gate: registry, .gitignore, the index and the headed copies must agree, no target a link
 7  registry and git disagree  its issue lines: git rm --cached for a tracked copy, re-run the importer for a link or a stale copy
 
-Supports ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION, ADR-REPO-ROOTCFG-THREEWAYAGREEMENT and ADR-REPO-ROOTCFG-HEADEDCOPY (operations lens).
+Supports ADR-REPO-ROOTCFG-ROOTCFGIDEMPOTENT, ADR-REPO-ROOTCFG-THREEWAYAGREEMENT and ADR-REPO-ROOTCFG-HEADEDCOPY (operations lens).
 ```
 
 A developer never writes a managed root file. Running `. ./importer.ps1` materialises every opted-in target before the prompt returns, and
@@ -23,7 +23,7 @@ description:
   Every import runs the root-file writer, which leaves each managed root file a current headed file; the drift gate and the integrity gate
   each report the file and the exact fix when something is out of step.
 about:
-  adrs: [ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION, ADR-REPO-ROOTCFG-THREEWAYAGREEMENT, ADR-REPO-ROOTCFG-HEADEDCOPY]
+  adrs: [ADR-REPO-ROOTCFG-ROOTCFGIDEMPOTENT, ADR-REPO-ROOTCFG-THREEWAYAGREEMENT, ADR-REPO-ROOTCFG-HEADEDCOPY]
   lens: operations
 content:
   title: The import materialises every root file; two gates catch drift and name the fix
@@ -106,7 +106,7 @@ layout:
 ## Why it holds
 
 - Generation is idempotent and runs on every import, so the import is the only command a developer needs; a stale target is a defect the
-  gates report, never a step to remember (ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION).
+  gates report, never a step to remember (ADR-REPO-ROOTCFG-ROOTCFGIDEMPOTENT).
 - The registry, `.gitignore` and git's tracked set must agree, every `source` target must equal its template under the head, and no managed
   target may be a link; an integrity test asserts it from the registry outward (ADR-REPO-ROOTCFG-THREEWAYAGREEMENT).
 - A `source` target is a headed copy of its template, never a link, so a write never reaches the template (ADR-REPO-ROOTCFG-HEADEDCOPY).

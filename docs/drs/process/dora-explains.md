@@ -8,7 +8,7 @@ capability links. The decisions live in the decision records themselves; this fi
 
 `Agile — defined by the manifesto, measured by responsiveness`
 
-[WDR-AGILE](agile.md)
+[EDR-AGILE](../external/agile/agile.md)
 
 > DORA's research frames delivery performance as the capacity to make changes safely and quickly — the same responsiveness the manifesto
 > describes. Agile as defined here is the cultural and process foundation the technical capabilities below make measurable.
@@ -25,7 +25,7 @@ capability links. The decisions live in the decision records themselves; this fi
 
 `Agile values — the four preferences of the manifesto`
 
-[WDR-VALUES](agile-values.md)
+[EDR-VALUES](../external/agile/agile-values.md)
 
 > DORA's research consistently finds that team capability and culture, not tooling or documentation weight, predict delivery performance —
 > the same ordering the four values assert.
@@ -42,7 +42,7 @@ capability links. The decisions live in the decision records themselves; this fi
 
 `Agile principles — the twelve principles behind the manifesto`
 
-[WDR-AGILEPRINCIPLES](agile-principles.md)
+[EDR-AGILEPRINCIPLES](../external/agile/agile-principles.md)
 
 > DORA's technical and management capabilities are, in large part, measurable realisations of these principles — frequent delivery, low
 > change-cost, team autonomy, and continuous improvement.
@@ -80,7 +80,7 @@ capability links. The decisions live in the decision records themselves; this fi
 
 `Lean — the Toyota Production System, mapped to software by the Poppendiecks`
 
-[WDR-LEAN](lean.md)
+[EDR-LEAN](../external/lean/lean.md)
 
 > DORA's research frames elite delivery as fast, stable flow — short lead times and small batches with quality held constant — which is lean
 > flow discipline measured. The lean principles here are the practices those metrics reward.

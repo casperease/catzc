@@ -10,7 +10,7 @@ Clients bridge to one server remote: in through a pull request, out from the ver
 5  verified point   the stable integration point, the BVT-verified server head
 
 Supports DDR-REMOTE-SERVERREMOTEISTRUTH, DDR-REMOTE-INTEGRATEFROMVERIFIED and DDR-REMOTE-PULLREQUESTISINGRESS,
-and FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD and FDR-CD-LIFE-DIRTYHEADUNSAFE (architecture lens).
+and FDR-LIFE-SYNCFROMVERIFIEDHEAD and FDR-LIFE-DIRTYHEADUNSAFE (architecture lens).
 ```
 
 In cats the mainline is not a local artifact. It is the `main` / `master` branch that the server remote enforces, and that server is where
@@ -28,8 +28,8 @@ about:
     - DDR-REMOTE-SERVERREMOTEISTRUTH
     - DDR-REMOTE-INTEGRATEFROMVERIFIED
     - DDR-REMOTE-PULLREQUESTISINGRESS
-    - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
-    - FDR-CD-LIFE-DIRTYHEADUNSAFE
+    - FDR-LIFE-SYNCFROMVERIFIEDHEAD
+    - FDR-LIFE-DIRTYHEADUNSAFE
   lens: architecture
 content:
   title: "Clients bridge to one server remote: in through a pull request, out from the verified point"
@@ -103,8 +103,8 @@ layout:
 - Consumers integrate from the last remote-verified commit, never the current remote HEAD (DDR-REMOTE-INTEGRATEFROMVERIFIED).
 - The pull request authenticates the author, runs the merge gates and performs the merge: it is the ingress engine, not merely a review
   (DDR-REMOTE-PULLREQUESTISINGRESS).
-- The stable integration point is the BVT-verified server head, the same commit `main-UAT` takes first (FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD),
-  and the dirty HEAD is never a source to sync from (FDR-CD-LIFE-DIRTYHEADUNSAFE).
+- The stable integration point is the BVT-verified server head, the same commit `main-UAT` takes first (FDR-LIFE-SYNCFROMVERIFIEDHEAD), and
+  the dirty HEAD is never a source to sync from (FDR-LIFE-DIRTYHEADUNSAFE).
 
 ## Where the code and the decision record differ
 

@@ -10,7 +10,7 @@ One commit becomes one verified, immutable package, and every code root is a cop
 5  Installed, saved         every other code root, a copy of the same package
 6  Checked again            the integrity check runs on the package before a copy is placed
 
-Supports ADR-AUTO-BUNDLE-BUNDLEISBUILD, ADR-AUTO-BUNDLE-IMMUTABLEBUILD and ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL (meta lens).
+Supports ADR-AUTO-BUNDLE-ISBUILD, ADR-AUTO-BUNDLE-IMMUTABLEBUILD and ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL (meta lens).
 ```
 
 A bundle is how cats leaves the repository it is developed in: the selected modules are built once into one versioned package that loads
@@ -22,7 +22,7 @@ description:
   Selected modules are built once into one versioned package, an integrity check proves it, and every other code root is a copy of that
   package that is checked again before the copy is placed.
 about:
-  adrs: [ADR-AUTO-BUNDLE-BUNDLEISBUILD, ADR-AUTO-BUNDLE-IMMUTABLEBUILD, ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL]
+  adrs: [ADR-AUTO-BUNDLE-ISBUILD, ADR-AUTO-BUNDLE-IMMUTABLEBUILD, ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL]
   lens: meta
 content:
   title: One commit becomes one verified, immutable package, and every code root is a copy of it
@@ -90,7 +90,7 @@ layout:
 ## Why it holds
 
 - A bundle is one installable, versioned module built from a selected set of modules, closure-expanded over the declared dependencies, that
-  loads outside the repository (ADR-AUTO-BUNDLE-BUNDLEISBUILD).
+  loads outside the repository (ADR-AUTO-BUNDLE-ISBUILD).
 - A build is immutable and content-addressed: the same commit yields a byte-identical build and an identical content hash, and the integrity
   guard re-verifies that hash (ADR-AUTO-BUNDLE-IMMUTABLEBUILD).
 - An install verifies the source build before it touches the destination, and a re-install with a matching content hash does not copy again

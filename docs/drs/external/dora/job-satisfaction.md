@@ -1,0 +1,139 @@
+# Research: DORA — Job satisfaction
+
+## Rules: EDR-DORA-JOBSAT
+
+### Rule EDR-DORA-JOBSAT-MEANINGFULWORK
+
+Job satisfaction is treated as the product of challenging, meaningful work and the room to exercise skill and judgment — not as a proxy for
+compensation. Employees rate meaningful work as being about as important as salary, so work design carries as much weight as pay.
+
+- [Summary](#summary)
+
+### Rule EDR-DORA-JOBSAT-EMPOWERINGTOOLS
+
+Empowerment includes the tools people use to do their work. Teams that can choose their own tools do better at continuous delivery, so
+mandating a fixed toolset from a central authority works against the capability rather than for it.
+
+- [Why it matters](#why-it-matters)
+
+### Rule EDR-DORA-JOBSAT-UPSTREAMOFPERFORMANCE
+
+Job satisfaction sits upstream of performance, not downstream of it: satisfied people produce better work, better work lifts software
+delivery performance, and delivery performance lifts organizational performance. Treat it as a leading driver to invest in, not a perk to
+hand out once performance is already high.
+
+- [Why it matters](#why-it-matters)
+
+### Rule EDR-DORA-JOBSAT-NOTFROMTELEMETRY
+
+Never infer job satisfaction from system telemetry. There is no reliable proxy for it in commit logs, ticket counts, or deployment metrics —
+it is measured by asking people directly, and it stays a perceptual measure even where every other DORA capability has a system-data signal.
+
+- [How to apply](#how-to-apply)
+
+### Rule EDR-DORA-JOBSAT-RELUCTANCEISFINDING
+
+Treat reluctance to answer job-satisfaction questions honestly as a finding in itself, not as missing data to work around. When people will
+not say how they feel about the work, that reluctance points at an organizational problem worth investigating on its own.
+
+- [Common pitfalls](#common-pitfalls)
+
+### Rule EDR-DORA-JOBSAT-BUDGETFORCHANGE
+
+Budget real time and resources for people to adjust during a technology or process change. A transformation that changes tools or ways of
+working without giving people time to build the new skills spends the change against job satisfaction rather than for it.
+
+- [Common pitfalls](#common-pitfalls)
+
+## Context
+
+Job satisfaction is one of DORA's cultural and people capabilities, a predictor of organizational performance that the DORA Core Model
+places among its outcomes, under well-being, rather than alongside the technical and process capabilities. DORA defines it as "doing work
+that's challenging and meaningful, and being empowered to exercise skills and judgment."[^1]
+
+Unlike most capabilities in the model, job satisfaction has no reliable proxy in system data — it cannot be read off a dashboard the way
+deployment frequency or change lead time can. DORA measures it through direct employee feedback, which makes it as much a management
+discipline as an engineering one: providing the right tools, assigning meaningful work, and giving people time to adapt when the
+organization changes around them.
+
+## Summary
+
+The capability is job satisfaction: people doing work that is challenging and meaningful, with the autonomy to bring their own skill and
+judgment to it. DORA frames this as a virtuous cycle — engaged people produce better work, better work drives higher software delivery
+performance, and that performance compounds into organizational performance, competitive advantage, and continued innovation.
+
+Two concrete levers recur in DORA's guidance: giving people the tools and resources they need, including the freedom to choose those tools,
+and assigning work that draws on their expertise rather than work that is merely busywork. Employees weigh meaningful work about as heavily
+as salary, which is why DORA's research treats it as a driver of performance rather than as a downstream reward for it.
+
+## Why it matters
+
+DORA's research places job satisfaction upstream in the causal chain, not downstream: satisfaction is not what a team gets after it performs
+well, it is part of what makes strong performance possible in the first place. Engaged people do better work, better work improves software
+delivery performance, and improved delivery performance feeds organizational performance, supporting the continuous improvement and learning
+that further innovation depends on.
+
+The mechanism runs through two things a team's environment controls directly — the tools available to do the work, and the meaning of the
+work itself. Teams that can decide which tools they use do better at continuous delivery, so tool choice is not a side issue to job
+satisfaction but one of its direct inputs. Meaningful work matters just as much: research shows people value it comparably to salary, so
+treating it as a nice-to-have rather than a design input for how work gets assigned discards a real lever on performance.
+
+## How to apply
+
+This platform treats zero-ceremony automation as a job-satisfaction lever, not only an engineering-efficiency one: removing boilerplate,
+registration, and ceremony from adding a function or module leaves people's time and judgment for the work that is actually challenging,
+rather than for fighting the platform. Self-service gives consumers the autonomy DORA's definition calls for — provisioning and changing
+managed infrastructure themselves, through the CLI, without a ticket queue standing between judgment and action. Vendoring every dependency
+and assuming no local admin keeps tool access itself from becoming a source of friction — a team blocked from installing the tools it needs
+cannot exercise the tool-choice autonomy this capability depends on.
+
+None of these substitutes for asking people directly how satisfied they are with their work — no system-data proxy exists for that — but
+they remove some of the concrete, structural sources of dissatisfaction: ceremony that wastes skilled time, gatekeeping that removes
+autonomy, and tooling friction that blocks the tools a team would otherwise choose.
+
+## Common pitfalls
+
+- **Withholding the tools people need.** Not providing the tools and resources required to do the work well — including denying teams a say
+  in which tools they use — removes one of the concrete levers this capability depends on.
+- **Assigning work without meaning.** Work that does not draw on a person's skill or judgment scores poorly on job satisfaction even when it
+  is technically well organized; meaningful work is not an afterthought to how tasks get assigned.
+- **Underestimating adjustment time.** Technology and process transformations that change tools or ways of working without budgeting real
+  time for people to build new skills and adapt spend the change against job satisfaction instead of for it.
+
+## References
+
+[^1]:
+    DORA, _Job satisfaction_ capability, <https://dora.dev/capabilities/job-satisfaction/>. Tagged `core` in the catalogue (an outcome under
+    well-being in the Core Model) and a predictor of organizational performance, measured through direct employee feedback rather than
+    system data.
+
+## Dora explains
+
+Job satisfaction is a people-side entry in DORA's catalogue that the Core Model places among its outcomes, under well-being, rather than in
+its capability column. It does not show up in deployment frequency or lead-time numbers directly, but the capability page describes a
+virtuous circle in which better work produces higher delivery performance and, through it, higher organizational performance; continuous
+delivery and teams empowered to choose tools feed it.
+
+- **Catalogue entry:** [Job satisfaction](../../../references/dora/capabilities.md#job-satisfaction)
+- **Category:** [Climate for learning](../../../references/dora/capabilities.md#climate-for-learning) — Core Model v2.1.0: an outcome under
+  [well-being](../../../references/dora/core-model.md#well-being), not a capability, although the catalogue tags it `core`.
+- **Evidence:**
+  - [2014 State of DevOps Report](../../../references/dora/publications.md#2014-state-of-devops-report) — job satisfaction is the top
+    predictor of organizational performance.
+  - [2024 Accelerate State of DevOps Report](../../../references/dora/publications.md#2024-accelerate-state-of-devops-report) — AI adoption
+    and transformational leadership both raise job satisfaction.
+  - [2025 Impact of Generative AI](../../../references/dora/publications.md#2025-impact-of-generative-ai-in-software-development) — heavy
+    users of generative AI report higher job satisfaction.
+- **Predicts:** [organizational performance](../../../references/dora/core-model.md#organizational-performance); as part of
+  [well-being](../../../references/dora/core-model.md#well-being), it also predicts how long employees stay in their jobs. The virtuous
+  circle runs through [software delivery performance](../../../references/dora/core-model.md#software-delivery-performance).
+- **Related capabilities:**
+  - [Teams empowered to choose tools](../../../references/dora/capabilities.md#teams-empowered-to-choose-tools) — the tool-choice autonomy
+    DORA ties directly to job satisfaction and to continuous delivery performance.
+  - [Test automation](../../../references/dora/capabilities.md#test-automation) — a technical practice job satisfaction sustains by giving
+    people the time and confidence to do challenging work well.
+  - [Continuous integration](../../../references/dora/capabilities.md#continuous-integration) — one of the delivery practices that engaged,
+    empowered teams are positioned to sustain.
+  - [Deployment automation](../../../references/dora/capabilities.md#deployment-automation) — automation that removes rote toil, leaving
+    room for the challenging, meaningful work this capability describes.
+- [DORA research reference](../../../references/dora/index.md) — the overview these findings sit within.

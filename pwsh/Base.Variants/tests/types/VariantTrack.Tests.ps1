@@ -91,7 +91,7 @@ Describe 'VariantTrack' -Tag 'L0', 'logic' {
         { & $script:make ([ordered]@{ tracks = [ordered]@{ widgets = $bad } }) } | Should -Throw "*namespace_exempt: glob pattern 'widgetry/x``*``*/y'*"
     }
 
-    It 'reads a plain member as authored and committed, and a map member with the facts it states' -Tag 'DDR-TRACK-TRACKISPLACEDCLUSTER' {
+    It 'reads a plain member as authored and committed, and a map member with the facts it states' -Tag 'DDR-TRACK-ISPLACEDCLUSTER' {
         $config = & $script:make ([ordered]@{ tracks = [ordered]@{
                     widget = [ordered]@{ members                                                              = @('widget',
                             [ordered]@{ path = 'widget.cache'; generated = $true; committed = $false }); type = 'widget-works'
@@ -109,7 +109,7 @@ Describe 'VariantTrack' -Tag 'L0', 'logic' {
         $config.tracks[0].MemberOf('gadget/a.txt') | Should -BeNullOrEmpty
     }
 
-    It 'reads a glob member as files inside a place, never a place itself, and gives it the paths it matches' -Tag 'DDR-TRACK-TRACKISPLACEDCLUSTER' {
+    It 'reads a glob member as files inside a place, never a place itself, and gives it the paths it matches' -Tag 'DDR-TRACK-ISPLACEDCLUSTER' {
         $config = & $script:make ([ordered]@{ tracks = [ordered]@{
                     widget = [ordered]@{ members                                                                = @('widget',
                             [ordered]@{ path = 'widget/*/*.wdg'; generated = $true; committed = $false }); type = 'widget-works'

@@ -15,7 +15,7 @@ catzc:
 
 ## Eyebrow
 
-28 / 30 · fact for the Developer · RDR-DORA-CULTURE
+28 / 30 · fact for the Developer · EDR-DORA-CULTURE
 
 ## Lead
 
@@ -32,5 +32,5 @@ From the catalogue, reduced: names are derived never typed.
 
 ## Notes
 
-Check it: the record RDR-DORA-CULTURE in docs/drs/index.md, and the diagram
+Check it: the record EDR-DORA-CULTURE in docs/drs/index.md, and the diagram
 docs/explanation/azure/.assets/names-are-derived-never-typed.drawio.png.

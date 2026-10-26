@@ -2,14 +2,14 @@
 
 ## Rules: ADR-AUTO-ZERO
 
-### Rule ADR-AUTO-ZERO-TWODESIGNQUESTIONS
+### Rule ADR-AUTO-ZERO-DESIGNQUESTIONS
 
 Evaluate every design choice against two questions — does this add ceremony (if the platform could do it for the author, it should), and can
 the author get this wrong (prevent it structurally or catch it immediately)? If either answer is unsatisfying, the design is not done.
 
 - [Decision](#decision)
 
-### Rule ADR-AUTO-ZERO-ZEROCEREMONYAUTOMATION
+### Rule ADR-AUTO-ZERO-CEREMONYAUTOMATION
 
 Adding automation requires zero ceremony — no boilerplate, wiring, or registration: a new file named for its function is a function, a new
 folder is a module, and loading the importer entry brings in everything. The conventions that make this work are mandatory

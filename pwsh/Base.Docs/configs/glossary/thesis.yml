@@ -17,7 +17,7 @@ concepts:
   adjacent store:
     key: adjacent_store
     domain: thesis
-    defined_by: TDR-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD
+    defined_by: TDR-ONETRUTH-REPOSITORYISRECORD
     short:
       The one legitimate second store — a repository or service, such as a GitOps or configuration repository, or Azure DevOps Services or
       GitHub SaaS, with its own history, driven one way from the trunk's pipelines and never edited beside it.
@@ -27,14 +27,14 @@ concepts:
   truth store:
     key: truth_store
     domain: thesis
-    defined_by: TDR-STORES-THREEKINDS
+    defined_by: TDR-STORES-THREESTOREKINDS
     short:
       Any store that holds part of the truth about a delivered system — a version-controlled repository, a fact source, or a state machine.
     realized_by: { kind: prose-only }
   version-controlled repository:
     key: version_controlled_repository
     domain: thesis
-    defined_by: TDR-STORES-VERSIONCONTROLLEDREPOSITORY
+    defined_by: TDR-STORES-VERSIONEDREPOSITORY
     short: The kind of truth store whose content is a versioned history of reviewed changes; a git repository is one subgroup of it.
     realized_by: { kind: prose-only }
   responsibility domain:

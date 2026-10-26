@@ -58,7 +58,7 @@ from every engine: each engine's start resolves it ([execution-engines](../autom
 
 - [A checker per language](#a-checker-per-language)
 
-### Rule ADR-REPO-CMDCONTRACT-ONEREADER
+### Rule ADR-REPO-CMDCONTRACT-CONTRACTONEREADER
 
 One reader, `Get-CommandContract`, parses a command contract into the typed record of the contract language, and nothing else parses it. The
 contract reference page ([ADR-REPO-CONTRACT-HEADERSAYSWHATITPINS](api-contracts.md#rule-adr-repo-contract-headersayswhatitpins)) shows a
@@ -241,11 +241,11 @@ change, and a release folder pins the signature.
   resolves the command.
 
 - **`Get-CommandContract`** is the one reader; `Build-ContractReference` fills the signature column from it, and `Test-GeneratedFiles` fails
-  when the page is stale (ADR-REPO-CMDCONTRACT-ONEREADER).
+  when the page is stale (ADR-REPO-CMDCONTRACT-CONTRACTONEREADER).
 
 - **The `cats` lookup** is generated from the command contracts by the root-config generator in `Catzc.Base.RootConfig`, committed beside
   the entry point's script, and covered by one bats test per engine case; `Test-GeneratedFiles` fails when it is stale
-  (ADR-REPO-CMDCONTRACT-ONEREADER).
+  (ADR-REPO-CMDCONTRACT-CONTRACTONEREADER).
 
 - **Code review** guards what the checks cannot phrase: that a function nobody contracted is treated as internal, and that a contract is
   written by hand for a command someone chose to promise, never generated from the command's file (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT).

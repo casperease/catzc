@@ -15,7 +15,7 @@ catzc:
 
 ## Eyebrow
 
-10 / 30 · fact for the Developer · RDR-DORA-TESTAUTO
+10 / 30 · fact for the Developer · EDR-DORA-TESTAUTO
 
 ## Lead
 
@@ -32,5 +32,5 @@ From the catalogue, reduced: one artifact climbs unchanged.
 
 ## Notes
 
-Check it: the record RDR-DORA-TESTAUTO in docs/drs/index.md, and the diagram
+Check it: the record EDR-DORA-TESTAUTO in docs/drs/index.md, and the diagram
 docs/explanation/flow/.assets/one-artifact-climbs-unchanged.drawio.png.

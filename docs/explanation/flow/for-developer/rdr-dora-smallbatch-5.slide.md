@@ -14,7 +14,7 @@ catzc:
 
 ## Eyebrow
 
-5 / 30 · fact for the Developer · RDR-DORA-SMALLBATCH
+5 / 30 · fact for the Developer · EDR-DORA-SMALLBATCH
 
 ## Lead
 
@@ -31,5 +31,5 @@ From the catalogue, reduced: globs module owns config and types.
 
 ## Notes
 
-Check it: the record RDR-DORA-SMALLBATCH in docs/drs/index.md, and the diagram
+Check it: the record EDR-DORA-SMALLBATCH in docs/drs/index.md, and the diagram
 docs/explanation/flow/.assets/globs-module-owns-config-and-types.drawio.png.

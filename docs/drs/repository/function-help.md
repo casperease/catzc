@@ -2,7 +2,7 @@
 
 ## Rules: ADR-REPO-HELP
 
-### Rule ADR-REPO-HELP-HELPONCOMMENTPAGE
+### Rule ADR-REPO-HELP-ONCOMMENTPAGE
 
 The help of a PowerShell function file or script is the `## help` section of the file's comment page
 ([ADR-REPO-COMMENTS-COMMENTPAGEPLACE](comments-in-docs.md#rule-adr-repo-comments-commentpageplace)), the page the `comment-pages` config
@@ -38,7 +38,7 @@ differs from `[OutputType]`.
 
 - [Mismatches are reported](#mismatches-are-reported)
 
-### Rule ADR-REPO-HELP-IMPRINTSTEP
+### Rule ADR-REPO-HELP-HELPIMPRINT
 
 `Format-Code` checks rules 1 to 4 as an imprint step of the PowerShell language
 ([ADR-REPO-FORMAT-CONFIGUREDFORMATTERS](uniform-formatting.md#rule-adr-repo-format-configuredformatters)), and `Test-Formatting` fails a

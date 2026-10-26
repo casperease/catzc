@@ -9,7 +9,7 @@ One flattened scan program is rendered exactly for GitHub and by last select for
 4  GitHub paths             the program in order, each drop as a ! negation: exact
 5  ADO include and exclude  each pattern collapsed to its last select: order lost
 
-Supports FDR-CD-GLOBS-TRACKEDFILESONLY, FDR-CD-GLOBS-NATIVEPATHFILTER and FDR-CD-GLOBS-COMPOSESETS (meta lens).
+Supports FDR-GLOBS-TRACKEDFILESONLY, FDR-GLOBS-NATIVEPATHFILTER and FDR-GLOBS-COMPOSESETS (meta lens).
 ```
 
 A globset in cats maps a deployable unit onto its files, and a pipeline triggers on that mapping. The mapping is an ordered scan program,
@@ -22,7 +22,7 @@ description:
   "One flattened scan program composed from a base unit and a configured unit, and its two projections: GitHub paths keep the order exactly,
   Azure DevOps include and exclude collapse each pattern to its last select."
 about:
-  adrs: [FDR-CD-GLOBS-TRACKEDFILESONLY, FDR-CD-GLOBS-NATIVEPATHFILTER, FDR-CD-GLOBS-COMPOSESETS]
+  adrs: [FDR-GLOBS-TRACKEDFILESONLY, FDR-GLOBS-NATIVEPATHFILTER, FDR-GLOBS-COMPOSESETS]
   lens: meta
 content:
   title: One flattened scan program is rendered exactly for GitHub and by last select for Azure DevOps
@@ -81,12 +81,12 @@ layout:
 ## Why it holds
 
 - Membership is an ordered scan program of select and drop rules over tracked files, evaluated last-match-wins with a default of
-  not-selected; precedence is position, never kind (FDR-CD-GLOBS-TRACKEDFILESONLY).
+  not-selected; precedence is position, never kind (FDR-GLOBS-TRACKEDFILESONLY).
 - A pipeline, workflow or build-validation policy triggers on the globset's native path-filter projection: GitHub `on.*.paths` with ordered
   `!` negation, exact; Azure DevOps `trigger.paths.include` and `exclude`, order-independent, so each pattern is collapsed to its last
-  select (FDR-CD-GLOBS-NATIVEPATHFILTER).
+  select (FDR-GLOBS-NATIVEPATHFILTER).
 - A globset may compose other declared sets: the composed programs come first and the set's own rules last, and the flattened program is
-  what both the projection and the durable SHA are computed from (FDR-CD-GLOBS-COMPOSESETS).
+  what both the projection and the durable SHA are computed from (FDR-GLOBS-COMPOSESETS).
 
 ## See also
 

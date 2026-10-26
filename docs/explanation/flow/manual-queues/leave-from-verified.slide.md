@@ -15,7 +15,7 @@ catzc:
 
 ## Eyebrow
 
-10 / 10 · fact · FDR-CD-LIFE-DIRTYHEADUNSAFE
+10 / 10 · fact · FDR-LIFE-DIRTYHEADUNSAFE
 
 ## Lead
 

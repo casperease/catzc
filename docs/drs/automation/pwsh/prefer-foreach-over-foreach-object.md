@@ -2,21 +2,21 @@
 
 ## Rules: ADR-PWSH-FOREACH
 
-### Rule ADR-PWSH-FOREACH-FOREACHSTATEMENTDEFAULT
+### Rule ADR-PWSH-FOREACH-STATEMENTDEFAULT
 
 Default to the `foreach` statement for all iteration: it has correct, predictable `return`/`break`/`continue` semantics and is faster.
 
 - [The control flow trap](#the-control-flow-trap)
 - [Performance](#performance)
 
-### Rule ADR-PWSH-FOREACH-FOREACHOBJECTFORTRANSFORMS
+### Rule ADR-PWSH-FOREACH-OBJECTFORTRANSFORMS
 
 Use `ForEach-Object` only for single-expression pipeline transforms with no control flow keywords. If you need `if`, `return`, `break`,
 `continue`, or `try`/`catch`, switch to `foreach`.
 
 - [When ForEach-Object fits](#when-foreach-object-fits)
 
-### Rule ADR-PWSH-FOREACH-NOCONTROLFLOWINFOREACHOBJECT
+### Rule ADR-PWSH-FOREACH-NOCONTROLFLOWINOBJECT
 
 Never use `return`, `break`, or `continue` inside `ForEach-Object`; they do not do what they appear to. If you need control flow, rewrite as
 `foreach`.

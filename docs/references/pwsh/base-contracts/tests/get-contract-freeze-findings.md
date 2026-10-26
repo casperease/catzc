@@ -3,8 +3,7 @@
 Tests `Get-ContractFreezeFindings`. A released version folder is immutable
 ([ADR-REPO-CONTRACT-RELEASEDIMMUTABLE](../../../../drs/repository/api-contracts.md#rule-adr-repo-contract-releasedimmutable)): the command
 compares its files with the `.frozen` record `Get-ContractFileHashes` wrote at the freeze. Fixtures are a widget version folder in
-`TestDrive:`
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+`TestDrive:` ([ADR-AUTO-TEST-DISTINCTFIXTURES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtures)).
 
 ## The real tree
 

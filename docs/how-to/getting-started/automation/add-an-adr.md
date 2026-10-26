@@ -14,7 +14,7 @@ it. The rules for what a decision record says and how it is shaped are the
    prose that justifies each rule. Copy the shape of a neighbouring decision record in the same folder.
 3. **Register it** under its domain's `rulesets:` in `drs.yml`, keyed by the page's file name: `<kebab-title>: { external: <code> }`.
 4. **Add its DORA entry** to the domain's `dora-explains.md`, one section per decision record, as the conventions describe. A
-   vendor-checklist folder (`azure/caf/`, `azure/waf/`) takes none.
+   vendor-checklist folder (`external/azure/caf/`, `external/azure/waf/`) takes none.
 5. **Add its terms.** A term the rule bolds gets an entry in the owning module's `configs/glossary.yml`, its contrast with a similar term
    declared once on either term ([controlled-vocabulary](../../../drs/repository/controlled-vocabulary.md)).
 6. **Regenerate** the index and the glossary, then format the files you touched.

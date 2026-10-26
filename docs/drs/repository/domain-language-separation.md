@@ -68,11 +68,10 @@ and values (comment-blind) rather than its raw text.
 
 The repository's example vocabulary is governed in three separate places — the discovery theme for documentation
 ([documentation-examples](documentation-examples.md), `ADR-REPO-EXAMPLE`), the fixture identities for tests
-([test-automation](../automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities),
-`ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES`), and the real identities of the Azure domain's data, naming and customer models. This ADR is the
-rule that ties them together: these are three faces of one discipline — a token belongs to exactly one zone, and it does not appear in the
-others. Without that rule, a logic test drifts into naming a real customer (testing the config by accident), an ADR illustrates with a test
-fixture, and the three vocabularies blur.
+([test-automation](../automation/test-automation.md#rule-adr-auto-test-distinctfixtures), `ADR-AUTO-TEST-DISTINCTFIXTURES`), and the real
+identities of the Azure domain's data, naming and customer models. This ADR is the rule that ties them together: these are three faces of
+one discipline — a token belongs to exactly one zone, and it does not appear in the others. Without that rule, a logic test drifts into
+naming a real customer (testing the config by accident), an ADR illustrates with a test fixture, and the three vocabularies blur.
 
 This ADR names the discipline and records how it is enforced — and, as importantly, how it is **not**, because the obvious mechanism does
 not work.
@@ -111,8 +110,8 @@ therefore sharp: a live identity is legitimate **only** inside an `integrity`-ta
 point), and a leak anywhere else in a logic-bearing test file is a violation. This makes a mixed file — one `Describe` with both a `logic`
 and an `integrity` Context — work without being split: the integrity block's identities are carved out, and the rest is held to fixtures.
 The two test kinds are the automation rules': a logic test keeps to neutral fixtures
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)), and an integrity
-test binds the shipped assets ([ADR-AUTO-TEST-ONECATEGORY](../automation/test-automation.md#rule-adr-auto-test-onecategory)).
+([ADR-AUTO-TEST-DISTINCTFIXTURES](../automation/test-automation.md#rule-adr-auto-test-distinctfixtures)), and an integrity test binds the
+shipped assets ([ADR-AUTO-TEST-ONECATEGORY](../automation/test-automation.md#rule-adr-auto-test-onecategory)).
 
 ### The design zone
 
@@ -207,7 +206,7 @@ declares the zones; a file-glob spell-checker is not used, because it cannot sep
 
 - [documentation-examples](documentation-examples.md) (`ADR-REPO-EXAMPLE`) — the design zone's discovery-theme vocabulary.
 - [test-automation](../automation/test-automation.md) (`ADR-AUTO-TEST`) — logic vs integrity, and the fixture-identity rule
-  (`ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES`) this gate mechanizes.
+  (`ADR-AUTO-TEST-DISTINCTFIXTURES`) this gate mechanizes.
 - [spell-out-names](../automation/spell-out-names.md) (`ADR-AUTO-SPELL`) — the terminology registry and the per-category `scope` map.
 - [poka-yoke](../principles/poka-yoke.md), [reduce-variability](../principles/reduce-variability.md) — the principles a mechanical,
   low-ceremony quality gate instantiates.

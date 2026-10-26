@@ -12,7 +12,7 @@ Catzc.Base.Globs projects the program; workflows, pipelines and the branch polic
 7  .github/workflows/*.yml        a workflow declares the GitHub list by hand
 8  .ado/pipelines/*.yaml          an ado pipeline declares the ADO lists by hand
 
-Supports FDR-CD-GLOBS-NATIVEPATHFILTER and FDR-CD-GLOBS-COMPOSESETS (architecture lens).
+Supports FDR-GLOBS-NATIVEPATHFILTER and FDR-GLOBS-COMPOSESETS (architecture lens).
 ```
 
 One module of cats, `Catzc.Base.Globs`, owns the globset registry, the dialect, the flattened scan program and the native projection, and
@@ -26,7 +26,7 @@ description:
   The globs module projects the flattened scan program into a GitHub list and an Azure DevOps include and exclude pair; the branch policy
   reads the GitHub list in code, while workflows and pipelines declare the lists by hand, drawn dashed.
 about:
-  adrs: [FDR-CD-GLOBS-NATIVEPATHFILTER, FDR-CD-GLOBS-COMPOSESETS]
+  adrs: [FDR-GLOBS-NATIVEPATHFILTER, FDR-GLOBS-COMPOSESETS]
   lens: architecture
 content:
   title: Catzc.Base.Globs projects the program, and workflows, pipelines and the branch policy only read it
@@ -102,10 +102,10 @@ layout:
 ## Why it holds
 
 - A pipeline, workflow or build-validation policy triggers on the globset's native path-filter projection, rendered by `Get-GlobSetTrigger`
-  from the flattened program: exact for GitHub, last select per pattern for Azure DevOps (FDR-CD-GLOBS-NATIVEPATHFILTER).
-- The flattened program is what the projection is computed from, with no reference-chasing at trigger time (FDR-CD-GLOBS-COMPOSESETS).
+  from the flattened program: exact for GitHub, last select per pattern for Azure DevOps (FDR-GLOBS-NATIVEPATHFILTER).
+- The flattened program is what the projection is computed from, with no reference-chasing at trigger time (FDR-GLOBS-COMPOSESETS).
 - `Catzc.Base.Globs` owns the file, the dialect, the durable SHA, the native projection and the git-reflection query; nothing else parses
-  the config (FDR-CD-GLOBS, "One configuration point").
+  the config (FDR-GLOBS, "One configuration point").
 
 ## Where the code and the decision record differ
 

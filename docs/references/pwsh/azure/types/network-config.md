@@ -21,8 +21,8 @@ Constructing an instance validates the file and collects every violation into on
 
 The type checks this file alone. The sync with `azure.yml`
 ([ADR-AZ-NETWORK-KEYEDBYENVIRONMENT](../../../../drs/azure/azure-network-model.md#rule-adr-az-network-keyedbyenvironment),
-[ADR-AZ-NETWORK-NETWORKPERSUBSCRIPTION](../../../../drs/azure/azure-network-model.md#rule-adr-az-network-networkpersubscription)) joins two
-configs, so it is the quality gate `Test-AzureNetworkPlan`, not a constructor that reads another config.
+[ADR-AZ-NETWORK-PERSUBSCRIPTION](../../../../drs/azure/azure-network-model.md#rule-adr-az-network-persubscription)) joins two configs, so it
+is the quality gate `Test-AzureNetworkPlan`, not a constructor that reads another config.
 
 ## properties
 

@@ -1,9 +1,8 @@
 # pwsh/Azure.DevOps.BuildValidation/types/BuildValidationEntry.cs
 
 The typed record for one entry of the `validations` list in `build-validation.yml`: a build-validation branch policy tied to a declared
-globset ([FDR-CD-TYPE-PRECOMMITBUDGET](../../../../drs/flow/pipeline-types.md#rule-fdr-cd-type-precommitbudget)). Its properties mirror the
-YAML keys
-([ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](../../../../drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
+globset ([FDR-TYPE-PRECOMMITBUDGET](../../../../drs/flow/pipeline-types.md#rule-fdr-type-precommitbudget)). Its properties mirror the YAML
+keys ([ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](../../../../drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
 `BuildValidationConfig` builds one per entry and prefixes every violation with the entry's index.
 
 ## Validation
@@ -13,7 +12,7 @@ empty), `pipeline` and `display_name` (not empty when present) and `blocking` (a
 
 A globset's existence is deliberately not checked here, because that read would couple every config load to the globs registry. It is
 enforced at run time, where `Get-GlobSet` throws, and by an integrity test
-([ADR-AZ-CUSTOMER-REFERENCENOTVALIDATEDONLOAD](../../../../drs/azure/azure-customer-model.md#rule-adr-az-customer-referencenotvalidatedonload)).
+([ADR-AZ-CUSTOMER-REFERENCEUNVALIDATED](../../../../drs/azure/azure-customer-model.md#rule-adr-az-customer-referenceunvalidated)).
 
 ## Properties
 

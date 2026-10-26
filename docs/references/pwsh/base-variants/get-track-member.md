@@ -11,12 +11,11 @@ Returns the members of the tracks, each with its track name and its generated an
 
 ### description
 
-A track is declared once as a set of members
-([DDR-TRACK-TRACKISPLACEDCLUSTER](../../../drs/design/tracks.md#rule-ddr-track-trackisplacedcluster)), each a folder or a file that says
-whether it is generated and whether git tracks it. This lists them as flat records, every track's or the named ones', so a filter, a gate or
-a trigger reads the facts from the one declaration instead of keeping its own list. With `-Path` it answers the one member that contains the
-path, the longest, in the track `Get-Track -Path` finds, so the two never disagree. Get-Track keeps returning the tracks; the member facts
-are this command's.
+A track is declared once as a set of members ([DDR-TRACK-ISPLACEDCLUSTER](../../../drs/design/tracks.md#rule-ddr-track-isplacedcluster)),
+each a folder or a file that says whether it is generated and whether git tracks it. This lists them as flat records, every track's or the
+named ones', so a filter, a gate or a trigger reads the facts from the one declaration instead of keeping its own list. With `-Path` it
+answers the one member that contains the path, the longest, in the track `Get-Track -Path` finds, so the two never disagree. Get-Track keeps
+returning the tracks; the member facts are this command's.
 
 ### parameter `Name`
 

@@ -14,7 +14,7 @@ catzc:
 
 ## Eyebrow
 
-13 / 30 · fact for the Developer · RDR-DORA-DBCHANGE
+13 / 30 · fact for the Developer · EDR-DORA-DBCHANGE
 
 ## Lead
 
@@ -31,5 +31,5 @@ From the catalogue, reduced: ingress gated the rest by review.
 
 ## Notes
 
-Check it: the record RDR-DORA-DBCHANGE in docs/drs/index.md, and the diagram
+Check it: the record EDR-DORA-DBCHANGE in docs/drs/index.md, and the diagram
 docs/explanation/design/.assets/ingress-gated-the-rest-by-review.drawio.png.

@@ -7,7 +7,7 @@ config.
 
 The tests run the gate over a fixture code root in `$TestDrive` and two in-memory fixture modules whose validators are private, so only a
 gate that reads each module's own scope lists them; the fixtures use neutral names
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+([ADR-AUTO-TEST-DISTINCTFIXTURES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtures)).
 
 ## Test titles
 

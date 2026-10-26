@@ -14,7 +14,7 @@ catzc:
 
 ## Eyebrow
 
-18 / 30 · fact for the SRE Lead · ADR-AZ-CAF-IAM
+18 / 30 · fact for the SRE Lead · EDR-AZ-CAF-IAM
 
 ## Lead
 
@@ -31,5 +31,5 @@ From the catalogue, reduced: one reader one cache per session.
 
 ## Notes
 
-Check it: the record ADR-AZ-CAF-IAM in docs/drs/index.md, and the diagram
+Check it: the record EDR-AZ-CAF-IAM in docs/drs/index.md, and the diagram
 docs/explanation/configuration/.assets/one-reader-one-cache-per-session.drawio.png.

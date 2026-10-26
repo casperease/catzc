@@ -2,7 +2,7 @@
 
 ## Rules: ADR-AUTO-TRACKED
 
-### Rule ADR-AUTO-TRACKED-ONESEAM
+### Rule ADR-AUTO-TRACKED-TRACKEDSEAM
 
 One seam answers "which files does git track": `Get-GitTrackedPath`. No other code launches `git ls-files` to list tracked files or to test
 whether a path is tracked. A domain function that names a tracked universe of its own (`Get-TrackedFile`, the globset matching universe;

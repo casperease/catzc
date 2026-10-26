@@ -3,7 +3,7 @@
 The tests of `Get-LanguageTestFolders` over a fixture repository in `$TestDrive`, with `Get-RepositoryRoot` and the go config mocked. The
 fixture holds catzc modules under `pwsh/`, Go test folders under the `go/` root, Python test folders under `python/` and Bash test folders
 under `bash/`. Fixture names are neutral
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+([ADR-AUTO-TEST-DISTINCTFIXTURES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtures)).
 
 ## What is not a test folder
 

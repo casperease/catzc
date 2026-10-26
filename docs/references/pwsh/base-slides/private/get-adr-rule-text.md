@@ -16,7 +16,7 @@ Null when the code is not of the form ADR-NAME#n or the index knows no such rule
 
 ### parameter `Code`
 
-One rule citation, such as PDR-EAC-DIFFABLEBELONGSINVERSIONCONTROL.
+One rule citation, such as PDR-EAC-DIFFABLEISVERSIONED.
 
 ### parameter `RepositoryRoot`
 

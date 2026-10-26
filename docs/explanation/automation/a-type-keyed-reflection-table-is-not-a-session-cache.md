@@ -21,7 +21,7 @@ from what the ADR and the type system define; the two are read here, and no rule
 1. **What the ADR governs.** `ADR-AUTO-CACHE` is about "static config reads" and "filesystem-derived information"
    ([caching](../../drs/automation/caching.md)): ADR-AUTO-CACHE-STATICCONFIGREADS is a function that loads and parses a checked-in file
    (`Get-Config`), ADR-AUTO-CACHE-FILESYSTEMDERIVED a function that scans the repository by convention (`Get-BicepTemplates`).
-   ADR-AUTO-CACHE-SESSIONCHANGEDGITSTATE covers git state, ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS a quality check's clean verdicts,
+   ADR-AUTO-CACHE-SESSIONCHANGEDGITSTATE covers git state, ADR-AUTO-CACHE-CROSSSESSIONFILES a quality check's clean verdicts,
    ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD the committed type assembly itself. Its decision stores the cache in module `$script:` state
    ([script-scope-caching](../../drs/automation/pwsh/script-scope-caching.md), `ADR-PWSH-CACHE-SCRIPTSCOPESTATE`), and its one invalidation
    is re-running the importer (`ADR-AUTO-CACHE-IMPORTERINVALIDATES`).

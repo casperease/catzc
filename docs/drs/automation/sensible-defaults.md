@@ -17,7 +17,7 @@ config files; the function reads them internally so callers need not update.
 
 - [Where defaults come from](#where-defaults-come-from)
 
-### Rule ADR-AUTO-DEFAULT-MANDATORYONLYWITHOUTDEFAULT
+### Rule ADR-AUTO-DEFAULT-MANDATORYWITHOUTDEFAULT
 
 Make parameters mandatory only when no default makes sense. If the function would do something wrong or meaningless without the value, it is
 mandatory; if it can derive a right value, derive it.

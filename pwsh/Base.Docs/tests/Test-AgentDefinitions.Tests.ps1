@@ -274,7 +274,7 @@ Describe 'Test-AgentDefinitions' -Tag 'L0', 'logic' {
 }
 
 Describe 'Test-AgentDefinitions — real agent definitions' -Tag 'L1', 'integrity', 'source-only' {
-    It 'Test-AgentDefinitions passes over the real tree' -Tag 'ADR-AUTO-TEST-QUALITYGATE', 'ADR-REPO-AGENTS-QUALITYGATE' {
+    It 'Test-AgentDefinitions passes over the real tree' -Tag 'ADR-AUTO-TEST-QUALITYGATE', 'ADR-REPO-AGENTS-AGENTGATE' {
         $result = Test-AgentDefinitions -PassThru -OutputFolder (Join-Path $TestDrive 'agents')
         $result.Issues | Should -BeNullOrEmpty
         $result.IssueCount | Should -Be 0

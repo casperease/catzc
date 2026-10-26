@@ -5,14 +5,15 @@ workers through ROWS_VARIABLE, and the declaration expands a slide's rows into g
 only its inputs (`about.zoom`, `about.point`) and never the cells. The cells carry count chips of their edges, not the edges themselves. Without an address nothing is expanded: get, sync and the tests read the
 declaration alone.
 
-The file: {"rows": [{"point": <path>, "level": C3|C4, "nodes": [{"id", "label", "kind"}], "edges": [{"from", "to", "label"?}]}]}
+The file: {"rows": [{"point": <path>, "level": C3|C4, "nodes": [{"id", "label", "kind"}], "edges": [{"from", "to", "label"?}]}]}; a
+flow row is filed under the lens instead of a level: {"point": <path>, "lens": "flow", "lanes": [{"id", ...}], "edges": [...]}.
 """
 
 import json
 import os
 from pathlib import Path
 
-from .declaration_constants import PAGE
+from .declaration_constants import FLOW_LENS, PAGE
 from .declaration_vocabulary import DeclarationError
 from .drawio_png_base import DEFAULTS
 
@@ -43,6 +44,22 @@ def read(path):
     found = {}
     for n, row in enumerate(raw["rows"]):
         where = f"{path}: rows[{n}]"
+        # A flow row is filed under the flow lens, beside the levels, so it rides the same file (DDR-VISUAL-FLOWISALENS).
+        if isinstance(row, dict) and row.get("lens") == FLOW_LENS:
+            point = row.get("point")
+            if set(row) - {"point", "lens", "lanes", "edges"}:
+                raise DeclarationError(f"{where} is a flow row, a map of point, lens, lanes and edges")
+            if not isinstance(point, str) or not point.strip():
+                raise DeclarationError(f"{where}: point is the repository path the query answered for")
+            lanes_of, edges_of = row.get("lanes") or [], row.get("edges") or []
+            if not isinstance(lanes_of, list) or not all(isinstance(x, dict) and "id" in x for x in lanes_of):
+                raise DeclarationError(f"{where}: lanes is a list of maps, each with its id")
+            if not isinstance(edges_of, list) or not all(isinstance(x, dict) and {"from", "to"} <= set(x) for x in edges_of):
+                raise DeclarationError(f"{where}: edges is a list of {{ from, to, label? }}")
+            if (point, FLOW_LENS) in found:
+                raise DeclarationError(f"{where}: {point} under the {FLOW_LENS} lens is listed twice")
+            found[(point, FLOW_LENS)] = {"lanes": lanes_of, "edges": edges_of}
+            continue
         if not isinstance(row, dict) or set(row) - {"point", "level", "nodes", "edges"}:
             raise DeclarationError(f"{where} is a map of point, level, nodes and edges")
         point, level = row.get("point"), row.get("level")

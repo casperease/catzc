@@ -6,7 +6,7 @@ The logic tests of the network plan check and its join, `Get-NetworkPlanViolatio
 
 The tests run over typed fixture configs with Greek environment names and neutral subscription names: `core_lower`, a hub, and
 `widget_lower`, a spoke for the customer widget. They never use the shipped names, so editing `azure.yml` cannot change the outcome
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+([ADR-AUTO-TEST-DISTINCTFIXTURES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtures)).
 
 ## plan builder
 

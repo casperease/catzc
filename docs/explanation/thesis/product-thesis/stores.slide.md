@@ -14,7 +14,7 @@ catzc:
 
 ## Caption
 
-Three kinds of truth store (TDR-STORES-THREEKINDS): it writes its responsibility domain, the repository at one commit
+Three kinds of truth store (TDR-STORES-THREESTOREKINDS): it writes its responsibility domain, the repository at one commit
 (TDR-STORES-RESPONSIBILITYDOMAIN); reads a fact source and never writes it (TDR-STORES-FACTSOURCEREADONLY); and meets a state machine with
 facts and takes its verdict (TDR-STORES-STATEMACHINE, TDR-STORES-RECONCILEFACTS).
 

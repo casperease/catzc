@@ -1,0 +1,128 @@
+# RDR: DORA — Visibility of work in the value stream
+
+## Rules: EDR-DORA-WORKVIS
+
+### Rule EDR-DORA-WORKVIS-ENDTOENDFLOW
+
+Make the flow of work visible end to end, from business intent through to the customer, not only at the station a team happens to own.
+Visibility of work means understanding how work moves through the whole value stream and having visibility into that flow, including product
+and feature status.
+
+- [Summary](#summary)
+
+### Rule EDR-DORA-WORKVIS-SHAREDDISPLAY
+
+Keep the current state of work on a shared, visual display or dashboard that anyone can read, rather than reconstructing it from memory, a
+status meeting, or a chat thread. Information about the flow of product development work stays readily available, not gathered on request.
+
+- [How to apply](#how-to-apply)
+
+### Rule EDR-DORA-WORKVIS-MAPWITHSTAKEHOLDERS
+
+Map the value stream with the cross-functional stakeholders who actually do the work, covering the whole stream end to end rather than one
+team's segment of it, and record lead time, process time, and percent complete and accurate at each step. Re-run the mapping exercise
+periodically rather than treating one map as permanent.
+
+- [How to apply](#how-to-apply)
+
+### Rule EDR-DORA-WORKVIS-DRIVESPERFORMANCE
+
+Treat visibility of work as a driver of organizational performance as well as delivery performance — profitability, market share, and
+productivity — not merely a delivery-team convenience.
+
+- [Why it matters](#why-it-matters)
+
+### Rule EDR-DORA-WORKVIS-TARGETBOTTLENECK
+
+Direct improvement effort at the bottleneck the value-stream map actually shows, and grant the team the authority to change it, rather than
+assuming the organization already understands its own stream or polishing the step that is easiest to see.
+
+- [Common pitfalls](#common-pitfalls)
+
+## Context
+
+Visibility of work in the value stream sits in DORA's lean product management cluster, alongside working in small batches, team
+experimentation, and visibility into customer feedback. DORA defines it as the extent to which teams understand how work flows from business
+through to customers and have visibility into that flow, including product and feature status.[^1]
+
+DORA's research finds that this cluster of capabilities predicts both software delivery performance and organizational performance —
+measured in profitability, market share, and productivity. Visibility of work is therefore not a reporting nicety layered on top of
+delivery; it is one of the mechanisms DORA associates with better outcomes on both axes.
+
+## Summary
+
+A team proficient in this capability understands how work moves through the business from idea to customer, has visibility into that flow,
+shows the flow state on visual displays or dashboards, and keeps information about the flow of product development work readily available
+rather than gathered on demand.
+
+DORA's recommended approaches are concrete: hold a value stream mapping exercise with cross-functional stakeholders, covering five to
+fifteen process blocks and recording lead time, process time, and percent complete and accurate for each; visualize the current state with
+kanban boards, card walls, or storyboards that carry work-in-progress limits; create a future-state map and re-run the exercise regularly,
+for example every six months; and share the resulting artifacts across the organization, updating them at least annually.
+
+## Why it matters
+
+DORA ties this capability to both software delivery performance and organizational performance, so the payoff is not confined to the
+engineering function. A value stream that is mapped and visible lets an organization see where work actually waits, rather than where it
+feels like it waits, and that shared, accurate picture is what makes prioritizing an improvement a matter of evidence instead of opinion.
+Without it, every claim about where the flow is slow competes on anecdote, and effort tends to land on the step that is most visible or most
+irritating rather than the one that is actually constraining throughput.
+
+## How to apply
+
+This platform renders the flow rather than reporting on it: the value-chain diagrams show every commit's delivery state by construction —
+position is time, colour is the furthest state reached — so a reader decodes where a change sits without asking anyone. The underlying
+discipline that diagram specialises is stated generally: treat the state of work as something rendered and observed, not inferred from
+memory, and judge progress from the real running artifact rather than a proxy like a ticket status.
+
+Applying the capability elsewhere follows the same shape: pick a flow worth mapping, walk it end to end with the people who actually do each
+step, record where time is spent rather than assuming, and put the resulting picture somewhere everyone can see it without asking — a
+dashboard, a rendered diagram, or a shared board — and revisit it on a cadence rather than once.
+
+## Common pitfalls
+
+- **Assuming the map is already known.** Overestimating how well the organization understands its own end-to-end value stream skips the
+  mapping exercise that would have surfaced the actual bottleneck.
+
+- **Mapping a segment instead of the stream.** Covering only the part a single team owns, rather than the full path from business intent to
+  customer, hides handoffs and waits that sit between teams.
+
+- **Improving the wrong step.** Focusing effort on the area that is easiest to see or most familiar, rather than the one the map shows as
+  the actual constraint, spends effort without moving the bottleneck.
+
+- **Withholding the authority to act.** Producing a map and a set of dashboards without giving the team the authority to change what they
+  show leaves visibility with no path to improvement.
+
+## References
+
+[^1]:
+    DORA, _Visibility of work in the value stream_ capability, <https://dora.dev/capabilities/work-visibility-in-value-stream/>. A
+    fast-feedback capability outside the DORA Core Model that, with the other lean product management capabilities, predicts software
+    delivery performance and organizational performance.
+
+## Dora explains
+
+Visibility of work in the value stream is a fast-feedback capability outside the Core Model. DORA groups it with working in small batches,
+team experimentation, and customer feedback as its lean product management capabilities, and finds that together they predict both software
+delivery performance and organizational performance.
+
+- **Catalogue entry:** [Work visibility in value stream](../../../references/dora/capabilities.md#work-visibility-in-value-stream) (site
+  title: "Visibility of work in the value stream")
+- **Category:** [Fast feedback](../../../references/dora/capabilities.md#fast-feedback) — not in the Core Model.
+- **Evidence:**
+  - [2016 State of DevOps Report](../../../references/dora/publications.md#2016-state-of-devops-report) — an experimental approach to
+    product development, including visibility of workflow, small batches, and customer feedback, improves IT and organizational performance.
+    The capability page itself cites no report year.
+- **Predicts:** as part of lean product management, higher
+  [software delivery performance](../../../references/dora/core-model.md#software-delivery-performance) and higher
+  [organizational performance](../../../references/dora/core-model.md#organizational-performance).
+- **Related capabilities:**
+  - [Working in small batches](../../../references/dora/capabilities.md#working-in-small-batches) — smaller batches are easier to see moving
+    through a visible value stream, and a visible stream makes batch size itself easy to observe.
+  - [Customer feedback](../../../references/dora/capabilities.md#customer-feedback) — the value stream this capability makes visible runs
+    all the way to the customer, and customer feedback is what closes that loop.
+  - [Visual management](../../../references/dora/capabilities.md#visual-management) — the visual displays and dashboards this capability
+    calls for are visual management applied to the value stream specifically.
+  - [WIP limits](../../../references/dora/capabilities.md#wip-limits) — a visible stream is what shows a team where a work-in-process limit
+    is needed and whether it is holding.
+- [DORA research program](../../../references/dora/index.md) — the overview these findings sit within.

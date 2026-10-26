@@ -22,7 +22,7 @@ any key from equalling any shortcode.
 
 - [Two names, one binding](#two-names-one-binding)
 
-### Rule ADR-AZ-CUSTOMER-REFERENCENOTVALIDATEDONLOAD
+### Rule ADR-AZ-CUSTOMER-REFERENCEUNVALIDATED
 
 The subscription→customer reference is **not** validated when `azure.yml` loads. Cross-checking it there would make every `azure.yml` read
 also read `customer.yml`, coupling nearly every Azure test to the catalogue. Instead the reference is enforced two other ways: a
@@ -41,7 +41,7 @@ holds the enabled set so its `Test-`/`Assert-HaveCustomer(s)` primitives can liv
 
 - [Catalogue vs enabled set](#catalogue-vs-enabled-set)
 
-### Rule ADR-AZ-CUSTOMER-CUSTOMERTEMPLATEOPTION
+### Rule ADR-AZ-CUSTOMER-TEMPLATEOPTION
 
 A template declares whether it is a customer template with an `options.yml` `customer_deployment` bit (bool), which **defaults to the
 `have_customers` variant** (`Test-HaveCustomers`). An explicit `customer_deployment: true` is only permitted when customers are enabled (the

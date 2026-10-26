@@ -38,7 +38,7 @@ formatter is added.
 
 - [The types check](#the-types-check)
 
-### Rule ADR-AUTO-JS-LANGUAGEBRIDGE
+### Rule ADR-AUTO-JS-JSBRIDGE
 
 `Test-Automation` runs the JavaScript tests through a bridge, as it runs the Go and Python ones: discovery maps each module's tests to the
 module, every top-level `test()` is one test of the run (ADR-AUTO-TEST-TEST), and a test whose name starts with `integrity:` is `integrity`,

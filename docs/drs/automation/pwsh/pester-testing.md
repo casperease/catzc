@@ -2,16 +2,9 @@
 
 ## Rules: ADR-PWSH-PESTER
 
-### Rule ADR-PWSH-PESTER-PESTERFRAMEWORK
-
-Pester is the test framework, and a test applies the [test-automation](../test-automation.md) (`ADR-AUTO-TEST`) doctrine — logic isolated
-through seams, integrity bound to the real files — with the mock idioms and file conventions below.
-
-- [The idioms](#the-idioms)
-
 ### Rule ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS
 
-Isolate logic tests through the seams (ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES, ADR-AUTO-TEST-GENERICTEMPLATETESTS) — in `BeforeEach`, mock
+Isolate logic tests through the seams (ADR-AUTO-TEST-DISTINCTFIXTURES, ADR-AUTO-TEST-GENERICTEMPLATETESTS) — in `BeforeEach`, mock
 `Get-BicepTemplatesRoot` to a fixture template tree, and isolate config either by mocking the discovery seam `Resolve-ConfigEntry` (return a
 fixture `@{ Name; Module; Path }`) or by mocking `Get-Config` itself. Redirecting only the template tree leaks the shipped identities back
 in.
@@ -34,7 +27,7 @@ never by editing module-scope state except to reset a cache entry.
 
 - [The idioms](#the-idioms)
 
-### Rule ADR-PWSH-PESTER-TESTFILE
+### Rule ADR-PWSH-PESTER-PESTERTESTFILE
 
 A Pester test file (ADR-AUTO-TEST-TESTFILE) is one `*.Tests.ps1` file under a module's `tests/`: one per function, `Verb-Noun.Tests.ps1` —
 `Test-Automation.Tests.ps1` enforces the hyphenated basename. A cross-cutting test file is named after the function it most exercises plus a
@@ -168,18 +161,19 @@ The two enforcer kinds of ADR-AUTO-TEST-COVERAGEREPORTEDONLY are a `pester-test`
 
 - [The harness in Pester](#the-harness-in-pester)
 
-### Rule ADR-PWSH-PESTER-LANGUAGEBRIDGE
+### Rule ADR-PWSH-PESTER-PESTERBRIDGE
 
-The language bridge of ADR-AUTO-TEST-LANGUAGETESTMODULES (ADR-AUTO-GO-LANGUAGEBRIDGE, ADR-AUTO-PY-LANGUAGEBRIDGE,
-ADR-AUTO-BASH-LANGUAGEBRIDGE) is one Pester container, `Language.Bridge.ps1` in `Catzc.Base.QualityGates/tests/`, run once per mapped test
-folder with the folder, its language, the engine entry, and the path of the language's tool, located once by the run's source session, as
-container data: each test of the folder becomes one `It` tagged `L2` and its category, so the tag check, the timing check, and the reports
-read it like any Pester test.
+The language bridge of ADR-AUTO-TEST-LANGUAGETESTMODULES (ADR-AUTO-GO-GOBRIDGE, ADR-AUTO-PY-PYBRIDGE, ADR-AUTO-BASH-BASHBRIDGE) is one
+Pester container, `Language.Bridge.ps1` in `Catzc.Base.QualityGates/tests/`, run once per mapped test folder with the folder, its language,
+the engine entry, and the path of the language's tool, located once by the run's source session, as container data: each test of the folder
+becomes one `It` tagged `L2` and its category, so the tag check, the timing check, and the reports read it like any Pester test.
 
 - [The harness in Pester](#the-harness-in-pester)
 
 ## Context
 
+Pester is the test framework
+([EDR-PWSH-PESTER-PESTERFRAMEWORK](../../external/pester/pester-framework.md#rule-edr-pwsh-pester-pesterframework)).
 [test-automation](../test-automation.md) fixes the doctrine: what a test may depend on (logic vs integrity), the L0–L4 tiers, the mandatory
 tag axes, the run model, and the push-left economics. This ADR is the Pester layer under it — the concrete mock idioms a hermetic logic test
 is written with, the test-file conventions, how each part of the doctrine is written in Pester, and the engine gotchas that repeatedly bite.
@@ -320,7 +314,7 @@ lookup — is the same module either way.
 Rule coverage counts the enforcers that run in that same Pester invocation (ADR-PWSH-PESTER-ENFORCERKINDS): a tagged `It`, and a
 PSScriptAnalyzer rule through its mapping, since the analyzer quality gate runs as an integrity test in the run.
 
-The other test languages reach the run through one Pester container (ADR-PWSH-PESTER-LANGUAGEBRIDGE). Pester runs it once per mapped Go,
+The other test languages reach the run through one Pester container (ADR-PWSH-PESTER-PESTERBRIDGE). Pester runs it once per mapped Go,
 Python, or Bash test folder; the container runs the folder's tests through their own tool and emits one `It` per test, so every report reads
 them as Pester tests.
 

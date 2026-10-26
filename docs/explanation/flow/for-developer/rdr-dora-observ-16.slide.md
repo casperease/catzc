@@ -15,7 +15,7 @@ catzc:
 
 ## Eyebrow
 
-16 / 30 · fact for the Developer · RDR-DORA-OBSERV
+16 / 30 · fact for the Developer · EDR-DORA-OBSERV
 
 ## Lead
 
@@ -32,5 +32,5 @@ From the catalogue, reduced: what gates each bundle stage.
 
 ## Notes
 
-Check it: the record RDR-DORA-OBSERV in docs/drs/index.md, and the diagram
+Check it: the record EDR-DORA-OBSERV in docs/drs/index.md, and the diagram
 docs/explanation/automation/.assets/what-gates-each-bundle-stage.drawio.png.

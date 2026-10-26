@@ -1,4 +1,4 @@
-Describe 'Get-CommandContractMap' -Tag 'L0', 'logic', 'ADR-REPO-CMDCONTRACT-ONEREADER' {
+Describe 'Get-CommandContractMap' -Tag 'L0', 'logic', 'ADR-REPO-CMDCONTRACT-CONTRACTONEREADER' {
     BeforeEach {
         Mock Get-CommandContract -ModuleName Catzc.Base.Contracts {
             [pscustomobject]@{ Name = 'get_widget'; Signature = 'get_widget(path)' }

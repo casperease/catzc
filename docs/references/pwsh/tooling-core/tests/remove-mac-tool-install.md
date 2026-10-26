@@ -5,5 +5,5 @@ The L0 tests of `Remove-MacToolInstall`, one case per eviction mechanism.
 ## Fixture
 
 The tool is a neutral fixture
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)),
-never a real tool identity.
+([ADR-AUTO-TEST-DISTINCTFIXTURES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtures)), never a real tool
+identity.

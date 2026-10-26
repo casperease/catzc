@@ -193,7 +193,7 @@ Describe 'VariantsConfig' -Tag 'L0' {
             }
         }
 
-        It 'accepts out as the member of the output track, generated and not committed (DDR-TRACK-TRACKISPLACEDCLUSTER)' {
+        It 'accepts out as the member of the output track, generated and not committed (DDR-TRACK-ISPLACEDCLUSTER)' {
             $config = & $script:make ([ordered]@{ tracks = [ordered]@{
                         out = [ordered]@{ members = @([ordered]@{ path = 'out'; generated = $true; committed = $false }); type = 'output' }
                     }

@@ -26,7 +26,7 @@ concepts:
     domain: repository
     defined_by: ADR-REPO-DRSCODE-DECISIONRECORDSSYSTEM
     short:
-      "The first segment of a decision record code (ADR, TDR, PDR, WDR, DDR, FDR or RDR), registered in drs.yml; together the XDR kinds."
+      "The first segment of a decision record code (ADR, TDR, PDR, WDR, DDR, FDR or EDR), registered in drs.yml; together the XDR kinds."
     realized_by: { kind: prose-only }
   workstream:
     key: workstream
@@ -61,7 +61,7 @@ concepts:
   domain:
     key: domain
     domain: repository
-    defined_by: ADR-REPO-FOLDERS-DOCUMENTATIONMARKDOWNONLY
+    defined_by: ADR-REPO-FOLDERS-DOCSMARKDOWNONLY
     short: A group of decision records — one docs/drs/ subfolder — that drs.yml declares with its role and the domains it depends on.
     realized_by: { kind: prose-only }
     forms:

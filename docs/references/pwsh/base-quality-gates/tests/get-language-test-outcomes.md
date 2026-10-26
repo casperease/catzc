@@ -2,7 +2,7 @@
 
 The tests of `Get-LanguageTestOutcomes` with the language runners mocked. Every discovered test takes the outcome of its result, or skips
 with `tool_<tool>_missing` when the run's source session handed down no managed tool. Fixture names are neutral
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+([ADR-AUTO-TEST-DISTINCTFIXTURES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtures)).
 
 ## Engines
 

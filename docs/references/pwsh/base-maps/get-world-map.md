@@ -12,7 +12,7 @@ Returns the world map: every tracked file placed in one cell of tracks by file l
 ### description
 
 Gathers the repository's own registries and builds the map with Catzc.Base.Maps.WorldMapBuilder: the tracks (Get-Track,
-[DDR-TRACK-TRACKISPLACEDCLUSTER](../../../drs/design/tracks.md#rule-ddr-track-trackisplacedcluster)), the file languages (Get-FileLanguage,
+[DDR-TRACK-ISPLACEDCLUSTER](../../../drs/design/tracks.md#rule-ddr-track-isplacedcluster)), the file languages (Get-FileLanguage,
 [DDR-TRACK-FILELANGUAGE](../../../drs/design/tracks.md#rule-ddr-track-filelanguage)), the tracked files from the git index
 (Get-GitTrackedPath, [ADR-AUTO-TRACKED](../../../drs/automation/tracked-files-from-the-index.md)), each configured track's aspects
 (Get-Aspect), the adrs index (Get-DrsRuleSet: ADR code to domain), each ADR code's own file (Get-DrsCitationMap, the map the link engine

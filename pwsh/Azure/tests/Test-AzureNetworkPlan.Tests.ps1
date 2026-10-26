@@ -62,7 +62,7 @@ Describe 'Test-AzureNetworkPlan' -Tag 'L0', 'logic' {
         Mock Get-Config -ModuleName Catzc.Azure -ParameterFilter { $Config -eq 'azure' } { $script:fixtureAzure }
     }
 
-    It 'passes when every standard environment has a plan and per-subscription ones are exempt' -Tag 'ADR-AZ-NETWORK-SUBSCRIPTIONENVIRONMENTSNONETWORK' {
+    It 'passes when every standard environment has a plan and per-subscription ones are exempt' -Tag 'ADR-AZ-NETWORK-ENVIRONMENTSNONETWORK' {
         Mock Get-Config -ModuleName Catzc.Azure -ParameterFilter { $Config -eq 'network' } { & $script:plan 'alpha', 'beta' }
         $result = Test-AzureNetworkPlan -OutputFolder $out -PassThru
         $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")
@@ -79,7 +79,7 @@ Describe 'Test-AzureNetworkPlan' -Tag 'L0', 'logic' {
         $thrown.Exception.Message | Should -BeLike "*azure.yml environment 'beta' has no network entry in network.yml*"
     }
 
-    It 'lists a subscription with no network entry and a ghost network subscription' -Tag 'ADR-AZ-NETWORK-NETWORKPERSUBSCRIPTION' {
+    It 'lists a subscription with no network entry and a ghost network subscription' -Tag 'ADR-AZ-NETWORK-PERSUBSCRIPTION' {
         Mock Get-Config -ModuleName Catzc.Azure -ParameterFilter { $Config -eq 'network' } {
             & $script:plan 'alpha', 'beta' ([ordered]@{ core_lower = (& $script:hub 0); gadget_lower = (& $script:spoke 100 'alpha') })
         }
@@ -92,7 +92,7 @@ Describe 'Test-AzureNetworkPlan' -Tag 'L0', 'logic' {
                 " 'widget', so it needs a spoke)")
     }
 
-    It 'lists a subscription whose entry is the wrong kind, both ways' -Tag 'ADR-AZ-NETWORK-NETWORKPERSUBSCRIPTION' {
+    It 'lists a subscription whose entry is the wrong kind, both ways' -Tag 'ADR-AZ-NETWORK-PERSUBSCRIPTION' {
         Mock Get-Config -ModuleName Catzc.Azure -ParameterFilter { $Config -eq 'network' } {
             & $script:plan 'alpha', 'beta' ([ordered]@{ core_lower = (& $script:spoke 0 'alpha'); widget_lower = (& $script:hub 100) })
         }
@@ -106,7 +106,7 @@ Describe 'Test-AzureNetworkPlan' -Tag 'L0', 'logic' {
                 " 'widget', so it needs a spoke")
     }
 
-    It 'lists a spoke missing a workload subnet for a served environment and one for an environment it does not serve' -Tag 'ADR-AZ-NETWORK-NETWORKPERSUBSCRIPTION' {
+    It 'lists a spoke missing a workload subnet for a served environment and one for an environment it does not serve' -Tag 'ADR-AZ-NETWORK-PERSUBSCRIPTION' {
         Mock Get-Config -ModuleName Catzc.Azure -ParameterFilter { $Config -eq 'network' } {
             & $script:plan 'alpha', 'beta' ([ordered]@{ core_lower = (& $script:hub 0); widget_lower = (& $script:spoke 100 'alpha', 'gamma') })
         }
@@ -120,7 +120,7 @@ Describe 'Test-AzureNetworkPlan' -Tag 'L0', 'logic' {
     }
 }
 
-Describe 'Azure network plan sync' -Tag 'L0', 'integrity', 'ADR-AZ-NETWORK-KEYEDBYENVIRONMENT', 'ADR-AZ-NETWORK-NETWORKPERSUBSCRIPTION' {
+Describe 'Azure network plan sync' -Tag 'L0', 'integrity', 'ADR-AZ-NETWORK-KEYEDBYENVIRONMENT', 'ADR-AZ-NETWORK-PERSUBSCRIPTION' {
     It 'the shipped network.yml and azure.yml environments and subscriptions are in sync' {
         $result = Test-AzureNetworkPlan -PassThru -OutputFolder (Join-Path $TestDrive 'azure-network-plan')
         $result.Facts['Environments'] | Should -BeGreaterThan 0

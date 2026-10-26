@@ -14,7 +14,7 @@ catzc:
 
 ## Eyebrow
 
-28 / 30 · fact for the SRE Lead · ADR-AZ-WAF-SE
+28 / 30 · fact for the SRE Lead · EDR-AZ-WAF-SE
 
 ## Lead
 
@@ -31,5 +31,5 @@ From the catalogue, reduced: pipeline kinds keyed by one artifact.
 
 ## Notes
 
-Check it: the record ADR-AZ-WAF-SE in docs/drs/index.md, and the diagram
+Check it: the record EDR-AZ-WAF-SE in docs/drs/index.md, and the diagram
 docs/explanation/flow/.assets/pipeline-kinds-keyed-by-one-artifact.drawio.png.

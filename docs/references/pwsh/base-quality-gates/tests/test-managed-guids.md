@@ -2,4 +2,4 @@
 
 The L0 logic test of `Test-ManagedGuids`, over a mocked scan, registry and `repository` globset, so each test pins one rule. The fixtures
 use neutral names and test-shaped guids
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+([ADR-AUTO-TEST-DISTINCTFIXTURES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtures)).

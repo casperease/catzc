@@ -12,9 +12,9 @@ The repo-relative paths changed across a git diff range — the diff counterpart
 ### description
 
 The diff sibling of Get-TrackedFile
-([FDR-CD-GLOBS-TRACKEDFILESONLY](../../../../drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-trackedfilesonly)): `git diff --name-only` over
-the range, with renames split into a delete + an add (--no-renames) so BOTH the old and the new path count as changed — a file moving INTO
-or OUT OF a globset must re-trigger it (rename correctness, the property vendor content-blind filters miss). `core.quotepath=off` keeps
+([FDR-GLOBS-TRACKEDFILESONLY](../../../../drs/flow/durable-sha-globs.md#rule-fdr-globs-trackedfilesonly)): `git diff --name-only` over the
+range, with renames split into a delete + an add (--no-renames) so BOTH the old and the new path count as changed — a file moving INTO or
+OUT OF a globset must re-trigger it (rename correctness, the property vendor content-blind filters miss). `core.quotepath=off` keeps
 non-ASCII paths literal; paths come back '/'-separated and repo-relative, the same universe globsets match against. Unlike a tracked-file
 member, a changed path may be a deletion; it is still returned, matched on its path.
 

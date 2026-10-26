@@ -32,9 +32,9 @@ does not stop the line is not holding the line.
 
 ## Context
 
-The Toyota Production System ([WDR-LEAN](lean.md)) gives every worker an andon cord: pull it and the line stops. This sounds expensive — a
-whole line idled by one station — but it is the cheapest policy Toyota found, because a defect allowed to travel down the line is multiplied
-by every station it passes before someone notices. Stopping at the source turns a potential recall into a one-station fix [^1].
+The Toyota Production System ([EDR-LEAN][r1]) gives every worker an andon cord: pull it and the line stops. This sounds expensive — a whole
+line idled by one station — but it is the cheapest policy Toyota found, because a defect allowed to travel down the line is multiplied by
+every station it passes before someone notices. Stopping at the source turns a potential recall into a one-station fix [^1].
 
 Software delivery has the same physics ([PDR-NOWASTE](../principles/reduce-waste.md), waste seven: defects grow with distance travelled). A
 broken build that is allowed to stand while work piles on top of it does not stay one defect; it becomes a tangle in which every new change
@@ -82,3 +82,5 @@ working: fix it there, where it is a one-line change, rather than pushing and le
 [^2]:
     Mary and Tom Poppendieck, _Lean Software Development: An Agile Toolkit_ (2003). "Stop the line" mapped to software: a failing build is a
     pulled andon cord, and the team swarms to restore flow before doing anything else.
+
+[r1]: ../external/lean/lean.md

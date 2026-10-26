@@ -20,12 +20,12 @@ scanning, not reading a config file.
 No admin required. Idempotent — safe to run repeatedly.
 
 It runs before catzc is loaded, so it imports the Loader by its path and writes through the Loader's Write-ImporterMessage, the one
-chokepoint that needs no other module
-([ADR-PWSH-ANNOUNCE-INFORMATIONSTREAMCHOKEPOINT](../../../../drs/automation/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-informationstreamchokepoint)),
-always shown, colour as embedded ANSI.
+chokepoint that needs no other module ([ADR-PWSH-ANNOUNCE-INFORMATIONCHOKEPOINT][r1]), always shown, colour as embedded ANSI.
 
 ### example 1
 
 ```powershell
 & 'automation\Catzc.Base.Environment\assets\Set-LocalPsModulePath.ps1'
 ```
+
+[r1]: ../../../../drs/automation/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-informationchokepoint

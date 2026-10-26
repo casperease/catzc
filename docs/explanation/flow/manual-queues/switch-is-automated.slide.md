@@ -15,7 +15,7 @@ catzc:
 
 ## Eyebrow
 
-8 / 10 · fact · FDR-CD-QUEUE-SLOTSWITCHISAUTOMATED
+8 / 10 · fact · FDR-QUEUE-SLOTSWITCHISAUTOMATED
 
 ## Lead
 

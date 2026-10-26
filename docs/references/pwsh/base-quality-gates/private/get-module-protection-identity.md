@@ -40,7 +40,7 @@ A caller-owned hashtable memoizing set-name -> durable SHA across one Test-Autom
 ## Fold
 
 The identity is a hash-of-hashes. The constituent sets are listed as `name|hash` lines, ordinal by name, and folded by the durable-sha
-recipe over set hashes ([FDR-CD-GLOBS-DURABLESHAIDENTITY](../../../../drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-durableshaidentity)).
+recipe over set hashes ([FDR-GLOBS-DURABLESHAIDENTITY](../../../../drs/flow/durable-sha-globs.md#rule-fdr-globs-durableshaidentity)).
 
 ## Sets and the universe
 

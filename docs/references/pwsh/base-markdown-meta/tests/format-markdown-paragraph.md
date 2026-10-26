@@ -6,4 +6,4 @@ The tests of `Format-MarkdownParagraph`.
 
 The command must fill text the way Prettier's `proseWrap: always` does, so the generated ADR index, glossary and contract reference are
 formatter-stable
-([ADR-REPO-FORMAT-GENERATEDARTIFACTSFORMATTED](../../../../drs/repository/uniform-formatting.md#rule-adr-repo-format-generatedartifactsformatted)).
+([ADR-REPO-FORMAT-GENERATEDFORMATTED](../../../../drs/repository/uniform-formatting.md#rule-adr-repo-format-generatedformatted)).

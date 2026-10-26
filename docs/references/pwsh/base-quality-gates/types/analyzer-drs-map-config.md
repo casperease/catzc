@@ -17,4 +17,4 @@ Constructing the record maps and validates the parsed YAML and gathers every vio
 Load checks shape and citation grammar only. That each id names a real rule, and that every custom analyzer is mapped, is a cross-asset fact
 the analyzer-ADR-map integrity test checks. Loading never reads the decision-record tree or the `.scriptanalyzer` folder, so it stays
 hermetic, the pattern of
-[ADR-AZ-CUSTOMER-REFERENCENOTVALIDATEDONLOAD](../../../../drs/azure/azure-customer-model.md#rule-adr-az-customer-referencenotvalidatedonload).
+[ADR-AZ-CUSTOMER-REFERENCEUNVALIDATED](../../../../drs/azure/azure-customer-model.md#rule-adr-az-customer-referenceunvalidated).

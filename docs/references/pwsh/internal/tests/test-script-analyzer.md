@@ -26,6 +26,5 @@ selector covers:
 
 `Get-ScriptAnalyzerDiagnostics` is the one analysis engine `Test-ScriptAnalyzer` runs: the file list is sharded across background processes,
 each importing the vendored analyzer once. Its result cache skips every file the analyzer last found clean whose bytes and analyzer inputs
-are unchanged since
-([ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS](../../../../drs/automation/caching.md#rule-adr-auto-cache-checkedfilesacrosssessions)); a
+are unchanged since ([ADR-AUTO-CACHE-CROSSSESSIONFILES](../../../../drs/automation/caching.md#rule-adr-auto-cache-crosssessionfiles)); a
 pipeline, without the cache, analyzes every file. A shard error fails the run loudly inside the engine.

@@ -3,7 +3,7 @@
 <!-- cspell:ignore nsrc -->
 
 The tests of `Get-ChangedFile`, the diff universe of the module
-([FDR-CD-GLOBS-TRACKEDFILESONLY](../../../../drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-trackedfilesonly)).
+([FDR-GLOBS-TRACKEDFILESONLY](../../../../drs/flow/durable-sha-globs.md#rule-fdr-globs-trackedfilesonly)).
 
 ## What it proves
 

@@ -75,10 +75,10 @@ longer has. A comment page is told as one by its path, which the file-kinds regi
 
 A comment page is an authored file. Its `## comment:<n>` sections are the exporter's to append and the author's to edit
 ([ADR-REPO-COMMENTS-MOVELOSESNOTHING](#rule-adr-repo-comments-movelosesnothing)), and the page of a PowerShell function file or script also
-holds the file's help in a `## help` section ([ADR-REPO-HELP-HELPONCOMMENTPAGE](function-help.md#rule-adr-repo-help-helponcommentpage)),
-which is the author's alone: `Export-Comments` never writes, moves or reorders it, and `Test-Comments` checks only the comment sections. The
-author may fold a section into the page's article prose and delete it, while the source keeps its one-line insight in place. The view then
-shows only the sections still on the page, and the move stays verbatim for every section that remains.
+holds the file's help in a `## help` section ([ADR-REPO-HELP-ONCOMMENTPAGE](function-help.md#rule-adr-repo-help-oncommentpage)), which is
+the author's alone: `Export-Comments` never writes, moves or reorders it, and `Test-Comments` checks only the comment sections. The author
+may fold a section into the page's article prose and delete it, while the source keeps its one-line insight in place. The view then shows
+only the sections still on the page, and the move stays verbatim for every section that remains.
 
 - [An authored page](#an-authored-page)
 

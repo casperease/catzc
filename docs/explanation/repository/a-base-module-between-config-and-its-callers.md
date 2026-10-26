@@ -107,8 +107,8 @@ layout:
   (ADR-REPO-VARIANT-SESSIONVARIANT).
 - The module depends only on Config, Objects and Asserts, its config type is self-contained, and so the primitives are callable from any
   module above the Config layer, while the foundation modules that cannot call them never need to (ADR-REPO-VARIANT-MINIMALDEPENDENCIES).
-- All config reads go through `Get-Config` (ADR-CONF-LOADING-ONEREADER), and every module edge is declared in `dependencies.yml` before it
-  is used (ADR-AUTO-DEPM-CODEBUILTFROM).
+- All config reads go through `Get-Config` (ADR-CONF-LOADING-CONFIGONEREADER), and every module edge is declared in `dependencies.yml`
+  before it is used (ADR-AUTO-DEPM-CODEBUILTFROM).
 
 ## Where the code and the decision record differ
 

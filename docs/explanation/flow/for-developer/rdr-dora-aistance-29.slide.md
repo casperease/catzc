@@ -14,7 +14,7 @@ catzc:
 
 ## Eyebrow
 
-29 / 30 · fact for the Developer · RDR-DORA-AISTANCE
+29 / 30 · fact for the Developer · EDR-DORA-AISTANCE
 
 ## Lead
 
@@ -31,5 +31,5 @@ From the catalogue, reduced: two variables read in one place.
 
 ## Notes
 
-Check it: the record RDR-DORA-AISTANCE in docs/drs/index.md, and the diagram
+Check it: the record EDR-DORA-AISTANCE in docs/drs/index.md, and the diagram
 docs/explanation/flow/.assets/two-variables-read-in-one-place.drawio.png.

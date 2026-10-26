@@ -98,9 +98,9 @@ deploys it has rights.
 ### Hub and spoke
 
 Each tier of shared subscriptions (non-production, production) holds a hub; each customer subscription holds a spoke peered to the hub of
-its tier ([ADR-AZ-NETWORK-NETWORKPERSUBSCRIPTION](azure-network-model.md#rule-adr-az-network-networkpersubscription)). The hub reserves
-`GatewaySubnet` and `AzureFirewallSubnet`, and nothing is deployed into them, so a gateway or a firewall can be added without renumbering. A
-spoke adds a route table on every subnet.
+its tier ([ADR-AZ-NETWORK-PERSUBSCRIPTION](azure-network-model.md#rule-adr-az-network-persubscription)). The hub reserves `GatewaySubnet`
+and `AzureFirewallSubnet`, and nothing is deployed into them, so a gateway or a firewall can be added without renumbering. A spoke adds a
+route table on every subnet.
 
 Peering is declared on both sides because Azure models it on both sides: a peering is a child of one virtual network and points at the
 other. Declaring both in configs keeps the topology readable from the configuration tree alone, with no discovery step at deploy time.

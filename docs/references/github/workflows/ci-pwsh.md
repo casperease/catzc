@@ -6,7 +6,7 @@ compares the three content hashes.
 ## Triggers
 
 - **Push to `main` and pull requests** — the `pwsh` globset projected into GitHub-native path filters (`Get-GlobSetTrigger`,
-  [FDR-CD-GLOBS](../../../drs/flow/durable-sha-globs.md)). The track is its own root folder (`pwsh/**`), so the workflow fires exactly, and
+  [FDR-GLOBS](../../../drs/flow/durable-sha-globs.md)). The track is its own root folder (`pwsh/**`), so the workflow fires exactly, and
   only, on a real change to the module system, with no committed marker to go stale across a squash merge. The negated paths drop files that
   are not module code.
 - **`workflow_dispatch`** — an on-demand run. The push and pull request triggers fire only on `pwsh/**` changes, so a fix to the workflow

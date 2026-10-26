@@ -2,7 +2,7 @@
 
 ## Rules: ADR-AUTO-PY
 
-### Rule ADR-AUTO-PY-MODULESBYLAYOUT
+### Rule ADR-AUTO-PY-PYMODULESBYLAYOUT
 
 Python code in the repository is either a module of the `python` track, a folder under the Python root that exists by the layout
 (ADR-AUTO-MODULE-EXISTSBYLAYOUT, ADR-AUTO-MODULE-EVERYLANGUAGETRACKALIKE), or a black-box test under the track's test holder,
@@ -24,16 +24,16 @@ test is a top-level `test*` function; a parametrised test is one test.
 
 - [The layout](#the-layout)
 
-### Rule ADR-AUTO-PY-BLACKBOXTESTS
+### Rule ADR-AUTO-PY-PYBLACKBOX
 
-A Python test is a black-box test under the contract the Go tests follow (ADR-AUTO-GO-BLACKBOXTESTS, ADR-AUTO-ENGINE-STARTENVIRONMENT): it
+A Python test is a black-box test under the contract the Go tests follow (ADR-AUTO-GO-GOBLACKBOX, ADR-AUTO-ENGINE-STARTENVIRONMENT): it
 starts the engine from `CATZC_ENGINE_EXECUTABLE` with the `CATZC_ENGINE_START` arguments, which load the run's entry and end in the test's
 command, and asserts on output and exit codes, never on the engine's internals; `CATZC_REPOSITORY_ROOT` names the repository root.
 `Invoke-PythonTest` sets them for its uv commands only and restores them afterwards.
 
 - [The engine start environment](#the-engine-start-environment)
 
-### Rule ADR-AUTO-PY-GENERATEDWORKSPACE
+### Rule ADR-AUTO-PY-PYWORKSPACE
 
 The Python tests form one generated, gitignored uv workspace — uv's monorepo layout, and the Python form of `go.work` with a `go.mod` per
 module: nothing Python-specific is committed but the `test_*.py` files. `New-PythonProject` renders the workspace root
@@ -61,10 +61,10 @@ remedy `Install-Uv`; a missing interpreter stops `uv sync` with the remedy `Inst
 
 - [The managed tools](#the-managed-tools)
 
-### Rule ADR-AUTO-PY-LANGUAGEBRIDGE
+### Rule ADR-AUTO-PY-PYBRIDGE
 
-`Test-Automation` runs the Python tests through the language bridge the Go tests run through (ADR-AUTO-GO-LANGUAGEBRIDGE): discovery maps
-each Python test folder to its catzc module, and the bridge turns every top-level Python test into one test of the run (ADR-AUTO-TEST-TEST),
+`Test-Automation` runs the Python tests through the language bridge the Go tests run through (ADR-AUTO-GO-GOBRIDGE): discovery maps each
+Python test folder to its catzc module, and the bridge turns every top-level Python test into one test of the run (ADR-AUTO-TEST-TEST),
 tagged `L2` (ADR-AUTO-TEST-NOCLOUDBELOWLTHREE) plus a category from its name — `test_integrity*` is `integrity`, every other test is
 `logic`. The run's source session locates uv once and hands its path to the bridge; without uv or the interpreter at the pin, the bridge
 skips with `tool_uv_missing` (ADR-AUTO-TEST-TAGBYOUTERMOSTRING).
@@ -196,11 +196,11 @@ never a gap.
 ## Decision
 
 Python is a language track whose modules exist by the layout and ship only what is packaged, and a black-box test language
-(ADR-AUTO-PY-MODULESBYLAYOUT). Its tests of the engine live in one Python test folder per catzc module under the Python root
-(ADR-AUTO-PY-ONEPYTHONROOT), start the engine from the entry the run names (ADR-AUTO-PY-BLACKBOXTESTS), run in one generated, gitignored uv
-workspace (ADR-AUTO-PY-GENERATEDWORKSPACE) at the one pinned Python version (ADR-AUTO-PY-ONEPYTHONVERSION) with the managed tools
-(ADR-AUTO-PY-MANAGEDTOOLS), and run through `Test-Automation` as `L2` tests through the language bridge (ADR-AUTO-PY-LANGUAGEBRIDGE), under
-the checks that read Python (ADR-AUTO-PY-EVERYFILELINTED) and one type check shared with the editor (ADR-AUTO-PY-EVERYFILETYPECHECKED).
+(ADR-AUTO-PY-PYMODULESBYLAYOUT). Its tests of the engine live in one Python test folder per catzc module under the Python root
+(ADR-AUTO-PY-ONEPYTHONROOT), start the engine from the entry the run names (ADR-AUTO-PY-PYBLACKBOX), run in one generated, gitignored uv
+workspace (ADR-AUTO-PY-PYWORKSPACE) at the one pinned Python version (ADR-AUTO-PY-ONEPYTHONVERSION) with the managed tools
+(ADR-AUTO-PY-MANAGEDTOOLS), and run through `Test-Automation` as `L2` tests through the language bridge (ADR-AUTO-PY-PYBRIDGE), under the
+checks that read Python (ADR-AUTO-PY-EVERYFILELINTED) and one type check shared with the editor (ADR-AUTO-PY-EVERYFILETYPECHECKED).
 
 ### How this is enforced
 

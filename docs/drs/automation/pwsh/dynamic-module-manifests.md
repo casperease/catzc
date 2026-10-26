@@ -38,7 +38,7 @@ one file across the repository, verified by an integrity test.
 
 ### Rule ADR-PWSH-MANIFEST-BUNDLECARRIESMANIFESTS
 
-A bundle ([platform-bundle](../platform-bundle.md#rule-adr-auto-bundle-bundleisbuild)) carries the **runtime payload in merged form**. Every
+A bundle ([platform-bundle](../platform-bundle.md#rule-adr-auto-bundle-isbuild)) carries the **runtime payload in merged form**. Every
 selected module is its own folder holding a generated `<Module>.psd1` (`NestedModules` = the one merged file, `FunctionsToExport` = the
 module's public functions only), a generated `<Module>.functions.ps1` that merges the module's `private/` and root function files — named
 apart from the module, so the nested script module never shares the manifest module's name — and the module's side folders (`configs/`,
@@ -75,7 +75,7 @@ file, module folder, or vendored module is discovered by them; none of them is e
 
 No catzc module imports another. Dot-sourcing `importer.ps1` (ADR-PWSH-ENGINE-IMPORTERDOTSOURCED) imports every module into one global
 function namespace, so a function calls any catzc function by name — no `Import-Module`, no `using module`, no `RequiredModules`, no
-hand-written export list. This is zero ceremony (ADR-AUTO-ZERO-ZEROCEREMONYAUTOMATION) in PowerShell; which module may call which is the
+hand-written export list. This is zero ceremony (ADR-AUTO-ZERO-CEREMONYAUTOMATION) in PowerShell; which module may call which is the
 declared graph (ADR-AUTO-DEPM-CODEBUILTFROM), never an import statement.
 
 - [Conventions in PowerShell](#conventions-in-powershell)

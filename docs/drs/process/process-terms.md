@@ -27,28 +27,28 @@ Optimise the whole, not the part. A local optimum that does not lift the system 
 ### Rule WDR-LEANTERMS-FLOWISMEASURED
 
 Flow is measured, not felt. Throughput, work-in-progress, and lead time are defined quantities related by Little's Law
-([WDR-LEAN](lean.md)); decisions about batch size and work-in-progress rest on those measures, never on "we feel slow".
+([EDR-LEAN](../external/lean/lean.md)); decisions about batch size and work-in-progress rest on those measures, never on "we feel slow".
 
 - [Flow primitives](#flow-primitives)
 
 ### Rule WDR-LEANTERMS-AUTOMATEDORMANUAL
 
 Work is classified by who acts: an automated step runs to completion with no human action, a manual step requires a person. Human attention
-is the scarce constraint and machine time is cheap and falling (Moore's Law, [WDR-LEAN](lean.md)), so the platform's direction of travel is
-to convert manual steps into automated ones — spending the cheap resource to protect the dear one.
+is the scarce constraint and machine time is cheap and falling (Moore's Law, [EDR-LEAN][r1]), so the platform's direction of travel is to
+convert manual steps into automated ones — spending the cheap resource to protect the dear one.
 
 - [Automated and manual](#automated-and-manual)
 
 ## Context
 
-The process decision records — lean ([WDR-LEAN](lean.md)), pulling work ([WDR-PULLWORK](pull-work.md)), queues
+The process decision records — lean ([EDR-LEAN](../external/lean/lean.md)), pulling work ([WDR-PULLWORK](pull-work.md)), queues
 ([WDR-QUEUECOST](queues-cost-money.md)), and the rest — all reason in the same vocabulary: constraint, throughput, lead time,
 work-in-progress, batch, queue. That reasoning only holds together if the words mean exactly one thing across every article. When
 "bottleneck" means the constraint to one author and "the slowest thing I noticed" to another, a flow argument stops being checkable.
 
 This article is the glossary those articles share. It fixes the primitive terms so the others can build on them without re-defining them,
-and it names the two laws — Little's and Moore's — that make the flow claims quantitative, pointing to [WDR-LEAN](lean.md) as the article
-that owns and elaborates them. It defines the nouns; the companion articles state the laws and rules that relate them.
+and it names the two laws — Little's and Moore's — that make the flow claims quantitative, pointing to [EDR-LEAN][r1] as the article that
+owns and elaborates them. It defines the nouns; the companion articles state the laws and rules that relate them.
 
 ## The terms
 
@@ -63,7 +63,7 @@ The base measures of how work moves. They are quantities, not moods.
   waiting.
 - **Cycle time.** The clock time an item spends being actively worked at a step, from start of work to done — a subset of lead time that
   excludes the waiting.
-- **Flow time.** Lead time viewed as the quantity Little's Law governs: `flow time = WIP ÷ throughput` ([WDR-LEAN](lean.md)). Cutting
+- **Flow time.** Lead time viewed as the quantity Little's Law governs: `flow time = WIP ÷ throughput` ([EDR-LEAN][r1]). Cutting
   work-in-progress lowers it arithmetically, with no one working faster.
 - **Batch size.** The amount of work moved between steps as a unit. Small batches shorten lead time and expose defects sooner; large batches
   hide both.
@@ -95,19 +95,18 @@ How a step is classified by the actor it requires.
 - **Manual.** A step that requires a person to act. Manual steps are legitimate where human judgement is the point (a review, a release
   decision); they are waste where they are merely un-automated toil.
 - **The direction of travel.** Because human attention is the scarce constraint and machine time is cheap and falling (Moore's Law,
-  [WDR-LEAN](lean.md)), a manual step that needs no judgement is a candidate for automation — spend compute to drain the human queue, never
-  the reverse.
+  [EDR-LEAN][r1]), a manual step that needs no judgement is a candidate for automation — spend compute to drain the human queue, never the
+  reverse.
 
 ### The named laws
 
-Two laws make the flow claims quantitative. [WDR-LEAN](lean.md) owns and elaborates both; they are listed here so the vocabulary is
-complete.
+Two laws make the flow claims quantitative. [EDR-LEAN][r1] owns and elaborates both; they are listed here so the vocabulary is complete.
 
 - **Little's Law.** For any stable system, `flow time = WIP ÷ throughput`. The practical consequence is that work-in-progress, not effort,
-  is the lever on lead time ([WDR-LEAN](lean.md), applied in [WDR-QUEUECOST](queues-cost-money.md)).
+  is the lever on lead time ([EDR-LEAN](../external/lean/lean.md), applied in [WDR-QUEUECOST](queues-cost-money.md)).
 - **Moore's Law.** Compute capacity per unit cost roughly doubles on a regular cadence, so machine time trends toward free while human
   attention stays the scarce constraint — the economic basis for automating and for spending compute to save people's time
-  ([WDR-LEAN](lean.md)).
+  ([EDR-LEAN](../external/lean/lean.md)).
 
 ## Why
 
@@ -120,7 +119,7 @@ decidable question: which step is the constraint, and does this change lift it? 
 
 **Definitions keep automation honest.** Pinning "automated" to "no human action, identical every time" stops a hand-run script from being
 called automation, and pinning the scarce resource to human attention explains why the platform spends machine time so freely
-([WDR-LEAN](lean.md)), caching every result it can reuse.
+([EDR-LEAN](../external/lean/lean.md)), caching every result it can reuse.
 
 ## How to apply
 
@@ -135,4 +134,6 @@ than redefining it here, so the vocabulary stays single-source.
 [^1]:
     Eliyahu M. Goldratt and Jeff Cox, _The Goal: A Process of Ongoing Improvement_ (1984). The Theory of Constraints — that a system's
     throughput is set by a single constraint, and that improving a non-constraint yields no system gain — and the five focusing steps for
-    finding and lifting it. Little's Law and Moore's Law carry their primary references in [WDR-LEAN](lean.md).
+    finding and lifting it. Little's Law and Moore's Law carry their primary references in [EDR-LEAN](../external/lean/lean.md).
+
+[r1]: ../external/lean/lean.md

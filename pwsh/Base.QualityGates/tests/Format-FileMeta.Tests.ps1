@@ -62,7 +62,7 @@ Describe 'Format-FileMeta and Test-FileMeta' -Tag 'L0', 'logic', 'ADR-REPO-FILEM
         }
     }
 
-    It 'skips a file it left clean on the next run, and checks it again under -NoCache' -Tag 'ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS' {
+    It 'skips a file it left clean on the next run, and checks it again under -NoCache' -Tag 'ADR-AUTO-CACHE-CROSSSESSIONFILES' {
         Format-FileMeta -RepositoryRoot $script:widgetRoot | Out-Null
         Format-FileMeta -RepositoryRoot $script:widgetRoot -DryRun | Out-Null
         Should -Invoke Write-Message -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Message -eq 'Checking the meta block of 0 file(s) (2 unchanged since their last check)...' }
@@ -79,7 +79,7 @@ Describe 'Format-FileMeta and Test-FileMeta' -Tag 'L0', 'logic', 'ADR-REPO-FILEM
         ([System.IO.File]::ReadAllText($path) -replace "`r", '') | Should -Not -BeLike '*catzc:*' -Because 'an authored file carries no head'
     }
 
-    It 'never records a file the dry run would change as clean' -Tag 'ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS' {
+    It 'never records a file the dry run would change as clean' -Tag 'ADR-AUTO-CACHE-CROSSSESSIONFILES' {
         Format-FileMeta -RepositoryRoot $script:widgetRoot -DryRun | Out-Null
         Format-FileMeta -RepositoryRoot $script:widgetRoot -DryRun | Out-Null
         Should -Invoke Write-Message -ModuleName Catzc.Base.QualityGates -Times 2 -Exactly -ParameterFilter { $Message -eq 'Checking the meta block of 2 file(s) (0 unchanged since their last check)...' }

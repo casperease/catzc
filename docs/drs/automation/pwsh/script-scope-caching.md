@@ -26,7 +26,7 @@ name falls through to `$global:` when the module's cache entry is unset.
 
 - [Probing an unset cache entry](#probing-an-unset-cache-entry)
 
-### Rule ADR-PWSH-CACHE-COMPILEDTYPEPREBUILD
+### Rule ADR-PWSH-CACHE-PWSHTYPEPREBUILD
 
 The compiled-type prebuild of [ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD](../caching.md#rule-adr-auto-cache-compiledtypeprebuild) is realised by
 the bootstrap: `Import-CSharpTypes` (`Catzc.Internal.Bootstrap.psm1`) computes the key over every module's `types/*.cs` and loads the

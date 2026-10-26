@@ -28,6 +28,5 @@ snake_case keys
 
 Only the entry's own shape is checked on load. Whether `defined_by` names a real rule, `domain` a declared ADR domain, and the relation and
 contrast targets real concepts are cross-file facts, checked by the glossary checks (`Test-Glossary`), so loading a glossary stays hermetic
-(the
-[ADR-AZ-CUSTOMER-REFERENCENOTVALIDATEDONLOAD](../../../../drs/azure/azure-customer-model.md#rule-adr-az-customer-referencenotvalidatedonload)
+(the [ADR-AZ-CUSTOMER-REFERENCEUNVALIDATED](../../../../drs/azure/azure-customer-model.md#rule-adr-az-customer-referenceunvalidated)
 pattern).

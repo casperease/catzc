@@ -1,11 +1,11 @@
 # Catzc.Base.Docs
 
 The generated-README module. It owns the rule that a `README.md` in a conventional folder is a **generated copy** of one authored docs
-source, never a hand-kept one (see [generated-readmes](../../../drs/repository/generated-readmes.md)): the source's relative links are rebased
-to the README's folder, so every link works where the README is opened, and a line under the title names the source as the one place to
-edit. What it deliberately does **not** own is the prose itself — that lives in the authored sources under `docs/` — nor the write
-primitive, which is `Write-FileIfChanged` ([Catzc.Base.Files](../base-files/index.md)); the importer keeps every README current on every load.
-The module also generates the glossary from the modules' glossary sources and answers "ask cats", the offline browser over the ADRs,
+source, never a hand-kept one (see [generated-readmes](../../../drs/repository/generated-readmes.md)): the source's relative links are
+rebased to the README's folder, so every link works where the README is opened, and a line under the title names the source as the one place
+to edit. What it deliberately does **not** own is the prose itself — that lives in the authored sources under `docs/` — nor the write
+primitive, which is `Write-FileIfChanged` ([Catzc.Base.Files](../base-files/index.md)); the importer keeps every README current on every
+load. The module also generates the glossary from the modules' glossary sources and answers "ask cats", the offline browser over the ADRs,
 modules, and verbs. The ADR registry, and the index generated from it, are [Catzc.Base.Drs](../base-drs/index.md).
 
 ## Responsibilities
@@ -29,8 +29,8 @@ through `Write-FileIfChanged` ([Catzc.Base.Files](../base-files/index.md)): a cu
 delete-then-write, so a README that is still a filesystem link is severed, never written through into its source. That idempotence is what
 lets the importer regenerate every README on each load at no steady-state cost (see
 [generated-readmes](../../../drs/repository/generated-readmes.md)). A quality gate
-([ADR-AUTO-TEST-QUALITYGATE](../../../drs/automation/test-automation.md#rule-adr-auto-test-qualitygate)), `Test-GeneratedReadmes`, checks the
-result: every generated README is gitignored, untracked, and current with its source.
+([ADR-AUTO-TEST-QUALITYGATE](../../../drs/automation/test-automation.md#rule-adr-auto-test-qualitygate)), `Test-GeneratedReadmes`, checks
+the result: every generated README is gitignored, untracked, and current with its source.
 
 ### responsibility:2 — README map
 
@@ -70,8 +70,8 @@ functions, and the approved verbs in use. It prints only; it returns nothing.
 
 ### responsibility:6 — Sub-agent registry
 
-Which sub-agents exist and why (see [agent-definitions](../../../drs/repository/agent-definitions.md)). The registry is `agents.yml`: one entry
-per `.claude/agents/<name>.md` definition, with the rule citations that support the agent and the gate and check functions it runs or
+Which sub-agents exist and why (see [agent-definitions](../../../drs/repository/agent-definitions.md)). The registry is `agents.yml`: one
+entry per `.claude/agents/<name>.md` definition, with the rule citations that support the agent and the gate and check functions it runs or
 guards, plus the one standard agent for delegated work. Beside it, `capabilities.yml` registers the capabilities the agents load, each with
 its model floor. Both are validated when they load. A quality gate, `Test-AgentDefinitions`, keeps the agent and capability files, the
 registries, and the `## Sub-agents` list in `.claude/CLAUDE.md` in step, resolving every citation to a real rule and every check to an
@@ -81,7 +81,7 @@ existing command.
 
 Reading wrapped markdown back: a list item with the continuation lines the formatter wrapped it onto is read back whole by one command,
 which every checker that reads list items calls. The writing side, a paragraph filled at the 140-column width the way the formatter fills it
-(see [uniform-formatting](../../../drs/repository/uniform-formatting.md#rule-adr-repo-format-generatedartifactsformatted)), is
+(see [uniform-formatting](../../../drs/repository/uniform-formatting.md#rule-adr-repo-format-generatedformatted)), is
 [Catzc.Base.MarkdownMeta](../base-markdown-meta/index.md).
 
 ### responsibility:8 — Rolling logs

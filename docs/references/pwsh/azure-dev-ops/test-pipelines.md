@@ -19,7 +19,7 @@ out/test-pipelines/, and the gate throws once listing every violation (or return
 Rules enforced (each violation names its rule code, as '`[<rule>]` `pipelines/<file>`: `<message>`'):
 
 ```text
-[FDR-CD-PIPELINE-EXECUTABLEYAMLEXTENSION](/docs/drs/flow/pipeline-concept.md#rule-fdr-cd-pipeline-executableyamlextension)  Executable YAML is
+[FDR-PIPELINE-EXECUTABLEYAMLEXTENSION](/docs/drs/flow/pipeline-concept.md#rule-fdr-pipeline-executableyamlextension)  Executable YAML is
 `.yaml`; there is no `.yml` under pipelines/ (config is `.yml`, but
                 it lives outside pipelines/).
 [ADR-ADO-NAME-FLATPIPELINESFOLDER](/docs/drs/ado/pipeline-naming-and-placement.md#rule-adr-ado-name-flatpipelinesfolder)  Pipelines live FLAT
@@ -29,7 +29,7 @@ in pipelines/. Every `.yaml` is either at the root or directly in a
 [ADR-ADO-NAME-TEMPLATEKINDFOLDER](/docs/drs/ado/pipeline-naming-and-placement.md#rule-adr-ado-name-templatekindfolder)  Template folders are
 the closed set steps/ jobs/ stages/ variables/ extends/, and a
                 fragment's structural kind matches its folder (a steps template lives in steps/, …).
-[FDR-CD-PIPELINE-TYPEPREFIX](/docs/drs/flow/pipeline-concept.md#rule-fdr-cd-pipeline-typeprefix)  A root pipeline's
+[FDR-PIPELINE-TYPEPREFIX](/docs/drs/flow/pipeline-concept.md#rule-fdr-pipeline-typeprefix)  A root pipeline's
 filename starts with its type — cron | ci | cd | cde | deploy | input.
 [ADR-ADO-NAME-ABSOLUTETEMPLATEPATH](/docs/drs/ado/pipeline-naming-and-placement.md#rule-adr-ado-name-absolutetemplatepath)  Templates are
 referenced by absolute path (`/pipelines/<kind>/<name>.yaml`), never a
@@ -71,9 +71,9 @@ Test-Pipelines
 ## The rules it checks
 
 - **Extension.** Executable YAML under `pipelines/` is `.yaml`, never `.yml`
-  ([FDR-CD-PIPELINE-EXECUTABLEYAMLEXTENSION](../../../drs/flow/pipeline-concept.md#rule-fdr-cd-pipeline-executableyamlextension)).
+  ([FDR-PIPELINE-EXECUTABLEYAMLEXTENSION](../../../drs/flow/pipeline-concept.md#rule-fdr-pipeline-executableyamlextension)).
 - **Entry points.** A file at the root of `pipelines/` is a pipeline entry point, so its name starts with a valid type token
-  ([FDR-CD-PIPELINE-TYPEPREFIX](../../../drs/flow/pipeline-concept.md#rule-fdr-cd-pipeline-typeprefix)).
+  ([FDR-PIPELINE-TYPEPREFIX](../../../drs/flow/pipeline-concept.md#rule-fdr-pipeline-typeprefix)).
 - **Template folders.** A file in a subfolder sits in a per-kind template folder from the closed set, one level deep
   ([ADR-ADO-NAME-TEMPLATEKINDFOLDER](../../../drs/ado/pipeline-naming-and-placement.md#rule-adr-ado-name-templatekindfolder)).
 - **No pipelines in template folders.** A structural pipeline has no business inside a template folder

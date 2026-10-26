@@ -8,7 +8,7 @@ accepts and each violation it reports.
 The base config uses deliberately distinct tokens: org `tst`, tenant `fixtenant`, Greek environments and `core_*` subscriptions. The type
 validates a passed dictionary on its own, so the fixture needs no shipped config, and editing the shipped `azure.yml` cannot change the
 outcome ([ADR-AUTO-TEST-ONECATEGORY](../../../../../drs/automation/test-automation.md#rule-adr-auto-test-onecategory),
-[ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+[ADR-AUTO-TEST-DISTINCTFIXTURES](../../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtures)).
 
 ## normalized customer uniqueness
 

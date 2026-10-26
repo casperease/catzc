@@ -29,5 +29,5 @@ model and carries neither a count nor an engine name, so no phrase matches it. D
 ## neutral_codes
 
 A logic (L0) test's fixture data uses neutral ADR codes, never one the ADR index declares
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)). Its
-`exempt` entries name the tests that must assert a real rule's exact message.
+([ADR-AUTO-TEST-DISTINCTFIXTURES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtures)). Its `exempt` entries
+name the tests that must assert a real rule's exact message.

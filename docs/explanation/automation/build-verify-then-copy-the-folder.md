@@ -12,8 +12,8 @@ Build-Modules builds, verifies, and leaves one folder that every target copies w
 7  New-CatzcNuGetPackage    packs the folder into out/automation/packages/
 8  Checked again            Install-Catzc's first call is the guard
 
-Supports ADR-AUTO-BUNDLE-BUNDLEISBUILD, ADR-AUTO-BUNDLE-IMMUTABLEBUILD, ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL
-and ADR-AUTO-BUNDLE-AUTOVERSION (implementation lens).
+Supports ADR-AUTO-BUNDLE-ISBUILD, ADR-AUTO-BUNDLE-IMMUTABLEBUILD, ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL
+and ADR-AUTO-BUNDLE-BUNDLEVERSION (implementation lens).
 ```
 
 A bundle, in code, is a short chain of functions in `Catzc.Base.Exporter` and one `.internal` engine. `Build-Modules` reads its options,
@@ -25,7 +25,7 @@ description:
   "The bundle in code: Build-Modules reads exporter.yml and calls the build engine, Assert-CatzcBundle checks what the engine wrote, and
   each target verifies the build folder again before it copies or packs it whole."
 about:
-  adrs: [ADR-AUTO-BUNDLE-BUNDLEISBUILD, ADR-AUTO-BUNDLE-IMMUTABLEBUILD, ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL, ADR-AUTO-BUNDLE-AUTOVERSION]
+  adrs: [ADR-AUTO-BUNDLE-ISBUILD, ADR-AUTO-BUNDLE-IMMUTABLEBUILD, ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL, ADR-AUTO-BUNDLE-BUNDLEVERSION]
   lens: implementation
 content:
   title: Build-Modules builds, verifies, and leaves one folder that every target copies whole
@@ -111,13 +111,13 @@ for a disk export.
 ## Why it holds
 
 - `Build-Modules` builds a selected, closure-expanded set of modules through the `Invoke-ModuleBuild` engine, and `Assert-CatzcBundle`
-  verifies it (ADR-AUTO-BUNDLE-BUNDLEISBUILD).
+  verifies it (ADR-AUTO-BUNDLE-ISBUILD).
 - The build is content-addressed: it copies the source tree's types DLL instead of compiling, records its hashes in `build.json`, and runs
   `Assert-CatzcBundle` as a self-check on its own output (ADR-AUTO-BUNDLE-IMMUTABLEBUILD).
 - An install copies the build to two places, verifies the source before the destination, and is idempotent
   (ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL).
 - A devbox build carries the `6.6.666` placeholder and a pipeline build gets a calculated version, both declared in `exporter.yml`
-  (ADR-AUTO-BUNDLE-AUTOVERSION).
+  (ADR-AUTO-BUNDLE-BUNDLEVERSION).
 
 ## Where the code and the decision record differ
 

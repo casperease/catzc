@@ -5,4 +5,4 @@ The tests of `Get-DrsFileIndex`: every `docs/drs/**/*.md` keyed by `<domain fold
 ## Fixtures
 
 A fixture tree in `$TestDrive` and a fixture registry, with neutral names
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+([ADR-AUTO-TEST-DISTINCTFIXTURES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtures)).

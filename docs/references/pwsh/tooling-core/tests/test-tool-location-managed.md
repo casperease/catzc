@@ -16,4 +16,4 @@ per-test scope, so the non-Windows skip runs in `BeforeEach`, not `BeforeAll`: c
   must agree rather than flag it foreign.
 
 The `Get-ScriptInstallDir` mock uses a neutral fixture
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+([ADR-AUTO-TEST-DISTINCTFIXTURES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtures)).

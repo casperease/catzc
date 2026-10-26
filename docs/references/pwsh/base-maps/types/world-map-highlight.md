@@ -1,7 +1,7 @@
 # pwsh/Base.Maps/types/WorldMapHighlight.cs
 
 A world-map highlight: the cells a request lights. A request is either ADR references or a drawing's files
-([DDR-TRACK-TRACKISPLACEDCLUSTER](../../../../drs/design/tracks.md#rule-ddr-track-trackisplacedcluster) places each file in one cell).
+([DDR-TRACK-ISPLACEDCLUSTER](../../../../drs/design/tracks.md#rule-ddr-track-isplacedcluster) places each file in one cell).
 
 ## ADR references
 

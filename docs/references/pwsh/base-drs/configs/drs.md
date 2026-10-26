@@ -31,8 +31,8 @@ Within a domain, `rulesets` is keyed by the internal kebab name, which is the AD
 
 ## Vendor recommendations
 
-The Azure domains hold one rule set per vendor item: the Well-Architected Framework pillars (`azure/waf/`) and the Cloud Adoption Framework
-landing-zone design areas (`azure/caf/`), each citing Microsoft's page and summarising it in the repository's own words.
+The Azure domains hold one rule set per vendor item: the Well-Architected Framework pillars (`external/azure/waf/`) and the Cloud Adoption
+Framework landing-zone design areas (`external/azure/caf/`), each citing Microsoft's page and summarising it in the repository's own words.
 
 ## Kinds
 

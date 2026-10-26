@@ -14,7 +14,7 @@ Get-Aspect feeds Globs, which compiles the aspects into sets, and Maps, which on
 9   Get-WorldMap                  asks for the convention of every track that has an entry
 10  WorldMapBuilder.IsLive        first match over the track's aspects; live when that aspect is named live
 
-Supports DDR-ASPECT-ASPECTSAREDERIVED, DDR-ASPECT-TRACKPICKSCATCHALL and DDR-ASPECT-ASPECTISAGLOBSET (implementation lens).
+Supports DDR-ASPECT-ASPECTSAREDERIVED, DDR-ASPECT-TRACKPICKSCATCHALL and DDR-ASPECT-ISAGLOBSET (implementation lens).
 ```
 
 One function, `Get-Aspect`, is the only way a convention reaches a caller, and two callers take it in different directions. In
@@ -27,7 +27,7 @@ description:
   Get-Aspect returns a track's ordered aspects from the validated variants config; Globs compiles them into derived globsets and Maps only
   classifies a file as live or not.
 about:
-  adrs: [DDR-ASPECT-ASPECTSAREDERIVED, DDR-ASPECT-TRACKPICKSCATCHALL, DDR-ASPECT-ASPECTISAGLOBSET]
+  adrs: [DDR-ASPECT-ASPECTSAREDERIVED, DDR-ASPECT-TRACKPICKSCATCHALL, DDR-ASPECT-ISAGLOBSET]
   lens: implementation
 content:
   title: Get-Aspect feeds Globs, which compiles the aspects into sets, and Maps, which only classifies live
@@ -125,9 +125,9 @@ layout:
   (DDR-ASPECT-ASPECTSAREDERIVED).
 - Which aspect is the remainder is declared per track, and the config type enforces at load that the last aspect is `**` and no earlier one
   uses it (DDR-ASPECT-TRACKPICKSCATCHALL).
-- Each aspect is its own derived globset, `<unit>-<aspect>` (DDR-ASPECT-ASPECTISAGLOBSET).
+- Each aspect is its own derived globset, `<unit>-<aspect>` (DDR-ASPECT-ISAGLOBSET).
 - A globset's scan program is an ordered list of `+` and `-` rules evaluated last match wins, and a leaf set's program is its includes then
-  its excludes (FDR-CD-GLOBS-TRACKEDFILESONLY).
+  its excludes (FDR-GLOBS-TRACKEDFILESONLY).
 - The variants file is read through the session-cached config, by typed primitives and the one private reader
   (ADR-REPO-VARIANT-SESSIONVARIANT, ADR-REPO-VARIANT-NODIRECTREADS).
 - A track owns one coherent tech-stack, and the world map checks it on live files only, so the builder must classify every file of every

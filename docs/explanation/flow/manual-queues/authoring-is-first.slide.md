@@ -15,7 +15,7 @@ catzc:
 
 ## Eyebrow
 
-2 / 10 · fact · FDR-CD-QUEUE-AUTHORINGISTHEFIRST
+2 / 10 · fact · FDR-QUEUE-AUTHORINGISTHEFIRST
 
 ## Lead
 

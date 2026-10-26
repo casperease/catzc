@@ -12,7 +12,7 @@ An engineer runs the tests and merges the pull request; pipelines run everything
 7  red CI run                the BVT discard; nothing records it, and it stops no deploy
 8  stage failed              the later Deploy_* stages skip
 
-Supports FDR-CD-LIFE-ONESTATEADVANCESONERUNG and FDR-CD-LIFE-FAILEDSTAYSUPSTREAM (operations lens).
+Supports FDR-LIFE-ONESTATEADVANCESONERUNG and FDR-LIFE-FAILEDSTAYSUPSTREAM (operations lens).
 ```
 
 A person moves a commit through the first rungs of the cats lifecycle by hand: they run `Test-Automation` on the devbox and merge the pull
@@ -24,7 +24,7 @@ description:
   An engineer runs the tests and merges once the pull request build validation is green; the pipelines run everything after the merge, and
   each failed rung shows the person a red result.
 about:
-  adrs: [FDR-CD-LIFE-ONESTATEADVANCESONERUNG, FDR-CD-LIFE-FAILEDSTAYSUPSTREAM]
+  adrs: [FDR-LIFE-ONESTATEADVANCESONERUNG, FDR-LIFE-FAILEDSTAYSUPSTREAM]
   lens: operations
 content:
   title: An engineer runs the tests and merges; pipelines do the rest
@@ -111,8 +111,8 @@ A new attempt is a new commit: the engineer fixes forward with a new pull reques
 
 ## Why it holds
 
-- A commit only climbs, and a new attempt is a new commit (FDR-CD-LIFE-ONESTATEADVANCESONERUNG).
-- A commit that fails a stage cannot go downstream (FDR-CD-LIFE-FAILEDSTAYSUPSTREAM).
+- A commit only climbs, and a new attempt is a new commit (FDR-LIFE-ONESTATEADVANCESONERUNG).
+- A commit that fails a stage cannot go downstream (FDR-LIFE-FAILEDSTAYSUPSTREAM).
 - `Test-Automation` and its tiers run on the devbox and in the pipeline, and must agree (ADR-AUTO-PARITY-CHECKEDEQUALLY).
 - PR build validation is the inner CI gate; the L3 outer loop runs post-commit (FDR-CD-INNERANDOUTERLOOP).
 

@@ -1,8 +1,8 @@
 # pwsh/Tooling.Inspiration/tests/Resolve-InspirationRoot.Tests.ps1
 
 The L0 tests of `Resolve-InspirationRoot` over a `TestDrive` workspace with neutral names
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
-`Get-RepositoryRoot` is the mocked boundary.
+([ADR-AUTO-TEST-DISTINCTFIXTURES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtures)). `Get-RepositoryRoot`
+is the mocked boundary.
 
 ## Anchor
 

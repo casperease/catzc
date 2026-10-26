@@ -8,7 +8,7 @@ A new configuration slot is one new file; discovery finds it, one subscription m
 3  the owner's CD pipeline    the shared pipeline for a root slot, the customer's for a slot under its subfolder
 4  a new resource group       the one group the new configuration slot deploys, its name derived from the coordinate
 
-Supports ADR-AZ-IACKIND-THREEKINDS, ADR-AZ-DATAMOD-TWOCONFIGLAYERS and ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION (operations lens).
+Supports ADR-AZ-IACKIND-THREEIACKINDS, ADR-AZ-DATAMOD-TWOCONFIGLAYERS and ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION (operations lens).
 ```
 
 A new deployment of an existing template is a new file and nothing more. Slots are discovered from disk, never listed, so no catalogue
@@ -20,7 +20,7 @@ description:
   Adding a configuration slot adds one file to the configs place of the infrastructure track; discovery finds it on disk, checks that its
   coordinate resolves to exactly one subscription, and the owner's CD pipeline deploys it into a new resource group.
 about:
-  adrs: [ADR-AZ-IACKIND-THREEKINDS, ADR-AZ-DATAMOD-TWOCONFIGLAYERS, ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION]
+  adrs: [ADR-AZ-IACKIND-THREEIACKINDS, ADR-AZ-DATAMOD-TWOCONFIGLAYERS, ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION]
   lens: operations
 content:
   title: A new configuration slot is one new file; discovery finds it, one subscription must fit it, and it deploys a new resource group
@@ -72,7 +72,7 @@ layout:
 
 ## Why it holds
 
-- A configuration slot is one of the three kinds of infrastructure code (ADR-AZ-IACKIND-THREEKINDS).
+- A configuration slot is one of the three kinds of infrastructure code (ADR-AZ-IACKIND-THREEIACKINDS).
 - A config at the configuration root is the shared platform's and one under a customer subfolder is that customer's, and the subscription is
   resolved from that coordinate (ADR-AZ-DATAMOD-TWOCONFIGLAYERS).
 - One config file is one (customer?, env, slot), one subscription and one Azure resource group (ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION).

@@ -56,7 +56,7 @@ function Test-Pipelines {
 
         # Executable YAML under pipelines/ is .yaml, never .yml.
         if ($extension -eq '.yml') {
-            $violations.Add((New-Violation -RelativePath $rel -Rule 'FDR-CD-PIPELINE-EXECUTABLEYAMLEXTENSION' -Message "Executable pipeline YAML must be '.yaml', not '.yml'."))
+            $violations.Add((New-Violation -RelativePath $rel -Rule 'FDR-PIPELINE-EXECUTABLEYAMLEXTENSION' -Message "Executable pipeline YAML must be '.yaml', not '.yml'."))
             continue
         }
 
@@ -64,7 +64,7 @@ function Test-Pipelines {
             # At the root of pipelines/ a file is an entry point, so its name starts with a valid type token.
             $prefix = ($name -split '-', 2)[0]
             if ($prefix -notin $typePrefixes) {
-                $violations.Add((New-Violation -RelativePath $rel -Rule 'FDR-CD-PIPELINE-TYPEPREFIX' -Message "Pipeline name must start with a type ($($typePrefixes -join ' | ')); got '$prefix'."))
+                $violations.Add((New-Violation -RelativePath $rel -Rule 'FDR-PIPELINE-TYPEPREFIX' -Message "Pipeline name must start with a type ($($typePrefixes -join ' | ')); got '$prefix'."))
             }
         }
         else {

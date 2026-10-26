@@ -10,7 +10,7 @@ The repository's files form one model: where each file is, what it is written in
 5  Aspects          a module's files split into aspects, each a derived glob set
 6  Link relations   every link between two files has a direction, and the direction is a row
 
-Supports DDR-TRACK-TRACKISPLACEDCLUSTER, DDR-TRACK-FILELANGUAGE, DDR-TRACK-WORLDMAP, DDR-ASPECT-MODULESPARTITIONINTOASPECTS and
+Supports DDR-TRACK-ISPLACEDCLUSTER, DDR-TRACK-FILELANGUAGE, DDR-TRACK-WORLDMAP, DDR-ASPECT-MODULESPARTITIONED and
 ADR-REPO-LINKS-EVERYLINKHASADIRECTION (meta lens).
 ```
 
@@ -29,9 +29,9 @@ name as its default, and the tooling acts on what each name means
 ## Tracks and their places
 
 A **track** is a placed cluster of folders of one track type
-([DDR-TRACK-TRACKISPLACEDCLUSTER](../../drs/design/tracks.md#rule-ddr-track-trackisplacedcluster)), and its places are the folders it
-claims. `Get-Track` lists the tracks and `Get-TrackPlace` answers which track a path belongs to; a reader subscribes to a track, never to a
-path ([DDR-TRACK-SUBSCRIBABLENOTPATHCOUPLED](../../drs/design/tracks.md#rule-ddr-track-subscribablenotpathcoupled)).
+([DDR-TRACK-ISPLACEDCLUSTER](../../drs/design/tracks.md#rule-ddr-track-isplacedcluster)), and its places are the folders it claims.
+`Get-Track` lists the tracks and `Get-TrackPlace` answers which track a path belongs to; a reader subscribes to a track, never to a path
+([DDR-TRACK-SUBSCRIBABLENOTPATH](../../drs/design/tracks.md#rule-ddr-track-subscribablenotpath)).
 
 ## File languages
 
@@ -49,10 +49,9 @@ is the C2 level of the [zoom ladder](the-zoom-ladder.md).
 ## Aspects
 
 Every file of a module is in exactly one **aspect**
-([DDR-ASPECT-MODULESPARTITIONINTOASPECTS](../../drs/design/module-aspects.md#rule-ddr-aspect-modulespartitionintoaspects)), and the aspects
-are derived from the layout, never listed by hand
-([DDR-ASPECT-ASPECTSAREDERIVED](../../drs/design/module-aspects.md#rule-ddr-aspect-aspectsarederived)). `Get-Aspect` answers them, each as a
-glob set ([DDR-ASPECT-ASPECTISAGLOBSET](../../drs/design/module-aspects.md#rule-ddr-aspect-aspectisaglobset)).
+([DDR-ASPECT-MODULESPARTITIONED](../../drs/design/module-aspects.md#rule-ddr-aspect-modulespartitioned)), and the aspects are derived from
+the layout, never listed by hand ([DDR-ASPECT-ASPECTSAREDERIVED](../../drs/design/module-aspects.md#rule-ddr-aspect-aspectsarederived)).
+`Get-Aspect` answers them, each as a glob set ([DDR-ASPECT-ISAGLOBSET](../../drs/design/module-aspects.md#rule-ddr-aspect-isaglobset)).
 
 ## Link relations
 

@@ -1,7 +1,7 @@
 # No gate checks the out-of-band deploy rule, and the only gate on deploys in code is main-only
 
 ```text
-FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND is DRS-only, and the one gate on deploys in code allows main alone.
+FDR-LIFE-TOPICDEPLOYSOUTOFBAND is DRS-only, and the one gate on deploys in code allows main alone.
 
 1  topic                a topic commit, brown and below the mainline; no gate checks either drawing rule
 2  out-of-band deploy   the deploy the rule allows; DRS-only, no code runs or checks it
@@ -10,14 +10,14 @@ FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND is DRS-only, and the one gate on deploys in co
 5  main only            the gate in code: every Deploy_* stage needs refs/heads/main
 6  BVT                  checked on main: Test-Automation and Test-BuildArtifact run
 
-Supports FDR-CD-LIFE-ONESTATEADVANCESONERUNG and FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND, and DDR-VISUAL-BRANCHDIRECTIONISROLE,
+Supports FDR-LIFE-ONESTATEADVANCESONERUNG and FDR-LIFE-TOPICDEPLOYSOUTOFBAND, and DDR-VISUAL-BRANCHDIRECTIONISROLE,
 DDR-VISUAL-FIXEDCOMMITPALETTE and DDR-VISUAL-ENVIRONMENTISCONTAINER (governance lens).
 ```
 
-FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND lets a workflow deploy a topic commit without integrating it. Looked at as governance, the rule stands
-alone: no gate or checker in cats tests it, and nothing in the repository runs the deploy it allows. The one gate in code on the deploy side
-points the other way, since every `Deploy_*` stage runs only from main. The drawing rules of DDR-VISUAL that colour these commits have no
-checker either, and none is expected.
+FDR-LIFE-TOPICDEPLOYSOUTOFBAND lets a workflow deploy a topic commit without integrating it. Looked at as governance, the rule stands alone:
+no gate or checker in cats tests it, and nothing in the repository runs the deploy it allows. The one gate in code on the deploy side points
+the other way, since every `Deploy_*` stage runs only from main. The drawing rules of DDR-VISUAL that colour these commits have no checker
+either, and none is expected.
 
 ```yml drawio
 description:
@@ -25,8 +25,8 @@ description:
   topic commit through main and the BVT to a BVT-verified commit.
 about:
   adrs:
-    - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
-    - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+    - FDR-LIFE-ONESTATEADVANCESONERUNG
+    - FDR-LIFE-TOPICDEPLOYSOUTOFBAND
     - DDR-VISUAL-BRANCHDIRECTIONISROLE
     - DDR-VISUAL-FIXEDCOMMITPALETTE
     - DDR-VISUAL-ENVIRONMENTISCONTAINER
@@ -78,9 +78,9 @@ content:
   chips:
     - { at: c-topic, kind: rule, rule: DDR-VISUAL-BRANCHDIRECTIONISROLE, gated: false }
     - { at: c-topic, kind: rule, rule: DDR-VISUAL-FIXEDCOMMITPALETTE, gated: false, corner: bottom-right }
-    - { at: a-deploy, kind: rule, rule: FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND, gated: false, corner: bottom-right }
+    - { at: a-deploy, kind: rule, rule: FDR-LIFE-TOPICDEPLOYSOUTOFBAND, gated: false, corner: bottom-right }
     - { at: e-environment, kind: rule, rule: DDR-VISUAL-ENVIRONMENTISCONTAINER, gated: false }
-    - { at: c-main, kind: rule, rule: FDR-CD-LIFE-ONESTATEADVANCESONERUNG, gated: false, corner: bottom-right }
+    - { at: c-main, kind: rule, rule: FDR-LIFE-ONESTATEADVANCESONERUNG, gated: false, corner: bottom-right }
     - { at: c-verified, kind: rule, rule: DDR-VISUAL-FIXEDCOMMITPALETTE, gated: false }
   legend: auto
   minimaps: [code-locations, grid, axis]
@@ -99,7 +99,7 @@ layout:
   c-verified: { x: 1090, y: 186, w: 150, h: 44 }
 ```
 
-![FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND is DRS-only and every Deploy stage is main-only](.assets/out-of-band-deploy-is-drs-only.drawio.png)
+![FDR-LIFE-TOPICDEPLOYSOUTOFBAND is DRS-only and every Deploy stage is main-only](.assets/out-of-band-deploy-is-drs-only.drawio.png)
 
 ## Walkthrough
 
@@ -118,8 +118,8 @@ layout:
 ## Why it holds
 
 - A topic commit can be deployed out-of-band without integrating into main, and the deploy confers no promotion state on the mainline
-  (FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND).
-- A commit holds one lifecycle state at a time and advances one rung along the ladder or leaves it (FDR-CD-LIFE-ONESTATEADVANCESONERUNG).
+  (FDR-LIFE-TOPICDEPLOYSOUTOFBAND).
+- A commit holds one lifecycle state at a time and advances one rung along the ladder or leaves it (FDR-LIFE-ONESTATEADVANCESONERUNG).
 - Topic branches render below the mainline and release branches above it (DDR-VISUAL-BRANCHDIRECTIONISROLE).
 - The commit colours are fixed: a topic commit is brown and never grey, and yellow is past the BVT with an immutable artifact
   (DDR-VISUAL-FIXEDCOMMITPALETTE).
@@ -127,8 +127,8 @@ layout:
 
 ## Where the code and the decision record differ
 
-- FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND allows a workflow or pipeline to deploy a topic commit; no pipeline or workflow does, and every
-  `Deploy_*` stage is main-only.
+- FDR-LIFE-TOPICDEPLOYSOUTOFBAND allows a workflow or pipeline to deploy a topic commit; no pipeline or workflow does, and every `Deploy_*`
+  stage is main-only.
 - The pipeline guide says the CI type produces no artifact, while DDR-VISUAL-FIXEDCOMMITPALETTE makes yellow carry an immutable versioned
   artifact.
 

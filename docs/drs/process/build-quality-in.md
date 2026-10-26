@@ -34,9 +34,9 @@ production is an incident.
 ## Context
 
 Traditional quality assurance is an inspection step: build the thing, then hand it to a separate stage that looks for defects and sends the
-bad ones back. W. Edwards Deming's objection, adopted by the Toyota Production System ([WDR-LEAN](lean.md)), is that inspection at the end
-is both too late and too weak — it finds defects after the cost of making them is already sunk, and it cannot find them all. Toyota's answer
-is jidoka: build quality into each step so the output is correct by construction, and stop the line when it is not [^2].
+bad ones back. W. Edwards Deming's objection, adopted by the Toyota Production System ([EDR-LEAN][r1]), is that inspection at the end is
+both too late and too weak — it finds defects after the cost of making them is already sunk, and it cannot find them all. Toyota's answer is
+jidoka: build quality into each step so the output is correct by construction, and stop the line when it is not [^2].
 
 The Poppendiecks carry this into software as "build integrity in" [^1]. It is the natural partner of poka-yoke
 ([PDR-POKAYOKE](../principles/poka-yoke.md)): where poka-yoke is the mechanism (prevent, else detect early), building quality in is the
@@ -84,3 +84,5 @@ inspection, and inspection is what this rule replaces. A change is finished when
 [^2]:
     Taiichi Ohno, _Toyota Production System: Beyond Large-Scale Production_ (1988), on jidoka; and W. Edwards Deming, _Out of the Crisis_
     (1986), "Cease dependence on inspection to achieve quality" — the origin of building quality in rather than inspecting it in.
+
+[r1]: ../external/lean/lean.md

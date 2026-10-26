@@ -64,9 +64,8 @@ its own types back.
 The analyzer draws its own progress bar, and the repository bans progress bars
 ([ADR-AUTO-CONSOLE-NOBOXDRAWING](../../../../drs/automation/console-output-matters.md#rule-adr-auto-console-noboxdrawing)). The shard
 suppresses that bar for the duration of the call and restores the preference in `finally`. The parent prints a dot per interval while shards
-run. The dots go through the writer chokepoint
-([ADR-PWSH-ANNOUNCE-INFORMATIONSTREAMCHOKEPOINT](../../../../drs/automation/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-informationstreamchokepoint)),
-so a Pester run silences them with everything else. The closing newline fires only when a dot was written.
+run. The dots go through the writer chokepoint ([ADR-PWSH-ANNOUNCE-INFORMATIONCHOKEPOINT][r1]), so a Pester run silences them with
+everything else. The closing newline fires only when a dot was written.
 
 ## Failures
 
@@ -75,3 +74,5 @@ analyzer errors are captured and surfaced as a shard failure, and a job that did
 tolerate: the settings file excludes the built-in `PSReservedCmdletChar` rule, which dereferences the analyzer's thread-unsafe helper
 runspace under concurrent load. Any error is real, and the run never retries
 ([ADR-AUTO-RETRY-NEVERINTESTS](../../../../drs/automation/retry-as-last-resort.md#rule-adr-auto-retry-neverintests)).
+
+[r1]: ../../../../drs/automation/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-informationchokepoint

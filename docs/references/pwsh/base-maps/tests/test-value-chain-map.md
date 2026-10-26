@@ -6,8 +6,8 @@ The tests of `Test-ValueChainMap`, which reads the map `Get-ValueChainMap` retur
 labels that name no glossary term ([DDR-TRACK-VALUECHAINMAP](../../../../drs/design/tracks.md#rule-ddr-track-valuechainmap)), through
 `Write-QualityGateReport` ([ADR-AUTO-TEST-QUALITYGATE](../../../../drs/automation/test-automation.md#rule-adr-auto-test-qualitygate)). The
 logic tests mock the map, the glossary and the labels with widget and gadget fixtures
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)). The
-clean map's axes are the closed sets `DrsConfig` declares, read from the type.
+([ADR-AUTO-TEST-DISTINCTFIXTURES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtures)). The clean map's axes
+are the closed sets `DrsConfig` declares, read from the type.
 
 ## The repository
 

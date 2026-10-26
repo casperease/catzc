@@ -7,7 +7,7 @@ The test of `Test-Formatting`, a quality gate
 
 Each L0 case mocks the registry and `Format-Code` at the module boundary and reads the collected issues. The report goes to `$TestDrive`.
 The fixtures use neutral names
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+([ADR-AUTO-TEST-DISTINCTFIXTURES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtures)).
 
 ## Integrity
 

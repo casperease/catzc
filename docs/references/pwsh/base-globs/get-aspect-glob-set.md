@@ -13,7 +13,7 @@ Builds every aspect's globsets, from the aspect model alone: the one place that 
 
 Each module-layer set of Get-ModuleGlobSet joins the aspect its name ends in, a single-file module's set joins `live`, and each track that
 declares aspects compiles them per place into sets of its own, so every file a track holds is claimed by exactly one aspect
-([DDR-ASPECT-ASPECTISAGLOBSET](../../../drs/design/module-aspects.md#rule-ddr-aspect-aspectisaglobset)).
+([DDR-ASPECT-ISAGLOBSET](../../../drs/design/module-aspects.md#rule-ddr-aspect-isaglobset)).
 
 ### outputs
 
@@ -22,4 +22,4 @@ declares aspects compiles them per place into sets of its own, so every file a t
 ## Single-file modules
 
 A single-file module's set is the degenerate one-aspect partition: `live`
-([DDR-ASPECT-ASPECTISAGLOBSET](../../../drs/design/module-aspects.md#rule-ddr-aspect-aspectisaglobset)).
+([DDR-ASPECT-ISAGLOBSET](../../../drs/design/module-aspects.md#rule-ddr-aspect-isaglobset)).

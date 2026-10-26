@@ -15,7 +15,7 @@ catzc:
 
 ## Eyebrow
 
-23 / 30 · fact for the SRE Lead · ADR-AZ-CAF-RESORG
+23 / 30 · fact for the SRE Lead · EDR-AZ-CAF-RESORG
 
 ## Lead
 
@@ -32,5 +32,5 @@ From the catalogue, reduced: one gate checks the raw read rule.
 
 ## Notes
 
-Check it: the record ADR-AZ-CAF-RESORG in docs/drs/index.md, and the diagram
+Check it: the record EDR-AZ-CAF-RESORG in docs/drs/index.md, and the diagram
 docs/explanation/flow/.assets/one-gate-checks-the-raw-read-rule.drawio.png.

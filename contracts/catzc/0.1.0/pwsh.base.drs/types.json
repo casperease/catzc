@@ -16,6 +16,10 @@
           "kind": "method"
         },
         {
+          "name": "exempt",
+          "kind": "property"
+        },
+        {
           "name": "mode",
           "kind": "property"
         }

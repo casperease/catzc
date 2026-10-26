@@ -32,7 +32,7 @@ and the drone whose `model` equals that skill's model floor runs it. The drones 
 
 - [Jobs are skills](#jobs-are-skills)
 
-### Rule ADR-REPO-AGENTS-QUALITYGATE
+### Rule ADR-REPO-AGENTS-AGENTGATE
 
 `Test-AgentDefinitions` is the quality gate for these rules. It keeps the agent files, the registry, and the `.claude/CLAUDE.md` list in
 step, and it resolves every `supported_by` citation to a real rule and every `checks` entry to an existing command.

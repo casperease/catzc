@@ -11,7 +11,7 @@ One key in globs.yml, pipeline:, binds a globset to the file .ado/pipelines/<nam
 6  cd-<unit>.yaml               the CD pipeline file whose trigger is the unit's projection
 7  extends/cd-customer.yaml     the template three of the four CD pipelines extend
 
-Supports DDR-TRACK-SUBSCRIBABLENOTPATHCOUPLED and DDR-TRACK-DEPLOYABLEUNIT (implementation lens).
+Supports DDR-TRACK-SUBSCRIBABLENOTPATH and DDR-TRACK-DEPLOYABLEUNIT (implementation lens).
 ```
 
 The link between what ships and the pipeline that ships it is a single key. Each entry in the globset registry `globs.yml` may carry
@@ -23,7 +23,7 @@ description:
   One key in globs.yml, pipeline:, binds a globset to the pipeline file that carries its trigger; the unit sets bind their own CD pipelines,
   which extend one shared customer template.
 about:
-  adrs: [DDR-TRACK-SUBSCRIBABLENOTPATHCOUPLED, DDR-TRACK-DEPLOYABLEUNIT]
+  adrs: [DDR-TRACK-SUBSCRIBABLENOTPATH, DDR-TRACK-DEPLOYABLEUNIT]
   lens: implementation
 content:
   title: One field in globs.yml, pipeline:, binds a set to its pipeline file
@@ -98,7 +98,7 @@ layout:
 ## Why it holds
 
 - A consumer binds a track through its globset's projection, never by matching its paths by hand, so the trigger in each pipeline file is
-  the set's projection (DDR-TRACK-SUBSCRIBABLENOTPATHCOUPLED).
+  the set's projection (DDR-TRACK-SUBSCRIBABLENOTPATH).
 - A pipeline is the delivery machine of one deployable-unit, and a base unit that only exists to be composed binds none
   (DDR-TRACK-DEPLOYABLEUNIT).
 

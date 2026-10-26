@@ -12,15 +12,15 @@ Partition integrity runs only in unit tests, and the per-aspect sha lock has no 
 7  AspectPartition.Validate      DRS-only on the real tree: runs in unit tests only
 8  Aspect sha lock               DRS-only: nothing writes one
 
-Supports DDR-ASPECT-ASPECTSAREDERIVED, DDR-ASPECT-TRACKPICKSCATCHALL, DDR-ASPECT-ASPECTISAGLOBSET, DDR-ASPECT-PARTITIONISCHECKED,
+Supports DDR-ASPECT-ASPECTSAREDERIVED, DDR-ASPECT-TRACKPICKSCATCHALL, DDR-ASPECT-ISAGLOBSET, DDR-ASPECT-PARTITIONISCHECKED,
 ADR-PWSH-ONEFUNC-ONEFUNCTIONPERFILE, ADR-PWSH-MANIFEST-ONEDEFINITIONPERNAME, ADR-PWSH-MANIFEST-GENERATEDMANIFESTS,
-ADR-PWSH-MANIFEST-MANIFESTSGITIGNORED, ADR-REPO-FOLDERS-DEFAULTMODULEFOLDERS and FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT (governance lens).
+ADR-PWSH-MANIFEST-MANIFESTSGITIGNORED, ADR-REPO-FOLDERS-DEFAULTMODULEFOLDERS and FDR-GLOBS-CHANGECOMPUTEDFROMGIT (governance lens).
 ```
 
 Every stage of a cats module's folder layout is ruled by a decision record, and most of those rules have a gate: a quality gate, a guard at
 import, or a check when the config loads. Two do not. The partition check of DDR-ASPECT-PARTITIONISCHECKED runs only in unit tests, on
-fixtures, and the per-aspect sha lock of DDR-ASPECT-ASPECTISAGLOBSET has no mechanism at all. Knowing which rules a gate holds, and which
-only the DDR states, tells a reviewer where a mistake would slip through.
+fixtures, and the per-aspect sha lock of DDR-ASPECT-ISAGLOBSET has no mechanism at all. Knowing which rules a gate holds, and which only the
+DDR states, tells a reviewer where a mistake would slip through.
 
 ```yml drawio
 description:
@@ -30,14 +30,14 @@ about:
   adrs:
     - DDR-ASPECT-ASPECTSAREDERIVED
     - DDR-ASPECT-TRACKPICKSCATCHALL
-    - DDR-ASPECT-ASPECTISAGLOBSET
+    - DDR-ASPECT-ISAGLOBSET
     - DDR-ASPECT-PARTITIONISCHECKED
     - ADR-PWSH-ONEFUNC-ONEFUNCTIONPERFILE
     - ADR-PWSH-MANIFEST-ONEDEFINITIONPERNAME
     - ADR-PWSH-MANIFEST-GENERATEDMANIFESTS
     - ADR-PWSH-MANIFEST-MANIFESTSGITIGNORED
     - ADR-REPO-FOLDERS-DEFAULTMODULEFOLDERS
-    - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+    - FDR-GLOBS-CHANGECOMPUTEDFROMGIT
   lens: governance
 content:
   title: Partition integrity runs only in unit tests
@@ -84,8 +84,8 @@ content:
     - { at: g-variants-config, kind: rule, rule: DDR-ASPECT-ASPECTSAREDERIVED }
     - { at: g-variants-config, kind: rule, rule: DDR-ASPECT-TRACKPICKSCATCHALL }
     - { at: g-validate, kind: rule, rule: DDR-ASPECT-PARTITIONISCHECKED, gated: false }
-    - { at: band-lock, kind: rule, rule: DDR-ASPECT-ASPECTISAGLOBSET, gated: false }
-    - { at: band-lock, kind: rule, rule: FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT, gated: false }
+    - { at: band-lock, kind: rule, rule: DDR-ASPECT-ISAGLOBSET, gated: false }
+    - { at: band-lock, kind: rule, rule: FDR-GLOBS-CHANGECOMPUTEDFROMGIT, gated: false }
   legend: auto
   minimaps: [code-locations, module-neighbourhood, axis]
 layout:
@@ -124,8 +124,8 @@ layout:
    earlier aspect uses it, so `live` stays closed (DDR-ASPECT-ASPECTSAREDERIVED, DDR-ASPECT-TRACKPICKSCATCHALL).
 7. **AspectPartition.Validate.** The disjoint and exhaustive check over `git ls-files` (DDR-ASPECT-PARTITIONISCHECKED). The code exists, but
    its only callers are unit tests on fixture files, so on the real tree it is DRS-only.
-8. **Aspect sha lock.** One immutable lock per aspect, so a module is two independently versioned artifacts (DDR-ASPECT-ASPECTISAGLOBSET),
-   with the mechanism placed in FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT. Nothing writes such a lock.
+8. **Aspect sha lock.** One immutable lock per aspect, so a module is two independently versioned artifacts (DDR-ASPECT-ISAGLOBSET), with
+   the mechanism placed in FDR-GLOBS-CHANGECOMPUTEDFROMGIT. Nothing writes such a lock.
 
 ## Why it holds
 
@@ -137,15 +137,15 @@ layout:
 - Module-internal folder names default to the conventional set (ADR-REPO-FOLDERS-DEFAULTMODULEFOLDERS).
 - Aspects are derived by ordered first match, the last one is the `**` remainder, and in the code track that remainder is `tests`
   (DDR-ASPECT-ASPECTSAREDERIVED, DDR-ASPECT-TRACKPICKSCATCHALL).
-- Each aspect is an immutable, independently versioned lock (DDR-ASPECT-ASPECTISAGLOBSET), and a file claimed by two aspects, or by none,
-  fails the integrity check (DDR-ASPECT-PARTITIONISCHECKED).
+- Each aspect is an immutable, independently versioned lock (DDR-ASPECT-ISAGLOBSET), and a file claimed by two aspects, or by none, fails
+  the integrity check (DDR-ASPECT-PARTITIONISCHECKED).
 
 ## Where the code and the decision record differ
 
 - DDR-ASPECT-PARTITIONISCHECKED says a broken partition fails `AspectPartition.Validate`, and the type's reference page (`Aspect.cs.md`)
   says it re-checks "for the integrity gate", but no gate runs it on the real tree.
-- DDR-ASPECT-ASPECTISAGLOBSET cites FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT for an immutable sha lock with marker `<unit>-<aspect>.yml`; that
-  rule computes change from git, never from a committed hash, and no marker exists.
+- DDR-ASPECT-ISAGLOBSET cites FDR-GLOBS-CHANGECOMPUTEDFROMGIT for an immutable sha lock with marker `<unit>-<aspect>.yml`; that rule
+  computes change from git, never from a committed hash, and no marker exists.
 - ADR-PWSH-MANIFEST-MANIFESTSGITIGNORED names `New-DynamicManifest` as the step that deletes a manifest when no `.ps1` is left; the code
   deletes it in `Import-AllModules`.
 - ADR-REPO-FOLDERS-UNKNOWNFOLDERSIGNORED says unknown folders are ignored, not errors; `Test-FolderConventions` reports every

@@ -46,7 +46,7 @@ the typed config record, never as a bare property.
 
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-PWSH-ERROR-PREFERENCESAREAMBIENTSTATE
+### Rule ADR-PWSH-ERROR-PREFERENCESAREAMBIENT
 
 In pwsh, the ambient state ADR-AUTO-ONEJOB-EXPLICITSTATECHANGES protects is the preference variables (`$ErrorActionPreference` first), the
 location, `$env:` variables, and `$global:` variables. A function that needs a different error behaviour for one call passes `-ErrorAction`

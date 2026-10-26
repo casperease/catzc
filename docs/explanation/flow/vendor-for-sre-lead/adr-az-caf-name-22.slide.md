@@ -14,7 +14,7 @@ catzc:
 
 ## Eyebrow
 
-22 / 30 · fact for the SRE Lead · ADR-AZ-CAF-NAME
+22 / 30 · fact for the SRE Lead · EDR-AZ-CAF-NAME
 
 ## Lead
 
@@ -31,5 +31,5 @@ From the catalogue, reduced: globs yml pipeline field is the binding.
 
 ## Notes
 
-Check it: the record ADR-AZ-CAF-NAME in docs/drs/index.md, and the diagram
+Check it: the record EDR-AZ-CAF-NAME in docs/drs/index.md, and the diagram
 docs/explanation/design/.assets/globs-yml-pipeline-field-is-the-binding.drawio.png.

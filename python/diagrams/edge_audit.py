@@ -1,5 +1,5 @@
 # cspell:ignore drsonly callsite
-"""Read-only audit of every declared edge against the arrow rule (DDR-VISUAL-ARROWSPOINTATWHATTHEYDEPENDON).
+"""Read-only audit of every declared edge against the arrow rule (DDR-VISUAL-ARROWSPOINTATDEPENDENCY).
 
 It reads each declaration of the repository (the diagrams under `docs/**/.assets/`), normalised where the declaration is valid and as
 written otherwise, and judges every edge. It writes nothing but its two reports and changes no declaration and no rule.

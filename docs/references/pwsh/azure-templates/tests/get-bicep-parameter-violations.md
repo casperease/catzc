@@ -5,10 +5,10 @@ The L0 logic tests of `Get-BicepParameterViolations`, with its per-entry and Key
 ## What is tested
 
 Each violation kind is tested against a fixture `main.json` (`tests/assets/parameter-model/main.json`, with widget and gadget parameters,
-[ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)) and a
-rendered parameters file each test writes, plus a clean case. There is no az: `main.json` is written as a current build, so the model is
-read without building. Discovery binds to the fixture templates (`sample`, with configs `alpha` and `beta`) and the output to this file's
-`$TestDrive` through the seams
+[ADR-AUTO-TEST-DISTINCTFIXTURES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtures)) and a rendered
+parameters file each test writes, plus a clean case. There is no az: `main.json` is written as a current build, so the model is read without
+building. Discovery binds to the fixture templates (`sample`, with configs `alpha` and `beta`) and the output to this file's `$TestDrive`
+through the seams
 ([ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS](../../../../drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-isolatethroughseams)).
 
 ## The conforming set

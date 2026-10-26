@@ -7,8 +7,8 @@ import xml.etree.ElementTree as ET
 from typing import NoReturn
 
 from . import edge_rules, minimaps
-from .declaration_constants import KIT
 from .drawio_png import DEFAULTS, plain
+from .module_paths import KIT
 
 
 class DeclarationError(ValueError):

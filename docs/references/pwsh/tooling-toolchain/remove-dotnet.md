@@ -22,7 +22,7 @@ and nothing is touched. Installer bundles come first and alone: a bundle holds t
 -Force, from an elevated shell, the command runs those uninstallers itself, one child process each, bounded by the command's time limit,
 exit code checked, output kept in a transcript under out/remove-dotnet/; it re-reads the registrations, runs whatever is left the same way,
 then deletes the folder, with its machine PATH entry and DOTNET_ROOT (needs Administrator,
-[ADR-AUTO-REMOVE-ELEVATIONFOLLOWSMECHANISM](../../../drs/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-elevationfollowsmechanism)).
+[ADR-AUTO-REMOVE-ELEVATIONBYMECHANISM](../../../drs/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-elevationbymechanism)).
 
 Linux / macOS: evicts an off-config install by the mechanism that placed it (native package / uv-Python pip / stray binary).
 
@@ -51,8 +51,8 @@ Remove-Dotnet -InstallDir 'C:\Program Files\dotnet' -Force
 
 An off-config install is evicted by the mechanism that placed it: a native package manager, a uv-Python pip, or a stray binary. Elevation is
 that mechanism's and is never asserted up front
-([ADR-AUTO-REMOVE-ELEVATIONFOLLOWSMECHANISM](../../../drs/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-elevationfollowsmechanism)).
-The off-config install there is the one on PATH, so the managed check asks about PATH.
+([ADR-AUTO-REMOVE-ELEVATIONBYMECHANISM](../../../drs/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-elevationbymechanism)). The
+off-config install there is the one on PATH, so the managed check asks about PATH.
 
 ## When it refuses
 
@@ -73,4 +73,4 @@ left; after three rounds with a product still registered, the command stops and 
 ## Elevation
 
 Deleting the folder and the machine PATH entry needs Administrator, asserted for this step only
-([ADR-AUTO-REMOVE-ELEVATIONFOLLOWSMECHANISM](../../../drs/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-elevationfollowsmechanism)).
+([ADR-AUTO-REMOVE-ELEVATIONBYMECHANISM](../../../drs/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-elevationbymechanism)).

@@ -5,8 +5,8 @@ The tests of `Update-DrsCitation`, which rewrites one file's ADR references thro
 ## Fixtures
 
 Every test writes its own file into one shared fixture repository in `$TestDrive`: an ADR index of neutral widget and gizmo codes
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)) and
-the two fixture maps under `tests/assets/update-drs-citation/`.
+([ADR-AUTO-TEST-DISTINCTFIXTURES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtures)) and the two fixture
+maps under `tests/assets/update-drs-citation/`.
 
 ## The maps
 

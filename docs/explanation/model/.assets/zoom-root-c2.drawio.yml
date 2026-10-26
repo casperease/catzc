@@ -2,7 +2,7 @@ description: >-
   The repository's containers are its tracks, each a placed cluster of one track type in its own languages; the pipelines call the pwsh
   modules, and the other tracks hold code, delivery and records.
 about:
-  adrs: [DDR-TRACK-TRACKISPLACEDCLUSTER, DDR-TRACK-WORLDMAP, DDR-VISUAL-ZOOMISANAXIS]
+  adrs: [DDR-TRACK-ISPLACEDCLUSTER, DDR-TRACK-WORLDMAP, DDR-VISUAL-ZOOMISANAXIS]
   lens: architecture
   zoom: C2
 content:

@@ -26,7 +26,7 @@ function Build-TrackGlobSets {
         })
 
     $lines = [System.Collections.Generic.List[string]]::new()
-    $lines.Add('# The derived patterns of every whole track''s set that globs.yml declares (FDR-CD-GLOBS-TRACKSETDERIVED).')
+    $lines.Add('# The derived patterns of every whole track''s set that globs.yml declares (FDR-GLOBS-TRACKSETDERIVED).')
     $lines.Add('globsets:')
     foreach ($name in $sets) {
         $trackName = $authored.globsets[$name].track

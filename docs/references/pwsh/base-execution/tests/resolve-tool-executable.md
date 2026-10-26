@@ -6,5 +6,4 @@ The tests of `Resolve-ToolExecutable`: the mapping from a `tools.yml` entry to t
 
 `Get-Config` is mocked to return a typed `ToolsConfig`, the record the real call returns, so the function reads typed properties as it does
 in production. `Find-Executable` is mocked whole, so the assertions bind to which inputs each platform and session actor hands it. Fixture
-tokens are neutral
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+tokens are neutral ([ADR-AUTO-TEST-DISTINCTFIXTURES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtures)).

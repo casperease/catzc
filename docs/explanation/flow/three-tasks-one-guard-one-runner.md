@@ -12,7 +12,7 @@ Three tasks share one guard, and one runner imports, traps, sanitizes and invoke
 7  sanitize                ConvertFrom-AdoPipelineCommand normalizes the string
 8  Invoke-Command          runs the command with -NoNewScope
 
-Supports FDR-CD-RUNNER-NOINLINEPOWERSHELL, FDR-CD-RUNNER-IMPORTONCE and FDR-CD-RUNNER-THINSTEPTEMPLATES (implementation lens).
+Supports FDR-RUNNER-NOINLINEPOWERSHELL, FDR-RUNNER-IMPORTONCE and FDR-RUNNER-THINSTEPTEMPLATES (implementation lens).
 ```
 
 Every ado pipeline step in cats runs through two files: the step template `.ado/pipelines/steps/invoke-automation.yaml` and the runner
@@ -25,7 +25,7 @@ description:
   "The path from a pipeline's RunCommand to the running command: the step template's three tasks carry one inline guard that can throw, then
   the runner imports, traps, sanitizes and invokes in a fixed order."
 about:
-  adrs: [FDR-CD-RUNNER-NOINLINEPOWERSHELL, FDR-CD-RUNNER-IMPORTONCE, FDR-CD-RUNNER-THINSTEPTEMPLATES]
+  adrs: [FDR-RUNNER-NOINLINEPOWERSHELL, FDR-RUNNER-IMPORTONCE, FDR-RUNNER-THINSTEPTEMPLATES]
   lens: implementation
 content:
   title: Three tasks share one guard, and one runner imports, traps, sanitizes and invokes
@@ -108,10 +108,9 @@ trap, and no code runs it, so it is not drawn.
 ## Why it holds
 
 - YAML never holds inline PowerShell beyond calling the runner; the template's tasks are the one place that calls it
-  (FDR-CD-RUNNER-NOINLINEPOWERSHELL).
-- The runner imports the module system once at its start, and the command runs in the same scope (FDR-CD-RUNNER-IMPORTONCE).
-- The step template adds pipeline concerns, such as the service connection, the token and the display name
-  (FDR-CD-RUNNER-THINSTEPTEMPLATES).
+  (FDR-RUNNER-NOINLINEPOWERSHELL).
+- The runner imports the module system once at its start, and the command runs in the same scope (FDR-RUNNER-IMPORTONCE).
+- The step template adds pipeline concerns, such as the service connection, the token and the display name (FDR-RUNNER-THINSTEPTEMPLATES).
 
 ## Where the code and the decision record differ
 

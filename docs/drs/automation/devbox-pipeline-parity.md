@@ -18,7 +18,7 @@ test that needs a pipeline to pass, or cannot run in one, is mis-tiered (`ADR-AU
 
 - [Checked equally](#checked-equally)
 
-### Rule ADR-AUTO-PARITY-ONESEAM
+### Rule ADR-AUTO-PARITY-PARITYSEAM
 
 The **one seam** between the two is `Test-IsRunningInPipeline`. A command branches on the seam solely where the environments _genuinely_
 differ — where output goes (`Get-OutputRoot`), skipping the devbox auto-commit in CI — and never to change _what a command does_.

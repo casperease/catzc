@@ -15,5 +15,5 @@ cross-record rules are `AzureConfig`'s.
 - `environments` is a required, non-empty list.
 - `customer` is optional. It names a `customer.yml` customer by key or shortcode and is not resolved here: an integrity test and the runtime
   check enforce it
-  ([ADR-AZ-CUSTOMER-REFERENCENOTVALIDATEDONLOAD](../../../../drs/azure/azure-customer-model.md#rule-adr-az-customer-referencenotvalidatedonload)).
+  ([ADR-AZ-CUSTOMER-REFERENCEUNVALIDATED](../../../../drs/azure/azure-customer-model.md#rule-adr-az-customer-referenceunvalidated)).
 - No other key is allowed.

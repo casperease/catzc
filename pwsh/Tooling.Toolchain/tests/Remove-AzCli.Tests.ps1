@@ -21,7 +21,7 @@ Describe 'Remove-AzCli' -Tag 'L1', 'logic' {
         Should -Invoke Remove-LinuxToolInstall -ModuleName Catzc.Tooling.Toolchain -Times 0
     }
 
-    It 'on Linux, delegates to Remove-LinuxToolInstall under -Force, asserting no admin up front' -Tag 'ADR-AUTO-REMOVE-ELEVATIONFOLLOWSMECHANISM', 'ADR-AUTO-REMOVE-THREEPLATFORMCORES' {
+    It 'on Linux, delegates to Remove-LinuxToolInstall under -Force, asserting no admin up front' -Tag 'ADR-AUTO-REMOVE-ELEVATIONBYMECHANISM', 'ADR-AUTO-REMOVE-THREEPLATFORMCORES' {
         if (-not $IsLinux) {
             Set-ItResult -Skipped -Because 'unix_only_eviction'; return
         }

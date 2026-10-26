@@ -2,7 +2,7 @@
 
 ## Rules: ADR-PWSH-XPLAT
 
-### Rule ADR-PWSH-XPLAT-PWSHMEETSCROSSPLATFORM
+### Rule ADR-PWSH-XPLAT-MEETSCROSSPLATFORM
 
 PowerShell code meets [cross-platform](../cross-platform.md) (`ADR-AUTO-XPLAT`) through the rules below, enforced mechanically:
 PSScriptAnalyzer's compatibility rules validate cmdlets and .NET types against the target-platform profiles at analysis time, before the
@@ -24,7 +24,7 @@ is unavoidable, branch on the built-in `$IsWindows` / `$IsLinux` automatic varia
 
 - [What breaks in practice](#what-breaks-in-practice)
 
-### Rule ADR-PWSH-XPLAT-NOPLATFORMSHELL
+### Rule ADR-PWSH-XPLAT-PWSHNOPLATFORMSHELL
 
 PowerShell code meets [ADR-AUTO-XPLAT-NOPLATFORMSHELL](../cross-platform.md#rule-adr-auto-xplat-noplatformshell) with its native operations,
 or with the `Invoke-Executable` wrapper around a tool that exists on both platforms — never `cmd /c` or `/bin/sh -c`.
@@ -41,7 +41,7 @@ ADR-PWSH-XPLAT-PATHJOINPRIMITIVE. It never writes a literal `C:\` or `/tmp/`, an
 
 - [What breaks in practice](#what-breaks-in-practice)
 
-### Rule ADR-PWSH-XPLAT-INVARIANTCULTURE
+### Rule ADR-PWSH-XPLAT-PWSHINVARIANTCULTURE
 
 PowerShell code formats and parses a machine-bound string
 ([ADR-AUTO-XPLAT-INVARIANTCULTURE](../cross-platform.md#rule-adr-auto-xplat-invariantculture)) with

@@ -22,4 +22,4 @@ illustrative until real service connections and a non-placeholder `azure.yml` ex
 - **Path filters are by configuration subfolder.** The include list takes the shared templates and modules plus apex's own configuration
   subfolders; the exclude list drops the shared root configuration and every customer subfolder. The deeper apex include sits under that
   broader exclude, so ADO keeps it in the trigger. Other deployments' changes never trigger apex
-  ([FDR-CD-GLOBS](../../../drs/flow/durable-sha-globs.md)).
+  ([FDR-GLOBS](../../../drs/flow/durable-sha-globs.md)).

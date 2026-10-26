@@ -11,7 +11,7 @@ The Azure DevOps step is named after its command, and its log echoes the command
 6  Write-Exception           type, message, stack trace and inner exceptions; the run stops
 7  developer                 runs .\importer.ps1 and pastes the RunCommand; no gate checks it
 
-Supports FDR-CD-RUNNER-THINSTEPTEMPLATES and FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE (operations lens).
+Supports FDR-RUNNER-THINSTEPTEMPLATES and FDR-RUNNER-DEVELOPERREPRODUCIBLE (operations lens).
 ```
 
 What an author writes in a pipeline is what the Azure DevOps run shows. The step's label is its command, the log names the mode and then
@@ -23,7 +23,7 @@ description:
   "What an Azure DevOps run shows of one step: the label is the command, the log names the mode and echoes the command, a failure prints a
   full exception, and a developer copies the command from the label with no gate checking that."
 about:
-  adrs: [FDR-CD-RUNNER-THINSTEPTEMPLATES, FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE]
+  adrs: [FDR-RUNNER-THINSTEPTEMPLATES, FDR-RUNNER-DEVELOPERREPRODUCIBLE]
   lens: operations
 content:
   title: The Azure DevOps step is named after its command, and its log echoes the command before it runs
@@ -93,9 +93,9 @@ every `pwsh/**` change.
 
 ## Why it holds
 
-- Step templates add pipeline concerns such as the display name, and never contain logic (FDR-CD-RUNNER-THINSTEPTEMPLATES).
+- Step templates add pipeline concerns such as the display name, and never contain logic (FDR-RUNNER-THINSTEPTEMPLATES).
 - Whatever string appears in `RunCommand` can be pasted into a local terminal after running `.\importer.ps1`
-  (FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE).
+  (FDR-RUNNER-DEVELOPERREPRODUCIBLE).
 
 ## Where the code and the decision record differ
 

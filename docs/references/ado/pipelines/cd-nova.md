@@ -18,4 +18,4 @@ connections and a non-placeholder `azure.yml` exist.
 - **Structure lives in the template.** The CI build and the stage ordering are in the extended template.
 - **Triggers live here.** ADO honours `trigger:` and `pr:` only at the pipeline root.
 - **Path filters are by configuration subfolder.** Only nova's own configuration subfolders are included and the other deployments'
-  configuration is excluded, so their changes never trigger nova ([FDR-CD-GLOBS](../../../drs/flow/durable-sha-globs.md)).
+  configuration is excluded, so their changes never trigger nova ([FDR-GLOBS](../../../drs/flow/durable-sha-globs.md)).

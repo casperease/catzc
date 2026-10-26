@@ -61,9 +61,7 @@ Get-Config -Config glossary -ListOwners | ForEach-Object { Get-Config -Config gl
 
 ## One reader, discovered names
 
-Get-Config is the one reader of every config
-([ADR-CONF-LOADING-ONEREADER](../../../drs/configuration/module-config-loading.md#rule-adr-conf-loading-onereader)). The name is discovered,
-and an unknown one throws
+Get-Config is the one reader of every config ([ADR-CONF-LOADING-CONFIGONEREADER][r1]). The name is discovered, and an unknown one throws
 ([ADR-CONF-LOADING-EXISTENCEDISCOVERED](../../../drs/configuration/module-config-loading.md#rule-adr-conf-loading-existencediscovered),
 [ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST](../../../drs/configuration/config-value-addressing.md#rule-adr-conf-addressing-resolutionfailsfast)).
 
@@ -85,3 +83,5 @@ The registered C# type maps and validates the parsed dictionary at construction
 
 An overlay folder is named like the bundled module's folder, which drops the namespace the module's full name carries. A registered type
 with no shipped file finds its folder through its loaded module.
+
+[r1]: ../../../drs/configuration/module-config-loading.md#rule-adr-conf-loading-configonereader

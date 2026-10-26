@@ -1,28 +1,28 @@
 # Flow: Pipelines — the vendor-neutral CI/CD pipeline concept
 
-## Rules: FDR-CD-PIPELINE
+## Rules: FDR-PIPELINE
 
-### Rule FDR-CD-PIPELINE-TYPEPREFIX
+### Rule FDR-PIPELINE-TYPEPREFIX
 
 A pipeline's filename starts with its type — the first hyphen-delimited token is `cron`, `ci`, `cd`, `cde`, `deploy`, or `input`. No other
 prefixes.
 
 - [The name carries the type](#the-name-carries-the-type)
 
-### Rule FDR-CD-PIPELINE-EXECUTABLEYAMLEXTENSION
+### Rule FDR-PIPELINE-EXECUTABLEYAMLEXTENSION
 
 Executable YAML is `.yaml`; config and data that catzc code parses is `.yml`. Never mix the two.
 
 - [The extension tells executable from data](#the-extension-tells-executable-from-data)
 
-### Rule FDR-CD-PIPELINE-FLATREADABLEYAML
+### Rule FDR-PIPELINE-FLATREADABLEYAML
 
 Keep pipeline YAML flat and readable: a pipeline file reads top-to-bottom as its stages, jobs, and steps, and a reviewer understands what it
 does without opening other files.
 
 - [A pipeline reads as a plan](#a-pipeline-reads-as-a-plan)
 
-### Rule FDR-CD-PIPELINE-NOSTOREDTOKENS
+### Rule FDR-PIPELINE-NOSTOREDTOKENS
 
 Never store a token beyond the request that uses it. Acquire the token, build the header, make the call; never cache a token in module or
 session state or pass it between functions.

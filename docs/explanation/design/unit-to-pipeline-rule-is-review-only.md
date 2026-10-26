@@ -12,8 +12,8 @@ Tracks and deployable-units are checked in code; one unit to one pipeline is hel
 7  scope globset           a cross-cutting slice is a scope over tracks, never a new root
 8  code review             the only check of the pipeline rule and the scope rule
 
-Supports DDR-TRACK-TRACKISPLACEDCLUSTER, DDR-TRACK-ONETRACKTYPE, DDR-TRACK-DEPLOYABLEUNIT, FDR-CD-GLOBS-EVERYSETHASLAYER,
-FDR-CD-GLOBS-COMPOSESETS, ADR-REPO-FOLDERS-EVERYFOLDERSEMANTIC and ADR-REPO-FOLDERS-CLOSEDROOTSET (governance lens).
+Supports DDR-TRACK-ISPLACEDCLUSTER, DDR-TRACK-ONETRACKTYPE, DDR-TRACK-DEPLOYABLEUNIT, FDR-GLOBS-EVERYSETHASLAYER,
+FDR-GLOBS-COMPOSESETS, ADR-REPO-FOLDERS-EVERYFOLDERSEMANTIC and ADR-REPO-FOLDERS-CLOSEDROOTSET (governance lens).
 ```
 
 The tracks DDR sets rules at three levels: what a track is, how a deployable-unit is composed, and how a pipeline binds a unit. Cats checks
@@ -26,11 +26,11 @@ description:
   on load; the rules that one unit binds one pipeline and that a scope is no new track are held by code review alone.
 about:
   adrs:
-    - DDR-TRACK-TRACKISPLACEDCLUSTER
+    - DDR-TRACK-ISPLACEDCLUSTER
     - DDR-TRACK-ONETRACKTYPE
     - DDR-TRACK-DEPLOYABLEUNIT
-    - FDR-CD-GLOBS-EVERYSETHASLAYER
-    - FDR-CD-GLOBS-COMPOSESETS
+    - FDR-GLOBS-EVERYSETHASLAYER
+    - FDR-GLOBS-COMPOSESETS
     - ADR-REPO-FOLDERS-EVERYFOLDERSEMANTIC
     - ADR-REPO-FOLDERS-CLOSEDROOTSET
   lens: governance
@@ -68,11 +68,11 @@ content:
     - { at: g-scope, number: 7 }
     - { at: g-review, number: 8 }
   chips:
-    - { at: g-track, kind: rule, rule: DDR-TRACK-TRACKISPLACEDCLUSTER }
+    - { at: g-track, kind: rule, rule: DDR-TRACK-ISPLACEDCLUSTER }
     - { at: g-track, kind: rule, rule: ADR-REPO-FOLDERS-EVERYFOLDERSEMANTIC }
     - { at: g-track, kind: rule, rule: ADR-REPO-FOLDERS-CLOSEDROOTSET }
-    - { at: g-unit, kind: rule, rule: FDR-CD-GLOBS-EVERYSETHASLAYER }
-    - { at: g-unit, kind: rule, rule: FDR-CD-GLOBS-COMPOSESETS }
+    - { at: g-unit, kind: rule, rule: FDR-GLOBS-EVERYSETHASLAYER }
+    - { at: g-unit, kind: rule, rule: FDR-GLOBS-COMPOSESETS }
     - { at: g-pipeline, kind: rule, rule: DDR-TRACK-DEPLOYABLEUNIT, gated: false }
     - { at: g-scope, kind: rule, rule: DDR-TRACK-ONETRACKTYPE, gated: false }
   legend: auto
@@ -118,12 +118,12 @@ layout:
 
 ## Why it holds
 
-- A track is one root folder, named by it, and every root folder is a track, the gitignored `out/` included (DDR-TRACK-TRACKISPLACEDCLUSTER,
+- A track is one root folder, named by it, and every root folder is a track, the gitignored `out/` included (DDR-TRACK-ISPLACEDCLUSTER,
   ADR-REPO-FOLDERS-EVERYFOLDERSEMANTIC); the root set is closed (ADR-REPO-FOLDERS-CLOSEDROOTSET).
 - Each track carries one class, and a cross-cutting slice is a scope, not a track (DDR-TRACK-ONETRACKTYPE).
 - A track owns one tech-stack, and a tech-stack is a set of file languages (DDR-TRACK-ONETECHSTACK, DDR-TRACK-FILELANGUAGE).
-- Tracks are subscribed to, never path-coupled (DDR-TRACK-SUBSCRIBABLENOTPATHCOUPLED).
-- Every globset declares its layer, and composition is acyclic (FDR-CD-GLOBS-EVERYSETHASLAYER, FDR-CD-GLOBS-COMPOSESETS).
+- Tracks are subscribed to, never path-coupled (DDR-TRACK-SUBSCRIBABLENOTPATH).
+- Every globset declares its layer, and composition is acyclic (FDR-GLOBS-EVERYSETHASLAYER, FDR-GLOBS-COMPOSESETS).
 - Units bind pipelines one to one (DDR-TRACK-DEPLOYABLEUNIT).
 
 ## Where the code and the decision record differ

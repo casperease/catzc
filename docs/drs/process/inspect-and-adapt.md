@@ -5,7 +5,7 @@
 ### Rule WDR-KAIZEN-CONTINUOUSIMPROVEMENT
 
 Improvement is continuous and built into the process, not a periodic event bolted on. The team regularly inspects how it works and adapts it
-— kaizen — so getting better is a standing activity ([WDR-AGILEPRINCIPLES](agile-principles.md), reflect and adjust).
+— kaizen — so getting better is a standing activity ([EDR-AGILEPRINCIPLES](../external/agile/agile-principles.md), reflect and adjust).
 
 - [Decision](#decision)
 
@@ -32,15 +32,15 @@ every change, not only at a sprint boundary.
 
 ## Context
 
-Kaizen — continuous, incremental improvement — is the engine of the Toyota Production System ([WDR-LEAN](lean.md)). The stopped line
+Kaizen — continuous, incremental improvement — is the engine of the Toyota Production System ([EDR-LEAN][r1]). The stopped line
 ([WDR-ANDON](holding-the-line.md)) is not just a fix; it is a signal that triggers a small root-cause investigation and a permanent
 countermeasure, so the same defect cannot recur [^2]. Improvement is not a project that a team schedules; it is a reflex the system builds
 in, one small adjustment at a time, driven by what actually happened.
 
 The Poppendiecks carry this into software as "create knowledge" and "amplify learning" [^1]: development is not manufacturing a known
 design, it is discovering the design, so the process must be a learning loop. Agile says the same in its twelfth principle — reflect at
-regular intervals and tune accordingly ([WDR-AGILEPRINCIPLES](agile-principles.md)). This article states the rule and ties it to the
-platform's mechanism: the gates that recompute on every push are a learning loop running at commit cadence.
+regular intervals and tune accordingly ([EDR-AGILEPRINCIPLES][r2]). This article states the rule and ties it to the platform's mechanism:
+the gates that recompute on every push are a learning loop running at commit cadence.
 
 ## Decision
 
@@ -85,3 +85,6 @@ every push recomputes the flow state.
 [^2]:
     Taiichi Ohno, _Toyota Production System: Beyond Large-Scale Production_ (1988), on kaizen and the "five whys" — a stopped line triggers
     root-cause analysis and a permanent countermeasure, so improvement is continuous and built into daily work.
+
+[r1]: ../external/lean/lean.md
+[r2]: ../external/agile/agile-principles.md

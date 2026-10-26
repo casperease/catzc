@@ -11,7 +11,7 @@ Both tracks' conventions are read, but only the pwsh track's compiles into globs
 6  Catzc.Base.Maps      reads every track's convention to classify each file live or not
 7  world map            what Maps produces; it derives no globset
 
-Supports DDR-ASPECT-ASPECTSAREDERIVED, DDR-ASPECT-TRACKPICKSCATCHALL and DDR-ASPECT-ASPECTISAGLOBSET (architecture lens).
+Supports DDR-ASPECT-ASPECTSAREDERIVED, DDR-ASPECT-TRACKPICKSCATCHALL and DDR-ASPECT-ISAGLOBSET (architecture lens).
 ```
 
 A track's aspect convention is declared in the `aspects` variant, read by one module, `Catzc.Base.Variants`, or for the code track derived
@@ -25,7 +25,7 @@ description:
   "The aspect conventions are declared in one variants file and read by two modules: the globs engine compiles only the pwsh convention into
   a live and a tests globset per module, while the maps module reads every track's convention to classify files and derives no globset."
 about:
-  adrs: [DDR-ASPECT-ASPECTSAREDERIVED, DDR-ASPECT-TRACKPICKSCATCHALL, DDR-ASPECT-ASPECTISAGLOBSET]
+  adrs: [DDR-ASPECT-ASPECTSAREDERIVED, DDR-ASPECT-TRACKPICKSCATCHALL, DDR-ASPECT-ISAGLOBSET]
   lens: architecture
 content:
   title: Both tracks' conventions are read, but only the pwsh track's compiles into globsets
@@ -107,7 +107,7 @@ layout:
 - The aspect engine compiles each aspect as its own patterns minus every earlier aspect's, prefixed by the unit root
   (DDR-ASPECT-ASPECTSAREDERIVED), and each track names its own remainder (DDR-ASPECT-TRACKPICKSCATCHALL).
 - Each aspect is its own derived globset, `<unit>-<aspect>`, with its own live identity and nothing committed per set
-  (DDR-ASPECT-ASPECTISAGLOBSET).
+  (DDR-ASPECT-ISAGLOBSET).
 - A track owns one coherent tech-stack, and the world map checks it on live files only, which is why Maps needs every track's convention to
   tell live files from the rest (DDR-TRACK-ONETECHSTACK).
 

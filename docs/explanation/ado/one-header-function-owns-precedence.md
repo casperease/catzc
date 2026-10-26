@@ -14,7 +14,7 @@ One function owns the credential precedence, and ado.yml anchors every proof.
 9  Catzc.Azure.Cli         the module whose Assert-AzCliConnected checks the session
 10 ado.yml                 the config every proof is checked against
 
-Supports ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE, ADR-ADO-AUTH-PROVETARGET, ADR-ADO-AUTH-SEPARATETOKENFUNCTION
+Supports ADR-ADO-AUTH-FIXEDCREDENTIALORDER, ADR-ADO-AUTH-PROVETARGET, ADR-ADO-AUTH-SEPARATETOKENFUNCTION
 and ADR-ADO-AUTH-TEMPLATESMAPSYSTEMTOKEN (architecture lens).
 ```
 
@@ -30,7 +30,7 @@ description:
   function whose three credentials each rest on a proof anchored in ado.yml.
 about:
   adrs:
-    - ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE
+    - ADR-ADO-AUTH-FIXEDCREDENTIALORDER
     - ADR-ADO-AUTH-PROVETARGET
     - ADR-ADO-AUTH-SEPARATETOKENFUNCTION
     - ADR-ADO-AUTH-TEMPLATESMAPSYSTEMTOKEN
@@ -124,7 +124,7 @@ layout:
 
 ## Why it holds
 
-- The precedence is fixed, top to bottom, and a source that fails raises its own error (ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE).
+- The precedence is fixed, top to bottom, and a source that fails raises its own error (ADR-ADO-AUTH-FIXEDCREDENTIALORDER).
 - Each source proves it targets the configured organization or tenant before it returns a header (ADR-ADO-AUTH-PROVETARGET).
 - Token acquisition lives in one separate function, and API-calling functions never inline it (ADR-ADO-AUTH-SEPARATETOKENFUNCTION).
 - The step template maps the system token, and functions read only the mapped `$env:SYSTEM_ACCESSTOKEN`

@@ -38,7 +38,7 @@ function Measure-NoOneLineHashtableIfElse {
         if (-not $covered) {
             $flagged.Add($hashtable)
             $results.Add([Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord]@{
-                    Message  = "'$($hashtable.Extent.Text)' holds an if/else inside a hashtable written on one line — Invoke-Formatter throws on it and stops Format-Code for the whole tree. Bind the value to a local first (ADR-PWSH-FORMAT-MULTILINECONDITIONALHASHTABLE)."
+                    Message  = "'$($hashtable.Extent.Text)' holds an if/else inside a hashtable written on one line — Invoke-Formatter throws on it and stops Format-Code for the whole tree. Bind the value to a local first (ADR-PWSH-FORMAT-MULTILINEHASHTABLE)."
                     Extent   = $hashtable.Extent
                     RuleName = 'Measure-NoOneLineHashtableIfElse'
                     Severity = 'Warning'

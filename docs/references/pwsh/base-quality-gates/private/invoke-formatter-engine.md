@@ -13,8 +13,8 @@ Runs one formatter engine over the given files and returns the files it changed.
 
 The one place an engine name from languages.yml becomes code: each engine LanguagesConfig.FormatterEngines declares has exactly one adapter
 here, and every adapter takes the same -File and -DryRun and returns the changed files
-([PDR-CONFIG-NEWINSTANCEISCONFIGCHANGE](../../../../drs/principles/configure-not-program.md#rule-pdr-config-newinstanceisconfigchange)). A
-language is never named here — which language uses which engine is configuration.
+([PDR-CONFIG-NEWINSTANCEISCONFIG](../../../../drs/principles/configure-not-program.md#rule-pdr-config-newinstanceisconfig)). A language is
+never named here — which language uses which engine is configuration.
 
 ### parameter `Engine`
 

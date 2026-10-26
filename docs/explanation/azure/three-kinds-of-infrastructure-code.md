@@ -9,7 +9,7 @@ Infrastructure code is of three kinds, and a template pulls its modules and its 
 4  configuration slot   one <env>[-<slot>].yml under the template's configuration folder, one per resource group
 5  resource group       what one slot deploys the template into
 
-Supports ADR-AZ-IACKIND-THREEKINDS and ADR-AZ-IACKIND-TRACKPLACESKINDS (meta lens).
+Supports ADR-AZ-IACKIND-THREEIACKINDS and ADR-AZ-IACKIND-TRACKPLACESKINDS (meta lens).
 ```
 
 Every infrastructure file in cats is one of three kinds: a reusable module, a template, or a configuration slot. The kinds differ in what
@@ -23,7 +23,7 @@ description:
   slots. A template pulls the modules it references into its main.bicep, and one configuration slot deploys that template into one resource
   group."
 about:
-  adrs: [ADR-AZ-IACKIND-THREEKINDS, ADR-AZ-IACKIND-TRACKPLACESKINDS]
+  adrs: [ADR-AZ-IACKIND-THREEIACKINDS, ADR-AZ-IACKIND-TRACKPLACESKINDS]
   lens: meta
 content:
   title: Infrastructure code is of three kinds, and a template pulls its modules and its configuration slots together
@@ -88,7 +88,7 @@ layout:
 ## Why it holds
 
 - The infrastructure code has three kinds, templates, their configuration slots and reusable modules, and every infrastructure file is of
-  one kind (ADR-AZ-IACKIND-THREEKINDS).
+  one kind (ADR-AZ-IACKIND-THREEIACKINDS).
 - The infrastructure track names each kind's place under `kinds:` in `variants.yml`, and the tooling finds a kind only through
   `Get-TrackPlace`, so a repository that keeps its infrastructure elsewhere maps the three kinds and the tooling follows unchanged
   (ADR-AZ-IACKIND-TRACKPLACESKINDS).

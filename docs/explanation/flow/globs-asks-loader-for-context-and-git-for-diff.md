@@ -12,7 +12,7 @@ Catzc.Base.Globs owns the touched-unit check; it asks the loader which context i
 7  Get-ChangedFile             the private diff: the changed paths over the range
 8  git                         the vendor tool that answers the diff
 
-Supports FDR-CD-GLOBS-NAMEDGLOBSETS, FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT and FDR-CD-DETECT-NODIRECTVARIABLECHECK (architecture lens).
+Supports FDR-GLOBS-NAMEDGLOBSETS, FDR-GLOBS-CHANGECOMPUTEDFROMGIT and FDR-DETECT-NODIRECTVARIABLECHECK (architecture lens).
 ```
 
 One module, `Catzc.Base.Globs`, owns everything about globsets: the registry file, the dialect, the native projection and the git-reflection
@@ -25,7 +25,7 @@ description:
   The touched-unit check of the globs module asks the loader which context it runs in, to pick the reference commit, and asks git for the
   changed paths; the pipeline stage that should call it is drawn dashed because no pipeline does.
 about:
-  adrs: [FDR-CD-GLOBS-NAMEDGLOBSETS, FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT, FDR-CD-DETECT-NODIRECTVARIABLECHECK]
+  adrs: [FDR-GLOBS-NAMEDGLOBSETS, FDR-GLOBS-CHANGECOMPUTEDFROMGIT, FDR-DETECT-NODIRECTVARIABLECHECK]
   lens: architecture
 content:
   title: Catzc.Base.Globs owns the check, the loader names the context, and git names the change
@@ -105,11 +105,11 @@ layout:
 ## Why it holds
 
 - The globset is the mechanism and its roles are derived, never committed per set; the area-of-control report is computed from git by
-  `Get-ChangedGlobSet` (FDR-CD-GLOBS-NAMEDGLOBSETS).
+  `Get-ChangedGlobSet` (FDR-GLOBS-NAMEDGLOBSETS).
 - Whether a change touches a unit is computed from git at real refs, with `Test-GlobSetAffected` resolving the reference commit per context
-  through `Get-GlobSetChangeRange` and failing open on any doubt (FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT).
+  through `Get-GlobSetChangeRange` and failing open on any doubt (FDR-GLOBS-CHANGECOMPUTEDFROMGIT).
 - Nothing checks the pipeline-detection variables directly; context detection goes through `Test-IsRunningInPipeline` so the logic stays in
-  one place (FDR-CD-DETECT-NODIRECTVARIABLECHECK).
+  one place (FDR-DETECT-NODIRECTVARIABLECHECK).
 
 ## Where the code and the decision record differ
 

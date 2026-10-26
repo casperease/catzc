@@ -6,4 +6,4 @@ The tests of `Get-RootConfigRenderedFile` over a mocked generator dispatch.
 
 A single-file generator's string and a multi-file generator's `{ Target; Content }` records normalise to the same records, and every shape
 that would write a file the entry does not name throws. The fixture names are neutral
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+([ADR-AUTO-TEST-DISTINCTFIXTURES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtures)).

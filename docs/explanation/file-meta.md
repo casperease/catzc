@@ -162,13 +162,13 @@ not, or drifted from the facts, and a `Format-*` run removes a head the policy d
 ## Function help on the comment page
 
 A function's help is prose an author writes, so it lives with the file's other prose: in the `## help` section of its comment page, the page
-`comments.yml` names for the path
-([ADR-REPO-HELP-HELPONCOMMENTPAGE](../drs/repository/function-help.md#rule-adr-repo-help-helponcommentpage)). The section has one shape,
-`### synopsis`, `### description`, one ``### parameter `<Name>` `` per parameter in `param()` order, the name written as code, `### inputs`,
-`### outputs`, one `### example <n>` per example and `### notes`, and `Export-Comments`, which appends the page's `## comment:<n>` sections,
-never writes it ([ADR-REPO-COMMENTS-PAGEISAUTHORED](../drs/repository/comments-in-docs.md#rule-adr-repo-comments-pageisauthored)).
-`Format-Code` checks it through its `ps-help` step (`Get-HelpPageFinding`): a function file with no page, a page with no synopsis, a
-parameter with no subsection or a subsection for one that is gone, and an `outputs` type that disagrees with `[OutputType]` are findings.
+`comments.yml` names for the path ([ADR-REPO-HELP-ONCOMMENTPAGE](../drs/repository/function-help.md#rule-adr-repo-help-oncommentpage)). The
+section has one shape, `### synopsis`, `### description`, one ``### parameter `<Name>` `` per parameter in `param()` order, the name written
+as code, `### inputs`, `### outputs`, one `### example <n>` per example and `### notes`, and `Export-Comments`, which appends the page's
+`## comment:<n>` sections, never writes it
+([ADR-REPO-COMMENTS-PAGEISAUTHORED](../drs/repository/comments-in-docs.md#rule-adr-repo-comments-pageisauthored)). `Format-Code` checks it
+through its `ps-help` step (`Get-HelpPageFinding`): a function file with no page, a page with no synopsis, a parameter with no subsection or
+a subsection for one that is gone, and an `outputs` type that disagrees with `[OutputType]` are findings.
 
 ## The repository-wide tools
 

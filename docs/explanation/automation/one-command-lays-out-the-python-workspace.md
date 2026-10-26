@@ -13,7 +13,7 @@ A maintainer adds a Python folder; one command renders the uv workspace, the tre
 8  The Test-PythonTypes                                    zone 3, local, after 6: test_python_types passes over the workspace
 9  The Test-Formatting                               zone 3, local, after 5: test_formatting passes for the Python language
 
-Supports ADR-AUTO-UVPY-UVHANDLESPYTHON, ADR-AUTO-PY-GENERATEDWORKSPACE, ADR-AUTO-PY-ONEPYTHONVERSION,
+Supports ADR-AUTO-UVPY-UVHANDLESPYTHON, ADR-AUTO-PY-PYWORKSPACE, ADR-AUTO-PY-ONEPYTHONVERSION,
 ADR-AUTO-PY-EVERYFILETYPECHECKED and ADR-AUTO-IDIOM-LANGUAGEIDIOM (action lens).
 ```
 
@@ -49,7 +49,7 @@ sidebar.
    the workspace root must name it.
 2. **new_python_project.** The action is one command in the contract form; its one parameter, the target, defaults to every member. It
    renders the workspace files from the languages configuration, pure text and byte-stable, never from a file someone edits by hand
-   ([ADR-AUTO-PY-GENERATEDWORKSPACE](../../drs/automation/python/python-test-artifacts.md#rule-adr-auto-py-generatedworkspace)).
+   ([ADR-AUTO-PY-PYWORKSPACE](../../drs/automation/python/python-test-artifacts.md#rule-adr-auto-py-pyworkspace)).
 3. **The workspace root.** The first zone holds what the command renders directly. `python/pyproject.toml` is the uv workspace: a virtual
    root naming every member explicitly, carrying the one Python version the tools pin
    ([ADR-AUTO-PY-ONEPYTHONVERSION](../../drs/automation/python/python-test-artifacts.md#rule-adr-auto-py-onepythonversion),
@@ -122,7 +122,7 @@ Test-Formatting -Language 'python'
 - uv is the single handler for Python, so the workspace root is the one place the interpreter pin and the members are declared
   (ADR-AUTO-UVPY-UVHANDLESPYTHON, ADR-AUTO-PY-ONEPYTHONVERSION).
 - The workspace is generated and gitignored, rendered from the languages configuration and drift-checked, so nothing Python-specific is
-  committed but the code (ADR-AUTO-PY-GENERATEDWORKSPACE).
+  committed but the code (ADR-AUTO-PY-PYWORKSPACE).
 - Every Python file takes the repository's checks where it lands, so a file is under the gates the moment the tree classifies it
   (ADR-AUTO-PY-EVERYFILETYPECHECKED).
 - A Python folder is named in Python's idiom, which is what makes it a member uv can import (ADR-AUTO-IDIOM-LANGUAGEIDIOM).

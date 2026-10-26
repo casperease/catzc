@@ -54,7 +54,7 @@ Describe 'GlobsConfig' -Tag 'L0', 'logic' {
         }
     }
 
-    Context 'composition (FDR-CD-GLOBS-COMPOSESETS)' {
+    Context 'composition (FDR-GLOBS-COMPOSESETS)' {
         It 'unions the composed set into the effective membership' {
             $c = & $script:make @{
                 'base' = @{ description = 'd'; layer = 'deployable-unit'; include = @('shared/**'); exclude = @('shared/private/**') }
@@ -68,7 +68,7 @@ Describe 'GlobsConfig' -Tag 'L0', 'logic' {
             $set.Matches('other/a.txt') | Should -BeFalse
         }
 
-        It 'flattens the composed surface into the scan program, own rules last (FDR-CD-GLOBS-COMPOSESETS)' {
+        It 'flattens the composed surface into the scan program, own rules last (FDR-GLOBS-COMPOSESETS)' {
             $c = & $script:make @{
                 'base' = @{ description = 'd'; layer = 'deployable-unit'; include = @('shared/**'); exclude = @('shared/config/**') }
                 'unit' = @{ description = 'd'; layer = 'deployable-unit'; compose = @('base'); include = @('mine/**'); pipeline = 'cd-unit' }
@@ -79,7 +79,7 @@ Describe 'GlobsConfig' -Tag 'L0', 'logic' {
             (& $script:program $c.Get('base')) | Should -Be @('+ shared/**', '- shared/config/**')
         }
 
-        It 'flattens transitively, each rule appearing once — dedupe keeps the last occurrence (FDR-CD-GLOBS-COMPOSESETS)' {
+        It 'flattens transitively, each rule appearing once — dedupe keeps the last occurrence (FDR-GLOBS-COMPOSESETS)' {
             $c = & $script:make @{
                 'leaf' = @{ description = 'd'; layer = 'deployable-unit'; include = @('leaf/**') }
                 'mid'  = @{ description = 'd'; layer = 'deployable-unit'; compose = @('leaf'); include = @('mid/**') }
@@ -93,7 +93,7 @@ Describe 'GlobsConfig' -Tag 'L0', 'logic' {
 
         It 'rejects a compose reference to an unknown set' {
             { & $script:make @{ unit = @{ description = 'd'; layer = 'deployable-unit'; compose = @('nope') } } } |
-                Should -Throw '*unknown set*FDR-CD-GLOBS-COMPOSESETS*'
+                Should -Throw '*unknown set*FDR-GLOBS-COMPOSESETS*'
         }
 
         It 'rejects a self-compose' {
@@ -130,7 +130,7 @@ Describe 'GlobsConfig' -Tag 'L0', 'logic' {
             $block | Should -Throw
         }
 
-        It 'reads a whole track''s set from its declaration and its derived patterns, and names each half missing' -Tag 'FDR-CD-GLOBS-TRACKSETDERIVED' {
+        It 'reads a whole track''s set from its declaration and its derived patterns, and names each half missing' -Tag 'FDR-GLOBS-TRACKSETDERIVED' {
             $joined = [Catzc.Base.Globs.GlobsConfig]::new(@{ globsets = @{ widget = @{ description = 'd'; layer = 'loose-fileset'; track = 'widget'
                             include = @('widget/**'); exclude = @('widget/README.md')
                         }

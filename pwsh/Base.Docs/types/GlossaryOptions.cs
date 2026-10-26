@@ -19,7 +19,7 @@ public sealed class GlossaryOptions : Catzc.Base.Objects.DictionaryRecord
     // The excludes every source carries, before its own.
     public static readonly IReadOnlyList<string> DefaultExclude = new[]
     {
-        "docs/drs/research/**", "docs/references/dora/**", "out/**", ".unordered/**", "**/.vendor/**", ".claude/plans/**",
+        "docs/drs/external/dora/**", "docs/references/dora/**", "out/**", ".unordered/**", "**/.vendor/**", ".claude/plans/**",
         ".claude/hindsight/**", ".claude/learnings/**"
     };
 

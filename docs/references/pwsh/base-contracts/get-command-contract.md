@@ -12,7 +12,7 @@ Reads the command contracts, all of them or by command, module, root or version,
 ### description
 
 The one reader of a command contract
-([ADR-REPO-CMDCONTRACT-ONEREADER](../../../drs/repository/command-contracts.md#rule-adr-repo-cmdcontract-onereader)): every
+([ADR-REPO-CMDCONTRACT-CONTRACTONEREADER](../../../drs/repository/command-contracts.md#rule-adr-repo-cmdcontract-contractonereader)): every
 `<verb_noun>.command.yml` asset Get-Contract lists
 ([ADR-REPO-CMDCONTRACT-COMMANDCONTRACT](../../../drs/repository/command-contracts.md#rule-adr-repo-cmdcontract-commandcontract)) is parsed
 by the ContractCommand type, the one grammar of the contract language, and comes back with its asset, the command's name, its parameters,

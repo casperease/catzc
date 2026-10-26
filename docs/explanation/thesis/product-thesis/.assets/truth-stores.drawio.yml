@@ -3,12 +3,12 @@ description:
   sources band with a store, and a state machines band with two external tools, joined by flow edges."
 about:
   adrs:
-    - TDR-STORES-THREEKINDS
+    - TDR-STORES-THREESTOREKINDS
     - TDR-STORES-RESPONSIBILITYDOMAIN
     - TDR-STORES-FACTSOURCEREADONLY
     - TDR-STORES-STATEMACHINE
     - TDR-STORES-RECONCILEFACTS
-    - TDR-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD
+    - TDR-ONETRUTH-REPOSITORYISRECORD
   lens: architecture
 content:
   title: Writes its domain, reads fact sources, meets state machines

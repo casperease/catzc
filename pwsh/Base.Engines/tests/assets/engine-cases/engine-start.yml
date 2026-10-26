@@ -3,7 +3,7 @@
 # The command is the same catzc command text in every engine; bash and zsh run it through the cats dispatcher
 # importer.sh defines. Each column holds the `entry` and `command` given, and the `arguments` expected after the
 # executable. Neutral fixture names
-# ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+# ([ADR-AUTO-TEST-DISTINCTFIXTURES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtures)).
 subject: engine start
 cases:
   - case: a plain entry and command

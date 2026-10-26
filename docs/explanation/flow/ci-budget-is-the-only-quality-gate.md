@@ -13,8 +13,8 @@ The CI budget is the only promotion rule a quality gate checks.
 8  reviewer         code review, the only enforcer the FDR names for the whole flow
 
 Supports FDR-CD-SHORTINTEGRATIONCYCLE, FDR-CD-SEPARATEPIPELINEKINDS, FDR-CD-CDSTAYSINNONPROD, FDR-CD-TWORELEASEGATES, FDR-CD-PREPRODRUNG,
-FDR-CD-TWOENVIRONMENTACTIVATION and FDR-CD-GATEDEFINED, FDR-CD-TYPE-PRECOMMITBUDGET, FDR-CD-TYPE-DEPLOYISCDTAIL,
-FDR-CD-TYPE-ONEDEPLOYPATH, FDR-CD-TYPE-DEPLOYISPINNED and FDR-CD-TYPE-DEPLOYCARRIESGOVERNANCE (governance lens).
+FDR-CD-TWOENVIRONMENTACTIVATION and FDR-CD-GATEDEFINED, FDR-TYPE-PRECOMMITBUDGET, FDR-TYPE-DEPLOYISCDTAIL,
+FDR-TYPE-ONEDEPLOYPATH, FDR-TYPE-DEPLOYISPINNED and FDR-TYPE-DEPLOYCARRIESGOVERNANCE (governance lens).
 ```
 
 The CI discipline and the promotion flow set a rule for every pipeline kind and gate between a merge and production. Only one of those rules
@@ -34,11 +34,11 @@ about:
     - FDR-CD-PREPRODRUNG
     - FDR-CD-TWOENVIRONMENTACTIVATION
     - FDR-CD-GATEDEFINED
-    - FDR-CD-TYPE-PRECOMMITBUDGET
-    - FDR-CD-TYPE-DEPLOYISCDTAIL
-    - FDR-CD-TYPE-ONEDEPLOYPATH
-    - FDR-CD-TYPE-DEPLOYISPINNED
-    - FDR-CD-TYPE-DEPLOYCARRIESGOVERNANCE
+    - FDR-TYPE-PRECOMMITBUDGET
+    - FDR-TYPE-DEPLOYISCDTAIL
+    - FDR-TYPE-ONEDEPLOYPATH
+    - FDR-TYPE-DEPLOYISPINNED
+    - FDR-TYPE-DEPLOYCARRIESGOVERNANCE
   lens: governance
 content:
   title: The CI budget is the only promotion rule a quality gate checks
@@ -130,12 +130,12 @@ layout:
 ## Why it holds
 
 - The integration cycle is 5–10 minutes on a team basis; a gate slower than that becomes a queue (FDR-CD-SHORTINTEGRATIONCYCLE,
-  FDR-CD-TYPE-PRECOMMITBUDGET).
+  FDR-TYPE-PRECOMMITBUDGET).
 - Build-once: nothing downstream rebuilds the tagged artifact (FDR-CD-SEPARATEPIPELINEKINDS).
 - CD stays entirely within non-prod (FDR-CD-CDSTAYSINNONPROD).
 - RC and RBC are the two hands-on release gates, and each is a gate, not a pipeline (FDR-CD-TWORELEASEGATES).
 - DEPLOY splits by target into DEPLOY-Non-Prod and DEPLOY-Prod, and acts only once a gate clears (FDR-CD-PREPRODRUNG,
-  FDR-CD-TYPE-DEPLOYISCDTAIL–FDR-CD-TYPE-DEPLOYCARRIESGOVERNANCE).
+  FDR-TYPE-DEPLOYISCDTAIL–FDR-TYPE-DEPLOYCARRIESGOVERNANCE).
 - Deploy to prod stages the artifact inactive in pre-prod, then activates it live (FDR-CD-TWOENVIRONMENTACTIVATION).
 - A gate decides by machine, as a quality gate inside the inner CI gate, or by human certification (FDR-CD-GATEDEFINED).
 

@@ -3,7 +3,7 @@
 The L0 logic test of the `Test-Change` wiring. The two halves of the plan, `Get-ChangeTestFile` and `Get-ChangeCheckPlan`, are their own
 units and are mocked here. `Invoke-TestFile` is the mocked test-run boundary. The gates are fixture functions, so the real `Get-Command`
 lookup and the `[string[]]` `-Path` test decide how each is called. The fixtures use neutral names
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+([ADR-AUTO-TEST-DISTINCTFIXTURES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtures)).
 
 ## The fixture checks
 

@@ -15,7 +15,7 @@ catzc:
 
 ## Eyebrow
 
-6 / 30 · fact for the Developer · RDR-DORA-VCS
+6 / 30 · fact for the Developer · EDR-DORA-VCS
 
 ## Lead
 
@@ -32,5 +32,5 @@ From the catalogue, reduced: rule and gate per load stage.
 
 ## Notes
 
-Check it: the record RDR-DORA-VCS in docs/drs/index.md, and the diagram
+Check it: the record EDR-DORA-VCS in docs/drs/index.md, and the diagram
 docs/explanation/automation/.assets/rule-and-gate-per-load-stage.drawio.png.

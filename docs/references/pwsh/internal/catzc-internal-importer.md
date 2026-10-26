@@ -69,9 +69,9 @@ The importer sets two roots ([ADR-AUTO-BUNDLE-TWOROOTS](../../../drs/automation/
   the toolset relocatable.
 
 This establishes the session every entry loads into
-([ADR-AUTO-BUNDLE-BUNDLEISSESSION](../../../drs/automation/platform-bundle.md#rule-adr-auto-bundle-bundleissession)). The two run modes
-never coexist ([DDR-RUNMODE-NEVERCOEXIST](../../../drs/design/run-modes.md#rule-ddr-runmode-nevercoexist)): `Import-AllModules` evicts the
-other mode, and `Assert-CatzcRunModeExclusive` proves it before any janitor touches the tree from a mixed session.
+([ADR-AUTO-BUNDLE-ISSESSION](../../../drs/automation/platform-bundle.md#rule-adr-auto-bundle-issession)). The two run modes never coexist
+([DDR-RUNMODE-NEVERCOEXIST](../../../drs/design/run-modes.md#rule-ddr-runmode-nevercoexist)): `Import-AllModules` evicts the other mode, and
+`Assert-CatzcRunModeExclusive` proves it before any janitor touches the tree from a mixed session.
 
 ## Console sessions
 

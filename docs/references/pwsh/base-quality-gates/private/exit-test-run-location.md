@@ -28,5 +28,5 @@ None.
 
 The snapshot's result caches go home before the snapshot is removed. The checks the run made in the snapshot are as valid for the working
 folder as for the snapshot, since each entry is keyed on a file's content and the check's inputs
-([ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS](../../../../drs/automation/caching.md#rule-adr-auto-cache-checkedfilesacrosssessions)).
-Save-ResultCache merges them with what the working folder's cache holds.
+([ADR-AUTO-CACHE-CROSSSESSIONFILES](../../../../drs/automation/caching.md#rule-adr-auto-cache-crosssessionfiles)). Save-ResultCache merges
+them with what the working folder's cache holds.

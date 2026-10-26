@@ -12,7 +12,7 @@ Logic tests pin the throw and the fail-open, an analyzer rule pins detection, an
 7  fetchDepth: 0                  required by GLOBS#9; set on the CD checkouts that diff, no gate checks it
 8  Changes step                   GLOBS#9's first step: the CD stages run the check, no gate requires it
 
-Supports FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT, FDR-CD-DETECT-NODIRECTVARIABLECHECK
+Supports FDR-GLOBS-CHANGECOMPUTEDFROMGIT, FDR-DETECT-NODIRECTVARIABLECHECK
 and ADR-AUTO-FAILFAST-USEASSERTIONLIBRARY (governance lens).
 ```
 
@@ -26,7 +26,7 @@ description:
   "Which checks pin the touched-unit check: logic tests pin the throw, the fail-open and the range, an analyzer rule pins the detection, and
   the deep checkout and the Changes step are wired into the CD pipelines with no gate."
 about:
-  adrs: [FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT, FDR-CD-DETECT-NODIRECTVARIABLECHECK, ADR-AUTO-FAILFAST-USEASSERTIONLIBRARY]
+  adrs: [FDR-GLOBS-CHANGECOMPUTEDFROMGIT, FDR-DETECT-NODIRECTVARIABLECHECK, ADR-AUTO-FAILFAST-USEASSERTIONLIBRARY]
   lens: governance
 content:
   title: Tests pin the throw and the fail-open, a rule pins detection, and the CD stages call it with no gate
@@ -61,12 +61,12 @@ content:
     - { at: c-fetch-depth, number: 7 }
     - { at: c-changes-step, number: 8 }
   chips:
-    - { at: c-affected, kind: rule, rule: FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT }
+    - { at: c-affected, kind: rule, rule: FDR-GLOBS-CHANGECOMPUTEDFROMGIT }
     - { at: c-affected, kind: rule, rule: ADR-AUTO-FAILFAST-USEASSERTIONLIBRARY, gated: false }
-    - { at: c-change-range, kind: rule, rule: FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT }
-    - { at: c-in-pipeline, kind: rule, rule: FDR-CD-DETECT-NODIRECTVARIABLECHECK }
-    - { at: c-fetch-depth, kind: rule, rule: FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT, gated: false }
-    - { at: c-changes-step, kind: rule, rule: FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT, gated: false }
+    - { at: c-change-range, kind: rule, rule: FDR-GLOBS-CHANGECOMPUTEDFROMGIT }
+    - { at: c-in-pipeline, kind: rule, rule: FDR-DETECT-NODIRECTVARIABLECHECK }
+    - { at: c-fetch-depth, kind: rule, rule: FDR-GLOBS-CHANGECOMPUTEDFROMGIT, gated: false }
+    - { at: c-changes-step, kind: rule, rule: FDR-GLOBS-CHANGECOMPUTEDFROMGIT, gated: false }
   legend: auto
   minimaps: [code-locations, module-neighbourhood, axis]
 layout:
@@ -113,9 +113,9 @@ layout:
 ## Why it holds
 
 - Whether a change touches a unit is computed from git at real refs, the reference commit is resolved per context, the check fails open on
-  any doubt and throws on an undeclared name, and a pipeline checks out with `fetchDepth: 0` (FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT).
+  any doubt and throws on an undeclared name, and a pipeline checks out with `fetchDepth: 0` (FDR-GLOBS-CHANGECOMPUTEDFROMGIT).
 - The detection variables are never read directly; `Test-IsRunningInPipeline` keeps the detection logic in one place
-  (FDR-CD-DETECT-NODIRECTVARIABLECHECK).
+  (FDR-DETECT-NODIRECTVARIABLECHECK).
 - An error is raised through the assertion library, never through an inline check that raises its own error
   (ADR-AUTO-FAILFAST-USEASSERTIONLIBRARY).
 

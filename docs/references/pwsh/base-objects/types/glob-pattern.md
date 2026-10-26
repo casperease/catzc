@@ -1,8 +1,8 @@
 # pwsh/Base.Objects/types/GlobPattern.cs
 
 One glob pattern of the durable-sha-globs dialect: repository-relative and `/`-separated
-([FDR-CD-GLOBS](../../../../drs/flow/durable-sha-globs.md),
-[FDR-CD-GLOBS-REPOSITORYRELATIVEPATTERNS](../../../../drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-repositoryrelativepatterns)).
+([FDR-GLOBS](../../../../drs/flow/durable-sha-globs.md),
+[FDR-GLOBS-RELATIVEPATTERNS](../../../../drs/flow/durable-sha-globs.md#rule-fdr-globs-relativepatterns)).
 
 ## Dialect
 
@@ -13,10 +13,10 @@ matched case-sensitively.
 ## Constructor guard
 
 The constructor is the gate
-([FDR-CD-GLOBS-MALFORMEDPATTERNREJECTED](../../../../drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-malformedpatternrejected)). It rejects
-`\`, a leading `/`, empty segments, `.` and `..` segments, a backtick (the dialect has no escape character), and `**` embedded inside a
-segment, so a malformed pattern never produces an instance. `WildcardPattern` parses lazily, so the constructor forces the parse and a
-malformed segment, such as an unclosed `[`, fails at construction and not at first match.
+([FDR-GLOBS-MALFORMEDPATTERNREJECTED](../../../../drs/flow/durable-sha-globs.md#rule-fdr-globs-malformedpatternrejected)). It rejects `\`, a
+leading `/`, empty segments, `.` and `..` segments, a backtick (the dialect has no escape character), and `**` embedded inside a segment, so
+a malformed pattern never produces an instance. `WildcardPattern` parses lazily, so the constructor forces the parse and a malformed
+segment, such as an unclosed `[`, fails at construction and not at first match.
 
 ## Matching
 

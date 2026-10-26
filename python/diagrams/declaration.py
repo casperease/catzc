@@ -52,7 +52,6 @@ from .declaration_constants import (
     DERIVED_PREFIXES,
     EDGE_DEADZONE,
     FLOWS,
-    KIT,
     LABEL_ROW,
     OPERATORS,
     PAD,
@@ -97,7 +96,7 @@ from .declaration_sync import (
 )
 from .declaration_vocabulary import EDGE_KINDS, EDGE_LABELS, EDGE_SEMANTICS, GLYPH_KINDS, LIB, DeclarationError, choices, span_vocabulary
 from .drawio_png import DEFAULTS, paint, plain, render, style_map
-from .module_paths import REPO
+from .module_paths import KIT, REPO
 
 __all__ = [
     "ACTION",

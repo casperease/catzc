@@ -13,8 +13,8 @@ A script parameter overrides an entry for one run and never rewrites the file. T
 ## The meaning of an edge
 
 The `edge-semantics` section declares the default meaning of an edge once: the tail initiates and the head receives
-([DDR-VISUAL-ARROWSPOINTATWHATTHEYDEPENDON](../../../../drs/design/visual-design.md#rule-ddr-visual-arrowspointatwhattheydependon)). A
-diagram that declares its own relation replaces the default and opts out of the checks that follow from it. The `edge-labels`, `edge-rank`,
+([DDR-VISUAL-ARROWSPOINTATDEPENDENCY](../../../../drs/design/visual-design.md#rule-ddr-visual-arrowspointatdependency)). A diagram that
+declares its own relation replaces the default and opts out of the checks that follow from it. The `edge-labels`, `edge-rank`,
 `edge-defaults` and `edge-rules` sections extend it with the words an edge may carry and which end initiates under each.
 
 ## Other sections
@@ -22,3 +22,13 @@ diagram that declares its own relation replaces the default and opts out of the 
 The remaining sections close the sets a diagram may name: `roles`, `lenses`, `zooms`, the locked `commits` palette, the paint order
 `layers`, the `lane` and `span` placement numbers, the diagram `kinds`, `wheres`, the `action-lens` numbers, the `themes` with their
 `theme-dark` and `theme-light` token sets, the `minimaps` ids and the `vocabularies` a span bar's label comes from.
+
+## comment:1
+
+Above `flow-glyphs:`, written with `#`.
+
+```text
+the closed list of flow glyphs, each a word of three symbols from O 0 - _ = .
+([DDR-VISUAL-FLOWGLYPHSAREWORDS](/docs/drs/design/visual-design.md#rule-ddr-visual-flowglyphsarewords)); hint is the editor icon it is
+styled after, for the reader only
+```

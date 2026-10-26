@@ -15,7 +15,7 @@ catzc:
 
 ## Eyebrow
 
-26 / 30 · fact for the Developer · RDR-DORA-VISUAL
+26 / 30 · fact for the Developer · EDR-DORA-VISUAL
 
 ## Lead
 
@@ -32,5 +32,5 @@ From the catalogue, reduced: invoke importer in code order.
 
 ## Notes
 
-Check it: the record RDR-DORA-VISUAL in docs/drs/index.md, and the diagram
+Check it: the record EDR-DORA-VISUAL in docs/drs/index.md, and the diagram
 docs/explanation/automation/.assets/invoke-importer-in-code-order.drawio.png.

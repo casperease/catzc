@@ -11,11 +11,11 @@ Moves the help of one PowerShell file from its head's config part to the `## hel
 ### description
 
 The help keys (synopsis, description, parameters, inputs, outputs, examples, notes) are rendered in the section's fixed shape
-([ADR-REPO-HELP-HELPONCOMMENTPAGE](../../../../drs/repository/function-help.md#rule-adr-repo-help-helponcommentpage)), their text kept as
-written, and the head loses its config part; a head left with nothing else goes. A page that does not exist yet starts the way the comment
-exporter starts one, and an existing page keeps every other byte, its comment sections included. A help section already on the page is
-replaced, so a second move changes nothing once the head holds no help. A config part that holds a key that is no help key, or does not
-parse, is reported and the file is left alone, so no authored key is lost.
+([ADR-REPO-HELP-ONCOMMENTPAGE](../../../../drs/repository/function-help.md#rule-adr-repo-help-oncommentpage)), their text kept as written,
+and the head loses its config part; a head left with nothing else goes. A page that does not exist yet starts the way the comment exporter
+starts one, and an existing page keeps every other byte, its comment sections included. A help section already on the page is replaced, so a
+second move changes nothing once the head holds no help. A config part that holds a key that is no help key, or does not parse, is reported
+and the file is left alone, so no authored key is lost.
 
 ### parameter `Path`
 

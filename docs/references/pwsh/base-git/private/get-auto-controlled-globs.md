@@ -38,7 +38,7 @@ from `git clean` matches too.
 
 - The generated members of the track model, the module manifests among them: the vendored `.psd1` files are committed, so they can never
   appear among untracked clean candidates. These are the gitignored members whose writer is a generator: a glob as written, a folder glob as
-  its folder and what lies in it (DDR-TRACK-TRACKISPLACEDCLUSTER).
+  its folder and what lies in it (DDR-TRACK-ISPLACEDCLUSTER).
 - The generated cspell dictionaries, regenerated at the importer tail
   ([ADR-REPO-OUTDIR-DICTIONARIESGENERATED](../../../../drs/repository/dedicated-output-directory.md#rule-adr-repo-outdir-dictionariesgenerated)).
 - The drawio editor's autosave shadows (`.$<name>.drawio.png.bkp`): disposable copies the editor writes beside a committed `.drawio.png`

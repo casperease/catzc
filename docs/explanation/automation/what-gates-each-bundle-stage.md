@@ -10,7 +10,7 @@ Every stage of the bundle has a rule, and two gates check it.
 5  Checked again            the install verifies its source with the same gate (#6)
 6  Test-CatzcBuild          the build run: the same tests, against a fresh build (TEST#30)
 
-Supports ADR-AUTO-BUNDLE-BUNDLEISBUILD, ADR-AUTO-BUNDLE-IMMUTABLEBUILD, ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL, ADR-AUTO-BUNDLE-AUTOVERSION,
+Supports ADR-AUTO-BUNDLE-ISBUILD, ADR-AUTO-BUNDLE-IMMUTABLEBUILD, ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL, ADR-AUTO-BUNDLE-BUNDLEVERSION,
 ADR-PWSH-MANIFEST-BUNDLECARRIESMANIFESTS and ADR-AUTO-TEST-SAMETESTSBOTHRUNS (governance lens).
 ```
 
@@ -24,10 +24,10 @@ description:
   the build run that repeats the same tests against a fresh build."
 about:
   adrs:
-    - ADR-AUTO-BUNDLE-BUNDLEISBUILD
+    - ADR-AUTO-BUNDLE-ISBUILD
     - ADR-AUTO-BUNDLE-IMMUTABLEBUILD
     - ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL
-    - ADR-AUTO-BUNDLE-AUTOVERSION
+    - ADR-AUTO-BUNDLE-BUNDLEVERSION
     - ADR-PWSH-MANIFEST-BUNDLECARRIESMANIFESTS
     - ADR-AUTO-TEST-SAMETESTSBOTHRUNS
   lens: governance
@@ -62,8 +62,8 @@ content:
     - { at: grp-copies, number: 5 }
     - { at: g-test-build, number: 6 }
   chips:
-    - { at: g-build, kind: rule, rule: ADR-AUTO-BUNDLE-BUNDLEISBUILD }
-    - { at: g-build, kind: rule, rule: ADR-AUTO-BUNDLE-AUTOVERSION }
+    - { at: g-build, kind: rule, rule: ADR-AUTO-BUNDLE-ISBUILD }
+    - { at: g-build, kind: rule, rule: ADR-AUTO-BUNDLE-BUNDLEVERSION }
     - { at: g-build, kind: rule, rule: ADR-PWSH-MANIFEST-BUNDLECARRIESMANIFESTS }
     - { at: g-assert, kind: rule, rule: ADR-AUTO-BUNDLE-IMMUTABLEBUILD }
     - { at: r-installed, kind: rule, rule: ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL }
@@ -87,8 +87,8 @@ layout:
 ## Walkthrough
 
 1. **Build-Modules.** Three rules shape the build. The selection is closure-expanded over the declared dependencies
-   (ADR-AUTO-BUNDLE-BUNDLEISBUILD), the payload ships in merged form and never carries `tests/` (ADR-PWSH-MANIFEST-BUNDLECARRIESMANIFESTS),
-   and the version is the devbox placeholder or a version calculated in the pipeline (ADR-AUTO-BUNDLE-AUTOVERSION).
+   (ADR-AUTO-BUNDLE-ISBUILD), the payload ships in merged form and never carries `tests/` (ADR-PWSH-MANIFEST-BUNDLECARRIESMANIFESTS), and
+   the version is the devbox placeholder or a version calculated in the pipeline (ADR-AUTO-BUNDLE-BUNDLEVERSION).
 2. **Assert-CatzcBundle.** The gate on integrity checks the layout, that no test file leaked in, that exactly one types DLL is named for the
    recorded types hash, every module's manifest, merged file and exports, and the recorded content hash. It collects every violation and
    throws once.
@@ -102,13 +102,13 @@ layout:
 
 ## Why it holds
 
-- A bundle is built from a selected set of modules, closure-expanded over the declared dependencies (ADR-AUTO-BUNDLE-BUNDLEISBUILD).
+- A bundle is built from a selected set of modules, closure-expanded over the declared dependencies (ADR-AUTO-BUNDLE-ISBUILD).
 - The payload is merged and default-deny: the `tests/` surface never travels (ADR-PWSH-MANIFEST-BUNDLECARRIESMANIFESTS).
 - A build is immutable and content-addressed, and `Assert-CatzcBundle` is its integrity guard, run by the build on its own output
   (ADR-AUTO-BUNDLE-IMMUTABLEBUILD).
 - An install verifies its source before it changes the destination, and a re-install with a matching hash does not copy
   (ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL).
-- A devbox build carries the placeholder version, and a pipeline build gets a calculated, reproducible one (ADR-AUTO-BUNDLE-AUTOVERSION).
+- A devbox build carries the placeholder version, and a pipeline build gets a calculated, reproducible one (ADR-AUTO-BUNDLE-BUNDLEVERSION).
 - The same tests run in the source run and the build run (ADR-AUTO-TEST-SAMETESTSBOTHRUNS), and `source-only` is the one way out of the
   build run (ADR-AUTO-TEST-SOURCEONLYTAG).
 - Build mode has three kinds of code root, temporary, installed and saved (DDR-RUNMODE-THREEBUILDKINDS).

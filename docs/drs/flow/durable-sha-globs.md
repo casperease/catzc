@@ -1,11 +1,11 @@
 # Flow: Globset triggers — areas-of-control projected to native filters and reflected from git
 
-## Rules: FDR-CD-GLOBS
+## Rules: FDR-GLOBS
 
-### Rule FDR-CD-GLOBS-NAMEDGLOBSETS
+### Rule FDR-GLOBS-NAMEDGLOBSETS
 
 One source of truth: named globsets (owned by `Catzc.Base.Globs`) map each area-of-control — a deployable unit, a track (`DDR-TRACK`), or a
-scan scope — onto its files under version control; a whole track's globset is derived from its members (FDR-CD-GLOBS-TRACKSETDERIVED), and
+scan scope — onto its files under version control; a whole track's globset is derived from its members (FDR-GLOBS-TRACKSETDERIVED), and
 `globs.yml` declares the rest. The globset is the mechanism; it plays three roles, all **derived** and **none committed per set**: the
 **trigger** — pipelines, workflows, and build-validation policies path-filter on the globset's native projection (`Get-GlobSetTrigger`),
 never on a committed marker; the **PR area-of-control report** — the sets a change touches, computed from git (`Get-ChangedGlobSet`); and
@@ -14,7 +14,7 @@ never on a committed marker; the **PR area-of-control report** — the sets a ch
 - [One configuration point](#one-configuration-point)
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule FDR-CD-GLOBS-REPOSITORYRELATIVEPATTERNS
+### Rule FDR-GLOBS-RELATIVEPATTERNS
 
 A pattern is repo-relative and `/`-separated. `**` is the only cross-segment operator and matches zero or more whole segments; a segment is
 either exactly `**` or contains no `**`. Within a segment, semantics are exactly PowerShell wildcards (`*`, `?`, `[abc]`, `[a-z]`) as
@@ -22,14 +22,14 @@ implemented by `System.Management.Automation.WildcardPattern`, matched case-sens
 
 - [The dialect](#the-dialect)
 
-### Rule FDR-CD-GLOBS-MALFORMEDPATTERNREJECTED
+### Rule FDR-GLOBS-MALFORMEDPATTERNREJECTED
 
 A pattern containing `\`, a leading `/`, an empty segment, a `.` or `..` segment, or a backtick is rejected at config load. The dialect has
 no escape character: every pattern must be expressible without one.
 
 - [The dialect](#the-dialect)
 
-### Rule FDR-CD-GLOBS-TRACKEDFILESONLY
+### Rule FDR-GLOBS-TRACKEDFILESONLY
 
 A globset selects from tracked files only (`git ls-files`, the non-gitignored universe). Membership is decided by an ordered **scan
 program**: a sequence of `+ <pattern>` (select) and `- <pattern>` (drop) rules, evaluated **last-match-wins** with a default of not-selected
@@ -39,32 +39,32 @@ then its `exclude:` patterns as `-` — excludes come last and win, the include-
 
 - [The matching universe](#the-matching-universe)
 
-### Rule FDR-CD-GLOBS-DURABLESHAIDENTITY
+### Rule FDR-GLOBS-DURABLESHAIDENTITY
 
 A globset's **identity** is its durable SHA: per member file, SHA-256 over the CR-stripped bytes; the per-file digests folded as
 `<repo-relative-path>|<digest>` lines, ordinal-sorted by path, into one combined SHA-256. This identity is computed **live**
 (`Get-GlobSetHash`) and is **never committed**: it keys the session-memory protection map and answers "did these inputs change?" for the
 local inner loop. It is not a trigger and not a committed artifact — a committed whole-set hash is a lockfile that serializes writers and
-false-reds a busy mainline after a server-side squash merge, which is why triggering projects to native filters
-(FDR-CD-GLOBS-NATIVEPATHFILTER) and reflects git (FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT) instead.
+false-reds a busy mainline after a server-side squash merge, which is why triggering projects to native filters (FDR-GLOBS-NATIVEPATHFILTER)
+and reflects git (FDR-GLOBS-CHANGECOMPUTEDFROMGIT) instead.
 
 - [A live identity](#a-live-identity)
 
-### Rule FDR-CD-GLOBS-NATIVEPATHFILTER
+### Rule FDR-GLOBS-NATIVEPATHFILTER
 
 A pipeline, workflow, or build-validation policy triggers on the globset's **native path-filter projection** (`Get-GlobSetTrigger`): the
-flattened scan program (FDR-CD-GLOBS-TRACKEDFILESONLY/8) rendered into the vendor's own `paths` dialect — GitHub `on.*.paths` with ordered
-`!` negation (exact, the same last-match-wins evaluator as `GlobSet.Matches`); Azure DevOps `trigger.paths.include`/`exclude` and
-branch-policy `filenamePatterns` (order-independent — union include minus union exclude — so each pattern is collapsed to its last select,
-and a compose re-add becomes a deeper-folder include ADO keeps). Modern vendors (ADO Services / Server 2022+, GitHub) accept wildcards
-anywhere in a path filter, so the projection is a true no-start trigger. The projected filters are generated from `globs.yml`, never
-hand-authored, and the drift quality gates (`Test-AdoPipelineTriggerGlob` / `Test-GitHubWorkflowTriggerGlob`) report one issue per pipeline
-whose declared trigger no longer equals its projection, or whose file is missing.
+flattened scan program (FDR-GLOBS-TRACKEDFILESONLY/8) rendered into the vendor's own `paths` dialect — GitHub `on.*.paths` with ordered `!`
+negation (exact, the same last-match-wins evaluator as `GlobSet.Matches`); Azure DevOps `trigger.paths.include`/`exclude` and branch-policy
+`filenamePatterns` (order-independent — union include minus union exclude — so each pattern is collapsed to its last select, and a compose
+re-add becomes a deeper-folder include ADO keeps). Modern vendors (ADO Services / Server 2022+, GitHub) accept wildcards anywhere in a path
+filter, so the projection is a true no-start trigger. The projected filters are generated from `globs.yml`, never hand-authored, and the
+drift quality gates (`Test-AdoPipelineTriggerGlob` / `Test-GitHubWorkflowTriggerGlob`) report one issue per pipeline whose declared trigger
+no longer equals its projection, or whose file is missing.
 
 - [Native projection: the no-start trigger](#native-projection-the-no-start-trigger)
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule FDR-CD-GLOBS-EVERYSETHASLAYER
+### Rule FDR-GLOBS-EVERYSETHASLAYER
 
 Every globset carries a **layer** — the kind of thing it maps. Two are declared in `globs.yml`: `deployable-unit` (a configurable unit that
 ships) and `loose-fileset` (a cross-cutting check surface that deliberately overlaps the boundaries it cuts across — a track's root concern
@@ -78,7 +78,7 @@ A deployable unit takes one of two shapes: a **configured** unit — a base plus
 a **base** unit — a shared, un-configured surface that exists only to be composed, e.g. `template-azure-subscription-foundation`, which
 ships only through the configured units that compose it yet still carries an area-of-control (its `verify:` scope and its review surface).
 
-Within every layer but `loose-fileset` the sets are pairwise-independent on OWN contribution (`FDR-CD-GLOBS-NOOVERLAPWITHINLAYER`): a module
+Within every layer but `loose-fileset` the sets are pairwise-independent on OWN contribution (`FDR-GLOBS-NOOVERLAPWITHINLAYER`): a module
 never consumes another module's files, a unit never another unit's — each is a boundary. The `module` layer carries a **catch-all**
 (`module-leftovers`) so it covers its whole space with nothing unmapped; the catch-all is the complement of the explicit sets, hence still
 disjoint from them. `pipeline:` (the 1-1 trigger-role binding) and `verify:` (`modules` + `level`, the test blast-radius scope) are
@@ -89,35 +89,35 @@ earns its cost.
 
 - [One configuration point](#one-configuration-point)
 
-### Rule FDR-CD-GLOBS-COMPOSESETS
+### Rule FDR-GLOBS-COMPOSESETS
 
-A globset may **compose** other declared sets (`compose:`): its scan program (FDR-CD-GLOBS-TRACKEDFILESONLY) is the composed sets' programs
+A globset may **compose** other declared sets (`compose:`): its scan program (FDR-GLOBS-TRACKEDFILESONLY) is the composed sets' programs
 first — in dependency order, deepest base first, each set once — then the set's own `+`/`-` rules **last**, so the set's own rules override
 its base. A unit re-adds a slice its base dropped exactly this way (`+ configuration/contoso/**` after the base's `- configuration/*/**`).
 References resolve to declared sets only, never to the set itself, and the reference graph must be acyclic — all validated at config load.
 Composition is how a configured deployable-unit shares a base (e.g. every customer/platform unit composing
 `template-azure-subscription-foundation`, the config-free foundation surface) without one deployment's configuration change firing another's
-pipeline. The flattened program is what both the native projection (FDR-CD-GLOBS-NATIVEPATHFILTER) and the durable SHA
-(FDR-CD-GLOBS-DURABLESHAIDENTITY) are computed from — no reference-chasing at trigger or hash time.
+pipeline. The flattened program is what both the native projection (FDR-GLOBS-NATIVEPATHFILTER) and the durable SHA
+(FDR-GLOBS-DURABLESHAIDENTITY) are computed from — no reference-chasing at trigger or hash time.
 
 - [One configuration point](#one-configuration-point)
 
-### Rule FDR-CD-GLOBS-TRACKSETDERIVED
+### Rule FDR-GLOBS-TRACKSETDERIVED
 
 A whole track's globset is **derived** from the track's members
-([DDR-TRACK-TRACKISPLACEDCLUSTER](../design/tracks.md#rule-ddr-track-trackisplacedcluster)), never written by hand: the track declaration is
-its one source, so a member that joins or leaves a track joins or leaves its globset in the same edit. The authored `globs.yml` declares the
-set (its name, layer, pipeline and verify) and names its `track`; `Build-TrackGlobSets` writes its patterns into the generated
-`track-sets.yml` beside it, and the config folder joins the two. A buildable track's globset, the one that starts its pipeline, leaves out
-the track's **generated** members and every generated target under its places, so a regeneration (a rendered README, a generated root file)
-never starts a pipeline by itself. A track nested in another's place stays in the parent's set unless a set of its own starts a pipeline for
-it: a nested track with no pipeline, such as the vendored modules under `pwsh/`, has its changes tested by the parent's pipeline, so a
-vendored Pester bump runs the PowerShell CI. A vendor's track globset classifies and filters, and starts no pipeline. The globsets that are
-not a whole track, the deployable-units and the slices of a track, keep their patterns in `globs.yml`.
+([DDR-TRACK-ISPLACEDCLUSTER](../design/tracks.md#rule-ddr-track-isplacedcluster)), never written by hand: the track declaration is its one
+source, so a member that joins or leaves a track joins or leaves its globset in the same edit. The authored `globs.yml` declares the set
+(its name, layer, pipeline and verify) and names its `track`; `Build-TrackGlobSets` writes its patterns into the generated `track-sets.yml`
+beside it, and the config folder joins the two. A buildable track's globset, the one that starts its pipeline, leaves out the track's
+**generated** members and every generated target under its places, so a regeneration (a rendered README, a generated root file) never starts
+a pipeline by itself. A track nested in another's place stays in the parent's set unless a set of its own starts a pipeline for it: a nested
+track with no pipeline, such as the vendored modules under `pwsh/`, has its changes tested by the parent's pipeline, so a vendored Pester
+bump runs the PowerShell CI. A vendor's track globset classifies and filters, and starts no pipeline. The globsets that are not a whole
+track, the deployable-units and the slices of a track, keep their patterns in `globs.yml`.
 
 - [One configuration point](#one-configuration-point)
 
-### Rule FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+### Rule FDR-GLOBS-CHANGECOMPUTEDFROMGIT
 
 Whether a change touches a unit is **computed from git at real refs**, never from a committed hash. `Get-ChangedGlobSet` diffs a commit
 range (`Get-ChangedFile`, `git diff --name-only --no-renames`) and matches the changed paths against the registry; `Test-GlobSetAffected`
@@ -130,10 +130,10 @@ committed hash suffers, and correct across renames (a rename is split into both 
 
 - [Git reflection: the in-pipeline check and the PR report](#git-reflection-the-in-pipeline-check-and-the-pr-report)
 
-### Rule FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
+### Rule FDR-GLOBS-NOOVERLAPWITHINLAYER
 
 Within a layer, no two globsets may select a common file on their **OWN contribution** — the set's own `include`/`exclude` program with
-`compose` ignored (`FDR-CD-GLOBS-TRACKEDFILESONLY`). Two that do contain parts of each other and are not independent — the boundary leaks.
+`compose` ignored (`FDR-GLOBS-TRACKEDFILESONLY`). Two that do contain parts of each other and are not independent — the boundary leaks.
 Validation is **per layer, never across**: a deployable-unit deliberately contains the base it composes, and every module file also sits in
 a loose-fileset track (`automation`), so cross-layer overlap is expected and correct — the rule is defined on OWN membership within one
 layer, never on effective membership or across layers. The `deployable-unit` and `module` layers are each pairwise-disjoint on OWN
@@ -162,24 +162,23 @@ committed per set, so there is no whole-set hash to go stale.
 
 ### One configuration point
 
-`globs.yml` holds every globset that is not a whole track: a kebab-case name, a description, its layer (`FDR-CD-GLOBS-EVERYSETHASLAYER`), an
-`include:` pattern list and optional `exclude:` list, optional `compose:` references (`FDR-CD-GLOBS-COMPOSESETS`), an optional `verify:`
+`globs.yml` holds every globset that is not a whole track: a kebab-case name, a description, its layer (`FDR-GLOBS-EVERYSETHASLAYER`), an
+`include:` pattern list and optional `exclude:` list, optional `compose:` references (`FDR-GLOBS-COMPOSESETS`), an optional `verify:`
 blast-radius scope, and — on a configured deployable-unit — the `pipeline:` it binds (a base unit composed by others binds none,
-`FDR-CD-GLOBS-EVERYSETHASLAYER`). `Catzc.Base.Globs` owns the file, the dialect, the durable SHA, the native projection, and the
-git-reflection query; nothing else parses the config. Adding or removing files from a unit — or adding a whole customer — is a config edit;
-the projected triggers regenerate from it. Test blast-radius and protection derive from the same identities, and two kinds of set are
-derived, never declared in `globs.yml`: the `module` layer's sets from the module folders, and each whole track's set from its members, its
-generated members left out of a buildable track's trigger (FDR-CD-GLOBS-TRACKSETDERIVED). That is why a regenerated
-`infrastructure/README.md` cannot start `ci-infrastructure`: the file is a generated member of its track, so the track's trigger never names
-it.
+`FDR-GLOBS-EVERYSETHASLAYER`). `Catzc.Base.Globs` owns the file, the dialect, the durable SHA, the native projection, and the git-reflection
+query; nothing else parses the config. Adding or removing files from a unit — or adding a whole customer — is a config edit; the projected
+triggers regenerate from it. Test blast-radius and protection derive from the same identities, and two kinds of set are derived, never
+declared in `globs.yml`: the `module` layer's sets from the module folders, and each whole track's set from its members, its generated
+members left out of a buildable track's trigger (FDR-GLOBS-TRACKSETDERIVED). That is why a regenerated `infrastructure/README.md` cannot
+start `ci-infrastructure`: the file is a generated member of its track, so the track's trigger never names it.
 
 ### The dialect
 
 Vendor path-filter dialects need not leak into ours: membership is decided in our own code against the tracked-file list, and only the
-**projection** (FDR-CD-GLOBS-NATIVEPATHFILTER) crosses into a vendor dialect, mechanically. That frees the authoring dialect to be the one
-this repository's users already know — within a segment, a pattern means exactly what it means to PowerShell's `-like` operator, delegated
-to `System.Management.Automation.WildcardPattern` (a host-guaranteed type). Matching is case-sensitive because tracked paths are
-case-sensitive identities.
+**projection** (FDR-GLOBS-NATIVEPATHFILTER) crosses into a vendor dialect, mechanically. That frees the authoring dialect to be the one this
+repository's users already know — within a segment, a pattern means exactly what it means to PowerShell's `-like` operator, delegated to
+`System.Management.Automation.WildcardPattern` (a host-guaranteed type). Matching is case-sensitive because tracked paths are case-sensitive
+identities.
 
 `**` is the single addition, and the only operator that crosses `/`: it stands as a whole segment and consumes zero or more whole segments.
 
@@ -204,21 +203,21 @@ or ignored file can never change a globset's membership.
 
 `Why the identity is live, never committed`
 
-The durable SHA (FDR-CD-GLOBS-DURABLESHAIDENTITY) is a genuine identity — EOL-insensitive (CR stripped before hashing), path-folded (a
-rename or move changes it even when content does not), and order-free (lines ordinal-sorted). It is exactly right for the one job it keeps:
-keying the session-memory protection map, where "this session already proved this input state green" is a live, in-process fact.
+The durable SHA (FDR-GLOBS-DURABLESHAIDENTITY) is a genuine identity — EOL-insensitive (CR stripped before hashing), path-folded (a rename
+or move changes it even when content does not), and order-free (lines ordinal-sorted). It is exactly right for the one job it keeps: keying
+the session-memory protection map, where "this session already proved this input state green" is a live, in-process fact.
 
 What it must **not** be is a committed artifact that blocks the mainline. A committed whole-set hash is a lockfile over that set: two pull
 requests that touch different files of the same set both freeze the hash against their own branch state, and after a server-side squash
 merge the mainline holds the union while each frozen hash saw only its own half — an integrity quality gate recomputing the set would red
 the mainline with neither change individually wrong, and no merge conflict to warn anyone. Because the squash commit is a tree the client
 never hashed, any client-frozen hash is suspect. So the identity stays live and local; the trigger is a native projection
-(FDR-CD-GLOBS-NATIVEPATHFILTER) and the "did this change?" question is answered from git at the real refs
-(FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT), both of which see the merged tree as it actually is.
+(FDR-GLOBS-NATIVEPATHFILTER) and the "did this change?" question is answered from git at the real refs (FDR-GLOBS-CHANGECOMPUTEDFROMGIT),
+both of which see the merged tree as it actually is.
 
 ### Native projection: the no-start trigger
 
-`Get-GlobSetTrigger` projects a globset's flattened scan program (FDR-CD-GLOBS-TRACKEDFILESONLY/8) into each vendor's native path-filter
+`Get-GlobSetTrigger` projects a globset's flattened scan program (FDR-GLOBS-TRACKEDFILESONLY/8) into each vendor's native path-filter
 dialect:
 
 - **GitHub** `on.*.paths`: the program in order, each `-` rule rendered as a `!` negation. GitHub paths are ordered and last-match-wins —
@@ -272,7 +271,7 @@ A native trigger is content-blind at the vendor's grain, and a coarse or over-ap
 need. `Test-GlobSetAffected` is the exact backstop the pipeline runs first — "is there anything here for us to process?" — and the same
 computation is the PR area-of-control report:
 
-- `Get-GlobSetChangeRange` resolves the reference commit per context (`FDR-CD-DETECT`): **post-commit on main** diffs first-parent
+- `Get-GlobSetChangeRange` resolves the reference commit per context (`FDR-DETECT`): **post-commit on main** diffs first-parent
   `HEAD^1..HEAD` — main advances only by squash merge, so the merged commit's first parent is the prior mainline and the diff is exactly the
   push; **PR pre-commit** diffs the merge-base `origin/<target>...HEAD`; **local** diffs the working tree.
 - `Get-ChangedGlobSet` matches the changed paths against the registry (declared, and with `-IncludeModules` the derived module sets), and
@@ -287,11 +286,11 @@ correct heart of the design — two real commits that exist server-side after th
 
 A layer is a set of peers that partition one concern into boundaries: the `module` layer partitions module-space, the `deployable-unit`
 layer partitions what ships. Overlap between peers means one boundary consumes another's files. So within a layer the sets are
-pairwise-disjoint — but on their **OWN** contribution, never their effective membership (`FDR-CD-GLOBS-NOOVERLAPWITHINLAYER`). The
-distinction is what makes `compose` legal: a customer deployable-unit's _effective_ members include the whole base it composes, so on
-effective membership every customer overlaps the base and each other through it. That overlap is the point of composition — "depends on a
-base" — not a peer collision. On OWN membership (compose ignored) the customer units own only their own `configuration/<key>/**` slice and
-the base owns the shared surface minus the config folders, so the layer is disjoint. The same holds across layers by design: a file under
+pairwise-disjoint — but on their **OWN** contribution, never their effective membership (`FDR-GLOBS-NOOVERLAPWITHINLAYER`). The distinction
+is what makes `compose` legal: a customer deployable-unit's _effective_ members include the whole base it composes, so on effective
+membership every customer overlaps the base and each other through it. That overlap is the point of composition — "depends on a base" — not
+a peer collision. On OWN membership (compose ignored) the customer units own only their own `configuration/<key>/**` slice and the base owns
+the shared surface minus the config folders, so the layer is disjoint. The same holds across layers by design: a file under
 `pwsh/Base.Globs/` belongs to the `pwsh` track (a loose-fileset) AND the `catzc-base-globs` module AND (if it ships) a deployable-unit —
 three layers, one file. Cross-layer overlap is never a violation; only same-layer overlap is.
 
@@ -304,7 +303,7 @@ umbrella mistakenly declared a `module` fails as a named pair.
 ### How this is enforced
 
 - `GlobsConfig` validates the schema and every pattern at config load, rejecting unknown keys, malformed patterns
-  (`FDR-CD-GLOBS-MALFORMEDPATTERNREJECTED`), and cyclic or self-referential compose (`FDR-CD-GLOBS-COMPOSESETS`).
+  (`FDR-GLOBS-MALFORMEDPATTERNREJECTED`), and cyclic or self-referential compose (`FDR-GLOBS-COMPOSESETS`).
 - `Test-AdoPipelineTriggerGlob` and `Test-GitHubWorkflowTriggerGlob` are quality gates: each recomputes the native projection of its
   pipeline-bound globsets and compares it to what the bound pipeline/workflow actually declares, reporting one issue per drifted or missing
   pipeline. Their integrity tests require zero issues, so a hand-edited or drifted `paths:` filter fails `Test-Automation` locally and in
@@ -312,7 +311,7 @@ umbrella mistakenly declared a `module` fails as a named pair.
 - The `Test-GlobSetTriggerCoverage` quality gate confirms every member of a pipeline-bound set is covered by an ADO include pattern — an
   include-only projection is a safe superset that can never under-trigger, with `Test-GlobSetAffected` supplying exactness on top.
 - Grep-ability: `paths:` filters in `.ado/pipelines/*.yaml` and `.github/workflows/` are generated from `globs.yml`; a filter that disagrees
-  with the projection is findable by the drift quality gates and wrong by rule (`FDR-CD-GLOBS-NATIVEPATHFILTER`).
+  with the projection is findable by the drift quality gates and wrong by rule (`FDR-GLOBS-NATIVEPATHFILTER`).
 
 ## Consequences
 

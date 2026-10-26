@@ -10,11 +10,11 @@ catzc:
       scale: 0.4
 ---
 
-# A queue stands between two rungs the lifecycle names: FDR-CD-QUEUE rests on FDR-CD-LIFE
+# A queue stands between two rungs the lifecycle names: FDR-QUEUE rests on FDR-LIFE
 
 ## Eyebrow
 
-9 / 14 · fact · FDR-CD-QUEUE
+9 / 14 · fact · FDR-QUEUE
 
 ## Lead
 
@@ -30,5 +30,4 @@ From the catalogue, reduced: one way climb three endings.
 
 ## Notes
 
-Check it: the record FDR-CD-QUEUE in docs/drs/index.md, and the diagram
-docs/explanation/design/.assets/one-way-climb-three-endings.drawio.png.
+Check it: the record FDR-QUEUE in docs/drs/index.md, and the diagram docs/explanation/design/.assets/one-way-climb-three-endings.drawio.png.

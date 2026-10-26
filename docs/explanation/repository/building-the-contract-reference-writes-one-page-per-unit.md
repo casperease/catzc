@@ -10,7 +10,7 @@ A maintainer changes a contract; one command rewrites the reference pages, and t
 5  Every link on the catzc page resolves           zone 2, local, after 3: test_links on the page
 6  The generated-files quality gate                        zone 2, local, after 4: test_generated_files sees no drift for the builder
 
-Supports ADR-REPO-CONTRACT-LAYOUT, ADR-REPO-CMDCONTRACT-ONEREADER, ADR-REPO-README-AUTHOREDSOURCES
+Supports ADR-REPO-CONTRACT-LAYOUT, ADR-REPO-CMDCONTRACT-CONTRACTONEREADER, ADR-REPO-README-AUTHOREDSOURCES
 and DDR-VISUAL-ACTIONISALENS (action lens).
 ```
 
@@ -41,7 +41,7 @@ Proof box and the map key beside it.
    describe it are stale the moment it lands.
 2. **build_contract_reference.** The action is one command in the contract form, with no arguments. It reads every contract asset through
    the one reader of the contract language and writes the pages
-   ([ADR-REPO-CMDCONTRACT-ONEREADER](../../drs/repository/command-contracts.md#rule-adr-repo-cmdcontract-onereader)).
+   ([ADR-REPO-CMDCONTRACT-CONTRACTONEREADER](../../drs/repository/command-contracts.md#rule-adr-repo-cmdcontract-contractonereader)).
 3. **The catzc unit's page.** The first zone holds what the command writes directly. The catzc unit, the bundle a consumer pins, gets its
    page at `docs/references/contracts/catzc.md`
    ([ADR-REPO-CONTRACT-LAYOUT](../../drs/repository/api-contracts.md#rule-adr-repo-contract-layout)).
@@ -100,7 +100,7 @@ Test-GeneratedFiles -Generator 'Build-ContractReference'
 - Contracts are laid out as `contracts/<unit>/<version>/<module>/<path>`, so a page per unit is the natural shape of their reference
   (ADR-REPO-CONTRACT-LAYOUT).
 - One reader reads the contract language, so the pages say what the contracts say and nothing a second parser added
-  (ADR-REPO-CMDCONTRACT-ONEREADER).
+  (ADR-REPO-CMDCONTRACT-CONTRACTONEREADER).
 - A generated page is never authored; its source is the contract asset, and the generated-files quality gate holds the two together
   (ADR-REPO-README-AUTHOREDSOURCES).
 - The two pages stand in one zone because one run writes both; each gate stands in the next zone behind the page it checks, which is what

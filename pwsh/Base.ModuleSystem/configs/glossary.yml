@@ -37,7 +37,7 @@ concepts:
   occupant:
     key: occupant
     domain: design
-    defined_by: FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+    defined_by: FDR-LIFE-ONECOMMITPERENVIRONMENT
     short: The one commit an always-on environment holds, deployed there as its release candidate — named by its environment.
     realized_by: { kind: prose-only }
     avoid:
@@ -76,7 +76,7 @@ concepts:
   track:
     key: track
     domain: design
-    defined_by: DDR-TRACK-TRACKISPLACEDCLUSTER
+    defined_by: DDR-TRACK-ISPLACEDCLUSTER
     short:
       A named, on-disk cluster of one concern's files, declared once as a set of members that each say whether they are generated and
       committed, and of one track type.
@@ -151,7 +151,7 @@ concepts:
   vendor:
     key: vendor
     domain: design
-    defined_by: DDR-VENDOR-VENDORISVENDORED
+    defined_by: DDR-VENDOR-ISVENDORED
     short:
       A tool, core, plugin or external dependency vendored into the repository, named by the tool — its code and its settings sit under one
       vendor umbrella, so HEAD stays reproducible.
@@ -169,7 +169,7 @@ concepts:
   place:
     key: place
     domain: design
-    defined_by: DDR-TRACK-TRACKISPLACEDCLUSTER
+    defined_by: DDR-TRACK-ISPLACEDCLUSTER
     short:
       The path of one member of a track, computed from the members and never declared beside them; the longest place that contains a file
       names its track.

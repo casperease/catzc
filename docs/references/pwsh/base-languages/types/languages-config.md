@@ -18,7 +18,7 @@ language carries exactly one of the two and a gap is a visible, reviewed entry.
 
 The formatter engines a language may name are one `Format-Code` adapter each. A new engine is new mechanism, so its adapter and its name
 here land together
-([PDR-CONFIG-NEWINSTANCEISCONFIGCHANGE](../../../../drs/principles/configure-not-program.md#rule-pdr-config-newinstanceisconfigchange)).
+([PDR-CONFIG-NEWINSTANCEISCONFIG](../../../../drs/principles/configure-not-program.md#rule-pdr-config-newinstanceisconfig)).
 
 ## Defaults
 

@@ -9,7 +9,7 @@ The first configured credential wins, proves its org, and never falls back.
 4  Authorization header    the one result every source returns
 5  Own error, no fallback  a failing source raises its own error
 
-Supports ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE, ADR-ADO-AUTH-PROVETARGET and ADR-ADO-AUTH-ASSERTWHENNOTOKEN (meta lens).
+Supports ADR-ADO-AUTH-FIXEDCREDENTIALORDER, ADR-ADO-AUTH-PROVETARGET and ADR-ADO-AUTH-ASSERTWHENNOTOKEN (meta lens).
 ```
 
 Every call cats makes to the Azure DevOps REST API needs an `Authorization` header, and three kinds of credential can supply one. Cats picks
@@ -34,7 +34,7 @@ source.
 ## Why it holds
 
 - The credential is chosen by which one is configured, in a fixed order, and a source that fails raises its own error rather than degrading
-  to the next (ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE).
+  to the next (ADR-ADO-AUTH-FIXEDCREDENTIALORDER).
 - Each source proves it targets the configured organization or tenant before it returns a header, so a credential that happens to be present
   never resolves to a different org by accident (ADR-ADO-AUTH-PROVETARGET).
 - When the last source yields nothing, the error names the actionable causes (ADR-ADO-AUTH-ASSERTWHENNOTOKEN).

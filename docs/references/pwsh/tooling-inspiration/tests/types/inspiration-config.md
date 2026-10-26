@@ -1,7 +1,7 @@
 # pwsh/Tooling.Inspiration/tests/types/InspirationConfig.Tests.ps1
 
 The tests of `InspirationConfig` and its `InspirationEntry` over neutral fixtures
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+([ADR-AUTO-TEST-DISTINCTFIXTURES](../../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtures)).
 
 ## Coverage
 

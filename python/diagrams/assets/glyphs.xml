@@ -81,6 +81,13 @@
       parent="1">
       <mxGeometry x="890" y="88" width="130" height="52" as="geometry" />
     </mxCell>
+    <mxCell id="g-env-flow"
+      value="&lt;b&gt;environment&lt;/b&gt;"
+      style="shape=rhombus;perimeter=rhombusPerimeter;whiteSpace=wrap;html=1;fillColor=@neutral;strokeColor=@neutral-rim;strokeWidth=2;fontColor=@ink;fontSize=12;verticalLabelPosition=bottom;verticalAlign=top;"
+      vertex="1"
+      parent="1">
+      <mxGeometry x="890" y="160" width="80" height="80" as="geometry" />
+    </mxCell>
     <mxCell id="g-external"
       value="&lt;b&gt;external tool&lt;/b&gt;"
       style="rounded=0;whiteSpace=wrap;html=1;fillColor=@neutral;strokeColor=@neutral-rim;fontColor=@ink;fontSize=12;"

@@ -36,7 +36,7 @@ own, so a finding names that rule.
 
 - [Directions are rows](#directions-are-rows)
 
-### Rule ADR-REPO-LINKS-DECLAREDGRAPHSSTAYWHEREDECLARED
+### Rule ADR-REPO-LINKS-DECLAREDGRAPHSSTAY
 
 A direction that another record declares is read there, never copied into the rows: module to module stays the modules' declared
 dependencies, an ADR's domain order stays the DRS registry's `depends_on`, and the aspect partition stays the aspect model's. A row selects
@@ -44,7 +44,7 @@ an aspect; it never recomputes one, and a row that allows ADR to ADR says in `be
 
 - [Declared graphs stay where they are declared](#declared-graphs-stay-where-they-are-declared)
 
-### Rule ADR-REPO-LINKS-ADRSLINKONLYTHEIRGROUNDING
+### Rule ADR-REPO-LINKS-ADRSLINKGROUNDINGONLY
 
 An ADR links other ADRs, the DRS index and the glossary, and the references it is grounded in: the DORA, CAF and WAF references. It never
 links code, a how-to, an explanation or any other reference.

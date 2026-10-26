@@ -11,7 +11,7 @@ filters may overlap, because they answer what a reader wants to see, not what a 
 - [Context](#context)
 - [Decision](#decision)
 
-### Rule DDR-FILTER-DECLAREDONCE
+### Rule DDR-FILTER-FILTERDECLAREDONCE
 
 The filters are declared once, in one ordered list, each a name and its selectors in the dotted snake normal form, a prefix selecting
 everything below it. A filter carries the model's own sets (include and exclude patterns), never a list of files, so a file is classified by

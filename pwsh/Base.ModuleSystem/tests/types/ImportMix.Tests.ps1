@@ -33,7 +33,7 @@ Describe 'ImportMix' -Tag 'L0', 'logic' {
         $mix.skipped_modules | Should -BeNullOrEmpty
     }
 
-    It 'leaves out a module with a code language outside the mix' -Tag 'ADR-AUTO-IMPORTER-CODELANGUAGESSELECTMODULES' {
+    It 'leaves out a module with a code language outside the mix' -Tag 'ADR-AUTO-IMPORTER-LANGUAGESSELECTMODULES' {
         $code = [ordered]@{ 'Widget.Beta' = [string[]] @('widget',
                 'gadget'); 'Widget.Alpha' = [string[]] @('widget'); 'Widget.Gamma' = [string[]] @()
         }

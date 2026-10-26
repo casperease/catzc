@@ -51,7 +51,7 @@ the `layer` key of its entry in `drs.yml`, which defaults to `automation`; the c
 
 - [Layer membership is data](#layer-membership-is-data)
 
-### Rule ADR-AUTO-LAYERS-AUTOLEAVESCHOICEOPEN
+### Rule ADR-AUTO-LAYERS-LEAVESCHOICEOPEN
 
 `auto` leaves a layer's choice open: for the engine it is the value that names none
 ([ADR-AUTO-ENGINE-AUTONAMESNOENGINE](execution-engines.md#rule-adr-auto-engine-autonamesnoengine)), for the languages it is the languages of

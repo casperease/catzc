@@ -98,7 +98,7 @@ trigger path filters its projection computes — a `paths:` filter hand-edited o
 **Test file:** `pwsh/Base.Globs/tests/GlobSet-Independence.Tests.ps1` (L2), block `GlobSet independence`.
 
 **Guards:** `Test-GlobSetIndependence` reports 0 issues: within each layer, no two globsets select a common file on their own contribution
-(FDR-CD-GLOBS-NOOVERLAPWITHINLAYER); the loose-fileset layer is exempt.
+(FDR-GLOBS-NOOVERLAPWITHINLAYER); the loose-fileset layer is exempt.
 
 ### 8. Native-trigger projection coverage
 
@@ -146,7 +146,7 @@ one.
 
 **Test file:** `pwsh/Base.Globs/tests/Build-TrackGlobSets.Tests.ps1` (L1), block `Build-TrackGlobSets — the real tree`.
 
-**Guards:** The committed `track-sets.yml` is what `Build-TrackGlobSets` derives from the track members (FDR-CD-GLOBS-TRACKSETDERIVED): the
+**Guards:** The committed `track-sets.yml` is what `Build-TrackGlobSets` derives from the track members (FDR-GLOBS-TRACKSETDERIVED): the
 infrastructure set leaves out its generated READMEs, and the pwsh set keeps the vendored modules nested under it, which have no pipeline of
 their own.
 

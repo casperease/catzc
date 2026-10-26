@@ -54,7 +54,7 @@ subscriptions of one customer, by raw token, may serve the same environment.
 
 The type is hermetic. A subscription's customer reference into `customer.yml` is not resolved here. A shipped-asset integrity test enforces
 it and `Get-AzureCustomer` does at runtime
-([ADR-AZ-CUSTOMER-REFERENCENOTVALIDATEDONLOAD](../../../../drs/azure/azure-customer-model.md#rule-adr-az-customer-referencenotvalidatedonload)).
+([ADR-AZ-CUSTOMER-REFERENCEUNVALIDATED](../../../../drs/azure/azure-customer-model.md#rule-adr-az-customer-referenceunvalidated)).
 Completeness, every environment being served, and root-config uniqueness are discovery and integrity concerns, not load rules
 ([ADR-AZ-DATAMOD-JOINSINPOWERSHELL](../../../../drs/azure/azure-data-model.md#rule-adr-az-datamod-joinsinpowershell)).
 

@@ -12,9 +12,9 @@ Projects a globset's scan program into vendor-native pipeline path filters — t
 ### description
 
 The pipeline trigger: project the set's flattened scan program
-([FDR-CD-GLOBS-TRACKEDFILESONLY](../../../drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-trackedfilesonly)/8) straight into the vendor's
-own `paths` filter, so the trigger fires — or does not start at all — on the real files, with no committed hash to go stale across a squash
-or concurrent merge.
+([FDR-GLOBS-TRACKEDFILESONLY](../../../drs/flow/durable-sha-globs.md#rule-fdr-globs-trackedfilesonly)/8) straight into the vendor's own
+`paths` filter, so the trigger fires — or does not start at all — on the real files, with no committed hash to go stale across a squash or
+concurrent merge.
 
 Two dialects, from the one program:
 
@@ -27,8 +27,8 @@ Two dialects, from the one program:
   membership (a root-glob re-added over an equal-depth exclude) is caught by the superset integrity test, not here; this function only
   performs the mechanical projection.
 
-It rests on [FDR-CD-GLOBS-NAMEDGLOBSETS](../../../drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-namedglobsets) and
-[FDR-CD-GLOBS-NATIVEPATHFILTER](../../../drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-nativepathfilter).
+It rests on [FDR-GLOBS-NAMEDGLOBSETS](../../../drs/flow/durable-sha-globs.md#rule-fdr-globs-namedglobsets) and
+[FDR-GLOBS-NATIVEPATHFILTER](../../../drs/flow/durable-sha-globs.md#rule-fdr-globs-nativepathfilter).
 
 ### parameter `Name`
 

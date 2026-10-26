@@ -12,7 +12,7 @@ One module folder has two independent readers: the loader and the globs engine.
 7  <module>-tests             the last aspect, the ** remainder: never ships
 8  Aspect sha locks           DRS-only: one immutable lock per aspect
 
-Supports DDR-ASPECT-MODULESPARTITIONINTOASPECTS, DDR-ASPECT-ASPECTSAREDERIVED and DDR-ASPECT-ASPECTISAGLOBSET (architecture lens).
+Supports DDR-ASPECT-MODULESPARTITIONED, DDR-ASPECT-ASPECTSAREDERIVED and DDR-ASPECT-ISAGLOBSET (architecture lens).
 ```
 
 A cats module is a folder under `pwsh/`, and nothing else declares what it contains. Two components read that folder, and neither reads the
@@ -24,7 +24,7 @@ description:
   "One module folder is read by two components that never read each other: the loader derives the manifest and so what the module exports,
   and the globs engine derives the live and tests sets and so what ships."
 about:
-  adrs: [DDR-ASPECT-MODULESPARTITIONINTOASPECTS, DDR-ASPECT-ASPECTSAREDERIVED, DDR-ASPECT-ASPECTISAGLOBSET]
+  adrs: [DDR-ASPECT-MODULESPARTITIONED, DDR-ASPECT-ASPECTSAREDERIVED, DDR-ASPECT-ISAGLOBSET]
   lens: architecture
 content:
   title: One module folder has two independent readers
@@ -102,16 +102,16 @@ layout:
 ## Why it holds
 
 - Every module partitions its tracked files into aspects that are disjoint and exhaustive: no file in two aspects, no file in none
-  (DDR-ASPECT-MODULESPARTITIONINTOASPECTS).
+  (DDR-ASPECT-MODULESPARTITIONED).
 - Aspects are derived from folder conventions, never declared by hand; ordered first match with a `**` remainder makes the partition true by
   construction (DDR-ASPECT-ASPECTSAREDERIVED).
 - Each aspect is its own versioned artifact, so a test-only change never re-keys `live` and a runtime change never re-keys `tests`
-  (DDR-ASPECT-ASPECTISAGLOBSET).
+  (DDR-ASPECT-ISAGLOBSET).
 
 ## Where the code and the decision record differ
 
-- DDR-ASPECT-ASPECTISAGLOBSET makes each aspect a sha lock with a `<unit>-<aspect>.yml` marker by way of FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT,
-  but that rule computes change from git at real refs, never from a committed hash, and no aspect marker exists.
+- DDR-ASPECT-ISAGLOBSET makes each aspect a sha lock with a `<unit>-<aspect>.yml` marker by way of FDR-GLOBS-CHANGECOMPUTEDFROMGIT, but that
+  rule computes change from git at real refs, never from a committed hash, and no aspect marker exists.
 - DDR-ASPECT-ASPECTSAREDERIVED prefixes every aspect pattern with the unit root, but the tests set also reaches the language test folders
   outside it.
 

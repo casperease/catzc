@@ -6,4 +6,4 @@ The tests of `Get-DrsDomainEdges` over a fixture `DrsConfig`, with `Get-Config` 
 
 The registry's own construction holds the edge invariants: declared ends, no self-edge, acyclic. So the tests pin only the projection. The
 fixture names are neutral
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+([ADR-AUTO-TEST-DISTINCTFIXTURES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtures)).

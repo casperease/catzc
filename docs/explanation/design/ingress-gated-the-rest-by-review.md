@@ -12,13 +12,13 @@ Only ingress is checked by gates; the source-of-truth and integration rules rest
 7  consumer clones  meant to build on the verified point; nothing resolves it
 
 Supports DDR-REMOTE-SERVERREMOTEISTRUTH, DDR-REMOTE-INTEGRATEFROMVERIFIED, DDR-REMOTE-NORECONCILINGTIPS
-and DDR-REMOTE-PULLREQUESTISINGRESS, ADR-REPO-VARIANT-GITWORKSPACE and FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD (governance lens).
+and DDR-REMOTE-PULLREQUESTISINGRESS, ADR-REPO-VARIANT-GITWORKSPACE and FDR-LIFE-SYNCFROMVERIFIEDHEAD (governance lens).
 ```
 
 DDR-REMOTE makes four rules about the server remote, but only one of them is checked by something that runs. The way in has two gates: a
 local guard in cats and a branch policy on the server. The rule that the server is the single truth, and the rules about where consumers
 integrate from, are checked by code review alone. Following a commit from a local clone to a consumer, each step carries a rule chip for the
-rule that governs it: R is DDR-REMOTE, V is ADR-REPO-VARIANT and L is FDR-CD-LIFE.
+rule that governs it: R is DDR-REMOTE, V is ADR-REPO-VARIANT and L is FDR-LIFE.
 
 ```yml drawio
 description:
@@ -31,7 +31,7 @@ about:
     - DDR-REMOTE-NORECONCILINGTIPS
     - DDR-REMOTE-PULLREQUESTISINGRESS
     - ADR-REPO-VARIANT-GITWORKSPACE
-    - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+    - FDR-LIFE-SYNCFROMVERIFIEDHEAD
   lens: governance
 content:
   title: Only ingress is checked by gates; the source-of-truth and integration rules rest on code review
@@ -73,7 +73,7 @@ content:
     - { at: band-remote, kind: rule, rule: DDR-REMOTE-SERVERREMOTEISTRUTH, gated: false }
     - { at: g-review, kind: rule, rule: DDR-REMOTE-INTEGRATEFROMVERIFIED, gated: false }
     - { at: g-review, kind: rule, rule: DDR-REMOTE-NORECONCILINGTIPS, gated: false }
-    - { at: g-review, kind: rule, rule: FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD, gated: false }
+    - { at: g-review, kind: rule, rule: FDR-LIFE-SYNCFROMVERIFIEDHEAD, gated: false }
   legend: auto
   minimaps: [code-locations, module-neighbourhood, axis]
 layout:
@@ -114,7 +114,7 @@ layout:
 - The server remote is the single source of truth, and clones are bridges to it (DDR-REMOTE-SERVERREMOTEISTRUTH).
 - Consumers integrate from the last remote-verified commit and so never reconcile a rewritten tip (DDR-REMOTE-INTEGRATEFROMVERIFIED,
   DDR-REMOTE-NORECONCILINGTIPS); that commit is the BVT-verified server head, the same one `main-UAT` takes first
-  (FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD).
+  (FDR-LIFE-SYNCFROMVERIFIEDHEAD).
 - The pull request is the authenticated ingress, enforced by the server branch policy (DDR-REMOTE-PULLREQUESTISINGRESS).
 - `git_workspace` selects the regime, and its single stop condition is a direct commit while standing on main or master in `main-via-pr`
   (ADR-REPO-VARIANT-GITWORKSPACE).

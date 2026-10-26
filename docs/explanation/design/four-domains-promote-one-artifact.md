@@ -11,8 +11,8 @@ Every pipeline kind after CI promotes the one artifact CI built, and each enviro
 6  pre-prod -> production   DEPLOY-Prod: staged inactive, then activated live
 7  tagged artifact          the one build every later domain promotes, never rebuilt
 
-Supports FDR-CD-LIFE-ONECOMMITPERENVIRONMENT, FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD, FDR-CD-LIFE-DIRTYHEADUNSAFE
-and FDR-CD-LIFE-FAILEDSTAYSUPSTREAM (architecture lens).
+Supports FDR-LIFE-ONECOMMITPERENVIRONMENT, FDR-LIFE-SYNCFROMVERIFIEDHEAD, FDR-LIFE-DIRTYHEADUNSAFE
+and FDR-LIFE-FAILEDSTAYSUPSTREAM (architecture lens).
 ```
 
 The commit ladder in cats is cut into domains: GIT, then the pipeline kinds CI, CD, DEPLOY-Non-Prod and DEPLOY-Prod. Every domain after CI
@@ -25,10 +25,10 @@ description:
   environment holding one commit as its occupant, and the tagged artifact CI built once that every later domain promotes."
 about:
   adrs:
-    - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
-    - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
-    - FDR-CD-LIFE-DIRTYHEADUNSAFE
-    - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+    - FDR-LIFE-ONECOMMITPERENVIRONMENT
+    - FDR-LIFE-SYNCFROMVERIFIEDHEAD
+    - FDR-LIFE-DIRTYHEADUNSAFE
+    - FDR-LIFE-FAILEDSTAYSUPSTREAM
   lens: architecture
 content:
   title: Four pipeline kinds promote one artifact that CI built once
@@ -135,12 +135,12 @@ layout:
 ## Why it holds
 
 - Each always-on environment hosts exactly one commit, its occupant, plus a history of the commits it held before
-  (FDR-CD-LIFE-ONECOMMITPERENVIRONMENT).
+  (FDR-LIFE-ONECOMMITPERENVIRONMENT).
 - Upstream integrators sync from the BVT-verified server head, the same commit the always-on non-prod environment takes first, so the commit
-  synced from and the commit `main-uat` takes are one (FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD).
+  synced from and the commit `main-uat` takes are one (FDR-LIFE-SYNCFROMVERIFIEDHEAD).
 - The tip of main is only the newest commit; when it has failed a downstream stage it is the dirty HEAD, and nobody syncs or promotes from
-  it (FDR-CD-LIFE-DIRTYHEADUNSAFE).
-- A commit that fails a stage cannot go downstream: neither promotion nor consumption proceeds from it (FDR-CD-LIFE-FAILEDSTAYSUPSTREAM).
+  it (FDR-LIFE-DIRTYHEADUNSAFE).
+- A commit that fails a stage cannot go downstream: neither promotion nor consumption proceeds from it (FDR-LIFE-FAILEDSTAYSUPSTREAM).
 - A CD pipeline always contains the CI component, and the pipeline kinds share one key, the immutable tagged artifact
   (FDR-CD-SEPARATEPIPELINEKINDS, FDR-CD-CDCONTAINSCI).
 

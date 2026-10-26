@@ -30,9 +30,8 @@ $InformationPreference = 'SilentlyContinue' does NOT stop the output —
 only not writing it does. Test-Automation sets $global:__PesterRunning,
 and this guard returns before writing. Tests that need to assert writer output lift the flag for their own scope.
 
-It is also the one way to write to the console at all
-([ADR-PWSH-ANNOUNCE-INFORMATIONSTREAMCHOKEPOINT](../../../../drs/automation/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-informationstreamchokepoint)):
-nothing in the toolset calls Write-Host, `[Console]::Write` or
+It is also the one way to write to the console at all ([ADR-PWSH-ANNOUNCE-INFORMATIONCHOKEPOINT][r1]): nothing in the toolset calls
+Write-Host, `[Console]::Write` or
 $Host.UI. -NoNewline covers the one thing those were used for — an inline
 liveness dot
 ([ADR-AUTO-CONSOLE-NOBOXDRAWING](../../../../drs/automation/console-output-matters.md#rule-adr-auto-console-noboxdrawing)). It wraps
@@ -75,3 +74,5 @@ routed through it can leak into test output. The description above says why a fl
 
 The `ConsoleColor` to ANSI SGR map lives once, in the `Ansi` type shared with the rainbow writer, so this chokepoint and `RainbowColor` can
 never disagree on a colour's code. An empty code means no escape.
+
+[r1]: ../../../../drs/automation/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-informationchokepoint

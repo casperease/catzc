@@ -19,7 +19,7 @@ platform:
 - Windows: delete the MSI install folder and strip it from the machine PATH (needs Administrator).
 - Linux: evict via the mechanism that placed it — apt package / uv-Python pip / stray binary (Remove-LinuxToolInstall); elevation is scoped
   to the mechanism
-  ([ADR-AUTO-REMOVE-ELEVATIONFOLLOWSMECHANISM](../../../drs/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-elevationfollowsmechanism)).
+  ([ADR-AUTO-REMOVE-ELEVATIONBYMECHANISM](../../../drs/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-elevationbymechanism)).
 
 -Force confirms the destructive action; without it the plan is reported and nothing changes
 ([ADR-AUTO-REMOVE-DOUBLYGUARDED](../../../drs/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-doublyguarded)). Usually reached
@@ -61,4 +61,4 @@ An install the tooling system manages is refused and the caller is sent to `Unin
 
 An off-config install is evicted by the mechanism that placed it: a native package manager, a uv-Python pip, or a stray binary. Elevation is
 that mechanism's and is never asserted up front
-([ADR-AUTO-REMOVE-ELEVATIONFOLLOWSMECHANISM](../../../drs/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-elevationfollowsmechanism)).
+([ADR-AUTO-REMOVE-ELEVATIONBYMECHANISM](../../../drs/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-elevationbymechanism)).

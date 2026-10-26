@@ -1,6 +1,6 @@
 # pwsh/Base.Globs/tests/Get-GlobSetChangeRange.Tests.ps1
 
-The tests of `Get-GlobSetChangeRange`, the reference-commit resolver ([FDR-CD-DETECT](../../../../drs/flow/pipeline-detection.md)).
+The tests of `Get-GlobSetChangeRange`, the reference-commit resolver ([FDR-DETECT](../../../../drs/flow/pipeline-detection.md)).
 
 ## What it proves
 

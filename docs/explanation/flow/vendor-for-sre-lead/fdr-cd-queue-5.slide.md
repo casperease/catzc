@@ -15,7 +15,7 @@ catzc:
 
 ## Eyebrow
 
-5 / 30 · fact for the SRE Lead · FDR-CD-QUEUE
+5 / 30 · fact for the SRE Lead · FDR-QUEUE
 
 ## Lead
 
@@ -32,4 +32,4 @@ From the catalogue, reduced: a merge runs cd to prod.
 
 ## Notes
 
-Check it: the record FDR-CD-QUEUE in docs/drs/index.md, and the diagram docs/explanation/flow/.assets/a-merge-runs-cd-to-prod.drawio.png.
+Check it: the record FDR-QUEUE in docs/drs/index.md, and the diagram docs/explanation/flow/.assets/a-merge-runs-cd-to-prod.drawio.png.

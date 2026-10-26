@@ -12,9 +12,9 @@ Gates check the source of each globset and the trigger, but not the git reflecti
 7  Git reflection            the change check from git at real refs; no gate checks it
 8  Live identity             the durable SHA, never committed; no gate checks it
 
-Supports FDR-CD-GLOBS-NAMEDGLOBSETS, FDR-CD-GLOBS-REPOSITORYRELATIVEPATTERNS, FDR-CD-GLOBS-MALFORMEDPATTERNREJECTED,
-FDR-CD-GLOBS-TRACKEDFILESONLY, FDR-CD-GLOBS-DURABLESHAIDENTITY, FDR-CD-GLOBS-NATIVEPATHFILTER, FDR-CD-GLOBS-EVERYSETHASLAYER,
-FDR-CD-GLOBS-COMPOSESETS, FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT, FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
+Supports FDR-GLOBS-NAMEDGLOBSETS, FDR-GLOBS-RELATIVEPATTERNS, FDR-GLOBS-MALFORMEDPATTERNREJECTED,
+FDR-GLOBS-TRACKEDFILESONLY, FDR-GLOBS-DURABLESHAIDENTITY, FDR-GLOBS-NATIVEPATHFILTER, FDR-GLOBS-EVERYSETHASLAYER,
+FDR-GLOBS-COMPOSESETS, FDR-GLOBS-CHANGECOMPUTEDFROMGIT, FDR-GLOBS-NOOVERLAPWITHINLAYER
 and ADR-AUTO-TEST-QUALITYGATE (governance lens).
 ```
 
@@ -30,16 +30,16 @@ description:
   held by the ADR rules alone.
 about:
   adrs:
-    - FDR-CD-GLOBS-NAMEDGLOBSETS
-    - FDR-CD-GLOBS-REPOSITORYRELATIVEPATTERNS
-    - FDR-CD-GLOBS-MALFORMEDPATTERNREJECTED
-    - FDR-CD-GLOBS-TRACKEDFILESONLY
-    - FDR-CD-GLOBS-DURABLESHAIDENTITY
-    - FDR-CD-GLOBS-NATIVEPATHFILTER
-    - FDR-CD-GLOBS-EVERYSETHASLAYER
-    - FDR-CD-GLOBS-COMPOSESETS
-    - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
-    - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
+    - FDR-GLOBS-NAMEDGLOBSETS
+    - FDR-GLOBS-RELATIVEPATTERNS
+    - FDR-GLOBS-MALFORMEDPATTERNREJECTED
+    - FDR-GLOBS-TRACKEDFILESONLY
+    - FDR-GLOBS-DURABLESHAIDENTITY
+    - FDR-GLOBS-NATIVEPATHFILTER
+    - FDR-GLOBS-EVERYSETHASLAYER
+    - FDR-GLOBS-COMPOSESETS
+    - FDR-GLOBS-CHANGECOMPUTEDFROMGIT
+    - FDR-GLOBS-NOOVERLAPWITHINLAYER
     - ADR-AUTO-TEST-QUALITYGATE
   lens: governance
 content:
@@ -80,20 +80,20 @@ content:
     - { at: g-git-reflection, number: 7 }
     - { at: g-live-identity, number: 8 }
   chips:
-    - { at: f-registry, kind: rule, rule: FDR-CD-GLOBS-NAMEDGLOBSETS }
-    - { at: f-registry, kind: rule, rule: FDR-CD-GLOBS-EVERYSETHASLAYER }
-    - { at: f-registry, kind: rule, rule: FDR-CD-GLOBS-NOOVERLAPWITHINLAYER }
-    - { at: g-independence, kind: rule, rule: FDR-CD-GLOBS-NOOVERLAPWITHINLAYER }
+    - { at: f-registry, kind: rule, rule: FDR-GLOBS-NAMEDGLOBSETS }
+    - { at: f-registry, kind: rule, rule: FDR-GLOBS-EVERYSETHASLAYER }
+    - { at: f-registry, kind: rule, rule: FDR-GLOBS-NOOVERLAPWITHINLAYER }
+    - { at: g-independence, kind: rule, rule: FDR-GLOBS-NOOVERLAPWITHINLAYER }
     - { at: g-independence, kind: rule, rule: ADR-AUTO-TEST-QUALITYGATE }
-    - { at: g-config-load, kind: rule, rule: FDR-CD-GLOBS-MALFORMEDPATTERNREJECTED }
-    - { at: g-config-load, kind: rule, rule: FDR-CD-GLOBS-COMPOSESETS }
-    - { at: g-scan-program, kind: rule, rule: FDR-CD-GLOBS-REPOSITORYRELATIVEPATTERNS }
-    - { at: g-scan-program, kind: rule, rule: FDR-CD-GLOBS-TRACKEDFILESONLY }
-    - { at: g-scan-program, kind: rule, rule: FDR-CD-GLOBS-COMPOSESETS }
-    - { at: g-projection, kind: rule, rule: FDR-CD-GLOBS-NATIVEPATHFILTER }
-    - { at: g-git-reflection, kind: rule, rule: FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT, gated: false }
-    - { at: g-live-identity, kind: rule, rule: FDR-CD-GLOBS-DURABLESHAIDENTITY, gated: false }
-    - { at: g-trigger-gates, kind: rule, rule: FDR-CD-GLOBS-NATIVEPATHFILTER }
+    - { at: g-config-load, kind: rule, rule: FDR-GLOBS-MALFORMEDPATTERNREJECTED }
+    - { at: g-config-load, kind: rule, rule: FDR-GLOBS-COMPOSESETS }
+    - { at: g-scan-program, kind: rule, rule: FDR-GLOBS-RELATIVEPATTERNS }
+    - { at: g-scan-program, kind: rule, rule: FDR-GLOBS-TRACKEDFILESONLY }
+    - { at: g-scan-program, kind: rule, rule: FDR-GLOBS-COMPOSESETS }
+    - { at: g-projection, kind: rule, rule: FDR-GLOBS-NATIVEPATHFILTER }
+    - { at: g-git-reflection, kind: rule, rule: FDR-GLOBS-CHANGECOMPUTEDFROMGIT, gated: false }
+    - { at: g-live-identity, kind: rule, rule: FDR-GLOBS-DURABLESHAIDENTITY, gated: false }
+    - { at: g-trigger-gates, kind: rule, rule: FDR-GLOBS-NATIVEPATHFILTER }
     - { at: g-trigger-gates, kind: rule, rule: ADR-AUTO-TEST-QUALITYGATE }
   legend: auto
   minimaps: [code-locations, module-neighbourhood, axis]
@@ -137,17 +137,17 @@ layout:
 
 ## Why it holds
 
-- One registry in `globs.yml` maps every area-of-control, and its three roles are derived (FDR-CD-GLOBS-NAMEDGLOBSETS).
-- A pattern is repo-relative and `/`-separated, with `**` as the only cross-segment operator (FDR-CD-GLOBS-REPOSITORYRELATIVEPATTERNS), and
-  malformed patterns are rejected at config load (FDR-CD-GLOBS-MALFORMEDPATTERNREJECTED).
-- Membership is an ordered scan program over tracked files, evaluated last-match-wins (FDR-CD-GLOBS-TRACKEDFILESONLY), and compose puts the
-  base first and the set's own rules last (FDR-CD-GLOBS-COMPOSESETS).
-- The identity is live and never committed (FDR-CD-GLOBS-DURABLESHAIDENTITY); triggers are the native projection
-  (FDR-CD-GLOBS-NATIVEPATHFILTER); the change check reflects git (FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT).
-- Every set carries a layer (FDR-CD-GLOBS-EVERYSETHASLAYER), and sets in one layer never overlap on their own contribution
-  (FDR-CD-GLOBS-NOOVERLAPWITHINLAYER).
+- One registry in `globs.yml` maps every area-of-control, and its three roles are derived (FDR-GLOBS-NAMEDGLOBSETS).
+- A pattern is repo-relative and `/`-separated, with `**` as the only cross-segment operator (FDR-GLOBS-RELATIVEPATTERNS), and malformed
+  patterns are rejected at config load (FDR-GLOBS-MALFORMEDPATTERNREJECTED).
+- Membership is an ordered scan program over tracked files, evaluated last-match-wins (FDR-GLOBS-TRACKEDFILESONLY), and compose puts the
+  base first and the set's own rules last (FDR-GLOBS-COMPOSESETS).
+- The identity is live and never committed (FDR-GLOBS-DURABLESHAIDENTITY); triggers are the native projection (FDR-GLOBS-NATIVEPATHFILTER);
+  the change check reflects git (FDR-GLOBS-CHANGECOMPUTEDFROMGIT).
+- Every set carries a layer (FDR-GLOBS-EVERYSETHASLAYER), and sets in one layer never overlap on their own contribution
+  (FDR-GLOBS-NOOVERLAPWITHINLAYER).
 - A quality gate checks one property of the whole repository, collects every issue and throws once (ADR-AUTO-TEST-QUALITYGATE).
-- The projected filters are generated from `globs.yml`, never hand-authored (FDR-CD-GLOBS-NATIVEPATHFILTER); this part is held by the FDR
+- The projected filters are generated from `globs.yml`, never hand-authored (FDR-GLOBS-NATIVEPATHFILTER); this part is held by the FDR
   alone, since the gates check equality with the projection but nothing writes the YAML.
 
 ## Where the code and the decision record differ

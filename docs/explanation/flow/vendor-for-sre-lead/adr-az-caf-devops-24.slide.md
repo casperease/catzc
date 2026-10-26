@@ -14,7 +14,7 @@ catzc:
 
 ## Eyebrow
 
-24 / 30 · fact for the SRE Lead · ADR-AZ-CAF-DEVOPS
+24 / 30 · fact for the SRE Lead · EDR-AZ-CAF-DEVOPS
 
 ## Lead
 
@@ -31,5 +31,5 @@ From the catalogue, reduced: ingress gated the rest by review.
 
 ## Notes
 
-Check it: the record ADR-AZ-CAF-DEVOPS in docs/drs/index.md, and the diagram
+Check it: the record EDR-AZ-CAF-DEVOPS in docs/drs/index.md, and the diagram
 docs/explanation/design/.assets/ingress-gated-the-rest-by-review.drawio.png.

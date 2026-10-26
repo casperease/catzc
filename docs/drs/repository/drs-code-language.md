@@ -20,12 +20,12 @@ the rule. The kind is always the first part and is one of the closed set of kind
 
 - [One path for every level](drs-code-language.md#one-path-for-every-level)
 
-### Rule ADR-REPO-DRSCODE-CAPITALIZATION
+### Rule ADR-REPO-DRSCODE-UPPERCASESEGMENTS
 
-Every segment is written in upper case. The setting is declared once, as `code_language.capitalization` in `drs-checks.yml`, and every tool
-that writes or checks a code reads it from there.
+Every segment of a code is upper case, in a code and in a rule heading alike. The `code_language.capitalization` setting in
+`drs-checks.yml` holds the casing, and `Test-DrsCode` judges a code against it.
 
-- [One case, set once](drs-code-language.md#one-case-set-once)
+- [Upper case everywhere](drs-code-language.md#upper-case-everywhere)
 
 ### Rule ADR-REPO-DRSCODE-DOMAINSEGMENT
 
@@ -36,64 +36,64 @@ its kind, then its code where it has one.
 
 - [The domain comes first](drs-code-language.md#the-domain-comes-first)
 
-### Rule ADR-REPO-DRSCODE-RECORDSEGMENT
+### Rule ADR-REPO-DRSCODE-FIXEDPOSITIONS
 
-The segment after the domain names the record, unique within its domain, and the segment after the record names the rule. The positions are
-fixed: a record never nests in a record, so a record of a record is its own record. The one exception is the source path of an `EDR` record,
-which ADR-REPO-DRSCODE-EXTERNALKIND gives.
+A code has fixed positions: the kind, the domain where the kind is shared, the record, the rule. No record nests in another record, so a
+record is never a prefix of another record's code, and a family of records is a family of sibling records, each its own code. The one exception is an external record, whose code keeps the path of its source
+([ADR-REPO-DRSCODE-EXTERNALRECORDS](drs-code-language.md#rule-adr-repo-drscode-externalrecords)).
 
-```text
-FDR-LIFE-DISCARDISTERMINAL, never FDR-CD-LIFE-DISCARDISTERMINAL
-```
+- [Fixed positions](drs-code-language.md#fixed-positions)
 
-- [Positions are fixed](drs-code-language.md#positions-are-fixed)
+### Rule ADR-REPO-DRSCODE-ADRSEGMENT
 
-### Rule ADR-REPO-DRSCODE-EXTERNALKIND
+The segment after the domain names the record, unique within its parent. The record of outside guidance is the one record that carries
+more than one segment there, its source path.
 
-Every external source catzc reads, such as a vendor framework, a research program, a manifesto, a theory or a third-party tool, is an `EDR`
-record of the external domain. Its code is `EDR` followed by the source's path in the source's own short names. An `EDR` rule states how
-catzc reads the source and how it binds to the other records, with a `source:` line naming the page it reads; catzc's own decision stays in
-the `ADR` or `PDR` that cites it. The `RDR` kind is retired, and the Azure DevOps records and the Azure CLI record stay `ADR`, because they
-are catzc's own decisions about a vendor tool.
+- [The record names the decision](drs-code-language.md#the-record-names-the-decision)
 
-```text
-EDR-AZ-CAF-GOV   EDR-DORA-CI   EDR-LEAN   EDR-PWSH-PESTER
-```
+### Rule ADR-REPO-DRSCODE-EXTERNALRECORDS
 
-- [External sources are their own kind](drs-code-language.md#external-sources-are-their-own-kind)
+Outside guidance is held as records of the `EDR` kind, which one domain owns, so an `EDR` code carries no domain segment. The
+code keeps the path of its source as group segments after the kind: `EDR-DORA-CI` for a DORA capability, `EDR-AZ-WAF-RE` for a
+Well-Architected pillar, `EDR-AZ-CAF-GOV` for a Cloud Adoption Framework design area, `EDR-PWSH-PESTER` for Pester. An external rule states how
+the repository reads the source item, with a `Source:` line that names it; the repository's own decision stays in the ADR or PDR that cites
+the rule. No `RDR` kind is registered: the DORA research records are `EDR` records, as are the Well-Architected, Cloud Adoption Framework,
+Agile, lean and Pester records.
+
+- [Outside guidance is its own kind](drs-code-language.md#outside-guidance-is-its-own-kind)
 
 ### Rule ADR-REPO-DRSCODE-NAMEDNOTNUMBERED
 
-A rule of catzc's own is named, never numbered: its last segment says what the rule says, as spelled-out words joined (the rule "bound every
-wait" of `ADR-AUTO-FAILFAST` is `ADR-AUTO-FAILFAST-` followed by those three words).
+A rule of the repository's own records is named, never numbered: its last segment says what the rule says, as spelled-out words joined with
+no separator (the rule "bound every wait" of `ADR-AUTO-FAILFAST` is `ADR-AUTO-FAILFAST-` followed by those three words). A rule of an
+external record answers a source item and takes the source's own id ([ADR-REPO-DRSCODE-NATIVEEXTERNALIDS](drs-code-language.md#rule-adr-repo-drscode-nativeexternalids)).
 
 - [Names, not numbers](drs-code-language.md#names-not-numbers)
 
-### Rule ADR-REPO-DRSCODE-NATIVEIDSOUTSIDE
+### Rule ADR-REPO-DRSCODE-NATIVEEXTERNALIDS
 
-An external item keeps the id its source gives it: a Well-Architected rule its item id, a Cloud Adoption Framework rule its checklist item
-number within its record. The named form binds catzc's own rules only.
+An external rule keeps the source's id for its item: a Well-Architected rule its item id (`EDR-AZ-WAF-RE-RE01`), a Cloud Adoption Framework
+rule its item number in its record, in the record's authored order (`EDR-AZ-CAF-GOV-R01`). A source that names its items without ids is read
+by name, as the repository's own rules are.
 
-```text
-EDR-AZ-WAF-RE-RE01   EDR-AZ-CAF-GOV-R01
-```
-
-- [Native ids outside](drs-code-language.md#native-ids-outside)
+- [The source names its items](drs-code-language.md#the-source-names-its-items)
 
 ### Rule ADR-REPO-DRSCODE-RULENAMEBUDGET
 
-A rule name, the last segment of a rule code, is at most `code_language.max_rule_chars` characters (24), set once in `drs-checks.yml` and
-held by `Test-DrsCode -Rule`. A name that does not fit drops a word only where the spell checker's English dictionary proves the boundary,
-or takes a hand name.
+A named rule's last segment is at most 24 characters. The `code_language.max_rule_chars` setting in `drs-checks.yml` holds the budget, and
+`Test-DrsCode -Rule` judges a rule's code against it. A name that outgrows the budget says the same thing in fewer words, dropping a word
+the record already says.
 
-- [A budget for every name](drs-code-language.md#a-budget-for-every-name)
+- [A rule name is short](drs-code-language.md#a-rule-name-is-short)
 
-### Rule ADR-REPO-DRSCODE-UNIQUERULENAMES
+### Rule ADR-REPO-DRSCODE-RULENAMESUNIQUE
 
-Every rule name is unique in the repository. `Format-DrsCode` therefore compacts a code to record plus rule, kind plus rule, or the rule
-alone without losing its identity, where space is short; prose keeps the full code.
+A named rule's last segment is unique in the repository, so the rule name alone names exactly one rule and a code can be written short
+without losing its identity: the record and the rule, the kind and the rule, or the rule alone (`Format-DrsCode`). Prose keeps the full code
+([ADR-REPO-LINK-ONECITATIONSPELLING](markdown-links.md#rule-adr-repo-link-onecitationspelling)). Where two rules would share a name, the most
+general keeps the plain name and the other takes a word of its record.
 
-- [Unique names compact](drs-code-language.md#unique-names-compact)
+- [A rule name is unique](drs-code-language.md#a-rule-name-is-unique)
 
 ### Rule ADR-REPO-DRSCODE-SEGMENTSAREWORDS
 
@@ -149,74 +149,72 @@ A rule registry keeps the order its ADR writes the rules in. Rules are never sor
 
 ## Context
 
-Every record, rule, and citation in this repository shares one grammar, and `docs/drs/index.md` lists every code. A rule is a fact the
+Every ADR, rule, and citation in this repository shares one marker, `ADR-`, and `docs/drs/index.md` lists every code. A rule is a fact the
 codebase is held to, and code, tests, configuration, and prose cite it constantly: one design rule alone is cited more than nine hundred
-times. The code a reader sees is the only hint, before opening the record, of what that citation asks for, so a code must be easy to see and
-remember, unique in the repository, show its source, and stay compact without losing its identity.
+times. The code a reader sees is the only hint, before opening the ADR, of what that citation asks for.
 
 ### One system holds every record
 
-The repository's decisions are of seven kinds, from the thesis to the architecture of one implementation domain and the external sources
-they read, and one index, one registry and one grammar serve them all. Naming that whole after one of its kinds would make "ADR" mean both a
-kind and everything, so the system has its own name, the DRS, and a record of any kind is a decision record. "XDR" is the family of kind
-codes, X standing for the kind's letter.
+The repository's decisions are of seven kinds, from the thesis to the architecture of one implementation domain, and one index, one registry
+and one grammar serve them all. Naming that whole after one of its kinds would make "ADR" mean both a kind and everything, so the system has
+its own name, the DRS, and a record of any kind is a decision record. "XDR" is the family of kind codes, X standing for the kind's letter.
 
 ### One path for every level
 
 The repository's decisions form a tree: domains hold decision records, and decision records hold rules. One grammar with one separator
-spells every level of that tree, so a domain, a record, and a rule are read, searched, and parsed the same way. A second spelling for one
+spells every level of that tree, so a domain, an ADR, and a rule are read, searched, and parsed the same way. A second spelling for one
 level, such as a number after `#` or `:`, is a second small language with its own parser and its own way to go wrong.
 
-### One case, set once
+### Upper case everywhere
 
-A code is matched by an ordinal comparison, so one case is the only way two spellings of one code stay one string. Upper case also marks a
-code apart from the prose around it. Declaring the case once keeps the writers and the checks from each assuming their own.
+A code is read, typed and searched all day, so it has one casing. Upper case makes a code stand out from the prose around it, and a search
+for the kind marker finds a code and never a word.
 
 ### The domain comes first
 
 The most general part comes first, so the codes of one domain sort together and one prefix search finds them. A code that leaves out its
 domain's prefix, or names another domain than the folder it lives in, breaks both. The kind says before the record is opened whether it is a
-thesis, an axiom, a way of working, a design, a flow, an external source, or an architecture decision; where one domain owns its kind, one
+thesis, an axiom, a way of working, a design, a flow, a piece of outside guidance, or an architecture decision; where one domain owns its kind, one
 segment says both and the domain segment would only repeat it.
 
-### Positions are fixed
+### Fixed positions
 
-A code whose segments mean different things at different depths has to be parsed against the registry before a reader knows which part is
-the record. With fixed positions, the last segment is the rule and the one before it the record, everywhere, so a code is read the same way
-whether it is short or long. A record that grew inside another is its own record, and its parent cites it.
+Each position of a code means one thing, so a reader and a parser both know what a segment is by where it stands. A record nested in a
+record gives a segment two meanings, a record in one code and a part of a record in another, and makes a prefix select a record together
+with its children. Flat sibling records keep every prefix to one meaning.
 
-### External sources are their own kind
+### The record names the decision
 
-Cloud Adoption Framework checklists, Well-Architected pillars, the DORA capabilities, the Agile Manifesto, lean theory and Pester are not
-catzc's decisions; they are what catzc reads. Filed under catzc's own kinds, they looked like decisions catzc had made and could change. One
-kind for every external source keeps that line visible in the code itself. The kind swap keeps the rest of each code, so a source keeps its
-path, its vendor group (`CAF`, `WAF`) and its program (`DORA`) as segments. An `EDR` rule records the reading, never the decision: when
-catzc decides something because of a source, the decision is an `ADR` or `PDR` rule that cites the `EDR` rule, so changing a decision never
-means editing the record of the source. A research decision record was one source's kind; it is now one source among the external ones.
+The segment after the domain names the record. Two records under one parent never share a name, so the code of a record is its identity.
+
+### Outside guidance is its own kind
+
+What a source says is not what the repository decides. A DORA capability, a vendor checklist or a testing framework is guidance the
+repository reads, binds to its own rules, and answers. Holding the sources as one kind keeps them apart from the decisions that cite them,
+so a search for `ADR`, `PDR` or `DDR` finds only the repository's own decisions, and a search for `EDR` finds every source. The source path
+in the code (`EDR-AZ-CAF-GOV`) tells where a rule comes from without opening it, and the one `external` domain owns the kind, so the code needs
+no domain segment.
 
 ### Names, not numbers
 
-A number says nothing about its rule: a reader learns nothing from `#7` without opening the record. A name tells the reader what the
-citation asks for, so the citation itself carries the fact. Names follow the spell-out rule for identifiers
+A number says nothing about its rule: a reader learns nothing from `#7` without opening the ADR. A name tells the reader what the citation
+asks for, so the citation itself carries the fact. Names follow the spell-out rule for identifiers
 ([spell-out-names](../automation/spell-out-names.md)), because a citation is read like one.
 
-### Native ids outside
+### The source names its items
 
-A source's own id for an item is the most precise name an external rule can have, and it is the one a reader finds in the source. A name
-catzc gave an external item would be a translation that drifts from the source. A checklist that names its items without ids gets the item's
-number within the record, which the source's order fixes.
+A source's own id for an item is the most precise name such a rule can have, and a reader who knows the source finds the item by it. The
+repository does not rename another party's items.
 
-### A budget for every name
+### A rule name is short
 
-Names were spelled out with no cap, and the longest ran to more than seventy characters, too long to read at a glance or keep in mind. A cap
-of 24 keeps every name a few words. Dropping a word mechanically is only safe where the word boundary is certain, so a dictionary proves it;
-otherwise a person chooses the shorter name.
+A code is typed and read in a sentence, and a long rule name pushes the line past its width. A budget of 24 characters keeps a name to a few
+words, and a name that needs more says too much for one rule.
 
-### Unique names compact
+### A rule name is unique
 
-A rule name that repeats across records needs its record to say which rule it is. A name that is unique in the repository says it alone, so
-a diagram chip, a test tag or a narrow table cell can show the short form, and a search for the name finds the one rule. Prose keeps the
-full code because prose is read without a tool at hand to expand the short form.
+When a rule name is unique in the repository, the name alone selects one rule, so the shorter forms of a code are safe to write and no form
+loses its identity. A rule name that two records share is a name that means two things the moment the record is dropped.
 
 ### Segments are known words
 
@@ -232,7 +230,7 @@ selection. Matching by whole segments keeps two decision records whose names mer
 
 ### One string, one fact
 
-A selector is only safe when every string has one meaning. A rule named like a sibling record would make one string mean two things, and a
+A selector is only safe when every string has one meaning. A rule named like a sibling ADR would make one string mean two things, and a
 reused name would make an old citation silently point at a new fact. A rule whose meaning changes is a different fact, so it gets a
 different name and its old citations fail the link check instead of drifting.
 
@@ -251,24 +249,22 @@ legend that turns each key into a full named code, so the citation on the slide 
 
 ### Authored order
 
-A record orders its rules to be read, general before specific. Numbers gave that order for free; without them the registry keeps it as
+An ADR orders its rules to be read, general before specific. Numbers gave that order for free; without them the registry keeps it as
 written.
 
 ## Decision
 
-Decision record codes are paths of named segments in fixed positions: the record kind, the domain where the kind is shared, the record, and
-the rule, in upper case, each rule name unique in the repository and at most 24 characters. External sources are `EDR` records that keep
-their source's path and ids. Every code is a fact and a selector of everything under it, with no numbers for catzc's own rules and no group
-syntax.
+Decision record codes are paths of upper-case named segments: the record kind, the domain where the kind is shared, the record, and the
+rule, each in a fixed position. A rule name is short and unique in the repository, outside guidance keeps its path and its own item ids
+under the `EDR` kind, and every code is a fact and a selector of everything under it, with no group syntax.
 
 ### How this is enforced
 
 - **`Test-DrsRegistry`** (in `Catzc.Base.Docs`) runs the `code_language` check: a code outside the segment grammar, a code that does not
-  start with its domain's prefix, a kind that is not registered, a numbered rule heading, and a rule that shares a segment with a sibling
-  record are findings. The check's mode is configured in `drs-checks.yml`; in `report` mode its findings are printed in their own report and
-  never fail the run.
-- **`Test-DrsCode`** (in `Catzc.Base.Drs`) holds one code or rule name to the grammar, the capitalization setting and the length budget;
-  `Assert-DrsCode` throws on the same findings.
+  start with its domain's prefix, a kind that is not registered, a numbered rule heading, a rule that shares a segment with a sibling ADR, a
+  rule heading outside the casing and the name budget of `drs-checks.yml`, and a rule name that another rule shares are findings. The check's
+  mode is configured in `drs-checks.yml`; in `report` mode its findings are printed in their own report and never fail the run.
+- **`Test-DrsCode`** judges one code against the casing, and with `-Rule` against the name budget.
 - **`Test-Links`** (in `Catzc.Base.QualityGates`) reports a numbered citation in a markdown file or a code string as a finding; the test
   files whose fixtures carry one on purpose are named, each with its reason, in `links.yml` `string_citations.exempt`.
 - **`Test-GeneratedFiles`** fails when `.cspell/drs-codes.txt` is stale against the registry.
@@ -276,8 +272,8 @@ syntax.
 ## Consequences
 
 - A citation reads as the fact it cites, and `git grep ADR-AUTO-FAILFAST` finds an ADR and every rule in it.
-- A short form of a code is safe anywhere a tool or a reader can expand it, because every rule name is unique.
-- `git grep EDR` finds every external source catzc reads, apart from the decisions catzc makes.
+- A rule name is short, so fewer comment lines wrap, and a code can be written as its record and rule, or its rule alone.
 - Renaming a rule is a citation change across every file that cites it, made by `Update-DrsCitation` with a rule map, never by hand.
 - A rule added to an ADR widens what every derived `ADR-<DOMAIN>-<NAME>` entry covers; the derived lists regenerate, so the change is
   visible in review.
+- Outside guidance is read and bound in one place, so the repository's own records cite it and never copy it.

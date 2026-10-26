@@ -1,4 +1,4 @@
-Describe 'Test-AccostedCommand' -Tag 'L0', 'logic', 'ADR-AUTO-ACCOSTED-ONEREADER' {
+Describe 'Test-AccostedCommand' -Tag 'L0', 'logic', 'ADR-AUTO-ACCOSTED-ACCOSTEDONEREADER' {
     BeforeAll {
         $script:contract = {
             param([string] $Name, [hashtable] $Specs)

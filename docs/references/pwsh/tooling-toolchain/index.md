@@ -86,6 +86,7 @@ The module's public functions, sorted into the responsibilities above.
 |                                              | `Update-BatsVendor`    |
 | responsibility:2 — uv, the Python handler    | `Install-Uv`           |
 |                                              | `Uninstall-Uv`         |
+|                                              | `Remove-Uv`            |
 | responsibility:3 — Azure CLI binary          | `Install-AzCli`        |
 |                                              | `Uninstall-AzCli`      |
 |                                              | `Remove-AzCli`         |

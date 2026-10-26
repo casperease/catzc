@@ -11,11 +11,11 @@ Quality gate: every track member's committed fact agrees with the git index.
 ### description
 
 A track declares each member with a `committed` fact
-([DDR-TRACK-TRACKISPLACEDCLUSTER](../../../drs/design/tracks.md#rule-ddr-track-trackisplacedcluster)), and the git index is what it must
-agree with. A committed member of which files lie on disk but none is tracked is one issue, and a member declared not committed of which git
-tracks a file is one issue naming the first tracked file. A committed member with nothing on disk yet, such as an empty landing address, has
-nothing to disagree with. The members come from Get-TrackMember and the index from Get-GitTrackedPath, so the gate sits above both
-Catzc.Base.Variants and the git readers.
+([DDR-TRACK-ISPLACEDCLUSTER](../../../drs/design/tracks.md#rule-ddr-track-isplacedcluster)), and the git index is what it must agree with. A
+committed member of which files lie on disk but none is tracked is one issue, and a member declared not committed of which git tracks a file
+is one issue naming the first tracked file. A committed member with nothing on disk yet, such as an empty landing address, has nothing to
+disagree with. The members come from Get-TrackMember and the index from Get-GitTrackedPath, so the gate sits above both Catzc.Base.Variants
+and the git readers.
 
 Ends with Write-QualityGateReport: the report lands in out/test-track-member-committed/, and the gate throws once listing every issue (or
 returns the result with -PassThru). Needs the source tree (Assert-SourceTree).
@@ -47,8 +47,8 @@ Test-TrackMemberCommitted
 ## Declared against the index
 
 A member's committed fact is declared, and the git index is what it must agree with
-([DDR-TRACK-TRACKISPLACEDCLUSTER](../../../drs/design/tracks.md#rule-ddr-track-trackisplacedcluster)). A committed member with nothing on
-disk yet, such as an empty landing address, has nothing to disagree with.
+([DDR-TRACK-ISPLACEDCLUSTER](../../../drs/design/tracks.md#rule-ddr-track-isplacedcluster)). A committed member with nothing on disk yet,
+such as an empty landing address, has nothing to disagree with.
 
 ## Generated members
 

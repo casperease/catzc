@@ -2,7 +2,7 @@
 
 ## Rules: TDR-STORES
 
-### Rule TDR-STORES-THREEKINDS
+### Rule TDR-STORES-THREESTOREKINDS
 
 A **truth store** is any store that holds part of the truth about a delivered system. There are three kinds: a version-controlled
 repository, a fact source, and a state machine. Every store catzc reads, or reports to, is one of the three, and its kind decides how catzc
@@ -10,7 +10,7 @@ treats it.
 
 - [Three kinds of truth store](#three-kinds-of-truth-store)
 
-### Rule TDR-STORES-VERSIONCONTROLLEDREPOSITORY
+### Rule TDR-STORES-VERSIONEDREPOSITORY
 
 A **version-controlled repository** is the high-level kind of truth store whose content is a versioned history of reviewed changes; a git
 repository is one subgroup of it. Inside a responsibility domain, the version-controlled repository is the source of truth
@@ -34,8 +34,7 @@ A **fact source** is a state store: a database with a reachable live URL that ho
 Azure DevOps runtime state: environment deployments, pipeline runs, security controls, and the outer state of git (refs and pull-request
 history). Catzc reads a fact source's state only and never writes to it. A platform's configuration is not a fact source: Azure DevOps
 approvals, build validations with their branch policies, pipeline definitions, and variables are an adjacent store, driven one way from the
-trunk's pipelines
-([TDR-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD](one-source-of-truth.md#rule-tdr-onetruth-repositoryisconfigurationrecord)).
+trunk's pipelines ([TDR-ONETRUTH-REPOSITORYISRECORD](one-source-of-truth.md#rule-tdr-onetruth-repositoryisrecord)).
 
 - [Fact sources](#fact-sources)
 

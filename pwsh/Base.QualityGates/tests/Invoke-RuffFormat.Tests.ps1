@@ -20,6 +20,46 @@ Describe 'Invoke-RuffFormat' -Tag 'L0', 'logic' {
         Mock Invoke-PythonWorkspaceTool -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Tool -eq 'ruff format' } {
             [Catzc.Base.Execution.CliResult]::new('1 file reformatted', '', 0)
         }
+        $script:sortOutput = ''
+        $script:sortExit = 0
+        Mock Invoke-PythonWorkspaceTool -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Tool -eq 'ruff check --select I --output-format concise' } {
+            [Catzc.Base.Execution.CliResult]::new($script:sortOutput, '', $script:sortExit)
+        }
+        Mock Invoke-PythonWorkspaceTool -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Tool -eq 'ruff check --select I --fix' } {
+            [Catzc.Base.Execution.CliResult]::new('Found 1 error (1 fixed, 0 remaining).', '', 0)
+        }
+    }
+
+    It 'reports a file whose only fault is an unsorted import block, and sorts it before formatting it' {
+        # ruff format leaves the block as it is; the import-sort rule alone names the file.
+        $script:checkOutput = '1 file already formatted'
+        $script:checkExit = 0
+        $script:sortOutput = "tests\catzc-widget\test_widget.py:3:1: I001 [*] Import block is un-sorted or un-formatted`nFound 1 error."
+        $script:sortExit = 1
+        $script:order = [System.Collections.Generic.List[string]]::new()
+        Mock Invoke-PythonWorkspaceTool -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Tool -eq 'ruff check --select I --fix' } {
+            $script:order.Add('sort'); [Catzc.Base.Execution.CliResult]::new('Found 1 error (1 fixed, 0 remaining).', '', 0)
+        }
+        Mock Invoke-PythonWorkspaceTool -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Tool -eq 'ruff format' } {
+            $script:order.Add('format'); [Catzc.Base.Execution.CliResult]::new('1 file reformatted', '', 0)
+        }
+        $changed = InModuleScope Catzc.Base.QualityGates -Parameters @{ Files = @($script:widgetFile) } {
+            param($Files)
+            Invoke-RuffFormat -File $Files
+        }
+        $changed | Should -Be @($script:widgetFile)
+        $script:order -join ',' | Should -Be 'sort,format'
+    }
+
+    It 'lists a file once when both format and the import sort would change it' {
+        $script:sortOutput = 'tests\catzc-widget\test_widget.py:3:1: I001 [*] Import block is un-sorted or un-formatted'
+        $script:sortExit = 1
+        $changed = InModuleScope Catzc.Base.QualityGates -Parameters @{ Files = @($script:widgetFile) } {
+            param($Files)
+            Invoke-RuffFormat -File $Files -DryRun
+        }
+        $changed | Should -Be @($script:widgetFile)
+        Should -Invoke Invoke-PythonWorkspaceTool -ModuleName Catzc.Base.QualityGates -Times 0 -ParameterFilter { $Tool -eq 'ruff check --select I --fix' }
     }
 
     It 'checks every given file from the workspace, then rewrites exactly the listed files' {

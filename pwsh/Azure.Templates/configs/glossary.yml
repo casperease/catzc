@@ -58,7 +58,7 @@ concepts:
     defined_by: ADR-AZ-LZ-LANDINGZONE
     short:
       Microsoft's guidance for preparing an Azure estate; its landing-zone design principles and design areas are recorded as vendor
-      recommendation in docs/drs/azure/caf/, one rule per recommendation.
+      recommendation in docs/drs/external/azure/caf/, one rule per recommendation.
     realized_by: { kind: prose-only }
     contrasts:
       well-architected framework:
@@ -75,8 +75,8 @@ concepts:
     domain: azure
     defined_by: ADR-AZ-LZ-EVERYPILLAR
     short:
-      Microsoft's checklist of a workload's quality in five pillars; each checklist item is a rule in docs/drs/azure/waf/, numbered as
-      Microsoft numbers it.
+      Microsoft's checklist of a workload's quality in five pillars; each checklist item is a rule in docs/drs/external/azure/waf/, numbered
+      as Microsoft numbers it.
     realized_by: { kind: prose-only }
   pillar:
     key: pillar
@@ -84,7 +84,7 @@ concepts:
     defined_by: ADR-AZ-LZ-EVERYPILLAR
     short:
       One of the Well-Architected Framework's five qualities — reliability, security, cost optimization, operational excellence, performance
-      efficiency — each one ADR in docs/drs/azure/waf/.
+      efficiency — each one ADR in docs/drs/external/azure/waf/.
     realized_by: { kind: prose-only }
   break-glass login:
     key: break_glass_login
@@ -95,7 +95,7 @@ concepts:
   caf tags:
     key: caf_tags
     domain: azure
-    defined_by: ADR-AZ-CAF-NAME-DEFINETAGGINGREQUIREMENTS
+    defined_by: EDR-AZ-CAF-NAME-R11
     short:
       The six tag keys every resource carries — workload, environment, owner, cost-center, criticality, data-classification; cost-center is
       required by policy.
@@ -103,7 +103,7 @@ concepts:
   subscription vending:
     key: subscription_vending
     domain: azure
-    defined_by: ADR-AZ-CAF-RESORG-SUBSCRIPTIONVENDINGPROCESS
+    defined_by: EDR-AZ-CAF-RESORG-R19
     short:
       Onboarding a subscription by pull request — its azure.yml entry, its range in network.yml, and one config per template; the
       subscription itself is created outside the repository.

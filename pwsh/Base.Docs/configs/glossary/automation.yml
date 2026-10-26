@@ -13,7 +13,7 @@ concepts:
   bundle:
     key: bundle
     domain: automation
-    defined_by: ADR-AUTO-BUNDLE-BUNDLEISBUILD
+    defined_by: ADR-AUTO-BUNDLE-ISBUILD
     short: The toolset's build, one installable, versioned Catzc package of one named bundle, built from a profile of the exporter registry.
     realized_by: { kind: prose-only }
     contrasts:

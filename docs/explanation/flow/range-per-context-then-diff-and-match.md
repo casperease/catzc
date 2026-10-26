@@ -13,7 +13,7 @@ Test-GlobSetAffected checks the name, picks a git range per context, then diffs 
 8  $false                   the named set is not among the touched sets
 9  $true                    the named set is touched, or the diff threw and was caught
 
-Supports FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT and FDR-CD-DETECT-NODIRECTVARIABLECHECK (implementation lens).
+Supports FDR-GLOBS-CHANGECOMPUTEDFROMGIT and FDR-DETECT-NODIRECTVARIABLECHECK (implementation lens).
 ```
 
 `Test-GlobSetAffected` is a short function with a strict order. It refuses a name it does not know, asks the resolver for the git range the
@@ -25,7 +25,7 @@ description:
   Test-GlobSetAffected checks the globset name against the registry, asks the resolver for the git range of the current context, diffs that
   range and matches the paths; an unresolved range or a failed diff answers true.
 about:
-  adrs: [FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT, FDR-CD-DETECT-NODIRECTVARIABLECHECK]
+  adrs: [FDR-GLOBS-CHANGECOMPUTEDFROMGIT, FDR-DETECT-NODIRECTVARIABLECHECK]
   lens: implementation
 content:
   title: Check the name, pick the range per context, then diff git and match the paths
@@ -127,8 +127,8 @@ layout:
 
 - The change is computed from git at real refs: `Get-ChangedGlobSet` diffs a commit range with `git diff --name-only --no-renames` and
   matches the paths against the registry; `Test-GlobSetAffected` resolves the reference commit per context and fails open on any doubt
-  (FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT).
-- The context is read through `Test-IsRunningInPipeline`, never from the detection variables directly (FDR-CD-DETECT-NODIRECTVARIABLECHECK).
+  (FDR-GLOBS-CHANGECOMPUTEDFROMGIT).
+- The context is read through `Test-IsRunningInPipeline`, never from the detection variables directly (FDR-DETECT-NODIRECTVARIABLECHECK).
 
 ## See also
 

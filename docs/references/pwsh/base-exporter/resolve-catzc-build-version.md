@@ -12,7 +12,7 @@ Resolves the version a Catzc build carries — the devbox placeholder, a calcula
 ### description
 
 The one place a build version is decided
-([ADR-AUTO-BUNDLE-AUTOVERSION](../../../drs/automation/platform-bundle.md#rule-adr-auto-bundle-autoversion)); every value comes from
+([ADR-AUTO-BUNDLE-BUNDLEVERSION](../../../drs/automation/platform-bundle.md#rule-adr-auto-bundle-bundleversion)); every value comes from
 configs/exporter.yml (Get-Config -Config exporter):
 
 ```text

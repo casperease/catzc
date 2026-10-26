@@ -8,7 +8,7 @@ Changing one configuration slot runs only its owner's pipeline and reaches only 
 3  every other CD pipeline   stays still, because its filter excludes the slot's folder
 4  the slot's resource group the one resource group the slot deploys, and the only one the change reaches
 
-Supports ADR-AZ-IACKIND-THREEKINDS and ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION (operations lens).
+Supports ADR-AZ-IACKIND-THREEIACKINDS and ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION (operations lens).
 ```
 
 The smallest infrastructure change is an edit to one configuration slot: a setting of one deployment, in one file. Because a slot is one
@@ -20,7 +20,7 @@ description:
   Changing one configuration slot edits one file in the configs place of the infrastructure track; only the CD pipeline of the slot's owner
   runs, and the change reaches the one resource group the slot deploys.
 about:
-  adrs: [ADR-AZ-IACKIND-THREEKINDS, ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION]
+  adrs: [ADR-AZ-IACKIND-THREEIACKINDS, ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION]
   lens: operations
 content:
   title: Changing one configuration slot runs only its owner's pipeline and reaches only its resource group
@@ -73,7 +73,7 @@ layout:
 ## Why it holds
 
 - A configuration slot is one of the three kinds of infrastructure code, and every infrastructure file is of one kind
-  (ADR-AZ-IACKIND-THREEKINDS).
+  (ADR-AZ-IACKIND-THREEIACKINDS).
 - One config file is one (customer?, env, slot), one subscription and one Azure resource group, so a change to one file reaches one group
   (ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION).
 

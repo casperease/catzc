@@ -12,11 +12,11 @@ claim falls to the verification side and can never silently ship.
 ## Compilation onto a unit root
 
 Compilation reuses the leaf scan program
-([FDR-CD-GLOBS-TRACKEDFILESONLY](../../../../drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-trackedfilesonly)). Aspect k becomes a
-`GlobSet` with its include set to k's own patterns and its exclude set to every earlier aspect's patterns, all prefixed by the unit root. A
-leaf program is the includes as `+` then the excludes as `-`, last match wins, which is exactly first-match slicing: a file is in aspect k
-if it matches k's patterns and no earlier aspect's. Disjoint and exhaustive hold by construction, and `AspectPartition.Validate` re-checks
-against a real file universe for the integrity check.
+([FDR-GLOBS-TRACKEDFILESONLY](../../../../drs/flow/durable-sha-globs.md#rule-fdr-globs-trackedfilesonly)). Aspect k becomes a `GlobSet` with
+its include set to k's own patterns and its exclude set to every earlier aspect's patterns, all prefixed by the unit root. A leaf program is
+the includes as `+` then the excludes as `-`, last match wins, which is exactly first-match slicing: a file is in aspect k if it matches k's
+patterns and no earlier aspect's. Disjoint and exhaustive hold by construction, and `AspectPartition.Validate` re-checks against a real file
+universe for the integrity check.
 
 ## CompiledAspect
 

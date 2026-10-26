@@ -4,7 +4,7 @@
 
 ### Rule ADR-PWSH-TYPES-HOSTGUARANTEEDASSEMBLIES
 
-Host-guaranteed assemblies only — a type references the BCL language's reference set, the BCL (ADR-BCL-TYPES-BCLREFERENCESET), plus
+Host-guaranteed assemblies only — a type references the BCL language's reference set, the BCL (ADR-BCL-TYPES-REFERENCESET), plus
 `System.Management.Automation` for a type that is a configured host binding, one with its row in `bcl.yml`, and nothing else. Both are in
 `Add-Type`'s default reference set, and both are loaded in every process that can load the compiled assembly, so a `using` namespace is the
 whole binding. No external packages, no NuGet.
@@ -17,7 +17,7 @@ A type publishes a PowerShell type-accelerator by carrying `[Catzc.Base.Objects.
 after loading the assembly, so `[Name]` resolves to that type (`[Catzc.Module.Depm]::Puml`). Names carry a `Catzc.` prefix — a registration
 reclaims only our own accelerator — and the alias literal is authored in the source of the type it decorates, so a search for it lands on
 the type. This is registration, not compilation: `Add-Type` stays the sole compiler, and the decoration's cross-module edge is governed by
-the dependency graph (ADR-BCL-TYPES-REFERENCESFOLLOWDEPENDENCIES) like any other.
+the dependency graph (ADR-BCL-TYPES-REFERENCESFOLLOWDEPS) like any other.
 
 - [Type-accelerator aliases](#type-accelerator-aliases)
 

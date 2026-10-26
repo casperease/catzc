@@ -1,6 +1,6 @@
 # Flow: The manual queues of the promotion ladder — authoring, two signatures, and an automated blue-green switch
 
-A promoted commit climbs the ladder of [commit-lifecycle](commit-lifecycle.md) (`FDR-CD-LIFE`) through gates. Most of them are code: BVT
+A promoted commit climbs the ladder of [commit-lifecycle](commit-lifecycle.md) (`FDR-LIFE`) through gates. Most of them are code: BVT
 rejects a failing commit on its own, CD rolls an artifact onto the next rung on its own. A few are people, and every place a person stands
 between two rungs is a queue: work waits there until a human acts, and the wait is the flow's own source of delay
 ([FDR-CD](cd-discipline-and-promotion-flow.md)). This FDR names every such queue, says who serves it, what store records that it was served,
@@ -8,9 +8,9 @@ and which step is never allowed to become one. The pull request as the one door 
 [server-remote-integration](../design/server-remote-integration.md) (`DDR-REMOTE`); the git mechanics of a topic belong to
 [git-topic-flow](git-topic-flow.md) (`FDR-GIT`). This FDR owns the queues.
 
-## Rules: FDR-CD-QUEUE
+## Rules: FDR-QUEUE
 
-### Rule FDR-CD-QUEUE-THREEQUEUES
+### Rule FDR-QUEUE-THREEQUEUES
 
 **The promotion ladder has exactly three manual queues, each named, each with a named server, a named store and a measured wait.** A
 **manual queue** is a point on the ladder where a commit waits for a person's act before it climbs: the authoring queue before the server's
@@ -21,7 +21,7 @@ not a fourth queue.
 
 - [Three queues, no more](#three-queues-no-more)
 
-### Rule FDR-CD-QUEUE-AUTHORINGISTHEFIRST
+### Rule FDR-QUEUE-AUTHORINGISTHEFIRST
 
 **Authoring is the first manual queue: a person edits one catalogue item, pushes it as the authenticated author to the server's topic HEAD,
 and from there the change enters main by exactly one of two doors.** The edit is of a code or config item of the catalogue, delivered
@@ -35,7 +35,7 @@ clone. The queue's server is the author; its store is the server's history of th
 
 - [The authoring queue](#the-authoring-queue)
 
-### Rule FDR-CD-QUEUE-SIGNATUREISTHEGATE
+### Rule FDR-QUEUE-SIGNATUREISTHEGATE
 
 **The RC and RBC gates are each served by one release signature from a user with access, entered in the appointed security registry after
 the rung's post-deployment test proved the service loads.** A **release signature** is one recorded act that says "this rung passed its
@@ -47,7 +47,7 @@ to the signature being recorded.
 
 - [The two signatures](#the-two-signatures)
 
-### Rule FDR-CD-QUEUE-SLOTSWITCHISAUTOMATED
+### Rule FDR-QUEUE-SLOTSWITCHISAUTOMATED
 
 **Pre-prod is hot-swappable with production, blue-green wherever possible, and the switch between them is a monitored, fully automated
 procedure with no manual engagement or check.** The **slot switch** is the act that makes the pre-prod occupant the live production occupant
@@ -90,9 +90,9 @@ registry.
 ## The slot switch
 
 The last climb, from pre-prod to production, is the one step the flow keeps out of human hands. Pre-prod is the staging slot of the
-production subscription ([FDR-CD-LIFE-ONECOMMITPERENVIRONMENT](commit-lifecycle.md#rule-fdr-cd-life-onecommitperenvironment)), built so that
-it and production can trade places: blue-green, with the switch a procedure a pipeline runs and a person watches. A manual check here would
-be a fourth queue at the most expensive point of the ladder, and it would hide behind the signature just given at RBC. So the switch is
+production subscription ([FDR-LIFE-ONECOMMITPERENVIRONMENT](commit-lifecycle.md#rule-fdr-life-onecommitperenvironment)), built so that it
+and production can trade places: blue-green, with the switch a procedure a pipeline runs and a person watches. A manual check here would be
+a fourth queue at the most expensive point of the ladder, and it would hide behind the signature just given at RBC. So the switch is
 automated, monitored while it runs, and reversed by the same path when the monitors say so. A deployable unit that cannot be switched
 blue-green does not get an unnamed manual gate: its switch is declared a manual step by a rule of this FDR, with its server, its store and
 its measured wait, and the unit's plan says how it becomes automated.

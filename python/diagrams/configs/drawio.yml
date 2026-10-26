@@ -90,7 +90,7 @@ lane: # a lane's commits and glyphs, placed by step and row (lanes: in a diagram
   slot-gap: 56 # px between the centres of a left and a right slot of one step, each standing half of it from the step's centre
 span: # a span bar's place over what it covers
   row: auto # auto | 0, 1, 2 ...: auto stacks a span one row above every span it overlaps, the narrow ones first; a number puts it on that row, 0 the row beside its bands
-states: a state diagram, its arrows the steps of one thing; only it declares a relation (DDR-VISUAL-ARROWSPOINTATWHATTHEYDEPENDON)
+states: a state diagram, its arrows the steps of one thing; only it declares a relation (DDR-VISUAL-ARROWSPOINTATDEPENDENCY)
 kinds: # the two diagram kinds; each supplies the default three minimaps (minimaps: below)
   explanation: an explanation diagram, embedded by an article under docs/explanation
   reference: a reference diagram, embedded by a page under docs/references or docs/drs
@@ -119,7 +119,7 @@ flow-lens: # what the flow lens draws with: its layout numbers in diagram units,
   stroke: 1.6 # every symbol's stroke but the thin double line
   thin-stroke: 1 # the double line =
   glyphs: env-flow
-flow-glyphs: # the closed list of flow glyphs, each a word of three symbols from O 0 - _ = . (DDR-VISUAL-FLOWGLYPHSAREWORDS); hint is the editor icon it is styled after, for the reader only
+flow-glyphs:
   - { id: pipeline, word: "O=0", meaning: a pipeline or workflow, hint: js/file-icons/assets/pipe.svg }
   - { id: stage, word: "=0=", meaning: a stage, hint: js/file-icons/assets/pipe-stages.svg }
   - { id: job, word: "=O_", meaning: a job, hint: js/file-icons/assets/pipe-jobs.svg }

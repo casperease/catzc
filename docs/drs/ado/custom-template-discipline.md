@@ -25,7 +25,7 @@ artifacts). They must not carry automation logic, configuration resolution, busi
 - [What templates are good at](#what-templates-are-good-at)
 - [What goes wrong](#what-goes-wrong)
 
-### Rule ADR-ADO-TEMPLATE-CONTROLORSELECTIONPARAMETERS
+### Rule ADR-ADO-TEMPLATE-SELECTORPARAMETERS
 
 Template parameters are either ADO controls or meta selection criteria (customer, environment, subscription type). The looked-up values the
 catzc commands can derive from those keys must not be pipeline parameters.
@@ -242,7 +242,7 @@ resolution context shifts at each level, making the actual file path a puzzle. A
   (customer, environment, subscription type) — these are version-controlled, testable, and independent of the pipeline.
 
 - **Flat pipeline files** with direct step template references, as
-  [FDR-CD-PIPELINE-FLATREADABLEYAML](../flow/pipeline-concept.md#rule-fdr-cd-pipeline-flatreadableyaml) requires of every pipeline. Each
+  [FDR-PIPELINE-FLATREADABLEYAML](../flow/pipeline-concept.md#rule-fdr-pipeline-flatreadableyaml) requires of every pipeline. Each
   step is either a direct task or a single-level template reference.
 
 ## Consequences

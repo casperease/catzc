@@ -10,7 +10,7 @@ using static Catzc.Base.QualityGates.CommentPageText;
 
 namespace Catzc.Base.QualityGates;
 
-// Rests on [PDR-CONFIG-VARYINGBEHAVIOURISCONFIG](/docs/drs/principles/configure-not-program.md#rule-pdr-config-varyingbehaviourisconfig), [PDR-ONELIVE-ONEVERSION](/docs/drs/principles/one-living-version.md#rule-pdr-onelive-oneversion) and [ADR-REPO-FORMAT-GENERATEDARTIFACTSFORMATTED](/docs/drs/repository/uniform-formatting.md#rule-adr-repo-format-generatedartifactsformatted).
+// Rests on [PDR-CONFIG-VARYINGBEHAVIOURISCONFIG](/docs/drs/principles/configure-not-program.md#rule-pdr-config-varyingbehaviourisconfig), [PDR-ONELIVE-ONEVERSION](/docs/drs/principles/one-living-version.md#rule-pdr-onelive-oneversion) and [ADR-REPO-FORMAT-GENERATEDFORMATTED](/docs/drs/repository/uniform-formatting.md#rule-adr-repo-format-generatedformatted).
 public static class CommentEngine
 {
     static readonly Regex CodeSpanText = new Regex(@"(`+)[^`\r\n]+?\1", RegexOptions.Compiled);

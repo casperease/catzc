@@ -54,9 +54,9 @@ The entry's target: a repository-relative path, or a wildcard pattern over a mul
   Windows a machine-wide Go precedes the user-scope managed one
   ([ADR-AUTO-GO-MANAGEDTOOLCHAIN](../../../../drs/automation/go/go-test-artifacts.md#rule-adr-auto-go-managedtoolchain)).
 - The Python test workspace's one environment
-  ([ADR-AUTO-PY-GENERATEDWORKSPACE](../../../../drs/automation/python/python-test-artifacts.md#rule-adr-auto-py-generatedworkspace)), under
-  the resolved Python root and in this platform's layout: the Python extension resolves the tests' imports and runs them in it. Pylance runs
-  pyright in the mode `Test-PythonTypes` runs it in
+  ([ADR-AUTO-PY-PYWORKSPACE](../../../../drs/automation/python/python-test-artifacts.md#rule-adr-auto-py-pyworkspace)), under the resolved
+  Python root and in this platform's layout: the Python extension resolves the tests' imports and runs them in it. Pylance runs pyright in
+  the mode `Test-PythonTypes` runs it in
   ([ADR-AUTO-PY-EVERYFILETYPECHECKED](../../../../drs/automation/python/python-test-artifacts.md#rule-adr-auto-py-everyfiletypechecked)).
 - Each language's editor formatter comes from the file-language registry: Format Document runs the engine `Format-Code` runs
   ([ADR-REPO-FORMAT-CONFIGUREDFORMATTERS](../../../../drs/repository/uniform-formatting.md#rule-adr-repo-format-configuredformatters)).

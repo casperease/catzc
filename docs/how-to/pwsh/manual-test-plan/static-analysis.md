@@ -134,14 +134,14 @@ ShellCheck (ADR-AUTO-BASH-SHELLSCRIPTSCHECKED).
 **Test file:** `pwsh/Base.QualityGates/tests/Format-Code.Tests.ps1` (L0), block `Format-Code engines`.
 
 **Guards:** Every formatter engine languages.yml may name has its adapter, and the shipped languages.yml gives every file language a
-formatter or the reason it has none (PDR-CONFIG-NEWINSTANCEISCONFIGCHANGE, PDR-CONFIG-EXCEPTIONISCONFIGENTRY).
+formatter or the reason it has none (PDR-CONFIG-NEWINSTANCEISCONFIG, PDR-CONFIG-EXCEPTIONISCONFIGENTRY).
 
 ### 12. The shipped format engines' keyed settings
 
 **Test file:** `pwsh/Base.QualityGates/tests/Get-FormatEngineStamp.Tests.ps1` (L1), block `The shipped format engines' keyed settings`.
 
 **Guards:** Each shipped format engine's keyed settings name a top-level key that exists in their file, and an engine never lists the whole
-tool registry again (ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS).
+tool registry again (ADR-AUTO-CACHE-CROSSSESSIONFILES).
 
 ### 13. Repository Python type integrity
 

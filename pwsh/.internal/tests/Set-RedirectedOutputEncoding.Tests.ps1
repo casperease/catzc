@@ -32,7 +32,7 @@ AfterAll {
     }
 }
 
-Describe 'Set-RedirectedOutputEncoding' -Tag 'L1', 'logic', 'ADR-PWSH-ANNOUNCE-INFORMATIONSTREAMCHOKEPOINT' {
+Describe 'Set-RedirectedOutputEncoding' -Tag 'L1', 'logic', 'ADR-PWSH-ANNOUNCE-INFORMATIONCHOKEPOINT' {
     It 'imports cleanly in a redirected child session' {
         $script:exitCode | Should -Be 0 -Because $script:errorOutput
         $script:output | Should -Contain 'redirected=True'

@@ -9,7 +9,7 @@ mechanism for each kind of thing, never one function for each instance of it.
 
 - [Mechanisms and instances](#mechanisms-and-instances)
 
-### Rule PDR-CONFIG-NEWINSTANCEISCONFIGCHANGE
+### Rule PDR-CONFIG-NEWINSTANCEISCONFIG
 
 Adding an instance of a kind the repository already handles is a config change. When it takes new code beyond a new engine adapter, the
 mechanism is missing or wrong: fix the mechanism, then add the instance as configuration.
@@ -31,7 +31,7 @@ a branch in code, a hard-coded list inside a command, or a convention known only
 
 - [Exceptions are entries](#exceptions-are-entries)
 
-### Rule PDR-CONFIG-DEFAULTANSWERSINSTANCEQUESTIONS
+### Rule PDR-CONFIG-DEFAULTANSWERSINSTANCE
 
 A design question about one instance is answered by the default. Raise a question only about the default itself or about a missing mechanism
 — never ask whether an instance is worth supporting, because supporting it costs one config entry.
@@ -96,7 +96,7 @@ configuration as programming, and leaves the repository with uneven coverage dec
 - **A hard-coded list in the consumer** (a `ValidateSet` of formatter names, a switch over languages). The list is a second registry that
   must be kept in step by hand.
 - **Configuration that can program** (script blocks or expressions in YAML). It hides code where it is neither analysed nor tested; a
-  setting that needs logic is a sign the mechanism is missing (PDR-CONFIG-NEWINSTANCEISCONFIGCHANGE).
+  setting that needs logic is a sign the mechanism is missing (PDR-CONFIG-NEWINSTANCEISCONFIG).
 
 ## Decision
 

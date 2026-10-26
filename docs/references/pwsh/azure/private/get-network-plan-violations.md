@@ -13,12 +13,12 @@ Returns every way a network plan is out of sync with the azure config's environm
 
 The cross-asset join of
 [ADR-AZ-NETWORK-KEYEDBYENVIRONMENT](../../../../drs/azure/azure-network-model.md#rule-adr-az-network-keyedbyenvironment) and
-[ADR-AZ-NETWORK-NETWORKPERSUBSCRIPTION](../../../../drs/azure/azure-network-model.md#rule-adr-az-network-networkpersubscription), over two
-already-typed configs.
+[ADR-AZ-NETWORK-PERSUBSCRIPTION](../../../../drs/azure/azure-network-model.md#rule-adr-az-network-persubscription), over two already-typed
+configs.
 
 Environments: every network environment is a defined azure.yml environment (no ghost plan), and every STANDARD azure.yml environment has a
 network entry. Per-subscription environments (nsub/psub) are exempt — they carry no vnet
-([ADR-AZ-NETWORK-SUBSCRIPTIONENVIRONMENTSNONETWORK](../../../../drs/azure/azure-network-model.md#rule-adr-az-network-subscriptionenvironmentsnonetwork)).
+([ADR-AZ-NETWORK-ENVIRONMENTSNONETWORK](../../../../drs/azure/azure-network-model.md#rule-adr-az-network-environmentsnonetwork)).
 
 Subscriptions: every network subscription is a defined azure.yml subscription (no ghost network), and every azure.yml subscription has one
 of the right kind — a hub when it has no customer, a spoke when it has one. A spoke has exactly one workload subnet per standard environment

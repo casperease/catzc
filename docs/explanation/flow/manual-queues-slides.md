@@ -1,7 +1,7 @@
 # The manual queues of the promotion ladder, in ten slides
 
 Ten simple slides on where a person stands on the promotion ladder, one idea each, drawn from
-[manual-queues](../../drs/flow/manual-queues.md) (`FDR-CD-QUEUE`). Each slide is one diagram; the walkthrough under it says what its numbers
+[manual-queues](../../drs/flow/manual-queues.md) (`FDR-QUEUE`). Each slide is one diagram; the walkthrough under it says what its numbers
 mean.
 
 ## Slide 1 — Where a person stands
@@ -20,8 +20,8 @@ Where a person stands on the ladder: three manual queues, one automated switch.
 9   slot switch      automated and monitored; never a queue
 10  production       the top rung
 
-Supports FDR-CD-QUEUE-THREEQUEUES, FDR-CD-QUEUE-AUTHORINGISTHEFIRST, FDR-CD-QUEUE-SIGNATUREISTHEGATE
-and FDR-CD-QUEUE-SLOTSWITCHISAUTOMATED (meta lens).
+Supports FDR-QUEUE-THREEQUEUES, FDR-QUEUE-AUTHORINGISTHEFIRST, FDR-QUEUE-SIGNATUREISTHEGATE
+and FDR-QUEUE-SLOTSWITCHISAUTOMATED (meta lens).
 ```
 
 ```yml drawio
@@ -30,10 +30,10 @@ description:
   and the slot switch as an automated runner before production.
 about:
   adrs:
-    - FDR-CD-QUEUE-THREEQUEUES
-    - FDR-CD-QUEUE-AUTHORINGISTHEFIRST
-    - FDR-CD-QUEUE-SIGNATUREISTHEGATE
-    - FDR-CD-QUEUE-SLOTSWITCHISAUTOMATED
+    - FDR-QUEUE-THREEQUEUES
+    - FDR-QUEUE-AUTHORINGISTHEFIRST
+    - FDR-QUEUE-SIGNATUREISTHEGATE
+    - FDR-QUEUE-SLOTSWITCHISAUTOMATED
   lens: meta
 content:
   title: "Where a person stands on the ladder: three manual queues, one automated switch"
@@ -79,10 +79,10 @@ content:
     - { at: r-switch, number: 9, corner: top-left }
     - { at: e-production, number: 10, corner: top-left }
   chips:
-    - { at: g-authoring, kind: rule, rule: FDR-CD-QUEUE-AUTHORINGISTHEFIRST, gated: false }
-    - { at: g-rc, kind: rule, rule: FDR-CD-QUEUE-SIGNATUREISTHEGATE, gated: false }
-    - { at: g-rbc, kind: rule, rule: FDR-CD-QUEUE-SIGNATUREISTHEGATE, gated: false }
-    - { at: r-switch, kind: rule, rule: FDR-CD-QUEUE-SLOTSWITCHISAUTOMATED, gated: false }
+    - { at: g-authoring, kind: rule, rule: FDR-QUEUE-AUTHORINGISTHEFIRST, gated: false }
+    - { at: g-rc, kind: rule, rule: FDR-QUEUE-SIGNATUREISTHEGATE, gated: false }
+    - { at: g-rbc, kind: rule, rule: FDR-QUEUE-SIGNATUREISTHEGATE, gated: false }
+    - { at: r-switch, kind: rule, rule: FDR-QUEUE-SLOTSWITCHISAUTOMATED, gated: false }
   legend: auto
   minimaps: [code-locations, grid, axis]
 ```
@@ -92,21 +92,21 @@ content:
 ### Walkthrough
 
 1. **Authoring.** The first manual queue: a person edits one catalogue item, pushes it as the authenticated author to the server's topic
-   HEAD, and the change enters main by the pull request or by an authorized direct merge (FDR-CD-QUEUE-AUTHORINGISTHEFIRST).
+   HEAD, and the change enters main by the pull request or by an authorized direct merge (FDR-QUEUE-AUTHORINGISTHEFIRST).
 2. **main HEAD.** The landed tip of the server's main, where the merge put the commit.
 3. **BVT.** The one gate that code runs: a failing commit is rejected on its own, no person involved.
 4. **main-UAT.** The first environment. CD deploys there on its own, and the post-deployment test proves the service loads.
 5. **RC signature.** The second manual queue: a user with access enters one signature in the appointed security registry, "main-UAT passed
-   its check" (FDR-CD-QUEUE-SIGNATUREISTHEGATE).
+   its check" (FDR-QUEUE-SIGNATUREISTHEGATE).
 6. **release-uat.** The second environment, deployed on its own after the RC signature.
 7. **RBC signature.** The third manual queue: the same kind of signature, "release-uat passed its check".
 8. **pre-prod.** The staging slot inside production, deployed on its own after the RBC signature.
 9. **Slot switch.** Automated and monitored, never a queue: pre-prod and production trade places blue-green
-   (FDR-CD-QUEUE-SLOTSWITCHISAUTOMATED).
+   (FDR-QUEUE-SLOTSWITCHISAUTOMATED).
 10. **production.** The top rung.
 
 Three rungs are dashed-chipped manual queues, one rung is the BVT gate, one is the automated switch. That is the whole fact of the record
-(FDR-CD-QUEUE-THREEQUEUES).
+(FDR-QUEUE-THREEQUEUES).
 
 ## See also
 

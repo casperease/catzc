@@ -6,5 +6,5 @@ The tests of `Get-DrsCitationMap`, which builds the citation registry the link e
 ## Fixtures
 
 A fixture repository in `$TestDrive` carries a two-ADR index with neutral widget and gadget codes
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)), and
-two code-less documents that share a file name, so the slug lookup's ambiguity is exercised too.
+([ADR-AUTO-TEST-DISTINCTFIXTURES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtures)), and two code-less
+documents that share a file name, so the slug lookup's ambiguity is exercised too.

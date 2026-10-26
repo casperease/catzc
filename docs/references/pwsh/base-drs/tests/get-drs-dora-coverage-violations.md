@@ -6,4 +6,4 @@ in its domain's DORA file.
 ## Fixtures
 
 A fixture tree in `$TestDrive` and a fixture registry, with neutral names
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+([ADR-AUTO-TEST-DISTINCTFIXTURES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtures)).

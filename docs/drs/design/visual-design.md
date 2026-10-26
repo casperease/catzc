@@ -321,7 +321,7 @@ word presentation when a line crosses. This holds in every lens.
 
 - [The transition pill](#the-transition-pill)
 
-### Rule DDR-VISUAL-ARROWSPOINTATWHATTHEYDEPENDON
+### Rule DDR-VISUAL-ARROWSPOINTATDEPENDENCY
 
 An arrow runs from the one that acts, its initiator, to what it acts on or depends on, its receiver: the caller to the callee, the consumer
 to its provider, a resolver to the sources it reads, and the head is always the receiver. Code acts and is not acted on, so a plain arrow

@@ -11,7 +11,7 @@ A quality gate keeps units and modules disjoint; loose-filesets are exempt; two 
 6  module sets               derived-only, disjoint on their own contribution
 7  Config-load validation    GlobsConfig rejects a declared module layer or reserved name
 
-Supports FDR-CD-GLOBS-EVERYSETHASLAYER, FDR-CD-GLOBS-NOOVERLAPWITHINLAYER, ADR-AUTO-TEST-QUALITYGATE
+Supports FDR-GLOBS-EVERYSETHASLAYER, FDR-GLOBS-NOOVERLAPWITHINLAYER, ADR-AUTO-TEST-QUALITYGATE
 and ADR-REPO-PROTGLOB (governance lens).
 ```
 
@@ -25,7 +25,7 @@ description:
   "Which checks keep globset layers disjoint: one quality gate covers the deployable-unit and module layers, config-load validation keeps
   the module layer derived-only, loose-filesets are exempt, and two prohibitions have no check at all."
 about:
-  adrs: [FDR-CD-GLOBS-EVERYSETHASLAYER, FDR-CD-GLOBS-NOOVERLAPWITHINLAYER, ADR-AUTO-TEST-QUALITYGATE, ADR-REPO-PROTGLOB]
+  adrs: [FDR-GLOBS-EVERYSETHASLAYER, FDR-GLOBS-NOOVERLAPWITHINLAYER, ADR-AUTO-TEST-QUALITYGATE, ADR-REPO-PROTGLOB]
   lens: governance
 content:
   title: A gate checks overlap for units and modules, and loose-filesets are exempt
@@ -57,14 +57,14 @@ content:
     - { at: s-module-sets, number: 6 }
     - { at: g-config-load, number: 7 }
   chips:
-    - { at: a-phantom, kind: rule, rule: FDR-CD-GLOBS-EVERYSETHASLAYER, gated: false }
-    - { at: s-unit-sets, kind: rule, rule: FDR-CD-GLOBS-NOOVERLAPWITHINLAYER }
+    - { at: a-phantom, kind: rule, rule: FDR-GLOBS-EVERYSETHASLAYER, gated: false }
+    - { at: s-unit-sets, kind: rule, rule: FDR-GLOBS-NOOVERLAPWITHINLAYER }
     - { at: g-independence, kind: rule, rule: ADR-AUTO-TEST-QUALITYGATE }
-    - { at: a-demonstrated, kind: rule, rule: FDR-CD-GLOBS-EVERYSETHASLAYER, gated: false }
-    - { at: s-loose-sets, kind: rule, rule: FDR-CD-GLOBS-NOOVERLAPWITHINLAYER, gated: false }
-    - { at: s-module-sets, kind: rule, rule: FDR-CD-GLOBS-EVERYSETHASLAYER }
-    - { at: s-module-sets, kind: rule, rule: FDR-CD-GLOBS-NOOVERLAPWITHINLAYER }
-    - { at: g-config-load, kind: rule, rule: FDR-CD-GLOBS-EVERYSETHASLAYER }
+    - { at: a-demonstrated, kind: rule, rule: FDR-GLOBS-EVERYSETHASLAYER, gated: false }
+    - { at: s-loose-sets, kind: rule, rule: FDR-GLOBS-NOOVERLAPWITHINLAYER, gated: false }
+    - { at: s-module-sets, kind: rule, rule: FDR-GLOBS-EVERYSETHASLAYER }
+    - { at: s-module-sets, kind: rule, rule: FDR-GLOBS-NOOVERLAPWITHINLAYER }
+    - { at: g-config-load, kind: rule, rule: FDR-GLOBS-EVERYSETHASLAYER }
     - { at: g-config-load, kind: rule, rule: ADR-REPO-PROTGLOB }
   legend: auto
   minimaps: [code-locations, module-neighbourhood, axis]
@@ -103,9 +103,9 @@ layout:
 ## Why it holds
 
 - Every globset carries a layer, the `module` layer is derived-only, and a phantom unit or a loose-fileset without a demonstrated use is
-  forbidden (FDR-CD-GLOBS-EVERYSETHASLAYER).
+  forbidden (FDR-GLOBS-EVERYSETHASLAYER).
 - Within a layer, no two globsets select a common file on their own contribution; validation is per layer, and the `loose-fileset` layer is
-  exempt (FDR-CD-GLOBS-NOOVERLAPWITHINLAYER).
+  exempt (FDR-GLOBS-NOOVERLAPWITHINLAYER).
 - A quality gate checks one property of the whole repository, writes its report and throws once listing every issue
   (ADR-AUTO-TEST-QUALITYGATE).
 - Module globsets are derived, never declared, and derived and declared sets share one name space (ADR-REPO-PROTGLOB-DERIVEDMODULEGLOBSETS).

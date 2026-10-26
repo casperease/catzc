@@ -229,8 +229,7 @@ Every version a contract folder can carry falls in one range, and the range says
   contract glue.
 - `1.0.0` and up — a release of `catzc`, frozen and kept while pinned (ADR-REPO-CONTRACT-RELEASEDIMMUTABLE,
   ADR-REPO-CONTRACT-KEPTWHILEPINNED). A vendor root has no releases.
-- `6.6.666` — the local build version a devbox install carries
-  ([ADR-AUTO-BUNDLE-AUTOVERSION](../automation/platform-bundle.md#rule-adr-auto-bundle-autoversion)): a local convenience, never a contract
+- `6.6.666` — the local build version a devbox install carries ([ADR-AUTO-BUNDLE-BUNDLEVERSION][r1]): a local convenience, never a contract
   folder.
 
 ### Addressing by the version's map
@@ -401,3 +400,5 @@ pinned, and `6.6.666` is a local build, never a folder. An asset's name picks it
   paths threaded through implementations.
 - The cost is real and bounded: each pinned release's provided contracts are maintained and tested for as long as a consumer pins them, and
   each `contract.yml` must name every fragment and file schema it holds.
+
+[r1]: ../automation/platform-bundle.md#rule-adr-auto-bundle-bundleversion

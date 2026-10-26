@@ -1,7 +1,7 @@
 # -DryRun, not ShouldProcess or -WhatIf: the branch comes before any side effect.
 function Build-Modules {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseSingularNouns', '',
-        Justification = 'Builds a set of modules; the plural is the contract name (ADR-AUTO-BUNDLE-BUNDLEISBUILD)')]
+        Justification = 'Builds a set of modules; the plural is the contract name (ADR-AUTO-BUNDLE-ISBUILD)')]
     [CmdletBinding()]
     [OutputType([pscustomobject])]
     param(

@@ -2,7 +2,7 @@
 
 ## Rules: ADR-REPO-REPOKIND
 
-### Rule ADR-REPO-REPOKIND-THREEKINDS
+### Rule ADR-REPO-REPOKIND-THREEREPOKINDS
 
 The catzc tooling runs in exactly one of three repository kinds: the product mono-repository that holds its source (the
 [glossary's term](../glossary.md#product-mono-repository), one repository several teams build one product in), a consumer repository that
@@ -43,7 +43,7 @@ The product mono-repository runs in source mode, where the working root and the 
 ([DDR-RUNMODE-TWORUNMODES](../design/run-modes.md#rule-ddr-runmode-tworunmodes)); it is the only kind that edits catzc itself. A consumer
 repository and no repository both run a built bundle in build mode and differ only in whether the working root is a git repository.
 Whichever kind it is, a placement comes from a track, never from a path written in code
-([DDR-TRACK-SUBSCRIBABLENOTPATHCOUPLED](../design/tracks.md#rule-ddr-track-subscribablenotpathcoupled)).
+([DDR-TRACK-SUBSCRIBABLENOTPATH](../design/tracks.md#rule-ddr-track-subscribablenotpath)).
 
 ### A consumer repository
 

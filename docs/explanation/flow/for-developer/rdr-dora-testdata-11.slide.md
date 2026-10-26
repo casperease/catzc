@@ -14,7 +14,7 @@ catzc:
 
 ## Eyebrow
 
-11 / 30 · fact for the Developer · RDR-DORA-TESTDATA
+11 / 30 · fact for the Developer · EDR-DORA-TESTDATA
 
 ## Lead
 
@@ -31,5 +31,5 @@ From the catalogue, reduced: globs yml pipeline field is the binding.
 
 ## Notes
 
-Check it: the record RDR-DORA-TESTDATA in docs/drs/index.md, and the diagram
+Check it: the record EDR-DORA-TESTDATA in docs/drs/index.md, and the diagram
 docs/explanation/design/.assets/globs-yml-pipeline-field-is-the-binding.drawio.png.

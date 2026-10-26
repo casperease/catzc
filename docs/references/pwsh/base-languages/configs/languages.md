@@ -36,7 +36,7 @@ analyzer settings file. The vendored module's manifest names its version.
   none.
 
 YAML is two file languages: executable pipeline YAML is `.yaml`, configuration data is `.yml`
-([FDR-CD-PIPELINE-EXECUTABLEYAMLEXTENSION](../../../../drs/flow/pipeline-concept.md#rule-fdr-cd-pipeline-executableyamlextension)).
+([FDR-PIPELINE-EXECUTABLEYAMLEXTENSION](../../../../drs/flow/pipeline-concept.md#rule-fdr-pipeline-executableyamlextension)).
 
 ## Other sections
 

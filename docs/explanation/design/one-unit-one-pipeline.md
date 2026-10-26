@@ -9,7 +9,7 @@ A track ships through a deployable-unit, and each unit binds one pipeline.
 4  Binds one         one unit, one pipeline; two only when DEPLOY splits out of CD
 5  Pipeline          the unit's delivery machine
 
-Supports DDR-TRACK-TRACKISPLACEDCLUSTER, DDR-TRACK-ONETRACKTYPE, DDR-TRACK-SUBSCRIBABLENOTPATHCOUPLED
+Supports DDR-TRACK-ISPLACEDCLUSTER, DDR-TRACK-ONETRACKTYPE, DDR-TRACK-SUBSCRIBABLENOTPATH
 and DDR-TRACK-DEPLOYABLEUNIT (meta lens).
 ```
 
@@ -20,7 +20,7 @@ track except through the unit that is that track.
 ```yml drawio
 description: "A track composes into a deployable-unit, and a deployable-unit binds one pipeline: the delivery side in a line."
 about:
-  adrs: [DDR-TRACK-TRACKISPLACEDCLUSTER, DDR-TRACK-ONETRACKTYPE, DDR-TRACK-SUBSCRIBABLENOTPATHCOUPLED, DDR-TRACK-DEPLOYABLEUNIT]
+  adrs: [DDR-TRACK-ISPLACEDCLUSTER, DDR-TRACK-ONETRACKTYPE, DDR-TRACK-SUBSCRIBABLENOTPATH, DDR-TRACK-DEPLOYABLEUNIT]
   lens: meta
 content:
   title: A track ships through a deployable-unit, and each unit has one pipeline
@@ -69,8 +69,8 @@ layout:
 
 ## Why it holds
 
-- A track is one root concern with one root folder (DDR-TRACK-TRACKISPLACEDCLUSTER).
-- Tracks are subscribed to, never path-coupled (DDR-TRACK-SUBSCRIBABLENOTPATHCOUPLED).
+- A track is one root concern with one root folder (DDR-TRACK-ISPLACEDCLUSTER).
+- Tracks are subscribed to, never path-coupled (DDR-TRACK-SUBSCRIBABLENOTPATH).
 - Deployable-units determine CD pipelines one to one, and a CI pipeline that verifies a whole track binds the track's own set
   (DDR-TRACK-DEPLOYABLEUNIT).
 

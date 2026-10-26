@@ -10,7 +10,7 @@ The deploy path and the integration path share only the topic commit; nothing on
 5  BVT                   produces the BVT-verified commit, yellow
 6  the landing edge      the only link between the two paths is their start
 
-Supports FDR-CD-LIFE-ONESTATEADVANCESONERUNG and FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND, and DDR-VISUAL-FIXEDCOMMITPALETTE
+Supports FDR-LIFE-ONESTATEADVANCESONERUNG and FDR-LIFE-TOPICDEPLOYSOUTOFBAND, and DDR-VISUAL-FIXEDCOMMITPALETTE
 and DDR-VISUAL-ENVIRONMENTISCONTAINER (architecture lens).
 ```
 
@@ -25,8 +25,8 @@ description:
   on main starts the integration that ends in the build validation verified commit."
 about:
   adrs:
-    - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
-    - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+    - FDR-LIFE-ONESTATEADVANCESONERUNG
+    - FDR-LIFE-TOPICDEPLOYSOUTOFBAND
     - DDR-VISUAL-FIXEDCOMMITPALETTE
     - DDR-VISUAL-ENVIRONMENTISCONTAINER
   lens: architecture
@@ -100,16 +100,16 @@ layout:
 ## Why it holds
 
 - A topic commit can be deployed out-of-band by a workflow without integrating into main; the deploy is not an integration and confers no
-  promotion state on the mainline (FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND).
+  promotion state on the mainline (FDR-LIFE-TOPICDEPLOYSOUTOFBAND).
 - A commit holds one lifecycle state at a time and advances one rung along the ladder, topic, landed on main, BVT-verified and onward, or
-  leaves it (FDR-CD-LIFE-ONESTATEADVANCESONERUNG).
+  leaves it (FDR-LIFE-ONESTATEADVANCESONERUNG).
 - The commit colours are fixed: brown is a development commit, grey is integrated onto main, and yellow is past the BVT with an immutable
   artifact (DDR-VISUAL-FIXEDCOMMITPALETTE).
 - An environment box is a neutral container, and the commit inside it carries its own state colour (DDR-VISUAL-ENVIRONMENTISCONTAINER).
 
 ## Where the code and the decision record differ
 
-- FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND allows a workflow or pipeline to deploy a topic commit, but no pipeline or workflow in cats does: every
+- FDR-LIFE-TOPICDEPLOYSOUTOFBAND allows a workflow or pipeline to deploy a topic commit, but no pipeline or workflow in cats does: every
   `Deploy_*` stage runs only when the source branch is `refs/heads/main`.
 - DDR-VISUAL lets the BVT accept a brown commit as well as a grey one; the integration path here follows the commit after it lands.
 

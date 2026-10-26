@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "5b1e761025ee"
+    with_body_sha: cb42d40d361b
     warning: "Do Not Edit, this file is generated"
 ---
 
@@ -18,7 +18,7 @@ Every ADR carries a rule registry as its first content section: `## Rules: <code
 normative summary plus internal links to the prose that justifies it). The grammar is its own ADR, ADR-REPO-DRSCODE.
 
 - A code is a path: the record kind, then the domain where the kind is shared, then the record, then the rule, each an upper-case segment
-  joined by `-`; the registered kinds (`ADR`, `TDR`, `PDR`, `WDR`, `DDR`, `FDR`, `RDR`) are the searchable markers for a reference anywhere
+  joined by `-`; the registered kinds (`ADR`, `TDR`, `PDR`, `WDR`, `DDR`, `FDR`, `EDR`) are the searchable markers for a reference anywhere
   in the repository (ADR-REPO-DRSCODE-PATHOFSEGMENTS). A domain that owns its kind drops its domain segment; the implementation domains
   share `ADR` and keep theirs (ADR-REPO-DRSCODE-DOMAINSEGMENT).
 - **Cite a rule** by its code, which names it — e.g. `ADR-PWSH-ERROR-THROWNOTWRITEERROR`, `ADR-AUTO-CACHE-READONLYVALUES`,
@@ -29,7 +29,7 @@ normative summary plus internal links to the prose that justifies it). The gramm
   of the ADR (ADR-REPO-DRSCODE-CODEISSELECTOR). There is no group or range spelling; a list of rules is the list of their codes
   (ADR-REPO-DRSCODE-NOSUBSETSPELLING). The index lists records, never rule codes: `Test-DrsRegistry` reads a record's rules from the record
   itself.
-- A name is unique under its parent and never reused once retired; the tables below are the authoritative code ↔ ADR mapping.
+- A rule name is unique in the repository and never reused once retired; the tables below are the authoritative code ↔ ADR mapping.
 
 ## Codes
 
@@ -43,7 +43,7 @@ actionable facts. Any code, unordered fragments included, has an eac normal form
 the local configs, and uncontested by the repository's formatters, tests, and asserts. It describes the product and rests on the DORA
 research, the authoritative source, and the principles state its mechanics, so every other domain cites it (`TDR-*`) through them.
 
-**Role:** `framing` — **depends on:** `research`.
+**Role:** `framing` — **depends on:** `external`.
 
 | Code             | ADR                                                  |
 | ---------------- | ---------------------------------------------------- |
@@ -59,7 +59,7 @@ one living version, and the two names of the system, cats and catzc. They specia
 the DORA research, the authoritative source; no domain later in the order overrides them, and every other domain cites them (`PDR-*`) as the
 reason for its own decisions.
 
-**Role:** `axioms` — **depends on:** `research`, `thesis`.
+**Role:** `axioms` — **depends on:** `external`, `thesis`.
 
 | Code            | ADR                                                          |
 | --------------- | ------------------------------------------------------------ |
@@ -73,33 +73,29 @@ reason for its own decisions.
 
 ### process/
 
-How the team works: the Agile Manifesto's values and principles, lean flow as the Toyota Production System maps to software, and one shared
-vocabulary of flow terms. Unlike the fixed axioms, the process is itself inspected and improved (`WDR-KAIZEN`); the design, flow, and
+How the team works: lean flow as the Toyota Production System maps to software, as the external Agile and lean records state it, and one
+shared vocabulary of flow terms. Unlike the fixed axioms, the process is itself inspected and improved (`WDR-KAIZEN`); the design, flow, and
 implementation domains put its practices into effect — stopping the line, building quality in, pulling work, and draining queues.
 
-**Role:** `optimisable` — **depends on:** `research`, `principles`.
+**Role:** `optimisable` — **depends on:** `external`, `principles`.
 
-| Code                  | ADR                                               |
-| --------------------- | ------------------------------------------------- |
-| `WDR-AGILE`           | [agile](process/agile.md)                         |
-| `WDR-VALUES`          | [agile-values](process/agile-values.md)           |
-| `WDR-AGILEPRINCIPLES` | [agile-principles](process/agile-principles.md)   |
-| `WDR-LEANTERMS`       | [process-terms](process/process-terms.md)         |
-| `WDR-LEAN`            | [lean](process/lean.md)                           |
-| `WDR-ANDON`           | [holding-the-line](process/holding-the-line.md)   |
-| `WDR-BUILTIN`         | [build-quality-in](process/build-quality-in.md)   |
-| `WDR-OBSERVEWIP`      | [observe-work](process/observe-work.md)           |
-| `WDR-PULLWORK`        | [pull-work](process/pull-work.md)                 |
-| `WDR-QUEUECOST`       | [queues-cost-money](process/queues-cost-money.md) |
-| `WDR-KAIZEN`          | [inspect-and-adapt](process/inspect-and-adapt.md) |
+| Code             | ADR                                               |
+| ---------------- | ------------------------------------------------- |
+| `WDR-LEANTERMS`  | [process-terms](process/process-terms.md)         |
+| `WDR-ANDON`      | [holding-the-line](process/holding-the-line.md)   |
+| `WDR-BUILTIN`    | [build-quality-in](process/build-quality-in.md)   |
+| `WDR-OBSERVEWIP` | [observe-work](process/observe-work.md)           |
+| `WDR-PULLWORK`   | [pull-work](process/pull-work.md)                 |
+| `WDR-QUEUECOST`  | [queues-cost-money](process/queues-cost-money.md) |
+| `WDR-KAIZEN`     | [inspect-and-adapt](process/inspect-and-adapt.md) |
 
 ### design/
 
 How the platform is shaped: tracks as the repository's root concerns, a thin CLI platform over a vendor substrate, safe self-service, the
 audited server remote with pull-request ingress, the visual grammar of the value-chain diagrams, and the toolset's two run modes (source and
-build). It builds on research, principles, and process; the flow and implementation domains realise it.
+build). It builds on the external records, principles, and process; the flow and implementation domains realise it.
 
-**Role:** `architecture` — **depends on:** `research`, `principles`, `process`.
+**Role:** `architecture` — **depends on:** `external`, `principles`, `process`.
 
 | Code            | ADR                                                              |
 | --------------- | ---------------------------------------------------------------- |
@@ -123,19 +119,19 @@ invoke automation and detect their context, how globsets project into native tri
 climbs, with its stable sync point, and the git paths a topic takes to and from the server's main. The ado (Azure DevOps) and github domains
 implement it.
 
-**Role:** `architecture` — **depends on:** `research`, `principles`, `process`, `design`.
+**Role:** `architecture` — **depends on:** `external`, `principles`, `process`, `design`.
 
-| Code              | ADR                                                                          |
-| ----------------- | ---------------------------------------------------------------------------- |
-| `FDR-CD`          | [cd-discipline-and-promotion-flow](flow/cd-discipline-and-promotion-flow.md) |
-| `FDR-CD-RUNNER`   | [pipeline-runner-pattern](flow/pipeline-runner-pattern.md)                   |
-| `FDR-CD-DETECT`   | [pipeline-detection](flow/pipeline-detection.md)                             |
-| `FDR-CD-TYPE`     | [pipeline-types](flow/pipeline-types.md)                                     |
-| `FDR-CD-GLOBS`    | [durable-sha-globs](flow/durable-sha-globs.md)                               |
-| `FDR-CD-PIPELINE` | [pipeline-concept](flow/pipeline-concept.md)                                 |
-| `FDR-CD-LIFE`     | [commit-lifecycle](flow/commit-lifecycle.md)                                 |
-| `FDR-CD-QUEUE`    | [manual-queues](flow/manual-queues.md)                                       |
-| `FDR-GIT`         | [git-topic-flow](flow/git-topic-flow.md)                                     |
+| Code           | ADR                                                                          |
+| -------------- | ---------------------------------------------------------------------------- |
+| `FDR-CD`       | [cd-discipline-and-promotion-flow](flow/cd-discipline-and-promotion-flow.md) |
+| `FDR-RUNNER`   | [pipeline-runner-pattern](flow/pipeline-runner-pattern.md)                   |
+| `FDR-DETECT`   | [pipeline-detection](flow/pipeline-detection.md)                             |
+| `FDR-TYPE`     | [pipeline-types](flow/pipeline-types.md)                                     |
+| `FDR-GLOBS`    | [durable-sha-globs](flow/durable-sha-globs.md)                               |
+| `FDR-PIPELINE` | [pipeline-concept](flow/pipeline-concept.md)                                 |
+| `FDR-LIFE`     | [commit-lifecycle](flow/commit-lifecycle.md)                                 |
+| `FDR-QUEUE`    | [manual-queues](flow/manual-queues.md)                                       |
+| `FDR-GIT`      | [git-topic-flow](flow/git-topic-flow.md)                                     |
 
 ### automation/
 
@@ -143,10 +139,10 @@ The catzc CLI and module system and the rules for building it: devbox/pipeline p
 assertions, idempotency, caching, path forms, system, module, and internal asset dependencies, the module model, test automation, the
 merged, installable build, the five layers of the automation and the importer that decides a session's mix, stated for any execution engine.
 Language layers live in `go/`, `python/`, and `bash/` (black-box test artifacts); the BCL language of the native C# types is the bcl domain.
-It turns the research, principles, process, and design domains into enforced code; the pwsh domain realises it in PowerShell, and the ado,
+It turns the external, principles, process, and design domains into enforced code; the pwsh domain realises it in PowerShell, and the ado,
 github, and azure domains build on it.
 
-**Role:** `implementation` — **depends on:** `research`, `principles`, `process`, `design`.
+**Role:** `implementation` — **depends on:** `external`, `principles`, `process`, `design`.
 
 | Code                | ADR                                                                              |
 | ------------------- | -------------------------------------------------------------------------------- |
@@ -200,7 +196,7 @@ per file, a namespace per module, one combined assembly, the Base Class Library 
 configured exception, and the one build pair of its solution and projects. pwsh is its host, not its owner: how pwsh compiles and carries
 the types is the pwsh domain's.
 
-**Role:** `implementation` — **depends on:** `research`, `principles`, `process`, `design`, `automation`.
+**Role:** `implementation` — **depends on:** `external`, `principles`, `process`, `design`, `automation`.
 
 | Code            | ADR                                                          |
 | --------------- | ------------------------------------------------------------ |
@@ -212,7 +208,7 @@ PowerShell 7 as one of catzc's execution engines: how the automation rules are r
 error design, streams and console output, caching in script scope, working directory and environment mechanics, cross-platform pwsh, the
 analyzer, and Pester. It applies the engine-agnostic `automation/` rules to one engine and never redefines them.
 
-**Role:** `implementation` — **depends on:** `research`, `principles`, `process`, `design`, `automation`, `bcl`.
+**Role:** `implementation` — **depends on:** `external`, `principles`, `process`, `design`, `automation`, `bcl`.
 
 | Code                | ADR                                                                                         |
 | ------------------- | ------------------------------------------------------------------------------------------- |
@@ -250,7 +246,7 @@ its global name, caches it per file, and validates it in its owning module's sco
 committed config by reference, and config values a tracked Markdown file contributes to a config that opted in. It gives every
 implementation domain its single way to read configuration.
 
-**Role:** `implementation` — **depends on:** `research`, `principles`, `automation`, `bcl`.
+**Role:** `implementation` — **depends on:** `external`, `principles`, `automation`, `bcl`.
 
 | Code                  | ADR                                                                             |
 | --------------------- | ------------------------------------------------------------------------------- |
@@ -264,7 +260,7 @@ The Azure DevOps extensions to the flow model: how ADO REST calls select and pro
 output variables, how ado pipelines and template folders are named and placed under `.ado/pipelines/`, and when an ADO YAML template is
 warranted. It binds the vendor-neutral `flow/` rules to Azure DevOps without redefining them; `github/` is its GitHub counterpart.
 
-**Role:** `implementation` — **depends on:** `research`, `principles`, `process`, `design`, `automation`, `flow`.
+**Role:** `implementation` — **depends on:** `external`, `principles`, `process`, `design`, `automation`, `flow`.
 
 | Code               | ADR                                                                   |
 | ------------------ | --------------------------------------------------------------------- |
@@ -279,7 +275,7 @@ The GitHub extensions to the flow model: the manually dispatched release workflo
 Releases, GitHub Packages, and optionally the PowerShell Gallery. It applies the `flow/` rules to GitHub Actions under `.github/workflows/`
 and publishes the bundle the automation domain defines; `ado/` is its Azure DevOps counterpart.
 
-**Role:** `implementation` — **depends on:** `research`, `principles`, `process`, `design`, `automation`, `flow`.
+**Role:** `implementation` — **depends on:** `external`, `principles`, `process`, `design`, `automation`, `flow`.
 
 | Code             | ADR                                        |
 | ---------------- | ------------------------------------------ |
@@ -290,40 +286,21 @@ and publishes the bundle the automation domain defines; `ado/` is its Azure DevO
 The Azure substrate model catzc deploys onto: the identity data model (`azure.yml` tenants, environments, and subscriptions), the
 per-template configuration tree under `infrastructure/templates/`, the customer catalogue (`customer.yml`), the network IP plan
 (`network.yml`), the deterministic resource-naming standard, and the landing zones. It applies the principles and design domains to one
-vendor, enforced by the `Catzc.Azure*` modules. Beside its own decisions it holds the vendor's recommendations as records: the
-Well-Architected Framework pillars in `waf/` and the Cloud Adoption Framework landing-zone design areas in `caf/`, one rule per vendor item,
-each citing Microsoft's page and saying what the repository does about it. A citation reads `Source: learn <path>`, the path under the one
-base `https://learn.microsoft.com/en-us`.
+vendor, enforced by the `Catzc.Azure*` modules. The vendor's own recommendations, the Well-Architected Framework pillars and the Cloud
+Adoption Framework landing-zone design areas, are external records; the decisions here answer them.
 
-**Role:** `implementation` — **depends on:** `research`, `principles`, `design`, `automation`, `flow`, `ado`.
+**Role:** `implementation` — **depends on:** `external`, `principles`, `design`, `automation`, `flow`, `ado`.
 
-| Code                | ADR                                                                           |
-| ------------------- | ----------------------------------------------------------------------------- |
-| `ADR-AZ-DATAMOD`    | [azure-data-model](azure/azure-data-model.md)                                 |
-| `ADR-AZ-NETWORK`    | [azure-network-model](azure/azure-network-model.md)                           |
-| `ADR-AZ-NAMING`     | [azure-naming-standard](azure/azure-naming-standard.md)                       |
-| `ADR-AZ-CLI`        | [prefer-az-cli](azure/prefer-az-cli.md)                                       |
-| `ADR-AZ-SESSION`    | [az-session-verification](azure/az-session-verification.md)                   |
-| `ADR-AZ-CUSTOMER`   | [azure-customer-model](azure/azure-customer-model.md)                         |
-| `ADR-AZ-LZ`         | [landing-zones](azure/landing-zones.md)                                       |
-| `ADR-AZ-IACKIND`    | [infrastructure-kinds](azure/infrastructure-kinds.md)                         |
-| `ADR-AZ-WAF-RE`     | [reliability](azure/waf/reliability.md)                                       |
-| `ADR-AZ-WAF-SE`     | [security](azure/waf/security.md)                                             |
-| `ADR-AZ-WAF-CO`     | [cost-optimization](azure/waf/cost-optimization.md)                           |
-| `ADR-AZ-WAF-OE`     | [operational-excellence](azure/waf/operational-excellence.md)                 |
-| `ADR-AZ-WAF-PE`     | [performance-efficiency](azure/waf/performance-efficiency.md)                 |
-| `ADR-AZ-CAF-PRIN`   | [design-principles](azure/caf/design-principles.md)                           |
-| `ADR-AZ-CAF-BILL`   | [billing-and-tenant](azure/caf/billing-and-tenant.md)                         |
-| `ADR-AZ-CAF-IAM`    | [identity-and-access](azure/caf/identity-and-access.md)                       |
-| `ADR-AZ-CAF-RESORG` | [resource-organization](azure/caf/resource-organization.md)                   |
-| `ADR-AZ-CAF-NETTOP` | [network-topology](azure/caf/network-topology.md)                             |
-| `ADR-AZ-CAF-NETCON` | [network-connectivity](azure/caf/network-connectivity.md)                     |
-| `ADR-AZ-CAF-NETPRV` | [network-private-access](azure/caf/network-private-access.md)                 |
-| `ADR-AZ-CAF-SEC`    | [landing-zone-security](azure/caf/landing-zone-security.md)                   |
-| `ADR-AZ-CAF-MGMT`   | [management](azure/caf/management.md)                                         |
-| `ADR-AZ-CAF-GOV`    | [governance](azure/caf/governance.md)                                         |
-| `ADR-AZ-CAF-NAME`   | [naming-and-tagging](azure/caf/naming-and-tagging.md)                         |
-| `ADR-AZ-CAF-DEVOPS` | [platform-automation-and-devops](azure/caf/platform-automation-and-devops.md) |
+| Code              | ADR                                                         |
+| ----------------- | ----------------------------------------------------------- |
+| `ADR-AZ-DATAMOD`  | [azure-data-model](azure/azure-data-model.md)               |
+| `ADR-AZ-NETWORK`  | [azure-network-model](azure/azure-network-model.md)         |
+| `ADR-AZ-NAMING`   | [azure-naming-standard](azure/azure-naming-standard.md)     |
+| `ADR-AZ-CLI`      | [prefer-az-cli](azure/prefer-az-cli.md)                     |
+| `ADR-AZ-SESSION`  | [az-session-verification](azure/az-session-verification.md) |
+| `ADR-AZ-CUSTOMER` | [azure-customer-model](azure/azure-customer-model.md)       |
+| `ADR-AZ-LZ`       | [landing-zones](azure/landing-zones.md)                     |
+| `ADR-AZ-IACKIND`  | [infrastructure-kinds](azure/infrastructure-kinds.md)       |
 
 ### repository/
 
@@ -334,7 +311,7 @@ vocabulary of defined terms, the directions a link may point, the reserved meta 
 the sub-agent definitions and the rules behind each, and sibling repositories read for ideas, never as a reference implementation, and the
 session-memory protection that skips a repeated scan over an unchanged globset.
 
-**Role:** `implementation` — **depends on:** `research`, `principles`, `design`, `automation`, `configuration`, `bcl`.
+**Role:** `implementation` — **depends on:** `external`, `principles`, `design`, `automation`, `configuration`, `bcl`.
 
 | Code                   | ADR                                                                    |
 | ---------------------- | ---------------------------------------------------------------------- |
@@ -365,51 +342,76 @@ session-memory protection that skips a repeated scan over an unchanged globset.
 | `ADR-REPO-SLIDES`      | [slides-as-markdown](repository/slides-as-markdown.md)                 |
 | `ADR-REPO-REPOKIND`    | [repository-kinds](repository/repository-kinds.md)                     |
 
-### research/
+### external/
 
-The repository's core theoretical construct: the DORA research program, held as one ADR-style record per DORA capability, each with its own
-`RDR-DORA-<NAME>` rule codes, beside the cross-referenceable research reference in `docs/references/dora/`. It is trusted external
-validation — every other domain depends on it and it depends on none; the others cite it through their `dora-explains.md` files and
-`RDR-DORA-*` citations.
+The outside guidance catzc rests on or answers item by item, one record per source item, kept apart from catzc's own decisions: the DORA
+research program in `dora/`, the Microsoft Well-Architected Framework in `azure/waf/` and Cloud Adoption Framework in `azure/caf/`, the
+Agile Manifesto in `agile/`, lean theory in `lean/`, and Pester in `pester/`. A code keeps its source path under the EDR kind
+(`EDR-DORA-CI`, `EDR-AZ-CAF-GOV`), and an item keeps the source's own id (a Well-Architected item `RE01`, a Cloud Adoption Framework item
+`R01`). A rule states how catzc reads the item, with a `Source:` line that names it, a Microsoft page as `learn <path>` under the one base
+`https://learn.microsoft.com/en-us`; the ADR or PDR that cites the rule holds catzc's own decision. Every other domain depends on this one
+and it depends on none; the others cite the DORA records through their `dora-explains.md` files and `EDR-DORA-*` citations.
 
 **Role:** `reference` — **depends on:** none.
 
-| Code                  | ADR                                                                                |
-| --------------------- | ---------------------------------------------------------------------------------- |
-| `RDR-DORA-AIDATA`     | [ai-accessible-internal-data](research/ai-accessible-internal-data.md)             |
-| `RDR-DORA-AISTANCE`   | [clear-and-communicated-ai-stance](research/clear-and-communicated-ai-stance.md)   |
-| `RDR-DORA-DATAECO`    | [healthy-data-ecosystems](research/healthy-data-ecosystems.md)                     |
-| `RDR-DORA-PLATFORM`   | [platform-engineering](research/platform-engineering.md)                           |
-| `RDR-DORA-USERFOCUS`  | [user-centric-focus](research/user-centric-focus.md)                               |
-| `RDR-DORA-VCS`        | [version-control](research/version-control.md)                                     |
-| `RDR-DORA-SMALLBATCH` | [working-in-small-batches](research/working-in-small-batches.md)                   |
-| `RDR-DORA-MAINTAIN`   | [code-maintainability](research/code-maintainability.md)                           |
-| `RDR-DORA-CD`         | [continuous-delivery](research/continuous-delivery.md)                             |
-| `RDR-DORA-CI`         | [continuous-integration](research/continuous-integration.md)                       |
-| `RDR-DORA-DBCHANGE`   | [database-change-management](research/database-change-management.md)               |
-| `RDR-DORA-DEPLOY`     | [deployment-automation](research/deployment-automation.md)                         |
-| `RDR-DORA-DOCS`       | [documentation-quality](research/documentation-quality.md)                         |
-| `RDR-DORA-FLEXINFRA`  | [flexible-infrastructure](research/flexible-infrastructure.md)                     |
-| `RDR-DORA-LOOSETEAMS` | [loosely-coupled-teams](research/loosely-coupled-teams.md)                         |
-| `RDR-DORA-OBSERV`     | [monitoring-and-observability](research/monitoring-and-observability.md)           |
-| `RDR-DORA-SECURITY`   | [pervasive-security](research/pervasive-security.md)                               |
-| `RDR-DORA-APPROVAL`   | [streamlining-change-approval](research/streamlining-change-approval.md)           |
-| `RDR-DORA-TESTAUTO`   | [test-automation](research/test-automation.md)                                     |
-| `RDR-DORA-TESTDATA`   | [test-data-management](research/test-data-management.md)                           |
-| `RDR-DORA-TRUNK`      | [trunk-based-development](research/trunk-based-development.md)                     |
-| `RDR-DORA-FEEDBACK`   | [customer-feedback](research/customer-feedback.md)                                 |
-| `RDR-DORA-MONITOR`    | [monitoring-systems](research/monitoring-systems.md)                               |
-| `RDR-DORA-FAILALERT`  | [proactive-failure-notification](research/proactive-failure-notification.md)       |
-| `RDR-DORA-WORKVIS`    | [work-visibility-in-value-stream](research/work-visibility-in-value-stream.md)     |
-| `RDR-DORA-VISUAL`     | [visual-management](research/visual-management.md)                                 |
-| `RDR-DORA-WIP`        | [wip-limits](research/wip-limits.md)                                               |
-| `RDR-DORA-TOOLCHOICE` | [teams-empowered-to-choose-tools](research/teams-empowered-to-choose-tools.md)     |
-| `RDR-DORA-CULTURE`    | [generative-organizational-culture](research/generative-organizational-culture.md) |
-| `RDR-DORA-JOBSAT`     | [job-satisfaction](research/job-satisfaction.md)                                   |
-| `RDR-DORA-LEARNING`   | [learning-culture](research/learning-culture.md)                                   |
-| `RDR-DORA-EXPERIMENT` | [team-experimentation](research/team-experimentation.md)                           |
-| `RDR-DORA-LEADERSHIP` | [transformational-leadership](research/transformational-leadership.md)             |
-| `RDR-DORA-WELLBEING`  | [well-being](research/well-being.md)                                               |
+| Code                  | ADR                                                                                     |
+| --------------------- | --------------------------------------------------------------------------------------- |
+| `EDR-DORA-AIDATA`     | [ai-accessible-internal-data](external/dora/ai-accessible-internal-data.md)             |
+| `EDR-DORA-AISTANCE`   | [clear-and-communicated-ai-stance](external/dora/clear-and-communicated-ai-stance.md)   |
+| `EDR-DORA-DATAECO`    | [healthy-data-ecosystems](external/dora/healthy-data-ecosystems.md)                     |
+| `EDR-DORA-PLATFORM`   | [platform-engineering](external/dora/platform-engineering.md)                           |
+| `EDR-DORA-USERFOCUS`  | [user-centric-focus](external/dora/user-centric-focus.md)                               |
+| `EDR-DORA-VCS`        | [version-control](external/dora/version-control.md)                                     |
+| `EDR-DORA-SMALLBATCH` | [working-in-small-batches](external/dora/working-in-small-batches.md)                   |
+| `EDR-DORA-MAINTAIN`   | [code-maintainability](external/dora/code-maintainability.md)                           |
+| `EDR-DORA-CD`         | [continuous-delivery](external/dora/continuous-delivery.md)                             |
+| `EDR-DORA-CI`         | [continuous-integration](external/dora/continuous-integration.md)                       |
+| `EDR-DORA-DBCHANGE`   | [database-change-management](external/dora/database-change-management.md)               |
+| `EDR-DORA-DEPLOY`     | [deployment-automation](external/dora/deployment-automation.md)                         |
+| `EDR-DORA-DOCS`       | [documentation-quality](external/dora/documentation-quality.md)                         |
+| `EDR-DORA-FLEXINFRA`  | [flexible-infrastructure](external/dora/flexible-infrastructure.md)                     |
+| `EDR-DORA-LOOSETEAMS` | [loosely-coupled-teams](external/dora/loosely-coupled-teams.md)                         |
+| `EDR-DORA-OBSERV`     | [monitoring-and-observability](external/dora/monitoring-and-observability.md)           |
+| `EDR-DORA-SECURITY`   | [pervasive-security](external/dora/pervasive-security.md)                               |
+| `EDR-DORA-APPROVAL`   | [streamlining-change-approval](external/dora/streamlining-change-approval.md)           |
+| `EDR-DORA-TESTAUTO`   | [test-automation](external/dora/test-automation.md)                                     |
+| `EDR-DORA-TESTDATA`   | [test-data-management](external/dora/test-data-management.md)                           |
+| `EDR-DORA-TRUNK`      | [trunk-based-development](external/dora/trunk-based-development.md)                     |
+| `EDR-DORA-FEEDBACK`   | [customer-feedback](external/dora/customer-feedback.md)                                 |
+| `EDR-DORA-MONITOR`    | [monitoring-systems](external/dora/monitoring-systems.md)                               |
+| `EDR-DORA-FAILALERT`  | [proactive-failure-notification](external/dora/proactive-failure-notification.md)       |
+| `EDR-DORA-WORKVIS`    | [work-visibility-in-value-stream](external/dora/work-visibility-in-value-stream.md)     |
+| `EDR-DORA-VISUAL`     | [visual-management](external/dora/visual-management.md)                                 |
+| `EDR-DORA-WIP`        | [wip-limits](external/dora/wip-limits.md)                                               |
+| `EDR-DORA-TOOLCHOICE` | [teams-empowered-to-choose-tools](external/dora/teams-empowered-to-choose-tools.md)     |
+| `EDR-DORA-CULTURE`    | [generative-organizational-culture](external/dora/generative-organizational-culture.md) |
+| `EDR-DORA-JOBSAT`     | [job-satisfaction](external/dora/job-satisfaction.md)                                   |
+| `EDR-DORA-LEARNING`   | [learning-culture](external/dora/learning-culture.md)                                   |
+| `EDR-DORA-EXPERIMENT` | [team-experimentation](external/dora/team-experimentation.md)                           |
+| `EDR-DORA-LEADERSHIP` | [transformational-leadership](external/dora/transformational-leadership.md)             |
+| `EDR-DORA-WELLBEING`  | [well-being](external/dora/well-being.md)                                               |
+| `EDR-AZ-WAF-RE`       | [reliability](external/azure/waf/reliability.md)                                        |
+| `EDR-AZ-WAF-SE`       | [security](external/azure/waf/security.md)                                              |
+| `EDR-AZ-WAF-CO`       | [cost-optimization](external/azure/waf/cost-optimization.md)                            |
+| `EDR-AZ-WAF-OE`       | [operational-excellence](external/azure/waf/operational-excellence.md)                  |
+| `EDR-AZ-WAF-PE`       | [performance-efficiency](external/azure/waf/performance-efficiency.md)                  |
+| `EDR-AZ-CAF-PRIN`     | [design-principles](external/azure/caf/design-principles.md)                            |
+| `EDR-AZ-CAF-BILL`     | [billing-and-tenant](external/azure/caf/billing-and-tenant.md)                          |
+| `EDR-AZ-CAF-IAM`      | [identity-and-access](external/azure/caf/identity-and-access.md)                        |
+| `EDR-AZ-CAF-RESORG`   | [resource-organization](external/azure/caf/resource-organization.md)                    |
+| `EDR-AZ-CAF-NETTOP`   | [network-topology](external/azure/caf/network-topology.md)                              |
+| `EDR-AZ-CAF-NETCON`   | [network-connectivity](external/azure/caf/network-connectivity.md)                      |
+| `EDR-AZ-CAF-NETPRV`   | [network-private-access](external/azure/caf/network-private-access.md)                  |
+| `EDR-AZ-CAF-SEC`      | [landing-zone-security](external/azure/caf/landing-zone-security.md)                    |
+| `EDR-AZ-CAF-MGMT`     | [management](external/azure/caf/management.md)                                          |
+| `EDR-AZ-CAF-GOV`      | [governance](external/azure/caf/governance.md)                                          |
+| `EDR-AZ-CAF-NAME`     | [naming-and-tagging](external/azure/caf/naming-and-tagging.md)                          |
+| `EDR-AZ-CAF-DEVOPS`   | [platform-automation-and-devops](external/azure/caf/platform-automation-and-devops.md)  |
+| `EDR-AGILE`           | [agile](external/agile/agile.md)                                                        |
+| `EDR-VALUES`          | [agile-values](external/agile/agile-values.md)                                          |
+| `EDR-AGILEPRINCIPLES` | [agile-principles](external/agile/agile-principles.md)                                  |
+| `EDR-LEAN`            | [lean](external/lean/lean.md)                                                           |
+| `EDR-PWSH-PESTER`     | [pester-framework](external/pester/pester-framework.md)                                 |
 
 ## Authoring conventions
 
@@ -463,16 +465,17 @@ These apply when writing or editing any ADR (and largely any doc under `docs/`):
   (`capabilities.md`), the AI Capabilities Model (`ai.md`), and every publication (`publications.md`). Each heading there has a stable
   anchor and carries its dora.dev source URL. Link a capability as `capabilities.md#<dora-slug>`, a metric as `metrics.md#<metric-name>`, a
   publication as `publications.md#<year>-<title>`, and the research program as `index.md` — never a deep link into dora.dev, which lives
-  only inside `docs/references/dora/` and in the research ADRs' `## References` footnotes.
+  only inside `docs/references/dora/` and in the DORA records' `## References` footnotes.
 
-- **`dora-explains.md` collects each domain's DORA rationale.** An ADR outside `research/` carries no `## Dora explains` section; instead
+- **`dora-explains.md` collects each domain's DORA rationale.** An ADR outside `external/` carries no `## Dora explains` section; instead
   every other domain folder keeps a `dora-explains.md` that consolidates, one entry per ADR, the short present-tense paragraph tying that
   ADR's topic to DORA research and its 2–4 domain-relevant capability links (each
   `[Capability](<relative>/capabilities.md#<dora-slug>) — why it is relevant`, plus a link to the reference's `index.md`). Link only the
-  capabilities that genuinely bear on an ADR's domain, never the whole catalogue. DORA grounds the repository's own decisions; an ADR that
-  answers a vendor's checklist item by item (`azure/caf/`, `azure/waf/`) is grounded in that vendor's reference (`docs/references/caf/`,
-  `docs/references/waf/`) and takes no entry (`drs-checks.yml` `exempt_folders`).
+  capabilities that genuinely bear on an ADR's domain, never the whole catalogue. DORA grounds the repository's own decisions; a record in
+  `external/` is grounded in its own source (a vendor record in `docs/references/caf/` or `docs/references/waf/`) and takes no entry
+  (`drs-checks.yml` `exempt`).
 
-- **The research ADRs carry their own `## Dora explains`.** Each `research/<slug>.md` is the record of one DORA capability, so it is the one
-  place an ADR ends with a `## Dora explains` section: the capability's site category and Core Model position, the publications its evidence
-  comes from, and its related capabilities, all as links into `docs/references/dora/`. `research/` therefore has no `dora-explains.md`.
+- **The DORA records carry their own `## Dora explains`.** Each `external/dora/<slug>.md` is the record of one DORA capability, so it is the
+  one place an ADR ends with a `## Dora explains` section: the capability's site category and Core Model position, the publications its
+  evidence comes from, and its related capabilities, all as links into `docs/references/dora/`. `external/` therefore has no
+  `dora-explains.md`.

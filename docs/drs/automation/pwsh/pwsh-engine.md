@@ -2,7 +2,7 @@
 
 ## Rules: ADR-PWSH-ENGINE
 
-### Rule ADR-PWSH-ENGINE-PWSHISANENGINE
+### Rule ADR-PWSH-ENGINE-ISANENGINE
 
 pwsh is one of the three execution engines ([execution-engines](../execution-engines.md#rule-adr-auto-engine-threeengines)), and the one
 every catzc module runs under: PowerShell 7.4 or later, on Windows, Linux, and macOS. `Invoke-Importer` refuses an older PowerShell before
@@ -48,10 +48,10 @@ record of loaded C# types; and the session `PATH` reconciled to the tools presen
 ### Rule ADR-PWSH-ENGINE-BUILDENTRY
 
 The build's entry is `Import-Catzc.ps1`, the pwsh mechanics of [platform-bundle](../platform-bundle.md) (ADR-AUTO-BUNDLE-ONELIVINGIMPORTER,
-ADR-AUTO-BUNDLE-BUNDLEISSESSION). It is authored once, at `pwsh/.internal/assets/Import-Catzc.ps1`, and copied verbatim into every build;
-the build's generated `Catzc.psm1` dot-sources it, so `Import-Module Catzc` and `. <build>/Import-Catzc.ps1` set up the same session. It
-sets `$env:RepositoryRoot` (its `-RepositoryRoot`, else the value already set, else the current location) and `$env:CatzcModulesRoot` (its
-own folder), then calls `Invoke-Importer -Bundle`, which sets the preferences of ADR-PWSH-ENGINE-GLOBALPREFERENCESONCE and registers the
+ADR-AUTO-BUNDLE-ISSESSION). It is authored once, at `pwsh/.internal/assets/Import-Catzc.ps1`, and copied verbatim into every build; the
+build's generated `Catzc.psm1` dot-sources it, so `Import-Module Catzc` and `. <build>/Import-Catzc.ps1` set up the same session. It sets
+`$env:RepositoryRoot` (its `-RepositoryRoot`, else the value already set, else the current location) and `$env:CatzcModulesRoot` (its own
+folder), then calls `Invoke-Importer -Bundle`, which sets the preferences of ADR-PWSH-ENGINE-GLOBALPREFERENCESONCE and registers the
 prebuilt types and their accelerators ([hosting-csharp-types](hosting-csharp-types.md#rule-adr-pwsh-types-typeacceleratorattribute)) before
 it reads any module's prebuilt manifest. The root `importer.ps1` that `Export-Catzc -Root <dir>` writes dot-sources it with
 `-RepositoryRoot <dir>`.

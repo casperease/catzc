@@ -11,4 +11,4 @@ The integrity context reads the shipped `tools.yml` and guards real repository c
 
 The logic context builds the constructor on an inline, synthetic config, independent of any shipped asset. The `python` rule keys on the
 literal `python` tool (the pinned interpreter); every other tool is a fixture token
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+([ADR-AUTO-TEST-DISTINCTFIXTURES](../../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtures)).

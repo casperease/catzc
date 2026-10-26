@@ -1,7 +1,7 @@
 # pwsh/Base.Maps/types/MapCell.cs
 
 One cell of the world map: a track (the row) crossed with a file language (the column), and how many tracked files sit in it
-([DDR-TRACK-TRACKISPLACEDCLUSTER](../../../../drs/design/tracks.md#rule-ddr-track-trackisplacedcluster),
+([DDR-TRACK-ISPLACEDCLUSTER](../../../../drs/design/tracks.md#rule-ddr-track-isplacedcluster),
 [DDR-TRACK-FILELANGUAGE](../../../../drs/design/tracks.md#rule-ddr-track-filelanguage)).
 
 ## Stack violation

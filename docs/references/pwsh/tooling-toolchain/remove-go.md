@@ -22,7 +22,7 @@ and nothing is touched. With -Force, from an elevated shell, the command runs th
 bundles first, each bounded by the command's time limit, its exit code checked (0, or 1641 / 3010 when Windows wants a restart), its output
 kept in a transcript under out/remove-go/; it then re-reads the registration and deletes what is left of the folder, with its bin entry on
 the machine PATH and GOROOT (needs Administrator,
-[ADR-AUTO-REMOVE-ELEVATIONFOLLOWSMECHANISM](../../../drs/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-elevationfollowsmechanism)).
+[ADR-AUTO-REMOVE-ELEVATIONBYMECHANISM](../../../drs/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-elevationbymechanism)).
 
 Linux / macOS: evicts an off-config install by the mechanism that placed it (native package / uv-Python pip / stray binary).
 

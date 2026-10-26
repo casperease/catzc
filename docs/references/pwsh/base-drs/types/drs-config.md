@@ -21,7 +21,7 @@ a misspelled key never falls back to a default.
 
 The rules are self-contained: no filesystem or other-config reads. The folder-to-domain and terminology-token cross-checks belong to the
 quality gate `Test-DrsRegistry` and to shipped-asset integrity tests, which mirrors the one-directional coupling of the customer model
-([ADR-AZ-CUSTOMER-REFERENCENOTVALIDATEDONLOAD](../../../../drs/azure/azure-customer-model.md#rule-adr-az-customer-referencenotvalidatedonload)).
+([ADR-AZ-CUSTOMER-REFERENCEUNVALIDATED](../../../../drs/azure/azure-customer-model.md#rule-adr-az-customer-referenceunvalidated)).
 
 - `domains` is a non-empty map. Each domain has a role, a description, a `depends_on` list and a non-empty `rulesets` map.
 - Every `depends_on` target resolves to a domain the file declares, there is no self-edge, and the graph of domains is acyclic.

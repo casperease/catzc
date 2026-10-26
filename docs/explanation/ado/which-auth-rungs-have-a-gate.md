@@ -9,12 +9,12 @@ The PAT proof and the empty-token assert have no gate, and neither do #4 and #7.
 4  az CLI                  #2 checked by two L0 tests; the #5 empty-token assert has none
 5  invoke-automation.yaml  #6, checked by a step in the AzureAuthTests job
 
-Supports ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE, ADR-ADO-AUTH-PROVETARGET, ADR-ADO-AUTH-EXPLICITDETECTION,
+Supports ADR-ADO-AUTH-FIXEDCREDENTIALORDER, ADR-ADO-AUTH-PROVETARGET, ADR-ADO-AUTH-EXPLICITDETECTION,
 ADR-ADO-AUTH-SEPARATETOKENFUNCTION, ADR-ADO-AUTH-ASSERTWHENNOTOKEN, ADR-ADO-AUTH-TEMPLATESMAPSYSTEMTOKEN
-and FDR-CD-PIPELINE-NOSTOREDTOKENS (governance lens).
+and FDR-PIPELINE-NOSTOREDTOKENS (governance lens).
 ```
 
-ADR-ADO-AUTH has six rules and FDR-CD-PIPELINE-NOSTOREDTOKENS adds the seventh, and tests check only some of them. The L0 tests of
+ADR-ADO-AUTH has six rules and FDR-PIPELINE-NOSTOREDTOKENS adds the seventh, and tests check only some of them. The L0 tests of
 `Get-AdoAuthorizationHeader` cover the pipeline and az CLI proofs, and one CI step checks that the token mapping works. The PAT's binding to
 the org, the empty-token assert, the one-function rule and the no-caching rule have no gate at all.
 
@@ -24,13 +24,13 @@ description:
   dashed, the PAT's org binding and the empty-token assert among them."
 about:
   adrs:
-    - ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE
+    - ADR-ADO-AUTH-FIXEDCREDENTIALORDER
     - ADR-ADO-AUTH-PROVETARGET
     - ADR-ADO-AUTH-EXPLICITDETECTION
     - ADR-ADO-AUTH-SEPARATETOKENFUNCTION
     - ADR-ADO-AUTH-ASSERTWHENNOTOKEN
     - ADR-ADO-AUTH-TEMPLATESMAPSYSTEMTOKEN
-    - FDR-CD-PIPELINE-NOSTOREDTOKENS
+    - FDR-PIPELINE-NOSTOREDTOKENS
   lens: governance
 content:
   title: The PAT proof and the empty-token assert have no gate
@@ -61,9 +61,9 @@ content:
     - { at: g-azcli, number: 4 }
     - { at: g-template, number: 5 }
   chips:
-    - { at: band-header, kind: rule, rule: ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE }
+    - { at: band-header, kind: rule, rule: ADR-ADO-AUTH-FIXEDCREDENTIALORDER }
     - { at: band-header, kind: rule, rule: ADR-ADO-AUTH-SEPARATETOKENFUNCTION, gated: false }
-    - { at: band-header, kind: rule, rule: FDR-CD-PIPELINE-NOSTOREDTOKENS, gated: false }
+    - { at: band-header, kind: rule, rule: FDR-PIPELINE-NOSTOREDTOKENS, gated: false }
     - { at: t-pipeline, kind: rule, rule: ADR-ADO-AUTH-EXPLICITDETECTION }
     - { at: t-pipeline, kind: rule, rule: ADR-ADO-AUTH-PROVETARGET }
     - { at: t-pat, kind: rule, rule: ADR-ADO-AUTH-PROVETARGET, gated: false }
@@ -104,22 +104,22 @@ layout:
    the `AzureAuthTests` job of `.ado/pipelines/ci-pwsh.yaml`. It asserts only that the token is non-empty when `ExposeAccessToken` is true.
 
 No analyzer rule cites ADR-ADO-AUTH. The analyzer rule `Measure-NoRawPipelineDetection` forbids raw reads of the pipeline variables outside
-`Test-IsRunningInPipeline`, which supports #3, but it is mapped to FDR-CD-DETECT-NODIRECTVARIABLECHECK.
+`Test-IsRunningInPipeline`, which supports #3, but it is mapped to FDR-DETECT-NODIRECTVARIABLECHECK.
 
 ## Why it holds
 
-- The credential is chosen in a fixed order with no fallback on failure (ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE).
+- The credential is chosen in a fixed order with no fallback on failure (ADR-ADO-AUTH-FIXEDCREDENTIALORDER).
 - Each source proves its org or tenant before it returns a header (ADR-ADO-AUTH-PROVETARGET).
 - Pipeline detection goes through `Test-IsRunningInPipeline` (ADR-ADO-AUTH-EXPLICITDETECTION).
 - API functions call the header function and never inline token logic (ADR-ADO-AUTH-SEPARATETOKENFUNCTION).
 - An empty az CLI result raises an actionable error (ADR-ADO-AUTH-ASSERTWHENNOTOKEN).
 - The step template maps the system token when `ExposeAccessToken` is set (ADR-ADO-AUTH-TEMPLATESMAPSYSTEMTOKEN).
-- Tokens are never kept beyond the request (FDR-CD-PIPELINE-NOSTOREDTOKENS).
+- Tokens are never kept beyond the request (FDR-PIPELINE-NOSTOREDTOKENS).
 
 ## Where the code and the decision record differ
 
-- ADR-ADO-AUTH-SEPARATETOKENFUNCTION, ADR-ADO-AUTH-ASSERTWHENNOTOKEN and FDR-CD-PIPELINE-NOSTOREDTOKENS have no gate: no test and no
-  analyzer rule.
+- ADR-ADO-AUTH-SEPARATETOKENFUNCTION, ADR-ADO-AUTH-ASSERTWHENNOTOKEN and FDR-PIPELINE-NOSTOREDTOKENS have no gate: no test and no analyzer
+  rule.
 - The PAT half of ADR-ADO-AUTH-PROVETARGET holds only by default, because every API function accepts an `-Organization` override.
 
 ## See also

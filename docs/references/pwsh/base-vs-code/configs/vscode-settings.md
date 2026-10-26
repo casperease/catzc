@@ -79,10 +79,10 @@ compared far more than edited.
   asks for; it runs the managed go, which the generator injects as `go.goroot` on a machine where `Install-Go` has run
   ([ADR-AUTO-GO-MANAGEDTOOLCHAIN](../../../../drs/automation/go/go-test-artifacts.md#rule-adr-auto-go-managedtoolchain)).
 - **Python** (the ms-python extension): the generator injects `python.defaultInterpreterPath`, the Python test project's environment
-  ([ADR-AUTO-PY-GENERATEDWORKSPACE](../../../../drs/automation/python/python-test-artifacts.md#rule-adr-auto-py-generatedworkspace)), so the
-  editor resolves and runs the tests in it. A terminal is never activated into it: the integrated terminal stays the catzc pwsh session, and
-  the tests run through `Test-Automation`, not an activated venv. Both activation keys are set: the Python extension reads the first, the
-  Python Environments extension the second. Python writes its bytecode cache to `out/pycache` in every terminal of the editor, as
+  ([ADR-AUTO-PY-PYWORKSPACE](../../../../drs/automation/python/python-test-artifacts.md#rule-adr-auto-py-pyworkspace)), so the editor
+  resolves and runs the tests in it. A terminal is never activated into it: the integrated terminal stays the catzc pwsh session, and the
+  tests run through `Test-Automation`, not an activated venv. Both activation keys are set: the Python extension reads the first, the Python
+  Environments extension the second. Python writes its bytecode cache to `out/pycache` in every terminal of the editor, as
   `Invoke-PythonTest` has it, never beside the code files.
 - **Schemas**: no extension fetches a schema. The YAML extension never asks SchemaStore and JSON never downloads one; every schema the
   editor checks against is a local file named in the settings.

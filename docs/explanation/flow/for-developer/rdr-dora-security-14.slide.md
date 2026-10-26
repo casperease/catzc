@@ -15,7 +15,7 @@ catzc:
 
 ## Eyebrow
 
-14 / 30 · fact for the Developer · RDR-DORA-SECURITY
+14 / 30 · fact for the Developer · EDR-DORA-SECURITY
 
 ## Lead
 
@@ -32,5 +32,5 @@ From the catalogue, reduced: every entry runs one load sequence.
 
 ## Notes
 
-Check it: the record RDR-DORA-SECURITY in docs/drs/index.md, and the diagram
+Check it: the record EDR-DORA-SECURITY in docs/drs/index.md, and the diagram
 docs/explanation/automation/.assets/every-entry-runs-one-load-sequence.drawio.png.

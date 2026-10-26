@@ -2,7 +2,7 @@
 
 ## Rules: ADR-AUTO-BASH
 
-### Rule ADR-AUTO-BASH-MODULESBYLAYOUT
+### Rule ADR-AUTO-BASH-BASHMODULESBYLAYOUT
 
 Bash code in the `bash` track is either a module of the track, a folder under the Bash root that exists by the layout
 (ADR-AUTO-MODULE-EXISTSBYLAYOUT, ADR-AUTO-MODULE-EVERYLANGUAGETRACKALIKE), or a black-box test under the track's test holder,
@@ -22,7 +22,7 @@ Bash test is one `@test "<name>" {` line; a name starting with `integrity:` make
 
 - [The layout](#the-layout)
 
-### Rule ADR-AUTO-BASH-BLACKBOXTESTS
+### Rule ADR-AUTO-BASH-BASHBLACKBOX
 
 A Bash test is a black-box test that calls catzc the way a Bash user does: its `setup` loads `CATZC_ENGINE_ENTRY` — the repository's
 `importer.sh` — and the test runs catzc commands through the `cats` dispatcher, asserting on output and exit codes, never on the engine's
@@ -40,10 +40,10 @@ runner; `Update-BatsVendor` rebuilds the copy from the pin. The vendored files a
 
 - [A vendored runner](#a-vendored-runner)
 
-### Rule ADR-AUTO-BASH-LANGUAGEBRIDGE
+### Rule ADR-AUTO-BASH-BASHBRIDGE
 
-`Test-Automation` runs the Bash tests through the language bridge the Go and Python tests run through (ADR-AUTO-GO-LANGUAGEBRIDGE,
-ADR-AUTO-PY-LANGUAGEBRIDGE): discovery maps each Bash test folder to its catzc module, and the bridge turns every `@test` into one test of
+`Test-Automation` runs the Bash tests through the language bridge the Go and Python tests run through (ADR-AUTO-GO-GOBRIDGE,
+ADR-AUTO-PY-PYBRIDGE): discovery maps each Bash test folder to its catzc module, and the bridge turns every `@test` into one test of
 the run (ADR-AUTO-TEST-TEST), tagged `L2` (ADR-AUTO-TEST-NOCLOUDBELOWLTHREE) plus its category from its name. The bash engine is the Bash
 tests' tool: the run's source session locates it once and hands its path to the bridge; without it, the bridge skips with
 `tool_bash_missing` (ADR-AUTO-TEST-TAGBYOUTERMOSTRING).
@@ -130,10 +130,10 @@ runs ([execution-engines](../execution-engines.md#rule-adr-auto-engine-startenvi
 ## Decision
 
 Bash is a language track whose modules exist by the layout and ship only what is packaged, and the black-box test language for the path a
-Bash user takes (ADR-AUTO-BASH-MODULESBYLAYOUT). Its tests of the engine live in one Bash test folder per catzc module under the Bash root
-(ADR-AUTO-BASH-ONEBASHROOT), call catzc through `importer.sh` and `cats` from the entry the run names (ADR-AUTO-BASH-BLACKBOXTESTS), run on
+Bash user takes (ADR-AUTO-BASH-BASHMODULESBYLAYOUT). Its tests of the engine live in one Bash test folder per catzc module under the Bash root
+(ADR-AUTO-BASH-ONEBASHROOT), call catzc through `importer.sh` and `cats` from the entry the run names (ADR-AUTO-BASH-BASHBLACKBOX), run on
 a vendored, pinned bats-core (ADR-AUTO-BASH-VENDOREDBATS) through `Test-Automation` as `L2` tests through the language bridge
-(ADR-AUTO-BASH-LANGUAGEBRIDGE), and every shell script takes the shell-script checks (ADR-AUTO-BASH-SHELLSCRIPTSCHECKED).
+(ADR-AUTO-BASH-BASHBRIDGE), and every shell script takes the shell-script checks (ADR-AUTO-BASH-SHELLSCRIPTSCHECKED).
 
 ### How this is enforced
 

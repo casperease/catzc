@@ -1,4 +1,4 @@
-Describe 'Get-TrackMember' -Tag 'L0', 'logic', 'DDR-TRACK-TRACKISPLACEDCLUSTER' {
+Describe 'Get-TrackMember' -Tag 'L0', 'logic', 'DDR-TRACK-ISPLACEDCLUSTER' {
     BeforeAll {
         $script:fixture = [Catzc.Base.Variants.VariantsConfig]::new([ordered]@{
                 tracks = [ordered]@{

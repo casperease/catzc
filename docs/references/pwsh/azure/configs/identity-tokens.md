@@ -2,7 +2,7 @@
 
 The live production identities this module's configs carry: the customers, the org, the subscriptions and the environments. A hermetic logic
 test must never name them, and uses the fixture the entry's suggestion names instead
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+([ADR-AUTO-TEST-DISTINCTFIXTURES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtures)).
 
 ## how it is read
 

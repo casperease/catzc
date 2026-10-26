@@ -4,7 +4,6 @@
 lens numbers, the page and the grid, the commit states and the cell styles."""
 
 from .drawio_png import DEFAULTS
-from .module_paths import KIT as KIT  # re-exported: the declaration modules read the kit folder from here
 
 SLIDE = ".drawio.png"
 SOURCE = ".drawio.yml"  # the diagram's one source: its description, its content and the layout of the cells off the grid
@@ -36,6 +35,10 @@ ACTION_CLEARANCE = int(ACTION["clearance"])  # how far the action clears the cau
 # engine runs it as; the proof lens draws that box on its own. Its engines and their idioms, and whether an action diagram shows it,
 # are declared once in drawio.yml.
 PROOF_LENS = "proof"
+# The flow lens (DDR-VISUAL-FLOWISALENS): a flow declaration stores its inputs alone, the pipeline files in about.point, and its cells come
+# from the engine readers' rows; title and kind are its only content keys.
+FLOW_LENS = "flow"
+FLOW_KEYS = ("title", "kind")
 PROOF_SHOWN = str(ACTION["proof"]).strip() == "shown"
 PROOF_ENGINES = [tuple(pair.split()) for pair in str(ACTION["proof-engines"]).split(",")]  # (engine, idiom), idiom pascal or kebab
 PROOF_ROW = 22  # one engine's words, one row

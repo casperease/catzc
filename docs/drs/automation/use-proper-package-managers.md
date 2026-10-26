@@ -24,7 +24,7 @@ Remove Chocolatey from target machines. `Uninstall-Chocolatey` removes the insta
 
 - [Decision](#decision)
 
-### Rule ADR-AUTO-PKGMGR-CHOCOLATEYREPORTEDUNWANTED
+### Rule ADR-AUTO-PKGMGR-CHOCOLATEYREPORTED
 
 `Get-ToolsStatus` reports Chocolatey as unwanted. If `choco` is on PATH, the status output lists a Chocolatey entry with status `Unwanted`
 and action `Run Uninstall-Chocolatey`.

@@ -11,11 +11,11 @@ Computes the durable content hash of a directory tree — the bundle's content-a
 ### description
 
 The same durable-SHA recipe the globsets use
-([FDR-CD-GLOBS-DURABLESHAIDENTITY](../../../drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-durableshaidentity)), applied to every file
-under -Path: per file a SHA-256 over its bytes with every CR stripped (so a CRLF vs LF tree yields the same identity on any machine), folded
-as `<relative-path>|<digest>` lines in ordinal path order, then one combined SHA-256 over the fold — 64 lowercase hex chars. The relative
-path is forward-slashed and taken from -Path, so the hash is stable wherever the tree is copied. This is the reproducibility proof an
-exported bundle carries (build twice from one commit -> identical hash).
+([FDR-GLOBS-DURABLESHAIDENTITY](../../../drs/flow/durable-sha-globs.md#rule-fdr-globs-durableshaidentity)), applied to every file under
+-Path: per file a SHA-256 over its bytes with every CR stripped (so a CRLF vs LF tree yields the same identity on any machine), folded as
+`<relative-path>|<digest>` lines in ordinal path order, then one combined SHA-256 over the fold — 64 lowercase hex chars. The relative path
+is forward-slashed and taken from -Path, so the hash is stable wherever the tree is copied. This is the reproducibility proof an exported
+bundle carries (build twice from one commit -> identical hash).
 
 ### parameter `Path`
 

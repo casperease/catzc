@@ -10,9 +10,8 @@ the build verification test. Every job runs on `ubuntu-latest`, and all but the 
 It fires exactly, and only, when the module system changes: the track is its own root folder, with no committed marker to go stale. The
 include list is `pwsh/**`; the exclude list drops the files that are not module code (`*.psd1`, module `README.md` files, compiled output
 and the types project's build folders, the importer command list and the track-sets glob config)
-([FDR-CD-GLOBS](../../../drs/flow/durable-sha-globs.md),
-[DDR-TRACK-TRACKISPLACEDCLUSTER](../../../drs/design/tracks.md#rule-ddr-track-trackisplacedcluster)). Pull requests and `main` use the same
-filter.
+([FDR-GLOBS](../../../drs/flow/durable-sha-globs.md),
+[DDR-TRACK-ISPLACEDCLUSTER](../../../drs/design/tracks.md#rule-ddr-track-isplacedcluster)). Pull requests and `main` use the same filter.
 
 ## Jobs
 

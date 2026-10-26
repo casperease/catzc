@@ -70,9 +70,9 @@ but not that lock, or $null).
 
 The snapshot starts with a copy of the working folder's quality-check result caches (`out/cache`), which it would not otherwise carry. Each
 entry is keyed on a file's content and the stamps of the check's inputs
-([ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS](../../../../drs/automation/caching.md#rule-adr-auto-cache-checkedfilesacrosssessions)), so an
-entry holds in a copy of the same tree, and a file the snapshot changed is simply a new key. Without the copy every snapshot run would
-format and analyse every file from cold. The snapshot's own updates stay in the snapshot until Exit-TestRunLocation hands them home.
+([ADR-AUTO-CACHE-CROSSSESSIONFILES](../../../../drs/automation/caching.md#rule-adr-auto-cache-crosssessionfiles)), so an entry holds in a
+copy of the same tree, and a file the snapshot changed is simply a new key. Without the copy every snapshot run would format and analyse
+every file from cold. The snapshot's own updates stay in the snapshot until Exit-TestRunLocation hands them home.
 
 ## priming the snapshot
 

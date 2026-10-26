@@ -14,7 +14,7 @@ catzc:
 
 ## Eyebrow
 
-23 / 30 · fact for the Developer · RDR-DORA-MAINTAIN
+23 / 30 · fact for the Developer · EDR-DORA-MAINTAIN
 
 ## Lead
 
@@ -31,5 +31,5 @@ From the catalogue, reduced: only pwsh compiles its aspects.
 
 ## Notes
 
-Check it: the record RDR-DORA-MAINTAIN in docs/drs/index.md, and the diagram
+Check it: the record EDR-DORA-MAINTAIN in docs/drs/index.md, and the diagram
 docs/explanation/design/.assets/only-pwsh-compiles-its-aspects.drawio.png.

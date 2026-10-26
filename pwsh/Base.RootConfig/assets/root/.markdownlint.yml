@@ -7,7 +7,7 @@
 # FORMAT: YAML, with native `#` comments. markdownlint and the VS Code extension
 # (DavidAnson.vscode-markdownlint) auto-discover `.markdownlint.yml`. We use `.yml` (not `.yaml`)
 # deliberately: per the pipeline-concept ADR
-# ([FDR-CD-PIPELINE-EXECUTABLEYAMLEXTENSION](/docs/drs/flow/pipeline-concept.md#rule-fdr-cd-pipeline-executableyamlextension))
+# ([FDR-PIPELINE-EXECUTABLEYAMLEXTENSION](/docs/drs/flow/pipeline-concept.md#rule-fdr-pipeline-executableyamlextension))
 # `.yml` is config data our tooling parses, while
 # `.yaml` is reserved for executable ado pipelines — and .vscode/settings.json maps `*.yaml` to the
 # Azure Pipelines schema, which would mis-highlight this file.

@@ -7,4 +7,4 @@ repository in `TestDrive:`.
 
 `git status` is the mocked boundary: the mock prints the `-z` porcelain, NUL-separated, so a NUL in a fixture is the separator, not data.
 The fixtures use neutral names
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+([ADR-AUTO-TEST-DISTINCTFIXTURES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtures)).

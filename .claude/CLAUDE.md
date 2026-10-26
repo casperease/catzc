@@ -9,7 +9,7 @@ PowerShell 7.4+ module system with zero-ceremony module authoring.
   ([PDR-CATS-CATZCISSOURCENAME](../docs/drs/principles/cats-and-catzc.md#rule-pdr-cats-catzcissourcename)).
 - **cats** (plural) — the conversational cover term for the catzc system as a whole: the human-friendly name used in prose and docs and when
   talking to or about the system ("ask cats"). It stands in for the complicated, code-level catzc
-  ([PDR-CATS-CATSISPERSONNAME](../docs/drs/principles/cats-and-catzc.md#rule-pdr-cats-catsispersonname)).
+  ([PDR-CATS-ISPERSONNAME](../docs/drs/principles/cats-and-catzc.md#rule-pdr-cats-ispersonname)).
 - **"domain rules" / "DRS rules"** — the sanctioned terms for this repository's conventions and decision records. Never say "house rules";
   it is not a domain-sanctioned term.
 

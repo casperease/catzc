@@ -7,4 +7,4 @@ The tests of `Resolve-DrsLinkTarget`: a markdown link in a file under `docs/drs/
 ## Fixtures
 
 The command is pure path logic, so the fixture root need not exist. The fixture names are neutral
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+([ADR-AUTO-TEST-DISTINCTFIXTURES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtures)).

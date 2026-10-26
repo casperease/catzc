@@ -15,7 +15,7 @@ catzc:
 
 ## Eyebrow
 
-27 / 30 · fact for the SRE Lead · ADR-AZ-WAF-RE
+27 / 30 · fact for the SRE Lead · EDR-AZ-WAF-RE
 
 ## Lead
 
@@ -32,5 +32,5 @@ From the catalogue, reduced: what gates each bundle stage.
 
 ## Notes
 
-Check it: the record ADR-AZ-WAF-RE in docs/drs/index.md, and the diagram
+Check it: the record EDR-AZ-WAF-RE in docs/drs/index.md, and the diagram
 docs/explanation/automation/.assets/what-gates-each-bundle-stage.drawio.png.

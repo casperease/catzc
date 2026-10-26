@@ -8,8 +8,8 @@ Six pipeline shapes each run a stretch of one promotion ladder, and a commit can
 3  the shapes    six panels, each a different stretch of the ladder
 4  the exit      under every step a dashed arrow to discarded
 
-Supports FDR-CD-LIFE-ONESTATEADVANCESONERUNG, FDR-CD-LIFE-DISCARDISTERMINAL and FDR-CD-LIFE-FAILEDSTAYSUPSTREAM,
-and FDR-CD-TWORELEASEGATES and FDR-CD-ACCEPTANCETESTINGISNOTUAT.
+Supports FDR-LIFE-ONESTATEADVANCESONERUNG, FDR-LIFE-DISCARDISTERMINAL and FDR-LIFE-FAILEDSTAYSUPSTREAM,
+and FDR-CD-TWORELEASEGATES and FDR-CD-ACCEPTANCEISNOTUAT.
 ```
 
 There is one promotion ladder, and cats has more than one way to run it. A shape is the choice of how a commit gets onto the ladder and how
@@ -21,7 +21,7 @@ description:
   "Six pipeline shapes, each a run of the promotion ladder from its first state: every step a commit takes is labelled with the stage that
   moves it, and every state it holds can be discarded."
 about:
-  adrs: [FDR-CD-SEPARATEPIPELINEKINDS, FDR-CD-LIFE-ONESTATEADVANCESONERUNG, FDR-CD-LIFE-DISCARDISTERMINAL]
+  adrs: [FDR-CD-SEPARATEPIPELINEKINDS, FDR-LIFE-ONESTATEADVANCESONERUNG, FDR-LIFE-DISCARDISTERMINAL]
   lens: architecture
 content:
   title: Each pipeline shape runs a stretch of the promotion ladder, and every state it reaches can be discarded
@@ -122,14 +122,14 @@ content:
 ## Why it holds
 
 - Every shape climbs the same ladder in the same order, so a colour means the same durable fact in every panel
-  ([FDR-CD-LIFE-ONESTATEADVANCESONERUNG](../../drs/flow/commit-lifecycle.md#rule-fdr-cd-life-onestateadvancesonerung)).
+  ([FDR-LIFE-ONESTATEADVANCESONERUNG](../../drs/flow/commit-lifecycle.md#rule-fdr-life-onestateadvancesonerung)).
 - Every step has an exit to discarded, and the discarded commit stays in history
-  ([FDR-CD-LIFE-DISCARDISTERMINAL](../../drs/flow/commit-lifecycle.md#rule-fdr-cd-life-discardisterminal)).
+  ([FDR-LIFE-DISCARDISTERMINAL](../../drs/flow/commit-lifecycle.md#rule-fdr-life-discardisterminal)).
 - A failed step stops the commit going further in every shape
-  ([FDR-CD-LIFE-FAILEDSTAYSUPSTREAM](../../drs/flow/commit-lifecycle.md#rule-fdr-cd-life-failedstaysupstream)).
+  ([FDR-LIFE-FAILEDSTAYSUPSTREAM](../../drs/flow/commit-lifecycle.md#rule-fdr-life-failedstaysupstream)).
 - RC and RBC are defined by the flow model, and the acceptance testing that clears them is separate from the environment it runs in
   ([FDR-CD-TWORELEASEGATES](../../drs/flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-tworeleasegates),
-  [FDR-CD-ACCEPTANCETESTINGISNOTUAT](../../drs/flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-acceptancetestingisnotuat)).
+  [FDR-CD-ACCEPTANCEISNOTUAT](../../drs/flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-acceptanceisnotuat)).
 
 ## See also
 

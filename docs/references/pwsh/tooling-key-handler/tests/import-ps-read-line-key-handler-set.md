@@ -7,4 +7,4 @@ planned as supported exactly when the allow-list names its function, and `-DryRu
 
 The shipped configs' load is the quality gate `Test-ShippedConfigs`, and a binding's non-empty key and function is a `KeyHandlerBinding`
 construction rule, so neither is repeated. The fixtures use neutral names
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+([ADR-AUTO-TEST-DISTINCTFIXTURES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtures)).

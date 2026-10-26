@@ -15,7 +15,7 @@ catzc:
 
 ## Eyebrow
 
-8 / 30 · fact for the Developer · RDR-DORA-CD
+8 / 30 · fact for the Developer · EDR-DORA-CD
 
 ## Lead
 
@@ -32,5 +32,5 @@ From the catalogue, reduced: manual queues 1 where a person stands.
 
 ## Notes
 
-Check it: the record RDR-DORA-CD in docs/drs/index.md, and the diagram
+Check it: the record EDR-DORA-CD in docs/drs/index.md, and the diagram
 docs/explanation/flow/.assets/manual-queues-1-where-a-person-stands.drawio.png.

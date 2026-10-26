@@ -14,7 +14,7 @@ catzc:
 
 ## Eyebrow
 
-21 / 30 · fact for the Developer · RDR-DORA-TOOLCHOICE
+21 / 30 · fact for the Developer · EDR-DORA-TOOLCHOICE
 
 ## Lead
 
@@ -31,5 +31,5 @@ From the catalogue, reduced: one unit one pipeline.
 
 ## Notes
 
-Check it: the record RDR-DORA-TOOLCHOICE in docs/drs/index.md, and the diagram
+Check it: the record EDR-DORA-TOOLCHOICE in docs/drs/index.md, and the diagram
 docs/explanation/design/.assets/one-unit-one-pipeline.drawio.png.

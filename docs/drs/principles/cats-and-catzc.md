@@ -11,7 +11,7 @@ literal product token in code, configuration keys, contract paths and precise re
 - [Two names, two audiences](#two-names-two-audiences)
 - [The inner namespace](#the-inner-namespace)
 
-### Rule PDR-CATS-CATSISPERSONNAME
+### Rule PDR-CATS-ISPERSONNAME
 
 **cats** is the product's name to a person: the executor outside pwsh, the word in prose, docs and conversation ("ask cats"), the
 human-friendly form of the whole system. Where a sentence addresses a person rather than a compiler, it says cats.
@@ -28,7 +28,7 @@ comes from.
 - [The inner namespace](#the-inner-namespace)
 - [Across the boundary](#across-the-boundary)
 
-### Rule PDR-CATS-EITHERNAMEFORMIXEDAUDIENCE
+### Rule PDR-CATS-EITHERNAMEFORMIXED
 
 Either name may stand in for the other where the audience is mixed: a pwsh entry point may say cats, a sentence to a person may name a
 `Catzc.*` module when it means that module. Neither replaces the other in its own home: no `Cats.*` module, no catzc in a user-facing
@@ -98,7 +98,7 @@ source-level name only. The glossary carries both terms, defined by the rules ab
 
 ## Consequences
 
-- The CLAUDE.md terminology section cites PDR-CATS-CATZCISSOURCENAME and PDR-CATS-CATSISPERSONNAME for its two entries.
+- The CLAUDE.md terminology section cites PDR-CATS-CATZCISSOURCENAME and PDR-CATS-ISPERSONNAME for its two entries.
 - The config-defaults work takes `.catzc/` as the one fragment and overlay root, with no alias to read or test.
 - The layers vocabulary leaves cats and catzc to this PDR; pwsh and automation are ruled there.
 

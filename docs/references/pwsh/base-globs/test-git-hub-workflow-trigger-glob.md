@@ -19,8 +19,8 @@ A drifted workflow is one issue naming the filters that differ, and a missing wo
 Write-QualityGateReport ([ADR-AUTO-TEST-QUALITYGATE](../../../drs/automation/test-automation.md#rule-adr-auto-test-qualitygate)): the report
 lands in out/test-github-workflow-trigger-glob/, and the gate throws once listing every issue (or returns the result with -PassThru).
 
-It rests on [FDR-CD-GLOBS-NAMEDGLOBSETS](../../../drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-namedglobsets) and
-[FDR-CD-GLOBS-NATIVEPATHFILTER](../../../drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-nativepathfilter).
+It rests on [FDR-GLOBS-NAMEDGLOBSETS](../../../drs/flow/durable-sha-globs.md#rule-fdr-globs-namedglobsets) and
+[FDR-GLOBS-NATIVEPATHFILTER](../../../drs/flow/durable-sha-globs.md#rule-fdr-globs-nativepathfilter).
 
 ### parameter `Name`
 

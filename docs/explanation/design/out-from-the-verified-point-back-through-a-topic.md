@@ -11,7 +11,7 @@ Out from the verified point, back in through its own topic: the pull request tru
 6  HEAD             the tip of the server's main; the merge lands here, from the verified topic HEAD, never from the clone
 
 Supports DDR-REMOTE-SERVERREMOTEISTRUTH, DDR-REMOTE-INTEGRATEFROMVERIFIED and DDR-REMOTE-PULLREQUESTISINGRESS,
-and FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD and FDR-CD-LIFE-DIRTYHEADUNSAFE (architecture lens).
+and FDR-LIFE-SYNCFROMVERIFIEDHEAD and FDR-LIFE-DIRTYHEADUNSAFE (architecture lens).
 ```
 
 A clone never writes the server's main. It leaves from the verified point, works, and pushes upward to one remote ref it owns: its own topic
@@ -28,8 +28,8 @@ about:
     - DDR-REMOTE-SERVERREMOTEISTRUTH
     - DDR-REMOTE-INTEGRATEFROMVERIFIED
     - DDR-REMOTE-PULLREQUESTISINGRESS
-    - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
-    - FDR-CD-LIFE-DIRTYHEADUNSAFE
+    - FDR-LIFE-SYNCFROMVERIFIEDHEAD
+    - FDR-LIFE-DIRTYHEADUNSAFE
   lens: architecture
 content:
   title: "Out from the verified point, back in through its own topic: the pull request trusts the topic HEAD it verified"
@@ -100,8 +100,8 @@ layout:
 - Consumers leave from the last remote-verified commit, never the current remote HEAD (DDR-REMOTE-INTEGRATEFROMVERIFIED).
 - The pull request authenticates the author, runs the merge gates on the topic HEAD and performs the merge: the server trusts what it
   verified, never the clone (DDR-REMOTE-PULLREQUESTISINGRESS).
-- The stable integration point is the BVT-verified server head (FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD), and the dirty HEAD is never a source to
-  leave from (FDR-CD-LIFE-DIRTYHEADUNSAFE).
+- The stable integration point is the BVT-verified server head (FDR-LIFE-SYNCFROMVERIFIEDHEAD), and the dirty HEAD is never a source to
+  leave from (FDR-LIFE-DIRTYHEADUNSAFE).
 
 ## Where the code and the decision record differ
 

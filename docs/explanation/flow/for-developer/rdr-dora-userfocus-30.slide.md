@@ -15,7 +15,7 @@ catzc:
 
 ## Eyebrow
 
-30 / 30 · fact for the Developer · RDR-DORA-USERFOCUS
+30 / 30 · fact for the Developer · EDR-DORA-USERFOCUS
 
 ## Lead
 
@@ -32,5 +32,5 @@ From the catalogue, reduced: one namer assembles every name.
 
 ## Notes
 
-Check it: the record RDR-DORA-USERFOCUS in docs/drs/index.md, and the diagram
+Check it: the record EDR-DORA-USERFOCUS in docs/drs/index.md, and the diagram
 docs/explanation/azure/.assets/one-namer-assembles-every-name.drawio.png.

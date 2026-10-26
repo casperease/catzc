@@ -15,7 +15,7 @@ catzc:
 
 ## Eyebrow
 
-6 / 10 · fact · FDR-CD-QUEUE-SIGNATUREISTHEGATE
+6 / 10 · fact · FDR-QUEUE-SIGNATUREISTHEGATE
 
 ## Lead
 

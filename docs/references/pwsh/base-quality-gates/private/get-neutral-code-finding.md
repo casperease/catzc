@@ -12,10 +12,9 @@ Lists every real ADR code one test file uses as fixture data inside an L0 block.
 ### description
 
 The neutral-code check of Test-SourceConventions
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)): a
-logic test owns its inputs and uses identities that cannot collide with the real ones, so an L0 test's fixture data names neutral codes (a
-widget or gadget code), never a code the ADR index declares. The real codes come from the caller, read from the ADR registry, so nothing
-here names one.
+([ADR-AUTO-TEST-DISTINCTFIXTURES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtures)): a logic test owns its
+inputs and uses identities that cannot collide with the real ones, so an L0 test's fixture data names neutral codes (a widget or gadget
+code), never a code the ADR index declares. The real codes come from the caller, read from the ADR registry, so nothing here names one.
 
 It reads the file's syntax tree, never runs Pester. A string literal is checked when the nearest Describe, Context, or It around it that
 carries a tier tag carries L0 — or, outside every tier-tagged block, when L0 is the only tier the file carries. The values of a -Tag

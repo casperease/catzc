@@ -1,7 +1,7 @@
 # pwsh/Base.Globs/tests/Get-TrackedFile.Tests.ps1
 
 The tests of `Get-TrackedFile`, the matching universe
-([FDR-CD-GLOBS-TRACKEDFILESONLY](../../../../drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-trackedfilesonly)).
+([FDR-GLOBS-TRACKEDFILESONLY](../../../../drs/flow/durable-sha-globs.md#rule-fdr-globs-trackedfilesonly)).
 
 ## What it proves
 

@@ -15,7 +15,7 @@ catzc:
 
 ## Eyebrow
 
-29 / 30 · fact for the SRE Lead · ADR-AZ-WAF-OE
+29 / 30 · fact for the SRE Lead · EDR-AZ-WAF-OE
 
 ## Lead
 
@@ -32,5 +32,5 @@ From the catalogue, reduced: a module change fans out to its templates.
 
 ## Notes
 
-Check it: the record ADR-AZ-WAF-OE in docs/drs/index.md, and the diagram
+Check it: the record EDR-AZ-WAF-OE in docs/drs/index.md, and the diagram
 docs/explanation/azure/.assets/a-module-change-fans-out-to-its-templates.drawio.png.

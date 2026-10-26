@@ -1,4 +1,4 @@
-Describe 'Move-FunctionHelp' -Tag 'L0', 'logic', 'ADR-REPO-HELP-HELPONCOMMENTPAGE' {
+Describe 'Move-FunctionHelp' -Tag 'L0', 'logic', 'ADR-REPO-HELP-ONCOMMENTPAGE' {
     BeforeAll {
         $script:widgetRoot = Join-Path $TestDrive 'help-repository'
         $script:codePath = 'widgets/Catzc.Widget/Get-Widget.ps1'

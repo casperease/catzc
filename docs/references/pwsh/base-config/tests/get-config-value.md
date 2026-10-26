@@ -4,11 +4,12 @@ The tests of `Get-ConfigValue`: address resolution over a fixture config, and on
 
 ## Mocked reader
 
-`Get-ConfigValue` reads through `Get-Config`
-([ADR-CONF-LOADING-ONEREADER](../../../../drs/configuration/module-config-loading.md#rule-adr-conf-loading-onereader)), so the tests mock
-the reader and never a file. An address resolves exactly as it would against a real config.
+`Get-ConfigValue` reads through `Get-Config` ([ADR-CONF-LOADING-CONFIGONEREADER][r1]), so the tests mock the reader and never a file. An
+address resolves exactly as it would against a real config.
 
 ## Real wiring
 
 One case reads the shipped `tools.yml`, which loads as the typed `ToolsConfig`, a read-only tool map, and guards the wiring end to end
 ([ADR-AUTO-TEST-LOGICANDINTEGRITY](../../../../drs/automation/test-automation.md#rule-adr-auto-test-logicandintegrity)).
+
+[r1]: ../../../../drs/configuration/module-config-loading.md#rule-adr-conf-loading-configonereader

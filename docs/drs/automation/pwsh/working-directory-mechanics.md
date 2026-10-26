@@ -57,7 +57,7 @@ The analyzer rule `Measure-NoEnvRepositoryRoot` enforces it.
 - [The anchors](#the-anchors)
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-PWSH-PWD-LITERALCHILDPATH
+### Rule ADR-PWSH-PWD-PWSHLITERALCHILDPATH
 
 The child path of [ADR-AUTO-ASSETDEP-LITERALCHILDPATH](../internal-asset-dependencies.md#rule-adr-auto-assetdep-literalchildpath) is the
 `-ChildPath` argument of `Get-CatzcModuleRoot`, written as one string literal at the call site — never a variable, an expression, or a

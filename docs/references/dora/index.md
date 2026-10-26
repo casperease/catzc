@@ -5,8 +5,8 @@ its metrics, its capability catalogue, and its publications. DORA is the theory 
 `research` domain in the ADR registry), so markdown anywhere in the repository cites DORA through the stable anchors defined here instead of
 linking deep into an external site that changes shape over time.
 
-The per-capability ADR summaries live in [docs/drs/research/](../../drs/research/index.md). This reference does not repeat their content. It
-is the corpus around them: what the site says, where it says it, and which report a finding comes from.
+The per-capability ADR summaries live in [docs/drs/external/dora/](../../drs/external/dora/index.md). This reference does not repeat their
+content. It is the corpus around them: what the site says, where it says it, and which report a finding comes from.
 
 All content here is paraphrased from dora.dev and retrieved on **2026-10-13**. dora.dev content is published by Google LLC under
 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
@@ -127,7 +127,7 @@ From the repository root (for example a `README.md`):
 [deployment frequency](docs/references/dora/metrics.md#deployment-frequency)
 ```
 
-From a research ADR, `docs/drs/research/<slug>.md`, or any other first-level ADR folder such as `docs/drs/design/`:
+From a research ADR, `docs/drs/external/dora/<slug>.md`, or any other first-level ADR folder such as `docs/drs/design/`:
 
 ```markdown
 [change lead time](../../references/dora/metrics.md#change-lead-time)

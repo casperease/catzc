@@ -27,10 +27,10 @@ declared on the track type, never on the track.
 ### Rule DDR-TRACKTYPE-OPTIONALVENDOR
 
 A track may name the **vendor** whose tool it holds: a tool, core, plugin or external dependency that the repository vendors
-([DDR-VENDOR-VENDORISVENDORED](vendoring.md#rule-ddr-vendor-vendorisvendored)), from a closed set declared once with a definition each (a
-new vendor is an entry). A vendor is named by its tool, a short form is fine, and it is never mixed into another vendor's track. One vendor
-may have several tracks, and the tracks of one type but of two vendors stay two: the ado pipelines and the GitHub workflows are two tracks
-of one type, `pipelines`, because each is bound to a different pipeline model. The settings of each tool the repository configures are one
+([DDR-VENDOR-ISVENDORED](vendoring.md#rule-ddr-vendor-isvendored)), from a closed set declared once with a definition each (a new vendor is
+an entry). A vendor is named by its tool, a short form is fine, and it is never mixed into another vendor's track. One vendor may have
+several tracks, and the tracks of one type but of two vendors stay two: the ado pipelines and the GitHub workflows are two tracks of one
+type, `pipelines`, because each is bound to a different pipeline model. The settings of each tool the repository configures are one
 `vendor-settings` track per vendor, and every `.vendor` folder and every vendor's settings sit under the one vendor umbrella
 ([DDR-VENDOR-ONEUMBRELLA](vendoring.md#rule-ddr-vendor-oneumbrella)). `vendor` is the tool the repository vendors, never the platform that
 reads a file. The name of a vendor's track follows [DDR-TRACKTYPE-NAMEFROMMEMBERS](#rule-ddr-tracktype-namefrommembers).
@@ -52,14 +52,14 @@ renamed with every caller in the same change.
 
 - [Vendors](#vendors)
 
-### Rule DDR-TRACKTYPE-DECLAREDONCE
+### Rule DDR-TRACKTYPE-TYPESDECLAREDONCE
 
 A track is **declared once**, in the `tracks` map of `variants.yml` (`Catzc.Base.Variants`, the repo-wide variants), as its name, its type,
 its places (the paths it covers), its vendor when it has one ([DDR-TRACKTYPE-OPTIONALVENDOR](#rule-ddr-tracktype-optionalvendor)) and its
 file languages ([DDR-TRACK-FILELANGUAGE](tracks.md#rule-ddr-track-filelanguage)). The track types are declared once, in `track-types.yml` of
 the same module, each with its definition, its role ([DDR-TRACKTYPE-ONEROLE](#rule-ddr-tracktype-onerole)) and the module types it admits
-([DDR-MODTYPE-TRACKTYPEADMITSMODULETYPES](module-types.md#rule-ddr-modtype-tracktypeadmitsmoduletypes)). No other file lists a track, a
-track type or a place: a command, a gate and a globset read them through `Get-Track`.
+([DDR-MODTYPE-TRACKTYPEADMITS](module-types.md#rule-ddr-modtype-tracktypeadmits)). No other file lists a track, a track type or a place: a
+command, a gate and a globset read them through `Get-Track`.
 
 - [Where the declarations live](#where-the-declarations-live)
 
@@ -137,11 +137,11 @@ gives it its files without a list of exclusions.
 ## Decision
 
 Name the type of a track and declare it once. A track is a cluster of module contents
-([DDR-TRACK-TRACKISPLACEDCLUSTER](tracks.md#rule-ddr-track-trackisplacedcluster)) with one of a closed set of types
+([DDR-TRACK-ISPLACEDCLUSTER](tracks.md#rule-ddr-track-isplacedcluster)) with one of a closed set of types
 ([DDR-TRACKTYPE-CLOSEDSETOFTYPES](#rule-ddr-tracktype-closedsetoftypes)), and a vendor when one platform reads it
 ([DDR-TRACKTYPE-OPTIONALVENDOR](#rule-ddr-tracktype-optionalvendor)). A deployable track owns deployable-units and a holder track is a
 module of one vendor, one tool or one purpose ([DDR-TRACKTYPE-ONEROLE](#rule-ddr-tracktype-onerole)). The `tracks` map and `track-types.yml`
-are the only declarations ([DDR-TRACKTYPE-DECLAREDONCE](#rule-ddr-tracktype-declaredonce)); the longest place resolves each file
+are the only declarations ([DDR-TRACKTYPE-TYPESDECLAREDONCE](#rule-ddr-tracktype-typesdeclaredonce)); the longest place resolves each file
 ([DDR-TRACKTYPE-LONGESTPLACEWINS](#rule-ddr-tracktype-longestplacewins)); the head says `track`, `tracktype` and `vendor`
 ([DDR-TRACKTYPE-FACTSFROMDECLARATION](#rule-ddr-tracktype-factsfromdeclaration)).
 

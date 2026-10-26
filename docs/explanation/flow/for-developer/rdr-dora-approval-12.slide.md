@@ -15,7 +15,7 @@ catzc:
 
 ## Eyebrow
 
-12 / 30 · fact for the Developer · RDR-DORA-APPROVAL
+12 / 30 · fact for the Developer · EDR-DORA-APPROVAL
 
 ## Lead
 
@@ -32,5 +32,5 @@ From the catalogue, reduced: one gate checks the raw read rule.
 
 ## Notes
 
-Check it: the record RDR-DORA-APPROVAL in docs/drs/index.md, and the diagram
+Check it: the record EDR-DORA-APPROVAL in docs/drs/index.md, and the diagram
 docs/explanation/flow/.assets/one-gate-checks-the-raw-read-rule.drawio.png.

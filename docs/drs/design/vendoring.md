@@ -2,7 +2,7 @@
 
 ## Rules: DDR-VENDOR
 
-### Rule DDR-VENDOR-VENDORISVENDORED
+### Rule DDR-VENDOR-ISVENDORED
 
 A **vendor** is a tool, a core, a plugin or an external dependency that the repository vendors: it keeps a copy of what it uses, and the
 copy is part of the commit. A vendor is named by the tool, and a short form is fine (`git`, `azure`, `ado`, `ai`). The name says what is
@@ -45,7 +45,7 @@ and nothing outside it, decides what the tool does.
 
 One umbrella means one place to ask "what does this repository vendor", one definition of the word, and one rule for how a vendor's files
 are tracked, so a gate, a filter and a lamp never carry a second list. The umbrella is a concept the tracks realise, declared once with the
-tracks ([DDR-TRACKTYPE-DECLAREDONCE](track-types.md#rule-ddr-tracktype-declaredonce)).
+tracks ([DDR-TRACKTYPE-TYPESDECLAREDONCE](track-types.md#rule-ddr-tracktype-typesdeclaredonce)).
 
 ### Why vendor
 
@@ -55,8 +55,8 @@ the repository makes it depend on a console. Vendoring puts both into HEAD, so t
 
 ## Decision
 
-Name the vendor by its tool ([DDR-VENDOR-VENDORISVENDORED](#rule-ddr-vendor-vendorisvendored)), keep all vendored code and all vendor
-settings under one umbrella ([DDR-VENDOR-ONEUMBRELLA](#rule-ddr-vendor-oneumbrella)), and vendor so that HEAD is the whole input of BVT
+Name the vendor by its tool ([DDR-VENDOR-ISVENDORED](#rule-ddr-vendor-isvendored)), keep all vendored code and all vendor settings under one
+umbrella ([DDR-VENDOR-ONEUMBRELLA](#rule-ddr-vendor-oneumbrella)), and vendor so that HEAD is the whole input of BVT
 ([DDR-VENDOR-HEADREPRODUCIBLE](#rule-ddr-vendor-headreproducible)).
 
 ## Consequences

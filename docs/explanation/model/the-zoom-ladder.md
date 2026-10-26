@@ -23,7 +23,7 @@ architecture slide or a governance slide, and both stand equally far out.
 ## The five levels
 
 - **C0 landscape** — the truth stores the repository sits among: the fact sources, the state machines and the adjacent stores
-  ([TDR-STORES-THREEKINDS](../../drs/thesis/truth-stores.md#rule-tdr-stores-threekinds)).
+  ([TDR-STORES-THREESTOREKINDS](../../drs/thesis/truth-stores.md#rule-tdr-stores-threestorekinds)).
 - **C1 context** — the repository as one system, with the actors around it: the engineer, the devbox, the pipelines, Azure DevOps and Azure.
 - **C2 containers** — the tracks crossed with the engines and the languages: the [world map](the-physical-model.md#the-world-map), drawn as
   boxes.

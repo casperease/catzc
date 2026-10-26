@@ -18,6 +18,5 @@ The rules are self-contained, this one source only, with no filesystem, git or o
 
 Cross-source and cross-file facts are the glossary checks' job (`Test-Glossary`), not load's: term and key uniqueness across all sources,
 reciprocal contrasts, a `defined_by` that names a real rule, a domain that `drs.yml` declares, a tracked source file. Loading stays hermetic
-(the
-[ADR-AZ-CUSTOMER-REFERENCENOTVALIDATEDONLOAD](../../../../drs/azure/azure-customer-model.md#rule-adr-az-customer-referencenotvalidatedonload)
+(the [ADR-AZ-CUSTOMER-REFERENCEUNVALIDATED](../../../../drs/azure/azure-customer-model.md#rule-adr-az-customer-referenceunvalidated)
 pattern).

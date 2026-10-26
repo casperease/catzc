@@ -64,7 +64,7 @@ Describe 'Build-ContractReference' -Tag 'L0', 'logic' {
         $rows[2] | Should -Be @('`pwsh.widget`', '`build.yml`', '`widgets/build.yml`', 'provided', 'fragment', 'none')
     }
 
-    It 'shows a command contract''s signature in its own column, from the one reader' -Tag 'ADR-REPO-CMDCONTRACT-ONEREADER' {
+    It 'shows a command contract''s signature in its own column, from the one reader' -Tag 'ADR-REPO-CMDCONTRACT-CONTRACTONEREADER' {
         Build-ContractReference -RepositoryRoot $script:root -Silent | Out-Null
         $rows = @((Read-Page) -split "`n" | Where-Object { $_.StartsWith('| `pwsh.') } | ForEach-Object {
                 , @($_.Trim().Trim('|') -split ' \| ' | ForEach-Object { $_.Trim() })
@@ -73,7 +73,7 @@ Describe 'Build-ContractReference' -Tag 'L0', 'logic' {
             'provided', 'command contract', '`path: string!, strict: switch -> string`')
     }
 
-    It 'marks a command contract that does not read, and still writes the page' -Tag 'ADR-REPO-CMDCONTRACT-ONEREADER' {
+    It 'marks a command contract that does not read, and still writes the page' -Tag 'ADR-REPO-CMDCONTRACT-CONTRACTONEREADER' {
         Add-File 'contracts/catzc/0.1.0/pwsh.widget/get_widget.command.yml' "description: Returns the widget.`nparameters:`n  path: text`n"
         Build-ContractReference -RepositoryRoot $script:root -Silent | Out-Null
         (Read-Page) |
@@ -94,7 +94,7 @@ Describe 'Build-ContractReference' -Tag 'L0', 'logic' {
         (Read-Page) | Should -Match "(?m)^\| ``pwsh\.widget``.*\|\n\nNotes:\n\n- "
     }
 
-    It 'fills a long note across lines at the prose width' -Tag 'ADR-REPO-FORMAT-GENERATEDARTIFACTSFORMATTED' {
+    It 'fills a long note across lines at the prose width' -Tag 'ADR-REPO-FORMAT-GENERATEDFORMATTED' {
         $long = (@('widget gadget') * 20) -join ' '
         Add-File 'contracts/catzc/0.1.0/pwsh.widget/build.yml' ((@("# $long.", 'widget:') -join "`n") + "`n")
         Build-ContractReference -RepositoryRoot $script:root -Silent | Out-Null
@@ -104,7 +104,7 @@ Describe 'Build-ContractReference' -Tag 'L0', 'logic' {
         @($lines | Where-Object { $_.Length -gt 140 -and -not $_.StartsWith('|') }) | Should -BeNullOrEmpty
     }
 
-    It 'emits formatter-stable markdown: prose within 140 columns, tables aligned' -Tag 'ADR-REPO-FORMAT-GENERATEDARTIFACTSFORMATTED' {
+    It 'emits formatter-stable markdown: prose within 140 columns, tables aligned' -Tag 'ADR-REPO-FORMAT-GENERATEDFORMATTED' {
         Build-ContractReference -RepositoryRoot $script:root -Silent | Out-Null
         $lines = (Read-Page) -split "`n"
 

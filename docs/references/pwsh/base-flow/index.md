@@ -2,9 +2,8 @@
 
 Owns the promotion ladder a commit climbs: the rungs in climbing order, each with the gate a commit clears to enter it and the configuration
 environment it deploys ([FDR-CD-RUNGSREGISTRY](../../../drs/flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-rungsregistry)), and the
-truth stores the delivery reads, drives or reports to, each classified by its kind
-([TDR-STORES-THREEKINDS](../../../drs/thesis/truth-stores.md#rule-tdr-stores-threekinds)). It does not run a gate, deploy anything or call a
-store; it is the data the pipelines and the registration code read.
+truth stores the delivery reads, drives or reports to, each classified by its kind ([TDR-STORES-THREESTOREKINDS][r1]). It does not run a
+gate, deploy anything or call a store; it is the data the pipelines and the registration code read.
 
 ## Responsibilities
 
@@ -46,3 +45,5 @@ The module's public functions, sorted into the responsibilities above.
 | config                                       | `rungs.yml`        |
 | responsibility:2 — The truth-stores registry | `Get-TruthStore`   |
 | config                                       | `truth-stores.yml` |
+
+[r1]: ../../../drs/thesis/truth-stores.md#rule-tdr-stores-threestorekinds

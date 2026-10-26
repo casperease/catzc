@@ -16,8 +16,8 @@ Projects Get-Contract over every version folder of every root
 page has a section per version folder, the current version 0.1.0 first and then the released folders, newest first; each section is one
 table with a row per asset (its group, its path under the group, the repository-relative file it constrains — its target, under the module's
 target root; a sample payload has none — its direction, its kind, and its signature: the call interface a command contract states, read by
-Get-CommandContract ([ADR-REPO-CMDCONTRACT-ONEREADER](../../../drs/repository/command-contracts.md#rule-adr-repo-cmdcontract-onereader));
-every other kind has none), then a list of the notes, one item per asset that carries one.
+Get-CommandContract ([ADR-REPO-CMDCONTRACT-CONTRACTONEREADER][r1]); every other kind has none), then a list of the notes, one item per asset
+that carries one.
 
 The note is the asset's header comment (Get-ContractAssetNote), so what an asset is for is written once, in the asset, and contracts/ holds
 only assets. A note's code links become relative markdown links and each address an autolink (ConvertTo-ContractNoteMarkdown). An asset that
@@ -30,8 +30,8 @@ has no assets left is removed, but only when it carries this writer's own marker
 docs/references/contracts/ is never touched. Each page is written only when its content changes (Write-FileIfChanged), and is emitted
 already formatted — prose and list items filled at the 140-column width (Format-MarkdownParagraph) and every table aligned — so Format-Code
 leaves it as written
-([ADR-REPO-FORMAT-GENERATEDARTIFACTSFORMATTED](../../../drs/repository/uniform-formatting.md#rule-adr-repo-format-generatedartifactsformatted)).
-A contracts/ tree that does not list throws, as Get-Contract does.
+([ADR-REPO-FORMAT-GENERATEDFORMATTED](../../../drs/repository/uniform-formatting.md#rule-adr-repo-format-generatedformatted)). A contracts/
+tree that does not list throws, as Get-Contract does.
 
 ### parameter `RepositoryRoot`
 
@@ -70,3 +70,5 @@ Build-ContractReference -DryRun -PassThru
 The signature column comes from the one command-contract reader, keyed by asset path. One unreadable contract fails the whole read of a
 root, so the writer then reads each command contract on its own: only the broken one shows no signature, and Test-Contracts reports that
 asset as a finding.
+
+[r1]: ../../../drs/repository/command-contracts.md#rule-adr-repo-cmdcontract-contractonereader

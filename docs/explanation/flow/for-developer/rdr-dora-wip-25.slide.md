@@ -14,7 +14,7 @@ catzc:
 
 ## Eyebrow
 
-25 / 30 · fact for the Developer · RDR-DORA-WIP
+25 / 30 · fact for the Developer · EDR-DORA-WIP
 
 ## Lead
 
@@ -31,5 +31,5 @@ From the catalogue, reduced: out of band deploy is drs only.
 
 ## Notes
 
-Check it: the record RDR-DORA-WIP in docs/drs/index.md, and the diagram
+Check it: the record EDR-DORA-WIP in docs/drs/index.md, and the diagram
 docs/explanation/design/.assets/out-of-band-deploy-is-drs-only.drawio.png.

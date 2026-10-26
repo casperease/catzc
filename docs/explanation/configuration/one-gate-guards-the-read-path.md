@@ -12,7 +12,7 @@ One quality gate guards the config read path, and it checks only the typed step.
 7  Test-ConfigValidators   the gate for the extension point (L5, T35)
 8  Test-ShippedConfigs     the gate for the typed step (L4, T35)
 
-Supports ADR-CONF-LOADING-ONEREADER, ADR-CONF-LOADING-READINGISGLOBAL, ADR-CONF-LOADING-EXISTENCEDISCOVERED,
+Supports ADR-CONF-LOADING-CONFIGONEREADER, ADR-CONF-LOADING-READINGISGLOBAL, ADR-CONF-LOADING-EXISTENCEDISCOVERED,
 ADR-CONF-ADDRESSING-GLOBALADDRESSFORM, ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG, ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST,
 ADR-CONF-LOADING-CACHEBYPATH, ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY, ADR-CONF-ADDRESSING-RESOLVEDNODEISREAD,
 ADR-CONF-LOADING-POWERSHELLVALIDATOR, ADR-CONF-LOADING-CSHARPCONFIGTYPE and ADR-AUTO-TEST-QUALITYGATE (governance lens).
@@ -29,7 +29,7 @@ description:
   and one the validator extension point, while the one-reader and read-only rules rest on convention."
 about:
   adrs:
-    - ADR-CONF-LOADING-ONEREADER
+    - ADR-CONF-LOADING-CONFIGONEREADER
     - ADR-CONF-LOADING-READINGISGLOBAL
     - ADR-CONF-LOADING-EXISTENCEDISCOVERED
     - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
@@ -78,7 +78,7 @@ content:
     - { at: g-validators, number: 7 }
     - { at: g-shipped, number: 8 }
   chips:
-    - { at: a-reader, kind: rule, rule: ADR-CONF-LOADING-ONEREADER, gated: false }
+    - { at: a-reader, kind: rule, rule: ADR-CONF-LOADING-CONFIGONEREADER, gated: false }
     - { at: a-reader, kind: rule, rule: ADR-CONF-LOADING-READINGISGLOBAL, gated: false }
     - { at: g-resolution, kind: rule, rule: ADR-CONF-LOADING-EXISTENCEDISCOVERED }
     - { at: g-resolution, kind: rule, rule: ADR-CONF-ADDRESSING-GLOBALADDRESSFORM }
@@ -140,7 +140,8 @@ legend.
 
 ## Why it holds
 
-- All config reads go through `Get-Config`, and only `Get-Config` is public (ADR-CONF-LOADING-ONEREADER, ADR-CONF-LOADING-READINGISGLOBAL).
+- All config reads go through `Get-Config`, and only `Get-Config` is public (ADR-CONF-LOADING-CONFIGONEREADER,
+  ADR-CONF-LOADING-READINGISGLOBAL).
 - A config is discovered from its folder; an unknown or ambiguous name throws (ADR-CONF-LOADING-EXISTENCEDISCOVERED).
 - The cache is keyed by resolved path and cleared only by re-import (ADR-CONF-LOADING-CACHEBYPATH).
 - Every shipped config has a registered C# type, and `Test-ShippedConfigs` is its gate (ADR-CONF-LOADING-CSHARPCONFIGTYPE).

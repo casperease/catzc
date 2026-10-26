@@ -1,7 +1,7 @@
 # pwsh/Base.Globs/tests/PipelineTrigger-Integrity.Tests.ps1
 
 The integrity test of the pipeline triggers: the drift quality gates run over this repository's real pipeline files
-([FDR-CD-GLOBS-NAMEDGLOBSETS](../../../../drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-namedglobsets)).
+([FDR-GLOBS-NAMEDGLOBSETS](../../../../drs/flow/durable-sha-globs.md#rule-fdr-globs-namedglobsets)).
 
 ## What it proves
 

@@ -14,7 +14,7 @@ The apex unit flattens to 13 rules, 13 GitHub paths, and 7 ADO includes with 6 e
 9   Get-PipelineTrigger          reads the four path-filter lists back from the file
 10  Test-AdoPipelineTriggerGlob  compares projection and file as sets; one issue per pipeline
 
-Supports FDR-CD-GLOBS-TRACKEDFILESONLY, FDR-CD-GLOBS-NATIVEPATHFILTER and FDR-CD-GLOBS-COMPOSESETS (implementation lens).
+Supports FDR-GLOBS-TRACKEDFILESONLY, FDR-GLOBS-NATIVEPATHFILTER and FDR-GLOBS-COMPOSESETS (implementation lens).
 ```
 
 The `apex` deployable unit in cats composes three base units and adds three configuration folders of its own, which flattens into a program
@@ -27,7 +27,7 @@ description:
   The apex unit's glob program flattens to 13 rules; one pass of the trigger projection fills the GitHub list with those 13 rules and the
   Azure DevOps lists with 7 includes and 6 excludes, and the pipeline trigger test compares the projection with cd-apex.yaml.
 about:
-  adrs: [FDR-CD-GLOBS-TRACKEDFILESONLY, FDR-CD-GLOBS-NATIVEPATHFILTER, FDR-CD-GLOBS-COMPOSESETS]
+  adrs: [FDR-GLOBS-TRACKEDFILESONLY, FDR-GLOBS-NATIVEPATHFILTER, FDR-GLOBS-COMPOSESETS]
   lens: implementation
 content:
   title: The apex unit flattens to 13 rules, 13 GitHub paths, and 7 Azure DevOps includes with 6 excludes
@@ -133,12 +133,12 @@ layout:
 ## Why it holds
 
 - Membership is decided by the ordered scan program, last-match-wins, with the leaf set's includes as selects and its excludes as drops
-  (FDR-CD-GLOBS-TRACKEDFILESONLY).
+  (FDR-GLOBS-TRACKEDFILESONLY).
 - The native projection renders the flattened program into GitHub's ordered `!` dialect exactly, and into Azure DevOps' order-independent
   include and exclude lists by collapsing each pattern to its last select; the drift quality gate reports one issue per pipeline whose
-  declared trigger no longer equals its projection (FDR-CD-GLOBS-NATIVEPATHFILTER).
+  declared trigger no longer equals its projection (FDR-GLOBS-NATIVEPATHFILTER).
 - A composing set's program is the composed programs first, deepest base first, each once, then its own rules last, so a unit re-adds a
-  slice its base dropped; the flattened program is what the projection is computed from (FDR-CD-GLOBS-COMPOSESETS).
+  slice its base dropped; the flattened program is what the projection is computed from (FDR-GLOBS-COMPOSESETS).
 
 ## See also
 

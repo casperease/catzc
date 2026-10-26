@@ -19,7 +19,7 @@ source file once, and collects every issue:
   function, and that function is named for the file;
 - every function name (public and private) is defined in exactly one file;
 - every test file directly under a tests/ folder is named Verb-Noun.Tests.ps1
-  ([ADR-PWSH-PESTER-TESTFILE](../../../drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-testfile));
+  ([ADR-PWSH-PESTER-PESTERTESTFILE](../../../drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-pestertestfile));
 - every test file under tests/types/ is named for a C# type (a `types/*.cs`) of its module;
 - every literal Set-ItResult -Because reason is a constrained skip key (lowercase alnum segments joined by '_', e.g. `windows_only_<detail>`
   or `tool_<name>_missing`), never prose, so the skip report groups by a stable vocabulary. A computed reason cannot be checked statically
@@ -37,9 +37,8 @@ list (Write-ReportModeFinding) and never fail the run.
   markdown, PowerShell, C#, or YAML file, a literal engine list in code or a partial or miscounted engine set in prose
   (Get-EngineSetFinding), with the engine names read from `[Catzc.Base.Engines.ExecutionEngines]`;
 - neutral_codes: an L0 test's fixture data names no real ADR code
-  ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)) — in
-  every test file, a code the ADR registry declares (Get-DrsCitationMap) in a string literal of an L0 block, outside -Tag
-  (Get-NeutralCodeFinding).
+  ([ADR-AUTO-TEST-DISTINCTFIXTURES](../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtures)) — in every test file, a
+  code the ADR registry declares (Get-DrsCitationMap) in a string literal of an L0 block, outside -Tag (Get-NeutralCodeFinding).
 
 Both leave out the files the content tools leave as written (Get-ContentExemptPath: vendored, generated, fixture, contract).
 

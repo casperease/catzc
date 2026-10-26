@@ -6,5 +6,4 @@ The L0 tests of `Assert-LoadedTypesCurrent`.
 
 The one measurement, `Get-LoadedTypeDrift` in `Catzc.Internal.Types`, is mocked at the module boundary
 ([ADR-AUTO-TEST-NOOVERMOCKING](../../../../drs/automation/test-automation.md#rule-adr-auto-test-noovermocking)). The fixtures use neutral
-names
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+names ([ADR-AUTO-TEST-DISTINCTFIXTURES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtures)).

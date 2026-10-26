@@ -24,8 +24,7 @@ It rests on
 [ADR-AUTO-FAILFAST-BOUNDEVERYWAIT](../../../drs/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast-boundeverywait). It is the
 watchpoint of
 [ADR-AUTO-FAILFAST-WATCHPOINTTHENBOUND](../../../drs/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast-watchpointthenbound), in
-its pwsh form
-[ADR-PWSH-ASSERT-WATCHBLOCKINGBEHINDSWITCH](../../../drs/automation/pwsh/assert-idioms.md#rule-adr-pwsh-assert-watchblockingbehindswitch).
+its pwsh form [ADR-PWSH-ASSERT-WATCHBEHINDSWITCH](../../../drs/automation/pwsh/assert-idioms.md#rule-adr-pwsh-assert-watchbehindswitch).
 
 ### parameter `Seconds`
 

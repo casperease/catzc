@@ -25,8 +25,7 @@ throws once listing them all; -PassThru returns the result instead.
 Stage 1 matches the DISTINCTIVE identities exactly (customers, subscriptions, org, templates, deployable units, ADO project); environment
 names (dev/test/preprod/prod) are a later, position-aware stage.
 
-It rests on
-[ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities) and
+It rests on [ADR-AUTO-TEST-DISTINCTFIXTURES](../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtures) and
 [ADR-REPO-LANG](../../../drs/repository/domain-language-separation.md).
 
 ### parameter `Path`

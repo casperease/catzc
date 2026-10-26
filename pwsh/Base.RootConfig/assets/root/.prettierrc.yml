@@ -6,7 +6,7 @@
 # max_line_length from the one prose width in file-limits.yml.
 #
 # .yml (not .yaml) per pipeline-concept
-# [FDR-CD-PIPELINE-EXECUTABLEYAMLEXTENSION](/docs/drs/flow/pipeline-concept.md#rule-fdr-cd-pipeline-executableyamlextension) — config
+# [FDR-PIPELINE-EXECUTABLEYAMLEXTENSION](/docs/drs/flow/pipeline-concept.md#rule-fdr-pipeline-executableyamlextension) — config
 # data our tooling reads, not an executable
 # ADO pipeline. Prettier auto-discovers .prettierrc.yml.
 printWidth: $width.md

@@ -15,7 +15,7 @@ catzc:
 
 ## Eyebrow
 
-12 / 15 · fact · FDR-CD-TYPE
+12 / 15 · fact · FDR-TYPE
 
 ## Lead
 
@@ -31,5 +31,4 @@ From the catalogue, reduced: how each naming rule is held.
 
 ## Notes
 
-Check it: the record FDR-CD-TYPE in docs/drs/index.md, and the diagram
-docs/explanation/azure/.assets/how-each-naming-rule-is-held.drawio.png.
+Check it: the record FDR-TYPE in docs/drs/index.md, and the diagram docs/explanation/azure/.assets/how-each-naming-rule-is-held.drawio.png.

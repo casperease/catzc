@@ -17,13 +17,17 @@ engine_neutrality:
     should-process: '\b(?:SupportsShouldProcess|ShouldProcess|WhatIf)\b'
     script-block: '\b(?:Script|script) ?block'
 
+citation_graph:
+  exempt:
+    external:
+      An external record states how the repository reads its source item and binds it to the repository's own records, so it cites any
+      domain while every domain may cite it.
+
 dora_coverage:
   exempt:
-    research: Each research ADR is the record of one DORA capability and ends with its own Dora explains section.
-  # A vendor-checklist ADR answers Microsoft's guidance item by item; it is grounded in that vendor's reference, not in DORA research.
-  exempt_folders:
-    azure/caf: Each ADR answers the Cloud Adoption Framework landing-zone guidance; docs/references/caf/index.md grounds it.
-    azure/waf: Each ADR answers one Well-Architected pillar's checklist; docs/references/waf/index.md grounds it.
+    external:
+      Each external record is grounded in its own source; a DORA record ends with its own Dora explains section, and a vendor record is
+      grounded in docs/references/caf/ or docs/references/waf/.
 
 # The segment grammar of ADR codes and named rule headings ([ADR-REPO-DRSCODE](/docs/drs/repository/drs-code-language.md)).
 code_language:

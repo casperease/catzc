@@ -13,8 +13,8 @@ One method, GlobSet.ScanProgram(), feeds all three globset role functions.
 8  Test-GlobSetAffected    answers "is this set touched?", failing open on doubt
 9  Test-GlobSetProtection  compares the live identity with the recorded one
 
-Supports FDR-CD-GLOBS-TRACKEDFILESONLY, FDR-CD-GLOBS-DURABLESHAIDENTITY, FDR-CD-GLOBS-NATIVEPATHFILTER
-and FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT (implementation lens).
+Supports FDR-GLOBS-TRACKEDFILESONLY, FDR-GLOBS-DURABLESHAIDENTITY, FDR-GLOBS-NATIVEPATHFILTER
+and FDR-GLOBS-CHANGECOMPUTEDFROMGIT (implementation lens).
 ```
 
 `GlobSet.ScanProgram()` is the one method behind a globset's membership, its trigger and its identity in cats. The code runs from
@@ -26,7 +26,7 @@ description:
   "The code path behind a globset: globs.yml through the validating load to GlobSet.ScanProgram(), then to the three role functions and the
   callers that read each one's output."
 about:
-  adrs: [FDR-CD-GLOBS-TRACKEDFILESONLY, FDR-CD-GLOBS-DURABLESHAIDENTITY, FDR-CD-GLOBS-NATIVEPATHFILTER, FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT]
+  adrs: [FDR-GLOBS-TRACKEDFILESONLY, FDR-GLOBS-DURABLESHAIDENTITY, FDR-GLOBS-NATIVEPATHFILTER, FDR-GLOBS-CHANGECOMPUTEDFROMGIT]
   lens: implementation
 content:
   title: One method, GlobSet.ScanProgram(), feeds all three globset role functions
@@ -113,10 +113,10 @@ layout:
 
 ## Why it holds
 
-- A globset's membership is an ordered scan program evaluated last-match-wins over tracked files (FDR-CD-GLOBS-TRACKEDFILESONLY).
-- The identity is the durable SHA, computed live per member file and folded into one SHA-256 (FDR-CD-GLOBS-DURABLESHAIDENTITY).
-- The trigger is the program projected into each vendor's native path-filter dialect (FDR-CD-GLOBS-NATIVEPATHFILTER).
-- Whether a change touches a set is computed from git at real refs, failing open on any doubt (FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT).
+- A globset's membership is an ordered scan program evaluated last-match-wins over tracked files (FDR-GLOBS-TRACKEDFILESONLY).
+- The identity is the durable SHA, computed live per member file and folded into one SHA-256 (FDR-GLOBS-DURABLESHAIDENTITY).
+- The trigger is the program projected into each vendor's native path-filter dialect (FDR-GLOBS-NATIVEPATHFILTER).
+- Whether a change touches a set is computed from git at real refs, failing open on any doubt (FDR-GLOBS-CHANGECOMPUTEDFROMGIT).
 
 ## See also
 

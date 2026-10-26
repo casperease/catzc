@@ -2,22 +2,22 @@
 
 ## Rules: PDR-EAC
 
-### Rule PDR-EAC-EVERYTHINGINVERSIONCONTROL
+### Rule PDR-EAC-EVERYTHINGCOMMITTED
 
 Every artifact required to build, test, deploy, or operate the system lives in version control — application code, infrastructure,
 pipelines, environment config, schemas/migrations, specs, tests, container/orchestration, networking/DNS, and governing docs. Rules 1–3 are
-the mechanics of TDR-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD.
+the mechanics of TDR-ONETRUTH-REPOSITORYISRECORD.
 
 - [Principle](#principle)
 
-### Rule PDR-EAC-DIFFABLEBELONGSINVERSIONCONTROL
+### Rule PDR-EAC-DIFFABLEISVERSIONED
 
 If an artifact can be diffed, reviewed, and rolled back it belongs in version control; prefer tools that store their configuration as files
 over UIs, databases, or proprietary formats.
 
 - [How to apply](#how-to-apply)
 
-### Rule PDR-EAC-NOSTATEOUTSIDEVERSIONCONTROL
+### Rule PDR-EAC-NOUNVERSIONEDSTATE
 
 Never keep configuration or operational state outside version control (UI-managed settings, variable libraries, shared documents, manual
 runbooks) — it cannot be diffed or reproduced and it drifts silently.
@@ -30,9 +30,8 @@ Organizations commonly version-control the source code of their applications whi
 pipeline definitions, and operational artifacts as second-class citizens — managed through UIs, wikis, shared drives, or tribal knowledge.
 This creates a class of assets that cannot be reproduced, compared, audited, or rolled back.
 
-This principle is the mechanics of
-[TDR-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD](../thesis/one-source-of-truth.md#rule-tdr-onetruth-repositoryisconfigurationrecord): the
-repository is the configuration record of everything it delivers, and the rules here say what that requires of each artifact.
+This principle is the mechanics of [TDR-ONETRUTH-REPOSITORYISRECORD](../thesis/one-source-of-truth.md#rule-tdr-onetruth-repositoryisrecord):
+the repository is the configuration record of everything it delivers, and the rules here say what that requires of each artifact.
 
 ## Principle
 

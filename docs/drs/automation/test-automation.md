@@ -10,7 +10,7 @@ is one or the other — a test file needing both puts each kind in its own group
 
 - [Logic vs integrity tests](#logic-vs-integrity-tests)
 
-### Rule ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
+### Rule ADR-AUTO-TEST-DISTINCTFIXTURES
 
 Fixtures own their inputs and use deliberately distinct identities under `tests/assets/` (envs `alpha`/`beta`, customers `acme`/`globex`,
 org `tst`) so they cannot collide with production.
@@ -109,8 +109,8 @@ and assert invariants that hold for _every_ template. It must **never** bind to 
 production-derived magic value (a rendered secret name, resource name, or parameter-file name). Binding a test to a production identity
 makes that test veto the identity's rename or removal — a test must never block a production refactor. Positive, template-specific behaviour
 (e.g. a PrePost hook injecting a particular Key Vault reference) is verified as a **logic** test against a **fixture** template
-(ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES), not against the shipped one; the generic integrity test asserts only the structural invariant —
-"any reference present is well-formed" — across all shipped templates.
+(ADR-AUTO-TEST-DISTINCTFIXTURES), not against the shipped one; the generic integrity test asserts only the structural invariant — "any
+reference present is well-formed" — across all shipped templates.
 
 - [Generic integrity tests](#generic-integrity-tests)
 
@@ -353,7 +353,7 @@ A Go test module ([go-test-artifacts](go/go-test-artifacts.md#rule-adr-auto-go-o
 test files, under the same tiers, categories, and run model. Discovery maps each to its catzc module, so module selection, test suites,
 ordering, protection, both runs, and the report treat its tests as that module's; one shared bridge, the language bridge, runs them all
 inside the test run, and every test they hold is one test with both mandatory tags — `L2`, and a category from its name
-(ADR-AUTO-GO-LANGUAGEBRIDGE, ADR-AUTO-PY-LANGUAGEBRIDGE, ADR-AUTO-BASH-LANGUAGEBRIDGE).
+(ADR-AUTO-GO-GOBRIDGE, ADR-AUTO-PY-PYBRIDGE, ADR-AUTO-BASH-BASHBRIDGE).
 
 - [Go test modules](#go-test-modules)
 
@@ -457,8 +457,8 @@ line:
   PrePost hook's contract ("`sqlAdminPassword` becomes a reference to `<short>-sql-admin-password` in the foundation vault") lives as
   imperative code in that template's PrePost module, not as data a generic test could read. So the mechanism is proven once, on the
   `sample-with-prepost` fixture, which injects a Key Vault reference whose secret name is derived from the _fixture's_ own `short_name` and
-  whose vault id is built from the _fixture's_ resolved subscription — fixture identities (ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES),
-  asserted against the fixture, binding to nothing in production.
+  whose vault id is built from the _fixture's_ resolved subscription — fixture identities (ADR-AUTO-TEST-DISTINCTFIXTURES), asserted against
+  the fixture, binding to nothing in production.
 
 This is the same coupling-break as the rest of this ADR (logic tests own their inputs; integrity tests read reality), applied to the
 template _name_ dimension: production identities flow into the generic check as discovered data, never as literals a test pins.

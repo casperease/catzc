@@ -19,7 +19,7 @@ Describe 'Get-AutoControlledGlobs' -Tag 'L0', 'logic' {
         $globs | Should -Not -Contain 'LICENSE'
     }
 
-    It 'takes the gitignored members a generator writes from the track model, a folder glob as its folder and contents' -Tag 'DDR-TRACK-TRACKISPLACEDCLUSTER' {
+    It 'takes the gitignored members a generator writes from the track model, a folder glob as its folder and contents' -Tag 'DDR-TRACK-ISPLACEDCLUSTER' {
         Mock Get-TrackMember -ModuleName Catzc.Base.Git {
             foreach ($path in 'widget/*/*.wdg', 'widget/build/**', 'widget/notes.txt') {
                 [Catzc.Base.Variants.TrackMember]::new('widget', [Catzc.Base.Variants.VariantMember]::new($path, $false, $false))
@@ -37,7 +37,7 @@ Describe 'Get-AutoControlledGlobs' -Tag 'L0', 'logic' {
         $globs | Should -Not -Contain 'widget/notes.txt' -Because 'a gitignored member no generator writes is in-flight work, never cleaned'
     }
 
-    It 'takes a generated folder member on disk, such as the out track''s out, as the folder and its contents' -Tag 'DDR-TRACK-TRACKISPLACEDCLUSTER' {
+    It 'takes a generated folder member on disk, such as the out track''s out, as the folder and its contents' -Tag 'DDR-TRACK-ISPLACEDCLUSTER' {
         $root = Join-Path $TestDrive "root-$([guid]::NewGuid().ToString('N'))"
         [System.IO.Directory]::CreateDirectory((Join-Path $root 'widget-out')) | Out-Null
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.Git { $root }

@@ -19,4 +19,4 @@ connections and a non-placeholder `azure.yml` exist.
 - **Triggers live here.** ADO honours `trigger:` and `pr:` only at the pipeline root.
 - **Path filters match the configs flux has.** The include list covers the shared templates and modules and flux's foundation and discovery
   configuration subfolders only, since there is no expedition config; the exclude list drops the other deployments' configuration
-  ([FDR-CD-GLOBS](../../../drs/flow/durable-sha-globs.md)).
+  ([FDR-GLOBS](../../../drs/flow/durable-sha-globs.md)).

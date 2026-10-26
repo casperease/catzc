@@ -14,7 +14,7 @@ catzc:
 
 ## Eyebrow
 
-8 / 12 · fact · FDR-CD-LIFE
+8 / 12 · fact · FDR-LIFE
 
 ## Lead
 
@@ -30,4 +30,4 @@ From the catalogue, reduced: add a template.
 
 ## Notes
 
-Check it: the record FDR-CD-LIFE in docs/drs/index.md, and the diagram docs/explanation/azure/.assets/add-a-template.drawio.png.
+Check it: the record FDR-LIFE in docs/drs/index.md, and the diagram docs/explanation/azure/.assets/add-a-template.drawio.png.

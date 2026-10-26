@@ -12,8 +12,9 @@ domain structure.
 ### description
 
 index.md is a derived projection of pwsh/Base.Drs/configs/drs.yml: authored preamble and authoring-convention prose wrapped around one
-code-registry table per domain (in declared order). Every ADR row is `| ``<external>`` | [<slug>](../catzc-base-drs/<path>) |` — the format Get-CatsDrsIndex
-parses and the citation grammar Show-Cats presents. Each link path is resolved to the real `docs/drs/<domain>/**/<slug>.md` file.
+code-registry table per domain (in declared order). Every ADR row is `| ``<external>`` | [<slug>](../catzc-base-drs/<path>) |` — the format
+Get-CatsDrsIndex parses and the citation grammar Show-Cats presents. Each link path is resolved to the real `docs/drs/<domain>/**/<slug>.md`
+file.
 
 The index is committed — so GitHub has it, and every ADR citation's link resolves there — marked linguist-generated so its diff collapses,
 and reproduced on every import (before Build-Readme, which generates the docs/drs README from it), so drs.yml is the ONLY place the registry
@@ -57,9 +58,8 @@ Reports whether the on-disk index is stale without writing it.
 
 The authored prose in `drs-index.yml` is wrapped for reading there, not for the page. Every paragraph and list item goes through
 `Format-MarkdownParagraph` (Prettier's fill), so the generated page is formatter-stable
-([ADR-REPO-FORMAT-GENERATEDARTIFACTSFORMATTED](../../../drs/repository/uniform-formatting.md#rule-adr-repo-format-generatedartifactsformatted)).
-A heading and a blank line pass through. A line starting with `-` and a space opens a list item, and an indented or plain line continues the
-open block.
+([ADR-REPO-FORMAT-GENERATEDFORMATTED](../../../drs/repository/uniform-formatting.md#rule-adr-repo-format-generatedformatted)). A heading and
+a blank line pass through. A line starting with `-` and a space opens a list item, and an indented or plain line continues the open block.
 
 ## Code tables
 

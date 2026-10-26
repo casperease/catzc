@@ -31,7 +31,7 @@ derive their source by convention, plus explicit `mappings` for the exceptions â
 
 - [Decision](#decision)
 
-### Rule ADR-REPO-README-IDEMPOTENTGENERATION
+### Rule ADR-REPO-README-READMEIDEMPOTENT
 
 Generation is idempotent and runs on every import (the importer tail): `Build-Readme` composes each README (`Get-ReadmeContent`) and writes
 it through `Write-FileIfChanged`, which rewrites only a README whose content differs (line endings ignored) and writes by delete-then-write,

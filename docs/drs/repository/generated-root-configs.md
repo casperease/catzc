@@ -28,7 +28,7 @@ reviewable diff. The difference between the two is one boolean, not two systems.
 
 - [One system, one boolean](#one-system-one-boolean)
 
-### Rule ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION
+### Rule ADR-REPO-ROOTCFG-ROOTCFGIDEMPOTENT
 
 Generation is idempotent and runs on every import (the importer tail). All content writes go through the one shared primitive
 `Write-FileIfChanged` (`Catzc.Base.Files`): canonical output (UTF-8 no BOM, LF, one trailing newline), an EOL-insensitive compare, write
@@ -117,16 +117,16 @@ its template byte for byte, so an edit made in the copy is a finding that names 
 A tool reads its root file whatever comes before its content, as long as the head is in the format's own comment syntax, so the carrier
 registry decides the form: a `#` comment head for a dotfile, a YAML file or a solution file after its preamble, and the ignored property of
 a JSON file whose parser rejects comments. A target that is a link is stale whatever its bytes: `Build-RootConfig` deletes it before it
-writes the copy, so a write never tunnels through a link into a template (ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION), and the integrity test
-fails a managed target that is a link (ADR-REPO-ROOTCFG-THREEWAYAGREEMENT).
+writes the copy, so a write never tunnels through a link into a template (ADR-REPO-ROOTCFG-ROOTCFGIDEMPOTENT), and the integrity test fails
+a managed target that is a link (ADR-REPO-ROOTCFG-THREEWAYAGREEMENT).
 
 ### One entry, many files
 
 `One entry, many files`
 
 Some generated files come in a set whose size the repository decides: the Go workspace has one `go.mod` per Go test module
-([go-test-artifacts](../automation/go/go-test-artifacts.md#rule-adr-auto-go-generatedworkspace)), and a new test folder adds one. A registry
-entry per file would be a second list of those folders, kept by hand. A wildcard target states the set once — `*/tests/*/go.mod` — and the
+([go-test-artifacts](../automation/go/go-test-artifacts.md#rule-adr-auto-go-goworkspace)), and a new test folder adds one. A registry entry
+per file would be a second list of those folders, kept by hand. A wildcard target states the set once — `*/tests/*/go.mod` — and the
 generator, which already discovers the folders, renders one record per file (`Get-RootConfigRenderedFile` normalises the two shapes). Every
 file then takes the same path as a single-file target: one `Write-FileIfChanged` write, one result row under its own path, one drift issue
 when stale, and `Build-RootConfig <path>` selects either the whole entry by its pattern or one file the pattern matches. A record outside

@@ -6,9 +6,9 @@
 
 Everything inside a responsibility domain is code, managed through the one change process
 ([TDR-STORES-RESPONSIBILITYDOMAIN](truth-stores.md#rule-tdr-stores-responsibilitydomain),
-[TDR-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD](one-source-of-truth.md#rule-tdr-onetruth-repositoryisconfigurationrecord)). So any code can
-be brought into an **eac normal form**: the shape in which the repository's automation can verify it. That holds for code written in the
-trunk and for an **unordered code fragment**, code that comes from outside the trunk in whatever shape its origin left it.
+[TDR-ONETRUTH-REPOSITORYISRECORD](one-source-of-truth.md#rule-tdr-onetruth-repositoryisrecord)). So any code can be brought into an **eac
+normal form**: the shape in which the repository's automation can verify it. That holds for code written in the trunk and for an **unordered
+code fragment**, code that comes from outside the trunk in whatever shape its origin left it.
 
 - [Any code has a normal form](#any-code-has-a-normal-form)
 

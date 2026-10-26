@@ -21,7 +21,7 @@ and each source must prove it targets the configured organization before a heade
 See [dual-authentication](../../../drs/ado/dual-authentication.md). The repository is known the same way: the agent's own repository in a
 pipeline, the checkout folder's name on a devbox, the default every command taking a repository name falls back to. The live project name
 `ado.yml` carries is declared in `identity-tokens.yml`, so a hermetic logic test that names it is found
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+([ADR-AUTO-TEST-DISTINCTFIXTURES](../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtures)).
 
 ### responsibility:2 — Azure DevOps REST operations
 
@@ -35,8 +35,8 @@ state-changing surface.
 Reading the repository's own pipeline YAML: finding the YAML files and classifying each as a pipeline or a template (and which kind) from
 its structure and the organization's registration data. This answers "what pipelines and templates does this repo define?" without deploying
 anything. On top of that classification sits the naming-and-placement quality gate — `Test-Pipelines` collects every violation of the layout
-contract ([pipeline-naming-and-placement](../../../drs/ado/pipeline-naming-and-placement.md)), writes its report, and throws once listing them
-all, offline; an L1 integrity test runs it over the real `pipelines/` tree.
+contract ([pipeline-naming-and-placement](../../../drs/ado/pipeline-naming-and-placement.md)), writes its report, and throws once listing
+them all, offline; an L1 integrity test runs it over the real `pipelines/` tree.
 
 ### responsibility:4 — Pipeline runtime bridge
 

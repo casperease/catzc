@@ -15,7 +15,7 @@ catzc:
 
 ## Eyebrow
 
-19 / 30 · fact for the SRE Lead · ADR-AZ-CAF-SEC
+19 / 30 · fact for the SRE Lead · EDR-AZ-CAF-SEC
 
 ## Lead
 
@@ -32,5 +32,5 @@ From the catalogue, reduced: manual queues 1 where a person stands.
 
 ## Notes
 
-Check it: the record ADR-AZ-CAF-SEC in docs/drs/index.md, and the diagram
+Check it: the record EDR-AZ-CAF-SEC in docs/drs/index.md, and the diagram
 docs/explanation/flow/.assets/manual-queues-1-where-a-person-stands.drawio.png.

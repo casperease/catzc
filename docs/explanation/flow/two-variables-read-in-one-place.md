@@ -14,7 +14,7 @@ Two variables are read in one place, 24 callers ask it, and one analyzer rule ba
 9   CatzcRules.psm1                 runs every check once per file; NoRawPipelineDetection is listed
 10  Measure-NoRawPipelineDetection  flags $env:TF_BUILD or $env:GITHUB_ACTIONS outside the detector
 
-Supports FDR-CD-DETECT-NODIRECTVARIABLECHECK, FDR-CD-DETECT-BOOLEANNOTMODAL and FDR-CD-DETECT-FASTDETECTION (implementation lens).
+Supports FDR-DETECT-NODIRECTVARIABLECHECK, FDR-DETECT-BOOLEANNOTMODAL and FDR-DETECT-FASTDETECTION (implementation lens).
 ```
 
 `Test-IsRunningInPipeline` is one expression: it casts two environment variables to booleans and ors them. Everything else in cats that
@@ -26,7 +26,7 @@ description:
   Two environment variables are read in one function, Test-IsRunningInPipeline; callers ask it, and one analyzer rule, loaded through the
   one settings file, turns any other read of those variables into an error.
 about:
-  adrs: [FDR-CD-DETECT-NODIRECTVARIABLECHECK, FDR-CD-DETECT-BOOLEANNOTMODAL, FDR-CD-DETECT-FASTDETECTION]
+  adrs: [FDR-DETECT-NODIRECTVARIABLECHECK, FDR-DETECT-BOOLEANNOTMODAL, FDR-DETECT-FASTDETECTION]
   lens: implementation
 content:
   title: Two variables, one reader, 24 callers, and one analyzer rule for every other read
@@ -117,10 +117,9 @@ layout:
 ## Why it holds
 
 - Never check the detection variables directly; call `Test-IsRunningInPipeline`, and the analyzer rule makes the check mechanical
-  (FDR-CD-DETECT-NODIRECTVARIABLECHECK).
-- Detection is boolean, not modal: either variable set means a pipeline, otherwise not (FDR-CD-DETECT-BOOLEANNOTMODAL).
-- The function stays fast: it is called often, so it reads two variables and does no I/O, network or computation
-  (FDR-CD-DETECT-FASTDETECTION).
+  (FDR-DETECT-NODIRECTVARIABLECHECK).
+- Detection is boolean, not modal: either variable set means a pipeline, otherwise not (FDR-DETECT-BOOLEANNOTMODAL).
+- The function stays fast: it is called often, so it reads two variables and does no I/O, network or computation (FDR-DETECT-FASTDETECTION).
 
 ## Where the code and the decision record differ
 

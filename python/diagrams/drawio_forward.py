@@ -41,8 +41,9 @@ from PIL import Image
 from PIL.PngImagePlugin import PngInfo
 
 from . import minimaps
-from .drawio_forward_single import FINDINGS_EXIT, FORWARD, KIT, REPO, SLIDE, forward_one
+from .drawio_forward_single import FINDINGS_EXIT, FORWARD, REPO, SLIDE, forward_one
 from .drawio_png import DEFAULTS, THEMES, decode, encode, mxfile_chunk, paint, plain, render
+from .module_paths import KIT
 
 ADR_CODE = re.compile(r"(?<![\w-])" + minimaps.kinds() + r"(?:-[A-Z][A-Z0-9]*)+(?![\w-])")
 NUMBERED = re.compile(r"(?<![\w-])" + minimaps.kinds() + r"(?:-[A-Z][A-Z0-9]*)+(?:[#:]\d|#\{)")

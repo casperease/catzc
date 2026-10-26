@@ -22,8 +22,8 @@ precedence order:
 The brew owner is resolved by locating the on-PATH binary under 'brew --prefix' and reading its Cellar symlink target for the formula name —
 so a brew 'azure-cli' is caught even though az_cli's configured manager is uv. Every macOS mechanism is user-space; nothing here asserts
 elevation
-([ADR-AUTO-REMOVE-ELEVATIONFOLLOWSMECHANISM](../../../drs/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-elevationfollowsmechanism)).
-Steps 2 and 3 are the shared Unix tail (Remove-UvPipOrStrayInstall), identical to Linux.
+([ADR-AUTO-REMOVE-ELEVATIONBYMECHANISM](../../../drs/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-elevationbymechanism)). Steps
+2 and 3 are the shared Unix tail (Remove-UvPipOrStrayInstall), identical to Linux.
 
 This is invoked from the Unix branch of a `Remove-<Tool>`, which owns the -Force dry-run guard and the managed-install refusal
 (Test-ExpectedPackageManager) — so this core is only ever reached for an off-config install, and just evicts it.

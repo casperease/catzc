@@ -14,11 +14,11 @@ Principle 1 of 6 · PDR-EAC
 
 ## Rows
 
-| Rule                                    | Says                                                                                       |
-| --------------------------------------- | ------------------------------------------------------------------------------------------ |
-| PDR-EAC-EVERYTHINGINVERSIONCONTROL      | Every artifact that builds, tests, deploys or operates the system lives in version control |
-| PDR-EAC-DIFFABLEBELONGSINVERSIONCONTROL | If it can be diffed, reviewed and rolled back, it belongs in version control               |
-| PDR-EAC-NOSTATEOUTSIDEVERSIONCONTROL    | No configuration or operational state outside version control; it drifts silently          |
+| Rule                        | Says                                                                                       |
+| --------------------------- | ------------------------------------------------------------------------------------------ |
+| PDR-EAC-EVERYTHINGCOMMITTED | Every artifact that builds, tests, deploys or operates the system lives in version control |
+| PDR-EAC-DIFFABLEISVERSIONED | If it can be diffed, reviewed and rolled back, it belongs in version control               |
+| PDR-EAC-NOUNVERSIONEDSTATE  | No configuration or operational state outside version control; it drifts silently          |
 
 ## Body
 

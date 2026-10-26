@@ -15,7 +15,7 @@ catzc:
 
 ## Eyebrow
 
-21 / 30 · fact for the SRE Lead · ADR-AZ-CAF-MGMT
+21 / 30 · fact for the SRE Lead · EDR-AZ-CAF-MGMT
 
 ## Lead
 
@@ -32,5 +32,5 @@ From the catalogue, reduced: one artifact climbs unchanged.
 
 ## Notes
 
-Check it: the record ADR-AZ-CAF-MGMT in docs/drs/index.md, and the diagram
+Check it: the record EDR-AZ-CAF-MGMT in docs/drs/index.md, and the diagram
 docs/explanation/flow/.assets/one-artifact-climbs-unchanged.drawio.png.

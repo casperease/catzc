@@ -95,11 +95,11 @@ and each variant's defaulting lives in exactly one place. A caller never mention
 
 The primitives must be usable as trivial guards wherever a repo-wide decision matters — deep in the Azure templating layer, in a tooling
 step, anywhere. That argues for a low, widely-dependable **Base** module rather than the Azure layer. Reading a config never bypasses
-`Get-Config` (`ADR-CONF-LOADING-ONEREADER`), so `Catzc.Base.Variants` depends on `Catzc.Base.Config`; that edge is acyclic because `Config`
-depends only on `Repository` and `Asserts`, never on `Variants`. The reach follows from the graph: any module that sits **above** the Config
-layer can call the primitives — every `AzureExt`, `Tooling`, and upper-`Base` module — and the foundation modules that cannot (`Config`,
-`Objects`, `Repository`, `Asserts`) never need to. The module's config type stays self-contained so validation adds no further edges; a
-variant that needed to cross-check another asset would belong to that asset's layer, not here.
+`Get-Config` (`ADR-CONF-LOADING-CONFIGONEREADER`), so `Catzc.Base.Variants` depends on `Catzc.Base.Config`; that edge is acyclic because
+`Config` depends only on `Repository` and `Asserts`, never on `Variants`. The reach follows from the graph: any module that sits **above**
+the Config layer can call the primitives — every `AzureExt`, `Tooling`, and upper-`Base` module — and the foundation modules that cannot
+(`Config`, `Objects`, `Repository`, `Asserts`) never need to. The module's config type stays self-contained so validation adds no further
+edges; a variant that needed to cross-check another asset would belong to that asset's layer, not here.
 
 ### The variants
 

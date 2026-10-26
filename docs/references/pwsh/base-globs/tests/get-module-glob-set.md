@@ -12,8 +12,8 @@ protection and blast radius through the same `Matches()` machinery.
 ## Fixtures
 
 The fixture globset name is neutral (widget), not the real `automation` set
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)). The
-declared set only needs to exist so that the shadow check has a registry to compare the derived names against.
+([ADR-AUTO-TEST-DISTINCTFIXTURES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtures)). The declared set only
+needs to exist so that the shadow check has a registry to compare the derived names against.
 
 ## Reserved names
 

@@ -66,14 +66,14 @@ def test_an_arrow_onto_a_file_or_a_store_needs_neither():
 def test_a_relation_without_states_is_refused_naming_the_rule():
     plain = _edge_declaration(CODE_GLYPHS, [{"from": "widget-a", "to": "widget-b", "kind": "flow", "label": "calls"}], relation="feeds")
     with pytest.raises(
-        declaration.DeclarationError, match=r"content.relation 'feeds' is only for a state diagram.*DDR-VISUAL-ARROWSPOINTATWHATTHEYDEPENDON"
+        declaration.DeclarationError, match=r"content.relation 'feeds' is only for a state diagram.*DDR-VISUAL-ARROWSPOINTATDEPENDENCY"
     ):
         declaration.normalise(plain)
 
 
 def test_states_without_a_relation_is_refused_naming_the_rule():
     bare = _edge_declaration(CODE_GLYPHS, [{"from": "widget-a", "to": "widget-b", "kind": "flow", "label": "calls"}], states=True)
-    with pytest.raises(declaration.DeclarationError, match=r"content.states is true but names no relation.*DDR-VISUAL-ARROWSPOINTATWHATTHEYDEPENDON"):
+    with pytest.raises(declaration.DeclarationError, match=r"content.states is true but names no relation.*DDR-VISUAL-ARROWSPOINTATDEPENDENCY"):
         declaration.normalise(bare)
 
 

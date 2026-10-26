@@ -14,9 +14,8 @@ The fingerprint of everything besides a file's own bytes that decides what a for
 Format-Code's result cache keys a file on its SHA-256 and this stamp (Get-ContentStamp): the engine's name and each settings entry
 languages.yml lists for the engine. An entry is a whole file, or `<file>#<key>` for one top-level key of a YAML file; the tool registry is
 listed by the keys of the tools the engine runs, so that tool's new pin is a new stamp and another tool's pin edit is not
-([ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS](../../../../drs/automation/caching.md#rule-adr-auto-cache-checkedfilesacrosssessions)). A
-missing file or key hashes as missing, so adding or removing an input changes the stamp. No input is known here that languages.yml does not
-declare.
+([ADR-AUTO-CACHE-CROSSSESSIONFILES](../../../../drs/automation/caching.md#rule-adr-auto-cache-crosssessionfiles)). A missing file or key
+hashes as missing, so adding or removing an input changes the stamp. No input is known here that languages.yml does not declare.
 
 ### parameter `Engine`
 

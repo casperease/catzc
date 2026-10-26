@@ -10,11 +10,11 @@ catzc:
       scale: 0.4
 ---
 
-# A pipeline type triggers on a globset: FDR-CD-TYPE rests on FDR-CD-GLOBS
+# A pipeline type triggers on a globset: FDR-TYPE rests on FDR-GLOBS
 
 ## Eyebrow
 
-13 / 14 · fact · FDR-CD-TYPE
+13 / 14 · fact · FDR-TYPE
 
 ## Lead
 
@@ -30,5 +30,5 @@ From the catalogue, reduced: partition integrity runs only in unit tests.
 
 ## Notes
 
-Check it: the record FDR-CD-TYPE in docs/drs/index.md, and the diagram
+Check it: the record FDR-TYPE in docs/drs/index.md, and the diagram
 docs/explanation/design/.assets/partition-integrity-runs-only-in-unit-tests.drawio.png.

@@ -2,7 +2,7 @@
 
 ## Rules: ADR-PWSH-ANNOUNCE
 
-### Rule ADR-PWSH-ANNOUNCE-INFORMATIONSTREAMCHOKEPOINT
+### Rule ADR-PWSH-ANNOUNCE-INFORMATIONCHOKEPOINT
 
 Every write to the console goes through the information stream, by way of the writer chokepoint: `Write-Message` →
 `Write-InformationColored` → `Write-Information`, or the loader's `Write-ImporterMessage` before the Writers module is loaded. Nothing calls
@@ -52,7 +52,7 @@ detail, `Write-Output` only for return values — and never `Write-Warning`/`Wri
 ### Rule ADR-PWSH-ANNOUNCE-INFORMATIONRECORD
 
 In pwsh, the announcement ADR-AUTO-CONSOLE-ANNOUNCELASTINGCHANGES requires is an information-stream record written through the chokepoint
-(ADR-PWSH-ANNOUNCE-INFORMATIONSTREAMCHOKEPOINT), never a `Write-Verbose` line. The session state it covers is what the commands in the
+(ADR-PWSH-ANNOUNCE-INFORMATIONCHOKEPOINT), never a `Write-Verbose` line. The session state it covers is what the commands in the
 [state-change table](#what-counts-as-a-state-change) change: `$env:` and `PSModulePath`, `Add-Type` and the assembly loaders,
 `Import-Module`/`Remove-Module`, `$global:` variables and preferences, `Push-Location`/`Pop-Location`, the PSReadLine options and key
 handlers, `Update-TypeData`/`Update-FormatData`, and the user and machine environment and the PowerShell profile.
@@ -277,7 +277,7 @@ nudge. The same nudges made at every shell open are part of the load record, not
 time, so the session-tool janitor re-points `dotnet` and appends the same hint folder on every import. The importer therefore quiets the
 session-wide information preference around that one janitor unless its own `-Verbose` is set, and restores it in a `finally`
 (ADR-PWSH-ANNOUNCE-UNANNOUNCEDCHANGES); a common parameter would reach only the janitor's scope, while the preference reaches the writer
-chokepoint in its own module (ADR-PWSH-ANNOUNCE-INFORMATIONSTREAMCHOKEPOINT). A plain import shows the `Loaded` line alone, and `-Verbose`
+chokepoint in its own module (ADR-PWSH-ANNOUNCE-INFORMATIONCHOKEPOINT). A plain import shows the `Loaded` line alone, and `-Verbose`
 shows the nudges and the advisory beside the rest of the record. The janitor itself still announces unconditionally, which is what the
 analyzer rule checks.
 
@@ -295,7 +295,7 @@ announcement is recorded with a justified suppression. Every external command is
   `Out-Host`, `Write-Progress`, `Clear-Host`, the `[Console]` write methods and property assignments, writes through
   `[Console]::Out`/`Error`, and the `$Host.UI` writers. It supersedes the built-in `PSAvoidUsingWriteHost`, which the analyzer settings
   exclude so a `Write-Host` is reported once. Its one justified suppression is `Set-RedirectedOutputEncoding` in the importer module, the
-  exception ADR-PWSH-ANNOUNCE-INFORMATIONSTREAMCHOKEPOINT names.
+  exception ADR-PWSH-ANNOUNCE-INFORMATIONCHOKEPOINT names.
 - **`Measure-AnnounceStateChange`** (`pwsh/.scriptanalyzer/AnnounceStateChange.psm1`) flags a state change of the kinds in the table above
   that no information-stream writer (or `Write-ImporterMessage -StateChange`, ADR-PWSH-ANNOUNCE-IMPORTERLOADSEQUENCE) in the same or an
   enclosing block announces, and passes the exemptions of ADR-PWSH-ANNOUNCE-UNANNOUNCEDCHANGES. It checks that a change is announced; what

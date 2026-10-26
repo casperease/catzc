@@ -73,7 +73,7 @@ pipeline of two obvious stages (`Get-ChildPath … | Sort-Object`).
 
 - [Flat steps](#flat-steps)
 
-### Rule ADR-PWSH-FORMAT-MULTILINECONDITIONALHASHTABLE
+### Rule ADR-PWSH-FORMAT-MULTILINEHASHTABLE
 
 A hashtable literal that holds an `if`/`else` is written on several lines, or its value is bound to a local first, never written on one
 line. PSScriptAnalyzer's `Invoke-Formatter` throws on the one-line form, and because `Format-Code` and `Test-Formatting` format every file

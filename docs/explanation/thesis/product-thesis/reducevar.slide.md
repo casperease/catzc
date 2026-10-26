@@ -14,11 +14,11 @@ Principle 3 of 6 · PDR-REDUCEVAR
 
 ## Rows
 
-| Rule                                       | Says                                                                           |
-| ------------------------------------------ | ------------------------------------------------------------------------------ |
-| PDR-REDUCEVAR-SAMESTEPSSAMETOOLS           | Same steps, tools, versions and artifact structure, so deviations stand out    |
-| PDR-REDUCEVAR-STANDARDIZEPROCESSNOTDESIGN  | Standardise the process and tooling, not the design space                      |
-| PDR-REDUCEVAR-ESSENTIALDIFFERENCESEXPLICIT | Remove accidental differences, make essential ones explicit; one way over many |
+| Rule                              | Says                                                                           |
+| --------------------------------- | ------------------------------------------------------------------------------ |
+| PDR-REDUCEVAR-SAMESTEPSSAMETOOLS  | Same steps, tools, versions and artifact structure, so deviations stand out    |
+| PDR-REDUCEVAR-PROCESSNOTDESIGN    | Standardise the process and tooling, not the design space                      |
+| PDR-REDUCEVAR-EXPLICITDIFFERENCES | Remove accidental differences, make essential ones explicit; one way over many |
 
 ## Body
 

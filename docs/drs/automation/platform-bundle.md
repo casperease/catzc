@@ -2,7 +2,7 @@
 
 ## Rules: ADR-AUTO-BUNDLE
 
-### Rule ADR-AUTO-BUNDLE-BUNDLEISBUILD
+### Rule ADR-AUTO-BUNDLE-ISBUILD
 
 A **bundle** is the toolset's build: one installable, versioned `Catzc` package of one **named bundle** — an `exporter.yml` `bundles` entry
 with its own profile, version line, and vendor policy — under `out/pwsh/built/<bundle>/Catzc/<version>/`, built by `Build-Modules` from the
@@ -65,7 +65,7 @@ hash refreshes only the root importer entry — and the source build is verified
 
 - [The two-part install](#the-two-part-install)
 
-### Rule ADR-AUTO-BUNDLE-AUTOVERSION
+### Rule ADR-AUTO-BUNDLE-BUNDLEVERSION
 
 `Build-Modules -Version` defaults to `auto`, resolved by `Resolve-CatzcBuildVersion`. A devbox (source-mode) build is the fixed **`6.6.666`
 placeholder** (`exporter.yml`'s `direct_install_version`), announced by a yellow `Write-Message` notice that real versions come only from
@@ -79,7 +79,7 @@ test can substitute a fixture config through the same seam.
 
 - [Versions](#versions)
 
-### Rule ADR-AUTO-BUNDLE-BUNDLEISSESSION
+### Rule ADR-AUTO-BUNDLE-ISSESSION
 
 A bundle is a **session, not a passive library**. Loading it establishes the catzc session — the same session settings the mono importer
 sets, under which every error and every warning terminates, because catzc functions assume terminating semantics — and it writes only under
@@ -212,7 +212,7 @@ it as a local package. The vendored dependencies ride inside the build's own `.v
 
 A build on a devbox is a local convenience, not a release, so it carries the fixed `6.6.666` placeholder and overwrites in place — an
 obviously-unreal number that reads as "built locally" — and `Build-Modules` says so with a yellow `Write-Message` line. It is never a
-warning, which terminates in a catzc session (ADR-AUTO-BUNDLE-BUNDLEISSESSION). A pipeline export gets a real version, and that version is
+warning, which terminates in a catzc session (ADR-AUTO-BUNDLE-ISSESSION). A pipeline export gets a real version, and that version is
 **calculated, not chosen**: `MAJOR.MINOR` is the bundle's own reviewed `version` in `exporter.yml` — the repository is a mono repo, so each
 bundle has its own version line and no bundle's version moves another's — and `PATCH` is the first-parent commit count of the built commit
 (`git rev-list --first-parent --count HEAD`, which needs the full history the pipelines fetch). The same commit therefore always gets the

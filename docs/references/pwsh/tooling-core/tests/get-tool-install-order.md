@@ -10,8 +10,8 @@ dependencies before dependents, a diamond, an independent root and cycle detecti
 ([ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS](../../../../drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-isolatethroughseams),
 [ADR-PWSH-PESTER-MOCKMODULEBOUNDARIES](../../../../drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-mockmoduleboundaries)). The
 names `base`, `mid1`, `mid2`, `top` and `lone` are fixture identities
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)), so
-nothing here binds to a real tool name.
+([ADR-AUTO-TEST-DISTINCTFIXTURES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtures)), so nothing here binds
+to a real tool name.
 
 ## The shipped set
 

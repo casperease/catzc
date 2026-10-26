@@ -101,7 +101,7 @@ Describe 'Get-ModuleGlobSet' -Tag 'L1', 'logic' {
                 'scriptanalyzer-tests', 'vendor'))
     }
 
-    It 'partitions each reserved code scope: its root modules and runtime folders live, the rest tests, a single-file module in neither (DDR-ASPECT-ASPECTISAGLOBSET)' {
+    It 'partitions each reserved code scope: its root modules and runtime folders live, the rest tests, a single-file module in neither (DDR-ASPECT-ISAGLOBSET)' {
         $modules = Get-CatzcModulesFolder
         $internalLive = Get-ModuleGlobSet -Name internal-live
         $internalTests = Get-ModuleGlobSet -Name internal-tests

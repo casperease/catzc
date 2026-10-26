@@ -11,7 +11,7 @@ A push starts only the pipelines whose globset holds a changed file.
 6  Test-AdoPipelineTriggerGlob  the drift gate comparing each trigger with its projection
 7  trigger drifted              the failure a hand-edited trigger raises
 
-Supports DDR-TRACK-SUBSCRIBABLENOTPATHCOUPLED and DDR-TRACK-DEPLOYABLEUNIT (operations lens).
+Supports DDR-TRACK-SUBSCRIBABLENOTPATH and DDR-TRACK-DEPLOYABLEUNIT (operations lens).
 ```
 
 Each pipeline in cats triggers on its globset projected to Azure DevOps path filters, so a change starts only the pipelines whose sets hold
@@ -23,7 +23,7 @@ description:
   "A changed file fires only the pipelines whose globset holds it: pwsh and infrastructure changes reach their pipelines, and a drift gate
   fails a trigger that no longer matches its globset's projection."
 about:
-  adrs: [DDR-TRACK-SUBSCRIBABLENOTPATHCOUPLED, DDR-TRACK-DEPLOYABLEUNIT]
+  adrs: [DDR-TRACK-SUBSCRIBABLENOTPATH, DDR-TRACK-DEPLOYABLEUNIT]
   lens: operations
 content:
   title: A push starts only the pipelines whose globset it touches
@@ -99,7 +99,7 @@ layout:
 ## Why it holds
 
 - Consumers bind a track through its globset's projection, never by hand-matching its paths, so a change in one track never rebuilds
-  customers of another (DDR-TRACK-SUBSCRIBABLENOTPATHCOUPLED).
+  customers of another (DDR-TRACK-SUBSCRIBABLENOTPATH).
 - Each deployable-unit has its own pipeline, so an edit to one unit's configuration starts only that unit's (DDR-TRACK-DEPLOYABLEUNIT).
 
 Azure DevOps path filters ignore order, so on `cd-shared` the root `configuration/*.yml` include and the `configuration/*/**` exclude sit at

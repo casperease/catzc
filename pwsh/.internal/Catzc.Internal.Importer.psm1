@@ -309,7 +309,7 @@ function Assert-CatzcRunModeExclusive {
 # A redirected host writes the OEM codepage while relays stream UTF-8, which mangled box drawing in logs.
 function Set-RedirectedOutputEncoding {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-NoRawConsoleWrite', '',
-        Justification = 'The one sanctioned console-property assignment (ADR-PWSH-ANNOUNCE-INFORMATIONSTREAMCHOKEPOINT): UTF-8 output for a redirected session, announced by Invoke-Importer on its load record.')]
+        Justification = 'The one sanctioned console-property assignment (ADR-PWSH-ANNOUNCE-INFORMATIONCHOKEPOINT): UTF-8 output for a redirected session, announced by Invoke-Importer on its load record.')]
     [CmdletBinding()]
     [OutputType([bool])]
     param()

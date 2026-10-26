@@ -17,7 +17,7 @@ Builds the world map (Get-WorldMap) and lights its cells with Catzc.Base.Maps.Wo
 file whose citations name it, in the fixed order per artifact kind the map derives (module code by its own citations, a repository-root file
 by its files.yml owner, a pipeline by its citations or else its globset). The reviewed exceptions and pins of configs/maps.yml then apply:
 an exception keeps its cell dark and a pin lights its cell. -Path lights the cells the given tracked files sit in
-([DDR-TRACK-TRACKISPLACEDCLUSTER](../../../drs/design/tracks.md#rule-ddr-track-trackisplacedcluster)).
+([DDR-TRACK-ISPLACEDCLUSTER](../../../drs/design/tracks.md#rule-ddr-track-isplacedcluster)).
 
 With neither, it answers "where does my change sit on the map": the files the working tree changes against HEAD and the index (modified,
 added, deleted or untracked; Get-GitChangedPath) light the cells they sit in, as with -Path. The map holds the files git tracks, so a

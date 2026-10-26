@@ -11,7 +11,7 @@ Callers in any module depend on one config module; the owner only ships a file a
 6  owner's C# type           built once on the miss; its constructor maps and validates
 7  Catzc.Base.QualityGates   its gate Test-ShippedConfigs calls the same reader
 
-Supports ADR-CONF-LOADING-ONEREADER, ADR-CONF-LOADING-EXISTENCEDISCOVERED, ADR-CONF-LOADING-CACHEBYPATH,
+Supports ADR-CONF-LOADING-CONFIGONEREADER, ADR-CONF-LOADING-EXISTENCEDISCOVERED, ADR-CONF-LOADING-CACHEBYPATH,
 ADR-CONF-LOADING-CSHARPCONFIGTYPE and ADR-CONF-LOADING-READINGISGLOBAL (architecture lens).
 ```
 
@@ -25,7 +25,7 @@ description:
   the owning module's C# type from the file it ships; the quality gate calls the same reader.
 about:
   adrs:
-    - ADR-CONF-LOADING-ONEREADER
+    - ADR-CONF-LOADING-CONFIGONEREADER
     - ADR-CONF-LOADING-EXISTENCEDISCOVERED
     - ADR-CONF-LOADING-CACHEBYPATH
     - ADR-CONF-LOADING-CSHARPCONFIGTYPE
@@ -102,7 +102,8 @@ layout:
 
 ## Why it holds
 
-- All config reads go through `Get-Config`; no function re-reads a config file or keeps its own config cache (ADR-CONF-LOADING-ONEREADER).
+- All config reads go through `Get-Config`; no function re-reads a config file or keeps its own config cache
+  (ADR-CONF-LOADING-CONFIGONEREADER).
 - A config's existence is discovered from its folder, and a name is global; `-Module` only disambiguates
   (ADR-CONF-LOADING-EXISTENCEDISCOVERED).
 - The parsed config is cached by its resolved file path for the session (ADR-CONF-LOADING-CACHEBYPATH).

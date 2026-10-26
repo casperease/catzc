@@ -1,8 +1,8 @@
 # pwsh/Base.Globs/Get-ChangedGlobSet.ps1
 
 The blast-radius reflection of a change: it names the declared globsets whose scan program selects a changed path, computed from git at the
-real refs ([FDR-CD-GLOBS-NAMEDGLOBSETS](../../../drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-namedglobsets)). The range it measures from
-is `Get-GlobSetChangeRange`'s answer, never its own.
+real refs ([FDR-GLOBS-NAMEDGLOBSETS](../../../drs/flow/durable-sha-globs.md#rule-fdr-globs-namedglobsets)). The range it measures from is
+`Get-GlobSetChangeRange`'s answer, never its own.
 
 ## help
 
@@ -13,10 +13,10 @@ The globsets a diff touches — the computed area-of-control of a change.
 ### description
 
 Reflects a change into the globset registry: returns every declared globset whose scan program (GlobSet.Matches, last-match-wins
-[FDR-CD-GLOBS-TRACKEDFILESONLY](../../../drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-trackedfilesonly)) selects at least one changed
-path. The "which areas of control did this change touch" fact, computed from git at the real refs — reading the merged tree as it actually
-is, so it is immune to the squash-merge and concurrent-merge staleness a per-set hash frozen on a branch would suffer, and correct across
-renames (Get-ChangedFile splits a rename into both of its paths).
+[FDR-GLOBS-TRACKEDFILESONLY](../../../drs/flow/durable-sha-globs.md#rule-fdr-globs-trackedfilesonly)) selects at least one changed path. The
+"which areas of control did this change touch" fact, computed from git at the real refs — reading the merged tree as it actually is, so it
+is immune to the squash-merge and concurrent-merge staleness a per-set hash frozen on a branch would suffer, and correct across renames
+(Get-ChangedFile splits a rename into both of its paths).
 
 The changed paths come either explicitly (-ChangedFile, a pure and testable call) or from a git range (-Range) resolved through
 Get-ChangedFile. -IncludeModules also matches the derived per-module sets (Get-ModuleGlobSet), so a report can name the changed modules, not
@@ -25,7 +25,7 @@ only the declared units.
 In a pipeline this is the "is there anything here for us to process?" gate: a deployable unit's stage asks whether its own set is in the
 returned list and stops early when it is not. The reference commit that range is measured from is the resolver's job, never this function's.
 
-It rests on [FDR-CD-GLOBS-NAMEDGLOBSETS](../../../drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-namedglobsets).
+It rests on [FDR-GLOBS-NAMEDGLOBSETS](../../../drs/flow/durable-sha-globs.md#rule-fdr-globs-namedglobsets).
 
 ### parameter `ChangedFile`
 

@@ -15,7 +15,7 @@ catzc:
 
 ## Eyebrow
 
-25 / 30 · fact for the SRE Lead · ADR-AZ-CAF-NETTOP
+25 / 30 · fact for the SRE Lead · EDR-AZ-CAF-NETTOP
 
 ## Lead
 
@@ -31,5 +31,5 @@ From the catalogue, reduced: every entry runs one load sequence.
 
 ## Notes
 
-Check it: the record ADR-AZ-CAF-NETTOP in docs/drs/index.md, and the diagram
+Check it: the record EDR-AZ-CAF-NETTOP in docs/drs/index.md, and the diagram
 docs/explanation/automation/.assets/every-entry-runs-one-load-sequence.drawio.png.

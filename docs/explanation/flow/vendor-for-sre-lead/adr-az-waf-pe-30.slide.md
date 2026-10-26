@@ -14,7 +14,7 @@ catzc:
 
 ## Eyebrow
 
-30 / 30 · fact for the SRE Lead · ADR-AZ-WAF-PE
+30 / 30 · fact for the SRE Lead · EDR-AZ-WAF-PE
 
 ## Lead
 
@@ -31,5 +31,5 @@ From the catalogue, reduced: range per context then diff and match.
 
 ## Notes
 
-Check it: the record ADR-AZ-WAF-PE in docs/drs/index.md, and the diagram
+Check it: the record EDR-AZ-WAF-PE in docs/drs/index.md, and the diagram
 docs/explanation/flow/.assets/range-per-context-then-diff-and-match.drawio.png.

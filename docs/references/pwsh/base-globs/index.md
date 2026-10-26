@@ -3,9 +3,9 @@
 The globset primitive: the single source of truth (`globs.yml`) mapping every deployable unit onto its files under version control, the
 native path-filter projection that pipelines and workflows trigger on, the git-reflected "which areas of control did this change touch"
 report, and the session-memory protection that skips a repeated local scan over an unchanged set. The governing decisions are
-[durable-sha-globs](../../../drs/flow/durable-sha-globs.md) and [protected-globs](../../../drs/repository/protected-globs.md); the module owns the
-glob dialect, the durable-SHA identity, the vendor projection, and the git-reflection query — pipelines carry generated registrations only,
-never hand-authored source-path filters, and nothing is committed per set.
+[durable-sha-globs](../../../drs/flow/durable-sha-globs.md) and [protected-globs](../../../drs/repository/protected-globs.md); the module
+owns the glob dialect, the durable-SHA identity, the vendor projection, and the git-reflection query — pipelines carry generated
+registrations only, never hand-authored source-path filters, and nothing is committed per set.
 
 ## Responsibilities
 
@@ -26,7 +26,7 @@ operator, case-sensitive). A layer is the kind of boundary the set maps: `deploy
 `repository` set, or a reserved umbrella); `module` (per-folder, with the `module-leftovers` catch-all) is derived from the folders and
 never declared. Validation rejects unknown keys, malformed patterns, and cyclic or self-referential compose. Within every layer but
 `loose-fileset` no two sets may overlap on their OWN contribution — a boundary never consumes a peer's files
-(`FDR-CD-GLOBS-NOOVERLAPWITHINLAYER`); loose-filesets overlap the boundaries they cut across by design.
+(`FDR-GLOBS-NOOVERLAPWITHINLAYER`); loose-filesets overlap the boundaries they cut across by design.
 
 ### responsibility:2 — Membership and durable identity
 
@@ -81,7 +81,7 @@ description:
   Before the workers start, a module's globset hashes fold into one identity that is compared with the identity recorded after its last
   green run; a match skips the module, the asked identity is held as pending, and a green result promotes it afterwards.
 about:
-  adrs: [ADR-REPO-PROTGLOB, FDR-CD-GLOBS, FDR-CD-DETECT, ADR-PWSH-CACHE, DDR-ASPECT]
+  adrs: [ADR-REPO-PROTGLOB, FDR-GLOBS, FDR-DETECT, ADR-PWSH-CACHE, DDR-ASPECT]
   lens: source
 content:
   title: Skip a module only if its folded hash matches its last green

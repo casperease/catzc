@@ -1,12 +1,12 @@
 # .ado/pipelines/ci-infrastructure.yaml
 
 The CI pipeline of the infrastructure tree: it validates and builds the foundation, discovery and expedition templates and runs the
-infrastructure test suite. It builds and verifies only, with no artifact and no deploy ([FDR-CD-TYPE](../../../drs/flow/pipeline-types.md)).
+infrastructure test suite. It builds and verifies only, with no artifact and no deploy ([FDR-TYPE](../../../drs/flow/pipeline-types.md)).
 
 ## Behaviour
 
 - **Triggers** — any change under `infrastructure/**` on `main` or in a pull request, except the README files of the tree
-  ([FDR-CD-GLOBS](../../../drs/flow/durable-sha-globs.md)).
+  ([FDR-GLOBS](../../../drs/flow/durable-sha-globs.md)).
 - **No auth** — `az bicep build` is offline, so no mode is set and the pipeline needs no service connection.
 - **Per tier** — `Assert-BicepTemplate <tier>` then `Build-Bicep <tier>` (compile, render and verify) for foundation, discovery and
   expedition.

@@ -52,15 +52,15 @@ rows:
   - from: { classes: [adr] }
     to: { classes: [adr, reference/dora, reference/caf, reference/waf] }
     verdict: allow
-    because: ADR-REPO-LINKS-DECLAREDGRAPHSSTAYWHEREDECLARED
+    because: ADR-REPO-LINKS-DECLAREDGRAPHSSTAY
   - from: { classes: [adr] }
     to: { classes: [index, glossary] }
     verdict: allow
-    because: ADR-REPO-LINKS-ADRSLINKONLYTHEIRGROUNDING
+    because: ADR-REPO-LINKS-ADRSLINKGROUNDINGONLY
   - from: { classes: [adr] }
     to: { classes: [reference, how-to, explanation] }
     verdict: deny
-    because: ADR-REPO-LINKS-ADRSLINKONLYTHEIRGROUNDING
+    because: ADR-REPO-LINKS-ADRSLINKGROUNDINGONLY
   - from: { classes: [index, reference, how-to, explanation, readme, slide] }
     to: { track_types: [documentation] }
     verdict: allow

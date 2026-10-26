@@ -9,7 +9,7 @@ Whatever the entry point, cats loads through the same five stages in the same or
 4  Prove one run mode    a check: no module from the other run mode survives the load
 5  Tidy, then leave      the janitors run unless skipped, then the import-time helpers go
 
-Supports ADR-AUTO-BUNDLE-ONELIVINGIMPORTER and ADR-AUTO-BUNDLE-BUNDLEISSESSION (meta lens).
+Supports ADR-AUTO-BUNDLE-ONELIVINGIMPORTER and ADR-AUTO-BUNDLE-ISSESSION (meta lens).
 ```
 
 Cats loads through the same five stages in the same order, whatever the entry point: enter, set up the session, load, prove one run mode,
@@ -21,7 +21,7 @@ description:
   "Whatever the entry point, loading runs through the same five stages in the same order: enter, set up the session, load, prove one run
   mode, then tidy and leave."
 about:
-  adrs: [ADR-AUTO-BUNDLE-ONELIVINGIMPORTER, ADR-AUTO-BUNDLE-BUNDLEISSESSION]
+  adrs: [ADR-AUTO-BUNDLE-ONELIVINGIMPORTER, ADR-AUTO-BUNDLE-ISSESSION]
   lens: meta
 content:
   title: Every entry runs one load sequence
@@ -80,7 +80,7 @@ Whatever the entry point, the load runs the same steps in the same order, and th
 - A bundle loads by running the one living importer, never a forked bootstrap, which reproduces the exact tested load sequence
   (ADR-AUTO-BUNDLE-ONELIVINGIMPORTER).
 - A bundle is a session, not a passive library: loading it sets the global error and warning preferences exactly as the source importer does
-  (ADR-AUTO-BUNDLE-BUNDLEISSESSION).
+  (ADR-AUTO-BUNDLE-ISSESSION).
 - The two run modes never coexist in one session (DDR-RUNMODE-NEVERCOEXIST).
 
 ## See also

@@ -8,7 +8,7 @@ A change to one module fans out to every template that references it and every p
 3  ci-infrastructure                   validates and builds every template on any change under infrastructure/
 4  every CD pipeline                   each path filter includes the modules place, so every owner's pipeline runs
 
-Supports ADR-AZ-IACKIND-THREEKINDS (operations lens).
+Supports ADR-AZ-IACKIND-THREEIACKINDS (operations lens).
 ```
 
 A reusable module is the one kind of infrastructure code that never deploys on its own, and that is exactly why a change to it is the widest
@@ -20,7 +20,7 @@ description:
   "A change to one reusable module edits one file in the modules place of the infrastructure track and fans out: every template that
   references the module builds it in, the infrastructure CI validates every template, and every CD pipeline runs."
 about:
-  adrs: [ADR-AZ-IACKIND-THREEKINDS]
+  adrs: [ADR-AZ-IACKIND-THREEIACKINDS]
   lens: operations
 content:
   title: A change to one module fans out to every template that references it and every pipeline that deploys one
@@ -77,7 +77,7 @@ layout:
 ## Why it holds
 
 - A reusable module is one `.bicep` file used by templates and never deployed alone, and a change to it reaches every template that uses it
-  (ADR-AZ-IACKIND-THREEKINDS).
+  (ADR-AZ-IACKIND-THREEIACKINDS).
 
 ## See also
 

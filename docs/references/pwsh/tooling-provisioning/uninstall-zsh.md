@@ -19,7 +19,7 @@ admin required.
 Linux: removes the package the entry's apt_package names through Uninstall-Tool (apt-get), the manager Install-Zsh installs it through
 ([ADR-AUTO-REMOVE-UNINSTALLMANAGEDONLY](../../../drs/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-uninstallmanagedonly)). A zsh
 that apt does not own stops the uninstall rather than being removed; the apt step needs root
-([ADR-AUTO-REMOVE-ELEVATIONFOLLOWSMECHANISM](../../../drs/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-elevationfollowsmechanism)).
+([ADR-AUTO-REMOVE-ELEVATIONBYMECHANISM](../../../drs/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-elevationbymechanism)).
 
 macOS: zsh is the system's /bin/zsh, and Install-Zsh installed nothing, so there is nothing to uninstall.
 

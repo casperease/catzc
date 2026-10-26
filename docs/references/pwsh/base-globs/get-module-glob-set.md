@@ -74,14 +74,14 @@ is for a module. The `internal` set over the whole folder remains the protection
 
 The reserved umbrellas are cross-cutting check surfaces, not independent modules: `internal` overlaps every `catzc-internal-*` single-file
 set, and `vendor`, `compiled` and `scriptanalyzer` cover whole dot-folders. They are loose filesets, overlap-exempt
-([FDR-CD-GLOBS-EVERYSETHASLAYER](../../../drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-everysethaslayer)), and not the `module` layer,
-whose sets are the pairwise-disjoint per-folder modules
-([FDR-CD-GLOBS-NOOVERLAPWITHINLAYER](../../../drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-nooverlapwithinlayer)).
+([FDR-GLOBS-EVERYSETHASLAYER](../../../drs/flow/durable-sha-globs.md#rule-fdr-globs-everysethaslayer)), and not the `module` layer, whose
+sets are the pairwise-disjoint per-folder modules
+([FDR-GLOBS-NOOVERLAPWITHINLAYER](../../../drs/flow/durable-sha-globs.md#rule-fdr-globs-nooverlapwithinlayer)).
 
 The reserved sets of the code track are units too
-([DDR-ASPECT-ASPECTISAGLOBSET](../../../drs/design/module-aspects.md#rule-ddr-aspect-aspectisaglobset)): their root `.psm1` files are the
-code they run, live beside the code convention, and the rest falls to tests. A single-file module keeps its own set, so the scope's sets
-leave its file out.
+([DDR-ASPECT-ISAGLOBSET](../../../drs/design/module-aspects.md#rule-ddr-aspect-isaglobset)): their root `.psm1` files are the code they run,
+live beside the code convention, and the rest falls to tests. A single-file module keeps its own set, so the scope's sets leave its file
+out.
 
 ## Other tracks
 
@@ -94,8 +94,8 @@ The module layer's catch-all holds every tracked file under `pwsh/` that no per-
 (the reserved umbrellas' loose-fileset territory). It exists so the module layer covers module-space and a stray file cannot go unmapped. It
 should be empty in a clean tree, but a file can appear at the root of `pwsh/` or in a folder that is not yet a module. Its own excludes are
 every module folder plus the four dot-folders, so it stays disjoint from every module set
-([FDR-CD-GLOBS-NOOVERLAPWITHINLAYER](../../../drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-nooverlapwithinlayer)). It is derived, in the
-module layer, never declared, and a declared set may not shadow it.
+([FDR-GLOBS-NOOVERLAPWITHINLAYER](../../../drs/flow/durable-sha-globs.md#rule-fdr-globs-nooverlapwithinlayer)). It is derived, in the module
+layer, never declared, and a declared set may not shadow it.
 
 The excludes are sorted ordinally, so the scan program (the marker body) is byte-identical on every machine, independent of
 directory-enumeration and hashtable order.

@@ -15,7 +15,7 @@ catzc:
 
 ## Eyebrow
 
-22 / 30 · fact for the Developer · RDR-DORA-DOCS
+22 / 30 · fact for the Developer · EDR-DORA-DOCS
 
 ## Lead
 
@@ -32,5 +32,5 @@ From the catalogue, reduced: the analyzer names the raw read.
 
 ## Notes
 
-Check it: the record RDR-DORA-DOCS in docs/drs/index.md, and the diagram
+Check it: the record EDR-DORA-DOCS in docs/drs/index.md, and the diagram
 docs/explanation/flow/.assets/the-analyzer-names-the-raw-read.drawio.png.

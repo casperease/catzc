@@ -29,7 +29,7 @@ from .kit_yaml import load_yaml
 def contract_call(raw, where, what):
     """One command in the contract form (ADR-AUTO-ACCOSTED-COMMANDFORM): a mapping of one key, a command's name in the normal form, to
     its arguments, each one literal under its parameter's name; `name:` alone is a call without arguments. The kit checks the shape
-    alone and runs nothing: Test-Diagrams proves the name and its arguments against the command contract (ADR-AUTO-ACCOSTED-ONEREADER)."""
+    alone and runs nothing: Test-Diagrams proves the name and its arguments against the command contract (ADR-AUTO-ACCOSTED-ACCOSTEDONEREADER)."""
     if isinstance(raw, str):
         raw = {raw: None}
     if not isinstance(raw, dict) or len(raw) != 1:

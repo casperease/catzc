@@ -10,7 +10,7 @@ The four CD pipelines bind deployable-units; the two CI pipelines bind the track
 5  nova, apex, flux, shared     four configured units, each composing the base unit
 6  cd-<unit>                    the four CD pipelines, one per unit
 
-Supports DDR-TRACK-ONETRACKTYPE, DDR-TRACK-ONETECHSTACK, DDR-TRACK-SUBSCRIBABLENOTPATHCOUPLED
+Supports DDR-TRACK-ONETRACKTYPE, DDR-TRACK-ONETECHSTACK, DDR-TRACK-SUBSCRIBABLENOTPATH
 and DDR-TRACK-DEPLOYABLEUNIT (architecture lens).
 ```
 
@@ -24,7 +24,7 @@ description:
   The four CD pipelines bind deployable-units composed from the infrastructure track, while the two CI pipelines bind the pwsh and
   infrastructure track sets directly, with no unit between them.
 about:
-  adrs: [DDR-TRACK-ONETRACKTYPE, DDR-TRACK-ONETECHSTACK, DDR-TRACK-SUBSCRIBABLENOTPATHCOUPLED, DDR-TRACK-DEPLOYABLEUNIT]
+  adrs: [DDR-TRACK-ONETRACKTYPE, DDR-TRACK-ONETECHSTACK, DDR-TRACK-SUBSCRIBABLENOTPATH, DDR-TRACK-DEPLOYABLEUNIT]
   lens: architecture
 content:
   title: CD pipelines bind through deployable-units, while CI pipelines bind the track sets directly
@@ -97,7 +97,7 @@ layout:
 - A track is a named root concern carrying one class: `pwsh` is core, `infrastructure` an adapter (DDR-TRACK-ONETRACKTYPE).
 - Adapters rest on the core and never the other way round (DDR-TRACK-ONETECHSTACK).
 - A consumer binds a track only through module dependencies or the track's globset projection, never by matching its paths by hand
-  (DDR-TRACK-SUBSCRIBABLENOTPATHCOUPLED).
+  (DDR-TRACK-SUBSCRIBABLENOTPATH).
 - A deployable-unit is a whole track or a reduced composition, and units bind pipelines one to one (DDR-TRACK-DEPLOYABLEUNIT).
 
 Scopes such as `markdown-scope` and `repository` select across tracks and own no root; they bind no pipeline, so they have no place in this

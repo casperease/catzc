@@ -1,7 +1,7 @@
 # pwsh/Base.Globs/tests/Get-GlobSetTrigger.Tests.ps1
 
 The tests of `Get-GlobSetTrigger`, the projection of a globset's scan program into vendor-native path filters
-([FDR-CD-GLOBS-NAMEDGLOBSETS](../../../../drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-namedglobsets)).
+([FDR-GLOBS-NAMEDGLOBSETS](../../../../drs/flow/durable-sha-globs.md#rule-fdr-globs-namedglobsets)).
 
 ## What it proves
 

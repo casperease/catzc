@@ -13,7 +13,7 @@ Resolves the repository's filters, the lamps of the working view, to the include
 
 Each filter of filters.yml is resolved to its sets, in declaration order: what a lamp claims, as the editor's lamps and every other engine
 read it, so a file is classified by the patterns the model holds and never by a list of files
-([DDR-FILTER-DECLAREDONCE](../../../drs/design/repository-filters.md#rule-ddr-filter-declaredonce)).
+([DDR-FILTER-FILTERDECLAREDONCE](../../../drs/design/repository-filters.md#rule-ddr-filter-filterdeclaredonce)).
 
 ### parameter `Name`
 

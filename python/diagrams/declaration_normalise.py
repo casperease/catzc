@@ -9,6 +9,8 @@ from .declaration_constants import (
     ABOUT_KEYS,
     ACTION_KEYS,
     ACTION_LENS,
+    FLOW_KEYS,
+    FLOW_LENS,
     CHIP_CORNER,
     COMMIT_SHAPES,
     COMMIT_STATES,
@@ -32,15 +34,21 @@ from .drawio_png import DEFAULTS
 
 
 def about_point(about_raw, where):
-    """The point of the tree a C3 or C4 slide's query answers for, and the slide's zoom; a point needs one of those two levels."""
+    """The point of the tree a slide's query answers for, and the key its rows are filed under: the zoom of a C3 or C4 slide, or the
+    flow lens; a point needs one of those."""
     about_raw = about_raw if isinstance(about_raw, dict) else {}
     point, zoom = about_raw.get("point"), about_raw.get("zoom")
     if point is None:
         return None, zoom
     if not isinstance(point, str) or not point.strip():
-        raise DeclarationError(f"{where}: about.point is the repository path a C3 or C4 slide's query answers for")
+        raise DeclarationError(f"{where}: about.point is the repository path a C3 or C4 slide's or a flow diagram's query answers for")
+    if about_raw.get("lens") == FLOW_LENS:
+        return point.strip().strip("/"), FLOW_LENS
     if zoom not in query_rows.QUERY_LEVELS:
-        raise DeclarationError(f"{where}: about.point belongs to a slide at {' or '.join(query_rows.QUERY_LEVELS)}; this one's zoom is {zoom}")
+        raise DeclarationError(
+            f"{where}: about.point belongs to a slide at {' or '.join(query_rows.QUERY_LEVELS)} or under the {FLOW_LENS} lens; "
+            f"this one's zoom is {zoom}"
+        )
     return point.strip().strip("/"), zoom
 
 
@@ -55,6 +63,11 @@ def normalise(raw, where="the declaration"):
     for key in content:
         if key not in CONTENT_KEYS:
             choices(f"{where}: content key", key, CONTENT_KEYS)
+    # A flow declaration stores its inputs alone: its cells come from the engine readers' rows (DDR-VISUAL-FLOWISALENS).
+    if isinstance(raw.get("about"), dict) and raw["about"].get("lens") == FLOW_LENS:
+        extra = [key for key in content if key not in FLOW_KEYS]
+        if extra:
+            raise DeclarationError(f"{where}: a {FLOW_LENS} declaration holds only {' and '.join(FLOW_KEYS)}; it also holds {', '.join(extra)}")
     content, generated = expand_rows(content, where)
     content, lane_generated = expand_lanes(content, where)
     generated |= lane_generated

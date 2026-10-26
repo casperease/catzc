@@ -1,8 +1,8 @@
 # Flow: Pipeline detection — how functions adapt to their execution context
 
-## Rules: FDR-CD-DETECT
+## Rules: FDR-DETECT
 
-### Rule FDR-CD-DETECT-NODIRECTVARIABLECHECK
+### Rule FDR-DETECT-NODIRECTVARIABLECHECK
 
 Never check the pipeline-detection environment variables (`TF_BUILD`, `GITHUB_ACTIONS`) directly. Use `Test-IsRunningInPipeline` so the
 detection logic stays in one place.
@@ -10,28 +10,28 @@ detection logic stays in one place.
 - [One detection function](#one-detection-function)
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule FDR-CD-DETECT-VISIBLECONTEXTBEHAVIOUR
+### Rule FDR-DETECT-VISIBLECONTEXTBEHAVIOUR
 
 Context-dependent behavior must be intentional and visible — either through `Test-IsRunningInPipeline` in the function body or through a
 parameter the caller sets based on context.
 
 - [Decision](#decision)
 
-### Rule FDR-CD-DETECT-PARAMETERSOVERDETECTION
+### Rule FDR-DETECT-PARAMETERSOVERDETECTION
 
 Prefer parameters over detection. When behavior can be controlled via a parameter (e.g. `-OutputPath`), use that; detection is a fallback
 for when the caller cannot reasonably supply the value.
 
 - [Companion: Get-OutputRoot](#companion-get-outputroot)
 
-### Rule FDR-CD-DETECT-BOOLEANNOTMODAL
+### Rule FDR-DETECT-BOOLEANNOTMODAL
 
 Detection is boolean, not modal. `Test-IsRunningInPipeline` returns `$true` or `$false`: if either detection variable is set, the code is in
 a pipeline; otherwise it is not.
 
 - [Function](#function)
 
-### Rule FDR-CD-DETECT-FASTDETECTION
+### Rule FDR-DETECT-FASTDETECTION
 
 Keep the function fast. It is called frequently, so it only reads two environment variables — no I/O, network, or computation.
 

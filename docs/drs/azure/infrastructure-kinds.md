@@ -2,7 +2,7 @@
 
 ## Rules: ADR-AZ-IACKIND
 
-### Rule ADR-AZ-IACKIND-THREEKINDS
+### Rule ADR-AZ-IACKIND-THREEIACKINDS
 
 The infrastructure code has three kinds: IaC templates (a folder holding a deployable `main.bicep` and its `options.yml`), their
 configuration slots (the `<env>[-<slot>].yml` files under each template's configuration folder, one per subscription's resource group,
@@ -22,11 +22,11 @@ its infrastructure elsewhere maps the three kinds in its own `variants.yml`, and
 ## Context
 
 The catzc tooling is exported to other repositories and can run with no repository of its own, so no folder layout is fixed: a track
-resolves every placement ([DDR-TRACK-TRACKISPLACEDCLUSTER](../design/tracks.md#rule-ddr-track-trackisplacedcluster)), and a consumer binds
-to a track, never to its paths ([DDR-TRACK-SUBSCRIBABLENOTPATHCOUPLED](../design/tracks.md#rule-ddr-track-subscribablenotpathcoupled)). A
-track's places say which files belong to it, but the infrastructure code needs more than membership: building a template, reading its
-configuration slots and listing the modules each look in a different part of the track. Writing those parts as literal paths in the tooling
-ties every repository to this one's layout.
+resolves every placement ([DDR-TRACK-ISPLACEDCLUSTER](../design/tracks.md#rule-ddr-track-isplacedcluster)), and a consumer binds to a track,
+never to its paths ([DDR-TRACK-SUBSCRIBABLENOTPATH](../design/tracks.md#rule-ddr-track-subscribablenotpath)). A track's places say which
+files belong to it, but the infrastructure code needs more than membership: building a template, reading its configuration slots and listing
+the modules each look in a different part of the track. Writing those parts as literal paths in the tooling ties every repository to this
+one's layout.
 
 ## Decision
 

@@ -11,7 +11,7 @@ Copy the shape of one that holds today,
 the one reader, `Get-CommandContract`:
 
 ```yaml
-# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT and ADR-REPO-CMDCONTRACT-ONEREADER): the call interface of
+# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT and ADR-REPO-CMDCONTRACT-CONTRACTONEREADER): the call interface of
 # Get-CommandContract, the one reader of command contracts. RepositoryRoot defaults to the repository root, a computed
 # default the contract does not restate.
 parameters:
@@ -35,7 +35,7 @@ output: catzc.base.contracts.contract_command[]
    ([ADR-REPO-CMDCONTRACT-CONTRACTLANGUAGE](../../drs/repository/command-contracts.md#rule-adr-repo-cmdcontract-contractlanguage)). A header
    comment says what the signature does not.
 3. Read it back through the one reader, which is how every consumer sees it
-   ([ADR-REPO-CMDCONTRACT-ONEREADER](../../drs/repository/command-contracts.md#rule-adr-repo-cmdcontract-onereader)):
+   ([ADR-REPO-CMDCONTRACT-CONTRACTONEREADER](../../drs/repository/command-contracts.md#rule-adr-repo-cmdcontract-contractonereader)):
 
    ```powershell
    Get-CommandContract -Name <command>

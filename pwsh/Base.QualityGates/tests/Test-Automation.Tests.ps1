@@ -16,7 +16,7 @@ Describe 'Source & test file conventions' -Tag 'L2', 'integrity', 'source-only' 
         $result.Facts['SkipReasons'] | Should -BeGreaterThan 10
     }
 
-    It 'reports no source or test file convention issues' -Tag 'ADR-PWSH-PESTER-TESTFILE', 'ADR-AUTO-TEST-TESTFILE' {
+    It 'reports no source or test file convention issues' -Tag 'ADR-PWSH-PESTER-PESTERTESTFILE', 'ADR-AUTO-TEST-TESTFILE' {
         if ($script:gitMissing) {
             Set-ItResult -Skipped -Because 'tool_git_missing'; return
         }

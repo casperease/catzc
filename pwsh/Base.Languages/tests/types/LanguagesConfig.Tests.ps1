@@ -100,7 +100,7 @@ Describe 'LanguagesConfig' -Tag 'L0' {
             $err.Exception.Message | Should -BeLike "*invalid vscode_language 'Widget Lang'*"
         }
 
-        It 'reads an engine''s settings files, and throws on one that is not a repository-relative path' -Tag 'ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS' {
+        It 'reads an engine''s settings files, and throws on one that is not a repository-relative path' -Tag 'ADR-AUTO-CACHE-CROSSSESSIONFILES' {
             $config = & $script:make ([ordered]@{
                     formatters = [ordered]@{ prettier = [ordered]@{ settings = @('widget/widget-settings.yml',
                                 '.editorconfig')
@@ -115,7 +115,7 @@ Describe 'LanguagesConfig' -Tag 'L0' {
             $err.Exception.Message | Should -BeLike "*invalid settings file 'C:\gadget.yml'*"
         }
 
-        It 'accepts a settings entry that names one top-level key of a file, and throws on a key that is empty or doubled' -Tag 'ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS' {
+        It 'accepts a settings entry that names one top-level key of a file, and throws on a key that is empty or doubled' -Tag 'ADR-AUTO-CACHE-CROSSSESSIONFILES' {
             $config = & $script:make ([ordered]@{
                     formatters = [ordered]@{ prettier = [ordered]@{ settings = @('widget/tools.yml#widget',
                                 'widget/tools.yml#gadget_two')
@@ -231,7 +231,7 @@ Describe 'LanguagesConfig' -Tag 'L0' {
             $config.languages[0].imprint.Count | Should -Be 0
         }
 
-        It 'throws on an unknown step, a duplicate, a step both global and a language''s own, and malformed steps' -Tag 'PDR-CONFIG-NEWINSTANCEISCONFIGCHANGE' {
+        It 'throws on an unknown step, a duplicate, a step both global and a language''s own, and malformed steps' -Tag 'PDR-CONFIG-NEWINSTANCEISCONFIG' {
             { & $script:make ([ordered]@{ imprint = @('shine') }) } |
                 Should -Throw "*imprint: unknown imprint step 'shine' (one of: file-meta, bcl-namespace, comments, ps-help, plan-counts)*"
             { & $script:make ([ordered]@{ imprint = @('file-meta', 'file-meta') }) } |

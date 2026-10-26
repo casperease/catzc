@@ -11,7 +11,7 @@ Declare a unit in globs.yml or add a module folder; one gate run passes or names
 6  Test-GlobSetIndependence     the gate you run; passes with zero issues and writes its report
 7  Issue per pair               one line per overlapping pair, in one throw
 
-Supports FDR-CD-GLOBS-EVERYSETHASLAYER and FDR-CD-GLOBS-NOOVERLAPWITHINLAYER (operations lens).
+Supports FDR-GLOBS-EVERYSETHASLAYER and FDR-GLOBS-NOOVERLAPWITHINLAYER (operations lens).
 ```
 
 Changing what cats maps takes either an edit to `globs.yml` or a new folder. Deployable-units and loose-filesets are declared in
@@ -23,7 +23,7 @@ description:
   "Two ways to change what the globs map: edit globs.yml (a deployable-unit is checked against its peers, a loose-fileset never, a declared
   module layer is rejected at config load) or add a module folder; one run of the independence gate passes or names every overlapping pair."
 about:
-  adrs: [FDR-CD-GLOBS-EVERYSETHASLAYER, FDR-CD-GLOBS-NOOVERLAPWITHINLAYER]
+  adrs: [FDR-GLOBS-EVERYSETHASLAYER, FDR-GLOBS-NOOVERLAPWITHINLAYER]
   lens: operations
 content:
   title: Declare a unit or add a module folder, and the gate names every overlap
@@ -91,9 +91,9 @@ layout:
 
 ## Why it holds
 
-- Units and loose-filesets are declared, the `module` layer is derived-only, and declaring it is rejected (FDR-CD-GLOBS-EVERYSETHASLAYER).
+- Units and loose-filesets are declared, the `module` layer is derived-only, and declaring it is rejected (FDR-GLOBS-EVERYSETHASLAYER).
 - Within a layer, no two globsets select a common file on their own contribution, and a violation names both sets and a shared file; the
-  `loose-fileset` layer is exempt (FDR-CD-GLOBS-NOOVERLAPWITHINLAYER).
+  `loose-fileset` layer is exempt (FDR-GLOBS-NOOVERLAPWITHINLAYER).
 
 ## Where the code and the decision record differ
 

@@ -2,8 +2,8 @@
 
 The build-validation policy module. It owns the server-side pre-commit half of a deployable unit's CI binding: the ADO build-validation
 branch policies that queue a unit's pipeline on the guarded branch, each tied to its globset by path-filtering on the globset's native
-projection (see [pipeline-types](../../../drs/flow/pipeline-types.md) and [durable-sha-globs](../../../drs/flow/durable-sha-globs.md)). The local
-`build-validation.yml` is the source of truth and the module converges the ADO project to it
+projection (see [pipeline-types](../../../drs/flow/pipeline-types.md) and [durable-sha-globs](../../../drs/flow/durable-sha-globs.md)). The
+local `build-validation.yml` is the source of truth and the module converges the ADO project to it
 ([everything-as-code](../../../drs/principles/everything-as-code.md)). What it deliberately does **not** own is the globsets themselves
 ([Catzc.Base.Globs](../base-globs/index.md)) or the pipelines the policies queue — it binds the two together on the server, nothing more.
 
@@ -43,8 +43,8 @@ lives server-side rather than in the repository.
 Reconciliation is idempotent end to end: `Sync-AdoBuildValidations` can run on a schedule or after any registry edit, and a converged
 project is a no-op pass. Globset existence is checked at runtime and by an integrity test — never at config load, so reading the registry
 stays hermetic (the same pattern as the customer catalogue,
-[customer-model](../../../drs/azure/azure-customer-model.md#rule-adr-az-customer-referencenotvalidatedonload)). The REST calls authenticate
-through the dual-authentication precedence ([dual-authentication](../../../drs/ado/dual-authentication.md)) like the rest of the ADO surface.
+[customer-model](../../../drs/azure/azure-customer-model.md#rule-adr-az-customer-referenceunvalidated)). The REST calls authenticate through
+the dual-authentication precedence ([dual-authentication](../../../drs/ado/dual-authentication.md)) like the rest of the ADO surface.
 
 ## Division
 

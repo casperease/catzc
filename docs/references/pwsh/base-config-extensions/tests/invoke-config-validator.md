@@ -6,4 +6,4 @@ The logic tests of `Invoke-ConfigValidator`: it must find a module's private val
 
 The tests build in-memory fixture modules whose validators are private, so a validator found and run from the caller's scope would fail; the
 fixtures use neutral names
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+([ADR-AUTO-TEST-DISTINCTFIXTURES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtures)).

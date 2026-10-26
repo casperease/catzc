@@ -6,7 +6,6 @@ kinds:
   WDR: { name: Way-of-working Decision Record }
   DDR: { name: Design Decision Record }
   FDR: { name: Flow Decision Record }
-  RDR: { name: Research Decision Record }
   EDR: { name: External Decision Record }
 
 # The authored domain structure, one domain per docs/drs/<area>/ folder: the single source of how decisions are organised and cited.
@@ -23,7 +22,7 @@ domains:
       defaults, the bundle, and the local configs, and uncontested by the repository's formatters, tests, and asserts. It describes the
       product and rests on the DORA research, the authoritative source, and the principles state its mechanics, so every other domain cites
       it (`TDR-*`) through them.
-    depends_on: [research]
+    depends_on: [external]
     stack: PRIN
     concern: [automation, build, quality-control, release, deploy, access] # the thesis spans the whole value chain
     rulesets:
@@ -40,7 +39,7 @@ domains:
       poka-yoke, one living version, and the two names of the system, cats and catzc. They specialise the thesis, catzc's product
       description, and rest on the DORA research, the authoritative source; no domain later in the order overrides them, and every other
       domain cites them (`PDR-*`) as the reason for its own decisions.
-    depends_on: [research, thesis]
+    depends_on: [external, thesis]
     stack: PRIN
     concern: [automation, build, quality-control, release, deploy, access] # axioms every concern specialises
     rulesets:
@@ -57,19 +56,15 @@ domains:
     # our own continuously-improved way of working ([WDR-KAIZEN](/docs/drs/process/inspect-and-adapt.md)); Design/Exploration + ASM
     role: optimisable
     description: >-
-      How the team works: the Agile Manifesto's values and principles, lean flow as the Toyota Production System maps to software, and one
-      shared vocabulary of flow terms. Unlike the fixed axioms, the process is itself inspected and improved (`WDR-KAIZEN`); the design,
+      How the team works: lean flow as the Toyota Production System maps to software, as the external Agile and lean records state it, and
+      one shared vocabulary of flow terms. Unlike the fixed axioms, the process is itself inspected and improved (`WDR-KAIZEN`); the design,
       flow, and implementation domains put its practices into effect — stopping the line, building quality in, pulling work, and draining
       queues.
-    depends_on: [research, principles]
+    depends_on: [external, principles]
     stack: PRIN
     concern: [automation, build, quality-control, release, deploy, access] # how the team works, along the whole chain
     rulesets:
-      agile: { external: WDR-AGILE }
-      agile-values: { external: WDR-VALUES }
-      agile-principles: { external: WDR-AGILEPRINCIPLES }
       process-terms: { external: WDR-LEANTERMS }
-      lean: { external: WDR-LEAN }
       holding-the-line: { external: WDR-ANDON, concern: [quality-control] }
       build-quality-in: { external: WDR-BUILTIN, concern: [quality-control] }
       observe-work: { external: WDR-OBSERVEWIP }
@@ -83,8 +78,8 @@ domains:
     description: >-
       How the platform is shaped: tracks as the repository's root concerns, a thin CLI platform over a vendor substrate, safe self-service,
       the audited server remote with pull-request ingress, the visual grammar of the value-chain diagrams, and the toolset's two run modes
-      (source and build). It builds on research, principles, and process; the flow and implementation domains realise it.
-    depends_on: [research, principles, process]
+      (source and build). It builds on the external records, principles, and process; the flow and implementation domains realise it.
+    depends_on: [external, principles, process]
     stack: DSGN
     concern: [automation] # the shape of the platform itself
     rulesets:
@@ -109,18 +104,18 @@ domains:
       artifact, how pipelines invoke automation and detect their context, how globsets project into native trigger filters, and the commit
       lifecycle a promoted commit climbs, with its stable sync point, and the git paths a topic takes to and from the server's main. The ado
       (Azure DevOps) and github domains implement it.
-    depends_on: [research, principles, process, design]
+    depends_on: [external, principles, process, design]
     stack: DSGN
     concern: [build, quality-control, release, deploy] # the delivery flow from integration to production
     rulesets:
       cd-discipline-and-promotion-flow: { external: FDR-CD }
-      pipeline-runner-pattern: { external: FDR-CD-RUNNER, concern: [automation] }
-      pipeline-detection: { external: FDR-CD-DETECT, concern: [automation] }
-      pipeline-types: { external: FDR-CD-TYPE }
-      durable-sha-globs: { external: FDR-CD-GLOBS, concern: [automation] }
-      pipeline-concept: { external: FDR-CD-PIPELINE }
-      commit-lifecycle: { external: FDR-CD-LIFE, concern: [quality-control, release, deploy] }
-      manual-queues: { external: FDR-CD-QUEUE, concern: [release, deploy] }
+      pipeline-runner-pattern: { external: FDR-RUNNER, concern: [automation] }
+      pipeline-detection: { external: FDR-DETECT, concern: [automation] }
+      pipeline-types: { external: FDR-TYPE }
+      durable-sha-globs: { external: FDR-GLOBS, concern: [automation] }
+      pipeline-concept: { external: FDR-PIPELINE }
+      commit-lifecycle: { external: FDR-LIFE, concern: [quality-control, release, deploy] }
+      manual-queues: { external: FDR-QUEUE, concern: [release, deploy] }
       git-topic-flow: { external: FDR-GIT, concern: [build] }
 
   automation:
@@ -131,9 +126,9 @@ domains:
       fail-fast assertions, idempotency, caching, path forms, system, module, and internal asset dependencies, the module model, test
       automation, the merged, installable build, the five layers of the automation and the importer that decides a session's mix, stated for
       any execution engine. Language layers live in `go/`, `python/`, and `bash/` (black-box test artifacts); the BCL language of the native
-      C# types is the bcl domain. It turns the research, principles, process, and design domains into enforced code; the pwsh domain
+      C# types is the bcl domain. It turns the external, principles, process, and design domains into enforced code; the pwsh domain
       realises it in PowerShell, and the ado, github, and azure domains build on it.
-    depends_on: [research, principles, process, design]
+    depends_on: [external, principles, process, design]
     stack: AUTO
     concern: [automation] # the module system: loading, configuration, globsets
     rulesets:
@@ -188,7 +183,7 @@ domains:
       type per file, a namespace per module, one combined assembly, the Base Class Library as the whole reference set with each host binding
       a configured exception, and the one build pair of its solution and projects. pwsh is its host, not its owner: how pwsh compiles and
       carries the types is the pwsh domain's.
-    depends_on: [research, principles, process, design, automation]
+    depends_on: [external, principles, process, design, automation]
     stack: AUTO
     concern: [automation] # the native types every module may carry
     folder: automation/BCL
@@ -203,7 +198,7 @@ domains:
       parameter and error design, streams and console output, caching in script scope, working directory and environment mechanics,
       cross-platform pwsh, the analyzer, and Pester. It applies the engine-agnostic `automation/` rules to one engine and never redefines
       them.
-    depends_on: [research, principles, process, design, automation, bcl]
+    depends_on: [external, principles, process, design, automation, bcl]
     stack: AUTO
     concern: [automation] # the pwsh engine of the module system
     folder: automation/pwsh
@@ -243,7 +238,7 @@ domains:
       by its global name, caches it per file, and validates it in its owning module's scope, plus `global.<config>.<key>` addresses that
       point into committed config by reference, and config values a tracked Markdown file contributes to a config that opted in. It gives
       every implementation domain its single way to read configuration.
-    depends_on: [research, principles, automation, bcl]
+    depends_on: [external, principles, automation, bcl]
     stack: AUTO
     concern: [automation] # reading configuration
     rulesets:
@@ -258,7 +253,7 @@ domains:
       The Azure DevOps extensions to the flow model: how ADO REST calls select and prove their credentials, how PowerShell sets ado pipeline
       output variables, how ado pipelines and template folders are named and placed under `.ado/pipelines/`, and when an ADO YAML template
       is warranted. It binds the vendor-neutral `flow/` rules to Azure DevOps without redefining them; `github/` is its GitHub counterpart.
-    depends_on: [research, principles, process, design, automation, flow]
+    depends_on: [external, principles, process, design, automation, flow]
     stack: PIPE
     concern: [build, quality-control, release, deploy] # the Azure DevOps pipelines that carry the delivery flow
     rulesets:
@@ -274,7 +269,7 @@ domains:
       The GitHub extensions to the flow model: the manually dispatched release workflow that builds the catzc package and publishes it to
       GitHub Releases, GitHub Packages, and optionally the PowerShell Gallery. It applies the `flow/` rules to GitHub Actions under
       `.github/workflows/` and publishes the bundle the automation domain defines; `ado/` is its Azure DevOps counterpart.
-    depends_on: [research, principles, process, design, automation, flow]
+    depends_on: [external, principles, process, design, automation, flow]
     stack: PIPE
     concern: [build, release] # the workflow that builds and publishes the package
     rulesets:
@@ -287,11 +282,9 @@ domains:
       The Azure substrate model catzc deploys onto: the identity data model (`azure.yml` tenants, environments, and subscriptions), the
       per-template configuration tree under `infrastructure/templates/`, the customer catalogue (`customer.yml`), the network IP plan
       (`network.yml`), the deterministic resource-naming standard, and the landing zones. It applies the principles and design domains to
-      one vendor, enforced by the `Catzc.Azure*` modules. Beside its own decisions it holds the vendor's recommendations as records: the
-      Well-Architected Framework pillars in `waf/` and the Cloud Adoption Framework landing-zone design areas in `caf/`, one rule per vendor
-      item, each citing Microsoft's page and saying what the repository does about it. A citation reads `Source: learn <path>`, the path
-      under the one base `https://learn.microsoft.com/en-us`.
-    depends_on: [research, principles, design, automation, flow, ado]
+      one vendor, enforced by the `Catzc.Azure*` modules. The vendor's own recommendations, the Well-Architected Framework pillars and the
+      Cloud Adoption Framework landing-zone design areas, are external records; the decisions here answer them.
+    depends_on: [external, principles, design, automation, flow, ado]
     stack: CLOUD
     concern: [deploy] # the substrate catzc deploys onto
     rulesets:
@@ -303,24 +296,6 @@ domains:
       azure-customer-model: { external: ADR-AZ-CUSTOMER }
       landing-zones: { external: ADR-AZ-LZ }
       infrastructure-kinds: { external: ADR-AZ-IACKIND, concern: [deploy] }
-      # Vendor recommendation, one rule per item: the Well-Architected pillars and the landing-zone design areas, each citing its page.
-      reliability: { external: ADR-AZ-WAF-RE }
-      security: { external: ADR-AZ-WAF-SE }
-      cost-optimization: { external: ADR-AZ-WAF-CO }
-      operational-excellence: { external: ADR-AZ-WAF-OE }
-      performance-efficiency: { external: ADR-AZ-WAF-PE }
-      design-principles: { external: ADR-AZ-CAF-PRIN }
-      billing-and-tenant: { external: ADR-AZ-CAF-BILL }
-      identity-and-access: { external: ADR-AZ-CAF-IAM }
-      resource-organization: { external: ADR-AZ-CAF-RESORG }
-      network-topology: { external: ADR-AZ-CAF-NETTOP }
-      network-connectivity: { external: ADR-AZ-CAF-NETCON }
-      network-private-access: { external: ADR-AZ-CAF-NETPRV }
-      landing-zone-security: { external: ADR-AZ-CAF-SEC }
-      management: { external: ADR-AZ-CAF-MGMT }
-      governance: { external: ADR-AZ-CAF-GOV }
-      naming-and-tagging: { external: ADR-AZ-CAF-NAME }
-      platform-automation-and-devops: { external: ADR-AZ-CAF-DEVOPS }
 
   repository:
     code: REPO
@@ -332,7 +307,7 @@ domains:
       vocabulary, the controlled vocabulary of defined terms, the directions a link may point, the reserved meta block in a Markdown file's
       front matter, repo-wide variants, the sub-agent definitions and the rules behind each, and sibling repositories read for ideas, never
       as a reference implementation, and the session-memory protection that skips a repeated scan over an unchanged globset.
-    depends_on: [research, principles, design, automation, configuration, bcl]
+    depends_on: [external, principles, design, automation, configuration, bcl]
     stack: AUTO
     concern: [automation] # the repository tree the tooling lays out and generates
     rulesets:
@@ -363,49 +338,78 @@ domains:
       slides-as-markdown: { external: ADR-REPO-SLIDES, concern: [quality-control] }
       repository-kinds: { external: ADR-REPO-REPOKIND }
 
-  research:
-    kind: RDR
-    role: reference # trusted external validation points (DORA) — depended-on-by, never a dependency
+  external:
+    kind: EDR
+    role: reference # trusted outside guidance, one record per item: depended-on-by, never a dependency
     description: >-
-      The repository's core theoretical construct: the DORA research program, held as one ADR-style record per DORA capability, each with
-      its own `RDR-DORA-<NAME>` rule codes, beside the cross-referenceable research reference in `docs/references/dora/`. It is trusted
-      external validation — every other domain depends on it and it depends on none; the others cite it through their `dora-explains.md`
-      files and `RDR-DORA-*` citations.
+      The outside guidance catzc rests on or answers item by item, one record per source item, kept apart from catzc's own decisions: the
+      DORA research program in `dora/`, the Microsoft Well-Architected Framework in `azure/waf/` and Cloud Adoption Framework in
+      `azure/caf/`, the Agile Manifesto in `agile/`, lean theory in `lean/`, and Pester in `pester/`. A code keeps its source path under the
+      EDR kind (`EDR-DORA-CI`, `EDR-AZ-CAF-GOV`), and an item keeps the source's own id (a Well-Architected item `RE01`, a Cloud Adoption
+      Framework item `R01`). A rule states how catzc reads the item, with a `Source:` line that names it, a Microsoft page as `learn <path>`
+      under the one base `https://learn.microsoft.com/en-us`; the ADR or PDR that cites the rule holds catzc's own decision. Every other
+      domain depends on this one and it depends on none; the others cite the DORA records through their `dora-explains.md` files and
+      `EDR-DORA-*` citations.
     depends_on: []
     stack: PRIN
-    concern: [automation, build, quality-control, release, deploy, access] # capabilities measured across the whole chain
+    concern: [automation, build, quality-control, release, deploy, access] # sources measured across the whole chain
     rulesets:
-      ai-accessible-internal-data: { external: RDR-DORA-AIDATA, concern: [access] }
-      clear-and-communicated-ai-stance: { external: RDR-DORA-AISTANCE }
-      healthy-data-ecosystems: { external: RDR-DORA-DATAECO }
-      platform-engineering: { external: RDR-DORA-PLATFORM, concern: [automation] }
-      user-centric-focus: { external: RDR-DORA-USERFOCUS }
-      version-control: { external: RDR-DORA-VCS, concern: [automation] }
-      working-in-small-batches: { external: RDR-DORA-SMALLBATCH }
-      code-maintainability: { external: RDR-DORA-MAINTAIN, concern: [automation, build] }
-      continuous-delivery: { external: RDR-DORA-CD, concern: [build, quality-control, release, deploy] }
-      continuous-integration: { external: RDR-DORA-CI, concern: [build, quality-control] }
-      database-change-management: { external: RDR-DORA-DBCHANGE, concern: [deploy] }
-      deployment-automation: { external: RDR-DORA-DEPLOY, concern: [deploy] }
-      documentation-quality: { external: RDR-DORA-DOCS }
-      flexible-infrastructure: { external: RDR-DORA-FLEXINFRA, concern: [deploy] }
-      loosely-coupled-teams: { external: RDR-DORA-LOOSETEAMS }
-      monitoring-and-observability: { external: RDR-DORA-OBSERV, concern: [access] }
-      pervasive-security: { external: RDR-DORA-SECURITY }
-      streamlining-change-approval: { external: RDR-DORA-APPROVAL, concern: [release] }
-      test-automation: { external: RDR-DORA-TESTAUTO, concern: [quality-control] }
-      test-data-management: { external: RDR-DORA-TESTDATA, concern: [quality-control] }
-      trunk-based-development: { external: RDR-DORA-TRUNK, concern: [build] }
-      customer-feedback: { external: RDR-DORA-FEEDBACK, concern: [access] }
-      monitoring-systems: { external: RDR-DORA-MONITOR, concern: [access] }
-      proactive-failure-notification: { external: RDR-DORA-FAILALERT, concern: [access] }
-      work-visibility-in-value-stream: { external: RDR-DORA-WORKVIS }
-      visual-management: { external: RDR-DORA-VISUAL }
-      wip-limits: { external: RDR-DORA-WIP }
-      teams-empowered-to-choose-tools: { external: RDR-DORA-TOOLCHOICE, concern: [automation] }
-      generative-organizational-culture: { external: RDR-DORA-CULTURE }
-      job-satisfaction: { external: RDR-DORA-JOBSAT }
-      learning-culture: { external: RDR-DORA-LEARNING }
-      team-experimentation: { external: RDR-DORA-EXPERIMENT }
-      transformational-leadership: { external: RDR-DORA-LEADERSHIP }
-      well-being: { external: RDR-DORA-WELLBEING }
+      # The DORA capabilities, one record each, beside the reference in docs/references/dora/.
+      ai-accessible-internal-data: { external: EDR-DORA-AIDATA, concern: [access] }
+      clear-and-communicated-ai-stance: { external: EDR-DORA-AISTANCE }
+      healthy-data-ecosystems: { external: EDR-DORA-DATAECO }
+      platform-engineering: { external: EDR-DORA-PLATFORM, concern: [automation] }
+      user-centric-focus: { external: EDR-DORA-USERFOCUS }
+      version-control: { external: EDR-DORA-VCS, concern: [automation] }
+      working-in-small-batches: { external: EDR-DORA-SMALLBATCH }
+      code-maintainability: { external: EDR-DORA-MAINTAIN, concern: [automation, build] }
+      continuous-delivery: { external: EDR-DORA-CD, concern: [build, quality-control, release, deploy] }
+      continuous-integration: { external: EDR-DORA-CI, concern: [build, quality-control] }
+      database-change-management: { external: EDR-DORA-DBCHANGE, concern: [deploy] }
+      deployment-automation: { external: EDR-DORA-DEPLOY, concern: [deploy] }
+      documentation-quality: { external: EDR-DORA-DOCS }
+      flexible-infrastructure: { external: EDR-DORA-FLEXINFRA, concern: [deploy] }
+      loosely-coupled-teams: { external: EDR-DORA-LOOSETEAMS }
+      monitoring-and-observability: { external: EDR-DORA-OBSERV, concern: [access] }
+      pervasive-security: { external: EDR-DORA-SECURITY }
+      streamlining-change-approval: { external: EDR-DORA-APPROVAL, concern: [release] }
+      test-automation: { external: EDR-DORA-TESTAUTO, concern: [quality-control] }
+      test-data-management: { external: EDR-DORA-TESTDATA, concern: [quality-control] }
+      trunk-based-development: { external: EDR-DORA-TRUNK, concern: [build] }
+      customer-feedback: { external: EDR-DORA-FEEDBACK, concern: [access] }
+      monitoring-systems: { external: EDR-DORA-MONITOR, concern: [access] }
+      proactive-failure-notification: { external: EDR-DORA-FAILALERT, concern: [access] }
+      work-visibility-in-value-stream: { external: EDR-DORA-WORKVIS }
+      visual-management: { external: EDR-DORA-VISUAL }
+      wip-limits: { external: EDR-DORA-WIP }
+      teams-empowered-to-choose-tools: { external: EDR-DORA-TOOLCHOICE, concern: [automation] }
+      generative-organizational-culture: { external: EDR-DORA-CULTURE }
+      job-satisfaction: { external: EDR-DORA-JOBSAT }
+      learning-culture: { external: EDR-DORA-LEARNING }
+      team-experimentation: { external: EDR-DORA-EXPERIMENT }
+      transformational-leadership: { external: EDR-DORA-LEADERSHIP }
+      well-being: { external: EDR-DORA-WELLBEING }
+      # The Well-Architected Framework pillars and the Cloud Adoption Framework design areas, one record each.
+      reliability: { external: EDR-AZ-WAF-RE, concern: [deploy] }
+      security: { external: EDR-AZ-WAF-SE, concern: [deploy] }
+      cost-optimization: { external: EDR-AZ-WAF-CO, concern: [deploy] }
+      operational-excellence: { external: EDR-AZ-WAF-OE, concern: [deploy] }
+      performance-efficiency: { external: EDR-AZ-WAF-PE, concern: [deploy] }
+      design-principles: { external: EDR-AZ-CAF-PRIN, concern: [deploy] }
+      billing-and-tenant: { external: EDR-AZ-CAF-BILL, concern: [deploy] }
+      identity-and-access: { external: EDR-AZ-CAF-IAM, concern: [deploy] }
+      resource-organization: { external: EDR-AZ-CAF-RESORG, concern: [deploy] }
+      network-topology: { external: EDR-AZ-CAF-NETTOP, concern: [deploy] }
+      network-connectivity: { external: EDR-AZ-CAF-NETCON, concern: [deploy] }
+      network-private-access: { external: EDR-AZ-CAF-NETPRV, concern: [deploy] }
+      landing-zone-security: { external: EDR-AZ-CAF-SEC, concern: [deploy] }
+      management: { external: EDR-AZ-CAF-MGMT, concern: [deploy] }
+      governance: { external: EDR-AZ-CAF-GOV, concern: [deploy] }
+      naming-and-tagging: { external: EDR-AZ-CAF-NAME, concern: [deploy] }
+      platform-automation-and-devops: { external: EDR-AZ-CAF-DEVOPS, concern: [deploy] }
+      # The Agile Manifesto, lean theory and Pester.
+      agile: { external: EDR-AGILE }
+      agile-values: { external: EDR-VALUES }
+      agile-principles: { external: EDR-AGILEPRINCIPLES }
+      lean: { external: EDR-LEAN }
+      pester-framework: { external: EDR-PWSH-PESTER, concern: [quality-control] }

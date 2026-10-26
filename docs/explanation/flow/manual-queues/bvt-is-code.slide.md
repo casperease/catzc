@@ -15,7 +15,7 @@ catzc:
 
 ## Eyebrow
 
-4 / 10 · fact · FDR-CD-LIFE-DISCARDISTERMINAL
+4 / 10 · fact · FDR-LIFE-DISCARDISTERMINAL
 
 ## Lead
 

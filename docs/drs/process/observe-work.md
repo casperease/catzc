@@ -13,7 +13,7 @@ inferred from memory or a status meeting.
 
 Go and see the real artifact. Decisions rest on the actual running software and real signals — genchi genbutsu, "go and see for yourself" —
 not on proxies like tasks-marked-done or hours spent; working software is the measure of progress
-([WDR-AGILEPRINCIPLES](agile-principles.md)).
+([EDR-AGILEPRINCIPLES](../external/agile/agile-principles.md)).
 
 - [Decision](#decision)
 
@@ -27,7 +27,7 @@ a problem is made visible where it happens, never buried or deferred.
 ### Rule WDR-OBSERVEWIP-OBSERVEWHOLESTREAM
 
 Observe the whole value stream, not one local step. Optimise concept-to-cash end to end and guard against a local optimum that speeds one
-station while starving the whole (optimise the whole; [WDR-LEAN](lean.md)).
+station while starving the whole (optimise the whole; [EDR-LEAN](../external/lean/lean.md)).
 
 - [Why](#why)
 
@@ -51,7 +51,7 @@ Treat visibility of the work as a requirement, not a nicety, and treat direct ob
   value stream is the visual factory.
 - **Go and see.** Judge progress from the real running artifact and real signals — a gate that passed, a deployed environment, a monitored
   metric — not from a proxy. "Done" means the software does the thing, observed, not a task ticked
-  ([WDR-AGILEPRINCIPLES](agile-principles.md), working software is the measure).
+  ([EDR-AGILEPRINCIPLES](../external/agile/agile-principles.md), working software is the measure).
 - **Announce, don't bury.** When something happens that a human needs to know — a slow step about to block, a problem detected — it is said
   plainly on the console at the moment it happens, not swallowed and discovered later.
 
@@ -62,7 +62,7 @@ observation. A flow whose state is invisible can only be managed by anecdote; a 
 
 **Proxies lie; artifacts do not.** Tasks-marked-done, hours logged, and percent-complete drift away from reality the moment they are used to
 steer. The running software, the gate result, and the monitored metric are the ground truth genchi genbutsu insists on
-([WDR-AGILEPRINCIPLES](agile-principles.md)).
+([EDR-AGILEPRINCIPLES](../external/agile/agile-principles.md)).
 
 **Local visibility hides global stalls.** A dashboard that shows one busy station green can conceal a value stream choking on a queue two
 stations upstream. Observing the whole — end-to-end lead time, where items wait — is what keeps optimisation honest [^2]

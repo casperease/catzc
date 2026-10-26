@@ -226,7 +226,7 @@ DDR-TRACK-FILELANGUAGE).
 
 **Guards:** The `Test-WorldMap` quality gate reports 0 issues: no world-map cell is a stack violation, every root folder holding a tracked
 file but `out/` is a declared track, and every printed label (maps.yml labels, track and file-language names) names a glossary term
-(DDR-TRACK-TRACKISPLACEDCLUSTER, DDR-TRACK-ONETECHSTACK).
+(DDR-TRACK-ISPLACEDCLUSTER, DDR-TRACK-ONETECHSTACK).
 
 ### 18. Build-ContractReference — generated contract reference
 
@@ -306,7 +306,7 @@ there.
 **Test file:** `pwsh/Base.Contracts/tests/New-CatsCommandLookup.Tests.ps1` (L1), block `New-CatsCommandLookup — the real contracts`.
 
 **Guards:** The command lookup that `cats` reads before pwsh starts is one quoted shell variable with a row per contracted parameter of
-every command contract, and no row holds a quote that would end it (ADR-REPO-CMDCONTRACT-ONEREADER).
+every command contract, and no row holds a quote that would end it (ADR-REPO-CMDCONTRACT-CONTRACTONEREADER).
 
 ### 29. Test-ParameterConsistency — shipped configs/parameter-consistency.yml
 

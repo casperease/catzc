@@ -15,7 +15,7 @@ catzc:
 
 ## Eyebrow
 
-10 / 12 · fact · FDR-CD-QUEUE
+10 / 12 · fact · FDR-QUEUE
 
 ## Lead
 
@@ -31,5 +31,5 @@ From the catalogue, reduced: change one configuration slot.
 
 ## Notes
 
-Check it: the record FDR-CD-QUEUE in docs/drs/index.md, and the diagram
+Check it: the record FDR-QUEUE in docs/drs/index.md, and the diagram
 docs/explanation/azure/.assets/change-one-configuration-slot.drawio.png.

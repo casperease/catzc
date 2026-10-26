@@ -2,7 +2,7 @@ concepts:
   staging slot:
     key: staging_slot
     domain: design
-    defined_by: FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+    defined_by: FDR-LIFE-ONECOMMITPERENVIRONMENT
     short:
       The pre-prod rung: a slot inside the production subscription, inactive until it is activated, never a separate subscription.
     realized_by: { kind: prose-only }

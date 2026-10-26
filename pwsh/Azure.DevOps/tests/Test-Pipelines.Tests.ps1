@@ -46,8 +46,8 @@ Describe 'Test-Pipelines' -Tag 'L0', 'logic' {
         $thrown = { Test-Pipelines -Path 'X:/pipelines' -OutputFolder (Join-Path $TestDrive 'pipelines') } |
             Should -Throw -PassThru
         $thrown.Exception.Message | Should -BeLike 'Test-Pipelines failed: 2 issue(s)*'
-        $thrown.Exception.Message | Should -Match 'FDR-CD-PIPELINE-TYPEPREFIX'
-        $thrown.Exception.Message | Should -Match 'FDR-CD-PIPELINE-EXECUTABLEYAMLEXTENSION'
+        $thrown.Exception.Message | Should -Match 'FDR-PIPELINE-TYPEPREFIX'
+        $thrown.Exception.Message | Should -Match 'FDR-PIPELINE-EXECUTABLEYAMLEXTENSION'
     }
 
     It 'returns the result with the file count under -PassThru' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
@@ -57,14 +57,14 @@ Describe 'Test-Pipelines' -Tag 'L0', 'logic' {
         $result.Subject | Should -Be 'pipelines'
         $result.IssueCount | Should -Be 1
         $result.Facts['Files'] | Should -Be 2
-        $result.Issues[0] | Should -BeLike '`[FDR-CD-PIPELINE-TYPEPREFIX`] .ado/pipelines/widget-thing.yaml: *'
+        $result.Issues[0] | Should -BeLike '`[FDR-PIPELINE-TYPEPREFIX`] .ado/pipelines/widget-thing.yaml: *'
     }
 
-    It 'flags a root pipeline whose name lacks a valid type prefix (FDR-CD-PIPELINE-TYPEPREFIX)' {
+    It 'flags a root pipeline whose name lacks a valid type prefix (FDR-PIPELINE-TYPEPREFIX)' {
         $script:records = @((New-PipelineRecord 'widget-thing.yaml' 'Pipeline'))
         $v = @(Get-Issues)
         $v | Should -HaveCount 1
-        $v[0] | Should -Match 'FDR-CD-PIPELINE-TYPEPREFIX'
+        $v[0] | Should -Match 'FDR-PIPELINE-TYPEPREFIX'
     }
 
     It 'accepts every sanctioned type prefix' {
@@ -73,9 +73,9 @@ Describe 'Test-Pipelines' -Tag 'L0', 'logic' {
         Get-Issues | Should -HaveCount 0
     }
 
-    It 'flags a .yml executable under .ado/pipelines/ (FDR-CD-PIPELINE-EXECUTABLEYAMLEXTENSION)' {
+    It 'flags a .yml executable under .ado/pipelines/ (FDR-PIPELINE-EXECUTABLEYAMLEXTENSION)' {
         $script:records = @((New-PipelineRecord 'ci-thing.yml' 'Pipeline'))
-        Get-Issues | Should -Match 'FDR-CD-PIPELINE-EXECUTABLEYAMLEXTENSION'
+        Get-Issues | Should -Match 'FDR-PIPELINE-EXECUTABLEYAMLEXTENSION'
     }
 
     It 'flags a template in an unsanctioned folder (ADR-ADO-NAME-TEMPLATEKINDFOLDER)' {

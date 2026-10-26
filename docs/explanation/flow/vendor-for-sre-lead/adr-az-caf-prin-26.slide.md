@@ -14,7 +14,7 @@ catzc:
 
 ## Eyebrow
 
-26 / 30 · fact for the SRE Lead · ADR-AZ-CAF-PRIN
+26 / 30 · fact for the SRE Lead · EDR-AZ-CAF-PRIN
 
 ## Lead
 
@@ -31,5 +31,5 @@ From the catalogue, reduced: overlap gated for units and modules.
 
 ## Notes
 
-Check it: the record ADR-AZ-CAF-PRIN in docs/drs/index.md, and the diagram
+Check it: the record EDR-AZ-CAF-PRIN in docs/drs/index.md, and the diagram
 docs/explanation/flow/.assets/overlap-gated-for-units-and-modules.drawio.png.

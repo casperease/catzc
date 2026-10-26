@@ -12,7 +12,7 @@ The detector lives in the loader, which both run modes import first and keep loa
 7  Measure-NoRawPipelineDetection  the analyzer rule that bans a raw read in PowerShell
 8  Assert-BashTimeout              the C# hook, outside the analyzer, repeats the same test
 
-Supports FDR-CD-DETECT-NODIRECTVARIABLECHECK (architecture lens).
+Supports FDR-DETECT-NODIRECTVARIABLECHECK (architecture lens).
 ```
 
 The detector has to exist before anything else, because the importer's own bootstrap asks it while it is still compiling types, before a
@@ -25,7 +25,7 @@ description:
   "Where the pipeline detector lives: the CI platforms set the variables, one loader function reads them, the bootstrap, the builder and the
   modules ask that function, an analyzer rule bans a raw read, and only the C# hook repeats the test."
 about:
-  adrs: [FDR-CD-DETECT-NODIRECTVARIABLECHECK]
+  adrs: [FDR-DETECT-NODIRECTVARIABLECHECK]
   lens: architecture
 content:
   title: The detector lives in the loader, which both run modes import first and keep loaded
@@ -109,10 +109,10 @@ layout:
 ## Why it holds
 
 - Never check the detection variables directly; call `Test-IsRunningInPipeline`, so the logic lives in one place and both platforms are
-  always covered (FDR-CD-DETECT-NODIRECTVARIABLECHECK). Placing that one function in the loader is what lets the bootstrap honour the rule
+  always covered (FDR-DETECT-NODIRECTVARIABLECHECK). Placing that one function in the loader is what lets the bootstrap honour the rule
   before any module exists.
 - The function is the one seam between devbox and pipeline, so "where do the two diverge?" has a finite answer: the callers above the loader
-  (ADR-AUTO-PARITY-ONESEAM).
+  (ADR-AUTO-PARITY-PARITYSEAM).
 
 ## Where the code and the decision record differ
 

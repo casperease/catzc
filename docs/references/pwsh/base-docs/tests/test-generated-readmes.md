@@ -6,7 +6,7 @@ The tests of `Test-GeneratedReadmes`, in two blocks.
 
 Fixture READMEs in `$TestDrive`: the mappings, git's ignore check and the index are mocked, and the repository root is redirected to the
 fixture, so each test pins one rule. Fixture names are neutral
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+([ADR-AUTO-TEST-DISTINCTFIXTURES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtures)).
 
 ## The real repository
 

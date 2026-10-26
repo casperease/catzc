@@ -11,7 +11,7 @@ Four checks in code order, three returns, and no check falls through on failure.
 6  Assert-NotNullOrWhitespace    check 4: the token is not empty; returns Bearer $result.Output
 7  No ADO token available        the throw when the az CLI yields no token
 
-Supports ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE, ADR-ADO-AUTH-PROVETARGET, ADR-ADO-AUTH-EXPLICITDETECTION
+Supports ADR-ADO-AUTH-FIXEDCREDENTIALORDER, ADR-ADO-AUTH-PROVETARGET, ADR-ADO-AUTH-EXPLICITDETECTION
 and ADR-ADO-AUTH-ASSERTWHENNOTOKEN (implementation lens).
 ```
 
@@ -23,7 +23,7 @@ return. Every check either returns a header, passes control on, or throws; a che
 description:
   "The header function's four checks in code order: three return a header, three throw, and no check falls through to the next on failure."
 about:
-  adrs: [ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE, ADR-ADO-AUTH-PROVETARGET, ADR-ADO-AUTH-EXPLICITDETECTION, ADR-ADO-AUTH-ASSERTWHENNOTOKEN]
+  adrs: [ADR-ADO-AUTH-FIXEDCREDENTIALORDER, ADR-ADO-AUTH-PROVETARGET, ADR-ADO-AUTH-EXPLICITDETECTION, ADR-ADO-AUTH-ASSERTWHENNOTOKEN]
   lens: implementation
 content:
   title: The header function is four checks and three returns, and none falls through on failure
@@ -110,7 +110,7 @@ have a value to check against. The only caller of the function is `Invoke-AdoRes
 ## Why it holds
 
 - The rungs run in a fixed order over what is configured, and a rung that fails throws instead of falling through
-  (ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE).
+  (ADR-ADO-AUTH-FIXEDCREDENTIALORDER).
 - The pipeline rung proves the collection is the configured org, and the az CLI rung proves the session tenant, before a header is returned
   (ADR-ADO-AUTH-PROVETARGET).
 - Pipeline detection goes through `Test-IsRunningInPipeline`, never a raw read of the agent variables (ADR-ADO-AUTH-EXPLICITDETECTION).

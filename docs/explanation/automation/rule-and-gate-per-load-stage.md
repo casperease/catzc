@@ -10,8 +10,8 @@ Every load stage but the unload has an ADR rule and a gate.
 5  Janitors                idempotent, actor-aware; gate Invoke-TypeCacheJanitor.Tests
 6  Unload                  the import-time helpers removed; no rule and no gate
 
-Supports ADR-AUTO-BUNDLE-TWOROOTS, ADR-AUTO-BUNDLE-ONELIVINGIMPORTER, ADR-AUTO-BUNDLE-BUNDLEISSESSION, ADR-PWSH-ERROR-STOPONERROR,
-PDR-ONELIVE-ONEVERSION, ADR-PWSH-TYPES-TYPEACCELERATORATTRIBUTE, ADR-REPO-ROOTCFG-FULLYMANAGED, ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION,
+Supports ADR-AUTO-BUNDLE-TWOROOTS, ADR-AUTO-BUNDLE-ONELIVINGIMPORTER, ADR-AUTO-BUNDLE-ISSESSION, ADR-PWSH-ERROR-STOPONERROR,
+PDR-ONELIVE-ONEVERSION, ADR-PWSH-TYPES-TYPEACCELERATORATTRIBUTE, ADR-REPO-ROOTCFG-FULLYMANAGED, ADR-REPO-ROOTCFG-ROOTCFGIDEMPOTENT,
 DDR-RUNMODE-NEVERCOEXIST and ADR-BCL-TYPES-JANITORSBYCALLER (governance lens).
 ```
 
@@ -27,12 +27,12 @@ about:
   adrs:
     - ADR-AUTO-BUNDLE-TWOROOTS
     - ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
-    - ADR-AUTO-BUNDLE-BUNDLEISSESSION
+    - ADR-AUTO-BUNDLE-ISSESSION
     - ADR-PWSH-ERROR-STOPONERROR
     - PDR-ONELIVE-ONEVERSION
     - ADR-PWSH-TYPES-TYPEACCELERATORATTRIBUTE
     - ADR-REPO-ROOTCFG-FULLYMANAGED
-    - ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION
+    - ADR-REPO-ROOTCFG-ROOTCFGIDEMPOTENT
     - DDR-RUNMODE-NEVERCOEXIST
     - ADR-BCL-TYPES-JANITORSBYCALLER
   lens: governance
@@ -66,11 +66,11 @@ content:
     - { at: g-shim, kind: rule, rule: PDR-ONELIVE-ONEVERSION }
     - { at: g-session, kind: rule, rule: ADR-PWSH-ERROR-STOPONERROR }
     - { at: g-session, kind: rule, rule: ADR-AUTO-BUNDLE-TWOROOTS }
-    - { at: g-session, kind: rule, rule: ADR-AUTO-BUNDLE-BUNDLEISSESSION }
+    - { at: g-session, kind: rule, rule: ADR-AUTO-BUNDLE-ISSESSION }
     - { at: g-load, kind: rule, rule: ADR-AUTO-BUNDLE-ONELIVINGIMPORTER }
     - { at: g-load, kind: rule, rule: ADR-PWSH-TYPES-TYPEACCELERATORATTRIBUTE }
     - { at: g-mode, kind: rule, rule: DDR-RUNMODE-NEVERCOEXIST }
-    - { at: g-janitors, kind: rule, rule: ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION }
+    - { at: g-janitors, kind: rule, rule: ADR-REPO-ROOTCFG-ROOTCFGIDEMPOTENT }
     - { at: g-janitors, kind: rule, rule: ADR-BCL-TYPES-JANITORSBYCALLER }
   legend: auto
   minimaps: [code-locations, grid, axis]
@@ -98,9 +98,9 @@ Each stage has its own band, and a stage's gate sits in its band beside the rule
    (ADR-REPO-ROOTCFG-FULLYMANAGED, PDR-ONELIVE-ONEVERSION). `New-Importer.Tests` checks that the shim's parameter set equals
    `Invoke-Importer`'s and that the committed file equals the generated one.
 2. **Session.** The importer sets `$ErrorActionPreference = 'Stop'` globally (ADR-PWSH-ERROR-STOPONERROR), anchors on the working root and
-   the code root (ADR-AUTO-BUNDLE-TWOROOTS), and a bundle sets up the same session as source mode does (ADR-AUTO-BUNDLE-BUNDLEISSESSION).
-   The gate is code review, the gate the platform-bundle ADR names: it rejects a scan of catzc's own code anchored on `RepositoryRoot`. No
-   test checks the preferences.
+   the code root (ADR-AUTO-BUNDLE-TWOROOTS), and a bundle sets up the same session as source mode does (ADR-AUTO-BUNDLE-ISSESSION). The gate
+   is code review, the gate the platform-bundle ADR names: it rejects a scan of catzc's own code anchored on `RepositoryRoot`. No test
+   checks the preferences.
 3. **Load.** The bundle reuses the one importer so that the C# types and their accelerators register before any module loads
    (ADR-AUTO-BUNDLE-ONELIVINGIMPORTER, ADR-PWSH-TYPES-TYPEACCELERATORATTRIBUTE). `Import-AllModules.Tests` checks that a duplicated or
    shadowing function name fails the import, and `Import-CSharpTypes.Tests` and the walking-skeleton `Import-Catzc.Tests` also cover this
@@ -108,9 +108,9 @@ Each stage has its own band, and a stage's gate sits in its band beside the rule
 4. **Run mode.** The two run modes never coexist (DDR-RUNMODE-NEVERCOEXIST). The stage is itself a check: `Assert-CatzcRunModeExclusive`
    runs on every load and throws when a module from the other run mode's root is still loaded. `Assert-CatzcRunModeExclusive.Tests` checks
    it, and the eviction block of `Import-AllModules.Tests` checks the removal that comes before it.
-5. **Janitors.** Generation is idempotent and runs on every import (ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION), and who runs the importer
-   decides what the janitors may change, read from `Get-SessionActor` (ADR-BCL-TYPES-JANITORSBYCALLER). `Invoke-TypeCacheJanitor.Tests`
-   checks that holders are never stopped in a `Pipeline` or `Agent` session.
+5. **Janitors.** Generation is idempotent and runs on every import (ADR-REPO-ROOTCFG-ROOTCFGIDEMPOTENT), and who runs the importer decides
+   what the janitors may change, read from `Get-SessionActor` (ADR-BCL-TYPES-JANITORSBYCALLER). `Invoke-TypeCacheJanitor.Tests` checks that
+   holders are never stopped in a `Pipeline` or `Agent` session.
 6. **Unload.** `Invoke-Importer` removes `Catzc.Internal.Bootstrap`, and the entry script's `finally` removes `Catzc.Internal.Importer`. No
    ADR rule states this, and no test checks it; only the code comments and the project instructions describe it. That is why its band holds
    no rule and no gate.
@@ -123,12 +123,12 @@ build, and code review rejects a bundle loader that forks the importer.
 - An opted-in root file is materialised from exactly one source of truth (ADR-REPO-ROOTCFG-FULLYMANAGED), and the code holds one living
   version of every behaviour (PDR-ONELIVE-ONEVERSION).
 - The error preference is `Stop`, set globally by the importer (ADR-PWSH-ERROR-STOPONERROR). Cats anchors on two roots
-  (ADR-AUTO-BUNDLE-TWOROOTS), and a bundle is a session, not a passive library (ADR-AUTO-BUNDLE-BUNDLEISSESSION).
+  (ADR-AUTO-BUNDLE-TWOROOTS), and a bundle is a session, not a passive library (ADR-AUTO-BUNDLE-ISSESSION).
 - A bundle loads through the one living importer, so types and accelerators register before any module (ADR-AUTO-BUNDLE-ONELIVINGIMPORTER,
   ADR-PWSH-TYPES-TYPEACCELERATORATTRIBUTE).
 - The two run modes never coexist in one session (DDR-RUNMODE-NEVERCOEXIST).
-- Root-config generation is idempotent and runs on every import (ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION), and the session actor decides what
-  the janitors may change (ADR-BCL-TYPES-JANITORSBYCALLER).
+- Root-config generation is idempotent and runs on every import (ADR-REPO-ROOTCFG-ROOTCFGIDEMPOTENT), and the session actor decides what the
+  janitors may change (ADR-BCL-TYPES-JANITORSBYCALLER).
 - The run modes have two entry points (DDR-RUNMODE-TWORUNMODES).
 
 ## Where the code and the decision record differ

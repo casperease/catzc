@@ -1,5 +1,5 @@
 Describe 'TruthStoresConfig' -Tag 'L0', 'logic' {
-    It 'defaults to the repository with the Azure DevOps configuration as its projection, and Azure DevOps runtime as a fact source' -Tag 'TDR-STORES-THREEKINDS' {
+    It 'defaults to the repository with the Azure DevOps configuration as its projection, and Azure DevOps runtime as a fact source' -Tag 'TDR-STORES-THREESTOREKINDS' {
         $config = [Catzc.Base.Flow.TruthStoresConfig]::new(@{})
         @($config.stores.name) | Should -Be @('repository', 'azure-devops', 'azure-devops-runtime')
         @($config.stores.kind) | Should -Be @('version-controlled-repository', 'state-machine', 'fact-source')

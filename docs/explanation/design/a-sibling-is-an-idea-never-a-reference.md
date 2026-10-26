@@ -8,8 +8,8 @@ Two siblings of one family, catzc and eac, compared model by model: where they m
 3  the parting     rules as decision records or as specifications; a place where imports land, or none
 4  the crossing    an idea is named where it is used and rebuilt to this repository's rules
 
-Supports PDR-ONELIVE-ONEVERSION and PDR-ONELIVE-HISTORYINGIT, ADR-AUTO-GO-MODULESBYLAYOUT, PDR-CATS-CATZCISSOURCENAME
-and PDR-CATS-CATSISPERSONNAME, and DDR-TRACK-TRACKISPLACEDCLUSTER, DDR-TRACK-ONETECHSTACK, DDR-TRACK-DEPLOYABLEUNIT
+Supports PDR-ONELIVE-ONEVERSION and PDR-ONELIVE-HISTORYINGIT, ADR-AUTO-GO-GOMODULESBYLAYOUT, PDR-CATS-CATZCISSOURCENAME
+and PDR-CATS-ISPERSONNAME, and DDR-TRACK-ISPLACEDCLUSTER, DDR-TRACK-ONETECHSTACK, DDR-TRACK-DEPLOYABLEUNIT
 and DDR-TRACK-UNORDEREDTRACK.
 ```
 
@@ -28,10 +28,10 @@ about:
   adrs:
     - PDR-ONELIVE-ONEVERSION
     - PDR-ONELIVE-HISTORYINGIT
-    - ADR-AUTO-GO-MODULESBYLAYOUT
+    - ADR-AUTO-GO-GOMODULESBYLAYOUT
     - PDR-CATS-CATZCISSOURCENAME
-    - PDR-CATS-CATSISPERSONNAME
-    - DDR-TRACK-TRACKISPLACEDCLUSTER
+    - PDR-CATS-ISPERSONNAME
+    - DDR-TRACK-ISPLACEDCLUSTER
     - DDR-TRACK-ONETECHSTACK
     - DDR-TRACK-DEPLOYABLEUNIT
     - DDR-TRACK-UNORDEREDTRACK
@@ -109,16 +109,16 @@ run as tests. The two forms carry the same discipline in different grammars.
 
 The engines differ by decision, not by accident. Catzc is PowerShell with the C# types it hosts
 ([DDR-TRACK-ONETECHSTACK](../../drs/design/tracks.md#rule-ddr-track-onetechstack)), and Go in catzc is modules by layout and test artifacts,
-never the engine ([ADR-AUTO-GO-MODULESBYLAYOUT](../../drs/automation/go/go-test-artifacts.md#rule-adr-auto-go-modulesbylayout)). Eac is Go.
-A Go idea read in eac beyond that scope is a question for the user, never a precedent. The two names of this system, cats to a person and
-catzc in code ([PDR-CATS-CATZCISSOURCENAME](../../drs/principles/cats-and-catzc.md#rule-pdr-cats-catzcissourcename),
-[PDR-CATS-CATSISPERSONNAME](../../drs/principles/cats-and-catzc.md#rule-pdr-cats-catsispersonname)), have their counterpart in eac's two
-names for its two CLIs, so a reader of either repository meets the same habit: one name per audience.
+never the engine ([ADR-AUTO-GO-GOMODULESBYLAYOUT][r1]). Eac is Go. A Go idea read in eac beyond that scope is a question for the user, never
+a precedent. The two names of this system, cats to a person and catzc in code
+([PDR-CATS-CATZCISSOURCENAME](../../drs/principles/cats-and-catzc.md#rule-pdr-cats-catzcissourcename),
+[PDR-CATS-ISPERSONNAME](../../drs/principles/cats-and-catzc.md#rule-pdr-cats-ispersonname)), have their counterpart in eac's two names for
+its two CLIs, so a reader of either repository meets the same habit: one name per audience.
 
 ## Where the models meet
 
 - **Structure**
-  - Catzc: A [track](../../drs/design/tracks.md#rule-ddr-track-trackisplacedcluster) is a cluster of module contents with one tech-stack; a
+  - Catzc: A [track](../../drs/design/tracks.md#rule-ddr-track-isplacedcluster) is a cluster of module contents with one tech-stack; a
     module is placed in a track and resolved through it
     ([ADR-AUTO-MODULE-DEPLOYABLETRACKMODULE](../../drs/automation/module-model.md#rule-adr-auto-module-deployabletrackmodule)); every track
     has one [track type](../../drs/design/track-types.md#rule-ddr-tracktype-closedsetoftypes) with one role
@@ -206,3 +206,5 @@ that define its terms, and retention by output area.
 It does not rank the two. Each repository's rules fit its engine and its audience, and a difference listed above is a decision, not a
 defect. It does not read eac as an authority: a sentence here about eac describes what its tree holds on the day of writing, and catzc's
 decision records decide catzc whatever eac does next.
+
+[r1]: ../../drs/automation/go/go-test-artifacts.md#rule-adr-auto-go-gomodulesbylayout

@@ -30,7 +30,7 @@ runs:
         }
     }
 
-    It 'renders a run as one PowerShell line per command, strings quoted, numbers bare, a true switch as a bare flag' -Tag 'ADR-AUTO-ACCOSTED-ONEREADER' {
+    It 'renders a run as one PowerShell line per command, strings quoted, numbers bare, a true switch as a bare flag' -Tag 'ADR-AUTO-ACCOSTED-ACCOSTEDONEREADER' {
         $path = & $script:write $script:file
         Get-AccostedFragment -Path $path -RunNumber 1 -RepositoryRoot $script:root |
             Should -Be "Get-Widget -Path 'widgets/a.wdg' -Depth 2 -Names 'a'`nTest-Gadget -OutputFolder 'out/test-gadget' -Strict"
@@ -48,7 +48,7 @@ runs:
             Should -Be "Test-Gadget -OutputFolder 'out/test-gadget' -Strict"
     }
 
-    It 'reads the file through the one reader, so a command no contract names is refused with the reader''s message' -Tag 'ADR-AUTO-ACCOSTED-ONEREADER' {
+    It 'reads the file through the one reader, so a command no contract names is refused with the reader''s message' -Tag 'ADR-AUTO-ACCOSTED-ACCOSTEDONEREADER' {
         $path = & $script:write "runs:`n  - - get_gizmo: { path: a }"
         { Get-AccostedFragment -Path $path -RepositoryRoot $script:root } |
             Should -Throw "*'get_gizmo' is no contracted command*"

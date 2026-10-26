@@ -2,19 +2,18 @@
 
 ## Rules: DDR-TRACK
 
-### Rule DDR-TRACK-TRACKISPLACEDCLUSTER
+### Rule DDR-TRACK-ISPLACEDCLUSTER
 
 A **track** is a named, on-disk cluster of one concern's files, declared once as a set of **members**
-([DDR-TRACKTYPE-DECLAREDONCE](track-types.md#rule-ddr-tracktype-declaredonce)). A member is a folder, a file or a glob, and it carries two
-facts: **generated**, whether a writer renders it rather than a person authoring it, and **committed**, whether git tracks it or it is
-gitignored. `generated` is a member fact, never a track: a member a catzc generator writes takes it from that generator's declaration, a
-member only a vendor tool writes declares it on the member, and both at once is a load failure. `committed` is declared on the member and
-agrees with the git index. A **place** is the path of one member: a track's places are computed from its members and never declared beside
-them. Every file on disk lies in exactly one track, found by the longest member that contains it
-([DDR-TRACKTYPE-LONGESTPLACEWINS](track-types.md#rule-ddr-tracktype-longestplacewins)), or is a root file (DDR-TRACK-ROOTFILE). `out/` is a
-track too, the `output` track, its one member generated and not committed. A track's name is its one definitive name, computed from its
-members ([DDR-TRACKTYPE-NAMEFROMMEMBERS](track-types.md#rule-ddr-tracktype-namefrommembers)). Tracks are what this mono repository is
-composed of.
+([DDR-TRACKTYPE-TYPESDECLAREDONCE][r1]). A member is a folder, a file or a glob, and it carries two facts: **generated**, whether a writer
+renders it rather than a person authoring it, and **committed**, whether git tracks it or it is gitignored. `generated` is a member fact,
+never a track: a member a catzc generator writes takes it from that generator's declaration, a member only a vendor tool writes declares it
+on the member, and both at once is a load failure. `committed` is declared on the member and agrees with the git index. A **place** is the
+path of one member: a track's places are computed from its members and never declared beside them. Every file on disk lies in exactly one
+track, found by the longest member that contains it ([DDR-TRACKTYPE-LONGESTPLACEWINS](track-types.md#rule-ddr-tracktype-longestplacewins)),
+or is a root file (DDR-TRACK-ROOTFILE). `out/` is a track too, the `output` track, its one member generated and not committed. A track's
+name is its one definitive name, computed from its members
+([DDR-TRACKTYPE-NAMEFROMMEMBERS](track-types.md#rule-ddr-tracktype-namefrommembers)). Tracks are what this mono repository is composed of.
 
 - [What a track is](#what-a-track-is)
 
@@ -59,7 +58,7 @@ function apps.
 
 - [A track has a tech-stack](#a-track-has-a-tech-stack)
 
-### Rule DDR-TRACK-SUBSCRIBABLENOTPATHCOUPLED
+### Rule DDR-TRACK-SUBSCRIBABLENOTPATH
 
 Tracks are **subscribable, never path-coupled**: a consumer binds to a track through its module dependencies (depm — dependencies between
 modules, never on systems) or through its globset's native trigger projection, never by hand-matching the track's source paths. The globsets
@@ -102,8 +101,8 @@ file sits in its own column of the track-by-file-language map, never in a file l
 
 ### Rule DDR-TRACK-WORLDMAP
 
-A **world map** is the repository drawn as its tracks crossed with its file languages: one row per track (DDR-TRACK-TRACKISPLACEDCLUSTER)
-and one for the root files (DDR-TRACK-ROOTFILE), one column per file language (DDR-TRACK-FILELANGUAGE) and one for the unlisted files
+A **world map** is the repository drawn as its tracks crossed with its file languages: one row per track (DDR-TRACK-ISPLACEDCLUSTER) and one
+for the root files (DDR-TRACK-ROOTFILE), one column per file language (DDR-TRACK-FILELANGUAGE) and one for the unlisted files
 (DDR-TRACK-UNLISTEDFILE), and every tracked file counted in exactly one cell. It is computed from the track and file-language registries and
 the git index, never drawn by hand, so it is the same picture on every run of the same commit.
 
@@ -161,7 +160,7 @@ artifact), `quality-control` (verifying a change — tests, checks, and quality 
 release candidate), `deploy` (putting a release onto its target), and `access` (reaching and operating what runs — identities, credentials,
 and monitoring). Every decision-record domain declares a default (`concern:` in `drs.yml`), and a decision record declares its own only when
 it differs, so every decision record resolves to one or more value-chain concerns, never to none and never to an unknown one. A value-chain
-concern is not a track's root concern (DDR-TRACK-TRACKISPLACEDCLUSTER): a track is where files live, and a value-chain concern is where a
+concern is not a track's root concern (DDR-TRACK-ISPLACEDCLUSTER): a track is where files live, and a value-chain concern is where a
 decision acts.
 
 - [The value-chain map](#the-value-chain-map)
@@ -309,7 +308,7 @@ rule here and a glossary entry, and the quality gate fails a label that names no
 An outside repository brought into this one arrives with a history worth keeping and a layout that matches none of this repository's
 modules. Importing it straight into a module would mix its files with code the gates hold to the domain rules before anyone has judged them;
 leaving the history behind would lose the record of why each file is the way it is. The unordered track is the place between: a root folder
-that git tracks and the world map counts, so the place rule (DDR-TRACK-TRACKISPLACEDCLUSTER) holds, and each import lands whole at its own
+that git tracks and the world map counts, so the place rule (DDR-TRACK-ISPLACEDCLUSTER) holds, and each import lands whole at its own
 landing address. Sorting then moves the files one at a time into the modules and tracks where they belong, with `git mv` so
 `git log --follow` keeps every file's history, and the gates hold each file once it arrives. A landing name never carries a suffix: a name
 that is taken fails the import, so a second import of the same source is a decision, never an accident.
@@ -344,17 +343,17 @@ value-chain forms keep each word to one meaning.
 
 ## Decision
 
-Name the concept: repository concerns are **tracks** — place-declared clusters of module contents (DDR-TRACK-TRACKISPLACEDCLUSTER), each of
-one track type (DDR-TRACK-ONETRACKTYPE), including the unordered track that nothing defaults to (DDR-TRACK-UNORDEREDTRACK) and that a file
+Name the concept: repository concerns are **tracks** — place-declared clusters of module contents (DDR-TRACK-ISPLACEDCLUSTER), each of one
+track type (DDR-TRACK-ONETRACKTYPE), including the unordered track that nothing defaults to (DDR-TRACK-UNORDEREDTRACK) and that a file
 leaves one per commit, in the eac normal form (DDR-TRACK-MIGRATEONEFILEPERCOMMIT), one tech-stack each (DDR-TRACK-ONETECHSTACK) that
 defaults to one primary language (DDR-TRACK-PRIMARYLANGUAGE), subscribable only via depms and globset projections
-(DDR-TRACK-SUBSCRIBABLENOTPATHCOUPLED), and shipped through deployable-units that bind pipelines 1-1 (DDR-TRACK-DEPLOYABLEUNIT). A
-tech-stack is a set of file languages, each named by its extension (DDR-TRACK-FILELANGUAGE). The world map crosses the tracks with the file
-languages (DDR-TRACK-WORLDMAP), with a row for the root files and a column for the unlisted files (DDR-TRACK-ROOTFILE,
-DDR-TRACK-UNLISTEDFILE); its cells (DDR-TRACK-CELL) mark the stack violations (DDR-TRACK-STACKVIOLATION) and light for a highlight
-(DDR-TRACK-LITCELL), and every label it prints names a defined term (DDR-TRACK-LABELSNAMEDEFINEDTERMS). Beside it, the value-chain map
-(DDR-TRACK-VALUECHAINMAP) crosses the value-chain stack (DDR-TRACK-VALUECHAINSTACK) with the value-chain concerns
-(DDR-TRACK-VALUECHAINCONCERN), both declared per decision-record domain in `drs.yml`, with a per-ADR override of the concerns.
+(DDR-TRACK-SUBSCRIBABLENOTPATH), and shipped through deployable-units that bind pipelines 1-1 (DDR-TRACK-DEPLOYABLEUNIT). A tech-stack is a
+set of file languages, each named by its extension (DDR-TRACK-FILELANGUAGE). The world map crosses the tracks with the file languages
+(DDR-TRACK-WORLDMAP), with a row for the root files and a column for the unlisted files (DDR-TRACK-ROOTFILE, DDR-TRACK-UNLISTEDFILE); its
+cells (DDR-TRACK-CELL) mark the stack violations (DDR-TRACK-STACKVIOLATION) and light for a highlight (DDR-TRACK-LITCELL), and every label
+it prints names a defined term (DDR-TRACK-LABELSNAMEDEFINEDTERMS). Beside it, the value-chain map (DDR-TRACK-VALUECHAINMAP) crosses the
+value-chain stack (DDR-TRACK-VALUECHAINSTACK) with the value-chain concerns (DDR-TRACK-VALUECHAINCONCERN), both declared per decision-record
+domain in `drs.yml`, with a per-ADR override of the concerns.
 
 ### How this is enforced
 
@@ -367,7 +366,7 @@ DDR-TRACK-UNLISTEDFILE); its cells (DDR-TRACK-CELL) mark the stack violations (D
 - **depms and the dependency-graph quality gates** enforce the declared subscription edges, including the one-directional core ←
   adapter/port dependency.
 - **The `Test-WorldMap` quality gate** reads the world map and fails on a stack violation (DDR-TRACK-STACKVIOLATION), a root folder with
-  tracked files that no track names (DDR-TRACK-TRACKISPLACEDCLUSTER), and a printed label that names no defined term
+  tracked files that no track names (DDR-TRACK-ISPLACEDCLUSTER), and a printed label that names no defined term
   (DDR-TRACK-LABELSNAMEDEFINEDTERMS).
 - **`Catzc.Base.Drs.DrsConfig`**, the type of `drs.yml`, declares the rows of the value-chain stack and the value-chain concerns once, in
   order, and fails the load on a decision-record domain without a row or a default, on a row or a value-chain concern outside them, and on
@@ -386,3 +385,5 @@ DDR-TRACK-UNLISTEDFILE); its cells (DDR-TRACK-CELL) mark the stack violations (D
   untouched by construction.
 - The cost is discipline at the root: no drive-by root folders, no second stack smuggled into an existing track, and the registry has to
   stay curated as tracks grow.
+
+[r1]: track-types.md#rule-ddr-tracktype-typesdeclaredonce

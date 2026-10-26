@@ -170,7 +170,7 @@ Describe 'CodeMetaHead' -Tag 'L0', 'logic', 'ADR-REPO-CODEMETA-CODEFILEHEAD', 'A
         }
     }
 
-    Context 'removing the config part' -Tag 'ADR-REPO-HELP-HELPONCOMMENTPAGE' {
+    Context 'removing the config part' -Tag 'ADR-REPO-HELP-ONCOMMENTPAGE' {
         It 'keeps the facts as written and drops the authored lines' {
             $text = & $script:lf '/*', '---', 'catzc:', '  immutable:', '    path: a/b.cs', '  config:', '    synopsis: Gets.', '---', '*/', '', 'class B { }', ''
             [Catzc.Base.CodeMeta.CodeMetaHead]::Parse($text, $script:block).WithoutConfig() |

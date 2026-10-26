@@ -8,7 +8,7 @@ Peers in a layer never share a file on their own contribution; only loose-filese
 3  Module space             the module layer: derived from the folders, never declared
 4  Peers disjoint           the one rule, checked by a gate for the two boundary layers
 
-Supports FDR-CD-GLOBS-EVERYSETHASLAYER and FDR-CD-GLOBS-NOOVERLAPWITHINLAYER (meta lens).
+Supports FDR-GLOBS-EVERYSETHASLAYER and FDR-GLOBS-NOOVERLAPWITHINLAYER (meta lens).
 ```
 
 Every globset in cats belongs to one layer, and a layer is a set of peers that partition one concern into boundaries. Within a layer, no two
@@ -20,7 +20,7 @@ description:
   "The three globset layers as bands: deployable-unit, loose-fileset and module sets, with one rule across them, peers in a layer are
   disjoint, which a gate checks for the two boundary layers and the loose-fileset layer is exempt from."
 about:
-  adrs: [FDR-CD-GLOBS-EVERYSETHASLAYER, FDR-CD-GLOBS-NOOVERLAPWITHINLAYER]
+  adrs: [FDR-GLOBS-EVERYSETHASLAYER, FDR-GLOBS-NOOVERLAPWITHINLAYER]
   lens: meta
 content:
   title: Peers in a layer never share a file, except in the loose-fileset layer
@@ -71,9 +71,9 @@ layout:
 
 ## Why it holds
 
-- Every globset carries a layer: two are declared, and `module` is derived-only (FDR-CD-GLOBS-EVERYSETHASLAYER).
+- Every globset carries a layer: two are declared, and `module` is derived-only (FDR-GLOBS-EVERYSETHASLAYER).
 - Within a layer, no two globsets select a common file on their own contribution; the rule is per layer, never across, and the
-  `loose-fileset` layer is exempt (FDR-CD-GLOBS-NOOVERLAPWITHINLAYER).
+  `loose-fileset` layer is exempt (FDR-GLOBS-NOOVERLAPWITHINLAYER).
 
 ## Where the code and the decision record differ
 

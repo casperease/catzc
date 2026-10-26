@@ -14,7 +14,7 @@ catzc:
 
 ## Eyebrow
 
-20 / 30 · fact for the SRE Lead · ADR-AZ-CAF-BILL
+20 / 30 · fact for the SRE Lead · EDR-AZ-CAF-BILL
 
 ## Lead
 
@@ -30,5 +30,5 @@ From the catalogue, reduced: get aspect feeds globs and maps.
 
 ## Notes
 
-Check it: the record ADR-AZ-CAF-BILL in docs/drs/index.md, and the diagram
+Check it: the record EDR-AZ-CAF-BILL in docs/drs/index.md, and the diagram
 docs/explanation/design/.assets/get-aspect-feeds-globs-and-maps.drawio.png.

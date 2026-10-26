@@ -31,7 +31,7 @@ type by its fully-qualified name. One runtime compiler builds it, the host's own
 
 - [One assembly](#one-assembly)
 
-### Rule ADR-BCL-TYPES-REFERENCESFOLLOWDEPENDENCIES
+### Rule ADR-BCL-TYPES-REFERENCESFOLLOWDEPS
 
 Cross-module type references are allowed but **governed by the module dependency graph**: a deriving/referencing module must declare the
 target in `configs/dependencies.yml`. The compiler does not enforce the layering in one combined assembly, so `Get-CSharpTypeDependency`
@@ -173,7 +173,7 @@ configuration of its own.
 - [One build configuration](#one-build-configuration)
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-BCL-TYPES-BCLREFERENCESET
+### Rule ADR-BCL-TYPES-REFERENCESET
 
 A type references the Base Class Library and nothing else: that is the BCL language's reference set. A type that binds to its host, such as
 one that uses pwsh's `System.Management.Automation`, is a host binding, and a host binding is a configured exception: one row in `bcl.yml`
@@ -211,7 +211,7 @@ One combined assembly dissolves the problem entirely rather than working around 
   compiler therefore stays the compiler, with no separate build step, no topological compile order, and no transitive references.
 
 The cost is that the compiler does not structurally forbid a layer inversion (a base-module type referencing a leaf-module type) — in one
-compilation unit that just compiles. That enforcement moves to the linter (see Rule ADR-BCL-TYPES-REFERENCESFOLLOWDEPENDENCIES):
+compilation unit that just compiles. That enforcement moves to the linter (see Rule ADR-BCL-TYPES-REFERENCESFOLLOWDEPS):
 `Get-CSharpTypeDependency` reports the cross-module C# edges and the acyclic allow-list in `configs/dependencies.yml` governs them, failing
 L1 on an undeclared edge.
 
@@ -231,7 +231,7 @@ before the module loop.
 `How the one host compiles, references, and names the types`
 
 BCL and its host are two things. The **language** is C# against the Base Class Library, a subset of .NET, with its own files, its own build
-pair, and the BCL as its whole reference set (Rule ADR-BCL-TYPES-BCLREFERENCESET); this ADR decides it. The **host** is the one engine that
+pair, and the BCL as its whole reference set (Rule ADR-BCL-TYPES-REFERENCESET); this ADR decides it. The **host** is the one engine that
 runs the types today, pwsh, which compiles and loads them inside the .NET runtime already running its session. Which compiler builds the
 assembly, which host assemblies it guarantees, the short names pwsh callers type, how a running pwsh meets a changed type, and why the
 console text has to live in C# are that host's binding, decided in the pwsh domain.
@@ -462,7 +462,7 @@ as well as its files, so the pair is the language's configuration, apart from th
 
 - **`Test-BclReferences`** (in `Catzc.Base.QualityGates`, a check of the `csharp` language) fails a type source that uses
   `System.Management.Automation` without its `bcl.yml` host-binding row, and a row whose source no longer uses it (Rule
-  ADR-BCL-TYPES-BCLREFERENCESET). A value that only crosses from pwsh is unwrapped by its caller through `ConvertTo-BclValue`, so it never
+  ADR-BCL-TYPES-REFERENCESET). A value that only crosses from pwsh is unwrapped by its caller through `ConvertTo-BclValue`, so it never
   makes a type host-bound.
 
 - **`Import-CSharpTypes.Tests.ps1` and `Get-CombinedTypeHash.Tests.ps1`** (`pwsh/.internal/tests`) — the console cell verifies and defers,
@@ -518,7 +518,7 @@ as well as its files, so the pair is the language's configuration, apart from th
 
 ## Disambiguation
 
-The module-dependency graph that governs cross-module C# type edges (ADR-BCL-TYPES-REFERENCESFOLLOWDEPENDENCIES) is owned by
+The module-dependency graph that governs cross-module C# type edges (ADR-BCL-TYPES-REFERENCESFOLLOWDEPS) is owned by
 [controlling-module-dependencies](../controlling-module-dependencies.md) (`ADR-AUTO-DEPM`); this ADR covers the type system itself.
 
 ## Consequences

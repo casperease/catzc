@@ -9,7 +9,7 @@ Every config read goes through one reader and one cache for the session.
 4  config file           opened on a miss, and only then
 5  parse and type once   the file becomes its typed object once per session
 
-Supports ADR-CONF-LOADING-ONEREADER and ADR-CONF-LOADING-CACHEBYPATH (meta lens).
+Supports ADR-CONF-LOADING-CONFIGONEREADER and ADR-CONF-LOADING-CACHEBYPATH (meta lens).
 ```
 
 Config reading in cats has exactly one reader and one cache for the whole session. Cats keeps its settings in config files, and any function
@@ -21,7 +21,7 @@ description:
   "Every config read goes through one reader and one session cache: a hit returns the same object, and only a miss opens the file and parses
   and types it once."
 about:
-  adrs: [ADR-CONF-LOADING-ONEREADER, ADR-CONF-LOADING-CACHEBYPATH]
+  adrs: [ADR-CONF-LOADING-CONFIGONEREADER, ADR-CONF-LOADING-CACHEBYPATH]
   lens: meta
 content:
   title: Every config read goes through one reader and one session cache
@@ -78,7 +78,7 @@ layout:
 ## Why it holds
 
 - Every config read goes through the one reader; no function re-reads a config file or keeps its own config cache
-  (ADR-CONF-LOADING-ONEREADER).
+  (ADR-CONF-LOADING-CONFIGONEREADER).
 - The parsed config is cached by its file path, and only a re-import invalidates it (ADR-CONF-LOADING-CACHEBYPATH).
 
 ## See also

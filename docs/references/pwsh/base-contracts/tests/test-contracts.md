@@ -9,9 +9,9 @@ through its kind's check, checks every released folder against its `.frozen` rec
 ## Fixtures
 
 A widget repository in `TestDrive:`, its assets under `contracts/widget/<version>/`, a released folder frozen by `Publish-ContractRelease`
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)). The
-settings are mocked, so the logic tests read no shipped config. The checks themselves are pinned by `Get-ContractCheckResults.Tests.ps1`,
-the freeze comparison by `Get-ContractFreezeFindings.Tests.ps1`.
+([ADR-AUTO-TEST-DISTINCTFIXTURES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtures)). The settings are
+mocked, so the logic tests read no shipped config. The checks themselves are pinned by `Get-ContractCheckResults.Tests.ps1`, the freeze
+comparison by `Get-ContractFreezeFindings.Tests.ps1`.
 
 ## The real tree
 

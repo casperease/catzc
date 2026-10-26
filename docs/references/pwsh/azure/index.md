@@ -23,7 +23,7 @@ subscription, a spoke in each customer subscription, with no two networks overla
 configuration assets, `azure.yml`, `customer.yml` (the customers) and `network.yml`, and is the single source of truth the whole Azure stack
 resolves against; a quality gate keeps the IP plan in step with the environments and subscriptions. The live identities these files carry
 are declared in `identity-tokens.yml`, so a hermetic logic test that names one is found
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)). See
+([ADR-AUTO-TEST-DISTINCTFIXTURES](../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtures)). See
 [data-model](../../../drs/azure/azure-data-model.md) and [network-model](../../../drs/azure/azure-network-model.md).
 
 ### responsibility:2 — Subscription resolution

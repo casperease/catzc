@@ -1,4 +1,4 @@
-"""The arrow rule's rank table and kind-pair defaults, read once from the kit's drawio.yml (DDR-VISUAL-ARROWSPOINTATWHATTHEYDEPENDON).
+"""The arrow rule's rank table and kind-pair defaults, read once from the kit's drawio.yml (DDR-VISUAL-ARROWSPOINTATDEPENDENCY).
 
 `edge-rank` lists, lowest first, each rank and the glyph kinds standing at it: the lower rank acts on the higher, so an edge between
 two cells of different rank runs from the lower to the higher. `edge-defaults` names the label such a pair carries when it declares

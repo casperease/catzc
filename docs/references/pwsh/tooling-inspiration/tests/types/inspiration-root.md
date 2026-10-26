@@ -1,7 +1,7 @@
 # pwsh/Tooling.Inspiration/tests/types/InspirationRoot.Tests.ps1
 
 The tests of `InspirationRoot` over neutral fixture paths
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+([ADR-AUTO-TEST-DISTINCTFIXTURES](../../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtures)).
 
 ## Coverage
 

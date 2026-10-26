@@ -1,4 +1,4 @@
-Describe 'Build-TrackGlobSets' -Tag 'L0', 'logic', 'FDR-CD-GLOBS-TRACKSETDERIVED' {
+Describe 'Build-TrackGlobSets' -Tag 'L0', 'logic', 'FDR-GLOBS-TRACKSETDERIVED' {
     BeforeAll {
         function script:New-Track {
             param([string] $Name, [object[]] $Members)
@@ -76,7 +76,7 @@ Describe 'Build-TrackGlobSets — its assets' -Tag 'L1', 'integrity', 'ADR-AUTO-
     }
 }
 
-Describe 'Build-TrackGlobSets — the real tree' -Tag 'L1', 'integrity', 'source-only', 'FDR-CD-GLOBS-TRACKSETDERIVED' {
+Describe 'Build-TrackGlobSets — the real tree' -Tag 'L1', 'integrity', 'source-only', 'FDR-GLOBS-TRACKSETDERIVED' {
     It 'finds the committed derived part current, with the generated READMEs out of the infrastructure trigger' {
         (Build-TrackGlobSets -DryRun -PassThru -Silent).Changed | Should -BeFalse -Because 'run Build-TrackGlobSets'
         $set = Get-GlobSet -Name infrastructure

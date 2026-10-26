@@ -26,7 +26,7 @@ metadata:
    declared once on the type (ADR-AUTO-DEFAULT-ONERESOLUTIONORDER) and a shipped value away from it given a `differs` reason in
    `configs.yml` (`Test-ShippedConfigs` fails it otherwise), never an absolute or `..` path checked in (ADR-AUTO-PATH-TWOFORMS), resolved at
    the point of use (ADR-AUTO-PATH-BINDINGFORMONLYATBINDING).
-2. L0 tests with neutral fixture names (widget, gadget; ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES), `Get-Config` mocked, `TestDrive:` for the
+2. L0 tests with neutral fixture names (widget, gadget; ADR-AUTO-TEST-DISTINCTFIXTURES), `Get-Config` mocked, `TestDrive:` for the
    file system, every config rejection and every parameter covered; L1 proves the shipped config loads (`Test-ShippedConfigs`); the file's
    head and page follow from `Format-FileMeta`, never by hand: a new file is written with no head and `Format-Code` derives it (a hand head
    whose cites the code lacks is deleted); an optional registry key lands with its type test case and its registry page in one pass, and a

@@ -20,7 +20,7 @@ never written through it.
 
 A wildcard entry's generator renders one `{ Target; Content }` record per file; every file is written on its own and reported in its own
 row. The fixture names are neutral
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+([ADR-AUTO-TEST-DISTINCTFIXTURES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtures)).
 
 ## The wiring
 

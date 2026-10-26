@@ -5,8 +5,8 @@ variant is a repo-wide switch, backed by `configs/variants.yml`, loaded once per
 `Get-Config` cache boundary, see [caching](../../../drs/automation/caching.md)). The file is a growing dictionary: the Azure resource-name
 component order (`ado_naming`), the enabled-customer set (`have_customers`), how changes reach main (`git_workspace`), and the per-track
 aspect classifications (`aspects`). Nothing reads the raw file — callers use the module's `Test-`/`Assert-`/`Get-` primitives, so a
-repo-wide guard is a one-liner anywhere above the config layer (see [repo-variants](../../../drs/repository/repo-variants.md)). It is a member
-of the `Base` group and depends on [Catzc.Base.Config](../base-config/index.md) (to read the config),
+repo-wide guard is a one-liner anywhere above the config layer (see [repo-variants](../../../drs/repository/repo-variants.md)). It is a
+member of the `Base` group and depends on [Catzc.Base.Config](../base-config/index.md) (to read the config),
 [Catzc.Base.Objects](../base-objects/index.md) (the base of its config type), and [Catzc.Base.Asserts](../base-asserts/index.md).
 
 ## Responsibilities
@@ -44,19 +44,19 @@ is the one named; the canonical consumer is the stop condition for automated com
 ### responsibility:4 — Aspect classification variant
 
 Each track's ordered, first-match classification of a unit's files into named aspects (see
-[module-aspects](../../../drs/design/module-aspects.md)), declared in `variants.yml` or built in: the declared conventions keyed by track, as
-typed records of a name and its glob patterns, the last the `**` catch-all remainder, and whether a track has an entry at all. The code
-track's convention is derived from the layout instead, by [Catzc.Base.Modules](../base-modules/index.md), which reads this variant through the
-module and never the file.
+[module-aspects](../../../drs/design/module-aspects.md)), declared in `variants.yml` or built in: the declared conventions keyed by track,
+as typed records of a name and its glob patterns, the last the `**` catch-all remainder, and whether a track has an entry at all. The code
+track's convention is derived from the layout instead, by [Catzc.Base.Modules](../base-modules/index.md), which reads this variant through
+the module and never the file.
 
 ### responsibility:5 — Track and module-type variant
 
 The repository's tracks, each a placed cluster of one track type
-([DDR-TRACK-TRACKISPLACEDCLUSTER](../../../drs/design/tracks.md#rule-ddr-track-trackisplacedcluster)), declared in `variants.yml` against the
-track types of `track-types.yml` and the module types of `module-types.yml`. `Get-Track` returns all tracks, the named ones, or the one that
-owns a path; `Get-TrackMember` returns the tracks' members with their generated and committed facts, filtered on either, or the one member
-that holds a path; `Get-TrackPlace` returns the place pattern of one kind of a track; `Get-PathModule` returns the module a path is placed
-in and its module type; `Test-TrackDeclaration` checks that tracks, track types, vendors and module types agree.
+([DDR-TRACK-ISPLACEDCLUSTER](../../../drs/design/tracks.md#rule-ddr-track-isplacedcluster)), declared in `variants.yml` against the track
+types of `track-types.yml` and the module types of `module-types.yml`. `Get-Track` returns all tracks, the named ones, or the one that owns
+a path; `Get-TrackMember` returns the tracks' members with their generated and committed facts, filtered on either, or the one member that
+holds a path; `Get-TrackPlace` returns the place pattern of one kind of a track; `Get-PathModule` returns the module a path is placed in and
+its module type; `Test-TrackDeclaration` checks that tracks, track types, vendors and module types agree.
 
 ## What the module does
 

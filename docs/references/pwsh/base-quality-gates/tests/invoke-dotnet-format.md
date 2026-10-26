@@ -3,7 +3,7 @@
 The L0 logic test of the dotnet-format engine `Invoke-DotnetFormat`, with the tool boundary mocked
 ([ADR-AUTO-TEST-NOOVERMOCKING](../../../../drs/automation/test-automation.md#rule-adr-auto-test-noovermocking)). The mock answers like
 `dotnet format whitespace --verify-no-changes --report`, writing the JSON report the engine reads. The fixtures use neutral names
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+([ADR-AUTO-TEST-DISTINCTFIXTURES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtures)).
 
 ## The offline guard
 

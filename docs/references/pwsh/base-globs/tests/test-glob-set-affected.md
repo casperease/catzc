@@ -11,4 +11,4 @@ name.
 ## Fixtures
 
 The fixture names are neutral (widget, gadget), not the shipped set names, so the logic test owns its inputs
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+([ADR-AUTO-TEST-DISTINCTFIXTURES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtures)).

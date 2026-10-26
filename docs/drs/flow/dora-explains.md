@@ -28,7 +28,7 @@ capability links. The decisions live in the decision records themselves; this fi
 
 `Pipeline runner pattern — how pipelines invoke automation`
 
-[FDR-CD-RUNNER](pipeline-runner-pattern.md)
+[FDR-RUNNER](pipeline-runner-pattern.md)
 
 > DORA's research links local reproducibility and test automation to faster problem diagnosis and reduced mean time to recovery. This FDR's
 > runner pattern keeps pipeline steps locally reproducible and testable, centralizes bootstrap logic in one place, and separates
@@ -46,7 +46,7 @@ capability links. The decisions live in the decision records themselves; this fi
 
 `Pipeline detection — how functions adapt to their execution context`
 
-[FDR-CD-DETECT](pipeline-detection.md)
+[FDR-DETECT](pipeline-detection.md)
 
 > DORA's research links code maintainability and comprehensive testing to reduced defects and faster deployment cycles. Centralizing
 > platform detection in a single function keeps context-dependent logic greppable, testable, and consistent, preventing silent
@@ -64,7 +64,7 @@ capability links. The decisions live in the decision records themselves; this fi
 
 `Pipeline types — the six kinds of ADO artifact, named`
 
-[FDR-CD-TYPE](pipeline-types.md)
+[FDR-TYPE](pipeline-types.md)
 
 > DORA's research distinguishes Continuous Delivery (production changes behind a manual gate) from Continuous Deployment (automated prod
 > roll), and links explicit deployment governance to faster cycle times and lower failure rates. This FDR's taxonomy makes these
@@ -89,7 +89,7 @@ capability links. The decisions live in the decision records themselves; this fi
 
 `Globset triggers — areas-of-control projected to native filters and reflected from git`
 
-[FDR-CD-GLOBS](durable-sha-globs.md)
+[FDR-GLOBS](durable-sha-globs.md)
 
 > DORA's research links version-controlled configuration and deterministic deployment triggering to faster, more reliable deployments.
 > Keeping area-of-control boundaries as one source of truth, declarative — projected into native trigger filters and reflected from git
@@ -108,7 +108,7 @@ capability links. The decisions live in the decision records themselves; this fi
 
 `Pipelines — the vendor-neutral CI/CD pipeline concept`
 
-[FDR-CD-PIPELINE](pipeline-concept.md)
+[FDR-PIPELINE](pipeline-concept.md)
 
 > DORA's research links deployment automation and code maintainability to faster, safer delivery. One vendor-neutral rule set for naming,
 > typing and reading a pipeline keeps every delivery platform's pipelines reviewable from the file alone, and a token that lives for one
@@ -126,7 +126,7 @@ capability links. The decisions live in the decision records themselves; this fi
 
 `The commit lifecycle — states, environment occupancy, and the stable sync point`
 
-[FDR-CD-LIFE](commit-lifecycle.md)
+[FDR-LIFE](commit-lifecycle.md)
 
 > This model is a statement about how change flows into, through, and out of the mainline, which is the core of what DORA measures. A clear
 > lifecycle — one direction, named rejection points, a distinction between rejected/retired/superseded, a single stable integration point
@@ -147,7 +147,7 @@ capability links. The decisions live in the decision records themselves; this fi
 
 `The manual queues of the promotion ladder — authoring, two signatures, and an automated blue-green switch`
 
-[FDR-CD-QUEUE](manual-queues.md)
+[FDR-QUEUE](manual-queues.md)
 
 > Lead time is dominated by waiting, and the waiting that hides best is a person who has not acted yet. Naming the three places a commit
 > waits for a human, giving each a server and a store so its wait can be read, and keeping the production switch out of human hands turn the

@@ -20,7 +20,7 @@ Constructing an instance validates the file and collects every violation into on
 
 The type is self-contained and does not read `azure.yml`. A subscription references a customer here, so `azure.yml` depends on
 `customer.yml` and never the reverse
-([ADR-AZ-CUSTOMER-REFERENCENOTVALIDATEDONLOAD](../../../../drs/azure/azure-customer-model.md#rule-adr-az-customer-referencenotvalidatedonload)).
+([ADR-AZ-CUSTOMER-REFERENCEUNVALIDATED](../../../../drs/azure/azure-customer-model.md#rule-adr-az-customer-referenceunvalidated)).
 
 ## customers property
 

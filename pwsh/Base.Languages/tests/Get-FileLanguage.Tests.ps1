@@ -129,7 +129,7 @@ Describe 'Get-FileLanguage — the real repository' -Tag 'L1', 'integrity', 'sou
         $folders.Count | Should -BeGreaterThan 0
         $undeclared = @($folders | Where-Object { $null -eq (Get-Track -Path $_) })
         $undeclared |
-            Should -BeNullOrEmpty -Because 'every tracked file lies in exactly one track (DDR-TRACK-TRACKISPLACEDCLUSTER)'
+            Should -BeNullOrEmpty -Because 'every tracked file lies in exactly one track (DDR-TRACK-ISPLACEDCLUSTER)'
     }
 
     It 'registers every file language a track declares' {

@@ -14,7 +14,7 @@ catzc:
 
 ## Eyebrow
 
-15 / 30 · fact for the Developer · RDR-DORA-MONITOR
+15 / 30 · fact for the Developer · EDR-DORA-MONITOR
 
 ## Lead
 
@@ -30,5 +30,5 @@ From the catalogue, reduced: overlap gated for units and modules.
 
 ## Notes
 
-Check it: the record RDR-DORA-MONITOR in docs/drs/index.md, and the diagram
+Check it: the record EDR-DORA-MONITOR in docs/drs/index.md, and the diagram
 docs/explanation/flow/.assets/overlap-gated-for-units-and-modules.drawio.png.

@@ -11,7 +11,7 @@
 # A command with a command contract is named in kebab case, its parameters as --name, and is checked first against
 # pwsh/.internal/assets/importer-commands.sh, the generated lookup: an unknown parameter, a missing mandatory one or a value not
 # of the contract's type fails before pwsh starts, a switch passes as a flag and an int unquoted, and a list parameter repeats its
-# --name once per value, its values passing as one PowerShell array (ADR-REPO-CMDCONTRACT-ONEREADER);
+# --name once per value, its values passing as one PowerShell array (ADR-REPO-CMDCONTRACT-CONTRACTONEREADER);
 # CATZC_COMMAND_LOOKUP names another lookup, for a test. Any other command is named as pwsh names it, an argument that starts with
 # '-' passes through as a parameter name, and every other argument after the command is passed as one PowerShell literal, quoted
 # the PowerShell way, so a value with spaces or a quote stays one value, as it is for a contracted command too. Every call
@@ -59,7 +59,7 @@ cats() {
     fi
     _catzc_text="$1"
     shift
-    # A contracted command is checked against its contract before pwsh starts (ADR-REPO-CMDCONTRACT-ONEREADER); any other passes as written.
+    # A contracted command is checked against its contract before pwsh starts (ADR-REPO-CMDCONTRACT-CONTRACTONEREADER); any other passes as written.
     _catzc_rows="$(_catzc_contract "$_catzc_text")"
     if [ -n "$_catzc_rows" ]; then
         _catzc_text="$(_catzc_checked "$_catzc_text" "$_catzc_rows" "$@")" || return 2

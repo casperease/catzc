@@ -1,7 +1,7 @@
 # pwsh/Base.Variants/types/VariantMember.cs
 
 One member of a track: a folder or a file, with its two facts, whether it is generated and whether it is committed
-([DDR-TRACK-TRACKISPLACEDCLUSTER](../../../../drs/design/tracks.md#rule-ddr-track-trackisplacedcluster)).
+([DDR-TRACK-ISPLACEDCLUSTER](../../../../drs/design/tracks.md#rule-ddr-track-isplacedcluster)).
 
 ## Containment
 

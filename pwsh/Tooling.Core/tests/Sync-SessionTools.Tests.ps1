@@ -101,7 +101,7 @@ Describe 'Sync-SessionTools' -Tag 'L0', 'logic' {
         Should -Invoke Write-Message -ModuleName Catzc.Tooling.Core -Times 0
     }
 
-    Context 'the memo' -Tag 'ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS' {
+    Context 'the memo' -Tag 'ADR-AUTO-CACHE-CROSSSESSIONFILES' {
         BeforeEach {
             $memoRoot = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
             Mock Get-OutputRoot { $memoRoot }.GetNewClosure() -ModuleName Catzc.Tooling.Core

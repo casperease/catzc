@@ -11,7 +11,7 @@ Three gates check the projection; generation is DRS-only.
 6  Test-AdoPipelineTriggerGlob    quality gate: the pipeline's four lists equal the projection
 7  Test-GlobSetTriggerCoverage    quality gate: every member hits an ADO include
 
-Supports FDR-CD-GLOBS-TRACKEDFILESONLY, FDR-CD-GLOBS-NATIVEPATHFILTER and FDR-CD-GLOBS-COMPOSESETS,
+Supports FDR-GLOBS-TRACKEDFILESONLY, FDR-GLOBS-NATIVEPATHFILTER and FDR-GLOBS-COMPOSESETS,
 and ADR-AUTO-TEST-QUALITYGATE (governance lens).
 ```
 
@@ -25,7 +25,7 @@ description:
   The flattened scan program feeds the GitHub paths and the Azure DevOps include and exclude lists, and three quality gates check those
   projections; the generation of the YAML filters is drawn dashed because no code and no gate holds it.
 about:
-  adrs: [FDR-CD-GLOBS-TRACKEDFILESONLY, FDR-CD-GLOBS-NATIVEPATHFILTER, FDR-CD-GLOBS-COMPOSESETS, ADR-AUTO-TEST-QUALITYGATE]
+  adrs: [FDR-GLOBS-TRACKEDFILESONLY, FDR-GLOBS-NATIVEPATHFILTER, FDR-GLOBS-COMPOSESETS, ADR-AUTO-TEST-QUALITYGATE]
   lens: governance
 content:
   title: Three gates check the projection, while generation is held by the ADR alone
@@ -60,11 +60,11 @@ content:
     - { at: g-ado-gate, number: 6 }
     - { at: g-coverage-gate, number: 7 }
   chips:
-    - { at: r-flattened, kind: rule, rule: FDR-CD-GLOBS-COMPOSESETS }
-    - { at: r-flattened, kind: rule, rule: FDR-CD-GLOBS-TRACKEDFILESONLY, gated: false }
-    - { at: r-github, kind: rule, rule: FDR-CD-GLOBS-NATIVEPATHFILTER }
-    - { at: r-ado, kind: rule, rule: FDR-CD-GLOBS-NATIVEPATHFILTER }
-    - { at: a-generated, kind: rule, rule: FDR-CD-GLOBS-NATIVEPATHFILTER, gated: false }
+    - { at: r-flattened, kind: rule, rule: FDR-GLOBS-COMPOSESETS }
+    - { at: r-flattened, kind: rule, rule: FDR-GLOBS-TRACKEDFILESONLY, gated: false }
+    - { at: r-github, kind: rule, rule: FDR-GLOBS-NATIVEPATHFILTER }
+    - { at: r-ado, kind: rule, rule: FDR-GLOBS-NATIVEPATHFILTER }
+    - { at: a-generated, kind: rule, rule: FDR-GLOBS-NATIVEPATHFILTER, gated: false }
     - { at: g-github-gate, kind: rule, rule: ADR-AUTO-TEST-QUALITYGATE }
     - { at: g-ado-gate, kind: rule, rule: ADR-AUTO-TEST-QUALITYGATE }
     - { at: g-coverage-gate, kind: rule, rule: ADR-AUTO-TEST-QUALITYGATE }
@@ -110,11 +110,11 @@ requires zero issues, so a drifted filter fails `Test-Automation` locally and in
 
 ## Why it holds
 
-- Membership is the ordered scan program evaluated last-match-wins, with precedence by position (FDR-CD-GLOBS-TRACKEDFILESONLY).
+- Membership is the ordered scan program evaluated last-match-wins, with precedence by position (FDR-GLOBS-TRACKEDFILESONLY).
 - A pipeline, workflow or build-validation policy triggers on the native projection, generated from `globs.yml`, and the drift quality gates
   report one issue per pipeline whose declared trigger no longer equals its projection or whose file is missing
-  (FDR-CD-GLOBS-NATIVEPATHFILTER).
-- A composing set's program is the composed programs first and its own rules last, validated at config load (FDR-CD-GLOBS-COMPOSESETS).
+  (FDR-GLOBS-NATIVEPATHFILTER).
+- A composing set's program is the composed programs first and its own rules last, validated at config load (FDR-GLOBS-COMPOSESETS).
 - A quality gate is one `Test-<subject>` function that checks one property of the whole repository, collects every issue, writes its report
   and throws once, and an integrity test runs it at its tier (ADR-AUTO-TEST-QUALITYGATE).
 

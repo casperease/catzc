@@ -12,7 +12,7 @@ The independence gate groups every globset by layer and tests each same-layer pa
 7  Write-QualityGateReport       writes the report under out/test-globset-independence/
 8  One throw lists every pair    on issues, one throw with one line per overlapping pair
 
-Supports FDR-CD-GLOBS-EVERYSETHASLAYER and FDR-CD-GLOBS-NOOVERLAPWITHINLAYER (implementation lens).
+Supports FDR-GLOBS-EVERYSETHASLAYER and FDR-GLOBS-NOOVERLAPWITHINLAYER (implementation lens).
 ```
 
 The gate `Test-GlobSetIndependence` takes every declared and derived globset, computes each one's own members, groups the sets by `Layer`,
@@ -24,7 +24,7 @@ description:
   The independence gate groups every declared and derived globset by layer, skips the loose-fileset group, tests each same-layer pair for a
   shared file, writes a report, and throws once with one line per overlapping pair.
 about:
-  adrs: [FDR-CD-GLOBS-EVERYSETHASLAYER, FDR-CD-GLOBS-NOOVERLAPWITHINLAYER]
+  adrs: [FDR-GLOBS-EVERYSETHASLAYER, FDR-GLOBS-NOOVERLAPWITHINLAYER]
   lens: implementation
 content:
   title: Test-GlobSetIndependence groups every set by layer and tests each same-layer pair
@@ -100,9 +100,9 @@ layout:
 ## Why it holds
 
 - Every globset carries a layer; `deployable-unit` and `loose-fileset` are declared, and `module` is derived from the folders and the
-  internal module files (FDR-CD-GLOBS-EVERYSETHASLAYER).
+  internal module files (FDR-GLOBS-EVERYSETHASLAYER).
 - Within a layer, no two globsets select a common file on their own contribution, compose ignored; validation is per layer, never across,
-  and the `loose-fileset` layer is exempt (FDR-CD-GLOBS-NOOVERLAPWITHINLAYER).
+  and the `loose-fileset` layer is exempt (FDR-GLOBS-NOOVERLAPWITHINLAYER).
 
 ## See also
 

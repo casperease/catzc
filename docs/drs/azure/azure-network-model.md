@@ -30,14 +30,14 @@ One address space per environment — multi-region-per-environment is out of sco
 
 - [The asset](#the-asset)
 
-### Rule ADR-AZ-NETWORK-SUBSCRIPTIONENVIRONMENTSNONETWORK
+### Rule ADR-AZ-NETWORK-ENVIRONMENTSNONETWORK
 
 Per-subscription envs (`nsub`/`psub`) need no network entry — they carry no vnet, so the standard-env requirement skips them (a
 `nsub`/`psub` entry is not forbidden, just pointless).
 
 - [Validation (`NetworkConfig`)](#validation)
 
-### Rule ADR-AZ-NETWORK-NETWORKPERSUBSCRIPTION
+### Rule ADR-AZ-NETWORK-PERSUBSCRIPTION
 
 Every `azure.yml` subscription has one network in the plan's `subscriptions` block, keyed by the subscription name, and its kind follows
 from the subscription: a **hub** when the subscription has no `customer`, a **spoke** when it has one. A hub carries exactly `GatewaySubnet`
@@ -139,7 +139,7 @@ The `subscriptions` block is the IP plan of the hub-and-spoke topology the subsc
   endpoints, and one workload subnet per standard environment the subscription serves, named for that environment (`dev`, `test`, …), so a
   workload finds its subnet from its own environment with no lookup table. The per-subscription identity environment (`nsub`/`psub`) gets no
   workload subnet, for the same reason it gets no environment entry
-  ([ADR-AZ-NETWORK-SUBSCRIPTIONENVIRONMENTSNONETWORK](#rule-adr-az-network-subscriptionenvironmentsnonetwork)).
+  ([ADR-AZ-NETWORK-ENVIRONMENTSNONETWORK](#rule-adr-az-network-environmentsnonetwork)).
 - **The kind is declared** (`kind: hub` or `kind: spoke`), even though it follows from `azure.yml`. A template reads it from the plan alone,
   and the gate checks that it agrees with the subscription, so the two can never silently disagree.
 
@@ -155,7 +155,7 @@ The `subscriptions` block is the IP plan of the hub-and-spoke topology the subsc
 - **Containment and overlap** ([ADR-AZ-NETWORK-NOOVERLAP](#rule-adr-az-network-nooverlap)). An environment's default subnet and every
   subscription subnet lie inside their vnet; no two subnets of one vnet overlap; no two networks in the file overlap, whether environment or
   subscription.
-- **Kind** ([ADR-AZ-NETWORK-NETWORKPERSUBSCRIPTION](#rule-adr-az-network-networkpersubscription)). A hub carries exactly `GatewaySubnet`,
+- **Kind** ([ADR-AZ-NETWORK-PERSUBSCRIPTION](#rule-adr-az-network-persubscription)). A hub carries exactly `GatewaySubnet`,
   `AzureFirewallSubnet`, and `shared-services`; a spoke carries `private-endpoints`, and every other spoke subnet is named as an environment
   (a lower-snake_case identifier).
 - **Cross-asset integrity with `azure.yml`** (the join, checked by the quality gate `Test-AzureNetworkPlan`, not by the type):

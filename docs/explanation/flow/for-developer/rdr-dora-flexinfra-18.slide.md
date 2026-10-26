@@ -15,7 +15,7 @@ catzc:
 
 ## Eyebrow
 
-18 / 30 · fact for the Developer · RDR-DORA-FLEXINFRA
+18 / 30 · fact for the Developer · EDR-DORA-FLEXINFRA
 
 ## Lead
 
@@ -32,5 +32,5 @@ From the catalogue, reduced: a module change fans out to its templates.
 
 ## Notes
 
-Check it: the record RDR-DORA-FLEXINFRA in docs/drs/index.md, and the diagram
+Check it: the record EDR-DORA-FLEXINFRA in docs/drs/index.md, and the diagram
 docs/explanation/azure/.assets/a-module-change-fans-out-to-its-templates.drawio.png.

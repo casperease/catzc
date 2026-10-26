@@ -1,4 +1,4 @@
-Describe 'FunctionHelp' -Tag 'L0', 'logic', 'ADR-REPO-HELP-HELPONCOMMENTPAGE' {
+Describe 'FunctionHelp' -Tag 'L0', 'logic', 'ADR-REPO-HELP-ONCOMMENTPAGE' {
     BeforeAll {
         $script:config = [ordered]@{
             synopsis    = 'Gets a widget.'
@@ -48,7 +48,7 @@ Describe 'FunctionHelp' -Tag 'L0', 'logic', 'ADR-REPO-HELP-HELPONCOMMENTPAGE' {
         $help.findings | Should -Contain 'the help section has no synopsis'
     }
 
-    It 'reads a parameter name written as code, and reports one written bare' -Tag 'ADR-REPO-HELP-HELPONCOMMENTPAGE' {
+    It 'reads a parameter name written as code, and reports one written bare' -Tag 'ADR-REPO-HELP-ONCOMMENTPAGE' {
         $help = [Catzc.Base.QualityGates.FunctionHelp]::Parse("## help`n`n### synopsis`n`nGets.`n`n### parameter ``Slot```n`nThe slot.`n`n### parameter Gadget`n`nThe gadget.`n")
         @($help.parameters | ForEach-Object Key) | Should -Be @('Slot', 'Gadget')
         $help.findings |

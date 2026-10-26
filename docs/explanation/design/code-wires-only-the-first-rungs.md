@@ -12,7 +12,7 @@ The pipelines wire topic, landed and BVT; past BVT, stages follow the template, 
 7  Deploy_Foundation   the first deploy stage; depends on CI, runs on main only
 8  Deploy_Discovery    one stage that deploys nsub and psub side by side
 
-Supports FDR-CD-LIFE-FAILEDSTAYSUPSTREAM (implementation lens).
+Supports FDR-LIFE-FAILEDSTAYSUPSTREAM (implementation lens).
 ```
 
 The commit lifecycle names eight rungs, from topic to production. The pipelines in cats wire the first three: a pull request to `main`, the
@@ -24,7 +24,7 @@ description:
   "The pipelines wire only the first three rungs of the commit lifecycle: a pull request, the merge, and the CD run's own CI engine; past
   the build validation commit the deploy stages follow the template, not a rung."
 about:
-  adrs: [FDR-CD-LIFE-FAILEDSTAYSUPSTREAM]
+  adrs: [FDR-LIFE-FAILEDSTAYSUPSTREAM]
   lens: implementation
 content:
   title: The pipelines wire only topic, landed and BVT; past BVT there is no ladder
@@ -128,7 +128,7 @@ layout:
 
 ## Why it holds
 
-A commit that fails a stage cannot go downstream (FDR-CD-LIFE-FAILEDSTAYSUPSTREAM). In the code that rule is the `succeeded()` condition on
+A commit that fails a stage cannot go downstream (FDR-LIFE-FAILEDSTAYSUPSTREAM). In the code that rule is the `succeeded()` condition on
 every `Deploy_*` stage: a failed CI stage skips every deploy, and a failed deploy stage skips the stages after it.
 
 ## Where the code and the decision record differ

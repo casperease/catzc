@@ -29,8 +29,8 @@ customer the templates render into names is derived from the session subscriptio
 ## Stages
 
 - **CI** — CD is CI plus deploy. The CI stage checks out with `fetchDepth: 0`, because `Test-GlobSetAffected` diffs real refs
-  ([FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT](../../../../drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-changecomputedfromgit)), then publishes
-  the step output `AFFECTED`. It builds only this customer's configuration subfolder with `Build-Bicep <tier> -Customers <Customer>` (build
+  ([FDR-GLOBS-CHANGECOMPUTEDFROMGIT](../../../../drs/flow/durable-sha-globs.md#rule-fdr-globs-changecomputedfromgit)), then publishes the
+  step output `AFFECTED`. It builds only this customer's configuration subfolder with `Build-Bicep <tier> -Customers <Customer>` (build
   once) and publishes the artifacts. Because the customer key is the folder, the build tolerates an absent tier.
 - **Expedition build** — a customer with no expedition config passes an empty list: `Build-Bicep` throws when no configuration matches, so
   the build, its artifact and its deploy stage are skipped.

@@ -12,7 +12,7 @@ Describe 'Remove-LinuxToolInstall' -Tag 'L1', 'logic' {
         Mock Invoke-Executable { [pscustomobject]@{ ExitCode = 1; Output = '' } } -ModuleName Catzc.Tooling.Core
     }
 
-    It 'removes an apt-owned shadow via its owning package and asserts root' -Tag 'ADR-AUTO-REMOVE-ELEVATIONFOLLOWSMECHANISM', 'ADR-AUTO-REMOVE-THREEPLATFORMCORES' {
+    It 'removes an apt-owned shadow via its owning package and asserts root' -Tag 'ADR-AUTO-REMOVE-ELEVATIONBYMECHANISM', 'ADR-AUTO-REMOVE-THREEPLATFORMCORES' {
         Mock Test-Command { $true } -ParameterFilter { $Command -eq 'dpkg' } -ModuleName Catzc.Tooling.Core
         Mock Invoke-Executable { [pscustomobject]@{ ExitCode = 0; Output = 'gadget-cli: /usr/bin/widget' } } -ParameterFilter { $Command -like 'dpkg -S*' } -ModuleName Catzc.Tooling.Core
 
@@ -21,7 +21,7 @@ Describe 'Remove-LinuxToolInstall' -Tag 'L1', 'logic' {
         Should -Invoke Invoke-Executable -ModuleName Catzc.Tooling.Core -Times 1 -ParameterFilter { $Command -eq 'sudo apt-get remove -y gadget-cli' }
     }
 
-    It 'refuses the apt path when not elevated — apt needs root' -Tag 'ADR-AUTO-REMOVE-ELEVATIONFOLLOWSMECHANISM' {
+    It 'refuses the apt path when not elevated — apt needs root' -Tag 'ADR-AUTO-REMOVE-ELEVATIONBYMECHANISM' {
         Mock Test-Command { $true } -ParameterFilter { $Command -eq 'dpkg' } -ModuleName Catzc.Tooling.Core
         Mock Invoke-Executable { [pscustomobject]@{ ExitCode = 0; Output = 'gadget-cli: /usr/bin/widget' } } -ParameterFilter { $Command -like 'dpkg -S*' } -ModuleName Catzc.Tooling.Core
         Mock Assert-IsAdministrator { throw 'needs root' } -ModuleName Catzc.Tooling.Core
@@ -30,7 +30,7 @@ Describe 'Remove-LinuxToolInstall' -Tag 'L1', 'logic' {
         Should -Invoke Invoke-Executable -ModuleName Catzc.Tooling.Core -Times 0 -ParameterFilter { $Command -like 'sudo apt-get remove*' }
     }
 
-    It 'removes a uv-Python pip shadow user-space, without asserting root' -Tag 'ADR-AUTO-REMOVE-ELEVATIONFOLLOWSMECHANISM', 'ADR-AUTO-REMOVE-THREEPLATFORMCORES' {
+    It 'removes a uv-Python pip shadow user-space, without asserting root' -Tag 'ADR-AUTO-REMOVE-ELEVATIONBYMECHANISM', 'ADR-AUTO-REMOVE-THREEPLATFORMCORES' {
         Mock Test-Command { $true } -ParameterFilter { $Command -eq 'uv' } -ModuleName Catzc.Tooling.Core
         Mock Invoke-Executable { [pscustomobject]@{ ExitCode = 0; Output = 'Name: widgetlib' } } -ParameterFilter { $Command -like 'uv pip show*' } -ModuleName Catzc.Tooling.Core
 
@@ -50,7 +50,7 @@ Describe 'Remove-LinuxToolInstall' -Tag 'L1', 'logic' {
         Should -Invoke Invoke-Executable -ModuleName Catzc.Tooling.Core -Times 0 -ParameterFilter { $Command -like 'uv pip uninstall*' }
     }
 
-    It 'deletes a stray on-PATH binary no manager owns, user-space' -Tag 'ADR-AUTO-REMOVE-ELEVATIONFOLLOWSMECHANISM', 'ADR-AUTO-REMOVE-THREEPLATFORMCORES' {
+    It 'deletes a stray on-PATH binary no manager owns, user-space' -Tag 'ADR-AUTO-REMOVE-ELEVATIONBYMECHANISM', 'ADR-AUTO-REMOVE-THREEPLATFORMCORES' {
         # With dpkg and uv both absent it falls through to the stray delete, so the command points at a real file under TestDrive.
         $strayPath = Join-Path $TestDrive 'widget'
         [System.IO.File]::WriteAllText($strayPath, 'binary')

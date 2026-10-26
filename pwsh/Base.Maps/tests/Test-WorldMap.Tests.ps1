@@ -64,12 +64,12 @@ Describe 'Test-WorldMap' -Tag 'L0', 'logic' {
             Should -Contain "stack violation: widgets x gadget-text holds 2 live file(s) outside the track's file languages, e.g. widgets/Alpha/a.txt (DDR-TRACK-ONETECHSTACK)"
     }
 
-    It 'reports each root folder no track names, never out/ or a file at the root' -Tag 'DDR-TRACK-TRACKISPLACEDCLUSTER' {
+    It 'reports each root folder no track names, never out/ or a file at the root' -Tag 'DDR-TRACK-ISPLACEDCLUSTER' {
         $script:map = $script:brokenMap
         $issues = @((Test-WorldMap -OutputFolder $script:out -PassThru).Issues | Where-Object { $_ -like 'undeclared root folder:*' })
         $issues | Should -Be @(
-            'undeclared root folder: cogs/ holds 1 tracked file(s) but no track names it (DDR-TRACK-TRACKISPLACEDCLUSTER)'
-            'undeclared root folder: sprockets/ holds 2 tracked file(s) but no track names it (DDR-TRACK-TRACKISPLACEDCLUSTER)'
+            'undeclared root folder: cogs/ holds 1 tracked file(s) but no track names it (DDR-TRACK-ISPLACEDCLUSTER)'
+            'undeclared root folder: sprockets/ holds 2 tracked file(s) but no track names it (DDR-TRACK-ISPLACEDCLUSTER)'
         )
     }
 
@@ -91,7 +91,7 @@ Describe 'Test-WorldMap' -Tag 'L0', 'logic' {
         $script:glossary = @($script:fullGlossary | Where-Object { $_.Concept.term -in 'widget', 'gadget box' })
         $issues = @((Test-WorldMap -OutputFolder $script:out -PassThru).Issues)
         $issues | Should -Be @(
-            "unregistered label: the names gadgets, widgets print as instances of 'track', which the glossary does not hold (DDR-TRACK-TRACKISPLACEDCLUSTER)"
+            "unregistered label: the names gadgets, widgets print as instances of 'track', which the glossary does not hold (DDR-TRACK-ISPLACEDCLUSTER)"
             "unregistered label: the names gadget-text, widget-script print as instances of 'file language', which the glossary does not hold (DDR-TRACK-FILELANGUAGE)"
         )
     }
@@ -113,7 +113,7 @@ Describe 'Test-WorldMap' -Tag 'L0', 'logic' {
 
 # It reads only the git index and the registries, so its answer cannot differ between the run modes: source-only.
 Describe 'Test-WorldMap on the repository' -Tag 'L1', 'integrity', 'source-only' {
-    It 'Test-WorldMap passes over the repository' -Tag 'DDR-TRACK-TRACKISPLACEDCLUSTER', 'DDR-TRACK-ONETECHSTACK', 'DDR-TRACK-LABELSNAMEDEFINEDTERMS', 'ADR-AUTO-TEST-QUALITYGATE' {
+    It 'Test-WorldMap passes over the repository' -Tag 'DDR-TRACK-ISPLACEDCLUSTER', 'DDR-TRACK-ONETECHSTACK', 'DDR-TRACK-LABELSNAMEDEFINEDTERMS', 'ADR-AUTO-TEST-QUALITYGATE' {
         $result = Test-WorldMap -PassThru -OutputFolder (Join-Path $TestDrive 'world-map')
         $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")
     }

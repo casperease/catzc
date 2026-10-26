@@ -9,7 +9,7 @@ Every module file is in exactly one aspect: live first by a closed convention, t
 4  live lock      DRS-only: the live aspect's own sha lock
 5  tests lock     DRS-only: the tests aspect's own sha lock
 
-Supports DDR-ASPECT-MODULESPARTITIONINTOASPECTS, DDR-ASPECT-ASPECTSAREDERIVED, DDR-ASPECT-ASPECTISAGLOBSET
+Supports DDR-ASPECT-MODULESPARTITIONED, DDR-ASPECT-ASPECTSAREDERIVED, DDR-ASPECT-ISAGLOBSET
 and DDR-ASPECT-PARTITIONISCHECKED (meta lens).
 ```
 
@@ -23,7 +23,7 @@ description:
   "Every file of a module folder goes to exactly one aspect by ordered first match: live first by a closed convention, tests as the
   remainder, and each aspect has its own sha lock."
 about:
-  adrs: [DDR-ASPECT-MODULESPARTITIONINTOASPECTS, DDR-ASPECT-ASPECTSAREDERIVED, DDR-ASPECT-ASPECTISAGLOBSET, DDR-ASPECT-PARTITIONISCHECKED]
+  adrs: [DDR-ASPECT-MODULESPARTITIONED, DDR-ASPECT-ASPECTSAREDERIVED, DDR-ASPECT-ISAGLOBSET, DDR-ASPECT-PARTITIONISCHECKED]
   lens: meta
 content:
   title: Every module file is in exactly one aspect
@@ -81,17 +81,17 @@ layout:
 
 ## Why it holds
 
-- A module's files partition into aspects that are disjoint and exhaustive (DDR-ASPECT-MODULESPARTITIONINTOASPECTS).
+- A module's files partition into aspects that are disjoint and exhaustive (DDR-ASPECT-MODULESPARTITIONED).
 - Ordered first match with a `**` remainder makes the partition true by construction: each aspect is its own patterns minus every earlier
   one (DDR-ASPECT-ASPECTSAREDERIVED).
-- Each aspect is an immutable, independently versioned lock, never one lock for the whole module (DDR-ASPECT-ASPECTISAGLOBSET).
+- Each aspect is an immutable, independently versioned lock, never one lock for the whole module (DDR-ASPECT-ISAGLOBSET).
 - A file claimed by two aspects, or by none, fails the integrity check (DDR-ASPECT-PARTITIONISCHECKED). That check exists, but only unit
   tests on fixture files run it.
 
 ## Where the code and the decision record differ
 
-- DDR-ASPECT-ASPECTISAGLOBSET makes each aspect a sha lock with a `<unit>-<aspect>.yml` marker by way of FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT,
-  but that rule computes change from git at real refs, never from a committed hash, and no aspect marker exists.
+- DDR-ASPECT-ISAGLOBSET makes each aspect a sha lock with a `<unit>-<aspect>.yml` marker by way of FDR-GLOBS-CHANGECOMPUTEDFROMGIT, but that
+  rule computes change from git at real refs, never from a committed hash, and no aspect marker exists.
 - DDR-ASPECT-ASPECTSAREDERIVED prefixes every aspect pattern with the unit root, but the tests aspect also reaches the language test folders
   outside it.
 - DDR-ASPECT-PARTITIONISCHECKED makes the partition an integrity check over `git ls-files`, but no gate runs it on the real tree.

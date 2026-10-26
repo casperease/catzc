@@ -21,7 +21,7 @@ capabilities:
       [
         ADR-PWSH-ONEFUNC-ONEFUNCTIONPERFILE,
         ADR-AUTO-DEFAULT-ONERESOLUTIONORDER,
-        ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES,
+        ADR-AUTO-TEST-DISTINCTFIXTURES,
         ADR-BCL-TYPES-SNAKECASEMIRRORSYAML,
       ]
     checks: [Invoke-TestFile, Test-ShippedConfigs, Test-ModuleDependency]
@@ -77,7 +77,7 @@ capabilities:
 
   # Republishing the Diagram Waves Review page from the catalogue on disk, its answers kept.
   - name: artifact-publish
-    supported_by: [RDR-DORA-VISUAL-DISPLAYPROCESSSTATE, RDR-DORA-VISUAL-CHOSENWITHTEAM]
+    supported_by: [EDR-DORA-VISUAL-DISPLAYPROCESSSTATE, EDR-DORA-VISUAL-CHOSENWITHTEAM]
     checks: []
 
   # Put, get, sync, theme and stale-rebuild of a diagram from its yml declaration.
@@ -93,7 +93,7 @@ capabilities:
 
   # The wave protocol for authoring new diagrams: bounded fan-out, fixed briefs, one shared kit.
   - name: drawio-waves
-    supported_by: [DDR-VISUAL-LEFTTORIGHTISTIME, DDR-VISUAL-FIXEDCOMMITPALETTE, ADR-REPO-FOLDERS-DOCUMENTATIONMARKDOWNONLY]
+    supported_by: [DDR-VISUAL-LEFTTORIGHTISTIME, DDR-VISUAL-FIXEDCOMMITPALETTE, ADR-REPO-FOLDERS-DOCSMARKDOWNONLY]
     checks: [Test-CheckedInBinaries, Test-Links]
 
   # The one-slide cycle of the visual review of the diagrams: a named slide, one question in context, one plan step per answer.
@@ -108,32 +108,32 @@ capabilities:
 
   # The verdict rules for one plan file.
   - name: plan-shape
-    supported_by: [PDR-ONELIVE-ONEVERSION, PDR-NOWASTE-SEVENWASTES]
+    supported_by: [PDR-ONELIVE-ONEVERSION, EDR-LEAN-SEVENWASTES]
     checks: []
 
   # Landing a pasted continuation prompt in the plans, nothing discarded.
   - name: plan-intake
-    supported_by: [PDR-ONELIVE-HISTORYINGIT, PDR-NOWASTE-SEVENWASTES]
+    supported_by: [PDR-ONELIVE-HISTORYINGIT, EDR-LEAN-SEVENWASTES]
     checks: []
 
   # A decision round over the plans' open questions.
   - name: plan-decide
-    supported_by: [PDR-CONFIG-DEFAULTANSWERSINSTANCEQUESTIONS, PDR-NOWASTE-SEVENWASTES]
+    supported_by: [PDR-CONFIG-DEFAULTANSWERSINSTANCE, EDR-LEAN-SEVENWASTES]
     checks: []
 
   # Ranking a plan by value and by the docs and tests it needs.
   - name: plan-value
-    supported_by: [PDR-NOWASTE-SEVENWASTES, WDR-PULLWORK-PULLNOTPUSH]
+    supported_by: [EDR-LEAN-SEVENWASTES, WDR-PULLWORK-PULLNOTPUSH]
     checks: []
 
   # The hindsight log and its validity rule: every smug line backed by what the tree holds or lacks.
   - name: hindsight-log
-    supported_by: [ADR-REPO-AI-TRUSTTHETREE, WDR-KAIZEN-ADAPTFROMEVIDENCE, PDR-NOWASTE-SEVENWASTES]
+    supported_by: [ADR-REPO-AI-TRUSTTHETREE, WDR-KAIZEN-ADAPTFROMEVIDENCE, EDR-LEAN-SEVENWASTES]
     checks: []
 
   # The shape of one planned debt reduction from a hindsight line, and the .claude weight measure.
   - name: debt-reduce
-    supported_by: [PDR-NOWASTE-SEVENWASTES, WDR-KAIZEN-ADAPTFROMEVIDENCE, ADR-REPO-PLANS-OPENSTEP]
+    supported_by: [EDR-LEAN-SEVENWASTES, WDR-KAIZEN-ADAPTFROMEVIDENCE, ADR-REPO-PLANS-OPENSTEP]
     checks: [Test-Plans]
 
   # The message protocol between an orchestrator and the live sessions it drives over the master plan.

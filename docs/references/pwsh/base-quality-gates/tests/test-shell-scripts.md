@@ -7,7 +7,7 @@ The test of `Test-ShellScripts`, a quality gate
 
 The L0 cases run over a fixture repository in `$TestDrive` with the index, the tool probe and ShellCheck mocked, and read the collected
 issues. The report goes to `$TestDrive`. The fixtures use neutral names
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+([ADR-AUTO-TEST-DISTINCTFIXTURES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtures)).
 
 ## Integrity
 

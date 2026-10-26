@@ -7,4 +7,4 @@ The tests of `Write-QualityGateReport`, every quality gate's output: each test p
 
 The settings come from the real `ReportsConfig` type over a mocked reports config, and the report goes to `$TestDrive`, so the shape every
 gate's report shares is pinned without writing outside the test drive. The fixture subjects are neutral (widget and gadget,
-[ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+[ADR-AUTO-TEST-DISTINCTFIXTURES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtures)).

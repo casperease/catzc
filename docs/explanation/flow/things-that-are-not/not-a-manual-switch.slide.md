@@ -14,7 +14,7 @@ catzc:
 
 ## Eyebrow
 
-9 / 12 · fact · FDR-CD-QUEUE
+9 / 12 · fact · FDR-QUEUE
 
 ## Lead
 
@@ -30,5 +30,5 @@ From the catalogue, reduced: "gates check source and trigger".
 
 ## Notes
 
-Check it: the record FDR-CD-QUEUE in docs/drs/index.md, and the diagram
+Check it: the record FDR-QUEUE in docs/drs/index.md, and the diagram
 docs/explanation/flow/.assets/gates-check-source-and-trigger.drawio.png.

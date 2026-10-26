@@ -6,8 +6,7 @@ The test of `Test-PythonLint`, a quality gate
 ## Logic
 
 The L0 cases mock the scope and ruff at the module boundary and read the collected issues. The report goes to `$TestDrive`. The fixtures use
-neutral names
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+neutral names ([ADR-AUTO-TEST-DISTINCTFIXTURES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtures)).
 
 ## Integrity
 

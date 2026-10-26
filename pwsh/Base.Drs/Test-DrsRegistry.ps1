@@ -66,7 +66,7 @@ function Test-DrsRegistry {
             Name     = 'citation-graph'
             Fact     = 'CitationGraph'
             Mode     = $checks.citation_graph.mode
-            Findings = [string[]] @(Get-DrsCitationGraphViolations -Adrs $adrs -Index $index)
+            Findings = [string[]] @(Get-DrsCitationGraphViolations -Adrs $adrs -Index $index -ExemptDomain ([string[]] @($checks.citation_graph.exempt.Keys)))
         }
         [pscustomobject]@{
             Name     = 'dora-coverage'

@@ -29,10 +29,15 @@ Describe 'DrsChecksConfig' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMODEL' 
                         domains = @('widget', 'gadget')
                         tokens  = [ordered]@{ 'gizmo-call' = '\bGizmo-[A-Z][a-z]+\b'; 'dollar-name' = '\$[a-z]+' }
                     }
-                    citation_graph    = [ordered]@{ mode = 'Report' }
+                    citation_graph    = [ordered]@{ mode = 'Report'; exempt = [ordered]@{ widget = 'Widget binds to gadget.' } }
                     dora_coverage     = [ordered]@{ mode = 'gate'; file = 'widget-notes.md'; exempt = [ordered]@{ gizmo = 'Gizmo keeps its own notes.' } }
                     code_language     = [ordered]@{ mode = 'REPORT' }
                 })
+        }
+
+        It 'reads the citation graph''s exempt domains with their reasons' {
+            $config.citation_graph.exempt.Count | Should -Be 1
+            $config.citation_graph.exempt['widget'] | Should -Be 'Widget binds to gadget.'
         }
 
         It 'reads each check''s mode, case-insensitively' {

@@ -19,7 +19,7 @@ the `param` block and before any statement that uses a parameter, for what the `
 
 - [Guard placement](#guard-placement)
 
-### Rule ADR-PWSH-ASSERT-EXTERNALCALLSTHROUGHRUNNER
+### Rule ADR-PWSH-ASSERT-EXTERNALCALLSVIARUNNER
 
 In pwsh, the external calls of ADR-AUTO-FAILFAST-ASSERTAFTEREXTERNALCALLS are native tools run through `Invoke-Executable`, file reads such
 as `Get-Content`, and REST and cloud calls. The result is held in a named local and asserted on the next line, before it is passed on or
@@ -50,7 +50,7 @@ kills the child process tree at its executable's limit. In-process work runs as 
 
 - [Bounding a wait](#bounding-a-wait)
 
-### Rule ADR-PWSH-ASSERT-WATCHBLOCKINGBEHINDSWITCH
+### Rule ADR-PWSH-ASSERT-WATCHBEHINDSWITCH
 
 In pwsh, the watchpoint of ADR-AUTO-FAILFAST-WATCHPOINTTHENBOUND is a `Watch-Blocking` call behind the entry's `-DiagnoseBlocking` switch,
 `if ($DiagnoseBlocking) { Watch-Blocking }`, standing where a writer exists, after the modules load. It writes its ticks and one closing

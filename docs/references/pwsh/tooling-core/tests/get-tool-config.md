@@ -10,9 +10,9 @@ Catzc.Base.Execution owns it, and this module reads it.
 ## Caching fixture
 
 The cache test uses a hermetic fixture tool through the `Get-Config` seam, so it never depends on the shipped `tools.yml`
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)). The
-mock returns a stable typed `ToolsConfig`, since `Get-ToolConfig` inherits its same-reference caching from `Get-Config`'s cached read, so
-both calls see one `ToolConfig`.
+([ADR-AUTO-TEST-DISTINCTFIXTURES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtures)). The mock returns a
+stable typed `ToolsConfig`, since `Get-ToolConfig` inherits its same-reference caching from `Get-Config`'s cached read, so both calls see
+one `ToolConfig`.
 
 ## Installable tools
 

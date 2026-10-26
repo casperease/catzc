@@ -3,7 +3,7 @@
 <!-- cspell:ignore ntwo -->
 
 The tests of `Get-GlobSetHash`, the durable SHA of a globset
-([FDR-CD-GLOBS-DURABLESHAIDENTITY](../../../../drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-durableshaidentity)).
+([FDR-GLOBS-DURABLESHAIDENTITY](../../../../drs/flow/durable-sha-globs.md#rule-fdr-globs-durableshaidentity)).
 
 ## What it proves
 

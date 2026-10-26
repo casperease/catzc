@@ -50,7 +50,7 @@ resolves a guard to commit and no guard kind declares commit.
 
 - [Guards are controls](#guards-are-controls)
 
-### Rule ADR-AUTO-MATERIAL-GENERATEDFILESARECOMMITRESOURCES
+### Rule ADR-AUTO-MATERIAL-GENERATEDISCOMMITTED
 
 A generated tracked file and the analyzer's result cache are commit resources, each keyed by its globset, and `body_sha` in a generated
 file's head is that key's visible form. Every other resource is on-demand unless its kind declares otherwise.
@@ -152,9 +152,9 @@ loudly, hold guards on-demand, and make generated tracked files and the analyzer
 ### How this is enforced
 
 - **`Test-GeneratedFiles`** (`pwsh/Base.QualityGates`) — compares every generated tracked file's `body_sha` with its body, the check that a
-  commit copy matches the tree (ADR-AUTO-MATERIAL-GENERATEDFILESARECOMMITRESOURCES).
+  commit copy matches the tree (ADR-AUTO-MATERIAL-GENERATEDISCOMMITTED).
 - **`Test-Formatting`'s cache stamp tests** (`pwsh/Base.QualityGates/tests`) — prove that every declared input of the analyzer's result
-  cache invalidates it (ADR-AUTO-MATERIAL-SCOPEDSHACOMMITKEY, ADR-AUTO-MATERIAL-GENERATEDFILESARECOMMITRESOURCES).
+  cache invalidates it (ADR-AUTO-MATERIAL-SCOPEDSHACOMMITKEY, ADR-AUTO-MATERIAL-GENERATEDISCOMMITTED).
 - **Code review** — a kind that keeps a copy across sessions without declaring commit, a stored or displayed resolved value, a silent
   fallback, or a guard that remembers a verdict is a finding against the rule it breaks.
 

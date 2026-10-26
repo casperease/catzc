@@ -15,7 +15,7 @@ catzc:
 
 ## Eyebrow
 
-17 / 30 · fact for the SRE Lead · ADR-AZ-CAF-GOV
+17 / 30 · fact for the SRE Lead · EDR-AZ-CAF-GOV
 
 ## Lead
 
@@ -32,5 +32,5 @@ From the catalogue, reduced: rule and gate per load stage.
 
 ## Notes
 
-Check it: the record ADR-AZ-CAF-GOV in docs/drs/index.md, and the diagram
+Check it: the record EDR-AZ-CAF-GOV in docs/drs/index.md, and the diagram
 docs/explanation/automation/.assets/rule-and-gate-per-load-stage.drawio.png.

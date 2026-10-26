@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/tests/Format-Code.Tests.ps1
 
 The tests of `Format-Code`, in six groups. Neutral fixture names are used throughout
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+([ADR-AUTO-TEST-DISTINCTFIXTURES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtures)).
 
 ## Seams
 
@@ -22,8 +22,8 @@ language's result, and the cache that never records a file a person must still r
 ## Engines
 
 An integrity group: every engine the registry may name has its adapter, and the shipped `languages.yml` names only those engines
-([PDR-CONFIG-NEWINSTANCEISCONFIGCHANGE](../../../../drs/principles/configure-not-program.md#rule-pdr-config-newinstanceisconfigchange)). An
-engine's settings entry may end in `#key`. The file must exist, and the stamp's own tests check the key.
+([PDR-CONFIG-NEWINSTANCEISCONFIG](../../../../drs/principles/configure-not-program.md#rule-pdr-config-newinstanceisconfig)). An engine's
+settings entry may end in `#key`. The file must exist, and the stamp's own tests check the key.
 
 ## Real vendored analyzer
 

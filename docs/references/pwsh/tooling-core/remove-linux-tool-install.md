@@ -24,7 +24,7 @@ precedence order:
 The apt owner is resolved by 'dpkg -S `<path>`' (which package owns the resolved binary), so an apt 'azure-cli' is caught even though
 az_cli's configured manager is uv — detection does not rely on the config naming an apt_package. Only the apt path asserts root; the uv-pip
 and stray-binary paths are user-space
-([ADR-AUTO-REMOVE-ELEVATIONFOLLOWSMECHANISM](../../../drs/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-elevationfollowsmechanism)).
+([ADR-AUTO-REMOVE-ELEVATIONBYMECHANISM](../../../drs/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-elevationbymechanism)).
 
 This is invoked from the Linux branch of a `Remove-<Tool>`, which owns the -Force dry-run guard and the managed-install refusal
 (Test-ExpectedPackageManager) — so this core is only ever reached for an off-config install, and just evicts it.

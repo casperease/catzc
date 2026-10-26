@@ -6,7 +6,7 @@ The tests of `Get-ToolsStatus`.
 
 A tool with candidate paths takes its location and version from the probe record (`Test-Tool -PassThru`) and never starts a version job on
 its bare name. The probe, the package-manager oracle, the scope and winget are mocked. Fixture tokens are neutral
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+([ADR-AUTO-TEST-DISTINCTFIXTURES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtures)).
 
 ## The two-mechanism tool
 

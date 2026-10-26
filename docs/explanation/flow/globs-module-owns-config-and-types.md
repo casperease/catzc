@@ -10,8 +10,8 @@ Catzc.Base.Globs computes every globset role from one typed registry.
 5  Protection identity     Get-GlobSetHash: the live durable SHA of a set
 6  Test-Automation         reads a composite identity per module, never parses globs.yml
 
-Supports FDR-CD-GLOBS-NAMEDGLOBSETS, FDR-CD-GLOBS-DURABLESHAIDENTITY, FDR-CD-GLOBS-NATIVEPATHFILTER
-and FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT (architecture lens).
+Supports FDR-GLOBS-NAMEDGLOBSETS, FDR-GLOBS-DURABLESHAIDENTITY, FDR-GLOBS-NATIVEPATHFILTER
+and FDR-GLOBS-CHANGECOMPUTEDFROMGIT (architecture lens).
 ```
 
 `Catzc.Base.Globs` is the one module that maps every area-of-control in cats, such as a deployable unit, a track or a scan scope, onto its
@@ -24,7 +24,7 @@ description:
   "One typed registry, globs.yml, is validated and flattened by GlobsConfig and GlobSet, and the module computes three roles from it: the
   trigger projection read by pipelines and workflows, the change report built from git, and the protection identity read by the test run."
 about:
-  adrs: [FDR-CD-GLOBS-NAMEDGLOBSETS, FDR-CD-GLOBS-DURABLESHAIDENTITY, FDR-CD-GLOBS-NATIVEPATHFILTER, FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT]
+  adrs: [FDR-GLOBS-NAMEDGLOBSETS, FDR-GLOBS-DURABLESHAIDENTITY, FDR-GLOBS-NATIVEPATHFILTER, FDR-GLOBS-CHANGECOMPUTEDFROMGIT]
   lens: architecture
 content:
   title: Catzc.Base.Globs computes every globset role from one typed registry
@@ -95,11 +95,11 @@ layout:
 ## Why it holds
 
 - `globs.yml` is the one source of truth, and its three roles (trigger, change report, protection) are all derived, with nothing committed
-  per set (FDR-CD-GLOBS-NAMEDGLOBSETS).
-- The identity is computed live and never committed, so it cannot go stale on a busy mainline (FDR-CD-GLOBS-DURABLESHAIDENTITY).
+  per set (FDR-GLOBS-NAMEDGLOBSETS).
+- The identity is computed live and never committed, so it cannot go stale on a busy mainline (FDR-GLOBS-DURABLESHAIDENTITY).
 - Pipelines, workflows and build-validation policies trigger on the native path-filter projection of a globset, never on a committed marker
-  (FDR-CD-GLOBS-NATIVEPATHFILTER).
-- Whether a change touches a set is computed from git at real refs (FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT).
+  (FDR-GLOBS-NATIVEPATHFILTER).
+- Whether a change touches a set is computed from git at real refs (FDR-GLOBS-CHANGECOMPUTEDFROMGIT).
 
 ## See also
 

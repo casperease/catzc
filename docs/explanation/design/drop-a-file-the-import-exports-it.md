@@ -11,7 +11,7 @@ Drop a file, and the next import exports it; no registration step exists.
 6  In <kebab>-live             the new file is in the live set: it ships
 7  Quality gates               report a non-conventional folder or file
 
-Supports DDR-ASPECT-MODULESPARTITIONINTOASPECTS and DDR-ASPECT-ASPECTSAREDERIVED (operations lens).
+Supports DDR-ASPECT-MODULESPARTITIONED and DDR-ASPECT-ASPECTSAREDERIVED (operations lens).
 ```
 
 Adding a function to a cats module has no registration step. The author drops a `Verb-Noun.ps1` file into the module folder, the next import
@@ -23,7 +23,7 @@ description:
   "A dropped Verb-Noun file needs no registration: the next import exports it, or throws on a name collision, the module's aspect sets place
   it in the live set, and the quality gates report a non-conventional file."
 about:
-  adrs: [DDR-ASPECT-MODULESPARTITIONINTOASPECTS, DDR-ASPECT-ASPECTSAREDERIVED]
+  adrs: [DDR-ASPECT-MODULESPARTITIONED, DDR-ASPECT-ASPECTSAREDERIVED]
   lens: operations
 content:
   title: Drop a file, and the next import exports it
@@ -93,7 +93,7 @@ layout:
 ## Why it holds
 
 - A module's files partition into a `live` aspect and a `tests` aspect, with no file in both and none in neither
-  (DDR-ASPECT-MODULESPARTITIONINTOASPECTS).
+  (DDR-ASPECT-MODULESPARTITIONED).
 - The aspects come from folder conventions, never from a hand-written list; `live` is closed, so a file can enter it only by matching the
   convention (DDR-ASPECT-ASPECTSAREDERIVED).
 

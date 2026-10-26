@@ -1,8 +1,7 @@
 # pwsh/Base.Maps/types/WorldMap.cs
 
 The world map: the tracks (rows) crossed with the file languages (columns), every cell of that grid with its file count, and the placement
-of every tracked file in exactly one cell
-([DDR-TRACK-TRACKISPLACEDCLUSTER](../../../../drs/design/tracks.md#rule-ddr-track-trackisplacedcluster),
+of every tracked file in exactly one cell ([DDR-TRACK-ISPLACEDCLUSTER](../../../../drs/design/tracks.md#rule-ddr-track-isplacedcluster),
 [DDR-TRACK-FILELANGUAGE](../../../../drs/design/tracks.md#rule-ddr-track-filelanguage)).
 
 ## Buckets

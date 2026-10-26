@@ -9,7 +9,7 @@ Each track picks its catch-all: a stray module file falls to tests, a stray temp
 4  tests                     the deployment track's first aspect: only an explicit tests/ folder
 5  live                      the deployment track's last aspect: the ** remainder, it ships
 
-Supports DDR-ASPECT-MODULESPARTITIONINTOASPECTS, DDR-ASPECT-ASPECTSAREDERIVED and DDR-ASPECT-TRACKPICKSCATCHALL (meta lens).
+Supports DDR-ASPECT-MODULESPARTITIONED, DDR-ASPECT-ASPECTSAREDERIVED and DDR-ASPECT-TRACKPICKSCATCHALL (meta lens).
 ```
 
 A unit in cats, a module folder or a template, holds files that ship and files that verify them. Its tracked files partition into aspects by
@@ -22,7 +22,7 @@ description:
   "A tracked file is tried against its track's aspects in order and the first match wins: the code track tries live first and lets tests
   catch the rest, the deployment track tries tests first and lets live catch the rest."
 about:
-  adrs: [DDR-ASPECT-MODULESPARTITIONINTOASPECTS, DDR-ASPECT-ASPECTSAREDERIVED, DDR-ASPECT-TRACKPICKSCATCHALL]
+  adrs: [DDR-ASPECT-MODULESPARTITIONED, DDR-ASPECT-ASPECTSAREDERIVED, DDR-ASPECT-TRACKPICKSCATCHALL]
   lens: meta
 content:
   title: "Each track picks its catch-all: a stray module file falls to tests, a stray template file to live"
@@ -84,7 +84,7 @@ layout:
 ## Why it holds
 
 - A unit's tracked files partition into aspects that are pairwise disjoint and jointly exhaustive, and the aspect set is the `aspects`
-  variant, an ordered first-match classification per track (DDR-ASPECT-MODULESPARTITIONINTOASPECTS).
+  variant, an ordered first-match classification per track (DDR-ASPECT-MODULESPARTITIONED).
 - Aspects derive from folder conventions, never from a hand-written list. `live` is a closed convention, the last aspect is the `**`
   remainder, and ordered first match makes the partition true by construction (DDR-ASPECT-ASPECTSAREDERIVED).
 - Which aspect is the remainder is the track's call: a code track declares the non-live `tests` last, a deployment track declares `live`

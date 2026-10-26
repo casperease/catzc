@@ -14,7 +14,7 @@ catzc:
 
 ## Eyebrow
 
-27 / 30 · fact for the Developer · RDR-DORA-LEARNING
+27 / 30 · fact for the Developer · EDR-DORA-LEARNING
 
 ## Lead
 
@@ -31,5 +31,5 @@ From the catalogue, reduced: three views derived live from one program.
 
 ## Notes
 
-Check it: the record RDR-DORA-LEARNING in docs/drs/index.md, and the diagram
+Check it: the record EDR-DORA-LEARNING in docs/drs/index.md, and the diagram
 docs/explanation/flow/.assets/three-views-derived-live-from-one-program.drawio.png.

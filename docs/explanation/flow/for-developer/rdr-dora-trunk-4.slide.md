@@ -15,7 +15,7 @@ catzc:
 
 ## Eyebrow
 
-4 / 30 · fact for the Developer · RDR-DORA-TRUNK
+4 / 30 · fact for the Developer · EDR-DORA-TRUNK
 
 ## Lead
 
@@ -32,5 +32,5 @@ From the catalogue, reduced: reading an accosted file writes nothing.
 
 ## Notes
 
-Check it: the record RDR-DORA-TRUNK in docs/drs/index.md, and the diagram
+Check it: the record EDR-DORA-TRUNK in docs/drs/index.md, and the diagram
 docs/explanation/automation/.assets/reading-an-accosted-file-writes-nothing.drawio.png.

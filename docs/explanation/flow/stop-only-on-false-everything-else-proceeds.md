@@ -10,7 +10,7 @@ A stage stops only on $false; $true, a doubt and its message all proceed; an und
 5  fail-open message            the one line printed when git could not compute the diff
 6  not a declared globset       the throw on a name that is not in globs.yml
 
-Supports FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT (operations lens).
+Supports FDR-GLOBS-CHANGECOMPUTEDFROMGIT (operations lens).
 ```
 
 A deployable unit's pipeline stage opens with one line: `if (-not (Test-GlobSetAffected -Name apex)) { return }`. Everything the stage can
@@ -22,7 +22,7 @@ description:
   "What a pipeline stage sees from one call to Test-GlobSetAffected: a boolean, at most one printed message, and one possible throw; only
   false returns early, true and a doubt both proceed."
 about:
-  adrs: [FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT]
+  adrs: [FDR-GLOBS-CHANGECOMPUTEDFROMGIT]
   lens: operations
 content:
   title: A stage returns only on $false; a doubt prints a message and proceeds; a typo throws
@@ -89,8 +89,8 @@ layout:
 ## Why it holds
 
 - The check fails open on any doubt so a wrong skip can never drop a deploy, returns false only when it has positively confirmed the unit is
-  untouched, and throws on an undeclared unit name so a typo never silently skips (FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT).
-- A pipeline must check out with sufficient depth (`fetchDepth: 0`) so the base ref is reachable (FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT).
+  untouched, and throws on an undeclared unit name so a typo never silently skips (FDR-GLOBS-CHANGECOMPUTEDFROMGIT).
+- A pipeline must check out with sufficient depth (`fetchDepth: 0`) so the base ref is reachable (FDR-GLOBS-CHANGECOMPUTEDFROMGIT).
 
 ## See also
 

@@ -51,10 +51,9 @@ capped:
 - **Pull.** A stage starts a new item only when it can finish it, signalled by its own free capacity — not by an upstream schedule that
   needs somewhere to put its output.
 - **Small batches.** Break work down to the smallest increment that can be integrated and delivered on its own. This is the same move agile
-  makes for responsiveness ([WDR-VALUES](agile-values.md)) and lean makes for flow — one lever, two payoffs.
-- **Defer commitment.** Make irreversible decisions at the last responsible moment, when knowledge is greatest ([WDR-LEAN](lean.md)). This
-  is not procrastination: it is refusing to spend certainty you do not yet have, while still deciding before indecision itself becomes the
-  cost.
+  makes for responsiveness ([EDR-VALUES](../external/agile/agile-values.md)) and lean makes for flow — one lever, two payoffs.
+- **Defer commitment.** Make irreversible decisions at the last responsible moment, when knowledge is greatest ([EDR-LEAN][r1]). This is not
+  procrastination: it is refusing to spend certainty you do not yet have, while still deciding before indecision itself becomes the cost.
 - **Limit work in progress.** Cap the number of items in flight. The cap is what actually forces small batches and exposes the constraint,
   rather than merely encouraging them.
 
@@ -90,3 +89,5 @@ moment, and keep the number of changes in flight small enough that the flow, not
 [^2]:
     Mary and Tom Poppendieck, _Lean Software Development: An Agile Toolkit_ (2003), principles "Deliver fast" and "Defer commitment" — pull,
     small batches, and last-responsible-moment decisions applied to software.
+
+[r1]: ../external/lean/lean.md

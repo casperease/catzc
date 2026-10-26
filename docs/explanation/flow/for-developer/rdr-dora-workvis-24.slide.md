@@ -15,7 +15,7 @@ catzc:
 
 ## Eyebrow
 
-24 / 30 · fact for the Developer · RDR-DORA-WORKVIS
+24 / 30 · fact for the Developer · EDR-DORA-WORKVIS
 
 ## Lead
 
@@ -32,5 +32,5 @@ From the catalogue, reduced: the runner is the only seam.
 
 ## Notes
 
-Check it: the record RDR-DORA-WORKVIS in docs/drs/index.md, and the diagram
+Check it: the record EDR-DORA-WORKVIS in docs/drs/index.md, and the diagram
 docs/explanation/flow/.assets/the-runner-is-the-only-seam.drawio.png.

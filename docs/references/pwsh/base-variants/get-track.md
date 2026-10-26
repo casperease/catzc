@@ -17,10 +17,10 @@ the file languages of its tech-stack ([DDR-TRACK-FILELANGUAGE](../../../drs/desi
 VariantTrack, in declared order; the shape is validated by the VariantsConfig type.
 
 -Path answers "which track does this file belong to?"
-([DDR-TRACK-TRACKISPLACEDCLUSTER](../../../drs/design/tracks.md#rule-ddr-track-trackisplacedcluster)): the track with the longest place that
-contains the path ([DDR-TRACKTYPE-LONGESTPLACEWINS](../../../drs/design/track-types.md#rule-ddr-tracktype-longestplacewins)), so a narrower
-place wins over a wider one (a bare place, e.g. 'docs', is its own track's path). A file at the repository root, a path under out/
-(gitignored output, never a track), and a path no place contains return nothing.
+([DDR-TRACK-ISPLACEDCLUSTER](../../../drs/design/tracks.md#rule-ddr-track-isplacedcluster)): the track with the longest place that contains
+the path ([DDR-TRACKTYPE-LONGESTPLACEWINS](../../../drs/design/track-types.md#rule-ddr-tracktype-longestplacewins)), so a narrower place
+wins over a wider one (a bare place, e.g. 'docs', is its own track's path). A file at the repository root, a path under out/ (gitignored
+output, never a track), and a path no place contains return nothing.
 
 ### parameter `Name`
 

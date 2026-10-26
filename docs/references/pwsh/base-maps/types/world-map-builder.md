@@ -13,7 +13,7 @@ the globsets (`globs.yml`). `Build` also takes `citationExclude`, the globs of t
 ## Placement
 
 Placement is exact: the root folder gives the track and the extension gives the file language
-([DDR-TRACK-TRACKISPLACEDCLUSTER](../../../../drs/design/tracks.md#rule-ddr-track-trackisplacedcluster),
+([DDR-TRACK-ISPLACEDCLUSTER](../../../../drs/design/tracks.md#rule-ddr-track-isplacedcluster),
 [DDR-TRACK-FILELANGUAGE](../../../../drs/design/tracks.md#rule-ddr-track-filelanguage)). A file under no track goes to the `NoTrack` row and
 a file no file language names goes to the `NoFileLanguage` column, so every file has exactly one cell. The track of a path is the one with
 the longest place that contains it
@@ -43,4 +43,4 @@ A file a `citation_exclude` glob matches cites nothing at any step: it sits in i
 ## Why the registry types are named in full
 
 The registry types are named in full, so the module dependency check sees each cross-module edge
-([ADR-BCL-TYPES-REFERENCESFOLLOWDEPENDENCIES](../../../../drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-referencesfollowdependencies)).
+([ADR-BCL-TYPES-REFERENCESFOLLOWDEPS](../../../../drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-referencesfollowdeps)).

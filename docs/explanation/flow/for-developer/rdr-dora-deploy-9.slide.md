@@ -14,7 +14,7 @@ catzc:
 
 ## Eyebrow
 
-9 / 30 · fact for the Developer · RDR-DORA-DEPLOY
+9 / 30 · fact for the Developer · EDR-DORA-DEPLOY
 
 ## Lead
 
@@ -31,5 +31,5 @@ From the catalogue, reduced: get aspect feeds globs and maps.
 
 ## Notes
 
-Check it: the record RDR-DORA-DEPLOY in docs/drs/index.md, and the diagram
+Check it: the record EDR-DORA-DEPLOY in docs/drs/index.md, and the diagram
 docs/explanation/design/.assets/get-aspect-feeds-globs-and-maps.drawio.png.

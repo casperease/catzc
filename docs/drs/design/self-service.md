@@ -2,7 +2,7 @@
 
 ## Rules: DDR-SELFSERV
 
-### Rule DDR-SELFSERV-CONSUMERSPROVISIONTHEMSELVES
+### Rule DDR-SELFSERV-CONSUMERSPROVISION
 
 Self-service is the platform's mode of use: a consumer provisions and changes managed infrastructure themselves, through the CLI
 (`DDR-THINPLAT`), without filing a ticket to a central gatekeeper. This is only defensible because every self-service action is a
@@ -11,7 +11,7 @@ what make self-service safe in tightly controlled and managed settings, rather t
 
 - [Self-service, not free-for-all](#self-service-not-free-for-all)
 
-### Rule DDR-SELFSERV-REPOSITORYISSOURCEOFTRUTH
+### Rule DDR-SELFSERV-REPOSITORYISTRUTH
 
 The repository is the **single source of truth** for everything the platform manages — automation, configuration, infrastructure, and pinned
 tooling — all represented as code (`PDR-EAC`). Self-service means editing that source and letting the platform apply it; it never means
@@ -21,7 +21,7 @@ reproduce, or review what is not written down.
 
 - [One source of truth, or none](#one-source-of-truth-or-none)
 
-### Rule DDR-SELFSERV-IMMUTABLEREPRODUCIBLEARTIFACT
+### Rule DDR-SELFSERV-IMMUTABLEARTIFACT
 
 What ships is an **immutable, content-addressed artifact** built **reproducibly** from a source commit that is known and carrying
 **provenance** from source to deployed state. The globset durable-SHA identities content-address each shippable unit; a build is a
@@ -41,7 +41,7 @@ trade-off. (Primary source: trunkbaseddevelopment.com, Paul Hammant.)
 
 - [Trunk-based development](#trunk-based-development)
 
-### Rule DDR-SELFSERV-REGULATEDNEEDSREPRODUCIBILITY
+### Rule DDR-SELFSERV-REGULATEDREPRODUCIBLE
 
 In tightly managed settings — regulated, compliance-bound, provenance-critical — self-service is acceptable **only when reproducibility,
 provenance, and an audit trail are intrinsic to the mechanism**, not bolted on as process. Here they are structural: the git history _is_
@@ -115,10 +115,10 @@ path.
 ## Decision
 
 Make self-service the platform's mode of use, and make it safe by construction: every self-service action is a change to the **single source
-of truth** (DDR-SELFSERV-REPOSITORYISSOURCEOFTRUTH), applied only through the **thin CLI** (DDR-SELFSERV-CONSUMERSPROVISIONTHEMSELVES),
-shipped as an **immutable, reproducibly-built artifact with provenance** (DDR-SELFSERV-IMMUTABLEREPRODUCIBLEARTIFACT), landed via
-**trunk-based development behind automated, mandatory guardrails** (DDR-SELFSERV-TRUNKWITHGUARDRAILS). In controlled settings this makes
-self-service and auditability the same mechanism rather than competing ones (DDR-SELFSERV-REGULATEDNEEDSREPRODUCIBILITY).
+of truth** (DDR-SELFSERV-REPOSITORYISTRUTH), applied only through the **thin CLI** (DDR-SELFSERV-CONSUMERSPROVISION), shipped as an
+**immutable, reproducibly-built artifact with provenance** (DDR-SELFSERV-IMMUTABLEARTIFACT), landed via **trunk-based development behind
+automated, mandatory guardrails** (DDR-SELFSERV-TRUNKWITHGUARDRAILS). In controlled settings this makes self-service and auditability the
+same mechanism rather than competing ones (DDR-SELFSERV-REGULATEDREPRODUCIBLE).
 
 ### How this is enforced
 

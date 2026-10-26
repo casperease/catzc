@@ -1,4 +1,4 @@
-Describe 'Get-FormatEngineStamp' -Tag 'L0', 'logic', 'ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS' {
+Describe 'Get-FormatEngineStamp' -Tag 'L0', 'logic', 'ADR-AUTO-CACHE-CROSSSESSIONFILES' {
     BeforeAll {
         $script:root = [System.IO.Path]::GetFullPath((Join-Path $TestDrive 'stamp-repo'))
         $null = New-Item -ItemType Directory -Path $script:root -Force
@@ -73,7 +73,7 @@ Describe 'Get-FormatEngineStamp' -Tag 'L0', 'logic', 'ADR-AUTO-CACHE-CHECKEDFILE
     }
 }
 
-Describe 'The shipped format engines'' keyed settings' -Tag 'L1', 'integrity', 'ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS' {
+Describe 'The shipped format engines'' keyed settings' -Tag 'L1', 'integrity', 'ADR-AUTO-CACHE-CROSSSESSIONFILES' {
     It 'name a top-level key that exists in their file: <_>' -ForEach @('prettier', 'gofmt', 'ruff', 'dotnet-format',
         'bicep') {
         $entries = @((Get-Config -Config languages).formatters[$_].settings | Where-Object { $_ -match '#' })

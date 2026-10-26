@@ -6,7 +6,7 @@ The tests of the `Test-CheckedInBinaries` gate, in two parts.
 
 They run over fixture files in `$TestDrive` with the git CLI mocked: `ls-files --eol` and `check-attr binary` answer from each test's
 listing, so each test pins one storage rule. The fixture names are neutral
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+([ADR-AUTO-TEST-DISTINCTFIXTURES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtures)).
 
 ## The real repository
 

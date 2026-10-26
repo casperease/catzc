@@ -13,5 +13,5 @@ It mirrors the YAML mapping, so its properties are snake_case
 - **`exempt`** — a map of domain name to the reason it keeps no DORA file
   ([PDR-CONFIG-EXCEPTIONISCONFIGENTRY](../../../../drs/principles/configure-not-program.md#rule-pdr-config-exceptionisconfigentry)). The
   default is none.
-- **`exempt_folders`** — a map of a folder under `docs/drs/` (`azure/caf`) to the reason its ADRs take no section in their domain's DORA
-  file. They answer a vendor's checklist, grounded in the vendor's reference, not in DORA. The default is none.
+- **`exempt_folders`** — a map of a folder under `docs/drs/` (`external/azure/caf`) to the reason its ADRs take no section in their domain's
+  DORA file. They answer a vendor's checklist, grounded in the vendor's reference, not in DORA. The default is none.

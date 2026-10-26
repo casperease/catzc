@@ -12,7 +12,7 @@ One engine builds the bundle, and every code root is a copy of its output.
 7  Catzc.Base.Exporter      the exporter module that drives the engine and owns the lifecycle
 8  Checked again            Install-Catzc runs the guard before it copies
 
-Supports ADR-AUTO-BUNDLE-BUNDLEISBUILD, ADR-AUTO-BUNDLE-TWOROOTS, ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
+Supports ADR-AUTO-BUNDLE-ISBUILD, ADR-AUTO-BUNDLE-TWOROOTS, ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
 and ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL (architecture lens).
 ```
 
@@ -26,7 +26,7 @@ description:
   One engine in the internal modules builds the bundle from the source tree, the exporter module drives it and owns the integrity guard, and
   every code root outside the repository is a copy of the one verified build.
 about:
-  adrs: [ADR-AUTO-BUNDLE-BUNDLEISBUILD, ADR-AUTO-BUNDLE-TWOROOTS, ADR-AUTO-BUNDLE-ONELIVINGIMPORTER, ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL]
+  adrs: [ADR-AUTO-BUNDLE-ISBUILD, ADR-AUTO-BUNDLE-TWOROOTS, ADR-AUTO-BUNDLE-ONELIVINGIMPORTER, ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL]
   lens: architecture
 content:
   title: One engine builds the bundle, and every code root is a copy of its output
@@ -104,7 +104,7 @@ layout:
 ## Why it holds
 
 - The bundle is the toolset's build, owned by `Catzc.Base.Exporter`, built through the `Invoke-ModuleBuild` engine, verified by
-  `Assert-CatzcBundle`, and placed by `Install-Catzc` and `Export-Catzc` (ADR-AUTO-BUNDLE-BUNDLEISBUILD).
+  `Assert-CatzcBundle`, and placed by `Install-Catzc` and `Export-Catzc` (ADR-AUTO-BUNDLE-ISBUILD).
 - The working root and the code root are two anchors. In the repository they coincide; an install makes them differ, which is what lets the
   code be carried out of the repository (ADR-AUTO-BUNDLE-TWOROOTS).
 - Every copy loads through the one living importer in its bundle mode, never through a forked loader (ADR-AUTO-BUNDLE-ONELIVINGIMPORTER).

@@ -130,7 +130,7 @@ Describe 'Format-Code engine grouping and result cache' -Tag 'L0', 'logic' {
         @($results | ForEach-Object Language) | Should -Be @('widget', 'gadget')
     }
 
-    It 'skips a file the engine last found formatted, and checks it again once its bytes change' -Tag 'ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS' {
+    It 'skips a file the engine last found formatted, and checks it again once its bytes change' -Tag 'ADR-AUTO-CACHE-CROSSSESSIONFILES' {
         $null = Format-Code -DryRun
         $script:handed.Clear()
         $results = @(Format-Code -DryRun -PassThru)
@@ -152,7 +152,7 @@ Describe 'Format-Code engine grouping and result cache' -Tag 'L0', 'logic' {
         $script:handed | Should -Be @($script:widgetFile, $script:gadgetFile)
     }
 
-    It 'checks every file again when the code of its engine''s adapter changes, though no settings file did' -Tag 'ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS' {
+    It 'checks every file again when the code of its engine''s adapter changes, though no settings file did' -Tag 'ADR-AUTO-CACHE-CROSSSESSIONFILES' {
         Mock Get-FormatEngineAdapter -ModuleName Catzc.Base.QualityGates { 'Invoke-WidgetFormatAdapter' }
         try {
             function global:Invoke-WidgetFormatAdapter {
@@ -171,7 +171,7 @@ Describe 'Format-Code engine grouping and result cache' -Tag 'L0', 'logic' {
         }
     }
 
-    It 'checks every file again when the installed tool of its engine reports another version' -Tag 'ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS' {
+    It 'checks every file again when the installed tool of its engine reports another version' -Tag 'ADR-AUTO-CACHE-CROSSSESSIONFILES' {
         $script:toolVersion = '1.0.0'
         Mock Get-FormatEngineVersion -ModuleName Catzc.Base.QualityGates { $script:toolVersion }
         $null = Format-Code -DryRun
@@ -181,7 +181,7 @@ Describe 'Format-Code engine grouping and result cache' -Tag 'L0', 'logic' {
         $script:handed | Should -Be @($script:widgetFile, $script:gadgetFile) -Because 'a verdict of the old tool says nothing about the new'
     }
 
-    It 'does not record a file the engine would still change' -Tag 'ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS' {
+    It 'does not record a file the engine would still change' -Tag 'ADR-AUTO-CACHE-CROSSSESSIONFILES' {
         Mock Invoke-FormatterEngine -ModuleName Catzc.Base.QualityGates {
             foreach ($file in $File) {
                 $script:handed.Add($file)
@@ -194,7 +194,7 @@ Describe 'Format-Code engine grouping and result cache' -Tag 'L0', 'logic' {
         $script:handed | Should -Be @($script:gadgetFile)
     }
 
-    It 'names a file the engine cannot format at all as unfixable, still runs the rest, and checks it again next run' -Tag 'ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS' {
+    It 'names a file the engine cannot format at all as unfixable, still runs the rest, and checks it again next run' -Tag 'ADR-AUTO-CACHE-CROSSSESSIONFILES' {
         Mock Invoke-FormatterEngine -ModuleName Catzc.Base.QualityGates {
             foreach ($file in $File) {
                 $script:handed.Add($file)
@@ -311,7 +311,7 @@ Describe 'Format-Code imprint steps' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT-CONFIG
         $script:stepRuns[0] | Should -Be 'file-meta|a.wdg,a.gdg'
     }
 
-    It 'reports a file a step cannot repair on its language''s result, and reports it again on the next run' -Tag 'ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS' {
+    It 'reports a file a step cannot repair on its language''s result, and reports it again on the next run' -Tag 'ADR-AUTO-CACHE-CROSSSESSIONFILES' {
         $script:stepUnfixable['file-meta'] = @{ $script:gadgetFile = 'a meta key no kind owns' }
         $results = @(Format-Code -DryRun -PassThru)
         ($results | Where-Object Language -EQ gadget).Unfixable[$script:gadgetFile] |
@@ -321,7 +321,7 @@ Describe 'Format-Code imprint steps' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT-CONFIG
         $script:stepRuns[0] | Should -Be 'file-meta|a.gdg' -Because 'a flagged file is never recorded as done'
     }
 
-    It 'checks a step''s files again when the code the step runs changes, though no settings file did' -Tag 'ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS' {
+    It 'checks a step''s files again when the code the step runs changes, though no settings file did' -Tag 'ADR-AUTO-CACHE-CROSSSESSIONFILES' {
         Mock Get-ImprintStepAdapter -ModuleName Catzc.Base.QualityGates { 'Invoke-WidgetStepAdapter' }
         try {
             function global:Invoke-WidgetStepAdapter {
@@ -340,7 +340,7 @@ Describe 'Format-Code imprint steps' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT-CONFIG
         }
     }
 
-    It 'skips files a step found current, and checks them all again when a file its stamp reads changes' -Tag 'ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS' {
+    It 'skips files a step found current, and checks them all again when a file its stamp reads changes' -Tag 'ADR-AUTO-CACHE-CROSSSESSIONFILES' {
         $null = Format-Code -DryRun
         $script:stepRuns.Clear()
         $null = Format-Code -DryRun
@@ -375,7 +375,7 @@ Describe 'Format-Code engines' -Tag 'L0', 'integrity' {
             Should -Throw "*no adapter for the formatter engine 'widget-fmt'*"
     }
 
-    It 'every settings file an engine declares exists, so the cache stamp reads real inputs' -Tag 'ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS' {
+    It 'every settings file an engine declares exists, so the cache stamp reads real inputs' -Tag 'ADR-AUTO-CACHE-CROSSSESSIONFILES' {
         $root = Get-RepositoryRoot
         foreach ($engine in (Get-Config -Config languages).formatters.Values) {
             foreach ($settingsFile in $engine.settings) {
@@ -386,7 +386,7 @@ Describe 'Format-Code engines' -Tag 'L0', 'integrity' {
         }
     }
 
-    It 'every settings file an imprint step declares exists, so its cache stamp reads real inputs' -Tag 'ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS' {
+    It 'every settings file an imprint step declares exists, so its cache stamp reads real inputs' -Tag 'ADR-AUTO-CACHE-CROSSSESSIONFILES' {
         $root = Get-RepositoryRoot
         $steps = (Get-Config -Config languages).steps
         @($steps.Keys).Count | Should -BeGreaterThan 0
@@ -397,7 +397,7 @@ Describe 'Format-Code engines' -Tag 'L0', 'integrity' {
         }
     }
 
-    It 'every step the shipped languages.yml lists has its adapters' -Tag 'PDR-CONFIG-NEWINSTANCEISCONFIGCHANGE' {
+    It 'every step the shipped languages.yml lists has its adapters' -Tag 'PDR-CONFIG-NEWINSTANCEISCONFIG' {
         $config = Get-Config -Config languages
         $listed = @($config.imprint) + @($config.languages | ForEach-Object { $_.imprint })
         $listed | Should -Contain 'file-meta'

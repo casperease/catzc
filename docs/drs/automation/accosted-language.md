@@ -41,7 +41,7 @@ and the action diagrams that prove themselves through it, and the plans and sess
 
 - [A reserved word](#a-reserved-word)
 
-### Rule ADR-AUTO-ACCOSTED-ONEREADER
+### Rule ADR-AUTO-ACCOSTED-ACCOSTEDONEREADER
 
 One reader turns an accosted file into its typed record, and nothing else parses one. It rejects, each with the message of the command
 contract it checked: a command no contract names, a verb not on the harmless list, an unknown or missing parameter, and a value outside its

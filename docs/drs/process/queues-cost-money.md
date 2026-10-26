@@ -46,8 +46,8 @@ economic cost of this waiting dwarfs the cost of the work itself, and that most 
 in the queues.
 
 Lean has said this since Ohno: the visible waste is the waiting between steps, not the steps. This article makes the claim quantitative for
-CI/CD, using the two laws from [WDR-LEAN](lean.md) — Little's Law for how queues set lead time, and Moore's Law for why the cheapest way to
-drain a queue is usually to spend machine time.
+CI/CD, using the two laws from [EDR-LEAN][r1] — Little's Law for how queues set lead time, and Moore's Law for why the cheapest way to drain
+a queue is usually to spend machine time.
 
 ## Decision
 
@@ -113,3 +113,5 @@ ones.
 [^3]:
     Gordon E. Moore, "Cramming More Components onto Integrated Circuits", _Electronics_ (1965). Used here for its economic consequence:
     compute grows cheap relative to human time, so trading machine time for human wait is a trade that keeps improving.
+
+[r1]: ../external/lean/lean.md

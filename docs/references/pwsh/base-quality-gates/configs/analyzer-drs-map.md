@@ -18,5 +18,5 @@ appears only when it genuinely enforces an ADR and is enabled in `PSScriptAnalyz
 
 The shape is validated at load by the AnalyzerDrsMapConfig type. Whether each id exists is checked by an integrity test, not at load, so the
 config load stays hermetic
-([ADR-AZ-CUSTOMER-REFERENCENOTVALIDATEDONLOAD](../../../../drs/azure/azure-customer-model.md#rule-adr-az-customer-referencenotvalidatedonload)
-sets the same pattern).
+([ADR-AZ-CUSTOMER-REFERENCEUNVALIDATED](../../../../drs/azure/azure-customer-model.md#rule-adr-az-customer-referenceunvalidated) sets the
+same pattern).

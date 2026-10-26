@@ -1,7 +1,7 @@
 # .ado/pipelines/steps/invoke-automation.yaml
 
 The unified step template for running a catzc command in a pipeline. It runs the command through `Invoke-AdoScript.ps1`, in the task that
-the authentication mode selects ([FDR-CD-RUNNER](../../../../drs/flow/pipeline-runner-pattern.md)).
+the authentication mode selects ([FDR-RUNNER](../../../../drs/flow/pipeline-runner-pattern.md)).
 
 ## Usage
 

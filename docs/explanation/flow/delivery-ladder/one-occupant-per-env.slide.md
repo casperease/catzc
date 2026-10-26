@@ -15,7 +15,7 @@ catzc:
 
 ## Eyebrow
 
-7 / 12 · fact · FDR-CD-LIFE
+7 / 12 · fact · FDR-LIFE
 
 ## Lead
 
@@ -31,5 +31,5 @@ From the catalogue, reduced: gate checks order not liveness.
 
 ## Notes
 
-Check it: the record FDR-CD-LIFE in docs/drs/index.md, and the diagram
+Check it: the record FDR-LIFE in docs/drs/index.md, and the diagram
 docs/explanation/design/.assets/gate-checks-order-not-liveness.drawio.png.

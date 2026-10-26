@@ -30,7 +30,7 @@ layers its own formatting rules on top. No file falls below the baseline.
 
 - [Per-language layers](#per-language-layers)
 
-### Rule ADR-REPO-FORMAT-GENERATEDARTIFACTSFORMATTED
+### Rule ADR-REPO-FORMAT-GENERATEDFORMATTED
 
 An artifact the build generates — a module manifest, a compiled cache — is emitted in canonical, formatter-stable form: deterministic
 ordering, tool-computed layout, and the `.editorconfig` baseline, so every build of one commit is byte-identical and the artifact diffs
@@ -71,15 +71,14 @@ vendored code, contract assets (`catzc-contract`, whose bytes a contract check c
 entries — there is no formatting command per language and no list of formatters in a check (PDR-CONFIG-VARYINGBEHAVIOURISCONFIG). An
 engine's entry also lists its `settings:`, and those entries are its whole cache stamp: its own settings files and the `tools.yml` keys of
 the tools it runs, nothing else, so another tool's pin edit leaves its results warm
-([ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS](../automation/caching.md#rule-adr-auto-cache-checkedfilesacrosssessions)). The registry lists,
-under `imprint:`, each **imprint step**: a step `Format-Code` runs after the formatter to write a derived fact into the file. A step at the
-top of the registry is global: it runs over every file whose carrier is not none
+([ADR-AUTO-CACHE-CROSSSESSIONFILES](../automation/caching.md#rule-adr-auto-cache-crosssessionfiles)). The registry lists, under `imprint:`,
+each **imprint step**: a step `Format-Code` runs after the formatter to write a derived fact into the file. A step at the top of the
+registry is global: it runs over every file whose carrier is not none
 ([ADR-REPO-FILEMETA-HEADPOLICY](file-meta.md#rule-adr-repo-filemeta-headpolicy)), whatever its language, as the meta block does
-([ADR-REPO-CODEMETA-IMPRINTSTEP](code-file-meta.md#rule-adr-repo-codemeta-imprintstep)). A language's own entry lists the steps that concern
-only its files, such as the C# namespace. A step may also write a companion file that belongs to the file it formats: the `comments` step
-moves a file's long comments into the file's comment page
-([ADR-REPO-COMMENTS-MOVEDBYTOOL](comments-in-docs.md#rule-adr-repo-comments-movedbytool)), and that page carries its own meta block, whose
-`role` marks it as a comment page. `Test-Formatting` checks the same steps, and no check names one.
+([ADR-REPO-CODEMETA-CODEHEADIMPRINT][r1]). A language's own entry lists the steps that concern only its files, such as the C# namespace. A
+step may also write a companion file that belongs to the file it formats: the `comments` step moves a file's long comments into the file's
+comment page ([ADR-REPO-COMMENTS-MOVEDBYTOOL](comments-in-docs.md#rule-adr-repo-comments-movedbytool)), and that page carries its own meta
+block, whose `role` marks it as a comment page. `Test-Formatting` checks the same steps, and no check names one.
 
 - [Formatting is configured per language](#formatting-is-configured-per-language)
 
@@ -235,3 +234,5 @@ per-file overrides, no "I prefer it this way." The tools decide, not the contrib
 - New contributors produce correctly formatted files from the first commit because their editor reads `.editorconfig`.
 - Formatting discussions never happen — the baseline is fixed and the per-language layers are mechanical.
 - Adding a file type is a small, bounded act: add its `.editorconfig` section (and formatter), inheriting the baseline.
+
+[r1]: code-file-meta.md#rule-adr-repo-codemeta-codeheadimprint

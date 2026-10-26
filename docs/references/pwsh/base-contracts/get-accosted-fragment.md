@@ -11,8 +11,7 @@ Renders the commands of an accosted file as a PowerShell fragment for an article
 
 ### description
 
-The file is read and checked by Get-AccostedFile, the one reader
-([ADR-AUTO-ACCOSTED-ONEREADER](../../../drs/automation/accosted-language.md#rule-adr-auto-accosted-onereader)), and each command is written
+The file is read and checked by Get-AccostedFile, the one reader ([ADR-AUTO-ACCOSTED-ACCOSTEDONEREADER][r1]), and each command is written
 the way the pwsh engine runs it (ConvertTo-AccostedCallText), so the text in an article is a rendering of the contract form and never
 hand-written. One line per command, `Get-FileLanguage -Path 'README.md'`; the commands of a run stay together and a blank line separates
 runs. Without -RunNumber every run is rendered, with -RunNumber one run, with -RunNumber and -CommandNumber one command.
@@ -42,3 +41,5 @@ The root a relative path and the command contracts resolve against. Default: the
 ```powershell
 Get-AccostedFragment -Path pwsh/Base.Contracts/accosted/contracts.accosted.yml -RunNumber 3
 ```
+
+[r1]: ../../../drs/automation/accosted-language.md#rule-adr-auto-accosted-accostedonereader

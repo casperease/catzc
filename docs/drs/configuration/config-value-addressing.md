@@ -6,7 +6,7 @@
 
 A _global config address_ has the form `global.<config>.<key>[.<key>…]` and names exactly one node inside a named config — a leaf value or a
 subtree. It is resolved by `Get-ConfigValue` (public, `Catzc.Base.Config`), which is built on `Get-Config`, so there is exactly one config
-reader and one config cache (ADR-CONF-LOADING-ONEREADER) — addressing is a walk over an already-loaded config, never a second reader.
+reader and one config cache (ADR-CONF-LOADING-CONFIGONEREADER) — addressing is a walk over an already-loaded config, never a second reader.
 
 - [Decision](#decision)
 - [One reader underneath](#one-reader-underneath)
@@ -47,7 +47,7 @@ config value: usable anywhere a value is wanted without re-reading a file, and r
 
 ## Context
 
-Configuration in this repo lives in `configs/*.yml`, read once through `Get-Config` and cached (ADR-CONF-LOADING-ONEREADER,
+Configuration in this repo lives in `configs/*.yml`, read once through `Get-Config` and cached (ADR-CONF-LOADING-CONFIGONEREADER,
 ADR-CONF-LOADING-CACHEBYPATH). A caller that wants one value out of a config already has a way to get it: call `Get-Config -Config <name>`
 and index into the result. That is fine inside a function, but it does not give a config value a _name that can be written down_ — a stable,
 committable reference that says "this env var's value is that config node" without embedding the value itself.
@@ -93,7 +93,7 @@ Get-ConfigValue -Address 'global.azure.environments.prod.region_code'   # deep l
 
 `Get-ConfigValue` strips `global.`, splits the rest into `<config>` plus a key path, calls `Get-Config -Config <config> -Module <module>`,
 and walks the key path with the private `Resolve-ConfigKeyPath`. It does not open a file or keep a cache of its own — it is a view over what
-`Get-Config` already loaded and validated (ADR-CONF-LOADING-ONEREADER). The traversal lives in `Resolve-ConfigKeyPath` alone so
+`Get-Config` already loaded and validated (ADR-CONF-LOADING-CONFIGONEREADER). The traversal lives in `Resolve-ConfigKeyPath` alone so
 `Get-ConfigValue` stays a thin strip-split-walk and the walk is unit-testable in isolation.
 
 ### Uniform traversal
@@ -142,7 +142,7 @@ reader sees. An address is a _reference_ to a config value, with the same discip
 - A config value has a written-down, committable name. "This env var's value is `global.database.host`" is expressible as data, resolved at
   the point of use, with the config file as the single source of truth — no copied literals to drift.
 - There is exactly one reader and one cache. `Get-ConfigValue` adds a grammar and a walk on top of `Get-Config`; it never re-reads a file or
-  caches anything (ADR-CONF-LOADING-ONEREADER).
+  caches anything (ADR-CONF-LOADING-CONFIGONEREADER).
 - Addressing draws a hard line at secrets: everything addressable is in git and non-secret, so a consumer can log an address-sourced value
   freely, and secrets stay entirely off the addressing channel (ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS).
 - Mistakes fail loudly at the call site — a wrong name or a wrong key throws with the offending address — instead of leaking a `$null`

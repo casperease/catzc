@@ -6,6 +6,9 @@ function Get-ToolsStatus {
 
     Write-Message 'Getting status of tools'
 
+    # The janitor puts each tool's declared install place on PATH first, so a managed tool off this session's PATH is found, not Missing.
+    Sync-SessionTools -Silent
+
     # --- Batch slow operations up front ---
 
     # Single winget list call instead of one per tool (~3s saved per winget tool).
@@ -158,7 +161,7 @@ function Get-ToolsStatus {
             $status = 'Usable'
             $hasRemove = [bool](Get-Command "Remove-$command" -ErrorAction SilentlyContinue)
             $action = if ($hasRemove) {
-                "Works, but not managed by $expectedManager. To migrate: Remove-$command -Force (destructive — deletes '$location'), then Install-$command"
+                "Works, but not managed by $expectedManager. Run Remove-$command, then Install-$command"
             }
             else {
                 "Works, but not managed by $expectedManager. Recommend: uninstall from '$location', then Install-$command"

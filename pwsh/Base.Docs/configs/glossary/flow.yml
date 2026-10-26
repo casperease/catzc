@@ -2,7 +2,7 @@ concepts:
   manual queue:
     key: manual_queue
     domain: flow
-    defined_by: FDR-CD-QUEUE-THREEQUEUES
+    defined_by: FDR-QUEUE-THREEQUEUES
     short:
       A point on the promotion ladder where a commit waits for a person's act before it climbs; the ladder has three, each with a named
       server, a named store and a measured wait.
@@ -12,7 +12,7 @@ concepts:
   release signature:
     key: release_signature
     domain: flow
-    defined_by: FDR-CD-QUEUE-SIGNATUREISTHEGATE
+    defined_by: FDR-QUEUE-SIGNATUREISTHEGATE
     short:
       One recorded act in the appointed security registry by a user with access, saying that a rung passed its check for one named commit;
       it serves the RC gate for main-UAT and the RBC gate for release-uat.
@@ -20,7 +20,7 @@ concepts:
   slot switch:
     key: slot_switch
     domain: flow
-    defined_by: FDR-CD-QUEUE-SLOTSWITCHISAUTOMATED
+    defined_by: FDR-QUEUE-SLOTSWITCHISAUTOMATED
     short:
       The automated, monitored act that makes the pre-prod occupant the live production occupant and moves the former one into the staging
       slot; never a manual queue.

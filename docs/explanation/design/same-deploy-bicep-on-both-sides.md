@@ -107,8 +107,8 @@ layout:
 
 ## Where the code and the decision record differ
 
-ADR-AUTO-PARITY-ONESEAM allows a command to branch on the pipeline seam only where the environments genuinely differ, and names where output
-goes and the dev-box auto-commit. Here the seam also changes what the command does: `-SubscriptionIdAssertIs` is mandatory only in a
+ADR-AUTO-PARITY-PARITYSEAM allows a command to branch on the pipeline seam only where the environments genuinely differ, and names where
+output goes and the dev-box auto-commit. Here the seam also changes what the command does: `-SubscriptionIdAssertIs` is mandatory only in a
 pipeline, a devbox builds where a pipeline needs artifacts, `-DoNotRebuild` and `-OverrideDoNotRunAndRun` work on a devbox only, and the
 `az_cli` pin is relaxed off a pipeline, where an installed az matching `devbox_version` is also accepted.
 

@@ -13,7 +13,7 @@ of base tools (git, vscode) deliberately tracks `latest` and verifies integrity 
 
 Provide one `Install-*` / `Invoke-*` / `Uninstall-*` triad per tool. The installer handles platform differences, the invoker asserts version
 and presence, the uninstaller cleans up. A platform-provided prerequisite is the exception (Rule
-ADR-AUTO-DEPS-PLATFORMPREREQUISITEASSERTED): it is asserted, never installed by its own entry, so it has no triad.
+ADR-AUTO-DEPS-PREREQUISITEASSERTED): it is asserted, never installed by its own entry, so it has no triad.
 
 - [2. Platform-aware installers](#2-platform-aware-installers)
 
@@ -59,7 +59,7 @@ split: `ADR-AUTO-DEPS` (SYS = system) and `ADR-AUTO-DEPM` (MOD = module). This A
 
 - [System vs module dependencies](#system-vs-module-dependencies)
 
-### Rule ADR-AUTO-DEPS-PLATFORMPREREQUISITEASSERTED
+### Rule ADR-AUTO-DEPS-PREREQUISITEASSERTED
 
 A platform-provided prerequisite is asserted, never installed by its own entry. "Provided by the platform" means the operating system —
 winget (the Windows App Installer), `/bin/bash` on Linux — or a base tool the devbox installs unpinned: git, and Git Bash with it, which is
@@ -137,7 +137,7 @@ tool:
 - **uv-managed Python family** — Python itself and the CLIs written in Python (the Azure CLI, Poetry, PySpark) install user-space through
   uv, keyed by `uv_python` / `uv_tool` / `pip_package`; see [uv-python-handler](uv-python-handler.md) (`ADR-AUTO-UVPY`).
 - **platform-provided prerequisites** (`winget`, `bash`) set `system_provided: true` — asserted, never installed by their own entry (Rule
-  ADR-AUTO-DEPS-PLATFORMPREREQUISITEASSERTED).
+  ADR-AUTO-DEPS-PREREQUISITEASSERTED).
 
 All entries share `version`, `command`, `version_command`, and `version_pattern` — the fields used for version-locking and runtime
 assertion.

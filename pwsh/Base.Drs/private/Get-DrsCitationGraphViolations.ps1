@@ -6,7 +6,10 @@ function Get-DrsCitationGraphViolations {
         [Catzc.Base.Drs.DrsConfig] $Adrs,
 
         [Parameter(Mandatory)]
-        [pscustomobject] $Index
+        [pscustomobject] $Index,
+
+        # Domains whose own citations are not held to their dependencies, such as a domain of external records that binds to the records it serves.
+        [string[]] $ExemptDomain = @()
     )
 
     $domainOfCode = @{}
@@ -24,6 +27,9 @@ function Get-DrsCitationGraphViolations {
     $folders = @($Adrs.Domains | Sort-Object -Property { $_.Folder.Length } -Descending)
 
     $ret = foreach ($domain in $Adrs.Domains) {
+        if ($domain.Name -in $ExemptDomain) {
+            continue
+        }
         $allowed = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
         [void]$allowed.Add($domain.Name)
         foreach ($dependency in $domain.DependsOn) {

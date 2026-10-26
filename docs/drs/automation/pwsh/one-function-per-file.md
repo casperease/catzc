@@ -38,7 +38,7 @@ the name with a file name or a command name.
 ## Context
 
 [open-closed-architecture](../open-closed-architecture.md#rule-adr-auto-extend-mandatoryconventions) makes "file name = function name" a
-mandatory convention, and [zero-ceremony-poka-yoke](../zero-ceremony-poka-yoke.md#rule-adr-auto-zero-zeroceremonyautomation) makes adding a
+mandatory convention, and [zero-ceremony-poka-yoke](../zero-ceremony-poka-yoke.md#rule-adr-auto-zero-ceremonyautomation) makes adding a
 function a matter of adding a file. This ADR is that convention in PowerShell. We need a convention for how functions map to files within a
 module. The two common approaches are:
 

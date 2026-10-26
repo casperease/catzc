@@ -37,7 +37,7 @@ Invoke-RestMethod -Uri $url -Headers $headers
 ## Where the credential comes from
 
 The sources run in a fixed order, the first that applies winning
-([ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE](../../../drs/ado/dual-authentication.md#rule-adr-ado-auth-fixedcredentialprecedence)):
+([ADR-ADO-AUTH-FIXEDCREDENTIALORDER](../../../drs/ado/dual-authentication.md#rule-adr-ado-auth-fixedcredentialorder)):
 
 1. The pipeline's system token, when the run is detected as a pipeline run
    ([ADR-ADO-AUTH-EXPLICITDETECTION](../../../drs/ado/dual-authentication.md#rule-adr-ado-auth-explicitdetection)) and `SYSTEM_ACCESSTOKEN`

@@ -12,7 +12,7 @@ itself is pinned hermetically, on a fixture config with no registry entry.
 
 Memoization, the not-found error path and parameter-binding validation hold whatever configs are shipped. The caching test owns a fixture
 config through the `Resolve-ConfigEntry` seam, so it never reads a shipped config
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+([ADR-AUTO-TEST-DISTINCTFIXTURES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtures)).
 
 ## Registry validation
 

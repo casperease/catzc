@@ -9,8 +9,8 @@ A globset is one ordered program, and its three views are derived live, never co
 4  Change report    the view that answers "which areas did a change touch?"
 5  Protection       the view that answers "did these inputs change?"
 
-Supports FDR-CD-GLOBS-NAMEDGLOBSETS, FDR-CD-GLOBS-TRACKEDFILESONLY, FDR-CD-GLOBS-DURABLESHAIDENTITY
-and FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT (meta lens).
+Supports FDR-GLOBS-NAMEDGLOBSETS, FDR-GLOBS-TRACKEDFILESONLY, FDR-GLOBS-DURABLESHAIDENTITY
+and FDR-GLOBS-CHANGECOMPUTEDFROMGIT (meta lens).
 ```
 
 A globset in cats names an area-of-control and maps it onto files under version control. Every question that asks whether a change concerns
@@ -22,7 +22,7 @@ description:
   A globset registry flattens into one ordered program, and the trigger, the change report and the protection identity are read-outs derived
   live from it, never committed.
 about:
-  adrs: [FDR-CD-GLOBS-NAMEDGLOBSETS, FDR-CD-GLOBS-TRACKEDFILESONLY, FDR-CD-GLOBS-DURABLESHAIDENTITY, FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT]
+  adrs: [FDR-GLOBS-NAMEDGLOBSETS, FDR-GLOBS-TRACKEDFILESONLY, FDR-GLOBS-DURABLESHAIDENTITY, FDR-GLOBS-CHANGECOMPUTEDFROMGIT]
   lens: meta
 content:
   title: A globset is one ordered program, and its three views are derived live, never committed
@@ -76,11 +76,10 @@ layout:
 
 ## Why it holds
 
-- One registry is the source of truth, and all three roles are derived from it, none committed per set (FDR-CD-GLOBS-NAMEDGLOBSETS).
-- Membership is decided by an ordered scan program over tracked files, last match wins, default not selected
-  (FDR-CD-GLOBS-TRACKEDFILESONLY).
-- The identity is computed live and never committed (FDR-CD-GLOBS-DURABLESHAIDENTITY).
-- Whether a change touches a set is computed from git at the real refs, never from a stored hash (FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT).
+- One registry is the source of truth, and all three roles are derived from it, none committed per set (FDR-GLOBS-NAMEDGLOBSETS).
+- Membership is decided by an ordered scan program over tracked files, last match wins, default not selected (FDR-GLOBS-TRACKEDFILESONLY).
+- The identity is computed live and never committed (FDR-GLOBS-DURABLESHAIDENTITY).
+- Whether a change touches a set is computed from git at the real refs, never from a stored hash (FDR-GLOBS-CHANGECOMPUTEDFROMGIT).
 
 ## See also
 

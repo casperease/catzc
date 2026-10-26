@@ -2,7 +2,7 @@
 
 The L0 logic test of `Select-TestShardAssignment`, the longest-first scheduling of the parallel test files over the worker shards. The
 fixtures use neutral names
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+([ADR-AUTO-TEST-DISTINCTFIXTURES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtures)).
 
 ## Worked cases
 

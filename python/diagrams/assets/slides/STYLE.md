@@ -83,19 +83,19 @@ on `bg_raised`. A deck that alternates patterns alternates tones by itself.
 ---
 catzc:
   edges:
-    cites: [PDR-EAC-DIFFABLEBELONGSINVERSIONCONTROL]
+    cites: [PDR-EAC-DIFFABLEISVERSIONED]
   config:
     pattern: rule
     deck: product-thesis
     order: 14
-    quotes: PDR-EAC-DIFFABLEBELONGSINVERSIONCONTROL
+    quotes: PDR-EAC-DIFFABLEISVERSIONED
 ---
 
 # If it can be diffed, it belongs in version control
 
 ## Eyebrow
 
-PDR-EAC-DIFFABLEBELONGSINVERSIONCONTROL · Everything as code
+PDR-EAC-DIFFABLEISVERSIONED · Everything as code
 
 ## Body
 

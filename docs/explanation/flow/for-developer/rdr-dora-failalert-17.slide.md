@@ -14,7 +14,7 @@ catzc:
 
 ## Eyebrow
 
-17 / 30 · fact for the Developer · RDR-DORA-FAILALERT
+17 / 30 · fact for the Developer · EDR-DORA-FAILALERT
 
 ## Lead
 
@@ -31,5 +31,5 @@ From the catalogue, reduced: pipeline kinds keyed by one artifact.
 
 ## Notes
 
-Check it: the record RDR-DORA-FAILALERT in docs/drs/index.md, and the diagram
+Check it: the record EDR-DORA-FAILALERT in docs/drs/index.md, and the diagram
 docs/explanation/flow/.assets/pipeline-kinds-keyed-by-one-artifact.drawio.png.

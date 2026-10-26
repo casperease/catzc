@@ -14,7 +14,7 @@ catzc:
 
 ## Eyebrow
 
-11 / 15 · fact · FDR-CD-LIFE
+11 / 15 · fact · FDR-LIFE
 
 ## Lead
 
@@ -31,5 +31,5 @@ From the catalogue, reduced: every entry runs one load sequence.
 
 ## Notes
 
-Check it: the record FDR-CD-LIFE in docs/drs/index.md, and the diagram
+Check it: the record FDR-LIFE in docs/drs/index.md, and the diagram
 docs/explanation/automation/.assets/every-entry-runs-one-load-sequence.drawio.png.

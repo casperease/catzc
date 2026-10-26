@@ -4,7 +4,7 @@ Tests `Build-ContractReference`, which writes one page per root, `docs/reference
 with their notes ([ADR-REPO-CONTRACT-LAYOUT](../../../../drs/repository/api-contracts.md#rule-adr-repo-contract-layout)), as a committed
 generated page ([ADR-REPO-README-AUTHOREDSOURCES](../../../../drs/repository/generated-readmes.md#rule-adr-repo-readme-authoredsources)).
 Fixtures are a widget repository in `TestDrive:`
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+([ADR-AUTO-TEST-DISTINCTFIXTURES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtures)).
 
 ## The real reference
 

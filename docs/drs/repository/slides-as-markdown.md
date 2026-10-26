@@ -18,8 +18,8 @@ A **pattern** is one file, `patterns/<name>.html` in the slides kit, the `assets
 track: one section in the slide format whose placeholders name its fields and say which are required. A slide names its pattern in its head.
 Adding a layout is a new pattern file and one line in the kit's `STYLE.md`, never a change to the renderer
 ([PDR-CONFIG-VARYINGBEHAVIOURISCONFIG](../principles/configure-not-program.md#rule-pdr-config-varyingbehaviourisconfig),
-[PDR-CONFIG-NEWINSTANCEISCONFIGCHANGE](../principles/configure-not-program.md#rule-pdr-config-newinstanceisconfigchange)). What every
-pattern shares, the dark tones, the faces, the type scale, the footer and the output folder, is declared once in the kit's `slides.yml`
+[PDR-CONFIG-NEWINSTANCEISCONFIG](../principles/configure-not-program.md#rule-pdr-config-newinstanceisconfig)). What every pattern shares,
+the dark tones, the faces, the type scale, the footer and the output folder, is declared once in the kit's `slides.yml`
 ([PDR-CONFIG-DEFAULTDECLAREDONCE](../principles/configure-not-program.md#rule-pdr-config-defaultdeclaredonce)). A pattern is dark; no light
 background exists.
 
@@ -49,9 +49,9 @@ is the gate over these checks, one file at a time; a fact about the deck as a wh
 
 The published deck is a projection of the slide files. The files are the deck's one living version
 ([PDR-ONELIVE-ONEVERSION](../principles/one-living-version.md#rule-pdr-onelive-oneversion)), and no state of the deck lives outside them
-([PDR-EAC-NOSTATEOUTSIDEVERSIONCONTROL](../principles/everything-as-code.md#rule-pdr-eac-nostateoutsideversioncontrol)): the deck is
-replaced whole on publish, and an edit made in the deck's own editor is carried back into the slide file or discarded. No slide has a verify
-record of its own, because rule 4 derives what such a record would hold.
+([PDR-EAC-NOUNVERSIONEDSTATE](../principles/everything-as-code.md#rule-pdr-eac-nounversionedstate)): the deck is replaced whole on publish,
+and an edit made in the deck's own editor is carried back into the slide file or discarded. No slide has a verify record of its own, because
+rule 4 derives what such a record would hold.
 
 - [One source of truth for a deck](#one-source-of-truth-for-a-deck)
 
@@ -60,7 +60,7 @@ record of its own, because rule 4 derives what such a record would hold.
 `file-kinds.yml` places a slide file in the kind `slide` (`docs/**/*.slide.md`), ahead of the two documentation trees as the diagram kinds
 are, and the kit in `slides-kit` (`python/diagrams/assets/slides/**`). The renderer, the gate and their types live in `Catzc.Base.Slides`,
 and their tests run on neutral fixture decks, never on a real one
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+([ADR-AUTO-TEST-DISTINCTFIXTURES](../automation/test-automation.md#rule-adr-auto-test-distinctfixtures)).
 
 - [Kinds and home](#kinds-and-home)
 
@@ -71,8 +71,8 @@ that command repeated over every `*.drawio.yml` found under `docs/**/.assets/`, 
 diagram's declaration (or, for a render without one, the model embedded in its `<name>.drawio.png`) and the repository's maps. The articles
 and slides that embed the png are not inputs: the build finds every one of them, wherever it sits, and holds each one's Supports line
 against the declaration's rule codes and lens. No step of it asks a session or a model to decide anything
-([PDR-EAC-NOSTATEOUTSIDEVERSIONCONTROL](../principles/everything-as-code.md#rule-pdr-eac-nostateoutsideversioncontrol)). A raster is never
-drawn by hand or by the draw.io CLI: a session edits a model, and the kit renders it.
+([PDR-EAC-NOUNVERSIONEDSTATE](../principles/everything-as-code.md#rule-pdr-eac-nounversionedstate)). A raster is never drawn by hand or by
+the draw.io CLI: a session edits a model, and the kit renders it.
 
 - [One command renders every diagram](#one-command-renders-every-diagram)
 

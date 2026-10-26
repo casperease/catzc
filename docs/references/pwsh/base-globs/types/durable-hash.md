@@ -1,9 +1,9 @@
 # pwsh/Base.Globs/types/DurableHash.cs
 
 The durable-SHA digest primitives, in native code
-([FDR-CD-GLOBS-DURABLESHAIDENTITY](../../../../drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-durableshaidentity)). A globset may include
-large binaries, such as the committed type assembly, where a per-byte PowerShell pipeline takes minutes and this takes milliseconds. It uses
-the BCL only. See [FDR-CD-GLOBS](../../../../drs/flow/durable-sha-globs.md).
+([FDR-GLOBS-DURABLESHAIDENTITY](../../../../drs/flow/durable-sha-globs.md#rule-fdr-globs-durableshaidentity)). A globset may include large
+binaries, such as the committed type assembly, where a per-byte PowerShell pipeline takes minutes and this takes milliseconds. It uses the
+BCL only. See [FDR-GLOBS](../../../../drs/flow/durable-sha-globs.md).
 
 ## HashFile
 

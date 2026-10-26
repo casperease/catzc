@@ -1,8 +1,7 @@
 # pwsh/Base.Globs/tests/GlobSet-Independence.Tests.ps1
 
 The integrity test of per-layer independence
-([FDR-CD-GLOBS-NOOVERLAPWITHINLAYER](../../../../drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-nooverlapwithinlayer)) in the real
-repository.
+([FDR-GLOBS-NOOVERLAPWITHINLAYER](../../../../drs/flow/durable-sha-globs.md#rule-fdr-globs-nooverlapwithinlayer)) in the real repository.
 
 ## What it proves
 

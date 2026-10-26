@@ -29,7 +29,7 @@ catzc:
 
 ## Eyebrow
 
-1 / 10 · fact · FDR-CD-QUEUE-THREEQUEUES
+1 / 10 · fact · FDR-QUEUE-THREEQUEUES
 
 ## Lead
 

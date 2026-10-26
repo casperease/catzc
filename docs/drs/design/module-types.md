@@ -19,14 +19,13 @@ place's root). `module` and `moduletype` are read from the registry and never gu
 
 - [Module types](#module-types)
 
-### Rule DDR-MODTYPE-TRACKTYPEADMITSMODULETYPES
+### Rule DDR-MODTYPE-TRACKTYPEADMITS
 
-Each track type **admits** a set of module types, declared on the track type
-([DDR-TRACKTYPE-DECLAREDONCE](track-types.md#rule-ddr-tracktype-declaredonce)), and a module's type must be admitted by the type of the
-track that holds it: `modules` admits `pwsh-folder`, `pwsh-psm1`, `python`, `go` and `bash`, one module type per language track,
-`infrastructure` admits `bicep`, `pipelines` admits `pipeline` (the track's vendor says which platform), `vendor-settings` admits
-`settings`, and `vendored-code` admits the module types of the track it is nested in. A module of a type its track does not admit is a load
-failure, so a second stack inside a track shows as a violation without reading the file
+Each track type **admits** a set of module types, declared on the track type ([DDR-TRACKTYPE-TYPESDECLAREDONCE][r1]), and a module's type
+must be admitted by the type of the track that holds it: `modules` admits `pwsh-folder`, `pwsh-psm1`, `python`, `go` and `bash`, one module
+type per language track, `infrastructure` admits `bicep`, `pipelines` admits `pipeline` (the track's vendor says which platform),
+`vendor-settings` admits `settings`, and `vendored-code` admits the module types of the track it is nested in. A module of a type its track
+does not admit is a load failure, so a second stack inside a track shows as a violation without reading the file
 ([DDR-TRACK-ONETECHSTACK](tracks.md#rule-ddr-track-onetechstack)).
 
 - [Types and tracks](#types-and-tracks)
@@ -65,7 +64,7 @@ looks for a module folder where none exists.
 A module is a unit placed in a track; its type comes from the registry
 ([DDR-MODTYPE-MODULEISPLACEDUNIT](#rule-ddr-modtype-moduleisplacedunit),
 [DDR-MODTYPE-MODULETYPEISSORT](#rule-ddr-modtype-moduletypeissort)); its track type must admit it
-([DDR-MODTYPE-TRACKTYPEADMITSMODULETYPES](#rule-ddr-modtype-tracktypeadmitsmoduletypes)); a holder's module is the holder
+([DDR-MODTYPE-TRACKTYPEADMITS](#rule-ddr-modtype-tracktypeadmits)); a holder's module is the holder
 ([DDR-MODTYPE-DEPLOYABLEORHOLDERMODULE](#rule-ddr-modtype-deployableorholdermodule)).
 
 ### How this is enforced
@@ -80,3 +79,5 @@ A module is a unit placed in a track; its type comes from the registry
 - `pipeline` stays one module type: the platform is the track's vendor, so ADO and GitHub pipelines differ by a declared fact, not by a
   second type.
 - The cost is one more declaration (the `admits` list on each track type), done by regeneration of the heads.
+
+[r1]: track-types.md#rule-ddr-tracktype-typesdeclaredonce

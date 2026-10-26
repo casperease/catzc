@@ -12,7 +12,6 @@ from PIL import Image
 from PIL.PngImagePlugin import PngInfo
 
 from .drawio_png import DEFAULTS, decode, encode, mxfile_chunk, plain, render
-from .module_paths import KIT as KIT  # re-exported to drawio_forward
 from .module_paths import REPO
 
 PAGE_LINES = 66

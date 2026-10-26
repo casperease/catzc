@@ -14,8 +14,8 @@ Only the BVT rung has a gate in code; every sync-point rule is DRS-only.
 9   upstream integrator  syncs from the BVT-verified head, never from the dirty HEAD; no check
 10  dirty HEAD           commit 10, failed in main-UAT; nothing syncs from it
 
-Supports FDR-CD-LIFE-DISCARDISTERMINAL, FDR-CD-LIFE-ONECOMMITPERENVIRONMENT, FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD,
-FDR-CD-LIFE-DIRTYHEADUNSAFE and FDR-CD-LIFE-FAILEDSTAYSUPSTREAM, FDR-CD-CDSTAYSINNONPROD, FDR-CD-TWORELEASEGATES
+Supports FDR-LIFE-DISCARDISTERMINAL, FDR-LIFE-ONECOMMITPERENVIRONMENT, FDR-LIFE-SYNCFROMVERIFIEDHEAD,
+FDR-LIFE-DIRTYHEADUNSAFE and FDR-LIFE-FAILEDSTAYSUPSTREAM, FDR-CD-CDSTAYSINNONPROD, FDR-CD-TWORELEASEGATES
 and FDR-CD-PREPRODRUNG (governance lens).
 ```
 
@@ -30,11 +30,11 @@ description:
   the manual release gates and the dirty HEAD is DRS-only.
 about:
   adrs:
-    - FDR-CD-LIFE-DISCARDISTERMINAL
-    - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
-    - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
-    - FDR-CD-LIFE-DIRTYHEADUNSAFE
-    - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+    - FDR-LIFE-DISCARDISTERMINAL
+    - FDR-LIFE-ONECOMMITPERENVIRONMENT
+    - FDR-LIFE-SYNCFROMVERIFIEDHEAD
+    - FDR-LIFE-DIRTYHEADUNSAFE
+    - FDR-LIFE-FAILEDSTAYSUPSTREAM
     - FDR-CD-CDSTAYSINNONPROD
     - FDR-CD-TWORELEASEGATES
     - FDR-CD-PREPRODRUNG
@@ -85,17 +85,17 @@ content:
     - { at: g-integrator, number: 9 }
     - { at: f-dirty-head, number: 10 }
   chips:
-    - { at: g-integrator, kind: rule, rule: FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD, gated: false }
-    - { at: g-integrator, kind: rule, rule: FDR-CD-LIFE-DIRTYHEADUNSAFE, gated: false }
-    - { at: g-production, kind: rule, rule: FDR-CD-LIFE-ONECOMMITPERENVIRONMENT, gated: false }
+    - { at: g-integrator, kind: rule, rule: FDR-LIFE-SYNCFROMVERIFIEDHEAD, gated: false }
+    - { at: g-integrator, kind: rule, rule: FDR-LIFE-DIRTYHEADUNSAFE, gated: false }
+    - { at: g-production, kind: rule, rule: FDR-LIFE-ONECOMMITPERENVIRONMENT, gated: false }
     - { at: g-pre-prod, kind: rule, rule: FDR-CD-PREPRODRUNG, gated: false }
     - { at: g-rc, kind: rule, rule: FDR-CD-TWORELEASEGATES, gated: false }
     - { at: g-rbc, kind: rule, rule: FDR-CD-TWORELEASEGATES, gated: false }
-    - { at: g-main-uat, kind: rule, rule: FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD, gated: false }
+    - { at: g-main-uat, kind: rule, rule: FDR-LIFE-SYNCFROMVERIFIEDHEAD, gated: false }
     - { at: g-on-demand, kind: rule, rule: FDR-CD-CDSTAYSINNONPROD, gated: false }
-    - { at: g-ci-automation, kind: rule, rule: FDR-CD-LIFE-DISCARDISTERMINAL }
-    - { at: f-dirty-head, kind: rule, rule: FDR-CD-LIFE-DIRTYHEADUNSAFE, gated: false }
-    - { at: f-dirty-head, kind: rule, rule: FDR-CD-LIFE-FAILEDSTAYSUPSTREAM, gated: false }
+    - { at: g-ci-automation, kind: rule, rule: FDR-LIFE-DISCARDISTERMINAL }
+    - { at: f-dirty-head, kind: rule, rule: FDR-LIFE-DIRTYHEADUNSAFE, gated: false }
+    - { at: f-dirty-head, kind: rule, rule: FDR-LIFE-FAILEDSTAYSUPSTREAM, gated: false }
   legend: auto
   minimaps: [code-locations, grid, axis]
 layout:
@@ -109,11 +109,11 @@ layout:
 
 1. **ci-pwsh.** The first rung, and the one gate on the ladder that code enforces: BVT. It runs on every push to main and on pull requests
    to main that touch `pwsh/**`, in Azure DevOps and in GitHub Actions, and it runs `Test-Automation -Level 2`. A failing run rejects the
-   commit automatically, as BVT should (FDR-CD-LIFE-DISCARDISTERMINAL).
+   commit automatically, as BVT should (FDR-LIFE-DISCARDISTERMINAL).
 2. **On-demand (L3).** The on-demand environment where CD runs the L3 system-level end-to-end tests before it rolls the artifact onto the
    always-on environment (FDR-CD-CDSTAYSINNONPROD). No pipeline defines it.
 3. **main-UAT.** Holds commit 6, the BVT-verified head it took first, so the sync point and the occupant are one commit
-   (FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD).
+   (FDR-LIFE-SYNCFROMVERIFIEDHEAD).
 4. **RC.** The manual gate on main-AT that a commit climbs through on its way out of main-UAT (FDR-CD-TWORELEASEGATES). No code runs RC, so
    the gate is drawn and its rule chip is dashed.
 5. **Release-uat.** Holds commit 5.
@@ -121,22 +121,21 @@ layout:
    RBC.
 7. **Pre-prod.** The staged rung between release-uat and production (FDR-CD-PREPRODRUNG). It holds one green commit with no worked-example
    number.
-8. **Production.** The top rung. Holds one occupant, commit 4, plus a history (FDR-CD-LIFE-ONECOMMITPERENVIRONMENT). No pipeline records
-   which commit that is.
-9. **Upstream integrator.** Takes its commit from the BVT-verified head in main-UAT (FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD) and never from the
-   dirty HEAD (FDR-CD-LIFE-DIRTYHEADUNSAFE). Nothing in code checks either.
-10. **Dirty HEAD.** Commit 10, the tip of main, which entered `main-UAT` and failed there. Nothing syncs from it
-    (FDR-CD-LIFE-DIRTYHEADUNSAFE), and it feeds nothing downstream (FDR-CD-LIFE-FAILEDSTAYSUPSTREAM). It keeps the blue of the state it
-    carried into `main-UAT`.
+8. **Production.** The top rung. Holds one occupant, commit 4, plus a history (FDR-LIFE-ONECOMMITPERENVIRONMENT). No pipeline records which
+   commit that is.
+9. **Upstream integrator.** Takes its commit from the BVT-verified head in main-UAT (FDR-LIFE-SYNCFROMVERIFIEDHEAD) and never from the dirty
+   HEAD (FDR-LIFE-DIRTYHEADUNSAFE). Nothing in code checks either.
+10. **Dirty HEAD.** Commit 10, the tip of main, which entered `main-UAT` and failed there. Nothing syncs from it (FDR-LIFE-DIRTYHEADUNSAFE),
+    and it feeds nothing downstream (FDR-LIFE-FAILEDSTAYSUPSTREAM). It keeps the blue of the state it carried into `main-UAT`.
 
 ## Why it holds
 
-- BVT discards automatically, at a named stage (FDR-CD-LIFE-DISCARDISTERMINAL); `ci-pwsh` is that gate.
-- Each always-on environment hosts exactly one occupant plus a history (FDR-CD-LIFE-ONECOMMITPERENVIRONMENT). The glossary defines
-  "occupant" as `prose-only`, so `Test-Glossary` checks only its phrasing ("current occupant", "resident commit") and exempts it from the
-  enforcement check.
-- Integrators sync from the BVT-verified head, which `main-UAT` takes first, never from HEAD (FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD,
-  FDR-CD-LIFE-DIRTYHEADUNSAFE), and a failed commit goes nowhere downstream (FDR-CD-LIFE-FAILEDSTAYSUPSTREAM).
+- BVT discards automatically, at a named stage (FDR-LIFE-DISCARDISTERMINAL); `ci-pwsh` is that gate.
+- Each always-on environment hosts exactly one occupant plus a history (FDR-LIFE-ONECOMMITPERENVIRONMENT). The glossary defines "occupant"
+  as `prose-only`, so `Test-Glossary` checks only its phrasing ("current occupant", "resident commit") and exempts it from the enforcement
+  check.
+- Integrators sync from the BVT-verified head, which `main-UAT` takes first, never from HEAD (FDR-LIFE-SYNCFROMVERIFIEDHEAD,
+  FDR-LIFE-DIRTYHEADUNSAFE), and a failed commit goes nowhere downstream (FDR-LIFE-FAILEDSTAYSUPSTREAM).
 - RC and RBC are manual gates at `main-UAT` and release-uat (FDR-CD-TWORELEASEGATES); the tail runs through pre-prod (FDR-CD-PREPRODRUNG);
   L3 runs in an on-demand environment (FDR-CD-CDSTAYSINNONPROD).
 
@@ -146,7 +145,7 @@ The decision records describe `main-UAT`, release-uat and pre-prod as always-on 
 pipelines define none of them: a main commit that passes its CI stage is deployed to every target of a stage at once, non-prod and prod tier
 side by side (`nsub` and `psub`, or the expedition's `dev` and `prod`). The approval check on a prod-tier environment is the engine's,
 configured by the adopting team's apply of the shipped `environment-approvals.yml` through `Sync-AdoEnvironmentApprovals`; this repository
-runs none. FDR-CD-LIFE-FAILEDSTAYSUPSTREAM holds in code only between pipeline stages, through `succeeded()` conditions, not between
+runs none. FDR-LIFE-FAILEDSTAYSUPSTREAM holds in code only between pipeline stages, through `succeeded()` conditions, not between
 environment rungs. No pipeline defines the on-demand L3 environment. The decision records also spell the environment `main-UAT` in the
 commit lifecycle and `main-uat` in the promotion flow.
 

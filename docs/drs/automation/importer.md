@@ -46,7 +46,7 @@ command, so there is no second, pre-load copy of them.
 
 - [Deciding after the load](#deciding-after-the-load)
 
-### Rule ADR-AUTO-IMPORTER-CODELANGUAGESSELECTMODULES
+### Rule ADR-AUTO-IMPORTER-LANGUAGESSELECTMODULES
 
 A module's code languages are the executable languages of the files that a language's own layout row places; the shared rows, assets and
 tests, never count ([ADR-AUTO-MODULE-EXISTSBYLAYOUT](module-model.md#rule-adr-auto-module-existsbylayout)). A module is in the mix when
@@ -62,7 +62,7 @@ a language is handled when it is executable and its layout rows place it in a mo
 implementation languages are PowerShell with its hosted C#, Bash, Python and Go
 ([ADR-AUTO-MODULE-LANGUAGESFROMFILES](module-model.md#rule-adr-auto-module-languagesfromfiles)). A new language is a handler and a registry
 entry, never a branch
-([ADR-AUTO-EXTEND-CONTENTAGNOSTICINFRASTRUCTURE](open-closed-architecture.md#rule-adr-auto-extend-contentagnosticinfrastructure)).
+([ADR-AUTO-EXTEND-CONTENTAGNOSTICCORE](open-closed-architecture.md#rule-adr-auto-extend-contentagnosticcore)).
 
 - [Growth by entry](#growth-by-entry)
 

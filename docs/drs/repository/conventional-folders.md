@@ -21,10 +21,10 @@ code `DDR-TRACK`).
 The convention model is encoded as the **sensible default configuration** of an ordered repository. A folder name the model gives meaning to
 is a setting whose default is the conventional name, declared once
 ([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)) at one of three layers:
-a track's places (`variants.yml` `tracks`, [DDR-TRACKTYPE-DECLAREDONCE](../design/track-types.md#rule-ddr-tracktype-declaredonce)), the
-places of a track's modules (`module-types.yml`), or the folders a language lays out inside a module (`languages.yml` `layout`, each folder
-with its role). A repository renames any of them — `out/`, `pwsh/`, `private/` — by overriding that setting, and every tool follows the
-setting. A subfolder the model does not reach gets what its parent's role does with it, and its own name and layout are free.
+a track's places (`variants.yml` `tracks`, [DDR-TRACKTYPE-TYPESDECLAREDONCE][r1]), the places of a track's modules (`module-types.yml`), or
+the folders a language lays out inside a module (`languages.yml` `layout`, each folder with its role). A repository renames any of them —
+`out/`, `pwsh/`, `private/` — by overriding that setting, and every tool follows the setting. A subfolder the model does not reach gets what
+its parent's role does with it, and its own name and layout are free.
 
 - [The default configuration of an ordered repository](#the-default-configuration-of-an-ordered-repository)
 
@@ -44,7 +44,7 @@ by `Import-AllModules` (dot-prefixed directories are excluded from module discov
 - [Level 1: Repository root](#level-1-repository-root)
 - [Level 2: `pwsh/`](#level-2-pwsh)
 
-### Rule ADR-REPO-FOLDERS-DOCUMENTATIONMARKDOWNONLY
+### Rule ADR-REPO-FOLDERS-DOCSMARKDOWNONLY
 
 Documentation folders are markdown-only. `docs/` organizes its subfolders freely (the names and casing are the author's), but it holds only
 `.md` files — except the dot-prefixed `.assets/` folders, which hold the diagrams the markdown embeds. An `.assets/` folder sits beside the
@@ -128,12 +128,11 @@ list that orders them.
 
 ## Context
 
-A product mono-repository ([ADR-REPO-REPOKIND-THREEKINDS](repository-kinds.md#rule-adr-repo-repokind-threekinds)) without a fixed folder
-structure degenerates into a naming negotiation. Every new module, every new config file, every new test file raises the same questions:
-where does this go? What do I call the folder? Do I need to tell something about it? The answers depend on who you ask, what existed before,
-and what the last person did. Over time the layout drifts — one module puts helpers in `internal/`, another in `helpers/`, a third in
-`util/`. Tooling cannot program against a layout that changes per module, so configuration files, path arguments, and environment variables
-proliferate to bridge the gap.
+A product mono-repository ([ADR-REPO-REPOKIND-THREEREPOKINDS][r2]) without a fixed folder structure degenerates into a naming negotiation.
+Every new module, every new config file, every new test file raises the same questions: where does this go? What do I call the folder? Do I
+need to tell something about it? The answers depend on who you ask, what existed before, and what the last person did. Over time the layout
+drifts — one module puts helpers in `internal/`, another in `helpers/`, a third in `util/`. Tooling cannot program against a layout that
+changes per module, so configuration files, path arguments, and environment variables proliferate to bridge the gap.
 
 This platform takes the opposite approach. The folder structure is semantic and the same everywhere, because it ships as a sensible default
 configuration: every name that carries meaning for tooling is a setting whose default is the conventional name, declared once. A repository
@@ -212,10 +211,10 @@ tooling relies on is a setting, held to three conditions that keep what a litera
 The roots of the test languages follow it today: Go (`go.yml`'s `root`, the defaults `go/` and `.go/`, `GoConfig.ResolveRoot`), Python
 (`python.yml`'s `root`, the defaults `python/` and `.python/`, `PythonConfig.ResolveRoot`), and Bash (`bash.yml`'s `root`, the defaults
 `bash/` and `.bash/`, `BashConfig.ResolveRoot`), and a track's places are read through the track
-([DDR-TRACK-SUBSCRIBABLENOTPATHCOUPLED](../design/tracks.md#rule-ddr-track-subscribablenotpathcoupled)). The module-internal names are read
-from the layout through `LanguagesConfig.FolderOf`, and the bootstrap, which runs before any type loads, reads the same `languages.yml` row
-through `Get-PrivateFunctionFolder`. Only the importer spells its names: `pwsh/`, `.internal/` and `.vendor/` are the bootstrapping paths,
-read before any setting can be.
+([DDR-TRACK-SUBSCRIBABLENOTPATH](../design/tracks.md#rule-ddr-track-subscribablenotpath)). The module-internal names are read from the
+layout through `LanguagesConfig.FolderOf`, and the bootstrap, which runs before any type loads, reads the same `languages.yml` row through
+`Get-PrivateFunctionFolder`. Only the importer spells its names: `pwsh/`, `.internal/` and `.vendor/` are the bootstrapping paths, read
+before any setting can be.
 
 ### Three levels of structure
 
@@ -316,14 +315,14 @@ and each has its own conventional sub-layout:
 
 **`docs/`** holds five folders. `adr/` is the Architecture Decision Records, one subfolder per domain declared in
 `pwsh/Base.Drs/configs/drs.yml`: `thesis/`, `principles/`, `process/`, `design/`, `flow/`, `automation/`, `pwsh/`, `configuration/`, `ado/`,
-`github/`, `azure/`, `repository/` (this ADR), and `research/`. Its `index.md` is generated from that registry and describes each domain, so
-the registry — not this paragraph — is the authoritative list of domains. `references/` holds the authored reference articles, including the
-sources the generated READMEs are copied from ([generated-readmes](generated-readmes.md)) and the DORA research reference under
-`references/dora/`. `how-to/` holds task-oriented guides. `explanation/` holds the explanation articles: each narrates one diagram of how
-cats works and why, in a subfolder per decision-record domain. These four are **markdown-only**; their subfolders are author-organized topic
-buckets. The dot-prefixed `.assets/` holds the binary diagram assets (`*.drawio.png`) the markdown embeds — the one non-markdown content
-under `docs/`, set apart by the dot-prefix convention (ADR-REPO-FOLDERS-DOTMEANSTOOLING). A diagram is a pair of files in the `.assets/`
-beside the page that embeds it, so moving the diagram moves the pair and the page finds it by locality: `<name>.drawio.yml`, its
+`github/`, `azure/`, `repository/` (this ADR), and `external/dora/`. Its `index.md` is generated from that registry and describes each
+domain, so the registry — not this paragraph — is the authoritative list of domains. `references/` holds the authored reference articles,
+including the sources the generated READMEs are copied from ([generated-readmes](generated-readmes.md)) and the DORA research reference
+under `references/dora/`. `how-to/` holds task-oriented guides. `explanation/` holds the explanation articles: each narrates one diagram of
+how cats works and why, in a subfolder per decision-record domain. These four are **markdown-only**; their subfolders are author-organized
+topic buckets. The dot-prefixed `.assets/` holds the binary diagram assets (`*.drawio.png`) the markdown embeds — the one non-markdown
+content under `docs/`, set apart by the dot-prefix convention (ADR-REPO-FOLDERS-DOTMEANSTOOLING). A diagram is a pair of files in the
+`.assets/` beside the page that embeds it, so moving the diagram moves the pair and the page finds it by locality: `<name>.drawio.yml`, its
 declaration, the one source its words and cells live in, and `<name>.drawio.png`, put from it. A projection's reasons travel in its computed
 data and in the diagram's declaration.
 
@@ -553,7 +552,7 @@ task files of the plans folder hold to it too: each is named by its topic, and t
   `tests/assets/`.
 
 - **Repo-wide conventions** — the closed root set (ADR-REPO-FOLDERS-CLOSEDROOTSET), the dot-prefixed roots
-  (ADR-REPO-FOLDERS-DOTMEANSTOOLING), the markdown-only rule for `docs/` (ADR-REPO-FOLDERS-DOCUMENTATIONMARKDOWNONLY), and the
+  (ADR-REPO-FOLDERS-DOTMEANSTOOLING), the markdown-only rule for `docs/` (ADR-REPO-FOLDERS-DOCSMARKDOWNONLY), and the
   `contracts/<root>/<version>/[<group>/]` layout with its root `.gitkeep` (ADR-REPO-FOLDERS-CONTRACTSFOLDER) — are enforced by **code
   review** against this ADR; the deep `pwsh/` conventions above are additionally enforced mechanically by the tooling listed here.
 
@@ -580,3 +579,6 @@ task files of the plans folder hold to it too: each is named by its topic, and t
 - The tradeoff is uniformity over local taste. A repository may call its test folder `spec/` by overriding the setting, and then every
   module's tests are in `spec/`; no single module may call its own `spec/` or `internal/`. The platform's consistency is worth more than one
   module's naming preference.
+
+[r1]: ../design/track-types.md#rule-ddr-tracktype-typesdeclaredonce
+[r2]: repository-kinds.md#rule-adr-repo-repokind-threerepokinds

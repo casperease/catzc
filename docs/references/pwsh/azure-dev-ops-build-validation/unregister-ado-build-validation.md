@@ -11,8 +11,8 @@ Removes the build-validation branch policy tied to a globset. Idempotent — a n
 ### description
 
 Finds the build-validation policy whose path filter is the globset's native projection (Get-GlobSetTrigger,
-[FDR-CD-GLOBS](../../../drs/flow/durable-sha-globs.md) — the tie between policy and globset) on the guarded branch and deletes it. When no
-such policy exists the function reports and returns without error
+[FDR-GLOBS](../../../drs/flow/durable-sha-globs.md) — the tie between policy and globset) on the guarded branch and deletes it. When no such
+policy exists the function reports and returns without error
 ([ADR-AUTO-IDEM-ALREADYDONEISFINE](../../../drs/automation/idempotent-state-functions.md#rule-adr-auto-idem-alreadydoneisfine)).
 
 ### parameter `GlobSet`

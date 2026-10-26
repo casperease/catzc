@@ -11,7 +11,7 @@ Describe 'Remove-MacToolInstall' -Tag 'L1', 'logic' {
         Mock Invoke-Executable { [pscustomobject]@{ ExitCode = 1; Output = '' } } -ModuleName Catzc.Tooling.Core
     }
 
-    It 'uninstalls a Homebrew-owned shadow by its formula, user-space' -Tag 'ADR-AUTO-REMOVE-ELEVATIONFOLLOWSMECHANISM', 'ADR-AUTO-REMOVE-THREEPLATFORMCORES' {
+    It 'uninstalls a Homebrew-owned shadow by its formula, user-space' -Tag 'ADR-AUTO-REMOVE-ELEVATIONBYMECHANISM', 'ADR-AUTO-REMOVE-THREEPLATFORMCORES' {
         Mock Test-Command { $true } -ParameterFilter { $Command -eq 'brew' } -ModuleName Catzc.Tooling.Core
         Mock Invoke-Executable { [pscustomobject]@{ ExitCode = 0; Output = '/opt/homebrew' } } -ParameterFilter { $Command -eq 'brew --prefix' } -ModuleName Catzc.Tooling.Core
         Mock Invoke-Executable { [pscustomobject]@{ ExitCode = 0; Output = '../Cellar/gadget-formula/1.2.3/bin/widget' } } -ParameterFilter { $Command -like 'readlink *' } -ModuleName Catzc.Tooling.Core
@@ -34,7 +34,7 @@ Describe 'Remove-MacToolInstall' -Tag 'L1', 'logic' {
         Should -Invoke Invoke-Executable -ModuleName Catzc.Tooling.Core -Times 0 -ParameterFilter { $Command -like 'brew uninstall*' }
     }
 
-    It 'deletes a stray binary when no manager owns it, user-space' -Tag 'ADR-AUTO-REMOVE-ELEVATIONFOLLOWSMECHANISM' {
+    It 'deletes a stray binary when no manager owns it, user-space' -Tag 'ADR-AUTO-REMOVE-ELEVATIONBYMECHANISM' {
         $strayPath = Join-Path $TestDrive 'widget'
         [System.IO.File]::WriteAllText($strayPath, 'binary')
         Mock Get-Command { [pscustomobject]@{ Source = $strayPath } } -ParameterFilter { $Name -eq 'widget' } -ModuleName Catzc.Tooling.Core

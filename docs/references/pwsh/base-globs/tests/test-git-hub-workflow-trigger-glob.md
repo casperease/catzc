@@ -11,4 +11,4 @@ A workflow's actual paths are compared with the globset's ordered projection, si
 ## Fixtures
 
 The fixtures are neutral (widget,
-[ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+[ADR-AUTO-TEST-DISTINCTFIXTURES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtures)).

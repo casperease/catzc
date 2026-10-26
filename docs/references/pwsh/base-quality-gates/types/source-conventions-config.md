@@ -12,7 +12,7 @@ omitted check takes every default of its type: gate mode, nothing exempt, no phr
   ([ADR-AUTO-ENGINE-THREEENGINES](../../../../drs/automation/execution-engines.md#rule-adr-auto-engine-threeengines)). It is an
   `EngineSetCheck`.
 - **`neutral_codes`** — a logic (L0) test's fixture data uses neutral ADR codes, never a code the ADR index declares
-  ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
-  It is a `SourceCheck`.
+  ([ADR-AUTO-TEST-DISTINCTFIXTURES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtures)). It is a
+  `SourceCheck`.
 - **`track_root_literal`** — the files that may spell the modules track's place, each with its reason. The analyzer rule
   `NoTrackRootLiteral` reads it ([ADR-AUTO-LAYERS](../../../../drs/automation/layers.md)). It is a `SourceCheck`.

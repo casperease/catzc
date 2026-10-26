@@ -1,5 +1,5 @@
-# Rests on [DDR-TRACKTYPE-DECLAREDONCE](/docs/drs/design/track-types.md#rule-ddr-tracktype-declaredonce).
-Describe 'Test-TrackDeclaration' -Tag 'L0', 'logic', 'DDR-MODTYPE-TRACKTYPEADMITSMODULETYPES' {
+# Rests on [DDR-TRACKTYPE-TYPESDECLAREDONCE](/docs/drs/design/track-types.md#rule-ddr-tracktype-typesdeclaredonce).
+Describe 'Test-TrackDeclaration' -Tag 'L0', 'logic', 'DDR-MODTYPE-TRACKTYPEADMITS' {
     BeforeAll {
         $script:trackTypes = [Catzc.Base.Variants.TrackTypesConfig]::new([ordered]@{
                 track_types = [ordered]@{

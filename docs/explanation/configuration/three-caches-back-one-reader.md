@@ -14,7 +14,7 @@ Three session caches back the one config reader, each filled once and kept until
 9   Get-ConfigRegistry            the private registry reader, validated by ConfigsConfig
 10  $script:configRegistryCache   the registry's configs: map, read once per session
 
-Supports ADR-CONF-LOADING-ONEREADER, ADR-CONF-LOADING-EXISTENCEDISCOVERED, ADR-CONF-LOADING-CACHEBYPATH
+Supports ADR-CONF-LOADING-CONFIGONEREADER, ADR-CONF-LOADING-EXISTENCEDISCOVERED, ADR-CONF-LOADING-CACHEBYPATH
 and ADR-CONF-LOADING-CSHARPCONFIGTYPE (implementation lens).
 ```
 
@@ -27,7 +27,13 @@ description:
   "Get-Config stays fast because three script-scope caches stand behind it, each filled once and kept until re-import: the name index, the
   parsed configs keyed by path, and the type registry."
 about:
-  adrs: [ADR-CONF-LOADING-ONEREADER, ADR-CONF-LOADING-EXISTENCEDISCOVERED, ADR-CONF-LOADING-CACHEBYPATH, ADR-CONF-LOADING-CSHARPCONFIGTYPE]
+  adrs:
+    [
+      ADR-CONF-LOADING-CONFIGONEREADER,
+      ADR-CONF-LOADING-EXISTENCEDISCOVERED,
+      ADR-CONF-LOADING-CACHEBYPATH,
+      ADR-CONF-LOADING-CSHARPCONFIGTYPE,
+    ]
   lens: implementation
 content:
   title: Three session caches back the one config reader
@@ -115,7 +121,7 @@ layout:
 
 ## Why it holds
 
-- `Get-Config` is the one reader of module configs; no other function keeps its own config cache (ADR-CONF-LOADING-ONEREADER).
+- `Get-Config` is the one reader of module configs; no other function keeps its own config cache (ADR-CONF-LOADING-CONFIGONEREADER).
 - Discovery is a private seam that scans the modules' `configs/` folders and resolves a name to its owning module
   (ADR-CONF-LOADING-EXISTENCEDISCOVERED).
 - The parsed config is cached by its resolved file path, and only a re-import invalidates it (ADR-CONF-LOADING-CACHEBYPATH).

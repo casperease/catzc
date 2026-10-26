@@ -1,8 +1,11 @@
 """The flow glyphs: every word of drawio.yml's flow-glyphs renders exactly as its committed SVG, and a wrong word is refused naming it."""
 
+import base64
+
 import pytest
-from catzc.diagrams import flow_glyphs
-from catzc.diagrams.declaration_vocabulary import DeclarationError
+from catzc.diagrams import embed_images, flow_glyphs
+from catzc.diagrams.declaration_vocabulary import GLYPH_KINDS, LIB, DeclarationError
+from catzc.diagrams.drawio_png_base import tokens
 
 
 @pytest.mark.parametrize("entry", flow_glyphs.glyphs(), ids=lambda entry: entry["id"])
@@ -32,3 +35,18 @@ def test_lines_at_two_heights_join_with_a_riser_and_strokes_are_the_ink_token():
     text = flow_glyphs.render("O_-")
     assert text.count("<line") == 3  # the bottom line, the middle line and the riser between them
     assert "#" not in text.split("\n", 1)[1]  # no hex colour: every stroke is @ink
+
+
+def test_the_flow_environment_is_a_rhombus_glyph_of_the_kit():
+    assert "env-flow" in GLYPH_KINDS
+    assert "shape=rhombus" in LIB["glyphs"]["env-flow"]["style"]
+
+
+@pytest.mark.parametrize("theme", ["dark", "light"])
+def test_a_glyph_embeds_with_the_themes_ink(theme):
+    model = '<mxGraphModel><root><mxCell id="g" style="shape=image;html=1;" vertex="1"/></root></mxGraphModel>'
+    embedded = embed_images.embed(model, "g", flow_glyphs.ASSETS / "pipeline.svg", theme)
+    data = embedded.split("image=data:image/svg+xml,", 1)[1].split(";", 1)[0]
+    svg = base64.b64decode(data).decode("utf-8")
+    assert "@ink" not in svg
+    assert tokens(theme)["ink"] in svg

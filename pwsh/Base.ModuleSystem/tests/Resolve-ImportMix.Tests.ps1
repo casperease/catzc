@@ -46,7 +46,7 @@ Describe 'Resolve-ImportMix' -Tag 'L0', 'logic' {
         }
     }
 
-    It 'takes a module''s code languages from its language-owned layout rows only, never assets/ or tests/' -Tag 'ADR-AUTO-IMPORTER-CODELANGUAGESSELECTMODULES' {
+    It 'takes a module''s code languages from its language-owned layout rows only, never assets/ or tests/' -Tag 'ADR-AUTO-IMPORTER-LANGUAGESSELECTMODULES' {
         InModuleScope Catzc.Base.ModuleSystem {
             $mix = Resolve-ImportMix -Languages widget
             $mix.modules | Should -Be @('Widget.Alpha')

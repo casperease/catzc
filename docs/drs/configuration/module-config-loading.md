@@ -2,7 +2,7 @@
 
 ## Rules: ADR-CONF-LOADING
 
-### Rule ADR-CONF-LOADING-ONEREADER
+### Rule ADR-CONF-LOADING-CONFIGONEREADER
 
 All config reads go through `Get-Config -Config <name>` (public, in `Catzc.Base.Config`) — no function re-reads a `configs/*.yml` file
 directly or keeps its own `$script:` config cache.

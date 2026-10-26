@@ -22,7 +22,7 @@ Describe 'Set-ImportMix' -Tag 'L0', 'logic' {
         InModuleScope Catzc.Base.ModuleSystem { $script:importMix = $null }
     }
 
-    It 'removes a loaded module whose code languages are outside the mix, and keeps the rest' -Tag 'ADR-AUTO-IMPORTER-CODELANGUAGESSELECTMODULES' {
+    It 'removes a loaded module whose code languages are outside the mix, and keeps the rest' -Tag 'ADR-AUTO-IMPORTER-LANGUAGESSELECTMODULES' {
         $mix = Set-ImportMix -LanguageNames widget
         $mix.skipped_modules | Should -Be @('Widget.Beta', 'Widget.Gamma')
         $script:loaded | Should -Be @('Widget.Alpha')

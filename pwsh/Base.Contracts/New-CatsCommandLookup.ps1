@@ -15,7 +15,7 @@ function New-CatsCommandLookup {
 
     $lines = [System.Collections.Generic.List[string]]::new()
     $lines.Add('# shellcheck shell=bash')
-    $lines.Add('# The command lookup `cats` reads before it starts pwsh (ADR-REPO-CMDCONTRACT-ONEREADER): one line per contracted parameter of')
+    $lines.Add('# The command lookup `cats` reads before it starts pwsh (ADR-REPO-CMDCONTRACT-CONTRACTONEREADER): one line per contracted parameter of')
     $lines.Add('# contracts/catzc/0.1.0, tab-separated: command, parameter, type, list (1 or 0), mandatory (1 or 0), pipeline (1 or 0), asset,')
     $lines.Add('# the parameter''s sets (comma-separated, empty for every set), the command''s default set (empty for none), then the command and')
     $lines.Add('# the parameter in kebab case, as cats takes them, and in PowerShell''s case, as pwsh binds them. Names are in the normal form; a')

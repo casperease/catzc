@@ -7,7 +7,7 @@ C0  landscape    the repository is one truth store among fact sources, state mac
 C1  context      the engineer, the devbox, the pipelines, Azure DevOps and Azure around one system
 C2  containers   the tracks, each a placed cluster of one track type
 
-Supports DDR-VISUAL-ZOOMISANAXIS, TDR-STORES-THREEKINDS and DDR-TRACK-WORLDMAP.
+Supports DDR-VISUAL-ZOOMISANAXIS, TDR-STORES-THREESTOREKINDS and DDR-TRACK-WORLDMAP.
 ```
 
 The first ladder stands at the repository root and zooms in three times, from the stores around it down to its tracks
@@ -17,8 +17,7 @@ The first ladder stands at the repository root and zooms in three times, from th
 
 ![The repository among the truth stores](.assets/zoom-root-c0.drawio.png)
 
-The repository is one of the three kinds of truth store
-([TDR-STORES-THREEKINDS](../../drs/thesis/truth-stores.md#rule-tdr-stores-threekinds)). It reads the fact sources and never writes them
+The repository is one of the three kinds of truth store ([TDR-STORES-THREESTOREKINDS][r1]). It reads the fact sources and never writes them
 ([TDR-STORES-FACTSOURCEREADONLY](../../drs/thesis/truth-stores.md#rule-tdr-stores-factsourcereadonly)), reports to the state machines at a
 junction ([TDR-STORES-STATEMACHINE](../../drs/thesis/truth-stores.md#rule-tdr-stores-statemachine)), and drives the adjacent store, the
 platform's configuration, one way from its pipelines.
@@ -38,6 +37,8 @@ Azure.
 ![The tracks are the repository's containers](.assets/zoom-root-c2.drawio.png)
 
 The containers are the tracks, each a placed cluster of one track type
-([DDR-TRACK-TRACKISPLACEDCLUSTER](../../drs/design/tracks.md#rule-ddr-track-trackisplacedcluster)), and crossing them with the file
-languages gives the world map ([DDR-TRACK-WORLDMAP](../../drs/design/tracks.md#rule-ddr-track-worldmap)). The [pwsh ladder](zoom-pwsh.md)
-zooms into one of them.
+([DDR-TRACK-ISPLACEDCLUSTER](../../drs/design/tracks.md#rule-ddr-track-isplacedcluster)), and crossing them with the file languages gives
+the world map ([DDR-TRACK-WORLDMAP](../../drs/design/tracks.md#rule-ddr-track-worldmap)). The [pwsh ladder](zoom-pwsh.md) zooms into one of
+them.
+
+[r1]: ../../drs/thesis/truth-stores.md#rule-tdr-stores-threestorekinds

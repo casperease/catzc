@@ -43,7 +43,7 @@ Describe 'Binding contract assets' -Tag 'L1', 'integrity', 'source-only', 'ADR-R
     }
 }
 
-Describe 'Command contracts' -Tag 'L1', 'integrity', 'source-only', 'ADR-REPO-CMDCONTRACT-COMMANDCONTRACT', 'ADR-REPO-CMDCONTRACT-ONEREADER' {
+Describe 'Command contracts' -Tag 'L1', 'integrity', 'source-only', 'ADR-REPO-CMDCONTRACT-COMMANDCONTRACT', 'ADR-REPO-CMDCONTRACT-CONTRACTONEREADER' {
     BeforeAll {
         $script:commandContracts = @{}
         foreach ($contract in Get-CommandContract -Root '*' -Version '*' -Module '*') {

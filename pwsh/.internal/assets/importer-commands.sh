@@ -1,12 +1,12 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "3d09f28a2d96"
+#     with_body_sha: "876f031d5e13"
 #     warning: "Do Not Edit, this file is generated"
 # ---
 
 # shellcheck shell=bash
-# The command lookup `cats` reads before it starts pwsh (ADR-REPO-CMDCONTRACT-ONEREADER): one line per contracted parameter of
+# The command lookup `cats` reads before it starts pwsh (ADR-REPO-CMDCONTRACT-CONTRACTONEREADER): one line per contracted parameter of
 # contracts/catzc/0.1.0, tab-separated: command, parameter, type, list (1 or 0), mandatory (1 or 0), pipeline (1 or 0), asset,
 # the parameter's sets (comma-separated, empty for every set), the command's default set (empty for none), then the command and
 # the parameter in kebab case, as cats takes them, and in PowerShell's case, as pwsh binds them. Names are in the normal form; a

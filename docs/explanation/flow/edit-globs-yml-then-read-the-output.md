@@ -12,7 +12,7 @@ You edit globs.yml, and every other step prints what cats derived from it.
 7  Touched globsets    the declared sets the diff touched, in registry order
 8  Skip line           names the modules skipped as unchanged since their last green run
 
-Supports FDR-CD-GLOBS-DURABLESHAIDENTITY, FDR-CD-GLOBS-NATIVEPATHFILTER and FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT (operations lens).
+Supports FDR-GLOBS-DURABLESHAIDENTITY, FDR-GLOBS-NATIVEPATHFILTER and FDR-GLOBS-CHANGECOMPUTEDFROMGIT (operations lens).
 ```
 
 `globs.yml` is the only file a person writes to change an area-of-control in cats. Every other step is a command that loads the registry and
@@ -24,7 +24,7 @@ description:
   "globs.yml is the only file a person writes; the config load validates it, and three commands then print what was derived from it: the
   projection of one set, the globsets a commit range touched, and the skip line of the test run."
 about:
-  adrs: [FDR-CD-GLOBS-DURABLESHAIDENTITY, FDR-CD-GLOBS-NATIVEPATHFILTER, FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT]
+  adrs: [FDR-GLOBS-DURABLESHAIDENTITY, FDR-GLOBS-NATIVEPATHFILTER, FDR-GLOBS-CHANGECOMPUTEDFROMGIT]
   lens: operations
 content:
   title: You edit globs.yml, and every other step prints what was derived from it
@@ -100,10 +100,10 @@ layout:
 ## Why it holds
 
 - The identity behind the skip is computed live and never committed, so a skip can never rest on a stale record
-  (FDR-CD-GLOBS-DURABLESHAIDENTITY).
+  (FDR-GLOBS-DURABLESHAIDENTITY).
 - Pipelines and workflows trigger on the projection, and the gates on the trigger report every pipeline whose declared trigger no longer
-  equals it (FDR-CD-GLOBS-NATIVEPATHFILTER).
-- Whether a change touches a set is computed from git at real refs and fails open on doubt (FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT).
+  equals it (FDR-GLOBS-NATIVEPATHFILTER).
+- Whether a change touches a set is computed from git at real refs and fails open on doubt (FDR-GLOBS-CHANGECOMPUTEDFROMGIT).
 
 ## See also
 

@@ -1,8 +1,7 @@
 # pwsh/Tooling.Inspiration/tests/Get-Inspiration.Tests.ps1
 
 The L0 tests of `Get-Inspiration` over a fixture config: `Get-Config` is mocked to the real `InspirationConfig` built from neutral widget
-and gadget data
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+and gadget data ([ADR-AUTO-TEST-DISTINCTFIXTURES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtures)).
 
 ## Workspace
 

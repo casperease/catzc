@@ -12,7 +12,7 @@ Ask for a config by name and get the cached object back; every mistake throws at
 7  unknown or ambiguous name     a name no module ships, or several ship, throws
 8  malformed config              a config its type rejects throws every violation
 
-Supports ADR-CONF-LOADING-ONEREADER, ADR-CONF-LOADING-EXISTENCEDISCOVERED, ADR-CONF-LOADING-CACHEBYPATH
+Supports ADR-CONF-LOADING-CONFIGONEREADER, ADR-CONF-LOADING-EXISTENCEDISCOVERED, ADR-CONF-LOADING-CACHEBYPATH
 and ADR-CONF-LOADING-CSHARPCONFIGTYPE, and ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST (operations lens).
 ```
 
@@ -26,7 +26,7 @@ description:
   file, and a bad key, an unknown or ambiguous name or a malformed config throws at the call.
 about:
   adrs:
-    - ADR-CONF-LOADING-ONEREADER
+    - ADR-CONF-LOADING-CONFIGONEREADER
     - ADR-CONF-LOADING-EXISTENCEDISCOVERED
     - ADR-CONF-LOADING-CACHEBYPATH
     - ADR-CONF-LOADING-CSHARPCONFIGTYPE
@@ -108,7 +108,7 @@ layout:
 
 ## Why it holds
 
-- All config reads go through `Get-Config` (ADR-CONF-LOADING-ONEREADER).
+- All config reads go through `Get-Config` (ADR-CONF-LOADING-CONFIGONEREADER).
 - The name is global and the owner is discovered; `-Module` only disambiguates, and `-ListOwners` lists the owners
   (ADR-CONF-LOADING-EXISTENCEDISCOVERED).
 - The parsed config is cached for the session, and only a re-import clears it (ADR-CONF-LOADING-CACHEBYPATH).

@@ -14,6 +14,6 @@ concepts:
   cats:
     key: cats
     domain: principles
-    defined_by: PDR-CATS-CATSISPERSONNAME
+    defined_by: PDR-CATS-ISPERSONNAME
     short: The product's name to a person — the executor outside pwsh, and the word in prose, docs and conversation.
     realized_by: { kind: prose-only }

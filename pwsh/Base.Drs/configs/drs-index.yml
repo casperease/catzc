@@ -13,7 +13,7 @@ preamble: |
   normative summary plus internal links to the prose that justifies it). The grammar is its own ADR, ADR-REPO-DRSCODE.
 
   - A code is a path: the record kind, then the domain where the kind is shared, then the record, then the rule, each an upper-case segment
-    joined by `-`; the registered kinds (`ADR`, `TDR`, `PDR`, `WDR`, `DDR`, `FDR`, `RDR`) are the searchable markers for a reference
+    joined by `-`; the registered kinds (`ADR`, `TDR`, `PDR`, `WDR`, `DDR`, `FDR`, `EDR`) are the searchable markers for a reference
     anywhere in the repository (ADR-REPO-DRSCODE-PATHOFSEGMENTS). A domain that owns its kind drops its domain segment; the implementation
     domains share `ADR` and keep theirs (ADR-REPO-DRSCODE-DOMAINSEGMENT).
   - **Cite a rule** by its code, which names it — e.g. `ADR-PWSH-ERROR-THROWNOTWRITEERROR`, `ADR-AUTO-CACHE-READONLYVALUES`,
@@ -24,7 +24,7 @@ preamble: |
     of the ADR (ADR-REPO-DRSCODE-CODEISSELECTOR). There is no group or range spelling; a list of rules is the list of their codes
     (ADR-REPO-DRSCODE-NOSUBSETSPELLING). The index lists records, never rule codes: `Test-DrsRegistry` reads a record's rules from the
     record itself.
-  - A name is unique under its parent and never reused once retired; the tables below are the authoritative code ↔ ADR mapping.
+  - A rule name is unique in the repository and never reused once retired; the tables below are the authoritative code ↔ ADR mapping.
 
   ## Codes
 conventions: |
@@ -80,17 +80,16 @@ conventions: |
     categories (`capabilities.md`), the AI Capabilities Model (`ai.md`), and every publication (`publications.md`). Each heading there has a
     stable anchor and carries its dora.dev source URL. Link a capability as `capabilities.md#<dora-slug>`, a metric as
     `metrics.md#<metric-name>`, a publication as `publications.md#<year>-<title>`, and the research program as `index.md` — never a deep
-    link into dora.dev, which lives only inside `docs/references/dora/` and in the research ADRs' `## References` footnotes.
+    link into dora.dev, which lives only inside `docs/references/dora/` and in the DORA records' `## References` footnotes.
 
-  - **`dora-explains.md` collects each domain's DORA rationale.** An ADR outside `research/` carries no `## Dora explains` section; instead
+  - **`dora-explains.md` collects each domain's DORA rationale.** An ADR outside `external/` carries no `## Dora explains` section; instead
     every other domain folder keeps a `dora-explains.md` that consolidates, one entry per ADR, the short present-tense paragraph tying that
     ADR's topic to DORA research and its 2–4 domain-relevant capability links (each `[Capability](<relative>/capabilities.md#<dora-slug>) —
     why it is relevant`, plus a link to the reference's `index.md`). Link only the capabilities that genuinely bear on an ADR's domain,
-    never the whole catalogue. DORA grounds the repository's own decisions; an ADR that answers a vendor's checklist item by item
-    (`azure/caf/`, `azure/waf/`) is grounded in that vendor's reference (`docs/references/caf/`, `docs/references/waf/`) and takes no entry
-    (`drs-checks.yml` `exempt_folders`).
+    never the whole catalogue. DORA grounds the repository's own decisions; a record in `external/` is grounded in its own source (a vendor
+    record in `docs/references/caf/` or `docs/references/waf/`) and takes no entry (`drs-checks.yml` `exempt`).
 
-  - **The research ADRs carry their own `## Dora explains`.** Each `research/<slug>.md` is the record of one DORA capability, so it is the
-    one place an ADR ends with a `## Dora explains` section: the capability's site category and Core Model position, the publications its
-    evidence comes from, and its related capabilities, all as links into `docs/references/dora/`. `research/` therefore has no
+  - **The DORA records carry their own `## Dora explains`.** Each `external/dora/<slug>.md` is the record of one DORA capability, so it is
+    the one place an ADR ends with a `## Dora explains` section: the capability's site category and Core Model position, the publications
+    its evidence comes from, and its related capabilities, all as links into `docs/references/dora/`. `external/` therefore has no
     `dora-explains.md`.

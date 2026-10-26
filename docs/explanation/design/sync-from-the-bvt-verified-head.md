@@ -7,7 +7,7 @@ Integrators build on the BVT-verified server head, never on the tip of main.
 2  BVT-verified head    commit 6, the sync point; the commit main-UAT takes first, so its occupant once deployed
 3  dirty HEAD           commit 10, the newest commit on main, which failed in main-UAT
 
-Supports FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD, FDR-CD-LIFE-DIRTYHEADUNSAFE and FDR-CD-LIFE-FAILEDSTAYSUPSTREAM (meta lens).
+Supports FDR-LIFE-SYNCFROMVERIFIEDHEAD, FDR-LIFE-DIRTYHEADUNSAFE and FDR-LIFE-FAILEDSTAYSUPSTREAM (meta lens).
 ```
 
 "Latest" and "safe to build on" are different questions, and cats answers them with different commits. The newest commit on main is HEAD;
@@ -20,7 +20,7 @@ description:
   An upstream integrator takes its commit from the BVT-verified server head, which main-UAT also takes first, never from the dirty HEAD, the
   newest commit on main, which failed there.
 about:
-  adrs: [FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD, FDR-CD-LIFE-DIRTYHEADUNSAFE, FDR-CD-LIFE-FAILEDSTAYSUPSTREAM]
+  adrs: [FDR-LIFE-SYNCFROMVERIFIEDHEAD, FDR-LIFE-DIRTYHEADUNSAFE, FDR-LIFE-FAILEDSTAYSUPSTREAM]
   lens: meta
 content:
   title: Sync from the BVT-verified head, not from the tip of main
@@ -65,9 +65,9 @@ layout:
 ## Why it holds
 
 - The stable integration point is the BVT-verified server head, and the same commit goes into `main-UAT` first, so the commit synced from
-  and the commit `main-UAT` takes are one (FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD).
-- The dirty HEAD is the newest commit and still not safe to sync or promote from (FDR-CD-LIFE-DIRTYHEADUNSAFE).
-- Downstream flow proceeds only from the last successful state; a failure is a hard stop, not a warning (FDR-CD-LIFE-FAILEDSTAYSUPSTREAM).
+  and the commit `main-UAT` takes are one (FDR-LIFE-SYNCFROMVERIFIEDHEAD).
+- The dirty HEAD is the newest commit and still not safe to sync or promote from (FDR-LIFE-DIRTYHEADUNSAFE).
+- Downstream flow proceeds only from the last successful state; a failure is a hard stop, not a warning (FDR-LIFE-FAILEDSTAYSUPSTREAM).
 
 ## Where the code and the decision record differ
 

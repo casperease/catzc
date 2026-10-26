@@ -1,7 +1,7 @@
 # pwsh/Azure.DevOps/configs/identity-tokens.yml
 
 The live production identity this module's config carries, the Azure DevOps project, which a hermetic logic test must never name
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+([ADR-AUTO-TEST-DISTINCTFIXTURES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtures)).
 
 ## Reading
 

@@ -32,7 +32,7 @@ Describe 'GlossaryConfig' -Tag 'L0', 'logic' {
         $c.options.checks | Should -Be @('anchored', 'single', 'avoid', 'enforced', 'forms')
         $c.options.surfaces | Should -Be @('markdown', 'comments', 'help', 'messages')
         $c.options.scope | Should -Be @('**')
-        $c.options.exclude | Should -Be @('docs/drs/research/**', 'docs/references/dora/**', 'out/**', '.unordered/**',
+        $c.options.exclude | Should -Be @('docs/drs/external/dora/**', 'docs/references/dora/**', 'out/**', '.unordered/**',
             '**/.vendor/**', '.claude/plans/**', '.claude/hindsight/**', '.claude/learnings/**')
     }
 
@@ -53,7 +53,7 @@ Describe 'GlossaryConfig' -Tag 'L0', 'logic' {
         $c.options.checks | Should -Be @('avoid')
         $c.options.scope | Should -Be @('docs/**')
         $c.options.surfaces | Should -Be @('markdown', 'comments', 'help', 'messages')
-        $c.options.exclude | Should -Be @('docs/drs/research/**', 'docs/references/dora/**', 'out/**', '.unordered/**',
+        $c.options.exclude | Should -Be @('docs/drs/external/dora/**', 'docs/references/dora/**', 'out/**', '.unordered/**',
             '**/.vendor/**', '.claude/plans/**', '.claude/hindsight/**', '.claude/learnings/**', 'docs/widget/**')
     }
 

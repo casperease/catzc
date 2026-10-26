@@ -2,7 +2,7 @@
 
 The tests of `Get-Glossary`, which merges the glossary sources into `GlossaryEntry` records. Discovery is mocked at `Get-GlossarySources`,
 whose own tests cover the config seam and git, and the sources are built from the real `GlossaryConfig` type. Fixture terms are neutral
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+([ADR-AUTO-TEST-DISTINCTFIXTURES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtures)).
 
 ## The cache
 

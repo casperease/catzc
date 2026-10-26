@@ -14,7 +14,7 @@ catzc:
 
 ## Eyebrow
 
-19 / 30 · fact for the Developer · RDR-DORA-LOOSETEAMS
+19 / 30 · fact for the Developer · EDR-DORA-LOOSETEAMS
 
 ## Lead
 
@@ -31,5 +31,5 @@ From the catalogue, reduced: range per context then diff and match.
 
 ## Notes
 
-Check it: the record RDR-DORA-LOOSETEAMS in docs/drs/index.md, and the diagram
+Check it: the record EDR-DORA-LOOSETEAMS in docs/drs/index.md, and the diagram
 docs/explanation/flow/.assets/range-per-context-then-diff-and-match.drawio.png.

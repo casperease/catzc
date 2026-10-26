@@ -143,7 +143,7 @@ Describe 'FileMetaConfig' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-METAKIND' {
     }
 }
 
-Describe 'FileMetaConfig.EngineInputs' -Tag 'L0', 'logic', 'ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS' {
+Describe 'FileMetaConfig.EngineInputs' -Tag 'L0', 'logic', 'ADR-AUTO-CACHE-CROSSSESSIONFILES' {
     BeforeEach {
         $script:root = Join-Path $TestDrive "modules-$([guid]::NewGuid().ToString('N').Substring(0, 8))"
         $script:gates = Join-Path $script:root 'Catzc.Base.QualityGates'

@@ -23,6 +23,28 @@ Describe 'Get-ToolsStatus' -Tag 'L0', 'logic' {
         Mock Test-ExpectedPackageManager { $true } -ModuleName Catzc.Tooling.Provisioning
         Mock Get-InstallScope { 'user' } -ModuleName Catzc.Tooling.Provisioning
         Mock Write-Message { } -ModuleName Catzc.Tooling.Provisioning
+        Mock Sync-SessionTools { } -ModuleName Catzc.Tooling.Provisioning
+    }
+
+    It 'finds a managed tool off this session''s PATH at its declared install place, through the session janitor' {
+        $script:hinted = $false
+        Mock Sync-SessionTools { $script:hinted = $true } -ModuleName Catzc.Tooling.Provisioning
+        Mock Test-Tool { [Catzc.Base.Execution.ExecutableProbe]::new('widget', ($script:hinted ? 'C:\venv\widget.bat' : $null), 'probe',
+                ($script:hinted ? '5.1' : $null), '5', $script:hinted, 1, 1, 'Person') } -ModuleName Catzc.Tooling.Provisioning
+        $status = Get-ToolsStatus
+        "$($status.Status)" | Should -Be 'OK'
+        $status.Location | Should -Be 'C:\venv\widget.bat'
+        Should -Invoke Sync-SessionTools -ModuleName Catzc.Tooling.Provisioning -Times 1 -Exactly -ParameterFilter { $Silent }
+    }
+
+    It 'names the Remove- step, then the Install- step, for a usable tool another manager installed' {
+        Mock Test-Tool { [Catzc.Base.Execution.ExecutableProbe]::new('widget', 'C:\stray\widget.exe', 'probe', '5.2', '5',
+                $true, 1, 1, 'Person') } -ModuleName Catzc.Tooling.Provisioning
+        Mock Test-ExpectedPackageManager { $false } -ModuleName Catzc.Tooling.Provisioning
+        Mock Get-Command { [pscustomobject]@{ Name = 'Remove-Widget' } } -ModuleName Catzc.Tooling.Provisioning -ParameterFilter { $Name -eq 'Remove-Widget' }
+        $status = Get-ToolsStatus
+        "$($status.Status)" | Should -Be 'Usable'
+        $status.Action | Should -BeExactly 'Works, but not managed by system. Run Remove-Widget, then Install-Widget'
     }
 
     It 'reports a found probed tool from the probe record' {

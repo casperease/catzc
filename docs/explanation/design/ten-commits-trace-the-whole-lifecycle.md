@@ -9,9 +9,9 @@ Ten numbered commits show every stage, gate, environment and ending of the commi
 4  the numbers    one digit per commit, the same in every lane, so a commit can be followed
 5  the endings    discarded, in process, an environment's occupant, or the dirty head
 
-Supports FDR-CD-LIFE-ONESTATEADVANCESONERUNG, FDR-CD-LIFE-DISCARDISTERMINAL, FDR-CD-LIFE-ONECOMMITPERENVIRONMENT,
-FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD, FDR-CD-LIFE-DIRTYHEADUNSAFE, FDR-CD-LIFE-FAILEDSTAYSUPSTREAM and FDR-CD-LIFE-NUMBERISIDENTITY,
-DDR-VISUAL-ONLYGITLANEISTIME and DDR-VISUAL-ENVIRONMENTISCONTAINER, and FDR-CD-TWORELEASEGATES and FDR-CD-ACCEPTANCETESTINGISNOTUAT.
+Supports FDR-LIFE-ONESTATEADVANCESONERUNG, FDR-LIFE-DISCARDISTERMINAL, FDR-LIFE-ONECOMMITPERENVIRONMENT,
+FDR-LIFE-SYNCFROMVERIFIEDHEAD, FDR-LIFE-DIRTYHEADUNSAFE, FDR-LIFE-FAILEDSTAYSUPSTREAM and FDR-LIFE-NUMBERISIDENTITY,
+DDR-VISUAL-ONLYGITLANEISTIME and DDR-VISUAL-ENVIRONMENTISCONTAINER, and FDR-CD-TWORELEASEGATES and FDR-CD-ACCEPTANCEISNOTUAT.
 ```
 
 A single commit is hard to follow when the picture is organised by stage. This diagram solves that by tracing ten commits at once. Each
@@ -24,11 +24,11 @@ description:
   and git keeps the whole history, with the dirty heads called out."
 about:
   adrs:
-    - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
-    - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
-    - FDR-CD-LIFE-DISCARDISTERMINAL
-    - FDR-CD-LIFE-DIRTYHEADUNSAFE
-    - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+    - FDR-LIFE-ONESTATEADVANCESONERUNG
+    - FDR-LIFE-ONECOMMITPERENVIRONMENT
+    - FDR-LIFE-DISCARDISTERMINAL
+    - FDR-LIFE-DIRTYHEADUNSAFE
+    - FDR-LIFE-SYNCFROMVERIFIEDHEAD
     - FDR-CD-TWORELEASEGATES
   lens: architecture
 content:
@@ -172,7 +172,7 @@ content:
    has been in that state at an earlier stage and has since moved on.
 4. **The discarded lane.** A red row sits under the queue. A candidate that fails a gate drops into it at the stage where it failed, and it
    keeps its number there. Recording where it died is the point: "discarded at BVT" and "discarded at release-uat" are different facts
-   ([FDR-CD-LIFE-DISCARDISTERMINAL](../../drs/flow/commit-lifecycle.md#rule-fdr-cd-life-discardisterminal)).
+   ([FDR-LIFE-DISCARDISTERMINAL](../../drs/flow/commit-lifecycle.md#rule-fdr-life-discardisterminal)).
 5. **The environments lane.** Each hexagon is an env slot. The commit inside it is its occupant, drawn in that commit's own state colour
    ([DDR-VISUAL-ENVIRONMENTISCONTAINER](../../drs/design/visual-design.md#rule-ddr-visual-environmentiscontainer)). In this picture, 8 sits
    in the BVT env slot, 6 is the main-UAT occupant, 5 is the release-UAT occupant, and 4 is both the pre-prod and the production occupant.
@@ -187,20 +187,20 @@ content:
 ## Why it holds
 
 - A commit holds one state at a time and moves one rung along the ladder or leaves it
-  ([FDR-CD-LIFE-ONESTATEADVANCESONERUNG](../../drs/flow/commit-lifecycle.md#rule-fdr-cd-life-onestateadvancesonerung)).
+  ([FDR-LIFE-ONESTATEADVANCESONERUNG](../../drs/flow/commit-lifecycle.md#rule-fdr-life-onestateadvancesonerung)).
 - Discard is terminal rejection at a named stage, and the commit stays in history
-  ([FDR-CD-LIFE-DISCARDISTERMINAL](../../drs/flow/commit-lifecycle.md#rule-fdr-cd-life-discardisterminal)).
+  ([FDR-LIFE-DISCARDISTERMINAL](../../drs/flow/commit-lifecycle.md#rule-fdr-life-discardisterminal)).
 - Each always-on environment has exactly one occupant plus its history
-  ([FDR-CD-LIFE-ONECOMMITPERENVIRONMENT](../../drs/flow/commit-lifecycle.md#rule-fdr-cd-life-onecommitperenvironment)).
+  ([FDR-LIFE-ONECOMMITPERENVIRONMENT](../../drs/flow/commit-lifecycle.md#rule-fdr-life-onecommitperenvironment)).
 - Consumers sync from the BVT-verified server head, never from the tip of main; that same commit goes into main-UAT first, so commit 6 is
   both the sync point and the main-UAT occupant
-  ([FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD](../../drs/flow/commit-lifecycle.md#rule-fdr-cd-life-syncfromverifiedhead)).
+  ([FDR-LIFE-SYNCFROMVERIFIEDHEAD](../../drs/flow/commit-lifecycle.md#rule-fdr-life-syncfromverifiedhead)).
 - The tip of main can be a dirty head that is unsafe to sync or promote from
-  ([FDR-CD-LIFE-DIRTYHEADUNSAFE](../../drs/flow/commit-lifecycle.md#rule-fdr-cd-life-dirtyheadunsafe)).
+  ([FDR-LIFE-DIRTYHEADUNSAFE](../../drs/flow/commit-lifecycle.md#rule-fdr-life-dirtyheadunsafe)).
 - A commit that fails a stage cannot go downstream
-  ([FDR-CD-LIFE-FAILEDSTAYSUPSTREAM](../../drs/flow/commit-lifecycle.md#rule-fdr-cd-life-failedstaysupstream)).
+  ([FDR-LIFE-FAILEDSTAYSUPSTREAM](../../drs/flow/commit-lifecycle.md#rule-fdr-life-failedstaysupstream)).
 - A commit's number is its time-ordered identity, and its last appearance is where its story ends
-  ([FDR-CD-LIFE-NUMBERISIDENTITY](../../drs/flow/commit-lifecycle.md#rule-fdr-cd-life-numberisidentity)).
+  ([FDR-LIFE-NUMBERISIDENTITY](../../drs/flow/commit-lifecycle.md#rule-fdr-life-numberisidentity)).
 
 ## See also
 

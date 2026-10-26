@@ -14,7 +14,7 @@ catzc:
 
 ## Eyebrow
 
-6 / 12 · fact · FDR-CD-LIFE
+6 / 12 · fact · FDR-LIFE
 
 ## Lead
 
@@ -31,5 +31,5 @@ From the catalogue, reduced: a bad coordinate stops discovery.
 
 ## Notes
 
-Check it: the record FDR-CD-LIFE in docs/drs/index.md, and the diagram
+Check it: the record FDR-LIFE in docs/drs/index.md, and the diagram
 docs/explanation/azure/.assets/a-bad-coordinate-stops-discovery.drawio.png.

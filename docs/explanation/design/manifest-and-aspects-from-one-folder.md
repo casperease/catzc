@@ -13,7 +13,7 @@ The manifest and the aspects both come from one folder, by two code paths in cal
 8  <kebab>-live                  the live set
 9  <kebab>-tests                 the tests set, plus the language test folders
 
-Supports DDR-ASPECT-MODULESPARTITIONINTOASPECTS and DDR-ASPECT-ASPECTSAREDERIVED (implementation lens).
+Supports DDR-ASPECT-MODULESPARTITIONED and DDR-ASPECT-ASPECTSAREDERIVED (implementation lens).
 ```
 
 Two code paths in cats read the same module folder and derive different things from it. On every import, the bootstrap guards the function
@@ -26,7 +26,7 @@ description:
   "Two code paths read the same module folder: the import guards its function names and writes a manifest, and the aspect compiler derives a
   live set and a tests set from the layout of languages.yml."
 about:
-  adrs: [DDR-ASPECT-MODULESPARTITIONINTOASPECTS, DDR-ASPECT-ASPECTSAREDERIVED]
+  adrs: [DDR-ASPECT-MODULESPARTITIONED, DDR-ASPECT-ASPECTSAREDERIVED]
   lens: implementation
 content:
   title: The manifest and the aspects both come from one folder
@@ -108,7 +108,7 @@ layout:
 
 ## Why it holds
 
-- A module's files partition into aspects that are disjoint and exhaustive (DDR-ASPECT-MODULESPARTITIONINTOASPECTS).
+- A module's files partition into aspects that are disjoint and exhaustive (DDR-ASPECT-MODULESPARTITIONED).
 - The aspects are derived from folder conventions by ordered first match, each aspect minus every earlier one, all prefixed by the unit root
   (DDR-ASPECT-ASPECTSAREDERIVED).
 

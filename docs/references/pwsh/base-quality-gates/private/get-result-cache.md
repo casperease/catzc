@@ -13,9 +13,9 @@ Reads a quality check's result cache: which files the check last found clean, ke
 
 A per-machine file under out/cache/ (gitignored, never committed): repository-relative '/'-separated path -> '`<file SHA-256>:<stamp>`'
 (Get-ContentStamp over every input that decides the check's verdict), recorded when the check last found the file clean
-([ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS](../../../../drs/automation/caching.md#rule-adr-auto-cache-checkedfilesacrosssessions)). A file
-whose bytes or the check's inputs changed no longer matches its entry and is checked again. A missing or unreadable cache is an empty one,
-so the only cost of losing it is one full check; a pipeline starts with none. Format-Code and Get-ScriptAnalyzerDiagnostics keep one each.
+([ADR-AUTO-CACHE-CROSSSESSIONFILES](../../../../drs/automation/caching.md#rule-adr-auto-cache-crosssessionfiles)). A file whose bytes or the
+check's inputs changed no longer matches its entry and is checked again. A missing or unreadable cache is an empty one, so the only cost of
+losing it is one full check; a pipeline starts with none. Format-Code and Get-ScriptAnalyzerDiagnostics keep one each.
 
 ### parameter `Path`
 

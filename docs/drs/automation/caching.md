@@ -71,7 +71,7 @@ keys the parsed listing on the SHA-256 of the index file, so the answer always e
 
 - [Content-keyed git state](#content-keyed-git-state)
 
-### Rule ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS
+### Rule ADR-AUTO-CACHE-CROSSSESSIONFILES
 
 A quality check that runs an expensive tool over many files may keep, across sessions, which files the tool last found clean — keyed on each
 file's SHA-256 together with a stamp of every input that decides the tool's verdict (its declared settings files and the pins of the tools
@@ -189,7 +189,7 @@ codes. The cache lives in `out/`, so the tree never carries it, and a pipeline's
 Cache, for the lifetime of the session, the results of (a) **static config-file reads** and (b) **filesystem-scan-derived information**.
 Store the cache in module state per the language layer. Invalidate only by re-running the importer. Never cache runtime state or objects
 callers mutate. Across sessions, cache only a quality check's clean verdicts, keyed on the file's content and every declared input of the
-check (ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS).
+check (ADR-AUTO-CACHE-CROSSSESSIONFILES).
 
 ### The storage idiom
 

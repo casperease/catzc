@@ -8,4 +8,4 @@ The L0 tests of the C# type that owns short name derivation and validation
 ## Loading and fixtures
 
 The type is loaded by the `Import-CSharpTypes` pre-pass and referenced here by its full name. The template names are neutral fixtures
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+([ADR-AUTO-TEST-DISTINCTFIXTURES](../../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtures)).

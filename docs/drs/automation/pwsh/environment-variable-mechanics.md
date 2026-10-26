@@ -30,7 +30,7 @@ Pester provides no `$env:` isolation. A test that must set an environment variab
 
 - [No test isolation](#no-test-isolation)
 
-### Rule ADR-PWSH-ENV-ASSIGNMENTFORTOOLCONTRACT
+### Rule ADR-PWSH-ENV-ASSIGNFORTOOLCONTRACT
 
 A `$env:` assignment in our code sets an external tool's contract variable — `$env:GIT_TERMINAL_PROMPT = '0'`,
 `$env:DOTNET_CLI_TELEMETRY_OPTOUT = '1'`, `$env:PSModulePath` — and nothing else
@@ -74,7 +74,7 @@ before it returns (`Test-InIsolation`). Module code reads the working root throu
 
 - [The bootstrap anchors](#the-bootstrap-anchors)
 
-### Rule ADR-PWSH-ENV-NOSECRETSTATE
+### Rule ADR-PWSH-ENV-PWSHNOSECRETSTATE
 
 A secret is never assigned to `$env:` as internal state — no `$env:TOKEN = $plaintext`
 ([ADR-AUTO-ENVVAR-NOSECRETSTATE](../environment-variables.md#rule-adr-auto-envvar-nosecretstate)). Inside our code a secret travels as a
