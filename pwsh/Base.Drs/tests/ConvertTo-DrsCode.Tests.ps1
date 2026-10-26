@@ -30,15 +30,19 @@ Describe 'ConvertTo-DrsCode' -Tag 'L0', 'logic' {
         (ConvertTo-DrsCode 'ADR-WIDGETS-GADGET-SPIN' -Move $move).NewCode | Should -Be 'ADR-WIDGETS-GADGET-SPIN'
     }
 
-    It 'drops a word the code already says, and asks for review' {
-        $result = ConvertTo-DrsCode 'ADR-WIDGET-GADGET-GADGETFILE'
+    It 'drops a word the code already says at a proven word boundary, and asks for review' {
+        $words = [System.Collections.Generic.HashSet[string]]::new([string[]] @('gadget', 'file'))
+        $result = ConvertTo-DrsCode 'ADR-WIDGET-GADGET-GADGETFILE' -Words $words
         $result.NewCode | Should -Be 'ADR-WIDGET-GADGET-FILE'
         $result.Review | Should -Contain 'check that FILE still names the rule'
     }
 
-    It 'keeps a remainder that reads as a suffix' {
-        (ConvertTo-DrsCode 'ADR-WIDGET-GADGET-GADGETING').NewCode | Should -Be 'ADR-WIDGET-GADGET-GADGETING'
-        (ConvertTo-DrsCode 'ADR-WIDGET-GADGET-GADGET').NewCode | Should -Be 'ADR-WIDGET-GADGET-GADGET'
+    It 'keeps the word where no words are given, where it runs on into a longer word, or where the rest starts with no word' {
+        (ConvertTo-DrsCode 'ADR-WIDGET-GADGET-GADGETFILE').NewCode | Should -Be 'ADR-WIDGET-GADGET-GADGETFILE'
+        $words = [System.Collections.Generic.HashSet[string]]::new([string[]] @('gadget', 'gadgets', 'spin', 'file'))
+        (ConvertTo-DrsCode 'ADR-WIDGET-GADGET-GADGETSPIN' -Words $words).NewCode | Should -Be 'ADR-WIDGET-GADGET-GADGETSPIN'
+        (ConvertTo-DrsCode 'ADR-WIDGET-GADGET-GADGETXQZ' -Words $words).NewCode | Should -Be 'ADR-WIDGET-GADGET-GADGETXQZ'
+        (ConvertTo-DrsCode 'ADR-WIDGET-GADGET-GADGET' -Words $words).NewCode | Should -Be 'ADR-WIDGET-GADGET-GADGET'
     }
 
     It 'says a back-to-back repeated word once' {
@@ -46,7 +50,8 @@ Describe 'ConvertTo-DrsCode' -Tag 'L0', 'logic' {
     }
 
     It 'takes an override as written' {
-        $result = ConvertTo-DrsCode 'ADR-WIDGET-GADGET-GADGETFILE' -Override @{ 'ADR-WIDGET-GADGET-GADGETFILE' = 'EDR-WIDGET-GADGET-GADGETFILE' }
+        $words = [System.Collections.Generic.HashSet[string]]::new([string[]] @('gadget', 'file'))
+        $result = ConvertTo-DrsCode 'ADR-WIDGET-GADGET-GADGETFILE' -Words $words -Override @{ 'ADR-WIDGET-GADGET-GADGETFILE' = 'EDR-WIDGET-GADGET-GADGETFILE' }
         $result.NewCode | Should -Be 'EDR-WIDGET-GADGET-GADGETFILE'
         $result.Review | Should -BeNullOrEmpty
     }

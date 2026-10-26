@@ -17,7 +17,10 @@ function ConvertTo-DrsCode {
         [hashtable] $Move = @{},
 
         # Old code to new code, taken as written: no other transform applies.
-        [hashtable] $Override = @{}
+        [hashtable] $Override = @{},
+
+        # Known lower-case words; a word the code already says is dropped only at a word boundary they prove, so no words, no drop.
+        [System.Collections.Generic.HashSet[string]] $Words = [System.Collections.Generic.HashSet[string]]::new()
     )
 
     process {
@@ -41,13 +44,20 @@ function ConvertTo-DrsCode {
 
             $segments = $new.Split('-')
             $leaf = $segments[-1]
-            # A word the code already says, leading the rule segment, is said once; a remainder that reads as a suffix stays.
+            # A word the code already says, leading the rule segment, is said once, where the words prove the boundary: the said word and
+            # the remainder's first word are words, and the said word runs on into no longer word.
             foreach ($said in $segments[1..($segments.Count - 2)]) {
                 if ($said.Length -lt 3 -or -not $leaf.StartsWith($said, [System.StringComparison]::Ordinal)) {
                     continue
                 }
                 $rest = $leaf.Substring($said.Length)
-                if ($rest.Length -lt 3 -or $rest -cmatch '^(ING|ED|ER|ES|S[^AEIOUY])' -or $rest -cnotmatch '^[A-Z]') {
+                if ($rest.Length -lt 3 -or -not $Words.Contains($said.ToLowerInvariant())) {
+                    continue
+                }
+                $lower = $leaf.ToLowerInvariant()
+                $runsOn = @(1..([Math]::Min(8, $rest.Length)) | Where-Object { $Words.Contains($lower.Substring(0, $said.Length + $_)) })
+                $starts = @(3..([Math]::Min(12, $rest.Length)) | Where-Object { $Words.Contains($rest.Substring(0, $_).ToLowerInvariant()) })
+                if ($runsOn.Count -gt 0 -or $starts.Count -eq 0) {
                     continue
                 }
                 $transforms.Add("drop $said, already said by the code")
