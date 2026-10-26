@@ -58,8 +58,6 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
 - reference-normal-form -> plan-reference-normal-form.md: reference pages at a derived path
   (`docs/references/<language>/<module>/<aspect path>/<file>.md`), no `docs:` links; steps 1 and 2 staged by catzc-2b in its scratchpad,
   then the step-3 rename script, then the user's rename
-- module-types-contracts -> plan-module-types-contracts.md: each module group publishes its compiled type surface as `types.json` beside its
-  command contracts, replacing the global sample; command contracts' types checked against it
 - idiomatic-names -> plan-idiomatic-names.md: one step left, the naming gate wired into languages.yml once the user stages the folder moves
   (task-user-runs-and-commits).
 - listen-internal-readers -> plan-listen-internal-readers.md: one step left, the user's `.claude/CLAUDE.md` edit

@@ -123,7 +123,7 @@ Sub-group labels and config rows look like this (DevBox lifecycle verbs; `config
 - After editing, run, from the repo root:
 
   ```powershell
-  Format-Code -Language markdown -Path docs/references/pwsh   # aligns tables, wraps prose
+  Format-Code -Path <the files you touched>   # aligns tables, wraps prose
   Test-Markdownlint
   Test-Spelling
   ```
@@ -133,5 +133,5 @@ Sub-group labels and config rows look like this (DevBox lifecycle verbs; `config
 ## Adding a new module reference
 
 1. Create `catzc-<module>.md` following the five-part structure above (copy `catzc-azure-cli.md` as the skeleton).
-2. Add a row to the table in `index.md` (module name, one-line summary), keeping the foundation-first order.
+2. Add an item to the list in `index.md` (module name, one-line summary), keeping the foundation-first order.
 3. Run the three gates above.

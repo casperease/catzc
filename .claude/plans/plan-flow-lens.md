@@ -73,6 +73,11 @@ of the same symbols as the VS Code file icons, so the editor tree and the diagra
 - **The engines are pluggable.** One reader per engine maps its files to the same rows (lane, type, stage, job, step, environment, trigger,
   edge): ADO in `Azure.DevOps`, GitHub beside it. A later engine adds a reader and an entry, never a branch in the renderer.
 
+## Open questions
+
+- Should `python/diagrams/README.md` say in one line that glyphs are draw.io styles in `glyphs.xml` and `embed_images.py` embeds PNG only,
+  and that a headless Edge `--screenshot` renders a standalone SVG? Recommended: yes, it saves the next session the search.
+
 ## Open steps
 
 - [ ] `docs/drs/design/visual-design.md`: add DDR-VISUAL-FLOWISALENS (the lens, its inputs-only declaration, the rows from the pipeline

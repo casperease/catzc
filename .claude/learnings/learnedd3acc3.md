@@ -85,3 +85,17 @@ Started 2026-10-26T14:27:33.1467183+01:00.
 - 2026-10-26 Cats: Token tip: Next time, save tokens by: running one module per Invoke-TestFile under a resumable sweep script that writes a
   file per chunk.
 - 2026-10-26 Cats: Token tip: Next time, save tokens by: reading results-shard XML counts directly instead of grepping console output.
+- 2026-10-26 Cats: In hindsight I wish I knew this fact: ADO pipeline YAML is already read in Azure.DevOps (Get-AdoYamlInventory,
+  Resolve-AdoYamlClassification, Get-PipelineTemplateReference).
+- 2026-10-26 Cats: In hindsight I wish I knew this fact: diagram query rows flow Build-Diagrams -> Write-DiagramQueryRows ->
+  python/diagrams/query_rows.py, and about.point is accepted only at C3/C4.
+- 2026-10-26 Cats: In hindsight I wish I knew this fact: the rungs and their gates (none, rc, rbc, prod-approval) are defaults on
+  RungsConfig.cs; Base.Flow/configs/rungs.yml is {}.
+- 2026-10-26 Cats: In hindsight I wish I knew this fact: ADO deploy stages name environments by template expressions, so a static read
+  cannot resolve them.
+- 2026-10-26 Cats: In hindsight I wish I knew this fact: diagram glyphs are draw.io mxCell styles in python/diagrams/assets/glyphs.xml, and
+  embed_images.py embeds PNG only.
+- 2026-10-26 Cats: In hindsight I wish I knew this fact: no SVG rasterizer is installed; headless Edge --screenshot of a local HTML sheet
+  renders SVGs to PNG.
+- 2026-10-26 Cats: Token tip: Next time, save tokens by: writing a multi-step script with Write and running it with one timeout-prefixed
+  background call, never a heredoc in the background call.
