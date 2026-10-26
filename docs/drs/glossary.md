@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "8182422ec37b"
+    with_body_sha: "7a9716df6494"
     warning: "Do Not Edit, this file is generated"
 ---
 
@@ -350,8 +350,8 @@ decision record sits in.
 - **Source:** `pwsh/Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
   - [cell](#cell): A lit cell is a cell a highlight selects; a cell is any intersection, lit or not.
-  - [stack violation](#stack-violation): A lit cell is selected by a highlight and says nothing about the stack; a stack violation is a
-    finding, marked whatever the highlight.
+  - [stack violation](#stack-violation): A lit cell is a highlight's selection; a stack violation is a finding, marked whatever the
+    highlight.
 
 ### module
 
@@ -467,10 +467,9 @@ A world-map cell holding a live file whose file language its track does not decl
 - **Contrasts:**
   - [cell](#cell): A stack violation is a cell holding a live file outside its track's file languages; a cell is any intersection, allowed
     or not.
-  - [lit cell](#lit-cell): A lit cell is selected by a highlight and says nothing about the stack; a stack violation is a finding, marked
-    whatever the highlight.
-  - [value-chain stack](#value-chain-stack): A stack violation is a world-map cell outside its track's tech-stack, a set of file languages;
-    the value-chain stack orders decisions, not files.
+  - [lit cell](#lit-cell): A lit cell is a highlight's selection; a stack violation is a finding, marked whatever the highlight.
+  - [value-chain stack](#value-chain-stack): A stack violation is a world-map cell outside its track's file languages; the value-chain stack
+    orders decisions.
 
 ### staging slot
 
@@ -552,8 +551,8 @@ domain, an override per decision record.
 - **Contrasts:**
   - [track](#track): A value-chain concern is where along delivery a decision acts; a track is a concern of the repository, the cluster
     where files live.
-  - [value-chain stack](#value-chain-stack): A value-chain concern is a column, where along delivery a decision record acts; the value-chain
-    stack is the rows, how general the decision is.
+  - [value-chain stack](#value-chain-stack): A value-chain concern is a column, where a decision acts; the value-chain stack is the rows,
+    how general it is.
 
 ### value-chain map
 
@@ -566,8 +565,8 @@ the value chain.
 - **Contrasts:**
   - [cell](#cell): The value-chain map is a whole grid; a cell is one intersection of it, holding the decision records of one row in one
     value-chain concern.
-  - [world map](#world-map): The value-chain map says where along delivery a decision acts; the world map crosses tracks with file languages
-    and says where its files sit.
+  - [world map](#world-map): The value-chain map says where a decision acts; the world map crosses tracks with file languages, where files
+    sit.
 
 ### value-chain stack
 
@@ -578,10 +577,10 @@ declares one.
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
-  - [stack violation](#stack-violation): A stack violation is a world-map cell outside its track's tech-stack, a set of file languages; the
-    value-chain stack orders decisions, not files.
-  - [value-chain concern](#value-chain-concern): A value-chain concern is a column, where along delivery a decision record acts; the
-    value-chain stack is the rows, how general the decision is.
+  - [stack violation](#stack-violation): A stack violation is a world-map cell outside its track's file languages; the value-chain stack
+    orders decisions.
+  - [value-chain concern](#value-chain-concern): A value-chain concern is a column, where a decision acts; the value-chain stack is the
+    rows, how general it is.
 
 ### vendor
 
@@ -617,8 +616,8 @@ tracked file in exactly one cell.
 - **Contrasts:**
   - [cell](#cell): A cell is one row crossed with one column; the world map is the whole grid of them, computed from the registries and the
     git index.
-  - [value-chain map](#value-chain-map): The value-chain map says where along delivery a decision acts; the world map crosses tracks with
-    file languages and says where its files sit.
+  - [value-chain map](#value-chain-map): The value-chain map says where a decision acts; the world map crosses tracks with file languages,
+    where files sit.
 
 ## flow
 

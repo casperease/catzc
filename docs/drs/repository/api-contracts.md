@@ -312,8 +312,7 @@ immutability is what lets a consumer pin a release and trust it does not move un
 
 ### Rejected alternatives
 
-1. **One unversioned contract set, evolved in place** — rejected: it cannot hold a frozen release beside the current shape. `0.1.0` is the
-   current shape, release folders the pins.
+1. **One unversioned contract set, evolved in place** — rejected: it cannot hold a frozen release folder beside the current `0.1.0`.
 
 2. **A version per contract (`contracts/<contract-name>/v<N>/`)** — rejected: a consumer upgrades the catzc bundle, not individual
    contracts, so a separate number per contract forces a mapping from bundle to contract versions that a release folder makes unnecessary.
@@ -323,8 +322,7 @@ immutability is what lets a consumer pin a release and trust it does not move un
 4. **Separate trees for provided and depended-on contracts** — rejected: both directions share the layout, the asset kinds, and the test
    mechanism; the root already tells them apart, so a second tree would only duplicate the first.
 
-5. **Documenting the boundary in a README and trusting both sides** — rejected: a prose promise is not verified, so it drifts from the code
-   and breaks consumers and vendors silently. A binding, tested contract catches the break in CI.
+5. **Documenting the boundary in a README and trusting both sides** — rejected: an unverified promise drifts; a tested contract fails in CI.
 
 6. **A back-compat shim in internal code** (dual-read the old and new shape inside the implementation) — rejected: it smears the public
    boundary through internal code, which then can never reach [one living version](../principles/one-living-version.md). The compatibility
@@ -334,11 +332,9 @@ immutability is what lets a consumer pin a release and trust it does not move un
    folders, so the mirror is deep, dotted, or needs a per-module target root to relocate it, and it still binds only one file per asset. The
    version's `applies_to` names the files once, as globs, in a flat tree.
 
-8. **A vendor marked by a prefix (`EXTERNAL-<vendor>`)** — rejected: the root already says who promised, and everything outside `catzc` is a
-   vendor, so the prefix only lengthens every path.
+8. **A vendor marked by a prefix (`EXTERNAL-<vendor>`)** — rejected: the root already says who promised, so the prefix only adds length.
 
-9. **Copying a vendor's whole schema** — rejected: it binds our files to the vendor's every detail and breaks on changes we never use; a
-   thin contract binds the part we rely on.
+9. **Copying a vendor's whole schema** — rejected: it breaks on vendor changes we never use; a thin contract binds what we rely on.
 
 10. **Layers of current contracts across several low versions (`0.0.1`, `0.1.0`, `0.1.1`)** — rejected: every binding would have to pick a
     layer and every move between layers would edit its callers, for an order the module dependency graph already keeps. One current version

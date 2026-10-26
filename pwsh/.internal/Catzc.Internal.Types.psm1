@@ -1,6 +1,5 @@
 Set-StrictMode -Version Latest   # this module's scope: every function here runs strict
 
-# The type-assembly build functions live one per file beside this module; they share its scope.
 . (Join-Path $PSScriptRoot 'assets/bootstrap/Resolve-ModuleName.ps1')
 . (Join-Path $PSScriptRoot 'assets/bootstrap/Get-ModuleNamespace.ps1')
 . (Join-Path $PSScriptRoot 'assets/types/Get-TypeSourceBody.ps1')
@@ -14,7 +13,6 @@ Set-StrictMode -Version Latest   # this module's scope: every function here runs
 . (Join-Path $PSScriptRoot 'assets/types/Write-TypesContract.ps1')
 . (Join-Path $PSScriptRoot 'assets/types/Get-TypesContractDrift.ps1')
 
-# Shared by every session and clone: a shadow copy is named by its source hash, so equal names mean equal types.
 function Get-TypesShadowRoot {
     [OutputType([string])]
     param()
@@ -27,7 +25,6 @@ function Get-TypesShadowRoot {
     }
 }
 
-# A build younger than this may be another tree's current one, since every tree's sessions share the shadow folder.
 function Get-TypesPruneAfter {
     [OutputType([TimeSpan])]
     param()
@@ -48,7 +45,6 @@ function Get-TypesStampPath {
     [System.IO.Path]::Combine((Get-TypesShadowRoot), "stamp-$digest.json")
 }
 
-# Windows locks a loaded DLL, so loading in place would pin a superseded build; a load uses a shadow copy.
 function Import-TypesAssembly {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '',
         Justification = 'Writes only the per-user shadow cache, an internal load-time detail of the importer; the load itself is announced by the caller (Import-CSharpTypes).')]
@@ -123,7 +119,6 @@ function Import-TypesAssembly {
     $shadow
 }
 
-# Reads the metadata only, so the assembly is never loaded into the process and its file is never locked.
 function Test-TypesAssemblyContent {
     [CmdletBinding()]
     [OutputType([void])]
@@ -148,7 +143,6 @@ function Test-TypesAssemblyContent {
 }
 
 
-# The default row lives here, not on a C# type: the policy is read while the types assembly is still unloaded.
 $script:typesLoadDefault = [ordered]@{ Load = 'lazy'; Trigger = 'lookup-hook'; EagerTypes = @(); ShadowCopy = $true; Generations = 1 }
 $script:typesLoadHosts = 'console', 'headless'
 $script:typesLoadSystems = 'windows', 'unix'
@@ -157,7 +151,6 @@ $script:typesLoadLoads = 'lazy', 'eager'
 $script:typesLoadTriggers = 'lookup-hook', 'none'
 $script:typesLoadKeys = 'load', 'trigger', 'shadowCopy', 'eagerTypes', 'generations'
 
-# A setting resolves in one order: the explicit value, the mode's row, the default row; only pwsh can load an assembly.
 function Get-TypesLoadPolicy {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

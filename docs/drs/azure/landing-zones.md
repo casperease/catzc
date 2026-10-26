@@ -84,6 +84,7 @@ definition to the landing zone's set, pinned like the others.
 
 Every landing zone deploys a monthly budget whose alerts at 50, 80, and 100 percent of actual cost reach the subscription's `Owner` role,
 and every resource names its paying team in `cost-center` and its workload in `workload`.
+
 - [Cost attribution](#cost-attribution)
 
 ### Rule ADR-AZ-LZ-CAFPRINCIPLES
@@ -315,13 +316,13 @@ the landing zone's and are theirs to manage.
 `discovery` deploys one Cost Management budget per subscription through `infrastructure/modules/budget.bicep`: a monthly amount from its
 config, in the subscription's billing currency, with alerts at 50, 80, and 100 percent of actual cost to the holders of the subscription's
 `Owner` role, so no address is kept in a config. The amounts are plain config values that anyone reading the repository can see and review.
-`foundation` and `expedition` have no budget of their own; their cost counts against the subscription's.
-The CAF tags carry the metadata cost analysis groups by: `cost-center` names the paying team, `workload` the project, and `owner` and
-`environment` let spend group further. `Deploy-Bicep` creates the resource group of a resource-group template (`foundation`, `expedition`)
-through `Deploy-AzureResourceGroup` with no CAF tags, and afterwards writes only the deployment-provenance tags (`Set-BicepTrackingTagSet`).
-The required-tag policy covers resources, not resource groups, so the deploy succeeds, but cost grouped by resource group, or inherited from
-it, has nothing to read there. The resource group should take the template's CAF tags from its config. `discovery` creates its own resource
-group through `infrastructure/modules/resource-group.bicep`, so its resource group and every resource in it carry the tags.
+`foundation` and `expedition` have no budget of their own; their cost counts against the subscription's. The CAF tags carry the metadata
+cost analysis groups by: `cost-center` names the paying team, `workload` the project, and `owner` and `environment` let spend group further.
+`Deploy-Bicep` creates the resource group of a resource-group template (`foundation`, `expedition`) through `Deploy-AzureResourceGroup` with
+no CAF tags, and afterwards writes only the deployment-provenance tags (`Set-BicepTrackingTagSet`). The required-tag policy covers
+resources, not resource groups, so the deploy succeeds, but cost grouped by resource group, or inherited from it, has nothing to read there.
+The resource group should take the template's CAF tags from its config. `discovery` creates its own resource group through
+`infrastructure/modules/resource-group.bicep`, so its resource group and every resource in it carry the tags.
 
 ### CAF design principles
 
@@ -436,21 +437,21 @@ read.
 ### CAF security
 
 The activity log streams to `foundation`'s Log Analytics workspace and every resource that emits logs sends them to its subscription's
-workspace, one per subscription rather than one for the tenant; an archive to storage
-beyond two years is not needed. Access audit reports, real-time alerts through Event Grid, an incident response plan
+workspace, one per subscription rather than one for the tenant; an archive to storage beyond two years is not needed. Access audit reports,
+real-time alerts through Event Grid, an incident response plan
 ([EDR-AZ-WAF-SE-SE12](../external/azure/waf/security.md#rule-edr-az-waf-se-se12)), and the tracking of Azure roadmaps as a process belong to
-the tenant's security operations or are served by the retrieval dates of the records. No virtual
-machine is deployed, so patch tracking, policy-deployed extensions, security drift, attestation, and just-in-time access have nothing to act
-on, and no endpoint or user application exists for endpoint management, Defender for Cloud Apps, or application onboarding.
+the tenant's security operations or are served by the retrieval dates of the records. No virtual machine is deployed, so patch tracking,
+policy-deployed extensions, security drift, attestation, and just-in-time access have nothing to act on, and no endpoint or user application
+exists for endpoint management, Defender for Cloud Apps, or application onboarding.
 
-The shared Bicep modules are the allowlist of services, each with secure defaults. The landing zone assigns three built-in policies at subscription level in place of the management-group policy set of the CAF
-reference landing zone. Access follows Zero Trust through Entra ID identities, a
-service connection per subscription pinned on every deploy, and private endpoints for data, though `foundation`'s vault and workspace accept
-public traffic. Each workload deploys the diagnostic settings of its own resources, so its monitoring travels with
-its template. Data at rest uses Microsoft-managed keys, and the `data-classification` tag labels each resource in place of Purview. No
-workload has public ingress, so the Zero Trust application delivery pattern and the accelerators' network variants do not apply; workload
-networking is private by plan (`network.yml`, a security group per workload subnet, private endpoints). Sentinel, its identity feeds, and threat hunting are the tenant's security operations; `foundation`'s workspace is
-where Sentinel would attach and the repository supplies the logs.
+The shared Bicep modules are the allowlist of services, each with secure defaults. The landing zone assigns three built-in policies at
+subscription level in place of the management-group policy set of the CAF reference landing zone. Access follows Zero Trust through Entra ID
+identities, a service connection per subscription pinned on every deploy, and private endpoints for data, though `foundation`'s vault and
+workspace accept public traffic. Each workload deploys the diagnostic settings of its own resources, so its monitoring travels with its
+template. Data at rest uses Microsoft-managed keys, and the `data-classification` tag labels each resource in place of Purview. No workload
+has public ingress, so the Zero Trust application delivery pattern and the accelerators' network variants do not apply; workload networking
+is private by plan (`network.yml`, a security group per workload subnet, private endpoints). Sentinel, its identity feeds, and threat
+hunting are the tenant's security operations; `foundation`'s workspace is where Sentinel would attach and the repository supplies the logs.
 
 Key Vault is federated: `foundation` deploys one vault per subscription from one module, so every customer and tier has its own vault with
 the same configuration and no policy is needed. No vault is central to the tenant, though a workload's secret sits in the platform's vault.
@@ -458,11 +459,12 @@ Every vault authorizes its data plane through Azure RBAC with no access policies
 `enableRbacAuthorization: true` and an empty `accessPolicies`, neither a parameter, so no caller falls back to access policies, and it sets
 no retention, no network rule, and `enabledForTemplateDeployment` on, because Azure Resource Manager resolves `expedition`'s break-glass
 reference at deploy time. The roles on a vault are granted outside the repository, and the vault name stays taken until a deleted vault's
-retention ends. `storage-account.bicep` turns shared-key access off, so every data request carries an Entra ID token. The vaults hold
-no key and no certificate, so certificate automation has no use; rotation of the one secret, the break-glass password, is manual. The environments of one tier share their tier's vault and the same secret name, `exped-sql-admin-password` (`dev`
-and `test` read the shared non-production vault, so they share one break-glass password), and a secret name per configuration slot is
-planned. The platform's vault is the platform's, not the workload's, which fits the one secret in use, a recovery credential no application
-reads at run time; a workload that needs run-time secrets creates its own vault from `key-vault.bicep` in its own resource group.
+retention ends. `storage-account.bicep` turns shared-key access off, so every data request carries an Entra ID token. The vaults hold no key
+and no certificate, so certificate automation has no use; rotation of the one secret, the break-glass password, is manual. The environments
+of one tier share their tier's vault and the same secret name, `exped-sql-admin-password` (`dev` and `test` read the shared non-production
+vault, so they share one break-glass password). The platform's vault is the platform's, not the workload's, which fits the one secret in
+use, a recovery credential no application reads at run time; a workload that needs run-time secrets creates its own vault from
+`key-vault.bicep` in its own resource group.
 
 ### CAF identity
 
@@ -482,27 +484,20 @@ config names the group `zct-exped-sql-admins` (`entraAdminLogin`) with a placeho
 `entra_sql_admin_group`, so one group administers every customer's SQL server in every environment. `budget.bicep` takes `contactRoles`,
 defaulting to `Owner`. The break-glass login is `exped-break-glass`, with `entraOnlyAuthentication: false` and the password
 `exped-sql-admin-password` as a Key Vault reference; it is the one path outside the tenant's sign-in policies. At the level the repository
-owns, the break-glass SQL login keeps a SQL server reachable, and monitoring its use is planned. Every subscription gets the same landing
-zone from `discovery`, but it assigns no role and creates no group, role assignment, or user-assigned identity, and the repository defines
-no custom role and owns no management group. Role assignments as code are planned: one standard role set declared once and deployed to every
-landing zone, at subscription level in `discovery` and at resource level in `expedition`, never above a subscription, starting from built-in
-roles, with the combined effect of stacked assignments reviewed and a condition limiting which roles the deploying identity may assign. Data
-roles are planned as code, and Key Vault and storage authorize their data plane through Entra ID and Azure RBAC, SQL through its Entra ID
-administrator group, with attribute-based conditions weighed with those data roles. Pinning resource-context access as a default of the
-workspace module is planned.
+owns, the break-glass SQL login keeps a SQL server reachable. Every subscription gets the same landing zone from `discovery`, but it assigns
+no role and creates no group, role assignment, or user-assigned identity, and the repository defines no custom role and owns no management
+group. Key Vault and storage authorize their data plane through Entra ID and Azure RBAC, and SQL through its Entra ID administrator group.
 
 Every `expedition` config names the same SQL administrator group, and the environments of one tier share their service connection, their
-vault secret, and the SQL administrator group; a group per customer and environment and separating the rest is planned. Managed identities
-are system-assigned to one resource of one configuration slot, so none is shared; the storage account and the SQL server carry them, but
-nothing grants them a role, and access between resources through them is planned (`storage-account.bicep` and `sql-server.bicep` output the
-`principalId`). `policy-assignment.bicep` gives a remediating policy, when `assignIdentity` is set, a system-assigned identity and grants
-each id in `roleDefinitionIds` directly to its principal (`principalType: 'ServicePrincipal'`) on the subscription, and no landing-zone
-policy needs it. Every deploy runs through the service connection of its subscription (`sc-<owner>-nonprod`, `sc-<owner>-prod`), handed to
-`AzureCLI@2` or `AzurePowerShell@5` by `.ado/pipelines/steps/invoke-automation.yaml` in `azcli` mode, pinned by `-SubscriptionIdAssertIs`,
-and the infrastructure CI builds offline in mode `none` and needs no Azure identity; the environments of one subscription (`nsub`, `dev`,
-`test`) share its one service connection; separating the landing-zone identity from the workload identity is planned, and so is workload
-identity federation for every service connection, since the kind of a service connection is set outside the repository. No template deploys
-an application that users sign in to, so the Microsoft identity platform and its checklist are not a template concern.
+vault secret, and the SQL administrator group. Managed identities are system-assigned to one resource of one configuration slot, so none is
+shared; the storage account and the SQL server carry them, but nothing grants them a role (`storage-account.bicep` and `sql-server.bicep`
+output the `principalId`). `policy-assignment.bicep` gives a remediating policy, when `assignIdentity` is set, a system-assigned identity
+and grants each id in `roleDefinitionIds` directly to its principal (`principalType: 'ServicePrincipal'`) on the subscription, and no
+landing-zone policy needs it. Every deploy runs through the service connection of its subscription (`sc-<owner>-nonprod`,
+`sc-<owner>-prod`), handed to `AzureCLI@2` or `AzurePowerShell@5` by `.ado/pipelines/steps/invoke-automation.yaml` in `azcli` mode, pinned
+by `-SubscriptionIdAssertIs`, and the infrastructure CI builds offline in mode `none` and needs no Azure identity; the environments of one
+subscription (`nsub`, `dev`, `test`) share its one service connection. No template deploys an application that users sign in to, so the
+Microsoft identity platform and its checklist are not a template concern.
 
 ### CAF delivery
 
@@ -518,20 +513,16 @@ Development is trunk-based on `main`, with short-lived branches that carry nothi
 version branches. The delivery design takes `main` to advance by squash merge only, and its change detection relies on it; the rule that
 `main` admits merges only through a pull request, the merge type, and per-branch permissions are server settings outside the repository. In
 the `main-via-pr` variant every change enters `main` through a pull request with blocking build validation; the repository runs
-`main-direct`, and a required-reviewer policy is planned. Blocking build validation per globset is configured in `build-validation.yml`;
-minimum reviewers, vote reset, automatic reviewers, and comment resolution are planned. Every fix, urgent or not, is a commit that the same
-pipelines deploy; a written emergency-change procedure is planned, and so is a rollback by deploying an earlier commit's artifact, since a
-rollback today is a revert commit that the same pipelines deploy, and removing what a revert takes out of a template needs its own step.
+`main-direct`. Blocking build validation per globset is configured in `build-validation.yml`. Every fix, urgent or not, is a commit that the
+same pipelines deploy, and a rollback is a revert commit that the same pipelines deploy.
 
 A CI pipeline builds and tests every template, as a pull-request check and again on the merged commit: each template is validated, compiled,
 and checked against its parameter model ([ADR-AZ-DATAMOD-PARAMETERCONTRACT](azure-data-model.md#rule-adr-az-datamod-parametercontract)).
 Globset-triggered CD pipelines deploy the templates in order, and every commit to `main` that touches a deployable-unit is deployed to its
-non-production subscriptions; production deploys in the same stage as non-production instead of by promotion. The Bicep linter as a quality
-gate and system tests of a deployed template in an on-demand environment are planned. Each deploy runs through the service connection of its
-own subscription and asserts that subscription; federated credentials, one identity per template and environment, and a read-only identity
-for previews are planned. The one deploy-time secret is a Key Vault reference resolved by Azure Resource Manager. Every deployment job names
-an Azure DevOps environment per template target, whose checks and approvals are not declared in the repository. `Deploy-Bicep -DryRun` runs
-the Azure what-if preview; running it before every pipeline deploy is planned.
+non-production subscriptions; production deploys in the same stage as non-production instead of by promotion. Each deploy runs through the
+service connection of its own subscription and asserts that subscription. The one deploy-time secret is a Key Vault reference resolved by
+Azure Resource Manager. Every deployment job names an Azure DevOps environment per template target, whose checks and approvals are not
+declared in the repository. `Deploy-Bicep -DryRun` runs the Azure what-if preview.
 
 The pipelines are `.ado/pipelines/ci-infrastructure.yaml` (CI for all three templates, which runs `Assert-BicepTemplate` and `Build-Bicep`
 for each, then the infrastructure test suite), `cd-shared.yaml` for the shared platform, and thin customer pipelines (`cd-apex.yaml`,
@@ -556,10 +547,10 @@ Provisioning and configuring every landing zone and workload is automated; the r
 secret are manual. The repository deploys its own templates to its own rules, not Microsoft's accelerators, which assume management groups
 and a platform it does not own, and `foundation`, `discovery`, and `expedition` deployed in order stand in for the base an accelerator would
 provide. Its delivery framework is its own flow model grounded in the DORA research, and it improves continuously from evidence rather than
-through an assessed roadmap; the delivery metrics are DORA's, and nothing in the repository collects them from the pipelines yet. The
-toolchain is chosen once and pinned, Git, Azure DevOps and GitHub pipelines, Bicep, the az CLI, and Pester, and installed the same way on a
-devbox and in a pipeline. The infrastructure runs on Azure DevOps Pipelines, and the catzc automation's CI and release run on GitHub
-Actions; planning and collaboration tools belong to the operating organisation.
+through an assessed roadmap; the delivery metrics are DORA's. The toolchain is chosen once and pinned, Git, Azure DevOps and GitHub
+pipelines, Bicep, the az CLI, and Pester, and installed the same way on a devbox and in a pipeline. The infrastructure runs on Azure DevOps
+Pipelines, and the catzc automation's CI and release run on GitHub Actions; planning and collaboration tools belong to the operating
+organisation.
 
 ### Cost by configuration
 
@@ -1080,7 +1071,6 @@ the missing network; once the spoke is deployed, the next hub deploy completes i
   `policyEnforcementMode` rejects any other value at build time.
 - `Test-ManagedGuids` fails an unregistered GUID in tracked text, so a built-in definition id enters `discovery/main.bicep` only with its
   `guids.yml` entry ([ADR-AUTO-GUIDS](../automation/managed-guids.md)).
-- Not yet in place: a check over the compiled templates (`main.json`) that fails a resource without the CAF tags.
 - `globs.yml` declares `template-azure-subscription-discovery` and `template-azure-workload-expedition` as base deployable units, composed
   by the customer and shared-platform units, so a change to either template triggers every CD pipeline that deploys it
   ([durable-sha-globs](../flow/durable-sha-globs.md)); the customer CD pipeline deploys `foundation`, then `discovery`, then `expedition`.

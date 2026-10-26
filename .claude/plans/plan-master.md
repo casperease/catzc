@@ -58,14 +58,12 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
   one plan step from the written answer, a redraw after each); the user names the slides
 - debt-test-speed -> plan-debt-test-speed.md: the slowest Pester files measured one at a time in the memory queue, and the import every test
   run pays; one step
-- debt-azure-gaps -> plan-debt-azure-gaps.md: the CAF recommendations the landing zone does not realise yet, 31 steps each
+- debt-azure-gaps -> plan-debt-azure-gaps.md: the CAF recommendations the landing zone does not realise yet, 45 steps each
 - debt-python-test -> plan-debt-python-test.md: Invoke-PythonTest's -Module refuses a folder-named kit module such as diagrams; two steps
 - vscode-session-binding -> plan-vscode-session-binding.md: the one-instance-per-session decision observed in VS Code: the hang proven gone
   or caught from the inside, and the two janitors that talk to the editor and dotnet from inside its own session judged
 - slim-agents -> plan-slim-agents.md: four model drones, every job a skill; 22 robots to 4, duplicates merged
 - flow-lens -> plan-flow-lens.md: flow lens: CI/CD flow diagrams of the ADO and GitHub pipelines, drawn with a three-symbol glyph set
-- drs-code-simplify -> plan-drs-code-simplify.md: Every decision record code is short, unique and names its source; external guidance moves
-  to the EDR kind.
 - user-runs-and-commits -> task-user-runs-and-commits.md: the user's steps, the only list of them.
 - closing-sweep -> task-closing-sweep.md: runs after every batch; done plans deleted, done steps pruned; last of all, after the user's full
   run, the master and the task files go with the last plan.

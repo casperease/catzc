@@ -213,9 +213,7 @@ concepts:
     contrasts:
       cell:
         A cell is one row crossed with one column; the world map is the whole grid of them, computed from the registries and the git index.
-      value-chain map:
-        The value-chain map says where along delivery a decision acts; the world map crosses tracks with file languages and says where its
-        files sit.
+      value-chain map: The value-chain map says where a decision acts; the world map crosses tracks with file languages, where files sit.
   cell:
     key: cell
     domain: design
@@ -240,12 +238,8 @@ concepts:
       declares one.
     realized_by: { kind: prose-only }
     contrasts:
-      value-chain concern:
-        A value-chain concern is a column, where along delivery a decision record acts; the value-chain stack is the rows, how general the
-        decision is.
-      stack violation:
-        A stack violation is a world-map cell outside its track's tech-stack, a set of file languages; the value-chain stack orders
-        decisions, not files.
+      value-chain concern: A value-chain concern is a column, where a decision acts; the value-chain stack is the rows, how general it is.
+      stack violation: A stack violation is a world-map cell outside its track's file languages; the value-chain stack orders decisions.
   value-chain concern:
     key: value_chain_concern
     domain: design
@@ -271,9 +265,7 @@ concepts:
       forbids.
     realized_by: { kind: prose-only }
     contrasts:
-      lit cell:
-        A lit cell is selected by a highlight and says nothing about the stack; a stack violation is a finding, marked whatever the
-        highlight.
+      lit cell: A lit cell is a highlight's selection; a stack violation is a finding, marked whatever the highlight.
   lit cell:
     key: lit_cell
     domain: design
@@ -294,8 +286,7 @@ concepts:
     key: spanner
     domain: design
     defined_by: DDR-VISUAL-SPANNERSNAMETAXONOMY
-    short:
-      A span bar on the `spans` layer, capped with its taxonomy glyph, in one row of words over the lanes of a flow diagram.
+    short: A span bar on the `spans` layer, capped with its taxonomy glyph, in one row of words over the lanes of a flow diagram.
     realized_by: { kind: prose-only }
   importer:
     key: importer

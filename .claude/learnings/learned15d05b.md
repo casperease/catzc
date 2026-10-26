@@ -74,3 +74,7 @@ Started 2026-10-26T16:36:54.9565876+01:00.
   lost brew to a comment); a shared config has one editor at a time.
 - 2026-10-26 Cats: Token tip: Next time, save tokens by: answering an idle notice with one line, never a recap.
 - 2026-10-26 Cats: Token tip: Next time, save tokens by: reading a gate output with one grep for its verdict lines.
+- 2026-10-26 Cats: Test-FileLimits counts lines per file against 400 for md and psm1 and 300 for glossary.yml; a decision-record rewrite
+  that adds rules can push a neighbouring file over its roof.
+- 2026-10-26 Cats: Build-Diagrams refuses a diagram no article embeds, so every new diagram lands with its article and an index row.
+- 2026-10-26 Cats: Token tip: subscribe with notify_when_idle instead of waiting on a busy worker.

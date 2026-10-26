@@ -49,11 +49,10 @@ is planned here, one step each, so no record carries a planned item.
 - [ ] Automated rotation of the break-glass password and monitoring of its use. Check: the secret has a rotation job and an alert on its
       use.
 - [ ] Role assignments as code: a standard role set, data roles, a workspace reader role, a condition on assignable roles, and a group per
-      customer and environment, with attribute-based conditions weighed for the data roles and a standard set declared once for
-      subscription level in `discovery` and resource level in `expedition`. Check: the assignments in the templates and a review of stacked
-      ones.
-- [ ] Managed-identity role grants between resources (`storage-account.bicep` and `sql-server.bicep` output the `principalId`), and
-      workload identity federation for every service connection. Check: no stored credential on a service connection.
+      customer and environment, with attribute-based conditions weighed for the data roles and a standard set declared once for subscription
+      level in `discovery` and resource level in `expedition`. Check: the assignments in the templates and a review of stacked ones.
+- [ ] Managed-identity role grants between resources (`storage-account.bicep` and `sql-server.bicep` output the `principalId`), and workload
+      identity federation for every service connection. Check: no stored credential on a service connection.
 - [ ] The landing-zone identity apart from the workload identity, a service connection per environment, one identity per template and
       environment, and a read-only identity for previews. Check: the connection list per template.
 - [ ] Defender for Cloud as a landing-zone resource, a benchmark initiative in audit mode, and a policy denying resource types outside the

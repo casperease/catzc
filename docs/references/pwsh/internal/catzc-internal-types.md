@@ -71,6 +71,16 @@ A lazy load defers the types until a catzc command is first used:
   idempotent, and it removes the hook first, since nothing below may re-enter it. Each accelerator takes its type from this build's
   assembly, because a full type name keeps resolving to the first-loaded build.
 
+## Why it is shaped so
+
+- The type-assembly build functions live one per file beside the module and share its scope.
+- The shadow folder is shared by every session and clone: a shadow copy is named by its source hash, so equal names mean equal types.
+- A build younger than the prune age may be another tree's current one, since every tree's sessions share the shadow folder.
+- Windows locks a loaded DLL, so loading in place would pin a superseded build; a load uses a shadow copy.
+- `Test-TypesAssemblyContent` reads the metadata only, so the assembly is never loaded into the process and its file is never locked.
+- The default load-policy row lives in the module, not on a C# type: the policy is read while the types assembly is still unloaded.
+- A load-policy setting resolves in one order: the explicit value, the mode's row, the default row; only pwsh can load an assembly.
+
 ## Functions
 
 - `Get-CombinedTypeHash` — the one combined C# type-source hash (with the per-file snapshot and the source list, ordered) that both the

@@ -239,6 +239,28 @@ Describe 'Test-DrsRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
             )
         }
 
+        It 'reports a rule name used by two records and a rule name over the budget' -Tag 'ADR-REPO-DRSCODE-RULENAMESUNIQUE', 'ADR-REPO-DRSCODE-RULENAMEBUDGET' {
+            $script:fixture = [Catzc.Base.Drs.DrsConfig]::new([ordered]@{
+                    domains = [ordered]@{
+                        widget = [ordered]@{
+                            code = 'WI'; role = 'axioms'; description = 'The widget axioms.'; depends_on = @()
+                            stack = 'PRIN'; concern = @('build')
+                            rulesets = [ordered]@{
+                                'widget-one' = [ordered]@{ external = 'ADR-WI-ONE' }
+                                'widget-two' = [ordered]@{ external = 'ADR-WI-TWO' }
+                            }
+                        }
+                    }
+                })
+            Write-AdrFixture 'widget/widget-one.md' "# Widget one`n`n## Rules: ADR-WI-ONE`n`n### Rule ADR-WI-ONE-SPINS`n"
+            Write-AdrFixture 'widget/widget-two.md' (
+                "# Widget two`n`n## Rules: ADR-WI-TWO`n`n### Rule ADR-WI-TWO-SPINS`n`n### Rule ADR-WI-TWO-SPINSEVERYGADGETFORLONGER`n")
+            Remove-Item -LiteralPath (Join-Path $TestDrive 'adr/gadget') -Recurse -Force
+            $findings = @((Test-DrsRegistry -OutputFolder $out -PassThru).Facts['CodeLanguage'])
+            $findings | Should -Contain 'docs/drs/widget/widget-two.md:5: rule name SPINS is also ADR-WI-ONE-SPINS (ADR-REPO-DRSCODE-RULENAMESUNIQUE)'
+            @($findings | Where-Object { $_ -like 'docs/drs/widget/widget-two.md:7:*(ADR-REPO-DRSCODE-RULENAMEBUDGET)' }) | Should -HaveCount 1
+        }
+
         It 'reports a domain code of two segments once and holds its ADRs to the first segment' {
             $script:fixture = [Catzc.Base.Drs.DrsConfig]::new([ordered]@{
                     domains = [ordered]@{
