@@ -25,6 +25,7 @@ function Get-CommentPage {
         return
     }
 
+    # Page back to its sources: the normal form reads back to no file name, so the files map forward once and invert.
     $index = $Config.PageIndex([string[]] $TrackedPath)
     $key = $Page.Replace('\', '/')
     if ($index.ContainsKey($key)) {

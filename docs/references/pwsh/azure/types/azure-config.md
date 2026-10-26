@@ -1,8 +1,8 @@
 # pwsh/Azure/types/AzureConfig.cs
 
-The typed record of the Azure identity layer, `configs/azure.yml` ([ADR-AZ-DATAMOD](../../../../drs/azure/azure-data-model.md)): the org,
-the minimum Bicep CLI version, and the tenants, environments and subscriptions. Every named entity is a map keyed by name, so duplicate
-names are structurally impossible. `Get-Config -Config azure` returns this record, because it is registered in
+The typed record of the Azure identities, `configs/azure.yml` ([ADR-AZ-DATAMOD](../../../../drs/azure/azure-data-model.md)): the org, the
+minimum Bicep CLI version, and the tenants, environments and subscriptions. Every named entity is a map keyed by name, so duplicate names
+are structurally impossible. `Get-Config -Config azure` returns this record, because it is registered in
 `Catzc.Base.Config/configs/configs.yml` as `Catzc.Azure.AzureConfig`.
 
 ## shape
@@ -41,7 +41,7 @@ a complete one, and an unknown key or mode is a violation. The `policy_enforceme
 
 ## staging
 
-A staging environment is its target's inactive slot
+A staging environment is the slot of its target that is not yet active
 ([ADR-AZ-DATAMOD-STAGINGSLOT](../../../../drs/azure/azure-data-model.md#rule-adr-az-datamod-stagingslot)). The `staging_for` target exists,
 neither environment is `per_subscription`, and every subscription that serves the staging environment serves its target too.
 

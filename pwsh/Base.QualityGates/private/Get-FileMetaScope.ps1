@@ -14,6 +14,7 @@ function Get-FileMetaScope {
     $lookup = Get-ScopeLookup -RepositoryRoot $root -Path $Path -Command Get-FileMetaScope
     $fileKinds = Get-Config -Config file-kinds
 
+    # A file named in -Path counts only while git tracks it: an untracked authored file carries no head.
     $paths = @(if ($lookup.Count -gt 0) {
             Get-GitTrackedPath ([string[]] @($lookup))
         })

@@ -13,6 +13,7 @@ function Get-ImprintStepFile {
 
     $root = [System.IO.Path]::GetFullPath($RepositoryRoot)
 
+    # Format-Code -Path also formats files outside the repository, which no step covers: they are left out, not refused.
     if ($Path) {
         $Path = @($Path | Where-Object {
                 $resolved = Resolve-Path -LiteralPath $_ -ErrorAction Ignore

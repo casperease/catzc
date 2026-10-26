@@ -7,9 +7,10 @@ certifying `cd-apex` run, and `Target`, either `release-uat` or `prod`.
 ## Targets
 
 - **`release-uat`** — one expedition at `test`, in the ADO environment `apex-release-uat`. This rung is test; the RC approval check on that
-  environment holds the job for its certifier ([FDR-CD-TWORELEASEGATES](../../../drs/flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-tworeleasegates)).
-- **`prod`** — two stages. The exact artifact is staged in pre-prod, the copy of prod that is not in use (`_preprod`, environment `apex-pre-prod`),
-  then activated to prod (`_prod`, environment `apex-prod`)
+  environment holds the job for its certifier
+  ([FDR-CD-TWORELEASEGATES](../../../drs/flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-tworeleasegates)).
+- **`prod`** — two stages. The exact artifact is staged in pre-prod, the copy of prod that is not in use (`_preprod`, environment
+  `apex-pre-prod`), then activated to prod (`_prod`, environment `apex-prod`)
   ([FDR-CD-TWOENVIRONMENTACTIVATION](../../../drs/flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-twoenvironmentactivation)). The prod
   stage depends on the pre-prod one and sets `CertifiedBy: apex-pre-prod`, so no job deploys unless that environment's deployment history
   holds the commit.

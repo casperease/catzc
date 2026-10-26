@@ -14,7 +14,7 @@ shortcode uniqueness is `AzureConfig`'s.
 - `shortcode` is 2 lowercase letters, the environment segment of the tight patterns.
 - `region` is non-empty, and `region_code` is 3 lowercase letters.
 - `per_subscription`, when present, is a boolean.
-- `staging_for`, when present, names another environment this one stages, its inactive slot before activation
+- `staging_for`, when present, names another environment this one stages, the slot that is not yet active
   ([ADR-AZ-DATAMOD-STAGINGSLOT](../../../../drs/azure/azure-data-model.md#rule-adr-az-datamod-stagingslot)). `AzureConfig` checks the
   target.
 - No other key is allowed.

@@ -1,7 +1,7 @@
 # .ado/pipelines/cd-shared.yaml
 
-The CD pipeline of the shared platform unit. It builds the foundation, discovery and expedition templates for the configuration slots the shared unit owns, publishes
-each as an artifact, and deploys them through `stages/deploy-unit.yaml`, on `main` only.
+The CD pipeline of the shared platform unit. It builds the foundation, discovery and expedition templates for the configuration slots the
+shared unit owns, publishes each as an artifact, and deploys them through `stages/deploy-unit.yaml`, on `main` only.
 
 ## Triggers
 

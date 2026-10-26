@@ -11,6 +11,6 @@ infrastructure test suite. It builds and verifies only, with no artifact and no 
 - **Per tier** — `Assert-BicepTemplate <tier>` then `Build-Bicep <tier>` (compile, render and verify) for foundation, discovery and
   expedition.
 - **Suite** — `Test-Automation -Suite infrastructure` closes the job. The infrastructure globset's test suite is what it verifies:
-  `Catzc.Azure.Templates` up to L2 ([ADR-AUTO-TEST-TESTSUITE](../../../drs/automation/test-automation.md#rule-adr-auto-test-testsuite)).
-  The L2 test builds every shipped template and checks its rendered parameters files against the compiled parameter model
+  `Catzc.Azure.Templates` up to L2 ([ADR-AUTO-TEST-TESTSUITE](../../../drs/automation/test-automation.md#rule-adr-auto-test-testsuite)). The
+  L2 test builds every shipped template and checks its rendered parameters files against the compiled parameter model
   ([ADR-AZ-DATAMOD-PARAMETERCONTRACT](../../../drs/azure/azure-data-model.md#rule-adr-az-datamod-parametercontract)).

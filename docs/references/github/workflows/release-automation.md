@@ -16,8 +16,8 @@ Each publish step is opt-in through a boolean input, and a run with the publish 
 
 1. **Builds** the NuGet package and the PSGallery module manifest with `Export-Catzc -To nuget`, and keeps the package path, version and
    module folder in the environment.
-2. **Freezes the contracts** for that version under `contracts/catzc/<version>/`: the draft must hold, its copy becomes the released
-   version folder with a `.frozen` record, and that folder must hold too
+2. **Freezes the contracts** for that version under `contracts/catzc/<version>/`: the draft must hold, its copy becomes the released version
+   folder with a `.frozen` record, and that folder must hold too
    ([ADR-REPO-CONTRACT-RELEASEDIMMUTABLE](../../../drs/repository/api-contracts.md#rule-adr-repo-contract-releasedimmutable)).
 3. **Commits the frozen folder to the trunk** and pushes it. The token needs bypass rights on the branch rule, and the workflow has
    `contents: write` for this push and for `gh release create`.
