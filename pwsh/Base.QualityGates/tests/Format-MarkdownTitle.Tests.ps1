@@ -101,6 +101,7 @@ Describe 'Format-MarkdownTitle and Test-MarkdownTitle — headings' -Tag 'L0', '
     }
 
     It 're-points links in the whole scope when -Path narrows the check' {
+        # The filter reads bound parameters, since an unbound -Path resolves from the runner's own $Path.
         Mock Get-MarkdownScope { , [string[]] @('docs/widget.md') } -ModuleName Catzc.Base.QualityGates -ParameterFilter {
             $PesterBoundParameters.ContainsKey('Path')
         }

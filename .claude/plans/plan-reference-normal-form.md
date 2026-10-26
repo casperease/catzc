@@ -36,11 +36,11 @@ A reference page's path is derived from its source file, so no code head carries
   build-artifact page goes.
 - Steps 1 and 2 are staged in the building session's scratchpad (out/ is cleared by hand) and swap together with step 4, after the user's
   run of step 3's script; that script reads the map csv, which is refreshed from the committed tree before the run.
-- The staging (catzc-2b, 2026-10-26, from catzc-98), mirroring the repository with a `.burst-base` beside each changed file:
-  `refnf-staged` in catzc-2b's session scratchpad (ask catzc-2b for the absolute path), holding
-  Base.CodeMeta's CommentPageMap.cs, CommentPagesConfig.cs, comment-pages.yml, Get-CommentPage.ps1 and their two tests; Base.QualityGates'
-  new Test-ReferencePages.ps1 and test, file-meta.yml and five file-meta test fixtures; Base.Docs' DocPattern.cs, Get-ReadmeMappings.ps1,
-  readme.yml and three tests; and Base.ModuleSystem's dependencies.yml (Docs gains CodeMeta).
+- The staging (catzc-2b, 2026-10-26, from catzc-98), mirroring the repository with a `.burst-base` beside each changed file: `refnf-staged`
+  in catzc-2b's session scratchpad (ask catzc-2b for the absolute path), holding Base.CodeMeta's CommentPageMap.cs, CommentPagesConfig.cs,
+  comment-pages.yml, Get-CommentPage.ps1 and their two tests; Base.QualityGates' new Test-ReferencePages.ps1 and test, file-meta.yml and
+  five file-meta test fixtures; Base.Docs' DocPattern.cs, Get-ReadmeMappings.ps1, readme.yml and three tests; and Base.ModuleSystem's
+  dependencies.yml (Docs gains CodeMeta).
 
 ## Open steps
 

@@ -45,6 +45,7 @@ function Test-Spelling {
         $quotedPaths = foreach ($p in $batch) {
             "'$p'"
         }
+        # --dot reaches tracked files under dot folders; --gitignore keeps the untracked ones out.
         $command = (
             "cspell lint $($quotedPaths -join ' ') $($excludeArgs -join ' ') " +
             "--config '$configPath' --dot --gitignore --no-progress --no-color --relative"
@@ -58,6 +59,7 @@ function Test-Spelling {
             throw "cspell failed (exit $($result.ExitCode)): $($result.Full)"
         }
 
+        # cspell's globs are root-relative, so no "Files checked" summary means a bad -Path.
         $checkedMatch = [regex]::Match($result.Full, 'Files checked:\s*(?<n>\d+)')
         if ($checkedMatch.Success) {
             $checked += [int]$checkedMatch.Groups['n'].Value
@@ -77,6 +79,7 @@ function Test-Spelling {
         $issues = @("cspell exited $exitCode with no parsable issue line: $full")
     }
     if ($noSummary) {
+        # An uncounted run proves nothing: the wording changed, or cspell stopped before its summary.
         $issues = @($issues) + "Test-Spelling could not count the files checked: cspell printed no 'Files checked' summary, so the run proves nothing."
     }
     elseif ($checked -eq 0) {

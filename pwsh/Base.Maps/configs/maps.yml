@@ -4,4 +4,5 @@
 #   header: "generated"
 # ---
 
+# The map settings (palette, limits, labels, highlight pins and output folder), each key defaulting on its type.
 {}

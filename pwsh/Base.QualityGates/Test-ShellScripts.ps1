@@ -49,6 +49,7 @@ function Test-ShellScripts {
         if ($bytes -contains 13) {
             $issues.Add("${script}: CRLF line endings — the shell reads the carriage return as part of the command; the file must be LF (.gitattributes eol=lf)")
         }
+        # A shebang script runs directly, so it needs the executable bit in git; a sourced file does not.
         $shebang = $bytes.Length -ge 2 -and $bytes[0] -eq 35 -and $bytes[1] -eq 33
         if ($shebang -and $tracked.Contains($script) -and -not $executable.Contains($script)) {
             $issues.Add("${script}: has a shebang but is not executable in git (mode 100644) — run: git update-index --chmod=+x $script")
@@ -78,6 +79,7 @@ function Test-ShellScripts {
             throw "Test-ShellScripts needs ShellCheck at the tools.yml pin '$($shellcheck.Required)' (found: $($shellcheck.Version ?? 'none')). Run Install-Shellcheck."
         }
         $quoted = ($analysed | ForEach-Object { "`"$_`"" }) -join ' '
+        # One gcc-format line per finding; exit 1 is findings, above it ShellCheck failed.
         $check = Invoke-Executable "`"$($shellcheck.Path)`" --format=gcc --external-sources $quoted" -WorkingDirectory $repositoryRoot -PassThru -NoAssert -Silent
         if ($check.ExitCode -notin 0, 1) {
             throw "ShellCheck could not check the shell scripts (exit $($check.ExitCode)):`n$($check.Full)"
@@ -89,6 +91,7 @@ function Test-ShellScripts {
         }
     }
 
+    # ShellCheck cannot read zsh, so zsh -n -f parses each script, one per call.
     if ($zshScripts.Count -gt 0) {
         $zsh = Resolve-ToolExecutable -Tool zsh
         if (-not ($zsh.Found -and $zsh.VersionOk)) {
@@ -110,6 +113,7 @@ function Test-ShellScripts {
                 if (-not $line.Trim()) {
                     continue
                 }
+                # zsh names the file as given; a line without it gets the file prefixed.
                 $issue = if ($line.StartsWith("${script}:", [System.StringComparison]::Ordinal)) {
                     $line
                 }

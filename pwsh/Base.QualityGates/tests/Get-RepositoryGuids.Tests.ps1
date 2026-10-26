@@ -8,6 +8,7 @@ catzc:
 
 Describe 'Get-RepositoryGuids' -Tag 'L0', 'logic' {
     BeforeAll {
+        # The mocked seam returns absolute fixture paths, which Resolve-RepoPath passes through unchanged.
         $script:sandbox = Join-Path $TestDrive ([Guid]::NewGuid())
         [void][System.IO.Directory]::CreateDirectory($script:sandbox)
         $utf8NoBom = [System.Text.UTF8Encoding]::new($false)

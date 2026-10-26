@@ -8,6 +8,7 @@ catzc:
 
 Describe 'ConvertTo-TestAutomationRowSet' -Tag 'L0', 'logic' {
     BeforeAll {
+        # Builds a Pester-shaped result with only the members the reducer reads, so Pester never runs.
         function New-FakeTest {
             param($Path, $Result, $Ms, $Tags, $File, $Line, $Message, $Stack)
             $block = [pscustomobject]@{

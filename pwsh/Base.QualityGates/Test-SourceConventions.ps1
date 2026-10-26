@@ -104,6 +104,7 @@ function Test-SourceConventions {
             }
         }
 
+        # Each tests/types/ test names a real types/*.cs of the module, so the folder collects no strays.
         foreach ($path in & $list (Join-Path $testsDirectory 'types') '*.Tests.ps1') {
             $testCount++
             $name = [System.IO.Path]::GetFileName($path)

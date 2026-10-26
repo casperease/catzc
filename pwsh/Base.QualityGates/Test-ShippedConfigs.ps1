@@ -56,6 +56,7 @@ function Test-ShippedConfigs {
                 $issues.Add("$folderName/configs/$name.yml: does not load — $($_.Exception.Message)")
                 continue
             }
+            # The shipped file shows its type's defaults; a key may differ only with its reason in configs.yml.
             $raw = if ($isFolder) {
                 $merged = [ordered]@{}
                 foreach ($part in @(Get-ChildPath $file -Depth 1 -File -Filter '*.yml')) {

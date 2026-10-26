@@ -8,6 +8,7 @@ catzc:
 
 Describe 'Get-TestRuleTags' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-PROVENANCETAGS' {
     BeforeAll {
+        # The test's .Block is the inner block, the same shape Get-TestBlockTag.Tests.ps1 uses.
         function New-FakeTest {
             param([string[]] $OwnTags = @(), [string[]] $InnerTags = @(), [string[]] $OuterTags)
             $root = [pscustomobject]@{ IsRoot = $true; Tag = @(); Parent = $null }

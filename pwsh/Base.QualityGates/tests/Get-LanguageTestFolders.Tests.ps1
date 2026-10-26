@@ -22,6 +22,7 @@ Describe 'Get-LanguageTestFolders' -Tag 'L0', 'logic' {
         New-FixtureFile $script:repo 'go/tests/gadgetparts/nested/parts_test.go'
         New-FixtureFile $script:repo 'python/tests/widget/test_widget.py' -Text 'def test_widget(): pass'
         New-FixtureFile $script:repo 'bash/tests/gadget-parts/parts.bats' -Text '@test "parts" { true; }'
+        # Not test folders: dot-prefixed, generated-only, or lacking test_*.py and .bats files.
         New-FixtureFile $script:repo 'go/tests/.cache/cache_test.go'
         New-FixtureFile $script:repo 'go/tests/gizmo/go.mod' -Text 'module catzc/go/tests/gizmo'
         New-FixtureFile $script:repo 'python/tests/.venv/test_cache.py' -Text ''

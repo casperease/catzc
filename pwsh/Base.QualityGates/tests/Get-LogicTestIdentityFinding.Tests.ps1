@@ -8,6 +8,7 @@ catzc:
 
 Describe 'Get-LogicTestIdentityFinding' -Tag 'L0', 'logic' {
     BeforeAll {
+        # Synthetic identities, so this file's own tokens are not flagged by Test-LogicTestIdentity.
         $script:live = @{
             contoso = [pscustomobject]@{ Token = 'contoso'; Kind = 'customer-key'; Source = 'customer.yml'; Suggest = 'a fixture customer (acme)'; MatchMode = 'exact' }
             staging = [pscustomobject]@{ Token = 'staging'; Kind = 'environment'; Source = 'azure.yml'; Suggest = 'a fixture environment (alpha)'; MatchMode = 'position' }

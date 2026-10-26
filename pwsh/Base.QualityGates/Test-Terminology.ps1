@@ -21,6 +21,7 @@ function Test-Terminology {
     $root = Get-RepositoryRoot
     $issues = [System.Collections.Generic.List[string]]::new()
 
+    # Check 3, no coinage: loading TerminologyConfig validates every entry and throws on a gap.
     $config = $null
     try {
         $config = Get-Config -Config terminology
@@ -30,6 +31,7 @@ function Test-Terminology {
     }
 
     if ($config) {
+        # Check 1, no drift: every generated dictionary matches the registry.
         $generated = Build-TerminologyDictionary -DryRun -PassThru
         foreach ($stale in @($generated | Where-Object Changed)) {
             $issues.Add(
@@ -40,6 +42,7 @@ function Test-Terminology {
 
         $qualityGates = Join-Path $root "$(Get-CatzcModulesFolder)/$((Get-Track -Name pwsh).FolderNameOf('Catzc.Base.QualityGates'))"
         $corpus = Get-TerminologyCorpus -Root $root -Exclude $config.DefiningFiles($root, $qualityGates)
+        # Check 2, no orphans: every term is referenced elsewhere, found in one bulk scan.
         foreach ($term in $config.terms) {
             if (-not $corpus.Contains($term.term.ToLowerInvariant())) {
                 $issues.Add(
@@ -49,6 +52,7 @@ function Test-Terminology {
             }
         }
 
+        # A reserved term stands only in its scope's files, matched ignoring case.
         $reserved = @($config.terms | Where-Object { $_.category -ceq 'reserved' })
         if ($reserved.Count -gt 0) {
             $allowed = @(if ($config.categoryScopes.ContainsKey('reserved')) {

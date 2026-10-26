@@ -8,6 +8,7 @@ catzc:
 
 Describe 'Get-ModuleProtectionIdentity' -Tag 'L0', 'logic' {
     BeforeEach {
+        # Catzc.Unknown appears nowhere, so it stays unconstrained.
         $script:dependencies = [Catzc.Base.ModuleSystem.DependenciesConfig]::new([ordered]@{
                 groups  = [ordered]@{
                     Base = [ordered]@{
@@ -33,6 +34,7 @@ Describe 'Get-ModuleProtectionIdentity' -Tag 'L0', 'logic' {
                 @('x/**'), @(), @(), @(), -1, $null)
         } -ModuleName Catzc.Base.QualityGates
         Mock Get-GlobSetHash {
+            # Strict-mode safe: the -Name and -GlobSet paths each bind only one of the two variables.
             $byName = Get-Variable -Name Name -ValueOnly -ErrorAction Ignore
             $setName = if ($byName) {
                 $byName

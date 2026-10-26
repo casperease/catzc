@@ -15,6 +15,7 @@ Describe 'Export-SpellingTriage' -Tag 'L0', 'logic' {
         }
 
         $script:cspellExit = 1
+        # Joined from real words so the file carries no coined token for Test-Spelling to flag.
         $script:cspellOut = @('mango', 'banana', 'Apple', 'kiwi') -join "`n"
 
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.QualityGates { $TestDrive }
@@ -46,6 +47,7 @@ Describe 'Export-SpellingTriage' -Tag 'L0', 'logic' {
         $raw = [System.IO.File]::ReadAllText($script:queuePath)
         $raw | Should -Match '(?m)^- term: banana'
         $raw | Should -Match '(?m)^- term: kiwi'
+        # The blank meaning keeps the stub unloadable until a human classifies it.
         $raw | Should -Match "meaning: ''"
         $raw | Should -Not -Match '(?m)^\s*category:'
     }

@@ -9,6 +9,7 @@ catzc:
 Describe 'Build-TerminologyDictionary' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Write-Message -ModuleName Catzc.Base.QualityGates { }
+        # A duplicate and mixed case in one category prove the grouping, lower-casing and de-duplication.
         Mock Get-Config -ModuleName Catzc.Base.QualityGates {
             [pscustomobject]@{
                 categories = @('product', 'abbreviation', 'fixture')

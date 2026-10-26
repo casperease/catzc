@@ -12,6 +12,7 @@ param()
 
 Describe 'Enter-SystemTestLock' -Tag 'L1', 'logic', 'ADR-AUTO-TEST-SYSTEMTESTSATLTHREE' {
     BeforeAll {
+        # A mutex is re-entrant on its owning thread, so only another thread can observe it held.
         $script:holdLock = {
             param([string] $Name)
             $acquired = [System.Threading.ManualResetEventSlim]::new($false)

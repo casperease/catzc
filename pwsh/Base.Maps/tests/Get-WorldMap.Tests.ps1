@@ -129,6 +129,7 @@ Describe 'Get-WorldMap' -Tag 'L0', 'logic' {
     }
 }
 
+# Every tracked file of the git index gets a cell, and no live file breaks its track's tech-stack.
 Describe 'Get-WorldMap — the real repository' -Tag 'L1', 'integrity', 'source-only' {
     BeforeAll {
         $script:map = Get-WorldMap

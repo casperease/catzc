@@ -12,6 +12,7 @@ Describe 'Get-LiveIdentityTokens' -Tag 'L0', 'logic' {
     }
 
     BeforeEach {
+        # Fixture configs through the Get-Config seam, so the derivation reads only what is declared.
         $script:declarations = @{
             'Catzc.Base.Widget' = @(
                 @{ config = 'customer'; path = 'customers'; take = 'keys'; kind = 'customer-key'; suggest = 'a fixture customer (acme / globex)' }

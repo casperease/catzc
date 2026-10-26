@@ -8,6 +8,7 @@ catzc:
 
 Describe 'Get-TestBlockTag' -Tag 'L0', 'logic' {
     BeforeAll {
+        # Explicit [string[]] parameters avoid array-of-array flattening.
         function New-FakeTest {
             param([string[]] $OwnTags = @(), [string[]] $InnerTags = @(), [string[]] $OuterTags)
             $root = [pscustomobject]@{ IsRoot = $true; Tag = @(); Parent = $null }

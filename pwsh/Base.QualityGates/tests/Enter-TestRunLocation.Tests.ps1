@@ -13,6 +13,7 @@ param()
 # L1: real named mutexes, held and abandoned from thread jobs — the snapshot itself is mocked.
 Describe 'Enter-TestRunLocation' -Tag 'L1', 'logic' {
     BeforeAll {
+        # A mutex is re-entrant on its owning thread, so only another thread can observe it held.
         $script:holdLock = {
             param([string] $Name)
             $acquired = [System.Threading.ManualResetEventSlim]::new($false)
@@ -50,11 +51,13 @@ Describe 'Enter-TestRunLocation' -Tag 'L1', 'logic' {
         } -ModuleName Catzc.Base.QualityGates
         Mock Invoke-Executable { [pscustomobject]@{ ExitCode = 0; Output = '' } } -ModuleName Catzc.Base.QualityGates
         Mock Remove-RepositorySnapshot { } -ModuleName Catzc.Base.QualityGates
+        # A seam, so no test takes the real per-user lock.
         Mock Enter-SystemTestLock {
             [pscustomobject]@{ Acquired = $false; Mutex = $null; LockPath = $null; Holder = [pscustomobject]@{ Description = 'Test-Automation (pid 4343)' } }
         } -ModuleName Catzc.Base.QualityGates
         $script:location = $null
         $script:holder = $null
+        # The harness worker carries the parent run's location marker, so each test starts clear of it.
         $script:savedLocationHeld = $env:CATZC_TEST_RUN_LOCATION_HELD
         $env:CATZC_TEST_RUN_LOCATION_HELD = $null
     }
@@ -201,6 +204,7 @@ Describe 'Enter-TestRunLocation' -Tag 'L1', 'logic' {
     }
 
     It 'takes over an abandoned lock and runs in place' {
+        # A child process, not a thread job: only a process exit abandons the mutex.
         $name = & $script:mutexName $script:root
         $acquireAndExit = "[void][System.Threading.Mutex]::new(`$false, '$name').WaitOne()"
         $holder = Start-Process pwsh -ArgumentList '-NoProfile', '-NonInteractive', '-Command', $acquireAndExit -NoNewWindow -PassThru

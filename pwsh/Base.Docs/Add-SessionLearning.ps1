@@ -47,6 +47,7 @@ function Add-SessionLearning {
     $written = [System.Collections.Generic.List[string]]::new()
     $started = 'Started '
     foreach ($text in $sentences) {
+        # Ordered by each file's 'Started' line, never its name or file time, so the order survives a clone.
         $dated = @(foreach ($file in $config.FilesIn($folder)) {
                 $line = @([System.IO.File]::ReadAllLines($file) | Where-Object { $_.StartsWith($started,
                             [StringComparison]::Ordinal) } | Select-Object -First 1)
@@ -72,6 +73,7 @@ function Add-SessionLearning {
                 [System.IO.File]::Delete($files[$i])
             }
         }
+        # Wrapped as prettier wraps a list item, and a '<' outside a code span escaped, since MD033 reads it as HTML.
         $parts = $text.Split('`')
         for ($i = 0; $i -lt $parts.Count; $i += 2) {
             $parts[$i] = $parts[$i].Replace('<', '\<')

@@ -23,6 +23,7 @@ Describe 'DiscoveryFixture' -Tag 'L0', 'logic' {
             Get-TestDiscovery -TestPath $Path
         }
 
+        # The throwing bodies prove nothing ran, so SkipRun held.
         $discovery.Tests | Should -HaveCount 2
         @($discovery.Tests.Result) | Should -Be @('NotRun', 'NotRun')
         $discovery.Tests[0].Block.Tag | Should -Contain 'L0'
