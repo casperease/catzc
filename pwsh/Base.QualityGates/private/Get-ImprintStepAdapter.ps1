@@ -1,3 +1,11 @@
+<#
+---
+catzc:
+  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-ImprintStepAdapter.ps1.md"
+  header: "generated"
+---
+#>
+
 function Get-ImprintStepAdapter {
     [CmdletBinding()]
     [OutputType([string[]])]

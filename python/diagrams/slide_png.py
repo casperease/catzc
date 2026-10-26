@@ -43,7 +43,7 @@ FONTS["bold"] = ("segoeuib.ttf", "arialbd.ttf", "DejaVuSans-Bold.ttf")
 def head_and_fields(path):
     """The slide file's head config and its fields: the level-one heading as title, each `## Name` section as a field by lower name."""
     text = path.read_text(encoding="utf-8")
-    match = re.match(r"---\n(.*?)\n---\n(.*)", text, re.S)
+    match = re.match(r"---\n(.*?)\n---\n(.*)", text, re.DOTALL)
     head = (yaml.safe_load(match.group(1)) or {}).get("catzc", {}) if match else {}
     body = match.group(2) if match else text
     fields = {"title": ""}

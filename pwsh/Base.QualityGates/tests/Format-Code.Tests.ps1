@@ -319,10 +319,14 @@ Describe 'Format-Code imprint steps' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT-CONFIG
     It 'checks a step''s files again when the code the step runs changes, though no settings file did' -Tag 'ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS' {
         Mock Get-ImprintStepAdapter -ModuleName Catzc.Base.QualityGates { 'Invoke-WidgetStepAdapter' }
         try {
-            function global:Invoke-WidgetStepAdapter { 'the widget step, first form' }
+            function global:Invoke-WidgetStepAdapter {
+                'the widget step, first form'
+            }
             $null = Format-Code -DryRun
             $script:stepRuns.Clear()
-            function global:Invoke-WidgetStepAdapter { 'the widget step, second form' }
+            function global:Invoke-WidgetStepAdapter {
+                'the widget step, second form'
+            }
             $null = Format-Code -DryRun
             $script:stepRuns | Should -Be @('file-meta|a.wdg,a.gdg', 'bcl-namespace|a.wdg') -Because 'a verdict of the old code says nothing about the new'
         }

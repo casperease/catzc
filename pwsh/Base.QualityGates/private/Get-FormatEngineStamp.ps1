@@ -43,9 +43,18 @@ function Get-FormatEngineStamp {
     }
 
     # A formatter engine's verdict also rests on its adapter's code, so a changed adapter re-checks every file it judged.
-    if ($Engine -cin [Catzc.Base.Languages.LanguagesConfig]::FormatterEngines) {
-        $code = (Get-Command -Name (Get-FormatEngineAdapter -Engine $Engine) -CommandType Function).ScriptBlock.ToString()
-        $keyed.Add("adapter:$([System.Convert]::ToHexString([System.Security.Cryptography.SHA256]::HashData([System.Text.Encoding]::UTF8.GetBytes($code))))")
+    $adapters = @(if ($Engine -cin [Catzc.Base.Languages.LanguagesConfig]::FormatterEngines) {
+            Get-FormatEngineAdapter -Engine $Engine
+        }
+        elseif ($Engine.StartsWith('imprint:', [System.StringComparison]::Ordinal) -and
+            $Engine.Substring(8) -cin [Catzc.Base.Languages.LanguagesConfig]::ImprintSteps) {
+            Get-ImprintStepAdapter -Step $Engine.Substring(8)
+            # A step's C# engines are compiled into the types assembly, so its build identity joins the step's stamp.
+            $keyed.Add("types:$([Catzc.Base.Languages.LanguagesConfig].Assembly.ManifestModule.ModuleVersionId)")
+        })
+    foreach ($adapter in $adapters) {
+        $code = (Get-Command -Name $adapter -CommandType Function).ScriptBlock.ToString()
+        $keyed.Add("adapter:${adapter}:$([System.Convert]::ToHexString([System.Security.Cryptography.SHA256]::HashData([System.Text.Encoding]::UTF8.GetBytes($code))))")
     }
     $stamp = Get-ContentStamp -Label "format:$Engine" -File $files.ToArray() -RepositoryRoot $RepositoryRoot
     if ($keyed.Count -eq 0) {

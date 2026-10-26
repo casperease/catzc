@@ -190,7 +190,13 @@ final full run last.
     `docs/references/contracts/catzc.md`. Check: `Test-Contracts` reports no issues and `git status --short contracts` shows the move as a
     rename.
 
-32. The final full run, in a fresh session, when the chunks in plan-master have landed. Once it is green and committed, the work is done and
+32. Untrack the build outputs commit `bf34994ff` took in (catzc-f8, 2026-10-26):
+    `git rm -r --cached python/diagrams/catzc_diagrams.egg-info python/tests/base_repository/__pycache__`, then commit with the new
+    `/*/*/*.egg-info/` line in `pwsh/Base.Git/configs/gitignore.yml` and the regenerated `.gitignore` (`__pycache__/` already ignored them;
+    a tracked file stays tracked). Check: `git ls-files | grep -E "egg-info|__pycache__"` prints nothing, and `git status --short python`
+    lists neither.
+
+33. The final full run, in a fresh session, when the chunks in plan-master have landed. Once it is green and committed, the work is done and
     every plan, task and prompt in `.claude/plans` is deleted (the user, 2026-10-20). Check: `.claude/plans` is empty.
 
 ## Report
