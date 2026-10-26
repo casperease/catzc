@@ -22,9 +22,9 @@ A diagram in cats lives in exactly one of two lanes, and the lane decides which 
   it. The kit in `python/diagrams/assets/STYLE.md` owns its words, glyphs, colours and sidebar; the kit renderer is the one way its raster
   is made, put from the diagram's yml (`drawio-declaration` step 1). The `drawio-*` skills and `diagram-review` work only in this lane.
 - **The page lane.** A claude.ai page a session publishes with the Artifact tool. Today that is the Diagram Waves Review page the
-  `artifact-print` skill republishes, plus any page a session draws for a reader at the user's ask. A picture
-  drawn on such a page is inline SVG, and the skill's mechanics govern it. The page lane never lands a file under `docs/`, and a review
-  bundle for a reader is a PDF or a claude.ai page, never a local HTML file (`drawio-waves` step 3).
+  `artifact-print` skill republishes, plus any page a session draws for a reader at the user's ask. A picture drawn on such a page is inline
+  SVG, and the skill's mechanics govern it. The page lane never lands a file under `docs/`, and a review bundle for a reader is a PDF or a
+  claude.ai page, never a local HTML file (`drawio-waves` step 3).
 
 The skill's **judgement** carries across both lanes unchanged. Its **mechanics** stop at the page lane.
 
@@ -102,13 +102,13 @@ single page a reader sees once. Our docs lane is a library a reader returns to.
   - Reads: the skill, for any SVG it hand-authors on a page
 
 A drone never loads the skill: a job's know-how is a skill of at most 30 lines, registered in `capabilities.yml`, and the vendor skill is
-neither. When a page lane job would one day draw, the drawing rule becomes a skill of our own that restates the skill's mechanics in
-these terms, the way `drawio-look` restates the kit.
+neither. When a page lane job would one day draw, the drawing rule becomes a skill of our own that restates the skill's mechanics in these
+terms, the way `drawio-look` restates the kit.
 
 ## When to reach for which
 
-1. **A reader needs a picture in the docs.** The docs lane: run `drawio-waves` for a new slide and brief `drawio-edit` for a changed
-   label, cell or layout. The user lands the approved file.
+1. **A reader needs a picture in the docs.** The docs lane: run `drawio-waves` for a new slide and brief `drawio-edit` for a changed label,
+   cell or layout. The user lands the approved file.
 2. **A reader needs a picture on a review page.** The page lane: a session loads `/artifact-diagramming`, hand-authors the SVG inside the
    page, and publishes with the Artifact tool. The page is the deliverable; nothing is written under `docs/`.
 3. **A picture would say less than a sentence.** Neither lane. Write the sentence.

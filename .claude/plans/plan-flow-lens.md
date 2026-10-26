@@ -6,16 +6,10 @@ plan:
   class: feature
   targets:
     [
-      docs/drs/design/visual-design.md,
-      python/diagrams/configs/drawio.yml,
-      python/diagrams/declaration_constants.py,
-      python/diagrams/declaration_normalise.py,
-      python/diagrams/query_rows.py,
-      python/diagrams/embed_images.py,
-      python/diagrams/assets,
-      pwsh/Base.Slides/private/Write-DiagramQueryRows.ps1,
-      pwsh/Azure.DevOps,
-      js/file-icons/assets,
+      pwsh/Azure.DevOps/Get-AdoFlowRows.ps1,
+      pwsh/Tooling.Github/Get-GithubFlowRows.ps1,
+      python/diagrams/declaration_place_flow.py,
+      python/diagrams/tests/test_flow_lens.py,
     ]
 ---
 
@@ -75,44 +69,12 @@ of the same symbols as the VS Code file icons, so the editor tree and the diagra
 
 ## Open questions
 
-- Should `python/diagrams/README.md` say in one line that glyphs are draw.io styles in `glyphs.xml` and `embed_images.py` embeds PNG only,
-  and that a headless Edge `--screenshot` renders a standalone SVG? Recommended: yes, it saves the next session the search.
+- Should the `catzc-run` capability say in one line that the diagram kit runs from its editable build copy, so a changed or new
+  `python/diagrams/*.py` needs `uv sync --reinstall-package catzc-diagrams` before a render or test sees it? Recommended: yes, a render read
+  stale twice before the reinstall.
 
 ## Open steps
 
-- [ ] `docs/drs/design/visual-design.md`: add four DDR-VISUAL rules, their codes chosen when written: flow is a lens (the lens, its
-      inputs-only declaration, the rows from the pipeline query); flow glyphs are words (the alphabet, the words, the hint); the rhombus in
-      the flow lens (the shape exception to DDR-VISUAL-ENVIRONMENTISCONTAINER); and the taxonomy spanners (types cited from
-      FDR-CD-TYPE-SIXTYPES, Approve from the rung gates, Review from the pull-request trigger), each with its context section. (check:
-      `Test-Links` on the file; `Test-Glossary` reports no collision)
-- [ ] `pwsh/Base.QualityGates/configs/terminology/` and the owning `configs/glossary.yml`: add the coined term `spanner` and the flow lens
-      before any article uses them, through glossary-keep. (check: `Test-Glossary` reports no issue)
-- [ ] `python/diagrams/configs/drawio.yml`: add `flow` to `lenses:`, a `flow-lens:` block (lane height, slot size, stroke widths 1.6 and 1,
-      the glyph kinds) and the closed `flow-glyphs:` list of id, word, meaning and `hint:`. (check: `Invoke-PythonTest` on the kit passes)
-- [ ] `python/diagrams/flow_glyphs.py`: the word renderer: three slots, `O`/`0` the same circle with or without the dot, `@ink` strokes, an
-      unknown symbol or a word not three symbols long refused by name; writes `python/diagrams/assets/flow/<id>.svg`. (check:
-      `Invoke-PythonTest` on a new `tests/test_flow_glyphs.py` that renders every entry and compares it with the committed SVG)
-- [ ] `python/diagrams/assets/glyphs.xml`: add `g-env-flow`, the rhombus container beside `g-env`. (check: `Invoke-PythonTest` on the kit;
-      the glyph legend re-renders)
-- [ ] `python/diagrams/embed_images.py`: embed an SVG as `image=data:image/svg+xml` beside the PNG path, with the theme's hex written for
-      every `@token`. (check: `Invoke-PythonTest` on `tests/test_flow_glyphs.py` renders one glyph in dark and in light)
-- [ ] `python/diagrams/query_rows.py` and `declaration_normalise.py`: key a row by (point, lens or level) so a flow row rides the same file;
-      `about.point` is accepted under the flow lens as well as at C3/C4; `FLOW_LENS` in `declaration_constants.py`; a flow declaration with
-      any content key beyond `title` and `kind` refused. The row shape changes in one go with its writer (PDR-ONELIVE). (check:
-      `Invoke-PythonTest` on a new `tests/test_flow_lens.py` and the existing `tests/test_zoom.py`)
-- [ ] `pwsh/Azure.DevOps/Get-AdoFlowRows.ps1`: the ADO reader: lanes from `Get-AdoYamlInventory`, the type from the file prefix, stages,
-      jobs and steps from the template references, triggers from `trigger:`/`pr:`, rhombi from `Get-Rung`, Approve from the rung gates,
-      `cd-<unit>` → `deploy-<unit>` edges. L0 fixtures are neutral widget/gadget pipelines, never the real `.ado` files. (check:
-      `Invoke-TestFile` on `pwsh/Azure.DevOps/tests/Get-AdoFlowRows.Tests.ps1`)
-- [ ] `pwsh/Base.Slides/private/Write-DiagramQueryRows.ps1`: ask the engine readers for a flow declaration's points and write its rows.
-      (check: `Invoke-TestFile` on `pwsh/Base.Slides/tests/Write-DiagramQueryRows.Tests.ps1`)
-- [ ] The GitHub reader, beside `Tooling.Github`: lanes from `.github/workflows/*.yml`, jobs and steps, `on:` triggers, the same rows.
-      (check: `Invoke-TestFile` on its test file)
-- [ ] `python/diagrams/declaration_place_flow.py`: lay out the lanes, rhombi, spanners, chips and the full-flow frame, time left to right,
-      the spanners on the `spans` layer. (check: `Invoke-PythonTest` on `tests/test_flow_lens.py`; render
-      `tests/flow-lens/flow-sample.drawio.yml` and read the PNG)
-- [ ] `docs/explanation/flow/.assets/`: one flow diagram of the real `ci-pwsh` → `cd-apex` → `deploy-apex` route, declared by its files
-      alone. (check: `Build-Diagrams` writes it; `Test-Diagrams` clean)
 - [ ] The readers' rows carry each rung's occupant commit, and the rhombus prints it. (check: the `test_flow_lens` rhombus case asserts the
       commit text)
 

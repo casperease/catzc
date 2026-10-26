@@ -86,16 +86,6 @@ capabilities:
     supported_by: [ADR-REPO-AGENTS-STANDARDDRONE, WDR-BUILTIN-GATESAREPARTOFWORK]
     checks: []
 
-  # The fixed end-of-run report of every robot.
-  - name: report-fixed
-    supported_by: [ADR-REPO-AGENTS-STANDARDDRONE]
-    checks: []
-
-  # Git as a read-only probe; no state-changing command.
-  - name: git-readonly
-    supported_by: [WDR-BUILTIN-GATESAREPARTOFWORK]
-    checks: []
-
   # Check and repair the links of one markdown file, one link at a time.
   - name: md-links
     invoked_by: brief
@@ -171,23 +161,29 @@ capabilities:
 
   # The hindsight log and its validity rule: every smug line backed by what the tree holds or lacks.
   - name: hindsight-log
-    supported_by: [ADR-REPO-AI-TRUSTTHETREE, WDR-KAIZEN-ADAPTFROMEVIDENCE, EDR-LEAN-SEVENWASTES]
+    invoked_by: brief
+    persona: Jack
+    supported_by:
+      [ADR-REPO-AI-TRUSTTHETREE, WDR-KAIZEN-ADAPTFROMEVIDENCE, EDR-LEAN-SEVENWASTES, PDR-CONFIG-DEFAULTANSWERSINSTANCE]
     checks: []
 
-  # The shape of one planned debt reduction from a hindsight line, and the .claude weight measure.
+  # Turning the hindsight log's gaps into planned debt reductions, the .claude weight first; edits plans only.
   - name: debt-reduce
-    supported_by: [EDR-LEAN-SEVENWASTES, WDR-KAIZEN-ADAPTFROMEVIDENCE, ADR-REPO-PLANS-OPENSTEP]
-    checks: [Test-Plans]
+    invoked_by: brief
+    persona: Susan from HR
+    supported_by:
+      [EDR-LEAN-SEVENWASTES, WDR-KAIZEN-ADAPTFROMEVIDENCE, ADR-REPO-PLANS-OPENSTEP, ADR-REPO-PLANS-ONETOPICONEFILE]
+    checks: [Test-Plans, Format-Code, Test-Links]
 
   # Driving the master plan's open chunks through the sessions the user started, by message; implements nothing, spawns nothing.
-  - name: orchestrate
+  - name: plan-orchestrate
     invoked_by: user
     supported_by:
       [ADR-REPO-PLANS-MASTERANDTASKS, WDR-PULLWORK-PULLNOTPUSH, WDR-PULLWORK-LIMITWORKINPROGRESS, ADR-REPO-AI-NEVERDECIDEFORUSER]
     checks: [Test-Plans]
 
   # The listen mode's processor: the editor's notes become repository-wide plans, never asking whether the editor is right.
-  - name: listen
+  - name: listen-process
     invoked_by: user
     supported_by: [ADR-REPO-AI-EDITORISFACT, WDR-KAIZEN-ADAPTFROMEVIDENCE, ADR-REPO-PLANS-DECISIONSBECOMERULES]
     checks: [Test-Plans, Format-Code]

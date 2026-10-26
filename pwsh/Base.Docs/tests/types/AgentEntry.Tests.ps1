@@ -14,16 +14,6 @@ Describe 'AgentEntry' -Tag 'L0', 'logic', 'ADR-REPO-AGENTS-BACKEDBYRULE' {
         $entry.checks | Should -HaveCount 0
     }
 
-    It 'carries a persona when the robot keeps a log, and rejects one that is no person name' {
-        $entry = [Catzc.Base.Docs.AgentEntry]::new([ordered]@{ name = 'gadget'; supported_by = @('ADR-WIDGET-ONE-TURN'); checks = @(); persona = 'Susan from HR' })
-        $entry.persona | Should -BeExactly 'Susan from HR'
-        $plain = [Catzc.Base.Docs.AgentEntry]::new([ordered]@{ name = 'gadget'; supported_by = @('ADR-WIDGET-ONE-TURN'); checks = @() })
-        $plain.persona | Should -BeNullOrEmpty
-        $thrown = { [Catzc.Base.Docs.AgentEntry]::new([ordered]@{ name = 'gadget'; supported_by = @('ADR-WIDGET-ONE-TURN'); checks = @(); persona = 'gadget-1' }) } |
-            Should -Throw -PassThru
-        $thrown.Exception.Message | Should -Match "persona 'gadget-1' must be a capitalised person name"
-    }
-
     It 'presents as a read-only dictionary (DictionaryRecord)' {
         $entry = [Catzc.Base.Docs.AgentEntry]::new([ordered]@{ name = 'gadget'; supported_by = @('ADR-WIDGET-ONE-TURN'); checks = @() })
         $entry.Contains('name') | Should -BeTrue

@@ -288,7 +288,7 @@ function Test-Plans {
                 & $add $item.LineNumber 'ADR-REPO-PLANS-OPENSTEP' "the open step names no check: `"$($item.Text.Trim())`""
                 continue
             }
-            # The text after the last standalone check:, so catzc-check: is never read as one.
+            # The text after the last standalone check:, so catzc-gate: is never read as one.
             $check = [regex]::Match($item.Text, '(?is)^.*(?<![\w-])check:(?<check>.*)$').Groups['check'].Value
             foreach ($match in [regex]::Matches($check, $commandPattern)) {
                 if ($verbs.Contains($match.Groups['verb'].Value) -and -not (& $isKnown $match.Value)) {

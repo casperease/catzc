@@ -18,10 +18,6 @@
           "kind": "property"
         },
         {
-          "name": "persona",
-          "kind": "property"
-        },
-        {
           "name": "supported_by",
           "kind": "property"
         }
@@ -76,6 +72,10 @@
         },
         {
           "name": "name",
+          "kind": "property"
+        },
+        {
+          "name": "persona",
           "kind": "property"
         },
         {

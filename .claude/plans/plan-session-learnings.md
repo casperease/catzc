@@ -8,8 +8,8 @@ plan:
     [
       .claude/learnings,
       .claude/skills,
-      .claude/agents/plan-decide.md,
-      .claude/agents/catzc-drone.md,
+      .claude/skills/plan-decide/SKILL.md,
+      .claude/skills/catzc-module/SKILL.md,
       pwsh/Base.Docs/Add-SessionLearning.ps1,
     ]
 ---

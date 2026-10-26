@@ -28,19 +28,3 @@ agents:
     model_reason: runs the job skills whose model_floor is fable, the hardest reasoning a brief can hand over
     supported_by: [ADR-REPO-AGENTS-STANDARDDRONE, PDR-REDUCEVAR-EXPLICITDIFFERENCES, WDR-BUILTIN-GATESAREPARTOFWORK]
     checks: [Invoke-TestFile, Format-Code, Test-Links]
-
-  # A log-reading robot caps its probes per line and writes in batches: a 40-turn roof ended its first run before its one write.
-  - name: 2020-hindsight
-    persona: Jack
-    supported_by: [WDR-KAIZEN-ADAPTFROMEVIDENCE, EDR-LEAN-SEVENWASTES, ADR-REPO-AI-TRUSTTHETREE, PDR-CONFIG-DEFAULTANSWERSINSTANCE]
-    checks: []
-    model_reason:
-      judges whether a learning is already automated, declared once as a default, or a gap, across the module articles, configs,
-      capabilities and how-tos, and writes a sentence that is both witty and true
-
-  # Turns the hindsight log's gaps into planned debt reductions, the .claude weight first; edits plans only, never the code they plan for.
-  - name: its-a-chore-but-i-will-do-better
-    persona: Susan from HR
-    supported_by: [WDR-KAIZEN-ADAPTFROMEVIDENCE, EDR-LEAN-SEVENWASTES, ADR-REPO-PLANS-ONETOPICONEFILE, ADR-REPO-PLANS-OPENSTEP]
-    checks: [Test-Plans, Format-Code, Test-Links]
-    model_reason: groups hindsight lines into debt items across the plans and chooses each item's owning plan and cheapest change

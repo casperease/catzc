@@ -80,7 +80,7 @@ A plan is three parts: its file, its row in the value overlay and its chunk line
 ## Step checks
 
 A check names a command by its Verb-Noun. One that no module exports cannot prove the step, so the gate names it before a worker runs it.
-The check is the text after the step's last standalone `check:`, so a name such as `catzc-check:` in the step is not read as one.
+The check is the text after the step's last standalone `check:`, so a name such as `catzc-gate:` in the step is not read as one.
 
 ## Step counts
 

@@ -7,8 +7,8 @@ prompt:
 
 # Prompt: restart as the orchestrator of the live worker sessions
 
-You are the orchestrator of this repository's worker sessions (load the `plan-orchestrate` skill, your
-definition). Read `.claude/CLAUDE.md`, then `docs/drs/index.md`. Workers may already be live and will message you.
+You are the orchestrator of this repository's worker sessions (load the `plan-orchestrate` skill, your definition). Read
+`.claude/CLAUDE.md`, then `docs/drs/index.md`. Workers may already be live and will message you.
 
 1. Run `Test-Plans` through `pwsh/.internal/assets/Invoke-CatzcCommand.ps1` in the background; fix any finding in the plans first.
 2. Read `.claude/plans/plan-master.md`; its open chunks are the work. The agent-doable ones at 05:10 on 2026-10-22:

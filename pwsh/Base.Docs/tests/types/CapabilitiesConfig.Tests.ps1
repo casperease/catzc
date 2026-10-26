@@ -30,6 +30,16 @@ Describe 'CapabilitiesConfig' -Tag 'L0', 'logic', 'ADR-REPO-AGENTS-CAPABILITYREG
             Should -Throw '*capabilities`[0`]: read_only must be true or false*'
     }
 
+    It 'carries a persona when the job keeps a log, and rejects one that is no person name' {
+        $signed = [ordered]@{ name = 'gadget-turn'; supported_by = @('ADR-WIDGET-ONE-SPIN'); checks = @(); persona = 'Susan from HR' }
+        $config = [Catzc.Base.Docs.CapabilitiesConfig]::new([ordered]@{ capabilities = @($widget, $signed) })
+        $config.capabilities[1].persona | Should -BeExactly 'Susan from HR'
+        $config.capabilities[0].persona | Should -BeNullOrEmpty
+        $gizmo = [ordered]@{ name = 'gadget-turn'; supported_by = @('ADR-WIDGET-ONE-SPIN'); checks = @(); persona = 'gadget-1' }
+        { [Catzc.Base.Docs.CapabilitiesConfig]::new([ordered]@{ capabilities = @($gizmo) }) } |
+            Should -Throw "*persona 'gadget-1' must be a capitalised person name*"
+    }
+
     It 'requires capabilities and rejects an unknown key' {
         $thrown = { [Catzc.Base.Docs.CapabilitiesConfig]::new([ordered]@{ gizmo = 1 }) } | Should -Throw -PassThru
         $message = $thrown.Exception.Message

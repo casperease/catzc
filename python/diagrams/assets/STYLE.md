@@ -2,8 +2,7 @@
 
 <!-- cspell:ignore mxGraphModel mxCell guillemets minimap minimaps treemap worldmap mapkey lede weudiscvm nfig -->
 
-The living style kit for the `drawio-waves` skill and every maker it launches. The lead updates it whenever a review teaches
-something.
+The living style kit for the `drawio-waves` skill and every maker it launches. The lead updates it whenever a review teaches something.
 
 Tool: `uv run -q --project python python -m catzc.diagrams.drawio_png <name>.xml <name>.drawio.png`. It embeds the model, draws a preview
 raster, and asserts the round-trip. The XML root is
