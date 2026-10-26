@@ -411,7 +411,7 @@ certifying run by the shared unit name, drawn with the operator word `pins`.
 
 ### Rule DDR-VISUAL-FLOWGLYPHSAREWORDS
 
-A flow glyph is a **word** of exactly three symbols from the one alphabet `O 0 - _ = .`, drawn in three equal slots of its box: `O` an empty
+A flow glyph is a **word** of exactly three symbols from the one alphabet `O 0 - _ = .`, drawn in three equal parts of its box: `O` an empty
 circle and `0` the same circle with a dot, the dot their only difference; `-` a middle line and `_` a bottom line, with a riser where two
 lines of different heights meet; `=` a thin double line, stroke 1 against 1.6 for the rest; `.` a dot. The words are one closed list,
 `flow-glyphs:` in the renderer's vocabulary, each with its id, word, meaning and a `hint:` naming the editor file icon it is styled after;
@@ -433,9 +433,9 @@ is a container glyph of the kit beside the environment box, not a word, since it
 
 A **spanner** is a span bar on the `spans` layer, capped with its taxonomy glyph, in one row of words over the lanes of a flow diagram.
 Three kinds stand there, each read from what the tree declares, never declared again for the picture: the pipeline type over a lane, read
-from its file name's prefix and named from the one list of [FDR-CD-TYPE-SIXTYPES](../flow/pipeline-types.md#rule-fdr-cd-type-sixtypes);
-**Approve** over a rung whose gate is not `none`, read from the rungs registry; and **Review** over a lane a pull request triggers. A frame
-spanning one route from trigger to production is the full flow, drawn as a lane with its start `O` and end `0` caps.
+from its file name's prefix and named from the pipeline types' one list, never redeclared for the picture; **Approve** over a rung whose
+gate is not `none`, read from the rungs registry; and **Review** over a lane a pull request triggers. A frame spanning one route from
+trigger to production is the full flow, drawn as a lane with its start `O` and end `0` caps.
 
 - [Spanners](#spanners)
 
@@ -724,9 +724,9 @@ resolve, and a deploy pipeline is joined to its certifying run by name because n
 
 ## Glyphs are words
 
-A small alphabet read in fixed slots lets a reader learn the set once: the same circle open or dotted, a line high or low, a double line for
-a thin link. Three symbols are enough to tell the pipeline, stage, job, step, template and variables apart, and short enough to read at a
-lane's height. The glyphs echo the editor's file icons, so the tree and the diagrams look like one family, but the hint only points at the
+A small alphabet read in fixed places lets a reader learn the set once: the same circle open or dotted, a line high or low, a double line
+for a thin link. Three symbols are enough to tell the pipeline, stage, job, step, template and variables apart, and short enough to read at
+a lane's height. The glyphs echo the editor's file icons, so the tree and the diagrams look like one family, but the hint only points at the
 icon; the two sets are drawn for different sizes and stay apart.
 
 ## The rhombus

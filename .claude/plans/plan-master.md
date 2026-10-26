@@ -47,16 +47,12 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
 
 - types-build-local -> plan-types-build-local.md: the untrack landed; one step left, an agent's: the shadow-cache prune keeps any build a
   live process loads or is about to load
-- types-contract -> plan-types-contract.md: the untrack landed; two open questions left (Test-Plans with a peer-dirty master, a
-  `js/file-icons` README)
 - language-lamps -> plan-language-lamps.md: landed; blocked_on the user's editor check (task-user-runs-and-commits item 4)
 - vscode-extensions -> plan-vscode-extensions.md: landed; blocked_on the user's editor check (task-user-runs-and-commits item 4)
 - repo-filters -> plan-repo-filters.md: the filters landed (sets from the model, union of lit lamps, coverage asserted, docs and out lamps);
   one step left: the user's look at the lamps in VS Code (the `pipelines` and `infrastructure` lamps landed)
 - idiomatic-names -> plan-idiomatic-names.md: one step left, the naming gate wired into languages.yml once the user's commit lands the
   folder moves (task-user-runs-and-commits item 1).
-- claude-diet -> plan-claude-diet.md: the Sub-agents cut and the pwsh index landed; one step left, the user's Inspiration cut in
-  `.claude/CLAUDE.md` (task-user-runs-and-commits), plus four open questions.
 - session-learnings -> plan-session-learnings.md: catzc-49's lines only (waits on catzc-49).
 - diagram-review -> plan-diagram-review.md: the diagrams reviewed with the user one named slide at a time (read, one question in context,
   one plan step from the written answer, a redraw after each); the user names the slides

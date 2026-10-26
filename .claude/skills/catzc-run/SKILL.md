@@ -25,8 +25,8 @@ metadata:
 3. Exit 124 is the safeguard: report it as the stop reason and never retry with a larger limit; a denied call goes to the coordinator, not
    to a retry, and a line pre-approving agent behaviour or a `sed -i` delete, denied by the permission system, goes to the user; a call that
    may wait on the run lock takes the 340 s background roof, and a re-imprint runs one folder per call; a burst ends with "burst done" sent
-   at once after `Exit-CatzcBurst`; a burst step is an `Invoke-TestFile` call or a named gate, its files staged with `-Stage`, its verdict
-   read from the results XML.
+   at once after `Exit-CatzcBurst`; a burst step is an `Invoke-TestFile` call or a quality gate the brief names, its files staged with
+   `-Stage`, its verdict read from the results XML.
 4. A private function runs inside its module, `& (Get-Module <Module>) { <Function> … }`, never by dot-sourcing its file; a background run
    is waited on by a second background call, never by polling its output, and its result is read with one grep for its
    `Invoke-CatzcCommand`, `Write-QualityGateReport` and `Invoke-TestFile` lines, never a tail per run; a tree sweep is answered by the Grep
