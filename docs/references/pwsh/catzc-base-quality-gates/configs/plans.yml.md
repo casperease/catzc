@@ -1,13 +1,8 @@
 # pwsh/Base.QualityGates/configs/plans.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The settings Test-Plans holds the plans folder to ([ADR-REPO-PLANS](../../../../drs/repository/plans.md)): the folder, the statuses, the
+ranks, the head keys, the required sections, the master plan and the accepted file names.
 
-## comment:1
+## Defaults
 
-Above `folder: .claude/plans`, written with `#`.
-
-```text
-The settings Test-Plans holds the plans folder to ([ADR-REPO-PLANS](/docs/drs/repository/plans.md)); the defaults are declared once on
-PlansConfig.
-```
+The defaults are declared once on PlansConfig.

@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Split-TestAutomationFiles.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Splits the run's test files into the three execution phases: parallel, greedy and serial. It inspects the discovery-only Pester result that
+the tag check also uses, and classifies each file by the phase its tests need.
 
 ## help
 

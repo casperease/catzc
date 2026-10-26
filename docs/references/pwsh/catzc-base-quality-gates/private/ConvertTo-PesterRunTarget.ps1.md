@@ -1,7 +1,8 @@
 # pwsh/Base.QualityGates/private/ConvertTo-PesterRunTarget.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Splits a run's paths into the paths Pester runs by itself and the containers of the language bridge. The test folders of the languages
+beside PowerShell have no Pester file of their own, so each runs through the one shared bridge as a container whose data names the language,
+the folder and the tools.
 
 ## help
 

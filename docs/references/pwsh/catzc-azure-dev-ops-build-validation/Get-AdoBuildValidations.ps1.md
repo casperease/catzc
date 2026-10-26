@@ -1,7 +1,7 @@
 # pwsh/Azure.DevOps.BuildValidation/Get-AdoBuildValidations.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The function that lists the build-validation branch policies of this repository, optionally for one branch, flattened to one row per
+policy. It is the read side the register and unregister commands use to find an existing policy.
 
 ## help
 

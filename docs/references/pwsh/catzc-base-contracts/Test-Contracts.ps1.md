@@ -1,7 +1,7 @@
 # pwsh/Base.Contracts/Test-Contracts.ps1
 
-The quality gate of the contracts: it checks the binding assets, the freeze of every released folder and the folder layout, and reports every
-issue at once. It is what makes a contract binding rather than a note.
+The quality gate of the contracts: it checks the binding assets, the freeze of every released folder and the folder layout, and reports
+every issue at once. It is what makes a contract binding rather than a note.
 
 ## help
 

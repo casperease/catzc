@@ -1,7 +1,7 @@
 # pwsh/Tooling.Provisioning/Install-Zsh.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The installer of zsh: the pinned MSYS2 package unpacked into Git Bash's tree on Windows, the distribution package on Linux, and the system's own
+zsh on macOS.
 
 ## help
 
@@ -53,29 +53,13 @@ Install-Zsh
 Install-Zsh -Force
 ```
 
-## comment:1
+## On Linux
 
-Above `Install-Tool -Tool zsh -Force:$Force`, written with `#`.
+The shared apt installer, `Install-Tool`, installs the package the entry's `apt_package` names. It checks presence before asking for root, so
+a box that has zsh at the pinned version installs nothing.
 
-```text
-The shared apt installer: it installs the package the entry's apt_package names, and checks presence before
-asking for root, so a box that has zsh at the pinned version installs nothing.
-```
+## On Windows
 
-## comment:2
-
-Above `if ($installed) {`, written with `#`.
-
-```text
-Past the early return, a manifest is either a -Force replacement or an install that was cut short: either way its
-files go first, so the new manifest lists every file this package owns.
-```
-
-## comment:3
-
-Above `foreach ($metadata in [System.IO.Directory]::GetFiles($staging)) {`, written with `#`.
-
-```text
-An MSYS2 package keeps its metadata files (.PKGINFO and its siblings) at the archive root and its payload under
-etc/ and usr/: only the payload belongs in Git's tree.
-```
+Past the early return, an existing manifest is either a `-Force` replacement or an install that was cut short. Either way its files go first,
+so the new manifest lists every file this package owns. An MSYS2 package keeps its metadata files (`.PKGINFO` and its siblings) at the archive
+root and its payload under `etc/` and `usr/`; only the payload belongs in Git's tree.

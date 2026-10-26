@@ -1,13 +1,10 @@
 # pwsh/Tooling.KeyHandler/configs/key-handler-bindings.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The Windows PSReadLine key bindings, captured by `Save-PsReadLineKeyHandlerSet` and replayed on Linux by `Import-PsReadLineKeyHandlerSet`.
+It is a top-level sequence of `key` and `function` entries, and only those two keys are consumed.
 
-## comment:1
+## Reading it
 
-Above `- key: Enter`, written with `#`.
-
-```text
-Windows PSReadLine key bindings captured by Save-PsReadLineKeyHandlerSet, replicated on Linux by
-Import-PsReadLineKeyHandlerSet (filtered to key-handler-supported). Only key + function are consumed.
-```
+`Get-Config -Config key-handler-bindings` returns the typed model, built by
+[KeyHandlerBindingsConfig](../types/KeyHandlerBindingsConfig.cs.md). The import filters the entries against
+[key-handler-supported.yml](key-handler-supported.yml.md), so a binding for a Windows-only function is skipped.

@@ -1,7 +1,7 @@
 # pwsh/Base.Contracts/private/Read-ContractManifest.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The reader of a version folder's contract.yml, the manifest of direction overrides and applies_to entries. A folder without one has an empty
+manifest.
 
 ## help
 

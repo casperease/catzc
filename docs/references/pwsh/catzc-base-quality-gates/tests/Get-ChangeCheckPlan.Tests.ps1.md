@@ -1,13 +1,5 @@
 # pwsh/Base.QualityGates/tests/Get-ChangeCheckPlan.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
-
-## comment:1
-
-Above `Describe 'Get-ChangeCheckPlan'`, written with `#`.
-
-```text
-Get-ChangeCheckPlan over fixture files, with the file-language registry mocked to fixture languages. Neutral fixture
-names ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
-```
+The tests of `Get-ChangeCheckPlan` over fixture files, with the file-language registry mocked to fixture languages. Fixture names are
+neutral
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).

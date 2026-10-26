@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Get-ScriptAnalyzerInputs.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Lists every file besides the analyzed file itself that decides one analyzer pass's PSScriptAnalyzer verdict. The result cache keys on them,
+so a changed rule or manifest re-checks the files.
 
 ## help
 
@@ -35,11 +35,6 @@ The analyzer pass: `rules` (every rule but the spelling entry rule) or `spelling
 
 `[string[]]` Absolute paths, in a stable order.
 
-## comment:1
+## Where the inputs sit
 
-Above `foreach ($file in @(Get-ChildPath $folder -File -Filter $pattern -Depth 3...`, written with `#`.
-
-```text
-The rule files sit directly in .scriptanalyzer and the manifest one version folder into the vendored
-module.
-```
+The rule files sit directly in `.scriptanalyzer`. The manifest sits one version folder into the vendored module.

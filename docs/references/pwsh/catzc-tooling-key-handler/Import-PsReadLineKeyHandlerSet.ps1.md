@@ -1,7 +1,8 @@
 # pwsh/Tooling.KeyHandler/Import-PsReadLineKeyHandlerSet.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The command that replays the captured Windows PSReadLine key bindings on Linux. It plans each binding with `Select-SupportedKeyHandler`,
+skips the ones whose function is not on the allow-list, and refuses to apply anything on Windows, where it would clobber the native
+handlers; `-DryRun` returns the plan on any platform.
 
 ## help
 

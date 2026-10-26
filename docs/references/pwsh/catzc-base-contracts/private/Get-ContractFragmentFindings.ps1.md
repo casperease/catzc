@@ -1,7 +1,7 @@
 # pwsh/Base.Contracts/private/Get-ContractFragmentFindings.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The fragment check of a contract asset: the real file must contain the fragment. Structured files compare as a key subset, other text by
+lines.
 
 ## help
 

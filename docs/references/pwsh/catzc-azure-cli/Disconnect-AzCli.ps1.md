@@ -1,7 +1,6 @@
 # pwsh/Azure.Cli/Disconnect-AzCli.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The command that logs out of the Azure CLI. It is idempotent: with no login it does nothing.
 
 ## help
 
@@ -19,11 +18,7 @@ Skips if not currently logged in.
 Disconnect-AzCli
 ```
 
-## comment:1
+## Idempotent logout
 
-Above `$result = Invoke-Executable 'az account show --output json' -PassThru...`, written with `#`.
-
-```text
-Idempotent: skip if not logged in
--NoAssert: non-zero exit means "not logged in" — an expected state, not an error
-```
+The command first runs `az account show` and skips the logout when no one is logged in. That probe passes `-NoAssert`, because a non-zero
+exit only means "not logged in", an expected state and not an error.

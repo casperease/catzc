@@ -1,7 +1,7 @@
 # pwsh/Tooling.Core/Get-ToolVersion.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The probe of a tool's installed version: it runs the `version_command` of `tools.yml`, matches `version_pattern` and returns the captured
+string, or null when the command fails or the pattern does not match.
 
 ## help
 

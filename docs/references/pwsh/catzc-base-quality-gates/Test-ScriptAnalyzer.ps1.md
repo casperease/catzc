@@ -1,7 +1,6 @@
 # pwsh/Base.QualityGates/Test-ScriptAnalyzer.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The analyzer gate: it runs PSScriptAnalyzer over the automation PowerShell and writes a report to the output folder.
 
 ## help
 
@@ -69,56 +68,21 @@ Test-ScriptAnalyzer -Path pwsh/Base.QualityGates
 Analyze just one module.
 ```
 
-## comment:1
+## Settings
 
-Above `$settingsPath =...`, written with `#`.
-
-```text
 The one settings file ships inside the code tree, so it resolves from the code root
-([ADR-AUTO-ASSETDEP-INTERNALASSETDEPENDENCY](/docs/drs/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-internalassetdependency)).
-```
+([ADR-AUTO-ASSETDEP-INTERNALASSETDEPENDENCY](../../../drs/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-internalassetdependency)).
 
-## comment:2
+## The file set
 
-Above `$files = [System.Collections.Generic.List[string]]::new()`, written with `#`.
+The set has the same coverage as the L2 analyzer test: the module-root `*.ps1` files that are not tests, `private/`, the `*.Tests.ps1` files
+in `tests/`, and the `.internal` and `.scriptanalyzer` infrastructure folders. The canonical checked set is shared with that test so they
+cannot drift. It includes the root `importer.ps1` and the authored `.psd1` config, and it excludes generated manifests. A relative path is
+repository-relative, never relative to the working folder
+([ADR-AUTO-NOPWD-NOWORKINGDIRECTORYPATHS](../../../drs/automation/never-depend-on-pwd.md#rule-adr-auto-nopwd-noworkingdirectorypaths)).
+Third-party files are not authored here, so the analyzer never judges them. A file outside the repository is never third-party.
 
-```text
-Resolve the file set — same coverage as the L2 analyzer test (module root
-*.ps1 non-test, private/, tests/ *.Tests.ps1, and the .internal/.scriptanalyzer infrastructure folders).
-```
+## Sharded run
 
-## comment:3
-
-Above `$full = if ([System.IO.Path]::IsPathRooted($item)) {`, written with `#`.
-
-```text
-A relative path is repository-relative, never $PWD-relative
-([ADR-AUTO-NOPWD-NOWORKINGDIRECTORYPATHS](/docs/drs/automation/never-depend-on-pwd.md#rule-adr-auto-nopwd-noworkingdirectorypaths)).
-```
-
-## comment:4
-
-Above `foreach ($f in (Get-ModuleSourceFile)) {`, written with `#`.
-
-```text
-The canonical checked set — shared with the L2 analyzer test so they cannot
-drift. Includes the root importer.ps1 and authored .psd1 config; excludes generated manifests.
-```
-
-## comment:5
-
-Above `Write-Message "Analyzing $($files.Count) PowerShell file(s) with...`, written with `#`.
-
-```text
-Analyze, sharded across background processes with live progress (Get-ScriptAnalyzerDiagnostics) — a
-serial pass is ~90s of silence and reads as a hang. The upfront message confirms work has started.
-```
-
-## comment:6
-
-Above `$thirdParty = Get-GlobSet -Name 'third-party'`, written with `#`.
-
-```text
-Third-party files are not authored here, so the analyzer never judges them; a file outside the repository is never
-third-party.
-```
+The analysis is sharded across background processes with live progress (Get-ScriptAnalyzerDiagnostics), because a serial pass is about 90
+seconds of silence and reads as a hang. The message up front confirms that work has started.

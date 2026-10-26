@@ -1,7 +1,7 @@
 # pwsh/Tooling.Python/Invoke-PySpark.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The way to run pyspark: the command checks the installed PySpark against the locked version and asserts that Java, its runtime dependency, is
+available, then runs it.
 
 ## help
 

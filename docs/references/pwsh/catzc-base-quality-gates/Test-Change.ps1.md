@@ -1,7 +1,6 @@
 # pwsh/Base.QualityGates/Test-Change.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The change-scoped check: it runs the tests and the checks that the changed files call for and reports only their issues.
 
 ## help
 

@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Save-ResultCache.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Writes a quality check's result cache, sorted by path and merged with what other processes saved meanwhile. Several processes keep the same
+cache file, so each save merges before it writes.
 
 ## help
 

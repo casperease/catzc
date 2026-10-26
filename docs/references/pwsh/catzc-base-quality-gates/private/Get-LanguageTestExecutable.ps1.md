@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Get-LanguageTestExecutable.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Locates, once, the managed tool each test language needs and the executable of each execution engine other than the running pwsh. A test
+run's source session hands the result down to every worker, because a worker cannot locate them itself.
 
 ## help
 
@@ -40,31 +40,20 @@ bridge then skips those tests with tool_go_missing, tool_uv_missing or `tool_<en
 $executables = Get-LanguageTestExecutable
 ```
 
-## comment:1
+## why it is located here
 
-Above `$pwsh = [Catzc.Base.Engines.ExecutionEngines]::Pwsh.Name`, written with `#`.
+A build run's worker cannot locate a tool: its engine carries only the modules under test, not the `tools.yml` entries. So each executable
+is resolved once in the source session. An entry stays empty when the repository has no test folder in that language, or when the tool or
+engine is missing, and the bridge then skips those tests.
 
-```text
-The engines other than the running pwsh, which every language's tests also run under
-([ADR-AUTO-ENGINE-THREEENGINES](/docs/drs/automation/execution-engines.md#rule-adr-auto-engine-threeengines): the model's engines, never
-a restated list): each located once here, since a build run's worker cannot locate it (its tools.yml entry is
-not in the build).
-```
+## the engines
 
-## comment:2
+Every engine of the model except the running pwsh is resolved by its name
+([ADR-AUTO-ENGINE-THREEENGINES](../../../../drs/automation/execution-engines.md#rule-adr-auto-engine-threeengines)): the list is read from
+the model and never restated. An engine that cannot be resolved is logged to the verbose stream and left empty.
 
-Above `$toolLanguages = @((Get-Config -Config languages).languages | Where-Object {...`, written with `#`.
+## the languages
 
-```text
-The languages whose tests need tools come from the registry; a language that is an engine resolves with the
-engines below.
-```
-
-## comment:3
-
-Above `$resolved = @(foreach ($tool in $language.tests.tools) {`, written with `#`.
-
-```text
-Every tool the entry names must resolve at its locked version; the first one's path is the one the runner
-takes.
-```
+The languages whose tests need a tool come from the languages registry: those with a `tests` entry that names no engine. A language that is
+an engine resolves with the engines instead. Every tool the entry names must resolve at its locked version, and the first one's path is the
+one the runner takes.

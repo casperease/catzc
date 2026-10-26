@@ -387,6 +387,7 @@ Describe 'Format-Code engines' -Tag 'L0', 'integrity' {
         $root = Get-RepositoryRoot
         foreach ($engine in (Get-Config -Config languages).formatters.Values) {
             foreach ($settingsFile in $engine.settings) {
+                # An entry may end in #key: the file must exist here, the key is checked by the stamp's own tests.
                 Join-Path $root ($settingsFile -split '#', 2)[0] |
                     Should -Exist -Because "engines.$($engine.name).settings in languages.yml"
             }

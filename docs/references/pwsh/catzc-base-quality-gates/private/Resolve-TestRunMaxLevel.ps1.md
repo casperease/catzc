@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Resolve-TestRunMaxLevel.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Resolves the highest tier a test run executes, from the location it runs in. The tier L3 holds the system tests that depend on state outside
+the repository, so a run's location decides whether they run.
 
 ## help
 

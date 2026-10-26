@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Get-ContentExemptPath.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The one predicate the tools that rewrite or check tracked-file content ask before they touch a file. It names which of the given paths
+.gitattributes puts in a class that means leave as written, so no tool keeps a list of its own.
 
 ## help
 

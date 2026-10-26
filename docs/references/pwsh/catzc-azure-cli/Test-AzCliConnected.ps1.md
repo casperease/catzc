@@ -1,7 +1,7 @@
 # pwsh/Azure.Cli/Test-AzCliConnected.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The query twin of the connected assertion: it returns a bool for whether the active az session matches a given subscription and/or
+tenant.
 
 ## help
 

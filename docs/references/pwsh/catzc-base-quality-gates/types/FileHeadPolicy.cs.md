@@ -1,22 +1,9 @@
 # pwsh/Base.QualityGates/types/FileHeadPolicy.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
-
-## comment:1
-
-Above `public sealed class FileHeadPolicy`, written with `//`.
-
-```text
 The head policy of the meta-kind registry: whether a file of a class carries the facts its kinds produce, no meta block, or only its
-authored config part ([ADR-REPO-FILEMETA-HEADPOLICY](/docs/drs/repository/file-meta.md#rule-adr-repo-filemeta-headpolicy)).
-```
+authored config part ([ADR-REPO-FILEMETA-HEADPOLICY](../../../../drs/repository/file-meta.md#rule-adr-repo-filemeta-headpolicy)).
 
-## comment:2
+## Lookup
 
-Above `public HeadPolicy For(string fileClass)`, written with `//`.
-
-```text
-A class entry decides first, else the default: the facts, so a file whose facts are all empty carries no head
-([ADR-REPO-FILEMETA-HEADPOLICY](/docs/drs/repository/file-meta.md#rule-adr-repo-filemeta-headpolicy)).
-```
+`For` takes a file class. A class entry decides first, else the default applies: the facts. So a file whose facts are all empty carries no
+head.

@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/Build-CommentView.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The reading view of the comment pages: it writes every file that has a comment page with each section of the page put back above the code
+line it names, so a reader sees code and comments together.
 
 ## help
 

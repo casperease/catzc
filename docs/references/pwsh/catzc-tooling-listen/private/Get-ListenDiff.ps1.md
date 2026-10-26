@@ -1,7 +1,7 @@
 # pwsh/Tooling.Listen/private/Get-ListenDiff.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+A private helper of the listen module that diffs two files that live outside any repository, with `git diff --no-index`. It is the only place
+the module launches git for a diff.
 
 ## help
 

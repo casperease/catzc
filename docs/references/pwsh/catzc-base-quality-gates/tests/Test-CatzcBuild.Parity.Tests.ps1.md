@@ -1,17 +1,10 @@
 # pwsh/Base.QualityGates/tests/Test-CatzcBuild.Parity.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The test of parity between the source and the build
+([DDR-RUNMODE-SAMEMODULEINBOTH](../../../../drs/design/run-modes.md#rule-ddr-runmode-samemoduleinboth)): every built module is the same
+module as its source folder. Its exported command set equals the folder's public function files, and its private function set equals the
+folder's `private/` files. `Test-BuildArtifact` reads the source side from the files and the build side from the modules as a build-mode
+session actually loads them.
 
-## comment:1
-
-Above `Describe 'Built modules match their source folders'`, written with `#`.
-
-```text
-Parity ([DDR-RUNMODE-SAMEMODULEINBOTH](/docs/drs/design/run-modes.md#rule-ddr-runmode-samemoduleinboth)): every built module is the same
-module as its source folder — its exported command set equals the folder's public function files, and its private
-function set equals the folder's private/ files. Test-BuildArtifact reads the source side from the files and the
-build side from the modules as a build-mode session actually loads them. source-only: it compares the source tree
-with a fresh build of it, entered in its own child pwsh, so the answer does not depend on the mode of the session
-running it. greedy: one full build plus one importer-loading child pwsh.
-```
+The test is source-only: it compares the source tree with a fresh build of it, entered in its own child pwsh, so the answer does not depend
+on the mode of the session running it. It is greedy, because it costs one full build plus one importer-loading child pwsh.

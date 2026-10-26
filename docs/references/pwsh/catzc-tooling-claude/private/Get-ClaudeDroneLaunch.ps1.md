@@ -6,8 +6,8 @@ launch. It starts nothing itself, so the caller can print the plan under `-DryRu
 ## Quoting
 
 Each value of the `claude --agent` call is single-quoted for pwsh, a single quote doubled, so a prompt keeps its spaces and quotes. The
-whole call then becomes one double-quoted argument for the outer command line, its own double quotes escaped. The windows-terminal form
-also escapes each semicolon, because `wt.exe` reads an unescaped one as the start of its next command.
+whole call then becomes one double-quoted argument for the outer command line, its own double quotes escaped. The windows-terminal form also
+escapes each semicolon, because `wt.exe` reads an unescaped one as the start of its next command.
 
 ## help
 

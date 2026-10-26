@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Assert-LinkDirectionsConfig.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The validator of the link-directions config: it checks that every value a row names exists in the registry it comes from. The config type
+refuses a malformed row, and this function covers what the type cannot, because each of its checks needs another registry.
 
 ## help
 
@@ -21,11 +21,9 @@ throws once, listing every problem by row and side.
 
 The link-directions config as read, before its type maps it.
 
-## comment:1
+## what it checks
 
-Above `$typed = [Catzc.Base.QualityGates.LinkDirectionsConfig]::new($Config)`, written with `#`.
-
-```text
-Every value a row names is declared where its facet comes from, and every because is a registered rule code
-(ADR-CONF-LOADING-POWERSHELLVALIDATOR, ADR-REPO-LINKS-DIRECTIONSAREROWS).
-```
+Every value a row names is declared where its facet comes from, and every `because` is a registered rule code. The first part rests on
+[ADR-CONF-LOADING-POWERSHELLVALIDATOR](../../../../drs/configuration/module-config-loading.md#rule-adr-conf-loading-powershellvalidator),
+the second on [ADR-REPO-LINKS-DIRECTIONSAREROWS](../../../../drs/repository/links-in-repository.md#rule-adr-repo-links-directionsarerows).
+The function builds the typed config first, so a row the type refuses fails before any registry is read.

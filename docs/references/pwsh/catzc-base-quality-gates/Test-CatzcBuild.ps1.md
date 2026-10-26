@@ -1,7 +1,6 @@
 # pwsh/Base.QualityGates/Test-CatzcBuild.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The build run: the same tests as Test-Automation, run against a fresh build of the selected modules.
 
 ## help
 
@@ -84,13 +83,8 @@ Test-CatzcBuild -Module Catzc.Base.Config -Level 1
 Test-CatzcBuild -ModuleProfile base -Category Logic -PassThru
 ```
 
-## comment:1
+## Harness module
 
-Above `$harnessModule = $MyInvocation.MyCommand.Module.Name`, written with `#`.
-
-```text
-The harness's own module rides in every build: workers reach its configuration builder and row reducer
-through its module scope. Its tests still run only when the selection includes it.
-The build names the resolved modules explicitly (closure-expanded again, so the harness's dependencies
-come along).
-```
+The harness's own module rides in every build, because workers reach its configuration builder and row reducer through its module scope. Its
+tests still run only when the selection includes it. The build names the resolved modules explicitly, closure-expanded again, so the
+harness's dependencies come along.

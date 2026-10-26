@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Get-GuidScanFiles.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The file universe of the managed-GUID scan: the repository's tracked files minus vendored code, the compiled assembly, known binary
+extensions and the registry file. It is the one place the scan reads the tracked set, so a logic test mocks this seam.
 
 ## help
 
@@ -19,11 +19,7 @@ binary extensions, and the registry file itself — configs/guids.yml is the def
 excluding it is what keeps the liveness check honest. The one place this scan reads the tracked set; a logic test mocks this seam (returning
 absolute fixture paths, which Resolve-RepoPath passes through unchanged). Throws in build mode (Assert-SourceTree).
 
-## comment:1
+## source tree only
 
-Above `Assert-SourceTree`, written with `#`.
-
-```text
-The universe and its exclusions (pwsh/.vendor, pwsh/.compiled, the registry) are the catzc
-source repository's layout, so the scan is meaningful only over the source tree.
-```
+The universe and its exclusions (`pwsh/.vendor`, `pwsh/.compiled`, the registry) are the catzc source repository's layout, so the scan is
+meaningful only over the source tree. The function throws in build mode through Assert-SourceTree.

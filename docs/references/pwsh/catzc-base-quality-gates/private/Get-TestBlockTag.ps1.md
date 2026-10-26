@@ -1,7 +1,6 @@
 # pwsh/Base.QualityGates/private/Get-TestBlockTag.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Resolves the tags of one axis for a Pester test: the nearest block that carries any tag of the axis wins.
 
 ## help
 
@@ -25,11 +24,7 @@ A Pester test object (an item of $result.Tests). Its .Tag and .Block chain carry
 
 The axis's valid tags in canonical casing (e.g. 'L0','L1','L2','L3' or 'logic','integrity').
 
-## comment:1
+## Nearest wins
 
-Above `foreach ($levelTags in $levels) {`, written with `#`.
-
-```text
-The nearest level carrying any tag of this axis wins; return its canonical matches ('-eq' is
-case-insensitive). One match is the norm; two means an ambiguous block, surfaced as a violation upstream.
-```
+The levels are walked from the test outwards. The first level carrying any tag of the axis wins, and its canonical matches are returned;
+`-eq` is case-insensitive. One match is the norm. Two means an ambiguous block, which is surfaced as a violation upstream.

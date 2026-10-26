@@ -1,13 +1,16 @@
 # pwsh/Tooling.Provisioning/types/ToolStatus.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The typed row of one tool's installation status: the locked requirement against what is actually on the box, the verdict, and where and how
+it was found. It is the per-tool row that drives the dev box's assert and install flow (`Get-ToolsStatus` produces it).
 
-## comment:1
+## Properties
 
-Above `using System;`, written with `//`.
-
-```text
-One tool's installation status: the locked requirement vs. what's actually on the box, the verdict, and
-where/how it was found. The per-tool row that drives the devbox tools assert/install flow.
-```
+- **`Tool`** — the tool's name, its `tools.yml` key; always present.
+- **`Locked`** — the version the lock requires; null when not applicable.
+- **`Installed`** — the version actually installed; null when the tool is not installed.
+- **`Status`** — the verdict, a `ToolStatusKind`. The constructor takes it as a string and parses it, so the producer's string logic binds
+  directly.
+- **`Location`** — where the installed tool was found on disk; null when not installed.
+- **`Manager`** — the package manager the tool was installed with; null when not applicable.
+- **`Scope`** — the install scope, such as user or machine; null when not applicable.
+- **`Action`** — the remediation the status implies, such as install or upgrade, for the install flow to act on.

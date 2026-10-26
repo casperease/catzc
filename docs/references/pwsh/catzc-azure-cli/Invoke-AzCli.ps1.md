@@ -1,7 +1,7 @@
 # pwsh/Azure.Cli/Invoke-AzCli.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The command every az call goes through. It checks the installed az against the locked version, runs the arguments, and asserts the exit
+code unless told not to.
 
 ## help
 
@@ -55,13 +55,10 @@ Invoke-AzCli 'group list' -PassThru
 Invoke-AzCli 'version' -DryRun
 ```
 
-## comment:1
+## Dynamic extension install
 
-Above `$dynamicInstallVar = 'AZURE_EXTENSION_USE_DYNAMIC_INSTALL'`, written with `#`.
+Around the call the command sets `AZURE_EXTENSION_USE_DYNAMIC_INSTALL` to `no`. A command that needs an uninstalled extension then exits
+non-zero instead of blocking on an invisible "(Y/n)" prompt, and `Invoke-Executable`'s exit-code assertion turns that exit into a throw.
 
-```text
-Disable az dynamic extension install for this call: a command needing an uninstalled extension
-then exits non-zero instead of blocking on an invisible "(Y/n)" prompt, which Invoke-Executable's
-exit-code assertion turns into a throw. Scoped to the process and restored afterwards; skipped on
-a dry run, which never launches az. $null restores an unset variable to unset (not empty).
-```
+The setting is scoped to the process and restored afterwards; a variable that was unset is restored to unset, not to empty. A dry run
+never launches az, so it skips the setting.

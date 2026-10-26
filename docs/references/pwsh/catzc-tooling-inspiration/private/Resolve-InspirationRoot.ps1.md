@@ -1,7 +1,7 @@
 # pwsh/Tooling.Inspiration/private/Resolve-InspirationRoot.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The private resolver that turns an inspiration's stored root into a normalized absolute path on this machine. It is the one place the stored
+form meets the binding form; `Get-Inspiration` calls it for every entry.
 
 ## help
 

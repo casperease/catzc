@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Invoke-BuildArtifactProbe.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Loads a build cold in a fresh pwsh and returns what that build-mode session observed. Loaded assemblies and `$env:` are process-global, so a
+build is observed in its own child process.
 
 ## help
 

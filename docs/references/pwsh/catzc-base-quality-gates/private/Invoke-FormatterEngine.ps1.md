@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Invoke-FormatterEngine.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Runs one formatter engine over the given files and returns the files it changed. It is the one place an engine name from languages.yml
+becomes code: each declared engine has exactly one adapter.
 
 ## help
 

@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/Repair-IdiomaticNames.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The repair for Test-IdiomaticNames: it moves each misnamed folder and file on disk to the name its language's idiom gives it, and lists
+every tracked file that names the old path.
 
 ## help
 

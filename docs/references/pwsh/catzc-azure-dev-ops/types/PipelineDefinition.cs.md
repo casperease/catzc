@@ -1,13 +1,4 @@
 # pwsh/Azure.DevOps/types/PipelineDefinition.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
-
-## comment:1
-
-Above `using System;`, written with `//`.
-
-```text
-One pipeline (build definition) registered in Azure DevOps. The registration-side view of a pipeline:
-its identity and folder placement, and — for YAML pipelines — which file in which repo backs it.
-```
+The typed record of one pipeline (build definition) registered in Azure DevOps. It is the registration-side view of a pipeline: its identity
+and folder placement and, for a YAML pipeline, which file in which repository backs it.

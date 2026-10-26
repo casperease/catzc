@@ -1,7 +1,6 @@
 # pwsh/Azure.Cli/Test-AzCliSubscriptionAccessible.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The query twin of the accessible assertion: it returns a bool for whether the current az login can reach a subscription given by GUID.
 
 ## help
 

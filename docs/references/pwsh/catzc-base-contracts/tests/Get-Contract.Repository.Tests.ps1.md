@@ -1,14 +1,5 @@
 # pwsh/Base.Contracts/tests/Get-Contract.Repository.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
-
-## comment:1
-
-Above `Describe 'Get-Contract on the repository'`, written with `#`.
-
-```text
-Get-Contract runs on the repository's own contracts/ tree
-([ADR-REPO-CONTRACT-LAYOUT](/docs/drs/repository/api-contracts.md#rule-adr-repo-contract-layout)): the shipped layout lists without
+Tests `Get-Contract` on the repository's own `contracts/` tree
+([ADR-REPO-CONTRACT-LAYOUT](../../../../drs/repository/api-contracts.md#rule-adr-repo-contract-layout)): the shipped layout lists without
 error, and every asset it lists carries a kind, a direction, and paths in communication form.
-```

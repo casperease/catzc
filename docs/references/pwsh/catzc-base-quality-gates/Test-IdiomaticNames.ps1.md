@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/Test-IdiomaticNames.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The naming gate: every tracked file and the folders that hold it must be named in the idiom of the file's language, and so must the
+functions and types the files define.
 
 ## help
 
@@ -48,11 +48,7 @@ Test-IdiomaticNames
 (Test-IdiomaticNames -PassThru).Issues
 ```
 
-## comment:1
+## Findings
 
-Above `$definitions = @(Get-DefinedName -Path $tracked)`, written with `#`.
-
-```text
-Every misnamed folder and file, then every function and type name a tracked file defines that breaks its case or
-its round trip.
-```
+The gate reports every misnamed folder and file first. It then reports every function and type name a tracked file defines that breaks its
+case or its round trip.

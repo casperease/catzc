@@ -1,21 +1,17 @@
 # pwsh/Tooling.KeyHandler/types/KeyHandlerSupportedConfig.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The typed model of `configs/key-handler-supported.yml`: the PSReadLine functions supported on Linux, the allow-list
+`Import-PsReadLineKeyHandlerSet` filters the captured bindings against, so a Windows-only function is skipped rather than throwing.
 
-## comment:1
+## Load-time rules
 
-Above `using System;`, written with `//`.
+- The mapping's only key is `functions`.
+- `functions` is a non-empty list of non-blank function names.
 
-```text
-The PSReadLine functions supported on Linux, configs/key-handler-supported.yml — the allow-list
-Import-PsReadLineKeyHandlerSet filters the captured bindings against, so a Windows-only function is skipped rather
-than throwing. Constructing an instance MAPS and VALIDATES the parsed YAML, collecting every violation into one
-throw. Registered in Catzc.Base.Config/configs/configs.yml (type: Catzc.Tooling.KeyHandler.KeyHandlerSupportedConfig),
-so Get-Config -Config key-handler-supported returns this typed model. Mirrors the YAML mapping (snake_case keys,
-[ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
+Constructing an instance maps and validates the parsed YAML and collects every violation into one throw. The type mirrors the YAML mapping
+with snake_case keys
+([ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](../../../../drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
 
-Load-time rules:
-  - a mapping whose only key is 'functions';
-  - 'functions' is a non-empty list of non-blank function names.
-```
+## Registration
+
+The type is registered in `pwsh/Base.Config/configs/configs.yml`, so `Get-Config -Config key-handler-supported` returns this model.

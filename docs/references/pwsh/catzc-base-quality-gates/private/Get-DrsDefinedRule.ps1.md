@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Get-DrsDefinedRule.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Returns the rules a Markdown text defines in its own rule headings, spelled as citations and in document order. A heading
+`### Rule ADR-<CODE>:<n>` gives the citation `ADR-<CODE>#<n>`.
 
 ## help
 

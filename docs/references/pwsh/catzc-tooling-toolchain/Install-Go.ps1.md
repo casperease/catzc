@@ -1,7 +1,7 @@
 # pwsh/Tooling.Toolchain/Install-Go.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The installer of the Go toolchain: the official go.dev archive for the locked version, unpacked into a managed user-space home that goes first
+on PATH.
 
 ## help
 
@@ -40,30 +40,18 @@ Install-Go
 Install-Go -Version '1.27' -Force
 ```
 
-## comment:1
+## Another Go on the machine
 
-Above `$probe = Test-Tool 'go' -PassThru`, written with `#`.
+With nothing in the managed home, a Go at the right version elsewhere satisfies the contract and is not this command's to manage. A wrong
+version elsewhere does not block the install, because the managed home goes first on PATH.
 
-```text
-Nothing in the managed home: a Go at the right version elsewhere satisfies the contract and is not ours to
-manage. A wrong version elsewhere does not block the install — the managed home goes first on PATH.
-```
+## Staging
 
-## comment:2
+The archive is downloaded and extracted beside the home, on the same volume, and only then is the extracted `go/` folder swapped in, so a
+failed download or extraction never leaves a half-written home.
 
-Above `$staging = "$installDir.staging"`, written with `#`.
+## Extracting
 
-```text
-Download and extract beside the home (same volume), then swap the extracted go/ folder in, so a failed
-download or extraction never leaves a half-written home.
-```
-
-## comment:3
-
-Above `if ($isZip) {`, written with `#`.
-
-```text
-The Windows archive is a .zip, extracted in-process: the tar first on PATH there is often Git's GNU tar,
-which reads no zip and takes a drive letter's colon for a remote host. The Unix .tar.gz goes to tar, run
-inside the staging folder with a relative name so no path carries a colon.
-```
+The Windows archive is a `.zip`, extracted in process: the tar first on PATH there is often Git's GNU tar, which reads no zip and takes a
+drive letter's colon for a remote host. The Unix `.tar.gz` goes to tar, run inside the staging folder with a relative name so that no path
+carries a colon.

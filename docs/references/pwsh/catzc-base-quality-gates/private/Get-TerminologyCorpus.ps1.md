@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Get-TerminologyCorpus.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Builds the lower-cased text corpus the terminology orphan check searches, in one bulk read instead of a grep per term. Orphan detection
+scans the authored tree, which is wider than the spelling lint scope.
 
 ## help
 
@@ -33,41 +33,23 @@ Full paths to omit from the corpus (the registry file and the generated dictiona
 
 `[string]` The concatenated, lower-cased corpus.
 
-## comment:1
+## Extension-less files
 
-Above `$names = [System.Collections.Generic.HashSet[string]]::new(`, written with `#`.
+Authored config files with no extension carry approved vocabulary too: a `*.stackdump` ignore pattern in `.gitignore`, or linguist
+attributes in `.gitattributes`. They have no extension for the extension set to match, so they join by name. A term referenced only there is
+then not a false orphan.
 
-```text
-Authored config files with no extension carry approved vocabulary too — a *.stackdump ignore pattern in
-.gitignore, linguist attributes in .gitattributes — but have no extension for $exts to match. Include
-them by name so a term referenced only here is not a false orphan (orphan detection scans the whole
-authored tree, wider than the lint scope). [System.IO.Path]::GetExtension('.gitignore') is '.gitignore'.
-```
+## Reading
 
-## comment:2
+The tree is enumerated and read with `System.IO` rather than `Get-ChildItem`. There is no per-file PSObject wrapping, so a whole-tree scan
+is markedly faster
+([ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS](../../../../drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-systemioonhotpaths)). Directory
+and name filtering is done inline on the raw path string.
 
-Above `$ret = [System.Text.StringBuilder]::new()`, written with `#`.
+Tracked files reach nine levels below the root, so a depth of ten leaves one level of headroom. The corpus is searched for words and never
+read in order, so the walker's file order does not matter.
 
-```text
-Enumerate with [System.IO] rather than Get-ChildItem — no per-file PSObject wrapping, so a whole-tree
-scan is markedly faster ([ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS](/docs/drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-systemioonhotpaths)).
-Directory/name filtering is done inline on the raw path string.
-```
+## Scope
 
-## comment:3
-
-Above `foreach ($path in Get-ChildPath $Root -File -Depth 10) {`, written with `#`.
-
-```text
-Tracked files reach nine levels below the root, so ten leaves one level of headroom. The corpus is searched for words,
-never read in order, so the walker's file order does not matter.
-```
-
-## comment:4
-
-Above `$ignored = @(foreach ($glob in...`, written with `#`.
-
-```text
-Test-Spelling's one scope: the ignorePaths of the root cspell.yml, read as cspell reads them, where a glob with no
-'/' matches a name at any depth.
-```
+The scope is the one Test-Spelling uses: the `ignorePaths` of the root `cspell.yml`, read as cspell reads them. A glob with no `/` matches a
+name at any depth.

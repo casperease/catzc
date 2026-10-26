@@ -1,7 +1,7 @@
 # pwsh/Tooling.Toolchain/Uninstall-AzCli.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The uninstaller of the Azure CLI, the counterpart of `Install-AzCli`, and the entry of the removal escalation for an Azure CLI the manager
+does not own.
 
 ## help
 
@@ -38,15 +38,10 @@ Uninstall-AzCli
 Uninstall-AzCli -Remove -Force
 ```
 
-## comment:1
+## Failure of the managed uninstall
 
-Above `try {`, written with `#`.
-
-```text
-Managed uninstall best-effort. With -Remove a failure (a foreign install the manager cannot touch — the
-exact case -Remove exists for) is logged and the escalation proceeds to Remove-AzCli; without -Remove it
-propagates as a normal uninstall failure. Catching only under -Remove is the escalation's single stated
-purpose, not general catch-and-continue
-([ADR-AUTO-ONEJOB-CALLERHANDLESERRORS](/docs/drs/automation/single-responsibility-functions.md#rule-adr-auto-onejob-callerhandleserrors),
-[ADR-AUTO-REMOVE-ONECALLESCALATION](/docs/drs/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-onecallescalation)).
-```
+The managed uninstall is best effort. With `-Remove`, a failure means a foreign install the manager cannot touch, the exact case `-Remove`
+exists for, so it is logged and the escalation proceeds to `Remove-AzCli`. Without `-Remove` the failure propagates as a normal uninstall
+failure. Catching only under `-Remove` is the escalation's single stated purpose, not a general catch-and-continue
+([ADR-AUTO-ONEJOB-CALLERHANDLESERRORS](../../../drs/automation/single-responsibility-functions.md#rule-adr-auto-onejob-callerhandleserrors),
+[ADR-AUTO-REMOVE-ONECALLESCALATION](../../../drs/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-onecallescalation)).

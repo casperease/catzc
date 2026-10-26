@@ -1,7 +1,7 @@
 # pwsh/Base.Contracts/private/Read-CommandSignature.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The signature reader of a PowerShell command file: it parses the file and reports the parameters and output the command declares, for the
+command check to compare with its contract.
 
 ## help
 
@@ -43,11 +43,6 @@ The function's name, Verb-Noun.
 Read-CommandSignature -Path $file -Name Get-Widget
 ```
 
-## comment:1
+## parameter sets
 
-Above `$inEverySet = $withoutSet -or -not $hasParameterAttribute`, written with `#`.
-
-```text
-A parameter with no [Parameter()], or one without a set name, belongs to every set, as PowerShell binds
-it.
-```
+A parameter with no `[Parameter()]` attribute, or one without a set name, belongs to every set, as PowerShell binds it.

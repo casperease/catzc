@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Get-FormatEngineAdapter.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The one map from a formatter engine of `languages.yml` to the function that runs it. The engine runner calls the adapter it names, and the
+cache stamp hashes the adapter's code, so a changed adapter re-checks every file it judged.
 
 ## help
 

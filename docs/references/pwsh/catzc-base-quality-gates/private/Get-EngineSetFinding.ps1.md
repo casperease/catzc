@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Get-EngineSetFinding.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The engine-set check of Test-SourceConventions: it lists every place one file restates the set of execution engines instead of reading it
+from the model. The engine names and their count come from the caller, so nothing here names an engine.
 
 ## help
 

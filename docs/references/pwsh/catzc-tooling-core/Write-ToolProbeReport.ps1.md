@@ -1,7 +1,6 @@
 # pwsh/Tooling.Core/Write-ToolProbeReport.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The renderer of the tool existence checks: it turns the probe records of `Test-Tool -PassThru` into one compact plain-text table.
 
 ## help
 

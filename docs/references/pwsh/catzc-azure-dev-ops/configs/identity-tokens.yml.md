@@ -1,14 +1,9 @@
 # pwsh/Azure.DevOps/configs/identity-tokens.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The live production identity this module's config carries, the Azure DevOps project, which a hermetic logic test must never name
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 
-## comment:1
+## Reading
 
-Above `tokens:`, written with `#`.
-
-```text
-The live production identity this module's config carries — the ADO project — which a hermetic logic test must
-never name ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)). Read by
-Get-LiveIdentityTokens with every other module's identity-tokens.yml; validated by the IdentityTokensConfig type.
-```
+`Get-LiveIdentityTokens` reads this file together with every other module's `identity-tokens.yml`, and the `IdentityTokensConfig` type
+validates it. Each entry names the config, the key path inside it, the token kind and a neutral suggestion to use in a fixture instead.

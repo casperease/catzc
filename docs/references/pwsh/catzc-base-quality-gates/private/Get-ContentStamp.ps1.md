@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Get-ContentStamp.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The fingerprint of a set of input files: one SHA-256 over a label and each file's repository-relative path and content hash. A check's
+result cache keys a file on its own hash and on this stamp of everything else that decides the verdict.
 
 ## help
 
@@ -37,11 +37,7 @@ The root the paths are recorded relative to.
 
 `[string]` A hex SHA-256.
 
-## comment:1
+## comments and line ends
 
-Above `$previousWasLineEnd = $true`, written with `#`.
-
-```text
-Comments go; a run of line ends (what a removed comment line leaves) counts as one, since a line
-end separates statements but a blank line does not.
-```
+A PowerShell input is hashed by its tokens, so its comments are left out. A run of line ends, which is what a removed comment line leaves,
+counts as one: a line end separates statements but a blank line does not. A change to the code itself still changes the stamp.

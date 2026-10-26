@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Get-LogicTestIdentityFinding.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Scans one Pester test file's syntax tree for a live identity used as a code string literal outside an integrity-tagged block. It reads only
+real code, so a comment or a help example never reaches it.
 
 ## help
 
@@ -39,47 +39,23 @@ A hashtable token -> record (@{ Token; Kind; Source; Suggest }) from Get-LiveIde
 
 `[object[]]` findings: @{ File; Line; Token; Kind; Source; Suggest; Message }.
 
-## comment:1
+## predicates
 
-Above `$isCommandNode = {`, written with `#`.
+The node predicates are bound to locals and never inlined in a `.FindAll(...)` call
+([ADR-PWSH-FORMAT-MULTILINEPREDICATEBOUND](../../../../drs/automation/pwsh/powershell-formatting.md#rule-adr-pwsh-format-multilinepredicatebound)).
 
-```text
-Predicates bound to locals (never inlined in a .FindAll(...) call) —
-[ADR-PWSH-FORMAT-MULTILINEPREDICATEBOUND](/docs/drs/automation/pwsh/powershell-formatting.md#rule-adr-pwsh-format-multilinepredicatebound).
-```
+## one walk over the Pester blocks
 
-## comment:2
+The function walks the `Describe`, `Context` and `It` commands once. It notes whether the file carries a `logic` tag anywhere, and it
+collects the script-block offset range of every `integrity`-tagged block, whose literals are carved out of the scan.
 
-Above `$hasLogic = $false`, written with `#`.
+## the exact pass
 
-```text
-Walk the Pester block commands once: note whether the file carries a `logic` tag anywhere, and collect
-the script-block offset range of every `integrity`-tagged block (its literals are carved out of the scan).
-```
-
-## comment:3
-
-Above `$literals = $ast.FindAll($isStringLiteral, $true)`, written with `#`.
-
-```text
-Exact pass — a distinctive identity (customer / subscription / org / template / project) flagged as a
-bare literal anywhere outside an integrity block.
-```
-
-## comment:4
-
-Above `$identityParameters = 'Environment', 'Env', 'Shortcode'`, written with `#`.
-
-```text
-Position pass — an ambiguous identity (an environment name or shortcode, like 'test'/'dev') is flagged
-ONLY when bound to an identity parameter (-Environment / -Env / -Shortcode), never as a prose literal.
-```
-
-## comment:5
-
-Above `$parent = $literal.Parent`, written with `#`.
-
-```text
-A hashtable key names a parameter or a property (a splat's `Discovery = …`), never a value, so it is no
+A distinctive identity (a customer, subscription, org, template or project) is flagged as a bare literal anywhere outside an integrity
+block. A hashtable key is never flagged: it names a parameter or a property (a splat's `Discovery = ...`), never a value, so it is no
 identity.
-```
+
+## the position pass
+
+An ambiguous identity, such as an environment name or shortcode like `test` or `dev`, is flagged only when it is the argument of an identity
+parameter (`-Environment`, `-Env`, `-Shortcode`), never as a prose literal.

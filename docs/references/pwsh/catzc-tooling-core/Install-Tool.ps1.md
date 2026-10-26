@@ -1,7 +1,7 @@
 # pwsh/Tooling.Core/Install-Tool.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The installer of one tool of `tools.yml` through the platform package manager: winget on Windows, brew on macOS, apt-get on Linux. It is
+idempotent and asserts the installed version afterwards.
 
 ## help
 
@@ -26,53 +26,23 @@ Version override. Defaults to the tool's locked version in tools.yml (Get-ToolCo
 
 Automatically uninstall the wrong version before installing the correct one.
 
-## comment:1
+## npm-managed tools
 
-Above `if ($config.npm_package) {`, written with `#`.
+npm-managed tools (cspell, prettier, markdownlint) are installed with npm, not a platform package manager, so `Install-Tool` cannot handle
+them. It fails before the `-Force` path routes into `Uninstall-Tool`, so the message names `Install-<command>`, what the caller wanted, and
+not a stray winget detail from deeper in the chain. Bulk provisioning already dispatches these to their own command.
 
-```text
-npm-managed tools (cspell, prettier, markdownlint) are installed with npm, not a platform package
-manager, so Install-Tool cannot handle them. Fail here — before the -Force path routes into
-Uninstall-Tool — so the message names Install-$command (what the caller wanted), not a stray winget
-detail from deeper in the chain. Bulk provisioning already dispatches these to Install-$command.
-```
+## winget
 
-## comment:2
+The install passes `--force`: winget may see a Store stub or a stale alias and report "already installed" although no real installation
+exists, and `--force` makes it always install.
 
-Above `if ($config.winget_scope -eq 'user') {`, written with `#`.
+A winget portable package resolves through a symlink in `WinGet\Links`, which must be on PATH. Creating that symlink needs Developer Mode or
+admin, so on a plain user account the command lands under `WinGet\Packages`, on no PATH at all. When the command is still unresolved after
+the registry sync, the install finds it in the Packages tree, at most three levels below the packages folder, and prepends its directory to
+the session PATH. Enabling Developer Mode lets winget do this itself and is the cleaner fix.
 
-```text
---force: winget may see a Store stub or stale alias and report "already installed"
-even though no real installation exists. Force ensures it always installs.
-```
+## Linux
 
-## comment:3
-
-Above `Assert-IsAdministrator -ErrorText "Install-$command on Linux requires root...`, written with `#`.
-
-```text
-Linux package installation via apt-get requires root. The user-space uv family never routes here:
-Install-Uv bootstraps uv from Astral's standalone release, and the Python-based CLIs install
-through uv ([ADR-AUTO-UVPY](/docs/drs/automation/uv-python-handler.md)).
-```
-
-## comment:4
-
-Above `if ($IsWindows -and -not (Get-Command $config.command -CommandType...`, written with `#`.
-
-```text
-winget portable packages resolve through a symlink in WinGet\Links that must be on PATH; creating that
-symlink needs Developer Mode (or admin), so on a plain user account the command lands under WinGet\Packages
-on no PATH at all. When it is still unresolved after the registry sync, recover it: find the command in the
-Packages tree and prepend its directory to the session PATH. (Enabling Developer Mode lets winget do this
-itself and is the cleaner fix.)
-```
-
-## comment:5
-
-Above `$exe = Get-ChildPath $pkgRoot -File -Filter "$($config.command).exe" -Depth 5...`, written with `#`.
-
-```text
-Installed commands sit at most three levels below the packages folder; the walk must enter every package
-folder.
-```
+Package installation through apt-get requires root. The user-space uv family never routes here: `Install-Uv` bootstraps uv from Astral's
+standalone release, and the Python-based CLIs install through uv ([ADR-AUTO-UVPY](../../../drs/automation/uv-python-handler.md)).

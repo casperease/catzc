@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Invoke-MarkdownTitleEngine.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Checks every in-scope Markdown file's title and headings. Format-MarkdownTitle and Test-MarkdownTitle share it: it resolves the scope, reads
+each file, checks the title and then the headings of the titled files.
 
 ## help
 

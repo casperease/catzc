@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/Export-Comments.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The one-way mover: it takes every long comment out of the repository's code and config files and puts it into the file's comment page.
+Build-CommentView puts them back above their code lines for reading, and Test-Comments holds the result to the rules.
 
 ## help
 
@@ -64,11 +64,7 @@ Export-Comments -Path pwsh/Base.Files -DryRun -PassThru
 Export-Comments -Path pwsh/Base.Files/Write-FileIfChanged.ps1
 ```
 
-## comment:1
+## Staged folders
 
-Above `$sourceRoot = $RepositoryRoot`, written with `#`.
-
-```text
-A staged folder mirrors the repository: its files are the scope, a page is read from its staged copy or else the
-repository, and both are written back into the folder, the page with the burst base that guards a peer's edit.
-```
+A staged folder mirrors the repository, and its files are the scope. A page is read from its staged copy, or else from the repository, and
+both are written back into the folder. The page goes back with the burst base, which guards a peer's edit.

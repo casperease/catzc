@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Get-JavaScriptTestCases.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The language bridge's discovery for JavaScript: it lists the test cases a test folder declares by reading its `*.test.js` files, so each
+node test becomes a Pester case without running node.
 
 ## help
 
@@ -25,11 +25,13 @@ The language test folder to read; it must exist.
 `[pscustomobject]` One per case: `Key` (the file and the name), `Package` (the file, relative to the folder), `Name`, `Category`
 (`integrity` or `logic`) and `Title`.
 
-## comment:1
+## what a case is
 
-Above `$declaration =...`, written with `#`.
+A case is a top-level `test()` or `test.skip()` call at the start of a line, with its name as one string literal. That literal is what node
+reports as the case's name, so the result pairs with the case. A name that starts with the JavaScript integrity prefix is in the `integrity`
+category and every other one is in `logic`.
 
-```text
-A case is a top-level test() call at the start of a line, its name one string literal: what node reports as the
-case's name.
-```
+## titles
+
+A test's title is its name unless two files declare the same name. Then every title of that name carries its package, the file's path inside
+the folder, so the titles stay distinct.

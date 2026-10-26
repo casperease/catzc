@@ -1,7 +1,6 @@
 # pwsh/Azure.DevOps/ConvertFrom-AdoPipelineCommand.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The function that sanitizes a command string received from an ADO pipeline step before anything runs it.
 
 ## help
 

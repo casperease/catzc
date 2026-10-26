@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Invoke-ImprintStep.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Runs one imprint step over the given files and returns what it changed and what it cannot repair. One switch maps each step name to the
+function that does it.
 
 ## help
 
@@ -38,47 +38,19 @@ List the files the step would change without writing them.
 `[pscustomobject]` @{ Changed; Unfixable } — absolute paths changed (or, under -DryRun, that would change), and a map of absolute path to
 the problem for the files a person must repair.
 
-## comment:1
+## Empty lists
 
-Above `switch -CaseSensitive ($Step) {`, written with `#`.
+Each case first returns for an empty list. A run with no files still proves that the step has its adapter, and an empty list never reaches a
+command whose default is the whole repository.
 
-```text
-Each case first returns for an empty list, so a run with no files still proves the step has its adapter, and an empty list
-never reaches a command whose default is the whole repository.
-```
+## Comment pages
 
-## comment:2
+The comments step writes a file and its comment page, so the page is a companion of the file and not a second subject of the step. The paths
+stay absolute, because the link scope resolves a relative `-Path` against the current location, which is not the root.
 
-Above `$moved = @(Export-Comments -Path $File -RepositoryRoot $root -DryRun:$DryRun)`, written with `#`.
+The help step reads the `## help` section of the file's comment page. It only reports what a person must settle and changes no file.
 
-```text
-The step writes a file and its comment page, so the page is a companion of the file, not a second subject of the step.
-The paths stay absolute: the link scope resolves a relative -Path against the current location, which is not the root.
-```
+## Plan step counts
 
-## comment:3
-
-Above `$commentPages = Get-Config -Config comment-pages`, written with `#`.
-
-```text
-The help is the ## help section of the file's comment page, so the step only reports what a person must
-settle and changes no file.
-```
-
-## comment:4
-
-Above `$plans = Get-Config -Config plans`, written with `#`.
-
-```text
-The counts are derived from the plans beside each overlay, so each folder the files sit in is rewritten
-once.
-```
-
-## comment:5
-
-Above `if (-not $DryRun -and $outcome.Changed.Count -gt 0) {`, written with `#`.
-
-```text
-A rewritten overlay can lie outside -Path, past the formatter's pass, so the step formats what it wrote
-itself.
-```
+The counts are derived from the plans beside each overlay, so each folder the files sit in is rewritten once. A rewritten overlay can lie
+outside `-Path`, past the formatter's pass, so the step formats what it wrote itself.

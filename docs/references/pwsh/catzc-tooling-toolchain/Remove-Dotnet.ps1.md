@@ -1,7 +1,6 @@
 # pwsh/Tooling.Toolchain/Remove-Dotnet.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The removal of a .NET install that the managed user-space install does not own: the escalation step behind `Uninstall-Dotnet -Remove`.
 
 ## help
 
@@ -46,52 +45,29 @@ Remove-Dotnet
 Remove-Dotnet -InstallDir 'C:\Program Files\dotnet' -Force
 ```
 
-## comment:1
+## Unix
 
-Above `if ($IsLinux -or $IsMacOS) {`, written with `#`.
+An off-config install is evicted by the mechanism that placed it: a native package manager, a uv-Python pip, or a stray binary. Elevation is
+that mechanism's and is never asserted up front
+([ADR-AUTO-REMOVE-ELEVATIONFOLLOWSMECHANISM](../../../drs/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-elevationfollowsmechanism)).
+The off-config install there is the one on PATH, so the managed check asks about PATH.
 
-```text
-Unix: evict an off-config install by the mechanism that placed it (native package manager / uv-Python pip
-/ stray binary); elevation is scoped to the mechanism
-([ADR-AUTO-REMOVE-ELEVATIONFOLLOWSMECHANISM](/docs/drs/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-elevationfollowsmechanism)), so no admin assert
-here. The off-config install there is the one on PATH, so the managed check asks about PATH.
-```
+## When it refuses
 
-## comment:2
+The managed install is `Uninstall-Dotnet`'s, judged for the folder at hand
+([ADR-AUTO-REMOVE-REMOVEREFUSESMANAGED](../../../drs/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-removerefusesmanaged)).
 
-Above `if (Test-ExpectedPackageManager -Config $config -Path $resolvedDir) {`, written with `#`.
+## Registered products
 
-```text
-Gate: the managed install is Uninstall-Dotnet's, judged for this folder
-([ADR-AUTO-REMOVE-REMOVEREFUSESMANAGED](/docs/drs/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-removerefusesmanaged)).
-```
-
-## comment:3
-
-Above `$machineFolders = @('C:\Program Files\dotnet', 'C:\Program Files (x86)\dotnet')`, written with `#`.
-
-```text
-A folder registered products own is removed by their mechanism, never by deleting it
-([ADR-AUTO-REMOVE-THREEPLATFORMCORES](/docs/drs/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-threeplatformcores)) — checked before
-the folder itself, so registrations whose files are already gone are still reported. The .NET installers
+A folder that registered products own is removed by their mechanism, never by deleting it
+([ADR-AUTO-REMOVE-THREEPLATFORMCORES](../../../drs/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-threeplatformcores)). The
+registrations are checked before the folder itself, so registrations whose files are already gone are still reported. The .NET installers
 place their products in the machine-wide folders; a stray copy elsewhere is nobody's.
-```
 
-## comment:4
+A bundle holds the MSI products it installed as their dependent, so uninstalling one of those directly reports success and removes nothing.
+While any bundle is registered, only the bundles are named, each takes its products with it, and the next run names whatever is left.
 
-Above `[object[]] $bundles = @($products | Where-Object Kind -EQ 'Bundle')`, written with `#`.
+## Elevation
 
-```text
-A bundle holds the MSI products it installed as their dependent: uninstalling one of those directly reports
-success and removes nothing. So while any bundle is registered, only the bundles are named — each takes
-its products with it — and the next run names whatever is left.
-```
-
-## comment:5
-
-Above `Assert-IsAdministrator`, written with `#`.
-
-```text
-Deleting the folder and the machine PATH entry needs Administrator — asserted for this step only
-([ADR-AUTO-REMOVE-ELEVATIONFOLLOWSMECHANISM](/docs/drs/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-elevationfollowsmechanism)).
-```
+Deleting the folder and the machine PATH entry needs Administrator, asserted for this step only
+([ADR-AUTO-REMOVE-ELEVATIONFOLLOWSMECHANISM](../../../drs/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-elevationfollowsmechanism)).

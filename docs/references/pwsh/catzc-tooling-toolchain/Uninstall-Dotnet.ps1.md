@@ -1,7 +1,7 @@
 # pwsh/Tooling.Toolchain/Uninstall-Dotnet.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The uninstaller of the .NET SDK, the counterpart of `Install-Dotnet`, and the entry of the removal escalation for a .NET the managed install
+does not own.
 
 ## help
 
@@ -50,12 +50,8 @@ Uninstall-Dotnet -Force    # also stops the named processes holding the install 
 Uninstall-Dotnet -Remove -Force
 ```
 
-## comment:1
+## Failure of the managed uninstall
 
-Above `try {`, written with `#`.
-
-```text
-Managed uninstall best-effort; with -Remove a failure is logged and the escalation proceeds, without
--Remove it propagates ([ADR-AUTO-ONEJOB-CALLERHANDLESERRORS](/docs/drs/automation/single-responsibility-functions.md#rule-adr-auto-onejob-callerhandleserrors),
-[ADR-AUTO-REMOVE-ONECALLESCALATION](/docs/drs/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-onecallescalation)).
-```
+The managed uninstall is best effort. With `-Remove` a failure is logged and the escalation proceeds; without `-Remove` it propagates
+([ADR-AUTO-ONEJOB-CALLERHANDLESERRORS](../../../drs/automation/single-responsibility-functions.md#rule-adr-auto-onejob-callerhandleserrors),
+[ADR-AUTO-REMOVE-ONECALLESCALATION](../../../drs/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-onecallescalation)).

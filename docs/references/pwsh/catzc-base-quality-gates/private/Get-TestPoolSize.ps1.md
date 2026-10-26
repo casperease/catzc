@@ -1,7 +1,6 @@
 # pwsh/Base.QualityGates/private/Get-TestPoolSize.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Returns how many workers a test run's pool starts at once. At least one worker starts.
 
 ## help
 
@@ -30,11 +29,7 @@ The most greedy files that run at once (`greedy_group_size` in the test policy).
 
 `[int]` the number of workers in the pool.
 
-## comment:1
+## Sizing
 
-Above `[Math]::Max($ParallelShardCount + [Math]::Min($GreedyGroupSize,...`, written with `#`.
-
-```text
-Every parallel shard starts with the run; the greedy files get workers of their own, up to the group size, so the
-longest start with it too.
-```
+Every parallel shard starts with the run. The greedy files get workers of their own, up to the group size, so the longest of them start with
+the run too.

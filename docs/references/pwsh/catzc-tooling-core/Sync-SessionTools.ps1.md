@@ -1,7 +1,7 @@
 # pwsh/Tooling.Core/Sync-SessionTools.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The post-import janitor that reconciles the session PATH with the tools actually present and reports those running from outside the
+installer layer. It is quiet on a clean machine, session-only, and advisory.
 
 ## help
 
@@ -39,49 +39,24 @@ Suppress both advisory lines outright (even under -Verbose).
 Sync-SessionTools
 ```
 
-## comment:1
+## CI
 
-Above `if (Test-IsRunningInPipeline) {`, written with `#`.
+Session PATH nudging is noise in CI, and could shadow image-provided tools, because the pipeline owns tool provisioning there. The pass does
+nothing in a pipeline.
 
-```text
-Session PATH nudging is noise — and could shadow image-provided tools — in CI, where the pipeline owns
-tool provisioning. Do nothing there.
-```
+## Several installs
 
-## comment:2
+When several installs of a tool exist, the pass runs the best one, as `session_host_probes` in `tools.yml` chooses: for dotnet an SDK at the
+locked version, else a runtime at the locked version. The other installs are left in place.
 
-Above `$hosted = Resolve-SessionToolHost -Config $config`, written with `#`.
+## The advisory
 
-```text
-When several installs exist, run the best one (tools.yml session_host_probes — for dotnet an SDK at the
-locked version, else a runtime at the locked version). The other installs are left in place.
-```
+The fact, and which tools, is the advisory and stays on the always-on information stream. Each tool's resolved location is diagnostic
+detail, so a second line carries the paths on the verbose stream and surfaces only under `-Verbose`. The call forwards its own verbose
+state, so a plain import shows just the names and `Sync-SessionTools -Verbose` adds the locations.
 
-## comment:3
+## The memo
 
-Above `Write-Message "Session tools not managed by the installer layer:...`, written with `#`.
-
-```text
-The fact and WHICH tools is the advisory — it stays on the always-on information stream. Each tool's
-resolved location is diagnostic detail, so the second line carries the paths on the verbose stream and
-surfaces only under -Verbose (forward THIS call's verbose state, so a plain import shows just the names
-and `Sync-SessionTools -Verbose` adds the locations).
-```
-
-## comment:4
-
-Above `$memoPath = Join-Path (Get-OutputRoot) 'cache/session-tools.json'`, written with `#`.
-
-```text
-The pass probes every tool on disk, so its outcome is remembered per machine under the key of what it read: the tool registry
-and the session's PATH as it stood. The same key gets the same outcome, the PATH the pass left, re-applied without a probe.
-```
-
-## comment:5
-
-Above `if ($memo -is [hashtable] -and @($memo['keys']) -ccontains $key -and...`, written with `#`.
-
-```text
-The memo answers to the PATH the pass started from and to the PATH it left, so a second pass in the same session
-hits too.
-```
+The pass probes every tool on disk, so its outcome is remembered per machine in `out/cache/session-tools.json` under the key of what it
+read: the tool registry and the session's PATH as it stood. The same key gets the same outcome, the PATH the pass left, re-applied without a
+probe. The memo answers to the PATH the pass started from and to the PATH it left, so a second pass in the same session hits too.

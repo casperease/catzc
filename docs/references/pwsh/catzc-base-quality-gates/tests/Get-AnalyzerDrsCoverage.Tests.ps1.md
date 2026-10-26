@@ -1,14 +1,5 @@
 # pwsh/Base.QualityGates/tests/Get-AnalyzerDrsCoverage.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
-
-## comment:1
-
-Above `Describe 'analyzer-adr-map integrity'`, written with `#`.
-
-```text
-source-only: it cross-checks the map against the repository's ADR tree and .scriptanalyzer rule files, which
-gives the same answer in both run modes. The check is the quality gate Test-AnalyzerDrsMap
-([ADR-AUTO-TEST-QUALITYGATE](/docs/drs/automation/test-automation.md#rule-adr-auto-test-qualitygate)).
-```
+The tests of `Get-AnalyzerDrsCoverage`, the analyzer-to-ADR map. The integrity case is source-only: it cross-checks the map against the
+repository's ADR tree and `.scriptanalyzer` rule files, which gives the same answer in both run modes. The check is the quality gate
+`Test-AnalyzerDrsMap` ([ADR-AUTO-TEST-QUALITYGATE](../../../../drs/automation/test-automation.md#rule-adr-auto-test-qualitygate)).

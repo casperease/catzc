@@ -1,16 +1,7 @@
 # pwsh/Base.QualityGates/tests/types/TerminologyConfig.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
-
-## comment:1
-
-Above `Describe 'TerminologyConfig'`, written with `#`.
-
-```text
-Validates the compiled TerminologyConfig / TerminologyTerm types directly — the constructor is the gate
-that stops an unjustified or malformed registry entry from ever producing an instance
-([ADR-AUTO-SPELL-CATEGORYANDMEANING](/docs/drs/automation/spell-out-names.md#rule-adr-auto-spell-categoryandmeaning)). The
-'categories' map is the single source of the allowed categories; 'terms' groups entries under those
-category keys, so a term's category is the group it is listed under (no per-entry category field).
-```
+The test of the compiled `TerminologyConfig` and `TerminologyTerm` types, called directly. The constructor is the gate that stops an
+unjustified or malformed registry entry from ever producing an instance
+([ADR-AUTO-SPELL-CATEGORYANDMEANING](../../../../../drs/automation/spell-out-names.md#rule-adr-auto-spell-categoryandmeaning)). The
+`categories` map is the single source of the allowed categories, and `terms` groups entries under those category keys, so a term's category
+is the group it is listed under, with no per-entry category field.

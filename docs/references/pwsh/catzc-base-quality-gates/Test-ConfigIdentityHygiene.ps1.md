@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/Test-ConfigIdentityHygiene.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The reverse of Test-LogicTestIdentity: it checks that no shipped config carries a test-fixture identity in its data, which closes the other
+half of the neutral-fixture rule.
 
 ## help
 
@@ -46,20 +46,8 @@ Return a result object ({ Subject; IssueCount; Issues; ReportPath; FileCount; Li
 
 None (throws on findings), or the result object with -PassThru.
 
-## comment:1
+## Where configs are
 
-Above `$moduleConfigs = Get-ChildPath (Join-Path $root (Get-CatzcModulesFolder))...`, written with `#`.
-
-```text
-A module's configs sit three levels below pwsh/ (module, configs, file); an infrastructure place's ymls reach four
-(template, configuration, customer, file).
-```
-
-## comment:2
-
-Above `$terminology = 'configs/terminology/*'`, written with `#`.
-
-```text
-A config is one file or a folder of parts (configs/<name>/*.yml); the terminology parts declare the fixture
-tokens themselves.
-```
+A module's configs sit three levels below `pwsh/` (module, `configs`, file). An infrastructure place's yml files reach four levels
+(template, configuration, customer, file). A config is one file or a folder of parts (`configs/<name>/*.yml`), and the terminology parts
+declare the fixture tokens themselves, so they are left out of the check.

@@ -1,7 +1,7 @@
 # pwsh/Azure.Cli/Get-AzCliSubscriptionAccessState.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The function that reports whether the current az login can reach a subscription given by GUID, whether or not it is the active one. It is
+the one place the check is made, shared by the accessible query and the accessible assertion.
 
 ## help
 
@@ -44,20 +44,12 @@ The subscription GUID the current login must be able to reach.
 (Get-AzCliSubscriptionAccessState -SubscriptionId 50a0ed00-de00-50b0-0000-000000000000).accessible
 ```
 
-## comment:1
+## The probe
 
-Above `$probe = Invoke-AzCli "account list-locations --subscription $SubscriptionId...`, written with `#`.
+The check is a real, read-only ARM call scoped to the subscription. A zero exit proves the current login can reach the subscription
+through `--subscription`, whether or not it is the active one.
 
-```text
-A REAL, read-only ARM call scoped to the subscription. Exit zero proves the current login can
-reach it via `--subscription`, whether or not it is the active subscription.
-```
+## After a failed probe
 
-## comment:2
-
-Above `$session = Invoke-AzCli 'account show -o none' -PassThru -NoAssert -Silent`, written with `#`.
-
-```text
-The probe failed. Distinguish "not logged in" from "logged in but cannot reach this subscription"
-with a local read (only on the error path) so the error names the right fix.
-```
+On failure the function reads the local session once (`az account show`) to tell "not logged in" from "logged in but cannot reach this
+subscription", so the error names the right fix. That read runs only on the error path.

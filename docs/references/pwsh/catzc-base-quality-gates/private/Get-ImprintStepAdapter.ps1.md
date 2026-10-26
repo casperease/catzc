@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Get-ImprintStepAdapter.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The one map from an imprint step of `languages.yml` to the functions whose code decides its verdict. The cache stamp hashes their code, so a
+changed step re-checks every file it judged.
 
 ## help
 

@@ -1,7 +1,7 @@
 # pwsh/Azure.DevOps/Invoke-AdoRestMethod.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The function every Azure DevOps REST call goes through. It authenticates with the header from the authorization function and applies the
+standard error handling.
 
 ## help
 

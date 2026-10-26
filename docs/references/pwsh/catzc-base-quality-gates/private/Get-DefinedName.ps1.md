@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Get-DefinedName.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The one parse of a file's definitions for every name check: it returns the functions and types each given file defines, by name, as the
+file's language defines them. A name check never reads definitions by hand.
 
 ## help
 
@@ -37,20 +37,12 @@ The root the paths resolve against. Defaults to Get-RepositoryRoot.
 Get-DefinedName -Path 'pwsh/Base.Files/Get-CodeCaller.ps1'
 ```
 
-## comment:1
+## one reader per language
 
-Above `$patterns = @{`, written with `#`.
+How a language defines a function or a type is mechanism, so each language has one reader. PowerShell is read by its parser. Python and Go
+are read by their definition keywords at the start of a line: `def` and `class` for Python, `func` and `type` for Go.
 
-```text
-How each language defines a function or a type is mechanism, one reader per language: PowerShell by its parser, Python and Go by
-their definition keywords at the start of a line.
-```
+## scope qualifiers
 
-## comment:2
-
-Above `[pscustomobject]@{ Path = $relative; Kind = 'function'; Name =...`, written with `#`.
-
-```text
-A scope qualifier sits outside the case, as a hidden folder's dot does: script:New-Widget is a
-verb-noun name.
-```
+A PowerShell function name loses its scope qualifier. The qualifier sits outside the case, as a hidden folder's dot does, so
+`script:New-Widget` is judged as the verb-noun name `New-Widget`.

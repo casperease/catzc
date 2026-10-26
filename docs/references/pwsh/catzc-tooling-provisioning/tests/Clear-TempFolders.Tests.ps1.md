@@ -1,22 +1,13 @@
 # pwsh/Tooling.Provisioning/tests/Clear-TempFolders.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The tests of `Clear-TempFolders`.
 
-## comment:1
+## The locked-file case
 
-Above `if (-not $IsWindows) {`, written with `#`.
+`FileShare.None` is a mandatory lock only on Windows; on Unix it is advisory and does not block a delete, so the locked file would be removed
+and the case cannot be set up. The case is skipped off Windows.
 
-```text
-FileShare.None is a MANDATORY lock only on Windows; on Unix it is advisory and does not block
-delete, so the "locked" file would be removed and this case cannot be set up.
-```
+## The folder list
 
-## comment:2
-
-Above `$result = Clear-TempFolders -Path @($folder, $folder, ($folder +...`, written with `#`.
-
-```text
-The third entry is the same folder with a trailing separator (dedup must canonicalize it away). Use
-the platform separator — a hardcoded '\' is a literal filename char on Unix, i.e. a DIFFERENT path.
-```
+The third entry of the folder list is the same folder with a trailing separator, which the command's de-duplication must canonicalize away.
+The test builds it with the platform separator: a hardcoded `\` is a literal filename character on Unix, which makes it a different path.

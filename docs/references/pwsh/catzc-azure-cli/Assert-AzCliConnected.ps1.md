@@ -1,7 +1,7 @@
 # pwsh/Azure.Cli/Assert-AzCliConnected.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The throwing check that the active az session is set to a given subscription and/or tenant. It is the generic primitive that takes GUIDs
+and reads no config; the connection-state function it shares with its query twin makes the comparison.
 
 ## help
 

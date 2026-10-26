@@ -1,7 +1,6 @@
 # pwsh/Tooling.Python/Install-Poetry.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The installer of Poetry as an isolated uv tool, in its own environment, so it never touches the uv-managed Python.
 
 ## help
 

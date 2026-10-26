@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/New-TestAutomationRunDirectory.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Creates and returns a fresh timestamped run directory under the report base. Each Test-Automation run writes its artifacts into
+`<OutputFolder>/yyyyMMdd-HHmmss/`, with a numeric suffix when a same-second directory exists.
 
 ## help
 

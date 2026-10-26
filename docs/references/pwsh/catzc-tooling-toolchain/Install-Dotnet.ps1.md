@@ -1,7 +1,6 @@
 # pwsh/Tooling.Toolchain/Install-Dotnet.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The installer of the .NET SDK in user space, through the install scripts Microsoft publishes, side by side with any other .NET.
 
 ## help
 
@@ -42,46 +41,25 @@ Install-Dotnet
 Install-Dotnet -Version '10.0'
 ```
 
-## comment:1
+## Deciding to install
 
-Above `$needsInstall = $true`, written with `#`.
+The command's own install directory wins the check. When it already holds the locked version the download is skipped, but the environment is
+still converged: re-running repairs a lost `PATH` or `DOTNET_ROOT` persistence instead of returning past it
+([ADR-AUTO-IDEM-CHECKBEFOREACTING](../../../drs/automation/idempotent-state-functions.md#rule-adr-auto-idem-checkbeforeacting)). Without
+that, a session where dotnet resolves through the session janitor's PATH hints would mask a broken persistent PATH forever, and every
+non-repo process, such as an editor's language server, would fail to find dotnet.
 
-```text
-Decide whether to run the install script. Our own install dir wins the check: when it already holds
-the locked version the download is skipped, but the environment is STILL converged below — re-running
-repairs a lost PATH/DOTNET_ROOT persistence instead of returning past it
-([ADR-AUTO-IDEM-CHECKBEFOREACTING](/docs/drs/automation/idempotent-state-functions.md#rule-adr-auto-idem-checkbeforeacting)). Without this,
-a session where dotnet resolves through the session janitor's PATH hints masks a broken persistent
-PATH forever, and every non-repo process (an editor's language server) fails to find dotnet.
-```
+When the own directory holds nothing but a dotnet is on PATH, an install at the right version, wherever it lives, satisfies the tool contract
+and is not this command's to manage: it skips without touching `PATH` or `DOTNET_ROOT`. A wrong version elsewhere does not block the install,
+since it goes in side by side and its directory is prepended to PATH.
 
-## comment:2
+## The install script
 
-Above `$installed = Get-ToolVersion -Config $config`, written with `#`.
+The install script is the vendored one that ships in this module's `assets/`
+([ADR-AUTO-ASSETDEP-INTERNALASSETDEPENDENCY](../../../drs/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-internalassetdependency)).
 
-```text
-Nothing in our install dir, but a dotnet is on PATH. At the right version that install —
-wherever it lives — satisfies the tool contract and is not ours to manage: skip without touching
-PATH or DOTNET_ROOT. A wrong version elsewhere doesn't block us since we install side-by-side
-and prepend our dir to PATH.
-```
+## The environment
 
-## comment:3
-
-Above `if ($IsWindows) {`, written with `#`.
-
-```text
-Resolve the vendored install script shipped in this module's assets/
-([ADR-AUTO-ASSETDEP-INTERNALASSETDEPENDENCY](/docs/drs/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-internalassetdependency))
-```
-
-## comment:4
-
-Above `if ($env:DOTNET_ROOT -ne $installDir) {`, written with `#`.
-
-```text
-Converge the environment on every run that owns the install — session + persistent, both idempotent.
-This is the PATH non-repo processes resolve dotnet through.
-Each change is announced where it happens, and only when it changes something
-([ADR-AUTO-CONSOLE-ANNOUNCELASTINGCHANGES](/docs/drs/automation/console-output-matters.md#rule-adr-auto-console-announcelastingchanges)).
-```
+On every run that owns the install, the session and the persistent environment are converged, both idempotent. The persistent PATH is the one
+that non-repo processes resolve dotnet through. Each change is announced where it happens, and only when it changes something
+([ADR-AUTO-CONSOLE-ANNOUNCELASTINGCHANGES](../../../drs/automation/console-output-matters.md#rule-adr-auto-console-announcelastingchanges)).

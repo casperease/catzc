@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Invoke-RuffFormat.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The ruff formatter engine: it formats the given Python files with the pinned ruff and returns the files it changed. It is one Format-Code
+engine adapter.
 
 ## help
 

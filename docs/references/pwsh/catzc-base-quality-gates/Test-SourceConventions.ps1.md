@@ -1,7 +1,6 @@
 # pwsh/Base.QualityGates/Test-SourceConventions.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The source gate: every source and test file under `pwsh/` must follow the naming and one-function conventions.
 
 ## help
 
@@ -63,11 +62,7 @@ EngineSet; NeutralCodes }) instead of throwing on issues. EngineSet and NeutralC
 Test-SourceConventions
 ```
 
-## comment:1
+## Type tests
 
-Above `foreach ($path in & $list (Join-Path $testsDirectory 'types') '*.Tests.ps1') {`, written with `#`.
-
-```text
-tests/types/ holds the native-type tests, named for their type (which has no verb) — so each must name a
-real types/*.cs of the module, and the folder cannot collect misplaced or misnamed tests.
-```
+`tests/types/` holds the native-type tests, named for their type, which has no verb. So each must name a real `types/*.cs` of the module,
+and the folder cannot collect misplaced or misnamed tests.

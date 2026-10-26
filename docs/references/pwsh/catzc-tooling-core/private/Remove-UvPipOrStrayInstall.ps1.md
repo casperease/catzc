@@ -1,7 +1,7 @@
 # pwsh/Tooling.Core/private/Remove-UvPipOrStrayInstall.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The private shared tail of the Unix off-config removers, run after each has tried its native package manager. It evicts a pip package of the
+uv-managed Python, or else deletes a stray binary found on PATH.
 
 ## help
 
@@ -30,11 +30,7 @@ The resolved path of the tool's on-PATH binary (from Get-Command) — the caller
 
 `[bool]` — $true when an off-config install was removed, $false when there was nothing to remove.
 
-## comment:1
+## Stray binary
 
-Above `if ([System.IO.File]::Exists($Source)) {`, written with `#`.
-
-```text
-Stray binary no manager owns — delete just the resolved file (a root-owned path fails the delete loudly
-rather than being force-removed silently).
-```
+A binary no package manager owns is deleted as just the resolved file. A root-owned path fails the delete loudly rather than being
+force-removed silently.

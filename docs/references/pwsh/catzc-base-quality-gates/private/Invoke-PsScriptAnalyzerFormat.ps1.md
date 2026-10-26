@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Invoke-PsScriptAnalyzerFormat.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The psscriptanalyzer formatter engine: it formats the given PowerShell files with the vendored analyzer's Invoke-Formatter and returns the
+files it changed. It is one Format-Code engine adapter.
 
 ## help
 
@@ -39,21 +39,13 @@ List the files that would change without writing them.
 `[object[]]` Absolute paths of the files changed (or, under -DryRun, that would change), and a `{ Path, Problem }` for each file the
 formatter throws on, so Format-Code names it as unfixable and the other files still run.
 
-## comment:1
+## Sharding
 
-Above `$shardCount = [Math]::Min([Math]::Max(1,...`, written with `#`.
+A cold pass spends about 40 ms a file resolving command names it has not seen, so a large batch is sharded across a few processes. The
+analyzer's initialization is not thread-safe, which is why the shards are processes, as in Get-ScriptAnalyzerDiagnostics. A small batch, the
+usual warm-cache one, stays in this session.
 
-```text
-A cold pass spends about 40 ms a file resolving command names it has not seen, so a large batch is sharded
-across a few processes (the analyzer's initialization is not thread-safe, as in Get-ScriptAnalyzerDiagnostics);
-a small batch, the usual warm-cache one, stays in this session.
-```
+## First use
 
-## comment:2
-
-Above `Write-Message 'Loading PSScriptAnalyzer (first use this session)...'`, written with `#`.
-
-```text
-First use this session pays the vendored-module import (several seconds) — announce it
-([ADR-AUTO-CONSOLE-ANNOUNCEBEFOREBLOCKING](/docs/drs/automation/console-output-matters.md#rule-adr-auto-console-announcebeforeblocking)).
-```
+The first use in a session pays the vendored-module import, which takes several seconds, so the engine announces it first
+([ADR-AUTO-CONSOLE-ANNOUNCEBEFOREBLOCKING](../../../../drs/automation/console-output-matters.md#rule-adr-auto-console-announcebeforeblocking)).

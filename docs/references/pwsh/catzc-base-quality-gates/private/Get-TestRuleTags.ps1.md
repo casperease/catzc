@@ -1,7 +1,6 @@
 # pwsh/Base.QualityGates/private/Get-TestRuleTags.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Returns the set of ADR rule citations a Pester test enforces: every `ADR-<CODE>#<n>` tag on the test and its ancestor blocks, unioned.
 
 ## help
 
@@ -26,21 +25,13 @@ A Pester test object (a discovery-pass test, or an item of $result.Tests). Its .
 
 `[string[]]` the distinct citations (e.g. 'ADR-PWSH-ERROR-THROWNOTWRITEERROR'), ordinally sorted (empty when none).
 
-## comment:1
+## Levels
 
-Above `$levels = [System.Collections.Generic.List[object]]::new()`, written with `#`.
+The tag levels are the test's own tags, then each ancestor block with the root excluded. It is the same walk Get-TestBlockTag makes, but it
+accumulates across every level instead of stopping at the first one that contributes. Provenance is a set, so a rule on a Describe and a
+rule on an inner It both hold.
 
-```text
-The tag levels to union: the test's own It-tags, then each ancestor block (root excluded) — the same walk
-Get-TestBlockTag makes, but accumulating across every level instead of stopping at the first that
-contributes, because provenance is a set (a Describe rule and an inner It rule both hold).
-```
+## Citation grammar
 
-## comment:2
-
-Above `if ($form.IsRule($tag)) {`, written with `#`.
-
-```text
-Strict, case-sensitive citation grammar: only a well-formed rule code contributes. A
-miscased or malformed tag is Get-TestTagViolations' concern, not a coverage row's.
-```
+The grammar is strict and case-sensitive: only a well-formed rule code contributes. A miscased or malformed tag is Get-TestTagViolations'
+concern, not a coverage row's.

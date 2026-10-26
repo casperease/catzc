@@ -1,15 +1,5 @@
 # pwsh/Base.Contracts/tests/Get-Contract.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
-
-## comment:1
-
-Above `Describe 'Get-Contract'`, written with `#`.
-
-```text
-Get-Contract lists contracts/<unit>/<version>/<module>/<path> and derives every fact from the asset's name and place
-([ADR-REPO-CONTRACT](/docs/drs/repository/api-contracts.md)): the target under the module's target root (#2), the kind
-from the suffix (#6), the direction from the convention and the version's contract.yml (#7), and the addressing mode
-from the config (#8). Fixtures are a widget repository in TestDrive.
-```
+Tests `Get-Contract`, which lists `contracts/<root>/<version>/<group>/<path>` and derives every fact from the asset's name and place
+([ADR-REPO-CONTRACT](../../../../drs/repository/api-contracts.md)): the target under the module's target root, the kind from the suffix, the
+direction from the convention, and the addressing from the version's `contract.yml`. Fixtures are a widget repository in `TestDrive:`.

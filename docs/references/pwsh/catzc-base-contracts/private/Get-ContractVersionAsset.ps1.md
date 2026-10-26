@@ -1,7 +1,7 @@
 # pwsh/Base.Contracts/private/Get-ContractVersionAsset.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The lister of one version folder's assets. It derives each asset's kind, group, direction and bound files from its name, place and the
+folder's contract.yml.
 
 ## help
 
@@ -46,11 +46,6 @@ group and only when the group holds one.
 Get-ContractVersionAsset -Root widget -Version 0.1.0 -Folder $versionFolder -RepositoryRoot $root
 ```
 
-## comment:1
+## tracked files
 
-Above `$tracked = @{ Paths = $null }`, written with `#`.
-
-```text
-The tracked files are listed only once an asset asks for its globs to be matched: nothing is enumerated
-speculatively.
-```
+The tracked files are listed only once an asset asks for its globs to be matched, so nothing is enumerated speculatively.

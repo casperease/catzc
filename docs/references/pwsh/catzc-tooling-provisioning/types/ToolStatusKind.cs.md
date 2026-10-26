@@ -1,13 +1,12 @@
 # pwsh/Tooling.Provisioning/types/ToolStatusKind.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+A tool's status relative to its `tools.yml` lock: the verdict of comparing what is installed against what is required. It is load-bearing:
+`Missing` and `WrongVersion` are hard failures, and `Usable` is only a hint to migrate.
 
-## comment:1
+## Members
 
-Above `namespace Catzc.Tooling.Provisioning;`, written with `//`.
-
-```text
-A tool's status relative to its tools.yml lock — the verdict of comparing what's installed against what
-is required. Load-bearing: Missing/WrongVersion are hard failures, Usable is a "migrate me" hint.
-```
+- **`OK`** — installed at the locked version, through the expected manager; nothing to do.
+- **`Usable`** — a usable version is installed, but not the way the lock wants it.
+- **`WrongVersion`** — installed at a version that does not satisfy the lock; a failure.
+- **`Missing`** — not installed at all; a failure.
+- **`Unwanted`** — installed but not wanted by the lock.

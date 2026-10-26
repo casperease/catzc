@@ -1,7 +1,6 @@
 # pwsh/Tooling.Toolchain/Install-Java.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The installer of Microsoft OpenJDK through the platform package manager, which also points `JAVA_HOME` at the install.
 
 ## help
 
@@ -34,11 +33,7 @@ Install-Java
 Install-Java -Version '21'
 ```
 
-## comment:1
+## JAVA_HOME
 
-Above `if ($env:JAVA_HOME -ne $javaHome) {`, written with `#`.
-
-```text
-Set for current session. Each change is announced where it happens, and only when it changes something
-([ADR-AUTO-CONSOLE-ANNOUNCELASTINGCHANGES](/docs/drs/automation/console-output-matters.md#rule-adr-auto-console-announcelastingchanges)).
-```
+`JAVA_HOME` is set for the current session. Each change is announced where it happens, and only when it changes something
+([ADR-AUTO-CONSOLE-ANNOUNCELASTINGCHANGES](../../../drs/automation/console-output-matters.md#rule-adr-auto-console-announcelastingchanges)).

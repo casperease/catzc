@@ -1,7 +1,7 @@
 # pwsh/Tooling.Provisioning/Get-ToolsStatus.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The status report of the dev box: for every tool `tools.yml` registers it compares what is installed with what the lock requires and returns
+one `ToolStatus` row per tool. It is read-only and the source of the verdicts that `Assert-DevBoxToolsStatus` and `Install-DevBoxTools` act on.
 
 ## help
 
@@ -26,72 +26,33 @@ Get-ToolsStatus
 Get-ToolsStatus | Where-Object Status -ne 'OK'
 ```
 
-## comment:1
+## Probing versions
 
-Above `$versionJobs = @{}`, written with `#`.
+Each version probe spawns a subprocess, so the probes run concurrently, and only for tools that are on PATH. A tool with declared candidate
+paths is located by the probe record (`Test-Tool -PassThru`) instead, because its bare name on PATH may not be the tool at all: `bash` on
+Windows can be the WSL launcher. The configured probe command line is split into executable and arguments with PowerShell's tokenizer, which
+honours quoted arguments such as PySpark's `-c "import pyspark; ..."`, so the probe runs through the call operator and never through
+`Invoke-Expression`.
 
-```text
-Parallel version probes — each spawns a subprocess, so run them concurrently.
-Only probe tools that are on PATH (missing tools skip the version check).
-A tool with declared candidate paths is located by the probe instead (Test-Tool -PassThru, below): its bare
-name on PATH may not be the tool at all (bash on Windows: the WSL launcher).
-```
+## Which tools are reported
 
-## comment:2
+A Windows-only tool such as winget is skipped off Windows, so it is not reported as Missing on macOS or Linux.
 
-Above `$tokens =...`, written with `#`.
+## The expected manager
 
-```text
-Split the configured version-probe command line into executable + args with PowerShell's
-tokenizer (it honours quoted arguments, e.g. pyspark's -c "import pyspark; ..."), so the
-probe runs via the call operator instead of Invoke-Expression.
-```
+The expected package manager follows the check order of `Test-ExpectedPackageManager`: system-provided, script install, MSYS2 package on
+Windows, uv, the platform-specific manager, pip, npm, MSYS2 package elsewhere, then unknown. An MSYS2 package installs on Windows only; on
+another platform the tool takes the manager its entry declares there (`apt_package` on Linux), and with none it is the system's.
 
-## comment:3
+## The verdict
 
-Above `if ($config.windows_only -and -not $IsWindows) {`, written with `#`.
+- **OK** — the right version under the right manager; the scope does not matter, so a machine-wide winget install of Python works and is
+  controlled.
+- **WrongVersion**, installed outside the expected manager — installing through the expected manager would succeed, but the existing binary
+  on the machine PATH would shadow it and the user would still run the old version.
 
-```text
-Windows-only tools (winget) do not exist elsewhere — skip them off Windows so they are not reported
-as Missing on macOS/Linux.
-```
+## Chocolatey
 
-## comment:4
-
-Above `$expectedManager = if ($config.system_provided) {`, written with `#`.
-
-```text
-Mirror Test-ExpectedPackageManager check order:
-SystemProvided → ScriptInstall → MSYS2 package (Windows) → uv → platform-specific → pip → npm → MSYS2
-package elsewhere → unknown. An MSYS2 package installs on Windows only; on another platform the tool takes
-the manager its entry declares there (apt_package on Linux), and with none it is the system's.
-```
-
-## comment:5
-
-Above `$status = 'OK'`, written with `#`.
-
-```text
-Right version, right manager — scope doesn't matter. If winget
-installed Python machine-wide, it works and we control it.
-```
-
-## comment:6
-
-Above `$status = 'WrongVersion'` (occurrence 2), written with `#`.
-
-```text
-Wrong version AND installed outside our manager. Installing via
-$expectedManager would succeed but the existing binary on Machine PATH
-would shadow it — the user would still run the old version.
-```
-
-## comment:7
-
-Above `if ($IsWindows -and (Test-Command choco)) {`, written with `#`.
-
-```text
-Chocolatey check — not a tools.yml tool, but a package manager
-that should not be present (see ADR: use-proper-package-managers).
-Only report if actually found — no noise when absent.
-```
+Chocolatey is not a `tools.yml` tool but a package manager that should not be present
+([ADR-AUTO-PKGMGR](../../../drs/automation/use-proper-package-managers.md)). It is reported only when actually found, so its absence makes no
+noise.

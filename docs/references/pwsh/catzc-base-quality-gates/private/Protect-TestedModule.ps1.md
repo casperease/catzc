@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Protect-TestedModule.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Promotes protection for every candidate unit that came back green from a Test-Automation run. It attributes the aggregated result rows to
+each unit, so a later run can skip a unit whose protection identity is unchanged.
 
 ## help
 

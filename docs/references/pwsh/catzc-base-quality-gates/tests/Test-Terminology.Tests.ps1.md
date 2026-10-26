@@ -1,13 +1,5 @@
 # pwsh/Base.QualityGates/tests/Test-Terminology.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
-
-## comment:1
-
-Above `Mock Get-Config -ModuleName Catzc.Base.QualityGates {`, written with `#`.
-
-```text
-Default happy path: config loads, dictionary is current, every term is referenced. Both mocks return the
-production shapes — the typed registry record and Build-TerminologyDictionary's per-category rows.
-```
+The L0 test of `Test-Terminology`. Its default happy path mocks `Get-Config` so that the config loads, the dictionary is current, and every
+term is referenced. Both mocks return the production shapes: the typed registry record, and the per-category rows of
+`Build-TerminologyDictionary`.

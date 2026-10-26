@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Assert-TestTagGate.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The gate that fails a test run when any discovered test is missing a mandatory tag or is ambiguous on one. It reads the discovery pass,
+which sees every test whatever the run's level, so a tag fault cannot hide behind a tier the run excludes.
 
 ## help
 

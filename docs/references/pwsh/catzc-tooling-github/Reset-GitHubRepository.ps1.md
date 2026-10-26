@@ -1,7 +1,8 @@
 # pwsh/Tooling.Github/Reset-GitHubRepository.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The command that hard-purges a GitHub repository: it deletes and recreates it, pushes the local history and verifies the result is
+token-free. Deleting the repository is the only way to erase a secret together with its remote objects. It stays a plan until armed with
+`-ConfirmRepo`, and its preflight is `Assert-GitHubPurgeReady`.
 
 ## help
 

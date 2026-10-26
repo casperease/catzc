@@ -1,21 +1,17 @@
 # pwsh/Base.QualityGates/tests/Test-Markdownlint.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The tests of `Test-Markdownlint`: a logic test that runs the real markdownlint over a fixture file, and an integrity block over the
+repository.
 
-## comment:1
+## Repository markdown integrity
 
-Above `Describe 'Repository markdown integrity'`, written with `#`.
+The integrity block proves that the actual repository markdown is lint-clean. Unlike the logic test, it binds to the real repository:
+`Test-Markdownlint` with no `-Path` scans its default content scope
+([ADR-AUTO-TEST-LOGICANDINTEGRITY](../../../../drs/automation/test-automation.md#rule-adr-auto-test-logicandintegrity)). It is L2 because it
+drives the markdownlint-cli2 CLI, and it self-skips when the CLI is absent
+([ADR-AUTO-TEST-TAGBYOUTERMOSTRING](../../../../drs/automation/test-automation.md#rule-adr-auto-test-tagbyoutermostring)).
 
-```text
-Integrity: the ACTUAL repository markdown is lint-clean. Unlike the logic test above (real markdownlint over
-a fixture file), this binds to the real repo — Test-Markdownlint with no -Path scans its default content
-scope ([ADR-AUTO-TEST-LOGICANDINTEGRITY](/docs/drs/automation/test-automation.md#rule-adr-auto-test-logicandintegrity)). L2 because it drives the
-markdownlint-cli2 CLI; self-skips when absent
-([ADR-AUTO-TEST-TAGBYOUTERMOSTRING](/docs/drs/automation/test-automation.md#rule-adr-auto-test-tagbyoutermostring)/9).
-Behind a protected glob ([ADR-REPO-PROTGLOB](/docs/drs/repository/protected-globs.md)): a repeat local run over an
-unchanged 'markdown-scope' globset (the
-scan's inputs — in-scope markdown plus the markdownlint config) is skipped; in a pipeline the protection
-is ignored and the scan always runs full. source-only: it reads the repository's markdown, which gives the same
-answer in both run modes.
-```
+The block sits behind a protected glob ([ADR-REPO-PROTGLOB](../../../../drs/repository/protected-globs.md)): a repeat local run over an
+unchanged `markdown-scope` globset, which holds the scan's inputs, the in-scope markdown plus the markdownlint config, is skipped. In a
+pipeline the protection is ignored and the scan always runs full. The block is source-only, because it reads the repository's markdown,
+which gives the same answer in both run modes.

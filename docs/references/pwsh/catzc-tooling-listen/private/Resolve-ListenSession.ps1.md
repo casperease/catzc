@@ -1,7 +1,6 @@
 # pwsh/Tooling.Listen/private/Resolve-ListenSession.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+A private helper of the listen module that finds the session folder every listen command works on: the one named, or the newest.
 
 ## help
 

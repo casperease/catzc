@@ -1,51 +1,25 @@
 # pwsh/Base.QualityGates/tests/Test-ScriptAnalyzer.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The test of the `Test-ScriptAnalyzer` gate, in a mocked L0 block and a real-analyzer L2 block.
 
-## comment:1
+## Mocked block
 
-Above `$script:targetFile = Join-Path $TestDrive 'subject.ps1'`, written with `#`.
+The block uses a real file in `$TestDrive`, so the `-Path` collection (`Resolve-Path`) resolves. The analysis helper is mocked, so the
+file's contents are irrelevant. The mock is the analysis boundary, the sharded background-job runner, and the unit test never runs the real,
+slow analyzer. `Start-Job` processes cannot see Pester mocks, so the seam is the helper and not the cmdlet inside it. The helper has its own
+L2 real-analyzer coverage. The mock is set once for the block, and each case sets `$script:diagnostics` for it to return.
 
-```text
-A real file so the -Path collection (Resolve-Path) resolves; the analysis helper is mocked, so the
-file's contents are irrelevant.
-```
+## Real analyzer
 
-## comment:2
+This block is the real-asset test of
+[ADR-AUTO-ASSETDEP-COVEREDBYREALTEST](../../../../drs/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-coveredbyrealtest).
+The gate runs over throwaway files with nothing mocked, so it reads the shipped settings file (`PSScriptAnalyzerSettings.psd1` under the
+code root's `.internal/assets`) and the vendored analyzer under the code root's `.vendor`. It is integrity and not source-only, so it runs
+in the source and the build run. The repository-wide check that all module code is analyzer-clean is the sharded L2 `PSScriptAnalyzer` test
+in `pwsh/.internal/tests`, and is not duplicated here. The block is greedy: the real analyzer fans out `Start-Job` pwsh processes of its
+own, stacked on the parallel pool that oversubscribes the box (see the greedy tag in the test-automation ADR).
 
-Above `Mock Get-ScriptAnalyzerDiagnostics -ModuleName Catzc.Base.QualityGates {...`, written with `#`.
-
-```text
-Mock the analysis boundary — the sharded background-job runner — never run the real (slow) analyzer
-in a unit test. (Start-Job processes cannot see Pester mocks, so the seam is the helper, not the
-cmdlet inside it; the helper has its own L2 real-analyzer coverage below.) Mocked once for the block:
-each case sets $script:diagnostics for the mock to return.
-```
-
-## comment:3
-
-Above `Describe 'Test-ScriptAnalyzer (real analyzer)'`, written with `#`.
-
-```text
-The real-asset test of
-[ADR-AUTO-ASSETDEP-COVEREDBYREALTEST](/docs/drs/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-coveredbyrealtest): the gate runs over
-throwaway files with nothing mocked, so it reads
-the shipped settings file (<code root>/.internal/assets/PSScriptAnalyzerSettings.psd1) and the vendored
-analyzer (<code root>/.vendor) — integrity, and not source-only, so it runs in the source and the build run.
-The repo-wide "all module code is analyzer-clean" check is the sharded L2 'PSScriptAnalyzer' test in
-pwsh/.internal/tests — not duplicated here.
-greedy: the real analyzer fans out Start-Job pwsh processes of its own — stacked on the parallel pool
-that oversubscribes the box (see the test-automation ADR's greedy tag).
-```
-
-## comment:4
-
-Above `It 'flags a real aliased-cmdlet violation and passes the clean fixture (real...`, written with `#`.
-
-```text
-One real-analyzer run over a clean + a violating file proves the boundary end-to-end: the real analyzer
-flags the aliased cmdlet with the repo rule set and reports the clean file as issue-free. The throw path
-(IssueCount > 0 without -PassThru) is pure Test-ScriptAnalyzer logic, covered by the mocked L0 block above;
-here -PassThru surfaces the real counts without re-spawning the analyzer shards a second time.
-```
+One real-analyzer run over a clean file and a violating file proves the boundary end to end. The real analyzer flags the aliased cmdlet with
+the repository rule set and reports the clean file as issue-free. The throw path (`IssueCount` above 0 without `-PassThru`) is pure
+`Test-ScriptAnalyzer` logic, covered by the mocked block. Here `-PassThru` surfaces the real counts without spawning the analyzer shards a
+second time.

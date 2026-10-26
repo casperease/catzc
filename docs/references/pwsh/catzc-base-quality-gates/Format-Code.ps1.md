@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/Format-Code.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The repository's formatter entry point: it formats the files in scope, each with the engine `languages.yml` names for its file language, and
+then runs the imprint steps that write derived heads and pages.
 
 ## help
 
@@ -77,47 +77,20 @@ Format-Code -Language markdown -Path docs/drs/principles
 (Format-Code -DryRun -PassThru).ChangedFiles
 ```
 
-## comment:1
+## Announcing
 
-Above `Write-Message "$verb $($pending.Count) $(@($engineGroup.Group |...`, written with `#`.
+A whole-repository pass is silent for seconds, so the command announces what it is about to format before the engine runs
+([ADR-AUTO-CONSOLE-ANNOUNCEBEFOREBLOCKING](../../../drs/automation/console-output-matters.md#rule-adr-auto-console-announcebeforeblocking)).
 
-```text
-Announce before the engine runs: a whole-repository pass takes seconds and prints nothing until it ends
-([ADR-AUTO-CONSOLE-ANNOUNCEBEFOREBLOCKING](/docs/drs/automation/console-output-matters.md#rule-adr-auto-console-announcebeforeblocking)).
-```
+## What is recorded
 
-## comment:2
+A file the engine left formatted is recorded as done. Under `-DryRun` a file the engine would still change is not recorded. When it writes,
+the engine has just formatted every file, so each is recorded under the key of its bytes now. A file a person must still repair is never
+recorded, so the next run reports it again.
 
-Above `if ($DryRun) {`, written with `#`.
+## Imprint steps
 
-```text
-A file the engine left formatted is recorded; under -DryRun a file it would still change is not. Writing,
-the engine has just formatted every file, so each is recorded under the key of its bytes now.
-```
-
-## comment:3
-
-Above `$inScope = @(if ($Language) {`, written with `#`.
-
-```text
-Imprint steps run after every formatter, so a step never works on text a formatter is about to rewrite: a global step runs over
-every language in scope, a language's own step over that language only.
-```
-
-## comment:4
-
-Above `$stepCachePath = Join-Path (Get-OutputRoot) "cache/format-code-$step.json"`, written with `#`.
-
-```text
-A step has its own cache file: one file passes through an engine and several steps, and the cache keeps one
-slot per file.
-```
-
-## comment:5
-
-Above `$stamps = @{}`, written with `#`.
-
-```text
-The plan-counts step's verdict reads the open steps of the plans beside each overlay, so their counts join
-its key.
-```
+Imprint steps run after every formatter, so a step never works on text a formatter is about to rewrite. A global step runs over every
+language in scope, and a language's own step runs over that language only. Each step has its own cache file, `cache/format-code-<step>.json`
+under the output root, because one file passes through an engine and several steps and a cache keeps one slot per file. Some steps read more
+than the file: the plan-counts step's verdict reads the open steps of the plans beside each overlay, so those counts join its key.

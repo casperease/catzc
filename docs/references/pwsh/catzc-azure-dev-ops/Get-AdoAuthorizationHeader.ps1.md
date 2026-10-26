@@ -1,7 +1,7 @@
 # pwsh/Azure.DevOps/Get-AdoAuthorizationHeader.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The one function that returns the Authorization header for Azure DevOps REST calls. Every caller takes its header here
+([ADR-ADO-AUTH-SEPARATETOKENFUNCTION](../../../drs/ado/dual-authentication.md#rule-adr-ado-auth-separatetokenfunction)).
 
 ## help
 
@@ -34,42 +34,28 @@ $headers = Get-AdoAuthorizationHeader
 Invoke-RestMethod -Uri $url -Headers $headers
 ```
 
-## comment:1
+## Credential sources
 
-Above `Assert-AzCliConnected -TenantId (Get-Config -Config ado).tenant`, written with `#`.
+The sources run in a fixed order, the first that applies winning
+([ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE](../../../drs/ado/dual-authentication.md#rule-adr-ado-auth-fixedcredentialprecedence)):
 
-```text
-Prove the az session is in the Entra directory that backs the org before minting a token.
-(tenant is a required, validated key — the AdoConfig type guarantees it on load.)
-```
+1. The pipeline's system token, when the run is detected as a pipeline run
+   ([ADR-ADO-AUTH-EXPLICITDETECTION](../../../drs/ado/dual-authentication.md#rule-adr-ado-auth-explicitdetection)) and `SYSTEM_ACCESSTOKEN`
+   is set. The token is the one the templates map in
+   ([ADR-ADO-AUTH-TEMPLATESMAPSYSTEMTOKEN](../../../drs/ado/dual-authentication.md#rule-adr-ado-auth-templatesmapsystemtoken)).
+2. A personal access token from `AZURE_DEVOPS_PAT`.
+3. An Entra token minted through `az account get-access-token` for the Azure DevOps resource.
 
-## comment:2
+## Proving the target
 
-Above `if ((Test-IsRunningInPipeline) -and $env:SYSTEM_ACCESSTOKEN) {`, written with `#`.
+The agent token is scoped to the organization the pipeline runs in, so the function proves that organization is the configured one before it
+returns the header, and refuses the token for a different organization
+([ADR-ADO-AUTH-PROVETARGET](../../../drs/ado/dual-authentication.md#rule-adr-ado-auth-provetarget)). The az fallback proves the session
+sits in the Entra directory that backs the organization (`tenant` in `ado.yml`, a required key the config type checks on load) before it
+mints a token.
 
-```text
-Every caller takes its header here
-([ADR-ADO-AUTH-SEPARATETOKENFUNCTION](/docs/drs/ado/dual-authentication.md#rule-adr-ado-auth-separatetokenfunction)), the sources in a fixed order ([ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE](/docs/drs/ado/dual-authentication.md#rule-adr-ado-auth-fixedcredentialprecedence)).
-The pipeline is detected explicitly
-([ADR-ADO-AUTH-EXPLICITDETECTION](/docs/drs/ado/dual-authentication.md#rule-adr-ado-auth-explicitdetection)); its
-token is the mapped one
-([ADR-ADO-AUTH-TEMPLATESMAPSYSTEMTOKEN](/docs/drs/ado/dual-authentication.md#rule-adr-ado-auth-templatesmapsystemtoken)).
-```
+## When no token is found
 
-## comment:3
-
-Above `$collectionUri = "$env:SYSTEM_COLLECTIONURI".TrimEnd('/')`, written with `#`.
-
-```text
-The agent token is scoped to the org the pipeline runs in — prove that is the configured org
-([ADR-ADO-AUTH-PROVETARGET](/docs/drs/ado/dual-authentication.md#rule-adr-ado-auth-provetarget)).
-```
-
-## comment:4
-
-Above `$result = Invoke-AzCli "account get-access-token --resource $ResourceUrl...`, written with `#`.
-
-```text
-The last source yields a token or says how to get one
-([ADR-ADO-AUTH-ASSERTWHENNOTOKEN](/docs/drs/ado/dual-authentication.md#rule-adr-ado-auth-assertwhennotoken)).
-```
+The last source yields a token or says how to get one: with none available the function throws and names both fixes, `AZURE_DEVOPS_PAT` or
+`Connect-AzCli`
+([ADR-ADO-AUTH-ASSERTWHENNOTOKEN](../../../drs/ado/dual-authentication.md#rule-adr-ado-auth-assertwhennotoken)).

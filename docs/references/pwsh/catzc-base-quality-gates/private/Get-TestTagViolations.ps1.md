@@ -1,7 +1,6 @@
 # pwsh/Base.QualityGates/private/Get-TestTagViolations.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Lists every Pester test that is missing a required tag axis, or ambiguous on one.
 
 ## help
 
@@ -28,22 +27,14 @@ tier and one category tag, and that any rule citation it carries is real. See th
 
 The discovery-only Pester run object (Get-TestDiscovery output) whose tests are inspected.
 
-## comment:1
+## Rule ids
 
-Above `$validRuleIds = $null`, written with `#`.
+The authoritative rule-id set is resolved once, on the first well-formed citation, and reused across tests; Get-CatsDrsRuleIds is itself
+session-cached. Until then the set stays `$null`, so a run whose tests carry no citation never reads the shipped ADR tree, which keeps these
+logic tests hermetic. The ids are in registry form, with a colon.
 
-```text
-The authoritative rule-id set, resolved once on the first well-formed citation and reused across tests
-(Get-CatsDrsRuleIds is itself session-cached). Left $null until then so a run whose tests carry no
-citation never reads the shipped ADR tree — keeping these logic tests hermetic. Registry (':') form.
-```
+## Provenance axis
 
-## comment:2
-
-Above `$candidates =...`, written with `#`.
-
-```text
-Provenance axis (optional): collect every candidate citation — any tag carrying the reserved 'ADR-'
-marker — across the block chain (own It-tags + ancestor blocks, root excluded), then classify each.
-A malformed candidate never needs the rule-id set; a well-formed one triggers its lazy resolution.
-```
+The provenance axis is optional. Every candidate citation, meaning any tag carrying the reserved `ADR-` marker, is collected across the
+block chain (the test's own tags plus its ancestor blocks, root excluded), and each is then classified. A malformed candidate never needs
+the rule-id set, and a well-formed one triggers its lazy resolution.

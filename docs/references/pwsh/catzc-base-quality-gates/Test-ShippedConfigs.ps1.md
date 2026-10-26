@@ -1,7 +1,6 @@
 # pwsh/Base.QualityGates/Test-ShippedConfigs.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The gate over shipped configs: it checks that every shipped config has a registered config type and loads through it.
 
 ## help
 
@@ -40,11 +39,7 @@ Return the result ({ Subject; IssueCount; Issues; ReportPath; Configs; Types }) 
 Test-ShippedConfigs
 ```
 
-## comment:1
+## Defaults
 
-Above `$raw = if ($isFolder) {`, written with `#`.
-
-```text
-The shipped file shows the defaults its type declares; a key may differ only with its reason in
-configs.yml ([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/drs/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)).
-```
+The shipped file shows the defaults its type declares. A key may differ from the default only with its reason in `configs.yml`
+([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../../../drs/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)).

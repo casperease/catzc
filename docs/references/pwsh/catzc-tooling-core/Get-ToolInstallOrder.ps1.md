@@ -1,7 +1,6 @@
 # pwsh/Tooling.Core/Get-ToolInstallOrder.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The sorter that puts the tools of `tools.yml` in dependency-safe install order, dependencies first, and throws on a cycle.
 
 ## help
 
@@ -21,21 +20,12 @@ Get-ToolInstallOrder
 # Returns @('python', 'java', 'dotnet', 'node_js', 'terraform', 'poetry', 'az_cli', 'py_spark')
 ```
 
-## comment:1
+## Algorithm
 
-Above `$dependency = $allTools[$name]['depends_on']`, written with `#`.
+The sort is Kahn's algorithm. If A depends on B, B must be installed first, so the edge runs B to A. A tool's in-degree is the number of
+edges pointing at it, which is the count of its own `depends_on` entries, and a tool with no dependencies starts in the ready queue.
 
-```text
-depends_on is optional: index it (a dotted read of an absent key throws under strict), and keep the
-value an array — an if-expression would unroll a one-item list to a scalar
-```
+## Optional depends_on
 
-## comment:2
-
-Above `$inDegree = @{}`, written with `#`.
-
-```text
-Kahn's algorithm for install order: if A depends on B, B must be installed first, so the edge runs B → A.
-A tool's in-degree is therefore the number of edges pointing at it, which is the count of its own depends_on
-entries, and a tool with no dependencies starts in the ready queue.
-```
+`depends_on` is optional. The code indexes it, since a dotted read of an absent key throws under strict mode, and keeps the value an array,
+since an `if` expression would unroll a one-item list to a scalar.

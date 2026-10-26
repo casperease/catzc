@@ -1,7 +1,7 @@
 # pwsh/Tooling.Provisioning/Uninstall-Chocolatey.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The remover of Chocolatey, a package manager this toolset does not use ([ADR-AUTO-PKGMGR](../../../drs/automation/use-proper-package-managers.md)).
+`Install-DevBoxTools` runs it first.
 
 ## help
 
@@ -20,20 +20,8 @@ immediately on other platforms.
 Uninstall-Chocolatey
 ```
 
-## comment:1
+## Environment and PATH
 
-Above `Set-PermanentEnvironmentVariable ChocolateyInstall $null -Scope Machine`, written with `#`.
-
-```text
-Remove environment variable
-the seam announces each removal, and does nothing in a scope where the variable is not set
-```
-
-## comment:2
-
-Above `foreach ($scope in 'Machine', 'User') {`, written with `#`.
-
-```text
-Remove Chocolatey from PATH — through the PATH seams, which announce the change
-([ADR-AUTO-TEST-SYSTEMTESTSATLTHREE](/docs/drs/automation/test-automation.md#rule-adr-auto-test-systemtestsatlthree))
-```
+The `ChocolateyInstall` variable is removed through `Set-PermanentEnvironmentVariable`; the seam announces each removal and does nothing in a
+scope where the variable is not set. Chocolatey leaves the machine and user PATH through the PATH seams, which announce the change
+([ADR-AUTO-TEST-SYSTEMTESTSATLTHREE](../../../drs/automation/test-automation.md#rule-adr-auto-test-systemtestsatlthree)).

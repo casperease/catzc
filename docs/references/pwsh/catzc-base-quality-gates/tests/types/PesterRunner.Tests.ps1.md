@@ -1,54 +1,17 @@
 # pwsh/Base.QualityGates/tests/types/PesterRunner.Tests.ps1
 
-<!-- cspell:ignore nexit -->
+The test of the `PesterRunner` type. Its `execution` context runs real pwsh worker pools of its own, so it is greedy: they stack on the
+parallel pool, which oversubscribes the box (see the greedy tag in the test-automation ADR).
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+## Execution cases
 
-## comment:1
+Each worker's wall-clock timing is checked: it started at or after the pool's start and ran for a measured duration. Reap-loop granularity
+means the values are small and never negative. The start time is checked through the watch's own tolerant comparison, not textually, because
+on Linux it can differ by milliseconds between reads.
 
-Above `Context 'execution (real pwsh workers)' -Tag 'L2', 'greedy' {`, written with `#`.
+The concurrency case has each worker drop its own marker and then wait for the other's marker. Only a genuinely concurrent pool lets both
+exit 0, because a serial pool would spin out and exit 9. The case has no timing assertions, so the proof cannot flake on a slow machine.
 
-```text
-greedy: runs real pwsh worker pools of its own — stacked on the parallel pool that
-oversubscribes the box (see the test-automation ADR's greedy tag).
-```
-
-## comment:2
-
-Above `foreach ($result in $runner.Results) {`, written with `#`.
-
-```text
-Wall-clock timing per worker: started at/after the pool's start, ran for a measured duration
-(reap-loop granularity means small, never negative, values).
-```
-
-## comment:3
-
-Above `$firstMarker = Join-Path $TestDrive 'first.marker'`, written with `#`.
-
-```text
-Each worker drops its own marker, then waits for the OTHER's marker: only a genuinely
-concurrent pool lets both exit 0 — a serial pool would spin out and exit 9. No timing
-assertions, so the proof cannot flake on a slow machine.
-```
-
-## comment:4
-
-Above `$fastDone = Join-Path $TestDrive 'fast-done.marker'`, written with `#`.
-
-```text
-Worker 0 is live but slow; worker 1 finishes first and must buffer. The pooled console
-output still reads in submission order. Console.Out is redirected to observe it —
-SetOut redirection survives the runner's OutputEncoding save/restore. A file handshake,
-not a sleep, makes worker 0 wait until worker 1 has written its output (exit 9 on a stall).
-```
-
-## comment:5
-
-Above `$runner.Results[0].Stdout -match "pid=$PID start=(\d+)" | Should -BeTrue...`, written with `#`.
-
-```text
-The start time is checked through the watch's own tolerant comparison, not textually — on Linux it
-can differ by milliseconds between reads.
-```
+The ordering case has worker 0 live but slow, while worker 1 finishes first and must buffer. The pooled console output still reads in
+submission order. The test redirects `Console.Out` to observe it, since `SetOut` redirection survives the runner's `OutputEncoding` save and
+restore. A file handshake, not a sleep, makes worker 0 wait until worker 1 has written its output, and exits 9 on a stall.

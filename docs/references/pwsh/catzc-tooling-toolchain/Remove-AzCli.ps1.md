@@ -1,7 +1,7 @@
 # pwsh/Tooling.Toolchain/Remove-AzCli.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The destructive removal of an Azure CLI the tooling system does not manage, so that the managed uv-venv build can win. It is the escalation
+step behind `Uninstall-AzCli -Remove`.
 
 ## help
 
@@ -52,22 +52,13 @@ Remove-AzCli -Force
 Remove-AzCli -InstallDir 'C:\Program Files (x86)\Microsoft SDKs\Azure\CLI2' -Force
 ```
 
-## comment:1
+## When it refuses
 
-Above `if (Test-ExpectedPackageManager -Config $config) {`, written with `#`.
+An install the tooling system manages is refused and the caller is sent to `Uninstall-AzCli`
+([ADR-AUTO-REMOVE-REMOVEREFUSESMANAGED](../../../drs/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-removerefusesmanaged)).
 
-```text
-Gate: managed by our tooling system → refuse, redirect to Uninstall-AzCli
-([ADR-AUTO-REMOVE-REMOVEREFUSESMANAGED](/docs/drs/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-removerefusesmanaged)).
-```
+## Unix
 
-## comment:2
-
-Above `if ($IsLinux -or $IsMacOS) {`, written with `#`.
-
-```text
-Unix: evict an off-config install by the mechanism that placed it (native package manager / uv-Python pip
-/ stray binary); elevation is scoped to the mechanism
-([ADR-AUTO-REMOVE-ELEVATIONFOLLOWSMECHANISM](/docs/drs/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-elevationfollowsmechanism)), so no admin assert
-here.
-```
+An off-config install is evicted by the mechanism that placed it: a native package manager, a uv-Python pip, or a stray binary. Elevation is
+that mechanism's and is never asserted up front
+([ADR-AUTO-REMOVE-ELEVATIONFOLLOWSMECHANISM](../../../drs/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-elevationfollowsmechanism)).

@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/Test-ShellScripts.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The shell script gate: every shell script the repository holds must have LF line endings and the executable bit where it needs one, and it
+must pass ShellCheck, or zsh's own syntax check for a zsh script.
 
 ## help
 
@@ -67,39 +67,18 @@ Test-ShellScripts
 (Test-ShellScripts -PassThru).Issues
 ```
 
-## comment:1
+## Executable bit
 
-Above `$shebang = $bytes.Length -ge 2 -and $bytes[0] -eq 35 -and $bytes[1] -eq 33`, written with `#`.
+A script with a shebang is meant to run directly, which on Unix needs the executable bit in git. A sourced file (`importer.sh`, which has a
+shellcheck directive instead of a shebang) does not.
 
-```text
-A script with a shebang is meant to run directly, which on Unix needs the executable bit in git; a sourced file
-(importer.sh, a shellcheck directive instead of a shebang) does not.
-```
+## ShellCheck
 
-## comment:2
+`--format=gcc` prints one `<file>:<line>:<column>: <severity>: <message> [SC<code>]` line per finding. Exit 1 means findings, and anything
+above it means ShellCheck itself failed.
 
-Above ``$check = Invoke-Executable "`"$($shellcheck.Path)`" --format=gcc...``, written with `#`.
+## zsh
 
-```text
---format=gcc prints one '<file>:<line>:<column>: <severity>: <message> [SC<code>]' line per finding; exit 1
-means findings, anything above it means ShellCheck itself failed.
-```
-
-## comment:3
-
-Above `if ($zshScripts.Count -gt 0) {`, written with `#`.
-
-```text
-ShellCheck does not read zsh, so a *.zsh file takes zsh's own syntax check: -n parses without running (NO_EXEC), -f
-skips the startup files. zsh checks one script per call; exit 1 means a parse error, anything above it means zsh
-could not check the file.
-```
-
-## comment:4
-
-Above `$issue = if ($line.StartsWith("${script}:",...`, written with `#`.
-
-```text
-zsh names the file as it was given ('<file>:<line>: <message>'); a line without it gets the file
-prefixed.
-```
+ShellCheck does not read zsh, so a `*.zsh` file takes zsh's own syntax check. `-n` parses without running (`NO_EXEC`) and `-f` skips the
+startup files. zsh checks one script per call. Exit 1 means a parse error, and anything above it means zsh could not check the file. zsh
+names the file as it was given (`<file>:<line>: <message>`), and a line without it gets the file prefixed.

@@ -1,38 +1,22 @@
 # pwsh/Tooling.Core/tests/Get-ToolInstallOrder.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The L0 tests of `Get-ToolInstallOrder`, in two parts: the sorting algorithm over a controlled graph, and the invariants of the shipped
+`tools.yml`.
 
-## comment:1
+## The algorithm
 
-Above `It 'orders every dependency before its dependents (diamond + independent...`, written with `#`.
+The sort is isolated from the shipped `tools.yml` by mocking the config seam to a controlled graph. That verifies the algorithm,
+dependencies before dependents, a diamond, an independent root and cycle detection, and never the production tool set
+([ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS](../../../../drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-isolatethroughseams),
+[ADR-PWSH-PESTER-MOCKMODULEBOUNDARIES](../../../../drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-mockmoduleboundaries)). The
+names `base`, `mid1`, `mid2`, `top` and `lone` are fixture identities
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)), so
+nothing here binds to a real tool name.
 
-```text
-Isolate the sort from the shipped tools.yml by mocking the config seam to a controlled graph: this
-verifies the ALGORITHM (dependencies-before-dependents, a diamond, an independent root, and cycle
-detection), never the production tool set
-([ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS](/docs/drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-isolatethroughseams)/[ADR-PWSH-PESTER-MOCKMODULEBOUNDARIES](/docs/drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-mockmoduleboundaries)). 'base/mid1/mid2/top/lone' are fixture
-identities ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)) — nothing here
-binds to a real tool name.
-```
+## The shipped set
 
-## comment:2
-
-Above `BeforeAll {`, written with `#`.
-
-```text
-Binds to the shipped config as a SET, asserting invariants that hold for every tool — never a
-specific tool name or a hardcoded pairing
-([ADR-AUTO-TEST-GENERICTEMPLATETESTS](/docs/drs/automation/test-automation.md#rule-adr-auto-test-generictemplatetests)). The ordering algorithm
-itself is proven by the
-logic Context above.
-```
-
-## comment:3
-
-Above `$script:allTools = Get-Content (Get-Config -Config tools -ListOwners).Path...`, written with `#`.
-
-```text
-The shipped file wherever its owning module keeps it (Catzc.Base.Execution), read raw so the set
-compared against is the YAML itself, not the typed model Get-ToolInstallOrder reads.
-```
+The second part binds to the shipped config as a set and asserts invariants that hold for every tool, never a specific tool name or a
+hardcoded pairing
+([ADR-AUTO-TEST-GENERICTEMPLATETESTS](../../../../drs/automation/test-automation.md#rule-adr-auto-test-generictemplatetests)). The file is
+read raw, wherever its owning module (Catzc.Base.Execution) keeps it, so the set compared against is the YAML itself, not the typed model
+`Get-ToolInstallOrder` reads.

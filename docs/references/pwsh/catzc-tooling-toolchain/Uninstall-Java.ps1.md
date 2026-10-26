@@ -1,7 +1,7 @@
 # pwsh/Tooling.Toolchain/Uninstall-Java.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The uninstaller of Java through the platform package manager, the counterpart of `Install-Java`, and the entry of the removal escalation for
+a Java the manager does not own.
 
 ## help
 
@@ -41,22 +41,13 @@ Uninstall-Java
 Uninstall-Java -Remove -Force
 ```
 
-## comment:1
+## Failure of the managed uninstall
 
-Above `try {`, written with `#`.
+The managed uninstall is best effort. With `-Remove` a failure is logged and the escalation proceeds; without `-Remove` it propagates
+([ADR-AUTO-ONEJOB-CALLERHANDLESERRORS](../../../drs/automation/single-responsibility-functions.md#rule-adr-auto-onejob-callerhandleserrors),
+[ADR-AUTO-REMOVE-ONECALLESCALATION](../../../drs/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-onecallescalation)).
 
-```text
-Managed uninstall best-effort; with -Remove a failure is logged and the escalation proceeds, without
--Remove it propagates ([ADR-AUTO-ONEJOB-CALLERHANDLESERRORS](/docs/drs/automation/single-responsibility-functions.md#rule-adr-auto-onejob-callerhandleserrors),
-[ADR-AUTO-REMOVE-ONECALLESCALATION](/docs/drs/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-onecallescalation)).
-```
+## JAVA_HOME
 
-## comment:2
-
-Above `if ($env:JAVA_HOME) {`, written with `#`.
-
-```text
-Clean up JAVA_HOME. Each removal is announced where it happens, and only when there was something to
-remove
-([ADR-AUTO-CONSOLE-ANNOUNCELASTINGCHANGES](/docs/drs/automation/console-output-matters.md#rule-adr-auto-console-announcelastingchanges)).
-```
+`JAVA_HOME` is cleaned up. Each removal is announced where it happens, and only when there was something to remove
+([ADR-AUTO-CONSOLE-ANNOUNCELASTINGCHANGES](../../../drs/automation/console-output-matters.md#rule-adr-auto-console-announcelastingchanges)).

@@ -1,7 +1,6 @@
 # pwsh/Tooling.Core/Install-UvVenvTool.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The installer of a CLI into a venv of its own, for a launcher that expects `python.exe` beside it.
 
 ## help
 
@@ -29,22 +28,13 @@ Version override. Defaults to the tool's locked version in tools.yml (Get-ToolCo
 
 Rebuild the venv from scratch even when the tool is already present.
 
-## comment:1
+## The venv
 
-Above ``Invoke-Uv "venv `"$venvDir`" --python $pythonVersion --clear --seed"``, written with `#`.
+`--clear` rebuilds the venv clean, and `--seed` adds pip, setuptools and wheel so packages that expect `pkg_resources`, such as azure-cli's
+azure-devops extension, can load.
 
-```text
---clear rebuilds the venv clean; --seed adds pip/setuptools/wheel so packages that expect `pkg_resources`
-(azure-cli's azure-devops extension) can load.
-```
+## PATH
 
-## comment:2
-
-Above `if (($env:PATH -split [System.IO.Path]::PathSeparator) -notcontains...`, written with `#`.
-
-```text
-APPEND the venv's script directory to PATH (the janitor keeps it there each load via session_path_hints).
-Append, not prepend: the venv's Scripts dir also holds its own python.exe, and prepending would shadow the
-uv-managed `python` on ~/.local/bin. The tool's command resolves from here because nothing earlier provides
-it, while `python` stays the managed interpreter.
-```
+The venv's script directory is appended to PATH, and `session_path_hints` keeps it there on each load. It is appended, not prepended,
+because the directory also holds its own `python.exe`, and prepending would shadow the uv-managed `python` on `~/.local/bin`. The tool's
+command still resolves from there because nothing earlier provides it.

@@ -1,7 +1,6 @@
 # pwsh/Azure.Firewall/private/Get-FirewallMarkdownTable.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The private function that renders the Markdown rule table, the header and the rows, for `Convert-FirewallCsvToMarkdown`.
 
 ## help
 
@@ -49,61 +48,24 @@ Keep full IP-group resource IDs instead of trimming to the simple name.
 
 `[string]` The Markdown table block (header, separator, and one line per row).
 
-## comment:1
+## Protocols and ports
 
-Above `$protocols = @()`, written with `#`.
+Protocols are paired with their ports as `protocols:ports`, for example `TCP/UDP:53, 8053`. An application rule carries its port inside the
+protocol already and has no port field, so it passes through unpaired.
 
-```text
-Pair protocols with ports as "protocols:ports" (e.g. TCP/UDP:53, 8053). App rules
-carry the port inside Protocols already and have no port field, so they pass through.
-```
+## Value order
 
-## comment:2
+Values are gathered per candidate and kept in candidate (group) order, because a rule may fill several candidates, for example IP groups
+and addresses, and the firewall unions them group by group. For a sorted composite column this gives a two-level order: by group, then
+sorted within the group.
 
-Above `$values = foreach ($candidate in $column.Candidates) {`, written with `#`.
+## Code spans
 
-```text
-Gather values per candidate, preserving candidate (group) order. A rule can populate
-more than one candidate (e.g. IP groups and addresses); the firewall unions them.
-For sorted composites this gives two-level ordering: by group, then sorted within group.
-```
+A cell is wrapped in backticks where Markdown would mangle it, so a rule value renders exactly as the firewall holds it:
 
-## comment:3
+- `*` or `_` at a whitespace boundary reads as emphasis. The cell start and end count, since `| value |` pads with spaces. An intra-word
+  `_`, as in `Allow_Web`, is safe and stays clean.
+- A URL scheme or a `domain.tld` shape trips markdownlint MD034 (bare URL) and auto-linking. That covers FQDNs, wildcards and `www`; IPs,
+  CIDRs, ports, tags and categories do not match.
 
-Above `if ($cell -match...`, written with `#`.
-
-```text
-Wrap a cell in backticks when Markdown would mangle it:
- - * or _ at a whitespace boundary (cell start/end count, since "| value |" pads with spaces)
-   -> emphasis. Intra-word _ (Allow_Web) is safe and stays clean.
- - a URL scheme or a domain.tld shape -> markdownlint MD034 (bare URL) and auto-linking.
-   Covers FQDNs/wildcards/www; IPs, CIDRs, ports, tags, and categories don't match.
 A code span is exactly MD034's recommended fix for a bare URL.
-```
-
-## comment:4
-
-Above `$protocols = @()`, written with `#`.
-
-```text
-Protocols paired with their ports; an application rule carries its port inside the protocol already,
-so it passes through.
-```
-
-## comment:5
-
-Above `$values = foreach ($candidate in $column.Candidates) {`, written with `#`.
-
-```text
-Values kept in candidate order, because a rule may fill several and the firewall unions them group by
-group.
-```
-
-## comment:6
-
-Above `if ($cell -match...`, written with `#`.
-
-```text
-A code span where Markdown would read emphasis or a bare URL, so a rule value renders exactly as the
-firewall holds it.
-```

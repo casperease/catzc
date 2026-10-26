@@ -1,30 +1,18 @@
 # pwsh/Base.QualityGates/types/SourceConventionsConfig.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The typed record for `configs/source-conventions.yml`: the source checks `Test-SourceConventions` runs beside its naming and one-function
+conventions, and the single declaration of their sensible defaults
+([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../../../../drs/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)). An
+omitted check takes every default of its type: gate mode, nothing exempt, no phrases. Property names mirror the YAML keys, snake_case
+([ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](../../../../drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
 
-## comment:1
+## Checks
 
-Above `using System;`, written with `//`.
-
-```text
-The source checks Test-SourceConventions runs beside its naming and one-function conventions
-(configs/source-conventions.yml), and the single declaration of their sensible defaults
-([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/drs/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)):
-  engine_set    — the engine set is never restated: no literal engine list in code, no partial or miscounted engine
-                  set in prose ([ADR-AUTO-ENGINE-THREEENGINES](/docs/drs/automation/execution-engines.md#rule-adr-auto-engine-threeengines));
-                  an EngineSetCheck
-  neutral_codes — a logic (L0) test's fixture data uses neutral ADR codes, never a code the ADR index declares
-                  ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)); a SourceCheck
-An omitted check takes every default of its type: gate mode, nothing exempt, no phrases. Property names mirror the
-YAML keys (snake_case, [ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
-```
-
-## comment:2
-
-Above `public SourceCheck track_root_literal { get; }`, written with `//`.
-
-```text
-The files that may spell the modules track's place, each with its reason; the analyzer rule NoTrackRootLiteral reads it
-([ADR-AUTO-LAYERS](/docs/drs/automation/layers.md)).
-```
+- **`engine_set`** — the engine set is never restated: no literal engine list in code, no partial or miscounted engine set in prose
+  ([ADR-AUTO-ENGINE-THREEENGINES](../../../../drs/automation/execution-engines.md#rule-adr-auto-engine-threeengines)). It is an
+  `EngineSetCheck`.
+- **`neutral_codes`** — a logic (L0) test's fixture data uses neutral ADR codes, never a code the ADR index declares
+  ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+  It is a `SourceCheck`.
+- **`track_root_literal`** — the files that may spell the modules track's place, each with its reason. The analyzer rule
+  `NoTrackRootLiteral` reads it ([ADR-AUTO-LAYERS](../../../../drs/automation/layers.md)). It is a `SourceCheck`.

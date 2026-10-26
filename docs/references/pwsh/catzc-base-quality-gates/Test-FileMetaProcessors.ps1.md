@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/Test-FileMetaProcessors.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The processor check: every meta kind must resolve to a processor function, and every convention-named processor function must belong to a
+kind.
 
 ## help
 

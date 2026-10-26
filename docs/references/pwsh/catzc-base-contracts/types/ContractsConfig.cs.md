@@ -1,15 +1,15 @@
 # pwsh/Base.Contracts/types/ContractsConfig.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The typed record for the contracts config: how a contract group folder is named, and nothing else. Contracts are addressed by root, version,
+group and file (`ContractLayout`), never by a mode set here.
 
-## comment:1
+## Keys
 
-Above `public sealed class ContractsConfig`, written with `//`.
+Under `groups`:
 
-```text
-How a contract group folder is named, and nothing else: contracts are addressed by root, version, group and file
-(ContractLayout), never by a mode set here. A group is the module's track and its folder in the normal form
-(pwsh.base.vs_code for Catzc.Base.VSCode); an exception names one module's group outright, for the rare module the
-rule names wrongly.
-```
+- **`form`** — how a group is built. The one form, `track_module`, is the module's track and its folder in the normal form, so
+  `Catzc.Base.VSCode` has the group `pwsh.base.vs_code`.
+- **`exceptions`** — a map of a module's full name to its group, for the rare module the form names wrongly.
+
+Construction collects every violation into one `ArgumentException`, so an unknown key fails at load. `GroupOf` answers the group of a module
+and `ExceptionModuleOf` the module an exception names for a group.

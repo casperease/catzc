@@ -1,7 +1,7 @@
 # pwsh/Azure.DevOps/Get-AdoYamlFiles.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The function that scans a directory for YAML files and classifies each as Pipeline, Template or Unknown, returning one file record per
+file.
 
 ## help
 
@@ -37,21 +37,13 @@ Get-AdoYamlFiles -Path 'C:\repos\big-mono'
 Get-AdoYamlFiles -Path 'C:\repos\big-mono' -Depth 3
 ```
 
-## comment:1
+## The walk
 
-Above `$counter = @{ i = 0 }`, written with `#`.
+The scan uses the bounded folder walker, which prunes the folders the folder-walk config excludes (`.git`, `node_modules`, `out`,
+`.terraform`, `.ruff_cache` and `.venv` in the shipped config). The depth is the inventory's own.
 
-```text
-ADO template expressions (${{ if }}, ${{ each }}, ${{ parameters.x }})
-are not valid YAML. Neutralize them so the parser can extract top-level keys.
-Each replacement must be unique to avoid duplicate-key errors.
-```
+## Template expressions
 
-## comment:2
-
-Above `$ret = @(Get-ChildPath $scanRoot -File -Filter '*.yml', '*.yaml' -Depth $Depth)`, written with `#`.
-
-```text
-The bounded walker prunes the folder-walk config's folders (.git, node_modules, .terraform, …); the depth is the
-inventory's.
-```
+ADO template expressions (`${{ if }}`, `${{ each }}`, `${{ parameters.x }}`) are not valid YAML. Before parsing, each is replaced by a
+token so the parser can still extract the top-level keys. Every replacement is unique, because identical ones would collide as duplicate
+keys.

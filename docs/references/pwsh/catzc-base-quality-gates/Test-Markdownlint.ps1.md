@@ -1,7 +1,6 @@
 # pwsh/Base.QualityGates/Test-Markdownlint.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The Markdown lint gate: it runs markdownlint-cli2 over the repository's Markdown and writes a report to the output folder.
 
 ## help
 
@@ -51,11 +50,6 @@ $result = Test-Markdownlint -PassThru
 $result.IssueCount
 ```
 
-## comment:1
+## Output
 
-Above `$result = Invoke-Executable $command -PassThru -NoAssert -Silent`, written with `#`.
-
-```text
--Silent: capture markdownlint-cli2's output instead of streaming it to the console; the report prints the
-issues.
-```
+The tool runs with `-Silent`, which captures the output instead of streaming it to the console, because the report prints the issues.

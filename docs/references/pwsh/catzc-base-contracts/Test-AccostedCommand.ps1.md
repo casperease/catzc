@@ -40,5 +40,5 @@ Test-AccostedCommand -Call '{"get_widget": {"path": "widgets/a.wdg"}}' -Where 'w
 
 ## findings
 
-Each fault is one finding. The argument check is the one Assert-AccostedArgument already makes; its throw is caught here, so a gate can
-list every fault instead of stopping at the first.
+Each fault is one finding. The argument check is the one Assert-AccostedArgument already makes; its throw is caught here, so a gate can list
+every fault instead of stopping at the first.

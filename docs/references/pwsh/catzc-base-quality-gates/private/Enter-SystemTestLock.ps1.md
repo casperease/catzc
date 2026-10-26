@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Enter-SystemTestLock.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Tries, without waiting, to take the user's system-test lock, the right to run the L3 tests on this account. The L3 tests change state
+outside the repository, so a lock per checkout cannot guard them, and this lock is keyed on the user instead.
 
 ## help
 

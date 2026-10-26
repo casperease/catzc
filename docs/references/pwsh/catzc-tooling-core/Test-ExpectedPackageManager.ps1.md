@@ -1,7 +1,7 @@
 # pwsh/Tooling.Core/Test-ExpectedPackageManager.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The check that a tool is managed by the package manager the platform expects. It walks the managers in a fixed order and answers at the
+first that applies; the removers use it to tell a managed install from an off-config one.
 
 ## help
 
@@ -34,66 +34,29 @@ different folder is managed
 install folder to judge, for a script-installed or an MSYS2-package tool. Default: the folder the command resolves to on PATH — which, in a
 catzc session, is always the managed install, so a removal of another folder names it.
 
-## comment:1
+## Script-installed tools
 
-Above `if ($Config.script_install -or ($Config.msys2_url -and $IsWindows)) {`, written with `#`.
+A script-installed tool, such as dotnet through the dotnet-install scripts, is managed when it sits inside its install folder. On Windows an
+MSYS2-package tool is judged the same way, against the tree `Get-ScriptInstallDir` names as its `windows_install_dir`.
 
-```text
-1. Script-installed tools (e.g., Dotnet via dotnet-install scripts), and on Windows MSYS2-package tools, which
-   install into the tree Get-ScriptInstallDir names (windows_install_dir): managed when inside that folder.
-```
+## uv-provisioned Python
 
-## comment:2
+Python is managed only when uv reports an installed uv-managed CPython. `--managed-python` excludes the system Pythons uv merely discovered,
+such as a winget or system 3.11, which would otherwise be false positives.
 
-Above `if ($Config.uv_python) {`, written with `#`.
+## Platform package managers
 
-```text
-uv-provisioned Python — managed only when uv reports an installed uv-MANAGED CPython. --managed-python
-excludes system pythons uv merely discovered (e.g. a winget/system 3.11), which would false-positive.
-```
+winget, brew and apt are consulted only when the tool declares the field for the current platform. For winget the check builds a search
+prefix that matches any version of the tool: a format-string id such as `Python.Python.{0}` becomes `Python.Python`. An id without a
+placeholder may carry the version as its last segment, such as `Microsoft.DotNet.SDK.10`, so that segment is stripped and the search finds
+any installed version, not only the locked one.
 
-## comment:3
+## pip
 
-Above `if ($IsWindows -and $Config.winget_id) {`, written with `#`.
+A library package installed into the uv-managed Python, such as pyspark, is checked with `uv pip show --system`, which inspects the global
+interpreter without importing the package.
 
-```text
-3. Platform-specific package managers — only if the tool has the field
-   for the current platform.
-```
+## MSYS2 packages off Windows
 
-## comment:4
-
-Above `$baseId = ($Config.winget_id -replace '\{0\}', '').TrimEnd('.', '-')`, written with `#`.
-
-```text
-Build a search prefix that matches any version of this tool.
-Format-string IDs like "Python.Python.{0}" become "Python.Python".
-```
-
-## comment:5
-
-Above `if ($Config.winget_id -notmatch '\{0\}') {`, written with `#`.
-
-```text
-For IDs without a format placeholder the version may be hardcoded
-as the last segment (e.g., Microsoft.DotNet.SDK.10). Strip it so
-the search finds any installed version, not just the locked one.
-```
-
-## comment:6
-
-Above `if ($Config.pip_package) {`, written with `#`.
-
-```text
-3. uv pip — library packages installed into the uv-managed Python (e.g. pyspark). `uv pip show --system`
-   inspects the global interpreter without importing the package.
-```
-
-## comment:7
-
-Above `if ($Config.msys2_url) {`, written with `#`.
-
-```text
-5. An MSYS2-package tool off Windows with no manager declared for this platform (zsh on macOS) is the system's,
-   so "managed" means simply present, as for an OS-provided tool.
-```
+An MSYS2-package tool off Windows with no manager declared for the platform, such as zsh on macOS, is the system's. "Managed" then means
+simply present, as for an OS-provided tool.

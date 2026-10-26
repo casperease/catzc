@@ -1,97 +1,51 @@
 # pwsh/Base.QualityGates/types/SpellingOracle.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The word oracle behind the spell-out-names analyzer rule (`Measure-SpellOutIdentifiers`), backing
+[ADR-AUTO-SPELL](../../../../drs/automation/spell-out-names.md). It answers one question fast: given an identifier, which of its word
+fragments are neither a real English word nor approved repository vocabulary, that is, invented local abbreviations that must be spelled
+out.
 
-## comment:1
+The rule decides which identifiers to feed and applies the AST-level exemptions (automatic variables, drive scopes). This type is
+deliberately dumb and fast: it only tokenizes and looks up.
 
-Above `public static class SpellingOracle`, written with `///`.
+## Dictionary
 
-```text
-<summary>
-The word oracle behind the spell-out-names analyzer rule (Measure-SpellOutIdentifiers), backing
-[ADR-AUTO-SPELL](/docs/drs/automation/spell-out-names.md). It answers one question fast: given an identifier, which of its
-word fragments are neither a real English word nor approved repository vocabulary — i.e. invented local
-abbreviations that must be spelled out.
+The dictionary is a single `HashSet` loaded once per process from the committed `english.txt.gz`, flattened from cspell's own dictionaries
+by `Build-EnglishDictionary`, plus every generated `.cspell/*.txt` term list (the product vocabulary and the conventional-abbreviation
+allow-list, from `terminology.yml`).
 
-The dictionary is a single HashSet loaded once per process from the committed english.txt.gz (flattened
-from cspell's own dictionaries by Build-EnglishDictionary) plus every generated .cspell/*.txt term list
-(the product vocabulary and the conventional-abbreviation allow-list, from terminology.yml). Both the load
-and the per-fragment lookup are here in C# rather than PowerShell on purpose: a PowerShell method call
-costs ~10 microseconds, so tokenizing and looking up thousands of fragments per file in PowerShell would
-dominate the analyzer's runtime, whereas the same work in C# is microseconds
-([ADR-BCL-TYPES-NATIVETYPEDMODEL](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-nativetypedmodel) — a concept the
+Both the load and the per-fragment lookup are in C# rather than PowerShell on purpose. A PowerShell method call costs about 10 microseconds,
+so tokenizing and looking up thousands of fragments per file in PowerShell would dominate the analyzer's runtime, while the same work in C#
+is microseconds
+([ADR-BCL-TYPES-NATIVETYPEDMODEL](../../../../drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-nativetypedmodel): a concept the
 platform's own logic operates on becomes a native type).
 
-The rule decides WHICH identifiers to feed and applies AST-level exemptions (automatic variables, drive
-scopes); this type is deliberately dumb and fast — it only tokenizes and looks up.
-</summary>
-```
+## Initialize
 
-## comment:2
+`Initialize` loads the oracle once from the gzip-compressed English list and every plain-text term list. It is idempotent, so a second call
+is a no-op and each analyzer shard pays the load once. Term-list lines starting with `#` (the generated-file header) and blank lines are
+skipped; every other token is added lower-cased.
 
-Above `public const int MinFragmentLength = 2;`, written with `//`.
+Fixture terms are kept separate
+([ADR-AUTO-SPELL-CATEGORYANDMEANING](../../../../drs/automation/spell-out-names.md#rule-adr-auto-spell-categoryandmeaning)). They are
+accepted only when `CoinedFragments` is called with `includeFixtures`, which the caller passes only for a test file, so a fixture token
+cannot bless a real identifier in production code.
 
-```text
-Fragments shorter than this are never flagged: single letters are loop indices / type variables
-([ADR-AUTO-SPELL-ALLOWEDABBREVIATIONS](/docs/drs/automation/spell-out-names.md#rule-adr-auto-spell-allowedabbreviations)), which the ADR exempts.
-```
+## Lookup
 
-## comment:3
+`CoinedFragments` splits an identifier into word fragments and returns those, of length at least `MinFragmentLength`, that are not in the
+dictionary: the invented abbreviations to spell out. It returns an empty array for a fully spelled-out identifier. The overload without
+`includeFixtures` is the production scope, where fixture terms are not accepted.
 
-Above `public static void Initialize(string englishGzPath, IEnumerable<string>...`, written with `///`.
+Fragments shorter than `MinFragmentLength` (2) are never flagged: single letters are loop indices or type variables, which the ADR exempts
+([ADR-AUTO-SPELL-ALLOWEDABBREVIATIONS](../../../../drs/automation/spell-out-names.md#rule-adr-auto-spell-allowedabbreviations)).
 
-```text
-<summary>
-Load the oracle once: the gzip-compressed English list plus every plain-text term list. Idempotent — a
-second call is a no-op, so each analyzer shard pays the load once. Fixture terms are kept SEPARATE
-([ADR-AUTO-SPELL-CATEGORYANDMEANING](/docs/drs/automation/spell-out-names.md#rule-adr-auto-spell-categoryandmeaning)): they are accepted only when
-CoinedFragments is called with includeFixtures — i.e. for a test
-file — so a fixture token cannot bless a real identifier in production code. Term-list lines starting
-with '#' (the generated-file header) and blank lines are skipped; every other token is added lower-cased.
-</summary>
-```
+`Tokenize` splits on non-letters (snake_case underscores, digits) and case boundaries: a camelCase hump (`rule|Collection`) and an
+acronym-to-word seam (`HTTP|Server`, `IO|Stream`). Each fragment is lower-cased. Non-letter runs are separators and are dropped, so numeric
+suffixes never form fragments.
 
-## comment:4
+## Assets folder
 
-Above `public static string[] CoinedFragments(string identifier, bool includeFixtures)`, written with `///`.
-
-```text
-<summary>
-Split an identifier into word fragments and return those (length >= MinFragmentLength) that are not in
-the dictionary — the invented abbreviations to spell out. Returns an empty array for a fully
-spelled-out identifier. Fixture terms count as known only when <paramref name="includeFixtures"/> is set
-(the caller passes true only for a test file), so a fixture token never blesses a production identifier
-([ADR-AUTO-SPELL-CATEGORYANDMEANING](/docs/drs/automation/spell-out-names.md#rule-adr-auto-spell-categoryandmeaning)).
-</summary>
-```
-
-## comment:5
-
-Above `public static string[] CoinedFragments(string identifier)`, written with `///`.
-
-```text
-<summary>Production-scope overload: fixture terms are not accepted
-([ADR-AUTO-SPELL-CATEGORYANDMEANING](/docs/drs/automation/spell-out-names.md#rule-adr-auto-spell-categoryandmeaning)).</summary>
-```
-
-## comment:6
-
-Above `public static IEnumerable<string> Tokenize(string identifier)`, written with `///`.
-
-```text
-<summary>
-Split on non-letters (snake_case underscores, digits) and case boundaries: a camelCase hump
-(rule|Collection) and an acronym-to-word seam (HTTP|Server, IO|Stream). Each fragment is returned
-lower-cased; non-letter runs are separators and are dropped, so numeric suffixes never form fragments.
-</summary>
-```
-
-## comment:7
-
-Above `public static string AssetsFolder(string moduleRoot)`, written with `//`.
-
-```text
-The folder the English word list ships in: the QualityGates module's assets. The caller passes that module's root, since its folder
-drops the namespace its name carries ([DDR-TRACK-MODULENAMESPACE](/docs/drs/design/tracks.md#rule-ddr-track-modulenamespace)).
-```
+`AssetsFolder` gives the folder the English word list ships in, the QualityGates module's assets. The caller passes that module's root,
+since its folder drops the namespace its name carries
+([DDR-TRACK-MODULENAMESPACE](../../../../drs/design/tracks.md#rule-ddr-track-modulenamespace)).

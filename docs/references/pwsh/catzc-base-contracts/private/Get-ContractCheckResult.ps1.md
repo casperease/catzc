@@ -1,7 +1,6 @@
 # pwsh/Base.Contracts/private/Get-ContractCheckResult.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The per-asset checker behind Get-ContractCheckResults: it picks the check for one asset's kind and wraps the findings in one result.
 
 ## help
 
@@ -43,11 +42,7 @@ The asset to check.
 Get-ContractCheckResult -RepositoryRoot $root -Asset $asset
 ```
 
-## comment:1
+## the schema's guarantee
 
-Above `$schema = try {`, written with `#`.
-
-```text
-A schema says what it guarantees in its $comment, one plain sentence; with no synopsis behind it the check is form only.
-A schema that does not parse is already a finding above, so it has no $comment to judge.
-```
+A schema says what it guarantees in its `$comment`, one plain sentence. No synopsis stands behind a schema, so that check is of form only. A
+schema that does not parse is already a finding from the schema check, so it has no `$comment` to judge.

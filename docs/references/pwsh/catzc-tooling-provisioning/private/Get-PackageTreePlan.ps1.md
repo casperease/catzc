@@ -1,7 +1,7 @@
 # pwsh/Tooling.Provisioning/private/Get-PackageTreePlan.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+A private helper of `Install-Zsh`: the plan of a copy from an extracted package tree into a destination tree, which marks the files the
+destination already has so the copy leaves them alone and the uninstall never deletes them.
 
 ## help
 
@@ -41,12 +41,9 @@ The tree the package is copied into.
 Get-PackageTreePlan -Source $staging -Destination $gitHome
 ```
 
-## comment:1
+## The walk
 
-Above `$sourceDirectories = [System.Collections.Generic.List[string]]::new()`, written with `#`.
-
-```text
-A named whole-tree walk ([ADR-PWSH-ENUM-ALWAYSBOUNDED](/docs/drs/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): a copy
-plan must see every file, so no folder name is pruned and the depth is the
-config's ceiling. A real package tree reaches ten levels, and a shallower bound would silently drop files from the copy.
-```
+The walk of the source tree is a named whole-tree walk
+([ADR-PWSH-ENUM-ALWAYSBOUNDED](../../../../drs/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)). A copy plan must
+see every file, so no folder name is pruned and the depth is the config's ceiling. A real package tree reaches ten levels, and a shallower
+bound would silently drop files from the copy.

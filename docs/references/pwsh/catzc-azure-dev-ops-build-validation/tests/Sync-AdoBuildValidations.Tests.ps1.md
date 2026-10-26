@@ -1,13 +1,4 @@
 # pwsh/Azure.DevOps.BuildValidation/tests/Sync-AdoBuildValidations.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
-
-## comment:1
-
-Above `Describe 'Sync-AdoBuildValidations'`, written with `#`.
-
-```text
-The config-driven reconcile: one Register-AdoBuildValidation per build-validation.yml entry, with
-overrides and -DryRun passed through.
-```
+The L0 tests of the config-driven reconcile: one `Register-AdoBuildValidation` call per `build-validation.yml` entry, with overrides and
+`-DryRun` passed through.

@@ -1,7 +1,7 @@
 # pwsh/Tooling.Provisioning/Install-Git.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The installer of Git, the base tool the locked set builds on. On Windows it unpacks PortableGit into the user's tree, elsewhere it uses the
+platform package manager.
 
 ## help
 
@@ -30,31 +30,18 @@ Install-Git
 Install-Git -Force
 ```
 
-## comment:1
+## Verifying the download
 
-Above `$digest = if ($asset.PSObject.Properties['digest']) {`, written with `#`.
+Git is a sanctioned latest-version base tool, so there is no committed hash to pin
+([ADR-AUTO-DEPS-LOCKEDTOOLVERSIONS](../../../drs/automation/controlling-systemwide-deps.md#rule-adr-auto-deps-lockedtoolversions)). Every Git for Windows release publishes a per-asset SHA-256
+through the GitHub API, the `digest` of the asset. The download is verified against it, and the command fails hard if the digest is ever
+absent, rather than run an unverified installer.
 
-```text
-git is a sanctioned 'latest' base tool, so there is no committed hash to pin — but every Git for
-Windows release publishes a per-asset SHA-256 via the GitHub API ('digest'). Verify the download
-against it, and hard-fail if it is ever absent rather than run an unverified installer. See ADR
-controlling-systemwide-deps.
-```
+## Extracting
 
-## comment:2
+The PortableGit `.7z.exe` is a self-extracting archive: `-o` sets the output directory and `-y` suppresses prompts.
 
-Above `Write-Message "Extracting to '$installDir'"`, written with `#`.
+## Idempotent first
 
-```text
-PortableGit .7z.exe is a self-extracting archive. The -o flag sets
-the output directory and -y suppresses prompts.
-```
-
-## comment:3
-
-Above `if ((Test-Command git) -and -not $Force) {`, written with `#`.
-
-```text
-Idempotent guard first (as on macOS) — a box that already has git (e.g. it cloned this repo) must
-never trip the root assert below just to conclude there is nothing to do.
-```
+The idempotent guard comes first, as on macOS. A box that already has git, for example because it cloned this repository, must never trip the
+root assert on Linux just to conclude there is nothing to do.

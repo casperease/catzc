@@ -1,7 +1,7 @@
 # pwsh/Base.Contracts/private/Resolve-ContractAsset.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The resolver of one file under a version folder into its contract asset records. It derives the group and the kind from the path and binds
+the files the asset constrains.
 
 ## help
 
@@ -68,29 +68,13 @@ A holder the first glob match fills with the tracked files, shared across one ve
 Resolve-ContractAsset -Root widget -Version 0.1.0 -Group gadgets -Path gadget.yml -File $file -AppliesTo $appliesTo -Tracked @{}
 ```
 
-## comment:1
+## where an asset sits
 
-Above `if (-not $isNamed) {`, written with `#`.
+A group's folder sorts schemas, fragments, presence assets and samples into subfolders. A command contract, the types surface and the types
+schema belong to the group itself.
 
-```text
-A presence asset, a fragment, or a schema with no sample beside it binds the files its applies_to entry names, and
-only those.
-```
+## what an asset binds
 
-## comment:2
-
-Above `if ($Path.Contains('/') -and ($kind -eq...`, written with `#`.
-
-```text
-A group's folder sorts schemas, fragments, presence assets and samples; a command contract, the types surface and the types schema
-belong to the group itself.
-```
-
-## comment:3
-
-Above `if ($name -ceq [Catzc.Base.Contracts.ContractLayout]::TypesSchemaName) {`, written with `#`.
-
-```text
-The one types schema applies to every group's generated types surface in its version, found on disk, so a
-surface binds before it is committed.
-```
+A presence asset, a fragment, or a schema with no sample beside it binds the files its applies_to entry names, and only those. The one types
+schema applies to every group's generated types surface in its version. The surfaces are found on disk, so a surface binds before it is
+committed.

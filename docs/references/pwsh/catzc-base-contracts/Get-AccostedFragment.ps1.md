@@ -1,7 +1,7 @@
 # pwsh/Base.Contracts/Get-AccostedFragment.ps1
 
-The renderer that turns an accosted file into the PowerShell text an article shows. It reads through the one reader, so a rendered
-command is always a checked one.
+The renderer that turns an accosted file into the PowerShell text an article shows. It reads through the one reader, so a rendered command
+is always a checked one.
 
 ## help
 

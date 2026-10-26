@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/Get-LinkEdge.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The blast radius of a change: it returns every relation into a path, both the ones a file writes and the ones derived by convention, from
+the same walk and declarations as Test-LinkDirections.
 
 ## help
 
@@ -29,11 +29,6 @@ The repository root. Default: the loaded repository.
 
 `[Catzc.Base.QualityGates.LinkEdge]`
 
-## comment:1
+## Path
 
-Above `[Parameter(Mandatory, Position = 0)]`, written with `#`.
-
-```text
-The repository path whose incoming relations are wanted; a folder takes every relation into what lies under
-it.
-```
+The path is a repository path. A folder takes every relation into what lies under it.

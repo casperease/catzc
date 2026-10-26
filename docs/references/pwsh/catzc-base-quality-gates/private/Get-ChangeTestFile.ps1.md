@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Get-ChangeTestFile.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The tests half of Test-Change's plan: it maps changed repository paths to the test files that cover them, by naming convention alone. Only
+test files that exist are returned.
 
 ## help
 

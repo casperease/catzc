@@ -1,7 +1,7 @@
 # pwsh/Tooling.Provisioning/Install-DevBoxTools.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The provisioner of the whole dev box: it runs a fixed sequence of base steps, then installs every locked tool in dependency order, each
+through that tool's own `Install-*` command.
 
 ## help
 
@@ -31,50 +31,22 @@ Install-DevBoxTools
 Install-DevBoxTools -Force
 ```
 
-## comment:1
+## The sequence
 
-Above `Uninstall-Chocolatey`, written with `#`.
+1. Chocolatey is removed if present, since this toolset uses winget on Windows.
+2. Git comes first: a base tool that is not version-locked and not in `tools.yml`, which the locked set builds on. On Windows its Git Bash is
+   the platform-provided `bash` asserted below.
+3. The locked tools follow in dependency order.
 
-```text
-Remove Chocolatey if present — this toolset uses winget on Windows.
-See ADR: use-proper-package-managers.
-```
+## Platform-provided tools
 
-## comment:2
+Platform-provided tools (winget, and `bash` as the OS's own or Git Bash on Windows) are never installed. They are asserted present, winget by
+name and kept on PATH by its `session_path_hints`, `bash` at its candidate paths, and the run moves on, so the tools that depend on them fail
+fast if they are absent.
 
-Above `Install-Git -Force:$Force`, written with `#`.
+## Skipped tools
 
-```text
-Git first: a base tool (not version-locked, not in tools.yml) that the locked set builds on — on Windows its
-Git Bash is the platform-provided `bash` asserted below.
-```
-
-## comment:3
-
-Above `if ($config.system_provided) {`, written with `#`.
-
-```text
-Platform-provided tools (winget; bash — the OS's, or Git Bash on Windows) are never installed — assert
-present (Test-Tool: winget by name, kept on PATH by its session_path_hints; bash at its candidate paths)
-and move on, so the tools that depend on them fail fast if absent.
-```
-
-## comment:4
-
-Above `if ((Test-ToolRequiresElevation $config) -and -not (Test-IsAdministrator)) {`, written with `#`.
-
-```text
-Elevation-bound tools (admin_only machine-scope installers, or apt-get-routed Linux installs —
-Test-ToolRequiresElevation) cannot install without elevation. Skip and report in a non-elevated run
-rather than failing the whole provision; re-run elevated to get them.
-```
-
-## comment:5
-
-Above `if ($config.depends_on -and $skipped.Contains([string] $config.depends_on)) {`, written with `#`.
-
-```text
-A tool whose declared dependency was skipped this run — and whose dependency's command is not
-available from an earlier install either — cannot install. Skip and report it with the same
-remediation instead of letting its installer fail the whole provision.
-```
+An elevation-bound tool (an `admin_only` machine-scope installer, or an apt-get-routed Linux install, per `Test-ToolRequiresElevation`)
+cannot install without elevation. A non-elevated run skips it and reports it rather than failing the whole provision; a re-run elevated gets
+it. A tool whose declared dependency was skipped this run, and whose dependency's command is not available from an earlier install either,
+is skipped and reported the same way, instead of letting its installer fail the whole provision.

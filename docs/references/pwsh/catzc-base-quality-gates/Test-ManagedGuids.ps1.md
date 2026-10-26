@@ -1,7 +1,6 @@
 # pwsh/Base.QualityGates/Test-ManagedGuids.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The managed-GUID gate: every GUID in tracked text must be registered in `guids.yml`, none may be denied, and every entry must be live.
 
 ## help
 

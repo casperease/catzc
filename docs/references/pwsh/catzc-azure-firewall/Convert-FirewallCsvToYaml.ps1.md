@@ -1,7 +1,7 @@
 # pwsh/Azure.Firewall/Convert-FirewallCsvToYaml.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The command that renders an Azure Firewall rule-export CSV, application or network, as YAML: a provenance header in YAML comments
+followed by the rules as a plain list.
 
 ## help
 
@@ -73,56 +73,16 @@ Get-FirewallCsv -SubscriptionId $sub -StorageAccountName stfwexports -ContainerN
     Convert-FirewallCsvToYaml -OutputFolder .\out\yaml
 ```
 
-## comment:1
+## The source name and path
 
-Above `if (-not $SourceName) {`, written with `#`.
+The source name defaults in the body, not as a parameter default: in Object mode `$CsvPath` comes from pipeline input, which binds after
+the defaults are evaluated, so a default would never see it
+([ADR-PWSH-PARAM-RESOLUTIONORDER](../../../drs/automation/pwsh/parameter-design.md#rule-adr-pwsh-param-resolutionorder)).
 
-```text
-A body fill-in on purpose: in Object mode $CsvPath comes from pipeline input, bound after defaults are
-evaluated ([ADR-PWSH-PARAM-RESOLUTIONORDER](/docs/drs/automation/pwsh/parameter-design.md#rule-adr-pwsh-param-resolutionorder)).
-```
+The path is asserted in both modes, because in Object mode it comes from the piped object. A wrong path to the source CSV then fails
+there by name and never as a raw `Import-Csv` error.
 
-## comment:2
+## Provenance header
 
-Above `Assert-PathExist $CsvPath -PathType Leaf`, written with `#`.
-
-```text
-In Object mode CsvPath comes from the piped object (the Path set is ValidateScript'd); assert it
-exists either way so a source path that is wrong fails here, named, not as a raw Import-Csv error.
-```
-
-## comment:3
-
-Above `$header = [System.Collections.Generic.List[string]]::new()`, written with `#`.
-
-```text
-Provenance as a YAML comment header — visible to readers, ignored by parsers, so the parsed
-shape stays a plain list of rules. Times are UTC; conversion time is taken now in UTC.
-```
-
-## comment:4
-
-Above `if (-not $SourceName) {`, written with `#`.
-
-```text
-Filled in the body, not as a default: a piped path binds after the defaults are evaluated, so a default would
-never see it.
-```
-
-## comment:5
-
-Above `Assert-PathExist $CsvPath -PathType Leaf`, written with `#`.
-
-```text
-Asserted in both modes, so a wrong path to the source CSV fails here by name and never as a raw CSV read
-error.
-```
-
-## comment:6
-
-Above `$header = [System.Collections.Generic.List[string]]::new()`, written with `#`.
-
-```text
-Provenance as YAML comments, so a reader sees it and a parser never does: the parsed shape stays a plain list
-of rules.
-```
+The provenance is written as YAML comments, so a reader sees it and a parser never does: the parsed shape stays a plain list of rules.
+Times are in UTC, and the conversion time is taken now in UTC.

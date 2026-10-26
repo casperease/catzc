@@ -1,7 +1,6 @@
 # pwsh/Tooling.Core/Uninstall-UvTool.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The remover of a CLI that `Install-UvTool` installed as an isolated uv tool. It is idempotent.
 
 ## help
 

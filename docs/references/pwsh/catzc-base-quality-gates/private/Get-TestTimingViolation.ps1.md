@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Get-TestTimingViolation.ps1
 
-Lists every passed test that exceeded its level's time limit, as report lines. It checks the aggregated per-test rows against the
-per-level duration limits in timeouts.yml.
+Lists every passed test that exceeded its level's time limit, as report lines. It checks the aggregated per-test rows against the per-level
+duration limits in timeouts.yml.
 
 ## help
 

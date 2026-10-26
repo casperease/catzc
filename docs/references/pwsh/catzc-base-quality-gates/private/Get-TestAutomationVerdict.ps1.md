@@ -1,7 +1,6 @@
 # pwsh/Base.QualityGates/private/Get-TestAutomationVerdict.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Derives a completed run's verdict, the Passed or Failed result and its one-line reason, from the run facts.
 
 ## help
 
@@ -65,12 +64,8 @@ Wall-clock duration, for the pass summary wording.
 
 `[hashtable]` @{ Result = 'Passed'|'Failed'; Summary = '`<one-line reason>`' }
 
-## comment:1
+## Duration
 
-Above `$seconds = [math]::Round($DurationSeconds,...`, written with `#`.
-
-```text
-Invariant so the duration reads the same on any devbox culture
-([ADR-AUTO-XPLAT-INVARIANTCULTURE](/docs/drs/automation/cross-platform.md#rule-adr-auto-xplat-invariantculture)) — a da-DK box would
-otherwise render '42,3s' and diverge from CI's '42.3s'.
-```
+The duration is formatted with the invariant culture, so it reads the same on any devbox
+([ADR-AUTO-XPLAT-INVARIANTCULTURE](../../../../drs/automation/cross-platform.md#rule-adr-auto-xplat-invariantculture)). A da-DK box would
+otherwise render `42,3s` and diverge from CI's `42.3s`.

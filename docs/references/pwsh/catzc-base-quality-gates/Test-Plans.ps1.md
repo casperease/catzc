@@ -1,7 +1,6 @@
 # pwsh/Base.QualityGates/Test-Plans.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The plans gate: it holds every file of the plans folder to the plan rules and ends through Write-QualityGateReport.
 
 ## help
 
@@ -74,47 +73,17 @@ Test-Plans
 (Test-Plans -PassThru).Issues
 ```
 
-## comment:1
+## The three parts
 
-Above `$readLines = {`, written with `#`.
+A plan is three parts: its file, its row in the value overlay and its chunk line in the master. The two overlays are read whole.
 
-```text
-A plan is three parts: its file, its row in the value overlay and its chunk line in the master; the two overlays
-are read whole.
-```
+## Step checks
 
-## comment:2
+A check names a command by its Verb-Noun. One that no module exports cannot prove the step, so the gate names it before a worker runs it.
+The check is the text after the step's last standalone `check:`, so a name such as `catzc-check:` in the step is not read as one.
 
-Above `$verbs = [System.Collections.Generic.HashSet[string]]::new([string[]]...`, written with `#`.
+## Step counts
 
-```text
-A check names a command by its Verb-Noun; one that no module exports cannot prove the step, so the gate names it
-before a worker runs it.
-```
-
-## comment:3
-
-Above `$assertCount = {`, written with `#`.
-
-```text
-A step count an overlay states ("three steps", "one step left") is the plan's open steps, or it has drifted;
-Format-Code rewrites it.
-```
-
-## comment:4
-
-Above `$check = [regex]::Match($item.Text,...`, written with `#`.
-
-```text
-The check is the text after the step's last standalone `check:`, so a name such as `catzc-check:` in the
-step is not read as one.
-```
-
-## comment:5
-
-Above `$at = [array]::IndexOf($valueLines, $valueRow)`, written with `#`.
-
-```text
-A row holds as many cells as its table's header, so a cell lost or added never shifts the columns unseen.
-The header is the first line of the row's own table, the unbroken run of table lines it sits in.
-```
+A step count an overlay states ("three steps", "one step left") must equal the plan's open steps, or it has drifted. Format-Code rewrites
+it. A row holds as many cells as its table's header, so a cell lost or added never shifts the columns unseen. The header is the first line
+of the row's own table, the unbroken run of table lines it sits in.

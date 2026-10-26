@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Get-LanguageTestOutcomes.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Runs a module's tests in one test language once and returns the outcome of every discovered test, keyed by the test's key. The language
+bridge calls it once per test folder, and each generated Pester test reports its own outcome from the result.
 
 ## help
 
@@ -75,38 +75,17 @@ test output of a skip) }.
 $outcomes = Get-LanguageTestOutcomes -Language go -Module Catzc.Base.Repository -Case $cases -Executable $go
 ```
 
-## comment:1
+## the runner
 
-Above `$entry = @((Get-Config -Config languages).languages | Where-Object { $_.name...`, written with `#`.
+The language registry names the runner. A language without a `tests` entry has no test artifacts to run, so the function throws for it
+([ADR-AUTO-MODULE-CHECKSBYLANGUAGE](../../../../drs/automation/module-model.md#rule-adr-auto-module-checksbylanguage)).
 
-```text
-The language registry names the runner; a language without a tests entry has no test artifacts to run
-([ADR-AUTO-MODULE-CHECKSBYLANGUAGE](/docs/drs/automation/module-model.md#rule-adr-auto-module-checksbylanguage)).
-```
+## the folder
 
-## comment:2
+`-Folder` is the test folder the discovery named, a module's own `tests/` or the holder's. When it is empty, the runner finds the holder's.
 
-Above `[string] $Folder`, written with `#`.
+## engines
 
-```text
-The test folder the discovery named, a module's own tests/ or the holder's; the runner finds the holder's when
-it is empty.
-```
-
-## comment:3
-
-Above `$run.Remove('Engine')`, written with `#`.
-
-```text
-A language that is an engine runs its tests under that engine only, with the executable the source session
-located.
-```
-
-## comment:4
-
-Above `$declared = (Get-Command $tests.runner).Parameters`, written with `#`.
-
-```text
-A runner whose tests run in no engine (JavaScript's, in node) declares no engine parameters, so it gets only those
-it declares.
-```
+A language that is an engine runs its tests under that engine only, with the executable the source session located, so the `Engine`
+parameter is dropped from the call. A runner whose tests run in no engine (JavaScript's, in node) declares no engine parameters, so it gets
+only the parameters it declares.

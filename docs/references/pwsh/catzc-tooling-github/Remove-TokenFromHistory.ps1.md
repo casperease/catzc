@@ -1,7 +1,8 @@
 # pwsh/Tooling.Github/Remove-TokenFromHistory.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The fallback scrub: it rewrites a history with git-filter-repo, replacing the token in file content and commit messages. It leaves the old
+commits as unreachable objects and cannot reach a token in a path name, so it ends with a `Test-GitHistoryClean` scan and returns that
+result; `New-SyntheticHistory` is the first choice.
 
 ## help
 

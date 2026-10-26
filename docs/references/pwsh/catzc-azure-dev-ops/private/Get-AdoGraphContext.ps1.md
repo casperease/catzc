@@ -1,7 +1,7 @@
 # pwsh/Azure.DevOps/private/Get-AdoGraphContext.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The private function that names three things the environment-approvals apply needs: the project's REST base, the organization's Graph
+service, and the project's Graph descriptor.
 
 ## help
 

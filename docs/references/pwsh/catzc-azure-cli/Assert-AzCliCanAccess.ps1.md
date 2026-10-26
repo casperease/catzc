@@ -1,7 +1,7 @@
 # pwsh/Azure.Cli/Assert-AzCliCanAccess.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The throwing check, by subscription name, that the current az login can reach that subscription. It resolves the name through
+`azure.yml` and delegates the access probe to the generic subscription-accessible assertion.
 
 ## help
 

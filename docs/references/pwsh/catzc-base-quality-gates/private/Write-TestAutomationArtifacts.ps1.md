@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Write-TestAutomationArtifacts.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Writes a run's report artifacts and the skip report. It is best-effort and never masks the run outcome: each artifact has its own `try`, and
+a failure prints a warning.
 
 ## help
 
@@ -60,30 +60,18 @@ The run's category (skip-report scope).
 
 Where the run executed (report metadata) — 'in-place', or the snapshot's provenance.
 
-## comment:1
+## Report
 
-Above `try {`, written with `#`.
+The run report, `summary.md` and `tests.csv`, is written beside the per-shard results. It is written before any throw, so a failing run
+still produces it.
 
-```text
-Persist the run report (summary.md + tests.csv) beside the per-shard results — written before any
-throw, so a failing run still produces it.
-```
+## Skip report
 
-## comment:2
+The final section lists what was skipped, a self-skip with its reason, and what was not run because the run's tier and category scope
+excluded it.
 
-Above `try {` (occurrence 2), written with `#`.
+## Rule coverage
 
-```text
-Final section: what was skipped (a self-skip, with its reason) or not run (excluded by this run's
-tier/category scope).
-```
-
-## comment:3
-
-Above `try {` (occurrence 3), written with `#`.
-
-```text
-ADR rule-enforcement coverage — report-only, same best-effort discipline. Unions the tagged-test
-enforcers (each row's Rules column) with the analyzer-rule enforcers (Get-AnalyzerDrsCoverage) over the
-full rule universe. Plain assignment receives the comma-wrapped getter intact; ':'->'#' matches the tags.
-```
+The ADR rule-enforcement coverage is report-only, under the same best-effort rule. It unions the enforcers of tagged tests (each row's Rules
+column) with the enforcers among the analyzer rules (Get-AnalyzerDrsCoverage) over the full rule universe. A plain assignment receives the
+comma-wrapped getter intact, and the `:` of a registry id becomes `#` so it matches the tags.

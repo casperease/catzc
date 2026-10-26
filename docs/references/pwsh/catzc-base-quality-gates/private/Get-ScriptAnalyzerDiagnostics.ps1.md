@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Get-ScriptAnalyzerDiagnostics.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Runs PSScriptAnalyzer over a file list in two cached passes, sharded across background processes, and returns the diagnostics. The result
+cache lets an unchanged clean file skip the analyzer.
 
 ## help
 
@@ -39,21 +39,13 @@ Analyze every file, ignoring the result caches (which are still refreshed).
 
 The PSScriptAnalyzer diagnostic records of both passes (empty when there are no violations).
 
-## comment:1
+## Result cache
 
-Above `$batch = [System.Collections.Generic.List[object]]::new()`, written with `#`.
+A file the analyzer last found clean, whose bytes and analyzer inputs (Get-ScriptAnalyzerInputs) are unchanged since, is not analyzed again.
+It has no diagnostics by construction, and only files with no diagnostics are ever recorded
+([ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS](../../../../drs/automation/caching.md#rule-adr-auto-cache-checkedfilesacrosssessions)).
 
-```text
-The result cache ([ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS](/docs/drs/automation/caching.md#rule-adr-auto-cache-checkedfilesacrosssessions)): a file the analyzer
-last found clean, whose bytes and analyzer inputs (Get-ScriptAnalyzerInputs) are unchanged since, is not analyzed
-again — it has no diagnostics by construction. Only files with no diagnostics are ever recorded.
-```
+## Two passes
 
-## comment:2
-
-Above `$spellingRule = 'Measure-CatzcSpelling'`, written with `#`.
-
-```text
-Two passes, each cached on its own inputs: the spelling entry rule reads the dictionaries, every other rule does not, so a dictionary
-edit re-runs the spelling pass alone ([ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS](/docs/drs/automation/caching.md#rule-adr-auto-cache-checkedfilesacrosssessions)).
-```
+Each pass is cached on its own inputs. The spelling entry rule reads the dictionaries and every other rule does not, so a dictionary edit
+re-runs the spelling pass alone.

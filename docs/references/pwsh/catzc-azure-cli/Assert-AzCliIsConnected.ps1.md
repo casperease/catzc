@@ -1,7 +1,7 @@
 # pwsh/Azure.Cli/Assert-AzCliIsConnected.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The throwing check that the active az session is logged into the tenant and subscription a declared subscription name stands for. It
+resolves the name through `azure.yml` and delegates the comparison to the connection-state function.
 
 ## help
 

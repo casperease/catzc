@@ -1,24 +1,11 @@
 # pwsh/Base.QualityGates/tests/Get-LanguageTestFolders.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The tests of `Get-LanguageTestFolders` over a fixture repository in `$TestDrive`, with `Get-RepositoryRoot` and the go config mocked. The
+fixture holds catzc modules under `pwsh/`, Go test folders under the `go/` root, Python test folders under `python/` and Bash test folders
+under `bash/`. Fixture names are neutral
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 
-## comment:1
+## What is not a test folder
 
-Above `Describe 'Get-LanguageTestFolders'`, written with `#`.
-
-```text
-Get-LanguageTestFolders over a fixture repository in $TestDrive (Get-RepositoryRoot and the go config mocked): catzc
-modules under pwsh/, Go test folders under the go/ root, Python test folders under python/ and Bash test folders
-under bash/. Neutral
-fixture names ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
-```
-
-## comment:2
-
-Above `New-FixtureFile $script:repo 'go/tests/.cache/cache_test.go'`, written with `#`.
-
-```text
-Not test folders: dot-prefixed folders, a folder left with only generated files, a Python folder with no
-test_*.py file, and a Bash folder with no .bats file.
-```
+A dot-prefixed folder, a folder left with only generated files, a Python folder with no `test_*.py` file, and a Bash folder with no `.bats`
+file.

@@ -1,7 +1,6 @@
 # pwsh/Base.QualityGates/Test-AnalyzerDrsMap.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The gate over `analyzer-drs-map.yml`: it checks that the map cites only real ADR rules and that every custom analyzer rule is mapped.
 
 ## help
 
@@ -40,11 +39,7 @@ Return the result ({ Subject; IssueCount; Issues; ReportPath; Analyzers; CustomR
 Test-AnalyzerDrsMap
 ```
 
-## comment:1
+## Rule ids
 
-Above `[string[]] $ruleIds = Get-CatsDrsRuleIds`, written with `#`.
-
-```text
-The rule ids are the codes the map cites, so they compare as they are. Typed assignment receives the comma-wrapped
-getter result intact — @() would nest it.
-```
+The rule ids are the codes the map cites, so they compare as they are. The typed `[string[]]` assignment receives the comma-wrapped getter
+result intact, where `@()` would nest it.

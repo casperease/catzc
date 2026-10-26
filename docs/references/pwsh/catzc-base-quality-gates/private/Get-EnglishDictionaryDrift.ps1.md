@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Get-EnglishDictionaryDrift.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Reports why the committed English word list is stale, from its stamp alone. Re-flattening the dictionary needs node, so the drift check
+compares the stamp's version and word count instead. No reason means the list is current.
 
 ## help
 

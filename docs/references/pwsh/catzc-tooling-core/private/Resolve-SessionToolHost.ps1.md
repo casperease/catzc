@@ -1,7 +1,7 @@
 # pwsh/Tooling.Core/private/Resolve-SessionToolHost.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The private resolver that points the session at the best install home of a tool declared with `session_host_probes`, for a tool installed
+more than once on one machine. It moves the chosen home to the front of the session PATH and changes nothing else.
 
 ## help
 
@@ -26,11 +26,7 @@ is started.
 
 The tool's ToolConfig (from Get-ToolConfig).
 
-## comment:1
+## First match
 
-Above `Get-Command $Config.command -CommandType Application -ErrorAction Ignore |...`, written with `#`.
-
-```text
--First 1: the command may still resolve in more than one PATH dir — an array's .Source would break the
-[string] -Location binding downstream.
-```
+The command may still resolve in more than one PATH directory, so the lookup takes the first: an array's `.Source` would break the
+`[string]` `-Location` binding downstream.

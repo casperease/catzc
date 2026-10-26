@@ -1,7 +1,8 @@
 # pwsh/Tooling.Github/New-SyntheticHistory.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The command that replaces a repository's history instead of scrubbing it: a backdated, single-author orphan history built commit by commit
+from the clean working tree. It works on the local repository only and pushes nothing; the caller supplies the layers and this owns the
+mechanics.
 
 ## help
 

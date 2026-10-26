@@ -1,7 +1,6 @@
 # pwsh/Base.QualityGates/Test-ManualTestPlan.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The gate over the manual test plan: it checks that the plan lists every integrity check, once.
 
 ## help
 
@@ -48,11 +47,7 @@ Return the result ({ Subject; IssueCount; Issues; ReportPath; IntegrityBlocks; P
 Test-ManualTestPlan
 ```
 
-## comment:1
+## Reading the plan
 
-Above `$checks = [System.Collections.Generic.List[string]]::new()`, written with `#`.
-
-```text
-One check per "### N." section: its heading and its "**Test file:**" paragraph, which names the test file and the block; the formatter
-wraps a long paragraph, so it runs to the next blank line.
-```
+One check is one "### N." section: its heading and its "**Test file:**" paragraph, which names the test file and the block. The formatter
+wraps a long paragraph, so the paragraph runs to the next blank line.

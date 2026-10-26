@@ -1,7 +1,8 @@
 # pwsh/Tooling.Listen/New-DocSnapshot.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The start of a listen session: it copies the watched folder twice, indexes both copies, pins the committed reference at HEAD and writes the
+manifest. The index `seen.json` is written last, because it is what makes a folder a session; a start that fails half way leaves no session
+behind.
 
 ## help
 
@@ -36,13 +37,4 @@ The repository-relative folder to watch. Default: listen.yml's watch.
 
 ```powershell
 New-DocSnapshot -Watch docs
-```
-
-## comment:1
-
-Above `Write-ListenIndex (Join-Path $session 'baseline.json') -Index $index`, written with `#`.
-
-```text
-seen.json is what makes a folder a session, so it is written last: a start that fails half way leaves no session
-behind.
 ```

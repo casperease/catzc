@@ -1,7 +1,6 @@
 # pwsh/Azure.DevOps.BuildValidation/Unregister-AdoBuildValidation.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The command that removes the build-validation branch policy tied to a globset. It is idempotent: with no matching policy it does nothing.
 
 ## help
 

@@ -1,7 +1,6 @@
 # pwsh/Azure.DevOps/Set-AdoPipelineVariable.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The command that sets an Azure DevOps pipeline variable by writing the `##vso` logging command.
 
 ## help
 

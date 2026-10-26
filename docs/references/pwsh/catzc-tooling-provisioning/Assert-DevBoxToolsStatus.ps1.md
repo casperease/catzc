@@ -1,7 +1,7 @@
 # pwsh/Tooling.Provisioning/Assert-DevBoxToolsStatus.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The gate over the dev box: it turns `Get-ToolsStatus` into a pass or a throw, so a pipeline or a session stops when a locked tool is missing
+or at the wrong version.
 
 ## help
 

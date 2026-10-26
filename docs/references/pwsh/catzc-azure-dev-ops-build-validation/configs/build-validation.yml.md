@@ -1,25 +1,23 @@
 # pwsh/Azure.DevOps.BuildValidation/configs/build-validation.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The build-validation branch policies tied to globsets: the server-side pre-commit half of a unit's CI binding
+([FDR-CD-TYPE-PRECOMMITBUDGET](../../../../drs/flow/pipeline-types.md#rule-fdr-cd-type-precommitbudget)). Each entry binds one declared
+globset's native path projection ([FDR-CD-GLOBS](../../../../drs/flow/durable-sha-globs.md)) as the policy's path filter and runs the
+entry's pipeline as an Azure DevOps build validation on `branch`.
 
-## comment:1
+## Keys
 
-Above `branch: main`, written with `#`.
+- **`branch`** — the branch the policies guard.
+- **`validations`** — a list of entries. A list, because globset names are kebab-case and snake_case key validation forbids hyphenated map
+  keys. Each entry holds:
+  - `globset` — required, a declared globset name;
+  - `pipeline` — defaults to the globset's own `pipeline:` annotation in `globs.yml`;
+  - `blocking` — defaults to true;
+  - `display_name` — defaults to `Build validation - <globset>`.
 
-```text
-Build-validation branch policies tied to globsets — the server-side pre-commit half of a unit's CI
-binding ([FDR-CD-TYPE-PRECOMMITBUDGET](/docs/drs/flow/pipeline-types.md#rule-fdr-cd-type-precommitbudget)): each entry binds one DECLARED globset's native
-path projection
-(Get-GlobSetTrigger,
-[FDR-CD-GLOBS](/docs/drs/flow/durable-sha-globs.md)) as the policy's path filter and runs the entry's pipeline as an
-ADO build validation on `branch`. Entries are a list (globset names are kebab-case, and snake_case key
-validation forbids hyphenated map keys). Per entry: `globset` (required, a declared globset name),
-`pipeline` (defaults to the globset's own `pipeline:` annotation in globs.yml), `blocking` (defaults to
-true), `display_name` (defaults to 'Build validation - <globset>').
+## Loading and applying
 
-Loaded via Get-Config -Config build-validation (shape-validated by the BuildValidationConfig type); applied
-to the server with Sync-AdoBuildValidations / Register-AdoBuildValidation. Globset existence is checked
-at runtime (Get-GlobSet throws on an unknown name) and by an integrity test — never at load, so reading
-this config stays hermetic (the [ADR-AZ-CUSTOMER-REFERENCENOTVALIDATEDONLOAD](/docs/drs/azure/azure-customer-model.md#rule-adr-az-customer-referencenotvalidatedonload) pattern).
-```
+`Get-Config -Config build-validation` loads the file and the `BuildValidationConfig` type validates its shape. `Sync-AdoBuildValidations`
+and `Register-AdoBuildValidation` apply it to the server. A globset's existence is checked at run time, where `Get-GlobSet` throws on an
+unknown name, and by an integrity test, never at load, so reading this config stays hermetic
+([ADR-AZ-CUSTOMER-REFERENCENOTVALIDATEDONLOAD](../../../../drs/azure/azure-customer-model.md#rule-adr-az-customer-referencenotvalidatedonload)).

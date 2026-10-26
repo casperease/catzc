@@ -1,7 +1,7 @@
 # pwsh/Tooling.Core/private/Assert-ToolVersion.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The private version check behind `Assert-Tool`: it compares the installed version of a tool with the locked one and caches the verdict for
+the session.
 
 ## help
 
@@ -22,20 +22,12 @@ deterministically locked.
 
 The snake_case tool key as defined in tools.yml.
 
-## comment:1
+## Cache
 
-Above `$script:toolVersionCache = @{}`, written with `#`.
+The cache entry is created lazily and probed in a strict-clean way
+([ADR-PWSH-CACHE-STRICTSAFEPROBE](../../../../drs/automation/pwsh/script-scope-caching.md#rule-adr-pwsh-cache-strictsafeprobe)).
 
-```text
-strict-clean probe of the lazy cache entry
-([ADR-PWSH-CACHE-STRICTSAFEPROBE](/docs/drs/automation/pwsh/script-scope-caching.md#rule-adr-pwsh-cache-strictsafeprobe))
-```
+## Accepted prefixes
 
-## comment:2
-
-Above `$accepted = [System.Collections.Generic.List[string]]::new()`, written with `#`.
-
-```text
-Accepted prefixes: always the locked version; on a devbox (non-pipeline) also the optional devbox_version
-lever from tools.yml. A pipeline enforces the locked version alone.
-```
+The locked version is always accepted. On a devbox, outside a pipeline, the optional `devbox_version` lever from `tools.yml` is accepted
+too. A pipeline enforces the locked version alone.

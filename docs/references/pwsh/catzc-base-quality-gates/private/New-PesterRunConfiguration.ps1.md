@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/New-PesterRunConfiguration.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Builds the one Pester configuration every test invocation path shares, shard workers and the manual single-check entry point alike. It is
+the single living copy of how this repository invokes Pester.
 
 ## help
 

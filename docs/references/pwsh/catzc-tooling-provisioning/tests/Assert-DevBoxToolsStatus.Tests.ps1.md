@@ -1,13 +1,4 @@
 # pwsh/Tooling.Provisioning/tests/Assert-DevBoxToolsStatus.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
-
-## comment:1
-
-Above `BeforeAll {`, written with `#`.
-
-```text
-Get-ToolsStatus is the only boundary — mock it to return fabricated ToolStatus rows and assert the
-pass/throw decision. The rows use deliberately non-production tool names.
-```
+The tests of `Assert-DevBoxToolsStatus`. `Get-ToolsStatus` is the only boundary: it is mocked to return fabricated `ToolStatus` rows, and the
+tests assert the pass or throw decision. The rows use deliberately non-production tool names.

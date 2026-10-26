@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Select-ProtectedTestFile.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The protection decision: it drops the test files of every unit whose composite identity is unchanged since its last green run this session.
+It groups the run's files by unit and composes each unit's protection identity.
 
 ## help
 

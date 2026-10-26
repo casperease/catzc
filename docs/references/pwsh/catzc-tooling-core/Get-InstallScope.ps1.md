@@ -1,7 +1,6 @@
 # pwsh/Tooling.Core/Get-InstallScope.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The classifier of where a tool is installed: it reads the binary's path and answers `user`, `machine` or `unknown`.
 
 ## help
 

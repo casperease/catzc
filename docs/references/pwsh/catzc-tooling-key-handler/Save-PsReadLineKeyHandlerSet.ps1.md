@@ -1,7 +1,8 @@
 # pwsh/Tooling.KeyHandler/Save-PsReadLineKeyHandlerSet.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The authoring step that captures the session's bound PSReadLine handlers into the committed `configs/key-handler-bindings.yml`. Without
+`-Path` it asserts the source tree and writes the module's own config, never the loaded copy, and it rewrites the file only when the content
+changed.
 
 ## help
 

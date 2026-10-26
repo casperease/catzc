@@ -1,13 +1,5 @@
 # pwsh/Base.QualityGates/tests/Measure-NoForEachObjectControlFlow.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
-
-## comment:1
-
-Above `$script:emptySettings = @{ IncludeRules =...`, written with `#`.
-
-```text
-Empty settings prevents PSSA from auto-discovering PSScriptAnalyzerSettings.psd1
-(which already lists this rule in CustomRulePath, causing double invocation).
-```
+The L0 logic test of the custom analyzer rule `Measure-NoForEachObjectControlFlow`. Each case runs the analyzer with empty settings, which
+stops PSScriptAnalyzer from auto-discovering `PSScriptAnalyzerSettings.psd1`. That file already lists this rule in `CustomRulePath`, so
+discovery would invoke the rule twice.

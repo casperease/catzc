@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Get-LinkLineLimit.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Resolves the per-extension line limits the link aligner wraps to. `.editorconfig` is the source of truth, with the `line_limit` overrides of
+`links.yml` applied on top.
 
 ## help
 

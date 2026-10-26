@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Write-TestResultMarker.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Keeps one test-result marker per failing test file, `out/test-results/<repository path of the test file>.failed`. A passing file's marker is
+deleted, and the function returns the markers written.
 
 ## help
 
@@ -38,20 +38,10 @@ The output root that holds `test-results`; the repository's by default.
 
 `[string[]]` The markers written.
 
-## comment:1
+## Markers
 
-Above `$markerRoot = Join-Path $OutputRoot 'test-results'`, written with `#`.
+A marker sits at a fixed path, so a reader such as the editor's lamps needs only its existence and its timestamp.
 
-```text
-One marker per failing test file at a fixed path, out/test-results/<repository path of the test file>.failed, so a reader (the
-editor's lamps) needs only its existence and its timestamp; a passing file's marker is deleted. Returns the markers written.
-```
+## Filtered runs
 
-## comment:2
-
-Above `[switch] $KeepPassing,`, written with `#`.
-
-```text
-A run filtered to some tests says nothing of the others, so it only records failures and never clears a
-marker.
-```
+A run filtered to some tests says nothing of the others. With `-KeepPassing` it only records failures and never clears a marker.

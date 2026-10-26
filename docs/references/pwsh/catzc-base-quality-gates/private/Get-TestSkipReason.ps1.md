@@ -1,7 +1,6 @@
 # pwsh/Base.QualityGates/private/Get-TestSkipReason.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Extracts the human-readable reason a Pester test was skipped from the test's last error record.
 
 ## help
 
@@ -20,11 +19,7 @@ error at all) has no reason, so the function returns 'no reason given'. Any othe
 
 A Pester test-result object (an item of $result.Tests). Its .ErrorRecord carries the skip message.
 
-## comment:1
+## Parsing
 
-Above `if ($message -match 'because\s+(.+?)\s*$') {`, written with `#`.
-
-```text
-Set-ItResult renders "is skipped, because <reason>" — pull out the reason. Capture $Matches
-immediately (it is clobbered by the next -match; see automatic-variable-pitfalls).
-```
+Set-ItResult renders `is skipped, because <reason>`, and the reason is pulled out of that message. The capture is taken at once, since the
+next `-match` overwrites `$Matches` ([ADR-PWSH-AUTOVAR](../../../../drs/automation/pwsh/automatic-variable-pitfalls.md)).

@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Get-LinkScope.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Lists the repository-relative files the link engine reads: every tracked file, or the files of the given paths, minus every file the content
+tools leave as written. No list of its own decides that; a new class is declared in the .gitattributes source.
 
 ## help
 
@@ -28,20 +28,11 @@ Optional files or folders (absolute or relative to the current location) to limi
 
 `[string[]]` repository-relative, '/'-separated paths.
 
-## comment:1
+## never a whole drive
 
-Above `$isDiskRoot = {`, written with `#`.
+Neither the repository root nor a `-Path` may be a disk root (`C:\`, `/`, a UNC share root). A relative `-Path` resolves against the current
+location, so `.` run from `C:\` would be all of `C:`. The function throws instead of scanning a drive.
 
-```text
-Never enumerate a whole drive: neither the repository root nor a -Path may be a disk root (C:\, /, a UNC
-share root). A relative -Path resolves against the current location, so '.' run from C:\ would be all of C:.
-```
+## folder depth
 
-## comment:2
-
-Above `Get-ChildPath $full -File -Depth 10`, written with `#`.
-
-```text
-A scope as wide as the repository: tracked files reach nine levels below the root, so ten leaves one
-level of headroom.
-```
+A folder `-Path` is listed up to ten levels deep. Tracked files reach nine levels below the root, so ten leaves one level of headroom.

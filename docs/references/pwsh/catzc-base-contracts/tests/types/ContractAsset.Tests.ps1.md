@@ -1,13 +1,4 @@
 # pwsh/Base.Contracts/tests/types/ContractAsset.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
-
-## comment:1
-
-Above `Describe 'ContractAsset'`, written with `#`.
-
-```text
-ContractAsset holds every derived fact of one contract asset, with its paths in communication form
-([ADR-AUTO-PATH-COMMUNICATIONFORM](/docs/drs/automation/path-representation.md#rule-adr-auto-path-communicationform)).
-```
+Tests `ContractAsset`, which holds every derived fact of one contract asset, with its paths in communication form
+([ADR-AUTO-PATH-COMMUNICATIONFORM](../../../../../drs/automation/path-representation.md#rule-adr-auto-path-communicationform)).

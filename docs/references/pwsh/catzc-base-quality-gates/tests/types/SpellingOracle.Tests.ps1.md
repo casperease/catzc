@@ -1,42 +1,19 @@
 # pwsh/Base.QualityGates/tests/types/SpellingOracle.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The test of the `SpellingOracle` type against its shipped dictionary. It is source-only: it loads the repository's committed dictionary and
+the `.cspell/` lists, which are the inputs that only the source-tree analyzer rule `Measure-SpellOutIdentifiers` reads, and they give the
+same answer in both run modes.
 
-## comment:1
+## Integrity
 
-Above `Describe 'SpellingOracle.CoinedFragments (shipped dictionary)'`, written with `#`.
+The test binds to the shipped English list and the generated term lists, so it is an integrity test by construction
+([ADR-AUTO-TEST-ONECATEGORY](../../../../../drs/automation/test-automation.md#rule-adr-auto-test-onecategory)): it verifies the real oracle,
+not a fixture. The static load is idempotent, so it is safe to run alongside any other consumer in the same process.
 
-```text
-source-only: it loads the repository's committed dictionary and .cspell/ lists — the inputs only the source-tree
-analyzer rule (Measure-SpellOutIdentifiers) reads — which give the same answer in both run modes.
-```
+## Cases
 
-## comment:2
+`capi` is a fixture-category term, test-only vocabulary. It is coined in production scope and known only when fixtures are included, as in a
+test file.
 
-Above `$englishPath = Get-CatzcModuleRoot 'assets/english.txt.gz' -Module...`, written with `#`.
-
-```text
-Binds to the shipped English list + the generated term lists — an integrity test by construction
-([ADR-AUTO-TEST-ONECATEGORY](/docs/drs/automation/test-automation.md#rule-adr-auto-test-onecategory)): it verifies the real oracle,
-not a fixture. The static load is idempotent, so this is safe
-to run alongside any other consumer in the same process.
-```
-
-## comment:3
-
-Above `[Catzc.Base.QualityGates.SpellingOracle]::CoinedFragments('capi', $false) |...`, written with `#`.
-
-```text
-'capi' is a fixture-category term — test-only vocabulary. It is coined in production scope and
-known only when fixtures are included (a test file).
-```
-
-## comment:4
-
-Above `[Catzc.Base.QualityGates.SpellingOracle]::IsKnown('zzq') | Should -BeFalse`, written with `#`.
-
-```text
-A 3-char nonsense token: not in the oracle (IsKnown false), and below cspell's minWordLength so the
-Test-Spelling does not flag the literal here.
-```
+`zzq` is a 3-character nonsense token. It is not in the oracle (`IsKnown` is false), and it is below cspell's `minWordLength`, so
+`Test-Spelling` does not flag the literal here.

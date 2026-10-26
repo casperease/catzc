@@ -1,33 +1,20 @@
 # pwsh/Tooling.Core/tests/Get-ToolConfig.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The tests of `Get-ToolConfig` and of the shipped `tools.yml` as a set.
 
-## comment:1
+## Discovery
 
-Above `$script:configPath = (Get-Config -Config tools -ListOwners).Path`, written with `#`.
+The `-ForEach` data is populated at discovery time, before the tests run. `tools.yml` is located through its registered owner:
+Catzc.Base.Execution owns it, and this module reads it.
 
-```text
-Discovery-time: populates -ForEach data before tests run. tools.yml is located through its registered owner
-(Catzc.Base.Execution owns it; this module reads it).
-```
+## Caching fixture
 
-## comment:2
+The cache test uses a hermetic fixture tool through the `Get-Config` seam, so it never depends on the shipped `tools.yml`
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)). The
+mock returns a stable typed `ToolsConfig`, since `Get-ToolConfig` inherits its same-reference caching from `Get-Config`'s cached read, so
+both calls see one `ToolConfig`.
 
-Above `$script:toolsFixture = [Catzc.Base.Execution.ToolsConfig]::new(@{ faketool = @{`, written with `#`.
+## Installable tools
 
-```text
-Hermetic fixture tool through the Get-Config seam, so the cache test never depends on the
-shipped tools.yml ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)). The
-mock returns a STABLE typed ToolsConfig (Get-ToolConfig inherits its
-same-reference caching from Get-Config's cached read), so both calls see one ToolConfig.
-```
-
-## comment:3
-
-Above `$script:installableEntries = $script:toolEntries | Where-Object { -not...`, written with `#`.
-
-```text
-OS-provided tools (winget) are asserted, never installed — they have no Install-/Uninstall- functions.
-A tool another tool's installer installs alongside itself (installed_by) has no pair of its own either.
-```
+OS-provided tools (winget) are asserted, never installed, so they have no Install and Uninstall functions. A tool another tool's installer
+installs alongside itself (`installed_by`) has no pair of its own either.

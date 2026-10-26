@@ -1,24 +1,11 @@
 # pwsh/Base.QualityGates/tests/Test-Change.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The L0 logic test of the `Test-Change` wiring. The two halves of the plan, `Get-ChangeTestFile` and `Get-ChangeCheckPlan`, are their own
+units and are mocked here. `Invoke-TestFile` is the mocked test-run boundary. The gates are fixture functions, so the real `Get-Command`
+lookup and the `[string[]]` `-Path` test decide how each is called. The fixtures use neutral names
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 
-## comment:1
+## The fixture gates
 
-Above `[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter',...`, written with `#`.
-
-```text
-Test-Change wiring: the plan's two halves (Get-ChangeTestFile, Get-ChangeCheckPlan) are their own units and are mocked
-here; Invoke-TestFile is the mocked test-run boundary; the gates are fixture functions, so the real Get-Command lookup
-and the [string[]] -Path test decide how each is called. Neutral fixture names
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
-```
-
-## comment:2
-
-Above `function global:Test-WidgetLint {`, written with `#`.
-
-```text
-A gate that takes the changed files, one that only runs whole, and one that throws.
-It names every path it was given, so its issue shows what Test-Change passed.
-```
+There are three fixture gates: one that takes the changed files, one that only runs whole, and one that throws. Each names every path it was
+given, so its issue shows what `Test-Change` passed.

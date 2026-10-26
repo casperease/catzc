@@ -1,23 +1,17 @@
 # pwsh/Azure.DevOps/types/AdoConfig.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The typed record for `ado.yml`, the single source of truth for which Azure DevOps organization and Entra tenant is the correct one to be
+connected to. It is registered in `Catzc.Base.Config/configs/configs.yml`, so `Get-Config -Config ado` returns it. Its properties mirror the
+YAML keys, which are snake_case
+([ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](../../../../drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
 
-## comment:1
+## Validation
 
-Above `using System;`, written with `//`.
+Constructing the record checks the file and gathers every violation into one `ArgumentException`:
 
-```text
-The Azure DevOps coupling (configs/ado.yml): the data that binds this repo to one ADO organization and the
-Entra (Azure AD) tenant behind it — the single source of truth for which org/tenant is the *correct* thing to
-be connected to. Registered in Catzc.Base.Config/configs/configs.yml (type: Catzc.Azure.DevOps.AdoConfig), so
-Get-Config -Config ado returns this typed record. Mirrors the YAML mapping (snake_case keys,
-[ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
-
-Constructing an instance validates the file, collecting every violation into one ArgumentException:
-  organization  required; the org REST URL (https://dev.azure.com/<org> or https://<org>.visualstudio.com)
-  project       required, non-empty; the default project (may be URL-encoded)
-  tenant        required; the Entra tenant GUID backing the org — the directory every auth path must be
-                proven to target before Get-AdoAuthorizationHeader returns a header
-and no other key (a non-snake_case or misspelled key fails fast at load).
-```
+- `organization` is required and must be an `https://` Azure DevOps organization URL;
+- `project` is required and not empty;
+- `tenant` is required and must be a GUID, the Entra tenant that backs the organization, which every auth path must be proven to target
+  before `Get-AdoAuthorizationHeader` returns a header;
+- `yaml_inventory_depth` is optional and a whole number of 1 or more; it defaults to 6;
+- no other key is allowed, so a misspelled or non-snake_case key fails at load.

@@ -1,13 +1,4 @@
 # pwsh/Azure.Cli/types/SubscriptionContext.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
-
-## comment:1
-
-Above `using System;`, written with `//`.
-
-```text
-A snapshot of the az CLI's currently active subscription (the shape of `az account show`). Captured so
-it can be saved and later restored around a subscription switch.
-```
+The typed snapshot of the az CLI's currently active subscription, in the shape of `az account show`. It is captured so it can be saved and
+later restored around a subscription switch.

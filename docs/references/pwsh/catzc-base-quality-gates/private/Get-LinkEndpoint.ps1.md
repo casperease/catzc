@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Get-LinkEndpoint.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Builds the endpoint of each distinct path for the link tools: its class, aspect, track, track type and module, each derived from its
+declaration. A facet no registry gives stays empty.
 
 ## help
 
@@ -23,11 +23,7 @@ Repository-relative, '/'-separated paths.
 
 `[System.Collections.Generic.Dictionary[string, Catzc.Base.QualityGates.LinkEndpoint]]`
 
-## comment:1
+## registries read once
 
-Above `$kinds = Get-Config -Config file-kinds`, written with `#`.
-
-```text
 The registries are read once per call, never once per path
-([ADR-REPO-LINKS-ENDPOINTSAREFACETS](/docs/drs/repository/links-in-repository.md#rule-adr-repo-links-endpointsarefacets)).
-```
+([ADR-REPO-LINKS-ENDPOINTSAREFACETS](../../../../drs/repository/links-in-repository.md#rule-adr-repo-links-endpointsarefacets)).

@@ -1,7 +1,7 @@
 # pwsh/Tooling.Github/Test-GitHistoryClean.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The read-only verification primitive behind every purge. One pass over the history reachable from a ref looks for the token in blobs, paths
+and commit messages, and returns a structured result.
 
 ## help
 

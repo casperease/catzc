@@ -1,24 +1,14 @@
 # pwsh/Tooling.Provisioning/tests/Get-ToolsStatus.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The tests of `Get-ToolsStatus`.
 
-## comment:1
+## The probed branch
 
-Above `BeforeAll {`, written with `#`.
+A tool with candidate paths takes its location and version from the probe record (`Test-Tool -PassThru`) and never starts a version job on
+its bare name. The probe, the package-manager oracle, the scope and winget are mocked. Fixture tokens are neutral
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 
-```text
-The probed branch: a tool with candidate paths takes its location and version from the probe record
-(Test-Tool -PassThru) and never starts a version job on its bare name. The probe, the package-manager oracle,
-the scope and winget are mocked. Fixture tokens are neutral
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
-```
+## The two-mechanism tool
 
-## comment:2
-
-Above `$script:twoMechanismTools = [Catzc.Base.Execution.ToolsConfig]::new([ordered]@{`, written with `#`.
-
-```text
-The MSYS2 package for Windows and an apt package for Linux, and nothing for macOS, so each platform takes
-exactly one manager: msys2 on Windows, apt on Linux, the system on macOS.
-```
+The fixture entry carries an MSYS2 package for Windows and an apt package for Linux, and nothing for macOS, so each platform takes exactly one
+manager: msys2 on Windows, apt on Linux, the system on macOS.

@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Write-TestAutomationHeader.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Writes the opening banner for a Test-Automation run, a framed header that brackets the run's output. It names the run's scope: its tier
+range, plus the category and the module list.
 
 ## help
 

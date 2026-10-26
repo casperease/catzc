@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/Format-Types.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The formatter for the C# type sources: it keeps each file's file-scoped namespace the one its module folder gives, so a type file never
+carries a hand-written namespace.
 
 ## help
 
@@ -52,29 +52,17 @@ Format-Types
 Format-Types -DryRun
 ```
 
-## comment:1
+## Scope
 
-Above `$modulesRoot = [System.IO.Path]::GetFullPath((Join-Path $root...`, written with `#`.
+The `.cs` sources exist only in the source tree, since a build ships the compiled assembly and not the sources. A types file sits under
+`<module>/types`, so a folder as wide as `pwsh/` is three levels up from the files, which is the walk depth.
 
-```text
-[System.IO] enumeration: each cmdlet call on this path adds about 20ms.
-[ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS](/docs/drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-systemioonhotpaths)
-```
+## Namespace
 
-## comment:2
+The namespace is the full name of the module whose `types/` folder holds the file. A block-scoped `namespace X { â€¦ }` is not a shape this
+repository authors, and rewriting it is no one-line fix, so the command reports it for a hand edit.
 
-Above `if ($original -notmatch '(?m)^\s*namespace\s+\S+?\s*;' -and $original -match...`, written with `#`.
+## Speed
 
-```text
-A block-scoped `namespace X { … }` is not a shape this repo authors, and rewriting it is not a one-line
-fix: report it for a hand edit instead.
-```
-
-## comment:3
-
-Above `foreach ($typeFile in Get-ChildPath $item -File -Filter '*.cs' -Depth 3) {`, written with `#`.
-
-```text
-A types file sits two levels below its module (types/), so a folder as wide as pwsh/ is three levels
-up.
-```
+The command uses `[System.IO]` enumeration on this path, because each cmdlet call here costs about 20 ms
+([ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS](../../../drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-systemioonhotpaths)).

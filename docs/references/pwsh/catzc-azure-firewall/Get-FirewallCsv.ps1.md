@@ -1,7 +1,7 @@
 # pwsh/Azure.Firewall/Get-FirewallCsv.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The command that downloads the newest firewall-rule CSV from a blob container, one per requested rule type, and emits a CSV export
+reference for each.
 
 ## help
 
@@ -76,67 +76,27 @@ Get-FirewallCsv -SubscriptionId $sub -StorageAccountName stfwexports -ContainerN
     Convert-FirewallCsvToMarkdown -OutputFolder .\docs
 ```
 
-## comment:1
+## The download path
 
-Above `$DownloadPath =...`, written with `#`.
+The download path is pinned to an absolute path. `Invoke-Executable` runs az from the repository root, so a relative `--file` would resolve
+there while `New-Item` resolves against `$PWD`; pinning makes the two agree.
 
-```text
-Pin to absolute: Invoke-Executable runs az from the repo root, so a relative --file would resolve
-there while New-Item resolves against $PWD. Make them agree before anyone touches the path.
-```
+## Shared arguments
 
-## comment:2
+The arguments common to the list and download calls are one string for `Invoke-AzCli`. The subscription, account and container hold no
+spaces. `--auth-mode login` rides the Entra session already asserted, so no account key is ever fetched.
 
-Above `$common = "--subscription $SubscriptionId --account-name $StorageAccountName...`, written with `#`.
+## Picking the newest blob
 
-```text
-Shared args, as a string for Invoke-AzCli. Sub/account/container are token-safe (no spaces).
---auth-mode login: ride the AAD session asserted above rather than fetching an account key.
-```
+The listing passes `--num-results *`. List order is lexicographic by name, not by date, and the `dd-MM-yyyy` names do not sort
+chronologically, so every blob is listed and the newest is picked from the timestamp in each name. The listing passes `-Silent` because it
+is a data read, parsed by the function, and would otherwise echo the whole listing to the console. The download stays loud because it is a
+real action.
 
-## comment:3
+## The download
 
-Above `$cli = Invoke-AzCli "storage blob list $common --num-results * -o json"...`, written with `#`.
+`--name` and `--file` are quoted, because the blob name and the repository path may hold spaces. `-o none` keeps az quiet, and its stream
+mode does not leak to the pipeline, so no `Out-Null` is needed.
 
-```text
---num-results *: list order is lexicographic by name, not by date — and the dd-MM-yyyy names
-don't sort chronologically — so fetch every blob and let the filename-timestamp sort below decide.
--Silent here only: this is a data read (-o json, parsed below), not an action. Without it the
-entire listing echoes to the console. The download call stays loud — that one is a real action.
-```
-
-## comment:4
-
-Above ``Invoke-AzCli "storage blob download $common --name `"$blobName`" --file...``, written with `#`.
-
-```text
-Quote --name and --file: blob names and the repo path may contain spaces.
--o none keeps az quiet; stream mode doesn't leak to the pipeline, so no Out-Null needed.
-```
-
-## comment:5
-
-Above `Assert-PathExist $destination -PathType Leaf -ErrorText "Blob '$blobName'...`, written with `#`.
-
-```text
-az can exit 0 yet leave no file (e.g. a silent partial). Confirm the download landed before
-emitting an object that claims this Path, so a downstream consumer never trusts a missing file.
-```
-
-## comment:6
-
-Above `$cli = Invoke-AzCli "storage blob list $common --num-results * -o json"...`, written with `#`.
-
-```text
-Every blob is listed, because the day-first names never sort by date; the newest is picked from the names
-below.
-```
-
-## comment:7
-
-Above ``Invoke-AzCli "storage blob download $common --name `"$blobName`" --file...``, written with `#`.
-
-```text
-Name and file are quoted, because either may hold spaces; the download stays loud because it is a real
-action.
-```
+az can exit 0 yet leave no file, for example after a silent partial download. The function confirms the file landed before it emits an
+object that claims that path, so a downstream consumer never trusts a missing file.

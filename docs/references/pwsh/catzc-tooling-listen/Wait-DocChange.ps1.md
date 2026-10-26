@@ -1,7 +1,7 @@
 # pwsh/Tooling.Listen/Wait-DocChange.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The listener's wait: it polls for changes and returns once they have stopped moving, so a burst of saves is one change. The wait is bounded
+and returns nothing when the bound runs out.
 
 ## help
 

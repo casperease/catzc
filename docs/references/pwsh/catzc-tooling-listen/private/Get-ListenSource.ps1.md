@@ -1,7 +1,7 @@
 # pwsh/Tooling.Listen/private/Get-ListenSource.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+A private helper of the listen module that attributes a file's current bytes to an agent session, the editor or nobody known, by reading the
+two write ledgers and ranking them as `WriteLedger.SourceOf` does.
 
 ## help
 

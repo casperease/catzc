@@ -1,7 +1,7 @@
 # pwsh/Tooling.Core/Remove-MacToolInstall.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The macOS platform core of the tool-removal lifecycle: it evicts an install that did not come from a tool's configured manager, so the
+managed build can win.
 
 ## help
 
@@ -36,11 +36,7 @@ The tool's parsed tools.yml entry (from Get-ToolConfig).
 
 `[bool]` — $true when an off-config install was removed, $false when there was nothing to remove.
 
-## comment:1
+## The Homebrew-owned shadow
 
-Above `if (Test-Command brew) {`, written with `#`.
-
-```text
-1. Homebrew-owned shadow — a binary under the brew prefix, symlinked into the Cellar. The symlink target
-   carries the formula name (.../Cellar/<formula>/<version>/bin/<cmd>); brew uninstall is user-space.
-```
+A Homebrew-owned binary sits under the brew prefix, symlinked into the Cellar. The symlink target carries the formula name
+(`.../Cellar/<formula>/<version>/bin/<cmd>`), and `brew uninstall` is user-space.

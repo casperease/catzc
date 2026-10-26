@@ -1,7 +1,8 @@
 # pwsh/Azure.Templates/Deploy-Bicep.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The command that deploys a bicep template to Azure. It resolves the deployment context, runs the template's hooks, calls az and sets the
+tracking tags. It is a state-changing command that previews with `-DryRun` rather than `ShouldProcess`
+([ADR-AUTO-DRYRUN](../../../drs/automation/dry-run.md)).
 
 ## help
 
@@ -85,93 +86,40 @@ Deploy-Bicep dev sample -DryRun
 Deploy-Bicep nsub foundation -SubscriptionIdAssertIs a0e00000-de00-50b0-0000-000000000000
 ```
 
-## comment:1
+## The target
 
-Above `[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStat...`, written with `#`.
+In a pipeline the target must be pinned explicitly. The session (the service connection) selects the target, and the assert guard is the
+pipeline's declared expectation, so a re-wired service connection can never silently retarget an existing pipeline's deploy. The command
+fails fast at the call site instead ([ADR-AZ-DATAMOD](../../../drs/azure/azure-data-model.md)).
 
-```text
-State-changing function deliberately uses -DryRun, not ShouldProcess — see
-[ADR-AUTO-DRYRUN](/docs/drs/automation/dry-run.md).
-```
+The session determines the target, and the deployment context resolves and guards it (`Get-AzCliSessionSubscription` and
+`-SubscriptionIdAssertIs`). Everything downstream reads the one resolved identity off the context, so config, artifacts and tags all
+agree.
 
-## comment:2
+## The PrePost hooks
 
-Above `if ((Test-IsRunningInPipeline) -and...`, written with `#`.
+A template may ship `infrastructure/templates/<name>/PrePost.psm1` exporting `Invoke-BicepPreDeploy` and `Invoke-BicepPostDeploy`. The
+command resolves whichever it exports, and an absent hook does nothing. The `assets/PrePost.psm1` starter is never loaded, since it exists
+only to be copied into a template.
 
-```text
-In a pipeline the target MUST be pinned explicitly — the session (the service connection) selects
-it, and the assert guard is the pipeline's declared expectation, so a re-wired service connection
-can never silently retarget an existing pipeline's deploy. Fail fast at the call site instead.
-See [ADR-AZ-DATAMOD](/docs/drs/azure/azure-data-model.md).
-```
+The hooks run strict like every catzc module, whoever wrote them
+([ADR-PWSH-ERROR-STRICTCLEAN](../../../drs/automation/pwsh/error-handling.md#rule-adr-pwsh-error-strictclean)).
 
-## comment:3
+The deploy invocation is the bag of arguments this deploy is acting on, including the mode. `DryRun` is passed as its own first-class
+parameter to the pre-deploy hook, because it is the side-effect kill switch and too special to hide in a bag. Computed descriptor objects
+stay separate ([ADR-PWSH-PREPOST](../../../drs/automation/pwsh/prepost-extension-modules.md)).
 
-Above `` $context = Get-BicepDeploymentContext ` ``, written with `#`.
+Pre-deploy runs before the `--what-if` branch, so it gets `-DryRun` and must honor it. Post-deploy runs only after a real deploy, so it
+never receives `DryRun`.
 
-```text
-The session determines the target; the context resolves and guards it (Get-AzCliSessionSubscription
-+ -SubscriptionIdAssertIs), and everything downstream reads the one resolved identity off the
-context so config, artifacts, and tags all agree.
-```
+## Artifact paths
 
-## comment:4
+The artifact paths are repo-relative where possible and absolute for external pipeline artifacts. az runs from the repository root
+(`Invoke-Executable`'s working directory), so a repo-relative path resolves there and an absolute one is honored as it is, either way
+independent of the shell's `$PWD`. The paths are quoted in case one contains spaces.
 
-Above `$preDeployHook = $null`, written with `#`.
+## Failures
 
-```text
-A template MAY ship infrastructure/templates/<name>/PrePost.psm1 exporting Invoke-BicepPreDeploy /
-Invoke-BicepPostDeploy. Resolve whichever it exports; absent hooks are no-ops. The
-assets/PrePost.psm1 starter is never loaded — it exists only to be copied into a template.
-```
-
-## comment:5
-
-Above `. $prepostModule { Set-StrictMode -Version Latest }`, written with `#`.
-
-```text
-The template's hooks run strict like every catzc module, whoever wrote them
-([ADR-PWSH-ERROR-STRICTCLEAN](/docs/drs/automation/pwsh/error-handling.md#rule-adr-pwsh-error-strictclean)).
-```
-
-## comment:6
-
-Above `$deployInvocation = [ordered]@{`, written with `#`.
-
-```text
-The deploy invocation — the arguments this deploy is acting on (incl. Mode). DryRun is passed
-as its own first-class parameter to PreDeploy (it's the side-effect kill switch — too special
-to hide in a bag). Computed descriptor objects stay separate.
-See [ADR-PWSH-PREPOST](/docs/drs/automation/pwsh/prepost-extension-modules.md).
-```
-
-## comment:7
-
-Above `if ($preDeployHook) {`, written with `#`.
-
-```text
-PreDeploy runs before the --what-if branch, so it gets -DryRun and must honor it. PostDeploy
-only runs after a real deploy, so it never receives DryRun.
-```
-
-## comment:8
-
-Above `$templateFile = $context.artifacts.template_file`, written with `#`.
-
-```text
-The artifact paths are repo-relative where possible (absolute for external pipeline artifacts).
-az runs from the repo root (Invoke-Executable's WorkingDirectory), so a repo-relative path
-resolves there and an absolute one is honored as-is — either way independent of the shell's $PWD.
-Quoted in case a path contains spaces.
-```
-
-## comment:9
-
-Above `if ($DryRun) {`, written with `#`.
-
-```text
--NoAssert on the az deployment calls: a non-zero exit throws WITH context (the deployment name,
-the exact az command, az's stderr/stdout) from here, instead of the generic exit-code assertion
-buried in Invoke-Executable. az's stderr is where the cause lives — a policy denial, an invalid
-template, a quota/auth error — so it must travel in the thrown error, not just the console stream.
-```
+The az deployment calls pass `-NoAssert`, so a non-zero exit throws from the command with its context: the deployment name, the exact az
+command and az's stderr and stdout. The cause lives in az's stderr, a policy denial, an invalid template or a quota or auth error, so it
+must travel in the thrown error and not only the console stream, and the generic exit-code assertion in `Invoke-Executable` would hide it.

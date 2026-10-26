@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Select-InScopeTestFiles.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Keeps the test files that have a test inside the run's tier and category scope, and returns the dropped files' tests. A worker filters by
+tag itself, but only after loading a file, so this drops out-of-scope files before they are loaded.
 
 ## help
 

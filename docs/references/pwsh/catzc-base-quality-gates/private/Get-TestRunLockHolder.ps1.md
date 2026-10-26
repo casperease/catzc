@@ -1,7 +1,6 @@
 # pwsh/Base.QualityGates/private/Get-TestRunLockHolder.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Reads the test-run lock record and describes who holds the working folder, so a waiting run can say whom it waits for.
 
 ## help
 
@@ -28,11 +27,7 @@ The lock record's path (out/.test-run-lock.json).
 `[pscustomobject]` with Known (the record names a live process), Description (the phrase for the announcement), and Record (the parsed
 record, or $null).
 
-## comment:1
+## Timestamps
 
-Above `$toInstant = {`, written with `#`.
-
-```text
-ConvertFrom-Json turns ISO timestamps into [datetime] (kind kept from the 'Z'/offset suffix); a string
-cast would drop sub-second precision and the zone, so both shapes are read as instants here.
-```
+ConvertFrom-Json turns an ISO timestamp into a `[datetime]` and keeps its kind from the `Z` or offset suffix. A string cast would drop the
+sub-second precision and the zone, so the record's values are read as instants in both shapes.

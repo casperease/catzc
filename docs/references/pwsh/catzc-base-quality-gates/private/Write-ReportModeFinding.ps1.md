@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Write-ReportModeFinding.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Prints the findings of a source check in report mode: every finding, then its count, and never a failure. It is the one way a gate shows a
+check whose config sets `mode: report`.
 
 ## help
 

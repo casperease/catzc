@@ -1,7 +1,8 @@
 # pwsh/Tooling.Github/private/Assert-RemoteMatchesBranch.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The private post-push check shared by `Publish-CleanHistory` and `Reset-GitHubRepository`. It compares the remote's advertised refs with the
+local commit, so a pushed history is proved without downloading it. A ref at any other commit is history the local scan never covered, and
+it fails the check.
 
 ## help
 

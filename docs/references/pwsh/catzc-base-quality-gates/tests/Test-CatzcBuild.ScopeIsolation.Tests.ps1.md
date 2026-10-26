@@ -1,44 +1,20 @@
 # pwsh/Base.QualityGates/tests/Test-CatzcBuild.ScopeIsolation.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The test of scope isolation ([DDR-RUNMODE-OWNSCRIPTSCOPE](../../../../drs/design/run-modes.md#rule-ddr-runmode-ownscriptscope)): two catzc
+modules that hold a `$script:` variable of the same name never see each other's value, in either run mode. The probe variable name is the
+test's own and is removed afterwards, and no module code reads it. The modules are chosen generically, the first two loaded catzc modules by
+name, never by a production identity.
 
-## comment:1
+## The probe
 
-Above `Describe 'Module script scopes are never shared'`, written with `#`.
+The shared probe block sets the probe in each module's script scope, reads every module's variable and the global one back, then removes the
+probes. It is self-contained, so it also runs in a child pwsh.
 
-```text
-Scope isolation ([DDR-RUNMODE-OWNSCRIPTSCOPE](/docs/drs/design/run-modes.md#rule-ddr-runmode-ownscriptscope)): two catzc modules that
-hold a $script: variable of the same name never see
-each other's value — in either run mode. The probe variable name is the test's own and is removed afterwards; no
-module code reads it. The modules are chosen generically (the first two loaded catzc modules by name), never by
-a production identity.
-```
+## Two contexts
 
-## comment:2
+The loaded-session context runs in-process, in whichever mode the session runs: the source run proves the source mode, and the build run,
+where this file runs against the built modules, proves build mode.
 
-Above `$script:probeBlock = {`, written with `#`.
-
-```text
-Sets the probe in each module's script scope (widget, gadget, …), reads every module's variable and the
-global one back, then removes the probes. Self-contained so it also runs in a child pwsh.
-```
-
-## comment:3
-
-Above `Context 'in the loaded session' -Tag 'L1', 'logic' {`, written with `#`.
-
-```text
-In-process, in whichever mode this session runs: the source run proves the source mode, the build run (where
-this file runs against the built modules) proves build mode.
-```
-
-## comment:4
-
-Above `Context 'in a fresh build' -Tag 'L2', 'logic', 'greedy', 'source-only' {`, written with `#`.
-
-```text
-A fresh build entered in a child pwsh. source-only: it builds from the source tree itself (Build-Modules needs
-the per-function files) and isolates the build in its own process, so the answer does not depend on the mode
-of the session running it. greedy: one build plus one importer-loading child pwsh.
-```
+The fresh-build context enters a fresh build in a child pwsh. It is source-only, because it builds from the source tree itself
+(`Build-Modules` needs the per-function files) and isolates the build in its own process, so the answer does not depend on the mode of the
+session running it. It is greedy, at the cost of one build plus one importer-loading child pwsh.

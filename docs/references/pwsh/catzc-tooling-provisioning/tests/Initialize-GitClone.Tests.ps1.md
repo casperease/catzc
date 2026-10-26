@@ -1,14 +1,5 @@
 # pwsh/Tooling.Provisioning/tests/Initialize-GitClone.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
-
-## comment:1
-
-Above `BeforeEach {`, written with `#`.
-
-```text
-Every git invocation goes through Invoke-Executable, so one mock covers the whole external
-boundary: rev-parse proves the work tree, `--get` probes report current values, and the
-`git config --local <key>` writes are the side effects the tests count.
-```
+The tests of `Initialize-GitClone`. Every git invocation goes through `Invoke-Executable`, so one mock covers the whole external boundary:
+`rev-parse` proves the work tree, the `--get` probes report current values, and the `git config --local <key>` writes are the side effects
+the tests count.

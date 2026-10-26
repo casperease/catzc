@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Get-MarkdownScope.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Lists the repository-relative Markdown files in the file class that the title and the meta block share. One scope keeps the two checks on
+the same files.
 
 ## help
 
@@ -35,11 +35,7 @@ A `.gitattributes` attribute whose `unset` value takes one file out of this scop
 
 `[string[]]` repository-relative, '/'-separated paths.
 
-## comment:1
+## Exempt paths
 
-Above `$exemptPaths = Get-ContentExemptPath -RepositoryRoot $root -Path $markdown`, written with `#`.
-
-```text
-Every class comes from .gitattributes.
-Get-ContentExemptPath returns its paths as one array: assign it, so the set holds the paths, not the array.
-```
+Every exempt class comes from `.gitattributes`. Get-ContentExemptPath returns its paths as one array, so the result is assigned to a
+variable first, and the exempt set then holds the paths, not the array.

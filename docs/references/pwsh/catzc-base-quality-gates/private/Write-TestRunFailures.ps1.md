@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Write-TestRunFailures.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Writes every failure of a finished test run to the console: each failed test with its message, and each test file that failed before any of
+its tests ran.
 
 ## help
 
@@ -34,11 +34,6 @@ The run's per-file entries from the files sidecars (New-TestAutomationShardScrip
 Write-TestRunFailures -Rows $rows -Files $files
 ```
 
-## comment:1
+## Grouping
 
-Above `$byMessage = [ordered]@{}`, written with `#`.
-
-```text
-Rows that share a message share a cause: each is named, and the message is written once, in the order it first
-failed.
-```
+Rows that share a message share a cause. Each is named, and the message is written once, in the order it first failed.

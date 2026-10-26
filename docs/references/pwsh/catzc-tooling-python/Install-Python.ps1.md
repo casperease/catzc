@@ -1,7 +1,6 @@
 # pwsh/Tooling.Python/Install-Python.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The provisioner of the toolchain's Python: a uv-managed CPython at the locked version, made the default through uv's global shims.
 
 ## help
 
@@ -38,22 +37,9 @@ Install-Python
 Install-Python -Version '3.12'
 ```
 
-## comment:1
+## How uv installs it
 
-Above `$reinstall = if ($Force) {`, written with `#`.
-
-```text
-uv resolves the newest matching CPython, installs it, and (--default) writes the global python/python3
-shims into its bin dir. --default is still behind uv's preview flag, so opt in explicitly with
---preview-features to keep it (and silence uv's experimental warning, which WarningPreference=Stop
-would otherwise turn into a halt). --reinstall replaces an existing build of the same version under -Force.
-```
-
-## comment:2
-
-Above `$reinstall = if ($Force) {`, written with `#`.
-
-```text
-The preview opt-in is explicit, so the shims stay and uv's experimental warning never halts a run that stops on
-warnings.
-```
+uv resolves the newest CPython that matches the version, installs it and, with `--default`, writes the global `python` and `python3` shims
+into its bin directory. `--default` still sits behind uv's preview flag, so the command opts in explicitly with `--preview-features`: the
+shims stay, and uv's experimental warning never halts a run that stops on warnings. Under `-Force`, `--reinstall` replaces an existing build
+of the same version.

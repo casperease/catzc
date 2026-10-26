@@ -1,13 +1,16 @@
 # pwsh/Tooling.Listen/types/WriteLedger.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The write ledgers of the listen mode and the rule that reads them. The agent ledger (`out/agent-writes.jsonl`) and the editor ledger
+(`out/editor-saves.jsonl`) each hold one entry per write or save; `WriteLedger` reads both and answers who made a file's current bytes.
 
-## comment:1
+## Who wrote it
 
-Above `public static WriteSource SourceOf(IReadOnlyList<WriteLedgerEntry> agent,...`, written with `//`.
+`WriteLedger.SourceOf` ranks the evidence:
 
-```text
-Who made a file's current bytes, in rank order: an agent's exact write, the editor's exact save, a write inside an agent's Bash
-window (open windows close after openWindowSeconds), else unknown. A deleted file has no hash and no write time.
-```
+1. an agent's exact write of the same hash;
+2. the editor's exact save of the same hash;
+3. a write inside an agent's Bash window, such as a formatter or generator an agent ran; a window whose end is not recorded closes after
+   `openWindowSeconds`;
+4. otherwise unknown.
+
+A deleted file has no hash and no write time, so only the matching on the path remains for it.

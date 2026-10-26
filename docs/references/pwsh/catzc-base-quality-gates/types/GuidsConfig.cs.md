@@ -1,26 +1,18 @@
 # pwsh/Base.QualityGates/types/GuidsConfig.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The typed record for the managed-GUID registry, `configs/guids.yml`: every GUID literal the repository carries, each a named, described
+entry (`guids:`), plus the non-allow list of values that are never a legitimate identity (`denied:`). It is registered in
+`Catzc.Base.Config/configs/configs.yml`, so `Get-Config -Config guids` returns it. Its properties mirror the YAML keys
+([ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](../../../../drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
 
-## comment:1
+## Validation
 
-Above `using System;`, written with `//`.
+Constructing the record maps and validates the parsed YAML and gathers every violation into one throw:
 
-```text
-The managed-GUID registry, configs/guids.yml: every GUID literal the repository carries, each a named, described
-entry (`guids:`), plus the non-allow list of values that are never a legitimate identity (`denied:`).
-Constructing an instance MAPS and VALIDATES the parsed YAML, collecting every violation into one throw.
-Registered in Catzc.Base.Config/configs/configs.yml (type: Catzc.Base.QualityGates.GuidsConfig), so
-Get-Config -Config guids returns this typed model. Mirrors the YAML mapping (snake_case keys,
-[ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
+- the only top-level keys are `denied` (optional) and `guids` (required; an empty map or no value is allowed), so a stray key cannot quietly
+  linger;
+- each section is a map of name to `ManagedGuidEntry`, each entry well-formed;
+- guid values are unique across all entries: a GUID has exactly one name, and a denied value can never also be registered.
 
-Load-time rules:
-  - only the top-level keys 'denied' (optional) and 'guids' (required; an empty map or no value allowed) — the
-    schema is strict, so a stray key cannot quietly linger;
-  - each section is a map of name -> ManagedGuidEntry, each entry well-formed;
-  - guid values are unique across all entries — a GUID has exactly one name, and a denied value can never also
-    be registered.
-That every registered GUID appears in tracked text (and no unregistered or denied one does) is the managed-guid
-integrity test's job, not load's.
-```
+That every registered GUID appears in tracked text, and that no unregistered or denied one does, is the managed-guid integrity test's job,
+not load's.

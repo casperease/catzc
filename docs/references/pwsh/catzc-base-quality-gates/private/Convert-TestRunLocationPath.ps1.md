@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Convert-TestRunLocationPath.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Maps paths between a test run's working folder and the root of the location it runs in. A snapshot run executes the same repository-relative
+files under a different root, so test files going in and result paths coming home must be translated.
 
 ## help
 

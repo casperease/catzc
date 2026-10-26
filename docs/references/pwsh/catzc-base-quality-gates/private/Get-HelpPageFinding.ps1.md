@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Get-HelpPageFinding.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Lists what is wrong with the help a PowerShell file keeps in the `## help` section of its comment page, one sentence per fault. It reads the
+file with the PowerShell parser, so a comment inside a string is never mistaken for help.
 
 ## help
 

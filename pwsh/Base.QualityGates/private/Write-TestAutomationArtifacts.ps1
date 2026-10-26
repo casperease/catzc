@@ -58,6 +58,7 @@ function Write-TestAutomationArtifacts {
         Write-Message "Could not render the skip report: $_" -ForegroundColor Yellow -NoHeader
     }
 
+    # Rule coverage unions the tagged tests' and the analyzer rules' enforcers over every rule id; report-only, so a failure never fails the run.
     try {
         $ruleIds = Get-CatsDrsRuleIds
         Write-TestAutomationRuleCoverage -Rows $Rows -AnalyzerCoverage @(Get-AnalyzerDrsCoverage) `

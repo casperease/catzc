@@ -1,15 +1,5 @@
 # pwsh/Base.QualityGates/types/LinkFindingType.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
-
-## comment:1
-
-Above `namespace Catzc.Base.QualityGates;`, written with `//`.
-
-```text
-What the link engine found at one place in a file
-([ADR-REPO-LINK](/docs/drs/repository/markdown-links.md)). The fixable types are rewritten by
-Format-Links and reported by Test-Links until they are; the rest cannot be fixed mechanically and need a
-person. Overlong is informational: a line that stays over its limit after the aligner did what it can.
-```
+What the link engine found at one place in a file ([ADR-REPO-LINK](../../../../drs/repository/markdown-links.md)). The fixable types are
+rewritten by `Format-Links` and reported by `Test-Links` until they are. The rest cannot be fixed mechanically and need a person. `Overlong`
+is informational: a line that stays over its limit after the aligner did what it can.

@@ -1,7 +1,7 @@
 # pwsh/Tooling.Core/Get-EngineCaseTable.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The loader of a per-engine fixture table: it reads a YAML table of cases and returns one row per case and execution engine, validated
+through the `EngineCaseTable` type and shaped for Pester's `-ForEach`.
 
 ## help
 
@@ -38,12 +38,8 @@ Return only the rows that apply (skip the "n/a" cells).
 Get-EngineCaseTable pwsh/Base.Timeouts/tests/assets/engine-cases/bounded-command.yml -Applicable
 ```
 
-## comment:1
+## Engines
 
-Above `if ($Engine) {`, written with `#`.
-
-```text
 The engines are declared once
-([ADR-AUTO-ENGINE-THREEENGINES](/docs/drs/automation/execution-engines.md#rule-adr-auto-engine-threeengines)): Get throws, naming them,
-for any other name.
-```
+([ADR-AUTO-ENGINE-THREEENGINES](../../../drs/automation/execution-engines.md#rule-adr-auto-engine-threeengines)); `-Engine` with any other
+name throws, naming the declared ones.

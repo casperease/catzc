@@ -1,7 +1,6 @@
 # pwsh/Base.QualityGates/Get-RepositoryGuids.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The scanner behind the managed-GUID gate: it reads the tracked text files and returns one record per GUID literal it finds.
 
 ## help
 
@@ -27,13 +26,9 @@ Get-RepositoryGuids | Where-Object { -not (Test-ManagedGuid $_.guid) }
 Lists every unregistered GUID occurrence in the repository.
 ```
 
-## comment:1
+## One scan per file
 
-Above `$text = [System.IO.File]::ReadAllText($fullPath)`, written with `#`.
-
-```text
-Read the whole file and match once, rather than regex-per-line: a single scan over the text is
-~3x faster than N per-line Matches calls (the per-line managed/native transitions dominated).
-Line numbers are recovered from each match's offset — matches arrive in ascending index order, so
-one forward cursor counts the newlines between consecutive matches, touching each char at most once.
-```
+The command reads the whole file and matches once, instead of matching per line. One scan over the text is about 3 times faster than many
+per-line `Match` calls, whose managed and native transitions dominated. Line numbers are recovered from each match's offset: matches arrive
+in ascending order, so one forward cursor counts the newlines between consecutive matches and touches each character at most once. A tracked
+file that is missing on disk, such as an unstaged deletion, has nothing to scan.

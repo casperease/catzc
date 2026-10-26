@@ -1,7 +1,6 @@
 # pwsh/Azure.Templates/Deploy-AzureResourceGroup.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The command that idempotently ensures a resource group exists in a given subscription and region.
 
 ## help
 

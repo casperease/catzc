@@ -1,7 +1,7 @@
 # pwsh/Tooling.Listen/Wait-DocNote.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The processor's wait: it blocks, bounded, until a session holds a note the ledger has no line for, and returns at once when a backlog
+already exists.
 
 ## help
 

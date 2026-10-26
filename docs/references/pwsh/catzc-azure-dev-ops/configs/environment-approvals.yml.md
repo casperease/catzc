@@ -1,13 +1,17 @@
 # pwsh/Azure.DevOps/configs/environment-approvals.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The approval checks that `Sync-AdoEnvironmentApprovals` applies to Azure DevOps environments, mirrored by the
+`EnvironmentApprovalsConfig` type. The how-to [apply environment approvals](../../../../how-to/automation/apply-environment-approvals.md)
+walks the apply.
 
-## comment:1
+## Keys
 
-Above `approver_group:`, written with `#`.
+- **`approver_group`** — the group's `name`, optional `description` and its `members`; the apply makes the group hold exactly these members.
+- **`timeout_hours`** — how long a pending approval waits before the run times out, 24 when the key is absent; at most 720, Azure DevOps'
+  own ceiling of 30 days.
+- **`units`** — the units whose release-gate rungs carry the RC and RBC checks, as `<unit>-<rung>` environments for the rungs the rungs
+  registry puts behind those gates.
+- **`prod_environments`** — the prod-tier environments, listed here because the prod tier is named by its deploy target (the subscription or
+  the configuration slot), not by a rung.
 
-```text
-Approval checks, applied by Sync-AdoEnvironmentApprovals (docs/how-to/automation/apply-environment-approvals.md): each unit's
-release-uat (RC) and pre-prod (RBC) gate, then the prod-tier environments. The apply creates an environment that does not exist yet.
-```
+The apply creates an environment that does not exist yet.

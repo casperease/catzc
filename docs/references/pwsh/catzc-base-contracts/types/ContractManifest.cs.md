@@ -1,28 +1,15 @@
 # pwsh/Base.Contracts/types/ContractManifest.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+A version folder's `contract.yml`, at `contracts/<root>/<version>/contract.yml`: the per-asset exceptions to the default addressing, where
+an asset constrains the files its globs name instead of the one file at its own path
+([ADR-REPO-CONTRACT-CONFIGUREDADDRESSING](../../../../drs/repository/api-contracts.md#rule-adr-repo-contract-configuredaddressing)). It
+mirrors the YAML mapping, so the property is snake_case
+([ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](../../../../drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
 
-## comment:1
+## Keys
 
-Above `using System;`, written with `//`.
+- **`applies_to`** — a map of an asset's path in the version folder (`<file>`, `<group>/<file>` or `<group>/<folder>/<file>`) to a non-empty
+  list of repository-relative, `/`-separated globs. The asset constrains every tracked file the globs match.
 
-```text
-A version folder's contract.yml, at contracts/<unit>/<version>/contract.yml
-([ADR-REPO-CONTRACT-DIRECTIONBYCONVENTION](/docs/drs/repository/api-contracts.md#rule-adr-repo-contract-directionbyconvention)): the exceptions to the direction
-convention. It mirrors the YAML mapping, so the property is snake_case
-([ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
-  direction  a map of an asset's path under the version folder (<module>/<path>, '/'-separated) to its direction,
-             provided or depended-on. Optional; absent means no override.
-Construction validates the file and collects every violation into one ArgumentException; an unknown key throws.
-That every named asset exists is Get-Contract's check, since only the enumeration knows the assets.
-```
-
-## comment:2
-
-Above `public IReadOnlyDictionary<string, string[]> applies_to { get; }`, written with `//`.
-
-```text
-Under the manifest-glob addressing mode: each <module>/<path> asset's globs, relative to its module's target root; the asset
-constrains every tracked file they match instead of the one file at its own path.
-```
+Construction validates the file and collects every violation into one `ArgumentException`; an unknown key throws. That every named asset
+exists and binds files is the enumeration's check, since only it knows the assets.

@@ -1,49 +1,22 @@
 # pwsh/Base.Contracts/types/ContractCommand.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The typed record for a command contract, `<name>.command.yml`, and for the signature read from a command's file, so the two compare as one
+type ([ADR-REPO-CMDCONTRACT-CONTRACTLANGUAGE](../../../../drs/repository/command-contracts.md#rule-adr-repo-cmdcontract-contractlanguage)).
+The asset names the command, so the contract holds no placement facts
+([ADR-REPO-CMDCONTRACT-NOPLACEMENTFACTS](../../../../drs/repository/command-contracts.md#rule-adr-repo-cmdcontract-noplacementfacts)).
 
-## comment:1
+## Keys
 
-Above `public static IReadOnlyList<string> Compare(ContractCommand contract,...`, written with `//`.
+- **`description`** — what the command guarantees, one plain sentence: its help synopsis stripped of links, codes and markup. A contract
+  requires it; a signature read from a command file carries none.
+- **`parameters`** — the parameters in the order the contract states them.
+- **`output`** — the output type, with `[]` for a list; `void` when omitted.
+- **`default_set`** — the parameter set a call that fits several resolves to; null when the command names none.
 
-```text
-The findings of a contract against the signature read from the command's file: every disagreement, each as one message
-(ADR-REPO-CMDCONTRACT-CHECKERPERLANGUAGE). A computed default on the command's side is not compared.
-```
+## Behaviour
 
-## comment:2
-
-Above `public ContractCommand(ContractAsset asset, IDictionary raw) : this(raw)`, written with `//`.
-
-```text
-The contract of one command asset: the asset names the command
-([ADR-REPO-CMDCONTRACT-NOPLACEMENTFACTS](/docs/drs/repository/command-contracts.md#rule-adr-repo-cmdcontract-noplacementfacts)), raw is its parsed document.
-```
-
-## comment:3
-
-Above `public string ToAssetText(Func<string, string> rename)`, written with `//`.
-
-```text
-The asset text of the contract, the inverse of the grammar: each parameter name, set name and catzc type name passes through rename,
-and the base types, flags, defaults and order stay as read; void output and no default set are left out, as the defaults are.
-```
-
-## comment:4
-
-Above `public string description { get; }`, written with `//`.
-
-```text
-What the command guarantees, one plain sentence: its help synopsis stripped of links, codes and markup. A contract requires it; a
-signature read from a command file carries none.
-```
-
-## comment:5
-
-Above `public string description { get; }`, written with `//`.
-
-```text
-What the command guarantees, one plain sentence: its help synopsis stripped of links, codes and markup. A contract requires it; a
-signature read from a command file carries none.
-```
+- `Compare` returns the findings of a contract against the signature read from the command's file: every disagreement, each as one message
+  ([ADR-REPO-CMDCONTRACT-CHECKERPERLANGUAGE](../../../../drs/repository/command-contracts.md#rule-adr-repo-cmdcontract-checkerperlanguage)).
+  A computed default on the command's side is not compared.
+- `ToAssetText` writes the asset text, the inverse of the grammar. Each parameter name, set name and catzc type name passes through
+  `rename`; the base types, flags, defaults and order stay as read. Void output and no default set are left out, as the defaults are.

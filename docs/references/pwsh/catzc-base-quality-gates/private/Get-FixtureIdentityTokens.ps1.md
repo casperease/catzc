@@ -1,7 +1,8 @@
 # pwsh/Base.QualityGates/private/Get-FixtureIdentityTokens.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The set of identity tokens the hermetic tests use: the customers, subscriptions, org, tenants and environments of the fixture configs, plus
+a few neutral names. Test-ConfigIdentityHygiene bans each one from a shipped config value, so a fixture never stands where a live identity
+belongs.
 
 ## help
 
@@ -29,21 +30,14 @@ It rests on [ADR-REPO-LANG](../../../../drs/repository/domain-language-separatio
 
 `[string[]]` the distinct fixture identity tokens.
 
-## comment:1
+## the fixture config trees
 
-Above `Assert-SourceTree`, written with `#`.
+Every `tests/assets/config/` tree holds the identity-bearing `azure.yml` and `customer.yml` that a logic test redirects Get-Config to. The
+function enumerates all of them and unions their identities. Test fixtures live only in the catzc source tree, because tests never ship in a
+build, hence the source-tree guard at the start. Environments the config marks `per_subscription` are left out: those names are shared
+structural vocabulary, not a fixture identity.
 
-```text
-Every fixture config tree (tests/assets/config/) — the identity-bearing azure.yml and customer.yml a
-logic test redirects Get-Config to. Enumerate all of them and union their identities. Test fixtures live
-only in the catzc source tree (tests never ship in a build), hence the guard.
-```
+## neutral in-memory fixtures
 
-## comment:2
-
-Above `foreach ($token in 'widget', 'gadget', 'faketool') {`, written with `#`.
-
-```text
-Neutral in-memory fixtures that never live in a config file — the globset and tool fixtures logic tests
-construct inline.
-```
+`widget`, `gadget` and `faketool` are added explicitly. They are the globset and tool fixtures that logic tests construct inline and that
+never live in a config file.

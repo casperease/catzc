@@ -1,23 +1,8 @@
 # pwsh/Tooling.Toolchain/tests/Update-BatsVendor.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The tests of `Update-BatsVendor` with the download and tar mocked. The mocked tar lays out a fixture release in the staging folder, and the
+vendored folder of a fixture repository in `TestDrive` is rebuilt from it. The fixtures carry neutral names
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 
-## comment:1
-
-Above `Describe 'Update-BatsVendor'`, written with `#`.
-
-```text
-Update-BatsVendor with the download and tar mocked: the mocked tar lays out a fixture release in the staging folder,
-and the vendored folder of a fixture repository in $TestDrive is rebuilt from it. Neutral fixture names
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
-```
-
-## comment:2
-
-Above `$files = @(Get-ChildPath $script:target -File -Depth 64 -Exclude @()...`, written with `#`.
-
-```text
-A whole-tree walk ([ADR-PWSH-ENUM-ALWAYSBOUNDED](/docs/drs/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): the vendored
-runner is compared file for file, so nothing is pruned.
-```
+The vendored runner is compared file for file by a whole-tree walk
+([ADR-PWSH-ENUM-ALWAYSBOUNDED](../../../../drs/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)), so nothing is pruned.

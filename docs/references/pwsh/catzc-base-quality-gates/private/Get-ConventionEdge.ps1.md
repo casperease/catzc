@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Get-ConventionEdge.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Derives the convention relations of a set of tracked paths for the link tools: the relations a declaration implies and no file writes. It is
+the one place a test, a comment page or a module dependency becomes an edge.
 
 ## help
 
@@ -30,38 +30,18 @@ Repository-relative, '/'-separated tracked paths: the files the relations may jo
 
 `[Catzc.Base.QualityGates.LinkEdge[]]`
 
-## comment:1
+## derived on every call
 
-Above `$commentPages = Get-Config -Config comment-pages`, written with `#`.
-
-```text
-A file points at its comment page, where the pages map places one and it is tracked.
-The config's own PageFor is what Get-CommentPage asks; called directly, it costs no function call per file.
-```
-
-## comment:2
-
-Above `$files = @($Path | ForEach-Object { $_.Replace('\', '/') } | Select-Object...`, written with `#`.
-
-```text
 Each relation is derived from the declaration that implies it, never read from a file
-([ADR-REPO-LINKS-CONVENTIONSAREDERIVED](/docs/drs/repository/links-in-repository.md#rule-adr-repo-links-conventionsarederived)).
-```
+([ADR-REPO-LINKS-CONVENTIONSAREDERIVED](../../../../drs/repository/links-in-repository.md#rule-adr-repo-links-conventionsarederived)). A
+moved test or a new dependency changes the relations with no edit here.
 
-## comment:3
+## the comment page
 
-Above `$files = @($Path | ForEach-Object { $_.Replace('\', '/') } | Select-Object...`, written with `#`.
+A file points at its comment page where the comment-pages config places one and that page is among the given paths. The config is read once
+and passed to Get-CommentPage for each file.
 
-```text
-Derived from the declarations on every call, so a moved test or a new dependency changes the relations with no
-edit here.
-```
+## the module folder
 
-## comment:4
-
-Above `$modulesFolder = Get-CatzcModulesFolder`, written with `#`.
-
-```text
-A module points at each module it declares as a dependency; its folder stands for it, and a group name is no
-module.
-```
+A module points at each module it declares as a dependency. Its folder stands for it, and a group name in the dependencies is no module, so
+it gives no edge. An edge is made only when both folders hold at least one of the given paths.

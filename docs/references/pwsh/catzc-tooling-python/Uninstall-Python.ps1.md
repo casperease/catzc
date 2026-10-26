@@ -1,7 +1,6 @@
 # pwsh/Tooling.Python/Uninstall-Python.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The uninstaller of the uv-managed Python, the counterpart of `Install-Python`.
 
 ## help
 

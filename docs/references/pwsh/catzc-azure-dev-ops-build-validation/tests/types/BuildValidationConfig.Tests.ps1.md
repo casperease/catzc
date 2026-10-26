@@ -1,25 +1,15 @@
 # pwsh/Azure.DevOps.BuildValidation/tests/types/BuildValidationConfig.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The L0 tests of the `build-validation.yml` type, which collects every violation and then throws, plus the shipped-config integrity check.
 
-## comment:1
+## Shape at load, ties in the integrity check
 
-Above `Describe 'BuildValidationConfig'`, written with `#`.
+The type checks shape only. The cross-config reference is enforced elsewhere, never at config load: every shipped entry must tie to a
+declared globset and resolve a pipeline, which the integrity check asserts and the commands enforce at run time
+([ADR-AZ-CUSTOMER-REFERENCENOTVALIDATEDONLOAD](../../../../drs/azure/azure-customer-model.md#rule-adr-az-customer-referencenotvalidatedonload)).
 
-```text
-The build-validation.yml type (collect-all-then-throw), plus the shipped-config integrity check: every entry
-ties to a declared globset and resolves a pipeline (the
-[ADR-AZ-CUSTOMER-REFERENCENOTVALIDATEDONLOAD](/docs/drs/azure/azure-customer-model.md#rule-adr-az-customer-referencenotvalidatedonload) pattern — the cross-config
-reference is enforced here and at runtime, never at config load).
-```
+## Fixtures
 
-## comment:2
-
-Above `$script:valid = [ordered]@{`, written with `#`.
-
-```text
-Neutral fixture globset/pipeline names (widget/gadget) — the type checks SHAPE only (globset existence
-is enforced by the integrity test below and at runtime), so a logic fixture must not borrow real
-deployable-unit names ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
-```
+The shape fixtures use the neutral names widget and gadget. The type checks shape only, so a logic fixture never borrows a real
+deployable-unit name
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).

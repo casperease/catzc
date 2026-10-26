@@ -1,30 +1,23 @@
 # pwsh/Azure.DevOps.BuildValidation/types/BuildValidationEntry.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The typed record for one entry of the `validations` list in `build-validation.yml`: a build-validation branch policy tied to a declared
+globset ([FDR-CD-TYPE-PRECOMMITBUDGET](../../../../drs/flow/pipeline-types.md#rule-fdr-cd-type-precommitbudget)). Its properties mirror the
+YAML keys
+([ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](../../../../drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
+`BuildValidationConfig` builds one per entry and prefixes every violation with the entry's index.
 
-## comment:1
+## Validation
 
-Above `public sealed class BuildValidationEntry : Catzc.Base.Objects.DictionaryRecord`, written with `//`.
+Constructing the record checks the entry and gathers every violation into one `ArgumentException`: only the keys `globset` (required, not
+empty), `pipeline` and `display_name` (not empty when present) and `blocking` (a boolean when present) are allowed.
 
-```text
-One entry of configs/build-validation.yml's `validations` list: an ADO build-validation branch policy tied to a
-DECLARED globset ([FDR-CD-TYPE-PRECOMMITBUDGET](/docs/drs/flow/pipeline-types.md#rule-fdr-cd-type-precommitbudget)). Mirrors the
-YAML mapping (snake_case keys, [ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
-BuildValidationConfig builds one per entry and prefixes every violation with the entry's index.
+A globset's existence is deliberately not checked here, because that read would couple every config load to the globs registry. It is
+enforced at run time, where `Get-GlobSet` throws, and by an integrity test
+([ADR-AZ-CUSTOMER-REFERENCENOTVALIDATEDONLOAD](../../../../drs/azure/azure-customer-model.md#rule-adr-az-customer-referencenotvalidatedonload)).
 
-Constructing an instance validates the entry, collecting every violation into one ArgumentException: only the
-keys globset (required, non-empty), pipeline and display_name (non-empty when present) and blocking (a
-boolean when present). Globset existence is deliberately NOT checked here — that read would couple every
-config load to the globs registry; it is enforced at runtime (Get-GlobSet throws) and by an integrity test
-(the [ADR-AZ-CUSTOMER-REFERENCENOTVALIDATEDONLOAD](/docs/drs/azure/azure-customer-model.md#rule-adr-az-customer-referencenotvalidatedonload) pattern).
-```
+## Properties
 
-## comment:2
-
-Above `public string pipeline { get; }`, written with `//`.
-
-```text
-The pipeline the policy runs. Null when absent: the consumer falls back to the globset's `pipeline:`
-annotation in globs.yml.
-```
+- **`pipeline`** — the pipeline the policy runs. Null when absent, and the consumer then falls back to the globset's `pipeline:` annotation
+  in `globs.yml`.
+- **`blocking`** — whether the policy blocks the merge; true when absent.
+- **`display_name`** — the policy display name. Null when absent, and the consumer defaults it to `Build validation - <globset>`.

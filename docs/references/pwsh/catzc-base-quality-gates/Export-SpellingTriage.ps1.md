@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/Export-SpellingTriage.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The on-ramp to the terminology registry: it collects the tokens the spell checker flags into a queue of stubs to classify. It never accepts
+a token itself.
 
 ## help
 
@@ -60,32 +60,16 @@ Export-SpellingTriage -DryRun
 Returns which tokens would be queued without writing the file.
 ```
 
-## comment:1
+## Reading cspell
 
-Above `$command = (`, written with `#`.
+The command runs cspell with `--words-only` to print just the flagged tokens, one per line, `--unique` to de-duplicate them and
+`--no-summary` to keep the trailing "Issues found" line out of the token stream. The output is captured, not streamed (`-Silent`). Exit 0
+means clean, 1 means flagged tokens, which is the expected case, and anything above 1 is a tool error.
 
-```text
---words-only prints just the flagged tokens (one per line); --unique de-duplicates; --no-summary keeps
-the trailing "Issues found" line out of the token stream.
-```
+## Stubs
 
-## comment:2
-
-Above `$result = Invoke-Executable $command -PassThru -NoAssert -Silent`, written with `#`.
-
-```text
--Silent: capture cspell's output instead of streaming it. Exit 0 = clean, 1 = tokens flagged (expected),
->1 = tool error.
-```
-
-## comment:3
-
-Above `$lines = [System.Collections.Generic.List[string]]::new()`, written with `#`.
-
-```text
-Emit paste-ready stubs. The blank meaning/category are intentional: a stub pasted into
-terminology.yml as-is fails to load and fails Test-Terminology, forcing a human to classify it
-([ADR-AUTO-SPELL-CATEGORYANDMEANING](/docs/drs/automation/spell-out-names.md#rule-adr-auto-spell-categoryandmeaning),
-[ADR-AUTO-SPELL-FLAGGEDTOKENREVIEWED](/docs/drs/automation/spell-out-names.md#rule-adr-auto-spell-flaggedtokenreviewed)) before it becomes
-accepted vocabulary.
-```
+The output is paste-ready stubs. The meaning and the category are blank on purpose: a stub pasted into `terminology.yml` as it stands fails
+to load and fails Test-Terminology, which forces a person to classify it
+([ADR-AUTO-SPELL-CATEGORYANDMEANING](../../../drs/automation/spell-out-names.md#rule-adr-auto-spell-categoryandmeaning),
+[ADR-AUTO-SPELL-FLAGGEDTOKENREVIEWED](../../../drs/automation/spell-out-names.md#rule-adr-auto-spell-flaggedtokenreviewed)) before it
+becomes accepted vocabulary.

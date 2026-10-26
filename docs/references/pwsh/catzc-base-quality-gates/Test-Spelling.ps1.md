@@ -1,7 +1,6 @@
 # pwsh/Base.QualityGates/Test-Spelling.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The spelling gate: it runs cspell over the repository's known file types and writes a report to the output folder.
 
 ## help
 
@@ -54,29 +53,12 @@ $result = Test-Spelling -PassThru
 $result.IssueCount
 ```
 
-## comment:1
+## Flags
 
-Above `$checkedMatch = [regex]::Match($result.Full, 'Files checked:\s*(?<n>\d+)')`, written with `#`.
+`--dot` spells the tracked files under a dot folder (`.assets`, `.claude`), and `--gitignore` keeps the untracked ones under it out.
 
-```text
-cspell prints a summary ("Files checked: N, Issues found: M in K file(s)"). cspell globs are relative to the
-working directory (the repo root here), so an empty match means a bad -Path.
-```
+## Counting files
 
-## comment:2
-
-Above `$command = (`, written with `#`.
-
-```text
---dot spells the tracked files under a dot folder (.assets, .claude); --gitignore keeps the untracked ones
-under it out.
-```
-
-## comment:3
-
-Above `$issues = @($issues) + "Test-Spelling could not count the files checked:...`, written with `#`.
-
-```text
-A run whose files checked cannot be counted proves nothing either: the wording changed, or cspell stopped
-before its summary.
-```
+cspell prints a summary ("Files checked: N, Issues found: M in K file(s)"). Its globs are relative to the working directory, the repository
+root here, so an empty match means a bad `-Path`. A run whose files checked cannot be counted proves nothing either, because the wording
+changed or cspell stopped before its summary, so the gate reports that as an issue.

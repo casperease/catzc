@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Invoke-ScriptAnalyzerShards.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Runs PSScriptAnalyzer over the pending files of each analyzer pass, sharded across background processes, and returns the diagnostics by
+pass.
 
 ## help
 
@@ -43,89 +43,35 @@ The repository root the shards run from.
 
 `[hashtable]` Each pass's label mapped to the diagnostic records its shards returned.
 
-## comment:1
+## Where it runs
 
-Above `$analyzerPath = Join-Path (Get-CatzcModulesRoot) '.vendor/PSScriptAnalyzer'`, written with `#`.
-
-```text
 The vendored analyzer ships inside the code tree, so it resolves from the code root
-([ADR-AUTO-ASSETDEP-INTERNALASSETDEPENDENCY](/docs/drs/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-internalassetdependency)).
-The shards still run from the repository root: the settings' CustomRulePath entries are relative to it.
-```
+([ADR-AUTO-ASSETDEP-INTERNALASSETDEPENDENCY](../../../../drs/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-internalassetdependency)).
+The shards still run from the repository root, because the settings' `CustomRulePath` entries are relative to it.
 
-## comment:2
+## Shard budget
 
-Above `$budget = [Math]::Min([Math]::Max(1,...`, written with `#`.
+The shard count tracks the CPU count, capped so that the process setup the work cannot amortize is not spawned, and it never exceeds the
+file count. Each batch gets its share of the budget by file count, at least one shard. Round-robin spreads the heavy modules.
 
-```text
-Shard count tracks CPU but is capped so we don't spawn more process setup than the work can amortize,
-and never exceeds the file count.
-```
+## Settings
 
-## comment:3
+Each shard reads the settings itself and does not take them as an argument. A job's arguments are serialized, and the settings parser wants
+its own types back.
 
-Above `$savedProgress = $ProgressPreference`, written with `#`.
+## Progress
 
-```text
-Invoke-ScriptAnalyzer draws its own Write-Progress bar; this repo bans progress bars (ADR
-console-output-matters, rule
-[ADR-AUTO-CONSOLE-NOBOXDRAWING](/docs/drs/automation/console-output-matters.md#rule-adr-auto-console-noboxdrawing)) and
-reports shard progress with dots instead. Suppress the
-external bar for the duration of the call and restore the preference in finally.
-```
+The analyzer draws its own progress bar, and the repository bans progress bars
+([ADR-AUTO-CONSOLE-NOBOXDRAWING](../../../../drs/automation/console-output-matters.md#rule-adr-auto-console-noboxdrawing)). The shard
+suppresses that bar for the duration of the call and restores the preference in `finally`. The parent prints a dot per interval while shards
+run. The dots go through the writer chokepoint
+([ADR-PWSH-ANNOUNCE-INFORMATIONSTREAMCHOKEPOINT](../../../../drs/automation/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-informationstreamchokepoint)),
+so a Pester run silences them with everything else. The closing newline fires only when a dot was written.
 
-## comment:4
+## Failures
 
-Above `$err = $null`, written with `#`.
-
-```text
-Capture non-terminating analyzer errors (-ErrorAction SilentlyContinue + -ErrorVariable) and
-surface any as a shard failure, rather than letting a shard silently drop its files' diagnostics.
-This used to special-case an intermittent NullReferenceException and tell the user to re-run; that
-flake was root-caused to the built-in PSReservedCmdletChar rule dereferencing PSScriptAnalyzer's
-thread-unsafe helper runspace under concurrent load, and eliminated by excluding that rule in
-PSScriptAnalyzerSettings.psd1. So there is no transient case to tolerate — any error is real and
-fails loudly (ADR diagnostics-over-retry; we never retry,
-[ADR-AUTO-RETRY-NEVERINTESTS](/docs/drs/automation/retry-as-last-resort.md#rule-adr-auto-retry-neverintests)).
-```
-
-## comment:5
-
-Above `$dotted = $false`, written with `#`.
-
-```text
-Print a dot per interval while shards run, rather than a progress bar (ADR console-output-matters,
-rule [ADR-AUTO-CONSOLE-NOBOXDRAWING](/docs/drs/automation/console-output-matters.md#rule-adr-auto-console-noboxdrawing)). The
-dots go through the writer chokepoint
-([ADR-PWSH-ANNOUNCE-INFORMATIONSTREAMCHOKEPOINT](/docs/drs/automation/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-informationstreamchokepoint)), so a
-Pester run
-silences them with everything else. $dotted tracks whether any dot was written so the closing newline only
-fires when it is needed.
-```
-
-## comment:6
-
-Above `if ($item.Job.State -ne 'Completed') {`, written with `#`.
-
-```text
-A silently-failed shard would drop its files' diagnostics and let violations pass unnoticed —
-fail loudly instead.
-```
-
-## comment:7
-
-Above `$settings = Import-PowerShellDataFile $settingsPath`, written with `#`.
-
-```text
-The settings are read here, not passed in: a job's arguments are serialized, and the settings parser wants its
-own types back.
-```
-
-## comment:8
-
-Above `$jobs = [System.Collections.Generic.List[object]]::new()`, written with `#`.
-
-```text
-Each batch gets its share of the shard budget by file count, at least one shard; round-robin spreads the heavy
-modules.
-```
+A shard that fails silently would drop its files' diagnostics and let violations pass unnoticed, so any failure is loud. Non-terminating
+analyzer errors are captured and surfaced as a shard failure, and a job that did not complete fails the run. There is no transient case to
+tolerate: the settings file excludes the built-in `PSReservedCmdletChar` rule, which dereferences the analyzer's thread-unsafe helper
+runspace under concurrent load. Any error is real, and the run never retries
+([ADR-AUTO-RETRY-NEVERINTESTS](../../../../drs/automation/retry-as-last-resort.md#rule-adr-auto-retry-neverintests)).

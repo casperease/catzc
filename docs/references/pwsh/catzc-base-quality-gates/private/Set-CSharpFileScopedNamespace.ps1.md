@@ -1,7 +1,6 @@
 # pwsh/Base.QualityGates/private/Set-CSharpFileScopedNamespace.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Returns the C# source with a file-scoped `namespace <Namespace>;` line present and correct.
 
 ## help
 
@@ -33,12 +32,8 @@ The module namespace the file must declare (its `<Module>` folder).
 
 `[string]` The source with the namespace line in place.
 
-## comment:1
+## Existing declarations
 
-Above `for ($i = 0; $i -lt $lines.Count; $i++) {`, written with `#`.
-
-```text
-An existing namespace declaration: correct a file-scoped one in place (no-op when already right);
-leave a block-scoped one (file-scoped lines end with ';'; anything else is a block) untouched — not a
-shape we author, so Format-Types reports it rather than this helper double-declaring.
-```
+A file-scoped declaration is corrected in place, and left alone when it is already right. File-scoped lines end with `;`, and anything else
+is a block. A block-scoped declaration is left untouched: it is not a shape the repository authors, so Format-Types reports it rather than
+this helper declaring a second namespace.

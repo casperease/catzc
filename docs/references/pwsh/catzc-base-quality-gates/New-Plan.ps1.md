@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/New-Plan.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The starter for a plan: it writes `plan-<topic>.md` in the plans folder with its head and its open steps section, and adds the plan's value
+row and its master line.
 
 ## help
 

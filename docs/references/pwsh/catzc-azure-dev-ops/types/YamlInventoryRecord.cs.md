@@ -1,23 +1,10 @@
 # pwsh/Azure.DevOps/types/YamlInventoryRecord.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The typed inventory row that answers "does this file back a registered pipeline?". It joins one scanned YAML file to its Azure DevOps
+registration data: the filesystem-side fields of a `YamlFileRecord` plus the registration-side fields, which are null when the file backs
+no registered pipeline.
 
-## comment:1
+## Construction
 
-Above `using System;`, written with `//`.
-
-```text
-One scanned YAML file joined to ADO registration data — the inventory row that answers "does this file
-back a registered pipeline?". Carries the filesystem-side fields of a YamlFileRecord plus the
-registration-side fields, which are null/absent when the file backs no registered pipeline.
-```
-
-## comment:2
-
-Above `public YamlInventoryRecord(string root, string path, string relativePath,...`, written with `//`.
-
-```text
-A flat constructor over primitives (not a YamlFileRecord), so a test mocking the file scan with a
-plain pscustomobject still binds. Classification/templateType are taken as strings and parsed to enums.
-```
+The constructor is flat over primitives, not a `YamlFileRecord`, so a test that mocks the file scan with a plain `pscustomobject` still
+binds. The classification and template type are taken as strings and parsed to the enums.

@@ -1,7 +1,6 @@
 # pwsh/Base.QualityGates/Test-Automation.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The full test run: it discovers every Pester test across the catzc modules and shards the files across parallel worker processes.
 
 ## help
 
@@ -202,23 +201,13 @@ Test-Automation -Suite infrastructure   # run the infrastructure test suite (its
 Test-Automation -OutputFolder C:\reports\catzc   # write the run report under a custom base
 ```
 
-## comment:1
+## Suites
 
-Above `if ($Suite) {`, written with `#`.
+`-Suite` runs a test suite: the named globset's declared verify scope resolves to the module list and the tier
+([ADR-AUTO-TEST-TESTSUITE](../../../drs/automation/test-automation.md#rule-adr-auto-test-testsuite), resolved by Resolve-TestSuite).
 
-```text
--Suite: run a test suite — the named globset's declared verify scope resolves to the module list and tier
-(Resolve-TestSuite, [ADR-AUTO-TEST-TESTSUITE](/docs/drs/automation/test-automation.md#rule-adr-auto-test-testsuite)).
-```
+## The shared core
 
-## comment:2
-
-Above `Invoke-TestRun -EntryPoint 'Test-Automation' -Title 'Test Automation'...`, written with `#`.
-
-```text
-The harness itself — discovery, tag checks, sharding, workers, rows, reports — is the core both runs
-share (Invoke-TestRun,
-[ADR-AUTO-TEST-SAMETESTSBOTHRUNS](/docs/drs/automation/test-automation.md#rule-adr-auto-test-sametestsbothruns)). The source run loads each
-worker through the
-repository importer, the core's default.
-```
+The harness itself, which is discovery, tag checks, sharding, workers, rows and reports, is the core both runs share (Invoke-TestRun,
+[ADR-AUTO-TEST-SAMETESTSBOTHRUNS](../../../drs/automation/test-automation.md#rule-adr-auto-test-sametestsbothruns)). The source run loads
+each worker through the repository importer, the core's default.

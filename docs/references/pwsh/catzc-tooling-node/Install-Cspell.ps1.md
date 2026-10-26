@@ -1,7 +1,6 @@
 # pwsh/Tooling.Node/Install-Cspell.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The installer of cspell, the spell checker behind `Test-Spelling`: a global npm package at the version `tools.yml` locks.
 
 ## help
 

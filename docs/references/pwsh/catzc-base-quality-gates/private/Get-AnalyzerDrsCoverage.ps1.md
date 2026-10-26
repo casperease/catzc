@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Get-AnalyzerDrsCoverage.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Reads the analyzer-to-rule map and returns one row per analyzer rule and ADR rule it enforces. The rule-coverage report counts these rows
+beside the enforcers it derives from tagged tests, because the analyzer runs inside every full test run.
 
 ## help
 

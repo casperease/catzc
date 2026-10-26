@@ -14,5 +14,5 @@ location, and the worker case sets the marker itself.
 
 ## Abandoned locks
 
-The abandoned-lock case uses a child process that acquires and exits without releasing. A thread job would not do: `Wait-Job` returns when the
-job turns Completed, which can be before its thread has exited, and only the exit abandons the mutex.
+The abandoned-lock case uses a child process that acquires and exits without releasing. A thread job would not do: `Wait-Job` returns when
+the job turns Completed, which can be before its thread has exited, and only the exit abandons the mutex.

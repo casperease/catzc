@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Get-DrsCitationPath.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+A flat view of the citation map: it maps every ADR citation code to its ADR's repository-relative path. The Markdown heading normal form
+uses it to write a moved citation as a link to its ADR.
 
 ## help
 

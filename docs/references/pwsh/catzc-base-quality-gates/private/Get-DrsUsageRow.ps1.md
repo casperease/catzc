@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Get-DrsUsageRow.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Returns the ADR citations and links one file makes, as rows of code and rule. The rows are read from the file's text and its comment page,
+never from its head, so they cannot go stale.
 
 ## help
 

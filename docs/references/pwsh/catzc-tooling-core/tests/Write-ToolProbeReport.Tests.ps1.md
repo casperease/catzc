@@ -1,13 +1,8 @@
 # pwsh/Tooling.Core/tests/Write-ToolProbeReport.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The L0 tests of `Write-ToolProbeReport`.
 
-## comment:1
+## Rendering
 
-Above `BeforeEach {`, written with `#`.
-
-```text
-The report renders the records it is given as one plain table through Write-Message -NoHeader. Fixture
-tokens are neutral ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
-```
+The report renders the records it is given as one plain table through `Write-Message -NoHeader`. The fixture tokens are neutral
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).

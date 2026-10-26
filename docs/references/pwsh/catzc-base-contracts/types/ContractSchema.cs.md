@@ -1,37 +1,37 @@
 # pwsh/Base.Contracts/types/ContractSchema.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The schema check of a contract asset
+([ADR-REPO-CONTRACT-CONTRACTASSET](../../../../drs/repository/api-contracts.md#rule-adr-repo-contract-contractasset)): a value, a real file
+or a sample payload, parsed (`ContractValue` is the value model), validates against a JSON Schema. The BCL carries no JSON Schema validator
+and no package may be added
+([ADR-PWSH-TYPES-HOSTGUARANTEEDASSEMBLIES](../../../../drs/automation/pwsh/hosting-csharp-types.md#rule-adr-pwsh-types-hostguaranteedassemblies)),
+so this is a bounded subset, and it says so.
 
-## comment:1
+## Keywords
 
-Above `using System;`, written with `//`.
+A schema is an object or a boolean (true admits every value, false none). Its keywords are:
 
-```text
-The schema check of a contract asset ([ADR-REPO-CONTRACT-CONTRACTASSET](/docs/drs/repository/api-contracts.md#rule-adr-repo-contract-contractasset)):
-a value — a real file or a sample payload, parsed (ContractValue is the value model) — validates against a JSON Schema.
-The BCL carries no JSON Schema validator and no package may be added
-([ADR-PWSH-TYPES-HOSTGUARANTEEDASSEMBLIES](/docs/drs/automation/pwsh/hosting-csharp-types.md#rule-adr-pwsh-types-hostguaranteedassemblies)), so this is a bounded subset,
-and it says so: a schema is an object or a boolean (true admits every value, false none), and its keywords are
-  type                  a JSON type name, or an array of them: null, boolean, object, array, number, string, integer
-                        (an integer is a number too)
-  required              an array of property names the object must hold
-  properties            an object of property name to schema; each property the object holds validates against its own
-  additionalProperties  true or false only; false admits no property that properties does not name
-  enum                  an array; the value equals one of its elements (ContractValue.Equal)
-  items                 one schema every array element validates against (the array form is not supported)
-  const                 the value equals it
-  pattern               a regular expression a string value matches; a value of another type is not constrained
-  definitions           at the root only: an object of name to schema, each read whole like any nested schema
-  $ref                  #/definitions/<name> of a definition the root declares; the value validates against it. Any
-                        other reference, and a chain of definitions that only refer on back to itself, is a finding
-The annotation keywords $schema, $id, $comment, title, description and examples are explicit no-ops: each is read
-and ignored by name, in any form, and never constrains a value. Every other keyword is a finding "unsupported
-keyword", never ignored, and so is a keyword of the subset in a form it does not support. The schema is read whole
-first, every nested schema under properties and items included, whatever the value holds; a value is validated only
-against a schema with no such finding, since a schema the subset cannot read whole cannot say what it admits.
+- **`type`** — a JSON type name, or an array of them: null, boolean, object, array, number, string, integer (an integer is a number too).
+- **`required`** — an array of property names the object must hold.
+- **`properties`** — an object of property name to schema; each property the object holds validates against its own.
+- **`additionalProperties`** — true or false only; false admits no property that `properties` does not name.
+- **`enum`** — an array; the value equals one of its elements (`ContractValue.Equal`).
+- **`items`** — one schema every array element validates against (the array form is not supported).
+- **`const`** — the value equals it.
+- **`pattern`** — a regular expression a string value matches; a value of another type is not constrained.
+- **`definitions`** — at the root only: an object of name to schema, each read whole like any nested schema.
+- **`$ref`** — `#/definitions/<name>` of a definition the root declares; the value validates against it. Any other reference, and a chain of
+  definitions that only refer on back to itself, is a finding.
 
-Inspect returns the schema's own findings alone (for a schema whose instance another check validates); Validate
-returns those, or else the value's findings, one precise message per violation, and an empty list when the value
-validates. A schema location is a JSON Pointer from # (#/properties/name); a value location is JSONPath ($.name).
-```
+The annotation keywords `$schema`, `$id`, `$comment`, `title`, `description` and `examples` are explicit no-ops: each is read and ignored by
+name, in any form, and never constrains a value. Every other keyword is a finding "unsupported keyword", never ignored, and so is a keyword
+of the subset in a form it does not support.
+
+## Behaviour
+
+The schema is read whole first, every nested schema under `properties` and `items` included, whatever the value holds. A value is validated
+only against a schema with no such finding, since a schema the subset cannot read whole cannot say what it admits.
+
+`Inspect` returns the schema's own findings alone, for a schema whose instance another check validates. `Validate` returns those, or else
+the value's findings, one precise message per violation, and an empty list when the value validates. A schema location is a JSON Pointer
+from `#` (`#/properties/name`); a value location is JSONPath (`$.name`).

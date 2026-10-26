@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Select-RuleTaggedFiles.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Returns the subset of test files that carry a test citing one of the given ADR rules. It is the work-list filter behind Test-Automation's
+`-Rule` parameter, which narrows a run to the files that enforce a rule.
 
 ## help
 

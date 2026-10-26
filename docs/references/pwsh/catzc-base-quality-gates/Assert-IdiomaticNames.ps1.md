@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/Assert-IdiomaticNames.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The throwing form of the naming check: it asserts that every tracked file and the folders that hold it are named in the idiom of the file's
+language, and throws when one is not.
 
 ## help
 

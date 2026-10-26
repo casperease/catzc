@@ -1,7 +1,6 @@
 # pwsh/Base.QualityGates/private/Test-TestInRunScope.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Tells whether a discovered test is inside a test run's tier and category scope.
 
 ## help
 
@@ -27,11 +26,7 @@ The run's tier/category exclude tags.
 
 `[bool]`
 
-## comment:1
+## Tag matches
 
-Above `$level = Get-TestBlockTag -Test $Test -Valid...`, written with `#`.
-
-```text
-Get-TestBlockTag returns its matches as ONE array object (`, $ret`), so its result is used as-is, never
-wrapped in @() — that would nest it and every count would read 1.
-```
+Get-TestBlockTag returns its matches as one array object. The result is used as it is and never wrapped in `@()`, since that would nest it
+and every count would read 1.

@@ -1,7 +1,6 @@
 # pwsh/Base.QualityGates/private/Update-PlanStepCount.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Rewrites the step counts the master and the value overlay state from each plan's open steps, so striking a step never needs a hand sync.
 
 ## help
 
@@ -32,20 +31,11 @@ Report the files that would change, and write none.
 
 `[string[]]` the overlay files changed, or that would change.
 
-## comment:1
+## Rewrite
 
-Above `$rewrite = {`, written with `#`.
+The stated phrase becomes the plan's count, and its first letter's case is kept. A text that states no count is left as it is.
 
-```text
-The stated phrase becomes the plan's count, its first letter's case kept; a text that states none is left as it
-is.
-```
+## Master chunks
 
-## comment:2
-
-Above `$master = Join-Path $Folder $Config.master_file`, written with `#`.
-
-```text
-A chunk line of the master names its plan after '->'; the phrase is read across the item's lines, so a count
-Prettier wrapped is found.
-```
+A chunk line of the master names its plan after `->`. The phrase is read across the item's lines, so a count that Prettier wrapped is still
+found.

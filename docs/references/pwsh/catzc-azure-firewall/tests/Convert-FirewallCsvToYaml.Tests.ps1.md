@@ -1,22 +1,9 @@
 # pwsh/Azure.Firewall/tests/Convert-FirewallCsvToYaml.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The L0 tests of the CSV-to-YAML conversion: the rule list and its provenance header.
 
-## comment:1
+## The header time
 
-Above `(Get-Content $out -Raw) | Should -Match '# CSV generated: 2026-06-16 10:32 UTC'`, written with `#`.
-
-```text
-Literal ':' guards against the locale separator regression — the function formats with
-InvariantCulture, so every machine renders 10:32 (a da-DK box without it would render 10.32).
-```
-
-## comment:2
-
-Above `(Get-Content $out -Raw) | Should -Match '# CSV generated: 2026-06-16 10:32 UTC'`, written with `#`.
-
-```text
-The literal colon guards the invariant culture, so a machine whose locale writes a dot never changes the
-header.
-```
+The check on the `# CSV generated: ... UTC` header keeps the literal colon. The function formats with the invariant culture, so every
+machine renders `10:32`; a machine whose locale writes a dot, such as a da-DK box, would otherwise render `10.32`, and the literal colon
+guards against that regression.

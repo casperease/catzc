@@ -1,7 +1,7 @@
 # pwsh/Azure.DevOps/Test-Pipelines.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The quality gate that checks the ado pipelines tree against the naming-and-placement contract and returns its result, one violation per
+broken rule.
 
 ## help
 
@@ -68,58 +68,19 @@ Test-Pipelines
 (Test-Pipelines -PassThru).Issues
 ```
 
-## comment:1
+## The rules it checks
 
-Above `if ($extension -eq '.yml') {`, written with `#`.
+- **Extension.** Executable YAML under `pipelines/` is `.yaml`, never `.yml`
+  ([FDR-CD-PIPELINE-EXECUTABLEYAMLEXTENSION](../../../drs/flow/pipeline-concept.md#rule-fdr-cd-pipeline-executableyamlextension)).
+- **Entry points.** A file at the root of `pipelines/` is a pipeline entry point, so its name starts with a valid type token
+  ([FDR-CD-PIPELINE-TYPEPREFIX](../../../drs/flow/pipeline-concept.md#rule-fdr-cd-pipeline-typeprefix)).
+- **Template folders.** A file in a subfolder sits in a per-kind template folder from the closed set, one level deep
+  ([ADR-ADO-NAME-TEMPLATEKINDFOLDER](../../../drs/ado/pipeline-naming-and-placement.md#rule-adr-ado-name-templatekindfolder)).
+- **No pipelines in template folders.** A structural pipeline has no business inside a template folder
+  ([ADR-ADO-NAME-FLATPIPELINESFOLDER](../../../drs/ado/pipeline-naming-and-placement.md#rule-adr-ado-name-flatpipelinesfolder)).
+- **Fragment kind.** A fragment's structural kind matches its folder, and `extends/` is exempt, since it holds a whole pipeline of any
+  body (ADR-ADO-NAME-TEMPLATEKINDFOLDER above).
+- **Template references.** Every template reference is absolute, `/pipelines/<kind>/<name>.yaml`
+  ([ADR-ADO-NAME-ABSOLUTETEMPLATEPATH](../../../drs/ado/pipeline-naming-and-placement.md#rule-adr-ado-name-absolutetemplatepath)).
 
-```text
-[FDR-CD-PIPELINE-EXECUTABLEYAMLEXTENSION](/docs/drs/flow/pipeline-concept.md#rule-fdr-cd-pipeline-executableyamlextension) — executable YAML
-under pipelines/ is `.yaml`, never `.yml`.
-```
-
-## comment:2
-
-Above `$prefix = ($name -split '-', 2)[0]`, written with `#`.
-
-```text
---- Root of pipelines/ : this is a pipeline entry point. ---
-[FDR-CD-PIPELINE-TYPEPREFIX](/docs/drs/flow/pipeline-concept.md#rule-fdr-cd-pipeline-typeprefix) — filename
-starts with a valid type token.
-```
-
-## comment:3
-
-Above `if ($topFolder -notin $templateFolders) {`, written with `#`.
-
-```text
---- Inside a subfolder : must be a per-kind template folder, one level deep. ---
-[ADR-ADO-NAME-TEMPLATEKINDFOLDER](/docs/drs/ado/pipeline-naming-and-placement.md#rule-adr-ado-name-templatekindfolder) — the folder
-is in the closed set, and no deeper nesting.
-```
-
-## comment:4
-
-Above `if ($record.Classification -eq 'Pipeline') {`, written with `#`.
-
-```text
-[ADR-ADO-NAME-FLATPIPELINESFOLDER](/docs/drs/ado/pipeline-naming-and-placement.md#rule-adr-ado-name-flatpipelinesfolder) — a
-structural pipeline has no business inside a template folder.
-```
-
-## comment:5
-
-Above `elseif ($folderKind.ContainsKey($topFolder) -and $record.TemplateType -and`, written with `#`.
-
-```text
-[ADR-ADO-NAME-TEMPLATEKINDFOLDER](/docs/drs/ado/pipeline-naming-and-placement.md#rule-adr-ado-name-templatekindfolder) — a
-fragment's structural kind matches its folder (extends/ exempt).
-```
-
-## comment:6
-
-Above `foreach ($ref in (Get-PipelineTemplateReference -Path $record.Path)) {`, written with `#`.
-
-```text
-[ADR-ADO-NAME-ABSOLUTETEMPLATEPATH](/docs/drs/ado/pipeline-naming-and-placement.md#rule-adr-ado-name-absolutetemplatepath) — template
-references are absolute (/pipelines/<kind>/<name>.yaml).
-```
+A file that fails to parse is itself a violation, since a pipeline ADO cannot read is not compliant.

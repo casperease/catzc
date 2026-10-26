@@ -1,7 +1,6 @@
 # pwsh/Base.QualityGates/private/Get-TestAutomationTestPaths.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Lists the run's test paths, tests folders and language test folders, foundation first: modules in dependency order, infrastructure last.
 
 ## help
 
@@ -29,11 +28,7 @@ only in the unfiltered case. Empty (the default) includes everything.
 
 `[string[]]` the test paths, foundation-first, infrastructure last. Empty when nothing matches.
 
-## comment:1
+## Language test folders
 
-Above `foreach ($testFolder in @(Get-LanguageTestFolders)) {`, written with `#`.
-
-```text
-The language test folders (Go, then Python), each after its module's tests folder (Get-LanguageTestFolders
-throws on an unmatched folder).
-```
+The language test folders (Go, then Python) each come after their module's tests folder. Get-LanguageTestFolders throws on a folder that
+matches no module.

@@ -1,7 +1,6 @@
 # pwsh/Base.QualityGates/Test-PythonTypes.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The Python type gate: it checks every Python file the repository holds with pyright, the engine Pylance runs in the editor.
 
 ## help
 

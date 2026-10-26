@@ -1,13 +1,8 @@
 # pwsh/Azure.DevOps/tests/New-AdoPullRequest.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The L0 tests of the command that creates an Azure DevOps pull request.
 
-## comment:1
+## The REST mock
 
-Above `Mock Invoke-AdoRestMethod {`, written with `#`.
-
-```text
-Mock the REST boundary: repo lookup returns one repo; the PR POST returns a PR object.
-Check pullrequests first — the PR URL also contains 'git/repositories/<id>/'.
-```
+The tests mock the REST boundary: the repository lookup returns one repository and the pull request POST returns a pull request object.
+The mock matches `pullrequests` first, because the pull request URL also contains `git/repositories/<id>/`.

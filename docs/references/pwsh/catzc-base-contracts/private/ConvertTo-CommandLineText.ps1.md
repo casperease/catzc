@@ -32,11 +32,6 @@ The arguments, in order; may be empty.
 ConvertTo-CommandLineText -Executable pwsh -Argument '-NoProfile', '-Command', 'Get-Widget'
 ```
 
-## comment:1
+## quoting
 
-Above `@(foreach ($item in @($Executable) + $Argument) {`, written with `#`.
-
-```text
-The command line CliRunner splits back into the same arguments: each in double quotes, an inner quote escaped as
-\".
-```
+Each part is put in double quotes and an inner double quote is escaped as `\"`, so CliRunner splits the line back into the same arguments.

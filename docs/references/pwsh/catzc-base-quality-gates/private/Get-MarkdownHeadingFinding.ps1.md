@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Get-MarkdownHeadingFinding.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Checks one Markdown file's H2 to H6 headings against their normal form and returns the fixed text. A heading is plain words: a trailing
+parenthesized group of code spans moves onto its own line below it.
 
 ## help
 
@@ -38,11 +38,7 @@ Citation code -> repository-relative ADR path, for the links a moved citation be
 
 `[pscustomobject]` @{ Path; Findings; Fixed } — each finding is @{ Line; Kind; Actual; Expected; From; To }.
 
-## comment:1
+## Matches
 
-Above `$head = $Matches['head']`, written with `#`.
-
-```text
-Capture before the next -match overwrites $Matches
-([ADR-PWSH-AUTOVAR](/docs/drs/automation/pwsh/automatic-variable-pitfalls.md)).
-```
+The heading is read with successive `-match` calls. Each capture is copied into a variable before the next `-match` runs, because a later
+`-match` overwrites `$Matches` ([ADR-PWSH-AUTOVAR](../../../../drs/automation/pwsh/automatic-variable-pitfalls.md)).

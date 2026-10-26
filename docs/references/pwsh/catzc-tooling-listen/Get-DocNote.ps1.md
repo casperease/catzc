@@ -1,7 +1,7 @@
 # pwsh/Tooling.Listen/Get-DocNote.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The reader of a listen session's notes: it lists the note files from their heads and marks each one processed or not by the processor's
+ledger. It only reads.
 
 ## help
 

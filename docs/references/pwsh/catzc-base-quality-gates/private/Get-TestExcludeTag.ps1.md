@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Get-TestExcludeTag.ps1
 
-Computes the Pester ExcludeTag list for a tier range and a category. Test-Automation and Test-InIsolation share it, so the tier and
-category filter cannot differ between the two.
+Computes the Pester ExcludeTag list for a tier range and a category. Test-Automation and Test-InIsolation share it, so the tier and category
+filter cannot differ between the two.
 
 ## help
 

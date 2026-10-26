@@ -1,7 +1,7 @@
 # pwsh/Base.Contracts/private/Get-ContractDotFolderFindings.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The dot-folder check of the contracts folder: it reports each outermost dot-prefixed folder, since an asset reaches such a target through
+its module's target root instead.
 
 ## help
 
@@ -35,11 +35,8 @@ The repository root that holds contracts/.
 Get-ContractDotFolderFindings -RepositoryRoot $root
 ```
 
-## comment:1
+## the walk is whole
 
-Above `$folders = [string[]] @(Get-ChildPath $contractsRoot -Directory -Depth 64...`, written with `#`.
-
-```text
-A named whole-tree walk ([ADR-PWSH-ENUM-ALWAYSBOUNDED](/docs/drs/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): this gate
-looks for stray folders, so no name is pruned and no depth hides one.
-```
+The gate looks for stray folders, so its walk is a named whole-tree walk
+([ADR-PWSH-ENUM-ALWAYSBOUNDED](../../../../drs/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): no name is pruned
+and no depth hides one.

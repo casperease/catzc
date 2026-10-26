@@ -1,7 +1,6 @@
 # pwsh/Azure.Firewall/private/Get-FirewallMarkdownColumns.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The private function that builds the ordered, validated Markdown column descriptors for `Convert-FirewallCsvToMarkdown`.
 
 ## help
 
@@ -42,20 +41,7 @@ The CSV's present header names. Empty means headers are unknown (no rows) — tr
 
 `[System.Collections.Generic.List[object]]` of descriptors (Name, Candidates, Sort, Render).
 
-## comment:1
+## Trimming to the CSV
 
-Above `if ($Present.Count -gt 0) {`, written with `#`.
-
-```text
-Trim candidates to fields the CSV actually has. A requested column with none left is a schema
-mismatch — fail rather than silently drop it from the output.
-```
-
-## comment:2
-
-Above `if ($Present.Count -gt 0) {`, written with `#`.
-
-```text
-A requested column with none of its fields present is a schema mismatch, so it fails and is never dropped from the
-table.
-```
+The candidates of each column are trimmed to the fields the CSV actually has. A requested column with none of its fields present is a
+schema mismatch, so it fails and is never silently dropped from the table.

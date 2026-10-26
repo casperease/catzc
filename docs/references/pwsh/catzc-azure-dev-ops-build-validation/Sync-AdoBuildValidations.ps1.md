@@ -1,7 +1,7 @@
 # pwsh/Azure.DevOps.BuildValidation/Sync-AdoBuildValidations.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The command that registers every build-validation branch policy `build-validation.yml` declares, one `Register-AdoBuildValidation` call per
+entry. It is idempotent, and overrides and `-DryRun` pass through.
 
 ## help
 

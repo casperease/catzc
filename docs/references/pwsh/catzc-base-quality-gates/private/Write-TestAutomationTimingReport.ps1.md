@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Write-TestAutomationTimingReport.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Renders the over-limit timing section of a Test-Automation run and returns whether it fails the run. Get-TestTimingViolation owns the
+per-row check; this function shows the result.
 
 ## help
 

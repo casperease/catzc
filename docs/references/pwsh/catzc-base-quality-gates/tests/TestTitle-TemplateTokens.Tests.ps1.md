@@ -1,20 +1,12 @@
 # pwsh/Base.QualityGates/tests/TestTitle-TemplateTokens.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+A poka-yoke backstop: no `<token>`-shaped text in the title of a test that is not data-driven, checked over the real tree through its
+quality gate `Test-TestTitles` ([ADR-AUTO-TEST-QUALITYGATE](../../../../drs/automation/test-automation.md#rule-adr-auto-test-qualitygate)).
 
-## comment:1
+Pester treats `<word>` in an `It`, `Describe` or `Context` title as its name-template syntax. Without `-ForEach` or `-TestCases` data the
+token is almost always prose, and it throws under the strict tests
+([ADR-AUTO-TEST-FILEPARALLELISM](../../../../drs/automation/test-automation.md#rule-adr-auto-test-fileparallelism)) at name expansion, far
+from the cause. The gate bans the pattern outright: a title with a token must carry `-ForEach` data. The titles in this file spell out
+"angle-bracket token", because a literal one would fire the very trap.
 
-Above `Describe 'Test titles use angle-bracket templates only on data-driven tests'`, written with `#`.
-
-```text
-Poka-yoke backstop: no <token>-shaped text in a non-data-driven test title, over the real tree through its quality
-gate (Test-TestTitles — [ADR-AUTO-TEST-QUALITYGATE](/docs/drs/automation/test-automation.md#rule-adr-auto-test-qualitygate)).
-
-Pester treats <word> in an It/Describe/Context title as its name-template syntax; WITHOUT -ForEach/-TestCases data
-the token is almost always prose and THROWS under the strict tests
-([ADR-AUTO-TEST-FILEPARALLELISM](/docs/drs/automation/test-automation.md#rule-adr-auto-test-fileparallelism)) at name expansion, far from the
-cause. The gate bans the pattern outright: a title with a <token> must carry -ForEach data.
-(These titles themselves spell out "angle-bracket token" — a literal one here would fire the very trap.)
-source-only: it parses the repository's test files, which give the same answer in both run modes.
-```
+The test is source-only: it parses the repository's test files, which give the same answer in both run modes.

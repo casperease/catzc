@@ -1,7 +1,6 @@
 # pwsh/Azure.Templates/Build-Bicep.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The command that builds a bicep template: it renders the per-slot parameter files and compiles `main.bicep`.
 
 ## help
 
@@ -72,91 +71,44 @@ Build-Bicep discovery -Customers apex
 Build-Bicep foundation -Shared
 ```
 
-## comment:1
+## Which slots
 
-Above `$targetSlots = @($templateDescriptor.slots)`, written with `#`.
+Every slot is built by default. `-Environments` narrows by environment, and `-Customers` and `-Shared` narrow by the configuration axis
+(a customer's subfolder slots, or the root slots), unioned when both are given.
 
-```text
-Build every slot by default; -Environments narrows by env, and -Customers/-Shared narrow by the
-configuration axis (a customer's subfolder slots / the root slots), unioned when both are given.
-```
+## Precondition
 
-## comment:2
+The Bicep CLI must be available before the output is wiped and the parameters are rendered, otherwise `az bicep build` can exit 0 while
+writing no `main.json`, for example after a missing or blocked auto-install. The check also warms the install in its own call, separate
+from the build (`Assert-AzCliBicep`).
 
-Above `Assert-AzCliBicep`, written with `#`.
+## The PrePost hook
 
-```text
-Precondition: the Bicep CLI must be available before we wipe the output and render params, else
-`az bicep build` can exit 0 while writing no main.json (e.g. a missing/blocked auto-install). This
-also warms the install in its own call, separate from the build. See Assert-AzCliBicep.
-```
+A template may ship its own `infrastructure/templates/<name>/PrePost.psm1` that exports a build-time `Invoke-BicepPrepareParameterSet`
+hook. The command resolves it once when present, and when it is absent the prepare step does nothing and the per-slot configuration is used
+unchanged. The `assets/PrePost.psm1` starter is never loaded here, since it exists only to be copied into a template.
 
-## comment:3
+The hooks run strict like every catzc module, whoever wrote them
+([ADR-PWSH-ERROR-STRICTCLEAN](../../../drs/automation/pwsh/error-handling.md#rule-adr-pwsh-error-strictclean)).
 
-Above `$prepareHook = $null`, written with `#`.
+Hooks read what they need from the build invocation, the arguments `Build-Bicep` is acting on for the slot (for example
+`$BuildInvocation.Customer`), rather than from raw parameters, so adding a dimension never changes the hook signature
+([ADR-PWSH-PREPOST](../../../drs/automation/pwsh/prepost-extension-modules.md)).
 
-```text
-A template MAY ship its own infrastructure/templates/<name>/PrePost.psm1 exporting a build-time
-Invoke-BicepPrepareParameterSet hook. Resolve it once if present; absent -> the prepare step
-is a no-op (the per-slot config is used unchanged). The assets/PrePost.psm1 starter is never
-loaded here — it exists only to be copied into a template.
-```
+## Parameters
 
-## comment:4
-
-Above `. $prepostModule { Set-StrictMode -Version Latest }`, written with `#`.
-
-```text
-The template's hooks run strict like every catzc module, whoever wrote them
-([ADR-PWSH-ERROR-STRICTCLEAN](/docs/drs/automation/pwsh/error-handling.md#rule-adr-pwsh-error-strictclean)).
-```
-
-## comment:5
-
-Above `if ($flat[$key] -is [string] -and 'UNDEFINED' -ceq $flat[$key]) {`, written with `#`.
-
-```text
-The marker is a string: compared string-first and case-sensitively, so a boolean `true` (which -eq coerces to
-equal any non-empty string) or a number never reads as undefined.
-```
-
-## comment:6
-
-Above `if ($configurationDescriptor.Contains('ParametersFile') -and`, written with `#`.
-
-```text
-A config-addressed parameter `{ address: global.<config>.<key>… }` renders as the value it addresses
-([ADR-AZ-DATAMOD-VALUEBYADDRESS](/docs/drs/azure/azure-data-model.md#rule-adr-az-datamod-valuebyaddress)), before the PrePost hook,
+A config-addressed parameter `{ address: global.<config>.<key> }` renders as the value it addresses
+([ADR-AZ-DATAMOD-VALUEBYADDRESS](../../../drs/azure/azure-data-model.md#rule-adr-az-datamod-valuebyaddress)) before the PrePost hook runs,
 so the hook and the parameters file see only ARM entries.
-```
 
-## comment:7
+The `UNDEFINED` marker is a string and is compared string-first and case-sensitively. A boolean `true`, which `-eq` coerces to equal any
+non-empty string, or a number therefore never reads as undefined.
 
-Above `$buildInvocation = [ordered]@{`, written with `#`.
+Every slot reaches the deploy one way (ADR-AZ-DATAMOD-ONEPATHTOPARAMETERS): a `.bicepparam` in the output folder, compiled by
+`bicep build-params`, whose `using` names the template's `main.bicep` in the tree so its module tree resolves.
 
-```text
-The build invocation for this slot — the arguments Build-Bicep is acting on. Hooks read what
-they need from it (e.g. $BuildInvocation.Customer) rather than via raw params, so adding a
-dimension never changes the hook signature.
-See [ADR-PWSH-PREPOST](/docs/drs/automation/pwsh/prepost-extension-modules.md).
-```
+## The compiled template
 
-## comment:8
-
-Above `$mainJson = Join-Path $outputFolder 'main.json'`, written with `#`.
-
-```text
-az bicep build can exit 0 yet emit nothing. Assert the compiled template at the source so the
-failure names the real culprit here, not later as a generic missing-file in
-Get-BicepDeploymentContext. Assert-AzCliBicep already proved the Bicep CLI is available above, so a
-missing main.json now is an unexpected build failure, not a not-installed one — say exactly that.
-```
-
-## comment:9
-
-Above `$using = [System.IO.Path]::GetRelativePath($outputFolder,...`, written with `#`.
-
-```text
-Every slot reaches the deploy one way (ADR-AZ-DATAMOD-ONEPATHTOPARAMETERS): a .bicepparam in the output folder, compiled by
-bicep build-params, whose using names the template's main.bicep in the tree so its module tree resolves.
-```
+`az bicep build` can exit 0 yet emit nothing, so the command asserts the compiled `main.json` at the source. The failure then names the
+real culprit here, not later as a generic missing file in `Get-BicepDeploymentContext`. The Bicep CLI was proved available above, so a
+missing `main.json` is an unexpected build failure and not a missing install, and the message says exactly that.

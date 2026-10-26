@@ -1,7 +1,7 @@
 # pwsh/Tooling.Core/private/Test-ToolLocationManaged.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The private, subprocess-free check that a resolved tool location lies under a root of the installer layer. It is advisory, for the session
+janitor `Sync-SessionTools`, and never a gate.
 
 ## help
 
@@ -28,45 +28,24 @@ The tool's ToolConfig (from Get-ToolConfig).
 
 The resolved on-disk path of the tool's command — (Get-Command `<command>).Source`.
 
-## comment:1
+## MSYS2 packages
 
-Above `if ($Config.msys2_url) {`, written with `#`.
+MSYS2-package tools such as zsh live, on Windows, in the tree they install into: `windows_install_dir`, the Git for Windows tree
+`Install-Git` provides. Elsewhere they are the system's, owned wherever the OS puts them.
 
-```text
-MSYS2-package tools (zsh) live, on Windows, in the tree they install into (windows_install_dir, the Git for Windows
-tree Install-Git provides); elsewhere they are the system's, owned wherever the OS puts them.
-```
+## uv
 
-## comment:2
+uv-managed tools (az_cli, poetry) and uv-provisioned Python install their shims to uv's bin, `~/.local/bin` on every platform. Managed
+Pythons and tool environments live in uv's data directory, `%APPDATA%\uv` (Roaming) on Windows and `~/.local/share/uv` on Unix, as
+`uv tool dir` and `uv python dir` report, so a managed Python may also resolve there directly.
 
-Above `if ($Config.uv_tool -or $Config.uv_python) {`, written with `#`.
+## Everything else
 
-```text
-uv-managed tools (az_cli, poetry) and uv-provisioned python install their shims to uv's bin
-(~/.local/bin cross-platform); managed pythons may also resolve to uv's data dir directly.
-```
+A tool is owned if its binary sits under the platform package manager's user-scope install root. npm and pip tools ride the platform
+runtime, so they read as owned only when that runtime, and with it their global bin, is.
 
-## comment:3
-
-Above `$uvRoots = @(if ($IsWindows) {`, written with `#`.
-
-```text
-uv's shims go to ~/.local/bin; its managed pythons/tool-envs live in the data dir — %APPDATA%\uv
-(Roaming) on Windows, ~/.local/share/uv on Unix (verified via `uv tool dir` / `uv python dir`).
-```
-
-## comment:4
-
-Above `$roots = @(if ($IsWindows) {`, written with `#`.
-
-```text
-Otherwise: owned iff the binary sits under the platform package manager's user-scope install root. npm/pip
-tools ride the platform runtime, so they read as owned only when that runtime (and thus their global bin)
-is. On Windows winget uses two distinct user-scope layouts, and both are ours: PORTABLE packages (node,
-terraform) link under %LOCALAPPDATA%\Microsoft\WinGet\Packages, while INSTALLER packages (e.g.
-Microsoft.OpenJDK) land under %LOCALAPPDATA%\Programs — so both roots must count, or a winget-managed JDK
-reads as foreign. %USERPROFILE%\.local\bin is the standalone/user bin uv installs itself into: Install-Uv
-treats a uv there (outside the winget root) as a managed, self-updating install, so the janitor agrees
-rather than flagging it. Machine-scope Program Files installs are deliberately NOT here — they read as
-foreign, the acceptable coarse-advisory case Get-ToolsStatus resolves authoritatively.
-```
+On Windows winget uses two user-scope layouts, and both count: portable packages (node, terraform) link under
+`%LOCALAPPDATA%\Microsoft\WinGet\Packages`, while installer packages such as Microsoft.OpenJDK land under `%LOCALAPPDATA%\Programs`. Without
+both roots a winget-managed JDK would read as foreign. `%USERPROFILE%\.local\bin` is the user bin uv installs itself into; `Install-Uv`
+treats a uv there as a managed, self-updating install, and the janitor agrees rather than flagging it. Machine-scope Program Files installs
+are deliberately left out: they read as foreign, the acceptable coarse-advisory case `Get-ToolsStatus` resolves authoritatively.

@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/ConvertTo-TestAutomationRowSet.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Turns the live Pester run object into plain per-test rows that cross a process boundary, so a worker's result can be read by the run that
+started it. Each row holds the test's path, result, duration, tags, run file, failure detail and skip reason.
 
 ## help
 
@@ -28,11 +28,7 @@ SkipReason. Rules is the ';'-joined ADR provenance citations (Get-TestRuleTags),
 Level/Category because the .Block chain does not survive the process boundary. File is the test's run file (Get-TestRunFile): its test file,
 or for a Go bridge test its Go test folder, with Line 0.
 
-## comment:1
+## a test that never ran
 
-Above `$block = $test.PSObject.Properties['Block'] ? $test.Block : $null`, written with `#`.
-
-```text
-A test a failed setup never ran carries no error of its own: the nearest block above it that holds one
-names the cause.
-```
+A test whose setup failed was never run and carries no error of its own. Its failure detail comes from the nearest block above it that holds
+an error record, found by walking up the block's parents. A test that did fail on its own keeps its own error.

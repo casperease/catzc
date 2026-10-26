@@ -1,16 +1,13 @@
 # pwsh/Base.Contracts/types/ContractDirection.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The direction of a contract asset
+([ADR-REPO-CONTRACT-BINDINGINTERFACE](../../../../drs/repository/api-contracts.md#rule-adr-repo-contract-bindinginterface),
+[ADR-REPO-CONTRACT-DIRECTIONBYCONVENTION](../../../../drs/repository/api-contracts.md#rule-adr-repo-contract-directionbyconvention)).
 
-## comment:1
+## Values
 
-Above `namespace Catzc.Base.Contracts;`, written with `//`.
+- **DependedOn** is what an outside platform expects of our files and calls.
+- **Provided** is what an outside consumer may rely on.
 
-```text
-The direction of a contract asset ([ADR-REPO-CONTRACT-BINDINGINTERFACE](/docs/drs/repository/api-contracts.md#rule-adr-repo-contract-bindinginterface),
-[ADR-REPO-CONTRACT-DIRECTIONBYCONVENTION](/docs/drs/repository/api-contracts.md#rule-adr-repo-contract-directionbyconvention)): DependedOn is what an outside
-platform expects of our files and calls; Provided is what an outside consumer may rely on. By convention an asset
-that constrains a real repository file is DependedOn and a sample payload is Provided; a per-version contract.yml
-overrides a single asset.
-```
+By convention the `catzc` root is provided and every other root is a vendor's, so depended-on. A per-version `contract.yml` can override a
+single asset.

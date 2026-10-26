@@ -1,7 +1,6 @@
 # pwsh/Base.QualityGates/private/Write-TestRunLockRecord.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Writes the record that names who holds a test-run lock. A lock says only that it is held, so the record carries the holder a waiter reports.
 
 ## help
 

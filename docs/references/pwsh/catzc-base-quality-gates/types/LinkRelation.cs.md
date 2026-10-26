@@ -1,22 +1,6 @@
 # pwsh/Base.QualityGates/types/LinkRelation.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
-
-## comment:1
-
-Above `public enum LinkRelation`, written with `//`.
-
-```text
 The three ways one tracked file points at another
-([ADR-REPO-LINKS-EVERYLINKHASADIRECTION](/docs/drs/repository/links-in-repository.md#rule-adr-repo-links-everylinkhasadirection)).
-```
-
-## comment:2
-
-Above `Convention,`, written with `//`.
-
-```text
-Implied by a declaration, never written in a file
-([ADR-REPO-LINKS-CONVENTIONSAREDERIVED](/docs/drs/repository/links-in-repository.md#rule-adr-repo-links-conventionsarederived)).
-```
+([ADR-REPO-LINKS-EVERYLINKHASADIRECTION](../../../../drs/repository/links-in-repository.md#rule-adr-repo-links-everylinkhasadirection)).
+`Convention` is the relation implied by a declaration and never written in a file
+([ADR-REPO-LINKS-CONVENTIONSAREDERIVED](../../../../drs/repository/links-in-repository.md#rule-adr-repo-links-conventionsarederived)).

@@ -1,7 +1,7 @@
 # pwsh/Tooling.Core/Get-ToolConfig.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The lookup of one tool's locked definition in `configs/tools.yml`, returned as a validated `ToolConfig`. The whole file is built and cached
+once per session by `Get-Config`, so repeated calls return the same instance.
 
 ## help
 

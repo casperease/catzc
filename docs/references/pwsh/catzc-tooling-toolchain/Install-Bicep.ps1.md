@@ -1,7 +1,7 @@
 # pwsh/Tooling.Toolchain/Install-Bicep.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The installer of the Bicep CLI, the formatter engine for the infrastructure templates, at the `tools.yml` pin. On Windows and macOS it
+delegates to the `bicep` entry; on Linux it installs the verified release binary through `Install-BicepStandalone`.
 
 ## help
 

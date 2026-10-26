@@ -1,42 +1,23 @@
 # pwsh/Base.QualityGates/tests/Invoke-TestFile.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The L2 integrity test of `Invoke-TestFile`. It drives a real child pwsh worker through the same generator and runner chain as the harness.
+It is tagged greedy: each `It` spawns a full importer-loading pwsh worker, which stacked on the parallel pool oversubscribes the box (see
+the greedy tag in the test-automation ADR).
 
-## comment:1
+## The strict fixture
 
-Above `Describe 'Invoke-TestFile (real worker)'`, written with `#`.
+The worker runs every test strict, and a test that genuinely needs non-strict semantics opts out locally, in its own `It` body
+([ADR-AUTO-TEST-FILEPARALLELISM](../../../../drs/automation/test-automation.md#rule-adr-auto-test-fileparallelism)). The fixture holds the
+same strict-hostile read (`.Count` on a scalar) twice, bare and behind the opt-out, plus a plain passing test. The bare read fails, so the
+same spawn also proves that a failing file reports `Failed` (exit 1) without throwing. How `-FullNameFilter` reaches the worker is proven at
+L0, here and in `New-TestAutomationShardScript.Tests.ps1`, so each distinct concern costs one spawn
+([ADR-AUTO-TEST-FEWINTEGRATIONTESTS](../../../../drs/automation/test-automation.md#rule-adr-auto-test-fewintegrationtests)).
 
-```text
-L2: drives a real child pwsh worker through the same generator + runner chain as the harness.
-greedy: each It spawns a full importer-loading pwsh worker — stacked on the parallel pool that
-oversubscribes the box (see the test-automation ADR's greedy tag).
-```
+## The snapshot path
 
-## comment:2
-
-Above `$script:fixture = Join-Path $TestDrive 'StrictHostile.Tests.ps1'`, written with `#`.
-
-```text
-The strict contract ([ADR-AUTO-TEST-FILEPARALLELISM](/docs/drs/automation/test-automation.md#rule-adr-auto-test-fileparallelism)): the
-worker runs every test strict, and a test that genuinely
-needs non-strict semantics opts out locally, in its own It body. The fixture holds the same strict-hostile
-read (.Count on a scalar) twice — bare, and behind the opt-out — plus a plain passing test. The bare read
-fails, so the same spawn also proves a failing file reports Failed (exit 1) without throwing; how
--FullNameFilter reaches the worker is proven at L0 (here and in New-TestAutomationShardScript.Tests.ps1),
-one spawn per distinct concern ([ADR-AUTO-TEST-FEWINTEGRATIONTESTS](/docs/drs/automation/test-automation.md#rule-adr-auto-test-fewintegrationtests)).
-```
-
-## comment:3
-
-Above `It 'runs in a snapshot: the worker loads the snapshot, the report and the...`, written with `#`.
-
-```text
-The walking skeleton of the snapshot path
-([ADR-AUTO-TEST-RUNSNEVERWAIT](/docs/drs/automation/test-automation.md#rule-adr-auto-test-runsneverwait)): a real snapshot, primed, a
-real worker
-loading it. -Isolated takes the path deterministically; when it is taken because another run holds the
-working folder is Enter-TestRunLocation's L1 concern.
-The fixture also carries an L3 block, so the same worker spawn proves a snapshot skips the vertical system
-tests (Resolve-TestRunMaxLevel, [ADR-AUTO-TEST-SYSTEMTESTSATLTHREE](/docs/drs/automation/test-automation.md#rule-adr-auto-test-systemtestsatlthree)).
-```
+The snapshot case is the walking skeleton of the snapshot path
+([ADR-AUTO-TEST-RUNSNEVERWAIT](../../../../drs/automation/test-automation.md#rule-adr-auto-test-runsneverwait)): a real snapshot, primed,
+and a real worker loading it. `-Isolated` takes the path deterministically. When the path is taken because another run holds the working
+folder is a concern of `Enter-TestRunLocation`'s L1 test. The fixture also carries an L3 block, so the same worker spawn proves that a
+snapshot skips the vertical system tests (`Resolve-TestRunMaxLevel`,
+[ADR-AUTO-TEST-SYSTEMTESTSATLTHREE](../../../../drs/automation/test-automation.md#rule-adr-auto-test-systemtestsatlthree)).

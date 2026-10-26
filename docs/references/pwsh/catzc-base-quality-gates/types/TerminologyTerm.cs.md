@@ -1,29 +1,17 @@
 # pwsh/Base.QualityGates/types/TerminologyTerm.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+One approved-vocabulary entry from `configs/terminology.yml`: a term and its meaning
+([ADR-AUTO-SPELL](../../../../drs/automation/spell-out-names.md),
+[ADR-AUTO-SPELL-ONEVOCABULARYSOURCE](../../../../drs/automation/spell-out-names.md#rule-adr-auto-spell-onevocabularysource) to
+[ADR-AUTO-SPELL-LIVEVOCABULARYONLY](../../../../drs/automation/spell-out-names.md#rule-adr-auto-spell-livevocabularyonly)). Its properties
+mirror a `terminology.yml` entry, snake_case. An abbreviation carries its full-word expansion; the other categories do not.
 
-## comment:1
+## Category
 
-Above `using System;`, written with `//`.
+The category is the group the entry is listed under in the registry (`terms: <category>: [...]`). `TerminologyConfig` passes it in, so the
+entry itself carries no category key.
 
-```text
-One approved-vocabulary entry from configs/terminology.yml — a term and its meaning. Its category is the
-group it is listed under in the registry (terms: <category>: [...]), passed in by TerminologyConfig, so
-the entry itself carries no category key. An abbreviation carries its full-word expansion; the other
-categories do not. Mirrors a terminology.yml entry (snake_case keys). See
-[ADR-AUTO-SPELL](/docs/drs/automation/spell-out-names.md)
-([ADR-AUTO-SPELL-ONEVOCABULARYSOURCE](/docs/drs/automation/spell-out-names.md#rule-adr-auto-spell-onevocabularysource)-[ADR-AUTO-SPELL-LIVEVOCABULARYONLY](/docs/drs/automation/spell-out-names.md#rule-adr-auto-spell-livevocabularyonly)).
+## Base type
 
-Derives from Catzc.Base.Objects.DictionaryRecord, so an instance also presents as a read-only dictionary
-over its own properties and its constructor uses the base's Req/OptStr extraction helpers.
-```
-
-## comment:2
-
-Above `public string category { get; }`, written with `//`.
-
-```text
-The group this term is listed under (a defined category). Supplied by TerminologyConfig from the
-registry's terms: <category>: grouping, not read from the entry.
-```
+It derives from `Catzc.Base.Objects.DictionaryRecord`, so an instance also presents as a read-only dictionary over its own properties, and
+its constructor uses the base's `Req` and `OptStr` extraction helpers.

@@ -9,5 +9,5 @@ case, which proves the per-category grouping, the lower-casing and the de-duplic
 
 ## Real registry
 
-The real-registry case is source-only. It compares the repository's generated `.cspell/` dictionaries with the registry, which gives the same
-answer in both run modes.
+The real-registry case is source-only. It compares the repository's generated `.cspell/` dictionaries with the registry, which gives the
+same answer in both run modes.

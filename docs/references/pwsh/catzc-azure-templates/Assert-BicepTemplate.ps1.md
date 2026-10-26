@@ -1,7 +1,8 @@
 # pwsh/Azure.Templates/Assert-BicepTemplate.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The command that validates one bicep template, or all of them, against its `options.yml` and the azure config. It collects every problem and
+throws one consolidated error, the explicit, author- and CI-facing counterpart to the fail-fast checks `Get-BicepTemplates` runs at
+discovery.
 
 ## help
 
@@ -57,30 +58,19 @@ Assert-BicepTemplate            # validate every template
 Assert-BicepTemplate my-template -Build   # also compile with az
 ```
 
-## comment:1
+## Customer class
 
-Above `$customerDeploymentOption = if ($options.Contains('customer_deployment')) {`, written with `#`.
+The customer-class bit defaults to the `have_customers` variant unless `options.yml` sets `customer_deployment`. An explicit
+`customer_deployment: true` is allowed only when customers are enabled
+([ADR-AZ-CUSTOMER](../../../drs/azure/azure-customer-model.md)).
 
-```text
-Customer-class bit — defaults to the have_customers variant unless options.yml sets it; an explicit
-customer_deployment: true is only allowed when customers are enabled (see customer-model ADR).
-```
+## Short name
 
-## comment:3
+`short_name` is derived from the folder name unless `options.yml` overrides it. `BicepShortName` owns the derivation and the format
+validation, and throws on a malformed override or on a folder that cannot derive a valid short name without one. The resolved value feeds
+the global-uniqueness check.
 
-Above `$shortNameOverride = if ($options.Contains('short_name')) {`, written with `#`.
+## Parameters
 
-```text
-short_name is derived from the folder name unless options.yml overrides it. BicepShortName owns the
-derivation + format validation (throws on a malformed override, or a folder that cannot derive a
-valid short_name without one); the resolved value feeds the global-uniqueness check.
-```
-
-## comment:4
-
-Above `$built = $false`, written with `#`.
-
-```text
-The full build (render + compile) so the rendered parameters files can be checked against the
-compiled parameter model ([ADR-AZ-DATAMOD-PARAMETERCONTRACT](/docs/drs/azure/azure-data-model.md#rule-adr-az-datamod-parametercontract)).
-```
+The command runs the full build, render and compile, so the rendered parameters files can be checked against the compiled parameter model
+([ADR-AZ-DATAMOD-PARAMETERCONTRACT](../../../drs/azure/azure-data-model.md#rule-adr-az-datamod-parametercontract)).

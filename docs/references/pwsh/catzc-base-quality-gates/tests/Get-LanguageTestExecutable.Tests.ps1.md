@@ -1,14 +1,6 @@
 # pwsh/Base.QualityGates/tests/Get-LanguageTestExecutable.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
-
-## comment:1
-
-Above `Describe 'Get-LanguageTestExecutable'`, written with `#`.
-
-```text
-Get-LanguageTestExecutable with the test folder discovery and the tool probe mocked: the source session hands down a
-language's tool only when it is found at the pin, and probes nothing for a language without test folders. Neutral
-fixture paths ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
-```
+The tests of `Get-LanguageTestExecutable`, with the test folder discovery and the tool probe mocked. The source session hands down a
+language's tool only when it is found at the pin, and the command probes nothing for a language without test folders. Fixture paths are
+neutral
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).

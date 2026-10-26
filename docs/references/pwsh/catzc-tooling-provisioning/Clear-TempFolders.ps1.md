@@ -1,7 +1,7 @@
 # pwsh/Tooling.Provisioning/Clear-TempFolders.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The cleaner of the user's temp folders: it deletes their top-level entries, keeps the folders, and returns a summary of what it removed and
+skipped.
 
 ## help
 
@@ -43,14 +43,13 @@ Clear-TempFolders -DryRun
 Reports what would be removed (in the returned summary's Removed count) without deleting anything.
 ```
 
-## comment:1
+## How it deletes
 
-Above `$removed = 0`, written with `#`.
+The deletion goes through .NET, not `Remove-Item`: across tens of thousands of temp entries the per-item cmdlet overhead dominates, minutes
+against seconds. Only the top-level entries are walked, since `Directory.Delete` recurses each subtree. A file or directory held open by a
+running process throws and is skipped.
 
-```text
-Delete via .NET, NOT Remove-Item: across tens of thousands of temp entries Remove-Item's
-per-item cmdlet overhead dominates (minutes vs seconds). Top-level entries only — Directory.Delete
-recurses each subtree. A file or directory held open by a running process throws and is skipped.
-In dry-run, count every top-level entry as a would-remove and delete nothing (a lock can only be
-observed by attempting the delete, so dry-run reports the intent, not the lock outcome).
-```
+## Dry run
+
+A lock can only be observed by attempting the delete, so a dry run reports the intent, not the lock outcome: it counts every top-level entry
+as a would-remove and deletes nothing.

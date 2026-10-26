@@ -1,7 +1,7 @@
 # pwsh/Azure.Firewall/Convert-FirewallCsvToMarkdown.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The command that renders an Azure Firewall rule-export CSV, application or network, as a Markdown document: a title and provenance
+preamble followed by one table of the rules in firewall evaluation order.
 
 ## help
 
@@ -113,102 +113,30 @@ Get-FirewallCsv -SubscriptionId $sub -StorageAccountName stfwexports -ContainerN
     Convert-FirewallCsvToMarkdown -OutputFolder .\docs
 ```
 
-## comment:1
+## The source name and path
 
-Above `if (-not $SourceName) {`, written with `#`.
+The source name defaults in the body, not as a parameter default: in Object mode `$CsvPath` comes from pipeline input, which binds after
+the defaults are evaluated, so a default would never see it
+([ADR-PWSH-PARAM-RESOLUTIONORDER](../../../drs/automation/pwsh/parameter-design.md#rule-adr-pwsh-param-resolutionorder)).
 
-```text
-A body fill-in on purpose: in Object mode $CsvPath comes from pipeline input, bound after defaults are
-evaluated ([ADR-PWSH-PARAM-RESOLUTIONORDER](/docs/drs/automation/pwsh/parameter-design.md#rule-adr-pwsh-param-resolutionorder)).
-```
+The path is asserted in both modes, because in Object mode it comes from the piped object. A wrong path to the source CSV then fails
+there by name and never as a raw `Import-Csv` error.
 
-## comment:2
+## Row order
 
-Above `Assert-PathExist $CsvPath -PathType Leaf`, written with `#`.
+Rows sort toward the firewall's own evaluation order: the rule collection group priority first (from `-GroupPriority`), then the rule
+collection priority, so an allow collection at 3000 comes before a deny at 3010, then the rule name. An unknown group and a blank
+collection priority both sort last, never first.
 
-```text
-In Object mode CsvPath comes from the piped object (the Path set is ValidateScript'd); assert it
-exists either way so a source path that is wrong fails here, named, not as a raw Import-Csv error.
-```
+## Columns
 
-## comment:3
+The ordered, validated column descriptors (rule name, the composite columns, then extras) are built in one place, the columns helper. It
+trims the candidates to the headers the CSV has, and a requested column the CSV lacks fails there instead of vanishing from the table.
 
-Above `$sortProps = @()`, written with `#`.
+## Preamble and times
 
-```text
-Sort toward firewall evaluation order: rule collection GROUP priority first (from -GroupPriority),
-then rule collection priority (e.g. allow=3000 before deny=3010), then rule name.
-Unknown group and blank collection priority both sort last rather than first.
-```
+The document opens with a title and a provenance preamble. Every time is rendered in UTC, and the conversion time is taken now in UTC, so
+the same CSV gives the same page on a workstation in another time zone and on a build agent.
 
-## comment:4
-
-Above `$columnParams = @{`, written with `#`.
-
-```text
-Build the ordered, validated column descriptors (rule name, composites, extras). Trimming to
-$present headers and the schema-mismatch throw live in the helper.
-```
-
-## comment:5
-
-Above `[void]$ret.AppendLine("# $SourceName")`, written with `#`.
-
-```text
-Title + provenance preamble. Times are rendered in UTC; conversion time is taken now in UTC so it
-doesn't depend on whether this runs on a CEST workstation or a UTC build agent.
-```
-
-## comment:6
-
-Above `$generatedUtc =...`, written with `#`.
-
-```text
-PowerShell binds Nullable[datetime] as a plain [datetime], so check for $null and cast —
-do NOT use .HasValue/.Value, which don't exist on the unwrapped struct.
-```
-
-## comment:7
-
-Above `if (-not $SourceName) {`, written with `#`.
-
-```text
-Filled in the body, not as a default: a piped path binds after the defaults are evaluated, so a default would
-never see it.
-```
-
-## comment:8
-
-Above `Assert-PathExist $CsvPath -PathType Leaf`, written with `#`.
-
-```text
-Asserted in both modes, so a wrong path to the source CSV fails here by name and never as a raw CSV read
-error.
-```
-
-## comment:9
-
-Above `$sortProps = @()`, written with `#`.
-
-```text
-The firewall's own evaluation order: group priority, then collection priority, then name; an unknown sorts
-last, never first.
-```
-
-## comment:10
-
-Above `$columnParams = @{`, written with `#`.
-
-```text
-The columns are built and validated in one place, so a requested column the CSV lacks fails there instead of
-vanishing here.
-```
-
-## comment:11
-
-Above `$generatedUtc =...`, written with `#`.
-
-```text
-A nullable date arrives unwrapped as a plain date, so it is null-checked and cast, never asked for
-HasValue or Value.
-```
+PowerShell binds a nullable date as a plain `[datetime]`, so the generated-time value is null-checked and cast. `HasValue` and `Value` do
+not exist on the unwrapped struct.

@@ -1,7 +1,7 @@
 # pwsh/Base.Contracts/private/Get-ContractSchemaFindings.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The schema check shared by schema assets and samples: it validates a value against the bounded JSON Schema subset, or checks the schema
+alone.
 
 ## help
 

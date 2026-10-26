@@ -1,16 +1,8 @@
 # pwsh/Base.QualityGates/types/LinkKind.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The two kinds of link, fixed by the file a link lives in
+([ADR-REPO-LINK-KINDBYFILE](../../../../drs/repository/markdown-links.md#rule-adr-repo-link-kindbyfile)): a markdown link lives in a
+rendered `.md` file, and a code link in a comment of any other tracked text file.
 
-## comment:1
-
-Above `using System;`, written with `//`.
-
-```text
-The two kinds of link ([ADR-REPO-LINK-KINDBYFILE](/docs/drs/repository/markdown-links.md#rule-adr-repo-link-kindbyfile)), fixed by the file a link lives in:
-a markdown link lives in a rendered
-.md file, a code link in a comment of any other tracked text file. [Flags], so Both is Code | Markdown and the
-engine tests HasFlag instead of special-casing Both; a parameter typed as this enum binds -Kind Code,
--Kind Markdown, or -Kind Both and tab-completes the fixed set.
-```
+The enum is `[Flags]`, so `Both` is `Code | Markdown` and the engine tests `HasFlag` instead of special-casing `Both`. A parameter typed as
+this enum binds `-Kind Code`, `-Kind Markdown` or `-Kind Both` and tab-completes the fixed set.

@@ -1,7 +1,6 @@
 # pwsh/Azure.DevOps/Get-AdoPipelineDefinitions.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The function that lists every pipeline definition registered in Azure DevOps, with the YAML file each one points to.
 
 ## help
 
@@ -42,11 +41,7 @@ Get-AdoPipelineDefinitions -Organization 'https://dev.azure.com/myorg' -Project 
 Get-AdoPipelineDefinitions | Where-Object RepositoryName -eq 'big-mono'
 ```
 
-## comment:1
+## Fetching the details
 
-Above `$hasProcessDetails = $definitions | Where-Object { $_.process.yamlFilename }...`, written with `#`.
-
-```text
-includeAllProperties should return process.yamlFilename inline.
-Older ADO Server versions may ignore this — fall back to per-definition fetches.
-```
+The list call asks for `includeAllProperties`, which should return `process.yamlFilename` inline. Older Azure DevOps Server versions ignore
+it, so when no definition carries the file name the function falls back to fetching each definition individually.

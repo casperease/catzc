@@ -1,16 +1,7 @@
 # pwsh/Base.QualityGates/tests/Format-Types.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
-
-## comment:1
-
-Above `Describe 'Format-Types'`, written with `#`.
-
-```text
-Format-Types maintains each C# type source's file-scoped namespace from its module folder; its -DryRun is the C#
-part of Test-Formatting ([ADR-AUTO-TEST-QUALITYGATE](/docs/drs/automation/test-automation.md#rule-adr-auto-test-qualitygate)).
-A fixture tree in $TestDrive stands in for the repository (neutral widget/gadget names,
-[ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)); the real tree is checked by the
-formatting integrity test in Test-Formatting.Tests.ps1.
-```
+The tests of `Format-Types`, which maintains each C# type source's file-scoped namespace from its module folder. Its `-DryRun` is the C#
+part of `Test-Formatting` ([ADR-AUTO-TEST-QUALITYGATE](../../../../drs/automation/test-automation.md#rule-adr-auto-test-qualitygate)). A
+fixture tree in `$TestDrive` stands in for the repository, with neutral widget and gadget names
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)). The
+formatting integrity test in `Test-Formatting.Tests.ps1` checks the real tree.

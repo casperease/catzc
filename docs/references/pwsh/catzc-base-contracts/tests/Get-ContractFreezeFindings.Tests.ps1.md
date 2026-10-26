@@ -1,25 +1,13 @@
 # pwsh/Base.Contracts/tests/Get-ContractFreezeFindings.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Tests `Get-ContractFreezeFindings`. A released version folder is immutable
+([ADR-REPO-CONTRACT-RELEASEDIMMUTABLE](../../../../drs/repository/api-contracts.md#rule-adr-repo-contract-releasedimmutable)): the command
+compares its files with the `.frozen` record `Get-ContractFileHashes` wrote at the freeze. Fixtures are a widget version folder in
+`TestDrive:`
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 
-## comment:1
+## The real tree
 
-Above `Describe 'Get-ContractFreezeFindings'`, written with `#`.
-
-```text
-A released version folder is immutable ([ADR-REPO-CONTRACT-RELEASEDIMMUTABLE](/docs/drs/repository/api-contracts.md#rule-adr-repo-contract-releasedimmutable)):
-Get-ContractFreezeFindings compares its files with the .frozen record Get-ContractFileHashes wrote at the freeze.
-Fixtures are a widget version folder in TestDrive ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
-```
-
-## comment:2
-
-Above `BeforeDiscovery {`, written with `#`.
-
-```text
-Every released version folder in the repository's contracts/ tree, one test each, discovered from the tree: a folder
-changed since its release fails here ([ADR-REPO-CONTRACT-RELEASEDIMMUTABLE](/docs/drs/repository/api-contracts.md#rule-adr-repo-contract-releasedimmutable)).
-Released folders are every version folder but the draft 0.0.0; a tree with none discovers no test. It reads only the
+A second block discovers every released version folder in the repository's `contracts/` tree, one case each: a folder changed since its
+release fails here. Released folders are every version folder from 1.0.0 up; a tree with none discovers no case. It reads only the
 repository's files, so its answer cannot differ between the run modes (source-only).
-```

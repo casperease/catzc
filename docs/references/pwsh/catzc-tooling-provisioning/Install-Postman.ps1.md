@@ -1,7 +1,6 @@
 # pwsh/Tooling.Provisioning/Install-Postman.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The installer of the Postman desktop app, a sanctioned latest-version base tool, installed in user space on every platform.
 
 ## help
 
@@ -31,20 +30,8 @@ Install-Postman
 Install-Postman -Force
 ```
 
-## comment:1
+## The download
 
-Above `Write-Message 'Downloading Postman from dl.pstmn.io'`, written with `#`.
-
-```text
-Postman publishes no per-download checksum and is a sanctioned 'latest' base tool, so this download
-is TLS-only — no checksum verification. See ADR controlling-systemwide-deps (latest base-tool allowlist).
-```
-
-## comment:2
-
-Above `Write-Message 'Downloading Postman from dl.pstmn.io'` (occurrence 2), written with `#`.
-
-```text
-Postman publishes no per-download checksum and is a sanctioned 'latest' base tool, so this download
-is TLS-only — no checksum verification. See ADR controlling-systemwide-deps (latest base-tool allowlist).
-```
+Postman publishes no per-download checksum and is a sanctioned latest-version base tool, so its download is protected by TLS only, with no
+checksum verification ([ADR-AUTO-DEPS-LOCKEDTOOLVERSIONS](../../../drs/automation/controlling-systemwide-deps.md#rule-adr-auto-deps-lockedtoolversions), the latest
+base-tool allowlist).

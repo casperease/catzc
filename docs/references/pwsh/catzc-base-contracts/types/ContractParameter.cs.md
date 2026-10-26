@@ -1,13 +1,9 @@
 # pwsh/Base.Contracts/types/ContractParameter.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+One parameter of a command contract: its name, type, sets and default, parsed from the contract language's one-line spec.
 
-## comment:1
+## Spec
 
-Above `private static readonly Regex SpecRe = new Regex(`, written with `//`.
-
-```text
-spec = type [ "!" ] [ "=" literal ] [ "pipeline" ]; type = base [ "[]" ]
-([ADR-REPO-CMDCONTRACT-CONTRACTLANGUAGE](/docs/drs/repository/command-contracts.md#rule-adr-repo-cmdcontract-contractlanguage)).
-```
+A spec reads `type [ "!" ] [ "=" literal ] [ "pipeline" ]`, where `type = base [ "[]" ]`
+([ADR-REPO-CMDCONTRACT-CONTRACTLANGUAGE](../../../../drs/repository/command-contracts.md#rule-adr-repo-cmdcontract-contractlanguage)). The
+base types are `string`, `int`, `bool` and `switch`, or a contract type; `[]` makes a list.

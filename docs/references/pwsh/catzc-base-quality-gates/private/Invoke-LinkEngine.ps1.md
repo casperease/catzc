@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Invoke-LinkEngine.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Builds the link engine for a repository and runs it over a file scope. Format-Links and Test-Links assemble the engine here, so the aligner
+and the gate cannot disagree.
 
 ## help
 

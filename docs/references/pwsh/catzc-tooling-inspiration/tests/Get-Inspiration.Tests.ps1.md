@@ -1,15 +1,10 @@
 # pwsh/Tooling.Inspiration/tests/Get-Inspiration.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The L0 tests of `Get-Inspiration` over a fixture config: `Get-Config` is mocked to the real `InspirationConfig` built from neutral widget
+and gadget data
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 
-## comment:1
+## Workspace
 
-Above `Describe 'Get-Inspiration'`, written with `#`.
-
-```text
-Get-Inspiration over a fixture config (Get-Config mocked to the real InspirationConfig built from neutral widget/gadget
-data, [ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)) and a TestDrive workspace in
-which widget and gadget exist and gizmo does not. An inspiration that is absent is reported, never thrown on
-([ADR-REPO-INSPIRE-SIBLINGFORIDEAS](/docs/drs/repository/inspiration.md#rule-adr-repo-inspire-siblingforideas)).
-```
+A `TestDrive` workspace holds widget and gadget but not gizmo, so an absent inspiration is proven reported and never thrown on
+([ADR-REPO-INSPIRE-SIBLINGFORIDEAS](../../../../drs/repository/inspiration.md#rule-adr-repo-inspire-siblingforideas)).

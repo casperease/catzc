@@ -1,7 +1,6 @@
 # pwsh/Base.QualityGates/Test-TrackMemberCommitted.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The track gate: every track member's committed fact must agree with the git index.
 
 ## help
 
@@ -45,21 +44,12 @@ Test-TrackMemberCommitted
 (Test-TrackMemberCommitted -PassThru).Issues
 ```
 
-## comment:1
+## Declared against the index
 
-Above `$root = Get-RepositoryRoot`, written with `#`.
-
-```text
 A member's committed fact is declared, and the git index is what it must agree with
-([DDR-TRACK-TRACKISPLACEDCLUSTER](/docs/drs/design/tracks.md#rule-ddr-track-trackisplacedcluster)); a committed
-member with nothing on disk yet, such as an empty landing address, has nothing to disagree with.
-```
+([DDR-TRACK-TRACKISPLACEDCLUSTER](../../../drs/design/tracks.md#rule-ddr-track-trackisplacedcluster)). A committed member with nothing on
+disk yet, such as an empty landing address, has nothing to disagree with.
 
-## comment:2
+## Generated members
 
-Above `$targets = @(Get-GeneratedTarget)`, written with `#`.
-
-```text
-A member a catzc generator writes takes its generated fact from that generator's target, never from its own
-declaration as well.
-```
+A member that a catzc generator writes takes its generated fact from that generator's target, never from its own declaration as well.

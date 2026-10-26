@@ -1,13 +1,9 @@
 # pwsh/Base.QualityGates/configs/link-directions.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The direction rules for links: which way a relation between two files may point.
 
-## comment:1
+## Rows
 
-Above `rows:`, written with `#`.
-
-```text
-Which way a link may point: rows read top to bottom, the first match deciding; a relation no row allows is denied
-(ADR-REPO-LINKS-DIRECTIONSAREROWS).
-```
+Rows read top to bottom, and the first match decides. A relation that no row allows is denied
+([ADR-REPO-LINKS-DIRECTIONSAREROWS](../../../../drs/repository/links-in-repository.md#rule-adr-repo-links-directionsarerows)).
+Test-LinkDirections applies them.

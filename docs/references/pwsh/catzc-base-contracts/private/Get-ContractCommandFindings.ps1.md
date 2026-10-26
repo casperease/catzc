@@ -1,7 +1,6 @@
 # pwsh/Base.Contracts/private/Get-ContractCommandFindings.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The command check of a contract asset: the command's file must declare what its contract states, parameter by parameter and output type.
 
 ## help
 
@@ -38,11 +37,7 @@ The command contract asset.
 Get-ContractCommandFindings -RepositoryRoot $root -Asset $asset
 ```
 
-## comment:1
+## names compared in the normal form
 
-Above `$toNormal = [Func[string, string]] {`, written with `#`.
-
-```text
-The command's file spells its names in PowerShell's idiom; rendered to the normal form, they compare with the
-contract's.
-```
+The command's file spells its names in PowerShell's idiom. They are rendered to the normal form first, so they compare with the contract's
+names.

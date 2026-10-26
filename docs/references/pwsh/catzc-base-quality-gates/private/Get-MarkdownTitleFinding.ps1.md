@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Get-MarkdownTitleFinding.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Checks one Markdown file's title and returns the fixed text. A title is the H1 on the first line, and a path subtitle below it is folded
+into the H1.
 
 ## help
 
@@ -30,11 +30,7 @@ The file's content.
 
 `[pscustomobject]` @{ Path; Line; Kind; Actual; Expected; Fixed }
 
-## comment:1
+## Path title
 
-Above `$lines.RemoveRange($titleIndex, $subtitleIndex - $titleIndex + 1)`, written with `#`.
-
-```text
-The H1 takes the subtitle's text without its backticks; the subtitle and the blank lines around it go.
-A blank line is put back when a body line followed the subtitle directly, so the heading and what follows stay apart.
-```
+When a file has a path title, the H1 takes the subtitle's text without its backticks. The subtitle and the blank lines around it go. A blank
+line is put back when a body line followed the subtitle directly, so the heading and what follows stay apart.

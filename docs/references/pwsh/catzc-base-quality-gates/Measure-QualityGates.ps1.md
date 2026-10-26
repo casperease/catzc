@@ -1,7 +1,6 @@
 # pwsh/Base.QualityGates/Measure-QualityGates.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The timer for the quality gates, or for single analyzer rules, to find what makes a check slow.
 
 ## help
 
@@ -54,11 +53,7 @@ Measure-QualityGates Test-Spelling, Test-Links
 Measure-QualityGates -AnalyzerRules -Every 4 | Select-Object -First 10
 ```
 
-## comment:1
+## First use
 
-Above `Write-Message 'Loading PSScriptAnalyzer (first use this session)...'`, written with `#`.
-
-```text
-First use this session pays the vendored-module import (several seconds) — announce it
-([ADR-AUTO-CONSOLE-ANNOUNCEBEFOREBLOCKING](/docs/drs/automation/console-output-matters.md#rule-adr-auto-console-announcebeforeblocking)).
-```
+The first use in a session pays the import of the vendored PSScriptAnalyzer, which takes several seconds, so the command announces it
+([ADR-AUTO-CONSOLE-ANNOUNCEBEFOREBLOCKING](../../../drs/automation/console-output-matters.md#rule-adr-auto-console-announcebeforeblocking)).

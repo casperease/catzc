@@ -1,7 +1,7 @@
 # pwsh/Azure.Cli/Set-CurrentAzSubscription.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The command that sets the Azure CLI's active subscription from a subscription-context record, the counterpart that restores what the
+current-subscription getter captured.
 
 ## help
 

@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Get-ParameterTypeConflict.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Finds the parameter names that carry more than one type across the given function files. A name with two types is a conflict that a reader
+of the commands would trip over.
 
 ## help
 
@@ -32,11 +32,7 @@ declaring functions sorted ordinally.
 Get-ParameterTypeConflict -Path (Get-ChildPath pwsh/Catzc.Widget -File -Filter '*.ps1' -Depth 1)
 ```
 
-## comment:1
+## Type names
 
-Above `$reflected = $constraint.TypeName.GetReflectionType()`, written with `#`.
-
-```text
-Resolve through .NET where the type is loaded, so an accelerator and its full name are one type
-([bool] is [System.Boolean]); a type that does not resolve keeps its written name.
-```
+A type is resolved through .NET where it is loaded, so an accelerator and its full name are one type (`[bool]` is `[System.Boolean]`). A
+type that does not resolve keeps its written name.

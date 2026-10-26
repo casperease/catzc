@@ -1,7 +1,7 @@
 # pwsh/Tooling.Core/Remove-LinuxToolInstall.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The Linux platform core of the tool-removal lifecycle: it evicts an install that did not come from a tool's configured manager, so the
+managed user-space build can win.
 
 ## help
 
@@ -37,11 +37,7 @@ The tool's parsed tools.yml entry (from Get-ToolConfig).
 
 `[bool]` — $true when an off-config install was removed, $false when there was nothing to remove.
 
-## comment:1
+## The apt-owned shadow
 
-Above `if (Test-Command dpkg) {`, written with `#`.
-
-```text
-1. apt-owned shadow — dpkg -S names the package that owns the resolved binary, robust across the config's
-   own manager (an apt 'azure-cli' owns /usr/bin/az even though az_cli is a uv tool). apt needs root.
-```
+`dpkg -S` names the package that owns the resolved binary, which holds across the config's own manager: an apt `azure-cli` owns
+`/usr/bin/az` even though az_cli is a uv tool. Removing it is the one step that needs root.

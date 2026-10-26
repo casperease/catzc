@@ -1,7 +1,7 @@
 # pwsh/Azure.Cli/Assert-AzCliBicep.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The throwing check that the Bicep CLI az needs is installed and at or above the configured minimum version. It exists so a build fails early
+with a named cause and the matching fix, instead of `az bicep build` exiting 0 without writing a file.
 
 ## help
 

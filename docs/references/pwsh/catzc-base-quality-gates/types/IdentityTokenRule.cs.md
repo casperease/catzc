@@ -1,24 +1,17 @@
 # pwsh/Base.QualityGates/types/IdentityTokenRule.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+One live-identity declaration of an identity-tokens source: which values of one of the declaring module's own configs are live production
+identities that a hermetic logic test must never name
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+`Get-LiveIdentityTokens` walks `path` in the named config and yields each token with this rule's kind, suggestion and match mode.
 
-## comment:1
+## Keys
 
-Above `using System;`, written with `//`.
-
-```text
-One live-identity declaration of an identity-tokens source: which values of one of the declaring module's own
-configs are live production identities that a hermetic logic test must never name
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)). Get-LiveIdentityTokens walks
-`path` in the named config and yields each token with this rule's kind, suggestion and match mode.
-
-  config     required; the config the tokens come from (owned by the declaring module)
-  path       required; dot-separated key path into that config; a '*' segment walks every entry of a map
-  take       'value' (default): the scalar at the path; 'keys': the keys of the map at the path
-  kind       required; the token kind a finding reports (customer-key, org, environment, ...)
-  suggest    required; the fixture the test should use instead
-  match      'exact' (default): flagged wherever it appears as a literal; 'position': flagged only when bound to
-             an identity parameter (-Environment/-Env/-Shortcode), for ambiguous words such as 'test'
-  skip_when  optional; a key that, when true on a map entry the path walks, leaves that entry out
-```
+- **`config`** — required; the config the tokens come from, owned by the declaring module.
+- **`path`** — required; a dot-separated key path into that config. A `*` segment walks every entry of a map.
+- **`take`** — `value` (default) takes the scalar at the path; `keys` takes the keys of the map at the path.
+- **`kind`** — required; the token kind a finding reports (customer-key, org, environment, and so on).
+- **`suggest`** — required; the fixture the test should use instead.
+- **`match`** — `exact` (default) flags the token wherever it appears as a literal. `position` flags it only when it is bound to an identity
+  parameter (`-Environment`, `-Env`, `-Shortcode`), for ambiguous words such as `test`.
+- **`skip_when`** — optional; a key that, when true on a map entry the path walks, leaves that entry out.

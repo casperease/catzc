@@ -1,7 +1,6 @@
 # pwsh/Base.QualityGates/Test-GeneratedFiles.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The gate over generated files: it checks that every generated file equals what its generator would write now.
 
 ## help
 
@@ -83,20 +82,12 @@ Test-GeneratedFiles
 (Test-GeneratedFiles -Generator Build-DrsIndex, New-Importer -PassThru).Issues
 ```
 
-## comment:1
+## Writers
 
-Above `$checkedWriters = @(if (-not $StampOnly) {`, written with `#`.
+Each registered writer is run by its check. The registry (`generated-files.yml`) says which check, and for a file result which property
+holds the path. The list is wrapped in `@()` as a whole so that an empty list stays an array under strict mode.
 
-```text
-Each registered writer is run by its check; the registry (generated-files.yml) says which check and, for a file result, which property holds the path.
-@() around the whole if: an empty list must stay an array under strict mode.
-```
+## Changed only
 
-## comment:2
-
-Above `$dueNames =...`, written with `#`.
-
-```text
-With -Changed only the writers Get-GeneratedWriterDue names run their dry run: the one reading of the inputs and
+With `-Changed`, only the writers that Get-GeneratedWriterDue names run their dry run. That is the one reading of the writers' inputs and
 outputs lists.
-```

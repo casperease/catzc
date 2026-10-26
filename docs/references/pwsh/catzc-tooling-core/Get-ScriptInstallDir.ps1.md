@@ -1,7 +1,7 @@
 # pwsh/Tooling.Core/Get-ScriptInstallDir.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The resolver of the install directory for a script-installed tool, or for the Windows tree an MSYS2 package installs into. A config override
+wins; otherwise a per-platform default under `LOCALAPPDATA` or `HOME` applies.
 
 ## help
 

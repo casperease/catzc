@@ -1,7 +1,6 @@
 # pwsh/Tooling.Core/Invoke-Uv.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The wrapper that runs uv, the standard Python handler, after asserting that uv is installed at the locked version.
 
 ## help
 
@@ -52,12 +51,8 @@ Invoke-Uv 'tool install azure-cli'
 Invoke-Uv 'pip install azure-cli' -Prerelease
 ```
 
-## comment:1
+## Pre-release versions
 
-Above `Write-Message "uv: allowing pre-release/dev package versions...`, written with `#`.
-
-```text
-Pre-release resolution is a deliberate, config-driven relaxation of the version lock — surface it so it
-is never silent. A message, not a warning: the toolchain runs with WarningPreference=Stop, and this is
-expected (opt-in) behaviour, not an anomaly to halt on.
-```
+Pre-release resolution is a deliberate, config-driven relaxation of the version lock, so the wrapper surfaces it and never lets it pass
+silently. It is a message, not a warning: the toolchain runs with `WarningPreference=Stop`, and an opted-in pre-release is expected
+behaviour, not an anomaly to halt on.

@@ -1,7 +1,6 @@
 # pwsh/Base.QualityGates/private/Move-FunctionHelp.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Moves the help of one PowerShell file from its head's config part to the `## help` section of its comment page.
 
 ## help
 
@@ -45,11 +44,6 @@ RestsOn carries the codes the head lists that no text of the file spells out, so
 description and none is lost when the head goes
 ([ADR-REPO-FILEMETA-NOREADBACK](../../../../drs/repository/file-meta.md#rule-adr-repo-filemeta-noreadback)).
 
-## comment:1
+## Empty lists
 
-Above `$RestsOn = [string[]] @($RestsOn | Where-Object { $_ })`, written with `#`.
-
-```text
-A caller that hands an empty list through a scope boundary hands $null, so the list is rebuilt before it is
-counted.
-```
+A caller that hands an empty list through a scope boundary hands `$null`, so the list is rebuilt before it is counted.

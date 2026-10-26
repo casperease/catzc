@@ -1,7 +1,7 @@
 # pwsh/Azure.Firewall/Get-FirewallIpgsYaml.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The command that enumerates the IP Groups across one or more subscription and resource group targets and writes them as one combined YAML
+document, sorted by name so the output is stable whatever order the targets arrive in.
 
 ## help
 
@@ -65,75 +65,21 @@ Get-FirewallIpgsYaml -SubscriptionId 50a0ed00-de00-50b0-0000-000000000000 -Resou
 ) | Get-FirewallIpgsYaml -YamlPath .\docs\ipgs.yaml
 ```
 
-## comment:1
+## What is asserted
 
-Above `Assert-AzCliExtension 'ip-group'`, written with `#`.
+The function asserts the `ip-group` extension once, failing fast with a remediation instead of an exit-2 or a hang. It asserts no
+connection: each target is hit explicitly with `--subscription`, so there is no single active subscription to assert, and a missing session
+fails the first call.
 
-```text
-Assert once that the ip-group extension is present (fail fast with remediation instead of an
-exit-2 / hang). No connection assert: each target is hit explicitly with --subscription, so
-there's no single active subscription to assert; a missing session surfaces on the first call.
-```
+## Address order
 
-## comment:2
+Addresses sort by a numeric key taken from an address's first IP, which may be a CIDR (`a.b.c.d/p`), a range (`a-b`) or a single IP. Each
+byte is padded to three digits, so a string sort of the keys is a numeric one. An unparseable address sorts as text.
 
-Above `$addressSortKey = {`, written with `#`.
+## Collisions
 
-```text
-Numeric sort key from an address's first IP (handles CIDR a.b.c.d/p, range a-b, or a single IP);
-pad each byte to 3 digits so a string sort orders numerically. Unparseable -> lexical fallback.
-```
+A target's source is registered once, keyed by resource group name. Two targets that share a resource group name across subscriptions would
+collide on that key, so the function surfaces the clash instead of overwriting.
 
-## comment:3
-
-Above `if ($allSources.Contains($ResourceGroupName)) {`, written with `#`.
-
-```text
-Register this target's source once (keyed by RG name). Two targets sharing an RG name but pointing
-at different subscriptions would collide on the source key — surface that rather than overwrite.
-```
-
-## comment:4
-
-Above `if ($allIpgs.Contains($g.name)) {`, written with `#`.
-
-```text
-IP Group names are unique within a source but not necessarily across sources — guard the
-shared 'ipgs' map so one source's group can't silently overwrite another's.
-```
-
-## comment:5
-
-Above `Assert-AzCliExtension 'ip-group'`, written with `#`.
-
-```text
-The extension is asserted once, but no connection: each target names its own subscription, so a missing
-session fails its call.
-```
-
-## comment:6
-
-Above `$addressSortKey = {`, written with `#`.
-
-```text
-Each byte padded to three digits, so a string sort of addresses is a numeric one; an unparseable address sorts
-as text.
-```
-
-## comment:7
-
-Above `if ($allSources.Contains($ResourceGroupName)) {`, written with `#`.
-
-```text
-Sources are keyed by resource group, so two targets that share one across subscriptions collide loudly instead
-of overwriting.
-```
-
-## comment:8
-
-Above `if ($allIpgs.Contains($g.name)) {`, written with `#`.
-
-```text
-Group names are unique within one source only, so a clash across sources is surfaced and never silently
-replaced.
-```
+IP Group names are unique within one source but not necessarily across sources. The shared `ipgs` map is guarded, so one source's group
+never silently overwrites another's.

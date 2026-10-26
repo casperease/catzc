@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Get-ModuleProtectionIdentity.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Composes a module's protection identity: the durable SHA of everything its test results depend on. A unit whose identity is unchanged since
+its last green run is skipped.
 
 ## help
 
@@ -37,59 +37,28 @@ repository and the fold widens to the repository-wide set.
 
 A caller-owned hashtable memoizing set-name -> durable SHA across one Test-Automation run.
 
-## comment:1
+## Fold
 
-Above `$universe = @{}`, written with `#`.
+The identity is a hash-of-hashes. The constituent sets are listed as `name|hash` lines, ordinal by name, and folded by the durable-sha
+recipe over set hashes ([FDR-CD-GLOBS-DURABLESHAIDENTITY](../../../../drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-durableshaidentity)).
 
-```text
-The tracked-file universe, fetched once for this call on the first set that is not memoized yet (a holder,
-because the closure below runs in its own scope), then shared by every set it hashes.
-```
+## Sets and the universe
 
-## comment:2
+The tracked-file universe is fetched once per call, on the first set that is not memoized yet, and shared by every set the call hashes. It
+lives in a holder because the closure that hashes a set runs in its own scope.
 
-Above `$sets = @(Get-ModuleGlobSet -Name $setName) | Sort-Object Name`, written with `#`.
+A module name resolves to its live and tests aspect sets ([DDR-ASPECT](../../../../drs/design/module-aspects.md)), and a reserved set
+resolves to one. The aspect hashes are folded as `name|hash` lines, ordinal by name, so the constituent hash covers the module's whole
+content.
 
-```text
-A module name resolves to its live/tests aspect sets
-([DDR-ASPECT](/docs/drs/design/module-aspects.md)); a reserved/single set to
-one. Fold the aspect hashes (name|hash, ordinal by name) so the constituent hash covers the
-module's whole content — identical protection semantics to the pre-aspect whole-module set.
-```
+## Dependency closure
 
-## comment:3
+The declared closure comes from dependencies.yml. A group holds members, each with its dependencies, and a module lists groups or modules. A
+group reference permits any member, so it expands to all members.
 
-Above `$dependencies = Get-Config -Config dependencies`, written with `#`.
+## Widening
 
-```text
-declared dependency closure from dependencies.yml (DependenciesConfig: groups: <g> -> ModuleGroup
-with members <member> -> [deps]; modules: <m> -> [group-or-module]). A group reference permits ANY
-member, so it expands to all.
-```
+Two cases widen the fold with the whole-repository set, so a check skips less and never wrongly.
 
-## comment:4
-
-Above `$widen = $true` (occurrence 2), written with `#`.
-
-```text
-unconstrained (dependencies.yml: "A module NOT listed here is unconstrained") — its true
-dependency set is unknown, so widen to the repository-wide set: skip less, never wrongly.
-```
-
-## comment:5
-
-Above `$names = [string[]]$constituents`, written with `#`.
-
-```text
----- fold: name|hash lines, ordinal by name — the
-[FDR-CD-GLOBS-DURABLESHAIDENTITY](/docs/drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-durableshaidentity) recipe over set hashes ----
-```
-
-## comment:6
-
-Above `$widen = $true` (occurrence 2), written with `#`.
-
-```text
-a module of another language track running its own tests: no derived globset of its own; its read set is the
-repo
-```
+- A module that dependencies.yml does not list is unconstrained. Its true dependency set is unknown.
+- A module of another language track that runs its own tests has no derived globset of its own, so its read set is the repository.

@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/Test-LogicTestIdentity.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The neutral-fixture gate: it checks that no logic test names a live production identity, such as a real customer, subscription, org,
+template or ADO project, as a code string.
 
 ## help
 
@@ -58,24 +58,14 @@ Test-LogicTestIdentity
 $r = Test-LogicTestIdentity -PassThru; $r.Issues
 ```
 
-## comment:1
+## Which files are parsed
 
-Above `$exactTokens = @($live.Values | Where-Object { $_.MatchMode -eq 'exact' } |...`, written with `#`.
+Only files that could carry a finding are parsed, a provable superset, so no leak is skipped. A finding needs either an exact-match token as
+a string-literal value, which then appears word-bounded in the source (`'apex'`, `-Customer apex`), or an ambiguous env or shortcode bound
+to an identity parameter, whose name is then in the source. Every other file cannot match and is skipped without a parse. The AST parse is
+the whole cost, and about 95% of the tree holds no live token at all, so the cheap text scan pays off. Word boundaries keep two-character
+shortcodes from matching inside ordinary words.
 
-```text
-Parse only files that COULD carry a finding — a provable SUPERSET, so no leak is ever skipped. A finding
-needs either an exact-match token as a string-literal value (which therefore appears word-bounded in the
-source — `'apex'`, `-Customer apex`) or an ambiguous env/shortcode bound to an identity parameter (so the
-parameter name is in the source). Every other file cannot match and is skipped parse-free — the AST parse
-is the whole cost, and ~95% of the tree contains no live token at all, so this is a cheap text scan for
-them. Word boundaries keep 2-char shortcodes (ap/nv/de/…) from matching inside ordinary words.
-```
+## Where tests are
 
-## comment:2
-
-Above `$files = Get-ChildPath $modulesRoot -File -Filter '*.Tests.ps1' -Depth 4...`, written with `#`.
-
-```text
-Test files reach four levels below pwsh/ (module, tests, types, file); vendored modules are pruned by the
-walk.
-```
+Test files reach four levels below `pwsh/` (module, `tests`, `types`, file), and the walk prunes vendored modules.

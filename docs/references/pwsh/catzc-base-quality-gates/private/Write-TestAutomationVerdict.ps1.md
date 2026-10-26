@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Write-TestAutomationVerdict.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Writes the closing verdict banner for a completed Test-Automation run, a rainbow-framed bracket that mirrors the scope header the run opened
+with.
 
 ## help
 
@@ -52,32 +52,18 @@ Wall-clock duration, rendered on the detail line.
 The run's report directory. Rendered on its own line inside the closing bracket so the "where do I look" pointer travels with the verdict
 itself rather than adrift in earlier output. Omitted (empty) prints no line.
 
-## comment:1
+## Colour
 
-Above `$anchor = if ($Result -eq 'Passed') {`, written with `#`.
+A green rainbow marks a pass and a red rainbow marks a fail. The gradient lives in this one end-of-run verdict and nowhere else, which keeps
+colour sparing ([ADR-AUTO-CONSOLE-SPARINGCOLOUR](../../../../drs/automation/console-output-matters.md#rule-adr-auto-console-sparingcolour)).
+The rule lines take the per-character walk, and the title keeps the anchor's solid base colour.
 
-```text
-Green-rainbow celebrates a pass, red-rainbow marks a fail — the gradient lives in this one end-of-run
-verdict and nowhere else
-([ADR-AUTO-CONSOLE-SPARINGCOLOUR](/docs/drs/automation/console-output-matters.md#rule-adr-auto-console-sparingcolour)
-"sparingly"). The rule lines take the per-character walk; the
-title keeps the anchor's solid base colour (the profile side-grades to Base on the titled line).
-```
+## Duration
 
-## comment:2
+The detail line formats the duration with the invariant culture, so it reads the same on any devbox culture and matches the title's summary
+([ADR-AUTO-XPLAT-INVARIANTCULTURE](../../../../drs/automation/cross-platform.md#rule-adr-auto-xplat-invariantculture)).
 
-Above `$detail = [string]::Format([System.Globalization.CultureInfo]::InvariantCulture,`, written with `#`.
+## Report pointer
 
-```text
-Invariant so the duration reads the same on any devbox culture
-([ADR-AUTO-XPLAT-INVARIANTCULTURE](/docs/drs/automation/cross-platform.md#rule-adr-auto-xplat-invariantculture)), matching the title's summary.
-```
-
-## comment:3
-
-Above `if ($ReportPath) {`, written with `#`.
-
-```text
-The report pointer rides inside the bracket, on its own default-coloured line — the verdict is where a
-reader looks last, so it is where "and here is the full report" belongs.
-```
+The report pointer rides inside the bracket, on its own default-coloured line. The verdict is where a reader looks last, so it is where the
+full report belongs.

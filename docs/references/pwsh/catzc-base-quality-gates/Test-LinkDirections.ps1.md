@@ -1,7 +1,6 @@
 # pwsh/Base.QualityGates/Test-LinkDirections.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The direction gate: it fails on every relation that points a way the direction rows of `link-directions.yml` do not allow.
 
 ## help
 
@@ -42,11 +41,7 @@ Returns the result, with the file count, the relation count and the convention-r
 
 `[Catzc.Base.Reports.QualityGateResult]`
 
-## comment:1
+## Same walk
 
-Above `$settings = Get-Config -Config links`, written with `#`.
-
-```text
 The relations come from the same walk as Test-Links, so the two gates agree on what a link is
-([ADR-REPO-LINKS-CHECKEDBYONEGATE](/docs/drs/repository/links-in-repository.md#rule-adr-repo-links-checkedbyonegate)).
-```
+([ADR-REPO-LINKS-CHECKEDBYONEGATE](../../../drs/repository/links-in-repository.md#rule-adr-repo-links-checkedbyonegate)).

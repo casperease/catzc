@@ -51,7 +51,7 @@ function Get-ConventionEdge {
         }
     }
 
-    # A file points at its tracked comment page, asked of the config's PageFor directly.
+    # A file points at its tracked comment page; the config is read once and passed to every Get-CommentPage call.
     $commentPages = Get-Config -Config comment-pages
     foreach ($file in $files) {
         $page = Get-CommentPage -Path $file -Config $commentPages

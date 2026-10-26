@@ -1,13 +1,8 @@
 # pwsh/Tooling.Github/tests/Test-GitHistoryClean.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The L0 tests of `Test-GitHistoryClean`, run against a real git repository rather than mocks.
 
-## comment:1
+## Fixture
 
-Above `$script:repo = Join-Path ([System.IO.Path]::GetTempPath()) ('catzc-ghtest-' +...`, written with `#`.
-
-```text
-A throwaway git repo whose history plants the token on all three surfaces:
-a blob (file content), a path (file name), and a commit message.
-```
+The tests build a throwaway git repository in the temp folder whose history plants the token on all three surfaces: a blob (file content), a
+path (file name) and a commit message. Each surface is then found, and a clean history is reported clean.

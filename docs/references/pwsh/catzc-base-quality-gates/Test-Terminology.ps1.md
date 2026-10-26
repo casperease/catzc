@@ -1,7 +1,6 @@
 # pwsh/Base.QualityGates/Test-Terminology.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The terminology gate: it checks the registry for drift, orphans and unjustified entries, and writes a report to the output folder.
 
 ## help
 
@@ -54,40 +53,17 @@ Test-Terminology
 $result = Test-Terminology -PassThru; $result.IssueCount
 ```
 
-## comment:2
+## Checks
 
-Above `$config = $null`, written with `#`.
+1. Drift: every generated dictionary must match the registry
+   ([ADR-AUTO-SPELL-ONEVOCABULARYSOURCE](../../../drs/automation/spell-out-names.md#rule-adr-auto-spell-onevocabularysource)).
+2. Orphans: every term must be referenced somewhere else in the tree
+   ([ADR-AUTO-SPELL-LIVEVOCABULARYONLY](../../../drs/automation/spell-out-names.md#rule-adr-auto-spell-livevocabularyonly)). The command
+   makes one bulk scan of the spell-checked corpus and looks each term up against it, not one grep per term. The registry and its generated
+   dictionaries are left out of the corpus, because the config names them as its defining files and every term trivially appears there.
+3. Justification: loading validates every entry through TerminologyConfig. A missing category or meaning, an abbreviation without an
+   expansion, or an unknown category throws.
 
-```text
----- Check 3 (justification / no-coinage): loading validates every entry via TerminologyConfig ----
-A missing category/meaning, an abbreviation without an expansion, or an unknown category throws here.
-```
+## Reserved terms
 
-## comment:3
-
-Above `$generated = Build-TerminologyDictionary -DryRun -PassThru`, written with `#`.
-
-```text
----- Check 1 (no drift): every generated dictionary must match the registry
-([ADR-AUTO-SPELL-ONEVOCABULARYSOURCE](/docs/drs/automation/spell-out-names.md#rule-adr-auto-spell-onevocabularysource)) ----
-```
-
-## comment:4
-
-Above `foreach ($term in $config.terms) {`, written with `#`.
-
-```text
----- Check 2 (no orphans): every term must be referenced somewhere else in the tree
-([ADR-AUTO-SPELL-LIVEVOCABULARYONLY](/docs/drs/automation/spell-out-names.md#rule-adr-auto-spell-livevocabularyonly)) ----
-One bulk scan of the spell-checked corpus (minus the registry and its generated dictionaries, which the config names as its defining
-files and where every term trivially appears), then look each term up against it — not one grep per term.
-```
-
-## comment:5
-
-Above `$reserved = @($config.terms | Where-Object { $_.category -ceq 'reserved' })`, written with `#`.
-
-```text
-A reserved term names one thing, so it may stand only in the files its category's scope lists; the scope
-ignores case, as the term does.
-```
+A reserved term names one thing, so it may stand only in the files its category's scope lists. The scope ignores case, as the term does.

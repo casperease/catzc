@@ -1,25 +1,15 @@
 # pwsh/Azure.DevOps/tests/Get-AdoYamlFiles.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The L0 tests of the YAML file scan, including the integrity checks that run it over the real repository.
 
-## comment:1
+## One assertion per set
 
-Above `$violations = @(foreach ($result in $results) {`, written with `#`.
+The integrity checks make one `Should` over the violating set. A `Should` per discovered file would cost Pester's per-assertion price times
+the whole repository's YAML count. The set is a `foreach` projection, not member enumeration, because `.RelativePath` on the empty set of a
+passing run throws under strict mode.
 
-```text
-One Should over the violating set — a Should per discovered file pays Pester's
-per-assertion cost times the whole repo's YAML count.
-A foreach projection, not member enumeration: .RelativePath on the (passing) empty set throws under
-strict mode.
-```
+## The `.git` check
 
-## comment:2
-
-Above `It 'excludes .git directory by default' -Tag 'integrity' {`, written with `#`.
-
-```text
-Its own integrity tag keeps this a distinct, named check in the manual test plan (a facet worth
-citing on its own), while reusing the one scan above rather than re-walking the repo
-([ADR-AUTO-TEST-ONEIMPORTPERCASE](/docs/drs/automation/test-automation.md#rule-adr-auto-test-oneimportpercase)).
-```
+The check that `.git` is excluded by default carries its own `integrity` tag, which keeps it a distinct, named check in the manual test plan,
+a facet worth citing on its own. It still reuses the one scan above instead of walking the repository again
+([ADR-AUTO-TEST-ONEIMPORTPERCASE](../../../../drs/automation/test-automation.md#rule-adr-auto-test-oneimportpercase)).

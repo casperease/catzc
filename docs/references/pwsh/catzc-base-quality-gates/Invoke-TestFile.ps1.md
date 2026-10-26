@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/Invoke-TestFile.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The blessed single-check entry point: it runs one or more test files by hand as a single worker shard, in a stamped run folder, and prints
+every failure's message.
 
 ## help
 
@@ -99,50 +99,24 @@ Invoke-TestFile pwsh/Base.Config/tests/Config-Conventions.Tests.ps1
 Invoke-TestFile pwsh/Base.Docs/tests/Test-GeneratedReadmes.Tests.ps1 -FullNameFilter 'Generated README copy-ins'
 ```
 
-## comment:1
+## Run folder
 
-Above `$reportBase = Join-Path (Get-OutputRoot -EnsureExists) 'test-file'`, written with `#`.
+Each run gets a timestamped folder under `out/test-file/`, like the harness's `out/test-automation/<stamp>/`. Earlier runs whose process
+died never stamped their `run.json`, so the command marks them `abandoned` first, as Test-Automation does.
 
-```text
-A timestamped run folder under out/test-file/, like the harness's out/test-automation/<stamp>/. Earlier runs whose
-process died never stamped their run.json: mark them 'abandoned' first, as Test-Automation does.
-```
+## Where it runs
 
-## comment:2
+The command claims where the run executes: in place, or in a snapshot when another run holds the working folder (Enter-TestRunLocation owns
+the reason). The worker inherits `CATZC_TEST_RUN_LOCATION_HELD`, as Test-Automation's workers do, so a test that drives Invoke-TestFile for
+real inside this run runs in place in this run's root and claims no location of its own. The worker loads from the root the run executes in
+(Get-TestRunLocationEntry), and the test files map to it alike.
 
-Above `$location = Enter-TestRunLocation -EntryPoint 'Invoke-TestFile' -RunDirectory...`, written with `#`.
+## Tiers
 
-```text
-Claim where the run executes — in place, or in a snapshot when another run holds the working folder
-(Enter-TestRunLocation owns the why). The worker inherits CATZC_TEST_RUN_LOCATION_HELD, as Test-Automation's
-workers do, so a test that drives Invoke-TestFile for real inside this run runs in place in this run's
-root rather than claiming a location of its own.
-```
+Every tier asked for that the location allows runs. In place that includes the L3 system tests. A snapshot skips them and says so
+(Resolve-TestRunMaxLevel owns the reason). L4 runs only when asked for.
 
-## comment:3
+## Failures
 
-Above `$effectiveMaxLevel = Resolve-TestRunMaxLevel -Location $location -Requested...`, written with `#`.
-
-```text
-Every tier asked for that the location allows: in place that includes the L3 system tests; a snapshot skips
-them and says so (Resolve-TestRunMaxLevel owns the why). L4 only when asked for.
-```
-
-## comment:4
-
-Above `$files = @(if ([System.IO.File]::Exists($shard.FilesPath)) {`, written with `#`.
-
-```text
-Every failure's message, on the console at every -Output level (the worker's own output does not reach a
-redirected console): failed tests from the rows, and a file that failed before its tests ran from the
-files sidecar.
-```
-
-## comment:5
-
-Above `$entry = Get-TestRunLocationEntry -Location $location`, written with `#`.
-
-```text
-The worker loads from the root the run executes in (Get-TestRunLocationEntry); the test files map to it
-alike.
-```
+Every failure's message appears on the console at every `-Output` level, because the worker's own output does not reach a redirected
+console. Failed tests come from the rows, and a file that failed before its tests ran comes from the files sidecar.

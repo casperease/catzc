@@ -1,104 +1,43 @@
 # pwsh/Base.QualityGates/types/CodeLinkRewriter.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Rewrites the decision-record references in one comment into canonical code links
+([ADR-REPO-LINK-CODELINKS](../../../../drs/repository/markdown-links.md#rule-adr-repo-link-codelinks)). It is pure: it returns the new
+comment text and reports what it found at comment-relative offsets, and the link engine owns files and positions.
 
-## comment:1
+## Canonical forms
 
-Above `using System;`, written with `//`.
+A whole decision record becomes `[ADR-<CODE>](<path>.md)` and one rule becomes `[ADR-<CODE>-<NAME>](<path>.md#rule-adr-<code>-<name>)`.
+Every other spelling is recognised: a bare, `./`, `../` or rooted `docs/drs` path, an ADR file name alone, a bare citation, a path followed
+by its own citation, and a markdown link in another shape. A numbered citation is reported, since it names no rule.
 
-```text
-Rewrites the ADR references in one comment into canonical code links
-([ADR-REPO-LINK-CODELINKS](/docs/drs/repository/markdown-links.md#rule-adr-repo-link-codelinks)):
-  `[ADR-<CODE>](/docs/drs/<path>.md)`                                 a whole ADR
-  `[ADR-<CODE>-<NAME>](/docs/drs/<path>.md#rule-adr-<code>-<name>)`  one rule
-Every other spelling is recognised — a bare, ./, ../ or rooted docs/drs path, an ADR file name alone, a bare
-citation, a path followed by its own citation, and a markdown link in another shape — and a numbered citation is
-reported, since it names no rule. The citation code is the source of truth: the destination is derived from it (DrsCitationMap), so a stale
-path is re-pointed and a text/destination mismatch resolves in favour of the code.
-Inline code spans and a PowerShell help block's .EXAMPLE sections are literal and never touched. Pure: it returns
-the new comment text and reports what it found at comment-relative offsets; the engine owns files and positions.
-```
+The citation code is the source of truth. The destination is derived from it (`DrsCitationMap`), so a stale path is re-pointed and a text
+and destination mismatch resolves in favour of the code. Inline code spans and the `.EXAMPLE` sections of a PowerShell help block are
+literal and never touched.
 
-## comment:2
+## Matching
 
-Above `@"|(?<path>(?<![^\s(\[{,;:'""*])(?:\.{1,2}/)*/?" + Regex.Escape(recordRoot) +...`, written with `//`.
+One pattern reads a reference, and its alternation order matters: an existing link swallows the citation in its text.
 
-```text
-A path or file name starts a word: it follows the comment start, a space, or opening punctuation, never
-another character — `<root>/docs/drs/index.md` is a placeholder path, not a reference.
-```
+- A path or file name starts a word: it follows the comment start, a space or opening punctuation, never another character, so
+  `<root>/docs/drs/index.md` is a placeholder path, not a reference.
+- A citation is not glued to a word. A `-` before it is allowed only after a digit, as a range or date dash is.
+- A meta head is derived front matter: its `adrs` list holds the file's codes as plain codes, never as links.
+- The citation right after a path (`x.md (ADR-X-NAME)`, `x.md, Rule ADR-X-NAME`) merges into the path's link. The method returns how many
+  characters it covers, and takes a closing parenthesis only when the separator opened it.
+- A bracketed link right after a bare citation that names the same record or rule is the same reference spelled twice. It merges into the
+  citation's one canonical link, even when the link sits on the next line, and a link that points elsewhere is left alone.
 
-## comment:3
+## Calling it
 
-Above `@"|(?<cite>(?<!\w)(?<!(?:^|\D)-)(?<code>" + cited + @")(?![\w*]|-[A-Z0-9*<]))" +`, written with `//`.
+`Rewrite` takes one comment and returns the new text, appending the hits and the inserted link texts. Test files pass
+`tolerateUnknownCodes`, which skips citations of unregistered codes, because test comments name fixture records on purpose.
 
-```text
-A citation is not glued to a word; a '-' before it is allowed only after a digit, as a range or date dash is.
-```
+The constructor takes the registry, for its code grammar over the registered kinds and its root, and `anchorsOf`, which maps a
+repository-relative `.md` path to its GitHub anchors (null when the file does not exist).
 
-## comment:4
+## Edges
 
-Above `public string Rewrite(string comment, string repoPath, bool...`, written with `//`.
-
-```text
-Rewrites one comment. tolerateUnknownCodes (test files) skips citations of unregistered codes — test comments
-name fixture ADRs on purpose. Returns the new comment text; hits and the inserted link texts are appended.
-```
-
-## comment:5
-
-Above `int Adjacent(string comment, int at, bool[] literal, out string code)`, written with `//`.
-
-```text
-The citation right after a path — `x.md (ADR-X-NAME)`, `x.md, Rule ADR-X-NAME`, `x.md — ADR-<CODE>` — merges into the
-path's link. Returns how many characters it covers (0 when there is none); a ')' is taken only when the
-separator opened it.
-```
-
-## comment:6
-
-Above `int RepeatedLink(string comment, int at, bool[] literal, string canonical)`, written with `//`.
-
-```text
-A bracketed link right after a bare citation that names the same ADR or rule — `ADR-X-NAME ([x](/docs/drs/x.md#rule-adr-x-name))`,
-the link perhaps on the next line — is the same reference spelled twice. It merges into the citation's one
-canonical link instead of becoming a second copy of it. Returns how many characters it covers (0 when there is
-none, or when the link points elsewhere).
-```
-
-## comment:7
-
-Above `static readonly Regex MetaHead = new Regex(@"\A(?:/\*|<#|//|#)?[ \t]*\r?\n?[...`, written with `//`.
-
-```text
-One reference in a comment. Alternation order matters: an existing link swallows the citation in its text.
-A meta head is derived front matter: its adrs list holds the file's codes as plain codes, never as links.
-```
-
-## comment:8
-
-Above `public CodeLinkRewriter(string repositoryRoot, DrsCitationMap map, DrsConfig...`, written with `//`.
-
-```text
-adrs: the registry, for its code grammar over the registered kinds and its root; anchorsOf: repository-relative .md path -> its GitHub anchors (null when the
-file does not exist).
-```
-
-## comment:9
-
-Above `void RecordEdge(Match match, string replacement, string repoPath,...`, written with `//`.
-
-```text
-An ADR reference is its canonical link's target; any other link names the file it resolves to, from the comment's own folder or
+Each reference is recorded as an `EdgeHit`: one relation the text holds, at a text-relative offset, with the target a repository path
+([ADR-REPO-LINKS-EVERYLINKHASADIRECTION](../../../../drs/repository/links-in-repository.md#rule-adr-repo-links-everylinkhasadirection)). A
+decision record reference is its canonical link's target. Any other link names the file it resolves to, from the comment's own folder or
 rooted, and only when that file exists: a URL, an anchor, a folder and a missing target are no relation.
-```
-
-## comment:10
-
-Above `public readonly struct EdgeHit`, written with `//`.
-
-```text
-One relation a comment or text holds, at a text-relative offset, the target a repository path
-([ADR-REPO-LINKS-EVERYLINKHASADIRECTION](/docs/drs/repository/links-in-repository.md#rule-adr-repo-links-everylinkhasadirection)).
-```

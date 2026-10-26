@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Get-FormatScope.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The files Format-Code formats: the repository's tracked files, or the given paths, minus vendored code, contract assets and binary files. It
+is one scope for every formatter engine, and the excluded classes are declared once in the .gitattributes source.
 
 ## help
 

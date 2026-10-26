@@ -1,7 +1,6 @@
 # pwsh/Base.Contracts/private/Get-ContractFileHashes.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The hasher of a version folder: one hash per file, the same way when a release is frozen and when the freeze is checked.
 
 ## help
 
@@ -36,11 +35,8 @@ lowercase hex SHA-256, in ordinal order of path; keys compare ordinally.
 Get-ContractFileHashes -Folder $versionFolder
 ```
 
-## comment:1
+## the walk is whole
 
-Above `$files = [string[]] @(Get-ChildPath $Folder -File -Depth 64 -Exclude @()...`, written with `#`.
-
-```text
-A named whole-tree walk ([ADR-PWSH-ENUM-ALWAYSBOUNDED](/docs/drs/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): a frozen
-contract is hashed in full, so no name is pruned and no depth drops a file.
-```
+A frozen contract is hashed in full, so the walk is a named whole-tree walk
+([ADR-PWSH-ENUM-ALWAYSBOUNDED](../../../../drs/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): no name is pruned
+and no depth drops a file.

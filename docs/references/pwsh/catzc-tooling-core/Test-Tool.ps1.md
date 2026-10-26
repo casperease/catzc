@@ -1,7 +1,6 @@
 # pwsh/Tooling.Core/Test-Tool.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The boolean query behind the tool checks: it answers whether a tool of `tools.yml` is installed, runs, and matches the locked version.
 
 ## help
 
@@ -52,12 +51,7 @@ Test-Tool 'python' -SkipVersionCheck
 Test-Tool 'bash' -PassThru | Write-ToolProbeReport
 ```
 
-## comment:1
+## Devbox lever
 
-Above `if ($config.devbox_version -and -not (Test-IsRunningInPipeline)) {`, written with `#`.
-
-```text
-Devbox lever (mirrors Assert-ToolVersion): outside a CI pipeline, also accept an installed version
-matching the tool's devbox_version prefix, so a levered off-pin tool reads as usable for quality gates
-too — not just runtime asserts.
-```
+Like `Assert-ToolVersion`, the query accepts, outside a CI pipeline, an installed version matching the tool's `devbox_version` prefix too. A
+levered off-pin tool therefore reads as usable for the quality gates, not only for the runtime asserts.

@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/New-TestRunFinalManifest.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Builds a test run's terminal `run.json` record. Invoke-TestRun stamps it in its `finally`, so every exit path leaves a final status and
+timestamps.
 
 ## help
 

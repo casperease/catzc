@@ -1,7 +1,7 @@
 # pwsh/Azure.DevOps/Get-AdoYamlInventory.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The function that joins the YAML file scan with the pipeline definitions registered in Azure DevOps, returning one inventory record per
+file with its registration state.
 
 ## help
 
@@ -47,14 +47,8 @@ Get-AdoYamlInventory -Path 'C:\repos\big-mono'
 Get-AdoYamlInventory -Path 'C:\repos\big-mono' | Where-Object { -not $_.IsRegistered -and $_.Classification -eq 'Pipeline' }
 ```
 
-## comment:1
+## The path prefix
 
-Above `$pathPrefix = ''`, written with `#`.
-
-```text
-ADO YamlPaths are relative to the repo root, but RelativePaths are
-relative to the scan root. When scanning a subdirectory (e.g.,
--Path ..\infra\azure-pipelines), there is a prefix mismatch.
-Detect it from the data: find a local file whose RelativePath is a
-suffix of an ADO YamlPath and extract the prefix.
-```
+ADO `YamlPath` values are relative to the repository root, but the scan's `RelativePath` values are relative to the scan root. Scanning a
+subdirectory therefore shows a prefix mismatch. The function detects the prefix from the data: it finds a local file whose `RelativePath` is
+a suffix of a registered `YamlPath` and takes the rest of that path as the prefix.

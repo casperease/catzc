@@ -1,7 +1,7 @@
 # pwsh/Tooling.Github/Assert-GitHubPurgeReady.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The read-only preflight of a hard purge. It checks, one after another, that the destructive step can safely erase the old objects, and
+throws the first gap it finds as a specific, actionable error. `Reset-GitHubRepository` runs it before it deletes anything.
 
 ## help
 

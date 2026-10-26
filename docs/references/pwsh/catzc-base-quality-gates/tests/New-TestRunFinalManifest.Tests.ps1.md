@@ -1,24 +1,11 @@
 # pwsh/Base.QualityGates/tests/New-TestRunFinalManifest.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The test of `New-TestRunFinalManifest`, the terminal `run.json` record. The first block runs over fixture inputs, with and without a
+context, for a worker run, and with an opt-out tag.
 
-## comment:1
+## A snapshot run, written and read back
 
-Above `Describe 'New-TestRunFinalManifest'`, written with `#`.
-
-```text
-New-TestRunFinalManifest over fixture inputs: the terminal run.json record, with and without a context, a worker
-run, and an opt-out tag.
-```
-
-## comment:2
-
-Above `Describe 'New-TestRunFinalManifest — a snapshot run, written and read back'`, written with `#`.
-
-```text
-The run.json a reader sees for a run that collided with another
-([ADR-AUTO-TEST-RUNSNEVERWAIT](/docs/drs/automation/test-automation.md#rule-adr-auto-test-runsneverwait)): the terminal manifest built
-from a snapshot worker run, written by Write-TestRunManifest, and read back as JSON — the shape a script that
+The second block proves the `run.json` that a reader sees for a run that collided with another
+([ADR-AUTO-TEST-RUNSNEVERWAIT](../../../../drs/automation/test-automation.md#rule-adr-auto-test-runsneverwait)). It builds the terminal
+manifest from a snapshot worker run, writes it with `Write-TestRunManifest`, and reads it back as JSON. That is the shape a script that
 watches concurrent runs reads, with no unit between them mocked.
-```

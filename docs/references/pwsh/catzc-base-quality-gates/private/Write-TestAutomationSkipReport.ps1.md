@@ -1,7 +1,6 @@
 # pwsh/Base.QualityGates/private/Write-TestAutomationSkipReport.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Prints the end-of-run skip report: what was skipped or not run, and why.
 
 ## help
 
@@ -41,20 +40,12 @@ The -MaxLevel (-Level) the run was invoked with — names the scope that exclude
 
 The -Category the run was invoked with (Logic/Integrity/Both) — named in the scope when not Both.
 
-## comment:1
+## Skipped
 
-Above `if ($skipped.Count -gt 0) {`, written with `#`.
+A skipped test was actively skipped during the run, and the reason comes from `Set-ItResult -Because`. An `It -Skip` carries none. The tests
+are listed individually, because a self-skip that names the missing tool is the whole value.
 
-```text
-Skipped — actively skipped during the run, each with the reason from Set-ItResult -Because (an `It
--Skip` carries none). Listed individually: a self-skip naming the missing tool is the whole value.
-```
+## Not run
 
-## comment:2
-
-Above `if ($notRun.Count -gt 0) {`, written with `#`.
-
-```text
-Not run — excluded by this run's tier/category scope, never executed. Grouped by tier+category with
-counts so the breakdown shows exactly what a wider -Level/-Category would add, without 90+ lines.
-```
+A test that was not run was excluded by the run's tier and category scope and never executed. These are grouped by tier and category with
+counts, so the breakdown shows exactly what a wider `-Level` or `-Category` would add without listing 90 or more lines.

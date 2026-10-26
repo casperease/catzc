@@ -1,13 +1,5 @@
 # pwsh/Base.QualityGates/tests/Test-AnalyzerDrsMap.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
-
-## comment:1
-
-Above `Describe 'Test-AnalyzerDrsMap'`, written with `#`.
-
-```text
-Test-AnalyzerDrsMap over a mocked map, a mocked ADR rule-id set, and fixture rule files in $TestDrive. Neutral
-fixture names and rule codes ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
-```
+The L0 logic test of `Test-AnalyzerDrsMap`, run over a mocked map, a mocked ADR rule-id set, and fixture rule files in `$TestDrive`. The
+fixtures use neutral names and rule codes
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).

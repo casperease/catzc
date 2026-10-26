@@ -1,23 +1,7 @@
 # pwsh/Tooling.Provisioning/tests/Install-DevBoxTools.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The tests of `Install-DevBoxTools`, pure orchestration over mocked seams. With an empty install order the version-locked loop is a no-op, so
+the tests focus on the fixed sequence (removing Chocolatey, the status, the additional installers) and on the two decision points that are
+pure logic: the report of a usable but unmanaged tool, and the guard against a missing installer.
 
-## comment:1
-
-Above `BeforeAll {`, written with `#`.
-
-```text
-Pure orchestration over mocked seams. With an empty install order the version-locked loop is a no-op,
-so the test focuses on the fixed sequence (de-choco, status, additional installers) and the two
-decision points that are pure logic: the "usable but unmanaged" report and the missing-installer guard.
-```
-
-## comment:2
-
-Above `function New-TestToolConfig {`, written with `#`.
-
-```text
-Get-ToolConfig returns the typed record, so the mocks do too: every flag the entry omits reads as its
-default, exactly as in production.
-```
+`Get-ToolConfig` returns the typed record, so the mocks do too: every flag an entry omits reads as its default, exactly as in production.

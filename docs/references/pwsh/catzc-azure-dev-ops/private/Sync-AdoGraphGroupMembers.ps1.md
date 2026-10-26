@@ -1,7 +1,6 @@
 # pwsh/Azure.DevOps/private/Sync-AdoGraphGroupMembers.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The private function that makes the approver group hold exactly the configured members, adding the missing and removing the unlisted.
 
 ## help
 

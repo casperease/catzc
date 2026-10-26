@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/Test-MarkdownTitle.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The title gate: it fails on any in-scope Markdown file whose H1 is not a title or whose headings are not in normal form.
+Format-MarkdownTitle is its fixing half.
 
 ## help
 

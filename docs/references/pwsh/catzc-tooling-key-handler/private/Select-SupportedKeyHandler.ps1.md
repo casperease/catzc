@@ -1,7 +1,7 @@
 # pwsh/Tooling.KeyHandler/private/Select-SupportedKeyHandler.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The private classifier behind `Import-PsReadLineKeyHandlerSet`: pure logic that marks each captured binding supported or not by whether its
+function is in the allow-list. It applies nothing.
 
 ## help
 

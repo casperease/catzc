@@ -1,52 +1,29 @@
 # pwsh/Base.QualityGates/types/TerminologyConfig.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The typed record for the terminology registry, `configs/terminology.yml`, and its validity rules
+([ADR-AUTO-SPELL](../../../../drs/automation/spell-out-names.md),
+[ADR-AUTO-SPELL-ONEVOCABULARYSOURCE](../../../../drs/automation/spell-out-names.md#rule-adr-auto-spell-onevocabularysource) to
+[ADR-AUTO-SPELL-LIVEVOCABULARYONLY](../../../../drs/automation/spell-out-names.md#rule-adr-auto-spell-livevocabularyonly)). Constructing an
+instance validates the registry, throwing on the first malformed shape, and exposes the parsed categories, their scopes and the flattened
+terms, each carrying its group's category, to the generator (`Build-TerminologyDictionary`) and the gate (`Test-Terminology`).
 
-## comment:1
+## Shape
 
-Above `using System;`, written with `//`.
+- **`categories`** — a non-empty map, and the single source of the category set. Each category is a mapping with a required `description`
+  and an optional `scope`, a list of repository-relative globs bounding where that category's terms are legitimate. No other key is allowed.
+- **`terms`** — a non-empty map that groups entries under the category keys: `terms: <category>: [ {term, meaning, [expands_to]}, ... ]`.
+  The group key is the category, so entries carry no category field. Every group key must be a defined category, every entry a valid
+  `TerminologyTerm`, and no term may be duplicated across groups.
 
-```text
-The terminology registry (configs/terminology.yml) and its validity rules: a non-empty 'categories' map
-(each category a mapping with a required 'description' and an optional 'scope' — a list of repo-relative
-globs bounding where that category's terms are legitimate) and a non-empty 'terms' map that groups entries
-under those category keys (terms: <category>: [ {term, meaning, [expands_to]}, ... ]). Every group key must
-be a defined category, every entry a valid TerminologyTerm, and no term duplicated across groups.
-Constructing an instance validates the registry (throwing on the first malformed shape) and exposes the
-parsed categories, their scopes, and the flattened terms (each carrying its group's category) to the
-generator (Build-TerminologyDictionary) and gate (Test-Terminology). The 'categories' map is the single
-source of the category set. A category with no 'scope' is GLOBAL — its terms are legitimate everywhere; a
-category WITH a scope is ZONE-BOUND — its terms belong only under the scope globs, and cspell enforces
-that (a fixture token in shipped config, or a live identity in a logic test, becomes a spelling failure).
-See [ADR-AUTO-SPELL](/docs/drs/automation/spell-out-names.md)
-([ADR-AUTO-SPELL-ONEVOCABULARYSOURCE](/docs/drs/automation/spell-out-names.md#rule-adr-auto-spell-onevocabularysource)-[ADR-AUTO-SPELL-LIVEVOCABULARYONLY](/docs/drs/automation/spell-out-names.md#rule-adr-auto-spell-livevocabularyonly)).
-```
+## Scope
 
-## comment:2
+A category with no `scope` is global: its terms are legitimate everywhere. A category with a scope is zone-bound: its terms belong only
+under the scope globs, and cspell enforces that, so a fixture token in shipped config, or a live identity in a logic test, becomes a
+spelling failure. `categoryScopes` holds each category's scope globs (repository-relative, `/`-separated), keyed by category name. An empty
+list means the category is global.
 
-Above `public IReadOnlyDictionary<string, IReadOnlyList<string>> categoryScopes {...`, written with `//`.
+## Defining files
 
-```text
-Per category, its scope globs (repo-relative, '/'-separated). An empty list means the category is
-GLOBAL (no location bound). Keyed by category name.
-```
-
-## comment:3
-
-Above `object termsObj = (raw != null && raw.Contains("terms")) ? raw["terms"] : null;`, written with `//`.
-
-```text
----- terms: a non-empty map of category -> list of entries; each valid, unique, under a defined
-     category. The group key IS the category, so entries carry no category field. ----
-```
-
-## comment:4
-
-Above `public string[] DefiningFiles(string repositoryRoot, string moduleRoot)`, written with `//`.
-
-```text
-The files that define the terms, which the orphan search leaves out: the registry, and one generated dictionary per category. The
-caller passes the QualityGates module's root, since its folder drops the namespace its name carries
-([DDR-TRACK-MODULENAMESPACE](/docs/drs/design/tracks.md#rule-ddr-track-modulenamespace)).
-```
+`DefiningFiles` lists the files that define the terms, which the orphan search leaves out: the registry, and one generated dictionary per
+category. The caller passes the QualityGates module's root, since its folder drops the namespace its name carries
+([DDR-TRACK-MODULENAMESPACE](../../../../drs/design/tracks.md#rule-ddr-track-modulenamespace)).

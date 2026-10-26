@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Get-GitAttributeValue.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The one place the quality gates ask git which classes .gitattributes gives a path, so every scope reads the same classes the same way. It
+answers for many paths in one call.
 
 ## help
 
@@ -32,11 +32,8 @@ The attribute names to read.
 
 `[hashtable]` path -> @{ `<attribute>` = 'set' | 'unset' | `<value>` }, for the paths with any attribute specified.
 
-## comment:1
+## one git process
 
-Above ``$listing = Invoke-Executable "git -C `"$RepositoryRoot`" -c...``, written with `#`.
-
-```text
-One git process reads every path from stdin, NUL-separated both ways: a process per batch costs about 25 ms each,
-and no path is quoted or split.
-```
+One `git check-attr` process reads every path from stdin, NUL-separated both ways. A process per batch costs about 25 ms each, and no path
+is then quoted or split. A root without a `.git` entry has no .gitattributes to read, so nothing is returned for it, which keeps a test's
+scratch root quiet.

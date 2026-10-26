@@ -1,39 +1,29 @@
 # pwsh/Tooling.Inspiration/types/InspirationRoot.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The stored form of an inspiration's root and its resolution to binding form. A root is stored portable and resolved to absolute only where
+it binds, so the same file works from any checkout and either shell.
 
-## comment:1
+## Stored form
 
-Above `using System;`, written with `//`.
+A root is stored in communication form
+([ADR-AUTO-PATH-STOREDCOMMUNICATIONFORM](../../../../drs/automation/path-representation.md#rule-adr-auto-path-storedcommunicationform)):
+repository-relative, or anchored on `{workspace}`, the parent folder of the repository root, where sibling checkouts live
+([ADR-AUTO-PATH-WORKSPACEANCHOR](../../../../drs/automation/path-representation.md#rule-adr-auto-path-workspaceanchor)). `Resolve` turns
+either into a `/`-separated absolute path, the binding form
+([ADR-AUTO-PATH-BINDINGFORMONLYATBINDING](../../../../drs/automation/path-representation.md#rule-adr-auto-path-bindingformonlyatbinding)).
 
-```text
-The stored form of an inspiration's root and its resolution to binding form. A root is stored in communication
-form ([ADR-AUTO-PATH-STOREDCOMMUNICATIONFORM](/docs/drs/automation/path-representation.md#rule-adr-auto-path-storedcommunicationform)): repository-relative, or
-anchored on the {workspace} anchor — the parent folder of the repository root, where sibling checkouts live
-([ADR-AUTO-PATH-WORKSPACEANCHOR](/docs/drs/automation/path-representation.md#rule-adr-auto-path-workspaceanchor)). Resolve turns either into a
-'/'-separated absolute path, the binding form ([ADR-AUTO-PATH-BINDINGFORMONLYATBINDING](/docs/drs/automation/path-representation.md#rule-adr-auto-path-bindingformonlyatbinding)).
+## Two shells, one result
 
-The repository root reaches the resolver in the view of the shell that set it: 'C:\projects\catzc' under pwsh,
-'/c/projects/catzc' under Git Bash. ToNative maps both to one form, so the two shells resolve a root identically.
-The platform is a parameter, not a probe, so every branch is deterministic and testable on any OS.
-```
+The repository root reaches the resolver in the view of the shell that set it: `C:\projects\catzc` under pwsh, `/c/projects/catzc` under Git
+Bash. `ToNative` maps both to one form, so the two shells resolve a root identically. The platform is a parameter, not a probe, so every
+branch is deterministic and testable on any OS.
 
-## comment:2
+## Violations
 
-Above `public static string[] Violations(string label, string value, bool allowAnchor)`, written with `//`.
+`Violations` lists every way a stored path breaks communication form, as messages naming the label, and is empty when the path is valid. A
+root may carry the `{workspace}` anchor as its first segment; a path inside a root never does, so it can never climb out of it.
 
-```text
-Every way a stored path breaks communication form, as messages naming 'label'. A root may carry the
-{workspace} anchor as its first segment (allowAnchor); a path inside a root never does. Empty when valid.
-```
+## ToNative
 
-## comment:3
-
-Above `public static string ToNative(string path, bool windows)`, written with `//`.
-
-```text
-Maps a path in either shell's view to the platform's own form, '/'-separated: backslashes become '/', and on
-Windows a Git Bash drive path ('/c/projects') becomes a drive path ('C:/projects'). Elsewhere a '/c/...'
-path is a real path and is left as it is.
-```
+`ToNative` maps a path in either shell's view to the platform's own `/`-separated form: backslashes become `/`, and on Windows a Git Bash
+drive path (`/c/projects`) becomes a drive path (`C:/projects`). Elsewhere a `/c/...` path is a real path and is left as it is.

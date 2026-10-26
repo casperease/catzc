@@ -1,7 +1,7 @@
 # pwsh/Tooling.Listen/Get-DocChange.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The change detector of the listen mode: it compares the watched folder on disk with a session's seen copy (or its baseline) by bytes alone and
+returns one record per added, modified, deleted or renamed file, with who wrote it and the diff.
 
 ## help
 

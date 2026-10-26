@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Write-TestRunManifest.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Writes a run directory's `run.json`, the atomic, self-describing record of a Test-Automation run's state. Artifact files alone cannot tell a
+finished run from one still executing or crashed, so a reader consults this file.
 
 ## help
 

@@ -1,7 +1,7 @@
 # pwsh/Tooling.Core/Save-VerifiedDownload.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The download helper that never leaves an unverified file on disk: it fetches a file over HTTPS, checks its SHA-256 against the hash the
+caller supplies, and deletes the file and throws on a mismatch.
 
 ## help
 

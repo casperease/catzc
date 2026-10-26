@@ -1,14 +1,5 @@
 # pwsh/Base.QualityGates/tests/Test-TestTitles.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
-
-## comment:1
-
-Above `Describe 'Test-TestTitles'`, written with `#`.
-
-```text
-Test-TestTitles over fixture test files in $TestDrive (the repository root is mocked). The fixture titles are built
-from string pieces, so this file's own titles never carry the very token the gate bans. Neutral fixture names
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
-```
+The L0 logic test of `Test-TestTitles`, over fixture test files in `$TestDrive`, with the repository root mocked. The fixture titles are
+built from string pieces, so this file's own titles never carry the very token the gate bans. The fixtures use neutral names
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).

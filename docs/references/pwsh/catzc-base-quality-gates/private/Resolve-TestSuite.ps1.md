@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Resolve-TestSuite.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Resolves a named test suite, a globset's declared verify scope in globs.yml, into Test-Automation's run parameters. It is the resolver
+behind the `-Suite` parameter.
 
 ## help
 

@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Select-TestRunFiles.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Chooses a test run's test files: every file under the test paths, narrowed by rule, by tier and category scope, and by the run's opt-out. It
+is the work-list stage of Invoke-TestRun.
 
 ## help
 

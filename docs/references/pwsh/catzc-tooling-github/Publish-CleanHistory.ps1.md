@@ -1,7 +1,7 @@
 # pwsh/Tooling.Github/Publish-CleanHistory.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The command that pushes a clean local history to a brand-new, empty GitHub repository and proves what landed is token-free. It refuses an
+existing name, which is `Reset-GitHubRepository`'s job, and stays a plan until armed with `-ConfirmRepo`.
 
 ## help
 

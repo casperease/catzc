@@ -1,33 +1,19 @@
 # pwsh/Tooling.Toolchain/tests/Install-Uv.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The tests of `Install-Uv` and its standalone helper.
 
-## comment:1
+## The release fixture
 
-Above `$script:newAsset = {`, written with `#`.
+The resolver walks a release fixture, newest first as the GitHub API orders it, with one release per line of the matching logic: an off-pin
+newer one, two on-pin ones (the newest wins) and an off-pin older one. Both architectures carry assets, so the test does not depend on the
+machine it runs on.
 
-```text
-A release fixture the resolver walks: newest first (the GitHub API order), one release per line of
-the matching logic — off-pin newer, two on-pin (newest wins), off-pin older. Both architectures
-carry assets so the test is agnostic to the machine it runs on.
-```
+## The environment
 
-## comment:2
+The helper reads `$env:HOME`, the anchor of the uv tool-bin, and prepends to `$env:PATH`. The tests snapshot both and restore them after each
+test ([ADR-PWSH-ENV-NOPESTERISOLATION](../../../../drs/automation/pwsh/environment-variable-mechanics.md#rule-adr-pwsh-env-nopesterisolation)).
 
-Above `$script:savedHome = $env:HOME`, written with `#`.
+## The tar boundary
 
-```text
-The helper reads $env:HOME (the uv tool-bin anchor) and prepends to $env:PATH — snapshot both and
-restore after each test
-([ADR-PWSH-ENV-NOPESTERISOLATION](/docs/drs/automation/pwsh/environment-variable-mechanics.md#rule-adr-pwsh-env-nopesterisolation)).
-```
-
-## comment:3
-
-Above `Mock Invoke-Executable -ModuleName Catzc.Tooling.Toolchain -ParameterFilter {...`, written with `#`.
-
-```text
-The tar boundary: plant the extracted tree (a versioned folder holding uv and uvx) into the -C
-directory the command names, as the real tar would.
-```
+The `Invoke-Executable` mock plants the extracted tree, a versioned folder holding `uv` and `uvx`, into the `-C` directory the command names,
+as the real tar would.

@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Get-LanguageTestFolders.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Finds the repository's test folders in every test language beside PowerShell and maps each to the module it tests. It throws on a test
+folder that matches no module, because an unmapped folder would never run.
 
 ## help
 
@@ -45,47 +45,25 @@ Nothing when the repository has no such folder.
 Get-LanguageTestFolders | Where-Object Module -EQ 'Catzc.Base.Repository'
 ```
 
-## comment:1
+## modules by test folder
 
-Above `$modulesByFolder = @{}`, written with `#`.
-
-```text
-The catzc modules of the engine track, by the test folder this language names for each (languages.yml's TestFolderOf),
-so a test folder maps back to the module it tests.
-```
-
-## comment:2
-
-Above `$languagesConfig = Get-Config -Config languages`, written with `#`.
-
-```text
-Each language with a test runner: its root from its own config, named for the language, its test-file pattern from the registry,
-and every catzc module by the test folder that names it in the language's folder case.
-```
-
-## comment:3
-
-Above `$testsRoot =...`, written with `#`.
-
-```text
-The track's own test holder: one folder per catzc module, named for it in the language's folder case, testing
-it from outside.
-```
-
-## comment:4
-
-Above `if (-not @(Get-ChildPath $folder -File -Filter $language.Pattern -Depth...`, written with `#`.
-
-```text
-A module folder holds its test files directly or in a package one level down; the third level is
-headroom.
-```
-
-## comment:5
-
-Above `$variants = Get-Config -Config variants`, written with `#`.
-
-```text
 A test folder is named for its module's folder, which drops the track's namespace
-([DDR-TRACK-MODULENAMESPACE](/docs/drs/design/tracks.md#rule-ddr-track-modulenamespace)).
-```
+([DDR-TRACK-MODULENAMESPACE](../../../../drs/design/tracks.md#rule-ddr-track-modulenamespace)). For each language with a test runner the
+function builds a map from the folder name that `TestFolderOf` of `languages.yml` gives to the module it names, over the modules of the
+engine track, so a folder maps back to the module it tests. The language's root comes from its own config, its test-file pattern from the
+registry, and the folder name is in the language's folder case.
+
+## the test holder
+
+The track's own test holder is a folder of the language root named by the languages registry. It holds one folder per module, testing the
+module from outside. A folder whose name starts with a dot is skipped. A folder with no test file is skipped too.
+
+## where test files sit
+
+A module folder holds its test files directly or in a package one level down. The search goes three levels deep, so the third level is
+headroom.
+
+## a module's own tests
+
+A module of the language's own track that is a folder and has its own `tests/` folder with a matching test file runs that folder too. This
+is the shared layout row every module has.

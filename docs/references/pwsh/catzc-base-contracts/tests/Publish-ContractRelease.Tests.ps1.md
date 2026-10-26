@@ -1,25 +1,12 @@
 # pwsh/Base.Contracts/tests/Publish-ContractRelease.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Tests `Publish-ContractRelease`, which freezes a root's current version as a released version folder
+([ADR-REPO-CONTRACT-RELEASEDIMMUTABLE](../../../../drs/repository/api-contracts.md#rule-adr-repo-contract-releasedimmutable)): an exact copy
+plus its `.frozen` record. It refuses a vendor root, a version below 1.0.0, the devbox build version, and a folder that exists. Fixtures are
+a widget repository in `TestDrive:`
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)); the
+settings are mocked, so the logic tests read no shipped config.
 
-## comment:1
-
-Above `Describe 'Publish-ContractRelease'`, written with `#`.
-
-```text
-Publish-ContractRelease freezes a unit's draft as a released version folder
-([ADR-REPO-CONTRACT-RELEASEDIMMUTABLE](/docs/drs/repository/api-contracts.md#rule-adr-repo-contract-releasedimmutable)): an exact copy plus its .frozen
-record, refusing the draft itself, the devbox build version, and a folder that exists. Fixtures are a widget
-repository in TestDrive ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)); the settings
-are mocked, so the logic tests read no shipped config.
-```
-
-## comment:2
-
-Above `$paths = [string[]] @(Get-ChildPath $folder -File -Depth 64 -Exclude @()...`, written with `#`.
-
-```text
-A whole-tree walk ([ADR-PWSH-ENUM-ALWAYSBOUNDED](/docs/drs/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): the
-frozen copy is compared file for file, so nothing is pruned.
-```
+The frozen copy is compared file for file with a whole-tree walk
+([ADR-PWSH-ENUM-ALWAYSBOUNDED](../../../../drs/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)), so nothing is
+pruned.

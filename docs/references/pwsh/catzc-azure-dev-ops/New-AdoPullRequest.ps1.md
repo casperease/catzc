@@ -1,7 +1,6 @@
 # pwsh/Azure.DevOps/New-AdoPullRequest.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The command that creates an Azure DevOps pull request through the Git REST API. It accepts a bare branch name or a full ref.
 
 ## help
 
@@ -60,11 +59,7 @@ New-AdoPullRequest -Title 'input: discovery/dev' -SourceBranch 'input/discovery-
 New-AdoPullRequest 'input: apex prod' 'input/apex-prod-99' -TargetBranch main -Description 'From ITSM #4821'
 ```
 
-## comment:1
+## Postcondition
 
-Above `Assert-NotNull $pr.pullRequestId -ErrorText "Pull request creation returned...`, written with `#`.
-
-```text
-Postcondition: confirm the PR actually came back created. A non-throwing response with no id means the
-create did not take effect — fail fast here rather than return a phantom result downstream.
-```
+The command confirms the pull request actually came back created. A non-throwing response with no id means the create did not take effect,
+so it fails fast there instead of returning a phantom result downstream.

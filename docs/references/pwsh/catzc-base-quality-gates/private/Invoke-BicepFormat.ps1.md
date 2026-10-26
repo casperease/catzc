@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Invoke-BicepFormat.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The bicep formatter engine: it formats the given Bicep files with the managed Bicep CLI and returns the files it changed. It is one
+Format-Code engine adapter.
 
 ## help
 
@@ -33,11 +33,7 @@ List the files the Bicep CLI would change without writing them.
 
 `[string[]]` Absolute paths of the files changed (or, under -DryRun, that would change).
 
-## comment:1
+## Numbered copies
 
-Above `$copies = [string[]]::new($File.Count)`, written with `#`.
-
-```text
-Numbered copies keep their extension: two files of one name in different folders never collide, and a .bicepparam formats
-without its using target.
-```
+Each file is formatted as a numbered copy in a scratch folder, and the copy keeps its extension. Two files of one name in different folders
+never collide, and a `.bicepparam` file formats without its `using` target.

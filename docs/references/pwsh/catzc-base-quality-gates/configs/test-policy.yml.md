@@ -1,27 +1,16 @@
 # pwsh/Base.QualityGates/configs/test-policy.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The test policy: what a test may do to the environment it reaches
+([ADR-AUTO-TEST-TESTINGINPRODUCTION](../../../../drs/automation/test-automation.md#rule-adr-auto-test-testinginproduction)).
 
-## comment:1
+## Keys
 
-Above `l4_mutation: {}`, written with `#`.
+Every key is optional. An omitted key takes the sensible default declared once on `Catzc.Base.QualityGates.TestPolicyConfig`
+([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../../../../drs/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)).
 
-```text
-What a test may do to the environment it reaches ([ADR-AUTO-TEST-TESTINGINPRODUCTION](/docs/drs/automation/test-automation.md#rule-adr-auto-test-testinginproduction)).
+`l4_mutation` maps a target environment to how far an L4 test, one of the released system after final approval, may change it:
 
-Every key is optional: an omitted key takes the sensible default declared once on
-Catzc.Base.QualityGates.TestPolicyConfig
-([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/drs/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)).
-```
+- `read-only`: probes and observations only.
+- `synthetic`: transactions the system is built to accept and clean up.
 
-## comment:2
-
-Above `l4_mutation: {}`, written with `#`.
-
-```text
-Per target environment, how far an L4 test (the released system, after final approval) may change it:
-  read-only — probes and observations only
-  synthetic — transactions the system is built to accept and clean up
-An environment not listed is read-only. Example: { pre-prod: synthetic }
-```
+An environment not listed is read-only. Example: `{ pre-prod: synthetic }`.

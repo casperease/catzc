@@ -1,7 +1,6 @@
 # pwsh/Base.QualityGates/private/Set-AbandonedTestRun.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Marks every run under a report folder that says `running` but whose owning process is gone as `abandoned`.
 
 ## help
 
@@ -34,11 +33,7 @@ The report base folder whose run directories (`<OutputFolder>/<stamp>/run.json`)
 Set-AbandonedTestRun -OutputFolder (Join-Path (Get-OutputRoot) 'test-automation')
 ```
 
-## comment:1
+## Dates
 
-Above `$abandoned = [ordered]@{}`, written with `#`.
-
-```text
-ConvertFrom-Json turns an ISO timestamp into a local DateTime, which would be written back with the local
-offset; every run record stamps UTC, so a date goes back as the UTC round-trip string it was read from.
-```
+ConvertFrom-Json turns an ISO timestamp into a local `DateTime`, which would be written back with the local offset. Every run record stamps
+UTC, so a date goes back as the UTC round-trip string it was read from.

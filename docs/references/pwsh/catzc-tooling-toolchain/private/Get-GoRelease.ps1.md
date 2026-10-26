@@ -1,7 +1,7 @@
 # pwsh/Tooling.Toolchain/private/Get-GoRelease.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+A private helper of `Install-Go`: it reads the go.dev release feed and resolves the official archive, with its published SHA-256, for the
+locked version.
 
 ## help
 

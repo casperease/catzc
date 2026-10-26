@@ -1,7 +1,6 @@
 # pwsh/Tooling.Toolchain/Update-BatsVendor.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The refresh of the vendored bats-core test runner: it downloads the release that `bash.yml` pins and rebuilds the vendored folder from it.
 
 ## help
 
@@ -24,11 +23,7 @@ the files are LF by .gitattributes, and their executable bits are set in git wit
 Update-BatsVendor
 ```
 
-## comment:1
+## Extracting
 
-Above ``Invoke-Executable "tar -xzf `"$fileName`"" -WorkingDirectory $staging -Silent``, written with `#`.
-
-```text
-A relative name inside the staging folder, so no path carries a drive letter's colon (GNU tar reads one as a
-remote host).
-```
+The archive is extracted by tar run inside the staging folder with a relative name, so that no path carries a drive letter's colon, which
+GNU tar reads as a remote host.

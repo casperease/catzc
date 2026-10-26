@@ -1,7 +1,7 @@
 # pwsh/Azure.DevOps.BuildValidation/Register-AdoBuildValidation.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The command that creates or updates the build-validation branch policy tied to a globset. It is idempotent, and every value defaults from
+`build-validation.yml`, `globs.yml` and `ado.yml`.
 
 ## help
 
@@ -66,13 +66,8 @@ Register-AdoBuildValidation automation
 Register-AdoBuildValidation nova -Branch main -DryRun
 ```
 
-## comment:1
+## The path filter
 
-Above `$pathFilters = Get-BuildValidationPathFilter -GlobSet $set`, written with `#`.
-
-```text
-The server-side pre-commit trigger filters on the globset's native path projection
-(Get-BuildValidationPathFilter -> Get-GlobSetTrigger,
-[FDR-CD-GLOBS](/docs/drs/flow/durable-sha-globs.md)) — the same globs the pipeline
-triggers on — never a committed marker.
-```
+The server-side pre-commit trigger filters on the globset's native path projection (`Get-BuildValidationPathFilter`, which reads
+`Get-GlobSetTrigger`; [FDR-CD-GLOBS](../../../drs/flow/durable-sha-globs.md)). These are the same globs the pipeline triggers on, never a
+committed marker.

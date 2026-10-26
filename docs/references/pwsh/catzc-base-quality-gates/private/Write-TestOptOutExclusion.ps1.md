@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Write-TestOptOutExclusion.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Prints and records the tests a test run's opt-out tag excluded. It is the visible half of the opt-out rule: the build run never drops a test
+silently, so every test left out by the `source-only` tag is counted and listed.
 
 ## help
 

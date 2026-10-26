@@ -1,23 +1,22 @@
 # pwsh/Base.QualityGates/configs/analyzer-drs-map.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The map from each enabled PSScriptAnalyzer rule to the ADR rule codes it enforces. It is the source of the `pssa-rule` enforcer kind in the
+Test-Automation rule-coverage report (Get-AnalyzerDrsCoverage).
 
-## comment:1
+## What it holds
 
-Above `analyzers:`, written with `#`.
+Under `analyzers:`, each key is an enabled rule and its value is the list of rule codes it enforces. Both kinds of rule appear: the custom
+`Measure-*` rules in `pwsh/.scriptanalyzer/*.psm1` and the enabled built-ins. A rule listed here is credited as mechanically enforced on
+every run, because the L2 PSScriptAnalyzer gate runs inside Test-Automation. A rule that maps to no ADR is simply absent.
 
-```text
-Maps each ENABLED PSScriptAnalyzer rule that enforces an ADR rule to the rule id(s) it enforces, cited in
-the [index](/docs/drs/index.md) '#' form (ADR-<CODE>#<n>). This is the source for the 'pssa-rule' enforcer kind in the
-Test-Automation rule-coverage report (Get-AnalyzerDrsCoverage): a rule listed here is credited as
-mechanically enforced on every run, because the L2 PSScriptAnalyzer gate runs inside Test-Automation.
+## Rules for the map
 
-Both kinds appear: the custom Measure-* rules (pwsh/.scriptanalyzer/*.psm1) and the enabled built-ins.
-A rule that maps to no ADR is simply absent. Every custom analyzer rule MUST appear here (integrity-tested),
-so a new custom rule cannot ship unmapped; a built-in appears only when it genuinely enforces an ADR and is
-enabled in PSScriptAnalyzerSettings.psd1. Shape is validated at load (the AnalyzerDrsMapConfig type); id
-existence is checked by an integrity test, not at load (so config load stays hermetic — the
-[ADR-AZ-CUSTOMER-REFERENCENOTVALIDATEDONLOAD](/docs/drs/azure/azure-customer-model.md#rule-adr-az-customer-referencenotvalidatedonload)
-pattern).
-```
+Every custom analyzer rule must appear here, and an integrity test enforces it, so a new custom rule cannot ship unmapped. A built-in
+appears only when it genuinely enforces an ADR and is enabled in `PSScriptAnalyzerSettings.psd1`.
+
+## Validation
+
+The shape is validated at load by the AnalyzerDrsMapConfig type. Whether each id exists is checked by an integrity test, not at load, so the
+config load stays hermetic
+([ADR-AZ-CUSTOMER-REFERENCENOTVALIDATEDONLOAD](../../../../drs/azure/azure-customer-model.md#rule-adr-az-customer-referencenotvalidatedonload)
+sets the same pattern).

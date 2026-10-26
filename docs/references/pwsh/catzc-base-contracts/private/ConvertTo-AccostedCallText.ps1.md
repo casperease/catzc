@@ -40,11 +40,7 @@ The execution engine the text is written for; it decides the name case and quote
 ConvertTo-AccostedCallText -Command $widgetCommand -Contract $widgetContract -Engine ([Catzc.Base.Engines.ExecutionEngines]::Pwsh)
 ```
 
-## comment:1
+## names per engine
 
-Above `$normalForm = (Get-Config -Config languages).naming_normal_form`, written with `#`.
-
-```text
-pwsh takes the command as PowerShell names it; every other engine takes it through cats, in the shell's kebab
-case.
-```
+pwsh takes the command as PowerShell names it, in verb-noun case with Pascal-case parameters. Every other engine takes it through cats, in
+the shell's kebab case with `--` flags. A switch is written only when it is on.

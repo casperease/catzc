@@ -1,7 +1,6 @@
 # pwsh/Base.QualityGates/Test-JavaScriptTypes.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The type check for the repository's JavaScript: it runs `tsc` over the jsconfig projects and writes a report to the output folder.
 
 ## help
 
@@ -33,29 +32,12 @@ Return a result object instead of throwing.
 Test-JavaScriptTypes -PassThru
 ```
 
-## comment:2
+## Projects
 
-Above `$projects = @('jsconfig.json', 'jsconfig.lenient.json')`, written with `#`.
+The command checks the editor's project, `jsconfig.json`, and the lenient one beside it, `jsconfig.lenient.json`. Once every module is
+raised out of the lenient one, it holds no file, and `tsc` reports that as TS18003 (no inputs). The loop takes that as nothing to check.
 
-```text
-The editor's project and the lenient one beside it; the lenient one holds no file once every module is raised, which tsc reports
-as no inputs and the loop below takes as nothing to check.
-```
+## Reading tsc
 
-## comment:3
-
-Above `$pattern = '^(?<file>.+?)\((?<line>\d+),(?<column>\d+)\): error...`, written with `#`.
-
-```text
-tsc prints one line per error, path(line,col): error TS<number>: message; exit 0 is clean, 1 or 2 is errors, anything
-else is tsc failing.
-```
-
-## comment:4
-
-Above `$lines = @($check.Output -split '\r?\n')`, written with `#`.
-
-```text
-A project left with no files (every module raised out of the lenient one) has nothing to check, which tsc
-reports as TS18003.
-```
+`tsc` prints one line per error, `path(line,col): error TS<number>: message`. Exit 0 is clean, 1 or 2 means errors, and anything else is
+`tsc` failing.

@@ -1,15 +1,6 @@
 # pwsh/Base.QualityGates/tests/Test-BuildArtifact.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
-
-## comment:1
-
-Above `Describe 'Test-BuildArtifact'`, written with `#`.
-
-```text
-Test-BuildArtifact is a quality gate
-([ADR-AUTO-TEST-QUALITYGATE](/docs/drs/automation/test-automation.md#rule-adr-auto-test-qualitygate)): each L0 case mocks the build, the
-child-pwsh probe, the source reads, and the formatter at the module boundary, and reads the collected issues; the
-report goes to $TestDrive. The integrity blocks that build and load the real tree call the gate from their own test files.
-```
+The L0 test of `Test-BuildArtifact`, which is a quality gate
+([ADR-AUTO-TEST-QUALITYGATE](../../../../drs/automation/test-automation.md#rule-adr-auto-test-qualitygate)). Each case mocks the build, the
+child-pwsh probe, the source reads and the formatter at the module boundary, and reads the collected issues. The report goes to
+`$TestDrive`. The integrity blocks that build and load the real tree call the gate from their own test files.

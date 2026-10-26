@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Select-TestShardAssignment.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Assigns a run's parallel test files to worker shards by their measured duration, longest first, so the shards finish together. A phase lasts
+as long as its slowest shard.
 
 ## help
 

@@ -1,7 +1,6 @@
 # pwsh/Base.QualityGates/Test-BuildArtifact.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The build artifact check: it builds the selected modules once into a temporary destination and verifies the built artifact.
 
 ## help
 

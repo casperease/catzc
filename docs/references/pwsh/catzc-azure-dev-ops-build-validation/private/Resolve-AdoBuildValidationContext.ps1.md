@@ -1,7 +1,7 @@
 # pwsh/Azure.DevOps.BuildValidation/private/Resolve-AdoBuildValidationContext.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The private function that resolves the ADO coordinates every build-validation call needs: organization, project, repository id and the API
+base.
 
 ## help
 

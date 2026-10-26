@@ -1,7 +1,6 @@
 # pwsh/Tooling.Python/Install-PySpark.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The installer of PySpark as a library inside the uv-managed Python, through the private `Install-PipTool`, so it stays importable.
 
 ## help
 

@@ -1,7 +1,6 @@
 # pwsh/Tooling.Core/Assert-Tool.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The runtime guard for one tool of `tools.yml`: it throws unless the tool is installed at the locked version.
 
 ## help
 
@@ -37,11 +36,7 @@ Assert-Tool 'python'
 Assert-Tool 'poetry'
 ```
 
-## comment:1
+## Locating the tool
 
-Above `if ($config.HasProbes()) {`, written with `#`.
-
-```text
-A tool with declared candidate paths is located by the probe, never by its bare name on PATH (for bash on
-Windows that name can be the WSL launcher).
-```
+A tool with declared candidate paths is located by the probe, never by its bare name on PATH, because for bash on Windows that name can be
+the WSL launcher.

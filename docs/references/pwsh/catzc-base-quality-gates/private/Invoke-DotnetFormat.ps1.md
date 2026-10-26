@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Invoke-DotnetFormat.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The dotnet-format formatter engine: it formats the given C# files with `dotnet format whitespace` and returns the files it changed. It is
+one Format-Code engine adapter, and it formats by the repository's .editorconfig alone.
 
 ## help
 

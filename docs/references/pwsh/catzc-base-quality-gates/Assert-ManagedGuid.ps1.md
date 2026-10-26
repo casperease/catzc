@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/Assert-ManagedGuid.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The throwing form of the managed-GUID check: it asserts that a GUID is registered in the registry `configs/guids.yml` and throws when it is
+not.
 
 ## help
 

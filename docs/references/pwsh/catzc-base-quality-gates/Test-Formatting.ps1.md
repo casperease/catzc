@@ -1,7 +1,6 @@
 # pwsh/Base.QualityGates/Test-Formatting.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The gate over formatting: it checks that running the formatters would leave the repository unchanged.
 
 ## help
 
@@ -61,11 +60,8 @@ Test-Formatting
 (Test-Formatting -Language pipeline-yaml -PassThru).Issues
 ```
 
-## comment:1
+## Coverage
 
-Above `if (-not $Language) {`, written with `#`.
-
-```text
-Every file in scope is format-managed, unless a language was named to narrow the run: covered by its language's formatter or stated
-no_formatter reason, or by the file class file-carriers.yml declares for it; any other file is a finding.
-```
+Unless a language was named to narrow the run, every file in scope must be format-managed. That means it is covered by its language's
+formatter or by that language's stated `no_formatter` reason, or it falls in the file class `file-carriers.yml` declares for it. Any other
+file is a finding.

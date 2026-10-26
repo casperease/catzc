@@ -1,13 +1,9 @@
 # pwsh/Base.QualityGates/types/CommentEngine.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The engine that decides what moves from a source file's long comments to its comment page, and what the page then holds. It decides and
+never writes: `Export` returns a `CommentFileResult` and the caller writes the files.
 
-## comment:1
+## Fresh page
 
-Above `public static string FreshPage(string repoRelativePath, int width) =>`, written with `//`.
-
-```text
-The opening of a page the exporter or the help move writes for the first time: its title and the line that says what it holds,
-wrapped at the markdown width, so a new page is born formatted.
-```
+`FreshPage` writes the opening of a page the exporter or the help move creates for the first time: its title and the line that says what it
+holds, wrapped at the markdown width, so a new page is born formatted.

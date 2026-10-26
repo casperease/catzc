@@ -1,7 +1,7 @@
 # pwsh/Tooling.Core/Test-ToolRequiresElevation.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The pure query of whether installing or uninstalling a tool on the current platform needs elevation, which the provisioning loops use to
+skip and report.
 
 ## help
 

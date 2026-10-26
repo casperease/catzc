@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Get-WrapFreeStamp.ps1
 
-A SHA-256 of a file's text with every run of whitespace collapsed to one space, so a change of wrapping alone leaves it unchanged. Format-Code
-stamps a file before and after its formatter engine runs, and a held stamp marks a wrap-only change.
+A SHA-256 of a file's text with every run of whitespace collapsed to one space, so a change of wrapping alone leaves it unchanged.
+Format-Code stamps a file before and after its formatter engine runs, and a held stamp marks a wrap-only change.
 
 ## help
 

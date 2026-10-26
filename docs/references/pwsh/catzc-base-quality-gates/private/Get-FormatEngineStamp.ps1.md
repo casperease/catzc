@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Get-FormatEngineStamp.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The fingerprint of everything besides a file's own bytes that decides what a formatter engine writes. Format-Code's result cache keys a file
+on its hash and on this stamp.
 
 ## help
 
@@ -34,11 +34,13 @@ The repository root.
 
 `[string]` A hex SHA-256.
 
-## comment:1
+## missing inputs
 
-Above `$value = 'missing'`, written with `#`.
+A missing file or key hashes as `missing`, so adding or removing the input changes the stamp like any other input.
 
-```text
-A missing file or key hashes as missing, so adding or removing the input changes the stamp like any other
-input.
-```
+## the adapter and the tool
+
+A formatter engine's verdict also rests on its adapter's code, so each adapter's code is hashed into the stamp and a changed adapter
+re-checks every file the engine judged. The installed tool's own reported version joins the stamp, not its pin, so an upgrade the pin never
+saw still re-checks every file. An imprint step adds the build identity of the types assembly instead, because its C# engines are compiled
+into that assembly.

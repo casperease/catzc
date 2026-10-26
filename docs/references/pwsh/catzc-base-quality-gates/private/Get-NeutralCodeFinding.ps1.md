@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Get-NeutralCodeFinding.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Lists every real ADR code that a test file uses as fixture data inside an L0 block. Logic tests use neutral fixtures, so a real code there
+is a finding.
 
 ## help
 
@@ -38,11 +38,7 @@ The real ADR codes, from the ADR registry (Get-DrsCitationMap).
 
 `[string[]]` One '`<path>:<line>`: `<message>`' per real code used, in line order.
 
-## comment:1
+## Values
 
-Above `$value = $element`, written with `#`.
-
-```text
-A value belongs to the parameter before it (-Tag 'x', or -Tag:'x'), or is positional: the first is the
-title.
-```
+A value in a test's argument list belongs to the parameter before it (`-Tag 'x'` or `-Tag:'x'`), or it is positional. The first positional
+value is the title.

@@ -1,7 +1,7 @@
 # pwsh/Base.Contracts/private/Get-ContractCommandRoot.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The resolver from a contract group to the module whose command files the group's contracts describe. It throws when no module, or no
+checkable language, stands behind the group.
 
 ## help
 
@@ -38,11 +38,8 @@ The tree the module is resolved in.
 Get-ContractCommandRoot -Module Catzc.Base.Languages -RepositoryRoot $root
 ```
 
-## comment:1
+## from group to module
 
-Above `$name = (Get-Config -Config contracts).ExceptionModuleOf($Module)`, written with `#`.
-
-```text
-The contract group is an exception's module, or the module's track and its folder in the normal form
-(Get-ContractGroup); the track renders the folder in PowerShell's folder case and gives back the module's full name.
-```
+The contract group is the group of an exception in the [contracts config](../configs/contracts.yml.md), or else the module's track and its
+folder in the normal form (the form Get-ContractGroup writes). The track renders the folder in PowerShell's folder case and gives back the
+module's full name.

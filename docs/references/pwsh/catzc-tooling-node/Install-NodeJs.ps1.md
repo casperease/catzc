@@ -1,7 +1,7 @@
 # pwsh/Tooling.Node/Install-NodeJs.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The installer of Node.js, and with it npm, at the locked major version, through the platform package manager. Every other tool in this module
+installs through the npm this one provides.
 
 ## help
 
@@ -39,21 +39,8 @@ Install-NodeJs
 Install-NodeJs -Force
 ```
 
-## comment:1
+## Linux source
 
-Above `$sourcePath = '/etc/apt/sources.list.d/nodesource.list'`, written with `#`.
-
-```text
-The distro `nodejs` package trails the pinned major badly (Ubuntu jammy ships Node 12), so install
-from the NodeSource apt repository for the locked major — mirroring the HashiCorp repo setup in
-Install-Terraform. The repo URL embeds the major, so re-write the source when the pin changes.
-```
-
-## comment:2
-
-Above `$sourcePath = '/etc/apt/sources.list.d/nodesource.list'`, written with `#`.
-
-```text
-The distro package trails the pinned major, so NodeSource's repo is used; its url holds the major, so a new
-pin rewrites it.
-```
+The distro `nodejs` package trails the pinned major badly (Ubuntu jammy ships Node 12), so the Linux install uses the NodeSource apt
+repository for the locked major, set up the way `Install-Terraform` sets up the HashiCorp repository. The repository url embeds the major, so
+a new pin rewrites the source.

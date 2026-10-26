@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Get-ChangeCheckPlan.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The checks half of Test-Change's plan: it maps each changed file to the quality gates its file language names in `languages.yml`. It reads
+the plan from configuration so no gate is named in code.
 
 ## help
 
@@ -36,11 +36,7 @@ The repository root the paths are relative to.
 Get-ChangeCheckPlan -Path 'docs/index.md' -RepositoryRoot (Get-RepositoryRoot)
 ```
 
-## comment:1
+## folder-governing checks
 
-Above `if ($language.check_scopes.ContainsKey($check)) {`, written with `#`.
-
-```text
-A check that governs a folder takes only the changed files under it; the language's check_scopes names the
-folder by its config address.
-```
+A check that governs a folder takes only the changed files under it. The language's `check_scopes` names the folder by its config address,
+which is resolved once per address and compared as a `/`-terminated prefix of the changed path.

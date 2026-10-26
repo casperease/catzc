@@ -1,7 +1,7 @@
 # pwsh/Azure.Cli/Assert-AzCliExtension.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The throwing check that a named Azure CLI extension is installed. It only asserts and never installs, so a command that needs the
+extension fails with a clear remediation.
 
 ## help
 

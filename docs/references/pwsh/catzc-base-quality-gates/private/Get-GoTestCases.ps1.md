@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Get-GoTestCases.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The language bridge's discovery for Go: it lists the tests a Go test folder declares by reading its `*_test.go` files, never by running go.
+Discovery therefore stays fast and offline, and works where go is missing.
 
 ## help
 

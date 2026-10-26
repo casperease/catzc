@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/Format-MarkdownTitle.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The formatter that makes the H1 of every in-scope Markdown file its title and brings the headings into normal form. Test-MarkdownTitle is
+its checking half.
 
 ## help
 
@@ -61,11 +61,7 @@ Format-MarkdownTitle -DryRun -PassThru
 Format-MarkdownTitle -Path docs/references
 ```
 
-## comment:1
+## Dry run
 
-Above `function Format-MarkdownTitle {`, written with `#`.
-
-```text
-Uses -DryRun, not ShouldProcess/-WhatIf — see
-[ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT](/docs/drs/automation/dry-run.md#rule-adr-auto-dryrun-branchbeforesideeffect).
-```
+The command offers `-DryRun`, never `ShouldProcess` or `-WhatIf`
+([ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT](../../../drs/automation/dry-run.md#rule-adr-auto-dryrun-branchbeforesideeffect)).

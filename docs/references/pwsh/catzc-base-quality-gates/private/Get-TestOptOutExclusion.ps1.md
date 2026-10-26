@@ -1,7 +1,6 @@
 # pwsh/Base.QualityGates/private/Get-TestOptOutExclusion.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Lists the tests a test run's opt-out tag removes from a run, so the exclusion is visible and never silent.
 
 ## help
 
@@ -40,11 +39,7 @@ The run's test files; tests outside them are ignored.
 `[pscustomobject]` with Tests (rows of File, ExpandedPath, Level, Category, in discovery order), FullyExcludedFiles (files whose every
 in-scope test carries the tag), and RemainingFiles (-TestFiles without them, order kept).
 
-## comment:1
+## Tag matches
 
-Above `foreach ($test in @($Discovery.Tests)) {`, written with `#`.
-
-```text
-Get-TestBlockTag returns its matches as ONE array object (`, $ret`), so its result is used as-is, never
-wrapped in @() — that would nest it and every count would read 1.
-```
+Get-TestBlockTag returns its matches as one array object. The result is used as it is and never wrapped in `@()`, since that would nest it
+and every count would read 1.

@@ -1,7 +1,7 @@
 # pwsh/Base.Contracts/private/Get-ContractFreezeFindings.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The freeze check of one released version folder. It compares the folder's files with the .frozen record, so a released contract cannot
+change unnoticed.
 
 ## help
 

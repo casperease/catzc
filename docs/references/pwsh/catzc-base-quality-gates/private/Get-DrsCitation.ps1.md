@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Get-DrsCitation.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The ADR citations that the prose of a file and its comment page make, sorted and without duplicates. The scan itself is the compiled
+DrsCitationScanner; this function gathers the text and the file's class.
 
 ## help
 
@@ -62,12 +62,12 @@ The compiled citation scan, built once per run from the form and the map. Defaul
 
 `[string[]]` the cited codes, a bare record code standing for its rules.
 
-## comment:1
+## what counts as a citation
 
-Above `[string[]] $Scanner.Citations($text, $withDomain)`, written with `#`.
+The scan cites body text by code only: a numbered citation or a wildcard in the body is a mention, never a citation. Only a code the ADR
+index registers is a citation, so a fixture code or a placeholder named in prose is not one. The domain forms of a code count only in a file
+of one of the domain classes the `drs` config names.
 
-```text
-The scan (DrsCitationScanner) cites body text by code only: a numbered citation or a wildcard there is a mention, never a citation.
-Only a code the ADR index registers is a citation: a fixture code or a placeholder named in prose is not. A bare record code is one
-in every class, except the record the file itself defines rules of; a bare domain code only in a code class.
-```
+## the text
+
+The text is the file's body (or its rest, when it has no body) followed by the body of its comment page, when the page exists.

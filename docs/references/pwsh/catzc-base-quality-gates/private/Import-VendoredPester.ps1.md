@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Import-VendoredPester.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Loads the vendored Pester into the session on first use and makes sure it is the one in use. The import is deferred at module import for
+speed, so only a test run pays for it.
 
 ## help
 

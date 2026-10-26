@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Resolve-PlanStepCount.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Reads the step count a text states ("three steps", "one step left"), or writes the phrase for a count. It is the one vocabulary of a stated
+step count, shared by the check and the rewrite.
 
 ## help
 

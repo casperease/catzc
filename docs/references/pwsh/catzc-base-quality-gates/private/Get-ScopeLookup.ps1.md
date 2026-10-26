@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Get-ScopeLookup.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Turns the optional files or folders of a scope into the repository-relative paths git is asked about. A gate that takes `-Path` uses it to
+resolve the paths once, the same way.
 
 ## help
 
@@ -30,20 +30,11 @@ The name of the calling command, for the refusal message.
 
 `[string[]]` repository-relative, '/'-separated paths, or '.' for the whole repository.
 
-## comment:1
+## Relative paths
 
-Above `$here = (Get-Location).ProviderPath`, written with `#`.
+A relative path is the caller's own when they stand inside this repository, and the repository's otherwise. A snapshot run stands elsewhere,
+so the repository root is the fallback.
 
-```text
-A relative path is the caller's own when they stand inside this repository, else the repository's: a snapshot run
-stands elsewhere.
-```
+## Lost files
 
-## comment:2
-
-Above `if (-not (Test-Path -LiteralPath $full)) {`, written with `#`.
-
-```text
-A path the index lists but the working tree has lost, a deletion not yet staged, stays in scope; the reader
-skips it.
-```
+A path the index lists but the working tree has lost, such as a deletion not yet staged, stays in scope. The reader skips it.

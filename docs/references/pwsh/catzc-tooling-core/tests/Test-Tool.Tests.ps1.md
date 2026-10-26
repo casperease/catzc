@@ -1,22 +1,12 @@
 # pwsh/Tooling.Core/tests/Test-Tool.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The L0 tests of `Test-Tool`.
 
-## comment:1
+## Hermetic
 
-Above `BeforeAll {`, written with `#`.
+Every collaborator is mocked in the module scope, so the assertion binds to the version-check logic, the pin against the devbox lever
+against the pipeline, and never to the shipped `tools.yml` or the installed toolchain.
 
-```text
-Hermetic: every collaborator mocked in module scope, so the assertion binds to the version-check LOGIC
-(pin vs devbox lever vs pipeline), never to the shipped tools.yml or the installed toolchain.
-```
+## Config mocks
 
-## comment:2
-
-Above `function New-TestToolConfig {`, written with `#`.
-
-```text
-Get-ToolConfig returns the typed record, so the mocks do too: every key the entry omits reads as its
-default, exactly as in production.
-```
+`Get-ToolConfig` returns the typed record, so the mocks do too: every key the entry omits reads as its default, exactly as in production.

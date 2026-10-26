@@ -1,7 +1,7 @@
 # pwsh/Base.Contracts/private/Get-ContractNormalFormFindings.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The normal-form check of a command contract. It reports every name in the contract that is not in the repository normal form, so each
+language's checker can render its own name from it.
 
 ## help
 

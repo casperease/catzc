@@ -1,22 +1,9 @@
 # pwsh/Azure.Cli/types/SubscriptionAccessState.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The typed record of whether the current az CLI login can reach a given subscription. It is established by a real, read-only ARM probe, not
+by inspecting local session state, and is a point-in-time access check.
 
-## comment:1
+## Properties
 
-Above `using System;`, written with `//`.
-
-```text
-Whether the current az CLI login can actually reach a given subscription, established by a real,
-read-only ARM probe (not just by inspecting local session state). A point-in-time access check.
-```
-
-## comment:2
-
-Above `public bool logged_in { get; }`, written with `//`.
-
-```text
-True when there is any active az login at all. On the failure path this separates "not logged in"
-from "logged in but no access to this subscription".
-```
+- **`logged_in`** — true when there is any active az login at all. On the failure path it separates "not logged in" from "logged in but no
+  access to this subscription".

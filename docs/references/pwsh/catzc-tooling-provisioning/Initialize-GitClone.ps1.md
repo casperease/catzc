@@ -1,7 +1,8 @@
 # pwsh/Tooling.Provisioning/Initialize-GitClone.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The first-run setup of a fresh clone: it writes the clone-local git settings the trunk-based flow needs and reports a missing git identity. It
+takes `-DryRun` rather than `-WhatIf`
+([ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT](../../../drs/automation/dry-run.md#rule-adr-auto-dryrun-branchbeforesideeffect)).
 
 ## help
 
@@ -48,39 +49,13 @@ Initialize-GitClone
 Initialize-GitClone ~/catzc -DryRun
 ```
 
-## comment:1
+## The settings
 
-Above `function Initialize-GitClone {`, written with `#`.
+`pull.rebase` keeps a plain `git pull` working when local commits, such as the janitor's generated-file syncs, diverge from the remote. In a
+WSL session the credential helper reuses the Windows credential store for HTTPS pushes; git runs the helper value through `sh`, so spaces in
+the `/mnt/c` path are escaped inside the value itself.
 
-```text
-Uses -DryRun, not ShouldProcess/-WhatIf — see
-[ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT](/docs/drs/automation/dry-run.md#rule-adr-auto-dryrun-branchbeforesideeffect).
-```
+## The identity
 
-## comment:2
-
-Above `$settings = [ordered]@{ 'pull.rebase' = 'true' }`, written with `#`.
-
-```text
-The desired clone-local settings. pull.rebase keeps a plain `git pull` working when local
-commits (the janitor's generated-file syncs) diverge from the remote; the WSL credential
-helper reuses the Windows credential store for HTTPS pushes.
-```
-
-## comment:3
-
-Above `$settings['credential.helper'] = $credentialManager -replace ' ', '\ '`, written with `#`.
-
-```text
-git runs the helper value through sh, so spaces in the /mnt/c path must be escaped
-inside the value itself.
-```
-
-## comment:4
-
-Above `foreach ($identityKey in @('user.name', 'user.email')) {`, written with `#`.
-
-```text
-An unset identity is not this function's to invent, but the very next commit (often the
-janitor's) fails without one — so report the exact remediation instead of staying silent.
-```
+An unset identity is not this command's to invent. The very next commit, often the janitor's, fails without one, so the command reports the
+exact remediation instead of staying silent.

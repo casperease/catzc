@@ -1,14 +1,8 @@
 # pwsh/Azure.Cli/tests/Invoke-AzCli.L2.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The L2 test that proves `Invoke-AzCli` shells out to a working `az`.
 
-## comment:1
+## The skip gate
 
-Above `if (-not (Get-Command az -ErrorAction Ignore)) {`, written with `#`.
-
-```text
-Gate on presence, not the locked version: this thread proves Invoke-AzCli shells out to a working
-`az` — it does not assert tools.yml's version lock, so a functional-but-off-version az must still run
-(matching the Build-Bicep L2 skeleton). The skip key is the constrained `tool_az_missing` grammar.
-```
+The test gates on the presence of `az`, not on the locked version. It does not assert the version lock of `tools.yml`, so a functional
+az of another version must still run, matching the Build-Bicep L2 skeleton. The skip key is the constrained `tool_az_missing` grammar.

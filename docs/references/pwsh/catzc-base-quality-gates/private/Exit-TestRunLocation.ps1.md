@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Exit-TestRunLocation.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Releases a test run's location: the system-test lock and the working-folder lock, then the snapshot when there is one. A lock's record is
+deleted only while it is still the releasing process's own, so the next holder's record is never removed.
 
 ## help
 
@@ -24,13 +24,9 @@ The location Enter-TestRunLocation returned.
 
 None.
 
-## comment:1
+## handing the caches home
 
-Above `$snapshotCache = Join-Path $Location.Snapshot.Path 'out/cache'`, written with `#`.
-
-```text
-Hand the snapshot's result caches home before it goes: the checks this run made in the snapshot are as
-valid for the working folder as for the snapshot, since each entry is keyed on a file's content and the
-check's inputs ([ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS](/docs/drs/automation/caching.md#rule-adr-auto-cache-checkedfilesacrosssessions)). Save-ResultCache
-merges them with what the working folder's cache holds.
-```
+The snapshot's result caches go home before the snapshot is removed. The checks the run made in the snapshot are as valid for the working
+folder as for the snapshot, since each entry is keyed on a file's content and the check's inputs
+([ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS](../../../../drs/automation/caching.md#rule-adr-auto-cache-checkedfilesacrosssessions)).
+Save-ResultCache merges them with what the working folder's cache holds.

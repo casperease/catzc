@@ -1,15 +1,9 @@
 # pwsh/Tooling.KeyHandler/configs/key-handler-supported.yml
 
-<!-- cspell:ignore begining -->
+The allow-list of PSReadLine functions supported on Linux. `Import-PsReadLineKeyHandlerSet` filters the captured
+[bindings](key-handler-bindings.yml.md) against it, so a Windows-only function is skipped rather than throwing.
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+## Keys
 
-## comment:1
-
-Above `functions:`, written with `#`.
-
-```text
-PSReadLine functions supported on Linux — the allow-list Import-PsReadLineKeyHandlerSet filters
-key-handler-bindings against, so a Windows-only function is skipped rather than throwing.
-```
+`functions` is the only key: a non-empty list of non-blank function names. The typed model is
+[KeyHandlerSupportedConfig](../types/KeyHandlerSupportedConfig.cs.md), read through `Get-Config -Config key-handler-supported`.

@@ -1,7 +1,7 @@
 # pwsh/Tooling.Core/Get-ToolCommandSuffix.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The converter from a snake_case tool key of `tools.yml` to the PascalCase suffix of the tool's per-tool commands, so name-based dispatch and
+the "Run `Install-<x>`" messages resolve.
 
 ## help
 

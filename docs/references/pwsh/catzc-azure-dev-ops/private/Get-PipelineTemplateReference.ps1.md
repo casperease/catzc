@@ -1,7 +1,7 @@
 # pwsh/Azure.DevOps/private/Get-PipelineTemplateReference.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The private function that extracts the `template:` references from a pipeline YAML file, the paths the naming-and-placement gate checks for
+absoluteness.
 
 ## help
 

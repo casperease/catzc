@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/Build-TerminologyDictionary.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The writer half of Test-Terminology: it generates one cspell word list per category of the terminology registry, so the spell checker
+accepts the registered vocabulary.
 
 ## help
 
@@ -61,55 +61,21 @@ Build-TerminologyDictionary -DryRun -PassThru
 Reports whether any checked-in list is stale without writing it.
 ```
 
-## comment:1
+## One list per category
 
-Above `$categories = @($config.categories)`, written with `#`.
+Each category's terms generate their own word list, so `cspell.yml` can reference and scope them independently
+([ADR-AUTO-SPELL-CATEGORYANDMEANING](../../../drs/automation/spell-out-names.md#rule-adr-auto-spell-categoryandmeaning)). The category set
+is the registry's own `categories` map, the single source, validated by the TerminologyConfig type. Every category's file is always written,
+even with no terms, so the generated file set stays stable.
 
-```text
-One dictionary per category
-([ADR-AUTO-SPELL-CATEGORYANDMEANING](/docs/drs/automation/spell-out-names.md#rule-adr-auto-spell-categoryandmeaning)): each category's
-terms generate their own cspell word list, so
-cspell.yml can reference — and scope — them independently. The category set is the registry's own
-'categories' map (the single source, validated by TerminologyConfig); every category's file is always
-emitted (even when it has no terms) so the generated file set stays stable.
-```
+## Content
 
-## comment:2
+The accepted tokens are the terms themselves. An abbreviation's expansion is a real word cspell already knows, so it is not registered. Each
+list is lower-cased, de-duplicated and sorted by ordinal comparison, so it is deterministic. A head of `#` lines, which cspell reads as
+comments, carries the do-not-edit warning that `.cspell/README.md` repeats. The head is part of the content, so drift checks compare it too.
 
-Above `$cspellDir = Join-Path (Get-RepositoryRoot) '.cspell'`, written with `#`.
+## Where it writes
 
-```text
-The generated dictionaries live at the repository root's .cspell/<category>.txt (see .cspell/README.md).
-They are gitignored, so a fresh clone or a deleted .cspell/ has none; [System.IO.File]::WriteAllText does
-not create the directory, so self-heal it before writing.
-```
-
-## comment:3
-
-Above `$words = [string[]] @(`, written with `#`.
-
-```text
-The accepted tokens are the terms themselves (an abbreviation's expansion is a real word cspell
-already knows, so it is not registered). Lower-case, de-duplicate, and ordinal-sort per category
-for a deterministic list.
-```
-
-## comment:4
-
-Above `$text = if ($words.Count -gt 0) {`, written with `#`.
-
-```text
-A generated-file head (cspell treats '#' lines as comments) carries the do-not-edit warning —
-mirrored by .cspell/README.md. It is part of the content, so it is drift-compared too.
-```
-
-## comment:5
-
-Above `$dictPath = Join-Path $cspellDir "$category.txt"`, written with `#`.
-
-```text
-Gitignored, generated artifact at the repository root's .cspell/
-([ADR-REPO-OUTDIR-DICTIONARIESGENERATED](/docs/drs/repository/dedicated-output-directory.md#rule-adr-repo-outdir-dictionariesgenerated)), at the fixed
-path
-cspell.yml references.
-```
+The lists are `.cspell/<category>.txt` at the repository root, the fixed paths `cspell.yml` names. They are gitignored, generated artifacts
+([ADR-REPO-OUTDIR-DICTIONARIESGENERATED](../../../drs/repository/dedicated-output-directory.md#rule-adr-repo-outdir-dictionariesgenerated)),
+so a fresh clone has no `.cspell/` folder. The writer creates the folder before it writes, because the .NET file write does not.

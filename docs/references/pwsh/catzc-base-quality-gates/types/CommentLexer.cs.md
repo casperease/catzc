@@ -1,50 +1,29 @@
 # pwsh/Base.QualityGates/types/CommentLexer.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Finds the comment spans of a source file, the only places a code link lives
+([ADR-REPO-LINK-KINDBYFILE](../../../../drs/repository/markdown-links.md#rule-adr-repo-link-kindbyfile)). It works per language family,
+chosen by file extension, and is the one place that knows comment syntax.
 
-## comment:1
+## Families
 
-Above `using System;`, written with `//`.
+| Family     | Extensions                    | Comments                                                                           |
+| ---------- | ----------------------------- | ---------------------------------------------------------------------------------- |
+| PowerShell | `.ps1` `.psm1` `.psd1`        | the real PowerShell tokenizer's comment tokens, line comments and `<# #>` blocks   |
+| C family   | `.cs` `.bicep`                | `//` and `/* */`, `///` included, skipping string, verbatim, raw and char literals |
+| Hash       | `.yml` `.yaml`                | `#` at line start or after whitespace, outside quoted scalars and block scalars    |
+| XML        | `.csproj` `.props` `.targets` | `<!-- -->`                                                                         |
 
-```text
-Finds the comment spans of a source file — the only places a code link lives
-([ADR-REPO-LINK-KINDBYFILE](/docs/drs/repository/markdown-links.md#rule-adr-repo-link-kindbyfile)) — per language
-family, by file extension:
-  PowerShell (.ps1 .psm1 .psd1)   the real PowerShell tokenizer's Comment tokens (line comments and <# #> blocks)
-  C family   (.cs .bicep)         // and /* */ (/// included), skipping string, verbatim, raw, and char literals
-  Hash       (.yml .yaml)         # at line start or after whitespace, outside quoted scalars and block scalars
-  XML        (.csproj .props .targets)  <!-- -->
+## Strings
+
 It also returns the string-literal spans, which hold docs paths and citations as data
-([ADR-REPO-LINK-STRINGSAREDATA](/docs/drs/repository/markdown-links.md#rule-adr-repo-link-stringsaredata)): PowerShell's string tokens, C#'s
-and Bicep's string literals (regular, verbatim, interpolated, raw), and a YAML line's text outside its comment.
-Spans are (Start, Length) offsets into the text, in document order.
-```
+([ADR-REPO-LINK-STRINGSAREDATA](../../../../drs/repository/markdown-links.md#rule-adr-repo-link-stringsaredata)). `Strings` returns them for
+any code file, quotes included: PowerShell's string tokens, the C family's literals (regular, verbatim, interpolated, raw) and each YAML
+line's non-blank text outside its comment, since a YAML value is data however it is quoted. XML has none, because its text is not code.
 
-## comment:2
+Spans are `(Start, Length)` offsets into the text, in document order. The C family comes from one scan that skips each kind while it looks
+for the other, whether the caller wants comments or strings.
 
-Above `public static IReadOnlyList<(int Start, int Length)> Strings(string text,...`, written with `//`.
+## Line marker
 
-```text
-The string-literal spans of any code file, quotes included: PowerShell's string tokens, the C family's
-literals, and each YAML line's non-blank text outside its comment (a YAML value is data however it is quoted).
-Empty for XML, whose text is not code.
-```
-
-## comment:3
-
-Above `static IReadOnlyList<(int, int)> CFamily(string text, string extension, bool...`, written with `//`.
-
-```text
-The C family's comment spans (wantComments) or string-literal spans (otherwise), from one scan that skips each
-kind while it looks for the other.
-```
-
-## comment:4
-
-Above `public static string LineMarker(string comment)`, written with `//`.
-
-```text
-The comment family's line marker for a span, used to continue a wrapped line comment: '///', '//', '#',
-or null for a block comment (<# #>, /* */, <!-- -->), whose continuation is plain indentation.
-```
+`LineMarker` gives the marker that continues a wrapped line comment: `///`, `//` or `#`. A block comment (`<# #>`, `/* */`, `<!-- -->`) has
+none, so its continuation is plain indentation and the method returns null.

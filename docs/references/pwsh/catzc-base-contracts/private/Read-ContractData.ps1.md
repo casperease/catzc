@@ -1,7 +1,6 @@
 # pwsh/Base.Contracts/private/Read-ContractData.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The data reader of the contract checks: it reads a Json or Yaml file into one value, and throws when the file does not parse.
 
 ## help
 
@@ -35,11 +34,7 @@ The file, repository-relative and '/'-separated.
 $gadget = Read-ContractData -RepositoryRoot $root -Path '.widget/gadget.yml'
 ```
 
-## comment:1
+## returning an array whole
 
-Above `$PSCmdlet.WriteObject($data, $false)`, written with `#`.
-
-```text
-WriteObject without enumeration hands a top-level array over whole; Write-Output -NoEnumerate would wrap the
-document in a list, since its input binds from the remaining arguments.
-```
+The data goes out through `WriteObject` without enumeration, so a top-level array arrives as one object. `Write-Output -NoEnumerate` would
+wrap the document in a list, since its input binds from the remaining arguments.

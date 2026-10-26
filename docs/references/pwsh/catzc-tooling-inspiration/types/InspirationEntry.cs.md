@@ -1,22 +1,16 @@
 # pwsh/Tooling.Inspiration/types/InspirationEntry.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+One inspiration of `configs/inspiration.yml`, as stored: an id, the root it lives at, what it is, and the folders inside it worth reading.
+It mirrors the YAML mapping with snake_case keys
+([ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](../../../../drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
 
-## comment:1
+## Validation
 
-Above `using System;`, written with `//`.
+Constructing one maps and validates the entry, and every violation is reported in one throw, prefixed with the entry's position, so one load
+names every broken entry at once. The load-time rules:
 
-```text
-One inspiration of configs/inspiration.yml, as stored: an id, the root it lives at, what it is, and the folders
-inside it worth reading. Constructing one MAPS and VALIDATES the entry, and every violation is reported in one
-throw, prefixed with the entry's position. Mirrors the YAML mapping (snake_case keys,
-[ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
-
-Load-time rules:
-  - a mapping whose keys are id, root, description and paths;
-  - 'id' is kebab-case (lowercase words joined by '-');
-  - 'root' is in communication form, repository-relative or {workspace}-anchored (InspirationRoot.Violations);
-  - 'description' is non-blank;
-  - 'paths', when present, lists relative paths inside the root, with no anchor.
-```
+- the mapping's keys are `id`, `root`, `description` and `paths`;
+- `id` is kebab-case, lowercase words joined by `-`;
+- `root` is in communication form, repository-relative or `{workspace}`-anchored (`InspirationRoot.Violations`);
+- `description` is non-blank;
+- `paths`, when present, lists relative paths inside the root, with no anchor.

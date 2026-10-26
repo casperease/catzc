@@ -1,26 +1,20 @@
 # pwsh/Base.QualityGates/types/AnalyzerDrsMapConfig.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The typed record for `configs/analyzer-drs-map.yml`: each enabled PSScriptAnalyzer rule that enforces a decision-record rule, mapped to the
+rule codes it enforces. It is the source of the `pssa-rule` enforcer kind in the rule-coverage report (`Get-AnalyzerDrsCoverage`,
+`Get-CatsRuleEnforcers`). It is registered in `Catzc.Base.Config/configs/configs.yml`, so `Get-Config -Config analyzer-drs-map` returns it.
+Its properties mirror the YAML keys
+([ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](../../../../drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
 
-## comment:1
+## Validation
 
-Above `using System;`, written with `//`.
+Constructing the record maps and validates the parsed YAML and gathers every violation into one throw:
 
-```text
-The analyzer -> ADR rule map of configs/analyzer-drs-map.yml: each ENABLED PSScriptAnalyzer rule that enforces an
-ADR rule, mapped to the rule id(s) it enforces in the index's '#' citation form (ADR-<CODE>#<n>) — the source of
-the 'pssa-rule' enforcer kind in the rule-coverage report (Get-AnalyzerDrsCoverage, Get-CatsRuleEnforcers).
-Constructing an instance MAPS and VALIDATES the parsed YAML, collecting every violation into one throw.
-Registered in Catzc.Base.Config/configs/configs.yml (type: Catzc.Base.QualityGates.AnalyzerDrsMapConfig), so
-Get-Config -Config analyzer-drs-map returns this typed model. Mirrors the YAML mapping (snake_case keys,
-[ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
+- the only top-level key is `analyzers`, a required, non-empty map;
+- every analyzer rule name is non-empty and maps to at least one id;
+- each id is a well-formed rule code of any registered kind.
 
-Load-time rules are SHAPE and citation GRAMMAR only:
-  - only the top-level key 'analyzers', a required, non-empty map;
-  - every analyzer rule name is non-empty and maps to at least one id;
-  - each id is a well-formed 'ADR-<CODE>#<n>'.
-That each id names a real rule, and that every custom analyzer is mapped, are cross-asset facts the
-'analyzer-adr-map integrity' test checks — config load never reads the ADR tree or the .scriptanalyzer folder
-(the [ADR-AZ-CUSTOMER-REFERENCENOTVALIDATEDONLOAD](/docs/drs/azure/azure-customer-model.md#rule-adr-az-customer-referencenotvalidatedonload) pattern — load stays hermetic).
-```
+Load checks shape and citation grammar only. That each id names a real rule, and that every custom analyzer is mapped, is a cross-asset fact
+the analyzer-ADR-map integrity test checks. Loading never reads the decision-record tree or the `.scriptanalyzer` folder, so it stays
+hermetic, the pattern of
+[ADR-AZ-CUSTOMER-REFERENCENOTVALIDATEDONLOAD](../../../../drs/azure/azure-customer-model.md#rule-adr-az-customer-referencenotvalidatedonload).

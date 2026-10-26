@@ -1,40 +1,28 @@
 # pwsh/Base.QualityGates/types/MarkdownLinkScanner.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Checks and aligns the markdown links of one `.md` file
+([ADR-REPO-LINK-MARKDOWNRELATIVE](../../../../drs/repository/markdown-links.md#rule-adr-repo-link-markdownrelative)). A markdown link is
+relative to its own file: a repository-rooted link is rewritten relative, and a rule citation spelled `ADR-X:n` in prose becomes `ADR-X#n`,
+since the `:` form lives only in a rule's own `### Rule` heading. Fenced code blocks and inline code spans are literal. The scanner is pure
+apart from the existence checks it makes against the repository on disk.
 
-## comment:1
+## Reported, not fixable
 
-Above `using System;`, written with `//`.
+- a target that does not exist;
+- a `#fragment` naming no heading or anchor of its target;
+- a relative link that climbs above the repository root;
+- an absolute URL into this repository outside `.github/`;
+- a target that exists on disk but is not committed, when the tracked paths are given: GitHub, which renders these links, does not have it.
 
-```text
-Checks and aligns the markdown links of one .md file
-([ADR-REPO-LINK-MARKDOWNRELATIVE](/docs/drs/repository/markdown-links.md#rule-adr-repo-link-markdownrelative), #5, #7). A markdown link is relative to its
-own file: a repository-rooted link is rewritten relative, and a rule citation spelled `ADR-X:n` in prose becomes
-`ADR-X#n` (the ':' form lives only in a rule's own '### Rule' heading). Reported, not fixable: a target that does
-not exist, a #fragment naming no heading or anchor of its target, a relative link that climbs above the
-repository root, and an absolute URL into this repository outside .github/. Fenced code blocks and inline code
-spans are literal. Pure apart from the existence checks it makes against the repository on disk. Given the tracked
-paths, a target that exists on disk but is not committed is reported too: GitHub, which renders these links, does not
-have it. Code links are not checked this way — no hosted renderer follows a comment.
-```
+Code links are not checked this way, because no hosted renderer follows a comment.
 
-## comment:2
+## Construction and scan
 
-Above `public MarkdownLinkScanner(string repositoryRoot, Catzc.Base.Drs.DrsCodeForm...`, written with `//`.
+The constructor takes `codeForm`, the code grammar over the registered kinds, which the numbered-citation check matches, and:
 
-```text
-codeForm: the code grammar over the registered kinds, which the numbered-citation check matches.
-selfUrlPrefix: this repository's web URL (https://github.com/<owner>/<repo>), or null to skip that check.
-trackedFiles: the repository-relative paths git tracks, or null to skip the tracked check (a scratch root that is
-not a git work tree). A folder counts as tracked when any tracked file lies under it.
-```
+- `selfUrlPrefix`: this repository's web URL (`https://github.com/<owner>/<repo>`), or null to skip that check;
+- `trackedFiles`: the repository-relative paths git tracks, or null to skip the tracked check, as for a scratch root that is not a git work
+  tree. A folder counts as tracked when any tracked file lies under it.
 
-## comment:3
-
-Above `public string Scan(string text, string repoPath, List<CodeLinkRewriter.Hit>...`, written with `//`.
-
-```text
-Scans one markdown file (repoPath is repository-relative, '/'-separated). Returns the aligned text; hits are
-appended at absolute offsets into the original text.
-```
+`Scan` takes one markdown file's text (`repoPath` is repository-relative and `/`-separated) and returns the aligned text. Hits are appended
+at absolute offsets into the original text.

@@ -2,16 +2,11 @@
 
 <!-- cspell:ignore lockedtool -->
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The L0 tests of `Assert-ToolVersion`.
 
-## comment:1
+## Hermetic
 
-Above `BeforeEach {`, written with `#`.
-
-```text
-Hermetic: every collaborator is mocked in the module scope, so the assertion binds to the version-check
-LOGIC (pipeline lock vs devbox lever), never to the shipped tools.yml values or the installed toolchain.
-Fixture tools ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)): faketool carries a
-devbox_version lever, lockedtool has none.
-```
+Every collaborator is mocked in the module scope, so the assertion binds to the version-check logic, the pipeline lock against the devbox
+lever, and never to the shipped `tools.yml` values or the installed toolchain. The fixture tools are neutral
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)):
+faketool carries a `devbox_version` lever, and lockedtool has none.

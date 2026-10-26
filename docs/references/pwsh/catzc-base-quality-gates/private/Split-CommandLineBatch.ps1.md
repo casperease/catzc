@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Split-CommandLineBatch.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Splits a list of command-line arguments into batches whose joined length stays under a limit. A formatter engine that takes files as
+arguments runs once per batch, so formatting every tracked file never exceeds the command-line limit.
 
 ## help
 

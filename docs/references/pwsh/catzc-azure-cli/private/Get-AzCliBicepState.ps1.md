@@ -1,7 +1,7 @@
 # pwsh/Azure.Cli/private/Get-AzCliBicepState.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The private function that reads the Bicep CLI state and compares it with the configured minimum version. It is the one place the
+comparison is made, shared by the Bicep query and the Bicep assertion.
 
 ## help
 
@@ -30,12 +30,8 @@ parsed). `meets_minimum` requires an installed, parseable version at or above th
 (Get-AzCliBicepState).meets_minimum
 ```
 
-## comment:1
+## A silent probe
 
-Above `$result = Invoke-AzCli 'bicep version' -PassThru -NoAssert -Silent`, written with `#`.
-
-```text
--Silent: a plumbing probe whose output we capture via -PassThru and parse below, so the
-"Bicep CLI version X" line should not echo to the console on every build. See log ADR rule
-[ADR-AUTO-PRELOG-SILENTSWITCH](/docs/drs/automation/log-before-invoke.md#rule-adr-auto-prelog-silentswitch).
-```
+The `az bicep version` call passes `-Silent`: it is a plumbing probe whose output the function captures with `-PassThru` and parses, so the
+"Bicep CLI version X" line must not echo to the console on every build
+([ADR-AUTO-PRELOG-SILENTSWITCH](../../../../drs/automation/log-before-invoke.md#rule-adr-auto-prelog-silentswitch)).

@@ -1,7 +1,7 @@
 # pwsh/Tooling.Toolchain/private/Get-RegisteredInstallProduct.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+A private helper of `Remove-Dotnet`: the lookup of the products Windows has registered for an install folder, so that their own mechanism
+removes them.
 
 ## help
 

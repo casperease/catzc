@@ -1,16 +1,10 @@
 # pwsh/Tooling.KeyHandler/types/KeyHandlerBinding.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+One captured PSReadLine key binding of `configs/key-handler-bindings.yml`, a `- key: <chord>` and `function: <name>` pair that
+`Save-PsReadLineKeyHandlerSet` writes and `Import-PsReadLineKeyHandlerSet` replays.
 
-## comment:1
+## Validation
 
-Above `using System;`, written with `//`.
-
-```text
-One captured PSReadLine key binding of configs/key-handler-bindings.yml (`- key: <chord>` / `function: <name>`),
-written by Save-PsReadLineKeyHandlerSet and replayed by Import-PsReadLineKeyHandlerSet. Constructing one MAPS and
-VALIDATES the entry: a mapping carrying a non-empty 'key' and 'function' (the only two keys the capture writes);
-every violation is reported in one throw, prefixed with the entry's position. Mirrors the YAML mapping
-(snake_case keys, [ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
-```
+Constructing one maps and validates the entry: a mapping carrying a non-empty `key` and `function`, the only two keys the capture writes.
+Every violation is reported in one throw, prefixed with the entry's position. The type mirrors the YAML mapping with snake_case keys
+([ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](../../../../drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).

@@ -1,7 +1,7 @@
 # pwsh/Azure.Cli/Get-AzCliConnectionState.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The function that compares the active az session with an expected subscription and/or tenant and returns the verdict with both sides.
+It is the one place the comparison is made, shared by the connected query and the connected assertion so the two cannot drift.
 
 ## help
 

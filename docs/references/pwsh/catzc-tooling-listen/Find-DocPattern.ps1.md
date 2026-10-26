@@ -1,7 +1,7 @@
 # pwsh/Tooling.Listen/Find-DocPattern.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The search of the listen mode: one regular expression over a session's committed reference, filtered by tier and folder, which the processor
+and its scouts all use so that every match is stated at the same commit.
 
 ## help
 

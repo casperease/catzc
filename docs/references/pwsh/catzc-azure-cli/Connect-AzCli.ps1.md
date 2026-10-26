@@ -1,7 +1,7 @@
 # pwsh/Azure.Cli/Connect-AzCli.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The command that logs in to the Azure CLI, interactively, by device code, as a service principal or as a managed identity. It is
+idempotent: an existing login is kept unless `-Force` asks for a new one.
 
 ## help
 
@@ -65,21 +65,12 @@ Connect-AzCli -ServicePrincipal -Tenant $t -ClientId $id -ClientSecret $secret
 Connect-AzCli -ManagedIdentity
 ```
 
-## comment:1
+## Idempotent login
 
-Above `if (-not $Force) {`, written with `#`.
+Without `-Force` the command first runs `az account show` and skips the login when the session already holds the right identity. That
+probe passes `-NoAssert`, because a non-zero exit only means "not logged in", an expected state and not an error.
 
-```text
-Idempotent: skip if already logged in with the correct identity
--NoAssert: non-zero exit means "not logged in" — an expected state, not an error
-```
+## No post-login check
 
-## comment:2
-
-Above `Write-Verbose "Authenticating via $($PSCmdlet.ParameterSetName)"`, written with `#`.
-
-```text
-No post-login assertion needed — Invoke-Executable throws on non-zero exit
-codes via Assert-LastExitCodeWasZero. If az login fails, we never reach the
-Write-Message below.
-```
+The login needs no assertion after it: `Invoke-Executable` throws on a non-zero exit code, so a failed `az login` never reaches the
+"Authenticated" message.

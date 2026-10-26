@@ -1,7 +1,7 @@
 # pwsh/Tooling.Node/Uninstall-NodeJs.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The uninstaller of Node.js through the configured package manager, and the entry of the removal escalation for a Node.js the manager does not
+own.
 
 ## help
 
@@ -42,22 +42,9 @@ Uninstall-NodeJs
 Uninstall-NodeJs -Remove -Force
 ```
 
-## comment:1
+## Failure of the managed uninstall
 
-Above `try {`, written with `#`.
-
-```text
-Managed uninstall best-effort; with -Remove a failure (a foreign install) is logged and the escalation
-proceeds, without -Remove it propagates
-([ADR-AUTO-ONEJOB-CALLERHANDLESERRORS](/docs/drs/automation/single-responsibility-functions.md#rule-adr-auto-onejob-callerhandleserrors),
-[ADR-AUTO-REMOVE-ONECALLESCALATION](/docs/drs/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-onecallescalation)).
-```
-
-## comment:2
-
-Above `try {`, written with `#`.
-
-```text
-With -Remove a failure means a foreign install the escalation still removes, so it is logged; alone, it
-propagates.
-```
+The managed uninstall is best effort. With `-Remove` a failure means a foreign install that the escalation still removes, so it is logged and
+the escalation goes on; without `-Remove` the failure propagates
+([ADR-AUTO-ONEJOB-CALLERHANDLESERRORS](../../../drs/automation/single-responsibility-functions.md#rule-adr-auto-onejob-callerhandleserrors),
+[ADR-AUTO-REMOVE-ONECALLESCALATION](../../../drs/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-onecallescalation)).

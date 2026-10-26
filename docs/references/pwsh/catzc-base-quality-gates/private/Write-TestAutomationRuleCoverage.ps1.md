@@ -1,7 +1,6 @@
 # pwsh/Base.QualityGates/private/Write-TestAutomationRuleCoverage.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Renders the ADR-rule enforcement coverage report, `rule-coverage.md` and `rule-coverage.csv`, from a run's rows.
 
 ## help
 
@@ -37,11 +36,7 @@ Every declared ADR rule id in '#' citation form (Get-CatsDrsRuleIds, ':'->'#') â
 
 The run directory the two files are written into (created if missing).
 
-## comment:1
+## Enforcers
 
-Above `$testEnforcers = @{}`, written with `#`.
-
-```text
-Enforcers per rule id, split by kind. Sets so a rule cited by many tests, or an analyzer listed twice,
-counts each enforcer once.
-```
+Enforcers are collected per rule id and split by kind. They are sets, so a rule cited by many tests, or an analyzer listed twice, counts
+each enforcer once.

@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Invoke-PythonWorkspaceTool.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Runs a tool from the Python test workspace's pinned environment (ruff) against any `.py` files in the repository. The Python checks use one
+pinned tool set for every tracked Python file, not only the test folders.
 
 ## help
 

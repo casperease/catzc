@@ -1,7 +1,6 @@
 # pwsh/Azure.Cli/Invoke-InSubscription.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The command that runs a script block against a target subscription and restores the original subscription context afterwards.
 
 ## help
 

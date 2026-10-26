@@ -1,7 +1,7 @@
 # pwsh/Azure.Cli/Test-AzCliBicep.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The query twin of the Bicep assertion: it returns a bool for whether the Bicep CLI is available to az and at or above the configured
+minimum version.
 
 ## help
 

@@ -1,15 +1,10 @@
 # pwsh/Base.QualityGates/configs/glossary.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The glossary source of this module: the vocabulary of the quality gates it owns, which is the test vocabulary of Test-Automation and the
+link vocabulary of Test-Links ([ADR-REPO-VOCAB](../../../../drs/repository/controlled-vocabulary.md)). Test-Glossary checks it.
 
-## comment:1
+## Options
 
-Above `concepts:`, written with `#`.
-
-```text
-glossary.yml — the Catzc.Base.QualityGates glossary source: the vocabulary of the quality gates this module owns — the
-test vocabulary of Test-Automation and the link vocabulary of Test-Links ([ADR-REPO-VOCAB](/docs/drs/repository/controlled-vocabulary.md)). Every option is defaulted: all five
-checks, the whole repository, every text surface
-([ADR-REPO-VOCAB-GLOSSARYSOURCE](/docs/drs/repository/controlled-vocabulary.md#rule-adr-repo-vocab-glossarysource)). Checked by Test-Glossary.
-```
+Every option has a default, so the file states none of them: every check, the whole repository and every text surface
+([ADR-REPO-VOCAB-GLOSSARYSOURCE](../../../../drs/repository/controlled-vocabulary.md#rule-adr-repo-vocab-glossarysource)). The file holds
+the concepts under `concepts:`.

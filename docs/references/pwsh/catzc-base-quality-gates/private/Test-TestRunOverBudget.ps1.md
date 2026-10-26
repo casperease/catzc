@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Test-TestRunOverBudget.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Tells whether a test run outlasted its whole-run budget in a way that fails it: a devbox run over `tests.run_seconds`. The budget fails a
+devbox run that outlasts it.
 
 ## help
 

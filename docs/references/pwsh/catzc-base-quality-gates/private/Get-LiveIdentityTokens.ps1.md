@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Get-LiveIdentityTokens.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Lists the live production identities of the shipped config, which a hermetic logic test must never name. The modules that own the configs
+declare which values are identities, so the list is never kept by hand.
 
 ## help
 
@@ -33,42 +33,24 @@ string literal equal to one of these tokens (or a delimited segment of one) is u
 
 `[object[]]` One record per token: @{ Token; Kind; Source; Suggest }.
 
-## comment:1
+## match mode
 
-Above `$add = {`, written with `#`.
+Each token carries a match mode that governs how a finder matches it. `exact` is a distinctive identity, flagged wherever it appears as a
+literal. `position` is an ambiguous identity, such as an environment name like `test` or `dev`, flagged only when it is bound to an identity
+parameter (`-Environment`, `-Env`, `-Shortcode`), never as bare prose.
 
-```text
-MatchMode governs HOW the finder matches a token: 'exact' — a distinctive identity flagged wherever it
-appears as a literal; 'position' — an ambiguous identity (an environment name like 'test'/'dev') flagged
-ONLY when bound to an identity parameter (-Environment/-Env/-Shortcode), never as bare prose.
-```
+## walking a rule's path
 
-## comment:2
+A rule's path is walked from a config node. A key segment steps in. A `*` steps into every entry of a map and leaves out an entry that sets
+the rule's `skip_when`. The end of the path yields the scalar, or the map's keys when the rule takes keys. A node may be parsed YAML or a
+typed config object.
 
-Above `$walk = {`, written with `#`.
+## declarations by owner
 
-```text
-Walks one rule's path from a node: a key segment steps in, a '*' steps into every entry of a map (leaving
-out an entry that sets skip_when), and the end of the path yields the scalar or the map's keys.
-```
+Each owning module declares the identities of its own configs in `configs/identity-tokens.yml`. A declaration that names a config its module
+does not own throws. Shipped template names, read from the templates place of the Bicep track, are added after the declared tokens.
 
-## comment:3
+## names left out
 
-Above `foreach ($owner in @(Get-Config -Config identity-tokens -ListOwners)) {`, written with `#`.
-
-```text
-The identities each owning module declares about its own configs (configs/identity-tokens.yml): customers,
-the org, subscriptions, environments (position match — ambiguous words such as 'test'), the ADO project.
-```
-
-## comment:4
-
-Above `$templatesRoot = Join-Path (Get-RepositoryRoot) $templatesPlace`, written with `#`.
-
-```text
-NOTE: deployable-unit and pipeline names (globs.yml) are deliberately NOT included in Stage 1. The
-generic ones (`automation`, `infrastructure`, `templates`, `shared`) are structural folder names that
-appear as legitimate string literals throughout the tests, so matching them is pure false-positive; the
-customer-named units (apex/nova/flux) are already covered by the customer keys above. A later stage may
-add the DISTINCTIVE units with an explicit folder-collision exclusion.
-```
+Deployable-unit and pipeline names are left out on purpose. The generic ones (`automation`, `infrastructure`, `templates`, `shared`) are
+structural folder names that appear as legitimate string literals throughout the tests, so matching them gives only false positives.

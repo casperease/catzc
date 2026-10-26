@@ -3,14 +3,6 @@
 The command that hands environment variables to a child or external process, and the one sanctioned way to give such a process a secret.
 Values come from three channels that never overlap: `[SecureString]` secrets and config addresses in `-Set`, literals in `-Value`.
 
-## Steps
-
-1. Every channel resolves into one flat list of assignments, each keeping its name, value, secrecy, origin and address (the address is
-   null unless the value came from one). Two channels producing the same name throw.
-2. The assignments are applied in one loop that sets each variable and logs it, masking secrets.
-3. A scoped call snapshots each target first, runs the block, and restores every target in a `finally`, so a throwing block never leaves a
-   variable changed; `-Persist` sets and leaves them.
-
 ## help
 
 ### synopsis
@@ -82,3 +74,10 @@ Write-EnvironmentSet -Set @{
 Write-EnvironmentSet -Set @{ GH_TOKEN = $secureToken } -Persist
 ```
 
+## Steps
+
+1. Every channel resolves into one flat list of assignments, each keeping its name, value, secrecy, origin and address (the address is null
+   unless the value came from one). Two channels producing the same name throw.
+2. The assignments are applied in one loop that sets each variable and logs it, masking secrets.
+3. A scoped call snapshots each target first, runs the block, and restores every target in a `finally`, so a throwing block never leaves a
+   variable changed; `-Persist` sets and leaves them.

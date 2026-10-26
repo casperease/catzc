@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/New-TestAutomationShardScript.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Generates one parallel worker's runner script and returns its shard descriptor. The script is what a worker process runs for its share of
+the test files.
 
 ## help
 
@@ -81,42 +81,21 @@ build's engine has no tools.yml entry.
 
 `[pscustomobject]` with ShardIndex, Label, ScriptPath, ResultsPath, RowsPath, FilesPath.
 
-## comment:1
+## Entry script
 
-Above `$entryLine = if ($EntryScript) {`, written with `#`.
+The entry script is the one seam between the source run and the build run: it decides which script loads the modules. The source run, the
+default, uses the repository importer. The build run uses the build's `Import-Catzc.ps1` with its named arguments. The build run's entry
+also reaches the language bridge, so the Go and Python tests start the build too (New-PesterRunConfiguration).
 
-```text
-The one seam between the two runs: which entry script loads the modules. Source run (default) —
-the repository importer; build run — the build's Import-Catzc.ps1 with its named arguments.
-```
+## Language tools
 
-## comment:2
+The tools this source session located reach the language bridge as a hashtable literal, in language order. A build's engine cannot locate
+them itself.
 
-Above `$entryLiteral = "$EntryScript" -replace "'", "''"`, written with `#`.
+## Pester configuration
 
-```text
-The build run's entry also reaches the language bridge, so the Go and Python tests start the build
-(New-PesterRunConfiguration).
-```
-
-## comment:3
-
-Above `$languageEntries = foreach ($language in ($LanguageExecutable.Keys |...`, written with `#`.
-
-```text
-The tools this source session located reach the language bridge the same way, as a hashtable literal in
-language order: a build's engine cannot locate them.
-```
-
-## comment:4
-
-Above `$content = @"`, written with `#`.
-
-```text
-The Pester configuration itself comes from the ONE shared builder (New-PesterRunConfiguration) so this
-worker path and the manual single-check path (Invoke-TestFile) can never drift apart — the worker has
-the full toolset imported, so it reaches the private through module scope like ConvertTo-
-TestAutomationRowSet below. Only the strict-mode discipline stays inline: strict is scope-dynamic and
-the test scopes chain to the process's top scope, so the worker script itself must be the one to set
-it (tests run strict — [ADR-AUTO-TEST-FILEPARALLELISM](/docs/drs/automation/test-automation.md#rule-adr-auto-test-fileparallelism)).
-```
+The Pester configuration comes from the one shared builder, New-PesterRunConfiguration, so this worker path and the manual single-check path
+(Invoke-TestFile) cannot drift apart. The worker has the full toolset imported, so it reaches the private function through module scope.
+Only the strict-mode setting stays inline: strict mode is scope-dynamic and the test scopes chain to the process's top scope, so the worker
+script itself must set it, and tests run strict
+([ADR-AUTO-TEST-FILEPARALLELISM](../../../../drs/automation/test-automation.md#rule-adr-auto-test-fileparallelism)).
