@@ -41,7 +41,7 @@ function Build-Diagrams {
     if ($Stale) {
         Assert-True (-not $Path) -ErrorText 'Build-Diagrams: -Stale finds its diagrams itself; pass no -Path.'
         # The stale set is checked before it becomes -Path, whose ValidatePathGiven refuses an empty list on assignment too.
-        $stalePaths =@((Test-Diagrams -Kit $Kit -RepositoryRoot $root -PassThru).Facts['StaleDiagrams'])
+        $stalePaths = @((Test-Diagrams -Kit $Kit -RepositoryRoot $root -PassThru).Facts['StaleDiagrams'])
         if ($stalePaths.Count -eq 0) {
             Write-Message 'Build-Diagrams: no diagram carries a stale minimap.'
             return
@@ -53,7 +53,7 @@ function Build-Diagrams {
     $tracked = @(Get-GitTrackedPath '.')
     $candidates = @($tracked) + @(Get-GitChangedPath 'docs')
     # A diagram is the pair <article-folder>/.assets/<name>.drawio.png and .yml, named by its stem.
-    $found =@($candidates | Where-Object { $_ -cmatch '^docs/(.+/)?\.assets/[^/]+\.drawio\.(png|yml)$' } |
+    $found = @($candidates | Where-Object { $_ -cmatch '^docs/(.+/)?\.assets/[^/]+\.drawio\.(png|yml)$' } |
             Where-Object { $_.EndsWith('.png') -or (Test-Path -LiteralPath (Join-Path $root $_) -PathType Leaf) } |
             ForEach-Object { $_ -creplace '\.drawio\.(png|yml)$', '' } | Select-Object -Unique)
     # A diagram in the article carrier has no yml beside its png, and before its first put no png either: its block names it.
@@ -170,6 +170,7 @@ function Build-Diagrams {
                 continue
             }
             $run.ExitCode = $exits[$folderPath]
+            # The renderer's exits: 0 clean, 2 findings (errors) with every artifact delivered, 3 nothing to render; no row is a failure.
             $run.Status = switch ($run.ExitCode) {
                 0 {
                     'clean'

@@ -31,6 +31,7 @@ function Get-DiagramArticleStem {
         $text = [System.IO.File]::ReadAllText($full)
         $references = Get-DiagramImageReference -Text $text
         foreach ($match in [regex]::Matches($text, $pattern)) {
+            # An inline image names its png; a reference names it through its definition, and one naming no diagram is no stem.
             $name = if ($match.Groups[1].Success) {
                 $match.Groups[1].Value
             }

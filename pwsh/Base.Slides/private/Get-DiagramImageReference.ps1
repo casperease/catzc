@@ -15,6 +15,7 @@ function Get-DiagramImageReference {
         [string] $Text
     )
 
+    # A page's reference definitions that point at a diagram beside it: label, case-folded as markdown folds it, to the name.
     $references = @{}
     foreach ($definition in [regex]::Matches($Text,
             '(?m)^ {0,3}\[([^\]]+)\]:\s*(?:\./)?\.assets/([^/\s]+)\.drawio\.png\s*$')) {

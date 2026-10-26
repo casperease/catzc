@@ -47,6 +47,7 @@ function Get-DiagramCodeRows {
         }
         $id = ($relative.ToLowerInvariant() -replace '[^a-z0-9]+', '-').Trim('-')
         $ids["$point/$relative"] = $id
+        # The glyph's kind already says what the file is, so its label is the name without the extension, short enough for its box.
         $nodes.Add([ordered]@{ id = $id; label = [System.IO.Path]::GetFileNameWithoutExtension($relative); kind = $kind })
     }
     $edges = [System.Collections.Generic.List[object]]::new()

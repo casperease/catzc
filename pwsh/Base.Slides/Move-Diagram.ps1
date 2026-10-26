@@ -112,6 +112,7 @@ function Move-Diagram {
     $fromArticles = $from.Substring(0, [Math]::Max(0, $from.LastIndexOf('/'))) -replace '/?[^/]*$', ''
     $toArticles = $to.Substring(0, [Math]::Max(0, $to.LastIndexOf('/'))) -replace '/?[^/]*$', ''
     if ($articleCarried -and $fromArticles -cne $toArticles) {
+        # The block declares only from a page beside its .assets, so it moves to the one page there that embeds the png.
         $imageOf = {
             param([string] $Name, [string] $Text)
             $labels = @((Get-DiagramImageReference -Text $Text).GetEnumerator() | Where-Object { $_.Value -ceq $Name } |
@@ -171,6 +172,7 @@ function Move-Diagram {
         $placed = $target.Insert([regex]::Match($target, '(?m)^' + (& $imageOf $toName $target)).Index,
             $holders[0].Block)
         foreach ($change in @([pscustomobject]@{ Page = $holders[0].Page; Text = $stripped }, [pscustomobject]@{ Page = $targets[0].Page; Text = $placed })) {
+            # A page whose links were re-pointed already has an entry, which the block-moved text replaces; a page with none is added.
             $prior = $edits | Where-Object { $_.Page -ceq $change.Page } | Select-Object -First 1
             if ($null -ne $prior) {
                 $edits.Remove($prior) | Out-Null
@@ -178,6 +180,7 @@ function Move-Diagram {
             $edits.Add($change)
         }
     }
+    # A stem's role entry follows it, so drawio.yml keeps naming the diagram after the move; the kit's one editor re-keys it.
     $rekey = $false
     if ($null -ne $configText) {
         $config = ConvertFrom-Yaml -Yaml $configText -Ordered
@@ -219,6 +222,7 @@ function Move-Diagram {
             Assert-True $tool.Found -ErrorText 'Move-Diagram: uv is not installed (no managed uv found). Run Install-Uv.'
             Invoke-Executable "`"$($tool.Path)`" run --project `"$($kitCode.Folder)`" python -m $($kitCode.DeclarationModule()) rekey `"$from`" `"$to`" `"$kitConfig`"" -WorkingDirectory $root -Silent | Out-Null
         }
+        # A re-pointed link changes its line's length, so every rewritten page is formatted again.
         $pages = @(foreach ($edit in $edits) {
                 if ($edit.Page.EndsWith('.md', [System.StringComparison]::OrdinalIgnoreCase)) {
                     [System.IO.Path]::GetFullPath((Join-Path $root $edit.Page))

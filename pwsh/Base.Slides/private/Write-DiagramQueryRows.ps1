@@ -21,6 +21,7 @@ function Write-DiagramQueryRows {
         [string] $Path
     )
 
+    # A C3 or C4 slide stores its level and its point; its cells are the level's query for that point.
     $rows = [System.Collections.Generic.List[object]]::new()
     $seen = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
     foreach ($folderPath in $Stem) {

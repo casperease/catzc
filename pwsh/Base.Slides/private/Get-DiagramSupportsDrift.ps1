@@ -42,6 +42,7 @@ function Get-DiagramSupportsDrift {
     $cited = (Get-Config -Config drs).CodeForm.Cited
     foreach ($pagePath in $Page) {
         $text = [System.IO.File]::ReadAllText((Join-Path $RepositoryRoot $pagePath))
+        # A Supports line may wrap within its fence; its codes hold no parenthesis or backtick, so a match never leaves it.
         $lines = @([regex]::Matches($text, '(?m)^Supports ([^()`]+?) \((\w+) lens\)\.?[ \t]*\r?$'))
         if ($lines.Count -eq 0) {
             continue

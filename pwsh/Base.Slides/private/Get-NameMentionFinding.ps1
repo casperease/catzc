@@ -6,6 +6,7 @@ catzc:
 ---
 #>
 
+# The lines of a diagram declaration or a slide that name the system by its code name or its conversational name, as a word.
 function Get-NameMentionFinding {
     [CmdletBinding()]
     [OutputType([string[]])]

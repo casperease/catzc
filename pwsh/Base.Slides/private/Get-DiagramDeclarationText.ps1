@@ -22,6 +22,7 @@ function Get-DiagramDeclarationText {
     if ([System.IO.File]::Exists($source)) {
         return [System.IO.File]::ReadAllText($source)
     }
+    # The article carrier: the one yml drawio block, in a page beside the diagram's .assets, directly above the image of its png.
     $name = $Stem.Substring($Stem.LastIndexOf('/') + 1)
     $assets = $Stem.Substring(0, [Math]::Max(0, $Stem.LastIndexOf('/')))
     $pageFolder = Join-Path $RepositoryRoot $assets.Substring(0, [Math]::Max(0, $assets.LastIndexOf('/')))

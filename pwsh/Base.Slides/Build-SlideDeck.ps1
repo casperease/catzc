@@ -30,6 +30,7 @@ function Build-SlideDeck {
     $kitLoaded = Get-SlidesKit -Kit $Kit -RepositoryRoot $RepositoryRoot
     $kitLoaded.Config = $kitLoaded.Config.ForTheme($Theme)
     $deckName = Split-Path $deckFolder -Leaf
+    # Filled in here, not as a default: it is relative to -RepositoryRoot, declared after it, and to the kit config loaded above.
     if ([string]::IsNullOrWhiteSpace($OutputFolder)) {
         $themed = if ($Theme -ceq [Catzc.Base.Slides.SlidesConfig]::DefaultTheme) {
             $deckName
@@ -107,6 +108,7 @@ function Build-SlideDeck {
         if ($entry.Html) {
             [System.IO.File]::WriteAllText((Join-Path $slidesFolder "$($entry.Slide.Id).html"), $entry.Html + "`n",
                 $utf8)
+            # An image the slide shows sits beside its slide file, so it lands at the same relative path beside the slide's HTML.
             $slideRelative = [System.IO.Path]::GetRelativePath($RepositoryRoot, $entry.Slide.Path).Replace('\', '/')
             foreach ($match in [regex]::Matches($entry.Html, 'src="([^"]+)"')) {
                 $asset = $match.Groups[1].Value

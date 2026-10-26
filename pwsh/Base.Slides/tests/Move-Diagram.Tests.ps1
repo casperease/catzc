@@ -6,6 +6,7 @@ catzc:
 ---
 #>
 
+# A fixture repository is made and moved in with real git (init, mv, ls-files), so the launch is the point of the file: L2.
 Describe 'Move-Diagram' -Tag 'L2', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' {
     BeforeAll {
         $script:skip = if (Get-Command git -ErrorAction Ignore) {

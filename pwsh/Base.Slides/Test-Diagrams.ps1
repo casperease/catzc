@@ -33,6 +33,7 @@ function Test-Diagrams {
             ForEach-Object { $_ -creplace '\.drawio\.(png|yml)$', '' } |
             Select-Object -Unique |
             Where-Object { Test-Path -LiteralPath (Join-Path $root "$_.drawio.yml") -PathType Leaf })
+    # A legend diagram has no yml: drawio.yml names its stem under roles, and its png is checked against the painted glyph library.
     $kitConfigPath = $diagramKit.Config
     $kitConfig = if ([System.IO.File]::Exists($kitConfigPath)) {
         ConvertFrom-Yaml -Yaml ([System.IO.File]::ReadAllText($kitConfigPath)) -Ordered
@@ -42,6 +43,7 @@ function Test-Diagrams {
                 Where-Object { $kitConfig['roles'][$_] -ceq 'legend' -and (Test-Path -LiteralPath (Join-Path $root "$_.drawio.png") -PathType Leaf) }
         })
     $found = @($found) + @($legends | Where-Object { $found -cnotcontains $_ })
+    # An article-carried diagram's stem is a tracked png with no yml, or an image a yml drawio block sits above.
     $pngStems = @($candidates | Where-Object { $_ -cmatch '^docs/(.+/)?\.assets/[^/]+\.drawio\.png$' } |
             ForEach-Object { $_ -creplace '\.drawio\.png$', '' })
     $articleCarried = @(@($pngStems) + @(Get-DiagramArticleStem -RepositoryRoot $root -Candidate $candidates) | Select-Object -Unique)
@@ -79,6 +81,7 @@ function Test-Diagrams {
             }
         }
         $quoted = ($folders | ForEach-Object { "`"$_`"" }) -join ' '
+        # A C3 or C4 slide is checked against its query's rows, as Build-Diagrams rendered it.
         $rowsPath = Join-Path (Get-OutputRoot -EnsureExists) 'diagrams/query-rows.json'
         $null = Write-DiagramQueryRows -Stem $declared -RepositoryRoot $root -Path $rowsPath
         $result = Invoke-Executable "`"$($tool.Path)`" run --project `"$($diagramKit.Folder)`" python -m $($diagramKit.DeclarationModule()) --rows `"$rowsPath`" check $quoted" -WorkingDirectory $root -PassThru -NoAssert -Silent
@@ -100,6 +103,7 @@ function Test-Diagrams {
             }
         }
     }
+    # Over the whole tree, a yml drawio block declares only the png embedded directly below it; any other block is a finding.
     if (-not $Path) {
         $bound = '(?m)^```yml drawio[ \t]*\r?\n(?:(?!```)[^\r\n]*\r?\n)*```[ \t]*\r?\n(?:[ \t]*\r?\n)*!\[[^\]]*\](?:\((?:\./)?\.assets/[^/)\s]+\.drawio\.png\)|\[([^\]]+)\])'
         foreach ($page in @($candidates | Where-Object { $_ -like 'docs/*.md' } | Select-Object -Unique)) {
