@@ -167,7 +167,8 @@ kinds:
     definition: The README of a folder.
     files: ["**/README.md"]
 
-# The intended overlaps, [earlier, later]: the earlier kind takes most of the later kind's files on purpose, since the later one is the catch-all of its tree; a kind mostly shadowed by a pair not listed here fails Test-FileKindReachability.
+# The intended overlaps, [earlier, later]: the earlier kind takes most of the later kind's files on purpose, since the later one is the
+# catch-all of its tree; a kind mostly shadowed by a pair not listed here fails Test-FileKindReachability.
 overlaps:
   - [test, fixture]
   - [comment-page, fixture]

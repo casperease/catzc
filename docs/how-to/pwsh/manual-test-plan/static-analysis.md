@@ -1,3 +1,6 @@
+| 15 | L1 | [Test-FileLimits — the real tree][c15] | | 16 | L1 | [Test-TrackMemberCommitted — the real tree][c16] | | 17 | L1 |
+[Get-OutputRoot — no default reaches the output track][c17] |
+
 # Manual test plan — Static analysis
 
 PSScriptAnalyzer, the formatter, and the analyzer-to-ADR map. Part of the [manual test plan](../manual-test-plan.md), which says how to run
@@ -36,6 +39,9 @@ a check.
 [c12]: #12-the-shipped-format-engines-keyed-settings
 [c13]: #13-repository-python-type-integrity
 [c14]: #14-format-filemeta-on-the-repository
+[c15]: #15-test-filelimits--the-real-tree
+[c16]: #16-test-trackmembercommitted--the-real-tree
+[c17]: #17-get-outputroot--no-default-reaches-the-output-track
 
 ## Checks
 
@@ -152,3 +158,36 @@ tool registry again (ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS).
 **Checks:**
 
 - `Format-FileMeta -Path docs/drs/index.md -DryRun` counts 0 files and 0 changes, and leaves the page byte-for-byte unchanged.
+
+### 15. Test-FileLimits — the real tree
+
+**Test file:** `pwsh/Catzc.Base.FileLimits/tests/Test-FileLimits.Tests.ps1` (L1), block `Test-FileLimits — the real tree`.
+
+**Guards:** every tracked file in scope is within its length limit, and the gate runs inside its timeouts.yml roof.
+
+**Checks:**
+
+- `Test-FileLimits` reports 0 issues over every tracked file, inside the `Test-FileLimits` roof of `timeouts.yml`.
+
+### 16. Test-TrackMemberCommitted — the real tree
+
+**Test file:** `pwsh/Catzc.Base.QualityGates/tests/Test-TrackMemberCommitted.Tests.ps1` (L1), block
+`Test-TrackMemberCommitted — the real tree`.
+
+**Guards:** every declared track member is in step with the git index.
+
+**Checks:**
+
+- `Test-TrackMemberCommitted` finds every declared member in step with the git index.
+
+### 17. Get-OutputRoot — no default reaches the output track
+
+**Test file:** `pwsh/Catzc.Base.Repository/tests/Get-OutputRoot.OutputOnlyByAddress.Tests.ps1` (L1), block
+`Get-OutputRoot — no default reaches the output track`.
+
+**Guards:** no exported check command defaults a parameter into the output track.
+
+**Checks:**
+
+- A fixture command whose parameter default points into `out/` is flagged.
+- No exported `Test-*`, `Assert-*` or `Format-*` command has a parameter default that points into `out/`.

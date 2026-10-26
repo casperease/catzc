@@ -1,4 +1,5 @@
-# The settings Test-Plans holds the plans folder to ([ADR-REPO-PLANS](/docs/drs/repository/plans.md)); the defaults are declared once on PlansConfig.
+# The settings Test-Plans holds the plans folder to ([ADR-REPO-PLANS](/docs/drs/repository/plans.md)); the defaults are declared once on
+# PlansConfig.
 folder: .claude/plans
 statuses: [active, blocked]
 ranks: [highest, high, medium-high, medium, low-medium, low]

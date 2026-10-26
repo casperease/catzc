@@ -9,7 +9,7 @@ const { execFileSync } = require("child_process");
 const { folder } = require("./fixture.js");
 
 const extension = path.resolve(__dirname, "../extension.js").split(path.sep).join("/");
-const scenario = (name, withEngine = false) => {
+const scenario = (/** @type {string} */ name, withEngine = false) => {
     const root = folder(["code/a.ps1", "docs/x.md"]);
     if (withEngine) {
         const engine = path.join(root, "js/catzc-track-lamps");

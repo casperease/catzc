@@ -1,5 +1,6 @@
 # Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of New-PythonProject, the pyproject generator; Target
-# selects the verification modules it renders for, every one by default.
+# selects the verification modules it renders for, every one by default; LineLength is the ruff line length its caller passes.
 parameters:
+  line_length: int!
   target: string = *
 output: catzc.base.languages.python_workspace_file

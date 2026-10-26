@@ -87,9 +87,6 @@ Folder, file, and naming conventions, the repository path helpers, the git index
 [c36]: #36-validatepathgiven-on-the-whole-tree-commands
 [c37]: #37-get-filekind
 [c38]: #38-get-worldmaphighlight-on-the-working-tree
-[c39]: #39-test-filelimits--the-real-tree
-[c40]: #40-test-trackmembercommitted--the-real-tree
-[c41]: #41-get-outputroot--no-default-reaches-the-output-track
 
 ## Checks
 
@@ -391,36 +388,3 @@ before its body runs.
 - The zero-argument `Get-WorldMapHighlight` returns a `WorldMapHighlight` of kind `path` without error.
 
 **Prerequisite:** git.
-
-### 39. Test-FileLimits — the real tree
-
-**Test file:** `pwsh/Catzc.Base.FileLimits/tests/Test-FileLimits.Tests.ps1` (L1), block `Test-FileLimits — the real tree`.
-
-**Guards:** every tracked file in scope is within its length limit, and the gate runs inside its timeouts.yml roof.
-
-**Checks:**
-
-- `Test-FileLimits` reports 0 issues over every tracked file, inside the `Test-FileLimits` roof of `timeouts.yml`.
-
-### 40. Test-TrackMemberCommitted — the real tree
-
-**Test file:** `pwsh/Catzc.Base.QualityGates/tests/Test-TrackMemberCommitted.Tests.ps1` (L1), block
-`Test-TrackMemberCommitted — the real tree`.
-
-**Guards:** every declared track member is in step with the git index.
-
-**Checks:**
-
-- `Test-TrackMemberCommitted` finds every declared member in step with the git index.
-
-### 41. Get-OutputRoot — no default reaches the output track
-
-**Test file:** `pwsh/Catzc.Base.Repository/tests/Get-OutputRoot.OutputOnlyByAddress.Tests.ps1` (L1), block
-`Get-OutputRoot — no default reaches the output track`.
-
-**Guards:** no exported check command defaults a parameter into the output track.
-
-**Checks:**
-
-- A fixture command whose parameter default points into `out/` is flagged.
-- No exported `Test-*`, `Assert-*` or `Format-*` command has a parameter default that points into `out/`.

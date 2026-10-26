@@ -7,10 +7,10 @@ const path = require("path");
 const { engine, set, folder } = require("./fixture.js");
 
 const repository = "/widget-repo";
-const uri = (place) => ({ fsPath: `${repository}/${place}` });
+const uri = (/** @type {string} */ place) => ({ fsPath: `${repository}/${place}` });
 
 test("reads the change facts from the git extension's state: staged for the index, unstaged for the rest, unstaged winning", () => {
-    const change = (place) => ({ uri: uri(place) });
+    const change = (/** @type {string} */ place) => ({ uri: uri(place) });
     const facts = engine.gitFacts(repository, {
         indexChanges: [change("mods/Widget/Get-Widget.ps1"), change("mods/Widget/README.md")],
         workingTreeChanges: [change("mods/Widget/README.md")],

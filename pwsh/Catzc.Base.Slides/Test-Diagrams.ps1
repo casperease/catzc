@@ -71,8 +71,6 @@ function Test-Diagrams {
             }
         }
         $quoted = ($folders | ForEach-Object { "`"$_`"" }) -join ' '
-        # A C3 or C4 slide is checked against its query's rows, as Build-Diagrams rendered it
-        # ([DDR-VISUAL-ZOOMISANAXIS](/docs/drs/design/visual-design.md#rule-ddr-visual-zoomisanaxis)).
         $rowsPath = Join-Path (Get-OutputRoot -EnsureExists) 'diagrams/query-rows.json'
         $null = Write-DiagramQueryRows -Stem $declared -RepositoryRoot $root -Path $rowsPath
         $result = Invoke-Executable "`"$($tool.Path)`" run --project `"$($diagramKit.Folder)`" python `"$declaration`" --rows `"$rowsPath`" check $quoted" -WorkingDirectory $root -PassThru -NoAssert -Silent

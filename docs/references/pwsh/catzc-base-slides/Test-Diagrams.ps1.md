@@ -86,3 +86,12 @@ Above `$pngStems = @($candidates | Where-Object { $_ -cmatch...`, written with `
 A diagram in the article carrier has no yml beside its png: its stem is a tracked png with no yml, or an image a `yml drawio` block sits
 above, and the kit's check reads that block, failing a diagram with no block or two.
 ```
+
+## comment:4
+
+Above `$rowsPath = Join-Path (Get-OutputRoot -EnsureExists) 'diagrams/query-rows.json'`, written with `#`.
+
+```text
+A C3 or C4 slide is checked against its query's rows, as Build-Diagrams rendered it
+([DDR-VISUAL-ZOOMISANAXIS](/docs/drs/design/visual-design.md#rule-ddr-visual-zoomisanaxis)).
+```

@@ -192,7 +192,7 @@ resource names and its CAF tags as values, so the takeaways below point at those
 
 ```text
 CAF naming and tagging — Define your naming convention — recommendation 1 (Understand resource names in Azure: name permanence)
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/resource-naming (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/resource-naming (retrieved 2026-10-15)
 Summary (ours): Most resource names cannot be changed once the resource exists, so a name should carry only facts that stay true for the
   resource's life, and everything else belongs in tags.
 ```
@@ -230,7 +230,7 @@ Realised — names carry only stable components, and every changeable fact is a 
 
 ```text
 CAF naming and tagging — Define your naming convention — recommendation 2 (Understand resource names in Azure: naming rules)
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/resource-naming (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/resource-naming (retrieved 2026-10-15)
 Summary (ours): Every resource type has its own rules: where its name must be unique, how long it may be, and which characters it may
   use.
 ```
@@ -272,7 +272,7 @@ planned (follow-up).
 
 ```text
 CAF naming and tagging — Define your naming convention — recommendation 3 (Understand resource names in Azure: name scope)
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/resource-naming (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/resource-naming (retrieved 2026-10-15)
 Summary (ours): A name is unique either globally (services with a public DNS name), within its resource group (a virtual network), or
   within its parent resource (a subnet in its virtual network).
 ```
@@ -307,7 +307,7 @@ Realised — deterministic names cover every uniqueness rule the templates meet.
 
 ```text
 CAF naming and tagging — Define your naming convention — recommendation 4 (Choose naming components)
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/resource-naming (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/resource-naming (retrieved 2026-10-15)
 Summary (ours): Typical components are the resource-type abbreviation, the workload or application, the environment, the region, and an
   instance number.
 ```
@@ -367,7 +367,7 @@ Realised — with a deliberately different component set.
 
 ```text
 CAF naming and tagging — Define your naming convention — recommendation 5 (Develop your naming convention: component order)
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/resource-naming (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/resource-naming (retrieved 2026-10-15)
 Summary (ours): Decide once in which order the components appear, and keep to it.
 ```
 
@@ -399,7 +399,7 @@ Realised — one fixed order, chosen for environment-first sorting over CAF's ty
 
 ```text
 CAF naming and tagging — Define your naming convention — recommendation 6 (Develop your naming convention: delimiter)
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/resource-naming (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/resource-naming (retrieved 2026-10-15)
 Summary (ours): Hyphens make names easier to read, but some types forbid them; choose between readability (the common choice) and one
   form for every type (no delimiter).
 ```
@@ -432,8 +432,8 @@ Realised — readability where the type allows it, concatenation where it does n
 ```text
 CAF naming and tagging — Define your naming convention — recommendation 7 (Develop your naming convention: abbreviations), with the
   abbreviation table of Abbreviation recommendations for Azure resources
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/resource-naming and
-  https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/resource-abbreviations (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/resource-naming and
+  learn /azure/cloud-adoption-framework/ready/azure-best-practices/resource-abbreviations (retrieved 2026-10-15)
 Summary (ours): Use CAF's resource-type abbreviations to keep names within their length limits. The abbreviation page lists one per
   resource type, by category, with its provider namespace.
 ```
@@ -532,7 +532,7 @@ Realised — every listed type uses CAF's token, and the two unlisted ones have 
 
 ```text
 CAF naming and tagging — Define your naming convention — recommendation 8 (Develop your naming convention: Azure Naming Tool)
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/resource-naming (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/resource-naming (retrieved 2026-10-15)
 Summary (ours): Microsoft's Azure Naming Tool generates names from a convention you configure in it.
 ```
 
@@ -550,7 +550,7 @@ Not adopted — the in-repository namer is the one generator.
 
 ```text
 CAF naming and tagging — Define your naming convention — recommendation 9 (Note on personal and confidential information)
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/resource-naming (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/resource-naming (retrieved 2026-10-15)
 Summary (ours): Azure does not treat names and tags as customer data, so neither may hold personal, sensitive, or confidential
   information.
 ```
@@ -583,7 +583,7 @@ Realised — names are built from validated codes only.
 
 ```text
 CAF naming and tagging — Define your naming convention — recommendation 10 (Example Azure resource names)
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/resource-naming (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/resource-naming (retrieved 2026-10-15)
 Summary (ours): Example patterns for common types: a resource group by workload and environment, a virtual network and a subnet by
   subscription purpose, region, and number, a network security group by policy or application, a route table by its purpose, a SQL
   database by workload and environment, a storage account by workload and number without hyphens; management groups by GUID with an
@@ -634,7 +634,7 @@ Realised — with deliberate differences: type last, no instance counter, and su
 
 ```text
 CAF naming and tagging — Define your tagging strategy — recommendation 11 (Define your tagging requirements)
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/resource-tagging (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/resource-tagging (retrieved 2026-10-15)
 Summary (ours): Before tagging, line up with the existing naming and governance standards, decide whether cost must be split below the
   subscription (tag inheritance can help), list the operational and compliance facts the tags must carry, and decide which tags are
   mandatory and centrally enforced and which are optional.
@@ -674,7 +674,7 @@ Partly realised — the keys and the mandatory one are decided; a tag schema dec
 
 ```text
 CAF naming and tagging — Define your tagging strategy — recommendation 12 (Implement consistent tagging: enforce with Azure Policy)
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/resource-tagging (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/resource-tagging (retrieved 2026-10-15)
 Summary (ours): Enforce one tagging schema everywhere with Azure Policy, using resource selectors such as the resource location for rules
   that apply only in some regions.
 ```
@@ -712,7 +712,7 @@ Partly realised — one key is enforced; requiring the other keys and their allo
 
 ```text
 CAF naming and tagging — Define your tagging strategy — recommendation 13 (Implement consistent tagging: no sensitive values)
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/resource-tagging (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/resource-tagging (retrieved 2026-10-15)
 Summary (ours): Tags are plain text that shows up in cost reports, the APIs, deployment history, exports, and logs, so no secret or
   personal value belongs in one.
 ```
@@ -744,7 +744,7 @@ Partly realised — the CAF tags carry no sensitive value; what the `branch` pro
 
 ```text
 CAF naming and tagging — Define your tagging strategy — recommendation 14 (Implement consistent tagging: case sensitivity)
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/resource-tagging (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/resource-tagging (retrieved 2026-10-15)
 Summary (ours): Tag keys are case-insensitive but values are case-sensitive, so use lowercase keys and one casing for values, or reports
   split one value into several.
 ```
@@ -778,7 +778,7 @@ Partly realised — the CAF tags are lowercase; a casing check with the tag sche
 
 ```text
 CAF naming and tagging — Define your tagging strategy — recommendation 15 (Implement consistent tagging: region tags)
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/resource-tagging (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/resource-tagging (retrieved 2026-10-15)
 Summary (ours): Add a tag naming the region, for reporting and compliance across regions.
 ```
 
@@ -810,7 +810,7 @@ Not adopted, because the region is a name component and a policy-held fact of ea
 
 ```text
 CAF naming and tagging — Define your tagging strategy — recommendation 16 (Implement consistent tagging: services that support tags)
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/resource-tagging (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/resource-tagging (retrieved 2026-10-15)
 Summary (ours): Not every resource type takes tags; check Microsoft's support list.
 ```
 
@@ -842,7 +842,7 @@ Realised — tags go to every type the templates deploy that takes them.
 
 ```text
 CAF naming and tagging — Define your tagging strategy — recommendation 17 (Use foundational tagging categories: functional)
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/resource-tagging (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/resource-tagging (retrieved 2026-10-15)
 Summary (ours): Functional tags describe a resource's technical role: its application, tier, environment, and region, for example an app,
   tier, environment, region, or repository tag.
 ```
@@ -876,7 +876,7 @@ Realised — `workload` and `environment`; tier and repository tags are not adop
 
 ```text
 CAF naming and tagging — Define your tagging strategy — recommendation 18 (Use foundational tagging categories: classification)
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/resource-tagging (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/resource-tagging (retrieved 2026-10-15)
 Summary (ours): Classification tags record sensitivity, compliance, and service level, for example criticality, confidentiality, and SLA
   tags.
 ```
@@ -909,7 +909,7 @@ Realised — criticality and data classification; a service-level tag is not ado
 
 ```text
 CAF naming and tagging — Define your tagging strategy — recommendation 19 (Use foundational tagging categories: accounting)
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/resource-tagging (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/resource-tagging (retrieved 2026-10-15)
 Summary (ours): Accounting tags attribute cost to organisational units and projects for chargeback, showback, budgets, and alerts, for
   example department, program, business centre, budget, and cost centre tags.
 ```
@@ -942,7 +942,7 @@ Realised — one cost-centre tag, required by policy.
 
 ```text
 CAF naming and tagging — Define your tagging strategy — recommendation 20 (Use foundational tagging categories: purpose)
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/resource-tagging (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/resource-tagging (retrieved 2026-10-15)
 Summary (ours): Purpose tags link a resource to the business process it serves and its business and revenue impact.
 ```
 
@@ -972,7 +972,7 @@ Not adopted, because the examples serve no business process.
 
 ```text
 CAF naming and tagging — Define your tagging strategy — recommendation 21 (Use foundational tagging categories: ownership)
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/resource-tagging (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/resource-tagging (retrieved 2026-10-15)
 Summary (ours): Ownership tags name the business unit and the operations team responsible for a resource.
 ```
 
@@ -1007,7 +1007,7 @@ Partly realised — `owner` is on every resource; the CAF tags on the resource g
 
 ```text
 CAF naming and tagging — Define your tagging strategy — recommendation 22 (Use tags to support Microsoft assessments)
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/resource-tagging (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/resource-tagging (retrieved 2026-10-15)
 Summary (ours): Tag workloads so that Microsoft's assessment tooling can find them, following its guidance on labelling mission-critical
   workloads.
 ```

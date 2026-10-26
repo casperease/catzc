@@ -25,6 +25,13 @@ Describe 'FileLimitsConfig' -Tag 'L0', 'logic' {
         { [Catzc.Base.FileLimits.FileLimitsConfig]::new(@{ function_body_length = 0 }) } | Should -Throw '*function_body_length*positive whole number*'
     }
 
+    It 'declares the string overflow once as exempt, takes breach, and rejects any other value' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
+        [Catzc.Base.FileLimits.FileLimitsConfig]::DefaultStringOverflow | Should -Be 'exempt'
+        ([Catzc.Base.FileLimits.FileLimitsConfig]::new(@{})).string_overflow | Should -Be 'exempt'
+        ([Catzc.Base.FileLimits.FileLimitsConfig]::new(@{ string_overflow = 'breach' })).string_overflow | Should -Be 'breach'
+        { [Catzc.Base.FileLimits.FileLimitsConfig]::new(@{ string_overflow = 'ignore' }) } | Should -Throw "*string_overflow 'ignore' must be one of exempt, breach*"
+    }
+
     It 'keeps the shipped value of a class key it is not given' {
         $config = [Catzc.Base.FileLimits.FileLimitsConfig]::new(@{ defaults = @{ code = @{ width = 100 } } })
         $config.defaults['code'].width | Should -Be 100

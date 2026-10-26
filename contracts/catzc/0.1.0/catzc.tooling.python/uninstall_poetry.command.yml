@@ -1,1 +1,2 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Uninstall-Poetry, which uninstalls Poetry; it takes no parameters.
+# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Uninstall-Poetry, which uninstalls Poetry; it
+# takes no parameters.

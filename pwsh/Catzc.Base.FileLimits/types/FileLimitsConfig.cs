@@ -31,10 +31,14 @@ public sealed class FileLimitsConfig
 
     private static readonly string[] AllowedKeys =
     {
-        "bounds", "classes", "defaults", "exempt", "extensions", "function_body_length", "languages", "width_mode",
+        "bounds", "classes", "defaults", "exempt", "extensions", "function_body_length", "languages", "string_overflow", "width_mode",
     };
     private static readonly string[] WidthModes = { "report", "fail" };
     public const string DefaultWidthMode = "report";
+
+    // Whether a line whose part past the width lies wholly inside one string literal breaches (breach) or passes (exempt).
+    private static readonly string[] StringOverflowModes = { "exempt", "breach" };
+    public const string DefaultStringOverflow = "exempt";
 
     private static readonly Dictionary<string, string> DefaultExtensions = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
     {
@@ -96,6 +100,7 @@ public sealed class FileLimitsConfig
     public IReadOnlyDictionary<string, string> width_mode { get; }
     public IReadOnlyDictionary<string, string> exempt { get; }
     public int function_body_length { get; } = DefaultFunctionBodyLength;
+    public string string_overflow { get; } = DefaultStringOverflow;
 
     public FileLimitsConfig(IDictionary raw)
     {
@@ -103,6 +108,18 @@ public sealed class FileLimitsConfig
         if (raw != null)
         {
             function_body_length = ReadWhole(raw, "function_body_length", "file-limits", errors) ?? DefaultFunctionBodyLength;
+            if (raw.Contains("string_overflow") && raw["string_overflow"] != null)
+            {
+                string overflow = raw["string_overflow"] as string;
+                if (overflow == null || Array.IndexOf(StringOverflowModes, overflow) < 0)
+                {
+                    errors.Add(string.Format(CultureInfo.InvariantCulture, "string_overflow '{0}' must be one of {1}", raw["string_overflow"], string.Join(", ", StringOverflowModes)));
+                }
+                else
+                {
+                    string_overflow = overflow;
+                }
+            }
         }
         int lengthMin = DefaultLengthMin, lengthMax = DefaultLengthMax, widthMin = DefaultWidthMin, widthMax = DefaultWidthMax;
         Dictionary<string, FileLimit> defaultsValue = new Dictionary<string, FileLimit>(DefaultLimits, StringComparer.Ordinal);

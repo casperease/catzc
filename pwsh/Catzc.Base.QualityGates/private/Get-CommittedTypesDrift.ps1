@@ -19,8 +19,6 @@ function Get-CommittedTypesDrift {
     $compiled = "$modulesFolder/.compiled"
     $currentHash = (Get-CombinedTypeHash (Join-Path $RepositoryRoot $modulesFolder)).CombinedHash
 
-    # Git keeps only the manifest; the DLL is a per-machine build in the shadow root
-    # ([ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD](/docs/drs/automation/caching.md#rule-adr-auto-cache-compiledtypeprebuild)).
     $compiledRoot = Join-Path $RepositoryRoot $compiled
     $reasons = [System.Collections.Generic.List[string]]::new()
     $expectedManifest = "Catzc.Types.$currentHash.json"

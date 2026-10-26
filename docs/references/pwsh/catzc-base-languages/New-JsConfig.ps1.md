@@ -11,3 +11,12 @@ Above `$config = if ($Target -eq 'jsconfig.strict.json') {`, written with `#`.
 The strict project extends the lenient one and checks only the raised modules; the lenient one leaves them out, so each file is
 checked once, in its module's mode (tsc has no per-folder strict).
 ```
+
+## comment:2
+
+Above `module           = 'node16'`, written with `#`.
+
+```text
+node16 is node's own resolution: a .js file outside a "type": "module" package is CommonJS, so require resolves as node
+does, and no deprecated resolution mode is implied.
+```

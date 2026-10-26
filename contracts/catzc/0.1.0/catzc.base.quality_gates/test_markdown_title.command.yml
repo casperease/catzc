@@ -1,5 +1,5 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Test-MarkdownTitle, the quality gate that fails on any
-# in-scope Markdown file whose title or headings are not in normal form, and returns its result under -PassThru.
+# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Test-MarkdownTitle, the quality gate that fails on
+# any in-scope Markdown file whose title or headings are not in normal form, and returns its result under -PassThru.
 parameters:
   path: string[]
   repository_root: string

@@ -1,6 +1,6 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Start-ClaudeDrone, which opens Count new Claude Code
-# drone sessions in terminals of their own, in the repository root. Agent and Launcher default to the claude-drone config; Model is passed
-# only when given; DryRun starts nothing and returns each launch's command line, PassThru returns each command line after it started.
+# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Start-ClaudeDrone, which opens Count new Claude
+# Code drone sessions in terminals of their own, in the repository root. Agent and Launcher default to the claude-drone config; Model is
+# passed only when given; DryRun starts nothing and returns each launch's command line, PassThru returns each command line after it started.
 parameters:
   agent: string
   model: string

@@ -133,7 +133,11 @@ final full run last.
     catzc-5c then lands the drafts in `out/catzc-5c-drones/` (the four drone files, `catzc-core` and their registry entries). Check:
     `Test-AgentDefinitions` reports no issues after the drafts land.
 
-26. The final full run, in a fresh session, when the chunks in plan-master have landed. Once it is green and committed, the work is done and
+26. plan-file-limits (prose widths): `docs/references/pwsh/index.md`'s module table is now a list (catzc-5c, 2026-10-26), so edit
+    `docs/references/pwsh/CLAUDE.md` line 136 to read "2. Add an item to the list in `index.md` (module name, one-line summary), keeping the
+    foundation-first order." Check: `grep -n "Add an item to the list" docs/references/pwsh/CLAUDE.md` finds line 136.
+
+27. The final full run, in a fresh session, when the chunks in plan-master have landed. Once it is green and committed, the work is done and
     every plan, task and prompt in `.claude/plans` is deleted (the user, 2026-10-20). Check: `.claude/plans` is empty.
 
 ## Report

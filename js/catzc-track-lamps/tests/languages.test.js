@@ -11,6 +11,7 @@ const languages = {
     markdown: { tag: "md", extensions: [".md"] },
     widget: { tag: "wdg", extensions: [".wdg"] },
 };
+/** @type {(names: string[]) => import("../language.js").LampSets} */
 const withLanguages = (names) => ({ ...filters, ...languageSets(languages, names) });
 
 test("makes a lamp of each ticked language only, after the filters in the languages' order, one include per extension", () => {
@@ -25,7 +26,7 @@ test("shows a language's files while its lamp is lit, hides only what no lit lam
     const sets = withLanguages(["powershell"]);
     const files = ["mods/Widget/Get-Widget.ps1", "gadgets/a.ps1", "docs/x.md"];
     const every = new Set(Object.keys(sets));
-    const lit = (...off) => new Set([...every].filter((name) => !off.includes(name)));
+    const lit = (/** @type {string[]} */ ...off) => new Set([...every].filter((name) => !off.includes(name)));
     assert.deepStrictEqual(engine.evaluate(sets, lit(), files).shown, files, "every lamp lit shows everything");
     assert.deepStrictEqual(engine.evaluate(sets, lit("lang-powershell", "tools"), files).shown, [
         "mods/Widget/Get-Widget.ps1",

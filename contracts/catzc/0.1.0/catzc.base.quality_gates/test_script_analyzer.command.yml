@@ -1,5 +1,5 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Test-ScriptAnalyzer, the quality gate that analyzes the
-# PowerShell with PSScriptAnalyzer, and returns its result under -PassThru.
+# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Test-ScriptAnalyzer, the quality gate that
+# analyzes the PowerShell with PSScriptAnalyzer, and returns its result under -PassThru.
 parameters:
   path: string[]
   output_folder: string

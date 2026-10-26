@@ -76,8 +76,6 @@ function Test-ManualTestPlan {
     if ($categoryFiles.Count -gt $maxCategories) {
         $issues.Add("${planRelative}/: $($categoryFiles.Count) category files, at most $maxCategories — merge categories")
     }
-    # One check per "### N." section: its heading and its "**Test file:**" paragraph, which names the test file and the block; the formatter
-    # wraps a long paragraph, so it runs to the next blank line.
     $checks = [System.Collections.Generic.List[string]]::new()
     foreach ($categoryFile in $categoryFiles) {
         $categoryRelative = $categoryFile.Substring($repositoryRoot.Length + 1) -replace '\\', '/'
@@ -106,7 +104,12 @@ function Test-ManualTestPlan {
                     $issues.Add("${categoryRelative}: section '$heading' has no **Test file:** line naming its test file and block")
                 }
             }
-            $heading = if ($line -match '^### \d+\. ') { $line } else { $null }
+            $heading = if ($line -match '^### \d+\. ') {
+                $line
+            }
+            else {
+                $null
+            }
             $fileLine = $null
         }
     }

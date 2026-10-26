@@ -44,7 +44,8 @@
 .PARAMETER Stage
     Stages these repository-relative files instead of swapping: each is copied into the staged folder with a <path>.burst-base beside it,
     the SHA-256 the target has now. A later swap refuses, before touching anything, a staged file whose target no longer has that hash, so a
-    stale whole-file copy never overwrites a peer's edit; a staged file with no base, such as a new one, is swapped as before.
+    stale whole-file copy never overwrites a peer's edit; a staged file with no base, such as a new one, is swapped as before. Several
+    paths go as an array, as one comma-joined string, or as further arguments, so `pwsh -File … -Stage a.ps1,b.ps1` stages both.
 #>
 
 # The help stays in this file, not on a comment page: the script imports nothing, since it swaps the files an import reads, so the page
@@ -77,6 +78,8 @@ Set-StrictMode -Version Latest
 
 $baseSuffix = '.burst-base'
 if ($Stage) {
+    # Through pwsh -File a list arrives as one comma-joined string, or its later paths land among the commands, which staging never runs.
+    $Stage = @(@($Stage) + @($Command) | ForEach-Object { $_ -split ',' } | ForEach-Object { $_.Trim() } | Where-Object { $_ })
     $stageRoot = [System.IO.Path]::GetFullPath($RepositoryRoot)
     $stageFolder = if ([System.IO.Path]::IsPathRooted($StagedFolder)) {
         [System.IO.Path]::GetFullPath($StagedFolder)

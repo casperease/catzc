@@ -30,7 +30,7 @@ test("turns the open lamp red only while a red file is open, and back to the ope
     const other = "gadgets/a.ps1";
     // The red file's fault stays a fact after its tab closes (it is remembered), so only the open set decides the open lamp.
     const facts = { [red]: { fault: "failed" }, [other]: { change: "unstaged" } };
-    const condition = (open) => engine.evaluate(engine.lampSets(filters, open), new Set(["open"]), [], facts).conditions.open;
+    const condition = (/** @type {string[]} */ open) => engine.evaluate(engine.lampSets(filters, open), new Set(["open"]), [], facts).conditions.open;
     assert.strictEqual(condition([red, other]), "failed", "a red file is open");
     assert.strictEqual(condition([other]), "unstaged", "the red file is closed, so the open lamp shows the open file's own colour");
     assert.strictEqual(condition([]), "empty", "with every document closed the open lamp claims nothing");
@@ -38,7 +38,7 @@ test("turns the open lamp red only while a red file is open, and back to the ope
 
 test("reads the open lamp's files from the editor's tabs: a text tab's file and a diff tab's modified side, none outside the root", () => {
     const root = "/widget-repo";
-    const uri = (fsPath, scheme = "file") => ({ scheme, fsPath });
+    const uri = (/** @type {string} */ fsPath, scheme = "file") => ({ scheme, fsPath });
     const groups = [
         { tabs: [{ input: { uri: uri(`${root}/mods/Widget/Get-Widget.ps1`) } }, { input: { modified: uri(`${root}/gadgets/a.ps1`), original: uri(`${root}/gadgets/a.ps1`, "git") } }] },
         { tabs: [{ input: { uri: uri(`${root}/mods/Widget/Get-Widget.ps1`) } }, { input: { uri: uri("untitled-1", "untitled") } }, { input: null }] },

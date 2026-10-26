@@ -29,3 +29,12 @@ The repository whose pwsh/.compiled is checked.
 ```powershell
 Get-CommittedTypesDrift -RepositoryRoot (Get-RepositoryRoot)
 ```
+
+## comment:1
+
+Above `$compiledRoot = Join-Path $RepositoryRoot $compiled`, written with `#`.
+
+```text
+Git keeps only the manifest; the DLL is a per-machine build in the shadow root
+([ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD](/docs/drs/automation/caching.md#rule-adr-auto-cache-compiledtypeprebuild)).
+```

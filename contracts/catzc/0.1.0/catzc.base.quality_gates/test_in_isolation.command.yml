@@ -1,5 +1,5 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Test-InIsolation, which copies a module profile or named
-# modules into a sandbox, runs their tests there and returns the run's result under -PassThru.
+# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Test-InIsolation, which copies a module profile or
+# named modules into a sandbox, runs their tests there and returns the run's result under -PassThru.
 parameters:
   module_profile: string = minimal in module_profile
   modules: string[]! in modules

@@ -108,8 +108,6 @@ function Move-Diagram {
     $fromArticles = $from.Substring(0, [Math]::Max(0, $from.LastIndexOf('/'))) -replace '/?[^/]*$', ''
     $toArticles = $to.Substring(0, [Math]::Max(0, $to.LastIndexOf('/'))) -replace '/?[^/]*$', ''
     if ($articleCarried -and $fromArticles -cne $toArticles) {
-        # The block declares the png below it only from a page beside its .assets, so it moves to the one page there that embeds the png.
-        # An image of the png is inline, or a reference whose definition on the same page names it.
         $imageOf = {
             param([string] $Name, [string] $Text)
             $labels = @((Get-DiagramImageReference -Text $Text).GetEnumerator() | Where-Object { $_.Value -ceq $Name } | ForEach-Object { [regex]::Escape($_.Key) })

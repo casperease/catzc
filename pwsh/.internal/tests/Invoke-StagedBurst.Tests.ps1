@@ -86,6 +86,21 @@ function Test-Broken { throw 'broken gadget' }
             [System.IO.File]::Exists((Join-Path $script:staged 'widgets/gadget.txt.burst-base')) | Should -BeTrue
         }
 
+        It 'stages every path of a list, whether passed as an array, one comma-joined string, or further arguments' {
+            [System.IO.File]::WriteAllText((Join-Path $script:root 'widgets/sprocket.txt'), 'sprocket')
+            Remove-Item -LiteralPath (Join-Path $script:staged 'widgets') -Recurse
+            $null = & $script:burst -StagedFolder 'out/widget/staged' -RepositoryRoot $script:root -Stage 'widgets/gadget.txt', 'widgets/cog.txt'
+            $null = & $script:burst -StagedFolder 'out/widget/staged' -RepositoryRoot $script:root -Stage 'widgets/sprocket.txt,widgets/cog.txt'
+            foreach ($name in 'gadget', 'cog', 'sprocket') {
+                [System.IO.File]::Exists((Join-Path $script:staged "widgets/$name.txt.burst-base")) | Should -BeTrue -Because $name
+            }
+            Remove-Item -LiteralPath (Join-Path $script:staged 'widgets') -Recurse
+            $null = & pwsh -NoProfile -File $script:burst -StagedFolder 'out/widget/staged' -RepositoryRoot $script:root -Stage 'widgets/gadget.txt' 'widgets/cog.txt'
+            foreach ($name in 'gadget', 'cog') {
+                [System.IO.File]::Exists((Join-Path $script:staged "widgets/$name.txt.burst-base")) | Should -BeTrue -Because "$name through pwsh -File"
+            }
+        }
+
         It 'applies a staged copy whose target has not changed since it was staged' {
             $null = @(& $script:burst -StagedFolder 'out/widget/staged' -RepositoryRoot $script:root -Importer $script:importer -LockName $script:lockName -LockSeconds 1 -Seconds 30 'Test-Swapped')
             $LASTEXITCODE | Should -Be 0

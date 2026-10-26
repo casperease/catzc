@@ -61,6 +61,10 @@ steps:
       - pwsh/Catzc.Base.QualityGates/configs/file-meta.yml
       - pwsh/Catzc.Base.Languages/configs/file-carriers.yml
       - pwsh/Catzc.Base.Languages/configs/languages.yml
+  # The step breaks a PowerShell line past its width only where the syntax allows, each rewrite proven token for token.
+  wrap-powershell:
+    settings:
+      - pwsh/Catzc.Base.FileLimits/configs/file-limits.yml
   # The step counts the plan overlays state, rewritten from each plan's open steps.
   plan-counts:
     settings:
@@ -92,7 +96,7 @@ languages:
     formatter: psscriptanalyzer
     adr_folder: automation/pwsh
     checks: [Test-ScriptAnalyzer, Test-Formatting, Test-Spelling, Test-Links, Test-LinkDirections, Test-Comments]
-    imprint: [ps-help]
+    imprint: [ps-help, wrap-powershell]
     layout:
       - { folder: ".", role: public-function, extensions: [.ps1], shipped: false }
       - { folder: ".", role: manifest, extensions: [.psd1], live: false, shipped: false }

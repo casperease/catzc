@@ -84,7 +84,8 @@ groups:
         Catzc.Base.Asserts,
         Catzc.Base.Folders,
       ]
-    Catzc.Base.Vendor: [Catzc.Base.Config, Catzc.Base.Objects, Catzc.Base.Writers, Catzc.Base.Repository, Catzc.Base.Folders, Catzc.Base.Variants]
+    Catzc.Base.Vendor:
+      [Catzc.Base.Config, Catzc.Base.Objects, Catzc.Base.Writers, Catzc.Base.Repository, Catzc.Base.Folders, Catzc.Base.Variants]
     Catzc.Base.Timeouts:
       [Catzc.Base.Engines, Catzc.Base.Config, Catzc.Base.Objects, Catzc.Base.Writers, Catzc.Base.Repository, Catzc.Base.Asserts]
     Catzc.Base.Execution:
@@ -229,6 +230,7 @@ groups:
       ]
     Catzc.Base.QualityGates:
       [
+        Catzc.Base.FileLimits,
         Catzc.Base.GeneratedFiles,
         Catzc.Base.Drs,
         Catzc.Base.Contracts,

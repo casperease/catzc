@@ -1,5 +1,5 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Test-DrsRegistry, the quality gate that checks the ADR
-# registry and the ADR rule files agree and returns its result, with each configured check's findings, under -PassThru.
+# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Test-DrsRegistry, the quality gate that checks the
+# ADR registry and the ADR rule files agree and returns its result, with each configured check's findings, under -PassThru.
 parameters:
   output_folder: string
   pass_thru: switch

@@ -78,6 +78,29 @@ function Invoke-ImprintStep {
                 }
             }
         }
+        'wrap-powershell' {
+            if ($File.Count -eq 0) {
+                return $outcome
+            }
+            # The width is the code width the file limits resolve for PowerShell; a break the proof refuses leaves its file as it is.
+            $width = (Get-Config -Config file-limits).Resolve('powershell').width
+            $outcome.Changed = [string[]] @(foreach ($path in $File) {
+                    if (-not [System.IO.File]::Exists($path)) {
+                        continue
+                    }
+                    $text = [System.IO.File]::ReadAllText($path)
+                    $result = Format-PowerShellWidth -Text $text -Width $width
+                    if ($result.Refused -and $result.Refused -ne 'the file does not parse') {
+                        $outcome.Unfixable[$path] = "a line past $width columns needs a hand edit: $($result.Refused)"
+                    }
+                    if ($result.Changed) {
+                        if (-not $DryRun) {
+                            [System.IO.File]::WriteAllText($path, $result.Text, [System.Text.UTF8Encoding]::new($false))
+                        }
+                        $path
+                    }
+                })
+        }
         'comments' {
             if ($File.Count -eq 0) {
                 return $outcome

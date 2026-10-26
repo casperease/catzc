@@ -1,2 +1,2 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Uninstall-Git, which uninstalls the Git Install-Git installed;
-# it takes no parameters.
+# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Uninstall-Git, which uninstalls the Git
+# Install-Git installed; it takes no parameters.

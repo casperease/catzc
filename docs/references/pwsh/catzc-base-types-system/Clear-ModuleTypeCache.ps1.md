@@ -98,3 +98,13 @@ Above `if ($failed.Count -and -not $Silent) {`, written with `#`.
 A superseded build another process still has open is that process's bound instance until it exits: a fact to name, never an error,
 and never a reason to stop or wait on anything ([ADR-PWSH-TYPES-ONEINSTANCEPERSESSION](/docs/drs/automation/pwsh/hosting-csharp-types.md#rule-adr-pwsh-types-oneinstancepersession)).
 ```
+
+## comment:6
+
+Above `Import-InternalModule Types`, written with `#`.
+
+```text
+The builds are a per-machine cache in the shadow root
+([ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD](/docs/drs/automation/caching.md#rule-adr-auto-cache-compiledtypeprebuild));
+git keeps only the manifest.
+```

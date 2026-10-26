@@ -1,3 +1,11 @@
+<#
+---
+catzc:
+  docs: "../../docs/references/pwsh/catzc-base-quality-gates/Test-TrackMemberCommitted.ps1.md"
+  header: "generated"
+---
+#>
+
 function Test-TrackMemberCommitted {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]
@@ -9,9 +17,6 @@ function Test-TrackMemberCommitted {
 
     Assert-SourceTree
 
-    # A member's committed fact is declared, and the git index is what it must agree with
-    # ([DDR-TRACK-TRACKISPLACEDCLUSTER](/docs/drs/design/tracks.md#rule-ddr-track-trackisplacedcluster)); a committed
-    # member with nothing on disk yet, such as an empty landing address, has nothing to disagree with.
     $root = Get-RepositoryRoot
     $members = @(Get-TrackMember)
     $issues = @(foreach ($member in $members) {

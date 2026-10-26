@@ -113,7 +113,7 @@ test("keeps the status within its budget: the sum always, the work's counts whil
 test("words the view when it fits: the repository less what is off and vetoed, or the lit lamps plus the rest, the shorter one", () => {
     const tally = { disk: 2024, sum: { shown: 812, hidden: 1092, output: 120 }, wrong: [] };
     const every = ["open", "code", "live", "configs", "tests", "docs"];
-    const view = (off, vetoed = []) => ({ name: "catzc", lit: every.filter((l) => !off.includes(l) && !vetoed.includes(l)), off, vetoed });
+    const view = (/** @type {string[]} */ off, /** @type {string[]} */ vetoed = []) => ({ name: "catzc", lit: every.filter((l) => !off.includes(l) && !vetoed.includes(l)), off, vetoed });
     assert.strictEqual(engine.statusLine(tally, {}, 48, view([])).text, "$(pass) catzc", "every lamp lit is the repository");
     assert.strictEqual(engine.statusLine(tally, {}, 48, view(["tests", "docs"])).text, "$(pass) catzc − tests − docs");
     assert.strictEqual(engine.statusLine(tally, {}, 48, view(["docs"], ["tests"])).text, "$(pass) catzc − docs ∖ tests", "a veto takes its zone out");
@@ -133,7 +133,7 @@ test("reports a filter that went bananas, and a file no filter claims", async ()
 });
 
 test("matches globs the way the repository reads them: ** any depth, * inside one segment", () => {
-    const matches = (glob, place) => engine.globMatcher(glob)(place);
+    const matches = (/** @type {string} */ glob, /** @type {string} */ place) => engine.globMatcher(glob)(place);
     assert.ok(matches("out/**", "out/a/b"));
     assert.ok(matches("pwsh/*/*.psd1", "pwsh/W/W.psd1"));
     assert.ok(!matches("pwsh/*/*.psd1", "pwsh/W/x/W.psd1"));

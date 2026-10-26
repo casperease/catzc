@@ -1,5 +1,5 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Test-Terminology, the quality gate that checks the terminology
-# registry has no drift, no orphans and no unjustified entries, and returns its result under -PassThru.
+# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Test-Terminology, the quality gate that checks the
+# terminology registry has no drift, no orphans and no unjustified entries, and returns its result under -PassThru.
 parameters:
   output_folder: string
   pass_thru: switch

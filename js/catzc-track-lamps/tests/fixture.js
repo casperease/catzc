@@ -6,7 +6,7 @@ const path = require("path");
 
 const engine = require("../extension.js");
 
-const set = (include, exclude = []) => ({ include, exclude });
+const set = (/** @type {string[]} */ include, /** @type {string[]} */ exclude = []) => ({ include, exclude });
 const filters = {
     code: [set(["mods/Widget/Get-Widget.ps1"])],
     tests: [set(["mods/Widget/**"], ["mods/Widget/Get-Widget.ps1"])],
@@ -16,7 +16,7 @@ const filters = {
 };
 
 // A fresh folder under the system's temp folder, '/'-separated, holding the given files (empty) and folders.
-const folder = (files = [], folders = []) => {
+const folder = (/** @type {string[]} */ files = [], /** @type {string[]} */ folders = []) => {
     const root = fs.mkdtempSync(path.join(os.tmpdir(), "catzc-lamps-")).replace(/\\/g, "/");
     for (const file of files) {
         fs.mkdirSync(path.dirname(path.join(root, file)), { recursive: true });
@@ -28,6 +28,6 @@ const folder = (files = [], folders = []) => {
 const root = folder(["mods/Widget/Get-Widget.ps1", "mods/Widget/tests/Get-Widget.Tests.ps1", "mods/Widget/README.md", "gadgets/a.ps1", "docs/x.md"]);
 
 // The globs the lamps write for the switches given: out the unlit lamps, vetoed the lamps that hide their zone.
-const hidden = (out, at = root, vetoed = []) => engine.hiddenGlobs(at, new Set(out), filters, [], vetoed);
+const hidden = (/** @type {string[]} */ out, at = root, /** @type {string[]} */ vetoed = []) => engine.hiddenGlobs(at, new Set(out), filters, [], vetoed);
 
 module.exports = { engine, set, filters, folder, root, hidden };

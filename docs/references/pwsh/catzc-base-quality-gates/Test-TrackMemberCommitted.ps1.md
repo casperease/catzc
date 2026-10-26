@@ -44,3 +44,13 @@ Test-TrackMemberCommitted
 ```powershell
 (Test-TrackMemberCommitted -PassThru).Issues
 ```
+
+## comment:1
+
+Above `$root = Get-RepositoryRoot`, written with `#`.
+
+```text
+A member's committed fact is declared, and the git index is what it must agree with
+([DDR-TRACK-TRACKISPLACEDCLUSTER](/docs/drs/design/tracks.md#rule-ddr-track-trackisplacedcluster)); a committed
+member with nothing on disk yet, such as an empty landing address, has nothing to disagree with.
+```

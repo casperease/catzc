@@ -214,7 +214,7 @@ Describe 'LanguagesConfig' -Tag 'L0' {
         }
 
         It 'throws on an unknown step, a duplicate, a step both global and a language''s own, and malformed steps' -Tag 'PDR-CONFIG-NEWINSTANCEISCONFIGCHANGE' {
-            { & $script:make ([ordered]@{ imprint = @('shine') }) } | Should -Throw "*imprint: unknown imprint step 'shine' (one of: file-meta, bcl-namespace, comments, ps-help, plan-counts)*"
+            { & $script:make ([ordered]@{ imprint = @('shine') }) } | Should -Throw "*imprint: unknown imprint step 'shine' (one of: file-meta, bcl-namespace, comments, ps-help, wrap-powershell, plan-counts)*"
             { & $script:make ([ordered]@{ imprint = @('file-meta', 'file-meta') }) } | Should -Throw "*imprint: duplicate imprint step 'file-meta'*"
             { & $script:make ([ordered]@{ imprint = 'file-meta' }) } | Should -Throw '*imprint must be a list of imprint step names*'
             { & $script:make ([ordered]@{ steps = [ordered]@{ shine = [ordered]@{} } }) } | Should -Throw "*steps: unknown imprint step 'shine'*"
@@ -227,7 +227,7 @@ Describe 'LanguagesConfig' -Tag 'L0' {
         }
 
         It 'names the steps it may list, each with an adapter in Format-Code' -Tag 'integrity' {
-            [Catzc.Base.Languages.LanguagesConfig]::ImprintSteps | Should -Be @('file-meta', 'bcl-namespace', 'comments', 'ps-help', 'plan-counts')
+            [Catzc.Base.Languages.LanguagesConfig]::ImprintSteps | Should -Be @('file-meta', 'bcl-namespace', 'comments', 'ps-help', 'wrap-powershell', 'plan-counts')
         }
 
         It 'is empty for an empty file' {

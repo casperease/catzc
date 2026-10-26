@@ -18,8 +18,8 @@ Describe 'Format-PowerShellWidth' -Tag 'L0', 'logic' {
         $result.Changed | Should -BeTrue
         $lines = $result.Text -split "`n"
         @($lines | Where-Object { $_.Length -gt 60 }) | Should -BeNullOrEmpty
-        $lines[1] | Should -Match '^    \S'
-        $lines[2] | Should -Match '^    \S'
+        $lines.Count | Should -BeGreaterThan 1
+        $lines | Select-Object -Skip 1 | ForEach-Object { $_ | Should -Match '^    \S' }
         & $script:tokens $result.Text | Should -BeExactly (& $script:tokens $source)
     }
 

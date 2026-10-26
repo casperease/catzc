@@ -1,5 +1,6 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Test-AgentDefinitions, the quality gate that checks the
-# sub-agent definitions, their capabilities, both registries and the CLAUDE.md list agree, and returns its result under -PassThru.
+# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Test-AgentDefinitions, the quality gate that
+# checks the sub-agent definitions, their capabilities, both registries and the CLAUDE.md list agree, and returns its result under
+# -PassThru.
 parameters:
   output_folder: string
   pass_thru: switch

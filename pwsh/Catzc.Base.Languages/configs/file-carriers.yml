@@ -27,7 +27,8 @@ carriers:
   # XML carries no block, for the reason it states; HTML takes its block below the doctype, which must stay first.
   xml: { carrier: none, reason: "an XML comment may not contain '--', so the front matter fence would make the file invalid" }
   html: { carrier: comment-head, block: ["<!--", "-->"], anchor: after-prolog }
-  # An XML comment cannot hold the fence and an editor's project loader refuses a processing instruction, so the block is a CDATA property of the project's first labelled property group.
+  # An XML comment cannot hold the fence and an editor's project loader refuses a processing instruction, so the block is a CDATA
+  # property of the project's first labelled property group.
   msbuild-project: { files: ["pwsh/.internal/assets/Catzc.Types.csproj", "Directory.Build.props"], carrier: property, property: CatzcMeta }
   # NuGet's config is XML too, so its block rides the same labelled property group, an element NuGet reads past.
   nuget-config: { files: ["nuget.config"], carrier: property, property: CatzcMeta }

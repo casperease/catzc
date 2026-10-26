@@ -1,3 +1,11 @@
+<#
+---
+catzc:
+  docs: "../../../docs/references/pwsh/catzc-base-slides/private/Write-DiagramQueryRows.ps1.md"
+  header: "generated"
+---
+#>
+
 function Write-DiagramQueryRows {
     [CmdletBinding()]
     [OutputType([string])]
@@ -13,8 +21,6 @@ function Write-DiagramQueryRows {
         [string] $Path
     )
 
-    # A C3 or C4 slide stores its level and its point; its cells are the level's query for that point
-    # ([DDR-VISUAL-ZOOMISANAXIS](/docs/drs/design/visual-design.md#rule-ddr-visual-zoomisanaxis)).
     $rows = [System.Collections.Generic.List[object]]::new()
     $seen = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
     foreach ($folderPath in $Stem) {

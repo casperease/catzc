@@ -1,5 +1,6 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Install-Poetry, which installs Poetry. Version defaults to
-# the version tools.yml locks for 'poetry', a computed default the contract does not restate; Force reinstalls over a present install.
+# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Install-Poetry, which installs Poetry. Version
+# defaults to the version tools.yml locks for 'poetry', a computed default the contract does not restate; Force reinstalls over a present
+# install.
 parameters:
   version: string
   force: switch

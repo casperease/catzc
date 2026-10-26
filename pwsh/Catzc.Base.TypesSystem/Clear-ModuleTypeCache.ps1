@@ -27,9 +27,6 @@ function Clear-ModuleTypeCache {
         }
     }
 
-    # The builds are a per-machine cache in the shadow root
-    # ([ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD](/docs/drs/automation/caching.md#rule-adr-auto-cache-compiledtypeprebuild));
-    # git keeps only the manifest.
     Import-InternalModule Types
     $compiledDir = Get-TypesShadowRoot
 

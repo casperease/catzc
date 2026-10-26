@@ -15,7 +15,8 @@ head_policy:
     diagram-declaration: forbidden
 
 kinds:
-  # The comment page a file points at, only when it exists, as its path from the file's own folder; a test is found by convention, its stem under tests/.
+  # The comment page a file points at, only when it exists, as its path from the file's own folder; a test is found by convention, its
+  # stem under tests/.
   relative-edges:
     keys: [docs]
     settings:

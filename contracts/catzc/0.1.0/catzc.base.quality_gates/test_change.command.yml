@@ -1,5 +1,5 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Test-Change, the quality gate over what changed: it runs the
-# tests and checks of the changed files and returns its result under -PassThru, or the planned set under -DryRun.
+# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Test-Change, the quality gate over what changed:
+# it runs the tests and checks of the changed files and returns its result under -PassThru, or the planned set under -DryRun.
 parameters:
   path: string[]
   whole_module: switch

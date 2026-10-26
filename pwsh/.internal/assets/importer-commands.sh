@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "727ffe453177"
+#     with_body_sha: f97d18e0dc5f
 #     warning: "Do Not Edit, this file is generated"
 # ---
 
@@ -109,6 +109,7 @@ invoke_python_test	engine	string	0	0	0	contracts/catzc/0.1.0/catzc.base.language
 invoke_python_test	engine_executable	string	0	0	0	contracts/catzc/0.1.0/catzc.base.languages/invoke_python_test.command.yml			invoke-python-test	engine-executable	Invoke-PythonTest	EngineExecutable
 invoke_python_test	folder	string	0	0	0	contracts/catzc/0.1.0/catzc.base.languages/invoke_python_test.command.yml			invoke-python-test	folder	Invoke-PythonTest	Folder
 new_go_workspace	target	string	0	0	0	contracts/catzc/0.1.0/catzc.base.languages/new_go_workspace.command.yml			new-go-workspace	target	New-GoWorkspace	Target
+new_python_project	line_length	int	0	1	0	contracts/catzc/0.1.0/catzc.base.languages/new_python_project.command.yml			new-python-project	line-length	New-PythonProject	LineLength
 new_python_project	target	string	0	0	0	contracts/catzc/0.1.0/catzc.base.languages/new_python_project.command.yml			new-python-project	target	New-PythonProject	Target
 publish_contract_release	root	string	0	1	0	contracts/catzc/0.1.0/catzc.base.contracts/publish_contract_release.command.yml			publish-contract-release	root	Publish-ContractRelease	Root
 publish_contract_release	version	string	0	1	0	contracts/catzc/0.1.0/catzc.base.contracts/publish_contract_release.command.yml			publish-contract-release	version	Publish-ContractRelease	Version

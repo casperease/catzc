@@ -50,6 +50,11 @@ function Get-ImprintStepFile {
             $functions = @(Get-GitTrackedPath $lookup | Where-Object { $_ -match "^$modulesFolder/[^/]+/(?:private/)?[^/]+\.ps1$" })
             return , [string[]] @($functions | ForEach-Object { [System.IO.Path]::GetFullPath([System.IO.Path]::Combine($root, $_)) })
         }
+        'wrap-powershell' {
+            # The formatter's own scope, so vendored code is never rewritten, narrowed to the PowerShell code files.
+            $scope = @(Get-FormatScope -RepositoryRoot $root -Path $Path)
+            return , [string[]] @($scope | Where-Object { $_ -match '\.(ps1|psm1)$' })
+        }
         'comments' {
             $scope = @(Get-CommentScope -RepositoryRoot $root -Path $Path)
             return , [string[]] @($scope | ForEach-Object { [System.IO.Path]::GetFullPath([System.IO.Path]::Combine($root, $_.File)) })

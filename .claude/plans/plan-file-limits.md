@@ -78,15 +78,13 @@ from the rendered `.editorconfig` to `Get-FileLimit` for that class's extensions
 
 7. [ ] **prose, fences**: 99 files with fenced lines over 140 (369 lines, `out/catzc-5c-widths/list-fence.txt`), shortened by hand. Check:
        no fenced line over 140 in the folder, `Test-Markdownlint` on it.
-9. [ ] **prose, leftover** (tables done elsewhere, catzc-5c, 2026-10-26): the 3 `.claude/plans/` files (`plan-slim-agents.md`,
+8. [ ] **prose, leftover** (tables done elsewhere, catzc-5c, 2026-10-26): the 3 `.claude/plans/` files (`plan-slim-agents.md`,
        `plan-vscode-extensions.md`, `value-of-plan.md`); `docs/drs/design/visual-design.md` and `docs/drs/azure/azure-naming-standard.md`
        (another session's, skipped while dirty); `docs/explanation/thesis/product-thesis/nowaste.slide.md` (its `## Rows` table is slide-kit
-       input, catzc-2f's); and `docs/references/pwsh/index.md`, whose 240-column module table is a table by the authoring guide
-       `docs/references/pwsh/CLAUDE.md` ("add a row to the table in `index.md`"): it becomes a list once that guide says so, a CLAUDE.md
-       edit the user makes. Check: none of them over 140.
-10. [ ] **prose, the flip**: once steps 7 to 9 leave 0, `width_mode.prose: fail`, the MD013 `tables` and `code_blocks` true in the
-        `.markdownlint.yml` template (Build-WidthConfigs), and `Get-LinkLineLimit` moved to `Get-FileLimit` for `.md`. Check: the prose
-        width count is 0, `Test-FileLimits` and `Test-Markdownlint` over the tree pass, and `Test-Links` over the tree passes.
-11. [ ] **config**: 155 files over 140 columns (pipeline YAML, configs). Check: as for prose, with `width_mode.config: fail`.
-12. [ ] **code**: 1830 files over 120 columns (the `.cs`, `.go` and `.js` link-wrap widths change with the move, from 140 to 120). Check: as
+       input, catzc-2f's). Check: none of them over 140.
+9. [ ] **prose, the flip**: once steps 7 and 8 leave 0, `width_mode.prose: fail`, the MD013 `tables` and `code_blocks` true in the
+       `.markdownlint.yml` template (Build-WidthConfigs), and `Get-LinkLineLimit` moved to `Get-FileLimit` for `.md`. Check: the prose width
+       count is 0, `Test-FileLimits` and `Test-Markdownlint` over the tree pass, and `Test-Links` over the tree passes.
+10. [ ] **config**: 155 files over 140 columns (pipeline YAML, configs). Check: as for prose, with `width_mode.config: fail`.
+11. [ ] **code**: 1830 files over 120 columns (the `.cs`, `.go` and `.js` link-wrap widths change with the move, from 140 to 120). Check: as
         for prose, with `width_mode.code: fail`.

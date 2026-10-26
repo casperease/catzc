@@ -48,8 +48,13 @@ function activateEngine(context, api) {
     host.log = log;
     host.ticked = context.workspaceState.get(TICKED, []);
     context.subscriptions.push(log);
+    /** @type {ReturnType<typeof setTimeout> | undefined} */
     let judgeTimer;
+    /** @type {ReturnType<typeof setTimeout> | undefined} */
     let timer;
+    // A caught error in words: its message, or its stack where the whole trace helps; a thrown non-Error is printed as it is.
+    const said = (/** @type {unknown} */ error, stack = false) =>
+        error instanceof Error ? ((stack ? error.stack : error.message) ?? error.message) : String(error);
     // A swapped-out engine leaves no timer behind to fire into its disposed parts.
     context.subscriptions.push({ dispose: () => (clearTimeout(judgeTimer), clearTimeout(timer)) });
     const lamps = () => assertShipped([OPEN, ...Object.keys(filters())]);
@@ -60,8 +65,8 @@ function activateEngine(context, api) {
     // The switches, one authoritative copy in memory: a press changes it at once, the workspace state only remembers it across reloads.
     // The open lamp is always lit: it is no switch, so a remembered switch of it is dropped.
     const state = {
-        out: new Set(context.workspaceState.get(OUT, []).filter((lamp) => lamp !== OPEN)),
-        vetoed: new Set(context.workspaceState.get(VETO, []).filter((lamp) => lamp !== OPEN)),
+        out: new Set(context.workspaceState.get(OUT, /** @type {string[]} */ ([])).filter((lamp) => lamp !== OPEN)),
+        vetoed: new Set(context.workspaceState.get(VETO, /** @type {string[]} */ ([])).filter((lamp) => lamp !== OPEN)),
     };
     // The disk, indexed once and kept current from the editor's file events, so a press classifies files in memory and never walks the
     // disk; a window focus re-walks it in the background, which also covers the paths files.watcherExclude keeps the events of.
@@ -78,7 +83,7 @@ function activateEngine(context, api) {
         await indexed;
         return { files: [...index.files], folders: [...index.folders] };
     };
-    const indexAdd = async (uri) => {
+    const indexAdd = async (/** @type {import("vscode").Uri} */ uri) => {
         const root = rootOf();
         const place = root && relativeTo(root, uri.fsPath);
         if (!place || place === ".git" || place.startsWith(".git/")) return;
@@ -95,7 +100,7 @@ function activateEngine(context, api) {
         for (const file of inner.files) index.files.add(`${place}/${file}`);
         for (const folder of inner.folders) index.folders.add(`${place}/${folder}`);
     };
-    const indexRemove = (uri) => {
+    const indexRemove = (/** @type {import("vscode").Uri} */ uri) => {
         const root = rootOf();
         const place = root && relativeTo(root, uri.fsPath);
         if (!place) return;
@@ -109,14 +114,16 @@ function activateEngine(context, api) {
     // key whose value changed is sent, so a press costs the one or two keys it moves.
     /** @type {Record<string, string>} */
     let conditions = {};
+    /** @type {Promise<import("./language.js").Facts> | null} */
     let markerCache = null;
     // The facts and sets of the last judgement, which the red journey reads; it never judges itself.
     /** @type {import("./language.js").Facts} */
     let lastFacts = {};
     /** @type {import("./language.js").LampSets} */
     let lastSets = {};
+    /** @type {Map<string, unknown>} */
     const sent = new Map();
-    const setKey = (name, value) => {
+    const setKey = (/** @type {string} */ name, /** @type {unknown} */ value) => {
         if (sent.get(name) === value) return undefined;
         sent.set(name, value);
         return vscode.commands.executeCommand("setContext", name, value);
@@ -135,14 +142,18 @@ function activateEngine(context, api) {
         ]);
     };
     // The conditions from the facts the editor already holds; only the facts' paths are classified, so no disk walk is needed.
+    /** @type {{ state: import("./facts.js").RepositoryState & { onDidChange(listener: () => void): { dispose(): unknown } }, rootUri: import("vscode").Uri } | undefined} */
     let repository;
+    /** @type {import("./facts.js").Held} */
     let held = context.workspaceState.get(HELD, {});
     // A closed file's remembered Errors, published again as this extension's own diagnostics: the editor's problem decorations are the only
     // ones heavier than the git colours and the only ones that colour every folder above the file, so the Explorer row, the tab and the
     // tree show the same red as for an open file. The language servers' own Errors take over the moment they report again.
     const collection = vscode.languages.createDiagnosticCollection("catzc");
     context.subscriptions.push(collection);
+    /** @type {Record<string, string>} */
     let published = {};
+    /** @type {(root: string, wanted: Record<string, import("./facts.js").StoredError[]>) => void} */
     const publish = (root, wanted) => {
         for (const place of Object.keys(published)) {
             if (place in wanted) continue;
@@ -182,7 +193,7 @@ function activateEngine(context, api) {
         for (const place of heldPlaces) addFact(facts, place, "fault", "failed");
         // The markers are read once and again only when a marker or a file changes, never on each diagnostics event.
         markerCache ??= markerFacts(root, {});
-        for (const [place, fact] of Object.entries(await markerCache)) addFact(facts, place, "fault", fact.fault);
+        for (const [place, fact] of Object.entries(await markerCache)) if (fact.fault) addFact(facts, place, "fault", fact.fault);
         // Every file the lamps hold as failed shows red in the tree: the remembered Errors, and a test file whose run left a failed marker.
         const wanted = remembering(root, held, entries);
         const live = new Set(errorPlaces(root, entries));
@@ -216,6 +227,7 @@ function activateEngine(context, api) {
     counter.command = "catzc.lamps.showLog";
     counter.text = "$(sync~spin) counting files";
     counter.show();
+    /** @type {Awaited<ReturnType<typeof census>> | undefined} */
     let lastTally;
     const showStatus = () => {
         if (!lastTally) return;
@@ -233,7 +245,7 @@ function activateEngine(context, api) {
         counter,
         vscode.commands.registerCommand("catzc.lamps.showLog", () => log.show()),
     );
-    const count = async (applied) => {
+    const count = async (/** @type {Awaited<ReturnType<typeof apply>>} */ applied) => {
         if (!applied) return;
         const { root, out, vetoed, wanted, open, disk } = applied;
         const tally = await census(root, out, filters(), wanted, open, vetoed, disk);
@@ -268,19 +280,19 @@ function activateEngine(context, api) {
             if (applied && now !== lastWritten()) {
                 if (!retried) return settle(true);
                 log.appendLine(
-                    `warning: files.exclude did not take the lamps' write (${now.length} vs ${lastWritten().length} characters); the tree may disagree with the lamps`,
+                    `warning: files.exclude did not take the lamps' write (${now.length} vs ${(lastWritten() ?? "").length} characters); the tree may disagree with the lamps`,
                 );
             }
             // The count runs after the filter is in place, never delaying it; its failure is logged like any other.
             count(applied).catch((error) => log.appendLine(`census failed: ${error?.stack ?? error}`));
         } catch (error) {
-            log.appendLine(`apply failed: ${error?.message ?? error}`);
+            log.appendLine(`apply failed: ${said(error)}`);
             // A settings file rewritten on disk meanwhile (a generator's render) is read afresh and written once more, unasked.
-            if (!retried && /newer/i.test(`${error?.message ?? ""}`)) {
+            if (!retried && error instanceof Error && /newer/i.test(error.message)) {
                 await new Promise((resolve) => setTimeout(resolve, 1000));
                 return settle(true);
             }
-            const message = `Catzc track lamps could not filter: ${error?.message ?? error}`;
+            const message = `Catzc track lamps could not filter: ${said(error)}`;
             // The editor refuses a settings write while settings.json is open with unsaved edits; saving it is the user's call, offered here.
             const dirty = vscode.workspace.textDocuments.find(
                 (document) => document.isDirty && /[\\/]\.vscode[\\/]settings\.json$/i.test(document.uri.fsPath),
@@ -298,6 +310,7 @@ function activateEngine(context, api) {
     // The press queue: every press (and every outside event) asks for one pass, and one pass runs at a time over the switches as they are
     // when it starts; a press that lands mid-pass is served by the next pass, so the last press always has the last word and the tree is
     // in the pressed state as soon as the queue drains. The counter spins while it drains.
+    /** @type {Promise<void> | null} */
     let draining = null;
     let pending = false;
     const drain = async () => {
@@ -322,7 +335,7 @@ function activateEngine(context, api) {
     };
     // A click steps a lamp round off -> on -> veto -> off: the switch and its icon change at once, the pass is queued, the count follows.
     // A vetoed lamp is unlit as well, so the conditions and the open-lamp refresh read it as off.
-    const turn = (lamp, mode) => {
+    const turn = (/** @type {string} */ lamp, /** @type {"on" | "off" | "veto"} */ mode) => {
         if (mode === "on") state.out.delete(lamp);
         else state.out.add(lamp);
         if (mode === "veto") state.vetoed.add(lamp);
@@ -348,7 +361,7 @@ function activateEngine(context, api) {
     // declares the same names (a test holds it to filters.yml and the conditions).
     // The red journey: a lit lamp that is red keeps its switch on a click and opens its next failed file instead, in the editor and the
     // Explorer, at the file's first failing diagnostic; each click moves on, round to the first, so every failure is visited in turn.
-    const journey = async (lamp) => {
+    const journey = async (/** @type {string} */ lamp) => {
         const root = rootOf();
         if (!root || !lastSets[lamp]) return;
         const claims = claimer(lastSets[lamp]);
@@ -369,7 +382,7 @@ function activateEngine(context, api) {
             });
             await vscode.commands.executeCommand("revealInExplorer", uri);
         } catch (error) {
-            log.appendLine(`warning: the red journey could not open ${place}: ${error?.message ?? error}`);
+            log.appendLine(`warning: the red journey could not open ${place}: ${said(error)}`);
         }
     };
     // The orchestrator: red until the first check says otherwise; a click while red lights every red lamp through the press queue, and
@@ -452,10 +465,10 @@ function activateEngine(context, api) {
         const api = (extension.isActive ? extension.exports : await extension.activate()).getAPI(1);
         const attach = () => {
             const root = key(rootOf() ?? "");
-            const found = api.repositories.find((candidate) => key(candidate.rootUri.fsPath) === root) ?? api.repositories[0];
+            const found = api.repositories.find((/** @type {{ rootUri: import("vscode").Uri }} */ candidate) => key(candidate.rootUri.fsPath) === root) ?? api.repositories[0];
             if (!found || found === repository) return;
             repository = found;
-            context.subscriptions.push(repository.state.onDidChange(rejudge));
+            context.subscriptions.push(found.state.onDidChange(rejudge));
             rejudge();
         };
         context.subscriptions.push(api.onDidOpenRepository(attach));
@@ -492,7 +505,7 @@ function activateEngine(context, api) {
     }
     // An edit or a save releases the file's held Error (its diagnostics re-hold it while it still has one); switching the active file
     // re-judges, so the open lamp follows the red file that was just left.
-    const release = (document) => {
+    const release = (/** @type {{ uri: import("vscode").Uri }} */ document) => {
         const root = rootOf();
         const place = root && document.uri.scheme === "file" ? relativeTo(root, document.uri.fsPath) : undefined;
         if (place && place in held) {

@@ -47,3 +47,12 @@ Return the result ({ Subject; IssueCount; Issues; ReportPath; IntegrityBlocks; P
 ```powershell
 Test-ManualTestPlan
 ```
+
+## comment:1
+
+Above `$checks = [System.Collections.Generic.List[string]]::new()`, written with `#`.
+
+```text
+One check per "### N." section: its heading and its "**Test file:**" paragraph, which names the test file and the block; the formatter
+wraps a long paragraph, so it runs to the next blank line.
+```

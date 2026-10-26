@@ -70,3 +70,12 @@ Above `$kitConfig = [Catzc.Base.Slides.DrawioKit]::new($root, $Kit).Config`, wri
 The kit's drawio.yml keys a diagram's role by its stem; a repository without one has no legend. A diagram is article-carried when it
 is a pair with no yml beside its png (its declaration is a block in an article).
 ```
+
+## comment:3
+
+Above `$imageOf = {`, written with `#`.
+
+```text
+The block declares the png below it only from a page beside its .assets, so it moves to the one page there that embeds the png.
+An image of the png is inline, or a reference whose definition on the same page names it.
+```

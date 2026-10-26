@@ -1,5 +1,5 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Invoke-PythonTest, the Python test runner of one module.
-# Engine defaults to the pwsh engine of the engine registry, a computed default the contract does not restate.
+# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Invoke-PythonTest, the Python test runner of one
+# module. Engine defaults to the pwsh engine of the engine registry, a computed default the contract does not restate.
 parameters:
   module: string!
   entry_script: string

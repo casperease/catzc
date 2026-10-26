@@ -23,6 +23,17 @@ Describe 'Test-FileShape' -Tag 'L0', 'logic' {
         $finding.Line | Should -Be 401
     }
 
+    It 'passes a line whose overflow lies wholly inside one string literal, and reports the widest line that is not one' {
+        $strung = Join-Path $TestDrive 'strung.ps1'
+        $message = 'w' * 140
+        [System.IO.File]::WriteAllText($strung, "`$a = '$message'`n`$b = 1 + 2`n")
+        @(Test-FileShape -Path $strung).Count | Should -Be 0
+        [System.IO.File]::WriteAllText($strung, "`$a = '$message'`n" + ('x' * 125) + "`n")
+        $finding = @(Test-FileShape -Path $strung)
+        $finding.Line | Should -Be 2
+        $finding.Value | Should -Be 125
+    }
+
     It 'reports nothing for a file within its limits' {
         @(Test-FileShape -Path $script:fine).Count | Should -Be 0
     }

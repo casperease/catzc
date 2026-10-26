@@ -1,5 +1,5 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Test-LogicTestIdentity, the quality gate that checks no logic
-# test names a live production identity, and returns its result under -PassThru.
+# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Test-LogicTestIdentity, the quality gate that
+# checks no logic test names a live production identity, and returns its result under -PassThru.
 parameters:
   path: string[]
   output_folder: string

@@ -9,6 +9,8 @@ defaults: { code: { length: 400, width: 120 }, config: { length: 300, width: 140
 languages: { python: { width: 140, length: 500 } }
 # The most body lines one PowerShell function may have, read by the FunctionLength analyzer rule; the default is on FileLimitsConfig.
 function_body_length: 300
+# A line whose part past the width lies wholly inside one string literal passes (the user, 2026-10-26); breach makes it a finding.
+string_overflow: exempt
 
 # Files over their length limit today, each with its reason. The map only shrinks: a file leaves it the day it is split.
 exempt:

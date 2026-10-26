@@ -125,3 +125,12 @@ Above `$rowsPath = Join-Path (Get-OutputRoot -EnsureExists) 'diagrams/query-rows
 A C3 or C4 slide's cells are its query's rows, written to an address named here and handed to the renderer
 (DDR-VISUAL-ZOOMISANAXIS).
 ```
+
+## comment:5
+
+Above `$rowsPath = Join-Path (Get-OutputRoot -EnsureExists) 'diagrams/query-rows.json'`, written with `#`.
+
+```text
+The query rows go to an address named here, never a default
+([DDR-VISUAL-ZOOMISANAXIS](/docs/drs/design/visual-design.md#rule-ddr-visual-zoomisanaxis)).
+```
