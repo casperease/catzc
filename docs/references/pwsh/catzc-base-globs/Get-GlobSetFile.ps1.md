@@ -1,7 +1,7 @@
 # pwsh/Base.Globs/Get-GlobSetFile.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The member list of a globset: the tracked files the set selects, in ordinal order. It is the exact file list `Get-GlobSetHash` folds into
+the set's durable SHA.
 
 ## help
 

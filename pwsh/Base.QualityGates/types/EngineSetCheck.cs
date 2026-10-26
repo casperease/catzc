@@ -15,6 +15,7 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Base.QualityGates;
 
+// The execution engines are declared once in ExecutionEngines and never restated.
 public sealed class EngineSetCheck : SourceCheck
 {
     const string CountPlaceholder = "{count}";
@@ -41,6 +42,7 @@ public sealed class EngineSetCheck : SourceCheck
         name_phrases = Phrases(raw, "name_phrases", NamePlaceholder);
     }
 
+    // Every place in prose that restates the engine set.
     public IReadOnlyList<(int Offset, string Text, string Message)> FindProse(string text, IReadOnlyCollection<string> names)
     {
         var found = new List<(int, string, string)>();
@@ -96,6 +98,7 @@ public sealed class EngineSetCheck : SourceCheck
         return found;
     }
 
+    // Two or more engine names as literals on one C# line restate the set.
     public static IReadOnlyList<(int Offset, string Message)> FindCSharpLists(string text, IReadOnlyCollection<string> names)
     {
         var found = new List<(int, string)>();

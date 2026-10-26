@@ -10,6 +10,7 @@ using System;
 
 namespace Catzc.Base.QualityGates;
 
+// Facets derived from declarations, never read from a head; empty means the file has none.
 public sealed class LinkEndpoint
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

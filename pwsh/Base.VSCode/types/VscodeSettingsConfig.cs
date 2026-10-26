@@ -13,6 +13,7 @@ using System.Collections.Specialized;
 
 namespace Catzc.Base.VSCode;
 
+// vscode-settings.yml, the one authored source New-VsCodeSettings renders to the managed .vscode/settings.json.
 public sealed class VscodeSettingsConfig : Catzc.Base.Objects.DictionaryRecord
 {
     private const string Failed = "vscode-settings config validation failed:\n";
@@ -20,8 +21,10 @@ public sealed class VscodeSettingsConfig : Catzc.Base.Objects.DictionaryRecord
     // Every VS Code setting key -> its value, in authored order — what settings.json receives; read-only.
     public OrderedDictionary settings { get; }
 
+    // Menu id to the command ids hidden there, written into the editor's own hidden-menu state by Set-VsCodeHiddenAction.
     public IReadOnlyDictionary<string, string[]> hidden_actions { get; }
 
+    // Map settings another writer adds rows to, each to the key that lists that writer's rows; the generator carries them.
     public IReadOnlyDictionary<string, string> carried { get; }
 
     // Each .editorconfig section glob -> the VS Code language ids its properties render into; the [*] section needs no row.

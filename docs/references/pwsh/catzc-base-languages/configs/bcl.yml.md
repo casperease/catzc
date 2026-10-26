@@ -1,14 +1,12 @@
 # pwsh/Base.Languages/configs/bcl.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The BCL language's config: the one build configuration and platform of every non-vendored `.sln` and `.csproj`, and the host bindings.
 
-## comment:1
+## Keys
 
-Above `host_bindings:`, written with `#`.
+- **`host_bindings`** — the type sources that bind to a host, each with its reason. Every other type source stays in the BCL reference set.
+- The build configuration and platform are omitted here, so the defaults declared on `BclConfig` apply.
 
-```text
-The BCL language's config: the one build configuration and platform of every non-vendored .sln and .csproj, omitted here so the
-defaults on BclConfig apply, and the host bindings: the type sources that bind to a host, each with its reason; every other type
-source stays in the BCL reference set.
-```
+## How it is read
+
+`Get-Config -Config bcl` loads the file into the typed `Catzc.Base.Languages.BclConfig` record (`BclConfig.cs`).

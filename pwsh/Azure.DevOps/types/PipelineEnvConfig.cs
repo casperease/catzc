@@ -13,6 +13,7 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Azure.DevOps;
 
+// A bare YAML sequence of variable names, exposed as variables; names are unique case-insensitively, as Windows variables are.
 public sealed class PipelineEnvConfig : Catzc.Base.Objects.DictionaryRecord
 {
     private const string Failed = "pipeline-env config validation failed:\n";

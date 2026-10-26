@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Get-TestRunFile.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Names the run file a discovered or executed Pester test belongs to: its test file, or its language test folder. The harness schedules,
+scopes, protects and reports by run file, the unit a shard runs.
 
 ## help
 

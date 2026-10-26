@@ -11,6 +11,7 @@ using System.Collections.Generic;
 
 namespace Catzc.Base.Maps;
 
+// The budget of the "Where does it live?" minimap and the order its place groups take the rows.
 [Catzc.Base.Objects.ConsoleDisplay(nameof(rows), nameof(counter_rows), nameof(row_chars))]
 public sealed class MapsMinimapPlaces
 {

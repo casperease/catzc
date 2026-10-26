@@ -13,6 +13,7 @@ using System.Text;
 
 namespace Catzc.Base.Maps;
 
+// The rows of the "Where does it live?" minimap: each row the path of its [track, module, folder] places from the root.
 [Catzc.Base.Objects.ConsoleDisplay(nameof(Rows), nameof(Counters))]
 public sealed class PlaceRows
 {
@@ -43,9 +44,11 @@ public sealed class PlaceRows
         public int Places;
     }
 
+    // One row per module or moduleless track; over budget, the modules of the track with the most rows fold first.
     public static PlaceRows From(IReadOnlyList<MinimapCell> lit, MapsMinimapPlaces places) =>
         From(lit, Array.Empty<MinimapCell>(), places);
 
+    // A drawing's places: the ones its own glyphs name first, then the ones its cited decision records name.
     public static PlaceRows From(IReadOnlyList<MinimapCell> primary, IReadOnlyList<MinimapCell> secondary, MapsMinimapPlaces places)
     {
         if (primary == null) { throw new ArgumentNullException(nameof(primary)); }
@@ -130,6 +133,7 @@ public sealed class PlaceRows
         return RowText(track, module, folders, 1, places);
     }
 
+    // Whether a row is already in the one minimised form: at most three parts, names in order, within the budget.
     public static bool IsNormal(string row, MapsMinimapPlaces places)
     {
         if (row == null || places == null) { return false; }
@@ -195,6 +199,7 @@ public sealed class PlaceRows
         return true;
     }
 
+    // A row never cuts a name: it holds every folder joined, or their count.
     private static string RowText(string track, string module, SortedSet<string> folders, int count, MapsMinimapPlaces places)
     {
         if (module == NoModule)

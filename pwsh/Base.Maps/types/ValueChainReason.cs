@@ -11,6 +11,7 @@ using System.Collections.Generic;
 
 namespace Catzc.Base.Maps;
 
+// Why a value-chain highlight lights a cell for one record: the citation, the code, its domain and that domain's stack row.
 [Catzc.Base.Objects.ConsoleDisplay(nameof(Adr), nameof(Stack), nameof(Concern), nameof(Override))]
 public sealed class ValueChainReason
 {

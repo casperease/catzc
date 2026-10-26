@@ -12,6 +12,7 @@ using System.Linq;
 
 namespace Catzc.Base.Contracts;
 
+// One asset's check: Passed is derived from its findings.
 [Catzc.Base.Objects.ConsoleDisplay(nameof(Passed), nameof(Asset), nameof(Findings))]
 public sealed class ContractCheckResult
 {

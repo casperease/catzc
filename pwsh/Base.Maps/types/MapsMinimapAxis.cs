@@ -11,6 +11,7 @@ using System.Collections.Generic;
 
 namespace Catzc.Base.Maps;
 
+// The axis minimap's re-cut of the value chain: each row a top domain and its stacks, the columns its delivery concerns.
 [Catzc.Base.Objects.ConsoleDisplay(nameof(rows), nameof(columns))]
 public sealed class MapsMinimapAxis
 {

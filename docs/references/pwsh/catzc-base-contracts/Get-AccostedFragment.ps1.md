@@ -1,7 +1,7 @@
 # pwsh/Base.Contracts/Get-AccostedFragment.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The renderer that turns an accosted file into the PowerShell text an article shows. It reads through the one reader, so a rendered
+command is always a checked one.
 
 ## help
 

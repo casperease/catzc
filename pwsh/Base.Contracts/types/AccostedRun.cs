@@ -13,6 +13,7 @@ using System.Globalization;
 
 namespace Catzc.Base.Contracts;
 
+// Commands run in order; nothing passes between them.
 public sealed class AccostedRun
 {
     public IReadOnlyList<AccostedCommand> commands { get; }

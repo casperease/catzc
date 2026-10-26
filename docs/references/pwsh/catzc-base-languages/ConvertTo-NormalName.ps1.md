@@ -1,7 +1,7 @@
 # pwsh/Base.Languages/ConvertTo-NormalName.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+`ConvertTo-NormalName` returns the repository normal form of a name written in a language's idiom. It is the inverse of
+`ConvertFrom-NormalName`, and both read the language's `naming:` entry in `languages.yml`.
 
 ## help
 

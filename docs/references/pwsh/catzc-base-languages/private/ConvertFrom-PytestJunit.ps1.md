@@ -1,7 +1,7 @@
 # pwsh/Base.Languages/private/ConvertFrom-PytestJunit.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+`ConvertFrom-PytestJunit` is the private reader `Invoke-PythonTest` uses on the JUnit report pytest writes. It folds the cases of one test
+function into a `PythonTestResult`.
 
 ## help
 

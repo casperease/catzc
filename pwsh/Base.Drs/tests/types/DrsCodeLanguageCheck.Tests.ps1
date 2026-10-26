@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../../docs/references/pwsh/catzc-base-drs/tests/types/DrsCodeLanguageCheck.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'DrsCodeLanguageCheck' -Tag 'L0', 'logic' {
     It 'declares capitalization on and a rule budget of 24 by default' {
         $check = [Catzc.Base.Drs.DrsChecksConfig]::new([ordered]@{}).code_language

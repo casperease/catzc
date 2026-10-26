@@ -1,7 +1,7 @@
 # pwsh/Tooling.Listen/Complete-DocNote.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The command that closes a note in the listen mode: the processor calls it once per note to write the note's line into the session's ledger,
+`processed.md`, with the fact-check verdict, the reason behind it and the pattern and plan the note was folded into.
 
 ## help
 

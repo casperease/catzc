@@ -12,6 +12,7 @@ using System.Collections.Generic;
 
 namespace Catzc.Base.ModuleSystem;
 
+// The publish targets of artifacts.yml: the feeds a CI build promotes the versioned, immutable gold artifact to.
 public sealed class ArtifactsConfig : Catzc.Base.Objects.DictionaryRecord
 {
     private const string Failed = "artifacts configuration validation failed:\n";

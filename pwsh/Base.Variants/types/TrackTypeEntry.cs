@@ -24,6 +24,7 @@ public sealed class TrackTypeEntry
     // The module types a module of a track of this type may have.
     public IReadOnlyList<string> admits { get; }
 
+    // The .gitattributes this type's places get, and why; empty when none.
     public IReadOnlyList<string> gitAttributes { get; }
     public string gitWhy { get; }
 

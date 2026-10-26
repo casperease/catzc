@@ -14,6 +14,7 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Base.Execution;
 
+// The YAML root is the tool map, so the type is that read-only dictionary; construction checks the whole file.
 public sealed class ToolsConfig : ReadOnlyDictionary<string, ToolConfig>
 {
     // A dictionary renders as its entries, { tool = … }, not as its dictionary members.

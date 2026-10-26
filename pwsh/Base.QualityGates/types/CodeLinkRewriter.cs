@@ -16,10 +16,12 @@ using Catzc.Base.Drs;
 
 namespace Catzc.Base.QualityGates;
 
+// Rewrites a comment's ADR references into canonical code links.
 public sealed class CodeLinkRewriter
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
+    // Alternation order matters: an existing link swallows the citation in its text.
     static readonly Regex MetaHead = new Regex(@"\A(?:/\*|<#|//|#)?[ \t]*\r?\n?[ \t]*(?://|#)?[ \t]*---[ \t]*\r?\n[ \t]*(?://|#)?[ \t]*catzc:", RegexOptions.Compiled);
     static readonly Regex HelpKeyword = new Regex(@"^\s*\.(?<keyword>[A-Za-z]+)\b", RegexOptions.Compiled);
 
@@ -35,6 +37,7 @@ public sealed class CodeLinkRewriter
     // The decision records' folder with its trailing '/', e.g. docs/drs/ (DrsConfig.Root).
     readonly string recordRoot;
 
+    // anchorsOf maps a repository .md path to its anchors, null when the file does not exist.
     public CodeLinkRewriter(string repositoryRoot, DrsCitationMap map, DrsConfig adrs, Func<string, IReadOnlyCollection<string>> anchorsOf)
     {
         root = Path.GetFullPath(repositoryRoot ?? throw new ArgumentNullException(nameof(repositoryRoot)));
@@ -45,8 +48,10 @@ public sealed class CodeLinkRewriter
         string cited = adrs.CodeForm.Cited;
         Reference = new Regex(
             @"(?<link>\[(?<text>[^\]\r\n]*)\]\((?<dest>[^)\s]+)\))" +
+            // A path starts a word, so a placeholder path inside other text is no reference.
             @"|(?<path>(?<![^\s(\[{,;:'""*])(?:\.{1,2}/)*/?" + Regex.Escape(recordRoot) + @"[A-Za-z0-9_\-./]+?\.md)(?<frag>#[A-Za-z0-9_\-]+)?(?![\w/])" +
             @"|(?<numbered>(?<![\w-])" + cited + @"[:#]\d+)" +
+            // A citation is never glued to a word; a leading '-' only follows a digit, as a range dash does.
             @"|(?<cite>(?<!\w)(?<!(?:^|\D)-)(?<code>" + cited + @")(?![\w*]|-[A-Z0-9*<]))" +
             @"|(?<slug>(?<![^\s(\[{,;:'""*])(?<name>[a-z0-9]+(?:-[a-z0-9]+)*)\.md(?![\w/]))",
             RegexOptions.Compiled);
@@ -73,6 +78,7 @@ public sealed class CodeLinkRewriter
         }
     }
 
+    // One relation a text holds, at a text-relative offset, its target a repository path.
     public readonly struct EdgeHit
     {
         public readonly int Offset;
@@ -195,6 +201,7 @@ public sealed class CodeLinkRewriter
 
     static readonly Regex CanonicalTarget = new Regex(@"^\[(?<text>[^\]]*)\]\(/(?<path>[^)#\s]+)", RegexOptions.Compiled);
 
+    // A link names the file it resolves to, only when that file exists; an ADR reference names its canonical target.
     void RecordEdge(Match match, string replacement, string repoPath, List<EdgeHit> edges)
     {
         if (replacement != null)
@@ -231,6 +238,7 @@ public sealed class CodeLinkRewriter
         return string.Format(CultureInfo.InvariantCulture, "'{0}' is not a citation code in the ADR index", code);
     }
 
+    // A citation right after a path merges into the path's link; returns the characters it covers.
     int Adjacent(string comment, int at, bool[] literal, out string code)
     {
         code = null;
@@ -246,6 +254,7 @@ public sealed class CodeLinkRewriter
         return closed && !opened ? adjacent.Length - 1 : adjacent.Length;
     }
 
+    // A link after a bare citation of the same ADR is one reference spelled twice.
     int RepeatedLink(string comment, int at, bool[] literal, string canonical)
     {
         if (at >= comment.Length) { return 0; }

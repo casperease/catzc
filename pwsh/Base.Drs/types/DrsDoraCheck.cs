@@ -13,6 +13,7 @@ using Catzc.Base.Reports;
 
 namespace Catzc.Base.Drs;
 
+// The DORA-coverage check: each rule set of a domain has exactly one section linking its record in the domain's DORA file.
 public sealed class DrsDoraCheck
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

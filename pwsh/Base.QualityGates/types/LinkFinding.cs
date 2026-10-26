@@ -10,6 +10,7 @@ using System.Globalization;
 
 namespace Catzc.Base.QualityGates;
 
+// The replacement is empty when the finding cannot be fixed.
 public sealed class LinkFinding
 {
     public string File { get; }

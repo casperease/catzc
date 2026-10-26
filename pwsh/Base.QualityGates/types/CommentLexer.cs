@@ -14,6 +14,7 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Base.QualityGates;
 
+// The comment spans of a source file per language family: the only places a code link lives.
 public static class CommentLexer
 {
     static readonly HashSet<string> PowerShellExtensions = new HashSet<string>(StringComparer.OrdinalIgnoreCase) { ".ps1", ".psm1", ".psd1" };
@@ -42,6 +43,7 @@ public static class CommentLexer
     public static IReadOnlyList<(int Start, int Length)> PowerShellStrings(string text) =>
         string.IsNullOrEmpty(text) ? Array.Empty<(int, int)>() : PowerShellSpans(text, wantComments: false);
 
+    // String-literal spans, quotes included; a YAML value is data however it reads.
     public static IReadOnlyList<(int Start, int Length)> Strings(string text, string extension)
     {
         if (string.IsNullOrEmpty(text)) { return Array.Empty<(int, int)>(); }
@@ -67,6 +69,7 @@ public static class CommentLexer
         return spans;
     }
 
+    // One scan that skips each kind while it looks for the other.
     static IReadOnlyList<(int, int)> CFamily(string text, string extension, bool wantComments)
     {
         bool isCSharp = string.Equals(extension, ".cs", StringComparison.OrdinalIgnoreCase);
@@ -273,6 +276,7 @@ public static class CommentLexer
         return spans;
     }
 
+    // A block comment continues with plain indentation, so it has no marker.
     public static string LineMarker(string comment)
     {
         if (comment.StartsWith("<#", StringComparison.Ordinal) || comment.StartsWith("/*", StringComparison.Ordinal) || comment.StartsWith("<!--", StringComparison.Ordinal))

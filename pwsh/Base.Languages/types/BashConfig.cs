@@ -87,6 +87,7 @@ public sealed class BashConfig : Catzc.Base.Objects.DictionaryRecord
         if (errors.Count > 0) { throw new ArgumentException(Failed + string.Join("\n", errors)); }
     }
 
+    // The declared root, else bash when the repository has a bash/ folder, else .bash.
     public string ResolveRoot(string repositoryRoot)
     {
         if (root != null) { return root; }

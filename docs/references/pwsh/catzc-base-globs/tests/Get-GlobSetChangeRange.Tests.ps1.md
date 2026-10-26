@@ -1,14 +1,8 @@
 # pwsh/Base.Globs/tests/Get-GlobSetChangeRange.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The tests of `Get-GlobSetChangeRange`, the reference-commit resolver ([FDR-CD-DETECT](../../../../drs/flow/pipeline-detection.md)).
 
-## comment:1
+## What it proves
 
-Above `Describe 'Get-GlobSetChangeRange'`, written with `#`.
-
-```text
-The reference-commit resolver ([FDR-CD-DETECT](/docs/drs/flow/pipeline-detection.md)): the diff range per
-execution context — local working tree,
-post-commit first-parent (squash-proof), or the PR merge-base — with a fail-open null.
-```
+The diff range follows the execution context: the local working tree, the post-commit first-parent range (squash-proof), or the pull request
+merge-base. A context whose range cannot be resolved returns null, the fail-open signal.

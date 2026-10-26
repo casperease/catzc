@@ -20,6 +20,7 @@ public sealed class FileIconsConfig : Catzc.Base.Objects.DictionaryRecord
     private static readonly string[] AllowedKeys = { "file", "icons" };
     private static readonly Regex Hex = new Regex("^#[0-9a-fA-F]{6}$", RegexOptions.CultureInvariant);
 
+    // The dot colour of a file no icon marks; file-icons.yml overrides it, never restates it.
     public const string DefaultFile = "#8c8c8c";
 
     public string file { get; }

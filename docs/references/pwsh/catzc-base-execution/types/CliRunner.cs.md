@@ -1,140 +1,44 @@
 # pwsh/Base.Execution/types/CliRunner.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The streaming process runner behind `Invoke-Executable`: it parses a command string and runs the executable directly, with no shell,
+streaming stdout and stderr to the console char by char on background threads while capturing them.
 
-## comment:1
+## One type, runner and result
 
-Above `using System;`, written with `//`.
+The instance is both the runner and its own result: `Run` and `RunDirect` populate the three captured fields. Every run is inside a time
+safeguard, so a process that outlives its limit is killed with its whole tree and the run throws a `TimeoutException`. The limit comes from
+`timeouts.yml`, resolved by the caller through `Get-TimeoutSeconds`, and `ExecutableName` gives the name it is looked up by (the first
+token, quotes removed, empty for a blank command).
 
-```text
-A streaming process runner: it parses a command string and runs the executable directly (no shell, via
-CreateProcess/fork+exec), streaming stdout/stderr to the console char-by-char on background threads while
-also capturing them. The instance is both the runner and its own result — Run/RunDirect populate the
-three captured fields below. Every run is inside a time safeguard: a process that outlives its limit is killed
-with its whole tree and the run throws a TimeoutException (the limit comes from timeouts.yml, resolved by the
-caller through Get-TimeoutSeconds).
-```
+## Entry points
 
-## comment:2
+- `Run` parses the command and runs it directly. It throws when it detects shell operators (`|`, `&&`, `||`, `;`).
+- `RunBytes` runs silently and captures stdout as raw bytes in `StdoutBytes`, with no decoding and no console echo, for a binary stream such
+  as `git cat-file --batch`, whose object sizes count bytes, not characters. Stderr is captured as text, stdin is empty and closed, and the
+  single-command rule and time safeguard are the same as for `Run`.
 
-Above `public byte[] StdoutBytes { get; private set; }`, written with `//`.
+## Starting the child
 
-```text
-The captured stdout as the exact bytes the process wrote — set by RunBytes only (null for a text run), for
-a binary stream such as `git cat-file --batch`, whose object sizes count bytes, not characters.
-```
+The executable is resolved on PATH with the common extensions (on Windows `.exe`, `.cmd`, `.bat`, `.com`, in `cmd.exe`'s PATHEXT order; on
+Unix the bare name), because `Process.Start` without a shell resolves only exact file names and tools such as az, poetry and npm are `.cmd`
+scripts on Windows.
 
-## comment:3
+A child that inherits a stdin pipe another thread is blocked reading can hang at startup (Git for Windows probes its standard handles).
+Whenever no person can answer a prompt anyway, that is a silent run or a caller whose stdin is not a terminal, the child gets an empty,
+closed stdin and reads end-of-file. A visible run from a terminal keeps its stdin, so interactive prompts still work.
 
-Above `public static CliRunner Run(string commandLine, bool silent, string...`, written with `///`.
+## Supervision
 
-```text
-<summary>
-Runs a command string. Parses it into executable + arguments and runs
-directly (no shell). Throws if shell operators (|, &amp;&amp;, ||, ;) are detected,
-and throws a TimeoutException (after killing the process tree) when the run
-outlives timeoutSeconds.
-</summary>
-```
+Both limits must be positive: the time limit bounds the process, and the drain limit bounds how long the output readers may take to reach
+end-of-stream once the process has exited. The rest of a finished process's output drains in milliseconds, so a reader still blocked after
+the drain limit is waiting on a pipe that a process the command started (a detached server, a grandchild) still holds open. The wait is
+bounded too: past the time limit the whole tree is killed and a `TimeoutException` is thrown, and a reader the pipe never releases fails the
+run with an `IOException` naming the cause, instead of hanging the caller for that holder's lifetime.
 
-## comment:4
+The readers are background threads, so one still blocked on a pipe a leftover process holds can never keep the host alive. They swallow the
+error a disposed stream raises, since an exception escaping a thread would end the host.
 
-Above `public static CliRunner RunBytes(string commandLine, string workingDirectory,...`, written with `///`.
+## Command parsing
 
-```text
-<summary>
-Runs a command string silently and captures its stdout as raw bytes (StdoutBytes) — no decoding, no
-console echo — for a binary stream. Stderr is captured as text. Same single-command rule and time
-safeguard as Run; stdin is empty and closed.
-</summary>
-```
-
-## comment:5
-
-Above `public static string ExecutableName(string commandLine)`, written with `///`.
-
-```text
-<summary>
-The executable a command string runs (its first token, quotes removed), or an
-empty string for a blank command — the name its time limit is looked up by.
-</summary>
-```
-
-## comment:6
-
-Above `var psi = NewStartInfo(executable, arguments, workingDirectory,...`, written with `//`.
-
-```text
-A child inheriting a stdin pipe that another thread is blocked reading hangs at startup (Git for
-Windows probes its std handles). Whenever no person can answer a prompt anyway (a silent run, or
-a caller whose stdin is not a terminal), the child gets an empty, closed stdin and reads EOF. A
-visible run from a terminal keeps it, so interactive prompts still work.
-```
-
-## comment:7
-
-Above `var psi = new ProcessStartInfo`, written with `//`.
-
-```text
-Resolve the executable on PATH. Process.Start with UseShellExecute=false
-doesn't resolve .cmd/.bat/.ps1 extensions — only exact filenames.
-Tools like az, poetry, npm, pyspark are .cmd scripts on Windows.
-```
-
-## comment:8
-
-Above `private static Thread Reader(Action read)`, written with `//`.
-
-```text
-An output reader: a background thread, so one still blocked on a pipe a leftover process holds can never keep
-the host alive, and one that swallows the error a disposed stream raises, since an exception escaping a thread
-would end the host.
-```
-
-## comment:9
-
-Above `private static void AssertLimits(int timeoutSeconds, int drainSeconds)`, written with `//`.
-
-```text
-Both limits a run is given must be positive: timeoutSeconds bounds the process, and drainSeconds how long the
-output readers may take to reach end-of-stream once the process has exited. The rest of a finished process's
-output drains in milliseconds; a reader still blocked after drainSeconds is waiting on a pipe that a process
-the command started (a detached server, a grandchild) still holds open.
-```
-
-## comment:10
-
-Above `private static void Supervise(string commandLine, Process process, int...`, written with `//`.
-
-```text
-Waits for the process within its time limit, then — bounded too — for its output readers. Past the limit it
-kills the whole tree and throws a TimeoutException. A reader the pipe never releases fails the run with an
-IOException naming the cause, instead of hanging the caller for that holder's lifetime.
-```
-
-## comment:11
-
-Above `private static string ResolveExecutable(string name)`, written with `///`.
-
-```text
-<summary>
-Resolves a command name to a full path by searching PATH with
-common executable extensions. On Windows, checks .exe, .cmd, .bat,
-.com in order (matching cmd.exe PATHEXT behavior). On Unix, checks
-the bare name (executables have no extension convention).
-Returns the original name if already a full path or not found.
-</summary>
-```
-
-## comment:12
-
-Above `private static ParsedCommand ParseCommand(string commandLine)`, written with `///`.
-
-```text
-<summary>
-Splits a command string into executable + arguments.
-Handles single and double quoted regions.
-Detects unquoted | && || which require shell execution.
-</summary>
-```
+The command string splits into the executable and its arguments, honouring single and double quoted regions, and the parser detects the
+unquoted shell operators that would need a shell.

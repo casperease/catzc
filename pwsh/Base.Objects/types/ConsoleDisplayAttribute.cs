@@ -10,6 +10,7 @@ using System;
 
 namespace Catzc.Base.Objects;
 
+// Names the identity properties of the type it decorates, the few that tell one instance from another at a glance.
 [AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct, AllowMultiple = false, Inherited = true)]
 public sealed class ConsoleDisplayAttribute : Attribute
 {

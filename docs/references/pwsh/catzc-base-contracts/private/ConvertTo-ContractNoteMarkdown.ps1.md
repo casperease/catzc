@@ -1,7 +1,7 @@
 # pwsh/Base.Contracts/private/ConvertTo-ContractNoteMarkdown.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The converter of an asset's note to markdown for the generated contract reference. A note is written as a comment, so its links and
+addresses need rewriting before they are valid markdown.
 
 ## help
 

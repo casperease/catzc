@@ -15,11 +15,13 @@ using static Catzc.Base.Drs.DrsCitationText;
 
 namespace Catzc.Base.Drs;
 
+// The one citation spelling has two forms by line width: an inline citation that outgrows the width becomes a reference.
 public static class DrsCitationForm
 {
     static readonly Regex Definition = new Regex(@"^ {0,3}\[(?<label>[^\]\r\n]+)\]:[ \t]*(?<dest>\S+)", RegexOptions.Compiled | RegexOptions.Multiline);
     static readonly Regex NumberedLabel = new Regex(@"^r(?<n>[1-9][0-9]*)$", RegexOptions.Compiled);
 
+    // Respells each listed over-wide line's inline citations as references, the longest destination first, until the line fits.
     public static string ToReference(string text, string path, ISet<int> lines, int width, string codePattern, List<DrsCitationChange> changes)
     {
         if (text == null) { throw new ArgumentNullException(nameof(text)); }

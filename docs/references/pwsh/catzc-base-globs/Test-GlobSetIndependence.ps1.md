@@ -1,7 +1,6 @@
 # pwsh/Base.Globs/Test-GlobSetIndependence.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The per-layer independence quality gate: it proves that no two globsets of the same layer select a common file on their own contribution.
 
 ## help
 
@@ -47,22 +46,14 @@ Test-GlobSetIndependence
 (Test-GlobSetIndependence -PassThru).Issues
 ```
 
-## comment:1
+## Exempt layer
 
-Above `$exemptLayer = 'loose-fileset'`, written with `#`.
-
-```text
-loose-filesets are cross-cutting and overlap-exempt
-([FDR-CD-GLOBS-EVERYSETHASLAYER](/docs/drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-everysethaslayer)/10); every other layer is
+Loose filesets are cross-cutting and overlap-exempt
+([FDR-CD-GLOBS-EVERYSETHASLAYER](../../../drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-everysethaslayer)/10). Every other layer is
 checked.
-```
 
-## comment:2
+## Own members
 
-Above `$own = @{}`, written with `#`.
-
-```text
-OWN members per set (compose ignored,
-[FDR-CD-GLOBS-NOOVERLAPWITHINLAYER](/docs/drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-nooverlapwithinlayer)), computed once as a set for
-O(1) intersection.
-```
+The gate computes the own members of each set (compose ignored,
+[FDR-CD-GLOBS-NOOVERLAPWITHINLAYER](../../../drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-nooverlapwithinlayer)) once, as a set, for O(1)
+intersection.

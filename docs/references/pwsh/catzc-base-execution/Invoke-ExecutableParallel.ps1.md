@@ -1,7 +1,6 @@
 # pwsh/Base.Execution/Invoke-ExecutableParallel.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The parallel form of `Invoke-Executable`: independent commands run a few at a time, and one result comes back per command, in order.
 
 ## help
 
@@ -11,8 +10,8 @@ Runs independent commands side by side, a few at a time, and returns one result 
 
 ### description
 
-The parallel form of Invoke-Executable for a tool whose work splits into independent calls, such as a formatter's command-line batches or
-a spell check's shards. Each command runs as Invoke-Executable runs it, with no shell and no shell operators, through CliRunner.RunMany:
+The parallel form of Invoke-Executable for a tool whose work splits into independent calls, such as a formatter's command-line batches or a
+spell check's shards. Each command runs as Invoke-Executable runs it, with no shell and no shell operators, through CliRunner.RunMany:
 silently, since output from several processes cannot stream to one console, and each bounded by its executable's own time limit
 (Get-TimeoutSeconds). The throttle defaults to the timeouts config's `parallel.processes`, declared once on TimeoutsConfig, so a shared
 devbox is never starved. Every command finishes before a failure is raised, so none is left running behind it.
@@ -53,3 +52,9 @@ Return the command lines without running any.
 ```powershell
 $results = Invoke-ExecutableParallel -Command 'prettier --list-different a.md', 'prettier --list-different b.md' -NoAssert
 ```
+
+## Shape
+
+Each command runs exactly as `Invoke-Executable` runs one, through `CliRunner.RunMany`, so it is silent and bounded by its own executable's
+time limit. All commands finish before a failure is raised, so none is left running behind it, and the failure names every command that
+exited non-zero.

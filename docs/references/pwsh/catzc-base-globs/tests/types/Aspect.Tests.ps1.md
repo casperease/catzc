@@ -1,15 +1,9 @@
 # pwsh/Base.Globs/tests/types/Aspect.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The tests of `Aspect` and `AspectPartition`, the ordered first-match partition of a unit's tracked files
+([DDR-ASPECT](../../../../../drs/design/module-aspects.md)).
 
-## comment:1
+## What it proves
 
-Above `Describe 'Aspect / AspectPartition'`, written with `#`.
-
-```text
-Aspects ([DDR-ASPECT](/docs/drs/design/module-aspects.md)): the ordered first-match partition of a unit's tracked
-files. Compile encodes each
-aspect as a leaf scan program (own patterns as include, earlier aspects' patterns as exclude); the last
-aspect ('**') becomes the non-live catch-all remainder. Validate re-checks disjoint + exhaustive.
-```
+`Compile` encodes each aspect as a leaf scan program, with its own patterns as the include and the earlier aspects' patterns as the exclude.
+The last aspect, `**`, becomes the non-live catch-all remainder. `Validate` re-checks that the partition is disjoint and exhaustive.

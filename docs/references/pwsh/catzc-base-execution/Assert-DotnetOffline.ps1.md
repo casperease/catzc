@@ -1,7 +1,7 @@
 # pwsh/Base.Execution/Assert-DotnetOffline.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The guard that every in-tree dotnet build, publish or format calls first. It proves, with file checks alone, that no package feed can be
+reached by the run, and throws a named error when it can.
 
 ## help
 
@@ -36,11 +36,9 @@ The repository root whose generated `nuget.config` keeps dotnet offline. Default
 Assert-DotnetOffline .claude/hooks/Record-AgentWrite/Record-AgentWrite.csproj
 ```
 
-## comment:1
+## Why it looks at every folder
 
-Above `$names = 'nuget.config', 'NuGet.config', 'NuGet.Config'`, written with `#`.
-
-```text
-NuGet reads these names in every folder from the project up; the root's one clears what the user's and the
-machine's configs add.
-```
+NuGet reads its config from the project's folder up to the drive root, in every spelling of the file name (`nuget.config`, `NuGet.config`,
+`NuGet.Config`), and then the user's and the machine's configs. The repository's generated root `nuget.config` clears every feed, which is
+why one cleared root is enough to shut out what the user's and machine's configs add. A stray config between the project and the root could
+add a feed back, so the guard checks each folder on that path and ignores configs off it.

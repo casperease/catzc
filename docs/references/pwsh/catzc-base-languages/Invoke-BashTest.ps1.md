@@ -1,7 +1,7 @@
 # pwsh/Base.Languages/Invoke-BashTest.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+`Invoke-BashTest` runs a module's Bash tests with the vendored bats-core runner and returns one `BashTestResult` per `@test`. The Bash root
+comes from `bash.yml`, and the tests start the engine through the contract `Get-EngineContract` builds.
 
 ## help
 
@@ -64,20 +64,12 @@ Invoke-BashTest Catzc.Base.Repository
 Invoke-BashTest Catzc.Base.Repository -EntryScript out/build/Import-Catzc.ps1
 ```
 
-## comment:1
+## The test folder
 
-Above `if ($results.Count -eq 0 -or ($run.ExitCode -ne 0 -and`, written with `#`.
+The folder is the one named, a module's own `tests/` or the holder's, else the module's folder under the holder's `tests/` in bash's folder
+case.
 
-```text
-bats exits 1 when a test failed; a non-zero exit with no failing test, or no test at all, means it failed around
-the tests (a .bats file that does not parse, a failing setup_file).
-```
+## When bats itself failed
 
-## comment:2
-
-Above `$relative = if ($Folder) {`, written with `#`.
-
-```text
-The test folder: the one named, a module's own tests/ or the holder's, else the module's folder under the holder's
-tests/ in bash's folder case.
-```
+bats exits 1 when a test failed. A non-zero exit with no failing test, or no test at all, means it failed around the tests: a `.bats` file
+that does not parse, or a failing `setup_file`. The call throws then, with the bats output.

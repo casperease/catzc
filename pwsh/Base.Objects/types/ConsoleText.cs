@@ -14,6 +14,7 @@ using System.Reflection;
 
 namespace Catzc.Base.Objects;
 
+// The shared console rendering of every C# type, so an object held in pwsh reads as one clean line wherever it becomes text.
 public static class ConsoleText
 {
     // The most items a collection renders before the rest are counted as `… (+N)`.

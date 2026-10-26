@@ -1,7 +1,6 @@
 # pwsh/Base.Globs/Protect-GlobSet.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The record half of the protected-glob skip: after a scan passes, it stores the globset's identity so the next unchanged run is skipped.
 
 ## help
 
@@ -36,20 +35,12 @@ Test-Markdownlint
 Protect-GlobSet -Test 'markdown' -Name 'markdown-scope'
 ```
 
-## comment:1
+## The cache
 
-Above `$script:protectedGlobSets = @{}`, written with `#`.
+The lazy cache entries are probed strict-clean
+([ADR-PWSH-CACHE-STRICTSAFEPROBE](../../../drs/automation/pwsh/script-scope-caching.md#rule-adr-pwsh-cache-strictsafeprobe)).
 
-```text
-strict-clean probe of the lazy cache entries
-([ADR-PWSH-CACHE-STRICTSAFEPROBE](/docs/drs/automation/pwsh/script-scope-caching.md#rule-adr-pwsh-cache-strictsafeprobe))
-```
+## Naming the identity
 
-## comment:2
-
-Above `$identity = $script:pendingGlobProtections[$key]`, written with `#`.
-
-```text
-NOTE: never name this local $hash — PowerShell variables are case-insensitive, so it would silently
-overwrite the $Hash parameter.
-```
+The local that holds the recorded identity is never named `$hash`: PowerShell variables are case-insensitive, so it would silently overwrite
+the `$Hash` parameter.

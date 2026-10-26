@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Get-PlanOpenStepCount.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Counts the open steps of every plan in a plans folder. It is the one count that Test-Plans checks and Format-Code writes, so the two cannot
+disagree. A step is open when its list item is unchecked, and a wrapped step counts once.
 
 ## help
 

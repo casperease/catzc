@@ -1,14 +1,5 @@
 # pwsh/Base.Languages/tests/Get-EngineContract.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
-
-## comment:1
-
-Above `Describe 'Get-EngineContract'`, written with `#`.
-
-```text
-Get-EngineContract with the engines' executables mocked: the start arguments come from the execution engine model and
-load the run's entry — directly in pwsh, through importer.sh and CATZC_IMPORTER in the POSIX engines. Neutral fixture paths
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
-```
+The logic tests of `Get-EngineContract`, with the engines' executables mocked. The start arguments come from the execution engine model and
+load the run's entry, directly in pwsh and through `importer.sh` and `CATZC_IMPORTER` in the POSIX engines. The fixture paths are neutral
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).

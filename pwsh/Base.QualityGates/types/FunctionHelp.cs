@@ -214,6 +214,7 @@ public sealed class FunctionHelp
     static readonly Regex Token = new Regex(@"\S+", RegexOptions.Compiled);
     static readonly Regex Placeholder = new Regex(@"<[^<>\s]+>|\*|\[[^\]]*\]", RegexOptions.Compiled);
 
+    // Help text from YAML as Markdown that means the same, so a formatter leaves it alone.
     public static string Markdown(string text)
     {
         string[] lines = (text ?? string.Empty).Replace("\r\n", "\n").Split('\n');

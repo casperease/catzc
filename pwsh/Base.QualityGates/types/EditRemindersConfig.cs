@@ -16,6 +16,7 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Base.QualityGates;
 
+// Path patterns mapped to the checks an edit owes, read by the Show-EditReminder hook.
 public sealed class EditRemindersConfig
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

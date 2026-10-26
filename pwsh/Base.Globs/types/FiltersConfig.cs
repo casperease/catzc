@@ -14,6 +14,7 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Base.Globs;
 
+// Named views over the hard model, in declaration order; a filter never redefines a track or an aspect.
 public sealed class FiltersConfig
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
@@ -62,6 +63,7 @@ public sealed class FiltersConfig
     }
 }
 
+// One filter: a lamp id in lower snake case, an optional title, and its selectors of the closed kinds.
 public sealed class RepositoryFilter
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

@@ -1,7 +1,7 @@
 # pwsh/Base.Contracts/Get-AccostedFile.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The reader of an accosted file: it parses the file and checks every call in it against its command contract, so a file that comes back is
+one whose calls are all known, harmless and well typed.
 
 ## help
 

@@ -11,6 +11,7 @@ using System.Collections;
 
 namespace Catzc.Base.Git;
 
+// One pattern line of a section: a verbatim git wildmatch pattern with an optional note, rendered as an aligned inline comment.
 public sealed class GitIgnorePattern : Catzc.Base.Objects.DictionaryRecord
 {
     // The git wildmatch pattern, verbatim (including any leading '!' un-ignore or '/' anchor). Required.

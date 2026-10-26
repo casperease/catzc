@@ -10,6 +10,7 @@ using System;
 
 namespace Catzc.Base.Timeouts;
 
+// A function's own time limit, declared beside its code on the param block.
 [AttributeUsage(AttributeTargets.All, AllowMultiple = false)]
 public sealed class TimeLimitAttribute : Attribute
 {
@@ -44,6 +45,7 @@ public sealed class TimeLimitAttribute : Attribute
         }
     }
 
+    // The work's immutable budget GUID; while an exemption covers it, the exemption's ceiling wins. Empty with no budget.
     public string Budget
     {
         get { return budget; }

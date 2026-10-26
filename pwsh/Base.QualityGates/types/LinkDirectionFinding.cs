@@ -10,6 +10,7 @@ using System.Globalization;
 
 namespace Catzc.Base.QualityGates;
 
+// Row 0 means no row allows it; a missing endpoint is reported, never skipped.
 public sealed class LinkDirectionFinding
 {
     public string File { get; }

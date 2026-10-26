@@ -12,8 +12,10 @@ using System.Globalization;
 
 namespace Catzc.Base.Maps;
 
+// A deterministic squarified treemap: one rectangle per item, its area proportional to the weight, rows kept near square.
 public static class SquarifiedTreemap
 {
+    // The rectangles of the positive-weight items inside the box, heaviest first, ties in ordinal key order.
     public static TreemapRect[] Layout(string[] keys, double[] weights, double x, double y, double width, double height)
     {
         if (keys == null) { throw new ArgumentNullException(nameof(keys)); }
@@ -93,6 +95,7 @@ public static class SquarifiedTreemap
         return Math.Max(side2 * max / sum2, sum2 / (side2 * min));
     }
 
+    // Lays a row along the remaining box's shorter side: a column at the left of a wide box, a band at the top of a tall one.
     private static void Place(List<int> row, string[] keys, double[] weights, double scale, bool last, List<TreemapRect> result,
         ref double rx, ref double ry, ref double rw, ref double rh)
     {

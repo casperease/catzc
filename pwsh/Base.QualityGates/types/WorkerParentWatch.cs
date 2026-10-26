@@ -13,11 +13,13 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Threading;
 
+// Ends a test worker when the process that started it is gone.
 public static class WorkerParentWatch
 {
     public const string PidVariable = "CATZC_TEST_PARENT_PID";
     public const string StartVariable = "CATZC_TEST_PARENT_START";
 
+    // Slack for Linux start times; a reused PID starts far later.
     private static readonly TimeSpan StartTolerance = TimeSpan.FromSeconds(1);
 
     private static readonly object Sync = new object();
@@ -30,6 +32,7 @@ public static class WorkerParentWatch
         return current.StartTime.ToUniversalTime().Ticks;
     }
 
+    // Alive means this PID exists and started at this time.
     public static bool IsAlive(int pid, long startTicksUtc)
     {
         try
@@ -54,6 +57,7 @@ public static class WorkerParentWatch
         }
     }
 
+    // Watches nothing when the variables are absent or malformed; idempotent.
     public static bool Start(int intervalMilliseconds)
     {
         if (intervalMilliseconds < 1)
@@ -90,6 +94,7 @@ public static class WorkerParentWatch
         {
             Thread.Sleep(intervalMilliseconds);
         }
+        // Kill, not Exit: exit handlers can block behind a pipe nobody reads.
         using var self = Process.GetCurrentProcess();
         self.Kill();
     }

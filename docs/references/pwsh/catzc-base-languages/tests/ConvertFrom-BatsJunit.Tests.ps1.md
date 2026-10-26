@@ -1,14 +1,5 @@
 # pwsh/Base.Languages/tests/ConvertFrom-BatsJunit.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
-
-## comment:1
-
-Above `Describe 'ConvertFrom-BatsJunit'`, written with `#`.
-
-```text
-ConvertFrom-BatsJunit over a canned bats JUnit report (tests/assets/bats-widget.xml, written in the shape bats 1.14
-writes with --report-formatter junit). Neutral fixture names
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
-```
+The logic tests of `ConvertFrom-BatsJunit`, over a canned bats JUnit report (`tests/assets/bats-widget.xml`, written in the shape bats 1.14
+writes with `--report-formatter junit`). The fixture names are neutral
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).

@@ -12,6 +12,7 @@ using System.Threading;
 
 namespace Catzc.Base.Timeouts;
 
+// A one-shot timer that stops a PowerShell pipeline once it outlives its limit, behind Invoke-WithTimeout.
 public sealed class PipelineWatchdog : IDisposable
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
@@ -29,6 +30,7 @@ public sealed class PipelineWatchdog : IDisposable
         if (pipeline == null) { throw new ArgumentNullException("pipeline"); }
         if (limit <= TimeSpan.Zero) { throw new ArgumentOutOfRangeException("limit", "the limit must be positive"); }
 
+        // Stop and Dispose share one gate: Timer.Dispose does not wait for a running callback, which could stop a disposed pipeline.
         timer = new Timer(_ =>
         {
             lock (gate)

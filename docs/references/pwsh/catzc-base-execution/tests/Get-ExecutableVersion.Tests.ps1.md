@@ -1,14 +1,8 @@
 # pwsh/Base.Execution/tests/Get-ExecutableVersion.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The tests of `Get-ExecutableVersion`, the probe's only process start, with `Invoke-Executable` mocked.
 
-## comment:1
+## What they pin
 
-Above `BeforeEach {`, written with `#`.
-
-```text
-The probe's only process start, with Invoke-Executable mocked: the located path is run (quoted), never a
-bare name, and the version is the pattern's named group. Fixture tokens are neutral
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
-```
+The located path is run, quoted, never a bare name, and the version is the pattern's named group. Fixture tokens are neutral
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).

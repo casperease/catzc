@@ -11,6 +11,7 @@ using System.Globalization;
 
 namespace Catzc.Base.Maps;
 
+// Invariant, at most three decimals, no exponent, no negative zero, no trailing zeros: the same value always gives the same bytes.
 public static class PdfNumber
 {
     // The text of a finite number, rounded to three decimals. NaN and the infinities have no PDF form and throw.

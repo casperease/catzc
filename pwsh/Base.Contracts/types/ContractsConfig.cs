@@ -14,6 +14,7 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Base.Contracts;
 
+// How a group folder is named: the module's track and normal-form folder, or an exception.
 public sealed class ContractsConfig
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

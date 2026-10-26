@@ -15,6 +15,7 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Base.Contracts;
 
+// A parsed JSON or YAML value read as one of seven JSON kinds, compared by JSON equality.
 public static class ContractValue
 {
     private static readonly Regex PlainKey = new Regex("^[A-Za-z0-9_-]+$");
@@ -50,6 +51,7 @@ public static class ContractValue
             "contract value: a {0} is not a JSON or YAML value", value.GetType().FullName));
     }
 
+    // A finding's rendering of a value is cut at this many characters.
     public const int DescribeLimit = 80;
 
     public static string Describe(object value)

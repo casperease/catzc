@@ -1,7 +1,7 @@
 # pwsh/Base.Variants/Get-PathModule.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The path-to-module resolver: given a repository-relative path, it names the module whose place holds it and that module's type, using the
+module types config's places; a path no module place holds returns nothing.
 
 ## help
 

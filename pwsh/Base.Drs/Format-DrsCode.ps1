@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-drs/Format-DrsCode.ps1.md"
-  header: "generated"
----
-#>
-
 function Format-DrsCode {
     [OutputType([string])]
     [CmdletBinding()]

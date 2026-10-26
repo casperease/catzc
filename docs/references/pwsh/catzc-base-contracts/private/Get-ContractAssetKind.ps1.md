@@ -1,7 +1,6 @@
 # pwsh/Base.Contracts/private/Get-ContractAssetKind.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The classifier of a contract asset by its file name. Because the name alone decides the kind, no registry says what an asset is.
 
 ## help
 

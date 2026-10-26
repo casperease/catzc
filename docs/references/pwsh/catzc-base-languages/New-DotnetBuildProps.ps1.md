@@ -1,7 +1,7 @@
 # pwsh/Base.Languages/New-DotnetBuildProps.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+`New-DotnetBuildProps` renders the repository-root `Directory.Build.props`, which gives every project one target framework and turns NuGet
+audit off. `Build-RootConfig` writes the result.
 
 ## help
 
@@ -30,11 +30,6 @@ head in the `msbuild-project` carrier. See [ADR-REPO-ROOTCFG](../../../drs/repos
 New-DotnetBuildProps
 ```
 
-## comment:1
+## Why one framework
 
-Above `@"`, written with `#`.
-
-```text
-The one target framework is the SDK the tooling installs, so a project never names a framework whose reference
-pack must be downloaded.
-```
+The one target framework is the SDK the tooling installs, so a project never names a framework whose reference pack must be downloaded.

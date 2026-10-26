@@ -12,6 +12,7 @@ using System.Linq;
 
 namespace Catzc.Base.Variants;
 
+// One track: a named root concern with its members, type and languages.
 public sealed class VariantTrack
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
@@ -31,6 +32,7 @@ public sealed class VariantTrack
     // The vendor that reads the track's files, or null when the track has none.
     public string vendor { get; }
 
+    // File-language names in declared order; Catzc.Base.Languages resolves them.
     public IReadOnlyList<string> languages { get; }
 
     // The execution engines the track's modules run under, a subset of the closed set; empty when the track leaves the choice open as auto.
@@ -39,16 +41,19 @@ public sealed class VariantTrack
     // The modules whose engines differ from the track's: module name -> the engines it names. Empty when none differs.
     public IReadOnlyDictionary<string, IReadOnlyList<string>> module_execution_engines { get; }
 
+    // kind -> place pattern, one '*' segment allowed; membership is by places alone.
     public IReadOnlyDictionary<string, string> kinds { get; }
 
     // The module namespace ([DDR-TRACK-MODULENAMESPACE](/docs/drs/design/tracks.md#rule-ddr-track-modulenamespace)): joined to a folder name, it gives the module's full name; empty when undeclared.
     public string @namespace { get; }
 
+    // What the language spells between namespace and folder: '-' for js, '' for go.
     public string join { get; }
 
     // The join a track declares none of: the dot of a PowerShell module's full name.
     public const string DefaultJoin = ".";
 
+    // Files that name the product keep the namespace on disk.
     public IReadOnlyList<string> namespace_exempt { get; }
 
     private readonly Catzc.Base.Objects.GlobPattern[] exemptPatterns;
@@ -81,6 +86,7 @@ public sealed class VariantTrack
         this.languages = languages == null ? Array.Empty<string>() : (string[])languages.Clone();
     }
 
+    // The path up to the segment spelling the namespace; null when none does.
     public string NamespaceSegmentOf(string path)
     {
         if (@namespace.Length == 0 || string.IsNullOrEmpty(path)) { return null; }
@@ -148,6 +154,7 @@ public sealed class VariantTrack
         return best;
     }
 
+    // The longest containing member's length, -1 for none; a glob counts by its pattern.
     public int PlaceLengthOf(string path)
     {
         int best = -1;

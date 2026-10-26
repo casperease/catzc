@@ -13,11 +13,13 @@ using System.Linq;
 
 namespace Catzc.Base.Git;
 
+// Git's refs read in-process: the git directory, the commit a name resolves to and HEAD's branch, without starting git.
 public static class GitRefs
 {
     // How many symbolic refs (`ref: <target>`) a lookup follows before it calls the chain a loop.
     private const int MaxSymbolicDepth = 5;
 
+    // <root>/.git when it is a directory, else the target of its gitdir pointer file, resolved against the root when relative.
     public static string GitDirectory(string checkoutRoot)
     {
         var dotGit = Path.Combine(checkoutRoot, ".git");
@@ -37,6 +39,7 @@ public static class GitRefs
         return Path.GetFullPath(pointer.Substring("gitdir:".Length).Trim(), Path.GetFullPath(checkoutRoot));
     }
 
+    // Where shared refs live: the commondir a linked worktree names, else the git directory itself.
     public static string CommonDirectory(string gitDirectory)
     {
         var pointer = Path.Combine(gitDirectory, "commondir");
@@ -63,6 +66,7 @@ public static class GitRefs
         return target.StartsWith("refs/heads/", StringComparison.Ordinal) ? target.Substring("refs/heads/".Length) : target;
     }
 
+    // A full id, HEAD, a full ref, or a short name looked up in git's order: refs, tags, heads, remotes, remote HEAD.
     public static string ResolveCommit(string gitDirectory, string name)
     {
         AssertReadable(gitDirectory);
@@ -135,6 +139,7 @@ public static class GitRefs
         return null;
     }
 
+    // A loose object's header tells a tag object from a commit; a packed one counts as annotated, loud but never wrong.
     private static bool IsAnnotatedTagObject(string gitDirectory, string id)
     {
         var path = Path.Combine(CommonDirectory(gitDirectory), "objects", id.Substring(0, 2), id.Substring(2));

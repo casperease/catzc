@@ -2,15 +2,10 @@
 
 <!-- cspell:ignore nsrc -->
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The tests of `Get-ChangedFile`, the diff universe of the module
+([FDR-CD-GLOBS-TRACKEDFILESONLY](../../../../drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-trackedfilesonly)).
 
-## comment:1
+## What it proves
 
-Above `Describe 'Get-ChangedFile'`, written with `#`.
-
-```text
-The diff universe ([FDR-CD-GLOBS-TRACKEDFILESONLY](/docs/drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-trackedfilesonly)): changed paths
-from `git diff --name-only --no-renames`, repo-relative,
-quotepath off, renames split so both the old and new path count.
-```
+The changed paths come from `git diff --name-only --no-renames`, repo-relative, with `quotepath` off. A rename is split so that both the old
+and the new path count.

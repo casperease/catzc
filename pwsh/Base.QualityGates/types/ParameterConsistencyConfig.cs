@@ -14,6 +14,7 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Base.QualityGates;
 
+// The parameter names allowed more than one type across public functions.
 public sealed class ParameterConsistencyConfig
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

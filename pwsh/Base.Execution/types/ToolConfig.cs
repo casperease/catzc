@@ -13,6 +13,7 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Base.Execution;
 
+// One tools.yml entry; construction collects every violation, and an unknown key is refused, never dropped.
 public sealed class ToolConfig : Catzc.Base.Objects.DictionaryRecord
 {
     private static readonly string[] AllowedKeys =
@@ -28,6 +29,7 @@ public sealed class ToolConfig : Catzc.Base.Objects.DictionaryRecord
     // The locked version the tool must satisfy. Required.
     public string version { get; }
 
+    // Accepted outside a pipeline only; a pipeline enforces version alone.
     public string devbox_version { get; }
 
     // The command/executable name used to invoke the tool. Required.
@@ -57,12 +59,16 @@ public sealed class ToolConfig : Catzc.Base.Objects.DictionaryRecord
     // npm package name. Null when npm is not an install path.
     public string npm_package { get; }
 
+    // Installed with uv tool install into an isolated env.
     public string uv_tool { get; }
 
+    // For a dependency tree that pins a pre-release, which uv otherwise refuses.
     public bool uv_allow_prerelease { get; }
 
+    // A dedicated venv, for a launcher that expects python.exe beside it (az.bat), which a uv-tool shim breaks.
     public string uv_venv { get; }
 
+    // ToolsConfig refuses a python pin above it.
     public string max_python { get; }
 
     // True when this tool is Python itself, provisioned by `uv python install --default`. Null/false otherwise.
@@ -71,6 +77,7 @@ public sealed class ToolConfig : Catzc.Base.Objects.DictionaryRecord
     // True when the tool is installed via a bespoke script rather than a package manager.
     public bool script_install { get; }
 
+    // Asserted and kept on PATH, never installed.
     public bool system_provided { get; }
 
     // The tool whose installer installs this one alongside itself, so it has no Install- or Uninstall- function of its own. Default none.
@@ -79,37 +86,48 @@ public sealed class ToolConfig : Catzc.Base.Objects.DictionaryRecord
     // True when the tool exists only on Windows — skipped on macOS/Linux by the provisioning and status loops.
     public bool windows_only { get; }
 
+    // Only a machine-scope installer exists; the provisioning loops skip it when not elevated.
     public bool admin_only { get; }
 
+    // Only the Linux install needs root.
     public bool linux_admin_only { get; }
 
+    // Installed into Git for Windows' own MSYS2 tree, verified against msys2_sha256 before extracting.
     public string msys2_url { get; }
     public string msys2_sha256 { get; }
 
+    // Relative to LOCALAPPDATA.
     public string windows_install_dir { get; }
 
     // The install directory on Unix. Null when not applicable.
     public string unix_install_dir { get; }
 
+    // ToolsConfig checks it names a declared tool.
     public string depends_on { get; }
 
+    // Prepended to PATH by the session janitor for a tool installed outside the installer layer.
     public string[] session_path_hints { get; }
 
+    // The first probe any home satisfies wins, so an SDK at the locked version beats a runtime-only host.
     public string[] session_host_probes { get; }
 
+    // The first existing candidate wins, with no process started; with none, PATH is searched.
     public string[] windows_probes { get; }
     public string[] windows_pipeline_probes { get; }
     public string[] unix_probes { get; }
     public string[] unix_pipeline_probes { get; }
 
+    // Never the tool, as a candidate or on PATH: for bash, the WSL launcher.
     public string[] probe_excludes { get; }
 
+    // Located by the probe, not by the bare command name on PATH.
     public bool HasProbes()
     {
         return windows_probes.Length > 0 || windows_pipeline_probes.Length > 0 || unix_probes.Length > 0
             || unix_pipeline_probes.Length > 0 || probe_excludes.Length > 0;
     }
 
+    // ToolsConfig requires one of every shipped entry.
     public bool HasInstallMechanism()
     {
         return winget_id != null || brew_formula != null || apt_package != null || pip_package != null

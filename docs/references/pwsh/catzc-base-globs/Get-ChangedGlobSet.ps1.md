@@ -1,7 +1,8 @@
 # pwsh/Base.Globs/Get-ChangedGlobSet.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The blast-radius reflection of a change: it names the declared globsets whose scan program selects a changed path, computed from git at the
+real refs ([FDR-CD-GLOBS-NAMEDGLOBSETS](../../../drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-namedglobsets)). The range it measures from
+is `Get-GlobSetChangeRange`'s answer, never its own.
 
 ## help
 

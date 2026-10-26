@@ -1,7 +1,7 @@
 # pwsh/Base.Variants/Assert-AdoNaming.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The throwing guard over the `ado_naming` variant: a caller that only works with one Azure resource-name order states it here, and a repo
+declaring the other order stops with a named error. `Test-AdoNaming` is its query form.
 
 ## help
 

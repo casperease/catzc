@@ -1,14 +1,7 @@
 # pwsh/Base.QualityGates/tests/Invoke-Gofmt.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
-
-## comment:1
-
-Above `Describe 'Invoke-Gofmt'`, written with `#`.
-
-```text
-The gofmt engine with its seams mocked ([ADR-AUTO-TEST-NOOVERMOCKING](/docs/drs/automation/test-automation.md#rule-adr-auto-test-noovermocking)):
-the tool probe (Resolve-ToolExecutable) finding a managed go beside a fixture gofmt in $TestDrive, and gofmt itself
-(Invoke-Executable). Neutral fixture names ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
-```
+The L0 logic test of the gofmt engine `Invoke-Gofmt`, with its seams mocked
+([ADR-AUTO-TEST-NOOVERMOCKING](../../../../drs/automation/test-automation.md#rule-adr-auto-test-noovermocking)). One seam is the tool probe
+`Resolve-ToolExecutable`, which finds a managed `go` beside a fixture `gofmt` in `$TestDrive`; the other is `gofmt` itself, through
+`Invoke-Executable`. The fixtures use neutral names
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).

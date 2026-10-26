@@ -1,7 +1,7 @@
 # pwsh/Base.Languages/New-GoWorkspace.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+`New-GoWorkspace` renders the Go test workspace from `go.yml`: the repository-root `go.work` and one `go.mod` per Go test folder and per
+module folder of the go track. `Build-RootConfig` writes the result.
 
 ## help
 
@@ -54,30 +54,13 @@ New-GoWorkspace
 (New-GoWorkspace -Target 'go.work').Content
 ```
 
-## comment:1
+## The go directive
 
-Above `$goVersion = "$(Get-ConfigValue -Address 'global.tools.go.version')"`, written with `#`.
+The one Go version is the go tool's `tools.yml` pin, read by address (reading config is global access,
+[ADR-CONF-ADDRESSING](../../../drs/configuration/config-value-addressing.md)). A major.minor pin (1.27) is a valid `go` directive, as is a
+full 1.N.P.
 
-```text
-The one Go version: the go tool's tools.yml pin, read by address (reading config is global access,
-[ADR-CONF-ADDRESSING](/docs/drs/configuration/config-value-addressing.md)). A major.minor pin (1.27) is a valid go
-directive, as is a full 1.N.P.
-```
+## The members
 
-## comment:2
-
-Above `$modules = [System.Collections.Generic.List[string]]::new()`, written with `#`.
-
-```text
-One Go module per module folder of the track: a folder the module-type registry names as a module, holding Go
-code.
-```
-
-## comment:3
-
-Above `$members = @(foreach ($folder in $folders) {`, written with `#`.
-
-```text
-The members: the test holder's folders under tests/, then the modules, each with its module path under
-module_root.
-```
+One Go module per module folder of the track: a folder the module-type registry names as a module, holding Go code. The members are the test
+holder's folders under `tests/`, then the modules, each with its module path under `module_root`.

@@ -114,6 +114,7 @@ public sealed class GitFlowConfig
         return null;
     }
 
+    // The first user command a command line invokes, or null: a name counts only as a word of its own, never inside a path.
     public string UserCommandIn(string commandLine)
     {
         if (string.IsNullOrEmpty(commandLine)) { return null; }

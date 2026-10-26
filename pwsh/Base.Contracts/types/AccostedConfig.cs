@@ -15,6 +15,7 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Base.Contracts;
 
+// Which verbs are harmless, and the timeouts.yml key that bounds one run.
 public sealed class AccostedConfig
 {
     public static readonly string[] DefaultHarmlessVerbs = { "get", "test", "find", "measure" };

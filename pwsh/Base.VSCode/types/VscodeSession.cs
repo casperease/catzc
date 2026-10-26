@@ -11,6 +11,7 @@ using System.Globalization;
 
 namespace Catzc.Base.VSCode;
 
+// What a pwsh session in VS Code can say about its binding: its types instance, the sources' hash, builds and contributed variables.
 public sealed class VscodeSession
 {
     // The pwsh host's name: 'Visual Studio Code Host' for the PowerShell extension's own session, 'ConsoleHost' for an integrated terminal.

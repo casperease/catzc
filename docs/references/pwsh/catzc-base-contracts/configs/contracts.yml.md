@@ -1,13 +1,10 @@
 # pwsh/Base.Contracts/configs/contracts.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The contracts config: it says how a contract group folder is named, and nothing else. Contracts are addressed by root, version, group and
+file, so the group name is the only thing that needs a rule.
 
-## comment:1
+## groups
 
-Above `groups:`, written with `#`.
-
-```text
-How a contract group folder is named, and nothing else (contracts are addressed by root, version, group and file).
-A group is the module's track and its folder in the normal form: pwsh.base.vs_code for Catzc.Base.VSCode.
-```
+A group is the module's track and its folder in the normal form, for example `pwsh.base.vs_code` for Catzc.Base.VSCode. `form` names the
+rule, `track_module` today. `exceptions` maps a module's full name to its group, only for a module whose folder would not give the right
+one; it is empty when the form fits every module. Get-ContractGroup reads both.

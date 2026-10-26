@@ -13,6 +13,7 @@ using System.Collections.Specialized;
 
 namespace Catzc.Base.ModuleSystem;
 
+// One declared module group: a named set of modules with its own member-to-member DAG, a concept, not a disk module.
 public sealed class ModuleGroup
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

@@ -14,6 +14,7 @@ using System.Linq;
 
 namespace Catzc.Base.QualityGates;
 
+// The rule code is required, because a finding prints it.
 public sealed class LinkDirectionRow
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

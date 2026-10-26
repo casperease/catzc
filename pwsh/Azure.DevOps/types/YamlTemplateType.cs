@@ -8,6 +8,7 @@ catzc:
 
 namespace Catzc.Azure.DevOps;
 
+// Callers carry it as Nullable<YamlTemplateType>; null means not a Template, so the file is a Pipeline or Unknown.
 public enum YamlTemplateType
 {
     // Body key `stages:` — a stage-level template.

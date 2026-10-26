@@ -14,6 +14,7 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Base.Languages;
 
+// The one build configuration and platform every non-vendored .sln and .csproj declares.
 public sealed class BclConfig : Catzc.Base.Objects.DictionaryRecord
 {
     public const string DefaultConfiguration = "Debug";

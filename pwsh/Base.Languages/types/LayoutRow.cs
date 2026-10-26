@@ -19,6 +19,7 @@ public sealed class LayoutRow
     // The folder's name inside the module, or "." for the module root itself.
     public const string Root = ".";
 
+    // The rows no language owns: assets ship with every module, tests never do.
     public static IReadOnlyList<LayoutRow> Shared { get; } = new[]
     {
         new LayoutRow(null, "assets", "asset", null, true, true),

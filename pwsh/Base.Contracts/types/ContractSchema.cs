@@ -15,6 +15,7 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Base.Contracts;
 
+// Validates a parsed value against a bounded JSON Schema subset.
 public static class ContractSchema
 {
     // Declared before Keywords: static fields initialise in text order.

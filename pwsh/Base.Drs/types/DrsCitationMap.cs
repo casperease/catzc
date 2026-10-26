@@ -14,6 +14,7 @@ using System.IO;
 
 namespace Catzc.Base.Drs;
 
+// The citation registry as one immutable lookup: code to path and rules, path to code, and unique slug to path.
 public sealed class DrsCitationMap
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
@@ -31,6 +32,7 @@ public sealed class DrsCitationMap
     // Every registered code, ADR and rule alike, ordinally sorted.
     public IReadOnlyList<string> Codes { get; }
 
+    // documents lists every markdown path of the records folder, code-less ones too, so a slug or stale path resolves against real files.
     public DrsCitationMap(IDictionary entries, IEnumerable documents)
     {
         if (entries == null) { throw new ArgumentNullException(nameof(entries)); }
@@ -63,6 +65,7 @@ public sealed class DrsCitationMap
             }
             rulesByAdr[code] = rules;
 
+            // Every hyphen-prefix of a code names its domain; a domain code or a domain wildcard is a valid mention, not an unknown code.
             int dash = code.IndexOf('-', code.IndexOf('-') + 1);
             while (dash > 0)
             {

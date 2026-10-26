@@ -10,6 +10,7 @@ using System;
 
 namespace Catzc.Azure.DevOps;
 
+// The registration-side view of a pipeline: its identity and folder, and for YAML the file in the repo that backs it.
 public sealed class PipelineDefinition
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

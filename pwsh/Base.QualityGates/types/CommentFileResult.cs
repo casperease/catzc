@@ -12,6 +12,7 @@ using System.Globalization;
 
 namespace Catzc.Base.QualityGates;
 
+// What Export decided for one file; the engine never writes, the caller does.
 public sealed class CommentFileResult
 {
     public string File { get; }

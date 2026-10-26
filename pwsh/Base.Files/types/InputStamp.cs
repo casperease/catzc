@@ -16,6 +16,7 @@ using System.Threading.Tasks;
 
 namespace Catzc.Base.Files;
 
+// One SHA-256 over the sorted (path, identity) of every input: the content hash, or the cheaper last write and size.
 public enum InputStampIdentity
 {
     Content,

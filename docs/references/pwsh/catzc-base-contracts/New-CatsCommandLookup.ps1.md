@@ -1,7 +1,7 @@
 # pwsh/Base.Contracts/New-CatsCommandLookup.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The generator of the command lookup text that `cats` reads in bash before it starts pwsh. It derives the lookup from the command contracts,
+so the shell never keeps its own list of commands.
 
 ## help
 
@@ -34,11 +34,7 @@ The repository root that holds contracts/. Default: the loaded repository root.
 New-CatsCommandLookup
 ```
 
-## comment:1
+## names
 
-Above `$languages = Get-Config -Config languages`, written with `#`.
-
-```text
-Every name is keyed by its normal form and carries its two renderings: kebab, as cats takes it, and PowerShell's,
-as pwsh binds it.
-```
+Every name is keyed by its normal form and carries its two renderings: kebab case, as cats takes it, and PowerShell's case, as pwsh binds
+it.

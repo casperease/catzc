@@ -34,6 +34,7 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
     private readonly Dictionary<string, FileLanguage> byExtension = new Dictionary<string, FileLanguage>(StringComparer.Ordinal);
     private readonly Dictionary<string, string> claimedBy = new Dictionary<string, string>(StringComparer.Ordinal);
 
+    // One Format-Code adapter each: a new engine's adapter and its name here land together.
     internal static readonly string[] Engines = { "prettier", "gofmt", "ruff", "psscriptanalyzer", "dotnet-format", "bicep" };
     public static IReadOnlyList<string> FormatterEngines => Engines;
 
@@ -50,6 +51,7 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
     // The file languages in declared order. Empty when the file declares none.
     public IReadOnlyList<FileLanguage> languages { get; }
 
+    // An engine the file does not list has no editor formatter.
     public IReadOnlyDictionary<string, FormatterEngine> formatters { get; }
 
     // The extensions of every language whose checks name the gate, once each, in declared order (e.g. the files Test-Spelling reads).
@@ -127,8 +129,6 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
         return segments.Take(segments.Length - 1).Any(s => naming_exempt_folders.Contains(s)) ? null : language;
     }
 
-    // The folder a catzc module's tests have under a language's tests/, in that language's folder case: the module's folder, which
-    // drops the namespace of the track that prefixes it, so a caller passes the module's name and never strips it itself.
     public string TestFolderOf(string languageName, Catzc.Base.Variants.VariantsConfig variants, string module)
     {
         FileLanguage language = languages.FirstOrDefault(l => l.name == languageName);
@@ -155,6 +155,7 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
     // The globs, relative to a module root, that place the live files: the live rows' patterns.
     public IReadOnlyList<string> LivePatterns() => layout.Where(r => r.live).SelectMany(r => r.Patterns()).ToArray();
 
+    // When the track's primary language owns a live layout row; markdown's readme lays out no module.
     public bool IsLaidOut(IEnumerable trackLanguages)
     {
         string primary = null;
@@ -167,6 +168,7 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
         return language != null && language.layout.Any(r => r.live);
     }
 
+    // A root file by its extension's root row, a file below a folder by the row naming that folder.
     public LayoutRow PlaceOf(string relativePath)
     {
         if (string.IsNullOrEmpty(relativePath)) { return null; }
@@ -183,6 +185,7 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
     // The module subfolders the layout names (never the root), in layout order.
     public IReadOnlyList<string> LayoutFolders() => layout.Where(r => r.folder != LayoutRow.Root).Select(r => r.folder).ToArray();
 
+    // The one resolver of a folder-name setting.
     public string FolderOf(string role)
     {
         LayoutRow row = layout.FirstOrDefault(r => r.role == role && r.folder != LayoutRow.Root);
@@ -298,6 +301,7 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
         naming_normal_form = normalForm;
     }
 
+    // By VS Code language id: what Format Document runs, the engine Format-Code runs.
     public IReadOnlyDictionary<string, string> EditorFormatters()
     {
         Dictionary<string, string> result = new Dictionary<string, string>(StringComparer.Ordinal);
@@ -321,6 +325,7 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
         return byExtension.TryGetValue(key.ToLowerInvariant(), out language) ? language : null;
     }
 
+    // By the longest declared extension, so x.widget.yml takes .widget.yml's language over .yml's.
     public FileLanguage ForPath(string path)
     {
         if (string.IsNullOrEmpty(path)) { return null; }
@@ -334,6 +339,7 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
         return null;
     }
 
+    // A dotfile whose only dot is its first (.gitkeep) has no extension.
     public static string ExtensionOf(string path)
     {
         if (string.IsNullOrEmpty(path)) { return null; }
@@ -406,6 +412,7 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
             }
         }
 
+        // Stated only where the editor's id differs from the language's own name.
         string vscodeLanguage = name;
         if (entry.Contains("vscode_language") && entry["vscode_language"] != null)
         {

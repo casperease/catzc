@@ -13,6 +13,7 @@ using System.Collections.Specialized;
 
 namespace Catzc.Base.ModuleSystem;
 
+// The declared, allowed module dependency graph of dependencies.yml; constructing it validates the graph.
 public sealed class DependenciesConfig : Catzc.Base.Objects.DictionaryRecord
 {
     private const string Failed = "module dependency configuration validation failed:\n";
@@ -20,6 +21,7 @@ public sealed class DependenciesConfig : Catzc.Base.Objects.DictionaryRecord
     // Group name -> ModuleGroup, in declaration order; read-only (empty when the file declares no groups).
     public OrderedDictionary groups { get; }
 
+    // Consumer module to the groups and modules it may depend on, in declaration order; read-only.
     public OrderedDictionary modules { get; }
 
     public DependenciesConfig(IDictionary raw)
@@ -99,6 +101,7 @@ public sealed class DependenciesConfig : Catzc.Base.Objects.DictionaryRecord
                 }
             }
 
+            // Acyclic over declared module edges only; group references are a lower layer and stay out of the walk.
             OrderedDictionary adjacency = new OrderedDictionary(StringComparer.OrdinalIgnoreCase);
             foreach (DictionaryEntry entry in moduleMap)
             {

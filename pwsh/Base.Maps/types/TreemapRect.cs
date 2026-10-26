@@ -8,6 +8,7 @@ catzc:
 
 namespace Catzc.Base.Maps;
 
+// One rectangle of a treemap layout: the item it stands for and where it sits, from its bottom-left corner in PDF user space.
 [Catzc.Base.Objects.ConsoleDisplay(nameof(Key), nameof(Weight), nameof(X), nameof(Y), nameof(Width), nameof(Height))]
 public sealed class TreemapRect
 {

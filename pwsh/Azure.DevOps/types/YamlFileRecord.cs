@@ -10,6 +10,7 @@ using System;
 
 namespace Catzc.Azure.DevOps;
 
+// The filesystem-side view of a pipeline or template, before any cross-reference to ADO registration.
 public sealed class YamlFileRecord
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
@@ -32,11 +33,13 @@ public sealed class YamlFileRecord
     // The template sub-kind. Null for non-Template files.
     public Nullable<YamlTemplateType> TemplateType { get; }
 
+    // The evidence the classification came from; never null, an empty array when there were no keys.
     public string[] TopLevelKeys { get; }
 
     // The YAML parse error, if the file failed to parse. Null when it parsed cleanly.
     public string ParseError { get; }
 
+    // Takes strings and parses the enums, so a producer or a test mock supplying literals binds without converting.
     public YamlFileRecord(string root, string path, string relativePath, string relativeDirectory, string classification, string templateType, string[] topLevelKeys, string parseError)
     {
         if (string.IsNullOrWhiteSpace(root)) { throw new ArgumentException("YamlFileRecord.Root is required"); }

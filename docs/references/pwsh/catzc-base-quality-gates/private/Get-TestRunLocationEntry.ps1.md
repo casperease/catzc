@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Get-TestRunLocationEntry.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Resolves the entry script a test run's workers load, for the location the run executes in. It is the run seam that lets the same tests run
+from the checkout or from another location.
 
 ## help
 

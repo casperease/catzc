@@ -11,6 +11,7 @@ using System.Globalization;
 
 namespace Catzc.Base.Maps;
 
+// Where the grid page puts things: the title, the legend band, the row and column headers and the cells.
 [Catzc.Base.Objects.ConsoleDisplay(nameof(Rows), nameof(Columns), nameof(CellWidth), nameof(CellHeight))]
 public sealed class WorldMapGridLayout
 {

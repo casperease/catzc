@@ -1,7 +1,7 @@
 # pwsh/Base.Globs/Get-GlobSet.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The reader of the globset registry: it returns the declared globsets, all of them or the named ones, as typed `GlobSet` records loaded and
+validated through `Get-Config` (`GlobsConfig.cs`).
 
 ## help
 

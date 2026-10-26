@@ -12,6 +12,7 @@ using System.Linq;
 
 namespace Catzc.Base.QualityGates;
 
+// The first matching row decides and no row denies; pure, reading no file.
 public static class LinkDirectionEngine
 {
     public static IReadOnlyList<LinkDirectionFinding> Judge(IEnumerable<LinkEdge> edges, IReadOnlyDictionary<string, LinkEndpoint> endpoints,

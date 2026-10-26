@@ -1,7 +1,7 @@
 # pwsh/Base.Contracts/Get-Contract.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The lister of contract assets. It walks the contracts folder and derives every fact of an asset from its name and place, so no registry of
+contracts exists to drift.
 
 ## help
 

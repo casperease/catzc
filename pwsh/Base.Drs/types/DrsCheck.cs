@@ -13,6 +13,7 @@ using Catzc.Base.Reports;
 
 namespace Catzc.Base.Drs;
 
+// One drs-checks.yml check that needs nothing beyond its mode: the rule summaries' citation graph, checked by Test-DrsRegistry.
 public sealed class DrsCheck
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

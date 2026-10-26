@@ -1,7 +1,7 @@
 # pwsh/Base.Variants/private/Get-Variant.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The module's one reader of a single repo-wide variant: every public getter and guard goes through it, so each variant is read the same way,
+as the typed value VariantsConfig holds.
 
 ## help
 

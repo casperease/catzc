@@ -40,6 +40,7 @@ public static class FolderWalker
         return results.ToArray();
     }
 
+    // One pass that lists files and folders apart, each relative to relativeTo with '/' separators.
     public static string[][] WalkRelative(string root, int depth, IEnumerable<string> exclude, string relativeTo)
     {
         if (string.IsNullOrEmpty(root))

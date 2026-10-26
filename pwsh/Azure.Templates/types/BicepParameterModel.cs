@@ -13,6 +13,7 @@ using System.Text.Json;
 
 namespace Catzc.Azure.Templates;
 
+// The template name plus every parameter main.json declares, keyed case-insensitively as ARM matches parameter names.
 public sealed class BicepParameterModel
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
@@ -40,6 +41,7 @@ public sealed class BicepParameterModel
         Parameters = new ReadOnlyDictionary<string, BicepParameter>(byName);
     }
 
+    // Throws, naming the template, when the text is not a JSON object or a parameter declaration is malformed.
     public static BicepParameterModel Parse(string template, string mainJson)
     {
         if (string.IsNullOrWhiteSpace(mainJson)) { throw new ArgumentException($"main.json of template '{template}' is empty"); }

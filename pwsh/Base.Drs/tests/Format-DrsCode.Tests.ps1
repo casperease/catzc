@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-drs/tests/Format-DrsCode.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Format-DrsCode' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:checks = [Catzc.Base.Drs.DrsChecksConfig]::new([ordered]@{})

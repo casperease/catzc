@@ -8,6 +8,7 @@ catzc:
 
 namespace Catzc.Base.ModuleSystem;
 
+// The Azure DevOps Artifacts target: the organization, project and feed the gold module-manifest artifact is promoted to.
 public sealed class AdoArtifactsTarget : ArtifactsTarget
 {
     private static readonly string[] CoordinateKeys = { "organization", "project", "feed" };

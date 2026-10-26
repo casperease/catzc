@@ -1,7 +1,7 @@
 # pwsh/Base.Variants/Assert-HaveCustomer.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The singular cover over `Assert-HaveCustomers`: a caller that needs one customer names it, and a repo that has not enabled it stops with a
+named error.
 
 ## help
 

@@ -11,6 +11,7 @@ using System.Collections.Generic;
 
 namespace Catzc.Base.Drs;
 
+// One file's rewrite: the new text and every change in text order; Changed is false exactly when the text is unchanged.
 public sealed class DrsCitationRewrite
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

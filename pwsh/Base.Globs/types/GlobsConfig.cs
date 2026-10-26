@@ -12,6 +12,7 @@ using System.Collections.Generic;
 
 namespace Catzc.Base.Globs;
 
+// Constructing it validates the whole registry, collecting every error, and keeps the sets in registry order.
 public sealed class GlobsConfig
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
@@ -19,6 +20,7 @@ public sealed class GlobsConfig
     // The config, as lookup errors name it: by its module, so no modules folder is spelled.
     public const string ConfigPath = "the globs config of Catzc.Base.Globs (configs/globs/)";
 
+    // The derived sets' names: declared and derived sets share one name space, so a declared set may not take one.
     public static readonly string[] ReservedNames = { "internal", "vendor", "compiled", "scriptanalyzer" };
 
     // Every globset, in registry order.
@@ -73,6 +75,7 @@ public sealed class GlobsConfig
                     errors.Add(string.Format("globset '{0}': unknown key '{1}' (allowed: description, layer, include, exclude, compose, verify, pipeline, track)", name, field));
                 }
             }
+            // A whole track's set takes its patterns from the generated track-sets.yml part.
             if (entry.Contains("track") && !entry.Contains("include"))
             {
                 errors.Add(string.Format("globset '{0}': track '{1}' has no derived include; run Build-TrackGlobSets", name, ReadStr(entry, "track")));
@@ -146,6 +149,7 @@ public sealed class GlobsConfig
             map[set.Name] = set;
         }
 
+        // Every compose reference names another declared set and the graph is acyclic; membership is the union.
         foreach (GlobSet set in sets)
         {
             List<GlobSet> resolved = new List<GlobSet>();
@@ -200,6 +204,7 @@ public sealed class GlobsConfig
             }
         }
 
+        // A broken compose graph would make Matches recurse forever, so fail here with everything collected.
         if (errors.Count > 0)
         {
             throw new ArgumentException("globs config validation failed:\n" + string.Join("\n", errors));
@@ -235,6 +240,7 @@ public sealed class GlobsConfig
         }
     }
 
+    // Depth-first over the name map only, so an unresolved reference (already reported) cannot crash it.
     private static string FindComposeCycle(GlobSet set, Dictionary<string, GlobSet> map, List<string> path)
     {
         if (path.Contains(set.Name))

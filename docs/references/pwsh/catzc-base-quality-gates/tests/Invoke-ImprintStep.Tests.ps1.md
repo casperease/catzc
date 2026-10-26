@@ -1,22 +1,9 @@
 # pwsh/Base.QualityGates/tests/Invoke-ImprintStep.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The L0 logic test of `Invoke-ImprintStep`, run over fixture files in `$TestDrive`. Its seams are mocked: the registries through `Get-Config`,
+and the C# namespace command `Format-Types`. The fixtures use neutral names
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 
-## comment:1
+## The fixture kind
 
-Above `Describe 'Invoke-ImprintStep'`, written with `#`.
-
-```text
-Invoke-ImprintStep with its seams mocked: the registries (Get-Config) and the C# namespace command (Format-Types), over fixture files
-in $TestDrive. Neutral fixture names ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
-```
-
-## comment:2
-
-Above `InModuleScope Catzc.Base.QualityGates {`, written with `#`.
-
-```text
-A fixture kind with a fixture processor, so the step is proven on a fact of its own, whatever kinds the
-shipped registry holds.
-```
+A fixture kind with a fixture processor lets the test prove the step on a fact of its own, whatever kinds the shipped registry holds.

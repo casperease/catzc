@@ -16,6 +16,7 @@ using System.Text.Json;
 
 namespace Catzc.Base.Maps;
 
+// A value-chain highlight: the cells of the value-chain map that record references light.
 [Catzc.Base.Objects.ConsoleDisplay(nameof(Requested), nameof(Cells))]
 public sealed class ValueChainHighlight
 {

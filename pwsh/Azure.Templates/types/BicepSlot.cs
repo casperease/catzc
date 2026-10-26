@@ -10,6 +10,7 @@ using System;
 
 namespace Catzc.Azure.Templates;
 
+// One config file bound to one (customer, environment, slot) coordinate, hence one subscription and one resource group.
 public sealed class BicepSlot
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
@@ -20,15 +21,19 @@ public sealed class BicepSlot
     // The environment this slot deploys into. Always present.
     public string environment { get; }
 
+    // The empty string, never null, is the base slot: downstream resolves slots by value (slot -eq '').
     public string slot { get; }
 
+    // Resolved at discovery from the slot's coordinate, so it is always present.
     public string subscription { get; }
 
+    // The empty string, never null, marks a shared configuration-root slot: downstream filters by value (customer -eq '').
     public string customer { get; }
 
     // The slot's config file, a .yml or a .bicepparam under the template's configuration folder.
     public string file { get; }
 
+    // From the config's extension: yml or bicepparam.
     public string format { get; }
 
     public const string YmlFormat = "yml";

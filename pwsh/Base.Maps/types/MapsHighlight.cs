@@ -11,6 +11,7 @@ using System.Collections.Generic;
 
 namespace Catzc.Base.Maps;
 
+// The highlight section: the reviewed pins that light a cell, the exceptions that keep one dark, and the citation excludes.
 public sealed class MapsHighlight
 {
     // The session logs and the plans are about the system, not the system, so a citation in them lights nothing.
@@ -23,6 +24,7 @@ public sealed class MapsHighlight
     // The cells an ADR never lights, in declared order. Empty by default.
     public IReadOnlyList<MapsPin> exceptions { get; }
 
+    // The repo-relative globs of the files whose citations light nothing. Default: DefaultCitationExclude.
     public IReadOnlyList<string> citation_exclude { get; }
 
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

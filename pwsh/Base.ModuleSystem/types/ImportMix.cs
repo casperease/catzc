@@ -42,6 +42,7 @@ public sealed class ImportMix
         skipped_modules = Copy(skippedModules);
     }
 
+    // Each axis is the caller's value when given, else the configuration's, where auto resolves from the session's facts.
     public static ImportMix Resolve(ImporterConfig config, string[] callerLanguages, string[] callerEngines, string[] presentEngines,
         IDictionary moduleLanguages, string[] knownLanguages, string[] executableLanguages, string[] handledLanguages)
     {

@@ -13,6 +13,7 @@ using System.Collections.Specialized;
 
 namespace Catzc.Base.VSCode;
 
+// One debug launch profile of vscode-launch.yml, rendered verbatim into the managed .vscode/launch.json.
 public sealed class VscodeLaunchProfile : Catzc.Base.Objects.DictionaryRecord
 {
     // The profile's display name in the Run and Debug view (unique within the registry).

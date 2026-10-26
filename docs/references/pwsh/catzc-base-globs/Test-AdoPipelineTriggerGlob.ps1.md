@@ -1,7 +1,7 @@
 # pwsh/Base.Globs/Test-AdoPipelineTriggerGlob.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The trigger-drift quality gate for Azure DevOps: it compares each pipeline-bound globset's projected trigger with the trigger the bound
+pipeline file declares.
 
 ## help
 

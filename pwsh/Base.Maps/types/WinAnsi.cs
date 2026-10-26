@@ -10,6 +10,7 @@ using System.Collections.Generic;
 
 namespace Catzc.Base.Maps;
 
+// The only text the base-14 fonts can show: ASCII 0x20-0x7E, Latin-1 0xA0-0xFF, and 27 typographic characters at 0x80-0x9F.
 public static class WinAnsi
 {
     // The 0x80-0x9F codes and the Unicode characters they show. 0x81, 0x8D, 0x8F, 0x90 and 0x9D are undefined.
@@ -32,6 +33,7 @@ public static class WinAnsi
         return Typographic.TryGetValue(c, out code) ? code : -1;
     }
 
+    // The first character with no WinAnsi code, or -1; an empty or null text has none.
     public static int IndexOfUnsupported(string text)
     {
         if (string.IsNullOrEmpty(text)) { return -1; }

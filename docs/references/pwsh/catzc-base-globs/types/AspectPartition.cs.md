@@ -1,35 +1,22 @@
 # pwsh/Base.Globs/types/AspectPartition.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The static helper that turns an ordered aspect convention into scan programs, finds the aspect of a file, and checks that a partition holds
+([DDR-ASPECT](../../../../drs/design/module-aspects.md)).
 
-## comment:1
+## Compile
 
-Above `public static IReadOnlyList<CompiledAspect> Compile(IReadOnlyList<Aspect>...`, written with `//`.
+`Compile` applies the ordered aspect convention onto a unit root (for example `pwsh/Base.Globs`). Each aspect's include is its own patterns,
+and its exclude is every earlier aspect's patterns, all prefixed by the unit root. The last aspect, the `**` catch-all, thus becomes
+everything under the root minus every earlier aspect: the remainder.
 
-```text
-Compile the ordered aspect convention onto a unit root (e.g. "pwsh/Base.Globs"): each
-aspect's Include is its own patterns, Exclude is every earlier aspect's patterns, all prefixed by the
-unit root. The last aspect (the '**' catch-all) thus becomes "everything under the root minus every
-earlier aspect" — the remainder.
-```
+## AspectOf
 
-## comment:2
+`AspectOf` returns the aspect of one file: the first aspect, in the map's order, one of whose sets claims it, or null when none does. The
+map is `Get-AspectGlobSet`'s: aspect name to that aspect's globsets.
 
-Above `public static string AspectOf(System.Collections.IDictionary sets, string file)`, written with `//`.
+## Validate
 
-```text
-The aspect of one file: the first aspect, in the map's order, one of whose sets claims it; null when none does. The map is
-Get-AspectGlobSet's: aspect name -> that aspect's globsets.
-```
-
-## comment:3
-
-Above `public static IReadOnlyList<string> Validate(IReadOnlyList<GlobSet>...`, written with `//`.
-
-```text
-Partition check ([DDR-ASPECT-PARTITIONISCHECKED](/docs/drs/design/module-aspects.md#rule-ddr-aspect-partitionischecked)) over a file universe: every file
-selected by exactly one aspect. Returns
-human-readable violations (empty => a valid partition): a file claimed by two aspects breaks disjoint,
-a file claimed by none breaks exhaustive.
-```
+`Validate` is the partition check
+([DDR-ASPECT-PARTITIONISCHECKED](../../../../drs/design/module-aspects.md#rule-ddr-aspect-partitionischecked)) over a file universe: every
+file is selected by exactly one aspect. It returns human-readable violations, and an empty result is a valid partition. A file claimed by
+two aspects breaks disjointness, and a file claimed by none breaks exhaustiveness.

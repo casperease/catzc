@@ -13,10 +13,12 @@ using Catzc.Base.Objects;
 
 namespace Catzc.Base.Globs;
 
+// Membership is the scan program, last match wins: composed sets first, the set's own rules last.
 public sealed class GlobSet
 {
     private static readonly Regex KebabCase = new Regex("^[a-z0-9]+(-[a-z0-9]+)*$");
 
+    // 'module' is the derived layer: a valid GlobSet layer that the declared registry rejects.
     public static readonly string[] DeclaredLayers = { "deployable-unit", "loose-fileset" };
     public static readonly string[] ValidLayers = { "deployable-unit", "loose-fileset", "module" };
 
@@ -33,8 +35,10 @@ public sealed class GlobSet
     // The composed sets, resolved by GlobsConfig once every set is constructed (names validated there).
     private IReadOnlyList<GlobSet> composed = new GlobSet[0];
 
+    // Built lazily and cached; ResolveCompose clears it.
     private IReadOnlyList<ScanRule> cachedProgram;
 
+    // Select true is '+', false is '-'.
     public readonly struct ScanRule
     {
         public bool Select { get; }
@@ -85,12 +89,14 @@ public sealed class GlobSet
         Pipeline = string.IsNullOrWhiteSpace(pipeline) ? null : pipeline;
     }
 
+    // The referenced sets in compose order; clears the cached program so it rebuilds.
     internal void ResolveCompose(IReadOnlyList<GlobSet> resolved)
     {
         composed = resolved;
         cachedProgram = null;
     }
 
+    // Last match wins, default not selected: a file belongs when its last matching rule is '+'.
     public bool Matches(string repoRelativePath)
     {
         bool selected = false;
@@ -101,6 +107,7 @@ public sealed class GlobSet
         return selected;
     }
 
+    // The set's own rules only, compose ignored: what the per-layer independence gate compares.
     public bool OwnMatches(string repoRelativePath)
     {
         bool selected = false;
@@ -109,11 +116,13 @@ public sealed class GlobSet
         return selected;
     }
 
+    // The caller passes git ls-files in, never cached here, since staging changes it.
     public string[] SelectMembers(IReadOnlyList<string> tracked)
     {
         return Select(tracked, Matches);
     }
 
+    // Own members of the tracked universe, in ordinal order: the independence check's input.
     public string[] SelectOwnMembers(IReadOnlyList<string> tracked)
     {
         return Select(tracked, OwnMatches);
@@ -135,6 +144,7 @@ public sealed class GlobSet
         return sorted;
     }
 
+    // Composed programs first, in dependency order, each set once; own rules last, so they override the base.
     public IReadOnlyList<ScanRule> ScanProgram()
     {
         if (cachedProgram == null)

@@ -1,7 +1,7 @@
 # pwsh/Base.Execution/Resolve-ToolExecutable.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The one reading of a `tools.yml` entry for the existence check: it turns the entry into the plain inputs of `Find-Executable` and returns
+the probe record, so a caller runs the managed executable by its path and never by a bare name.
 
 ## help
 
@@ -44,3 +44,9 @@ The snake_case tool key as defined in tools.yml.
 ```powershell
 Resolve-ToolExecutable -Tool go | Select-Object Found, Version, VersionOk
 ```
+
+## What it maps
+
+The candidates depend on the platform and the run environment. A devbox reads the plain probes and a pipeline reads its own pair. The
+version command is handed over without its executable token, so the version comes from the located file and not from whatever the name
+resolves to. Outside a pipeline, `devbox_version` is accepted as a further version prefix.

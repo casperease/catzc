@@ -11,6 +11,7 @@ using System.Collections.Generic;
 
 namespace Catzc.Base.Maps;
 
+// One lit cell of a world-map highlight: the cell, the files in it the request lit, and the steps that lit it.
 [Catzc.Base.Objects.ConsoleDisplay(nameof(Track), nameof(FileLanguage), nameof(FileCount), nameof(Sources))]
 public sealed class HighlightedCell
 {

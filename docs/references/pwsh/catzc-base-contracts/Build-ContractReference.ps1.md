@@ -1,7 +1,7 @@
 # pwsh/Base.Contracts/Build-ContractReference.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The writer of the contract reference: one generated markdown page per contract root, listing every asset of every version folder with its
+note. It exists so the contracts folder holds only assets while what each asset is for stays readable in one place.
 
 ## help
 
@@ -66,20 +66,8 @@ Build-ContractReference
 Build-ContractReference -DryRun -PassThru
 ```
 
-## comment:1
+## signatures
 
-Above `$signatures = @{}`, written with `#`.
-
-```text
-The signatures of the root's command contracts, by asset path, from the one reader; a root whose contracts do not all parse
-shows none, and Test-Contracts reports the asset.
-```
-
-## comment:2
-
-Above `foreach ($asset in @($rootAssets | Where-Object { $_.Kind -eq...`, written with `#`.
-
-```text
-One unreadable contract fails the root's read, so each asset is read on its own and only the broken
-one shows none.
-```
+The signature column comes from the one command-contract reader, keyed by asset path. One unreadable contract fails the whole read of a
+root, so the writer then reads each command contract on its own: only the broken one shows no signature, and Test-Contracts reports that
+asset as a finding.

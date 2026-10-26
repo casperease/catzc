@@ -15,6 +15,7 @@ using Catzc.Base.Reports;
 
 namespace Catzc.Base.Drs;
 
+// The engine-neutrality check: the rule summaries of the listed domains carry no engine-specific syntax.
 public sealed class DrsNeutralityCheck
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

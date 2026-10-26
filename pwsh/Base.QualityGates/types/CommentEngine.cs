@@ -255,6 +255,7 @@ public static class CommentEngine
         return new CommentFileResult(repoRelativePath, pagePath, newText, newPage, blocks);
     }
 
+    // A new page is born formatted: its title and what it holds, wrapped at the markdown width.
     public static string FreshPage(string repoRelativePath, int width) =>
         "# " + repoRelativePath + "\n\n"
         + Wrap("The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its"

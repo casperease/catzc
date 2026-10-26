@@ -1,40 +1,18 @@
 # pwsh/Base.QualityGates/tests/Enter-TestRunLocation.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The tests of `Enter-TestRunLocation`, which takes the run's location under the user's system-test lock.
 
-## comment:1
+## The lock
 
-Above `$script:holdLock = {`, written with `#`.
+The lock is its own unit (`Enter-SystemTestLock.Tests`). Here it is a seam, mocked so that no test takes the real per-user lock. By default
+another run holds it, and the cases override that. A held lock is built on another thread, since a mutex is re-entrant on its owning thread.
 
-```text
-A lock held by another thread: a mutex is re-entrant on its owning thread, so a held lock is only
-observable from a different thread. The thread job owns the named mutex until $release is set.
-```
+## The harness marker
 
-## comment:2
+These tests run inside a harness worker, which carries the parent run's location marker. Each test starts from a process that holds no
+location, and the worker case sets the marker itself.
 
-Above `Mock Enter-SystemTestLock {`, written with `#`.
+## Abandoned locks
 
-```text
-The user's system-test lock is its own unit (Enter-SystemTestLock.Tests); here it is a seam, so no test
-takes the real per-user lock. By default another run holds it; the cases below override.
-```
-
-## comment:3
-
-Above `$script:savedLocationHeld = $env:CATZC_TEST_RUN_LOCATION_HELD`, written with `#`.
-
-```text
-These tests run inside a harness worker, which carries the parent run's location marker; each test
-starts from a process that holds no location, and the worker case sets the marker itself.
-```
-
-## comment:4
-
-Above `$name = & $script:mutexName $script:root`, written with `#`.
-
-```text
-A child process acquires and exits without releasing -> abandoned. Not a thread job: Wait-Job returns
-when the job turns Completed, which can be before its thread has exited, and only the exit abandons.
-```
+The abandoned-lock case uses a child process that acquires and exits without releasing. A thread job would not do: `Wait-Job` returns when the
+job turns Completed, which can be before its thread has exited, and only the exit abandons the mutex.

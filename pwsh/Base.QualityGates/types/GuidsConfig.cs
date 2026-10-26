@@ -13,6 +13,7 @@ using System.Collections.Specialized;
 
 namespace Catzc.Base.QualityGates;
 
+// Every GUID literal the repository carries is a named, described entry.
 public sealed class GuidsConfig : Catzc.Base.Objects.DictionaryRecord
 {
     private const string Failed = "guids configuration validation failed:\n";

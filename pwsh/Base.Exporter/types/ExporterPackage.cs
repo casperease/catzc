@@ -12,6 +12,7 @@ using System.Collections.Generic;
 
 namespace Catzc.Base.Exporter;
 
+// The package identity and metadata block of exporter.yml, which Build-Modules hands to the build engine.
 public sealed class ExporterPackage : Catzc.Base.Objects.DictionaryRecord
 {
     // The manifest Author.

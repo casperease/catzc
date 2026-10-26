@@ -14,6 +14,7 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Base.QualityGates;
 
+// Each enabled analyzer rule that enforces an ADR rule, mapped to the rule ids it enforces.
 public sealed class AnalyzerDrsMapConfig : Catzc.Base.Objects.DictionaryRecord
 {
     private const string Failed = "analyzer-adr-map configuration validation failed:\n";

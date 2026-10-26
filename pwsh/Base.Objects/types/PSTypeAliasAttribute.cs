@@ -14,8 +14,10 @@ namespace Catzc.Base.Objects;
     AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Enum | AttributeTargets.Interface,
     AllowMultiple = true,
     Inherited = false)]
+// A type-accelerator alias for the decorated type, registered by the type loader after the combined assembly loads.
 public sealed class PSTypeAliasAttribute : Attribute
 {
+    // The accelerator name, prefixed Catzc. so it never reclaims another module's accelerator.
     public string Name { get; }
 
     public PSTypeAliasAttribute(string name)

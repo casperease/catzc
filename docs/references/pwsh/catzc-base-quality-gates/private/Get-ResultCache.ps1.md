@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Get-ResultCache.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Reads a quality check's result cache: which files the check last found clean, keyed on their content. The cache is a per-machine file under
+`out/cache/`, gitignored, so a check skips files whose content and stamp are unchanged.
 
 ## help
 

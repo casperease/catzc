@@ -1,7 +1,7 @@
 # pwsh/Base.Globs/Get-ModuleGlobSet.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The resolver of the derived globsets: the folder, or the file, is the registration, so no set is written in `globs.yml`. The help below
+lists what is derived, and the sections after it say why the derivation is shaped so.
 
 ## help
 
@@ -48,109 +48,54 @@ Get-ModuleGlobSet -Name Catzc.Base.Globs
 (Get-ModuleGlobSet -Name compiled).Matches('pwsh/.compiled/Catzc.Types.abc12345.dll')
 ```
 
-## comment:1
+## The code track
 
-Above `foreach ($reservedName in [Catzc.Base.Globs.GlobsConfig]::ReservedNames) {`, written with `#`.
+The code track is the one whose place is the catzc modules folder. Its first place is the root every module and infra folder sits under.
 
-```text
-The reserved umbrellas are cross-cutting check surfaces, not independent modules: 'internal' overlaps
-every catzc-internal-* single-file set, 'vendor'/'compiled'/'scriptanalyzer' cover whole dot-folders.
-They are loose-filesets ([FDR-CD-GLOBS-EVERYSETHASLAYER](/docs/drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-everysethaslayer),
-overlap-exempt), not the 'module' layer whose sets are the
-pairwise-disjoint per-folder modules
-([FDR-CD-GLOBS-NOOVERLAPWITHINLAYER](/docs/drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-nooverlapwithinlayer)).
-```
+## Module aspects
 
-## comment:2
+Each module folder partitions into disjoint, exhaustive aspect sets, `live` and `tests` by default, from the `aspects` variant
+([DDR-ASPECT](../../../drs/design/module-aspects.md)). The whole-module set is the union of its aspects: a shipped module is one `live` plus
+one `tests`, isolated, so a test-only change never re-keys `live`. `AspectPartition` compiles them per unit root.
 
-Above `$aspectList = [System.Collections.Generic.List[Catzc.Base.Globs.Aspect]]::new()`, written with `#`.
+A module's Go, Python and Bash test folders (`<root>/tests/<kebab>/` of each language root,
+[ADR-AUTO-GO-ONEGOROOT](../../../drs/automation/go/go-test-artifacts.md#rule-adr-auto-go-onegoroot),
+[ADR-AUTO-PY-ONEPYTHONROOT](../../../drs/automation/python/python-test-artifacts.md#rule-adr-auto-py-onepythonroot),
+[ADR-AUTO-BASH-ONEBASHROOT](../../../drs/automation/bash/bash-test-artifacts.md#rule-adr-auto-bash-onebashroot)) are part of its `tests`
+aspect: a change to them re-keys the module they verify, never its `live` aspect. Each language's folder is named from the module's folder,
+which drops the namespace, in that language's folder case.
 
-```text
-The aspect convention ([DDR-ASPECT](/docs/drs/design/module-aspects.md)): each module folder partitions into
-disjoint, exhaustive aspect sets
-(live/tests by default) from the 'aspects' variant. The whole-module set is the union of its aspects
-(a shipped module = 1 live + 1 tests, isolated: a test-only change never re-keys live). Compiled per
-unit root by AspectPartition.
-```
+## Internal shared modules
 
-## comment:3
+Each internal shared module gets one single-file set per `pwsh/.internal/<Name>.psm1`: the file is the registration, exactly as the folder
+is for a module. The whole-folder `internal` scope remains the protection dependency, and these sets carry the per-module identity.
 
-Above `$goRoot = (Get-Config -Config go).ResolveRoot((Get-RepositoryRoot))`, written with `#`.
+## Reserved umbrellas
 
-```text
-A module's Go, Python and Bash test folders (<root>/tests/<kebab>/ of each language root,
-[ADR-AUTO-GO-ONEGOROOT](/docs/drs/automation/go/go-test-artifacts.md#rule-adr-auto-go-onegoroot),
-[ADR-AUTO-PY-ONEPYTHONROOT](/docs/drs/automation/python/python-test-artifacts.md#rule-adr-auto-py-onepythonroot),
-[ADR-AUTO-BASH-ONEBASHROOT](/docs/drs/automation/bash/bash-test-artifacts.md#rule-adr-auto-bash-onebashroot)) are part of its tests
-aspect: a change to them re-keys the module they verify,
-never its live aspect.
-```
+The reserved umbrellas are cross-cutting check surfaces, not independent modules: `internal` overlaps every `catzc-internal-*` single-file
+set, and `vendor`, `compiled` and `scriptanalyzer` cover whole dot-folders. They are loose filesets, overlap-exempt
+([FDR-CD-GLOBS-EVERYSETHASLAYER](../../../drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-everysethaslayer)), and not the `module` layer,
+whose sets are the pairwise-disjoint per-folder modules
+([FDR-CD-GLOBS-NOOVERLAPWITHINLAYER](../../../drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-nooverlapwithinlayer)).
 
-## comment:4
+The reserved code scopes are units too
+([DDR-ASPECT-ASPECTISAGLOBSET](../../../drs/design/module-aspects.md#rule-ddr-aspect-aspectisaglobset)): their root `.psm1` files are the
+code they run, live beside the code convention, and the rest falls to tests. A single-file module keeps its own set, so the scope's sets
+leave its file out.
 
-Above `foreach ($module in $codeModules.Where({ $_.shape -ceq 'file' })) {`, written with `#`.
+## Other tracks
 
-```text
-The internal shared modules: one single-file set per pwsh/.internal/<Name>.psm1 — the file is
-the registration, exactly as the folder is for a module. The whole-folder 'internal' scope above
-remains the protection dependency; these carry the per-module identity.
-```
+Every other laid-out track's folder modules partition by that track's convention. Its root holder is no unit, because the black-box tests it
+holds already belong to the module they test (the code track's `tests` aspects).
 
-## comment:5
+## The module-leftovers catch-all
 
-Above `if ('module-leftovers' -in $declaredNames) {`, written with `#`.
+The module layer's catch-all holds every tracked file under `pwsh/` that no per-folder module owns and that is not dot-folder infrastructure
+(the reserved umbrellas' loose-fileset territory). It exists so the module layer covers module-space and a stray file cannot go unmapped. It
+should be empty in a clean tree, but a file can appear at the root of `pwsh/` or in a folder that is not yet a module. Its own excludes are
+every module folder plus the four dot-folders, so it stays disjoint from every module set
+([FDR-CD-GLOBS-NOOVERLAPWITHINLAYER](../../../drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-nooverlapwithinlayer)). It is derived, in the
+module layer, never declared, and a declared set may not shadow it.
 
-```text
-The module layer's catch-all: every tracked file under pwsh/ that no per-folder module owns and
-that is not dot-folder infrastructure (the reserved umbrellas' loose-fileset territory). It exists so
-the module layer covers module-space and a stray file cannot go unmapped — it should be empty in a
-clean tree, but stuff can pop up (a file dropped at pwsh/'s root, a folder not yet a module). Its
-OWN excludes are every module folder plus the four dot-folders, so it stays disjoint from every module
-set ([FDR-CD-GLOBS-NOOVERLAPWITHINLAYER](/docs/drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-nooverlapwithinlayer)). Derived, module-layer,
-never declared; a declared set may not shadow it.
-```
-
-## comment:6
-
-Above `$leftoverExcludes = @($moduleFolderGlobs) + @($reserved.Values)`, written with `#`.
-
-```text
-Ordinal-sorted so the scan program (the marker body) is byte-identical on every machine, independent of
+The excludes are sorted ordinally, so the scan program (the marker body) is byte-identical on every machine, independent of
 directory-enumeration and hashtable order.
-```
-
-## comment:7
-
-Above `$scopeAspects =...`, written with `#`.
-
-```text
-The reserved code scopes are units too ([DDR-ASPECT-ASPECTISAGLOBSET](/docs/drs/design/module-aspects.md#rule-ddr-aspect-aspectisaglobset)): their root .psm1 files are the code they run, live beside the
-code convention, and the rest falls to tests. A single-file module keeps its own set, so the scope's sets leave its file out.
-```
-
-## comment:8
-
-Above `foreach ($track in @(Get-Track).Where({ $_.name -cne $codeTrack.name -and...`, written with `#`.
-
-```text
-Every other laid-out track's folder modules partition by that track's convention; its root holder is no unit, because the black-box
-tests it holds already belong to the module they test (the code track's tests aspects above).
-```
-
-## comment:9
-
-Above `$codeTrack = Get-Track -Path (Get-CatzcModulesFolder)`, written with `#`.
-
-```text
-The code track is the one whose place is the catzc modules folder; its first place is the root every module and
-infra folder sits under.
-```
-
-## comment:10
-
-Above `if ($compiled.Name -eq 'tests') {`, written with `#`.
-
-```text
-Each language's test folder for the module, named from the module's folder (which drops the namespace) in that
-language's folder case.
-```

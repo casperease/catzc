@@ -1,7 +1,7 @@
 # pwsh/Base.Execution/Invoke-Executable.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The one wrapper through which the repository runs an external command. It handles the exit code, separates the streams, optionally captures
+the result and bounds the run in time.
 
 ## help
 
@@ -120,24 +120,22 @@ $result.ExitCode
 Invoke-Executable 'python --version' -DryRun
 ```
 
-## comment:1
+## Modes
 
-Above `function Invoke-Executable {`, written with `#`.
+The default Stream mode runs the command through the compiled `CliRunner`, which echoes its output live and keeps it apart as stdout and
+stderr. `-PassThru` returns the captured `CliResult`. `-Direct` hands the console to the child, so colors survive, at the price of output
+leaking into the caller's pipeline. The two share one `LASTEXITCODE` lifecycle: reset before, assert after, reset after.
 
-```text
-Uses -DryRun, not ShouldProcess/-WhatIf — see
-[ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT](/docs/drs/automation/dry-run.md#rule-adr-auto-dryrun-branchbeforesideeffect).
-```
+## Dry run
 
-## comment:2
+`-DryRun` returns the command string and launches nothing. It is the repository's branch-before-side-effect form, chosen over
+`ShouldProcess` and `-WhatIf`
+([ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT](../../../drs/automation/dry-run.md#rule-adr-auto-dryrun-branchbeforesideeffect)).
 
-Above `if (-not $DryRun -and (Test-RealProcessBlocked)) {`, written with `#`.
+## The test tripwire
 
-```text
-Unit-test tripwire (sibling to -DryRun: both prevent a launch — DryRun returns the command, this
-throws). When a run sets $env:CATZC_BLOCK_REAL_PROCESS (1 for every launch, tier for the L0 and L1
-Describes alone, Test-RealProcessBlocked), a real process launch there means a Mock failed to
-intercept — almost always a -ModuleName pointing at the wrong module — so the test was silently
-hitting the live tool. Fail loudly instead. -DryRun is exempt (it never launches).
-See [ADR-AUTO-TEST](/docs/drs/automation/test-automation.md).
-```
+Beside `-DryRun`, which returns the command, a test run can arm a tripwire that throws instead of launching. When a run sets
+`CATZC_BLOCK_REAL_PROCESS`, a real launch inside an armed Describe means a mock missed, almost always a `-ModuleName` pointing at the wrong
+module, so the test was silently hitting the live tool. Failing loudly is the point. `-DryRun` is exempt, since it never launches. The rule
+is [ADR-AUTO-TEST-PROCESSTRIPWIRE](../../../drs/automation/test-automation.md#rule-adr-auto-test-processtripwire), and the check itself is
+`Test-RealProcessBlocked`.

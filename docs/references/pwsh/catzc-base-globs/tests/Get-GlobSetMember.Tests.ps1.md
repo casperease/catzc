@@ -1,15 +1,9 @@
 # pwsh/Base.Globs/tests/Get-GlobSetMember.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The tests of `Get-GlobSetMember`, the single source of what is in a set
+([FDR-CD-GLOBS-TRACKEDFILESONLY](../../../../drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-trackedfilesonly)).
 
-## comment:1
+## What it proves
 
-Above `Describe 'Get-GlobSetMember'`, written with `#`.
-
-```text
-The single 'what is IN the package' source
-([FDR-CD-GLOBS-TRACKEDFILESONLY](/docs/drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-trackedfilesonly)): `git ls-files` ∩
-GlobSet.Matches, ordinal-sorted.
-Tested through the module (private). The '_' args in the scriptblock take the set and mocked tree.
-```
+The members are `git ls-files` intersected with `GlobSet.Matches`, sorted ordinally. The function is private, so the test calls it through
+the module, and the `_` arguments of the script block take the set and the mocked tree.

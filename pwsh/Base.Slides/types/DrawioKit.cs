@@ -51,6 +51,7 @@ public sealed class DrawioKit
         Manifest = Path.GetFullPath(Path.Combine(Folder, ManifestFile));
     }
 
+    // A method, not a property: PowerShell swallows a getter's exception, so a missing manifest entry would read as null.
     public string RendererModule() => ModuleOf(RendererFile);
 
     // The declaration tool as the module `python -m` runs.

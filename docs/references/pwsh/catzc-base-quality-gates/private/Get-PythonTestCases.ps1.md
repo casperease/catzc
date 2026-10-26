@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Get-PythonTestCases.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Lists the Python tests a test folder declares, read from the text of its `test_*.py` files without running Python. Pester discovers the
+bridge's tests before anything runs, so discovery stays fast and offline.
 
 ## help
 

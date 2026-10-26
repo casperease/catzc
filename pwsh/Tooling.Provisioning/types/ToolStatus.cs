@@ -10,6 +10,7 @@ using System;
 
 namespace Catzc.Tooling.Provisioning;
 
+// One row per tool: the locked requirement against what is on the box, the verdict, and where and how it was found.
 public sealed class ToolStatus
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

@@ -1,7 +1,8 @@
 # pwsh/Base.Globs/Get-FileAspect.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The file-to-aspect lookup: for each path it names the first aspect, in aspect order, one of whose globsets claims it
+([DDR-ASPECT](../../../drs/design/module-aspects.md)). It asks `Get-AspectGlobSet` once per call and delegates the matching to
+`AspectPartition.AspectOf`.
 
 ## help
 

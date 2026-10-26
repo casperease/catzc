@@ -8,6 +8,7 @@ catzc:
 
 namespace Catzc.Tooling.Provisioning;
 
+// Verdict of a tool against its tools.yml lock: Missing and WrongVersion are hard failures, Usable is only a migrate-me hint.
 public enum ToolStatusKind
 {
     // Installed at the locked version, via the expected manager — nothing to do.

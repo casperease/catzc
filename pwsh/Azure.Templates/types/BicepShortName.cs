@@ -11,10 +11,12 @@ using System.Text;
 
 namespace Catzc.Azure.Templates;
 
+// The template's only Azure-facing identifier (the folder name is not): the derivation and format rule live here, so a malformed name cannot exist.
 public sealed class BicepShortName
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
+    // Five keeps the worst-case tight storage name at 23 of 24 characters, one byte to spare.
     public const int MaxLength = 5;
 
     // The template's on-disk folder name (the readable, kebab-case identifier). Always present.
@@ -33,6 +35,7 @@ public sealed class BicepShortName
         this.overridden = overridden;
     }
 
+    // A null or empty override derives from the folder; throws, naming the template, on a malformed override or an underivable folder with none.
     public static BicepShortName Resolve(string folder, string overrideValue)
     {
         if (string.IsNullOrWhiteSpace(folder)) { throw new ArgumentException("BicepShortName requires a folder name"); }
@@ -59,6 +62,7 @@ public sealed class BicepShortName
         return new BicepShortName(folder, derived, false);
     }
 
+    // Pure and total: an empty or all-punctuation folder yields "", which IsValid rejects at Resolve, prompting an override.
     public static string Derive(string folder)
     {
         if (folder == null) { throw new ArgumentException("BicepShortName.Derive requires a folder name"); }
@@ -74,6 +78,7 @@ public sealed class BicepShortName
         return sb.ToString();
     }
 
+    // Mirrors the options.yml schema regex ^[a-z][a-z0-9]{1,4}$: a leading letter, then lowercase alphanumerics.
     public static bool IsValid(string value)
     {
         if (string.IsNullOrEmpty(value)) { return false; }

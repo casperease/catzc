@@ -1,7 +1,7 @@
 # pwsh/Base.Variants/Get-GeneratedTarget.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The registry of generated files: it gathers, from the configs that declare them, every file a generator of this repository writes and the
+command that writes it, so a check can tell a generated file from an authored one without a list of its own.
 
 ## help
 
@@ -18,20 +18,11 @@ comment-page roots, and every other generator's targets as its module's generate
 
 `[Catzc.Base.Variants.GeneratedTarget]` one per target: its path or glob and its generator.
 
-## comment:1
+## Sources
 
-Above `foreach ($file in (Get-Config -Config rootconfig).files.Where({ $_.optIn })) {`, written with `#`.
-
-```text
-The root configs this repository renders: each opted-in rootconfig.yml target, by its generator; a target copied from its source
-asset has none of its own, and Build-RootConfig is what writes it.
-```
-
-## comment:2
-
-Above `$pageRoots =...`, written with `#`.
-
-```text
-The comment pages Format-Code's comment imprint writes: one tree per page root comment-pages.yml declares, a `{kebab}` root one
-folder per module. The pages are the tool's, so they are generated like the READMEs (the user, 2026-10-25).
-```
+- **Root configs** — each opted-in `rootconfig.yml` target, by its generator. A target copied from its source asset names no generator of
+  its own; `Build-RootConfig` is what writes it.
+- **READMEs** — the files `readme.yml` names.
+- **Comment pages** — the trees Format-Code's comment imprint writes, one per page root `comment-pages.yml` declares; a `{kebab}` root is
+  one folder per module. The pages belong to the tool, so they count as generated, like the READMEs.
+- **Every other generator** — the targets its module's `generated.yml` declares.

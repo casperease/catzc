@@ -14,6 +14,7 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Base.Drs;
 
+// drs.yml, the domain-structure registry: constructing maps and validates it, with every violation collected, into domains and edges.
 public sealed class DrsConfig
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
@@ -21,6 +22,7 @@ public sealed class DrsConfig
     private static readonly Regex CodeRe = new Regex("^[A-Z]{2,4}(-[A-Z]{2,4})?$", RegexOptions.Compiled);
     private static readonly Regex KindRe = new Regex("^[A-Z]{2,4}$", RegexOptions.Compiled);
 
+    // The record kinds when drs.yml declares none: the one shared kind ADR.
     public const string DefaultKind = "ADR";
 
     // The segments a rule's code has after its kind when no ruleset of the kind is registered: ADR-<DOMAIN>-<ADR>-<NAME>, TDR-<ADR>-<NAME>.
@@ -30,6 +32,7 @@ public sealed class DrsConfig
     // The rows of the value-chain stack, top to bottom ([DDR-TRACK-VALUECHAINSTACK](/docs/drs/design/tracks.md#rule-ddr-track-valuechainstack)).
     public static readonly IReadOnlyList<string> Stacks = Array.AsReadOnly(new[] { "PRIN", "DSGN", "AUTO", "PIPE", "CLOUD" });
 
+    // The value-chain concerns, in value-chain order, left to right.
     public static readonly IReadOnlyList<string> Concerns = Array.AsReadOnly(new[] { "automation", "build", "quality-control", "release", "deploy", "access" });
 
     public IReadOnlyList<DrsDomain> Domains { get; }
@@ -40,6 +43,7 @@ public sealed class DrsConfig
     public IReadOnlyList<string> Kinds { get; }
     public IReadOnlyList<string> SharedKinds { get; }
 
+    // The code grammar over these kinds, which every parser of a code reads.
     public DrsCodeForm CodeForm { get; }
     private readonly Dictionary<string, string> kindNames = new Dictionary<string, string>(StringComparer.Ordinal);
 
@@ -179,6 +183,7 @@ public sealed class DrsConfig
 
             CheckKeys(d, AllowedDomainKeys, string.Format("domain '{0}'", name), errors);
 
+            // A shared kind's domains each add a code; a kind one domain owns stands for it, with no code.
             string domainKind = d.Contains("kind") && d["kind"] != null ? d["kind"].ToString() : DefaultKind;
             bool shared = sharedKinds.Contains(domainKind);
             if (!kinds.Contains(domainKind))

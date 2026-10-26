@@ -22,6 +22,7 @@ public sealed class YamlClassificationResult
     // The template sub-kind. Null for non-Template files (Pipeline/Unknown).
     public Nullable<YamlTemplateType> TemplateType { get; }
 
+    // Strings parsed to the enums, so a caller holding string literals binds without converting first.
     public YamlClassificationResult(string classification, string templateType)
     {
         Classification = (YamlClassification)Enum.Parse(typeof(YamlClassification), classification, true);

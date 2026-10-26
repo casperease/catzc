@@ -8,6 +8,7 @@ catzc:
 
 namespace Catzc.Base.ModuleSystem;
 
+// The GitHub Packages target: the owner, repository and feed the gold module-manifest artifact is promoted to.
 public sealed class GithubArtifactsTarget : ArtifactsTarget
 {
     private static readonly string[] CoordinateKeys = { "owner", "repository", "feed" };

@@ -13,8 +13,10 @@ using System.Globalization;
 
 namespace Catzc.Base.Contracts;
 
+// A version folder's contract.yml: the exceptions to the direction convention.
 public sealed class ContractManifest
 {
+    // Each asset's globs; it constrains every tracked file they match.
     public IReadOnlyDictionary<string, string[]> applies_to { get; }
 
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

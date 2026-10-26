@@ -112,15 +112,11 @@ Describe 'Get-RepositoryFilter — the real repository' -Tag 'L1', 'integrity', 
 
     It 'claims every tracked file by at least one filter' {
         $sets = @($script:filters.ForEach({ & $script:globSets @($_.sets) }))
-        # Each set reads only the files no earlier set claimed.
-        $unclaimed = [string[]] $script:tracked
+        $claimed = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
         foreach ($set in $sets) {
-            if ($unclaimed.Count -eq 0) {
-                break
-            }
-            $claimed = [System.Collections.Generic.HashSet[string]]::new([string[]] $set.SelectMembers($unclaimed), [System.StringComparer]::Ordinal)
-            $unclaimed = [string[]] $unclaimed.Where({ -not $claimed.Contains($_) })
+            $claimed.UnionWith([string[]] $set.SelectMembers([string[]] $script:tracked))
         }
+        $unclaimed = $script:tracked.Where({ -not $claimed.Contains($_) })
         $unclaimed |
             Should -BeNullOrEmpty -Because "every file belongs to a filter (first: $(@($unclaimed | Select-Object -First 5) -join ', '))"
     }

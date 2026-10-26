@@ -1,85 +1,54 @@
 # pwsh/Base.Languages/configs/languages.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
-
-## comment:1
-
-Above `formatters:`, written with `#`.
-
-```text
-The file-language registry — every file language the repository's tracked files are written in, each named by its
-extensions ([DDR-TRACK-FILELANGUAGE](/docs/drs/design/tracks.md#rule-ddr-track-filelanguage)). A track's tech-stack is the set of
-file languages it declares in variants.yml (`tracks:`); this registry makes that set checkable. Every extension
-belongs to exactly one file language; an extension no entry lists has no file language.
+The file-language registry: every file language the repository's tracked files are written in, each named by its extensions
+([DDR-TRACK-FILELANGUAGE](../../../../drs/design/tracks.md#rule-ddr-track-filelanguage)). A track's tech-stack is the set of file languages
+it declares in `variants.yml` (`tracks:`); this registry makes that set checkable. Every extension belongs to exactly one file language, and
+an extension no entry lists has no file language.
 
 Formatting is configured here, not programmed
-([PDR-CONFIG-VARYINGBEHAVIOURISCONFIG](/docs/drs/principles/configure-not-program.md#rule-pdr-config-varyingbehaviourisconfig)): an entry names the
-formatter engine for its files, and Format-Code (Catzc.Base.QualityGates) runs it; Test-Formatting checks the same
-entries. Supporting a language on an existing engine is one line here. A language with nothing to format says why.
-The editor reads the same entries: the root-config generator sets each language's VS Code default formatter to its
-engine's extension and recommends that extension, so Format Document and Format-Code run the same engine
-([ADR-REPO-FORMAT-CONFIGUREDFORMATTERS](/docs/drs/repository/uniform-formatting.md#rule-adr-repo-format-configuredformatters)).
+([PDR-CONFIG-VARYINGBEHAVIOURISCONFIG](../../../../drs/principles/configure-not-program.md#rule-pdr-config-varyingbehaviourisconfig)): an
+entry names the formatter engine for its files, and `Format-Code` runs it; `Test-Formatting` checks the same entries. Supporting a language
+on an existing engine is one line here, and a language with nothing to format says why. The editor reads the same entries: the root-config
+generator sets each language's VS Code default formatter to its engine's extension and recommends that extension, so Format Document and
+`Format-Code` run the same engine
+([ADR-REPO-FORMAT-CONFIGUREDFORMATTERS](../../../../drs/repository/uniform-formatting.md#rule-adr-repo-format-configuredformatters)).
 
-Per formatter (formatters:):
-  vscode_extension  the VS Code extension that runs the engine in the editor; omitted = the editor has none
-  settings          the repository files whose content decides what the engine writes — its configuration and the
-                    tool registry whose pin names its version; a change to one invalidates Format-Code's result cache
-                    for that engine; omitted = none
+## Per formatter (`formatters:`)
 
-Per language (languages:):
-  extensions       the extensions that name the language, lowercase, each with its leading dot
-  formatter        the formatter engine: prettier | gofmt | ruff | psscriptanalyzer | dotnet-format | bicep
-  no_formatter     instead of formatter: why the language has none (exactly one of the two)
-  vscode_language  the VS Code language id of its files; omitted = the language's own name
-  adr_folder       its ADR folder under docs/drs/; omitted = none
-  checks           the quality gates Test-Change runs over a changed file of the language, in this order; a gate
-                   with a -Path parameter is given the changed files, any other runs whole and its issues are kept
-                   when they name a changed file; omitted = none
-  check_scopes     for a gate that governs one folder, the global config address of that folder (Test-Plans:
-                   global.plans.folder), so Test-Change gives the gate only the changed files under it; a gate with
-                   no entry governs every file of the language; omitted = none
+- **`vscode_extension`** — the VS Code extension that runs the engine in the editor; omitted means the editor has none.
+- **`settings`** — the repository files whose content decides what the engine writes: its configuration and the tool registry whose pin
+  names its version. A change to one invalidates the `Format-Code` result cache for that engine; omitted means none.
 
-The defaults and the engine list are declared once on Catzc.Base.Languages.LanguagesConfig
-([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/drs/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)). Loaded via
-Get-Config -Config languages and read through Get-FileLanguage.
+PSScriptAnalyzer's formatter runs through the PowerShell extension, whose `codeFormatting` settings (`vscode-settings.yml`) mirror the
+analyzer settings file. The vendored module's manifest names its version.
+
+## Per language (`languages:`)
+
+- **`extensions`** — the extensions that name the language, lowercase, each with its leading dot.
+- **`formatter`** — the formatter engine: `prettier`, `gofmt`, `ruff`, `psscriptanalyzer`, `dotnet-format` or `bicep`.
+- **`no_formatter`** — instead of `formatter`: why the language has none. Exactly one of the two.
+- **`vscode_language`** — the VS Code language id of its files; omitted means the language's own name.
+- **`adr_folder`** — its ADR folder under `docs/drs/`; omitted means none.
+- **`checks`** — the quality gates `Test-Change` runs over a changed file of the language, in this order. A gate with a `-Path` parameter is
+  given the changed files; any other runs whole, and its issues are kept when they name a changed file. Omitted means none.
+- **`check_scopes`** — for a gate that governs one folder, the global config address of that folder (`Test-Plans`: `global.plans.folder`),
+  so `Test-Change` gives the gate only the changed files under it. A gate with no entry governs every file of the language; omitted means
+  none.
 
 YAML is two file languages: executable pipeline YAML is `.yaml`, configuration data is `.yml`
-([FDR-CD-PIPELINE-EXECUTABLEYAMLEXTENSION](/docs/drs/flow/pipeline-concept.md#rule-fdr-cd-pipeline-executableyamlextension)).
-```
+([FDR-CD-PIPELINE-EXECUTABLEYAMLEXTENSION](../../../../drs/flow/pipeline-concept.md#rule-fdr-cd-pipeline-executableyamlextension)).
 
-## comment:2
+## Other sections
 
-Above `psscriptanalyzer:`, written with `#`.
+- **`layout`** — the folders of a module this language owns. `assets/` and `tests/` are on `LayoutRow`, since no one language owns them.
+  `shipped` means a build copies the folder verbatim; the functions are merged into one file instead, so their rows are not shipped.
+- **`accosted`** — a flat list of harmless contracted calls, run under every engine
+  ([ADR-AUTO-ACCOSTED](../../../../drs/automation/accosted-language.md)). Its compound extension wins over `.yml`.
+- **`tag`** — what a diagram prints on a glyph whose label is a snippet of the language: the tag, and the shapes that name a label as one (a
+  command `Verb-Noun`, a `$variable`, a `-Flag`, a module name `Catzc.X.Y`). A label that matches no shape prints no tag.
 
-```text
-PSScriptAnalyzer's formatter through the PowerShell extension, whose codeFormatting settings (vscode-settings.yml)
-mirror the analyzer settings file. The vendored module's manifest names its version.
-```
+## How it is read
 
-## comment:3
-
-Above `layout:`, written with `#`.
-
-```text
-The layout: the folders of a module this language owns. assets/ and tests/ are on LayoutRow, since no one language owns them.
-shipped means a build copies the folder verbatim; the functions are merged into one file instead, so their rows are not shipped.
-```
-
-## comment:4
-
-Above `accosted:`, written with `#`.
-
-```text
-A flat list of harmless contracted calls, run under every engine
-([ADR-AUTO-ACCOSTED](/docs/drs/automation/accosted-language.md)); its compound extension wins over .yml.
-```
-
-## comment:5
-
-Above `tag: pwsh`, written with `#`.
-
-```text
-What a diagram prints on a glyph whose label is a snippet of the language: the tag, the shapes that name a label as one (a command
-Verb-Noun, a $variable, a -Flag, a cats module name Catzc.X.Y); a label that matches no shape prints no tag.
-```
+The defaults and the engine list are declared once on `Catzc.Base.Languages.LanguagesConfig`
+([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../../../../drs/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)). The file
+is loaded by `Get-Config -Config languages` and read through `Get-FileLanguage`.

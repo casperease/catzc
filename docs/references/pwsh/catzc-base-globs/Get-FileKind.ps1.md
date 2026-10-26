@@ -1,7 +1,7 @@
 # pwsh/Base.Globs/Get-FileKind.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The classifier of a file by its role: it reads the kinds in `configs/file-kinds.yml` and returns the first one whose globs match, with its
+subkind when it has one.
 
 ## help
 

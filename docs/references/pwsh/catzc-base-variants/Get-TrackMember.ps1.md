@@ -1,7 +1,7 @@
 # pwsh/Base.Variants/Get-TrackMember.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The member listing of the tracks: each folder or file a track holds, with its track's name and whether it is generated and committed, for
+the checks that walk what each track owns.
 
 ## help
 

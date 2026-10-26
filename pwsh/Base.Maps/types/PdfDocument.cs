@@ -17,6 +17,7 @@ using System.Text;
 
 namespace Catzc.Base.Maps;
 
+// A minimal PDF 1.4 writer, BCL only: pages of vector rectangles, lines and base-14 Helvetica text.
 [Catzc.Base.Objects.ConsoleDisplay(nameof(PageCount))]
 public sealed class PdfDocument
 {

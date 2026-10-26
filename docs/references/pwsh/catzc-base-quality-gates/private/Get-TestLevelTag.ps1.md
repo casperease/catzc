@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Get-TestLevelTag.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Resolves a Pester test's integration tier, L0 to L4, from its block hierarchy. The nearest block that contributes a tier wins, and `$null`
+comes back when no block in the chain names one.
 
 ## help
 

@@ -1,7 +1,7 @@
 # pwsh/Base.Contracts/Test-AccostedCommand.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The finding-lister for one accosted-form call: it lists every way the call breaks its command contract and does not throw. It lets a gate
+show all the faults of a call at once.
 
 ## help
 
@@ -38,11 +38,7 @@ The root the command contracts resolve against. Default: the repository root.
 Test-AccostedCommand -Call '{"get_widget": {"path": "widgets/a.wdg"}}' -Where 'widget-act: action.call'
 ```
 
-## comment:1
+## findings
 
-Above `foreach ($argument in $command.arguments.Keys) {`, written with `#`.
-
-```text
-Each fault is one finding: the check is what Assert-AccostedArgument already is, caught so a gate can list them
-all.
-```
+Each fault is one finding. The argument check is the one Assert-AccostedArgument already makes; its throw is caught here, so a gate can
+list every fault instead of stopping at the first.

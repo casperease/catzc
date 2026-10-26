@@ -1,23 +1,10 @@
 # pwsh/Base.QualityGates/tests/Invoke-BicepFormat.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The L0 logic test of the bicep engine `Invoke-BicepFormat`, with the tool boundary mocked
+([ADR-AUTO-TEST-NOOVERMOCKING](../../../../drs/automation/test-automation.md#rule-adr-auto-test-noovermocking)). The probe finds a managed Bicep
+CLI, and the mock writes the `--outfile` copy that the engine compares. The fixtures use neutral names
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 
-## comment:1
+## The fake formatter
 
-Above `Describe 'Invoke-BicepFormat'`, written with `#`.
-
-```text
-The bicep engine with the tool boundary mocked ([ADR-AUTO-TEST-NOOVERMOCKING](/docs/drs/automation/test-automation.md#rule-adr-auto-test-noovermocking)):
-the probe finds a managed Bicep CLI, and the mock writes the --outfile copy the engine compares. Neutral fixture names
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
-```
-
-## comment:2
-
-Above `Mock Invoke-Executable -ModuleName Catzc.Base.QualityGates {`, written with `#`.
-
-```text
-The fake formatter collapses runs of spaces in every file the --pattern names, in place, as `bicep format
---pattern` does.
-```
+The mock of `Invoke-Executable` collapses runs of spaces in every file the `--pattern` names, in place, as `bicep format --pattern` does.

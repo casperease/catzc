@@ -8,6 +8,7 @@ catzc:
 
 namespace Catzc.Base.QualityGates;
 
+// What a direction row says of the relations it matches.
 public enum LinkVerdict
 {
     Allow,

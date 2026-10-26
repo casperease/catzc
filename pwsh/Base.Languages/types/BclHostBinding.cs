@@ -14,6 +14,7 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Base.Languages;
 
+// A type source outside the BCL reference set, named with its host and its reason.
 [Catzc.Base.Objects.ConsoleDisplay("file", "host")]
 public sealed class BclHostBinding : Catzc.Base.Objects.DictionaryRecord
 {

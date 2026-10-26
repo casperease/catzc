@@ -1,7 +1,7 @@
 # pwsh/Base.Languages/Invoke-JavaScriptTest.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+`Invoke-JavaScriptTest` runs a module's `*.test.js` files with node's own test runner and returns one `JavaScriptTestResult` per test. It
+installs no package and runs no npm script.
 
 ## help
 
@@ -46,31 +46,14 @@ tests holder.
 Invoke-JavaScriptTest catzc-track-lamps
 ```
 
-## comment:1
+## The test folder
 
-Above `$relative = if ($Folder) {`, written with `#`.
+The folder is the one named, else the module's own `tests/` (a js module is its kebab folder, `js/<module>/tests`), else the module's folder
+under the root's test holder. The root comes from `javascript.yml` (`JavaScriptConfig.ResolveRoot`: the declared root, else `js/` when
+present, else `.js/`).
 
-```text
-The test folder: the one named, else the module's own tests/ (a js module is its kebab folder, js/<module>/tests), else the module's
-folder under the root's test holder.
-```
+## Namespace in the folder name
 
-## comment:2
-
-Above `$jsRelative = (Get-Config -Config javascript).ResolveRoot($root)`, written with `#`.
-
-```text
-The JavaScript root from javascript.yml (JavaScriptConfig.ResolveRoot: the declared root, else js/ when present,
-else .js/).
-```
-
-## comment:3
-
-Above `$extensionFolder = (Get-Track -Path $jsRelative).FolderNameOf($Module)`, written with `#`.
-
-```text
 A module's folder drops its track's namespace, so the full name resolves to it
-([DDR-TRACK-MODULENAMESPACE](/docs/drs/design/tracks.md#rule-ddr-track-modulenamespace)): an extension through the
-js
-track, a pwsh module whose js tests sit in the tests holder through the modules track.
-```
+([DDR-TRACK-MODULENAMESPACE](../../../drs/design/tracks.md#rule-ddr-track-modulenamespace)): an extension through the js track, and a pwsh
+module whose js tests sit in the tests holder through the modules track.

@@ -8,6 +8,7 @@ catzc:
 
 namespace Catzc.Base.Contracts;
 
+// One run's outcome under one engine: passed exactly when the engine exits 0.
 public sealed class AccostedRunResult
 {
     // The run's position in its file, from 1.

@@ -1,7 +1,7 @@
 # pwsh/Base.Contracts/private/Get-ContractAssetNote.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The reader of an asset's note, the header comment its file carries. It reads one only where a comment cannot change what the asset's check
+compares.
 
 ## help
 

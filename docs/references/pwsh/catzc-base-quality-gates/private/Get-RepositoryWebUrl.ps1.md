@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Get-RepositoryWebUrl.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Returns the repository's GitHub web URL, or `$null` when it has none. It reads the origin remote from `.git/config` without starting a git
+process, and normalizes an https or ssh remote to the web form.
 
 ## help
 

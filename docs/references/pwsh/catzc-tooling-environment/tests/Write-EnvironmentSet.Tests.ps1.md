@@ -1,13 +1,9 @@
 # pwsh/Tooling.Environment/tests/Write-EnvironmentSet.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The L0 tests of `Write-EnvironmentSet`. They mock the `Set-ProcessEnvironmentVariable` seam and assert the calls it receives: which
+variables each channel sets, the collision and bare-literal rejections, and that a scoped block restores every target.
 
-## comment:1
+## Restoring an unset variable
 
-Above `Should -Invoke Set-ProcessEnvironmentVariable -ModuleName...` (occurrence 9), written with `#`.
-
-```text
-The finally restores-to-unset: the seam is called with an empty/null value for that name
-(a previously-unset variable snapshots as null-or-empty, and setting empty removes it).
-```
+A variable that was unset before the block snapshots as null or empty, and the restore sets it empty, which removes it. The test therefore
+asserts a seam call with an empty value for that name.

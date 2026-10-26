@@ -1,7 +1,7 @@
 # pwsh/Base.Contracts/Invoke-Accosted.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The runner of an accosted file: it executes each run under every execution engine and returns what each engine did, so one file proves the
+same calls work in pwsh and through cats.
 
 ## help
 
@@ -39,11 +39,6 @@ output.
 Invoke-Accosted pwsh/Catzc.Widget/tests/widget.accosted.yml -Engine pwsh | Where-Object ExitCode -ne 0
 ```
 
-## comment:1
+## the call line of a run
 
-Above `$calls = @(foreach ($command in $run.commands) {`, written with `#`.
-
-```text
-The engine prefixes the first command; each later one in the run takes the prefix itself, and && stops at
-a failure.
-```
+Every command of a run takes the engine's prefix itself, and the commands are joined with `&&`, so the first failing call stops the run.

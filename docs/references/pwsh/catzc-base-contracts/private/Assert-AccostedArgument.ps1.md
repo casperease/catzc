@@ -1,7 +1,7 @@
 # pwsh/Base.Contracts/private/Assert-AccostedArgument.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The argument check of an accosted call: it throws when one argument does not fit its contract parameter. Get-AccostedFile and
+Test-AccostedCommand both use it, so one rule decides what an argument may be.
 
 ## help
 

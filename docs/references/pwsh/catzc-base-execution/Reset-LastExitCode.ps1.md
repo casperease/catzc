@@ -1,7 +1,7 @@
 # pwsh/Base.Execution/Reset-LastExitCode.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Removes the global `$LASTEXITCODE`, so the exit code of one external command never leaks into the check of the next. `Invoke-Executable`
+calls it before and after every run.
 
 ## help
 

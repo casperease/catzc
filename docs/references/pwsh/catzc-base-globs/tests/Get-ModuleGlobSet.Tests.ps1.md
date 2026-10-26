@@ -1,34 +1,21 @@
 # pwsh/Base.Globs/tests/Get-ModuleGlobSet.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The tests of `Get-ModuleGlobSet`, the derived globsets
+([ADR-REPO-PROTGLOB-DERIVEDMODULEGLOBSETS](../../../../drs/repository/protected-globs.md#rule-adr-repo-protglob-derivedmoduleglobsets)).
 
-## comment:1
+## What it proves
 
-Above `Describe 'Get-ModuleGlobSet'`, written with `#`.
+A folder is a module is a set, with a readme-kebab name. Each internal `.psm1` module has one single-file set, the reserved infra scopes are
+derived, and the derived names share one name space with the declared registry. Derived sets never enter `GlobsConfig`, but they scope
+protection and blast radius through the same `Matches()` machinery.
 
-```text
-The derived globsets ([ADR-REPO-PROTGLOB-DERIVEDMODULEGLOBSETS](/docs/drs/repository/protected-globs.md#rule-adr-repo-protglob-derivedmoduleglobsets)): folder
-= module = set (readme-kebab name), one single-file set per
-internal .psm1 module, reserved infra scopes, one shared name space with the declared registry. Derived
-sets never enter GlobsConfig but scope protection and blast radius through the same Matches() machinery.
-```
+## Fixtures
 
-## comment:2
+The fixture globset name is neutral (widget), not the real `automation` set
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)). The
+declared set only needs to exist so that the shadow check has a registry to compare the derived names against.
 
-Above `$script:config = [Catzc.Base.Globs.GlobsConfig]::new(@{`, written with `#`.
+## Reserved names
 
-```text
-Neutral fixture globset name (widget), not the real 'automation' set
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)); this declared
-set only needs to exist so the shadow-check has a registry to compare the derived names against.
-```
-
-## comment:3
-
-Above `Describe 'GlobsConfig reserved names'`, written with `#`.
-
-```text
 The reserved-name guard lives in the registry type itself
-([ADR-REPO-PROTGLOB-DERIVEDMODULEGLOBSETS](/docs/drs/repository/protected-globs.md#rule-adr-repo-protglob-derivedmoduleglobsets)).
-```
+([ADR-REPO-PROTGLOB-DERIVEDMODULEGLOBSETS](../../../../drs/repository/protected-globs.md#rule-adr-repo-protglob-derivedmoduleglobsets)).

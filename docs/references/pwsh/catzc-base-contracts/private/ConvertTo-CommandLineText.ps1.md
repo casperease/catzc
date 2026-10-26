@@ -1,7 +1,7 @@
 # pwsh/Base.Contracts/private/ConvertTo-CommandLineText.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The joiner that turns an executable and its arguments into one command-line string. It exists so a runner and the process starter agree on
+how the arguments split.
 
 ## help
 

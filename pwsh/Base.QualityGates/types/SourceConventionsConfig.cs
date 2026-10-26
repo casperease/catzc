@@ -12,6 +12,7 @@ using System.Globalization;
 
 namespace Catzc.Base.QualityGates;
 
+// The source checks beside naming and one-function, with their defaults declared once.
 public sealed class SourceConventionsConfig
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
@@ -19,6 +20,7 @@ public sealed class SourceConventionsConfig
     public EngineSetCheck engine_set { get; }
     public SourceCheck neutral_codes { get; }
 
+    // The files that may spell the modules track's place; NoTrackRootLiteral reads it.
     public SourceCheck track_root_literal { get; }
 
     public SourceConventionsConfig(IDictionary raw)

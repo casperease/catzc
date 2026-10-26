@@ -13,6 +13,7 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Base.Timeouts;
 
+// timeout-exemptions.yml: work, named by an immutable managed GUID, that may run past its normal limit while exempt.
 public sealed class TimeoutExemptionsConfig : Catzc.Base.Objects.DictionaryRecord
 {
     private static readonly string[] AllowedKeys = { "ceiling", "exempt" };
@@ -20,12 +21,14 @@ public sealed class TimeoutExemptionsConfig : Catzc.Base.Objects.DictionaryRecor
     private static readonly string[] RangeKeys = { "from", "to" };
     private static readonly string[] ScopeKeys = { "environment", "shell" };
     private static readonly string[] Environments = { "devbox", "pipeline" };
+    // The shells a ceiling is keyed by: the execution engines, declared once.
     private static readonly string[] Shells = new List<string>(Catzc.Base.Engines.ExecutionEngines.Names).ToArray();
     private static readonly Regex CanonicalGuid = new Regex(
         "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$", RegexOptions.CultureInvariant);
     // The all-zeros GUID is a denied registry value, so it is built at runtime, never written as a literal.
     private static readonly string ZeroGuid = Guid.Empty.ToString("D");
 
+    // The sensible defaults: an exempt budget runs up to ten minutes on a devbox and an hour in a pipeline, in every shell.
     private static readonly Dictionary<string, int> Defaults = new Dictionary<string, int>(StringComparer.Ordinal)
     {
         { "devbox.bash", 600 },
@@ -42,6 +45,7 @@ public sealed class TimeoutExemptionsConfig : Catzc.Base.Objects.DictionaryRecor
     // The resolved ceilings, defaults filled in: ceiling[devbox|pipeline][pwsh|bash|zsh]. Resolve through CeilingFor.
     public IDictionary ceiling { get; }
 
+    // The exemptions in file order, each normalized: from and to, the expanded scope, reason, and kind (single or range).
     public IReadOnlyList<Hashtable> exempt { get { return entries; } }
 
     public TimeoutExemptionsConfig(IDictionary d)

@@ -10,6 +10,7 @@ using System;
 
 namespace Catzc.Base.Variants;
 
+// A folder or file of a track, with its generated and committed facts.
 public sealed class VariantMember
 {
     private static readonly char[] WildcardCharacters = { '*', '?', '[' };
@@ -47,6 +48,7 @@ public sealed class VariantMember
         this.committed = committed;
     }
 
+    // A plain member holds itself and what lies under it; a glob, what it matches.
     public bool Contains(string relativePath)
     {
         if (string.IsNullOrEmpty(relativePath)) { return false; }

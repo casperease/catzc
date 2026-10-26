@@ -13,10 +13,12 @@ using System.Text.Json;
 
 namespace Catzc.Azure.Templates;
 
+// One compiled-template parameter: type, default, allowed values and bounds only; the nested shape of an object or array is not modelled.
 public sealed class BicepParameter
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
+    // The canonical spelling the model stores: ARM reads the type case-insensitively, and main.json writes "securestring".
     public static readonly IReadOnlyList<string> Types = Array.AsReadOnly(new[]
     {
         "string", "int", "bool", "object", "array", "secureString", "secureObject",
@@ -66,6 +68,7 @@ public sealed class BicepParameter
         MaxLength = maxLength;
     }
 
+    // A "$ref" to a user-defined type takes its type and any constraint the declaration does not set from that definition.
     public static BicepParameter FromArmDeclaration(string name, JsonElement declaration, JsonElement definitions)
     {
         if (declaration.ValueKind != JsonValueKind.Object)
@@ -113,6 +116,7 @@ public sealed class BicepParameter
         return new BicepParameter(name, type, hasDefault, nullable, allowedValues, minValue, maxValue, minLength, maxLength);
     }
 
+    // A string stays a string, an integer a long, true/false a bool, null a null; any other value becomes its compact JSON text.
     public static object ToComparable(JsonElement value)
     {
         switch (value.ValueKind)

@@ -8,6 +8,7 @@ catzc:
 
 namespace Catzc.Base.Contracts;
 
+// Provided by the catzc root, depended-on everywhere else, unless contract.yml overrides one.
 public enum ContractDirection
 {
     DependedOn,

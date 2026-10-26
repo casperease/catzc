@@ -63,6 +63,7 @@ public sealed class ModulePlace
         return string.IsNullOrEmpty(prefix) ? folder : prefix + Pascal(folder);
     }
 
+    // The path under the module NameOf placed; a file module's tail is its own name.
     public string TailOf(string path)
     {
         if (name == "root")

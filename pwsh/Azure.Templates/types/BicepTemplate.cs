@@ -12,6 +12,7 @@ using System.Collections.Generic;
 
 namespace Catzc.Azure.Templates;
 
+// Mirrors the template's config keys overlaid with options.yml; as a DictionaryRecord it also presents as a read-only dictionary over its properties.
 public sealed class BicepTemplate : Catzc.Base.Objects.DictionaryRecord
 {
     // The template's name (its folder name). Always present.
@@ -56,6 +57,7 @@ public sealed class BicepTemplate : Catzc.Base.Objects.DictionaryRecord
     // The kind of environment this template targets (e.g. per-subscription vs shared). Always present.
     public string environment_kind { get; }
 
+    // Defaults to the have_customers repo variant, and is always present as a bool.
     public bool customer_deployment { get; }
 
     // The short name used when composing resource names. Always present.
@@ -67,6 +69,7 @@ public sealed class BicepTemplate : Catzc.Base.Objects.DictionaryRecord
     // Supporting resource files the template carries. Null when the template has no resources/ folder.
     public string[] resources { get; }
 
+    // Validates the required keys, so a malformed template cannot produce an instance.
     public BicepTemplate(IDictionary d)
     {
         if (d == null) { throw new ArgumentException("BicepTemplate requires a dictionary"); }

@@ -1,7 +1,7 @@
 # pwsh/Base.Variants/Get-TrackPlace.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The place resolver for one kind of a track: the one way code learns where a track keeps a kind of file, so no caller spells a track's folder
+itself.
 
 ## help
 

@@ -12,10 +12,13 @@ using System.IO;
 
 namespace Catzc.Base.Objects;
 
+// A path in both forms of the path contract: it stores the canonical repo-relative form and binds absolute on demand.
 public sealed class RepoRelativePath
 {
+    // The only persisted field: repo-relative with forward slashes, else a normalized absolute path.
     public string Relative { get; }
 
+    // True when no repo-relative form exists and Relative holds a normalized absolute path.
     public bool IsRooted { get; }
 
     public RepoRelativePath(string path)
@@ -29,6 +32,7 @@ public sealed class RepoRelativePath
 
         if (Path.IsPathRooted(slashed))
         {
+            // No repo-relative form, a path outside the root: degrade to a normalized absolute path.
             IsRooted = true;
             Relative = Path.GetFullPath(slashed);
             return;
@@ -38,6 +42,7 @@ public sealed class RepoRelativePath
         Relative = NormalizeRelative(slashed);
     }
 
+    // Collapses '.', '..', a leading './' and doubled separators with no base; GetFullPath would resolve against the current directory.
     private static string NormalizeRelative(string relative)
     {
         List<string> segments = new List<string>();
@@ -65,6 +70,7 @@ public sealed class RepoRelativePath
         return string.Join("/", segments);
     }
 
+    // Against the supplied root, never the current directory; a degraded, rooted value is returned unchanged.
     public string ToAbsolute(string repositoryRoot)
     {
         if (IsRooted)

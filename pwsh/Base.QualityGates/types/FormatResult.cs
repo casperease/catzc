@@ -11,6 +11,7 @@ using System.Collections.Generic;
 
 namespace Catzc.Base.QualityGates;
 
+// One language's formatting: its engine, the files checked and the files changed.
 public sealed class FormatResult
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

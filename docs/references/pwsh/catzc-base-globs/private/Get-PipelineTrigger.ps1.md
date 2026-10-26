@@ -1,7 +1,7 @@
 # pwsh/Base.Globs/private/Get-PipelineTrigger.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The private reader of the on-disk side of trigger drift: the trigger path filters a pipeline or workflow YAML actually declares, which the
+drift gates compare against `Get-GlobSetTrigger`'s projection.
 
 ## help
 

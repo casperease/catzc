@@ -1,17 +1,11 @@
 # pwsh/Base.Globs/tests/types/GlobSet.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The tests of the `GlobSet` record.
 
-## comment:1
+## What it proves
 
-Above `Describe 'GlobSet'`, written with `#`.
-
-```text
-The globset record: membership is decided by the scan program — an ordered +/- rule list, last-match-wins
-([FDR-CD-GLOBS-TRACKEDFILESONLY](/docs/drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-trackedfilesonly)), flattened through compose with
-own-rules-last
-([FDR-CD-GLOBS-COMPOSESETS](/docs/drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-composesets)); and the constructor guards the
-shape (kebab-case name, required description, a layer declared, include or compose present, no duplicate
-patterns).
-```
+Membership is decided by the scan program, an ordered `+`/`-` rule list where the last match wins
+([FDR-CD-GLOBS-TRACKEDFILESONLY](../../../../../drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-trackedfilesonly)). It is flattened through
+compose with the own rules last ([FDR-CD-GLOBS-COMPOSESETS](../../../../../drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-composesets)).
+The constructor guards the shape: a kebab-case name, a required description, a declared layer, an include or compose present, and no
+duplicate patterns.

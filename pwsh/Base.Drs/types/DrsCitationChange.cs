@@ -10,6 +10,7 @@ using System;
 
 namespace Catzc.Base.Drs;
 
+// One reference Update-DrsCitation rewrote: where, which form, before and after; an Unhandled one is left for a person to resolve.
 public sealed class DrsCitationChange
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

@@ -11,6 +11,7 @@ using System.IO;
 
 namespace Catzc.Base.Objects;
 
+// An immutable, dual-form descriptor of a published-artifact file: a build stage writes it, a later deploy stage elsewhere reads it.
 public sealed class ArtifactRef
 {
     public string relative { get; }   // artifact-internal, forward slashes — the portable identity
@@ -33,6 +34,7 @@ public sealed class ArtifactRef
         this.absolute = absolute;
     }
 
+    // The controlled factory: a raw path, absolute or under the artifact root, materialized in both forms; it must live under the root.
     public static ArtifactRef Materialize(string rawPath, string artifactRoot)
     {
         if (string.IsNullOrWhiteSpace(rawPath)) { throw new ArgumentException("rawPath is required"); }
@@ -49,6 +51,7 @@ public sealed class ArtifactRef
         return new ArtifactRef(fromRoot, full);
     }
 
+    // Re-resolved under the consumer's own artifact root: how the other end binds the artifact where it downloaded it.
     public string ResolveAt(string artifactRoot)
     {
         if (string.IsNullOrWhiteSpace(artifactRoot)) { throw new ArgumentException("artifactRoot is required"); }

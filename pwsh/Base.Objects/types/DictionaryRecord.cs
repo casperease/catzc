@@ -13,6 +13,7 @@ using System.Reflection;
 
 namespace Catzc.Base.Objects;
 
+// The one shared base of the typed records that mirror an ordered-hashtable config shape; no module keeps its own copy.
 public abstract class DictionaryRecord
 {
     // ---- console rendering: one line in pwsh, `Record { a = 1, b = x }` (ConsoleText) ----

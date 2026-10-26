@@ -1,7 +1,7 @@
 # pwsh/Base.Contracts/Get-ContractCheckResults.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The checker that holds the repository to its contracts: it checks each asset by its kind against the real files and returns one result per
+asset. Test-Contracts is the quality gate built on it.
 
 ## help
 

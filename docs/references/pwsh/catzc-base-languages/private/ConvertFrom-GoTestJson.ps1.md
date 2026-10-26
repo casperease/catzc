@@ -1,7 +1,7 @@
 # pwsh/Base.Languages/private/ConvertFrom-GoTestJson.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+`ConvertFrom-GoTestJson` is the private reader `Invoke-GoTest` uses on the `go test -json` event stream. It turns the events into a
+`GoTestResult` per top-level test.
 
 ## help
 

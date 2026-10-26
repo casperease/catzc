@@ -13,11 +13,13 @@ using System.Globalization;
 
 namespace Catzc.Base.Maps;
 
+// Builds the world map from plain inputs, tracks, file languages, tracked paths, aspects and the adrs index, so a test needs no disk.
 public static class WorldMapBuilder
 {
     // The track whose files fall back to their globset's citations.
     public const string AdoPipelinesTrack = "vendor_ado.pipelines";
 
+    // adrFiles maps each code to its own file; citationExclude holds the globs whose citations light nothing.
     public static WorldMap Build(IEnumerable tracks, IEnumerable fileLanguages, IEnumerable paths, IDictionary aspects, IDictionary adrIndex,
         IDictionary adrFiles, IDictionary texts, IDictionary rootOwners, IEnumerable globSets, IEnumerable citationExclude = null)
     {
@@ -127,6 +129,7 @@ public static class WorldMapBuilder
         return new WorldMap(trackNames.ToArray(), languageNames.ToArray(), placements.ToArray(), index);
     }
 
+    // The track with the longest place that contains a '/'-separated path.
     private static Catzc.Base.Variants.VariantTrack TrackOf(string path, List<Catzc.Base.Variants.VariantTrack> trackList, out int placeLength)
     {
         Catzc.Base.Variants.VariantTrack best = null;

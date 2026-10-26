@@ -1,7 +1,7 @@
 # pwsh/Base.Variants/Assert-HaveCustomers.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The throwing guard over the `have_customers` variant: customer-deployment code calls it first, so a repo without customer deployments, or
+without the named customers, stops before any work. `Test-HaveCustomers` is its query form.
 
 ## help
 

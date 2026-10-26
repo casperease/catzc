@@ -1,7 +1,8 @@
 # pwsh/Base.Languages/Invoke-PythonTest.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+`Invoke-PythonTest` runs a module's Python tests through the managed uv and returns one `PythonTestResult` per top-level test function. The
+Python root, the uv workspace root, comes from `python.yml`, and the tests start the engine through the contract `Get-EngineContract`
+builds.
 
 ## help
 
@@ -98,58 +99,30 @@ A kit's own Python tests: name the catzc module the kit serves and the kit's tes
 Invoke-PythonTest Catzc.Base.Slides -Folder python/diagrams/tests
 ```
 
-## comment:1
+## The Python root
 
-Above `$pythonRelative = $python.ResolveRoot($root)`, written with `#`.
+The root is `PythonConfig.ResolveRoot`: the declared root, else `python/` when present, else `.python/`. It is the uv workspace root, and
+the uv commands run from it.
 
-```text
-The Python root from python.yml (PythonConfig.ResolveRoot: the declared root, else python/ when present, else
-.python/): the uv workspace root.
-```
+## The managed uv
 
-## comment:2
+The uv is the managed one, by its path: the caller's, already located and checked, or located from its `tools.yml` entry by
+`Resolve-ToolExecutable`. A bare uv off PATH is never run.
 
-Above `$uvPath = if ($UvExecutable) {`, written with `#`.
+## The environment
 
-```text
-The managed uv, by its path: the caller's, already located and checked, or located here from its tools.yml entry
-(Resolve-ToolExecutable); never a bare uv off PATH.
-```
+How the tests start the engine (`Get-EngineContract`) is an external contract with the test processes
+([ADR-AUTO-ENVVAR-SETONLYFORTOOLS](../../../drs/automation/environment-variables.md#rule-adr-auto-envvar-setonlyfortools)): set for these
+commands only, then restored. `UV_PYTHON_DOWNLOADS=never` keeps uv on the managed interpreter at the pin
+([ADR-AUTO-PY-MANAGEDTOOLS](../../../drs/automation/python/python-test-artifacts.md#rule-adr-auto-py-managedtools)).
 
-## comment:3
+## When pytest itself failed
 
-Above `$environment = Get-EngineContract -Engine $Engine -EngineExecutable...`, written with `#`.
+pytest exits 1 when a test failed. Any other non-zero exit, or 1 with no failing test, means it failed around the tests: a usage or
+collection error, or no tests collected (exit 5). The call throws then, with the uv output.
 
-```text
-How the tests start the engine (Get-EngineContract) is an external contract with the test processes
-([ADR-AUTO-ENVVAR-SETONLYFORTOOLS](/docs/drs/automation/environment-variables.md#rule-adr-auto-envvar-setonlyfortools)): set for these
-commands only, then restored. UV_PYTHON_DOWNLOADS=never keeps uv on the managed interpreter at the pin
-([ADR-AUTO-PY-MANAGEDTOOLS](/docs/drs/automation/python/python-test-artifacts.md#rule-adr-auto-py-managedtools)).
-```
+## The test folder
 
-## comment:4
-
-Above `if ($run.ExitCode -ne 0 -and -not ($run.ExitCode -eq 1 -and`, written with `#`.
-
-```text
-pytest exits 1 when a test failed; any other non-zero exit, or 1 with no failing test, means it failed around
-the tests (a usage or collection error, or no tests collected: exit 5).
-```
-
-## comment:5
-
-Above `$relative = if ($Folder) {`, written with `#`.
-
-```text
-The test folder: the one named, a module's own tests/ or the holder's, else the module's folder under the holder's
-tests/ in python's folder case.
-```
-
-## comment:6
-
-Above `$moduleFolder = (Get-Config -Config languages).TestFolderOf('python', (Get-Config -Config variants), $Module)`, written with `#`.
-
-```text
-A test folder is named for its module's folder, which drops the modules track's namespace
-([DDR-TRACK-MODULENAMESPACE](/docs/drs/design/tracks.md#rule-ddr-track-modulenamespace)).
-```
+The folder is the one named, a module's own `tests/` or the holder's, else the module's folder under the holder's `tests/` in python's
+folder case. That folder is named for the module's folder, which drops the modules track's namespace
+([DDR-TRACK-MODULENAMESPACE](../../../drs/design/tracks.md#rule-ddr-track-modulenamespace)).

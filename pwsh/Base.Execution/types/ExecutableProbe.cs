@@ -10,6 +10,7 @@ using System;
 
 namespace Catzc.Base.Execution;
 
+// One existence check: where and how found, the version against the required one, its timings and the actor.
 public sealed class ExecutableProbe
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
@@ -28,6 +29,7 @@ public sealed class ExecutableProbe
     // How it was located: "probe" (a candidate path exists), "path" (found on PATH), or "none".
     public string Method { get; }
 
+    // Null when not found or when the version output does not match the pattern.
     public string Version { get; }
 
     // The required version prefix the reported one must start with.
@@ -39,6 +41,7 @@ public sealed class ExecutableProbe
     // Milliseconds spent locating the executable (file checks and the PATH lookup; no process start).
     public long ProbeMs { get; }
 
+    // 0 when nothing was found or the version came from the session cache.
     public long VersionMs { get; }
 
     // The session actor the check ran as: Pipeline, Agent, or Person.

@@ -4,8 +4,10 @@
 #   header: "generated"
 # ---
 
+# Flipping this re-spells every resource name, so every typed name in each template's configuration must be edited to match.
 ado_naming: standard
 
+# Under main-via-pr the only forbidden direct commit is one made while standing on main.
 git_workspace: main-direct
 
 have_customers: all

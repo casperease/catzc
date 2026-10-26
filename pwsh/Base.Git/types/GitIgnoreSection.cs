@@ -12,6 +12,7 @@ using System.Collections.Generic;
 
 namespace Catzc.Base.Git;
 
+// One titled, explained group of ignore patterns, declaring either a static patterns list or an inject provider.
 public sealed class GitIgnoreSection : Catzc.Base.Objects.DictionaryRecord
 {
     // Short kebab identifier — unique across the registry. Required.
@@ -26,6 +27,7 @@ public sealed class GitIgnoreSection : Catzc.Base.Objects.DictionaryRecord
     // Static patterns, in registry order. Exactly one of patterns/inject.
     public IReadOnlyList<GitIgnorePattern> patterns { get; }
 
+    // The render-time pattern provider's name; exactly one of patterns and inject.
     public string inject { get; }
 
     public GitIgnoreSection(IDictionary d)

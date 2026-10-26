@@ -13,10 +13,13 @@ using System.Text.Json;
 
 namespace Catzc.Base.Timeouts;
 
+// The Bash time safeguard's verdict on one Claude Code Bash call, decided for the PreToolUse hook.
 public static class BashSafeguard
 {
+    // The module's folder without the namespace: the hook runs before any session and cannot resolve it.
     public const string ConfigModulePath = "Base.Timeouts/configs/timeouts.yml";
 
+    // The hook runs outside cats, so it finds the modules folder by the one top-level folder that holds this config.
     public static string FindConfig(string repositoryRoot)
     {
         if (string.IsNullOrEmpty(repositoryRoot)) { throw new ArgumentNullException("repositoryRoot"); }
@@ -38,11 +41,13 @@ public static class BashSafeguard
         return found;
     }
 
+    // The test of Test-IsRunningInPipeline: either variable set to any non-empty value means a pipeline.
     public static string EnvironmentOf(string tfBuild, string githubActions)
     {
         return string.IsNullOrEmpty(tfBuild) && string.IsNullOrEmpty(githubActions) ? "Devbox" : "Pipeline";
     }
 
+    // null to let the call through, or the reason to deny it; logLine is the tab-separated record of a denial.
     public static string Decide(string payload, TimeoutsConfig config, string environment, out string logLine)
     {
         if (config == null) { throw new ArgumentNullException("config"); }

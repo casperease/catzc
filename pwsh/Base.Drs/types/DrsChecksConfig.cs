@@ -14,6 +14,7 @@ using Catzc.Base.Reports;
 
 namespace Catzc.Base.Drs;
 
+// drs-checks.yml and the one declaration of its defaults: every key is optional, and an omitted key behaves exactly like its default.
 public sealed class DrsChecksConfig
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

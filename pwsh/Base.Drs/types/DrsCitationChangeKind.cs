@@ -8,6 +8,7 @@ catzc:
 
 namespace Catzc.Base.Drs;
 
+// The closed set of reference forms Update-DrsCitation recognises, plus the one form it found and could not rewrite mechanically.
 public enum DrsCitationChangeKind
 {
     // A rule code a rule-map row moves, ADR-<CODE>-<NAME>.

@@ -14,6 +14,7 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Base.Maps;
 
+// Finds the record citations in a file's text and maps each to its domain through the adrs index.
 public static class CitationScanner
 {
     // The extensions whose files carry citations; the text of no other file is read.
@@ -38,6 +39,7 @@ public static class CitationScanner
         return false;
     }
 
+    // The adrs index as an ordinal code-to-domain map; a key that is no record code, or an empty domain, throws.
     public static IReadOnlyDictionary<string, string> Index(IDictionary raw)
     {
         Dictionary<string, string> index = new Dictionary<string, string>(StringComparer.Ordinal);
@@ -82,6 +84,7 @@ public static class CitationScanner
         return result;
     }
 
+    // Every citation the index lists, one site per occurrence in line order, with the kind of text it sits in.
     public static CitationSite[] Sites(string path, string text, IReadOnlyDictionary<string, string> index)
     {
         List<CitationSite> sites = new List<CitationSite>();

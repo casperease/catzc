@@ -14,6 +14,7 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Azure.Templates;
 
+// Writes the layout 'bicep format' leaves unchanged: a value becomes a Bicep literal, a Key Vault reference becomes az.getSecret(...).
 public static class BicepParamWriter
 {
     private const string Indent = "  ";

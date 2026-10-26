@@ -1,15 +1,14 @@
 # pwsh/Base.Globs/tests/Test-GitHubWorkflowTriggerGlob.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The tests of `Test-GitHubWorkflowTriggerGlob`, a quality gate for drift detection
+([ADR-AUTO-TEST-QUALITYGATE](../../../../drs/automation/test-automation.md#rule-adr-auto-test-qualitygate)).
 
-## comment:1
+## What it proves
 
-Above `Describe 'Test-GitHubWorkflowTriggerGlob'`, written with `#`.
+A workflow's actual paths are compared with the globset's ordered projection, since GitHub paths are last match wins. The report goes to
+`$TestDrive`.
 
-```text
-Test-GitHubWorkflowTriggerGlob is a quality gate
-([ADR-AUTO-TEST-QUALITYGATE](/docs/drs/automation/test-automation.md#rule-adr-auto-test-qualitygate), drift detection): a workflow's
-actual paths vs the globset's ordered projection (GitHub paths are last-match-wins). Neutral fixtures (widget,
-[ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)); the report goes to $TestDrive.
-```
+## Fixtures
+
+The fixtures are neutral (widget,
+[ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).

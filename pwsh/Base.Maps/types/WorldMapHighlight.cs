@@ -16,6 +16,7 @@ using System.Text.Json;
 
 namespace Catzc.Base.Maps;
 
+// A world-map highlight: the cells a request lights, the request being record references or a drawing's files.
 [Catzc.Base.Objects.ConsoleDisplay(nameof(Kind), nameof(Requested), nameof(Cells))]
 public sealed class WorldMapHighlight
 {
@@ -43,6 +44,7 @@ public sealed class WorldMapHighlight
         Cells = cells == null ? Array.Empty<HighlightedCell>() : (HighlightedCell[])cells.Clone();
     }
 
+    // The cells record references light, with the reviewed pins and exceptions applied.
     public static WorldMapHighlight ForAdr(WorldMap map, IEnumerable references, IEnumerable pins, IEnumerable exceptions)
     {
         if (map == null) { throw new ArgumentNullException(nameof(map)); }

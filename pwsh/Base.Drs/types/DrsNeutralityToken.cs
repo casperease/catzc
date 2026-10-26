@@ -11,6 +11,7 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Base.Drs;
 
+// One forbidden token of the neutrality check: a kebab-case name and a case-sensitive regular expression for engine-specific syntax.
 public sealed class DrsNeutralityToken
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

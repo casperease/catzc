@@ -1,7 +1,6 @@
 # pwsh/Base.Execution/private/Invoke-ExecutableStreamed.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The implementation of the default mode of `Invoke-Executable`: the compiled `CliRunner` streams the output live while it captures it.
 
 ## help
 
@@ -62,15 +61,10 @@ Written to the child's stdin, which is then closed; absent, stdin is left as bef
 
 Return the command string without executing.
 
-## comment:1
+## Quiet during a test run
 
-Above `$suppressOutput = [bool]$Silent -or [bool](Get-Variable -Name...`, written with `#`.
-
-```text
-During a Pester run, also suppress the child's streamed output. CliRunner echoes stdout/stderr via
-Console.Write, which bypasses the Write-Message/Write-Object suppression (so a real tool's chatter —
-e.g. an `az bicep` upgrade nag — would otherwise leak into test logs). Output is still captured into
-the result, so -PassThru and the exit-code assertion are unaffected. Same global the writers read,
-set by Test-Automation. Read through Get-Variable: the flag is unset outside a test run, and strict mode
-rejects an unset variable even when scope-qualified.
-```
+`CliRunner` echoes stdout and stderr with `Console.Write`, which bypasses the suppression the writers apply, so a real tool's chatter (an
+`az bicep` upgrade nag, say) would leak into test logs. During a Pester run the echo is therefore muted as for `-Silent`, while the output
+is still captured, so `-PassThru` and the exit-code assertion are unaffected. The flag is the global the writers read, set by
+`Test-Automation`. It is read through `Get-Variable` because it is unset outside a test run, and strict mode rejects an unset variable even
+when scope-qualified.

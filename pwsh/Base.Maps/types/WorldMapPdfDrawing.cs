@@ -48,6 +48,7 @@ public static class WorldMapPdfDrawing
         page.Text(font, fitted, left, y + (height - fitted * 0.7) / 2, shown);
     }
 
+    // A column header fitted on one or two lines, each centred, the block set on the box's vertical middle.
     internal static void ColumnHeader(PdfPage page, string text, double x, double y, double width, double height, double min)
     {
         double fitted;
@@ -97,6 +98,7 @@ public static class WorldMapPdfDrawing
         page.StrokeRect(x + 1.25, y + 1.25, Math.Max(0, width - 2.5), Math.Max(0, height - 2.5));
     }
 
+    // The file-count scale, the stack-violation mark and, with a highlight, the lit-cell outline with the request.
     internal static void Legend(PdfPage page, MapsConfig config, int maxCount, WorldMapHighlight highlight)
     {
         MapsPalette palette = config.palette;

@@ -1,109 +1,46 @@
 # pwsh/Base.Variants/configs/variants.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The repo-wide variants: a growing dictionary of switches fixed for the importer session
+([ADR-REPO-VARIANT](../../../../drs/repository/repo-variants.md)). Edit a value and re-run the importer to apply it. The file is loaded by
+`Get-Config -Config variants`, validated by the VariantsConfig type, and read only through the module's `Get-`, `Test-` and `Assert-`
+commands.
 
-## comment:1
+## ado_naming
 
-Above `ado_naming: standard`, written with `#`.
+The order of the components in every generated Azure resource name, `standard` or `classic`
+([ADR-AZ-NAMING](../../../../drs/azure/azure-naming-standard.md)). Changing it re-spells every resource name, so every typed name in each
+template's configuration has to be edited to match; it is deliberately not a casual flip.
 
-```text
-Repo-wide variants — settings fixed for the importer session (see [ADR-REPO-VARIANT](/docs/drs/repository/repo-variants.md)).
-A growing dictionary of repo-wide switches: edit a value and re-run the importer to apply it. Read only
-through the module's Test-/Assert-/Get- primitives; loaded by Get-Config -Config variants and validated
-by the VariantsConfig type.
-```
+## git_workspace
 
-## comment:2
+How changes reach main. `main-direct` allows direct commits to main, the default for a single-author trunk. `main-via-pr` sends everything
+through a pull request, so local work happens on a branch and the only forbidden direct commit is one made while standing on main.
+Automation that commits, such as `Sync-GeneratedFile`, stops on exactly that condition. Moving from one author to several is the time to
+flip it.
 
-Above `ado_naming: standard`, written with `#`.
+## have_customers
 
-```text
-Azure resource-name component order — the segment order every generated resource name uses.
-standard | classic (the keys of Get-AzureNameOrderSet). See [ADR-AZ-NAMING](/docs/drs/azure/azure-naming-standard.md).
-Changing this re-spells every resource name, so every typed name in each template's configuration must
-be re-edited to match — deliberately not a casual flip.
-```
+Which customers this repo deploys for ([ADR-AZ-CUSTOMER](../../../../drs/azure/azure-customer-model.md)): `false` for none, `all` for every
+customer in `customer.yml`, or a list of names. `customer.yml` is the catalogue of who the customers are; this variant says which of them
+the repo deploys. This repo ships customer templates, such as the per-customer foundation, so it enables all of them.
 
-## comment:3
+## aspects
 
-Above `git_workspace: main-direct`, written with `#`.
+Per-track conventions ([DDR-ASPECT](../../../../drs/design/module-aspects.md)): an ordered, first-match list whose last aspect is the `**`
+catch-all. Whether the catch-all is live is the container's call. Automation is code, so its `live` aspect is closed and a stray file falls
+to the `tests` catch-all and never ships. Infrastructure is a deployment, so everything under a template ships and `live` is the catch-all;
+only an explicit `tests/` folder is not live. Patterns are relative to the unit root, and the ordering makes the aspects disjoint and
+exhaustive.
 
-```text
-Git workspace mode — how changes reach main:
-  main-direct   — direct commits to main are allowed (the default; a solo-author trunk)
-  main-via-pr   — everything reaches main through a PR; local work always happens on a branch, so the
-                  only forbidden direct commit is one made while standing on main locally
-Automation that commits (e.g. Sync-GeneratedFile syncing .compiled) enforces exactly that
-stop condition: main-via-pr AND currently on main. Going 1 -> 1+ authors is when to flip this.
-```
+## tracks
 
-## comment:4
+The repository's root concerns, the one declaration of what a track is ([DDR-TRACK](../../../../drs/design/tracks.md)), read through
+`Get-Track`. Each entry declares its members, its type, and optionally its vendor, the file languages of its tech-stack
+([DDR-TRACK-FILELANGUAGE](../../../../drs/design/tracks.md#rule-ddr-track-filelanguage)), its kinds, and its namespace settings.
 
-Above `have_customers: all`, written with `#`.
-
-```text
-Enabled-customer set for the repo:
-  false            — no customer deployments; only non-customer templates allowed (the default for a
-                     customer-free repo)
-  all              — every customer defined in customer.yml is enabled
-  [acme, globex]   — only these named customers are enabled
-See [ADR-AZ-CUSTOMER](/docs/drs/azure/azure-customer-model.md). customer.yml is the catalogue of who the customers are; this
-variant is which of them this repo actually deploys for. This repo ships customer templates (e.g. the
-per-customer foundation), so it enables all of them; a repo with no customer templates leaves this false.
-```
-
-## comment:5
-
-Above `aspects:`, written with `#`.
-
-```text
-Aspects ([DDR-ASPECT](/docs/drs/design/module-aspects.md)) — per-track/per-container conventions. Each is an ordered, first-match
-(fallthrough)
-list; the LAST aspect is the '**' catch-all remainder. The catch-all's liveness is the container's call:
-automation is CODE, so 'live' is closed (a stray file falls to the 'tests' catch-all and never ships);
-infrastructure is a DEPLOYMENT, so everything under a template ships and 'live' is the catch-all — only an
-explicit tests/ folder is non-live. Patterns are relative to the unit root. Disjoint + exhaustive by
-construction of the ordering.
-```
-
-## comment:6
-
-Above `tracks:`, written with `#`.
-
-```text
-Tracks ([DDR-TRACK](/docs/drs/design/tracks.md)) — the repository's root concerns, the one declaration of what a
-track is. Each entry names its root folder (one segment; every root folder git tracks a file under is a track, except
-out/), its class (core | adapter | external-port | verification | unordered,
-[DDR-TRACK-ONETRACKTYPE](/docs/drs/design/tracks.md#rule-ddr-track-onetracktype)) and the file languages its
-tech-stack is declared as (names from Catzc.Base.Languages' languages.yml,
-[DDR-TRACK-FILELANGUAGE](/docs/drs/design/tracks.md#rule-ddr-track-filelanguage); default: none). Read
-through Get-Track; validated by the VariantsConfig type.
-```
-
-## comment:7
-
-Above `vendor_ado.pipelines:`, written with `#`.
-
-```text
-The repository's own pipeline definitions are live as the Bicep tree is: a pipeline or workflow is what runs, a test asset under tests/
-is the tests aspect.
-```
-
-## comment:8
-
-Above `pwsh:`, written with `#`.
-
-```text
-The gitignored build outputs are members too, so a clean finds them in the model; each one's generated fact comes from its
-generator's target.
-```
-
-## comment:9
-
-Above `namespace_exempt:`, written with `#`.
-
-```text
-The files that name the product, not a module folder, so they keep the namespace on disk: the loaders PowerShell names its
-modules after, and the types assembly's identity.
-```
+- The repository's own pipeline definitions are live in the same way as the Bicep tree: a pipeline or workflow is what runs, and a test
+  asset under `tests/` belongs to the tests aspect.
+- The gitignored build outputs are members too, so a clean finds them in the model; each one's generated fact comes from its generator's
+  target.
+- `namespace_exempt` lists the files that name the product rather than a module folder, so they keep the namespace on disk: the loaders
+  PowerShell names its modules after, and the types assembly's identity.

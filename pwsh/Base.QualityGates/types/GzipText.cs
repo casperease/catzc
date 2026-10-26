@@ -11,6 +11,7 @@ namespace Catzc.Base.QualityGates;
 using System.IO;
 using System.IO.Compression;
 
+// UTF-8 text gzip in BCL only.
 public static class GzipText
 {
     public static byte[] Compress(byte[] data)

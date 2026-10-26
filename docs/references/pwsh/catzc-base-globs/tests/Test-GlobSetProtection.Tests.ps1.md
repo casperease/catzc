@@ -1,23 +1,11 @@
 # pwsh/Base.Globs/tests/Test-GlobSetProtection.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The tests of `Test-GlobSetProtection` and `Protect-GlobSet`, the protected-glob skip
+([ADR-REPO-PROTGLOB](../../../../drs/repository/protected-globs.md)).
 
-## comment:1
+## What it proves
 
-Above `Describe 'Test-GlobSetProtection / Protect-GlobSet'`, written with `#`.
-
-```text
-The protected-glob skip ([ADR-REPO-PROTGLOB](/docs/drs/repository/protected-globs.md)): session-memory skip of a
-repeated green scan over an unchanged
-globset; hash-before-scan via the pending-promote handshake; completely ignored in pipelines.
-```
-
-## comment:2
-
-Above `Protect-GlobSet -Test 'suite' -Name 'Some.Module' -Hash ('d' * 64)`, written with `#`.
-
-```text
-pending wins
-([ADR-REPO-PROTGLOB-PROTECTIONKEY](/docs/drs/repository/protected-globs.md#rule-adr-repo-protglob-protectionkey))
-```
+A repeated green scan over an unchanged globset is skipped from session memory. The hash is taken before the scan, through the
+pending-promote handshake, and a pending value wins over a hash passed later
+([ADR-REPO-PROTGLOB-PROTECTIONKEY](../../../../drs/repository/protected-globs.md#rule-adr-repo-protglob-protectionkey)). In pipelines the
+skip is completely ignored.

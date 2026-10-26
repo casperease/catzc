@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Get-ManagedGuids.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The accessor for the managed-GUID registry: the named GUIDs the repository is allowed to carry. It reads the `guids` config once per session
+and hands back a read-only map, so every GUID check shares one source.
 
 ## help
 

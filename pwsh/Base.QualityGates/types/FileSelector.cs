@@ -74,6 +74,7 @@ public sealed class FileSelector
         (classes.Count == 0 || classes.Any(pattern => ClassMatches(pattern, fileClass)))
         && (languages.Count == 0 || (language != null && languages.Contains(language, StringComparer.Ordinal)));
 
+    // One '*' stands for any run; a pattern without '/' names the kind whatever its subkind.
     public static bool ClassMatches(string pattern, string fileClass)
     {
         if (pattern == null || fileClass == null) { return false; }

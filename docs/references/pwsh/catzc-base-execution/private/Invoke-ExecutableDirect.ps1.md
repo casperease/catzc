@@ -1,7 +1,6 @@
 # pwsh/Base.Execution/private/Invoke-ExecutableDirect.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The implementation of `Invoke-Executable -Direct`: the command runs as if typed at the prompt, with nothing captured and nothing separated.
 
 ## help
 
@@ -42,13 +41,8 @@ Suppress the command log line.
 
 Return the command string without executing.
 
-## comment:1
+## Behaviour
 
-Above `Push-Location $WorkingDirectory`, written with `#`.
-
-```text
-Run directly — output flows straight to the console handle.
-No pipes, no interception. Spinners, progress bars, \r overwrites all work.
-Output WILL leak to the pipeline — callers must suppress if needed.
-Child scope prevents $ErrorActionPreference = 'Continue' from leaking.
-```
+The child writes straight to the console handle, so spinners, progress bars and carriage-return overwrites all work. The price is that the
+output also flows into the caller's pipeline, and a caller that does not want it must suppress it. The call runs in a child scope, so an
+`$ErrorActionPreference` of `Continue` set for the run cannot leak out.

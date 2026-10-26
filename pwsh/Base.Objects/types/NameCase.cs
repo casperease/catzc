@@ -88,6 +88,7 @@ public static class NameCase
         }
     }
 
+    // Each namespace segment joined in the normal form's case, the segments by '.'; snake's edge underscores stay outside the case.
     public static string ToNormal(string caseName, string name, string normalForm)
     {
         string[][] segments = Split(caseName, name);

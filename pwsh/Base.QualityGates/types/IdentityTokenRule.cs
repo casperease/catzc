@@ -13,6 +13,7 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Base.QualityGates;
 
+// Which values of a module's own config are live identities a logic test must never name.
 public sealed class IdentityTokenRule
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

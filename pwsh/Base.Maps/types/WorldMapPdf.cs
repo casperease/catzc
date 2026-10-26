@@ -13,6 +13,7 @@ using static Catzc.Base.Maps.WorldMapPdfDrawing;
 
 namespace Catzc.Base.Maps;
 
+// Draws the world map onto PDF pages: the grid page shaded by file count, and the tree page, a treemap of the tracks.
 public static class WorldMapPdf
 {
     // The marker that ends a cut label (WinAnsi 0x85).
@@ -44,6 +45,7 @@ public static class WorldMapPdf
         return string.Equals(track, WorldMap.NoTrack, StringComparison.Ordinal) ? config.labels.root_files : Truncate(track, config.limits.max_row_label);
     }
 
+    // The unlisted-file label for the catch-all column, else the file-language name cut to max_column_label.
     public static string ColumnLabel(string fileLanguage, MapsConfig config)
     {
         if (config == null) { throw new ArgumentNullException(nameof(config)); }
@@ -52,6 +54,7 @@ public static class WorldMapPdf
             : Truncate(fileLanguage, config.limits.max_column_label);
     }
 
+    // Unchanged when it fits, else its first maxChars - 1 characters and the marker.
     public static string Truncate(string text, int maxChars)
     {
         if (text == null) { throw new ArgumentNullException(nameof(text)); }
@@ -60,6 +63,7 @@ public static class WorldMapPdf
         return text.Substring(0, maxChars - 1) + TruncationMarker;
     }
 
+    // At the given size when it fits, else smaller in half points down to minSize, else cut at minSize.
     public static string Fit(string text, PdfFont font, double size, double minSize, double maxWidth, out double fittedSize)
     {
         if (text == null) { throw new ArgumentNullException(nameof(text)); }
@@ -89,6 +93,7 @@ public static class WorldMapPdf
         return "";
     }
 
+    // On at most two lines: one line at size; else broken at a space or hyphen; else smaller, down to minSize.
     public static string[] FitLines(string text, PdfFont font, double size, double minSize, double maxWidth, out double fittedSize)
     {
         if (text == null) { throw new ArgumentNullException(nameof(text)); }
@@ -125,6 +130,7 @@ public static class WorldMapPdf
         return bottom.Length == 0 ? new[] { top } : new[] { top, bottom };
     }
 
+    // The break that leaves the wider line narrowest, the first on a tie; null with no space or hyphen to break at.
     private static string[] BestBreak(string text, PdfFont font)
     {
         string[] best = null;
@@ -154,6 +160,7 @@ public static class WorldMapPdf
         return best;
     }
 
+    // The cell colour when empty, else a point on the cell-to-shade scale, logarithmic so a few files and a thousand both read.
     public static string ShadeOf(int count, int maxCount, MapsPalette palette)
     {
         if (palette == null) { throw new ArgumentNullException(nameof(palette)); }
@@ -176,6 +183,7 @@ public static class WorldMapPdf
         return result;
     }
 
+    // Title, headers, shaded cells with counts, stack-violation marks, highlight outlines and the legend, in that order.
     public static void AddGridPage(PdfDocument doc, WorldMap map, MapsConfig config, WorldMapHighlight highlight)
     {
         Check(doc, map, config);
@@ -268,6 +276,7 @@ public static class WorldMapPdf
         Legend(page, config, maxCount, highlight);
     }
 
+    // The tracks as a treemap by file count, each with a name band and its non-empty cells inside, then marks and outlines.
     public static void AddTreePage(PdfDocument doc, WorldMap map, MapsConfig config, WorldMapHighlight highlight)
     {
         Check(doc, map, config);

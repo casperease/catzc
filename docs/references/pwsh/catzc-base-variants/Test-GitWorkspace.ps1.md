@@ -1,7 +1,6 @@
 # pwsh/Base.Variants/Test-GitWorkspace.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The query form over the `git_workspace` variant: it answers whether the repo's workspace mode is the one named.
 
 ## help
 

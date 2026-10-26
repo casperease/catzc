@@ -23,6 +23,7 @@ public sealed class ContractParameter
 
     public static readonly string[] BaseTypes = { "string", "int", "bool", "switch" };
 
+    // spec = type [ "!" ] [ "=" literal ] [ "pipeline" ]; type = base [ "[]" ].
     private static readonly Regex SpecRe = new Regex(
         "^(?<type>[A-Za-z][A-Za-z0-9_.]*)(?<list>\\[\\])?(?<mandatory>!)?(?:\\s*=\\s*(?<default>'[^']*'|\\S+))?(?:\\s+(?<pipeline>pipeline))?" +
         "(?:\\s+in\\s+(?<sets>[A-Za-z][A-Za-z0-9_]*(?:,[A-Za-z][A-Za-z0-9_]*)*))?\\s*$");

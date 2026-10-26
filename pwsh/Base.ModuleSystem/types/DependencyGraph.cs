@@ -13,8 +13,10 @@ using System.Collections.Specialized;
 
 namespace Catzc.Base.ModuleSystem;
 
+// The graph helpers behind dependencies.yml: reading one node's dependency list, and finding a cycle in an adjacency map.
 public static class DependencyGraph
 {
+    // null is empty and a list of non-empty names the list; a single string, a map or an empty name is an error.
     public static string[] ReadNames(object value, string owner, string what, List<string> errors)
     {
         if (value == null) { return new string[0]; }
@@ -38,6 +40,7 @@ public static class DependencyGraph
         return names.ToArray();
     }
 
+    // The first cycle, "A -> B -> A", in declaration order; null when acyclic. Edges out of the map are ignored.
     public static string FindCycle(OrderedDictionary adjacency)
     {
         Dictionary<string, int> color = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);

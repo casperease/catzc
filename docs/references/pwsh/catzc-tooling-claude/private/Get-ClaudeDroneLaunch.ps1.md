@@ -1,7 +1,13 @@
 # pwsh/Tooling.Claude/private/Get-ClaudeDroneLaunch.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The private helper of `Start-ClaudeDrone` that turns one drone's settings into the file path, argument list and command line of a terminal
+launch. It starts nothing itself, so the caller can print the plan under `-DryRun`.
+
+## Quoting
+
+Each value of the `claude --agent` call is single-quoted for pwsh, a single quote doubled, so a prompt keeps its spaces and quotes. The
+whole call then becomes one double-quoted argument for the outer command line, its own double quotes escaped. The windows-terminal form
+also escapes each semicolon, because `wt.exe` reads an unescaped one as the start of its next command.
 
 ## help
 

@@ -13,6 +13,7 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Azure.DevOps;
 
+// The one source of truth for which ADO organization and Entra tenant is the correct one; a bad or unknown key fails at load.
 public sealed class AdoConfig : Catzc.Base.Objects.DictionaryRecord
 {
     private static readonly string[] RequiredKeys = { "organization", "project", "tenant" };

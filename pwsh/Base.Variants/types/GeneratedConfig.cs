@@ -13,6 +13,7 @@ using System.Globalization;
 
 namespace Catzc.Base.Variants;
 
+// One module's generators and the targets each writes; Get-GeneratedTarget reads every owner.
 public sealed class GeneratedConfig
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

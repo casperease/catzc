@@ -40,9 +40,11 @@ public sealed class PythonConfig : Catzc.Base.Objects.DictionaryRecord
     public const string DefaultBuildVersion = "80.9.0";
     public const string DefaultBuildModule = "setuptools.build_meta";
 
+    // Strict links the member into a tree a static .pth names, which pyright reads; the default import hook only Python follows.
     public const string DefaultEditableMode = "strict";
     private static readonly string[] EditableModes = { "strict", "compat", "lenient" };
 
+    // The conventional folders only, never a catch-all, which would take in the install's own build/ links.
     public static readonly string[] DefaultPackageData = { "configs/**/*", "assets/**/*" };
 
     private const string Failed = "python config validation failed:\n";
@@ -55,6 +57,7 @@ public sealed class PythonConfig : Catzc.Base.Objects.DictionaryRecord
     private static readonly Regex DistributionName = new Regex(@"^[a-z0-9]([a-z0-9._-]*[a-z0-9])?$");
     private static readonly Regex ExactVersion = new Regex(@"^[0-9]+(\.[0-9]+)*$");
 
+    // Null when undeclared; ResolveRoot applies the default.
     public string root { get; }
 
     // The test dependencies every workspace member requires, distribution name -> exact version, in ordinal name order.
@@ -244,6 +247,7 @@ public sealed class PythonConfig : Catzc.Base.Objects.DictionaryRecord
         return fallback;
     }
 
+    // The declared root, else python when the repository has a python/ folder, else .python.
     public string ResolveRoot(string repositoryRoot)
     {
         if (root != null) { return root; }

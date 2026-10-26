@@ -1,7 +1,7 @@
 # pwsh/Base.Globs/Get-GlobSetTrigger.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The projection of a globset's scan program into vendor-native pipeline path filters, in the GitHub and the Azure DevOps dialect. The drift
+gates `Test-AdoPipelineTriggerGlob` and `Test-GitHubWorkflowTriggerGlob` compare the pipeline files against its output.
 
 ## help
 

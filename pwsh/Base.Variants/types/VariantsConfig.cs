@@ -14,6 +14,7 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Base.Variants;
 
+// The repo-wide variants, fixed for the importer session; read through Get-Config -Config variants.
 public sealed class VariantsConfig : Catzc.Base.Objects.DictionaryRecord
 {
     private static readonly string[] AllowedKeys = { "ado_naming", "git_workspace", "have_customers", "aspects", "tracks" };
@@ -27,6 +28,7 @@ public sealed class VariantsConfig : Catzc.Base.Objects.DictionaryRecord
     private static readonly Regex PlacePath = new Regex("^[A-Za-z0-9._-]+(/[A-Za-z0-9._-]+)*$");
     private static readonly Regex TrackTypeName = new Regex("^[a-z][a-z0-9]*(-[a-z0-9]+)*$");
 
+    // The defaults, declared once; a getter never restates them.
     public const string DefaultAdoNaming = "standard";
     public const string DefaultGitWorkspace = "main-direct";
     public const bool DefaultHaveCustomers = false;
@@ -41,6 +43,7 @@ public sealed class VariantsConfig : Catzc.Base.Objects.DictionaryRecord
     // How changes reach main: 'main-direct' or 'main-via-pr'.
     public string git_workspace { get; }
 
+    // A bool, 'all' or a name list as written; Get-EnabledCustomers interprets it.
     public object have_customers { get; }
 
     // Per-track ordered aspect classifications: the declared ones over the built-in ones, a declared track replacing its built-in.
@@ -243,8 +246,7 @@ public sealed class VariantsConfig : Catzc.Base.Objects.DictionaryRecord
         Dictionary<string, string> placeOwner = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
         foreach (object nameKey in map.Keys)
         {
-            // A track's name is checked in the repository normal form by Test-TrackDeclaration, which reads the languages config's
-            // normal form; the config type holds no naming policy.
+            // The gate checks a track name's normal form; this type holds no naming policy.
             string name = Text(nameKey);
             IDictionary entry = map[nameKey] as IDictionary;
             if (entry == null)

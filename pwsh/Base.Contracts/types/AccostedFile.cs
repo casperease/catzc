@@ -13,6 +13,7 @@ using System.Globalization;
 
 namespace Catzc.Base.Contracts;
 
+// An accosted file: one key, runs, a non-empty list of runs.
 public sealed class AccostedFile
 {
     public IReadOnlyList<AccostedRun> runs { get; }

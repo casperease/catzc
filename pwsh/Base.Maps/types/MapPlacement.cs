@@ -11,6 +11,7 @@ using System.Collections.Generic;
 
 namespace Catzc.Base.Maps;
 
+// Where one tracked file sits on the world map, exactly by root folder and extension, and what lights it.
 [Catzc.Base.Objects.ConsoleDisplay(nameof(Path), nameof(Track), nameof(FileLanguage), nameof(Basis))]
 public sealed class MapPlacement
 {
@@ -38,6 +39,7 @@ public sealed class MapPlacement
     // The column: a file-language name, or WorldMap.NoFileLanguage.
     public string FileLanguage { get; }
 
+    // False for a test file, a vendored file, a verification track's file, and a file under no track.
     public bool Live { get; }
 
     // True when the file is live, has an extension, and its file language is not one its track declares.
@@ -52,6 +54,7 @@ public sealed class MapPlacement
     // The ADR citations that light the file, canonical (ADR-<CODE> or ADR-<CODE>#n), distinct, in ordinal order.
     public IReadOnlyList<string> Citations { get; }
 
+    // Where those citations sit: in the file itself, or in its owner's or globset's files; empty when nothing lights it.
     public IReadOnlyList<CitationSite> Sites { get; }
 
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

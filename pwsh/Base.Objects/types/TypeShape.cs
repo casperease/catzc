@@ -13,6 +13,7 @@ using System.Reflection;
 
 namespace Catzc.Base.Objects;
 
+// A type's reflected properties, read once per Type: a loaded type cannot change in a process, so an entry never goes stale.
 public static class TypeShape
 {
     private static readonly ConcurrentDictionary<Type, Shape> Shapes = new ConcurrentDictionary<Type, Shape>();
@@ -26,6 +27,7 @@ public static class TypeShape
         List<PropertyInfo> console = new List<PropertyInfo>();
         foreach (PropertyInfo property in type.GetProperties(BindingFlags.Public | BindingFlags.Instance))
         {
+            // A data property is one the derived record declares, not DictionaryRecord's own view members.
             if (!property.CanRead || property.GetIndexParameters().Length != 0 || property.DeclaringType == typeof(DictionaryRecord)) { continue; }
             data.Add(property);
             if (property.GetGetMethod() != null && !IsHidden(property)) { console.Add(property); }
@@ -33,6 +35,7 @@ public static class TypeShape
         return new Shape(data.ToArray(), console.ToArray(), display == null ? null : display.Properties);
     }
 
+    // PowerShell's [Hidden], matched by name so the file stays BCL-only for the time-safeguard hook that compiles it.
     private static bool IsHidden(PropertyInfo property)
     {
         foreach (object attribute in property.GetCustomAttributes(true))

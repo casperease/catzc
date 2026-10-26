@@ -12,12 +12,16 @@ using Catzc.Base.Folders;
 
 namespace Catzc.Base.Contracts;
 
+// One level of the contracts tree through the bounded walker, in ordinal order.
 public sealed class ContractLayout
 {
+    // Every root's current contracts live in this one version folder.
     public const string CurrentVersion = "0.1.0";
 
+    // The one provided root; every other root is a vendor's, depended-on.
     public const string ProvidedRoot = "catzc";
 
+    // Get-TypesContractPath spells this name for the bootstrap; a test pins the two equal.
     public const string TypesSurfaceName = "types.json";
 
     public const string TypesSchemaName = "types.schema.json";

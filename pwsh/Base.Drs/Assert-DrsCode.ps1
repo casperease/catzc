@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-drs/Assert-DrsCode.ps1.md"
-  header: "generated"
----
-#>
-
 function Assert-DrsCode {
     [CmdletBinding()]
     param(

@@ -10,6 +10,7 @@ using System;
 
 namespace Catzc.Base.Maps;
 
+// The Adobe advance widths of Helvetica and Helvetica-Bold, in thousandths of the font size, so a label is measured as it is drawn.
 public static class HelveticaMetrics
 {
     // The width of characters the tables do not list, in thousandths: wide enough for every WinAnsi glyph.

@@ -11,6 +11,7 @@ using System.Collections;
 
 namespace Catzc.Base.QualityGates;
 
+// A term and its meaning; its category is the group it is listed under.
 public sealed class TerminologyTerm : Catzc.Base.Objects.DictionaryRecord
 {
     // The approved token, lower-cased as the spell-checker matches it. Required.
@@ -19,6 +20,7 @@ public sealed class TerminologyTerm : Catzc.Base.Objects.DictionaryRecord
     // One line: what the term is and why it is legitimate vocabulary. Required.
     public string meaning { get; }
 
+    // Supplied by TerminologyConfig from the grouping, not read from the entry.
     public string category { get; }
 
     // The full word an abbreviation stands for. Required when category is 'abbreviation', else absent.

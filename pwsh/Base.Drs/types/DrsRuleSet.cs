@@ -10,6 +10,7 @@ using System.Collections.Generic;
 
 namespace Catzc.Base.Drs;
 
+// One rule set, a record as drs.yml declares it: slug, external code, effective domain code, owning domain and its role.
 public sealed class DrsRuleSet
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

@@ -41,6 +41,7 @@ public sealed class SlidesConfig
     // The worker processes a diagram build splits its renders across, each with a disjoint slice of the diagrams.
     public int render_parallel { get; }
 
+    // The diagrams and slides whose naming of the system is a declared contrast, each with its reason.
     public IReadOnlyDictionary<string, string> name_mentions { get; }
 
     public SlidesConfig(IDictionary raw)

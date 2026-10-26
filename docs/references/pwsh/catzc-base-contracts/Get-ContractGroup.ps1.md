@@ -1,7 +1,7 @@
 # pwsh/Base.Contracts/Get-ContractGroup.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The resolver from a module to its contract group, the folder under a contract version that holds the module's contracts. It gives one name
+or throws, so no caller guesses a group.
 
 ## help
 
@@ -33,11 +33,8 @@ The repository the module is found in. Default: the current repository.
 Get-ContractGroup Catzc.Base.Contracts
 ```
 
-## comment:1
+## why the group is not the namespace
 
-Above `$found = @(Get-CatzcModule -Name $Module -RepositoryRoot $RepositoryRoot)`, written with `#`.
-
-```text
-The group names where the module lives, never the namespace it carries; the contracts config holds the form and
-its exceptions (pwsh.base.vs_code for Catzc.Base.VSCode).
-```
+The group names where the module lives, never the namespace the module carries, because a namespace can differ from its folder. The
+contracts config ([contracts.yml](configs/contracts.yml.md)) holds the form and the exceptions, such as `pwsh.base.vs_code` for
+Catzc.Base.VSCode.

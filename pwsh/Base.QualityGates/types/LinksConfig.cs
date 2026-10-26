@@ -13,6 +13,7 @@ using System.Globalization;
 
 namespace Catzc.Base.QualityGates;
 
+// Every key is optional; the defaults are declared here, once.
 public sealed class LinksConfig
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

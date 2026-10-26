@@ -15,6 +15,7 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Base.QualityGates;
 
+// Checks and aligns one .md file's links, which are relative.
 public sealed class MarkdownLinkScanner
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
@@ -33,6 +34,7 @@ public sealed class MarkdownLinkScanner
     readonly string selfUrlPrefix;
     readonly HashSet<string> tracked;
 
+    // A null selfUrlPrefix skips the self-URL check.
     public MarkdownLinkScanner(string repositoryRoot, Catzc.Base.Drs.DrsCodeForm codeForm, Func<string, IReadOnlyCollection<string>> anchorsOf,
         string selfUrlPrefix, IEnumerable<string> trackedFiles)
     {

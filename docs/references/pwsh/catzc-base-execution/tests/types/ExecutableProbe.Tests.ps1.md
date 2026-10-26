@@ -1,13 +1,4 @@
 # pwsh/Base.Execution/tests/types/ExecutableProbe.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
-
-## comment:1
-
-Above `It 'reads a found executable as Found with its path' {`, written with `#`.
-
-```text
-The existence-check record. Fixture tokens are neutral
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
-```
+The tests of `ExecutableProbe`, the existence-check record. Fixture tokens are neutral
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).

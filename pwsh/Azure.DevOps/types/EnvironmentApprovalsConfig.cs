@@ -135,6 +135,7 @@ public sealed class EnvironmentApprovalsConfig : Catzc.Base.Objects.DictionaryRe
         }
     }
 
+    // Names follow the rungs registry, one per unit and gated rung, then the prod tier; the apply creates any that is missing.
     public string[] Environments(Catzc.Base.Flow.RungsConfig rungs)
     {
         if (rungs == null) { throw new ArgumentNullException(nameof(rungs)); }

@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Get-WrapFreeStamp.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+A SHA-256 of a file's text with every run of whitespace collapsed to one space, so a change of wrapping alone leaves it unchanged. Format-Code
+stamps a file before and after its formatter engine runs, and a held stamp marks a wrap-only change.
 
 ## help
 

@@ -15,6 +15,7 @@ using System.Text.Json;
 
 namespace Catzc.Base.Maps;
 
+// The world map: tracks crossed with file languages, each cell's file count, and every tracked file placed in exactly one cell.
 [Catzc.Base.Objects.ConsoleDisplay(nameof(Tracks), nameof(FileLanguages), nameof(FileCount))]
 public sealed class WorldMap
 {

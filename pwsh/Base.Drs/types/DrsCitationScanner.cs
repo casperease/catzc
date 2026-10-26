@@ -46,6 +46,7 @@ public sealed class DrsCitationScanner
         return rules.ToArray();
     }
 
+    // The registered codes a text cites, minimized: a rule the text defines is no citation; domain codes only where the class takes them.
     public string[] Citations(string text, bool withDomain)
     {
         if (map == null) { throw new InvalidOperationException("a citation scan needs the citation map"); }

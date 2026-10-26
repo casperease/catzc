@@ -1,7 +1,7 @@
 # pwsh/Base.Languages/private/ConvertFrom-BatsJunit.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+`ConvertFrom-BatsJunit` is the private reader `Invoke-BashTest` uses on the JUnit report bats writes. It turns each `<testcase>` into a
+`BashTestResult`.
 
 ## help
 

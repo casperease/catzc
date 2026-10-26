@@ -14,6 +14,7 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Base.Contracts;
 
+// The real file must contain the fragment: data by key subset, text by lines in order.
 public static class ContractFragment
 {
     private static readonly Regex LineBreak = new Regex("\r\n|\n|\r");

@@ -1,7 +1,7 @@
 # pwsh/Base.Contracts/private/ConvertTo-AccostedCallText.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The renderer of one accosted command as call text for one execution engine. The text is derived from the contract form, never written by
+hand, so what an article shows is what the engine runs.
 
 ## help
 

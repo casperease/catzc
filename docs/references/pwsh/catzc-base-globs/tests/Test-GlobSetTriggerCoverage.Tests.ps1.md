@@ -1,13 +1,9 @@
 # pwsh/Base.Globs/tests/Test-GlobSetTriggerCoverage.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The tests of `Test-GlobSetTriggerCoverage` over mocked globsets, projections and members. The include patterns are real `GlobPattern`
+instances.
 
-## comment:1
+## Fixtures
 
-Above `Describe 'Test-GlobSetTriggerCoverage'`, written with `#`.
-
-```text
-Test-GlobSetTriggerCoverage over mocked globsets, projections, and members; the include patterns are real
-GlobPattern instances. Neutral fixture names ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
-```
+The fixture names are neutral
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).

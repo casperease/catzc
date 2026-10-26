@@ -8,6 +8,7 @@ catzc:
 
 namespace Catzc.Base.Maps;
 
+// One place a file cites a record: the file, the 1-based line, the canonical citation, and the kind of text it sits in.
 [Catzc.Base.Objects.ConsoleDisplay(nameof(Path), nameof(Line), nameof(Kind), nameof(Citation))]
 public sealed class CitationSite
 {

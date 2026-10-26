@@ -1,7 +1,7 @@
 # pwsh/Base.Globs/Test-GlobSetAffected.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The in-pipeline check of a deployable unit: it says whether the current change touches the unit's globset, and fails open on any doubt
+([ADR-REPO-PROTGLOB-FAILOPEN](../../../drs/repository/protected-globs.md#rule-adr-repo-protglob-failopen)).
 
 ## help
 

@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Get-RepointedMarkdownText.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Re-points a Markdown file's `#fragment` links at headings whose anchor changed, and returns the new text. Each inline link is resolved
+against the heading anchors of the file it names, so a renamed heading does not leave a dead link.
 
 ## help
 

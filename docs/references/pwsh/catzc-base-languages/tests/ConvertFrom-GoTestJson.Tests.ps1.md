@@ -1,13 +1,4 @@
 # pwsh/Base.Languages/tests/ConvertFrom-GoTestJson.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
-
-## comment:1
-
-Above `$script:widgetStream = Get-Content -Raw -LiteralPath (Join-Path $PSScriptRoot...`, written with `#`.
-
-```text
-Canned `go test -json` streams (tests/assets), recorded from a widget package (pass, fail, skip, and a
-table test with subtests) and a gadget package that does not compile.
-```
+The logic tests of `ConvertFrom-GoTestJson`, over canned `go test -json` streams in `tests/assets`: one recorded from a widget package
+(pass, fail, skip, and a table test with subtests) and one from a gadget package that does not compile.

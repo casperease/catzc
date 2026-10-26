@@ -14,6 +14,7 @@ using Catzc.Base.Languages;
 
 namespace Catzc.Base.QualityGates;
 
+// Every glob compiled once, so a scan of all tracked files stays cheap.
 public sealed class FileCarrierResolver
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

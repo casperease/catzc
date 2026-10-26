@@ -11,6 +11,7 @@ using System.Management.Automation;
 
 namespace Catzc.Base.Objects;
 
+// One repo-relative, '/'-separated glob: '**' is the only cross-segment operator, a whole segment matching zero or more segments.
 public sealed class GlobPattern
 {
     // The pattern as authored.
@@ -67,6 +68,7 @@ public sealed class GlobPattern
             WildcardPattern wildcard = WildcardPattern.Get(segment, WildcardOptions.None);
             try
             {
+                // WildcardPattern parses lazily; forcing the parse makes a malformed segment fail here, at construction.
                 wildcard.IsMatch(string.Empty);
             }
             catch (WildcardPatternException ex)
@@ -90,6 +92,7 @@ public sealed class GlobPattern
     // The folder path before the first wildcard segment, '/'-terminated, or empty: every path the pattern matches starts with it.
     public string LiteralPrefix { get; }
 
+    // The paths, in order, that any pattern matches; each pattern is tried only under its literal prefix.
     public static string[] MatchingPaths(string[] patterns, string[] repoRelativePaths)
     {
         GlobPattern[] compiled = new GlobPattern[patterns?.Length ?? 0];
@@ -120,6 +123,7 @@ public sealed class GlobPattern
         return MatchFrom(0, repoRelativePath.Split('/'), 0);
     }
 
+    // The '**' walk: align segments left to right; at a '**', try every count of consumed path segments and backtrack on failure.
     private bool MatchFrom(int patternIndex, string[] path, int pathIndex)
     {
         while (patternIndex < segments.Length)

@@ -1,7 +1,7 @@
 # pwsh/Base.Globs/Get-GlobSetHash.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The durable SHA of a globset, the identity of a deployable unit: one hash over the set's member files, computed on demand and never
+committed. It uses the native `DurableHash` primitives for the per-file digests.
 
 ## help
 

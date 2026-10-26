@@ -17,6 +17,7 @@ public sealed class KeyHandlerBindingsConfig : Catzc.Base.Objects.DictionaryReco
 {
     private const string Failed = "key-handler-bindings.yml is malformed:\n  - ";
 
+    // Under the module root the caller passes, since the folder drops the namespace.
     public static string SourcePath(string moduleRoot)
     {
         if (string.IsNullOrEmpty(moduleRoot)) { throw new ArgumentException("moduleRoot must not be empty", "moduleRoot"); }

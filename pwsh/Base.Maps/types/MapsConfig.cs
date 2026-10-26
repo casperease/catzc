@@ -15,6 +15,7 @@ using static Catzc.Base.Maps.MapsMinimapReaders;
 
 namespace Catzc.Base.Maps;
 
+// maps.yml: the palette, limits, labels, reviewed highlight pins and exceptions, and the output folder of the PDFs.
 public sealed class MapsConfig : Catzc.Base.Objects.DictionaryRecord
 {
     public const string DefaultOutputFolder = "world-map";

@@ -10,6 +10,7 @@ using System;
 
 namespace Catzc.Azure.Templates;
 
+// The files a Bicep deploy hands to az, stored repo-root-relative where possible; one of the three concerns nested in BicepDeploymentContext.
 public sealed class BicepArtifacts
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

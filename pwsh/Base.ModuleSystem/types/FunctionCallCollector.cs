@@ -12,6 +12,7 @@ using System.Management.Automation.Language;
 
 namespace Catzc.Base.ModuleSystem;
 
+// Per top-level function of a .ps1, the commands its body calls and the functions nested in it, in one AST walk.
 public sealed class FunctionCallCollector : AstVisitor2
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

@@ -26,6 +26,7 @@ public sealed class ContractCommand
 
     private static readonly System.Text.RegularExpressions.Regex SetNameRe = new System.Text.RegularExpressions.Regex("^[A-Za-z][A-Za-z0-9_]*$");
 
+    // The guarantee, one plain sentence; a contract requires it, a file's signature has none.
     public string description { get; }
 
     // The parameters in the order the contract states them (snake_case: the YAML keys).
@@ -81,6 +82,7 @@ public sealed class ContractCommand
 
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
+    // The asset names the command; raw is its parsed document.
     public ContractCommand(ContractAsset asset, IDictionary raw) : this(raw)
     {
         Asset = asset ?? throw new ArgumentNullException(nameof(asset), "contract command: the asset is required");
@@ -212,6 +214,7 @@ public sealed class ContractCommand
         return ContractParameter.IsContractType(bare);
     }
 
+    // Every disagreement with the file's signature, one message each; a computed default is not compared.
     public static IReadOnlyList<string> Compare(ContractCommand contract, ContractCommand command)
     {
         if (contract == null || command == null)
@@ -313,6 +316,7 @@ public sealed class ContractCommand
         return new ContractCommand(list, TypeOf(output, rename), default_set == null ? null : rename(default_set), description);
     }
 
+    // The grammar's inverse: names pass through rename, everything else stays as read.
     public string ToAssetText(Func<string, string> rename)
     {
         if (rename == null) { throw new ArgumentNullException(nameof(rename), "contract command: the rename is required"); }

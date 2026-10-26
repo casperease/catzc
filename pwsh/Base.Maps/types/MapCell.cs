@@ -8,6 +8,7 @@ catzc:
 
 namespace Catzc.Base.Maps;
 
+// One world-map cell: a track row crossed with a file-language column, and how many tracked files sit in it.
 [Catzc.Base.Objects.ConsoleDisplay(nameof(Track), nameof(FileLanguage), nameof(FileCount), nameof(StackViolation))]
 public sealed class MapCell
 {

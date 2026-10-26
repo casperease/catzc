@@ -1,7 +1,7 @@
 # pwsh/Base.Languages/New-NuGetConfig.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+`New-NuGetConfig` renders the repository-root `nuget.config`, which clears every package and audit feed. `Build-RootConfig` writes the
+result.
 
 ## help
 
@@ -30,11 +30,6 @@ head in the `nuget-config` carrier. Assert-DotnetOffline checks the written file
 New-NuGetConfig
 ```
 
-## comment:1
+## Why the sources are empty
 
-Above `@'`, written with `#`.
-
-```text
-Package and audit feeds are cleared, so no dotnet run in the repository reaches a package manager; the allowed set
-is empty today.
-```
+Package and audit feeds are cleared, so no dotnet run in the repository reaches a package manager. The allowed set is empty today.

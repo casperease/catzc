@@ -14,6 +14,7 @@ using static Catzc.Base.Timeouts.TimeoutsReaders;
 
 namespace Catzc.Base.Timeouts;
 
+// The time safeguards of timeouts.yml: how long a call may run before it is stopped, with every default declared here.
 public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
 {
     private static readonly string[] AllowedKeys =
@@ -21,13 +22,16 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
         "limits", "executables", "commands", "tests", "wait", "run_lock", "janitors", "parallel",
     };
     private static readonly string[] TestKeys = { "level_ms", "run_seconds", "engine_start_seconds", "run_list_seconds" };
+    // The default Watch-Blocking wait and its drain.
     internal static readonly string[] WaitKeys = { "seconds", "milliseconds", "drain_seconds" };
     public const int WaitDefaultSeconds = 1;
     public const int WaitDefaultMilliseconds = 1;
     public const int WaitDefaultDrainSeconds = 5;
+    // The machine's run lock: how long a run waits past a live holder's deadline, and when a queue ticket is stale.
     internal static readonly string[] RunLockKeys = { "wait_seconds", "stale_seconds", "budget_seconds" };
     public const int RunLockDefaultWaitSeconds = 120;
     public const int RunLockDefaultStaleSeconds = 720;
+    // Under the 300 s a background call gives its command, so a waiter stops with its own retry line first.
     public const int RunLockDefaultBudgetSeconds = 280;
     // The import janitor's roof for Test-GeneratedFiles -Changed: the changed set costs about 5 s, so 10 s still catches a regression.
     public const int JanitorDefaultGeneratedFilesSeconds = 10;
@@ -35,6 +39,7 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
     public const int ParallelDefaultProcesses = 4;
     private static readonly string[] TestLevels = TestTiers.Names;
 
+    // The test-run defaults: an L0 logic test is milliseconds, an L1 integrity test a couple of seconds, an L2 test longer.
     private static readonly Dictionary<string, int> TestLevelDefaults = new Dictionary<string, int>(StringComparer.Ordinal)
     {
         { "L0", 400 },
@@ -49,11 +54,13 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
     // One run of a run list under one engine: an engine start and its few commands, under the pwsh limit.
     private const int RunListDefaultSeconds = 300;
     private static readonly string[] Environments = { "devbox", "pipeline" };
+    // The shells a limit is keyed by: the execution engines, declared once.
     private static readonly string[] Shells = new List<string>(Catzc.Base.Engines.ExecutionEngines.Names).ToArray();
     private static readonly string[] BashKeys = { "foreground", "background" };
     // The shell whose limits the Bash hook enforces, a foreground and a background limit; every other shell has one.
     private const string HookShell = "bash";
 
+    // Tight on a devbox, where the blockers are tuned together; looser in a pipeline, where nobody watches.
     private static readonly Dictionary<string, int> Defaults = new Dictionary<string, int>(StringComparer.Ordinal)
     {
         { "devbox.bash.foreground", 3 },
@@ -68,8 +75,10 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
 
     private readonly Dictionary<string, int> resolved = new Dictionary<string, int>(Defaults, StringComparer.Ordinal);
 
+    // The resolved limits, defaults filled in, a read-only view for display; resolve through SecondsFor.
     public IDictionary limits { get; }
 
+    // Per-executable limits in seconds, by bare executable name, case-insensitive; empty when none is declared.
     public IReadOnlyDictionary<string, int> executables { get; }
 
     // Per-command limits in seconds, keyed by the function name (case-insensitive). Empty when the file declares none.
@@ -368,6 +377,7 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
         }
     }
 
+    // The limit of a shell call in an environment, case-insensitive; background applies to bash only.
     public int SecondsFor(string environment, string shell, bool background)
     {
         string env = Axis(environment, Environments, "environment");
@@ -383,6 +393,7 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
         return resolved[env + "." + sh + "." + (background ? "background" : "foreground")];
     }
 
+    // Its own entry when it has one, else the environment's pwsh limit; the name may carry a directory and an extension.
     public int SecondsForExecutable(string environment, string executable)
     {
         string name = string.IsNullOrWhiteSpace(executable) ? "" : Path.GetFileNameWithoutExtension(executable.Trim());

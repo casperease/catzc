@@ -14,6 +14,7 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Base.Contracts;
 
+// One command of an accosted run: a contracted command's name and its arguments.
 public sealed class AccostedCommand
 {
     private static readonly Regex NormalName = new Regex("^[a-z][a-z0-9]*(_[a-z0-9]+)*$");

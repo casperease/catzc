@@ -1,7 +1,7 @@
 # pwsh/Base.Contracts/private/Get-CommandContractMap.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The lookup table of command contracts by command name. It keeps the loop over Get-CommandContract in one place for the accosted reader, the
+runner and the fragment renderer.
 
 ## help
 

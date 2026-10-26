@@ -19,6 +19,7 @@ using Catzc.Base.Drs;
 
 namespace Catzc.Base.QualityGates;
 
+// The engine behind Format-Links and Test-Links, over a list of repository files.
 public sealed class LinkEngine
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
@@ -48,6 +49,7 @@ public sealed class LinkEngine
     readonly CodeLinkRewriter rewriter;
     readonly MarkdownLinkScanner scanner;
 
+    // lineLimits maps an extension to its limit; an unlisted extension takes the default.
     public LinkEngine(string repositoryRoot, DrsCitationMap map, DrsConfig adrs, LinkWrap wrap, IDictionary<string, int> lineLimits,
         int defaultLineLimit, string selfUrlPrefix, IEnumerable<string> trackedFiles, SourceCheck stringCitations)
     {
@@ -67,6 +69,7 @@ public sealed class LinkEngine
         scanner = new MarkdownLinkScanner(root, codeForm, AnchorsOf, selfUrlPrefix, trackedFiles);
     }
 
+    // collectEdges also returns the relations the walk recognises.
     public LinkEngineResult Run(IEnumerable<string> files, LinkKind kind, bool collectEdges)
     {
         var findings = new ConcurrentBag<LinkFinding>();
@@ -164,6 +167,7 @@ public sealed class LinkEngine
             string codeBefore = text.Substring(lineStart, column);
             bool trailing = marker != null && codeBefore.Trim().Length > 0;
 
+            // A trailing comment's continuation lines under its marker belong to it.
             int end = start + length;
             string logical = comment;
             int continuations = 0;
@@ -184,6 +188,7 @@ public sealed class LinkEngine
             List<CodeLinkRewriter.EdgeHit> localEdges = edges == null ? null : new List<CodeLinkRewriter.EdgeHit>();
             string rewritten = rewriter.Rewrite(logical, file, isTestFile, local, new List<string>(), localEdges);
 
+            // Continuations merge only to repair a wrapped code link.
             if (continuations > 0 && !InsertedLink.IsMatch(rewritten))
             {
                 continuations = 0;
@@ -203,6 +208,7 @@ public sealed class LinkEngine
             }
             bool rewrote = !string.Equals(rewritten, logical, StringComparison.Ordinal);
 
+            // A trailing comment that no longer fits moves above its statement and wraps there.
             if (trailing && (continuations > 0 || (rewrote && column + rewritten.Length > limit)))
             {
                 string indent = codeBefore.Substring(0, codeBefore.Length - codeBefore.TrimStart().Length);
@@ -249,6 +255,7 @@ public sealed class LinkEngine
             "the head's docs edge '" + target + "' does not resolve from the file's folder (run Format-FileMeta)", string.Empty));
     }
 
+    // A numbered citation in a string names no rule, so it is reported, never fixed.
     string AlignStringCitations(string text, string file, string extension, List<CodeLinkRewriter.Hit> hits)
     {
         if (stringCitations.IsExempt(file)) { return text; }
@@ -265,6 +272,7 @@ public sealed class LinkEngine
         return text;
     }
 
+    // A line breaks before the link's word, never inside the link.
     string Wrap(string comment, int column, string marker, string newline, int limit, int commentOffset, List<CodeLinkRewriter.Hit> hits)
     {
         string[] lines = comment.Split('\n');
@@ -312,6 +320,7 @@ public sealed class LinkEngine
         return string.Join("\n", result);
     }
 
+    // Preferred: before the word holding an inserted link, so the link and its sentence move together.
     int BreakPoint(string line, int room, int tailRoom)
     {
         int bestBeforeLink = 0;
@@ -343,6 +352,7 @@ public sealed class LinkEngine
         {
             if (char.IsWhiteSpace(line[k]) && !unbreakable[k]) { return k; }
         }
+        // A first word longer than the room stays put; the line is reported Overlong.
         return 0;
     }
 
@@ -353,6 +363,7 @@ public sealed class LinkEngine
     // Index of the first content character after the indent and comment marker.
     static int ContentStart(string line) => CommentLead.Match(line).Length;
 
+    // A line comment repeats its marker; a block comment line repeats its own indent.
     static string ContinuationPrefix(string body, int index, int column, string marker, string[] lines)
     {
         if (marker != null)

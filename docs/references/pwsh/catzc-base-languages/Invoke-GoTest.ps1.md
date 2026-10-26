@@ -1,7 +1,7 @@
 # pwsh/Base.Languages/Invoke-GoTest.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+`Invoke-GoTest` runs a module's Go tests with the managed go and returns one `GoTestResult` per top-level Go test. The Go root comes from
+`go.yml`, and the tests start the engine through the contract `Get-EngineContract` builds.
 
 ## help
 
@@ -84,41 +84,20 @@ Invoke-GoTest Catzc.Base.Repository
 Invoke-GoTest Catzc.Base.Repository -EntryScript out/build/Import-Catzc.ps1
 ```
 
-## comment:1
+## The managed go
 
-Above `$goPath = if ($GoExecutable) {`, written with `#`.
+The go is the managed one, by its path: the caller's, already located and checked, or located from its `tools.yml` entry by
+`Resolve-ToolExecutable`. A bare go off PATH is never run.
 
-```text
-The managed go, by its path: the caller's, already located and checked, or located here from its tools.yml entry
-(Resolve-ToolExecutable); never a bare go off PATH.
-```
+## The environment
 
-## comment:2
+How the tests start the engine (`Get-EngineContract`) is an external contract with the go test processes
+([ADR-AUTO-ENVVAR-SETONLYFORTOOLS](../../../drs/automation/environment-variables.md#rule-adr-auto-envvar-setonlyfortools)): set for these
+commands only, then restored. `GOTOOLCHAIN=local` keeps go on the managed binary just checked. Without it, go reads the `go` directive of
+`go.work` and silently downloads that toolchain instead
+([ADR-AUTO-GO-MANAGEDTOOLCHAIN](../../../drs/automation/go/go-test-artifacts.md#rule-adr-auto-go-managedtoolchain)).
 
-Above `$environment = Get-EngineContract -Engine $Engine -EngineExecutable...`, written with `#`.
+## The test folder
 
-```text
-How the tests start the engine (Get-EngineContract) is an external contract with the go test processes
-([ADR-AUTO-ENVVAR-SETONLYFORTOOLS](/docs/drs/automation/environment-variables.md#rule-adr-auto-envvar-setonlyfortools)): set for these
-commands only, then restored. GOTOOLCHAIN=local keeps go on the managed binary just checked: without it, go
-reads go.work's go directive and silently downloads that toolchain instead
-([ADR-AUTO-GO-MANAGEDTOOLCHAIN](/docs/drs/automation/go/go-test-artifacts.md#rule-adr-auto-go-managedtoolchain)).
-```
-
-## comment:3
-
-Above `$relative = if ($Folder) {`, written with `#`.
-
-```text
-The test folder: the one named, a module's own tests/ or the holder's, else the holder's tests/<kebab> of the module
-under the Go root from go.yml (GoConfig.ResolveRoot: the declared root, else go/ when present, else .go/).
-```
-
-## comment:4
-
-Above `$relative = if ($Folder) {`, written with `#`.
-
-```text
-The test folder: the one named, a module's own tests/ or the holder's, else the module's folder under the holder's
-tests/ in go's folder case.
-```
+The folder is the one named, a module's own `tests/` or the holder's, else the holder's `tests/<kebab>` of the module under the Go root from
+`go.yml` (`GoConfig.ResolveRoot`: the declared root, else `go/` when present, else `.go/`), in go's folder case.

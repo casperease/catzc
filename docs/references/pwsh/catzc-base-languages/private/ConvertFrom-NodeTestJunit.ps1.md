@@ -1,7 +1,7 @@
 # pwsh/Base.Languages/private/ConvertFrom-NodeTestJunit.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+`ConvertFrom-NodeTestJunit` is the private reader `Invoke-JavaScriptTest` uses on the JUnit report of node's test runner. It turns each
+`testcase` into a `JavaScriptTestResult`.
 
 ## help
 

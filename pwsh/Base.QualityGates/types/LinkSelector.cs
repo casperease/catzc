@@ -14,6 +14,7 @@ using System.Linq;
 
 namespace Catzc.Base.QualityGates;
 
+// An empty list means any; never a glob.
 public sealed class LinkSelector
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

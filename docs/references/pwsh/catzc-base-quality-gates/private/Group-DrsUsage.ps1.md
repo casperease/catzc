@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Group-DrsUsage.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Groups ADR usage rows by the rule they cite or by the document that cites them. It is pure: it takes the rows Get-DrsUsageRow returns and
+reads nothing else.
 
 ## help
 

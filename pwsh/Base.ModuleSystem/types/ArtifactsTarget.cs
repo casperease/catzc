@@ -12,6 +12,7 @@ using System.Collections.Generic;
 
 namespace Catzc.Base.ModuleSystem;
 
+// One publish target (ado, github, artifactory): a feed the gold artifact is promoted to, with the shape every target shares.
 public abstract class ArtifactsTarget : Catzc.Base.Objects.DictionaryRecord
 {
     private readonly IDictionary entry;

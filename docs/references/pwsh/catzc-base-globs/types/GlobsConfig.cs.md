@@ -1,69 +1,38 @@
 # pwsh/Base.Globs/types/GlobsConfig.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The typed record for the globset registry (`configs/globs/`) and its validity rules. See
+[FDR-CD-GLOBS](../../../../drs/flow/durable-sha-globs.md).
 
-## comment:1
+## Shape
 
-Above `using System;`, written with `//`.
+The registry is a non-empty `globsets` map of kebab-case name to
+`{ description, layer, [include], [exclude], [compose], [verify: { modules, level }], [pipeline] }`. The layer is `deployable-unit` or
+`loose-fileset`; `module` is derived-only and rejected here
+([FDR-CD-GLOBS-EVERYSETHASLAYER](../../../../drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-everysethaslayer)). Each entry is a valid
+`GlobSet`, no unknown keys are allowed anywhere (the strict-config discipline), and compose references resolve to declared sets acyclically
+([FDR-CD-GLOBS-COMPOSESETS](../../../../drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-composesets)). The config itself is an ordinary
+tracked file and may be a member of a set.
 
-```text
-The globset registry (configs/globs/) and its validity rules: a non-empty 'globsets' map of
-kebab-case name -> { description, layer (deployable-unit | loose-fileset — 'module' is derived-only and
-rejected here, [FDR-CD-GLOBS-EVERYSETHASLAYER](/docs/drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-everysethaslayer)), [include: [...]], [exclude: [...]],
-[compose: [...]],
-[verify: { modules, level }], [pipeline] }, each entry a valid GlobSet, no unknown keys anywhere
-(strict-config discipline), and compose references resolving to declared sets acyclically
-([FDR-CD-GLOBS-COMPOSESETS](/docs/drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-composesets)).
-The config itself is an ordinary tracked file and may be a member. Constructing an instance validates the
-whole registry (collecting all errors) and exposes the sets in registry order.
-See [FDR-CD-GLOBS](/docs/drs/flow/durable-sha-globs.md).
-```
+Constructing an instance validates the whole registry, collecting all errors, and exposes the sets in registry order.
 
-## comment:2
+## Reserved names
 
-Above `public static readonly string[] ReservedNames = { "internal", "vendor",...`, written with `//`.
+`ReservedNames` holds the names reserved for the derived globsets ([ADR-REPO-PROTGLOB](../../../../drs/repository/protected-globs.md)): the
+infra scopes every module's tests depend on. Module folders derive their own sets by convention (`Get-ModuleGlobSet`). A declared set may
+not shadow a reserved name, because the declared registry and the derived sets share one name space.
 
-```text
-Names reserved for the DERIVED globsets
-([ADR-REPO-PROTGLOB](/docs/drs/repository/protected-globs.md)): the infra scopes every module's tests depend
-on. Module folders derive their own sets by convention (Get-ModuleGlobSet); a declared set may not
-shadow a reserved name — the declared registry and the derived sets share one name space.
-```
+## Compose resolution
 
-## comment:3
+Every compose reference names a declared set, never the set itself, and the reference graph is acyclic; effective membership is the union
+through the references ([FDR-CD-GLOBS-COMPOSESETS](../../../../drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-composesets)).
 
-Above `foreach (GlobSet set in sets)`, written with `//`.
+- A broken compose graph makes `Matches` unsafe, since a cycle would recurse forever, so construction fails at once with everything
+  collected so far. That is the final validation gate.
+- `FindComposeCycle` is a depth-first walk of the compose references that returns the cycle path when one exists, else null. It walks the
+  name map only, so it is guarded against unresolved references, which are already reported.
 
-```text
----- compose resolution ([FDR-CD-GLOBS-COMPOSESETS](/docs/drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-composesets)): every reference
-names a declared set, never itself, and
-     the reference graph is acyclic; effective membership is the union through the references. ----
-```
+## Track sets
 
-## comment:4
-
-Above `if (errors.Count > 0)`, written with `//`.
-
-```text
-A broken compose graph makes Matches() unsafe (a cycle would recurse forever), so fail now with
-everything collected so far — the final validation gate.
-```
-
-## comment:5
-
-Above `private static string FindComposeCycle(GlobSet set, Dictionary<string,...`, written with `//`.
-
-```text
-Depth-first walk of the compose references; returns the cycle path when one exists, else null.
-Guarded against unresolved references (already reported) by walking the name map only.
-```
-
-## comment:6
-
-Above `if (entry.Contains("track") && !entry.Contains("include"))`, written with `//`.
-
-```text
-A whole track's set declares its track in globs.yml and takes its patterns from the generated track-sets.yml part
-([FDR-CD-GLOBS-TRACKSETDERIVED](/docs/drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-tracksetderived)); a part that adds patterns to no declared set is a stale generated entry.
-```
+A whole track's set declares its track in `globs.yml` and takes its patterns from the generated `track-sets.yml` part
+([FDR-CD-GLOBS-TRACKSETDERIVED](../../../../drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-tracksetderived)). A part that adds patterns to
+no declared set is a stale generated entry and is rejected.

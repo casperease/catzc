@@ -1,7 +1,7 @@
 # pwsh/Base.Variants/Test-HaveCustomers.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The query form of the customer guard: it answers from `Get-EnabledCustomers` whether the repo deploys customers at all, or deploys every
+named one, and `Assert-HaveCustomers` throws on the same answer.
 
 ## help
 
@@ -33,11 +33,7 @@ if (Test-HaveCustomers) { ... }              # any customers enabled?
 Test-HaveCustomers -Name acme, globex        # are both enabled?
 ```
 
-## comment:1
+## Name matching
 
-Above `foreach ($customer in $Name) {`, written with `#`.
-
-```text
-Enabled names and the query names are both lowercase-validated, so plain (case-insensitive) membership
-is equivalent here and needs no case-sensitive operator.
-```
+Both the enabled names and the names asked about are validated as lowercase, so plain case-insensitive membership gives the same answer as a
+case-sensitive one would.

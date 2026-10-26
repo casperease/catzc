@@ -14,6 +14,7 @@ using System.Text;
 
 namespace Catzc.Base.Git;
 
+// A token hunt over a git history in one pass: every commit message, path and distinct file content, each read exactly once.
 [Catzc.Base.Objects.ConsoleDisplay(nameof(Clean))]
 public sealed class GitHistoryScan
 {
@@ -28,6 +29,7 @@ public sealed class GitHistoryScan
     // The token searched for.
     public string Token { get; }
 
+    // Content hits, one per matching line of each distinct blob, at the blob's first non-excluded path in ordinal order.
     public string[] Blobs { get; }
 
     // Distinct repo-relative paths containing the token, ordinal order.

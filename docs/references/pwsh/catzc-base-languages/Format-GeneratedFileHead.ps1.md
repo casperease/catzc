@@ -1,7 +1,7 @@
 # pwsh/Base.Languages/Format-GeneratedFileHead.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+`Format-GeneratedFileHead` composes the text of a generated file with its meta head: the do-not-edit warning and, while git tracks the file,
+the hash of the body. The root-config generators and `Build-RootConfig` use it, so every generated file carries the same head.
 
 ## help
 
@@ -49,20 +49,11 @@ The head keys in writing order. Default: the shipped generated-head.yml.
 Format-GeneratedFileHead -Text $content -Path .gitignore -Carrier dotfile
 ```
 
-## comment:1
+## Idempotence
 
-Above `$tracked = @(Get-GitTrackedPath $relative) -contains $relative`, written with `#`.
+The body is what sits below the head the carrier holds, so a second run over the written file finds the same hash and a head already in the
+text never moves it.
 
-```text
-While git tracks the file, the head also carries the hash of the body it is immutable with; an untracked file
-carries the warning only.
-```
+## Tracked or not
 
-## comment:2
-
-Above `$body = switch ($entry.carrier) {`, written with `#`.
-
-```text
-The body is what sits below the head the carrier holds, so a second run over the written file finds the same
-hash.
-```
+While git tracks the file, the head also carries the hash of the body it is immutable with; an untracked file carries the warning only.

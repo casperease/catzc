@@ -12,6 +12,7 @@ using System.Collections.Generic;
 
 namespace Catzc.Base.Git;
 
+// gitignore.yml and its validity rules: a required list of explained pattern sections with unique ids.
 public sealed class GitIgnoreConfig
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

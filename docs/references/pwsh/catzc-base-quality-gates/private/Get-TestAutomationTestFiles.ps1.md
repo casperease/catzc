@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Get-TestAutomationTestFiles.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Lists a run's test files, path by path in the given order, each tests folder's files in ordinal order. It is the work-list behind
+Test-Automation's phases, and it recurses so that `tests/types/` is included.
 
 ## help
 

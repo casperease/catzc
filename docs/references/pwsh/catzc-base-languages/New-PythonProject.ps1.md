@@ -1,7 +1,7 @@
 # pwsh/Base.Languages/New-PythonProject.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+`New-PythonProject` renders the Python test workspace from `python.yml`: the uv workspace root `pyproject.toml` and one member
+`pyproject.toml` per Python test folder and per module of the python track. `Build-RootConfig` writes the result.
 
 ## help
 
@@ -56,30 +56,13 @@ in ordinal folder order.
 (New-PythonProject -Target 'python/pyproject.toml').Content
 ```
 
-## comment:1
+## The Python version
 
-Above `$pythonVersion = "$(Get-ConfigValue -Address 'global.tools.python.version')"`, written with `#`.
+The one Python version is the python tool's `tools.yml` pin, read by address (reading config is global access,
+[ADR-CONF-ADDRESSING](../../../drs/configuration/config-value-addressing.md)).
 
-```text
-The one Python version: the python tool's tools.yml pin, read by address (reading config is global access,
-[ADR-CONF-ADDRESSING](/docs/drs/configuration/config-value-addressing.md)).
-```
+## The members
 
-## comment:2
-
-Above `$members = @(foreach ($folder in $folders) {`, written with `#`.
-
-```text
-The members: the test holder's folders, each named by its folder, then the modules, each named by its name in
-kebab case.
-```
-
-## comment:3
-
-Above `$track = Get-Track -Path $pythonRoot`, written with `#`.
-
-```text
-A member's name is its full name, the folder under the python track's namespace
-([DDR-TRACK-MODULENAMESPACE](/docs/drs/design/tracks.md#rule-ddr-track-modulenamespace)); the folder never spells
-it.
-```
+The members are the test holder's folders, each named by its folder, then the modules, each named by its name in kebab case. A member's name
+is its full name, the folder under the python track's namespace
+([DDR-TRACK-MODULENAMESPACE](../../../drs/design/tracks.md#rule-ddr-track-modulenamespace)); the folder never spells it.

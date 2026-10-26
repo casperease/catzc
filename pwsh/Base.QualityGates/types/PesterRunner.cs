@@ -16,6 +16,7 @@ using System.Globalization;
 using System.Text;
 using System.Threading;
 
+// N Pester workers with pooled live output, read on background threads.
 public class PesterRunner
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
@@ -32,6 +33,7 @@ public class PesterRunner
         public string Stderr { get; internal set; }
         public int ExitCode { get; internal set; }
 
+        // Offsets from the pool's start; DurationMs may carry up to one reap interval.
         public long StartOffsetMs { get; internal set; }
         public long DurationMs { get; internal set; }
     }
@@ -59,12 +61,14 @@ public class PesterRunner
         public long DurationMs;       // start → reap-observed completion
     }
 
+    // Blocks until every worker exits; a failure kills the whole pool.
     public static PesterRunner Run(string[] runnerScripts, string[] labels, int maxParallel,
         IDictionary environment, int timeoutSeconds, bool silent)
     {
         return Run(runnerScripts, labels, null, null, maxParallel, environment, timeoutSeconds, silent);
     }
 
+    // A worker starts once a slot is free and each of its caps is under its limit.
     public static PesterRunner Run(string[] runnerScripts, string[] labels, string[][] workerCaps, IDictionary capLimits,
         int maxParallel, IDictionary environment, int timeoutSeconds, bool silent)
     {
@@ -169,6 +173,7 @@ public class PesterRunner
         {
             while (true)
             {
+                // A worker completes when it has exited and both readers drained.
                 int running = 0;
                 foreach (var worker in workers)
                 {
@@ -201,6 +206,7 @@ public class PesterRunner
                     running++;
                 }
 
+                // Completed backlogs flush in submission order; the first unfinished worker streams live.
                 if (!silent)
                 {
                     while (liveIndex < workers.Length && workers[liveIndex].Completed)
@@ -296,6 +302,7 @@ public class PesterRunner
             UseShellExecute = false,
             RedirectStandardOutput = true,
             RedirectStandardError = true,
+            // An empty, closed stdin: an inherited pipe hangs a child at startup.
             RedirectStandardInput = true
         };
         psi.ArgumentList.Add("-NoProfile");
@@ -311,6 +318,7 @@ public class PesterRunner
             }
         }
 
+        // Set after the caller's extras, so a worker can never be pointed elsewhere.
         psi.Environment[WorkerParentWatch.PidVariable] = Environment.ProcessId.ToString(CultureInfo.InvariantCulture);
         psi.Environment[WorkerParentWatch.StartVariable] =
             WorkerParentWatch.CurrentStartTicks().ToString(CultureInfo.InvariantCulture);

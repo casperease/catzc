@@ -1,27 +1,16 @@
 # pwsh/Base.Globs/types/DurableHash.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The durable-SHA digest primitives, in native code
+([FDR-CD-GLOBS-DURABLESHAIDENTITY](../../../../drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-durableshaidentity)). A globset may include
+large binaries, such as the committed type assembly, where a per-byte PowerShell pipeline takes minutes and this takes milliseconds. It uses
+the BCL only. See [FDR-CD-GLOBS](../../../../drs/flow/durable-sha-globs.md).
 
-## comment:1
+## HashFile
 
-Above `using System;`, written with `//`.
+`HashFile` is SHA-256 over the file's bytes with every CR (0x0D) stripped, so it is end-of-line insensitive and CRLF and LF working trees
+agree. It returns 64 lowercase hex characters, or null when the file is absent, so the caller can fold the distinct `missing` marker for a
+tracked-but-deleted member.
 
-```text
-The durable-SHA digest primitives ([FDR-CD-GLOBS-DURABLESHAIDENTITY](/docs/drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-durableshaidentity)), in native code: a
-globset may include large binaries
-(the committed type assembly is a tracked file), where a per-byte PowerShell pipeline takes minutes and
-this takes milliseconds. HashFile is SHA-256 over the file's bytes with every CR (0x0D) stripped —
-EOL-insensitive, so CRLF and LF working trees agree — and HashFold is SHA-256 over the UTF-8 fold text;
-both return 64 lowercase hex chars. BCL only.
-See [FDR-CD-GLOBS](/docs/drs/flow/durable-sha-globs.md).
-```
+## HashFold
 
-## comment:2
-
-Above `public static string HashFile(string path)`, written with `//`.
-
-```text
-SHA-256 (lowercase hex) of the file's bytes with every CR stripped; null when the file is absent —
-the caller folds the distinct 'missing' marker for a tracked-but-deleted member.
-```
+`HashFold` is SHA-256 over the UTF-8 fold text, again as 64 lowercase hex characters.

@@ -23,6 +23,7 @@ public sealed class JavaScriptConfig : Catzc.Base.Objects.DictionaryRecord
     // The JavaScript root otherwise: the dot-prefixed tooling folder.
     public const string FallbackRoot = ".js";
 
+    // Gitignored and repository-relative, so jsconfig.json names the same type root on every machine.
     public const string DefaultTypesFolder = ".typescript";
 
     private const string Failed = "javascript config validation failed:\n";

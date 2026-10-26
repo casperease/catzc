@@ -13,6 +13,7 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Base.QualityGates;
 
+// An allowed GUID or a denied value; constructing one validates it.
 public sealed class ManagedGuidEntry : Catzc.Base.Objects.DictionaryRecord
 {
     private static readonly Regex SnakeCase = new Regex("^[a-z][a-z0-9_]*$");

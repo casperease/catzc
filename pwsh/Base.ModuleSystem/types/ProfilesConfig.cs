@@ -14,6 +14,7 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Base.ModuleSystem;
 
+// The named module sets of profiles.yml: each profile a seed list of modules, closed over their dependencies.
 public sealed class ProfilesConfig : Catzc.Base.Objects.DictionaryRecord
 {
     private const string Failed = "profiles configuration validation failed:\n";

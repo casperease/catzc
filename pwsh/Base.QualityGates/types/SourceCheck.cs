@@ -16,6 +16,7 @@ using Catzc.Base.Objects;
 
 namespace Catzc.Base.QualityGates;
 
+// The settings every source check shares, with their defaults declared once.
 public class SourceCheck
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

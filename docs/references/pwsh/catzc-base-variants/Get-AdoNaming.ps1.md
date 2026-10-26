@@ -1,7 +1,7 @@
 # pwsh/Base.Variants/Get-AdoNaming.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The reader of the `ado_naming` variant: it returns the Azure resource-name component order the repo declares, with the default the
+VariantsConfig type declares when the key is absent.
 
 ## help
 

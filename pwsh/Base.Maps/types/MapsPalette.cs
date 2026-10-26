@@ -8,6 +8,7 @@ catzc:
 
 namespace Catzc.Base.Maps;
 
+// The palette section: the background, row and column fills, empty and fullest cell, grid, text and marks.
 public sealed class MapsPalette
 {
     public const string DefaultBackground = "#1E2430";

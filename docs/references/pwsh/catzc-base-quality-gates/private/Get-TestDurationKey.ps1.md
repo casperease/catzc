@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Get-TestDurationKey.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Returns the key a test file's measured duration is stored and looked up under: the file's repository-relative path with forward slashes.
+One function names the key, so the writer and the reader of the history agree.
 
 ## help
 

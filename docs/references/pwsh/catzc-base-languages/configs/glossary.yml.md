@@ -1,16 +1,9 @@
 # pwsh/Base.Languages/configs/glossary.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The glossary source of the languages module: the vocabulary of the test languages beside PowerShell that the module owns, the Go test layout
+and the class of track it lives in ([ADR-REPO-VOCAB](../../../../drs/repository/controlled-vocabulary.md)). `Test-Glossary` checks it.
 
-## comment:1
+## Options
 
-Above `concepts:`, written with `#`.
-
-```text
-glossary.yml — the Catzc.Base.Languages glossary source: the vocabulary of the test languages beside PowerShell that
-this module owns — the Go test layout and the class of track it lives in
-([ADR-REPO-VOCAB](/docs/drs/repository/controlled-vocabulary.md)). Every option is defaulted: all five checks, the
-whole repository, every text surface
-([ADR-REPO-VOCAB-GLOSSARYSOURCE](/docs/drs/repository/controlled-vocabulary.md#rule-adr-repo-vocab-glossarysource)). Checked by Test-Glossary.
-```
+Every option is defaulted: all five checks, the whole repository, every text surface
+([ADR-REPO-VOCAB-GLOSSARYSOURCE](../../../../drs/repository/controlled-vocabulary.md#rule-adr-repo-vocab-glossarysource)).

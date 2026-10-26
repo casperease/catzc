@@ -1,14 +1,5 @@
 # pwsh/Base.QualityGates/tests/Get-PythonCheckScope.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
-
-## comment:1
-
-Above `Describe 'Get-PythonCheckScope'`, written with `#`.
-
-```text
-Get-PythonCheckScope with the test folders and the git index mocked: the Python checks read the test folders and every
-tracked .py file outside the Python root. Neutral fixture names
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
-```
+The L0 logic test of `Get-PythonCheckScope`, with the test folders and the git index mocked. The Python checks read the test folders and
+every tracked `.py` file outside the Python root, and the test proves that scope. The fixtures use neutral names
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).

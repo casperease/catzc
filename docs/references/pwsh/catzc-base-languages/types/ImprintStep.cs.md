@@ -1,13 +1,4 @@
 # pwsh/Base.Languages/types/ImprintStep.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
-
-## comment:1
-
-Above `using System;`, written with `//`.
-
-```text
-One imprint step of the file-language registry: its name, and the files whose bytes change what it writes.
-[ADR-REPO-FORMAT-CONFIGUREDFORMATTERS](/docs/drs/repository/uniform-formatting.md#rule-adr-repo-format-configuredformatters)
-```
+One imprint step of the file-language registry: its name, and the files whose bytes change what it writes
+([ADR-REPO-FORMAT-CONFIGUREDFORMATTERS](../../../../drs/repository/uniform-formatting.md#rule-adr-repo-format-configuredformatters)).

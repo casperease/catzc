@@ -1,7 +1,6 @@
 # pwsh/Base.Globs/Get-MarkerBlastRadius.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The blast-radius query: it maps changed files onto every globset, declared or derived, that matches at least one of them.
 
 ## help
 
@@ -44,11 +43,6 @@ Get-MarkerBlastRadius -ChangedFile 'infrastructure/modules/vnet.bicep'
 Get-MarkerBlastRadius -Ref main
 ```
 
-## comment:1
+## Order of the answer
 
-Above `foreach ($set in @(Get-GlobSet) + @(Get-ModuleGlobSet)) {`, written with `#`.
-
-```text
-Declared sets first (registry order), then the derived module sets — the same one-answer-per-set
-shape either way.
-```
+The declared sets come first, in registry order, then the derived module sets. Both give the same one-answer-per-set shape.

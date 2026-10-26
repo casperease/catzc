@@ -10,6 +10,7 @@ using System;
 
 namespace Catzc.Base.ModuleSystem;
 
+// One statically named command call in a function body: the name as written and the line it starts on.
 public sealed class FunctionCall
 {
     public string Name { get; }

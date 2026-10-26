@@ -15,6 +15,7 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Base.QualityGates;
 
+// One meta-kind entry; the defaults of an omitted key are declared here, once.
 [Catzc.Base.Objects.ConsoleDisplay("id", "direction", "keys", "target")]
 public sealed class FileMetaKind
 {
@@ -134,6 +135,7 @@ public sealed class FileMetaKind
     public static bool InClasses(IEnumerable<string> patterns, string fileClass) =>
         patterns != null && patterns.Any(pattern => FileSelector.ClassMatches(pattern, fileClass));
 
+    // The function a module subscribes by default, named from the kind's id.
     public static string ConventionName(string id, FileMetaDirection direction)
     {
         string words = string.Concat(id.Split('-').Select(word => char.ToUpperInvariant(word[0]) + word.Substring(1)));

@@ -13,6 +13,7 @@ using System.Globalization;
 
 namespace Catzc.Base.QualityGates;
 
+// Per class: the facts its kinds produce, no meta block, or only its authored config part.
 public sealed class FileHeadPolicy
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
@@ -61,6 +62,7 @@ public sealed class FileHeadPolicy
         classes = list;
     }
 
+    // A class entry decides first; by default a file whose facts are all empty carries no head.
     public HeadPolicy For(string fileClass)
     {
         foreach (KeyValuePair<string, HeadPolicy> entry in classes)

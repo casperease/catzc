@@ -10,6 +10,7 @@ using System;
 
 namespace Catzc.Azure.DevOps;
 
+// The inventory row that answers whether a file backs a registered pipeline; registration fields are null when it does not.
 public sealed class YamlInventoryRecord
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
@@ -50,6 +51,7 @@ public sealed class YamlInventoryRecord
     // The YAML parse error, if any. Null when the file parsed cleanly.
     public string ParseError { get; }
 
+    // Flat over primitives, not a YamlFileRecord, so a test mocking the scan with a plain pscustomobject still binds.
     public YamlInventoryRecord(string root, string path, string relativePath, string relativeDirectory, string classification, string templateType, bool isRegistered, string pipelineName, Nullable<int> pipelineId, string pipelineDirectory, string[] topLevelKeys, string parseError)
     {
         if (string.IsNullOrWhiteSpace(root)) { throw new ArgumentException("YamlInventoryRecord.Root is required"); }

@@ -1,7 +1,7 @@
 # pwsh/Base.Contracts/private/Get-ContractDescriptionFindings.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The description check of a contract asset. It makes the asset's own header say what it guarantees, in one plain sentence that matches the
+command's synopsis where there is one.
 
 ## help
 

@@ -12,6 +12,7 @@ using System.Text;
 
 namespace Catzc.Base.VSCode;
 
+// One key of VS Code's state store, state.vscdb, read and written through the SQLite Windows ships, so nothing is fetched.
 public static class VscodeStateStore
 {
     private const int Ok = 0;

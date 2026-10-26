@@ -1,40 +1,19 @@
 # pwsh/Base.Execution/tests/Invoke-Executable.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The tests of `Invoke-Executable`, running real executables on every platform.
 
-## comment:1
+## Test commands
 
-Above `BeforeAll {`, written with `#`.
+The commands are `where.exe` on Windows and `which` elsewhere, because `echo` is a shell builtin on Windows (there is no `echo.exe`) and
+breaks Stream mode. `where.exe /?` prints help, which proves the argument arrived intact, and a quoted argument holding a space must not be
+split.
 
-```text
-Use where.exe/which as the test command — real executables on all platforms.
-'echo' is a shell builtin on Windows (no echo.exe) and breaks Stream mode.
-```
+## A leaver at L2
 
-## comment:2
+The child exits at once, but the grandchild it starts inherits the output pipe and holds it for 20 seconds, as a dotnet build server does.
+The run must not wait out the grandchild.
 
-Above `$leaver = 'pwsh -NoProfile -NonInteractive -Command "Start-Process...`, written with `#`.
+## macOS paths
 
-```text
-L2: the child exits at once, but the grandchild it starts inherits the output pipe and holds it for 20 s
-(as a dotnet build server does). The run must not wait out the grandchild.
-```
-
-## comment:3
-
-Above `($result.Output.Trim() -replace '^/private', '') | Should -Be ($tempDirectory...`, written with `#`.
-
-```text
-macOS resolves /var, /tmp → /private/var, /private/tmp, so the child's reported cwd carries a
-/private prefix that [IO.Path]::GetTempPath() does not. Normalize both sides.
-```
-
-## comment:4
-
-Above `$command = if ($IsWindows) {`, written with `#`.
-
-```text
-where.exe /? outputs help — proves the argument arrived intact.
-More importantly: a space-containing quoted arg must not be split.
-```
+macOS resolves `/var` and `/tmp` to `/private/var` and `/private/tmp`, so the child's reported working directory carries a `/private` prefix
+that `[IO.Path]::GetTempPath()` does not. Both sides are normalised.

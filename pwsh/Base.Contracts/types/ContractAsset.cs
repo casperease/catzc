@@ -11,6 +11,7 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Base.Contracts;
 
+// One contract asset with every fact derived from its name and place.
 [Catzc.Base.Objects.ConsoleDisplay(nameof(AssetPath), nameof(Kind), nameof(Direction), nameof(Target))]
 public sealed class ContractAsset
 {
@@ -69,6 +70,7 @@ public sealed class ContractAsset
         return checkedValue;
     }
 
+    // Below its group: the file name, or one sorting folder and the file name.
     private static string AssetPathBelowGroup(string value, bool inGroup)
     {
         string checkedValue = Relative("path", value);

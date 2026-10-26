@@ -16,6 +16,7 @@ using System.Text.Json;
 
 namespace Catzc.Base.Maps;
 
+// The value-chain map: the stack rows crossed with the concerns, every cell, and the records each holds.
 [Catzc.Base.Objects.ConsoleDisplay(nameof(Stacks), nameof(Concerns), nameof(AdrCount))]
 public sealed class ValueChainMap
 {
@@ -68,6 +69,7 @@ public sealed class ValueChainMap
         }
     }
 
+    // An empty or repeated axis name, an item that is no DrsRuleSet, or a repeated code throws.
     public static ValueChainMap Build(IEnumerable stacks, IEnumerable concerns, IEnumerable ruleSets)
     {
         string[] rows = Axis(stacks, "row of the value-chain stack");

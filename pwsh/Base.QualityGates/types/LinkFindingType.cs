@@ -8,6 +8,7 @@ catzc:
 
 namespace Catzc.Base.QualityGates;
 
+// Fixable types are rewritten by Format-Links and reported by Test-Links until they are.
 public enum LinkFindingType
 {
     // Code kind — fixable.

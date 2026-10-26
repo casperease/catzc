@@ -1,14 +1,9 @@
 # pwsh/Base.Globs/tests/Get-GlobSet.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The tests of `Get-GlobSet`, the reader of the globset registry.
 
-## comment:1
+## Fixtures
 
-Above `$script:config = [Catzc.Base.Globs.GlobsConfig]::new(@{`, written with `#`.
-
-```text
-Neutral fixture globset names (widget/gadget), not the real loose-fileset/deployable-unit names, so
-this logic test owns its inputs and editing the shipped globs.yml can never change its outcome
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
-```
+The fixture globset names are neutral (widget, gadget), not the real loose-fileset and deployable-unit names, so the logic test owns its
+inputs and editing the shipped `globs.yml` can never change its outcome
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).

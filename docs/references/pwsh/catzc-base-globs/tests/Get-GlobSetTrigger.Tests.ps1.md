@@ -1,34 +1,18 @@
 # pwsh/Base.Globs/tests/Get-GlobSetTrigger.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The tests of `Get-GlobSetTrigger`, the projection of a globset's scan program into vendor-native path filters
+([FDR-CD-GLOBS-NAMEDGLOBSETS](../../../../drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-namedglobsets)).
 
-## comment:1
+## What it proves
 
-Above `Describe 'Get-GlobSetTrigger'`, written with `#`.
+GitHub gets ordered `!` negation paths, which are exact. Azure DevOps gets order-independent include and exclude lists, with each pattern
+collapsed to its last select.
 
-```text
-Get-GlobSetTrigger: project a globset's scan program into vendor-native path filters
-([FDR-CD-GLOBS-NAMEDGLOBSETS](/docs/drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-namedglobsets)) — GitHub
-ordered '!'-negation paths (exact), ADO order-independent include/exclude (last-select-per-pattern).
-```
+## Fixtures
 
-## comment:2
+A base drops `configuration/*/**` and a unit re-adds its own `configuration/widget/**` on top. GitHub keeps the ordered program, where the
+last match wins. Azure DevOps collapses each pattern to its last select, so the re-add is an include and the broader drop stays an exclude,
+with no contradictory pattern. The composition is built through `GlobsConfig`, the real path, since `ResolveCompose` is internal.
 
-Above `$script:config = [Catzc.Base.Globs.GlobsConfig]::new(@{`, written with `#`.
-
-```text
-A base drops configuration/*/**; a unit re-adds its own configuration/widget/** on top. GitHub keeps
-the ordered program (last match wins); ADO collapses each pattern to its last select — so the re-add
-is an include and the broader drop stays an exclude, no contradictory pattern. Composition is built
-through GlobsConfig (the real path — ResolveCompose is internal).
-```
-
-## comment:3
-
-Above `$script:config = [Catzc.Base.Globs.GlobsConfig]::new(@{` (occurrence 2), written with `#`.
-
-```text
-The 'shared'-shaped case: base excludes configuration/*.yml, the unit re-adds the identical pattern.
-Last select wins -> the pattern is an ADO include only, never both include and exclude.
-```
+The shared-platform shape is covered too: the base excludes `configuration/*.yml` and the unit re-adds the identical pattern. The last
+select wins, so the pattern is an Azure DevOps include only, never both an include and an exclude.

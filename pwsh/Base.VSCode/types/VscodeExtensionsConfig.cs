@@ -13,6 +13,7 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Base.VSCode;
 
+// vscode-extensions.yml, the one authored source New-VsCodeExtensions renders to the recommendation list.
 public sealed class VscodeExtensionsConfig : Catzc.Base.Objects.DictionaryRecord
 {
     private const string Failed = "vscode-extensions config validation failed:\n";

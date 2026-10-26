@@ -13,6 +13,7 @@ using System.Collections.Specialized;
 
 namespace Catzc.Base.ModuleSystem;
 
+// files.yml for Copy-CatzcModule: per module, the named packages of root-relative files it owns beyond its own folder.
 public sealed class FilesConfig : Catzc.Base.Objects.DictionaryRecord
 {
     private const string Failed = "files configuration validation failed:\n";

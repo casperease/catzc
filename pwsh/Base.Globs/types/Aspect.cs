@@ -12,6 +12,7 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Base.Globs;
 
+// A unit's files partition into ordered, first-match aspects; the last is the non-live catch-all, so nothing ships by accident.
 public sealed class Aspect
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
@@ -36,6 +37,7 @@ public sealed class Aspect
     }
 }
 
+// One aspect on a unit root: its name and the include and exclude rules that encode its first-match slice.
 public sealed class CompiledAspect
 {
     public string Name { get; }

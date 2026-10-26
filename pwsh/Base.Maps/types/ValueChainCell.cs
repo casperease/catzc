@@ -11,6 +11,7 @@ using System.Collections.Generic;
 
 namespace Catzc.Base.Maps;
 
+// One value-chain cell: a stack row crossed with a concern, and the records that sit in it.
 [Catzc.Base.Objects.ConsoleDisplay(nameof(Stack), nameof(Concern), nameof(AdrCount))]
 public sealed class ValueChainCell
 {
@@ -20,6 +21,7 @@ public sealed class ValueChainCell
     // The column: a value-chain concern ([DDR-TRACK-VALUECHAINCONCERN](/docs/drs/design/tracks.md#rule-ddr-track-valuechainconcern)).
     public string Concern { get; }
 
+    // On the map in drs.yml order, on a highlight in request order; empty for an empty cell.
     public IReadOnlyList<string> Adrs { get; }
 
     // The number of ADRs in the cell.

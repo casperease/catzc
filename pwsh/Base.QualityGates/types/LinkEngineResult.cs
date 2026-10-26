@@ -10,6 +10,7 @@ using System.Collections.Generic;
 
 namespace Catzc.Base.QualityGates;
 
+// One run's findings in file/line order, and the aligned text of each file it would change.
 public sealed class LinkEngineResult
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

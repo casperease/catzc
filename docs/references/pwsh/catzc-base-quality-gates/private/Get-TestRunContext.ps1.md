@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Get-TestRunContext.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Collects the facts that say what a test run is and where it runs. One record serves the console block under the banner and `run.json`, so a
+reader of either sees the same context.
 
 ## help
 

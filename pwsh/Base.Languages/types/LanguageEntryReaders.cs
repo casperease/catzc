@@ -111,6 +111,7 @@ public static class LanguageEntryReaders
         return cases;
     }
 
+    // A root row lists the extensions it places; any other row places every file in its folder.
     internal static List<LayoutRow> ReadLayout(string name, List<string> languageExtensions, object value, List<string> errors)
     {
         List<LayoutRow> rows = new List<LayoutRow>();
@@ -205,6 +206,7 @@ public static class LanguageEntryReaders
         return true;
     }
 
+    // Either the tools that must resolve or the one engine the tests run under, never both or neither.
     internal static LanguageTestRunner ReadTests(string name, object value, List<string> errors)
     {
         if (value == null) { return null; }

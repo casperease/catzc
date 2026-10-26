@@ -13,8 +13,10 @@ using System.Text;
 
 namespace Catzc.Base.Globs;
 
+// SHA-256 with every CR stripped, in native code: a large tracked binary hashes in milliseconds, not minutes.
 public static class DurableHash
 {
+    // Null for an absent file, so the caller folds the distinct missing marker.
     public static string HashFile(string path)
     {
         if (!File.Exists(path)) { return null; }

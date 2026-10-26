@@ -13,6 +13,7 @@ using System.Globalization;
 
 namespace Catzc.Base.QualityGates;
 
+// With no rows every relation is denied.
 public sealed class LinkDirectionsConfig
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

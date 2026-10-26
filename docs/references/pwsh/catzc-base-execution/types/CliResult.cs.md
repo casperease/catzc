@@ -1,23 +1,12 @@
 # pwsh/Base.Execution/types/CliResult.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The captured result of running an external command: stdout and stderr kept separate, plus convenience views derived from them.
 
-## comment:1
+## Consistency
 
-Above `using System;`, written with `//`.
+The constructor owns the derivation, so the result can never be in an inconsistent state: the views always agree with `Output` and `Errors`.
 
-```text
-The captured result of running an external command: stdout and stderr kept separate, plus convenience
-views derived from them. The constructor owns the derivation, so the result can never be in an
-inconsistent state (the views always agree with Output/Errors).
-```
+## Bytes
 
-## comment:2
-
-Above `public byte[] Bytes { get; }`, written with `//`.
-
-```text
-The exact stdout bytes of a binary run (Invoke-Executable -AsBytes); null for a text run, whose stdout is
-Output. A binary run's Output is empty: its stdout is not text.
-```
+`Bytes` holds the exact stdout bytes of a binary run (`Invoke-Executable -AsBytes`). It is null for a text run, whose stdout is `Output`,
+and a binary run's `Output` is empty, since its stdout is not text.

@@ -1,7 +1,7 @@
 # pwsh/Base.Execution/Find-Executable.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The existence check behind every managed tool: it finds an executable without starting a process and confirms its version at most once per
+session.
 
 ## help
 
@@ -74,3 +74,15 @@ Find-Executable -Name 'widget' -Candidate '%LOCALAPPDATA%\Widget\widget.exe' -Ve
 ```powershell
 (Find-Executable -Name 'gadget' -VersionArguments 'version' -VersionPattern 'v(?<ver>[\d.]+)').Path
 ```
+
+## Two steps, two costs
+
+Locating is file checks only, so it runs on every call and always reflects the disk. The version run is the one process start, and its
+result is a lazy session cache entry keyed by the executable's path, its last write time and the arguments. A reinstall, an upgrade or a
+removal therefore shows on the next call, while an unchanged executable never starts a process twice
+([ADR-PWSH-CACHE](../../../drs/automation/pwsh/script-scope-caching.md)).
+
+## Who calls it
+
+The caller chooses the candidates for its platform and run environment. `Resolve-ToolExecutable` does that for a `tools.yml` entry, and the
+record it returns is the same one `Test-Tool -PassThru` hands back.

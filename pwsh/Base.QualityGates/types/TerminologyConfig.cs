@@ -12,6 +12,7 @@ using System.Collections.Generic;
 
 namespace Catzc.Base.QualityGates;
 
+// The terminology registry and its validity rules.
 public sealed class TerminologyConfig
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
@@ -19,6 +20,7 @@ public sealed class TerminologyConfig
     // The defined category names, in registry order — one generated dictionary per category.
     public IReadOnlyList<string> categories { get; }
 
+    // An empty scope list makes the category global.
     public IReadOnlyDictionary<string, IReadOnlyList<string>> categoryScopes { get; }
 
     // Every approved-vocabulary entry, in registry order.
@@ -26,6 +28,7 @@ public sealed class TerminologyConfig
 
     private static readonly string[] AllowedKeys = { "categories", "terms" };
 
+    // The registry and one generated dictionary per category, left out of the orphan search.
     public string[] DefiningFiles(string repositoryRoot, string moduleRoot)
     {
         if (string.IsNullOrEmpty(repositoryRoot)) { throw new ArgumentException("repositoryRoot must not be empty", "repositoryRoot"); }
@@ -129,6 +132,7 @@ public sealed class TerminologyConfig
             scopes[name] = scopeGlobs;
         }
 
+        // The group key is the category, so entries carry no category field.
         object termsObj = (raw != null && raw.Contains("terms")) ? raw["terms"] : null;
         IDictionary termsMap = termsObj as IDictionary;
         if (termsMap == null || termsMap.Count == 0)

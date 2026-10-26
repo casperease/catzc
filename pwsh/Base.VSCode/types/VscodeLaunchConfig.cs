@@ -12,6 +12,7 @@ using System.Collections.Generic;
 
 namespace Catzc.Base.VSCode;
 
+// vscode-launch.yml, the one authored source New-VsCodeLaunch renders to the managed .vscode/launch.json.
 public sealed class VscodeLaunchConfig : Catzc.Base.Objects.DictionaryRecord
 {
     private const string Failed = "vscode-launch config validation failed:\n";

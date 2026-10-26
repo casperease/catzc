@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Get-TestRunLocationSummary.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Renders where a test run executed, for the report header and the run manifest. It reads the location Enter-TestRunLocation recorded, so the
+header and the manifest show one reading.
 
 ## help
 

@@ -1,34 +1,24 @@
 # pwsh/Base.Languages/types/BashConfig.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The typed record for `bash.yml`, the Bash test settings, and the single declaration of their sensible defaults. `Invoke-BashTest` runs the
+`.bats` tests in `<root>/tests/<folder>/` with the bats-core runner vendored at `<root>/.vendor/bats-core/`, and `Update-BatsVendor`
+refreshes that copy from the pinned release. It is registered in `Catzc.Base.Config/configs/configs.yml` (type
+`Catzc.Base.Languages.BashConfig`), so `Get-Config -Config bash` returns it. Its property names mirror the YAML keys
+([ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](../../../../drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
 
-## comment:1
+## Validation
 
-Above `using System;`, written with `//`.
+Constructing an instance validates the file and collects every violation into one `ArgumentException`:
 
-```text
-The Bash test settings (configs/bash.yml), and the single declaration of their sensible defaults. Invoke-BashTest runs
-the .bats tests in <root>/tests/<folder>/ with the bats-core runner vendored at <root>/.vendor/bats-core/, and
-Update-BatsVendor refreshes that copy from the pinned release. Registered in Catzc.Base.Config/configs/configs.yml
-(type: Catzc.Base.Languages.BashConfig), so Get-Config -Config bash returns this typed record. Property names mirror
-the YAML keys (snake_case, [ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
+- only the known keys, `root`, `bats_version` and `bats_sha256`, are allowed, so a typo fails at load;
+- `root` is the Bash root folder, repository-relative: slash-separated segments of letters, digits, `.`, `_` and `-`, no leading or trailing
+  slash, no `.` or `..` segment. Omitted, it resolves per repository: `bash` when the repository has a `bash/` folder, else `.bash`, the one
+  convention every test language's root follows
+  ([ADR-REPO-FOLDERS-NAMESARESETTINGS](../../../../drs/repository/conventional-folders.md#rule-adr-repo-folders-namesaresettings));
+- `bats_version` is the vendored bats-core release (X.Y.Z) and `bats_sha256` the SHA-256 of its source archive, both required, so the
+  vendored copy is reproducible from them.
 
-Constructing an instance validates the file, collecting every violation into one ArgumentException:
-  - only the known keys ('root', 'bats_version', 'bats_sha256') — an unknown key (a typo) fails at load;
-  - 'root' is the Bash root folder, repository-relative: slash-separated segments of letters, digits, '.', '_' and
-    '-', no leading or trailing slash, no '.' or '..' segment. Omitted, it resolves per repository (ResolveRoot):
-    'bash' when the repository has a bash/ folder, else '.bash' — the one convention every test language's root
-    follows ([ADR-REPO-FOLDERS-NAMESARESETTINGS](/docs/drs/repository/conventional-folders.md#rule-adr-repo-folders-namesaresettings));
-  - 'bats_version' is the vendored bats-core release (X.Y.Z), and 'bats_sha256' the SHA-256 of its source archive,
-    both required: the vendored copy is reproducible from them.
-```
+## ResolveRoot
 
-## comment:2
-
-Above `public string ResolveRoot(string repositoryRoot)`, written with `//`.
-
-```text
-The Bash root folder for a repository, repository-relative: the declared root, else 'bash' when the repository has a
-bash/ folder, else '.bash'.
-```
+`ResolveRoot(repositoryRoot)` returns the Bash root folder for a repository, repository-relative: the declared root, else `bash` when the
+repository has a `bash/` folder, else `.bash`.

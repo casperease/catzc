@@ -1,22 +1,13 @@
 # pwsh/Base.QualityGates/tests/Build-TerminologyDictionary.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The tests of `Build-TerminologyDictionary`, which turns the terminology registry into the generated `.cspell/` dictionaries.
 
-## comment:1
+## Fixture registry
 
-Above `Mock Get-Config -ModuleName Catzc.Base.QualityGates {`, written with `#`.
+The logic cases mock `Get-Config` with a tiny registry that spans all three categories. The product category holds a duplicate and mixed
+case, which proves the per-category grouping, the lower-casing and the de-duplication.
 
-```text
-A tiny registry spanning all three categories, with a duplicate and mixed case in the product
-category, to prove per-category grouping plus lower-casing + de-duplication.
-```
+## Real registry
 
-## comment:2
-
-Above `Describe 'Build-TerminologyDictionary — real registry'`, written with `#`.
-
-```text
-source-only: it compares the repository's generated .cspell/ dictionaries with the registry, which gives the
-same answer in both run modes.
-```
+The real-registry case is source-only. It compares the repository's generated `.cspell/` dictionaries with the registry, which gives the same
+answer in both run modes.

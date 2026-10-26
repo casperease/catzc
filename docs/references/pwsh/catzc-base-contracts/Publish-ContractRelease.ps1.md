@@ -1,7 +1,7 @@
 # pwsh/Base.Contracts/Publish-ContractRelease.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The release step of the catzc contracts: it copies the current version folder to a released one and freezes it with a hash record. A
+released folder is what a consumer pins, so it must never change after this runs.
 
 ## help
 
@@ -58,11 +58,8 @@ Publish-ContractRelease -Root catzc -Version 1.0.0
 Publish-ContractRelease -Root catzc -Version (Resolve-CatzcBuildVersion) -WhatIf
 ```
 
-## comment:1
+## the copy walks the whole tree
 
-Above `$files = [string[]] @(Get-ChildPath $source -File -Depth 64 -Exclude @()...`, written with `#`.
-
-```text
-A named whole-tree walk ([ADR-PWSH-ENUM-ALWAYSBOUNDED](/docs/drs/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): the
-release copies the whole current version, so no name is pruned and no depth drops a file.
-```
+The release copies the whole current version, so the file walk is a named whole-tree walk
+([ADR-PWSH-ENUM-ALWAYSBOUNDED](../../../drs/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): no name is pruned and
+no depth drops a file.

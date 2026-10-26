@@ -13,10 +13,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
+// Answers fast whether an identifier carries an invented abbreviation.
 public static class SpellingOracle
 {
+    // Single letters are loop indices and type variables.
     public const int MinFragmentLength = 2;
 
+    // The caller passes the module root, since its folder drops the namespace.
     public static string AssetsFolder(string moduleRoot)
     {
         if (string.IsNullOrEmpty(moduleRoot)) { throw new ArgumentException("moduleRoot must not be empty", "moduleRoot"); }
@@ -54,6 +57,7 @@ public static class SpellingOracle
 
     public static int WordCount => _words?.Count ?? 0;
 
+    // Idempotent, so each analyzer shard pays the load once.
     public static void Initialize(string englishGzPath, IEnumerable<string> termListPaths, IEnumerable<string> fixtureListPaths)
     {
         if (_words != null)
@@ -120,6 +124,7 @@ public static class SpellingOracle
         return _words.Contains(fragment);
     }
 
+    // The fragments not in the dictionary: the abbreviations to spell out.
     public static string[] CoinedFragments(string identifier, bool includeFixtures)
     {
         EnsureLoaded();
@@ -148,11 +153,13 @@ public static class SpellingOracle
         return coined.ToArray();
     }
 
+    // Production scope: fixture terms are not accepted.
     public static string[] CoinedFragments(string identifier)
     {
         return CoinedFragments(identifier, false);
     }
 
+    // Splits on non-letters, camelCase humps and acronym-to-word seams.
     public static IEnumerable<string> Tokenize(string identifier)
     {
         var builder = new StringBuilder();

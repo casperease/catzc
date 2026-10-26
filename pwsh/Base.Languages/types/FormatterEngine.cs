@@ -18,6 +18,7 @@ public sealed class FormatterEngine
     // The engine's name, as a language's `formatter:` spells it (e.g. prettier).
     public string name { get; }
 
+    // publisher.name of the extension that runs the engine; null when the editor has none.
     public string vscode_extension { get; }
 
     // The repository-relative files whose content decides the engine's output (e.g. .prettierrc.yml). Empty when none.

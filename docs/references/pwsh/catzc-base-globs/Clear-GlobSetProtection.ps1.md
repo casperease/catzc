@@ -1,7 +1,7 @@
 # pwsh/Base.Globs/Clear-GlobSetProtection.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The escape hatch of the protected-glob skip ([ADR-REPO-PROTGLOB](../../../drs/repository/protected-globs.md)): it empties the session's
+record of green scans, so the next run of every protected scan runs in full.
 
 ## help
 

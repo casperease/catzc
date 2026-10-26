@@ -32,10 +32,13 @@ public sealed class GoConfig : Catzc.Base.Objects.DictionaryRecord
     private static readonly Regex DependencyPath = new Regex(@"^[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)+(/[A-Za-z0-9._~-]+)*$");
     private static readonly Regex DependencyVersion = new Regex(@"^v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(-[0-9A-Za-z.-]+)?(\+incompatible)?$");
 
+    // Null when undeclared; ResolveRoot applies the default.
     public string root { get; }
 
+    // tests/<folder> is <module_root>/tests/<folder>; a module folder is <module_root>/<Module>.
     public string module_root { get; }
 
+    // Module path to version, in ordinal path order, so rendering never depends on key order.
     public IReadOnlyDictionary<string, string> dependencies { get; }
 
     public GoConfig(IDictionary raw)
@@ -114,6 +117,7 @@ public sealed class GoConfig : Catzc.Base.Objects.DictionaryRecord
         dependencies = requires;
     }
 
+    // The declared root, else go when the repository has a go/ folder, else .go.
     public string ResolveRoot(string repositoryRoot)
     {
         if (root != null) { return root; }

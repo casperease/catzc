@@ -1,7 +1,8 @@
 # pwsh/Tooling.Claude/Start-ClaudeDrone.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The public command that opens new Claude Code drone sessions, one terminal window each, in the repository root. The agent and the terminal
+come from `configs/claude-drone.yml`; the launch itself is built by the private `Get-ClaudeDroneLaunch`, and `-DryRun` returns the planned
+command lines instead of starting anything.
 
 ## help
 

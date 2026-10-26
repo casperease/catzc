@@ -11,6 +11,7 @@ using System.Collections.Generic;
 
 namespace Catzc.Base.Maps;
 
+// Why a highlight lights a file, or a cell with no file: the file, the step that tied it to the request, and the mention.
 [Catzc.Base.Objects.ConsoleDisplay(nameof(Path), nameof(Basis), nameof(Requested), nameof(Mention))]
 public sealed class HighlightReason
 {

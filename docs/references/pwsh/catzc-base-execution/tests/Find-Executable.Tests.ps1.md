@@ -1,24 +1,15 @@
 # pwsh/Base.Execution/tests/Find-Executable.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The tests of `Find-Executable`, hermetic logic at L1.
 
-## comment:1
+## Fixtures
 
-Above `Describe 'Find-Executable'`, written with `#`.
+The candidate executables are fixture files under `$TestDrive`, reached through a fixture environment variable so the `%VAR%` expansion is
+exercised. The session actor, the PATH lookup and the version run (`Get-ExecutableVersion`, the probe's only process start) are mocked.
+Fixture tokens are neutral
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 
-```text
-Hermetic logic (L1): the candidate executables are fixture files under $TestDrive, reached through a fixture
-environment variable so the %VAR% expansion is exercised; the session actor, the PATH lookup and the version run
-(Get-ExecutableVersion, the probe's only process start) are mocked. Fixture tokens are neutral
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
-```
+## Cold cache
 
-## comment:2
-
-Above `InModuleScope Catzc.Base.Execution { $script:executableVersionCache = $null }`, written with `#`.
-
-```text
-Every test here exercises the version cache entry, so each starts cold
-([ADR-PWSH-PESTER-MOCKMODULEBOUNDARIES](/docs/drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-mockmoduleboundaries)).
-```
+Every test exercises the version cache entry, so each starts cold
+([ADR-PWSH-PESTER-MOCKMODULEBOUNDARIES](../../../../drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-mockmoduleboundaries)).

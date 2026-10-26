@@ -1,14 +1,9 @@
 # pwsh/Base.Execution/tests/types/ToolConfig.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The tests of `ToolConfig`, the typed record over one `tools.yml` entry.
 
-## comment:1
+## What they pin
 
-Above `BeforeAll {`, written with `#`.
-
-```text
-The typed record over one tools.yml entry. It rejects keys it does not map (a dropped key would be invisible
-to every caller), and these pin the optional flags the provisioning loops branch on. Fixture tokens are
-neutral ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
-```
+The record rejects keys it does not map, since a dropped key would be invisible to every caller, and the tests pin the optional flags the
+provisioning loops branch on. Fixture tokens are neutral
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).

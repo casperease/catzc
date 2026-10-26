@@ -1,24 +1,14 @@
 # pwsh/Base.Execution/tests/types/ToolsConfig.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The tests of `ToolsConfig`, in two contexts.
 
-## comment:1
+## Integrity
 
-Above `Context 'integrity (shipped tools.yml)' -Tag 'integrity' {`, written with `#`.
+The integrity context reads the shipped `tools.yml` and guards real repository content
+([ADR-AUTO-TEST-LOGICANDINTEGRITY](../../../../../drs/automation/test-automation.md#rule-adr-auto-test-logicandintegrity)).
 
-```text
-Reads the shipped tools.yml — guards real repository content
-([ADR-AUTO-TEST-LOGICANDINTEGRITY](/docs/drs/automation/test-automation.md#rule-adr-auto-test-logicandintegrity)).
-```
+## Logic
 
-## comment:2
-
-Above `Context 'logic (inline configs)' -Tag 'logic' {`, written with `#`.
-
-```text
-Constructor logic on an inline (synthetic) config — independent of any shipped asset
-([ADR-AUTO-TEST-LOGICANDINTEGRITY](/docs/drs/automation/test-automation.md#rule-adr-auto-test-logicandintegrity)). The rule keys on the literal
-`python` tool (the pinned interpreter); every other tool is a fixture token
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
-```
+The logic context builds the constructor on an inline, synthetic config, independent of any shipped asset. The `python` rule keys on the
+literal `python` tool (the pinned interpreter); every other tool is a fixture token
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).

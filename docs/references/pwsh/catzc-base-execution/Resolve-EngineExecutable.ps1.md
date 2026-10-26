@@ -1,7 +1,6 @@
 # pwsh/Base.Execution/Resolve-EngineExecutable.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Returns the full path of an execution engine's executable on this machine, by the way the engine's model says to locate it.
 
 ## help
 
@@ -36,3 +35,9 @@ The engine's name (pwsh, bash or zsh).
 ```powershell
 & (Resolve-EngineExecutable -Engine pwsh) @((Get-ExecutionEngine -Name pwsh).StartArguments($entry, 'Get-RepositoryRoot'))
 ```
+
+## Two ways to locate
+
+`pwsh` is found beside the running PowerShell, so a started engine is the same PowerShell as its caller and never another `pwsh` that comes
+first on PATH. The POSIX engines go through their `tools.yml` entries and the existence check, which on Windows means Git Bash and the zsh
+installed into its tree, never the WSL launcher.

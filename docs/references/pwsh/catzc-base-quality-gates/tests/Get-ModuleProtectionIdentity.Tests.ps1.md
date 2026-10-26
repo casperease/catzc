@@ -1,34 +1,13 @@
 # pwsh/Base.QualityGates/tests/Get-ModuleProtectionIdentity.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The L0 logic test of `Get-ModuleProtectionIdentity`, the composite protection identity of a module
+([ADR-REPO-PROTGLOB-COMPOSITEIDENTITY](../../../../drs/repository/protected-globs.md#rule-adr-repo-protglob-compositeidentity)): the module's own
+set, plus its declared dependency closure, plus the infrastructure scopes and the runner. The identity widens to the repository-wide set for
+integrity tests, unconstrained modules and the infrastructure test units, and it is memoized per run.
 
-## comment:1
+## Fixture
 
-Above `Describe 'Get-ModuleProtectionIdentity'`, written with `#`.
-
-```text
-The composite protection identity
-([ADR-REPO-PROTGLOB-COMPOSITEIDENTITY](/docs/drs/repository/protected-globs.md#rule-adr-repo-protglob-compositeidentity)): own set + declared
-dependency closure + infra scopes
-+ the runner; widened to the repository-wide set for integrity tests, unconstrained modules, and the infra
-test units. Memoized per run.
-```
-
-## comment:2
-
-Above `$script:dependencies =...`, written with `#`.
-
-```text
-a small declared graph: Base group {Alpha <- Beta}; Gamma declared against the Base group;
-'Catzc.Unknown' appears nowhere (unconstrained).
-```
-
-## comment:3
-
-Above `$byName = Get-Variable -Name Name -ValueOnly -ErrorAction Ignore`, written with `#`.
-
-```text
-StrictMode-safe: read the bound auto-variable without referencing an unset $Name/$GlobSet
-(the -Name path and the -GlobSet path each set only one of them).
-```
+Each case builds a small declared graph: a Base group holding Alpha, which Beta depends on, and Gamma declared against the Base group.
+`Catzc.Unknown` appears nowhere, so it stays unconstrained. The glob-set hash is mocked and reads the bound `Name` or `GlobSet` through
+`Get-Variable`, because the `-Name` path and the `-GlobSet` path each set only one of the two variables and strict mode forbids reading the
+unset one.

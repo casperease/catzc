@@ -1,13 +1,5 @@
 # pwsh/Base.QualityGates/tests/Get-TestRunFile.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
-
-## comment:1
-
-Above `Describe 'Get-TestRunFile'`, written with `#`.
-
-```text
-Get-TestRunFile over fake Pester test objects (the shape the harness reads: .Block.BlockContainer.Data and
-.ScriptBlock.File). Neutral fixture names ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
-```
+The L0 logic test of `Get-TestRunFile`, run over fake Pester test objects in the shape the harness reads: `.Block.BlockContainer.Data` and
+`.ScriptBlock.File`. The fixtures use neutral names
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).

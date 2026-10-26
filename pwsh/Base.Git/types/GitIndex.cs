@@ -14,6 +14,7 @@ using System.Text;
 
 namespace Catzc.Base.Git;
 
+// The tracked paths of .git/index, read in-process: what git ls-files prints, without launching git.
 public sealed class GitIndex
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
@@ -27,8 +28,10 @@ public sealed class GitIndex
     // The SHA-256 of the index file's bytes (uppercase hex) — the cache key.
     public string ContentHash { get; }
 
+    // Repo-relative and '/'-separated, in index order; an unmerged path, held once per conflict stage, is listed once.
     public string[] Paths { get; }
 
+    // The tracked paths stored executable (mode 100755), in the same order and form as Paths.
     public string[] ExecutablePaths { get; }
 
     // git's mode for an executable regular file (octal 100755).
@@ -59,6 +62,7 @@ public sealed class GitIndex
         }
     }
 
+    // The tracked paths at or under literal repo-relative paths ('.' is everything), in index order, each once.
     public string[] Under(IEnumerable<string> pathspecs) => Select(Paths, pathspecs);
 
     // The executable tracked paths at or under the given paths, in the same form as Under.
@@ -106,6 +110,7 @@ public sealed class GitIndex
             throw new InvalidDataException($"Unsupported git index version {version} (versions 2-4 are read).");
         }
 
+        // The trailer is the SHA-1 of the rest, zeros under index.skipHash; a mismatch is a corrupt file or a SHA-256 repository.
         var bodyLength = content.Length - HashLength;
         var trailer = content.AsSpan(bodyLength);
         if (trailer.IndexOfAnyExcept((byte)0) >= 0 && !trailer.SequenceEqual(SHA1.HashData(content.AsSpan(0, bodyLength))))

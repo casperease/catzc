@@ -8,6 +8,7 @@ catzc:
 
 namespace Catzc.Base.ModuleSystem;
 
+// The JFrog Artifactory target: the server URL and repository the gold module-manifest artifact is promoted to.
 public sealed class ArtifactoryArtifactsTarget : ArtifactsTarget
 {
     private static readonly string[] CoordinateKeys = { "url", "repository" };

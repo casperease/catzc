@@ -13,6 +13,7 @@ using System.Globalization;
 
 namespace Catzc.Base.QualityGates;
 
+// What a test may do to the environment it reaches, with its defaults declared once.
 public sealed class TestPolicyConfig
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

@@ -1,7 +1,7 @@
 # pwsh/Base.Variants/Get-AspectDeclaration.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The reader of the aspect conventions in the variants config: for each track that declares aspects, the ordered aspect names and their
+patterns, which `Get-Aspect` and `Get-AspectGlobSet` resolve against.
 
 ## help
 

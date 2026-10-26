@@ -12,8 +12,10 @@ using System.Collections.Generic;
 
 namespace Catzc.Tooling.Core;
 
+// One row per case, one column per execution engine, each filled or named "n/a: <reason>", so no case silently skips an engine.
 public sealed class EngineCaseTable
 {
+    // The columns are the engines' one declaration, in its order, so a table cannot invent one.
     private static readonly IReadOnlyList<string> Engines = Catzc.Base.Engines.ExecutionEngines.Names;
 
     private const string NotApplicablePrefix = "n/a:";
@@ -27,6 +29,7 @@ public sealed class EngineCaseTable
     // The case names, in file order.
     public IReadOnlyList<string> Cases { get; }
 
+    // One row per case and engine in file order: fields is the column's map or null, not_applicable the reason or null.
     public IReadOnlyList<Hashtable> Rows { get { return rows; } }
 
     public EngineCaseTable(IDictionary d)

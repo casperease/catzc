@@ -8,6 +8,7 @@ catzc:
 
 namespace Catzc.Base.QualityGates;
 
+// The three ways one tracked file points at another.
 public enum LinkRelation
 {
     MarkdownLink,

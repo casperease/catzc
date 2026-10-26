@@ -2,15 +2,10 @@
 
 <!-- cspell:ignore ntwo -->
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The tests of `Get-GlobSetHash`, the durable SHA of a globset
+([FDR-CD-GLOBS-DURABLESHAIDENTITY](../../../../drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-durableshaidentity)).
 
-## comment:1
+## What it proves
 
-Above `Describe 'Get-GlobSetHash'`, written with `#`.
-
-```text
-The durable SHA ([FDR-CD-GLOBS-DURABLESHAIDENTITY](/docs/drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-durableshaidentity)):
-64-hex-lowercase, EOL-insensitive, path-folded, ordinal, with the
-<path>|missing marker for an unstaged deletion.
-```
+The hash is 64 lowercase hex characters, insensitive to line endings, folded over the path, and in ordinal order. An unstaged deletion folds
+the `<path>|missing` marker.

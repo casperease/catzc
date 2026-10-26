@@ -8,6 +8,7 @@ catzc:
 
 namespace Catzc.Base.Maps;
 
+// The limits section: the page size in points, the smallest label font, and the longest header before it is shortened.
 public sealed class MapsLimits
 {
     public const double DefaultPageWidth = 842;

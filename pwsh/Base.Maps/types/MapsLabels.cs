@@ -8,6 +8,7 @@ catzc:
 
 namespace Catzc.Base.Maps;
 
+// The labels section: the fixed text the maps print beside the data, view titles, axis headers and legend entries.
 public sealed class MapsLabels
 {
     // The prefix of every value-chain map label key.

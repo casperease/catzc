@@ -18,6 +18,7 @@ using static Catzc.Base.Drs.DrsCitationText;
 
 namespace Catzc.Base.Drs;
 
+// Rewrites one file's record references through a code map and a rule map: codes, rule anchors, link destinations and path mentions.
 public sealed class DrsCitationRewriter
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
@@ -46,6 +47,7 @@ public sealed class DrsCitationRewriter
     readonly Dictionary<string, string> oldPathByCode = new Dictionary<string, string>(StringComparer.Ordinal);
     readonly DrsCitationMap citations;
     readonly Regex reference;
+    // The code grammar over the registered record kinds, the markers of a code.
     readonly string anchorPattern;
     readonly string codePattern;
     readonly Regex ruleAnchor;
@@ -76,6 +78,7 @@ public sealed class DrsCitationRewriter
         anchorPattern = "rule-" + lower + @"(?:-[a-z][a-z0-9]*)+(?![\w-])";
         codePattern = upper + @"(?>(?:-[A-Z][A-Z0-9]*)+)";
         ruleAnchor = new Regex(@"^rule-(?<code>" + lower + @"(?:-[a-z][a-z0-9]*)+)$", RegexOptions.Compiled);
+        // A new code may be a bare kind: a framing domain's code becomes its kind.
         codeShape = new Regex("^" + upper + @"(?:-[A-Z][A-Z0-9]*)*$", RegexOptions.Compiled);
         this.citations = citations;
         foreach (string file in treeFiles)
@@ -277,6 +280,7 @@ public sealed class DrsCitationRewriter
         return angle ? "<" + result + ">" : result;
     }
 
+    // A path reference mapped and written back in its own form; null when it does not point into docs/drs/ or nothing changes.
     string RewriteReference(string pathPart, string fragment, Form form, string self)
     {
         string target;
@@ -316,6 +320,7 @@ public sealed class DrsCitationRewriter
         return newFragment == null ? newPathPart : newPathPart + "#" + newFragment;
     }
 
+    // Where a reference points after the maps: a rule anchor follows its rule, a path follows the file and folder map.
     (string Path, string Fragment) MapTarget(string adrPath, string fragment, bool inFile)
     {
         string newPath = MapPath(adrPath);

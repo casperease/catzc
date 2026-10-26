@@ -1,25 +1,15 @@
 # pwsh/Base.Globs/tests/Get-ChangedGlobSet.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The tests of `Get-ChangedGlobSet`, the computed area-of-control of a diff
+([FDR-CD-GLOBS-NAMEDGLOBSETS](../../../../drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-namedglobsets)).
 
-## comment:1
+## What it proves
 
-Above `Describe 'Get-ChangedGlobSet'`, written with `#`.
+The declared sets whose scan program selects a changed path are reflected from git at real refs, instead of from a committed marker hash.
 
-```text
-Get-ChangedGlobSet: the computed area-of-control of a diff
-([FDR-CD-GLOBS-NAMEDGLOBSETS](/docs/drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-namedglobsets)) — the declared sets whose scan
-program selects a changed path, reflected from git at real refs instead of from a committed marker hash.
-```
+## Fixtures
 
-## comment:2
-
-Above `$script:config = [Catzc.Base.Globs.GlobsConfig]::new(@{`, written with `#`.
-
-```text
-Neutral fixture globset names (widget/gadget/report), not the shipped set names, so this logic test
-owns its inputs ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)). 'report'
-overlaps 'widget' on src/** (both loose-filesets, the
-layer exempt from independence) to prove multi-set matches come back in registry order.
-```
+The fixture globset names are neutral (widget, gadget, report), not the shipped set names, so the logic test owns its inputs
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)). The
+`report` set overlaps `widget` on `src/**`. Both are loose filesets, the layer exempt from independence, which proves that multi-set matches
+come back in registry order.

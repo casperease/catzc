@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Get-TestFileModule.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Names the unit a run file belongs to: the first path segment under `pwsh/`, or the module of a language test folder. Per-module protection
+uses it to group a run's files by unit.
 
 ## help
 

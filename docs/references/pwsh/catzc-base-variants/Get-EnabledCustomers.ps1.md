@@ -1,7 +1,7 @@
 # pwsh/Base.Variants/Get-EnabledCustomers.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The single interpreter of the tri-state `have_customers` variant: it turns what the repo declares into no customers, every customer, or a
+list of names, and the customer guards read only its answer.
 
 ## help
 
@@ -28,12 +28,7 @@ This is the single interpreter of the tri-state; Test-/Assert-HaveCustomers read
 Get-EnabledCustomers   # -> @()  (default: customers disabled)
 ```
 
-## comment:1
+## Reading a non-bool value
 
-Above `$names = @($value | Where-Object { -not [string]::IsNullOrEmpty("$_") } |...`, written with `#`.
-
-```text
-Anything non-bool is 'all' or a name list. A single-element list unrolls to a scalar on return from
-Get-Variant, so normalize to an array of non-empty strings before deciding — a lone 'all' is the
-every-customer sentinel; everything else is the enabled-name list.
-```
+A value that is not a bool is either `'all'` or a list of names. A one-element list comes back from `Get-Variant` as a scalar, so the value
+is first made an array of non-empty strings; then a lone `'all'` means every customer, and anything else is the list of enabled names.

@@ -1,33 +1,18 @@
 # pwsh/Base.Languages/configs/bash.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The Bash test settings: the pin of the vendored bats-core runner that `Invoke-BashTest` runs. The Bash tests are black-box tests of the
+engine, written in Bash under `<root>/tests/<module-in-kebab>/*.bats` and run by the runner vendored at `<root>/.vendor/bats-core/`
+([ADR-AUTO-BASH](../../../../drs/automation/bash/bash-test-artifacts.md)).
 
-## comment:1
+## Keys
 
-Above `bats_version: "1.14.0"`, written with `#`.
+- **`bats_version`** — the vendored bats-core release.
+- **`bats_sha256`** — the SHA-256 of that release's source archive (github.com/bats-core/bats-core, tag `v<version>`). The vendored copy is
+  reproducible from the two with `Update-BatsVendor`.
+- **`root`** — the Bash root folder, repository-relative. It is not declared here, so it takes the default every test language's root takes:
+  `bash` when the repository has a `bash/` folder (a Bash root track), else `.bash`, the dot-prefixed tooling folder.
 
-```text
-The Bash tests — black-box tests of the engine written in Bash, under <root>/tests/<module-in-kebab>/*.bats, run by the
-bats-core runner vendored at <root>/.vendor/bats-core/
-([ADR-AUTO-BASH](/docs/drs/automation/bash/bash-test-artifacts.md)). Loaded via Get-Config -Config bash; the shape is
-validated by Catzc.Base.Languages.BashConfig.
-```
+## How it is read
 
-## comment:2
-
-Above `bats_version: "1.14.0"`, written with `#`.
-
-```text
-root — the Bash root folder, repository-relative. Not declared here, so it takes the default every test language's root
-takes: 'bash' when the repository has a bash/ folder (a Bash root track), else '.bash', the dot-prefixed tooling folder.
-```
-
-## comment:3
-
-Above `bats_version: "1.14.0"`, written with `#`.
-
-```text
-The vendored bats-core release and the SHA-256 of its source archive (github.com/bats-core/bats-core, tag v<version>):
-the vendored copy is reproducible from them with Update-BatsVendor.
-```
+`Get-Config -Config bash` loads the file into the typed `Catzc.Base.Languages.BashConfig` record, which validates the shape
+(`BashConfig.cs`).

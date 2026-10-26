@@ -19,11 +19,13 @@ public sealed class FileLanguage
     // The file language's kebab-case name: its key in the `languages` map (e.g. powershell, pipeline-yaml).
     public string name { get; }
 
+    // Lowercase with the leading dot; each belongs to exactly one language.
     public IReadOnlyList<string> extensions { get; }
 
     // The formatter engine Format-Code runs over the language's files (e.g. prettier). Null when it has none.
     public string formatter { get; }
 
+    // Why there is no formatter; an entry carries exactly one of formatter and no_formatter.
     public string no_formatter { get; }
 
     // The VS Code language id of the language's files (e.g. azure-pipelines); its own name unless the entry states one.
@@ -32,6 +34,7 @@ public sealed class FileLanguage
     // The language's ADR folder under docs/drs/ (e.g. pwsh). Null when it has none.
     public string adr_folder { get; }
 
+    // The gates Test-Change runs over a changed file of the language, in order.
     public IReadOnlyList<string> checks { get; }
 
     // The config address of the folder a check governs; a check with no entry governs every file of the language.

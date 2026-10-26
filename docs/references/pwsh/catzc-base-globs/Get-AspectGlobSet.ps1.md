@@ -1,7 +1,7 @@
 # pwsh/Base.Globs/Get-AspectGlobSet.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The one place that builds every aspect's globsets, from the aspect model alone: an ordered map of aspect name to the globsets of that
+aspect, made of `Get-ModuleGlobSet`'s module-layer aspect sets and each aspect-declaring track's, one unit per place.
 
 ## help
 
@@ -19,20 +19,7 @@ declares aspects compiles them per place into sets of its own, so every file a t
 
 `[System.Collections.Specialized.OrderedDictionary]` aspect name to the globsets of that aspect, in aspect order.
 
-## comment:1
+## Single-file modules
 
-Above `$aspectSet = [ordered]@{}`, written with `#`.
-
-```text
-Aspect name to the globsets of that aspect, from the aspect model alone: Get-ModuleGlobSet's module-layer aspect sets and each
-aspect-declaring track's, one unit per place.
-```
-
-## comment:2
-
-Above `$singleFile = @(Get-CatzcModule -Track $codeTrack.name...`, written with `#`.
-
-```text
-A single-file module's set is the degenerate one-aspect partition: live
-([DDR-ASPECT-ASPECTISAGLOBSET](/docs/drs/design/module-aspects.md#rule-ddr-aspect-aspectisaglobset)).
-```
+A single-file module's set is the degenerate one-aspect partition: `live`
+([DDR-ASPECT-ASPECTISAGLOBSET](../../../drs/design/module-aspects.md#rule-ddr-aspect-aspectisaglobset)).

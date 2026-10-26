@@ -13,6 +13,7 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Base.Exporter;
 
+// exporter.yml, the single export config: how this repository exports itself as the installable, versioned build.
 public sealed class ExporterConfig : Catzc.Base.Objects.DictionaryRecord
 {
     private static readonly string[] AllowedKeys =

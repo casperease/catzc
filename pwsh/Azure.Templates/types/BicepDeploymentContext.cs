@@ -10,6 +10,7 @@ using System;
 
 namespace Catzc.Azure.Templates;
 
+// Plan, artifacts and resolved environment identity in one record; a DoNotRun template yields no context at all, the producer returns null.
 public sealed class BicepDeploymentContext
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

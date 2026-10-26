@@ -10,6 +10,7 @@ using System;
 
 namespace Catzc.Base.Languages;
 
+// One misnamed folder or file and the idiomatic name its language gives it.
 [Catzc.Base.Objects.ConsoleDisplay("path", "target")]
 public sealed class PathRename
 {

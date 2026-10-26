@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Get-TestExcludeTag.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Computes the Pester ExcludeTag list for a tier range and a category. Test-Automation and Test-InIsolation share it, so the tier and
+category filter cannot differ between the two.
 
 ## help
 

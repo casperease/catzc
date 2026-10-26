@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Get-ModuleSourceFunctions.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Lists a source module's public and private function names from its files. A module is its folder: the root `.ps1` files are public and those
+in `private/` are private, one function per file.
 
 ## help
 

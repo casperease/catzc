@@ -64,6 +64,7 @@ zsh:
     - "/bin/zsh"
 
 python:
+  # One release behind the newest on purpose: dependents that lag it keep working, and az_cli's max_python caps the pin.
   version: "3.13"
   command: python
   depends_on: uv
@@ -84,6 +85,7 @@ dotnet:
 
 az_cli:
   version: "2.87"
+  # Devbox lever only: a pipeline ignores it and enforces version alone; raise it toward version as upgrades land.
   devbox_version: "2.84"
   command: az
   depends_on: uv
@@ -109,6 +111,7 @@ node_js:
   version: "24"
   command: node
   depends_on: winget
+  # winget has no versioned NodeJS.24, so this alias moves with each LTS: bump version when the LTS advances.
   winget_id: "OpenJS.NodeJS.LTS"
   winget_scope: user
   brew_formula: "node@{0}"
@@ -187,6 +190,7 @@ java:
   command: java
   depends_on: winget
   winget_id: "Microsoft.OpenJDK.{0}"
+  # The OpenJDK package ships only a machine-scope installer, so it needs Administrator.
   admin_only: true
   brew_formula: "openjdk@{0}"
   apt_package: "openjdk-{0}-jdk"

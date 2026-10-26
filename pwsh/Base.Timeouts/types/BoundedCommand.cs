@@ -12,6 +12,7 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Base.Timeouts;
 
+// Whether a command line runs inside a time limit, in each execution engine's grammar: the check behind the hook's background rule.
 public static class BoundedCommand
 {
     public const string Allow = "allow";
@@ -27,6 +28,7 @@ public static class BoundedCommand
     private static readonly Regex PwshSecondsName = new Regex(
         @"(?:^|\s)-Seconds\b", RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
 
+    // The verdict for a command in pwsh, bash or zsh against a limit in seconds; requested says what it asked for, for a log line.
     public static string Check(string command, string engine, int limitSeconds, out string requested)
     {
         double? seconds;
@@ -42,6 +44,7 @@ public static class BoundedCommand
             requested = (posix ? "timeout " : "-Seconds ") + seconds.Value.ToString(CultureInfo.InvariantCulture) + " s";
             return OverLimit;
         }
+        // POSIX: the one command after the prefix; pwsh: the call itself at the top level, its block's statements inside the limit.
         if (!IsSingleCommand(posix ? body : command, engine))
         {
             requested = "compound command";
@@ -51,6 +54,7 @@ public static class BoundedCommand
         return Allow;
     }
 
+    // Parses the engine's time-limit wrapper: bash's `timeout <duration> <rest>`, or pwsh's wrapper call.
     public static bool TryParseBound(string command, string engine, out double? seconds, out string body)
     {
         seconds = null;
@@ -60,6 +64,7 @@ public static class BoundedCommand
         return posix ? TryParseBash(command, out seconds, out body) : TryParsePwsh(command, out seconds, out body);
     }
 
+    // True when the text is one command: no statement separator outside quotes and nested expressions.
     public static bool IsSingleCommand(string text, string engine)
     {
         bool posix = IsPosix(engine);
@@ -67,6 +72,7 @@ public static class BoundedCommand
         return posix ? IsSingleBash(text) : IsSinglePwsh(text);
     }
 
+    // True when the engine bounds a call with a GNU timeout prefix, false when with a pwsh wrapper call.
     private static bool IsPosix(string engine)
     {
         string normalized = engine == null ? "" : engine.Trim().ToLowerInvariant();

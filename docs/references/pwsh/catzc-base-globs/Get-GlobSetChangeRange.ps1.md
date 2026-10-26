@@ -1,7 +1,7 @@
 # pwsh/Base.Globs/Get-GlobSetChangeRange.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The reference-commit resolver ([FDR-CD-DETECT](../../../drs/flow/pipeline-detection.md)): it returns the git diff range that the current
+execution context measures a globset change against, or null when the range cannot be resolved, which callers treat as affected.
 
 ## help
 

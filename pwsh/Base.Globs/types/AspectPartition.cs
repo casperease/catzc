@@ -13,6 +13,7 @@ namespace Catzc.Base.Globs;
 
 public static class AspectPartition
 {
+    // Each aspect includes its own patterns and excludes every earlier aspect's, so the last one is the remainder.
     public static IReadOnlyList<CompiledAspect> Compile(IReadOnlyList<Aspect> aspects, string unitRoot)
     {
         if (aspects == null || aspects.Count == 0)
@@ -37,6 +38,7 @@ public static class AspectPartition
         return root.Length == 0 ? pattern : root + "/" + pattern;
     }
 
+    // The first aspect, in map order, one of whose sets claims the file; null when none does.
     public static string AspectOf(System.Collections.IDictionary sets, string file)
     {
         if (sets == null) { throw new ArgumentNullException("sets"); }
@@ -53,6 +55,7 @@ public static class AspectPartition
         return null;
     }
 
+    // Every file in exactly one aspect: a file in two breaks disjoint, a file in none breaks exhaustive.
     public static IReadOnlyList<string> Validate(IReadOnlyList<GlobSet> aspectSets, IEnumerable<string> universe)
     {
         List<string> violations = new List<string>();

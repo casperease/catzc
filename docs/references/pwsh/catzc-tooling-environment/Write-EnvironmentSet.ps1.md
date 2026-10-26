@@ -1,7 +1,15 @@
 # pwsh/Tooling.Environment/Write-EnvironmentSet.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The command that hands environment variables to a child or external process, and the one sanctioned way to give such a process a secret.
+Values come from three channels that never overlap: `[SecureString]` secrets and config addresses in `-Set`, literals in `-Value`.
+
+## Steps
+
+1. Every channel resolves into one flat list of assignments, each keeping its name, value, secrecy, origin and address (the address is
+   null unless the value came from one). Two channels producing the same name throw.
+2. The assignments are applied in one loop that sets each variable and logs it, masking secrets.
+3. A scoped call snapshots each target first, runs the block, and restores every target in a `finally`, so a throwing block never leaves a
+   variable changed; `-Persist` sets and leaves them.
 
 ## help
 
@@ -74,29 +82,3 @@ Write-EnvironmentSet -Set @{
 Write-EnvironmentSet -Set @{ GH_TOKEN = $secureToken } -Persist
 ```
 
-## comment:1
-
-Above `$entries = [System.Collections.Generic.List[hashtable]]::new()`, written with `#`.
-
-```text
-1) Resolve every channel into a flat list of env-var assignments. Each entry:
-   @{ Name; Value; Secret; Origin; Address }  (Address is $null unless address-sourced).
-```
-
-## comment:2
-
-Above `$scoped = -not $Persist`, written with `#`.
-
-```text
-3) Apply. Scoped snapshots each target's current value, sets all, invokes the block, and restores in a
-   finally; Persist just sets all and leaves them. Both share one set+log loop.
-```
-
-## comment:3
-
-Above `$scoped = -not $Persist`, written with `#`.
-
-```text
-Scoped restores every target in a finally, so a throwing block never leaves a variable changed; Persist leaves
-them set.
-```

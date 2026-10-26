@@ -10,6 +10,7 @@ using System;
 
 namespace Catzc.Azure.Templates;
 
+// What to deploy and where, independent of the files (those are BicepArtifacts); one of the three concerns nested in BicepDeploymentContext.
 public sealed class BicepDeploymentPlan
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

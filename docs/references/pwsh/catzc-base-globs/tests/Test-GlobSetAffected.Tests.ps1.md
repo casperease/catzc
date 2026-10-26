@@ -1,23 +1,14 @@
 # pwsh/Base.Globs/tests/Test-GlobSetAffected.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The tests of `Test-GlobSetAffected`, the in-pipeline check of whether there is anything for a unit to process.
 
-## comment:1
+## What it proves
 
-Above `Describe 'Test-GlobSetAffected'`, written with `#`.
+The check reflects the context's diff and reports whether the named unit is touched. It fails open on any doubt
+([ADR-REPO-PROTGLOB-FAILOPEN](../../../../drs/repository/protected-globs.md#rule-adr-repo-protglob-failopen)) and fails fast on a mistyped
+name.
 
-```text
-The in-pipeline "is there anything here for us to process?" check — reflects the context's diff and reports
-whether the named unit is touched, fail-open on any doubt
-([ADR-REPO-PROTGLOB-FAILOPEN](/docs/drs/repository/protected-globs.md#rule-adr-repo-protglob-failopen)), fail-fast on a typo'd name.
-```
+## Fixtures
 
-## comment:2
-
-Above `$script:config = [Catzc.Base.Globs.GlobsConfig]::new(@{`, written with `#`.
-
-```text
-Neutral fixture names (widget/gadget), not the shipped set names, so this logic test owns its
-inputs ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
-```
+The fixture names are neutral (widget, gadget), not the shipped set names, so the logic test owns its inputs
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).

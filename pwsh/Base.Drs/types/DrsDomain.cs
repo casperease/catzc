@@ -10,11 +10,13 @@ using System.Collections.Generic;
 
 namespace Catzc.Base.Drs;
 
+// One drs.yml domain, a docs/drs/<area>/ folder: code, role, description, dependencies, stack row and default concerns.
 public sealed class DrsDomain
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
     public string Name { get; }
+    // null under a kind the domain owns.
     public string Code { get; }
     public string Kind { get; }                    // one of DrsConfig.Kinds
     public string Prefix => Code == null ? Kind : Kind + "-" + Code; // the code every record of the domain starts with

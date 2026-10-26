@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Get-PythonCheckScope.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Lists what the Python checks read: every Python test folder, and every tracked `.py` file outside the Python root. It exists so that every
+Python file the repository holds takes the checks, wherever it lives.
 
 ## help
 

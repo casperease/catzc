@@ -12,6 +12,7 @@ using System.Collections.Generic;
 
 namespace Catzc.Base.QualityGates;
 
+// A module's live production identities, declared as rules.
 public sealed class IdentityTokensConfig
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

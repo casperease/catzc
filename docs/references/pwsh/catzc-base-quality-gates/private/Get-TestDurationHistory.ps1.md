@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Get-TestDurationHistory.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Reads the per-file test durations the last runs measured on this machine. The history is `durations.json` beside the run folders under
+`out/`, gitignored, and it feeds the assignment of files to shards.
 
 ## help
 

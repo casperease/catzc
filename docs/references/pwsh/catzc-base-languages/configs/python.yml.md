@@ -1,43 +1,28 @@
 # pwsh/Base.Languages/configs/python.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The Python test workspace: the one declared source that `New-PythonProject` renders the uv workspace from, the root `<root>/pyproject.toml`
+and one member `<root>/tests/<folder>/pyproject.toml` per Python test folder. Python code in this repository is test artifacts only:
+black-box tests under `<root>/tests/<module-in-kebab>/`, and nothing Python-specific is committed but the `test_*.py` files. The workspace
+is generated and virtual (it builds no package); its one environment (`<root>/.venv`) and one lock (`<root>/uv.lock`) are made by uv in the
+test bridge and gitignored.
 
-## comment:1
+Every key but `dependencies` is optional: an omitted key takes the sensible default declared once on `Catzc.Base.Languages.PythonConfig`
+([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../../../../drs/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)).
 
-Above `dependencies:`, written with `#`.
+## Keys
 
-```text
-The Python test workspace — the one declared source that New-PythonProject renders the uv workspace from: the root
-<root>/pyproject.toml and one member <root>/tests/<folder>/pyproject.toml per Python test folder. Python code in this
-repository is test artifacts only: black-box tests under <root>/tests/<module-in-kebab>/, and nothing Python-specific is
-committed but the test_*.py files. The workspace is generated and virtual (it builds no package); its one environment
-(<root>/.venv) and one lock (<root>/uv.lock) are made by uv in the test bridge and gitignored.
+- **`root`** — the Python root folder, repository-relative: the test folders live in `<root>/tests/<module>/`, and the workspace root, its
+  environment and its lock live in `<root>/`. Not declared here, so it takes the default every test language's root takes: `python` when the
+  repository has a `python/` folder (a Python root track), else `.python`, the dot-prefixed tooling folder. Declare it (for example
+  `root: test/python`) only to place the Python root elsewhere.
+- **`dependencies`** — the test dependencies every member requires, distribution name to exact version. pytest runs the tests and ruff
+  formats and lints them; both are required. The lock is not committed, so exact pins keep every machine on the same versions.
 
-Every key but the dependencies is optional: an omitted key takes the sensible default declared once on
-Catzc.Base.Languages.PythonConfig ([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/drs/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)).
-Loaded via Get-Config -Config python; the shape is validated by the PythonConfig type.
+## The Python version
 
-The Python version is not declared here: it is the python tool's pin in tools.yml (global.tools.python.version), the
-one Python version, rendered as every member's requires-python.
-```
+The Python version is not declared here. It is the python tool's pin in `tools.yml` (`global.tools.python.version`), the one Python version,
+rendered as every member's `requires-python`.
 
-## comment:2
+## How it is read
 
-Above `dependencies:`, written with `#`.
-
-```text
-root — the Python root folder, repository-relative: the test folders live in <root>/tests/<module>/, and the workspace
-root, its environment and its lock live in <root>/. Not declared here, so it takes the default every test language's
-root takes: 'python' when the repository has a python/ folder (a Python root track), else '.python', the dot-prefixed
-tooling folder. Declare it (e.g. `root: test/python`) only to place the Python root elsewhere.
-```
-
-## comment:3
-
-Above `dependencies:`, written with `#`.
-
-```text
-The test dependencies every member requires: distribution name -> exact version. pytest runs the tests and ruff formats
-and lints them; both are required. The lock is not committed, so exact pins keep every machine on the same versions.
-```
+`Get-Config -Config python` loads the file into the typed `PythonConfig` record, which validates the shape (`PythonConfig.cs`).

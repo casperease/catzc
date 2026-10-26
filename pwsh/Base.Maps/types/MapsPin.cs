@@ -8,6 +8,7 @@ catzc:
 
 namespace Catzc.Base.Maps;
 
+// One reviewed pin or exception: a record code, optionally one rule of it, and the cell it names.
 [Catzc.Base.Objects.ConsoleDisplay(nameof(adr), nameof(track), nameof(file_language))]
 public sealed class MapsPin
 {

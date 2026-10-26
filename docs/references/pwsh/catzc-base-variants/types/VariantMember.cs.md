@@ -1,22 +1,9 @@
 # pwsh/Base.Variants/types/VariantMember.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+One member of a track: a folder or a file, with its two facts, whether it is generated and whether it is committed
+([DDR-TRACK-TRACKISPLACEDCLUSTER](../../../../drs/design/tracks.md#rule-ddr-track-trackisplacedcluster)).
 
-## comment:1
+## Containment
 
-Above `public sealed class VariantMember`, written with `//`.
-
-```text
-One member of a track: a folder or a file, with its two facts
-([DDR-TRACK-TRACKISPLACEDCLUSTER](/docs/drs/design/tracks.md#rule-ddr-track-trackisplacedcluster)).
-```
-
-## comment:2
-
-Above `public bool Contains(string relativePath)`, written with `//`.
-
-```text
-Whether the member holds a '/'-separated repository-relative path: a plain member holds itself and what lies under it, a glob
-member the paths it matches.
-```
+`Contains` answers whether the member holds a `/`-separated repository-relative path: a plain member holds itself and everything under it,
+and a glob member holds the paths it matches.

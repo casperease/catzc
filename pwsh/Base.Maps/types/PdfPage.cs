@@ -11,6 +11,7 @@ using System.Text;
 
 namespace Catzc.Base.Maps;
 
+// One page: its size in points and its content-stream operators in call order, in PDF user space from the bottom-left.
 [Catzc.Base.Objects.ConsoleDisplay(nameof(Width), nameof(Height), nameof(OperationCount))]
 public sealed class PdfPage
 {
@@ -73,6 +74,7 @@ public sealed class PdfPage
     public PdfPage Line(double x1, double y1, double x2, double y2) =>
         Append(PdfNumber.Format(x1) + " " + PdfNumber.Format(y1) + " m " + PdfNumber.Format(x2) + " " + PdfNumber.Format(y2) + " l S");
 
+    // One line of WinAnsi text in the fill colour, its baseline from (x, y); special and high bytes are escaped.
     public PdfPage Text(PdfFont font, double size, double x, double y, string text)
     {
         if (double.IsNaN(size) || size <= 0)
@@ -94,6 +96,7 @@ public sealed class PdfPage
         }
     }
 
+    // The body of a PDF literal string; a character with no WinAnsi code throws, named by its code point and index.
     public static string Escape(string text)
     {
         if (text == null) { throw new ArgumentNullException(nameof(text)); }

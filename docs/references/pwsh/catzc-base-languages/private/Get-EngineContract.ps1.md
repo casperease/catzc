@@ -1,7 +1,7 @@
 # pwsh/Base.Languages/private/Get-EngineContract.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+`Get-EngineContract` is the private builder of the environment the Go, Python and Bash runners hand to the tests, so a test starts the
+engine the run is under without knowing which it is.
 
 ## help
 
@@ -59,11 +59,7 @@ The PowerShell entry for a build run. Default: the repository's importer.ps1 (th
 $contract = Get-EngineContract -Engine bash -EntryScript $buildEntry
 ```
 
-## comment:1
+## The entry
 
-Above `$entry = if ($model.Name -eq [Catzc.Base.Engines.ExecutionEngines]::Pwsh.Name) {`, written with `#`.
-
-```text
-The entry the engine itself loads: pwsh the PowerShell entry; any other engine its own importer in the repository,
+The entry is the one the engine itself loads: for pwsh the PowerShell entry, for any other engine its own importer in the repository,
 forward-slashed so a POSIX shell on Windows reads the path.
-```

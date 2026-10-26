@@ -1,7 +1,7 @@
 # pwsh/Base.Variants/Get-GitWorkspace.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The reader of the `git_workspace` variant: whether work lands on main directly or through a pull request, which the topic commands
+`Save-Topic` and `Push-Topic` branch on.
 
 ## help
 

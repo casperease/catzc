@@ -13,6 +13,7 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Base.Exporter;
 
+// One named bundle of exporter.yml, a release identity of its own: its modules, its own version line and its vendored packages.
 public sealed class ExporterBundle : Catzc.Base.Objects.DictionaryRecord
 {
     private static readonly string[] AllowedKeys = { "profile", "version", "vendor_policy", "max_files", "max_bytes" };

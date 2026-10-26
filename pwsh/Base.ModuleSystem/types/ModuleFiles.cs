@@ -14,6 +14,7 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Base.ModuleSystem;
 
+// One module's files.yml entry: the named packages of root-relative file artifacts the module owns.
 public sealed class ModuleFiles : Catzc.Base.Objects.DictionaryRecord
 {
     private static readonly Regex SnakeCase = new Regex("^[a-z][a-z0-9_]*$");

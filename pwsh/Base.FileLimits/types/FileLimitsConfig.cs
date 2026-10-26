@@ -273,6 +273,7 @@ public sealed class FileLimitsConfig
         exempt = exemptValue;
     }
 
+    // An override goes before the language lookup, exact file name first, then extension; it takes its class's defaults.
     public ResolvedFileLimit ResolveFile(string path, string language)
     {
         string fileName = System.IO.Path.GetFileName(path ?? string.Empty);

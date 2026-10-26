@@ -10,6 +10,7 @@ using System;
 
 namespace Catzc.Base.Drs;
 
+// One edge of the domain dependency graph, From depends on To; the constructor holds both ends non-empty and distinct.
 public sealed class DrsDomainEdge
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

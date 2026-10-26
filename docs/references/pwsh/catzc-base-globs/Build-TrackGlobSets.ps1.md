@@ -1,7 +1,8 @@
 # pwsh/Base.Globs/Build-TrackGlobSets.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The generator of `track-sets.yml`: it derives the patterns of every globset that `globs.yml` declares for a whole track, so no one writes
+them by hand ([FDR-CD-GLOBS-TRACKSETDERIVED](../../../drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-tracksetderived)). The help below
+describes how.
 
 ## help
 

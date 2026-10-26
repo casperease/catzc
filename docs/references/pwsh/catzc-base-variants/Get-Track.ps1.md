@@ -1,7 +1,7 @@
 # pwsh/Base.Variants/Get-Track.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The track lookup: every track the variants config declares, the named ones, or the one track that owns a path, by the longest place that
+contains it.
 
 ## help
 

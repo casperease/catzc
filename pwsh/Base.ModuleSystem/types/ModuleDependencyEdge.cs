@@ -10,6 +10,7 @@ using System;
 
 namespace Catzc.Base.ModuleSystem;
 
+// One module-to-module edge, typed for JSON, YAML, Markdown and PlantUML; an actual edge is a real cross-module call.
 public sealed class ModuleDependencyEdge
 {
     public string From { get; }

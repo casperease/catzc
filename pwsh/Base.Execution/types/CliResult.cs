@@ -11,6 +11,7 @@ using System.Collections.Generic;
 
 namespace Catzc.Base.Execution;
 
+// Stdout and stderr kept apart; the constructor derives every view, so they always agree.
 public sealed class CliResult
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
@@ -30,6 +31,7 @@ public sealed class CliResult
     // Output split into lines — the line-oriented view for callers that parse output row by row.
     public string[] Raw { get; }
 
+    // A binary run's exact stdout bytes; its Output is empty, since its stdout is not text.
     public byte[] Bytes { get; }
 
     public CliResult(byte[] stdout, string stderr, int exitCode) : this(string.Empty, stderr, exitCode)

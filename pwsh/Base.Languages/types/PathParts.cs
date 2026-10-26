@@ -14,6 +14,7 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Base.Languages;
 
+// A path under its module is an optional folder, a kebab-case name and a file type, and only that.
 public sealed class PathParts
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
@@ -44,6 +45,7 @@ public sealed class PathParts
         return dot > 0 && dot < file.Length - 1 ? file.Substring(dot + 1).ToLowerInvariant() : "";
     }
 
+    // Asserts the three parts build the path back, compared as kebab case.
     public static PathParts Of(string tail)
     {
         if (string.IsNullOrWhiteSpace(tail)) { throw new ArgumentException("path parts: the path is empty"); }

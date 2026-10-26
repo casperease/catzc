@@ -1,24 +1,13 @@
 # pwsh/Base.Variants/types/ModulePlace.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+A place under a root folder where modules of one type are found, and how a path in that place names its module.
 
-## comment:1
+## How a path names its module
 
-Above `public sealed class ModulePlace`, written with `//`.
+- **folder** — the first folder under the root, never a dot-prefixed one, with the place's prefix put before its PascalCase name when there
+  is one.
+- **file** — a file of the place's extension directly under the root, named without the extension.
+- **root** — the root folder itself, named by its last segment.
 
-```text
-A place under a root folder where modules of one type are found, and how a path in that place names its module:
-folder  the first folder under the root, never a dot-prefixed one, with the prefix put before its PascalCase when there is one;
-file    a file of the extension directly under the root, named without the extension;
-root    the root folder itself, named by its last segment.
-```
-
-## comment:2
-
-Above `public string TailOf(string path)`, written with `//`.
-
-```text
-The '/'-separated path of the file under the module NameOf names for it; call it only for a path NameOf placed. A file place's
-module is the file itself, so its tail is the file's name.
-```
+`TailOf` gives the `/`-separated path of a file under the module `NameOf` named for it; call it only for a path `NameOf` placed. A file
+place's module is the file itself, so its tail is the file's own name.
