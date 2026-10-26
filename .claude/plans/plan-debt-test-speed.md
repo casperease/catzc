@@ -40,12 +40,6 @@ folders. Heavy runs wait for a turn in the orchestrator's memory queue, one run 
       open question below (catzc-68, 2026-10-26). A red file is made green by its owner before its speed is touched, and a file measured
       with no safe gain is recorded as left as it is. Check: `Invoke-TestFile` twice per file, the same test names and `Should` count, an
       A/B of each cause with identical output, and `Test-ScriptAnalyzer -Path` at 0 on each changed file.
-- [ ] The parallel runner (catzc-68 has it): `CliRunner.RunMany(commandLines, throttle, …)`, each process bounded by its executable's limit,
-      and a public `Invoke-ExecutableParallel` over it that callers' L0 tests mock; the throttle a config entry whose default of 4 is
-      declared once on the config type. Check: its L0 and L1 tests green, `Test-ScriptAnalyzer -Path` at 0, and a fresh import after the
-      burst.
-- [ ] `Invoke-Prettier` runs its `Split-CommandLineBatch` batches through `Invoke-ExecutableParallel`. Check: the differing-file list over
-      the tree identical before and after, `Format-Code.Tests.ps1` green, and the prettier phase's time measured against 40.2 s serial.
 - [ ] `Test-Spelling` runs its default globs as extension shards through `Invoke-ExecutableParallel`, `.accosted.yml` excluded from the
       `*.yml` shard so "Files checked" sums exactly. Check: the issues identical on a seeded misspelling in each shard, "Files checked"
       equal to one process's, `Test-Spelling.Tests.ps1` green, and the time measured against 19.3 s.

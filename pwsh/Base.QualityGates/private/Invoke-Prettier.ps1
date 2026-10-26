@@ -25,9 +25,12 @@ function Invoke-Prettier {
     }
 
     $changed = [System.Collections.Generic.List[string]]::new()
-    foreach ($batch in @(Split-CommandLineBatch -Item $File)) {
-        $quoted = ($batch | ForEach-Object { "`"$_`"" }) -join ' '
-        $list = Invoke-Executable "prettier --list-different $quoted" -PassThru -NoAssert -Silent
+    $checks = @(foreach ($batch in @(Split-CommandLineBatch -Item $File)) {
+            $quoted = ($batch | ForEach-Object { "`"$_`"" }) -join ' '
+            "prettier --list-different $quoted"
+        })
+    # Each batch is its own node start, so the checks run side by side; the lists come back in batch order.
+    foreach ($list in @(Invoke-ExecutableParallel -Command $checks -NoAssert -Silent)) {
         if ($list.ExitCode -gt 1) {
             throw "Prettier failed (exit $($list.ExitCode)): $($list.Full)"
         }

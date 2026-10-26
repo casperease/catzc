@@ -19,8 +19,11 @@ Describe 'Invoke-Prettier' -Tag 'L0', 'logic' {
         $script:writeExit = 0
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.QualityGates { $script:repo }
         Mock Test-Command -ModuleName Catzc.Base.QualityGates { $true }
-        Mock Invoke-Executable -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Command -like 'prettier --list-different *' } {
-            [pscustomobject]@{ ExitCode = $script:listExit; Output = $script:listOut; Full = $script:listOut }
+        # The checks run side by side through the parallel runner, one result per batch.
+        Mock Invoke-ExecutableParallel -ModuleName Catzc.Base.QualityGates {
+            foreach ($line in $Command) {
+                [pscustomobject]@{ ExitCode = $script:listExit; Output = $script:listOut; Full = $script:listOut }
+            }
         }
         Mock Invoke-Executable -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Command -like 'prettier --write *' } {
             [pscustomobject]@{ ExitCode = $script:writeExit; Output = ''; Full = 'write failed' }
@@ -33,8 +36,8 @@ Describe 'Invoke-Prettier' -Tag 'L0', 'logic' {
             Invoke-Prettier -File $Files
         }
         $changed | Should -Be @($script:widget)
-        Should -Invoke Invoke-Executable -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter {
-            $Command -eq "prettier --list-different `"$script:widget`" `"$script:gadget`""
+        Should -Invoke Invoke-ExecutableParallel -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter {
+            @($Command) -join '|' -eq "prettier --list-different `"$script:widget`" `"$script:gadget`""
         }
         Should -Invoke Invoke-Executable -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter {
             $Command -eq "prettier --write `"$script:widget`""
@@ -58,6 +61,7 @@ Describe 'Invoke-Prettier' -Tag 'L0', 'logic' {
         $none = InModuleScope Catzc.Base.QualityGates { @(Invoke-Prettier -File @() | ForEach-Object { $_ }) }
         $none | Should -HaveCount 0
         Should -Invoke Invoke-Executable -ModuleName Catzc.Base.QualityGates -Times 0
+        Should -Invoke Invoke-ExecutableParallel -ModuleName Catzc.Base.QualityGates -Times 0
     }
 
     It 'throws a tool error when prettier exits greater than 1, and when a write fails' {
