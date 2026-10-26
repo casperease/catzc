@@ -12,9 +12,9 @@ import json
 import os
 from pathlib import Path
 
-from .declaration_constants import PAGE
-from .declaration_vocabulary import DeclarationError
-from .drawio_png_base import DEFAULTS
+from declaration_constants import PAGE
+from declaration_vocabulary import DeclarationError
+from drawio_png_base import DEFAULTS
 
 ROWS_VARIABLE = "CATZC_QUERY_ROWS"
 QUERY_LEVELS = ("C3", "C4")  # the levels whose cells come from a query

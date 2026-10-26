@@ -3,9 +3,9 @@
 """The shorthands a declaration expands before it is checked: the minimaps it shows, the cells a lane or a row stands for, and the end
 and orientation of its edges."""
 
-from .declaration_constants import ACTION_LENS, COMMIT_STATES, EFFECT_KEYS, LANE_KEYS, LANE_SLOT, LANE_SLOTS, SHORTHAND, SOURCE_ONLY
-from .declaration_dump import entry
-from .declaration_vocabulary import DeclarationError, choices
+from declaration_constants import ACTION_LENS, COMMIT_STATES, EFFECT_KEYS, LANE_KEYS, LANE_SLOT, LANE_SLOTS, SHORTHAND, SOURCE_ONLY
+from declaration_dump import entry
+from declaration_vocabulary import DeclarationError, choices
 
 
 def shown_minimaps(entries):

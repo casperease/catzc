@@ -5,14 +5,14 @@ chips, and place itself, the whole of them in order."""
 
 import html
 
-from . import declaration_settings
-from .declaration_cells import cell, edge_cell, ladder_rungs
-from .declaration_constants import ACTION_LENS, BYPASS_DIP, CHIP_CORNER, EDGE_DEADZONE, PAGE, PROOF_LENS, SHIFT_KEY, SPAN_LABEL, WORD_GAP
-from .declaration_edges import edge_word
-from .declaration_finish import finish
-from .declaration_place_action import place_action
-from .declaration_place_grid import place_grid
-from .declaration_routes import (
+import declaration_settings
+from declaration_cells import cell, edge_cell, ladder_rungs
+from declaration_constants import ACTION_LENS, BYPASS_DIP, CHIP_CORNER, EDGE_DEADZONE, PAGE, PROOF_LENS, SHIFT_KEY, SPAN_LABEL, WORD_GAP
+from declaration_edges import edge_word
+from declaration_finish import finish
+from declaration_place_action import place_action
+from declaration_place_grid import place_grid
+from declaration_routes import (
     LAST_ROUTES,
     WORD_MARGIN,
     auto_corner,
@@ -27,7 +27,7 @@ from .declaration_routes import (
     plan_aims,
     transition,
 )
-from .declaration_vocabulary import LIB, DeclarationError
+from declaration_vocabulary import LIB, DeclarationError
 
 
 def place_spans(frame):

@@ -4,9 +4,17 @@ usage (repo root, background): timeout 120 uv run --project python python -m pyt
 """
 
 import json
+import sys
+from pathlib import Path
 
 import pytest
-from catzc.diagrams import declaration, module_paths, query_rows
+
+# The kit folder joins the path first, so its scripts import by bare name as they do beside each other.
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+
+import declaration
+import module_paths
+import query_rows
 from conftest import WIDGETS
 
 POINT = "widgets/Widget.Kit"

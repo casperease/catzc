@@ -1,16 +1,19 @@
 """The minimap contract: the kit accepts the contract's sample and rejects a minimap JSON that breaks the schema.
 
-usage (repo root, background): timeout 120 uv run -q --project python python -m pytest python/diagrams/tests/test_minimap_contract.py
+usage (repo root, background): timeout 120 uv run -q --project python/diagrams python -m pytest python/diagrams/tests/test_minimap_contract.py
 """
 
 import json
+import sys
 from pathlib import Path
 
 import jsonschema
 import pytest
-from catzc.diagrams import minimap_contract
 
 KIT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(KIT))
+
+import minimap_contract
 
 SAMPLE = minimap_contract.SCHEMA.with_name("minimap.sample.json")
 

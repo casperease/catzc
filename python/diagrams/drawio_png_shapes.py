@@ -4,9 +4,8 @@ and its arrowheads, and the fonts."""
 
 import itertools
 
+from drawio_png_base import BACKGROUND, HALF_DISC_SEGMENTS, LINE, SCALE, SHADOW, SHADOW_BLUR, SHADOW_OFFSET, color, faded
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
-
-from .drawio_png_base import BACKGROUND, HALF_DISC_SEGMENTS, LINE, SCALE, SHADOW, SHADOW_BLUR, SHADOW_OFFSET, color, faded
 
 
 class Scaled:

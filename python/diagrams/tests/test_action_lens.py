@@ -10,11 +10,16 @@ import copy
 import itertools
 import math
 import re
+import sys
 from pathlib import Path
 
 import pytest
 import yaml
-from catzc.diagrams import declaration, declaration_settings
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+
+import declaration
+import declaration_settings
 
 FIXTURES = Path(__file__).resolve().parent / "action-lens"
 OUT = Path(__file__).resolve().parents[3] / "out" / "drawio"

@@ -11,7 +11,7 @@ from typing import Any
 
 import jsonschema
 
-from .module_paths import contract_file
+from module_paths import contract_file
 
 SCHEMA = contract_file("Catzc.Base.Maps", "minimap.schema.json")
 

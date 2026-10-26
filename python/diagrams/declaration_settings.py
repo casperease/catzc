@@ -6,9 +6,9 @@ The edge label presentation, the route of an edge whose ends share no x or y, th
 the kit's one-setting switches. A module reads them as `declaration_settings.NAME`, never by importing the value, so one assignment here
 reaches every reader."""
 
-from .declaration_constants import ACTION
-from .declaration_vocabulary import choices
-from .drawio_png import DEFAULTS
+from declaration_constants import ACTION
+from declaration_vocabulary import choices
+from drawio_png import DEFAULTS
 
 UNIFORM_LABEL = str(DEFAULTS["renderer"]["uniform-label"]).strip()  # legend | pills: where a word every flow edge shares is said
 if UNIFORM_LABEL not in ("legend", "pills"):

@@ -1,7 +1,7 @@
 # cspell:ignore mxfile minimaps pnginfo XMLMATCH
 """Fail-forward render of a .drawio.png: always a source copy and a result PNG, findings forwarded, never a silent stop.
 
-usage: uv run --project python python -m catzc.diagrams.drawio_forward <src.drawio.png> [<out_dir>] [--page dark|model]
+usage: uv run --with pillow python drawio_forward.py <src.drawio.png> [<out_dir>] [--page dark|model]
                                                      [--xml <model.xml | file.drawio>] [--assert <text.md>]
 
 Deterministic. <out_dir> defaults to renderer.out and --page to renderer.page of drawio.yml beside this script. Writes
@@ -13,7 +13,7 @@ lines) must appear in some cell label, whitespace-folded and case-folded. Exit 0
 file, nothing to forward. Prints one line per artifact (`src`, `result`, `model`, `report`), one per finding (`error`),
 then `status`.
 
-bulk:  uv run --project python python -m catzc.diagrams.drawio_forward [--theme <theme>] [--workers <n>] [--rows <file>] --all <root> [<root> ...]
+bulk:  uv run --with pillow python drawio_forward.py [--theme <theme>] [--workers <n>] [--rows <file>] --all <root> [<root> ...]
 
 --rows names the query rows file a C3 or C4 slide's cells are expanded from (query_rows.py); without it, no slide is expanded.
 
@@ -37,12 +37,11 @@ import sys
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
+import minimaps
+from drawio_forward_single import FINDINGS_EXIT, FORWARD, KIT, REPO, SLIDE, forward_one
+from drawio_png import DEFAULTS, THEMES, decode, encode, mxfile_chunk, paint, plain, render
 from PIL import Image
 from PIL.PngImagePlugin import PngInfo
-
-from . import minimaps
-from .drawio_forward_single import FINDINGS_EXIT, FORWARD, KIT, REPO, SLIDE, forward_one
-from .drawio_png import DEFAULTS, THEMES, decode, encode, mxfile_chunk, paint, plain, render
 
 ADR_CODE = re.compile(r"(?<![\w-])" + minimaps.kinds() + r"(?:-[A-Z][A-Z0-9]*)+(?![\w-])")
 NUMBERED = re.compile(r"(?<![\w-])" + minimaps.kinds() + r"(?:-[A-Z][A-Z0-9]*)+(?:[#:]\d|#\{)")
@@ -109,7 +108,7 @@ def tagged_library(model):
     (a glyph kind falls back to the language that is its default), so the library holds no tag word of its own."""
     from xml.sax.saxutils import quoteattr
 
-    from . import declaration
+    import declaration
 
     cell = lambda cell_id: re.search(
         rf'<mxCell\s+id="{cell_id}"\s+value="([^"]*)"\s+style="([^"]*)"[^>]*>\s*<mxGeometry\s+x="(-?\d+)"\s+y="(-?\d+)"\s+width="(\d+)"\s+height="(\d+)"',
@@ -218,7 +217,7 @@ def diagrams(root):
     """The diagrams under a root, by stem, or the root itself when it names one: each `<article-folder>/.assets/<name>` with a
     `<name>.drawio.png`, a `<name>.drawio.yml` whose first put has not been run yet, or a `yml drawio` block in an article above an
     image of it, which needs no png yet. The root may be a stem or a file of a pair."""
-    from . import declaration
+    import declaration
 
     root = Path(root)
     for suffix in (SLIDE, SOURCE):
@@ -251,7 +250,7 @@ def bulk(root, theme=None, bases=None):
         print("status error")
         return 3
     # A diagram with a declaration is put from it, minimaps included; a diagram without one is only checked and reported.
-    from . import declaration
+    import declaration
 
     declared = [f for f in folders if declaration.declared(f)]
     folders = [f for f in folders if f not in declared]
@@ -335,7 +334,7 @@ def main():
                 raise SystemExit(f"theme '{theme}' is not one of: {', '.join(THEMES)}")
         if "--rows" in args:  # the query rows' address, named by Build-Diagrams; the spawned workers inherit it (DDR-VISUAL-ZOOMISANAXIS)
             i = args.index("--rows")
-            from . import query_rows
+            import query_rows
 
             os.environ[query_rows.ROWS_VARIABLE] = str(Path(args[i + 1]).resolve())
             del args[i : i + 2]
@@ -366,7 +365,7 @@ def main():
 
 def batch_bases(roots):
     """The committed pairs of every declared diagram under the roots, read once for the whole batch."""
-    from . import declaration
+    import declaration
 
     # A root that cannot be listed raises again in its own bulk, which reports it; here it only leaves the batch without bases.
     try:
@@ -379,7 +378,7 @@ def batch_bases(roots):
 def bulk_roots(roots, theme, bases=None):
     """Rebuild each root in turn in this process, each ending with its JSON row; returns the worst exit code."""
     # Many roots share one process, so the imports and the loaded registries are paid once; each root ends with its own row.
-    from . import declaration
+    import declaration
 
     worst = 0
     for root in roots:

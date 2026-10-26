@@ -7,10 +7,10 @@ import html
 import itertools
 import math
 
-from . import declaration_settings
-from .declaration_cells import cell
-from .declaration_constants import COMMITS, GHOST, LABEL_HEAD_CLEAR, LABEL_TAIL_CLEAR, WORD_GAP
-from .drawio_png import DEFAULTS, font
+import declaration_settings
+from declaration_cells import cell
+from declaration_constants import COMMITS, GHOST, LABEL_HEAD_CLEAR, LABEL_TAIL_CLEAR, WORD_GAP
+from drawio_png import DEFAULTS, font
 
 
 def marker_xy(box, corner):

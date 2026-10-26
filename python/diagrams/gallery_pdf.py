@@ -1,8 +1,8 @@
 # cspell:ignore minimaps consola cour arialbd textlength
 """Write a gallery PDF: every diagram output as image pages, for readers without an HTML viewer.
 
-usage: uv run -q --project python python -m catzc.diagrams.gallery_pdf [<slides-dir>]
-       uv run -q --project python python -m catzc.diagrams.gallery_pdf --assets [<assets-dir>] [--no-text]
+usage: uv run -q --with pillow python python/diagrams/gallery_pdf.py [<slides-dir>]
+       uv run -q --with pillow python python/diagrams/gallery_pdf.py --assets [<assets-dir>] [--no-text]
 
 Assets mode writes out/diagrams/assets-gallery.pdf: every PNG under <assets-dir> (default docs/.assets) in path order, captioned
 with its folder, each followed by its description as a text page: for a declared diagram the `description:` of the
@@ -20,9 +20,8 @@ import re
 import sys
 from pathlib import Path
 
+from module_paths import module_file
 from PIL import Image, ImageDraw, ImageFont
-
-from .module_paths import module_file
 
 ROOT = Path("out/diagrams")
 WIDTH = 1600

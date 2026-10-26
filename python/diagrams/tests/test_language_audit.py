@@ -1,8 +1,14 @@
 """The language audit lists every code glyph with its language, tags and fallback flag, on widget and gadget fixtures, and writes one report."""
 
+import sys
+from pathlib import Path
 
 import pytest
-from catzc.diagrams import language_audit, languages_table
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+
+import language_audit
+import languages_table
 
 ROWS = {
     "widgetshell": {"tag": "wsh", "extensions": [".wsh"], "shapes": [r"^Widget-[A-Z]\w+$"]},

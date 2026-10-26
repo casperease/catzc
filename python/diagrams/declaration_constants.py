@@ -6,8 +6,7 @@ lens numbers, the page and the grid, the commit states and the cell styles."""
 from pathlib import Path
 
 import yaml
-
-from .drawio_png import DEFAULTS
+from drawio_png import DEFAULTS
 
 # libyaml's safe loader parses when it is present; the pure-Python one is several times slower. Every kit read goes through it.
 LOADER = getattr(yaml, "CSafeLoader", yaml.SafeLoader)

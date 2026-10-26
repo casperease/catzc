@@ -17,7 +17,7 @@ metadata:
 # drawio-renderer
 
 1. Deterministic, background Bash, absolute paths:
-   `timeout 360 uv run -q --project <repo>/python python -m catzc.diagrams.drawio_forward <src> [<out_dir>]` plus any of
+   `timeout 360 uv run -q --with pillow python <repo>/python/diagrams/drawio_forward.py <src> [<out_dir>]` plus any of
    `--page dark|model`, `--xml <model>`, `--assert <text.md>`, `--minimaps`; a landed diagram is never sliced by hand:
    `Build-Diagrams [-Path <name>.drawio.yml]` renders it (ADR-REPO-SLIDES-ONEBUILDCOMMAND); defaults (out_dir, page) come from
    `python/diagrams/configs/drawio.yml`; exit 0 clean, 2 warnings with every artifact still delivered, 3 no source, 124 the safeguard.

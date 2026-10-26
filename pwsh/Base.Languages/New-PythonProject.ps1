@@ -100,29 +100,14 @@ function New-PythonProject {
         else {
             $Folder
         } }
-    # A module imports as the track's namespace, a dot, and its folder: the package the build backend maps onto the short folder.
-    $importName = { param([string] $Folder) if ($null -ne $track -and $track.namespace) {
-            "$($track.namespace).$Folder"
-        }
-        else {
-            $Folder
-        } }
     $members = @(foreach ($folder in $folders) {
-            [pscustomobject]@{ Name = (& $fullName $folder); Folder = "tests/$folder"; Package = $null }
+            [pscustomobject]@{ Name = (& $fullName $folder); Folder = "tests/$folder" }
         }) +
     @(foreach ($module in $modules) {
-            [pscustomobject]@{ Name = [Catzc.Base.Objects.NameCase]::Render((& $fullName $module), 'kebab'); Folder = $module
-                Package = (& $importName $module)
-            }
+            [pscustomobject]@{ Name = [Catzc.Base.Objects.NameCase]::Render((& $fullName $module), 'kebab'); Folder = $module }
         })
     foreach ($entry in $members) {
         $member = [System.Collections.Generic.List[string]]::new()
-        if ($entry.Package) {
-            $member.Add('[build-system]')
-            $member.Add("requires = [`"$($config.build_distribution)==$($config.build_version)`"]")
-            $member.Add("build-backend = `"$($config.build_module)`"")
-            $member.Add('')
-        }
         $member.Add('[project]')
         $member.Add("name = `"$($entry.Name)`"")
         $member.Add('version = "0.0.0"')
@@ -134,16 +119,8 @@ function New-PythonProject {
         }
         $member.Add(']')
         $member.Add('')
-        if ($entry.Package) {
-            $member.Add('[tool.setuptools]')
-            $member.Add("packages = [`"$($entry.Package)`"]")
-            $member.Add('')
-            $member.Add('[tool.setuptools.package-dir]')
-            $member.Add("`"$($entry.Package)`" = `".`"")
-            $member.Add('')
-        }
         $member.Add('[tool.uv]')
-        $member.Add("package = $(if ($entry.Package) { 'true' } else { 'false' })")
+        $member.Add('package = false')
         $files.Add([Catzc.Base.Languages.PythonWorkspaceFile]::new("$pythonRoot/$($entry.Folder)/pyproject.toml",
                 ($member -join "`n") + "`n"))
     }

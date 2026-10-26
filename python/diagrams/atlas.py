@@ -1,7 +1,7 @@
 # cspell:ignore minimaps lightbox
 """Build the clickable review page for claude.ai: out/atlas.html plus the list of files it references.
 
-usage: uv run -q --project python python -m catzc.diagrams.atlas
+usage: uv run -q python python/diagrams/atlas.py
 
 Writes out/atlas.html (a self-contained page whose data is an embedded JSON catalogue) and out/atlas.files.json (the
 out/-relative paths to publish beside it, split into batches of at most 250 for the Artifact tool's per-publish limit).

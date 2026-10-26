@@ -16,15 +16,15 @@ get:  the XML embedded in the .drawio.png becomes the declaration again, written
       same declaration, get then put the same XML.
 
 usage (repo root, background):
-  uv run --no-sync --project python python -m catzc.diagrams.declaration put <diagram> [--xml <out.xml>]
-  uv run --no-sync --project python python -m catzc.diagrams.declaration get <diagram>
-  uv run --no-sync --project python python -m catzc.diagrams.declaration check <diagram>...
-  uv run --no-sync --project python python -m catzc.diagrams.declaration sync <diagram>
-  uv run --no-sync --project python python -m catzc.diagrams.declaration tidy <diagram>
-  uv run --no-sync --project python python -m catzc.diagrams.declaration minimaps <diagram>
-  uv run --no-sync --project python python -m catzc.diagrams.declaration reflow <diagram>
-  uv run --no-sync --project python python -m catzc.diagrams.declaration carry <diagram> article|file
-  uv run --no-sync --project python python -m catzc.diagrams.declaration rekey <from-stem> <to-stem> [<drawio.yml>]
+  uv run --no-sync --project python python python/diagrams/declaration.py put <diagram> [--xml <out.xml>]
+  uv run --no-sync --project python python python/diagrams/declaration.py get <diagram>
+  uv run --no-sync --project python python python/diagrams/declaration.py check <diagram>...
+  uv run --no-sync --project python python python/diagrams/declaration.py sync <diagram>
+  uv run --no-sync --project python python python/diagrams/declaration.py tidy <diagram>
+  uv run --no-sync --project python python python/diagrams/declaration.py minimaps <diagram>
+  uv run --no-sync --project python python python/diagrams/declaration.py reflow <diagram>
+  uv run --no-sync --project python python python/diagrams/declaration.py carry <diagram> article|file
+  uv run --no-sync --project python python python/diagrams/declaration.py rekey <from-stem> <to-stem> [<drawio.yml>]
 (<diagram> is the stem `.assets/<name>` or either file of its pair; `--rows <file>` before any direction names the query rows a C3 or C4
 slide is expanded from, as the renderer takes it)
 
@@ -39,10 +39,11 @@ import json
 import sys
 from pathlib import Path
 
-from . import edge_rules, minimaps
-from .declaration_action_content import WRAP_GLUED, WRAP_LATE, WRAP_SPACED, cause_sizes, contract_call, unwrap_lines, wrap_line
-from .declaration_cells import TAGGED_KINDS, glyph_tags, ladder_rungs
-from .declaration_constants import (
+import edge_rules
+import minimaps
+from declaration_action_content import WRAP_GLUED, WRAP_LATE, WRAP_SPACED, cause_sizes, contract_call, unwrap_lines, wrap_line
+from declaration_cells import TAGGED_KINDS, glyph_tags, ladder_rungs
+from declaration_constants import (
     ACTION,
     ACTION_MARGIN,
     ACTION_WIDTH,
@@ -57,15 +58,15 @@ from .declaration_constants import (
     OPERATORS,
     PAD,
 )
-from .declaration_dump import dump, flow_yaml, print_width
-from .declaration_expand import shown_minimaps, undrawn
-from .declaration_get import get
-from .declaration_normalise import normalise
-from .declaration_place import place
-from .declaration_read import model_of, shift_of
-from .declaration_routes import LAST_ROUTES, cross_segment, segment_hits_rect
-from .declaration_settings import LABEL_PRESENTATIONS
-from .declaration_source import (
+from declaration_dump import dump, flow_yaml, print_width
+from declaration_expand import shown_minimaps, undrawn
+from declaration_get import get
+from declaration_normalise import normalise
+from declaration_place import place
+from declaration_read import model_of, shift_of
+from declaration_routes import LAST_ROUTES, cross_segment, segment_hits_rect
+from declaration_settings import LABEL_PRESENTATIONS
+from declaration_source import (
     FENCE,
     article_stems,
     articles,
@@ -81,7 +82,7 @@ from .declaration_source import (
     slide_of,
     source_of,
 )
-from .declaration_sync import (
+from declaration_sync import (
     committed,
     committed_batch,
     conflict,
@@ -95,8 +96,8 @@ from .declaration_sync import (
     sync,
     with_data,
 )
-from .declaration_vocabulary import EDGE_KINDS, EDGE_LABELS, EDGE_SEMANTICS, GLYPH_KINDS, LIB, DeclarationError, choices, span_vocabulary
-from .drawio_png import DEFAULTS, paint, plain, render, style_map
+from declaration_vocabulary import EDGE_KINDS, EDGE_LABELS, EDGE_SEMANTICS, GLYPH_KINDS, LIB, DeclarationError, choices, span_vocabulary
+from drawio_png import DEFAULTS, paint, plain, render, style_map
 
 __all__ = [
     "ACTION",
@@ -187,13 +188,13 @@ def main():
     if "--rows" in args:  # the query rows' address, named by its caller, so a check puts a C3 or C4 slide as its render did
         import os
 
-        from . import query_rows
+        import query_rows
 
         i = args.index("--rows")
         os.environ[query_rows.ROWS_VARIABLE] = str(Path(args[i + 1]).resolve())
         del args[i : i + 2]
     if len(args) >= 2 and args[0] == "check":  # one JSON line per diagram: conflicted or drifted cells, stale minimaps, or the error
-        from . import drawio_forward
+        import drawio_forward
 
         for name in args[1:]:
             folder = diagram_of(name)

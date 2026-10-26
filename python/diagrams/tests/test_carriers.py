@@ -1,6 +1,6 @@
 """The carrier of a diagram's declaration: derived from what is on disk, with the kit's drawio.yml declaring only the default for a diagram with neither.
 
-usage (repo root, background): timeout 120 uv run -q --project python python -m pytest python/diagrams/tests
+usage (repo root, background): timeout 120 uv run -q --project python/diagrams python -m pytest python/diagrams/tests
 """
 
 import sys
@@ -9,10 +9,13 @@ from pathlib import Path
 import pytest
 import yaml
 
-# The tests folder joins the path, so the shared widget fixture imports by name under any import mode.
+# The kit folder joins the path first, so its scripts import by bare name as they do beside each other; the tests folder joins too,
+# so the shared widget fixture imports by name under any import mode.
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from catzc.diagrams import declaration, declaration_source
+import declaration
+import declaration_source
 from conftest import WIDGETS
 
 HEAD = "# ---\n# catzc:\n#   immutable:\n#     with_body_sha: 0123456789ab\n# ---\n\n"

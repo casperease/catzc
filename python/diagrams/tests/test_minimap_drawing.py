@@ -1,16 +1,22 @@
 # cspell:ignore minimaps
 """A minimap drawn from its contract data: every shape of data draws, and what is lit is what shows.
 
-usage (repo root, background): timeout 120 uv run --project python python -m pytest python/diagrams/tests/test_minimap_drawing.py
+usage (repo root, background): timeout 120 uv run --project python/diagrams python -m pytest python/diagrams/tests/test_minimap_drawing.py
 """
 
 import copy
 import itertools
 import json
+import sys
+from pathlib import Path
 
 import pytest
-from catzc.diagrams import minimap_contract, minimaps
-from catzc.diagrams.module_paths import module_path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+
+import minimap_contract
+import minimaps
+from module_paths import module_path
 
 SAMPLE = minimap_contract.SCHEMA.with_name("minimap.sample.json")
 

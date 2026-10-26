@@ -1,9 +1,15 @@
 """The language tags of a code glyph: derived from the shape of its label by one table, the override validated, a command listing every form."""
 
 import re
+import sys
+from pathlib import Path
 
 import pytest
-from catzc.diagrams import declaration, languages_table
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+
+import declaration
+import languages_table
 
 WIDGET_ROWS = {
     "widgetshell": {"tag": "wsh", "extensions": [".wsh"], "shapes": ["^Widget-[A-Z]\\w+$"]},

@@ -35,15 +35,8 @@ public sealed class PythonConfig : Catzc.Base.Objects.DictionaryRecord
     // Where Python writes compiled bytecode (PYTHONPYCACHEPREFIX), instead of __pycache__ beside the sources.
     public const string DefaultPycache = "out/pycache";
 
-    // The build backend every module member is packaged by: its distribution, exact version and backend module.
-    public const string DefaultBuildDistribution = "setuptools";
-    public const string DefaultBuildVersion = "80.9.0";
-    public const string DefaultBuildModule = "setuptools.build_meta";
-
     private const string Failed = "python config validation failed:\n";
-    private static readonly string[] AllowedKeys = { "root", "dependencies", "type_checking", "pytest_cache", "pycache", "build_backend" };
-    private static readonly string[] BuildBackendKeys = { "distribution", "version", "module" };
-    private static readonly Regex ModuleName = new Regex(@"^[A-Za-z_][A-Za-z0-9_]*(\.[A-Za-z_][A-Za-z0-9_]*)*$");
+    private static readonly string[] AllowedKeys = { "root", "dependencies", "type_checking", "pytest_cache", "pycache" };
     private static readonly string[] RequiredDependencies = { "pyright", "pytest", "ruff" };
     private static readonly string[] TypeCheckingModes = { "off", "basic", "standard", "strict" };
     private static readonly Regex Root = new Regex(@"^[A-Za-z0-9._-]+(/[A-Za-z0-9._-]+)*$");
@@ -63,15 +56,6 @@ public sealed class PythonConfig : Catzc.Base.Objects.DictionaryRecord
 
     // The repository-relative folder of Python's bytecode cache, of the test bridge and the editor's terminals alike.
     public string pycache { get; } = DefaultPycache;
-
-    // The build backend's distribution, pinned in [build-system] requires of every module member.
-    public string build_distribution { get; } = DefaultBuildDistribution;
-
-    // Its exact version: no range, so every sync builds with the same backend.
-    public string build_version { get; } = DefaultBuildVersion;
-
-    // Its backend module, the [build-system] build-backend.
-    public string build_module { get; } = DefaultBuildModule;
 
     public PythonConfig(IDictionary raw)
     {
@@ -114,43 +98,6 @@ public sealed class PythonConfig : Catzc.Base.Objects.DictionaryRecord
 
             pytest_cache = Folder(raw, "pytest_cache", DefaultPytestCache, errors);
             pycache = Folder(raw, "pycache", DefaultPycache, errors);
-
-            if (raw.Contains("build_backend") && raw["build_backend"] != null)
-            {
-                if (raw["build_backend"] is not IDictionary backend)
-                {
-                    errors.Add("invalid build_backend (must be a map of distribution, version and module, e.g. { distribution: setuptools, version: 80.9.0, module: setuptools.build_meta })");
-                }
-                else
-                {
-                    foreach (object k in backend.Keys)
-                    {
-                        string key = Convert.ToString(k, CultureInfo.InvariantCulture);
-                        if (Array.IndexOf(BuildBackendKeys, key) < 0)
-                        {
-                            errors.Add(string.Format(CultureInfo.InvariantCulture, "build_backend: unknown key '{0}' (allowed: {1})", key, string.Join(", ", BuildBackendKeys)));
-                        }
-                    }
-                    string distribution = backend.Contains("distribution") ? Convert.ToString(backend["distribution"], CultureInfo.InvariantCulture) : DefaultBuildDistribution;
-                    string version = backend.Contains("version") ? Convert.ToString(backend["version"], CultureInfo.InvariantCulture) : DefaultBuildVersion;
-                    string module = backend.Contains("module") ? Convert.ToString(backend["module"], CultureInfo.InvariantCulture) : DefaultBuildModule;
-                    if (DistributionName.IsMatch(distribution ?? "")) { build_distribution = distribution; }
-                    else
-                    {
-                        errors.Add(string.Format(CultureInfo.InvariantCulture, "invalid build_backend.distribution '{0}' (a normalised distribution name)", distribution));
-                    }
-                    if (ExactVersion.IsMatch(version ?? "")) { build_version = version; }
-                    else
-                    {
-                        errors.Add(string.Format(CultureInfo.InvariantCulture, "invalid build_backend.version '{0}' (an exact version, digits and dots, e.g. 80.9.0)", version));
-                    }
-                    if (ModuleName.IsMatch(module ?? "")) { build_module = module; }
-                    else
-                    {
-                        errors.Add(string.Format(CultureInfo.InvariantCulture, "invalid build_backend.module '{0}' (a dotted Python module name)", module));
-                    }
-                }
-            }
 
             if (raw.Contains("dependencies") && raw["dependencies"] != null)
             {

@@ -4,9 +4,16 @@
 usage (repo root, background): timeout 120 uv run --project python python -m pytest python/diagrams/tests/test_declaration_cells.py
 """
 
+import sys
+from pathlib import Path
 
 import pytest
-from catzc.diagrams import declaration, declaration_sync
+
+# The kit folder joins the path first, so its scripts import by bare name as they do beside each other.
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+
+import declaration
+import declaration_sync
 from conftest import WIDGETS, claimed, committed_pair
 
 

@@ -54,24 +54,7 @@ Describe 'PythonConfig' -Tag 'L0' {
             $moved.pycache | Should -Be 'gadget'
         }
 
-        It 'builds with the declared backend unless the file names another, filling an omitted field from its default' {
-            $default = [Catzc.Base.Languages.PythonConfig]::new([ordered]@{ dependencies = $script:pins })
-            $default.build_distribution | Should -Be ([Catzc.Base.Languages.PythonConfig]::DefaultBuildDistribution)
-            $default.build_version | Should -Be ([Catzc.Base.Languages.PythonConfig]::DefaultBuildVersion)
-            $default.build_module | Should -Be ([Catzc.Base.Languages.PythonConfig]::DefaultBuildModule)
-            $moved = [Catzc.Base.Languages.PythonConfig]::new([ordered]@{
-                    dependencies = $script:pins; build_backend = [ordered]@{ distribution = 'widget-build'; version = '1.2' }
-                })
-            $moved.build_distribution | Should -Be 'widget-build'
-            $moved.build_version | Should -Be '1.2'
-            $moved.build_module | Should -Be ([Catzc.Base.Languages.PythonConfig]::DefaultBuildModule)
-        }
-
         It 'rejects <Case>, naming it' -ForEach @(
-            @{ Case = 'a build backend version range'; Raw = [ordered]@{ build_backend = [ordered]@{ version = '>=80' }; dependencies = [ordered]@{ pyright = '1.1.414'; pytest = '9.1.1'; ruff = '0.17.0' } }; Message = "*build_backend.version '>=80'*exact version*" }
-            @{ Case = 'a build backend module that is no module name'; Raw = [ordered]@{ build_backend = [ordered]@{ module = 'widget build' }; dependencies = [ordered]@{ pyright = '1.1.414'; pytest = '9.1.1'; ruff = '0.17.0' } }; Message = "*build_backend.module 'widget build'*" }
-            @{ Case = 'an unknown build backend key'; Raw = [ordered]@{ build_backend = [ordered]@{ gadget = 1 }; dependencies = [ordered]@{ pyright = '1.1.414'; pytest = '9.1.1'; ruff = '0.17.0' } }; Message = "*build_backend: unknown key 'gadget'*" }
-            @{ Case = 'a build backend that is not a map'; Raw = [ordered]@{ build_backend = 'setuptools'; dependencies = [ordered]@{ pyright = '1.1.414'; pytest = '9.1.1'; ruff = '0.17.0' } }; Message = '*invalid build_backend*' }
             @{ Case = 'an unknown key'; Raw = [ordered]@{ dependencies = [ordered]@{ pyright = '1.1.414'; pytest = '9.1.1'; ruff = '0.17.0' }; gadget = 1 }; Message = "*unknown key 'gadget'*" }
             @{ Case = 'a missing pytest pin'; Raw = [ordered]@{ dependencies = [ordered]@{ pyright = '1.1.414'; ruff = '0.17.0' } }; Message = "*must pin 'pytest'*" }
             @{ Case = 'a missing pyright pin'; Raw = [ordered]@{ dependencies = [ordered]@{ pytest = '9.1.1'; ruff = '0.17.0' } }; Message = "*must pin 'pyright'*" }

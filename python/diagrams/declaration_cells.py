@@ -5,10 +5,10 @@
 import html
 import re
 
-from . import languages_table
-from .declaration_constants import BADGE, BAND, BAND_TITLE, LEGEND, NOTE, PAGE, SUBTITLE, TITLE
-from .declaration_vocabulary import LIB
-from .drawio_png import DEFAULTS, style_map
+import languages_table
+from declaration_constants import BADGE, BAND, BAND_TITLE, LEGEND, NOTE, PAGE, SUBTITLE, TITLE
+from declaration_vocabulary import LIB
+from drawio_png import DEFAULTS, style_map
 
 # ---- put: the declaration becomes the model ------------------------------------------------------------------------
 

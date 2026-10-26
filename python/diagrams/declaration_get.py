@@ -5,9 +5,9 @@
 import re
 import xml.etree.ElementTree as ET
 
-from . import query_rows
-from .declaration_cells import TAG_ID, TAGGED_KINDS
-from .declaration_constants import (
+import query_rows
+from declaration_cells import TAG_ID, TAGGED_KINDS
+from declaration_constants import (
     BAND,
     CHIP_CORNER,
     COMMIT_STATES,
@@ -20,14 +20,14 @@ from .declaration_constants import (
     SIDEBAR,
     SPAN_LABEL,
 )
-from .declaration_dump import brief
-from .declaration_get_action import get_action, get_proof
-from .declaration_normalise import normalise
-from .declaration_place import place
-from .declaration_read import matches, shift_of, signature
-from .declaration_routes import auto_corner, edge_middle
-from .declaration_vocabulary import LIB, DeclarationError
-from .drawio_png import DEFAULTS, plain, style_map
+from declaration_dump import brief
+from declaration_get_action import get_action, get_proof
+from declaration_normalise import normalise
+from declaration_place import place
+from declaration_read import matches, shift_of, signature
+from declaration_routes import auto_corner, edge_middle
+from declaration_vocabulary import LIB, DeclarationError
+from drawio_png import DEFAULTS, plain, style_map
 
 
 def get(model, kind=None):

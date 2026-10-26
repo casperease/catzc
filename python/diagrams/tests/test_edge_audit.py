@@ -1,8 +1,12 @@
 """The edge audit judges every declared edge by the arrow rule and writes only its two reports, on neutral widget and gadget fixtures."""
 
 import csv
+import sys
+from pathlib import Path
 
-from catzc.diagrams import edge_audit
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+
+import edge_audit
 
 HEAD = """
 about:

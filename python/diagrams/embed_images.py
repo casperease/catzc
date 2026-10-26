@@ -1,6 +1,6 @@
 """Embed PNG files into a draw.io model's image cells, as data URIs.
 
-usage: uv run -q --project python python -m catzc.diagrams.embed_images <model.xml> <cell-id>=<file.png> [<cell-id>=<file.png> ...]
+usage: uv run -q --with pillow python embed_images.py <model.xml> <cell-id>=<file.png> [<cell-id>=<file.png> ...]
 
 Each named cell must already exist and carry `shape=image` in its style. Its `image=` value is replaced with
 `data:image/png,<base64>` (draw.io's in-style form: a comma, with no `;base64`, because `;` separates style keys). The PNG

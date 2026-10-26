@@ -5,8 +5,8 @@ against the rules of edge-semantics."""
 
 import re
 
-from . import edge_rules
-from .declaration_vocabulary import EDGE_LABELS, EDGE_SEMANTICS, DeclarationError
+import edge_rules
+from declaration_vocabulary import EDGE_LABELS, EDGE_SEMANTICS, DeclarationError
 
 
 def end_kinds(out):

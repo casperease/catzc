@@ -7,7 +7,7 @@ whose edges keep their declared direction (`trusted-kinds`). declaration.py
 reads this module to orient and label an edge, and edge_audit.py reads it to judge one: there is no second copy.
 """
 
-from .drawio_png import DEFAULTS
+from drawio_png import DEFAULTS
 
 
 class RuleError(ValueError):
