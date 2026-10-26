@@ -184,10 +184,10 @@ def test_a_marker_on_a_routed_edge_sits_halfway_along_its_waypoints_and_comes_ba
 
 def test_a_span_may_name_a_track_of_the_registry_and_nothing_else():
     raw = __import__("yaml").safe_load(WIDGETS)
-    raw["content"]["spans"][0]["label"] = "ado-pipelines"
-    assert declaration.normalise(raw)["content"]["spans"][0]["label"] == "ado-pipelines"
+    raw["content"]["spans"][0]["label"] = "vendor_ado.pipelines"
+    assert declaration.normalise(raw)["content"]["spans"][0]["label"] == "vendor_ado.pipelines"
     raw["content"]["spans"][0]["label"] = "pipelines"
-    with pytest.raises(declaration.DeclarationError, match="ado-pipelines"):
+    with pytest.raises(declaration.DeclarationError, match=r"vendor_ado\.pipelines"):
         declaration.normalise(raw)
 
 
