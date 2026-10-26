@@ -10,7 +10,7 @@ concepts:
     domain: design
     defined_by: DDR-TRACK-DEPLOYABLEUNIT
     short: What ships — a whole track or a reduced composition — bound one-to-one to its pipeline.
-    realized_by: { kind: config-key, pattern: "pwsh/Catzc.Base.Globs/configs/globs/globs.yml" }
+    realized_by: { kind: config-key, pattern: "pwsh/Base.Globs/configs/globs/globs.yml" }
     contrasts:
       release candidate:
         A release candidate is one commit's tagged, immutable build of a deployable-unit; a deployable-unit is the composition that ships,
@@ -56,7 +56,7 @@ concepts:
     short:
       The track at `.unordered` where imports land; the unordered part of the repository is whatever is still under it, and nothing internal
       reads or falls back to it.
-    realized_by: { kind: config-key, pattern: "pwsh/Catzc.Base.Variants/configs/variants.yml" }
+    realized_by: { kind: config-key, pattern: "pwsh/Base.Variants/configs/variants.yml" }
   import:
     key: import
     domain: design
@@ -106,7 +106,7 @@ concepts:
     short:
       The name a modules track declares once and joins to each module folder's name to form the module's full name, so the folders are named
       without it.
-    realized_by: { kind: config-key, pattern: "pwsh/Catzc.Base.Variants/configs/variants.yml" }
+    realized_by: { kind: config-key, pattern: "pwsh/Base.Variants/configs/variants.yml" }
   module:
     key: module
     domain: design
@@ -120,7 +120,7 @@ concepts:
     short:
       A modules track of one language — pwsh, python, go, bash — holding its modules as folders under its root and its own test holder under
       tests/, the same way for every language.
-    realized_by: { kind: config-key, pattern: "pwsh/Catzc.Base.Variants/configs/module-types.yml" }
+    realized_by: { kind: config-key, pattern: "pwsh/Base.Variants/configs/module-types.yml" }
   layout:
     key: layout
     domain: automation
@@ -128,7 +128,7 @@ concepts:
     short:
       The one table of folders inside a module and what each holds, declared once under each file language and read by every command that
       reads a module's folders.
-    realized_by: { kind: config-key, pattern: "pwsh/Catzc.Base.Languages/configs/languages.yml" }
+    realized_by: { kind: config-key, pattern: "pwsh/Base.Languages/configs/languages.yml" }
   track type:
     key: track_type
     domain: design

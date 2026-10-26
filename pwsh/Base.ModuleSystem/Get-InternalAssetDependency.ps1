@@ -39,10 +39,12 @@ function Get-InternalAssetDependency {
         $null
     }
 
-    $moduleNames = [string[]] @(
+    # A record names its module by its full name; the folder, which drops the namespace, builds the paths.
+    $moduleFolders = @(
         Get-ChildPath $ModulesRoot -Depth 1 -Directory |
-            ForEach-Object { [System.IO.Path]::GetFileName($_) } |
-            Where-Object { -not $_.StartsWith('.') -and (-not $Module -or $_ -in $Module) }
+            Where-Object { -not [System.IO.Path]::GetFileName($_).StartsWith('.') } |
+            ForEach-Object { [pscustomobject]@{ Folder = [System.IO.Path]::GetFileName($_); Name = (Get-ModuleFolderFullName $_) } } |
+            Where-Object { -not $Module -or $_.Name -in $Module }
     )
 
     $records = [System.Collections.Generic.List[object]]::new()
@@ -50,16 +52,18 @@ function Get-InternalAssetDependency {
 
     $walk = Get-Config -Config folder-walk
     $privateFolderName = (Get-Config -Config languages).FolderOf('private-function')
-    foreach ($moduleName in $moduleNames) {
-        $moduleDirectory = Join-Path $ModulesRoot $moduleName
+    foreach ($moduleFolder in $moduleFolders) {
+        $moduleName = $moduleFolder.Name
+        $folderName = $moduleFolder.Folder
+        $moduleDirectory = Join-Path $ModulesRoot $folderName
         $files = [System.Collections.Generic.List[object]]::new()
         foreach ($path in [Catzc.Base.Folders.PathSet]::new($walk).AddPattern($moduleDirectory, '*.ps1', 1).ToArray()) {
-            $files.Add([pscustomobject]@{ Path = $path; Relative = "$modulesFolder/$moduleName/$([System.IO.Path]::GetFileName($path))" })
+            $files.Add([pscustomobject]@{ Path = $path; Relative = "$modulesFolder/$folderName/$([System.IO.Path]::GetFileName($path))" })
         }
         $privateDirectory = Join-Path $moduleDirectory $privateFolderName
         foreach ($path in [Catzc.Base.Folders.PathSet]::new($walk).AddPattern($privateDirectory, '*.ps1',
                 1).ToArray()) {
-            $files.Add([pscustomobject]@{ Path = $path; Relative = "$modulesFolder/$moduleName/$privateFolderName/$([System.IO.Path]::GetFileName($path))" })
+            $files.Add([pscustomobject]@{ Path = $path; Relative = "$modulesFolder/$folderName/$privateFolderName/$([System.IO.Path]::GetFileName($path))" })
         }
 
         foreach ($file in ($files | Sort-Object Relative)) {

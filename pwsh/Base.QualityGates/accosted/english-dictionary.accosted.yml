@@ -1,6 +1,6 @@
 # The proof runs of the action diagram "Building the English dictionary writes one stamped word list" (docs/explanation/automation):
 # one harmless observation per effect ([ADR-AUTO-ACCOSTED](/docs/drs/automation/accosted-language.md)).
 runs:
-  - - get_repository_file: { path: pwsh/Catzc.Base.QualityGates/assets/english.txt.gz }
-  - - get_repository_file: { path: pwsh/Catzc.Base.QualityGates/assets/english.stamp }
+  - - get_repository_file: { path: pwsh/Base.QualityGates/assets/english.txt.gz }
+  - - get_repository_file: { path: pwsh/Base.QualityGates/assets/english.stamp }
   - - test_generated_files: { generator: Build-EnglishDictionary }

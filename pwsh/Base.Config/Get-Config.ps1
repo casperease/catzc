@@ -43,7 +43,9 @@ function Get-Config {
             $entry['Folder']
         }
         else {
-            [System.IO.Path]::GetFileName((Get-CatzcModuleRoot -Module $entry.Module))
+            $loaded = Get-Module -Name $entry.Module | Select-Object -First 1
+            Assert-NotNull $loaded -ErrorText "Get-Config: config '$($entry.Name)' belongs to module '$($entry.Module)', which is not loaded."
+            [System.IO.Path]::GetFileName($loaded.ModuleBase)
         }
         $candidate = [System.IO.Path]::Combine($overlayRoot, $folder, 'configs', "$($entry.Name).yml")
         if ([System.IO.File]::Exists($candidate)) {

@@ -3,14 +3,14 @@
 runs:
   - - get_command_contract: { version: 0.1.0 }
   - - get_contract_check_results:
-  - - get_accosted_file: { path: pwsh/Catzc.Base.Contracts/accosted/contracts.accosted.yml }
+  - - get_accosted_file: { path: pwsh/Base.Contracts/accosted/contracts.accosted.yml }
   - - test_contracts: { output_folder: out/test-contracts }
 
   # The first action diagram proves get_accosted_file (the action, run 3) by its two observed effects: the file it reads is the same file
   # before and after the call, so nothing was written to it, and the contract check results are the same before and after.
-  - - get_repository_file: { path: pwsh/Catzc.Base.Contracts/accosted/contracts.accosted.yml }
-    - get_accosted_file: { path: pwsh/Catzc.Base.Contracts/accosted/contracts.accosted.yml }
-    - get_repository_file: { path: pwsh/Catzc.Base.Contracts/accosted/contracts.accosted.yml }
+  - - get_repository_file: { path: pwsh/Base.Contracts/accosted/contracts.accosted.yml }
+    - get_accosted_file: { path: pwsh/Base.Contracts/accosted/contracts.accosted.yml }
+    - get_repository_file: { path: pwsh/Base.Contracts/accosted/contracts.accosted.yml }
   - - get_contract_check_results:
-    - get_accosted_file: { path: pwsh/Catzc.Base.Contracts/accosted/contracts.accosted.yml }
+    - get_accosted_file: { path: pwsh/Base.Contracts/accosted/contracts.accosted.yml }
     - get_contract_check_results:

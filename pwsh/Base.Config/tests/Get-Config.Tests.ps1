@@ -94,8 +94,8 @@ Describe 'Get-Config' -Tag 'L0' {
                 [ordered]@{ 'widget-sealed' = [ordered]@{ type = 'System.Collections.Hashtable'; overridable = $false } }
             }
             # The overlay folder is the bundled module's folder, without the namespace its full name carries.
-            Mock Get-CatzcModuleRoot -ModuleName Catzc.Base.Config -ParameterFilter { $Module -eq 'Catzc.Base.Widget' } -MockWith {
-                Join-Path $TestDrive 'modules/Base.Widget'
+            Mock Get-Module -ModuleName Catzc.Base.Config -ParameterFilter { $Name -eq 'Catzc.Base.Widget' } -MockWith {
+                [pscustomobject]@{ Name = 'Catzc.Base.Widget'; ModuleBase = (Join-Path $TestDrive 'modules/Base.Widget') }
             }
         }
 
@@ -229,8 +229,8 @@ namespace CatzcGetConfigTest {
                 [ordered]@{ 'widget-bare' = @{ type = 'CatzcGetConfigTest.FixtureConfig' }; 'widget-bare-merged' = @{ type = 'CatzcGetConfigTest.FixtureConfig' } }
             }
             Mock Get-ConfigOverlayRoot -ModuleName Catzc.Base.Config -MockWith { $overlay }
-            Mock Get-CatzcModuleRoot -ModuleName Catzc.Base.Config -ParameterFilter { $Module -eq 'Catzc.Base.Widget' } -MockWith {
-                Join-Path $TestDrive 'modules/Base.Widget'
+            Mock Get-Module -ModuleName Catzc.Base.Config -ParameterFilter { $Name -eq 'Catzc.Base.Widget' } -MockWith {
+                [pscustomobject]@{ Name = 'Catzc.Base.Widget'; ModuleBase = (Join-Path $TestDrive 'modules/Base.Widget') }
             }
 
             (Get-Config -Config widget-bare).Raw.Count | Should -Be 0

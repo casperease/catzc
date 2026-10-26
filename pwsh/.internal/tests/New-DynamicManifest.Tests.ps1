@@ -10,6 +10,10 @@ Describe 'New-DynamicManifest against the layout' -Tag 'L1', 'integrity', 'ADR-A
 
     It 'loads a .ps1 file exactly from the layout rows that hold functions, and from no other folder' {
         $module = Join-Path $TestDrive 'Catzc.Widget'
+        # The fixture root names no track, so it has no namespace and holds the languages config under its full-name folder.
+        $languages = Join-Path $TestDrive 'Catzc.Base.Languages/configs'
+        New-Item -ItemType Directory -Path $languages -Force | Out-Null
+        Copy-Item -Path (Get-CatzcModuleRoot 'configs/languages.yml' -Module Catzc.Base.Languages) -Destination $languages
         $expected = [System.Collections.Generic.List[string]]::new()
         foreach ($row in (Get-Config -Config languages).layout) {
             $isFunctionRow = $row.role -like '*-function'

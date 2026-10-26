@@ -141,18 +141,22 @@ function Get-ModuleBuildPlan {
         $typeHash = $hashResult.CombinedHash
         $selectedModules = [System.Collections.Generic.HashSet[string]]::new([string[]] @($Module),
             [System.StringComparer]::OrdinalIgnoreCase)
+        # The hash names each source by its folder; the build names it by the module's full name, the folder a bundle ships.
+        $moduleNamespace = Get-ModuleNamespace -ModulesRoot $SourceRoot
         $typeSources = [string[]] @(foreach ($file in $hashResult.Files) {
-                if ($selectedModules.Contains($file.Module)) {
-                    "$($file.Module)/types/$($file.Base).cs"
+                $fullName = Resolve-ModuleName -Folder $file.Module -Namespace $moduleNamespace
+                if ($selectedModules.Contains($fullName)) {
+                    "$fullName/types/$($file.Base).cs"
                 }
                 else {
-                    ".compiled/types/$($file.Module)/$($file.Base).cs"
+                    ".compiled/types/$fullName/$($file.Base).cs"
                 }
             })
         foreach ($file in $hashResult.Files) {
-            if (-not $selectedModules.Contains($file.Module)) {
+            $fullName = Resolve-ModuleName -Folder $file.Module -Namespace $moduleNamespace
+            if (-not $selectedModules.Contains($fullName)) {
                 $normalize = Test-BuildSourceLfOnly -Index $Index -SourceRoot $SourceRoot -Path $file.Path
-                $entries.Add([pscustomobject]@{ Path = ".compiled/types/$($file.Module)/$($file.Base).cs"; Kind = 'Copy'; Source = $file.Path; Content = $null; Exports = $null; Normalize = $normalize })
+                $entries.Add([pscustomobject]@{ Path = ".compiled/types/$fullName/$($file.Base).cs"; Kind = 'Copy'; Source = $file.Path; Content = $null; Exports = $null; Normalize = $normalize })
             }
         }
         # Git keeps no DLL

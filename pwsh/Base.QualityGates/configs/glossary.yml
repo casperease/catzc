@@ -147,7 +147,7 @@ concepts:
     short:
       A named, declared selection of tests that runs as one unit — a globset's verify scope in globs.yml (modules up to a tier), run with
       Test-Automation -Suite.
-    realized_by: { kind: config-key, pattern: "pwsh/Catzc.Base.Globs/configs/globs/globs.yml" }
+    realized_by: { kind: config-key, pattern: "pwsh/Base.Globs/configs/globs/globs.yml" }
   vertical test:
     key: vertical_test
     domain: automation

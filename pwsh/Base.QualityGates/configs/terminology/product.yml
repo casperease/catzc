@@ -78,7 +78,7 @@ terms:
     - term: charliermarsh
       meaning: "charliermarsh.ruff — the publisher and id of the Ruff VS Code extension"
     - term: worldmap
-      meaning: "a world-map image the draw.io atlas helper (python/catzc_diagrams/atlas.py) draws on"
+      meaning: "a world-map image the draw.io atlas helper (python/diagrams/atlas.py) draws on"
     - term: adrs
       meaning: "ADRs — plural of ADR; the drs.yml registry of ADR domain structure and citation codes"
     - term: ast
@@ -254,7 +254,7 @@ terms:
     - term: minimap
       meaning: "a small overview map in an explanation diagram's sidebar that places the diagram (the axis minimap, the tree minimap)"
     - term: minimaps
-      meaning: "plural of minimap (and the minimap_* scripts of python/catzc_diagrams)"
+      meaning: "plural of minimap (and the minimap_* scripts of python/diagrams)"
     - term: treemap
       meaning: "a map that tiles an area by size; the tree minimap tiles the repository's tracked files by folder"
     - term: gitops

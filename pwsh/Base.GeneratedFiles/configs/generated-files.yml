@@ -10,42 +10,42 @@ writers:
   Build-TrackGlobSets:
     at_import: true
     inputs:
-      - pwsh/Catzc.Base.Globs/Build-TrackGlobSets.ps1
-      - pwsh/Catzc.Base.Globs/configs/globs/globs.yml
-      - pwsh/Catzc.Base.Variants/configs/variants.yml
+      - pwsh/Base.Globs/Build-TrackGlobSets.ps1
+      - pwsh/Base.Globs/configs/globs/globs.yml
+      - pwsh/Base.Variants/configs/variants.yml
       - pwsh/*/configs/generated.yml
-      - pwsh/Catzc.Base.Docs/configs/readme.yml
-      - pwsh/Catzc.Base.RootConfig/configs/rootconfig.yml
-      - pwsh/Catzc.Base.CodeMeta/configs/comment-pages.yml
-    outputs: [pwsh/Catzc.Base.Globs/configs/globs/track-sets.yml]
+      - pwsh/Base.Docs/configs/readme.yml
+      - pwsh/Base.RootConfig/configs/rootconfig.yml
+      - pwsh/Base.CodeMeta/configs/comment-pages.yml
+    outputs: [pwsh/Base.Globs/configs/globs/track-sets.yml]
   Build-DrsIndex:
     at_import: true
-    inputs: [docs/drs/**, pwsh/Catzc.Base.Drs/**]
+    inputs: [docs/drs/**, pwsh/Base.Drs/**]
     outputs: [docs/drs/index.md]
   Build-Glossary:
     at_import: true
-    inputs: [docs/drs/**, pwsh/*/configs/glossary.yml, pwsh/*/configs/glossary/*.yml, pwsh/Catzc.Base.Docs/**]
+    inputs: [docs/drs/**, pwsh/*/configs/glossary.yml, pwsh/*/configs/glossary/*.yml, pwsh/Base.Docs/**]
     outputs: [docs/drs/glossary.md]
   Build-ContractReference:
     at_import: true
-    inputs: [contracts/**, docs/drs/repository/*-contracts.md, pwsh/Catzc.Base.Contracts/**]
+    inputs: [contracts/**, docs/drs/repository/*-contracts.md, pwsh/Base.Contracts/**]
     outputs: [docs/references/contracts/*.md]
   Build-Readme:
     at_import: true
     result_path: Readme
-    inputs: [docs/references/**, docs/drs/index.md, pwsh/Catzc.Base.Docs/**]
+    inputs: [docs/references/**, docs/drs/index.md, pwsh/Base.Docs/**]
     outputs: ["**/README.md"]
   Build-GitKeep:
     at_import: true
-    inputs: [pwsh/Catzc.Base.Docs/**]
+    inputs: [pwsh/Base.Docs/**]
     outputs: ["**/.gitkeep"]
   Build-TerminologyDictionary:
     at_import: true
-    inputs: [pwsh/Catzc.Base.QualityGates/**]
+    inputs: [pwsh/Base.QualityGates/**]
     outputs: [".cspell/*.txt"]
   Build-DrsCodeDictionary:
     at_import: true
-    inputs: [docs/drs/**, pwsh/Catzc.Base.Drs/**]
+    inputs: [docs/drs/**, pwsh/Base.Drs/**]
     outputs: [.cspell/drs-codes.txt]
   # The types surface, written by the importer after a compile on a devbox (Import-CSharpTypes); Test-BuildArtifact -Facet Types checks it.
   Write-TypesContract:
@@ -54,47 +54,47 @@ writers:
     outputs: [contracts/catzc/0.1.0/catzc.internal.types/types.sample.json]
   Build-EnglishDictionary:
     check: english-dictionary
-    inputs: [pwsh/Catzc.Base.Execution/configs/tools.yml, pwsh/Catzc.Base.QualityGates/**]
-    outputs: [pwsh/Catzc.Base.QualityGates/assets/english.*]
+    inputs: [pwsh/Base.Execution/configs/tools.yml, pwsh/Base.QualityGates/**]
+    outputs: [pwsh/Base.QualityGates/assets/english.*]
   New-VsCodeExtensionFolder:
     check: none
     # The extension folders under out/ are rendered from these alone, so the render can be skipped while none of them changed.
     inputs:
       - js/**
-      - pwsh/Catzc.Base.VSCode/configs/vscode-extensions.yml
-      - pwsh/Catzc.Base.VSCode/configs/lamp-palette.yml
-      - pwsh/Catzc.Base.VSCode/configs/file-icons.yml
-      - pwsh/Catzc.Base.VSCode/private/**
-      - pwsh/Catzc.Base.VSCode/types/**
-      - pwsh/Catzc.Base.Globs/configs/filters.yml
+      - pwsh/Base.VSCode/configs/vscode-extensions.yml
+      - pwsh/Base.VSCode/configs/lamp-palette.yml
+      - pwsh/Base.VSCode/configs/file-icons.yml
+      - pwsh/Base.VSCode/private/**
+      - pwsh/Base.VSCode/types/**
+      - pwsh/Base.Globs/configs/filters.yml
   Build-RootConfig:
     at_import: true
     check: root-config
     # Its targets are inputs too, so a target drifted by hand, ignored by git or not, makes the run that writes it back due.
     inputs:
-      - pwsh/Catzc.Base.Contracts/**
-      - pwsh/Catzc.Base.Git/**
-      - pwsh/Catzc.Base.Languages/Format-GeneratedFileHead.ps1
-      - pwsh/Catzc.Base.Languages/New-GoWorkspace.ps1
-      - pwsh/Catzc.Base.Languages/New-PythonProject.ps1
-      - pwsh/Catzc.Base.Languages/New-NuGetConfig.ps1
-      - pwsh/Catzc.Base.FileLimits/configs/file-limits.yml
-      - pwsh/Catzc.Base.FileLimits/Build-WidthConfigs.ps1
-      - pwsh/Catzc.Base.Languages/configs/generated-head.yml
-      - pwsh/Catzc.Base.Languages/configs/go.yml
-      - pwsh/Catzc.Base.Languages/configs/languages.yml
-      - pwsh/Catzc.Base.Languages/configs/python.yml
-      - pwsh/Catzc.Base.RootConfig/**
-      - pwsh/Catzc.Base.VSCode/**
+      - pwsh/Base.Contracts/**
+      - pwsh/Base.Git/**
+      - pwsh/Base.Languages/Format-GeneratedFileHead.ps1
+      - pwsh/Base.Languages/New-GoWorkspace.ps1
+      - pwsh/Base.Languages/New-PythonProject.ps1
+      - pwsh/Base.Languages/New-NuGetConfig.ps1
+      - pwsh/Base.FileLimits/configs/file-limits.yml
+      - pwsh/Base.FileLimits/Build-WidthConfigs.ps1
+      - pwsh/Base.Languages/configs/generated-head.yml
+      - pwsh/Base.Languages/configs/go.yml
+      - pwsh/Base.Languages/configs/languages.yml
+      - pwsh/Base.Languages/configs/python.yml
+      - pwsh/Base.RootConfig/**
+      - pwsh/Base.VSCode/**
       - contracts/catzc/0.1.0/**
       - pwsh/.internal/assets/PSScriptAnalyzerSettings.psd1
       - pwsh/.internal/Catzc.Internal.Importer.psm1
-      - pwsh/Catzc.Base.Execution/configs/tools.yml
-      - pwsh/Catzc.Base.Globs/configs/file-kinds.yml
-      - pwsh/Catzc.Base.Globs/configs/filters.yml
-      - pwsh/Catzc.Base.Globs/configs/globs/*.yml
-      - pwsh/Catzc.Base.TypesSystem/assets/Catzc.Types.csproj.xml
-      - pwsh/Catzc.Base.Variants/configs/variants.yml
+      - pwsh/Base.Execution/configs/tools.yml
+      - pwsh/Base.Globs/configs/file-kinds.yml
+      - pwsh/Base.Globs/configs/filters.yml
+      - pwsh/Base.Globs/configs/globs/*.yml
+      - pwsh/Base.TypesSystem/assets/Catzc.Types.csproj.xml
+      - pwsh/Base.Variants/configs/variants.yml
       - PSScriptAnalyzerSettings.psd1
       - importer.ps1
       - importer.sh

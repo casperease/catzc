@@ -86,5 +86,5 @@ rows:
     verdict: allow
     because: DDR-ASPECT-ASPECTSAREDERIVED
 exempt:
-  python/catzc_diagrams/assets/STYLE.md: the drawio kit's style guide links its own kit files
-  python/catzc_diagrams/assets/slides/STYLE.md: the slides kit's style guide links its own kit files and the rule it follows
+  python/diagrams/assets/STYLE.md: the drawio kit's style guide links its own kit files
+  python/diagrams/assets/slides/STYLE.md: the slides kit's style guide links its own kit files and the rule it follows

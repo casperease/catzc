@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "226ecb765e17"
+#     with_body_sha: aef8533e7625
 #     warning: "Do Not Edit, this file is generated"
 # ---
 
@@ -83,7 +83,7 @@ pwsh/**/*.psd1
 **/README.md
 !.github/README.md
 !pwsh/.vendor/**/README.md
-!pwsh/Catzc.Azure.Templates/tests/assets/README.md
+!pwsh/Azure.Templates/tests/assets/README.md
 # a contract asset named README.md pins its target; contracts/README.md stays generated
 !contracts/*/**/README.md
 

@@ -44,23 +44,23 @@ Describe 'EditRemindersConfig' -Tag 'L0', 'logic', 'PDR-CONFIG-VARYINGBEHAVIOURI
     It 'finds the shipped config under the modules folder' -Tag 'L1' {
         $found = [Catzc.Base.QualityGates.EditRemindersConfig]::FindConfig((Get-RepositoryRoot))
         $found | Should -Not -BeNullOrEmpty
-        $found.Replace('\', '/') | Should -BeLike '*/Catzc.Base.QualityGates/configs/edit-reminders.yml'
+        $found.Replace('\', '/') | Should -BeLike '*/Base.QualityGates/configs/edit-reminders.yml'
     }
 
     It 'reminds an edit of the ADR registry or a glossary source of its build and its check' -Tag 'L1' {
         $shipped = Get-Config -Config edit-reminders
         $modules = Get-CatzcModulesFolder
-        ($shipped.For("$modules/Catzc.Base.Drs/configs/drs.yml") -join "`n") |
+        ($shipped.For("$modules/Base.Drs/configs/drs.yml") -join "`n") |
             Should -BeLike '*Build-DrsIndex*Test-DrsRegistry*'
-        ($shipped.For("$modules/Catzc.Base.Slides/configs/glossary.yml") -join "`n") |
+        ($shipped.For("$modules/Base.Slides/configs/glossary.yml") -join "`n") |
             Should -BeLike '*Build-Glossary*Test-Glossary*'
-        $shipped.For("$modules/Catzc.Base.Docs/configs/adrs-checks.yml").Count | Should -Be 1
+        $shipped.For("$modules/Base.Docs/configs/adrs-checks.yml").Count | Should -Be 1
     }
 
     It 'reminds an edit of any module config of a parse check' -Tag 'L1' {
         $shipped = Get-Config -Config edit-reminders
         $modules = Get-CatzcModulesFolder
-        @($shipped.For("$modules/Catzc.Base.VSCode/configs/vscode-extensions.yml")) |
+        @($shipped.For("$modules/Base.VSCode/configs/vscode-extensions.yml")) |
             Should -BeLike '*Parse-check*ConvertFrom-Yaml*'
     }
 }

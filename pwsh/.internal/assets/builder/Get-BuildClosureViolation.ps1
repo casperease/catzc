@@ -23,10 +23,13 @@ function Get-BuildClosureViolation {
     $selected = [System.Collections.Generic.HashSet[string]]::new([string[]] @($Module),
         [System.StringComparer]::Ordinal)
 
+    # The dependency scan and the folders name modules by folder; the selection names them in full (DDR-TRACK-MODULENAMESPACE).
+    $moduleNamespace = Get-ModuleNamespace -ModulesRoot $SourceRoot
     foreach ($call in @(Get-FunctionDependency -ModulesRoot $SourceRoot -ParsedScripts $ParsedScripts)) {
-        if ($call.CrossModule -and $selected.Contains($call.CallerModule) -and
-            -not $selected.Contains($call.TargetModule)) {
-            "$sourceFolder/$($call.CallerModule)/$($call.CallerFile):$($call.CallerLine): $($call.CallerFunction) calls $($call.TargetFunction), which $($call.TargetModule) owns"
+        $caller = Resolve-ModuleName -Folder $call.CallerModule -Namespace $moduleNamespace
+        $target = Resolve-ModuleName -Folder $call.TargetModule -Namespace $moduleNamespace
+        if ($call.CrossModule -and $selected.Contains($caller) -and -not $selected.Contains($target)) {
+            "$sourceFolder/$($call.CallerModule)/$($call.CallerFile):$($call.CallerLine): $($call.CallerFunction) calls $($call.TargetFunction), which $target owns"
         }
     }
 
@@ -71,8 +74,9 @@ function Get-BuildClosureViolation {
                 }
                 $config = $argument.Value
                 $owners = @(foreach ($directory in [System.IO.Directory]::GetDirectories($SourceRoot)) {
-                        $owner = [System.IO.Path]::GetFileName($directory)
-                        if (-not $owner.StartsWith('.') -and
+                        $ownerFolder = [System.IO.Path]::GetFileName($directory)
+                        $owner = Resolve-ModuleName -Folder $ownerFolder -Namespace $moduleNamespace
+                        if (-not $ownerFolder.StartsWith('.') -and
                             [System.IO.File]::Exists([System.IO.Path]::Combine($directory, 'configs', "$config.yml"))) {
                             $owner
                         }

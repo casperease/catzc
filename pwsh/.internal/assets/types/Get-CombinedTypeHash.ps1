@@ -45,6 +45,10 @@ function Get-CombinedTypeHash {
             [System.StringComparer]::OrdinalIgnoreCase)
     }
 
+    if (-not $PSBoundParameters.ContainsKey('ModuleNamespace')) {
+        $ModuleNamespace = Get-ModuleNamespace -ModulesRoot $ModulesRoot
+    }
+    # The key names a source by its module's full name, so a source tree (short folders) and a bundle (full-name folders) hash the same.
     # Enumerate every non-dot module's types/*.cs. Key = "<module>/<bare type>"; Path = the source file. No
     # namespace / dotted-name validation here (the loader's job). [System.IO] over Get-ChildItem for the
     # ~20ms/call provider overhead the raw enumeration avoids
@@ -64,7 +68,7 @@ function Get-CombinedTypeHash {
             $files.Add([pscustomobject]@{
                     Module = $moduleName
                     Base   = $base
-                    Key    = "$moduleName/$base"
+                    Key    = "$(Resolve-ModuleName -Folder $moduleName -Namespace $ModuleNamespace)/$base"
                     Path   = $sourcePath
                 })
         }
@@ -83,7 +87,7 @@ function Get-CombinedTypeHash {
                 $files.Add([pscustomobject]@{
                         Module = $moduleName
                         Base   = $base
-                        Key    = "$moduleName/$base"
+                        Key    = "$(Resolve-ModuleName -Folder $moduleName -Namespace $ModuleNamespace)/$base"
                         Path   = $sourcePath
                     })
             }
@@ -100,9 +104,6 @@ function Get-CombinedTypeHash {
     [System.Array]::Sort($sortedFiles, [System.Comparison[object]] { param($a,
                 $b) [System.StringComparer]::Ordinal.Compare($a.Key, $b.Key) })
 
-    if (-not $PSBoundParameters.ContainsKey('ModuleNamespace')) {
-        $ModuleNamespace = Get-ModuleNamespace -ModulesRoot $ModulesRoot
-    }
     $languagesFolder = Resolve-ModuleName -FullName 'Catzc.Base.Languages' -Namespace $ModuleNamespace
     $carriers = [System.IO.Path]::Combine($ModulesRoot, $languagesFolder, 'configs', 'file-carriers.yml')
     $block = $null

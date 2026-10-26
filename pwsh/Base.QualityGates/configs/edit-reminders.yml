@@ -3,7 +3,7 @@ reminders:
     say: >-
       You edited a plan file. Before you report: run `Format-Code -Path <the files touched>`, then `Test-Plans -Path <the plan files you
       edited>`. Every open step names its check. A new plan also needs its row in value-of-plan.md and its chunk line in plan-master.md.
-  - paths: ["pwsh/Catzc.Base.Drs/configs/drs.yml"]
+  - paths: ["pwsh/Base.Drs/configs/drs.yml"]
     say: >-
       You edited the ADR registry. Before you report: run `Build-DrsIndex`, then `Test-DrsRegistry`; a new ADR also needs its entry in its
       domain's dora-explains.md (docs/how-to/getting-started/automation/add-an-adr.md).
@@ -11,7 +11,7 @@ reminders:
     say: >-
       You edited a glossary source. Before you report: run `Build-Glossary`, then `Test-Glossary`; a contrast is declared once, on either
       term, and a `short:` value that holds `: ` is quoted.
-  - paths: ["pwsh/Catzc.Base.Timeouts/configs/timeouts.yml"]
+  - paths: ["pwsh/Base.Timeouts/configs/timeouts.yml"]
     say: >-
       You edited the timeouts config. A new key lands in `TimeoutsConfig.cs` first, then one fresh import (which rebuilds the Bash hook),
       then the yml line.

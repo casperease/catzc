@@ -28,7 +28,7 @@ function Get-CatzcModuleRoot {
     $moduleRoot = $loaded.ModuleBase
     $overlayRoot = Get-CatzcOverlayRoot
     # A consumer's local module is a dynamic module with no file, named for its overlay folder (it carries no namespace).
-    if (-not $loaded.Path -and $overlayRoot -and [System.IO.Directory]::Exists([System.IO.Path]::Combine($overlayRoot, $loaded.Name))) {
+    if (-not [System.IO.File]::Exists($loaded.Path) -and $overlayRoot -and [System.IO.Directory]::Exists([System.IO.Path]::Combine($overlayRoot, $loaded.Name))) {
         $moduleRoot = [System.IO.Path]::Combine($overlayRoot, $loaded.Name)
     }
     $folderName = [System.IO.Path]::GetFileName($moduleRoot)

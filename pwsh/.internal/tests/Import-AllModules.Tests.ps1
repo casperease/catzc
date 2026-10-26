@@ -16,7 +16,7 @@ BeforeAll {
     Copy-Directory (Join-Path (Get-CatzcModulesRoot) '.vendor') (Join-Path $sandboxAuto '.vendor')
     # The bootstrap reads the private-function folder from the languages config before any module loads.
     $languagesConfigs = New-Item -Path (Join-Path $sandboxAuto 'Catzc.Base.Languages/configs') -ItemType Directory -Force
-    Copy-Item -Path (Join-Path (Get-CatzcModulesRoot) 'Catzc.Base.Languages/configs/languages.yml') -Destination $languagesConfigs
+    Copy-Item -Path (Get-CatzcModuleRoot 'configs/languages.yml' -Module Catzc.Base.Languages) -Destination $languagesConfigs
 
     $script:moduleListExpr =
     "@(Get-Module | Where-Object { `$_.Path -like '$sandboxAuto*' -and `$_.Name -ne 'Bootstrap' -and `$_.Path -notlike '*/.vendor/*' -and `$_.Path -notlike '*\.vendor\*' -and `$_.Path -notlike '*/.internal/*' -and `$_.Path -notlike '*\.internal\*' } | " +
@@ -204,7 +204,7 @@ Describe 'Run-mode eviction across code roots' -Tag 'L2', 'logic', 'greedy' {
             Copy-Directory (Join-Path (Get-CatzcModulesRoot) '.internal') (Join-Path $modulesRoot '.internal')
             Copy-Directory (Join-Path (Get-CatzcModulesRoot) '.vendor') (Join-Path $modulesRoot '.vendor')
             $languagesConfigs = [System.IO.Directory]::CreateDirectory((Join-Path $modulesRoot 'Catzc.Base.Languages/configs')).FullName
-            Copy-Item -Path (Join-Path (Get-CatzcModulesRoot) 'Catzc.Base.Languages/configs/languages.yml') -Destination $languagesConfigs
+            Copy-Item -Path (Get-CatzcModuleRoot 'configs/languages.yml' -Module Catzc.Base.Languages) -Destination $languagesConfigs
             foreach ($entry in @(@($OnlyModule, $OnlyFunction, $OnlyBody), @('Catzc.Shared', 'Get-SharedOrigin',
                         "'$Label'"))) {
                 $folder = Join-Path $modulesRoot $entry[0]

@@ -105,13 +105,13 @@ formats:
   drawio-png:
     area: review
     patterns: ["diagrams/**/*.drawio.png"]
-    producer: python/catzc_diagrams/drawio_png.py
+    producer: python/diagrams/drawio_png.py
     audience: a person, in any image viewer or in draw.io
     validator: { kind: drawio-png }
   drawio-model:
     area: review
     patterns: ["diagrams/**/*.xml"]
-    producer: python/catzc_diagrams/drawio_png.py
+    producer: python/diagrams/drawio_png.py
     audience: draw.io, and a maker editing the drawing
     validator: { kind: drawio-model }
   minimap-stack-png:
@@ -131,7 +131,7 @@ formats:
   review-pdf:
     area: review
     patterns: ["diagrams/*.pdf"]
-    producer: python/catzc_diagrams/gallery_pdf.py
+    producer: python/diagrams/gallery_pdf.py
     audience: a person, in any PDF viewer
     validator: { kind: pdf }
     limits: { min_pages: 1 }

@@ -19,16 +19,19 @@ function Test-ShippedTypes {
     $typeCount = 0
     $modulesRoot = Get-CatzcModulesRoot
     $walk = Get-Config -Config folder-walk
+    # A type's namespace is its module's full name, the folder joined to the track's namespace (DDR-TRACK-MODULENAMESPACE).
+    $track = Get-Track -Name ([System.IO.Path]::GetFileName($modulesRoot.TrimEnd('\', '/')))
     foreach ($moduleDirectory in @(Get-ChildPath $modulesRoot -Directory -Depth 1)) {
-        $moduleName = [System.IO.Path]::GetFileName($moduleDirectory)
+        $folderName = [System.IO.Path]::GetFileName($moduleDirectory)
         $typesDirectory = Join-Path $moduleDirectory 'types'
-        if ($moduleName -match '^\.' -or -not [System.IO.Directory]::Exists($typesDirectory)) {
+        if ($folderName -match '^\.' -or -not [System.IO.Directory]::Exists($typesDirectory)) {
             continue
         }
+        $moduleName = $track.FullNameOf($folderName)
         foreach ($file in [Catzc.Base.Folders.PathSet]::new($walk).AddPattern($typesDirectory, '*.cs', 1).ToArray()) {
             $typeCount++
             $fullName = "$moduleName.$([System.IO.Path]::GetFileNameWithoutExtension($file))"
-            $relative = "$moduleName/types/$([System.IO.Path]::GetFileName($file))"
+            $relative = "$folderName/types/$([System.IO.Path]::GetFileName($file))"
             $type = ([System.Management.Automation.PSTypeName] $fullName).Type
             if (-not $type) {
                 $issues.Add("${relative}: type '$fullName' does not resolve after import")

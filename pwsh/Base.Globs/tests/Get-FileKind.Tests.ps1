@@ -1,22 +1,22 @@
 Describe 'Get-FileKind' -Tag 'L0', 'integrity', 'ADR-REPO-FILEMETA-METAKIND' {
     It 'names the role of a file in the shipped registry' -ForEach @(
-        @{ Path = (Get-CatzcModulesFolder) + '/Catzc.Base.Variants/Get-Track.ps1'; Class = 'function' }
-        @{ Path = (Get-CatzcModulesFolder) + '/Catzc.Base.Variants/Test-GitWorkspace.ps1'; Class = 'function/gate' }
-        @{ Path = (Get-CatzcModulesFolder) + '/Catzc.Base.Docs/Build-Glossary.ps1'; Class = 'function/writer' }
-        @{ Path = (Get-CatzcModulesFolder) + '/Catzc.Base.Asserts/Assert-NotNull.ps1'; Class = 'function/assert' }
-        @{ Path = (Get-CatzcModulesFolder) + '/Catzc.Base.Languages/Format-GeneratedFileHead.ps1'; Class = 'function/formatter' }
-        @{ Path = (Get-CatzcModulesFolder) + '/Catzc.Base.QualityGates/private/Get-RelativeEdgesFileMetaFact.ps1'; Class = 'function/fact' }
-        @{ Path = (Get-CatzcModulesFolder) + '/Catzc.Base.QualityGates/private/Get-FileMetaScope.ps1'; Class = 'function' }
+        @{ Path = (Get-CatzcModulesFolder) + '/Base.Variants/Get-Track.ps1'; Class = 'function' }
+        @{ Path = (Get-CatzcModulesFolder) + '/Base.Variants/Test-GitWorkspace.ps1'; Class = 'function/gate' }
+        @{ Path = (Get-CatzcModulesFolder) + '/Base.Docs/Build-Glossary.ps1'; Class = 'function/writer' }
+        @{ Path = (Get-CatzcModulesFolder) + '/Base.Asserts/Assert-NotNull.ps1'; Class = 'function/assert' }
+        @{ Path = (Get-CatzcModulesFolder) + '/Base.Languages/Format-GeneratedFileHead.ps1'; Class = 'function/formatter' }
+        @{ Path = (Get-CatzcModulesFolder) + '/Base.QualityGates/private/Get-RelativeEdgesFileMetaFact.ps1'; Class = 'function/fact' }
+        @{ Path = (Get-CatzcModulesFolder) + '/Base.QualityGates/private/Get-FileMetaScope.ps1'; Class = 'function' }
         @{ Path = (Get-CatzcModulesFolder) + '/.internal/Catzc.Internal.Types.psm1'; Class = 'module/internal' }
         @{ Path = (Get-CatzcModulesFolder) + '/.internal/tests/Assert-CatzcRunModeExclusive.Tests.ps1'; Class = 'test' }
-        @{ Path = (Get-CatzcModulesFolder) + '/Catzc.Base.Globs/types/FileKindsConfig.cs'; Class = 'type' }
-        @{ Path = (Get-CatzcModulesFolder) + '/Catzc.Azure.Cli/tests/assets/config/azure.yml'; Class = 'fixture/input' }
-        @{ Path = (Get-CatzcModulesFolder) + '/Catzc.Azure.Cli/tests/data/sample.yml'; Class = 'fixture' }
-        @{ Path = (Get-CatzcModulesFolder) + '/Catzc.Base.Globs/configs/file-kinds.yml'; Class = 'config' }
-        @{ Path = 'python/catzc_diagrams/drawio_png.py'; Class = 'drawio-kit' }
-        @{ Path = 'python/catzc_diagrams/assets/STYLE.md'; Class = 'drawio-kit' }
-        @{ Path = 'python/catzc_diagrams/assets/slides/patterns/rule.html'; Class = 'slides-kit' }
-        @{ Path = 'python/catzc_diagrams/assets/slides/slides.yml'; Class = 'slides-kit' }
+        @{ Path = (Get-CatzcModulesFolder) + '/Base.Globs/types/FileKindsConfig.cs'; Class = 'type' }
+        @{ Path = (Get-CatzcModulesFolder) + '/Azure.Cli/tests/assets/config/azure.yml'; Class = 'fixture/input' }
+        @{ Path = (Get-CatzcModulesFolder) + '/Azure.Cli/tests/data/sample.yml'; Class = 'fixture' }
+        @{ Path = (Get-CatzcModulesFolder) + '/Base.Globs/configs/file-kinds.yml'; Class = 'config' }
+        @{ Path = 'python/diagrams/drawio_png.py'; Class = 'drawio-kit' }
+        @{ Path = 'python/diagrams/assets/STYLE.md'; Class = 'drawio-kit' }
+        @{ Path = 'python/diagrams/assets/slides/patterns/rule.html'; Class = 'slides-kit' }
+        @{ Path = 'python/diagrams/assets/slides/slides.yml'; Class = 'slides-kit' }
         @{ Path = 'tools/export.py'; Class = 'script' }
         @{ Path = 'docs/explanation/design/.assets/gadget-spins.drawio.png'; Class = 'diagram' }
         @{ Path = 'docs/explanation/design/.assets/gadget-spins.drawio.yml'; Class = 'diagram-declaration' }
@@ -48,7 +48,7 @@ Describe 'Get-FileKind' -Tag 'L0', 'integrity', 'ADR-REPO-FILEMETA-METAKIND' {
     }
 
     It 'reads a backslash path' {
-        (Get-FileKind ((Get-CatzcModulesFolder) + '\Catzc.Base.Variants\Test-GitWorkspace.ps1')).Class |
+        (Get-FileKind ((Get-CatzcModulesFolder) + '\Base.Variants\Test-GitWorkspace.ps1')).Class |
             Should -BeExactly 'function/gate'
     }
 

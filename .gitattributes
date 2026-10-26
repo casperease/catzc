@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: eff1fc979486
+#     with_body_sha: "9c45b6a2c345"
 #     warning: "Do Not Edit, this file is generated"
 # ---
 
@@ -68,7 +68,7 @@ pwsh/.vendor/** linguist-vendored
 # lines below the compiled types are rendered from the registries that declare what is generated: every writer's
 # outputs in generated-files.yml, then every root config rootconfig.yml declares committed.
 pwsh/.compiled/** linguist-generated
-/pwsh/Catzc.Base.Globs/configs/globs/track-sets.yml linguist-generated
+/pwsh/Base.Globs/configs/globs/track-sets.yml linguist-generated
 /docs/drs/index.md linguist-generated
 /docs/drs/glossary.md linguist-generated
 /docs/references/contracts/*.md linguist-generated
@@ -77,7 +77,7 @@ pwsh/.compiled/** linguist-generated
 /.cspell/*.txt linguist-generated
 /.cspell/drs-codes.txt linguist-generated
 /contracts/catzc/0.1.0/catzc.internal.types/types.sample.json linguist-generated
-/pwsh/Catzc.Base.QualityGates/assets/english.* linguist-generated
+/pwsh/Base.QualityGates/assets/english.* linguist-generated
 /importer.ps1 linguist-generated
 /importer.sh linguist-generated
 /pwsh/.internal/assets/importer-commands.sh linguist-generated

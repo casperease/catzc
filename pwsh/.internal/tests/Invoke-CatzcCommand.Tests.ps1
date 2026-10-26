@@ -56,6 +56,12 @@ Describe 'Invoke-CatzcCommand' -Tag 'L0', 'logic' {
         $lines[1] | Should -BeExactly '[Invoke-CatzcCommand] passed: Test-Gadget -Result Passed'
     }
 
+    It 'runs a bare test-file path through Invoke-TestFile, so its red result fails the command' {
+        $lines = @(& $script:entry 'widgets/Gadget.Tests.ps1' -Importer $script:importer -LockName $script:lockName)
+        $LASTEXITCODE | Should -Be 1
+        $lines[0] | Should -BeExactly '[Invoke-CatzcCommand] failed: widgets/Gadget.Tests.ps1 — it reported Failed'
+    }
+
     It 'reads the outcome of per-test records, as a red pytest run returns them: one fail fails the command, pass and skip pass' {
         $lines = @(& $script:entry 'Test-Gizmo -Outcome pass, fail, fail, skip' 'Test-Gizmo -Outcome pass, skip' -Importer $script:importer -LockName $script:lockName)
         $LASTEXITCODE | Should -Be 1

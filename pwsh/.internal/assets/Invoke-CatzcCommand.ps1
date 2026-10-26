@@ -8,8 +8,8 @@
     It dot-sources the importer once, then runs every command line it is given in order, from the repository root (the importer's folder),
     and gives the caller its location back at the end. A command that throws, or writes an error, is a
     failure: its verdict line names it with the message, and the next command still runs. So is a command whose result object reports
-    Result Failed; every Invoke-TestFile of the run returns that object, -PassThru named or not, so a red test file is a failure. So is a
-    command that returns a per-test record whose Outcome is fail (Invoke-PythonTest's), so a red pytest run is a failure, and a gate called
+    Result Failed; every Invoke-TestFile of the run returns that object, -PassThru named or not, so a red test file is a failure; a
+    command that is a bare test-file path runs as Invoke-TestFile -Path on it, and is judged the same. So is a command that returns a per-test record whose Outcome is fail (Invoke-PythonTest's), so a red pytest run is a failure, and a gate called
     with -PassThru whose result counts an issue (IssueCount above 0). The exit code is 1 when any command failed.
 
     The import and the commands run under the machine's run lock, a named mutex, so heavy runs on one machine go one at a time. The lock
@@ -146,7 +146,15 @@ try {
         foreach ($line in $Command) {
             try {
                 $ErrorActionPreference = 'Stop'
-                $output = @(& ([scriptblock]::Create($line)))
+                # A bare test-file path would run Pester on its own, which prints a red summary but neither throws nor
+                # returns a result, so it runs through Invoke-TestFile, whose result the checks below judge.
+                $run = if ($line.Trim() -match '^[^\s|;&]+\.Tests\.ps1$') {
+                    "Invoke-TestFile -Path '$($line.Trim())'"
+                }
+                else {
+                    $line
+                }
+                $output = @(& ([scriptblock]::Create($run)))
                 # A result object (Invoke-TestFile -PassThru) carries the verdict of a command that reports a failure
                 # without throwing.
                 $results = @($output | Where-Object { $null -ne $_ -and $_.PSObject.Properties['Result'] })

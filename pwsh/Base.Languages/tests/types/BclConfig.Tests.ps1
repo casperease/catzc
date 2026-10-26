@@ -105,10 +105,10 @@ Describe 'BclConfig' -Tag 'L0' {
             $config = [Catzc.Base.Languages.BclConfig]::new([ordered]@{
                     host_bindings = @(
                         [ordered]@{ file = 'Base.Widgets/types/Widget.cs'; host = 'pwsh'; reason = 'Parses scripts.' }
-                        [ordered]@{ file = 'Catzc.Base.Gadgets/types/Gadget.cs'; host = 'pwsh'; reason = ' Wraps a pipeline. ' }
+                        [ordered]@{ file = 'Base.Gadgets/types/Gadget.cs'; host = 'pwsh'; reason = ' Wraps a pipeline. ' }
                     )
                 })
-            @($config.host_bindings.file) | Should -Be @('Catzc.Base.Gadgets/types/Gadget.cs',
+            @($config.host_bindings.file) | Should -Be @('Base.Gadgets/types/Gadget.cs',
                 'Base.Widgets/types/Widget.cs')
             $config.host_bindings[0].reason | Should -BeExactly 'Wraps a pipeline.'
             $config.HostBindingOf('Base.Widgets/types/Widget.cs').host | Should -BeExactly 'pwsh'
@@ -120,13 +120,13 @@ Describe 'BclConfig' -Tag 'L0' {
                 host_bindings = @(
                     [ordered]@{ file = 'Base.Widgets/types/Widget.cs'; host = 'pwsh' }
                     [ordered]@{ file = 'widget.cs'; host = 'Pwsh!'; reason = 'x' }
-                    [ordered]@{ file = 'Catzc.Base.Gadgets/types/Gadget.cs'; host = 'pwsh'; reason = 'x' }
-                    [ordered]@{ file = 'Catzc.Base.Gadgets/types/Gadget.cs'; host = 'pwsh'; reason = 'y' }
+                    [ordered]@{ file = 'Base.Gadgets/types/Gadget.cs'; host = 'pwsh'; reason = 'x' }
+                    [ordered]@{ file = 'Base.Gadgets/types/Gadget.cs'; host = 'pwsh'; reason = 'y' }
                 )
             }
             { [Catzc.Base.Languages.BclConfig]::new($raw) } | Should -Throw -ExpectedMessage (
                 "*host_bindings``[0``]: a host binding needs its reason*host_bindings``[1``]: invalid file 'widget.cs'*" +
-                "host_bindings``[1``]: invalid host 'Pwsh!'*host_bindings``[3``]: 'Catzc.Base.Gadgets/types/Gadget.cs' is bound twice*")
+                "host_bindings``[1``]: invalid host 'Pwsh!'*host_bindings``[3``]: 'Base.Gadgets/types/Gadget.cs' is bound twice*")
         }
 
         It 'rejects host_bindings that is not a list' {

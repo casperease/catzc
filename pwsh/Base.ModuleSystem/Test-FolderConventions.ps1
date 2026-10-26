@@ -30,7 +30,8 @@ function Test-FolderConventions {
     $repositoryRoot = Get-RepositoryRoot
     $walk = Get-Config -Config folder-walk
     foreach ($resolved in Get-CatzcModule -EngineTrack -RepositoryRoot $repositoryRoot) {
-        $module = $resolved.name
+        # A path names the module's folder, which drops the namespace; an export clash names the module.
+        $module = [System.IO.Path]::GetFileName($resolved.root)
         $moduleDirectory = Join-Path $repositoryRoot $resolved.root
         $moduleCount++
 
@@ -52,7 +53,7 @@ function Test-FolderConventions {
             if (-not $functionOwners.ContainsKey($base)) {
                 $functionOwners[$base] = [System.Collections.Generic.List[string]]::new()
             }
-            $functionOwners[$base].Add($module)
+            $functionOwners[$base].Add($resolved.name)
         }
 
         $privateDirectory = Join-Path $moduleDirectory $privateFolderName

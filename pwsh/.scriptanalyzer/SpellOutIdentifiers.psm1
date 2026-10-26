@@ -32,7 +32,11 @@ function Initialize-SpellingOracle {
         Import-TypesAssembly -Path $typesDll | Out-Null
     }
 
-    $englishPath = [Catzc.Base.QualityGates.SpellingOracle]::DictionaryPath([Catzc.Base.QualityGates.SpellingOracle]::AssetsFolder($modulesRoot))
+    # The QualityGates folder, resolved from its full name under the modules track's namespace before any import (DDR-TRACK-MODULENAMESPACE).
+    . (Join-Path $modulesRoot '.internal/assets/bootstrap/Resolve-ModuleName.ps1')
+    . (Join-Path $modulesRoot '.internal/assets/bootstrap/Get-ModuleNamespace.ps1')
+    $qualityGates = Join-Path $modulesRoot (Resolve-ModuleName -FullName 'Catzc.Base.QualityGates' -Namespace (Get-ModuleNamespace -ModulesRoot $modulesRoot))
+    $englishPath = [Catzc.Base.QualityGates.SpellingOracle]::DictionaryPath([Catzc.Base.QualityGates.SpellingOracle]::AssetsFolder($qualityGates))
     $cspellDir = Join-Path $repoRoot '.cspell'
     $allTermPaths = if ([System.IO.Directory]::Exists($cspellDir)) {
         [string[]] @([System.IO.Directory]::EnumerateFiles($cspellDir, '*.txt'))

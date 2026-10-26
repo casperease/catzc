@@ -76,7 +76,7 @@ sections:
       - "**/README.md"
       - "!.github/README.md"
       - "!pwsh/.vendor/**/README.md"
-      - "!pwsh/Catzc.Azure.Templates/tests/assets/README.md"
+      - "!pwsh/Azure.Templates/tests/assets/README.md"
       - {
           pattern: "!contracts/*/**/README.md",
           note: "a contract asset named README.md pins its target; contracts/README.md stays generated",

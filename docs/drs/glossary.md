@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "7c3b8babdf1b"
+    with_body_sha: "6ec994608847"
     warning: "Do Not Edit, this file is generated"
 ---
 
@@ -266,7 +266,7 @@ A track whose type owns deployable-units — collections of its modules that the
 What ships — a whole track or a reduced composition — bound one-to-one to its pipeline.
 
 - **Defined by:** [DDR-TRACK-DEPLOYABLEUNIT](design/tracks.md#rule-ddr-track-deployableunit)
-- **Realized by:** config-key `pwsh/Catzc.Base.Globs/configs/globs/globs.yml`
+- **Realized by:** config-key `pwsh/Base.Globs/configs/globs/globs.yml`
 - **Source:** `pwsh/Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
   - [bundle](#bundle): A deployable-unit is what ships from the mono-repository, composed from a whole track or part of one; a bundle is one
@@ -363,7 +363,7 @@ The name a modules track declares once and joins to each module folder's name to
 without it.
 
 - **Defined by:** [DDR-TRACK-MODULENAMESPACE](design/tracks.md#rule-ddr-track-modulenamespace)
-- **Realized by:** config-key `pwsh/Catzc.Base.Variants/configs/variants.yml`
+- **Realized by:** config-key `pwsh/Base.Variants/configs/variants.yml`
 - **Source:** `pwsh/Base.ModuleSystem/configs/glossary.yml`
 
 ### module type
@@ -522,7 +522,7 @@ The track at `.unordered` where imports land; the unordered part of the reposito
 or falls back to it.
 
 - **Defined by:** [DDR-TRACK-UNORDEREDTRACK](design/tracks.md#rule-ddr-track-unorderedtrack)
-- **Realized by:** config-key `pwsh/Catzc.Base.Variants/configs/variants.yml`
+- **Realized by:** config-key `pwsh/Base.Variants/configs/variants.yml`
 - **Source:** `pwsh/Base.ModuleSystem/configs/glossary.yml`
 
 ### value-chain concern
@@ -875,7 +875,7 @@ A modules track of one language — pwsh, python, go, bash — holding its modul
 tests/, the same way for every language.
 
 - **Defined by:** [ADR-AUTO-MODULE-EVERYLANGUAGETRACKALIKE](automation/module-model.md#rule-adr-auto-module-everylanguagetrackalike)
-- **Realized by:** config-key `pwsh/Catzc.Base.Variants/configs/module-types.yml`
+- **Realized by:** config-key `pwsh/Base.Variants/configs/module-types.yml`
 - **Source:** `pwsh/Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
   - [track](#track): A language track is a modules track of one language, holding its modules and its test holder alike; a track is any
@@ -887,7 +887,7 @@ The one table of folders inside a module and what each holds, declared once unde
 module's folders.
 
 - **Defined by:** [ADR-AUTO-MODULE-EXISTSBYLAYOUT](automation/module-model.md#rule-adr-auto-module-existsbylayout)
-- **Realized by:** config-key `pwsh/Catzc.Base.Languages/configs/languages.yml`
+- **Realized by:** config-key `pwsh/Base.Languages/configs/languages.yml`
 - **Source:** `pwsh/Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
   - [module type](#module-type): A layout says what a module's own folders hold; a module type says where modules of a sort are found.
@@ -1060,7 +1060,7 @@ A named, declared selection of tests that runs as one unit — a globset's verif
 Test-Automation -Suite.
 
 - **Defined by:** [ADR-AUTO-TEST-TESTSUITE](automation/test-automation.md#rule-adr-auto-test-testsuite)
-- **Realized by:** config-key `pwsh/Catzc.Base.Globs/configs/globs/globs.yml`
+- **Realized by:** config-key `pwsh/Base.Globs/configs/globs/globs.yml`
 - **Source:** `pwsh/Base.QualityGates/configs/glossary.yml`
 - **Contrasts:**
   - [all tests](#all-tests): A test suite is a named selection, usually a few modules up to a tier; all tests is every test there is.
