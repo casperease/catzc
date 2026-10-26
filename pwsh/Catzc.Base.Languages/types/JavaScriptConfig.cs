@@ -16,15 +16,20 @@ public sealed class JavaScriptConfig : Catzc.Base.Objects.DictionaryRecord
     public const string FallbackRoot = ".js";
 
     private const string Failed = "javascript config validation failed:\n";
-    private static readonly string[] AllowedKeys = { "root" };
+    private static readonly string[] AllowedKeys = { "root", "strict" };
+    private static readonly Regex Module = new Regex(@"^[a-z0-9]+(-[a-z0-9]+)*$");
     private static readonly Regex Root = new Regex(@"^[A-Za-z0-9._-]+(/[A-Za-z0-9._-]+)*$");
 
     // The declared JavaScript root folder, repository-relative ('/'-separated). Null when the file declares none.
     public string root { get; }
 
+    // The modules the types gate checks strictly, each a kebab module folder under the root; none by default, so every module starts lenient.
+    public IReadOnlyList<string> strict { get; }
+
     public JavaScriptConfig(IDictionary raw)
     {
         List<string> errors = new List<string>();
+        List<string> strictModules = new List<string>();
         if (raw != null)
         {
             foreach (object k in raw.Keys)
@@ -47,9 +52,26 @@ public sealed class JavaScriptConfig : Catzc.Base.Objects.DictionaryRecord
                         "invalid root '{0}' (a repository-relative folder: '/'-separated segments, no leading or trailing slash, no '.' or '..' segment, e.g. 'js')", value));
                 }
             }
+
+            if (raw.Contains("strict") && raw["strict"] != null)
+            {
+                IList listed = raw["strict"] as IList;
+                if (listed == null || raw["strict"] is string) { errors.Add("strict must be a list of module folder names"); }
+                else
+                {
+                    foreach (object item in listed)
+                    {
+                        string name = item as string;
+                        if (name == null || !Module.IsMatch(name)) { errors.Add(string.Format(CultureInfo.InvariantCulture, "strict entry '{0}' is not a kebab module folder name", item)); }
+                        else if (strictModules.Contains(name)) { errors.Add(string.Format(CultureInfo.InvariantCulture, "strict lists '{0}' twice", name)); }
+                        else { strictModules.Add(name); }
+                    }
+                }
+            }
         }
 
         if (errors.Count > 0) { throw new ArgumentException(Failed + string.Join("\n", errors)); }
+        strict = strictModules;
     }
 
     public string ResolveRoot(string repositoryRoot)

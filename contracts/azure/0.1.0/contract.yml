@@ -1,4 +1,0 @@
-# Each fragment and file schema of what Azure Resource Manager reads, with the repository files it binds.
-applies_to:
-  templates/main.json.schema.json:
-    - "pwsh/Catzc.Azure.Templates/tests/assets/parameter-model/main.json"

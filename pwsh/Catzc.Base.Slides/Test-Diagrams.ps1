@@ -27,6 +27,7 @@ function Test-Diagrams {
     $declaration = $diagramKit.Declaration
     Assert-PathExist $declaration -PathType Leaf -ErrorText "Test-Diagrams: the draw.io kit '$Kit' has no declaration.py; slides.yml drawio_kit names the kit."
 
+    # A yml under docs/**/.assets, tracked or not, declares a diagram; a new one is checked after its first put.
     $candidates = @(Get-GitTrackedPath '.') + @(Get-GitChangedPath 'docs')
     $found = @($candidates | Where-Object { $_ -cmatch '^docs/(.+/)?\.assets/[^/]+\.drawio\.(png|yml)$' } | ForEach-Object { $_ -creplace '\.drawio\.(png|yml)$', '' } |
             Select-Object -Unique | Where-Object { Test-Path -LiteralPath (Join-Path $root "$_.drawio.yml") -PathType Leaf })
@@ -75,6 +76,7 @@ function Test-Diagrams {
         $null = Write-DiagramQueryRows -Stem $declared -RepositoryRoot $root -Path $rowsPath
         $result = Invoke-Executable "`"$($tool.Path)`" run --project `"$($diagramKit.Folder)`" python `"$declaration`" --rows `"$rowsPath`" check $quoted" -WorkingDirectory $root -PassThru -NoAssert -Silent
         Assert-True ($result.ExitCode -eq 0) -ErrorText "Test-Diagrams: the drift check failed (exit $($result.ExitCode)): $(@($result.Output -split "`r?`n" | Select-Object -Last 5) -join ' | ')"
+        # One JSON line per diagram: conflicted cells, drifted cells, stale minimaps, or an error.
         foreach ($line in @($result.Output -split "`r?`n" | Where-Object { $_.StartsWith('{') })) {
             $row = $line | ConvertFrom-Json
             if ($row.PSObject.Properties['error']) {

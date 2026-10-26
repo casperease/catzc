@@ -17,6 +17,19 @@ Describe 'New-JsConfig' -Tag 'L0', 'logic' {
         @($config['include']) | Should -Be @('js/**/*.js')
     }
 
+    It 'leaves the raised modules out of the lenient project and checks only them, strictly, in the strict one' {
+        Mock Get-Config -ModuleName Catzc.Base.Languages -ParameterFilter { $Config -eq 'javascript' } {
+            [Catzc.Base.Languages.JavaScriptConfig]::new([ordered]@{ strict = @('catzc-widget', 'catzc-gadget') })
+        }
+        $lenient = New-JsConfig -TypeRoot 'C:/types' -RepositoryRoot $script:root | ConvertFrom-Json -AsHashtable
+        @($lenient['exclude']) | Should -Be @('js/catzc-widget/**/*.js', 'js/catzc-gadget/**/*.js')
+        $strict = New-JsConfig -Target jsconfig.strict.json -RepositoryRoot $script:root | ConvertFrom-Json -AsHashtable
+        $strict['extends'] | Should -Be './jsconfig.json'
+        $strict['compilerOptions']['strict'] | Should -BeTrue
+        @($strict['include']) | Should -Be @('js/catzc-widget/**/*.js', 'js/catzc-gadget/**/*.js')
+        @($strict['exclude']) | Should -HaveCount 0
+    }
+
     It 'names no type root when node is not installed, and the dot-prefixed root without a js/ folder' {
         $bare = Join-Path $TestDrive 'bare'
         $null = New-Item -ItemType Directory -Path $bare -Force

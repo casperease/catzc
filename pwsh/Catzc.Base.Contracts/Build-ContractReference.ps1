@@ -25,27 +25,27 @@ function Build-ContractReference {
     $commandAdr = [System.IO.Path]::GetRelativePath($pageFolder, "$records/repository/command-contracts.md").Replace('\', '/')
     $kindText = @{ Presence = 'presence'; Fragment = 'fragment'; Schema = 'schema'; Sample = 'sample payload'; Command = 'command contract' }
     $directionText = @{ DependedOn = 'depended-on'; Provided = 'provided' }
-    $headers = @('Module', 'Asset', 'Target', 'Direction', 'Kind', 'Signature')
+    $headers = @('Group', 'Asset', 'Bound file', 'Direction', 'Kind', 'Signature')
     # Every page this writer emits carries this line; only a page carrying it is ever removed.
     $marker = '`Build-ContractReference` writes this page from'
 
     $assets = @(Get-Contract -Version '*' -RepositoryRoot $RepositoryRoot)
-    $units = [string[]] @($assets | ForEach-Object { $_.Root } | Select-Object -Unique)
-    [System.Array]::Sort($units, [System.StringComparer]::Ordinal)
+    $roots = [string[]] @($assets | ForEach-Object { $_.Root } | Select-Object -Unique)
+    [System.Array]::Sort($roots, [System.StringComparer]::Ordinal)
 
     $results = [System.Collections.Generic.List[pscustomobject]]::new()
-    foreach ($unit in $units) {
-        $unitAssets = @($assets | Where-Object { $_.Root -ceq $unit })
+    foreach ($rootName in $roots) {
+        $rootAssets = @($assets | Where-Object { $_.Root -ceq $rootName })
         $signatures = @{}
-        if (@($unitAssets | Where-Object { $_.Kind -eq [Catzc.Base.Contracts.ContractAssetKind]::Command }).Count -gt 0) {
+        if (@($rootAssets | Where-Object { $_.Kind -eq [Catzc.Base.Contracts.ContractAssetKind]::Command }).Count -gt 0) {
             try {
-                foreach ($command in Get-CommandContract -Root ([WildcardPattern]::Escape($unit)) -Version '*' -RepositoryRoot $RepositoryRoot) {
+                foreach ($command in Get-CommandContract -Root ([WildcardPattern]::Escape($rootName)) -Version '*' -RepositoryRoot $RepositoryRoot) {
                     $signatures[$command.Asset.AssetPath] = $command.Signature
                 }
             }
             catch {
-                # One unreadable contract fails the unit's read, so each asset is read on its own and only the broken one shows none.
-                foreach ($asset in @($unitAssets | Where-Object { $_.Kind -eq [Catzc.Base.Contracts.ContractAssetKind]::Command })) {
+                # One unreadable contract fails the root's read, so each asset is read on its own and only the broken one shows none.
+                foreach ($asset in @($rootAssets | Where-Object { $_.Kind -eq [Catzc.Base.Contracts.ContractAssetKind]::Command })) {
                     try {
                         $one = Get-CommandContract -Root ([WildcardPattern]::Escape($asset.Root)) -Version ([WildcardPattern]::Escape($asset.Version)) `
                             -Module ([WildcardPattern]::Escape($asset.Group)) -Name ([WildcardPattern]::Escape([Catzc.Base.Contracts.ContractCommand]::NameOf($asset))) `
@@ -60,13 +60,13 @@ function Build-ContractReference {
         }
 
         $lines = [System.Collections.Generic.List[string]]::new()
-        $lines.Add("# $pageFolder/$unit.md")
+        $lines.Add("# $pageFolder/$rootName.md")
         $lines.Add('')
-        $lines.Add("``The $unit contracts``")
+        $lines.Add("``The $rootName contracts``")
         $lines.Add('')
-        $lines.Add("The contract assets of the ``$unit`` unit: one table per version folder, then the notes of its assets.")
+        $lines.Add("The contract assets of the ``$rootName`` root: one table per version folder, then the notes of its assets.")
         $lines.Add('')
-        $lines.Add("$marker ``contracts/$unit/``: edit an asset or its header comment, never this page.")
+        $lines.Add("$marker ``contracts/$rootName/``: edit an asset or its header comment, never this page.")
         $lines.Add('')
         $lines.Add('Each note is the asset''s own header comment: the leading `#` lines of a YAML asset, or the `$comment` of a schema.')
         $lines.Add('')
@@ -81,7 +81,7 @@ function Build-ContractReference {
         }
 
         # The current version first, then the released folders, newest first.
-        $versions = [string[]] @($unitAssets | ForEach-Object { $_.Version } | Select-Object -Unique)
+        $versions = [string[]] @($rootAssets | ForEach-Object { $_.Version } | Select-Object -Unique)
         $versions = @($versions | Sort-Object -Property @{ Expression = { $_ -ceq '0.1.0' }; Descending = $true }, @{ Expression = { [version] $_ }; Descending = $true })
         foreach ($version in $versions) {
             $lines.Add('')
@@ -101,7 +101,7 @@ function Build-ContractReference {
 
             $rows = [System.Collections.Generic.List[string[]]]::new()
             $notes = [System.Collections.Generic.List[string]]::new()
-            foreach ($asset in @($unitAssets | Where-Object { $_.Version -ceq $version })) {
+            foreach ($asset in @($rootAssets | Where-Object { $_.Version -ceq $version })) {
                 $direction = $directionText["$($asset.Direction)"]
                 $target = if ($asset.Target) {
                     "``$($asset.Target.Replace('|', '\|'))``"
@@ -153,29 +153,29 @@ function Build-ContractReference {
             }
         }
 
-        $path = Join-Path $RepositoryRoot "$pageFolder/$unit.md"
-        $page = Format-GeneratedFileHead -Text (($lines -join "`n") + "`n") -Path "$pageFolder/$unit.md"
+        $path = Join-Path $RepositoryRoot "$pageFolder/$rootName.md"
+        $page = Format-GeneratedFileHead -Text (($lines -join "`n") + "`n") -Path "$pageFolder/$rootName.md"
         $changed = Write-FileIfChanged $path $page -DryRun:$DryRun
         $results.Add([pscustomobject]@{
-                Unit = $unit; Path = "$pageFolder/$unit.md"; Changed = $changed; Removed = $false; DryRun = [bool] $DryRun
-                AssetCount = $unitAssets.Count
+                Root = $rootName; Path = "$pageFolder/$rootName.md"; Changed = $changed; Removed = $false; DryRun = [bool] $DryRun
+                AssetCount = $rootAssets.Count
             })
     }
 
-    # A page this writer emitted whose unit has no assets left is removed; a page without the marker is someone's own.
+    # A page this writer emitted whose root has no assets left is removed; a page without the marker is someone's own.
     $folder = Join-Path $RepositoryRoot $pageFolder
     if ([System.IO.Directory]::Exists($folder)) {
         $pages = [Catzc.Base.Folders.PathSet]::new((Get-Config -Config folder-walk)).AddPattern($folder, '*.md', 1).ToArray()
         foreach ($page in $pages) {
-            $unit = [System.IO.Path]::GetFileNameWithoutExtension($page)
-            if ($unit -cin $units -or -not [System.IO.File]::ReadAllText($page).Contains($marker)) {
+            $rootName = [System.IO.Path]::GetFileNameWithoutExtension($page)
+            if ($rootName -cin $roots -or -not [System.IO.File]::ReadAllText($page).Contains($marker)) {
                 continue
             }
             if (-not $DryRun) {
                 [System.IO.File]::Delete($page)
             }
             $results.Add([pscustomobject]@{
-                    Unit = $unit; Path = "$pageFolder/$unit.md"; Changed = $true; Removed = $true; DryRun = [bool] $DryRun; AssetCount = 0
+                    Root = $rootName; Path = "$pageFolder/$rootName.md"; Changed = $true; Removed = $true; DryRun = [bool] $DryRun; AssetCount = 0
                 })
         }
     }

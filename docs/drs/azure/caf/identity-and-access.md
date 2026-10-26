@@ -78,7 +78,9 @@ Password hash sync beside AD FS is not adopted, because nothing in the repositor
 
 Application proxy for on-premises applications is not adopted, because there is no on-premises application and no on-premises connectivity.
 
-- [12 — Application proxy for remote access to on-premises applications](#12--application-proxy-for-remote-access-to-on-premises-applications)
+- [12 — Application proxy for remote access to on-premises applications][caf12]
+
+[caf12]: #12--application-proxy-for-remote-access-to-on-premises-applications
 
 ### Rule ADR-AZ-CAF-IAM-CHECKWORKLOADCOMPATIBILITYDIRECTORYSERVICES
 
@@ -275,7 +277,9 @@ group.
 `discovery` provisions every landing zone but creates no group, no role assignment, and no user-assigned identity; role assignments are
 planned, and creating Entra ID groups is not adopted.
 
-- [43 — Landing zone provisioning creates groups, assignments, and identities](#43--landing-zone-provisioning-creates-groups-assignments-and-identities)
+- [43 — Landing zone provisioning creates groups, assignments, and identities][caf43]
+
+[caf43]: #43--landing-zone-provisioning-creates-groups-assignments-and-identities
 
 ### Rule ADR-AZ-CAF-IAM-ROLEASSIGNMENTSATSUBSCRIPTIONORRESOURCEGROUPLEVEL
 
@@ -467,11 +471,12 @@ on the storage account and the SQL server, no role assignment in any template
 pins ([az-session-verification](../az-session-verification.md)). So the hybrid-identity items and the tenant items take the compact form,
 and the items that bear on a template, a module, a config, or a pipeline take the full one.
 
-Microsoft's
-[DevOps security considerations](https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/considerations/security-considerations-overview)
-page (retrieved 2026-10-15) has no recommendations section, so it is not a rule here. It informs the pipeline items (47, 54, 57): it advises
-pipelines to sign in through OpenID Connect workload identity federation, to use one deploying identity per application and environment, to
-give the preview of a change (what-if) its own read-only identity, and to put approvals on the service connection.
+Microsoft's [DevOps security considerations][devops-security] page (retrieved 2026-10-15) has no recommendations section, so it is not a
+rule here. It informs the pipeline items (47, 54, 57): it advises pipelines to sign in through OpenID Connect workload identity federation,
+to use one deploying identity per application and environment, to give the preview of a change (what-if) its own read-only identity, and to
+put approvals on the service connection.
+
+[devops-security]: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/considerations/security-considerations-overview
 
 The examples are the three templates the [landing-zones](../landing-zones.md) record describes: `foundation` (the Log Analytics workspace
 and the Key Vault of each subscription), `discovery` (the landing zone: network, policies, budget), and `expedition` (the workload: a

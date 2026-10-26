@@ -1,0 +1,38 @@
+{
+  "$comment": "Our schema of an Azure Pipelines file, an inner contract (ADR-REPO-CONTRACT-CONTRACTASSET): the shape Azure DevOps reads, kept local so an editor and a gate need no download. source: https://github.com/microsoft/azure-pipelines-vscode service-schema.json (the full schema models a step's task as one anyOf branch per known task version, which offline reports every branch that does not match), trimmed to the top-level shape, the container types, and one loose step whose task is Name@Major or a template expression. Every pipeline file is bound to it by contract.yml's applies_to. Taken 2026-10-25.",
+  "type": "object",
+  "properties": {
+    "name": { "type": "string" },
+    "trigger": {},
+    "pr": {},
+    "schedules": { "type": "array" },
+    "parameters": {},
+    "variables": {},
+    "resources": { "type": "object" },
+    "pool": {},
+    "extends": { "type": "object" },
+    "stages": { "type": "array", "items": { "type": "object" } },
+    "jobs": { "type": "array", "items": { "type": "object" } },
+    "steps": { "type": "array", "items": { "$ref": "#/definitions/step" } }
+  },
+  "definitions": {
+    "step": {
+      "type": "object",
+      "properties": {
+        "task": { "type": "string", "pattern": "^([A-Za-z0-9_.]+@[0-9]+|\\$\\{\\{.+\\}\\})$" },
+        "inputs": { "type": "object" },
+        "displayName": { "type": "string" },
+        "name": { "type": "string" },
+        "condition": { "type": "string" },
+        "env": { "type": "object" },
+        "script": { "type": "string" },
+        "powershell": { "type": "string" },
+        "bash": { "type": "string" },
+        "template": { "type": "string" },
+        "checkout": { "type": "string" },
+        "publish": { "type": "string" },
+        "workingDirectory": { "type": "string" }
+      }
+    }
+  }
+}

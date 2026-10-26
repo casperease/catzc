@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "4a958bd45af2"
+    with_body_sha: "7611f9e550a6"
     warning: "Do Not Edit, this file is generated"
 ---
 
@@ -9,7 +9,7 @@ catzc:
 
 `The catzc contracts`
 
-The contract assets of the `catzc` unit: one table per version folder, then the notes of its assets.
+The contract assets of the `catzc` root: one table per version folder, then the notes of its assets.
 
 `Build-ContractReference` writes this page from `contracts/catzc/`: edit an asset or its header comment, never this page.
 
@@ -28,13 +28,30 @@ Layout, kinds, and directions: [api-contracts](../../drs/repository/api-contract
 The current version: edited in place
 ([ADR-REPO-CONTRACT-RELEASEDIMMUTABLE](../../drs/repository/api-contracts.md#rule-adr-repo-contract-releasedimmutable)).
 
-| Module                                 | Asset                                            | Target                                                                    | Direction | Kind             | Signature                                                                                                                                                                                                                                                                                                                                                           |
+| Group                                  | Asset                                            | Bound file                                                                | Direction | Kind             | Signature                                                                                                                                                                                                                                                                                                                                                           |
 | -------------------------------------- | ------------------------------------------------ | ------------------------------------------------------------------------- | --------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `catzc.azure`                          | `test_azure_network_plan.command.yml`            | `pwsh/Catzc.Azure/Test-AzureNetworkPlan.ps1`                              | provided  | command contract | `output_folder: string, pass_thru: switch -> catzc.base.reports.quality_gate_result`                                                                                                                                                                                                                                                                                |
+| `catzc.azure.dev_ops`                  | `pipeline.yaml.schema.json`                      | `.ado/pipelines/cd-apex.yaml`                                             | provided  | schema           | none                                                                                                                                                                                                                                                                                                                                                                |
+| `catzc.azure.dev_ops`                  | `pipeline.yaml.schema.json`                      | `.ado/pipelines/cd-flux.yaml`                                             | provided  | schema           | none                                                                                                                                                                                                                                                                                                                                                                |
+| `catzc.azure.dev_ops`                  | `pipeline.yaml.schema.json`                      | `.ado/pipelines/cd-nova.yaml`                                             | provided  | schema           | none                                                                                                                                                                                                                                                                                                                                                                |
+| `catzc.azure.dev_ops`                  | `pipeline.yaml.schema.json`                      | `.ado/pipelines/cd-shared.yaml`                                           | provided  | schema           | none                                                                                                                                                                                                                                                                                                                                                                |
+| `catzc.azure.dev_ops`                  | `pipeline.yaml.schema.json`                      | `.ado/pipelines/ci-infrastructure.yaml`                                   | provided  | schema           | none                                                                                                                                                                                                                                                                                                                                                                |
+| `catzc.azure.dev_ops`                  | `pipeline.yaml.schema.json`                      | `.ado/pipelines/ci-pwsh-expected-failures.yaml`                           | provided  | schema           | none                                                                                                                                                                                                                                                                                                                                                                |
+| `catzc.azure.dev_ops`                  | `pipeline.yaml.schema.json`                      | `.ado/pipelines/ci-pwsh.yaml`                                             | provided  | schema           | none                                                                                                                                                                                                                                                                                                                                                                |
+| `catzc.azure.dev_ops`                  | `pipeline.yaml.schema.json`                      | `.ado/pipelines/deploy-apex.yaml`                                         | provided  | schema           | none                                                                                                                                                                                                                                                                                                                                                                |
+| `catzc.azure.dev_ops`                  | `pipeline.yaml.schema.json`                      | `.ado/pipelines/deploy-nova.yaml`                                         | provided  | schema           | none                                                                                                                                                                                                                                                                                                                                                                |
+| `catzc.azure.dev_ops`                  | `pipeline.yaml.schema.json`                      | `.ado/pipelines/deploy-shared.yaml`                                       | provided  | schema           | none                                                                                                                                                                                                                                                                                                                                                                |
+| `catzc.azure.dev_ops`                  | `pipeline.yaml.schema.json`                      | `.ado/pipelines/extends/cd-customer.yaml`                                 | provided  | schema           | none                                                                                                                                                                                                                                                                                                                                                                |
+| `catzc.azure.dev_ops`                  | `pipeline.yaml.schema.json`                      | `.ado/pipelines/stages/deploy-unit.yaml`                                  | provided  | schema           | none                                                                                                                                                                                                                                                                                                                                                                |
+| `catzc.azure.dev_ops`                  | `pipeline.yaml.schema.json`                      | `.ado/pipelines/steps/assert-deployment-history.yaml`                     | provided  | schema           | none                                                                                                                                                                                                                                                                                                                                                                |
+| `catzc.azure.dev_ops`                  | `pipeline.yaml.schema.json`                      | `.ado/pipelines/steps/cache-types.yaml`                                   | provided  | schema           | none                                                                                                                                                                                                                                                                                                                                                                |
+| `catzc.azure.dev_ops`                  | `pipeline.yaml.schema.json`                      | `.ado/pipelines/steps/download-artifact.yaml`                             | provided  | schema           | none                                                                                                                                                                                                                                                                                                                                                                |
+| `catzc.azure.dev_ops`                  | `pipeline.yaml.schema.json`                      | `.ado/pipelines/steps/invoke-automation.yaml`                             | provided  | schema           | none                                                                                                                                                                                                                                                                                                                                                                |
 | `catzc.azure.dev_ops`                  | `test_pipelines.command.yml`                     | `pwsh/Catzc.Azure.DevOps/Test-Pipelines.ps1`                              | provided  | command contract | `path: string, output_folder: string, pass_thru: switch -> catzc.base.reports.quality_gate_result`                                                                                                                                                                                                                                                                  |
 | `catzc.azure.dev_ops.build_validation` | `register_ado_build_validation.command.yml`      | `pwsh/Catzc.Azure.DevOps.BuildValidation/Register-AdoBuildValidation.ps1` | provided  | command contract | `glob_set: string!, pipeline: string, branch: string, project: string, organization: string, repository_name: string, dry_run: switch`                                                                                                                                                                                                                              |
 | `catzc.azure.templates`                | `get_bicep_parameter_model.command.yml`          | `pwsh/Catzc.Azure.Templates/Get-BicepParameterModel.ps1`                  | provided  | command contract | `template: string! -> catzc.azure.templates.bicep_parameter_model`                                                                                                                                                                                                                                                                                                  |
 | `catzc.azure.templates`                | `get_bicep_template_names.command.yml`           | `pwsh/Catzc.Azure.Templates/Get-BicepTemplateNames.ps1`                   | provided  | command contract | `no parameters -> string[]`                                                                                                                                                                                                                                                                                                                                         |
+| `catzc.azure.templates`                | `main.json.schema.json`                          | `pwsh/Catzc.Azure.Templates/tests/assets/parameter-model/main.json`       | provided  | schema           | none                                                                                                                                                                                                                                                                                                                                                                |
 | `catzc.base.config_extensions`         | `test_config_validators.command.yml`             | `pwsh/Catzc.Base.ConfigExtensions/Test-ConfigValidators.ps1`              | provided  | command contract | `output_folder: string, pass_thru: switch -> catzc.base.reports.quality_gate_result`                                                                                                                                                                                                                                                                                |
 | `catzc.base.contracts`                 | `build_contract_reference.command.yml`           | `pwsh/Catzc.Base.Contracts/Build-ContractReference.ps1`                   | provided  | command contract | `repository_root: string, dry_run: switch, silent: switch, pass_thru: switch -> string[]`                                                                                                                                                                                                                                                                           |
 | `catzc.base.contracts`                 | `get_accosted_file.command.yml`                  | `pwsh/Catzc.Base.Contracts/Get-AccostedFile.ps1`                          | provided  | command contract | `path: string!, repository_root: string -> catzc.base.contracts.accosted_file`                                                                                                                                                                                                                                                                                      |
@@ -117,6 +134,8 @@ The current version: edited in place
 | `catzc.base.types_system`              | `test_shipped_types.command.yml`                 | `pwsh/Catzc.Base.TypesSystem/Test-ShippedTypes.ps1`                       | provided  | command contract | `output_folder: string, pass_thru: switch -> catzc.base.reports.quality_gate_result`                                                                                                                                                                                                                                                                                |
 | `catzc.tooling.claude`                 | `start_claude_drone.command.yml`                 | `pwsh/Catzc.Tooling.Claude/Start-ClaudeDrone.ps1`                         | provided  | command contract | `agent: string, model: string, prompt: string, count: int = 1, launcher: string, pass_thru: switch, dry_run: switch -> string[]`                                                                                                                                                                                                                                    |
 | `catzc.tooling.github`                 | `remove_token_from_history.command.yml`          | `pwsh/Catzc.Tooling.Github/Remove-TokenFromHistory.ps1`                   | provided  | command contract | `token: string!, replace_with: string = ***REMOVED***, skip_messages: switch, repository_path: string, dry_run: switch`                                                                                                                                                                                                                                             |
+| `catzc.tooling.github`                 | `workflow.yml.schema.json`                       | `.github/workflows/ci-pwsh.yml`                                           | provided  | schema           | none                                                                                                                                                                                                                                                                                                                                                                |
+| `catzc.tooling.github`                 | `workflow.yml.schema.json`                       | `.github/workflows/release-automation.yml`                                | provided  | schema           | none                                                                                                                                                                                                                                                                                                                                                                |
 | `catzc.tooling.inspiration`            | `get_inspiration.command.yml`                    | `pwsh/Catzc.Tooling.Inspiration/Get-Inspiration.ps1`                      | provided  | command contract | `id: string! in id, count: int! in random, seed: int in random, include_unavailable: switch in all,random; default set all -> catzc.tooling.inspiration.inspiration`                                                                                                                                                                                                |
 | `catzc.tooling.node`                   | `install_cspell.command.yml`                     | `pwsh/Catzc.Tooling.Node/Install-Cspell.ps1`                              | provided  | command contract | `version: string, force: switch`                                                                                                                                                                                                                                                                                                                                    |
 | `catzc.tooling.node`                   | `install_markdownlint.command.yml`               | `pwsh/Catzc.Tooling.Node/Install-Markdownlint.ps1`                        | provided  | command contract | `version: string, force: switch`                                                                                                                                                                                                                                                                                                                                    |
@@ -167,6 +186,102 @@ Notes:
 - `catzc.azure/test_azure_network_plan.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of
   Test-AzureNetworkPlan, the quality gate that checks the network plan against the azure config's environments and subscriptions and returns
   its result under -PassThru.
+- `catzc.azure.dev_ops/pipeline.yaml.schema.json`: Our schema of an Azure Pipelines file, an inner contract
+  (ADR-REPO-CONTRACT-CONTRACTASSET): the shape Azure DevOps reads, kept local so an editor and a gate need no download. source:
+  <https://github.com/microsoft/azure-pipelines-vscode> service-schema.json (the full schema models a step's task as one anyOf branch per
+  known task version, which offline reports every branch that does not match), trimmed to the top-level shape, the container types, and one
+  loose step whose task is Name@Major or a template expression. Every pipeline file is bound to it by contract.yml's applies_to. Taken
+  2026-10-25.
+- `catzc.azure.dev_ops/pipeline.yaml.schema.json`: Our schema of an Azure Pipelines file, an inner contract
+  (ADR-REPO-CONTRACT-CONTRACTASSET): the shape Azure DevOps reads, kept local so an editor and a gate need no download. source:
+  <https://github.com/microsoft/azure-pipelines-vscode> service-schema.json (the full schema models a step's task as one anyOf branch per
+  known task version, which offline reports every branch that does not match), trimmed to the top-level shape, the container types, and one
+  loose step whose task is Name@Major or a template expression. Every pipeline file is bound to it by contract.yml's applies_to. Taken
+  2026-10-25.
+- `catzc.azure.dev_ops/pipeline.yaml.schema.json`: Our schema of an Azure Pipelines file, an inner contract
+  (ADR-REPO-CONTRACT-CONTRACTASSET): the shape Azure DevOps reads, kept local so an editor and a gate need no download. source:
+  <https://github.com/microsoft/azure-pipelines-vscode> service-schema.json (the full schema models a step's task as one anyOf branch per
+  known task version, which offline reports every branch that does not match), trimmed to the top-level shape, the container types, and one
+  loose step whose task is Name@Major or a template expression. Every pipeline file is bound to it by contract.yml's applies_to. Taken
+  2026-10-25.
+- `catzc.azure.dev_ops/pipeline.yaml.schema.json`: Our schema of an Azure Pipelines file, an inner contract
+  (ADR-REPO-CONTRACT-CONTRACTASSET): the shape Azure DevOps reads, kept local so an editor and a gate need no download. source:
+  <https://github.com/microsoft/azure-pipelines-vscode> service-schema.json (the full schema models a step's task as one anyOf branch per
+  known task version, which offline reports every branch that does not match), trimmed to the top-level shape, the container types, and one
+  loose step whose task is Name@Major or a template expression. Every pipeline file is bound to it by contract.yml's applies_to. Taken
+  2026-10-25.
+- `catzc.azure.dev_ops/pipeline.yaml.schema.json`: Our schema of an Azure Pipelines file, an inner contract
+  (ADR-REPO-CONTRACT-CONTRACTASSET): the shape Azure DevOps reads, kept local so an editor and a gate need no download. source:
+  <https://github.com/microsoft/azure-pipelines-vscode> service-schema.json (the full schema models a step's task as one anyOf branch per
+  known task version, which offline reports every branch that does not match), trimmed to the top-level shape, the container types, and one
+  loose step whose task is Name@Major or a template expression. Every pipeline file is bound to it by contract.yml's applies_to. Taken
+  2026-10-25.
+- `catzc.azure.dev_ops/pipeline.yaml.schema.json`: Our schema of an Azure Pipelines file, an inner contract
+  (ADR-REPO-CONTRACT-CONTRACTASSET): the shape Azure DevOps reads, kept local so an editor and a gate need no download. source:
+  <https://github.com/microsoft/azure-pipelines-vscode> service-schema.json (the full schema models a step's task as one anyOf branch per
+  known task version, which offline reports every branch that does not match), trimmed to the top-level shape, the container types, and one
+  loose step whose task is Name@Major or a template expression. Every pipeline file is bound to it by contract.yml's applies_to. Taken
+  2026-10-25.
+- `catzc.azure.dev_ops/pipeline.yaml.schema.json`: Our schema of an Azure Pipelines file, an inner contract
+  (ADR-REPO-CONTRACT-CONTRACTASSET): the shape Azure DevOps reads, kept local so an editor and a gate need no download. source:
+  <https://github.com/microsoft/azure-pipelines-vscode> service-schema.json (the full schema models a step's task as one anyOf branch per
+  known task version, which offline reports every branch that does not match), trimmed to the top-level shape, the container types, and one
+  loose step whose task is Name@Major or a template expression. Every pipeline file is bound to it by contract.yml's applies_to. Taken
+  2026-10-25.
+- `catzc.azure.dev_ops/pipeline.yaml.schema.json`: Our schema of an Azure Pipelines file, an inner contract
+  (ADR-REPO-CONTRACT-CONTRACTASSET): the shape Azure DevOps reads, kept local so an editor and a gate need no download. source:
+  <https://github.com/microsoft/azure-pipelines-vscode> service-schema.json (the full schema models a step's task as one anyOf branch per
+  known task version, which offline reports every branch that does not match), trimmed to the top-level shape, the container types, and one
+  loose step whose task is Name@Major or a template expression. Every pipeline file is bound to it by contract.yml's applies_to. Taken
+  2026-10-25.
+- `catzc.azure.dev_ops/pipeline.yaml.schema.json`: Our schema of an Azure Pipelines file, an inner contract
+  (ADR-REPO-CONTRACT-CONTRACTASSET): the shape Azure DevOps reads, kept local so an editor and a gate need no download. source:
+  <https://github.com/microsoft/azure-pipelines-vscode> service-schema.json (the full schema models a step's task as one anyOf branch per
+  known task version, which offline reports every branch that does not match), trimmed to the top-level shape, the container types, and one
+  loose step whose task is Name@Major or a template expression. Every pipeline file is bound to it by contract.yml's applies_to. Taken
+  2026-10-25.
+- `catzc.azure.dev_ops/pipeline.yaml.schema.json`: Our schema of an Azure Pipelines file, an inner contract
+  (ADR-REPO-CONTRACT-CONTRACTASSET): the shape Azure DevOps reads, kept local so an editor and a gate need no download. source:
+  <https://github.com/microsoft/azure-pipelines-vscode> service-schema.json (the full schema models a step's task as one anyOf branch per
+  known task version, which offline reports every branch that does not match), trimmed to the top-level shape, the container types, and one
+  loose step whose task is Name@Major or a template expression. Every pipeline file is bound to it by contract.yml's applies_to. Taken
+  2026-10-25.
+- `catzc.azure.dev_ops/pipeline.yaml.schema.json`: Our schema of an Azure Pipelines file, an inner contract
+  (ADR-REPO-CONTRACT-CONTRACTASSET): the shape Azure DevOps reads, kept local so an editor and a gate need no download. source:
+  <https://github.com/microsoft/azure-pipelines-vscode> service-schema.json (the full schema models a step's task as one anyOf branch per
+  known task version, which offline reports every branch that does not match), trimmed to the top-level shape, the container types, and one
+  loose step whose task is Name@Major or a template expression. Every pipeline file is bound to it by contract.yml's applies_to. Taken
+  2026-10-25.
+- `catzc.azure.dev_ops/pipeline.yaml.schema.json`: Our schema of an Azure Pipelines file, an inner contract
+  (ADR-REPO-CONTRACT-CONTRACTASSET): the shape Azure DevOps reads, kept local so an editor and a gate need no download. source:
+  <https://github.com/microsoft/azure-pipelines-vscode> service-schema.json (the full schema models a step's task as one anyOf branch per
+  known task version, which offline reports every branch that does not match), trimmed to the top-level shape, the container types, and one
+  loose step whose task is Name@Major or a template expression. Every pipeline file is bound to it by contract.yml's applies_to. Taken
+  2026-10-25.
+- `catzc.azure.dev_ops/pipeline.yaml.schema.json`: Our schema of an Azure Pipelines file, an inner contract
+  (ADR-REPO-CONTRACT-CONTRACTASSET): the shape Azure DevOps reads, kept local so an editor and a gate need no download. source:
+  <https://github.com/microsoft/azure-pipelines-vscode> service-schema.json (the full schema models a step's task as one anyOf branch per
+  known task version, which offline reports every branch that does not match), trimmed to the top-level shape, the container types, and one
+  loose step whose task is Name@Major or a template expression. Every pipeline file is bound to it by contract.yml's applies_to. Taken
+  2026-10-25.
+- `catzc.azure.dev_ops/pipeline.yaml.schema.json`: Our schema of an Azure Pipelines file, an inner contract
+  (ADR-REPO-CONTRACT-CONTRACTASSET): the shape Azure DevOps reads, kept local so an editor and a gate need no download. source:
+  <https://github.com/microsoft/azure-pipelines-vscode> service-schema.json (the full schema models a step's task as one anyOf branch per
+  known task version, which offline reports every branch that does not match), trimmed to the top-level shape, the container types, and one
+  loose step whose task is Name@Major or a template expression. Every pipeline file is bound to it by contract.yml's applies_to. Taken
+  2026-10-25.
+- `catzc.azure.dev_ops/pipeline.yaml.schema.json`: Our schema of an Azure Pipelines file, an inner contract
+  (ADR-REPO-CONTRACT-CONTRACTASSET): the shape Azure DevOps reads, kept local so an editor and a gate need no download. source:
+  <https://github.com/microsoft/azure-pipelines-vscode> service-schema.json (the full schema models a step's task as one anyOf branch per
+  known task version, which offline reports every branch that does not match), trimmed to the top-level shape, the container types, and one
+  loose step whose task is Name@Major or a template expression. Every pipeline file is bound to it by contract.yml's applies_to. Taken
+  2026-10-25.
+- `catzc.azure.dev_ops/pipeline.yaml.schema.json`: Our schema of an Azure Pipelines file, an inner contract
+  (ADR-REPO-CONTRACT-CONTRACTASSET): the shape Azure DevOps reads, kept local so an editor and a gate need no download. source:
+  <https://github.com/microsoft/azure-pipelines-vscode> service-schema.json (the full schema models a step's task as one anyOf branch per
+  known task version, which offline reports every branch that does not match), trimmed to the top-level shape, the container types, and one
+  loose step whose task is Name@Major or a template expression. Every pipeline file is bound to it by contract.yml's applies_to. Taken
+  2026-10-25.
 - `catzc.azure.dev_ops/test_pipelines.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of
   Test-Pipelines, the quality gate that checks the .ado/pipelines/ tree against the naming-and-placement contract and returns its result
   under -PassThru.
@@ -178,6 +293,12 @@ Notes:
   interface of Get-BicepParameterModel, which returns a template's Bicep parameter model, every parameter its compiled main.json declares.
 - `catzc.azure.templates/get_bicep_template_names.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call
   interface of Get-BicepTemplateNames, which returns the names of all discovered Bicep templates; it takes no parameters.
+- `catzc.azure.templates/main.json.schema.json`: Our schema of a compiled ARM template, an inner contract (ADR-REPO-CONTRACT-CONTRACTASSET):
+  the skeleton Azure Resource Manager reads, kept local so an editor and a gate need no download. source:
+  <https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json> (the full schema, 186 KB, refs hundreds of
+  per-API-version resource schemas and uses oneOf/anyOf/allOf, outside the bounded subset of ContractSchema), trimmed to the top-level
+  shape. Only the top-level sections are checked, never a resource body. Every compiled template is bound to it by contract.yml's
+  applies_to. Taken 2026-10-17.
 - `catzc.base.config_extensions/test_config_validators.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the
   call interface of Test-ConfigValidators, the quality gate that checks every config validator maps to a config of its own module and
   returns its result under -PassThru.
@@ -419,6 +540,18 @@ Notes:
   interface of Remove-TokenFromHistory, which scrubs a token from a git history's blob content and commit messages. RepositoryPath defaults
   to the repository root, a computed default the contract does not restate; SkipMessages leaves the commit messages alone, and DryRun
   reports what would change.
+- `catzc.tooling.github/workflow.yml.schema.json`: Our schema of a GitHub Actions workflow, an inner contract
+  (ADR-REPO-CONTRACT-CONTRACTASSET): the shape GitHub reads, kept local so an editor and a gate need no download. source:
+  <https://json.schemastore.org/github-workflow.json> (the full schema validates every job and step through patternProperties and oneOf,
+  outside the bounded subset of ContractSchema), trimmed to the top-level shape: on and jobs are required, as GitHub needs both to run a
+  workflow, and every known top-level key has its type. A job, keyed by its own name, is not checked here. Every workflow file is bound to
+  it by contract.yml's applies_to. Taken 2026-10-25.
+- `catzc.tooling.github/workflow.yml.schema.json`: Our schema of a GitHub Actions workflow, an inner contract
+  (ADR-REPO-CONTRACT-CONTRACTASSET): the shape GitHub reads, kept local so an editor and a gate need no download. source:
+  <https://json.schemastore.org/github-workflow.json> (the full schema validates every job and step through patternProperties and oneOf,
+  outside the bounded subset of ContractSchema), trimmed to the top-level shape: on and jobs are required, as GitHub needs both to run a
+  workflow, and every known top-level key has its type. A job, keyed by its own name, is not checked here. Every workflow file is bound to
+  it by contract.yml's applies_to. Taken 2026-10-25.
 - `catzc.tooling.inspiration/get_inspiration.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call
   interface of Get-Inspiration, which lists the inspirations catzc reads for ideas: all of them, one by id, or a count of them at random
   with an optional seed.

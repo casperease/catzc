@@ -7,10 +7,10 @@ in-tree caller, owing no backwards compatibility. This is the one deliberate exc
 upgrade on their own schedule.
 
 The layout is the contract: `contracts/<root>/<version>/[<group>/]<asset>`. The first level is the root, the party that makes the promise:
-`catzc` for what this repository provides, and a vendor root (`ado`, `github`, `azure`) for what an outside platform expects of us. The
-second is the version: `0.1.0` is the one current version every internal binding points at, edited in place; `1.0.0` and up are frozen
-`catzc` releases; a vendor root follows its vendor in `0.1.0` and never releases. Inside a version folder an asset sits directly or in one
-group folder, and no group holds a folder. The files a fragment or file schema binds are named only in its version's `contract.yml`
+today only `catzc`, since every shape we hold is one we wrote, including our schemas of the files Azure DevOps, GitHub and Azure read. A
+vendor root is added only when a vendor ships a shape we copy verbatim. The second is the version: `0.1.0` is the one current version every
+internal binding points at, edited in place; `1.0.0` and up are frozen `catzc` releases. Inside a version folder an asset sits directly or
+in one group folder, and no group holds a folder. The files a fragment or file schema binds are named only in its version's `contract.yml`
 `applies_to`, as repository-relative globs. No folder under `contracts/` is dot-prefixed. A frozen release is kept as long as a consumer
 pins it.
 

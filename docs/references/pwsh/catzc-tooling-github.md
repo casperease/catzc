@@ -2,7 +2,7 @@
 
 The repository's GitHub integration: everything that faces GitHub, as a platform that reads our files and as a remote that stores our
 history. Two jobs make it up. It holds the GitHub-facing contracts — what GitHub requires of the files it reads, kept under
-`contracts/catzc/<version>/Catzc.Tooling.Github/`
+`contracts/catzc/0.1.0/catzc.tooling.github/`
 ([ADR-REPO-CONTRACT-LAYOUT](../../drs/repository/api-contracts.md#rule-adr-repo-contract-layout)). And it erases a token — a leaked secret,
 or a name being scrubbed — from a GitHub repository's entire history and its remote object store, then proves it is gone. Erasure needs a
 module of its own because an ordinary force-push erases nothing: the old commits become unreachable but stay stored on the server until
@@ -60,17 +60,15 @@ it against a ref whose upstream still tracks un-purged history, which would fals
 
 ### responsibility:5 — GitHub-facing contracts
 
-Owning the depended-on contracts GitHub holds the repository to: the files GitHub reads, pinned under
-`contracts/catzc/<version>/Catzc.Tooling.Github/` at the path of the real file each one constrains under the module's target root, `.github`
-([ADR-REPO-CONTRACT-LAYOUT](../../drs/repository/api-contracts.md#rule-adr-repo-contract-layout)), so `workflows/release-automation.yml`
-pins `.github/workflows/release-automation.yml`
-([ADR-REPO-CONTRACT-BINDINGINTERFACE](../../drs/repository/api-contracts.md#rule-adr-repo-contract-bindinginterface)). Each asset pins only
+Owning our schema of the workflow files GitHub reads, an inner contract in the module's group,
+`contracts/catzc/0.1.0/catzc.tooling.github/workflow.yml.schema.json`
+([ADR-REPO-CONTRACT-LAYOUT](../../drs/repository/api-contracts.md#rule-adr-repo-contract-layout)), bound to every `.github/workflows/*.yml`
+by the version's `applies_to`
+([ADR-REPO-CONTRACT-CONFIGUREDADDRESSING](../../drs/repository/api-contracts.md#rule-adr-repo-contract-configuredaddressing)). It pins only
 what GitHub reads, never an internal value
-([ADR-REPO-CONTRACT-CONTRACTASSET](../../drs/repository/api-contracts.md#rule-adr-repo-contract-contractasset)): a workflow's `on` and each
-job's `runs-on` and `steps` under `.github/workflows/`, and the presence of `.github/README.md`, the page GitHub renders first. The contract
-mechanism in `Catzc.Base.Contracts` generates one test per asset, so a change GitHub would reject fails CI here first. A platform change is
-a new draft in `contracts/catzc/0.0.0/`, never an old shape kept beside the new one
-([ADR-REPO-CONTRACT-KEPTWHILEPINNED](../../drs/repository/api-contracts.md#rule-adr-repo-contract-keptwhilepinned)).
+([ADR-REPO-CONTRACT-CONTRACTASSET](../../drs/repository/api-contracts.md#rule-adr-repo-contract-contractasset)): a workflow's `on` and
+`jobs`. The contract mechanism in `Catzc.Base.Contracts` generates one test per bound file, so a change GitHub would reject fails CI here
+first. A platform change edits the schema in `0.1.0` in place, never an old shape kept beside the new one.
 
 ## What the module does
 
@@ -96,12 +94,12 @@ of its own beyond its contract assets: it is a thin, ordered set of operations o
 
 The module's public functions and contract assets, sorted into the responsibilities above.
 
-| Responsibility                                | Function                                          |
-| --------------------------------------------- | ------------------------------------------------- |
-| responsibility:1 — Remote purge and publish   | `Reset-GitHubRepository`                          |
-|                                               | `Publish-CleanHistory`                            |
-| responsibility:2 — Local history rewrite      | `New-SyntheticHistory`                            |
-|                                               | `Remove-TokenFromHistory`                         |
-| responsibility:3 — Purge preflight            | `Assert-GitHubPurgeReady`                         |
-| responsibility:4 — Token-absence verification | `Test-GitHistoryClean`                            |
-| responsibility:5 — GitHub-facing contracts    | `contracts/catzc/<version>/Catzc.Tooling.Github/` |
+| Responsibility                                | Function                   |
+| --------------------------------------------- | -------------------------- |
+| responsibility:1 — Remote purge and publish   | `Reset-GitHubRepository`   |
+|                                               | `Publish-CleanHistory`     |
+| responsibility:2 — Local history rewrite      | `New-SyntheticHistory`     |
+|                                               | `Remove-TokenFromHistory`  |
+| responsibility:3 — Purge preflight            | `Assert-GitHubPurgeReady`  |
+| responsibility:4 — Token-absence verification | `Test-GitHistoryClean`     |
+| responsibility:5 — GitHub-facing contracts    | `workflow.yml.schema.json` |

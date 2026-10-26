@@ -101,7 +101,8 @@ layout:
 7. **Assert-SourceTree.** Tools that work on the source tree itself call this check first; it stands apart from the entry scripts because it
    runs when such a tool is called, not during a load.
 8. **Source tree only.** In a build, such a tool stops with
-   `<command> operates on the catzc source tree; this session runs a built Catzc package (…). Load the repository with importer.ps1 to use it.`
+   `<command> operates on the catzc source tree; this session runs a built Catzc package (…).` followed by
+   `Load the repository with importer.ps1 to use it.`
 
 To see which mode a session is in, run `Get-CatzcRunMode`, which answers `source` or `build`. A verbose load also writes the roots on the
 importer's record, `Roots: RepositoryRoot='…', CatzcModulesRoot='…'`, and after a switch its summary adds `evicted from another root: …`.

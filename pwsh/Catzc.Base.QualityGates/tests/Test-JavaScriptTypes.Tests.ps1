@@ -11,8 +11,14 @@ Describe 'Test-JavaScriptTypes' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:output = ''
         $script:exit = 0
+        $script:strict = @()
+        $script:commands = [System.Collections.Generic.List[string]]::new()
+        Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'javascript' } {
+            [Catzc.Base.Languages.JavaScriptConfig]::new([ordered]@{ strict = @($script:strict) })
+        }
         Mock Invoke-Executable -ModuleName Catzc.Base.QualityGates {
             $script:command = $Command
+            $script:commands.Add($Command)
             [pscustomobject]@{ ExitCode = $script:exit; Output = $script:output; Full = $script:output }
         }
     }
@@ -29,6 +35,17 @@ Describe 'Test-JavaScriptTypes' -Tag 'L0', 'logic' {
         { Test-JavaScriptTypes -OutputFolder (Join-Path $TestDrive 'errors') } | Should -Throw 'Test-JavaScriptTypes failed: 1 issue(s)*'
         $result = Test-JavaScriptTypes -OutputFolder (Join-Path $TestDrive 'errors-pass') -PassThru
         $result.Issues | Should -Be @("js/catzc-widget/extension.js:4:7: error TS2339 Property 'spin' does not exist on type 'Widget'.")
+    }
+
+    It 'checks the strict project too, once a module is raised, and asks for it when it is missing' {
+        $script:strict = @('catzc-widget')
+        { Test-JavaScriptTypes -OutputFolder (Join-Path $TestDrive 'no-strict') } | Should -Throw '*jsconfig.strict.json is missing*'
+        Set-Content -LiteralPath (Join-Path $script:root 'jsconfig.strict.json') -Value '{}'
+        $script:commands.Clear()
+        $result = Test-JavaScriptTypes -OutputFolder (Join-Path $TestDrive 'strict') -PassThru
+        $result.Issues | Should -HaveCount 0
+        $script:commands | Should -HaveCount 2
+        $script:commands[1] | Should -BeLike '*-p "*jsconfig.strict.json"'
     }
 
     It 'refuses a tsc that fails without an error line, and a missing jsconfig.json' {

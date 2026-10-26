@@ -12,7 +12,9 @@ import json
 import os
 from pathlib import Path
 
+from declaration_constants import PAGE
 from declaration_vocabulary import DeclarationError
+from drawio_png_base import DEFAULTS
 
 ROWS_VARIABLE = "CATZC_QUERY_ROWS"
 QUERY_LEVELS = ("C3", "C4")  # the levels whose cells come from a query
@@ -67,11 +69,32 @@ def read(path):
     return found
 
 
+def lanes(content, rows, band, cap):
+    """At or under the cap, the cells in one column, a row each, and every edge in a vertical lane of its own right of the column: a row or
+    a lane holds no other cell, so no edge crosses one. The layout pins the column and the band; returns None over the cap."""
+    nodes, edges = rows["nodes"], rows["edges"]
+    if len(nodes) > cap:
+        return None
+    x, y, h, row, gap = PAGE["x"] + 20, PAGE["band_y"] + 40, 44, 64, 10
+    w = max([150] + [8 * len(str(n["label"])) + 24 for n in nodes])
+    top = {PREFIX + str(n["id"]): y + k * row for k, n in enumerate(nodes)}
+    layout = {gid: {"x": x, "y": cy, "w": w, "h": h} for gid, cy in top.items()}
+    drawn = []
+    for m, edge in enumerate(edges):
+        a, b = PREFIX + str(edge["from"]), PREFIX + str(edge["to"])
+        lane = x + w + 24 + m * gap
+        drawn.append({"from": a, "to": b, "via": [[lane, top[a] + h // 2], [lane, top[b] + h // 2]]})
+    width = (x + w + 24 + max(len(edges), 1) * gap + 20) - PAGE["x"]
+    layout[band] = {"x": PAGE["x"], "y": PAGE["band_y"], "w": max(width, 400), "h": 40 + len(nodes) * row + 20}
+    return {"edges": list(content.get("edges") or []) + drawn, "layout": layout}
+
+
 def expand(content, point, level, where, path=None):
-    """The content with the query's cells for the point written out in its first band, and their ids; unchanged without an address."""
+    """The content with the query's cells for the point written out in its first band, their ids, and the layout that pins them when the
+    slide draws its edges; unchanged without an address."""
     path = path or rows_file()
     if path is None or level not in QUERY_LEVELS:
-        return content, set()
+        return content, set(), {}
     rows = read(path).get((point, level))
     if rows is None:
         raise DeclarationError(f"{where}: the query rows at {path} hold nothing for {point} at {level}")
@@ -79,8 +102,18 @@ def expand(content, point, level, where, path=None):
     if not bands:
         raise DeclarationError(f"{where}: a {level} slide places its query's cells in its first band; it has none")
     band = bands[0]["id"] if isinstance(bands[0], dict) else str(bands[0])
-    # The grid has no graph layout, so a query's edges are not drawn: each cell carries a count chip of its edges in and out instead.
     glyphs, chips, generated = list(content.get("glyphs") or []), list(content.get("chips") or []), set()
+    for node in rows["nodes"]:
+        gid = PREFIX + str(node["id"])
+        glyphs.append({"id": gid, "kind": str(node["kind"]), "label": str(node["label"]), "in": band})
+        generated.add(gid)
+    if not rows["edges"]:  # nothing to route: the grid places the cells, as for any band
+        return {**content, "glyphs": glyphs}, generated, {}
+    drawn = lanes(content, rows, band, int(DEFAULTS["renderer"]["query-edges-max-nodes"]))
+    if drawn is not None:  # at or under the cap: every edge drawn in its lane, the column and its band pinned
+        generated.add(band)
+        return {**content, "glyphs": glyphs, "edges": drawn["edges"]}, generated, drawn["layout"]
+    # Over the cap, the edges live one zoom down: each cell carries a count chip of its edges in and out instead.
     ins = {str(n["id"]): 0 for n in rows["nodes"]}
     outs = dict(ins)
     for edge in rows["edges"]:
@@ -88,12 +121,9 @@ def expand(content, point, level, where, path=None):
         ins[str(edge["to"])] += 1
     for node in rows["nodes"]:
         nid = str(node["id"])
-        gid = PREFIX + nid
-        glyphs.append({"id": gid, "kind": str(node["kind"]), "label": str(node["label"]), "in": band})
-        generated.add(gid)
         if ins[nid] or outs[nid]:
-            chips.append({"at": gid, "kind": "count", "text": f"{ins[nid]} in {outs[nid]} out"})
-    return {**content, "glyphs": glyphs, "chips": chips}, generated
+            chips.append({"at": PREFIX + nid, "kind": "count", "text": f"{ins[nid]} in {outs[nid]} out"})
+    return {**content, "glyphs": glyphs, "chips": chips}, generated, {}
 
 
 def drawn_by_query(cid):

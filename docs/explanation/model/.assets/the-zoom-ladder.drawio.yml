@@ -7,7 +7,7 @@ about:
 content:
   title: Five levels, from the landscape to one module's files
   kind: explanation
-  flow: top-to-bottom
+  flow: left-to-right
   theme: dark
   bands:
     - { id: band-c0, label: BY HAND }
@@ -21,10 +21,9 @@ content:
     - { id: z-c2, kind: set, label: C2 containers, in: band-c2 }
     - { id: z-c3, kind: set, label: C3 components, in: band-c3 }
     - { id: z-c4, kind: set, label: C4 code, in: band-c4 }
-  relation: zooms in
   edges:
-    - { from: z-c0, to: z-c1, kind: flow }
-    - { from: z-c1, to: z-c2, kind: flow }
-    - { from: z-c2, to: z-c3, kind: flow }
-    - { from: z-c3, to: z-c4, kind: flow }
+    - { from: z-c0, to: z-c1, kind: flow, label: zooms in }
+    - { from: z-c1, to: z-c2, kind: flow, label: zooms in }
+    - { from: z-c2, to: z-c3, kind: flow, label: zooms in }
+    - { from: z-c3, to: z-c4, kind: flow, label: zooms in }
   legend: auto

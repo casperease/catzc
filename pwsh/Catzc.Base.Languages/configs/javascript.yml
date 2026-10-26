@@ -4,5 +4,10 @@
 #   header: "generated"
 # ---
 
-# The JavaScript root is the js track when the repository has js/, else .js; declare root: only to move it.
-{}
+strict:
+  - catzc-save-ledger
+  - catzc-git-changes
+  - catzc-compiled-info
+  - catzc-drs-links
+  - catzc-ansi-logs
+  - catzc-file-icons

@@ -21,6 +21,7 @@ function Get-DiagramSupportsDrift {
         [string] $RepositoryRoot
     )
 
+    # A page passes when one Supports line names the yml's codes and lens; a page with none is not checked.
     $text = Get-DiagramDeclarationText -Stem $Stem -RepositoryRoot $RepositoryRoot
     if ($null -eq $text) {
         return

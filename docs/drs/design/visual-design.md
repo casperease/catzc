@@ -329,7 +329,9 @@ ends on a code block only from an actor, an author or a trigger, which a diagram
 exception, an arrow labelled `calls` whose head is the code it runs, and a feed is the second, an arrow labelled `feeds` whose head is the
 code that takes in what the tail supplies (its tail still initiates). Only a word says otherwise: an arrow whose label names another meaning
 (`reads`, `writes`, `feeds`, `failed`) means that, and a diagram that gives its plain arrows one other meaning states it as its `relation`,
-which every plain arrow then carries and which opts the diagram out of the check. The default meaning, the code kinds, the labels that may
+which every plain arrow then carries and which opts the diagram out of the check. The `relation` opt-out is for state and commit diagrams
+only, where an arrow is a step between states rather than a dependency: `commit-promotion-states` declares "advances one rung", and
+`sync-point` declares "points at"; any other diagram's plain arrows keep the default meaning. The default meaning, the code kinds, the labels that may
 end on code and each label's initiating end are declared once, in the `edge-semantics` and `edge-labels` of the kit's `drawio.yml`; the
 legend entry of a plain arrow reads `flow: initiator to receiver` from that declaration, and a declaration that breaks the rule is refused
 naming the edge.

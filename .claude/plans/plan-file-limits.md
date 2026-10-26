@@ -76,8 +76,20 @@ No class has a width count of 0 yet (2026-10-26, catzc-5c, `out/catzc-5c-widths/
 `report`. Each step below flips its class's `width_mode` to `fail` once its count reaches 0 and, in the same step, moves `Get-LinkLineLimit`
 from the rendered `.editorconfig` to `Get-FileLimit` for that class's extensions (catzc-f2, 2026-10-26).
 
-6. [ ] **prose**: 175 files over 140 columns (plans, docs pages). Check: the class's width count is 0, `Test-FileLimits` passes with
-       `width_mode.prose: fail`, and `Test-Links` passes over the tree after the move.
-7. [ ] **config**: 155 files over 140 columns (pipeline YAML, configs). Check: as for prose, with `width_mode.config: fail`.
-8. [ ] **code**: 1830 files over 120 columns (the `.cs`, `.go` and `.js` link-wrap widths change with the move, from 140 to 120). Check: as
+6. [ ] **prose, tables**: 59 files with table rows over 140 (1060 rows, 2026-10-26, `out/catzc-5c-widths/list-table.txt`); prettier never
+       wraps a table, so each splits into narrower tables or a list by hand, one folder at a time. Check: no table row over 140 in the
+       folder, `Test-Markdownlint` and `Test-Links` on it.
+7. [ ] **prose, fences**: 99 files with fenced lines over 140 (369 lines, `out/catzc-5c-widths/list-fence.txt`), shortened by hand.
+       Check: no fenced line over 140 in the folder, `Test-Markdownlint` on it.
+8. [ ] **prose, unbreakable links**: 13 diagram embeds `![…](.assets/….drawio.png)` (the diagram kit finds a page's diagram by the inline
+       embed, so a reference-style image waits on `Get-DiagramEmbedder` reading one), 7 rule citations `([ADR-…](…#rule-…))` in
+       `identity-and-access.md` and `markdown-config-contributions.md` (the one citation spelling, rewritten by `Update-DrsCitation`), and
+       the draw.io style string in `python/catzc_diagrams/assets/STYLE.md`. Check: each line under 140 by the form its owner's tool reads.
+9. [ ] **prose, leftover**: the 3 `.claude/plans/` files and `docs/drs/design/visual-design.md` (another session's), skipped on purpose.
+       Check: none of them over 140.
+10. [ ] **prose, the flip**: once steps 6 to 9 leave 0, `width_mode.prose: fail`, the MD013 `tables` and `code_blocks` true in the
+        `.markdownlint.yml` template (Build-WidthConfigs), and `Get-LinkLineLimit` moved to `Get-FileLimit` for `.md`. Check: the prose
+        width count is 0, `Test-FileLimits` and `Test-Markdownlint` over the tree pass, and `Test-Links` over the tree passes.
+11. [ ] **config**: 155 files over 140 columns (pipeline YAML, configs). Check: as for prose, with `width_mode.config: fail`.
+12. [ ] **code**: 1830 files over 120 columns (the `.cs`, `.go` and `.js` link-wrap widths change with the move, from 140 to 120). Check: as
        for prose, with `width_mode.code: fail`.

@@ -2,37 +2,54 @@
 // terminal colour it names, so a coloured run log reads as it did in the terminal.
 
 const vscode = require("vscode");
-const { ansiSpans } = require("./ansi.js");
+const { ansiSpans, isRunLogPath } = require("./ansi.js");
 
 const hidden = vscode.window.createTextEditorDecorationType({ textDecoration: "none; font-size: 0; opacity: 0" });
+/** @type {Map<string, vscode.TextEditorDecorationType>} */
 const painted = new Map();
 
+/**
+ * @param {string | null} fg
+ * @param {boolean} bold
+ * @returns {vscode.TextEditorDecorationType}
+ */
 function paint(fg, bold) {
     const key = `${fg}|${bold}`;
     if (!painted.has(key)) {
         const colour = fg ? new vscode.ThemeColor(`terminal.ansi${fg[0].toUpperCase()}${fg.slice(1)}`) : undefined;
         painted.set(key, vscode.window.createTextEditorDecorationType({ color: colour, fontWeight: bold ? "bold" : undefined }));
     }
-    return painted.get(key);
+    return /** @type {vscode.TextEditorDecorationType} */ (painted.get(key));
 }
 
-const isRunLog = (document) => document.uri.scheme === "file" && /[\/]out[\/].*\.log$/i.test(document.uri.fsPath);
+/** @param {vscode.TextDocument} document */
+const isRunLog = (document) => document.uri.scheme === "file" && isRunLogPath(document.uri.fsPath);
 
+/** @param {vscode.TextEditor | undefined} editor */
 function render(editor) {
     if (!editor || !isRunLog(editor.document)) return;
     const document = editor.document;
+    /**
+     * @param {number} from
+     * @param {number} to
+     */
     const range = (from, to) => new vscode.Range(document.positionAt(from), document.positionAt(to));
     const { escapes, spans } = ansiSpans(document.getText());
-    editor.setDecorations(hidden, escapes.map((e) => range(e.start, e.end)));
-    const groups = new Map([...painted.values()].map((type) => [type, []]));
+    editor.setDecorations(
+        hidden,
+        escapes.map((e) => range(e.start, e.end)),
+    );
+    /** @type {Map<vscode.TextEditorDecorationType, vscode.Range[]>} */
+    const groups = new Map([...painted.values()].map((type) => [type, /** @type {vscode.Range[]} */ ([])]));
     for (const span of spans) {
         const type = paint(span.fg, span.bold);
         if (!groups.has(type)) groups.set(type, []);
-        groups.get(type).push(range(span.start, span.end));
+        /** @type {vscode.Range[]} */ (groups.get(type)).push(range(span.start, span.end));
     }
     for (const [type, ranges] of groups) editor.setDecorations(type, ranges);
 }
 
+/** @param {vscode.ExtensionContext} context */
 function activate(context) {
     vscode.window.visibleTextEditors.forEach(render);
     context.subscriptions.push(

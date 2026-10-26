@@ -7,13 +7,13 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Generates the contract reference: one page per unit, `docs/references/contracts/<unit>.md`, listing every contract asset of every version
+Generates the contract reference: one page per root, `docs/references/contracts/<root>.md`, listing every contract asset of every version
 folder with its note.
 
 ### description
 
-Projects Get-Contract over every version folder of every unit
-([ADR-REPO-CONTRACT-LAYOUT](../../../drs/repository/api-contracts.md#rule-adr-repo-contract-layout)) into one markdown page per unit. The
+Projects Get-Contract over every version folder of every root
+([ADR-REPO-CONTRACT-LAYOUT](../../../drs/repository/api-contracts.md#rule-adr-repo-contract-layout)) into one markdown page per root. The
 page has a section per version folder, the draft 0.0.0 first and then the released folders, newest first; each section is one table with a
 row per asset (its owning module, its path under the module, the repository-relative file it constrains — its target, under the module's
 target root; a sample payload has none — its direction, marked when the version's contract.yml sets it, its kind, and its signature: the
@@ -27,7 +27,7 @@ carries no comment has no list item.
 
 The pages are derived artifacts like the [glossary](../../../drs/glossary.md): committed so GitHub has them and rebuilt by this writer,
 while their inputs (the assets) are what is reviewed and checked
-([ADR-REPO-README-AUTHOREDSOURCES](../../../drs/repository/generated-readmes.md#rule-adr-repo-readme-authoredsources)). A page whose unit
+([ADR-REPO-README-AUTHOREDSOURCES](../../../drs/repository/generated-readmes.md#rule-adr-repo-readme-authoredsources)). A page whose root
 has no assets left is removed, but only when it carries this writer's own marker line: a page someone wrote by hand in
 docs/references/contracts/ is never touched. Each page is written only when its content changes (Write-FileIfChanged), and is emitted
 already formatted — prose and list items filled at the 140-column width (Format-MarkdownParagraph) and every table aligned — so Format-Code
@@ -49,11 +49,11 @@ Write no message.
 
 ### parameter `PassThru`
 
-Return one { Unit; Path; Changed; Removed; DryRun; AssetCount } per page instead of the page paths.
+Return one { Root; Path; Changed; Removed; DryRun; AssetCount } per page instead of the page paths.
 
 ### outputs
 
-`[string[]]` The repository-relative page paths; with -PassThru, `[pscustomobject[]]` one per page, in unit order.
+`[string[]]` The repository-relative page paths; with -PassThru, `[pscustomobject[]]` one per page, in root order.
 
 ### example 1
 
@@ -72,6 +72,6 @@ Build-ContractReference -DryRun -PassThru
 Above `$signatures = @{}`, written with `#`.
 
 ```text
-The signatures of the unit's command contracts, by asset path, from the one reader; a unit whose contracts do not all parse
+The signatures of the root's command contracts, by asset path, from the one reader; a root whose contracts do not all parse
 shows none, and Test-Contracts reports the asset.
 ```

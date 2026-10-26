@@ -63,10 +63,10 @@ one is the glyph legend. A comment's target is therefore usually an article's bl
       redraws and reports "I spotted: ..." with what changed; the next pasted name is the acceptance, a sentence from the user overrides the
       decision it names. Check: each landed fix leaves its slide re-rendered and looked at, the kit suite green, and `Test-Diagrams` clean
       over every diagram redrawn.
-- [ ] `docs/explanation/design/.assets/state-changes.drawio.png` changed by about 120 pixels over a large area in the redraw after the
-      title-box change (2026-10-23) and the drone could not see the difference in a crop. Compare the png at HEAD with the new one
-      (`git show     HEAD:<path>` into `out/`), name the difference, and decide whether it is an edge that used to cross a title or a
-      regression. Check: the difference named in one line here, and either accepted or fixed, `Test-Diagrams` clean.
+- [ ] Edge labels too long for a pill stay unboxed and collide with a node: in `state-changes.drawio.png` `L3-vertical-AT` and `release-uat`
+      are plain while `PR`, `BVT`, `main-UAT` and `release` are boxed, and `L3-vertical-AT` touches its yellow commit node (seen comparing
+      2d6e24d30 with its parent, catzc-ed, 2026-10-26; the label pills and the side panel's blue palette were accepted as the intended
+      change). Check: every edge label of the diagram boxed or placed clear of its nodes, and `Test-Diagrams` clean on it.
 - [ ] Haiku review rounds of every rendered png, batches of 10 in repository order, skipping the glyph legend: one haiku per png reports (a)
       straight vs diagonal arrows and which box to move, (b) the "Where does it live?" rows verbatim, drawn boxes with no row, rows that
       match nothing drawn, and order; the dotted row form is fixed, so reviewers never propose full paths. Batch 1 (10) ran before the six
@@ -75,10 +75,11 @@ one is the glyph legend. A comment's target is therefore usually an article's bl
 - [ ] Edge-audit sweep wave 2: the next 20 diagrams by edges needing work in `out/edge-audit.md` (run
       `python/catzc_diagrams/edge_audit.py`), including the unlabelled same-rank edges on `gates-check-source-and-trigger` and
       `one-artifact-climbs-unchanged`. Check: the audit's ambiguous and reverse counts fall, each swept diagram puts clean.
-- [ ] The DDR-VISUAL-ARROWSPOINTATWHATTHEYDEPENDON rule text names the `relation` opt-out for state and commit diagrams only
-      (`commit-promotion-states` "advances one rung", `sync-point` "points at"), kept after the sweep (the user, 2026-10-25). Check:
-      `Test-DrsRegistry` and `Test-Links` on the page.
-- [ ] Re-run `Format-Code` on the files the last two engine rounds touched (the six fixes and the pilot-skip removal); no run since. Check:
-      `Format-Code` passes and pytest stays green.
+- [ ] Move the six diagrams off a diagram-level `relation`, to labelled arrows in the default reading or reworked as true state diagrams,
+      since DDR-VISUAL-ARROWSPOINTATWHATTHEYDEPENDON keeps the opt-out for state and commit diagrams only: `the-zoom-ladder` ("zooms in",
+      added 2026-10-26 by the model atlas) first, then `bcl-language`, `configured-credential-proves-its-org`, `one-out-string-two-places`,
+      `one-source-one-writer-one-boolean` and `truth-stores`; and find the two state diagrams the rule names, `commit-promotion-states`
+      ("advances one rung") and `sync-point` ("points at"), under their current names, or create them. Check: a grep for `relation:` over
+      the `*.drawio.yml` files finds only state and commit diagrams, and `Test-Diagrams` is clean.
 - [ ] `ConvertTo-NormalName` round-trip test fails on `*VSCode` names (`Assert-IsRunningInVSCode` against `…VsCode`), found by the Languages
       test run. Check: the Languages module passes `Test-Automation -Modules Catzc.Base.Languages` with 0 failed.

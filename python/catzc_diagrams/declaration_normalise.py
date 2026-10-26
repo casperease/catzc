@@ -62,8 +62,9 @@ def normalise(raw, where="the declaration"):
     generated |= lane_generated
     # A C3 or C4 slide's cells are its query's rows for its point, written out like rows: (DDR-VISUAL-ZOOMISANAXIS).
     point, zoom = about_point(raw.get("about"), where)
+    query_layout = {}
     if point is not None:
-        content, query_generated = query_rows.expand(content, point, zoom, where)
+        content, query_generated, query_layout = query_rows.expand(content, point, zoom, where)
         generated |= query_generated
     out: dict = {"title": str(content.get("title", "")).strip()}
     # Only a declaration written with rows, lanes or rules carries them, and the ids their expansion wrote.
@@ -375,6 +376,7 @@ def normalise(raw, where="the declaration"):
         if not isinstance(box, dict) or set(box) != {"x", "y", "w", "h"}:
             raise DeclarationError(f"{where}: layout '{cid}' is a map of x, y, w and h")
         layout[cid] = {k: int(box[k]) for k in ("x", "y", "w", "h")}
+    layout.update(query_layout)  # a query slide's lane layout pins its column and band; the source never holds it
     # What the diagram shows, in a sentence or two, for whoever meets it outside any article; no article is named here.
     description = " ".join(str(raw.get("description", "") or "").split())
     return {"description": description, "about": about, "content": out, "layout": layout}

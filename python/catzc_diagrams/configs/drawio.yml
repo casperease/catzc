@@ -7,6 +7,7 @@
 renderer:
   page: dark # dark | model. dark: every render sits on the dark page (STYLE.md tokens); model: the model's own background, white allowed. Parameter: --page
   out: out/drawio # where drawio_forward.py lands its artifacts when no <out_dir> argument is given
+  query-edges-max-nodes: 45 # a C3 or C4 query slide at or under this many cells draws its edges, each in a lane of its own; over it, its cells carry count chips and its edges live one zoom down
   carrier: article # the carrier of a diagram that has neither a yml beside its png nor a block in an article yet (the carrier is otherwise read off the disk). article: a `yml drawio` block directly above the image that embeds its png; file: <name>.drawio.yml beside its png
   role: slide # a diagram's role when roles: names none. slide: its subtitle says `<codes> · <lens>`; legend: it names no ADR and has no subtitle
   edge-label: pill # pill | word: how an edge's word is drawn, every diagram alike. pill: a round-cornered box hugging the word, on the line at the band or ring border it crosses or at its middle, the arrowhead kept clear (a line too short to hold it gets the same pill beside it, word-gap px off the line); word: the word beside its line, a pill only where the line crosses into another band or zone

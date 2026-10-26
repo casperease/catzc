@@ -2,7 +2,16 @@
 const test = require("node:test");
 const assert = require("node:assert");
 
-const { ansiSpans } = require("../ansi.js");
+const { ansiSpans, isRunLogPath } = require("../ansi.js");
+
+test("takes a log under an out folder as a run log with either path separator, and nothing else", () => {
+    assert.strictEqual(isRunLogPath("C:\\widgets\\out\\gadget\\run.log"), true);
+    assert.strictEqual(isRunLogPath("/home/widget/out/gadget/run.log"), true);
+    assert.strictEqual(isRunLogPath("C:\\widgets\\out\\RUN.LOG"), true);
+    assert.strictEqual(isRunLogPath("C:\\widgets\\gadget\\run.log"), false);
+    assert.strictEqual(isRunLogPath("/home/widget/output/run.log"), false);
+    assert.strictEqual(isRunLogPath("C:\\widgets\\out\\gadget\\run.txt"), false);
+});
 
 test("hides every escape and paints the text between a colour and its reset", () => {
     const text = "plain \x1b[31mwidget failed\x1b[0m tail";

@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "5f660a9402c4"
+#     with_body_sha: fd6e7518eb4e
 #     warning: "Do Not Edit, this file is generated"
 # ---
 
@@ -46,6 +46,7 @@ pwsh/**/*.psd1
 /PSScriptAnalyzerSettings.psd1
 /.vscode/settings.json
 /jsconfig.json
+/jsconfig.strict.json
 /.vscode/extensions.json
 /.vscode/launch.json
 /.vscode/tasks.json

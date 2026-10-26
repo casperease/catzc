@@ -17,6 +17,7 @@ function Write-DiagramMinimapData {
         [string] $RepositoryRoot
     )
 
+    # Writes out/minimaps/<folder>/<id>.json and minimaps.json; the kit's put only draws them.
     $maps = Get-Config -Config maps
     # The world map is built once for every folder of the call; a minimap that draws on it is handed it rather than building its own.
     $worldMap = Get-WorldMap
@@ -43,6 +44,7 @@ function Write-DiagramMinimapData {
         else {
             'explanation'
         }
+        # A shown minimap is an id or { id: { exclude: [cells] } }; none listed shows the kind's defaults.
         $shown = $null
         if ($content -and $content.Contains('minimaps') -and $content['minimaps']) {
             $shown = $content['minimaps']

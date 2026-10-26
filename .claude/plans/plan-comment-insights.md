@@ -25,8 +25,5 @@ place: on a declaration or first code line, one line that says something useful 
 
 ## Open steps
 
-- [ ] `pwsh/Catzc.Base.Slides`, started by no one yet (catzc-44 left it; catzc-2f holds the diagram kit). Check: `Format-Code -Path` on each
-      changed file moves no line, `Test-Comments -Path pwsh/Catzc.Base.Slides` reports no issues, and its tests pass one file at a time
-      after a fresh import.
 - [ ] The rollout after the user's review: one module per step, in the master's order. Check: per module, `Test-Comments -Path` on it
       reports no long comment and no orphan section, and its tests pass one file at a time.

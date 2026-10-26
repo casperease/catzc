@@ -4,7 +4,9 @@
 const vscode = require("vscode");
 const { drsLinks } = require("./links.js");
 
+/** @param {vscode.ExtensionContext} context */
 function activate(context) {
+    /** @type {vscode.DocumentLinkProvider} */
     const provider = {
         provideDocumentLinks(document) {
             const folder = vscode.workspace.getWorkspaceFolder(document.uri);

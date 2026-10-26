@@ -77,8 +77,9 @@ def dump(declaration):
     about = declaration.get("about") or {}
     out["about"] = {key: about[key] for key in ABOUT_KEYS if about.get(key)}
     out["content"] = ordered
-    if declaration.get("layout"):
-        out["layout"] = dict(declaration["layout"])
+    layout = {cid: box for cid, box in (declaration.get("layout") or {}).items() if cid not in generated}
+    if layout:  # a generated cell's place, and a query slide's pinned band, are the expansion's, never the source's
+        out["layout"] = layout
     return flow_yaml(out, print_width())
 
 

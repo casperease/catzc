@@ -468,6 +468,17 @@ function activateEngine(context, api) {
             anything.onDidCreate((uri) => indexAdd(uri).then(touched)),
             anything.onDidDelete((uri) => (indexRemove(uri), touched())),
         );
+        // A held file rewritten on disk by a tool, never through the editor, releases its held Error too: the remembered red described the
+        // old content, and the language server re-reports the new content when the file is opened.
+        const rewritten = vscode.workspace.createFileSystemWatcher(new vscode.RelativePattern(folder, "**"), true, false, true);
+        context.subscriptions.push(
+            rewritten,
+            rewritten.onDidChange((uri) => {
+                const root = rootOf();
+                const place = root && uri.scheme === "file" ? relativeTo(root, uri.fsPath) : undefined;
+                if (place && place in held) release({ uri });
+            }),
+        );
     }
     // An edit or a save releases the file's held Error (its diagnostics re-hold it while it still has one); switching the active file
     // re-judges, so the open lamp follows the red file that was just left.

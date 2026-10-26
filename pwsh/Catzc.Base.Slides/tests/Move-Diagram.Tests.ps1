@@ -131,6 +131,7 @@ Describe 'Move-Diagram' -Tag 'L2', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' {
     }
 }
 
+# L2: real git (init, mv, ls-files) and the kit's own rekey through uv edit the fixture tree.
 Describe 'Move-Diagram — an article-carried diagram' -Tag 'L2', 'logic', 'source-only', 'ADR-REPO-SLIDES-DECLARATION' {
     BeforeAll {
         $script:skip = if (Get-Command git -ErrorAction Ignore) {

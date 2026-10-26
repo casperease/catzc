@@ -9,7 +9,6 @@ content:
   title: BCL is a language; pwsh hosts it, and binds only by row
   kind: reference
   flow: left-to-right
-  relation: uses
   theme: dark
   bands:
     - { id: band-language, label: THE BCL LANGUAGE }

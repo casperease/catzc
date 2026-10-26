@@ -17,12 +17,18 @@ const unstaged = vscode.window.createTextEditorDecorationType({
     backgroundColor: new vscode.ThemeColor("catzc.gitChanges.unstagedBackground"),
 });
 
+/**
+ * @param {string} cwd
+ * @param {string[]} args
+ * @returns {Promise<string | null>}
+ */
 function git(cwd, args) {
     return new Promise((resolve) => {
         execFile("git", args, { cwd, maxBuffer: 32 * 1024 * 1024, windowsHide: true }, (error, stdout) => resolve(error ? null : stdout));
     });
 }
 
+/** @param {import("vscode").TextEditor} editor */
 async function shade(editor) {
     const document = editor.document;
     if (document.uri.scheme !== "file") return;
@@ -36,17 +42,19 @@ async function shade(editor) {
         return;
     }
     const { staged: stagedLines, unstaged: unstagedLines } = splitChanges(all, open);
-    const range = (line) => document.lineAt(Math.min(line, document.lineCount - 1)).range;
+    const range = (/** @type {number} */ line) => document.lineAt(Math.min(line, document.lineCount - 1)).range;
     editor.setDecorations(staged, stagedLines.map(range));
     editor.setDecorations(unstaged, unstagedLines.map(range));
 }
 
+/** @type {ReturnType<typeof setTimeout> | undefined} */
 let timer;
 function refresh() {
     clearTimeout(timer);
     timer = setTimeout(() => vscode.window.visibleTextEditors.forEach(shade), 150);
 }
 
+/** @param {import("vscode").ExtensionContext} context */
 function activate(context) {
     const watcher = vscode.workspace.createFileSystemWatcher("**/.git/{index,HEAD}");
     context.subscriptions.push(

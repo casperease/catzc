@@ -60,8 +60,23 @@ def test_the_rows_are_written_out_in_the_first_band_with_query_ids(rows):
     assert {"query-get-widget", "query-widget-config"} <= declared["content"]["generated"]
 
 
-def test_the_query_edges_are_counted_on_their_cells_and_never_drawn(rows):
+def test_at_or_under_the_cap_every_edge_runs_in_a_lane_of_its_own_and_crosses_no_cell(rows):
     rows()
+    declared = declaration.normalise(raw_at())
+    drawn = [e for e in declared["content"]["edges"] if e["from"].startswith("query-")]
+    assert [(e["from"], e["to"]) for e in drawn] == [("query-get-widget", "query-widget-config")]
+    assert not [c for c in declared["content"]["chips"] if c["at"].startswith("query-")]
+    box = declared["layout"]["query-get-widget"]
+    assert all(p[0] > box["x"] + box["w"] for p in drawn[0]["via"])  # the lane stands right of the column
+    cells = [c for c in declaration.place(declared, check_routes=True)[0] if not c["edge"]]
+    assert cells  # placing with the route check raises E_KEEPOUT on any edge through a cell
+    text = declaration.dump(declared)
+    assert "query-" not in text and "band-widgets: {" not in text
+
+
+def test_over_the_cap_the_cells_carry_count_chips_and_no_edge_is_drawn(rows, monkeypatch):
+    rows()
+    monkeypatch.setitem(query_rows.DEFAULTS["renderer"], "query-edges-max-nodes", "1")
     declared = declaration.normalise(raw_at())
     assert not [e for e in declared["content"]["edges"] if e["from"].startswith("query-") or e["to"].startswith("query-")]
     chips = {c["at"]: c["text"] for c in declared["content"]["chips"] if c["kind"] == "count"}

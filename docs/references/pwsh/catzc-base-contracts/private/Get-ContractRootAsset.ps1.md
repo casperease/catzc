@@ -17,7 +17,7 @@ with any other name, throws, naming it. Each selected version folder is listed b
 
 ### parameter `Root`
 
-The root folder name, the promiser: `catzc` or a vendor such as `ado`.
+The root folder name, the promiser: `catzc`, or a vendor root once a vendor ships a shape we copy verbatim.
 
 ### parameter `Folder`
 
@@ -38,5 +38,5 @@ The repository root, passed on to Get-ContractVersionAsset.
 ### example 1
 
 ```powershell
-Get-ContractRootAsset -Root ado -Folder $rootFolder -Version '0.1.0' -RepositoryRoot $root
+Get-ContractRootAsset -Root catzc -Folder $rootFolder -Version '0.1.0' -RepositoryRoot $root
 ```

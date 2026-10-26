@@ -17,6 +17,7 @@ function Get-DiagramDeclarationText {
         [string] $RepositoryRoot
     )
 
+    # The yml beside the png wins (both is a drift finding); otherwise the article carrier's block.
     $source = Join-Path $RepositoryRoot "$Stem.drawio.yml"
     if ([System.IO.File]::Exists($source)) {
         return [System.IO.File]::ReadAllText($source)

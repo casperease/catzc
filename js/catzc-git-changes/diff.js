@@ -2,6 +2,10 @@
 // Both diffs number their added lines in the working tree: HEAD..worktree gives every changed line, index..worktree the unstaged
 // ones, so a line in the first and not the second is staged.
 
+/**
+ * @param {string} diff
+ * @returns {Set<number>}
+ */
 function addedLines(diff) {
     const lines = new Set();
     for (const match of diff.matchAll(/^@@ -\d+(?:,\d+)? \+(\d+)(?:,(\d+))? @@/gm)) {
@@ -12,6 +16,11 @@ function addedLines(diff) {
     return lines;
 }
 
+/**
+ * @param {string} all
+ * @param {string} open
+ * @returns {{ staged: number[], unstaged: number[] }}
+ */
 function splitChanges(all, open) {
     const changed = addedLines(all);
     const pending = addedLines(open);

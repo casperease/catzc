@@ -4,6 +4,14 @@
 const ESCAPE = /\x1b\[([0-9;]*)m/g;
 const NAMES = ["black", "red", "green", "yellow", "blue", "magenta", "cyan", "white"];
 
+/** @typedef {{ fg: string | null, bold: boolean }} SgrState */
+/** @typedef {{ start: number, end: number }} Escape */
+/** @typedef {{ start: number, end: number, fg: string | null, bold: boolean }} Span */
+
+/**
+ * @param {SgrState} state
+ * @param {string} parameters
+ */
 function apply(state, parameters) {
     const codes = parameters === "" ? [0] : parameters.split(";").map(Number);
     for (const code of codes) {
@@ -16,22 +24,43 @@ function apply(state, parameters) {
     }
 }
 
+/**
+ * @param {string} text
+ * @returns {{ escapes: Escape[], spans: Span[] }}
+ */
 function ansiSpans(text) {
+    /** @type {Escape[]} */
     const escapes = [];
+    /** @type {Span[]} */
     const spans = [];
+    /** @type {SgrState} */
     const state = { fg: null, bold: false };
     let at = 0;
+    /** @param {number} end */
     const close = (end) => {
         if (end > at && (state.fg || state.bold)) spans.push({ start: at, end, fg: state.fg, bold: state.bold });
     };
     for (const match of text.matchAll(ESCAPE)) {
-        close(match.index);
-        escapes.push({ start: match.index, end: match.index + match[0].length });
+        // matchAll sets index on every match it yields.
+        const index = /** @type {number} */ (match.index);
+        close(index);
+        escapes.push({ start: index, end: index + match[0].length });
         apply(state, match[1]);
-        at = match.index + match[0].length;
+        at = index + match[0].length;
     }
     close(text.length);
     return { escapes, spans };
 }
 
-module.exports = { ansiSpans };
+// A run log is a .log file under an out folder; a file path names its folders with either separator, `\` on Windows and `/` elsewhere.
+const RUN_LOG = /[\\/]out[\\/].*\.log$/i;
+
+/**
+ * @param {string} fsPath
+ * @returns {boolean}
+ */
+function isRunLogPath(fsPath) {
+    return RUN_LOG.test(fsPath);
+}
+
+module.exports = { ansiSpans, isRunLogPath };

@@ -18,6 +18,7 @@ function Get-DiagramEmbedder {
         [string] $RepositoryRoot
     )
 
+    # Stem to embedding pages: links resolve from the page's folder, or the root for '/'; a diagram names none of its pages.
     $embedders = @{}
     foreach ($page in @($Tracked | Where-Object { $_ -like '*.md' })) {
         $full = Join-Path $RepositoryRoot $page

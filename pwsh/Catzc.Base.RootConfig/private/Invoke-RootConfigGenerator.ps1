@@ -111,7 +111,7 @@ function Invoke-RootConfigGenerator {
                 }
                 (Join-Path $global '@types') -replace '\\', '/'
             }
-            New-JsConfig -TypeRoot $typeRoot
+            New-JsConfig -TypeRoot $typeRoot -Target $Target
         }
         'New-GoWorkspace' {
             # One record per file; the entry's target picks go.work or a go.mod.

@@ -293,15 +293,16 @@ Several pages of the area carry guidance without a recommendations section, so t
 bears on [6](#6--automate-provisioning-and-management).
 [Environments](https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/considerations/environments) asks for at least one
 test environment, separate identities for test and production, and automated checks before each environment, which bears on
-[33](#33--deploy-through-pipeline-environments).
-[Test-driven development](https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/considerations/development-strategy-test-driven-development)
-for landing zones uses policy and resource queries as tests, which bears on [28](#28--unit-test-infrastructure-code-as-well). The
-[DevOps security considerations](https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/considerations/security-considerations-overview)
-ask pipelines to sign in to Azure by workload identity federation rather than a stored secret, to use one identity per application and
-environment, to give the what-if or plan step its own read-only identity, to put approvals on the service connection, and to keep secrets in
-a secret store; they bear on [30](#30--give-pipeline-connections-only-the-access-they-need) and
-[31](#31--take-pipeline-secrets-from-key-vault). The pages on DevOps team topologies and on role-based access for DevOps tools describe how
-an organisation arranges its teams and tool permissions, which belongs to the operating organisation.
+[33](#33--deploy-through-pipeline-environments). [Test-driven development][tdd] for landing zones uses policy and resource queries as tests,
+which bears on [28](#28--unit-test-infrastructure-code-as-well). The [DevOps security considerations][devops-security] ask pipelines to sign
+in to Azure by workload identity federation rather than a stored secret, to use one identity per application and environment, to give the
+what-if or plan step its own read-only identity, to put approvals on the service connection, and to keep secrets in a secret store; they
+bear on [30](#30--give-pipeline-connections-only-the-access-they-need) and [31](#31--take-pipeline-secrets-from-key-vault). The pages on
+DevOps team topologies and on role-based access for DevOps tools describe how an organisation arranges its teams and tool permissions, which
+belongs to the operating organisation.
+
+[tdd]: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/considerations/development-strategy-test-driven-development
+[devops-security]: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/considerations/security-considerations-overview
 
 The example basis is the repository's three templates: `foundation` (a Log Analytics workspace and a Key Vault per subscription),
 `discovery` (the landing zone), and `expedition` (a workload that lands in it,

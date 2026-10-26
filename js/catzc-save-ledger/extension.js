@@ -8,6 +8,7 @@ const fs = require("fs");
 const path = require("path");
 const { relativePath, contentHash, ledgerLine } = require("./ledger.js");
 
+/** @param {import("vscode").TextDocument} document */
 function record(document) {
     if (document.uri.scheme !== "file") return;
     const folder = vscode.workspace.getWorkspaceFolder(document.uri);
@@ -25,6 +26,7 @@ function record(document) {
     });
 }
 
+/** @param {import("vscode").ExtensionContext} context */
 function activate(context) {
     context.subscriptions.push(vscode.workspace.onDidSaveTextDocument(record));
 }

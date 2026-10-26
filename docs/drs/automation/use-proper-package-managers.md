@@ -78,15 +78,16 @@ Specific problems:
    packages are live before human review completes. Chocolatey themselves state the community repository is
    [not recommended for organizational use](https://docs.chocolatey.org/en-us/information/security/).
 
-3. **Abuse in the wild.** Chocolatey has been used as a malware delivery vector. The
-   [Serpent backdoor campaign](https://www.bleepingcomputer.com/news/security/serpent-malware-campaign-abuses-chocolatey-windows-package-manager/)
-   targeted French government agencies and construction firms by abusing Chocolatey specifically because it is commonly whitelisted in
-   enterprise environments.
+3. **Abuse in the wild.** Chocolatey has been used as a malware delivery vector. The [Serpent backdoor campaign][serpent] targeted French
+   government agencies and construction firms by abusing Chocolatey specifically because it is commonly whitelisted in enterprise
+   environments.
 
 4. **Known vulnerabilities.** CVE-2022-29953 and CVE-2022-29954 exposed local privilege escalation in Chocolatey Agent (licensed edition),
    patched in 1.1.1+.
 
 5. **Insecure default install path.** If Chocolatey is installed to the system drive root, any local user gains an attack vector.
+
+[serpent]: https://www.bleepingcomputer.com/news/security/serpent-malware-campaign-abuses-chocolatey-windows-package-manager/
 
 Chocolatey for Business mitigates some of these issues with internal repositories, package internalization, and runtime malware scanning —
 but that is a paid product, and none of those controls exist in the free tier that most setups use.

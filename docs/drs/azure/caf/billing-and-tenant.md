@@ -401,11 +401,11 @@ to weigh and design recommendations; the landing zone that a subscription receiv
 
 The billing and Microsoft Entra tenant design area covers the two decisions that sit above every deployment: which billing offer pays for
 the subscriptions — an Enterprise Agreement (EA), a Microsoft Customer Agreement (MCA), or the Cloud Solution Provider (CSP) programme — and
-which Entra tenant the offer and its subscriptions belong to
-([area page](https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-microsoft-entra-tenant)).
-How identities are managed inside the tenant belongs to the identity and access design area. The three billing pages are alternatives, one
-per offer, so several of their recommendations repeat (vending, the notification contact, budgets, MFA for subscription creators); each
-repeat is its own rule here and points at the first.
+which Entra tenant the offer and its subscriptions belong to ([area page][b]). How identities are managed inside the tenant belongs to the
+identity and access design area. The three billing pages are alternatives, one per offer, so several of their recommendations repeat
+(vending, the notification contact, budgets, MFA for subscription creators); each repeat is its own rule here and points at the first.
+
+[b]: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-microsoft-entra-tenant
 
 These rules are vendor recommendation, not principled theory. They do not argue from first principles the way the axioms and DORA's research
 do; they record what the repository does about each of Microsoft's sixty-one recommendations in this area, numbered in the order of the

@@ -46,6 +46,13 @@ files:
       - pwsh/Catzc.Base.Execution/configs/tools.yml
     carrier: jsonc
     optIn: true
+  # The modules javascript.yml's strict list raises, checked strictly; it extends jsconfig.json, which leaves them out.
+  - target: jsconfig.strict.json
+    generator: New-JsConfig
+    sources:
+      - pwsh/Catzc.Base.Languages/configs/javascript.yml
+    carrier: jsonc
+    optIn: true
   - target: .vscode/extensions.json
     generator: New-VsCodeExtensions
     sources:

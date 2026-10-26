@@ -19,13 +19,17 @@ a benchmark initiative and a check that reads the compiled templates against it 
 Security is built into the delivery flow by the build checks that keep secrets and unregistered identifiers out of the tree; secret
 scanning, dependency scanning, and a threat model are planned.
 
-- [SE:02 — Align secure development lifecycle (SDL) throughout the software development lifecycle](#se02--align-secure-development-lifecycle-sdl-throughout-the-software-development-lifecycle)
+- [SE:02 — Align secure development lifecycle (SDL) throughout the software development lifecycle][se02]
+
+[se02]: #se02--align-secure-development-lifecycle-sdl-throughout-the-software-development-lifecycle
 
 ### Rule ADR-AZ-WAF-SE-SE03
 
 Every deployment carries a `data-classification` tag in its config; validating its values and letting it select controls is planned.
 
-- [SE:03 — Classify and consistently apply sensitivity and information type labels](#se03--classify-and-consistently-apply-sensitivity-and-information-type-labels)
+- [SE:03 — Classify and consistently apply sensitivity and information type labels][se03]
+
+[se03]: #se03--classify-and-consistently-apply-sensitivity-and-information-type-labels
 
 ### Rule ADR-AZ-WAF-SE-SE04
 
@@ -39,7 +43,9 @@ security group per workload subnet, each deployed by its own service connection;
 People reach data through Entra ID groups and services through managed identities, shared-key access is off, and the one non-identity
 credential is the break-glass SQL login of ADR-AZ-LZ-SQLENTRAADMINS; role assignments as code are planned.
 
-- [SE:05 — Implement strict, conditional, and auditable identity and access management (IAM)](#se05--implement-strict-conditional-and-auditable-identity-and-access-management-iam)
+- [SE:05 — Implement strict, conditional, and auditable identity and access management (IAM)][se05]
+
+[se05]: #se05--implement-strict-conditional-and-auditable-identity-and-access-management-iam
 
 ### Rule ADR-AZ-WAF-SE-SE06
 
