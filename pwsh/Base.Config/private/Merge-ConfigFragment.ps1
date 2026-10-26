@@ -16,6 +16,7 @@ function Merge-ConfigFragment {
         [Parameter(Mandatory)]
         [System.Collections.IDictionary] $Fragment,
 
+        # The parts of one split config: a key two parts both set is an error, never an override.
         [switch] $Disjoint
     )
 

@@ -37,6 +37,7 @@ function Get-Config {
     }
     $overlayRoot = Get-ConfigOverlayRoot
     if ($overlayRoot) {
+        # The overlay folder is named like the bundled module's, without its namespace; a type with no shipped file finds it by its module.
         $folder = if ($entry['Folder']) {
             $entry['Folder']
         }

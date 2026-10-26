@@ -20,6 +20,7 @@ Describe 'Get-ConfigValue' -Tag 'L0' {
         }
 
         BeforeEach {
+            # The one reader is mocked, never a file, so an address resolves exactly as against a real config.
             Mock Get-Config -ModuleName Catzc.Base.Config -MockWith { $script:fixture }
         }
 

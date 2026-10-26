@@ -8,6 +8,7 @@ catzc:
 
 Describe 'Get-Config' -Tag 'L0' {
     Context 'discovery + raw default' -Tag 'integrity' {
+        # A real shipped config, so discovery in its owning module is proven; the raw default is pinned on a fixture below.
         It 'discovers and loads a shipped config from its owning module' {
             $configuration = Get-Config -Config tools                       # registry type: Catzc.Base.Execution.ToolsConfig
             $configuration.Keys | Should -Contain 'python'
@@ -81,6 +82,7 @@ Describe 'Get-Config' -Tag 'L0' {
     }
 
     Context 'a consumer overlay fragment' -Tag 'logic' {
+        # A bundled config and an overlay, both fixtures behind their seams, so a merge is tested without a real consumer.
         BeforeEach {
             $script:bundled = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
             $script:overlay = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))

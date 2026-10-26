@@ -29,10 +29,9 @@ Describe 'Test-TrackDeclaration' -Tag 'L0', 'logic', 'DDR-MODTYPE-TRACKTYPEADMIT
     }
 
     It 'names each track whose name is not in the normal form, and takes a dotted snake name' -Tag 'DDR-TRACKTYPE-NAMEFROMMEMBERS' {
-        $script:moduleTypes = [Catzc.Base.Variants.ModuleTypesConfig]::new([ordered]@{ module_types = [ordered]@{} })
         Use-Variants ([ordered]@{
                 'widget-works'      = [ordered]@{ members = @('widget'); type = 'widget-works' }
-                '.gadget'           = [ordered]@{ members = @('gadget'); type = 'gadget-shelf' }
+                '.gadget'           = [ordered]@{ members = @('gadgetry'); type = 'gadget-shelf' }
                 'vendor_gizmo.cogs' = [ordered]@{ members = @('cogs'); type = 'gadget-shelf'; vendor = 'gizmo' }
             })
         $err = { Test-TrackDeclaration } | Should -Throw -PassThru

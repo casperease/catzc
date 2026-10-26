@@ -44,6 +44,7 @@ function Resolve-ConfigEntry {
                 continue
             }
             $moduleName = Get-ModuleFullName $moduleDir
+            # A config is one file, or a folder of disjoint parts when one file would pass the length cap.
             $sources = @([System.IO.Directory]::EnumerateFiles($configsDir,
                     '*.yml')) + @([System.IO.Directory]::EnumerateDirectories($configsDir))
             foreach ($file in $sources) {
@@ -59,6 +60,7 @@ function Resolve-ConfigEntry {
                 $script:configIndex[$configName].Add(@{ Name = $configName; Module = $moduleName; Folder = $folderName; Path = $file })
             }
         }
+        # A registered type with no shipped file is still a config, built from an empty map, so every key takes its declared default.
         $registry = Get-ConfigRegistry
         foreach ($configName in @($registry.Keys)) {
             if ($script:configIndex.ContainsKey($configName)) {
