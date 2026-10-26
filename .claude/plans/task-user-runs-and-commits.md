@@ -140,14 +140,11 @@ final full run last.
     disk until the gitignore step of the same plan ignores the whole folder). Check: `git ls-files pwsh/.compiled` prints nothing, and
     `Test-BuildArtifact -Facet Types` reports no issues.
 
-28. plan-module-namespace: stage the last phase-2 renames, the seven comment pages whose case-only rename git cannot see (`core.ignorecase`
-    is true), each in two steps through a temporary name, then commit with the rest of the working tree. They are, under
-    `docs/references/pwsh/`: `catzc-base-asserts/Assert-IsRunningInVSCode.ps1.md`,
-    `catzc-base-environment/assets/Set-LocalPSModulePath.ps1.md`, `catzc-base-types-system/tests/Invoke-BuildForVSCode.Tests.ps1.md`, and in
-    `catzc-base-vs-code/tests/` `Build-VSCodeExtension.Tests.ps1.md`, `Install-VSCodeExtension.Tests.ps1.md`,
-    `New-VSCodeExtensionFolder.Tests.ps1.md` and `New-VSCodeTasks.Tests.ps1.md`; each becomes the `VsCode` / `PsModulePath` spelling already
-    on disk (`git mv -f <old> <old>.tmp`, then `git mv <old>.tmp <new>`). The python pages (`docs/references/python/diagrams/`) are already
-    committed. Check: `git ls-files docs/references | grep -cE 'VSCode|PSModulePath'` prints 0, and `git status` is clean.
+28. plan-module-namespace: run `pwsh -NoProfile -File out/ns5/Rename-CasePages.ps1` from the repository root, then commit with the rest of
+    the working tree. It stages the last phase-2 renames: the seven comment pages under `docs/references/pwsh/` whose case-only rename git
+    cannot see (`core.ignorecase` is true), each as two `git mv` steps through a temporary name. It stops on the first git error, and a
+    page already staged is skipped. `-WhatIf` prints the 14 commands first. Check: `git ls-files docs/references | grep -cE
+    'VSCode|PSModulePath'` prints 0, and `git status` is clean.
 29. The final full run, in a fresh session, when the chunks in plan-master have landed. Once it is green and committed, the work is done and
     every plan, task and prompt in `.claude/plans` is deleted (the user, 2026-10-20). Check: `.claude/plans` is empty.
 

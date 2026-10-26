@@ -27,8 +27,7 @@ The test runner, its vendored Pester, fixture-identity hygiene, and this plan's 
 
 ### 1. Manual test plan covers every integrity check
 
-**Test file:** `pwsh/Base.QualityGates/tests/ManualTestPlan-Coverage.Tests.ps1` (L1), block
-`Manual test plan covers every integrity check`.
+**Test file:** `pwsh/Base.QualityGates/tests/ManualTestPlan-Coverage.Tests.ps1` (L1), block `Manual test plan covers every integrity check`.
 
 **Guards:** the manual test plan stays in sync with the tests (the drift guard for this plan).
 
@@ -76,3 +75,10 @@ The test runner, its vendored Pester, fixture-identity hygiene, and this plan's 
 `worker execution (real pwsh through PesterRunner)`.
 
 **Guards:** A generated shard worker runs in a real pwsh and loads Pester from the active code root's `.vendor/Pester`.
+
+### 8. ConvertTo-PesterRunTarget — shipped tests/Language.Bridge.ps1
+
+**Test file:** `pwsh/Base.QualityGates/tests/ConvertTo-PesterRunTarget.Tests.ps1` (L1), block
+`ConvertTo-PesterRunTarget — shipped tests/Language.Bridge.ps1`.
+
+**Guards:** `ConvertTo-PesterRunTarget` finds the language bridge in the loaded QualityGates module (ADR-AUTO-ASSETDEP-COVEREDBYREALTEST).

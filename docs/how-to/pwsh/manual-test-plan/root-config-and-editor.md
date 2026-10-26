@@ -79,8 +79,7 @@ generated head, proving consumers can read the copy.
 
 ### 5. New-VsCodeExtensions — real vscode-extensions.yml
 
-**Test file:** `pwsh/Base.VSCode/tests/New-VsCodeExtensions.Tests.ps1` (L1), block
-`New-VsCodeExtensions — real vscode-extensions.yml`.
+**Test file:** `pwsh/Base.VSCode/tests/New-VsCodeExtensions.Tests.ps1` (L1), block `New-VsCodeExtensions — real vscode-extensions.yml`.
 
 **Guards:** The shipped recommendation registry validates and renders to a non-empty list carrying the PowerShell extension.
 
@@ -185,11 +184,17 @@ paths.
 
 ### 20. New-JsConfig — the editor declarations match the manifests
 
-**Test file:** `pwsh/Base.Languages/tests/New-JsConfig.Tests.ps1` (L1), block
-`New-JsConfig — the editor declarations match the manifests`.
+**Test file:** `pwsh/Base.Languages/tests/New-JsConfig.Tests.ps1` (L1), block `New-JsConfig — the editor declarations match the manifests`.
 
 **Guards:** the JavaScript workspace pins the editor API to the version every extension manifest declares.
 
 **Checks:**
 
 - `@types/vscode` is pinned to the editor version every extension manifest declares.
+
+### 21. Build-WidthConfigs — shipped assets/root templates
+
+**Test file:** `pwsh/Base.FileLimits/tests/Build-WidthConfigs.Tests.ps1` (L1), block `Build-WidthConfigs — shipped assets/root templates`.
+
+**Guards:** `Build-WidthConfigs` renders every target from the template the loaded RootConfig module ships, with each width token filled
+(ADR-AUTO-ASSETDEP-COVEREDBYREALTEST).

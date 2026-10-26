@@ -21,8 +21,8 @@ setting, never a hand-typed or truncated name.
 
 ```yml drawio
 description:
-  An operator changes the naming variant or a template's short name and runs a deploy or asks for a name; cats derives the name or stops
-  with an error to act on, and nobody types a name.
+  An operator changes the naming variant or a template's short name and runs a deploy or asks for a name; the name is derived or the run
+  stops with an error to act on, and nobody types a name.
 about:
   adrs:
     - ADR-AZ-NAMING-DETERMINISTICNAMES

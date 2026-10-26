@@ -131,8 +131,7 @@ prod-tier environments that `Sync-AdoEnvironmentApprovals` applies.
 
 ### 12. Repository unit aspects (every laid-out unit)
 
-**Test file:** `pwsh/Base.Globs/tests/Get-ModuleGlobSet.Repository.Tests.ps1` (L2), block
-`Repository unit aspects (every laid-out unit)`.
+**Test file:** `pwsh/Base.Globs/tests/Get-ModuleGlobSet.Repository.Tests.ps1` (L2), block `Repository unit aspects (every laid-out unit)`.
 
 **Guards:** Every laid-out unit derives a tests set that claims at least one tracked file, and `tests_optional` names only units that have
 one.
@@ -150,3 +149,10 @@ one.
 **Guards:** The committed `track-sets.yml` is what `Build-TrackGlobSets` derives from the track members (FDR-CD-GLOBS-TRACKSETDERIVED): the
 infrastructure set leaves out its generated READMEs, and the pwsh set keeps the vendored modules nested under it, which have no pipeline of
 their own.
+
+### 15. Build-TrackGlobSets — its assets
+
+**Test file:** `pwsh/Base.Globs/tests/Build-TrackGlobSets.Tests.ps1` (L1), block `Build-TrackGlobSets — its assets`.
+
+**Guards:** `Build-TrackGlobSets` reads its declared part and writes its derived part where the module ships them, in the repository and in
+a bundle (ADR-AUTO-ASSETDEP-COVEREDBYREALTEST).

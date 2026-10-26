@@ -24,7 +24,7 @@ module shares, the vendored modules and the catzc modules.
 ```yml drawio
 description:
   Two entry scripts, one per run mode, feed one importer; the importer and its bootstrap are removed once the load is done, and the shared
-  internal layer, the vendored modules, the cats modules and the janitor owners stay loaded.
+  internal layer, the vendored modules, the modules and the janitor owners stay loaded.
 about:
   adrs: [ADR-AUTO-BUNDLE-TWOROOTS, ADR-AUTO-BUNDLE-ONELIVINGIMPORTER]
   lens: architecture

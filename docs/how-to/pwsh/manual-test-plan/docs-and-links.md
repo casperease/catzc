@@ -56,8 +56,7 @@ and every .gitkeep folder is a readme-mapped target with a reference article.
 
 ### 4. Repository code links (automation comments)
 
-**Test file:** `pwsh/Base.QualityGates/tests/Test-Links.Repository.Tests.ps1` (L1), block
-`Repository code links (automation comments)`.
+**Test file:** `pwsh/Base.QualityGates/tests/Test-Links.Repository.Tests.ps1` (L1), block `Repository code links (automation comments)`.
 
 **Guards:** Every decision-record reference in an automation comment is a canonical, resolving code link, and every docs path in an
 automation string names an existing file.
@@ -130,3 +129,11 @@ tree, and the VS Code registries carry the code-link rule.
 `Repository link directions (every tracked file)`.
 
 **Guards:** Every relation in a tracked file points a way its first matching link-directions row allows.
+
+### 13. Test-GeneratedFiles — shipped assets/english.txt.gz
+
+**Test file:** `pwsh/Base.QualityGates/tests/Test-GeneratedFiles.Tests.ps1` (L1), block
+`Test-GeneratedFiles — shipped assets/english.txt.gz`.
+
+**Guards:** `Test-GeneratedFiles` finds the committed word list and its stamp in the loaded QualityGates module
+(ADR-AUTO-ASSETDEP-COVEREDBYREALTEST).

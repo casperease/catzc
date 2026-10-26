@@ -107,3 +107,11 @@ tracked files.
 `Build-TerminologyDictionary — shipped configs/terminology/`.
 
 **Guards:** Build-TerminologyDictionary finds the registry it stamps in the loaded module (ADR-AUTO-ASSETDEP-COVEREDBYREALTEST).
+
+### 10. Build-EnglishDictionary — shipped assets/english.txt.gz
+
+**Test file:** `pwsh/Base.QualityGates/tests/Build-EnglishDictionary.Tests.ps1` (L1), block
+`Build-EnglishDictionary — shipped assets/english.txt.gz`.
+
+**Guards:** `Build-EnglishDictionary` finds the word list and its stamp where it writes them, in the loaded QualityGates module
+(ADR-AUTO-ASSETDEP-COVEREDBYREALTEST).
