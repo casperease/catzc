@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "7611f9e550a6"
+    with_body_sha: c149f3a18274
     warning: "Do Not Edit, this file is generated"
 ---
 
@@ -132,6 +132,8 @@ The current version: edited in place
 | `catzc.base.root_config`               | `test_root_analyzer_settings.command.yml`        | `pwsh/Catzc.Base.RootConfig/Test-RootAnalyzerSettings.ps1`                | provided  | command contract | `output_folder: string, pass_thru: switch -> catzc.base.reports.quality_gate_result`                                                                                                                                                                                                                                                                                |
 | `catzc.base.root_config`               | `test_root_config_files.command.yml`             | `pwsh/Catzc.Base.RootConfig/Test-RootConfigFiles.ps1`                     | provided  | command contract | `output_folder: string, pass_thru: switch -> catzc.base.reports.quality_gate_result`                                                                                                                                                                                                                                                                                |
 | `catzc.base.types_system`              | `test_shipped_types.command.yml`                 | `pwsh/Catzc.Base.TypesSystem/Test-ShippedTypes.ps1`                       | provided  | command contract | `output_folder: string, pass_thru: switch -> catzc.base.reports.quality_gate_result`                                                                                                                                                                                                                                                                                |
+| `catzc.base.vs_code`                   | `package.sample.json`                            | none                                                                      | provided  | sample payload   | none                                                                                                                                                                                                                                                                                                                                                                |
+| `catzc.base.vs_code`                   | `package.schema.json`                            | `contracts/catzc/0.1.0/catzc.base.vs_code/package.sample.json`            | provided  | schema           | none                                                                                                                                                                                                                                                                                                                                                                |
 | `catzc.tooling.claude`                 | `start_claude_drone.command.yml`                 | `pwsh/Catzc.Tooling.Claude/Start-ClaudeDrone.ps1`                         | provided  | command contract | `agent: string, model: string, prompt: string, count: int = 1, launcher: string, pass_thru: switch, dry_run: switch -> string[]`                                                                                                                                                                                                                                    |
 | `catzc.tooling.github`                 | `remove_token_from_history.command.yml`          | `pwsh/Catzc.Tooling.Github/Remove-TokenFromHistory.ps1`                   | provided  | command contract | `token: string!, replace_with: string = ***REMOVED***, skip_messages: switch, repository_path: string, dry_run: switch`                                                                                                                                                                                                                                             |
 | `catzc.tooling.github`                 | `workflow.yml.schema.json`                       | `.github/workflows/ci-pwsh.yml`                                           | provided  | schema           | none                                                                                                                                                                                                                                                                                                                                                                |
@@ -543,15 +545,17 @@ Notes:
 - `catzc.tooling.github/workflow.yml.schema.json`: Our schema of a GitHub Actions workflow, an inner contract
   (ADR-REPO-CONTRACT-CONTRACTASSET): the shape GitHub reads, kept local so an editor and a gate need no download. source:
   <https://json.schemastore.org/github-workflow.json> (the full schema validates every job and step through patternProperties and oneOf,
-  outside the bounded subset of ContractSchema), trimmed to the top-level shape: on and jobs are required, as GitHub needs both to run a
-  workflow, and every known top-level key has its type. A job, keyed by its own name, is not checked here. Every workflow file is bound to
-  it by contract.yml's applies_to. Taken 2026-10-25.
+  outside the bounded subset of ContractSchema), trimmed to the top-level shape and each job: on and jobs are required, as GitHub needs both
+  to run a workflow, every known top-level key has its type, and every job, keyed by its own name, needs runs-on and a steps array. That is
+  our shape, stricter than GitHub's: a job that calls a reusable workflow through uses has neither, and none of ours does. Every workflow
+  file is bound to it by contract.yml's applies_to. Taken 2026-10-25.
 - `catzc.tooling.github/workflow.yml.schema.json`: Our schema of a GitHub Actions workflow, an inner contract
   (ADR-REPO-CONTRACT-CONTRACTASSET): the shape GitHub reads, kept local so an editor and a gate need no download. source:
   <https://json.schemastore.org/github-workflow.json> (the full schema validates every job and step through patternProperties and oneOf,
-  outside the bounded subset of ContractSchema), trimmed to the top-level shape: on and jobs are required, as GitHub needs both to run a
-  workflow, and every known top-level key has its type. A job, keyed by its own name, is not checked here. Every workflow file is bound to
-  it by contract.yml's applies_to. Taken 2026-10-25.
+  outside the bounded subset of ContractSchema), trimmed to the top-level shape and each job: on and jobs are required, as GitHub needs both
+  to run a workflow, every known top-level key has its type, and every job, keyed by its own name, needs runs-on and a steps array. That is
+  our shape, stricter than GitHub's: a job that calls a reusable workflow through uses has neither, and none of ours does. Every workflow
+  file is bound to it by contract.yml's applies_to. Taken 2026-10-25.
 - `catzc.tooling.inspiration/get_inspiration.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call
   interface of Get-Inspiration, which lists the inspirations catzc reads for ideas: all of them, one by id, or a count of them at random
   with an optional seed.

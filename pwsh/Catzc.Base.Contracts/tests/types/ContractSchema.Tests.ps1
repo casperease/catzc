@@ -26,6 +26,7 @@ Describe 'ContractSchema' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT-CONTRACTASSET' 
             @{ Keyword = 'required'; Schema = '{"required":["widget"]}'; Pass = '{"widget":1}'; Fail = '{"gadget":1}'; Finding = "`$: the required property 'widget' is missing" }
             @{ Keyword = 'properties'; Schema = '{"properties":{"widget":{"type":"boolean"}}}'; Pass = '{"widget":true,"gadget":1}'; Fail = '{"widget":"yes"}'; Finding = "`$.widget: expected type boolean, found string ('yes')" }
             @{ Keyword = 'additionalProperties'; Schema = '{"properties":{"widget":{}},"additionalProperties":false}'; Pass = '{"widget":1}'; Fail = '{"widget":1,"gadget":2}'; Finding = '$.gadget: the property is not allowed: additionalProperties is false and properties does not name it' }
+            @{ Keyword = 'additionalProperties (a schema)'; Schema = '{"properties":{"widget":{}},"additionalProperties":{"required":["steps"]}}'; Pass = '{"widget":1,"gadget":{"steps":[]}}'; Fail = '{"widget":1,"gadget":{}}'; Finding = "`$.gadget: the required property 'steps' is missing" }
             @{ Keyword = 'enum'; Schema = '{"enum":["widget",1]}'; Pass = '1.0'; Fail = '"gadget"'; Finding = "`$: 'gadget' is not one of the enum values 'widget', 1" }
             @{ Keyword = 'items'; Schema = '{"items":{"type":"string"}}'; Pass = '["widget","gadget"]'; Fail = '["widget",2]'; Finding = '$[1]: expected type string, found integer (2)' }
             @{ Keyword = 'const'; Schema = '{"const":{"widget":[1,2]}}'; Pass = '{"widget":[1,2]}'; Fail = '{"widget":[2,1]}'; Finding = '$: expected the constant {widget: [1, 2]}, found {widget: [2, 1]}' }
@@ -111,7 +112,7 @@ Describe 'ContractSchema' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT-CONTRACTASSET' 
         }
 
         It 'reports <Form> as unsupported' -ForEach @(
-            @{ Form = 'additionalProperties as a schema'; Schema = '{"additionalProperties":{"type":"string"}}'; Finding = 'schema #/additionalProperties: unsupported form of additionalProperties*' }
+            @{ Form = 'an unsupported keyword inside additionalProperties'; Schema = '{"additionalProperties":{"minLength":1}}'; Finding = 'schema #/additionalProperties: unsupported keyword minLength' }
             @{ Form = 'items as an array'; Schema = '{"items":[{"type":"string"}]}'; Finding = 'schema #/items: unsupported form of items*' }
         ) {
             $findings = @(Get-SchemaFinding $Schema '{}')

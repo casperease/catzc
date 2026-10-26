@@ -13,7 +13,6 @@ content:
   title: Every managed root file has one source of truth, one writer, and one boolean that decides git membership
   kind: explanation
   flow: left-to-right
-  relation: feeds the next step
   theme: dark
   bands:
     - { id: band-source, label: SOURCE OF TRUTH }
@@ -26,8 +25,8 @@ content:
     - { id: r-gitignored, kind: result, label: gitignored target, in: band-target }
     - { id: r-tracked, kind: result, label: tracked target, in: band-target }
   edges:
-    - { from: g-source, to: g-writer, kind: flow, label: "" }
-    - { from: g-registry, to: g-writer, kind: flow, label: "" }
+    - { from: g-source, to: g-writer, kind: flow, label: feeds }
+    - { from: g-registry, to: g-writer, kind: flow, label: feeds }
     - { from: g-writer, to: r-gitignored, kind: flow, label: 22/30 }
     - { from: g-writer, to: r-tracked, kind: flow, label: 8/30 }
   markers:

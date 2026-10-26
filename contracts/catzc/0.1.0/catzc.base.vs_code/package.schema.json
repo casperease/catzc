@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "A cats extension's package.json",
+  "description": "The trimmed extension manifest VS Code expects of a cats extension, the fields New-VsCodeExtensionFolder renders from vscode-extensions.yml. Build-VsCodeExtension validates every rendered package.json against this schema before packing and fails the build on a mismatch; the rendered manifests live under out/ and are reached only by address, so package.sample.json beside it is what Test-Contracts checks it against. contributes is VS Code's vocabulary and is held open.",
+  "type": "object",
+  "required": ["name", "displayName", "description", "version", "publisher", "engines", "main", "activationEvents"],
+  "properties": {
+    "name": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
+    "displayName": { "type": "string" },
+    "description": { "type": "string" },
+    "version": { "type": "string", "pattern": "^\d+\.\d+\.\d+$" },
+    "publisher": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9-]*$" },
+    "engines": {
+      "type": "object",
+      "required": ["vscode"],
+      "properties": { "vscode": { "type": "string", "pattern": "^\^\d+\.\d+\.\d+$" } },
+      "additionalProperties": false
+    },
+    "main": { "const": "./extension.js" },
+    "activationEvents": { "type": "array", "items": { "type": "string" } },
+    "contributes": { "type": "object" }
+  },
+  "additionalProperties": false
+}

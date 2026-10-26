@@ -5,7 +5,7 @@ comment sat above (Export-Comments), and Build-CommentView puts every comment ba
 
 ## comment:1
 
-Above `strict: []`, written with `#`.
+Above `strict:`, written with `#`.
 
 ```text
 The JavaScript root is the js track when the repository has js/, else .js; declare root: only to move it.

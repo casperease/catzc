@@ -112,8 +112,15 @@ is still avoided there; draw commits as dots.
 
 Glyph styles come from [`glyphs.xml`](glyphs.xml). These are the chrome and line strings:
 
-- Band:
-  `rounded=1;html=1;arcSize=3;fillColor=@band;strokeColor=@band-rim;verticalAlign=top;align=left;spacingLeft=8;fontStyle=1;fontSize=12;fontColor=@band-label;`
+- Band, one key per line; the style string is the lines joined with nothing between them:
+
+  ```text
+  rounded=1;html=1;arcSize=3;
+  fillColor=@band;strokeColor=@band-rim;
+  verticalAlign=top;align=left;spacingLeft=8;
+  fontStyle=1;fontSize=12;fontColor=@band-label;
+  ```
+
 - Title: `text;html=1;align=left;verticalAlign=middle;fontSize=16;fontStyle=1;fontColor=@title;`
 - Body/note: `text;html=1;whiteSpace=wrap;align=left;verticalAlign=top;fontSize=11;fontColor=@quiet;`
 - Commit dot: `ellipse;html=1;fillColor=<state>;strokeColor=<state>;strokeWidth=1.5;fontStyle=1;fontSize=11;fontColor=<digit>;`, with its

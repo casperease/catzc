@@ -14,7 +14,6 @@ content:
   title: Catzc writes its domain, reads fact sources, meets state machines
   kind: explanation
   flow: left-to-right
-  relation: reaches
   theme: dark
   bands:
     - { id: band-domain, label: RESPONSIBILITY DOMAIN }
@@ -30,11 +29,11 @@ content:
     - { id: x-ado, kind: external, label: Azure DevOps, in: band-machines }
     - { id: x-snow, kind: external, label: ITSM (ServiceNow), in: band-machines }
   edges:
-    - { from: s-repo, to: r-pipelines, kind: flow, label: trunk }
+    - { from: s-repo, to: r-pipelines, kind: flow, label: feeds }
     - { from: r-pipelines, to: s-ado-config, kind: thick, label: one way }
     - { from: c-catzc, to: s-repo, kind: flow, label: writes }
     - { from: c-catzc, to: s-ado-runtime, kind: flow, label: reads }
-    - { from: x-ado, to: c-catzc, kind: flow, label: verdict }
+    - { from: x-ado, to: c-catzc, kind: flow, label: feeds }
     - { from: c-catzc, to: x-snow, kind: flow, label: facts }
   legend: auto
   minimaps: [axis, lifecycle-position, layer-stack]
@@ -45,8 +44,8 @@ layout:
   band-machines: { x: 920, y: 84, w: 360, h: 460 }
   s-repo: { x: 90, y: 230, w: 260, h: 90 }
   r-pipelines: { x: 90, y: 130, w: 260, h: 56 }
-  c-catzc: { x: 90, y: 400, w: 260, h: 56 }
+  c-catzc: { x: 90, y: 380, w: 260, h: 120 }
   s-ado-config: { x: 470, y: 116, w: 160, h: 84 }
   s-ado-runtime: { x: 710, y: 130, w: 160, h: 84 }
-  x-ado: { x: 1110, y: 400, w: 150, h: 56 }
-  x-snow: { x: 940, y: 270, w: 150, h: 56 }
+  x-ado: { x: 1110, y: 486, w: 150, h: 56 }
+  x-snow: { x: 1110, y: 412, w: 150, h: 56 }

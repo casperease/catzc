@@ -1,0 +1,10 @@
+{
+  "name": "catzc-drs-links",
+  "displayName": "Catzc decision record links",
+  "description": "Opens a markdown link to a repository-root /docs/drs/ path on click, in any file, with its rule fragment kept.",
+  "version": "0.1.0",
+  "publisher": "catzc",
+  "engines": { "vscode": "^1.90.0" },
+  "main": "./extension.js",
+  "activationEvents": ["onStartupFinished"]
+}

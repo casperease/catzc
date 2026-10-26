@@ -8,7 +8,6 @@ content:
   title: One stored out/ string lands in {root}/out on a devbox and in the staging directory in a pipeline
   kind: explanation
   flow: left-to-right
-  relation: feeds
   theme: dark
   bands:
     - { id: band-communication, label: COMMUNICATION FORM }
@@ -25,9 +24,9 @@ content:
     - { id: r-pipeline, kind: result, label: "{staging}/.../main.json", in: grp-bound }
     - { id: f-missing, kind: failure, label: Path does not exist, in: band-binding }
   edges:
-    - { from: r-stored, to: g-resolve, kind: flow, label: "" }
-    - { from: g-output-root, to: g-resolve, kind: flow, label: "" }
-    - { from: n-pipeline, to: g-output-root, kind: flow, label: "" }
+    - { from: r-stored, to: g-resolve, kind: flow, label: feeds }
+    - { from: g-output-root, to: g-resolve, kind: flow, label: feeds }
+    - { from: n-pipeline, to: g-output-root, kind: flow, label: feeds }
     - { from: g-resolve, to: grp-bound, kind: flow, label: "" }
     - { from: g-output-root, to: f-missing, kind: fail, label: "" }
   markers:

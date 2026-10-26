@@ -73,10 +73,10 @@ which says whether a value survives a session and not how it is keyed.
 
 `Two values, and a default that resolves to one of them`
 
-| Value     | Comes into being                                 | Holds until                               | Cache expectation               |
-| --------- | ------------------------------------------------ | ----------------------------------------- | ------------------------------- |
-| on-demand | when asked: a scan, a computation                | the call ends, or the session cache entry | cold; a tool may have cached it |
-| commit    | at commit, keyed by the scoped sha of its inputs | never changes: the key is its identity    | warm; invalidation is free      |
+| Value     | Comes into being                           | Holds until                               | Cache expectation               |
+| --------- | ------------------------------------------ | ----------------------------------------- | ------------------------------- |
+| on-demand | when asked: a scan, a computation          | the call ends, or the session cache entry | cold; a tool may have cached it |
+| commit    | at commit, keyed by its inputs' scoped sha | never changes: the key is its identity    | warm; invalidation is free      |
 
 There is no third value. "Not declared" is not a peer of the two but the instruction to resolve, the same shape as the one resolution order
 of a setting and as a guard that determines its subject from the ambient context and takes an explicit value only as an override.

@@ -26,10 +26,14 @@ function Get-DiagramDeclarationText {
     $name = $Stem.Substring($Stem.LastIndexOf('/') + 1)
     $assets = $Stem.Substring(0, [Math]::Max(0, $Stem.LastIndexOf('/')))
     $pageFolder = Join-Path $RepositoryRoot $assets.Substring(0, [Math]::Max(0, $assets.LastIndexOf('/')))
-    $pattern = '(?m)^```yml drawio[ \t]*\r?\n((?:(?!```)[^\r\n]*\r?\n)*)```[ \t]*\r?\n(?:[ \t]*\r?\n)*!\[[^\]]*\]\((?:\./)?\.assets/' + [regex]::Escape($name) + '\.drawio\.png\)'
     # A slide is never a carrier: the deck shows its body, so a block there would be drawn as code.
     $bodies = @(foreach ($page in @(Get-ChildPath -Path $pageFolder -Depth 1 -Filter '*.md' -File | Where-Object { -not "$_".EndsWith('.slide.md') })) {
-            foreach ($match in [regex]::Matches([System.IO.File]::ReadAllText($page), $pattern)) {
+            $text = [System.IO.File]::ReadAllText($page)
+            # The image is inline, or a reference whose definition names the same png.
+            $labels = @((Get-DiagramImageReference -Text $text).GetEnumerator() | Where-Object { $_.Value -ceq $name } | ForEach-Object { [regex]::Escape($_.Key) })
+            $image = '\((?:\./)?\.assets/' + [regex]::Escape($name) + '\.drawio\.png\)' + $(if ($labels.Count) { '|\[(?i:' + ($labels -join '|') + ')\]' })
+            $pattern = '(?m)^```yml drawio[ \t]*\r?\n((?:(?!```)[^\r\n]*\r?\n)*)```[ \t]*\r?\n(?:[ \t]*\r?\n)*!\[[^\]]*\](?:' + $image + ')'
+            foreach ($match in [regex]::Matches($text, $pattern)) {
                 $match.Groups[1].Value
             }
         })

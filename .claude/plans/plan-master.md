@@ -57,7 +57,7 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
 - repo-filters -> plan-repo-filters.md: the filters landed (sets from the model, union of lit lamps, coverage asserted, docs and out lamps);
   two steps left: the user's look at the lamps in VS Code (the `pipelines` and `infrastructure` lamps landed)
 - file-limits -> plan-file-limits.md: one declared length and width per file class, the Catzc.Base.FileLimits toolkit and gate, the tool
-  width configs generated from it; every tracked file limited in length and width, markdown included; seven steps workers, then bounded in
+  width configs generated from it; every tracked file limited in length and width, markdown included; eight steps workers, then bounded in
   timeouts.yml; one step
 - track-model -> plan-track-model.md: tracks as members with generated and committed facts, catch-up vendor tracks and `out` for the root,
   globsets derived from tracks, a DDR-VENDOR for the vendor umbrella, normal-form track names, filter lamps per aspect plus a language
@@ -91,8 +91,6 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
   names, below the export threshold
 - comment-articles -> plan-comment-articles.md: every comment page pruned into a small reference article on its source file, gold back in
   source as one line, ready for the next export
-- model-atlas -> plan-model-atlas.md: explanation articles on the physical and meta models, and C0–C4 zoom ladders drawn from the queries at
-  five points of the tree.
 - slim-agents -> plan-slim-agents.md: four model drones, every job a skill; 22 robots to 4, duplicates merged
 - user-runs-and-commits -> task-user-runs-and-commits.md: the user's steps, the only list of them.
 - closing-sweep -> task-closing-sweep.md: runs after every batch; done plans deleted, done steps pruned; last of all, after the user's full

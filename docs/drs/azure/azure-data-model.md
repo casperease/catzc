@@ -131,10 +131,10 @@ involves a per-subscription environment, or whose staging environment is served 
 
 `Catzc.Azure.Templates` is configured by **two layers**:
 
-| Layer                       | Source of truth                                                | Entities                                                |
-| --------------------------- | -------------------------------------------------------------- | ------------------------------------------------------- |
-| 1 — Identity / topology     | `pwsh/Catzc.Azure/configs/azure.yml` (one declarative file)    | tenant, customer, environment, subscription             |
-| 2 — Templating / deployment | the `infrastructure/templates/<name>/` filesystem (discovered) | template, options, slot (per-RG config), deploy context |
+1. **Identity / topology**: its source of truth is `pwsh/Catzc.Azure/configs/azure.yml`, one declarative file; its entities are tenant,
+   customer, environment and subscription.
+2. **Templating / deployment**: its source of truth is the `infrastructure/templates/<name>/` filesystem, discovered; its entities are
+   template, options, slot (per-RG config) and deploy context.
 
 A third global asset, `configs/network.yml`, carries the cross-cutting IP plan (per-environment vnet / subnet ranges) alongside `azure.yml`.
 It is a separate concern with its own schema and cross-asset integrity rules — see [`network-model`](azure-network-model.md). This ADR

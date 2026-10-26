@@ -1,5 +1,5 @@
 {
-  "$comment": "Our schema of a GitHub Actions workflow, an inner contract (ADR-REPO-CONTRACT-CONTRACTASSET): the shape GitHub reads, kept local so an editor and a gate need no download. source: https://json.schemastore.org/github-workflow.json (the full schema validates every job and step through patternProperties and oneOf, outside the bounded subset of ContractSchema), trimmed to the top-level shape: on and jobs are required, as GitHub needs both to run a workflow, and every known top-level key has its type. A job, keyed by its own name, is not checked here. Every workflow file is bound to it by contract.yml's applies_to. Taken 2026-10-25.",
+  "$comment": "Our schema of a GitHub Actions workflow, an inner contract (ADR-REPO-CONTRACT-CONTRACTASSET): the shape GitHub reads, kept local so an editor and a gate need no download. source: https://json.schemastore.org/github-workflow.json (the full schema validates every job and step through patternProperties and oneOf, outside the bounded subset of ContractSchema), trimmed to the top-level shape and each job: on and jobs are required, as GitHub needs both to run a workflow, every known top-level key has its type, and every job, keyed by its own name, needs runs-on and a steps array. That is our shape, stricter than GitHub's: a job that calls a reusable workflow through uses has neither, and none of ours does. Every workflow file is bound to it by contract.yml's applies_to. Taken 2026-10-25.",
   "type": "object",
   "required": ["on", "jobs"],
   "properties": {
@@ -10,6 +10,16 @@
     "env": { "type": "object" },
     "defaults": { "type": "object" },
     "concurrency": {},
-    "jobs": { "type": "object" }
+    "jobs": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["runs-on", "steps"],
+        "properties": {
+          "runs-on": {},
+          "steps": { "type": "array", "items": { "type": "object" } }
+        }
+      }
+    }
   }
 }

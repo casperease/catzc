@@ -81,15 +81,20 @@ from the rendered `.editorconfig` to `Get-FileLimit` for that class's extensions
        folder, `Test-Markdownlint` and `Test-Links` on it.
 7. [ ] **prose, fences**: 99 files with fenced lines over 140 (369 lines, `out/catzc-5c-widths/list-fence.txt`), shortened by hand. Check:
        no fenced line over 140 in the folder, `Test-Markdownlint` on it.
-8. [ ] **prose, unbreakable links**: 13 diagram embeds `![…](.assets/….drawio.png)` (the diagram kit finds a page's diagram by the inline
-       embed, so a reference-style image waits on `Get-DiagramEmbedder` reading one), 7 rule citations `([ADR-…](…#rule-…))` in
-       `identity-and-access.md` and `markdown-config-contributions.md` (the one citation spelling, rewritten by `Update-DrsCitation`), and
-       the draw.io style string in `python/catzc_diagrams/assets/STYLE.md`. Check: each line under 140 by the form its owner's tool reads.
-9. [ ] **prose, leftover**: the 3 `.claude/plans/` files and `docs/drs/design/visual-design.md` (another session's), skipped on purpose.
-       Check: none of them over 140.
-10. [ ] **prose, the flip**: once steps 6 to 9 leave 0, `width_mode.prose: fail`, the MD013 `tables` and `code_blocks` true in the
+8. [ ] **prose, diagram embeds** (catzc-2f, after its engine step): the diagram kit reads `![alt][ref]` with `[ref]: .assets/….drawio.png`
+       as an equal form beside the inline embed, in `Get-DiagramEmbedder`, `Move-Diagram` and `Test-Diagrams`; then the 13 wide embeds
+       (`out/catzc-5c-widths/list-proseOnly.txt`, the longest 139 as a reference) take the reference form (catzc-f2, 2026-10-26). Check: the
+       kit's tests cover both forms, and no embed line is over 140.
+9. [ ] **prose, rule citations** (the holder of the DRS citation tooling, assigned by catzc-f2): ADR-REPO-LINK keeps one spelling, chosen by
+       the line's width: a citation stays inline when its line fits and becomes a reference definition when it does not, and
+       `Update-DrsCitation` emits whichever the width requires; `markdown-links.md` and ADR-REPO-LINK are amended in the same change, no
+       exemption and no alias (catzc-f2, 2026-10-26). The 7 wide citations are in `identity-and-access.md` and
+       `markdown-config-contributions.md`. Check: `Update-DrsCitation`'s tests cover both forms, and no citation line is over 140.
+10. [ ] **prose, leftover**: the 3 `.claude/plans/` files and `docs/drs/design/visual-design.md` (another session's), skipped on purpose.
+        Check: none of them over 140.
+11. [ ] **prose, the flip**: once steps 6 to 10 leave 0, `width_mode.prose: fail`, the MD013 `tables` and `code_blocks` true in the
         `.markdownlint.yml` template (Build-WidthConfigs), and `Get-LinkLineLimit` moved to `Get-FileLimit` for `.md`. Check: the prose
         width count is 0, `Test-FileLimits` and `Test-Markdownlint` over the tree pass, and `Test-Links` over the tree passes.
-11. [ ] **config**: 155 files over 140 columns (pipeline YAML, configs). Check: as for prose, with `width_mode.config: fail`.
-12. [ ] **code**: 1830 files over 120 columns (the `.cs`, `.go` and `.js` link-wrap widths change with the move, from 140 to 120). Check: as
+12. [ ] **config**: 155 files over 140 columns (pipeline YAML, configs). Check: as for prose, with `width_mode.config: fail`.
+13. [ ] **code**: 1830 files over 120 columns (the `.cs`, `.go` and `.js` link-wrap widths change with the move, from 140 to 120). Check: as
         for prose, with `width_mode.code: fail`.

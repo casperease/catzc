@@ -95,7 +95,7 @@ function Test-Diagrams {
     }
     # Over the whole tree, a `yml drawio` block declares only the png embedded directly below it; a block with no such image is a finding.
     if (-not $Path) {
-        $bound = '(?m)^```yml drawio[ \t]*\r?\n(?:(?!```)[^\r\n]*\r?\n)*```[ \t]*\r?\n(?:[ \t]*\r?\n)*!\[[^\]]*\]\((?:\./)?\.assets/[^/)\s]+\.drawio\.png\)'
+        $bound = '(?m)^```yml drawio[ \t]*\r?\n(?:(?!```)[^\r\n]*\r?\n)*```[ \t]*\r?\n(?:[ \t]*\r?\n)*!\[[^\]]*\](?:\((?:\./)?\.assets/[^/)\s]+\.drawio\.png\)|\[([^\]]+)\])'
         foreach ($page in @($candidates | Where-Object { $_ -like 'docs/*.md' } | Select-Object -Unique)) {
             $full = Join-Path $root $page
             if (-not [System.IO.File]::Exists($full)) {
@@ -103,7 +103,10 @@ function Test-Diagrams {
             }
             $text = [System.IO.File]::ReadAllText($full)
             $fences = @([regex]::Matches($text, '(?m)^```yml drawio[ \t]*$'))
-            $unbound = $fences.Count - @([regex]::Matches($text, $bound)).Count
+            # A reference image binds its block only when its definition names a diagram's png.
+            $references = Get-DiagramImageReference -Text $text
+            $bounded = @([regex]::Matches($text, $bound) | Where-Object { -not $_.Groups[1].Success -or $references.ContainsKey($_.Groups[1].Value.ToLowerInvariant()) })
+            $unbound = $fences.Count - $bounded.Count
             if ($unbound -gt 0) {
                 $issues.Add("${page}: $unbound ``yml drawio`` block(s) with no image of an .assets/<name>.drawio.png directly below")
             }

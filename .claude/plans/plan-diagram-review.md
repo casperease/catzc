@@ -75,11 +75,13 @@ one is the glyph legend. A comment's target is therefore usually an article's bl
 - [ ] Edge-audit sweep wave 2: the next 20 diagrams by edges needing work in `out/edge-audit.md` (run
       `python/catzc_diagrams/edge_audit.py`), including the unlabelled same-rank edges on `gates-check-source-and-trigger` and
       `one-artifact-climbs-unchanged`. Check: the audit's ambiguous and reverse counts fall, each swept diagram puts clean.
-- [ ] Move the six diagrams off a diagram-level `relation`, to labelled arrows in the default reading or reworked as true state diagrams,
-      since DDR-VISUAL-ARROWSPOINTATWHATTHEYDEPENDON keeps the opt-out for state and commit diagrams only: `the-zoom-ladder` ("zooms in",
-      added 2026-10-26 by the model atlas) first, then `bcl-language`, `configured-credential-proves-its-org`, `one-out-string-two-places`,
-      `one-source-one-writer-one-boolean` and `truth-stores`; and find the two state diagrams the rule names, `commit-promotion-states`
-      ("advances one rung") and `sync-point` ("points at"), under their current names, or create them. Check: a grep for `relation:` over
-      the `*.drawio.yml` files finds only state and commit diagrams, and `Test-Diagrams` is clean.
+- [ ] Move the article-carried diagrams off a diagram-level `relation`, to labelled arrows in the default reading (`feeds`, `calls`,
+      `reads`, `writes`, `else` where a word is needed) or reworked as true state diagrams, since DDR-VISUAL-ARROWSPOINTATWHATTHEYDEPENDON
+      keeps the opt-out for state and commit diagrams only. About 150 remain, declared in "yml drawio" blocks of the markdown under
+      `docs/explanation`, `docs/how-to`, `docs/references` and `docs/drs`; the six standalone `*.drawio.yml` ones are done. The two state
+      diagrams the rule names are the two in `docs/drs/flow/commit-lifecycle.md` ("advances one rung", "points at"), which keep theirs, and
+      the climb and lifecycle diagrams under `docs/explanation/design` and `docs/explanation/flow` are state diagrams that keep theirs too.
+      One page per change, render, read, respond, as a burst under the run lock. Check: a grep for `relation:` over the markdown and the
+      `*.drawio.yml` files finds only state and commit diagrams, and `Test-Diagrams` is clean.
 - [ ] `ConvertTo-NormalName` round-trip test fails on `*VSCode` names (`Assert-IsRunningInVSCode` against `…VsCode`), found by the Languages
       test run. Check: the Languages module passes `Test-Automation -Modules Catzc.Base.Languages` with 0 failed.
