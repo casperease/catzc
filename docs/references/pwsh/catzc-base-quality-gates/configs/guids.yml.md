@@ -5,8 +5,8 @@ Get-RepositoryGuids check the tracked text against it.
 
 ## Rule
 
-Every GUID found in tracked text (code, configs, fixtures, pipelines, docs) must be registered here. The integrity quality gate enforces both
-directions: an unregistered GUID fails the tests, and so does a dead entry that no tracked file references.
+Every GUID found in tracked text (code, configs, fixtures, pipelines, docs) must be registered here. The integrity quality gate enforces
+both directions: an unregistered GUID fails the tests, and so does a dead entry that no tracked file references.
 
 ## Entries
 
@@ -17,4 +17,5 @@ outside world fixes its value. A placeholder GUID is minted with ConvertTo-Guid,
 ## Denied
 
 `denied:` is the non-allow list: values that are never a legitimate identity. A denied GUID can never be registered under `guids:`, since
-GuidsConfig rejects the overlap, and it must never appear in tracked text. The integrity quality gate names it as denied, not merely unregistered.
+GuidsConfig rejects the overlap, and it must never appear in tracked text. The integrity quality gate names it as denied, not merely
+unregistered.

@@ -1,43 +1,20 @@
 # pwsh/.scriptanalyzer/NoBareCacheEntryRead.psm1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The custom analyzer check `Measure-NoBareCacheEntryRead`: a function file reads a lazy `$script:` cache entry only after probing or
+assigning it.
 
-## comment:1
+## Why
 
-Above `function Measure-NoBareCacheEntryRead {`, written with `#`.
+Nothing declares a cache entry at import, so the first read of an unset entry throws under strict mode.
 
-```text
-.SYNOPSIS
-    Custom PSScriptAnalyzer rule: a function file reads a lazy $script: cache entry only after probing or assigning it.
-.DESCRIPTION
-    Nothing declares a cache entry at import, so the first read of an unset entry throws under strict mode.
-    [comment:1](/docs/references/pwsh/scriptanalyzer/NoBareCacheEntryRead.psm1.md#comment1)
-```
+## Which files
 
-## comment:2
+- A `.psm1` is skipped, since it can declare its cache entries at load. A Pester file is skipped too, by name or, when an editor buffer has
+  no file name, by its `Describe` calls. Any other in-memory definition is analysed.
+- Cache entries the script itself declares at load (a top-level `$script:<entry> = …` outside any function) count as declared. This
+  covers a `.psm1` that the editor analyses as an in-memory buffer, where the file name, and so the skip above, is lost.
 
-Above `$path = "$($ScriptBlockAst.Extent.File)"`, written with `#`.
+## Predicates
 
-```text
-Skip a .psm1 (it can declare its cache entries at load) and a Pester file — by name, or by its Describe calls when
-an editor buffer has no file name. Any other in-memory definition is analysed.
-```
-
-## comment:3
-
-Above `$isFunction = {`, written with `#`.
-
-```text
-Predicates as locals, not inlined in FindAll's parens — dodges a cross-version indent skew
-([ADR-PWSH-FORMAT-MULTILINEPREDICATEBOUND](/docs/drs/automation/pwsh/powershell-formatting.md#rule-adr-pwsh-format-multilinepredicatebound)).
-```
-
-## comment:4
-
-Above `$declared =...`, written with `#`.
-
-```text
-Cache entries the script itself declares at load (a top-level `$script:<entry> = …`, outside any function). This
-covers a .psm1 the editor analyses as an in-memory buffer, where the file name — and so the skip above — is lost.
-```
+The predicates are locals, not inlined in `FindAll`'s parens, which dodges a cross-version indent skew
+([ADR-PWSH-FORMAT-MULTILINEPREDICATEBOUND](../../../drs/automation/pwsh/powershell-formatting.md#rule-adr-pwsh-format-multilinepredicatebound)).

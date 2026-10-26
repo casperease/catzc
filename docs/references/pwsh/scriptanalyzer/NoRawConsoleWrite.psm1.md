@@ -1,34 +1,17 @@
 # pwsh/.scriptanalyzer/NoRawConsoleWrite.psm1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The custom analyzer check `Measure-NoRawConsoleWrite`: writing to the console past the information stream is forbidden.
 
-## comment:1
+## Why
 
-Above `function Measure-NoRawConsoleWrite {`, written with `#`.
+A raw write bypasses the stream, so it escapes output control, Pester silencing and the caller header.
 
-```text
-.SYNOPSIS
-    Custom PSScriptAnalyzer rule: forbid writing to the console past the information stream.
-.DESCRIPTION
-    A raw write bypasses the stream, so it escapes output control, Pester silencing and the caller header.
-    [comment:1](/docs/references/pwsh/scriptanalyzer/NoRawConsoleWrite.psm1.md#comment1)
-```
+## Reading versus writing
 
-## comment:2
+`[Console]::Out` and `[Console]::Error` are raw writers only when written through. Reading them, to save and restore around a `SetOut`
+capture, writes nothing and passes.
 
-Above `$consoleWriterMembers = @('Out', 'Error')`, written with `#`.
+## Predicates
 
-```text
-[Console]::Out / [Console]::Error are raw writers only when written through; reading them (to save and
-restore around a SetOut capture) writes nothing.
-```
-
-## comment:3
-
-Above `$isCandidate = {`, written with `#`.
-
-```text
-Predicates as locals, not inlined in FindAll's parens — dodges a cross-version indent skew
-([ADR-PWSH-FORMAT-MULTILINEPREDICATEBOUND](/docs/drs/automation/pwsh/powershell-formatting.md#rule-adr-pwsh-format-multilinepredicatebound)).
-```
+The predicates are locals, not inlined in `FindAll`'s parens, which dodges a cross-version indent skew
+([ADR-PWSH-FORMAT-MULTILINEPREDICATEBOUND](../../../drs/automation/pwsh/powershell-formatting.md#rule-adr-pwsh-format-multilinepredicatebound)).

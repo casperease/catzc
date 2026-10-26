@@ -1,32 +1,17 @@
 # pwsh/.scriptanalyzer/tests/NoRawPipelineDetection.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The tests of `Measure-NoRawPipelineDetection`.
 
-## comment:1
+## What is run
 
-Above `Describe 'Measure-NoRawPipelineDetection'`, written with `#`.
+The per-case assertions run the rule function directly on a parsed AST (L0), since the rule is pure logic over a `ScriptBlockAst`. The
+engine-wiring proof (PSScriptAnalyzer discovers and fires the rule via `-CustomRulePath`) lives once, for all custom rules, in
+`CustomRuleWiring.Tests.ps1`.
 
-```text
-The per-case assertions run the rule function directly on a parsed AST (L0) — the rule is pure logic over a
-ScriptBlockAst. The engine-wiring proof (PSScriptAnalyzer discovers and fires this rule via -CustomRulePath)
-lives once, for all custom rules, in CustomRuleWiring.Tests.ps1.
-```
+The rule's return type, `DiagnosticRecord`, lives in the PSScriptAnalyzer assembly, so the file loads the module once for the type. It
+never invokes the analyzer engine; that is the L2 wiring test.
 
-## comment:2
+## The test-file exemption
 
-Above `if (-not (Get-Module PSScriptAnalyzer)) {`, written with `#`.
-
-```text
-The rule's return type ([DiagnosticRecord]) lives in the PSScriptAnalyzer assembly, so load the module
-once for the type — we never invoke the analyzer engine (that is the L2 wiring test below).
-```
-
-## comment:3
-
-Above `function Test-RawDetectionFile {`, written with `#`.
-
-```text
-The *.Tests.ps1 exemption keys off $ScriptBlockAst.Extent.File, so that case must parse from a real
-file path (ParseInput leaves Extent.File empty).
-```
+The `*.Tests.ps1` exemption keys off `$ScriptBlockAst.Extent.File`, so that case must parse from a real file path (`ParseInput` leaves
+`Extent.File` empty). `Test-RawDetectionFile` does that.

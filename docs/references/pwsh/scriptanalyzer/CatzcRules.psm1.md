@@ -1,36 +1,14 @@
 # pwsh/.scriptanalyzer/CatzcRules.psm1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The one custom PSScriptAnalyzer rule the settings load. `Measure-CatzcRules` runs every repository check once per file.
 
-## comment:1
+## Entry rule
 
-Above `$script:measures = $null`, written with `#`.
+One entry rule acts only on the root block, the one with no parent, so each check runs once per file instead of once per script block. The
+engine hands the rule a `ScriptBlockAst`, and every check walks the whole tree from the root.
 
-```text
-The check modules' Measure-* functions, loaded on the first root block (see Measure-CatzcRules); declared at load so
-the guard reads it strict-clean.
-```
+## Loading the checks
 
-## comment:2
-
-Above `function Measure-CatzcRules {`, written with `#`.
-
-```text
-.SYNOPSIS
-    The one custom PSScriptAnalyzer rule the settings load: runs every repository check once per file.
-.DESCRIPTION
-    One entry rule acting only on the root block, so each check runs once per file instead of once per script block.
-    [comment:2](/docs/references/pwsh/scriptanalyzer/CatzcRules.psm1.md#comment2)
-.PARAMETER ScriptBlockAst
-    The script block the engine hands the rule; only a file's root block (no parent) is acted on.
-```
-
-## comment:3
-
-Above `if ($null -eq $script:measures) {`, written with `#`.
-
-```text
-Each check module loads nested in this one, so its Measure-* functions are visible here but not exported to the
-engine. A module may export more than one check.
-```
+The checks are listed by name in the module. On the first root block each check module loads nested in this one, so its `Measure-*`
+functions are visible here but are not exported to the engine; a module may export more than one check. The loaded functions are kept in
+`$script:measures`, declared at load so the guard reads it strict-clean.

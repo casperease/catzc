@@ -1,45 +1,25 @@
 # pwsh/.scriptanalyzer/VariableCasing.psm1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The custom analyzer check `Measure-VariableCasing`: the variable casing conventions.
 
-## comment:1
+## The conventions
 
-Above `$script:skipVariables = [System.Collections.Generic.HashSet[string]]::new(`, written with `#`.
+- A parameter starts with an uppercase letter.
+- A scoped variable (`script:`, `global:`, `private:`) starts with an uppercase letter.
+- A local variable starts with a lowercase letter.
 
-```text
-.SYNOPSIS
-    Custom PSScriptAnalyzer rule: enforce variable casing conventions.
-.DESCRIPTION
-    Scriptblock parameters and automatic variables are skipped, as their names are not the author's choice.
-    [comment:1](/docs/references/pwsh/scriptanalyzer/VariableCasing.psm1.md#comment1)
-```
+## What is skipped
 
-## comment:2
+Scriptblock parameters and automatic variables are skipped, as their names are not the author's choice. The skip set of automatic,
+preference and well-known variables mirrors the one in `SpellOutIdentifiers.psm1`.
 
-Above `$isParameter = {`, written with `#`.
+A scriptblock parameter, such as `{ param($n) … }` in a `FindAll` predicate, is told from a function parameter by the position of its block
+in the syntax tree:
 
-```text
-Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew
-([ADR-PWSH-FORMAT-MULTILINEPREDICATEBOUND](/docs/drs/automation/pwsh/powershell-formatting.md#rule-adr-pwsh-format-multilinepredicatebound)).
-```
+- Named function: ParamBlockAst, ScriptBlockAst, FunctionDefinitionAst.
+- Scriptblock: ParamBlockAst, ScriptBlockAst, ScriptBlockExpressionAst.
 
-## comment:3
+## Predicates
 
-Above `$parentOfScript = $p.Parent.Parent.Parent`, written with `#`.
-
-```text
-Skip scriptblock params (e.g. { param($n) ... } in FindAll predicates)
-Named function: ParamBlockAst → ScriptBlockAst → FunctionDefinitionAst
-Scriptblock:    ParamBlockAst → ScriptBlockAst → ScriptBlockExpressionAst
-```
-
-## comment:4
-
-Above `$isAssignment = {`, written with `#`.
-
-```text
-Check variable assignments
-Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew
-([ADR-PWSH-FORMAT-MULTILINEPREDICATEBOUND](/docs/drs/automation/pwsh/powershell-formatting.md#rule-adr-pwsh-format-multilinepredicatebound)).
-```
+The predicates are locals, not inlined in `FindAll`'s parens, which dodges a cross-version indent skew
+([ADR-PWSH-FORMAT-MULTILINEPREDICATEBOUND](../../../drs/automation/pwsh/powershell-formatting.md#rule-adr-pwsh-format-multilinepredicatebound)).

@@ -7,5 +7,5 @@ lookup and the `[string[]]` `-Path` test decide how each is called. The fixtures
 
 ## The fixture checks
 
-There are three fixture checks: one that takes the changed files, one that only runs whole, and one that throws. Each names every path it was
-given, so its issue shows what `Test-Change` passed.
+There are three fixture checks: one that takes the changed files, one that only runs whole, and one that throws. Each names every path it
+was given, so its issue shows what `Test-Change` passed.

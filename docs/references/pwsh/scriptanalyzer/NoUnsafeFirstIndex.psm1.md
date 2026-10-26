@@ -1,25 +1,12 @@
 # pwsh/.scriptanalyzer/NoUnsafeFirstIndex.psm1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The custom analyzer check `Measure-NoUnsafeFirstIndex`: taking the first element of a collected result by index is forbidden.
 
-## comment:1
+## Why
 
-Above `function Measure-NoUnsafeFirstIndex {`, written with `#`.
+Under strict mode an empty result throws an engine error before the null check written after it can run.
 
-```text
-.SYNOPSIS
-    Custom PSScriptAnalyzer rule: forbid taking the first element of a collected result by index.
-.DESCRIPTION
-    Under strict mode an empty result throws an engine error before the null check written after it can run.
-    [comment:1](/docs/references/pwsh/scriptanalyzer/NoUnsafeFirstIndex.psm1.md#comment1)
-```
+## Predicates
 
-## comment:2
-
-Above `$isFirstIndex = {`, written with `#`.
-
-```text
-Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew
-([ADR-PWSH-FORMAT-MULTILINEPREDICATEBOUND](/docs/drs/automation/pwsh/powershell-formatting.md#rule-adr-pwsh-format-multilinepredicatebound)).
-```
+The predicate is a local, not inlined in `FindAll`'s parens, which dodges a cross-version indent skew
+([ADR-PWSH-FORMAT-MULTILINEPREDICATEBOUND](../../../drs/automation/pwsh/powershell-formatting.md#rule-adr-pwsh-format-multilinepredicatebound)).

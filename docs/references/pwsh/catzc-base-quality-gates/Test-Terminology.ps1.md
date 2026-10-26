@@ -1,6 +1,7 @@
 # pwsh/Base.QualityGates/Test-Terminology.ps1
 
-The quality gate for terminology: it checks the registry for drift, orphans and unjustified entries, and writes a report to the output folder.
+The quality gate for terminology: it checks the registry for drift, orphans and unjustified entries, and writes a report to the output
+folder.
 
 ## help
 

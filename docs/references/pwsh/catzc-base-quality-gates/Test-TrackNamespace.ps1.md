@@ -1,6 +1,7 @@
 # pwsh/Base.QualityGates/Test-TrackNamespace.ps1
 
-The quality gate for track namespaces: it fails on a tracked path that spells its track's namespace on disk, and writes a report to the output folder.
+The quality gate for track namespaces: it fails on a tracked path that spells its track's namespace on disk, and writes a report to the
+output folder.
 
 ## help
 

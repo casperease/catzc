@@ -86,7 +86,8 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
   source as one line, ready for the next export
 - slim-agents -> plan-slim-agents.md: four model drones, every job a skill; 22 robots to 4, duplicates merged
 - flow-lens -> plan-flow-lens.md: flow lens: CI/CD flow diagrams of the ADO and GitHub pipelines, drawn with a three-symbol glyph set
-- drs-code-simplify -> plan-drs-code-simplify.md: Every decision record code is short, unique and names its source; external guidance moves to the EDR kind.
+- drs-code-simplify -> plan-drs-code-simplify.md: Every decision record code is short, unique and names its source; external guidance moves
+  to the EDR kind.
 - user-runs-and-commits -> task-user-runs-and-commits.md: the user's steps, the only list of them.
 - closing-sweep -> task-closing-sweep.md: runs after every batch; done plans deleted, done steps pruned; last of all, after the user's full
   run, the master and the task files go with the last plan.

@@ -1,101 +1,44 @@
 # pwsh/.internal/tests/Import-AllModules.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The tests of the importer over a sandbox tree: discovery, the public and private boundary, the two import-failure guards, and the eviction
+of one code root's modules by another's.
 
-## comment:1
+## The sandbox
 
-Above `$sandbox = Join-Path ([System.IO.Path]::GetTempPath())...`, written with `#`.
+The sandbox holds the importer, the `.internal` shared modules (loader, bootstrap and the rest) and the vendored modules, with no
+application modules. Each test populates it and runs the importer in a fresh child pwsh process, a cold, fully isolated re-derive of module
+state from the current files. The importer is a pure function of the file system, so one import per distinct tree shape is enough: each
+test captures everything it needs from a single import, then asserts the facets in separate `It` blocks.
 
-```text
-Build an isolated sandbox = importer + the .internal shared modules (loader, bootstrap, …) + vendor, with
-NO application modules. Each test populates it and runs the importer in a fresh child pwsh process (a cold,
-fully-isolated re-derive of module state from the current files). The importer is a pure function of the
-filesystem, so we only need ONE import per distinct tree shape — each test below captures everything it
-needs from a single import, then asserts the facets in separate It blocks.
-```
+The `.internal` and vendor folders are copied with `Copy-Directory` (raw `System.IO`) rather than `Copy-Item -Recurse`: the vendored
+modules, about 88 files, copy in about 190 ms against about 1.25 s with the cmdlet.
 
-## comment:2
+## The child import
 
-Above `Copy-Directory (Join-Path (Get-CatzcModulesRoot) '.internal') (Join-Path...`, written with `#`.
+One cold import runs in a child pwsh, and the capture expression is evaluated after the import and returned as parsed JSON. The import's
+announcements are information records
+([ADR-AUTO-CONSOLE-ANNOUNCELASTINGCHANGES](../../../../drs/automation/console-output-matters.md#rule-adr-auto-console-announcelastingchanges)),
+so `6>$null` keeps them out of the JSON. The module-list expression lists the loaded application modules and their exported functions;
+Bootstrap and the vendored modules are filtered out, and `$_` is escaped so it evaluates in the child.
 
-```text
-Copy-Directory (raw [System.IO]) instead of Copy-Item -Recurse: .vendor (Pester + powershell-yaml, ~88
-files) copies in ~190ms vs ~1.25s with the cmdlet.
-```
+## A populated tree
 
-## comment:3
+One import of a rich tree covers discovery, public export, the public and private boundary, a private being callable from a public function
+and several independent modules. It also covers the collision guard giving no false positive on a private name shared across modules: the
+import succeeds with two modules each defining a private `Get-Shared`, both modules load and neither exports it, which proves the guard
+ignores module-scoped privates.
 
-Above `$script:moduleListExpr =`, written with `#`.
+## Changing the tree
 
-```text
-Expression (run inside the child) that lists the loaded application modules and their exported functions.
-Bootstrap and the vendored modules are filtered out; $_ is escaped so it evaluates in the child.
-```
+The populated tree is mutated every way an author can, then re-imported. One cold import must reflect a changed body, an added function, a
+deleted function and a deleted module.
 
-## comment:4
+## Eviction across code roots
 
-Above `param([Parameter(Mandatory)][string]$Capture)`, written with `#`.
+This case is greedy: one child pwsh dot-sources three importers in sequence (process-global module state), so it consumes the machine beyond
+its own process and carries an L2-scale budget
+([ADR-AUTO-TEST-ONESCHEDULINGPOOL](../../../../drs/automation/test-automation.md#rule-adr-auto-test-oneschedulingpool)).
 
-```text
-ONE cold import in a child pwsh; $Capture is evaluated AFTER the import and returned as parsed JSON. The
-import's announcements are information records
-([ADR-AUTO-CONSOLE-ANNOUNCELASTINGCHANGES](/docs/drs/automation/console-output-matters.md#rule-adr-auto-console-announcelastingchanges)), so
-6>$null keeps them out of the JSON.
-```
-
-## comment:5
-
-Above `BeforeAll {` (occurrence 2), written with `#`.
-
-```text
-One import of a rich tree covers discovery, public export, the public/private boundary, a private
-being callable from a public function, multiple independent modules, and the collision guard NOT
-falsely-giving-positives on a private name shared across modules (the import simply succeeds).
-```
-
-## comment:6
-
-Above `($modules | Where-Object { $_.Name -eq 'PrivA' }).Exported | Should -Contain...`, written with `#`.
-
-```text
-The import above succeeded with PrivA and PrivB each defining a private Get-Shared; both modules
-loaded and neither exports it — proving the collision guard ignores module-scoped privates.
-```
-
-## comment:7
-
-Above `BeforeAll {` (occurrence 3), written with `#`.
-
-```text
-Mutate the populated tree every way an author can, then re-import: one cold import must reflect a
-changed body, an added function, a deleted function, and a deleted module.
-```
-
-## comment:8
-
-Above `Describe 'Run-mode eviction across code roots'`, written with `#`.
-
-```text
-Greedy: one child pwsh dot-sources three importers in sequence (process-global module state), so it consumes the
-machine beyond its own process and carries an L2-scale budget
-([ADR-AUTO-TEST-ONESCHEDULINGPOOL](/docs/drs/automation/test-automation.md#rule-adr-auto-test-oneschedulingpool)).
-```
-
-## comment:9
-
-Above `function New-EvictionRoot {`, written with `#`.
-
-```text
-Two complete sandbox roots (importer + .internal + .vendor) — stand-ins for a source tree and a build.
-Each holds a module only it ships and a same-named module that reports which root it came from.
-```
-
-## comment:10
-
-Above `$timeoutsConfigs = New-Item -Path (Join-Path $sandboxAuto...`, written with `#`.
-
-```text
-The importer waits on the run lock before any module loads, so the sandbox carries the timeouts config too; it names no track,
-so both sit under their full-name folders.
-```
+It builds two complete sandbox roots (importer, `.internal` and `.vendor`) as stand-ins for a source tree and a build. Each holds a module
+only it ships and a same-named module that reports which root it came from. The importer waits on the run lock before any module loads, so
+the sandbox carries the timeouts config too; it names no track, so both sit under their full-name folders.

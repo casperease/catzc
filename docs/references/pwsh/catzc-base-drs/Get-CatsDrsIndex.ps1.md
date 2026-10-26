@@ -1,4 +1,4 @@
-# pwsh/Base.Drs/private/Get-CatsDrsIndex.ps1
+# pwsh/Base.Drs/Get-CatsDrsIndex.ps1
 
 Parses the ADR index into one entry per ADR, the code, title slug and path that `Show-Cats` presents.
 

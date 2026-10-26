@@ -1,14 +1,7 @@
 # pwsh/.scriptanalyzer/tests/ParameterDesign.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The tests of the parameter-surface checks in `ParameterDesign.psm1`.
 
-## comment:1
-
-Above `BeforeAll {`, written with `#`.
-
-```text
-The per-case assertions run the rule functions directly on a parsed AST (L0). Their scope is decided by the file path,
-so each case writes a fixture file into $TestDrive under a fake automation/ layout. The engine-wiring proof lives once,
-for all custom rules, in CustomRuleWiring.Tests.ps1.
-```
+The per-case assertions run the rule functions directly on a parsed AST (L0). Their reach is decided by the file path, so each case writes
+a fixture file into `$TestDrive` under a fake modules-folder layout. The engine-wiring proof lives once, for all custom rules, in
+`CustomRuleWiring.Tests.ps1`.

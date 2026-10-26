@@ -1,13 +1,10 @@
 # pwsh/.internal/tests/Assert-CatzcRunModeExclusive.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The L0 tests of `Get-ForeignCatzcModule` and `Assert-CatzcRunModeExclusive`, which refuse a session that holds catzc modules from two code
+roots.
 
-## comment:1
+## Fixture
 
-Above `$script:packageRoot = Join-Path $TestDrive 'package'`, written with `#`.
-
-```text
-Two fixture code roots: an active one and another one, each holding catzc-named modules, plus a
-non-catzc module and a package module 'Catzc' whose ModuleBase is the active root's parent.
-```
+Two fixture code roots, an active one and another one, each holding catzc-named modules. Beside them sit a non-catzc module and a package
+module `Catzc` whose `ModuleBase` is the active root's parent, so the tests tell a foreign catzc module from the active root's own, from a
+module that is not catzc at all, and from the package.

@@ -1,25 +1,12 @@
 # pwsh/.scriptanalyzer/NoWriteErrorOrWarning.psm1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The custom analyzer check `Measure-NoWriteErrorOrWarning`: `Write-Error` and `Write-Warning` are forbidden.
 
-## comment:1
+## Why
 
-Above `function Measure-NoWriteErrorOrWarning {`, written with `#`.
+All errors are terminating: use `throw` or an `Assert-*` command.
 
-```text
-.SYNOPSIS
-    Custom PSScriptAnalyzer rule: forbid Write-Error and Write-Warning.
-.DESCRIPTION
-    All errors are terminating — use throw or Assert-*.
-    [comment:1](/docs/references/pwsh/scriptanalyzer/NoWriteErrorOrWarning.psm1.md#comment1)
-```
+## Predicates
 
-## comment:2
-
-Above `$isCommand = {`, written with `#`.
-
-```text
-Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew
-([ADR-PWSH-FORMAT-MULTILINEPREDICATEBOUND](/docs/drs/automation/pwsh/powershell-formatting.md#rule-adr-pwsh-format-multilinepredicatebound)).
-```
+The predicate is a local, not inlined in `FindAll`'s parens, which dodges a cross-version indent skew
+([ADR-PWSH-FORMAT-MULTILINEPREDICATEBOUND](../../../drs/automation/pwsh/powershell-formatting.md#rule-adr-pwsh-format-multilinepredicatebound)).

@@ -1,44 +1,33 @@
 # pwsh/.scriptanalyzer/ParameterDesign.psm1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The custom analyzer check module for a function's parameter surface
+([ADR-PWSH-PARAM](../../../drs/automation/pwsh/parameter-design.md)).
 
-## comment:1
+## Which functions
 
-Above `function Test-ModuleFunctionFile {`, written with `#`.
+The checks run over the functions in a module function file: a `.ps1` directly under `pwsh/<Module>/` (public) or under
+`pwsh/<Module>/private/` (private), whose module folder is not dot-prefixed. The check decides by the file path, so an in-memory
+definition with no file name is not checked.
 
-```text
-.SYNOPSIS
-    Custom PSScriptAnalyzer rules for a function's parameter surface
-    ([ADR-PWSH-PARAM](/docs/drs/automation/pwsh/parameter-design.md)).
-.DESCRIPTION
-    Two checks over the functions in a module function file — a.ps1 directly under pwsh/<Module>/ (public) or...
-    [comment:1](/docs/references/pwsh/scriptanalyzer/ParameterDesign.psm1.md#comment1)
-```
+## The checks
 
-## comment:2
+The module exports five checks, each a `Measure-*` function:
 
-Above `$isFunction = {`, written with `#`.
+- `Measure-ParameterFillIn`
+- `Measure-PrimaryArgumentPosition`
+- `Measure-NoOptionalBooleanParameter`
+- `Measure-NoSwitchDefaultOn`
+- `Measure-CaseSensitivePattern`
 
-```text
-Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew
-([ADR-PWSH-FORMAT-MULTILINEPREDICATEBOUND](/docs/drs/automation/pwsh/powershell-formatting.md#rule-adr-pwsh-format-multilinepredicatebound)).
-```
+Two of them have rules worth stating:
 
-## comment:3
+- **Primary argument position.** Public functions only: a positional primary argument serves the module's callers, while a private helper
+  is called by name from inside its module.
+- **Optional boolean.** A `[bool]` whose default reads the configuration is a configurable setting
+  ([ADR-PWSH-PARAM-RESOLUTIONORDER](../../../drs/automation/pwsh/parameter-design.md#rule-adr-pwsh-param-resolutionorder)), not opt-in
+  behaviour, and is not flagged.
 
-Above `if (-not (Test-ModuleFunctionFile $ScriptBlockAst) -or...`, written with `#`.
+## Predicates
 
-```text
-Public functions only: a positional primary argument serves the module's callers; a private helper is called by
-name from inside its module.
-```
-
-## comment:4
-
-Above `if ($parameter.DefaultValue -and $parameter.DefaultValue.Extent.Text -match...`, written with `#`.
-
-```text
-A [bool] whose default reads the configuration is a configurable setting
-([ADR-PWSH-PARAM-RESOLUTIONORDER](/docs/drs/automation/pwsh/parameter-design.md#rule-adr-pwsh-param-resolutionorder)), not opt-in behaviour.
-```
+The predicate is a local, not inlined in `FindAll`'s parens, which dodges a cross-version indent skew
+([ADR-PWSH-FORMAT-MULTILINEPREDICATEBOUND](../../../drs/automation/pwsh/powershell-formatting.md#rule-adr-pwsh-format-multilinepredicatebound)).

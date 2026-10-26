@@ -1,14 +1,16 @@
 # python/diagrams/assets/slides/slides.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The slides kit's sensible defaults, declared once: the colour tokens, the type faces and the type scale and layout sizes that every slide
+pattern draws from.
 
-## comment:1
+## How a pattern reads it
 
-Above `token:`, written with `#`.
+A pattern reads the values as `{{@token.*}}`, `{{@face.*}}`, `{{@scale.*}}` and `{{@layout.*}}` placeholders, and a slide file never repeats
+them ([ADR-REPO-SLIDES-PATTERN](../../../../../drs/repository/slides-as-markdown.md#rule-adr-repo-slides-pattern)). A change here restyles
+every slide at the next render.
 
-```text
-The slides kit's sensible defaults, declared once ([ADR-REPO-SLIDES-PATTERN](/docs/drs/repository/slides-as-markdown.md#rule-adr-repo-slides-pattern));
-a pattern reads them as {{@token.*}}, {{@face.*}}, {{@scale.*}}
-and {{@layout.*}} placeholders, and a slide file never repeats them. Two-level mapping only: a section, then key: value.
-```
+## Shape
+
+The file is a two-level mapping only: a section, then `key: value`. Its sections are `token` (the dark theme), `token-light` (the light
+theme), `face`, `scale`, `layout`, `render`, `fact` and `strip`; the last two hold the sizes that `slide_png.py` uses for the fact picture and the
+ladder strip.

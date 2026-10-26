@@ -2,24 +2,23 @@
 
 <!-- cspell:ignore callsite -->
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The draw.io kit's sensible defaults, declared once: the renderer settings, the meaning of an edge, the closed vocabularies a diagram draws
+from and the colour themes.
 
-## comment:1
+## Defaults and overrides
 
-Above `renderer:`, written with `#`.
+A script parameter overrides an entry for one run and never rewrites the file. The file is a two-level mapping only: a section, then
+`key: value`. `drawio_png.py` reads it without a YAML library, so nothing richer than that shape belongs here.
 
-```text
-The draw.io kit's sensible defaults, declared once; a script parameter overrides an entry for one run, never the file.
-Two-level mapping only: a section, then key: value. drawio_png.py reads it without a YAML library.
-```
+## The meaning of an edge
 
-## comment:2
+The `edge-semantics` section declares the default meaning of an edge once: the tail initiates and the head receives
+([DDR-VISUAL-ARROWSPOINTATWHATTHEYDEPENDON](../../../../drs/design/visual-design.md#rule-ddr-visual-arrowspointatwhattheydependon)). A
+diagram that declares its own relation replaces the default and opts out of the checks that follow from it. The `edge-labels`, `edge-rank`,
+`edge-defaults` and `edge-rules` sections extend it with the words an edge may carry and which end initiates under each.
 
-Above `edge-semantics:`, written with `#`.
+## Other sections
 
-```text
-the default meaning of an edge, declared once
-([DDR-VISUAL-ARROWSPOINTATWHATTHEYDEPENDON](/docs/drs/design/visual-design.md#rule-ddr-visual-arrowspointatwhattheydependon)): the tail
-initiates, the head receives
-```
+The remaining sections close the sets a diagram may name: `roles`, `lenses`, `zooms`, the locked `commits` palette, the paint order
+`layers`, the `lane` and `span` placement numbers, the diagram `kinds`, `wheres`, the `action-lens` numbers, the `themes` with their
+`theme-dark` and `theme-light` token sets, the `minimaps` ids and the `vocabularies` a span bar's label comes from.

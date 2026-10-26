@@ -1,13 +1,10 @@
 # pwsh/.scriptanalyzer/NoUnboundedEnumeration.psm1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The custom analyzer check `Measure-NoUnboundedEnumeration`: folders and files are listed through `Get-ChildPath`, never by a filesystem
+cmdlet or an unbounded walk. It flags `Get-ChildItem` and its aliases on a filesystem path, and `[System.IO.SearchOption]::AllDirectories`;
+test files are covered too.
 
-## comment:1
+## Provider paths
 
-Above `$providerPath = $false`, written with `#`.
-
-```text
-A literal provider path (env:, function:, HKLM:) lists a provider, not the filesystem; a drive name of one
+A literal provider path (`env:`, `function:`, `HKLM:`) lists a provider, not the filesystem, and is not flagged. A drive name of one
 letter is a filesystem drive.
-```

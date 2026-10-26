@@ -1,25 +1,13 @@
 # pwsh/.scriptanalyzer/NoEnvRepositoryRoot.psm1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The custom analyzer check `Measure-NoEnvRepositoryRoot`: module function files read the repository root through `Get-RepositoryRoot`, not
+through the environment variable.
 
-## comment:1
+## Why
 
-Above `function Measure-NoEnvRepositoryRoot {`, written with `#`.
+One accessor reads the root, so where the root comes from can change in one place. A write of the variable is not flagged.
 
-```text
-.SYNOPSIS
-    Custom PSScriptAnalyzer rule: module function files read the repository root through Get-RepositoryRoot.
-.DESCRIPTION
-    One accessor reads the root, so where the root comes from can change in one place; a write is not flagged.
-    [comment:1](/docs/references/pwsh/scriptanalyzer/NoEnvRepositoryRoot.psm1.md#comment1)
-```
+## Predicates
 
-## comment:2
-
-Above `$isVariable = {`, written with `#`.
-
-```text
-Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew
-([ADR-PWSH-FORMAT-MULTILINEPREDICATEBOUND](/docs/drs/automation/pwsh/powershell-formatting.md#rule-adr-pwsh-format-multilinepredicatebound)).
-```
+The predicate is a local, not inlined in `FindAll`'s parens, which dodges a cross-version indent skew
+([ADR-PWSH-FORMAT-MULTILINEPREDICATEBOUND](../../../drs/automation/pwsh/powershell-formatting.md#rule-adr-pwsh-format-multilinepredicatebound)).

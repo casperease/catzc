@@ -1,25 +1,12 @@
 # pwsh/.scriptanalyzer/NoAzModuleNaming.psm1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The custom analyzer check `Measure-NoAzModuleNaming`: the naming of the Az PowerShell modules is forbidden for a function.
 
-## comment:1
+## Why
 
-Above `function Measure-NoAzModuleNaming {`, written with `#`.
+Azure is spelled out in full, so a function name never collides with a cmdlet of the Az modules.
 
-```text
-.SYNOPSIS
-    Custom PSScriptAnalyzer rule: forbid Az PowerShell module naming.
-.DESCRIPTION
-    Azure is spelled out in full so a function name never collides with a cmdlet of the Az modules.
-    [comment:1](/docs/references/pwsh/scriptanalyzer/NoAzModuleNaming.psm1.md#comment1)
-```
+## Predicates
 
-## comment:2
-
-Above `$isFunctionDefinition = {`, written with `#`.
-
-```text
-Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew
-([ADR-PWSH-FORMAT-MULTILINEPREDICATEBOUND](/docs/drs/automation/pwsh/powershell-formatting.md#rule-adr-pwsh-format-multilinepredicatebound)).
-```
+The predicate is a local, not inlined in `FindAll`'s parens, which dodges a cross-version indent skew
+([ADR-PWSH-FORMAT-MULTILINEPREDICATEBOUND](../../../drs/automation/pwsh/powershell-formatting.md#rule-adr-pwsh-format-multilinepredicatebound)).

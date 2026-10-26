@@ -1,33 +1,20 @@
 # pwsh/.internal/tests/Get-DynamicManifestContent.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The tests of `Get-DynamicManifestContent` and `New-DynamicManifest`, which write the manifest every module loads through.
 
-## comment:1
+## A merged module
 
-Above `BeforeAll {` (occurrence 3), written with `#`.
+A merged module, with every function in one nested script file, loads through its explicit manifest with only the listed publics exported
+and the private still callable from them (shared module scope).
 
-```text
-A merged module — every function in one <Module>.ps1 — loads through its explicit manifest with only the
-listed publics exported and the private still callable from them (shared module scope).
-```
+## A source module
 
-## comment:2
+A source module is a modules root holding the real shared loader under `.internal/assets` and one module folder of function files. Its
+derived manifest loads every file into one module: the publics are exported, the private is callable from them but not exported, and each
+function still reports its own source file and line.
 
-Above `BeforeAll {` (occurrence 4), written with `#`.
+## Formatter stability
 
-```text
-A source module: a modules root holding the real shared loader under .internal/assets and one module folder of
-function files. Its derived manifest loads every file into one module: publics exported, the private callable
-from them but not exported, and each function still reporting its own source file and line.
-```
-
-## comment:3
-
-Above `$result = Test-BuildArtifact -Facet Manifest -PassThru -OutputFolder...`, written with `#`.
-
-```text
-The published manifest is a versioned immutable artifact, so its canonical form must equal what the
-repo formatter would produce — otherwise a later touch would re-format and churn the gold bytes. Every
-<Module>.psd1 in a build comes from Get-DynamicManifestContent (New-DynamicManifest).
-```
+The published manifest is a versioned immutable artifact, so its canonical form must equal what the repository formatter would produce;
+otherwise a later touch would re-format and churn the stored bytes. Every `<Module>.psd1` in a build comes from `Get-DynamicManifestContent`
+(`New-DynamicManifest`), and the L2 case runs `Test-BuildArtifact -Facet Manifest` over them.

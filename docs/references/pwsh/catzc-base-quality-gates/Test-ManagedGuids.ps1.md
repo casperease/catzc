@@ -1,6 +1,7 @@
 # pwsh/Base.QualityGates/Test-ManagedGuids.ps1
 
-The quality gate for managed GUIDs: every GUID in tracked text must be registered in `guids.yml`, none may be denied, and every entry must be live.
+The quality gate for managed GUIDs: every GUID in tracked text must be registered in `guids.yml`, none may be denied, and every entry must
+be live.
 
 ## help
 

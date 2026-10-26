@@ -1,33 +1,18 @@
 # pwsh/.scriptanalyzer/tests/SpellOutIdentifiers.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The tests of `Measure-SpellOutIdentifiers`.
 
-## comment:1
+## What is run
 
-Above `Describe 'Measure-SpellOutIdentifiers'`, written with `#`.
+The per-case assertions run the rule function directly on a parsed AST (L0), since the rule is pure logic over a `ScriptBlockAst`. The
+`SpellingOracle` it consults is loaded once and warmed in `BeforeAll`. The engine-wiring proof (PSScriptAnalyzer discovers and fires the
+rule via `-CustomRulePath`, which also exercises the oracle initializing inside the analyzer's own runspace) lives once, for all custom
+rules, in `CustomRuleWiring.Tests.ps1`.
 
-```text
-The per-case assertions run the rule function directly on a parsed AST (L0) — the rule is pure logic over a
-ScriptBlockAst (the SpellingOracle it consults is loaded once, warmed in BeforeAll below). The engine-wiring
-proof (PSScriptAnalyzer discovers and fires this rule via -CustomRulePath, which also exercises the oracle
-initializing inside the analyzer's own runspace) lives once, for all custom rules, in CustomRuleWiring.Tests.ps1.
-```
+The rule's return type, `DiagnosticRecord`, lives in the PSScriptAnalyzer assembly, so the file loads the module once for the type. It
+never invokes the analyzer engine; that is the L2 wiring test.
 
-## comment:2
+## Allowed abbreviations
 
-Above `if (-not (Get-Module PSScriptAnalyzer)) {`, written with `#`.
-
-```text
-The rule's return type ([DiagnosticRecord]) lives in the PSScriptAnalyzer assembly, so load the module
-once for the type — we never invoke the analyzer engine (that is the L2 wiring test below).
-```
-
-## comment:3
-
-Above `@{ Code = 'foreach ($i in 1..3) { $i }' }`, written with `#`.
-
-```text
-single-letter loop index
-([ADR-AUTO-SPELL-ALLOWEDABBREVIATIONS](/docs/drs/automation/spell-out-names.md#rule-adr-auto-spell-allowedabbreviations))
-```
+A single-letter loop index passes
+([ADR-AUTO-SPELL-ALLOWEDABBREVIATIONS](../../../../drs/automation/spell-out-names.md#rule-adr-auto-spell-allowedabbreviations)).

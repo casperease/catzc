@@ -1,36 +1,15 @@
 # pwsh/.scriptanalyzer/NeverDependOnPwd.psm1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The custom analyzer check `Measure-NeverDependOnPwd`: code never depends on `$PWD`.
 
-## comment:1
+## What is flagged
 
-Above `function Measure-NeverDependOnPwd {`, written with `#`.
+- Any reference to the `$PWD` variable.
+- A `Set-Location` or `cd` call.
 
-```text
-.SYNOPSIS
-    Custom PSScriptAnalyzer rule: never depend on $PWD.
-.DESCRIPTION
-    Push-Location and Pop-Location pass: they restore the caller's directory, a bare Set-Location does not.
-    [comment:1](/docs/references/pwsh/scriptanalyzer/NeverDependOnPwd.psm1.md#comment1)
-```
+`Push-Location` and `Pop-Location` pass: they restore the caller's directory, a bare `Set-Location` does not.
 
-## comment:2
+## Predicates
 
-Above `$isVariable = {`, written with `#`.
-
-```text
-Flag $PWD references
-Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew
-([ADR-PWSH-FORMAT-MULTILINEPREDICATEBOUND](/docs/drs/automation/pwsh/powershell-formatting.md#rule-adr-pwsh-format-multilinepredicatebound)).
-```
-
-## comment:3
-
-Above `$isCommand = {`, written with `#`.
-
-```text
-Flag Set-Location / cd calls (Push-Location / Pop-Location are fine)
-Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew
-([ADR-PWSH-FORMAT-MULTILINEPREDICATEBOUND](/docs/drs/automation/pwsh/powershell-formatting.md#rule-adr-pwsh-format-multilinepredicatebound)).
-```
+Both predicates are locals, not inlined in `FindAll`'s parens, which dodges a cross-version indent skew
+([ADR-PWSH-FORMAT-MULTILINEPREDICATEBOUND](../../../drs/automation/pwsh/powershell-formatting.md#rule-adr-pwsh-format-multilinepredicatebound)).

@@ -1,7 +1,7 @@
 # pwsh/.scriptanalyzer/Test-AnalyzedFileIsTest.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The shared test for whether the file under analysis is a Pester test file. It is dot-sourced into the check modules that exempt test files,
+and answers by file name for the quality gate and by Pester structure for an editor buffer.
 
 ## help
 

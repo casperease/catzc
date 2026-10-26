@@ -1,64 +1,28 @@
 # pwsh/.scriptanalyzer/AnnounceStateChange.psm1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The custom analyzer check module for state changes: a function that changes the session's state must announce it, and persistent
+environment and registry writes go only through their seams.
 
-## comment:1
+## Announcing a change
 
-Above `function Test-CommandParameter {`, written with `#`.
+`Measure-AnnounceStateChange` requires that a writer runs together with the change it announces. It checks that a writer is there, not what
+its line says; the wording stays a review concern.
 
-```text
-.SYNOPSIS
-    Custom PSScriptAnalyzer rule: a function that changes the session's state must announce it.
-.DESCRIPTION
-    The rule checks that a writer runs with the change, not what the line says; that wording stays a review concern.
-    [comment:1](/docs/references/pwsh/scriptanalyzer/AnnounceStateChange.psm1.md#comment1)
-```
+Three helpers read the call being checked:
 
-## comment:2
+- The argument of a command's named parameter (`-Name value` or `-Name:value`) is read first; failing that, the first positional argument,
+  the element straight after the command name when that is not a parameter.
+- A node inside a scriptblock handed literally to a job or a parallel `ForEach-Object` is not counted with the surrounding function, since
+  that block runs in another runspace or process.
+- Every change is grouped by its scope. For each scope the check notes which targets a `finally` block restores and which blocks an
+  information-stream writer call covers.
 
-Above `function Get-CommandArgument {`, written with `#`.
+## Persistent writes
 
-```text
-The argument of a command's named parameter (-Name value or -Name:value), else its first positional
-argument — the element straight after the command name, when that is not a parameter.
-```
+`Measure-PersistentWriteThroughSeam` sends persistent environment and registry writes through one mockable seam, so only that seam's own
+test touches real state.
 
-## comment:3
+## Predicates
 
-Above `$isInOtherRunspace = {`, written with `#`.
-
-```text
-Whether a node sits in a scriptblock handed literally to a job or a parallel ForEach-Object, which runs in
-another runspace or process.
-```
-
-## comment:4
-
-Above `$isCandidate = {`, written with `#`.
-
-```text
-Predicates as locals, not inlined in FindAll's parens — dodges a cross-version indent skew
-([ADR-PWSH-FORMAT-MULTILINEPREDICATEBOUND](/docs/drs/automation/pwsh/powershell-formatting.md#rule-adr-pwsh-format-multilinepredicatebound)).
-```
-
-## comment:5
-
-Above `$changesByScope = [ordered]@{}`, written with `#`.
-
-```text
-Group every change by its scope, and note per scope which targets a finally block restores and which
-blocks an information-stream writer call covers.
-```
-
-## comment:6
-
-Above `function Measure-PersistentWriteThroughSeam {`, written with `#`.
-
-```text
-.SYNOPSIS
-    Custom PSScriptAnalyzer rule: persistent environment and registry writes go only through their seams.
-.DESCRIPTION
-    Persistent environment and registry writes go through one mockable seam, so only its own test touches real state.
-    [comment:6](/docs/references/pwsh/scriptanalyzer/AnnounceStateChange.psm1.md#comment6)
-```
+The predicates are locals, not inlined in `FindAll`'s parens, which dodges a cross-version indent skew
+([ADR-PWSH-FORMAT-MULTILINEPREDICATEBOUND](../../../drs/automation/pwsh/powershell-formatting.md#rule-adr-pwsh-format-multilinepredicatebound)).

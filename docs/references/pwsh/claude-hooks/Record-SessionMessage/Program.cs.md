@@ -1,14 +1,13 @@
 # .claude/hooks/Record-SessionMessage/Program.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The Claude Code hook that logs, for every session, each cross-session message it sends and each it receives, so no session spends a tool call
+on its log.
 
-## comment:1
+## What it logs
 
-Above `public static class RecordSessionMessage`, written with `//`.
+A sent message is read from the PostToolUse event on SendMessage; a received one from the UserPromptSubmit event on a prompt that is a
+cross-session-message element. Each lands as one line of `out/orchestrator-<date>.log`.
 
-```text
-Logs, for every Claude Code session, each cross-session message it sends (PostToolUse on SendMessage) and each it receives
-(UserPromptSubmit on a prompt that is a cross-session-message element) as one line of out/orchestrator-<date>.log, so no session spends a
-tool call on its log. It never blocks or fails a call: any error leaves the log without the line.
-```
+## Never in the way
+
+It never blocks or fails a call: any error leaves the log without the line.
