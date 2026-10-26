@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/Get-ConventionEdge.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Get-ConventionEdge' -Tag 'L0', 'logic', 'ADR-REPO-LINKS-CONVENTIONSAREDERIVED' {
     BeforeEach {
         InModuleScope Catzc.Base.QualityGates {
@@ -36,10 +28,10 @@ Describe 'Get-ConventionEdge' -Tag 'L0', 'logic', 'ADR-REPO-LINKS-CONVENTIONSARE
     }
 
     It 'points a file at its comment page only when the page is tracked' {
-        $edges = & $derive @('mods/Widget/Get-Widget.ps1', 'docs/references/mods/Widget/Get-Widget.ps1.md',
+        $edges = & $derive @('mods/Widget/Get-Widget.ps1', 'docs/references/mods/widget/get-widget.md',
             'mods/Widget/Get-Gizmo.ps1')
         @(& $shown $edges.Where({ $_.Target -like 'docs/*' })) |
-            Should -Be @('mods/Widget/Get-Widget.ps1 -> docs/references/mods/Widget/Get-Widget.ps1.md')
+            Should -Be @('mods/Widget/Get-Widget.ps1 -> docs/references/mods/widget/get-widget.md')
     }
 
     It 'points a module at each declared dependency that is a module, and no other' {

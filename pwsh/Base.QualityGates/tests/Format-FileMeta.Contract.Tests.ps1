@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/Format-FileMeta.Contract.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'The provided head contract' -Tag 'L1', 'integrity', 'source-only', 'ADR-REPO-CONTRACT-PROVENBYTESTS' {
     BeforeAll {
         $folder = Join-Path (Get-RepositoryRoot) 'contracts/catzc/0.1.0/pwsh.base.quality_gates'
@@ -41,38 +33,19 @@ Describe 'The provided head contract' -Tag 'L1', 'integrity', 'source-only', 'AD
         }
     }
 
-    It 'binds a code file to nothing outside its own module and its docs section' {
-        $relatives = (Get-Config -Config file-meta).kinds | Where-Object id -eq 'relative-edges'
-        foreach ($relation in $relatives.settings['relations']) {
-            foreach ($rule in $relation['rules']) {
-                foreach ($path in $rule['paths']) {
-                    $path |
-                        Should -Match '^\{page\}$|^[a-z]+/\{module\}/' -Because "the '$($relation['name'])' relation must stay in the file's own module or docs section"
-                }
-            }
-        }
-    }
-
-    It 'names the relations the head may hold as edges in its schema, and no more than the config declares' {
-        $relatives = (Get-Config -Config file-meta).kinds | Where-Object id -eq 'relative-edges'
-        $declared = @($relatives.settings['relations'] | ForEach-Object { $_['name'] } | Sort-Object)
-        $declared | Should -Be @($relatives.keys | Sort-Object)
-        foreach ($name in $declared) {
-            $script:parts.Keys | Should -Contain $name
-        }
-    }
-
-    It 'opens an authored head with its docs edge and closes it with the header note the registry declares, a string part of its own' -Tag 'ADR-REPO-FILEMETA-HEADPOLICY' {
-        $script:schema['properties']['catzc']['properties']['header']['type'] | Should -Be 'string'
-        $script:sample['catzc']['header'] | Should -BeExactly (Get-Config -Config file-meta).header
-        @($script:sample['catzc'].Keys) | Should -Be @('docs', 'header')
+    It 'describes the one head a file carries, a generated file''s, its warning under immutable and no authored key' -Tag 'ADR-REPO-FILEMETA-HEADPOLICY' {
+        @($script:sample['catzc'].Keys) | Should -Be @('immutable')
+        @($script:sample['catzc']['immutable'].Keys) | Should -Be @('with_body_sha', 'warning')
         $script:schema['properties']['catzc']['properties'].Contains('warning') |
             Should -BeFalse -Because 'only a generated file carries a warning, under immutable'
+        foreach ($gone in 'docs', 'header') {
+            $script:schema['properties']['catzc']['properties'].Contains($gone) |
+                Should -BeFalse -Because 'an authored file carries no head, so its keys are gone from the contract'
+        }
     }
 
-    It 'requires no key, since an authored head holds its edge only and a generated one holds the body hash only while tracked' -Tag 'ADR-REPO-FILEMETA-HEADPOLICY' {
+    It 'requires no key, since a generated head holds the body hash only while tracked' -Tag 'ADR-REPO-FILEMETA-HEADPOLICY' {
         $script:parts['immutable'].Contains('required') | Should -BeFalse
         $script:schema['properties']['catzc'].Contains('required') | Should -BeFalse
-        $script:sample['catzc'].Contains('immutable') | Should -BeFalse -Because 'the sample is an authored head'
     }
 }

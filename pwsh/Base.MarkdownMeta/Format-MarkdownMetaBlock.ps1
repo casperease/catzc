@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-markdown-meta/Format-MarkdownMetaBlock.ps1.md"
-  header: "generated"
----
-#>
-
 function Format-MarkdownMetaBlock {
     [CmdletBinding()]
     [OutputType([string])]
@@ -19,13 +11,11 @@ function Format-MarkdownMetaBlock {
         [System.Collections.IDictionary] $Edges = [ordered]@{},
 
         [ValidateNotNullOrEmpty()]
-        [string] $Key = [Catzc.Base.MarkdownMeta.MarkdownDocument]::MetaKey,
-
-        [string] $HeaderText = ''
+        [string] $Key = [Catzc.Base.MarkdownMeta.MarkdownDocument]::MetaKey
     )
 
     $document = [Catzc.Base.MarkdownMeta.MarkdownDocument]::Parse($Text, $Key)
     $config = [Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::ConfigLines($document.MetaBlock)
-    $block = [Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::Render($HeaderText, $Immutable, $Edges, $config)
+    $block = [Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::Render($Immutable, $Edges, $config)
     $document.WithMetaBlock($block)
 }

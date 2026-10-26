@@ -45,6 +45,11 @@ How an aligned comment line that outgrows its limit is wrapped: Break or Off. De
 
 The repository root links resolve against. Default: the loaded repository root.
 
+### parameter `MoveMap`
+
+A csv of moves (an `old` and a `new` column per row, repository-relative). Before the links are aligned, every link that one of those moves
+broke is re-pointed to the file's new path, and a moved file's own links are resolved from where it stood. Default: no move map.
+
 ### parameter `DryRun`
 
 Report what would change without writing any file.

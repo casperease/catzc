@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-ImprintStepFile.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-ImprintStepFile {
     [CmdletBinding()]
     [OutputType([string[]])]
@@ -36,7 +28,7 @@ function Get-ImprintStepFile {
     $modulesFolder = [regex]::Escape((Get-CatzcModulesFolder))
     switch -CaseSensitive ($Step) {
         'file-meta' {
-            $entries = @(Get-FileMetaScope -RepositoryRoot $root -Path $Path -Config (Get-Config -Config file-meta))
+            $entries = @(Get-FileMetaScope -RepositoryRoot $root -Path $Path)
             return , [string[]] @($entries | ForEach-Object { [System.IO.Path]::GetFullPath([System.IO.Path]::Combine($root, $_.Path)) })
         }
         'bcl-namespace' {

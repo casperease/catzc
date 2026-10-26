@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-docs/private/Get-ReadmeMappings.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-ReadmeMappings {
     [OutputType([object[]])]
     param(
@@ -27,6 +19,7 @@ function Get-ReadmeMappings {
         $byFolder[$mapping.folder] = [pscustomobject]@{ folder = $mapping.folder; source = $mapping.source }
     }
 
+    $commentPages = Get-Config -Config comment-pages
     foreach ($pattern in @($Config.patterns)) {
         # Only a trailing '/*' glob is supported: <prefix>/* = immediate non-dot subdirectories of <prefix>.
         if ($pattern.glob -match '^(?<prefix>.+)/\*$') {
@@ -51,18 +44,10 @@ function Get-ReadmeMappings {
                 continue   # an explicit mapping already owns this folder
             }
 
-            # An article is named for the module, so a module folder, which drops the namespace, takes its track's full name.
-            $track = Get-Track -Path $folder
-            $name = if ($track -and $prefix -cin $track.places) {
-                $track.FullNameOf($leaf)
-            }
-            else {
-                $leaf
-            }
-            $kebab = [Catzc.Base.Objects.NameCase]::Render($name, 'kebab')
-            $source = $pattern.source.Replace('{kebab}', $kebab).Replace('{name}', $name)
-            $sourcePath = Join-Path $RepositoryRoot $source
-            if (-not (Test-Path $sourcePath -PathType Leaf)) {
+            # A module folder's README is its module article, at the page the one comment-pages resolver derives.
+            $source = $commentPages.ModulePageFor($folder)
+            if (-not $source -or -not (Test-Path (Join-Path $RepositoryRoot $source) -PathType Leaf)) {
+                # No authored source yet: Build-Readme skips it so the importer never throws, and -Missing hands it to the gate.
                 $absent.Add([pscustomobject]@{ folder = $folder; source = $source })
                 continue
             }

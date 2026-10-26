@@ -73,6 +73,14 @@
           "kind": "property"
         },
         {
+          "name": "ModuleFolderOf",
+          "kind": "method"
+        },
+        {
+          "name": "ModulePageFor",
+          "kind": "method"
+        },
+        {
           "name": "PageFor",
           "kind": "method"
         },
@@ -96,12 +104,36 @@
       "display": [],
       "members": [
         {
+          "name": "IsExcluded",
+          "kind": "method"
+        },
+        {
+          "name": "IsInScope",
+          "kind": "method"
+        },
+        {
+          "name": "ModulePageFor",
+          "kind": "method"
+        },
+        {
           "name": "PageFor",
+          "kind": "method"
+        },
+        {
+          "name": "PageIndex",
           "kind": "method"
         },
         {
           "name": "ToString",
           "kind": "method"
+        },
+        {
+          "name": "articles",
+          "kind": "property"
+        },
+        {
+          "name": "exclude",
+          "kind": "property"
         },
         {
           "name": "pages",

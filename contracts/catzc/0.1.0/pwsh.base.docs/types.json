@@ -111,10 +111,6 @@
         {
           "name": "glob",
           "kind": "property"
-        },
-        {
-          "name": "source",
-          "kind": "property"
         }
       ]
     },

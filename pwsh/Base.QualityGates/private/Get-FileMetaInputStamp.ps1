@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-FileMetaInputStamp.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-FileMetaInputStamp {
     [CmdletBinding()]
     [OutputType([hashtable])]
@@ -15,13 +7,10 @@ function Get-FileMetaInputStamp {
         [string[]] $File,
 
         [Parameter(Mandatory)]
-        [string] $RepositoryRoot,
-
-        [Catzc.Base.QualityGates.FileMetaConfig] $Config = (Get-Config -Config file-meta)
+        [string] $RepositoryRoot
     )
 
     $root = [System.IO.Path]::GetFullPath($RepositoryRoot)
-    $edgeKinds = @($Config.Imprint() | Where-Object { $_.settings.ContainsKey('relations') })
     # The engine and its registries decide every head, so a change to either re-imprints every file.
     $modulesRoot = Get-CatzcModulesRoot
     $engine = Get-InputStamp -Path ([Catzc.Base.QualityGates.FileMetaConfig]::EngineInputs($modulesRoot)) -Root $modulesRoot
@@ -31,15 +20,7 @@ function Get-FileMetaInputStamp {
         $relative = [System.IO.Path]::GetRelativePath($root, $full) -replace '\\', '/'
         $fileParts = [System.Collections.Generic.List[string]]::new()
         $fileParts.Add("engine:$engine")
-        # A relation's candidate counts by whether it is on disk: the head shows only which comment page exists.
         $parts[$relative] = @($full, $fileParts)
-    }
-    foreach ($kind in $edgeKinds) {
-        foreach ($entry in @(Get-RelativeEdgeCandidate -Path ([string[]] @($parts.Keys)) -Kind $kind)) {
-            foreach ($candidate in $entry.Paths) {
-                $parts[$entry.Path][1].Add("$($entry.Relation['name']):${candidate}:$([System.IO.File]::Exists([System.IO.Path]::Combine($root, $candidate)))")
-            }
-        }
     }
     $stamps = @{}
     foreach ($pair in $parts.Values) {

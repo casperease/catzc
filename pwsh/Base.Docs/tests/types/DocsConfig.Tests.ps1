@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../../docs/references/pwsh/catzc-base-docs/tests/types/DocsConfig.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'DocsConfig' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:make = {
@@ -27,7 +19,7 @@ Describe 'DocsConfig' -Tag 'L0', 'logic' {
     }
 
     It 'constructs from patterns alone (no mappings)' {
-        $c = & $script:make @{ patterns = @(@{ glob = 'widgets/*'; source = 'docs/references/pwsh/{kebab}.md' }) }
+        $c = & $script:make @{ patterns = @(@{ glob = 'widgets/*' }) }
         $c.patterns.Count | Should -Be 1
         $c.patterns[0].glob | Should -Be 'widgets/*'
         $c.mappings.Count | Should -Be 0
@@ -35,7 +27,7 @@ Describe 'DocsConfig' -Tag 'L0', 'logic' {
 
     It 'constructs from patterns and mappings together' {
         $c = & $script:make @{
-            patterns = @(@{ glob = 'widgets/*'; source = 'docs/references/pwsh/{kebab}.md' })
+            patterns = @(@{ glob = 'widgets/*' })
             mappings = @(@{ folder = 'pipelines'; source = 'docs/references/pipelines.md' })
         }
         $c.patterns.Count | Should -Be 1
@@ -62,8 +54,9 @@ Describe 'DocsConfig' -Tag 'L0', 'logic' {
         { & $script:make @{ mappings = @(@{ folder = 'a' }) } } | Should -Throw '*source is required*'
     }
 
-    It 'throws when a pattern is missing a required key' {
-        { & $script:make @{ patterns = @(@{ glob = 'widgets/*' }) } } | Should -Throw '*source is required*'
+    It 'throws when a pattern is missing its glob, or still names a source template' {
+        { & $script:make @{ patterns = @(@{ }) } } | Should -Throw '*glob is required*'
+        { & $script:make @{ patterns = @(@{ glob = 'widgets/*'; source = 'docs/{kebab}.md' }) } } | Should -Throw "*'source' is no longer a pattern key*"
     }
 
     It 'rejects an unknown top-level key' {
@@ -71,7 +64,7 @@ Describe 'DocsConfig' -Tag 'L0', 'logic' {
     }
 
     It 'reads without_article as folder and reason, empty when omitted, and rejects a missing reason or a duplicate folder' {
-        $patterns = @(@{ glob = 'widgets/*'; source = 'docs/{kebab}.md' })
+        $patterns = @(@{ glob = 'widgets/*' })
         (& $script:make @{ patterns = $patterns }).without_article | Should -HaveCount 0
         $config = & $script:make @{ patterns = $patterns; without_article = @(@{ folder = 'widgets/gizmo'; reason = 'ships nothing' }) }
         $config.without_article[0].folder | Should -Be 'widgets/gizmo'

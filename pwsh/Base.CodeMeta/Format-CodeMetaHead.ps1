@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-code-meta/Format-CodeMetaHead.ps1.md"
-  header: "generated"
----
-#>
-
 function Format-CodeMetaHead {
     [CmdletBinding()]
     [OutputType([string])]
@@ -19,10 +11,8 @@ function Format-CodeMetaHead {
 
         [System.Collections.IDictionary] $Immutable = [ordered]@{},
 
-        [System.Collections.IDictionary] $Edges = [ordered]@{},
-
-        [string] $HeaderText = ''
+        [System.Collections.IDictionary] $Edges = [ordered]@{}
     )
 
-    [Catzc.Base.CodeMeta.CodeMetaHead]::Parse($Text, $Form).WithFacts($HeaderText, $Immutable, $Edges)
+    [Catzc.Base.CodeMeta.CodeMetaHead]::Parse($Text, $Form).WithFacts($Immutable, $Edges)
 }

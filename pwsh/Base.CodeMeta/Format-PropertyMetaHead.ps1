@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-code-meta/Format-PropertyMetaHead.ps1.md"
-  header: "generated"
----
-#>
-
 function Format-PropertyMetaHead {
     [CmdletBinding()]
     [OutputType([string])]
@@ -21,10 +13,8 @@ function Format-PropertyMetaHead {
 
         [System.Collections.IDictionary] $Immutable = [ordered]@{},
 
-        [System.Collections.IDictionary] $Edges = [ordered]@{},
-
-        [string] $HeaderText = ''
+        [System.Collections.IDictionary] $Edges = [ordered]@{}
     )
 
-    [Catzc.Base.CodeMeta.PropertyHead]::Parse($Text, $Property, $Strip).WithFacts($HeaderText, $Immutable, $Edges)
+    [Catzc.Base.CodeMeta.PropertyHead]::Parse($Text, $Property, $Strip).WithFacts($Immutable, $Edges)
 }

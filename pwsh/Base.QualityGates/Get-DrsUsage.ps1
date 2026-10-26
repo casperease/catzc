@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-quality-gates/Get-DrsUsage.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-DrsUsage {
     [CmdletBinding()]
     [OutputType([pscustomobject])]
@@ -24,11 +16,10 @@ function Get-DrsUsage {
     )
 
     $map = Get-DrsCitationMap -RepositoryRoot $RepositoryRoot
-    $config = Get-Config -Config file-meta
     $pages = Get-Config -Config comment-pages
     $drs = Get-Config -Config drs
     $scanner = [Catzc.Base.Drs.DrsCitationScanner]::new($drs.CodeForm, $map)
-    $rows = foreach ($entry in Get-FileMetaScope -RepositoryRoot $RepositoryRoot -Path $Path -Config $config) {
+    $rows = foreach ($entry in Get-FileMetaScope -RepositoryRoot $RepositoryRoot -Path $Path) {
         $carrier = $entry.Carrier.carrier
         if ($carrier -eq [Catzc.Base.Languages.CarrierKind]::Property) {
             continue

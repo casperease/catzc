@@ -1,24 +1,39 @@
-# ---
-# catzc:
-#   docs: "../../../docs/references/pwsh/catzc-base-code-meta/configs/comment-pages.yml.md"
-#   header: "generated"
-# ---
-
-# First match wins, and the page keeps the file's extension in its name, so every page maps back to exactly one file.
+# First match wins. A page is <docs>/[<module>/][<aspect path>/]<file>.md, every part in the normal form and the file's trailing
+# extension and .Tests role dropped; a module folder's article is <docs>/<module>/index.md. Every page maps back to exactly one source.
 pages:
   - source: pwsh/*
-    docs: docs/references/pwsh/{kebab}
+    docs: docs/references/pwsh
   - source: .ado/pipelines
     docs: docs/references/ado/pipelines
   - source: infrastructure
     docs: docs/references/infrastructure
   - source: .claude/hooks
     docs: docs/references/pwsh/claude-hooks
-  - source: python
+  - source: python/*
     docs: docs/references/python
   - source: .github/workflows
     docs: docs/references/github/workflows
+  # A <prefix>/* source never matches a dot-prefixed folder, so .scriptanalyzer and .internal are listed by name.
   - source: pwsh/.scriptanalyzer
     docs: docs/references/pwsh/scriptanalyzer
   - source: pwsh/.internal
     docs: docs/references/pwsh/internal
+
+# The folders whose files have no page: vendored scripts we ship but do not write.
+exclude:
+  - pwsh/Tooling.Toolchain/assets/scripts
+
+# The authored pages under a pages docs folder that no source file has.
+articles:
+  - docs/references/ado/pipelines/template-folders.md
+  - docs/references/infrastructure/CLAUDE.md
+  - docs/references/infrastructure/_template.md
+  - docs/references/infrastructure/discovery.md
+  - docs/references/infrastructure/expedition.md
+  - docs/references/infrastructure/foundation.md
+  - docs/references/infrastructure/index.md
+  - docs/references/infrastructure/modules.md
+  - docs/references/infrastructure/overview.md
+  - docs/references/pwsh/CLAUDE.md
+  - docs/references/pwsh/index.md
+  - docs/references/pwsh/internal/index.md

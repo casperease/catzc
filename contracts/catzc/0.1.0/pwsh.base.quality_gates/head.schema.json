@@ -8,8 +8,6 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "docs": { "type": "string" },
-        "header": { "type": "string" },
         "config": { "type": "object" },
         "immutable": {
           "type": "object",

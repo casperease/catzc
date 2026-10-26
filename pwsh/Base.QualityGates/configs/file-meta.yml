@@ -1,11 +1,3 @@
-# ---
-# catzc:
-#   docs: "../../../docs/references/pwsh/catzc-base-quality-gates/configs/file-meta.yml.md"
-#   header: "generated"
-# ---
-
-header: "generated"
-
 head_policy:
   default: facts
   classes:
@@ -13,13 +5,3 @@ head_policy:
     capability: config
     slide: config
     diagram-declaration: forbidden
-
-kinds:
-  relative-edges:
-    keys: [docs]
-    settings:
-      relations:
-        - name: docs
-          link: "{relative_path}"
-          rules:
-            - { paths: ["{page}"] }

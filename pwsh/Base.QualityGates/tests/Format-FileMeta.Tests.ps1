@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/Format-FileMeta.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '',
     Justification = 'The fixture fact processors keep the State, Path and Kind parameters the engine passes by name, though they read fewer')]
 param()
@@ -78,26 +70,13 @@ Describe 'Format-FileMeta and Test-FileMeta' -Tag 'L0', 'logic', 'ADR-REPO-FILEM
         Should -Invoke Write-Message -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Message -eq 'Checking the meta block of 2 file(s) (0 unchanged since their last check)...' }
     }
 
-    It 'checks a cached file again when its comment page appears, and writes the docs edge to it' -Tag 'ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS', 'ADR-REPO-FILEMETA-FEWLINKS' {
-        Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'comment-pages' } {
-            [Catzc.Base.CodeMeta.CommentPagesConfig]::new(@{ pages = @(@{ source = 'docs'; docs = 'docs/pages' }) })
-        }
-        Mock Get-RepositoryRoot -ModuleName Catzc.Base.QualityGates { $script:widgetRoot }
-        $script:registry = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{
-                kinds = [ordered]@{
-                    'relative-edges' = @{ keys = @('docs'); settings = @{ relations = @(@{ name = 'docs'; link = '{relative_path}'; rules = @(@{ paths = @('{page}') }) }) } }
-                }
-            })
-        Format-FileMeta -RepositoryRoot $script:widgetRoot | Out-Null
+    It 'removes a head an authored file still carries from an earlier shape, docs edge and header note alike' -Tag 'ADR-REPO-FILEMETA-HEADPOLICY' {
         $path = Join-Path $script:widgetRoot 'docs/widget.md'
-        [System.IO.File]::ReadAllText($path) | Should -Not -BeLike '*docs:*' -Because 'the page does not exist yet'
-
-        $page = Join-Path $script:widgetRoot 'docs/pages/widget.md.md'
-        [System.IO.Directory]::CreateDirectory([System.IO.Path]::GetDirectoryName($page)) | Out-Null
-        [System.IO.File]::WriteAllText($page, "# docs/widget.md`n")
-        Format-FileMeta -RepositoryRoot $script:widgetRoot | Should -Be @('docs/widget.md')
-        ([System.IO.File]::ReadAllText($path) -replace "`r", '') |
-            Should -BeLike "---`ncatzc:`n  docs: pages/widget.md.md`n  header: `"generated`"`n---*"
+        $body = ([System.IO.File]::ReadAllText($path) -replace "`r", '')
+        [System.IO.File]::WriteAllText($path, "---`ncatzc:`n  docs: pages/widget.md.md`n  header: `"generated`"`n---`n`n$body")
+        $script:registry = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{})
+        Format-FileMeta -RepositoryRoot $script:widgetRoot -NoCache | Out-Null
+        ([System.IO.File]::ReadAllText($path) -replace "`r", '') | Should -Not -BeLike '*catzc:*' -Because 'an authored file carries no head'
     }
 
     It 'never records a file the dry run would change as clean' -Tag 'ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS' {
@@ -112,14 +91,14 @@ Describe 'Format-FileMeta and Test-FileMeta' -Tag 'L0', 'logic', 'ADR-REPO-FILEM
         $bytes[0] | Should -Be ([byte] [char] '-')
         $text = [System.Text.Encoding]::UTF8.GetString($bytes)
         $text |
-            Should -BeLike "---`r`ncatzc:`r`n  role: gadget`r`n  tint: blue`r`n  header: `"generated`"`r`n---`r`n`r`n# docs/widget.md*"
+            Should -BeLike "---`r`ncatzc:`r`n  role: gadget`r`n  tint: blue`r`n---`r`n`r`n# docs/widget.md*"
     }
 
     It 'keeps the authored config part and the other front matter keys' {
         Format-FileMeta -RepositoryRoot $script:widgetRoot | Out-Null
         $text = [System.IO.File]::ReadAllText((Join-Path $script:widgetRoot 'docs/gadget.md'))
         $text |
-            Should -BeExactly "---`nname: gadget`ncatzc:`n  role: gadget`n  header: `"generated`"`n  config:`n    gadgets:`n      one: 1`n---`n# docs/gadget.md`n"
+            Should -BeExactly "---`nname: gadget`ncatzc:`n  role: gadget`n  config:`n    gadgets:`n      one: 1`n---`n# docs/gadget.md`n"
     }
 
     It 'changes nothing on a second run' {
@@ -152,7 +131,7 @@ Describe 'Format-FileMeta and Test-FileMeta' -Tag 'L0', 'logic', 'ADR-REPO-FILEM
             "---`ncatzc:`n  surprise: 1`n  edges:`n    cites:`n      - ADR-GADGET-SPIN`n  config:`n    gadgets:`n      one: 1`n---`n# docs/gadget.md`n")
         Format-FileMeta -RepositoryRoot $script:widgetRoot | Should -Contain 'docs/gadget.md'
         [System.IO.File]::ReadAllText($path) |
-            Should -BeExactly "---`ncatzc:`n  role: gadget`n  header: `"generated`"`n  config:`n    gadgets:`n      one: 1`n---`n# docs/gadget.md`n"
+            Should -BeExactly "---`ncatzc:`n  role: gadget`n  config:`n    gadgets:`n      one: 1`n---`n# docs/gadget.md`n"
     }
 
     It 'flags the drifted files and points at the formatter' {
@@ -184,7 +163,7 @@ Describe 'Format-FileMeta and Test-FileMeta' -Tag 'L0', 'logic', 'ADR-REPO-FILEM
         Format-FileMeta -RepositoryRoot $script:widgetRoot -NoCache | Sort-Object | Should -Be @('docs/plain.md',
             'docs/widget.md')
         $tinted = [System.IO.File]::ReadAllText((Join-Path $script:widgetRoot 'docs/widget.md')) -replace "`r", ''
-        $tinted | Should -BeLike "---`ncatzc:`n  tint: blue`n  header: `"generated`"`n---`n`n# docs/widget.md*"
+        $tinted | Should -BeLike "---`ncatzc:`n  tint: blue`n---`n`n# docs/widget.md*"
         $tinted |
             Should -Not -BeLike '*with_body_sha*' -Because 'only the generated-head writer emits a body hash, never the imprint of an authored file'
         [System.IO.File]::ReadAllText((Join-Path $script:widgetRoot 'docs/plain.md')) |
@@ -199,5 +178,25 @@ Describe 'Format-FileMeta on the repository' -Tag 'L2', 'integrity', 'source-onl
         $result.FileCount | Should -Be 0
         $result.ChangedCount | Should -Be 0
         [System.IO.File]::ReadAllText((Join-Path (Get-RepositoryRoot) 'docs/drs/index.md')) | Should -BeExactly $before
+    }
+}
+
+Describe 'Format-FileMeta over its real scope' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-HEADPOLICY' {
+    BeforeEach {
+        $script:widgetRoot = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
+        [System.IO.Directory]::CreateDirectory((Join-Path $script:widgetRoot 'docs')) | Out-Null
+        $script:widget = Join-Path $script:widgetRoot 'docs/widget.md'
+        [System.IO.File]::WriteAllText($script:widget, "---`ncatzc:`n  docs: pages/widget.md`n  header: `"generated`"`n---`n`n# docs/widget.md`n")
+        # Only the git boundary is stood in: the scope itself, its carriers and its policy run as shipped.
+        Mock Get-GitTrackedPath { 'docs/widget.md' } -ModuleName Catzc.Base.QualityGates
+        Mock Get-ContentExemptPath { , [string[]] @() } -ModuleName Catzc.Base.QualityGates
+        Mock Get-GitAttributeValue { @{} } -ModuleName Catzc.Base.QualityGates
+        Mock Assert-SourceTree { } -ModuleName Catzc.Base.QualityGates
+        Mock Write-Message { } -ModuleName Catzc.Base.QualityGates
+    }
+
+    It 'empties the head an authored file still carries, though no kind selects it' {
+        Format-FileMeta -RepositoryRoot $script:widgetRoot -NoCache | Should -Be @('docs/widget.md')
+        ([System.IO.File]::ReadAllText($script:widget) -replace "`r", '') | Should -BeExactly "# docs/widget.md`n"
     }
 }

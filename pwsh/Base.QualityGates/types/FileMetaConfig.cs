@@ -1,11 +1,3 @@
-/*
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/types/FileMetaConfig.cs.md"
-  header: "generated"
----
-*/
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -22,29 +14,21 @@ public sealed class FileMetaConfig
 
     public FileHeadPolicy head_policy { get; }
 
-    public const string DefaultHeader = "generated";
-
-    // The note an authored head closes with, that the head itself is generated; a blank value keeps the default.
-    public string header { get; }
-
     public FileMetaConfig(IDictionary raw)
     {
         var list = new List<FileMetaKind>();
         IDictionary policy = null;
-        header = DefaultHeader;
         if (raw != null)
         {
             foreach (object key in raw.Keys)
             {
                 string name = Convert.ToString(key, CultureInfo.InvariantCulture);
-                if (name != "kinds" && name != "head_policy" && name != "header")
+                if (name != "kinds" && name != "head_policy")
                 {
                     throw new ArgumentException(string.Format(CultureInfo.InvariantCulture,
-                        "file-meta config: unknown key '{0}' (allowed: kinds, head_policy, header)", name));
+                        "file-meta config: unknown key '{0}' (allowed: kinds, head_policy)", name));
                 }
             }
-            string declared = raw.Contains("header") ? Convert.ToString(raw["header"], CultureInfo.InvariantCulture) : null;
-            if (!string.IsNullOrWhiteSpace(declared)) { header = declared; }
             if (raw.Contains("head_policy") && raw["head_policy"] != null)
             {
                 policy = raw["head_policy"] as IDictionary;

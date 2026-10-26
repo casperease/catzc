@@ -20,12 +20,11 @@ Describe 'Get-FileMetaScope' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-KINDSCOPE' {
                 }
             })
         $script:resolver = [Catzc.Base.QualityGates.FileCarrierResolver]::new($carriers, $languages)
-        $script:config = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ kinds = [ordered]@{ 'file-path' = @{ keys = @('path') } } })
         $script:scope = {
             param([string[]] $Path)
-            InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:widgetRoot; Config = $script:config; Resolver = $script:resolver; Path = $Path } {
-                param($Root, $Config, $Resolver, $Path)
-                @(Get-FileMetaScope -RepositoryRoot $Root -Path $Path -Config $Config -Resolver $Resolver)
+            InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:widgetRoot; Resolver = $script:resolver; Path = $Path } {
+                param($Root, $Resolver, $Path)
+                @(Get-FileMetaScope -RepositoryRoot $Root -Path $Path -Resolver $Resolver)
             }
         }
     }
@@ -55,19 +54,14 @@ Describe 'Get-FileMetaScope' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-KINDSCOPE' {
         $found[3].Carrier.carrier | Should -Be ([Catzc.Base.Languages.CarrierKind]::Property)
     }
 
-    It 'leaves out a file whose class has no carrier, a carrier of none, and a file no imprint kind selects' {
-        $narrow = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{
-                kinds = [ordered]@{ 'file-path' = @{ keys = @('path'); select = @(@{ classes = @('read-doc') }) } }
-            })
+    It 'keeps a file no imprint kind selects, so the imprint can empty the head an earlier shape left on it' -Tag 'ADR-REPO-FILEMETA-HEADPOLICY' {
         $script:fileKinds = [Catzc.Base.Globs.FileKindsConfig]::new(@{
                 kinds = [ordered]@{ 'read-doc' = [ordered]@{ definition = 'A document to read.'; files = @('docs/read.gdg') } }
             })
         Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'file-kinds' } { $script:fileKinds }
-        $found = InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:widgetRoot; Config = $narrow; Resolver = $script:resolver } {
-            param($Root, $Config, $Resolver)
-            @(Get-FileMetaScope -RepositoryRoot $Root -Config $Config -Resolver $Resolver)
-        }
-        $found.Path | Should -Be @('docs/read.gdg')
+        $found = & $script:scope
+        $found.Path | Should -Be @('widgets/Widget/get.wdg', 'docs/read.gdg', 'docs/other.wdg', 'docs/table.dat') -Because 'no kind narrows the scope'
+        ($found | Where-Object Path -EQ 'docs/read.gdg').Class | Should -Be 'read-doc'
     }
 
     It 'asks .gitattributes about the exempt classes and the opt-out for the candidates only' {

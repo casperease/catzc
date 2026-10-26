@@ -1,30 +1,17 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/Get-FileMetaInputStamp.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Get-FileMetaInputStamp' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:root = Join-Path $TestDrive 'repo'
         $script:widget = Join-Path $script:root 'widgets/Get-Widget.wdg'
         $script:note = Join-Path $script:root 'notes/widget.md'
-        $script:config = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{
-                kinds = [ordered]@{ 'widget-shade' = @{ keys = @('shade'); select = @(@{ classes = @('function') }) } }
-            })
     }
     BeforeEach {
         $script:engine = 'engine-one'
         Mock Get-InputStamp -ModuleName Catzc.Base.QualityGates { $script:engine }
         Mock Get-DrsCitationMap -ModuleName Catzc.Base.QualityGates { throw 'the stamp reads no citation registry' }
         $script:stamp = {
-            InModuleScope Catzc.Base.QualityGates -Parameters @{ F = @($script:widget,
-                    $script:note); R = $script:root; C = $script:config
-            } {
-                param($F, $R, $C)
-                Get-FileMetaInputStamp -File $F -RepositoryRoot $R -Config $C
+            InModuleScope Catzc.Base.QualityGates -Parameters @{ F = @($script:widget, $script:note); R = $script:root } {
+                param($F, $R)
+                Get-FileMetaInputStamp -File $F -RepositoryRoot $R
             }
         }
     }

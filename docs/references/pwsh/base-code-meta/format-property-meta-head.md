@@ -37,10 +37,6 @@ The place facts, an ordered dictionary of key to value.
 
 The outgoing edges, an ordered dictionary of edge name to value; no facts and no edges removes the property.
 
-### parameter `HeaderText`
-
-The note the block closes its facts with, that the head itself is generated; empty writes none. Default: none.
-
 ### outputs
 
 `[string]` the whole text, with the property written first.

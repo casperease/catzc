@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "132492e0d8c4"
+    with_body_sha: "01ad12d4f5de"
     warning: "Do Not Edit, this file is generated"
 ---
 
@@ -491,12 +491,10 @@ Notes:
   headings into normal form.
 - `pwsh.base.quality_gates/head.sample.yml`: Provided sample of a file's meta head
   ([ADR-REPO-CONTRACT-CONTRACTASSET](../../drs/repository/api-contracts.md#rule-adr-repo-contract-contractasset)): the shape a tool may rely
-  on when it reads the `catzc` block of a head. A head has two shapes. The head of an authored file, this sample, holds its one edge first,
-  `docs`, its comment page's plain path from the file's own folder, then `header`, a note that the head itself is generated; it carries no
-  warning, and a file with no comment page carries no head. The rule codes a file cites are read from its text, never from a head. A wholly
-  generated file's head holds `with_body_sha` while git tracks the file, then `warning`, under `immutable`. Every other fact about a file is
-  derived on demand, never shown. No key is required, and a fact a file has no value for is left out. Its schema, head.schema.json, lists
-  the keys of both shapes.
+  on when it reads the `catzc` block of a head. Only a wholly generated file carries a head: under `immutable`, its `with_body_sha` while
+  git tracks the file, then `warning`. An authored file carries none, its comment page derived from its path. The rule codes a file cites
+  are read from its text, never from a head, and every other fact about a file is derived on demand, never shown. No key is required, and a
+  fact a file has no value for is left out. Its schema, head.schema.json, lists the keys.
 - `pwsh.base.quality_gates/head.schema.json`: The schema of a file's meta head, the keys of the catzc block a tool may rely on, none of them
   required.
 - `pwsh.base.quality_gates/test_analyzer_drs_map.command.yml`: Checks that analyzer-drs-map.yml cites only real ADR rules and maps every

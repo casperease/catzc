@@ -1,4 +1,7 @@
-# Catzc.Internal.Vendor
+# pwsh/.internal/Catzc.Internal.Vendor.psm1
+
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 The shared vendored-module loader. It imports the third-party modules under `pwsh/.vendor/<Name>/<Version>/` into the session, and it lives
 in `.internal` for the same reason the other shared libraries do: vendored modules are loaded **before** any `Catzc` module exists (the
@@ -38,3 +41,90 @@ loaded without a gallery restore — is the subject of the
 - ADR: [use-ps1-not-psm1](../../../drs/automation/pwsh/use-ps1-not-psm1.md) — the loader is a sanctioned `.psm1`.
 - Reference: [Catzc.Base.Vendor](../catzc-base-vendor.md) — the post-import cover functions that add, remove, and validate vendored modules
   and delegate here; the [internal area overview](index.md).
+
+## comment:1
+
+Above `Set-StrictMode -Version Latest   # this module's scope: every function here...`, written with `#`.
+
+```text
+Catzc.Internal.Vendor — the shared vendor-module loader.
+
+Loading the vendored modules under pwsh/.vendor/<Name>/<Version>/ happens BEFORE any Catzc module
+exists (the importer loads vendor dependencies first), so the implementation cannot live in a Catzc module.
+It also must be callable AFTER import by the Catzc.Base.Vendor cover functions that delegate to it — the
+single home for what both layers share (see
+[PDR-ONELIVE](/docs/drs/principles/one-living-version.md)). Like the other
+.internal shared libraries (Types, the Loader), this module stays in the session; it is NOT removed with
+the transient bootstrap. Loaded on demand through Import-InternalModule Vendor.
+```
+
+## comment:2
+
+Above `function Import-VendorModules {`, written with `#`.
+
+```text
+.SYNOPSIS
+    Imports third-party modules from a vendor directory.
+.DESCRIPTION
+    The system copy leaves PSModulePath first so the vendored version wins; a changed on-disk version needs a restart.
+    [comment:2](/docs/references/pwsh/internal/Catzc.Internal.Vendor.psm1.md#comment2)
+.PARAMETER VendorRoot
+    Path to the vendor directory. Skips silently if the path does not exist.
+.PARAMETER Lazy
+    Deferred modules cost nothing at startup and still autoload on first use, since the vendor root heads PSModulePath.
+    [comment:3](/docs/references/pwsh/internal/Catzc.Internal.Vendor.psm1.md#comment3)
+.PARAMETER DiagnoseLoadTime
+    Emit a per-vendor-module import time (surfaced by importer.ps1 -DiagnoseLoadTime).
+.EXAMPLE
+    Import-VendorModules -VendorRoot $vendorRoot -Lazy 'Pester', 'PSScriptAnalyzer'
+```
+
+## comment:3
+
+Above `[switch]$DiagnoseLoadTime`, written with `#`.
+
+```text
+Emit a per-vendor-module import time. Surfaced by importer.ps1 -DiagnoseLoadTime. A vendor import
+loads the module's .NET assemblies (e.g. YamlDotNet for powershell-yaml), which an enterprise
+antivirus scans on first load — the prime suspect for a slow startup. This isolates that cost
+per module so it's measured, not guessed. Off = no overhead.
+```
+
+## comment:4
+
+Above `$vendorDirs = [System.IO.DirectoryInfo]::new($VendorRoot).GetDirectories()`, written with `#`.
+
+```text
+One level, inline: this module loads before the walker exists
+([ADR-PWSH-ENUM-EARLYLOADINGCODE](/docs/drs/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-earlyloadingcode)).
+```
+
+## comment:5
+
+Above `if ($existing -and $existing.ModuleBase -like "$VendorRoot*") {`, written with `#`.
+
+```text
+Already loaded from our vendor path — skip (re-importing can fail
+if the module loaded .NET assemblies that can't be replaced in-process)
+```
+
+## comment:6
+
+Above `$before = @($env:PSModulePath -split $sep)`, written with `#`.
+
+```text
+Remove system paths for this module from PSModulePath so auto-loading
+cannot resurrect the system version after we import the vendored one
+```
+
+## comment:7
+
+Above `if ($existing) {` (occurrence 2), written with `#`.
+
+```text
+The load, the system copy it replaced, and the PSModulePath entries it dropped are one state change of
+the session, announced on one line
+([ADR-AUTO-CONSOLE-ANNOUNCELASTINGCHANGES](/docs/drs/automation/console-output-matters.md#rule-adr-auto-console-announcelastingchanges)) on
+the importer's verbose record
+([ADR-PWSH-ANNOUNCE-IMPORTERLOADSEQUENCE](/docs/drs/automation/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-importerloadsequence)).
+```

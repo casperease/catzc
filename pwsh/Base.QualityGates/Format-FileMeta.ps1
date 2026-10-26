@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-quality-gates/Format-FileMeta.ps1.md"
-  header: "generated"
----
-#>
-
 function Format-FileMeta {
     [CmdletBinding()]
     [OutputType([string[]])]
@@ -25,7 +17,7 @@ function Format-FileMeta {
     Assert-SourceTree
     $root = [System.IO.Path]::GetFullPath($RepositoryRoot)
     $config = Get-Config -Config file-meta
-    $scope = @(Get-FileMetaScope -RepositoryRoot $root -Path $Path -Config $config)
+    $scope = @(Get-FileMetaScope -RepositoryRoot $root -Path $Path)
 
     $stamp = Get-FormatEngineStamp -Engine 'imprint:file-meta' -Settings @((Get-Config -Config languages).steps['file-meta'].settings) -RepositoryRoot $root
     $cachePath = Join-Path (Get-OutputRoot) 'cache/format-code-file-meta.json'
@@ -40,7 +32,7 @@ function Format-FileMeta {
         $byFullPath[[System.IO.Path]::GetFullPath((Join-Path $root $entry.Path))] = $entry
     }
     $inScope = [string[]] @($byFullPath.Keys)
-    $split = Split-CachedFile -File $inScope -Cache $cache -Stamp $stamp -RepositoryRoot $root -FileStamp (Get-FileMetaInputStamp -File $inScope -RepositoryRoot $root -Config $config)
+    $split = Split-CachedFile -File $inScope -Cache $cache -Stamp $stamp -RepositoryRoot $root -FileStamp (Get-FileMetaInputStamp -File $inScope -RepositoryRoot $root)
     $pending = @($split.Pending)
     $verb = $DryRun ? 'Checking' : 'Formatting'
     Write-Message "$verb the meta block of $($pending.Count) file(s) ($($split.CachedCount) unchanged since their last check)..."

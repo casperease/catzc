@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-quality-gates/Format-Links.ps1.md"
-  header: "generated"
----
-#>
-
 function Format-Links {
     [CmdletBinding()]
     [OutputType([string[]])]
@@ -19,6 +11,8 @@ function Format-Links {
 
         [string] $RepositoryRoot = (Get-RepositoryRoot),
 
+        [string] $MoveMap,
+
         [switch] $DryRun,
 
         [switch] $PassThru
@@ -27,9 +21,28 @@ function Format-Links {
     Assert-SourceTree
 
     $stopwatch = [System.Diagnostics.Stopwatch]::StartNew()
+    $utf8NoBom = [System.Text.UTF8Encoding]::new($false)
+    # A move map re-points every link a move broke before the links are aligned, so one pass leaves them both resolving and aligned.
+    $repointed = [string[]] @()
+    if ($MoveMap) {
+        Assert-PathExist $MoveMap -PathType Leaf
+        $map = [ordered]@{}
+        foreach ($row in @(Import-Csv -LiteralPath $MoveMap)) {
+            Assert-True ($row.old -and $row.new) -ErrorText "Format-Links: the move map '$MoveMap' needs an old and a new column on every row."
+            $map[$row.old] = $row.new
+        }
+        $moved = Update-MovedLinks -RepositoryRoot $RepositoryRoot -File ([string[]] @(Get-LinkScope -RepositoryRoot $RepositoryRoot -Path $Path)) -Map $map
+        $repointed = [string[]] @($moved.Keys | Sort-Object)
+        if (-not $DryRun) {
+            foreach ($file in $repointed) {
+                [System.IO.File]::WriteAllText((Join-Path $RepositoryRoot $file), $moved[$file], $utf8NoBom)
+            }
+        }
+        $verb = $DryRun ? 'would re-point' : 're-pointed'
+        Write-Message "Links: $verb the links of $($repointed.Count) file(s) to $($map.Count) moved path(s)."
+    }
     $result = Invoke-LinkEngine -RepositoryRoot $RepositoryRoot -Path $Path -Kind $Kind -Wrap $Wrap
 
-    $utf8NoBom = [System.Text.UTF8Encoding]::new($false)
     $changedFiles = [string[]] @($result.Changed.Keys | Sort-Object)
     if (-not $DryRun) {
         foreach ($file in $changedFiles) {
@@ -65,6 +78,7 @@ function Format-Links {
         return [pscustomobject]@{
             ChangedCount = $changedFiles.Count
             ChangedFiles = $changedFiles
+            Repointed    = $repointed
             Fixed        = $fixed
             Unfixable    = $unfixable
             DryRun       = [bool] $DryRun

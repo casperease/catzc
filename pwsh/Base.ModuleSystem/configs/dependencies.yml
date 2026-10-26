@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   docs: "../../../docs/references/pwsh/catzc-base-module-system/configs/dependencies.yml.md"
-#   header: "generated"
-# ---
-
 # The allowed module dependency graph, checked against the real code by Test-ModuleDependency.
 groups:
   # The Catzc.Base cluster, foundation-first: each member lists the members it may depend on.
@@ -71,6 +65,7 @@ groups:
       ]
     Catzc.Base.Docs:
       [
+        Catzc.Base.CodeMeta,
         Catzc.Base.Drs,
         Catzc.Base.Config,
         Catzc.Base.Repository,

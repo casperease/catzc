@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../../docs/references/pwsh/catzc-base-code-meta/tests/types/CodeMetaHead.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 # CodeMetaHead over short widget/gadget texts: the proofs are the byte-identical second run and the lossless removal.
 Describe 'CodeMetaHead' -Tag 'L0', 'logic', 'ADR-REPO-CODEMETA-CODEFILEHEAD', 'ADR-REPO-FILEMETA-IMPRINTEDPARTS' {
     BeforeAll {
@@ -196,6 +188,7 @@ Describe 'CodeMetaHead' -Tag 'L0', 'logic', 'ADR-REPO-CODEMETA-CODEFILEHEAD', 'A
     }
 }
 
+# The types hash strips the head before the types load and cannot call CodeMetaHead, so this proves both read every real type the same.
 Describe 'CodeMetaHead and the types hash agree on every C# type' -Tag 'L2', 'integrity', 'source-only', 'ADR-REPO-CODEMETA-CODEFILEHEAD' {
     It 'gives the same body as Get-TypeSourceBody for every tracked types/*.cs, under the bcl form file-carriers.yml declares' {
         if (-not (Test-Command 'git')) {

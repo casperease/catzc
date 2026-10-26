@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-FileMetaScope.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-FileMetaScope {
     [CmdletBinding()]
     [OutputType([pscustomobject])]
@@ -15,15 +7,11 @@ function Get-FileMetaScope {
 
         [string[]] $Path,
 
-        [Parameter(Mandatory)]
-        [Catzc.Base.QualityGates.FileMetaConfig] $Config,
-
         [Catzc.Base.QualityGates.FileCarrierResolver] $Resolver = [Catzc.Base.QualityGates.FileCarrierResolver]::new((Get-Config -Config file-carriers), (Get-Config -Config languages))
     )
 
     $root = [System.IO.Path]::GetFullPath($RepositoryRoot)
     $lookup = Get-ScopeLookup -RepositoryRoot $root -Path $Path -Command Get-FileMetaScope
-    $languages = Get-Config -Config languages
     $fileKinds = Get-Config -Config file-kinds
 
     $paths = @(if ($lookup.Count -gt 0) {
@@ -42,17 +30,9 @@ function Get-FileMetaScope {
         if ($Resolver.IsExcluded($carrier, $tracked)) {
             continue
         }
-        $language = $languages.ForPath($tracked)
-        $languageName = if ($language) {
-            $language.name
-        }
-        else {
-            $null
-        }
-        $class = $fileKinds.Resolve($tracked).Class
-        if ($Config.SelectsAny($class, $languageName)) {
-            $candidates.Add([pscustomobject]@{ Path = $tracked; Carrier = $carrier; Class = $class })
-        }
+        # Every file whose carrier can hold a head is in scope, kind or no kind: the imprint renders the whole head from config and
+        # facts, so a file no kind selects gets the empty head, and any block an earlier shape left goes with it.
+        $candidates.Add([pscustomobject]@{ Path = $tracked; Carrier = $carrier; Class = $fileKinds.Resolve($tracked).Class })
     }
     if ($candidates.Count -eq 0) {
         return

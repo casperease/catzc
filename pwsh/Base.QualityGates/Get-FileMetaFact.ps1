@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-quality-gates/Get-FileMetaFact.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-FileMetaFact {
     [CmdletBinding(DefaultParameterSetName = 'Path')]
     [OutputType([pscustomobject])]
@@ -21,7 +13,7 @@ function Get-FileMetaFact {
 
     if ($PSCmdlet.ParameterSetName -eq 'Path') {
         $root = Get-RepositoryRoot
-        foreach ($entry in @(Get-FileMetaScope -RepositoryRoot $root -Path $Path -Config $Config)) {
+        foreach ($entry in @(Get-FileMetaScope -RepositoryRoot $root -Path $Path)) {
             $carrier = $entry.Carrier.carrier
             $file = $entry.Path
             # A path the index lists but the working tree has lost, a deletion not yet staged, has no facts to read.

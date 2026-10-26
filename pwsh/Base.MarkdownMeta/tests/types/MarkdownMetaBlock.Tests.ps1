@@ -29,16 +29,6 @@ Describe 'MarkdownMetaBlock' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRINTEDPAR
         $script:block::Render([ordered]@{}, $edges, $script:none).Count | Should -Be 0
     }
 
-    It 'writes the docs edge first and the header note after it, always quoted, when one is given, and none when it is empty; the caller decides whether a note stands alone' {
-        $edges = [ordered]@{ docs = '../docs/widget.md' }
-        $script:block::Render('generated', [ordered]@{}, $edges, $script:none) | Should -Be @('catzc:',
-            '  docs: "../docs/widget.md"', '  header: "generated"')
-        $script:block::Render('', [ordered]@{}, $edges, $script:none) | Should -Be @('catzc:',
-            '  docs: "../docs/widget.md"')
-        $script:block::Render('generated', [ordered]@{}, [ordered]@{}, $script:none) | Should -Be @('catzc:',
-            '  header: "generated"')
-    }
-
     It 'leaves out the part that has nothing, and keeps the other' {
         $script:block::Render([ordered]@{}, [ordered]@{ links = @('docs/gadget.md') }, $script:none) | Should -Be @(
             'catzc:', '  links:', '    - docs/gadget.md'
@@ -109,9 +99,9 @@ Describe 'MarkdownMetaBlock' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRINTEDPAR
 
     It 'lists the keys at the block''s first level, inside immutable and the names of the edges, the first-level keys that are no part' {
         $lines = [string[]] @('catzc:', '  cites:', '    - ADR-WIDGET-TURN', '  page: docs/gadget.md',
-            '  header: "generated"', '  immutable:', '    kind: gadget', '    "with_body_sha": x', '  config:',
+            '  immutable:', '    kind: gadget', '    "with_body_sha": x', '  config:',
             '    gadgets:')
-        $script:block::SectionKeys($lines) | Should -Be @('cites', 'page', 'header', 'immutable', 'config')
+        $script:block::SectionKeys($lines) | Should -Be @('cites', 'page', 'immutable', 'config')
         $script:block::ImmutableKeys($lines) | Should -Be @('kind', 'with_body_sha')
         $script:block::EdgeKeys($lines) | Should -Be @('cites', 'page')
     }

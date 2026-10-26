@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Invoke-FileMetaEngine.ps1.md"
-  header: "generated"
----
-#>
-
 function Invoke-FileMetaEngine {
     [CmdletBinding()]
     [OutputType([pscustomobject])]
@@ -25,7 +17,7 @@ function Invoke-FileMetaEngine {
             $Entry
         }
         else {
-            Get-FileMetaScope -RepositoryRoot $RepositoryRoot -Path $Path -Config $Config
+            Get-FileMetaScope -RepositoryRoot $RepositoryRoot -Path $Path
         })
 
     $entries = foreach ($entry in $files) {
@@ -80,17 +72,14 @@ function Invoke-FileMetaEngine {
             else {
                 Get-FileMetaFact -State $state -Path $file -Config $Config
             }
-            # Only a head that shows a fact closes with the header note: none is written for the note alone.
-            $shown = @($facts.Edges.Values | Where-Object { $null -ne $_ -and "$_" -ne '' -and @($_).Count -gt 0 }).Count -gt 0
-            $header = $shown ? $Config.header : ''
             $fixed = if ($isProperty) {
-                Format-PropertyMetaHead -Text $text -Property $property -Strip $entry.Carrier.strip -Edges $facts.Edges -HeaderText $header
+                Format-PropertyMetaHead -Text $text -Property $property -Strip $entry.Carrier.strip -Edges $facts.Edges
             }
             elseif ($isHead) {
-                Format-CodeMetaHead -Text $text -Form $form -Edges $facts.Edges -HeaderText $header
+                Format-CodeMetaHead -Text $text -Form $form -Edges $facts.Edges
             }
             else {
-                Format-MarkdownMetaBlock -Text $text -Edges $facts.Edges -Key $entry.Carrier.key -HeaderText $header
+                Format-MarkdownMetaBlock -Text $text -Edges $facts.Edges -Key $entry.Carrier.key
             }
             if ($fixed -cne $text) {
                 $expected = if ($policy -eq [Catzc.Base.QualityGates.HeadPolicy]::Forbidden) {

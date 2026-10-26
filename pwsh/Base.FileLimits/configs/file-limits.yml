@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   docs: "../../../docs/references/pwsh/catzc-base-file-limits/configs/file-limits.yml.md"
-#   header: "generated"
-# ---
-
 # Every key is optional and defaults on FileLimitsConfig; a language value wins over its class default, inside these bounds.
 bounds: { length: { min: 100, max: 500 }, width: { min: 80, max: 200 } }
 defaults: { code: { length: 400, width: 120 }, config: { length: 300, width: 140 }, prose: { length: 400, width: 140 } }
@@ -50,8 +44,8 @@ exempt:
   js/track-lamps/engine.js: "486 lines against the code limit 400; splits by responsibility"
   pwsh/.internal/assets/Wait-CatzcRunLock.ps1: "430 lines against the code limit 400; splits by responsibility"
   pwsh/.internal/Catzc.Internal.Importer.psm1: "443 lines against the code limit 400; splits by responsibility"
-  docs/references/pwsh/internal/Catzc.Internal.Importer.psm1.md:
-    "424 lines against the prose limit 400; the comment page of the exempt Catzc.Internal.Importer.psm1, splits with it"
+  docs/references/pwsh/internal/catzc-internal-importer.md:
+    "473 lines against the prose limit 400; the Importer article merged with its comment page, splits by section into a folder of linked pages"
   pwsh/.internal/tests/Import-CSharpTypes.Tests.ps1: "450 lines against the code limit 400; splits by Describe into test files"
   pwsh/.internal/tests/Invoke-ModuleBuild.Tests.ps1: "439 lines against the code limit 400; splits by Describe into test files"
   pwsh/.scriptanalyzer/AnnounceStateChange.psm1: "411 lines against the code limit 400; splits by responsibility"

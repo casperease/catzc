@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/Get-FileMetaFact.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Get-FileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-SUBSCRIBEBYFUNCTION' {
     BeforeAll {
         $script:state = Get-MarkdownMetaState -Text "# docs/widget.md`n`nA gadget tint.`n"
@@ -27,6 +19,12 @@ Describe 'Get-FileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-SUBSCRIBEBYFU
                     $State.Rest
                 }
                 [ordered]@{ tint = ($body -split "`n" | Where-Object { $_ -like '*tint*' } | Select-Object -First 1) }
+            }
+            function script:Get-GadgetRoleFileMetaFact {
+                [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '',
+                    Justification = 'The engine passes State, Path and Kind by name; the fixture fact needs none')]
+                param($State, $Path, $Kind)
+                [ordered]@{ role = 'widget' }
             }
         }
 
@@ -60,6 +58,7 @@ Describe 'Get-FileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-SUBSCRIBEBYFU
         InModuleScope Catzc.Base.QualityGates {
             Remove-Item Function:\Get-WidgetShadeFileMetaFact -ErrorAction Ignore
             Remove-Item Function:\Get-WidgetTintFileMetaFact -ErrorAction Ignore
+            Remove-Item Function:\Get-GadgetRoleFileMetaFact -ErrorAction Ignore
         }
     }
 
@@ -72,8 +71,7 @@ Describe 'Get-FileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-SUBSCRIBEBYFU
     }
 
     It 'puts every key into the edges, the one part an imprint kind writes, in registry order' -Tag 'ADR-REPO-FILEMETA-FILEISNODE' {
-        Mock Get-RelativeEdgesFileMetaFact { [ordered]@{ role = 'widget' } } -ModuleName Catzc.Base.QualityGates
-        $facts = Get-Facts @{ kinds = [ordered]@{ 'widget-shade' = @{ keys = @('shade') }; 'widget-tint' = @{ keys = @('tint') }; gadget = @{ keys = @('role'); processor = 'Get-RelativeEdgesFileMetaFact' } } }
+        $facts = Get-Facts @{ kinds = [ordered]@{ 'widget-shade' = @{ keys = @('shade') }; 'widget-tint' = @{ keys = @('tint') }; gadget = @{ keys = @('role'); processor = 'Get-GadgetRoleFileMetaFact' } } }
         @($facts.PSObject.Properties.Name) |
             Should -Be @('Edges') -Because 'an imprint kind writes edges only, so no immutable part comes back'
         $facts.Edges.Keys | Should -Be @('shade', 'tint', 'role')
@@ -110,8 +108,7 @@ Describe 'Get-FileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-SUBSCRIBEBYFU
     }
 
     It 'uses the function an entry names instead of the convention' {
-        Mock Get-RelativeEdgesFileMetaFact { [ordered]@{ role = 'widget' } } -ModuleName Catzc.Base.QualityGates
-        $facts = Get-Facts @{ kinds = [ordered]@{ gadget = @{ keys = @('role'); processor = 'Get-RelativeEdgesFileMetaFact' } } }
+        $facts = Get-Facts @{ kinds = [ordered]@{ gadget = @{ keys = @('role'); processor = 'Get-GadgetRoleFileMetaFact' } } }
         $facts.Edges['role'] | Should -BeExactly 'widget'
     }
 
@@ -146,8 +143,8 @@ Describe 'Get-FileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-SUBSCRIBEBYFU
     }
 
     It 'rejects a processor that returns keys its kind does not declare' {
-        Mock Get-RelativeEdgesFileMetaFact { [ordered]@{ surprise = 'x' } } -ModuleName Catzc.Base.QualityGates
-        { Get-Facts @{ kinds = [ordered]@{ gadget = @{ keys = @('role'); processor = 'Get-RelativeEdgesFileMetaFact' } } } } |
+        Mock Get-GadgetRoleFileMetaFact { [ordered]@{ surprise = 'x' } } -ModuleName Catzc.Base.QualityGates
+        { Get-Facts @{ kinds = [ordered]@{ gadget = @{ keys = @('role'); processor = 'Get-GadgetRoleFileMetaFact' } } } } |
             Should -Throw "*returned keys ``[surprise``], but kind 'gadget' declares ``[role``]*"
     }
 }

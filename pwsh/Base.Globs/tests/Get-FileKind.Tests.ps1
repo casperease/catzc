@@ -5,7 +5,7 @@ Describe 'Get-FileKind' -Tag 'L0', 'integrity', 'ADR-REPO-FILEMETA-METAKIND' {
         @{ Path = (Get-CatzcModulesFolder) + '/Base.Docs/Build-Glossary.ps1'; Class = 'function/writer' }
         @{ Path = (Get-CatzcModulesFolder) + '/Base.Asserts/Assert-NotNull.ps1'; Class = 'function/assert' }
         @{ Path = (Get-CatzcModulesFolder) + '/Base.Languages/Format-GeneratedFileHead.ps1'; Class = 'function/formatter' }
-        @{ Path = (Get-CatzcModulesFolder) + '/Base.QualityGates/private/Get-RelativeEdgesFileMetaFact.ps1'; Class = 'function/fact' }
+        @{ Path = (Get-CatzcModulesFolder) + '/Base.QualityGates/private/Get-WidgetFileMetaFact.ps1'; Class = 'function/fact' }
         @{ Path = (Get-CatzcModulesFolder) + '/Base.QualityGates/private/Get-FileMetaScope.ps1'; Class = 'function' }
         @{ Path = (Get-CatzcModulesFolder) + '/.internal/Catzc.Internal.Types.psm1'; Class = 'module/internal' }
         @{ Path = (Get-CatzcModulesFolder) + '/.internal/tests/Assert-CatzcRunModeExclusive.Tests.ps1'; Class = 'test' }

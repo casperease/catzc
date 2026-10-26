@@ -1,11 +1,3 @@
-/*
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-code-meta/types/PropertyHead.cs.md"
-  header: "generated"
----
-*/
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -210,10 +202,10 @@ public sealed class PropertyHead
         return new PropertyHead(property, text, newLine, insertAt, regionStart, regionEnd, block, foreign);
     }
 
-    string WithFactsXml(string header, IDictionary immutable, IDictionary edges)
+    string WithFactsXml(IDictionary immutable, IDictionary edges)
     {
         IReadOnlyList<string> config = HasHead ? ConfigLines : new string[0];
-        IReadOnlyList<string> block = MarkdownMetaBlock.Render(header, immutable, edges, config);
+        IReadOnlyList<string> block = MarkdownMetaBlock.Render(immutable, edges, config);
         if (block.Count == 0) { return regionStart >= 0 ? text.Remove(regionStart, regionEnd - regionStart) : text; }
         string group = newLine + "  <PropertyGroup Label=\"" + GroupLabel + "\">"
             + newLine + "    <" + Property + "><![CDATA[" + string.Join("\n", block) + "]]></" + Property + ">"
@@ -224,15 +216,12 @@ public sealed class PropertyHead
     }
 
     // A text that is no object, or whose property holds something foreign, comes back exactly as it was.
-    public string WithFacts(IDictionary immutable, IDictionary edges) => WithFacts(null, immutable, edges);
-
-    // The same, the block closing its facts with the header note when one is given.
-    public string WithFacts(string header, IDictionary immutable, IDictionary edges)
+    public string WithFacts(IDictionary immutable, IDictionary edges)
     {
         if (!IsObject || Foreign) { return text; }
-        if (isXml) { return WithFactsXml(header, immutable, edges); }
+        if (isXml) { return WithFactsXml(immutable, edges); }
         IReadOnlyList<string> config = HasHead ? ConfigLines : new string[0];
-        IReadOnlyList<string> block = MarkdownMetaBlock.Render(header, immutable, edges, config);
+        IReadOnlyList<string> block = MarkdownMetaBlock.Render(immutable, edges, config);
         if (block.Count == 0) { return headIndex >= 0 ? Without(headIndex) : text; }
         string indent = Indent();
         string member = Quote(Property) + ": " + Quote(string.Join("\n", block));

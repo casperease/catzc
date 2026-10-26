@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../../docs/references/pwsh/catzc-base-quality-gates/tests/types/FileMetaConfig.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'FileMetaConfig' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-METAKIND' {
     It 'lists the keys the imprint kinds write at the block''s first level, in registry order, and no gather kind''s' -Tag 'ADR-REPO-FILEMETA-FILEISNODE' {
         $config = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{
@@ -20,13 +12,9 @@ Describe 'FileMetaConfig' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-METAKIND' {
         $config.ImprintKeys() | Should -Be @('with_stamp', 'cites', 'size', 'links')
     }
 
-    It 'declares the authored head''s header note once, as a default a config may replace, and a blank value keeps the default' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER', 'ADR-REPO-FILEMETA-HEADPOLICY' {
-        $default = [Catzc.Base.QualityGates.FileMetaConfig]::DefaultHeader
-        $default | Should -BeExactly 'generated'
-        [Catzc.Base.QualityGates.FileMetaConfig]::new(@{}).header | Should -BeExactly $default
-        [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ header = 'widget' }).header | Should -BeExactly 'widget'
-        [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ header = ' ' }).header | Should -BeExactly $default
-        (Get-Config -Config file-meta).header | Should -BeExactly $default
+    It 'refuses a header note, since an authored file carries no head to close with one' -Tag 'ADR-REPO-FILEMETA-HEADPOLICY' {
+        { [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ header = 'widget' }) } |
+            Should -Throw '*unknown key ''header'' (allowed: kinds, head_policy)*'
     }
 
     It 'takes the declared defaults for every omitted key of a kind' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
@@ -53,7 +41,7 @@ Describe 'FileMetaConfig' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-METAKIND' {
 
     It 'no longer holds the file classes, which the file-kinds registry owns' {
         { [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ classes = @(@{ class = 'widget'; files = @('a/**') }) }) } |
-            Should -Throw '*unknown key ''classes'' (allowed: kinds, head_policy, header)*'
+            Should -Throw '*unknown key ''classes'' (allowed: kinds, head_policy)*'
     }
 
     It 'matches a class pattern with one star, and a class name exactly' -ForEach @(
@@ -132,7 +120,7 @@ Describe 'FileMetaConfig' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-METAKIND' {
     }
 
     It 'rejects a malformed registry, naming the kind and the allowed set' -ForEach @(
-        @{ Raw = @{ other = 1 }; Message = '*unknown key ''other'' (allowed: kinds, head_policy, header)*' }
+        @{ Raw = @{ other = 1 }; Message = '*unknown key ''other'' (allowed: kinds, head_policy)*' }
         @{ Raw = @{ kinds = 'x' }; Message = '*kinds must be a map*' }
         @{ Raw = @{ kinds = @{ 'Bad_Id' = @{} } }; Message = '*kind id ''Bad_Id''*' }
         @{ Raw = @{ kinds = @{ widget = 'x' } }; Message = '*kind ''widget'' must be a map*' }

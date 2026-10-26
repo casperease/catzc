@@ -417,10 +417,6 @@
           "kind": "property"
         },
         {
-          "name": "header",
-          "kind": "property"
-        },
-        {
           "name": "kinds",
           "kind": "property"
         }
