@@ -41,7 +41,7 @@ Binds to [ADR-AZ-LZ-SECUREBYDEFAULT](../../../azure/landing-zones.md#rule-adr-az
 ### Rule EDR-AZ-WAF-SE-SE03
 
 SE:03, classify and consistently apply sensitivity and information type labels: use the organisation's taxonomy to label all workload data,
-and the components that process it, by sensitivity, information type, and compliance scope. The labels drive design choices such as
+and the components that process it, by sensitivity, information type, and compliance obligation. The labels drive design choices such as
 segmentation, encryption strength, masking, and retention, and they travel with the data through every component.
 
 Source: learn /azure/well-architected/security/data-classification (SE:03, retrieved 2026-10-15)

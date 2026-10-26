@@ -83,9 +83,7 @@ definition to the landing zone's set, pinned like the others.
 ### Rule ADR-AZ-LZ-COSTATTRIBUTION
 
 Every landing zone deploys a monthly budget whose alerts at 50, 80, and 100 percent of actual cost reach the subscription's `Owner` role,
-and every resource names its paying team in `cost-center` and its workload in `workload`. Cost exports, forecast alerts, and anomaly alerts
-are not yet deployed, and the resource groups that `Deploy-Bicep` creates for `foundation` and `expedition` carry no CAF tags.
-
+and every resource names its paying team in `cost-center` and its workload in `workload`.
 - [Cost attribution](#cost-attribution)
 
 ### Rule ADR-AZ-LZ-CAFPRINCIPLES
@@ -118,8 +116,7 @@ supports them. Region, tier, repository, service-level, and purpose tags are not
 
 The platform's security is the three subscription policies, one Key Vault per subscription authorized through Azure RBAC, system-assigned
 managed identities, private endpoints for data, and the diagnostics of every resource in the subscription's workspace. Defender for Cloud,
-Sentinel, Purview, customer-managed keys, and every virtual machine control are not deployed; a vault with purge protection, a closed
-network, and audited use is the planned hardening.
+Sentinel, Purview, customer-managed keys, and every virtual machine control are not deployed.
 
 - [CAF security](#caf-security)
 
@@ -318,10 +315,7 @@ the landing zone's and are theirs to manage.
 `discovery` deploys one Cost Management budget per subscription through `infrastructure/modules/budget.bicep`: a monthly amount from its
 config, in the subscription's billing currency, with alerts at 50, 80, and 100 percent of actual cost to the holders of the subscription's
 `Owner` role, so no address is kept in a config. The amounts are plain config values that anyone reading the repository can see and review.
-`foundation` and `expedition` have no budget of their own; their cost counts against the subscription's. The oversight not yet deployed is
-the rest of Cost Management: no cost export writes daily data to storage, the budget compares against actual cost only, and there is no
-anomaly alert ([EDR-AZ-WAF-CO-CO03](../external/azure/waf/cost-optimization.md#rule-edr-az-waf-co-co03)).
-
+`foundation` and `expedition` have no budget of their own; their cost counts against the subscription's.
 The CAF tags carry the metadata cost analysis groups by: `cost-center` names the paying team, `workload` the project, and `owner` and
 `environment` let spend group further. `Deploy-Bicep` creates the resource group of a resource-group template (`foundation`, `expedition`)
 through `Deploy-AzureResourceGroup` with no CAF tags, and afterwards writes only the deployment-provenance tags (`Set-BicepTrackingTagSet`).
@@ -442,23 +436,20 @@ read.
 ### CAF security
 
 The activity log streams to `foundation`'s Log Analytics workspace and every resource that emits logs sends them to its subscription's
-workspace, one per subscription rather than one for the tenant; a retention per environment class is planned and an archive to storage
+workspace, one per subscription rather than one for the tenant; an archive to storage
 beyond two years is not needed. Access audit reports, real-time alerts through Event Grid, an incident response plan
 ([EDR-AZ-WAF-SE-SE12](../external/azure/waf/security.md#rule-edr-az-waf-se-se12)), and the tracking of Azure roadmaps as a process belong to
-the tenant's security operations or are served by the retrieval dates of the records. Microsoft Defender for Cloud is planned as a resource
-of the landing zone, deployed by `discovery` for the services its workloads use, not through a deploy-if-not-exists policy. No virtual
+the tenant's security operations or are served by the retrieval dates of the records. No virtual
 machine is deployed, so patch tracking, policy-deployed extensions, security drift, attestation, and just-in-time access have nothing to act
 on, and no endpoint or user application exists for endpoint management, Defender for Cloud Apps, or application onboarding.
 
-The shared Bicep modules are the allowlist of services, each with secure defaults; a policy that denies a resource type outside them is
-planned. The landing zone assigns three built-in policies at subscription level in place of the management-group policy set of the CAF
-reference landing zone, and a benchmark initiative in audit mode is planned. Access follows Zero Trust through Entra ID identities, a
+The shared Bicep modules are the allowlist of services, each with secure defaults. The landing zone assigns three built-in policies at subscription level in place of the management-group policy set of the CAF
+reference landing zone. Access follows Zero Trust through Entra ID identities, a
 service connection per subscription pinned on every deploy, and private endpoints for data, though `foundation`'s vault and workspace accept
-public traffic until the planned closure. Each workload deploys the diagnostic settings of its own resources, so its monitoring travels with
+public traffic. Each workload deploys the diagnostic settings of its own resources, so its monitoring travels with
 its template. Data at rest uses Microsoft-managed keys, and the `data-classification` tag labels each resource in place of Purview. No
 workload has public ingress, so the Zero Trust application delivery pattern and the accelerators' network variants do not apply; workload
-networking is private by plan (`network.yml`, a security group per workload subnet, private endpoints) and egress filtering through a hub
-firewall is planned. Sentinel, its identity feeds, and threat hunting are the tenant's security operations; `foundation`'s workspace is
+networking is private by plan (`network.yml`, a security group per workload subnet, private endpoints). Sentinel, its identity feeds, and threat hunting are the tenant's security operations; `foundation`'s workspace is
 where Sentinel would attach and the repository supplies the logs.
 
 Key Vault is federated: `foundation` deploys one vault per subscription from one module, so every customer and tier has its own vault with
@@ -467,12 +458,8 @@ Every vault authorizes its data plane through Azure RBAC with no access policies
 `enableRbacAuthorization: true` and an empty `accessPolicies`, neither a parameter, so no caller falls back to access policies, and it sets
 no retention, no network rule, and `enabledForTemplateDeployment` on, because Azure Resource Manager resolves `expedition`'s break-glass
 reference at deploy time. The roles on a vault are granted outside the repository, and the vault name stays taken until a deleted vault's
-retention ends. `storage-account.bicep` turns shared-key access off, so every data request carries an Entra ID token. Purge protection is
-planned as a module default, and with it permanent deletion is closed, so custom roles that alone may purge are not needed. The vaults hold
-no key and no certificate, so certificate automation has no use; rotation of the one secret, the break-glass password, is manual and planned
-to be automated. A vault's network access is planned to be closed, public network access off with a private endpoint in the hub's private
-DNS in place of the service endpoints CAF names, and vault use is planned to be audited in the workspace through the `keyVault` kind of the
-diagnostic setting module. The environments of one tier share their tier's vault and the same secret name, `exped-sql-admin-password` (`dev`
+retention ends. `storage-account.bicep` turns shared-key access off, so every data request carries an Entra ID token. The vaults hold
+no key and no certificate, so certificate automation has no use; rotation of the one secret, the break-glass password, is manual. The environments of one tier share their tier's vault and the same secret name, `exped-sql-admin-password` (`dev`
 and `test` read the shared non-production vault, so they share one break-glass password), and a secret name per configuration slot is
 planned. The platform's vault is the platform's, not the workload's, which fits the one secret in use, a recovery credential no application
 reads at run time; a workload that needs run-time secrets creates its own vault from `key-vault.bicep` in its own resource group.
@@ -758,11 +745,11 @@ The dependencies of the templates are these. `foundation` depends on no other te
 `expedition` deploy, because the break-glass password is a Key Vault reference resolved at deploy time, and no dependency of the running
 database; its workspace is a weak dependency of everything that sends diagnostics, since an outage loses telemetry, not function. A spoke
 depends strongly on its hub for name resolution, because the private DNS zones live only in the hub
-([ADR-AZ-LZ-HUBANDSPOKE](#rule-adr-az-lz-hubandspoke)), so a deleted or broken zone breaks every private endpoint of that tier; the peering
-is a strong dependency of anything in a spoke that calls the hub's `shared-services` subnet; and the region is a strong dependency of all of
-it ([ADR-AZ-NETWORK-ONEADDRESSSPACE](azure-network-model.md#rule-adr-az-network-oneaddressspace)). At run time `expedition` depends strongly
-on its spoke's `private-endpoints` subnet (the hub's `shared-services` subnet for the shared platform) and on the hub's `privatelink` DNS
-zones, and weakly on the workspace; at deploy time it depends strongly on `discovery` and on `foundation`'s vault.
+([ADR-AZ-LZ-HUBANDSPOKE](#rule-adr-az-lz-hubandspoke)), so a deleted or broken DNS zone breaks every private endpoint of that tier; the
+peering is a strong dependency of anything in a spoke that calls the hub's `shared-services` subnet; and the region is a strong dependency
+of all of it ([ADR-AZ-NETWORK-ONEADDRESSSPACE](azure-network-model.md#rule-adr-az-network-oneaddressspace)). At run time `expedition`
+depends strongly on its spoke's `private-endpoints` subnet (the hub's `shared-services` subnet for the shared platform) and on the hub's
+`privatelink` DNS zones, and weakly on the workspace; at deploy time it depends strongly on `discovery` and on `foundation`'s vault.
 
 The production settings of `expedition` imply recovery points without stating them as objectives: `apex/prod.yml` sets
 `databaseBackupRetentionDays: 35` and `databaseBackupStorageRedundancy: Geo`, and blobs are recoverable for 7 days after deletion;

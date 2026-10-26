@@ -36,13 +36,7 @@ exempt:
     "CAF reference corpus, one Microsoft area per page; splits by section into a folder of pages"
   docs/drs/external/azure/caf/resource-organization.md:
     "CAF reference corpus, one Microsoft area per page; splits by section into a folder of pages"
-  docs/drs/external/azure/waf/cost-optimization.md: "WAF pillar reference, one pillar per page; splits by section into a folder of pages"
-  docs/drs/external/azure/waf/operational-excellence.md:
-    "WAF pillar reference, one pillar per page; splits by section into a folder of pages"
-  docs/drs/external/azure/waf/performance-efficiency.md:
-    "WAF pillar reference, one pillar per page; splits by section into a folder of pages"
-  docs/drs/external/azure/waf/reliability.md: "WAF pillar reference, one pillar per page; splits by section into a folder of pages"
-  docs/drs/external/azure/waf/security.md: "WAF pillar reference, one pillar per page; splits by section into a folder of pages"
+  docs/drs/azure/landing-zones.md: "1108 lines against the prose limit 400; splits by section into a folder of linked pages"
   docs/drs/design/visual-design.md: "644 lines against the prose limit 400; splits by section into a folder of linked pages"
   docs/drs/flow/cd-discipline-and-promotion-flow.md:
     "524 lines against the prose limit 400; splits by section into a folder of linked pages"
