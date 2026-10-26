@@ -37,7 +37,6 @@ content:
   title: Discovery resolves every config file's coordinate through one shared check
   kind: explanation
   flow: top-to-bottom
-  relation: feeds the next step
   theme: dark
   bands:
     - { id: band-discovery, label: DISCOVERY }
@@ -55,16 +54,16 @@ content:
     - { id: g-azure, kind: file, label: azure.yml, in: band-identity }
     - { id: g-customer-file, kind: file, label: customer.yml, in: band-identity }
   edges:
-    - { from: g-config, to: g-discovery, kind: flow, label: "" }
-    - { from: g-discovery, to: g-resolve-name, kind: flow, label: "" }
+    - { from: g-config, to: g-discovery, kind: flow, label: feeds }
+    - { from: g-discovery, to: g-resolve-name, kind: flow, label: calls }
     - { from: g-resolve-name, to: g-violations, kind: flow, label: "" }
     - { from: g-violations, to: g-slot, kind: flow, label: "" }
     - { from: g-resolve-name, to: f-invalid, kind: fail, label: "" }
     - { from: g-violations, to: f-invalid, kind: fail, label: "" }
     - { from: g-candidates, to: g-violations, kind: flow, label: "" }
-    - { from: g-customer, to: g-candidates, kind: flow, label: "" }
-    - { from: g-azure, to: g-candidates, kind: flow, label: "" }
-    - { from: g-customer-file, to: g-customer, kind: flow, label: "" }
+    - { from: g-customer, to: g-candidates, kind: flow, label: calls }
+    - { from: g-azure, to: g-candidates, kind: flow, label: feeds }
+    - { from: g-customer-file, to: g-customer, kind: flow, label: feeds }
   markers:
     - { at: g-config, number: 1 }
     - { at: g-discovery, number: 2 }

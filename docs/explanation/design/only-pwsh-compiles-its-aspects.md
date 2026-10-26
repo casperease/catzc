@@ -31,7 +31,6 @@ content:
   title: Both tracks' conventions are read, but only the pwsh track's compiles into globsets
   kind: explanation
   flow: left-to-right
-  relation: feeds
   theme: dark
   bands:
     - { id: band-declared, label: DECLARED }

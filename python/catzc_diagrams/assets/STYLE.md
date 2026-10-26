@@ -60,30 +60,74 @@ means two things across slides (grey is not "config" on one slide and "drift" on
 are saturated with a bright rim, and commits keep the locked palette (DDR-VISUAL-FIXEDCOMMITPALETTE), so no structural glyph can be mistaken
 for a commit state. Slate is shared by code unit, store and runner on purpose: their shapes (box, cylinder, pill) tell them apart.
 
-| Kind (legend phrase) | Shape                             | Fill / stroke         | Use it for                                                                                      |
-| -------------------- | --------------------------------- | --------------------- | ----------------------------------------------------------------------------------------------- |
-| code unit            | rounded box                       | slate / slate-rim     | a module, function, type or script that runs; text `title`                                      |
-| named set            | rounded box                       | mauve / mauve-rim     | a group, globset, track, aspect or other named collection; text `title`                         |
-| file                 | page with a folded corner         | olive / olive-rim     | a config, YAML, manifest or other file read as data (`shape=note`); text `title`                |
-| store                | cylinder                          | slate / slate-rim     | the repository, a registry, a cache, a feed (`shape=cylinder3`); text `title`                   |
-| runner               | pill                              | slate / slate-rim     | a pipeline, stage, task or job that executes (`arcSize=50`); text `title`                       |
-| gate                 | rhombus, 3 px rim                 | neutral / neutral-rim | a check that passes or stops the flow; never red, never yellow; text `ink`                      |
-| environment          | hexagon                           | neutral / neutral-rim | a deployment target; neutral, coloured only by its occupant (DDR-VISUAL-ENVIRONMENTISCONTAINER) |
-| external tool        | square box                        | neutral / neutral-rim | a vendor tool the code delegates to (az CLI, Bicep, git); text `ink`                            |
-| actor                | circle                            | page / neutral-rim    | a person (developer, reviewer); text `ink`                                                      |
-| result               | rounded box                       | green / green-rim     | what a step produces; text `title`                                                              |
-| failure              | rounded box                       | red / red-rim         | a throw, rejection or discard; the only red; text `red-ink`                                     |
-| DRS-only             | the kind's shape, dashed, on page | page / line           | something a decision record states that no code runs or checks; text `ink`                      |
+- **code unit**
+  - Shape: rounded box
+  - Fill / stroke: slate / slate-rim
+  - Use it for: a module, function, type or script that runs; text `title`
+- **named set**
+  - Shape: rounded box
+  - Fill / stroke: mauve / mauve-rim
+  - Use it for: a group, globset, track, aspect or other named collection; text `title`
+- **file**
+  - Shape: page with a folded corner
+  - Fill / stroke: olive / olive-rim
+  - Use it for: a config, YAML, manifest or other file read as data (`shape=note`); text `title`
+- **store**
+  - Shape: cylinder
+  - Fill / stroke: slate / slate-rim
+  - Use it for: the repository, a registry, a cache, a feed (`shape=cylinder3`); text `title`
+- **runner**
+  - Shape: pill
+  - Fill / stroke: slate / slate-rim
+  - Use it for: a pipeline, stage, task or job that executes (`arcSize=50`); text `title`
+- **gate**
+  - Shape: rhombus, 3 px rim
+  - Fill / stroke: neutral / neutral-rim
+  - Use it for: a check that passes or stops the flow; never red, never yellow; text `ink`
+- **environment**
+  - Shape: hexagon
+  - Fill / stroke: neutral / neutral-rim
+  - Use it for: a deployment target; neutral, coloured only by its occupant (DDR-VISUAL-ENVIRONMENTISCONTAINER)
+- **external tool**
+  - Shape: square box
+  - Fill / stroke: neutral / neutral-rim
+  - Use it for: a vendor tool the code delegates to (az CLI, Bicep, git); text `ink`
+- **actor**
+  - Shape: circle
+  - Fill / stroke: page / neutral-rim
+  - Use it for: a person (developer, reviewer); text `ink`
+- **result**
+  - Shape: rounded box
+  - Fill / stroke: green / green-rim
+  - Use it for: what a step produces; text `title`
+- **failure**
+  - Shape: rounded box
+  - Fill / stroke: red / red-rim
+  - Use it for: a throw, rejection or discard; the only red; text `red-ink`
+- **DRS-only**
+  - Shape: the kind's shape, dashed, on page
+  - Fill / stroke: page / line
+  - Use it for: something a decision record states that no code runs or checks; text `ink`
 
 **Source-lens phrases** (the `source` lens, below) are variants of the code unit. They stay in slate, so they add no colour to the budget.
 Copy them from `glyphs.xml` (`g-private`, `g-type` + `g-type-tag`, `g-module`):
 
-| Phrase         | Shape                                                  | Fill / stroke                  | Use it for                                                               |
-| -------------- | ------------------------------------------------------ | ------------------------------ | ------------------------------------------------------------------------ |
-| private helper | code unit, 36 px tall, dark fill, 11 px name           | neutral-deep / slate-rim       | a function in the module's `private/` folder; never dashed; text `ink`   |
-| C# type        | code unit with a `C#` tag (26 × 16) on its top-right   | slate / slate-rim, tag on page | a class or record under `types/*.cs`                                     |
-| catzc module   | slate frame, no fill, `strokeWidth=1.5`, name top-left | none / slate-rim               | another `Catzc.*` module the drawn code calls; its members sit inside it |
-| nested frame   | the same frame inside a frame (`g-module-holder`)      | none / slate-rim               | a holder's part: a track holds its modules, a module holds its members   |
+- **private helper**
+  - Shape: code unit, 36 px tall, dark fill, 11 px name
+  - Fill / stroke: neutral-deep / slate-rim
+  - Use it for: a function in the module's `private/` folder; never dashed; text `ink`
+- **C# type**
+  - Shape: code unit with a `C#` tag (26 × 16) on its top-right
+  - Fill / stroke: slate / slate-rim, tag on page
+  - Use it for: a class or record under `types/*.cs`
+- **catzc module**
+  - Shape: slate frame, no fill, `strokeWidth=1.5`, name top-left
+  - Fill / stroke: none / slate-rim
+  - Use it for: another `Catzc.*` module the drawn code calls; its members sit inside it
+- **nested frame**
+  - Shape: the same frame inside a frame (`g-module-holder`)
+  - Fill / stroke: none / slate-rim
+  - Use it for: a holder's part: a track holds its modules, a module holds its members
 
 The private helper's dark fill is what sets it apart at preview scale. A dimmer or thinner rim on the code-unit fill was tried in the wave-9
 sample and read as identical to a code unit, so the difference is in the fill, never only in the rim. Italic labels don't show in the
@@ -323,12 +367,18 @@ stale: `Test-Diagrams` lists those diagrams, and `Build-Diagrams -Stale` rebuild
 A fan-out drawing is a **slide**: glyphs on the picture, words in prose. A slide is one diagram pair, `.assets/<name>.drawio.yml` and
 `.drawio.png`, and the pages that embed its png (ADR-REPO-SLIDES-DECLARATION):
 
-| File                                   | Reader                 | Holds                                                                                             |
-| -------------------------------------- | ---------------------- | ------------------------------------------------------------------------------------------------- |
-| `.assets/<name>.drawio.yml`            | the author, the gates  | the **declaration**: `description:`, `about:` (the ADR codes and the lens), `content:`, `layout:` |
-| `.assets/<name>.drawio.png`            | everyone               | the slide put from the declaration: glyphs, names, markers, chips, the legend and the sidebar     |
-| `<page>.md`                            | a newcomer             | the **article**: what the slide shows and why it holds, as well-written prose                     |
-| `out/diagrams/wave-N/<name>.verify.md` | the lead and reviewers | the claim → `file:line` → status table, the corrections and the drift; it never leaves `out/`     |
+- **`.assets/<name>.drawio.yml`**
+  - Reader: the author, the gates
+  - Holds: the **declaration**: `description:`, `about:` (the ADR codes and the lens), `content:`, `layout:`
+- **`.assets/<name>.drawio.png`**
+  - Reader: everyone
+  - Holds: the slide put from the declaration: glyphs, names, markers, chips, the legend and the sidebar
+- **`<page>.md`**
+  - Reader: a newcomer
+  - Holds: the **article**: what the slide shows and why it holds, as well-written prose
+- **`out/diagrams/wave-N/<name>.verify.md`**
+  - Reader: the lead and reviewers
+  - Holds: the claim → `file:line` → status table, the corrections and the drift; it never leaves `out/`
 
 The folder holds no markdown: the diagram names no article, any number of pages embed its png, and the build finds them by what embeds it. A
 `source` lens slide (below) has no explanation article: its words go into the module's reference article.
@@ -453,11 +503,15 @@ own **map key** in the sidebar.
 
 An approved slide lands as its pair and its article; the `.verify.md` stays in `out/diagrams/wave-N/`.
 
-| File                                                      | From                             | Shape                                                                                                      |
-| --------------------------------------------------------- | -------------------------------- | ---------------------------------------------------------------------------------------------------------- |
-| `docs/explanation/<adr-domain>/<explanation>.md`          | the article                      | path H1 (ADR-REPO-FORMAT-MARKDOWNTITLE), the title in backticks, a `text` overview block, then the article |
-| `docs/explanation/<adr-domain>/.assets/<name>.drawio.yml` | the staged declaration           | copied, never over an existing file                                                                        |
-| `docs/explanation/<adr-domain>/.assets/<name>.drawio.png` | `Build-Diagrams -Path <the yml>` | built in place, never copied, so its minimaps are computed for its address                                 |
+- **`docs/explanation/<adr-domain>/<explanation>.md`**
+  - From: the article
+  - Shape: path H1 (ADR-REPO-FORMAT-MARKDOWNTITLE), the title in backticks, a `text` overview block, then the article
+- **`docs/explanation/<adr-domain>/.assets/<name>.drawio.yml`**
+  - From: the staged declaration
+  - Shape: copied, never over an existing file
+- **`docs/explanation/<adr-domain>/.assets/<name>.drawio.png`**
+  - From: `Build-Diagrams -Path <the yml>`
+  - Shape: built in place, never copied, so its minimaps are computed for its address
 
 - `<adr-domain>` is the drs.yml domain of the slide's first ADR code; `<explanation>` is the finding as a kebab slug.
 - **The `text` overview** of an article: the finding in one line; a blank line; one line per marker, `<n>  <name>  <what it is>`, names

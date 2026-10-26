@@ -32,7 +32,6 @@ content:
   title: Catzc.Base.Globs projects the program, and workflows, pipelines and the branch policy only read it
   kind: explanation
   flow: left-to-right
-  relation: feeds
   theme: dark
   bands:
     - { id: band-compose, label: COMPOSE }
@@ -48,11 +47,11 @@ content:
     - { id: f-workflows, kind: file, label: .github/workflows/*.yml, in: band-trigger }
     - { id: f-pipelines, kind: file, label: .ado/pipelines/*.yaml, in: band-trigger }
   edges:
-    - { from: f-globs, to: g-globset, kind: flow, label: "" }
-    - { from: g-globset, to: g-trigger, kind: flow, label: "" }
+    - { from: f-globs, to: g-globset, kind: flow, label: feeds }
+    - { from: g-globset, to: g-trigger, kind: flow, label: feeds }
     - { from: g-trigger, to: r-github, kind: flow, label: "" }
     - { from: g-trigger, to: r-ado, kind: flow, label: "" }
-    - { from: r-github, to: g-path-filter, kind: flow, label: "" }
+    - { from: r-github, to: g-path-filter, kind: flow, label: feeds }
     - { from: r-github, to: f-workflows, kind: adr, label: "" }
     - { from: r-ado, to: f-pipelines, kind: adr, label: "" }
   markers:

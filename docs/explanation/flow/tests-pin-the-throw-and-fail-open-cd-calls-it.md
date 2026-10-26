@@ -31,7 +31,6 @@ content:
   title: Tests pin the throw and the fail-open, a rule pins detection, and the CD stages call it with no gate
   kind: explanation
   flow: top-to-bottom
-  relation: checks
   theme: dark
   bands:
     - { id: band-answer, label: THE NAME AND THE ANSWER }
@@ -48,9 +47,9 @@ content:
     - { id: c-fetch-depth, kind: code, label: "fetchDepth: 0", in: band-no-gate }
     - { id: c-changes-step, kind: code, label: Changes step, in: band-no-gate }
   edges:
-    - { from: g-affected-tests, to: c-affected, kind: flow, label: "" }
-    - { from: g-range-tests, to: c-change-range, kind: flow, label: "" }
-    - { from: g-analyzer, to: c-in-pipeline, kind: flow, label: "" }
+    - { from: g-affected-tests, to: c-affected, kind: flow, label: calls }
+    - { from: g-range-tests, to: c-change-range, kind: flow, label: calls }
+    - { from: g-analyzer, to: c-in-pipeline, kind: flow, label: calls }
   markers:
     - { at: c-affected, number: 1 }
     - { at: g-affected-tests, number: 2 }

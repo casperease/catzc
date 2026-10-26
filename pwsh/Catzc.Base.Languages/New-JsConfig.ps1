@@ -40,9 +40,11 @@ function New-JsConfig {
                 checkJs          = $true
                 noEmit           = $true
                 strict           = $false
-                module           = 'commonjs'
+                # node16 is node's own resolution: a .js file outside a "type": "module" package is CommonJS, so require resolves as node
+                # does, and no deprecated resolution mode is implied.
+                module           = 'node16'
                 target           = 'es2022'
-                moduleResolution = 'node'
+                moduleResolution = 'node16'
                 skipLibCheck     = $true
                 typeRoots        = @(if ($TypeRoot) {
                         $TypeRoot

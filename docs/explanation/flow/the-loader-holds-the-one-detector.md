@@ -31,7 +31,6 @@ content:
   title: The detector lives in the loader, which both run modes import first and keep loaded
   kind: explanation
   flow: left-to-right
-  relation: feeds the next step
   theme: dark
   bands:
     - { id: band-platform, label: PLATFORM }
@@ -52,9 +51,9 @@ content:
     - { id: c-hook, kind: code, label: Assert-BashTimeout, in: band-hook }
     - { id: g-analyzer-rule, kind: gate, label: Measure-NoRawPipelineDetection, in: band-enforcement }
   edges:
-    - { from: grp-platforms, to: c-detector, kind: flow, label: "" }
+    - { from: grp-platforms, to: c-detector, kind: flow, label: feeds }
     - { from: c-detector, to: grp-callers, kind: flow, label: "" }
-    - { from: grp-platforms, to: c-hook, kind: flow, label: "" }
+    - { from: grp-platforms, to: c-hook, kind: flow, label: feeds }
     - { from: grp-callers, to: g-analyzer-rule, kind: flow, label: "" }
   markers:
     - { at: r-azure-agent, number: 1 }

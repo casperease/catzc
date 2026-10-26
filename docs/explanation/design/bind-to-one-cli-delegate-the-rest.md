@@ -26,7 +26,6 @@ content:
   title: Consumers bind to one CLI, and everything behind it is delegated to the vendor
   kind: explanation
   flow: top-to-bottom
-  relation: uses
   theme: dark
   bands:
     - { id: band-consumers, label: CONSUMERS }

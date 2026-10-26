@@ -33,7 +33,6 @@ content:
   title: The apex unit flattens to 13 rules, 13 GitHub paths, and 7 Azure DevOps includes with 6 excludes
   kind: explanation
   flow: left-to-right
-  relation: feeds
   theme: dark
   bands:
     - { id: band-compose, label: COMPOSE }
@@ -53,14 +52,14 @@ content:
     - { id: g-pipeline-trigger, kind: code, label: Get-PipelineTrigger, in: band-checked }
     - { id: g-test-trigger, kind: gate, label: Test-AdoPipelineTriggerGlob, in: band-checked }
   edges:
-    - { from: f-globs, to: g-scan-program, kind: flow, label: "" }
+    - { from: f-globs, to: g-scan-program, kind: flow, label: feeds }
     - { from: g-scan-program, to: r-flattened, kind: flow, label: "" }
-    - { from: r-flattened, to: g-trigger, kind: flow, label: "" }
+    - { from: r-flattened, to: g-trigger, kind: flow, label: feeds }
     - { from: g-trigger, to: r-github, kind: flow, label: "" }
     - { from: g-trigger, to: r-include, kind: flow, label: "" }
     - { from: g-trigger, to: r-exclude, kind: flow, label: "" }
     - { from: grp-ado-lists, to: g-test-trigger, kind: flow, label: "" }
-    - { from: f-cd-apex, to: g-pipeline-trigger, kind: flow, label: "" }
+    - { from: f-cd-apex, to: g-pipeline-trigger, kind: flow, label: feeds }
     - { from: g-pipeline-trigger, to: g-test-trigger, kind: flow, label: "" }
   markers:
     - { at: f-globs, number: 1 }

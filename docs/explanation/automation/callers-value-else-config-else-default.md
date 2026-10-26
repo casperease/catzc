@@ -29,7 +29,6 @@ content:
   title: "Every wait is bounded: the caller's value, else the config, else the default; an exemption only raises it"
   kind: explanation
   flow: left-to-right
-  relation: resolution order
   theme: dark
   bands:
     - { id: band-limit, label: LIMIT }
@@ -38,7 +37,7 @@ content:
   glyphs:
     - { id: g-caller, kind: code, label: the caller, in: band-limit }
     - { id: g-config, kind: file, label: the config file, in: band-limit }
-    - { id: g-default, kind: code, label: the declared default, in: band-limit }
+    - { id: g-default, kind: file, label: the declared default, in: band-limit }
     - { id: g-ceiling, kind: file, label: the exemption ceiling, in: band-raise }
     - { id: r-wait, kind: result, label: one bounded wait, in: band-consumers }
   edges:

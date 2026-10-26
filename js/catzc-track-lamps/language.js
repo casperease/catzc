@@ -3,6 +3,10 @@
 
 const { key, claimer } = require("./glob.js");
 
+/** @typedef {Record<string, import("./glob.js").FilterSet[]>} LampSets each lamp's sets, in lamp order */
+/** @typedef {{ change?: string, fault?: string }} Fact what is known of one file: its change (none, staged, unstaged) and its fault */
+/** @typedef {Record<string, Fact>} Facts each path's fact */
+
 const OPEN = "open";
 // The lamp of the run output (filters.yml), whose files the counter shows apart from the repository's own.
 const OUTPUT = "out";
@@ -12,6 +16,11 @@ const CONDITIONS = ["committed", "staged", "unstaged", "failed"];
 const EMPTY = "empty";
 
 // Every lamp's sets: the open lamp's first, one include per file open in an editor; then the declared filters' in their order.
+/**
+ * @param {LampSets} declared
+ * @param {string[]} [open]
+ * @returns {LampSets}
+ */
 function lampSets(declared, open = []) {
     return {
         [OPEN]: [{ include: [...open], exclude: [] }],
@@ -25,18 +34,28 @@ function lampSets(declared, open = []) {
 // fact over the files it claims by the one precedence, or empty for a lamp whose sets include nothing. A fact's path need not be on disk
 // (a deleted file is a change), and the switch never touches a condition. A vetoed lamp (unlit, and hiding its whole zone) takes out every
 // file it claims, even one a lit lamp claims too: the shown files are the lit union minus the vetoed zones.
-/** @param {Iterable<string>} [vetoed] */
+/**
+ * @param {LampSets} sets
+ * @param {Set<string>} lit
+ * @param {Iterable<string>} files
+ * @param {Facts} [facts]
+ * @param {Iterable<string>} [vetoed]
+ * @returns {{ shown: string[], unaccounted: string[], signatures: Record<string, string[]>, conditions: Record<string, string> }}
+ */
 function evaluate(sets, lit, files, facts = {}, vetoed = []) {
     const vetoes = new Set(vetoed);
     const names = Object.keys(sets);
     /** @type {[string, (place: string, parts: string[]) => boolean][]} */
     const claims = names.map((name) => [name, claimer(sets[name])]);
-    const signatureOf = (place) => {
+    const signatureOf = (/** @type {string} */ place) => {
         const parts = place.split("/");
         return claims.filter(([, claimed]) => claimed(place, parts)).map(([name]) => name);
     };
+    /** @type {string[]} */
     const shown = [];
+    /** @type {string[]} */
     const unaccounted = [];
+    /** @type {Record<string, string[]>} */
     const signatures = {};
     for (const place of files) {
         const signature = signatureOf(place);
@@ -45,19 +64,24 @@ function evaluate(sets, lit, files, facts = {}, vetoed = []) {
         if (signature.some((name) => vetoes.has(name))) continue;
         if (signature.length === 0 || signature.some((name) => lit.has(name))) shown.push(place);
     }
+    /** @type {Record<string, number>} */
     const rank = Object.fromEntries(names.map((name) => [name, 0]));
     for (const [place, fact] of Object.entries(facts)) {
         const level = fact?.fault === "failed" ? 3 : fact?.change === "unstaged" ? 2 : fact?.change === "staged" ? 1 : 0;
         if (level === 0) continue;
         for (const name of signatures[place] ?? signatureOf(place)) rank[name] = Math.max(rank[name], level);
     }
-    const empty = (name) => sets[name].every((set) => (set.include ?? []).length === 0);
+    const empty = (/** @type {string} */ name) => sets[name].every((set) => (set.include ?? []).length === 0);
     const conditions = Object.fromEntries(names.map((name) => [name, empty(name) ? EMPTY : CONDITIONS[rank[name]]]));
     return { shown, unaccounted, signatures, conditions };
 }
 
 // The orchestrator's colour over the whole repository's facts: red for any failure, blue for any work in progress, green for neither.
 // It assumes the worst: the caller shows red until the first facts are in.
+/**
+ * @param {Facts | undefined} facts
+ * @returns {"red" | "blue" | "green"}
+ */
 function summaryOf(facts) {
     const all = Object.values(facts ?? {});
     if (all.some((fact) => fact?.fault === "failed")) return "red";
@@ -67,6 +91,12 @@ function summaryOf(facts) {
 
 // The orchestrator's click: every red lamp lit and its veto lifted, every other lamp as it was, so no failing file stays hidden (a lamp
 // is red exactly when it claims a failed file, lit or not). Returns the new switches.
+/**
+ * @param {Record<string, string> | undefined} conditions
+ * @param {Iterable<string>} out
+ * @param {Iterable<string>} vetoed
+ * @returns {{ out: string[], vetoed: string[] }}
+ */
 function revealFailed(conditions, out, vetoed) {
     const nextOut = new Set(out);
     const nextVetoed = new Set(vetoed);
@@ -80,6 +110,11 @@ function revealFailed(conditions, out, vetoed) {
 
 // The red journey's next stop: the failed file after the one in the editor, in path order, round to the first; the first when the
 // editor holds none of them.
+/**
+ * @param {string[] | undefined} failed
+ * @param {string | null | undefined} current
+ * @returns {string | null}
+ */
 function nextFailed(failed, current) {
     const ordered = [...(failed ?? [])].sort();
     if (ordered.length === 0) return null;

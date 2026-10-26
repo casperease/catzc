@@ -33,7 +33,6 @@ content:
   title: The analyzer checks rule 1, a test checks rule 4, and rules 2, 3 and 5 have no gate
   kind: explanation
   flow: top-to-bottom
-  relation: feeds the next step
   theme: dark
   bands:
     - { id: band-detection, label: DETECTION }

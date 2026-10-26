@@ -50,12 +50,16 @@ public sealed class DrsCitationRewriter
     readonly string codePattern;
     readonly Regex ruleAnchor;
     readonly Regex codeShape;
+    // The width a markdown line may reach before its citations take the reference form; 0 never changes a citation's form.
+    readonly int markdownWidth;
 
     // root: the repository-relative folder of the decision records (DrsConfig.Root).
     public DrsCitationRewriter(IEnumerable codeRows, IEnumerable ruleRows, DrsCitationMap citations, IEnumerable<string> treeFiles, IEnumerable<string> kinds,
-        string root)
+        string root, int markdownWidth)
     {
         if (string.IsNullOrEmpty(root)) { throw new ArgumentNullException(nameof(root)); }
+        if (markdownWidth < 0) { throw new ArgumentOutOfRangeException(nameof(markdownWidth), "the markdown width is 0 (off) or a positive column count"); }
+        this.markdownWidth = markdownWidth;
         adrRoot = root.TrimEnd('/') + "/";
         newRoot = adrRoot;
         if (codeRows == null) { throw new ArgumentNullException(nameof(codeRows)); }
@@ -173,9 +177,15 @@ public sealed class DrsCitationRewriter
         var changes = new List<DrsCitationChange>(found.Count);
         foreach ((int _, DrsCitationChange change) in found) { changes.Add(change); }
 
-        return edits.Count == 0
-            ? new DrsCitationRewrite(text, false, changes)
-            : new DrsCitationRewrite(output.ToString(), true, changes);
+        if (edits.Count == 0) { return new DrsCitationRewrite(text, false, changes); }
+        string rewritten = output.ToString();
+        if (markdownWidth > 0 && self.EndsWith(".md", StringComparison.OrdinalIgnoreCase))
+        {
+            var edited = new HashSet<int>();
+            foreach ((int start, int _, DrsCitationChangeKind _, string _) in edits) { edited.Add(LineOf(lineStarts, start)); }
+            rewritten = DrsCitationForm.ToReference(rewritten, self, edited, markdownWidth, codePattern, changes);
+        }
+        return new DrsCitationRewrite(rewritten, true, changes);
     }
 
     void Scan(string text, int start, int length, string self, List<(int, int, DrsCitationChangeKind, string)> edits, List<(int, string)> unhandled)

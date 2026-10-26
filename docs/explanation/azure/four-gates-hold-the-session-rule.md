@@ -35,7 +35,6 @@ content:
   title: Four gates hold the session rule; the customer and the name hold by construction
   kind: explanation
   flow: left-to-right
-  relation: runs next
   theme: dark
   bands:
     - { id: band-gates, label: GATES }
@@ -50,7 +49,7 @@ content:
   edges:
     - { from: g-pipeline-assert, to: g-declared, kind: flow, label: "" }
     - { from: g-declared, to: g-matches, kind: flow, label: "" }
-    - { from: g-matches, to: g-customer, kind: flow, label: "" }
+    - { from: g-matches, to: g-customer, kind: flow, label: calls }
     - { from: g-customer, to: g-serves, kind: flow, label: "" }
     - { from: g-serves, to: g-group, kind: flow, label: "" }
     - { from: g-pipeline-assert, to: f-throw, kind: fail, label: failed }

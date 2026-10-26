@@ -29,7 +29,6 @@ content:
   title: Drop a file, and the next import exports it
   kind: explanation
   flow: left-to-right
-  relation: runs, then yields
   theme: dark
   bands:
     - { id: band-file, label: THE FILE }
@@ -44,10 +43,10 @@ content:
     - { id: c-globset, kind: code, label: Get-ModuleGlobSet, in: band-aspect }
     - { id: r-live, kind: result, label: in <kebab>-live, in: band-aspect }
   edges:
-    - { from: c-file, to: c-importer, kind: flow, label: "" }
+    - { from: c-file, to: c-importer, kind: flow, label: feeds }
     - { from: c-importer, to: r-exported, kind: flow, label: "" }
     - { from: c-importer, to: f-collision, kind: fail, label: "" }
-    - { from: c-file, to: c-globset, kind: flow, label: "" }
+    - { from: c-file, to: c-globset, kind: flow, label: feeds }
     - { from: c-globset, to: r-live, kind: flow, label: "" }
     - { from: c-file, to: g-quality, kind: flow, label: "" }
   markers:

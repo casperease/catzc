@@ -33,7 +33,6 @@ content:
   title: The namer looks up, forms, checks and renders a name in that order
   kind: explanation
   flow: left-to-right
-  relation: calls, in code order
   theme: dark
   bands:
     - { id: band-namer, label: NAMER }
@@ -52,11 +51,11 @@ content:
     - { id: f-guard, kind: failure, label: guard throws, in: band-stop }
     - { id: f-limit, kind: failure, label: limit throw, in: band-stop }
   edges:
-    - { from: g-deploy, to: g-resource-name, kind: flow, label: "" }
-    - { from: g-resource-name, to: g-lookup, kind: flow, label: "" }
-    - { from: g-lookup, to: g-form, kind: flow, label: "" }
-    - { from: g-form, to: g-format, kind: flow, label: "" }
-    - { from: g-format, to: g-render, kind: flow, label: "" }
+    - { from: g-deploy, to: g-resource-name, kind: flow, label: calls }
+    - { from: g-resource-name, to: g-lookup, kind: flow, label: calls }
+    - { from: g-lookup, to: g-form, kind: flow, label: feeds }
+    - { from: g-form, to: g-format, kind: flow, label: feeds }
+    - { from: g-format, to: g-render, kind: flow, label: feeds }
     - { from: g-render, to: g-limit, kind: flow, label: "" }
     - { from: g-limit, to: r-name, kind: flow, label: "" }
     - { from: grp-guarded, to: f-guard, kind: fail, label: "" }

@@ -29,7 +29,6 @@ content:
   title: A push starts only the pipelines whose globset it touches
   kind: explanation
   flow: left-to-right
-  relation: a change here fires the next
   theme: dark
   bands:
     - { id: band-change, label: YOU CHANGE }
@@ -46,10 +45,10 @@ content:
     - { id: g-drift, kind: gate, label: Test-AdoPipelineTriggerGlob, in: band-drift }
     - { id: f-drifted, kind: failure, label: trigger drifted, in: band-drift }
   edges:
-    - { from: s-powershell, to: r-automation, kind: flow, label: "" }
-    - { from: s-infrastructure, to: r-infrastructure, kind: flow, label: "" }
+    - { from: s-powershell, to: r-automation, kind: flow, label: feeds }
+    - { from: s-infrastructure, to: r-infrastructure, kind: flow, label: feeds }
     - { from: s-infrastructure, to: s-units, kind: thick, label: "" }
-    - { from: s-units, to: r-unit, kind: flow, label: "" }
+    - { from: s-units, to: r-unit, kind: flow, label: feeds }
     - { from: g-drift, to: f-drifted, kind: fail, label: "" }
   markers:
     - { at: s-powershell, number: 1 }

@@ -32,7 +32,6 @@ content:
   title: A config file's path is a coordinate that resolves to one subscription and one resource group
   kind: explanation
   flow: left-to-right
-  relation: resolves to
   theme: dark
   bands:
     - { id: band-tree, label: CONFIGURATION TREE }

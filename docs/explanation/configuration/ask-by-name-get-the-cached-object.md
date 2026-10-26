@@ -35,7 +35,6 @@ content:
   title: Ask for a config by name and get the cached object back
   kind: explanation
   flow: left-to-right
-  relation: what runs next
   theme: dark
   bands:
     - { id: band-run, label: WHAT YOU RUN }
@@ -51,10 +50,10 @@ content:
     - { id: f-unknown, kind: failure, label: unknown or ambiguous name, in: band-throws }
     - { id: f-malformed, kind: failure, label: malformed config, in: band-throws }
   edges:
-    - { from: g-commands, to: g-resolve, kind: flow, label: "" }
+    - { from: g-commands, to: g-resolve, kind: flow, label: calls }
     - { from: g-resolve, to: s-cache, kind: flow, label: "" }
     - { from: s-cache, to: r-same, kind: flow, label: "" }
-    - { from: s-cache, to: g-parsed, kind: flow, label: "" }
+    - { from: s-cache, to: g-parsed, kind: flow, label: feeds }
     - { from: g-parsed, to: r-same, kind: flow, label: "" }
     - { from: g-commands, to: f-bad-key, kind: fail, label: "" }
     - { from: g-resolve, to: f-unknown, kind: fail, label: "" }

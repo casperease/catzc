@@ -33,7 +33,6 @@ content:
   title: An Azure name is a pure function of its components, and it is never truncated
   kind: explanation
   flow: top-to-bottom
-  relation: the next stage
   theme: dark
   bands:
     - { id: band-components, label: COMPONENTS }

@@ -31,7 +31,6 @@ content:
   title: Catzc.Base.Variants sits in Base, over Config, under every real caller
   kind: explanation
   flow: top-to-bottom
-  relation: is used by
   theme: dark
   bands:
     - { id: band-foundation, label: FOUNDATION }

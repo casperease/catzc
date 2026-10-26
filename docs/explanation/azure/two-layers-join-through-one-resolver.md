@@ -31,7 +31,6 @@ content:
   title: Templating and identity join through one shared check and one resolver
   kind: explanation
   flow: left-to-right
-  relation: depends on
   theme: dark
   bands:
     - { id: band-templating, label: TEMPLATING LAYER }
@@ -49,7 +48,7 @@ content:
     - { from: g-validator, to: g-tree, kind: flow, label: "" }
     - { from: g-discovery, to: g-check, kind: flow, label: "" }
     - { from: g-validator, to: g-check, kind: flow, label: "" }
-    - { from: g-check, to: g-candidates, kind: flow, label: "" }
+    - { from: g-check, to: g-candidates, kind: flow, label: calls }
     - { from: g-candidates, to: g-azure, kind: flow, label: "" }
     - { from: g-candidates, to: g-customer, kind: flow, label: "" }
   markers:

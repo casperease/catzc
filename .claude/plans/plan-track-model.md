@@ -84,9 +84,11 @@ has a track.
 5. [ ] `pwsh/Catzc.Base.Variants/configs/variants.yml`: every track renamed to its normal-form name, the catch-up tracks, `out`, and the
        root files moved into their tracks; every caller of an old track name changed in the same pass (check: `Test-TrackDeclaration`, and
        `Get-Track -Path` answers `vendor_git.root_configs` for `.gitignore`).
-6. [ ] `pwsh/Catzc.Base.Variants/Test-TrackDeclaration.ps1`: `generated` is declared in one place only (a member a catzc generator writes
-       takes it from `Get-GeneratedTarget`, both at once a load failure), and every root entry on disk lies in a track, `LICENSE` in
-       `contracts` (check: `Invoke-TestFile -Path pwsh/Catzc.Base.Variants/tests/Test-TrackDeclaration.Tests.ps1`).
+6. [ ] `pwsh/Catzc.Base.QualityGates/Test-TrackMemberCommitted.ps1`, the gate that reads the members against the git index and the disk (it
+       sits above Catzc.Base.Variants, which cannot reach the git readers without a cycle): `generated` is declared in one place only (a
+       member a catzc generator writes takes it from `Get-GeneratedTarget`, both at once an issue), and every root entry on disk lies in a
+       track, `LICENSE` in `contracts` (check:
+       `Invoke-TestFile -Path pwsh/Catzc.Base.QualityGates/tests/Test-TrackMemberCommitted.Tests.ps1`).
 7. [ ] `pwsh/Catzc.Base.Git/private/Get-AutoControlledGlobs.ps1`: the generated, gitignored members come from the track model and the
        hand-written shapes are deleted (check: `Invoke-TestFile -Path pwsh/Catzc.Base.Git/tests/Get-AutoControlledGlobs.Tests.ps1`).
 8. [ ] `pwsh/Catzc.Base.Globs/Get-GlobSetTrigger.ps1` and `pwsh/Catzc.Base.Globs/configs/globs.yml`: a whole-track globset derived from the

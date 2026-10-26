@@ -29,7 +29,6 @@ content:
   title: A merge to main runs the CD pipeline all the way to prod, with no approval
   kind: explanation
   flow: left-to-right
-  relation: what runs next
   theme: dark
   bands:
     - { id: band-trigger, label: TRIGGER }
@@ -54,7 +53,7 @@ content:
     - { id: f-deployment-context, kind: failure, label: Get-BicepDeploymentContext, in: band-failures }
   edges:
     - { from: g-developer, to: g-build-bicep, kind: flow, label: "" }
-    - { from: g-build-bicep, to: g-deploy-stages, kind: flow, label: "" }
+    - { from: g-build-bicep, to: g-deploy-stages, kind: flow, label: feeds }
     - { from: g-deploy-stages, to: e-non-prod, kind: flow, label: "" }
     - { from: g-deploy-stages, to: e-prod-tier, kind: flow, label: "" }
     - { from: g-deploy-stages, to: f-deploy-bicep, kind: fail, label: "" }

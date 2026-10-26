@@ -25,7 +25,6 @@ content:
   title: Truth is one commit; in the listen mode the editor's edit is fact, and its plans run rule, docs, code
   kind: explanation
   flow: left-to-right
-  relation: what decides
   theme: dark
   bands:
     - { id: band-default, label: EVERY MODE }

@@ -32,7 +32,6 @@ content:
   title: The manifest and the aspects both come from one folder
   kind: explanation
   flow: left-to-right
-  relation: call order
   theme: dark
   bands:
     - { id: band-root, label: ONE FOLDER }

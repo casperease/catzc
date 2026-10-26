@@ -31,7 +31,6 @@ content:
   title: An edit to a variant lands at the next import, and a wrong value fails once, at load
   kind: explanation
   flow: top-to-bottom
-  relation: comes before
   theme: dark
   bands:
     - { id: band-edit, label: EDIT }

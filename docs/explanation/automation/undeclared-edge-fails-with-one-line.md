@@ -28,7 +28,6 @@ content:
   title: An undeclared module edge fails the gate with one line per issue
   kind: explanation
   flow: top-to-bottom
-  relation: then
   theme: dark
   bands:
     - { id: band-run, label: RUN }
@@ -42,9 +41,9 @@ content:
     - { id: f-issues, kind: failure, label: "failed: N issue(s)", in: band-see }
     - { id: g-dependencies, kind: file, label: dependencies.yml, in: band-fix }
   edges:
-    - { from: n-automation, to: n-gate, kind: flow, label: "" }
+    - { from: n-automation, to: n-gate, kind: flow, label: calls }
     - { from: n-gate, to: r-report, kind: flow, label: "" }
-    - { from: f-issues, to: g-dependencies, kind: flow, label: "" }
+    - { from: g-dependencies, to: f-issues, kind: flow, label: "" }
     - { from: n-gate, to: f-bad, kind: fail, label: "" }
     - { from: r-report, to: f-issues, kind: fail, label: "" }
   markers:

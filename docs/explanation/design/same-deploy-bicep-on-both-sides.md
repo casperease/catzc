@@ -30,7 +30,6 @@ content:
   title: A developer and a pipeline type the same Deploy-Bicep; only the pipeline must pin the subscription
   kind: explanation
   flow: top-to-bottom
-  relation: then
   theme: dark
   bands:
     - { id: band-consumers, label: CONSUMERS }

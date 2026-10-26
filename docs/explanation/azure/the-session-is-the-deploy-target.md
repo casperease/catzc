@@ -27,7 +27,6 @@ content:
   title: The az session is the deploy target, and the guard only checks it
   kind: explanation
   flow: left-to-right
-  relation: decides the next step
   theme: dark
   bands:
     - { id: band-session, label: SESSION }

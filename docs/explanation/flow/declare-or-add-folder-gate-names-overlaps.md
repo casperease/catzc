@@ -29,7 +29,6 @@ content:
   title: Declare a unit or add a module folder, and the gate names every overlap
   kind: explanation
   flow: left-to-right
-  relation: checked by the gate
   theme: dark
   bands:
     - { id: band-deployable-unit, label: DEPLOYABLE-UNIT }

@@ -32,7 +32,6 @@ content:
   title: A config file that resolves to no subscription, or to two, stops discovery with one line
   kind: explanation
   flow: left-to-right
-  relation: feeds the next step
   theme: dark
   bands:
     - { id: band-run, label: RUN }
@@ -48,8 +47,8 @@ content:
     - { id: f-several, kind: failure, label: more than one subscription, in: grp-failures }
     - { id: f-not-customer, kind: failure, label: is not a customer key, in: grp-failures }
   edges:
-    - { from: g-config, to: g-discovery, kind: flow, label: "" }
-    - { from: g-config, to: g-validator, kind: flow, label: "" }
+    - { from: g-config, to: g-discovery, kind: flow, label: feeds }
+    - { from: g-config, to: g-validator, kind: flow, label: feeds }
     - { from: g-discovery, to: r-slot, kind: flow, label: "" }
     - { from: g-discovery, to: grp-failures, kind: fail, label: "" }
     - { from: g-validator, to: grp-failures, kind: fail, label: "" }

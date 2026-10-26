@@ -27,7 +27,6 @@ content:
   title: A globset is one ordered program, and its three views are derived live, never committed
   kind: explanation
   flow: left-to-right
-  relation: derives the next
   theme: dark
   bands:
     - { id: band-source, label: SOURCE }
@@ -40,10 +39,10 @@ content:
     - { id: c-change-report, kind: code, label: Change report, in: band-derived }
     - { id: c-protection, kind: code, label: Protection, in: band-derived }
   edges:
-    - { from: f-registry, to: c-program, kind: flow, label: "" }
-    - { from: c-program, to: c-trigger, kind: flow, label: "" }
-    - { from: c-program, to: c-change-report, kind: flow, label: "" }
-    - { from: c-program, to: c-protection, kind: flow, label: "" }
+    - { from: f-registry, to: c-program, kind: flow, label: feeds }
+    - { from: c-program, to: c-trigger, kind: flow, label: feeds }
+    - { from: c-program, to: c-change-report, kind: flow, label: feeds }
+    - { from: c-program, to: c-protection, kind: flow, label: feeds }
   markers:
     - { at: f-registry, number: 1 }
     - { at: c-program, number: 2 }

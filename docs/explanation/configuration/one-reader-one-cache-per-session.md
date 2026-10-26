@@ -27,7 +27,6 @@ content:
   title: Every config read goes through one reader and one session cache
   kind: explanation
   flow: left-to-right
-  relation: the read
   theme: dark
   bands:
     - { id: band-read, label: READ PATH }
@@ -41,8 +40,8 @@ content:
   edges:
     - { from: g-reader, to: s-cache, kind: flow, label: "" }
     - { from: s-cache, to: r-same, kind: flow, label: "" }
-    - { from: s-cache, to: g-file, kind: flow, label: "" }
-    - { from: g-file, to: g-parse, kind: flow, label: "" }
+    - { from: s-cache, to: g-file, kind: flow, label: reads }
+    - { from: g-file, to: g-parse, kind: flow, label: feeds }
     - { from: g-parse, to: r-same, kind: flow, label: "" }
   markers:
     - { at: g-reader, number: 1 }

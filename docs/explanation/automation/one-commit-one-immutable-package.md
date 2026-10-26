@@ -28,7 +28,6 @@ content:
   title: One commit becomes one verified, immutable package, and every code root is a copy of it
   kind: explanation
   flow: left-to-right
-  relation: feeds or runs the next step
   theme: dark
   bands:
     - { id: band-source, label: SOURCE }
@@ -44,7 +43,7 @@ content:
     - { id: r-temporary, kind: result, label: Temporary build, in: band-bundle }
     - { id: r-installed, kind: result, label: Installed · saved, in: grp-copies }
   edges:
-    - { from: s-modules, to: g-build, kind: flow, label: "" }
+    - { from: s-modules, to: g-build, kind: flow, label: feeds }
     - { from: g-build, to: g-integrity, kind: flow, label: "" }
     - { from: g-integrity, to: r-temporary, kind: flow, label: "" }
     - { from: r-temporary, to: grp-copies, kind: flow, label: "" }

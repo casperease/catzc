@@ -28,7 +28,6 @@ content:
   title: "Each track picks its catch-all: a stray module file falls to tests, a stray template file to live"
   kind: explanation
   flow: left-to-right
-  relation: tried next, first match wins
   theme: dark
   bands:
     - { id: band-unit, label: A UNIT }

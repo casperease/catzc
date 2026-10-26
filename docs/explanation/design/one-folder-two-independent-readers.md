@@ -30,7 +30,6 @@ content:
   title: One module folder has two independent readers
   kind: explanation
   flow: left-to-right
-  relation: reads, then derives
   theme: dark
   bands:
     - { id: band-root, label: ONE FOLDER }

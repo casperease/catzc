@@ -101,7 +101,6 @@ content:
   title: A template is a folder; options.yml overrides five defaults
   kind: reference
   flow: left-to-right
-  relation: runs next (code order)
   theme: dark
   bands:
     - { id: band-entry, label: ENTRY }
@@ -120,12 +119,12 @@ content:
     - { id: f-parameters, kind: file, label: parameters.<config>.json, in: band-slot }
     - { id: g-invoke, kind: code, label: Invoke-AzCli, in: grp-cli }
   edges:
-    - { from: g-build, to: g-templates, kind: flow, label: "" }
+    - { from: g-build, to: g-templates, kind: flow, label: calls }
     - { from: g-templates, to: g-options, kind: flow, label: "" }
     - { from: g-options, to: t-short-name, kind: flow, label: "" }
     - { from: t-short-name, to: t-template, kind: flow, label: "" }
     - { from: t-template, to: g-addresses, kind: flow, label: "" }
-    - { from: g-addresses, to: g-invoke, kind: flow, label: "" }
+    - { from: g-addresses, to: g-invoke, kind: flow, label: calls }
   markers:
     - { at: g-templates, number: 1 }
     - { at: g-options, number: 2 }

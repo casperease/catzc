@@ -38,7 +38,6 @@ content:
   title: Every load stage but the unload has an ADR rule and a gate
   kind: explanation
   flow: top-to-bottom
-  relation: is checked by
   theme: dark
   bands:
     - { id: band-shim, label: SHIM }

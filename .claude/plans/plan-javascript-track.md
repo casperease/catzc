@@ -43,7 +43,7 @@ pwsh-to-extension boundary checked instead of implied.
 - **Contract**: pwsh and the `js` modules ship from one commit, so the boundary between them is internal and gets no contract
   (`PDR-ONELIVE`, ADR-REPO-CONTRACT-BINDINGINTERFACE). The outside party is VS Code: a vendor root `vscode`, current at `0.1.0` like `ado`
   and `github`, holds the trimmed extension-manifest schema VS Code expects, and the pwsh build checks every rendered `package.json` against
-  it before packing, in process and fast. It follows the layout of `plan-contracts-layout.md` and lands after that plan's move.
+  it before packing, in process and fast. It lives under `contracts/catzc/0.1.0/`, the one contract root.
 
 ## Open steps
 

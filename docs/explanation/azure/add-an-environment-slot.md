@@ -26,7 +26,6 @@ content:
   title: A new configuration slot is one new file; discovery finds it, one subscription must fit it, and it deploys a new resource group
   kind: explanation
   flow: left-to-right
-  relation: then
   theme: dark
   bands:
     - { id: band-edit, label: THE NEW FILE }
@@ -43,7 +42,7 @@ content:
     - { id: e-group, kind: env, label: a new resource group, in: band-deployed }
   edges:
     - { from: g-slot, to: g-one, kind: flow, label: "" }
-    - { from: g-one, to: r-owner, kind: flow, label: "" }
+    - { from: g-one, to: r-owner, kind: flow, label: calls }
     - { from: r-owner, to: e-group, kind: flow, label: "" }
   markers:
     - { at: g-slot, number: 1 }

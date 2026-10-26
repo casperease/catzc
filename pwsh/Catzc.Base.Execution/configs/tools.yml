@@ -144,7 +144,7 @@ prettier:
   version_pattern: "^(?<ver>[\\d.]+)"
 
 typescript:
-  version: "5"
+  version: "6"
   command: tsc
   depends_on: node_js
   npm_package: typescript

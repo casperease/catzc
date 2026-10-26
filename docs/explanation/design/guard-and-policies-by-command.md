@@ -30,7 +30,6 @@ content:
   title: A person turns on the local guard with one variant; an admin syncs the server policies with one command
   kind: explanation
   flow: top-to-bottom
-  relation: then
   theme: dark
   bands:
     - { id: band-clone, label: ON A CLONE }
@@ -44,11 +43,11 @@ content:
     - { id: g-policy, kind: gate, label: ADO branch policy, in: band-admin }
     - { id: c-list, kind: code, label: Get-AdoBuildValidations, in: band-admin }
   edges:
-    - { from: f-variants, to: c-importer, kind: flow, label: "" }
-    - { from: c-importer, to: c-sync, kind: flow, label: "" }
+    - { from: f-variants, to: c-importer, kind: flow, label: feeds }
+    - { from: c-importer, to: c-sync, kind: flow, label: calls }
     - { from: c-sync, to: f-skipped, kind: fail, label: "" }
     - { from: c-validations, to: g-policy, kind: flow, label: "" }
-    - { from: g-policy, to: c-list, kind: flow, label: "" }
+    - { from: g-policy, to: c-list, kind: flow, label: calls }
   markers:
     - { at: f-variants, number: 1 }
     - { at: c-importer, number: 2 }

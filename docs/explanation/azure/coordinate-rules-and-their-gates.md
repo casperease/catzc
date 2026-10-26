@@ -38,7 +38,6 @@ content:
   title: Two ADRs rule the coordinate; one shared check and the integrity tests hold them
   kind: explanation
   flow: left-to-right
-  relation: leads to the next stage
   theme: dark
   bands:
     - { id: band-configuration, label: CONFIGURATION }
@@ -53,9 +52,9 @@ content:
     - { id: e-subscription, kind: env, label: subscription, in: band-resolved }
     - { id: e-group, kind: env, label: resource group, in: band-resolved }
   edges:
-    - { from: g-config, to: g-discovery, kind: flow, label: "" }
+    - { from: g-config, to: g-discovery, kind: flow, label: feeds }
     - { from: g-discovery, to: g-check, kind: flow, label: "" }
-    - { from: g-integrity, to: g-validator, kind: flow, label: "" }
+    - { from: g-integrity, to: g-validator, kind: flow, label: calls }
     - { from: g-validator, to: g-check, kind: flow, label: "" }
     - { from: g-check, to: e-subscription, kind: flow, label: "" }
     - { from: e-subscription, to: e-group, kind: flow, label: "" }

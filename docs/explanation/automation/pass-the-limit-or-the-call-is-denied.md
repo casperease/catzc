@@ -28,7 +28,6 @@ content:
   title: A call inside the limit runs; outside it, the hook denies it and says how to re-issue it
   kind: explanation
   flow: top-to-bottom
-  relation: the call goes on
   theme: dark
   bands:
     - { id: band-hook, label: HOOK }
@@ -42,7 +41,7 @@ content:
     - { id: f-stopped, kind: failure, label: "exit 124: stopped", in: band-after }
   edges:
     - { from: g-hook, to: r-runs, kind: flow, label: "" }
-    - { from: f-denied, to: g-log, kind: flow, label: "" }
+    - { from: g-hook, to: g-log, kind: flow, label: writes }
     - { from: g-hook, to: f-denied, kind: fail, label: "" }
     - { from: r-runs, to: f-stopped, kind: fail, label: "" }
   markers:
@@ -60,7 +59,7 @@ layout:
   g-hook: { x: 400, y: 118, w: 190, h: 68 }
   f-denied: { x: 780, y: 130, w: 190, h: 44 }
   r-runs: { x: 410, y: 282, w: 170, h: 44 }
-  g-log: { x: 795, y: 278, w: 160, h: 52 }
+  g-log: { x: 640, y: 278, w: 160, h: 52 }
   f-stopped: { x: 410, y: 416, w: 170, h: 44 }
 ```
 

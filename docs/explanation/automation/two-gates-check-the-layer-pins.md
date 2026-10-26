@@ -34,7 +34,6 @@ content:
   title: Two gates check the layer pins, and one rule is left to review
   kind: explanation
   flow: left-to-right
-  relation: runs before
   theme: dark
   bands:
     - { id: band-top, label: TOP LAYER }

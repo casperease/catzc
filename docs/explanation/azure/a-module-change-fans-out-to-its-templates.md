@@ -26,7 +26,6 @@ content:
   title: A change to one module fans out to every template that references it and every pipeline that deploys one
   kind: explanation
   flow: left-to-right
-  relation: reaches
   theme: dark
   bands:
     - { id: band-modules, label: THE EDIT }
@@ -46,8 +45,8 @@ content:
     - { id: r-cd, kind: runner, label: every CD pipeline, in: band-pipelines }
   edges:
     - { from: g-module, to: s-templates, kind: flow, label: "" }
-    - { from: s-templates, to: r-ci, kind: flow, label: "" }
-    - { from: s-templates, to: r-cd, kind: flow, label: "" }
+    - { from: s-templates, to: r-ci, kind: flow, label: feeds }
+    - { from: s-templates, to: r-cd, kind: flow, label: feeds }
   markers:
     - { at: g-module, number: 1 }
     - { at: s-templates, number: 2 }

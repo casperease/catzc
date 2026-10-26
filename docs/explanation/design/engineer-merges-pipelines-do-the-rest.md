@@ -30,7 +30,6 @@ content:
   title: An engineer runs the tests and merges; pipelines do the rest
   kind: explanation
   flow: left-to-right
-  relation: runs next
   theme: dark
   bands:
     - { id: band-person, label: PERSON RUNS }
@@ -55,7 +54,7 @@ content:
     - { id: f-stage, kind: failure, label: stage failed, in: band-failure }
   edges:
     - { from: r-test, to: g-merge, kind: flow, label: "" }
-    - { from: g-merge, to: r-post-commit, kind: flow, label: "" }
+    - { from: g-merge, to: r-post-commit, kind: flow, label: calls }
     - { from: r-post-commit, to: a-level-three, kind: adr, label: "" }
     - { from: a-level-three, to: r-deliver, kind: adr, label: "" }
     - { from: g-merge, to: f-blocked, kind: fail, label: "" }

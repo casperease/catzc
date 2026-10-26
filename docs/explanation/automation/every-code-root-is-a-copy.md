@@ -31,7 +31,6 @@ content:
   title: One engine builds the bundle, and every code root is a copy of its output
   kind: explanation
   flow: left-to-right
-  relation: feeds or runs the next step
   theme: dark
   bands:
     - { id: band-source, label: SOURCE }
@@ -49,8 +48,8 @@ content:
     - { id: r-installed, kind: result, label: Installed, in: grp-roots }
     - { id: r-saved, kind: result, label: Saved, in: grp-roots }
   edges:
-    - { from: s-source, to: g-engine, kind: flow, label: "" }
-    - { from: g-exporter, to: g-engine, kind: flow, label: "" }
+    - { from: s-source, to: g-engine, kind: flow, label: feeds }
+    - { from: g-exporter, to: g-engine, kind: flow, label: calls }
     - { from: g-engine, to: g-assert, kind: flow, label: "" }
     - { from: g-assert, to: r-temporary, kind: flow, label: "" }
     - { from: r-temporary, to: grp-roots, kind: flow, label: "" }

@@ -36,7 +36,6 @@ content:
   title: Every vendor call leaves cats through the az CLI
   kind: explanation
   flow: top-to-bottom
-  relation: uses
   theme: dark
   bands:
     - { id: band-surface, label: CLI SURFACE }
@@ -53,9 +52,9 @@ content:
     - { id: e-azure, kind: env, label: Azure, in: band-vendor }
   edges:
     - { from: c-templates, to: f-configuration, kind: flow, label: "" }
-    - { from: c-templates, to: c-azure-cli, kind: flow, label: "" }
+    - { from: c-templates, to: c-azure-cli, kind: flow, label: calls }
     - { from: c-azure-cli, to: f-configuration, kind: flow, label: "" }
-    - { from: c-azure-cli, to: c-tooling, kind: flow, label: "" }
+    - { from: c-azure-cli, to: c-tooling, kind: flow, label: calls }
     - { from: c-azure-cli, to: x-command, kind: flow, label: "" }
     - { from: x-command, to: x-bicep, kind: flow, label: "" }
     - { from: x-command, to: e-azure, kind: flow, label: the single exit }

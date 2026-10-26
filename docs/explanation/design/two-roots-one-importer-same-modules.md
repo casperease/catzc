@@ -31,7 +31,6 @@ content:
   title: Two code roots feed one importer, which loads the same modules
   kind: explanation
   flow: left-to-right
-  relation: hands on the code root
   theme: dark
   bands:
     - { id: band-source, label: SOURCE }

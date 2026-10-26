@@ -37,7 +37,6 @@ content:
   title: Tracks and deployable-units have a gate in code, but one unit to one pipeline is held by review alone
   kind: explanation
   flow: left-to-right
-  relation: is checked by
   theme: dark
   bands:
     - { id: band-tracks, label: TRACKS }

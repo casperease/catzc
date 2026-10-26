@@ -723,7 +723,7 @@ Summary (ours): Deploy domain controller virtual machines or Domain Services rep
 
 The subscriptions of `azure.yml` are a shared pair (non-production, production) and one or two per customer; none is an identity
 subscription, because no template deploys an identity resource, and there is no management group to place one under
-([ADR-AZ-CAF-SEC-SEPARATESUBSCRIPTIONIDENTITYRESOURCES](landing-zone-security.md#rule-adr-az-caf-sec-separatesubscriptionidentityresources)).
+([ADR-AZ-CAF-SEC-SEPARATESUBSCRIPTIONIDENTITYRESOURCES][r1]).
 
 ##### 14 status
 
@@ -1335,8 +1335,7 @@ Summary (ours): Watch Microsoft's announcements of new role definitions, because
 #### What 41 means here
 
 The repository keeps no watch process of its own; each CAF and WAF record carries its retrieval date and is revisited when the vendor
-guidance changes
-([ADR-AZ-CAF-SEC-SECURITYREQUIREMENTSALIGNEDAZUREROADMAPS](landing-zone-security.md#rule-adr-az-caf-sec-securityrequirementsalignedazureroadmaps)).
+guidance changes ([ADR-AZ-CAF-SEC-SECURITYREQUIREMENTSALIGNEDAZUREROADMAPS][r2]).
 
 ##### 41 status
 
@@ -1520,9 +1519,8 @@ or workspace with non-production.
 
 Within a tier, the environments share. In the shared non-production subscription, the `dev` and `test` slots of `expedition` deploy through
 the one service connection `sc-shared-nonprod`, read the same break-glass secret from the same vault
-([ADR-AZ-CAF-SEC-NOVAULTSHAREDBETWEENAPPLICATIONSORENVIRONMENTS](landing-zone-security.md#rule-adr-az-caf-sec-novaultsharedbetweenapplicationsorenvironments)),
-and name the same SQL administrator group (rule 45). Managed identities are the exception: each is system-assigned to one resource of one
-configuration slot, so none is shared (rule 61).
+([ADR-AZ-CAF-SEC-NOVAULTSHAREDBETWEENAPPLICATIONSORENVIRONMENTS][r3]), and name the same SQL administrator group (rule 45). Managed
+identities are the exception: each is system-assigned to one resource of one configuration slot, so none is shared (rule 61).
 
 The DevOps security considerations advise one deploying identity per application and environment. Here that would be one service connection
 per environment, each with rights on its environment's resource group, rather than per subscription.
@@ -1904,7 +1902,7 @@ SQL administrator group they share is an access group, not a credential (rule 45
 
 The shared credential is the break-glass login. Every `expedition` config names the login `exped-break-glass` and the secret
 `exped-sql-admin-password`, read from its tier's vault, so the environments of one tier share one password
-([ADR-AZ-CAF-SEC-NOVAULTSHAREDBETWEENAPPLICATIONSORENVIRONMENTS](landing-zone-security.md#rule-adr-az-caf-sec-novaultsharedbetweenapplicationsorenvironments)).
+([ADR-AZ-CAF-SEC-NOVAULTSHAREDBETWEENAPPLICATIONSORENVIRONMENTS][r3]).
 
 ##### 61 in `foundation`
 
@@ -1990,9 +1988,8 @@ Summary (ours): Use a separate key vault for each application environment in eac
 Vaults are per subscription: `foundation` deploys one in each, so every customer and every tier has its own
 ([ADR-AZ-CAF-SEC-FEDERATEDKEYVAULTMODEL](landing-zone-security.md#rule-adr-az-caf-sec-federatedkeyvaultmodel)), in the one region of its
 environment ([ADR-AZ-NETWORK-ONEADDRESSSPACE](../azure-network-model.md#rule-adr-az-network-oneaddressspace)). They are not per application
-environment: the environments of a tier share their tier's vault
-([ADR-AZ-CAF-SEC-NOVAULTSHAREDBETWEENAPPLICATIONSORENVIRONMENTS](landing-zone-security.md#rule-adr-az-caf-sec-novaultsharedbetweenapplicationsorenvironments)),
-and the workload's secret sits in the platform's vault, not in one of its own
+environment: the environments of a tier share their tier's vault ([ADR-AZ-CAF-SEC-NOVAULTSHAREDBETWEENAPPLICATIONSORENVIRONMENTS][r3]), and
+the workload's secret sits in the platform's vault, not in one of its own
 ([ADR-AZ-CAF-SEC-NOCENTRALVAULTAPPLICATIONSECRETS](landing-zone-security.md#rule-adr-az-caf-sec-nocentralvaultapplicationsecrets)).
 
 A vault inside the workload is not adopted, because the workload's secret must exist before the workload deploys: the SQL server reads the
@@ -2065,8 +2062,8 @@ Summary (ours): Cloud-native applications should use the Microsoft identity plat
 #### What 67 means here
 
 The workload of `expedition` is a storage account and a database with no user-facing application
-([ADR-AZ-CAF-SEC-EVERYAPPLICATIONONBOARDEDACCESSPRACTICES](landing-zone-security.md#rule-adr-az-caf-sec-everyapplicationonboardedaccesspractices)).
-An application registration and its sign-in are the application's concern, outside the templates.
+([ADR-AZ-CAF-SEC-EVERYAPPLICATIONONBOARDEDACCESSPRACTICES][r4]). An application registration and its sign-in are the application's concern,
+outside the templates.
 
 ##### 67 status
 
@@ -2134,3 +2131,8 @@ belong to the tenant's administrators and the repository owns nothing above a su
   it adds a service connection per subscription.
 - Each item cites Microsoft's page and a retrieval date; when the vendor guidance changes, the summary and the takeaways are revisited
   together.
+
+[r1]: landing-zone-security.md#rule-adr-az-caf-sec-separatesubscriptionidentityresources
+[r2]: landing-zone-security.md#rule-adr-az-caf-sec-securityrequirementsalignedazureroadmaps
+[r3]: landing-zone-security.md#rule-adr-az-caf-sec-novaultsharedbetweenapplicationsorenvironments
+[r4]: landing-zone-security.md#rule-adr-az-caf-sec-everyapplicationonboardedaccesspractices

@@ -135,8 +135,7 @@ for addresses: nothing a contribution states is secret.
 `The reader for a kind is a function a module ships`
 
 A kind is declared in the meta-kind registry, and its reader is a function found by convention, so a new kind is a registry entry and a
-function file, with no edit to `Get-Config`. The loader stays content-agnostic
-([ADR-AUTO-EXTEND-CONTENTAGNOSTICINFRASTRUCTURE](../automation/open-closed-architecture.md#rule-adr-auto-extend-contentagnosticinfrastructure)).
+function file, with no edit to `Get-Config`. The loader stays content-agnostic ([ADR-AUTO-EXTEND-CONTENTAGNOSTICINFRASTRUCTURE][r1]).
 
 ### How this is enforced
 
@@ -154,3 +153,5 @@ function file, with no edit to `Get-Config`. The loader stays content-agnostic
   glob list, not the repository.
 - A contribution is only as safe as the config's type: a config whose type accepts anything accepts anything from prose too, which is why
   the registry requires a typed config to opt in.
+
+[r1]: ../automation/open-closed-architecture.md#rule-adr-auto-extend-contentagnosticinfrastructure

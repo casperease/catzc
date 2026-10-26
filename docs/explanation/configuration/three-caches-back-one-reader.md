@@ -32,7 +32,6 @@ content:
   title: Three session caches back the one config reader
   kind: explanation
   flow: left-to-right
-  relation: call order
   theme: dark
   bands:
     - { id: band-chain, label: CALL CHAIN }
@@ -51,16 +50,16 @@ content:
     - { id: g-registry, kind: code, label: Get-ConfigRegistry, in: band-registry }
     - { id: s-registry, kind: store, label: "$script:configRegistryCache", in: band-registry }
   edges:
-    - { from: g-reader, to: g-entry, kind: flow, label: "" }
+    - { from: g-reader, to: g-entry, kind: flow, label: calls }
     - { from: g-entry, to: s-cache, kind: flow, label: "" }
     - { from: s-cache, to: r-same, kind: flow, label: "" }
     - { from: g-entry, to: s-index, kind: flow, label: "" }
-    - { from: s-cache, to: g-file, kind: flow, label: "" }
-    - { from: g-file, to: g-type, kind: flow, label: "" }
+    - { from: s-cache, to: g-file, kind: flow, label: reads }
+    - { from: g-file, to: g-type, kind: flow, label: feeds }
     - { from: g-type, to: s-cache, kind: flow, label: "" }
-    - { from: g-registry-file, to: g-registry, kind: flow, label: "" }
+    - { from: g-registry-file, to: g-registry, kind: flow, label: feeds }
     - { from: g-registry, to: s-registry, kind: flow, label: "" }
-    - { from: g-registry, to: g-type, kind: flow, label: "" }
+    - { from: g-registry, to: g-type, kind: flow, label: calls }
   markers:
     - { at: g-reader, number: 1 }
     - { at: g-entry, number: 2 }

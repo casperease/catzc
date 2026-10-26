@@ -34,7 +34,6 @@ content:
   title: What you set decides the credential, and each wrong setup stops with its own message
   kind: explanation
   flow: left-to-right
-  relation: what comes next
   theme: dark
   bands:
     - { id: band-returns, label: RETURNS }

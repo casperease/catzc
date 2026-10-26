@@ -35,7 +35,6 @@ content:
   title: Type an address and get its value back; a wrong address throws its message at the call
   kind: explanation
   flow: left-to-right
-  relation: prints or writes
   theme: dark
   bands:
     - { id: band-command, label: COMMAND }

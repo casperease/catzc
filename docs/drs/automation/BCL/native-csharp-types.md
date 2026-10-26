@@ -111,12 +111,10 @@ the drifted files and both hashes so the cause is diagnosable from the error tex
 Who runs the importer decides what its janitors may change outside the session, read from one place: `Get-SessionActor` → `Person`, `Agent`,
 or `Pipeline` (a pipeline wins over an agent running in it). No switch overrides it.
 
-| Janitor action                            | Person                                | Agent                                        | Pipeline                       |
-| ----------------------------------------- | ------------------------------------- | -------------------------------------------- | ------------------------------ |
-| Delete a superseded build another process | no — named in one line, gone when its | no — named in one line                       | no — asserts exactly one build |
-| still holds                               | holder exits                          |                                              |                                |
-| Commit the generated `pwsh/.compiled`     | yes                                   | no — announces what changed, to be committed | no                             |
-| Regenerate the gitignored generated files | yes                                   | yes                                          | yes                            |
+- **Delete a superseded build another process still holds**: a person, no (named in one line, gone when its holder exits); an agent, no
+  (named in one line); a pipeline, no (it asserts exactly one build).
+- **Commit the generated `pwsh/.compiled`**: a person, yes; an agent, no (it announces what changed, to be committed); a pipeline, no.
+- **Regenerate the gitignored generated files**: a person, an agent and a pipeline, yes.
 
 The repository is the person's: their session commits to it. An agent leaves it to the person and says what it left; a pipeline only
 asserts. No session of any actor stops another process: a build another process holds open is that process's one types instance until it
@@ -286,13 +284,23 @@ root. Every process loads the assembly from a per-user shadow copy (`Import-Type
 Because the DLL filename _is_ the combined source hash, there is no "present but stale" state — a source that changes has a different
 filename, so the current-hash DLL is simply absent until built. The loader resolves every state:
 
-| current-hash DLL                       | types loaded this session | Outcome                                                                                                                                                                                                                                                                                                                                                             |
-| -------------------------------------- | ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| present                                | no                        | **Skip compile, load it.** CI / fresh-checkout hot path (no Roslyn).                                                                                                                                                                                                                                                                                                |
-| present                                | yes                       | **No-op.** Types already loaded in the process.                                                                                                                                                                                                                                                                                                                     |
-| absent (source added/changed/deleted)  | no                        | **Compile** all sources → the hash-named DLL, load, verify every type.                                                                                                                                                                                                                                                                                              |
-| absent (DLL deleted, source unchanged) | yes                       | **Recompile via `-OutputAssembly`** (writes without loading) — self-heals the committed artifact; no reload.                                                                                                                                                                                                                                                        |
-| absent because the source CHANGED      | yes                       | **Devbox, whoever runs: warn (yellow, the changed types by simple name) + keep the old types and go on** this session (ADR-BCL-TYPES-ONEDRIFTMEASURE) (return, don't record the new hash) — unless a type was added, which throws "restart PowerShell". **Pipeline: throw "restart PowerShell"** — CI must not run on stale types. A loaded copy cannot be swapped. |
+- **present**
+  - types loaded this session: no
+  - Outcome: **Skip compile, load it.** CI / fresh-checkout hot path (no Roslyn).
+- **present**
+  - types loaded this session: yes
+  - Outcome: **No-op.** Types already loaded in the process.
+- **absent (source added/changed/deleted)**
+  - types loaded this session: no
+  - Outcome: **Compile** all sources → the hash-named DLL, load, verify every type.
+- **absent (DLL deleted, source unchanged)**
+  - types loaded this session: yes
+  - Outcome: **Recompile via `-OutputAssembly`** (writes without loading) — self-heals the committed artifact; no reload.
+- **absent because the source CHANGED**
+  - types loaded this session: yes
+  - Outcome: **Devbox, whoever runs: warn (yellow, the changed types by simple name) + keep the old types and go on** this session
+    (ADR-BCL-TYPES-ONEDRIFTMEASURE) (return, don't record the new hash) — unless a type was added, which throws "restart PowerShell".
+    **Pipeline: throw "restart PowerShell"** — CI must not run on stale types. A loaded copy cannot be swapped.
 
 A superseded-hash DLL (the old build after a source edit) is pruned by the loader on rebuild and by the post-import janitor
 `Clear-ModuleTypeCache` (which deletes on a devbox only; CI makes no source-control changes). Editing any `types/*.cs` re-keys the whole

@@ -41,7 +41,6 @@ content:
   title: Partition integrity runs only in unit tests
   kind: explanation
   flow: left-to-right
-  relation: reads, then runs
   theme: dark
   bands:
     - { id: band-folder, label: FOLDER }

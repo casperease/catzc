@@ -91,20 +91,20 @@ few differences once.
 The model is data with a few small methods, in C# so every module and every config type can read it with no PowerShell call. What it
 declares:
 
-| Property                   | pwsh                             | bash                               | zsh                                  |
-| -------------------------- | -------------------------------- | ---------------------------------- | ------------------------------------ |
-| executable, located by     | `pwsh`, beside `$PSHOME`         | `bash`, its `tools.yml` entry      | `zsh`, its `tools.yml` entry         |
-| script extensions          | `.ps1`, `.psm1`                  | `.sh`                              | `.zsh`                               |
-| shebang                    | —                                | `#!/usr/bin/env bash`              | `#!/usr/bin/env zsh`                 |
-| non-interactive start      | `-NoProfile -NonInteractive`     | `--noprofile --norc`               | `-f` (no startup files)              |
-| command flag               | `-Command`                       | `-c`                               | `-c`                                 |
-| a quote in a literal       | `''`                             | `'\''`                             | `'\''`                               |
-| loading an entry, silently | `. '<entry>' *> $null`           | `source '<entry>' >/dev/null 2>&1` | `source '<entry>' >/dev/null 2>&1`   |
-| strict mode                | `Set-StrictMode -Version Latest` | `set -euo pipefail`                | `setopt ERR_EXIT NO_UNSET PIPE_FAIL` |
-| time safeguard             | `Invoke-WithTimeout`             | `timeout`                          | `timeout`                            |
-| line endings, exec bit     | any, none                        | LF, required                       | LF, required                         |
-| importer entry             | `importer.ps1`                   | `importer.sh`                      | `importer.sh`                        |
-| command prefix             | —                                | `cats` and a space                 | `cats` and a space                   |
+| Property               | pwsh                             | bash                               | zsh                                  |
+| ---------------------- | -------------------------------- | ---------------------------------- | ------------------------------------ |
+| executable, located by | `pwsh`, beside `$PSHOME`         | `bash`, its `tools.yml` entry      | `zsh`, its `tools.yml` entry         |
+| script extensions      | `.ps1`, `.psm1`                  | `.sh`                              | `.zsh`                               |
+| shebang                | —                                | `#!/usr/bin/env bash`              | `#!/usr/bin/env zsh`                 |
+| non-interactive start  | `-NoProfile -NonInteractive`     | `--noprofile --norc`               | `-f` (no startup files)              |
+| command flag           | `-Command`                       | `-c`                               | `-c`                                 |
+| a quote in a literal   | `''`                             | `'\''`                             | `'\''`                               |
+| a silent entry load    | `. '<entry>' *> $null`           | `source '<entry>' >/dev/null 2>&1` | `source '<entry>' >/dev/null 2>&1`   |
+| strict mode            | `Set-StrictMode -Version Latest` | `set -euo pipefail`                | `setopt ERR_EXIT NO_UNSET PIPE_FAIL` |
+| time safeguard         | `Invoke-WithTimeout`             | `timeout`                          | `timeout`                            |
+| line endings, exec bit | any, none                        | LF, required                       | LF, required                         |
+| importer entry         | `importer.ps1`                   | `importer.sh`                      | `importer.sh`                        |
+| command prefix         | —                                | `cats` and a space                 | `cats` and a space                   |
 
 `StartArguments(entry, command)` composes the start from these: the non-interactive arguments, the command flag, then one command text that
 loads the entry and runs the command, behind the engine's command prefix.

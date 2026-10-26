@@ -28,7 +28,6 @@ content:
   title: '"Is this unit touched?" is read from git at real refs, and every doubt fails open to proceed'
   kind: explanation
   flow: left-to-right
-  relation: feeds the next step
   theme: dark
   bands:
     - { id: band-git, label: GIT }

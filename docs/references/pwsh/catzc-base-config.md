@@ -78,7 +78,6 @@ content:
   title: Overlay merges unless sealed; the registered type builds it
   kind: reference
   flow: top-to-bottom
-  relation: runs next (code order)
   theme: dark
   bands:
     - { id: band-resolve, label: RESOLVE }

@@ -34,7 +34,6 @@ content:
   title: Every stage of the bundle has a rule, and two gates check it
   kind: explanation
   flow: left-to-right
-  relation: feeds or runs the next step
   theme: dark
   bands:
     - { id: band-build, label: BUILD }
@@ -52,7 +51,7 @@ content:
     - { from: g-build, to: g-assert, kind: flow, label: "" }
     - { from: g-assert, to: r-temporary, kind: flow, label: "" }
     - { from: r-temporary, to: grp-copies, kind: flow, label: "" }
-    - { from: g-test-build, to: g-build, kind: flow, label: "" }
+    - { from: g-test-build, to: g-build, kind: flow, label: calls }
     - { from: grp-copies, to: g-assert, kind: flow, label: checked again }
   markers:
     - { at: g-build, number: 1 }

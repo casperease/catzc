@@ -1,5 +1,5 @@
 {
-  "hash": "30efc6cf",
+  "hash": "0183b461",
   "types": [
     {
       "name": "Catzc.Azure.AzureConfig",
@@ -462,6 +462,11 @@
     },
     {
       "name": "Catzc.Base.Drs.DrsCitationChangeKind",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Drs.DrsCitationForm",
       "aliases": [],
       "display": []
     },

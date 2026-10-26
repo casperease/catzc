@@ -30,7 +30,6 @@ content:
   title: Build the bundle once, then place it with one command
   kind: explanation
   flow: left-to-right
-  relation: feeds or runs the next step
   theme: dark
   bands:
     - { id: band-source, label: SOURCE }
@@ -49,11 +48,11 @@ content:
     - { id: g-root, kind: code, label: Export-Catzc -Root, in: grp-places }
     - { id: g-nuget, kind: code, label: Export-Catzc -To nuget, in: grp-places }
   edges:
-    - { from: g-importer, to: g-build, kind: flow, label: "" }
+    - { from: g-importer, to: g-build, kind: flow, label: calls }
     - { from: g-build, to: g-assert, kind: flow, label: "" }
     - { from: g-assert, to: r-built, kind: flow, label: "" }
     - { from: g-assert, to: f-invalid, kind: fail, label: "" }
-    - { from: r-built, to: g-install, kind: flow, label: "" }
+    - { from: r-built, to: g-install, kind: flow, label: feeds }
   markers:
     - { at: g-importer, number: 1 }
     - { at: g-build, number: 2 }

@@ -32,7 +32,6 @@ content:
   title: Two variables, one reader, 24 callers, and one analyzer rule for every other read
   kind: explanation
   flow: left-to-right
-  relation: feeds the next step
   theme: dark
   bands:
     - { id: band-platform, label: PLATFORM }
@@ -42,8 +41,8 @@ content:
   groups:
     - { id: grp-callers, label: callers of the detector, in: band-consumers }
   glyphs:
-    - { id: r-azure-agent, kind: runner, label: Azure DevOps agent, in: band-platform }
-    - { id: r-github-runner, kind: runner, label: GitHub Actions runner, in: band-platform }
+    - { id: r-azure-agent, kind: runner, label: "Azure DevOps agent, TF_BUILD", in: band-platform }
+    - { id: r-github-runner, kind: runner, label: "GitHub Actions runner, GITHUB_ACTIONS", in: band-platform }
     - { id: c-detector, kind: code, label: Test-IsRunningInPipeline, in: band-loader }
     - { id: c-output-root, kind: code, label: Get-OutputRoot, in: grp-callers }
     - { id: c-run-environment, kind: code, label: Get-RunEnvironment, in: grp-callers }
@@ -53,10 +52,10 @@ content:
     - { id: c-rules, kind: code, label: CatzcRules.psm1, in: band-analyzer }
     - { id: g-rule, kind: gate, label: Measure-NoRawPipelineDetection, in: band-analyzer }
   edges:
-    - { from: r-azure-agent, to: c-detector, kind: flow, label: TF_BUILD }
-    - { from: r-github-runner, to: c-detector, kind: flow, label: GITHUB_ACTIONS }
+    - { from: r-azure-agent, to: c-detector, kind: flow, label: feeds }
+    - { from: r-github-runner, to: c-detector, kind: flow, label: feeds }
     - { from: c-detector, to: grp-callers, kind: flow, label: "" }
-    - { from: f-settings, to: c-rules, kind: flow, label: "" }
+    - { from: f-settings, to: c-rules, kind: flow, label: feeds }
     - { from: c-rules, to: g-rule, kind: flow, label: "" }
   markers:
     - { at: r-azure-agent, number: 1 }

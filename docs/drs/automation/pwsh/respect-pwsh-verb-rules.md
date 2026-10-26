@@ -71,19 +71,34 @@ vendor, every team. A user who has never seen your code can predict what `Get-Co
 
 **Verbs encode behavior guarantees.** The approved verbs are not just naming conventions — they carry semantic promises:
 
-| Verb                                       | Guarantee                                                                                                   | Will not                                        |
-| ------------------------------------------ | ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------- |
-| `Get-`                                     | Safe to call, read-only                                                                                     | Change state                                    |
-| `Test-`                                    | Returns `[bool]` — or, as a quality gate (`ADR-AUTO-TEST-QUALITYGATE`), reports every issue and throws once | Throw on the negative case (a value/state test) |
-| `Assert-`                                  | Throws on failure                                                                                           | Return false                                    |
-| `New-`                                     | Creates a resource                                                                                          | Update existing resources                       |
-| `Set-`                                     | Replaces data on existing, or creates if missing                                                            |                                                 |
-| `Remove-`                                  | Deletes a resource                                                                                          | Archive or soft-delete                          |
-| `Install-`                                 | Places a resource and initializes it                                                                        |                                                 |
-| `Invoke-`                                  | Runs a command or method, transparent pass-through                                                          |                                                 |
-| `Update-`                                  | Brings an existing resource up-to-date                                                                      | Create new resources                            |
-| `Build-`                                   | Creates an artifact from input files                                                                        |                                                 |
-| `Convert-` / `ConvertTo-` / `ConvertFrom-` | Transforms data between representations                                                                     |                                                 |
+- **`Get-`**
+  - Guarantee: Safe to call, read-only
+  - Will not: Change state
+- **`Test-`**
+  - Guarantee: Returns `[bool]` — or, as a quality gate (`ADR-AUTO-TEST-QUALITYGATE`), reports every issue and throws once
+  - Will not: Throw on the negative case (a value/state test)
+- **`Assert-`**
+  - Guarantee: Throws on failure
+  - Will not: Return false
+- **`New-`**
+  - Guarantee: Creates a resource
+  - Will not: Update existing resources
+- **`Set-`**
+  - Guarantee: Replaces data on existing, or creates if missing
+- **`Remove-`**
+  - Guarantee: Deletes a resource
+  - Will not: Archive or soft-delete
+- **`Install-`**
+  - Guarantee: Places a resource and initializes it
+- **`Invoke-`**
+  - Guarantee: Runs a command or method, transparent pass-through
+- **`Update-`**
+  - Guarantee: Brings an existing resource up-to-date
+  - Will not: Create new resources
+- **`Build-`**
+  - Guarantee: Creates an artifact from input files
+- **`Convert-` / `ConvertTo-` / `ConvertFrom-`**
+  - Guarantee: Transforms data between representations
 
 **`New-` not `Create-`.** `Create` is not an approved verb. Use `New-` for all resource creation. This is the single most common mistake.
 

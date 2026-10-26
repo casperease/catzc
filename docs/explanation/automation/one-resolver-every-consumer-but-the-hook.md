@@ -30,7 +30,6 @@ content:
   title: One resolver serves every consumer but the hook, which compiles the same config type
   kind: explanation
   flow: left-to-right
-  relation: feeds
   theme: dark
   bands:
     - { id: band-axes, label: AXES }
@@ -48,10 +47,10 @@ content:
     - { id: g-executable, kind: code, label: Invoke-Executable, in: grp-consumers }
     - { id: g-with-timeout, kind: code, label: Invoke-WithTimeout, in: grp-consumers }
   edges:
-    - { from: g-environment, to: g-seconds, kind: flow, label: "" }
-    - { from: g-config, to: g-seconds, kind: flow, label: "" }
+    - { from: g-environment, to: g-seconds, kind: flow, label: feeds }
+    - { from: g-config, to: g-seconds, kind: flow, label: feeds }
     - { from: g-config, to: g-hook, kind: flow, label: "" }
-    - { from: g-exemptions, to: g-seconds, kind: flow, label: "" }
+    - { from: g-exemptions, to: g-seconds, kind: flow, label: feeds }
     - { from: g-seconds, to: grp-consumers, kind: flow, label: "" }
   markers:
     - { at: g-environment, number: 1 }

@@ -33,7 +33,6 @@ content:
   title: Four pipeline kinds promote one artifact that CI built once
   kind: explanation
   flow: left-to-right
-  relation: promotes, or builds
   theme: dark
   bands:
     - { id: band-git, label: GIT }
@@ -69,7 +68,7 @@ content:
     - { id: s-artifact, kind: store, label: tagged artifact, in: band-non-prod }
   edges:
     - { from: c-topic, to: c-main, kind: flow, label: "" }
-    - { from: c-main, to: g-engine, kind: flow, label: "" }
+    - { from: c-main, to: g-engine, kind: flow, label: feeds }
     - { from: g-engine, to: c-bvt, kind: flow, label: "" }
     - { from: c-bvt, to: g-on-demand, kind: flow, label: "" }
     - { from: g-on-demand, to: g-main-uat, kind: flow, label: "" }

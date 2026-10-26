@@ -30,7 +30,6 @@ content:
   title: One registry, one writer, one write primitive, two kinds of target
   kind: explanation
   flow: left-to-right
-  relation: feeds the next step
   theme: dark
   bands:
     - { id: band-source, label: SOURCE OF TRUTH }

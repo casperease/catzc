@@ -28,7 +28,6 @@ content:
   title: Callers in four modules dereference an address through Catzc.Base.Config; the walk stays private
   kind: explanation
   flow: left-to-right
-  relation: depends on
   theme: dark
   bands:
     - { id: band-callers, label: CALLERS }
@@ -46,9 +45,9 @@ content:
     - { id: g-reader, kind: code, label: Get-Config, in: band-config }
     - { id: g-file, kind: file, label: configs/<name>.yml, in: band-committed }
   edges:
-    - { from: grp-consumers, to: g-value, kind: flow, label: 4/4 }
-    - { from: g-value, to: g-walk, kind: flow, label: "" }
-    - { from: g-value, to: g-reader, kind: flow, label: "" }
+    - { from: grp-consumers, to: g-value, kind: flow, label: calls, count: 4/4 }
+    - { from: g-value, to: g-walk, kind: flow, label: calls }
+    - { from: g-value, to: g-reader, kind: flow, label: calls }
     - { from: g-reader, to: g-file, kind: flow, label: "" }
   markers:
     - { at: grp-consumers, number: 1 }

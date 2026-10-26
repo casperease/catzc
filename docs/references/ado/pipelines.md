@@ -25,14 +25,15 @@ Pipelines are flat in the root and named for their type. Templates live in the f
 
 ## The six types
 
-| Type   | What it is                                                                                                                       | Trigger / Deploy Targets in Scope                                     |
-| ------ | -------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- |
-| INPUT  | Self-service input turned into a commit                                                                                          | Manual, with parameters                                               |
-| CRON   | Automation job on a timer (not really a pipeline, can direct-affect live/prod)                                                   | `schedules:`                                                          |
-| CI     | CI/ci - Continuous _Integration_ - The CI engine alone — build + verify, no artifact, no deploy                                  | PR build validation + post-commit `main` (BVT)                        |
-| CD     | CD/cd - Continuous _Delivery_ - (CI engine + deploy + system test) (internal deploys for auto-tests + UAT, but not towards prod) | post-commit `main`                                                    |
-| CDE    | CDE/CDe - Continuous _Deployment_                                                                                                | deployment to prod also, but can wait behind a manual gate downstream |
-| DEPLOY | The Tail-end of a CD pipeline, detaches the live deploy from CDE pipeline                                                        | to prod but can wait behind a manual gate downstream                  |
+- **INPUT**: self-service input turned into a commit. Trigger and targets: manual, with parameters.
+- **CRON**: an automation job on a timer (not really a pipeline, can direct-affect live/prod). Trigger and targets: `schedules:`.
+- **CI**: CI/ci, Continuous _Integration_: the CI engine alone, build + verify, no artifact, no deploy. Trigger and targets: PR build
+  validation + post-commit `main` (BVT).
+- **CD**: CD/cd, Continuous _Delivery_: the CI engine + deploy + system test (internal deploys for auto-tests + UAT, but not towards prod).
+  Trigger and targets: post-commit `main`.
+- **CDE**: CDE/CDe, Continuous _Deployment_. Trigger and targets: deployment to prod also, but can wait behind a manual gate downstream.
+- **DEPLOY**: the tail end of a CD pipeline, which detaches the live deploy from the CDE pipeline. Trigger and targets: to prod, but can
+  wait behind a manual gate downstream.
 
 ## Pipelines here
 
@@ -75,12 +76,22 @@ A commit climbs one rung at a time ([commit-lifecycle](../../drs/flow/commit-lif
 [cd-discipline-and-promotion-flow](../../drs/flow/cd-discipline-and-promotion-flow.md)). Each always-on rung is its own Azure DevOps
 environment per deployable-unit, with one occupant:
 
-| Rung        | Environment                                          | Deployed by                     | Gate before it                             |
-| ----------- | ---------------------------------------------------- | ------------------------------- | ------------------------------------------ |
-| main-uat    | `<unit>-main-uat`                                    | the unit's CD (`cd-<unit>`)     | the CD's CI component and L3 run           |
-| release-uat | `<unit>-release-uat`                                 | DEPLOY                          | RC: an approval check on this environment  |
-| pre-prod    | `<unit>-pre-prod`, a staging slot in the prod sub    | DEPLOY                          | RBC: an approval check on this environment |
-| production  | the prod-tier environments (`*-psub`, apex's `prod`) | DEPLOY, activating the pre-prod | the prod approval gate                     |
+- **main-uat**
+  - Environment: `<unit>-main-uat`
+  - Deployed by: the unit's CD (`cd-<unit>`)
+  - Gate before it: the CD's CI component and L3 run
+- **release-uat**
+  - Environment: `<unit>-release-uat`
+  - Deployed by: DEPLOY
+  - Gate before it: RC: an approval check on this environment
+- **pre-prod**
+  - Environment: `<unit>-pre-prod`, a staging slot in the prod sub
+  - Deployed by: DEPLOY
+  - Gate before it: RBC: an approval check on this environment
+- **production**
+  - Environment: the prod-tier environments (`*-psub`, apex's `prod`)
+  - Deployed by: DEPLOY, activating the pre-prod
+  - Gate before it: the prod approval gate
 
 The approval checks are declared in `environment-approvals.yml` and applied by `Sync-AdoEnvironmentApprovals`
 ([apply-environment-approvals](../../how-to/automation/apply-environment-approvals.md)). DEPLOY takes the exact artifact CI built, by the CI

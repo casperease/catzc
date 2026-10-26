@@ -35,7 +35,6 @@ content:
   title: No gate checks the runner rules 1 or 4, and the step template breaks rule 3
   kind: explanation
   flow: left-to-right
-  relation: checks
   theme: dark
   bands:
     - { id: band-rules, label: RULES }
@@ -51,7 +50,7 @@ content:
   edges:
     - { from: g-test-pipelines, to: a-pipeline-yaml, kind: flow, label: "" }
     - { from: g-failures-1b, to: f-step-template, kind: flow, label: "" }
-    - { from: g-failures-pester, to: g-runner, kind: flow, label: "" }
+    - { from: g-failures-pester, to: g-runner, kind: flow, label: calls }
   markers:
     - { at: a-pipeline-yaml, number: 1 }
     - { at: f-step-template, number: 2 }

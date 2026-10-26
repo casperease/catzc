@@ -31,7 +31,6 @@ content:
   title: Get-TimeoutSeconds resolves the environment, the config entry, then the exemption ceiling, in that order
   kind: explanation
   flow: left-to-right
-  relation: feeds
   theme: dark
   bands:
     - { id: band-axes, label: AXES }
@@ -50,11 +49,11 @@ content:
     - { id: g-executable, kind: code, label: Invoke-Executable, in: grp-consumers }
     - { id: g-with-timeout, kind: code, label: Invoke-WithTimeout, in: grp-consumers }
   edges:
-    - { from: g-timeouts, to: g-config, kind: flow, label: "" }
-    - { from: g-environment, to: g-seconds, kind: flow, label: Devbox | Pipeline }
-    - { from: g-config, to: g-seconds, kind: flow, label: SecondsFor }
+    - { from: g-timeouts, to: g-config, kind: flow, label: feeds }
+    - { from: g-environment, to: g-seconds, kind: flow, label: feeds }
+    - { from: g-config, to: g-seconds, kind: flow, label: feeds }
     - { from: g-config, to: g-hook, kind: flow, label: SecondsFor(bash) }
-    - { from: g-exemptions, to: g-seconds, kind: flow, label: "" }
+    - { from: g-exemptions, to: g-seconds, kind: flow, label: feeds }
     - { from: g-seconds, to: grp-consumers, kind: flow, label: -Executable · -Budget }
   markers:
     - { at: g-environment, number: 1 }

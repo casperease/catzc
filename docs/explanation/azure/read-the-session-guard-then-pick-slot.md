@@ -32,7 +32,6 @@ content:
   title: Get-BicepDeploymentContext reads the session, guards it, then picks the slot
   kind: explanation
   flow: left-to-right
-  relation: feeds the next step
   theme: dark
   bands:
     - { id: band-session, label: SESSION }
@@ -51,8 +50,8 @@ content:
     - { id: g-configuration, kind: code, label: Get-BicepTemplateConfiguration, in: grp-slot }
     - { id: g-group, kind: code, label: Get-BicepResourceGroupName, in: grp-slot }
   edges:
-    - { from: g-current, to: g-session, kind: flow, label: "" }
-    - { from: g-azure, to: g-session, kind: flow, label: "" }
+    - { from: g-current, to: g-session, kind: flow, label: feeds }
+    - { from: g-azure, to: g-session, kind: flow, label: feeds }
     - { from: g-session, to: f-undeclared, kind: fail, label: "" }
     - { from: g-session, to: g-assert, kind: flow, label: "" }
     - { from: g-assert, to: f-wrong, kind: fail, label: "" }

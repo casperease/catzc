@@ -22,20 +22,22 @@ ends with a status: realised, partly realised, planned (follow-up), or not adopt
 template, config, module, pipeline, or check of this repository (a billing agreement type, another cloud) is recorded in a compact form that
 says why it does not apply.
 
-| Design area                        | ADR                                                                                     | Code                |
-| ---------------------------------- | --------------------------------------------------------------------------------------- | ------------------- |
-| Design principles                  | [design-principles](../../drs/azure/caf/design-principles.md)                           | `ADR-AZ-CAF-PRIN`   |
-| Billing and Microsoft Entra tenant | [billing-and-tenant](../../drs/azure/caf/billing-and-tenant.md)                         | `ADR-AZ-CAF-BILL`   |
-| Identity and access management     | [identity-and-access](../../drs/azure/caf/identity-and-access.md)                       | `ADR-AZ-CAF-IAM`    |
-| Resource organization              | [resource-organization](../../drs/azure/caf/resource-organization.md)                   | `ADR-AZ-CAF-RESORG` |
-| Network topology                   | [network-topology](../../drs/azure/caf/network-topology.md)                             | `ADR-AZ-CAF-NETTOP` |
-| Network connectivity               | [network-connectivity](../../drs/azure/caf/network-connectivity.md)                     | `ADR-AZ-CAF-NETCON` |
-| Private access to PaaS and DNS     | [network-private-access](../../drs/azure/caf/network-private-access.md)                 | `ADR-AZ-CAF-NETPRV` |
-| Security                           | [landing-zone-security](../../drs/azure/caf/landing-zone-security.md)                   | `ADR-AZ-CAF-SEC`    |
-| Management                         | [management](../../drs/azure/caf/management.md)                                         | `ADR-AZ-CAF-MGMT`   |
-| Governance                         | [governance](../../drs/azure/caf/governance.md)                                         | `ADR-AZ-CAF-GOV`    |
-| Platform automation and DevOps     | [platform-automation-and-devops](../../drs/azure/caf/platform-automation-and-devops.md) | `ADR-AZ-CAF-DEVOPS` |
-| Naming and tagging                 | [naming-and-tagging](../../drs/azure/caf/naming-and-tagging.md)                         | `ADR-AZ-CAF-NAME`   |
+| Design area                        | ADR                                                                     | Code                |
+| ---------------------------------- | ----------------------------------------------------------------------- | ------------------- |
+| Design principles                  | [design-principles](../../drs/azure/caf/design-principles.md)           | `ADR-AZ-CAF-PRIN`   |
+| Billing and Microsoft Entra tenant | [billing-and-tenant](../../drs/azure/caf/billing-and-tenant.md)         | `ADR-AZ-CAF-BILL`   |
+| Identity and access management     | [identity-and-access](../../drs/azure/caf/identity-and-access.md)       | `ADR-AZ-CAF-IAM`    |
+| Resource organization              | [resource-organization](../../drs/azure/caf/resource-organization.md)   | `ADR-AZ-CAF-RESORG` |
+| Network topology                   | [network-topology](../../drs/azure/caf/network-topology.md)             | `ADR-AZ-CAF-NETTOP` |
+| Network connectivity               | [network-connectivity](../../drs/azure/caf/network-connectivity.md)     | `ADR-AZ-CAF-NETCON` |
+| Private access to PaaS and DNS     | [network-private-access](../../drs/azure/caf/network-private-access.md) | `ADR-AZ-CAF-NETPRV` |
+| Security                           | [landing-zone-security](../../drs/azure/caf/landing-zone-security.md)   | `ADR-AZ-CAF-SEC`    |
+| Management                         | [management](../../drs/azure/caf/management.md)                         | `ADR-AZ-CAF-MGMT`   |
+| Governance                         | [governance](../../drs/azure/caf/governance.md)                         | `ADR-AZ-CAF-GOV`    |
+| Platform automation and DevOps     | [platform-automation-and-devops][devops]                                | `ADR-AZ-CAF-DEVOPS` |
+| Naming and tagging                 | [naming-and-tagging](../../drs/azure/caf/naming-and-tagging.md)         | `ADR-AZ-CAF-NAME`   |
+
+[devops]: ../../drs/azure/caf/platform-automation-and-devops.md
 
 The landing-zone decision record ([landing-zones](../../drs/azure/landing-zones.md), `ADR-AZ-LZ`) is this repository's own decision; the CAF
 ADRs account for each vendor recommendation against it. The workload-side counterpart is the

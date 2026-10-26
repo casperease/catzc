@@ -31,7 +31,6 @@ content:
   title: Each run mode has one entry script, and a mixed session throws
   kind: explanation
   flow: left-to-right
-  relation: hands the load on to
   theme: dark
   bands:
     - { id: band-source, label: SOURCE }

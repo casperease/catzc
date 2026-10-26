@@ -30,7 +30,6 @@ content:
   title: A pipeline pins the subscription it expects; a devbox picks the target with az account set
   kind: explanation
   flow: left-to-right
-  relation: feeds the next step
   theme: dark
   bands:
     - { id: band-entry, label: ENTRY }
@@ -47,8 +46,8 @@ content:
     - { id: f-undeclared, kind: failure, label: undeclared subscription, in: grp-errors }
     - { id: f-wrong, kind: failure, label: wrong subscription, in: grp-errors }
   edges:
-    - { from: x-connection, to: g-deploy, kind: flow, label: "" }
-    - { from: x-account, to: g-deploy, kind: flow, label: "" }
+    - { from: x-connection, to: g-deploy, kind: flow, label: feeds }
+    - { from: x-account, to: g-deploy, kind: flow, label: feeds }
     - { from: g-deploy, to: r-context, kind: flow, label: "" }
     - { from: g-deploy, to: grp-errors, kind: fail, label: "" }
   markers:

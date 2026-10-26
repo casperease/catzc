@@ -130,14 +130,24 @@ exception either. The host renders an information record to stdout exactly as it
 PowerShell has built-in output streams and this toolset defines some more. Each carries one of the audiences of
 [console-output-matters](../console-output-matters.md):
 
-| Stream                    | When to use                                                                                          | Visible by default |
-| ------------------------- | ---------------------------------------------------------------------------------------------------- | ------------------ |
-| `Write-Message`           | One-liner status with caller prefix — command execution, completion, short results                   | Yes                |
-| `Write-Message -NoHeader` | Multiline or headerless output — results, tables, formatted data (add `-ForegroundColor` for colors) | Yes                |
-| `throw` / `Assert-*`      | Something is wrong — execution stops                                                                 | Yes                |
-| `Write-Verbose`           | Detail that helps debugging but clutters normal output — skip reasons, cache hits                    | No (`-Verbose`)    |
-| `Write-Debug`             | Internal state dumps for development — variable values, branch decisions                             | No (`-Debug`)      |
-| `Write-Output`            | Function return values. **Never** use for status messages — it pollutes the pipeline                 | Captured           |
+- **`Write-Message`**
+  - When to use: One-liner status with caller prefix — command execution, completion, short results
+  - Visible by default: Yes
+- **`Write-Message -NoHeader`**
+  - When to use: Multiline or headerless output — results, tables, formatted data (add `-ForegroundColor` for colors)
+  - Visible by default: Yes
+- **`throw` / `Assert-*`**
+  - When to use: Something is wrong — execution stops
+  - Visible by default: Yes
+- **`Write-Verbose`**
+  - When to use: Detail that helps debugging but clutters normal output — skip reasons, cache hits
+  - Visible by default: No (`-Verbose`)
+- **`Write-Debug`**
+  - When to use: Internal state dumps for development — variable values, branch decisions
+  - Visible by default: No (`-Debug`)
+- **`Write-Output`**
+  - When to use: Function return values. **Never** use for status messages — it pollutes the pipeline
+  - Visible by default: Captured
 
 `Write-Message` is the single public writer: it adds a `[CallerName]` prefix and routes through the information stream, not directly to the
 console, via the module's private `Write-InformationColored` chokepoint (which carries the colour and the Pester-run suppression). Use it
@@ -167,15 +177,20 @@ Write-Verbose "Returning result"
 
 The session state of ADR-AUTO-CONSOLE-ANNOUNCELASTINGCHANGES, and the PowerShell commands that change it:
 
-| State                                         | Changed by                                                                                         |
-| --------------------------------------------- | -------------------------------------------------------------------------------------------------- |
-| Environment variables, `PATH`, `PSModulePath` | `$env:<Name> = ...`, `[Environment]::SetEnvironmentVariable`, `Set-Item` / `Remove-Item` on `env:` |
-| Loaded binaries                               | `Add-Type` (loading), `[Reflection.Assembly]::Load*`, `AssemblyLoadContext.LoadFromAssemblyPath`   |
-| Loaded modules                                | `Import-Module`, `Remove-Module`                                                                   |
-| Global variables and preferences              | `$global:<Name> = ...`, `Set-Variable -Scope Global`                                               |
-| Working location                              | `Push-Location`, `Pop-Location`                                                                    |
-| Line editor, type and format data             | `Set-PSReadLineOption`, `Set-PSReadLineKeyHandler`, `Update-TypeData`, `Update-FormatData`         |
-| What the next session starts with             | the user and machine environment, the PowerShell profile                                           |
+- **Environment variables, `PATH`, `PSModulePath`**
+  - Changed by: `$env:<Name> = ...`, `[Environment]::SetEnvironmentVariable`, `Set-Item` / `Remove-Item` on `env:`
+- **Loaded binaries**
+  - Changed by: `Add-Type` (loading), `[Reflection.Assembly]::Load*`, `AssemblyLoadContext.LoadFromAssemblyPath`
+- **Loaded modules**
+  - Changed by: `Import-Module`, `Remove-Module`
+- **Global variables and preferences**
+  - Changed by: `$global:<Name> = ...`, `Set-Variable -Scope Global`
+- **Working location**
+  - Changed by: `Push-Location`, `Pop-Location`
+- **Line editor, type and format data**
+  - Changed by: `Set-PSReadLineOption`, `Set-PSReadLineKeyHandler`, `Update-TypeData`, `Update-FormatData`
+- **What the next session starts with**
+  - Changed by: the user and machine environment, the PowerShell profile
 
 A .NET assembly cannot be unloaded, so the importer names the assembly it loads (`Loaded types pwsh/.compiled/Catzc.Types.<hash>.dll`), the
 vendor modules it imports, and the modules it loads, evicts, or drops, on its verbose load record (ADR-PWSH-ANNOUNCE-IMPORTERLOADSEQUENCE).

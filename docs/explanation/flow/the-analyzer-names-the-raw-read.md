@@ -27,7 +27,6 @@ content:
   title: A raw read fails Test-ScriptAnalyzer with one Error line, and CI step 2e asserts the seam
   kind: explanation
   flow: top-to-bottom
-  relation: feeds the next step
   theme: dark
   bands:
     - { id: band-devbox, label: DEVBOX }

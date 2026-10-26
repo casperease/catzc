@@ -32,7 +32,6 @@ content:
   title: One file, one outcome, and the keys each head holds
   kind: explanation
   flow: left-to-right
-  relation: decides
   theme: dark
   bands:
     - { id: band-generated, label: GENERATED }

@@ -28,7 +28,6 @@ content:
   title: The header function is four checks and three returns, and none falls through on failure
   kind: explanation
   flow: left-to-right
-  relation: what comes next
   theme: dark
   bands:
     - { id: band-returns, label: RETURNS }

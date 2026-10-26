@@ -37,7 +37,6 @@ content:
   title: Run-mode rules 1 to 6 each have a gate; rule 7's build kinds need none
   kind: explanation
   flow: left-to-right
-  relation: calls
   theme: dark
   bands:
     - { id: band-runs, label: TEST RUNS }

@@ -30,7 +30,6 @@ content:
   title: Every Deploy stage in cats runs only from main, so no topic commit is deployed
   kind: explanation
   flow: left-to-right
-  relation: starts or runs next
   theme: dark
   bands:
     - { id: band-topic, label: TOPIC }
@@ -55,13 +54,13 @@ content:
     - { id: g-main-condition, kind: gate, label: main only, in: band-landing }
     - { id: r-deploy, kind: runner, label: Deploy_* stages, in: band-deploy }
   edges:
-    - { from: c-topic, to: r-pull-request-stage, kind: flow, label: "" }
+    - { from: c-topic, to: r-pull-request-stage, kind: flow, label: feeds }
     - { from: r-pull-request-stage, to: g-pull-request-condition, kind: flow, label: "" }
     - { from: c-topic, to: a-deploy, kind: adr, label: "" }
     - { from: c-topic, to: c-main, kind: flow, label: "" }
-    - { from: c-main, to: r-main-stage, kind: flow, label: "" }
+    - { from: c-main, to: r-main-stage, kind: flow, label: feeds }
     - { from: r-main-stage, to: g-main-condition, kind: flow, label: "" }
-    - { from: g-main-condition, to: r-deploy, kind: flow, label: "" }
+    - { from: g-main-condition, to: r-deploy, kind: flow, label: calls }
   markers:
     - { at: c-topic, number: 1 }
     - { at: r-pull-request-stage, number: 2 }

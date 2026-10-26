@@ -30,18 +30,46 @@ pattern file; the renderer strips HTML comments before it fills a pattern.
 
 ## The patterns
 
-| Pattern     | What it is for                                                      | Fields                                                                     | Capacity                       |
-| ----------- | ------------------------------------------------------------------- | -------------------------------------------------------------------------- | ------------------------------ |
-| `cover`     | The first slide: the deck's name and its one-sentence promise.      | `eyebrow`, title, `body`, `footer?`, `notes?`                              | body 1 × 30 words              |
-| `divider`   | The first slide of a section.                                       | `eyebrow`, title, `body`, `notes?`                                         | body 1 × 45 words              |
-| `statement` | The one claim the deck turns on, set apart on the raised tone.      | `eyebrow`, title, `lead`, `body?`, `notes?`                                | lead 1 × 45, body 1 × 45       |
-| `rule`      | One rule or one idea, stated in prose.                              | `eyebrow`, title, `body`, `notes?`                                         | body 2 × 70 words              |
-| `pair`      | Two things set side by side as cards.                               | `eyebrow`, title, `cards` (lead + text each), `body?`, `notes?`            | cards 2 × 45 each, body 1 × 50 |
-| `tiles`     | A small set of short items shown as a grid.                         | `eyebrow`, title, `body?`, `tiles`, `notes?`                               | tiles 8 × 6 words              |
-| `table`     | Rows that pair a thing with where it lives, or a prefer-over list.  | `eyebrow`, title, `rows` (a markdown table), `body?`, `notes?`             | rows 6 + header, 3 columns     |
-| `stack`     | Layers that depend only on the one below.                           | `eyebrow`, title, `layers` (lead = the role, text = the members), `notes?` | layers 6 × 12 words            |
-| `closing`   | The last slide: what rests on this, and the sentence to leave with. | `eyebrow`, title, `lead`, `body?`, `notes?`                                | lead 1 × 45, body 1 × 60       |
-| `fact`      | One checkable proposition of an x-of-y show, beside its diagram.    | `eyebrow`, title, `lead`, `image`, `caption?`, `notes?`                    | lead 1 × 45, image 640 wide    |
+- **`cover`**
+  - What it is for: The first slide: the deck's name and its one-sentence promise.
+  - Fields: `eyebrow`, title, `body`, `footer?`, `notes?`
+  - Capacity: body 1 × 30 words
+- **`divider`**
+  - What it is for: The first slide of a section.
+  - Fields: `eyebrow`, title, `body`, `notes?`
+  - Capacity: body 1 × 45 words
+- **`statement`**
+  - What it is for: The one claim the deck turns on, set apart on the raised tone.
+  - Fields: `eyebrow`, title, `lead`, `body?`, `notes?`
+  - Capacity: lead 1 × 45, body 1 × 45
+- **`rule`**
+  - What it is for: One rule or one idea, stated in prose.
+  - Fields: `eyebrow`, title, `body`, `notes?`
+  - Capacity: body 2 × 70 words
+- **`pair`**
+  - What it is for: Two things set side by side as cards.
+  - Fields: `eyebrow`, title, `cards` (lead + text each), `body?`, `notes?`
+  - Capacity: cards 2 × 45 each, body 1 × 50
+- **`tiles`**
+  - What it is for: A small set of short items shown as a grid.
+  - Fields: `eyebrow`, title, `body?`, `tiles`, `notes?`
+  - Capacity: tiles 8 × 6 words
+- **`table`**
+  - What it is for: Rows that pair a thing with where it lives, or a prefer-over list.
+  - Fields: `eyebrow`, title, `rows` (a markdown table), `body?`, `notes?`
+  - Capacity: rows 6 + header, 3 columns
+- **`stack`**
+  - What it is for: Layers that depend only on the one below.
+  - Fields: `eyebrow`, title, `layers` (lead = the role, text = the members), `notes?`
+  - Capacity: layers 6 × 12 words
+- **`closing`**
+  - What it is for: The last slide: what rests on this, and the sentence to leave with.
+  - Fields: `eyebrow`, title, `lead`, `body?`, `notes?`
+  - Capacity: lead 1 × 45, body 1 × 60
+- **`fact`**
+  - What it is for: One checkable proposition of an x-of-y show, beside its diagram.
+  - Fields: `eyebrow`, title, `lead`, `image`, `caption?`, `notes?`
+  - Capacity: lead 1 × 45, image 640 wide
 
 A `fact` slide's picture is made by `slide_png.py`: the head's `picture` in mode `reduce`, `zoom` or `redraw` (a named variation), viewed by
 `tilt` and `rotate`.

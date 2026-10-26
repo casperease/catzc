@@ -28,7 +28,6 @@ content:
   title: A config address is a read-only walk over the one cached config, never a second reader
   kind: explanation
   flow: left-to-right
-  relation: the walk
   theme: dark
   bands:
     - { id: band-resolve, label: RESOLVE }
@@ -40,7 +39,7 @@ content:
     - { id: r-node, kind: result, label: one node, in: band-resolve }
     - { id: f-wrong, kind: failure, label: wrong address throws, in: band-fail }
   edges:
-    - { from: g-caller, to: g-reader, kind: flow, label: global.<config>.<key> }
+    - { from: g-caller, to: g-reader, kind: flow, label: calls }
     - { from: g-reader, to: s-cache, kind: flow, label: "" }
     - { from: s-cache, to: r-node, kind: flow, label: "" }
     - { from: g-reader, to: f-wrong, kind: fail, label: "" }

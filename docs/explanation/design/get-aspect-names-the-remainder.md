@@ -32,7 +32,6 @@ content:
   title: Get-Aspect names each track's remainder, and a wrong order fails when the variants config loads
   kind: explanation
   flow: left-to-right
-  relation: feeds
   theme: dark
   bands:
     - { id: band-config, label: THE CONFIG }
@@ -49,8 +48,8 @@ content:
     - { id: s-deployment-live, kind: set, label: live, in: band-deployment }
   edges:
     - { from: f-variants, to: f-last-aspect, kind: fail, label: "" }
-    - { from: f-variants, to: c-code-aspect, kind: flow, label: "" }
-    - { from: f-variants, to: c-deployment-aspect, kind: flow, label: "" }
+    - { from: f-variants, to: c-code-aspect, kind: flow, label: feeds }
+    - { from: f-variants, to: c-deployment-aspect, kind: flow, label: feeds }
     - { from: c-code-aspect, to: s-code-live, kind: thick, label: "" }
     - { from: s-code-live, to: s-code-tests, kind: thick, label: "" }
     - { from: c-deployment-aspect, to: s-deployment-tests, kind: thick, label: "" }

@@ -30,7 +30,6 @@ content:
   title: A gate checks overlap for units and modules, and loose-filesets are exempt
   kind: explanation
   flow: top-to-bottom
-  relation: checks
   theme: dark
   bands:
     - { id: band-unit, label: DEPLOYABLE-UNIT }

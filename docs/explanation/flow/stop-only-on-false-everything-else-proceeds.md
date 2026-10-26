@@ -28,7 +28,6 @@ content:
   title: A stage returns only on $false; a doubt prints a message and proceeds; a typo throws
   kind: explanation
   flow: top-to-bottom
-  relation: produces
   theme: dark
   bands:
     - { id: band-who, label: WHO RUNS IT }

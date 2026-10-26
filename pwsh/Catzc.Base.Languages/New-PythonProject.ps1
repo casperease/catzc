@@ -10,6 +10,11 @@ function New-PythonProject {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Languages.PythonWorkspaceFile])]
     param(
+        # The ruff line length, from the caller: the width file-limits declares for .py files.
+        [Parameter(Mandatory)]
+        [ValidateRange(1, 1000)]
+        [int] $LineLength,
+
         [string] $Target = '*'
     )
 
@@ -79,7 +84,7 @@ function New-PythonProject {
     $workspace.Add(']')
     $workspace.Add('')
     $workspace.Add('[tool.ruff]')
-    $workspace.Add("line-length = $((Get-FileLimit -Path 'width.py').width)")
+    $workspace.Add("line-length = $LineLength")
     $workspace.Add("target-version = `"py$($pythonVersion.Replace('.', ''))`"")
     $workspace.Add('')
     $workspace.Add('[tool.pyright]')

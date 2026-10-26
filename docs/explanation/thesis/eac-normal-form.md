@@ -37,7 +37,6 @@ content:
   title: A file leaves the unordered track only in the normal form
   kind: explanation
   flow: left-to-right
-  relation: moves on
   theme: dark
   bands:
     - { id: band-constraints, label: INSIDE THE ENABLING CONSTRAINTS }

@@ -81,14 +81,18 @@ capabilities amplify the effect of AI adoption on a set of outcomes.
 
 ## Files in this reference
 
-| File                               | Contents                                                                                                         |
-| ---------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| [index.md](index.md)               | This overview: what DORA is, its method, the Core Model in brief, and the anchor scheme.                         |
-| [core-model.md](core-model.md)     | The DORA Core Model v2.1.0: capability groups, performance, outcomes, inclusion rules, and how it changes.       |
-| [metrics.md](metrics.md)           | The five software delivery performance metrics, their two families, reliability, clusters, and metric history.   |
-| [capabilities.md](capabilities.md) | The full 34-entry capability catalogue, grouped by the site's own categories, cross-linked to the research ADRs. |
-| [ai.md](ai.md)                     | The DORA AI Capabilities Model (capabilities, outcomes, connections) and the AI-era research line.               |
-| [publications.md](publications.md) | Every publication the site lists, newest first, with URL and paraphrased headline findings.                      |
+- **[index.md](index.md)**
+  - Contents: This overview: what DORA is, its method, the Core Model in brief, and the anchor scheme.
+- **[core-model.md](core-model.md)**
+  - Contents: The DORA Core Model v2.1.0: capability groups, performance, outcomes, inclusion rules, and how it changes.
+- **[metrics.md](metrics.md)**
+  - Contents: The five software delivery performance metrics, their two families, reliability, clusters, and metric history.
+- **[capabilities.md](capabilities.md)**
+  - Contents: The full 34-entry capability catalogue, grouped by the site's own categories, cross-linked to the research ADRs.
+- **[ai.md](ai.md)**
+  - Contents: The DORA AI Capabilities Model (capabilities, outcomes, connections) and the AI-era research line.
+- **[publications.md](publications.md)**
+  - Contents: Every publication the site lists, newest first, with URL and paraphrased headline findings.
 
 The split follows the site's own first-class concepts. The Core Model, the metrics guide, the capability catalogue, the AI model, and the
 publications list are each a distinct section of dora.dev. The site has no glossary or outcomes catalogue, so outcomes are covered inside
@@ -101,15 +105,15 @@ through deep links into dora.dev. Each entry here carries its dora.dev source UR
 
 ### Anchor scheme
 
-| Target                | File              | Anchor rule                                      | Example anchor                                  |
-| --------------------- | ----------------- | ------------------------------------------------ | ----------------------------------------------- |
-| A capability          | `capabilities.md` | the dora.dev capability slug, exactly            | `#continuous-integration`, `#wip-limits`        |
-| A capability category | `capabilities.md` | the kebab-case category name                     | `#fast-flow`, `#climate-for-learning`, `#ai`    |
-| A delivery metric     | `metrics.md`      | the kebab-case current metric name               | `#change-lead-time`, `#deployment-rework-rate`  |
-| A metric family       | `metrics.md`      | the family name                                  | `#throughput`, `#instability`                   |
-| A Core Model element  | `core-model.md`   | the kebab-case element name                      | `#fast-feedback`, `#organizational-performance` |
-| An AI model element   | `ai.md`           | the kebab-case name of the capability or outcome | `#ai-capabilities-model`, `#reduced-friction`   |
-| A publication         | `publications.md` | `<year>-<kebab-case title>`                      | `#2024-accelerate-state-of-devops-report`       |
+| Target                | File              | Anchor rule                               | Example anchor                                  |
+| --------------------- | ----------------- | ----------------------------------------- | ----------------------------------------------- |
+| A capability          | `capabilities.md` | the dora.dev capability slug, exactly     | `#continuous-integration`, `#wip-limits`        |
+| A capability category | `capabilities.md` | the kebab-case category name              | `#fast-flow`, `#climate-for-learning`, `#ai`    |
+| A delivery metric     | `metrics.md`      | the kebab-case current metric name        | `#change-lead-time`, `#deployment-rework-rate`  |
+| A metric family       | `metrics.md`      | the family name                           | `#throughput`, `#instability`                   |
+| A Core Model element  | `core-model.md`   | the kebab-case element name               | `#fast-feedback`, `#organizational-performance` |
+| An AI model element   | `ai.md`           | the kebab-case capability or outcome name | `#ai-capabilities-model`, `#reduced-friction`   |
+| A publication         | `publications.md` | `<year>-<kebab-case title>`               | `#2024-accelerate-state-of-devops-report`       |
 
 Capability anchors are guaranteed to equal the dora.dev slug. Where the site's display name would not produce that slug (for example, "Work
 in process limits" lives at `/capabilities/wip-limits/`), the heading uses a slug-shaped name and the entry gives the site's full title.

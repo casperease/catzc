@@ -46,7 +46,14 @@ function Update-DrsCitation {
                 [System.IO.Path]::GetRelativePath($root, $adrFile).Replace('\', '/')
             }
         })
-    $rewriter = [Catzc.Base.Drs.DrsCitationRewriter]::new($codeRows, $ruleRows, $citations, $treeFiles, (Get-Config -Config drs).Kinds, $records)
+    # A markdown file's citations take the reference form where a respelled line outgrows the file's declared width.
+    $markdownWidth = if ($repoPath.EndsWith('.md', [System.StringComparison]::OrdinalIgnoreCase)) {
+        [int] (Get-FileLimit -Path $repoPath).width
+    }
+    else {
+        0
+    }
+    $rewriter = [Catzc.Base.Drs.DrsCitationRewriter]::new($codeRows, $ruleRows, $citations, $treeFiles, (Get-Config -Config drs).Kinds, $records, $markdownWidth)
 
     $bytes = [System.IO.File]::ReadAllBytes($file)
     $hasBom = $bytes.Length -ge 3 -and $bytes[0] -eq 0xEF -and $bytes[1] -eq 0xBB -and $bytes[2] -eq 0xBF

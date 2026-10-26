@@ -29,7 +29,6 @@ content:
   title: The customer CD pipeline builds once, then deploys the prod tier itself
   kind: explanation
   flow: left-to-right
-  relation: next in code order
   theme: dark
   bands:
     - { id: band-ci, label: CI STAGE }
@@ -56,11 +55,11 @@ content:
     - { from: g-build-bicep, to: r-foundation, kind: flow, label: "" }
     - { from: g-build-bicep, to: r-discovery, kind: flow, label: "" }
     - { from: g-build-bicep, to: r-expedition, kind: flow, label: "" }
-    - { from: r-foundation, to: g-deploy-foundation, kind: flow, label: "" }
-    - { from: r-discovery, to: g-deploy-discovery, kind: flow, label: "" }
-    - { from: r-expedition, to: g-deploy-expedition, kind: flow, label: "" }
-    - { from: g-deploy-foundation, to: g-deploy-discovery, kind: flow, label: "" }
-    - { from: g-deploy-discovery, to: g-deploy-expedition, kind: flow, label: "" }
+    - { from: r-foundation, to: g-deploy-foundation, kind: flow, label: feeds }
+    - { from: r-discovery, to: g-deploy-discovery, kind: flow, label: feeds }
+    - { from: r-expedition, to: g-deploy-expedition, kind: flow, label: feeds }
+    - { from: g-deploy-foundation, to: g-deploy-discovery, kind: flow, label: feeds }
+    - { from: g-deploy-discovery, to: g-deploy-expedition, kind: flow, label: feeds }
     - { from: g-deploy-foundation, to: e-non-prod, kind: flow, label: "" }
     - { from: g-deploy-expedition, to: e-prod-tier, kind: flow, label: "" }
   markers:

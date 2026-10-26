@@ -25,6 +25,9 @@ public enum DrsCitationChangeKind
     // A plain path mention of an ADR file or folder, with any rule anchor it carries.
     Path,
 
+    // An inline citation whose line outgrew the markdown width, respelled as a reference with its definition at the end of the file.
+    Form,
+
     // A numbered citation or group (ADR-<CODE>#3, ADR-<CODE>#{1,3}), which names no rule; left as written.
     Unhandled
 }

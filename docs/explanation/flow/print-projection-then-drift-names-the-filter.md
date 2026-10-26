@@ -31,7 +31,6 @@ content:
   title: Print the projection, and a drifted pipeline fails naming the filter that differs
   kind: explanation
   flow: top-to-bottom
-  relation: feeds
   theme: dark
   bands:
     - { id: band-compose, label: COMPOSE }
@@ -47,7 +46,7 @@ content:
     - { id: x-drifted, kind: failure, label: trigger drifted, in: band-checked }
     - { id: x-not-found, kind: failure, label: pipeline file not found, in: band-checked }
   edges:
-    - { from: f-globs-yml, to: c-trigger, kind: flow, label: "" }
+    - { from: f-globs-yml, to: c-trigger, kind: flow, label: feeds }
     - { from: c-trigger, to: f-cd-apex, kind: adr, label: "" }
     - { from: c-trigger, to: g-coverage, kind: flow, label: "" }
     - { from: c-trigger, to: g-trigger-glob, kind: flow, label: "" }

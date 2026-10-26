@@ -30,7 +30,6 @@ content:
   title: Build-Modules builds, verifies, and leaves one folder that every target copies whole
   kind: explanation
   flow: left-to-right
-  relation: feeds or runs the next step
   theme: dark
   bands:
     - { id: band-source, label: SOURCE }
@@ -48,8 +47,8 @@ content:
     - { id: g-install, kind: code, label: Install-Catzc, in: grp-targets }
     - { id: g-package, kind: code, label: New-CatzcNuGetPackage, in: grp-targets }
   edges:
-    - { from: g-config, to: g-build, kind: flow, label: "" }
-    - { from: g-build, to: g-engine, kind: flow, label: "" }
+    - { from: g-config, to: g-build, kind: flow, label: feeds }
+    - { from: g-build, to: g-engine, kind: flow, label: calls }
     - { from: g-engine, to: g-assert, kind: flow, label: "" }
     - { from: g-assert, to: r-folder, kind: flow, label: "" }
     - { from: r-folder, to: grp-targets, kind: flow, label: "" }

@@ -40,11 +40,11 @@ Describe 'New-PythonProject' -Tag 'L0', 'logic' {
     }
 
     It 'renders the workspace root and one member per test folder and per module, root first, test folders then modules in order' {
-        @(New-PythonProject).Target | Should -Be @('python/pyproject.toml', 'python/tests/catzc_gadget/pyproject.toml', 'python/tests/catzc_widget/pyproject.toml', 'python/Widget.Kit/pyproject.toml')
+        @(New-PythonProject -LineLength 140).Target | Should -Be @('python/pyproject.toml', 'python/tests/catzc_gadget/pyproject.toml', 'python/tests/catzc_widget/pyproject.toml', 'python/Widget.Kit/pyproject.toml')
     }
 
     It 'renders a virtual workspace root naming every member, with the ruff and pyright settings' {
-        (New-PythonProject -Target 'python/pyproject.toml').Content | Should -BeExactly ((@(
+        (New-PythonProject -LineLength 140 -Target 'python/pyproject.toml').Content | Should -BeExactly ((@(
                     '[tool.uv.workspace]'
                     'members = ['
                     '    "tests/catzc_gadget",'
@@ -62,19 +62,23 @@ Describe 'New-PythonProject' -Tag 'L0', 'logic' {
                 ) -join "`n") + "`n")
     }
 
+    It 'renders the line length its caller passes as the ruff line-length' {
+        (New-PythonProject -LineLength 99 -Target 'python/pyproject.toml').Content | Should -Match '(?m)^line-length = 99$'
+    }
+
     It 'renders the declared type-checking mode for pyright' {
         $script:python['type_checking'] = 'strict'
-        (New-PythonProject -Target 'python/pyproject.toml').Content | Should -Match '(?m)^typeCheckingMode = "strict"$'
+        (New-PythonProject -LineLength 140 -Target 'python/pyproject.toml').Content | Should -Match '(?m)^typeCheckingMode = "strict"$'
     }
 
     It 'renders a module member named for the module in kebab case, at the module root' {
-        $content = (New-PythonProject -Target 'python/Widget.Kit/pyproject.toml').Content
+        $content = (New-PythonProject -LineLength 140 -Target 'python/Widget.Kit/pyproject.toml').Content
         $content | Should -Match '(?m)^name = "widget-kit"$'
         $content | Should -Match '(?m)^package = false$'
     }
 
     It 'renders each member named for its folder, at the python pin, with the pinned dependencies in name order' {
-        (New-PythonProject -Target 'python/tests/catzc_widget/pyproject.toml').Content | Should -BeExactly ((@(
+        (New-PythonProject -LineLength 140 -Target 'python/tests/catzc_widget/pyproject.toml').Content | Should -BeExactly ((@(
                     '[project]'
                     'name = "catzc_widget"'
                     'version = "0.0.0"'
@@ -97,18 +101,18 @@ Describe 'New-PythonProject' -Tag 'L0', 'logic' {
         Set-Content -LiteralPath (Join-Path $declared 'test/py/tests/catzc_widget/test_widget.py') -Value 'def test_widget(): pass'
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.Languages { Join-Path $TestDrive 'declared-repo' }
         $script:python['root'] = 'test/py'
-        @(New-PythonProject).Target | Should -Be @('test/py/pyproject.toml', 'test/py/tests/catzc_widget/pyproject.toml')
+        @(New-PythonProject -LineLength 140).Target | Should -Be @('test/py/pyproject.toml', 'test/py/tests/catzc_widget/pyproject.toml')
     }
 
     It 'renders nothing when the repository has no Python test folder' {
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.Languages { Join-Path $TestDrive 'empty' }
         $null = New-Item -ItemType Directory -Path (Join-Path $TestDrive 'empty') -Force
-        @(New-PythonProject) | Should -HaveCount 0
+        @(New-PythonProject -LineLength 140) | Should -HaveCount 0
     }
 
     It 'throws when the python pin is not a 3.N minor version' {
         $script:pin = '3.13.1'
-        { New-PythonProject } | Should -Throw "*'3.13.1' is not a Python minor version*"
+        { New-PythonProject -LineLength 140 } | Should -Throw "*'3.13.1' is not a Python minor version*"
     }
 
     It 'throws when a test folder is not named in python''s folder case' -Tag 'ADR-AUTO-IDIOM-TESTFOLDERBYIDIOM' {
@@ -116,6 +120,6 @@ Describe 'New-PythonProject' -Tag 'L0', 'logic' {
         $null = New-Item -ItemType Directory -Path (Join-Path $bad 'python/tests/catzc-widget') -Force
         Set-Content -LiteralPath (Join-Path $bad 'python/tests/catzc-widget/test_widget.py') -Value 'def test_widget(): pass'
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.Languages { Join-Path $TestDrive 'bad-repo' }
-        { New-PythonProject } | Should -Throw '*python/tests/catzc-widget/*snake case*'
+        { New-PythonProject -LineLength 140 } | Should -Throw '*python/tests/catzc-widget/*snake case*'
     }
 }

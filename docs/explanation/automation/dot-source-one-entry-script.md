@@ -30,7 +30,6 @@ content:
   title: Dot-source one entry script, and a failed check stops the load with a named error
   kind: explanation
   flow: top-to-bottom
-  relation: runs next
   theme: dark
   bands:
     - { id: band-run, label: RUN AND SEE }
@@ -44,11 +43,11 @@ content:
     - { id: r-loaded, kind: result, label: Loaded in N seconds, in: band-run }
     - { id: f-stops, kind: failure, label: Stops with a named error, in: band-run }
   edges:
-    - { from: g-importer, to: g-session, kind: flow, label: "" }
-    - { from: g-import-catzc, to: g-session, kind: flow, label: "" }
-    - { from: g-session, to: g-load, kind: flow, label: "" }
+    - { from: g-importer, to: g-session, kind: flow, label: calls }
+    - { from: g-import-catzc, to: g-session, kind: flow, label: calls }
+    - { from: g-session, to: g-load, kind: flow, label: calls }
     - { from: g-load, to: g-mode, kind: flow, label: "" }
-    - { from: g-mode, to: g-janitors, kind: flow, label: "" }
+    - { from: g-mode, to: g-janitors, kind: flow, label: calls }
     - { from: g-janitors, to: r-loaded, kind: flow, label: "" }
     - { from: g-session, to: f-stops, kind: fail, label: "" }
     - { from: g-load, to: f-stops, kind: fail, label: "" }

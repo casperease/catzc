@@ -31,22 +31,51 @@ The skill's **judgement** carries across both lanes unchanged. Its **mechanics**
 
 ## What the skill teaches, in our terms
 
-| The skill says                                                 | In cats                                                                                                                                                 | Holds in the docs lane                                                             |
-| -------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
-| A diagram earns its place when a sentence cannot say it faster | An explanation article narrates one diagram; the diagram shows the mechanism, the Walkthrough says the rest                                             | yes: one article, one diagram, one finding                                         |
-| Depict the mechanism, not its name                             | Every word comes from the source decision record or code; never invent a number, part or loop (STYLE.md "Ids and words"; `drawio-diagram-waves` step 6) | yes: a maker verifies each claim into `<name>.verify.md`                           |
-| Comparing options? Draw the difference                         | A slide's title cell states the finding the reader leaves with, not the topic                                                                           | yes                                                                                |
-| Match complexity to the stakes                                 | At most 1300 wide, grow downward; at most 3 rebuilds per maker                                                                                          | yes, as the kit's canvas and the wave budget                                       |
-| Label the arrows                                               | A flow edge is "the one relationship the diagram's legend names"; a thick, dashed or red edge changes that meaning (glyphs "Lines and marks")           | partly: one relationship per slide is named once in the legend, not on every arrow |
-| A legend only when an encoding repeats                         | Every slide carries its own legend panel, because the glyph library repeats on every slide                                                              | no: the legend is always there, by design                                          |
-| One figure, one claim; the caption states it                   | The article's heading is the claim, the yml's `description:` is the long caption, the image's alt text repeats the claim                                | yes                                                                                |
-| Theme with `currentColor` so both themes read the same         | Every rendered output is dark on `#1E2430`; a dark-mode and a light-mode viewer get the same raster (STYLE.md "Canvas")                                 | met by the opposite means: one fixed dark page instead of inherited colour         |
-| Size by `viewBox`, let CSS scale                               | A fixed page of at most 1300 wide; the PNG is the size it is                                                                                            | no: a raster has no `viewBox`                                                      |
-| Arrowheads are markers or polygons, never images               | Edge styles come verbatim from `glyphs.xml`; copy, never retype                                                                                         | yes, in draw.io's own terms                                                        |
-| Text 11 to 13 px, short labels                                 | A dark label on the dark page or text cut by its box is a finding (`drawio-look` step 2)                                                                | yes: the look checks it on the raster                                              |
-| Align to a grid                                                | `gridSize="10"`, ids are semantic slugs, markers number the Walkthrough steps                                                                           | yes                                                                                |
-| Stay self-contained: no script, style or foreign object        | The model is an `mxGraphModel` in a PNG `tEXt` chunk; it round-trips through put and get or it fails (`drawio-declaration` step 1)                      | yes, and stricter: picture and XML must agree                                      |
-| Counts, state and meaning                                      | Counts come from the model, never from the picture (`drawio-look` step 3)                                                                               | ours only; the skill has no equivalent                                             |
+- **A diagram earns its place when a sentence cannot say it faster**
+  - In cats: An explanation article narrates one diagram; the diagram shows the mechanism, the Walkthrough says the rest
+  - Holds in the docs lane: yes: one article, one diagram, one finding
+- **Depict the mechanism, not its name**
+  - In cats: Every word comes from the source decision record or code; never invent a number, part or loop (STYLE.md "Ids and words";
+    `drawio-diagram-waves` step 6)
+  - Holds in the docs lane: yes: a maker verifies each claim into `<name>.verify.md`
+- **Comparing options? Draw the difference**
+  - In cats: A slide's title cell states the finding the reader leaves with, not the topic
+  - Holds in the docs lane: yes
+- **Match complexity to the stakes**
+  - In cats: At most 1300 wide, grow downward; at most 3 rebuilds per maker
+  - Holds in the docs lane: yes, as the kit's canvas and the wave budget
+- **Label the arrows**
+  - In cats: A flow edge is "the one relationship the diagram's legend names"; a thick, dashed or red edge changes that meaning (glyphs
+    "Lines and marks")
+  - Holds in the docs lane: partly: one relationship per slide is named once in the legend, not on every arrow
+- **A legend only when an encoding repeats**
+  - In cats: Every slide carries its own legend panel, because the glyph library repeats on every slide
+  - Holds in the docs lane: no: the legend is always there, by design
+- **One figure, one claim; the caption states it**
+  - In cats: The article's heading is the claim, the yml's `description:` is the long caption, the image's alt text repeats the claim
+  - Holds in the docs lane: yes
+- **Theme with `currentColor` so both themes read the same**
+  - In cats: Every rendered output is dark on `#1E2430`; a dark-mode and a light-mode viewer get the same raster (STYLE.md "Canvas")
+  - Holds in the docs lane: met by the opposite means: one fixed dark page instead of inherited colour
+- **Size by `viewBox`, let CSS scale**
+  - In cats: A fixed page of at most 1300 wide; the PNG is the size it is
+  - Holds in the docs lane: no: a raster has no `viewBox`
+- **Arrowheads are markers or polygons, never images**
+  - In cats: Edge styles come verbatim from `glyphs.xml`; copy, never retype
+  - Holds in the docs lane: yes, in draw.io's own terms
+- **Text 11 to 13 px, short labels**
+  - In cats: A dark label on the dark page or text cut by its box is a finding (`drawio-look` step 2)
+  - Holds in the docs lane: yes: the look checks it on the raster
+- **Align to a grid**
+  - In cats: `gridSize="10"`, ids are semantic slugs, markers number the Walkthrough steps
+  - Holds in the docs lane: yes
+- **Stay self-contained: no script, style or foreign object**
+  - In cats: The model is an `mxGraphModel` in a PNG `tEXt` chunk; it round-trips through put and get or it fails (`drawio-declaration`
+    step 1)
+  - Holds in the docs lane: yes, and stricter: picture and XML must agree
+- **Counts, state and meaning**
+  - In cats: Counts come from the model, never from the picture (`drawio-look` step 3)
+  - Holds in the docs lane: ours only; the skill has no equivalent
 
 Three rows read "no" or "partly". They are not drift. The kit chooses a legend on every slide, a fixed dark page and one named relationship
 per slide because a reader decodes a slide shape first, colour second, name last, the same way across every diagram. The skill writes for a
@@ -54,14 +83,24 @@ single page a reader sees once. Our docs lane is a library a reader returns to.
 
 ## What each robot and capability reads
 
-| Robot or capability                           | Lane | Reads                                                                                            |
-| --------------------------------------------- | ---- | ------------------------------------------------------------------------------------------------ |
-| `drawio-diagram-waves`, `drawio-waves`        | docs | STYLE.md, `glyphs.xml`, the source decision records                                              |
-| `drawio-renderer`                             | docs | the diagram's yml, the markdown pages that embed it                                              |
-| `edit-diagram-yml`, `drawio-declaration`      | docs | the diagram's `<name>.drawio.yml`, its vocabularies                                              |
-| `drawio-look`                                 | docs | the PNG, against STYLE.md's vocabulary                                                           |
-| `print-artifacts`, `artifact-publish`         | page | the saved page file and the catalogue; it draws nothing, so the skill does not apply to it today |
-| a session with `/artifact-diagramming` loaded | page | the skill, for any SVG it hand-authors on a page                                                 |
+- **`drawio-diagram-waves`, `drawio-waves`**
+  - Lane: docs
+  - Reads: STYLE.md, `glyphs.xml`, the source decision records
+- **`drawio-renderer`**
+  - Lane: docs
+  - Reads: the diagram's yml, the markdown pages that embed it
+- **`edit-diagram-yml`, `drawio-declaration`**
+  - Lane: docs
+  - Reads: the diagram's `<name>.drawio.yml`, its vocabularies
+- **`drawio-look`**
+  - Lane: docs
+  - Reads: the PNG, against STYLE.md's vocabulary
+- **`print-artifacts`, `artifact-publish`**
+  - Lane: page
+  - Reads: the saved page file and the catalogue; it draws nothing, so the skill does not apply to it today
+- **a session with `/artifact-diagramming` loaded**
+  - Lane: page
+  - Reads: the skill, for any SVG it hand-authors on a page
 
 A robot never loads the skill: a robot's know-how is a capability of at most 10 lines, registered in `capabilities.yml`, and the skill is
 neither. When a page lane robot would one day draw, the drawing rule becomes a capability of our own that restates the skill's mechanics in

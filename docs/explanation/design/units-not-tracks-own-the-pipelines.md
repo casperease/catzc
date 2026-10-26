@@ -29,7 +29,6 @@ content:
   title: CD pipelines bind through deployable-units, while CI pipelines bind the track sets directly
   kind: explanation
   flow: left-to-right
-  relation: binds a pipeline (pipeline:)
   theme: dark
   bands:
     - { id: band-tracks, label: TRACKS }

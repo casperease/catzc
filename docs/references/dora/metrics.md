@@ -9,13 +9,13 @@ The guide describes the metrics as both:
 - **leading indicators** of organizational performance and employee well-being; and
 - **lagging indicators** of the software development and delivery practices that produce them.
 
-| Metric                                                              | Family      | Measures                                                                      |
-| ------------------------------------------------------------------- | ----------- | ----------------------------------------------------------------------------- |
-| [Change lead time](#change-lead-time)                               | Throughput  | Time from a change committed to version control to it running in production   |
-| [Deployment frequency](#deployment-frequency)                       | Throughput  | How often changes are deployed                                                |
-| [Failed deployment recovery time](#failed-deployment-recovery-time) | Throughput  | Time to recover from a deployment that fails and needs immediate intervention |
-| [Change fail rate](#change-fail-rate)                               | Instability | Share of deployments that need immediate intervention                         |
-| [Deployment rework rate](#deployment-rework-rate)                   | Instability | Share of deployments that are unplanned, made to fix a production incident    |
+- [Change lead time](#change-lead-time) (throughput): time from a change committed to version control to it running in production.
+- [Deployment frequency](#deployment-frequency) (throughput): how often changes are deployed.
+- [Failed deployment recovery time](#failed-deployment-recovery-time) (throughput): time to recover from a deployment that fails and needs
+  immediate intervention.
+- [Change fail rate](#change-fail-rate) (instability): share of deployments that need immediate intervention.
+- [Deployment rework rate](#deployment-rework-rate) (instability): share of deployments that are unplanned, made to fix a production
+  incident.
 
 The metrics are meant to be applied **per application or service**, in that application's context. They work for any technology stack, but
 blending them across very different teams or whole organizations is misleading ([metrics guide](https://dora.dev/guides/dora-metrics/)).
@@ -134,11 +134,15 @@ phrase.
 
 Comparisons between clusters, as stated on the yearly archive pages:
 
-| Year | Comparison    | Deployment frequency | Lead time     | Recovery      | Change fail rate | Source                                              |
-| ---- | ------------- | -------------------- | ------------- | ------------- | ---------------- | --------------------------------------------------- |
-| 2015 | High vs. low  | 30× more frequent    | 200× shorter  | 168× faster   | 60× fewer        | [2015](https://dora.dev/research/2015/)             |
-| 2016 | High vs. low  | 200× more frequent   | 2,555× faster | 24× faster    | 3× lower         | [2016](https://dora.dev/research/2016/)             |
-| 2018 | Elite vs. low | 46× more frequent    | 2,555× faster | 2,604× faster | 7× lower         | [2018](https://dora.dev/research/2018/dora-report/) |
+| Year | Comparison    | Deployment frequency | Lead time     | Recovery      | Change fail rate | Source        |
+| ---- | ------------- | -------------------- | ------------- | ------------- | ---------------- | ------------- |
+| 2015 | High vs. low  | 30× more frequent    | 200× shorter  | 168× faster   | 60× fewer        | [2015][d2015] |
+| 2016 | High vs. low  | 200× more frequent   | 2,555× faster | 24× faster    | 3× lower         | [2016][d2016] |
+| 2018 | Elite vs. low | 46× more frequent    | 2,555× faster | 2,604× faster | 7× lower         | [2018][d2018] |
+
+[d2015]: https://dora.dev/research/2015/
+[d2016]: https://dora.dev/research/2016/
+[d2018]: https://dora.dev/research/2018/dora-report/
 
 In 2021, elite performers made up 26% of teams and had cut their lead times further ([2021 archive](https://dora.dev/research/2021/)).
 

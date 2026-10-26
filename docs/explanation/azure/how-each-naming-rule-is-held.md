@@ -36,7 +36,6 @@ content:
   title: Code holds all eight naming rules, seven of them behind a check that throws
   kind: explanation
   flow: top-to-bottom
-  relation: the next check
   theme: dark
   bands:
     - { id: band-discovery, label: DISCOVERY }
@@ -51,7 +50,7 @@ content:
     - { id: r-name, kind: result, label: the name, in: band-namer }
     - { id: f-throw, kind: failure, label: throw, in: band-namer }
   edges:
-    - { from: g-short-name, to: g-resource-name, kind: flow, label: "" }
+    - { from: g-short-name, to: g-resource-name, kind: flow, label: calls }
     - { from: g-resource-name, to: g-lookups, kind: flow, label: "" }
     - { from: g-lookups, to: g-format, kind: flow, label: "" }
     - { from: g-format, to: g-length, kind: flow, label: "" }

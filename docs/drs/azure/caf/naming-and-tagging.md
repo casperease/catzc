@@ -317,16 +317,32 @@ Summary (ours): Typical components are the resource-type abbreviation, the workl
 The standard uses all five of CAF's components, under its own names, and adds three
 ([ADR-AZ-NAMING-DETERMINISTICNAMES](../azure-naming-standard.md#rule-adr-az-naming-deterministicnames)):
 
-| CAF component   | Standard component | Difference and why                                                                                                                                                                                       |
-| --------------- | ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| resource type   | `type`             | Same; the token is CAF's abbreviation where CAF lists one (item 7).                                                                                                                                      |
-| workload        | `short_name`       | The template is the workload; its 2–5 letter id keeps tight names short.                                                                                                                                 |
-| environment     | `env`              | Same; the readable name in generous names, a 2-letter code in tight ones (ADR-AZ-NAMING-ENVIRONMENTFIRST).                                                                                               |
-| region          | `region`           | Same; a 3-letter code (`weu`) from `azure.yml`.                                                                                                                                                          |
-| instance number | `slot`             | Optional: the base slot carries none, and a special slot may be a word (`blu`), because one config is one deployment.                                                                                    |
-| —               | `org`              | Added: one organisation code per repository keeps global names apart between repositories.                                                                                                               |
-| —               | `customer`         | Added: derived from the subscription, so each customer's resources are named for it ([ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT](../azure-naming-standard.md#rule-adr-az-naming-subscriptionnotcomponent)). |
-| —               | `role`             | Added: tells sibling resources of one type apart inside one slot (`blb` and `sql` private endpoints).                                                                                                    |
+- **resource type**
+  - Standard component: `type`
+  - Difference and why: Same; the token is CAF's abbreviation where CAF lists one (item 7).
+- **workload**
+  - Standard component: `short_name`
+  - Difference and why: The template is the workload; its 2–5 letter id keeps tight names short.
+- **environment**
+  - Standard component: `env`
+  - Difference and why: Same; the readable name in generous names, a 2-letter code in tight ones (ADR-AZ-NAMING-ENVIRONMENTFIRST).
+- **region**
+  - Standard component: `region`
+  - Difference and why: Same; a 3-letter code (`weu`) from `azure.yml`.
+- **instance number**
+  - Standard component: `slot`
+  - Difference and why: Optional: the base slot carries none, and a special slot may be a word (`blu`), because one config is one
+    deployment.
+- **—**
+  - Standard component: `org`
+  - Difference and why: Added: one organisation code per repository keeps global names apart between repositories.
+- **—**
+  - Standard component: `customer`
+  - Difference and why: Added: derived from the subscription, so each customer's resources are named for it
+    ([ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT](../azure-naming-standard.md#rule-adr-az-naming-subscriptionnotcomponent)).
+- **—**
+  - Standard component: `role`
+  - Difference and why: Added: tells sibling resources of one type apart inside one slot (`blb` and `sql` private endpoints).
 
 A counter as the instance number would say nothing about why a second instance exists; a named special slot does, and the base slot needs no
 number at all.
@@ -427,24 +443,70 @@ Summary (ours): Use CAF's resource-type abbreviations to keep names within their
 The `type` token of each type in `Get-AzureResourceTypeSet` is CAF's abbreviation wherever CAF lists one. The table compares every type the
 templates name:
 
-| Resource type           | CAF abbreviation        | Registry token | Difference and why                                                                            |
-| ----------------------- | ----------------------- | -------------- | --------------------------------------------------------------------------------------------- |
-| Resource group          | `rg`                    | `rg`           | None.                                                                                         |
-| Virtual network         | `vnet`                  | `vnet`         | None.                                                                                         |
-| Subnet                  | `snet`                  | `snet`         | None in the token; the templates name subnets from the network plan instead (item 10).        |
-| Network security group  | `nsg`                   | `nsg`          | None.                                                                                         |
-| Route table             | `rt`                    | `rt`           | None.                                                                                         |
-| Virtual network peering | `peer`                  | `peer`         | None.                                                                                         |
-| Private endpoint        | `pep`                   | `pep`          | None.                                                                                         |
-| Storage account         | `st`                    | `st`           | None.                                                                                         |
-| SQL logical server      | `sql`                   | `sql`          | None.                                                                                         |
-| SQL database            | `sqldb`                 | `sqldb`        | None.                                                                                         |
-| Key Vault               | `kv`                    | `kv`           | None.                                                                                         |
-| Log Analytics workspace | `log`                   | `log`          | None.                                                                                         |
-| Private DNS zone        | the zone's own DNS name | not registered | None: Azure requires the private-link DNS zone name, so it is no name the standard assembles. |
-| Policy definition       | a descriptive name      | not registered | None: the landing zone assigns built-in definitions and defines none of its own.              |
-| Policy assignment       | not listed              | `pa`           | Ours: CAF lists none, and the registry needs a token for every type the namer renders.        |
-| Budget                  | not listed              | `budg`         | Ours: CAF lists none; `budget` would break the 5-letter cap on `type`, so it is `budg`.       |
+- **Resource group**
+  - CAF abbreviation: `rg`
+  - Registry token: `rg`
+  - Difference and why: None.
+- **Virtual network**
+  - CAF abbreviation: `vnet`
+  - Registry token: `vnet`
+  - Difference and why: None.
+- **Subnet**
+  - CAF abbreviation: `snet`
+  - Registry token: `snet`
+  - Difference and why: None in the token; the templates name subnets from the network plan instead (item 10).
+- **Network security group**
+  - CAF abbreviation: `nsg`
+  - Registry token: `nsg`
+  - Difference and why: None.
+- **Route table**
+  - CAF abbreviation: `rt`
+  - Registry token: `rt`
+  - Difference and why: None.
+- **Virtual network peering**
+  - CAF abbreviation: `peer`
+  - Registry token: `peer`
+  - Difference and why: None.
+- **Private endpoint**
+  - CAF abbreviation: `pep`
+  - Registry token: `pep`
+  - Difference and why: None.
+- **Storage account**
+  - CAF abbreviation: `st`
+  - Registry token: `st`
+  - Difference and why: None.
+- **SQL logical server**
+  - CAF abbreviation: `sql`
+  - Registry token: `sql`
+  - Difference and why: None.
+- **SQL database**
+  - CAF abbreviation: `sqldb`
+  - Registry token: `sqldb`
+  - Difference and why: None.
+- **Key Vault**
+  - CAF abbreviation: `kv`
+  - Registry token: `kv`
+  - Difference and why: None.
+- **Log Analytics workspace**
+  - CAF abbreviation: `log`
+  - Registry token: `log`
+  - Difference and why: None.
+- **Private DNS zone**
+  - CAF abbreviation: the zone's own DNS name
+  - Registry token: not registered
+  - Difference and why: None: Azure requires the private-link DNS zone name, so it is no name the standard assembles.
+- **Policy definition**
+  - CAF abbreviation: a descriptive name
+  - Registry token: not registered
+  - Difference and why: None: the landing zone assigns built-in definitions and defines none of its own.
+- **Policy assignment**
+  - CAF abbreviation: not listed
+  - Registry token: `pa`
+  - Difference and why: Ours: CAF lists none, and the registry needs a token for every type the namer renders.
+- **Budget**
+  - CAF abbreviation: not listed
+  - Registry token: `budg`
+  - Difference and why: Ours: CAF lists none; `budget` would break the 5-letter cap on `type`, so it is `budg`.
 
 The registry also holds `waf`, `vm`, `synw`, `adf`, `nic`, and `pip`, which none of the three templates deploys; this record does not
 compare them, and the next refresh of the CAF import adds them to the table.

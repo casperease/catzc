@@ -34,7 +34,6 @@ content:
   title: "Nobody types an Azure name: cats derives it, and a bad name stops with an error"
   kind: explanation
   flow: left-to-right
-  relation: feeds the next
   theme: dark
   bands:
     - { id: band-change, label: YOU CHANGE }
@@ -49,10 +48,10 @@ content:
     - { id: r-name, kind: result, label: dev-001-weu-zct-sidx-rg, in: band-get }
     - { id: f-throw, kind: failure, label: throw, in: band-get }
   edges:
-    - { from: g-variants, to: g-resource-name, kind: flow, label: "" }
-    - { from: g-options, to: g-resource-name, kind: flow, label: "" }
-    - { from: g-deploy, to: g-resource-name, kind: flow, label: "" }
-    - { from: g-resource-name, to: g-namer, kind: flow, label: "" }
+    - { from: g-variants, to: g-resource-name, kind: flow, label: feeds }
+    - { from: g-options, to: g-resource-name, kind: flow, label: feeds }
+    - { from: g-deploy, to: g-resource-name, kind: flow, label: calls }
+    - { from: g-resource-name, to: g-namer, kind: flow, label: calls }
     - { from: g-namer, to: r-name, kind: flow, label: "" }
     - { from: g-namer, to: f-throw, kind: fail, label: "" }
   markers:

@@ -29,7 +29,6 @@ content:
   title: The import materialises every root file; two gates catch drift and name the fix
   kind: explanation
   flow: left-to-right
-  relation: feeds the next step
   theme: dark
   bands:
     - { id: band-run, label: RUN }

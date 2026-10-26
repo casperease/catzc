@@ -27,7 +27,6 @@ content:
   title: One function answers "am I in a pipeline?", and every branch on context asks it
   kind: explanation
   flow: left-to-right
-  relation: feeds the next step
   theme: dark
   bands:
     - { id: band-platform, label: PLATFORM }
@@ -40,7 +39,7 @@ content:
     - { id: s-behavior, kind: set, label: context-dependent behavior, in: band-consumers }
     - { id: g-analyzer, kind: gate, label: analyzer rule, in: band-enforcement }
   edges:
-    - { from: g-agent, to: g-detection, kind: flow, label: "" }
+    - { from: g-agent, to: g-detection, kind: flow, label: calls }
     - { from: g-detection, to: s-behavior, kind: thick, label: "" }
     - { from: s-behavior, to: g-analyzer, kind: flow, label: "" }
   markers:

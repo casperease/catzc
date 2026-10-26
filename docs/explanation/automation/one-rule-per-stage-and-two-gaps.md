@@ -31,7 +31,6 @@ content:
   title: Two rules govern every stage, tests and the hook check them, and two gaps remain
   kind: explanation
   flow: left-to-right
-  relation: is checked by
   theme: dark
   bands:
     - { id: band-axes, label: AXES }

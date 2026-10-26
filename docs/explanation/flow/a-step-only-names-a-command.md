@@ -27,7 +27,6 @@ content:
   title: A pipeline step only names a command that a developer can run locally
   kind: explanation
   flow: left-to-right
-  relation: passes the command on
   theme: dark
   bands:
     - { id: band-pipeline, label: PIPELINE }
@@ -39,9 +38,9 @@ content:
     - { id: g-same-command, kind: code, label: same command, in: band-pipeline }
     - { id: g-developer, kind: actor, label: developer, in: band-developer }
   edges:
-    - { from: g-step, to: g-task, kind: flow, label: "" }
-    - { from: g-task, to: g-runner, kind: flow, label: "" }
-    - { from: g-runner, to: g-same-command, kind: flow, label: "" }
+    - { from: g-step, to: g-task, kind: flow, label: calls }
+    - { from: g-task, to: g-runner, kind: flow, label: calls }
+    - { from: g-runner, to: g-same-command, kind: flow, label: calls }
     - { from: g-developer, to: g-same-command, kind: adr, label: "" }
   markers:
     - { at: g-step, number: 1 }

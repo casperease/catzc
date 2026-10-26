@@ -39,7 +39,6 @@ content:
   title: Three gates check the registry, the drift and the git membership; one rule has no gate
   kind: explanation
   flow: left-to-right
-  relation: feeds the next step
   theme: dark
   bands:
     - { id: band-source, label: SOURCE OF TRUTH }

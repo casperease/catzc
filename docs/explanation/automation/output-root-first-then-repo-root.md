@@ -33,7 +33,6 @@ content:
   title: Output root first, then repository root, else absolute, and out/ re-anchors on the output root
   kind: explanation
   flow: left-to-right
-  relation: passes the path on
   theme: dark
   bands:
     - { id: band-communication, label: COMMUNICATION FORM }
@@ -54,13 +53,13 @@ content:
     - { id: g-reference, kind: code, label: ArtifactRef, in: band-stage }
     - { id: g-resolve-at, kind: code, label: ResolveAt / ExistsAt, in: band-stage }
   edges:
-    - { from: grp-paths, to: g-resolve, kind: flow, label: "" }
+    - { from: grp-paths, to: g-resolve, kind: flow, label: feeds }
     - { from: g-resolve, to: s-effects, kind: flow, label: "" }
-    - { from: g-output-root, to: g-resolve, kind: flow, label: "" }
-    - { from: g-output-root, to: g-convert, kind: flow, label: "" }
+    - { from: g-output-root, to: g-resolve, kind: flow, label: calls }
+    - { from: g-output-root, to: g-convert, kind: flow, label: calls }
     - { from: g-convert, to: grp-paths, kind: flow, label: "" }
-    - { from: g-materialize, to: g-reference, kind: flow, label: "" }
-    - { from: g-reference, to: g-resolve-at, kind: flow, label: "" }
+    - { from: g-materialize, to: g-reference, kind: flow, label: calls }
+    - { from: g-reference, to: g-resolve-at, kind: flow, label: calls }
   markers:
     - { at: r-out, number: 1 }
     - { at: r-repository, number: 2 }

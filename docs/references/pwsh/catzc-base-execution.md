@@ -95,7 +95,6 @@ content:
   title: "Invoke-Executable: only the streamed path is time-bounded"
   kind: reference
   flow: left-to-right
-  relation: runs next (code order)
   theme: dark
   bands:
     - { id: band-entry, label: ENTRY }
@@ -114,12 +113,12 @@ content:
     - { id: g-expression, kind: code, label: Invoke-Expression, in: band-direct }
     - { id: n-no-limit, kind: drsonly, label: no time limit, in: band-direct }
   edges:
-    - { from: g-invoke, to: g-timeout, kind: flow, label: "" }
-    - { from: g-timeout, to: g-streamed, kind: flow, label: "" }
+    - { from: g-invoke, to: g-timeout, kind: flow, label: calls }
+    - { from: g-timeout, to: g-streamed, kind: flow, label: feeds }
     - { from: g-streamed, to: t-runner, kind: flow, label: "" }
     - { from: t-runner, to: f-kill, kind: fail, label: "" }
-    - { from: g-invoke, to: g-direct, kind: flow, label: "" }
-    - { from: g-direct, to: g-expression, kind: flow, label: "" }
+    - { from: g-invoke, to: g-direct, kind: flow, label: calls }
+    - { from: g-direct, to: g-expression, kind: flow, label: calls }
   markers:
     - { at: g-invoke, number: 1 }
     - { at: g-timeout, number: 2 }

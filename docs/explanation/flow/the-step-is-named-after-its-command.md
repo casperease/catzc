@@ -29,7 +29,6 @@ content:
   title: The Azure DevOps step is named after its command, and its log echoes the command before it runs
   kind: explanation
   flow: left-to-right
-  relation: run order
   theme: dark
   bands:
     - { id: band-run, label: PIPELINE RUN }

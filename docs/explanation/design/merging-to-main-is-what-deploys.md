@@ -29,7 +29,6 @@ content:
   title: Merging to main is what deploys; there is no run that deploys a topic
   kind: explanation
   flow: left-to-right
-  relation: starts a run
   theme: dark
   bands:
     - { id: band-topic, label: TOPIC }

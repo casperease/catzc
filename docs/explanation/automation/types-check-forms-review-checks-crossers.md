@@ -40,7 +40,6 @@ content:
   title: Three types check path forms at construction, and the crossing rules are left to review
   kind: explanation
   flow: left-to-right
-  relation: checks
   theme: dark
   bands:
     - { id: band-communication, label: COMMUNICATION FORM }

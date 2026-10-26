@@ -36,7 +36,6 @@ content:
   title: Two L0 test files check the address rules; read-only and committed-only rest on convention
   kind: explanation
   flow: left-to-right
-  relation: the walk, or what a test checks
   theme: dark
   bands:
     - { id: band-resolve, label: RESOLVE }
@@ -51,11 +50,11 @@ content:
     - { id: g-value-tests, kind: gate, label: Get-ConfigValue.Tests, in: band-tests }
     - { id: g-env-tests, kind: gate, label: Write-EnvironmentSet.Tests, in: band-tests }
   edges:
-    - { from: g-grammar, to: g-reader, kind: flow, label: "" }
-    - { from: g-reader, to: g-walk, kind: flow, label: "" }
+    - { from: g-grammar, to: g-reader, kind: flow, label: calls }
+    - { from: g-reader, to: g-walk, kind: flow, label: calls }
     - { from: g-walk, to: a-copy, kind: flow, label: "" }
-    - { from: g-value-tests, to: g-reader, kind: flow, label: "" }
-    - { from: g-env-tests, to: g-secret, kind: flow, label: "" }
+    - { from: g-value-tests, to: g-reader, kind: flow, label: calls }
+    - { from: g-env-tests, to: g-secret, kind: flow, label: calls }
   markers:
     - { at: g-grammar, number: 1 }
     - { at: g-reader, number: 2 }

@@ -42,7 +42,6 @@ content:
   title: The CI budget is the only promotion rule a quality gate checks
   kind: explanation
   flow: left-to-right
-  relation: checks
   theme: dark
   bands:
     - { id: band-flow, label: FLOW }
@@ -69,7 +68,7 @@ content:
     - { id: g-machine-gate, kind: gate, label: machine gate, in: band-checks }
     - { id: g-reviewer, kind: actor, label: reviewer, in: band-checks }
   edges:
-    - { from: g-machine-gate, to: g-inner-loop, kind: flow, label: "" }
+    - { from: g-machine-gate, to: g-inner-loop, kind: flow, label: calls }
     - { from: g-reviewer, to: grp-flow, kind: adr, label: "" }
   markers:
     - { at: g-inner-loop, number: 1 }

@@ -32,7 +32,6 @@ content:
   title: Strip, split, read once, walk one segment at a time; every wrong turn throws
   kind: explanation
   flow: left-to-right
-  relation: calls, in code order
   theme: dark
   bands:
     - { id: band-resolve, label: RESOLVE }
@@ -49,9 +48,9 @@ content:
     - { id: f-key, kind: failure, label: key or property not found, in: band-fail }
   edges:
     - { from: g-caller, to: g-pattern, kind: flow, label: "'global.…'" }
-    - { from: g-pattern, to: g-value, kind: flow, label: "" }
-    - { from: g-value, to: g-config, kind: flow, label: -Config azure }
-    - { from: g-config, to: g-walk, kind: flow, label: "-Node, -Segment" }
+    - { from: g-pattern, to: g-value, kind: flow, label: calls }
+    - { from: g-value, to: g-config, kind: flow, label: calls }
+    - { from: g-config, to: g-walk, kind: flow, label: calls }
     - { from: g-walk, to: r-node, kind: flow, label: "" }
     - { from: g-pattern, to: f-binding, kind: fail, label: "" }
     - { from: g-config, to: f-name, kind: fail, label: "" }

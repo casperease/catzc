@@ -25,7 +25,6 @@ content:
   title: A track ships through a deployable-unit, and each unit has one pipeline
   kind: explanation
   flow: left-to-right
-  relation: binds one pipeline (1-1)
   theme: dark
   bands:
     - { id: band-tracks, label: TRACKS }

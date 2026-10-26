@@ -31,7 +31,6 @@ content:
   title: Module dependencies form three layers, and every edge points down
   kind: explanation
   flow: top-to-bottom
-  relation: may depend on
   theme: dark
   bands:
     - { id: band-top, label: TOP LAYER }
@@ -39,8 +38,8 @@ content:
     - { id: band-foundation, label: FOUNDATION }
   glyphs:
     - { id: s-azure-ext, kind: set, label: AzureExt, in: band-top }
-    - { id: g-azure, kind: code, label: Catzc.Azure, in: band-middle }
-    - { id: g-core, kind: code, label: Tooling.Core, in: band-middle }
+    - { id: g-azure, kind: set, label: Catzc.Azure, in: band-middle }
+    - { id: g-core, kind: set, label: Tooling.Core, in: band-middle }
     - { id: s-tooling, kind: set, label: Tooling, in: band-middle }
     - { id: g-github, kind: code, label: Github · KeyHandler · Inspiration · Listen · Claude, in: band-middle }
     - { id: s-base, kind: set, label: Base, in: band-foundation }

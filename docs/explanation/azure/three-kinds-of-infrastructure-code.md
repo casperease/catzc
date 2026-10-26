@@ -29,7 +29,6 @@ content:
   title: Infrastructure code is of three kinds, and a template pulls its modules and its configuration slots together
   kind: explanation
   flow: left-to-right
-  relation: feeds
   theme: dark
   bands:
     - { id: band-modules, label: MODULES }
@@ -53,8 +52,8 @@ content:
     - { id: g-slot, kind: file, label: "<env>[-<slot>].yml", in: band-configs }
     - { id: e-group, kind: env, label: resource group, in: band-deployed }
   edges:
-    - { from: g-module, to: g-main, kind: flow, label: "" }
-    - { from: g-options, to: g-main, kind: flow, label: "" }
+    - { from: g-module, to: g-main, kind: flow, label: feeds }
+    - { from: g-options, to: g-main, kind: flow, label: feeds }
     - { from: g-main, to: g-slot, kind: flow, label: "" }
     - { from: g-slot, to: e-group, kind: flow, label: "" }
   markers:

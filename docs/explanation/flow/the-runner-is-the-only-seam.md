@@ -29,7 +29,6 @@ content:
   title: The runner is the only seam from pipeline YAML into PowerShell
   kind: explanation
   flow: left-to-right
-  relation: calls
   theme: dark
   bands:
     - { id: band-yaml, label: YAML }
@@ -45,9 +44,9 @@ content:
     - { id: a-developer, kind: actor, label: developer, in: band-developer }
   edges:
     - { from: f-pipeline-yaml, to: f-template, kind: flow, label: "" }
-    - { from: f-template, to: r-task, kind: flow, label: "" }
-    - { from: r-task, to: c-runner, kind: flow, label: "" }
-    - { from: c-runner, to: c-importer, kind: flow, label: "" }
+    - { from: f-template, to: r-task, kind: flow, label: feeds }
+    - { from: r-task, to: c-runner, kind: flow, label: calls }
+    - { from: c-runner, to: c-importer, kind: flow, label: calls }
     - { from: a-developer, to: c-importer, kind: flow, label: "" }
   markers:
     - { at: f-pipeline-yaml, number: 1 }

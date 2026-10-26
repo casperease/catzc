@@ -29,7 +29,6 @@ content:
   title: One field in globs.yml, pipeline:, binds a set to its pipeline file
   kind: explanation
   flow: left-to-right
-  relation: names the next file by key
   theme: dark
   bands:
     - { id: band-registry, label: THE REGISTRY }
@@ -45,11 +44,11 @@ content:
     - { id: r-unit, kind: runner, label: cd-<unit>.yaml, in: band-pipelines }
     - { id: r-extends, kind: runner, label: extends/cd-customer.yaml, in: band-pipelines }
   edges:
-    - { from: s-automation, to: r-automation, kind: flow, label: "" }
-    - { from: s-infrastructure, to: r-infrastructure, kind: flow, label: "" }
-    - { from: s-units, to: r-unit, kind: flow, label: "" }
+    - { from: s-automation, to: r-automation, kind: flow, label: feeds }
+    - { from: s-infrastructure, to: r-infrastructure, kind: flow, label: feeds }
+    - { from: s-units, to: r-unit, kind: flow, label: feeds }
     - { from: s-foundation, to: s-units, kind: thick, label: "" }
-    - { from: r-unit, to: r-extends, kind: flow, label: "" }
+    - { from: r-unit, to: r-extends, kind: flow, label: calls }
   markers:
     - { at: f-registry, number: 1 }
     - { at: s-automation, number: 2 }

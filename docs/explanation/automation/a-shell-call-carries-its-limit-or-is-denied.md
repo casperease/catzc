@@ -28,7 +28,6 @@ content:
   title: A shell call carries its limit, or the hook denies it with a reason; it is never rewritten
   kind: explanation
   flow: top-to-bottom
-  relation: hands the call on
   theme: dark
   bands:
     - { id: band-call, label: CALL }

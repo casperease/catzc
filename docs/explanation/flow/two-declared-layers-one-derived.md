@@ -28,7 +28,6 @@ content:
   title: Every globset carries one of three layers, and only two are declared
   kind: explanation
   flow: top-to-bottom
-  relation: composes
   theme: dark
   bands:
     - { id: band-unit, label: DEPLOYABLE-UNIT }

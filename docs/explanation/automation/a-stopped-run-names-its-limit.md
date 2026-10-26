@@ -31,7 +31,6 @@ content:
   title: A run past its limit stops with a message that names the limit and where to change it
   kind: explanation
   flow: left-to-right
-  relation: runs
   theme: dark
   bands:
     - { id: band-caller, label: CALLER }

@@ -31,7 +31,6 @@ content:
   title: Check the name, pick the range per context, then diff git and match the paths
   kind: explanation
   flow: top-to-bottom
-  relation: feeds the next step
   theme: dark
   bands:
     - { id: band-entry, label: ENTRY }
@@ -54,9 +53,9 @@ content:
   edges:
     - { from: g-affected, to: g-globs, kind: flow, label: "" }
     - { from: g-affected, to: f-undeclared, kind: fail, label: undeclared }
-    - { from: g-affected, to: g-range, kind: flow, label: "" }
+    - { from: g-affected, to: g-range, kind: flow, label: calls }
     - { from: g-range, to: grp-ranges, kind: flow, label: "" }
-    - { from: grp-ranges, to: g-changed, kind: flow, label: "" }
+    - { from: grp-ranges, to: g-changed, kind: flow, label: feeds }
     - { from: g-changed, to: r-false, kind: flow, label: untouched }
     - { from: g-changed, to: r-true, kind: flow, label: "touched, or git throws" }
     - from: g-range

@@ -94,7 +94,6 @@ content:
   title: Every Azure name is assembled from fixed components; an over-limit name throws, never truncated
   kind: reference
   flow: left-to-right
-  relation: assembles into
   theme: dark
   bands:
     - { id: band-components, label: COMPONENTS IN STANDARD ORDER }
@@ -125,7 +124,7 @@ content:
     - { id: n-storage-slot, kind: result, label: pr001weufindiscxaphotst (23), in: grp-storage }
     - { id: n-vm, kind: result, label: pr001weudiscvm (14), in: grp-virtual-machine }
   edges:
-    - { from: grp-name, to: g-pattern, kind: flow, label: "" }
+    - { from: grp-name, to: g-pattern, kind: flow, label: feeds }
     - { from: g-pattern, to: g-limit, kind: flow, label: "" }
     - { from: g-limit, to: r-name, kind: flow, label: fits }
     - { from: g-limit, to: f-throws, kind: fail, label: exceeds }

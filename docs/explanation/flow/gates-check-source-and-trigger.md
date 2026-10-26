@@ -43,7 +43,6 @@ content:
   title: Gates check the source of each globset and the trigger, but not the git reflection or the identity
   kind: explanation
   flow: top-to-bottom
-  relation: output read by the next
   theme: dark
   bands:
     - { id: band-source, label: SOURCE }
@@ -63,10 +62,10 @@ content:
   edges:
     - { from: f-registry, to: g-independence, kind: flow, label: "" }
     - { from: f-registry, to: g-config-load, kind: flow, label: "" }
-    - { from: g-config-load, to: g-scan-program, kind: flow, label: "" }
-    - { from: g-scan-program, to: g-projection, kind: flow, label: "" }
-    - { from: g-scan-program, to: g-git-reflection, kind: flow, label: "" }
-    - { from: g-scan-program, to: g-live-identity, kind: flow, label: "" }
+    - { from: g-config-load, to: g-scan-program, kind: flow, label: feeds }
+    - { from: g-scan-program, to: g-projection, kind: flow, label: feeds }
+    - { from: g-scan-program, to: g-git-reflection, kind: flow, label: feeds }
+    - { from: g-scan-program, to: g-live-identity, kind: flow, label: feeds }
     - { from: g-projection, to: g-trigger-gates, kind: flow, label: "" }
   markers:
     - { at: f-registry, number: 1 }

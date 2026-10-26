@@ -28,7 +28,6 @@ content:
   title: Build-Diagrams runs five stages, and rendering is the cost
   kind: explanation
   flow: left-to-right
-  relation: then
   theme: dark
   bands:
     - { id: band-pipeline, label: BUILD-DIAGRAMS }

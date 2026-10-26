@@ -29,7 +29,6 @@ content:
   title: One rule bounds every call, three tests prove the hook, and the exemption route is DRS-only
   kind: explanation
   flow: left-to-right
-  relation: feeds the next step
   theme: dark
   bands:
     - { id: band-limits, label: LIMITS }
@@ -46,8 +45,8 @@ content:
     - { id: g-parity, kind: gate, label: parity (L1 integrity), in: band-tests }
     - { id: g-published, kind: gate, label: published hook (L2 logic), in: band-tests }
   edges:
-    - { from: g-config, to: g-decide, kind: flow, label: "" }
-    - { from: g-decide, to: g-hook, kind: flow, label: "" }
+    - { from: g-config, to: g-decide, kind: flow, label: feeds }
+    - { from: g-decide, to: g-hook, kind: flow, label: calls }
   markers:
     - { at: g-config, number: 1 }
     - { at: g-decide, number: 2 }

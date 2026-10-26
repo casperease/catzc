@@ -34,7 +34,6 @@ content:
   title: The PAT proof and the empty-token assert have no gate
   kind: explanation
   flow: left-to-right
-  relation: checked by
   theme: dark
   bands:
     - { id: band-header, label: HEADER FUNCTION }
@@ -49,10 +48,10 @@ content:
     - { id: g-template, kind: runner, label: invoke-automation.yaml, in: band-cross }
     - { id: g-job, kind: runner, label: AzureAuthTests, in: band-cross }
   edges:
-    - { from: g-pipeline, to: t-pipeline, kind: flow, label: "" }
-    - { from: g-pat, to: t-pat, kind: flow, label: "" }
-    - { from: g-azcli, to: t-azcli, kind: flow, label: "" }
-    - { from: g-template, to: g-job, kind: flow, label: "" }
+    - { from: t-pipeline, to: g-pipeline, kind: flow, label: "" }
+    - { from: t-pat, to: g-pat, kind: flow, label: "" }
+    - { from: t-azcli, to: g-azcli, kind: flow, label: "" }
+    - { from: g-template, to: g-job, kind: flow, label: calls }
   markers:
     - { at: band-header, number: 1 }
     - { at: g-pipeline, number: 2 }

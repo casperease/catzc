@@ -34,7 +34,6 @@ content:
   title: Callers in any module read config through one module
   kind: explanation
   flow: left-to-right
-  relation: calls, or the read
   theme: dark
   bands:
     - { id: band-read, label: READ PATH }
@@ -49,13 +48,13 @@ content:
     - { id: g-type, kind: code, label: owner's C# type, in: band-miss }
     - { id: g-gates, kind: code, label: Catzc.Base.QualityGates, in: band-gates }
   edges:
-    - { from: g-caller, to: g-config, kind: flow, label: "" }
+    - { from: g-caller, to: g-config, kind: flow, label: calls }
     - { from: g-config, to: s-cache, kind: flow, label: "" }
     - { from: s-cache, to: r-typed, kind: flow, label: "" }
-    - { from: s-cache, to: g-file, kind: flow, label: "" }
-    - { from: g-file, to: g-type, kind: flow, label: "" }
+    - { from: s-cache, to: g-file, kind: flow, label: reads }
+    - { from: g-file, to: g-type, kind: flow, label: feeds }
     - { from: g-type, to: r-typed, kind: flow, label: "" }
-    - { from: g-gates, to: g-config, kind: flow, label: "" }
+    - { from: g-gates, to: g-config, kind: flow, label: calls }
   markers:
     - { at: g-caller, number: 1 }
     - { at: g-config, number: 2 }

@@ -28,7 +28,6 @@ content:
   title: Every module file is in exactly one aspect
   kind: explanation
   flow: left-to-right
-  relation: to a named set, first match
   theme: dark
   bands:
     - { id: band-folder, label: FOLDER }

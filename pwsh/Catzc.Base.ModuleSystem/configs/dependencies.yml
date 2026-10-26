@@ -18,6 +18,7 @@ groups:
     Catzc.Base.Folders: [Catzc.Base.Config, Catzc.Base.Objects]
     Catzc.Base.FileLimits:
       [
+        Catzc.Base.Asserts,
         Catzc.Base.Config,
         Catzc.Base.Objects,
         Catzc.Base.Languages,
@@ -45,6 +46,7 @@ groups:
         Catzc.Base.QualityGates,
         Catzc.Base.Maps,
         Catzc.Base.ModuleSystem,
+        Catzc.Base.Modules,
       ]
     Catzc.Base.Reports:
       [Catzc.Base.Config, Catzc.Base.Repository, Catzc.Base.Writers, Catzc.Base.Objects, Catzc.Base.Asserts, Catzc.Base.Folders]
@@ -54,6 +56,7 @@ groups:
       [
         Catzc.Base.Asserts,
         Catzc.Base.Config,
+        Catzc.Base.FileLimits,
         Catzc.Base.Files,
         Catzc.Base.Folders,
         Catzc.Base.Globs,
@@ -81,7 +84,7 @@ groups:
         Catzc.Base.Asserts,
         Catzc.Base.Folders,
       ]
-    Catzc.Base.Vendor: [Catzc.Base.Config, Catzc.Base.Objects, Catzc.Base.Writers, Catzc.Base.Repository, Catzc.Base.Folders]
+    Catzc.Base.Vendor: [Catzc.Base.Config, Catzc.Base.Objects, Catzc.Base.Writers, Catzc.Base.Repository, Catzc.Base.Folders, Catzc.Base.Variants]
     Catzc.Base.Timeouts:
       [Catzc.Base.Engines, Catzc.Base.Config, Catzc.Base.Objects, Catzc.Base.Writers, Catzc.Base.Repository, Catzc.Base.Asserts]
     Catzc.Base.Execution:
@@ -203,6 +206,7 @@ groups:
       ]
     Catzc.Base.RootConfig:
       [
+        Catzc.Base.FileLimits,
         Catzc.Base.GeneratedFiles,
         Catzc.Base.Contracts,
         Catzc.Base.Engines,

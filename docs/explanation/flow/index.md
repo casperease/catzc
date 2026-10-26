@@ -34,35 +34,34 @@ The manual queues of the promotion ladder ([manual-queues](../../drs/flow/manual
 A pipeline step only names a command that a developer can run locally
 ([pipeline-runner-pattern](../../drs/flow/pipeline-runner-pattern.md)).
 
-| Lens           | Article                                                                                                                                   |
-| -------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| meta           | [A pipeline step only names a command that a developer can run locally](a-step-only-names-a-command.md)                                   |
-| architecture   | [The runner is the only seam from pipeline YAML into PowerShell](the-runner-is-the-only-seam.md)                                          |
-| implementation | [Three tasks share one guard, and one runner imports, traps, sanitizes and invokes](three-tasks-one-guard-one-runner.md)                  |
-| operations     | [The Azure DevOps step is named after its command, and its log echoes the command before it runs](the-step-is-named-after-its-command.md) |
-| governance     | [No gate checks the runner rules 1 or 4, and the step template breaks rule 3](no-gate-checks-rules-one-and-four.md)                       |
+- **meta**: [A pipeline step only names a command that a developer can run locally](a-step-only-names-a-command.md)
+- **architecture**: [The runner is the only seam from pipeline YAML into PowerShell](the-runner-is-the-only-seam.md)
+- **implementation**:
+  [Three tasks share one guard, and one runner imports, traps, sanitizes and invokes](three-tasks-one-guard-one-runner.md)
+- **operations**:
+  [The Azure DevOps step is named after its command, and its log echoes the command before it runs](the-step-is-named-after-its-command.md)
+- **governance**: [No gate checks the runner rules 1 or 4, and the step template breaks rule 3](no-gate-checks-rules-one-and-four.md)
 
 ## Globset layers
 
 Peers in a layer never share a file, except in the loose-fileset layer ([durable-sha-globs](../../drs/flow/durable-sha-globs.md)).
 
-| Lens           | Article                                                                                                                    |
-| -------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| meta           | [Peers in a layer never share a file, except in the loose-fileset layer](peers-in-a-layer-never-overlap.md)                |
-| architecture   | [Every globset carries one of three layers, and only two are declared](two-declared-layers-one-derived.md)                 |
-| implementation | [Test-GlobSetIndependence groups every set by layer and tests each same-layer pair](independence-check-groups-by-layer.md) |
-| operations     | [Declare a unit or add a module folder, and the gate names every overlap](declare-or-add-folder-gate-names-overlaps.md)    |
-| governance     | [A gate checks overlap for units and modules, and loose-filesets are exempt](overlap-gated-for-units-and-modules.md)       |
+- **meta**: [Peers in a layer never share a file, except in the loose-fileset layer](peers-in-a-layer-never-overlap.md)
+- **architecture**: [Every globset carries one of three layers, and only two are declared](two-declared-layers-one-derived.md)
+- **implementation**:
+  [Test-GlobSetIndependence groups every set by layer and tests each same-layer pair](independence-check-groups-by-layer.md)
+- **operations**: [Declare a unit or add a module folder, and the gate names every overlap](declare-or-add-folder-gate-names-overlaps.md)
+- **governance**: [A gate checks overlap for units and modules, and loose-filesets are exempt](overlap-gated-for-units-and-modules.md)
 
 ## Globset roles
 
 A globset is one ordered program, and its three views are derived live, never committed
 ([durable-sha-globs](../../drs/flow/durable-sha-globs.md)).
 
-| Lens           | Article                                                                                                                                 |
-| -------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
-| meta           | [A globset is one ordered program, and its three views are derived live, never committed](three-views-derived-live-from-one-program.md) |
-| architecture   | [Catzc.Base.Globs computes every globset role from one typed registry](globs-module-owns-config-and-types.md)                           |
-| implementation | [One method, GlobSet.ScanProgram(), feeds all three globset role functions](one-scan-program-feeds-three-roles.md)                      |
-| operations     | [You edit globs.yml, and every other step prints what cats derived from it](edit-globs-yml-then-read-the-output.md)                     |
-| governance     | [Gates check the source of each globset and the trigger, but not the git reflection or the identity](gates-check-source-and-trigger.md) |
+- **meta**:
+  [A globset is one ordered program, and its three views are derived live, never committed](three-views-derived-live-from-one-program.md)
+- **architecture**: [Catzc.Base.Globs computes every globset role from one typed registry](globs-module-owns-config-and-types.md)
+- **implementation**: [One method, GlobSet.ScanProgram(), feeds all three globset role functions](one-scan-program-feeds-three-roles.md)
+- **operations**: [You edit globs.yml, and every other step prints what cats derived from it](edit-globs-yml-then-read-the-output.md)
+- **governance**:
+  [Gates check the source of each globset and the trigger, but not the git reflection or the identity](gates-check-source-and-trigger.md)

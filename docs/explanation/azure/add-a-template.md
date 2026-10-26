@@ -29,7 +29,6 @@ content:
   title: A new template is one folder in the templates place, found through the track and named in the pipelines that deploy it
   kind: explanation
   flow: left-to-right
-  relation: then
   theme: dark
   bands:
     - { id: band-folder, label: THE NEW FOLDER }
@@ -55,7 +54,7 @@ content:
   edges:
     - { from: g-main, to: g-slot, kind: flow, label: "" }
     - { from: g-slot, to: g-place, kind: flow, label: "" }
-    - { from: g-place, to: r-filters, kind: flow, label: "" }
+    - { from: g-place, to: r-filters, kind: flow, label: calls }
   markers:
     - { at: g-main, number: 1 }
     - { at: g-options, number: 2 }

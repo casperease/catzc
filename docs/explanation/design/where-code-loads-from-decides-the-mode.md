@@ -27,7 +27,6 @@ content:
   title: Where the code loads from decides the run mode
   kind: explanation
   flow: top-to-bottom
-  relation: the code loads into
   theme: dark
   bands:
     - { id: band-source, label: SOURCE }

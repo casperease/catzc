@@ -18,14 +18,21 @@ making for. The numbers come from a benchmark that compiles the repository's own
 
 ## The terms
 
-| Term                     | Meaning here                                                                                                                                                                               |
-| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **Box**                  | A value type (int, bool, enum, struct) copied into a new heap object so it can be held as `object`, an interface, `ValueType` or `Enum`. This is the allocation.                           |
-| **Unbox**                | Reading the value back out of a box with a cast or a pattern. A type check and a copy.                                                                                                     |
-| **Wrap**                 | PowerShell's `PSObject` layer, carrying extra PowerShell members. It can wrap a reference type too, so it is not a box.                                                                    |
-| **Unwrap**               | Reading the .NET object out of the wrapper: `.psobject.BaseObject` in PowerShell, `ContractValue.Unwrap` in the contract types.                                                            |
-| **Crossing**             | One call from PowerShell into a .NET method. Every argument is converted and every result is held as `object`.                                                                             |
-| **Bounded fast context** | A path whose item count is small and fixed by design, where the per-item cost multiplies into something a person waits for: the import, a per-file loop, a config read, a console message. |
+- ****Box****
+  - Meaning here: A value type (int, bool, enum, struct) copied into a new heap object so it can be held as `object`, an interface,
+    `ValueType` or `Enum`. This is the allocation.
+- ****Unbox****
+  - Meaning here: Reading the value back out of a box with a cast or a pattern. A type check and a copy.
+- ****Wrap****
+  - Meaning here: PowerShell's `PSObject` layer, carrying extra PowerShell members. It can wrap a reference type too, so it is not a box.
+- ****Unwrap****
+  - Meaning here: Reading the .NET object out of the wrapper: `.psobject.BaseObject` in PowerShell, `ContractValue.Unwrap` in the contract
+    types.
+- ****Crossing****
+  - Meaning here: One call from PowerShell into a .NET method. Every argument is converted and every result is held as `object`.
+- ****Bounded fast context****
+  - Meaning here: A path whose item count is small and fixed by design, where the per-item cost multiplies into something a person waits
+    for: the import, a per-file loop, a config read, a console message.
 
 ## Walkthrough
 
@@ -62,15 +69,27 @@ making for. The numbers come from a benchmark that compiles the repository's own
 
 ## Where in the repository
 
-| Place                                                 | What happens                                                                              | Worth changing?                 |
-| ----------------------------------------------------- | ----------------------------------------------------------------------------------------- | ------------------------------- |
-| `ContractValue`, `ContractSchema`, `ContractFragment` | `Kind` and `Equal` test interfaces before scalars; `MatchArray` calls `Equal` n x m times | Done: exact scalar types first  |
-| `DictionaryRecord`, `ConsoleText`                     | `GetProperty`, `GetProperties` and attribute lookups repeated on every call               | Done: one cached per-type table |
-| Config types reading raw YAML (`is bool`, `(int)`)    | One unbox per value, once per file, behind the `Get-Config` cache                         | No                              |
-| `Hashtable` storage in four config types              | Boxed values built once per config load                                                   | No                              |
-| 678 `string.Format` calls in 132 type files           | About 58 pass an int; nearly all run on an error path                                     | No                              |
-| `ContractSchema.Validate`                             | 7.6 us and 11 KB for 11 nodes: list building and LINQ, not boxes                          | Not here                        |
-| Internal `.psm1` modules                              | Bounded loops over about 250 type files and 60 modules, no unbox                          | No                              |
+- **`ContractValue`, `ContractSchema`, `ContractFragment`**
+  - What happens: `Kind` and `Equal` test interfaces before scalars; `MatchArray` calls `Equal` n x m times
+  - Worth changing?: Done: exact scalar types first
+- **`DictionaryRecord`, `ConsoleText`**
+  - What happens: `GetProperty`, `GetProperties` and attribute lookups repeated on every call
+  - Worth changing?: Done: one cached per-type table
+- **Config types reading raw YAML (`is bool`, `(int)`)**
+  - What happens: One unbox per value, once per file, behind the `Get-Config` cache
+  - Worth changing?: No
+- **`Hashtable` storage in four config types**
+  - What happens: Boxed values built once per config load
+  - Worth changing?: No
+- **678 `string.Format` calls in 132 type files**
+  - What happens: About 58 pass an int; nearly all run on an error path
+  - Worth changing?: No
+- **`ContractSchema.Validate`**
+  - What happens: 7.6 us and 11 KB for 11 nodes: list building and LINQ, not boxes
+  - Worth changing?: Not here
+- **Internal `.psm1` modules**
+  - What happens: Bounded loops over about 250 type files and 60 modules, no unbox
+  - Worth changing?: No
 
 ## Why it holds
 

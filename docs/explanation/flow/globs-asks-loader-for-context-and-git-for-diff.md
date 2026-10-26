@@ -31,7 +31,6 @@ content:
   title: Catzc.Base.Globs owns the check, the loader names the context, and git names the change
   kind: explanation
   flow: left-to-right
-  relation: asks
   theme: dark
   bands:
     - { id: band-globs, label: CATZC.BASE.GLOBS }
@@ -50,10 +49,10 @@ content:
   edges:
     - { from: a-stage, to: g-affected, kind: adr, label: "" }
     - { from: g-affected, to: f-globs, kind: flow, label: "" }
-    - { from: g-affected, to: g-change-range, kind: flow, label: "" }
-    - { from: g-affected, to: g-changed-globset, kind: flow, label: "" }
-    - { from: g-change-range, to: g-running, kind: flow, label: "" }
-    - { from: g-changed-globset, to: g-changed-file, kind: flow, label: "" }
+    - { from: g-affected, to: g-change-range, kind: flow, label: calls }
+    - { from: g-affected, to: g-changed-globset, kind: flow, label: calls }
+    - { from: g-change-range, to: g-running, kind: flow, label: calls }
+    - { from: g-changed-globset, to: g-changed-file, kind: flow, label: calls }
     - { from: g-changed-file, to: x-git, kind: flow, label: "" }
   markers:
     - { at: a-stage, number: 1 }

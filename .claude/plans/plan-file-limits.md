@@ -81,15 +81,11 @@ from the rendered `.editorconfig` to `Get-FileLimit` for that class's extensions
        folder, `Test-Markdownlint` and `Test-Links` on it.
 7. [ ] **prose, fences**: 99 files with fenced lines over 140 (369 lines, `out/catzc-5c-widths/list-fence.txt`), shortened by hand. Check:
        no fenced line over 140 in the folder, `Test-Markdownlint` on it.
-8. [ ] **prose, diagram embeds** (catzc-2f, after its engine step): the diagram kit reads `![alt][ref]` with `[ref]: .assets/….drawio.png`
-       as an equal form beside the inline embed, in `Get-DiagramEmbedder`, `Move-Diagram` and `Test-Diagrams`; then the 13 wide embeds
-       (`out/catzc-5c-widths/list-proseOnly.txt`, the longest 139 as a reference) take the reference form (catzc-f2, 2026-10-26). Check: the
-       kit's tests cover both forms, and no embed line is over 140.
-9. [ ] **prose, rule citations** (the holder of the DRS citation tooling, assigned by catzc-f2): ADR-REPO-LINK keeps one spelling, chosen by
-       the line's width: a citation stays inline when its line fits and becomes a reference definition when it does not, and
-       `Update-DrsCitation` emits whichever the width requires; `markdown-links.md` and ADR-REPO-LINK are amended in the same change, no
-       exemption and no alias (catzc-f2, 2026-10-26). The 7 wide citations are in `identity-and-access.md` and
-       `markdown-config-contributions.md`. Check: `Update-DrsCitation`'s tests cover both forms, and no citation line is over 140.
+8. [ ] **prose, manual test plan** (catzc-5c, after step 6): `Test-ManualTestPlan` reads each check from its `### N. <block>` section, which
+       carries a `Test file: <path>` line and its Guards, instead of an index row holding the file and the block on one line; the index
+       shrinks to `# | Tier | [check](#anchor)`, and the row form is removed. The gate, its test of the new reading and the 14 pages
+       (`docs/how-to/pwsh/manual-test-plan.md` and `manual-test-plan/*.md`) land as one staged burst (catzc-f2, 2026-10-26). Check:
+       `Test-ManualTestPlan.Tests.ps1` passes, `Test-ManualTestPlan` reports 0 issues, and no line of the 14 pages is over 140.
 10. [ ] **prose, leftover**: the 3 `.claude/plans/` files and `docs/drs/design/visual-design.md` (another session's), skipped on purpose.
         Check: none of them over 140.
 11. [ ] **prose, the flip**: once steps 6 to 10 leave 0, `width_mode.prose: fail`, the MD013 `tables` and `code_blocks` true in the

@@ -38,7 +38,6 @@ content:
   title: A sibling is an idea, never a reference
   kind: explanation
   flow: left-to-right
-  relation: an idea crosses
   theme: dark
   bands:
     - { id: band-sibling, label: "SIBLING: EAC, GO" }
@@ -63,7 +62,7 @@ content:
   edges:
     - { from: s-sibling, to: g-owner, kind: flow, label: "an idea, named where it is used" }
     - { from: g-owner, to: r-rebuilt, kind: flow, label: "" }
-    - { from: r-rebuilt, to: s-this, kind: flow, label: lands as a rule }
+    - { from: r-rebuilt, to: s-this, kind: flow, label: feeds }
   markers:
     - { at: s-sibling, number: 1 }
     - { at: n-model, number: 2 }

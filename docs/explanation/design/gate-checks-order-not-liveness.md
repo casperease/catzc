@@ -29,7 +29,6 @@ content:
   title: The quality gate on config checks that ** is last; whether the remainder ships is each track's unchecked call
   kind: explanation
   flow: left-to-right
-  relation: checks
   theme: dark
   bands:
     - { id: band-code, label: PWSH }

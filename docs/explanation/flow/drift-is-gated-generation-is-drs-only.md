@@ -30,7 +30,6 @@ content:
   title: Three gates check the projection, while generation is held by the ADR alone
   kind: explanation
   flow: left-to-right
-  relation: feeds
   theme: dark
   bands:
     - { id: band-compose, label: COMPOSE }

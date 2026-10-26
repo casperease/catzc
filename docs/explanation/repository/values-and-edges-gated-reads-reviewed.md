@@ -34,7 +34,6 @@ content:
   title: Values and module edges have a gate; the no-direct-read rule is left to review
   kind: explanation
   flow: top-to-bottom
-  relation: is checked by
   theme: dark
   bands:
     - { id: band-file, label: FILE }

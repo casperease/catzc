@@ -38,7 +38,6 @@ content:
   title: One function owns the credential precedence, and ado.yml anchors every proof
   kind: explanation
   flow: left-to-right
-  relation: uses
   theme: dark
   bands:
     - { id: band-entry, label: ENTRY }
@@ -59,15 +58,15 @@ content:
     - { id: g-cli-module, kind: code, label: Catzc.Azure.Cli, in: band-anchor }
   edges:
     - { from: g-developer, to: g-api, kind: flow, label: "" }
-    - { from: g-pipeline-yaml, to: g-template, kind: flow, label: "" }
-    - { from: g-template, to: g-api, kind: flow, label: "" }
-    - { from: g-api, to: g-invoke, kind: flow, label: "" }
+    - { from: g-pipeline-yaml, to: g-template, kind: flow, label: calls }
+    - { from: g-template, to: g-api, kind: flow, label: calls }
+    - { from: g-api, to: g-invoke, kind: flow, label: calls }
     - { from: g-invoke, to: grp-header, kind: flow, label: "" }
-    - { from: g-pipeline, to: g-template, kind: flow, label: "" }
+    - { from: g-pipeline, to: g-template, kind: flow, label: feeds }
     - { from: g-pipeline, to: g-ado-yml, kind: flow, label: "" }
     - { from: g-pat, to: g-ado-yml, kind: adr, label: "" }
     - { from: g-azcli, to: g-ado-yml, kind: flow, label: "" }
-    - { from: g-azcli, to: g-cli-module, kind: flow, label: "" }
+    - { from: g-azcli, to: g-cli-module, kind: flow, label: calls }
   markers:
     - { at: g-pipeline-yaml, number: 1 }
     - { at: g-template, number: 2 }

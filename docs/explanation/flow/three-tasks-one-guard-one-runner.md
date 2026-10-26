@@ -31,7 +31,6 @@ content:
   title: Three tasks share one guard, and one runner imports, traps, sanitizes and invokes
   kind: explanation
   flow: left-to-right
-  relation: next in code order
   theme: dark
   bands:
     - { id: band-template, label: TEMPLATE }
@@ -49,10 +48,10 @@ content:
     - { from: f-ci-automation, to: f-template, kind: flow, label: "" }
     - { from: f-template, to: g-inline-guard, kind: flow, label: "" }
     - { from: g-inline-guard, to: x-throw, kind: fail, label: "" }
-    - { from: g-inline-guard, to: c-importer, kind: flow, label: "" }
-    - { from: c-importer, to: c-trap, kind: flow, label: "" }
-    - { from: c-trap, to: c-sanitize, kind: flow, label: "" }
-    - { from: c-sanitize, to: c-invoke-command, kind: flow, label: "" }
+    - { from: g-inline-guard, to: c-importer, kind: flow, label: calls }
+    - { from: c-importer, to: c-trap, kind: flow, label: calls }
+    - { from: c-trap, to: c-sanitize, kind: flow, label: calls }
+    - { from: c-sanitize, to: c-invoke-command, kind: flow, label: calls }
   markers:
     - { at: f-ci-automation, number: 1 }
     - { at: f-template, number: 2 }

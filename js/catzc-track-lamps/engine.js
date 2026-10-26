@@ -101,10 +101,13 @@ function activateEngine(context, api) {
     };
     // The title row shows each lamp's icon by its context keys: the switch (out: off, veto: vetoed, neither: on) and the condition. Only a
     // key whose value changed is sent, so a press costs the one or two keys it moves.
+    /** @type {Record<string, string>} */
     let conditions = {};
     let markerCache = null;
     // The facts and sets of the last judgement, which the red journey reads; it never judges itself.
+    /** @type {import("./language.js").Facts} */
     let lastFacts = {};
+    /** @type {import("./language.js").LampSets} */
     let lastSets = {};
     const sent = new Map();
     const setKey = (name, value) => {

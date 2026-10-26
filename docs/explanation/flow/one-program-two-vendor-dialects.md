@@ -28,7 +28,6 @@ content:
   title: One flattened scan program is rendered exactly for GitHub and by last select for Azure DevOps
   kind: explanation
   flow: top-to-bottom
-  relation: feeds
   theme: dark
   bands:
     - { id: band-compose, label: COMPOSE }

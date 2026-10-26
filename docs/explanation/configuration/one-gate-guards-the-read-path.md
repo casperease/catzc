@@ -43,7 +43,6 @@ content:
   title: One quality gate guards the config read path, and it checks only the typed step
   kind: explanation
   flow: left-to-right
-  relation: the read, or what a gate checks
   theme: dark
   bands:
     - { id: band-read, label: READ PATH }
@@ -60,12 +59,12 @@ content:
     - { id: g-validators, kind: gate, label: Test-ConfigValidators, in: band-gates }
     - { id: g-shipped, kind: gate, label: Test-ShippedConfigs, in: band-gates }
   edges:
-    - { from: a-reader, to: g-resolution, kind: flow, label: "" }
+    - { from: a-reader, to: g-resolution, kind: flow, label: calls }
     - { from: g-resolution, to: s-cache, kind: flow, label: "" }
-    - { from: s-cache, to: g-typed, kind: flow, label: "" }
+    - { from: s-cache, to: g-typed, kind: flow, label: feeds }
     - { from: g-typed, to: a-copy, kind: flow, label: "" }
     - { from: g-validators, to: a-validator, kind: flow, label: "" }
-    - { from: g-shipped, to: g-typed, kind: flow, label: "" }
+    - { from: g-shipped, to: g-typed, kind: flow, label: calls }
   markers:
     - { at: a-reader, number: 1 }
     - { at: g-resolution, number: 2 }

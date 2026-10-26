@@ -26,7 +26,6 @@ content:
   title: Peers in a layer never share a file, except in the loose-fileset layer
   kind: explanation
   flow: top-to-bottom
-  relation: checks its peers
   theme: dark
   bands:
     - { id: band-unit, label: DEPLOYABLE-UNIT }

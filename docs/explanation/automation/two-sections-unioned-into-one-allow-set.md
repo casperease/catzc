@@ -32,7 +32,6 @@ content:
   title: Two sections of dependencies.yml are unioned into one allow-set per source module
   kind: explanation
   flow: top-to-bottom
-  relation: feeds
   theme: dark
   bands:
     - { id: band-file, label: DEPENDENCIES.YML }
@@ -50,11 +49,11 @@ content:
     - { id: g-test, kind: gate, label: Test-ModuleDependency, in: band-gate }
     - { id: f-issues, kind: failure, label: "failed: N issue(s)", in: band-gate }
   edges:
-    - { from: g-groups, to: g-config, kind: flow, label: "" }
-    - { from: g-modules, to: g-config, kind: flow, label: "" }
-    - { from: g-config, to: g-allowed, kind: flow, label: "" }
-    - { from: g-function, to: g-allowed, kind: flow, label: "" }
-    - { from: g-type, to: g-allowed, kind: flow, label: "" }
+    - { from: g-groups, to: g-config, kind: flow, label: feeds }
+    - { from: g-modules, to: g-config, kind: flow, label: feeds }
+    - { from: g-config, to: g-allowed, kind: flow, label: feeds }
+    - { from: g-function, to: g-allowed, kind: flow, label: calls }
+    - { from: g-type, to: g-allowed, kind: flow, label: calls }
     - { from: g-allowed, to: g-test, kind: flow, label: "" }
     - { from: g-config, to: f-validation, kind: fail, label: "" }
     - { from: g-test, to: f-issues, kind: fail, label: "" }

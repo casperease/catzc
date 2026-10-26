@@ -39,7 +39,6 @@ content:
   title: Three gates guard the CLI and az, but nothing checks that cats stays thin
   kind: explanation
   flow: left-to-right
-  relation: guards
   theme: dark
   bands:
     - { id: band-surface, label: CLI SURFACE }

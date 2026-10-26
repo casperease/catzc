@@ -30,7 +30,6 @@ content:
   title: You edit globs.yml, and every other step prints what cats derived from it
   kind: explanation
   flow: left-to-right
-  relation: feeds, then prints
   theme: dark
   bands:
     - { id: band-edit, label: YOU EDIT }
@@ -48,9 +47,9 @@ content:
     - { id: r-skip, kind: result, label: Skip line, in: band-see }
   edges:
     - { from: f-globs, to: g-config-load, kind: flow, label: "" }
-    - { from: g-config-load, to: g-trigger, kind: flow, label: "" }
-    - { from: g-config-load, to: g-changed, kind: flow, label: "" }
-    - { from: g-config-load, to: g-automation, kind: flow, label: "" }
+    - { from: g-config-load, to: g-trigger, kind: flow, label: feeds }
+    - { from: g-config-load, to: g-changed, kind: flow, label: feeds }
+    - { from: g-config-load, to: g-automation, kind: flow, label: feeds }
     - { from: g-trigger, to: r-projected, kind: flow, label: "" }
     - { from: g-changed, to: r-touched, kind: flow, label: "" }
     - { from: g-automation, to: r-skip, kind: flow, label: "" }

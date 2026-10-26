@@ -26,7 +26,6 @@ content:
   title: A repo-wide switch has one home, one read path and one guard vocabulary
   kind: explanation
   flow: top-to-bottom
-  relation: feeds
   theme: dark
   bands:
     - { id: band-variant, label: VARIANT }

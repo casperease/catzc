@@ -39,7 +39,12 @@ code: its "How this is enforced" section names the enforcing functions in code s
 ### Rule ADR-REPO-LINK-ONECITATIONSPELLING
 
 A citation is the code itself, spelled the same everywhere — code comments, test tags, configuration, and document prose, and the rule's own
-`### Rule` heading — and names a code in the DRS index or a rule that ADR declares. The code's grammar is ADR-REPO-DRSCODE.
+`### Rule` heading — and names a code in the DRS index or a rule that ADR declares. The code's grammar is ADR-REPO-DRSCODE. In markdown a
+cited code links inline, `[CODE](target)`, when its line fits the file's declared width, and as a reference, `[CODE][r1]` with its
+`[r1]: target` definition at the end of the file, when it does not: the visible spelling is the same code either way, and the width alone
+picks the form. The label is plumbing, `r1`, `r2`, ... in order of first use in the file: a target keeps the label it has, and a new target
+takes the next free number, so a definition is as short as its target allows. A target too wide even then is a finding against its file or
+anchor name, never an exemption.
 
 - [One citation spelling](#one-citation-spelling)
 
@@ -191,6 +196,10 @@ mechanically and `Test-Links` checks them.
 - **`Test-Links`** — the gate. It runs the same engine read-only and fails on any off-form link, dangling target, bad anchor, unknown
   citation code or rule, numbered citation, link that climbs above the root, self-URL outside `.github/`, or missing docs path in a
   PowerShell string.
+- **The citation form follows the width** — `Update-DrsCitation` respells a citation whose rewritten line outgrows the width `Get-FileLimit`
+  declares for the file as a reference, reusing the label of a definition of the same target and numbering a new one `rN`; `Test-Links`
+  checks a reference definition's target and anchor as it checks an inline link, markdownlint's MD052 and MD053 check that every label is
+  defined and used, and `Test-FileLimits` reports an inline citation whose line has grown past the width.
 - **`Test-LinkDirections`** — the link-direction quality gate for ADR-REPO-LINK-ONEWAY: it fails a comment that links anything but an ADR
   and an ADR that links into code, from the same walk of the same files ([links-in-repository](links-in-repository.md)).
 - **One engine** — both commands drive the compiled `Catzc.Base.QualityGates.LinkEngine` over the files in parallel, with the citation map

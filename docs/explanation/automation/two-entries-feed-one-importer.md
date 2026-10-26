@@ -32,7 +32,6 @@ content:
   title: Two entry scripts feed one importer, and the importer leaves once the load is done
   kind: explanation
   flow: top-to-bottom
-  relation: drives
   theme: dark
   bands:
     - { id: band-entry, label: ENTRY }
@@ -48,12 +47,12 @@ content:
     - { id: s-janitors, kind: set, label: Janitor owners, in: band-stays }
     - { id: s-modules, kind: set, label: Catzc.* modules, in: band-stays }
   edges:
-    - { from: g-importer-ps1, to: g-importer, kind: flow, label: "" }
-    - { from: g-import-catzc, to: g-importer, kind: flow, label: "" }
+    - { from: g-importer-ps1, to: g-importer, kind: flow, label: calls }
+    - { from: g-import-catzc, to: g-importer, kind: flow, label: calls }
     - { from: g-importer, to: s-internal, kind: thick, label: "" }
     - { from: g-importer, to: s-vendor, kind: thick, label: "" }
     - { from: g-importer, to: s-janitors, kind: thick, label: "" }
-    - { from: g-importer, to: g-bootstrap, kind: flow, label: "" }
+    - { from: g-importer, to: g-bootstrap, kind: flow, label: calls }
     - { from: g-bootstrap, to: s-modules, kind: thick, label: "" }
   markers:
     - { at: g-importer-ps1, number: 1 }

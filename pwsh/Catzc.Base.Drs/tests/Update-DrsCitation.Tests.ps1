@@ -328,6 +328,41 @@ Describe 'Update-DrsCitation' -Tag 'L0', 'logic' {
         }
     }
 
+    Context 'the citation form, by the line''s width' -Tag 'ADR-REPO-LINK-ONECITATIONSPELLING' {
+        BeforeAll {
+            $script:pad = 'widget ' * 12
+            $script:inline = '([ADR-WIDGET-COG-TURNS](../docs/drs/widget/cog-rules.md#rule-adr-widget-cog-turns))'
+            $script:target = '../docs/drs/widget/cog-rules.md#rule-adr-widget-cog-spins'
+        }
+
+        It 'respells a citation as a reference r1 when its rewritten line outgrows the width, its definition at the end' {
+            $result = & $script:update 'notes/wide.md' "# Wide`n`n$script:pad$script:inline.`n"
+            $result | Should -BeExactly "# Wide`n`n$script:pad([ADR-WIDGET-COG-SPINS][r1]).`n`n[r1]: $script:target`n"
+            @($script:changes | Where-Object Kind -EQ ([Catzc.Base.Drs.DrsCitationChangeKind]::Form)).Count | Should -Be 1
+        }
+
+        It 'keeps a citation inline when its line fits' {
+            & $script:update 'notes/narrow.md' "See $script:inline.`n" | Should -BeExactly "See ([ADR-WIDGET-COG-SPINS]($script:target)).`n"
+        }
+
+        It 'never changes the form in a code file' {
+            $line = "# $script:pad$script:pad [ADR-WIDGET-COG-TURNS](/docs/drs/widget/cog-rules.md#rule-adr-widget-cog-turns)"
+            (& $script:update 'src/wide.ps1' $line).Contains('][r') | Should -BeFalse
+        }
+
+        It 'reuses the label of a definition that already names the same destination' {
+            $result = & $script:update 'notes/defined.md' "$script:pad$script:inline.`n`n[r4]: $script:target`n"
+            ([regex]::Matches($result, '(?m)^\[r\d+\]:')).Count | Should -Be 1
+            $result.Contains('([ADR-WIDGET-COG-SPINS][r4]).') | Should -BeTrue
+        }
+
+        It 'keeps every existing label''s number and gives a new destination the next free one' {
+            $result = & $script:update 'notes/stable.md' "$script:pad$script:inline.`n`n[r1]: ../docs/drs/index.md`n[r2]: ../docs/drs/widget/sprocket-rules.md`n"
+            $result.Contains("[r1]: ../docs/drs/index.md`n[r2]: ../docs/drs/widget/sprocket-rules.md`n[r3]: $script:target`n") | Should -BeTrue
+            $result.Contains('([ADR-WIDGET-COG-SPINS][r3]).') | Should -BeTrue
+        }
+    }
+
     Context 'rule renames' -Tag 'ADR-REPO-DRSCODE-NAMEDNOTNUMBERED' {
         It 'renames a rule in place, its citation and its heading' {
             & $script:update 'notes/renamed.md' "See ADR-WIDGET-COG-TURNS.`n### Rule ADR-WIDGET-COG-TURNS`n" |

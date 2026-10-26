@@ -122,7 +122,7 @@ function Invoke-RootConfigGenerator {
         }
         'New-PythonProject' {
             # One record per file; the entry's target picks the workspace root or a member.
-            New-PythonProject -Target $Target
+            New-PythonProject -LineLength (Get-FileLimit -Path 'width.py').width -Target $Target
         }
         'New-NuGetConfig' {
             New-NuGetConfig

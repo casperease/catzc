@@ -14,6 +14,9 @@ Describe 'New-JsConfig' -Tag 'L0', 'logic' {
         $config['compilerOptions']['strict'] | Should -BeFalse
         @($config['compilerOptions']['typeRoots']) | Should -Be @('C:/widget/node_modules/@types')
         @($config['compilerOptions']['types']) | Should -Be @('node', 'vscode')
+        # node's own resolution, never the deprecated node10 the classic 'node' value or a bare commonjs module implies.
+        $config['compilerOptions']['module'] | Should -Be 'node16'
+        $config['compilerOptions']['moduleResolution'] | Should -Be 'node16'
         @($config['include']) | Should -Be @('js/**/*.js')
     }
 

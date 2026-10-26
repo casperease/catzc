@@ -27,7 +27,6 @@ content:
   title: Every entry runs one load sequence
   kind: explanation
   flow: top-to-bottom
-  relation: runs next
   theme: dark
   bands:
     - { id: band-load, label: LOAD SEQUENCE }
@@ -38,10 +37,10 @@ content:
     - { id: g-prove, kind: gate, label: Prove one run mode, in: band-load }
     - { id: g-tidy, kind: code, label: "Tidy, then leave", in: band-load }
   edges:
-    - { from: g-enter, to: g-session, kind: flow, label: "" }
-    - { from: g-session, to: g-load, kind: flow, label: "" }
+    - { from: g-enter, to: g-session, kind: flow, label: calls }
+    - { from: g-session, to: g-load, kind: flow, label: calls }
     - { from: g-load, to: g-prove, kind: flow, label: "" }
-    - { from: g-prove, to: g-tidy, kind: flow, label: "" }
+    - { from: g-prove, to: g-tidy, kind: flow, label: calls }
   markers:
     - { at: g-enter, number: 1 }
     - { at: g-session, number: 2 }

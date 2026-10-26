@@ -34,43 +34,181 @@ Each entry gives:
 
 ## Summary
 
-| Capability                                                              | Category             | Tags     | Core Model           | Repo ADR                                                                     |
-| ----------------------------------------------------------------------- | -------------------- | -------- | -------------------- | ---------------------------------------------------------------------------- |
-| [AI-accessible internal data](#ai-accessible-internal-data)             | AI                   | AI       | not in Core          | [RDR-DORA-AIDATA](../../drs/research/ai-accessible-internal-data.md)         |
-| [Clear and communicated AI stance](#clear-and-communicated-ai-stance)   | AI                   | AI       | not in Core          | [RDR-DORA-AISTANCE](../../drs/research/clear-and-communicated-ai-stance.md)  |
-| [Healthy data ecosystems](#healthy-data-ecosystems)                     | AI                   | AI       | not in Core          | [RDR-DORA-DATAECO](../../drs/research/healthy-data-ecosystems.md)            |
-| [Platform engineering](#platform-engineering)                           | AI                   | AI       | not in Core          | [RDR-DORA-PLATFORM](../../drs/research/platform-engineering.md)              |
-| [User-centric focus](#user-centric-focus)                               | AI                   | AI       | not in Core          | [RDR-DORA-USERFOCUS](../../drs/research/user-centric-focus.md)               |
-| [Code maintainability](#code-maintainability)                           | Climate for learning | core     | climate for learning | [RDR-DORA-MAINTAIN](../../drs/research/code-maintainability.md)              |
-| [Documentation quality](#documentation-quality)                         | Climate for learning | core     | climate for learning | [RDR-DORA-DOCS](../../drs/research/documentation-quality.md)                 |
-| [Generative organizational culture](#generative-organizational-culture) | Climate for learning | core     | climate for learning | [RDR-DORA-CULTURE](../../drs/research/generative-organizational-culture.md)  |
-| [Job satisfaction](#job-satisfaction)                                   | Climate for learning | core     | outcome (well-being) | [RDR-DORA-JOBSAT](../../drs/research/job-satisfaction.md)                    |
-| [Learning culture](#learning-culture)                                   | Climate for learning | none     | not in Core          | [RDR-DORA-LEARNING](../../drs/research/learning-culture.md)                  |
-| [Team experimentation](#team-experimentation)                           | Climate for learning | none     | not in Core          | [RDR-DORA-EXPERIMENT](../../drs/research/team-experimentation.md)            |
-| [Teams empowered to choose tools](#teams-empowered-to-choose-tools)     | Climate for learning | core     | climate for learning | [RDR-DORA-TOOLCHOICE](../../drs/research/teams-empowered-to-choose-tools.md) |
-| [Transformational leadership](#transformational-leadership)             | Climate for learning | none     | not in Core          | [RDR-DORA-LEADERSHIP](../../drs/research/transformational-leadership.md)     |
-| [Well-being](#well-being)                                               | Climate for learning | core     | outcome              | [RDR-DORA-WELLBEING](../../drs/research/well-being.md)                       |
-| [Continuous delivery](#continuous-delivery)                             | Fast flow            | core     | fast flow            | [RDR-DORA-CD](../../drs/research/continuous-delivery.md)                     |
-| [Database change management](#database-change-management)               | Fast flow            | core     | fast flow            | [RDR-DORA-DBCHANGE](../../drs/research/database-change-management.md)        |
-| [Deployment automation](#deployment-automation)                         | Fast flow            | core     | fast flow            | [RDR-DORA-DEPLOY](../../drs/research/deployment-automation.md)               |
-| [Flexible infrastructure](#flexible-infrastructure)                     | Fast flow            | core     | fast flow            | [RDR-DORA-FLEXINFRA](../../drs/research/flexible-infrastructure.md)          |
-| [Loosely coupled teams](#loosely-coupled-teams)                         | Fast flow            | core     | fast flow            | [RDR-DORA-LOOSETEAMS](../../drs/research/loosely-coupled-teams.md)           |
-| [Streamlining change approval](#streamlining-change-approval)           | Fast flow            | core     | fast flow            | [RDR-DORA-APPROVAL](../../drs/research/streamlining-change-approval.md)      |
-| [Trunk-based development](#trunk-based-development)                     | Fast flow            | none     | removed in V2        | [RDR-DORA-TRUNK](../../drs/research/trunk-based-development.md)              |
-| [Version control](#version-control)                                     | Fast flow            | core, AI | fast flow            | [RDR-DORA-VCS](../../drs/research/version-control.md)                        |
-| [Visual management](#visual-management)                                 | Fast flow            | none     | not in Core          | [RDR-DORA-VISUAL](../../drs/research/visual-management.md)                   |
-| [WIP limits](#wip-limits)                                               | Fast flow            | none     | not in Core          | [RDR-DORA-WIP](../../drs/research/wip-limits.md)                             |
-| [Working in small batches](#working-in-small-batches)                   | Fast flow            | core, AI | fast flow            | [RDR-DORA-SMALLBATCH](../../drs/research/working-in-small-batches.md)        |
-| [Continuous integration](#continuous-integration)                       | Fast feedback        | core     | fast feedback        | [RDR-DORA-CI](../../drs/research/continuous-integration.md)                  |
-| [Customer feedback](#customer-feedback)                                 | Fast feedback        | none     | not in Core          | [RDR-DORA-FEEDBACK](../../drs/research/customer-feedback.md)                 |
-| [Monitoring and observability](#monitoring-and-observability)           | Fast feedback        | core     | fast feedback        | [RDR-DORA-OBSERV](../../drs/research/monitoring-and-observability.md)        |
-| [Monitoring systems](#monitoring-systems)                               | Fast feedback        | none     | not in Core          | [RDR-DORA-MONITOR](../../drs/research/monitoring-systems.md)                 |
-| [Pervasive security](#pervasive-security)                               | Fast feedback        | core     | fast feedback        | [RDR-DORA-SECURITY](../../drs/research/pervasive-security.md)                |
-| [Proactive failure notification](#proactive-failure-notification)       | Fast feedback        | none     | not in Core          | [RDR-DORA-FAILALERT](../../drs/research/proactive-failure-notification.md)   |
-| [Test automation](#test-automation)                                     | Fast feedback        | core     | fast feedback        | [RDR-DORA-TESTAUTO](../../drs/research/test-automation.md)                   |
-| [Test data management](#test-data-management)                           | Fast feedback        | core     | fast feedback        | [RDR-DORA-TESTDATA](../../drs/research/test-data-management.md)              |
-| [Work visibility in value stream](#work-visibility-in-value-stream)     | Fast feedback        | none     | not in Core          | [RDR-DORA-WORKVIS](../../drs/research/work-visibility-in-value-stream.md)    |
-| [Reliability engineering](#reliability-engineering)                     | (no page)            | (none)   | fast feedback        | none                                                                         |
+- **[AI-accessible internal data](#ai-accessible-internal-data)**
+  - Category: AI
+  - Tags: AI
+  - Core Model: not in Core
+  - Repo ADR: [RDR-DORA-AIDATA](../../drs/research/ai-accessible-internal-data.md)
+- **[Clear and communicated AI stance](#clear-and-communicated-ai-stance)**
+  - Category: AI
+  - Tags: AI
+  - Core Model: not in Core
+  - Repo ADR: [RDR-DORA-AISTANCE](../../drs/research/clear-and-communicated-ai-stance.md)
+- **[Healthy data ecosystems](#healthy-data-ecosystems)**
+  - Category: AI
+  - Tags: AI
+  - Core Model: not in Core
+  - Repo ADR: [RDR-DORA-DATAECO](../../drs/research/healthy-data-ecosystems.md)
+- **[Platform engineering](#platform-engineering)**
+  - Category: AI
+  - Tags: AI
+  - Core Model: not in Core
+  - Repo ADR: [RDR-DORA-PLATFORM](../../drs/research/platform-engineering.md)
+- **[User-centric focus](#user-centric-focus)**
+  - Category: AI
+  - Tags: AI
+  - Core Model: not in Core
+  - Repo ADR: [RDR-DORA-USERFOCUS](../../drs/research/user-centric-focus.md)
+- **[Code maintainability](#code-maintainability)**
+  - Category: Climate for learning
+  - Tags: core
+  - Core Model: climate for learning
+  - Repo ADR: [RDR-DORA-MAINTAIN](../../drs/research/code-maintainability.md)
+- **[Documentation quality](#documentation-quality)**
+  - Category: Climate for learning
+  - Tags: core
+  - Core Model: climate for learning
+  - Repo ADR: [RDR-DORA-DOCS](../../drs/research/documentation-quality.md)
+- **[Generative organizational culture](#generative-organizational-culture)**
+  - Category: Climate for learning
+  - Tags: core
+  - Core Model: climate for learning
+  - Repo ADR: [RDR-DORA-CULTURE](../../drs/research/generative-organizational-culture.md)
+- **[Job satisfaction](#job-satisfaction)**
+  - Category: Climate for learning
+  - Tags: core
+  - Core Model: outcome (well-being)
+  - Repo ADR: [RDR-DORA-JOBSAT](../../drs/research/job-satisfaction.md)
+- **[Learning culture](#learning-culture)**
+  - Category: Climate for learning
+  - Tags: none
+  - Core Model: not in Core
+  - Repo ADR: [RDR-DORA-LEARNING](../../drs/research/learning-culture.md)
+- **[Team experimentation](#team-experimentation)**
+  - Category: Climate for learning
+  - Tags: none
+  - Core Model: not in Core
+  - Repo ADR: [RDR-DORA-EXPERIMENT](../../drs/research/team-experimentation.md)
+- **[Teams empowered to choose tools](#teams-empowered-to-choose-tools)**
+  - Category: Climate for learning
+  - Tags: core
+  - Core Model: climate for learning
+  - Repo ADR: [RDR-DORA-TOOLCHOICE](../../drs/research/teams-empowered-to-choose-tools.md)
+- **[Transformational leadership](#transformational-leadership)**
+  - Category: Climate for learning
+  - Tags: none
+  - Core Model: not in Core
+  - Repo ADR: [RDR-DORA-LEADERSHIP](../../drs/research/transformational-leadership.md)
+- **[Well-being](#well-being)**
+  - Category: Climate for learning
+  - Tags: core
+  - Core Model: outcome
+  - Repo ADR: [RDR-DORA-WELLBEING](../../drs/research/well-being.md)
+- **[Continuous delivery](#continuous-delivery)**
+  - Category: Fast flow
+  - Tags: core
+  - Core Model: fast flow
+  - Repo ADR: [RDR-DORA-CD](../../drs/research/continuous-delivery.md)
+- **[Database change management](#database-change-management)**
+  - Category: Fast flow
+  - Tags: core
+  - Core Model: fast flow
+  - Repo ADR: [RDR-DORA-DBCHANGE](../../drs/research/database-change-management.md)
+- **[Deployment automation](#deployment-automation)**
+  - Category: Fast flow
+  - Tags: core
+  - Core Model: fast flow
+  - Repo ADR: [RDR-DORA-DEPLOY](../../drs/research/deployment-automation.md)
+- **[Flexible infrastructure](#flexible-infrastructure)**
+  - Category: Fast flow
+  - Tags: core
+  - Core Model: fast flow
+  - Repo ADR: [RDR-DORA-FLEXINFRA](../../drs/research/flexible-infrastructure.md)
+- **[Loosely coupled teams](#loosely-coupled-teams)**
+  - Category: Fast flow
+  - Tags: core
+  - Core Model: fast flow
+  - Repo ADR: [RDR-DORA-LOOSETEAMS](../../drs/research/loosely-coupled-teams.md)
+- **[Streamlining change approval](#streamlining-change-approval)**
+  - Category: Fast flow
+  - Tags: core
+  - Core Model: fast flow
+  - Repo ADR: [RDR-DORA-APPROVAL](../../drs/research/streamlining-change-approval.md)
+- **[Trunk-based development](#trunk-based-development)**
+  - Category: Fast flow
+  - Tags: none
+  - Core Model: removed in V2
+  - Repo ADR: [RDR-DORA-TRUNK](../../drs/research/trunk-based-development.md)
+- **[Version control](#version-control)**
+  - Category: Fast flow
+  - Tags: core, AI
+  - Core Model: fast flow
+  - Repo ADR: [RDR-DORA-VCS](../../drs/research/version-control.md)
+- **[Visual management](#visual-management)**
+  - Category: Fast flow
+  - Tags: none
+  - Core Model: not in Core
+  - Repo ADR: [RDR-DORA-VISUAL](../../drs/research/visual-management.md)
+- **[WIP limits](#wip-limits)**
+  - Category: Fast flow
+  - Tags: none
+  - Core Model: not in Core
+  - Repo ADR: [RDR-DORA-WIP](../../drs/research/wip-limits.md)
+- **[Working in small batches](#working-in-small-batches)**
+  - Category: Fast flow
+  - Tags: core, AI
+  - Core Model: fast flow
+  - Repo ADR: [RDR-DORA-SMALLBATCH](../../drs/research/working-in-small-batches.md)
+- **[Continuous integration](#continuous-integration)**
+  - Category: Fast feedback
+  - Tags: core
+  - Core Model: fast feedback
+  - Repo ADR: [RDR-DORA-CI](../../drs/research/continuous-integration.md)
+- **[Customer feedback](#customer-feedback)**
+  - Category: Fast feedback
+  - Tags: none
+  - Core Model: not in Core
+  - Repo ADR: [RDR-DORA-FEEDBACK](../../drs/research/customer-feedback.md)
+- **[Monitoring and observability](#monitoring-and-observability)**
+  - Category: Fast feedback
+  - Tags: core
+  - Core Model: fast feedback
+  - Repo ADR: [RDR-DORA-OBSERV](../../drs/research/monitoring-and-observability.md)
+- **[Monitoring systems](#monitoring-systems)**
+  - Category: Fast feedback
+  - Tags: none
+  - Core Model: not in Core
+  - Repo ADR: [RDR-DORA-MONITOR](../../drs/research/monitoring-systems.md)
+- **[Pervasive security](#pervasive-security)**
+  - Category: Fast feedback
+  - Tags: core
+  - Core Model: fast feedback
+  - Repo ADR: [RDR-DORA-SECURITY](../../drs/research/pervasive-security.md)
+- **[Proactive failure notification](#proactive-failure-notification)**
+  - Category: Fast feedback
+  - Tags: none
+  - Core Model: not in Core
+  - Repo ADR: [RDR-DORA-FAILALERT](../../drs/research/proactive-failure-notification.md)
+- **[Test automation](#test-automation)**
+  - Category: Fast feedback
+  - Tags: core
+  - Core Model: fast feedback
+  - Repo ADR: [RDR-DORA-TESTAUTO](../../drs/research/test-automation.md)
+- **[Test data management](#test-data-management)**
+  - Category: Fast feedback
+  - Tags: core
+  - Core Model: fast feedback
+  - Repo ADR: [RDR-DORA-TESTDATA](../../drs/research/test-data-management.md)
+- **[Work visibility in value stream](#work-visibility-in-value-stream)**
+  - Category: Fast feedback
+  - Tags: none
+  - Core Model: not in Core
+  - Repo ADR: [RDR-DORA-WORKVIS](../../drs/research/work-visibility-in-value-stream.md)
+- **[Reliability engineering](#reliability-engineering)**
+  - Category: (no page)
+  - Tags: (none)
+  - Core Model: fast feedback
+  - Repo ADR: none
 
 ## AI
 

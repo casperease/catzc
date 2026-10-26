@@ -66,7 +66,6 @@ content:
   title: Every writer leaves a trace; the listener notes all changes, and the processor plans from the editor's alone
   kind: explanation
   flow: left-to-right
-  relation: what comes next
   theme: dark
   bands:
     - { id: band-writers, label: WRITERS }
@@ -86,11 +85,11 @@ content:
   edges:
     - { from: a-editor, to: s-saves, kind: flow, label: save }
     - { from: a-agents, to: s-writes, kind: flow, label: write }
-    - { from: s-saves, to: r-listener, kind: flow, label: "" }
-    - { from: s-writes, to: r-listener, kind: flow, label: "" }
+    - { from: r-listener, to: s-saves, kind: flow, label: reads }
+    - { from: r-listener, to: s-writes, kind: flow, label: reads }
     - { from: r-listener, to: f-notes, kind: flow, label: "" }
     - { from: f-notes, to: g-editor-only, kind: flow, label: "" }
-    - { from: g-editor-only, to: r-processor, kind: flow, label: "" }
+    - { from: g-editor-only, to: r-processor, kind: flow, label: feeds }
     - { from: r-processor, to: r-plans, kind: thick, label: plans }
   legend: auto
   minimaps: [axis, lifecycle-position, layer-stack]
