@@ -53,13 +53,12 @@ cache entry on first call, never at import, because importer time is a protected
 The compiled-type prebuild is a per-machine cache keyed by the combined hash of every module's type sources, and the key stays local: the
 one assembly for the whole repository is built on each machine into the per-user shadow root (`%LOCALAPPDATA%\catzc\types` on Windows,
 `~/.local/share/catzc/types` on Unix) as `Catzc.Types.<hash>.dll`, with its manifest beside it, and git keeps no file under
-`pwsh/.compiled`, so no C# edit adds or deletes a tracked file. What a consumer binds to, the types surface (each type's name, aliases and
-display), is the provided contract `contracts/catzc/0.1.0/catzc.internal.types/types.sample.json` with its schema beside it, regenerated
-from the compiled assembly and written only when the surface moves. The hash material is, per source
-file, `<module>|<bare type>|SHA-256(content)`, ordered by `<module>/<type>` ordinally, so a move between modules or a rename re-keys even
-when the content is byte-identical, and the key does not depend on the repository root. The importer compiles the assembly when none exists
-for the current hash and every process loads it from the shadow root, never from the working tree, so no session ever locks
-`pwsh/.compiled`.
+`pwsh/.compiled`, so no C# edit adds or deletes a tracked file. What a consumer binds to, each module's types surface (each type's name,
+aliases, display and public members), is the provided contract `types.json` in that module's group under `contracts/catzc/0.1.0/`,
+regenerated from the compiled assembly and written only when that surface moves. The hash material is, per source file,
+`<module>|<bare type>|SHA-256(content)`, ordered by `<module>/<type>` ordinally, so a move between modules or a rename re-keys even when the
+content is byte-identical, and the key does not depend on the repository root. The importer compiles the assembly when none exists for the
+current hash and every process loads it from the shadow root, never from the working tree, so no session ever locks `pwsh/.compiled`.
 
 - [What is NOT cacheable](#what-is-not-cacheable)
 

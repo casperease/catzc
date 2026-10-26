@@ -24,6 +24,3 @@ on 2026-10-22 with five sessions running tests). A red file has its cause report
       user's (task-user-runs-and-commits). The same rename keeps `Test-CatzcBuild.Parity.Tests.ps1` red (Catzc.Base.Asserts exports
       `Assert-IsRunningInVsCode` while the build lists VSCode), now that the bundle types-hash defect is fixed (catzc-46, 2026-10-23).
       Check: `Invoke-TestFile` on both alone, after the rename is staged.
-- [ ] `pwsh/Base.Contracts/tests/Get-ContractCommandRoot.Tests.ps1`, red on the live tree on 2026-10-26 (4 failures, "Unknown track 'catzc'"
-      from `Get-Track.ps1:27`, `out/test-file/20261026-145522-e5e3ea`): the cause reported first, then the fix; `catzc` is a namespace,
-      never a track name. Check: `Invoke-TestFile` on it alone.

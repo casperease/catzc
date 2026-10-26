@@ -113,8 +113,8 @@ or `Pipeline` (a pipeline wins over an agent running in it). No switch overrides
 
 - **Delete a superseded build another process still holds**: a person, no (named in one line, gone when its holder exits); an agent, no
   (named in one line); a pipeline, no (it asserts exactly one build).
-- **Commit the regenerated types contract** (`contracts/catzc/0.1.0/catzc.internal.types/types.sample.json`): a person, yes; an agent, no
-  (it announces what changed, to be committed); a pipeline, no (it checks the committed contract against the build).
+- **Commit the regenerated types contracts** (`contracts/catzc/0.1.0/<group>/types.json`): a person, yes; an agent, no (it announces what
+  changed, to be committed); a pipeline, no (it checks the committed contract against the build).
 - **Regenerate the gitignored generated files**: a person, an agent and a pipeline, yes.
 
 The repository is the person's: their session commits to it. An agent leaves it to the person and says what it left; a pipeline only
@@ -277,12 +277,12 @@ also proves the IDE project matches the runtime prebuild. It runs `dotnet` throu
 
 The assembly is the per-machine cache of [caching](../caching.md#rule-adr-auto-cache-compiledtypeprebuild): it is named for the combined
 hash of every module's sources and built on each machine into the per-user shadow root as `Catzc.Types.<hash>.dll`, with its manifest beside
-it. Git keeps no file under `pwsh/.compiled`; what a consumer binds to, the types surface (each type's name, aliases and display), is the
-provided contract `contracts/catzc/0.1.0/catzc.internal.types/types.sample.json`, regenerated after a compile and written only when the
-surface moves. The hash material is per file `<module>|<bare type>|SHA-256(content)`, ordered by `<module>/<type>` ordinally, so a move
-between modules (new namespace) or a rename (new type) re-keys even when content is byte-identical, with no dependence on the repository
-root. Every process loads the assembly from a per-user shadow copy (`Import-TypesAssembly`: `%LOCALAPPDATA%\catzc\types` on Windows,
-`~/.local/share/catzc/types` on Unix), never from the working tree, so no session ever locks a file in the repository
+it. Git keeps no file under `pwsh/.compiled`; what a consumer binds to, each module's types surface (each type's name, aliases, display and
+public members), is the provided contract `types.json` in its group under `contracts/catzc/0.1.0/`, regenerated after a compile and written
+only when that surface moves. The hash material is per file `<module>|<bare type>|SHA-256(content)`, ordered by `<module>/<type>` ordinally,
+so a move between modules (new namespace) or a rename (new type) re-keys even when content is byte-identical, with no dependence on the
+repository root. Every process loads the assembly from a per-user shadow copy (`Import-TypesAssembly`: `%LOCALAPPDATA%\catzc\types` on
+Windows, `~/.local/share/catzc/types` on Unix), never from the working tree, so no session ever locks a file in the repository
 ([why](#why-a-shadow-copy)).
 
 Because the DLL filename _is_ the combined source hash, there is no "present but stale" state — a source that changes has a different
@@ -508,9 +508,10 @@ as well as its files, so the pair is the language's configuration, apart from th
   analyzer rule both load through the shadow copy, so no session holds a file in the repository. `Import-TypesAssembly.Tests.ps1` covers the
   copy, its reuse, the atomic write, the concurrent-copy race, pruning, and `Location` pointing into the shadow root.
 
-- **The types contract** (`contracts/catzc/0.1.0/catzc.internal.types/types.sample.json`, with `types.schema.json`) is the committed
-  surface: `Write-TypesContract` regenerates it after a devbox compile through `Write-FileIfChanged`, `Test-GeneratedFiles` fails on a
-  surface that differs from the current assembly's, and `Test-Contracts` validates the sample against its schema.
+- **The types contracts** (`contracts/catzc/0.1.0/<group>/types.json`, one per module with types, validated against the one
+  `pwsh.base.contracts/types.schema.json`) are the committed surface: `Write-TypesContract` regenerates each after a devbox compile, writing
+  only a surface that moved, `Test-BuildArtifact -Facet Types` fails on a surface that differs from the current assembly's, and
+  `Test-Contracts` validates each against the schema and every command contract's catzc types against them.
 
 ## Disambiguation
 

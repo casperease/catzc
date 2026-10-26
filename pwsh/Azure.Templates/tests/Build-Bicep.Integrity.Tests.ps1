@@ -84,6 +84,7 @@ Describe 'Every slot compiles through the .bicepparam path to the same parameter
         $null = New-Item -ItemType Directory -Path $folder -Force
         $templates = Get-BicepTemplates
         $differ = [System.Collections.Generic.List[string]]::new()
+        $slots = [System.Collections.Generic.List[object]]::new()
         $count = 0
         foreach ($template in $templates) {
             foreach ($slot in @($template.slots | Where-Object { $_.format -eq 'yml' })) {
@@ -98,14 +99,40 @@ Describe 'Every slot compiles through the .bicepparam path to the same parameter
                 $source = Join-Path $folder "$count.bicepparam"
                 $compiled = Join-Path $folder "$count.json"
                 [System.IO.File]::WriteAllText($source, (ConvertTo-BicepParam -Descriptor $descriptor -Using $using))
-                Invoke-Executable "`"$($bicep.Path)`" build-params `"$source`" --outfile `"$compiled`"" -Silent
-                $after = Get-Content $compiled -Raw | ConvertFrom-Json -AsHashtable -DateKind String
-                if (($before.parameters | ConvertTo-Json -Depth 20 -Compress) -cne ($after.parameters | ConvertTo-Json -Depth 20 -Compress)) {
-                    $differ.Add("$($template.name)/$($slot.customer)/$($slot.name)")
-                }
+                $slots.Add([pscustomobject]@{
+                        Label    = "$($template.name)/$($slot.customer)/$($slot.name)"
+                        Before   = $before
+                        Source   = $source
+                        Compiled = $compiled
+                    })
                 $count++
             }
         }
+        # Each compile is its own bicep process, about 1.6 s apiece, so they run side by side.
+        $jobs = foreach ($entry in $slots) {
+            Start-ThreadJob -ThrottleLimit ([Environment]::ProcessorCount) -ArgumentList $bicep.Path, $entry.Source, $entry.Compiled -ScriptBlock {
+                param($Bicep, $Source, $Compiled)
+                $output = & $Bicep build-params $Source --outfile $Compiled 2>&1
+                [pscustomobject]@{ ExitCode = $LASTEXITCODE; Output = $output -join "`n" }
+            }
+        }
+        $finished = @($jobs | Wait-Job -Timeout 120)
+        if ($finished.Count -ne $jobs.Count) {
+            $jobs | Remove-Job -Force
+            throw "bicep build-params: $($jobs.Count - $finished.Count) of $($jobs.Count) compiles did not finish inside 120 s"
+        }
+        for ($index = 0; $index -lt $slots.Count; $index++) {
+            $result = Receive-Job $jobs[$index]
+            if ($result.ExitCode -ne 0) {
+                $jobs | Remove-Job -Force
+                throw "bicep build-params of $($slots[$index].Label) failed with exit code $($result.ExitCode):`n$($result.Output)"
+            }
+            $after = Get-Content $slots[$index].Compiled -Raw | ConvertFrom-Json -AsHashtable -DateKind String
+            if (($slots[$index].Before.parameters | ConvertTo-Json -Depth 20 -Compress) -cne ($after.parameters | ConvertTo-Json -Depth 20 -Compress)) {
+                $differ.Add($slots[$index].Label)
+            }
+        }
+        $jobs | Remove-Job -Force
         $count | Should -BeGreaterThan 0
         $differ |
             Should -BeNullOrEmpty -Because 'the compiled .bicepparam must hold exactly the values of the ConvertTo-Json parameters file'

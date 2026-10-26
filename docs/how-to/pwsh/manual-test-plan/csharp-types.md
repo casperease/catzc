@@ -62,8 +62,7 @@ The shipped C# types: they parse, compile, resolve, and the committed combined a
 
 **Test file:** `pwsh/.internal/tests/Import-CSharpTypes.Shipped.Tests.ps1` (L2), block `combined types surface matches its contract`.
 
-**Guards:** the committed types contract, `contracts/catzc/0.1.0/catzc.internal.types/types.sample.json`, is the surface the current type
-sources build to.
+**Guards:** the committed types contracts, `contracts/catzc/0.1.0/<group>/types.json`, are the surfaces the current type sources build to.
 
 **Checks:**
 
@@ -90,8 +89,7 @@ sources build to.
 
 ### 7. CodeMetaHead and the types hash agree on every C# type
 
-**Test file:** `pwsh/Base.CodeMeta/tests/types/CodeMetaHead.Tests.ps1` (L2), block
-`CodeMetaHead and the types hash agree on every C# type`.
+**Test file:** `pwsh/Base.CodeMeta/tests/types/CodeMetaHead.Tests.ps1` (L2), block `CodeMetaHead and the types hash agree on every C# type`.
 
 **Guards:** the bootstrap strip that hashes the types and `CodeMetaHead` read a C# head the same way (ADR-REPO-CODEMETA-CODEFILEHEAD).
 

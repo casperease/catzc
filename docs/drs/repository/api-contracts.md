@@ -77,7 +77,9 @@ applies to must exist and contain it — a key subset for YAML and JSON, the non
 fragment requires presence only. `<name>.schema.json` is a schema each file it applies to validates against. `<name>.sample.<ext>` is a
 sample payload the owning module's tests produce or parse, validated against the `<name>.schema.json` beside it when one exists.
 `<command>.command.yml` is a command contract, the call interface of the command whose repository normal form is `<command>`
-(`get_command_contract`), of the module its group names ([command-contracts](command-contracts.md)).
+(`get_command_contract`), of the module its group names ([command-contracts](command-contracts.md)). `types.json` is a types surface, the
+public types the group's module compiles, generated from the types assembly and validated against the one `types.schema.json` in the
+contracts tooling's group.
 
 - [The name picks the kind](#the-name-picks-the-kind)
 
@@ -103,13 +105,13 @@ sample or a command contract, or matches no tracked file is a finding; and a fra
 An asset says what it guarantees in one plain sentence it holds itself: the `description` key of a command contract, which is its command's
 help synopsis stripped of links, rule codes and markup, the `$comment` of a schema, or the leading `#` lines of another YAML asset. The
 sentence is letters, digits, spaces and `. , - ( ) '` only, on one line, so a YAML plain scalar holds it unquoted, and `Test-Contracts`
-checks that form and that a command contract's `description` equals its command's synopsis. A vendor-shaped schema also says its source
-and the date it was taken in its `description` annotation, so a reviewer can compare it with the vendor; a sample payload says nothing,
-since a key would change what it pins. `contracts/` holds only assets and their
-`contract.yml` maps. `Build-ContractReference` generates one committed page per root, `docs/references/contracts/<root>.md`, with one table
-per version folder listing every asset's group, the files it applies to, its direction, and its kind, and the assets' notes in a list under
-the table. An asset whose check compares every byte or key — a presence asset, a text fragment, a JSON fragment or sample payload — carries
-no note. The writer removes only pages it wrote, so a hand-written page in that folder is never touched.
+checks that form and that a command contract's `description` equals its command's synopsis. A vendor-shaped schema also says its source and
+the date it was taken in its `description` annotation, so a reviewer can compare it with the vendor; a sample payload says nothing, since a
+key would change what it pins. `contracts/` holds only assets and their `contract.yml` maps. `Build-ContractReference` generates one
+committed page per root, `docs/references/contracts/<root>.md`, with one table per version folder listing every asset's group, the files it
+applies to, its direction, and its kind, and the assets' notes in a list under the table. An asset whose check compares every byte or key —
+a presence asset, a text fragment, a JSON fragment or sample payload — carries no note. The writer removes only pages it wrote, so a
+hand-written page in that folder is never touched.
 
 - [How this is enforced](#how-this-is-enforced)
 
@@ -247,8 +249,8 @@ applies_to:
 
 `Sensible defaults from the asset's own name`
 
-An asset's kind comes from its name ([zero-ceremony-poka-yoke](../automation/zero-ceremony-poka-yoke.md)). The five kinds are the five
-things a boundary can require:
+An asset's kind comes from its name ([zero-ceremony-poka-yoke](../automation/zero-ceremony-poka-yoke.md)). The six kinds are the six things
+a boundary can require:
 
 - **Presence** — an empty fragment: each file it applies to must exist.
 - **Fragment** — no suffix: each file it applies to must exist and contain the fragment. YAML and JSON compare by key subset, so the real
@@ -260,6 +262,10 @@ things a boundary can require:
   it when one exists.
 - **Command contract** — `<command>.command.yml`, the command's repository normal form: the call interface of the command the group's module
   exports under that name, compared with the parse of the command's file ([command-contracts](command-contracts.md)).
+- **Types surface** — `types.json`: the public types the group's module compiles, each with its accelerators, display properties and public
+  members by name and kind, generated from the types assembly and never written by hand. Every group's surface validates against the one
+  `types.schema.json` in the contracts tooling's group, and every catzc type a command contract names is listed in some group's surface. A
+  module with types publishes a surface even when it has no command contract, so its group may hold nothing else.
 
 A fragment pins only what the outside party reads, so the rest of the file stays free to change under one living version.
 
