@@ -11,7 +11,7 @@ badges:
   - { label: thesis, message: one source of truth, color: 3b82f6, to: thesis }
   - { label: design, message: thinnest viable platform, color: 8b5cf6, to: thin-platform }
   - { label: grounded in, message: DORA, color: 22c55e, to: dora }
-  - { label: get, message: started, color: f97316, to: get-started }
+  - { label: start here, message: get started, color: f97316, to: get-started }
 sections:
   - { id: contents, kind: contents, title: Contents }
   - { id: problem, kind: fragment, source: docs/explanation/frontpage/the-problem.md }

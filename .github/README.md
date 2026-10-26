@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "2158970e7b9f"
+    with_body_sha: "681ba82f935b"
     warning: "Do Not Edit, this file is generated"
 ---
 
@@ -12,13 +12,13 @@ into code you can read, diff, review and query: pipelines, infrastructure, tooli
 surface. In code the system is **catzc** (the `Catzc.*` modules, namespaces and types); to people it is **cats** — "ask cats".
 
 [![CI][badge-1]](https://github.com/casperease/catzc/actions/workflows/ci-pwsh.yml) [![thesis][badge-2]](#the-thesis)
-[![design][badge-3]](#a-thin-platform-not-a-framework) [![grounded in][badge-4]](#grounded-in-dora) [![get][badge-5]](#get-started)
+[![design][badge-3]](#a-thin-platform-not-a-framework) [![grounded in][badge-4]](#grounded-in-dora) [![start here][badge-5]](#get-started)
 
 [badge-1]: https://github.com/casperease/catzc/actions/workflows/ci-pwsh.yml/badge.svg
 [badge-2]: https://img.shields.io/badge/thesis-one_source_of_truth-3b82f6?style=flat-square
 [badge-3]: https://img.shields.io/badge/design-thinnest_viable_platform-8b5cf6?style=flat-square
 [badge-4]: https://img.shields.io/badge/grounded_in-DORA-22c55e?style=flat-square
-[badge-5]: https://img.shields.io/badge/get-started-f97316?style=flat-square
+[badge-5]: https://img.shields.io/badge/start_here-get_started-f97316?style=flat-square
 
 ---
 

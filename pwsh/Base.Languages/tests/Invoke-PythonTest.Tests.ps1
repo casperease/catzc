@@ -126,6 +126,13 @@ Describe 'Invoke-PythonTest' -Tag 'L0', 'logic' {
             $script:seen.Command[4] | Should -Be "$script:uv run --no-sync --quiet ruff check `"tests/widget`""
         }
 
+        It 'runs a kit module named by its folder from its own tests/' {
+            $null = New-Item -ItemType Directory -Path (Join-Path $script:pythonRoot 'gadgets/tests') -Force
+            Set-Content -LiteralPath (Join-Path $script:pythonRoot 'gadgets/pyproject.toml') -Value '[project]'
+            $null = Invoke-PythonTest gadgets
+            $script:seen.Command[1] | Should -Be "$script:uv run --no-sync --quiet ruff check `"gadgets/tests`""
+        }
+
         It 'runs the named folder, a module''s own tests/ under the python track, with the member project at the module root' {
             $null = Invoke-PythonTest Widget.Kit -Folder $script:ownFolder
             $script:seen.Command[1] | Should -Be "$script:uv run --no-sync --quiet ruff check `"Widget.Kit/tests`""

@@ -27,6 +27,10 @@ function Invoke-PythonTest {
         [System.IO.Path]::GetRelativePath($root, [System.IO.Path]::GetFullPath($Folder, $root)).Replace('\',
             '/').TrimEnd('/')
     }
+    elseif (Test-Path -LiteralPath (Join-Path $root "$pythonRelative/$Module/tests") -PathType Container) {
+        # A kit module is named by its folder, never pascal-dotted.
+        "$pythonRelative/$Module/tests"
+    }
     else {
         # Named for the module's folder, which drops the modules track's namespace.
         $moduleFolder = (Get-Config -Config languages).TestFolderOf('python', (Get-Config -Config variants), $Module)
