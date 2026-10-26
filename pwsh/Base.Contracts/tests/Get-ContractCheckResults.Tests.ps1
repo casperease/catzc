@@ -354,7 +354,7 @@ widget: cog
         }
 
         It 'compares a catzc type and a parameter set in the normal form' {
-            Add-Asset 'get_widget.command.yml' "description: Returns the widget.`nparameters:`n  path: string! in by_path`noutput: pwsh.widgets.widget_gadget[]`n"
+            Add-Asset 'get_widget.command.yml' "description: Returns the widget.`nparameters:`n  path: string! in by_path`noutput: catzc.widgets.widget_gadget[]`n"
             Add-File 'widgets/Catzc.Widget/Get-Widget.ps1' "function Get-Widget {`n    [OutputType([Catzc.Widgets.WidgetGadget[]])]`n    param(`n        [Parameter(Mandatory, ParameterSetName = 'ByPath')]`n        [string] `$Path`n    )`n}`n"
             $result = Get-CheckResult 'get_widget.command.yml'
             $result.Passed | Should -BeTrue -Because ($result.Findings -join "`n")

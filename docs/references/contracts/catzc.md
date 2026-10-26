@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "4d071a32e354"
+    with_body_sha: "2ac106c23ced"
     warning: "Do Not Edit, this file is generated"
 ---
 
@@ -13,7 +13,8 @@ The contract assets of the `catzc` root: one table per version folder, then the 
 
 `Build-ContractReference` writes this page from `contracts/catzc/`: edit an asset, its description or its header comment, never this page.
 
-Each note is the asset's own: the `description` of a command contract, the `$comment` of a schema, or the leading `#` lines of another YAML asset.
+Each note is the asset's own: the `description` of a command contract, the `$comment` of a schema, or the leading `#` lines of another YAML
+asset.
 
 A presence asset, a text fragment, and a JSON fragment or sample payload carry no note: a comment would change what they pin.
 
