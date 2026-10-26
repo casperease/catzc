@@ -234,6 +234,12 @@ Describe 'Build-RootConfig — real rootconfig.yml' -Tag 'L2', 'integrity', 'sou
         @($script:rendered).Count | Should -BeGreaterThan 0
     }
 
+    It 'renders .editorconfig before .vscode/settings.json, whose generator reads it, so a tree without either renders drift-free at once' {
+        $targets = @((Get-Config -Config rootconfig).Files | Where-Object OptIn | ForEach-Object Target)
+        [array]::IndexOf($targets, '.editorconfig') | Should -BeGreaterOrEqual 0
+        [array]::IndexOf($targets, '.editorconfig') | Should -BeLessThan ([array]::IndexOf($targets, '.vscode/settings.json'))
+    }
+
     It 'renders every managed root file drift-free, importer.ps1 included (Test-GeneratedFiles)' {
         if ($script:skip) {
             Set-ItResult -Skipped -Because $script:skip; return

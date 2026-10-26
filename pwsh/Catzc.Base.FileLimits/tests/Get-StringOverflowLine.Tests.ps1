@@ -29,9 +29,11 @@ Describe 'Get-StringOverflowLine' -Tag 'L0', 'logic' {
         @(& $script:lines $text 'yaml') | Should -Be @(2)
     }
 
-    It 'exempts an XML attribute value that runs past the width' {
-        $text = "<widget>`n  <gadget style=`"shape=sprocket;fill=#123456;stroke=#654321;rounded=1`" />`n</widget>"
+    It 'exempts an XML attribute value that runs past the width to the end of its line, and not one the tag continues after' {
+        $text = "<widget>`n  <gadget style=`"shape=sprocket;fill=#123456;stroke=#654321;rounded=1`"`n    />`n</widget>"
         @(& $script:lines $text 'xml') | Should -Be @(2)
+        $closed = "<widget>`n  <gadget style=`"shape=sprocket;fill=#123456;stroke=#654321;rounded=1`" />`n</widget>"
+        @(& $script:lines $closed 'xml') | Should -BeNullOrEmpty
     }
 
     It 'exempts nothing in a language with no tokenizer, or in text the tokenizer cannot read' {

@@ -8,6 +8,7 @@ strict:
   - catzc-save-ledger
   - catzc-git-changes
   - catzc-compiled-info
+  - catzc-track-lamps
   - catzc-drs-links
   - catzc-ansi-logs
   - catzc-file-icons

@@ -45,9 +45,6 @@ Folder, file, and naming conventions, the repository path helpers, the git index
 | 36  | L1   | [ValidatePathGiven on the whole-tree commands][c36]                               |
 | 37  | L0   | [Get-FileKind][c37]                                                               |
 | 38  | L2   | [Get-WorldMapHighlight on the working tree][c38]                                  |
-| 39  | L1   | [Test-FileLimits — the real tree][c39]                                            |
-| 40  | L1   | [Test-TrackMemberCommitted — the real tree][c40]                                  |
-| 41  | L1   | [Get-OutputRoot — no default reaches the output track][c41]                       |
 
 [c1]: #1-folder--file-conventions
 [c2]: #2-source--test-file-conventions

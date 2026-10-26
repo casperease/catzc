@@ -36,7 +36,8 @@ function Test-FileShape {
             if ($null -ne $limit.width -and $shape.width -gt $limit.width -and (Get-Config -Config file-limits).string_overflow -eq 'exempt') {
                 # A line whose overflow lies wholly inside one string literal passes, so the width is the widest line that is not one.
                 $text = [System.IO.File]::ReadAllText($file)
-                $exempt = [System.Collections.Generic.HashSet[int]]::new([int[]] @(Get-StringOverflowLine -Text $text -Width $limit.width -Language $limit.language))
+                $exemptLines = Get-StringOverflowLine -Text $text -Width $limit.width -Language $limit.language
+                $exempt = [System.Collections.Generic.HashSet[int]]::new([int[]] $exemptLines)
                 if ($exempt.Count -gt 0) {
                     $widest = 0
                     $widestLine = 0

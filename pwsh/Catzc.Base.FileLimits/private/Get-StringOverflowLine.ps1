@@ -22,7 +22,7 @@ function Get-StringOverflowLine {
             foreach ($token in $tokens) {
                 $isString = $token.Kind -in 'StringLiteral', 'StringExpandable', 'HereStringLiteral', 'HereStringExpandable'
                 if ($isString -and $token.Extent.StartLineNumber -eq $token.Extent.EndLineNumber) {
-                    $spans.Add([int[]] @($token.Extent.StartLineNumber, $token.Extent.StartColumnNumber, $token.Extent.EndColumnNumber - 1))
+                    $spans.Add([int[]] @($token.Extent.StartLineNumber, $token.Extent.StartColumnNumber, ($token.Extent.EndColumnNumber - 1)))
                 }
             }
         }
@@ -32,7 +32,7 @@ function Get-StringOverflowLine {
                 while ($scanner.MoveNext()) {
                     $token = $scanner.Current
                     if ($token -is [YamlDotNet.Core.Tokens.Scalar] -and $token.Start.Line -eq $token.End.Line) {
-                        $spans.Add([int[]] @([int] $token.Start.Line, [int] $token.Start.Column, [int] $token.End.Column - 1))
+                        $spans.Add([int[]] @([int] $token.Start.Line, [int] $token.Start.Column, ([int] $token.End.Column - 1)))
                     }
                 }
             }
@@ -62,7 +62,7 @@ function Get-StringOverflowLine {
                         $quote = $line[$equals + 1]
                         $close = $line.IndexOf($quote, $equals + 2)
                         if ($quote -in '"', "'" -and $close -gt 0) {
-                            $spans.Add([int[]] @($info.LineNumber, $equals + 2, $close + 1))
+                            $spans.Add([int[]] @($info.LineNumber, ($equals + 2), ($close + 1)))
                         }
                     }
                     $null = $reader.MoveToElement()

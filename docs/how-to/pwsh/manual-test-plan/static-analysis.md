@@ -1,6 +1,3 @@
-| 15 | L1 | [Test-FileLimits — the real tree][c15] | | 16 | L1 | [Test-TrackMemberCommitted — the real tree][c16] | | 17 | L1 |
-[Get-OutputRoot — no default reaches the output track][c17] |
-
 # Manual test plan — Static analysis
 
 PSScriptAnalyzer, the formatter, and the analyzer-to-ADR map. Part of the [manual test plan](../manual-test-plan.md), which says how to run
@@ -24,6 +21,9 @@ a check.
 | 12  | L1   | [The shipped format engines' keyed settings][c12]            |
 | 13  | L2   | [Repository Python type integrity][c13]                      |
 | 14  | L2   | [Format-FileMeta on the repository][c14]                     |
+| 15  | L1   | [Test-FileLimits — the real tree][c15]                       |
+| 16  | L1   | [Test-TrackMemberCommitted — the real tree][c16]             |
+| 17  | L1   | [Get-OutputRoot — no default reaches the output track][c17]  |
 
 [c1]: #1-analyzer-adr-map-integrity
 [c2]: #2-psscriptanalyzer

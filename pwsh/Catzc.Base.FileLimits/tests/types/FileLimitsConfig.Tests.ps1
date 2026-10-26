@@ -45,7 +45,7 @@ Describe 'FileLimitsConfig' -Tag 'L0', 'logic' {
     }
 
     It 'rejects an unknown key at every level, naming the allowed set' {
-        { [Catzc.Base.FileLimits.FileLimitsConfig]::new(@{ gadget = 1 }) } | Should -Throw '*unknown key ''gadget''*bounds, classes, defaults, exempt, extensions, function_body_length, languages, width_mode*'
+        { [Catzc.Base.FileLimits.FileLimitsConfig]::new(@{ gadget = 1 }) } | Should -Throw '*unknown key ''gadget''*bounds, classes, defaults, exempt, extensions, function_body_length, languages, string_overflow, width_mode*'
         { [Catzc.Base.FileLimits.FileLimitsConfig]::new(@{ defaults = @{ gadget = @{} } }) } | Should -Throw '*code, config, prose*'
         { [Catzc.Base.FileLimits.FileLimitsConfig]::new(@{ languages = @{ widget = @{ depth = 1 } } }) } | Should -Throw '*length, width*'
     }

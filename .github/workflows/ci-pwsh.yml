@@ -80,7 +80,8 @@ jobs:
         shell: pwsh
         run: |
           Set-StrictMode -Version Latest
-          $records = @(Get-ChildItem bundle-hash -Filter *.txt | ForEach-Object { [pscustomobject]@{ Os = $_.BaseName; Hash = (Get-Content -Raw $_.FullName).Trim() } })
+          $records = @(Get-ChildItem bundle-hash -Filter *.txt |
+              ForEach-Object { [pscustomobject]@{ Os = $_.BaseName; Hash = (Get-Content -Raw $_.FullName).Trim() } })
           $records | Format-Table -AutoSize | Out-String | Write-Host
           if ($records.Count -lt 3) {
             throw "Expected a bundle hash from 3 OSes, got $($records.Count)."

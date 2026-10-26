@@ -4,9 +4,18 @@ const fs = require("fs");
 const path = require("path");
 
 const [scenario, root, script] = process.argv.slice(2);
-const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+const sleep = (/** @type {number} */ ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
+// The stub stands in for the editor's API, so its own parameters are the editor's loose shapes: they are typed any on purpose, and what the
+// scenarios read back, the record, is typed in full.
+/** @typedef {(...args: any[]) => any} Callback */
+/** @typedef {{ pattern: string, create: Callback[], change: Callback[], delete: Callback[] }} Watcher */
+/** @param {{ filters?: unknown, state?: Record<string, unknown> }} seed */
 function stub(seed) {
+    /**
+     * @type {{ commands: Map<string, Callback>, registered: number, disposed: number, duplicates: string[], contexts: unknown[][],
+     *   updates: string[][], concurrent: number, maxConcurrent: number, watchers: Watcher[], logs: string[], diagnostics: Callback[] }}
+     */
     const record = {
         commands: new Map(),
         registered: 0,
@@ -20,18 +29,23 @@ function stub(seed) {
         logs: [],
         diagnostics: [],
     };
+    /** @type {any} */
     let exclude = {};
+    /** @type {any} */
     let owned;
-    const disposable = (on) => ({ dispose: () => (record.disposed++, on && on()) });
-    const event = (list) => (callback) => (list && list.push(callback), disposable());
-    const memento = (values) => ({ get: (k, d) => (k in values ? values[k] : d), update: async (k, v) => void (values[k] = v) });
+    const disposable = (/** @type {Callback | undefined} */ on = undefined) => ({ dispose: () => (record.disposed++, on && on()) });
+    const event = (/** @type {Callback[] | undefined} */ list = undefined) => (/** @type {Callback} */ callback) => (list && list.push(callback), disposable());
+    const memento = (/** @type {Record<string, any>} */ values) => ({
+        get: (/** @type {string} */ k, /** @type {any} */ d) => (k in values ? values[k] : d),
+        update: async (/** @type {string} */ k, /** @type {any} */ v) => void (values[k] = v),
+    });
     const vscode = {
         workspace: {
             workspaceFolders: [{ uri: { fsPath: root } }],
-            getConfiguration: (section) => ({
-                get: (k) => (section === "catzc.trackLamps" ? { filters: seed.filters, trace: false }[k] : undefined),
-                inspect: (k) => ({ workspaceValue: section === "catzc.trackLamps" && k === "owned" ? owned : exclude }),
-                update: async (k, next) => {
+            getConfiguration: (/** @type {string} */ section) => ({
+                get: (/** @type {string} */ k) => (section === "catzc.trackLamps" ? /** @type {Record<string, unknown>} */ ({ filters: seed.filters, trace: false })[k] : undefined),
+                inspect: (/** @type {string} */ k) => ({ workspaceValue: section === "catzc.trackLamps" && k === "owned" ? owned : exclude }),
+                update: async (/** @type {string} */ k, /** @type {any} */ next) => {
                     if (section === "catzc.trackLamps" && k === "owned") {
                         owned = next;
                         return;
@@ -44,7 +58,8 @@ function stub(seed) {
                     record.concurrent--;
                 },
             }),
-            createFileSystemWatcher: (pattern) => {
+            createFileSystemWatcher: (/** @type {{ pattern: string }} */ pattern) => {
+                /** @type {Watcher} */
                 const watcher = { pattern: pattern.pattern, create: [], change: [], delete: [] };
                 record.watchers.push(watcher);
                 return {
@@ -60,7 +75,7 @@ function stub(seed) {
             textDocuments: [],
         },
         window: {
-            createOutputChannel: (name) => ({ appendLine: (line) => record.logs.push(`${name}: ${line}`), show() {}, ...disposable() }),
+            createOutputChannel: (/** @type {string} */ name) => ({ appendLine: (/** @type {string} */ line) => record.logs.push(`${name}: ${line}`), show() {}, ...disposable() }),
             createStatusBarItem: () => ({ show() {}, ...disposable() }),
             tabGroups: { all: [], onDidChangeTabs: event() },
             onDidChangeActiveTextEditor: event(),
@@ -74,45 +89,48 @@ function stub(seed) {
             createDiagnosticCollection: () => ({ set() {}, delete() {}, ...disposable() }),
         },
         commands: {
-            registerCommand: (name, callback) => {
+            registerCommand: (/** @type {string} */ name, /** @type {Callback} */ callback) => {
                 if (record.commands.has(name)) record.duplicates.push(name);
                 record.commands.set(name, callback);
                 record.registered++;
                 return disposable(() => record.commands.get(name) === callback && record.commands.delete(name));
             },
-            executeCommand: async (name, key, value) => void (name === "setContext" && record.contexts.push([key, value])),
+            executeCommand: async (/** @type {string} */ name, /** @type {unknown} */ key, /** @type {unknown} */ value) => void (name === "setContext" && record.contexts.push([key, value])),
         },
         extensions: { getExtension: () => undefined },
         StatusBarAlignment: { Left: 1 },
         ConfigurationTarget: { Workspace: 2 },
+        /** @this {any} @param {unknown} base @param {string} pattern */
         RelativePattern: function (base, pattern) {
             this.base = base;
             this.pattern = pattern;
         },
-        Uri: { file: (p) => ({ fsPath: p, scheme: "file" }) },
+        Uri: { file: (/** @type {string} */ p) => ({ fsPath: p, scheme: "file" }) },
         Range: function () {},
         Diagnostic: function () {},
         DiagnosticSeverity: { Error: 0 },
     };
-    const context = { subscriptions: [], workspaceState: memento(seed.state ?? {}), globalState: memento({}) };
-    const fire = (pattern, kind, file) =>
+    const context = { subscriptions: /** @type {{ dispose(): unknown }[]} */ ([]), workspaceState: memento(seed.state ?? {}), globalState: memento({}) };
+    const fire = (/** @type {string} */ pattern, /** @type {"create" | "change" | "delete"} */ kind, /** @type {string} */ file) =>
         Promise.all(
             record.watchers.filter((w) => w.pattern === pattern).flatMap((w) => w[kind].map((cb) => cb({ fsPath: file, scheme: "file" }))),
         );
-    const press = (name) => record.commands.get(name)?.();
+    const press = (/** @type {string} */ name) => record.commands.get(name)?.();
     return { vscode, record, context, fire, press };
 }
 
 // Node resolves "vscode" for the extension through this hook; the shell is the only part that requires it itself.
 // _load is node's internal loader, outside its published types.
 const Module = /** @type {any} */ (require("module"));
+/** @type {any} */
 let current;
 const original = Module._load;
+/** @this {any} @param {string} request @param {...any} rest */
 Module._load = function (request, ...rest) {
     return request === "vscode" ? current.vscode : original.call(this, request, ...rest);
 };
 
-const filters = (names) => Object.fromEntries(names.map((name) => [name, [{ include: [name, `${name}/**`], exclude: [] }]]));
+const filters = (/** @type {string[]} */ names) => Object.fromEntries(names.map((name) => [name, [{ include: [name, `${name}/**`], exclude: [] }]]));
 
 const scenarios = {
     // The roof over the real repository: the files.exclude of each shipped lamp off and vetoed in turn, and of every lamp off, by the
@@ -137,7 +155,7 @@ const scenarios = {
                 const wanted = await m.hiddenGlobs(root, out, shipped, [], veto ? out : new Set(), disk);
                 states.push({
                     state: `${veto ? "veto" : "off"} ${off.length === lamps.length ? "(every lamp)" : off[0]}`,
-                    size: m.excludeSize(Object.fromEntries(wanted.map((glob) => [glob, true]))),
+                    size: m.excludeSize(Object.fromEntries(wanted.map((/** @type {string} */ glob) => [glob, true]))),
                 });
             }
         }
@@ -158,7 +176,7 @@ const scenarios = {
             shownCode: keys["catzc.lamps.shown.code"],
             shownWidget: keys["catzc.lamps.shown.widget"],
             summary: keys["catzc.lamps.summary"],
-            mismatchLogs: current.record.logs.filter((line) => line.includes("are not the shipped lamps")).length,
+            mismatchLogs: current.record.logs.filter((/** @type {string} */ line) => line.includes("are not the shipped lamps")).length,
             sentAfterNoChange: current.record.contexts.length - sent,
         };
     },
@@ -231,19 +249,19 @@ const scenarios = {
             swapped,
             broken: {
                 light: current.record.commands.has("catzc.lamps.code.light"),
-                fellBack: current.record.logs.some((line) => line.includes("did not load")),
+                fellBack: current.record.logs.some((/** @type {string} */ line) => line.includes("did not load")),
             },
             duplicates: current.record.duplicates,
         };
     },
 };
 
-scenarios[scenario]()
-    .then((result) => {
+/** @type {Record<string, () => Promise<unknown>>} */ (scenarios)[scenario]()
+    .then((/** @type {unknown} */ result) => {
         process.stdout.write(JSON.stringify(result));
         process.exit(0);
     })
-    .catch((error) => {
+    .catch((/** @type {any} */ error) => {
         process.stderr.write(String(error?.stack ?? error));
         process.exit(1);
     });
