@@ -108,11 +108,13 @@ Describe 'Every slot compiles through the .bicepparam path to the same parameter
                 $count++
             }
         }
-        # Each compile is its own bicep process, about 1.6 s apiece, so they run side by side.
+        # Each compile is its own bicep process, about 1.6 s apiece, so they run side by side, four at a time on a shared devbox.
+        $bicepPath = $bicep.Path
         $jobs = foreach ($entry in $slots) {
-            Start-ThreadJob -ThrottleLimit ([Environment]::ProcessorCount) -ArgumentList $bicep.Path, $entry.Source, $entry.Compiled -ScriptBlock {
-                param($Bicep, $Source, $Compiled)
-                $output = & $Bicep build-params $Source --outfile $Compiled 2>&1
+            $source = $entry.Source
+            $compiled = $entry.Compiled
+            Start-ThreadJob -ThrottleLimit 4 -ScriptBlock {
+                $output = & $using:bicepPath build-params $using:source --outfile $using:compiled 2>&1
                 [pscustomobject]@{ ExitCode = $LASTEXITCODE; Output = $output -join "`n" }
             }
         }

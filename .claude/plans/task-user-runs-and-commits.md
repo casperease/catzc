@@ -146,7 +146,12 @@ final full run last.
     `git ls-files pwsh/.compiled` prints nothing, `git status --short contracts` is clean, and `Test-BuildArtifact -Facet Types` reports no
     issues.
 
-28. The final full run, in a fresh session, when the chunks in plan-master have landed. Once it is green and committed, the work is done and
+28. plan-reference-normal-form step 3: move every reference page to its four-part path. First refresh `out/ns5/ref-map.csv` from the
+    committed tree (ask the orchestrator for the refresh), then run `pwsh -NoProfile -File out/ns5/Rename-ReferencePages.ps1 -WhatIf`, then
+    the same without `-WhatIf`; then tell the orchestrator, so steps 1, 2 and 4 swap in together from `out/drone-2f-refnf/staged`. Check:
+    the `-WhatIf` lists each page once and no target exists, and after the run `git status --short docs/references` shows only renames.
+
+29. The final full run, in a fresh session, when the chunks in plan-master have landed. Once it is green and committed, the work is done and
     every plan, task and prompt in `.claude/plans` is deleted (the user, 2026-10-20). Check: `.claude/plans` is empty.
 
 ## Report

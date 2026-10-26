@@ -41,6 +41,8 @@ ignorePaths:
 ignoreRegExpList:
   - /\b[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}\b/g
   - /(?<![\s(\[*_>|/,]|^)`[nrt](?=[a-z])/gm
+  # A scratch path under out/ is a name, not words: a drone's folder tag never needs a dictionary entry.
+  - /(?<![\w./-])out\/[\w./-]+/g
 # Approved-vocabulary dictionaries — one per registry category
 # ([ADR-AUTO-SPELL-CATEGORYANDMEANING](/docs/drs/automation/spell-out-names.md#rule-adr-auto-spell-categoryandmeaning)) — generated from
 # the terminology registry (pwsh/Base.QualityGates/configs/terminology/) by Build-TerminologyDictionary. The

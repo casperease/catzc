@@ -30,16 +30,18 @@ function Export-Comments {
     # Several files may share a page only by configuration error; each page is read once and carried forward.
     $pageTexts = @{}
     $results = [System.Collections.Generic.List[Catzc.Base.QualityGates.CommentFileResult]]::new()
-    # A staged folder mirrors the repository: its files are the scope, a page is read from its staged copy or else the
-    # repository, and both are written back into the folder, the page with the burst base that guards a peer's edit.
     $sourceRoot = $RepositoryRoot
+    $scopePath = $Path
     if ($StagedFolder) {
         $sourceRoot = [System.IO.Path]::GetFullPath($StagedFolder, [System.IO.Path]::GetFullPath($RepositoryRoot))
-        if (-not $Path) {
-            $Path = @($sourceRoot)
-        }
+        $scopePath = @(if ($Path) {
+                $Path
+            }
+            else {
+                $sourceRoot
+            })
     }
-    $scope = @(Get-CommentScope -RepositoryRoot $sourceRoot -Path $Path)
+    $scope = @(Get-CommentScope -RepositoryRoot $sourceRoot -Path $scopePath)
     foreach ($entry in $scope) {
         $filePath = Join-Path $sourceRoot $entry.File
         $pagePath = Join-Path $sourceRoot $entry.Page

@@ -23,12 +23,11 @@ folders. Heavy runs wait for a turn in the orchestrator's memory queue, one run 
       names and `Should` count, and `Test-ScriptAnalyzer -Path` at 0 on each changed file.
 - [ ] The ten slowest test files, each measured alone and fixed one cause at a time, slowest first (ranked 2026-10-26 by catzc-2f from the
       2026-10-25 sharded run's `durations.json`, its top 16 re-timed alone; `Import-Catzc.Tests.ps1` and `Test-CatzcBuild.Parity.Tests.ps1`
-      wait on the VSCode case-only rename, the step above): `Invoke-TestFile.Tests.ps1` (77.4 s), `Build-Bicep.Integrity.Tests.ps1` (22.9
-      s), `Test-Spelling.Tests.ps1` (18.5 s, 1 test red before any change), `Test-Formatting.Tests.ps1` (17.6 s, 1 test red before any
-      change), `Get-RepositoryFilter.Tests.ps1` (16.1 s) and `Test-Automation.Tests.ps1` (15.6 s). A red file is made green by its owner
-      before its speed is touched, and a file measured with no safe gain is recorded as left as it is. Check: `Invoke-TestFile` twice per
-      file, the same test names and `Should` count, an A/B of each cause with identical output, and `Test-ScriptAnalyzer -Path` at 0 on each
-      changed file.
+      wait on the VSCode case-only rename, the step above): `Invoke-TestFile.Tests.ps1` (77.4 s), `Test-Spelling.Tests.ps1` (18.5 s, 1 test
+      red before any change), `Test-Formatting.Tests.ps1` (17.6 s, 1 test red before any change), `Get-RepositoryFilter.Tests.ps1` (16.1 s)
+      and `Test-Automation.Tests.ps1` (15.6 s). A red file is made green by its owner before its speed is touched, and a file measured with
+      no safe gain is recorded as left as it is. Check: `Invoke-TestFile` twice per file, the same test names and `Should` count, an A/B of
+      each cause with identical output, and `Test-ScriptAnalyzer -Path` at 0 on each changed file.
 
 ## Open questions
 

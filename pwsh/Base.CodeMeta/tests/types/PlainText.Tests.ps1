@@ -16,6 +16,7 @@ Describe 'PlainText.Synopsis' -Tag 'L0', 'logic' {
     }
 }
 
+# cspell:ignore GADGETRULE  -- a fixture rule code's last segment, no word
 Describe 'PlainText.Plain' -Tag 'L0', 'logic' {
     It 'reduces <Case>' -ForEach @(
         @{ Case = 'a link to its words'; Text = 'Checks the [widget rules](../widget.md#rule) of a gadget.'; Expected = 'Checks the widget rules of a gadget.' }

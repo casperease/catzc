@@ -55,8 +55,8 @@ function Format-Types {
     $changedFiles = [System.Collections.Generic.List[string]]::new()
     $blockScopedFiles = [System.Collections.Generic.List[string]]::new()
     foreach ($file in $files) {
-        # Module = the folder that contains this file's types/ folder: <Module>/types/<file>.cs.
-        $module = [System.IO.Path]::GetFileName([System.IO.Path]::GetDirectoryName([System.IO.Path]::GetDirectoryName($file)))
+        # The namespace is the full name of the module whose types/ folder holds the file (<module>/types/<file>.cs); the folder drops it.
+        $module = Get-ModuleFullName ([System.IO.Path]::GetDirectoryName([System.IO.Path]::GetDirectoryName($file)))
 
         $original = [System.IO.File]::ReadAllText($file)
         if ($original -notmatch '(?m)^\s*namespace\s+\S+?\s*;' -and $original -match '(?m)^\s*namespace\s+\S+?\s*\{') {

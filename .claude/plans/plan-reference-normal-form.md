@@ -41,8 +41,8 @@ A reference page's path is derived from its source file, so no code head carries
 2. [ ] The gate: every reference page maps back to exactly one source file, and no two sources share a page. Check: its L1 real-tree test
        at 0.
 3. [ ] `out/ns5/Rename-ReferencePages.ps1`: a per-file git mv of every page and module article to its derived path, a record csv, a
-       `-WhatIf`, stopping on the first git error, no content edits; the user runs it. Check: the `-WhatIf` lists each page once and no
-       target exists.
+       `-WhatIf`, stopping on the first git error, no content edits; the user runs it (task-user-runs-and-commits step 28). Check: the
+       `-WhatIf` lists each page once and no target exists.
 4. [ ] The repair: every code head's `docs:` key and every page's link back removed (Format-FileMeta, Sync-FileMeta), the readers
        (Build-CommentView, Export-Comments, Test-Comments, Get-ReadmeMappings) resolving through step 1, and every inbound link to a
        reference page re-pointed from the csv. Check: `Test-Comments`, `Test-FileMeta`, `Test-Links` and `Test-GeneratedFiles` at 0.

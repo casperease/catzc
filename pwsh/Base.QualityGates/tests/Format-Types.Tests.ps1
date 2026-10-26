@@ -32,6 +32,14 @@ Describe 'Format-Types' -Tag 'L0', 'logic' {
         $result.BlockScopedFiles | Should -BeNullOrEmpty
     }
 
+    It 'takes the namespace from the module''s full name, never its namespace-free folder' -Tag 'DDR-TRACK-MODULENAMESPACE' {
+        $gadget = & $writeType $script:root 'Gadget' 'Gizmo' ('namespace Catzc.Gadget;', '', 'public sealed class Gizmo { }', '' -join "`n")
+        $moduleFolder = [System.IO.Path]::GetDirectoryName([System.IO.Path]::GetDirectoryName($gadget))
+        [System.IO.File]::WriteAllText((Join-Path $moduleFolder 'Catzc.Gadget.psd1'), '@{}')
+        $result = Format-Types -Path $moduleFolder -DryRun -PassThru
+        $result.ChangedCount | Should -Be 0
+    }
+
     It 'reports a mismatched and a missing namespace under -DryRun without writing them' {
         $mismatched = & $writeType $script:root 'Catzc.Widget' 'Gadget' ('namespace Catzc.Gadget;', '',
             'public sealed class Gadget { }', '' -join "`n")

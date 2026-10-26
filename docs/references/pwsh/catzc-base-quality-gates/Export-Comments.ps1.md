@@ -35,6 +35,11 @@ Files or folders to export. Default: every file in scope.
 
 The repository root paths and pages resolve against. Default: the loaded repository root.
 
+### parameter `StagedFolder`
+
+A staged folder mirroring the repository, relative to the root or absolute: its files are exported in place, and each page is written into
+it beside a burst base, read from its staged copy or else from the repository. Default: none, the repository itself.
+
 ### parameter `DryRun`
 
 Report what would move without writing any file.
@@ -57,4 +62,13 @@ Export-Comments -Path pwsh/Base.Files -DryRun -PassThru
 
 ```powershell
 Export-Comments -Path pwsh/Base.Files/Write-FileIfChanged.ps1
+```
+
+## comment:1
+
+Above `$sourceRoot = $RepositoryRoot`, written with `#`.
+
+```text
+A staged folder mirrors the repository: its files are the scope, a page is read from its staged copy or else the
+repository, and both are written back into the folder, the page with the burst base that guards a peer's edit.
 ```

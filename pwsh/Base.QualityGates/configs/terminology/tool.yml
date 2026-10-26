@@ -21,6 +21,10 @@ terms:
       meaning: "the Regex Robin extension's Marketplace publisher (DanLevett.regex-robin), named by the plan that replaced it"
     - term: untracking
       meaning: "removing a committed file from git's index while keeping it on disk (git rm --cached)"
+    - term: backticked
+      meaning: "set in backticks, Markdown's code-span delimiter"
+    - term: heredocs
+      meaning: "shell here-documents, the <<EOF blocks a Bash call writes a file with"
     - term: segoe
       meaning: "the Segoe UI font family, named in the font stack of a generated extension's SVG"
     - term: linecap
