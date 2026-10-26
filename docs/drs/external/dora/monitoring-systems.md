@@ -1,4 +1,4 @@
-# Research: DORA — Monitoring systems to inform business decisions
+# EDR: DORA — Monitoring systems to inform business decisions
 
 ## Rules: EDR-DORA-MONITOR
 
@@ -7,7 +7,9 @@
 Monitoring exists to inform decisions, not only to detect failure. Collecting data across development, testing, QA, and operations is the
 first half of the capability; turning that data into a decision is the second, and neither half stands in for the other.
 
-- [Summary](#summary)
+Source: [DORA, Monitoring systems](../../../references/dora/capabilities.md#monitoring-systems)
+
+Binds to [WDR-OBSERVEWIP-GOANDSEE](../../process/observe-work.md#rule-wdr-observewip-goandsee).
 
 ### Rule EDR-DORA-MONITOR-USABLEDATA
 
@@ -15,28 +17,32 @@ Present monitoring data so it is relevant, timely, accurate, and easy to underst
 whether a value is high or low, expected, about to change, or a departure from its historical trend — a raw number without that context is
 not yet a decision input.
 
-- [Summary](#summary)
+Source: [DORA, Monitoring systems](../../../references/dora/capabilities.md#monitoring-systems)
+
+Binds to [ADR-AUTO-CONSOLE-REPORTOUTCOMES](../../automation/console-output-matters.md#rule-adr-auto-console-reportoutcomes).
 
 ### Rule EDR-DORA-MONITOR-SIGNALSUPSTREAM
 
 Let production signals travel upstream. Insight gathered from operations — a deployment error, a customer usage pattern, a performance
 regression — is a learning input for development and product management, not information that stops with the team that first saw it.
 
-- [Why it matters](#why-it-matters)
+Source: [DORA, Monitoring systems](../../../references/dora/capabilities.md#monitoring-systems)
 
 ### Rule EDR-DORA-MONITOR-FULLPIPELINE
 
 Monitor the full pipeline, not one or two convenient stations, and judge a change by its effect on the whole system rather than by whether
 it improves the one service being watched.
 
-- [Common pitfalls](#common-pitfalls)
+Source: [DORA, Monitoring systems](../../../references/dora/capabilities.md#monitoring-systems)
+
+Binds to [WDR-OBSERVEWIP-OBSERVEWHOLESTREAM](../../process/observe-work.md#rule-wdr-observewip-observewholestream).
 
 ### Rule EDR-DORA-MONITOR-ALERTONAPPROACH
 
 Alert on approach to a threshold, not only on failure, and choose what to monitor deliberately — instrumenting everything produces more
 noise than insight and buries the signal the capability exists to surface.
 
-- [Common pitfalls](#common-pitfalls)
+Source: [DORA, Monitoring systems](../../../references/dora/capabilities.md#monitoring-systems)
 
 ## Context
 
@@ -66,16 +72,6 @@ transfer: operational insight from production — a deployment error, a customer
 exactly the input that upstream teams like development and product management need and otherwise lack. A team that monitors but never routes
 what it learns back to the people who decide what to build next has the tooling for this capability without the outcome it exists to
 produce.
-
-## How to apply
-
-This platform treats "go and see" the real running artifact, not a proxy, as the basis for every decision about whether work is done — a
-green gate, a deployed environment, a monitored metric outrank a task marked complete, which is the same discipline this capability asks of
-business decisions: ground them in what the system is actually doing, not in an assumption about it. Console output is the concrete channel
-that data travels through to reach the person who needs it: it reports outcomes rather than step narration, stays silent when there is
-nothing to report, and announces a slow operation before it blocks, so the signal that reaches the reader is relevant and timely rather than
-buried in noise — the same "relevant, timely, accurate, easy to understand" bar DORA sets for monitoring data aimed at a decision-maker
-rather than a machine.
 
 ## Common pitfalls
 

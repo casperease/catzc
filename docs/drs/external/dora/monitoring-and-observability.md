@@ -1,4 +1,4 @@
-# Research: DORA — Monitoring and observability
+# EDR: DORA — Monitoring and observability
 
 ## Rules: EDR-DORA-OBSERV
 
@@ -8,35 +8,42 @@ Monitoring and observability are two distinct capabilities and both are required
 conditions, and observability lets a team explore properties and patterns that were never defined in advance. Neither substitutes for the
 other.
 
-- [Summary](#summary)
+Source: [DORA, Monitoring and observability](../../../references/dora/capabilities.md#monitoring-and-observability)
+
+Binds to [WDR-OBSERVEWIP-GOANDSEE](../../process/observe-work.md#rule-wdr-observewip-goandsee).
 
 ### Rule EDR-DORA-OBSERV-LEADINGINDICATOR
 
 Build monitoring to serve as a leading indicator — it must surface a degradation before it becomes an outage, not only confirm an outage
 after the fact, and installing a tool is not the goal; every developer proficient with it is.
 
-- [Why it matters](#why-it-matters)
+Source: [DORA, Monitoring and observability](../../../references/dora/capabilities.md#monitoring-and-observability)
 
 ### Rule EDR-DORA-OBSERV-MONITORINGASCODE
 
 Treat monitoring and alerting configuration as code — changes to it go through the same review and version control as application code, not
 an unaudited side channel.
 
-- [How to apply](#how-to-apply)
+Source: [DORA, Monitoring and observability](../../../references/dora/capabilities.md#monitoring-and-observability)
+
+Binds to [ADR-AUTO-PRELOG-LOGRESOLVEDCOMMAND](../../automation/log-before-invoke.md#rule-adr-auto-prelog-logresolvedcommand).
 
 ### Rule EDR-DORA-OBSERV-ALERTONSYMPTOMS
 
 Alert on symptoms, not causes — build alerting around a visible or predicted user-facing symptom, never around an enumerated list of every
 conceivable failure cause, and route each alert to a specific responsible party rather than a broad distribution list.
 
-- [Common pitfalls](#common-pitfalls)
+Source: [DORA, Monitoring and observability](../../../references/dora/capabilities.md#monitoring-and-observability)
+
+Binds to [ADR-AUTO-CONSOLE-REPORTOUTCOMES](../../automation/console-output-matters.md#rule-adr-auto-console-reportoutcomes) and
+[ADR-AUTO-CONSOLE-ANNOUNCEBEFOREBLOCKING](../../automation/console-output-matters.md#rule-adr-auto-console-announcebeforeblocking).
 
 ### Rule EDR-DORA-OBSERV-SHAREDOWNERSHIP
 
 Never centralize monitoring ownership in one person or team, and keep alerts actionable — an alert that produces no action is a candidate
 for removal, not a permanent fixture, because unactionable noise is what buries the alert that matters.
 
-- [Common pitfalls](#common-pitfalls)
+Source: [DORA, Monitoring and observability](../../../references/dora/capabilities.md#monitoring-and-observability)
 
 ## Context
 
@@ -80,17 +87,6 @@ decisions rather than guesswork. A team can also check whether its own monitorin
 configuration itself changes, what fraction of alerts fire outside working hours (a high fraction signals both weak leading indicators and a
 burnout risk), what fraction of alerts are acknowledged within an agreed deadline, and how many alerts turn out to need no action at all.
 These are measures of the capability, not just of the systems it watches.
-
-## How to apply
-
-This platform gives its automation the same signals a monitored production system needs. Every external command is logged in full, resolved
-form immediately before it runs, which is instrumentation applied to the automation's own inner state — the exact command a step is about to
-take is exposed, not inferred after the fact. Console output is treated as the automation's whitebox signal stream: it reports outcomes
-rather than step-by-step narration, stays silent when there is nothing to report, and announces a slow operation before it blocks so silence
-is never mistaken for a hang — the same symptom-first, low-noise discipline DORA asks of alerting. Decisions about whether work is actually
-done rest on the real running artifact and its real signals — a green gate, a deployed environment, a monitored metric — rather than on a
-proxy such as a task marked complete, which is the "go and see" instinct behind observability applied to the whole delivery flow, not only
-to production.
 
 ## Common pitfalls
 

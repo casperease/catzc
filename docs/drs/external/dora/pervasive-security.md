@@ -1,4 +1,4 @@
-# Research: DORA — Pervasive security
+# EDR: DORA — Pervasive security
 
 ## Rules: EDR-DORA-SECURITY
 
@@ -7,14 +7,16 @@
 Treat security as a property everyone building the system owns, not a gate a separate team enforces at the end — security quality is built
 in throughout the lifecycle, the same way test quality is, not inspected in afterward.
 
-- [Summary](#summary)
+Source: [DORA, Pervasive security](../../../references/dora/capabilities.md#pervasive-security)
 
 ### Rule EDR-DORA-SECURITY-SHIFTLEFT
 
 Shift security left: raise a security concern at design time, when it costs a conversation, rather than at release time, when it costs an
 architectural change.
 
-- [Why it matters](#why-it-matters)
+Source: [DORA, Pervasive security](../../../references/dora/capabilities.md#pervasive-security)
+
+Binds to [PDR-POKAYOKE-DETECTEARLIEST](../../principles/poka-yoke.md#rule-pdr-pokayoke-detectearliest).
 
 ### Rule EDR-DORA-SECURITY-SECUREPATHAUTOMATED
 
@@ -63,14 +65,6 @@ DORA's research ties pervasive security to delivery performance through the cost
 at design time costs a conversation; the same concern found after release costs an architectural change, an emergency patch, and the trust
 the incident spends. Embedding security into continuous integration and deployment pipelines lets teams discover and address defects
 earlier, avoiding the expensive rework that surfaces only once a problem reaches production.
-
-## How to apply
-
-This platform realizes the capability where it has concrete surface. Authentication code proves every credential against the configured org
-and tenant before it is used, rather than trusting a token that merely authenticates somewhere; session verification is layered so
-automation checks a session is pointed at the config-declared target before any deployment proceeds; and tool installation uses a
-platform-native, hash-verified, reviewed package manager instead of a structurally weaker alternative. Each of these treats a security
-property as a built-in, automatically checked default rather than a manual review step bolted on afterward.
 
 ## Common pitfalls
 

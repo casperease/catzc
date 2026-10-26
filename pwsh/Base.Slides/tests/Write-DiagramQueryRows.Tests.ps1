@@ -20,12 +20,47 @@ Describe 'Write-DiagramQueryRows' -Tag 'L0', 'logic', 'DDR-VISUAL-ZOOMISANAXIS' 
         Mock Get-DiagramComponentRows -ModuleName Catzc.Base.Slides {
             [ordered]@{ point = $Point; level = 'C3'; nodes = @([ordered]@{ id = 'widget-kit'; label = 'Widget.Kit'; kind = 'module' }); edges = @() }
         }
+        $script:flow = 'docs/explanation/widget/.assets/widget-lanes'
+        $script:mixed = 'docs/explanation/widget/.assets/widget-mixed'
+        $script:orphan = 'docs/explanation/widget/.assets/widget-orphan'
+        $flows = @{
+            $script:flow   = '.ado/pipelines/ci-widget.yaml;.ado/pipelines/cd-widget.yaml'
+            $script:mixed  = '.ado/pipelines/ci-widget.yaml;.github/workflows/ci-widget.yml'
+            $script:orphan = 'docs/widget.md'
+        }
+        foreach ($stem in $flows.Keys) {
+            [System.IO.File]::WriteAllText((Join-Path $script:root "$stem.drawio.yml"),
+                "about:`n  adrs: [ADR-WIDGET]`n  lens: flow`n  point: $($flows[$stem])`ncontent:`n  title: Widget lanes`n")
+        }
+        $script:config = Join-Path $script:root 'kit/configs/drawio.yml'
+        [System.IO.Directory]::CreateDirectory((Split-Path $script:config -Parent)) | Out-Null
+        [System.IO.File]::WriteAllText($script:config,
+            "flow-readers:`n  widget: { track: widget.pipelines, command: Get-WidgetFlowRows }`n  gadget: { track: gadget.workflows, command: Get-GadgetFlowRows }`n")
+        Mock Get-Track -ModuleName Catzc.Base.Slides {
+            [pscustomobject]@{ name = $(if ($Path -like '.ado/*') {
+                        'widget.pipelines'
+                    }
+                    elseif ($Path -like '.github/*') {
+                        'gadget.workflows'
+                    }
+                    else {
+                        'docs'
+                    }) }
+        }
+        function global:Get-WidgetFlowRows {
+            param([string] $Point, [string] $RepositoryRoot)
+            [ordered]@{ point = $Point; lens = 'flow'; lanes = @([ordered]@{
+                        id = 'ci-widget'; type = 'CI'; unit = 'widget'; engine = 'ado'; triggers = @('push'); review = $false
+                        templates = @([ordered]@{ name = 'stages/build-widget.yaml'; kind = 'stage' }); environments = @()
+                    }); edges = @()
+            }
+        }
         function script:Invoke-Writer {
             param([string[]] $Stem)
             $path = Join-Path $script:root 'rows/query-rows.json'
-            $null = InModuleScope Catzc.Base.Slides -Parameters @{ Stem = $Stem; Root = $script:root; Path = $path } {
-                param($Stem, $Root, $Path)
-                Write-DiagramQueryRows -Stem $Stem -RepositoryRoot $Root -Path $Path
+            $null = InModuleScope Catzc.Base.Slides -Parameters @{ Stem = $Stem; Root = $script:root; Path = $path; Config = $script:config } {
+                param($Stem, $Root, $Path, $Config)
+                Write-DiagramQueryRows -Stem $Stem -RepositoryRoot $Root -Path $Path -Config $Config
             }
             Get-Content -Raw $path | ConvertFrom-Json
         }
@@ -42,8 +77,35 @@ Describe 'Write-DiagramQueryRows' -Tag 'L0', 'logic', 'DDR-VISUAL-ZOOMISANAXIS' 
         Should -Invoke Get-DiagramComponentRows -ModuleName Catzc.Base.Slides -Times 1 -Exactly
     }
 
+    AfterAll {
+        Remove-Item Function:\Get-WidgetFlowRows -ErrorAction Ignore
+    }
+
+    It 'files a flow point''s row from the reader its files'' track names in the kit config' -Tag 'DDR-VISUAL-FLOWISALENS' {
+        $written = Invoke-Writer -Stem $script:flow
+        $row = @($written.rows)[0]
+        $row.lens | Should -BeExactly 'flow'
+        $row.point | Should -BeExactly '.ado/pipelines/ci-widget.yaml;.ado/pipelines/cd-widget.yaml'
+        $row.lanes[0].id | Should -BeExactly 'ci-widget'
+    }
+
+    It 'throws naming both tracks when a flow point''s files sit on two' {
+        { Invoke-Writer -Stem $script:mixed } | Should -Throw "*$($script:mixed)*widget.pipelines, gadget.workflows*"
+    }
+
+    It 'throws naming the track and the config when no reader is declared for it' {
+        { Invoke-Writer -Stem $script:orphan } | Should -Throw "*track 'docs'*flow-readers*"
+    }
+
+    It 'throws naming the track and the command when the declared reader is not loaded' {
+        $unloaded = 'docs/explanation/widget/.assets/widget-unloaded'
+        [System.IO.File]::WriteAllText((Join-Path $script:root "$unloaded.drawio.yml"),
+            "about:`n  adrs: [ADR-WIDGET]`n  lens: flow`n  point: .github/workflows/ci-widget.yml`ncontent:`n  title: Widget lanes`n")
+        { Invoke-Writer -Stem $unloaded } | Should -Throw "*track 'gadget.workflows'*'Get-GadgetFlowRows'*"
+    }
+
     It 'writes a file the published query-rows schema holds' -Tag 'ADR-REPO-CONTRACT-CONTRACTASSET' {
-        $null = Invoke-Writer -Stem $script:widget, $script:gadget
+        $null = Invoke-Writer -Stem $script:widget, $script:gadget, $script:flow
         $schema = [System.IO.File]::ReadAllText((Join-Path (Get-RepositoryRoot) 'contracts/catzc/0.1.0/pwsh.base.maps/query-rows.schema.json'))
         Test-Json -Json ([System.IO.File]::ReadAllText((Join-Path $script:root 'rows/query-rows.json'))) -Schema $schema | Should -BeTrue
     }
