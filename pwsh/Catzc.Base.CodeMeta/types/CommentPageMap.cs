@@ -64,8 +64,8 @@ public sealed class CommentPageMap
         }
     }
 
-    // The page path of a repository-relative file under this map's source, or null when the file is not under it.
-    public string PageFor(string repoRelativePath)
+    // The page path of a file under this map's source, or null; {kebab} renders the module's full name under the namespace.
+    public string PageFor(string repoRelativePath, string moduleNamespace = null)
     {
         if (string.IsNullOrEmpty(repoRelativePath)) { return null; }
         string path = repoRelativePath.Replace('\\', '/');
@@ -83,7 +83,7 @@ public sealed class CommentPageMap
         if (slash <= 0 || slash == underPrefix.Length - 1) { return null; }
         string leaf = underPrefix.Substring(0, slash);
         if (leaf[0] == '.') { return null; }
-        string kebab = Catzc.Base.Objects.NameCase.Render(leaf, "kebab");
+        string kebab = Catzc.Base.Objects.NameCase.Render(Catzc.Base.Variants.VariantTrack.FullNameIn(moduleNamespace, leaf), "kebab");
         return docs.Replace(KebabPlaceholder, kebab) + "/" + underPrefix.Substring(slash + 1) + ".md";
     }
 

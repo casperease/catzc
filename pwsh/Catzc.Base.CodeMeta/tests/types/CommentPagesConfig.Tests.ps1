@@ -17,6 +17,16 @@ Describe 'CommentPagesConfig' -Tag 'L0', 'logic' {
             Should -Be 'docs/references/pwsh/claude-hooks/Gadget/Program.cs.md'
     }
 
+    It 'names the page folder for the module full name under the namespace, so a short module folder keeps its page' -Tag 'DDR-TRACK-MODULENAMESPACE' {
+        $config = [Catzc.Base.CodeMeta.CommentPagesConfig]::new(@{})
+        $config.PageFor('pwsh/Widget.Gadgets/private/Get-Gadget.ps1', 'Sprockets') |
+            Should -Be 'docs/references/pwsh/sprockets-widget-gadgets/private/Get-Gadget.ps1.md'
+        $config.PageFor('pwsh/Sprockets.Widget.Gadgets/private/Get-Gadget.ps1', 'Sprockets') |
+            Should -Be 'docs/references/pwsh/sprockets-widget-gadgets/private/Get-Gadget.ps1.md'
+        $config.PageFor('.ado/pipelines/widget/build.yaml', 'Sprockets') |
+            Should -Be 'docs/references/ado/pipelines/widget/build.yaml.md'
+    }
+
     It 'maps no page for a file outside every source, a dot-prefixed module folder, or a file directly in the prefix' -Tag 'ADR-REPO-COMMENTS-COMMENTPAGEPLACE' {
         $config = [Catzc.Base.CodeMeta.CommentPagesConfig]::new(@{})
         $config.PageFor('docs/drs/index.md') | Should -BeNullOrEmpty

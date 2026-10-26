@@ -59,6 +59,6 @@ public sealed class CommentPagesConfig
     }
 
     // The comment page of a repository-relative file: the first pages map that covers it, or null when none does.
-    public string PageFor(string repoRelativePath) =>
-        pages.Select(map => map.PageFor(repoRelativePath)).FirstOrDefault(page => page != null);
+    public string PageFor(string repoRelativePath, string moduleNamespace = null) =>
+        pages.Select(map => map.PageFor(repoRelativePath, moduleNamespace)).FirstOrDefault(page => page != null);
 }

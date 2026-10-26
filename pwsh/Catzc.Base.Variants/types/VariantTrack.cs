@@ -70,11 +70,14 @@ public sealed class VariantTrack
     }
 
     // A module's full name from its folder name; a folder already spelling it, or a track without a namespace, keeps the folder name.
-    public string FullNameOf(string folder)
+    public string FullNameOf(string folder) => FullNameIn(@namespace, folder);
+
+    // A module's full name from its folder name under a namespace, for a reader that holds the namespace but not the track.
+    public static string FullNameIn(string moduleNamespace, string folder)
     {
         if (string.IsNullOrEmpty(folder)) { throw new ArgumentException("FullNameOf needs a module folder name"); }
-        if (@namespace.Length == 0 || folder.StartsWith(@namespace + ".", StringComparison.Ordinal)) { return folder; }
-        return @namespace + "." + folder;
+        if (string.IsNullOrEmpty(moduleNamespace) || folder.StartsWith(moduleNamespace + ".", StringComparison.Ordinal)) { return folder; }
+        return moduleNamespace + "." + folder;
     }
 
     // A module's folder name from its full name: the name without the namespace and its dot, else the full name unchanged.

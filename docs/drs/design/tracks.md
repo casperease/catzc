@@ -36,11 +36,14 @@ rather than owning one.
 
 ### Rule DDR-TRACK-MODULENAMESPACE
 
-A modules track may declare a **module namespace**, once, in its track declaration: a module's full name is that namespace joined to its
-folder name with a dot, so the track's module folders are named without it. The full name is what leaves the repository and what code names
-(a manifest, a loaded module, a C# namespace); the folder name is what the path, which already states the track, adds. One resolver maps a
-folder name to a full name and back, and no other code joins the namespace by hand. A track that declares none names its modules by their
-folders, and only a track whose type admits modules may declare one.
+Each modules track may declare a **module namespace**, once, in its track declaration: a module's full name is that namespace joined to its
+folder name in the track's language form, so the track's module folders are named without it. The full name is what leaves the repository
+and what code, configs and docs name (a manifest, a loaded module, a C# namespace, a package); the folder name is what the path, which
+already states the track, adds. One resolver maps a folder name to a full name and back, and no other code joins the namespace by hand: a
+reader that needs a module's location names the module or the track and resolves it, never spells a path with the namespace in it. No folder
+or file under a track's members starts with the track's namespace on disk, apart from a global name the track declares exempt, such as a
+file that names a product-wide identity. A track that declares none names its modules by their folders, and only a track whose type admits
+modules may declare one.
 
 - [Module namespaces](#module-namespaces)
 

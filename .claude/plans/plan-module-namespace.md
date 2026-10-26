@@ -36,21 +36,29 @@ the context, so it must be self-contained there. Inside the tree the context is 
 
 The rule this turns into: **a name is short where its container states the rest, and full wherever it travels** — one resolution of the long
 form from the short one, declared once on the track (`ADR-AUTO-DEFAULT-ONERESOLUTIONORDER`), never a second spelling kept in step by hand
-(`PDR-ONELIVE`). The same shape answers a future track: a `zsh` or `python` track declares its own namespace and its folders stay short.
+(`PDR-ONELIVE`). Every modules track declares its own namespace (pwsh, js, python, bash, go), and its folders stay short.
 
 ## Open steps
 
-1. [ ] **The move.** Each `pwsh/Catzc.X/` folder moves to `pwsh/X/` on disk (no git scripts; the user commits). Then the path references
-       inside docs, plans, `relatives:` heads and tests are re-pointed by `link-fixer` and `Update-AdrCitation`, one file at a time.
-       Module-name references (`Catzc.Base.Git` as a name, not a path) do not change. In the same pass the resolver (`Resolve-ModuleName`,
-       `VariantTrack.FullNameOf`) drops its case for a folder that already spells its full name, which only bridges the unmoved tree
-       (PDR-ONELIVE), with its tests. The two readers of the `Catzc.` prefix on a folder name change in the same pass:
-       `MapsMinimapPlaces.DefaultDropPrefix` stops dropping it, and `Get-LocalModuleViolation.ps1` checks a local folder's resolved full
-       name against the bundle. Check: `Test-Links` on the re-pointed files, `Resolve-ModuleName.Tests.ps1`, `MapsConfig.Tests.ps1` and
-       `Assert-CatzcOverlay.Tests.ps1` green.
-2. [ ] **Full import in a fresh session**, the last step (`importer-path-edits-break-every-session`): step 1 lands in one pass, then
-       `. ./importer.ps1` in a new `pwsh` before anything else runs. Check: the import ends without error and `Get-Module Catzc.*` lists
-       every module.
+1. [ ] **Phase 1, the moves (the user runs it).** `out/ns5/Rename-PwshModuleFolders.ps1` `git mv`s every module folder of the five modules
+       tracks off its prefix: pwsh 53, js 7, python 2, bash 3, go 1. It then makes the 25 pwsh case renames, and writes `out/ns5/moves.csv`
+       before its first move. It edits no content. Check: `-WhatIf` lists 66 moves and 25 case renames, and after the run `git status` shows
+       only renames.
+2. [ ] **Each modules track declares its own namespace.** `variants.yml` gives js, python, bash and go `namespace: catzc` beside pwsh's
+       `Catzc`. The resolver (`Resolve-ModuleName`, `VariantTrack.FullNameIn`) joins the namespace in each track's language form (`.` for
+       pwsh, `-` for js and bash, `_` for python, none for go), declared on the language, not in code. Check: `Resolve-ModuleName.Tests.ps1`
+       covers one widget per join form, and `VariantsConfig.Tests.ps1` passes.
+3. [ ] **Phase 2, the repair**, in the order and with the checks of `out/ns5/after-move.md`, read from `moves.csv`: hook projects, import
+       path, the resolver dropping its bridge with the minimap prefix and the overlay check, module configs naming modules rather than
+       paths, the path-rewrite map, generated root configs, pipelines, then the js, python, go and bash tracks (imports, package names,
+       go.mod, the extension folders), and finally comments and heads. Docs references the map does not reach are left for a later
+       link-fixer pass. Check: each step's own check, and a fresh import listing the same 56 full names after each import-path step.
+4. [ ] **The no-namespace-on-disk gate.** No folder or file under a modules track starts with the track's namespace in its join form, apart
+       from the global names the track declares exempt (`Catzc.Internal.*.psm1`, `Catzc.Types.*`, the analyzer modules, `contracts/catzc/`).
+       Check: an L0 test with widget fixtures and a clean L1 run on the real tree.
+5. [ ] **Full import in a fresh session**, the last step (`importer-path-edits-break-every-session`): `. ./importer.ps1` in a new `pwsh`
+       before anything else runs, then `Test-ManualTestPlan`, `Test-GeneratedFiles` and `Test-Links`. Check: the import ends without error
+       and `Get-Module Catzc.*` lists the same 56 full names.
 
 ## Open question
 

@@ -52,7 +52,7 @@ function Get-ConventionEdge {
 
     $commentPages = Get-Config -Config comment-pages
     foreach ($file in $files) {
-        $page = $commentPages.PageFor($file)
+        $page = Get-CommentPage -Path $file -Config $commentPages
         if ($page -and $known.Contains($page)) {
             & $edge $file $page
         }

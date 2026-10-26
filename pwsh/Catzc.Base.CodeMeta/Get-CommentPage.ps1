@@ -18,7 +18,21 @@ function Get-CommentPage {
         [Catzc.Base.CodeMeta.CommentPagesConfig] $Config
     )
 
-    $page = $Config.PageFor($Path)
+    # The namespace of the track the path's first folder roots, read once per folder; a folder that roots no track has none.
+    $root = $Path.Replace('\', '/').Split('/')[0]
+    if (-not (Test-Path variable:script:commentPageNamespaces)) {
+        $script:commentPageNamespaces = @{}
+    }
+    if (-not $script:commentPageNamespaces.ContainsKey($root)) {
+        $track = @(Get-Track | Where-Object { $_.name -ceq $root })
+        $script:commentPageNamespaces[$root] = if ($track.Count -gt 0) {
+            $track[0].namespace
+        }
+        else {
+            ''
+        }
+    }
+    $page = $Config.PageFor($Path, $script:commentPageNamespaces[$root])
     if ($page) {
         $page
     }
