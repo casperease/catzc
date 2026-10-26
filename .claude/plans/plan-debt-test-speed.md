@@ -40,6 +40,15 @@ folders. Heavy runs wait for a turn in the orchestrator's memory queue, one run 
       open question below (catzc-68, 2026-10-26). A red file is made green by its owner before its speed is touched, and a file measured
       with no safe gain is recorded as left as it is. Check: `Invoke-TestFile` twice per file, the same test names and `Should` count, an
       A/B of each cause with identical output, and `Test-ScriptAnalyzer -Path` at 0 on each changed file.
+- [ ] The parallel runner (catzc-68 has it): `CliRunner.RunMany(commandLines, throttle, …)`, each process bounded by its executable's
+      limit, and a public `Invoke-ExecutableParallel` over it that callers' L0 tests mock; the throttle a config entry whose default of 4 is
+      declared once on the config type. Check: its L0 and L1 tests green, `Test-ScriptAnalyzer -Path` at 0, and a fresh import after the
+      burst.
+- [ ] `Invoke-Prettier` runs its `Split-CommandLineBatch` batches through `Invoke-ExecutableParallel`. Check: the differing-file list over
+      the tree identical before and after, `Format-Code.Tests.ps1` green, and the prettier phase's time measured against 40.2 s serial.
+- [ ] `Test-Spelling` runs its default globs as extension shards through `Invoke-ExecutableParallel`, `.accosted.yml` excluded from the
+      `*.yml` shard so "Files checked" sums exactly. Check: the issues identical on a seeded misspelling in each shard, "Files checked" equal
+      to one process's, `Test-Spelling.Tests.ps1` green, and the time measured against 19.3 s.
 
 ## Open questions
 
@@ -49,15 +58,14 @@ folders. Heavy runs wait for a turn in the orchestrator's memory queue, one run 
 - Should a janitor keep `out/` to a retention (old `test-file/`, `burst/` journals, drone scratch)? Every test that walks the disk pays for
   it: on 2026-10-26 the track lamps' walk held 51,471 files, 36,678 under `out/` (`test-file` 8,788, `drone27-pre` 6,089, `burst` 4,979,
   `test-generated-files` 2,670, `minimaps` 2,296, `slides` 1,748), measured by catzc-2b. Undecided.
-- Should Base.Execution offer a parallel fan-out seam (`Invoke-ExecutableParallel -Command [string[]] -ThrottleLimit`), starting the
-  processes itself, each bounded by `Get-TimeoutSeconds` for its executable, and returning `Invoke-Executable`-shaped results in order, so a
-  gate can run independent tool calls side by side while its L0 tests mock one seam? First caller: `Test-Spelling`'s default globs, sharded
-  by extension (coverage identical by construction, `.accosted.yml` excluded from the `*.yml` shard), measured by catzc-68 on 2026-10-26 at
-  19.3 s in one cspell process and 10.1 s in four. Second caller: `Format-Code`'s cold engines, measured by catzc-68 on 2026-10-26 at about
-  50 s for psscriptanalyzer over 1,997 files (it already shards into jobs at 50 or more pending) and about 41 s for prettier over 3,049
-  files in one process. Undecided: judge it with both callers in view.
 
 ## Decided
+
+- Base.Execution gets a parallel runner (the orchestrator, 2026-10-26, on catzc-68's measured recommendation): `CliRunner.RunMany` on the
+  runner that owns the time safeguard, a public `Invoke-ExecutableParallel` over it, and the throttle a config entry with its default of 4
+  declared once on the type (configure, not program). Measured on 2026-10-26: prettier's 66 batches 40.2 s serial and 13.5 s four at a time,
+  cspell 19.3 s in one process and 10.1 s in four extension shards, identical output every way; psscriptanalyzer already runs its own
+  jobs. The three open steps above, in order.
 
 - The hindsight log gets no decision record (the orchestrator as delegated, 2026-10-23): the `hindsight-log` capability is its one home
   (PDR-ONELIVE), and a record follows only when a second reader needs its rule.
