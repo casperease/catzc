@@ -138,11 +138,11 @@ with no code of its own (the index, a domain's `dora-explains`) takes the file n
 ### Code links in the editor
 
 VS Code's built-in link detection does not read markdown links outside `.md` files, so a code link needs a link provider to be
-Ctrl+clickable. The repository ships its own: the `catzc-drs-links` extension, declared in
-`pwsh/Base.VSCode/configs/vscode-extensions.yml` and built like every other cats extension, matches `[…](/docs/drs/<path>.md…)` in any
-file and opens `docs/drs/<path>.md` with its `#rule-…` fragment kept. It relies only on the repository's own layout — every target exists at
-its rooted path in the checked-out workspace — so it works in any clone once the cats extensions are installed. Markdown links need no
-provider; the built-in markdown support already resolves them.
+Ctrl+clickable. The repository ships its own: the `catzc-drs-links` extension, declared in `pwsh/Base.VSCode/configs/vscode-extensions.yml`
+and built like every other cats extension, matches `[…](/docs/drs/<path>.md…)` in any file and opens `docs/drs/<path>.md` with its `#rule-…`
+fragment kept. It relies only on the repository's own layout — every target exists at its rooted path in the checked-out workspace — so it
+works in any clone once the cats extensions are installed. Markdown links need no provider; the built-in markdown support already resolves
+them.
 
 The same registry turns on VS Code's built-in markdown link validation (`markdown.validate.*`), so a dangling file or a bad `#fragment` in a
 `.md` file shows as a warning while it is being written, and `markdown.updateLinksOnFileMove` offers to re-point relative links when a file

@@ -449,8 +449,8 @@ One design answers most of this record. The landing zones form a hub-and-spoke n
 (`shared_nonprod`, `shared_prod`), a spoke in each customer subscription, each spoke peered statically and on both sides to the hub of its
 tier ([ADR-AZ-LZ-HUBANDSPOKE](../landing-zones.md#rule-adr-az-lz-hubandspoke),
 [ADR-AZ-LZ-LINKSNEEDBOTHNETWORKS](../landing-zones.md#rule-adr-az-lz-linksneedbothnetworks)). Every range lives in
-`pwsh/Azure/configs/network.yml` — hubs 10.0.0.0/16 and 10.1.0.0/16, spokes 10.100.0.0/16 to 10.103.0.0/16 — validated by
-`NetworkConfig` and its range arithmetic `NetworkCidr`, and joined to `azure.yml` by `Test-AzureNetworkPlan`
+`pwsh/Azure/configs/network.yml` — hubs 10.0.0.0/16 and 10.1.0.0/16, spokes 10.100.0.0/16 to 10.103.0.0/16 — validated by `NetworkConfig`
+and its range arithmetic `NetworkCidr`, and joined to `azure.yml` by `Test-AzureNetworkPlan`
 ([ADR-AZ-NETWORK-NETWORKPERSUBSCRIPTION](../azure-network-model.md#rule-adr-az-network-networkpersubscription),
 [ADR-AZ-NETWORK-NOOVERLAP](../azure-network-model.md#rule-adr-az-network-nooverlap)). That file is the repository's IP address management.
 Each workload subnet has a network security group that allows traffic inside the virtual networks and denies inbound internet traffic; each

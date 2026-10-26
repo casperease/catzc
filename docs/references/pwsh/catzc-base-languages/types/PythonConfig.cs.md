@@ -45,3 +45,12 @@ Above `public string ResolveRoot(string repositoryRoot)`, written with `//`.
 The Python root folder for a repository, repository-relative: the declared root, else 'python' when the repository
 has a python/ folder, else '.python'.
 ```
+
+## comment:4
+
+Above `public const string DefaultEditableMode = "strict";`, written with `//`.
+
+```text
+How the backend installs a member for editing: strict builds a link tree a static .pth names, which pyright reads; the backend's
+own default hooks the import system at run time, which only Python follows.
+```

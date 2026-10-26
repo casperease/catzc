@@ -29,8 +29,8 @@ it.
 
 ## Open steps
 
-1. [ ] `pwsh/Base.VSCode/Get-VsCodeSession.ps1`: when the hang recurs, the user runs `Get-VsCodeSession` in the hung session's sibling
-       and pastes its one line; the command then grows what the line lacked, one property at a time (check:
+1. [ ] `pwsh/Base.VSCode/Get-VsCodeSession.ps1`: when the hang recurs, the user runs `Get-VsCodeSession` in the hung session's sibling and
+       pastes its one line; the command then grows what the line lacked, one property at a time (check:
        `Invoke-TestFile -Path pwsh/Base.VSCode/tests/Get-VsCodeSession.Tests.ps1`).
 
 ## Decided (the orchestrator as delegated, 2026-10-23)

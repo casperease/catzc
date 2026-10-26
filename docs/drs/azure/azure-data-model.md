@@ -131,8 +131,8 @@ involves a per-subscription environment, or whose staging environment is served 
 
 `Catzc.Azure.Templates` is configured by **two layers**:
 
-1. **Identity / topology**: its source of truth is `pwsh/Azure/configs/azure.yml`, one declarative file; its entities are tenant,
-   customer, environment and subscription.
+1. **Identity / topology**: its source of truth is `pwsh/Azure/configs/azure.yml`, one declarative file; its entities are tenant, customer,
+   environment and subscription.
 2. **Templating / deployment**: its source of truth is the `infrastructure/templates/<name>/` filesystem, discovered; its entities are
    template, options, slot (per-RG config) and deploy context.
 

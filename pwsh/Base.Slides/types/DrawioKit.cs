@@ -1,3 +1,11 @@
+/*
+---
+catzc:
+  docs: "../../../docs/references/pwsh/catzc-base-slides/types/DrawioKit.cs.md"
+  header: "generated"
+---
+*/
+
 using System;
 using System.IO;
 using System.Text.RegularExpressions;
@@ -43,8 +51,6 @@ public sealed class DrawioKit
         Manifest = Path.GetFullPath(Path.Combine(Folder, ManifestFile));
     }
 
-    // The renderer as the module `python -m` runs, read from the manifest when a caller runs it. A method, not a property: PowerShell
-    // swallows a property getter's exception, so a missing manifest would reach the command line as an empty module name.
     public string RendererModule() => ModuleOf(RendererFile);
 
     // The declaration tool as the module `python -m` runs.

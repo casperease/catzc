@@ -58,8 +58,8 @@ record of its own, because rule 4 derives what such a record would hold.
 ### Rule ADR-REPO-SLIDES-SLIDEFILEKIND
 
 `file-kinds.yml` places a slide file in the kind `slide` (`docs/**/*.slide.md`), ahead of the two documentation trees as the diagram kinds
-are, and the kit in `slides-kit` (`python/diagrams/assets/slides/**`). The renderer, the gate and their types live in
-`Catzc.Base.Slides`, and their tests run on neutral fixture decks, never on a real one
+are, and the kit in `slides-kit` (`python/diagrams/assets/slides/**`). The renderer, the gate and their types live in `Catzc.Base.Slides`,
+and their tests run on neutral fixture decks, never on a real one
 ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 
 - [Kinds and home](#kinds-and-home)

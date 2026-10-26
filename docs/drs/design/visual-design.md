@@ -388,10 +388,10 @@ zoom down, in each component's own neighbourhood.
 ### Rule DDR-VISUAL-NONAMEINPICTURE
 
 A diagram or a slide never names **catzc** or **cats** as a word: it says what the thing is, "the modules", "the platform", "the run", or
-names it by an identifier. A name joined into an identifier passes, whether by `.`, `-`, `_` or `/`, so `Catzc.Base.Git`, `Get-CatzcModuleRoot`,
-`Import-Catzc` and `Catzc/<v>` all stand. A line that names both draws the contrast between them and passes. Every other mention is a declared
-contrast or the thing itself, listed once in `slides.yml` under `name_mentions` by diagram stem or slide path with its reason. `Test-Diagrams`
-reports each remaining mention in a declaration, and `Test-Slides` each in a slide, as `path:line`.
+names it by an identifier. A name joined into an identifier passes, whether by `.`, `-`, `_` or `/`, so `Catzc.Base.Git`,
+`Get-CatzcModuleRoot`, `Import-Catzc` and `Catzc/<v>` all stand. A line that names both draws the contrast between them and passes. Every
+other mention is a declared contrast or the thing itself, listed once in `slides.yml` under `name_mentions` by diagram stem or slide path
+with its reason. `Test-Diagrams` reports each remaining mention in a declaration, and `Test-Slides` each in a slide, as `path:line`.
 
 - [No name in the picture](#no-name-in-the-picture)
 
@@ -666,6 +666,6 @@ generated, because a hand-placed module or file list goes stale with the first r
 ## No name in the picture
 
 A picture that says "catzc does it" tells the reader nothing the frame does not already say, since every diagram here is about this system.
-Naming what acts, the importer, the modules or the platform band, carries the meaning instead. The name stays where it is the thing
-itself: an identifier, a bundle a build prints, a product cover, or a band drawn against another system. Those exceptions are few, so
-each is declared once with its reason rather than guessed by a pattern, and the check holds the rest at zero.
+Naming what acts, the importer, the modules or the platform band, carries the meaning instead. The name stays where it is the thing itself:
+an identifier, a bundle a build prints, a product cover, or a band drawn against another system. Those exceptions are few, so each is
+declared once with its reason rather than guessed by a pattern, and the check holds the rest at zero.

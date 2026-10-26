@@ -5,11 +5,7 @@ plan:
   reviewed: 2026-10-23
   class: debt
   targets:
-    [
-      pwsh/.internal/assets,
-      pwsh/Base.Languages/Format-GeneratedFileHead.ps1,
-      pwsh/Base.QualityGates/private/Get-GitAttributeValue.ps1,
-    ]
+    [pwsh/.internal/assets, pwsh/Base.Languages/Format-GeneratedFileHead.ps1, pwsh/Base.QualityGates/private/Get-GitAttributeValue.ps1]
 ---
 
 # Debt tier tripwire: L0 and L1 tests that launch git, invisible to every run but a tier-filtered one

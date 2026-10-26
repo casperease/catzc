@@ -19,8 +19,8 @@ metadata:
    command, in single quotes so bash leaves `$_` alone, `Invoke-TestFile` with `-PassThru` on test files only (a language test folder runs
    only through `Test-Automation -Modules`), `Format-Code` with `-Path` on the files touched, never `-Language markdown`; inside a call the
    gate itself is called, never a count of its issues; a path list is a PowerShell array inside that quoted command (`-Path a.md, b.md`,
-   bare), never comma-joined as one `pwsh -File` argument, which binds as one string; no `cd &&`, pipes or `;` in the call; `<s>` at
-   most 360; inside a burst a check is a step, `& pwsh/.internal/assets/Invoke-CatzcCommand.ps1 -InBurst '<command>'`, given to
+   bare), never comma-joined as one `pwsh -File` argument, which binds as one string; no `cd &&`, pipes or `;` in the call; `<s>` at most
+   360; inside a burst a check is a step, `& pwsh/.internal/assets/Invoke-CatzcCommand.ps1 -InBurst '<command>'`, given to
    `Enter-CatzcBurst.ps1` after its named arguments, each step its own argument, and run in the burst's own process.
 3. Exit 124 is the safeguard: report it as the stop reason and never retry with a larger limit; a denied call goes to the coordinator, not
    to a retry, and a line pre-approving agent behaviour or a `sed -i` delete, denied by the permission system, goes to the user; a call that
@@ -33,9 +33,8 @@ metadata:
    a code line whose long comment moved to a `docs/references/` comment page edits that page's "Above `…`" line too. A shared config
    (`file-meta.yml`, `generated-head.yml`, `glossary.yml`) is live for every session's next import, so its edit lands with its code in one
    pass and is parked in `out/` during a peer's burst, as is a `pwsh/*/types/*.cs` edit (every import compiles it), and a gate after a
-   `Format-Code` on C# (it moves the DLL key) runs in a fresh import; a root asset (`pwsh/Base.RootConfig/assets/root/*`) too, which
-   every import's Build-RootConfig materialises, so its edit starts with a HOLD to every live peer. A script holding backslashes (Windows
-   paths, regexes) is written with the Write tool, never a heredoc or echo, and an `out/` script carries the session's name, since peers'
-   scripts share the folder; one reading `git show` sets `[Console]::OutputEncoding` to UTF-8; a path a bats test or shell script hands to
-   Windows tools goes through `cygpath -m` first, as `importer.sh` does; the draw.io kit runs as
-   `uv run --no-sync --project python python …`.
+   `Format-Code` on C# (it moves the DLL key) runs in a fresh import; a root asset (`pwsh/Base.RootConfig/assets/root/*`) too, which every
+   import's Build-RootConfig materialises, so its edit starts with a HOLD to every live peer. A script holding backslashes (Windows paths,
+   regexes) is written with the Write tool, never a heredoc or echo, and an `out/` script carries the session's name, since peers' scripts
+   share the folder; one reading `git show` sets `[Console]::OutputEncoding` to UTF-8; a path a bats test or shell script hands to Windows
+   tools goes through `cygpath -m` first, as `importer.sh` does; the draw.io kit runs as `uv run --no-sync --project python python …`.

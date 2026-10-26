@@ -12,11 +12,10 @@ source of truth — a `source` file (an authored template copied out under the g
 
 ### Rule ADR-REPO-ROOTCFG-REGISTRY
 
-The registry is `pwsh/Base.RootConfig/configs/rootconfig.yml` — validated by the `RootConfigFiles` type, materialised by
-`Build-RootConfig`, the single writer. **Opt-out is the default**: an entry (or a root file) not opted in stays hand-authored and committed;
-`optIn: true` is the explicit takeover switch. The target-to-source pairing is not restated anywhere else. A generator lives in a Base
-module, since `Invoke-RootConfigGenerator` (`Catzc.Base.RootConfig`) calls each by name and a Tooling generator would be a Base→Tooling
-edge.
+The registry is `pwsh/Base.RootConfig/configs/rootconfig.yml` — validated by the `RootConfigFiles` type, materialised by `Build-RootConfig`,
+the single writer. **Opt-out is the default**: an entry (or a root file) not opted in stays hand-authored and committed; `optIn: true` is
+the explicit takeover switch. The target-to-source pairing is not restated anywhere else. A generator lives in a Base module, since
+`Invoke-RootConfigGenerator` (`Catzc.Base.RootConfig`) calls each by name and a Tooling generator would be a Base→Tooling edge.
 
 - [Decision](#decision)
 
@@ -60,8 +59,8 @@ byte for byte once the line endings are LF, and no managed target is a link.
 
 ### Rule ADR-REPO-ROOTCFG-HEADEDCOPY
 
-A `source` entry is materialised as a **headed copy**: the root file is its template, `pwsh/Base.RootConfig/assets/root/<name>` (or
-the module asset the entry names), under the generated-file head that names the template as its `source` and carries the one warning. The
+A `source` entry is materialised as a **headed copy**: the root file is its template, `pwsh/Base.RootConfig/assets/root/<name>` (or the
+module asset the entry names), under the generated-file head that names the template as its `source` and carries the one warning. The
 template stays the pure authored file, with no head and no marker, and the root file is never a link to it, hard or symbolic, since a head
 written into a link would land in the template. A tool that rejects comments in its format keeps the head in the carrier the carrier
 registry gives it, such as the ignored property of a JSON file.

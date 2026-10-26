@@ -52,8 +52,8 @@ Every decision is a rule of [idiomatic-names](../../docs/drs/automation/idiomati
 Turn the gate on, last, when it is green; `Test-IdiomaticNames` reads the git index (ADR-AUTO-TRACKED), and the three folder renames are
 tracked (`python/diagrams/`, `python/tests/base_repository/`, `go/tests/baserepository/`):
 
-- [ ] `pwsh/Base.Languages/configs/languages.yml`: add `Test-IdiomaticNames` to the `checks` of `powershell`, `python`, `go` and
-      `bash` (check: `Test-IdiomaticNames` reports no issue; `Invoke-TestFile` on `tests/types/LanguagesConfig.Tests.ps1`).
+- [ ] `pwsh/Base.Languages/configs/languages.yml`: add `Test-IdiomaticNames` to the `checks` of `powershell`, `python`, `go` and `bash`
+      (check: `Test-IdiomaticNames` reports no issue; `Invoke-TestFile` on `tests/types/LanguagesConfig.Tests.ps1`).
 
 ### 2. The repository normal form
 

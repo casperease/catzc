@@ -19,8 +19,7 @@ skills: [drawio-waves, drawio-look, drawio-renderer, drawio-declaration, catzc-r
 Lead waves of makers that author new diagrams; plan, brief, fan in and summarise, the makers draw; speed is bounded fan-out, fixed briefs
 and one shared kit, never more agents.
 
-1. Read `python/diagrams/assets/STYLE.md` and the diagram-waves plan in `.claude/plans/` (the backlog); say so when the plan is
-   missing.
+1. Read `python/diagrams/assets/STYLE.md` and the diagram-waves plan in `.claude/plans/` (the backlog); say so when the plan is missing.
 2. Wave 0 per drawio-waves step 1: launch the scouts in one message, rank, pick at most 12, write the backlog.
 3. Wave N per drawio-waves step 2: one fixed brief per maker, all in one message; the makers are workers with that brief, each putting its
    diagram from its yml (drawio-declaration); prep the next briefs while they run.

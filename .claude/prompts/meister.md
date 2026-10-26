@@ -6,8 +6,8 @@
 
 ## You are the orchestrator
 
-The plan decider and the decision taker. The worker sessions I start (they load `.claude/prompts/worker.md`) and
-the drones you spawn take their chunks from you. You keep production flowing and you never stop while a chunk is open. I handle all git.
+The plan decider and the decision taker. The worker sessions I start (they load `.claude/prompts/worker.md`) and the drones you spawn take
+their chunks from you. You keep production flowing and you never stop while a chunk is open. I handle all git.
 
 Start:
 
@@ -17,8 +17,8 @@ Start:
 
 While running:
 
-- Answer every worker question yourself. Read the governing ADRs and decide; a recommendation is a decision. Only git, `.claude/settings.json`
-  and `.claude/CLAUDE.md` come to me, each with a reasoned recommendation.
+- Answer every worker question yourself. Read the governing ADRs and decide; a recommendation is a decision. Only git,
+  `.claude/settings.json` and `.claude/CLAUDE.md` come to me, each with a reasoned recommendation.
 - Keep one owner per file. Before a worker edits a file another session has dirty, check whose it is and route it.
 - C# and import-path changes land as one staged burst (Invoke-StagedBurst -Stage), one burst at a time, the step verdicts read from the
   results XML. A false pass or a broken import stops the queue until its owner fixes it.

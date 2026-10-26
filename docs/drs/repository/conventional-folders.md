@@ -315,15 +315,15 @@ The root is a closed set of folders, each with a fixed meaning. The **Kind** col
 and each has its own conventional sub-layout:
 
 **`docs/`** holds five folders. `adr/` is the Architecture Decision Records, one subfolder per domain declared in
-`pwsh/Base.Drs/configs/drs.yml`: `thesis/`, `principles/`, `process/`, `design/`, `flow/`, `automation/`, `pwsh/`, `configuration/`,
-`ado/`, `github/`, `azure/`, `repository/` (this ADR), and `research/`. Its `index.md` is generated from that registry and describes each
-domain, so the registry — not this paragraph — is the authoritative list of domains. `references/` holds the authored reference articles,
-including the sources the generated READMEs are copied from ([generated-readmes](generated-readmes.md)) and the DORA research reference
-under `references/dora/`. `how-to/` holds task-oriented guides. `explanation/` holds the explanation articles: each narrates one diagram of
-how cats works and why, in a subfolder per decision-record domain. These four are **markdown-only**; their subfolders are author-organized
-topic buckets. The dot-prefixed `.assets/` holds the binary diagram assets (`*.drawio.png`) the markdown embeds — the one non-markdown
-content under `docs/`, set apart by the dot-prefix convention (ADR-REPO-FOLDERS-DOTMEANSTOOLING). A diagram is a pair of files in the
-`.assets/` beside the page that embeds it, so moving the diagram moves the pair and the page finds it by locality: `<name>.drawio.yml`, its
+`pwsh/Base.Drs/configs/drs.yml`: `thesis/`, `principles/`, `process/`, `design/`, `flow/`, `automation/`, `pwsh/`, `configuration/`, `ado/`,
+`github/`, `azure/`, `repository/` (this ADR), and `research/`. Its `index.md` is generated from that registry and describes each domain, so
+the registry — not this paragraph — is the authoritative list of domains. `references/` holds the authored reference articles, including the
+sources the generated READMEs are copied from ([generated-readmes](generated-readmes.md)) and the DORA research reference under
+`references/dora/`. `how-to/` holds task-oriented guides. `explanation/` holds the explanation articles: each narrates one diagram of how
+cats works and why, in a subfolder per decision-record domain. These four are **markdown-only**; their subfolders are author-organized topic
+buckets. The dot-prefixed `.assets/` holds the binary diagram assets (`*.drawio.png`) the markdown embeds — the one non-markdown content
+under `docs/`, set apart by the dot-prefix convention (ADR-REPO-FOLDERS-DOTMEANSTOOLING). A diagram is a pair of files in the `.assets/`
+beside the page that embeds it, so moving the diagram moves the pair and the page finds it by locality: `<name>.drawio.yml`, its
 declaration, the one source its words and cells live in, and `<name>.drawio.png`, put from it. A projection's reasons travel in its computed
 data and in the diagram's declaration.
 

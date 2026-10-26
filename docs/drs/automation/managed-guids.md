@@ -82,8 +82,8 @@ referenced nowhere.
 
 ### The mint
 
-`ConvertTo-Guid` (over the native type `Catzc.Base.Objects.SentenceGuid`) deterministically converts any sentence into a valid GUID
-whose hex digits best-effort spell it: hex letters and digits pass through, the leet look-alike table maps (`o`→`0`, `i`/`l`→`1`, `z`→`2`,
+`ConvertTo-Guid` (over the native type `Catzc.Base.Objects.SentenceGuid`) deterministically converts any sentence into a valid GUID whose
+hex digits best-effort spell it: hex letters and digits pass through, the leet look-alike table maps (`o`→`0`, `i`/`l`→`1`, `z`→`2`,
 `s`→`5`, `g`→`6`, `t`→`7`, `q`→`9`), and any other character renders as `0` — one character in is always one digit out, so a human decodes
 the value positionally. Whitespace is the exception with a purpose: it skips to the GUID's next dash group, so each word lands in its own
 segment. The result pads with zeros to 32 hex digits, and validity is structural — any 32 hex digits parse as a GUID — so every input yields

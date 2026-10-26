@@ -5,8 +5,8 @@
 ### Rule ADR-AUTO-DEPM-CODEBUILTFROM
 
 A module dependency (`ADR-AUTO-DEPM`) is code the toolset is built from. Its internal edges — module A needing module B among the
-repository's own modules — are declared in `pwsh/Base.ModuleSystem/configs/dependencies.yml`; the declaration is the allow-list, and
-an actual edge with no declaration fails the build.
+repository's own modules — are declared in `pwsh/Base.ModuleSystem/configs/dependencies.yml`; the declaration is the allow-list, and an
+actual edge with no declaration fails the build.
 
 - [The declared graph](#the-declared-graph)
 

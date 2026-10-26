@@ -41,9 +41,9 @@ source of every step; the agent's own taste is never one.
 ## What is reviewed
 
 182 tracked `.drawio.png` renders. Most are declared in a `yml drawio` block directly above the image in a markdown article (168 blocks in
-166 articles, the default carrier); 12 are `<name>.drawio.yml` files named under `carriers:` in `python/diagrams/configs/drawio.yml`;
-one is the glyph legend. A comment's target is therefore usually an article's block, then `drawio.yml` (the language), then
-`python/diagrams/` (the engine).
+166 articles, the default carrier); 12 are `<name>.drawio.yml` files named under `carriers:` in `python/diagrams/configs/drawio.yml`; one is
+the glyph legend. A comment's target is therefore usually an article's block, then `drawio.yml` (the language), then `python/diagrams/` (the
+engine).
 
 ## Decided (the orchestrator as delegated, 2026-10-23)
 

@@ -4,8 +4,8 @@
 
 ### Rule ADR-AUTO-DEPS-LOCKEDTOOLVERSIONS
 
-Lock every tool version in `pwsh/Base.Execution/configs/tools.yml`. Pinned tools install an explicit, reviewable version; a small
-allowlist of base tools (git, vscode) deliberately tracks `latest` and verifies integrity against the publisher's published hash.
+Lock every tool version in `pwsh/Base.Execution/configs/tools.yml`. Pinned tools install an explicit, reviewable version; a small allowlist
+of base tools (git, vscode) deliberately tracks `latest` and verifies integrity against the publisher's published hash.
 
 - [1. Lock versions in configuration](#1-lock-versions-in-configuration)
 

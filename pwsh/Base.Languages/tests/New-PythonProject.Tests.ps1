@@ -62,6 +62,9 @@ Describe 'New-PythonProject' -Tag 'L0', 'logic' {
                     '[tool.pyright]'
                     'pythonVersion = "3.13"'
                     'typeCheckingMode = "standard"'
+                    ''
+                    '[tool.uv.config-settings-package]'
+                    "catzc-widget-kit = { editable_mode = `"$([Catzc.Base.Languages.PythonConfig]::DefaultEditableMode)`" }"
                 ) -join "`n") + "`n")
     }
 
@@ -86,12 +89,12 @@ Describe 'New-PythonProject' -Tag 'L0', 'logic' {
         $content = (New-PythonProject -LineLength 140 -Target 'python/widget_kit/pyproject.toml').Content
         # -Match on the escaped text: a [section] header is a wildcard class to -BeLike.
         $content | Should -Match ('^' + [regex]::Escape((@(
-                    '[build-system]'
-                    "requires = [`"$([Catzc.Base.Languages.PythonConfig]::DefaultBuildDistribution)==$([Catzc.Base.Languages.PythonConfig]::DefaultBuildVersion)`"]"
-                    "build-backend = `"$([Catzc.Base.Languages.PythonConfig]::DefaultBuildModule)`""
-                    ''
-                    '[project]'
-                ) -join "`n")))
+                        '[build-system]'
+                        "requires = [`"$([Catzc.Base.Languages.PythonConfig]::DefaultBuildDistribution)==$([Catzc.Base.Languages.PythonConfig]::DefaultBuildVersion)`"]"
+                        "build-backend = `"$([Catzc.Base.Languages.PythonConfig]::DefaultBuildModule)`""
+                        ''
+                        '[project]'
+                    ) -join "`n")))
         $content | Should -Match ([regex]::Escape((@(
                         '[tool.setuptools]'
                         'packages = ["catzc.widget_kit"]'

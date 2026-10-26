@@ -191,8 +191,8 @@ There are **no default hooks**. `assets/PrePost.psm1` is a copy-in starter only 
 
 - A template with no special needs ships zero PowerShell — just `main.bicep`, `options.yml`, and `configuration/<slot>.yml`. No hook runs,
   which is correct.
-- A template that needs a hook adds **one file** (`PrePost.psm1`), copied from `pwsh/Azure.Templates/assets/PrePost.psm1`, keeping the
-  hooks it needs. No central registry, no manifest, no import wiring.
+- A template that needs a hook adds **one file** (`PrePost.psm1`), copied from `pwsh/Azure.Templates/assets/PrePost.psm1`, keeping the hooks
+  it needs. No central registry, no manifest, no import wiring.
 - Production code never depends on the asset module: the only PrePost code that runs is a template's own. The asset is pure reference data.
 - The `.psm1` extension is reserved for narrow, well-defined uses — never for a module's function files: the `.internal` shared modules
   (`pwsh/.internal/*.psm1`), the custom PSScriptAnalyzer rule modules (`pwsh/.scriptanalyzer/*.psm1`), the PrePost starter

@@ -25,8 +25,8 @@ folder is therefore either generated (mapped, ignored) or committed (unmapped, o
 
 ### Rule ADR-REPO-README-ONEMAP
 
-The map from a target folder to its source lives only in `pwsh/Base.Docs/configs/readme.yml` — a glob `patterns` list whose matched
-folders derive their source by convention, plus explicit `mappings` for the exceptions — validated by the `DocsConfig` type and expanded by
+The map from a target folder to its source lives only in `pwsh/Base.Docs/configs/readme.yml` — a glob `patterns` list whose matched folders
+derive their source by convention, plus explicit `mappings` for the exceptions — validated by the `DocsConfig` type and expanded by
 `Get-ReadmeMappings`; `Build-Readme` is the single writer. The mapping is not restated anywhere else.
 
 - [Decision](#decision)

@@ -16,8 +16,8 @@ skills: [plans-orchestrate, git-readonly, catzc-run, report-fixed]
 
 # implementation-orchestrator
 
-Drive the master plan's open chunks through the drones (the sessions that exist); implement nothing, spawn nothing. Run as the main
-session, never as a subagent, which cannot see the peers' replies.
+Drive the master plan's open chunks through the drones (the sessions that exist); implement nothing, spawn nothing. Run as the main session,
+never as a subagent, which cannot see the peers' replies.
 
 1. On (re)start: `Test-Plans` first, then read `plan-master.md`, the task files its open pointer lines name, the `prompt-*` files beside
    them (`prompt-orchestrator-restart.md` after a restart) and the last lines of `out/orchestrator-<date>.log`; the master's list is the

@@ -292,8 +292,8 @@ distinction is what makes `compose` legal: a customer deployable-unit's _effecti
 effective membership every customer overlaps the base and each other through it. That overlap is the point of composition — "depends on a
 base" — not a peer collision. On OWN membership (compose ignored) the customer units own only their own `configuration/<key>/**` slice and
 the base owns the shared surface minus the config folders, so the layer is disjoint. The same holds across layers by design: a file under
-`pwsh/Base.Globs/` belongs to the `pwsh` track (a loose-fileset) AND the `catzc-base-globs` module AND (if it ships) a deployable-unit
-— three layers, one file. Cross-layer overlap is never a violation; only same-layer overlap is.
+`pwsh/Base.Globs/` belongs to the `pwsh` track (a loose-fileset) AND the `catzc-base-globs` module AND (if it ships) a deployable-unit —
+three layers, one file. Cross-layer overlap is never a violation; only same-layer overlap is.
 
 A catch-all keeps a layer total without breaking disjointness. The `module-leftovers` set is the module-space complement: it should be empty
 in a clean tree, a tripwire for a file dropped at `pwsh/`'s root or a folder not yet a module. The `loose-fileset` layer is exempt because
