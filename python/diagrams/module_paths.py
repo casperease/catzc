@@ -62,6 +62,11 @@ def _contracts_version_root():
     return found[0]
 
 
+def contracts_root():
+    """The one contract version folder, absolute: every module's contract group lies beneath it."""
+    return _contracts_version_root()
+
+
 def contract_file(full_name, *parts):
     """A contract file of the module, absolute: the version folder, then the module's group (the twin of Get-ContractGroup), then the parts."""
     group = MODULES_TRACK + "." + _normal_form(module_folder_name(full_name))

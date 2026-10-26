@@ -22,7 +22,7 @@ COMMAND = "Get-RepositoryFile"
 CONTRACT = "get_repository_file"
 GROUP = "pwsh.base.repository"
 # What this caller passes and what it reads back; it changes only when the caller does.
-CALLER_ARGUMENTS = {"Path": "README.md"}
+CALLER_ARGUMENTS = {"path": "README.md"}
 CALLER_OUTPUT = "string"
 ANSI = re.compile(r"\x1b\[[0-9;]*m")
 POWERSHELL_ENGINE = "pwsh"
@@ -133,16 +133,16 @@ def test_contract_drift() -> None:
     assert not findings, f"{COMMAND}'s contract changed and this caller did not:\n" + "\n".join(findings)
     call = " ".join([COMMAND, *(f"-{p.name} {CALLER_ARGUMENTS[p.name]}" for p in signature.parameters if p.name in CALLER_ARGUMENTS)])
     got = run_engine(call)
-    want = f"{require_env('CATZC_REPOSITORY_ROOT')}/{CALLER_ARGUMENTS['Path']}"
+    want = f"{require_env('CATZC_REPOSITORY_ROOT')}/{CALLER_ARGUMENTS['path']}"
     assert normalize_path(got) == normalize_path(want), f"{call} printed {got!r}, want {want!r}"
 
 
 def test_drift_names_each_mismatch() -> None:
     """An edited signature is reported once per mismatch: a renamed parameter, a new mandatory one, another output."""
-    edited = parse_signature("File: string!, Kind: string! -> string[]")
+    edited = parse_signature("file: string!, kind: string! -> string[]")
     assert drift(edited, CALLER_ARGUMENTS, CALLER_OUTPUT) == [
-        "the caller passes -Path, which the contract does not name",
-        "the contract makes -File mandatory, but the caller does not pass it",
-        "the contract makes -Kind mandatory, but the caller does not pass it",
+        "the caller passes -path, which the contract does not name",
+        "the contract makes -file mandatory, but the caller does not pass it",
+        "the contract makes -kind mandatory, but the caller does not pass it",
         "the caller reads string, but the contract returns string[]",
     ]

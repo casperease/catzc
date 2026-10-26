@@ -1,0 +1,71 @@
+{
+  "types": [
+    {
+      "name": "Catzc.Base.Files.FileLockingProcess",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "AppName",
+          "kind": "property"
+        },
+        {
+          "name": "CommandLine",
+          "kind": "property"
+        },
+        {
+          "name": "Name",
+          "kind": "property"
+        },
+        {
+          "name": "ParentProcessId",
+          "kind": "property"
+        },
+        {
+          "name": "ProcessId",
+          "kind": "property"
+        },
+        {
+          "name": "Started",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Files.InputStamp",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "ComputeMany",
+          "kind": "method"
+        },
+        {
+          "name": "Compute",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Files.InputStampIdentity",
+      "aliases": [],
+      "display": [],
+      "members": []
+    },
+    {
+      "name": "Catzc.Base.Files.RestartManager",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "GetHolders",
+          "kind": "method"
+        }
+      ]
+    }
+  ]
+}

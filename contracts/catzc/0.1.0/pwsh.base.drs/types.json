@@ -1,0 +1,567 @@
+{
+  "types": [
+    {
+      "name": "Catzc.Base.Drs.DrsCheck",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "mode",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Drs.DrsChecksConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "citation_graph",
+          "kind": "property"
+        },
+        {
+          "name": "code_language",
+          "kind": "property"
+        },
+        {
+          "name": "dora_coverage",
+          "kind": "property"
+        },
+        {
+          "name": "engine_neutrality",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Drs.DrsCitationChange",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Kind",
+          "kind": "property"
+        },
+        {
+          "name": "Line",
+          "kind": "property"
+        },
+        {
+          "name": "New",
+          "kind": "property"
+        },
+        {
+          "name": "Old",
+          "kind": "property"
+        },
+        {
+          "name": "Path",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Drs.DrsCitationChangeKind",
+      "aliases": [],
+      "display": [],
+      "members": []
+    },
+    {
+      "name": "Catzc.Base.Drs.DrsCitationForm",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "ToReference",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Drs.DrsCitationMap",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "AdrOf",
+          "kind": "method"
+        },
+        {
+          "name": "Anchor",
+          "kind": "method"
+        },
+        {
+          "name": "CodeOf",
+          "kind": "method"
+        },
+        {
+          "name": "Codes",
+          "kind": "property"
+        },
+        {
+          "name": "Destination",
+          "kind": "method"
+        },
+        {
+          "name": "HasCode",
+          "kind": "method"
+        },
+        {
+          "name": "IsAmbiguousSlug",
+          "kind": "method"
+        },
+        {
+          "name": "IsDocument",
+          "kind": "method"
+        },
+        {
+          "name": "IsDomainCode",
+          "kind": "method"
+        },
+        {
+          "name": "IsRule",
+          "kind": "method"
+        },
+        {
+          "name": "OrderKey",
+          "kind": "method"
+        },
+        {
+          "name": "ParentAdr",
+          "kind": "method"
+        },
+        {
+          "name": "PathOfSlug",
+          "kind": "method"
+        },
+        {
+          "name": "PathOf",
+          "kind": "method"
+        },
+        {
+          "name": "RuleOfAnchor",
+          "kind": "method"
+        },
+        {
+          "name": "RulesOf",
+          "kind": "method"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Drs.DrsCitationRewrite",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Changed",
+          "kind": "property"
+        },
+        {
+          "name": "Changes",
+          "kind": "property"
+        },
+        {
+          "name": "Text",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Drs.DrsCitationRewriter",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Rewrite",
+          "kind": "method"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Drs.DrsCitationScanner",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Citations",
+          "kind": "method"
+        },
+        {
+          "name": "DefinedRules",
+          "kind": "method"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Drs.DrsCitationText",
+      "aliases": [],
+      "display": [],
+      "members": []
+    },
+    {
+      "name": "Catzc.Base.Drs.DrsCodeForm",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "AnyKind",
+          "kind": "property"
+        },
+        {
+          "name": "Cited",
+          "kind": "property"
+        },
+        {
+          "name": "Code",
+          "kind": "property"
+        },
+        {
+          "name": "Covers",
+          "kind": "method"
+        },
+        {
+          "name": "IsCode",
+          "kind": "method"
+        },
+        {
+          "name": "IsRule",
+          "kind": "method"
+        },
+        {
+          "name": "Kind",
+          "kind": "property"
+        },
+        {
+          "name": "Minimize",
+          "kind": "method"
+        },
+        {
+          "name": "Rule",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Drs.DrsConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "CodeForm",
+          "kind": "property"
+        },
+        {
+          "name": "DefaultFolder",
+          "kind": "method"
+        },
+        {
+          "name": "DomainClasses",
+          "kind": "property"
+        },
+        {
+          "name": "Domains",
+          "kind": "property"
+        },
+        {
+          "name": "Edges",
+          "kind": "property"
+        },
+        {
+          "name": "IndexPath",
+          "kind": "method"
+        },
+        {
+          "name": "KindName",
+          "kind": "method"
+        },
+        {
+          "name": "Kinds",
+          "kind": "property"
+        },
+        {
+          "name": "Root",
+          "kind": "property"
+        },
+        {
+          "name": "RuleSets",
+          "kind": "property"
+        },
+        {
+          "name": "SharedKinds",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Drs.DrsDomain",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Code",
+          "kind": "property"
+        },
+        {
+          "name": "Concerns",
+          "kind": "property"
+        },
+        {
+          "name": "DependsOn",
+          "kind": "property"
+        },
+        {
+          "name": "Description",
+          "kind": "property"
+        },
+        {
+          "name": "Folder",
+          "kind": "property"
+        },
+        {
+          "name": "Kind",
+          "kind": "property"
+        },
+        {
+          "name": "Name",
+          "kind": "property"
+        },
+        {
+          "name": "Prefix",
+          "kind": "property"
+        },
+        {
+          "name": "Role",
+          "kind": "property"
+        },
+        {
+          "name": "RuleSets",
+          "kind": "property"
+        },
+        {
+          "name": "Stack",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Drs.DrsDomainEdge",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "From",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "To",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Drs.DrsDoraCheck",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "IsExemptPath",
+          "kind": "method"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "exempt_folders",
+          "kind": "property"
+        },
+        {
+          "name": "exempt",
+          "kind": "property"
+        },
+        {
+          "name": "file",
+          "kind": "property"
+        },
+        {
+          "name": "mode",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Drs.DrsIndexConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "conventions",
+          "kind": "property"
+        },
+        {
+          "name": "preamble",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Drs.DrsNeutralityCheck",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "domains",
+          "kind": "property"
+        },
+        {
+          "name": "mode",
+          "kind": "property"
+        },
+        {
+          "name": "tokens",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Drs.DrsNeutralityToken",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Find",
+          "kind": "method"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "name",
+          "kind": "property"
+        },
+        {
+          "name": "pattern",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Drs.DrsRuleSet",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Code",
+          "kind": "property"
+        },
+        {
+          "name": "Concerns",
+          "kind": "property"
+        },
+        {
+          "name": "DomainCode",
+          "kind": "property"
+        },
+        {
+          "name": "DomainConcerns",
+          "kind": "property"
+        },
+        {
+          "name": "Domain",
+          "kind": "property"
+        },
+        {
+          "name": "External",
+          "kind": "property"
+        },
+        {
+          "name": "Folder",
+          "kind": "property"
+        },
+        {
+          "name": "Kind",
+          "kind": "property"
+        },
+        {
+          "name": "Layer",
+          "kind": "property"
+        },
+        {
+          "name": "Prefix",
+          "kind": "property"
+        },
+        {
+          "name": "Role",
+          "kind": "property"
+        },
+        {
+          "name": "Slug",
+          "kind": "property"
+        },
+        {
+          "name": "Stack",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        }
+      ]
+    }
+  ]
+}

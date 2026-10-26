@@ -1,0 +1,228 @@
+{
+  "types": [
+    {
+      "name": "Catzc.Base.Git.GitFlowConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "FindConfig",
+          "kind": "method"
+        },
+        {
+          "name": "IsMain",
+          "kind": "method"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "UserCommandIn",
+          "kind": "method"
+        },
+        {
+          "name": "bvt_mark_kind",
+          "kind": "property"
+        },
+        {
+          "name": "bvt_mark_ref",
+          "kind": "property"
+        },
+        {
+          "name": "main_branches",
+          "kind": "property"
+        },
+        {
+          "name": "remote",
+          "kind": "property"
+        },
+        {
+          "name": "user_commands",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Git.GitHistoryScan",
+      "aliases": [],
+      "display": ["Clean"],
+      "members": [
+        {
+          "name": "BlobsSearched",
+          "kind": "property"
+        },
+        {
+          "name": "Blobs",
+          "kind": "property"
+        },
+        {
+          "name": "Clean",
+          "kind": "property"
+        },
+        {
+          "name": "Messages",
+          "kind": "property"
+        },
+        {
+          "name": "Paths",
+          "kind": "property"
+        },
+        {
+          "name": "Scan",
+          "kind": "method"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "Token",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Git.GitIgnoreConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "sections",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Git.GitIgnorePattern",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "note",
+          "kind": "property"
+        },
+        {
+          "name": "pattern",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Git.GitIgnoreSection",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "id",
+          "kind": "property"
+        },
+        {
+          "name": "inject",
+          "kind": "property"
+        },
+        {
+          "name": "patterns",
+          "kind": "property"
+        },
+        {
+          "name": "title",
+          "kind": "property"
+        },
+        {
+          "name": "why",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Git.GitIndex",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "ContentHash",
+          "kind": "property"
+        },
+        {
+          "name": "ExecutablePaths",
+          "kind": "property"
+        },
+        {
+          "name": "ExecutableUnder",
+          "kind": "method"
+        },
+        {
+          "name": "HashContent",
+          "kind": "method"
+        },
+        {
+          "name": "Parse",
+          "kind": "method"
+        },
+        {
+          "name": "Paths",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "Under",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Git.GitRefs",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "CommonDirectory",
+          "kind": "method"
+        },
+        {
+          "name": "CurrentBranch",
+          "kind": "method"
+        },
+        {
+          "name": "GitDirectory",
+          "kind": "method"
+        },
+        {
+          "name": "IndexPath",
+          "kind": "method"
+        },
+        {
+          "name": "ResolveCommit",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Git.GitWorkTree",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "GitFolder",
+          "kind": "method"
+        },
+        {
+          "name": "IsSnapshot",
+          "kind": "method"
+        },
+        {
+          "name": "SnapshotMarker",
+          "kind": "method"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,249 @@
+{
+  "types": [
+    {
+      "name": "Catzc.Azure.DevOps.AdoConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "organization",
+          "kind": "property"
+        },
+        {
+          "name": "project",
+          "kind": "property"
+        },
+        {
+          "name": "tenant",
+          "kind": "property"
+        },
+        {
+          "name": "yaml_inventory_depth",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Azure.DevOps.EnvironmentApprovalsConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Environments",
+          "kind": "method"
+        },
+        {
+          "name": "approver_description",
+          "kind": "property"
+        },
+        {
+          "name": "approver_group",
+          "kind": "property"
+        },
+        {
+          "name": "approver_members",
+          "kind": "property"
+        },
+        {
+          "name": "prod_environments",
+          "kind": "property"
+        },
+        {
+          "name": "timeout_hours",
+          "kind": "property"
+        },
+        {
+          "name": "units",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Azure.DevOps.PipelineDefinition",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "FileName",
+          "kind": "property"
+        },
+        {
+          "name": "Folder",
+          "kind": "property"
+        },
+        {
+          "name": "Id",
+          "kind": "property"
+        },
+        {
+          "name": "Name",
+          "kind": "property"
+        },
+        {
+          "name": "RepositoryName",
+          "kind": "property"
+        },
+        {
+          "name": "Revision",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "Url",
+          "kind": "property"
+        },
+        {
+          "name": "YamlPath",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Azure.DevOps.PipelineEnvConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "variables",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Azure.DevOps.YamlClassification",
+      "aliases": [],
+      "display": [],
+      "members": []
+    },
+    {
+      "name": "Catzc.Azure.DevOps.YamlClassificationResult",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Classification",
+          "kind": "property"
+        },
+        {
+          "name": "TemplateType",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Azure.DevOps.YamlFileRecord",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Classification",
+          "kind": "property"
+        },
+        {
+          "name": "ParseError",
+          "kind": "property"
+        },
+        {
+          "name": "Path",
+          "kind": "property"
+        },
+        {
+          "name": "RelativeDirectory",
+          "kind": "property"
+        },
+        {
+          "name": "RelativePath",
+          "kind": "property"
+        },
+        {
+          "name": "Root",
+          "kind": "property"
+        },
+        {
+          "name": "TemplateType",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "TopLevelKeys",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Azure.DevOps.YamlInventoryRecord",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Classification",
+          "kind": "property"
+        },
+        {
+          "name": "IsRegistered",
+          "kind": "property"
+        },
+        {
+          "name": "ParseError",
+          "kind": "property"
+        },
+        {
+          "name": "Path",
+          "kind": "property"
+        },
+        {
+          "name": "PipelineDirectory",
+          "kind": "property"
+        },
+        {
+          "name": "PipelineId",
+          "kind": "property"
+        },
+        {
+          "name": "PipelineName",
+          "kind": "property"
+        },
+        {
+          "name": "RelativeDirectory",
+          "kind": "property"
+        },
+        {
+          "name": "RelativePath",
+          "kind": "property"
+        },
+        {
+          "name": "Root",
+          "kind": "property"
+        },
+        {
+          "name": "TemplateType",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "TopLevelKeys",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Azure.DevOps.YamlTemplateType",
+      "aliases": [],
+      "display": [],
+      "members": []
+    }
+  ]
+}

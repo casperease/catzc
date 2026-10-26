@@ -1,0 +1,100 @@
+{
+  "types": [
+    {
+      "name": "Catzc.Tooling.Inspiration.Inspiration",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Available",
+          "kind": "property"
+        },
+        {
+          "name": "Description",
+          "kind": "property"
+        },
+        {
+          "name": "Id",
+          "kind": "property"
+        },
+        {
+          "name": "Paths",
+          "kind": "property"
+        },
+        {
+          "name": "Root",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Tooling.Inspiration.InspirationConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "DefaultInspirations",
+          "kind": "property"
+        },
+        {
+          "name": "inspirations",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Tooling.Inspiration.InspirationEntry",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "description",
+          "kind": "property"
+        },
+        {
+          "name": "id",
+          "kind": "property"
+        },
+        {
+          "name": "paths",
+          "kind": "property"
+        },
+        {
+          "name": "root",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Tooling.Inspiration.InspirationRoot",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "IsWorkspaceAnchored",
+          "kind": "method"
+        },
+        {
+          "name": "ResolveWorkspace",
+          "kind": "method"
+        },
+        {
+          "name": "ToNative",
+          "kind": "method"
+        },
+        {
+          "name": "Violations",
+          "kind": "method"
+        },
+        {
+          "name": "Workspace",
+          "kind": "method"
+        }
+      ]
+    }
+  ]
+}

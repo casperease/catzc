@@ -1,0 +1,27 @@
+{
+  "types": [
+    {
+      "name": "Catzc.Tooling.Core.EngineCaseTable",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Cases",
+          "kind": "property"
+        },
+        {
+          "name": "Rows",
+          "kind": "property"
+        },
+        {
+          "name": "Subject",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        }
+      ]
+    }
+  ]
+}

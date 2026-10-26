@@ -1,0 +1,426 @@
+{
+  "types": [
+    {
+      "name": "Catzc.Base.Variants.GeneratedConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "targets",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Variants.GeneratedTarget",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "generator",
+          "kind": "property"
+        },
+        {
+          "name": "path",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Variants.ModulePlace",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "NameOf",
+          "kind": "method"
+        },
+        {
+          "name": "TailOf",
+          "kind": "method"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "except",
+          "kind": "property"
+        },
+        {
+          "name": "extension",
+          "kind": "property"
+        },
+        {
+          "name": "internal",
+          "kind": "property"
+        },
+        {
+          "name": "name",
+          "kind": "property"
+        },
+        {
+          "name": "prefix",
+          "kind": "property"
+        },
+        {
+          "name": "root",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Variants.ModuleTypeEntry",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "definition",
+          "kind": "property"
+        },
+        {
+          "name": "id",
+          "kind": "property"
+        },
+        {
+          "name": "places",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Variants.ModuleTypesConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Resolve",
+          "kind": "method"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "types",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Variants.PathModule",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "name",
+          "kind": "property"
+        },
+        {
+          "name": "tail",
+          "kind": "property"
+        },
+        {
+          "name": "type",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Variants.TrackMember",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "committed",
+          "kind": "property"
+        },
+        {
+          "name": "generated",
+          "kind": "property"
+        },
+        {
+          "name": "path",
+          "kind": "property"
+        },
+        {
+          "name": "track",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Variants.TrackTypeEntry",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "admits",
+          "kind": "property"
+        },
+        {
+          "name": "definition",
+          "kind": "property"
+        },
+        {
+          "name": "gitAttributes",
+          "kind": "property"
+        },
+        {
+          "name": "gitWhy",
+          "kind": "property"
+        },
+        {
+          "name": "id",
+          "kind": "property"
+        },
+        {
+          "name": "role",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Variants.TrackTypesConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "TypeOf",
+          "kind": "method"
+        },
+        {
+          "name": "VendorOf",
+          "kind": "method"
+        },
+        {
+          "name": "types",
+          "kind": "property"
+        },
+        {
+          "name": "vendors",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Variants.VariantAspect",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Name",
+          "kind": "property"
+        },
+        {
+          "name": "Patterns",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Variants.VariantMember",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Contains",
+          "kind": "method"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "committed",
+          "kind": "property"
+        },
+        {
+          "name": "generated",
+          "kind": "property"
+        },
+        {
+          "name": "glob",
+          "kind": "property"
+        },
+        {
+          "name": "path",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Variants.VariantsConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "DefaultAspects",
+          "kind": "property"
+        },
+        {
+          "name": "ado_naming",
+          "kind": "property"
+        },
+        {
+          "name": "aspects",
+          "kind": "property"
+        },
+        {
+          "name": "git_workspace",
+          "kind": "property"
+        },
+        {
+          "name": "have_customers",
+          "kind": "property"
+        },
+        {
+          "name": "tracks",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Variants.VariantTrack",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "EnginesOf",
+          "kind": "method"
+        },
+        {
+          "name": "FolderNameOf",
+          "kind": "method"
+        },
+        {
+          "name": "FullNameIn",
+          "kind": "method"
+        },
+        {
+          "name": "FullNameOf",
+          "kind": "method"
+        },
+        {
+          "name": "KindPlace",
+          "kind": "method"
+        },
+        {
+          "name": "MemberOf",
+          "kind": "method"
+        },
+        {
+          "name": "NamespaceSegmentOf",
+          "kind": "method"
+        },
+        {
+          "name": "PlaceLengthOf",
+          "kind": "method"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "execution_engines",
+          "kind": "property"
+        },
+        {
+          "name": "join",
+          "kind": "property"
+        },
+        {
+          "name": "kinds",
+          "kind": "property"
+        },
+        {
+          "name": "languages",
+          "kind": "property"
+        },
+        {
+          "name": "members",
+          "kind": "property"
+        },
+        {
+          "name": "module_execution_engines",
+          "kind": "property"
+        },
+        {
+          "name": "namespace_exempt",
+          "kind": "property"
+        },
+        {
+          "name": "namespace",
+          "kind": "property"
+        },
+        {
+          "name": "name",
+          "kind": "property"
+        },
+        {
+          "name": "places",
+          "kind": "property"
+        },
+        {
+          "name": "type",
+          "kind": "property"
+        },
+        {
+          "name": "vendor",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Variants.VendorEntry",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "definition",
+          "kind": "property"
+        },
+        {
+          "name": "id",
+          "kind": "property"
+        }
+      ]
+    }
+  ]
+}

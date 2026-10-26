@@ -1,0 +1,445 @@
+{
+  "types": [
+    {
+      "name": "Catzc.Base.Contracts.AccostedCommand",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "arguments",
+          "kind": "property"
+        },
+        {
+          "name": "name",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Contracts.AccostedConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "IsHarmlessVerb",
+          "kind": "method"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "harmless_verbs",
+          "kind": "property"
+        },
+        {
+          "name": "run_timeout",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Contracts.AccostedFile",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "runs",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Contracts.AccostedRun",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "commands",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Contracts.AccostedRunResult",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Command",
+          "kind": "property"
+        },
+        {
+          "name": "Engine",
+          "kind": "property"
+        },
+        {
+          "name": "ExitCode",
+          "kind": "property"
+        },
+        {
+          "name": "Output",
+          "kind": "property"
+        },
+        {
+          "name": "Passed",
+          "kind": "property"
+        },
+        {
+          "name": "Run",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Contracts.ContractAsset",
+      "aliases": [],
+      "display": ["AssetPath", "Kind", "Direction", "Target"],
+      "members": [
+        {
+          "name": "AssetPath",
+          "kind": "property"
+        },
+        {
+          "name": "Direction",
+          "kind": "property"
+        },
+        {
+          "name": "Group",
+          "kind": "property"
+        },
+        {
+          "name": "Key",
+          "kind": "property"
+        },
+        {
+          "name": "Kind",
+          "kind": "property"
+        },
+        {
+          "name": "Path",
+          "kind": "property"
+        },
+        {
+          "name": "Root",
+          "kind": "property"
+        },
+        {
+          "name": "Target",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "Version",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Contracts.ContractAssetKind",
+      "aliases": [],
+      "display": [],
+      "members": []
+    },
+    {
+      "name": "Catzc.Base.Contracts.ContractCheckResult",
+      "aliases": [],
+      "display": ["Passed", "Asset", "Findings"],
+      "members": [
+        {
+          "name": "Asset",
+          "kind": "property"
+        },
+        {
+          "name": "Findings",
+          "kind": "property"
+        },
+        {
+          "name": "Passed",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Contracts.ContractCommand",
+      "aliases": [],
+      "display": ["Name", "Signature"],
+      "members": [
+        {
+          "name": "Asset",
+          "kind": "property"
+        },
+        {
+          "name": "Compare",
+          "kind": "method"
+        },
+        {
+          "name": "IsOutputType",
+          "kind": "method"
+        },
+        {
+          "name": "NameOf",
+          "kind": "method"
+        },
+        {
+          "name": "Names",
+          "kind": "property"
+        },
+        {
+          "name": "Name",
+          "kind": "property"
+        },
+        {
+          "name": "Renamed",
+          "kind": "method"
+        },
+        {
+          "name": "Sets",
+          "kind": "property"
+        },
+        {
+          "name": "Signature",
+          "kind": "property"
+        },
+        {
+          "name": "ToAssetText",
+          "kind": "method"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "default_set",
+          "kind": "property"
+        },
+        {
+          "name": "description",
+          "kind": "property"
+        },
+        {
+          "name": "output",
+          "kind": "property"
+        },
+        {
+          "name": "parameters",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Contracts.ContractDirection",
+      "aliases": [],
+      "display": [],
+      "members": []
+    },
+    {
+      "name": "Catzc.Base.Contracts.ContractFragment",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "MatchData",
+          "kind": "method"
+        },
+        {
+          "name": "MatchLines",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Contracts.ContractLayout",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "EntryNames",
+          "kind": "method"
+        },
+        {
+          "name": "FileNames",
+          "kind": "method"
+        },
+        {
+          "name": "Folders",
+          "kind": "method"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Contracts.ContractManifest",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "applies_to",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Contracts.ContractParameter",
+      "aliases": [],
+      "display": ["Name", "Spec"],
+      "members": [
+        {
+          "name": "Default",
+          "kind": "property"
+        },
+        {
+          "name": "IsContractType",
+          "kind": "method"
+        },
+        {
+          "name": "IsInSet",
+          "kind": "method"
+        },
+        {
+          "name": "IsList",
+          "kind": "property"
+        },
+        {
+          "name": "Mandatory",
+          "kind": "property"
+        },
+        {
+          "name": "Name",
+          "kind": "property"
+        },
+        {
+          "name": "NormalizeType",
+          "kind": "method"
+        },
+        {
+          "name": "Parse",
+          "kind": "method"
+        },
+        {
+          "name": "Pipeline",
+          "kind": "property"
+        },
+        {
+          "name": "Sets",
+          "kind": "property"
+        },
+        {
+          "name": "Spec",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "Type",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Contracts.ContractSchema",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Inspect",
+          "kind": "method"
+        },
+        {
+          "name": "Validate",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Contracts.ContractsConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "ExceptionModuleOf",
+          "kind": "method"
+        },
+        {
+          "name": "GroupOf",
+          "kind": "method"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "exceptions",
+          "kind": "property"
+        },
+        {
+          "name": "form",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Contracts.ContractValue",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Describe",
+          "kind": "method"
+        },
+        {
+          "name": "Equal",
+          "kind": "method"
+        },
+        {
+          "name": "Kind",
+          "kind": "method"
+        },
+        {
+          "name": "MemberPath",
+          "kind": "method"
+        },
+        {
+          "name": "Text",
+          "kind": "method"
+        },
+        {
+          "name": "TryGetMember",
+          "kind": "method"
+        }
+      ]
+    }
+  ]
+}

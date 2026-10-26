@@ -1,0 +1,318 @@
+{
+  "types": [
+    {
+      "name": "Catzc.Base.ModuleSystem.AdoArtifactsTarget",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "feed",
+          "kind": "property"
+        },
+        {
+          "name": "organization",
+          "kind": "property"
+        },
+        {
+          "name": "project",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.ModuleSystem.ArtifactoryArtifactsTarget",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "repository",
+          "kind": "property"
+        },
+        {
+          "name": "url",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.ModuleSystem.ArtifactsConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "ado",
+          "kind": "property"
+        },
+        {
+          "name": "artifactory",
+          "kind": "property"
+        },
+        {
+          "name": "github",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.ModuleSystem.ArtifactsTarget",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "enabled",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.ModuleSystem.DependenciesConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "groups",
+          "kind": "property"
+        },
+        {
+          "name": "modules",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.ModuleSystem.DependencyGraph",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "FindCycle",
+          "kind": "method"
+        },
+        {
+          "name": "ReadNames",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.ModuleSystem.FilesConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "modules",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.ModuleSystem.FunctionCall",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Line",
+          "kind": "property"
+        },
+        {
+          "name": "Name",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.ModuleSystem.FunctionCallCollector",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Calls",
+          "kind": "property"
+        },
+        {
+          "name": "Collect",
+          "kind": "method"
+        },
+        {
+          "name": "Function",
+          "kind": "property"
+        },
+        {
+          "name": "NestedFunctionNames",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "VisitCommand",
+          "kind": "method"
+        },
+        {
+          "name": "VisitFunctionDefinition",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.ModuleSystem.GithubArtifactsTarget",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "feed",
+          "kind": "property"
+        },
+        {
+          "name": "owner",
+          "kind": "property"
+        },
+        {
+          "name": "repository",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.ModuleSystem.ImporterConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "IsAuto",
+          "kind": "method"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "engines",
+          "kind": "property"
+        },
+        {
+          "name": "languages",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.ModuleSystem.ImportMix",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Resolve",
+          "kind": "method"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "engines",
+          "kind": "property"
+        },
+        {
+          "name": "languages",
+          "kind": "property"
+        },
+        {
+          "name": "modules",
+          "kind": "property"
+        },
+        {
+          "name": "skipped_engines",
+          "kind": "property"
+        },
+        {
+          "name": "skipped_modules",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.ModuleSystem.ModuleDependencyEdge",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "CallCount",
+          "kind": "property"
+        },
+        {
+          "name": "From",
+          "kind": "property"
+        },
+        {
+          "name": "Functions",
+          "kind": "property"
+        },
+        {
+          "name": "Kind",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "To",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.ModuleSystem.ModuleDependencyFormat",
+      "aliases": ["Catzc.Module.Depm"],
+      "display": [],
+      "members": []
+    },
+    {
+      "name": "Catzc.Base.ModuleSystem.ModuleFiles",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "packages",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.ModuleSystem.ModuleGroup",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "members",
+          "kind": "property"
+        },
+        {
+          "name": "name",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.ModuleSystem.ProfilesConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "profiles",
+          "kind": "property"
+        }
+      ]
+    }
+  ]
+}

@@ -1,12 +1,12 @@
 <#
 ---
 catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-module-system/private/Get-ModuleFolderFullName.ps1.md"
+  docs: "../../docs/references/pwsh/catzc-base-repository/Get-ModuleFullName.ps1.md"
   header: "generated"
 ---
 #>
 
-function Get-ModuleFolderFullName {
+function Get-ModuleFullName {
     [CmdletBinding()]
     [OutputType([string])]
     param(
@@ -15,14 +15,14 @@ function Get-ModuleFolderFullName {
     )
 
     $full = [System.IO.Path]::GetFullPath($Path).TrimEnd('\', '/')
-    $loaded = Get-Module | Where-Object { [System.IO.Path]::GetFullPath($_.ModuleBase).TrimEnd('\', '/') -eq $full } |
-        Select-Object -First 1
-    if ($loaded) {
-        return $loaded.Name
-    }
     $manifests = @([System.IO.Directory]::EnumerateFiles($full, '*.psd1'))
     if ($manifests.Count -eq 1) {
         return [System.IO.Path]::GetFileNameWithoutExtension($manifests[0])
+    }
+    foreach ($loaded in Get-Module) {
+        if ([System.IO.Path]::GetFullPath($loaded.ModuleBase).TrimEnd('\', '/') -eq $full) {
+            return $loaded.Name
+        }
     }
     [System.IO.Path]::GetFileName($full)
 }

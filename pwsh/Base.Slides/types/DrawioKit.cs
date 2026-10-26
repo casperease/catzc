@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace Catzc.Base.Slides;
 
@@ -11,6 +12,10 @@ public sealed class DrawioKit
     public const string RendererFile = "drawio_forward.py";
     public const string DeclarationFile = "declaration.py";
     public const string ConfigFile = "configs/drawio.yml";
+    public const string ManifestFile = "pyproject.toml";
+
+    // The one package line New-PythonProject writes into a module member's manifest.
+    private static readonly Regex PackageLine = new Regex(@"^packages = \[""([A-Za-z_][A-Za-z0-9_.]*)""\]\s*$", RegexOptions.Multiline);
 
     // The kit folder, full path.
     public string Folder { get; }
@@ -24,6 +29,9 @@ public sealed class DrawioKit
     // The kit's drawio.yml: the defaults, the carriers and the roles by stem.
     public string Config { get; }
 
+    // The kit's manifest, which names the package the kit imports as.
+    public string Manifest { get; }
+
     public DrawioKit(string repositoryRoot, string kit)
     {
         if (string.IsNullOrEmpty(repositoryRoot)) { throw new ArgumentException("repositoryRoot must not be empty", "repositoryRoot"); }
@@ -32,5 +40,21 @@ public sealed class DrawioKit
         Renderer = Path.GetFullPath(Path.Combine(Folder, RendererFile));
         Declaration = Path.GetFullPath(Path.Combine(Folder, DeclarationFile));
         Config = Path.GetFullPath(Path.Combine(Folder, ConfigFile));
+        Manifest = Path.GetFullPath(Path.Combine(Folder, ManifestFile));
+    }
+
+    // The renderer as the module `python -m` runs, read from the manifest when a caller runs it.
+    public string RendererModule => ModuleOf(RendererFile);
+
+    // The declaration tool as the module `python -m` runs.
+    public string DeclarationModule => ModuleOf(DeclarationFile);
+
+    // A tool of the kit as a module: the package the manifest names, a dot, the tool's file stem.
+    private string ModuleOf(string file)
+    {
+        if (!File.Exists(Manifest)) { throw new InvalidOperationException($"the draw.io kit has no {ManifestFile} at {Manifest}, so it names no package; run Build-RootConfig"); }
+        Match match = PackageLine.Match(File.ReadAllText(Manifest));
+        if (!match.Success) { throw new InvalidOperationException($"{Manifest} names no package (a packages = [\"...\"] line), so the kit runs as no module; run Build-RootConfig"); }
+        return match.Groups[1].Value + "." + Path.GetFileNameWithoutExtension(file);
     }
 }

@@ -9,6 +9,28 @@ Describe 'Catzc.Base.Slides.DrawioKit' -Tag 'L0', 'logic' {
         $kit.Config | Should -Be ([System.IO.Path]::GetFullPath((Join-Path $folder 'configs/drawio.yml')))
     }
 
+    It 'names each tool as the module of the package its manifest declares' {
+        $root = Join-Path $TestDrive 'gadget-repo'
+        $null = New-Item -ItemType Directory -Path (Join-Path $root 'tools/widget_kit') -Force
+        Set-Content -LiteralPath (Join-Path $root 'tools/widget_kit/pyproject.toml') -Value "[tool.setuptools]`npackages = [`"catzc.widget_kit`"]`n"
+        $kit = [Catzc.Base.Slides.DrawioKit]::new($root, 'tools/widget_kit')
+        $kit.RendererModule | Should -BeExactly 'catzc.widget_kit.drawio_forward'
+        $kit.DeclarationModule | Should -BeExactly 'catzc.widget_kit.declaration'
+    }
+
+    It 'refuses a module name when the manifest <Case>, naming the generator' -ForEach @(
+        @{ Case = 'is absent'; Content = $null }
+        @{ Case = 'names no package'; Content = "[tool.uv]`npackage = false`n" }
+    ) {
+        $root = Join-Path $TestDrive "sprocket-repo-$([guid]::NewGuid())"
+        $null = New-Item -ItemType Directory -Path (Join-Path $root 'tools/widget_kit') -Force
+        if ($Content) {
+            Set-Content -LiteralPath (Join-Path $root 'tools/widget_kit/pyproject.toml') -Value $Content
+        }
+        $kit = [Catzc.Base.Slides.DrawioKit]::new($root, 'tools/widget_kit')
+        { $kit.DeclarationModule } | Should -Throw '*Build-RootConfig*'
+    }
+
     It 'rejects an empty repository root or kit' {
         { [Catzc.Base.Slides.DrawioKit]::new('', 'tools/widget_kit') } |
             Should -Throw '*repositoryRoot must not be empty*'

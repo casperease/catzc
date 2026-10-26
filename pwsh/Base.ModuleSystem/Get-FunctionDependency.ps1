@@ -30,7 +30,7 @@ function Get-FunctionDependency {
             continue
         }
         # An edge names its modules by their full names, which dependencies.yml is keyed by.
-        $module = Get-ModuleFolderFullName $moduleDir
+        $module = Get-ModuleFullName $moduleDir
 
         # A module's scripts sit at most three levels below its folder (tests/types/ is the deepest).
         $files = Get-ChildPath $moduleDir -File -Filter '*.ps1' -Depth 3 | Sort-Object

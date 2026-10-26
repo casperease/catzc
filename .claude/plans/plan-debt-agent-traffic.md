@@ -39,7 +39,3 @@ ten "may I" questions on edits the rules already require, three to five tool cal
       (task-user-runs-and-commits). Check: one message sent between sessions appears in `out/orchestrator-<date>.log`.
 - [ ] `.claude/skills/plans-orchestrate/SKILL.md` line 4: the log line is written by the hook when the hook covers it (after the step
       above). Check: `Test-AgentDefinitions`.
-- [ ] Open question (catzc-5c, 2026-10-26): merge into `.claude/skills/catzc-verify/SKILL.md` step 1, no new line, that a staged folder
-      reported ready is frozen until its burst ends, and that a burst changing a type runs every test file whose fixtures build that type
-      (the description burst missed three, and a reassigned run swapped a folder mid-edit). Recommendation: yes, one clause. Check:
-      `Test-AgentDefinitions`.

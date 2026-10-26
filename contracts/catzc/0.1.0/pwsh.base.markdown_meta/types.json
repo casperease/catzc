@@ -1,0 +1,125 @@
+{
+  "types": [
+    {
+      "name": "Catzc.Base.MarkdownMeta.MarkdownDocument",
+      "aliases": [],
+      "display": ["HasFrontMatter", "HasMetaBlock", "Key", "NewLine"],
+      "members": [
+        {
+          "name": "BodyHash",
+          "kind": "method"
+        },
+        {
+          "name": "Body",
+          "kind": "property"
+        },
+        {
+          "name": "CanHoldMetaBlock",
+          "kind": "property"
+        },
+        {
+          "name": "HasFrontMatter",
+          "kind": "property"
+        },
+        {
+          "name": "HasMetaBlock",
+          "kind": "property"
+        },
+        {
+          "name": "HashOf",
+          "kind": "method"
+        },
+        {
+          "name": "IsKeyPath",
+          "kind": "method"
+        },
+        {
+          "name": "Key",
+          "kind": "property"
+        },
+        {
+          "name": "MetaBlock",
+          "kind": "property"
+        },
+        {
+          "name": "NewLine",
+          "kind": "property"
+        },
+        {
+          "name": "OtherFrontMatter",
+          "kind": "property"
+        },
+        {
+          "name": "Parse",
+          "kind": "method"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "ToText",
+          "kind": "method"
+        },
+        {
+          "name": "WithMetaBlock",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.MarkdownMeta.MarkdownLinkRebaser",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Rebase",
+          "kind": "method"
+        },
+        {
+          "name": "RelativeLink",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.MarkdownMeta.MarkdownMetaBlock",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "ConfigLines",
+          "kind": "method"
+        },
+        {
+          "name": "EdgeKeys",
+          "kind": "method"
+        },
+        {
+          "name": "EdgeList",
+          "kind": "method"
+        },
+        {
+          "name": "ImmutableKeys",
+          "kind": "method"
+        },
+        {
+          "name": "Render",
+          "kind": "method"
+        },
+        {
+          "name": "Scalar",
+          "kind": "method"
+        },
+        {
+          "name": "SectionKeys",
+          "kind": "method"
+        },
+        {
+          "name": "WithoutConfig",
+          "kind": "method"
+        }
+      ]
+    }
+  ]
+}

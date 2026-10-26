@@ -1,0 +1,19 @@
+{
+  "types": [
+    {
+      "name": "Catzc.Base.Vendor.VendorConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "sourceUrl",
+          "kind": "property"
+        },
+        {
+          "name": "source",
+          "kind": "property"
+        }
+      ]
+    }
+  ]
+}

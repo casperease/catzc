@@ -65,17 +65,23 @@ function Get-ModuleBuildPlan {
     }
 
     # The runtime loader and its assets, plus the analyzer settings and rules under the full vendor policy.
-    $internalFiles = @($script:runtimeInternalFiles) + @(if ($VendorPolicy -eq 'full') {
-            $script:fullPolicyInternalFiles
+    # A file ships only when an exporter glob names it, so a new asset in a shipped folder needs no row and a new tool
+    # outside them never ships.
+    $exporter = Get-Config -Config exporter
+    $globs = [string[]] @(@($exporter.runtime_internal_files) + @(if ($VendorPolicy -eq 'full') {
+                $exporter.full_internal_files
+            }))
+    $internalRoot = [System.IO.Path]::Combine($SourceRoot, '.internal')
+    $present = [string[]] @(if ([System.IO.Directory]::Exists($internalRoot)) {
+            foreach ($file in [System.IO.Directory]::EnumerateFiles($internalRoot, '*', [System.IO.SearchOption]::AllDirectories)) {
+                [System.IO.Path]::GetRelativePath($internalRoot, $file).Replace('\', '/')
+            }
         })
+    $internalFiles = [string[]] [Catzc.Base.Objects.GlobPattern]::MatchingPaths($globs, $present)
+    [System.Array]::Sort($internalFiles, [System.StringComparer]::Ordinal)
     foreach ($relativePath in $internalFiles) {
-        $source = [System.IO.Path]::Combine($SourceRoot, '.internal', $relativePath)
-        if (-not [System.IO.File]::Exists($source)) {
-            $violations.Add("$sourceFolder/.internal/${relativePath}: the runtime loader file does not exist")
-            continue
-        }
+        $source = [System.IO.Path]::Combine($internalRoot, $relativePath)
         if (-not (Test-BuildSourceShippable -Index $Index -SourceRoot $SourceRoot -Path $source)) {
-            $violations.Add("$sourceFolder/.internal/${relativePath}: the runtime loader file is ignored by git, and a bundle never ships an ignored file")
             continue
         }
         $normalize = Test-BuildSourceLfOnly -Index $Index -SourceRoot $SourceRoot -Path $source

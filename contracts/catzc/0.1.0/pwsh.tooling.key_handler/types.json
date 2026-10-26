@@ -1,0 +1,45 @@
+{
+  "types": [
+    {
+      "name": "Catzc.Tooling.KeyHandler.KeyHandlerBinding",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "function",
+          "kind": "property"
+        },
+        {
+          "name": "key",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Tooling.KeyHandler.KeyHandlerBindingsConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "SourcePath",
+          "kind": "method"
+        },
+        {
+          "name": "bindings",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Tooling.KeyHandler.KeyHandlerSupportedConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "functions",
+          "kind": "property"
+        }
+      ]
+    }
+  ]
+}

@@ -10,8 +10,8 @@ import re
 from functools import cache
 from pathlib import Path
 
-from declaration_constants import load_yaml
-from module_paths import module_file
+from .declaration_constants import load_yaml
+from .module_paths import module_file
 
 REPO = Path(__file__).resolve().parents[2]
 LANGUAGES = module_file("Catzc.Base.Languages", "configs", "languages.yml")

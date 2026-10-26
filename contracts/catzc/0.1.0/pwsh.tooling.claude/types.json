@@ -1,0 +1,27 @@
+{
+  "types": [
+    {
+      "name": "Catzc.Tooling.Claude.ClaudeDroneConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Launchers",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "agent",
+          "kind": "property"
+        },
+        {
+          "name": "launcher",
+          "kind": "property"
+        }
+      ]
+    }
+  ]
+}

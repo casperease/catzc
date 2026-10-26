@@ -4,17 +4,10 @@
 usage (repo root, background): timeout 120 uv run --project python python -m pytest python/diagrams/tests/test_declaration_print.py
 """
 
-import sys
 import xml.etree.ElementTree as ET
-from pathlib import Path
 
 import pytest
-
-# The kit folder joins the path first, so its scripts import by bare name as they do beside each other.
-sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-
-import declaration
-import declaration_sync
+from catzc.diagrams import declaration, declaration_sync
 from conftest import ROWS, WIDGETS, lane_widgets
 
 

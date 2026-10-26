@@ -34,6 +34,21 @@ Describe 'ExporterConfig' -Tag 'L0', 'logic' {
         $config.package.license_uri | Should -Be 'https://forge.example/widget/license'
     }
 
+    It 'defaults the shipped .internal globs to the runtime loader folders and the full-policy test kit' {
+        $config = & $script:make (& $script:newValidConfig)
+        $config.runtime_internal_files | Should -Contain 'assets/types/**'
+        $config.runtime_internal_files | Should -Not -Contain 'assets/builder/**'
+        $config.full_internal_files | Should -Be @('Catzc.Internal.TestKit.psm1', 'assets/PSScriptAnalyzerSettings.psd1')
+    }
+
+    It 'maps authored .internal globs and rejects one that does not parse' {
+        $raw = & $script:newValidConfig
+        $raw.runtime_internal_files = @('assets/widget/**')
+        (& $script:make $raw).runtime_internal_files | Should -Be @('assets/widget/**')
+        $raw.full_internal_files = @('/assets/gadget.ps1')
+        { & $script:make $raw } | Should -Throw "*invalid glob '/assets/gadget.ps1' in full_internal_files*"
+    }
+
     It 'maps each bundle on its own version line, defaulting vendor_policy to runtime' {
         $config = & $script:make (& $script:newValidConfig)
         @($config.bundles.Keys) | Should -Be @('widgets', 'gadgets')

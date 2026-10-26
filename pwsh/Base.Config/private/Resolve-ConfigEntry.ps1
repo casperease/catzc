@@ -39,17 +39,11 @@ function Resolve-ConfigEntry {
             if ($folderName.StartsWith('.')) {
                 continue
             }
-            $manifests = @([System.IO.Directory]::EnumerateFiles($moduleDir, '*.psd1'))
-            $moduleName = if ($manifests.Count -eq 1) {
-                [System.IO.Path]::GetFileNameWithoutExtension($manifests[0])
-            }
-            else {
-                $folderName
-            }
             $configsDir = Join-Path $moduleDir 'configs'
             if (-not [System.IO.Directory]::Exists($configsDir)) {
                 continue
             }
+            $moduleName = Get-ModuleFullName $moduleDir
             $sources = @([System.IO.Directory]::EnumerateFiles($configsDir,
                     '*.yml')) + @([System.IO.Directory]::EnumerateDirectories($configsDir))
             foreach ($file in $sources) {

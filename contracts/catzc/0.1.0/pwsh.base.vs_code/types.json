@@ -1,0 +1,320 @@
+{
+  "types": [
+    {
+      "name": "Catzc.Base.VSCode.FileIcon",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "color",
+          "kind": "property"
+        },
+        {
+          "name": "extensions",
+          "kind": "property"
+        },
+        {
+          "name": "glyph",
+          "kind": "property"
+        },
+        {
+          "name": "label",
+          "kind": "property"
+        },
+        {
+          "name": "language_ids",
+          "kind": "property"
+        },
+        {
+          "name": "language",
+          "kind": "property"
+        },
+        {
+          "name": "names",
+          "kind": "property"
+        },
+        {
+          "name": "name",
+          "kind": "property"
+        },
+        {
+          "name": "style",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.VSCode.FileIconsConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "file",
+          "kind": "property"
+        },
+        {
+          "name": "icons",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.VSCode.LampPaletteConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "ranges",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.VSCode.LampPaletteRange",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "background",
+          "kind": "property"
+        },
+        {
+          "name": "badge",
+          "kind": "property"
+        },
+        {
+          "name": "glyph_lit",
+          "kind": "property"
+        },
+        {
+          "name": "glyph_unlit",
+          "kind": "property"
+        },
+        {
+          "name": "mark",
+          "kind": "property"
+        },
+        {
+          "name": "name",
+          "kind": "property"
+        },
+        {
+          "name": "text",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.VSCode.VscodeExtensionsConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "extensions",
+          "kind": "property"
+        },
+        {
+          "name": "recommendations",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.VSCode.VscodeLaunchConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "configurations",
+          "kind": "property"
+        },
+        {
+          "name": "version",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.VSCode.VscodeLaunchProfile",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "fields",
+          "kind": "property"
+        },
+        {
+          "name": "name",
+          "kind": "property"
+        },
+        {
+          "name": "request",
+          "kind": "property"
+        },
+        {
+          "name": "type",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.VSCode.VscodeOwnExtension",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "activationEvents",
+          "kind": "property"
+        },
+        {
+          "name": "contributes",
+          "kind": "property"
+        },
+        {
+          "name": "description",
+          "kind": "property"
+        },
+        {
+          "name": "displayName",
+          "kind": "property"
+        },
+        {
+          "name": "engine",
+          "kind": "property"
+        },
+        {
+          "name": "name",
+          "kind": "property"
+        },
+        {
+          "name": "publisher",
+          "kind": "property"
+        },
+        {
+          "name": "version",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.VSCode.VscodeSession",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Builds",
+          "kind": "property"
+        },
+        {
+          "name": "ContributedVariables",
+          "kind": "property"
+        },
+        {
+          "name": "Current",
+          "kind": "property"
+        },
+        {
+          "name": "Drift",
+          "kind": "property"
+        },
+        {
+          "name": "HeldBuilds",
+          "kind": "property"
+        },
+        {
+          "name": "HostName",
+          "kind": "property"
+        },
+        {
+          "name": "LoadedHash",
+          "kind": "property"
+        },
+        {
+          "name": "LogSession",
+          "kind": "property"
+        },
+        {
+          "name": "PowerShellLogLines",
+          "kind": "property"
+        },
+        {
+          "name": "ProcessId",
+          "kind": "property"
+        },
+        {
+          "name": "SourceHash",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.VSCode.VscodeSettingsConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "carried",
+          "kind": "property"
+        },
+        {
+          "name": "editorconfig",
+          "kind": "property"
+        },
+        {
+          "name": "hidden_actions",
+          "kind": "property"
+        },
+        {
+          "name": "settings",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.VSCode.VscodeStateStore",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Read",
+          "kind": "method"
+        },
+        {
+          "name": "Write",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.VSCode.VscodeTasksConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "inputs",
+          "kind": "property"
+        },
+        {
+          "name": "tasks",
+          "kind": "property"
+        },
+        {
+          "name": "version",
+          "kind": "property"
+        }
+      ]
+    }
+  ]
+}

@@ -1,7 +1,6 @@
 Describe 'Write-TypesContract' -Tag 'L0', 'logic' {
     BeforeAll {
         Import-Module (Join-Path (Get-CatzcModulesRoot) '.internal/Catzc.Internal.Types.psm1') -Force
-        $script:root = Join-Path $TestDrive 'repo'
         $script:write = {
             param([object[]] $Types)
             InModuleScope Catzc.Internal.Types -Parameters @{ Types = $Types; Root = $script:root } {
@@ -13,37 +12,59 @@ Describe 'Write-TypesContract' -Tag 'L0', 'logic' {
             }
         }
         $script:surface = @(
-            [pscustomobject]@{ Name = 'Catzc.Widgets.Widget'; Aliases = @('Catzc.Widget'); Display = @('Name') },
-            [pscustomobject]@{ Name = 'Catzc.Gadgets.Gadget'; Aliases = @(); Display = @('Name', 'Size') }
+            [pscustomobject]@{ Name = 'Catzc.Widgets.Widget'; Aliases = @('Catzc.Widget'); Display = @('Name')
+                Members = @([pscustomobject]@{ Name = 'Name'; Kind = 'property' }, [pscustomobject]@{ Name = 'Spin'; Kind = 'method' })
+            },
+            [pscustomobject]@{ Name = 'Catzc.Widgets.Cog'; Aliases = @(); Display = @(); Members = @() },
+            [pscustomobject]@{ Name = 'Catzc.GadgetBox.Gadget'; Aliases = @(); Display = @('Name', 'Size'); Members = @() }
         )
     }
 
-    It 'writes the surface, sorted by name, with no hash, to the contract under the catzc root' {
-        $first = & $script:write $script:surface
-        $first.Written | Should -BeTrue
-        $first.Path | Should -BeLike '*contracts*catzc*0.1.0*pwsh.internal.types*types.sample.json'
-        $text = [System.IO.File]::ReadAllText($first.Path)
+    BeforeEach {
+        # One module group exists, pwsh.widgets; the other is derived from the modules track, the folder holding .internal.
+        $script:root = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
+        [System.IO.Directory]::CreateDirectory((Join-Path $script:root 'contracts/catzc/0.1.0/pwsh.widgets')) | Out-Null
+        [System.IO.Directory]::CreateDirectory((Join-Path $script:root 'pwsh/.internal')) | Out-Null
+        [System.IO.File]::WriteAllText((Join-Path $script:root 'pwsh/.internal/Catzc.Internal.Types.psm1'), '')
+    }
+
+    It 'writes each module''s types, sorted by name, with their members, to types.json in its group' {
+        $rows = @(& $script:write $script:surface)
+        $rows | Should -HaveCount 2
+        $rows.Written | Should -Be @($true, $true)
+        $widgets = $rows | Where-Object Path -Like '*pwsh.widgets*types.json'
+        $gadgets = $rows | Where-Object Path -Like '*pwsh.gadget_box*types.json'
+        $text = [System.IO.File]::ReadAllText($widgets.Path)
         $text | Should -Not -Match "`r"
         $text.EndsWith("`n") | Should -BeTrue
         $json = $text | ConvertFrom-Json -AsHashtable
         $json.Keys | Should -Be @('types')
-        @($json['types'].ForEach({ $_['name'] })) | Should -Be @('Catzc.Gadgets.Gadget', 'Catzc.Widgets.Widget')
+        @($json['types'].ForEach({ $_['name'] })) | Should -Be @('Catzc.Widgets.Cog', 'Catzc.Widgets.Widget')
         @($json['types'][1]['aliases']) | Should -Be @('Catzc.Widget')
-        # One type per line, between the opening and closing lines of the file.
-        @($text.TrimEnd("`n") -split "`n") | Should -HaveCount 6
-        @($text -split "`n" | Where-Object { $_ -like '    {"name":*' }) | Should -HaveCount 2
+        @($json['types'][1]['members'].ForEach({ "$($_['name']):$($_['kind'])" })) | Should -Be @('Name:property', 'Spin:method')
+        # Prettier's form: every object one key per line, a string array that fits the width on one line.
+        $text | Should -Match '(?m)^      "aliases": \["Catzc\.Widget"\],$'
+        $text | Should -Match '(?m)^          "name": "Spin",$'
+        @(([System.IO.File]::ReadAllText($gadgets.Path) | ConvertFrom-Json -AsHashtable)['types'].ForEach({ $_['name'] })) |
+            Should -Be @('Catzc.GadgetBox.Gadget')
     }
 
-    It 'leaves the file alone when the surface did not move, and writes once when an alias is added' {
+    It 'leaves a file alone when its surface did not move, and writes only the moved one when a member is added' {
         $null = & $script:write $script:surface
-        (& $script:write $script:surface).Written | Should -BeFalse -Because 'an equal surface leaves git clean'
-        $moved = @(
-            [pscustomobject]@{ Name = 'Catzc.Widgets.Widget'; Aliases = @('Catzc.Widget',
-                    'Catzc.Sprocket'); Display = @('Name')
-            },
-            $script:surface[1]
-        )
-        (& $script:write $moved).Written | Should -BeTrue
-        (& $script:write $moved).Written | Should -BeFalse
+        @(& $script:write $script:surface).Written | Should -Be @($false, $false) -Because 'an equal surface leaves git clean'
+        $moved = @($script:surface[0], $script:surface[1],
+            [pscustomobject]@{ Name = 'Catzc.GadgetBox.Gadget'; Aliases = @(); Display = @('Name', 'Size')
+                Members = @([pscustomobject]@{ Name = 'Open'; Kind = 'method' })
+            })
+        $rows = @(& $script:write $moved)
+        ($rows | Where-Object Written).Path | Should -BeLike '*pwsh.gadget_box*'
+        @(& $script:write $moved).Written | Should -Be @($false, $false)
+    }
+
+    It 'deletes the types.json of a module that builds no type, and its group when that leaves it empty' {
+        $null = & $script:write $script:surface
+        $rows = @(& $script:write @($script:surface[0], $script:surface[1]))
+        ($rows | Where-Object Written).Path | Should -BeLike '*pwsh.gadget_box*types.json'
+        Join-Path $script:root 'contracts/catzc/0.1.0/pwsh.gadget_box' | Should -Not -Exist
     }
 }

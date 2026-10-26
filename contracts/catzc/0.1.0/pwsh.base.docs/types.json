@@ -1,0 +1,417 @@
+{
+  "types": [
+    {
+      "name": "Catzc.Base.Docs.AgentEntry",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "checks",
+          "kind": "property"
+        },
+        {
+          "name": "model_reason",
+          "kind": "property"
+        },
+        {
+          "name": "name",
+          "kind": "property"
+        },
+        {
+          "name": "persona",
+          "kind": "property"
+        },
+        {
+          "name": "supported_by",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Docs.AgentsConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "agent_body_lines",
+          "kind": "property"
+        },
+        {
+          "name": "agents",
+          "kind": "property"
+        },
+        {
+          "name": "capability_lines",
+          "kind": "property"
+        },
+        {
+          "name": "contracts",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Docs.CapabilitiesConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "capabilities",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Docs.CapabilityEntry",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "checks",
+          "kind": "property"
+        },
+        {
+          "name": "invoked_by",
+          "kind": "property"
+        },
+        {
+          "name": "name",
+          "kind": "property"
+        },
+        {
+          "name": "read_only",
+          "kind": "property"
+        },
+        {
+          "name": "supported_by",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Docs.DocMapping",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "folder",
+          "kind": "property"
+        },
+        {
+          "name": "source",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Docs.DocPattern",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "glob",
+          "kind": "property"
+        },
+        {
+          "name": "source",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Docs.DocsConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "mappings",
+          "kind": "property"
+        },
+        {
+          "name": "patterns",
+          "kind": "property"
+        },
+        {
+          "name": "without_article",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Docs.DocWithoutArticle",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "folder",
+          "kind": "property"
+        },
+        {
+          "name": "reason",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Docs.GitHubAnchor",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Anchors",
+          "kind": "method"
+        },
+        {
+          "name": "Slug",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Docs.GlossaryAvoid",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "phrase",
+          "kind": "property"
+        },
+        {
+          "name": "say",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Docs.GlossaryConcept",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "avoid",
+          "kind": "property"
+        },
+        {
+          "name": "contrasts",
+          "kind": "property"
+        },
+        {
+          "name": "defined_by",
+          "kind": "property"
+        },
+        {
+          "name": "domain",
+          "kind": "property"
+        },
+        {
+          "name": "forms",
+          "kind": "property"
+        },
+        {
+          "name": "key",
+          "kind": "property"
+        },
+        {
+          "name": "realized_by",
+          "kind": "property"
+        },
+        {
+          "name": "relations",
+          "kind": "property"
+        },
+        {
+          "name": "short",
+          "kind": "property"
+        },
+        {
+          "name": "term",
+          "kind": "property"
+        },
+        {
+          "name": "verbs",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Docs.GlossaryConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "concepts",
+          "kind": "property"
+        },
+        {
+          "name": "options",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Docs.GlossaryEntry",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Concept",
+          "kind": "property"
+        },
+        {
+          "name": "Options",
+          "kind": "property"
+        },
+        {
+          "name": "Owner",
+          "kind": "property"
+        },
+        {
+          "name": "SourcePath",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Docs.GlossaryOptions",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "checks",
+          "kind": "property"
+        },
+        {
+          "name": "exclude",
+          "kind": "property"
+        },
+        {
+          "name": "scope",
+          "kind": "property"
+        },
+        {
+          "name": "surfaces",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Docs.GlossaryProse",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Markdown",
+          "kind": "method"
+        },
+        {
+          "name": "PowerShell",
+          "kind": "method"
+        },
+        {
+          "name": "RemoveMentions",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Docs.GlossaryRealization",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "kind",
+          "kind": "property"
+        },
+        {
+          "name": "pattern",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Docs.GlossaryScan",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Forms",
+          "kind": "method"
+        },
+        {
+          "name": "Phrasing",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Docs.GlossarySegment",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Line",
+          "kind": "property"
+        },
+        {
+          "name": "Surface",
+          "kind": "property"
+        },
+        {
+          "name": "Text",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Docs.LearningsConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "FilesIn",
+          "kind": "method"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "files",
+          "kind": "property"
+        },
+        {
+          "name": "folder",
+          "kind": "property"
+        },
+        {
+          "name": "lines_per_file",
+          "kind": "property"
+        },
+        {
+          "name": "prefix",
+          "kind": "property"
+        },
+        {
+          "name": "title",
+          "kind": "property"
+        }
+      ]
+    }
+  ]
+}

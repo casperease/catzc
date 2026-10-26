@@ -1,0 +1,183 @@
+{
+  "types": [
+    {
+      "name": "Catzc.Base.FileLimits.FileLimit",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "length",
+          "kind": "property"
+        },
+        {
+          "name": "width",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.FileLimits.FileLimitsConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "ResolveFile",
+          "kind": "method"
+        },
+        {
+          "name": "Resolve",
+          "kind": "method"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "classes",
+          "kind": "property"
+        },
+        {
+          "name": "defaults",
+          "kind": "property"
+        },
+        {
+          "name": "exempt",
+          "kind": "property"
+        },
+        {
+          "name": "extensions",
+          "kind": "property"
+        },
+        {
+          "name": "function_body_length",
+          "kind": "property"
+        },
+        {
+          "name": "languages",
+          "kind": "property"
+        },
+        {
+          "name": "length_max",
+          "kind": "property"
+        },
+        {
+          "name": "length_min",
+          "kind": "property"
+        },
+        {
+          "name": "string_overflow",
+          "kind": "property"
+        },
+        {
+          "name": "width_max",
+          "kind": "property"
+        },
+        {
+          "name": "width_min",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.FileLimits.FileLimitsReaders",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "CheckInBounds",
+          "kind": "method"
+        },
+        {
+          "name": "CheckKeys",
+          "kind": "method"
+        },
+        {
+          "name": "ReadBound",
+          "kind": "method"
+        },
+        {
+          "name": "ReadLimit",
+          "kind": "method"
+        },
+        {
+          "name": "ReadWhole",
+          "kind": "method"
+        },
+        {
+          "name": "Section",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.FileLimits.FileShape",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Measure",
+          "kind": "method"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "lines",
+          "kind": "property"
+        },
+        {
+          "name": "path",
+          "kind": "property"
+        },
+        {
+          "name": "widest_line",
+          "kind": "property"
+        },
+        {
+          "name": "width",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.FileLimits.ResolvedFileLimit",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "file_class",
+          "kind": "property"
+        },
+        {
+          "name": "language",
+          "kind": "property"
+        },
+        {
+          "name": "length_source",
+          "kind": "property"
+        },
+        {
+          "name": "length",
+          "kind": "property"
+        },
+        {
+          "name": "width_source",
+          "kind": "property"
+        },
+        {
+          "name": "width",
+          "kind": "property"
+        }
+      ]
+    }
+  ]
+}

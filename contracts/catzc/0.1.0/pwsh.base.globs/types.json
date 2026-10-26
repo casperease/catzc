@@ -1,0 +1,371 @@
+{
+  "types": [
+    {
+      "name": "Catzc.Base.Globs.Aspect",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Name",
+          "kind": "property"
+        },
+        {
+          "name": "Patterns",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Globs.AspectPartition",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "AspectOf",
+          "kind": "method"
+        },
+        {
+          "name": "Compile",
+          "kind": "method"
+        },
+        {
+          "name": "Validate",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Globs.CompiledAspect",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Exclude",
+          "kind": "property"
+        },
+        {
+          "name": "Include",
+          "kind": "property"
+        },
+        {
+          "name": "Name",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Globs.DurableHash",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "HashFile",
+          "kind": "method"
+        },
+        {
+          "name": "HashFold",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Globs.FileKindEntry",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Matches",
+          "kind": "method"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "definition",
+          "kind": "property"
+        },
+        {
+          "name": "files",
+          "kind": "property"
+        },
+        {
+          "name": "gitAttributes",
+          "kind": "property"
+        },
+        {
+          "name": "gitWhy",
+          "kind": "property"
+        },
+        {
+          "name": "role",
+          "kind": "property"
+        },
+        {
+          "name": "subkinds",
+          "kind": "property"
+        },
+        {
+          "name": "subkind",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Globs.FileKindMatch",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Class",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "definition",
+          "kind": "property"
+        },
+        {
+          "name": "role",
+          "kind": "property"
+        },
+        {
+          "name": "subkind",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Globs.FileKindOverlap",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Earlier",
+          "kind": "property"
+        },
+        {
+          "name": "Later",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Globs.FileKindsConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Resolve",
+          "kind": "method"
+        },
+        {
+          "name": "Shadowing",
+          "kind": "method"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "kinds",
+          "kind": "property"
+        },
+        {
+          "name": "overlaps",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Globs.FileKindShadow",
+      "aliases": [],
+      "display": ["By", "Hidden", "Taken", "Matched"],
+      "members": [
+        {
+          "name": "By",
+          "kind": "property"
+        },
+        {
+          "name": "Hidden",
+          "kind": "property"
+        },
+        {
+          "name": "Matched",
+          "kind": "property"
+        },
+        {
+          "name": "Taken",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Globs.FiltersConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "filters",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Globs.GlobsConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Contains",
+          "kind": "method"
+        },
+        {
+          "name": "Get",
+          "kind": "method"
+        },
+        {
+          "name": "Names",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "globsets",
+          "kind": "property"
+        },
+        {
+          "name": "tests_optional",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Globs.GlobSet",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Compose",
+          "kind": "property"
+        },
+        {
+          "name": "Description",
+          "kind": "property"
+        },
+        {
+          "name": "Exclude",
+          "kind": "property"
+        },
+        {
+          "name": "Include",
+          "kind": "property"
+        },
+        {
+          "name": "Layer",
+          "kind": "property"
+        },
+        {
+          "name": "Matches",
+          "kind": "method"
+        },
+        {
+          "name": "Name",
+          "kind": "property"
+        },
+        {
+          "name": "OwnMatches",
+          "kind": "method"
+        },
+        {
+          "name": "Pipeline",
+          "kind": "property"
+        },
+        {
+          "name": "ScanProgram",
+          "kind": "method"
+        },
+        {
+          "name": "SelectMembers",
+          "kind": "method"
+        },
+        {
+          "name": "SelectOwnMembers",
+          "kind": "method"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "VerifyLevel",
+          "kind": "property"
+        },
+        {
+          "name": "VerifyModules",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Globs.RepositoryFilter",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "ArgumentOf",
+          "kind": "method"
+        },
+        {
+          "name": "KindOf",
+          "kind": "method"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "except",
+          "kind": "property"
+        },
+        {
+          "name": "extensions",
+          "kind": "property"
+        },
+        {
+          "name": "name",
+          "kind": "property"
+        },
+        {
+          "name": "select",
+          "kind": "property"
+        },
+        {
+          "name": "title",
+          "kind": "property"
+        }
+      ]
+    }
+  ]
+}

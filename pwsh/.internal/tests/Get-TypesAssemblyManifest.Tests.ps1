@@ -19,6 +19,16 @@ namespace $($script:space) {
     [Catzc.Base.Objects.ConsoleDisplay("Own")]
     public class Sprocket : Gadget { }
     public class Holder { public class Inner { } }
+    public class Gizmo {
+        public Gizmo() { }
+        public string Size { get; set; }
+        public string Label { get; private set; }
+        internal string Secret { get; set; }
+        public void Spin() { }
+        public void Spin(int times) { }
+        private void Hide() { }
+        public static Gizmo Make() { return new Gizmo(); }
+    }
     internal class Hidden { }
 }
 "@
@@ -32,7 +42,13 @@ namespace $($script:space) {
 
     It 'lists only public top-level types, sorted ordinally by name' {
         $names = @((Get-TypesAssemblyManifest -Path $dll).Types.Name | Where-Object { $_ -like "$($script:space).*" })
-        $names | Should -Be @("$space.Gadget", "$space.Holder", "$space.Plain", "$space.Sprocket", "$space.Widget")
+        $names | Should -Be @("$space.Gadget", "$space.Gizmo", "$space.Holder", "$space.Plain", "$space.Sprocket", "$space.Widget")
+    }
+
+    It 'lists the public properties and methods by name and kind, sorted, overloads once, no accessors or constructors' {
+        @((Get-FixtureType 'Gizmo').Members.ForEach({ "$($_.Name):$($_.Kind)" })) |
+            Should -Be @('Label:property', 'Make:method', 'Size:property', 'Spin:method')
+        (Get-FixtureType 'Plain').Members.Count | Should -Be 0
     }
 
     It 'gives a type with no attributes empty aliases and display' {

@@ -1,0 +1,124 @@
+{
+  "types": [
+    {
+      "name": "Catzc.Azure.Cli.BicepState",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "installed",
+          "kind": "property"
+        },
+        {
+          "name": "meets_minimum",
+          "kind": "property"
+        },
+        {
+          "name": "min_version",
+          "kind": "property"
+        },
+        {
+          "name": "version",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Azure.Cli.ConnectionState",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "actual_subscription",
+          "kind": "property"
+        },
+        {
+          "name": "actual_tenant",
+          "kind": "property"
+        },
+        {
+          "name": "connected",
+          "kind": "property"
+        },
+        {
+          "name": "expected_subscription",
+          "kind": "property"
+        },
+        {
+          "name": "expected_tenant",
+          "kind": "property"
+        },
+        {
+          "name": "logged_in",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Azure.Cli.SubscriptionAccessState",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "accessible",
+          "kind": "property"
+        },
+        {
+          "name": "detail",
+          "kind": "property"
+        },
+        {
+          "name": "logged_in",
+          "kind": "property"
+        },
+        {
+          "name": "subscription",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Azure.Cli.SubscriptionContext",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Id",
+          "kind": "property"
+        },
+        {
+          "name": "IsDefault",
+          "kind": "property"
+        },
+        {
+          "name": "Name",
+          "kind": "property"
+        },
+        {
+          "name": "State",
+          "kind": "property"
+        },
+        {
+          "name": "TenantId",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        }
+      ]
+    }
+  ]
+}

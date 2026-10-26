@@ -33,24 +33,6 @@ leaves them out; every other vendored module is a runtime dependency and always 
 
 ## comment:3
 
-Above `$script:runtimeInternalFiles = @(`, written with `#`.
-
-```text
-The runtime loader a build carries under .internal/: Import-Catzc.ps1 boots Invoke-Importer -Bundle, which loads
-Bootstrap, Types and Vendor and applies the error view. Builder and the tests never ship.
-```
-
-## comment:4
-
-Above `$script:fullPolicyInternalFiles = @(`, written with `#`.
-
-```text
-What a test-capable build (vendor_policy 'full') adds: the analyzer settings, which travel with the analyzer like
-.scriptanalyzer/, and the TestKit the test files load (Import-InternalModule TestKit) — the build run executes them.
-```
-
-## comment:5
-
 Above `$script:mergedFileSuffix = '.functions.ps1'`, written with `#`.
 
 ```text
@@ -59,7 +41,7 @@ module is named for its file, so <Module>.ps1 would load a second module named <
 and Get-Module <Module>, Mock -ModuleName and InModuleScope would each see two modules of that name.
 ```
 
-## comment:10
+## comment:4
 
 Above `[CmdletBinding()]`, written with `#`.
 
@@ -69,7 +51,7 @@ Above `[CmdletBinding()]`, written with `#`.
     module names, each expanded through Get-ModuleProfile (dependencies.yml).
 ```
 
-## comment:11
+## comment:5
 
 Above `[CmdletBinding()]` (occurrence 2), written with `#`.
 
@@ -90,7 +72,7 @@ Above `[CmdletBinding()]` (occurrence 2), written with `#`.
     Only the types folders take it: their sources must equal the type set that the DLL name proves.
 ```
 
-## comment:12
+## comment:6
 
 Above `foreach ($file in Get-ChildPath $sourceFull -File -Depth 64 -Exclude @()...`, written with `#`.
 
@@ -99,7 +81,7 @@ A named whole-tree walk ([ADR-PWSH-ENUM-ALWAYSBOUNDED](/docs/drs/automation/pwsh
 copies every shippable file, so nothing is pruned here.
 ```
 
-## comment:13
+## comment:7
 
 Above `[CmdletBinding()]` (occurrence 3), written with `#`.
 
@@ -110,7 +92,7 @@ Above `[CmdletBinding()]` (occurrence 3), written with `#`.
     Normalize yields the bytes git stores for an LF-only file, whatever line endings the checkout wrote.
 ```
 
-## comment:14
+## comment:8
 
 Above `[CmdletBinding()]` (occurrence 4), written with `#`.
 
@@ -119,7 +101,7 @@ Above `[CmdletBinding()]` (occurrence 4), written with `#`.
     Returns the commit the build was made from, or $null when git cannot answer (no work tree, no git).
 ```
 
-## comment:15
+## comment:9
 
 Above `[CmdletBinding()]` (occurrence 5), written with `#`.
 
@@ -151,7 +133,7 @@ Above `[CmdletBinding()]` (occurrence 5), written with `#`.
     Invoke-ModuleBuild -ModuleProfile full -Version 6.6.666 -VendorPolicy runtime -Destination (Join-Path (Get-OutputRoot) 'automation/built/full') -Bundle full -PackageMetadata $metadata
 ```
 
-## comment:16
+## comment:10
 
 Above `$plannedPaths =...`, written with `#`.
 
@@ -161,7 +143,7 @@ The presence check
 against the plan so a missing asset fails before any write.
 ```
 
-## comment:17
+## comment:11
 
 Above `$typesDll = [System.IO.Path]::Combine((Get-TypesShadowRoot),...`, written with `#`.
 

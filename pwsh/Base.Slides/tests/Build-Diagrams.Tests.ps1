@@ -3,6 +3,7 @@ Describe 'Build-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' 
         $script:widgetRoot = Join-Path $TestDrive 'diagram-repository'
         $pages = [ordered]@{
             'kit/drawio_forward.py'  = "# renderer stand-in`n"
+            'kit/pyproject.toml'     = "[tool.setuptools]`npackages = [`"catzc.kit`"]`n"
             'kit/configs/drawio.yml' = "renderer:`n  carrier: file`n  findings-fail: yes`n"
             'docs/widgets/index.md'  = "# Widgets`n`n![Widget A](.assets/widget-a.drawio.png)`n`n![Widget B](./.assets/widget-b.drawio.png)`n"
             'docs/widgets/plain.md'  = "# Plain`n`n[a link](.assets/widget-a.drawio.yml)`n"
@@ -81,7 +82,7 @@ Describe 'Build-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' 
         & $script:build @{ Path = 'docs/widgets/.assets/widget-a', 'docs/widgets/.assets/widget-b' } | Out-Null
         Should -Invoke Invoke-Executable -ModuleName Catzc.Base.Slides -Times 1 -Exactly
         Should -Invoke Invoke-Executable -ModuleName Catzc.Base.Slides -Times 1 -Exactly -ParameterFilter {
-            $Command -like '"C:/tools/uv.exe" run --project "*kit*" python "*kit*drawio_forward.py" --theme dark --workers 3 --rows "*query-rows.json" --all "*docs*widgets*.assets*widget-a" "*docs*widgets*.assets*widget-b"'
+            $Command -like '"C:/tools/uv.exe" run --project "*kit*" python -m catzc.kit.drawio_forward --theme dark --workers 3 --rows "*query-rows.json" --all "*docs*widgets*.assets*widget-a" "*docs*widgets*.assets*widget-b"'
         }
     }
 
@@ -218,7 +219,7 @@ Describe 'Build-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' 
             $runs = @(& $script:build @{ Path = 'docs/widgets/.assets/widget-b'; FromDrawing = $true })
             $runs.Stage | Should -Be @('sync (get, put)')
             Should -Invoke Invoke-Executable -ModuleName Catzc.Base.Slides -Times 1 -Exactly -ParameterFilter {
-                $Command -like '*python "*kit*declaration.py" sync "docs/widgets/.assets/widget-b"'
+                $Command -like '*python -m catzc.kit.declaration sync "docs/widgets/.assets/widget-b"'
             }
             Should -Invoke Test-Diagrams -ModuleName Catzc.Base.Slides -Times 1 -Exactly -ParameterFilter { $Path -ceq 'docs/widgets/.assets/widget-b' }
         }

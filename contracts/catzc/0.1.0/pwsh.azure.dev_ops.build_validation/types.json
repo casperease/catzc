@@ -1,0 +1,42 @@
+{
+  "types": [
+    {
+      "name": "Catzc.Azure.DevOps.BuildValidation.BuildValidationConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "branch",
+          "kind": "property"
+        },
+        {
+          "name": "validations",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Azure.DevOps.BuildValidation.BuildValidationEntry",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "blocking",
+          "kind": "property"
+        },
+        {
+          "name": "display_name",
+          "kind": "property"
+        },
+        {
+          "name": "globset",
+          "kind": "property"
+        },
+        {
+          "name": "pipeline",
+          "kind": "property"
+        }
+      ]
+    }
+  ]
+}

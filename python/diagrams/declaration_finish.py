@@ -4,10 +4,9 @@
 
 import html
 
-import declaration_settings
-import minimaps
-from declaration_cells import cell, edge_cell, in_paint_order
-from declaration_constants import (
+from . import declaration_settings, minimaps
+from .declaration_cells import cell, edge_cell, in_paint_order
+from .declaration_constants import (
     ACTION_LENS,
     ANCHOR,
     COMMIT_STATES,
@@ -28,12 +27,12 @@ from declaration_constants import (
     SIDEBAR_X,
     TEXT,
 )
-from declaration_dump import brief
-from declaration_edges import edge_word
-from declaration_expand import shown_minimaps
-from declaration_routes import TRANSITION, commit_style
-from declaration_vocabulary import LIB
-from drawio_png import paint, style_map
+from .declaration_dump import brief
+from .declaration_edges import edge_word
+from .declaration_expand import shown_minimaps
+from .declaration_routes import TRANSITION, commit_style
+from .declaration_vocabulary import LIB
+from .drawio_png import paint, style_map
 
 
 def legend_box(cells, cid, caption, entries, x, y, w):

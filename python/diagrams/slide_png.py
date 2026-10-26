@@ -13,8 +13,8 @@ A fact slide (`pattern: fact` in the slides kit) states one checkable propositio
 with the kit's tokens and lands it beside the slide too, so the source catalogue holds what the person reads.
 
 usage (repo root, background):
-  uv run --no-sync --project python python python/diagrams/slide_png.py picture <slide.md>
-  uv run --no-sync --project python python python/diagrams/slide_png.py render <slide.md> [<out.png>]
+  uv run --no-sync --project python python -m catzc.diagrams.slide_png picture <slide.md>
+  uv run --no-sync --project python python -m catzc.diagrams.slide_png render <slide.md> [<out.png>]
 (render lands in the source catalogue, beside the slide at .assets/<id>.slide.png, unless <out.png> says otherwise: a costly render is a
 committed build output, never parked under out/)
 """
@@ -26,9 +26,9 @@ from pathlib import Path
 import yaml
 from PIL import Image, ImageDraw, ImageFont
 
+from . import declaration
+
 KIT = Path(__file__).resolve().parent
-sys.path.insert(0, str(KIT))
-import declaration  # noqa: E402  (the kit folder joins the path first, as the kit's scripts import each other by bare name)
 
 SLIDES = yaml.safe_load((KIT / "assets" / "slides" / "slides.yml").read_text(encoding="utf-8"))
 FONTS = {"display": ("georgia.ttf", "DejaVuSerif.ttf"), "text": ("segoeui.ttf", "arial.ttf", "DejaVuSans.ttf")}

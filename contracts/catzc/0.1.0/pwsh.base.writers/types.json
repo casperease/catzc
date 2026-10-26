@@ -1,0 +1,46 @@
+{
+  "types": [
+    {
+      "name": "Catzc.Base.Writers.Ansi",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Code",
+          "kind": "method"
+        },
+        {
+          "name": "Wrap",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Writers.RainbowColor",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Base",
+          "kind": "property"
+        },
+        {
+          "name": "ColorAt",
+          "kind": "method"
+        },
+        {
+          "name": "FromString",
+          "kind": "method"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "Wrap",
+          "kind": "method"
+        }
+      ]
+    }
+  ]
+}

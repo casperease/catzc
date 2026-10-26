@@ -90,6 +90,12 @@ has a track.
        declares it, and their hand-written lines are deleted (check:
        `Invoke-TestFile -Path pwsh/Base.Git/tests/Get-AutoControlledGlobs.Tests.ps1`).
 
+## Open questions
+
+- Should `Get-ModuleTestFolder` move from a private helper of Base.Languages into `LanguagesConfig.TestFolderOf` itself, taking the track,
+  so no caller can pass a full name again? All four runners (go, bash, python, javascript) now call it. Recommendation: yes; one resolution
+  order (DDR-TRACK-MODULENAMESPACE), and the four call sites shrink to one.
+
 ## Refs
 
 - DDR-TRACK, DDR-TRACKTYPE, FDR-CD-GLOBS, ADR-AUTO-IDIOM-NORMALFORM, PDR-CONFIG, PDR-ONELIVE.

@@ -1,0 +1,226 @@
+{
+  "types": [
+    {
+      "name": "Catzc.Base.Objects.ArtifactRef",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "ExistsAt",
+          "kind": "method"
+        },
+        {
+          "name": "Materialize",
+          "kind": "method"
+        },
+        {
+          "name": "ResolveAt",
+          "kind": "method"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "absolute",
+          "kind": "property"
+        },
+        {
+          "name": "relative",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Objects.ConsoleDisplayAttribute",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Properties",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Objects.ConsoleText",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "ToConsoleString",
+          "kind": "method"
+        },
+        {
+          "name": "ToConsoleValue",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Objects.DictionaryRecord",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Contains",
+          "kind": "method"
+        },
+        {
+          "name": "Item",
+          "kind": "property"
+        },
+        {
+          "name": "Keys",
+          "kind": "property"
+        },
+        {
+          "name": "ToHashtable",
+          "kind": "method"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Objects.GlobPattern",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "LiteralPrefix",
+          "kind": "property"
+        },
+        {
+          "name": "Matches",
+          "kind": "method"
+        },
+        {
+          "name": "MatchingPaths",
+          "kind": "method"
+        },
+        {
+          "name": "Pattern",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Objects.NameCase",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Cases",
+          "kind": "property"
+        },
+        {
+          "name": "FromNormal",
+          "kind": "method"
+        },
+        {
+          "name": "IsCase",
+          "kind": "method"
+        },
+        {
+          "name": "IsInCase",
+          "kind": "method"
+        },
+        {
+          "name": "IsNormal",
+          "kind": "method"
+        },
+        {
+          "name": "Join",
+          "kind": "method"
+        },
+        {
+          "name": "Render",
+          "kind": "method"
+        },
+        {
+          "name": "Split",
+          "kind": "method"
+        },
+        {
+          "name": "ToNormal",
+          "kind": "method"
+        },
+        {
+          "name": "WordsOf",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Objects.PSTypeAliasAttribute",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Name",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Objects.RepoRelativePath",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Equals",
+          "kind": "method"
+        },
+        {
+          "name": "GetHashCode",
+          "kind": "method"
+        },
+        {
+          "name": "IsRooted",
+          "kind": "property"
+        },
+        {
+          "name": "Relative",
+          "kind": "property"
+        },
+        {
+          "name": "ToAbsolute",
+          "kind": "method"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Objects.SentenceGuid",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Convert",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Objects.TypeShape",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Of",
+          "kind": "method"
+        }
+      ]
+    }
+  ]
+}

@@ -16,7 +16,7 @@ function Get-TypesAssemblyManifest {
     #     The assembly file to read.
     # .OUTPUTS
     #     [pscustomobject] with Types: the types sorted ordinally by Name, each with Name, Aliases and Display (string
-    # arrays).
+    # arrays) and Members, the public properties and methods declared on it, each with Name and Kind, sorted by name.
     # .EXAMPLE
     #     (Get-TypesAssemblyManifest -Path $dll).Types
     [CmdletBinding()]
@@ -65,6 +65,30 @@ function Get-TypesAssemblyManifest {
                     }
                 }
             }
+            # The public members a consumer binds to, by name and kind only, so a body edit never moves them; overloads are
+            # one member, and accessors and constructors are not members of their own.
+            $members = [System.Collections.Generic.SortedSet[string]]::new([System.StringComparer]::Ordinal)
+            $public = [System.Reflection.MethodAttributes]::Public
+            foreach ($propertyHandle in $definition.GetProperties()) {
+                $property = $reader.GetPropertyDefinition($propertyHandle)
+                $accessors = $property.GetAccessors()
+                $visible = foreach ($accessor in @($accessors.Getter, $accessors.Setter)) {
+                    if (-not $accessor.IsNil -and
+                        ($reader.GetMethodDefinition($accessor).Attributes -band [System.Reflection.MethodAttributes]::MemberAccessMask) -eq $public) {
+                        $true
+                    }
+                }
+                if ($visible) {
+                    [void] $members.Add($reader.GetString($property.Name) + '|property')
+                }
+            }
+            foreach ($methodHandle in $definition.GetMethods()) {
+                $method = $reader.GetMethodDefinition($methodHandle)
+                if (($method.Attributes -band [System.Reflection.MethodAttributes]::MemberAccessMask) -eq $public -and
+                    -not ($method.Attributes -band [System.Reflection.MethodAttributes]::SpecialName)) {
+                    [void] $members.Add($reader.GetString($method.Name) + '|method')
+                }
+            }
             $base = $null
             if ($definition.BaseType.Kind -eq [System.Reflection.Metadata.HandleKind]::TypeDefinition) {
                 $base = $tokens::GetRowNumber($definition.BaseType)
@@ -74,6 +98,7 @@ function Get-TypesAssemblyManifest {
                 Public  = ($definition.Attributes -band [System.Reflection.TypeAttributes]::VisibilityMask) -eq [System.Reflection.TypeAttributes]::Public
                 Aliases = $aliases
                 Display = $display
+                Members = $members
                 Base    = $base
             }
         }
@@ -99,6 +124,10 @@ function Get-TypesAssemblyManifest {
             Name    = $row.Name
             Aliases = [string[]] @($row.Aliases)
             Display = $displayNames
+            Members = [object[]] @($row.Members | ForEach-Object {
+                    $name, $kind = $_.Split('|')
+                    [pscustomobject]@{ Name = $name; Kind = $kind }
+                })
         }
     }
     $sorted = [object[]] @($types)

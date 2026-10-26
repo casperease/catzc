@@ -1,0 +1,303 @@
+{
+  "types": [
+    {
+      "name": "Catzc.Azure.AzureConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "DefaultPolicyEnforcement",
+          "kind": "property"
+        },
+        {
+          "name": "bicep_min_version",
+          "kind": "property"
+        },
+        {
+          "name": "environments",
+          "kind": "property"
+        },
+        {
+          "name": "org",
+          "kind": "property"
+        },
+        {
+          "name": "policy_enforcement",
+          "kind": "property"
+        },
+        {
+          "name": "subscriptions",
+          "kind": "property"
+        },
+        {
+          "name": "tenants",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Azure.AzureCustomer",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "details",
+          "kind": "property"
+        },
+        {
+          "name": "key",
+          "kind": "property"
+        },
+        {
+          "name": "shortcode",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Azure.AzureEnvironment",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "name",
+          "kind": "property"
+        },
+        {
+          "name": "region_code",
+          "kind": "property"
+        },
+        {
+          "name": "region",
+          "kind": "property"
+        },
+        {
+          "name": "shortcode",
+          "kind": "property"
+        },
+        {
+          "name": "subscription",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Azure.AzureEnvironmentRecord",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "name",
+          "kind": "property"
+        },
+        {
+          "name": "per_subscription",
+          "kind": "property"
+        },
+        {
+          "name": "region_code",
+          "kind": "property"
+        },
+        {
+          "name": "region",
+          "kind": "property"
+        },
+        {
+          "name": "shortcode",
+          "kind": "property"
+        },
+        {
+          "name": "staging_for",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Azure.AzureSubscription",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "customer",
+          "kind": "property"
+        },
+        {
+          "name": "id",
+          "kind": "property"
+        },
+        {
+          "name": "name",
+          "kind": "property"
+        },
+        {
+          "name": "tenant",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Azure.AzureSubscriptionRecord",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "customer",
+          "kind": "property"
+        },
+        {
+          "name": "environments",
+          "kind": "property"
+        },
+        {
+          "name": "id",
+          "kind": "property"
+        },
+        {
+          "name": "name",
+          "kind": "property"
+        },
+        {
+          "name": "tenant",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Azure.AzureTenantRecord",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "id",
+          "kind": "property"
+        },
+        {
+          "name": "name",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Azure.CustomerConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "customers",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Azure.NetworkCidr",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Contains",
+          "kind": "method"
+        },
+        {
+          "name": "IsValid",
+          "kind": "method"
+        },
+        {
+          "name": "Overlaps",
+          "kind": "method"
+        },
+        {
+          "name": "TryParse",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Azure.NetworkConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "environments",
+          "kind": "property"
+        },
+        {
+          "name": "subscriptions",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Azure.NetworkEnvironment",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "default_subnet",
+          "kind": "property"
+        },
+        {
+          "name": "name",
+          "kind": "property"
+        },
+        {
+          "name": "vnet_address_space",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Azure.NetworkSubscription",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "HubSubnets",
+          "kind": "property"
+        },
+        {
+          "name": "kind",
+          "kind": "property"
+        },
+        {
+          "name": "name",
+          "kind": "property"
+        },
+        {
+          "name": "subnets",
+          "kind": "property"
+        },
+        {
+          "name": "vnet_address_space",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Azure.Tenant",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "id",
+          "kind": "property"
+        },
+        {
+          "name": "name",
+          "kind": "property"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "$comment": "The schema of a module group's types surface, every public type the module compiles with its accelerators, display properties and public members, what a consumer binds to and never the build.",
+  "type": "object",
+  "required": ["types"],
+  "properties": {
+    "types": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/type" }
+    }
+  },
+  "additionalProperties": false,
+  "definitions": {
+    "type": {
+      "type": "object",
+      "required": ["name", "aliases", "display", "members"],
+      "properties": {
+        "name": { "type": "string", "pattern": "^Catzc(\\.[A-Za-z0-9_]+)+$" },
+        "aliases": { "type": "array", "items": { "type": "string" } },
+        "display": { "type": "array", "items": { "type": "string" } },
+        "members": { "type": "array", "items": { "$ref": "#/definitions/member" } }
+      },
+      "additionalProperties": false
+    },
+    "member": {
+      "type": "object",
+      "required": ["name", "kind"],
+      "properties": {
+        "name": { "type": "string" },
+        "kind": { "enum": ["property", "method"] }
+      },
+      "additionalProperties": false
+    }
+  }
+}

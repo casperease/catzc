@@ -24,7 +24,7 @@ function Build-ContractReference {
     $adr = [System.IO.Path]::GetRelativePath($pageFolder, "$records/repository/api-contracts.md").Replace('\', '/')
     $commandAdr = [System.IO.Path]::GetRelativePath($pageFolder,
         "$records/repository/command-contracts.md").Replace('\', '/')
-    $kindText = @{ Presence = 'presence'; Fragment = 'fragment'; Schema = 'schema'; Sample = 'sample payload'; Command = 'command contract' }
+    $kindText = @{ Presence = 'presence'; Fragment = 'fragment'; Schema = 'schema'; Sample = 'sample payload'; Command = 'command contract'; Types = 'types surface' }
     $directionText = @{ DependedOn = 'depended-on'; Provided = 'provided' }
     $headers = @('Group', 'Asset', 'Bound file', 'Direction', 'Kind', 'Signature')
     # Every page this writer emits carries this line; only a page carrying it is ever removed.

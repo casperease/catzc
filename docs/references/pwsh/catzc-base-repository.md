@@ -58,6 +58,7 @@ The module's public functions, sorted into the responsibilities above.
 |                                                       | `Get-CatzcModulesFolder`     |
 |                                                       | `Get-CatzcModulesRoot`       |
 |                                                       | `Get-CatzcModuleRoot`        |
+|                                                       | `Get-ModuleFullName`         |
 |                                                       | `Get-CatzcOverlayRoot`       |
 |                                                       | `Resolve-RepoPath`           |
 |                                                       | `ConvertTo-RepoRelativePath` |

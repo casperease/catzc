@@ -22,20 +22,13 @@ function Test-ShippedConfigs {
     $shipped = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
     $configCount = 0
     $modulesRoot = Get-CatzcModulesRoot
-    # A config is looked up under its module's full name, which the folder drops the namespace of; the loaded module names it.
-    $loadedByFolder = @{}
-    foreach ($loaded in Get-Module) {
-        $loadedByFolder[[System.IO.Path]::GetFullPath($loaded.ModuleBase)] = $loaded.Name
-    }
     foreach ($moduleDirectory in Get-ChildPath $modulesRoot -Depth 1 -Directory) {
         $folderName = [System.IO.Path]::GetFileName($moduleDirectory)
         if ($folderName -match '^\.') {
             continue
         }
-        $moduleName = $loadedByFolder[[System.IO.Path]::GetFullPath($moduleDirectory)]
-        if (-not $moduleName) {
-            $moduleName = $folderName
-        }
+        # A config is looked up under its module's full name, which the folder drops the namespace of.
+        $moduleName = Get-ModuleFullName $moduleDirectory
         $configsDirectory = Join-Path $moduleDirectory 'configs'
         # A config is one file, or a folder of disjoint parts (configs/<name>/*.yml).
         $sources = @([Catzc.Base.Folders.PathSet]::new().AddPattern($configsDirectory, '*.yml', 1).ToArray())

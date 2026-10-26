@@ -1,0 +1,1302 @@
+{
+  "types": [
+    {
+      "name": "Catzc.Base.Maps.CitationScanner",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Canonical",
+          "kind": "method"
+        },
+        {
+          "name": "Cites",
+          "kind": "method"
+        },
+        {
+          "name": "CodeOf",
+          "kind": "method"
+        },
+        {
+          "name": "Covers",
+          "kind": "method"
+        },
+        {
+          "name": "DomainOf",
+          "kind": "method"
+        },
+        {
+          "name": "Index",
+          "kind": "method"
+        },
+        {
+          "name": "Scan",
+          "kind": "method"
+        },
+        {
+          "name": "Sites",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Maps.CitationSite",
+      "aliases": [],
+      "display": ["Path", "Line", "Kind", "Citation"],
+      "members": [
+        {
+          "name": "Citation",
+          "kind": "property"
+        },
+        {
+          "name": "Kind",
+          "kind": "property"
+        },
+        {
+          "name": "Line",
+          "kind": "property"
+        },
+        {
+          "name": "Mention",
+          "kind": "property"
+        },
+        {
+          "name": "Path",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Maps.HelveticaMetrics",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "CharWidth",
+          "kind": "method"
+        },
+        {
+          "name": "Width",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Maps.HighlightedCell",
+      "aliases": [],
+      "display": ["Track", "FileLanguage", "FileCount", "Sources"],
+      "members": [
+        {
+          "name": "FileCount",
+          "kind": "property"
+        },
+        {
+          "name": "FileLanguage",
+          "kind": "property"
+        },
+        {
+          "name": "Files",
+          "kind": "property"
+        },
+        {
+          "name": "Reasons",
+          "kind": "property"
+        },
+        {
+          "name": "Sources",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "Touched",
+          "kind": "property"
+        },
+        {
+          "name": "Track",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Maps.HighlightReason",
+      "aliases": [],
+      "display": ["Path", "Basis", "Requested", "Mention"],
+      "members": [
+        {
+          "name": "Basis",
+          "kind": "property"
+        },
+        {
+          "name": "Mention",
+          "kind": "property"
+        },
+        {
+          "name": "Note",
+          "kind": "property"
+        },
+        {
+          "name": "Path",
+          "kind": "property"
+        },
+        {
+          "name": "Requested",
+          "kind": "property"
+        },
+        {
+          "name": "Sites",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Maps.MapCell",
+      "aliases": [],
+      "display": ["Track", "FileLanguage", "FileCount", "StackViolation"],
+      "members": [
+        {
+          "name": "FileCount",
+          "kind": "property"
+        },
+        {
+          "name": "FileLanguage",
+          "kind": "property"
+        },
+        {
+          "name": "StackViolation",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "Track",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Maps.MapPlacement",
+      "aliases": [],
+      "display": ["Path", "Track", "FileLanguage", "Basis"],
+      "members": [
+        {
+          "name": "Adr",
+          "kind": "property"
+        },
+        {
+          "name": "Basis",
+          "kind": "property"
+        },
+        {
+          "name": "Citations",
+          "kind": "property"
+        },
+        {
+          "name": "FileLanguage",
+          "kind": "property"
+        },
+        {
+          "name": "Live",
+          "kind": "property"
+        },
+        {
+          "name": "Path",
+          "kind": "property"
+        },
+        {
+          "name": "Sites",
+          "kind": "property"
+        },
+        {
+          "name": "StackViolation",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "Track",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Maps.MapsConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "MinimapsOf",
+          "kind": "method"
+        },
+        {
+          "name": "explanation_minimaps",
+          "kind": "property"
+        },
+        {
+          "name": "highlight",
+          "kind": "property"
+        },
+        {
+          "name": "labels",
+          "kind": "property"
+        },
+        {
+          "name": "limits",
+          "kind": "property"
+        },
+        {
+          "name": "minimap_axis",
+          "kind": "property"
+        },
+        {
+          "name": "minimap_data",
+          "kind": "property"
+        },
+        {
+          "name": "minimap_places",
+          "kind": "property"
+        },
+        {
+          "name": "output_folder",
+          "kind": "property"
+        },
+        {
+          "name": "palette",
+          "kind": "property"
+        },
+        {
+          "name": "reference_minimaps",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Maps.MapsHighlight",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "citation_exclude",
+          "kind": "property"
+        },
+        {
+          "name": "exceptions",
+          "kind": "property"
+        },
+        {
+          "name": "pins",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Maps.MapsLabels",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "column_axis",
+          "kind": "property"
+        },
+        {
+          "name": "grid_title",
+          "kind": "property"
+        },
+        {
+          "name": "legend_files",
+          "kind": "property"
+        },
+        {
+          "name": "legend_highlight",
+          "kind": "property"
+        },
+        {
+          "name": "legend_violation",
+          "kind": "property"
+        },
+        {
+          "name": "root_files",
+          "kind": "property"
+        },
+        {
+          "name": "row_axis",
+          "kind": "property"
+        },
+        {
+          "name": "tree_title",
+          "kind": "property"
+        },
+        {
+          "name": "unlisted_files",
+          "kind": "property"
+        },
+        {
+          "name": "value_chain_column_axis",
+          "kind": "property"
+        },
+        {
+          "name": "value_chain_legend_adrs",
+          "kind": "property"
+        },
+        {
+          "name": "value_chain_legend_highlight",
+          "kind": "property"
+        },
+        {
+          "name": "value_chain_row_axis",
+          "kind": "property"
+        },
+        {
+          "name": "value_chain_title",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Maps.MapsLimits",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "max_column_label",
+          "kind": "property"
+        },
+        {
+          "name": "max_row_label",
+          "kind": "property"
+        },
+        {
+          "name": "min_font_size",
+          "kind": "property"
+        },
+        {
+          "name": "page_height",
+          "kind": "property"
+        },
+        {
+          "name": "page_width",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Maps.MapsMinimapAxis",
+      "aliases": [],
+      "display": ["rows", "columns"],
+      "members": [
+        {
+          "name": "RowOf",
+          "kind": "method"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "columns",
+          "kind": "property"
+        },
+        {
+          "name": "rows",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Maps.MapsMinimapPlaces",
+      "aliases": [],
+      "display": ["rows", "counter_rows", "row_chars"],
+      "members": [
+        {
+          "name": "Default",
+          "kind": "method"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "counter_rows",
+          "kind": "property"
+        },
+        {
+          "name": "drop_prefix",
+          "kind": "property"
+        },
+        {
+          "name": "fold_count_prefix",
+          "kind": "property"
+        },
+        {
+          "name": "fold_separator",
+          "kind": "property"
+        },
+        {
+          "name": "name_join",
+          "kind": "property"
+        },
+        {
+          "name": "root_marker",
+          "kind": "property"
+        },
+        {
+          "name": "row_chars",
+          "kind": "property"
+        },
+        {
+          "name": "row_join",
+          "kind": "property"
+        },
+        {
+          "name": "rows",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Maps.MapsMinimapPool",
+      "aliases": [],
+      "display": ["pool", "defaults"],
+      "members": [
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "defaults",
+          "kind": "property"
+        },
+        {
+          "name": "pool",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Maps.MapsMinimapReaders",
+      "aliases": [],
+      "display": [],
+      "members": []
+    },
+    {
+      "name": "Catzc.Base.Maps.MapsPalette",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "background",
+          "kind": "property"
+        },
+        {
+          "name": "cell",
+          "kind": "property"
+        },
+        {
+          "name": "column",
+          "kind": "property"
+        },
+        {
+          "name": "highlight",
+          "kind": "property"
+        },
+        {
+          "name": "line",
+          "kind": "property"
+        },
+        {
+          "name": "row",
+          "kind": "property"
+        },
+        {
+          "name": "shade",
+          "kind": "property"
+        },
+        {
+          "name": "text",
+          "kind": "property"
+        },
+        {
+          "name": "violation",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Maps.MapsPin",
+      "aliases": [],
+      "display": ["adr", "track", "file_language"],
+      "members": [
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "adr",
+          "kind": "property"
+        },
+        {
+          "name": "file_language",
+          "kind": "property"
+        },
+        {
+          "name": "reason",
+          "kind": "property"
+        },
+        {
+          "name": "track",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Maps.MinimapAxis",
+      "aliases": [],
+      "display": ["Name", "Values"],
+      "members": [
+        {
+          "name": "Name",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "Values",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Maps.MinimapCell",
+      "aliases": [],
+      "display": ["At", "Count"],
+      "members": [
+        {
+          "name": "At",
+          "kind": "property"
+        },
+        {
+          "name": "Count",
+          "kind": "property"
+        },
+        {
+          "name": "Reasons",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Maps.MinimapData",
+      "aliases": [],
+      "display": ["Id", "Axes"],
+      "members": [
+        {
+          "name": "Axes",
+          "kind": "property"
+        },
+        {
+          "name": "Cells",
+          "kind": "property"
+        },
+        {
+          "name": "FromValueChain",
+          "kind": "method"
+        },
+        {
+          "name": "FromWorldMap",
+          "kind": "method"
+        },
+        {
+          "name": "Id",
+          "kind": "property"
+        },
+        {
+          "name": "Lit",
+          "kind": "property"
+        },
+        {
+          "name": "PlaceRows",
+          "kind": "property"
+        },
+        {
+          "name": "ToJson",
+          "kind": "method"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "WithPlaceRows",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Maps.MinimapReason",
+      "aliases": [],
+      "display": ["Subject", "Basis", "Requested"],
+      "members": [
+        {
+          "name": "Basis",
+          "kind": "property"
+        },
+        {
+          "name": "Note",
+          "kind": "property"
+        },
+        {
+          "name": "Requested",
+          "kind": "property"
+        },
+        {
+          "name": "Subject",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Maps.PdfDocument",
+      "aliases": [],
+      "display": ["PageCount"],
+      "members": [
+        {
+          "name": "AddPage",
+          "kind": "method"
+        },
+        {
+          "name": "PageCount",
+          "kind": "property"
+        },
+        {
+          "name": "Pages",
+          "kind": "property"
+        },
+        {
+          "name": "ToBytes",
+          "kind": "method"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Maps.PdfFont",
+      "aliases": [],
+      "display": [],
+      "members": []
+    },
+    {
+      "name": "Catzc.Base.Maps.PdfNumber",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Format",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Maps.PdfPage",
+      "aliases": [],
+      "display": ["Width", "Height", "OperationCount"],
+      "members": [
+        {
+          "name": "Content",
+          "kind": "property"
+        },
+        {
+          "name": "Escape",
+          "kind": "method"
+        },
+        {
+          "name": "FillRect",
+          "kind": "method"
+        },
+        {
+          "name": "FontName",
+          "kind": "method"
+        },
+        {
+          "name": "Height",
+          "kind": "property"
+        },
+        {
+          "name": "Line",
+          "kind": "method"
+        },
+        {
+          "name": "OperationCount",
+          "kind": "property"
+        },
+        {
+          "name": "SetFillColor",
+          "kind": "method"
+        },
+        {
+          "name": "SetLineWidth",
+          "kind": "method"
+        },
+        {
+          "name": "SetStrokeColor",
+          "kind": "method"
+        },
+        {
+          "name": "StrokeRect",
+          "kind": "method"
+        },
+        {
+          "name": "Text",
+          "kind": "method"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "Width",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Maps.PlaceRows",
+      "aliases": [],
+      "display": ["Rows", "Counters"],
+      "members": [
+        {
+          "name": "Counters",
+          "kind": "property"
+        },
+        {
+          "name": "Form",
+          "kind": "method"
+        },
+        {
+          "name": "From",
+          "kind": "method"
+        },
+        {
+          "name": "IsNormal",
+          "kind": "method"
+        },
+        {
+          "name": "Rows",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Maps.SquarifiedTreemap",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Layout",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Maps.TreemapRect",
+      "aliases": [],
+      "display": ["Key", "Weight", "X", "Y", "Width", "Height"],
+      "members": [
+        {
+          "name": "Area",
+          "kind": "property"
+        },
+        {
+          "name": "Height",
+          "kind": "property"
+        },
+        {
+          "name": "Key",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "Weight",
+          "kind": "property"
+        },
+        {
+          "name": "Width",
+          "kind": "property"
+        },
+        {
+          "name": "X",
+          "kind": "property"
+        },
+        {
+          "name": "Y",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Maps.ValueChainCell",
+      "aliases": [],
+      "display": ["Stack", "Concern", "AdrCount"],
+      "members": [
+        {
+          "name": "AdrCount",
+          "kind": "property"
+        },
+        {
+          "name": "Adrs",
+          "kind": "property"
+        },
+        {
+          "name": "Concern",
+          "kind": "property"
+        },
+        {
+          "name": "Stack",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Maps.ValueChainHighlight",
+      "aliases": [],
+      "display": ["Requested", "Cells"],
+      "members": [
+        {
+          "name": "Cells",
+          "kind": "property"
+        },
+        {
+          "name": "ForAdr",
+          "kind": "method"
+        },
+        {
+          "name": "ReasonsOf",
+          "kind": "method"
+        },
+        {
+          "name": "Reasons",
+          "kind": "property"
+        },
+        {
+          "name": "Requested",
+          "kind": "property"
+        },
+        {
+          "name": "ToJson",
+          "kind": "method"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Maps.ValueChainMap",
+      "aliases": [],
+      "display": ["Stacks", "Concerns", "AdrCount"],
+      "members": [
+        {
+          "name": "AdrCount",
+          "kind": "property"
+        },
+        {
+          "name": "Adrs",
+          "kind": "property"
+        },
+        {
+          "name": "Build",
+          "kind": "method"
+        },
+        {
+          "name": "CellsOf",
+          "kind": "method"
+        },
+        {
+          "name": "Cells",
+          "kind": "property"
+        },
+        {
+          "name": "Cell",
+          "kind": "method"
+        },
+        {
+          "name": "Concerns",
+          "kind": "property"
+        },
+        {
+          "name": "RuleSetOf",
+          "kind": "method"
+        },
+        {
+          "name": "Stacks",
+          "kind": "property"
+        },
+        {
+          "name": "Strays",
+          "kind": "property"
+        },
+        {
+          "name": "ToJson",
+          "kind": "method"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "Unplaced",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Maps.ValueChainReason",
+      "aliases": [],
+      "display": ["Adr", "Stack", "Concern", "Override"],
+      "members": [
+        {
+          "name": "Adr",
+          "kind": "property"
+        },
+        {
+          "name": "Concerns",
+          "kind": "property"
+        },
+        {
+          "name": "Concern",
+          "kind": "property"
+        },
+        {
+          "name": "DomainConcerns",
+          "kind": "property"
+        },
+        {
+          "name": "Domain",
+          "kind": "property"
+        },
+        {
+          "name": "Override",
+          "kind": "property"
+        },
+        {
+          "name": "Requested",
+          "kind": "property"
+        },
+        {
+          "name": "Stack",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Maps.WinAnsi",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "CodeOf",
+          "kind": "method"
+        },
+        {
+          "name": "IndexOfUnsupported",
+          "kind": "method"
+        },
+        {
+          "name": "IsEncodable",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Maps.WorldMap",
+      "aliases": [],
+      "display": ["Tracks", "FileLanguages", "FileCount"],
+      "members": [
+        {
+          "name": "AdrIndex",
+          "kind": "property"
+        },
+        {
+          "name": "Cells",
+          "kind": "property"
+        },
+        {
+          "name": "Cell",
+          "kind": "method"
+        },
+        {
+          "name": "FileCount",
+          "kind": "property"
+        },
+        {
+          "name": "FileLanguages",
+          "kind": "property"
+        },
+        {
+          "name": "Placements",
+          "kind": "property"
+        },
+        {
+          "name": "Placement",
+          "kind": "method"
+        },
+        {
+          "name": "StackViolations",
+          "kind": "property"
+        },
+        {
+          "name": "ToJson",
+          "kind": "method"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "Tracks",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Maps.WorldMapBuilder",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Build",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Maps.WorldMapGridLayout",
+      "aliases": [],
+      "display": ["Rows", "Columns", "CellWidth", "CellHeight"],
+      "members": [
+        {
+          "name": "Bottom",
+          "kind": "property"
+        },
+        {
+          "name": "CellBottom",
+          "kind": "method"
+        },
+        {
+          "name": "CellHeight",
+          "kind": "property"
+        },
+        {
+          "name": "CellLeft",
+          "kind": "method"
+        },
+        {
+          "name": "CellWidth",
+          "kind": "property"
+        },
+        {
+          "name": "ColumnAxisHeight",
+          "kind": "property"
+        },
+        {
+          "name": "ColumnHeaderHeight",
+          "kind": "property"
+        },
+        {
+          "name": "ColumnNameHeight",
+          "kind": "property"
+        },
+        {
+          "name": "Columns",
+          "kind": "property"
+        },
+        {
+          "name": "Left",
+          "kind": "property"
+        },
+        {
+          "name": "LegendBottom",
+          "kind": "property"
+        },
+        {
+          "name": "PageHeight",
+          "kind": "property"
+        },
+        {
+          "name": "PageWidth",
+          "kind": "property"
+        },
+        {
+          "name": "Right",
+          "kind": "property"
+        },
+        {
+          "name": "RowHeaderWidth",
+          "kind": "property"
+        },
+        {
+          "name": "Rows",
+          "kind": "property"
+        },
+        {
+          "name": "TitleBaseline",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "Top",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Maps.WorldMapHighlight",
+      "aliases": [],
+      "display": ["Kind", "Requested", "Cells"],
+      "members": [
+        {
+          "name": "Cells",
+          "kind": "property"
+        },
+        {
+          "name": "ForAdr",
+          "kind": "method"
+        },
+        {
+          "name": "ForPaths",
+          "kind": "method"
+        },
+        {
+          "name": "Kind",
+          "kind": "property"
+        },
+        {
+          "name": "Requested",
+          "kind": "property"
+        },
+        {
+          "name": "ToJson",
+          "kind": "method"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Maps.WorldMapPdf",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "AddGridPage",
+          "kind": "method"
+        },
+        {
+          "name": "AddTreePage",
+          "kind": "method"
+        },
+        {
+          "name": "ColumnLabel",
+          "kind": "method"
+        },
+        {
+          "name": "FitLines",
+          "kind": "method"
+        },
+        {
+          "name": "Fit",
+          "kind": "method"
+        },
+        {
+          "name": "Mix",
+          "kind": "method"
+        },
+        {
+          "name": "Render",
+          "kind": "method"
+        },
+        {
+          "name": "RowLabel",
+          "kind": "method"
+        },
+        {
+          "name": "ShadeOf",
+          "kind": "method"
+        },
+        {
+          "name": "Truncate",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Maps.WorldMapPdfDrawing",
+      "aliases": [],
+      "display": [],
+      "members": []
+    }
+  ]
+}

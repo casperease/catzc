@@ -18,6 +18,13 @@ public sealed class ContractLayout
 
     public const string ProvidedRoot = "catzc";
 
+    // A module group's generated types surface and the one schema every group's surface validates against, in the
+    // contracts tooling's group; the bootstrap writer runs before this type loads and spells the surface name once in
+    // Get-TypesContractPath, which a test pins to this constant.
+    public const string TypesSurfaceName = "types.json";
+
+    public const string TypesSchemaName = "types.schema.json";
+
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
     private readonly string[] pruned;

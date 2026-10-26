@@ -1,0 +1,53 @@
+{
+  "types": [
+    {
+      "name": "Catzc.Tooling.Provisioning.ToolStatus",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Action",
+          "kind": "property"
+        },
+        {
+          "name": "Installed",
+          "kind": "property"
+        },
+        {
+          "name": "Location",
+          "kind": "property"
+        },
+        {
+          "name": "Locked",
+          "kind": "property"
+        },
+        {
+          "name": "Manager",
+          "kind": "property"
+        },
+        {
+          "name": "Scope",
+          "kind": "property"
+        },
+        {
+          "name": "Status",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "Tool",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Tooling.Provisioning.ToolStatusKind",
+      "aliases": [],
+      "display": [],
+      "members": []
+    }
+  ]
+}

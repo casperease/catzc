@@ -1,0 +1,1444 @@
+{
+  "types": [
+    {
+      "name": "Catzc.Base.QualityGates.AnalyzerDrsMapConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "RuleFiles",
+          "kind": "method"
+        },
+        {
+          "name": "SettingsPath",
+          "kind": "method"
+        },
+        {
+          "name": "analyzers",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.QualityGates.CodeLinkRewriter",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Rewrite",
+          "kind": "method"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.QualityGates.CommentBlock",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "CodeSpan",
+          "kind": "method"
+        },
+        {
+          "name": "EndLine",
+          "kind": "property"
+        },
+        {
+          "name": "Indent",
+          "kind": "property"
+        },
+        {
+          "name": "Kind",
+          "kind": "property"
+        },
+        {
+          "name": "LineCount",
+          "kind": "property"
+        },
+        {
+          "name": "Lines",
+          "kind": "property"
+        },
+        {
+          "name": "Marker",
+          "kind": "property"
+        },
+        {
+          "name": "ProseLineCount",
+          "kind": "property"
+        },
+        {
+          "name": "StartLine",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.QualityGates.CommentBlockKind",
+      "aliases": [],
+      "display": [],
+      "members": []
+    },
+    {
+      "name": "Catzc.Base.QualityGates.CommentEngine",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Export",
+          "kind": "method"
+        },
+        {
+          "name": "FindBlocks",
+          "kind": "method"
+        },
+        {
+          "name": "FreshPage",
+          "kind": "method"
+        },
+        {
+          "name": "IgnoredWords",
+          "kind": "method"
+        },
+        {
+          "name": "Orphans",
+          "kind": "method"
+        },
+        {
+          "name": "View",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.QualityGates.CommentFileResult",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Changed",
+          "kind": "property"
+        },
+        {
+          "name": "File",
+          "kind": "property"
+        },
+        {
+          "name": "MovedCount",
+          "kind": "property"
+        },
+        {
+          "name": "Moved",
+          "kind": "property"
+        },
+        {
+          "name": "PageText",
+          "kind": "property"
+        },
+        {
+          "name": "Page",
+          "kind": "property"
+        },
+        {
+          "name": "Text",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.QualityGates.CommentLexer",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Comments",
+          "kind": "method"
+        },
+        {
+          "name": "ExtensionOf",
+          "kind": "method"
+        },
+        {
+          "name": "IsCodeExtension",
+          "kind": "method"
+        },
+        {
+          "name": "IsPowerShell",
+          "kind": "method"
+        },
+        {
+          "name": "LineMarker",
+          "kind": "method"
+        },
+        {
+          "name": "PowerShellStrings",
+          "kind": "method"
+        },
+        {
+          "name": "Strings",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.QualityGates.CommentPageText",
+      "aliases": [],
+      "display": [],
+      "members": []
+    },
+    {
+      "name": "Catzc.Base.QualityGates.CommentsConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "IsExcluded",
+          "kind": "method"
+        },
+        {
+          "name": "IsKeptRun",
+          "kind": "method"
+        },
+        {
+          "name": "IsKept",
+          "kind": "method"
+        },
+        {
+          "name": "KeepFor",
+          "kind": "method"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "exclude",
+          "kind": "property"
+        },
+        {
+          "name": "keep_run",
+          "kind": "property"
+        },
+        {
+          "name": "keep",
+          "kind": "property"
+        },
+        {
+          "name": "languages",
+          "kind": "property"
+        },
+        {
+          "name": "min_lines",
+          "kind": "property"
+        },
+        {
+          "name": "view",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.QualityGates.DocumentLinks",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Of",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.QualityGates.EditReminder",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Matches",
+          "kind": "method"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "paths",
+          "kind": "property"
+        },
+        {
+          "name": "say",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.QualityGates.EditRemindersConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "FindConfig",
+          "kind": "method"
+        },
+        {
+          "name": "For",
+          "kind": "method"
+        },
+        {
+          "name": "HookOutput",
+          "kind": "method"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "reminders",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.QualityGates.EngineSetCheck",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "FindCSharpLists",
+          "kind": "method"
+        },
+        {
+          "name": "FindProse",
+          "kind": "method"
+        },
+        {
+          "name": "count_phrases",
+          "kind": "property"
+        },
+        {
+          "name": "name_phrases",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.QualityGates.FileCarrierResolver",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "For",
+          "kind": "method"
+        },
+        {
+          "name": "IsExcluded",
+          "kind": "method"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.QualityGates.FileHeadPolicy",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "For",
+          "kind": "method"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "classes",
+          "kind": "property"
+        },
+        {
+          "name": "default",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.QualityGates.FileMetaConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "EngineInputs",
+          "kind": "method"
+        },
+        {
+          "name": "GatherFor",
+          "kind": "method"
+        },
+        {
+          "name": "ImprintKeys",
+          "kind": "method"
+        },
+        {
+          "name": "Imprint",
+          "kind": "method"
+        },
+        {
+          "name": "PolicyFor",
+          "kind": "method"
+        },
+        {
+          "name": "SelectsAny",
+          "kind": "method"
+        },
+        {
+          "name": "Selects",
+          "kind": "method"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "head_policy",
+          "kind": "property"
+        },
+        {
+          "name": "header",
+          "kind": "property"
+        },
+        {
+          "name": "kinds",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.QualityGates.FileMetaDirection",
+      "aliases": [],
+      "display": [],
+      "members": []
+    },
+    {
+      "name": "Catzc.Base.QualityGates.FileMetaKind",
+      "aliases": [],
+      "display": ["id", "direction", "keys", "target"],
+      "members": [
+        {
+          "name": "ClassSetting",
+          "kind": "method"
+        },
+        {
+          "name": "ConventionName",
+          "kind": "method"
+        },
+        {
+          "name": "InClasses",
+          "kind": "method"
+        },
+        {
+          "name": "Selects",
+          "kind": "method"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "direction",
+          "kind": "property"
+        },
+        {
+          "name": "id",
+          "kind": "property"
+        },
+        {
+          "name": "keys",
+          "kind": "property"
+        },
+        {
+          "name": "processor",
+          "kind": "property"
+        },
+        {
+          "name": "registry",
+          "kind": "property"
+        },
+        {
+          "name": "select",
+          "kind": "property"
+        },
+        {
+          "name": "settings",
+          "kind": "property"
+        },
+        {
+          "name": "target",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.QualityGates.FileSelector",
+      "aliases": [],
+      "display": ["classes", "languages"],
+      "members": [
+        {
+          "name": "Any",
+          "kind": "property"
+        },
+        {
+          "name": "ClassMatches",
+          "kind": "method"
+        },
+        {
+          "name": "Parse",
+          "kind": "method"
+        },
+        {
+          "name": "Selects",
+          "kind": "method"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "classes",
+          "kind": "property"
+        },
+        {
+          "name": "languages",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.QualityGates.FormatResult",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "ChangedFiles",
+          "kind": "property"
+        },
+        {
+          "name": "CheckedFiles",
+          "kind": "property"
+        },
+        {
+          "name": "DryRun",
+          "kind": "property"
+        },
+        {
+          "name": "Engine",
+          "kind": "property"
+        },
+        {
+          "name": "Language",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "Unfixable",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.QualityGates.FunctionHelp",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "FromConfig",
+          "kind": "method"
+        },
+        {
+          "name": "Markdown",
+          "kind": "method"
+        },
+        {
+          "name": "Parse",
+          "kind": "method"
+        },
+        {
+          "name": "ToSection",
+          "kind": "method"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "WithSection",
+          "kind": "method"
+        },
+        {
+          "name": "description",
+          "kind": "property"
+        },
+        {
+          "name": "examples",
+          "kind": "property"
+        },
+        {
+          "name": "findings",
+          "kind": "property"
+        },
+        {
+          "name": "inputs",
+          "kind": "property"
+        },
+        {
+          "name": "notes",
+          "kind": "property"
+        },
+        {
+          "name": "outputs",
+          "kind": "property"
+        },
+        {
+          "name": "parameters",
+          "kind": "property"
+        },
+        {
+          "name": "present",
+          "kind": "property"
+        },
+        {
+          "name": "synopsis",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.QualityGates.GuidsConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "denied",
+          "kind": "property"
+        },
+        {
+          "name": "guids",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.QualityGates.GzipText",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Compress",
+          "kind": "method"
+        },
+        {
+          "name": "Decompress",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.QualityGates.HeadPolicy",
+      "aliases": [],
+      "display": [],
+      "members": []
+    },
+    {
+      "name": "Catzc.Base.QualityGates.IdentityTokenRule",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "config",
+          "kind": "property"
+        },
+        {
+          "name": "kind",
+          "kind": "property"
+        },
+        {
+          "name": "match",
+          "kind": "property"
+        },
+        {
+          "name": "path",
+          "kind": "property"
+        },
+        {
+          "name": "skip_when",
+          "kind": "property"
+        },
+        {
+          "name": "suggest",
+          "kind": "property"
+        },
+        {
+          "name": "take",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.QualityGates.IdentityTokensConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "tokens",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.QualityGates.LinkDirectionEngine",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Judge",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.QualityGates.LinkDirectionFinding",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Because",
+          "kind": "property"
+        },
+        {
+          "name": "File",
+          "kind": "property"
+        },
+        {
+          "name": "FromClass",
+          "kind": "property"
+        },
+        {
+          "name": "Line",
+          "kind": "property"
+        },
+        {
+          "name": "Message",
+          "kind": "property"
+        },
+        {
+          "name": "Relation",
+          "kind": "property"
+        },
+        {
+          "name": "Row",
+          "kind": "property"
+        },
+        {
+          "name": "ToClass",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.QualityGates.LinkDirectionRow",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Matches",
+          "kind": "method"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "because",
+          "kind": "property"
+        },
+        {
+          "name": "from",
+          "kind": "property"
+        },
+        {
+          "name": "relations",
+          "kind": "property"
+        },
+        {
+          "name": "to",
+          "kind": "property"
+        },
+        {
+          "name": "verdict",
+          "kind": "property"
+        },
+        {
+          "name": "when",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.QualityGates.LinkDirectionsConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "exempt",
+          "kind": "property"
+        },
+        {
+          "name": "rows",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.QualityGates.LinkEdge",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Code",
+          "kind": "property"
+        },
+        {
+          "name": "Column",
+          "kind": "property"
+        },
+        {
+          "name": "File",
+          "kind": "property"
+        },
+        {
+          "name": "Line",
+          "kind": "property"
+        },
+        {
+          "name": "Relation",
+          "kind": "property"
+        },
+        {
+          "name": "Target",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.QualityGates.LinkEndpoint",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Aspect",
+          "kind": "property"
+        },
+        {
+          "name": "Class",
+          "kind": "property"
+        },
+        {
+          "name": "Module",
+          "kind": "property"
+        },
+        {
+          "name": "Path",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "TrackType",
+          "kind": "property"
+        },
+        {
+          "name": "Track",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.QualityGates.LinkEngine",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Run",
+          "kind": "method"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.QualityGates.LinkEngineResult",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Changed",
+          "kind": "property"
+        },
+        {
+          "name": "Edges",
+          "kind": "property"
+        },
+        {
+          "name": "FileCount",
+          "kind": "property"
+        },
+        {
+          "name": "Findings",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.QualityGates.LinkFinding",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Column",
+          "kind": "property"
+        },
+        {
+          "name": "File",
+          "kind": "property"
+        },
+        {
+          "name": "Fix",
+          "kind": "property"
+        },
+        {
+          "name": "IsFixable",
+          "kind": "property"
+        },
+        {
+          "name": "IsViolation",
+          "kind": "property"
+        },
+        {
+          "name": "Kind",
+          "kind": "property"
+        },
+        {
+          "name": "Line",
+          "kind": "property"
+        },
+        {
+          "name": "Message",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "Type",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.QualityGates.LinkFindingType",
+      "aliases": [],
+      "display": [],
+      "members": []
+    },
+    {
+      "name": "Catzc.Base.QualityGates.LinkKind",
+      "aliases": [],
+      "display": [],
+      "members": []
+    },
+    {
+      "name": "Catzc.Base.QualityGates.LinkRelation",
+      "aliases": [],
+      "display": [],
+      "members": []
+    },
+    {
+      "name": "Catzc.Base.QualityGates.LinksConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "default_line_limit",
+          "kind": "property"
+        },
+        {
+          "name": "line_limit",
+          "kind": "property"
+        },
+        {
+          "name": "string_citations",
+          "kind": "property"
+        },
+        {
+          "name": "wrap",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.QualityGates.LinkSelector",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Matches",
+          "kind": "method"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "aspects",
+          "kind": "property"
+        },
+        {
+          "name": "classes",
+          "kind": "property"
+        },
+        {
+          "name": "modules",
+          "kind": "property"
+        },
+        {
+          "name": "track_types",
+          "kind": "property"
+        },
+        {
+          "name": "tracks",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.QualityGates.LinkVerdict",
+      "aliases": [],
+      "display": [],
+      "members": []
+    },
+    {
+      "name": "Catzc.Base.QualityGates.LinkWrap",
+      "aliases": [],
+      "display": [],
+      "members": []
+    },
+    {
+      "name": "Catzc.Base.QualityGates.ManagedGuidEntry",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "description",
+          "kind": "property"
+        },
+        {
+          "name": "guid",
+          "kind": "property"
+        },
+        {
+          "name": "sentence",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.QualityGates.MarkdownLinkScanner",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Destinations",
+          "kind": "method"
+        },
+        {
+          "name": "Scan",
+          "kind": "method"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.QualityGates.MarkdownlintConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "batch_size",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.QualityGates.ParameterConsistencyConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "IsExempt",
+          "kind": "method"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "exempt",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.QualityGates.PesterRunner",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Results",
+          "kind": "property"
+        },
+        {
+          "name": "Run",
+          "kind": "method"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.QualityGates.PlansConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Accepts",
+          "kind": "method"
+        },
+        {
+          "name": "PlanFiles",
+          "kind": "method"
+        },
+        {
+          "name": "folder",
+          "kind": "property"
+        },
+        {
+          "name": "head_allowed",
+          "kind": "property"
+        },
+        {
+          "name": "head_required",
+          "kind": "property"
+        },
+        {
+          "name": "master_file",
+          "kind": "property"
+        },
+        {
+          "name": "master_sections",
+          "kind": "property"
+        },
+        {
+          "name": "names",
+          "kind": "property"
+        },
+        {
+          "name": "ranks",
+          "kind": "property"
+        },
+        {
+          "name": "sections_carried",
+          "kind": "property"
+        },
+        {
+          "name": "sections_required",
+          "kind": "property"
+        },
+        {
+          "name": "statuses",
+          "kind": "property"
+        },
+        {
+          "name": "tasks_max",
+          "kind": "property"
+        },
+        {
+          "name": "value_file",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.QualityGates.SourceCheck",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "IsExempt",
+          "kind": "method"
+        },
+        {
+          "name": "IsReport",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "exempt",
+          "kind": "property"
+        },
+        {
+          "name": "mode",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.QualityGates.SourceConventionsConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "engine_set",
+          "kind": "property"
+        },
+        {
+          "name": "neutral_codes",
+          "kind": "property"
+        },
+        {
+          "name": "track_root_literal",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.QualityGates.SpellingOracle",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "AssetsFolder",
+          "kind": "method"
+        },
+        {
+          "name": "CoinedFragments",
+          "kind": "method"
+        },
+        {
+          "name": "DictionaryPath",
+          "kind": "method"
+        },
+        {
+          "name": "DictionaryStampPath",
+          "kind": "method"
+        },
+        {
+          "name": "Initialize",
+          "kind": "method"
+        },
+        {
+          "name": "Inputs",
+          "kind": "method"
+        },
+        {
+          "name": "IsKnown",
+          "kind": "method"
+        },
+        {
+          "name": "IsLoaded",
+          "kind": "property"
+        },
+        {
+          "name": "Tokenize",
+          "kind": "method"
+        },
+        {
+          "name": "WordCount",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.QualityGates.TerminologyConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "DefiningFiles",
+          "kind": "method"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "categories",
+          "kind": "property"
+        },
+        {
+          "name": "categoryScopes",
+          "kind": "property"
+        },
+        {
+          "name": "terms",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.QualityGates.TerminologyTerm",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "category",
+          "kind": "property"
+        },
+        {
+          "name": "expands_to",
+          "kind": "property"
+        },
+        {
+          "name": "meaning",
+          "kind": "property"
+        },
+        {
+          "name": "term",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.QualityGates.TestPolicyConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Allows",
+          "kind": "method"
+        },
+        {
+          "name": "IsApart",
+          "kind": "method"
+        },
+        {
+          "name": "MutationFor",
+          "kind": "method"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "duration_decay",
+          "kind": "property"
+        },
+        {
+          "name": "greedy_apart",
+          "kind": "property"
+        },
+        {
+          "name": "greedy_group_size",
+          "kind": "property"
+        },
+        {
+          "name": "l4_mutation",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.QualityGates.WorkerParentWatch",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "CurrentStartTicks",
+          "kind": "method"
+        },
+        {
+          "name": "IsAlive",
+          "kind": "method"
+        },
+        {
+          "name": "Start",
+          "kind": "method"
+        }
+      ]
+    }
+  ]
+}

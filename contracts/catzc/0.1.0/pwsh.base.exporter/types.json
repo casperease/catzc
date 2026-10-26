@@ -1,0 +1,101 @@
+{
+  "types": [
+    {
+      "name": "Catzc.Base.Exporter.ExporterBundle",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "max_bytes",
+          "kind": "property"
+        },
+        {
+          "name": "max_files",
+          "kind": "property"
+        },
+        {
+          "name": "name",
+          "kind": "property"
+        },
+        {
+          "name": "profile",
+          "kind": "property"
+        },
+        {
+          "name": "vendor_policy",
+          "kind": "property"
+        },
+        {
+          "name": "version",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Exporter.ExporterConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "bundles",
+          "kind": "property"
+        },
+        {
+          "name": "default_bundle",
+          "kind": "property"
+        },
+        {
+          "name": "direct_install_version",
+          "kind": "property"
+        },
+        {
+          "name": "full_internal_files",
+          "kind": "property"
+        },
+        {
+          "name": "module_guid",
+          "kind": "property"
+        },
+        {
+          "name": "package",
+          "kind": "property"
+        },
+        {
+          "name": "runtime_internal_files",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Exporter.ExporterPackage",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "author",
+          "kind": "property"
+        },
+        {
+          "name": "company",
+          "kind": "property"
+        },
+        {
+          "name": "description",
+          "kind": "property"
+        },
+        {
+          "name": "license_uri",
+          "kind": "property"
+        },
+        {
+          "name": "project_uri",
+          "kind": "property"
+        },
+        {
+          "name": "tags",
+          "kind": "property"
+        }
+      ]
+    }
+  ]
+}

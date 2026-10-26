@@ -18,6 +18,29 @@ Describe 'Shipped template parameter model' -Tag 'L2', 'integrity', 'greedy', 'A
             Assert-AzCliBicep
             Mock Assert-AzCliBicep { } -ModuleName Catzc.Azure.Templates
         }
+
+        # The same compiler without az's Python start per call; absent or off-version, the real Invoke-AzCli runs.
+        $bicep = Resolve-ToolExecutable bicep
+        if ($bicep.Found -and $bicep.VersionOk) {
+            $script:bicepPath = $bicep.Path
+            Mock Invoke-AzCli -ModuleName Catzc.Azure.Templates -ParameterFilter { $Arguments -like 'bicep build*' } {
+                # az takes the input as --file; the bicep binary takes it positionally.
+                $tokens = @([regex]::Matches($Arguments.Substring('bicep '.Length), '"([^"]*)"|(\S+)') |
+                        ForEach-Object {
+                            if ($_.Groups[1].Success) {
+                                $_.Groups[1].Value
+                            }
+                            else {
+                                $_.Groups[2].Value
+                            }
+                        } |
+                        Where-Object { $_ -ne '--file' })
+                $output = & $script:bicepPath @tokens 2>&1
+                if ($LASTEXITCODE -ne 0) {
+                    throw "bicep $Arguments failed with exit code ${LASTEXITCODE}:`n$($output -join "`n")"
+                }
+            }
+        }
     }
 
     It 'every rendered parameters file of template <_> satisfies its compiled parameter model' -ForEach $script:templateNames {

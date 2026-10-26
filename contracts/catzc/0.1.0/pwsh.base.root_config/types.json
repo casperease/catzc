@@ -1,0 +1,62 @@
+{
+  "types": [
+    {
+      "name": "Catzc.Base.RootConfig.RootConfigFile",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "carrier",
+          "kind": "property"
+        },
+        {
+          "name": "committed",
+          "kind": "property"
+        },
+        {
+          "name": "generator",
+          "kind": "property"
+        },
+        {
+          "name": "optIn",
+          "kind": "property"
+        },
+        {
+          "name": "sources",
+          "kind": "property"
+        },
+        {
+          "name": "source",
+          "kind": "property"
+        },
+        {
+          "name": "target",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.RootConfig.RootConfigFiles",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "MarkdownlintConfigPath",
+          "kind": "method"
+        },
+        {
+          "name": "SpellingConfigPath",
+          "kind": "method"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "files",
+          "kind": "property"
+        }
+      ]
+    }
+  ]
+}

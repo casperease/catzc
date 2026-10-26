@@ -5,7 +5,7 @@
 The living style kit for the `drawio-diagram-waves` agent and every maker it launches. The lead updates it whenever a review teaches
 something.
 
-Tool: `uv run -q --with pillow python python/diagrams/drawio_png.py <name>.xml <name>.drawio.png`. It embeds the model, draws a
+Tool: `uv run -q --project python python -m catzc.diagrams.drawio_png <name>.xml <name>.drawio.png`. It embeds the model, draws a
 preview raster, and asserts the round-trip. The XML root is
 `<mxGraphModel …><root><mxCell id="0"/><mxCell id="1" parent="0"/>…</root></mxGraphModel>`.
 

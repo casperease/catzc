@@ -3,16 +3,9 @@
 usage (repo root, background): timeout 120 uv run --no-sync --project python python -m pytest python/diagrams/tests/test_normal_form.py
 """
 
-import sys
-from pathlib import Path
 
 import pytest
-
-sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-
-import declaration
-import declaration_action_content
-import normal_form
+from catzc.diagrams import declaration, declaration_action_content, normal_form
 
 
 def test_the_configured_case_is_read_from_the_languages_config():

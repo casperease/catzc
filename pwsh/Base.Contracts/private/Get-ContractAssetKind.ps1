@@ -16,6 +16,9 @@ function Get-ContractAssetKind {
         [switch] $IsEmpty
     )
 
+    if ($Name -ceq [Catzc.Base.Contracts.ContractLayout]::TypesSurfaceName) {
+        return [Catzc.Base.Contracts.ContractAssetKind]::Types
+    }
     if ($Name -cmatch '^.+\.command\.yml$') {
         return [Catzc.Base.Contracts.ContractAssetKind]::Command
     }

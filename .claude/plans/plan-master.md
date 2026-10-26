@@ -52,8 +52,6 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
 - vscode-extensions -> plan-vscode-extensions.md: landed; blocked_on the user's editor check (task-user-runs-and-commits item 23)
 - repo-filters -> plan-repo-filters.md: the filters landed (sets from the model, union of lit lamps, coverage asserted, docs and out lamps);
   one step left: the user's look at the lamps in VS Code (the `pipelines` and `infrastructure` lamps landed)
-- namespace-test-runners -> plan-namespace-test-runners.md: the runners landed; one step left, the folder-to-full-name lookup held once in
-  Base.Repository
 - track-model -> plan-track-model.md: tracks as members with generated and committed facts, catch-up vendor tracks and `out` for the root,
   globsets derived from tracks, a DDR-VENDOR for the vendor umbrella, normal-form track names, filter lamps per aspect plus a language
   field, minimaps and lamps out of the ADRs; eighteen steps, the first waiting on the user's example names
@@ -61,8 +59,6 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
   (`docs/references/<language>/<module>/<aspect>/<file>.md`), no `docs:` links; a user-run git mv, then the repair
 - module-types-contracts -> plan-module-types-contracts.md: each module group publishes its compiled type surface as `types.json` beside its
   command contracts, replacing the global sample; command contracts' types checked against it
-- debt-session-2f -> plan-debt-session-2f.md: the diagram kit derives contract schema paths, a lock-only staged burst, and one catzc-verify
-  line for manual-test-plan checks
 - python-namespace-package -> plan-python-namespace-package.md: the diagram kit becomes a package that code imports as `catzc.diagrams`
   while its folder stays short; four steps, after module-namespace leaves the tree green
 - idiomatic-names -> plan-idiomatic-names.md: one step left, the naming gate wired into languages.yml once the user stages the folder moves
@@ -79,14 +75,13 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
 - debt-tier-tripwire -> plan-debt-tier-tripwire.md: 165 L0/L1 tests launch git and fail only when a tier runs alone; seams mocked, the
   tripwire armed per container; blocked_on the user's case-only staging (task-user-runs-and-commits item 18), then the
   ConvertTo-NormalName.Tests.ps1 L1 rerun
-- debt-new-file-checklist -> plan-debt-new-file-checklist.md: what a new type, asset or staged file needs before its gates pass; three open
-  questions
 - diagram-review -> plan-diagram-review.md: the diagrams reviewed with the user one named slide at a time (read, one question in context,
   one plan step from the written answer, a redraw after each); the user names the slides
 - debt-agent-traffic -> plan-debt-agent-traffic.md: fewer messages and tool calls between the orchestrator and its workers (a run lock,
-  one-line reports, pre-approved rule edits, derived step counts, an automatic log); four steps
+  one-line reports, pre-approved rule edits, derived step counts, an automatic log); blocked_on the user (task-user-runs-and-commits
+  item 17)
 - debt-full-run-failures -> plan-debt-full-run-failures.md: the last full run's failing files rerun one at a time, since a red test blocks
-  the user's full run; one step (the rename)
+  the user's full run; two steps (the rename)
 - debt-test-speed -> plan-debt-test-speed.md: the slowest Pester files measured one at a time in the memory queue, and the import every test
   run pays; two steps
 - vscode-session-binding -> plan-vscode-session-binding.md: the one-instance-per-session decision observed in VS Code: the hang proven gone

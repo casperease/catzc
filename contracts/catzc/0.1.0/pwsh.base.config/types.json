@@ -1,0 +1,58 @@
+{
+  "types": [
+    {
+      "name": "Catzc.Base.Config.ConfigDefaultDifference",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Compare",
+          "kind": "method"
+        },
+        {
+          "name": "Pascal",
+          "kind": "method"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "declared",
+          "kind": "property"
+        },
+        {
+          "name": "key",
+          "kind": "property"
+        },
+        {
+          "name": "shipped",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Config.ConfigsConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "configs",
+          "kind": "property"
+        },
+        {
+          "name": "differs",
+          "kind": "property"
+        },
+        {
+          "name": "sealedConfigs",
+          "kind": "property"
+        }
+      ]
+    }
+  ]
+}

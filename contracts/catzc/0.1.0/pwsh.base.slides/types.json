@@ -1,0 +1,344 @@
+{
+  "types": [
+    {
+      "name": "Catzc.Base.Slides.DrawioKit",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Config",
+          "kind": "property"
+        },
+        {
+          "name": "DeclarationModule",
+          "kind": "property"
+        },
+        {
+          "name": "Declaration",
+          "kind": "property"
+        },
+        {
+          "name": "Folder",
+          "kind": "property"
+        },
+        {
+          "name": "Manifest",
+          "kind": "property"
+        },
+        {
+          "name": "RendererModule",
+          "kind": "property"
+        },
+        {
+          "name": "Renderer",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Slides.SlideFault",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Field",
+          "kind": "property"
+        },
+        {
+          "name": "Message",
+          "kind": "property"
+        },
+        {
+          "name": "Path",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Slides.SlideFieldContent",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "IsList",
+          "kind": "property"
+        },
+        {
+          "name": "IsTable",
+          "kind": "property"
+        },
+        {
+          "name": "ItemCount",
+          "kind": "property"
+        },
+        {
+          "name": "Items",
+          "kind": "property"
+        },
+        {
+          "name": "Name",
+          "kind": "property"
+        },
+        {
+          "name": "Rows",
+          "kind": "property"
+        },
+        {
+          "name": "Texts",
+          "kind": "method"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "WordCount",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Slides.SlideFieldKind",
+      "aliases": [],
+      "display": [],
+      "members": []
+    },
+    {
+      "name": "Catzc.Base.Slides.SlideFieldSpec",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Kind",
+          "kind": "property"
+        },
+        {
+          "name": "MaxWords",
+          "kind": "property"
+        },
+        {
+          "name": "Max",
+          "kind": "property"
+        },
+        {
+          "name": "Name",
+          "kind": "property"
+        },
+        {
+          "name": "Required",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Slides.SlideItem",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Lead",
+          "kind": "property"
+        },
+        {
+          "name": "Text",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Slides.SlidePattern",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Fields",
+          "kind": "property"
+        },
+        {
+          "name": "Field",
+          "kind": "method"
+        },
+        {
+          "name": "Load",
+          "kind": "method"
+        },
+        {
+          "name": "Name",
+          "kind": "property"
+        },
+        {
+          "name": "Render",
+          "kind": "method"
+        },
+        {
+          "name": "TextOf",
+          "kind": "method"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Slides.SlideRender",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Faults",
+          "kind": "property"
+        },
+        {
+          "name": "Html",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Slides.SlidesConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "drawio_kit",
+          "kind": "property"
+        },
+        {
+          "name": "kit",
+          "kind": "property"
+        },
+        {
+          "name": "name_mentions",
+          "kind": "property"
+        },
+        {
+          "name": "render_parallel",
+          "kind": "property"
+        },
+        {
+          "name": "theme",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Slides.SlidesKit",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Families",
+          "kind": "method"
+        },
+        {
+          "name": "FamilyOf",
+          "kind": "method"
+        },
+        {
+          "name": "ForTheme",
+          "kind": "method"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "Value",
+          "kind": "method"
+        },
+        {
+          "name": "face",
+          "kind": "property"
+        },
+        {
+          "name": "fact",
+          "kind": "property"
+        },
+        {
+          "name": "layout",
+          "kind": "property"
+        },
+        {
+          "name": "render",
+          "kind": "property"
+        },
+        {
+          "name": "scale",
+          "kind": "property"
+        },
+        {
+          "name": "strip",
+          "kind": "property"
+        },
+        {
+          "name": "themes",
+          "kind": "property"
+        },
+        {
+          "name": "token",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Slides.SlideSource",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Errors",
+          "kind": "property"
+        },
+        {
+          "name": "Fields",
+          "kind": "property"
+        },
+        {
+          "name": "Parse",
+          "kind": "method"
+        },
+        {
+          "name": "PlainText",
+          "kind": "method"
+        },
+        {
+          "name": "Title",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "WordCount",
+          "kind": "method"
+        }
+      ]
+    }
+  ]
+}

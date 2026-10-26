@@ -1,0 +1,323 @@
+{
+  "types": [
+    {
+      "name": "Catzc.Base.Reports.CheckMode",
+      "aliases": [],
+      "display": [],
+      "members": []
+    },
+    {
+      "name": "Catzc.Base.Reports.CheckModes",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Parse",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Reports.IsolationRunResult",
+      "aliases": [],
+      "display": ["Isolation", "Total", "Failed", "Sandbox"],
+      "members": [
+        {
+          "name": "Failed",
+          "kind": "property"
+        },
+        {
+          "name": "Isolation",
+          "kind": "property"
+        },
+        {
+          "name": "ModuleProfile",
+          "kind": "property"
+        },
+        {
+          "name": "Modules",
+          "kind": "property"
+        },
+        {
+          "name": "ResultsPath",
+          "kind": "property"
+        },
+        {
+          "name": "Sandbox",
+          "kind": "property"
+        },
+        {
+          "name": "Success",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "Total",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Reports.OutputFile",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "LastWriteUtc",
+          "kind": "property"
+        },
+        {
+          "name": "Path",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Reports.OutputFormat",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "area",
+          "kind": "property"
+        },
+        {
+          "name": "audience",
+          "kind": "property"
+        },
+        {
+          "name": "id",
+          "kind": "property"
+        },
+        {
+          "name": "in_pipeline",
+          "kind": "property"
+        },
+        {
+          "name": "keep",
+          "kind": "property"
+        },
+        {
+          "name": "limits",
+          "kind": "property"
+        },
+        {
+          "name": "max_age",
+          "kind": "property"
+        },
+        {
+          "name": "patterns",
+          "kind": "property"
+        },
+        {
+          "name": "producer",
+          "kind": "property"
+        },
+        {
+          "name": "target",
+          "kind": "property"
+        },
+        {
+          "name": "validator_kind",
+          "kind": "property"
+        },
+        {
+          "name": "validator_parameters",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Reports.OutputFormatsConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "formats",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Reports.OutputPattern",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Matches",
+          "kind": "method"
+        },
+        {
+          "name": "Overlaps",
+          "kind": "method"
+        },
+        {
+          "name": "Parse",
+          "kind": "method"
+        },
+        {
+          "name": "Text",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Reports.OutputRetention",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Plan",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Reports.OutputRetentionPlan",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Remove",
+          "kind": "property"
+        },
+        {
+          "name": "Uncovered",
+          "kind": "property"
+        },
+        {
+          "name": "UnitCount",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Reports.QualityGateResult",
+      "aliases": [],
+      "display": ["Subject", "IssueCount", "ReportPath"],
+      "members": [
+        {
+          "name": "Facts",
+          "kind": "property"
+        },
+        {
+          "name": "IssueCount",
+          "kind": "property"
+        },
+        {
+          "name": "Issues",
+          "kind": "property"
+        },
+        {
+          "name": "ReportPath",
+          "kind": "property"
+        },
+        {
+          "name": "Subject",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Reports.ReportsConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "FolderFor",
+          "kind": "method"
+        },
+        {
+          "name": "ReportFileFor",
+          "kind": "method"
+        },
+        {
+          "name": "folder",
+          "kind": "property"
+        },
+        {
+          "name": "latest_file",
+          "kind": "property"
+        },
+        {
+          "name": "report_file",
+          "kind": "property"
+        },
+        {
+          "name": "stamp_format",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Reports.TestRunResult",
+      "aliases": [],
+      "display": ["Result", "PassedCount", "FailedCount", "DurationSeconds"],
+      "members": [
+        {
+          "name": "DurationSeconds",
+          "kind": "property"
+        },
+        {
+          "name": "ExcludedTests",
+          "kind": "property"
+        },
+        {
+          "name": "FailedCount",
+          "kind": "property"
+        },
+        {
+          "name": "NotRunCount",
+          "kind": "property"
+        },
+        {
+          "name": "PassedCount",
+          "kind": "property"
+        },
+        {
+          "name": "ProtectedModules",
+          "kind": "property"
+        },
+        {
+          "name": "Result",
+          "kind": "property"
+        },
+        {
+          "name": "Rows",
+          "kind": "property"
+        },
+        {
+          "name": "RunDirectory",
+          "kind": "property"
+        },
+        {
+          "name": "Shards",
+          "kind": "property"
+        },
+        {
+          "name": "SkippedCount",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "TotalCount",
+          "kind": "property"
+        }
+      ]
+    }
+  ]
+}

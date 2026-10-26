@@ -1,0 +1,339 @@
+{
+  "types": [
+    {
+      "name": "Catzc.Azure.Templates.BicepArtifacts",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "did_local_build",
+          "kind": "property"
+        },
+        {
+          "name": "folder",
+          "kind": "property"
+        },
+        {
+          "name": "parameters_file",
+          "kind": "property"
+        },
+        {
+          "name": "prepost_module",
+          "kind": "property"
+        },
+        {
+          "name": "template_file",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Azure.Templates.BicepDeploymentContext",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "artifacts",
+          "kind": "property"
+        },
+        {
+          "name": "deployment",
+          "kind": "property"
+        },
+        {
+          "name": "environment",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Azure.Templates.BicepDeploymentPlan",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "mode",
+          "kind": "property"
+        },
+        {
+          "name": "name",
+          "kind": "property"
+        },
+        {
+          "name": "resource_group",
+          "kind": "property"
+        },
+        {
+          "name": "target",
+          "kind": "property"
+        },
+        {
+          "name": "template",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Azure.Templates.BicepParameter",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "AllowedValues",
+          "kind": "property"
+        },
+        {
+          "name": "FromArmDeclaration",
+          "kind": "method"
+        },
+        {
+          "name": "HasDefault",
+          "kind": "property"
+        },
+        {
+          "name": "IsRequired",
+          "kind": "property"
+        },
+        {
+          "name": "IsSecure",
+          "kind": "property"
+        },
+        {
+          "name": "MaxLength",
+          "kind": "property"
+        },
+        {
+          "name": "MaxValue",
+          "kind": "property"
+        },
+        {
+          "name": "MinLength",
+          "kind": "property"
+        },
+        {
+          "name": "MinValue",
+          "kind": "property"
+        },
+        {
+          "name": "Name",
+          "kind": "property"
+        },
+        {
+          "name": "Nullable",
+          "kind": "property"
+        },
+        {
+          "name": "ToComparable",
+          "kind": "method"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "Type",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Azure.Templates.BicepParameterModel",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Parameters",
+          "kind": "property"
+        },
+        {
+          "name": "Parse",
+          "kind": "method"
+        },
+        {
+          "name": "Template",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Azure.Templates.BicepParamWriter",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Write",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Azure.Templates.BicepShortName",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Derive",
+          "kind": "method"
+        },
+        {
+          "name": "IsValid",
+          "kind": "method"
+        },
+        {
+          "name": "Resolve",
+          "kind": "method"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "folder",
+          "kind": "property"
+        },
+        {
+          "name": "overridden",
+          "kind": "property"
+        },
+        {
+          "name": "value",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Azure.Templates.BicepSlot",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "customer",
+          "kind": "property"
+        },
+        {
+          "name": "environment",
+          "kind": "property"
+        },
+        {
+          "name": "file",
+          "kind": "property"
+        },
+        {
+          "name": "format",
+          "kind": "property"
+        },
+        {
+          "name": "name",
+          "kind": "property"
+        },
+        {
+          "name": "slot",
+          "kind": "property"
+        },
+        {
+          "name": "subscription",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Azure.Templates.BicepTemplate",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "bicep_files",
+          "kind": "property"
+        },
+        {
+          "name": "configuration_files",
+          "kind": "property"
+        },
+        {
+          "name": "configuration_folder",
+          "kind": "property"
+        },
+        {
+          "name": "customer_deployment",
+          "kind": "property"
+        },
+        {
+          "name": "customers",
+          "kind": "property"
+        },
+        {
+          "name": "deployment_mode",
+          "kind": "property"
+        },
+        {
+          "name": "deployment_target",
+          "kind": "property"
+        },
+        {
+          "name": "environment_kind",
+          "kind": "property"
+        },
+        {
+          "name": "environments",
+          "kind": "property"
+        },
+        {
+          "name": "folder",
+          "kind": "property"
+        },
+        {
+          "name": "main",
+          "kind": "property"
+        },
+        {
+          "name": "name",
+          "kind": "property"
+        },
+        {
+          "name": "output_folder",
+          "kind": "property"
+        },
+        {
+          "name": "prepost_module",
+          "kind": "property"
+        },
+        {
+          "name": "resources",
+          "kind": "property"
+        },
+        {
+          "name": "short_name",
+          "kind": "property"
+        },
+        {
+          "name": "slots",
+          "kind": "property"
+        },
+        {
+          "name": "subscriptions",
+          "kind": "property"
+        }
+      ]
+    }
+  ]
+}

@@ -53,6 +53,7 @@ BeforeAll {
         "$(Get-CatzcModulesFolder)/.internal/Catzc.Internal.Builder.psm1"                  = '# builder (never ships)'
         "$(Get-CatzcModulesFolder)/.internal/Catzc.Internal.TestKit.psm1"                  = '# testkit (ships under full only)'
         "$(Get-CatzcModulesFolder)/.internal/tests/Get-Loader.Tests.ps1"                   = '# test (never ships)'
+        "$(Get-CatzcModulesFolder)/.internal/assets/Invoke-WidgetBurst.ps1"                = '# dev tool no glob names (never ships)'
         "$(Get-CatzcModulesFolder)/.internal/assets/ErrorView.format.ps1xml"               = '<Configuration />'
         "$(Get-CatzcModulesFolder)/.internal/assets/Wait-CatzcRunLock.ps1"                 = '# run-lock function'
         "$(Get-CatzcModulesFolder)/.internal/assets/bootstrap/Get-ModuleNamespace.ps1"     = '# bootstrap function'

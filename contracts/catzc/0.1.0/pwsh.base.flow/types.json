@@ -1,0 +1,96 @@
+{
+  "types": [
+    {
+      "name": "Catzc.Base.Flow.Rung",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "environment",
+          "kind": "property"
+        },
+        {
+          "name": "gate",
+          "kind": "property"
+        },
+        {
+          "name": "name",
+          "kind": "property"
+        },
+        {
+          "name": "rules",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Flow.RungsConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "GatedBy",
+          "kind": "method"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "rungs",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Flow.TruthStore",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "kind",
+          "kind": "property"
+        },
+        {
+          "name": "name",
+          "kind": "property"
+        },
+        {
+          "name": "owner",
+          "kind": "property"
+        },
+        {
+          "name": "projections",
+          "kind": "property"
+        },
+        {
+          "name": "url",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Flow.TruthStoresConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "stores",
+          "kind": "property"
+        }
+      ]
+    }
+  ]
+}

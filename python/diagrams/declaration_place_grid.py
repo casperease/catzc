@@ -7,24 +7,23 @@ import html
 import math
 from types import SimpleNamespace
 
-import query_rows
-
-from declaration_cells import TAGGED_KINDS, cell, chrome, edge_cell, glyph_tags, ladder_rungs
-from declaration_constants import (
+from . import query_rows
+from .declaration_cells import TAGGED_KINDS, cell, chrome, edge_cell, glyph_tags, ladder_rungs
+from .declaration_constants import (
     ANCHOR,
     BAND,
     BAND_TITLE,
     BAND_TITLE_HEIGHT,
     BAND_TITLE_INSET,
     COL_GAP,
-    EDGE_DEADZONE,
-    LABEL_HEAD_CLEAR,
-    LABEL_TAIL_CLEAR,
     COMMIT_BOX,
     COMMIT_BOX_SIZE,
     COMMIT_STATES,
+    EDGE_DEADZONE,
     GAP,
+    LABEL_HEAD_CLEAR,
     LABEL_ROW,
+    LABEL_TAIL_CLEAR,
     LANE_HEIGHT,
     LANE_ROW,
     LANE_SLOT,
@@ -42,8 +41,8 @@ from declaration_constants import (
     TRUNK,
     TRUNK_LABEL,
 )
-from declaration_routes import LABEL_RECT, WORD_MARGIN, commit_style, diamond_fit
-from declaration_vocabulary import LIB, DeclarationError
+from .declaration_routes import LABEL_RECT, WORD_MARGIN, commit_style, diamond_fit
+from .declaration_vocabulary import LIB, DeclarationError
 
 
 def place_grid(declaration):

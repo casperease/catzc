@@ -41,12 +41,13 @@ public sealed class ContractAsset
         Key = Group.Length == 0 ? Path : string.Format("{0}/{1}", Group, Path);
         AssetPath = string.Format("contracts/{0}/{1}/{2}", Root, Version, Key);
         Kind = kind;
-        if (kind == ContractAssetKind.Sample)
+        if (kind == ContractAssetKind.Sample || kind == ContractAssetKind.Types)
         {
             // PowerShell binds $null to a string parameter as "", so an empty target is no target too.
             if (!string.IsNullOrEmpty(target))
             {
-                throw new ArgumentException(string.Format("contract asset '{0}': a sample payload constrains no file, so it has no target", AssetPath));
+                throw new ArgumentException(string.Format("contract asset '{0}': a {1} constrains no file, so it has no target", AssetPath,
+                    kind == ContractAssetKind.Sample ? "sample payload" : "types surface"));
             }
         }
         else

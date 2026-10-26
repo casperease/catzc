@@ -78,6 +78,10 @@ function Test-Contracts {
         $issues.Add($finding)
     }
 
+    foreach ($finding in @(Get-ContractTypeFindings -Version $Version -RepositoryRoot $RepositoryRoot)) {
+        $issues.Add($finding)
+    }
+
     $facts = [ordered]@{
         Version         = $Version
         Assets          = $assets.Count

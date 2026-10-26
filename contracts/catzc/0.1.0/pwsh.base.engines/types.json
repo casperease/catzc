@@ -1,0 +1,98 @@
+{
+  "types": [
+    {
+      "name": "Catzc.Base.Engines.ExecutionEngine",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "CommandFlag",
+          "kind": "property"
+        },
+        {
+          "name": "CommandPrefix",
+          "kind": "property"
+        },
+        {
+          "name": "Command",
+          "kind": "property"
+        },
+        {
+          "name": "ExecutableFileName",
+          "kind": "method"
+        },
+        {
+          "name": "ImporterEntry",
+          "kind": "property"
+        },
+        {
+          "name": "Locate",
+          "kind": "property"
+        },
+        {
+          "name": "Name",
+          "kind": "property"
+        },
+        {
+          "name": "NonInteractiveArguments",
+          "kind": "property"
+        },
+        {
+          "name": "Quote",
+          "kind": "method"
+        },
+        {
+          "name": "RequiresExecutableBit",
+          "kind": "property"
+        },
+        {
+          "name": "RequiresLf",
+          "kind": "property"
+        },
+        {
+          "name": "ScriptExtensions",
+          "kind": "property"
+        },
+        {
+          "name": "Shebang",
+          "kind": "property"
+        },
+        {
+          "name": "SourceEntry",
+          "kind": "method"
+        },
+        {
+          "name": "StartArguments",
+          "kind": "method"
+        },
+        {
+          "name": "StrictMode",
+          "kind": "property"
+        },
+        {
+          "name": "TimeSafeguard",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "ToolKey",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Engines.ExecutionEngines",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Get",
+          "kind": "method"
+        }
+      ]
+    }
+  ]
+}

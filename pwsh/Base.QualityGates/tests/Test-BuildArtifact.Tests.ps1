@@ -189,13 +189,13 @@ Describe 'Get-CommittedTypesDrift' -Tag 'L0', 'logic' {
     }
 
     It 'passes the surface drift on, then adds pending git changes of the contract' {
-        Mock Get-TypesContractDrift -ModuleName Catzc.Base.QualityGates { 'types.sample.json differs from the build''s surface: added [Catzc.Widgets.Widget]' }
+        Mock Get-TypesContractDrift -ModuleName Catzc.Base.QualityGates { 'types.json differs from the build''s surface: added [Catzc.Widgets.Widget]' }
         Mock Test-GitPathChanged -ModuleName Catzc.Base.QualityGates { $true }
         InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:root } {
             $reasons = @(Get-CommittedTypesDrift -RepositoryRoot $Root)
             $reasons | Should -HaveCount 2
             $reasons[0] | Should -BeLike '*added `[Catzc.Widgets.Widget`]*'
-            $reasons[1] | Should -BeLike '*types.sample.json has pending git changes*'
+            $reasons[1] | Should -BeLike 'contracts/catzc/0.1.0/`*/types.json has pending git changes*'
         }
     }
 

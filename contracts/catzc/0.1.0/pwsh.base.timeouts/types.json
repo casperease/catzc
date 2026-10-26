@@ -1,0 +1,186 @@
+{
+  "types": [
+    {
+      "name": "Catzc.Base.Timeouts.BashSafeguard",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Decide",
+          "kind": "method"
+        },
+        {
+          "name": "DenyOutput",
+          "kind": "method"
+        },
+        {
+          "name": "EnvironmentOf",
+          "kind": "method"
+        },
+        {
+          "name": "FindConfig",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Timeouts.BoundedCommand",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Check",
+          "kind": "method"
+        },
+        {
+          "name": "IsSingleCommand",
+          "kind": "method"
+        },
+        {
+          "name": "TryParseBound",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Timeouts.PipelineWatchdog",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Dispose",
+          "kind": "method"
+        },
+        {
+          "name": "Fired",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Timeouts.TestTiers",
+      "aliases": [],
+      "display": [],
+      "members": []
+    },
+    {
+      "name": "Catzc.Base.Timeouts.TimeLimitAttribute",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Budget",
+          "kind": "property"
+        },
+        {
+          "name": "Devbox",
+          "kind": "property"
+        },
+        {
+          "name": "Pipeline",
+          "kind": "property"
+        },
+        {
+          "name": "SecondsFor",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Timeouts.TimeoutExemptionsConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "CeilingFor",
+          "kind": "method"
+        },
+        {
+          "name": "Find",
+          "kind": "method"
+        },
+        {
+          "name": "ceiling",
+          "kind": "property"
+        },
+        {
+          "name": "exempt",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Timeouts.TimeoutsConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "EngineStartSeconds",
+          "kind": "method"
+        },
+        {
+          "name": "RunListSeconds",
+          "kind": "method"
+        },
+        {
+          "name": "SecondsForCommand",
+          "kind": "method"
+        },
+        {
+          "name": "SecondsForExecutable",
+          "kind": "method"
+        },
+        {
+          "name": "SecondsFor",
+          "kind": "method"
+        },
+        {
+          "name": "TestLevelLimitsMs",
+          "kind": "method"
+        },
+        {
+          "name": "TestRunSeconds",
+          "kind": "method"
+        },
+        {
+          "name": "commands",
+          "kind": "property"
+        },
+        {
+          "name": "executables",
+          "kind": "property"
+        },
+        {
+          "name": "janitors",
+          "kind": "property"
+        },
+        {
+          "name": "limits",
+          "kind": "property"
+        },
+        {
+          "name": "run_lock",
+          "kind": "property"
+        },
+        {
+          "name": "tests",
+          "kind": "property"
+        },
+        {
+          "name": "wait",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Timeouts.TimeoutsReaders",
+      "aliases": [],
+      "display": [],
+      "members": []
+    }
+  ]
+}

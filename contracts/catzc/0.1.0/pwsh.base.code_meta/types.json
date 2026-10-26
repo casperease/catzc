@@ -1,0 +1,236 @@
+{
+  "types": [
+    {
+      "name": "Catzc.Base.CodeMeta.CodeMetaHead",
+      "aliases": [],
+      "display": ["HasHead", "NewLine"],
+      "members": [
+        {
+          "name": "Before",
+          "kind": "property"
+        },
+        {
+          "name": "ConfigLines",
+          "kind": "property"
+        },
+        {
+          "name": "EdgeKeys",
+          "kind": "property"
+        },
+        {
+          "name": "EdgeList",
+          "kind": "method"
+        },
+        {
+          "name": "HasHead",
+          "kind": "property"
+        },
+        {
+          "name": "ImmutableKeys",
+          "kind": "property"
+        },
+        {
+          "name": "NewLine",
+          "kind": "property"
+        },
+        {
+          "name": "Parse",
+          "kind": "method"
+        },
+        {
+          "name": "Rest",
+          "kind": "property"
+        },
+        {
+          "name": "Sections",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "WithFacts",
+          "kind": "method"
+        },
+        {
+          "name": "WithoutConfig",
+          "kind": "method"
+        },
+        {
+          "name": "Wrap",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.CodeMeta.CommentPageMap",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "IsEachSubfolder",
+          "kind": "property"
+        },
+        {
+          "name": "PageFor",
+          "kind": "method"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "docs",
+          "kind": "property"
+        },
+        {
+          "name": "source",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.CodeMeta.CommentPagesConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "PageFor",
+          "kind": "method"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "pages",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.CodeMeta.HeadAnchor",
+      "aliases": [],
+      "display": [],
+      "members": []
+    },
+    {
+      "name": "Catzc.Base.CodeMeta.HeadForm",
+      "aliases": [],
+      "display": ["Line", "BlockOpen", "BlockClose", "Anchor", "PreambleLines"],
+      "members": [
+        {
+          "name": "Anchor",
+          "kind": "property"
+        },
+        {
+          "name": "BlockClose",
+          "kind": "property"
+        },
+        {
+          "name": "BlockOpen",
+          "kind": "property"
+        },
+        {
+          "name": "ForBlock",
+          "kind": "method"
+        },
+        {
+          "name": "ForLine",
+          "kind": "method"
+        },
+        {
+          "name": "IsBlock",
+          "kind": "property"
+        },
+        {
+          "name": "Line",
+          "kind": "property"
+        },
+        {
+          "name": "PreambleLines",
+          "kind": "property"
+        },
+        {
+          "name": "Strip",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.CodeMeta.PlainText",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "PlainScalarFinding",
+          "kind": "method"
+        },
+        {
+          "name": "Plain",
+          "kind": "method"
+        },
+        {
+          "name": "Synopsis",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.CodeMeta.PropertyHead",
+      "aliases": [],
+      "display": ["Property", "IsObject", "HasHead", "Foreign"],
+      "members": [
+        {
+          "name": "ConfigLines",
+          "kind": "property"
+        },
+        {
+          "name": "EdgeKeys",
+          "kind": "property"
+        },
+        {
+          "name": "Foreign",
+          "kind": "property"
+        },
+        {
+          "name": "HasHead",
+          "kind": "property"
+        },
+        {
+          "name": "ImmutableKeys",
+          "kind": "property"
+        },
+        {
+          "name": "IsObject",
+          "kind": "property"
+        },
+        {
+          "name": "Parse",
+          "kind": "method"
+        },
+        {
+          "name": "Property",
+          "kind": "property"
+        },
+        {
+          "name": "Sections",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "WithFacts",
+          "kind": "method"
+        }
+      ]
+    }
+  ]
+}

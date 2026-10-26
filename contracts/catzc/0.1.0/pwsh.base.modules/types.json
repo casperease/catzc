@@ -1,0 +1,55 @@
+{
+  "types": [
+    {
+      "name": "Catzc.Base.Modules.Module",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "engines",
+          "kind": "property"
+        },
+        {
+          "name": "files",
+          "kind": "property"
+        },
+        {
+          "name": "languages",
+          "kind": "property"
+        },
+        {
+          "name": "name",
+          "kind": "property"
+        },
+        {
+          "name": "place",
+          "kind": "property"
+        },
+        {
+          "name": "root",
+          "kind": "property"
+        },
+        {
+          "name": "shape",
+          "kind": "property"
+        },
+        {
+          "name": "track",
+          "kind": "property"
+        },
+        {
+          "name": "type",
+          "kind": "property"
+        },
+        {
+          "name": "unplaced",
+          "kind": "property"
+        }
+      ]
+    }
+  ]
+}

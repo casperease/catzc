@@ -16,4 +16,6 @@ public enum ContractAssetKind
     Schema,
     Sample,
     Command,
+    // A module group's generated types surface, ContractLayout.TypesSurfaceName, checked by the one shared types schema.
+    Types,
 }

@@ -40,9 +40,10 @@ function lampSets(declared, open = []) {
  * @param {Iterable<string>} files
  * @param {Facts} [facts]
  * @param {Iterable<string>} [vetoed]
+ * @param {Record<string, string[]>} [known] each file's signature under these same sets, read instead of matched again
  * @returns {{ shown: string[], unaccounted: string[], signatures: Record<string, string[]>, conditions: Record<string, string> }}
  */
-function evaluate(sets, lit, files, facts = {}, vetoed = []) {
+function evaluate(sets, lit, files, facts = {}, vetoed = [], known = undefined) {
     const vetoes = new Set(vetoed);
     const names = Object.keys(sets);
     /** @type {[string, (place: string, parts: string[]) => boolean][]} */
@@ -58,7 +59,7 @@ function evaluate(sets, lit, files, facts = {}, vetoed = []) {
     /** @type {Record<string, string[]>} */
     const signatures = {};
     for (const place of files) {
-        const signature = signatureOf(place);
+        const signature = known?.[place] ?? signatureOf(place);
         signatures[place] = signature;
         if (signature.length === 0) unaccounted.push(place);
         if (signature.some((name) => vetoes.has(name))) continue;

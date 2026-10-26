@@ -1,0 +1,303 @@
+{
+  "types": [
+    {
+      "name": "Catzc.Base.Execution.CliResult",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Bytes",
+          "kind": "property"
+        },
+        {
+          "name": "Errors",
+          "kind": "property"
+        },
+        {
+          "name": "ExitCode",
+          "kind": "property"
+        },
+        {
+          "name": "Full",
+          "kind": "property"
+        },
+        {
+          "name": "Output",
+          "kind": "property"
+        },
+        {
+          "name": "Raw",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Execution.CliRunner",
+      "aliases": [],
+      "display": ["ExitCode"],
+      "members": [
+        {
+          "name": "ExecutableName",
+          "kind": "method"
+        },
+        {
+          "name": "ExitCode",
+          "kind": "property"
+        },
+        {
+          "name": "RunBytes",
+          "kind": "method"
+        },
+        {
+          "name": "Run",
+          "kind": "method"
+        },
+        {
+          "name": "Stderr",
+          "kind": "property"
+        },
+        {
+          "name": "StdoutBytes",
+          "kind": "property"
+        },
+        {
+          "name": "Stdout",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Execution.ExecutableProbe",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Actor",
+          "kind": "property"
+        },
+        {
+          "name": "Found",
+          "kind": "property"
+        },
+        {
+          "name": "Method",
+          "kind": "property"
+        },
+        {
+          "name": "Name",
+          "kind": "property"
+        },
+        {
+          "name": "Path",
+          "kind": "property"
+        },
+        {
+          "name": "ProbeMs",
+          "kind": "property"
+        },
+        {
+          "name": "Required",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "VersionMs",
+          "kind": "property"
+        },
+        {
+          "name": "VersionOk",
+          "kind": "property"
+        },
+        {
+          "name": "Version",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Execution.ToolConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "HasInstallMechanism",
+          "kind": "method"
+        },
+        {
+          "name": "HasProbes",
+          "kind": "method"
+        },
+        {
+          "name": "admin_only",
+          "kind": "property"
+        },
+        {
+          "name": "apt_package",
+          "kind": "property"
+        },
+        {
+          "name": "brew_formula",
+          "kind": "property"
+        },
+        {
+          "name": "command",
+          "kind": "property"
+        },
+        {
+          "name": "depends_on",
+          "kind": "property"
+        },
+        {
+          "name": "devbox_version",
+          "kind": "property"
+        },
+        {
+          "name": "installed_by",
+          "kind": "property"
+        },
+        {
+          "name": "linux_admin_only",
+          "kind": "property"
+        },
+        {
+          "name": "max_python",
+          "kind": "property"
+        },
+        {
+          "name": "msys2_sha256",
+          "kind": "property"
+        },
+        {
+          "name": "msys2_url",
+          "kind": "property"
+        },
+        {
+          "name": "npm_package",
+          "kind": "property"
+        },
+        {
+          "name": "pip_package",
+          "kind": "property"
+        },
+        {
+          "name": "probe_excludes",
+          "kind": "property"
+        },
+        {
+          "name": "script_install",
+          "kind": "property"
+        },
+        {
+          "name": "session_host_probes",
+          "kind": "property"
+        },
+        {
+          "name": "session_path_hints",
+          "kind": "property"
+        },
+        {
+          "name": "system_provided",
+          "kind": "property"
+        },
+        {
+          "name": "unix_install_dir",
+          "kind": "property"
+        },
+        {
+          "name": "unix_pipeline_probes",
+          "kind": "property"
+        },
+        {
+          "name": "unix_probes",
+          "kind": "property"
+        },
+        {
+          "name": "uv_allow_prerelease",
+          "kind": "property"
+        },
+        {
+          "name": "uv_python",
+          "kind": "property"
+        },
+        {
+          "name": "uv_tool",
+          "kind": "property"
+        },
+        {
+          "name": "uv_venv",
+          "kind": "property"
+        },
+        {
+          "name": "version_command",
+          "kind": "property"
+        },
+        {
+          "name": "version_pattern",
+          "kind": "property"
+        },
+        {
+          "name": "version",
+          "kind": "property"
+        },
+        {
+          "name": "windows_install_dir",
+          "kind": "property"
+        },
+        {
+          "name": "windows_only",
+          "kind": "property"
+        },
+        {
+          "name": "windows_pipeline_probes",
+          "kind": "property"
+        },
+        {
+          "name": "windows_probes",
+          "kind": "property"
+        },
+        {
+          "name": "winget_id",
+          "kind": "property"
+        },
+        {
+          "name": "winget_scope",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Execution.ToolsConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Contains",
+          "kind": "method"
+        },
+        {
+          "name": "Item",
+          "kind": "property"
+        },
+        {
+          "name": "Keys",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        }
+      ]
+    }
+  ]
+}

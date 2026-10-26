@@ -3,16 +3,9 @@
 declared minimaps (or three fixed ones) as empty contract data, so put draws the sidebar without Catzc.Base.Maps. A test names its
 diagram by its tmp_path as the stem, so the pair is `<tmp_path>.drawio.yml` and `<tmp_path>.drawio.png`."""
 
-import sys
-from pathlib import Path
 
 import pytest
-
-sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-
-import declaration
-import declaration_settings
-import declaration_sync
+from catzc.diagrams import declaration, declaration_settings, declaration_sync
 
 FIXTURE_MINIMAPS = ["grid", "axis", "layer-stack"]
 

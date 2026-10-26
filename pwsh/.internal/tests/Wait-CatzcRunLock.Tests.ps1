@@ -35,8 +35,10 @@ BeforeAll {
     function script:Start-LockHolder {
         param([string] $Name, [int] $Milliseconds, [System.Threading.EventWaitHandle] $Burst, [int] $RecordSeconds)
         $taken = [System.Threading.ManualResetEventSlim]::new($false)
+        # Set by Stop-LockHolder: the holder keeps the lock its full time while the test waits, never past the test's verdict.
+        $release = [System.Threading.ManualResetEventSlim]::new($false)
         $shell = [powershell]::Create().AddScript({
-                param($Name, $Milliseconds, $Taken, $Burst, $RecordSeconds, $Path)
+                param($Name, $Milliseconds, $Taken, $Burst, $RecordSeconds, $Path, $Release)
                 . $Path
                 $held = [System.Threading.Mutex]::new($false, $Name)
                 $null = $held.WaitOne()
@@ -44,21 +46,23 @@ BeforeAll {
                     Set-CatzcRunLockHolder -LockName $Name -Seconds $RecordSeconds -Holding 'Get-Gadget'
                 }
                 $Taken.Set()
-                Start-Sleep -Milliseconds $Milliseconds
+                $null = $Release.Wait($Milliseconds)
                 if ($Burst) {
                     $Burst.Dispose()
                 }
                 Remove-CatzcRunLockHolder -LockName $Name
                 $held.ReleaseMutex()
                 $held.Dispose()
-            }).AddArgument($Name).AddArgument($Milliseconds).AddArgument($taken).AddArgument($Burst).AddArgument($RecordSeconds).AddArgument($script:waiter)
+            }).AddArgument($Name).AddArgument($Milliseconds).AddArgument($taken).AddArgument($Burst).AddArgument($RecordSeconds).AddArgument($script:waiter).AddArgument($release)
         $handle = $shell.BeginInvoke()
-        [pscustomobject]@{ Shell = $shell; Handle = $handle; Taken = $taken.Wait(2000) }
+        [pscustomobject]@{ Shell = $shell; Handle = $handle; Taken = $taken.Wait(2000); Release = $release }
     }
     function script:Stop-LockHolder {
         param($Holder)
+        $Holder.Release.Set()
         $null = $Holder.Shell.EndInvoke($Holder.Handle)
         $Holder.Shell.Dispose()
+        $Holder.Release.Dispose()
     }
     function script:Get-QueueFolder {
         param([string] $Name)

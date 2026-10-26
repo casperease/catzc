@@ -1,7 +1,7 @@
 # cspell:ignore LANCZOS compressobj maxx maxy miny mxfile pnginfo prel textbbox textlength dout mxgraph
 """Build a .drawio.png from an mxGraphModel XML file, or re-render one from the model it already carries.
 
-usage: uv run --with pillow python drawio_png.py <model.xml | in.drawio.png> <out.drawio.png> [--name "Page-1"] [--page dark|model]
+usage: uv run --project python python -m catzc.diagrams.drawio_png <model.xml | in.drawio.png> <out.drawio.png> [--name "Page-1"] [--page dark|model]
 
 `--page` overrides the `renderer.page` default of drawio.yml beside this script for one run.
 
@@ -21,7 +21,10 @@ import xml.etree.ElementTree as ET
 from pathlib import Path
 from urllib.parse import unquote
 
-from drawio_png_base import (
+from PIL import Image, ImageDraw
+from PIL.PngImagePlugin import PngInfo
+
+from .drawio_png_base import (
     BACKGROUND,
     DEFAULTS,
     EDGE_MIN_LINE,
@@ -41,7 +44,7 @@ from drawio_png_base import (
     tokens,
     unpainted,
 )
-from drawio_png_shapes import (
+from .drawio_png_shapes import (
     Scaled,
     along,
     arrow,
@@ -58,8 +61,6 @@ from drawio_png_shapes import (
     rounded,
     wrapped,
 )
-from PIL import Image, ImageDraw
-from PIL.PngImagePlugin import PngInfo
 
 
 def render(root, page=None):

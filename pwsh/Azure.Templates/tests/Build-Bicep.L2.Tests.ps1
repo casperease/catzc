@@ -18,6 +18,12 @@ Describe 'Build-Bicep (walking skeleton — real az)' -Tag 'L2', 'logic', 'greed
             }
         }
         InModuleScope Catzc.Base.Config { $script:configCache = $null }
+
+        # The Bicep CLI check runs once for the file, not inside every build.
+        if (Get-Command az -ErrorAction Ignore) {
+            Assert-AzCliBicep
+            Mock Assert-AzCliBicep { } -ModuleName Catzc.Azure.Templates
+        }
     }
 
     AfterEach {

@@ -8,15 +8,12 @@ has: one tag per execution engine, then the contract's. `lang:` on a glyph is th
 """
 
 import re
-from pathlib import Path
 
-from declaration_constants import load_yaml
-from module_paths import module_file
+from .declaration_constants import load_yaml
+from .module_paths import contracts_root, module_file
 
-REPO = Path(__file__).resolve().parents[2]
 TABLE = module_file("Catzc.Base.Languages", "configs", "languages.yml")
 ENGINES = module_file("Catzc.Base.Engines", "types", "ExecutionEngines.cs")
-CONTRACTS = REPO / "contracts" / "catzc"
 CONTRACT_LANGUAGE = "accosted"  # the language row whose tag names the contract form of a command
 EXTENSION = re.compile(r"^[\w-]+(\.[A-Za-z0-9]+)$")
 VERB_NOUN = re.compile(r"^([A-Z][a-z]+(?:To|From)?(?:-[A-Z][A-Za-z0-9]*)+)(?:\(\)| -.*)?$")
@@ -42,7 +39,7 @@ def engine_names():
 def commands():
     """The snake_case names of every command that has a contract under contracts/."""
     if "commands" not in _cache:
-        _cache["commands"] = {p.name.removesuffix(".command.yml") for p in CONTRACTS.rglob("*.command.yml")}
+        _cache["commands"] = {p.name.removesuffix(".command.yml") for p in contracts_root().rglob("*.command.yml")}
     return _cache["commands"]
 
 

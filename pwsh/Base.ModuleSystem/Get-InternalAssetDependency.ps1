@@ -43,7 +43,7 @@ function Get-InternalAssetDependency {
     $moduleFolders = @(
         Get-ChildPath $ModulesRoot -Depth 1 -Directory |
             Where-Object { -not [System.IO.Path]::GetFileName($_).StartsWith('.') } |
-            ForEach-Object { [pscustomobject]@{ Folder = [System.IO.Path]::GetFileName($_); Name = (Get-ModuleFolderFullName $_) } } |
+            ForEach-Object { [pscustomobject]@{ Folder = [System.IO.Path]::GetFileName($_); Name = (Get-ModuleFullName $_) } } |
             Where-Object { -not $Module -or $_.Name -in $Module }
     )
 

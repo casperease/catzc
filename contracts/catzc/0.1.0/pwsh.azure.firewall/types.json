@@ -1,0 +1,41 @@
+{
+  "types": [
+    {
+      "name": "Catzc.Azure.Firewall.CsvExportRef",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Blob",
+          "kind": "property"
+        },
+        {
+          "name": "Generated",
+          "kind": "property"
+        },
+        {
+          "name": "Modified",
+          "kind": "property"
+        },
+        {
+          "name": "Path",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "Type",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Azure.Firewall.RuleType",
+      "aliases": [],
+      "display": [],
+      "members": []
+    }
+  ]
+}

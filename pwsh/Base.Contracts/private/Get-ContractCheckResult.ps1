@@ -57,6 +57,15 @@ function Get-ContractCheckResult {
             ([Catzc.Base.Contracts.ContractAssetKind]::Sample) {
                 Get-ContractSampleFindings -RepositoryRoot $RepositoryRoot -Asset $Asset
             }
+            # A types surface is validated by the one types schema, whose asset targets it; here it only has to parse.
+            ([Catzc.Base.Contracts.ContractAssetKind]::Types) {
+                try {
+                    $null = Read-ContractData -RepositoryRoot $RepositoryRoot -Path $Asset.AssetPath
+                }
+                catch {
+                    $_.Exception.Message
+                }
+            }
             ([Catzc.Base.Contracts.ContractAssetKind]::Command) {
                 Get-ContractCommandFindings -RepositoryRoot $RepositoryRoot -Asset $Asset
             }

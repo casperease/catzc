@@ -5,11 +5,12 @@ brief form of an entry."""
 
 from pathlib import Path
 
-import edge_rules
 import yaml
-from declaration_constants import ABOUT_KEYS, CONTENT_KEYS, KIT, OPERATORS
-from declaration_edges import end_kinds
-from declaration_vocabulary import LIB, DeclarationError, choices
+
+from . import edge_rules
+from .declaration_constants import ABOUT_KEYS, CONTENT_KEYS, KIT, OPERATORS
+from .declaration_edges import end_kinds
+from .declaration_vocabulary import LIB, DeclarationError, choices
 
 
 def entry(item, keys, where, what, optional=None):

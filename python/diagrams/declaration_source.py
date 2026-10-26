@@ -6,13 +6,13 @@ source, moving a diagram between carriers, and loading and saving a declaration.
 import re
 from pathlib import Path
 
-import minimaps
-from declaration_constants import SHORTHAND, SLIDE, SOURCE, load_yaml
-from declaration_dump import dump
-from declaration_expand import drawn, undrawn
-from declaration_normalise import normalise
-from declaration_vocabulary import DeclarationError
-from drawio_png import DEFAULTS
+from . import minimaps
+from .declaration_constants import SHORTHAND, SLIDE, SOURCE, load_yaml
+from .declaration_dump import dump
+from .declaration_expand import drawn, undrawn
+from .declaration_normalise import normalise
+from .declaration_vocabulary import DeclarationError
+from .drawio_png import DEFAULTS
 
 # ---- the declaration: read, validate, normalise -------------------------------------------------------------------
 

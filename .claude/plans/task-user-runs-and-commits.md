@@ -135,10 +135,16 @@ final full run last.
     `docs/references/pwsh/CLAUDE.md` line 136 to read "2. Add an item to the list in `index.md` (module name, one-line summary), keeping the
     foundation-first order." Check: `grep -n "Add an item to the list" docs/references/pwsh/CLAUDE.md` finds line 136.
 
-27. plan-types-contract: commit the new types contract `contracts/catzc/0.1.0/pwsh.internal.types/` (`types.schema.json` and the generated
-    `types.sample.json`), and untrack the old hash-named manifest (`git rm --cached pwsh/.compiled/Catzc.Types.*.json`; the file stays on
-    disk until the gitignore step of the same plan ignores the whole folder). Check: `git ls-files pwsh/.compiled` prints nothing, and
-    `Test-BuildArtifact -Facet Types` reports no issues.
+27. plan-types-contract + plan-module-types-contracts: commit the per-group types contracts: `types.json` in 25 new group folders under
+    `contracts/catzc/0.1.0/` (pwsh.azure.cli, pwsh.azure.firewall, pwsh.base.asserts, pwsh.base.code_meta, pwsh.base.config,
+    pwsh.base.engines, pwsh.base.execution, pwsh.base.exporter, pwsh.base.file_limits, pwsh.base.files, pwsh.base.folders,
+    pwsh.base.generated_files, pwsh.base.git, pwsh.base.markdown_meta, pwsh.base.modules, pwsh.base.objects, pwsh.base.reports,
+    pwsh.base.slides, pwsh.base.timeouts, pwsh.base.variants, pwsh.base.vendor, pwsh.base.writers, pwsh.tooling.core,
+    pwsh.tooling.key_handler, pwsh.tooling.listen) and in the 19 existing groups, the shared `pwsh.base.contracts/types.schema.json`, the
+    deletion of `pwsh.internal.types/` (`types.sample.json`, `types.schema.json`), and the regenerated `.gitattributes`. Separately, untrack
+    the old hash-named manifest with `out/untrack-compiled.ps1` (`git rm --cached -r pwsh/.compiled`; the folder is gitignored). Check:
+    `git ls-files pwsh/.compiled` prints nothing, `git status --short contracts` is clean, and `Test-BuildArtifact -Facet Types` reports no
+    issues.
 
 28. The final full run, in a fresh session, when the chunks in plan-master have landed. Once it is green and committed, the work is done and
     every plan, task and prompt in `.claude/plans` is deleted (the user, 2026-10-20). Check: `.claude/plans` is empty.

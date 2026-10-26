@@ -1,0 +1,15 @@
+{
+  "types": [
+    {
+      "name": "Catzc.Base.Asserts.ValidatePathGivenAttribute",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "HasPath",
+          "kind": "method"
+        }
+      ]
+    }
+  ]
+}

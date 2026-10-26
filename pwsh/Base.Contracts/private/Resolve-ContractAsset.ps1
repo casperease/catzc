@@ -50,7 +50,7 @@ function Resolve-ContractAsset {
     }
     $isNamed = $AppliesTo.ContainsKey($key)
 
-    if ($kind -eq [Catzc.Base.Contracts.ContractAssetKind]::Sample) {
+    if ($kind -eq [Catzc.Base.Contracts.ContractAssetKind]::Sample -or $kind -eq [Catzc.Base.Contracts.ContractAssetKind]::Types) {
         if ($isNamed) {
             throw "${manifest}: applies_to names '$key', a $kind asset; only a schema, fragment or presence asset constrains files (ADR-REPO-CONTRACT-CONFIGUREDADDRESSING)."
         }
@@ -102,6 +102,22 @@ function Resolve-ContractAsset {
             }
             return [Catzc.Base.Contracts.ContractAsset]::new($Root, $Version, $Group, $Path, $kind,
                 "$folder$($samples[0])", $direction)
+        }
+        # The one types schema applies to every group's generated types surface in its version, found on disk, so a
+        # surface binds before it is committed.
+        if ($name -ceq [Catzc.Base.Contracts.ContractLayout]::TypesSchemaName) {
+            if ($isNamed) {
+                throw "${manifest}: applies_to names '$key', the types schema, which applies to every group's types surface; it takes no files (ADR-REPO-CONTRACT-CONFIGUREDADDRESSING)."
+            }
+            $versionFolder = [System.IO.Path]::GetDirectoryName([System.IO.Path]::GetDirectoryName($File))
+            $surface = [Catzc.Base.Contracts.ContractLayout]::TypesSurfaceName
+            foreach ($groupFolder in @([System.IO.Directory]::GetDirectories($versionFolder) | Sort-Object -CaseSensitive)) {
+                if ([System.IO.File]::Exists([System.IO.Path]::Combine($groupFolder, $surface))) {
+                    [Catzc.Base.Contracts.ContractAsset]::new($Root, $Version, $Group, $Path, $kind,
+                        "contracts/$Root/$Version/$([System.IO.Path]::GetFileName($groupFolder))/$surface", $direction)
+                }
+            }
+            return
         }
     }
 

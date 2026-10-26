@@ -1,0 +1,882 @@
+{
+  "types": [
+    {
+      "name": "Catzc.Base.Languages.BashConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "ResolveRoot",
+          "kind": "method"
+        },
+        {
+          "name": "bats_sha256",
+          "kind": "property"
+        },
+        {
+          "name": "bats_version",
+          "kind": "property"
+        },
+        {
+          "name": "root",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Languages.BashTestResult",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Category",
+          "kind": "property"
+        },
+        {
+          "name": "DurationSeconds",
+          "kind": "property"
+        },
+        {
+          "name": "Name",
+          "kind": "property"
+        },
+        {
+          "name": "Outcome",
+          "kind": "property"
+        },
+        {
+          "name": "Output",
+          "kind": "property"
+        },
+        {
+          "name": "Package",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Languages.BclConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "HostBindingOf",
+          "kind": "method"
+        },
+        {
+          "name": "ProjectPlatform",
+          "kind": "method"
+        },
+        {
+          "name": "SolutionPair",
+          "kind": "method"
+        },
+        {
+          "name": "configuration",
+          "kind": "property"
+        },
+        {
+          "name": "host_bindings",
+          "kind": "property"
+        },
+        {
+          "name": "platform",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Languages.BclHostBinding",
+      "aliases": [],
+      "display": ["file", "host"],
+      "members": [
+        {
+          "name": "FromRow",
+          "kind": "method"
+        },
+        {
+          "name": "file",
+          "kind": "property"
+        },
+        {
+          "name": "host",
+          "kind": "property"
+        },
+        {
+          "name": "reason",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Languages.CarrierKind",
+      "aliases": [],
+      "display": [],
+      "members": []
+    },
+    {
+      "name": "Catzc.Base.Languages.FileCarrier",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Form",
+          "kind": "method"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "anchor",
+          "kind": "property"
+        },
+        {
+          "name": "block",
+          "kind": "property"
+        },
+        {
+          "name": "carrier",
+          "kind": "property"
+        },
+        {
+          "name": "exclude",
+          "kind": "property"
+        },
+        {
+          "name": "files",
+          "kind": "property"
+        },
+        {
+          "name": "id",
+          "kind": "property"
+        },
+        {
+          "name": "key",
+          "kind": "property"
+        },
+        {
+          "name": "line",
+          "kind": "property"
+        },
+        {
+          "name": "preamble_lines",
+          "kind": "property"
+        },
+        {
+          "name": "property",
+          "kind": "property"
+        },
+        {
+          "name": "reason",
+          "kind": "property"
+        },
+        {
+          "name": "strip",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Languages.FileCarriersConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Find",
+          "kind": "method"
+        },
+        {
+          "name": "carriers",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Languages.FileLanguage",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "adr_folder",
+          "kind": "property"
+        },
+        {
+          "name": "check_scopes",
+          "kind": "property"
+        },
+        {
+          "name": "checks",
+          "kind": "property"
+        },
+        {
+          "name": "executable",
+          "kind": "property"
+        },
+        {
+          "name": "extensions",
+          "kind": "property"
+        },
+        {
+          "name": "formatter",
+          "kind": "property"
+        },
+        {
+          "name": "handled",
+          "kind": "property"
+        },
+        {
+          "name": "imprint",
+          "kind": "property"
+        },
+        {
+          "name": "layout",
+          "kind": "property"
+        },
+        {
+          "name": "name",
+          "kind": "property"
+        },
+        {
+          "name": "naming",
+          "kind": "property"
+        },
+        {
+          "name": "no_formatter",
+          "kind": "property"
+        },
+        {
+          "name": "shapes",
+          "kind": "property"
+        },
+        {
+          "name": "tag",
+          "kind": "property"
+        },
+        {
+          "name": "tests",
+          "kind": "property"
+        },
+        {
+          "name": "vscode_language",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Languages.FormatterEngine",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "name",
+          "kind": "property"
+        },
+        {
+          "name": "settings",
+          "kind": "property"
+        },
+        {
+          "name": "vscode_extension",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Languages.GeneratedHeadConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "order",
+          "kind": "property"
+        },
+        {
+          "name": "warning",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Languages.GoConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "ResolveRoot",
+          "kind": "method"
+        },
+        {
+          "name": "dependencies",
+          "kind": "property"
+        },
+        {
+          "name": "module_root",
+          "kind": "property"
+        },
+        {
+          "name": "root",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Languages.GoTestResult",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Category",
+          "kind": "property"
+        },
+        {
+          "name": "DurationSeconds",
+          "kind": "property"
+        },
+        {
+          "name": "Name",
+          "kind": "property"
+        },
+        {
+          "name": "Outcome",
+          "kind": "property"
+        },
+        {
+          "name": "Output",
+          "kind": "property"
+        },
+        {
+          "name": "Package",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Languages.GoWorkspaceFile",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Content",
+          "kind": "property"
+        },
+        {
+          "name": "Target",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Languages.ImprintStep",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "name",
+          "kind": "property"
+        },
+        {
+          "name": "settings",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Languages.JavaScriptConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "ResolveRoot",
+          "kind": "method"
+        },
+        {
+          "name": "root",
+          "kind": "property"
+        },
+        {
+          "name": "strict",
+          "kind": "property"
+        },
+        {
+          "name": "types_folder",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Languages.JavaScriptTestResult",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Category",
+          "kind": "property"
+        },
+        {
+          "name": "DurationSeconds",
+          "kind": "property"
+        },
+        {
+          "name": "Name",
+          "kind": "property"
+        },
+        {
+          "name": "Outcome",
+          "kind": "property"
+        },
+        {
+          "name": "Output",
+          "kind": "property"
+        },
+        {
+          "name": "Package",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Languages.LanguageEntryReaders",
+      "aliases": [],
+      "display": [],
+      "members": []
+    },
+    {
+      "name": "Catzc.Base.Languages.LanguageGlobalReaders",
+      "aliases": [],
+      "display": [],
+      "members": []
+    },
+    {
+      "name": "Catzc.Base.Languages.LanguageNaming",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "CasesOf",
+          "kind": "method"
+        },
+        {
+          "name": "IdiomaticFileStem",
+          "kind": "method"
+        },
+        {
+          "name": "IdiomaticFolder",
+          "kind": "method"
+        },
+        {
+          "name": "IsFileIdiomatic",
+          "kind": "method"
+        },
+        {
+          "name": "IsFolderIdiomatic",
+          "kind": "method"
+        },
+        {
+          "name": "JudgeName",
+          "kind": "method"
+        },
+        {
+          "name": "TestFolderOf",
+          "kind": "method"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "exempt",
+          "kind": "property"
+        },
+        {
+          "name": "file",
+          "kind": "property"
+        },
+        {
+          "name": "folder",
+          "kind": "property"
+        },
+        {
+          "name": "function",
+          "kind": "property"
+        },
+        {
+          "name": "type",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Languages.LanguagesConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "EditorFormatters",
+          "kind": "method"
+        },
+        {
+          "name": "ExtensionOf",
+          "kind": "method"
+        },
+        {
+          "name": "ExtensionsCheckedBy",
+          "kind": "method"
+        },
+        {
+          "name": "FolderOf",
+          "kind": "method"
+        },
+        {
+          "name": "ForExtension",
+          "kind": "method"
+        },
+        {
+          "name": "ForPath",
+          "kind": "method"
+        },
+        {
+          "name": "FormatterEngines",
+          "kind": "property"
+        },
+        {
+          "name": "ImprintSteps",
+          "kind": "property"
+        },
+        {
+          "name": "IsLaidOut",
+          "kind": "method"
+        },
+        {
+          "name": "LayoutFolders",
+          "kind": "method"
+        },
+        {
+          "name": "LivePatterns",
+          "kind": "method"
+        },
+        {
+          "name": "MisnamedDefinition",
+          "kind": "method"
+        },
+        {
+          "name": "MisnamedPathRenames",
+          "kind": "method"
+        },
+        {
+          "name": "MisnamedPaths",
+          "kind": "method"
+        },
+        {
+          "name": "PlaceOf",
+          "kind": "method"
+        },
+        {
+          "name": "ShippedFolders",
+          "kind": "method"
+        },
+        {
+          "name": "TestFolderOf",
+          "kind": "method"
+        },
+        {
+          "name": "formatters",
+          "kind": "property"
+        },
+        {
+          "name": "imprint",
+          "kind": "property"
+        },
+        {
+          "name": "languages",
+          "kind": "property"
+        },
+        {
+          "name": "layout",
+          "kind": "property"
+        },
+        {
+          "name": "naming_exempt_folders",
+          "kind": "property"
+        },
+        {
+          "name": "naming_normal_form",
+          "kind": "property"
+        },
+        {
+          "name": "steps",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Languages.LanguageTestRunner",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "ExecutableName",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "engine",
+          "kind": "property"
+        },
+        {
+          "name": "executable_parameter",
+          "kind": "property"
+        },
+        {
+          "name": "pattern",
+          "kind": "property"
+        },
+        {
+          "name": "runner",
+          "kind": "property"
+        },
+        {
+          "name": "tools",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Languages.LayoutRow",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Patterns",
+          "kind": "method"
+        },
+        {
+          "name": "Shared",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "extensions",
+          "kind": "property"
+        },
+        {
+          "name": "folder",
+          "kind": "property"
+        },
+        {
+          "name": "language",
+          "kind": "property"
+        },
+        {
+          "name": "live",
+          "kind": "property"
+        },
+        {
+          "name": "role",
+          "kind": "property"
+        },
+        {
+          "name": "shipped",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Languages.PathParts",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "FileTypeOf",
+          "kind": "method"
+        },
+        {
+          "name": "Of",
+          "kind": "method"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "filetype",
+          "kind": "property"
+        },
+        {
+          "name": "folder",
+          "kind": "property"
+        },
+        {
+          "name": "name",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Languages.PathRename",
+      "aliases": [],
+      "display": ["path", "target"],
+      "members": [
+        {
+          "name": "Finding",
+          "kind": "method"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "cases",
+          "kind": "property"
+        },
+        {
+          "name": "kind",
+          "kind": "property"
+        },
+        {
+          "name": "language",
+          "kind": "property"
+        },
+        {
+          "name": "path",
+          "kind": "property"
+        },
+        {
+          "name": "target",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Languages.PythonConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "ResolveRoot",
+          "kind": "method"
+        },
+        {
+          "name": "build_distribution",
+          "kind": "property"
+        },
+        {
+          "name": "build_module",
+          "kind": "property"
+        },
+        {
+          "name": "build_version",
+          "kind": "property"
+        },
+        {
+          "name": "dependencies",
+          "kind": "property"
+        },
+        {
+          "name": "pycache",
+          "kind": "property"
+        },
+        {
+          "name": "pytest_cache",
+          "kind": "property"
+        },
+        {
+          "name": "root",
+          "kind": "property"
+        },
+        {
+          "name": "type_checking",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Languages.PythonTestResult",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Category",
+          "kind": "property"
+        },
+        {
+          "name": "DurationSeconds",
+          "kind": "property"
+        },
+        {
+          "name": "Name",
+          "kind": "property"
+        },
+        {
+          "name": "Outcome",
+          "kind": "property"
+        },
+        {
+          "name": "Output",
+          "kind": "property"
+        },
+        {
+          "name": "Package",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Languages.PythonWorkspaceFile",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Content",
+          "kind": "property"
+        },
+        {
+          "name": "Target",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        }
+      ]
+    }
+  ]
+}

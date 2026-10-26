@@ -1,0 +1,50 @@
+{
+  "types": [
+    {
+      "name": "Catzc.Base.Repository.ParsedScripts",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Get",
+          "kind": "method"
+        },
+        {
+          "name": "ParseCount",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Repository.SyntaxSearch",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "BareName",
+          "kind": "method"
+        },
+        {
+          "name": "CommandsNamed",
+          "kind": "method"
+        },
+        {
+          "name": "Commands",
+          "kind": "method"
+        },
+        {
+          "name": "TopLevelFunctions",
+          "kind": "method"
+        },
+        {
+          "name": "VariableReads",
+          "kind": "method"
+        }
+      ]
+    }
+  ]
+}

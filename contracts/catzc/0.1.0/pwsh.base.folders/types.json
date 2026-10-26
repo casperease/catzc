@@ -1,0 +1,73 @@
+{
+  "types": [
+    {
+      "name": "Catzc.Base.Folders.FolderWalkConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "depth",
+          "kind": "property"
+        },
+        {
+          "name": "exclude",
+          "kind": "property"
+        },
+        {
+          "name": "prune_vendor_in_searches",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Folders.FolderWalker",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "WalkRelative",
+          "kind": "method"
+        },
+        {
+          "name": "Walk",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Folders.PathSet",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "AddFile",
+          "kind": "method"
+        },
+        {
+          "name": "AddPattern",
+          "kind": "method"
+        },
+        {
+          "name": "Count",
+          "kind": "property"
+        },
+        {
+          "name": "Pruned",
+          "kind": "method"
+        },
+        {
+          "name": "ToArray",
+          "kind": "method"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        }
+      ]
+    }
+  ]
+}

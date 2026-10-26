@@ -138,6 +138,25 @@ function hiddenEntries(files, folders, shown) {
     return [...entries].sort();
 }
 
+// A file's signature hangs on the sets alone, never on which lamps are lit or vetoed, so one walk matches each file once per sets and every
+// state after reads the match. Only the latest sets are kept per walk: the open files are part of the sets and change all the time.
+/** @type {WeakMap<Disk, { id: string, known: Record<string, string[]> }>} */
+const signatureMemo = new WeakMap();
+
+/**
+ * @param {Disk} disk
+ * @param {LampSets} sets
+ * @returns {Record<string, string[]>}
+ */
+function knownSignatures(disk, sets) {
+    const id = JSON.stringify(sets);
+    const memo = signatureMemo.get(disk);
+    if (memo?.id === id) return memo.known;
+    const known = evaluate(sets, new Set(), disk.files).signatures;
+    signatureMemo.set(disk, { id, known });
+    return known;
+}
+
 // The entries for the unlit lamps, from one walk of the disk: out holds the unlit lamps, open the files open in an editor, vetoed the
 // unlit lamps that also hide their whole zone. Every lamp lit writes nothing, as without the extension.
 // disk is the extension's in-memory index of the walk ({ files, folders }); without it the disk is walked, as the tests do.
@@ -169,8 +188,9 @@ async function hiddenPlan(root, out, declared, open = [], vetoed = [], disk = un
     const sets = lampSets(declared, open);
     const lit = new Set(Object.keys(sets).filter((name) => !out.has(name)));
     if (lit.size === Object.keys(sets).length) return { globs: [], verdict: undefined };
-    const { files, folders } = disk ?? (await walkDisk(root));
-    const verdict = evaluate(sets, lit, files, {}, vetoed);
+    const walked = disk ?? (await walkDisk(root));
+    const { files, folders } = walked;
+    const verdict = evaluate(sets, lit, files, {}, vetoed, knownSignatures(walked, sets));
     return { globs: hiddenEntries(files, folders, verdict.shown), verdict };
 }
 
@@ -190,8 +210,9 @@ async function hiddenPlan(root, out, declared, open = [], vetoed = [], disk = un
 async function census(root, out, declared, globs, open = [], vetoed = [], disk = undefined, planned = undefined) {
     const sets = lampSets(declared, open);
     const lit = new Set(Object.keys(sets).filter((name) => !out.has(name)));
-    const { files } = disk ?? (await walkDisk(root));
-    const verdict = planned ?? evaluate(sets, lit, files, {}, vetoed);
+    const walked = disk ?? (await walkDisk(root));
+    const { files } = walked;
+    const verdict = planned ?? evaluate(sets, lit, files, {}, vetoed, knownSignatures(walked, sets));
     const showing = new Set(verdict.shown);
     const written = entryClaimer(globs);
     const output = sets[OUTPUT] ? claimer(sets[OUTPUT]) : () => false;

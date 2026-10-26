@@ -17,10 +17,11 @@ function Get-CommittedTypesDrift {
     Import-InternalModule Types
     $modulesFolder = Get-CatzcModulesFolder
     $currentHash = (Get-CombinedTypeHash (Join-Path $RepositoryRoot $modulesFolder)).CombinedHash
-    $contract = Get-TypesContractPath -RepositoryRoot $RepositoryRoot
+    # Every module group's types surface, one pathspec git expands itself.
+    $contract = 'contracts/catzc/0.1.0/*/types.json'
     $reasons = [System.Collections.Generic.List[string]]::new()
 
-    # The surface the current sources build to, read from their build in the shadow root, against the committed contract.
+    # The surface the current sources build to, read from their build in the shadow root, against the committed contracts.
     $dll = Join-Path (Get-TypesShadowRoot) "Catzc.Types.$currentHash.dll"
     if (-not (Test-Path -LiteralPath $dll -PathType Leaf)) {
         $reasons.Add("no build of the current type sources ($currentHash) in the shadow root — run the importer")

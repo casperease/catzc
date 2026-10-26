@@ -1,0 +1,73 @@
+{
+  "types": [
+    {
+      "name": "Catzc.Base.GeneratedFiles.GeneratedFilesConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "input_depth",
+          "kind": "property"
+        },
+        {
+          "name": "writers",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.GeneratedFiles.GeneratedWriter",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "at_import",
+          "kind": "property"
+        },
+        {
+          "name": "check",
+          "kind": "property"
+        },
+        {
+          "name": "inputs",
+          "kind": "property"
+        },
+        {
+          "name": "name",
+          "kind": "property"
+        },
+        {
+          "name": "outputs",
+          "kind": "property"
+        },
+        {
+          "name": "result_path",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.GeneratedFiles.GeneratedWriterDue",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Due",
+          "kind": "property"
+        },
+        {
+          "name": "HasLists",
+          "kind": "property"
+        },
+        {
+          "name": "Name",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        }
+      ]
+    }
+  ]
+}
