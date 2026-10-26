@@ -17,7 +17,7 @@ TDR-ONETRUTH-ONESTOREDECIDES · The thesis
 
 A **source of truth** is the one store whose content decides what is true about the delivered system. Delivery is slow because that truth is
 spread across disjoint stores that drift apart: servers, databases, CMDBs, deployment engines, ticket systems, requirement databases.
-Catzc's answer is one source of truth, the repository, with one simple, fast, and robust change process for everything in it, never
+The answer is one source of truth, the repository, with one simple, fast, and robust change process for everything in it, never
 synchronisation between stores inside its responsibility domain.
 
 ## Notes

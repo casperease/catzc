@@ -1,5 +1,5 @@
 description: >-
-  The pwsh track as a container: the internal modules load its catzc modules, which call the vendored modules beside them, and the three
+  The pwsh track as a container: the internal modules load its modules, which call the vendored modules beside them, and the three
   engines run them.
 about:
   adrs: [ADR-AUTO-MODULE-EXISTSBYLAYOUT, ADR-AUTO-ENGINE-THREEENGINES, DDR-VISUAL-ZOOMISANAXIS]
@@ -18,7 +18,7 @@ content:
   glyphs:
     - { id: e-engines, kind: env, label: pwsh bash zsh, in: band-engines }
     - { id: m-internal, kind: module, label: .internal, in: band-load }
-    - { id: m-modules, kind: set, label: Catzc modules, in: band-modules }
+    - { id: m-modules, kind: set, label: Modules, in: band-modules }
     - { id: m-vendor, kind: set, label: .vendor, in: band-vendor }
   edges:
     - { from: e-engines, to: m-internal, kind: flow, label: runs }

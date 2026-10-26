@@ -19,7 +19,7 @@ catzc:
 
 ## Lead
 
-For the SRE Lead, who owns reliability, monitoring and the switch: Every pipeline step names a cats command; every gate writes its report;
+For the SRE Lead, who owns reliability, monitoring and the switch: Every pipeline step names a command; every gate writes its report;
 nothing is clicked.
 
 ## Image

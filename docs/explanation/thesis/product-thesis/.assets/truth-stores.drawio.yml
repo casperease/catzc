@@ -11,7 +11,7 @@ about:
     - TDR-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD
   lens: architecture
 content:
-  title: Catzc writes its domain, reads fact sources, meets state machines
+  title: Writes its domain, reads fact sources, meets state machines
   kind: explanation
   flow: left-to-right
   theme: dark

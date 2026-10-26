@@ -10,7 +10,7 @@ catzc:
       scale: 0.4
 ---
 
-# Go in cats is test artifacts only
+# Go is test artifacts only
 
 ## Eyebrow
 

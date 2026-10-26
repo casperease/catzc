@@ -1,5 +1,5 @@
 description:
-  "The whole cats load is one call chain inside Invoke-Importer: internal modules, vendored modules, every module, a run-mode check, the
+  "The whole load is one call chain inside Invoke-Importer: internal modules, vendored modules, every module, a run-mode check, the
   janitors and the removal of the bootstrap; both entry scripts end in this one function."
 about:
   adrs: [ADR-AUTO-BUNDLE-TWOROOTS, ADR-AUTO-BUNDLE-ONELIVINGIMPORTER, ADR-AUTO-BUNDLE-BUNDLEISSESSION]

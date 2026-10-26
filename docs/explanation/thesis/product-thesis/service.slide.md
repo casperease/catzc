@@ -14,7 +14,7 @@ TDR-ONETRUTH-PROCESSESFOLLOWDELIVERY · Mechanics
 
 ## Rows
 
-| Process       | Where it lives in cats                      |
+| Process       | Where it lives                              |
 | ------------- | ------------------------------------------- |
 | Change record | The commit and its review                   |
 | Approval      | A step in the one change process            |

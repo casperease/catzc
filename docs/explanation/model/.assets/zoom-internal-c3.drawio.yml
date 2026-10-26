@@ -1,4 +1,4 @@
-description: The internal modules of pwsh/.internal, which the importer loads before any catzc module, drawn from the folder at every build.
+description: The internal modules of pwsh/.internal, which the importer loads before any module, drawn from the folder at every build.
 about:
   adrs: [ADR-PWSH-ENGINE-IMPORTERDOTSOURCED, DDR-VISUAL-ZOOMISANAXIS]
   lens: architecture

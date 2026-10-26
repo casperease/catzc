@@ -10,7 +10,7 @@ catzc:
       scale: 0.4
 ---
 
-# cats is a mono repo, not a monolith: no repo-wide version, release or freeze
+# A mono repo, not a monolith: no repo-wide version, release or freeze
 
 ## Eyebrow
 

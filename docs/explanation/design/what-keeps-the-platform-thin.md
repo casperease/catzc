@@ -37,7 +37,7 @@ about:
     - ADR-AZ-CLI-NOAZMODULEIMPORT
   lens: governance
 content:
-  title: Three gates guard the CLI and az, but nothing checks that cats stays thin
+  title: Three gates guard the CLI and az, but nothing checks that the platform stays thin
   kind: explanation
   flow: left-to-right
   theme: dark

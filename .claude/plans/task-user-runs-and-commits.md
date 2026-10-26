@@ -19,16 +19,16 @@ final full run last.
 
 ## Steps
 
-1. Commit `pwsh/Base.Slides/Build-Diagrams.ps1`: one `Write-Message` line per folder for the minimap, render and sync stages, and the
-   total time on the closing line. Check: `Invoke-TestFile pwsh/Base.Slides/tests/Build-Diagrams.Tests.ps1` passes.
+1. Commit `pwsh/Base.Slides/Build-Diagrams.ps1`: one `Write-Message` line per folder for the minimap, render and sync stages, and the total
+   time on the closing line. Check: `Invoke-TestFile pwsh/Base.Slides/tests/Build-Diagrams.Tests.ps1` passes.
 2. Edit `.claude/CLAUDE.md:26` to read "nothing internal reads or defaults to the track" (plan-listen-internal-readers.md). Check:
    `Test-AgentDefinitions` passes.
 3. Edit `.claude/CLAUDE.md`, the "Run PowerShell yourself" rule, to name
    `timeout <s> pwsh -NoProfile -File pwsh/.internal/assets/Invoke-CatzcCommand.ps1 "<cmd>"` in place of
    `pwsh -NoProfile -Command ". ./importer.ps1; <cmd>"` (plan-agent-shortcuts.md step 5). Check: `Test-AgentDefinitions` passes.
-4. Stage the idiomatic-names moves (`python/tests/base_repository/`, `go/tests/baserepository/`, and later
-   `python/diagrams/`): `Test-IdiomaticNames` reads the git index, so plan-idiomatic-names' gate-on step waits on it. Check:
-   `Test-IdiomaticNames` no longer lists the old folders.
+4. Stage the idiomatic-names moves (`python/tests/base_repository/`, `go/tests/baserepository/`, and later `python/diagrams/`):
+   `Test-IdiomaticNames` reads the git index, so plan-idiomatic-names' gate-on step waits on it. Check: `Test-IdiomaticNames` no longer
+   lists the old folders.
 5. Cut `.claude/CLAUDE.md`, section Sub-agents, to the agent names and one clause each, and in the same edit name
    `docs/references/pwsh/index.md` on the `docs/references/` line as where a design round starts (plan-claude-diet.md steps 1-2). Check:
    `Test-AgentDefinitions` passes and `wc -c .claude/CLAUDE.md` is at most 11900.
@@ -58,8 +58,8 @@ final full run last.
    Inside them the 112 `Verb-Noun.command.yml` files are `verb_noun.command.yml`. Check: `git ls-files contracts` lists no `Catzc.` folder
    and `Test-Contracts` reports 0.
 10. Commit the git topic commands (plan-git-topic-commands, done and deleted; the hook's deny now matches an invocation only):
-    `pwsh/Base.Git` (GitFlowConfig, `git.yml`, `Get-SyncPoint`, `Save-Topic`, `Sync-Topic`, `Push-Topic`, the L1 flow test), the VS
-    Code tasks, the `Assert-BashTimeout` deny, and the deletion of `Push-Dirty.ps1`, its test and its page. Check: `Invoke-TestFile` on
+    `pwsh/Base.Git` (GitFlowConfig, `git.yml`, `Get-SyncPoint`, `Save-Topic`, `Sync-Topic`, `Push-Topic`, the L1 flow test), the VS Code
+    tasks, the `Assert-BashTimeout` deny, and the deletion of `Push-Dirty.ps1`, its test and its page. Check: `Invoke-TestFile` on
     `pwsh/Base.Git/tests/Push-Topic.Flow.Tests.ps1` passes.
 11. Edit `.claude/CLAUDE.md`, section Project structure: one line saying the `types/*.cs` files are written in BCL, a subset of .NET, hosted
     by pwsh (plan-bcl-language.md, the CLAUDE.md step). Check: `Test-AgentDefinitions` passes.
@@ -140,7 +140,15 @@ final full run last.
     disk until the gitignore step of the same plan ignores the whole folder). Check: `git ls-files pwsh/.compiled` prints nothing, and
     `Test-BuildArtifact -Facet Types` reports no issues.
 
-28. The final full run, in a fresh session, when the chunks in plan-master have landed. Once it is green and committed, the work is done and
+28. plan-module-namespace: stage the last phase-2 renames, the seven comment pages whose case-only rename git cannot see (`core.ignorecase`
+    is true), each in two steps through a temporary name, then commit with the rest of the working tree. They are, under
+    `docs/references/pwsh/`: `catzc-base-asserts/Assert-IsRunningInVSCode.ps1.md`,
+    `catzc-base-environment/assets/Set-LocalPSModulePath.ps1.md`, `catzc-base-types-system/tests/Invoke-BuildForVSCode.Tests.ps1.md`, and in
+    `catzc-base-vs-code/tests/` `Build-VSCodeExtension.Tests.ps1.md`, `Install-VSCodeExtension.Tests.ps1.md`,
+    `New-VSCodeExtensionFolder.Tests.ps1.md` and `New-VSCodeTasks.Tests.ps1.md`; each becomes the `VsCode` / `PsModulePath` spelling already
+    on disk (`git mv -f <old> <old>.tmp`, then `git mv <old>.tmp <new>`). The python pages (`docs/references/python/diagrams/`) are already
+    committed. Check: `git ls-files docs/references | grep -cE 'VSCode|PSModulePath'` prints 0, and `git status` is clean.
+29. The final full run, in a fresh session, when the chunks in plan-master have landed. Once it is green and committed, the work is done and
     every plan, task and prompt in `.claude/plans` is deleted (the user, 2026-10-20). Check: `.claude/plans` is empty.
 
 ## Report

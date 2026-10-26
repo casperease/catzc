@@ -11,7 +11,7 @@ catzc:
       tilt: { y: 0.8, shear: 0.15 }
 ---
 
-# Platform engineering: cats ships the tooling, and each team runs it against its own organization
+# Platform engineering: the tooling ships, and each team runs it against its own organization
 
 ## Eyebrow
 

@@ -27,7 +27,7 @@ about:
   adrs: [FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND]
   lens: implementation
 content:
-  title: Every Deploy stage in cats runs only from main, so no topic commit is deployed
+  title: Every Deploy stage runs only from main, so no topic commit is deployed
   kind: explanation
   flow: left-to-right
   theme: dark

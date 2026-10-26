@@ -18,7 +18,7 @@ a build are set up the same way.
 
 ```yml drawio
 description:
-  "Whatever the entry point, cats loads through the same five stages in the same order: enter, set up the session, load, prove one run mode,
+  "Whatever the entry point, loading runs through the same five stages in the same order: enter, set up the session, load, prove one run mode,
   then tidy and leave."
 about:
   adrs: [ADR-AUTO-BUNDLE-ONELIVINGIMPORTER, ADR-AUTO-BUNDLE-BUNDLEISSESSION]

@@ -34,7 +34,7 @@ about:
     - ADR-AZ-CLI-NOAZMODULEIMPORT
   lens: architecture
 content:
-  title: Every vendor call leaves cats through the az CLI
+  title: Every vendor call leaves through the az CLI
   kind: explanation
   flow: top-to-bottom
   theme: dark

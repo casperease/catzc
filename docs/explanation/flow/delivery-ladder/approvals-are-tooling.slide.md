@@ -10,7 +10,7 @@ catzc:
       scale: 0.4
 ---
 
-# Approvals live in the engine's checks; cats ships the tooling and names no approver
+# Approvals live in the engine's checks; the tooling ships and names no approver
 
 ## Eyebrow
 

@@ -11,7 +11,7 @@ catzc:
       tilt: { y: 0.8, shear: 0.15 }
 ---
 
-# cats carries no back-compat shim, deprecated alias or migration fallback
+# No back-compat shim, deprecated alias or migration fallback
 
 ## Eyebrow
 

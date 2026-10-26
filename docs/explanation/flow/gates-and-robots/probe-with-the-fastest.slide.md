@@ -18,7 +18,7 @@ catzc:
 
 ## Lead
 
-Plain file reads and greps for state, pwsh without the importer when only PowerShell is needed, the importer only for a cats command, in the
+Plain file reads and greps for state, pwsh without the importer when only PowerShell is needed, the importer only for a command, in the
 background.
 
 ## Image

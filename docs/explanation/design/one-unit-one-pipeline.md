@@ -18,7 +18,7 @@ machine. The invariant ties them in a line: units are composed from tracks, each
 track except through the unit that is that track.
 
 ```yml drawio
-description: "A track composes into a deployable-unit, and a deployable-unit binds one pipeline: the delivery side of cats in a line."
+description: "A track composes into a deployable-unit, and a deployable-unit binds one pipeline: the delivery side in a line."
 about:
   adrs: [DDR-TRACK-TRACKISPLACEDCLUSTER, DDR-TRACK-ONETRACKTYPE, DDR-TRACK-SUBSCRIBABLENOTPATHCOUPLED, DDR-TRACK-DEPLOYABLEUNIT]
   lens: meta

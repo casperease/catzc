@@ -21,7 +21,7 @@ TDR-ONETRUTH-PRODUCTMONOREPOSITORY and TDR-ONETRUTH-NOREPOSITORYVERSION · Mecha
 
 ## Body
 
-There is no repository-wide version. A consumer pins a released bundle or keeps its own clone; consuming cats implicitly across a boundary
+There is no repository-wide version. A consumer pins a released bundle or keeps its own clone; consuming it implicitly across a boundary
 is neither.
 
 ## Notes

@@ -21,7 +21,7 @@ session set-up. The unload has neither a rule nor a gate.
 
 ```yml drawio
 description:
-  The cats load runs in six stages; each stage but the last carries the ADR rules it follows and the test or review that gates them, and the
+  The load runs in six stages; each stage but the last carries the ADR rules it follows and the test or review that gates them, and the
   unload carries neither.
 about:
   adrs:

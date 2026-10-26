@@ -6,7 +6,7 @@ catzc:
     order: 3
 ---
 
-# Catzc writes its domain, reads fact sources, meets state machines
+# Writes its domain, reads fact sources, meets state machines
 
 ## Image
 
@@ -14,11 +14,11 @@ catzc:
 
 ## Caption
 
-Three kinds of truth store (TDR-STORES-THREEKINDS): catzc writes its responsibility domain, the repository at one commit
+Three kinds of truth store (TDR-STORES-THREEKINDS): it writes its responsibility domain, the repository at one commit
 (TDR-STORES-RESPONSIBILITYDOMAIN); reads a fact source and never writes it (TDR-STORES-FACTSOURCEREADONLY); and meets a state machine with
 facts and takes its verdict (TDR-STORES-STATEMACHINE, TDR-STORES-RECONCILEFACTS).
 
 ## Notes
 
-The scattered truth of the previous slide, sorted. Every store catzc touches is one of three kinds, and the kind decides the treatment: the
-repository is the one catzc writes, a fact source is only read, and a state machine is reached by facts it then rules on.
+The scattered truth of the previous slide, sorted. Every store it touches is one of three kinds, and the kind decides the treatment: the
+repository is the one it writes, a fact source is only read, and a state machine is reached by facts it then rules on.

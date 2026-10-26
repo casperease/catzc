@@ -18,7 +18,7 @@ catzc:
 
 ## Lead
 
-For the Developer, who edits one file, runs one gate, pushes one topic: cats is a mono repo, not a monolith; there is no repo-wide freeze or
+For the Developer, who edits one file, runs one gate, pushes one topic: this is a mono repo, not a monolith; there is no repo-wide freeze or
 release train.
 
 ## Image

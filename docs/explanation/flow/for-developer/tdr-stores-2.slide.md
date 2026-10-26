@@ -11,7 +11,7 @@ catzc:
       tilt: { y: 0.8, shear: 0.15 }
 ---
 
-# Truth lives in three kinds of store: the one cats writes, the ones it reads, the ones it meets
+# Truth lives in three kinds of store: the one written, the ones read, the ones met
 
 ## Eyebrow
 

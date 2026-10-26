@@ -10,7 +10,7 @@ catzc:
       scale: 0.4
 ---
 
-# Truth lives in three kinds of store: the one cats writes, the ones it reads, the ones it meets
+# Truth lives in three kinds of store: the one written, the ones read, the ones met
 
 ## Eyebrow
 
@@ -18,7 +18,7 @@ catzc:
 
 ## Lead
 
-Back at the top: the repository is the store cats writes; a fact source is read; a state machine is met. Each kind has its own rule for what
+Back at the top: the repository is the store that is written; a fact source is read; a state machine is met. Each kind has its own rule for what
 counts as true.
 
 ## Image

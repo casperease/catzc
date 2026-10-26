@@ -27,7 +27,7 @@ about:
   adrs: [FDR-CD-GLOBS-DURABLESHAIDENTITY, FDR-CD-GLOBS-NATIVEPATHFILTER, FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT]
   lens: operations
 content:
-  title: You edit globs.yml, and every other step prints what cats derived from it
+  title: You edit globs.yml, and every other step prints what was derived from it
   kind: explanation
   flow: left-to-right
   theme: dark

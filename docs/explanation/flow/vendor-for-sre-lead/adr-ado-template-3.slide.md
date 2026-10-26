@@ -11,7 +11,7 @@ catzc:
       tilt: { y: 0.8, shear: 0.15 }
 ---
 
-# Azure DevOps: a pipeline step only names a cats command; the template runs it
+# Azure DevOps: a pipeline step only names a command; the template runs it
 
 ## Eyebrow
 

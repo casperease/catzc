@@ -8,7 +8,7 @@ The detector lives in the loader, which both run modes import first and keep loa
 3  Test-IsRunningInPipeline        the one reader, defined and exported by Catzc.Internal.Loader
 4  Catzc.Internal.Bootstrap        the C#-types pre-pass asks it before any module loads
 5  Catzc.Internal.Builder          the module build asks it before it bundles
-6  Catzc modules                   22 module functions ask it; none reads the variables
+6  Modules                         22 module functions ask it; none reads the variables
 7  Measure-NoRawPipelineDetection  the analyzer rule that bans a raw read in PowerShell
 8  Assert-BashTimeout              the C# hook, outside the analyzer, repeats the same test
 
@@ -47,7 +47,7 @@ content:
     - { id: c-detector, kind: code, label: Test-IsRunningInPipeline, in: band-loader }
     - { id: c-bootstrap, kind: code, label: Catzc.Internal.Bootstrap, in: grp-callers }
     - { id: c-builder, kind: code, label: Catzc.Internal.Builder, in: grp-callers }
-    - { id: s-modules, kind: set, label: Catzc modules, in: grp-callers }
+    - { id: s-modules, kind: set, label: Modules, in: grp-callers }
     - { id: c-hook, kind: code, label: Assert-BashTimeout, in: band-hook }
     - { id: g-analyzer-rule, kind: gate, label: Measure-NoRawPipelineDetection, in: band-enforcement }
   edges:
@@ -98,7 +98,7 @@ layout:
    detector: in a pipeline that is a hard failure, on a devbox a warning and a restart hint.
 5. **Catzc.Internal.Builder.** The module build asks it too: a source tree that differs from its commit cannot be bundled in a pipeline,
    because a pipeline builds only a clean commit.
-6. **Catzc modules.** Twenty-two module functions, from `Get-OutputRoot` to `Install-Dotnet`, branch on the detector. None of them reads the
+6. **Modules.** Twenty-two module functions, from `Get-OutputRoot` to `Install-Dotnet`, branch on the detector. None of them reads the
    variables.
 7. **Measure-NoRawPipelineDetection.** The analyzer rule, loaded through `CatzcRules.psm1` by the one settings file, flags a raw read of
    either variable in any PowerShell file outside the detector.

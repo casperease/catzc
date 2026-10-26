@@ -32,7 +32,7 @@ about:
     - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
   lens: operations
 content:
-  title: "Nobody types an Azure name: cats derives it, and a bad name stops with an error"
+  title: "Nobody types an Azure name: it is derived, and a bad name stops with an error"
   kind: explanation
   flow: left-to-right
   theme: dark
