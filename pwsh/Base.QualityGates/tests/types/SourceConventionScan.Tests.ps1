@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../../docs/references/pwsh/catzc-base-quality-gates/tests/types/SourceConventionScan.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'SourceConventionScan' -Tag 'L0', 'logic' {
     It 'collects the list nodes, the block commands, and every string, nested ones too, in tree order' {
         $source = @'
