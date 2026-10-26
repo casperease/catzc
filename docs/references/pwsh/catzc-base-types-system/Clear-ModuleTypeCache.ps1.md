@@ -7,14 +7,15 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Removes superseded compiled C# type assemblies, keeping the current combined build.
+Removes superseded compiled C# type assemblies, keeping the current combined build and any build loaded within the prune age.
 
 ### description
 
 The single combined assembly in pwsh/.compiled/ (`Catzc.Types.<combinedHash8>.dll`) is committed to source control (a deterministic,
 hash-keyed prebuild — like .vendor), so a fresh checkout and CI load it without invoking Roslyn. This tidies the cache: it keeps the one
-assembly whose name matches the current combined hash of every module's `types/*.cs` and deletes the rest — older builds left over from a
-previous version of a type. The current build is never deleted, so the committed file stays put on every platform.
+assembly whose name matches the current combined hash of every module's `types/*.cs`, and any assembly whose last load is younger than the
+prune age (Get-TypesPruneAfter, the age the loader prunes by), and deletes the rest. Every tree's sessions share the shadow root and each
+load refreshes its build's write time, so a young build of another hash may be another tree's current one. The current build is never deleted, so the committed file stays put on every platform.
 
 Nothing in catzc holds a .compiled DLL open: every load goes through a per-user shadow copy (Import-TypesAssembly,
 [ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD](../../../drs/automation/caching.md#rule-adr-auto-cache-compiledtypeprebuild)), so a superseded build

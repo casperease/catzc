@@ -310,8 +310,10 @@ A superseded-hash DLL (the old build after a source edit) is pruned by the loade
 `Clear-ModuleTypeCache` (which deletes on a devbox only; CI makes no source-control changes). Editing any `types/*.cs` re-keys the whole
 assembly — one combined hash, one build, paid once on each machine.
 
-The shadow root holds the current build and any superseded one a process still has loaded. `Clear-ModuleTypeCache` removes every deletable
-superseded build and names each survivor with, on Windows, its holders (`Get-FileLockingProcess`, via the Restart Manager) in one yellow
+The shadow root holds the current build and any superseded one a process still has loaded. Every tree's sessions share it, and each load
+refreshes its build's write time, so a build loaded within the loader's prune age (`Get-TypesPruneAfter`, declared once) may be another
+tree's current one: the loader's prune and `Clear-ModuleTypeCache` both keep it. `Clear-ModuleTypeCache` removes every deletable superseded
+build older than that and names each survivor with, on Windows, its holders (`Get-FileLockingProcess`, via the Restart Manager) in one yellow
 line; a silent run says nothing. It never throws for a held build, never stops a holder and never waits for one: the held build is that
 process's one types instance (ADR-BCL-TYPES-CHANGEDAFTERLOAD), and it goes on the next run after the holder exits.
 
@@ -501,7 +503,8 @@ as well as its files, so the pair is the language's configuration, apart from th
   namespace (via `Test-Formatting -Language bcl`), and a `PSTypeAlias accelerators` test asserts a decorated type's accelerator resolves
   after load. `Set-CSharpFileScopedNamespace.Tests.ps1` unit-tests the namespace string engine behind `Format-Types`.
 
-- **`Clear-ModuleTypeCache`** keeps the current build in the shadow root and prunes the superseded ones. A build a process still holds is
+- **`Clear-ModuleTypeCache`** keeps the current build in the shadow root, and any build younger than the prune age, and prunes the older
+  superseded ones. A build a process still holds is
   named with its holders in one yellow line and left for the run after the holder exits.
 
 - **`Import-TypesAssembly`** (in `.internal/Catzc.Internal.Types.psm1`) is the one load path — the bootstrap and the `SpellOutIdentifiers`

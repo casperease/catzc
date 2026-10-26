@@ -59,11 +59,16 @@ function Clear-ModuleTypeCache {
         $null
     }
 
+    # Every tree's sessions share the shadow root, so a build loaded within the loader's prune age may be another tree's current one.
+    $staleBefore = [DateTime]::UtcNow - (Get-TypesPruneAfter)
     foreach ($dll in [Catzc.Base.Folders.PathSet]::new((Get-Config -Config folder-walk)).AddPattern($compiledDir,
             '*.dll', 1).ToArray()) {
         if ($keep -and [System.IO.Path]::GetFileName($dll) -ieq $keep) {
             continue
         }   # current build — keep
+        if ([System.IO.File]::GetLastWriteTimeUtc($dll) -ge $staleBefore) {
+            continue
+        }
         $ret.Add($dll)
     }
 

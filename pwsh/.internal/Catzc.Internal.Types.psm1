@@ -34,6 +34,16 @@ function Get-TypesShadowRoot {
     }
 }
 
+# How long a build in the shared shadow root lives after its last load. Every tree's sessions share the root, and each load refreshes its
+# build's write time, so a build younger than this may be another tree's current one: the loader's prune and Clear-ModuleTypeCache both
+# keep it.
+function Get-TypesPruneAfter {
+    [OutputType([TimeSpan])]
+    param()
+
+    [TimeSpan]::FromDays(1)
+}
+
 function Get-TypesStampPath {
     [OutputType([string])]
     param(
@@ -59,7 +69,7 @@ function Import-TypesAssembly {
 
         [string] $ShadowRoot = (Get-TypesShadowRoot),
 
-        [TimeSpan] $PruneAfter = [TimeSpan]::FromDays(1),
+        [TimeSpan] $PruneAfter = (Get-TypesPruneAfter),
 
         [bool] $ShadowCopy = $true
     )
@@ -392,4 +402,4 @@ function Enable-DeferredTypesLoad {
     }
 }
 
-Export-ModuleMember -Function Get-TypeSourceBody, Get-CombinedTypeHash, Get-LoadedTypeDrift, Build-CombinedTypeAssembly, Get-TypesShadowRoot, Get-TypesStampPath, Import-TypesAssembly, Test-TypesAssemblyContent, Get-TypesAssemblyManifest, Write-TypesAssemblyManifest, Get-TypesContractPath, Write-TypesContract, Save-BurstJournalWrite, Get-TypesContractDrift, Get-TypesLoadPolicy, Register-DeferredTypes, Initialize-Types, Enable-DeferredTypesLoad
+Export-ModuleMember -Function Get-TypeSourceBody, Get-CombinedTypeHash, Get-LoadedTypeDrift, Build-CombinedTypeAssembly, Get-TypesShadowRoot, Get-TypesPruneAfter, Get-TypesStampPath, Import-TypesAssembly, Test-TypesAssemblyContent, Get-TypesAssemblyManifest, Write-TypesAssemblyManifest, Get-TypesContractPath, Write-TypesContract, Save-BurstJournalWrite, Get-TypesContractDrift, Get-TypesLoadPolicy, Register-DeferredTypes, Initialize-Types, Enable-DeferredTypesLoad

@@ -38,8 +38,26 @@ Describe 'Clear-ModuleTypeCache' -Tag 'L0' {
         $script:staleManifest = [System.IO.Path]::ChangeExtension($staleDll, 'json')
         [System.IO.File]::WriteAllText($currentManifest, '{}')
         [System.IO.File]::WriteAllText($staleManifest, '{}')
+        # A superseded build is one no session has loaded within the prune age; a younger one may be another tree's current build.
+        $script:oldWrite = [DateTime]::UtcNow - (Get-TypesPruneAfter) - [TimeSpan]::FromDays(1)
+        [System.IO.File]::SetLastWriteTimeUtc($staleDll, $oldWrite)
 
         $script:fakeRoot = $root
+    }
+
+    It 'keeps a foreign-hash build loaded within the prune age, since another tree may run it' -Tag 'logic' {
+        $foreign = Join-Path $compiled 'Catzc.Types.cafef00d.dll'
+        [System.IO.File]::WriteAllText($foreign, 'another tree')
+        Clear-ModuleTypeCache -ModulesRoot $fakeRoot
+        $foreign | Should -Exist
+    }
+
+    It 'deletes a foreign-hash build older than the prune age' -Tag 'logic' {
+        $foreign = Join-Path $compiled 'Catzc.Types.cafef00d.dll'
+        [System.IO.File]::WriteAllText($foreign, 'another tree, long gone')
+        [System.IO.File]::SetLastWriteTimeUtc($foreign, $oldWrite)
+        Clear-ModuleTypeCache -ModulesRoot $fakeRoot
+        $foreign | Should -Not -Exist
     }
 
     It 'removes a superseded build''s manifest with it and keeps the current manifest' -Tag 'logic' {
@@ -66,6 +84,7 @@ Describe 'Clear-ModuleTypeCache' -Tag 'L0' {
     It 'prunes every build when no module has sources' -Tag 'logic' {
         Remove-Item (Join-Path $fakeRoot 'Mod.One/types/Alpha.cs') -Force
         Remove-Item (Join-Path $fakeRoot 'Mod.Two/types/Beta.cs') -Force
+        [System.IO.File]::SetLastWriteTimeUtc($currentDll, $oldWrite)
         Clear-ModuleTypeCache -ModulesRoot $fakeRoot
         @(Get-ChildPath $compiled -File -Filter '*.dll' -Depth 1).Count | Should -Be 0
     }
@@ -148,6 +167,7 @@ Describe 'Clear-ModuleTypeCache' -Tag 'L0' {
         # A second superseded build stays deletable, so the held one is the only survivor.
         $stale2 = Join-Path $compiled 'Catzc.Types.cafef00d.dll'
         [System.IO.File]::WriteAllText($stale2, 'stale2')
+        [System.IO.File]::SetLastWriteTimeUtc($stale2, $oldWrite)
         Mock Start-Sleep { throw 'the janitor never waits on a holder' } -ModuleName Catzc.Base.TypesSystem
 
         $stream = [System.IO.File]::Open($staleDll, 'Open', 'Read', 'None')   # a session's bound instance
