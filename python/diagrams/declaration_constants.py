@@ -3,11 +3,9 @@
 """The numbers, keys, styles and vocabularies of a declaration that stay as they are: the keys a source may hold, the action and proof
 lens numbers, the page and the grid, the commit states and the cell styles."""
 
-from pathlib import Path
-
 from .drawio_png import DEFAULTS
+from .module_paths import KIT as KIT  # re-exported: the declaration modules read the kit folder from here
 
-KIT = Path(__file__).resolve().parent
 SLIDE = ".drawio.png"
 SOURCE = ".drawio.yml"  # the diagram's one source: its description, its content and the layout of the cells off the grid
 FLOWS = ("left-to-right", "top-to-bottom")

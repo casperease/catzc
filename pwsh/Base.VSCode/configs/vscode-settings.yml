@@ -176,9 +176,12 @@ settings:
   git.smartCommitChanges: all
   git.postCommitCommand: push
 
-  # GOTOOLCHAIN=local: the editor never downloads a toolchain; it runs the managed go the generator injects as go.goroot.
+  # GOTOOLCHAIN=local: the editor never downloads a toolchain; it runs the managed go, pinned by path past a stale machine PATH.
   go.toolsEnvVars:
     GOTOOLCHAIN: local
+  # {tool.<name>} names a managed tool's binary from its probes; New-VsCodeSettings resolves it.
+  go.alternateTools:
+    go: "{tool.go}"
 
   # {python.<key>} names a folder of the python config; New-VsCodeSettings resolves it.
   terminal.integrated.env.windows:

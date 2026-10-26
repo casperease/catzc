@@ -31,6 +31,8 @@ def repository_root():
 
 
 REPO = repository_root()
+# The kit's own folder in the source tree, where its configs and assets live; an editable build copy may lack a file added since.
+KIT = REPO / "python" / "diagrams"
 
 
 @cache

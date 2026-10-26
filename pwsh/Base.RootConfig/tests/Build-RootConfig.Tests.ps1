@@ -221,10 +221,15 @@ Describe 'Build-RootConfig — real rootconfig.yml' -Tag 'L2', 'integrity', 'sou
         @($script:rendered).Count | Should -BeGreaterThan 0
     }
 
-    It 'renders .vscode/settings.json with no absolute machine path, so the editor finds its tools as the terminal does' {
+    It 'renders .vscode/settings.json with no absolute machine path but a managed tool''s, so the editor finds its tools as the terminal does' {
         $settings = "$(InModuleScope Catzc.Base.RootConfig { Invoke-RootConfigGenerator -Name New-VsCodeSettings -Target '.vscode/settings.json' })"
         $settings | Should -Not -BeNullOrEmpty
-        $settings | Should -Not -Match '"[A-Za-z]:[\\/]|"/(Users|home)/'
+        # Only an *.alternateTools value names a managed tool by its absolute path, since Explorer's stale PATH on Windows can pick another.
+        $json = $settings | ConvertFrom-Json -AsHashtable
+        foreach ($key in @($json.Keys | Where-Object { $_ -like '*.alternateTools' })) {
+            $json.Remove($key)
+        }
+        $json | ConvertTo-Json -Depth 12 | Should -Not -Match '"[A-Za-z]:[\\/]|"/(Users|home)/'
         $settings | Should -Not -Match 'go\.goroot'
     }
 

@@ -45,16 +45,12 @@ and external guidance (CAF, WAF, DORA, the Agile Manifesto, lean theory, Pester)
 
 ## Open steps
 
-- [ ] `docs/drs/repository/drs-code-language.md`: rewrite `ADR-REPO-DRSCODE` for the capitalization setting, the length budget, unique rule
-      names, fixed positions, native ids for external items, the EDR kind and the retired RDR kind (check: `Test-DrsRegistry`)
-- [ ] `pwsh/Base.Drs/configs/drs.yml`: register the `EDR` kind and retire `RDR` (check: `Test-DrsRegistry`)
-- [ ] `out/drs-rule-map.tsv`: regenerate with `out/drs-rename-map-fd7758d1.ps1`, then apply it once with `Update-DrsCitation` while no peer
-      edits DRS files (check: `Test-DrsRegistry`, `Test-Links`, `Test-Spelling`)
-- [ ] `docs/drs/azure/caf/`: move each CAF record to `docs/drs/external/`, one record at a time (check: `Test-Links` on the moved file)
-- [ ] `docs/drs/azure/waf/`: move each WAF record to `docs/drs/external/`, one record at a time (check: `Test-Links` on the moved file)
-- [ ] `docs/drs/research/`: move each DORA record to `docs/drs/external/`, one record at a time (check: `Test-Links` on the moved file)
-- [ ] `docs/drs/process/`: move the agile, values, agile-principles and lean records to `docs/drs/external/` (check: `Test-Links` on each
-      moved file)
+- [ ] one burst, because `DrsConfig` rejects a code that does not start with its domain's prefix, so an `EDR` code cannot stand in the
+      azure, process or research domain: in `out/drs-rename-map-fd7758d1.ps1` set each EDR record's `new_path` to `docs/drs/external/` (CAF
+      and WAF under `external/azure/caf/` and `external/azure/waf/`, DORA under `external/dora/`); in `drs.yml` replace the `research`
+      domain with an `external` domain owning `EDR`, move the CAF, WAF, agile, values, agile-principles and lean rulesets into it, and
+      delete the `RDR` kind; move the files; then apply the map once with `Update-DrsCitation` while no peer edits DRS files (check:
+      `Test-DrsRegistry`, `Test-Links`, `Test-Spelling`)
 - [ ] each EDR record under `docs/drs/external/`: rewrite its rules to how catzc reads the source, with a `source:` line, moving catzc's
       decisions into the ADR or PDR that cites it, one record at a time (check: `Test-DrsRegistry`)
 - [ ] `pwsh/Base.Drs/private/Get-DrsCodeLanguageViolations.ps1`: hold every rule heading to `Test-DrsCode -Rule` and every rule name to

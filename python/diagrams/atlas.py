@@ -10,6 +10,8 @@ Everything is read from disk, so it can be rerun after any wave.
 import json
 from pathlib import Path
 
+from .module_paths import KIT
+
 OUT = Path("out")
 D = OUT / "diagrams"
 PLANS = ["plan-diagram-waves.md", "plan-output-formats.md", "plan-worldmap-processor.md", "plan-inspiration-module.md"]
@@ -52,7 +54,7 @@ files = sorted({i["src"] for k in ("fan", "lenses", "sheets", "waves", "worlds",
 batches = [files[i:i + 250] for i in range(0, len(files), 250)]
 (OUT / "atlas.files.json").write_text(json.dumps(batches), encoding="utf-8")
 
-template = (Path(__file__).resolve().parent / "assets" / "atlas.template.html").read_text(encoding="utf-8")
+template = (KIT / "assets" / "atlas.template.html").read_text(encoding="utf-8")
 page = template.replace("/*__CATALOGUE__*/ null", json.dumps(catalogue, ensure_ascii=False))
 (OUT / "atlas.html").write_text(page, encoding="utf-8")
 print(f"ok out/atlas.html files={len(files)} batches={[len(b) for b in batches]}")

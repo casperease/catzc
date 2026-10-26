@@ -138,6 +138,18 @@ Describe 'New-VsCodeSettings' -Tag 'L0', 'logic' {
         $json.'editor.tabSize' | Should -Be 4 -Because 'an authored setting wins over a machine-resolved one'
     }
 
+    It 'resolves a {tool.widget} token to the tool''s first probe on this platform, expanded' {
+        Mock Get-Config -ModuleName Catzc.Base.VSCode -ParameterFilter { $Config -eq 'vscode-settings' } {
+            [Catzc.Base.VSCode.VscodeSettingsConfig]::new([ordered]@{ settings = [ordered]@{ 'widget.alternateTools' = [ordered]@{ widget = '{tool.widget}' } } })
+        }
+        Mock Get-Config -ModuleName Catzc.Base.VSCode -ParameterFilter { $Config -eq 'tools' } {
+            @{ widget = [pscustomobject]@{ windows_probes = @('%TEMP%\widget\widget.exe'); unix_probes = @('%HOME%/widget/widget') } }
+        }
+        $expected = $IsWindows ? "$env:TEMP\widget\widget.exe" : "$env:HOME/widget/widget"
+        $json = New-VsCodeSettings -CurrentPath (Join-Path $TestDrive 'none.json') | ConvertFrom-Json -AsHashtable
+        $json['widget.alternateTools']['widget'] | Should -BeExactly $expected.Replace('\', '/')
+    }
+
     It 'leaves the cached config untouched when it completes search.exclude' {
         $fixture = [Catzc.Base.VSCode.VscodeSettingsConfig]::new([ordered]@{
                 settings = [ordered]@{ 'search.exclude' = [ordered]@{ 'widgets/.vendor' = $true } }

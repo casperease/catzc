@@ -12,6 +12,7 @@ from PIL import Image
 from PIL.PngImagePlugin import PngInfo
 
 from .drawio_png import DEFAULTS, decode, encode, mxfile_chunk, plain, render
+from .module_paths import KIT as KIT  # re-exported to drawio_forward
 from .module_paths import REPO
 
 PAGE_LINES = 66
@@ -26,7 +27,6 @@ FORWARD = (
     ET.ParseError,
     zlib.error,
 )
-KIT = Path(__file__).resolve().parent
 FINDINGS_EXIT = 2 if DEFAULTS["renderer"]["findings-fail"] == "yes" else 0  # the exit of a run with findings: every finding is an error, one setting for all
 SLIDE = ".drawio.png"  # a diagram's render, `<name>.drawio.png`, put from the `<name>.drawio.yml` beside it
 

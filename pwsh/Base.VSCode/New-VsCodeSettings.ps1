@@ -148,5 +148,16 @@ function New-VsCodeSettings {
         $python = Get-Config -Config python
         $json = [regex]::Replace($json, '\{python\.([a-z_]+)\}', { param($m) $python.($m.Groups[1].Value) })
     }
+    # A {tool.<name>} token names a managed tool's binary: its first probe on this platform, expanded, so the editor runs the terminal's tool.
+    if ($json.Contains('{tool.')) {
+        $tools = Get-Config -Config tools
+        $json = [regex]::Replace($json, '\{tool\.([a-z0-9_-]+)\}', {
+                param($m)
+                $tool = $tools[$m.Groups[1].Value]
+                $probes = @($IsWindows ? $tool.windows_probes : $tool.unix_probes)
+                Assert-True ($probes.Count -gt 0) -ErrorText "New-VsCodeSettings: tool '$($m.Groups[1].Value)' declares no probe for this platform."
+                [System.Environment]::ExpandEnvironmentVariables($probes[0]).Replace('\', '/')
+            })
+    }
     $json + "`n"
 }

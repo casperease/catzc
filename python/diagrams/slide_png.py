@@ -27,8 +27,7 @@ import yaml
 from PIL import Image, ImageDraw, ImageFont
 
 from . import declaration
-
-KIT = Path(__file__).resolve().parent
+from .module_paths import KIT
 
 SLIDES = yaml.safe_load((KIT / "assets" / "slides" / "slides.yml").read_text(encoding="utf-8"))
 FONTS = {"display": ("georgia.ttf", "DejaVuSerif.ttf"), "text": ("segoeui.ttf", "arial.ttf", "DejaVuSans.ttf")}

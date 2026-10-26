@@ -7,6 +7,7 @@ kinds:
   DDR: { name: Design Decision Record }
   FDR: { name: Flow Decision Record }
   RDR: { name: Research Decision Record }
+  EDR: { name: External Decision Record }
 
 # The authored domain structure, one domain per docs/drs/<area>/ folder: the single source of how decisions are organised and cited.
 domains:

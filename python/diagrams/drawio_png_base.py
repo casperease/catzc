@@ -7,18 +7,18 @@ import hashlib
 import html
 import re
 import zlib
-from pathlib import Path
 from urllib.parse import quote, unquote
 
 from PIL.PngImagePlugin import PngImageFile
 
 from .kit_yaml import load_yaml_text
+from .module_paths import KIT
 
 
 def kit_defaults(path=None):
     """The kit's sensible defaults from configs/drawio.yml of this module: each section a mapping of setting to its text as written, so
     a value the formatter wraps onto indented lines reads as one; a section that holds only comments is an empty mapping."""
-    path = path or Path(__file__).resolve().parent / "configs" / "drawio.yml"
+    path = path or KIT / "configs" / "drawio.yml"
     data = load_yaml_text(path.read_text(encoding="utf-8")) or {}
     return {section: {} if value == "" else value for section, value in data.items()}
 
