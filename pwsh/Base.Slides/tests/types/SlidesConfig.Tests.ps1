@@ -1,11 +1,11 @@
 Describe 'SlidesConfig' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-SLIDEFILEKIND' {
     It 'takes the declared default kit folder for an omitted key' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
-        ([Catzc.Base.Slides.SlidesConfig]::new(@{})).kit | Should -Be 'python/catzc_diagrams/assets/slides'
-        ([Catzc.Base.Slides.SlidesConfig]::new($null)).kit | Should -Be 'python/catzc_diagrams/assets/slides'
+        ([Catzc.Base.Slides.SlidesConfig]::new(@{})).kit | Should -Be 'python/diagrams/assets/slides'
+        ([Catzc.Base.Slides.SlidesConfig]::new($null)).kit | Should -Be 'python/diagrams/assets/slides'
     }
 
     It 'takes the declared default for the draw.io kit' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
-        ([Catzc.Base.Slides.SlidesConfig]::new(@{})).drawio_kit | Should -Be 'python/catzc_diagrams'
+        ([Catzc.Base.Slides.SlidesConfig]::new(@{})).drawio_kit | Should -Be 'python/diagrams'
     }
 
     It 'takes the declared default theme, maps a theme it is given, and rejects one that is not a theme name' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
@@ -56,6 +56,6 @@ Describe 'SlidesConfig (shipped slides.yml)' -Tag 'L1', 'integrity' {
     It 'loads the shipped slides.yml as a SlidesConfig that points at the kit' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
         $config = Get-Config -Config slides
         $config | Should -BeOfType ([Catzc.Base.Slides.SlidesConfig])
-        $config.kit | Should -Be 'python/catzc_diagrams/assets/slides'
+        $config.kit | Should -Be 'python/diagrams/assets/slides'
     }
 }

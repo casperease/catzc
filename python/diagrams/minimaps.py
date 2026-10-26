@@ -18,6 +18,7 @@ from pathlib import Path
 
 from declaration_constants import load_yaml
 from drawio_png import SCALE, font, tokens
+from module_paths import module_folder_name, module_path
 from PIL import Image, ImageDraw
 
 REPO = Path(__file__).resolve().parents[2]
@@ -58,21 +59,21 @@ def read_registry(full):
 @cache
 def tracks():
     """Every track and the folder it lives in (its first member's path), from variants.yml."""
-    first = {name: (entry.get("members") or [name])[0] for name, entry in registry("pwsh/Catzc.Base.Variants/configs/variants.yml")["tracks"].items()}
+    first = {name: (entry.get("members") or [name])[0] for name, entry in registry(module_path("Catzc.Base.Variants", "configs", "variants.yml"))["tracks"].items()}
     return {name: member["path"] if isinstance(member, dict) else member for name, member in first.items()}
 
 
 @cache
 def kinds():
     """The record kinds as one regex group, e.g. (?:ADR|TDR), from drs.yml's kinds; with none declared, the one shared kind ADR."""
-    declared = registry("pwsh/Catzc.Base.Drs/configs/drs.yml").get("kinds") or {"ADR": {}}
+    declared = registry(module_path("Catzc.Base.Drs", "configs", "drs.yml")).get("kinds") or {"ADR": {}}
     return "(?:" + "|".join(declared) + ")"
 
 
 @cache
 def records_root():
     """The repository-relative folder of every decision record: drs.yml's root, else the default DrsConfig.DefaultRoot declares, docs/drs."""
-    return registry("pwsh/Catzc.Base.Drs/configs/drs.yml").get("root") or "docs/drs"
+    return registry(module_path("Catzc.Base.Drs", "configs", "drs.yml")).get("root") or "docs/drs"
 
 
 @cache
@@ -92,7 +93,7 @@ def adrs():
             if key != "rulesets":
                 walk(value, stack, concern)
 
-    walk(registry("pwsh/Catzc.Base.Drs/configs/drs.yml"))
+    walk(registry(module_path("Catzc.Base.Drs", "configs", "drs.yml")))
     return found
 
 
@@ -262,7 +263,7 @@ def draw_rows(d, width, height, rows, present, lit):
             box(d, (3, y - 1, width - 6, line + 13), None, LIT, 3)
         ordered = [(n, True) for n in on] + [(n, False) for n in off]
         for k, (name, bright) in enumerate(ordered):
-            label = fit(d, name.removeprefix("Catzc."), 8, width - 28, bold=bright)
+            label = fit(d, module_folder_name(name), 8, width - 28, bold=bright)
             w = d.textlength(label, font=font(8 * SCALE, bright)) / SCALE + 8
             if x + w > width - 30:
                 text(d, (x, line), f"+{len(ordered) - k}", 8, DIM_INK)

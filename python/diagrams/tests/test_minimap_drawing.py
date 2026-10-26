@@ -16,6 +16,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 import minimap_contract
 import minimaps
+from module_paths import module_path
 
 SAMPLE = minimap_contract.SCHEMA.with_name("minimap.sample.json")
 
@@ -160,8 +161,9 @@ def test_a_short_row_keeps_the_full_size(monkeypatch):
 
 def test_the_rules_are_read_under_every_record_kind_the_registry_declares(tmp_path, monkeypatch):
     # A widget registry with two kinds: a rule heading under either is a rule, one under an undeclared kind is not.
-    (tmp_path / "pwsh/Catzc.Base.Drs/configs").mkdir(parents=True)
-    (tmp_path / "pwsh/Catzc.Base.Drs/configs/drs.yml").write_text("kinds:\n  ADR: {}\n  GDR: {}\n", encoding="utf-8")
+    registry = tmp_path / module_path("Catzc.Base.Drs", "configs", "drs.yml")
+    registry.parent.mkdir(parents=True)
+    registry.write_text("kinds:\n  ADR: {}\n  GDR: {}\n", encoding="utf-8")
     (tmp_path / "docs/drs/widget").mkdir(parents=True)
     (tmp_path / "docs/drs/widget/gadget.md").write_text(
         "### Rule ADR-WIDGET-TURN\n\n### Rule GDR-GADGET-SPIN\n\n### Rule XDR-GIZMO-STOP\n", encoding="utf-8"

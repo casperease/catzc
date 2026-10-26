@@ -1,3 +1,11 @@
+<#
+---
+catzc:
+  docs: "../../../docs/references/pwsh/catzc-base-languages/private/Get-ModuleTestFolder.ps1.md"
+  header: "generated"
+---
+#>
+
 function Get-ModuleTestFolder {
     [CmdletBinding()]
     [OutputType([string])]
@@ -9,8 +17,6 @@ function Get-ModuleTestFolder {
         [string] $Module
     )
 
-    # A module's test folder is named from its folder, which drops the namespace its track declares, in the language's folder
-    # case; a name no track's namespace prefixes is its own folder.
     $folder = $Module
     foreach ($track in @(Get-Track)) {
         $stripped = $track.FolderNameOf($Module)

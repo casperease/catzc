@@ -21,7 +21,7 @@ Describe 'ConvertFrom-GoTestJson' -Tag 'L0', 'logic' {
             $results = @(& $script:convert $script:widgetStream)
             $results.Name | Should -Be @('TestPass', 'TestFail', 'TestSkip', 'TestIntegrityTable')
             $results.Outcome | Should -Be @('pass', 'fail', 'skip', 'fail')
-            ($results.Package | Sort-Object -Unique) | Should -Be 'catzc/go/tests/catzc-widget'
+            ($results.Package | Sort-Object -Unique) | Should -Be 'catzc/go/tests/widget'
         }
 
         It 'takes the duration from the test''s Elapsed seconds' {

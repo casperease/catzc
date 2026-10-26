@@ -1,6 +1,6 @@
 """The repository normal form of a name, read from the one place that configures it.
 
-`naming.normal_form` of the languages config (pwsh/Catzc.Base.Languages/configs/languages.yml) names the case every contract, lookup and
+`naming.normal_form` of the languages config (the languages.yml of Catzc.Base.Languages) names the case every contract, lookup and
 cross-language name is written in (ADR-AUTO-IDIOM-NORMALFORM). This module reads that key and judges a name against the configured case,
 so a declaration's command name follows the repository's setting and no second copy of the case lives here. The default of the setting is
 programmed once, on LanguagesConfig, and shown in the shipped file; a file without the key is an error here, never a silent default.
@@ -11,9 +11,10 @@ from functools import cache
 from pathlib import Path
 
 from declaration_constants import load_yaml
+from module_paths import module_file
 
 REPO = Path(__file__).resolve().parents[2]
-LANGUAGES = REPO / "pwsh" / "Catzc.Base.Languages" / "configs" / "languages.yml"
+LANGUAGES = module_file("Catzc.Base.Languages", "configs", "languages.yml")
 
 # The closed set of naming cases (ADR-AUTO-IDIOM-CLOSEDCASES), each as the names it accepts. `snake` is the one the repository configures.
 CASES = {

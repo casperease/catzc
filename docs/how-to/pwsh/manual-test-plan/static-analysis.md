@@ -24,6 +24,7 @@ a check.
 | 15  | L1   | [Test-FileLimits — the real tree][c15]                       |
 | 16  | L1   | [Test-TrackMemberCommitted — the real tree][c16]             |
 | 17  | L1   | [Get-OutputRoot — no default reaches the output track][c17]  |
+| 18  | L1   | [Test-TrackNamespace — the real tree][c18]                   |
 
 [c1]: #1-analyzer-adr-map-integrity
 [c2]: #2-psscriptanalyzer
@@ -42,6 +43,7 @@ a check.
 [c15]: #15-test-filelimits--the-real-tree
 [c16]: #16-test-trackmembercommitted--the-real-tree
 [c17]: #17-get-outputroot--no-default-reaches-the-output-track
+[c18]: #18-test-tracknamespace--the-real-tree
 
 ## Checks
 
@@ -191,3 +193,15 @@ tool registry again (ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS).
 
 - A fixture command whose parameter default points into `out/` is flagged.
 - No exported `Test-*`, `Assert-*` or `Format-*` command has a parameter default that points into `out/`.
+
+### 18. Test-TrackNamespace — the real tree
+
+**Test file:** `pwsh/Base.QualityGates/tests/Test-TrackNamespace.Tests.ps1` (L1), block `Test-TrackNamespace — the real tree`.
+
+**Guards:** no folder or file under a track spells the namespace that track declares, in the track's join form
+(DDR-TRACK-MODULENAMESPACE). The files that name the product keep it, each declared once in the track's `namespace_exempt`.
+
+**Checks:**
+
+- A fixture folder or file whose name starts with its track's namespace is reported once.
+- An exempt file, and a file under a track with no namespace, pass.

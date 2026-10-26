@@ -12,7 +12,8 @@ Describe 'Get-GeneratedTarget — the real repository' -Tag 'L1', 'integrity', '
     }
 
     It 'returns the READMEs readme.yml names, by Build-Readme' {
-        $script:targets.Where({ $_.path -ceq 'pwsh/*/README.md' -and $_.generator -ceq 'Build-Readme' }).Count |
+        $readmes = "$((Get-Track -Name pwsh).places[0])/*/README.md"
+        $script:targets.Where({ $_.path -ceq $readmes -and $_.generator -ceq 'Build-Readme' }).Count |
             Should -Be 1
     }
 
@@ -25,7 +26,7 @@ Describe 'Get-GeneratedTarget — the real repository' -Tag 'L1', 'integrity', '
     }
 
     It 'returns every module''s declared generated targets' {
-        foreach ($expected in 'docs/drs/index.md', 'docs/drs/glossary.md', 'out/**', 'pwsh/*/*.psd1',
+        foreach ($expected in 'docs/drs/index.md', 'docs/drs/glossary.md', 'out/**', "$((Get-Track -Name pwsh).places[0])/*/*.psd1",
             'docs/**/.assets/*.drawio.png', '**/.ruff_cache/**', 'python/.venv/**') {
             $script:targets.path | Should -Contain $expected
         }

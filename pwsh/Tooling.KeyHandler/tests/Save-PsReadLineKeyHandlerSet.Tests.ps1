@@ -25,7 +25,7 @@ Describe 'Save-PsReadLineKeyHandlerSet' -Tag 'L0', 'logic' {
     It 'defaults to the source tree''s config, never the loaded module''s folder' {
         Mock Assert-SourceTree { } -ModuleName Catzc.Tooling.KeyHandler
         Mock Get-CatzcModulesRoot { Join-Path $TestDrive 'acme-repository/widget-modules' } -ModuleName Catzc.Tooling.KeyHandler
-        $expected = [System.IO.Path]::GetFullPath((Join-Path (Join-Path $TestDrive 'acme-repository/widget-modules') 'Catzc.Tooling.KeyHandler/configs/key-handler-bindings.yml'))
+        $expected = [System.IO.Path]::GetFullPath((Join-Path (Join-Path $TestDrive 'acme-repository/widget-modules') 'Tooling.KeyHandler/configs/key-handler-bindings.yml'))
 
         Save-PsReadLineKeyHandlerSet
 

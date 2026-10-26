@@ -10,11 +10,11 @@ Describe 'Invoke-PythonTest' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:root = Join-Path $TestDrive 'repo'
         $script:pythonRoot = Join-Path $script:root 'python'
-        $script:folder = Join-Path $script:pythonRoot 'tests/catzc_widget'
+        $script:folder = Join-Path $script:pythonRoot 'tests/widget'
         $null = New-Item -ItemType Directory -Path $script:folder -Force
         Set-Content -LiteralPath (Join-Path $script:pythonRoot 'pyproject.toml') -Value '[tool.uv.workspace]'
         Set-Content -LiteralPath (Join-Path $script:folder 'pyproject.toml') -Value '[project]'
-        $null = New-Item -ItemType Directory -Path (Join-Path $script:pythonRoot 'tests/catzc_gadget') -Force
+        $null = New-Item -ItemType Directory -Path (Join-Path $script:pythonRoot 'tests/gadget') -Force
         # A module of the python track with its own tests/ folder; its generated member project sits at the module root.
         $script:ownFolder = Join-Path $script:pythonRoot 'Widget.Kit/tests'
         $null = New-Item -ItemType Directory -Path $script:ownFolder -Force
@@ -60,7 +60,7 @@ Describe 'Invoke-PythonTest' -Tag 'L0', 'logic' {
                         $script:syncExit)
                 }
                 '* ruff check *' {
-                    [Catzc.Base.Execution.CliResult]::new('tests/catzc_widget/test_widget.py:3:1: F401 unused import',
+                    [Catzc.Base.Execution.CliResult]::new('tests/widget/test_widget.py:3:1: F401 unused import',
                         '', $script:lintExit)
                 }
                 '* pytest *' {
@@ -78,23 +78,23 @@ Describe 'Invoke-PythonTest' -Tag 'L0', 'logic' {
         It 'syncs the whole workspace, then runs ruff check and pytest on the folder from the workspace root' {
             $null = Invoke-PythonTest Catzc.Widget
             $script:seen.Command[0] | Should -Be "$script:uv sync --all-packages --quiet"
-            $script:seen.Command[1] | Should -Be "$script:uv run --no-sync --quiet ruff check `"tests/catzc_widget`""
+            $script:seen.Command[1] | Should -Be "$script:uv run --no-sync --quiet ruff check `"tests/widget`""
             $script:seen.Command[2] |
-                Should -BeLike "$script:uv run --no-sync --quiet pytest `"tests/catzc_widget`" --rootdir `"tests/catzc_widget`" --import-mode=importlib -o cache_dir=*out*pytest-cache* --junitxml *"
+                Should -BeLike "$script:uv run --no-sync --quiet pytest `"tests/widget`" --rootdir `"tests/widget`" --import-mode=importlib -o cache_dir=*out*pytest-cache* --junitxml *"
             $script:seen.Directory | Sort-Object -Unique | Should -Be $script:pythonRoot
         }
 
         It 'throws with the remediation when a generated workspace file is missing' {
-            $gadget = Join-Path $script:pythonRoot 'tests/catzc_gadget'
+            $gadget = Join-Path $script:pythonRoot 'tests/gadget'
             { Invoke-PythonTest Catzc.Gadget } |
-                Should -Throw '*python/tests/catzc_gadget/pyproject.toml is missing*Build-RootConfig*'
+                Should -Throw '*python/tests/gadget/pyproject.toml is missing*Build-RootConfig*'
             $script:seen.Count | Should -Be 0
             Test-Path -LiteralPath $gadget | Should -BeTrue
         }
 
         It 'runs from the dot-prefixed .python/ root when the repository has no python/ folder' {
             $dotRoot = Join-Path $TestDrive 'dot-repo'
-            $dotFolder = Join-Path $dotRoot '.python/tests/catzc_widget'
+            $dotFolder = Join-Path $dotRoot '.python/tests/widget'
             $null = New-Item -ItemType Directory -Path $dotFolder -Force
             Set-Content -LiteralPath (Join-Path $dotRoot '.python/pyproject.toml') -Value '[tool.uv.workspace]'
             Set-Content -LiteralPath (Join-Path $dotFolder 'pyproject.toml') -Value '[project]'
@@ -119,18 +119,18 @@ Describe 'Invoke-PythonTest' -Tag 'L0', 'logic' {
         }
 
         It 'throws when the module has no Python test folder' {
-            { Invoke-PythonTest Catzc.Sprocket } | Should -Throw '*python/tests/catzc_sprocket/ does not exist*'
+            { Invoke-PythonTest Catzc.Sprocket } | Should -Throw '*python/tests/sprocket/ does not exist*'
         }
 
         It 'finds a module''s own tests/ without -Folder before the holder''s, and the holder''s when the module has none' {
-            $gizmo = Join-Path $script:pythonRoot 'catzc_gizmo'
+            $gizmo = Join-Path $script:pythonRoot 'gizmo'
             $null = New-Item -ItemType Directory -Path (Join-Path $gizmo 'tests') -Force
             Set-Content -LiteralPath (Join-Path $gizmo 'pyproject.toml') -Value '[project]'
-            $null = New-Item -ItemType Directory -Path (Join-Path $script:pythonRoot 'tests/catzc_gizmo') -Force
+            $null = New-Item -ItemType Directory -Path (Join-Path $script:pythonRoot 'tests/gizmo') -Force
             $null = Invoke-PythonTest Catzc.Gizmo
-            $script:seen.Command[1] | Should -Be "$script:uv run --no-sync --quiet ruff check `"catzc_gizmo/tests`""
+            $script:seen.Command[1] | Should -Be "$script:uv run --no-sync --quiet ruff check `"gizmo/tests`""
             $null = Invoke-PythonTest Catzc.Widget
-            $script:seen.Command[4] | Should -Be "$script:uv run --no-sync --quiet ruff check `"tests/catzc_widget`""
+            $script:seen.Command[4] | Should -Be "$script:uv run --no-sync --quiet ruff check `"tests/widget`""
         }
 
         It 'runs the named folder, a module''s own tests/ under the python track, with the member project at the module root' {
@@ -138,8 +138,8 @@ Describe 'Invoke-PythonTest' -Tag 'L0', 'logic' {
             $script:seen.Command[1] | Should -Be "$script:uv run --no-sync --quiet ruff check `"Widget.Kit/tests`""
             $script:seen.Command[2] |
                 Should -BeLike "$script:uv run --no-sync --quiet pytest `"Widget.Kit/tests`" --rootdir `"Widget.Kit/tests`" *"
-            $null = Invoke-PythonTest Catzc.Widget -Folder 'python/tests/catzc_widget'
-            $script:seen.Command[4] | Should -Be "$script:uv run --no-sync --quiet ruff check `"tests/catzc_widget`""
+            $null = Invoke-PythonTest Catzc.Widget -Folder 'python/tests/widget'
+            $script:seen.Command[4] | Should -Be "$script:uv run --no-sync --quiet ruff check `"tests/widget`""
             { Invoke-PythonTest Widget.Kit -Folder 'python/Widget.Nothing/tests' } |
                 Should -Throw '*python/Widget.Nothing/tests/ does not exist*'
         }

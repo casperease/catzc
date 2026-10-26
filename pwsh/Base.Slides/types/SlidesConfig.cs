@@ -11,8 +11,8 @@ public sealed class SlidesConfig
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
-    public const string DefaultKit = "python/catzc_diagrams/assets/slides";
-    public const string DefaultDrawioKit = "python/catzc_diagrams";
+    public const string DefaultKit = "python/diagrams/assets/slides";
+    public const string DefaultDrawioKit = "python/diagrams";
     public const string KitDefaultsFile = "slides.yml";
     public const string PatternsFolder = "patterns";
     public const string SlideSuffix = ".slide.md";

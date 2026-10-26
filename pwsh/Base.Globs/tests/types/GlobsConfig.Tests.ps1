@@ -137,10 +137,10 @@ Describe 'GlobsConfig' -Tag 'L0', 'logic' {
 
         It 'reads a whole track''s set from its declaration and its derived patterns, and names each half missing' -Tag 'FDR-CD-GLOBS-TRACKSETDERIVED' {
             $joined = [Catzc.Base.Globs.GlobsConfig]::new(@{ globsets = @{ widget = @{ description = 'd'; layer = 'loose-fileset'; track = 'widget'
-                        include = @('widget/**'); exclude = @('widget/README.md')
+                            include = @('widget/**'); exclude = @('widget/README.md')
+                        }
                     }
-                }
-            })
+                })
             $joined.Get('widget').Matches('widget/gear.ps1') | Should -BeTrue
             $joined.Get('widget').Matches('widget/README.md') | Should -BeFalse
             { [Catzc.Base.Globs.GlobsConfig]::new(@{ globsets = @{ widget = @{ description = 'd'; layer = 'loose-fileset'; track = 'widget' } } }) } |

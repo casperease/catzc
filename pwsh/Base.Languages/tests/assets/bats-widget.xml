@@ -4,7 +4,7 @@
     timestamp="2026-10-14T17:57:18" hostname="widget-host">
     <testcase classname="widget.bats" name="widget spins" time="0.134" />
     <testcase classname="widget.bats" name="integrity: widget ships" time="0.134">
-        <failure type="failure">(in test file tests/catzc-widget/widget.bats, line 7)
+        <failure type="failure">(in test file tests/widget/widget.bats, line 7)
   `[ 1 -eq 2 ]&#39; failed
 widget output</failure>
     </testcase>

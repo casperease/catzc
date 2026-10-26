@@ -51,12 +51,20 @@ public sealed class VariantTrack
     // The join a track declares none of: the dot of a PowerShell module's full name.
     public const string DefaultJoin = ".";
 
+    // The globs of the files that keep the namespace on disk because they name the product, not a module folder
+    // (DDR-TRACK-MODULENAMESPACE): a loader psm1 PowerShell names its module after, the types assembly's identity.
+    public IReadOnlyList<string> namespace_exempt { get; }
+
+    private readonly Catzc.Base.Objects.GlobPattern[] exemptPatterns;
+
     public VariantTrack(string name, VariantMember[] members, string type, string vendor, string[] languages, string[] executionEngines = null,
         IDictionary<string, string[]> moduleExecutionEngines = null, IDictionary<string, string> kinds = null,
-        string moduleNamespace = null, string moduleJoin = null)
+        string moduleNamespace = null, string moduleJoin = null, string[] namespaceExempt = null)
     {
         this.@namespace = moduleNamespace ?? string.Empty;
         this.join = moduleJoin ?? DefaultJoin;
+        this.namespace_exempt = namespaceExempt == null ? Array.Empty<string>() : (string[])namespaceExempt.Clone();
+        this.exemptPatterns = this.namespace_exempt.Select(p => new Catzc.Base.Objects.GlobPattern(p)).ToArray();
         this.kinds = kinds == null
             ? new Dictionary<string, string>(StringComparer.Ordinal)
             : new Dictionary<string, string>(kinds, StringComparer.Ordinal);
@@ -75,6 +83,30 @@ public sealed class VariantTrack
         this.type = type;
         this.vendor = string.IsNullOrEmpty(vendor) ? null : vendor;
         this.languages = languages == null ? Array.Empty<string>() : (string[])languages.Clone();
+    }
+
+    // The first segment of a '/'-separated repository-relative path below one of the track's places that spells the namespace in the
+    // track's join form, as the path up to that segment; null when none does, the track declares no namespace, or an exempt glob
+    // matches the path. The match is ordinal, as FolderNameOf strips: a segment spelling another track's form (catzc- under Catzc.)
+    // names that track's identity, not this track's namespace.
+    public string NamespaceSegmentOf(string path)
+    {
+        if (@namespace.Length == 0 || string.IsNullOrEmpty(path)) { return null; }
+        string prefix = @namespace + join;
+        foreach (string place in places)
+        {
+            if (!path.StartsWith(place + "/", StringComparison.Ordinal)) { continue; }
+            if (exemptPatterns.Any(p => p.Matches(path))) { return null; }
+            string[] segments = path.Substring(place.Length + 1).Split('/');
+            for (int i = 0; i < segments.Length; i++)
+            {
+                if (segments[i].StartsWith(prefix, StringComparison.Ordinal))
+                {
+                    return place + "/" + string.Join("/", segments, 0, i + 1);
+                }
+            }
+        }
+        return null;
     }
 
     // A module's full name from its folder name; a folder already spelling it, or a track without a namespace, keeps the folder name.

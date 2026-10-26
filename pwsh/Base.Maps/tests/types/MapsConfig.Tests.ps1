@@ -53,7 +53,7 @@ Describe 'MapsConfig' -Tag 'L0' {
                 $config.highlight.citation_exclude |
                     Should -Be @([Catzc.Base.Maps.MapsHighlight]::DefaultCitationExclude)
                 $config.highlight.citation_exclude | Should -Be @('.claude/hindsight/**', '.claude/learnings/**',
-                    '.claude/plans/**', 'docs/**/.assets/**', 'docs/explanation/**', 'python/catzc_diagrams/**')
+                    '.claude/plans/**', 'docs/**/.assets/**', 'docs/explanation/**', 'python/diagrams/**')
                 $config.output_folder | Should -Be ([Catzc.Base.Maps.MapsConfig]::DefaultOutputFolder)
             }
         }

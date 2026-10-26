@@ -104,7 +104,7 @@ Describe 'Test-Terminology' -Tag 'L0', 'logic' {
 
     It 'excludes the registry parts of the scanned repository tree from the corpus' {
         Test-Terminology -OutputFolder $script:reportBase -PassThru | Out-Null
-        $registry = [System.IO.Path]::GetFullPath((Join-Path $TestDrive "$(Get-CatzcModulesFolder)/Catzc.Base.QualityGates/configs/terminology/widget.yml"))
+        $registry = [System.IO.Path]::GetFullPath((Join-Path $TestDrive "$(Get-CatzcModulesFolder)/Base.QualityGates/configs/terminology/widget.yml"))
         Should -Invoke Get-TerminologyCorpus -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter {
             $Root -eq $TestDrive -and $Exclude -contains $registry
         }

@@ -83,6 +83,34 @@ Describe 'VariantsConfig' -Tag 'L0' {
             { & $script:make ([ordered]@{ tracks = [ordered]@{ widgets = $bare } }) } | Should -Throw '*a join needs a namespace*'
         }
 
+        It 'names the first segment below a place that spells the namespace in its join form, unless an exempt glob matches the path' -Tag 'DDR-TRACK-MODULENAMESPACE' {
+            $entry = [ordered]@{ members = @('widgetry'); type = 'modules'; namespace = 'gadget'; join = '-'
+                namespace_exempt = @('widgetry/.core/gadget-core.*')
+            }
+            $widgets = (& $script:make ([ordered]@{ tracks = [ordered]@{ widgets = $entry } })).tracks[0]
+            $widgets.namespace_exempt | Should -Be @('widgetry/.core/gadget-core.*')
+            $widgets.NamespaceSegmentOf('widgetry/gadget-spring/lever.js') | Should -BeExactly 'widgetry/gadget-spring'
+            $widgets.NamespaceSegmentOf('widgetry/spring/gadget-lever.js') | Should -BeExactly 'widgetry/spring/gadget-lever.js'
+            $widgets.NamespaceSegmentOf('widgetry/spring/lever.js') | Should -BeNullOrEmpty
+            $widgets.NamespaceSegmentOf('widgetry/.core/gadget-core.psm1') | Should -BeNullOrEmpty -Because 'the exempt glob names it'
+            $widgets.NamespaceSegmentOf('elsewhere/gadget-spring.js') | Should -BeNullOrEmpty -Because 'the path is in no place of the track'
+        }
+
+        It 'matches the namespace ordinally in the track''s own join form, so another casing or join is not this track''s namespace' -Tag 'DDR-TRACK-MODULENAMESPACE' {
+            $entry = [ordered]@{ members = @('widgetry'); type = 'modules'; namespace = 'Gadget' }
+            $widgets = (& $script:make ([ordered]@{ tracks = [ordered]@{ widgets = $entry } })).tracks[0]
+            $widgets.NamespaceSegmentOf('widgetry/Gadget.Lever/spin.ps1') | Should -BeExactly 'widgetry/Gadget.Lever'
+            $widgets.NamespaceSegmentOf('widgetry/tests/gadget-lever.Tests.ps1') | Should -BeNullOrEmpty -Because 'gadget- is another track''s join form'
+            $widgets.NamespaceSegmentOf('widgetry/gadget.lever/spin.ps1') | Should -BeNullOrEmpty -Because 'the namespace is spelled in its own casing'
+        }
+
+        It 'refuses a namespace_exempt with no namespace, and a malformed exempt glob' {
+            $bare = [ordered]@{ members = @('widgetry'); type = 'modules'; namespace_exempt = @('widgetry/x.*') }
+            { & $script:make ([ordered]@{ tracks = [ordered]@{ widgets = $bare } }) } | Should -Throw '*a namespace_exempt needs a namespace*'
+            $bad = [ordered]@{ members = @('widgetry'); type = 'modules'; namespace = 'gadget'; namespace_exempt = @('widgetry/x**/y') }
+            { & $script:make ([ordered]@{ tracks = [ordered]@{ widgets = $bad } }) } | Should -Throw "*namespace_exempt: glob pattern 'widgetry/x``*``*/y'*"
+        }
+
         It 'reads a null key as an omitted one: both take the default' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
             $nulls = & $script:make ([ordered]@{ ado_naming = $null; git_workspace = $null; have_customers = $null; aspects = $null })
             $omitted = & $script:make ([ordered]@{})

@@ -111,22 +111,14 @@ terms:
       meaning: "placeholder Go module or Python package name 'catzcwidget' (catzc + widget) in language test-workspace tests"
     - term: catzcgadget
       meaning: "placeholder Go module or Python package name 'catzcgadget' (catzc + gadget) in language test-workspace tests"
-    - term: catzcgizmo
-      meaning: "placeholder Go module or Python package name 'catzcgizmo' (catzc + gizmo) in Get-LanguageTestFolders tests"
-    - term: catzcgadgetparts
-      meaning: "placeholder nested package name 'catzcgadgetparts' in Get-LanguageTestFolders tests"
     - term: catzcleftover
       meaning: "placeholder name of a stale workspace member 'catzcleftover' in New-GoWorkspace tests"
-    - term: catzcnothing
-      meaning: "placeholder name of an empty Go module 'catzcnothing' in Invoke-GoTest tests"
     - term: widgetgadget
       meaning: "placeholder name 'widgetgadget' (widget + gadget joined) in LanguagesConfig naming tests"
     - term: widgetbasegadgetparts
       meaning: "placeholder dotted-name join 'widgetbasegadgetparts' in LanguagesConfig naming tests"
     - term: catzcbasealpha
       meaning: "placeholder module-name join 'catzcbasealpha' in Get-ModuleGlobSet tests"
-    - term: catzcfakebeta
-      meaning: "placeholder module-name join 'catzcfakebeta' in Get-ModuleGlobSet tests"
     - term: widgetconfig
       meaning: "placeholder config name 'widgetconfig' in Get-CodeCaller tests"
     - term: learnedgizmo

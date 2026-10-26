@@ -10,7 +10,7 @@ Describe 'Invoke-BashTest' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:root = Join-Path $TestDrive 'repo'
         $script:bashRoot = Join-Path $script:root 'bash'
-        $null = New-Item -ItemType Directory -Path (Join-Path $script:bashRoot 'tests/catzc-widget') -Force
+        $null = New-Item -ItemType Directory -Path (Join-Path $script:bashRoot 'tests/widget') -Force
         $null = New-Item -ItemType File -Path (Join-Path $script:bashRoot '.vendor/bats-core/bin/bats') -Force
         $null = New-Item -ItemType File -Path (Join-Path $script:root 'importer.sh') -Force
         $script:buildEntry = Join-Path $TestDrive 'build/Import-Catzc.ps1'
@@ -52,7 +52,7 @@ Describe 'Invoke-BashTest' -Tag 'L0', 'logic' {
         It 'runs the vendored bats under bash from the Bash root, recursively, with a JUnit report' {
             $null = Invoke-BashTest Catzc.Widget
             $script:seen[0].Command |
-                Should -BeLike '"C:\widget\engine\bash.exe" .vendor/bats-core/bin/bats --recursive --report-formatter junit --output "*" "tests/catzc-widget"'
+                Should -BeLike '"C:\widget\engine\bash.exe" .vendor/bats-core/bin/bats --recursive --report-formatter junit --output "*" "tests/widget"'
             $script:seen[0].Directory | Should -Be $script:bashRoot
         }
 
@@ -74,7 +74,7 @@ Describe 'Invoke-BashTest' -Tag 'L0', 'logic' {
         }
 
         It 'throws when the module has no Bash test folder' {
-            { Invoke-BashTest Catzc.Sprocket } | Should -Throw '*bash/tests/catzc-sprocket/ does not exist*'
+            { Invoke-BashTest Catzc.Sprocket } | Should -Throw '*bash/tests/sprocket/ does not exist*'
         }
 
         It 'runs the named folder, a module''s own tests/ under the bash track, relative to the Bash root' {
@@ -88,7 +88,7 @@ Describe 'Invoke-BashTest' -Tag 'L0', 'logic' {
 
         It 'throws with "Run Update-BatsVendor" when the vendored runner is missing, before running anything' {
             $bare = Join-Path $TestDrive 'bare-repo'
-            $null = New-Item -ItemType Directory -Path (Join-Path $bare 'bash/tests/catzc-widget') -Force
+            $null = New-Item -ItemType Directory -Path (Join-Path $bare 'bash/tests/widget') -Force
             Mock Get-RepositoryRoot -ModuleName Catzc.Base.Languages { Join-Path $TestDrive 'bare-repo' }
             { Invoke-BashTest Catzc.Widget } | Should -Throw '*bats-core runner is missing*Run Update-BatsVendor*'
             $script:seen.Count | Should -Be 0

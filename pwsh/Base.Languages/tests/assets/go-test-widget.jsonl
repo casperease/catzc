@@ -1,32 +1,32 @@
-{"Time":"2026-10-14T04:35:27.0813275+02:00","Action":"start","Package":"catzc/go/tests/catzc-widget"}
-{"Time":"2026-10-14T04:35:27.09549+02:00","Action":"run","Package":"catzc/go/tests/catzc-widget","Test":"TestPass"}
-{"Time":"2026-10-14T04:35:27.09549+02:00","Action":"output","Package":"catzc/go/tests/catzc-widget","Test":"TestPass","Output":"=== RUN   TestPass\n"}
-{"Time":"2026-10-14T04:35:27.0960174+02:00","Action":"output","Package":"catzc/go/tests/catzc-widget","Test":"TestPass","Output":"    widget_test.go:8: hello \n"}
-{"Time":"2026-10-14T04:35:27.0960174+02:00","Action":"output","Package":"catzc/go/tests/catzc-widget","Test":"TestPass","Output":"--- PASS: TestPass (0.00s)\n"}
-{"Time":"2026-10-14T04:35:27.0965454+02:00","Action":"pass","Package":"catzc/go/tests/catzc-widget","Test":"TestPass","Elapsed":0}
-{"Time":"2026-10-14T04:35:27.0965454+02:00","Action":"run","Package":"catzc/go/tests/catzc-widget","Test":"TestFail"}
-{"Time":"2026-10-14T04:35:27.0965454+02:00","Action":"output","Package":"catzc/go/tests/catzc-widget","Test":"TestFail","Output":"=== RUN   TestFail\n"}
-{"Time":"2026-10-14T04:35:27.0965454+02:00","Action":"output","Package":"catzc/go/tests/catzc-widget","Test":"TestFail","Output":"    widget_test.go:9: boom\n"}
-{"Time":"2026-10-14T04:35:27.0965454+02:00","Action":"output","Package":"catzc/go/tests/catzc-widget","Test":"TestFail","Output":"--- FAIL: TestFail (0.00s)\n"}
-{"Time":"2026-10-14T04:35:27.0965454+02:00","Action":"fail","Package":"catzc/go/tests/catzc-widget","Test":"TestFail","Elapsed":0}
-{"Time":"2026-10-14T04:35:27.0965454+02:00","Action":"run","Package":"catzc/go/tests/catzc-widget","Test":"TestSkip"}
-{"Time":"2026-10-14T04:35:27.0965454+02:00","Action":"output","Package":"catzc/go/tests/catzc-widget","Test":"TestSkip","Output":"=== RUN   TestSkip\n"}
-{"Time":"2026-10-14T04:35:27.0965454+02:00","Action":"output","Package":"catzc/go/tests/catzc-widget","Test":"TestSkip","Output":"    widget_test.go:10: not here\n"}
-{"Time":"2026-10-14T04:35:27.0965454+02:00","Action":"output","Package":"catzc/go/tests/catzc-widget","Test":"TestSkip","Output":"--- SKIP: TestSkip (0.00s)\n"}
-{"Time":"2026-10-14T04:35:27.0965454+02:00","Action":"skip","Package":"catzc/go/tests/catzc-widget","Test":"TestSkip","Elapsed":0}
-{"Time":"2026-10-14T04:35:27.0965454+02:00","Action":"run","Package":"catzc/go/tests/catzc-widget","Test":"TestIntegrityTable"}
-{"Time":"2026-10-14T04:35:27.0965454+02:00","Action":"output","Package":"catzc/go/tests/catzc-widget","Test":"TestIntegrityTable","Output":"=== RUN   TestIntegrityTable\n"}
-{"Time":"2026-10-14T04:35:27.0965454+02:00","Action":"run","Package":"catzc/go/tests/catzc-widget","Test":"TestIntegrityTable/one"}
-{"Time":"2026-10-14T04:35:27.0965454+02:00","Action":"output","Package":"catzc/go/tests/catzc-widget","Test":"TestIntegrityTable/one","Output":"=== RUN   TestIntegrityTable/one\n"}
-{"Time":"2026-10-14T04:35:27.0965454+02:00","Action":"output","Package":"catzc/go/tests/catzc-widget","Test":"TestIntegrityTable/one","Output":"--- PASS: TestIntegrityTable/one (0.00s)\n"}
-{"Time":"2026-10-14T04:35:27.0965454+02:00","Action":"pass","Package":"catzc/go/tests/catzc-widget","Test":"TestIntegrityTable/one","Elapsed":0}
-{"Time":"2026-10-14T04:35:27.0965454+02:00","Action":"run","Package":"catzc/go/tests/catzc-widget","Test":"TestIntegrityTable/two"}
-{"Time":"2026-10-14T04:35:27.0965454+02:00","Action":"output","Package":"catzc/go/tests/catzc-widget","Test":"TestIntegrityTable/two","Output":"=== RUN   TestIntegrityTable/two\n"}
-{"Time":"2026-10-14T04:35:27.0965454+02:00","Action":"output","Package":"catzc/go/tests/catzc-widget","Test":"TestIntegrityTable/two","Output":"    widget_test.go:13: two broke\n"}
-{"Time":"2026-10-14T04:35:27.0965454+02:00","Action":"output","Package":"catzc/go/tests/catzc-widget","Test":"TestIntegrityTable/two","Output":"--- FAIL: TestIntegrityTable/two (0.00s)\n"}
-{"Time":"2026-10-14T04:35:27.0965454+02:00","Action":"fail","Package":"catzc/go/tests/catzc-widget","Test":"TestIntegrityTable/two","Elapsed":0}
-{"Time":"2026-10-14T04:35:27.0965454+02:00","Action":"output","Package":"catzc/go/tests/catzc-widget","Test":"TestIntegrityTable","Output":"--- FAIL: TestIntegrityTable (0.00s)\n"}
-{"Time":"2026-10-14T04:35:27.0965454+02:00","Action":"fail","Package":"catzc/go/tests/catzc-widget","Test":"TestIntegrityTable","Elapsed":0}
-{"Time":"2026-10-14T04:35:27.0965454+02:00","Action":"output","Package":"catzc/go/tests/catzc-widget","Output":"FAIL\n"}
-{"Time":"2026-10-14T04:35:27.0981608+02:00","Action":"output","Package":"catzc/go/tests/catzc-widget","Output":"FAIL\tcatzc/go/tests/catzc-widget\t0.016s\n"}
-{"Time":"2026-10-14T04:35:27.0981608+02:00","Action":"fail","Package":"catzc/go/tests/catzc-widget","Elapsed":0.018}
+{"Time":"2026-10-14T04:35:27.0813275+02:00","Action":"start","Package":"catzc/go/tests/widget"}
+{"Time":"2026-10-14T04:35:27.09549+02:00","Action":"run","Package":"catzc/go/tests/widget","Test":"TestPass"}
+{"Time":"2026-10-14T04:35:27.09549+02:00","Action":"output","Package":"catzc/go/tests/widget","Test":"TestPass","Output":"=== RUN   TestPass\n"}
+{"Time":"2026-10-14T04:35:27.0960174+02:00","Action":"output","Package":"catzc/go/tests/widget","Test":"TestPass","Output":"    widget_test.go:8: hello \n"}
+{"Time":"2026-10-14T04:35:27.0960174+02:00","Action":"output","Package":"catzc/go/tests/widget","Test":"TestPass","Output":"--- PASS: TestPass (0.00s)\n"}
+{"Time":"2026-10-14T04:35:27.0965454+02:00","Action":"pass","Package":"catzc/go/tests/widget","Test":"TestPass","Elapsed":0}
+{"Time":"2026-10-14T04:35:27.0965454+02:00","Action":"run","Package":"catzc/go/tests/widget","Test":"TestFail"}
+{"Time":"2026-10-14T04:35:27.0965454+02:00","Action":"output","Package":"catzc/go/tests/widget","Test":"TestFail","Output":"=== RUN   TestFail\n"}
+{"Time":"2026-10-14T04:35:27.0965454+02:00","Action":"output","Package":"catzc/go/tests/widget","Test":"TestFail","Output":"    widget_test.go:9: boom\n"}
+{"Time":"2026-10-14T04:35:27.0965454+02:00","Action":"output","Package":"catzc/go/tests/widget","Test":"TestFail","Output":"--- FAIL: TestFail (0.00s)\n"}
+{"Time":"2026-10-14T04:35:27.0965454+02:00","Action":"fail","Package":"catzc/go/tests/widget","Test":"TestFail","Elapsed":0}
+{"Time":"2026-10-14T04:35:27.0965454+02:00","Action":"run","Package":"catzc/go/tests/widget","Test":"TestSkip"}
+{"Time":"2026-10-14T04:35:27.0965454+02:00","Action":"output","Package":"catzc/go/tests/widget","Test":"TestSkip","Output":"=== RUN   TestSkip\n"}
+{"Time":"2026-10-14T04:35:27.0965454+02:00","Action":"output","Package":"catzc/go/tests/widget","Test":"TestSkip","Output":"    widget_test.go:10: not here\n"}
+{"Time":"2026-10-14T04:35:27.0965454+02:00","Action":"output","Package":"catzc/go/tests/widget","Test":"TestSkip","Output":"--- SKIP: TestSkip (0.00s)\n"}
+{"Time":"2026-10-14T04:35:27.0965454+02:00","Action":"skip","Package":"catzc/go/tests/widget","Test":"TestSkip","Elapsed":0}
+{"Time":"2026-10-14T04:35:27.0965454+02:00","Action":"run","Package":"catzc/go/tests/widget","Test":"TestIntegrityTable"}
+{"Time":"2026-10-14T04:35:27.0965454+02:00","Action":"output","Package":"catzc/go/tests/widget","Test":"TestIntegrityTable","Output":"=== RUN   TestIntegrityTable\n"}
+{"Time":"2026-10-14T04:35:27.0965454+02:00","Action":"run","Package":"catzc/go/tests/widget","Test":"TestIntegrityTable/one"}
+{"Time":"2026-10-14T04:35:27.0965454+02:00","Action":"output","Package":"catzc/go/tests/widget","Test":"TestIntegrityTable/one","Output":"=== RUN   TestIntegrityTable/one\n"}
+{"Time":"2026-10-14T04:35:27.0965454+02:00","Action":"output","Package":"catzc/go/tests/widget","Test":"TestIntegrityTable/one","Output":"--- PASS: TestIntegrityTable/one (0.00s)\n"}
+{"Time":"2026-10-14T04:35:27.0965454+02:00","Action":"pass","Package":"catzc/go/tests/widget","Test":"TestIntegrityTable/one","Elapsed":0}
+{"Time":"2026-10-14T04:35:27.0965454+02:00","Action":"run","Package":"catzc/go/tests/widget","Test":"TestIntegrityTable/two"}
+{"Time":"2026-10-14T04:35:27.0965454+02:00","Action":"output","Package":"catzc/go/tests/widget","Test":"TestIntegrityTable/two","Output":"=== RUN   TestIntegrityTable/two\n"}
+{"Time":"2026-10-14T04:35:27.0965454+02:00","Action":"output","Package":"catzc/go/tests/widget","Test":"TestIntegrityTable/two","Output":"    widget_test.go:13: two broke\n"}
+{"Time":"2026-10-14T04:35:27.0965454+02:00","Action":"output","Package":"catzc/go/tests/widget","Test":"TestIntegrityTable/two","Output":"--- FAIL: TestIntegrityTable/two (0.00s)\n"}
+{"Time":"2026-10-14T04:35:27.0965454+02:00","Action":"fail","Package":"catzc/go/tests/widget","Test":"TestIntegrityTable/two","Elapsed":0}
+{"Time":"2026-10-14T04:35:27.0965454+02:00","Action":"output","Package":"catzc/go/tests/widget","Test":"TestIntegrityTable","Output":"--- FAIL: TestIntegrityTable (0.00s)\n"}
+{"Time":"2026-10-14T04:35:27.0965454+02:00","Action":"fail","Package":"catzc/go/tests/widget","Test":"TestIntegrityTable","Elapsed":0}
+{"Time":"2026-10-14T04:35:27.0965454+02:00","Action":"output","Package":"catzc/go/tests/widget","Output":"FAIL\n"}
+{"Time":"2026-10-14T04:35:27.0981608+02:00","Action":"output","Package":"catzc/go/tests/widget","Output":"FAIL\tcatzc/go/tests/widget\t0.016s\n"}
+{"Time":"2026-10-14T04:35:27.0981608+02:00","Action":"fail","Package":"catzc/go/tests/widget","Elapsed":0.018}

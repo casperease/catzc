@@ -15,7 +15,7 @@ public sealed class MapsHighlight
 {
     // The session logs and the plans are about the system, not the system, so a citation in them lights nothing.
     public static readonly IReadOnlyList<string> DefaultCitationExclude =
-        Array.AsReadOnly(new[] { ".claude/hindsight/**", ".claude/learnings/**", ".claude/plans/**", "docs/**/.assets/**", "docs/explanation/**", "python/catzc_diagrams/**" });
+        Array.AsReadOnly(new[] { ".claude/hindsight/**", ".claude/learnings/**", ".claude/plans/**", "docs/**/.assets/**", "docs/explanation/**", "python/diagrams/**" });
 
     // The cells an ADR always lights, in declared order. Empty by default.
     public IReadOnlyList<MapsPin> pins { get; }

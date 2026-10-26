@@ -20,6 +20,7 @@ import re
 import sys
 from pathlib import Path
 
+from module_paths import module_file
 from PIL import Image, ImageDraw, ImageFont
 
 ROOT = Path("out/diagrams")
@@ -181,7 +182,7 @@ def markdown_page(path, section, text=None):
 
 
 REPO = Path(__file__).resolve().parents[2]
-CARRIERS = REPO / "pwsh/Catzc.Base.Languages/configs/file-carriers.yml"
+CARRIERS = module_file("Catzc.Base.Languages", "configs", "file-carriers.yml")
 
 
 def sidecar_rules():

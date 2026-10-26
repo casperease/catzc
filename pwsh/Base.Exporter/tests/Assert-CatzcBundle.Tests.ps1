@@ -167,7 +167,8 @@ Describe 'Assert-CatzcBundle' -Tag 'L0', 'logic' {
             [System.IO.Directory]::CreateDirectory([System.IO.Path]::GetDirectoryName($target)) | Out-Null
             [System.IO.File]::WriteAllText($target, $content)
         }
-        & $write 'Catzc.Base.Languages/configs/file-carriers.yml' "carriers:`n  bcl: { block: ['/*', '*/'] }`n"
+        # The build ships the carriers beside its type sources, so the check reads them there.
+        & $write '.compiled/types/file-carriers.yml' "carriers:`n  bcl: { block: ['/*', '*/'] }`n"
         & $write 'Catzc.Base.Languages/Catzc.Base.Languages.psd1' "@{ NestedModules = @('Catzc.Base.Languages.functions.ps1'); FunctionsToExport = @('Get-Gizmo') }"
         & $write 'Catzc.Base.Languages/Catzc.Base.Languages.functions.ps1' "# source: pwsh/Catzc.Base.Languages/Get-Gizmo.ps1`nfunction Get-Gizmo { 'gizmo' }`n"
         $fixture.Build.modules = @('Catzc.Base.Widget', 'Catzc.Base.Languages')
@@ -175,7 +176,7 @@ Describe 'Assert-CatzcBundle' -Tag 'L0', 'logic' {
 
         # What the build recorded: the hash of the sources under that config, the head left out.
         $staging = Join-Path $TestDrive "head-$([System.Guid]::NewGuid().ToString('N'))"
-        foreach ($relative in 'Catzc.Base.Widget/types/Widget.cs', 'Catzc.Base.Languages/configs/file-carriers.yml') {
+        foreach ($relative in 'Catzc.Base.Widget/types/Widget.cs', '.compiled/types/file-carriers.yml') {
             [System.IO.Directory]::CreateDirectory((Join-Path $staging ([System.IO.Path]::GetDirectoryName($relative)))) | Out-Null
             [System.IO.File]::Copy((Join-Path $fixture.Root $relative), (Join-Path $staging $relative))
         }

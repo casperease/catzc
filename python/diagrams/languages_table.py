@@ -1,6 +1,6 @@
 """The language tags of a code glyph, derived at render time from the shape of its label and never stored in a declaration.
 
-One table, pwsh/Catzc.Base.Languages/configs/languages.yml: a language row with a `tag` is one a diagram prints, its `shapes` are the
+One table, the languages.yml of Catzc.Base.Languages: a language row with a `tag` is one a diagram prints, its `shapes` are the
 ordered regular expressions that name a whole label as one of its snippets (the first match over the rows in file order wins), a label of
 the form `name.ext` is named by the extension of a row; a label that matches nothing prints no tag, and nothing guesses from the glyph's
 kind. A command (a label that is a Verb-Noun or a snake_case name whose command contract exists under contracts/) lists every form it
@@ -11,10 +11,11 @@ import re
 from pathlib import Path
 
 from declaration_constants import load_yaml
+from module_paths import module_file
 
 REPO = Path(__file__).resolve().parents[2]
-TABLE = REPO / "pwsh" / "Catzc.Base.Languages" / "configs" / "languages.yml"
-ENGINES = REPO / "pwsh" / "Catzc.Base.Engines" / "types" / "ExecutionEngines.cs"
+TABLE = module_file("Catzc.Base.Languages", "configs", "languages.yml")
+ENGINES = module_file("Catzc.Base.Engines", "types", "ExecutionEngines.cs")
 CONTRACTS = REPO / "contracts" / "catzc"
 CONTRACT_LANGUAGE = "accosted"  # the language row whose tag names the contract form of a command
 EXTENSION = re.compile(r"^[\w-]+(\.[A-Za-z0-9]+)$")

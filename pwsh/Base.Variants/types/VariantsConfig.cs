@@ -17,7 +17,7 @@ namespace Catzc.Base.Variants;
 public sealed class VariantsConfig : Catzc.Base.Objects.DictionaryRecord
 {
     private static readonly string[] AllowedKeys = { "ado_naming", "git_workspace", "have_customers", "aspects", "tracks" };
-    private static readonly string[] AllowedTrackKeys = { "members", "type", "vendor", "languages", "execution_engines", "module_execution_engines", "kinds", "namespace", "join" };
+    private static readonly string[] AllowedTrackKeys = { "members", "type", "vendor", "languages", "execution_engines", "module_execution_engines", "kinds", "namespace", "join", "namespace_exempt" };
     // A namespace in the casing its track's language spells: dotted PascalCase (Catzc) or one lower-case word (catzc).
     private static readonly System.Text.RegularExpressions.Regex NamespaceName = new System.Text.RegularExpressions.Regex(@"^(?:[A-Z][A-Za-z0-9]*(\.[A-Z][A-Za-z0-9]*)*|[a-z][a-z0-9]*)$");
     // The joins a track's language spells between its namespace and a folder name.
@@ -379,7 +379,28 @@ public sealed class VariantsConfig : Catzc.Base.Objects.DictionaryRecord
                 }
             }
 
-            result.Add(new VariantTrack(name, members.ToArray(), trackType, vendor, languages.ToArray(), engines.ToArray(), moduleEngines, kinds, moduleNamespace, moduleJoin));
+            // The files that keep the namespace on disk: globs, read only beside a namespace they exempt from.
+            List<string> exempt = new List<string>();
+            foreach (object item in Items(Has(entry, "namespace_exempt") ? entry["namespace_exempt"] : null))
+            {
+                string glob = Text(item);
+                try
+                {
+                    new Catzc.Base.Objects.GlobPattern(glob);
+                    exempt.Add(glob);
+                }
+                catch (ArgumentException e)
+                {
+                    errors.Add(string.Format("tracks['{0}'].namespace_exempt: {1}", name, e.Message.Split(new[] { " (Parameter" }, StringSplitOptions.None)[0]));
+                }
+            }
+            if (exempt.Count > 0 && moduleNamespace.Length == 0)
+            {
+                errors.Add(string.Format("tracks['{0}']: a namespace_exempt needs a namespace to exempt from", name));
+                exempt.Clear();
+            }
+
+            result.Add(new VariantTrack(name, members.ToArray(), trackType, vendor, languages.ToArray(), engines.ToArray(), moduleEngines, kinds, moduleNamespace, moduleJoin, exempt.ToArray()));
         }
         return result;
     }

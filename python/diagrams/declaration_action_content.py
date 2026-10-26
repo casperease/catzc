@@ -71,7 +71,7 @@ WRAP_LATE = break_chars("wrap-break-late")  # break after these only when a piec
 
 def wrap_line(line, per):
     """A printed line wrapped to at most `per` characters a line at its natural breaks: after a `/`, a `,` or a space first, and only
-    when a piece is still too long, after a `.` (a path such as `pwsh/Catzc.Base.Contracts/accosted/contracts.accosted.yml` has no
+    when a piece is still too long, after a `.` (a path such as `pwsh/Base.Contracts/accosted/contracts.accosted.yml` has no
     space to break at). The drawing prints the lines; get joins them back with unwrap_lines."""
     pieces = []
     first, late = break_class(WRAP_GLUED + WRAP_SPACED), break_class(WRAP_LATE)

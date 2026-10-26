@@ -44,6 +44,15 @@ tracks:
       languages: [powershell, bcl, yaml, json, jsonl, bash, xml, css, javascript, solution, stamp, asset],
       execution_engines: [pwsh],
       namespace: Catzc,
+      # The files that name the product, not a module folder, so they keep the namespace on disk: the loaders PowerShell names its
+      # modules after, and the types assembly's identity.
+      namespace_exempt:
+        [
+          "pwsh/.internal/Catzc.Internal.*.psm1",
+          "pwsh/.compiled/Catzc.Types.*",
+          pwsh/.internal/assets/Catzc.Types.csproj,
+          pwsh/Base.TypesSystem/assets/Catzc.Types.csproj.xml,
+        ],
     }
   pwsh-vendor: { members: [pwsh/.vendor], type: vendored-code }
   infrastructure:

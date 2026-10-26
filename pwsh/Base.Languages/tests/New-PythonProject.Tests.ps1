@@ -9,17 +9,17 @@ catzc:
 Describe 'New-PythonProject' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:root = Join-Path $TestDrive 'repo'
-        foreach ($file in 'python/tests/catzc_widget/test_widget.py', 'python/tests/catzc_gadget/nested/test_gadget.py',
+        foreach ($file in 'python/tests/widget/test_widget.py', 'python/tests/gadget/nested/test_gadget.py',
             'python/tests/.cache/test_cache.py') {
             $path = Join-Path $script:root $file
             $null = New-Item -ItemType Directory -Path (Split-Path $path) -Force
             Set-Content -LiteralPath $path -Value 'def test_widget(): pass'
         }
         # A folder left with only a generated file is not a member.
-        $null = New-Item -ItemType Directory -Path (Join-Path $script:root 'python/tests/catzc_leftover') -Force
-        Set-Content -LiteralPath (Join-Path $script:root 'python/tests/catzc_leftover/pyproject.toml') -Value '[project]'
+        $null = New-Item -ItemType Directory -Path (Join-Path $script:root 'python/tests/leftover') -Force
+        Set-Content -LiteralPath (Join-Path $script:root 'python/tests/leftover/pyproject.toml') -Value '[project]'
         # A module of the python track is a member too; a module folder without Python code, and a dot folder, are not.
-        foreach ($file in 'python/Widget.Kit/kit.py', 'python/Widget.Empty/notes.md', 'python/.venv/lib/site.py') {
+        foreach ($file in 'python/widget_kit/kit.py', 'python/widget_empty/notes.md', 'python/.venv/lib/site.py') {
             $path = Join-Path $script:root $file
             $null = New-Item -ItemType Directory -Path (Split-Path $path) -Force
             Set-Content -LiteralPath $path -Value 'kit = 1'
@@ -42,17 +42,17 @@ Describe 'New-PythonProject' -Tag 'L0', 'logic' {
 
     It 'renders the workspace root and one member per test folder and per module, root first, test folders then modules in order' {
         @(New-PythonProject -LineLength 140).Target | Should -Be @('python/pyproject.toml',
-            'python/tests/catzc_gadget/pyproject.toml', 'python/tests/catzc_widget/pyproject.toml',
-            'python/Widget.Kit/pyproject.toml')
+            'python/tests/gadget/pyproject.toml', 'python/tests/widget/pyproject.toml',
+            'python/widget_kit/pyproject.toml')
     }
 
     It 'renders a virtual workspace root naming every member, with the ruff and pyright settings' {
         (New-PythonProject -LineLength 140 -Target 'python/pyproject.toml').Content | Should -BeExactly ((@(
                     '[tool.uv.workspace]'
                     'members = ['
-                    '    "tests/catzc_gadget",'
-                    '    "tests/catzc_widget",'
-                    '    "Widget.Kit",'
+                    '    "tests/gadget",'
+                    '    "tests/widget",'
+                    '    "widget_kit",'
                     ']'
                     ''
                     '[tool.ruff]'
@@ -76,14 +76,14 @@ Describe 'New-PythonProject' -Tag 'L0', 'logic' {
             Should -Match '(?m)^typeCheckingMode = "strict"$'
     }
 
-    It 'renders a module member named for the module in kebab case, at the module root' {
-        $content = (New-PythonProject -LineLength 140 -Target 'python/Widget.Kit/pyproject.toml').Content
-        $content | Should -Match '(?m)^name = "widget-kit"$'
+    It 'renders a module member named for its full name in kebab case, at the module root' -Tag 'DDR-TRACK-MODULENAMESPACE' {
+        $content = (New-PythonProject -LineLength 140 -Target 'python/widget_kit/pyproject.toml').Content
+        $content | Should -Match '(?m)^name = "catzc-widget-kit"$'
         $content | Should -Match '(?m)^package = false$'
     }
 
-    It 'renders each member named for its folder, at the python pin, with the pinned dependencies in name order' {
-        (New-PythonProject -LineLength 140 -Target 'python/tests/catzc_widget/pyproject.toml').Content |
+    It 'renders each member named for its full name, its folder under the namespace, at the python pin, with the pinned dependencies in name order' {
+        (New-PythonProject -LineLength 140 -Target 'python/tests/widget/pyproject.toml').Content |
             Should -BeExactly ((@(
                         '[project]'
                         'name = "catzc_widget"'
@@ -103,12 +103,12 @@ Describe 'New-PythonProject' -Tag 'L0', 'logic' {
 
     It 'renders under the declared root' {
         $declared = Join-Path $TestDrive 'declared-repo'
-        $null = New-Item -ItemType Directory -Path (Join-Path $declared 'test/py/tests/catzc_widget') -Force
-        Set-Content -LiteralPath (Join-Path $declared 'test/py/tests/catzc_widget/test_widget.py') -Value 'def test_widget(): pass'
+        $null = New-Item -ItemType Directory -Path (Join-Path $declared 'test/py/tests/widget') -Force
+        Set-Content -LiteralPath (Join-Path $declared 'test/py/tests/widget/test_widget.py') -Value 'def test_widget(): pass'
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.Languages { Join-Path $TestDrive 'declared-repo' }
         $script:python['root'] = 'test/py'
         @(New-PythonProject -LineLength 140).Target | Should -Be @('test/py/pyproject.toml',
-            'test/py/tests/catzc_widget/pyproject.toml')
+            'test/py/tests/widget/pyproject.toml')
     }
 
     It 'renders nothing when the repository has no Python test folder' {

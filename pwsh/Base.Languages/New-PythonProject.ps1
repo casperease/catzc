@@ -93,11 +93,14 @@ function New-PythonProject {
     $files.Add([Catzc.Base.Languages.PythonWorkspaceFile]::new("$pythonRoot/pyproject.toml",
             ($workspace -join "`n") + "`n"))
 
+    # A member's name is its full name, the folder under the python track's namespace (DDR-TRACK-MODULENAMESPACE); the folder never spells it.
+    $track = Get-Track -Path $pythonRoot
+    $fullName = { param([string] $Folder) if ($null -ne $track) { $track.FullNameOf($Folder) } else { $Folder } }
     $members = @(foreach ($folder in $folders) {
-            [pscustomobject]@{ Name = $folder; Folder = "tests/$folder" }
+            [pscustomobject]@{ Name = (& $fullName $folder); Folder = "tests/$folder" }
         }) +
     @(foreach ($module in $modules) {
-            [pscustomobject]@{ Name = [Catzc.Base.Objects.NameCase]::Render($module, 'kebab'); Folder = $module }
+            [pscustomobject]@{ Name = [Catzc.Base.Objects.NameCase]::Render((& $fullName $module), 'kebab'); Folder = $module }
         })
     foreach ($entry in $members) {
         $member = [System.Collections.Generic.List[string]]::new()

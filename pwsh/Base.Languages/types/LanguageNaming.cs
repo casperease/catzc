@@ -92,7 +92,7 @@ public sealed class LanguageNaming
         return back == name ? null : "does not round-trip through the normal form (it renders back as " + back + ")";
     }
 
-    // A catzc module's test folder in this language: the module's words joined in the first folder case, catzc_base_repository when it is snake; rests on [ADR-AUTO-IDIOM-TESTFOLDERBYIDIOM](/docs/drs/automation/idiomatic-names.md#rule-adr-auto-idiom-testfolderbyidiom).
+    // A module's test folder in this language: its folder's words joined in the first folder case, base_repository for Base.Repository when it is snake; rests on [ADR-AUTO-IDIOM-TESTFOLDERBYIDIOM](/docs/drs/automation/idiomatic-names.md#rule-adr-auto-idiom-testfolderbyidiom).
     public string TestFolderOf(string module)
     {
         if (folder.Count == 0) { throw new InvalidOperationException("naming: the language names no folder case, so it names no test folder"); }

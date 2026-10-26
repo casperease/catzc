@@ -9,20 +9,31 @@ import subprocess
 import sys
 from pathlib import Path
 
+from module_paths import module_file
 from PIL import Image
 
 KIT = Path(__file__).resolve().parents[1]
 REPO = KIT.parents[1]
-CARRIERS = Path("pwsh/Catzc.Base.Languages/configs/file-carriers.yml")
+# The files the script reads, at the places the resolver derives from the modules' full names, never spelled.
+CARRIERS = module_file("Catzc.Base.Languages", "configs", "file-carriers.yml").relative_to(REPO)
+VARIANTS = module_file("Catzc.Base.Variants", "configs", "variants.yml").relative_to(REPO)
+
+
+def mirror(root):
+    """The kit's script and the leaf it imports, under a copy of the repository's layout with the files they read."""
+    kit = root / KIT.relative_to(REPO)
+    kit.mkdir(parents=True)
+    for script in ("gallery_pdf.py", "module_paths.py"):
+        shutil.copy2(KIT / script, kit)
+    for read in (CARRIERS, VARIANTS):
+        (root / read).parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(REPO / read, root / read)
+    return kit
 
 
 def test_two_pngs_one_with_a_companion_make_three_pages(tmp_path):
     # The script reads the repository from its own place and writes under the working folder, so it runs from a mirror.
-    mirror_kit = tmp_path / "python" / "catzc_diagrams"
-    mirror_kit.mkdir(parents=True)
-    shutil.copy2(KIT / "gallery_pdf.py", mirror_kit)
-    (tmp_path / CARRIERS).parent.mkdir(parents=True)
-    shutil.copy2(REPO / CARRIERS, tmp_path / CARRIERS)
+    mirror_kit = mirror(tmp_path)
 
     assets = tmp_path / "assets" / "widget"
     assets.mkdir(parents=True)
@@ -47,11 +58,7 @@ def test_two_pngs_one_with_a_companion_make_three_pages(tmp_path):
 
 
 def test_a_declared_diagram_is_described_by_its_yml_description(tmp_path):
-    mirror_kit = tmp_path / "python" / "catzc_diagrams"
-    mirror_kit.mkdir(parents=True)
-    shutil.copy2(KIT / "gallery_pdf.py", mirror_kit)
-    (tmp_path / CARRIERS).parent.mkdir(parents=True)
-    shutil.copy2(REPO / CARRIERS, tmp_path / CARRIERS)
+    mirror_kit = mirror(tmp_path)
 
     assets = tmp_path / "assets"
     assets.mkdir(parents=True)
