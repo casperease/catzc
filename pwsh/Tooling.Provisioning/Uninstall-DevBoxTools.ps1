@@ -27,7 +27,7 @@ function Uninstall-DevBoxTools {
         }
 
         # A tool another tool's installer installs alongside itself has no installer of its own.
-        if ($config.installed_by) {
+        if ($config.PSObject.Properties['installed_by'] -and $config.installed_by) {
             continue
         }
 

@@ -75,6 +75,7 @@ Describe 'Test-DrsRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
         Mock Resolve-RepoPath -ModuleName Catzc.Base.Drs -ParameterFilter { $Path -eq 'docs/drs' } { Join-Path $TestDrive 'adr' }
         Mock Write-Message -ModuleName Catzc.Base.Reports { }
         Mock Get-DrsCitationMap -ModuleName Catzc.Base.Drs { $script:citations }
+        # The registry cases cite codes the fixture map does not hold; the dangling-code cases below run the helper itself.
         Mock Get-DrsDanglingCodeViolations -ModuleName Catzc.Base.Drs -ParameterFilter { -not [object]::ReferenceEquals($Map, $script:danglingMap) } { }
     }
 

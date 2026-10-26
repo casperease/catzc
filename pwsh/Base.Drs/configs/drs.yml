@@ -4,6 +4,7 @@
 #   header: "generated"
 # ---
 
+# Each kind is a code's first segment: a shared kind's domains each add their code, and a kind one domain owns stands for it.
 kinds:
   ADR: { name: Architecture Decision Record, shared: true }
   TDR: { name: Thesis Decision Record }
@@ -13,6 +14,7 @@ kinds:
   FDR: { name: Flow Decision Record }
   RDR: { name: Research Decision Record }
 
+# The authored domain structure, one domain per docs/drs/<area>/ folder: the single source of how decisions are organised and cited.
 domains:
   thesis:
     kind: TDR
@@ -306,6 +308,7 @@ domains:
       azure-customer-model: { external: ADR-AZ-CUSTOMER }
       landing-zones: { external: ADR-AZ-LZ }
       infrastructure-kinds: { external: ADR-AZ-IACKIND, concern: [deploy] }
+      # Vendor recommendation, one rule per item: the Well-Architected pillars and the landing-zone design areas, each citing its page.
       reliability: { external: ADR-AZ-WAF-RE }
       security: { external: ADR-AZ-WAF-SE }
       cost-optimization: { external: ADR-AZ-WAF-CO }

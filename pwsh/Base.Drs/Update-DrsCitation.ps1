@@ -56,6 +56,7 @@ function Update-DrsCitation {
     $rewriter = [Catzc.Base.Drs.DrsCitationRewriter]::new($codeRows, $ruleRows, $citations, $treeFiles,
         (Get-Config -Config drs).Kinds, $records, $markdownWidth)
 
+    # Decoded strictly, so a file that is not UTF-8 fails instead of being re-encoded; a byte order mark is written back as it was.
     $bytes = [System.IO.File]::ReadAllBytes($file)
     $hasBom = $bytes.Length -ge 3 -and $bytes[0] -eq 0xEF -and $bytes[1] -eq 0xBB -and $bytes[2] -eq 0xBF
     $offset = if ($hasBom) {

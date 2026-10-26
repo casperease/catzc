@@ -6,6 +6,7 @@ catzc:
 ---
 #>
 
+# -DryRun, never ShouldProcess/-WhatIf (ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT).
 function Format-MarkdownTitle {
     [CmdletBinding()]
     [OutputType([string[]])]

@@ -14,6 +14,7 @@ function Get-CatsDrsRuleIds {
     )
 
     if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:catsAdrRuleIdsCache')) {
+        # Probed strict-clean: an unset script variable reads as null through SessionState instead of throwing.
         $script:catsAdrRuleIdsCache = @{}
     }
     if ($script:catsAdrRuleIdsCache.ContainsKey($IndexPath)) {
@@ -22,6 +23,7 @@ function Get-CatsDrsRuleIds {
 
     Assert-PathExist $IndexPath
 
+    # Index rows are relative to the index's own folder, so a fixture index beside fixture records resolves the same way.
     $adrRoot = Split-Path $IndexPath -Parent
     $ids = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
     foreach ($entry in (Get-CatsDrsIndex -IndexPath $IndexPath)) {

@@ -10,7 +10,7 @@ PowerShell 7.4+ module system with zero-ceremony module authoring.
 - **cats** (plural) — the conversational cover term for the catzc system as a whole: the human-friendly name used in prose and docs and when
   talking to or about the system ("ask cats"). It stands in for the complicated, code-level catzc
   ([PDR-CATS-CATSISPERSONNAME](../docs/drs/principles/cats-and-catzc.md#rule-pdr-cats-catsispersonname)).
-- **"domain rules" / "ADR rules"** — the sanctioned terms for this repository's conventions and decision records. Never say "house rules";
+- **"domain rules" / "DRS rules"** — the sanctioned terms for this repository's conventions and decision records. Never say "house rules";
   it is not a domain-sanctioned term.
 
 ## Project structure
@@ -23,14 +23,16 @@ PowerShell 7.4+ module system with zero-ceremony module authoring.
   `assets/`
 - `pwsh/.vendor/` — third-party modules (checked in)
 - `.unordered/` — the unordered track, where an import lands with its history at a landing address `.unordered/<name>`
-  (`Import-RepositoryWithHistory`); sorting moves each file out with `git mv`, and nothing reads or defaults to the track
+  (`Import-RepositoryWithHistory`); sorting moves each file out with `git mv`, and nothing internal reads or defaults to the track
   ([DDR-TRACK-UNORDEREDTRACK](../docs/drs/design/tracks.md#rule-ddr-track-unorderedtrack))
-- `docs/drs/` — Architecture Decision Records (see below); `docs/references/` — reference articles (incl. the DORA research reference in
-  `docs/references/dora/`); `docs/how-to/` — task guides; `docs/.assets/` — diagram assets
+- `pwsh/*/types/*.cs` — the C# types, written in BCL, a subset of .NET that pwsh hosts
+- `docs/drs/` — the DRS, the decision records (see below); `docs/references/` — reference articles, where a design round starts from
+  `docs/references/pwsh/index.md` (incl. the DORA research reference in `docs/references/dora/`); `docs/how-to/` — task guides;
+  `docs/.assets/` — diagram assets
 
-## ADRs
+## DRS
 
-Architecture Decision Records live under `docs/drs/`, grouped into the domains that `docs/drs/index.md` lists. The index also holds every
+The DRS holds the decision records, under `docs/drs/`, grouped into the domains that `docs/drs/index.md` lists. The index also holds every
 rule-citation code (e.g. `ADR-PWSH-ERROR-THROWNOTWRITEERROR`) and the **authoring conventions**. The ADRs define the design principles
 behind this codebase and must be followed when writing or reviewing code. **Read `docs/drs/index.md` at the start of every session**, then
 read in full the ADRs that govern the files a task touches, and cite their rules by code. The whole corpus is far larger than a context
@@ -63,55 +65,32 @@ Which catzc ADR decides each aspect you might take an idea for:
 
 ## Sub-agents
 
-Sub-agent definitions live in `.claude/agents/<name>.md`. Every agent exists because an ADR rule supports it, and is mapped to the gates and
-checks it runs or guards; the registry is `pwsh/Base.Docs/configs/agents.yml`, and `Test-AgentDefinitions` keeps the files, the
-registry, and this list in step (`ADR-REPO-AGENTS`, [agent-definitions](../docs/drs/repository/agent-definitions.md)). Every agent is a
-robot: a body of at most 20 lines on a named model, loading its shared know-how from capabilities, `.claude/skills/<domain>-<job>/SKILL.md`
-files of at most 10 lines with a model floor, registered in `pwsh/Base.Docs/configs/capabilities.yml`. Every robot and capability
-reads the AI agent contract first, [ADR-REPO-AI](../docs/drs/repository/ai-agent-contract.md); it is named once, here and as `contracts` in
-`agents.yml`, never in a file's front matter.
+Each agent is `.claude/agents/<name>.md`, registered in `pwsh/Base.Docs/configs/agents.yml`; `Test-AgentDefinitions` keeps the files, the
+registry and this list in step ([agent-definitions](../docs/drs/repository/agent-definitions.md)). Every agent and its capabilities read
+[ADR-REPO-AI](../docs/drs/repository/ai-agent-contract.md) first.
 
-- **`catzc-drone`** — the **standard** sub-agent for delegated work: one scoped task from a coordinator's brief, editing only the files it
-  owns, verifying each file, and asking the coordinator for shared-file entries and every question (never the user). Use it whenever work is
-  delegated and no specialised agent fits.
-- **`drawio-diagram-waves`** — authors new draw.io diagrams in bounded parallel waves for the user to approve.
-- **`edit-diagram-yml`** — changes what a diagram says or shows by editing the `content:` of its `diagram.drawio.yml` and re-rendering it
-  with put, so the png follows its one source.
-- **`2020-hindsight`** — the smartest robot in the building, and insufferable about it: reads `.claude/learnings/`, finds where the tree
-  already automated or declared each lesson, or did not, and keeps the hindsight log `.claude/hindsight/` in the smug form "If only … had …:
-  \<evidence>", every line checked against the tree, never a bare opinion.
-- **`its-a-chore-but-i-will-do-better`** — the sunny one: puts every grumble of the hindsight log on the board as a planned debt reduction,
-  weighed by the whole system's quality and the noise it adds, never by its own sparkle; measures what `.claude` costs every session and
-  spawn, lands each item as an open step with its check in the owning plan, or in `plan-claude-diet.md` (the `.claude` weight) or
-  `plan-debt-<topic>.md` (tooling, links, defaults); plans only, never the change itself.
-- **`diagram-review`** — reviews the diagrams one slide at a time with the user, landing every fix in the declaration, the yml language
-  or the drawing engine and redrawing.
-- **`print-artifacts`** — republishes the diagram review artifact from the files on disk.
-- **`build-inspiration-module`** — creates or extends the inspiration module (`Get-Inspiration`).
-- **`session-cost-audit`** — measures what a session cost and why, against `out/plan-session-cost.md`, and proposes the changes.
-- **`plan-clear`** — cleans the plans in `.claude/plans/` to the plan rules: a verdict per plan (keep, trim, re-point, delete, intake),
-  acted on one file at a time, links re-checked.
-- **`plan-intake`** — lands a pasted continuation prompt in the plans: every item in exactly one plan, done claims checked against the tree,
-  open questions kept open.
-- **`plan-decide`** — runs a decision round over the plans' open questions: a questionnaire, four items per ask with the recommendation
-  first, every answer recorded with its projected outcome, then folded into the plans.
-- **`gate-runner`** — runs one gate or test file in the background and brings its verdict back verbatim.
-- **`link-fixer`** — repairs the links of a named set of markdown files, one file and one target at a time.
-- **`drs-reviewer`** — read-only review of a file set against the rules that govern it, each finding with its rule code.
-- **`fact-checker`** — checks one statement against the tree and its words against the glossary, then asks "is it though?" with a DevOps
-  counter; answers in two lines, read-only.
-- **`listen-very-carefully-to-doc-changes`** — the listen mode's processor, run as the main session while `Start-DocListener` notes the
-  editor's doc corrections: takes each editor note as fact, fact-checks it, finds the pattern at the pinned commit, and plans the revisions.
-- **`doc-pattern-scout`** — finds one pattern in one tier and slice of a listen session's committed reference and reports every match.
-- **`glossary-keeper`** — keeps the glossary sources in step with the rules that bold each term, one term at a time.
-- **`test-optimization`** — makes all tests faster under the `timeouts.yml` roofs, one measured file at a time, without removing or
-  weakening any test.
-- **`implementation-orchestrator`** — drives the open chunks of `plan-master.md` through the sessions the user already started, by message
-  ("what are you working on?", "continue with this: …", "stop; …"); edits plan and task files only, implements nothing, spawns nothing,
-  raises every blocker and question to the user.
-- **`devbox-vscode-diagnostics`** — finds why a pwsh session, the PowerShell extension terminal or the Dev Kit misbehaves on this devbox
-  inside VS Code: Windows logs, VS Code and extension logs, the process table and what every session runs at start, correlated by timestamp
-  into a timeline where every claim carries its line; read-only.
+- **`catzc-drone`** — the standard agent for one delegated task, when no specialised agent fits.
+- **`drawio-diagram-waves`** — authors new draw.io diagrams in bounded parallel waves.
+- **`edit-diagram-yml`** — changes a diagram by its `<name>.drawio.yml` and re-renders it.
+- **`2020-hindsight`** — keeps the hindsight log, each lesson checked against the tree.
+- **`its-a-chore-but-i-will-do-better`** — plans the hindsight log's debt reductions.
+- **`diagram-review`** — reviews the diagrams one slide at a time with the user.
+- **`print-artifacts`** — republishes the diagram review artifact.
+- **`build-inspiration-module`** — creates or extends the inspiration module.
+- **`session-cost-audit`** — measures what a session cost and proposes the changes.
+- **`plan-clear`** — cleans the plans to the plan rules.
+- **`plan-intake`** — lands a pasted continuation prompt in the plans.
+- **`plan-decide`** — runs a decision round over the plans' open questions.
+- **`gate-runner`** — runs one gate or test file and brings its verdict back.
+- **`link-fixer`** — repairs the links of named markdown files.
+- **`drs-reviewer`** — reviews a file set against the rules that govern it.
+- **`fact-checker`** — checks one statement against the tree and the glossary.
+- **`listen-very-carefully-to-doc-changes`** — the listen mode's processor.
+- **`doc-pattern-scout`** — finds one pattern in a listen session's reference.
+- **`glossary-keeper`** — keeps the glossary in step with the rules.
+- **`test-optimization`** — makes the tests faster without weakening any.
+- **`implementation-orchestrator`** — drives plan-master's chunks through the live sessions.
+- **`devbox-vscode-diagnostics`** — finds why pwsh or VS Code misbehaves on this devbox.
 
 ## Rules
 
@@ -133,14 +112,14 @@ reads the AI agent contract first, [ADR-REPO-AI](../docs/drs/repository/ai-agent
 
 ### Time safeguard
 
-- **Every call is bounded** (`ADR-AUTO-FAILFAST-BOUNDEVERYWAIT`; the `catzc-run` capability has the detail). A foreground Bash call passes
-  `timeout: 3000`; longer work is `run_in_background: true` behind a `timeout <seconds>` prefix (at most 360 s) around **one** command, no
-  `cd … &&`, pipes or `;`, with multi-step work in a script under `out/`. Exit 124 means the safeguard stopped it. The hook
-  `.claude/hooks/Assert-BashTimeout/` denies a call that breaks this and logs it to `out/time-safeguard.log`. Work that legitimately needs
-  longer gets its limit in `pwsh/Base.Timeouts/configs/timeouts.yml` or a command's `TimeLimit`, never a workaround; a denial is
-  raised (to the user, or a subagent's coordinator), never retried larger.
-- **Probe with the fastest runner that can answer:** plain bash (`cat`, `ls`, `grep`, `git`) or Read/Grep/Glob for state; `pwsh -NoProfile`
-  without the importer when only PowerShell is needed; `. ./importer.ps1` only for a catzc command, in the background.
+- **Every call is bounded** (`ADR-AUTO-FAILFAST-BOUNDEVERYWAIT`); the `catzc-run` capability has the call shapes. The hook
+  `.claude/hooks/Assert-BashTimeout/` denies an unbounded call, and the git topic commands, and logs each denial to
+  `out/time-safeguard.log`. Bash calls use absolute paths. Work that legitimately needs longer gets its limit in
+  `pwsh/Base.Timeouts/configs/timeouts.yml` or a command's `TimeLimit`, never a workaround; a denial is raised (to the user, or a subagent's
+  coordinator), never retried larger.
+- **Probe with the fastest runner that can answer:** the Grep tool for a recursive search, Read (with an offset for a large or persisted
+  file) for a file, never `cat`; `pwsh -NoProfile` without the importer when only PowerShell is needed; a cats command through
+  `Invoke-CatzcCommand.ps1`, in the background.
 
 ### Other
 
@@ -159,9 +138,9 @@ reads the AI agent contract first, [ADR-REPO-AI](../docs/drs/repository/ai-agent
   only, `plan-master.md` and the `task-<topic>.md` files are derived from the plans (the master's list carries the order, never a name), and
   a done plan is deleted.
 - **Run PowerShell yourself — and actually run a gate before claiming it passed**: `pwsh` (7.4+) is available and permitted via the Bash
-  tool, so run the importer, Pester, `Test-Automation`, and any `.ps1` directly — e.g. `pwsh -NoProfile -Command ". ./importer.ps1; <cmd>"`
-  or `pwsh -NoProfile -File out/<name>.ps1`. Remember the importer is **dot-sourced** and C# type edits need a fresh `pwsh` process to
-  recompile (a prior long-lived session won't pick them up). The discipline that remains: **never claim a test/gate passed unless you ran it
-  and saw the result** — run it, read the output, report faithfully (failures included). A reusable script in `out/` (the gitignored output
-  dir) is still preferred over a sprawling inline one-liner when the thing is worth rerunning or reviewing, but you no longer hand it off —
-  you execute it.
+  tool, so run the importer, Pester, `Test-Automation`, and any `.ps1` directly — e.g.
+  `timeout <s> pwsh -NoProfile -File pwsh/.internal/assets/Invoke-CatzcCommand.ps1 "<cmd>"` or `pwsh -NoProfile -File out/<name>.ps1`.
+  Remember the importer is **dot-sourced** and C# type edits need a fresh `pwsh` process to recompile (a prior long-lived session won't pick
+  them up). The discipline that remains: **never claim a test/gate passed unless you ran it and saw the result** — run it, read the output,
+  report faithfully (failures included). A reusable script in `out/` (the gitignored output dir) is still preferred over a sprawling inline
+  one-liner when the thing is worth rerunning or reviewing, but you no longer hand it off — you execute it.

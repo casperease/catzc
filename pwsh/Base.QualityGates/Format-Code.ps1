@@ -88,6 +88,7 @@ function Format-Code {
         $split = Split-CachedFile -File $engineFiles.ToArray() -Cache $cache -Stamp $stamp -RepositoryRoot $root
         $pending = @($split.Pending)
 
+        # Announced before the engine runs, since a whole-repository pass is silent for seconds.
         Write-Message "$verb $($pending.Count) $(@($engineGroup.Group | ForEach-Object name) -join ', ') file(s) with $engine ($($split.CachedCount) unchanged since their last check)..."
         # The text before the engine, whitespace collapsed, tells a change of content from a change of wrapping alone.
         if (-not $DryRun) {
@@ -104,6 +105,7 @@ function Format-Code {
         }
         $changedSet = [System.Collections.Generic.HashSet[string]]::new($changed, [System.StringComparer]::OrdinalIgnoreCase)
 
+        # A file left formatted is recorded; under -DryRun one it would still change is not.
         if ($DryRun) {
             Update-ResultCache -Cache $cache -Key $split.Key -Checked $pending -Flagged @(@($changed) + @($problems.Keys))
         }
@@ -129,6 +131,7 @@ function Format-Code {
         }
     }
 
+    # Imprint steps run after every formatter, so no step works on text a formatter will rewrite.
     $inScope = @(if ($Language) {
             @($selected | ForEach-Object name)
         }
@@ -157,6 +160,7 @@ function Format-Code {
             })
         $stamp = Get-FormatEngineStamp -Engine "imprint:$step" -Settings @($config.steps[$step].settings) -RepositoryRoot $root
 
+        # One cache file per step: a file passes several steps, and a cache keeps one slot per file.
         $stepCachePath = Join-Path (Get-OutputRoot) "cache/format-code-$step.json"
         $stepCache = if ($NoCache) {
             @{}
@@ -169,6 +173,7 @@ function Format-Code {
             Get-FileMetaInputStamp -File $candidates -RepositoryRoot $root
         }
         elseif ($step -ceq 'plan-counts') {
+            # The plans' open-step counts join this step's key.
             $stamps = @{}
             foreach ($candidate in $candidates) {
                 $counts = Get-PlanOpenStepCount ([System.IO.Path]::GetDirectoryName($candidate)) -Config (Get-Config -Config plans)

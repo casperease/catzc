@@ -22,6 +22,7 @@ function Get-RepositoryGuids {
             continue
         }
 
+        # One match over the whole text is about 3x faster than per-line; line numbers come from the offsets.
         $text = [System.IO.File]::ReadAllText($fullPath)
         $lineNumber = 1
         $scanPos = 0

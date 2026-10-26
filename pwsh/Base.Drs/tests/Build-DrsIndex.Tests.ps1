@@ -17,6 +17,7 @@ Describe 'Build-DrsIndex — generated ADR index' -Tag 'L2', 'integrity', 'sourc
         if (-not (Get-Command git -ErrorAction Ignore)) {
             Set-ItResult -Skipped -Because 'tool_git_missing'; return
         }
+        # The importer's janitor tail materialised the index before this run; the gate checks it without writing.
         $result = Test-GeneratedFiles -Generator Build-DrsIndex -PassThru -OutputFolder (Join-Path $TestDrive 'generated-files')
         $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")
     }

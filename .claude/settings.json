@@ -83,6 +83,27 @@
             "timeout": 5
           }
         ]
+      },
+      {
+        "matcher": "SendMessage",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "p=\"$CLAUDE_PROJECT_DIR/.claude/hooks/bin/Record-SessionMessage\"; command -v \"$p\" >/dev/null || exit 0; exec \"$p\"",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "p=\"$CLAUDE_PROJECT_DIR/.claude/hooks/bin/Record-SessionMessage\"; command -v \"$p\" >/dev/null || exit 0; exec \"$p\"",
+            "timeout": 5
+          }
+        ]
       }
     ]
   }

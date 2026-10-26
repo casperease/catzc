@@ -22,6 +22,7 @@ function Build-DrsIndex {
     $preamble = $index.preamble
     $conventions = $index.conventions
 
+    # Every authored paragraph is reflowed through Prettier's fill, so the generated page is formatter-stable.
     $reflow = {
         param([string] $Markdown)
         $out = [System.Collections.Generic.List[string]]::new()
@@ -71,6 +72,7 @@ function Build-DrsIndex {
     $indexPath = "$($adrs.Root)/index.md"
     $fileOf = (Get-DrsFileIndex @($adrs.RuleSets) -DrsRoot $adrDocsRoot).FileOf
 
+    # One aligned code table per domain, in declared order, each row in the exact shape Get-CatsDrsIndex parses.
     $sections = foreach ($domain in $adrs.Domains) {
         $rows = foreach ($ruleSet in $domain.RuleSets) {
             $path = $fileOf[$ruleSet.External]

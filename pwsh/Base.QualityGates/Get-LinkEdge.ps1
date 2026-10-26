@@ -10,6 +10,7 @@ function Get-LinkEdge {
     [CmdletBinding()]
     [OutputType([Catzc.Base.QualityGates.LinkEdge])]
     param(
+        # A folder takes every relation into what lies under it.
         [Parameter(Mandatory, Position = 0)]
         [string] $To,
 

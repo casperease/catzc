@@ -39,11 +39,13 @@ function Export-SpellingTriage {
     $excludeArgs = foreach ($e in $Exclude) {
         "--exclude '$e'"
     }
+    # Only the flagged tokens, each once, with no trailing summary line.
     $command = (
         "cspell lint $($quotedPaths -join ' ') $($excludeArgs -join ' ') " +
         "--config '$configPath' --words-only --unique --no-summary --no-progress --no-color"
     )
 
+    # Exit 0 is clean, 1 is flagged tokens (expected), above 1 a tool error.
     $result = Invoke-Executable $command -PassThru -NoAssert -Silent
     if ($result.ExitCode -gt 1) {
         throw "cspell failed (exit $($result.ExitCode)): $($result.Full)"
@@ -84,6 +86,7 @@ function Export-SpellingTriage {
     }
 
     if (-not $DryRun) {
+        # The stubs' blank meaning and category fail the load on purpose, so a person classifies each.
         $lines = [System.Collections.Generic.List[string]]::new()
         $lines.Add('# Terminology triage queue — spell-checker-flagged tokens awaiting classification.')
         $lines.Add('#')

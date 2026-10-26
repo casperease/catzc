@@ -29,6 +29,7 @@ function Format-Types {
                 $files.Add($item)
             }
             elseif (Test-Path -Path $item -PathType Container) {
+                # A types file sits under <module>/types, so a folder as wide as pwsh/ is three levels up.
                 foreach ($typeFile in Get-ChildPath $item -File -Filter '*.cs' -Depth 3) {
                     $files.Add($typeFile)
                 }
@@ -39,6 +40,7 @@ function Format-Types {
         }
     }
     else {
+        # [System.IO] on this hot path: each cmdlet call here costs about 20 ms.
         $modulesRoot = [System.IO.Path]::GetFullPath((Join-Path $root (Get-CatzcModulesFolder)))
         foreach ($moduleDirectory in Get-ChildPath $modulesRoot -Depth 1 -Directory) {
             if ([System.IO.Path]::GetFileName($moduleDirectory).StartsWith('.', [System.StringComparison]::Ordinal)) {
@@ -59,6 +61,7 @@ function Format-Types {
         $module = Get-ModuleFullName ([System.IO.Path]::GetDirectoryName([System.IO.Path]::GetDirectoryName($file)))
 
         $original = [System.IO.File]::ReadAllText($file)
+        # A block-scoped namespace is no shape this repo authors, so it is reported for a hand edit.
         if ($original -notmatch '(?m)^\s*namespace\s+\S+?\s*;' -and $original -match '(?m)^\s*namespace\s+\S+?\s*\{') {
             $blockScopedFiles.Add($file)
             Write-Message "block-scoped namespace (rewrite it by hand as 'namespace $module;'): $file"

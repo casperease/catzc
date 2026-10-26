@@ -49,11 +49,13 @@ function Invoke-TestFile {
             [System.IO.Path]::GetFullPath($full)
         })
 
+    # A stamped run folder; earlier runs whose process died are marked abandoned first.
     $reportBase = Join-Path (Get-OutputRoot -EnsureExists) 'test-file'
     Set-AbandonedTestRun -OutputFolder $reportBase | Out-Null
     $runDirectory = Join-Path $reportBase ((Get-Date -Format 'yyyyMMdd-HHmmss') + '-' + [guid]::NewGuid().ToString('N').Substring(0, 6))
     New-Item -ItemType Directory -Path $runDirectory -Force | Out-Null
 
+    # In place, or in a snapshot when another run holds the working folder.
     $location = Enter-TestRunLocation -EntryPoint 'Invoke-TestFile' -RunDirectory $runDirectory -Isolated:$Isolated -KeepSandbox:$KeepSandbox
     $runStartedAt = [DateTimeOffset]::UtcNow.ToString('o')
     $manifestStatus = 'crashed'
@@ -64,7 +66,9 @@ function Invoke-TestFile {
     # try/finally: the terminal run.json is stamped on every exit path — pass, fail, or crash.
     try {
         try {
+            # The worker loads from the root the run executes in, and the test files map to it.
             $entry = Get-TestRunLocationEntry -Location $location
+            # The tiers the location allows: in place adds L3; a snapshot skips it and says so.
             $effectiveMaxLevel = Resolve-TestRunMaxLevel -Location $location -Requested $MaxLevel
             $excludeTag = @(Get-TestExcludeTag -MinLevel 0 -MaxLevel $effectiveMaxLevel)
             $shard = New-TestAutomationShardScript -ShardIndex 0 -TestPath @(Convert-TestRunLocationPath -Location $location -Path $resolved) `
@@ -115,6 +119,7 @@ function Invoke-TestFile {
             'Failed'
         }
         $manifestStatus = $result.ToLowerInvariant()
+        # Every failure reaches the console at any -Output level, including a file that failed before its tests.
         $files = @(if ([System.IO.File]::Exists($shard.FilesPath)) {
                 @([System.IO.File]::ReadAllText($shard.FilesPath) | ConvertFrom-Json)
             }

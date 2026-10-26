@@ -15,6 +15,7 @@ function Get-DrsCitationMap {
 
     $root = [System.IO.Path]::GetFullPath($RepositoryRoot)
     if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:adrCitationMapCache')) {
+        # Probed strict-clean: an unset script variable reads as null through SessionState instead of throwing.
         $script:adrCitationMapCache = @{}
     }
     if ($script:adrCitationMapCache.ContainsKey($root)) {

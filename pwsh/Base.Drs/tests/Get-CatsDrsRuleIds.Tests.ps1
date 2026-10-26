@@ -8,6 +8,7 @@ catzc:
 
 Describe 'Get-CatsDrsRuleIds' -Tag 'L0', 'logic' {
     BeforeAll {
+        # An index beside two records it lists, plus a third it does not, so only listed records may contribute.
         $script:adrRoot = Join-Path $TestDrive 'adr'
         [System.IO.Directory]::CreateDirectory((Join-Path $script:adrRoot 'principles')) | Out-Null
         [System.IO.Directory]::CreateDirectory((Join-Path $script:adrRoot 'widgets')) | Out-Null

@@ -4,8 +4,10 @@
 #   header: "generated"
 # ---
 
+# Every key is optional and takes the default declared once on DrsChecksConfig.
 engine_neutrality:
   domains: [automation]
+  # Engine-specific syntax a rule summary must not carry; a catzc command name is allowed, so only engine built-ins are listed.
   tokens:
     env-variable: '\$env:'
     pwsh-variable: '\$(?!env:)[A-Za-z_][A-Za-z0-9_]*'

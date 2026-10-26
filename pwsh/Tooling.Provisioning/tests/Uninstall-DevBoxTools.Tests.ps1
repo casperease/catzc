@@ -54,6 +54,18 @@ Describe 'Uninstall-DevBoxTools' -Tag 'L0', 'logic' {
         { Uninstall-DevBoxTools } | Should -Not -Throw
     }
 
+    It 'skips a tool another tool''s installer installs (installed_by), so it needs no uninstaller' {
+        Mock Get-ToolInstallOrder { @('gadget') } -ModuleName Catzc.Tooling.Provisioning
+        Mock Get-ToolConfig { [pscustomobject]@{ system_provided = $false; windows_only = $false; installed_by = 'widget' } } -ModuleName Catzc.Tooling.Provisioning
+        { Uninstall-DevBoxTools } | Should -Not -Throw
+    }
+
+    It 'reads a config without installed_by as not installed by another tool, and dispatches it' {
+        Mock Get-ToolInstallOrder { @('gadget') } -ModuleName Catzc.Tooling.Provisioning
+        Mock Get-ToolConfig { [pscustomobject]@{ system_provided = $false; windows_only = $false; admin_only = $false } } -ModuleName Catzc.Tooling.Provisioning
+        { Uninstall-DevBoxTools } | Should -Throw '*No Uninstall-Gadget function found*'
+    }
+
     It 'does not throw when there are no version-locked tools (empty install order)' {
         Mock Get-ToolInstallOrder { @() } -ModuleName Catzc.Tooling.Provisioning
         { Uninstall-DevBoxTools } | Should -Not -Throw

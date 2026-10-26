@@ -43,4 +43,5 @@ final verification.
    entries; each landed file gets a one-line progress message to the coordinator.
 6. A C# type past its limit splits into public static helper types, never partial classes.
 7. Report as report-fixed says, with the design choices made and what was read; never a pass that was not seen, failures as they are,
-   including in files not owned.
+   including in files not owned; an edit the domain rules require on a file the brief owns or touches (a re-imprinted head, inline help
+   moved to its page, a family form the glossary flags) is pre-approved: made and reported, never asked.
