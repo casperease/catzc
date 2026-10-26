@@ -26,8 +26,6 @@ public sealed class ContractCommand
 
     private static readonly System.Text.RegularExpressions.Regex SetNameRe = new System.Text.RegularExpressions.Regex("^[A-Za-z][A-Za-z0-9_]*$");
 
-    // What the command guarantees, one plain sentence: its help synopsis stripped of links, codes and markup. A contract requires it; a
-    // signature read from a command file carries none.
     public string description { get; }
 
     // The parameters in the order the contract states them (snake_case: the YAML keys).

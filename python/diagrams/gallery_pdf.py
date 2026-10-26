@@ -22,7 +22,7 @@ from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFont
 
-from .module_paths import module_file
+from .module_paths import REPO, module_file
 
 ROOT = Path("out/diagrams")
 WIDTH = 1600
@@ -182,7 +182,6 @@ def markdown_page(path, section, text=None):
     return images
 
 
-REPO = Path(__file__).resolve().parents[2]
 CARRIERS = module_file("Catzc.Base.Languages", "configs", "file-carriers.yml")
 
 

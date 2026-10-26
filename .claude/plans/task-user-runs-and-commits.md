@@ -141,7 +141,15 @@ final full run last.
     pwsh.base.generated_files, pwsh.base.git, pwsh.base.markdown_meta, pwsh.base.modules, pwsh.base.objects, pwsh.base.reports,
     pwsh.base.slides, pwsh.base.timeouts, pwsh.base.variants, pwsh.base.vendor, pwsh.base.writers, pwsh.tooling.core,
     pwsh.tooling.key_handler, pwsh.tooling.listen) and in the 19 existing groups, the shared `pwsh.base.contracts/types.schema.json`, the
-    deletion of `pwsh.internal.types/` (`types.sample.json`, `types.schema.json`), and the regenerated `.gitattributes`. Separately, untrack
+    deletion of `pwsh.internal.types/` (`types.sample.json`, `types.schema.json`), and the regenerated `.gitattributes`; the Types asset
+    kind and its cross-check (`ContractAssetKind.cs`, `ContractAsset.cs`, `ContractLayout.cs`, `ContractCommand.cs` with their comment
+    pages, `Get-ContractAssetKind.ps1`, `Resolve-ContractAsset.ps1`, `Get-ContractCheckResult.ps1`, `Build-ContractReference.ps1`, the new
+    `Get-ContractTypeFindings.ps1` and its test, `Test-Contracts.ps1`); the writer, drift and manifest (`pwsh/.internal/assets/types/`,
+    `Import-CSharpTypes.ps1`, `Get-CommittedTypesDrift.ps1`, their tests); the burst journal (`Invoke-StagedBurst.ps1` and its tests, the new
+    `Save-BurstJournalWrite.ps1`, its test and `burst-journal.psd1`, `Catzc.Internal.Types.psm1`, `Write-FileIfChanged.ps1` and its test);
+    the registrations (`generated-files.yml`, `Base.TypesSystem/configs/generated.yml`); and the rule text (`api-contracts.md`,
+    `caching.md`, `native-csharp-types.md`, `csharp-types.md`). Before committing, check `git status` on `contracts/`: an earlier `git add`
+    staged the types.json while they were briefly deleted on disk. Separately, untrack
     the old hash-named manifest with `out/untrack-compiled.ps1` (`git rm --cached -r pwsh/.compiled`; the folder is gitignored). Check:
     `git ls-files pwsh/.compiled` prints nothing, `git status --short contracts` is clean, and `Test-BuildArtifact -Facet Types` reports no
     issues.
@@ -152,7 +160,17 @@ final full run last.
     refresh), then run the script with `-WhatIf`, then without it; then tell the orchestrator, so steps 1, 2 and 4 swap in together. Check:
     the `-WhatIf` lists each page once and no target exists, and after the run `git status --short docs/references` shows only renames.
 
-29. The final full run, in a fresh session, when the chunks in plan-master have landed. Once it is green and committed, the work is done and
+29. plan-python-namespace-package: commit the kit as the package `catzc.diagrams`: `python/diagrams/__init__.py` (new) and every kit module
+    and test under `python/diagrams` (package-relative imports, `python -m catzc.diagrams.<tool>` usage lines); the build backend pinned at
+    `setuptools==80.9.0` in `python/diagrams/pyproject.toml`, rendered from `pwsh/Base.Languages/types/PythonConfig.cs` and
+    `pwsh/Base.Languages/New-PythonProject.ps1` with their tests; the callers on `python -m` (`pwsh/Base.Slides/Build-Diagrams.ps1`,
+    `Test-Diagrams.ps1`, `Move-Diagram.ps1` and their tests, `.claude/skills/drawio-declaration`, `.claude/skills/drawio-renderer`,
+    `.claude/agents/print-artifacts.md`, `python/diagrams/assets/STYLE.md`); `pwsh/Base.Slides/types/DrawioKit.cs` (module names read from
+    the manifest, formatted) with its test; and the one-line `states:` value in `python/diagrams/configs/drawio.yml`. uv.lock holds no
+    setuptools entry (build requirements are not locked). Check: `git status --short python pwsh/Base.Languages pwsh/Base.Slides` lists
+    these files and nothing else of this plan's.
+
+30. The final full run, in a fresh session, when the chunks in plan-master have landed. Once it is green and committed, the work is done and
     every plan, task and prompt in `.claude/plans` is deleted (the user, 2026-10-20). Check: `.claude/plans` is empty.
 
 ## Report

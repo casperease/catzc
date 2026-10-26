@@ -59,7 +59,6 @@ Describe 'PythonConfig' -Tag 'L0' {
             $default.build_distribution | Should -Be ([Catzc.Base.Languages.PythonConfig]::DefaultBuildDistribution)
             $default.build_version | Should -Be ([Catzc.Base.Languages.PythonConfig]::DefaultBuildVersion)
             $default.build_module | Should -Be ([Catzc.Base.Languages.PythonConfig]::DefaultBuildModule)
-            $default.build_editable_mode | Should -Be ([Catzc.Base.Languages.PythonConfig]::DefaultEditableMode)
             $moved = [Catzc.Base.Languages.PythonConfig]::new([ordered]@{
                     dependencies = $script:pins; build_backend = [ordered]@{ distribution = 'widget-build'; version = '1.2' }
                 })
@@ -71,7 +70,6 @@ Describe 'PythonConfig' -Tag 'L0' {
         It 'rejects <Case>, naming it' -ForEach @(
             @{ Case = 'a build backend version range'; Raw = [ordered]@{ build_backend = [ordered]@{ version = '>=80' }; dependencies = [ordered]@{ pyright = '1.1.414'; pytest = '9.1.1'; ruff = '0.17.0' } }; Message = "*build_backend.version '>=80'*exact version*" }
             @{ Case = 'a build backend module that is no module name'; Raw = [ordered]@{ build_backend = [ordered]@{ module = 'widget build' }; dependencies = [ordered]@{ pyright = '1.1.414'; pytest = '9.1.1'; ruff = '0.17.0' } }; Message = "*build_backend.module 'widget build'*" }
-            @{ Case = 'an unknown editable mode'; Raw = [ordered]@{ build_backend = [ordered]@{ editable_mode = 'gadget' }; dependencies = [ordered]@{ pyright = '1.1.414'; pytest = '9.1.1'; ruff = '0.17.0' } }; Message = "*build_backend.editable_mode 'gadget'*strict, compat, lenient*" }
             @{ Case = 'an unknown build backend key'; Raw = [ordered]@{ build_backend = [ordered]@{ gadget = 1 }; dependencies = [ordered]@{ pyright = '1.1.414'; pytest = '9.1.1'; ruff = '0.17.0' } }; Message = "*build_backend: unknown key 'gadget'*" }
             @{ Case = 'a build backend that is not a map'; Raw = [ordered]@{ build_backend = 'setuptools'; dependencies = [ordered]@{ pyright = '1.1.414'; pytest = '9.1.1'; ruff = '0.17.0' } }; Message = '*invalid build_backend*' }
             @{ Case = 'an unknown key'; Raw = [ordered]@{ dependencies = [ordered]@{ pyright = '1.1.414'; pytest = '9.1.1'; ruff = '0.17.0' }; gadget = 1 }; Message = "*unknown key 'gadget'*" }

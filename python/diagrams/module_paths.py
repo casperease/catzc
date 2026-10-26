@@ -1,18 +1,36 @@
-"""A pwsh module's folder from its full name, the kit's twin of VariantTrack.FolderNameOf (DDR-TRACK-MODULENAMESPACE).
+"""The repository root the kit reads, and a pwsh module's folder from its full name, the kit's twin of VariantTrack.FolderNameOf
+(DDR-TRACK-MODULENAMESPACE). Every repository path in the kit starts from REPO here, never from a file's own parents.
 
 The pwsh track declares its namespace and join in variants.yml; a module's folder is its full name without them, so no path in the kit
 spells a module folder: Catzc.Base.Drs lives in pwsh/Base.Drs. The variants file is found by its one place under the modules track,
 read once per process. A leaf of the kit that imports none of it, so a script copied out with it still runs.
 """
 
+import os
 import re
 from functools import cache
 from pathlib import Path
 
 import yaml
 
-REPO = Path(__file__).resolve().parents[2]
 MODULES_TRACK = "pwsh"
+REPOSITORY_ROOT_VARIABLE = "RepositoryRoot"
+
+
+def repository_root():
+    """The repository the kit reads: $env:RepositoryRoot, which the importer sets, else the nearest folder above the working folder
+    that holds .git. Never the kit file's own parents, which an editable install may place under a link tree."""
+    declared = os.environ.get(REPOSITORY_ROOT_VARIABLE)
+    if declared and Path(declared).is_dir():
+        return Path(declared).resolve()
+    here = Path.cwd().resolve()
+    for folder in (here, *here.parents):
+        if (folder / ".git").exists():
+            return folder
+    raise FileNotFoundError(f"no repository root: ${REPOSITORY_ROOT_VARIABLE} is unset and no folder above {here} holds .git")
+
+
+REPO = repository_root()
 
 
 @cache

@@ -23,12 +23,20 @@ function Get-NeutralCodeFinding {
 
     $tiers = [Catzc.Base.Timeouts.TestTiers]::Names
     $form = (Get-Config -Config drs).CodeForm
-    $codePattern = [regex]::new("(?<![\w-])$($form.Cited)")
-    $kindMarker = [regex]::new("$($form.Kind)-")
-    $isBlockCommand = {
-        param($node)
-        $node -is [System.Management.Automation.Language.CommandAst] -and $node.GetCommandName() -in 'Describe', 'Context', 'It'
+    # The gate calls this once per test file, so the two patterns are built once per code form, not once per call.
+    $formKey = "$($form.Cited)`n$($form.Kind)"
+    $patterns = $ExecutionContext.SessionState.PSVariable.GetValue('script:neutralCodePatterns')
+    if ($null -eq $patterns -or $patterns.Key -cne $formKey) {
+        $patterns = @{
+            Key         = $formKey
+            CodePattern = [regex]::new("(?<![\w-])$($form.Cited)")
+            KindMarker  = [regex]::new("$($form.Kind)-")
+        }
+        $script:neutralCodePatterns = $patterns
     }
+    $codePattern = $patterns.CodePattern
+    $kindMarker = $patterns.KindMarker
+    $scan = [Catzc.Base.QualityGates.SourceConventionScan]::Scan($Ast)
     $isString = {
         param($node)
         $node -is [System.Management.Automation.Language.StringConstantExpressionAst] -or
@@ -41,7 +49,7 @@ function Get-NeutralCodeFinding {
     # Each tier-tagged block's extent and tier, and the extent of every -Tag argument and every block title.
     $blocks = [System.Collections.Generic.List[object]]::new()
     $skipRanges = [System.Collections.Generic.List[object]]::new()
-    foreach ($command in $Ast.FindAll($isBlockCommand, $true)) {
+    foreach ($command in $scan.BlockCommands) {
         $elements = $command.CommandElements
         $tier = $null
         $titled = $false
@@ -104,7 +112,7 @@ function Get-NeutralCodeFinding {
     }
 
     $findings = [System.Collections.Generic.List[object]]::new()
-    foreach ($literal in $Ast.FindAll($isString, $true)) {
+    foreach ($literal in $scan.Strings) {
         $text = $literal.Extent.Text
         if (-not $kindMarker.IsMatch($text)) {
             continue

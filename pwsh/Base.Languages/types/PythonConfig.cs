@@ -40,12 +40,9 @@ public sealed class PythonConfig : Catzc.Base.Objects.DictionaryRecord
     public const string DefaultBuildVersion = "80.9.0";
     public const string DefaultBuildModule = "setuptools.build_meta";
 
-    public const string DefaultEditableMode = "strict";
-    private static readonly string[] EditableModes = { "strict", "compat", "lenient" };
-
     private const string Failed = "python config validation failed:\n";
     private static readonly string[] AllowedKeys = { "root", "dependencies", "type_checking", "pytest_cache", "pycache", "build_backend" };
-    private static readonly string[] BuildBackendKeys = { "distribution", "version", "module", "editable_mode" };
+    private static readonly string[] BuildBackendKeys = { "distribution", "version", "module" };
     private static readonly Regex ModuleName = new Regex(@"^[A-Za-z_][A-Za-z0-9_]*(\.[A-Za-z_][A-Za-z0-9_]*)*$");
     private static readonly string[] RequiredDependencies = { "pyright", "pytest", "ruff" };
     private static readonly string[] TypeCheckingModes = { "off", "basic", "standard", "strict" };
@@ -75,9 +72,6 @@ public sealed class PythonConfig : Catzc.Base.Objects.DictionaryRecord
 
     // Its backend module, the [build-system] build-backend.
     public string build_module { get; } = DefaultBuildModule;
-
-    // The backend's editable mode, passed to it as a config setting on every sync.
-    public string build_editable_mode { get; } = DefaultEditableMode;
 
     public PythonConfig(IDictionary raw)
     {
@@ -154,12 +148,6 @@ public sealed class PythonConfig : Catzc.Base.Objects.DictionaryRecord
                     else
                     {
                         errors.Add(string.Format(CultureInfo.InvariantCulture, "invalid build_backend.module '{0}' (a dotted Python module name)", module));
-                    }
-                    string editable = backend.Contains("editable_mode") ? Convert.ToString(backend["editable_mode"], CultureInfo.InvariantCulture) : DefaultEditableMode;
-                    if (Array.IndexOf(EditableModes, editable) >= 0) { build_editable_mode = editable; }
-                    else
-                    {
-                        errors.Add(string.Format(CultureInfo.InvariantCulture, "invalid build_backend.editable_mode '{0}' (one of {1})", editable, string.Join(", ", EditableModes)));
                     }
                 }
             }

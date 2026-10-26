@@ -13,7 +13,7 @@ from PIL import Image
 from PIL.PngImagePlugin import PngInfo
 
 from . import declaration_settings, minimap_contract
-from .declaration_constants import ACTION_LENS, DERIVED, DERIVED_PREFIXES, KINDS, KIT, PROOF_LENS, SLIDE, SOURCE, load_yaml
+from .declaration_constants import ACTION_LENS, DERIVED, DERIVED_PREFIXES, KINDS, KIT, PROOF_LENS, SLIDE, SOURCE
 from .declaration_dump import flow_yaml, print_width
 from .declaration_expand import drawn, undrawn
 from .declaration_finish import to_xml
@@ -24,6 +24,7 @@ from .declaration_read import model_of
 from .declaration_source import article_block, blocks_in, carrier_of, diagram_of, load, read_source, save, slide_of, write_source
 from .declaration_vocabulary import EDGE_LABELS, DeclarationError
 from .drawio_png import THEMES, decode, encode, mxfile_chunk, render
+from .kit_yaml import load_yaml
 
 
 def uniform_label(content):

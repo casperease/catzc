@@ -19,6 +19,15 @@ Describe 'Write-FileIfChanged' -Tag 'L0', 'logic' {
         [System.IO.File]::ReadAllText($target) | Should -BeExactly "alpha`nbeta`n"
     }
 
+    It 'hands a changed write to the burst journal recorder first, and an unchanged or dry-run write not at all' {
+        # The recorder is the internal types module's; a mock in the writer's module stands in for it.
+        Mock Save-BurstJournalWrite -ModuleName Catzc.Base.Files { [System.IO.File]::Exists($Path) | Should -BeFalse }
+        Write-FileIfChanged $target 'alpha' | Should -BeTrue
+        Write-FileIfChanged $target 'alpha' | Should -BeFalse
+        Write-FileIfChanged $target 'beta' -DryRun | Should -BeTrue
+        Should -Invoke Save-BurstJournalWrite -ModuleName Catzc.Base.Files -Times 1 -Exactly -ParameterFilter { $Path -eq $target }
+    }
+
     It 'is idempotent: a second identical write reports unchanged' {
         Write-FileIfChanged $target "alpha`nbeta" | Should -BeTrue
         Write-FileIfChanged $target "alpha`nbeta" | Should -BeFalse

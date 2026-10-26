@@ -10,10 +10,9 @@ import re
 from functools import cache
 from pathlib import Path
 
-from .declaration_constants import load_yaml
-from .module_paths import module_file
+from .kit_yaml import load_yaml
+from .module_paths import REPO, module_file
 
-REPO = Path(__file__).resolve().parents[2]
 LANGUAGES = module_file("Catzc.Base.Languages", "configs", "languages.yml")
 
 # The closed set of naming cases (ADR-AUTO-IDIOM-CLOSEDCASES), each as the names it accepts. `snake` is the one the repository configures.

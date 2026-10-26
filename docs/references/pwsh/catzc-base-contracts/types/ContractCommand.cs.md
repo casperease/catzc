@@ -38,3 +38,12 @@ Above `public string description { get; }`, written with `//`.
 What the command guarantees, one plain sentence: its help synopsis stripped of links, codes and markup. A contract requires it; a
 signature read from a command file carries none.
 ```
+
+## comment:5
+
+Above `public string description { get; }`, written with `//`.
+
+```text
+What the command guarantees, one plain sentence: its help synopsis stripped of links, codes and markup. A contract requires it; a
+signature read from a command file carries none.
+```

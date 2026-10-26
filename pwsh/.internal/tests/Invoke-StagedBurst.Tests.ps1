@@ -26,11 +26,26 @@ Describe 'Invoke-StagedBurst' -Tag 'L0', 'logic' {
         [System.IO.File]::WriteAllText($script:doomed, 'cog')
         $gadget = $script:target.Replace("'", "''")
         $cog = $script:doomed.Replace("'", "''")
+        $widgets = (Join-Path $script:root 'widgets').Replace("'", "''")
+        $script:generated = Join-Path $script:root 'gen/sprocket.json'
+        $script:kept = Join-Path $script:root 'kept.txt'
+        [System.IO.File]::WriteAllText($script:kept, 'kept')
+        $generated = $script:generated.Replace("'", "''")
+        $kept = $script:kept.Replace("'", "''")
+        $recorder = (Join-Path $PSScriptRoot '../assets/types/Save-BurstJournalWrite.ps1').Replace("'", "''")
         [System.IO.File]::WriteAllText($script:importer, @"
 function Write-Message { param([AllowEmptyString()] [string] `$Message, [switch] `$NoHeader) Write-Information `$Message -InformationAction Continue }
 function Test-Swapped { if ((Get-Content -LiteralPath '$gadget' -Raw) -ne 'staged') { throw 'the staged gadget is not in place' } }
 function Test-Deleted { if (Test-Path -LiteralPath '$cog') { throw 'the cog is still there' } }
 function Test-Broken { throw 'broken gadget' }
+function Remove-Widgets { Remove-Item -LiteralPath '$widgets' -Recurse -Force }
+. '$recorder'
+function Write-Generated {
+    foreach (`$path in '$generated', '$kept') { Save-BurstJournalWrite -Path `$path }
+    `$null = New-Item -ItemType Directory -Path (Split-Path -Parent '$generated') -Force
+    [System.IO.File]::WriteAllText('$generated', 'generated')
+    [System.IO.File]::WriteAllText('$kept', 'rewritten')
+}
 function Test-BurstHeld { `$event = `$null; if (-not [System.Threading.EventWaitHandle]::TryOpenExisting('$($script:lockName)-burst', [ref] `$event)) { throw 'no burst event while the swap runs' }; `$event.Dispose() }
 "@)
     }
@@ -57,6 +72,16 @@ function Test-BurstHeld { `$event = `$null; if (-not [System.Threading.EventWait
         $lines | Should -Contain '[Invoke-CatzcCommand] failed: Test-Broken — broken gadget'
         $lines |
             Should -Contain '[Invoke-StagedBurst] restored every target from the journal: the tests failed (exit code 1)'
+    }
+
+    It 'removes every folder the swap created, deepest first, when a test fails' {
+        $deep = Join-Path $script:staged 'fresh/deeper/thing.txt'
+        $null = New-Item -ItemType Directory -Path (Split-Path -Parent $deep) -Force
+        [System.IO.File]::WriteAllText($deep, 'thing')
+        $null = @(& $script:burst -StagedFolder 'out/widget/staged' -RepositoryRoot $script:root -Importer $script:importer -LockName $script:lockName -LockSeconds 1 -Seconds 30 'Test-Broken')
+        $LASTEXITCODE | Should -Be 1
+        Join-Path $script:root 'fresh' | Should -Not -Exist
+        [System.IO.File]::ReadAllText($script:target) | Should -BeExactly 'original'
     }
 
     It 'restores a journal a killed call left, before it swaps anything' {
@@ -164,6 +189,34 @@ function Test-BurstHeld { `$event = `$null; if (-not [System.Threading.EventWait
             $LASTEXITCODE | Should -Be 1
             [System.IO.File]::ReadAllText($script:doomed) | Should -BeExactly 'cog'
             Test-Path -LiteralPath "$script:staged.backup" | Should -BeFalse
+        }
+
+        It 'restores every target when a step deleted a staged file''s folder before a test failed' {
+            [System.IO.File]::WriteAllText((Join-Path $script:staged 'widgets/gadget.txt'), 'staged')
+            $lines = @(& $script:burst -StagedFolder 'out/widget/staged' -RepositoryRoot $script:root -Importer $script:importer -LockName $script:lockName -LockSeconds 1 -Seconds 30 'Remove-Widgets' 'Test-Broken')
+            $LASTEXITCODE | Should -Be 1
+            $lines | Should -Contain '[Invoke-StagedBurst] restored every target from the journal: the tests failed (exit code 1)'
+            [System.IO.File]::ReadAllText($script:target) | Should -BeExactly 'original'
+            [System.IO.File]::ReadAllText($script:doomed) | Should -BeExactly 'cog'
+            Test-Path -LiteralPath "$script:staged.backup" | Should -BeFalse
+        }
+
+        It 'puts back what the import wrote when a test fails, so the tree is as it was' {
+            $before = @(Get-ChildItem -LiteralPath $script:root -Recurse -File | Where-Object FullName -NotLike "$script:staged*" |
+                    ForEach-Object { "$($_.FullName)=$([System.IO.File]::ReadAllText($_.FullName))" })
+            $null = @(& $script:burst -StagedFolder 'out/widget/staged' -RepositoryRoot $script:root -Importer $script:importer -LockName $script:lockName -LockSeconds 1 -Seconds 30 'Write-Generated' 'Test-Broken')
+            $LASTEXITCODE | Should -Be 1
+            $after = @(Get-ChildItem -LiteralPath $script:root -Recurse -File | Where-Object FullName -NotLike "$script:staged*" |
+                    ForEach-Object { "$($_.FullName)=$([System.IO.File]::ReadAllText($_.FullName))" })
+            $after | Should -Be $before
+            Join-Path $script:root 'gen' | Should -Not -Exist
+        }
+
+        It 'keeps what the import wrote when the tests pass' {
+            $null = @(& $script:burst -StagedFolder 'out/widget/staged' -RepositoryRoot $script:root -Importer $script:importer -LockName $script:lockName -LockSeconds 1 -Seconds 30 'Write-Generated')
+            $LASTEXITCODE | Should -Be 0
+            [System.IO.File]::ReadAllText($script:generated) | Should -BeExactly 'generated'
+            [System.IO.File]::ReadAllText($script:kept) | Should -BeExactly 'rewritten'
         }
 
         It 'restores a swap and a delete together when a test fails' {

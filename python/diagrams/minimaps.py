@@ -18,11 +18,10 @@ from pathlib import Path
 
 from PIL import Image, ImageDraw
 
-from .declaration_constants import load_yaml
 from .drawio_png import SCALE, font, tokens
-from .module_paths import module_folder_name, module_path
+from .kit_yaml import load_yaml
+from .module_paths import REPO, module_folder_name, module_path
 
-REPO = Path(__file__).resolve().parents[2]
 QUESTION = {
     "code-locations": "Where does it live?",
     "module-neighbourhood": "What does it lean on?",

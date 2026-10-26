@@ -117,19 +117,50 @@ else {
     [System.IO.Path]::GetFullPath((Join-Path $root $StagedFolder))
 }
 $journal = "$($staged.TrimEnd('\', '/')).backup"
+# How the import's own writes are journalled, declared once beside Save-BurstJournalWrite, which records them.
+$burstJournal = Import-PowerShellDataFile -LiteralPath (Join-Path $PSScriptRoot 'types/burst-journal.psd1')
 $manifestPath = Join-Path $journal 'manifest.json'
 $filesFolder = Join-Path $journal 'files'
 
-# Puts every target back as the journal holds it: a file it backed up is copied over, a file the swap created is
-# deleted.
+# Puts every target back as the journal holds it: a file it backed up is copied over, its folder made again when a step
+# removed it, and a file the swap created is deleted.
 function Restore-Journal {
     foreach ($entry in @(Get-Content -LiteralPath $manifestPath -Raw | ConvertFrom-Json)) {
         $target = Join-Path $root $entry.path
         if ($entry.existed) {
+            $null = New-Item -ItemType Directory -Path (Split-Path -Parent $target) -Force
             Copy-Item -LiteralPath (Join-Path $filesFolder $entry.path) -Destination $target -Force
         }
         elseif (Test-Path -LiteralPath $target) {
             Remove-Item -LiteralPath $target -Force
+        }
+    }
+    # What the import wrote, journalled by Save-BurstJournalWrite: each file goes back to what it was, and a file it
+    # created goes, with a folder it leaves empty.
+    $writtenLog = Join-Path $journal $burstJournal.WrittenLog
+    if (Test-Path -LiteralPath $writtenLog -PathType Leaf) {
+        foreach ($entry in @(Get-Content -LiteralPath $writtenLog -Raw | ConvertFrom-Json)) {
+            if ($entry.existed) {
+                $null = New-Item -ItemType Directory -Path (Split-Path -Parent $entry.path) -Force
+                Copy-Item -LiteralPath $entry.backup -Destination $entry.path -Force
+                continue
+            }
+            if (Test-Path -LiteralPath $entry.path -PathType Leaf) {
+                Remove-Item -LiteralPath $entry.path -Force
+            }
+            $folder = Split-Path -Parent $entry.path
+            if ((Test-Path -LiteralPath $folder -PathType Container) -and -not (Get-ChildItem -LiteralPath $folder -Force)) {
+                Remove-Item -LiteralPath $folder -Force
+            }
+        }
+    }
+    # The folders the swap created go too, deepest first, each only once it is empty.
+    $foldersLog = Join-Path $journal 'folders.json'
+    if (Test-Path -LiteralPath $foldersLog -PathType Leaf) {
+        foreach ($folder in @(Get-Content -LiteralPath $foldersLog -Raw | ConvertFrom-Json | Sort-Object -Property Length -Descending)) {
+            if ((Test-Path -LiteralPath $folder -PathType Container) -and -not (Get-ChildItem -LiteralPath $folder -Force)) {
+                Remove-Item -LiteralPath $folder -Force
+            }
         }
     }
     Remove-Item -LiteralPath $journal -Recurse -Force
@@ -239,7 +270,17 @@ $entries = foreach ($relative in $relatives) {
     }
     [pscustomobject]@{ path = $relative; existed = $existed }
 }
+# Every folder the swap will create, so a rollback removes it again instead of leaving it empty for the next import.
+$createdFolders = [System.Collections.Generic.SortedSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
+foreach ($entry in @($entries)) {
+    $folder = Split-Path -Parent (Join-Path $root $entry.path)
+    while ($folder.Length -gt $root.TrimEnd('\', '/').Length -and -not (Test-Path -LiteralPath $folder -PathType Container)) {
+        [void] $createdFolders.Add($folder)
+        $folder = Split-Path -Parent $folder
+    }
+}
 $null = New-Item -ItemType Directory -Path $journal -Force
+ConvertTo-Json -InputObject @($createdFolders) | Set-Content -LiteralPath (Join-Path $journal 'folders.json')
 ConvertTo-Json -InputObject @($entries) | Set-Content -LiteralPath $manifestPath
 
 $passed = $false
@@ -261,6 +302,9 @@ try {
         $arguments.Importer = $Importer
     }
     $global:LASTEXITCODE = 0
+    # The import this process runs journals each file it writes, so a failure restores those too; it is this process's
+    # variable alone, so no peer's import journals.
+    [System.Environment]::SetEnvironmentVariable($burstJournal.Variable, $journal)
     & (Join-Path $PSScriptRoot 'Invoke-CatzcCommand.ps1') @arguments
     if ($global:LASTEXITCODE -eq 0) {
         $passed = $true
@@ -274,6 +318,7 @@ catch {
     $outcome = "the swap threw: $($_.Exception.Message)"
 }
 finally {
+    [System.Environment]::SetEnvironmentVariable($burstJournal.Variable, $null)
     # Any way out but a pass puts the targets back, an interruption included.
     if (-not $passed) {
         Restore-Journal

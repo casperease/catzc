@@ -1263,6 +1263,57 @@
       ]
     },
     {
+      "name": "Catzc.Base.QualityGates.SourceConventionScan",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "BlockCommands",
+          "kind": "property"
+        },
+        {
+          "name": "ListNodes",
+          "kind": "property"
+        },
+        {
+          "name": "Scan",
+          "kind": "method"
+        },
+        {
+          "name": "Strings",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "VisitArrayLiteral",
+          "kind": "method"
+        },
+        {
+          "name": "VisitAttribute",
+          "kind": "method"
+        },
+        {
+          "name": "VisitCommand",
+          "kind": "method"
+        },
+        {
+          "name": "VisitExpandableStringExpression",
+          "kind": "method"
+        },
+        {
+          "name": "VisitStringConstantExpression",
+          "kind": "method"
+        },
+        {
+          "name": "VisitSwitchStatement",
+          "kind": "method"
+        }
+      ]
+    },
+    {
       "name": "Catzc.Base.QualityGates.SourceConventionsConfig",
       "aliases": [],
       "display": [],

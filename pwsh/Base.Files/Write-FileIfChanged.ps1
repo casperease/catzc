@@ -33,6 +33,11 @@ function Write-FileIfChanged {
     $changed = $canonical -cne $existing
 
     if ($changed -and -not $DryRun) {
+        # Inside a staged burst the write is journalled first, so a failed burst puts the file back; the recorder lives in
+        # the internal types module, which every import loads first.
+        if (Get-Command -Name Save-BurstJournalWrite -ErrorAction Ignore) {
+            Save-BurstJournalWrite -Path $Path
+        }
         $directory = [System.IO.Path]::GetDirectoryName($Path)
         if ($directory) {
             [System.IO.Directory]::CreateDirectory($directory) | Out-Null

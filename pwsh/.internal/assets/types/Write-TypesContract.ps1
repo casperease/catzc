@@ -72,6 +72,7 @@ function Write-TypesContract {
             [pscustomobject]@{ Path = $contract; Written = $false }
             continue
         }
+        Save-BurstJournalWrite -Path $contract
         [System.IO.Directory]::CreateDirectory([System.IO.Path]::GetDirectoryName($contract)) | Out-Null
         $tmp = "$contract.$PID.tmp"
         [System.IO.File]::WriteAllText($tmp, $texts[$contract], [System.Text.UTF8Encoding]::new($false))
@@ -87,6 +88,7 @@ function Write-TypesContract {
             if (-not [System.IO.File]::Exists($stale) -or $texts.Contains($stale)) {
                 continue
             }
+            Save-BurstJournalWrite -Path $stale
             [System.IO.File]::Delete($stale)
             if (-not [System.IO.Directory]::EnumerateFileSystemEntries($group).GetEnumerator().MoveNext()) {
                 [System.IO.Directory]::Delete($group)

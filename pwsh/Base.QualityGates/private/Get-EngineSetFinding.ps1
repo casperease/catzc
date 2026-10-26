@@ -69,13 +69,7 @@ function Get-EngineSetFinding {
             }
             , $named
         }
-        $isListNode = {
-            param($node)
-            $node -is [System.Management.Automation.Language.AttributeAst] -or
-            $node -is [System.Management.Automation.Language.ArrayLiteralAst] -or
-            $node -is [System.Management.Automation.Language.SwitchStatementAst]
-        }
-        foreach ($node in $Ast.FindAll($isListNode, $true)) {
+        foreach ($node in [Catzc.Base.QualityGates.SourceConventionScan]::Scan($Ast).ListNodes) {
             $named = $null
             $what = $null
             if ($node -is [System.Management.Automation.Language.AttributeAst]) {

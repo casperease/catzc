@@ -12,21 +12,15 @@ from urllib.parse import quote, unquote
 
 from PIL.PngImagePlugin import PngImageFile
 
+from .kit_yaml import load_yaml_text
 
-def kit_defaults():
-    """The kit's sensible defaults from configs/drawio.yml of this module: a two-level mapping read without a YAML library."""
-    out, section = {}, None
-    for raw in (Path(__file__).resolve().parent / "configs" / "drawio.yml").read_text(encoding="utf-8").splitlines():
-        line = raw.split("#", 1)[0].rstrip()
-        if not line.strip():
-            continue
-        if not line.startswith(" "):
-            section = line.rstrip(":").strip()
-            out[section] = {}
-        else:
-            key, value = line.strip().split(":", 1)
-            out[section][key.strip()] = value.strip()
-    return out
+
+def kit_defaults(path=None):
+    """The kit's sensible defaults from configs/drawio.yml of this module: each section a mapping of setting to its text as written, so
+    a value the formatter wraps onto indented lines reads as one; a section that holds only comments is an empty mapping."""
+    path = path or Path(__file__).resolve().parent / "configs" / "drawio.yml"
+    data = load_yaml_text(path.read_text(encoding="utf-8")) or {}
+    return {section: {} if value == "" else value for section, value in data.items()}
 
 
 DEFAULTS = kit_defaults()

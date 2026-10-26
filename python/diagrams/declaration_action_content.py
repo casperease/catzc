@@ -19,10 +19,10 @@ from .declaration_constants import (
     PROOF_SHOWN,
     SHOWS,
     WHERES,
-    load_yaml,
 )
 from .declaration_dump import _flow, entry
 from .declaration_vocabulary import DeclarationError, choices
+from .kit_yaml import load_yaml
 from .drawio_png import DEFAULTS
 
 

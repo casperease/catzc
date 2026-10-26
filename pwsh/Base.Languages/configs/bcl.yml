@@ -22,6 +22,11 @@ host_bindings:
   - file: Base.QualityGates/types/CommentLexer.cs
     host: pwsh
     reason: Tokenizes a script with the PowerShell Parser, so a comment is found exactly where pwsh would find it.
+  - file: Base.QualityGates/types/SourceConventionScan.cs
+    host: pwsh
+    reason:
+      Visits the PowerShell syntax tree once per file (AttributeAst, ArrayLiteralAst, SwitchStatementAst, CommandAst, string constants) to
+      collect what the engine-set and neutral-code checks read.
   - file: Base.Repository/types/ParsedScripts.cs
     host: pwsh
     reason: Parses scripts with the PowerShell Parser and caches their ScriptBlockAst and tokens.

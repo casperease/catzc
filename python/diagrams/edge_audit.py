@@ -27,8 +27,7 @@ from pathlib import Path
 import yaml
 
 from . import declaration, edge_rules
-
-REPO = Path(__file__).resolve().parents[2]
+from .module_paths import REPO
 
 
 def stems(root=REPO, needle=""):

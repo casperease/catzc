@@ -6,7 +6,7 @@ usage (repo root, background): timeout 120 uv run --project python python -m pyt
 
 import sys
 
-from catzc.diagrams import drawio_png
+from catzc.diagrams import drawio_png, drawio_png_base
 from PIL import Image
 
 MODEL = (
@@ -29,6 +29,24 @@ def built(tmp_path, monkeypatch):
     png = tmp_path / "widget.drawio.png"
     run(monkeypatch, source, png)
     return png
+
+
+def test_reads_the_kit_defaults_as_text_a_wrapped_value_as_one_line(tmp_path):
+    config = tmp_path / "drawio.yml"
+    config.write_text(
+        "widget:\n"
+        "  gadget: yes # a comment beside a setting\n"
+        "  sprocket: 000000\n"
+        "empty: # only a comment under it\n"
+        "states:\n"
+        "  a gadget diagram, whose arrows are steps of one widget between states;\n"
+        "  only it declares a relation\n",
+        encoding="utf-8",
+    )
+    defaults = drawio_png_base.kit_defaults(config)
+    assert defaults["widget"] == {"gadget": "yes", "sprocket": "000000"}
+    assert defaults["empty"] == {}
+    assert defaults["states"] == "a gadget diagram, whose arrows are steps of one widget between states; only it declares a relation"
 
 
 def test_rerenders_a_png_in_place_keeping_its_model_and_page_name(tmp_path, monkeypatch):
