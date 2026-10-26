@@ -37,3 +37,12 @@ The tree the module is resolved in.
 ```powershell
 Get-ContractCommandRoot -Module Catzc.Base.Languages -RepositoryRoot $root
 ```
+
+## comment:1
+
+Above `$name = (Get-Config -Config contracts).ExceptionModuleOf($Module)`, written with `#`.
+
+```text
+The contract group is an exception's module, or the module's track and its folder in the normal form
+(Get-ContractGroup); the track renders the folder in PowerShell's folder case and gives back the module's full name.
+```

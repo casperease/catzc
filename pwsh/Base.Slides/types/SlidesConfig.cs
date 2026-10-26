@@ -33,8 +33,6 @@ public sealed class SlidesConfig
     // The worker processes a diagram build splits its renders across, each with a disjoint slice of the diagrams.
     public int render_parallel { get; }
 
-    // The diagrams (by stem) and slides (by path) whose naming of catzc or cats is a declared contrast, each with its reason
-    // (DDR-VISUAL-NONAMEINPICTURE); empty when none is declared.
     public IReadOnlyDictionary<string, string> name_mentions { get; }
 
     public SlidesConfig(IDictionary raw)

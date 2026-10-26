@@ -7,7 +7,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `$fixture =...`, written with `#`.
+Above `$fixture = ConvertTo-RepoRelativePath (Join-Path (Get-CatzcModuleRoot -Module...`, written with `#`.
 
 ```text
 cspell globs are relative to the repo root (Test-Spelling's working directory), so use the

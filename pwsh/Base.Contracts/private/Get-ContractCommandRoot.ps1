@@ -17,8 +17,6 @@ function Get-ContractCommandRoot {
         [string] $RepositoryRoot
     )
 
-    # The contract group is an exception's module, or the module's track and its folder in the normal form
-    # (Get-ContractGroup); the track renders the folder in PowerShell's folder case and gives back the module's full name.
     $name = (Get-Config -Config contracts).ExceptionModuleOf($Module)
     if (-not $name) {
         $languages = Get-Config -Config languages

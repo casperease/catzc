@@ -51,11 +51,11 @@ generated list keeps one order. '*' excludes dot-prefixed infrastructure folders
 
 ## comment:2
 
-Above `$kebab = [Catzc.Base.Objects.NameCase]::Render($leaf, 'kebab')`, written with `#`.
+Above `$kebab = [Catzc.Base.Objects.NameCase]::Render($name, 'kebab')`, written with `#`.
 
 ```text
-{kebab} kebab-cases the folder name, as a module's article is named; {name} keeps it, as a python
-package's is.
+{kebab} kebab-cases the module's full name, as a module's article is named; {name} keeps the full name
+in its track's join form, as a python package's is.
 ```
 
 ## comment:3

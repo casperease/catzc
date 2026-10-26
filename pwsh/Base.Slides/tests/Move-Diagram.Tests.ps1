@@ -156,11 +156,11 @@ Describe 'Move-Diagram — an article-carried diagram' -Tag 'L2', 'logic', 'sour
         $script:widgetRoot = Join-Path $TestDrive "widget-repository-$([guid]::NewGuid().ToString('N').Substring(0, 8))"
         $script:block = "``````yml drawio`ncontent: { title: Gadget }`n```````n`n"
         $files = [ordered]@{
-            'python/diagrams/configs/drawio.yml' = "renderer:`n  carrier: file # the default`nroles: # by stem`n  docs/widgets/.assets/gadget: legend`n"
-            'docs/widgets/gadget.md'                   = "# Gadget`n`n$($script:block)![Gadget](.assets/gadget.drawio.png)`n"
-            'docs/widgets/.assets/gadget.drawio.png'   = 'png'
-            'docs/gadgets/gadget.md'                   = "# Gadget here`n`n![Gadget](../widgets/.assets/gadget.drawio.png)`n"
-            'docs/drs/index.md'                        = "# Widget decisions`n"
+            'python/diagrams/configs/drawio.yml'     = "renderer:`n  carrier: file # the default`nroles: # by stem`n  docs/widgets/.assets/gadget: legend`n"
+            'docs/widgets/gadget.md'                 = "# Gadget`n`n$($script:block)![Gadget](.assets/gadget.drawio.png)`n"
+            'docs/widgets/.assets/gadget.drawio.png' = 'png'
+            'docs/gadgets/gadget.md'                 = "# Gadget here`n`n![Gadget](../widgets/.assets/gadget.drawio.png)`n"
+            'docs/drs/index.md'                      = "# Widget decisions`n"
         }
         foreach ($file in $files.Keys) {
             $full = Join-Path $script:widgetRoot $file

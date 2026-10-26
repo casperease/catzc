@@ -1,5 +1,9 @@
-# How a contract group folder is named, and nothing else (contracts are addressed by root, version, group and file).
-# A group is the module's track and its folder in the normal form: pwsh.base.vs_code for Catzc.Base.VSCode.
+# ---
+# catzc:
+#   docs: "../../../docs/references/pwsh/catzc-base-contracts/configs/contracts.yml.md"
+#   header: "generated"
+# ---
+
 groups:
   form: track_module
   # Module full name -> group, only where the form names a module's group wrongly.

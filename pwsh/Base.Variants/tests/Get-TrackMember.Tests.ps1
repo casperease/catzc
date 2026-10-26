@@ -5,7 +5,7 @@ Describe 'Get-TrackMember' -Tag 'L0', 'logic', 'DDR-TRACK-TRACKISPLACEDCLUSTER' 
                     widget = [ordered]@{ members                                                              = @('widget',
                             [ordered]@{ path = 'widget.cache'; generated = $true; committed = $false }); type = 'widget-works'
                     }
-                    gadget = [ordered]@{ members                                                = @('gadget',
+                    gadget = [ordered]@{ members                                                                = @('gadget',
                             [ordered]@{ path = 'gadget/rendered.md'; generated = $true },
                             [ordered]@{ path = 'gadget/*/*.cog'; generated = $true; committed = $false }); type = 'gadget-shelf'
                     }

@@ -1,5 +1,12 @@
+<#
+---
+catzc:
+  docs: "../../../docs/references/pwsh/catzc-base-slides/private/Get-NameMentionFinding.ps1.md"
+  header: "generated"
+---
+#>
+
 function Get-NameMentionFinding {
-    # The lines of a diagram declaration or a slide that name catzc or cats as a word (DDR-VISUAL-NONAMEINPICTURE).
     [CmdletBinding()]
     [OutputType([string[]])]
     param(
