@@ -1,0 +1,35 @@
+# The repository's front page, .github/README.md, composed by Build-FrontPage from these sections in page order.
+# A fragment is an authored article under docs/explanation/frontpage/; a records section is a table read live from the DRS.
+target: .github/README.md
+title: cats — the thin delivery platform
+tagline: >-
+  **One repository. One change process. Every delivery question answered from one commit.** cats turns software and infrastructure delivery
+  into code you can read, diff, review and query: pipelines, infrastructure, tooling, architecture decisions and tests, all behind one
+  command surface. In code the system is **catzc** (the `Catzc.*` modules, namespaces and types); to people it is **cats** — "ask cats".
+badges:
+  - { label: CI, image: "https://github.com/casperease/catzc/actions/workflows/ci-pwsh.yml/badge.svg", to: "https://github.com/casperease/catzc/actions/workflows/ci-pwsh.yml" }
+  - { label: thesis, message: one source of truth, color: 3b82f6, to: thesis }
+  - { label: design, message: thinnest viable platform, color: 8b5cf6, to: thin-platform }
+  - { label: grounded in, message: DORA, color: 22c55e, to: dora }
+  - { label: get, message: started, color: f97316, to: get-started }
+sections:
+  - { id: contents, kind: contents, title: Contents }
+  - { id: problem, kind: fragment, source: docs/explanation/frontpage/the-problem.md }
+  - id: thesis
+    kind: records
+    title: The thesis
+    intro: Each claim is a thesis record, and each row is its first rule, read from the record itself.
+    records: [TDR-ONETRUTH, TDR-STORES, TDR-NORMALFORM, TDR-CLOSEDLOOP]
+  - { id: transformation, kind: fragment, source: docs/explanation/frontpage/the-transformation.md }
+  - { id: thin-platform, kind: fragment, source: docs/explanation/frontpage/thin-platform.md }
+  - { id: zero-ceremony, kind: fragment, source: docs/explanation/frontpage/zero-ceremony.md }
+  - id: principles
+    kind: records
+    title: The principles
+    intro: The design axioms every other decision cites, each with its first rule.
+    records: [PDR-EAC, PDR-CONFIG, PDR-REDUCEVAR, PDR-NOWASTE, PDR-POKAYOKE, PDR-ONELIVE, PDR-CATS]
+  - { id: agents, kind: fragment, source: docs/explanation/frontpage/humans-and-agents.md }
+  - { id: dora, kind: fragment, source: docs/explanation/frontpage/grounded-in-dora.md }
+  - { id: get-started, kind: fragment, source: docs/explanation/frontpage/get-started.md }
+  - { id: learn-more, kind: fragment, source: docs/explanation/frontpage/learn-more.md }
+closing: One commit. One truth. Always releasable.

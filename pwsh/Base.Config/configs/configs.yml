@@ -46,6 +46,8 @@ configs:
     type: Catzc.Base.QualityGates.IdentityTokensConfig
   readme:
     type: Catzc.Base.Docs.DocsConfig
+  frontpage:
+    type: Catzc.Base.Docs.FrontPageConfig
   rootconfig:
     type: Catzc.Base.RootConfig.RootConfigFiles
   gitignore:

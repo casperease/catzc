@@ -153,6 +153,107 @@
       ]
     },
     {
+      "name": "Catzc.Base.Docs.FrontPageBadge",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "ImageUrl",
+          "kind": "method"
+        },
+        {
+          "name": "color",
+          "kind": "property"
+        },
+        {
+          "name": "image",
+          "kind": "property"
+        },
+        {
+          "name": "label",
+          "kind": "property"
+        },
+        {
+          "name": "message",
+          "kind": "property"
+        },
+        {
+          "name": "to",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Docs.FrontPageConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Section",
+          "kind": "method"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "badges",
+          "kind": "property"
+        },
+        {
+          "name": "closing",
+          "kind": "property"
+        },
+        {
+          "name": "sections",
+          "kind": "property"
+        },
+        {
+          "name": "tagline",
+          "kind": "property"
+        },
+        {
+          "name": "target",
+          "kind": "property"
+        },
+        {
+          "name": "title",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Docs.FrontPageSection",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "id",
+          "kind": "property"
+        },
+        {
+          "name": "intro",
+          "kind": "property"
+        },
+        {
+          "name": "kind",
+          "kind": "property"
+        },
+        {
+          "name": "records",
+          "kind": "property"
+        },
+        {
+          "name": "source",
+          "kind": "property"
+        },
+        {
+          "name": "title",
+          "kind": "property"
+        }
+      ]
+    },
+    {
       "name": "Catzc.Base.Docs.GitHubAnchor",
       "aliases": [],
       "display": [],
