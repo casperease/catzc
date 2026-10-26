@@ -51,8 +51,7 @@ function Get-ImprintStepFile {
             return , [string[]] @($functions | ForEach-Object { [System.IO.Path]::GetFullPath([System.IO.Path]::Combine($root, $_)) })
         }
         'wrap-powershell' {
-            # The formatter's own scope, so vendored code is never rewritten, narrowed to the PowerShell code files.
-            $scope = @(Get-FormatScope -RepositoryRoot $root -Path $Path)
+            $scope = Get-FormatScope -RepositoryRoot $root -Path $Path
             return , [string[]] @($scope | Where-Object { $_ -match '\.(ps1|psm1)$' })
         }
         'comments' {

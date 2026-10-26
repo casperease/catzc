@@ -42,8 +42,10 @@ function Get-TypesStampPath {
 }
 
 function Import-TypesAssembly {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'Writes only the per-user shadow cache, an internal load-time detail of the importer; the load itself is announced by the caller (Import-CSharpTypes).')]
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '', Justification = 'The binary load is announced by the caller: Import-CSharpTypes writes "Loaded types <dll>" through Write-ImporterMessage -StateChange; the analyzer rule SpellOutIdentifiers runs inside the analyzer engine, where only diagnostic records may be emitted.')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '',
+        Justification = 'Writes only the per-user shadow cache, an internal load-time detail of the importer; the load itself is announced by the caller (Import-CSharpTypes).')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '',
+        Justification = 'The binary load is announced by the caller: Import-CSharpTypes writes "Loaded types <dll>" through Write-ImporterMessage -StateChange; the analyzer rule SpellOutIdentifiers runs inside the analyzer engine, where only diagnostic records may be emitted.')]
     [OutputType([string])]
     param(
         [Parameter(Mandatory)]
@@ -53,7 +55,8 @@ function Import-TypesAssembly {
 
         [TimeSpan] $PruneAfter = [TimeSpan]::FromDays(1),
 
-        # false loads the file in place: a system that does not lock a loaded file needs no copy (types-load.yml shadowCopy).
+        # false loads the file in place: a system that does not lock a loaded file needs no copy (types-load.yml
+        # shadowCopy).
         [bool] $ShadowCopy = $true
     )
 
@@ -137,7 +140,8 @@ function Test-TypesAssemblyContent {
 }
 
 
-# The default row and the allowed values live here, not on a C# type: the policy is read while the types assembly is still unloaded.
+# The default row and the allowed values live here, not on a C# type: the policy is read while the types assembly is
+# still unloaded.
 $script:typesLoadDefault = [ordered]@{ Load = 'lazy'; Trigger = 'lookup-hook'; EagerTypes = @(); ShadowCopy = $true; Generations = 1 }
 $script:typesLoadHosts = 'console', 'headless'
 $script:typesLoadSystems = 'windows', 'unix'
@@ -259,7 +263,8 @@ function Get-TypesLoadPolicy {
     if ($policy.Generations -isnot [int] -or $policy.Generations -lt 1) {
         throw "Row '$cell' has generations '$($policy.Generations)'; it is a whole number of at least 1."
     }
-    # Builds stack side by side only in a developer's interactive session in the source tree; every other cell keeps one.
+    # Builds stack side by side only in a developer's interactive session in the source tree; every other cell keeps
+    # one.
     if ($policy.Generations -gt 1 -and $cell -notlike 'console.*.source') {
         throw "Row '$cell' has generations $($policy.Generations); only a console.*.source row may stack more than 1 build."
     }
@@ -270,8 +275,10 @@ function Get-TypesLoadPolicy {
 }
 
 function Register-DeferredTypes {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '', Justification = 'Session-global by design: the pending record must survive a re-import of this module, like $global:__CatzcTypes')]
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'Records in-memory session state only; the importer announces the deferral')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '',
+        Justification = 'Session-global by design: the pending record must survive a re-import of this module, like $global:__CatzcTypes')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '',
+        Justification = 'Records in-memory session state only; the importer announces the deferral')]
     [CmdletBinding()]
     param(
         [Parameter(Mandatory)]
@@ -282,7 +289,8 @@ function Register-DeferredTypes {
 
         [bool] $ShadowCopy = $true,
 
-        # Which build of this root the session loads: 1 for the first, more when changed builds stack (types-load.yml generations).
+        # Which build of this root the session loads: 1 for the first, more when changed builds stack (types-load.yml
+        # generations).
         [int] $Generation = 1
     )
 
@@ -293,9 +301,12 @@ function Register-DeferredTypes {
 }
 
 function Initialize-Types {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '', Justification = 'Reads and marks $global:__CatzcDeferredTypes, the session-global pending record')]
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'Loads the assembly the importer already verified and announced; there is nothing to confirm')]
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '', Justification = 'The importer announces the change: an eager load writes "Registered default display properties" through Write-ImporterMessage -StateChange, and a deferred load was announced as "Deferred types" when the importer registered it; Write-ImporterMessage is gone once the lazy load runs')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '',
+        Justification = 'Reads and marks $global:__CatzcDeferredTypes, the session-global pending record')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '',
+        Justification = 'Loads the assembly the importer already verified and announced; there is nothing to confirm')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '',
+        Justification = 'The importer announces the change: an eager load writes "Registered default display properties" through Write-ImporterMessage -StateChange, and a deferred load was announced as "Deferred types" when the importer registered it; Write-ImporterMessage is gone once the lazy load runs')]
     [CmdletBinding()]
     [OutputType([pscustomobject])]
     param()
@@ -323,7 +334,8 @@ function Initialize-Types {
         $aliases = 0
         $displayed = 0
         $accelerators = [psobject].Assembly.GetType('System.Management.Automation.TypeAccelerators')
-        # A full type name keeps resolving to the first-loaded build, so each accelerator takes its type from this build's assembly.
+        # A full type name keeps resolving to the first-loaded build, so each accelerator takes its type from this
+        # build's assembly.
         $assembly = @([System.AppDomain]::CurrentDomain.GetAssemblies() | Where-Object { -not $_.IsDynamic -and $_.Location -eq $loadedFrom }) | Select-Object -Last 1
         foreach ($type in $manifest.types) {
             $resolved = if ($assembly) {
@@ -350,8 +362,10 @@ function Initialize-Types {
 $script:deferredTypesCommands = [System.Collections.Generic.HashSet[string]]::new()
 
 function Enable-DeferredTypesLoad {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '', Justification = 'Reads $global:__CatzcDeferredTypes, the session-global pending record')]
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'Installs an in-memory lookup hook for this session only; the importer announces the deferral')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '',
+        Justification = 'Reads $global:__CatzcDeferredTypes, the session-global pending record')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '',
+        Justification = 'Installs an in-memory lookup hook for this session only; the importer announces the deferral')]
     [CmdletBinding()]
     param(
         [AllowEmptyCollection()]
@@ -372,7 +386,8 @@ function Enable-DeferredTypesLoad {
         return
     }
 
-    $script:deferredTypesCommands = [System.Collections.Generic.HashSet[string]]::new([string[]]$CommandName, [System.StringComparer]::OrdinalIgnoreCase)
+    $script:deferredTypesCommands = [System.Collections.Generic.HashSet[string]]::new([string[]]$CommandName,
+        [System.StringComparer]::OrdinalIgnoreCase)
     $ExecutionContext.InvokeCommand.PreCommandLookupAction = {
         param($commandName)
         if ($script:deferredTypesCommands.Contains($commandName)) {

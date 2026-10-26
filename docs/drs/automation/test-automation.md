@@ -193,8 +193,8 @@ phase runs after both. Two phase tags, both optional (block-chain resolution lik
 tests that must not share the machine with the parallel pool; `Split-TestAutomationFiles` owns the split, and a file is the scheduling unit,
 so one tagged test moves its whole file (serial wins over greedy):
 
-- **`serial`** — the test mutates state shared across worker processes: the committed `.compiled` assembly, a fixed `out/` path two files
-  both write (e.g. the `out/template/<name>` build folders). Its file runs in the final **one-worker phase**, strictly alone, one file after
+- **`serial`** — the test mutates state shared across worker processes: the per-machine types build, a fixed `out/` path two files both
+  write (e.g. the `out/template/<name>` build folders). Its file runs in the final **one-worker phase**, strictly alone, one file after
   another.
 - **`greedy`** — the test consumes the machine beyond its own process (`Test-ScriptAnalyzer`'s background-process pool, tests that spawn
   importer-loading pwsh workers) but shares no mutable state with other files. Its file runs in the **greedy phase**, a single-file shard
@@ -659,7 +659,7 @@ worker session, so a protected scan never skips under the harness — it runs co
 
 `One working folder; concurrent runs in snapshots`
 
-Concurrent test runs on one checkout share real state: the `out/` build folders, the `.compiled` assembly (locked while a process has it
+Concurrent test runs on one checkout share real state: the `out/` build folders, the shadow types build (locked while a process has it
 loaded), the git index and working tree that the L2 tests drive for real. Two runs in one working folder wipe and lock files under each
 other, and every such collision reads as a flaky test. Serialising the runs would protect correctness by spending wall clock — a queue in
 which a run waits minutes for another to finish ([queues-cost-money](../process/queues-cost-money.md)). Isolation gives the same correctness
@@ -782,10 +782,10 @@ Between the two, a test language may group tests inside a file, and the tags res
 The tiers above answer "what does one test integrate with"; the Build Verification Test (BVT) answers "is this commit shippable at all". It
 aggregates every selected test up to the target level, plus the built-artifact checks, into one verdict on the-state-of-this-commit.
 `Test-BuildArtifact` builds the selected modules once — the build succeeds and passes its own bundle check — and verifies the build facet by
-facet (`-Facet` selects): **`Types`** (the committed `.compiled` assembly is the current one), **`Load`** (the build loads cold in a fresh
-process — every module, the types and their accelerators, every shipped config), **`Parity`** (every built module exports exactly its source
-folder's public functions and defines exactly its private ones), and **`Manifest`** (every built manifest is formatter-stable, so a
-published manifest never churns). The L2 integrity tests run it one facet each, so the BVT includes every facet. Because everything is a
+facet (`-Facet` selects): **`Types`** (the committed types contract matches the current build's surface), **`Load`** (the build loads cold
+in a fresh process — every module, the types and their accelerators, every shipped config), **`Parity`** (every built module exports exactly
+its source folder's public functions and defines exactly its private ones), and **`Manifest`** (every built manifest is formatter-stable, so
+a published manifest never churns). The L2 integrity tests run it one facet each, so the BVT includes every facet. Because everything is a
 static, hermetic property of the committed artifacts (ADR-AUTO-TEST-COLLAPSEINPUTCLUSTERS), that verdict is reproducible: the same commit
 yields the same result on a devbox and in CI.
 

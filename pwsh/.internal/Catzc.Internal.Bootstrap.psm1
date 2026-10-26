@@ -105,7 +105,8 @@ function New-DynamicManifest {
 
     # Collect public .ps1 files (root level) — .NET API avoids Get-ChildItem pipeline overhead
     $publicFiles = @(foreach ($f in [System.IO.Directory]::EnumerateFiles($ModulePath, '*.ps1')) {
-            if (-not [System.IO.Path]::GetFileName($f).EndsWith('.Tests.ps1', [System.StringComparison]::OrdinalIgnoreCase)) {
+            if (-not [System.IO.Path]::GetFileName($f).EndsWith('.Tests.ps1',
+                [System.StringComparison]::OrdinalIgnoreCase)) {
                 $f
             }
         })
@@ -251,15 +252,18 @@ function Assert-UniqueModuleFunctionName {
     foreach ($dir in $ModuleDirs) {
         $files = [System.Collections.Generic.List[string]]::new()
         foreach ($f in [System.IO.Directory]::EnumerateFiles($dir.FullName, '*.ps1')) {
-            if (-not [System.IO.Path]::GetFileName($f).EndsWith('.Tests.ps1', [System.StringComparison]::OrdinalIgnoreCase)) {
+            if (-not [System.IO.Path]::GetFileName($f).EndsWith('.Tests.ps1',
+                [System.StringComparison]::OrdinalIgnoreCase)) {
                 $files.Add($f)
             }
         }
         if ($ExportPrivates) {
-            $privatePath = [System.IO.Path]::Combine($dir.FullName, (Get-PrivateFunctionFolder -ModulesRoot $dir.Parent.FullName))
+            $privatePath = [System.IO.Path]::Combine($dir.FullName,
+                (Get-PrivateFunctionFolder -ModulesRoot $dir.Parent.FullName))
             if ([System.IO.Directory]::Exists($privatePath)) {
                 foreach ($f in [System.IO.Directory]::EnumerateFiles($privatePath, '*.ps1')) {
-                    if (-not [System.IO.Path]::GetFileName($f).EndsWith('.Tests.ps1', [System.StringComparison]::OrdinalIgnoreCase)) {
+                    if (-not [System.IO.Path]::GetFileName($f).EndsWith('.Tests.ps1',
+                        [System.StringComparison]::OrdinalIgnoreCase)) {
                         $files.Add($f)
                     }
                 }

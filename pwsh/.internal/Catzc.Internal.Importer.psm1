@@ -16,8 +16,10 @@ $script:modulesFolder = 'pwsh'
 . (Join-Path $PSScriptRoot 'assets/importer/Test-WriterDue.ps1')
 
 function Invoke-Importer {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingWriteHost', '', Justification = 'Importer console output runs before the module system (Write-Message) is available')]
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '', Justification = 'Session-global by design: $global:__CatzcLoadTimings is the cross-module load-timing collector created here under -DiagnoseLoadTime, appended to by the Bootstrap loaders across module imports, and summarized at the end — it must be global to survive across those imports (Bootstrap.psm1 carries the same suppression)')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingWriteHost', '',
+        Justification = 'Importer console output runs before the module system (Write-Message) is available')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '',
+        Justification = 'Session-global by design: $global:__CatzcLoadTimings is the cross-module load-timing collector created here under -DiagnoseLoadTime, appended to by the Bootstrap loaders across module imports, and summarized at the end — it must be global to survive across those imports (Bootstrap.psm1 carries the same suppression)')]
     [CmdletBinding()]
     param(
         [switch] $ExportPrivates,
@@ -134,7 +136,8 @@ function Invoke-Importer {
         }
 
         Write-Verbose "Discovering modules in: $modulesRoot"
-        # An interactive dot-source is the only console host; a script, a test worker, a -File or -Command process and a pipeline load the types and run the janitors at import.
+        # An interactive dot-source is the only console host; a script, a test worker, a -File or -Command process and a
+        # pipeline load the types and run the janitors at import.
         $hostKind = if ($isConsoleSession -and (Test-IsInteractiveHost) -and -not (Test-IsRunningInPipeline)) {
             'console'
         }
@@ -154,7 +157,8 @@ function Invoke-Importer {
             Write-LoadTime 'All modules loaded'
         }
 
-        # The mix is resolved once the modules are loaded and kept as the session record; the modules outside it are removed.
+        # The mix is resolved once the modules are loaded and kept as the session record; the modules outside it are
+        # removed.
         $mixArgs = @{}
         foreach ($axis in 'Languages', 'Engines') {
             if ($PSBoundParameters.ContainsKey($axis)) {
@@ -179,7 +183,8 @@ function Invoke-Importer {
 
         $deferJanitors = -not $SkipJanitors -and $hostKind -eq 'console' -and -not $CleanClone
         if ($deferMix) {
-            # A console import stays types-free: the mix needs the types, so it is resolved once the first prompt has shown, before the janitors.
+            # A console import stays types-free: the mix needs the types, so it is resolved once the first prompt has
+            # shown, before the janitors.
             $show = $showStateChanges
             Enable-DeferredJanitors -Action {
                 [void] (Set-ImportMix)
@@ -196,7 +201,8 @@ function Invoke-Importer {
             Write-Verbose 'Import mix deferred until the first prompt has shown'
         }
         elseif ($deferJanitors) {
-            # A console import stays types-free: the janitors call catzc commands, so they run once the first prompt has shown.
+            # A console import stays types-free: the janitors call catzc commands, so they run once the first prompt has
+            # shown.
             Enable-DeferredJanitors -ShowStateChanges:$showStateChanges
             Write-Verbose 'Janitors deferred until the first prompt has shown'
         }
@@ -205,7 +211,8 @@ function Invoke-Importer {
         }
 
         if (-not $SkipJanitors -and $IsWindows) {
-            $hasUncModulePath = ($env:PSModulePath -split [IO.Path]::PathSeparator) -match '^\\\\' | Select-Object -First 1
+            $hasUncModulePath = ($env:PSModulePath -split [IO.Path]::PathSeparator) -match '^\\\\' |
+                Select-Object -First 1
 
             if ($hasUncModulePath) {
                 $fixScript = Join-Path $modulesRoot 'Catzc.Base.Environment/assets/Set-LocalPsModulePath.ps1'
@@ -228,7 +235,8 @@ function Invoke-Importer {
                 $initializerSeconds = [math]::Round($initializerEnd.TotalSeconds, 1)
                 $importSeconds = [math]::Round(($finalizerStart - $initializerEnd).TotalSeconds, 1)
                 $finalizerSeconds = [math]::Round(($sw.Elapsed - $finalizerStart).TotalSeconds, 1)
-                # Run through its command info: a lookup by name is a first use and would load the pending types for a status line.
+                # Run through its command info: a lookup by name is a first use and would load the pending types for a
+                # status line.
                 & $writeMessage "Loaded in $totalSeconds seconds (session initializer ${initializerSeconds}s, module import ${importSeconds}s, session finalizer ${finalizerSeconds}s)"
             }
         }
@@ -245,7 +253,8 @@ function Invoke-ConsumerOverlay {
         [string] $RepositoryRoot
     )
 
-    if (-not [System.IO.Directory]::Exists([System.IO.Path]::Combine($RepositoryRoot, '.catzc', $script:modulesFolder))) {
+    if (-not [System.IO.Directory]::Exists([System.IO.Path]::Combine($RepositoryRoot, '.catzc',
+        $script:modulesFolder))) {
         return
     }
     if (-not (Get-Command Import-CatzcOverlay -ErrorAction Ignore)) {
@@ -285,7 +294,8 @@ function Assert-CatzcRunModeExclusive {
 }
 
 function Set-RedirectedOutputEncoding {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-NoRawConsoleWrite', '', Justification = 'The one sanctioned console-property assignment (ADR-PWSH-ANNOUNCE-INFORMATIONSTREAMCHOKEPOINT): UTF-8 output for a redirected session, announced by Invoke-Importer on its load record.')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-NoRawConsoleWrite', '',
+        Justification = 'The one sanctioned console-property assignment (ADR-PWSH-ANNOUNCE-INFORMATIONSTREAMCHOKEPOINT): UTF-8 output for a redirected session, announced by Invoke-Importer on its load record.')]
     [CmdletBinding()]
     [OutputType([bool])]
     param()
@@ -314,7 +324,8 @@ function Invoke-TypeCacheJanitor {
     }
 }
 
-# The one line a janitor prints instead of working inside VS Code: what it left undone and the command to run from a terminal outside the editor.
+# The one line a janitor prints instead of working inside VS Code: what it left undone and the command to run from a
+# terminal outside the editor.
 function Write-InsideVsCodeNotice {
     [CmdletBinding()]
     param(
@@ -363,7 +374,8 @@ function Invoke-AgentHookJanitor {
     }
 }
 
-# Installs the repository's own editor extensions whose installed copy is missing or stale, so loading the repo is the whole setup.
+# Installs the repository's own editor extensions whose installed copy is missing or stale, so loading the repo is the
+# whole setup.
 function Invoke-EditorExtensionJanitor {
     [CmdletBinding()]
     param()
@@ -418,12 +430,14 @@ function Write-LoadTime {
     if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:diagSw')) {
         $script:diagSw = [Diagnostics.Stopwatch]::StartNew()
     }
-    Write-ImporterMessage ('{0,6}ms  {1}' -f [int]$script:diagSw.Elapsed.TotalMilliseconds, $Step) -ForegroundColor DarkGray
+    Write-ImporterMessage ('{0,6}ms  {1}' -f [int]$script:diagSw.Elapsed.TotalMilliseconds,
+        $Step) -ForegroundColor DarkGray
     $script:diagSw.Restart()
 }
 
 function Write-LoadTimeSummary {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '', Justification = 'Reads $global:__CatzcLoadTimings, the cross-module load-timing collector Invoke-Importer creates under -DiagnoseLoadTime')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '',
+        Justification = 'Reads $global:__CatzcLoadTimings, the cross-module load-timing collector Invoke-Importer creates under -DiagnoseLoadTime')]
     [CmdletBinding()]
     param()
 

@@ -24,7 +24,7 @@ and system flows belongs to a workload that has users, and the example templates
 This record classes each template's dependencies as strong or weak; a failure mode analysis per user flow is not adopted, because the
 example templates carry no user flows to analyse.
 
-- [RE:03 — Use failure mode analysis (FMA) to identify potential failures in your workload](#re03--use-failure-mode-analysis-fma-to-identify-potential-failures-in-your-workload)
+- [RE:03 — Use failure mode analysis (FMA) to identify potential failures in your workload][re03]
 
 ### Rule ADR-AZ-WAF-RE-RE04
 
@@ -41,14 +41,14 @@ geo-redundant backups. A second region is not adopted
 ([ADR-AZ-NETWORK-ONEADDRESSSPACE](../azure-network-model.md#rule-adr-az-network-oneaddressspace)); delete locks on the resources every spoke
 depends on are planned.
 
-- [RE:05 — Add redundancy at different levels, especially for critical flows](#re05--add-redundancy-at-different-levels-especially-for-critical-flows)
+- [RE:05 — Add redundancy at different levels, especially for critical flows][re05]
 
 ### Rule ADR-AZ-WAF-RE-RE06
 
 The templates deploy no compute to scale. A non-production database scales itself inside a serverless range capped by `databaseSkuCapacity`;
 a production database scales by a config change and a deploy.
 
-- [RE:06 — Implement a timely and reliable scaling strategy at the application, data, and infrastructure levels](#re06--implement-a-timely-and-reliable-scaling-strategy-at-the-application-data-and-infrastructure-levels)
+- [RE:06 — Implement a timely and reliable scaling strategy at the application, data, and infrastructure levels][re06]
 
 ### Rule ADR-AZ-WAF-RE-RE07
 
@@ -56,14 +56,14 @@ A failure stays contained by isolation and platform failover: each customer subs
 workload, zone-redundant services fail over inside Azure, and soft delete keeps a deleted blob or container recoverable. Automated
 remediation is planned.
 
-- [RE:07 — Strengthen the resiliency of your workload by implementing self-preservation and self-healing measures](#re07--strengthen-the-resiliency-of-your-workload-by-implementing-self-preservation-and-self-healing-measures)
+- [RE:07 — Strengthen the resiliency of your workload by implementing self-preservation and self-healing measures][re07]
 
 ### Rule ADR-AZ-WAF-RE-RE08
 
 Resiliency testing by fault injection, failover drills and restore tests is not adopted, because the example deployments target placeholder
 subscriptions; the CI pipeline tests what needs no Azure: that every template and config compiles and binds.
 
-- [RE:08 — Test for resiliency and availability scenarios by applying the principles of chaos engineering](#re08--test-for-resiliency-and-availability-scenarios-by-applying-the-principles-of-chaos-engineering)
+- [RE:08 — Test for resiliency and availability scenarios by applying the principles of chaos engineering][re08]
 
 ### Rule ADR-AZ-WAF-RE-RE09
 
@@ -71,7 +71,7 @@ Recovery is a redeploy and a restore: the templates are idempotent and rebuild a
 `expedition`, and a production database restores from its geo-redundant backups. A written disaster recovery plan is planned; a prepared
 secondary region is not adopted ([ADR-AZ-NETWORK-ONEADDRESSSPACE](../azure-network-model.md#rule-adr-az-network-oneaddressspace)).
 
-- [RE:09 — Implement structured, tested, and documented disaster recovery (DR) plans](#re09--implement-structured-tested-and-documented-disaster-recovery-dr-plans)
+- [RE:09 — Implement structured, tested, and documented disaster recovery (DR) plans][re09]
 
 ### Rule ADR-AZ-WAF-RE-RE10
 
@@ -79,7 +79,7 @@ The landing zone and the workload send their diagnostics to `foundation`'s Log A
 Service Health and Resource Health events included, streams there too. Alerts on those signals, a health model, and diagnostics for
 `foundation`'s own Key Vault are planned.
 
-- [RE:10 — Continuously measure and track system health using uptime and reliability indicators](#re10--continuously-measure-and-track-system-health-using-uptime-and-reliability-indicators)
+- [RE:10 — Continuously measure and track system health using uptime and reliability indicators][re10]
 
 ## Context
 
@@ -531,3 +531,11 @@ adopted, because every environment maps to one region
 - Telemetry is collected but nobody is told: without alerts, a failure is found by a person looking, not by the system.
 - Each "planned" status above is a follow-up item, and each "not adopted" status is revisited once a real workload with users runs on the
   templates.
+
+[re03]: #re03--use-failure-mode-analysis-fma-to-identify-potential-failures-in-your-workload
+[re05]: #re05--add-redundancy-at-different-levels-especially-for-critical-flows
+[re06]: #re06--implement-a-timely-and-reliable-scaling-strategy-at-the-application-data-and-infrastructure-levels
+[re07]: #re07--strengthen-the-resiliency-of-your-workload-by-implementing-self-preservation-and-self-healing-measures
+[re08]: #re08--test-for-resiliency-and-availability-scenarios-by-applying-the-principles-of-chaos-engineering
+[re09]: #re09--implement-structured-tested-and-documented-disaster-recovery-dr-plans
+[re10]: #re10--continuously-measure-and-track-system-health-using-uptime-and-reliability-indicators

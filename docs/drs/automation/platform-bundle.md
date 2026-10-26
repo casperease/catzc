@@ -158,7 +158,7 @@ no top-level statements — and fails with the full list.
 The infrastructure is built or copied, never fetched. The combined-types DLL always covers the **full** type set, whatever the module
 selection: the selected modules' `types/*.cs` travel in their folders and the rest under `.compiled/types/<Module>/`, so the load-time types
 guard re-verifies the same hash in every build, and a session that switches between modes always finds the same type identities loaded. The
-DLL is copied from the source tree's `.compiled/` when its hash matches, and compiled only when it is missing. The vendored dependencies are
+DLL is copied from the machine's shadow build when its hash matches, and compiled only when it is missing. The vendored dependencies are
 copied verbatim from `.vendor/` per `vendor_policy`, and are never re-downloaded or republished. Default-deny keeps the verification surface
 out: no `tests/` tree travels. The exact form of the payload in pwsh is the pwsh twin's to say.
 

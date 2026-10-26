@@ -39,7 +39,8 @@ function New-ModuleFolder {
         [System.IO.Directory]::CreateDirectory($privateDirectory) | Out-Null
         foreach ($function in $Private) {
             if ($function) {
-                [System.IO.File]::WriteAllText((Join-Path $privateDirectory "$function.ps1"), "function $function {}", $utf8)
+                [System.IO.File]::WriteAllText((Join-Path $privateDirectory "$function.ps1"), "function $function {}",
+                    $utf8)
             }
         }
     }
@@ -53,7 +54,8 @@ function New-ModuleFolder {
 }
 
 function New-FakeRepositoryRoot {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '', Justification = 'Test fixture: the swap lives inside one test''s lifecycle and Remove-FakeRepositoryRoot restores it (the split form of ADR-AUTO-CONSOLE-SILENTTRANSIENTCHANGES); its output belongs to Pester')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '',
+        Justification = 'Test fixture: the swap lives inside one test''s lifecycle and Remove-FakeRepositoryRoot restores it (the split form of ADR-AUTO-CONSOLE-SILENTTRANSIENTCHANGES); its output belongs to Pester')]
     [CmdletBinding()]
     [OutputType([hashtable])]
     param(
@@ -102,7 +104,8 @@ function New-FakeRepositoryRoot {
 }
 
 function Remove-FakeRepositoryRoot {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '', Justification = 'Test fixture: restores the swap New-FakeRepositoryRoot made inside the same test (the split form of ADR-AUTO-CONSOLE-SILENTTRANSIENTCHANGES); its output belongs to Pester')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '',
+        Justification = 'Test fixture: restores the swap New-FakeRepositoryRoot made inside the same test (the split form of ADR-AUTO-CONSOLE-SILENTTRANSIENTCHANGES); its output belongs to Pester')]
     [CmdletBinding()]
     param(
         [Parameter(Mandatory)]
@@ -117,7 +120,8 @@ function Remove-FakeRepositoryRoot {
 }
 
 function Set-GitTrackedPathMock {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'Test fixture: registers a Pester mock that ends with the calling block')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '',
+        Justification = 'Test fixture: registers a Pester mock that ends with the calling block')]
     [CmdletBinding()]
     param()
 
@@ -125,7 +129,8 @@ function Set-GitTrackedPathMock {
 }
 
 function New-BuiltCatzcRoot {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '', Justification = 'Test fixture: builds into a temp folder inside one test''s lifecycle and Remove-BuiltCatzcRoot removes it; its output belongs to Pester')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '',
+        Justification = 'Test fixture: builds into a temp folder inside one test''s lifecycle and Remove-BuiltCatzcRoot removes it; its output belongs to Pester')]
     [CmdletBinding()]
     [OutputType([hashtable])]
     param(
@@ -245,7 +250,8 @@ exit ([int][bool]$catzcChildOutcome.Error)
 }
 
 function Remove-BuiltCatzcRoot {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '', Justification = 'Test fixture: removes the temp build New-BuiltCatzcRoot made inside the same test; its output belongs to Pester')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '',
+        Justification = 'Test fixture: removes the temp build New-BuiltCatzcRoot made inside the same test; its output belongs to Pester')]
     [CmdletBinding()]
     param(
         [Parameter(Mandatory)]

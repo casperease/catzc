@@ -91,6 +91,18 @@ def test_the_glyph_library_names_colours_only_as_tokens():
     assert __import__("re").findall(r"#[0-9A-Fa-f]{6}", library) == []
 
 
+@pytest.mark.parametrize("asset", ["glyphs.xml", "template-slide.xml"])
+def test_a_kit_asset_breaks_a_long_tag_between_attributes_only(asset):
+    import re
+    import xml.etree.ElementTree as ET
+
+    text = (declaration.KIT / "assets" / asset).read_text(encoding="utf-8")
+    joined = re.sub(r'\n[ \t]+(?=[\w:.-]+=")', " ", text)
+    assert ET.tostring(ET.fromstring(joined)) == ET.tostring(ET.fromstring(text)), "joining the attribute lines back changes no value"
+    wide = [line for line in text.splitlines() if len(line) > 140]
+    assert [line for line in wide if not re.search(r'="[^"]*"$', line)] == [], "a line over the width ends inside one attribute value"
+
+
 def test_tidy_re_saves_a_source_without_its_retired_keys_and_changes_nothing_else(tmp_path):
     raw = claimed()
     declaration.source_of(tmp_path).write_text(__import__("yaml").safe_dump(raw, sort_keys=False), encoding="utf-8")

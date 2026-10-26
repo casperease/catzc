@@ -76,6 +76,38 @@ function Get-StringOverflowLine {
                 $reader.Dispose()
             }
         }
+        { $_ -in 'json', 'jsonl' } {
+            # A JSON string never spans a line, so each line is scanned on its own: a quote opens, an escaped one does not close, and
+            # outside a string a // comment (JSONC settings) ends the line.
+            $number = 0
+            foreach ($line in $Text -split "`r?`n") {
+                $number++
+                $at = 0
+                while ($at -lt $line.Length) {
+                    if ($line[$at] -eq '/' -and $at + 1 -lt $line.Length -and $line[$at + 1] -eq '/') {
+                        break
+                    }
+                    if ($line[$at] -ne '"') {
+                        $at++
+                        continue
+                    }
+                    $end = $at + 1
+                    while ($end -lt $line.Length -and $line[$end] -ne '"') {
+                        $end += if ($line[$end] -eq '\') {
+                            2
+                        }
+                        else {
+                            1
+                        }
+                    }
+                    if ($end -ge $line.Length) {
+                        break
+                    }
+                    $spans.Add([int[]] @($number, ($at + 1), ($end + 1)))
+                    $at = $end + 1
+                }
+            }
+        }
         default {
             return , [int[]] @()
         }

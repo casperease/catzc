@@ -38,3 +38,12 @@ Return the gate result as well as writing the report.
 ```powershell
 Test-FileLimits
 ```
+
+## comment:1
+
+Above `$authored = @(foreach ($page in (Get-Config -Config comment-pages).pages) {`, written with `#`.
+
+```text
+Generated, vendor and unordered files are out by their track: generated targets as declared, the vendor folder and the unordered track.
+A comment page is authored prose (ADR-REPO-COMMENTS-PAGEISAUTHORED) though its root is a generated target, so it stays in scope.
+```

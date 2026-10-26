@@ -27,8 +27,10 @@ function Test-FileLimits {
     else {
         @(Get-GitTrackedPath '.')
     }
-    # Generated, vendor and unordered files are out by their track: generated targets as declared, the vendor folder and the unordered track.
-    $generated = @(Get-GeneratedTarget).ForEach({ $_.path -replace '\*\*', '*' })
+    $authored = @(foreach ($page in (Get-Config -Config comment-pages).pages) {
+            ($page.docs -replace '\{[^}]+\}', '*') + '/*'
+        })
+    $generated = @(@(Get-GeneratedTarget).ForEach({ $_.path -replace '\*\*', '*' }).Where({ $_ -notin $authored }))
     $outFolders = @([Catzc.Base.Folders.FolderWalkConfig]::VendorFolder, '.unordered', '.compiled')
     $inScope = @($tracked.Where({
                 $file = $_ -replace '\\', '/'

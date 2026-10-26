@@ -11,7 +11,7 @@ The repository's standard practices for building and operating its infrastructur
 resource names its owning team in the `owner` tag; team roles and decision authority belong to the operating organisation, outside the
 repository.
 
-- [OE:01 — Define your standard practices to develop and operate your workload](#oe01--define-your-standard-practices-to-develop-and-operate-your-workload)
+- [OE:01 — Define your standard practices to develop and operate your workload][oe01]
 
 ### Rule ADR-AZ-WAF-OE-OE02
 
@@ -39,7 +39,7 @@ decisions as ADRs; the Bicep linter is a quality gate.
 All Azure infrastructure is declarative Bicep: one parameterised template per rate of change, shared modules, and one config per slot,
 deployed only by pipelines; no secret sits in the code, and the compiled templates are scanned for misconfiguration.
 
-- [OE:05 — Use a standardized infrastructure as code (IaC) approach to prepare resources and configurations](#oe05--use-a-standardized-infrastructure-as-code-iac-approach-to-prepare-resources-and-configurations)
+- [OE:05 — Use a standardized infrastructure as code (IaC) approach to prepare resources and configurations][oe05]
 
 ### Rule ADR-AZ-WAF-OE-OE06
 
@@ -642,3 +642,6 @@ Checks that are planned (follow-up), none of which exists:
 - The repository adds no WAF-specific mechanism: a gap is closed in the template, pipeline, or check that owns the concern.
 - Items that belong to the operating organisation stay outside the repository, at the cost that the repository cannot show them to be met.
 - Microsoft's checklist changes; each item carries its retrieval date, and a refresh compares the cited pages against these summaries.
+
+[oe01]: #oe01--define-your-standard-practices-to-develop-and-operate-your-workload
+[oe05]: #oe05--use-a-standardized-infrastructure-as-code-iac-approach-to-prepare-resources-and-configurations

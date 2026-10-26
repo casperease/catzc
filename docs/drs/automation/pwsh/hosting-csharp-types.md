@@ -219,6 +219,6 @@ because that is the one pwsh's string conversion reads.
 - A fresh checkout needs nothing beyond pwsh to compile the types, and a C# type can use any PowerShell primitive for the cost of a `using`.
 - pwsh callers write `[Catzc.Module.Depm]` instead of the full name, and a search for the alias still lands on its source.
 - A type edit costs a devbox session a yellow line that names the changed types, and a pipeline a throw that names the restart.
-- A session that holds an earlier build is never stopped or waited for; the superseded build stays in `pwsh/.compiled` until that session
+- A session that holds an earlier build is never stopped or waited for; the superseded build stays in the shadow root until that session
   exits, and the next run removes it.
 - No external package can be used from `types/`; logic that needs one lives in PowerShell over a vendored tool.

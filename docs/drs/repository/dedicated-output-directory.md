@@ -31,8 +31,9 @@ to source.
 
 ### Rule ADR-REPO-OUTDIR-COMPILEDPREBUILD
 
-The combined compiled-type prebuild at `pwsh/.compiled/` is not transient output: it is a committed, deterministic, hash-keyed vendored
-artifact (one assembly for the whole repository) and lives there on purpose. Only the `*.tmp` compile scratch is gitignored.
+The combined compiled-type prebuild is not output of the repository at all: it is a per-machine, hash-keyed build in the per-user shadow
+root, and git keeps no file under `pwsh/.compiled`. What the repository commits about the types is their surface, the provided contract
+under `contracts/catzc/0.1.0/catzc.internal.types/`.
 
 - [Decision](#decision)
 

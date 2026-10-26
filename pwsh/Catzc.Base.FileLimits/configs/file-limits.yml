@@ -80,4 +80,6 @@ exempt:
   pwsh/Catzc.Tooling.Toolchain/assets/scripts/dotnet-install.ps1: "third-party installer script, shipped as published"
   pwsh/Catzc.Tooling.Toolchain/assets/scripts/dotnet-install.sh: "third-party installer script, shipped as published"
   python/catzc_diagrams/assets/atlas.template.html: "603 lines against the code limit 400; splits by responsibility"
+  python/catzc_diagrams/assets/glyphs.xml: "526 lines against the config limit 300; drawio tags split one attribute per line so long style values end their line"
   python/catzc_diagrams/assets/STYLE.md: "513 lines against the prose limit 400; splits by section into a folder of linked pages"
+  python/catzc_diagrams/assets/template-slide.xml: "610 lines against the config limit 300; drawio tags split one attribute per line so long style values end their line"

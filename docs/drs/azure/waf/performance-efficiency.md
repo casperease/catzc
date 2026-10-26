@@ -47,7 +47,7 @@ group; no autoscale rule and no data partitioning exist.
 Not adopted: no load, stress, or soak test runs against a deployment, because the example workload carries no application or traffic to
 load; the test tiers verify the code and the compiled templates, not a deployment's performance.
 
-- [PE:06 — Optimize your workload's performance by regularly testing in a production-like environment](#pe06--optimize-your-workloads-performance-by-regularly-testing-in-a-production-like-environment)
+- [PE:06 — Optimize your workload's performance by regularly testing in a production-like environment][pe06]
 
 ### Rule ADR-AZ-WAF-PE-PE07
 
@@ -583,3 +583,5 @@ The follow-up to the CAF and WAF work plans these checks; they are not part of t
   give it nowhere to fall short of a number, because they set none.
 - Several items stay not adopted until a workload with users exists; each says why, so a reader sees the gap instead of assuming it is
   covered.
+
+[pe06]: #pe06--optimize-your-workloads-performance-by-regularly-testing-in-a-production-like-environment

@@ -437,10 +437,11 @@ file-scoped `namespace <module>;`** — derived from its `types/` folder, writte
 `Test-Formatting`, so the fully-qualified type is `<module>.<filename>` (`types/CliRunner.cs` in `Catzc.Base.Execution` →
 `Catzc.Base.Execution.CliRunner`). The loader identifies the type from the filename with no source parsing — one type per file (the analogue
 of one-function-per-file) — and rejects a dotted filename or a missing, mismatched, or block-scoped namespace. Every module's sources
-compile together into **one** committed assembly for the whole repository, `pwsh/.compiled/Catzc.Types.<hash>.dll` (vendored, hash-keyed,
-like `.vendor/`), so a fresh checkout and CI load it without invoking Roslyn. A module with no native types has no `types/` folder. The full
-rule set — the single combined assembly, `namespace = module`, the cross-module references governed by the dependency graph, the cache-state
-behaviour, the fail-fast on edit, and the one shared `DictionaryRecord` data-record base — lives in its own ADR,
+compile together into **one** assembly for the whole repository, `Catzc.Types.<hash>.dll`, built on each machine into the per-user shadow
+root and keyed by the source hash; git keeps no file under `pwsh/.compiled`, and the types surface is the provided contract under
+`contracts/catzc/0.1.0/catzc.internal.types/`. A module with no native types has no `types/` folder. The full rule set — the single combined
+assembly, `namespace = module`, the cross-module references governed by the dependency graph, the cache-state behaviour, the fail-fast on
+edit, and the one shared `DictionaryRecord` data-record base — lives in its own ADR,
 [native-csharp-types](../automation/BCL/native-csharp-types.md).
 
 **`tests/`** contains `*.Tests.ps1` files. `Test-Automation` scans `Join-Path $moduleDir 'tests'` for every module. Tests go here and

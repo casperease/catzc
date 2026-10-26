@@ -11,7 +11,8 @@ Set-StrictMode -Version Latest   # this module's scope: every function here runs
 $script:internalRoot = $PSScriptRoot
 
 function Import-InternalModule {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '', Justification = 'The loader runs before any writer exists; Invoke-Importer announces the internal modules it loads (its Roots line), and a post-import call is the idempotent no-op')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '',
+        Justification = 'The loader runs before any writer exists; Invoke-Importer announces the internal modules it loads (its Roots line), and a post-import call is the idempotent no-op')]
     [CmdletBinding()]
     param(
         [Parameter(Mandatory, Position = 0)]
@@ -35,7 +36,8 @@ function Test-IsRunningInPipeline {
     [bool]$env:TF_BUILD -or [bool]$env:GITHUB_ACTIONS
 }
 
-# VS Code marks every terminal it opens, the PowerShell extension's own host included; this is the one reader of that mark.
+# VS Code marks every terminal it opens, the PowerShell extension's own host included; this is the one reader of that
+# mark.
 function Test-IsRunningInVsCode {
     [CmdletBinding()]
     [OutputType([bool])]
@@ -44,7 +46,8 @@ function Test-IsRunningInVsCode {
     $env:TERM_PROGRAM -eq 'vscode'
 }
 
-# A host that runs -File, -Command or -EncodedCommand, or runs -NonInteractive, exits when its command ends and never shows a prompt, unless -NoExit keeps it open.
+# A host that runs -File, -Command or -EncodedCommand, or runs -NonInteractive, exits when its command ends and never
+# shows a prompt, unless -NoExit keeps it open.
 function Test-IsInteractiveHost {
     [CmdletBinding()]
     [OutputType([bool])]
@@ -68,7 +71,8 @@ function Test-IsInteractiveHost {
         elseif ($name.Length -ge 4 -and 'noninteractive'.StartsWith($name)) {
             $exits = $true
         }
-        elseif ('file'.StartsWith($name) -or 'command'.StartsWith($name) -or 'encodedcommand'.StartsWith($name) -or $name -eq 'ec') {
+        elseif ('file'.StartsWith($name) -or 'command'.StartsWith($name) -or 'encodedcommand'.StartsWith($name) -or
+            $name -eq 'ec') {
             # Everything after the script or the command belongs to it, not to the host.
             $exits = $true
             break
@@ -79,10 +83,13 @@ function Test-IsInteractiveHost {
 
 $script:deferredJanitors = $null
 
-# The console session's janitors run once the first prompt has shown: the first render is untouched, the second runs the action and restores the prompt.
+# The console session's janitors run once the first prompt has shown: the first render is untouched, the second runs the
+# action and restores the prompt.
 function Enable-DeferredJanitors {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'Installs an in-memory prompt hook for this session; nothing outside the session changes')]
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '', Justification = 'The hook is session state the importer records in its load record; the janitors announce their own changes when they run')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '',
+        Justification = 'Installs an in-memory prompt hook for this session; nothing outside the session changes')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '',
+        Justification = 'The hook is session state the importer records in its load record; the janitors announce their own changes when they run')]
     [CmdletBinding()]
     param(
         [scriptblock] $Action,
@@ -113,8 +120,10 @@ function Enable-DeferredJanitors {
 }
 
 function Invoke-DeferredJanitorsPrompt {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'Restores the prompt the hook replaced; session state only')]
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '', Justification = 'Undoes the hook Enable-DeferredJanitors installed; the janitors announce their own changes')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '',
+        Justification = 'Restores the prompt the hook replaced; session state only')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '',
+        Justification = 'Undoes the hook Enable-DeferredJanitors installed; the janitors announce their own changes')]
     [CmdletBinding()]
     [OutputType([string])]
     param()
@@ -144,7 +153,8 @@ function Invoke-DeferredJanitorsPrompt {
 }
 
 function Write-ImporterMessage {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '', Justification = '$global:__PesterRunning (set by Test-Automation) silences the chokepoint during a test run, as in Write-InformationColored; global is required to cross module session-state boundaries')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '',
+        Justification = '$global:__PesterRunning (set by Test-Automation) silences the chokepoint during a test run, as in Write-InformationColored; global is required to cross module session-state boundaries')]
     [CmdletBinding()]
     param(
         [Parameter(Mandatory, Position = 0)]
@@ -180,7 +190,8 @@ function Write-ImporterMessage {
 $script:importerVerbose = $false
 
 function Set-ImporterVerbosity {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'Sets a bootstrap-private output flag for the duration of one import; nothing to confirm')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '',
+        Justification = 'Sets a bootstrap-private output flag for the duration of one import; nothing to confirm')]
     [CmdletBinding()]
     param(
         [Parameter(Mandatory)]

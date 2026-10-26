@@ -20,6 +20,19 @@ Describe 'Test-FileLimits' -Tag 'L0', 'logic' {
         @($result.Issues)[0] | Should -BeLike '*gadget.unclassified: unclassified*'
     }
 
+    It 'measures a comment page as authored prose, though its root is a generated target, and leaves other generated files out' {
+        Mock Get-GeneratedTarget -ModuleName Catzc.Base.FileLimits {
+            [pscustomobject]@{ path = 'docs/references/widgets/**'; generator = 'Format-Code' }
+            [pscustomobject]@{ path = 'docs/gadgets/**'; generator = 'Build-Gadget' }
+        }
+        Mock Get-Config -ModuleName Catzc.Base.FileLimits -ParameterFilter { $Config -eq 'comment-pages' } {
+            [pscustomobject]@{ pages = @([pscustomobject]@{ docs = 'docs/references/widgets' }) }
+        }
+        Mock Test-FileShape -ModuleName Catzc.Base.FileLimits { [pscustomobject]@{ Check = 'length'; Message = "${Path}: 401 lines" } }
+        $result = Test-FileLimits -Path 'docs/references/widgets/gadget.ps1.md', 'docs/gadgets/sprocket.md' -OutputFolder (Join-Path $TestDrive 'out4') -PassThru
+        @($result.Issues) | Should -Be @('docs/references/widgets/gadget.ps1.md: 401 lines')
+    }
+
     It 'leaves the vendor folder out of scope' {
         $result = Test-FileLimits -Path 'pwsh/.vendor/widget/gadget.unclassified' -OutputFolder (Join-Path $TestDrive 'out3') -PassThru
         @($result.Issues).Count | Should -Be 0

@@ -57,9 +57,8 @@ devbox in source mode pays the cold scan, and its mitigation is environmental �
 `pwsh/.vendor/`. The **installed build** is merged per module ([platform-bundle](platform-bundle.md), [run-modes](../design/run-modes.md)):
 `Build-Modules` writes each module's functions into one generated function file, so a machine that runs the installed `Catzc` opens one
 function file per module instead of one per function. That is the code-level answer to the cold-import antivirus cost, and it needs no
-exclusion. (The C# in the `types/` folders ship a committed, hash-keyed prebuilt DLL in `pwsh/.compiled/`, so a fresh checkout and CI load
-it without invoking Roslyn — only a developer who edits a type source pays the `~0.5s` compile, once — but that is secondary to the per-file
-scan.)
+exclusion. (The C# in the `types/` folders compile once per machine into a hash-keyed build in the per-user shadow root, and a source edit
+pays the `~0.5s` compile once — but that is secondary to the per-file scan.)
 
 ## Decision
 

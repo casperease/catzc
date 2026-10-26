@@ -36,6 +36,24 @@ Describe 'Get-StringOverflowLine' -Tag 'L0', 'logic' {
         @(& $script:lines $closed 'xml') | Should -BeNullOrEmpty
     }
 
+    It 'exempts a JSON string that runs past the width, not a line that runs on past its string, and not two strings' {
+        $text = "{`n  `"`$comment`": `"a widget schema comment that runs far past the width`"`n}"
+        @(& $script:lines $text 'json') | Should -Be @(2)
+        $after = "{`n  `"widget`": `"a gadget value past the width of the line`", `"cog`": 1`n}"
+        @(& $script:lines $after 'json') | Should -BeNullOrEmpty
+        $two = "[`"a gadget string that runs`", `"and a second string past the width`"]"
+        @(& $script:lines $two 'json') | Should -BeNullOrEmpty
+    }
+
+    It 'reads an escaped quote inside a JSON string, and a // comment outside one, as JSONC settings write them' {
+        $escaped = "{ `"widget`": `"a \`"quoted\`" gadget that runs far past the width of a line`" }"
+        @(& $script:lines $escaped 'json' -Width 60) | Should -BeNullOrEmpty
+        $string = "  `"widget`": `"a \`"quoted\`" gadget value that runs far past the width`""
+        @(& $script:lines $string 'json') | Should -Be @(1)
+        $comment = "  `"cog`": 1, // a long `"comment`" with quotes that runs well past the width of the line"
+        @(& $script:lines $comment 'json') | Should -BeNullOrEmpty
+    }
+
     It 'exempts nothing in a language with no tokenizer, or in text the tokenizer cannot read' {
         @(& $script:lines ('x' * 80) 'markdown') | Should -BeNullOrEmpty
         @(& $script:lines "<widget><unclosed style=`"$('a' * 80)`"></widget>" 'xml') | Should -BeNullOrEmpty

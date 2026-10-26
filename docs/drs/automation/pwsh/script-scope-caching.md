@@ -128,9 +128,9 @@ exception, is [ADR-PWSH-PESTER-MOCKMODULEBOUNDARIES](pester-testing.md#rule-adr-
 ### The compiled-type prebuild
 
 The one cache that outlives a session is the compiled-type assembly, and it lives in no `$script:` variable: the key is its file name. The
-bootstrap's `Import-CSharpTypes` hashes the type sources, finds the committed assembly of that name, and loads it, so a fresh checkout never
-compiles; a source edit changes the name, and only then does `Add-Type` compile. Loading goes through `Import-TypesAssembly`, which copies
-the assembly to a per-user shadow folder first, so no session locks `pwsh/.compiled`. The compile itself and the stale-types guard are
+bootstrap's `Import-CSharpTypes` hashes the type sources, finds the build of that name in the per-user shadow root, and loads it; a source
+edit changes the name, and only then, once per machine, does `Add-Type` compile. Loading goes through `Import-TypesAssembly`, which loads
+from the shadow root, so no session locks a file in the repository. The compile itself and the stale-types guard are
 [hosting-csharp-types](hosting-csharp-types.md).
 
 ## Decision

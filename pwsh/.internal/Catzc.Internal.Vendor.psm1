@@ -9,7 +9,8 @@ catzc:
 Set-StrictMode -Version Latest   # this module's scope: every function here runs strict
 
 function Import-VendorModules {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '', Justification = '$global:__CatzcLoadTimings is session-global import diagnostics collected across all modules, surfaced by importer.ps1 -DiagnoseLoadTime')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '',
+        Justification = '$global:__CatzcLoadTimings is session-global import diagnostics collected across all modules, surfaced by importer.ps1 -DiagnoseLoadTime')]
     [CmdletBinding()]
     param(
         [Parameter(Mandatory)]
@@ -67,7 +68,8 @@ function Import-VendorModules {
             $null
         }
         try {
-            $vendored = Import-Module $dir.FullName -Scope Global -Force -ErrorAction Stop -PassThru | Select-Object -First 1
+            $vendored = Import-Module $dir.FullName -Scope Global -Force -ErrorAction Stop -PassThru |
+                Select-Object -First 1
             $line = "Loaded vendor module $($dir.Name) $($vendored.Version)"
         }
         catch {

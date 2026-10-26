@@ -113,7 +113,8 @@ or `Pipeline` (a pipeline wins over an agent running in it). No switch overrides
 
 - **Delete a superseded build another process still holds**: a person, no (named in one line, gone when its holder exits); an agent, no
   (named in one line); a pipeline, no (it asserts exactly one build).
-- **Commit the generated `pwsh/.compiled`**: a person, yes; an agent, no (it announces what changed, to be committed); a pipeline, no.
+- **Commit the regenerated types contract** (`contracts/catzc/0.1.0/catzc.internal.types/types.sample.json`): a person, yes; an agent, no
+  (it announces what changed, to be committed); a pipeline, no (it checks the committed contract against the build).
 - **Regenerate the gitignored generated files**: a person, an agent and a pipeline, yes.
 
 The repository is the person's: their session commits to it. An agent leaves it to the person and says what it left; a pipeline only
@@ -216,11 +217,11 @@ L1 on an undeclared edge.
 
 ## Decision
 
-Every module's `types/*.cs` are compiled together into **one** assembly, `pwsh/.compiled/Catzc.Types.<combinedHash8>.dll`, autoloaded before
-any module's functions. Each file is named for the bare type it must produce and declares the file-scoped `namespace <module>;` of its
-folder; the loader compiles the sources **as authored**, one compilation unit per file, all landing in the single assembly — so the FQN is
-`<module>.<filename>`. Types may reference each other across modules (one assembly); the dependency graph, not the compiler, governs those
-edges.
+Every module's `types/*.cs` are compiled together into **one** assembly, `Catzc.Types.<combinedHash8>.dll` in the per-user shadow root,
+autoloaded before any module's functions. Each file is named for the bare type it must produce and declares the file-scoped
+`namespace <module>;` of its folder; the loader compiles the sources **as authored**, one compilation unit per file, all landing in the
+single assembly — so the FQN is `<module>.<filename>`. Types may reference each other across modules (one assembly); the dependency graph,
+not the compiler, governs those edges.
 
 The mechanism is `Import-CSharpTypes` in `pwsh/.internal/Catzc.Internal.Bootstrap.psm1`, run once as a pre-pass by `Import-AllModules`
 before the module loop.
@@ -274,12 +275,15 @@ also proves the IDE project matches the runtime prebuild. It runs `dotnet` throu
 
 ### The cache-state contract
 
-The assembly is the one committed, cross-session cache of [caching](../caching.md#rule-adr-auto-cache-compiledtypeprebuild): it is named for
-the combined hash of every module's sources and committed to `pwsh/.compiled/Catzc.Types.<hash>.dll`, so a fresh checkout and CI load it
-without Roslyn. The hash material is per file `<module>|<bare type>|SHA-256(content)`, ordered by `<module>/<type>` ordinally, so a move
+The assembly is the per-machine cache of [caching](../caching.md#rule-adr-auto-cache-compiledtypeprebuild): it is named for the combined
+hash of every module's sources and built on each machine into the per-user shadow root as `Catzc.Types.<hash>.dll`, with its manifest beside
+it. Git keeps no file under `pwsh/.compiled`; what a consumer binds to, the types surface (each type's name, aliases and display), is the
+provided contract `contracts/catzc/0.1.0/catzc.internal.types/types.sample.json`, regenerated after a compile and written only when the
+surface moves. The hash material is per file `<module>|<bare type>|SHA-256(content)`, ordered by `<module>/<type>` ordinally, so a move
 between modules (new namespace) or a rename (new type) re-keys even when content is byte-identical, with no dependence on the repository
 root. Every process loads the assembly from a per-user shadow copy (`Import-TypesAssembly`: `%LOCALAPPDATA%\catzc\types` on Windows,
-`~/.local/share/catzc/types` on Unix), never in place, so no session ever locks `pwsh/.compiled` ([why](#why-a-shadow-copy)).
+`~/.local/share/catzc/types` on Unix), never from the working tree, so no session ever locks a file in the repository
+([why](#why-a-shadow-copy)).
 
 Because the DLL filename _is_ the combined source hash, there is no "present but stale" state — a source that changes has a different
 filename, so the current-hash DLL is simply absent until built. The loader resolves every state:
@@ -295,7 +299,7 @@ filename, so the current-hash DLL is simply absent until built. The loader resol
   - Outcome: **Compile** all sources → the hash-named DLL, load, verify every type.
 - **absent (DLL deleted, source unchanged)**
   - types loaded this session: yes
-  - Outcome: **Recompile via `-OutputAssembly`** (writes without loading) — self-heals the committed artifact; no reload.
+  - Outcome: **Recompile via `-OutputAssembly`** (writes without loading) — self-heals the shadow build; no reload.
 - **absent because the source CHANGED**
   - types loaded this session: yes
   - Outcome: **Devbox, whoever runs: warn (yellow, the changed types by simple name) + keep the old types and go on** this session
@@ -304,22 +308,16 @@ filename, so the current-hash DLL is simply absent until built. The loader resol
 
 A superseded-hash DLL (the old build after a source edit) is pruned by the loader on rebuild and by the post-import janitor
 `Clear-ModuleTypeCache` (which deletes on a devbox only; CI makes no source-control changes). Editing any `types/*.cs` re-keys the whole
-assembly — one combined hash, one committed DLL, paid once by the editor.
+assembly — one combined hash, one build, paid once on each machine.
 
-`.compiled` must hold **exactly one** `Catzc.Types.*.dll`. Because every load goes through the shadow copy, a superseded build is always
-expected to delete. When a delete still fails, a process holds the file: an antivirus scan, an indexer, or a session that loaded the build
-in place. `Clear-ModuleTypeCache` removes every deletable build and names each survivor with, on Windows, its holders
-(`Get-FileLockingProcess`, via the Restart Manager) in one yellow line; a silent run says nothing. It never throws for a held build, never
-stops a holder and never waits for one: the held build is that process's one types instance (ADR-BCL-TYPES-CHANGEDAFTERLOAD), and it goes on
-the next run after the holder exits. The invariant is guarded at three points:
+The shadow root holds the current build and any superseded one a process still has loaded. `Clear-ModuleTypeCache` removes every deletable
+superseded build and names each survivor with, on Windows, its holders (`Get-FileLockingProcess`, via the Restart Manager) in one yellow
+line; a silent run says nothing. It never throws for a held build, never stops a holder and never waits for one: the held build is that
+process's one types instance (ADR-BCL-TYPES-CHANGEDAFTERLOAD), and it goes on the next run after the holder exits.
 
-- **Devbox auto-commit:** `Sync-GeneratedFile` holds `pwsh/.compiled` back, with one red line naming the surplus DLLs, while
-  `Clear-ModuleTypeCache -DryRun` lists anything but the current build. A surviving build never rides along as the +1 without its −1. It
-  also holds the build back, with one yellow line, while any `types/*.cs` differs from HEAD: the build is named for the working tree's
-  sources, so committing it first would leave HEAD with a build its own sources do not produce.
-- **Pipeline:** two `Catzc.Types.*.dll` are a hard `throw` in `Clear-ModuleTypeCache`. CI makes no source-control changes, so two builds
-  there were committed; the fix is to run `Clear-ModuleTypeCache` on the devbox and commit the single remaining build.
-- **IDE project:** the `Catzc.Types.csproj` stamp task warns when the git index's `.compiled` does not hold exactly the current DLL.
+What git guards is the types surface, not a build. A devbox import that compiles regenerates the contract from the compiled assembly and
+writes it only when the surface moved, so equal content leaves git clean; `Test-GeneratedFiles` fails when the committed contract differs
+from the current assembly's surface, naming the added, removed or changed types; a pipeline and a bundle build check it and never write it.
 
 ### Stale types in a running process
 
@@ -438,8 +436,8 @@ run, and a headless session runs them at import as before.
 The hash that names the assembly is the costliest step of a warm import: every `types/*.cs` read and hashed. A machine-local memo keyed by
 each file's length and last write skips the read for a file that shows the same pair, and rewrites itself when any file was read; it lives
 beside the shadow copies, never in the tree, since it holds this machine's write times. Only the importer trusts it: the builder that names
-a release, the janitor that prunes the cache and the gates that compare the committed assembly hash every byte, so the memo can speed up a
-session but never decide what ships.
+a release, the janitor that prunes the cache and the gates that compare the build hash every byte, so the memo can speed up a session but
+never decide what ships.
 
 ### One build configuration
 
@@ -503,18 +501,16 @@ as well as its files, so the pair is the language's configuration, apart from th
   namespace (via `Test-Formatting -Language bcl`), and a `PSTypeAlias accelerators` test asserts a decorated type's accelerator resolves
   after load. `Set-CSharpFileScopedNamespace.Tests.ps1` unit-tests the namespace string engine behind `Format-Types`.
 
-- **`Clear-ModuleTypeCache`** keeps the current `pwsh/.compiled/Catzc.Types.<hash>.dll` and prunes the rest (deleting on a devbox only). A
-  build a process still holds is named with its holders in one yellow line and left for the run after the holder exits. In a pipeline it
-  throws when a second `Catzc.Types.*.dll` is committed — a stale committed build must not reach trunk.
+- **`Clear-ModuleTypeCache`** keeps the current build in the shadow root and prunes the superseded ones. A build a process still holds is
+  named with its holders in one yellow line and left for the run after the holder exits.
 
 - **`Import-TypesAssembly`** (in `.internal/Catzc.Internal.Types.psm1`) is the one load path — the bootstrap and the `SpellOutIdentifiers`
-  analyzer rule both load through the shadow copy, so no session holds `.compiled`. `Import-TypesAssembly.Tests.ps1` covers the copy, its
-  reuse, the atomic write, the concurrent-copy race, pruning, and `Location` pointing into the shadow root.
+  analyzer rule both load through the shadow copy, so no session holds a file in the repository. `Import-TypesAssembly.Tests.ps1` covers the
+  copy, its reuse, the atomic write, the concurrent-copy race, pruning, and `Location` pointing into the shadow root.
 
-- **`Sync-GeneratedFile`** (in `Catzc.Base.ModuleSystem`, the importer's auto-commit) refuses to commit `pwsh/.compiled` while it holds
-  anything but the current build (the `Clear-ModuleTypeCache -DryRun` surplus). It skips with a red line, so a superseded DLL is never
-  committed next to the new one, and while a type source differs from HEAD, with a yellow line, so HEAD never holds a build ahead of its
-  sources. `Sync-GeneratedFile.Tests.ps1` covers the probes, both hold-backs, and the no-probe case when nothing changed.
+- **The types contract** (`contracts/catzc/0.1.0/catzc.internal.types/types.sample.json`, with `types.schema.json`) is the committed
+  surface: `Write-TypesContract` regenerates it after a devbox compile through `Write-FileIfChanged`, `Test-GeneratedFiles` fails on a
+  surface that differs from the current assembly's, and `Test-Contracts` validates the sample against its schema.
 
 ## Disambiguation
 
@@ -523,8 +519,8 @@ The module-dependency graph that governs cross-module C# type edges (ADR-BCL-TYP
 
 ## Consequences
 
-- The whole repository's types form one cohesive, committed assembly — a single shared base, layered records, and nested graphs compile
-  together and reference each other freely.
+- The whole repository's types form one cohesive assembly — a single shared base, layered records, and nested graphs compile together and
+  reference each other freely.
 
 - A type file's module identity lives in its folder; the declared `namespace <module>;` is a folder-derived mirror that `Format-Types`
   maintains and `Test-Formatting` checks. Moving a `.cs` to another module stays a safe refactor — re-run `Format-Types` and the line
