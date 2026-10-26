@@ -44,14 +44,32 @@ track_types:
 
 vendors:
   azure:
-    definition: Microsoft Azure, which reads the Bicep templates and modules.
+    definition: Microsoft Azure, whose Bicep templates and modules the repository keeps for its deployments.
   ado:
-    definition: Azure DevOps, which reads the pipeline definitions under pipelines.
+    definition: Azure DevOps, whose pipeline definitions the repository keeps.
   github:
-    definition: GitHub, which reads the workflows and the repository settings under .github.
+    definition: GitHub, whose workflows and repository settings the repository keeps under .github.
   claude:
-    definition: Claude Code, which reads the settings, agents and hooks under .claude.
+    definition: Claude Code, whose settings, agents and hooks the repository keeps under .claude.
   cspell:
-    definition: The cspell spell checker, which reads the dictionaries under .cspell.
+    definition: The cspell spell checker, whose dictionaries the repository keeps under .cspell.
   vscode:
-    definition: Visual Studio Code, which reads the workspace settings under .vscode.
+    definition: Visual Studio Code, whose workspace settings the repository keeps under .vscode.
+  git:
+    definition: Git, whose root configuration files (.gitignore, .gitattributes) the repository keeps.
+  pwsh:
+    definition: PowerShell, whose third-party modules the repository vendors under pwsh/.vendor.
+  bash:
+    definition: Bash, whose third-party scripts the repository vendors under bash/.vendor.
+  typescript:
+    definition: TypeScript, whose type declarations the repository installs under .typescript for the js track's types gate.
+  editorconfig:
+    definition: EditorConfig, whose editor settings the repository keeps in .editorconfig.
+  markdownlint:
+    definition: The markdownlint linter, whose rules and ignore list the repository keeps at the root.
+  prettier:
+    definition: The Prettier formatter, whose settings and ignore list the repository keeps at the root.
+  dotnet:
+    definition: The .NET SDK, whose solution, build properties and tool manifest the repository keeps at the root.
+  nuget:
+    definition: NuGet, whose feed configuration the repository keeps in nuget.config.
