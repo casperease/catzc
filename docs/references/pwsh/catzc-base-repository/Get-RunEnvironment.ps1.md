@@ -1,7 +1,6 @@
 # pwsh/Base.Repository/Get-RunEnvironment.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The environment axis of devbox and pipeline parity: it answers whether the session runs in a pipeline or on a devbox.
 
 ## help
 

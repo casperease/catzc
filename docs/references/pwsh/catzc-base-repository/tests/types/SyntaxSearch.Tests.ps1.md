@@ -1,22 +1,9 @@
 # pwsh/Base.Repository/tests/types/SyntaxSearch.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The L0 logic tests of the `SyntaxSearch` type, the compiled searches over a parsed syntax tree.
 
-## comment:1
+## What it proves
 
-Above `Describe 'SyntaxSearch'`, written with `#`.
-
-```text
-The compiled searches return what a PowerShell predicate over FindAll returned. Neutral fixture names
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
-```
-
-## comment:2
-
-Above `Describe 'SyntaxSearch'`, written with `#`.
-
-```text
-Each compiled search must return exactly what a PowerShell predicate over FindAll returns, so swapping one for the
-other changes nothing.
-```
+Each compiled search returns exactly what a PowerShell predicate over `FindAll` returns, so swapping one for the other changes nothing. The
+fixtures use neutral names
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).

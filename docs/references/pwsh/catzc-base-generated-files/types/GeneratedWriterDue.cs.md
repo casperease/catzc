@@ -1,13 +1,10 @@
 # pwsh/Base.GeneratedFiles/types/GeneratedWriterDue.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The result of `Get-GeneratedWriterDue` for one writer: what the generated-files registry says about it for a changed set.
 
-## comment:1
+## Properties
 
-Above `public sealed class GeneratedWriterDue`, written with `//`.
-
-```text
-What the generated-files registry says about one writer for a changed set: whether its dry run is due, and whether it declares input
-or output lists at all (a writer with none runs whenever anything changed, and the import janitor runs it always).
-```
+- **`Name`** — the writer.
+- **`Due`** — whether its dry run is due.
+- **`HasLists`** — whether it declares input or output lists at all. A writer with none runs whenever anything changed, and the import
+  janitor runs it always, so a caller uses `HasLists` to tell "nothing changed" from "this writer cannot say".

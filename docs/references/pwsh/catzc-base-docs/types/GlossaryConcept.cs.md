@@ -1,54 +1,31 @@
 # pwsh/Base.Docs/types/GlossaryConcept.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+One defined term of the controlled vocabulary (a glossary source's `concepts:` entry, keyed by the term). It mirrors the YAML entry, snake_case
+keys ([ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](../../../../drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
 
-## comment:1
+## Properties
 
-Above `using System;`, written with `//`.
+- **`term`** and **`key`** — the canonical term, and its snake_case machine key.
+- **`domain`** and **`defined_by`** — the ADR domain, and the one rule that defines the term
+  ([ADR-REPO-VOCAB-DEFINEDTERM](../../../../drs/repository/controlled-vocabulary.md#rule-adr-repo-vocab-definedterm)). A `defined_by` is a rule
+  code of any kind, as `DrsCodeForm.AnyKind` gives it: a two-to-four-letter kind prefix and at least two more `-<NAME>` segments
+  ([ADR-AUTO-TEST-SAMETESTSBOTHRUNS](../../../../drs/automation/test-automation.md#rule-adr-auto-test-sametestsbothruns),
+  [FDR-CD-SHORTINTEGRATIONCYCLE](../../../../drs/flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-shortintegrationcycle)).
+- **`short`** — a one-line definition.
+- **`realized_by`** — how the concept exists in the repository ([GlossaryRealization](GlossaryRealization.cs.md)).
+- **relations** and **contrasts** — related terms, and similar terms each with one sentence on how they differ
+  ([ADR-REPO-VOCAB-SIMILARTERMSCONTRASTED](../../../../drs/repository/controlled-vocabulary.md#rule-adr-repo-vocab-similartermscontrasted)).
+- **`avoid`** — the avoided phrasings ([GlossaryAvoid](GlossaryAvoid.cs.md),
+  [ADR-REPO-VOCAB-AVOIDEDPHRASINGREPLACED](../../../../drs/repository/controlled-vocabulary.md#rule-adr-repo-vocab-avoidedphrasingreplaced)).
+- **`forms`** — the words allowed to qualify the term's head word ('quality' in 'quality gate'), in entry order
+  ([ADR-REPO-VOCAB-FAMILYFORMS](../../../../drs/repository/controlled-vocabulary.md#rule-adr-repo-vocab-familyforms)). Empty when the entry
+  declares no forms; then the qualified-forms check (G6) does not look at the term.
+- **`verbs`** — whether the head word's -ed and -ing forms are ordinary English for this term ('scoped', 'sourced'), so G6 allows them. False by
+  default: a noun family such as 'gate' takes no verb forms.
 
-```text
-One defined term of the controlled vocabulary (a configs/glossary.yml `concepts:` entry, keyed by the term). It
-carries the term's machine key, its ADR domain, the ONE rule that defines it
-([ADR-REPO-VOCAB-DEFINEDTERM](/docs/drs/repository/controlled-vocabulary.md#rule-adr-repo-vocab-definedterm)), a one-line
-definition, how it exists in the repository (GlossaryRealization), and optionally its relations to other terms,
-its contrasts with similar terms (each explained,
-[ADR-REPO-VOCAB-SIMILARTERMSCONTRASTED](/docs/drs/repository/controlled-vocabulary.md#rule-adr-repo-vocab-similartermscontrasted)), and its avoided phrasings (GlossaryAvoid,
-[ADR-REPO-VOCAB-AVOIDEDPHRASINGREPLACED](/docs/drs/repository/controlled-vocabulary.md#rule-adr-repo-vocab-avoidedphrasingreplaced)), and the words allowed to qualify its
-head word (forms, [ADR-REPO-VOCAB-FAMILYFORMS](/docs/drs/repository/controlled-vocabulary.md#rule-adr-repo-vocab-familyforms)). Mirrors the YAML entry (snake_case keys,
-[ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
+## Validation
 
-Only the entry's own shape is checked here. Whether `defined_by` names a real rule, `domain` a declared ADR
-domain, and the relation/contrast targets real concepts are cross-file facts, checked by the glossary checks
-(Test-Glossary), not on load — so loading a glossary stays hermetic (the
-[ADR-AZ-CUSTOMER-REFERENCENOTVALIDATEDONLOAD](/docs/drs/azure/azure-customer-model.md#rule-adr-az-customer-referencenotvalidatedonload) pattern).
-```
-
-## comment:2
-
-Above `public static readonly Regex CitationRe = new Regex("^" +...`, written with `//`.
-
-```text
-A rule code of any kind, as DrsCodeForm.AnyKind gives it: a two-to-four-letter kind prefix and at least two more -<NAME>
-segments; a concept's defined_by must be one
-([ADR-AUTO-TEST-SAMETESTSBOTHRUNS](/docs/drs/automation/test-automation.md#rule-adr-auto-test-sametestsbothruns),
-[FDR-CD-SHORTINTEGRATIONCYCLE](/docs/drs/flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-shortintegrationcycle)).
-```
-
-## comment:3
-
-Above `public IReadOnlyList<string> forms { get; }`, written with `//`.
-
-```text
-The words allowed to qualify the term's head word ('quality' in 'quality gate'), in entry order. Empty when the
-entry declares no forms; then the qualified-forms check (G6) does not look at the term.
-```
-
-## comment:4
-
-Above `public bool verbs { get; }`, written with `//`.
-
-```text
-Whether the head word's -ed and -ing forms are ordinary English for this term ('scoped', 'sourced'), so the
-qualified-forms check (G6) allows them. False by default: a noun family such as 'gate' takes no verb forms.
-```
+Only the entry's own shape is checked on load. Whether `defined_by` names a real rule, `domain` a declared ADR domain, and the relation and
+contrast targets real concepts are cross-file facts, checked by the glossary checks (`Test-Glossary`), so loading a glossary stays hermetic
+(the [ADR-AZ-CUSTOMER-REFERENCENOTVALIDATEDONLOAD](../../../../drs/azure/azure-customer-model.md#rule-adr-az-customer-referencenotvalidatedonload)
+pattern).

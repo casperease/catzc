@@ -1,7 +1,14 @@
 # pwsh/Base.Docs/private/Get-CatsModules.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The private module lister of `Show-Cats`: it reads the loaded session and returns each catzc module with its exported functions.
+
+## What counts as a module
+
+A cats module is a folder of the modules root that a module of the same name is loaded from (folder = module). The bounded walker lists the
+folders one level deep, and a dot-prefixed one is skipped as infrastructure. A module folder drops the namespace the module's name carries,
+so a loaded module is matched to its folder by the folder it loaded from, never by name. `Get-Module` can also report a nested `.ps1`
+function file (one per function in source mode, the merged `<Module>.ps1` in build mode), so only the entry whose path sits directly in the
+folder and is not a `.ps1` file counts.
 
 ## help
 
@@ -29,32 +36,3 @@ fixture modules.
 ### outputs
 
 `[object[]]` One { Module; Functions } per module, sorted by module name, each Functions list sorted.
-
-## comment:1
-
-Above `$loaded = foreach ($folder in @(Get-ChildPath -Path $ModulesRoot -Depth 1...`, written with `#`.
-
-```text
-A cats module is a folder of the modules root that a module of the same name is loaded from (folder = module), so the bounded walker
-lists the folders one level deep and a dot-prefixed one is skipped as infrastructure. Get-Module -Name can report a nested .ps1 function
-file as well (one per function in source mode, the merged <Module>.ps1 in build mode), so only the entry whose path sits directly in the
-folder and is not a .ps1 file counts.
-```
-
-## comment:2
-
-Above `$loaded = foreach ($folder in @(Get-ChildPath -Path $ModulesRoot -Depth 1...`, written with `#`.
-
-```text
-A cats module is a folder of the modules root that a module of the same name is loaded from; the walker lists the
-folders.
-```
-
-## comment:3
-
-Above `$all = @(Get-Module)`, written with `#`.
-
-```text
-A module folder drops the namespace the module's name carries, so a loaded module is matched to its folder by the folder it
-loaded from, never by name.
-```

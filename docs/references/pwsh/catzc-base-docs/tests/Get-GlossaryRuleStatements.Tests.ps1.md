@@ -1,15 +1,6 @@
 # pwsh/Base.Docs/tests/Get-GlossaryRuleStatements.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
-
-## comment:1
-
-Above `Describe 'Get-GlossaryRuleStatements'`, written with `#`.
-
-```text
-Get-GlossaryRuleStatements is private, so it is exercised through the module (InModuleScope, per
-[ADR-PWSH-PESTER-PRIVATETHROUGHMODULE](/docs/drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-privatethroughmodule))
-over a fixture ADR index and two ADRs in $TestDrive. Fixture rule codes are neutral (tst —
-[ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
-```
+The tests of `Get-GlossaryRuleStatements`. The function is private, so it is exercised through the module (`InModuleScope`, per
+[ADR-PWSH-PESTER-PRIVATETHROUGHMODULE](../../../../drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-privatethroughmodule)) over a
+fixture ADR index and two ADRs in `$TestDrive`. Fixture rule codes are neutral
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).

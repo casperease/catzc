@@ -1,22 +1,14 @@
 # pwsh/Base.Folders/types/PathSet.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+A set of file paths a type owns: files named under a base, and the files a pattern finds through the bounded walker. The paths are full,
+sorted and unique, so the same tree always gives the same set.
 
-## comment:1
+## Adding by pattern
 
-Above `public sealed class PathSet`, written with `//`.
+`AddPattern(folder, pattern, depth)` adds the files below a folder whose names match a pattern, to the depth given (1 is the folder itself),
+with the config's folder names pruned. A folder that does not exist adds nothing, so a set over an optional tree stays valid before the tree
+exists. The overload without a depth uses the config's depth.
 
-```text
-A set of file paths a type owns: files named under a base, and the files a pattern finds through the bounded walker; full paths, sorted
-and unique, so the same tree always gives the same set.
-```
+## Pruned names
 
-## comment:4
-
-Above `public PathSet AddPattern(string folder, string pattern, int depth)`, written with `//`.
-
-```text
-The files below a folder whose names match a pattern, to the depth given (1, the folder itself), the config's folder names pruned; a
-folder that does not exist adds nothing.
-```
+`Pruned` gives the folder names a walk skips: the config's `exclude` list, plus the `.vendor` folder when searches prune it.

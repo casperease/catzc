@@ -1,7 +1,6 @@
 # pwsh/Base.Timeouts/Get-TestTimeLimits.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The one reader of the test-run time limits: the per-tier limit of one test and the budget of a whole run, both from `timeouts.yml`.
 
 ## help
 

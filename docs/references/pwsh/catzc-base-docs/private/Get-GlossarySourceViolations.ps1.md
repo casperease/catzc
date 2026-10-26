@@ -1,7 +1,11 @@
 # pwsh/Base.Docs/private/Get-GlossarySourceViolations.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Check G1 of the glossary: the facts that span more than one source, which no single source's load-time validation can see. It is called by
+`Test-Glossary`; the cases it reports are listed in the help below.
+
+## Contrasts
+
+A contrast is declared once and the build shows it on both entries, so the second declaration of a pair is the finding.
 
 ## help
 
@@ -75,13 +79,4 @@ The glossary sources, as Get-GlossarySources returns them ({ Owner; Path; Config
 
 ```powershell
 Get-GlossarySourceViolations
-```
-
-## comment:1
-
-Above `elseif ($termConcept[$other].contrasts.ContainsKey($term) -and -not...`, written with `#`.
-
-```text
-A contrast is declared once and the build shows it on both entries; the second declaration of a pair
-is the finding.
 ```

@@ -1,7 +1,7 @@
 # pwsh/Base.Repository/Get-CatzcModuleRoot.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The one lookup from a module to its own folder in the loaded catzc code tree, optionally joined with a child path, correct in both run
+modes.
 
 ## help
 
@@ -50,11 +50,7 @@ Get-CatzcModuleRoot 'assets/gitkeep'
 Get-CatzcModuleRoot 'configs/configs.yml' -Module Catzc.Base.Config
 ```
 
-## comment:1
+## Why the folder comes from the loaded module
 
-Above `$loaded = if ($Module) {`, written with `#`.
-
-```text
 The module's folder comes from the loaded module, never from its name: the folder drops the namespace the name carries
-([DDR-TRACK-MODULENAMESPACE](/docs/drs/design/tracks.md#rule-ddr-track-modulenamespace)).
-```
+([DDR-TRACK-MODULENAMESPACE](../../../drs/design/tracks.md#rule-ddr-track-modulenamespace)).

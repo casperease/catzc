@@ -1,13 +1,9 @@
 # pwsh/Base.Repository/tests/types/ParsedScripts.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The L0 logic tests of the `ParsedScripts` type, the holder that parses each script file once.
 
-## comment:1
+## What it proves
 
-Above `Describe 'ParsedScripts'`, written with `#`.
-
-```text
-One holder parses a file once. Neutral fixture names
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
-```
+One holder parses a file once, so every reader of the same script shares one syntax tree and one set of parse errors. The fixtures use
+neutral names
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).

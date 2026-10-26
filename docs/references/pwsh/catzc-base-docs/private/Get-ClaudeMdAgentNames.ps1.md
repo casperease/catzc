@@ -1,7 +1,7 @@
 # pwsh/Base.Docs/private/Get-ClaudeMdAgentNames.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The private list reader of `Test-AgentDefinitions`: it returns the agent names bulleted in the `## Sub-agents` section of CLAUDE.md, so the gate
+can compare them with the registry.
 
 ## help
 

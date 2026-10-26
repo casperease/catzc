@@ -16,7 +16,7 @@ Contracts are binding ([ADR-REPO-CONTRACT-PROVENBYTESTS](../../../../drs/reposit
 on two sets of assets:
 
 - every asset, in both directions, of each unit's current version folder, -Version;
-- the provided assets of every other released version folder, any version but the draft 0.0.0. Released folders are the pin record: a
+- the provided assets of every other released version folder, any version but the current 0.1.0. Released folders are the pin record: a
   released provided contract is kept while a consumer pins it, and retiring it means deleting its folder
   ([ADR-REPO-CONTRACT-KEPTWHILEPINNED](../../../../drs/repository/api-contracts.md#rule-adr-repo-contract-keptwhilepinned)).
 
@@ -24,7 +24,7 @@ The depended-on assets of an older released folder are not listed: a depended-on
 version's expectation binds
 ([ADR-REPO-CONTRACT-KEPTWHILEPINNED](../../../../drs/repository/api-contracts.md#rule-adr-repo-contract-keptwhilepinned)).
 
-When -Version names a release, the draft 0.0.0 is not listed. A contracts/ tree that does not list throws, as Get-Contract does.
+When -Version names a release, the current version 0.1.0 is not listed. A contracts/ tree that does not list throws, as Get-Contract does.
 
 ### parameter `Version`
 
@@ -41,5 +41,5 @@ The repository root that holds contracts/.
 ### example 1
 
 ```powershell
-Get-ContractBindingAssets -Version 0.0.0 -RepositoryRoot $root
+Get-ContractBindingAssets -Version 0.1.0 -RepositoryRoot $root
 ```

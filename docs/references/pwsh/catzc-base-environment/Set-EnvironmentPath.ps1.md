@@ -1,7 +1,6 @@
 # pwsh/Base.Environment/Set-EnvironmentPath.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The write half of the persistent PATH seam: a thin writer of the PATH at one scope that also announces the change.
 
 ## help
 

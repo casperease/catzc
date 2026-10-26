@@ -1,7 +1,12 @@
 # pwsh/Base.Docs/Build-Readme.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The writer of the generated READMEs: for each mapping of the [readme registry](configs/readme.yml.md) it composes the README from its authored
+article and writes it into the mapped folder. It writes only when the composed content differs.
+
+## Writing
+
+A change is written delete-then-write (`Write-FileIfChanged`), so a README that is still a filesystem link to its source is severed and
+never written through.
 
 ## help
 
@@ -66,13 +71,4 @@ Reports which mapped READMEs are stale without touching them.
 ```powershell
 Build-Readme 'pwsh/Azure.DevOps'
 Generates only that folder's README.
-```
-
-## comment:1
-
-Above `$changed = Write-FileIfChanged -Path $readmePath -Content (Get-ReadmeContent...`, written with `#`.
-
-```text
-Delete-then-write on a change (Write-FileIfChanged): a README that is still a filesystem link to its
-source is severed, never written through.
 ```

@@ -1,7 +1,6 @@
 # pwsh/Base.Files/Get-CodeCaller.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The command that finds the in-tree callers of a type, a function or a config key, by a text scan of the tracked files.
 
 ## help
 

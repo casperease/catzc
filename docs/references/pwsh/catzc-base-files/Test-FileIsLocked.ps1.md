@@ -1,7 +1,6 @@
 # pwsh/Base.Files/Test-FileIsLocked.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The query that tells whether another handle holds a file open, by trying to open it with no sharing.
 
 ## help
 

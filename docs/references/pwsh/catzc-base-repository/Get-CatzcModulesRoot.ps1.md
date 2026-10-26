@@ -1,7 +1,7 @@
 # pwsh/Base.Repository/Get-CatzcModulesRoot.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The reader of the modules-root anchor the importer sets: the folder where catzc's own code lives, which differs from the working repository
+root in an installed bundle.
 
 ## help
 

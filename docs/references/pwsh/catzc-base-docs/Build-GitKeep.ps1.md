@@ -1,7 +1,7 @@
 # pwsh/Base.Docs/Build-GitKeep.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The writer that keeps every `.gitkeep` of the repository a managed copy of one generic asset. It walks the tree, skips `.git` and the vendored
+modules, and rewrites a file only when it drifted. Its tests are in [Build-GitKeep.Tests.ps1](tests/Build-GitKeep.Tests.ps1.md).
 
 ## help
 

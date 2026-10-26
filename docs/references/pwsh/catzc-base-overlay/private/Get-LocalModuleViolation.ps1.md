@@ -1,7 +1,6 @@
 # pwsh/Base.Overlay/private/Get-LocalModuleViolation.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The check of a consumer's local module: it returns one message per reason the module cannot load, so `Assert-CatzcOverlay` can list them all.
 
 ## help
 
@@ -30,21 +29,13 @@ The folder as the messages show it.
 
 `[string]` One message per violation; nothing when the module can load.
 
-## comment:1
+## Why the walk prunes nothing
 
-Above `$files = [string[]] @(Get-ChildPath $Path -File -Depth 64 -Exclude @()...`, written with `#`.
+A violation anywhere in the module must show, so the walk is a named whole-tree walk
+([ADR-PWSH-ENUM-ALWAYSBOUNDED](../../../../drs/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)) that prunes nothing.
 
-```text
-A named whole-tree walk ([ADR-PWSH-ENUM-ALWAYSBOUNDED](/docs/drs/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): a
-violation anywhere in the module must show, so nothing is pruned.
-```
+## The folder name
 
-## comment:2
-
-Above `$name = [System.IO.Path]::GetFileName($Path)`, written with `#`.
-
-```text
 A folder never spells the modules track's namespace
-([DDR-TRACK-MODULENAMESPACE](/docs/drs/design/tracks.md#rule-ddr-track-modulenamespace)): the folder resolves to its full name, the
+([DDR-TRACK-MODULENAMESPACE](../../../../drs/design/tracks.md#rule-ddr-track-modulenamespace)): the folder resolves to its full name, and the
 bundle names the fix.
-```

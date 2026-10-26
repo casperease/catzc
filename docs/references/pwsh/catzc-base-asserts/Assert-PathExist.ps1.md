@@ -1,7 +1,7 @@
 # pwsh/Base.Asserts/Assert-PathExist.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The throwing check that a filesystem path exists, of the kind `Any`, `Container` or `Leaf`. It throws the caller's `-ErrorText`, or a default
+message naming the path.
 
 ## help
 
@@ -33,20 +33,8 @@ Assert-PathExist './config.json'
 Assert-PathExist './src' -PathType Container
 ```
 
-## comment:1
+## Why a truth test picks the message
 
-Above `$message = if ($ErrorText) {`, written with `#`.
-
-```text
-Not $ErrorText ?? ... : a [string] param coerces $null to '', and ?? only coalesces $null, so the
-default would never apply (the throw would be blank). See ADR: automatic-variable-pitfalls.
-```
-
-## comment:2
-
-Above `$message = if ($ErrorText) {`, written with `#`.
-
-```text
-A [string] parameter turns $null into '', which ?? never coalesces, so only a truth test lets the default
-message through.
-```
+The message is chosen with `if ($ErrorText)`, never `$ErrorText ?? ...`. A `[string]` parameter turns `$null` into `''`, and `??` only
+coalesces `$null`, so the default would never apply and the throw would be blank
+([automatic-variable-pitfalls](../../../drs/automation/pwsh/automatic-variable-pitfalls.md)).

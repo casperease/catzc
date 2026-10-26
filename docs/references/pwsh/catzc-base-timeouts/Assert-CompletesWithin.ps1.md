@@ -1,7 +1,6 @@
 # pwsh/Base.Timeouts/Assert-CompletesWithin.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The assertion form of the time safeguard for a script block: the work runs under a limit and the call throws if the work is stopped at it.
 
 ## help
 

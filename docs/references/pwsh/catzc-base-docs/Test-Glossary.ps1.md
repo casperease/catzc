@@ -1,7 +1,7 @@
 # pwsh/Base.Docs/Test-Glossary.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The quality gate of the controlled vocabulary: it runs the six glossary checks over every glossary source and ends in one report, so a
+reader sees every issue at once. The checks themselves are the private `Get-Glossary*Violations` functions listed in the help below.
 
 ## help
 

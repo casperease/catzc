@@ -1,7 +1,6 @@
 # pwsh/Base.Files/Rename-CodeName.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The command that renames commands, types, parameters and file names across the tracked files by a map of old to new names.
 
 ## help
 
@@ -46,20 +45,7 @@ Reports what would change and writes nothing.
 Rename-CodeName @{ 'Get-WidgetSet' = 'Get-GadgetSet'; 'WidgetConfig' = 'GadgetConfig' } -Path pwsh -DryRun
 ```
 
-## comment:1
+## Matching
 
-Above `$alternation = (@($lookup.Keys) | Sort-Object { $_.Length } -Descending |`, written with `#`.
-
-```text
-Longest first, so a name that contains another is replaced whole; a name matches only as a token, never inside a
-longer one.
-```
-
-## comment:2
-
-Above `$within = [regex]::new("[\w-]*(?:$alternation)[\w-]*")`, written with `#`.
-
-```text
-The longer tokens a name sits inside, such as an id `g-<name>`, are skipped by design; each is reported so the
-caller decides.
-```
+The names are tried longest first, so a name that contains another is replaced whole, and a name matches only as a token, never inside a
+longer one. The longer tokens a name sits inside, such as an id `g-<name>`, are skipped by design and each is reported, so the caller decides.

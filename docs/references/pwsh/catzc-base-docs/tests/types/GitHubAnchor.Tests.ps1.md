@@ -1,14 +1,5 @@
 # pwsh/Base.Docs/tests/types/GitHubAnchor.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
-
-## comment:1
-
-Above `Describe 'GitHubAnchor'`, written with `#`.
-
-```text
-The GitHub slug and anchor set a markdown link's #fragment must name
-([ADR-REPO-LINK-MARKDOWNRELATIVE](/docs/drs/repository/markdown-links.md#rule-adr-repo-link-markdownrelative)). The slug cases are the
+The tests of the GitHub slug and anchor set a markdown link's `#fragment` must name
+([ADR-REPO-LINK-MARKDOWNRELATIVE](../../../../../drs/repository/markdown-links.md#rule-adr-repo-link-markdownrelative)). The slug cases are the
 shapes the repository's headings take: rule headings, responsibility headings with an em dash, code spans, and duplicates.
-```

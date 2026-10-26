@@ -1,7 +1,21 @@
 # pwsh/Base.Docs/private/Get-ReadmeMappings.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The resolver of the [readme registry](../configs/readme.yml.md): it turns the patterns and mappings into the concrete folder-to-source list
+that `Build-Readme` generates and `Test-GeneratedReadmes` checks.
+
+## Expanding a pattern
+
+The bounded folder walker lists the immediate subdirectories of the prefix, one level deep
+([ADR-PWSH-ENUM-ALWAYSBOUNDED](../../../../drs/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)), sorted so the
+generated list keeps one order. A `*` excludes dot-prefixed infrastructure folders, which the loop skips by their leaf name.
+
+In the source template `{kebab}` kebab-cases the module's full name, as a module's article is named; `{name}` keeps the full name in its
+track's join form, as a Python package's is.
+
+## A missing article
+
+A folder with no authored source yet is skipped, so `Build-Readme` never makes the importer throw; `-Missing` hands the skipped folders to the
+gate.
 
 ## help
 
@@ -38,31 +52,3 @@ which Test-GeneratedReadmes reports.
 
 `[object[]]` One `{ folder; source }` object per generated README — explicit mappings first, then the pattern-derived folders in filesystem
 order.
-
-## comment:1
-
-Above `foreach ($dir in @(Get-ChildPath -Path $prefixPath -Depth 1 -Directory |...`, written with `#`.
-
-```text
-The bounded folder walker lists the immediate subdirectories of the prefix, one level deep
-([ADR-PWSH-ENUM-ALWAYSBOUNDED](/docs/drs/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)), sorted so the
-generated list keeps one order. '*' excludes dot-prefixed infrastructure folders, which the loop skips by their leaf name.
-```
-
-## comment:2
-
-Above `$kebab = [Catzc.Base.Objects.NameCase]::Render($name, 'kebab')`, written with `#`.
-
-```text
-{kebab} kebab-cases the module's full name, as a module's article is named; {name} keeps the full name
-in its track's join form, as a python package's is.
-```
-
-## comment:3
-
-Above `$absent.Add([pscustomobject]@{ folder = $folder; source = $source })`, written with `#`.
-
-```text
-No authored source yet: Build-Readme skips it so the importer never throws, and -Missing hands it to
-the gate.
-```

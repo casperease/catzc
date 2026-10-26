@@ -1,7 +1,6 @@
 # pwsh/Base.Asserts/Assert-IsRunningInVsCode.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The throwing check that the session runs in a VS Code terminal; it asks `Test-IsRunningInVsCode` and throws on a no.
 
 ## help
 

@@ -1,24 +1,14 @@
 # pwsh/Base.Timeouts/tests/Get-TimeoutSeconds.Repository.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The repository test of the declared time limit: it scans the shipped scripts and fails a default that is a number literal.
 
-## comment:1
+## What it pins
 
-Above `Describe 'TimeoutSeconds defaults come from the time safeguard'`, written with `#`.
+A function bounds its own long-running work through `Get-TimeoutSeconds -Command` and its `[TimeLimit]` decoration, never a number literal as
+the parameter default
+([ADR-PWSH-ASSERT-DECLAREDTIMELIMIT](../../../../drs/automation/pwsh/assert-idioms.md#rule-adr-pwsh-assert-declaredtimelimit)). It reads the
+shipped .ps1 files by syntax tree, so it runs in the source and the build run alike.
 
-```text
-A function bounds its own long-running work through Get-TimeoutSeconds -Command and its [TimeLimit] decoration, never
-a number literal as the parameter default
-([ADR-PWSH-ASSERT-DECLAREDTIMELIMIT](/docs/drs/automation/pwsh/assert-idioms.md#rule-adr-pwsh-assert-declaredtimelimit)). Reads the shipped .ps1
-files by AST, so it runs in the source and the build run alike.
-```
+## The scan depth
 
-## comment:2
-
-Above `$violations = foreach ($file in Get-ChildPath $root -File -Filter '*.ps1'...`, written with `#`.
-
-```text
-Scripts reach four levels below pwsh/ (module, tests, types, file); the vendored modules are pruned by the
-walk.
-```
+Scripts reach four levels below `pwsh/` (module, tests, types, file); the walk prunes the vendored modules.

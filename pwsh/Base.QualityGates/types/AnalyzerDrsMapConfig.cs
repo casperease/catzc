@@ -59,7 +59,7 @@ public sealed class AnalyzerDrsMapConfig : Catzc.Base.Objects.DictionaryRecord
             IDictionary source = analyzersRaw as IDictionary;
             if (analyzersRaw != null && source == null)
             {
-                errors.Add("'analyzers' must be a map of <analyzer rule>: [ ADR-<CODE>#<n>, ... ]");
+                errors.Add("'analyzers' must be a map of <analyzer rule>: [ <rule code>, ... ], e.g. ADR-PWSH-ERROR-THROWNOTWRITEERROR");
             }
             else if (source == null || source.Count == 0)
             {
@@ -78,7 +78,7 @@ public sealed class AnalyzerDrsMapConfig : Catzc.Base.Objects.DictionaryRecord
                     string[] ids = ReadIds(source[k]);
                     if (ids.Length == 0)
                     {
-                        errors.Add(string.Format("analyzer '{0}' maps to no ADR rule (want a non-empty list of ADR-<CODE>#<n>)", rule));
+                        errors.Add(string.Format("analyzer '{0}' maps to no ADR rule (want a non-empty list of rule codes, e.g. ADR-PWSH-ERROR-THROWNOTWRITEERROR)", rule));
                         continue;
                     }
                     foreach (string id in ids)

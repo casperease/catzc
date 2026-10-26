@@ -1,38 +1,20 @@
 # pwsh/Base.Docs/tests/Test-GeneratedReadmes.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The tests of `Test-GeneratedReadmes`, in two blocks.
 
-## comment:1
+## Fixture READMEs
 
-Above `Describe 'Test-GeneratedReadmes'`, written with `#`.
+Fixture READMEs in `$TestDrive`: the mappings, git's ignore check and the index are mocked, and the repository root is redirected to the
+fixture, so each test pins one rule. Fixture names are neutral
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 
-```text
-Test-GeneratedReadmes over fixture READMEs in $TestDrive: the mappings, git's ignore check, and the index are mocked,
-and the repository root is redirected to the fixture, so each test pins one rule. Neutral fixture names
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
-```
+## The real repository
 
-## comment:2
+The quality gate over the real repository. `readme.yml`, expanded by `Get-ReadmeMappings`, is the registry of folders whose `README.md` is
+generated from a docs source, a derived artifact never authored in place, so each must be gitignored, out of git, and current with its source.
+Hand-authored READMEs are exactly the folders not in `readme.yml`; they are individually un-ignored in `.gitignore` and are out of scope. See
+[ADR-REPO-README](../../../../drs/repository/generated-readmes.md).
 
-Above `Describe 'Generated READMEs are gitignored, untracked, and current'`, written with `#`.
-
-```text
-The quality gate over the real repository. readme.yml (expanded by Get-ReadmeMappings) is the registry of folders whose
-README.md is generated from a docs/ source — a derived artifact, never authored in place — so each must be
-gitignored, out of git, and current with its source. Hand-authored READMEs are exactly the folders NOT in
-readme.yml; they are individually un-ignored in .gitignore and are out of scope here. See
-[ADR-REPO-README](/docs/drs/repository/generated-readmes.md).
-
-Reads only the repository's files and git index (through the source-tree-only Get-ReadmeMappings) — the same
-answer in both run modes, so the build run skips it.
-```
-
-## comment:3
-
-Above `if (-not (Get-Command git -ErrorAction Ignore)) {`, written with `#`.
-
-```text
-L2: drives the real git CLI. Self-skip when git is absent or we are not inside a work tree
-(e.g. running from an exported tarball), per the test-automation tiering ADR.
-```
+The block reads only the repository's files and git index, through the source-tree-only `Get-ReadmeMappings`, the same answer in both run
+modes, so the build run skips it. It is an L2 test: it drives the real git CLI, and it skips itself when git is absent or the run is not inside
+a work tree, for example from an exported tarball, per the test-automation tiering ADR.

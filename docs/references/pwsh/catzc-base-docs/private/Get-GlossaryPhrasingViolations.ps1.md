@@ -1,7 +1,13 @@
 # pwsh/Base.Docs/private/Get-GlossaryPhrasingViolations.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Check G4 of the glossary: prose within a source's scope never uses an avoided phrasing. It is called by `Test-Glossary` and returns one
+message per use, naming the wording to say instead.
+
+## The scan
+
+The scan runs compiled ([GlossaryScan](../types/GlossaryScan.cs.md)): it reads each file's prose through
+[GlossaryProse](../types/GlossaryProse.cs.md) into the surface cache once, and matches every avoided phrasing over the files each glossary
+source's scope selects.
 
 ## help
 
@@ -58,13 +64,4 @@ avoids every avoided phrasing.
 
 ```powershell
 Get-GlossaryPhrasingViolations
-```
-
-## comment:1
-
-Above `[string[]]...`, written with `#`.
-
-```text
-The scan runs compiled (Catzc.Base.Docs.GlossaryScan): it reads each file's prose through GlossaryProse into the
-surface cache once, and matches every avoided phrasing over the files each glossary source's scope selects.
 ```

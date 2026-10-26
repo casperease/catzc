@@ -1,23 +1,22 @@
 # pwsh/Base.Files/types/InputStamp.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The compiled fingerprint of a set of input files, behind `Get-InputStamp` and the generated-file writers' stamps: one SHA-256 over the
+sorted (path, identity) of every file.
 
-## comment:1
+## Identity
 
-Above `public static string Compute(string[] paths, string filter, string[]...`, written with `//`.
+The identity of a file is either its content hash or its last write and size:
 
-```text
-A path under the root is named relative to it with '/' separators, a path outside it in full; a file's content is hashed with its
-carriage returns removed, so a clone, a snapshot, a CRLF checkout and a touch all stamp the same. An exclude is a wildcard
-(* and ?, a backtick escapes the next character) matched against the full path with '/' separators, ignoring case.
-```
+- **Content** stamps the same on every checkout. Carriage returns are removed before hashing, so a clone, a snapshot, a CRLF checkout and a
+  touch all stamp the same.
+- **Metadata** is cheaper, and a touch only ever makes the stamp differ.
 
-## comment:2
+## Paths and excludes
 
-Above `using System;`, written with `//`.
+A path under the root is named relative to it with `/` separators, a path outside it in full. An exclude is a wildcard (`*` and `?`, a
+backtick escapes the next character) matched against the full path with `/` separators, ignoring case.
 
-```text
-The fingerprint of a set of input files: one SHA-256 over the sorted (path, identity) of every file, where the identity is the content
-hash (the same on every checkout) or the last write and size (cheap, and a touch only ever makes the stamp differ).
-```
+## Many sets at once
+
+`ComputeMany` gives one stamp per path set, each the stamp `Compute` gives that set alone. A file named in several sets is read once for all
+of them, and every named path is stat'ed once, in parallel.

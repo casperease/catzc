@@ -1,13 +1,9 @@
 # pwsh/Base.Folders/types/FolderWalker.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The compiled, bounded walker behind `Get-ChildPath` and `PathSet`: it lists below a folder to a depth, prunes named folders while it walks
+and never follows a link.
 
-## comment:1
+## Walking files and folders in one pass
 
-Above `public static string[][] WalkRelative(string root, int depth,...`, written with `//`.
-
-```text
-One pass that lists the files and the folders apart, each relative to relativeTo with '/' separators: the walk a caller
-that needs both would otherwise make twice, then cut path by path.
-```
+`WalkRelative` lists the files and the folders apart in one pass, each relative to `relativeTo` with `/` separators. A caller that needs both
+would otherwise make the walk twice, then cut the paths one by one.

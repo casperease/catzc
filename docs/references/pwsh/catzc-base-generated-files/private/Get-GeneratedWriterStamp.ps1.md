@@ -1,7 +1,6 @@
 # pwsh/Base.GeneratedFiles/private/Get-GeneratedWriterStamp.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The private function that computes each generated-file writer's current input stamp from the shared walk, in one batched call.
 
 ## help
 
@@ -38,21 +37,8 @@ The root the matched files are read under.
 Get-GeneratedWriterStamp -Writer @(@{ name = 'widget'; inputs = @('widget/**') }) -Walk $walk -RepositoryRoot $root
 ```
 
-## comment:1
+## What the stamp covers
 
-Above `$globs = [string[]] @($entry.inputs | Where-Object { $_ })`, written with `#`.
-
-```text
-The stamp of every file on disk a writer's inputs match, committed, changed or ignored alike, so a pull or a drifted ignored file
-changes it as surely as an edit; salted with the folders a wildcard glob's leaf could be written into, so a new folder that should
+The stamp covers every file on disk a writer's inputs match, committed, changed or ignored alike, so a pull or a hand-drifted ignored file
+changes it as surely as an edit. It is salted with the folders a wildcard glob's leaf could be written into, so a new folder that should
 receive a generated file makes the writer due before the file exists. The files and folders are the shared walk's.
-```
-
-## comment:2
-
-Above `$prefix = $RepositoryRoot.TrimEnd('\', '/') +...`, written with `#`.
-
-```text
-Every matching file on disk counts, committed or ignored, so a pull or a hand-drifted file changes the stamp as
-surely as an edit.
-```

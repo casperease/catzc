@@ -1,15 +1,6 @@
 # pwsh/Base.Docs/tests/Get-CatsRuleEnforcers.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
-
-## comment:1
-
-Above `Describe 'Get-CatsRuleEnforcers'`, written with `#`.
-
-```text
-Get-CatsRuleEnforcers over a fixture test tree in $TestDrive and a mocked analyzer map: the AST reader credits
-only -Tag citations, never a citation-shaped string elsewhere. The repository facts behind it (every cited id is a
-real rule) are quality gates of their own. Neutral fixture names
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
-```
+The tests of `Get-CatsRuleEnforcers` over a fixture test tree in `$TestDrive` and a mocked analyzer map: the AST reader credits only `-Tag`
+citations, never a citation-shaped string elsewhere. The repository facts behind it, that every cited id is a real rule, are quality gates of
+their own. Fixture names are neutral
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).

@@ -1,33 +1,28 @@
 # pwsh/Base.Docs/configs/agents.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The sub-agent registry: one entry per sub-agent definition `.claude/agents/<name>.md`
+([ADR-REPO-AGENTS](../../../../drs/repository/agent-definitions.md)). It is loaded through `Get-Config -Config agents`, shape-validated by
+the [AgentsConfig](../types/AgentsConfig.cs.md) type, and checked by `Test-AgentDefinitions` against the agent files, the ADR rule ids, the
+loaded commands and the `## Sub-agents` list in `.claude/CLAUDE.md`.
 
-## comment:1
+## Entry keys
 
-Above `roofs:`, written with `#`.
+Each entry of `agents:` carries (see [AgentEntry](../types/AgentEntry.cs.md)):
 
-```text
-The sub-agent registry: one entry per sub-agent definition .claude/agents/<name>.md
-([ADR-REPO-AGENTS](/docs/drs/repository/agent-definitions.md)). Per entry:
-  name          the agent's name, equal to its file name without .md and to its front-matter `name`;
-  supported_by  the rule citations (ADR-<CODE>#<n>) that justify the agent's existence;
-  checks        the gate and check functions the agent runs or guards; `[]` when it has none;
-  persona       the person name a robot with a personality signs its log lines with (Add-SessionLearning -Author), e.g. Jack;
-                left out for a robot that keeps no log.
-There is no standard sub-agent: a brief names its job skill, and the skill's model floor picks the drone
-([ADR-REPO-AGENTS-STANDARDDRONE](/docs/drs/repository/agent-definitions.md#rule-adr-repo-agents-standarddrone)).
+- **`name`** — the agent's name, equal to its file name without `.md` and to its front-matter `name`.
+- **`supported_by`** — the rule citations (`ADR-<CODE>#<n>`) that justify the agent's existence.
+- **`checks`** — the gate and check functions the agent runs or guards; `[]` when it has none.
+- **`model_reason`** — why the agent runs above the default model, when it does.
+- **`persona`** — the person name a robot with a personality signs its log lines with (`Add-SessionLearning -Author`), for example Jack;
+  left out for a robot that keeps no log.
 
-Loaded via Get-Config -Config agents (shape-validated by the AgentsConfig type). The quality gate
-Test-AgentDefinitions checks it against the agent files, the ADR rule ids, the loaded commands, and the
-`## Sub-agents` list in .claude/CLAUDE.md.
-```
+## The standard agent
 
-## comment:2
+The registry holds one standard agent, which takes one task from a coordinator's brief when no specialised agent fits; the other agents name
+their job and are listed in its description
+([ADR-REPO-AGENTS-STANDARDDRONE](../../../../drs/repository/agent-definitions.md#rule-adr-repo-agents-standarddrone)).
 
-Above `- name: 2020-hindsight`, written with `#`.
+## Robot behaviour
 
-```text
-Reads what sessions learned the hard way, finds where the tree already knew or does not, and keeps the hindsight log: smug in form, checked in fact.
-A robot reading a long log caps its probes per line and writes in batches: a 40-turn roof ended this one's first run before its one write.
-```
+A robot that reads a long log caps its probes per line and writes in batches: a turn roof once ended the hindsight robot's first run before
+its one write.

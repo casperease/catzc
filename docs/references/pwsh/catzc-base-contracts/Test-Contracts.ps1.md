@@ -27,10 +27,10 @@ The binding assets. Each is checked by its kind with Get-ContractCheckResults
 
 Every finding is one issue naming the asset, its kind and direction, 'pinned' for an asset of an older release, and the finding.
 
-The freeze. Every version folder other than 0.0.0 is released, so immutable
+The freeze. Every version folder other than the current version, 0.1.0, is released, so immutable
 ([ADR-REPO-CONTRACT-RELEASEDIMMUTABLE](../../../drs/repository/api-contracts.md#rule-adr-repo-contract-releasedimmutable)): its files must
-match the .frozen record Publish-ContractRelease wrote when it froze the draft. A missing record, and each file changed, added or removed
-since, is one issue.
+match the .frozen record Publish-ContractRelease wrote when it froze the current version. A missing record, and each file changed, added or
+removed since, is one issue.
 
 The layout. contracts/ holds no dot-prefixed folder at any depth
 ([ADR-REPO-CONTRACT-NODOTFOLDERS](../../../drs/repository/api-contracts.md#rule-adr-repo-contract-nodotfolders)): an asset whose target sits
@@ -38,18 +38,18 @@ under a dot-prefixed root reaches it through its module's target root
 ([ADR-REPO-CONTRACT-LAYOUT](../../../drs/repository/api-contracts.md#rule-adr-repo-contract-layout)). Each outermost dot-prefixed folder is
 one issue (Get-ContractDotFolderFindings); a dot-prefixed file name, such as the .frozen record, is not.
 
-The current version folder is the draft, 0.0.0, on a devbox and in every build before a release. A release build freezes the draft with
-Publish-ContractRelease and then passes the resolved version with -Version; a named release that a unit holds no folder for is one issue, so
-the gate never passes over a release it did not check. A contracts/ tree that does not list (a malformed version folder, a file outside a
-module folder, a contract.yml entry naming no asset) is one issue. No assets at all is a clean pass. The gate reads files only: no git, no
-build.
+The current version folder is 0.1.0 (ContractLayout's CurrentVersion) on a devbox and in every build before a release. A release build
+freezes the current version with Publish-ContractRelease and then passes the resolved version with -Version; a named release that a unit
+holds no folder for is one issue, so the gate never passes over a release it did not check. A contracts/ tree that does not list (a
+malformed version folder, a file outside a module folder, a contract.yml entry naming no asset) is one issue. No assets at all is a clean
+pass. The gate reads files only: no git, no build.
 
 It ends through Write-QualityGateReport: the report goes to out/test-contracts/, every issue is printed, and the quality gate throws once
 listing them all; -PassThru returns the result instead.
 
 ### parameter `Version`
 
-The current version folder of every unit, `<major>.<minor>.<patch>`. Default: 0.0.0, each unit's draft.
+The current version folder of every unit, `<major>.<minor>.<patch>`. Default: 0.1.0, the current version.
 
 ### parameter `RepositoryRoot`
 

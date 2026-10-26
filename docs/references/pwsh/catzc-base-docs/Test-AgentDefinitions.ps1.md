@@ -1,7 +1,16 @@
 # pwsh/Base.Docs/Test-AgentDefinitions.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The quality gate that keeps the sub-agent definitions, the capabilities, both registries and the agent list in CLAUDE.md in step. It
+collects every disagreement into one report; the list of what it checks is in the help below.
+
+## Kinds of skill
+
+A user skill is invoked by the user and a brief skill is named in a brief. Neither is preloaded by an agent, and the registry says which are.
+
+## The catzc head of a capability
+
+The carrier registry (`file-carriers`) says where a capability's catzc head nests, under the file kind's class; the gate never fixes the key
+itself. The model floor is the author's one line in the head's config part, beside the imprinted parts, so it survives every imprint.
 
 ## help
 
@@ -62,31 +71,4 @@ Return the result ({ Subject; IssueCount; Issues; ReportPath; Agents; Files; Cap
 
 ```powershell
 Test-AgentDefinitions
-```
-
-## comment:1
-
-Above `$userSkills =...`, written with `#`.
-
-```text
-A user skill is invoked by the user and a brief skill is named in a brief; neither is preloaded, and the registry
-says which are.
-```
-
-## comment:2
-
-Above `$carriers = Get-Config -Config file-carriers`, written with `#`.
-
-```text
-The carrier registry says where a capability's catzc head nests, under the file kind's class; the gate never fixes
-the key itself.
-```
-
-## comment:3
-
-Above `$floor = $null`, written with `#`.
-
-```text
-The floor is the author's one line in the catzc head's config part, beside the imprinted parts, so it survives
-every imprint.
 ```

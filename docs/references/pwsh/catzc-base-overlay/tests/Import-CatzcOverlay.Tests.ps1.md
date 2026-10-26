@@ -1,22 +1,8 @@
 # pwsh/Base.Overlay/tests/Import-CatzcOverlay.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The tests of `Import-CatzcOverlay`: they apply a fixture overlay to a fixture bundle and check what was replaced and loaded.
 
-## comment:1
+## The fixture overlay
 
-Above `Mock Get-ConfigOverlayRoot -ModuleName Catzc.Base.Config -MockWith {...`, written with `#`.
-
-```text
-Config discovery and the content lookup reach the fixture overlay through their own seams; the config
-index is rebuilt so it scans the fixture.
-```
-
-## comment:2
-
-Above `Mock Get-ConfigOverlayRoot -ModuleName Catzc.Base.Config -MockWith {...`, written with `#`.
-
-```text
-Discovery reaches the fixture overlay only through its own seams, so the test can never read a real
-consumer's overlay.
-```
+Config discovery and the content lookup reach the fixture overlay only through their own seams (`Get-ConfigOverlayRoot` is mocked), so the
+test can never read a real consumer's overlay. The config index is rebuilt so it scans the fixture.

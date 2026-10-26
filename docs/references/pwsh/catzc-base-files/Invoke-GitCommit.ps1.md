@@ -1,7 +1,6 @@
 # pwsh/Base.Files/Invoke-GitCommit.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The thin git wrapper that stages and commits the changes under given paths as one commit, and does nothing when there are none.
 
 ## help
 

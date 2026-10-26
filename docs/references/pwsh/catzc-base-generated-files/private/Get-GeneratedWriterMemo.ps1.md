@@ -1,7 +1,7 @@
 # pwsh/Base.GeneratedFiles/private/Get-GeneratedWriterMemo.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The private reader of the memo that holds the stamps each generated-file writer stored after its last run. It never throws on a bad memo; it
+reads as empty.
 
 ## help
 
@@ -25,13 +25,4 @@ The memo file, out/cache/generated-writers.json in a normal run.
 
 ```powershell
 Get-GeneratedWriterMemo -MemoPath (Join-Path (Get-OutputRoot) 'cache/generated-writers.json')
-```
-
-## comment:1
-
-Above `if (-not [System.IO.File]::Exists($MemoPath)) {`, written with `#`.
-
-```text
-The stamps stored after each writer's last run; a missing or unreadable memo reads as empty, so every writer is
-due.
 ```

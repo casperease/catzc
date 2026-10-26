@@ -1,7 +1,12 @@
 # pwsh/Base.Docs/private/Get-ReadmeContent.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The one composer of a generated README, shared by the writer `Build-Readme` and the gate `Test-GeneratedReadmes` so both agree on the bytes.
+The copy carries the article, not the source's meta block, and opens with its title as a reader expects.
+
+## Long lines
+
+The rebased links are longer than the source's, so a line the source wrapped at the width can pass it here; `Format-LongMarkdownLines`
+wraps those blocks again.
 
 ## help
 
@@ -26,12 +31,3 @@ One readme.yml mapping as Get-ReadmeMappings returns it ({ folder; source }, rep
 ### outputs
 
 `[string]` The README's content (LF line endings).
-
-## comment:1
-
-Above `$body = Format-LongMarkdownLines -Text...`, written with `#`.
-
-```text
-The rebased links are longer than the source's, so a line the source wrapped at the width can pass it here; wrap
-those blocks again.
-```

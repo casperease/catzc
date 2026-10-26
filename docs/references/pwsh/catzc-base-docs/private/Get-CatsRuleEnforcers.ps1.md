@@ -1,7 +1,13 @@
 # pwsh/Base.Docs/private/Get-CatsRuleEnforcers.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The private enforcer index of `Show-Cats` and the glossary enforcement check: for each rule citation it lists the analyzer rules and the tests
+that enforce it.
+
+## Test enforcers
+
+The test enforcers are the `-Tag` citations of Describe, Context and It, read by AST so a citation-shaped string in a fixture is never
+mistaken for a real tag. The cache entry is read with the strict-clean probe
+([ADR-PWSH-CACHE-STRICTSAFEPROBE](../../../../drs/automation/pwsh/script-scope-caching.md#rule-adr-pwsh-cache-strictsafeprobe)).
 
 ## help
 
@@ -28,21 +34,3 @@ Private helper for Show-Cats; not exported.
 ### outputs
 
 `[hashtable]` citation ('#' form) -> `[pscustomobject]{` Analyzers; Tests } (both sorted sets, possibly empty).
-
-## comment:1
-
-Above `$cached =...`, written with `#`.
-
-```text
-strict-clean
-([ADR-PWSH-CACHE-STRICTSAFEPROBE](/docs/drs/automation/pwsh/script-scope-caching.md#rule-adr-pwsh-cache-strictsafeprobe))
-```
-
-## comment:2
-
-Above `$isCommand = { param($node) $node -is...`, written with `#`.
-
-```text
-Test enforcers — the `-Tag` citations of Describe/Context/It, read by AST so a citation-shaped fixture
-string is never mistaken for a real tag.
-```

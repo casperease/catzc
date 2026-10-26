@@ -1,15 +1,13 @@
 # pwsh/Base.Files/types/RestartManager.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The binding to the Windows Restart Manager (`rstrtmgr.dll`), which says which processes hold a file open: the API behind Explorer's "file in
+use by ..." dialog. `Get-FileLockingProcess` calls it.
 
-## comment:1
+## What it sees
 
-Above `using System;`, written with `//`.
+It needs no admin rights and sees both an open handle and a mapped (loaded) DLL image.
 
-```text
-Asks the Windows Restart Manager (rstrtmgr.dll) which processes hold a file open — the API behind
-Explorer's "file in use by …" dialog. It needs no admin rights and sees both an open handle and a mapped
-(loaded) DLL image. Windows-only: the P/Invoke binds lazily, so the type loads on every platform, but
-GetHolders must only be called on Windows (it throws PlatformNotSupportedException elsewhere).
-```
+## Platforms
+
+The P/Invoke binds lazily, so the type loads on every platform, but `GetHolders` must only be called on Windows: elsewhere it throws
+`PlatformNotSupportedException`.

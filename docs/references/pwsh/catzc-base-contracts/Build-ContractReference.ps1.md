@@ -13,12 +13,11 @@ Generates the contract reference, one page per root listing every contract asset
 
 Projects Get-Contract over every version folder of every root
 ([ADR-REPO-CONTRACT-LAYOUT](../../../drs/repository/api-contracts.md#rule-adr-repo-contract-layout)) into one markdown page per root. The
-page has a section per version folder, the draft 0.0.0 first and then the released folders, newest first; each section is one table with a
-row per asset (its owning module, its path under the module, the repository-relative file it constrains — its target, under the module's
-target root; a sample payload has none — its direction, marked when the version's contract.yml sets it, its kind, and its signature: the
-call interface a command contract states, read by Get-CommandContract
-([ADR-REPO-CMDCONTRACT-ONEREADER](../../../drs/repository/command-contracts.md#rule-adr-repo-cmdcontract-onereader)); every other kind has
-none), then a list of the notes, one item per asset that carries one.
+page has a section per version folder, the current version 0.1.0 first and then the released folders, newest first; each section is one
+table with a row per asset (its group, its path under the group, the repository-relative file it constrains — its target, under the module's
+target root; a sample payload has none — its direction, its kind, and its signature: the call interface a command contract states, read by
+Get-CommandContract ([ADR-REPO-CMDCONTRACT-ONEREADER](../../../drs/repository/command-contracts.md#rule-adr-repo-cmdcontract-onereader));
+every other kind has none), then a list of the notes, one item per asset that carries one.
 
 The note is the asset's header comment (Get-ContractAssetNote), so what an asset is for is written once, in the asset, and contracts/ holds
 only assets. A note's code links become relative markdown links and each address an autolink (ConvertTo-ContractNoteMarkdown). An asset that

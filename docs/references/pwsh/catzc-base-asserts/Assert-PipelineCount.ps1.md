@@ -1,7 +1,6 @@
 # pwsh/Base.Asserts/Assert-PipelineCount.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+A pass-through pipeline stage that counts what flows by and throws when the count misses an exact, minimum or maximum bound.
 
 ## help
 

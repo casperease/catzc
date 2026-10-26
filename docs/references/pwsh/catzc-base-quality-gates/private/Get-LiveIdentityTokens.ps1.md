@@ -7,8 +7,8 @@ declare which values are identities, so the list is never kept by hand.
 
 ### synopsis
 
-Derives the set of LIVE production identity tokens — the customers, subscriptions, org, deployable units, template names, and ADO project
-the shipped config maps to — that a hermetic LOGIC test must never name.
+Derives the set of LIVE production identity tokens — the identities the owning modules declare for their shipped config, and the shipped
+template names — that a hermetic LOGIC test must never name.
 
 ### description
 
@@ -20,10 +20,11 @@ from them. A declaration may name only a config its own module owns. Every value
 [ADR-CONF-LOADING](../../../../drs/configuration/module-config-loading.md)), so a test isolates this function by mocking Get-Config to
 fixtures.
 
-This is STAGE 1 — the DISTINCTIVE identities only (customers, subscriptions, org, deployable units, template names, ADO project).
-Environment names (dev/test/preprod/prod) are deliberately excluded: they are ambiguous ('test' is pervasive in test code) and belong to a
-later, position-aware stage. Each record carries its Source and a Suggest string so a finding can name the fixture the test should have
-used.
+Each declared rule sets a match mode. A distinctive identity matches `exact`: it is flagged wherever it appears as a literal. An ambiguous
+one, such as an environment name ('test' is pervasive in test code), matches by `position`: it is flagged only when bound to an identity
+parameter. The shipped template names are added after the declared tokens; deployable-unit and pipeline names are left out, because the
+generic ones are structural folder names. Each record carries its Source and a Suggest string so a finding can name the fixture the test
+should have used.
 
 Backs Test-LogicTestIdentity ([ADR-REPO-LANG](../../../../drs/repository/domain-language-separation.md)): a logic test whose AST contains a
 string literal equal to one of these tokens (or a delimited segment of one) is using a live identity where a fixture belongs
@@ -31,7 +32,7 @@ string literal equal to one of these tokens (or a delimited segment of one) is u
 
 ### outputs
 
-`[object[]]` One record per token: @{ Token; Kind; Source; Suggest }.
+`[object[]]` One record per token: @{ Token; Kind; Source; Suggest; MatchMode }.
 
 ## match mode
 

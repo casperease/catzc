@@ -1,14 +1,5 @@
 # pwsh/Base.Docs/tests/types/AgentEntry.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
-
-## comment:1
-
-Above `Describe 'AgentEntry'`, written with `#`.
-
-```text
-Validates the compiled AgentEntry type directly — the constructor stops a malformed agents.yml entry from ever
-producing an instance. Neutral fixture names
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
-```
+The tests of the compiled `AgentEntry` type, called directly: the constructor stops a malformed `agents.yml` entry from ever producing an
+instance. Fixture names are neutral
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).

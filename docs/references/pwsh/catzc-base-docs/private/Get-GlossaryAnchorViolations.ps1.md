@@ -1,7 +1,7 @@
 # pwsh/Base.Docs/private/Get-GlossaryAnchorViolations.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Check G2 of the glossary: every defined term is anchored, bolded in the normative summary of the rule its concept names in `defined_by`. It is
+called by `Test-Glossary` and returns one message per term that is not.
 
 ## help
 

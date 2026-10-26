@@ -1,7 +1,10 @@
 # pwsh/Base.Docs/Test-GeneratedReadmes.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The quality gate over the generated READMEs: each must be gitignored, untracked and current with the article it is copied from.
+
+## Missing articles
+
+A folder a pattern matches gets its README only from an article, so a missing article is a finding unless `readme.yml` names the folder.
 
 ## help
 
@@ -41,13 +44,4 @@ Return the result ({ Subject; IssueCount; Issues; ReportPath; Readmes }) instead
 
 ```powershell
 Test-GeneratedReadmes
-```
-
-## comment:1
-
-Above `$missing = @(Get-ReadmeMappings -Config $config -Missing)`, written with `#`.
-
-```text
-A folder a pattern matches gets its README only from an article; a missing article is a finding unless readme.yml
-names the folder.
 ```

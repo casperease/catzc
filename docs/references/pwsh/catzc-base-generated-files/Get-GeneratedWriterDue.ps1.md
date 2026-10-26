@@ -1,7 +1,7 @@
 # pwsh/Base.GeneratedFiles/Get-GeneratedWriterDue.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The command that judges which generated-file writers need to run again. It reads the `writers` of `generated-files.yml` and answers one
+`GeneratedWriterDue` per writer.
 
 ## help
 
@@ -44,12 +44,8 @@ The memo of the stamps each writer stored after its last run (Save-GeneratedWrit
 Get-GeneratedWriterDue | Where-Object Due
 ```
 
-## comment:1
+## Why a dirty tree is not enough
 
-Above `$writers = @((Get-Config -Config generated-files).writers.Values |...`, written with `#`.
-
-```text
-A dirty tree is not a stale output: a writer is due when a literal output is missing, or when the stamp of every file its inputs
-match differs from the one stored after its last run (Save-GeneratedWriterStamp). A missing or unreadable memo makes every writer
-due. The input files are walked once for all writers; git is read only for a writer that declares no lists.
-```
+A dirty tree is not a stale output: a writer is due when a literal output is missing, or when the stamp of every file its inputs match
+differs from the one stored after its last run (`Save-GeneratedWriterStamp`). A missing or unreadable memo makes every writer due. The input
+files are walked once for all writers, and git is read only for a writer that declares no lists.

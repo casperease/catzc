@@ -1,7 +1,6 @@
 # pwsh/Base.Environment/Sync-SessionPath.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The command that brings the session PATH back in step with the Windows registry, in both directions, and does nothing on Unix.
 
 ## help
 
@@ -27,39 +26,13 @@ On Linux/macOS this function is a no-op — package managers update PATH through
 Sync-SessionPath
 ```
 
-## comment:1
+## Announcing only a change
 
-Above `$seen = [System.Collections.Generic.HashSet[string]]::new(`, written with `#`.
+The session PATH is rewritten, and the change announced
+([ADR-AUTO-CONSOLE-ANNOUNCELASTINGCHANGES](../../../drs/automation/console-output-matters.md#rule-adr-auto-console-announcelastingchanges)),
+only when an entry arrives or leaves. On a settled devbox nothing changes, so the import stays quiet.
 
-```text
-Add any registry entries not yet in the session
-@() so an empty $kept yields an empty array, not $null (HashSet's ctor rejects a null collection).
-```
+## Empty kept set
 
-## comment:2
-
-Above `$added = @($newPaths)`, written with `#`.
-
-```text
-Rewrite the session PATH only when an entry arrives or leaves, and say which
-([ADR-AUTO-CONSOLE-ANNOUNCELASTINGCHANGES](/docs/drs/automation/console-output-matters.md#rule-adr-auto-console-announcelastingchanges)) — on a
-clean devbox nothing changes, so the import stays quiet.
-```
-
-## comment:3
-
-Above `$seen = [System.Collections.Generic.HashSet[string]]::new(`, written with `#`.
-
-```text
-Wrapped in @() so an empty set of kept entries is an empty array, which the set's constructor accepts where it
-rejects null.
-```
-
-## comment:4
-
-Above `$added = @($newPaths)`, written with `#`.
-
-```text
-The session PATH is rewritten and announced only when an entry arrives or leaves, so a settled machine imports in
-silence.
-```
+The set of kept entries is wrapped in `@()`, so an empty set is an empty array: the constructor of the hash set that tracks the entries
+accepts an empty array where it rejects null.

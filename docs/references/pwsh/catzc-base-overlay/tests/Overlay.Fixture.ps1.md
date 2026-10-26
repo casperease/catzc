@@ -1,42 +1,14 @@
 # pwsh/Base.Overlay/tests/Overlay.Fixture.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The shared fixture of the overlay tests: a bundled module, a code root that ships it and a consumer overlay root.
 
-## comment:1
+## What it builds
 
-Above `$script:fixtureRoot = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))`, written with `#`.
+The bundled module `Catzc.Base.Widget` is a real dynamic module in the session, so its functions and their contracts behave as bundled code
+does without naming any real one. All names are neutral
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)). The module
+has a public function `Get-Widget` and a private one `Get-WidgetCore`.
 
-```text
-Shared fixture of the overlay tests: a bundled module Catzc.Base.Widget (a dynamic module in the session, so its
-functions and their contracts are real), a code root that ships it, and a consumer overlay root — all neutral
-names ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)). Dot-source it in BeforeAll;
-call Remove-OverlayFixture in AfterAll.
-```
+## How to use it
 
-## comment:2
-
-Above `function Get-Widget {`, written with `#`.
-
-```text
-.SYNOPSIS
-    The fixture module's public function.
-```
-
-## comment:3
-
-Above `function Get-WidgetCore {`, written with `#`.
-
-```text
-.SYNOPSIS
-    The fixture module's private function.
-```
-
-## comment:4
-
-Above `$script:fixtureRoot = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))`, written with `#`.
-
-```text
-A real dynamic module with neutral names, so its functions and contracts behave as bundled code does without naming
-any real one.
-```
+Dot-source it in `BeforeAll`; call `Remove-OverlayFixture` in `AfterAll`.

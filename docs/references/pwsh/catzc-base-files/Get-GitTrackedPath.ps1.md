@@ -1,7 +1,6 @@
 # pwsh/Base.Files/Get-GitTrackedPath.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The command that lists the files git tracks under given paths, read from the index in-process with no git process.
 
 ## help
 
@@ -57,21 +56,11 @@ Get-GitTrackedPath '.'
 Get-GitTrackedPath 'pwsh' -ExecutableOnly   # the tracked files under pwsh/ stored as 100755
 ```
 
-## comment:1
+## The index cache
 
-Above `$script:gitIndexCache = @{}`, written with `#`.
+The parsed index is cached per index path, and the cache entry is read with a strict-clean probe
+([ADR-PWSH-CACHE-STRICTSAFEPROBE](../../../drs/automation/pwsh/script-scope-caching.md#rule-adr-pwsh-cache-strictsafeprobe)).
 
-```text
-strict-clean probe of the lazy cache entry
-([ADR-PWSH-CACHE-STRICTSAFEPROBE](/docs/drs/automation/pwsh/script-scope-caching.md#rule-adr-pwsh-cache-strictsafeprobe))
-```
-
-## comment:2
-
-Above `$content = [System.IO.File]::ReadAllBytes($indexPath)`, written with `#`.
-
-```text
-The key is the index's content, not the session: the index changes mid-session (a commit, a `git add`),
-so a cached listing is reused only while the bytes on disk are identical
-([ADR-AUTO-CACHE-SESSIONCHANGEDGITSTATE](/docs/drs/automation/caching.md#rule-adr-auto-cache-sessionchangedgitstate)).
-```
+The key is the index's content, not the session: the index changes mid-session (a commit, a `git add`), so a cached listing is reused only
+while the bytes on disk are identical
+([ADR-AUTO-CACHE-SESSIONCHANGEDGITSTATE](../../../drs/automation/caching.md#rule-adr-auto-cache-sessionchangedgitstate)).

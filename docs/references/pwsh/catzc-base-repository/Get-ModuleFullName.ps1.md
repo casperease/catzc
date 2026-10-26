@@ -1,7 +1,6 @@
 # pwsh/Base.Repository/Get-ModuleFullName.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The reverse of `Get-CatzcModuleRoot`: it maps a module folder back to the module's full, namespaced name.
 
 ## help
 
@@ -32,11 +31,7 @@ the current repository.
 Get-ModuleFullName (Join-Path (Get-CatzcModulesRoot) 'Base.Repository')
 ```
 
-## comment:1
+## Staged burst copies
 
-Above `$levels = @($full) + @([System.IO.Directory]::EnumerateDirectories($full))`, written with `#`.
-
-```text
-A staged burst copy mirrors the repository and carries a .burst-base beside each staged file, in the folder or one level
-down; it is named by the live module folder it mirrors, the nearest ancestor-relative path that exists in the repository.
-```
+A staged burst copy mirrors the repository and carries a `.burst-base` beside each staged file, in the folder or one level down. It is named
+by the live module folder it mirrors, the nearest ancestor-relative path that exists in the repository.

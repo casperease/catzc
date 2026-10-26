@@ -1,13 +1,9 @@
 # pwsh/Base.GeneratedFiles/tests/Get-GeneratedWriterDue.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The L0 tests of `Get-GeneratedWriterDue`: they judge neutral widget and gadget writers against a `TestDrive:` tree, a mocked
+`generated-files` config and a memo file.
 
-## comment:1
+## Fixtures
 
-Above `'Build-Cog'      = [ordered]@{ inputs = @('cogs/*/cog.toml') }`, written with `#`.
-
-```text
-A writer that writes one file into every folder a wildcard claims, as the root configs write each
-pyproject.toml.
-```
+One fixture writer, `Build-Cog`, reads `cogs/*/cog.toml`: it stands for a writer that writes one file into every folder a wildcard claims,
+as the root configs write each `pyproject.toml`.

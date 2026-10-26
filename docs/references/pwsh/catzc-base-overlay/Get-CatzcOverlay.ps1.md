@@ -1,7 +1,6 @@
 # pwsh/Base.Overlay/Get-CatzcOverlay.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The inventory of the consumer overlay: it walks the overlay folder and classifies every file by where it sits, loading and checking nothing.
 
 ## help
 
@@ -37,39 +36,17 @@ mode, or no .catzc/automation/).
 Get-CatzcOverlay | Format-Table Kind, Module, Target
 ```
 
-## comment:1
+## The walk prunes nothing
 
-Above `$files = [string[]] @(Get-ChildPath $folder -File -Depth 64 -Exclude @()...`, written with `#`.
+Every file of a consumer module is classified, so the walk is a named whole-tree walk
+([ADR-PWSH-ENUM-ALWAYSBOUNDED](../../../drs/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)) that excludes nothing: a skipped
+file would be an override nobody sees.
 
-```text
-A named whole-tree walk ([ADR-PWSH-ENUM-ALWAYSBOUNDED](/docs/drs/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): every
-file of a consumer module is classified, so nothing is pruned.
-```
+## Where the paths and names come from
 
-## comment:2
-
-Above `$prefix = ".catzc/$([System.IO.Path]::GetFileName($overlayRoot.TrimEnd('\',...`, written with `#`.
-
-```text
-The overlay root is .catzc/<track folder> ([PDR-CATS-FOLDERSUSECATZC](/docs/drs/principles/cats-and-catzc.md#rule-pdr-cats-foldersusecatzc))
+The overlay root is `.catzc/<track folder>` ([PDR-CATS-FOLDERSUSECATZC](../../../drs/principles/cats-and-catzc.md#rule-pdr-cats-foldersusecatzc))
 and names its own folder, so the records spell no track folder of their own.
-```
 
-## comment:3
-
-Above `$files = [string[]] @(Get-ChildPath $folder -File -Depth 64 -Exclude @()...`, written with `#`.
-
-```text
-Every file of a consumer module is classified, so the walk prunes nothing: a skipped file would be an override
-nobody sees.
-```
-
-## comment:4
-
-Above `$namespace = (Get-Track -Name pwsh).namespace`, written with `#`.
-
-```text
-An overlay folder mirrors a bundled module's folder, which never spells the namespace; the record carries the folder and the full name
-the resolver gives it ([DDR-TRACK-MODULENAMESPACE](/docs/drs/design/tracks.md#rule-ddr-track-modulenamespace)). A local module's name
-is its folder's.
-```
+An overlay folder mirrors a bundled module's folder, which never spells the namespace; the record carries the folder and the full name the
+resolver gives it ([DDR-TRACK-MODULENAMESPACE](../../../drs/design/tracks.md#rule-ddr-track-modulenamespace)). A local module's name is its
+folder's.

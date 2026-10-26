@@ -1,22 +1,14 @@
 # pwsh/Base.Files/tests/Get-GitTrackedPath.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The L0 tests of `Get-GitTrackedPath`: the pathspec and the content-keyed cache against a written index file, and the in-process reader
+against this repository's own index.
 
-## comment:1
+## The index fixture
 
-Above `function Set-GitIndexFile {`, written with `#`.
+A minimal version-2 index of stage-0 regular files is enough: the reader's own shapes are pinned in
+`Catzc.Base.Git/tests/types/GitIndex.Tests.ps1`, so here only the seam, the pathspec and the content-keyed cache matter.
 
-```text
-A minimal version-2 index of stage-0 regular files — the reader's own shapes are pinned in
-Catzc.Base.Git/tests/types/GitIndex.Tests.ps1; here only the seam, the pathspec, and the content-keyed cache matter.
-```
+## The real repository
 
-## comment:2
-
-Above `Describe 'Get-GitTrackedPath (real git)'`, written with `#`.
-
-```text
-The reader against the real thing: on this repository's own index, the in-process answer is byte-for-byte
-what `git ls-files` prints (unmerged paths, which git repeats per stage, counted once).
-```
+On this repository's own index the in-process answer is byte for byte what `git ls-files` prints; an unmerged path, which git repeats per
+stage, is counted once.

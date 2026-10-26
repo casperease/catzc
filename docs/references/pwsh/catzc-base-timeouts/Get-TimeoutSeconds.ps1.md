@@ -1,7 +1,7 @@
 # pwsh/Base.Timeouts/Get-TimeoutSeconds.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The one resolver of a time limit: every consumer of the time safeguard asks it how many seconds a call, an executable, a shell or a
+command may run.
 
 ## help
 

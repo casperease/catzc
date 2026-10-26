@@ -1,7 +1,7 @@
 # pwsh/Base.Files/Write-FileIfChanged.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The shared write primitive of the generated-file writers: it writes canonical text to a file only when the content changed, and reports
+whether it did.
 
 ## help
 
@@ -53,21 +53,12 @@ Write-FileIfChanged -Path $readmePath -Content $composed
 Write-FileIfChanged -Path $settingsPath -Content $composed -DryRun
 ```
 
-## comment:1
+## Delete, then write
 
-Above `[System.IO.File]::Delete($Path)`, written with `#`.
+An in-place write through a linked target would tunnel the composed content into the link's source of truth. Deleting first severs any
+link, so the write is always a fresh, independent file.
 
-```text
-Delete-then-write: an in-place write through a linked target would tunnel the composed content
-into the link's source of truth; deleting first severs any link, so the write is always a fresh,
-independent file.
-```
+## Inside a staged burst
 
-## comment:2
-
-Above `if (Get-Command -Name Save-BurstJournalWrite -ErrorAction Ignore) {`, written with `#`.
-
-```text
-Inside a staged burst the write is journalled first, so a failed burst puts the file back; the recorder lives in
-the internal types module, which every import loads first.
-```
+Inside a staged burst the write is journalled first, so a failed burst puts the file back. The recorder lives in the internal types module,
+which every import loads first.

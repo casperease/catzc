@@ -1,7 +1,6 @@
 # pwsh/Base.Files/Copy-Directory.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The fast recursive directory copy: it mirrors the contents of one directory into another through `[System.IO]`.
 
 ## help
 
@@ -31,14 +30,12 @@ The target directory the contents are copied into (created if missing).
 Copy-Directory $fixtureTemplates $sandbox
 ```
 
-## comment:1
+## How the copy walks
 
-Above `foreach ($dir in Get-ChildPath $source -Directory -Depth 64 -Exclude @()...`, written with `#`.
+The directory structure is recreated first, so empty directories survive, and then the files are copied. Each enumerated path starts with the
+source, so cutting off that prefix and appending the rest to the target rebases it; this is safer than `String.Replace`, which would rewrite
+any other occurrence of the prefix inside a path.
 
-```text
-Recreate the directory structure first (so empty directories survive), then copy the files.
-Each enumerated path starts with $source, so substring-after-prefix rebases it under $target
-(safer than String.Replace, which would rewrite any other occurrence of the prefix).
-A named whole-tree walk ([ADR-PWSH-ENUM-ALWAYSBOUNDED](/docs/drs/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): a copy
-takes everything, so no name is pruned and no depth drops a file.
-```
+The walk is a named whole-tree walk
+([ADR-PWSH-ENUM-ALWAYSBOUNDED](../../../drs/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): a copy takes
+everything, so no name is pruned and no depth drops a file.

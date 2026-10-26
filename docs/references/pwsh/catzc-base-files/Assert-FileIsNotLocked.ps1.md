@@ -1,7 +1,7 @@
 # pwsh/Base.Files/Assert-FileIsNotLocked.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The throwing form of the lock query: it asserts that a file is free to open and throws when another handle holds it. `Test-FileIsLocked` is
+the query behind it.
 
 ## help
 

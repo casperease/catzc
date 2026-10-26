@@ -1,7 +1,6 @@
 # pwsh/Base.Files/Get-FileLockingProcess.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The command that names the processes holding a file open, through the Windows Restart Manager.
 
 ## help
 

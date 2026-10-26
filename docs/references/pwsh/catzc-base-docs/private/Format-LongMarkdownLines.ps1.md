@@ -1,7 +1,8 @@
 # pwsh/Base.Docs/private/Format-LongMarkdownLines.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The private re-wrapper of generated READMEs. A block is a paragraph, a list item or a quote; only a block with a line past the width is
+re-wrapped, so a copy whose lines already fit stays byte for byte what its source had. Fences, tables, headings, rules and HTML lines are
+never touched.
 
 ## help
 
@@ -32,13 +33,4 @@ The column a line may not pass, 140 by default, the width the Markdown formatter
 
 ```powershell
 Format-LongMarkdownLines -Text $rebased
-```
-
-## comment:1
-
-Above `$skip = '^\s*(\||#|---|\*\*\*|<|```|~~~)'`, written with `#`.
-
-```text
-A block is a paragraph, a list item or a quote; only a block with a line past the width is re-wrapped, so a copy whose lines
-already fit stays byte for byte what its source had. Fences, tables, headings, rules and HTML lines are never touched.
 ```

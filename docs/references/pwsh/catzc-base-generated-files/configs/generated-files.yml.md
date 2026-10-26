@@ -1,26 +1,22 @@
 # pwsh/Base.GeneratedFiles/configs/generated-files.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The one list of generated-file writers: what each reads and writes, and the order the import re-renders them in. It is the single place a
+writer's dependencies are declared, read by `Get-GeneratedWriterDue` and `Test-GeneratedFiles`.
 
-## comment:1
+## The writers
 
-Above `writers:`, written with `#`.
+`Test-GeneratedFiles` runs the writers report-only ([ADR-AUTO-TEST-QUALITYGATE](../../../../drs/automation/test-automation.md)); a file
+result names its stale file in the property `result_path` (default `Path`). The generators of the managed root files are the generator
+keys of `rootconfig.yml`, so they are never listed here.
 
-```text
-The writers Test-GeneratedFiles runs report-only (ADR-AUTO-TEST-QUALITYGATE); a file result names its stale file in the property result_path
-(default Path). The generators of the managed root files are the generator keys of rootconfig.yml, so they are never listed here.
-A writer with at_import true is re-rendered by the import when its lists make it due, in the order of this file (default: false); the
-importer holds no writer list of its own. Optional inputs and outputs are repo-relative globs of what a writer reads and writes: with -Changed its dry run runs when a changed path
-matches one of them, and a writer with neither list runs whenever anything changed (default: none). Build-RootConfig lists neither: its generators live in several modules and its output set is every opted-in root file, so it
-runs whenever anything changed.
-```
+A writer with `at_import: true` is re-rendered by the import when its lists make it due, in the order of this file (default: false); the
+importer holds no writer list of its own.
 
-## comment:2
+## Inputs and outputs
 
-Above `inputs:` (occurrence 2), written with `#`.
+Both are optional lists of repository-relative globs (default: none): what a writer reads and what it writes. With `-Changed` a writer's
+dry run runs when a changed path matches one of them, and a writer with neither list runs whenever anything changed.
 
-```text
-Its generators, its sources (rootconfig.yml's source and sources) and its targets: a drifted target, ignored or not, is an input
-change, so the run that writes it back is due.
-```
+`Build-RootConfig` lists its generators, its sources (the `source` and `sources` of `rootconfig.yml`) and its targets as inputs, and no
+outputs, since its generators live in several modules and its output set is every opted-in root file. A drifted target, ignored or not, is
+an input change, so the run that writes it back is due.

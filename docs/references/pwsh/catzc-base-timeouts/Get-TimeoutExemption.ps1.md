@@ -1,7 +1,6 @@
 # pwsh/Base.Timeouts/Get-TimeoutExemption.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The lookup of a timeout exemption: it finds the entry of `timeout-exemptions.yml` that covers a budget GUID in this run environment and shell.
 
 ## help
 

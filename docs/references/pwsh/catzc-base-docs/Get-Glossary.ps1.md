@@ -1,7 +1,8 @@
 # pwsh/Base.Docs/Get-Glossary.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The reader of the controlled vocabulary: it merges every glossary source into one sorted list of `GlossaryEntry` and caches it for the session
+per repository root. The cache entry is read with the strict-clean probe
+([ADR-PWSH-CACHE-STRICTSAFEPROBE](../../../drs/automation/pwsh/script-scope-caching.md#rule-adr-pwsh-cache-strictsafeprobe)).
 
 ## help
 
@@ -31,13 +32,4 @@ the importer to pick up an edited glossary. Callers treat it as read-only (the s
 
 ```powershell
 Get-Glossary | Format-Table { $_.Concept.term }, Owner, { $_.Concept.defined_by }
-```
-
-## comment:1
-
-Above `$script:glossaryCache = @{}`, written with `#`.
-
-```text
-strict-clean probe of the lazy cache entry
-([ADR-PWSH-CACHE-STRICTSAFEPROBE](/docs/drs/automation/pwsh/script-scope-caching.md#rule-adr-pwsh-cache-strictsafeprobe))
 ```

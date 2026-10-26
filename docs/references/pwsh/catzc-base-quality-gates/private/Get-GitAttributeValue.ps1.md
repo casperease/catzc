@@ -12,9 +12,9 @@ Reads the given .gitattributes attributes for many repository paths at once.
 ### description
 
 The one place the scopes of the quality gates ask git which file classes .gitattributes declares (vendored, generated, fixture, own title),
-so every scope reads the same classes the same way. Runs `git check-attr` in batches that keep each command line short; a path need not be
-tracked. Only attributes git reports as set, unset, or a value are returned — `unspecified` is left out. A root that is not a git work tree
-has no .gitattributes, so nothing is returned for it.
+so every scope reads the same classes the same way. Runs one `git check-attr` process that reads every path from stdin, NUL-separated both
+ways, so no path is quoted or split; a path need not be tracked. Only attributes git reports as set, unset, or a value are returned —
+`unspecified` is left out. A root that is not a git work tree has no .gitattributes, so nothing is returned for it.
 
 ### parameter `RepositoryRoot`
 

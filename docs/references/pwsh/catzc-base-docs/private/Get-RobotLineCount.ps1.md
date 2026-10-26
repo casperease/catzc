@@ -1,7 +1,13 @@
 # pwsh/Base.Docs/private/Get-RobotLineCount.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The private line counter of `Test-AgentDefinitions`: it measures a robot or capability file the way the roofs count it, so the gate compares
+like with like.
+
+## What counts as a line
+
+A line counts when it starts something of its own: a key, a heading, a step, a paragraph. A line that starts with whitespace continues the
+line before it (the formatter's wrap at the repository width, or a folded YAML value) and counts with it; a blank line and a comment line
+(`<!-- -->`) count as nothing.
 
 ## help
 
@@ -45,14 +51,4 @@ Get-RobotLineCount -Path (Resolve-RepoPath '.claude/agents/plan-clear.md')
 
 ```powershell
 Get-RobotLineCount -Path (Resolve-RepoPath '.claude/skills/catzc-run/SKILL.md') -Key metadata.catzc
-```
-
-## comment:1
-
-Above `$front = @($document.OtherFrontMatter | Where-Object { $_ -cmatch '^\S' }).Count`, written with `#`.
-
-```text
-A line counts when it starts something of its own: a key, a heading, a step, a paragraph. A line that starts with
-whitespace continues the line before it (the formatter's wrap at the repository width, or a folded YAML value) and
-counts with it; a blank line and a comment line (`<!-- -->`) count as nothing.
 ```

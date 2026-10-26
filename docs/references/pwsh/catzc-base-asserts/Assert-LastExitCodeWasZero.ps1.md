@@ -1,7 +1,6 @@
 # pwsh/Base.Asserts/Assert-LastExitCodeWasZero.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The check a script makes right after a native command: it throws when `$LASTEXITCODE` is not 0, and by default resets it afterwards.
 
 ## help
 

@@ -1,7 +1,7 @@
 # pwsh/Base.Docs/private/Get-GlossaryDefinitionViolations.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Check G3 of the glossary: a term is defined by exactly one rule. It is called by `Test-Glossary` and returns one message for each other rule
+whose normative summary defines the term again.
 
 ## help
 

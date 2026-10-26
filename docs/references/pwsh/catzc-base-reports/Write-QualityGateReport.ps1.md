@@ -1,7 +1,7 @@
 # pwsh/Base.Reports/Write-QualityGateReport.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The one implementation of a quality gate's output: a gate calls it last with the issues it collected, and it writes the report, prints it
+and ends the gate.
 
 ## help
 
@@ -60,21 +60,8 @@ Return the gate's `QualityGateResult` (Subject, IssueCount, Issues, ReportPath a
 Write-QualityGateReport -Subject spelling -Title Test-Spelling -Issues $issues -Facts ([ordered]@{ Files = 812 }) -PassThru:$PassThru
 ```
 
-## comment:1
+## Why OutputFolder is filled in the body
 
-Above `if (-not $OutputFolder) {`, written with `#`.
-
-```text
-A body fill-in on purpose: every gate forwards its own -OutputFolder here, empty when its caller gave none, and
-an explicit empty argument would override a declared default
-([ADR-PWSH-PARAM-RESOLUTIONORDER](/docs/drs/automation/pwsh/parameter-design.md#rule-adr-pwsh-param-resolutionorder)).
-```
-
-## comment:2
-
-Above `if (-not $OutputFolder) {`, written with `#`.
-
-```text
-Filled in the body, because every gate forwards its own folder here, and an explicit empty one would override a
-default.
-```
+The fill-in is a body one on purpose: every gate forwards its own `-OutputFolder` here, empty when its caller gave none, and an explicit
+empty argument would override a declared default
+([ADR-PWSH-PARAM-RESOLUTIONORDER](../../../drs/automation/pwsh/parameter-design.md#rule-adr-pwsh-param-resolutionorder)).

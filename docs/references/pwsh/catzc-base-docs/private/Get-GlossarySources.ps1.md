@@ -1,7 +1,7 @@
 # pwsh/Base.Docs/private/Get-GlossarySources.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The discovery of the glossary sources: every module that ships a glossary source is an owner, and each source is read through `Get-Config`
+so its type validates it on load. It also records whether git tracks each source file.
 
 ## help
 

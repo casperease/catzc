@@ -16,7 +16,7 @@ A released version folder is immutable
 Publish-ContractRelease freezes it with a .frozen record, one line per file, '`<sha256>` `<path>`', after '#' comment lines; this compares
 the record with the folder's files as Get-ContractFileHashes hashes them now, and returns one finding per defect: a missing record, a
 malformed or repeated record line, and every file changed, added or removed since the freeze. No finding means the folder is intact. The
-draft, 0.0.0, is never frozen, so it is never given here.
+current version, 0.1.0, is never frozen, so it is never given here.
 
 ### parameter `Folder`
 

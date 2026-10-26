@@ -1,7 +1,7 @@
 # pwsh/Base.Environment/Set-PermanentEnvironmentVariable.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The write half of the seam for persistent environment variables other than PATH: a thin writer and remover of one variable at one scope that
+also announces the change.
 
 ## help
 
@@ -47,20 +47,7 @@ Set-PermanentEnvironmentVariable JAVA_HOME 'C:\jdk-21'
 Set-PermanentEnvironmentVariable JAVA_HOME $null   # remove it
 ```
 
-## comment:1
+## Removing a variable
 
-Above `[System.Environment]::SetEnvironmentVariable($Name, [NullString]::Value, $Scope)`, written with `#`.
-
-```text
-PowerShell hands $null to a .NET string parameter as '', which the scopes the registry backs store as an empty value;
-only a real null deletes it.
-```
-
-## comment:2
-
-Above `[System.Environment]::SetEnvironmentVariable($Name, [NullString]::Value, $Scope)`, written with `#`.
-
-```text
-A real null, never $null: PowerShell passes $null to a .NET string as '', which stores an empty value instead
-of deleting it.
-```
+Removal passes a real null, `[NullString]::Value`, never `$null`. PowerShell hands `$null` to a .NET string parameter as `''`, which the
+scopes the registry backs store as an empty value; only a real null deletes the variable.

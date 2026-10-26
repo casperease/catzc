@@ -1,7 +1,7 @@
 # pwsh/Base.Repository/ConvertTo-RepoRelativePath.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The normalization that turns a path into its communication form for records and configs: `out/`-anchored, else repository-relative, else
+absolute. `Resolve-RepoPath` is its inverse.
 
 ## help
 
@@ -46,20 +46,7 @@ ConvertTo-RepoRelativePath 'C:\repo\catzc\automation\mod\file.ps1'         # -> 
 ConvertTo-RepoRelativePath 'D:\a\1\ws\sample\main.json'                   # outside both roots -> unchanged (absolute)
 ```
 
-## comment:1
+## Why the output anchor wins first
 
-Above `$outputRoot = [IO.Path]::GetFullPath((Get-OutputRoot))`, written with `#`.
-
-```text
-1. Prefer the reserved output anchor — an output artifact stays portable as 'out/...' even when the
-   output root sits outside the repo (a pipeline's staging area), where no repo-relative form exists.
-```
-
-## comment:2
-
-Above `$outputRoot = [IO.Path]::GetFullPath((Get-OutputRoot))`, written with `#`.
-
-```text
-The output anchor wins first, so an artifact stays 'out/...' even when the output root lies outside the
-repository.
-```
+The reserved `out/` anchor is tried before the repository root. An output artifact stays portable as `out/...` even when the output root sits
+outside the repository, as a pipeline's staging area does, where no repository-relative form exists.

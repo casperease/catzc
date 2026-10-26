@@ -1,7 +1,7 @@
 # pwsh/Base.Docs/private/Get-GlossaryEnforcementViolations.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Check G5 of the glossary: a concept realized in code has a defining rule that something enforces, an analyzer rule or a tagged test. It is
+called by `Test-Glossary` and returns one message per unenforced concept.
 
 ## help
 

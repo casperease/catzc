@@ -7,37 +7,28 @@ folder that matches no module, because an unmapped folder would never run.
 
 ### synopsis
 
-Lists the repository's test folders in every test language beside PowerShell, each mapped to the catzc module it tests.
+Lists the repository's test folders in every test language the languages registry declares, each mapped to the catzc module it tests.
 
 ### description
 
-The test languages are test artifacts only, each in a root verification track of its own
-([DDR-TRACK-ONETRACKTYPE](../../../../drs/design/tracks.md#rule-ddr-track-onetracktype)):
+The test languages are the languages the languages registry (`languages.yml`) gives a `tests` entry, each in a root verification track of
+its own ([DDR-TRACK-ONETRACKTYPE](../../../../drs/design/tracks.md#rule-ddr-track-onetracktype)). A language's root comes from its own
+config (`ResolveRoot`), and its test files are the ones its `tests.pattern` matches.
 
-```text
-go      <goRoot>/tests/<folder>/ holding at least one .go file (the folders New-GoWorkspace renders a go.mod
-        for); the Go root is go.yml's, through GoConfig.ResolveRoot: the declared root, else go/ when the
-        repository has one, else .go/ ([ADR-AUTO-GO-ONEGOROOT](/docs/drs/automation/go/go-test-artifacts.md#rule-adr-auto-go-onegoroot));
-python  <pythonRoot>/tests/<folder>/ holding at least one test_*.py file; the Python root is python.yml's,
-        through PythonConfig.ResolveRoot, by the same convention: python/ when present, else .python/
-        ([ADR-AUTO-PY-ONEPYTHONROOT](/docs/drs/automation/python/python-test-artifacts.md#rule-adr-auto-py-onepythonroot));
-bash    <bashRoot>/tests/<folder>/ holding at least one .bats file; the Bash root is bash.yml's, through
-        BashConfig.ResolveRoot: bash/ when present, else .bash/
-        ([ADR-AUTO-BASH-ONEBASHROOT](/docs/drs/automation/bash/bash-test-artifacts.md#rule-adr-auto-bash-onebashroot)).
-```
-
-A folder whose name starts with '.' is never a test folder. Each folder is named for its catzc module in kebab case — the module name
-lowercased, with dots replaced by hyphens (Catzc.Base.Repository -> catzc-base-repository) — and maps back to the module folder under
-`<repository>/automation/` of that kebab name. The harness runs a mapped folder's tests as part of that module's tests
-(Get-TestAutomationTestPaths, the language bridge).
+Each language root holds a test holder, the registry's test folder, with one folder per catzc module of the engine track. A folder is named
+for its module's folder in the language's folder case, as the registry's `TestFolderOf` gives it (Catzc.Base.Repository, folder
+Base.Repository, is base_repository in snake case, baserepository in flat, base-repository in kebab), and maps back to that module. A folder
+whose name starts with '.' is never a test folder, and one holding no test file within three levels is skipped. A folder module of the
+language's own track that has its own test folder with a test file is listed too. The harness runs a mapped folder's tests as part of that
+module's tests (Get-TestAutomationTestPaths, the language bridge).
 
 Throws, naming every such folder, when a test folder matches no catzc module: an unmapped folder would otherwise never run.
 
 ### outputs
 
-`[pscustomobject]` One record per test folder ({ Language; Module; Folder; Name }), by language (go, python, then bash) and ordinal by
-folder name within it: Language is go, python or bash, Module the catzc module name, Folder the absolute folder path, Name the folder name.
-Nothing when the repository has no such folder.
+`[pscustomobject]` One record per test folder ({ Language; Module; Folder; Name }), by language in registry order: Language is the
+language's name, Module the catzc module name, Folder the absolute folder path, Name the folder name. Nothing when the repository has no
+such folder.
 
 ### example 1
 

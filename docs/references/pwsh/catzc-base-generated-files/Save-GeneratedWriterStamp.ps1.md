@@ -1,7 +1,7 @@
 # pwsh/Base.GeneratedFiles/Save-GeneratedWriterStamp.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The command that records a generated-file writer's input stamp in the memo after the writer has run. `Get-GeneratedWriterDue` compares the
+stored stamp with the current one.
 
 ## help
 
@@ -32,20 +32,7 @@ The memo the stamp is stored in, beside the other writers' stamps. Default: out/
 Save-GeneratedWriterStamp -Name Build-RootConfig
 ```
 
-## comment:1
+## Why the stamp is taken after the run
 
-Above `$writer = (Get-Config -Config generated-files).writers[$Name]`, written with `#`.
-
-```text
-Stores a writer's input stamp once it has run, taken after the run, so an input it writes itself (a target declared as an input) is
-part of the stored stamp and the writer is not due again until one of its inputs changes.
-```
-
-## comment:2
-
-Above `$writer = (Get-Config -Config generated-files).writers[$Name]`, written with `#`.
-
-```text
-Taken after the run, so a file the writer both reads and writes is in the stored stamp and never makes it due
-again by itself.
-```
+The stamp is taken after the run, so an input the writer writes itself (a target declared as an input) is part of the stored stamp. A file
+the writer both reads and writes then never makes it due again by itself; it is due again only when one of its inputs changes.

@@ -1,7 +1,7 @@
 # pwsh/Base.GeneratedFiles/private/Get-GeneratedWriterInputFile.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The private walk behind the generated-file writers' stamps: it lists the files and folders on disk that the writers' input globs can claim,
+once for all of them.
 
 ## help
 
@@ -33,29 +33,8 @@ The root the walk starts at.
 Get-GeneratedWriterInputFile -InputGlob 'widget/**', 'gadget/*.yml' -RepositoryRoot $root
 ```
 
-## comment:2
+## Why the walks are bounded
 
-Above `$files =...`, written with `#`.
-
-```text
-Only a glob with no literal folder needs the repository root walked; every other glob walks its own folder, and a folder an
-ancestor's walk already reaches is not walked twice.
-```
-
-## comment:3
-
-Above `$files =...`, written with `#`.
-
-```text
-Only a glob with no literal folder walks the root, so a narrow writer pays only for the folders its own globs
-reach.
-```
-
-## comment:4
-
-Above `$root = [System.IO.Path]::GetFullPath($RepositoryRoot)`, written with `#`.
-
-```text
-One walk per folder lists its files and folders apart, already relative to the root, so nothing is cut per path
-here.
-```
+Only a glob with no literal folder needs the repository root walked. Every other glob walks its own folder, so a narrow writer pays only
+for the folders its globs reach, and a folder an ancestor's walk already reaches is not walked twice. One walk per folder lists its files
+and folders apart, already relative to the root, so nothing is cut per path afterwards.

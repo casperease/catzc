@@ -1,28 +1,21 @@
 # pwsh/Base.Docs/types/GlossaryOptions.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+A glossary source's parameters (the optional `options:` mapping), with every key defaulted, so a source overrides only what differs
+([ADR-REPO-VOCAB-GLOSSARYSOURCE](../../../../drs/repository/controlled-vocabulary.md#rule-adr-repo-vocab-glossarysource)). It mirrors the YAML
+mapping, snake_case keys
+([ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](../../../../drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
 
-## comment:1
+## Keys
 
-Above `using System;`, written with `//`.
+- **`checks`** — which glossary checks the source's concepts take part in; the structural check always runs.
+- **`scope`** and **`exclude`** — where its avoided phrasings are scanned. The default excludes (external language, generated output, vendored
+  code) are always added to a source's own, so no source can scan DORA's research text or `out/`.
+- **`surfaces`** — which kinds of text are read there.
 
-```text
-A glossary source's parameters (the optional configs/glossary.yml `options:` mapping), with every key defaulted:
-a source overrides only what differs ([ADR-REPO-VOCAB-GLOSSARYSOURCE](/docs/drs/repository/controlled-vocabulary.md#rule-adr-repo-vocab-glossarysource)). `checks`
-picks which glossary checks the source's concepts take part in; `scope` and `exclude` bound where its avoided phrasings are scanned; `surfaces` picks which kinds of text
-are read there. The default excludes (external language, generated output, vendored code) are ALWAYS added to a
-source's own, so no source can scan DORA's research text or out/. Scope and exclude globs are repo-relative
-('/'-separated, no leading '/', no drive, no '..', never a URL —
-[ADR-REPO-VOCAB-SOURCESINREPOSITORY](/docs/drs/repository/controlled-vocabulary.md#rule-adr-repo-vocab-sourcesinrepository)). Mirrors the YAML mapping
-(snake_case keys, [ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
-```
+Scope and exclude globs are repo-relative: '/'-separated, no leading '/', no drive, no '..', never a URL
+([ADR-REPO-VOCAB-SOURCESINREPOSITORY](../../../../drs/repository/controlled-vocabulary.md#rule-adr-repo-vocab-sourcesinrepository)).
 
-## comment:2
+## Closed lists
 
-Above `private static IReadOnlyList<string> ClosedList(IDictionary d, string key,...`, written with `//`.
-
-```text
-A list option restricted to a closed set; absent -> the whole set. An explicit empty list is allowed (a source
-that opts out of every check still gets the structural check).
-```
+A list option restricted to a closed set takes the whole set when absent. An explicit empty list is allowed: a source that opts out of every
+check still gets the structural check.

@@ -1,7 +1,6 @@
 # pwsh/Base.Environment/Get-PermanentEnvironmentVariable.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The read half of the seam for persistent environment variables other than PATH: a thin reader of one variable at one scope, which tests mock.
 
 ## help
 

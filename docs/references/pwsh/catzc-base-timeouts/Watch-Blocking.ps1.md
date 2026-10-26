@@ -1,7 +1,6 @@
 # pwsh/Base.Timeouts/Watch-Blocking.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The diagnostic that finds a block: a watchpoint holds the thread for a set time in evenly spaced ticks and writes how late each tick ran.
 
 ## help
 
@@ -54,11 +53,7 @@ Watch-Blocking -Seconds 2
 Watch-Blocking -Seconds 0 -Milliseconds 250
 ```
 
-## comment:1
+## Ticks are scheduled, not slept
 
-Above `$remainingMs = $dueMs - [long]$watch.ElapsedMilliseconds`, written with `#`.
-
-```text
-Sleep until the tick is due, not for the whole slice: a sleep overruns by a few ms, and a fixed slice would carry that
-overrun into every later tick, so the last tick would read late with nothing blocked.
-```
+Each tick sleeps until it is due, not for the whole slice: a sleep overruns by a few milliseconds, and a fixed slice would carry that overrun
+into every later tick, so the last tick would read late with nothing blocked.

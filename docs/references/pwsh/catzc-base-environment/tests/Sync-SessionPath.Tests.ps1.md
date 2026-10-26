@@ -2,23 +2,9 @@
 
 <!-- cspell:ignore machinebin userbin -->
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The L0 logic tests of `Sync-SessionPath`, which rebuilds the session PATH from the registry.
 
-## comment:1
+## Seam
 
-Above `$script:regUser = ''`, written with `#`.
-
-```text
-The persistent PATH is read through the Get-EnvironmentPath seam — mock it so these tests are
-deterministic and never read the real machine registry. Each test sets $script:regUser/$regMachine.
-```
-
-## comment:2
-
-Above `$script:regUser = ''`, written with `#`.
-
-```text
-The persistent PATH is read through its seam, so every case is deterministic and none reads the machine's
-registry.
-```
+The persistent PATH is read through the `Get-EnvironmentPath` seam, mocked per case through `$script:regUser` and `$script:regMachine`. Every
+case is deterministic and none reads the machine's registry.

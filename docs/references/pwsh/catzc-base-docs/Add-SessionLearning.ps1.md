@@ -1,7 +1,17 @@
 # pwsh/Base.Docs/Add-SessionLearning.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The one writer of the rolling logs: it appends dated one-line sentences to the newest file of a log's folder and starts a new file when the
+newest is full, so a log stays a few markdown files of bounded length. Each log is a `LearningsConfig` instance, see
+[LearningsConfig](types/LearningsConfig.cs.md).
+
+## Line shape
+
+A line is wrapped the way the markdown formatter wraps a list item (prettier, 140 columns), so formatting never rewrites the log. A `<`
+outside a code span would read as inline HTML to the lint (MD033), so it is escaped there.
+
+## File order
+
+The files are ordered by each file's `Started <time>.` line, never by its name or its file time, so the order survives a clone.
 
 ## help
 
@@ -55,22 +65,4 @@ Add-SessionLearning 'Get-Widget reads its defaults from the WidgetConfig type, n
 
 ```powershell
 Add-SessionLearning -Log hindsight -Author Jack 'If only Get-Widget had a default declared once: none in the tree.'
-```
-
-## comment:1
-
-Above ``$parts = $text.Split('`')``, written with `#`.
-
-```text
-Wrapped as the markdown formatter wraps a list item (prettier, printWidth 140), so formatting never rewrites the log.
-A '<' outside a code span would read as inline HTML to the lint (MD033), so it is escaped there.
-```
-
-## comment:2
-
-Above `$dated = @(foreach ($file in $config.FilesIn($folder)) {`, written with `#`.
-
-```text
-A file's start time is its 'Started <time>.' line, not its name or its file time, so the order survives a
-clone.
 ```

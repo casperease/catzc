@@ -1,7 +1,11 @@
 # pwsh/Base.Docs/Build-Glossary.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The generator of the glossary page: it renders every merged concept of `Get-Glossary` into `docs/drs/glossary.md`, a section per ADR domain,
+and writes the page only when its content changes.
+
+## Contrasts
+
+A contrast is declared once, on either term, and shows on both entries. A term's own declaration wins over the mirrored one.
 
 ## help
 
@@ -46,13 +50,4 @@ Return { Path; Changed; DryRun; ConceptCount } instead of the path.
 
 ```powershell
 Build-Glossary -DryRun -PassThru
-```
-
-## comment:1
-
-Above `$contrasts = [System.Collections.Generic.Dictionary[string,...`, written with `#`.
-
-```text
-A contrast is declared once, on either term, and shows on both entries; a term's own declaration wins over the
-mirrored one.
 ```

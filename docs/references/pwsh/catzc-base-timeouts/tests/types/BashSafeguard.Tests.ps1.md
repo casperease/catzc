@@ -2,14 +2,8 @@
 
 <!-- cspell:ignore tmain tforeground tbackground tsleep tsubagent tpipeline -->
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The tests of `BashSafeguard`, the hook's verdict on a bash call: each bash case checks the denial the hook words for its verdict.
 
-## comment:1
+## The cases
 
-Above `$script:bashCases = @(Get-EngineCaseTable (Join-Path $PSScriptRoot...`, written with `#`.
-
-```text
-The command grammar's cases live in the per-engine fixture table, one source for BoundedCommand and this
-hook; here each bash case checks the denial the hook words for its verdict.
-```
+The command grammar's cases live in the per-engine fixture table, one source for `BoundedCommand` and this hook.

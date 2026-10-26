@@ -1,7 +1,6 @@
 # pwsh/Base.Timeouts/Test-IsTimeoutExempt.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The boolean form of the timeout exemption lookup: it answers whether a budget GUID is exempt in this run environment.
 
 ## help
 

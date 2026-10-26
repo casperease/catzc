@@ -1,7 +1,16 @@
 # pwsh/Base.Docs/Show-Cats.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The offline browser behind "ask cats": it prints the ADR index, the loaded modules and the approved verbs from what the repository already
+knows.
+
+## The ADR area
+
+The ADR index getter returns a comma-wrapped array
+([ADR-AUTO-CACHE](../../../drs/automation/caching.md) exemplar), so the entries are taken by plain assignment: wrapping them again in `@()`
+would nest the array one level too deep.
+
+For each rule it also shows what mechanically enforces it, the tests and the analyzer rules, keyed by the rule's code, which both sides use
+(see the [index](../../../drs/index.md)).
 
 ## help
 
@@ -52,23 +61,4 @@ Summarizes the ADRs whose code or title contains 'naming', with each rule's one-
 ```powershell
 Show-Cats module azure
 Lists the public functions of every module whose name contains 'azure'.
-```
-
-## comment:1
-
-Above `$entries = Get-CatsDrsIndex`, written with `#`.
-
-```text
-Plain assignment (not @(...)): the getter returns a comma-wrapped array
-([ADR-AUTO-CACHE](/docs/drs/automation/caching.md) exemplar),
-which assignment receives intact — wrapping it again in @() would nest it one level too deep.
-```
-
-## comment:2
-
-Above `$entryEnforcers = $enforcers[$rule.Id]`, written with `#`.
-
-```text
-Show what mechanically enforces this rule (tests + analyzer rules), if anything —
-the rule's code is the key both sides use ([index](/docs/drs/index.md)).
 ```

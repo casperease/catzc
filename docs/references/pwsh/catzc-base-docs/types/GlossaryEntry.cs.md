@@ -1,16 +1,9 @@
 # pwsh/Base.Docs/types/GlossaryEntry.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+One concept of the merged controlled vocabulary ([ADR-REPO-VOCAB](../../../../drs/repository/controlled-vocabulary.md)) as `Get-Glossary`
+returns it. It holds the `GlossaryConcept` itself, the module whose glossary source declares it (`Owner`), that source's repo-relative path
+(`SourcePath`), and the source's defaulted [GlossaryOptions](GlossaryOptions.cs.md), so a gate or a reader knows where each term lives and which
+checks it takes part in without going back to the source.
 
-## comment:1
-
-Above `using System;`, written with `//`.
-
-```text
-One concept of the merged controlled vocabulary ([ADR-REPO-VOCAB](/docs/drs/repository/controlled-vocabulary.md)) as
-Get-Glossary returns it: the GlossaryConcept itself, the module whose configs/glossary.yml declares it (Owner), that
-source's repo-relative path (SourcePath), and the source's defaulted GlossaryOptions — so a gate or a reader knows
-where each term lives and which checks it takes part in without going back to the source. A result type, not a
-YAML mirror, so its properties are PascalCase ([ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
-```
+It is a result type, not a YAML mirror, so its properties are PascalCase
+([ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](../../../../drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).

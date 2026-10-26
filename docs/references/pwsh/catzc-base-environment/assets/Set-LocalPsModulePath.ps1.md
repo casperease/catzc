@@ -1,7 +1,6 @@
 # pwsh/Base.Environment/assets/Set-LocalPsModulePath.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The asset script that points PowerShell 7's user module path at a local directory when a policy has moved Documents to a network share.
 
 ## help
 

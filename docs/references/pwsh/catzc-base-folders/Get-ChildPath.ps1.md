@@ -1,7 +1,7 @@
 # pwsh/Base.Folders/Get-ChildPath.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The one way to list the files and folders below a folder in this repository. It walks to a bounded depth through the compiled walker, so a
+pruned folder is never entered and the tree is never loaded.
 
 ## help
 

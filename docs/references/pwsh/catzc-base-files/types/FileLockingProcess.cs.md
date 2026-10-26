@@ -1,14 +1,10 @@
 # pwsh/Base.Files/types/FileLockingProcess.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+A process that holds a file open, as the Windows Restart Manager reports it (`RestartManager`) and enriched with the process's own facts. It
+is the result type of `Get-FileLockingProcess`.
 
-## comment:1
+## Properties
 
-Above `using System;`, written with `//`.
-
-```text
-A process that holds a file open, as reported by the Windows Restart Manager (RestartManager) and enriched
-with the process's own facts. The Restart Manager part (ProcessId, AppName, Started) is always present; the
-enrichment (Name, CommandLine, ParentProcessId) is null when the process exited between the two lookups.
-```
+The Restart Manager part (`ProcessId`, `AppName`, `Started`) is always present. The enrichment (`Name`, `CommandLine`, `ParentProcessId`) is
+null when the process exited between the two lookups. `ProcessId` together with `Started` identifies the process uniquely, and the string
+form reads `pwsh.exe (PID 10276, started 2026-10-13 14:10)`: the executable name, else the Restart Manager's app name.

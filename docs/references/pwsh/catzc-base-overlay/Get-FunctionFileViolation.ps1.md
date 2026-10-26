@@ -1,7 +1,7 @@
 # pwsh/Base.Overlay/Get-FunctionFileViolation.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The shape check of a function file: it reads the file's syntax tree and returns one message per reason the file cannot be loaded away from
+its folder. The build's merge and the consumer overlay share it.
 
 ## help
 

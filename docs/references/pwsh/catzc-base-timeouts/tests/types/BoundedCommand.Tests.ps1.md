@@ -1,13 +1,8 @@
 # pwsh/Base.Timeouts/tests/types/BoundedCommand.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The tests of `BoundedCommand`, the command grammar of the time safeguard, run across the execution engines.
 
-## comment:1
+## The cases
 
-Above `$script:cases = @(Get-EngineCaseTable (Join-Path $PSScriptRoot...`, written with `#`.
-
-```text
-Every case, every engine, from the per-engine fixture table: a case that does not apply to an engine says why
-there ("n/a: <reason>"), so pwsh/bash/zsh parity reads side by side in one file.
-```
+Every case runs on every engine, from the per-engine fixture table: a case that does not apply to an engine says why there
+(`n/a: <reason>`), so pwsh, bash and zsh parity reads side by side in one file.
