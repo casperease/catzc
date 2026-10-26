@@ -80,15 +80,6 @@ has a track.
   track names (the orchestrator, 2026-10-26). `jsconfig*.json` join `js`, and `vendor_ado.pipelines` covers `.ado`, which holds only
   pipelines.
 
-## Open steps
-
-1. [ ] `pwsh/Base.QualityGates/Test-TrackMemberCommitted.ps1`: every root entry on disk lies in a track, `LICENSE` in `contracts`, now
-       that the root files are in their tracks (check:
-       `Invoke-TestFile -Path pwsh/Base.QualityGates/tests/Test-TrackMemberCommitted.Tests.ps1`).
-2. [ ] `pwsh/Base.Git/private/Get-AutoControlledGlobs.ps1`: `out` and `out/*` come from the out track's gitignored member, now declared, and
-       their hand-written lines are deleted (check:
-       `Invoke-TestFile -Path pwsh/Base.Git/tests/Get-AutoControlledGlobs.Tests.ps1`).
-
 ## Open questions
 
 - Should `Get-ModuleTestFolder` move from a private helper of Base.Languages into `LanguagesConfig.TestFolderOf` itself, taking the track,

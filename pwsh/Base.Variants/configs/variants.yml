@@ -33,7 +33,7 @@ tracks:
         [
           pwsh,
           importer.ps1,
-          PSScriptAnalyzerSettings.psd1,
+          { path: PSScriptAnalyzerSettings.psd1, committed: false },
           { path: pwsh/*/*.psd1, committed: false },
           { path: pwsh/.compiled/*.dll, committed: false },
           { path: pwsh/.compiled/*.tmp, committed: false },
@@ -65,10 +65,10 @@ tracks:
   vendor_github.pipelines: { members: [.github/workflows], type: pipelines, vendor: github, languages: [yaml] }
   docs: { members: [docs], type: documentation, languages: [markdown, asset, yaml] }
   contracts: { members: [contracts, LICENSE], type: contracts, languages: [markdown, pipeline-yaml, yaml, json] }
-  go: { members: [go, go.work], type: modules, languages: [go], namespace: catzc, join: "" }
+  go: { members: [go, { path: go.work, committed: false }], type: modules, languages: [go], namespace: catzc, join: "" }
   python:
     {
-      members: [python, { path: .ruff_cache, generated: true, committed: false }],
+      members: [python, { path: .ruff_cache, committed: false }],
       type: modules,
       languages: [python, html, markdown, xml, yaml],
       namespace: catzc,
@@ -80,7 +80,7 @@ tracks:
   vendor_typescript.types: { members: [{ path: .typescript, committed: false }], type: vendored-code, vendor: typescript }
   js:
     {
-      members: [js, jsconfig.json, jsconfig.lenient.json],
+      members: [js, { path: jsconfig.json, committed: false }, { path: jsconfig.lenient.json, committed: false }],
       type: modules,
       languages: [javascript, json, asset],
       kinds: { extensions: js },
@@ -89,14 +89,30 @@ tracks:
     }
   vendor_git.root_configs:
     { members: [.github, .gitattributes, .gitignore], type: vendor-settings, vendor: git, languages: [yaml, markdown] }
-  vendor_cspell: { members: [.cspell, cspell.yml], type: vendor-settings, vendor: cspell }
+  vendor_cspell: { members: [.cspell, { path: cspell.yml, committed: false }], type: vendor-settings, vendor: cspell }
   vendor_ai.claude:
     { members: [.claude], type: vendor-settings, vendor: ai, languages: [markdown, python, bcl, json, xml, html, powershell] }
   vendor_vscode: { members: [{ path: .vscode, committed: false }], type: vendor-settings, vendor: vscode, languages: [json] }
-  vendor_editorconfig: { members: [.editorconfig], type: vendor-settings, vendor: editorconfig }
-  vendor_markdownlint: { members: [.markdownlint.yml, .markdownlintignore], type: vendor-settings, vendor: markdownlint }
-  vendor_prettier: { members: [.prettierrc.yml, .prettierignore], type: vendor-settings, vendor: prettier }
-  vendor_dotnet: { members: [catzc.sln, Directory.Build.props, dotnet-tools.json], type: vendor-settings, vendor: dotnet }
+  # The generated root-config copies are gitignored; their generated fact comes from Build-RootConfig's targets.
+  vendor_editorconfig: { members: [{ path: .editorconfig, committed: false }], type: vendor-settings, vendor: editorconfig }
+  vendor_markdownlint:
+    {
+      members: [{ path: .markdownlint.yml, committed: false }, { path: .markdownlintignore, committed: false }],
+      type: vendor-settings,
+      vendor: markdownlint,
+    }
+  vendor_prettier:
+    {
+      members: [{ path: .prettierrc.yml, committed: false }, { path: .prettierignore, committed: false }],
+      type: vendor-settings,
+      vendor: prettier,
+    }
+  vendor_dotnet:
+    {
+      members: [{ path: catzc.sln, committed: false }, Directory.Build.props, { path: dotnet-tools.json, committed: false }],
+      type: vendor-settings,
+      vendor: dotnet,
+    }
   vendor_nuget: { members: [nuget.config], type: vendor-settings, vendor: nuget }
   unordered: { members: [.unordered], type: unordered, languages: [markdown] }
   out: { members: [{ path: out, generated: true, committed: false }], type: output }
