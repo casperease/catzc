@@ -18,6 +18,7 @@ function Get-ReadmeContent {
     Assert-PathExist $sourcePath -PathType Leaf
     # The copy carries the article, not the source's meta block, so it opens with its title as a reader expects.
     $text = Remove-MarkdownFrontMatter -Text ([System.IO.File]::ReadAllText($sourcePath) -replace "`r", '')
+    # Rebased links run longer than the source's, so a line wrapped at the width can pass it here and is wrapped again.
     $body = Format-LongMarkdownLines -Text ([Catzc.Base.MarkdownMeta.MarkdownLinkRebaser]::Rebase($text,
             $Mapping.source, $Mapping.folder))
 

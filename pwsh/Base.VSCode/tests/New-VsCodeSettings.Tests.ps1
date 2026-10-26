@@ -9,6 +9,7 @@ catzc:
 # cspell:ignore gopls  -- the Go language server and its VS Code settings key
 Describe 'New-VsCodeSettings' -Tag 'L0', 'logic' {
     BeforeAll {
+        # Isolated through the config seam; the authored search.exclude carries an un-exclude (false) injection must not override.
         Mock Get-Config -ModuleName Catzc.Base.VSCode {
             [Catzc.Base.VSCode.VscodeSettingsConfig]::new([ordered]@{
                     settings = [ordered]@{
@@ -168,12 +169,14 @@ Describe 'New-VsCodeSettings — real vscode-settings.yml' -Tag 'L1', 'integrity
 
     It 'hides no Go test source from the explorer, search, the watcher, or gopls, for the <_>/ root' -ForEach @('go',
         '.go') {
+        # The managed Go targets are injected like every managed target; the Go test code must stay visible, searched and watched.
         $text = New-VsCodeSettings -ManagedTarget 'go.work', '*/tests/*/go.mod'
         $json = ($text -split "`n" | Where-Object { $_ -notmatch '^//' }) -join "`n" | ConvertFrom-Json -AsHashtable
         $source = "$_/tests/widget/widget_test.go"
         foreach ($key in 'files.exclude', 'search.exclude', 'files.watcherExclude') {
             if ($json.Contains($key)) {
                 foreach ($glob in @($json[$key].Keys | Where-Object { $json[$key][$_] -eq $true })) {
+                    # A VS Code glob as a -like pattern ('**' and '*' both span '/'), on the path and its leading '**/' form.
                     $pattern = $glob -replace '\*\*', '*'
                     $source | Should -Not -BeLike $pattern -Because "$key '$glob' would hide $source"
                     "x/$source" | Should -Not -BeLike $pattern -Because "$key '$glob' would hide $source"

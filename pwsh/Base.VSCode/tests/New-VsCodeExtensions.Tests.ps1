@@ -8,6 +8,7 @@ catzc:
 
 Describe 'New-VsCodeExtensions' -Tag 'L0', 'logic' {
     BeforeAll {
+        # Isolated through the config seam: a small fixture registry.
         Mock Get-Config -ModuleName Catzc.Base.VSCode {
             [Catzc.Base.VSCode.VscodeExtensionsConfig]::new([ordered]@{ recommendations = @('acme.tool-one',
                         'globex.tool-two')
@@ -32,11 +33,13 @@ Describe 'New-VsCodeExtensions' -Tag 'L0', 'logic' {
 
 Describe 'New-VsCodeExtensions — real vscode-extensions.yml' -Tag 'L1', 'integrity' {
     It 'renders the shipped registry, with the engines'' extensions from languages.yml, to a non-empty, validated recommendation list' {
+        # Get-Config builds the config type on load, so a render is also the shape proof; the engines' extensions arrive as passed.
         $engineExtension = @((Get-Config -Config languages).formatters.Values | Where-Object vscode_extension | ForEach-Object vscode_extension)
         $text = New-VsCodeExtensions -EngineExtension $engineExtension
         $json = ($text -split "`n" | Where-Object { $_ -notmatch '^//' }) -join "`n" | ConvertFrom-Json
         @($json.recommendations).Count | Should -BeGreaterThan 0
         @($json.recommendations) | Should -Contain 'ms-vscode.powershell'
+        # The Go language server for the Go tests, under either Go root: it reads the repository-root go.work.
         @($json.recommendations) | Should -Contain 'golang.go'
     }
 }

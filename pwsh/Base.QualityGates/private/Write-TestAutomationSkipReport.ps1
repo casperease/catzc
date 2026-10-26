@@ -30,6 +30,7 @@ function Write-TestAutomationSkipReport {
     Write-Message '' -NoHeader
     Write-Header 'Skipped & not run' -ForegroundColor Cyan
 
+    # Listed one by one: a self-skip naming the missing tool is the whole value.
     if ($skipped.Count -gt 0) {
         Write-Message "  Skipped ($($skipped.Count)) — ran, then skipped from inside the test:" -NoHeader
         foreach ($row in $skipped) {
@@ -43,6 +44,7 @@ function Write-TestAutomationSkipReport {
         }
     }
 
+    # Grouped by tier and category, showing what a wider scope would add.
     if ($notRun.Count -gt 0) {
         $scopeParts = @("-MaxLevel $MaxLevel")
         if ($MinLevel -gt 0) {

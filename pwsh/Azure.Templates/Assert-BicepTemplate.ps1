@@ -79,7 +79,7 @@ function Assert-BicepTemplate {
             [bool](Test-HaveCustomers)
         }
 
-        # BicepShortName throws on a malformed override or an underivable folder name, and the resolved value feeds the uniqueness check.
+        # BicepShortName throws on a malformed override or a folder name it cannot derive from; the value feeds the uniqueness check.
         $shortNameOverride = if ($options.Contains('short_name')) {
             "$($options.short_name)"
         }

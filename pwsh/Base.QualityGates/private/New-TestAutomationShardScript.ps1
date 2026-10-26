@@ -39,6 +39,7 @@ function New-TestAutomationShardScript {
 
     $repositoryRoot = Get-RepositoryRoot
 
+    # The one seam between the runs: the repository importer, or the build's Import-Catzc.ps1.
     $entryLine = if ($EntryScript) {
         $entryArguments = foreach ($name in ($EntryParameter.Keys | Sort-Object)) {
             $value = $EntryParameter[$name]
@@ -66,12 +67,15 @@ function New-TestAutomationShardScript {
     $includeTagLiteral = ($IncludeTag | ForEach-Object { "'$_'" }) -join ', '
     # Single-quote literal: double any embedded quote (a FullNameFilter is prose — titles carry apostrophes).
     $filterLiteral = "$FullNameFilter" -replace "'", "''"
+    # The build's entry also reaches the language bridge, so Go and Python tests start the build.
     $entryLiteral = "$EntryScript" -replace "'", "''"
+    # The located tools travel as a literal in language order: a build's engine cannot locate them.
     $languageEntries = foreach ($language in ($LanguageExecutable.Keys | Sort-Object)) {
         "'$language' = '$("$($LanguageExecutable[$language])" -replace "'", "''")'"
     }
     $languageLiteral = '@{ ' + ($languageEntries -join '; ') + ' }'
 
+    # The Pester configuration comes from the one shared builder, so this path and Invoke-TestFile never drift.
     $content = @"
 `$ErrorActionPreference = 'Stop'
 $entryLine

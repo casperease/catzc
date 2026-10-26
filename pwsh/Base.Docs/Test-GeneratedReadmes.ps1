@@ -21,6 +21,7 @@ function Test-GeneratedReadmes {
     $targets = @($mappings | ForEach-Object { "$($_.folder)/README.md" } | Sort-Object -Unique)
     $issues = [System.Collections.Generic.List[string]]::new()
 
+    # A matched folder gets its README only from an article; a missing article is a finding unless readme.yml names the folder.
     $missing = @(Get-ReadmeMappings -Config $config -Missing)
     $exempt = @($config.without_article | ForEach-Object { $_.folder })
     foreach ($entry in $missing | Where-Object { $_.folder -notin $exempt }) {

@@ -34,6 +34,7 @@ function Expand-VsCodeRepeat {
             $Item.$Key
         }
     }
+    # Each source: the declared leading items, a config list's items, then the trailing items, as { value, title, position }.
     $sources = @{}
     foreach ($name in $Contributes['repeat'].Keys) {
         $source = $Contributes['repeat'][$name]

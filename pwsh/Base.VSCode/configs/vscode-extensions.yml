@@ -12,9 +12,11 @@ recommendations:
   - DavidAnson.vscode-markdownlint
   # cspell in the editor — the same dictionaries the Test-Spelling gate uses (cspell.yml + .cspell/).
   - streetsidesoftware.code-spell-checker
+  # The formatter engines' extensions come from languages.yml, the one place each is named; the Python one serves python/tests.
   - ms-python.python
   # Pylance — pyright in the editor, in the mode the Test-PythonTypes gate runs (python.yml type_checking).
   - ms-python.vscode-pylance
+  # C# Dev Kit, the language service for the C# type sources: it loads catzc.sln, whose project compiles the types.
   - ms-dotnettools.csdevkit
   # Bicep — language service and validation for the infrastructure templates.
   - ms-azuretools.vscode-bicep
@@ -25,6 +27,7 @@ recommendations:
   # draw.io — the editor of the .drawio.png diagrams under docs/.assets/.
   - hediet.vscode-drawio
 
+# The repository's own extensions: each renders to out/vscode-extensions/<name>/ from its js track module.
 extensions:
   catzc-git-changes:
     displayName: Catzc git changes
@@ -34,6 +37,7 @@ extensions:
     version: 0.1.2
     activationEvents: [onStartupFinished]
     contributes:
+      # The lamps' one mapping: local work in progress is blue-grey, staged dark, unstaged lighter.
       colors:
         - id: catzc.gitChanges.stagedBackground
           description: Background of a line whose change against HEAD is staged.
@@ -90,12 +94,14 @@ extensions:
       committed, staged, unstaged or failed.
     activationEvents: [onStartupFinished]
     contributes:
+      # One lamp per filter of filters.yml; the open lamp is no switch: it stands before them, always lit, and focuses the next editor.
       repeat:
         lamp:
           config: filters
           list: filters
           key: name
           title: title
+        # One lamp per tagged language, lang-<name> labelled with its tag; the languages button ticks which stand in the row.
         language:
           config: languages
           list: languages
@@ -103,7 +109,9 @@ extensions:
           title: tag
           where: tag
           glyphs: lang-
+      # Each lamp is an on and an off command; the folder generator expands each declared condition into a command of its own.
       commands:
+        # The orchestrator, leftmost and always shown: its colour sums the whole repository, and a click while red lights every red lamp.
         - command: catzc.lamps.orchestrate.red
           title: "orchestrator: something failed (click to show every failing file)"
           icon: { light: "media/orchestrator-red.svg", dark: "media/orchestrator-red.svg" }

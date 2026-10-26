@@ -52,16 +52,6 @@ Generated cspell dictionaries, regenerated at the importer tail
 ([ADR-REPO-OUTDIR-DICTIONARIESGENERATED](/docs/drs/repository/dedicated-output-directory.md#rule-adr-repo-outdir-dictionariesgenerated)).
 ```
 
-## comment:3
-
-Above `$ret.Add('out')`, written with `#`.
-
-```text
-The output root — transient by contract (dedicated-output-directory) — except the authored plan files,
-which are working notes, not output
-([ADR-REPO-OUTDIR-PLANNOTES](/docs/drs/repository/dedicated-output-directory.md#rule-adr-repo-outdir-plannotes)).
-```
-
 ## comment:4
 
 Above `$ret.Add('**/.$*.drawio.png.bkp')`, written with `#`.

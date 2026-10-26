@@ -29,6 +29,7 @@ function Write-TestAutomationRuleCoverage {
         New-Item -ItemType Directory -Path $OutputFolder -Force | Out-Null
     }
 
+    # Sets, so each enforcer counts once however often it cites a rule.
     $testEnforcers = @{}
     $analyzerEnforcers = @{}
 

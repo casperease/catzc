@@ -16,6 +16,7 @@ function Get-RootConfigTargets {
         [switch] $FollowMix
     )
 
+    # An engine's importer entry is managed only when one of the engines it serves is in the session's mix.
     $mixEngines = $null
     foreach ($entry in @($Config.files | Where-Object { $_.optIn })) {
         if (-not $FollowMix) {

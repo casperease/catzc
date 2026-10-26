@@ -25,6 +25,7 @@ function Set-VsCodeHiddenAction {
         throw "Set-VsCodeHiddenAction: VS Code is running ($ProcessName); close every VS Code window, then run it again, or the editor overwrites the change on exit."
     }
 
+    # The editor's own value, menu id to hidden command ids: the declared ones join it, and what the user hid by hand stays.
     $key = 'menu.hiddenCommands'
     $current = [Catzc.Base.VSCode.VscodeStateStore]::Read($StorePath, $key)
     $hidden = if ($current) {

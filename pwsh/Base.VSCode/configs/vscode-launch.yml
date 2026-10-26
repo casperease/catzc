@@ -4,8 +4,10 @@
 #   header: "generated"
 # ---
 
+# The one authored source of .vscode/launch.json, a gitignored copy New-VsCodeLaunch renders: edit this file, never launch.json.
 version: "0.2.0"
 configurations:
+  # Dot-source the importer under the debugger from the repository root, so breakpoints in any module function bind.
   - name: Debug Module
     type: PowerShell
     request: launch

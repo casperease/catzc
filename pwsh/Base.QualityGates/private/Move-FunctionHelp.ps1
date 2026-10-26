@@ -21,6 +21,7 @@ function Move-FunctionHelp {
         [switch] $DryRun
     )
 
+    # An empty list crosses a scope boundary as $null, so it is rebuilt before it is counted.
     $RestsOn = [string[]] @($RestsOn | Where-Object { $_ })
     $helpKeys = 'synopsis', 'description', 'parameters', 'inputs', 'outputs', 'examples', 'notes'
     $full = Join-Path $RepositoryRoot $Path

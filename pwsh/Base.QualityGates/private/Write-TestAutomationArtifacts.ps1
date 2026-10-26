@@ -41,6 +41,7 @@ function Write-TestAutomationArtifacts {
         [string] $Location
     )
 
+    # Written before any throw, so a failing run still has its report.
     try {
         Write-TestAutomationReport -Rows $Rows -OutputFolder $RunDirectory -Level $MaxLevel -Limits $Limits `
             -RunResult $RunResult -DurationSeconds $DurationSeconds -TimingsEnforced:$EnforceTimings -Location $Location

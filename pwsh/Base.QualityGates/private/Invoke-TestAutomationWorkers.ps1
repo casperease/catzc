@@ -62,6 +62,7 @@ function Invoke-TestAutomationWorkers {
     $greedyShardFile = @{}
     $serialPhaseOffsetMs = 0
 
+    # Measured per-file durations deal the shards longest first, so they finish together.
     $repositoryRoot = Get-RepositoryRoot
     $historyPath = Join-Path ([System.IO.Path]::GetDirectoryName([System.IO.Path]::TrimEndingDirectorySeparator($RunDirectory))) 'durations.json'
     $history = Get-TestDurationHistory -Path $historyPath
@@ -83,6 +84,7 @@ function Invoke-TestAutomationWorkers {
     $GreedyFiles = @(Convert-TestRunLocationPath -Location $Location -Path $GreedyFiles)
     $SerialFiles = @(Convert-TestRunLocationPath -Location $Location -Path $SerialFiles)
 
+    # Shared by every phase, with the entry-script seam and the tools this session located.
     $shardArguments = @{
         RunDirectory       = $RunDirectory
         ExcludeTag         = $ExcludeTag
@@ -91,6 +93,7 @@ function Invoke-TestAutomationWorkers {
         LanguageExecutable = Get-LanguageTestExecutable
     } + (Get-TestRunLocationEntry -Location $Location -EntryScript $EntryScript -EntryParameter $EntryParameter)
 
+    # ProcessorCount / 4 by default: measured flat up to / 2, while per-test time inflates.
     $workerCount = if ($Workers -gt 0) {
         $Workers
     }
@@ -99,6 +102,7 @@ function Invoke-TestAutomationWorkers {
     }
     $workerCount = [Math]::Max(1, [Math]::Min($workerCount, $ParallelFiles.Count))
 
+    # Longest first to the least-loaded shard, so the phase ends when its work does.
     $assignment = @(Select-TestShardAssignment -File $sourceParallelFiles -WorkerCount $workerCount -DurationMs $history -RepositoryRoot $repositoryRoot)
     $shardFiles = @{}
     for ($shardIndex = 0; $shardIndex -lt $workerCount; $shardIndex++) {
@@ -120,6 +124,7 @@ function Invoke-TestAutomationWorkers {
     $policy = if ($GreedyFiles.Count -gt 0) {
         Get-Config -Config test-policy
     }
+    # Greedy files queue behind the parallel shards and overlap only up to the greedy cap.
     $greedyGroupSize = if ($GreedyGroupSize -gt 0) {
         $GreedyGroupSize
     }
@@ -129,6 +134,7 @@ function Invoke-TestAutomationWorkers {
     else {
         1
     }
+    # A file kept apart (it runs real builds) also counts against the one-at-a-time cap.
     $greedyCaps = [System.Collections.Generic.List[string[]]]::new()
     $nextShardIndex = $workerCount
     foreach ($greedyFile in $GreedyFiles) {
@@ -150,6 +156,7 @@ function Invoke-TestAutomationWorkers {
         $shardFileCounts[$serialShard.Label] = $SerialFiles.Count
     }
 
+    # Workers inherit the held location, so a nested Invoke-TestFile runs in this run's root.
     $WorkerEnvironment = if ($WorkerEnvironment) {
         $WorkerEnvironment.Clone()
     }
@@ -158,9 +165,11 @@ function Invoke-TestAutomationWorkers {
     }
     $WorkerEnvironment['CATZC_TEST_RUN_LOCATION_HELD'] = '1'
 
+    # Announced before the pool blocks: each worker's imports would otherwise read as a hang.
     Write-Message "Running $($ParallelFiles.Count) test file(s) across $($shards.Count) parallel worker(s)$(if ($greedyShards.Count) { ", with $($GreedyFiles.Count) greedy file(s) taking slots as they free, up to $greedyGroupSize at once" })$(if ($serialShard) { ", then $($SerialFiles.Count) serial-tagged file(s)" })..." -NoHeader
 
     $stopwatch.Start()
+    # Parallel and greedy share one pool and timeline; only the serial phase carries an offset.
     $pooled = @($shards) + @($greedyShards)
     if ($pooled.Count -gt 0) {
         # One pool: the parallel shards first, then each greedy file in the first slot a shard frees, under its caps.
@@ -178,6 +187,7 @@ function Invoke-TestAutomationWorkers {
         $allShards.AddRange([object[]] $pooled)
     }
 
+    # The serial phase runs last and alone: its files mutate shared state.
     if ($serialShard) {
         Write-Message "Serial phase: $($SerialFiles.Count) serial-tagged file(s) in one worker..." -NoHeader
         $serialPhaseOffsetMs = $stopwatch.ElapsedMilliseconds
@@ -189,6 +199,7 @@ function Invoke-TestAutomationWorkers {
     }
     $stopwatch.Stop()
 
+    # Rows in shard order; a worker missing its rows or results file crashed, whatever its exit code.
     $rows = [System.Collections.Generic.List[object]]::new()
     $failedShardLabels = [System.Collections.Generic.List[string]]::new()
     $shardExitCodes = [ordered]@{}
@@ -218,6 +229,7 @@ function Invoke-TestAutomationWorkers {
             $rows.Add($row)
         }
 
+        # One summary per worker: queue number is submission order, start is on the run's one timeline.
         $isSerial = $serialShard -and $shard.Label -eq $serialShard.Label
         # ForEach-Object, not .Label: member enumeration on an empty list throws under strict mode (no greedy files).
         $isGreedy = -not $isSerial -and $shard.Label -in @($greedyShards | ForEach-Object { $_.Label })
@@ -250,6 +262,7 @@ function Invoke-TestAutomationWorkers {
             })
     }
 
+    # Each file's duration feeds the next run's dealing; a shard without its sidecar adds nothing.
     $measured = @{}
     $fileEntries = [System.Collections.Generic.List[object]]::new()
     foreach ($shard in $allShards) {

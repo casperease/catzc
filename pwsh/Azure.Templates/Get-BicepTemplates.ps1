@@ -68,7 +68,7 @@ function Get-BicepTemplates {
             [bool](Test-HaveCustomers)
         }
 
-        # short_name derives from the folder name unless overridden; BicepShortName throws, naming the template, on a malformed override or underivable folder.
+        # short_name derives from the folder name unless overridden; BicepShortName throws, naming the template, when neither works.
         $shortNameOverride = if ($options.Contains('short_name')) {
             "$($options.short_name)"
         }

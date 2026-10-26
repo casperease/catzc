@@ -80,11 +80,11 @@ of the same symbols as the VS Code file icons, so the editor tree and the diagra
 
 ## Open steps
 
-- [ ] `docs/drs/design/visual-design.md`: add DDR-VISUAL-FLOWISALENS (the lens, its inputs-only declaration, the rows from the pipeline
-      query), DDR-VISUAL-FLOWGLYPHSAREWORDS (the alphabet, the words, the hint), DDR-VISUAL-RHOMBUSINTHEFLOWLENS (the shape exception to
-      DDR-VISUAL-ENVIRONMENTISCONTAINER) and DDR-VISUAL-TAXONOMYSPANNERS (types cited from FDR-CD-TYPE-SIXTYPES, Approve from the rung
-      gates, Review from the pull-request trigger), each with its context section. (check: `Test-Links` on the file; `Test-Glossary` reports
-      no collision)
+- [ ] `docs/drs/design/visual-design.md`: add four DDR-VISUAL rules, their codes chosen when written: flow is a lens (the lens, its
+      inputs-only declaration, the rows from the pipeline query); flow glyphs are words (the alphabet, the words, the hint); the rhombus in
+      the flow lens (the shape exception to DDR-VISUAL-ENVIRONMENTISCONTAINER); and the taxonomy spanners (types cited from
+      FDR-CD-TYPE-SIXTYPES, Approve from the rung gates, Review from the pull-request trigger), each with its context section. (check:
+      `Test-Links` on the file; `Test-Glossary` reports no collision)
 - [ ] `pwsh/Base.QualityGates/configs/terminology/` and the owning `configs/glossary.yml`: add the coined term `spanner` and the flow lens
       before any article uses them, through glossary-keeper. (check: `Test-Glossary` reports no issue)
 - [ ] `python/diagrams/configs/drawio.yml`: add `flow` to `lenses:`, a `flow-lens:` block (lane height, slot size, stroke widths 1.6 and 1,

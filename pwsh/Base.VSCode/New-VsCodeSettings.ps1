@@ -17,13 +17,16 @@ function New-VsCodeSettings {
 
         [System.Collections.IDictionary] $LanguageFormatter = @{},
 
+        # The repository's filters, name to the include/exclude sets each claims by, in lamp order.
         [System.Collections.IDictionary] $RepositoryFilter = @{},
 
         # The tagged languages the lamps offer, name to its tag and extensions, in the languages config's order.
         [System.Collections.IDictionary] $LampLanguage = @{},
 
+        # The settings file on disk, read for the rows another writer owns.
         [string] $CurrentPath = (Join-Path (Get-RepositoryRoot) '.vscode/settings.json'),
 
+        # The .editorconfig whose sections render into the editor settings.
         [string] $EditorConfigPath = (Join-Path (Get-RepositoryRoot) '.editorconfig')
     )
 
@@ -34,6 +37,7 @@ function New-VsCodeSettings {
     foreach ($key in $config.settings.Keys) {
         $settings[$key] = $config.settings[$key]
     }
+    # The .editorconfig baseline, so the editor follows it with no extension; an authored setting wins over a rendered one.
     if (Test-Path -LiteralPath $EditorConfigPath -PathType Leaf) {
         $editor = ConvertFrom-EditorConfig -Text (Get-Content -LiteralPath $EditorConfigPath -Raw) -Section $config.editorconfig
         foreach ($key in $editor.Keys) {
@@ -55,12 +59,14 @@ function New-VsCodeSettings {
             $settings[$key] = $block
         }
     }
+    # Machine-resolved settings complete the authored ones, which win on a shared key; sorted, so the render is stable.
     foreach ($key in ($MachineSetting.Keys | Sort-Object)) {
         if (-not $settings.Contains($key)) {
             $settings[$key] = $MachineSetting[$key]
         }
     }
 
+    # Each language's formatter, merged into its [<id>] block (authored keys win); sorted, so the render is stable.
     foreach ($id in ($LanguageFormatter.Keys | Sort-Object)) {
         $key = "[$id]"
         $block = [ordered]@{}
@@ -89,6 +95,7 @@ function New-VsCodeSettings {
     }
     $settings['search.exclude'] = $exclude
 
+    # The lamps read what they hide from the settings, so the extension needs neither a config nor a session.
     if ($RepositoryFilter.Count -gt 0) {
         $filters = [ordered]@{}
         foreach ($name in $RepositoryFilter.Keys) {
@@ -104,6 +111,7 @@ function New-VsCodeSettings {
         $settings['catzc.trackLamps.languages'] = $languages
     }
 
+    # A carried map keeps the rows another writer added, under that writer's owner key; a registry row stays the registry's.
     if ($config.carried.Count -gt 0 -and (Test-Path -LiteralPath $CurrentPath)) {
         $text = (Get-Content -LiteralPath $CurrentPath -Raw) -replace '(?m)^\s*//.*$', ''
         $current = if ([string]::IsNullOrWhiteSpace($text)) {

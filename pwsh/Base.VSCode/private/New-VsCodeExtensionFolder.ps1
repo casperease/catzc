@@ -21,6 +21,7 @@ function New-VsCodeExtensionFolder {
         [string] $AssetDirectory = (Join-Path (Get-RepositoryRoot) (Get-TrackPlace -Track js -TrackKind extensions))
     )
 
+    # The source folder drops the js track's namespace; the installed folder keeps the name, the extension's id.
     $sourceFolder = (Get-Track -Name js).FolderNameOf($Extension.name)
     $script = Join-Path $AssetDirectory "$sourceFolder/extension.js"
     Assert-PathExist $script -ErrorText "New-VsCodeExtensionFolder: extension '$($Extension.name)' has no script at '$script'."
@@ -63,12 +64,14 @@ function New-VsCodeExtensionFolder {
     if (Test-Path -LiteralPath $media -PathType Container) {
         Copy-Item -LiteralPath $media -Destination (Join-Path $folder 'media') -Recurse
     }
+    # A lamp is authored as two green base glyphs; every condition variant is rendered from them with the lamp palette.
     $rendered = Join-Path $folder 'media'
     # An extension that contributes an icon theme gets the theme rendered from file-icons.yml into its media.
     if ($Extension.contributes.Contains('iconThemes')) {
         $null = New-VsCodeFileIconTheme -MediaDirectory $rendered -GlyphDirectory @((Join-Path $AssetDirectory "$sourceFolder/assets"),
             (Join-Path $AssetDirectory "$((Get-Track -Name js).FolderNameOf('catzc-track-lamps'))/assets"))
     }
+    # A repeat source naming glyphs draws one label glyph per item, so its lamps need no hand-drawn icon.
     $repeats = if ($Extension.contributes.Contains('repeat')) {
         $Extension.contributes['repeat']
     }
@@ -101,7 +104,9 @@ function New-VsCodeExtensionFolder {
     if ($bases.Count -gt 0) {
         $palette = (Get-Config -Config lamp-palette).ranges
         $stroke = '(?<=<svg [^>]*\bstroke=")#[0-9a-fA-F]{6}|(?<=<text [^>]*\bfill=")#[0-9a-fA-F]{6}'
+        # A base glyph whose top-right corner is drawn on declares data-badge="bottom"; its badge then sits bottom-right.
         $corner = ' data-badge="bottom"'
+        # A base glyph with data-empty="hidden" is fully transparent while its lamp claims nothing, keeping its place in the row.
         $hidden = ' data-empty="hidden"'
         # The staged and unstaged badge is a square, the failed one a dot that blinks while the lamp is unlit; the empty condition has none.
         $square = {

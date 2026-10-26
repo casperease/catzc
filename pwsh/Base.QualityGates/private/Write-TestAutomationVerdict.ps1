@@ -27,6 +27,7 @@ function Write-TestAutomationVerdict {
         [string] $ReportPath
     )
 
+    # The rainbow lives in this one end-of-run verdict and nowhere else.
     $anchor = if ($Result -eq 'Passed') {
         'Green'
     }
@@ -37,10 +38,12 @@ function Write-TestAutomationVerdict {
 
     Write-Message '' -NoHeader
     Write-Header "Test Automation $($Result.ToUpperInvariant()) — $Summary" -ForegroundColor $rainbow
+    # Invariant, matching the title's summary on any devbox culture.
     $detail = [string]::Format([System.Globalization.CultureInfo]::InvariantCulture,
         '{0} passed · {1} skipped · {2} failed · {3:N1}s wall clock', $PassedCount, $SkippedCount, $FailedCount,
         $DurationSeconds)
     Write-Message $detail -NoHeader
+    # The report pointer sits inside the bracket, where a reader looks last.
     if ($ReportPath) {
         Write-Message "Report: $ReportPath" -NoHeader
     }

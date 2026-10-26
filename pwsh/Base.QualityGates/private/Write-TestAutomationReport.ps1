@@ -37,6 +37,7 @@ function Write-TestAutomationReport {
         New-Item -ItemType Directory -Path $OutputFolder -Force | Out-Null
     }
 
+    # Slowest first; Rules makes tests.csv the backtrack table from a rule to its tests.
     $csvRows = @($Rows |
             Select-Object ExpandedPath, Result, DurationMs, Level, Category, Rules, File, Line |
             Sort-Object -Property DurationMs -Descending)
@@ -67,6 +68,7 @@ function Write-TestAutomationReport {
     $notRunCount = @($Rows | Where-Object { $_.Result -eq 'NotRun' }).Count
 
     $pesterVersion = (Get-Module Pester | Select-Object -First 1).Version
+    # Invariant: ':' is the culture's time separator, '.' under some locales.
     $now = [datetime]::Now.ToString('yyyy-MM-dd HH:mm:ss', [System.Globalization.CultureInfo]::InvariantCulture)
     $os = [System.Runtime.InteropServices.RuntimeInformation]::OSDescription.Trim()
     $totalSeconds = [math]::Round($DurationSeconds, 2)

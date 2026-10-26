@@ -38,6 +38,7 @@ function Set-CSharpFileScopedNamespace {
         $joined
     }
 
+    # A file-scoped declaration is corrected in place; a block-scoped one is left untouched.
     for ($i = 0; $i -lt $lines.Count; $i++) {
         if ($lines[$i] -match '^\s*namespace\s+\S') {
             if (($lines[$i] -match '^\s*namespace\s+(\S+?)\s*;\s*$') -and ($Matches[1] -ne $Namespace)) {

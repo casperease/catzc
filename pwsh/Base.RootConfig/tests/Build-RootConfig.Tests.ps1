@@ -11,6 +11,7 @@ Describe 'Build-RootConfig' -Tag 'L0', 'logic' {
     BeforeAll {
         Import-InternalModule TestKit
 
+        # Isolated through the seams: the config and the generator dispatch are mocked, the repository root a fixture tree.
         $script:fake = New-FakeRepositoryRoot -Files @{
             'sources/fixture.yml' = "alpha: 1`nbeta: 2`n"
         }
@@ -141,6 +142,7 @@ Describe 'Build-RootConfig — multi-file generator' -Tag 'L0', 'logic' {
         }
         $script:alpha = Join-Path $script:fake.Root 'widgets/alpha/gadget.txt'
         $script:beta = Join-Path $script:fake.Root 'widgets/beta/gadget.txt'
+        # The generated head over the content the generator rendered; the body hash is any 12 hex digits.
         $script:headed = {
             param([string] $Body)
             '^# ---\n# catzc:\n#   immutable:\n(#     with_body_sha: "?[0-9a-f]{12}"?\n)?#     warning: "Do Not Edit, this file is generated"\n# ---\n\n' + [regex]::Escape($Body).Replace("`n", '\n') + '$'
@@ -219,6 +221,7 @@ Describe 'Build-RootConfig — multi-file generator' -Tag 'L0', 'logic' {
 
 Describe 'Build-RootConfig — real rootconfig.yml' -Tag 'L2', 'integrity', 'source-only' {
     BeforeAll {
+        # -DryRun composes every opted-in target's content; a missing source file or an unknown generator throws.
         $script:rendered = Build-RootConfig -DryRun -PassThru -Silent
     }
 

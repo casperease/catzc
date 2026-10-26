@@ -42,6 +42,7 @@ function Set-AbandonedTestRun {
             continue
         }
 
+        # A date goes back as the UTC string it was read from, not as a local DateTime.
         $abandoned = [ordered]@{}
         foreach ($key in $manifest.Keys) {
             $value = $manifest[$key]

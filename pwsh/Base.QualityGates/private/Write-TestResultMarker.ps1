@@ -17,6 +17,7 @@ function Write-TestResultMarker {
         [Parameter(Mandatory)]
         [string] $RunDirectory,
 
+        # A filtered run says nothing of the other tests, so it never clears a marker.
         [switch] $KeepPassing,
 
         [string] $RepositoryRoot = (Get-RepositoryRoot),
@@ -24,6 +25,7 @@ function Write-TestResultMarker {
         [string] $OutputRoot = (Get-OutputRoot)
     )
 
+    # One marker per failing file at a fixed path; the lamps read only its existence and time.
     $markerRoot = Join-Path $OutputRoot 'test-results'
     $utf8NoBom = [System.Text.UTF8Encoding]::new($false)
     foreach ($item in $Outcome) {

@@ -4,6 +4,7 @@
 #   header: "generated"
 # ---
 
+# One icon per file type, a recoloured lamp glyph or a generated label; an unmarked file is one dot, a folder takes no icon.
 icons:
   powershell-test: { label: PST, style: prompt, color: "#2b5fb8", extensions: [tests.ps1] }
   powershell: { label: PS1, style: prompt, color: "#2b5fb8", extensions: [ps1] }

@@ -53,6 +53,7 @@ function Invoke-RootConfigGenerator {
             else {
                 "`${workspaceFolder}/$pythonRoot/.venv/bin/python"
             }
+            # Pylance runs pyright in the mode Test-PythonTypes runs it in.
             $machineSetting['python.analysis.typeCheckingMode'] = $python.type_checking
             # Format Document runs the same engine Format-Code runs for each language.
             $languageFormatter = [ordered]@{}

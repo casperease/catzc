@@ -32,6 +32,7 @@ function Install-VsCodeExtension {
         $entries = @($entries | Where-Object { $_.name -in $Name })
     }
 
+    # Judged once for every extension, so one rendered extension never makes the next look current while it is stale.
     $current = -not $Force -and -not @(Get-GeneratedWriterDue -Name New-VsCodeExtensionFolder | Where-Object Due)
     $rendered = $false
     foreach ($entry in $entries) {
@@ -44,9 +45,11 @@ function Install-VsCodeExtension {
         if (-not $Force) {
             $manifest = Get-Content -LiteralPath (Join-Path $folder 'package.json') -Raw | ConvertFrom-Json
             $installed = Join-Path $ExtensionsDirectory "$($manifest.publisher).$($manifest.name)-$($manifest.version)".ToLowerInvariant()
+            # A stamp is stored only after every extension installed, so an unchanged folder's present copy is that copy.
             if (-not $renderedNow -and (Test-Path -LiteralPath $installed)) {
                 continue
             }
+            # The editor writes its own __metadata into the installed package.json, so the manifest is compared without it.
             $manifestText = { param([string] $Path) $json = Get-Content -LiteralPath $Path -Raw | ConvertFrom-Json
                 $json.PSObject.Properties.Remove('__metadata')
                 $json | ConvertTo-Json -Depth 32 -Compress }

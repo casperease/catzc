@@ -38,6 +38,7 @@ function Test-AgentDefinitions {
             Get-ChildPath $skillsRoot -Depth 2 -File -Filter 'SKILL.md' | ForEach-Object { [string]$_ } | Sort-Object
         })
     $floors = @{}
+    # A user skill is invoked by the user and a brief skill named in a brief: neither is preloaded, and the registry says which.
     $userSkills = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
     $briefSkills = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
     $readOnlySkills = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
@@ -52,6 +53,7 @@ function Test-AgentDefinitions {
             [void]$readOnlySkills.Add($entry.name)
         }
     }
+    # The carrier registry says where a capability's catzc head nests; the gate never fixes the key itself.
     $carriers = Get-Config -Config file-carriers
     $fileKinds = Get-Config -Config file-kinds
     foreach ($file in $capabilityFiles) {
@@ -93,6 +95,7 @@ function Test-AgentDefinitions {
         elseif ($readOnlySkills.Contains($name) -and [string]$frontMatter['allowed-tools'] -match '\b(Write|Edit)\b') {
             $issues.Add("${relative}: a read_only skill's allowed-tools must hold no Write or Edit")
         }
+        # The floor is the author's one line in the head's config part, so it survives every imprint.
         $floor = $null
         $authored = $frontMatter
         foreach ($segment in @('metadata', 'catzc', 'config')) {

@@ -8,6 +8,7 @@ carried:
   # The track lamps add files.exclude rows at workspace scope and list them under their own key; the render keeps both as they are.
   files.exclude: catzc.trackLamps.owned
 
+# The .editorconfig sections rendered into per-language settings, each glob to its language ids; [*] renders top-level.
 editorconfig:
   "*.{ps1,psm1,psd1}": [powershell]
   "*.md": [markdown]
@@ -18,6 +19,7 @@ editorconfig:
   "*.bicep": [bicep]
   "*.{xml,ps1xml,xsd,dtd,csproj}": [xml]
 
+# The editor actions kept off its menus, by menu id; Set-VsCodeHiddenAction writes them to VS Code's state store while it is closed.
 hidden_actions:
   ViewTitle:
     - workbench.files.action.createFileFromExplorer
@@ -25,6 +27,7 @@ hidden_actions:
     - workbench.files.action.refreshFilesExplorer
     - workbench.files.action.collapseExplorerFolders
 
+# The one authored source of .vscode/settings.json, a gitignored copy New-VsCodeSettings renders: edit this file, never settings.json.
 settings:
   # Markdown settings (built-in preview)
   markdown.preview.fontFamily: "Consolas, 'Courier New', monospace"
@@ -38,10 +41,12 @@ settings:
   # A double-click in the preview opens the source at that line (.md opens rendered, see workbench.editorAssociations)
   markdown.preview.doubleClickToSwitchToEditor: true
 
+  # Markdown link validation while editing, early feedback for what Test-Links gates; http(s) links are never checked.
   markdown.validate.enabled: true
   markdown.validate.fileLinks.enabled: warning
   markdown.validate.fragmentLinks.enabled: warning
   markdown.validate.fileLinks.markdownFragmentLinks: warning
+  # Off: VS Code reads every footnote use as an undefined reference link; markdownlint MD052 gates real reference links.
   markdown.validate.referenceLinks.enabled: ignore
   # Offer to rewrite relative links in .md files when a linked file or folder is moved or renamed
   markdown.updateLinksOnFileMove.enabled: prompt
@@ -57,14 +62,19 @@ settings:
   # PowerShell: use project PSScriptAnalyzer settings for analysis (squiggles)
   powershell.scriptAnalysis.settingsPath: ./pwsh/.internal/assets/PSScriptAnalyzerSettings.psd1
 
+  # Format Document uses these settings, not the psd1, so they match PSScriptAnalyzerSettings.psd1 or formatter and analyzer disagree.
   powershell.codeFormatting.pipelineIndentationStyle: IncreaseIndentationForFirstPipeline
   # Expand aliases on format — the psd1 enforces PSAvoidUsingCmdletAliases.
   powershell.codeFormatting.autoCorrectAliases: true
   # Leave casing alone — PSUseCorrectCasing is disabled in the psd1 (false positives on Pester params).
   powershell.codeFormatting.useCorrectCasing: false
+  # Aligned hashtable pairs; the psd1 ignores the assignment operator inside a hashtable, so the analyzer accepts the aligned '='.
   powershell.codeFormatting.alignPropertyValuePairs: true
+  # One-line blocks break across lines on format, matching the psd1's IgnoreOneLineBlock = $false.
   powershell.codeFormatting.ignoreOneLineBlock: false
+  # XML is never reformatted: no engine formats it, and the editor's XML formatter rewraps element text.
   xml.format.enabled: false
+  # Git state on the open file, in the lamps' one mapping.
   git.decorations.enabled: true
   workbench.editor.decorations.colors: true
   workbench.editor.decorations.badges: true
@@ -112,17 +122,20 @@ settings:
     .claude/hooks/Assert-BashTimeout/obj: true
     .claude/hooks/Assert-BashTimeout/bin: true
 
+  # Vendored modules and generated manifests stay out of search; the analyzer config is un-excluded, and root-config targets injected.
   search.exclude:
     pwsh/.vendor: true
     pwsh/**/*.psd1: true
     pwsh/.internal/assets/PSScriptAnalyzerSettings.psd1: false
 
+  # Generated manifests and installed tool trees are not watched; the analyzer config and out/ are.
   files.watcherExclude:
     "**/pwsh/**/*.psd1": true
     "**/pwsh/.internal/assets/PSScriptAnalyzerSettings.psd1": false
     "**/python/.venv/**": true
     "**/node_modules/**": true
 
+  # Each language's formatter is injected from languages.yml, so Format Document runs the engine Format-Code runs; no format-on-save.
   "[markdown]":
     editor.quickSuggestions:
       comments: "on"
@@ -130,12 +143,14 @@ settings:
       other: "on"
     editor.wordWrap: "off"
 
+  # LICENSE as plain text, .yml generic and .yaml pipeline YAML, .markdownlintignore as an ignore file, out/ console captures as ansi.
   files.associations:
     "**/LICENSE": plaintext
     "**/.gitkeep": plaintext
     "**/*.yml": yaml
     "**/.markdownlintignore": ignore
 
+  # No extension fetches a schema: every schema the editor checks against is a local file named below.
   yaml.schemaStore.enable: false
   json.schemaDownload.enable: false
   yaml.schemas:
@@ -152,6 +167,7 @@ settings:
         - "**/main.json"
       url: ./contracts/catzc/0.1.0/pwsh.azure.templates/arm/main.json.schema.json
 
+  # *.drawio.png opens in the image preview, so git Compare shows a pixel diff; Reopen Editor With edits the diagram.
   workbench.editorAssociations:
     "*.drawio.png": imagePreview.previewEditor
     "*.md": vscode.markdown.preview.editor
@@ -166,6 +182,7 @@ settings:
   git.smartCommitChanges: all
   git.postCommitCommand: push
 
+  # GOTOOLCHAIN=local: the editor never downloads a toolchain; it runs the managed go the generator injects as go.goroot.
   go.toolsEnvVars:
     GOTOOLCHAIN: local
 
@@ -176,8 +193,10 @@ settings:
     PYTHONPYCACHEPREFIX: ${workspaceFolder}/{python.pycache}
   terminal.integrated.env.osx:
     PYTHONPYCACHEPREFIX: ${workspaceFolder}/{python.pycache}
+  # The interpreter is injected; a terminal is never activated into it, since the tests run through Test-Automation.
   python.terminal.activateEnvironment: false
   python-envs.terminal.autoActivationType: "off"
+  # No relaunch when an extension adds environment variables: it would kill an untyped terminal's pwsh and its import.
   terminal.integrated.environmentChangesRelaunch: false
   # The test explorer discovers the Python tests with pytest, from the tests folder of the test project.
   python.testing.pytestEnabled: true
@@ -189,6 +208,7 @@ settings:
   # C# Dev Kit loads the IDE-only catzc.sln at the root, never a project it finds on its own.
   dotnet.defaultSolution: catzc.sln
 
+  # Spell checking: the single repository dictionary is /cspell.yml, auto-discovered by Code Spell Checker.
   cSpell.enabled: true
   # Information = blue squiggle (Error = red, Warning = yellow).
   cSpell.diagnosticLevel: Information

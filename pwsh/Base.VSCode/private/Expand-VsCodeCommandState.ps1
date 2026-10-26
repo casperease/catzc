@@ -15,6 +15,7 @@ function Expand-VsCodeCommandState {
         [System.Collections.IDictionary] $Contributes
     )
 
+    # A command with states becomes one command per state, and each menu item naming it is repeated, narrowed by the context key.
     $expanded = [ordered]@{}
     foreach ($name in $Contributes.Keys) {
         $expanded[$name] = $Contributes[$name]

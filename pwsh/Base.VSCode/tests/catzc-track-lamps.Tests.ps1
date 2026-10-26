@@ -8,6 +8,7 @@ catzc:
 
 Describe 'catzc-track-lamps' -Tag 'L0', 'logic' {
     BeforeAll {
+        # The extension's folder, resolved from its name through the js track.
         $script:lampsFolder = "$(Get-TrackPlace -Track js -TrackKind extensions)/$((Get-Track -Name js).FolderNameOf('catzc-track-lamps'))"
         $script:script = (Resolve-Path (Join-Path (Get-RepositoryRoot) "$script:lampsFolder/extension.js")).Path -replace '\\', '/'
         # Runs one exported function of the extension under node with JSON arguments and returns its JSON result.
@@ -26,6 +27,7 @@ Describe 'catzc-track-lamps' -Tag 'L0', 'logic' {
         }
     }
 
+    # The engine-core cases run in node (Invoke-JavaScriptTest); the shared vectors stay here, read from yml.
     It 'answers every shared vector of the lamp language: the files shown, the files no lamp claims, each lamp''s condition' {
         $globs = (Get-Track -Name (Get-CatzcModulesFolder)).FolderNameOf('Catzc.Base.Globs')
         $vectors = Get-Content -LiteralPath (Join-Path (Get-CatzcModulesRoot) "$globs/tests/assets/lamp-vectors.yml") -Raw | ConvertFrom-Yaml -Ordered
@@ -74,6 +76,7 @@ Describe 'catzc-track-lamps — the real repository' -Tag 'L1', 'integrity', 'so
     }
 
     It 'puts in the tests aspect every tracked file a module or the internal modules'' folder keeps in its tests folder' {
+        # Aspects belong to units, so only a unit's tests are in scope; vendored code is no unit, its test folders are tools.
         $modules = Get-CatzcModulesFolder
         $tests = $script:tracked.Where({ $_ -clike "$modules/*/tests/*" -and $_ -notlike "$modules/.vendor/*" })
         $tests.Where({ $_ -like "$modules/.internal/tests/*" }).Count | Should -BeGreaterThan 0
@@ -108,6 +111,7 @@ Describe 'catzc-track-lamps — the real repository' -Tag 'L1', 'integrity', 'so
             $resolved[$filter.name] = @($filter.sets)
         }
         [System.IO.File]::WriteAllText($filterFile, (ConvertTo-Json -InputObject $resolved -Depth 8 -Compress))
+        # The disk is walked once, and each lamp's census reads the verdict its plan reached, as the live engine does.
         $driver = "const m = require('$script'); const f = JSON.parse(require('fs').readFileSync(process.argv[1], 'utf8'));" +
         " (async () => { const r = {}; const disk = await m.walkDisk('$root'); for (const lamp of Object.keys(f)) { const out = new Set([lamp]);" +
         " const p = await m.hiddenPlan('$root', out, f, [], [], disk); const t = await m.census('$root', out, f, p.globs, [], [], disk, p.verdict);" +
@@ -175,6 +179,7 @@ Describe 'catzc-track-lamps — the real repository' -Tag 'L1', 'integrity', 'so
             @($menu.Where({ $_['command'] -ceq $command['command'] })) |
                 Should -HaveCount 1 -Because "$($command['command']) shows in the title row once"
         }
+        # Every tagged language is a lamp of its own, lang-<name>, with a lamp's commands, rendered icons and menu items.
         $tagged = @((Get-Config -Config languages).languages | Where-Object tag | ForEach-Object name)
         $tagged.Count | Should -BeGreaterThan 0
         $languageIcons = @($languageCommands.ForEach({ $_['icon']['dark'] }))

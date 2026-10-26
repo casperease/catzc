@@ -27,6 +27,7 @@ files:
       - contracts/catzc/0.1.0
     committed: true
     optIn: true
+  # Widths filled from file-limits.yml; it renders before .vscode/settings.json, whose generator reads it from disk.
   - target: .editorconfig
     generator: Build-WidthConfigs
     sources:
@@ -45,6 +46,7 @@ files:
       - pwsh/Base.Globs/configs/filters.yml
     carrier: jsonc
     optIn: true
+  # The project the editor and the js types gate read; its type root is the folder Install-TypeScript fills, the same on every machine.
   - target: jsconfig.json
     generator: New-JsConfig
     sources:
@@ -52,6 +54,7 @@ files:
       - pwsh/Base.Execution/configs/tools.yml
     carrier: jsonc
     optIn: true
+  # The modules the strict list does not raise yet, checked leniently; it holds no file once every module is raised.
   - target: jsconfig.lenient.json
     generator: New-JsConfig
     sources:

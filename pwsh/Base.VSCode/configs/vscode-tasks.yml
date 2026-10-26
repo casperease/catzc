@@ -6,6 +6,7 @@
 
 version: "2.0.0"
 tasks:
+  # The git topic flow, each step at the user's hand: Sync rebases the topic onto the sync point.
   - label: Sync
     type: process
     command: pwsh

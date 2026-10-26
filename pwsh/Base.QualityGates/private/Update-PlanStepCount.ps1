@@ -20,6 +20,7 @@ function Update-PlanStepCount {
     )
 
     $counts = Get-PlanOpenStepCount $Folder -Config $Config
+    # The stated phrase becomes the count, its first letter's case kept.
     $rewrite = {
         param([string] $Text, [int] $Count)
         $found = Resolve-PlanStepCount -Text $Text
@@ -45,6 +46,7 @@ function Update-PlanStepCount {
         }
     }
 
+    # A master chunk names its plan after '->'; the phrase is read across lines Prettier wrapped.
     $master = Join-Path $Folder $Config.master_file
     if ([System.IO.File]::Exists($master)) {
         $text = [System.IO.File]::ReadAllText($master)

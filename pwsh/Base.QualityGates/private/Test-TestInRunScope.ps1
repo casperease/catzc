@@ -17,6 +17,7 @@ function Test-TestInRunScope {
         [string[]] $ExcludeTag = @()
     )
 
+    # One array object comes back; wrapping it in @() would make every count 1.
     $level = Get-TestBlockTag -Test $Test -Valid ([Catzc.Base.Timeouts.TestTiers]::Names)
     $category = Get-TestBlockTag -Test $Test -Valid 'logic', 'integrity'
     @(@($level) + @($category) | Where-Object { $_ -in $ExcludeTag }).Count -eq 0

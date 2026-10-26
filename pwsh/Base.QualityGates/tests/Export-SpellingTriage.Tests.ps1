@@ -47,7 +47,7 @@ Describe 'Export-SpellingTriage' -Tag 'L0', 'logic' {
         $raw = [System.IO.File]::ReadAllText($script:queuePath)
         $raw | Should -Match '(?m)^- term: banana'
         $raw | Should -Match '(?m)^- term: kiwi'
-        # The blank meaning keeps the stub unloadable until a human classifies it.
+        # The blank meaning makes the stub fail to load until a human classifies it.
         $raw | Should -Match "meaning: ''"
         $raw | Should -Not -Match '(?m)^\s*category:'
     }

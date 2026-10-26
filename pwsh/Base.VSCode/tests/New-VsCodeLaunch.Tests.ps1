@@ -8,6 +8,7 @@ catzc:
 
 Describe 'New-VsCodeLaunch' -Tag 'L0', 'logic' {
     BeforeAll {
+        # Isolated through the config seam: a small fixture registry.
         Mock Get-Config -ModuleName Catzc.Base.VSCode {
             [Catzc.Base.VSCode.VscodeLaunchConfig]::new([ordered]@{
                     version        = '0.2.0'

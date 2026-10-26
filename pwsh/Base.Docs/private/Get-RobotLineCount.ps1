@@ -20,6 +20,7 @@ function Get-RobotLineCount {
     Assert-PathExist $Path
 
     $document = [Catzc.Base.MarkdownMeta.MarkdownDocument]::Parse([System.IO.File]::ReadAllText($Path), $Key)
+    # A line counts when it starts something; an indented line continues the one before, and blanks and comments count nothing.
     $front = @($document.OtherFrontMatter | Where-Object { $_ -cmatch '^\S' }).Count
     $body = @(($document.Body -split "`r?`n") | Where-Object { $_ -cmatch '^\S' -and $_ -cnotmatch '^<!--' }).Count
     [pscustomobject]@{ Body = $body; Capability = $front + $body }

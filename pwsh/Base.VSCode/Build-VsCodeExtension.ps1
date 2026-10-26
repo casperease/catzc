@@ -20,6 +20,7 @@ function Build-VsCodeExtension {
     $manifestPath = Join-Path $folder 'package.json'
     Assert-PathExist $manifestPath
     $text = Get-Content -LiteralPath $manifestPath -Raw
+    # Every rendered manifest is held against the extension manifest contract before it is packed; a mismatch stops the build.
     $repositoryRoot = Get-RepositoryRoot
     $group = Get-ContractGroup -Module Catzc.Base.VSCode -RepositoryRoot $repositoryRoot
     $contract = @(Get-Contract catzc -Group $group -Path package.schema.json -RepositoryRoot $repositoryRoot)
