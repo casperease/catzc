@@ -2,8 +2,8 @@
 
 <!-- cspell:ignore etlco -->
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The function that discovers all bicep templates under the repository's `infrastructure/templates` folder and returns their descriptors:
+options, short name, slots and configs, with the cross-layer checks run at discovery.
 
 ## help
 
@@ -63,118 +63,49 @@ overlay the defaults here. Templates with no options.yml take the derived short_
 Get-BicepTemplates | Format-Table name, deployment_target, environments
 ```
 
-## comment:1
+## Caching
 
-Above `if ($null -eq...`, written with `#`.
+Filesystem-derived information is cached for the session, lazily on first use, keyed on the discovery root and the output root
+([ADR-AUTO-CACHE](../../../drs/automation/caching.md)). The on-disk file set is fixed at importer time (a static checkout in a pipeline;
+on a devbox the importer is re-run after editing files), so re-running the importer is the only invalidation.
 
-```text
-Filesystem-derived information is cached for the session, lazily on first use, keyed on the discovery
-root + the output root — see
-[ADR-AUTO-CACHE](/docs/drs/automation/caching.md). The on-disk file set is fixed at importer time
-(pipeline: static checkout; devbox: re-run the importer after editing files), so re-running the
-importer is the only invalidation. Keying on the root lets tests redirect discovery to a fixture
-tree (Mock Get-BicepTemplatesRoot) or the build output to a folder of their own (Mock
-Get-BicepTemplatesOutputRoot) without colliding with the real cache entry. Callers must
-treat the result as read-only (the same object is returned every call).
-```
+Keying on the roots lets a test redirect discovery to a fixture tree (mock `Get-BicepTemplatesRoot`) or the build output to a folder of its
+own (mock `Get-BicepTemplatesOutputRoot`) without colliding with the real cache entry. Callers treat the result as read-only, since the same
+object is returned on every call. The lazy cache entry is read with a strict-safe probe
+([ADR-PWSH-CACHE-STRICTSAFEPROBE](../../../drs/automation/pwsh/script-scope-caching.md#rule-adr-pwsh-cache-strictsafeprobe)).
 
-## comment:2
+## The walk
 
-Above `$script:bicepTemplatesCache = @{}`, written with `#`.
+The template folders are enumerated with `Get-ChildPath`, the bounded folder walker. It returns the folders sorted ordinally, so the output
+is deterministic, and it carries none of `Get-ChildItem`'s per-call provider overhead, which discovery would otherwise pay dozens of times.
 
-```text
-strict-clean probe of the lazy cache entry
-([ADR-PWSH-CACHE-STRICTSAFEPROBE](/docs/drs/automation/pwsh/script-scope-caching.md#rule-adr-pwsh-cache-strictsafeprobe))
-```
+## Template options
 
-## comment:3
+- **Environment class.** The environment-class bit (standard or subscription, default standard) classifies the template
+  ([ADR-AZ-DATAMOD](../../../drs/azure/azure-data-model.md)), and every config must match it. The slot is a per-config dimension, not a
+  template bit, so a template may mix slotted and non-slotted configs.
+- **Customer class.** The customer-class bit says whether this is a customer template
+  ([ADR-AZ-CUSTOMER](../../../drs/azure/azure-customer-model.md)). It defaults to the `have_customers` repo variant (`Test-HaveCustomers`)
+  unless `options.yml` sets it, and an explicit `customer_deployment: true` is allowed only when customers are enabled.
+- **Short name.** `short_name` is the Azure id segment every resource name is built from. It is derived from the folder name by default, and
+  an `options.yml` `short_name` overrides it. `BicepShortName` owns the derivation and the format validation, and a malformed override, or a
+  folder that cannot yield a valid short name without one, throws here and names the template
+  ([ADR-AZ-NAMING-TWOTEMPLATEIDENTIFIERS](../../../drs/azure/azure-naming-standard.md#rule-adr-az-naming-twotemplateidentifiers)).
+- **Other overrides.** The remaining deployment overrides are overlaid; `short_name`, `environment_kind` and `customer_deployment` are
+  already applied, so all three are excluded from the overlay.
 
-Above `$azure = Get-Config -Config azure`, written with `#`.
+## Configs and slots
 
-```text
-A config lives at the configuration root (`<env>[-<slot>].yml` — the shared platform) or under a
-configuration/<customer>/ subfolder (the folder is a customer key). The subscription is resolved
-per config; both checks (subfolder is a defined customer key, the coordinate resolves to exactly
-one subscription) run at discovery via the shared Get-BicepSubscriptionConfigViolations.
-```
+A config lives at the configuration root (`<env>[-<slot>].yml`, the shared platform) or under a `configuration/<customer>/` subfolder, where
+the folder is a customer key. The subscription is resolved per config, and both checks, that the subfolder is a defined customer key and
+that the coordinate resolves to exactly one subscription, run at discovery through the shared `Get-BicepSubscriptionConfigViolations`.
 
-## comment:4
+Every config file is gathered with its customer (the subfolder, or empty for a root config): root files first, then the customer
+subfolders, both sorted, so the output stays deterministic.
 
-Above `foreach ($folderPath in (Get-ChildPath $infrastructureRoot -Depth 1...`, written with `#`.
+Each config file is one slot, one resource group. The file name `<env>[-<slot>]` resolves to its environment and slot through
+`Resolve-BicepConfigName`, with `default.yml` a reserved skip. The subscription resolves from the customer and environment coordinate, so
+one config file is one (customer, env, slot) coordinate, one subscription and one resource group.
 
-```text
-The template folders are enumerated with Get-ChildPath, the bounded folder walker: it returns the folders
-sorted ordinally, so the output is deterministic, and it carries none of Get-ChildItem's per-call provider
-overhead, which discovery would pay dozens of times.
-```
-
-## comment:5
-
-Above `$environmentKind = if ($options.Contains('environment_kind')) {`, written with `#`.
-
-```text
-Env-class template classification ([ADR-AZ-DATAMOD](/docs/drs/azure/azure-data-model.md)): the env-class bit
-(standard/subscription, default standard). Every config below must match it. The slot is a
-per-config dimension, not a template bit — a template may mix slotted and non-slotted configs.
-```
-
-## comment:6
-
-Above `$customerDeploymentOption = if ($options.Contains('customer_deployment')) {`, written with `#`.
-
-```text
-Customer-class bit
-([ADR-AZ-CUSTOMER](/docs/drs/azure/azure-customer-model.md)): whether this is a customer template. It
-defaults to the have_customers repo variant (Test-HaveCustomers) unless options.yml sets it. An
-explicit customer_deployment: true is only allowed when customers are enabled (the repo-level guard).
-```
-
-## comment:7
-
-Above `$shortNameOverride = if ($options.Contains('short_name')) {`, written with `#`.
-
-```text
-short_name is the Azure id segment every resource name is built from. It is DERIVED from the folder
-name by default; an options.yml `short_name` overrides it. BicepShortName owns the derivation +
-format validation (a malformed override, or a folder that cannot yield a valid short_name without an
-override, throws here — naming the template). See
-[ADR-AZ-NAMING-TWOTEMPLATEIDENTIFIERS](/docs/drs/azure/azure-naming-standard.md#rule-adr-az-naming-twotemplateidentifiers).
-```
-
-## comment:8
-
-Above `$configEntries = [System.Collections.Generic.List[object]]::new()`, written with `#`.
-
-```text
-Gather every config file with its customer (the subfolder; '' for a configuration-root config).
-Root files first, then the customer subfolders — both sorted, so output stays deterministic.
-```
-
-## comment:9
-
-Above `$slots = [System.Collections.Generic.List[object]]::new()`, written with `#`.
-
-```text
-Each config file is one slot (one resource group). The filename `<env>[-<slot>]` resolves to
-its environment + slot via Resolve-BicepConfigName (`default.yml` is a reserved skip); the
-subscription is resolved from the (customer?, env) coordinate — one config file ⟷ one
-(customer?, env, slot) ⟷ one subscription ⟷ one RG.
-```
-
-## comment:10
-
-Above `foreach ($key in @($options.Keys)) {`, written with `#`.
-
-```text
-Overlay the remaining deployment overrides. short_name is resolved via BicepShortName and
-environment_kind / customer_deployment are already applied above, so all three are excluded here.
-```
-
-## comment:11
-
-Above `foreach ($pair in @($files | Group-Object {...`, written with `#`.
-
-```text
-One config per coordinate
-([ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION](/docs/drs/azure/azure-data-model.md#rule-adr-az-datamod-onefileonesubscription)): never a yml and a bicepparam of one name.
-```
+There is one config per coordinate, never a yml and a bicepparam of one name
+([ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION](../../../drs/azure/azure-data-model.md#rule-adr-az-datamod-onefileonesubscription)).

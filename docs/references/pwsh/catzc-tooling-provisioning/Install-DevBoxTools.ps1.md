@@ -34,15 +34,15 @@ Install-DevBoxTools -Force
 ## The sequence
 
 1. Chocolatey is removed if present, since this toolset uses winget on Windows.
-2. Git comes first: a base tool that is not version-locked and not in `tools.yml`, which the locked set builds on. On Windows its Git Bash is
-   the platform-provided `bash` asserted below.
+2. Git comes first: a base tool that is not version-locked and not in `tools.yml`, which the locked set builds on. On Windows its Git Bash
+   is the platform-provided `bash` asserted below.
 3. The locked tools follow in dependency order.
 
 ## Platform-provided tools
 
-Platform-provided tools (winget, and `bash` as the OS's own or Git Bash on Windows) are never installed. They are asserted present, winget by
-name and kept on PATH by its `session_path_hints`, `bash` at its candidate paths, and the run moves on, so the tools that depend on them fail
-fast if they are absent.
+Platform-provided tools (winget, and `bash` as the OS's own or Git Bash on Windows) are never installed. They are asserted present, winget
+by name and kept on PATH by its `session_path_hints`, `bash` at its candidate paths, and the run moves on, so the tools that depend on them
+fail fast if they are absent.
 
 ## Skipped tools
 

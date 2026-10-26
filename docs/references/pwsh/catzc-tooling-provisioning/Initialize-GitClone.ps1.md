@@ -1,7 +1,7 @@
 # pwsh/Tooling.Provisioning/Initialize-GitClone.ps1
 
-The first-run setup of a fresh clone: it writes the clone-local git settings the trunk-based flow needs and reports a missing git identity. It
-takes `-DryRun` rather than `-WhatIf`
+The first-run setup of a fresh clone: it writes the clone-local git settings the trunk-based flow needs and reports a missing git identity.
+It takes `-DryRun` rather than `-WhatIf`
 ([ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT](../../../drs/automation/dry-run.md#rule-adr-auto-dryrun-branchbeforesideeffect)).
 
 ## help

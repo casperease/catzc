@@ -1,7 +1,7 @@
 # pwsh/Tooling.Toolchain/Install-Go.ps1
 
-The installer of the Go toolchain: the official go.dev archive for the locked version, unpacked into a managed user-space home that goes first
-on PATH.
+The installer of the Go toolchain: the official go.dev archive for the locked version, unpacked into a managed user-space home that goes
+first on PATH.
 
 ## help
 

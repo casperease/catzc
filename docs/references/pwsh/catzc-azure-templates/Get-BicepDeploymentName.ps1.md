@@ -1,7 +1,6 @@
 # pwsh/Azure.Templates/Get-BicepDeploymentName.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The function that builds an ARM deployment name for a bicep template, from the template, the slot, the build id and the short commit.
 
 ## help
 
@@ -47,16 +46,12 @@ Get-BicepDeploymentName sample -Environment dev              # -> sample-dev-...
 Get-BicepDeploymentName sample -Environment prod -Slot 001   # -> sample-prod-001-...
 ```
 
-## comment:1
+## Pipeline variables
 
-Above `if ($env:GITHUB_RUN_ID) {`, written with `#`.
+The function already knows it is in a pipeline, because the one sanctioned detector said so. It reads only each platform's run-id and
+commit data variables, never the detection variables `TF_BUILD` and `GITHUB_ACTIONS`, which only `Test-IsRunningInPipeline` may read
+([FDR-CD-DETECT-NODIRECTVARIABLECHECK](../../../drs/flow/pipeline-detection.md#rule-fdr-cd-detect-nodirectvariablecheck), enforced by
+`Measure-NoRawPipelineDetection`).
 
-```text
-We already know we're in a pipeline (the one sanctioned detector said so); here we only read each
-platform's run-id / commit DATA vars — not the detection vars TF_BUILD / GITHUB_ACTIONS, which only
-Test-IsRunningInPipeline may read (rule
-[FDR-CD-DETECT-NODIRECTVARIABLECHECK](/docs/drs/flow/pipeline-detection.md#rule-fdr-cd-detect-nodirectvariablecheck) /
-Measure-NoRawPipelineDetection). GitHub Actions sets
-GITHUB_RUN_ID / GITHUB_SHA; Azure DevOps sets BUILD_BUILDID / BUILD_SOURCEVERSION. The commit is
-truncated to 7 chars.
-```
+GitHub Actions sets `GITHUB_RUN_ID` and `GITHUB_SHA`, and Azure DevOps sets `BUILD_BUILDID` and `BUILD_SOURCEVERSION`. The commit is
+truncated to 7 characters. Outside a pipeline the name carries the placeholders `xCLIxx` and `xxxxxxx`.

@@ -87,42 +87,21 @@ Get-AzureResourceName -Env develop -Shortcode de -Slot 001 -RegionCode weu -Org 
 # -> de001weuzctsmplst
 ```
 
-## comment:1
+## Omitted components
 
-Above `$omit = @(if ($specification.Contains('omit')) {`, written with `#`.
+A resource type may omit components from its render. The Windows `vm`, with its 15-character cap, drops org, customer and role, which the
+resource group already encodes. The `type` segment is never omitted.
 
-```text
-A type may omit components from its render — e.g. the Windows `vm` (15-char cap) drops
-org/customer/role, which the resource group already encodes (see
-[ADR-AZ-NAMING](/docs/drs/azure/azure-naming-standard.md)). The `type`
-segment is never omitted.
-```
+## Environment and customer forms
 
-## comment:2
+The environment segment is the readable name for the generous `long` pattern and the 2-character shortcode for the restricted patterns
+(kv, storage, vm)
+([ADR-AZ-NAMING-PATTERNPERRESOURCETYPE](../../../drs/azure/azure-naming-standard.md#rule-adr-az-naming-patternperresourcetype)).
 
-Above `$envValue = if ($specification.pattern -eq 'long') {`, written with `#`.
+The customer follows the same pattern-chosen split: the readable key (`-Customer`) for `long`, the 2-character shortcode
+(`-CustomerShortcode`) for the restricted patterns. It applies only when a customer is given, since the segment is optional.
 
-```text
-The env-segment is the readable name for the generous `long` pattern, the 2-char shortcode for
-the restricted patterns (kv/storage/vm) — see
-[ADR-AZ-NAMING-PATTERNPERRESOURCETYPE](/docs/drs/azure/azure-naming-standard.md#rule-adr-az-naming-patternperresourcetype).
-```
+## Format checks
 
-## comment:3
-
-Above `$customerValue = ''`, written with `#`.
-
-```text
-Customer follows the same pattern-chosen split as env: the readable key (-Customer) for the
-generous `long` pattern, the 2-char shortcode (-CustomerShortcode) for the restricted patterns.
-Only applies when a customer is given (the segment is optional).
-```
-
-## comment:4
-
-Above `$checks = [ordered]@{`, written with `#`.
-
-```text
-Component format checks (case-sensitive, lowercase) — see
-[ADR-AZ-NAMING-LOWERCASECOMPONENTS](/docs/drs/azure/azure-naming-standard.md#rule-adr-az-naming-lowercasecomponents).
-```
+Every component is checked case-sensitively as lowercase
+([ADR-AZ-NAMING-LOWERCASECOMPONENTS](../../../drs/azure/azure-naming-standard.md#rule-adr-az-naming-lowercasecomponents)).

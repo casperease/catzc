@@ -1,7 +1,8 @@
 # pwsh/Tooling.Provisioning/Get-ToolsStatus.ps1
 
 The status report of the dev box: for every tool `tools.yml` registers it compares what is installed with what the lock requires and returns
-one `ToolStatus` row per tool. It is read-only and the source of the verdicts that `Assert-DevBoxToolsStatus` and `Install-DevBoxTools` act on.
+one `ToolStatus` row per tool. It is read-only and the source of the verdicts that `Assert-DevBoxToolsStatus` and `Install-DevBoxTools` act
+on.
 
 ## help
 
@@ -54,5 +55,5 @@ another platform the tool takes the manager its entry declares there (`apt_packa
 ## Chocolatey
 
 Chocolatey is not a `tools.yml` tool but a package manager that should not be present
-([ADR-AUTO-PKGMGR](../../../drs/automation/use-proper-package-managers.md)). It is reported only when actually found, so its absence makes no
-noise.
+([ADR-AUTO-PKGMGR](../../../drs/automation/use-proper-package-managers.md)). It is reported only when actually found, so its absence makes
+no noise.

@@ -1,7 +1,7 @@
 # pwsh/Tooling.Python/Invoke-PySpark.ps1
 
-The way to run pyspark: the command checks the installed PySpark against the locked version and asserts that Java, its runtime dependency, is
-available, then runs it.
+The way to run pyspark: the command checks the installed PySpark against the locked version and asserts that Java, its runtime dependency,
+is available, then runs it.
 
 ## help
 

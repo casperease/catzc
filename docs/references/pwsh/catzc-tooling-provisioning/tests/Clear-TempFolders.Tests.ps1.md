@@ -4,8 +4,8 @@ The tests of `Clear-TempFolders`.
 
 ## The locked-file case
 
-`FileShare.None` is a mandatory lock only on Windows; on Unix it is advisory and does not block a delete, so the locked file would be removed
-and the case cannot be set up. The case is skipped off Windows.
+`FileShare.None` is a mandatory lock only on Windows; on Unix it is advisory and does not block a delete, so the locked file would be
+removed and the case cannot be set up. The case is skipped off Windows.
 
 ## The folder list
 

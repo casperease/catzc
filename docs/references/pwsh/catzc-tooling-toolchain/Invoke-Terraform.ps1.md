@@ -1,6 +1,7 @@
 # pwsh/Tooling.Toolchain/Invoke-Terraform.ps1
 
-The way to run terraform: the command checks the installed Terraform against the locked version first, then runs it with the arguments given.
+The way to run terraform: the command checks the installed Terraform against the locked version first, then runs it with the arguments
+given.
 
 ## help
 

@@ -49,9 +49,9 @@ still converged: re-running repairs a lost `PATH` or `DOTNET_ROOT` persistence i
 that, a session where dotnet resolves through the session janitor's PATH hints would mask a broken persistent PATH forever, and every
 non-repo process, such as an editor's language server, would fail to find dotnet.
 
-When the own directory holds nothing but a dotnet is on PATH, an install at the right version, wherever it lives, satisfies the tool contract
-and is not this command's to manage: it skips without touching `PATH` or `DOTNET_ROOT`. A wrong version elsewhere does not block the install,
-since it goes in side by side and its directory is prepended to PATH.
+When the own directory holds nothing but a dotnet is on PATH, an install at the right version, wherever it lives, satisfies the tool
+contract and is not this command's to manage: it skips without touching `PATH` or `DOTNET_ROOT`. A wrong version elsewhere does not block
+the install, since it goes in side by side and its directory is prepended to PATH.
 
 ## The install script
 
@@ -60,6 +60,6 @@ The install script is the vendored one that ships in this module's `assets/`
 
 ## The environment
 
-On every run that owns the install, the session and the persistent environment are converged, both idempotent. The persistent PATH is the one
-that non-repo processes resolve dotnet through. Each change is announced where it happens, and only when it changes something
+On every run that owns the install, the session and the persistent environment are converged, both idempotent. The persistent PATH is the
+one that non-repo processes resolve dotnet through. Each change is announced where it happens, and only when it changes something
 ([ADR-AUTO-CONSOLE-ANNOUNCELASTINGCHANGES](../../../drs/automation/console-output-matters.md#rule-adr-auto-console-announcelastingchanges)).

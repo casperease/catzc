@@ -1,7 +1,7 @@
 # pwsh/Tooling.Toolchain/private/Stop-DotnetInstallHolder.ps1
 
-A private helper of the .NET removal: it stops the processes `Get-DotnetInstallHolder` named, no others, and asserts that the install is free
-afterwards.
+A private helper of the .NET removal: it stops the processes `Get-DotnetInstallHolder` named, no others, and asserts that the install is
+free afterwards.
 
 ## help
 

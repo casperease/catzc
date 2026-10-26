@@ -1,7 +1,6 @@
 # pwsh/Azure.Templates/Get-BicepTemplatesOutputRoot.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The function that returns the root folder `Build-Bicep` writes template build output under.
 
 ## help
 

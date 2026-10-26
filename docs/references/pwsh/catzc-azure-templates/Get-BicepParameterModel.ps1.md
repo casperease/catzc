@@ -1,7 +1,7 @@
 # pwsh/Azure.Templates/Get-BicepParameterModel.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The function that returns a template's Bicep parameter model: every parameter its compiled `main.json` declares, with its type, default,
+allowed values and bounds.
 
 ## help
 

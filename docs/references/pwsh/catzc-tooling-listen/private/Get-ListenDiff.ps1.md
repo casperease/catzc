@@ -1,7 +1,7 @@
 # pwsh/Tooling.Listen/private/Get-ListenDiff.ps1
 
-A private helper of the listen module that diffs two files that live outside any repository, with `git diff --no-index`. It is the only place
-the module launches git for a diff.
+A private helper of the listen module that diffs two files that live outside any repository, with `git diff --no-index`. It is the only
+place the module launches git for a diff.
 
 ## help
 

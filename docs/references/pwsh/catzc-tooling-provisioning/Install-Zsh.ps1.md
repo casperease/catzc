@@ -1,7 +1,7 @@
 # pwsh/Tooling.Provisioning/Install-Zsh.ps1
 
-The installer of zsh: the pinned MSYS2 package unpacked into Git Bash's tree on Windows, the distribution package on Linux, and the system's own
-zsh on macOS.
+The installer of zsh: the pinned MSYS2 package unpacked into Git Bash's tree on Windows, the distribution package on Linux, and the system's
+own zsh on macOS.
 
 ## help
 
@@ -55,11 +55,11 @@ Install-Zsh -Force
 
 ## On Linux
 
-The shared apt installer, `Install-Tool`, installs the package the entry's `apt_package` names. It checks presence before asking for root, so
-a box that has zsh at the pinned version installs nothing.
+The shared apt installer, `Install-Tool`, installs the package the entry's `apt_package` names. It checks presence before asking for root,
+so a box that has zsh at the pinned version installs nothing.
 
 ## On Windows
 
-Past the early return, an existing manifest is either a `-Force` replacement or an install that was cut short. Either way its files go first,
-so the new manifest lists every file this package owns. An MSYS2 package keeps its metadata files (`.PKGINFO` and its siblings) at the archive
-root and its payload under `etc/` and `usr/`; only the payload belongs in Git's tree.
+Past the early return, an existing manifest is either a `-Force` replacement or an install that was cut short. Either way its files go
+first, so the new manifest lists every file this package owns. An MSYS2 package keeps its metadata files (`.PKGINFO` and its siblings) at
+the archive root and its payload under `etc/` and `usr/`; only the payload belongs in Git's tree.

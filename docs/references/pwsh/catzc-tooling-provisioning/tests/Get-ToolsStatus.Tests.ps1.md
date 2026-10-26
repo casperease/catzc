@@ -10,5 +10,5 @@ its bare name. The probe, the package-manager oracle, the scope and winget are m
 
 ## The two-mechanism tool
 
-The fixture entry carries an MSYS2 package for Windows and an apt package for Linux, and nothing for macOS, so each platform takes exactly one
-manager: msys2 on Windows, apt on Linux, the system on macOS.
+The fixture entry carries an MSYS2 package for Windows and an apt package for Linux, and nothing for macOS, so each platform takes exactly
+one manager: msys2 on Windows, apt on Linux, the system on macOS.

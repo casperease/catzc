@@ -10,5 +10,5 @@ fresh tree.
 - **The committed reference**: `New-RepositorySnapshot` is mocked to return the fixture's files as committed, plus a code file and a binary
   one outside the watched folder.
 - **The diff**: `Get-ListenDiff` launches git (`git diff --no-index`), which the fast tiers never do
-  ([ADR-AUTO-TEST-PROCESSTRIPWIRE](../../../../drs/automation/test-automation.md)). A stand-in diffs the two sides' lines in memory and yields
-  the same shape: the one hunk from its header on, empty when the sides are equal.
+  ([ADR-AUTO-TEST-PROCESSTRIPWIRE](../../../../drs/automation/test-automation.md)). A stand-in diffs the two sides' lines in memory and
+  yields the same shape: the one hunk from its header on, empty when the sides are equal.

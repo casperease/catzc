@@ -1,7 +1,7 @@
 # pwsh/Azure.Templates/Set-BicepTrackingTagSet.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The command that writes the deployment-provenance tags (commit, build id, branch) on the target scope. It previews with `-DryRun` rather
+than `ShouldProcess` ([ADR-AUTO-DRYRUN](../../../drs/automation/dry-run.md)).
 
 ## help
 
@@ -52,22 +52,10 @@ Preview only — log the tag command that would run and make no change.
 Set-BicepTrackingTagSet -Environment dev -Template sample
 ```
 
-## comment:1
+## The target and failures
 
-Above `[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStat...`, written with `#`.
+The scope is the az session's subscription, the same session-determined target the deploy used.
 
-```text
-State-changing function deliberately uses -DryRun, not ShouldProcess — see
-[ADR-AUTO-DRYRUN](/docs/drs/automation/dry-run.md).
-```
-
-## comment:2
-
-Above `$result = Invoke-AzCli $command -PassThru -NoAssert`, written with `#`.
-
-```text
--NoAssert: take the result in hand so a failure throws WITH context (scope, command, az stderr)
-from here, rather than the generic exit-code assertion buried in Invoke-Executable. az's stderr is
-where the real cause shows up — a RequestDisallowedByPolicy / tag-policy collision, a dropped
-connection, an auth problem — so it must travel in the thrown error, not just the console stream.
-```
+The tag call passes `-NoAssert` and takes the result in hand, so a failure throws from the command with its context: the scope, the command
+and az's stderr. The real cause shows up in az's stderr, a `RequestDisallowedByPolicy` tag-policy collision, a dropped connection or an auth
+problem, so it must travel in the thrown error and not only the console stream.

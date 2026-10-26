@@ -34,13 +34,13 @@ The package lands in the toolchain's importable Python, uv's managed CPython, wh
 
 - `--python <pin>` pins which interpreter, so the install never drifts to a stray system Python;
 - `--system` permits a non-virtual install, which uv otherwise refuses without a venv;
-- `--break-system-packages` overrides the PEP 668 marker on uv's own managed CPython ("This Python installation is managed by uv and
-  should not be modified").
+- `--break-system-packages` overrides the PEP 668 marker on uv's own managed CPython ("This Python installation is managed by uv and should
+  not be modified").
 
 This is the sanctioned way to make a library importable by the bare `python` the version probe runs, rather than trapping it in an isolated
 venv or `uv tool` environment.
 
 ## Verifying the install
 
-A pip-installed library may put no executable on PATH; PySpark's launcher lives inside the package. The install is therefore confirmed through
-the version probe, an import or metadata read against the managed Python, and never by asserting that a command exists.
+A pip-installed library may put no executable on PATH; PySpark's launcher lives inside the package. The install is therefore confirmed
+through the version probe, an import or metadata read against the managed Python, and never by asserting that a command exists.

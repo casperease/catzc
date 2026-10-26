@@ -33,5 +33,5 @@ deep for headroom.
 
 ## PATH
 
-The uv tool-bin is normally on the persistent PATH already
-([ADR-AUTO-UVPY](../../../../drs/automation/uv-python-handler.md)); the command makes it resolve in the current session too.
+The uv tool-bin is normally on the persistent PATH already ([ADR-AUTO-UVPY](../../../../drs/automation/uv-python-handler.md)); the command
+makes it resolve in the current session too.

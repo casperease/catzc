@@ -33,7 +33,7 @@ non-elevated run skips it and reports it.
 ## Finding each uninstaller
 
 The snake_case `tools.yml` key is mapped to its PascalCase command suffix with `Get-ToolCommandSuffix`, exactly as `Install-DevBoxTools`
-does: `node_js` becomes `Uninstall-NodeJs`, `az_cli` becomes `Uninstall-AzCli`, `py_spark` becomes `Uninstall-PySpark`. Building the name from
-the raw key works only for single-word tools, by PowerShell's case-insensitive command resolution; a multi-word key never resolves and was
-once skipped silently. A missing uninstaller throws, as in `Install-DevBoxTools`: a locked tool must have one, so its absence is a defect to
-surface.
+does: `node_js` becomes `Uninstall-NodeJs`, `az_cli` becomes `Uninstall-AzCli`, `py_spark` becomes `Uninstall-PySpark`. Building the name
+from the raw key works only for single-word tools, by PowerShell's case-insensitive command resolution; a multi-word key never resolves and
+was once skipped silently. A missing uninstaller throws, as in `Install-DevBoxTools`: a locked tool must have one, so its absence is a
+defect to surface.

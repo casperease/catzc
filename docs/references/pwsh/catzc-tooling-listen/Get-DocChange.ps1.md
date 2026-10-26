@@ -1,7 +1,7 @@
 # pwsh/Tooling.Listen/Get-DocChange.ps1
 
-The change detector of the listen mode: it compares the watched folder on disk with a session's seen copy (or its baseline) by bytes alone and
-returns one record per added, modified, deleted or renamed file, with who wrote it and the diff.
+The change detector of the listen mode: it compares the watched folder on disk with a session's seen copy (or its baseline) by bytes alone
+and returns one record per added, modified, deleted or renamed file, with who wrote it and the diff.
 
 ## help
 

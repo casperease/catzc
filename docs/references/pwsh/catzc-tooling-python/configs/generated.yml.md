@@ -1,7 +1,7 @@
 # pwsh/Tooling.Python/configs/generated.yml
 
-The generated-targets declaration of the Python toolchain. `Get-GeneratedTarget` reads every module's `generated.yml`, and this one names what
-the toolchain writes, so that none of it is taken for an authored file.
+The generated-targets declaration of the Python toolchain. `Get-GeneratedTarget` reads every module's `generated.yml`, and this one names
+what the toolchain writes, so that none of it is taken for an authored file.
 
 ## Targets
 

@@ -10,10 +10,11 @@ machine it runs on.
 
 ## The environment
 
-The helper reads `$env:HOME`, the anchor of the uv tool-bin, and prepends to `$env:PATH`. The tests snapshot both and restore them after each
-test ([ADR-PWSH-ENV-NOPESTERISOLATION](../../../../drs/automation/pwsh/environment-variable-mechanics.md#rule-adr-pwsh-env-nopesterisolation)).
+The helper reads `$env:HOME`, the anchor of the uv tool-bin, and prepends to `$env:PATH`. The tests snapshot both and restore them after
+each test
+([ADR-PWSH-ENV-NOPESTERISOLATION](../../../../drs/automation/pwsh/environment-variable-mechanics.md#rule-adr-pwsh-env-nopesterisolation)).
 
 ## The tar boundary
 
-The `Invoke-Executable` mock plants the extracted tree, a versioned folder holding `uv` and `uvx`, into the `-C` directory the command names,
-as the real tar would.
+The `Invoke-Executable` mock plants the extracted tree, a versioned folder holding `uv` and `uvx`, into the `-C` directory the command
+names, as the real tar would.

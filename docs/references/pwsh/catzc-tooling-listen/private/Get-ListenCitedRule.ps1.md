@@ -1,7 +1,7 @@
 # pwsh/Tooling.Listen/private/Get-ListenCitedRule.ps1
 
-A private helper of the listen module that extracts the ADR codes a piece of text cites, which is how a change record names the rules its diff
-touches.
+A private helper of the listen module that extracts the ADR codes a piece of text cites, which is how a change record names the rules its
+diff touches.
 
 ## help
 

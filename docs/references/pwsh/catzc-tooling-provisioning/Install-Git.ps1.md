@@ -33,9 +33,9 @@ Install-Git -Force
 ## Verifying the download
 
 Git is a sanctioned latest-version base tool, so there is no committed hash to pin
-([ADR-AUTO-DEPS-LOCKEDTOOLVERSIONS](../../../drs/automation/controlling-systemwide-deps.md#rule-adr-auto-deps-lockedtoolversions)). Every Git for Windows release publishes a per-asset SHA-256
-through the GitHub API, the `digest` of the asset. The download is verified against it, and the command fails hard if the digest is ever
-absent, rather than run an unverified installer.
+([ADR-AUTO-DEPS-LOCKEDTOOLVERSIONS](../../../drs/automation/controlling-systemwide-deps.md#rule-adr-auto-deps-lockedtoolversions)). Every
+Git for Windows release publishes a per-asset SHA-256 through the GitHub API, the `digest` of the asset. The download is verified against
+it, and the command fails hard if the digest is ever absent, rather than run an unverified installer.
 
 ## Extracting
 
@@ -43,5 +43,5 @@ The PortableGit `.7z.exe` is a self-extracting archive: `-o` sets the output dir
 
 ## Idempotent first
 
-The idempotent guard comes first, as on macOS. A box that already has git, for example because it cloned this repository, must never trip the
-root assert on Linux just to conclude there is nothing to do.
+The idempotent guard comes first, as on macOS. A box that already has git, for example because it cloned this repository, must never trip
+the root assert on Linux just to conclude there is nothing to do.

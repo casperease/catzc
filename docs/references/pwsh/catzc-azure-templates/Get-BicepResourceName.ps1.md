@@ -2,8 +2,8 @@
 
 <!-- cspell:ignore deweuzctsmplst -->
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The function that generates an Azure resource name for a template's slot from the naming standard, delegating the rendering to
+`Get-AzureResourceName`.
 
 ## help
 
@@ -64,32 +64,17 @@ Get-BicepResourceName -Template sample-indexed -Environment dev -Slot 001 -Type 
 # -> dev-001-weu-zct-sidx-rg
 ```
 
-## comment:1
+## Identity, not subscription
 
-Above `$envEntry = $azure.environments[$Environment]`, written with `#`.
+Naming needs only the environment's identity (its shortcode and region code), never a subscription, so the function reads `azure.yml`
+directly and is independent of the subscription group and the customer. The subscription group is a resolution axis only and is never a
+name component
+([ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT](../../../drs/azure/azure-naming-standard.md#rule-adr-az-naming-subscriptionnotcomponent)).
 
-```text
-Naming needs only the environment's IDENTITY (shortcode/region_code), never a subscription — so it
-reads azure.yml directly and is independent of subscription group/customer. The subscription group
-is a resolution axis only and is never a name component
-([ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT](/docs/drs/azure/azure-naming-standard.md#rule-adr-az-naming-subscriptionnotcomponent)).
-```
+## Forms passed to the namer
 
-## comment:2
+The namer picks the environment form by pattern, the name for the generous patterns and the shortcode for the restricted ones, and the
+environment and the slot are separate segments. The function passes both forms and the slot and lets the namer choose.
 
-Above `$nameArgs = @{`, written with `#`.
-
-```text
-The namer picks the env form by pattern (name for generous, shortcode for restricted); env and
-slot are separate segments. We pass both forms + the slot and let it choose.
-```
-
-## comment:3
-
-Above `$resolvedCustomer = Get-AzureCustomer $Customer`, written with `#`.
-
-```text
-Resolve the customer (given by key OR 2-char shortcode) to its canonical key + shortcode from
-customer.yml: the readable key renders in generous patterns, the 2-char shortcode in the
-restricted ones (the namer picks per type). Get-AzureCustomer throws on an unknown token.
-```
+The customer may be given by key or by its 2-character shortcode. `Get-AzureCustomer` resolves it from `customer.yml` to the canonical key
+and shortcode, and throws on an unknown token. The key renders in the generous patterns and the shortcode in the restricted ones.

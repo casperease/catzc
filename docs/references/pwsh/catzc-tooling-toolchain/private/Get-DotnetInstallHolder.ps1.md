@@ -1,6 +1,7 @@
 # pwsh/Tooling.Toolchain/private/Get-DotnetInstallHolder.ps1
 
-A private helper of the .NET removal: the lookup of the processes that hold a .NET install open, which `Stop-DotnetInstallHolder` then stops.
+A private helper of the .NET removal: the lookup of the processes that hold a .NET install open, which `Stop-DotnetInstallHolder` then
+stops.
 
 ## help
 

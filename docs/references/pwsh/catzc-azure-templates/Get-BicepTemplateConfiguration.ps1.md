@@ -1,7 +1,6 @@
 # pwsh/Azure.Templates/Get-BicepTemplateConfiguration.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The function that loads a template's per-slot config and returns it as an ordered dictionary.
 
 ## help
 
@@ -56,20 +55,12 @@ $configuration = Get-BicepTemplateConfiguration indexed-template prod -Slot 001
 $configuration.ParametersFile.parameters.storageAccountName.value
 ```
 
-## comment:1
+## The coordinate is the file address
 
-Above `$configName = Get-BicepConfigName $Environment $Slot`, written with `#`.
+There is one config file per customer (optional), environment and slot. The coordinate is the file address: the configuration root for the
+shared platform, `configuration/<customer>/` for a customer deployment.
 
-```text
-One config file per (customer?, env, slot): the coordinate is the file address — root for the
-shared platform, configuration/<customer>/ for a customer deployment.
-```
+## A bicepparam slot
 
-## comment:2
-
-Above `$bicepParamFile = Join-Path $folder "$configName.bicepparam"`, written with `#`.
-
-```text
-A bicepparam slot is read by the Bicep compiler, not here: its descriptor carries its source path
-([ADR-AZ-DATAMOD-BICEPPARAMSLOT](/docs/drs/azure/azure-data-model.md#rule-adr-az-datamod-bicepparamslot)).
-```
+The Bicep compiler reads a `.bicepparam` slot, not this function, so its descriptor carries only its source path
+([ADR-AZ-DATAMOD-BICEPPARAMSLOT](../../../drs/azure/azure-data-model.md#rule-adr-az-datamod-bicepparamslot)).

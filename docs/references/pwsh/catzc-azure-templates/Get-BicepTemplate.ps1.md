@@ -1,7 +1,6 @@
 # pwsh/Azure.Templates/Get-BicepTemplate.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The function that returns the descriptor of a single bicep template by name.
 
 ## help
 
@@ -21,13 +20,8 @@ $t.main
 $t.environments
 ```
 
-## comment:1
+## The parenthesised call
 
-Above `$template = (Get-BicepTemplates) | Where-Object { $_.name -eq $Name } |...`, written with `#`.
-
-```text
-Parenthesise the call so its (comma-wrapped, array-preserving) output is collected and then
-enumerated element-by-element into Where-Object. A bare `Get-BicepTemplates | Where-Object`
-feeds the whole array as a single pipeline object, which silently matches via member
-enumeration and returns every template (latent until a second template exists).
-```
+The `Get-BicepTemplates` call is parenthesised so its comma-wrapped, array-preserving output is collected and then enumerated element by
+element into `Where-Object`. A bare `Get-BicepTemplates | Where-Object` feeds the whole array as a single pipeline object, which silently
+matches through member enumeration and returns every template. That stays latent until a second template exists.

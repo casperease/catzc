@@ -33,5 +33,6 @@ Install-Postman -Force
 ## The download
 
 Postman publishes no per-download checksum and is a sanctioned latest-version base tool, so its download is protected by TLS only, with no
-checksum verification ([ADR-AUTO-DEPS-LOCKEDTOOLVERSIONS](../../../drs/automation/controlling-systemwide-deps.md#rule-adr-auto-deps-lockedtoolversions), the latest
-base-tool allowlist).
+checksum verification
+([ADR-AUTO-DEPS-LOCKEDTOOLVERSIONS](../../../drs/automation/controlling-systemwide-deps.md#rule-adr-auto-deps-lockedtoolversions), the
+latest base-tool allowlist).

@@ -1,7 +1,7 @@
 # pwsh/Tooling.Node/Uninstall-NodeJs.ps1
 
-The uninstaller of Node.js through the configured package manager, and the entry of the removal escalation for a Node.js the manager does not
-own.
+The uninstaller of Node.js through the configured package manager, and the entry of the removal escalation for a Node.js the manager does
+not own.
 
 ## help
 
@@ -44,7 +44,7 @@ Uninstall-NodeJs -Remove -Force
 
 ## Failure of the managed uninstall
 
-The managed uninstall is best effort. With `-Remove` a failure means a foreign install that the escalation still removes, so it is logged and
-the escalation goes on; without `-Remove` the failure propagates
+The managed uninstall is best effort. With `-Remove` a failure means a foreign install that the escalation still removes, so it is logged
+and the escalation goes on; without `-Remove` the failure propagates
 ([ADR-AUTO-ONEJOB-CALLERHANDLESERRORS](../../../drs/automation/single-responsibility-functions.md#rule-adr-auto-onejob-callerhandleserrors),
 [ADR-AUTO-REMOVE-ONECALLESCALATION](../../../drs/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-onecallescalation)).

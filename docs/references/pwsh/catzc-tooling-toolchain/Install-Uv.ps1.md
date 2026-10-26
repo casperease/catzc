@@ -1,6 +1,6 @@
 # pwsh/Tooling.Toolchain/Install-Uv.ps1
 
-The installer and upgrader of uv, Astral's Python handler, which most other tools of the toolchain install through.
+Installs and upgrades uv, Astral's Python handler, which most other tools of the toolchain install through.
 
 ## help
 
