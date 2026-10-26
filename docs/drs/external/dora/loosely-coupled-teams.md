@@ -25,21 +25,26 @@ Binds to [DDR-TRACK-DEPLOYABLEUNIT](../../design/tracks.md#rule-ddr-track-deploy
 Team topology and system architecture reinforce each other on purpose — team boundaries are drawn to match the intended architecture (the
 Inverse Conway Maneuver), and one coherent concern lives behind one clear boundary rather than spilling across several teams.
 
-- [How to apply](#how-to-apply)
+Source: [DORA, Loosely coupled teams](../../../references/dora/capabilities.md#loosely-coupled-teams)
+
+Binds to [DDR-TRACK-ISPLACEDCLUSTER](../../design/tracks.md#rule-ddr-track-isplacedcluster).
 
 ### Rule EDR-DORA-LOOSETEAMS-EXPLICITINTERFACES
 
 Interfaces between teams are explicit, versioned, and backward-compatible, so a producer can change its internals and ship on its own
 schedule while every consumer keeps working against the version it already integrated against.
 
-- [How to apply](#how-to-apply)
+Source: [DORA, Loosely coupled teams](../../../references/dora/capabilities.md#loosely-coupled-teams)
+
+Binds to [DDR-TRACK-SUBSCRIBABLENOTPATH](../../design/tracks.md#rule-ddr-track-subscribablenotpath) and
+[ADR-AUTO-DEPM-EXTENDBYDECLARING](../../automation/controlling-module-dependencies.md#rule-adr-auto-depm-extendbydeclaring).
 
 ### Rule EDR-DORA-LOOSETEAMS-NOBIGBANG
 
 A "big-bang" deployment — several services released together because their interdependencies leave no other choice — is evidence of tight
 coupling, not an acceptable operating mode; treat the need for simultaneous releases as the defect to remove, not a fact to schedule around.
 
-- [Common pitfalls](#common-pitfalls)
+Source: [DORA, Loosely coupled teams](../../../references/dora/capabilities.md#loosely-coupled-teams)
 
 ## Context
 

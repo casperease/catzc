@@ -140,7 +140,7 @@ function Build-Diagrams {
         # A C3 or C4 slide's cells are its query's rows, written to an address named here and handed to the renderer.
         $rowsPath = Join-Path (Get-OutputRoot -EnsureExists) 'diagrams/query-rows.json'
         if (-not $DryRun) {
-            $null = Write-DiagramQueryRows -Stem $declared -RepositoryRoot $root -Path $rowsPath
+            $null = Write-DiagramQueryRows -Stem $declared -RepositoryRoot $root -Path $rowsPath -Config $diagramKit.Config
         }
         $arguments = "run --project `"$($diagramKit.Folder)`" python -m $($diagramKit.RendererModule()) --theme $Theme --workers $Workers --rows `"$rowsPath`" --all $quoted"
         if ($DryRun) {

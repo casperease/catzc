@@ -44,7 +44,8 @@ credentials a human would use, so an AI query can only ever reach what its reque
 
 Source: [DORA, AI-accessible internal data](../../../references/dora/capabilities.md#ai-accessible-internal-data)
 
-Binds to [ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY](../../configuration/config-value-addressing.md#rule-adr-conf-addressing-versioncontrolledonly).
+Binds to
+[ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY](../../configuration/config-value-addressing.md#rule-adr-conf-addressing-versioncontrolledonly).
 
 ## Context
 

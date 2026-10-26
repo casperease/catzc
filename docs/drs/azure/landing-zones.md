@@ -106,6 +106,14 @@ machine adds the matching piece to the template that owns the resource.
 
 - [CAF management](#caf-management)
 
+### Rule ADR-AZ-LZ-CAFTAGS
+
+Every taggable resource carries the six CAF tags from its config, lowercase and holding codes only: `cost-center` (required by policy), `workload`,
+`environment`, `owner`, `criticality`, and `data-classification`. A shared module takes `tags` exactly when its resource type supports them.
+Region, tier, repository, service-level, and purpose tags are not used.
+
+- [CAF tags](#caf-tags)
+
 ## Context
 
 The repository deploys infrastructure per subscription and per customer, through templates whose configuration tree is the deployment
@@ -305,6 +313,31 @@ on-premises monitoring system) have nothing to act on: `vm.bicep` exists among t
 `GatewaySubnet` holds nothing, every environment maps to one region, and every log stays in Azure. A workload sits in one resource group of
 one subscription, named by the `workload` tag, which gives the grouping an Azure Service Group would add; Azure Monitor health models are in
 preview and build on Service Groups, so the tool of a health model is chosen when that work begins.
+
+### CAF tags
+
+The tag set is written out in full in each config (eighteen copies across the three templates) and cost is split below the subscription by
+`cost-center` and `workload`; tag inheritance is not used, because every template passes the tags to each resource itself. Only
+`cost-center` is required, by the landing zone's policy, which checks that the key is present and not its value. The `workload` tag names
+the template (`foundation`, `landing-zone`, `expedition`), and `environment` is the environment class for the per-subscription templates
+(`nonprod`, `prod`) and the standard environment for `expedition`. `criticality` (`low`, `medium`, `high`) and `data-classification`
+(`internal`, `confidential`) are the classification tags, and no service-level tag is set because no example workload declares one.
+`cost-center` equals `owner` (`platform` or the customer key), since the customer is the unit of cost and of accountability; budget alerts go
+to the subscription's `Owner` role, not to the tag.
+
+Tags carry codes only: team codes, class values, and template names. Every key and value is lowercase with hyphens between words, matching
+[ADR-AZ-NAMING-LOWERCASECOMPONENTS](azure-naming-standard.md#rule-adr-az-naming-lowercasecomponents); CAF's examples run the words together
+(`costcenter`), which the hyphen replaces for readability. `Deploy-Bicep` adds three provenance tags after a deploy through
+`Set-BicepTrackingTagSet`: the commit, the build id, and the branch, with mixed-case keys (`Deployed_From_Commit`) from
+`Get-BicepTrackTagNameSet`. A devbox deploy records the local branch name as it stands, so a branch named after a person would put that name
+in a tag; whether a devbox deploy records its branch is open.
+
+No region tag is set, because the region is a component of every name and the allowed-locations policy holds each landing zone to its
+region, so a tag would repeat what the name and the resource's location state; resource selectors in the tag policy are unused for the same
+reason. No tier tag is set, because each example template is one tier, and the provenance tags name the commit in place of a repository tag.
+No purpose tag is set, because the example workloads model no business process; a workload that serves one adds its purpose tags in its own
+configs. No Microsoft workload assessment runs against these subscriptions, and the `workload` and `criticality` tags are what one would
+read.
 
 ### SQL authentication
 

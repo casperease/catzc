@@ -84,9 +84,9 @@ ideas are welcomed. Averaging the six gives a team a single Westrum culture scor
 DORA's implementation guidance is behavioral: change how people behave first, and belief follows, rather than trying to change minds before
 changing practice.
 
-Run blameless postmortems that ask what happened rather than who
-did it, give developers ownership of their code once it runs in production, break down silos through shared planning and informal
-cross-functional conversation, and protect real time for people to try an idea rather than only tolerating the idea in theory.
+Run blameless postmortems that ask what happened rather than who did it, give developers ownership of their code once it runs in production,
+break down silos through shared planning and informal cross-functional conversation, and protect real time for people to try an idea rather
+than only tolerating the idea in theory.
 
 ## Common pitfalls
 

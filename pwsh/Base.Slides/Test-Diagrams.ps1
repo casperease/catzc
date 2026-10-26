@@ -75,7 +75,7 @@ function Test-Diagrams {
         $quoted = ($folders | ForEach-Object { "`"$_`"" }) -join ' '
         # A C3 or C4 slide is checked against its query's rows, as Build-Diagrams rendered it.
         $rowsPath = Join-Path (Get-OutputRoot -EnsureExists) 'diagrams/query-rows.json'
-        $null = Write-DiagramQueryRows -Stem $declared -RepositoryRoot $root -Path $rowsPath
+        $null = Write-DiagramQueryRows -Stem $declared -RepositoryRoot $root -Path $rowsPath -Config $diagramKit.Config
         $result = Invoke-Executable "`"$($tool.Path)`" run --project `"$($diagramKit.Folder)`" python -m $($diagramKit.DeclarationModule()) --rows `"$rowsPath`" check $quoted" -WorkingDirectory $root -PassThru -NoAssert -Silent
         Assert-True ($result.ExitCode -eq 0) -ErrorText "Test-Diagrams: the drift check failed (exit $($result.ExitCode)): $(@($result.Output -split "`r?`n" | Select-Object -Last 5) -join ' | ')"
         # One JSON line per diagram: conflicted cells, drifted cells, stale minimaps, or an error.

@@ -1,45 +1,98 @@
 {
-  "$comment": "The schema of the query rows a C3 or C4 slide is drawn from, one row per level and point of the tree with its nodes and the edges between them.",
+  "$comment": "The schema of the query rows a C3, C4 or flow slide is drawn from: one row per level and point of the tree with its nodes and the edges between them, or one row per flow point with its lanes and the edges between them.",
   "type": "object",
   "required": ["rows"],
   "additionalProperties": false,
   "properties": {
     "rows": {
       "type": "array",
+      "items": { "oneOf": [{ "$ref": "#/$defs/levelRow" }, { "$ref": "#/$defs/flowRow" }] }
+    }
+  },
+  "$defs": {
+    "edges": {
+      "type": "array",
       "items": {
         "type": "object",
-        "required": ["point", "level", "nodes", "edges"],
+        "required": ["from", "to"],
         "additionalProperties": false,
         "properties": {
-          "point": { "type": "string" },
-          "level": { "type": "string", "enum": ["C3", "C4"] },
-          "nodes": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "required": ["id", "label", "kind"],
-              "additionalProperties": false,
-              "properties": {
-                "id": { "type": "string" },
-                "label": { "type": "string" },
-                "kind": { "type": "string" }
-              }
+          "from": { "type": "string" },
+          "to": { "type": "string" },
+          "label": { "type": "string" }
+        }
+      }
+    },
+    "levelRow": {
+      "type": "object",
+      "required": ["point", "level", "nodes", "edges"],
+      "additionalProperties": false,
+      "properties": {
+        "point": { "type": "string" },
+        "level": { "type": "string", "enum": ["C3", "C4"] },
+        "nodes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "label", "kind"],
+            "additionalProperties": false,
+            "properties": {
+              "id": { "type": "string" },
+              "label": { "type": "string" },
+              "kind": { "type": "string" }
             }
-          },
-          "edges": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "required": ["from", "to"],
-              "additionalProperties": false,
-              "properties": {
-                "from": { "type": "string" },
-                "to": { "type": "string" },
-                "label": { "type": "string" }
+          }
+        },
+        "edges": { "$ref": "#/$defs/edges" }
+      }
+    },
+    "flowRow": {
+      "type": "object",
+      "required": ["point", "lens", "lanes", "edges"],
+      "additionalProperties": false,
+      "properties": {
+        "point": { "type": "string" },
+        "lens": { "type": "string", "enum": ["flow"] },
+        "lanes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "type", "unit", "engine", "triggers", "review", "templates", "environments"],
+            "additionalProperties": false,
+            "properties": {
+              "id": { "type": "string" },
+              "type": { "type": "string" },
+              "unit": { "type": "string" },
+              "engine": { "type": "string" },
+              "triggers": { "type": "array", "items": { "type": "string" } },
+              "review": { "type": "boolean" },
+              "templates": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": ["name", "kind"],
+                  "additionalProperties": false,
+                  "properties": { "name": { "type": "string" }, "kind": { "type": "string" } }
+                }
+              },
+              "environments": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": ["id", "rung", "gate", "approve"],
+                  "additionalProperties": false,
+                  "properties": {
+                    "id": { "type": "string" },
+                    "rung": { "type": "string" },
+                    "gate": { "type": "string" },
+                    "approve": { "type": "boolean" }
+                  }
+                }
               }
             }
           }
-        }
+        },
+        "edges": { "$ref": "#/$defs/edges" }
       }
     }
   }
