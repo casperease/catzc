@@ -206,11 +206,11 @@ def legend_entries(content):
 
         meaning = words()
         for glyph in content.get("flow_words", []):
-            swatch = lambda eid, x, y, glyph=glyph: [word_cell(f"lg-{eid}", glyph, "", x, y + 2, content["theme"])]
-            entries.append((f"word-{glyph}", swatch, f"{meaning[glyph]['word']}: {meaning[glyph]['meaning']}"))
+            swatch = lambda eid, x, y, glyph=glyph: [word_cell(f"lg-{eid}", glyph, x, y + 2, content["theme"])]
+            entries.append((f"word-{glyph}", swatch, meaning[glyph]["meaning"]))
         entries.append(("env-flow", swatch_for("env-flow"), glyphs["env-flow"]["phrase"]))
         for word in dict.fromkeys(e.get("label", "") for e in content.get("route", {}).get("edges", []) if e.get("label")):
-            entries.append((f"edge-{word}", edge_swatch("flow"), f"{word}: {FLOW[word]}"))
+            entries.append((f"edge-{word}", edge_swatch("flow"), f"{word}, {FLOW[word]}"))
     for kind in dict.fromkeys(g["kind"] for g in content["glyphs"]):
         if kind != "commit":
             entries.append((kind, swatch_for(kind), glyphs[kind]["phrase"]))

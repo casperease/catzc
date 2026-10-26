@@ -83,7 +83,7 @@
     </mxCell>
     <mxCell id="g-env-flow"
       value="&lt;b&gt;environment&lt;/b&gt;"
-      style="shape=rhombus;perimeter=rhombusPerimeter;whiteSpace=wrap;html=1;fillColor=@neutral;strokeColor=@neutral-rim;strokeWidth=2;fontColor=@ink;fontSize=12;verticalLabelPosition=bottom;verticalAlign=top;"
+      style="rhombus;perimeter=rhombusPerimeter;whiteSpace=wrap;html=1;fillColor=@neutral;strokeColor=@neutral-rim;strokeWidth=2;fontColor=@ink;fontSize=12;"
       vertex="1"
       parent="1">
       <mxGeometry x="890" y="160" width="80" height="80" as="geometry" />

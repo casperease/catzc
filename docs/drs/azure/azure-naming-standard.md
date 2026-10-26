@@ -343,6 +343,21 @@ CAF's abbreviation; the two types CAF does not list take `budg` (budget) and `pa
 Azure requires. Subnets keep the names of the network plan instead of an `snet` name, and every type in CAF's examples that the templates
 deploy is named by the standard, type last and with no instance counter.
 
+Each shipped template pins its `short_name` in its `options.yml` (`fnd` for `foundation`, `disco` for `discovery`, `exped` for
+`expedition`), so renaming a folder never re-spells a resource, and the integrity test checks that `short_name` is unique across the shipped
+templates. The resource-group name of a template deployed into a resource group is derived by `Get-BicepResourceGroupName`
+([ADR-AZ-DATAMOD-DERIVEDRESOURCEGROUPNAME](azure-data-model.md#rule-adr-az-datamod-derivedresourcegroupname)); every other name, and the
+resource group of the subscription-target `discovery`, is a literal in a config (`logAnalyticsName`, `keyVaultName`, `virtualNetworkName`,
+the `networkSecurityGroupNames` map, `routeTableName`, the peering names, `policyAssignmentNames`, `budgetName`, `storageAccountName`,
+`sqlServerName`, `sqlDatabaseName`, and the private endpoint names). `Get-AzureResourceName` validates every component case-sensitively,
+checks the type against `Get-AzureResourceTypeSet`, and throws on an over-limit render, which `Get-AzureResourceName.Content.Tests.ps1`
+covers. The subnets of a spoke are named by the keys of the network plan in `network.yml` (`shared-services`, `private-endpoints`, one per
+environment), plus the names Azure fixes for `GatewaySubnet` and `AzureFirewallSubnet`, because a subnet's name is unique only in its
+virtual network and the landing zone reads the subnet map by config address
+([ADR-AZ-DATAMOD-VALUEBYADDRESS](azure-data-model.md#rule-adr-az-datamod-valuebyaddress)). Management groups and subscriptions are named by
+no template: `azure.yml` keys its subscriptions, and their display names are the tenant's. Budget alerts go to the subscription's `Owner`
+role, so no address appears in a name or a config.
+
 ### Worked examples
 
 Env `prod` (shortcode `pr`), org `fin`, region `weu`:

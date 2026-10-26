@@ -76,7 +76,7 @@ def test_each_lane_draws_its_triggers_its_pipeline_its_templates_and_its_environ
 
 def test_an_environment_is_a_rhombus_and_a_word_is_an_embedded_image(sample_model):
     env = re.search(r'<mxCell id="cd-widget-env-1"[^>]*style="([^"]*)"', sample_model).group(1)
-    assert "shape=rhombus" in env
+    assert env.startswith("rhombus;")
     word = re.search(r'<mxCell id="ci-widget-pipeline"[^>]*style="([^"]*)"', sample_model).group(1)
     assert "shape=image" in word and "image=data:image/svg+xml," in word
 

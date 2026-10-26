@@ -39,7 +39,7 @@ def test_lines_at_two_heights_join_with_a_riser_and_strokes_are_the_ink_token():
 
 def test_the_flow_environment_is_a_rhombus_glyph_of_the_kit():
     assert "env-flow" in GLYPH_KINDS
-    assert "shape=rhombus" in LIB["glyphs"]["env-flow"]["style"]
+    assert LIB["glyphs"]["env-flow"]["style"].startswith("rhombus;")
 
 
 @pytest.mark.parametrize("theme", ["dark", "light"])

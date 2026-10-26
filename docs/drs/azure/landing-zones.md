@@ -202,9 +202,12 @@ holds rather than the config, and a modify policy needs a managed identity and r
 templates write every tag deterministically, so the policy's job is to stop a resource that skipped them, and deny does that.
 
 Each policy is assigned at subscription scope, the highest level the repository owns, through
-`infrastructure/modules/policy-assignment.bicep`, once per subscription and named per config. Every resource group of the subscription
-inherits the assignments, those of `foundation` and `expedition` included. Production and non-production differ through the enforcement
-mode, never through a narrower assignment.
+`infrastructure/modules/policy-assignment.bicep`, once per subscription and named per config (`policyAssignmentNames`, with the `-loc-pa`,
+`-tag-pa`, and `-pip-pa` suffixes). `discovery/main.bicep` holds the three definition ids in its `policyDefinitions` map, each with its
+parameters and a non-compliance message, and each config reads `policyEnforcementMode` from `global.azure.policy_enforcement`. No assignment
+sets `assignIdentity`, so no remediation identity exists. Every resource group of the subscription inherits the assignments, those of
+`foundation` and `expedition` included. Production and non-production differ through the enforcement mode, never through a narrower
+assignment.
 
 Keeping the policies current is a matter of their ids. Microsoft revises a built-in definition in place under the same id, so an assignment
 follows the current version with no change here. When a definition is deprecated or a better one appears, the id in `main.bicep` and its
@@ -221,7 +224,10 @@ succeeds, and a failed deploy says why.
 `expedition` deploys into its own resource group, one per configuration slot, inside the subscription its landing zone serves. It looks up
 the spoke's `private-endpoints` subnet by name (the shared platform's `shared-services` subnet in the hub) and places a private endpoint for
 each data service there, each registered in the hub's matching private DNS zone. It never creates a network or a guardrail: the landing zone
-owns those, so every workload of a subscription meets the same network and the same policies.
+owns those, so every workload of a subscription meets the same network and the same policies. Each environment in `azure.yml` names one
+region (`region: westeurope`, `region_code: weu`): `discovery` creates its resource group through `resource-group.bicep` at `location`,
+which defaults to `deployment().location`, and `expedition` defaults `location` to `resourceGroup().location`, which must match the region
+of the network it lands in.
 
 ### The Well-Architected checklist
 
@@ -306,18 +312,21 @@ settings), so a new capability reaches the templates when someone updates a modu
 ### CAF management
 
 The workspace is per subscription on purpose: each customer's telemetry stays in the subscription that customer's access covers, and
-non-production and production stay apart. A workspace holds the default 30 days (`retentionInDays` accepts 30 to 730 and `foundation` does
-not pass it), no example customer needs logs kept for years, and so no export to immutable storage exists; a longer retention per
-environment class is a config value, and a customer with a longer obligation adds a data export beside the workspace
+non-production and production stay apart. `foundation` deploys it through `log-analytics.bicep`, and `discovery` and `expedition` find it by
+`logAnalyticsResourceGroupName` and `logAnalyticsName` in their configs. A workspace holds the default 30 days (`retentionInDays` accepts 30
+to 730 and `foundation` does not pass it), no example customer needs logs kept for years, and so no export to immutable storage exists; a
+longer retention per environment class is a config value, and a customer with a longer obligation adds a data export beside the workspace
 ([EDR-AZ-WAF-OE-OE07](../external/azure/waf/operational-excellence.md#rule-edr-az-waf-oe-oe07)). Access to a workspace is the role-based
 access of its subscription; `log-analytics.bicep` sets no access-control mode, and the templates assign no role to people.
 
 Diagnostics exist when a deploy succeeds, because `diagnostic-setting.bicep` (kinds fixed by its `@allowed` decorator, categories by the
 `allLogs` group plus the kind's metrics) is part of the template, which a deploy-if-not-exists policy cannot promise. The subscription's
-activity log, `ServiceHealth` and `ResourceHealth` included, streams from `discovery`; `discovery` sends the virtual network and every
-network security group, and `expedition` the storage account, its blob service, and the database. `foundation`'s own Key Vault sends
-nothing, though the module supports it. Platform metrics sit in Azure Monitor with no configuration and the diagnostic setting copies them
-beside the logs; the logs are queryable per subscription, and no saved query, workbook, or dashboard exists.
+activity log, `ServiceHealth` and `ResourceHealth` included, streams from `discovery` through `subscription-diagnostic-setting.bicep`, which
+sends every category (`Administrative`, `Security`, and `Policy` among them); `discovery` sends the virtual network and every network
+security group, and `expedition` the storage account, its blob service, and the database. `foundation`'s own Key Vault sends nothing, though
+the module supports it. Platform metrics sit in Azure Monitor with no configuration and the diagnostic setting copies them beside the logs
+(`AllMetrics` for the virtual network, `Transaction` for the storage account and its blob service); the logs are queryable per subscription,
+and no saved query, workbook, or dashboard exists.
 
 Alerting is only the budget's: `budget.bicep` sends its thresholds to the subscription's `Owner` role. The shape of the rest follows the
 same rule, one action group per subscription in `foundation` addressed to `Owner`, and alert rules in the templates that own the resources,
@@ -327,12 +336,14 @@ Health and Resource Health alerts belong to `discovery`. No module places a lock
 network send logs and metrics, not flows, so no Traffic Analytics exists; it would arrive with flow logs into the workspace and a flow-log
 storage account in `foundation`.
 
-The workload relies on the platform's own redundancy and backup: zone-redundant storage in every environment, a production database that is
-zone-redundant with geo-redundant backups, short-term retention (`databaseBackupRetentionDays` 35 in production, 7 in development) and blob
-soft delete, with the `@minValue`, `@maxValue`, and `@allowed` bounds keeping a config within what the service accepts
-([ADR-AZ-LZ-EVERYPILLAR](#rule-adr-az-lz-everypillar)). No policy audits redundancy or backup, and no backup vault exists because nothing
-deployed needs one. No range of the plan overlaps another, which `NetworkConfig` checks, so a recovery network added to the plan falls under
-the same check ([ADR-AZ-NETWORK-NOOVERLAP](azure-network-model.md#rule-adr-az-network-nooverlap)).
+The workload relies on the platform's own redundancy and backup: zone-redundant storage (`Standard_ZRS`) in every environment, a production
+database that is zone-redundant (`databaseZoneRedundant` is false in development) with geo-redundant backups
+(`databaseBackupStorageRedundancy` `Geo` in production, `Local` in development), short-term retention (`databaseBackupRetentionDays` 35 in
+production, 7 in development, set by `sql-database.bicep`) and blob and container soft delete of 7 days by default, with the `@minValue`,
+`@maxValue`, and `@allowed` bounds keeping a config within what the service accepts ([ADR-AZ-LZ-EVERYPILLAR](#rule-adr-az-lz-everypillar)).
+No policy audits redundancy or backup, and no backup vault exists because nothing deployed needs one. No range of the plan overlaps another,
+which `NetworkConfig` checks, so a recovery network added to the plan falls under the same check
+([ADR-AZ-NETWORK-NOOVERLAP](azure-network-model.md#rule-adr-az-network-nooverlap)).
 
 Recommendations that assume a virtual machine (Site Recovery, Update Manager, Machine Configuration) or a hybrid link (ExpressRoute, an
 on-premises monitoring system) have nothing to act on: `vm.bicep` exists among the shared modules but no template uses it, the hub's
@@ -356,7 +367,14 @@ Tags carry codes only: team codes, class values, and template names. Every key a
 (`costcenter`), which the hyphen replaces for readability. `Deploy-Bicep` adds three provenance tags after a deploy through
 `Set-BicepTrackingTagSet`: the commit, the build id, and the branch, with mixed-case keys (`Deployed_From_Commit`) from
 `Get-BicepTrackTagNameSet`. A devbox deploy records the local branch name as it stands, so a branch named after a person would put that name
-in a tag; whether a devbox deploy records its branch is open.
+in a tag; whether a devbox deploy records its branch is open. The provenance tags land on the resource group of `foundation` and
+`expedition` and on the subscription for `discovery`, whose keys carry the template name as a prefix (`discovery_Deployed_From_Commit`). The
+required-tag assignment is `requireTag`, named per subscription by `policyAssignmentNames` (`-tag-pa`), with parameter `requiredTagName`
+defaulting to `cost-center`; the policy ignores types that cannot carry a tag, so it never denies a peering or a budget. The peering,
+subnet, policy assignment, budget, and diagnostic setting modules take no `tags`, and `foundation` and `expedition` set `owner` on every
+taggable resource, while their resource groups carry only the provenance tags. The values in use are `criticality: high` for the shared
+platform and each production subscription, `medium` for customer non-production in `foundation` and `discovery`, `low` outside production
+and `high` in production for `expedition`; `data-classification` is `internal` for the platform and `confidential` for customers.
 
 No region tag is set, because the region is a component of every name and the allowed-locations policy holds each landing zone to its
 region, so a tag would repeat what the name and the resource's location state; resource selectors in the tag policy are unused for the same
@@ -389,13 +407,19 @@ where Sentinel would attach and the repository supplies the logs.
 
 Key Vault is federated: `foundation` deploys one vault per subscription from one module, so every customer and tier has its own vault with
 the same configuration and no policy is needed. No vault is central to the tenant, though a workload's secret sits in the platform's vault.
-Every vault authorizes its data plane through Azure RBAC with no access policies and has the platform's soft delete. Purge protection is
+Every vault authorizes its data plane through Azure RBAC with no access policies and has the platform's soft delete: `key-vault.bicep` fixes
+`enableRbacAuthorization: true` and an empty `accessPolicies`, neither a parameter, so no caller falls back to access policies, and it sets
+no retention, no network rule, and `enabledForTemplateDeployment` on, because Azure Resource Manager resolves `expedition`'s break-glass
+reference at deploy time. The roles on a vault are granted outside the repository, and the vault name stays taken until a deleted vault's
+retention ends. `storage-account.bicep` turns shared-key access off, so every data request carries an Entra ID token. Purge protection is
 planned as a module default, and with it permanent deletion is closed, so custom roles that alone may purge are not needed. The vaults hold
 no key and no certificate, so certificate automation has no use; rotation of the one secret, the break-glass password, is manual and planned
 to be automated. A vault's network access is planned to be closed, public network access off with a private endpoint in the hub's private
 DNS in place of the service endpoints CAF names, and vault use is planned to be audited in the workspace through the `keyVault` kind of the
-diagnostic setting module. The environments of one tier share their tier's vault and the same secret name, and a secret name per
-configuration slot is planned.
+diagnostic setting module. The environments of one tier share their tier's vault and the same secret name, `exped-sql-admin-password` (`dev`
+and `test` read the shared non-production vault, so they share one break-glass password), and a secret name per configuration slot is
+planned. The platform's vault is the platform's, not the workload's, which fits the one secret in use, a recovery credential no application
+reads at run time; a workload that needs run-time secrets creates its own vault from `key-vault.bicep` in its own resource group.
 
 ### CAF identity
 
@@ -410,24 +434,32 @@ and User Access Administrator are tenant settings, and the repository grants no 
 ([ADR-AZ-DATAMOD-ONETENANT](azure-data-model.md#rule-adr-az-datamod-onetenant)).
 
 Every principal the templates name is a group or a role: the SQL administrator is an Entra ID group and the budget alerts go to the `Owner`
-role. At the level the repository owns, the break-glass SQL login keeps a SQL server reachable, and monitoring its use is planned. Every
-subscription gets the same landing zone from `discovery`, but it assigns no role and creates no group, role assignment, or user-assigned
-identity, and the repository defines no custom role and owns no management group. Role assignments as code are planned: one standard role
-set declared once and deployed to every landing zone, at subscription level in `discovery` and at resource level in `expedition`, never
-above a subscription, starting from built-in roles, with the combined effect of stacked assignments reviewed and a condition limiting which
-roles the deploying identity may assign. Data roles are planned as code, and Key Vault and storage authorize their data plane through Entra
-ID and Azure RBAC, SQL through its Entra ID administrator group, with attribute-based conditions weighed with those data roles. Pinning
-resource-context access as a default of the workspace module is planned.
+role. `sql-server.bicep` defaults `entraAdminPrincipalType` to `Group` and `entraOnlyAuthentication` to `true`, and every `expedition`
+config names the group `zct-exped-sql-admins` (`entraAdminLogin`) with a placeholder object id registered in `guids.yml` as
+`entra_sql_admin_group`, so one group administers every customer's SQL server in every environment. `budget.bicep` takes `contactRoles`,
+defaulting to `Owner`. The break-glass login is `exped-break-glass`, with `entraOnlyAuthentication: false` and the password
+`exped-sql-admin-password` as a Key Vault reference; it is the one path outside the tenant's sign-in policies. At the level the repository
+owns, the break-glass SQL login keeps a SQL server reachable, and monitoring its use is planned. Every subscription gets the same landing
+zone from `discovery`, but it assigns no role and creates no group, role assignment, or user-assigned identity, and the repository defines
+no custom role and owns no management group. Role assignments as code are planned: one standard role set declared once and deployed to every
+landing zone, at subscription level in `discovery` and at resource level in `expedition`, never above a subscription, starting from built-in
+roles, with the combined effect of stacked assignments reviewed and a condition limiting which roles the deploying identity may assign. Data
+roles are planned as code, and Key Vault and storage authorize their data plane through Entra ID and Azure RBAC, SQL through its Entra ID
+administrator group, with attribute-based conditions weighed with those data roles. Pinning resource-context access as a default of the
+workspace module is planned.
 
 Every `expedition` config names the same SQL administrator group, and the environments of one tier share their service connection, their
 vault secret, and the SQL administrator group; a group per customer and environment and separating the rest is planned. Managed identities
 are system-assigned to one resource of one configuration slot, so none is shared; the storage account and the SQL server carry them, but
-nothing grants them a role, and access between resources through them is planned. `policy-assignment.bicep` gives a remediating policy a
-system-assigned identity and grants it the listed built-in roles directly, on the subscription, and no landing-zone policy needs it. Every
-deploy runs through the service connection of its subscription, pinned by `-SubscriptionIdAssertIs`, and the infrastructure CI needs no
-Azure identity; separating the landing-zone identity from the workload identity is planned, and so is workload identity federation for every
-service connection, since the kind of a service connection is set outside the repository. No template deploys an application that users sign
-in to, so the Microsoft identity platform and its checklist are not a template concern.
+nothing grants them a role, and access between resources through them is planned (`storage-account.bicep` and `sql-server.bicep` output the
+`principalId`). `policy-assignment.bicep` gives a remediating policy, when `assignIdentity` is set, a system-assigned identity and grants
+each id in `roleDefinitionIds` directly to its principal (`principalType: 'ServicePrincipal'`) on the subscription, and no landing-zone
+policy needs it. Every deploy runs through the service connection of its subscription (`sc-<owner>-nonprod`, `sc-<owner>-prod`), handed to
+`AzureCLI@2` or `AzurePowerShell@5` by `.ado/pipelines/steps/invoke-automation.yaml` in `azcli` mode, pinned by `-SubscriptionIdAssertIs`,
+and the infrastructure CI builds offline in mode `none` and needs no Azure identity; the environments of one subscription (`nsub`, `dev`,
+`test`) share its one service connection; separating the landing-zone identity from the workload identity is planned, and so is workload
+identity federation for every service connection, since the kind of a service connection is set outside the repository. No template deploys
+an application that users sign in to, so the Microsoft identity platform and its checklist are not a template concern.
 
 ### CAF delivery
 
@@ -457,6 +489,25 @@ own subscription and asserts that subscription; federated credentials, one ident
 for previews are planned. The one deploy-time secret is a Key Vault reference resolved by Azure Resource Manager. Every deployment job names
 an Azure DevOps environment per template target, whose checks and approvals are not declared in the repository. `Deploy-Bicep -DryRun` runs
 the Azure what-if preview; running it before every pipeline deploy is planned.
+
+The pipelines are `.ado/pipelines/ci-infrastructure.yaml` (CI for all three templates, which runs `Assert-BicepTemplate` and `Build-Bicep`
+for each, then the infrastructure test suite), `cd-shared.yaml` for the shared platform, and thin customer pipelines (`cd-apex.yaml`,
+`cd-nova.yaml`, `cd-flux.yaml`) that extend `extends/cd-customer.yaml`. Each CD pipeline runs the same CI engine, publishes one artifact per
+template, and deploys it unchanged in stage order: `foundation` (`nsub` and `psub` as two jobs of one stage), then `discovery` (hubs from
+`cd-shared.yaml`, spokes from the customer pipelines), then `expedition` (one job per configuration slot); every job runs on
+`vmImage: ubuntu-latest`. The deployment jobs name the Azure DevOps environments `shared-nsub`, `shared-psub`, `shared-main-uat`, and
+`shared-test`, and `<customer>-main-uat`, `<customer>-<env>`, or `<customer>-<env>-<slot>`. `build-validation.yml` binds each declared
+globset (`automation`, `infrastructure`, `shared`, and one per customer) to its pipeline, applied by `Sync-AdoBuildValidations`;
+`Register-AdoPipeline` registers a pipeline from its file, `Test-AdoPipelineTriggerGlob` keeps each trigger equal to its globset, and
+`Get-GlobSetChangeRange` diffs `HEAD^1..HEAD` to find what a squash merge changed. `Build-Bicep` compiles a template and renders a
+parameters file per slot (failing a config left `UNDEFINED`), `Assert-BicepTemplate` validates `options.yml`, the config classification,
+identity references, and parameter alignment, and `Deploy-Bicep` deploys the built artifact into an asserted subscription; the deploys are
+incremental, so a resource removed from a template stays in Azure, and no scan of the compiled templates exists. The variant is
+`git_workspace: main-direct` in `variants.yml`. The service connections and the Azure DevOps environments are created in the Azure DevOps
+portal; an exemption, if one were needed, would be a `Microsoft.Authorization/policyExemptions` resource in `discovery`. Adding a customer
+is a change of `customer.yml`, `azure.yml`, `network.yml`, a config per template, a globset, and a thin CD pipeline, reviewed like any
+other. The built catzc package is made by `Export-Catzc`, and the toolchain versions are pinned in `tools.yml`. The shipped `azure.yml`
+carries placeholder subscription ids.
 
 Provisioning and configuring every landing zone and workload is automated; the rollout of a new spoke and the seeding of the break-glass
 secret are manual. The repository deploys its own templates to its own rules, not Microsoft's accelerators, which assume management groups

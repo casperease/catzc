@@ -272,6 +272,23 @@ Peerings and security rules are declared in config and deployed by `discovery`, 
 management group or tenant to reach here; the flows that must hold are the security group rules the landing zone owns, not admin rules above
 them. Virtual network flow logs with traffic analytics are not deployed.
 
+`discovery` deploys the hub or the spoke of its subscription, chosen by `networkKind` from `global.network.subscriptions.<name>.kind`, and
+reads `vnetAddressSpace` and `subnetPrefixes` from `global.network.subscriptions.<name>` by config address, never as literal ranges. A spoke
+peers to its `hub`, and a hub to every entry of its `spokes` list through `vnet-peering.bicep`, whose defaults allow neither gateway transit
+nor forwarded traffic (`allowForwardedTraffic` is off; the module exposes gateway transit for both sides). Every subnet named in
+`networkSecurityGroupNames` gets a network security group from `nsg.bicep` with the `deny-internet-inbound` rule and the same
+`securityRules` as every other subnet, written with the service tags `VirtualNetwork` and `Internet` rather than address ranges; the
+reserved subnets get no security group and no route table. `route-table.bicep` takes its routes as a parameter and exposes
+`disableBgpRoutePropagation`, and the spoke route table passes no routes and attaches to spoke subnets only, never to a hub subnet. The
+virtual network and each security group send diagnostics to `foundation`'s workspace through the `virtualNetwork` and `networkSecurityGroup`
+kinds of `diagnostic-setting.bicep`, which record rule events and counters, not the connections that passed. `virtual-network.bicep` sets no
+`defaultOutboundAccess` on its subnets, so the first compute placed in a spoke would reach the internet directly. `vm.bicep` creates a
+Basic-SKU dynamic public IP address that no template uses. `storage-account.bicep` fixes `minimumTlsVersion: 'TLS1_2'` and
+`supportsHttpsTrafficOnly: true`, and `sql-server.bicep` fixes `minimalTlsVersion: '1.2'`, as module values and not parameters. The
+no-public-IP assignment guards the networks `discovery` builds, and `ci-infrastructure.yaml` compiles the template before it deploys. The
+hub's address space has room for an `AzureFirewallManagementSubnet` beside the reserved ranges (for example `10.1.0.128/26` in
+`shared_prod`).
+
 ### CAF private access
 
 Private-only access to data is the default. `storage-account.bicep` and `sql-server.bicep` default `publicNetworkAccess` to `'Disabled'`,
@@ -290,6 +307,15 @@ service endpoint or custom DNS server field, so no subnet carries a service endp
 of reaching data for every workload, at Private Link's per-gigabyte charge. The repository has no on-premises connectivity, so there is no
 access to PaaS services from on-premises, and the spoke route tables carry no default route, so nothing forces internet traffic back through
 a gateway.
+
+`expedition` has two private endpoints, `blob` on the storage account and `sqlServer` on the SQL server, in the subnet named by
+`privateEndpointSubnetName` (a customer spoke's `private-endpoints`, or the hub's `shared-services` for the shared platform's root configs),
+and reads the hub's subscription and resource group by config address (`privateDnsZoneSubscriptionId`, `privateDnsZoneResourceGroupName`). A
+hub (`networkKind: hub`) deploys `privatelink<sqlServerHostname suffix>` and `privatelink.blob.<storage suffix>`, built from
+`environment().suffixes` so the names fit the cloud the template deploys to, and outputs their ids; a spoke deploys none, and no
+`privatelink.vaultcore.azure.net` zone exists until the vault takes a private endpoint. `private-dns-zone.bicep` links each zone to the
+hub's network and to every entry of `spokes`, one link per network, with `registrationEnabled` off as the `privatelink` zones require. No
+virtual network sets custom DNS servers.
 
 Every private DNS zone, the `privatelink` zones included, is linked to the hub and to every spoke the hub lists, and the zones live in the
 hub of each tier's shared subscription, one set per tier rather than one global set. Each spoke depends on its hub's zones to resolve its
