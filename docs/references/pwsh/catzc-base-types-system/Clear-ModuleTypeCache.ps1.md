@@ -11,38 +11,35 @@ Removes superseded compiled C# type assemblies, keeping the current combined bui
 
 ### description
 
-The single combined assembly in pwsh/.compiled/ (`Catzc.Types.<combinedHash8>.dll`) is committed to source control (a deterministic,
-hash-keyed prebuild — like .vendor), so a fresh checkout and CI load it without invoking Roslyn. This tidies the cache: it keeps the one
-assembly whose name matches the current combined hash of every module's `types/*.cs`, and any assembly whose last load is younger than the
-prune age (Get-TypesPruneAfter, the age the loader prunes by), and deletes the rest. Every tree's sessions share the shadow root and each
-load refreshes its build's write time, so a young build of another hash may be another tree's current one. The current build is never deleted, so the committed file stays put on every platform.
+The combined types assembly (`Catzc.Types.<combinedHash8>.dll`, with its `.json` manifest beside it) is built on each machine into the
+per-user shadow root (Get-TypesShadowRoot), a per-machine cache that git never holds
+([ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD](../../../drs/automation/caching.md#rule-adr-auto-cache-compiledtypeprebuild)). This tidies that
+cache: it keeps the build whose name matches the current combined hash of every module's `types/*.cs`, and any build whose last load is
+younger than the prune age (Get-TypesPruneAfter, the age the loader prunes by), and deletes every other build with its manifest. Every
+tree's sessions share the shadow root and each load refreshes its build's write time, so a young build of another hash may be another
+tree's current one. The importer runs this on every devbox import, silently.
 
-Nothing in catzc holds a .compiled DLL open: every load goes through a per-user shadow copy (Import-TypesAssembly,
-[ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD](../../../drs/automation/caching.md#rule-adr-auto-cache-compiledtypeprebuild)), so a superseded build
-is always expected to delete. A delete that still fails means something outside catzc holds the file (an antivirus scan, an indexer, a
-session started before shadow loading). The janitor removes every deletable build first, then throws one error naming each file it could not
-remove and, on Windows, the processes holding it (Get-FileLockingProcess) — a silent skip is how a stale build reaches a commit. The
-importer catches that error into one red line, so the load still completes.
+The combined hash comes from the one shared implementation (Get-CombinedTypeHash in the .internal Types module) that the loader also calls,
+so the janitor cannot drift from the loader and plan the live build for deletion; a test against the real repository guards that the live
+build is never planned.
 
-Makes no source-control changes in a pipeline (Test-IsRunningInPipeline): CI must not modify committed files, so the delete pass is a devbox
-concern — run locally so the tidied .compiled is what gets committed. The importer invokes this automatically on a devbox. In a pipeline it
-enforces the one invariant instead: .compiled must hold exactly one `Catzc.Types.*.dll`, and a second one means two builds were COMMITTED —
-a hard throw, the gate that stops a stale build reaching trunk.
+A superseded build another process still has loaded is that process's one types instance until it exits
+([ADR-PWSH-TYPES-ONEINSTANCEPERSESSION](../../../drs/automation/pwsh/hosting-csharp-types.md#rule-adr-pwsh-types-oneinstancepersession)).
+The janitor deletes every build it can, then names each one it could not, with, on Windows, the processes holding it
+(Get-FileLockingProcess), in one yellow line: a fact, never an error, and never a reason to stop or wait. That build goes on the first run
+after its holder exits.
 
-The combined hash comes from the ONE shared implementation (Get-CombinedTypeHash in the .internal shared module) that the loader
-(Import-CSharpTypes) also calls, so the janitor cannot drift from the loader and plan the live build for deletion. A test against the real
-repo still guards that the live build is never planned. A devbox janitor only: in build mode
-([DDR-RUNMODE](../../../drs/design/run-modes.md)) the default code root is an installed Catzc package, whose .compiled holds the one
-assembly the build produced and is never a cache to tidy, so the call is a no-op that reports why. An explicit -ModulesRoot other than the
-loaded code root is still cleaned in either mode.
+It deletes nothing in a pipeline (Test-IsRunningInPipeline), and in build mode ([DDR-RUNMODE](../../../drs/design/run-modes.md)) it skips
+the loaded package root, an installed Catzc build whose compiled assembly is the build's output, not a cache; an explicit -ModulesRoot other
+than the loaded package is still cleaned. Each skip says why unless -Silent.
 
 ### parameter `ModulesRoot`
 
-Path to the modules folder (the parent of .compiled/). Defaults to the loaded code root (Get-CatzcModulesRoot).
+The modules folder whose current combined hash names the build to keep. Defaults to the loaded code root (Get-CatzcModulesRoot).
 
 ### parameter `DryRun`
 
-Return the list of cache files that would be deleted, without deleting anything.
+Return the list of builds that would be deleted, without deleting anything.
 
 ### parameter `Silent`
 
@@ -56,7 +53,7 @@ including the one yellow line that names a build another process still holds.
 Clear-ModuleTypeCache
 ```
 
-### example 3
+### example 2
 
 ```powershell
 Clear-ModuleTypeCache -DryRun
@@ -67,8 +64,7 @@ Clear-ModuleTypeCache -DryRun
 Above `if (Test-IsRunningInPipeline) {`, written with `#`.
 
 ```text
-Pipeline: nothing is deleted (CI makes no source-control changes), so more than one Catzc.Types.*.dll means
-two builds were COMMITTED — a hard throw, so trunk cannot carry more than one build.
+Pipeline: nothing is deleted (CI makes no source-control changes); the shadow root is a devbox cache.
 ```
 
 ## comment:2
@@ -76,7 +72,7 @@ two builds were COMMITTED — a hard throw, so trunk cannot carry more than one 
 Above `Import-InternalModule Types`, written with `#`.
 
 ```text
-Keep exactly the current build (Catzc.Types.<combinedHash8>.dll) and prune every other Catzc.Types.*.dll.
+Keep the current build (Catzc.Types.<combinedHash8>.dll) and every build loaded within the prune age; prune the rest.
 The combined hash is the ONE implementation shared with the loader (Import-CSharpTypes), reached through
 the .internal shared module — so the janitor cannot drift from the loader and plan the live build for
 deletion. Import-InternalModule is a no-op when the importer already loaded it (the usual case).
