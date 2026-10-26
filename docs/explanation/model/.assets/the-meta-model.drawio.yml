@@ -10,13 +10,14 @@ content:
   flow: left-to-right
   theme: dark
   bands:
+    - { id: band-engines, label: RUN BY }
     - { id: band-code, label: CODE }
     - { id: band-governance, label: GOVERNANCE }
   glyphs:
     - { id: m-modules, kind: module, label: Modules, in: band-code }
     - { id: s-graph, kind: set, label: Dependency graph, in: band-code }
     - { id: s-order, kind: result, label: Load order, in: band-code }
-    - { id: e-engines, kind: env, label: Engines, in: band-code }
+    - { id: e-engines, kind: env, label: Engines, in: band-engines }
     - { id: d-records, kind: drsonly, label: Decision records, in: band-governance }
     - { id: f-glossary, kind: file, label: Glossary, in: band-governance }
   edges:

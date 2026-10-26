@@ -8,6 +8,36 @@ catzc:
 
 Set-StrictMode -Version Latest   # this module's scope: the rule runs strict inside the analyzer engine
 
+$script:functionBodyLength = $null
+
+function Get-FunctionBodyLength {
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '', Justification = 'Runs inside the analyzer engine, whose custom rules may emit only diagnostic records; it binds the vendored YAML reader the importer already loaded and announced, and in a bare analyzer shard process there is no console session to announce to')]
+    [CmdletBinding()]
+    [OutputType([int])]
+    param()
+
+    if ($null -ne $script:functionBodyLength) {
+        return $script:functionBodyLength
+    }
+    # The rule sits in the modules root, so it reads file-limits.yml from there; an analyzer shard process has no Get-Config.
+    $modulesRoot = [System.IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
+    if (-not (Get-Command ConvertFrom-Yaml -ErrorAction Ignore)) {
+        $versions = [System.IO.Directory]::GetDirectories((Join-Path $modulesRoot '.vendor/powershell-yaml'))
+        Import-Module (Join-Path ($versions | Sort-Object | Select-Object -Last 1) 'powershell-yaml.psd1')
+    }
+    $limits = ConvertFrom-Yaml ([System.IO.File]::ReadAllText((Join-Path $modulesRoot 'Catzc.Base.FileLimits/configs/file-limits.yml')))
+    $script:functionBodyLength = if ($limits -and $limits.Contains('function_body_length')) {
+        [int] $limits['function_body_length']
+    }
+    elseif ('Catzc.Base.FileLimits.FileLimitsConfig' -as [type]) {
+        [Catzc.Base.FileLimits.FileLimitsConfig]::DefaultFunctionBodyLength
+    }
+    else {
+        throw 'FunctionLength: file-limits.yml sets no function_body_length, and the FileLimitsConfig type that declares its default is not loaded.'
+    }
+    $script:functionBodyLength
+}
+
 function Measure-FunctionLength {
     [CmdletBinding()]
     [OutputType([Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord[]])]
@@ -17,7 +47,7 @@ function Measure-FunctionLength {
         [System.Management.Automation.Language.ScriptBlockAst] $ScriptBlockAst
     )
 
-    $maxLines = 300
+    $maxLines = Get-FunctionBodyLength
     $results = [System.Collections.Generic.List[Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord]]::new()
     $ruleName = 'Measure-FunctionLength'
 

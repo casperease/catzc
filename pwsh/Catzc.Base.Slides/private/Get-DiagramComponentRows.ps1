@@ -1,3 +1,11 @@
+<#
+---
+catzc:
+  docs: "../../../docs/references/pwsh/catzc-base-slides/private/Get-DiagramComponentRows.ps1.md"
+  header: "generated"
+---
+#>
+
 function Get-DiagramComponentRows {
     [CmdletBinding()]
     [OutputType([System.Collections.Specialized.OrderedDictionary])]
@@ -9,8 +17,6 @@ function Get-DiagramComponentRows {
         [string] $RepositoryRoot
     )
 
-    # C3: the components a point holds and the edges a query answers between them, by what the point is: the decision records' domains,
-    # one module with its neighbours, a container's modules, or the internal modules of a dot folder.
     $point = $Point.Trim('/')
     $idOf = { param([string] $Name) ($Name.ToLowerInvariant() -replace '[^a-z0-9]+', '-').Trim('-') }
     $nodes = [System.Collections.Generic.List[object]]::new()
@@ -47,8 +53,12 @@ function Get-DiagramComponentRows {
                 $name = $self[0].name
                 & $add $name 'module'
                 foreach ($edge in $dependencies) {
-                    if ($edge.From -ceq $name) { & $add $edge.To 'module' }
-                    if ($edge.To -ceq $name) { & $add $edge.From 'module' }
+                    if ($edge.From -ceq $name) {
+                        & $add $edge.To 'module'
+                    }
+                    if ($edge.To -ceq $name) {
+                        & $add $edge.From 'module'
+                    }
                 }
                 $dependencies = @($dependencies | Where-Object { $_.From -ceq $name -or $_.To -ceq $name })
             }

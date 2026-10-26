@@ -23,6 +23,7 @@ The internal modules load the catzc modules, which call the vendored ones, and t
 
 ![The pwsh modules and the calls between them](.assets/zoom-pwsh-c3.drawio.png)
 
-This slide is drawn from `Get-ModuleDependencyEdges` at every build: one glyph per module, its chip counting the calls the code really makes into it and out of it
+This slide is drawn from `Get-ModuleDependencyEdges` at every build: one glyph per module, its chip counting the calls the code really makes
+into it and out of it
 ([ADR-AUTO-DEPM-UNIFIEDGRAPH](../../drs/automation/controlling-module-dependencies.md#rule-adr-auto-depm-unifiedgraph)). The
 [config ladder](zoom-config.md) zooms into one of them.

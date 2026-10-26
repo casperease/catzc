@@ -25,7 +25,8 @@ usage (repo root, background):
   uv run --no-sync --project python python python/catzc_diagrams/declaration.py reflow <diagram>
   uv run --no-sync --project python python python/catzc_diagrams/declaration.py carry <diagram> article|file
   uv run --no-sync --project python python python/catzc_diagrams/declaration.py rekey <from-stem> <to-stem> [<drawio.yml>]
-(<diagram> is the stem `.assets/<name>` or either file of its pair)
+(<diagram> is the stem `.assets/<name>` or either file of its pair; `--rows <file>` before any direction names the query rows a C3 or C4
+slide is expanded from, as the renderer takes it)
 
 A pair whose yml and png both moved from the pair committed at git HEAD, and now disagree, is a conflict: check names its cells, the bulk
 put skips it, and only put or get by name, the author's pick of the side that wins, clears it. Nothing merges.
@@ -184,6 +185,14 @@ CONFIG = KIT / "configs" / "drawio.yml"  # the kit's defaults, whose roles: a di
 
 def main():
     args = sys.argv[1:]
+    if "--rows" in args:  # the query rows' address, named by its caller, so a check puts a C3 or C4 slide as its render did
+        import os
+
+        import query_rows
+
+        i = args.index("--rows")
+        os.environ[query_rows.ROWS_VARIABLE] = str(Path(args[i + 1]).resolve())
+        del args[i : i + 2]
     if len(args) >= 2 and args[0] == "check":  # one JSON line per diagram: conflicted or drifted cells, stale minimaps, or the error
         import drawio_forward
 

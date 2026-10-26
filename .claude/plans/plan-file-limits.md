@@ -72,8 +72,6 @@ step 4's `exempt:` map starts empty.
 
 ## Open steps
 
-5. [ ] Register the gate in `Test-Automation` and the timeouts roof. Check: `Test-Plans` sees the new gate exported; the gate's run time
-       under its `timeouts.yml` roof.
 6. [ ] Flip `width_mode` to `fail` per class once its width count reaches 0 (today every class is `report`), and in the same step move
        `Get-LinkLineLimit` from the rendered `.editorconfig` to `Get-FileLimit` per extension, which changes the link-wrap width of `.cs`,
        `.go`, `.js` and `.psd1` (catzc-f2, 2026-10-26). Check: `Test-FileLimits`, and `Test-Links` over the tree after the move.

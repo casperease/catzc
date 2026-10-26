@@ -10,6 +10,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
+using static Catzc.Base.FileLimits.FileLimitsReaders;
 
 namespace Catzc.Base.FileLimits;
 
@@ -21,12 +22,17 @@ public sealed class FileLimitsConfig
     public const int DefaultLengthMax = 500;
     public const int DefaultWidthMin = 80;
     public const int DefaultWidthMax = 200;
+    // The most body lines one PowerShell function may have; the analyzer rule FunctionLength reads it from file-limits.yml.
+    public const int DefaultFunctionBodyLength = 300;
 
     public const string Unmeasured = "none";
 
     public static readonly string[] Classes = { "code", "config", "prose" };
 
-    private static readonly string[] AllowedKeys = { "bounds", "classes", "defaults", "exempt", "extensions", "languages", "width_mode" };
+    private static readonly string[] AllowedKeys =
+    {
+        "bounds", "classes", "defaults", "exempt", "extensions", "function_body_length", "languages", "width_mode",
+    };
     private static readonly string[] WidthModes = { "report", "fail" };
     public const string DefaultWidthMode = "report";
 
@@ -46,8 +52,6 @@ public sealed class FileLimitsConfig
         ["gitkeep"] = Unmeasured,
         [".pyc"] = Unmeasured,
     };
-    private static readonly string[] LimitKeys = { "length", "width" };
-    private static readonly string[] BoundKeys = { "min", "max" };
 
     private static readonly Dictionary<string, FileLimit> DefaultLimits = new Dictionary<string, FileLimit>(StringComparer.Ordinal)
     {
@@ -91,10 +95,15 @@ public sealed class FileLimitsConfig
     public IReadOnlyDictionary<string, string> extensions { get; }
     public IReadOnlyDictionary<string, string> width_mode { get; }
     public IReadOnlyDictionary<string, string> exempt { get; }
+    public int function_body_length { get; } = DefaultFunctionBodyLength;
 
     public FileLimitsConfig(IDictionary raw)
     {
         List<string> errors = new List<string>();
+        if (raw != null)
+        {
+            function_body_length = ReadWhole(raw, "function_body_length", "file-limits", errors) ?? DefaultFunctionBodyLength;
+        }
         int lengthMin = DefaultLengthMin, lengthMax = DefaultLengthMax, widthMin = DefaultWidthMin, widthMax = DefaultWidthMax;
         Dictionary<string, FileLimit> defaultsValue = new Dictionary<string, FileLimit>(DefaultLimits, StringComparer.Ordinal);
         Dictionary<string, FileLimit> languagesValue = new Dictionary<string, FileLimit>(StringComparer.Ordinal);
@@ -336,92 +345,5 @@ public sealed class FileLimitsConfig
 
         resolved[language] = result;
         return result;
-    }
-
-    private static void CheckKeys(IDictionary map, string[] allowed, string where, List<string> errors)
-    {
-        foreach (object key in map.Keys)
-        {
-            string name = Convert.ToString(key, CultureInfo.InvariantCulture);
-            if (Array.IndexOf(allowed, name) < 0)
-            {
-                errors.Add(string.Format(CultureInfo.InvariantCulture, "{0}: unknown key '{1}' (allowed: {2})", where, name, string.Join(", ", allowed)));
-            }
-        }
-    }
-
-    private static IDictionary Section(IDictionary map, string key, List<string> errors)
-    {
-        if (!map.Contains(key) || map[key] == null)
-        {
-            return null;
-        }
-
-        if (map[key] is IDictionary section)
-        {
-            return section;
-        }
-
-        errors.Add(string.Format(CultureInfo.InvariantCulture, "{0} must be a map", key));
-        return null;
-    }
-
-    private static int? ReadWhole(IDictionary map, string key, string where, List<string> errors)
-    {
-        if (!map.Contains(key) || map[key] == null)
-        {
-            return null;
-        }
-
-        object value = map[key];
-        if (value is int || value is long || value is short || value is byte)
-        {
-            long parsed = Convert.ToInt64(value, CultureInfo.InvariantCulture);
-            if (parsed >= 1 && parsed <= int.MaxValue)
-            {
-                return (int)parsed;
-            }
-        }
-
-        errors.Add(string.Format(CultureInfo.InvariantCulture, "{0}.{1} '{2}' must be a positive whole number", where, key, value));
-        return null;
-    }
-
-    private static void ReadBound(IDictionary bounds, string key, ref int min, ref int max, List<string> errors)
-    {
-        IDictionary range = Section(bounds, key, errors);
-        if (range == null)
-        {
-            return;
-        }
-
-        CheckKeys(range, BoundKeys, "bounds." + key, errors);
-        min = ReadWhole(range, "min", "bounds." + key, errors) ?? min;
-        max = ReadWhole(range, "max", "bounds." + key, errors) ?? max;
-    }
-
-    private static FileLimit ReadLimit(object value, string where, List<string> errors)
-    {
-        if (!(value is IDictionary map))
-        {
-            errors.Add(string.Format(CultureInfo.InvariantCulture, "{0} must be a map of length and width", where));
-            return null;
-        }
-
-        CheckKeys(map, LimitKeys, where, errors);
-        return new FileLimit(ReadWhole(map, "length", where, errors), ReadWhole(map, "width", where, errors));
-    }
-
-    private static void CheckInBounds(string where, FileLimit limit, int lengthMin, int lengthMax, int widthMin, int widthMax, List<string> errors)
-    {
-        if (limit.length.HasValue && (limit.length < lengthMin || limit.length > lengthMax))
-        {
-            errors.Add(string.Format(CultureInfo.InvariantCulture, "{0}.length {1} is outside the bounds {2} to {3}", where, limit.length, lengthMin, lengthMax));
-        }
-
-        if (limit.width.HasValue && (limit.width < widthMin || limit.width > widthMax))
-        {
-            errors.Add(string.Format(CultureInfo.InvariantCulture, "{0}.width {1} is outside the bounds {2} to {3}", where, limit.width, widthMin, widthMax));
-        }
     }
 }

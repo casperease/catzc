@@ -1,10 +1,10 @@
 # Zooming in on Catzc.Base.Config: one module among its neighbours, and its files
 
 ```text
-One module at C3 and C4: among the modules it calls and that call it, and as its own files with the links between them.
+One module at C3 and C4: among the modules it calls and that call it, and as its own tracked files by kind.
 
 C3  components   Catzc.Base.Config and its neighbours, from the dependency query
-C4  code         the module's files and the links between them, from the link graph
+C4  code         the module's tracked files but its tests, each in the kind its layout row gives it
 
 Supports DDR-VISUAL-ZOOMISANAXIS, ADR-AUTO-DEPM-UNIFIEDGRAPH and ADR-AUTO-MODULE-EXISTSBYLAYOUT.
 ```
@@ -21,8 +21,9 @@ calls, from `Get-ModuleDependencyEdges`
 
 ## C4: the module's files
 
-![The config module's files and the links between them](.assets/zoom-config-c4.drawio.png)
+![The config module's tracked files, by kind](.assets/zoom-config-c4.drawio.png)
 
-Each file is drawn in the kind its layout row gives it
-([ADR-AUTO-MODULE-EXISTSBYLAYOUT](../../drs/automation/module-model.md#rule-adr-auto-module-existsbylayout)), and its chip counts the links
-between it and the other files, from `Get-LinkEdge`.
+Each tracked file but the tests is drawn in the kind its layout row gives it
+([ADR-AUTO-MODULE-EXISTSBYLAYOUT](../../drs/automation/module-model.md#rule-adr-auto-module-existsbylayout)): configs, code units, private
+helpers and C# types. A file linked to another file of the module carries a chip counting those links, from `Get-LinkEdge`; the module's
+links run from its tests, so its files carry none.

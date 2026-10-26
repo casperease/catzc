@@ -25,6 +25,7 @@ function lampSets(declared, open = []) {
 // fact over the files it claims by the one precedence, or empty for a lamp whose sets include nothing. A fact's path need not be on disk
 // (a deleted file is a change), and the switch never touches a condition. A vetoed lamp (unlit, and hiding its whole zone) takes out every
 // file it claims, even one a lit lamp claims too: the shown files are the lit union minus the vetoed zones.
+/** @param {Iterable<string>} [vetoed] */
 function evaluate(sets, lit, files, facts = {}, vetoed = []) {
     const vetoes = new Set(vetoed);
     const names = Object.keys(sets);

@@ -323,3 +323,12 @@ Above `version_command: 'python -c "from importlib.metadata import version;...`,
 Read the version from package metadata — no heavy `import pyspark` (which spins up the JVM gateway),
 just the installed dist-info. importlib.metadata is stdlib since 3.8.
 ```
+
+## comment:33
+
+Above `typescript:`, written with `#`.
+
+```text
+The TypeScript compiler, the js track's types gate (Test-JavaScriptTypes), and the type declarations it checks against, each installed by
+Install-TypeScript into npm's global root, which the generated jsconfig.json names as its type roots; nothing lands in the repository.
+```

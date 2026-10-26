@@ -16,8 +16,9 @@ The fifth ladder stands at `docs/drs/`, where the decision records live, with th
 
 ![The record domains are the decision records' containers](.assets/zoom-drs-c2.drawio.png)
 
-Every rule's code names its domain ([ADR-REPO-DRSCODE-DOMAINSEGMENT](../../drs/repository/drs-code-language.md#rule-adr-repo-drscode-domainsegment)),
-and each domain is of one decision kind; the thesis frames them all, and the other domains cite it through the principles.
+Every rule's code names its domain
+([ADR-REPO-DRSCODE-DOMAINSEGMENT](../../drs/repository/drs-code-language.md#rule-adr-repo-drscode-domainsegment)), and each domain is of one
+decision kind; the thesis frames them all, and the other domains cite it through the principles.
 
 ## C3: the domains and their citations
 
@@ -29,5 +30,6 @@ This slide is drawn from `Get-DrsDomainEdges` at every build: one glyph per doma
 
 ![The design records and the links between them](.assets/zoom-drs-c4.drawio.png)
 
-The deepest slide stands in one domain, `docs/drs/design/`: each record is a glyph, its chip counting the links between it and the other records, from
-`Get-LinkEdge` ([ADR-REPO-LINKS-EVERYLINKHASADIRECTION](../../drs/repository/links-in-repository.md#rule-adr-repo-links-everylinkhasadirection)).
+The deepest slide stands in one domain, `docs/drs/design/`: each record is a glyph, its chip counting the links between it and the other
+records, from `Get-LinkEdge`
+([ADR-REPO-LINKS-EVERYLINKHASADIRECTION](../../drs/repository/links-in-repository.md#rule-adr-repo-links-everylinkhasadirection)).

@@ -47,10 +47,6 @@ pwsh-to-extension boundary checked instead of implied.
 
 ## Open steps
 
-- [ ] Phase 4, types: `typescript`, `types_node` and `types_vscode` in `tools.yml` (npm, pinned, installed by the tooling only;
-      `@types/vscode` pinned to the manifests' `engines.vscode`, a test pinning that agreement), the generated `jsconfig.json` (`checkJs`,
-      `strict: false`, `typeRoots` the tooling's install folder, never a repository `node_modules`), `Test-JavaScriptTypes`, landed as one
-      staged burst. Check: the gate green on all seven extensions.
 - [ ] Strict types for `catzc-drs-links` (JSDoc, its own `strict` in the generated `jsconfig.json`). Check: `Test-JavaScriptTypes` green.
 - [ ] Strict types for `catzc-ansi-logs`. Check: `Test-JavaScriptTypes` green.
 - [ ] Strict types for `catzc-file-icons`. Check: `Test-JavaScriptTypes` green.

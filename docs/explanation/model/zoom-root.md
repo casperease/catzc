@@ -28,10 +28,10 @@ platform's configuration, one way from its pipelines.
 ![The repository as one system, with its actors](.assets/zoom-root-c1.drawio.png)
 
 One repository holds one responsibility domain
-([TDR-STORES-RESPONSIBILITYDOMAIN](../../drs/thesis/truth-stores.md#rule-tdr-stores-responsibilitydomain)). The engineer works on the
-devbox; the devbox and the pipelines both run the one importer
-([ADR-AUTO-ENGINE-IMPORTERENTRY](../../drs/automation/execution-engines.md#rule-adr-auto-engine-importerentry)), and the pipelines deploy
-to Azure.
+([TDR-STORES-RESPONSIBILITYDOMAIN](../../drs/thesis/truth-stores.md#rule-tdr-stores-responsibilitydomain)). The engineer uses the devbox;
+the devbox and the pipelines both call the one importer, which reads the repository
+([ADR-AUTO-ENGINE-IMPORTERENTRY](../../drs/automation/execution-engines.md#rule-adr-auto-engine-importerentry)), and the pipelines deploy to
+Azure.
 
 ## C2: the tracks
 

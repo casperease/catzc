@@ -1,5 +1,5 @@
 {
-  "hash": "486858c2",
+  "hash": "0ab93f7c",
   "types": [
     {
       "name": "Catzc.Azure.AzureConfig",
@@ -589,6 +589,11 @@
     },
     {
       "name": "Catzc.Base.FileLimits.FileLimitsConfig",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.FileLimits.FileLimitsReaders",
       "aliases": [],
       "display": []
     },

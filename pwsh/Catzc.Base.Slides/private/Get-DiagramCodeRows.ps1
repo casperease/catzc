@@ -1,3 +1,11 @@
+<#
+---
+catzc:
+  docs: "../../../docs/references/pwsh/catzc-base-slides/private/Get-DiagramCodeRows.ps1.md"
+  header: "generated"
+---
+#>
+
 function Get-DiagramCodeRows {
     [CmdletBinding()]
     [OutputType([System.Collections.Specialized.OrderedDictionary])]
@@ -9,8 +17,6 @@ function Get-DiagramCodeRows {
         [string] $RepositoryRoot
     )
 
-    # C4: one module's tracked files, its tests left out, each a glyph of the kind its folder's role draws, and the link edges between two
-    # of them; a build's output beside the sources is no file of the module.
     $languages = Get-Config -Config languages
     $point = $Point.Trim('/')
     $folder = [System.IO.Path]::GetFullPath((Join-Path $RepositoryRoot $point))

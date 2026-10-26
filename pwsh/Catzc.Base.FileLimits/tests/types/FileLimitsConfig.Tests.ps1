@@ -15,6 +15,14 @@ Describe 'FileLimitsConfig' -Tag 'L0', 'logic' {
 
     It 'takes the defaults from a missing file as well' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
         ([Catzc.Base.FileLimits.FileLimitsConfig]::new($null)).defaults['code'].length | Should -Be 400
+        ([Catzc.Base.FileLimits.FileLimitsConfig]::new($null)).function_body_length | Should -Be 300
+    }
+
+    It 'declares the function body length once, takes a given one, and rejects one that is not a positive whole number' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
+        [Catzc.Base.FileLimits.FileLimitsConfig]::DefaultFunctionBodyLength | Should -Be 300
+        ([Catzc.Base.FileLimits.FileLimitsConfig]::new(@{})).function_body_length | Should -Be 300
+        ([Catzc.Base.FileLimits.FileLimitsConfig]::new(@{ function_body_length = 250 })).function_body_length | Should -Be 250
+        { [Catzc.Base.FileLimits.FileLimitsConfig]::new(@{ function_body_length = 0 }) } | Should -Throw '*function_body_length*positive whole number*'
     }
 
     It 'keeps the shipped value of a class key it is not given' {
@@ -30,7 +38,7 @@ Describe 'FileLimitsConfig' -Tag 'L0', 'logic' {
     }
 
     It 'rejects an unknown key at every level, naming the allowed set' {
-        { [Catzc.Base.FileLimits.FileLimitsConfig]::new(@{ gadget = 1 }) } | Should -Throw '*unknown key ''gadget''*bounds, classes, defaults, exempt, extensions, languages, width_mode*'
+        { [Catzc.Base.FileLimits.FileLimitsConfig]::new(@{ gadget = 1 }) } | Should -Throw '*unknown key ''gadget''*bounds, classes, defaults, exempt, extensions, function_body_length, languages, width_mode*'
         { [Catzc.Base.FileLimits.FileLimitsConfig]::new(@{ defaults = @{ gadget = @{} } }) } | Should -Throw '*code, config, prose*'
         { [Catzc.Base.FileLimits.FileLimitsConfig]::new(@{ languages = @{ widget = @{ depth = 1 } } }) } | Should -Throw '*length, width*'
     }
@@ -105,5 +113,16 @@ Describe 'FileLimitsConfig' -Tag 'L0', 'logic' {
 Describe 'FileLimitsConfig (shipped file-limits.yml)' -Tag 'L1', 'integrity' {
     It 'loads the shipped file-limits.yml as a FileLimitsConfig' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
         (Get-Config -Config file-limits) | Should -BeOfType ([Catzc.Base.FileLimits.FileLimitsConfig])
+    }
+
+    It 'gives the FunctionLength rule the declared function body length' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
+        (Get-Config -Config file-limits).function_body_length | Should -Be ([Catzc.Base.FileLimits.FileLimitsConfig]::DefaultFunctionBodyLength)
+        $rule = Import-Module (Join-Path (Get-CatzcModulesRoot) '.scriptanalyzer/FunctionLength.psm1') -PassThru -Force
+        try {
+            & $rule { Get-FunctionBodyLength } | Should -Be ([Catzc.Base.FileLimits.FileLimitsConfig]::DefaultFunctionBodyLength)
+        }
+        finally {
+            Remove-Module $rule -Force
+        }
     }
 }

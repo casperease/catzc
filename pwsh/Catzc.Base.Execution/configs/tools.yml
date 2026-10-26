@@ -143,8 +143,6 @@ prettier:
   version_command: "prettier --version"
   version_pattern: "^(?<ver>[\\d.]+)"
 
-# The TypeScript compiler, the js track's types gate (Test-JavaScriptTypes), and the type declarations it checks against, each installed by
-# Install-TypeScript into npm's global root, which the generated jsconfig.json names as its type roots; nothing lands in the repository.
 typescript:
   version: "5"
   command: tsc

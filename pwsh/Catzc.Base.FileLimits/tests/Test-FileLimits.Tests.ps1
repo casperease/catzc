@@ -25,3 +25,14 @@ Describe 'Test-FileLimits' -Tag 'L0', 'logic' {
         @($result.Issues).Count | Should -Be 0
     }
 }
+
+Describe 'Test-FileLimits — the real tree' -Tag 'L1', 'integrity', 'source-only' {
+    It 'passes over every tracked file, inside its timeouts.yml roof' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
+        $roof = Get-TimeoutSeconds -Command 'Test-FileLimits'
+        $watch = [System.Diagnostics.Stopwatch]::StartNew()
+        $result = Test-FileLimits -OutputFolder (Join-Path $TestDrive 'tree') -PassThru
+        $watch.Stop()
+        $result.Issues | Should -BeNullOrEmpty
+        $watch.Elapsed.TotalSeconds | Should -BeLessThan $roof
+    }
+}
