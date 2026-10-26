@@ -4,6 +4,7 @@
 #   header: "generated"
 # ---
 
+# One entry per .claude/skills/<name>/SKILL.md; its model floor lives once in the file's metadata, enforced by Test-AgentDefinitions.
 capabilities:
   # The time safeguard for every shell call and cats command a robot runs.
   - name: catzc-run

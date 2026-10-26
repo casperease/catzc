@@ -39,6 +39,7 @@ function Build-Readme {
     $ret = foreach ($mapping in $mappings) {
         $readmePath = Resolve-RepoPath "$($mapping.folder)/README.md"
 
+        # Delete-then-write on a change, so a README still linked to its source is severed, never written through.
         $changed = Write-FileIfChanged -Path $readmePath -Content (Get-ReadmeContent -Mapping $mapping) -DryRun:$DryRun
 
         if (-not $Silent) {

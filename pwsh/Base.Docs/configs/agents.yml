@@ -10,6 +10,8 @@ roofs:
   capability_lines: 30
 # The contracts every robot and capability names under `contracts` in its front matter and reads first.
 contracts: [ADR-REPO-AI]
+
+# One entry per .claude/agents/<name>.md (ADR-REPO-AGENTS), checked against the files and CLAUDE.md by Test-AgentDefinitions.
 agents:
   # The standard agent: one task from a coordinator's brief, each file verified with the gates before the next.
   - name: catzc-drone
@@ -101,6 +103,7 @@ agents:
     supported_by: [ADR-REPO-AI-TRUSTTHETREE, ADR-REPO-VOCAB-DEFINEDTERM, ADR-REPO-AI-NEVERDECIDEFORUSER]
     checks: []
 
+  # A log-reading robot caps its probes per line and writes in batches: a 40-turn roof ended its first run before its one write.
   - name: 2020-hindsight
     persona: Jack
     supported_by:
