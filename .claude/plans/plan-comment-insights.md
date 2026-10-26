@@ -27,7 +27,7 @@ place: on a declaration or first code line, one line that says something useful 
 
 - [ ] The rollout after the user's review: one module per step, in the master's order. Check: per module, `Test-Comments -Path` on it
       reports no long comment and no orphan section, and its tests pass one file at a time.
-- [ ] Base.Docs and Base.CodeMeta (catzc-2b): the root, private and configs files are done; left are the `tests/` and `tests/types/` pages,
+- [ ] Base.Docs and Base.CodeMeta (catzc-68): the root, private and configs files are done; left are the `tests/` and `tests/types/` pages,
       the Base.Docs `types/*.cs` (through a staged burst) and Base.CodeMeta's HeadAnchor.cs, HeadForm.cs and PlainText.cs, skipping every
       file in the reference-normal-form staging until its burst lands. After each Edit, `git diff -U0 <file>` shows only `#` lines. Check:
       `Test-Comments -Path pwsh/Base.Docs, pwsh/Base.CodeMeta` reports no long comment and no orphan section, and the touched files' tests

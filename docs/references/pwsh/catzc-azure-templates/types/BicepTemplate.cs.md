@@ -10,8 +10,7 @@ It derives from `Catzc.Base.Objects.DictionaryRecord`, so an instance also prese
 ## Properties
 
 - **`customer_deployment`** — whether this is a customer template, whose configs deploy into customer subscriptions. It defaults to the
-  `have_customers` repo variant
-  ([ADR-AZ-CUSTOMER](../../../../drs/azure/azure-customer-model.md)) and is always present as a bool.
+  `have_customers` repo variant ([ADR-AZ-CUSTOMER](../../../../drs/azure/azure-customer-model.md)) and is always present as a bool.
 
 ## Construction
 

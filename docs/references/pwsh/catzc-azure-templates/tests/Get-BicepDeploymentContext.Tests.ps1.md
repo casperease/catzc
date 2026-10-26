@@ -8,8 +8,8 @@ The config and template boundary is mocked once for the whole block and the conf
 config, and `Get-Config` keys its cache on the resolved fixture path, so the first call derives it cold, about 80 ms, and the rest hit the
 warm cache. A per-test reset would force that cold re-derive on every test
 ([ADR-AUTO-TEST-SETUPONCE](../../../../drs/automation/test-automation.md#rule-adr-auto-test-setuponce),
-[ADR-AUTO-TEST-SAFESEAMSWAPS](../../../../drs/automation/test-automation.md#rule-adr-auto-test-safeseamswaps)). Per test only the cheap build
-folder is wiped, which a couple of tests depend on being clean.
+[ADR-AUTO-TEST-SAFESEAMSWAPS](../../../../drs/automation/test-automation.md#rule-adr-auto-test-safeseamswaps)). Per test only the cheap
+build folder is wiped, which a couple of tests depend on being clean.
 
 The fixture config and the template-discovery caches are warmed once under the mocks, so the cold derive is paid in setup and not by
 whichever test happens to run first.
@@ -24,8 +24,8 @@ The file has its own output root through the seam: any other file building the `
 ([ADR-AUTO-TEST-ONESCHEDULINGPOOL](../../../../drs/automation/test-automation.md#rule-adr-auto-test-oneschedulingpool)). The root is kept
 under the repository because the repo-relative artifact contract is asserted.
 
-`Build-Bicep` is mocked to materialize stub artifacts without invoking az. It writes them with `[System.IO]`, about 0.1 ms against about
-20 ms per call for the file cmdlets
+`Build-Bicep` is mocked to materialize stub artifacts without invoking az. It writes them with `[System.IO]`, about 0.1 ms against about 20
+ms per call for the file cmdlets
 ([ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS](../../../../drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-systemioonhotpaths)).
 
 The deploy target is the az session's subscription, so a whole-boundary session mock stands in for the service connection and

@@ -1,7 +1,7 @@
 # pwsh/Azure.DevOps/Get-AdoYamlInventory.ps1
 
-The function that joins the YAML file scan with the pipeline definitions registered in Azure DevOps, returning one inventory record per
-file with its registration state.
+The function that joins the YAML file scan with the pipeline definitions registered in Azure DevOps, returning one inventory record per file
+with its registration state.
 
 ## help
 

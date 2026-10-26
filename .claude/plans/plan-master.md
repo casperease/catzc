@@ -53,7 +53,7 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
 - repo-filters -> plan-repo-filters.md: the filters landed (sets from the model, union of lit lamps, coverage asserted, docs and out lamps);
   one step left: the user's look at the lamps in VS Code (the `pipelines` and `infrastructure` lamps landed)
 - reference-normal-form -> plan-reference-normal-form.md: reference pages at a derived path
-  (`docs/references/<language>/<module>/<aspect path>/<file>.md`), no `docs:` links; steps 1 and 2 staged by catzc-2b in its scratchpad,
+  (`docs/references/<language>/<module>/<aspect path>/<file>.md`), no `docs:` links; steps 1 and 2 staged by catzc-68 in its scratchpad,
   then the step-3 rename script, then the user's rename
 - idiomatic-names -> plan-idiomatic-names.md: one step left, the naming gate wired into languages.yml once the user stages the folder moves
   (task-user-runs-and-commits).

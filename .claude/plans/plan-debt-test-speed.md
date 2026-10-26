@@ -18,8 +18,9 @@ folders. Heavy runs wait for a turn in the orchestrator's memory queue, one run 
 ## Open steps
 
 - [ ] `Test-Formatting.Tests.ps1`: its warm path's `Get-FileMetaInputStamp` (2.0 to 2.5 s) and the file-meta step list (1.4 s), measured and
-      fixed one cause at a time after catzc-2b's 4a burst lands, routed through the orchestrator. Check: `Invoke-TestFile` twice, the same
-      test names and `Should` count, an A/B of each cause with identical output, and `Test-ScriptAnalyzer -Path` at 0 on each changed file.
+      fixed one cause at a time after the 4a burst (catzc-68, plan-reference-normal-form) lands, routed through the orchestrator. Check:
+      `Invoke-TestFile` twice, the same test names and `Should` count, an A/B of each cause with identical output, and
+      `Test-ScriptAnalyzer -Path` at 0 on each changed file.
 
 ## Open questions
 

@@ -1,7 +1,7 @@
 # pwsh/Azure.Cli/private/Get-AzCliBicepState.ps1
 
-The private function that reads the Bicep CLI state and compares it with the configured minimum version. It is the one place the
-comparison is made, shared by the Bicep query and the Bicep assertion.
+The private function that reads the Bicep CLI state and compares it with the configured minimum version. It is the one place the comparison
+is made, shared by the Bicep query and the Bicep assertion.
 
 ## help
 

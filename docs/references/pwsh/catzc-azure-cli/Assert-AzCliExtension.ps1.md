@@ -1,7 +1,7 @@
 # pwsh/Azure.Cli/Assert-AzCliExtension.ps1
 
-The throwing check that a named Azure CLI extension is installed. It only asserts and never installs, so a command that needs the
-extension fails with a clear remediation.
+The throwing check that a named Azure CLI extension is installed. It only asserts and never installs, so a command that needs the extension
+fails with a clear remediation.
 
 ## help
 

@@ -1,7 +1,7 @@
 # pwsh/Azure.Cli/Test-AzCliBicep.ps1
 
-The query twin of the Bicep assertion: it returns a bool for whether the Bicep CLI is available to az and at or above the configured
-minimum version.
+The query twin of the Bicep assertion: it returns a bool for whether the Bicep CLI is available to az and at or above the configured minimum
+version.
 
 ## help
 

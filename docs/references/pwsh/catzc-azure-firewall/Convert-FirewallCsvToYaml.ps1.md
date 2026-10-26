@@ -1,7 +1,7 @@
 # pwsh/Azure.Firewall/Convert-FirewallCsvToYaml.ps1
 
-The command that renders an Azure Firewall rule-export CSV, application or network, as YAML: a provenance header in YAML comments
-followed by the rules as a plain list.
+The command that renders an Azure Firewall rule-export CSV, application or network, as YAML: a provenance header in YAML comments followed
+by the rules as a plain list.
 
 ## help
 
@@ -75,14 +75,14 @@ Get-FirewallCsv -SubscriptionId $sub -StorageAccountName stfwexports -ContainerN
 
 ## The source name and path
 
-The source name defaults in the body, not as a parameter default: in Object mode `$CsvPath` comes from pipeline input, which binds after
-the defaults are evaluated, so a default would never see it
+The source name defaults in the body, not as a parameter default: in Object mode `$CsvPath` comes from pipeline input, which binds after the
+defaults are evaluated, so a default would never see it
 ([ADR-PWSH-PARAM-RESOLUTIONORDER](../../../drs/automation/pwsh/parameter-design.md#rule-adr-pwsh-param-resolutionorder)).
 
-The path is asserted in both modes, because in Object mode it comes from the piped object. A wrong path to the source CSV then fails
-there by name and never as a raw `Import-Csv` error.
+The path is asserted in both modes, because in Object mode it comes from the piped object. A wrong path to the source CSV then fails there
+by name and never as a raw `Import-Csv` error.
 
 ## Provenance header
 
-The provenance is written as YAML comments, so a reader sees it and a parser never does: the parsed shape stays a plain list of rules.
-Times are in UTC, and the conversion time is taken now in UTC.
+The provenance is written as YAML comments, so a reader sees it and a parser never does: the parsed shape stays a plain list of rules. Times
+are in UTC, and the conversion time is taken now in UTC.

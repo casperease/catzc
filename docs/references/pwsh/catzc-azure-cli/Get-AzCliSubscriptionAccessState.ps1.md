@@ -46,8 +46,8 @@ The subscription GUID the current login must be able to reach.
 
 ## The probe
 
-The check is a real, read-only ARM call scoped to the subscription. A zero exit proves the current login can reach the subscription
-through `--subscription`, whether or not it is the active one.
+The check is a real, read-only ARM call scoped to the subscription. A zero exit proves the current login can reach the subscription through
+`--subscription`, whether or not it is the active one.
 
 ## After a failed probe
 

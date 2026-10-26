@@ -72,9 +72,9 @@ $context = Get-BicepDeploymentContext -Environment dev -Template sample
 
 ## The target
 
-The deploy target is the az session's subscription, in a pipeline exactly what the service connection logged into, reverse-resolved
-against `azure.yml`. The optional `-SubscriptionIdAssertIs` guard pins it explicitly, and a mismatch is a mis-wired service connection, not
-a retarget.
+The deploy target is the az session's subscription, in a pipeline exactly what the service connection logged into, reverse-resolved against
+`azure.yml`. The optional `-SubscriptionIdAssertIs` guard pins it explicitly, and a mismatch is a mis-wired service connection, not a
+retarget.
 
 ## The slot
 

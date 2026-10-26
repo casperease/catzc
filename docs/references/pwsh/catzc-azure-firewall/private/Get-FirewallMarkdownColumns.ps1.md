@@ -43,5 +43,5 @@ The CSV's present header names. Empty means headers are unknown (no rows) — tr
 
 ## Trimming to the CSV
 
-The candidates of each column are trimmed to the fields the CSV actually has. A requested column with none of its fields present is a
-schema mismatch, so it fails and is never silently dropped from the table.
+The candidates of each column are trimmed to the fields the CSV actually has. A requested column with none of its fields present is a schema
+mismatch, so it fails and is never silently dropped from the table.

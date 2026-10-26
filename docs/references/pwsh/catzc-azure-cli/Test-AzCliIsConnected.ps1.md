@@ -1,7 +1,7 @@
 # pwsh/Azure.Cli/Test-AzCliIsConnected.ps1
 
-The query twin of the is-connected assertion: it returns a bool for whether the active az session is logged into the tenant and
-subscription a declared subscription name stands for.
+The query twin of the is-connected assertion: it returns a bool for whether the active az session is logged into the tenant and subscription
+a declared subscription name stands for.
 
 ## help
 

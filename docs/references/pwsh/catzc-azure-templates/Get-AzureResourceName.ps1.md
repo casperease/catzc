@@ -94,8 +94,8 @@ resource group already encodes. The `type` segment is never omitted.
 
 ## Environment and customer forms
 
-The environment segment is the readable name for the generous `long` pattern and the 2-character shortcode for the restricted patterns
-(kv, storage, vm)
+The environment segment is the readable name for the generous `long` pattern and the 2-character shortcode for the restricted patterns (kv,
+storage, vm)
 ([ADR-AZ-NAMING-PATTERNPERRESOURCETYPE](../../../drs/azure/azure-naming-standard.md#rule-adr-az-naming-patternperresourcetype)).
 
 The customer follows the same pattern-chosen split: the readable key (`-Customer`) for `long`, the 2-character shortcode

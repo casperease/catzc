@@ -13,9 +13,9 @@ template-cache entry is dropped too.
 
 ## Read-only and writable fixtures
 
-The read-only tests never mutate the tree, so they validate the committed fixtures directly, with no per-test `Copy-Directory` of about
-41 ms each ([ADR-AUTO-TEST-SETUPONCE](../../../../drs/automation/test-automation.md#rule-adr-auto-test-setuponce)). The validator only
-reads, so it cannot corrupt them.
+The read-only tests never mutate the tree, so they validate the committed fixtures directly, with no per-test `Copy-Directory` of about 41
+ms each ([ADR-AUTO-TEST-SETUPONCE](../../../../drs/automation/test-automation.md#rule-adr-auto-test-setuponce)). The validator only reads,
+so it cannot corrupt them.
 
 The tests that introduce a deliberate violation validate a writable copy. Each corrupts `sample`, or adds a broken template, differently and
 expects a specific throw, so they would collide. Each test therefore gets a fresh, unique root under `$TestDrive`, which Pester cleans. A
@@ -30,8 +30,8 @@ holds the just-copied `PrePost.psm1` open and intermittently throws "used by ano
   valid slotted root config.
 - `globex` is a defined customer with no subscription in the fixture `azure.yml`, so a `configuration/globex/` config can never resolve to a
   subscription id.
-- One config trips two rules at once: a per-subscription environment on a standard template (environment class) and a parameter
-  `main.bicep` does not declare.
+- One config trips two rules at once: a per-subscription environment on a standard template (environment class) and a parameter `main.bicep`
+  does not declare.
 - The build and the parameter check are each covered on their own (`Build-Bicep.*.Tests.ps1`, `Get-BicepParameterViolations.Tests.ps1`).
   Here both are mocked at the boundary, so the test proves only the wiring: `-Build` builds, then reports every parameter violation in the
   consolidated error.

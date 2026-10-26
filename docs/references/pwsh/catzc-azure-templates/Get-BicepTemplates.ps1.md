@@ -66,8 +66,8 @@ Get-BicepTemplates | Format-Table name, deployment_target, environments
 ## Caching
 
 Filesystem-derived information is cached for the session, lazily on first use, keyed on the discovery root and the output root
-([ADR-AUTO-CACHE](../../../drs/automation/caching.md)). The on-disk file set is fixed at importer time (a static checkout in a pipeline;
-on a devbox the importer is re-run after editing files), so re-running the importer is the only invalidation.
+([ADR-AUTO-CACHE](../../../drs/automation/caching.md)). The on-disk file set is fixed at importer time (a static checkout in a pipeline; on
+a devbox the importer is re-run after editing files), so re-running the importer is the only invalidation.
 
 Keying on the roots lets a test redirect discovery to a fixture tree (mock `Get-BicepTemplatesRoot`) or the build output to a folder of its
 own (mock `Get-BicepTemplatesOutputRoot`) without colliding with the real cache entry. Callers treat the result as read-only, since the same
@@ -100,8 +100,8 @@ A config lives at the configuration root (`<env>[-<slot>].yml`, the shared platf
 the folder is a customer key. The subscription is resolved per config, and both checks, that the subfolder is a defined customer key and
 that the coordinate resolves to exactly one subscription, run at discovery through the shared `Get-BicepSubscriptionConfigViolations`.
 
-Every config file is gathered with its customer (the subfolder, or empty for a root config): root files first, then the customer
-subfolders, both sorted, so the output stays deterministic.
+Every config file is gathered with its customer (the subfolder, or empty for a root config): root files first, then the customer subfolders,
+both sorted, so the output stays deterministic.
 
 Each config file is one slot, one resource group. The file name `<env>[-<slot>]` resolves to its environment and slot through
 `Resolve-BicepConfigName`, with `default.yml` a reserved skip. The subscription resolves from the customer and environment coordinate, so

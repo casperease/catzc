@@ -1,7 +1,7 @@
 # pwsh/Azure.Cli/Assert-AzCliConnected.ps1
 
-The throwing check that the active az session is set to a given subscription and/or tenant. It is the generic primitive that takes GUIDs
-and reads no config; the connection-state function it shares with its query twin makes the comparison.
+The throwing check that the active az session is set to a given subscription and/or tenant. It is the generic primitive that takes GUIDs and
+reads no config; the connection-state function it shares with its query twin makes the comparison.
 
 ## help
 

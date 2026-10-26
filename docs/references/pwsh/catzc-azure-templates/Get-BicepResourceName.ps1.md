@@ -67,8 +67,8 @@ Get-BicepResourceName -Template sample-indexed -Environment dev -Slot 001 -Type 
 ## Identity, not subscription
 
 Naming needs only the environment's identity (its shortcode and region code), never a subscription, so the function reads `azure.yml`
-directly and is independent of the subscription group and the customer. The subscription group is a resolution axis only and is never a
-name component
+directly and is independent of the subscription group and the customer. The subscription group is a resolution axis only and is never a name
+component
 ([ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT](../../../drs/azure/azure-naming-standard.md#rule-adr-az-naming-subscriptionnotcomponent)).
 
 ## Forms passed to the namer

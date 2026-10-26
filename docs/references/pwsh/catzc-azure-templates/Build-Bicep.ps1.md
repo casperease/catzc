@@ -73,19 +73,19 @@ Build-Bicep foundation -Shared
 
 ## Which slots
 
-Every slot is built by default. `-Environments` narrows by environment, and `-Customers` and `-Shared` narrow by the configuration axis
-(a customer's subfolder slots, or the root slots), unioned when both are given.
+Every slot is built by default. `-Environments` narrows by environment, and `-Customers` and `-Shared` narrow by the configuration axis (a
+customer's subfolder slots, or the root slots), unioned when both are given.
 
 ## Precondition
 
 The Bicep CLI must be available before the output is wiped and the parameters are rendered, otherwise `az bicep build` can exit 0 while
-writing no `main.json`, for example after a missing or blocked auto-install. The check also warms the install in its own call, separate
-from the build (`Assert-AzCliBicep`).
+writing no `main.json`, for example after a missing or blocked auto-install. The check also warms the install in its own call, separate from
+the build (`Assert-AzCliBicep`).
 
 ## The PrePost hook
 
-A template may ship its own `infrastructure/templates/<name>/PrePost.psm1` that exports a build-time `Invoke-BicepPrepareParameterSet`
-hook. The command resolves it once when present, and when it is absent the prepare step does nothing and the per-slot configuration is used
+A template may ship its own `infrastructure/templates/<name>/PrePost.psm1` that exports a build-time `Invoke-BicepPrepareParameterSet` hook.
+The command resolves it once when present, and when it is absent the prepare step does nothing and the per-slot configuration is used
 unchanged. The `assets/PrePost.psm1` starter is never loaded here, since it exists only to be copied into a template.
 
 The hooks run strict like every catzc module, whoever wrote them
@@ -109,6 +109,6 @@ Every slot reaches the deploy one way (ADR-AZ-DATAMOD-ONEPATHTOPARAMETERS): a `.
 
 ## The compiled template
 
-`az bicep build` can exit 0 yet emit nothing, so the command asserts the compiled `main.json` at the source. The failure then names the
-real culprit here, not later as a generic missing file in `Get-BicepDeploymentContext`. The Bicep CLI was proved available above, so a
-missing `main.json` is an unexpected build failure and not a missing install, and the message says exactly that.
+`az bicep build` can exit 0 yet emit nothing, so the command asserts the compiled `main.json` at the source. The failure then names the real
+culprit here, not later as a generic missing file in `Get-BicepDeploymentContext`. The Bicep CLI was proved available above, so a missing
+`main.json` is an unexpected build failure and not a missing install, and the message says exactly that.

@@ -1,7 +1,7 @@
 # pwsh/Azure.Cli/Connect-AzCli.ps1
 
-The command that logs in to the Azure CLI, interactively, by device code, as a service principal or as a managed identity. It is
-idempotent: an existing login is kept unless `-Force` asks for a new one.
+The command that logs in to the Azure CLI, interactively, by device code, as a service principal or as a managed identity. It is idempotent:
+an existing login is kept unless `-Force` asks for a new one.
 
 ## help
 
@@ -67,8 +67,8 @@ Connect-AzCli -ManagedIdentity
 
 ## Idempotent login
 
-Without `-Force` the command first runs `az account show` and skips the login when the session already holds the right identity. That
-probe passes `-NoAssert`, because a non-zero exit only means "not logged in", an expected state and not an error.
+Without `-Force` the command first runs `az account show` and skips the login when the session already holds the right identity. That probe
+passes `-NoAssert`, because a non-zero exit only means "not logged in", an expected state and not an error.
 
 ## No post-login check
 

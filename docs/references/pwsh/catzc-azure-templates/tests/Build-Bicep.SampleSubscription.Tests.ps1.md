@@ -4,8 +4,8 @@ The L0 tests of `Build-Bicep` against the `sample-subscription` fixture template
 
 ## Setup
 
-The boundary mocks and the config-cache reset run once, because the mocked config is identical for every test. Only the build output
-folder is wiped per test, since the build tests write into it
+The boundary mocks and the config-cache reset run once, because the mocked config is identical for every test. Only the build output folder
+is wiped per test, since the build tests write into it
 ([ADR-AUTO-TEST-SETUPONCE](../../../../drs/automation/test-automation.md#rule-adr-auto-test-setuponce),
 [ADR-AUTO-TEST-SAFESEAMSWAPS](../../../../drs/automation/test-automation.md#rule-adr-auto-test-safeseamswaps)).
 

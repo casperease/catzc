@@ -50,12 +50,11 @@ The sources run in a fixed order, the first that applies winning
 
 The agent token is scoped to the organization the pipeline runs in, so the function proves that organization is the configured one before it
 returns the header, and refuses the token for a different organization
-([ADR-ADO-AUTH-PROVETARGET](../../../drs/ado/dual-authentication.md#rule-adr-ado-auth-provetarget)). The az fallback proves the session
-sits in the Entra directory that backs the organization (`tenant` in `ado.yml`, a required key the config type checks on load) before it
-mints a token.
+([ADR-ADO-AUTH-PROVETARGET](../../../drs/ado/dual-authentication.md#rule-adr-ado-auth-provetarget)). The az fallback proves the session sits
+in the Entra directory that backs the organization (`tenant` in `ado.yml`, a required key the config type checks on load) before it mints a
+token.
 
 ## When no token is found
 
 The last source yields a token or says how to get one: with none available the function throws and names both fixes, `AZURE_DEVOPS_PAT` or
-`Connect-AzCli`
-([ADR-ADO-AUTH-ASSERTWHENNOTOKEN](../../../drs/ado/dual-authentication.md#rule-adr-ado-auth-assertwhennotoken)).
+`Connect-AzCli` ([ADR-ADO-AUTH-ASSERTWHENNOTOKEN](../../../drs/ado/dual-authentication.md#rule-adr-ado-auth-assertwhennotoken)).

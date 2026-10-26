@@ -1,7 +1,7 @@
 # pwsh/Azure.Cli/Assert-AzCliCanAccess.ps1
 
-The throwing check, by subscription name, that the current az login can reach that subscription. It resolves the name through
-`azure.yml` and delegates the access probe to the generic subscription-accessible assertion.
+The throwing check, by subscription name, that the current az login can reach that subscription. It resolves the name through `azure.yml`
+and delegates the access probe to the generic subscription-accessible assertion.
 
 ## help
 

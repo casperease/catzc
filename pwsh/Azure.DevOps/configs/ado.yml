@@ -10,4 +10,5 @@ organization: "https://dev.azure.com/Catzc"
 # Default project (URL-encoded).
 project: "CatzcProject"
 
+# The Entra tenant backing the organization: the az session that mints an ADO token must be logged into it.
 tenant: "fa0e0000-7e0a-0700-1d00-000000000000"

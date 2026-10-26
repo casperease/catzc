@@ -31,5 +31,5 @@ The loaded azure config (Get-Config -Config azure).
 
 ## Customer matching
 
-For a customer config the raw token is matched first, the common by-key binding. Only a non-matching token is resolved through the
-customer catalogue, the by-shortcode binding, which keeps the catalogue read lazy.
+For a customer config the raw token is matched first, the common by-key binding. Only a non-matching token is resolved through the customer
+catalogue, the by-shortcode binding, which keeps the catalogue read lazy.

@@ -6,19 +6,18 @@ The L0 tests of `Build-Bicep` against the `sample` fixture template, in a mocked
 
 ## Setup
 
-The boundary mocks and the config-cache reset run once, because the mocked config is identical for every test. Only the build output
-folder is wiped per test, since the build tests write into it
+The boundary mocks and the config-cache reset run once, because the mocked config is identical for every test. Only the build output folder
+is wiped per test, since the build tests write into it
 ([ADR-AUTO-TEST-SETUPONCE](../../../../drs/automation/test-automation.md#rule-adr-auto-test-setuponce),
 [ADR-AUTO-TEST-SAFESEAMSWAPS](../../../../drs/automation/test-automation.md#rule-adr-auto-test-safeseamswaps)).
 
 The file has its own output root through the seam: any other file building the `sample` fixture from a sibling worker can race the shared
 `out/template/sample`
 ([ADR-AUTO-TEST-ONESCHEDULINGPOOL](../../../../drs/automation/test-automation.md#rule-adr-auto-test-oneschedulingpool), which removes the
-sharing). One file runs in one worker, so the blocks of this file never overlap each other, and the guard block uses the same isolated
-root.
+sharing). One file runs in one worker, so the blocks of this file never overlap each other, and the guard block uses the same isolated root.
 
-Discovery and the config caches are warmed once, because the cold re-derive the reset forces is one-time setup cost and not the first
-test's duration. It had kept tipping that test over the L0 limit.
+Discovery and the config caches are warmed once, because the cold re-derive the reset forces is one-time setup cost and not the first test's
+duration. It had kept tipping that test over the L0 limit.
 
 ## The Bicep CLI guard
 

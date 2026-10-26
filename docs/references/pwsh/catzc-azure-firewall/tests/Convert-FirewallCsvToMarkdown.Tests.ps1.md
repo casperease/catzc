@@ -4,8 +4,8 @@ The L0 tests of the CSV-to-Markdown conversion: the table content, the column ha
 
 ## Group priorities
 
-The fixtures use the groups `rcg-baseline`, `rcg-app` and `rcg-shared`, which the function's default group priorities do not know. The
-tests supply priorities, so the evaluation-order sort under test means something.
+The fixtures use the groups `rcg-baseline`, `rcg-app` and `rcg-shared`, which the function's default group priorities do not know. The tests
+supply priorities, so the evaluation-order sort under test means something.
 
 ## The order check
 

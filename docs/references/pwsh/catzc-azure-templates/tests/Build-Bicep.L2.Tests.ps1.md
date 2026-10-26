@@ -5,10 +5,10 @@ The walking-skeleton L2 tests of `Build-Bicep`: the few real `az bicep build` th
 ## What lives where
 
 The per-template rule checks (parameter file names, customer prefixes, indexed slots, merged vnet ranges, injected Key Vault references,
-resource-group and deployment names) are pushed left to the fast L0 blocks in `Build-Bicep.Sample*.Tests.ps1`, which mock `Invoke-AzCli`
-so no real build runs. This file keeps only the end-to-end compile wiring (`Build-Bicep`, `Invoke-AzCli`, real az), proven once on the
-broadest single thread, plus the two real-compiler capabilities the mock fakes away: a subscription-scoped template compiling, and a local
-reusable module being inlined into `main.json`.
+resource-group and deployment names) are pushed left to the fast L0 blocks in `Build-Bicep.Sample*.Tests.ps1`, which mock `Invoke-AzCli` so
+no real build runs. This file keeps only the end-to-end compile wiring (`Build-Bicep`, `Invoke-AzCli`, real az), proven once on the broadest
+single thread, plus the two real-compiler capabilities the mock fakes away: a subscription-scoped template compiling, and a local reusable
+module being inlined into `main.json`.
 
 There are three builds, not one per sample, because each adds a distinct real-compiler concern. `sample-indexed` and `sample-with-prepost`
 are deliberately absent: their behaviour (indexed slots, the PrePost merge seam) is pure PowerShell fully covered at L0, and their compile

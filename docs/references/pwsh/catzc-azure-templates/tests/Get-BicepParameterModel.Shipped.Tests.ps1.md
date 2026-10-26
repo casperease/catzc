@@ -17,8 +17,8 @@ The test is generic over the template set
 ([ADR-AUTO-TEST-GENERICTEMPLATETESTS](../../../../drs/automation/test-automation.md#rule-adr-auto-test-generictemplatetests)): the templates
 are discovered with `Get-BicepTemplateNames`, one test each, and no test names a template or asserts a production value. It runs in the
 `infrastructure` globset's test suite
-([ADR-AUTO-TEST-TESTSUITE](../../../../drs/automation/test-automation.md#rule-adr-auto-test-testsuite)), with the rest of the module's tests,
-through `Test-Automation -Suite infrastructure`.
+([ADR-AUTO-TEST-TESTSUITE](../../../../drs/automation/test-automation.md#rule-adr-auto-test-testsuite)), with the rest of the module's
+tests, through `Test-Automation -Suite infrastructure`.
 
 Each test self-skips when `az` is absent
 ([ADR-AUTO-TEST-TAGBYOUTERMOSTRING](../../../../drs/automation/test-automation.md#rule-adr-auto-test-tagbyoutermostring)). The Bicep CLI is

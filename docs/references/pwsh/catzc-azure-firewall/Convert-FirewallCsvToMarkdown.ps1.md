@@ -1,7 +1,7 @@
 # pwsh/Azure.Firewall/Convert-FirewallCsvToMarkdown.ps1
 
-The command that renders an Azure Firewall rule-export CSV, application or network, as a Markdown document: a title and provenance
-preamble followed by one table of the rules in firewall evaluation order.
+The command that renders an Azure Firewall rule-export CSV, application or network, as a Markdown document: a title and provenance preamble
+followed by one table of the rules in firewall evaluation order.
 
 ## help
 
@@ -115,18 +115,18 @@ Get-FirewallCsv -SubscriptionId $sub -StorageAccountName stfwexports -ContainerN
 
 ## The source name and path
 
-The source name defaults in the body, not as a parameter default: in Object mode `$CsvPath` comes from pipeline input, which binds after
-the defaults are evaluated, so a default would never see it
+The source name defaults in the body, not as a parameter default: in Object mode `$CsvPath` comes from pipeline input, which binds after the
+defaults are evaluated, so a default would never see it
 ([ADR-PWSH-PARAM-RESOLUTIONORDER](../../../drs/automation/pwsh/parameter-design.md#rule-adr-pwsh-param-resolutionorder)).
 
-The path is asserted in both modes, because in Object mode it comes from the piped object. A wrong path to the source CSV then fails
-there by name and never as a raw `Import-Csv` error.
+The path is asserted in both modes, because in Object mode it comes from the piped object. A wrong path to the source CSV then fails there
+by name and never as a raw `Import-Csv` error.
 
 ## Row order
 
 Rows sort toward the firewall's own evaluation order: the rule collection group priority first (from `-GroupPriority`), then the rule
-collection priority, so an allow collection at 3000 comes before a deny at 3010, then the rule name. An unknown group and a blank
-collection priority both sort last, never first.
+collection priority, so an allow collection at 3000 comes before a deny at 3010, then the rule name. An unknown group and a blank collection
+priority both sort last, never first.
 
 ## Columns
 

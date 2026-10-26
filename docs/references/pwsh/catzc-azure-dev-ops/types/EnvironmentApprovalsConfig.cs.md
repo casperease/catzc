@@ -1,7 +1,7 @@
 # pwsh/Azure.DevOps/types/EnvironmentApprovalsConfig.cs
 
-The typed record for `environment-approvals.yml`, which `Sync-AdoEnvironmentApprovals` applies. Constructing it validates the file and
-fills the defaults: the approver group name and description, and the timeout.
+The typed record for `environment-approvals.yml`, which `Sync-AdoEnvironmentApprovals` applies. Constructing it validates the file and fills
+the defaults: the approver group name and description, and the timeout.
 
 ## Environments
 

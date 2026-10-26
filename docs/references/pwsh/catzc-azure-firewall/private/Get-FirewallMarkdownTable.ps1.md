@@ -55,9 +55,9 @@ protocol already and has no port field, so it passes through unpaired.
 
 ## Value order
 
-Values are gathered per candidate and kept in candidate (group) order, because a rule may fill several candidates, for example IP groups
-and addresses, and the firewall unions them group by group. For a sorted composite column this gives a two-level order: by group, then
-sorted within the group.
+Values are gathered per candidate and kept in candidate (group) order, because a rule may fill several candidates, for example IP groups and
+addresses, and the firewall unions them group by group. For a sorted composite column this gives a two-level order: by group, then sorted
+within the group.
 
 ## Code spans
 

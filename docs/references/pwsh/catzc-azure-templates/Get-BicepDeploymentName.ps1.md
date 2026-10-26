@@ -48,8 +48,8 @@ Get-BicepDeploymentName sample -Environment prod -Slot 001   # -> sample-prod-00
 
 ## Pipeline variables
 
-The function already knows it is in a pipeline, because the one sanctioned detector said so. It reads only each platform's run-id and
-commit data variables, never the detection variables `TF_BUILD` and `GITHUB_ACTIONS`, which only `Test-IsRunningInPipeline` may read
+The function already knows it is in a pipeline, because the one sanctioned detector said so. It reads only each platform's run-id and commit
+data variables, never the detection variables `TF_BUILD` and `GITHUB_ACTIONS`, which only `Test-IsRunningInPipeline` may read
 ([FDR-CD-DETECT-NODIRECTVARIABLECHECK](../../../drs/flow/pipeline-detection.md#rule-fdr-cd-detect-nodirectvariablecheck), enforced by
 `Measure-NoRawPipelineDetection`).
 

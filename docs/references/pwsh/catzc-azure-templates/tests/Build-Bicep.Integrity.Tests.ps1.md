@@ -8,8 +8,8 @@ their contents meet easily verified structural constraints, without building the
 Compiling a production template is the pipeline's build step, not an integrity test. End-to-end build coverage lives in the fixture-based L2
 tests (`Build-Bicep.*.Tests.ps1`), which mock `Get-BicepTemplatesRoot` to `tests/assets/templates/` and build a `sample-*` asset.
 
-This file binds to the real `infrastructure/templates/` and configs, and does not mock the `Get-BicepTemplatesRoot` or
-`Resolve-ConfigEntry` seams, because binding to the real assets is the whole point of an integrity test
+This file binds to the real `infrastructure/templates/` and configs, and does not mock the `Get-BicepTemplatesRoot` or `Resolve-ConfigEntry`
+seams, because binding to the real assets is the whole point of an integrity test
 ([ADR-AUTO-TEST-ONECATEGORY](../../../../drs/automation/test-automation.md#rule-adr-auto-test-onecategory)). It is generic: it discovers the
 set and asserts invariants that hold for every shipped template, binding to no template name and no production-derived value
 ([ADR-AUTO-TEST-GENERICTEMPLATETESTS](../../../../drs/automation/test-automation.md#rule-adr-auto-test-generictemplatetests)).
@@ -17,8 +17,8 @@ set and asserts invariants that hold for every shipped template, binding to no t
 ## Shape
 
 One read-only scan in `BeforeAll`, and each `It` block asserts one facet of it
-([ADR-AUTO-TEST-INTEGRITYREADSFILES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-integrityreadsfiles)). Both
-validators run, and neither builds:
+([ADR-AUTO-TEST-INTEGRITYREADSFILES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-integrityreadsfiles)). Both validators
+run, and neither builds:
 
 - `Get-BicepTemplates` is discovery. It checks that folders and files are named right, the options schema, and the identity references.
   Discovery is itself a check that throws on a violation, so the outcome is captured and each facet below reports cleanly instead of one

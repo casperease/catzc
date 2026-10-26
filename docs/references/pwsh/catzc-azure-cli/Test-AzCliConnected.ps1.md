@@ -1,7 +1,6 @@
 # pwsh/Azure.Cli/Test-AzCliConnected.ps1
 
-The query twin of the connected assertion: it returns a bool for whether the active az session matches a given subscription and/or
-tenant.
+The query twin of the connected assertion: it returns a bool for whether the active az session matches a given subscription and/or tenant.
 
 ## help
 

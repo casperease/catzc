@@ -5,9 +5,8 @@ The L0 tests of `Build-Bicep` against the `sample-with-prepost` fixture template
 ## Expected values
 
 The merge seam injects the vnet ranges from the network fixture, so the tests resolve the expected per-environment values straight from the
-asset and track it. The hook injects an ARM Key Vault reference, not the value, because the config does not carry it. That is the
-production pattern for keeping deploy-time secrets out of the repository, proven here on a fixture so no test binds to a real template's
-secret name.
+asset and track it. The hook injects an ARM Key Vault reference, not the value, because the config does not carry it. That is the production
+pattern for keeping deploy-time secrets out of the repository, proven here on a fixture so no test binds to a real template's secret name.
 
 ## One build
 

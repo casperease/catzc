@@ -1,7 +1,6 @@
 # pwsh/Azure.DevOps/Get-AdoYamlFiles.ps1
 
-The function that scans a directory for YAML files and classifies each as Pipeline, Template or Unknown, returning one file record per
-file.
+The function that scans a directory for YAML files and classifies each as Pipeline, Template or Unknown, returning one file record per file.
 
 ## help
 
@@ -44,6 +43,5 @@ The scan uses the bounded folder walker, which prunes the folders the folder-wal
 
 ## Template expressions
 
-ADO template expressions (`${{ if }}`, `${{ each }}`, `${{ parameters.x }}`) are not valid YAML. Before parsing, each is replaced by a
-token so the parser can still extract the top-level keys. Every replacement is unique, because identical ones would collide as duplicate
-keys.
+ADO template expressions (`${{ if }}`, `${{ each }}`, `${{ parameters.x }}`) are not valid YAML. Before parsing, each is replaced by a token
+so the parser can still extract the top-level keys. Every replacement is unique, because identical ones would collide as duplicate keys.

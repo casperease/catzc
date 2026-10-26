@@ -27,6 +27,5 @@ case-insensitively, and `main.json` writes `securestring`, so the model stores t
 
 ## Comparable values
 
-`ToComparable` normalizes a JSON value for comparison against the allowed values: a string stays a string, an integer becomes a long,
-true and false become a bool, null stays null, and any other value (a fractional number, an object, an array) becomes its compact JSON
-text.
+`ToComparable` normalizes a JSON value for comparison against the allowed values: a string stays a string, an integer becomes a long, true
+and false become a bool, null stays null, and any other value (a fractional number, an object, an array) becomes its compact JSON text.

@@ -13,7 +13,7 @@ using System.Globalization;
 
 namespace Catzc.Base.Contracts;
 
-// A version folder's contract.yml: the exceptions to the direction convention.
+// A version folder's contract.yml: applies_to, each asset's globs, is its only key.
 public sealed class ContractManifest
 {
     // Each asset's globs; it constrains every tracked file they match.

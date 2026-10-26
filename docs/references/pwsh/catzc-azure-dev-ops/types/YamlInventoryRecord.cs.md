@@ -1,8 +1,8 @@
 # pwsh/Azure.DevOps/types/YamlInventoryRecord.cs
 
 The typed inventory row that answers "does this file back a registered pipeline?". It joins one scanned YAML file to its Azure DevOps
-registration data: the filesystem-side fields of a `YamlFileRecord` plus the registration-side fields, which are null when the file backs
-no registered pipeline.
+registration data: the filesystem-side fields of a `YamlFileRecord` plus the registration-side fields, which are null when the file backs no
+registered pipeline.
 
 ## Construction
 

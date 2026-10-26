@@ -78,8 +78,8 @@ Test-Pipelines
   ([ADR-ADO-NAME-TEMPLATEKINDFOLDER](../../../drs/ado/pipeline-naming-and-placement.md#rule-adr-ado-name-templatekindfolder)).
 - **No pipelines in template folders.** A structural pipeline has no business inside a template folder
   ([ADR-ADO-NAME-FLATPIPELINESFOLDER](../../../drs/ado/pipeline-naming-and-placement.md#rule-adr-ado-name-flatpipelinesfolder)).
-- **Fragment kind.** A fragment's structural kind matches its folder, and `extends/` is exempt, since it holds a whole pipeline of any
-  body (ADR-ADO-NAME-TEMPLATEKINDFOLDER above).
+- **Fragment kind.** A fragment's structural kind matches its folder, and `extends/` is exempt, since it holds a whole pipeline of any body
+  (ADR-ADO-NAME-TEMPLATEKINDFOLDER above).
 - **Template references.** Every template reference is absolute, `/pipelines/<kind>/<name>.yaml`
   ([ADR-ADO-NAME-ABSOLUTETEMPLATEPATH](../../../drs/ado/pipeline-naming-and-placement.md#rule-adr-ado-name-absolutetemplatepath)).
 

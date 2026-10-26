@@ -1,7 +1,7 @@
 # pwsh/Azure.Firewall/Get-FirewallCsv.ps1
 
-The command that downloads the newest firewall-rule CSV from a blob container, one per requested rule type, and emits a CSV export
-reference for each.
+The command that downloads the newest firewall-rule CSV from a blob container, one per requested rule type, and emits a CSV export reference
+for each.
 
 ## help
 

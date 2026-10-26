@@ -7,8 +7,8 @@ The L0 tests of template discovery against the fixture tree.
 ## Setup once
 
 These are read-only discovery tests. The boundary mocks and the config-cache reset run once, not per test. Discovery already caches on the
-fixture root across tests, and no test mutates the fixture tree or config, so the warm caches are correct to share. A per-test
-`configCache` reset only forced a needless cold re-parse
+fixture root across tests, and no test mutates the fixture tree or config, so the warm caches are correct to share. A per-test `configCache`
+reset only forced a needless cold re-parse
 ([ADR-AUTO-TEST-SETUPONCE](../../../../drs/automation/test-automation.md#rule-adr-auto-test-setuponce),
 [ADR-AUTO-TEST-SAFESEAMSWAPS](../../../../drs/automation/test-automation.md#rule-adr-auto-test-safeseamswaps)). The cache-behaviour tests
 invalidate `bicepTemplatesCache` inside their own `It`, independent of this setup.

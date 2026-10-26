@@ -1,7 +1,7 @@
 # pwsh/Azure.Cli/Invoke-AzCli.ps1
 
-The command every az call goes through. It checks the installed az against the locked version, runs the arguments, and asserts the exit
-code unless told not to.
+The command every az call goes through. It checks the installed az against the locked version, runs the arguments, and asserts the exit code
+unless told not to.
 
 ## help
 
@@ -60,5 +60,5 @@ Invoke-AzCli 'version' -DryRun
 Around the call the command sets `AZURE_EXTENSION_USE_DYNAMIC_INSTALL` to `no`. A command that needs an uninstalled extension then exits
 non-zero instead of blocking on an invisible "(Y/n)" prompt, and `Invoke-Executable`'s exit-code assertion turns that exit into a throw.
 
-The setting is scoped to the process and restored afterwards; a variable that was unset is restored to unset, not to empty. A dry run
-never launches az, so it skips the setting.
+The setting is scoped to the process and restored afterwards; a variable that was unset is restored to unset, not to empty. A dry run never
+launches az, so it skips the setting.

@@ -10,6 +10,6 @@ passing run throws under strict mode.
 
 ## The `.git` check
 
-The check that `.git` is excluded by default carries its own `integrity` tag, which keeps it a distinct, named check in the manual test plan,
-a facet worth citing on its own. It still reuses the one scan above instead of walking the repository again
+The check that `.git` is excluded by default carries its own `integrity` tag, which keeps it a distinct, named check in the manual test
+plan, a facet worth citing on its own. It still reuses the one scan above instead of walking the repository again
 ([ADR-AUTO-TEST-ONEIMPORTPERCASE](../../../../drs/automation/test-automation.md#rule-adr-auto-test-oneimportpercase)).

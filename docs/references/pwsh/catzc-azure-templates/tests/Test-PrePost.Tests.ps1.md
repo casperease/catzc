@@ -9,6 +9,6 @@ Production code does not load the starter. These tests import it explicitly to v
 
 ## Mandatory parameters
 
-The parameter under test is passed as null, with the others supplied, so mandatory binding throws instead of prompting. Omitting a
-mandatory parameter entirely hangs an interactive host waiting for input. The same holds for `DeploymentOutput`, which is passed explicitly
-as null and not omitted.
+The parameter under test is passed as null, with the others supplied, so mandatory binding throws instead of prompting. Omitting a mandatory
+parameter entirely hangs an interactive host waiting for input. The same holds for `DeploymentOutput`, which is passed explicitly as null
+and not omitted.

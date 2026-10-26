@@ -93,8 +93,7 @@ pipeline's declared expectation, so a re-wired service connection can never sile
 fails fast at the call site instead ([ADR-AZ-DATAMOD](../../../drs/azure/azure-data-model.md)).
 
 The session determines the target, and the deployment context resolves and guards it (`Get-AzCliSessionSubscription` and
-`-SubscriptionIdAssertIs`). Everything downstream reads the one resolved identity off the context, so config, artifacts and tags all
-agree.
+`-SubscriptionIdAssertIs`). Everything downstream reads the one resolved identity off the context, so config, artifacts and tags all agree.
 
 ## The PrePost hooks
 

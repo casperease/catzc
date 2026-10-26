@@ -61,8 +61,7 @@ Assert-BicepTemplate my-template -Build   # also compile with az
 ## Customer class
 
 The customer-class bit defaults to the `have_customers` variant unless `options.yml` sets `customer_deployment`. An explicit
-`customer_deployment: true` is allowed only when customers are enabled
-([ADR-AZ-CUSTOMER](../../../drs/azure/azure-customer-model.md)).
+`customer_deployment: true` is allowed only when customers are enabled ([ADR-AZ-CUSTOMER](../../../drs/azure/azure-customer-model.md)).
 
 ## Short name
 
