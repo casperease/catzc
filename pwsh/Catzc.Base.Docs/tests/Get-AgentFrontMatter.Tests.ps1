@@ -17,7 +17,8 @@ Describe 'Get-AgentFrontMatter' -Tag 'L0', 'logic', 'ADR-REPO-AGENTS-ONEFILEPERA
     }
 
     It 'returns the front-matter keys in file order, with a folded description' {
-        $path = Write-AgentFixture 'widget.md' @('---', 'name: widget', 'description: >', '  The widget agent.', '  Do NOT use it for gadgets.', 'tools: Read, Edit', '---', '', '# Widget')
+        $path = Write-AgentFixture 'widget.md' @('---', 'name: widget', 'description: >', '  The widget agent.',
+            '  Do NOT use it for gadgets.', 'tools: Read, Edit', '---', '', '# Widget')
         $result = InModuleScope Catzc.Base.Docs -Parameters @{ Path = $path } { Get-AgentFrontMatter -Path $Path }
         @($result.Keys) | Should -Be @('name', 'description', 'tools')
         $result['name'] | Should -Be 'widget'

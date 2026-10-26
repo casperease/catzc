@@ -22,7 +22,8 @@ Describe 'Test-IsInteractiveHost' -Tag 'L0', 'logic' {
     }
 
     It 'reads a host that -NoExit keeps open after its command as interactive' {
-        Test-IsInteractiveHost -CommandLine @('pwsh', '-NoProfile', '-NonInteractive', '-NoExit', '-Command', 'Import-Module Widget') | Should -BeTrue
+        Test-IsInteractiveHost -CommandLine @('pwsh', '-NoProfile', '-NonInteractive', '-NoExit', '-Command',
+            'Import-Module Widget') | Should -BeTrue
     }
 
     It 'leaves the arguments after the script to the script' {

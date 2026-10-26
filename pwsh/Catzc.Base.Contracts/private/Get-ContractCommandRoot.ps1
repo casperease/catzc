@@ -21,7 +21,8 @@ function Get-ContractCommandRoot {
     $languages = Get-Config -Config languages
     $commandLanguage = $languages.languages | Where-Object name -ceq 'powershell' | Select-Object -First 1
     try {
-        $name = [Catzc.Base.Objects.NameCase]::FromNormal($Module, $commandLanguage.naming.folder[0], $languages.naming_normal_form)
+        $name = [Catzc.Base.Objects.NameCase]::FromNormal($Module, $commandLanguage.naming.folder[0],
+            $languages.naming_normal_form)
     }
     catch {
         throw "contract asset: the module folder '$Module' is not in the repository normal form, $($languages.naming_normal_form) (ADR-REPO-CMDCONTRACT-NOPLACEMENTFACTS)."

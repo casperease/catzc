@@ -2,8 +2,10 @@ Describe 'Get-TrackMember' -Tag 'L0', 'logic', 'DDR-TRACK-TRACKISPLACEDCLUSTER' 
     BeforeAll {
         $script:fixture = [Catzc.Base.Variants.VariantsConfig]::new([ordered]@{
                 tracks = [ordered]@{
-                    widget = [ordered]@{ members = @('widget', [ordered]@{ path = 'widget.cache'; generated = $true; committed = $false }); type = 'widget-works' }
-                    gadget = [ordered]@{ members = @('gadget', [ordered]@{ path = 'gadget/rendered.md'; generated = $true }); type = 'gadget-shelf' }
+                    widget = [ordered]@{ members = @('widget',
+                        [ordered]@{ path = 'widget.cache'; generated = $true; committed = $false }); type = 'widget-works' }
+                    gadget = [ordered]@{ members = @('gadget',
+                        [ordered]@{ path = 'gadget/rendered.md'; generated = $true }); type = 'gadget-shelf' }
                 }
             })
     }

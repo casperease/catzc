@@ -35,9 +35,11 @@ function Get-OverlayContractViolation {
     $isMandatory = {
         param($attributes)
         foreach ($attribute in @($attributes)) {
-            if ($attribute -is [System.Management.Automation.Language.AttributeAst] -and $attribute.TypeName.GetReflectionType() -eq [System.Management.Automation.ParameterAttribute]) {
+            if ($attribute -is [System.Management.Automation.Language.AttributeAst] -and
+                $attribute.TypeName.GetReflectionType() -eq [System.Management.Automation.ParameterAttribute]) {
                 foreach ($argument in $attribute.NamedArguments) {
-                    if ($argument.ArgumentName -ieq 'Mandatory' -and ($argument.ExpressionOmitted -or "$($argument.Argument.SafeGetValue())" -ieq 'True')) {
+                    if ($argument.ArgumentName -ieq 'Mandatory' -and ($argument.ExpressionOmitted -or
+                        "$($argument.Argument.SafeGetValue())" -ieq 'True')) {
                         return $true
                     }
                 }

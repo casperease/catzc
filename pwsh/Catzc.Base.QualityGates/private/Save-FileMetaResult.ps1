@@ -28,6 +28,7 @@ function Save-FileMetaResult {
     }
     [pscustomobject]@{
         Fixed   = $fixed
-        Unowned = @($Result.Files | ForEach-Object { $_.Findings } | Where-Object Kind -In 'Unowned', 'UnownedHead', 'ForbiddenConfig')
+        Unowned = @($Result.Files | ForEach-Object { $_.Findings } |
+            Where-Object Kind -In 'Unowned', 'UnownedHead', 'ForbiddenConfig')
     }
 }

@@ -55,7 +55,8 @@ Describe 'Get-EngineCaseTable — every shipped engine case table' -Tag 'L1', 'i
     BeforeDiscovery {
         # Every per-engine fixture table in the repository: tests/assets/engine-cases/*.yml in any module.
         $root = Get-CatzcModulesRoot
-        # A case table sits five levels below pwsh/ (module, tests, assets, engine-cases, file); vendored modules are pruned by the walk.
+        # A case table sits five levels below pwsh/ (module, tests, assets, engine-cases, file); vendored modules are
+        # pruned by the walk.
         $script:tables = @(Get-ChildPath $root -File -Filter '*.yml' -Depth 5 |
                 Where-Object {
                     $folder = [System.IO.Path]::GetDirectoryName($_)

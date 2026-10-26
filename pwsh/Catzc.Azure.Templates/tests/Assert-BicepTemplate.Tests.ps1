@@ -57,22 +57,27 @@ Describe 'Assert-BicepTemplate' -Tag 'L0', 'logic' {
 
         It 'reports a yml and a bicepparam for one coordinate' {
             Copy-Item (Join-Path $script:sampleTemplate 'configuration/beta.yml') (Join-Path $script:sampleTemplate 'configuration/alpha.yml')
-            { Assert-BicepTemplate sample-bicepparam } | Should -Throw '*both configuration/alpha.yml and configuration/alpha.bicepparam*'
+            { Assert-BicepTemplate sample-bicepparam } |
+                Should -Throw '*both configuration/alpha.yml and configuration/alpha.bicepparam*'
         }
 
         It 'reports a using line that is not the template''s main.bicep' {
-            [System.IO.File]::WriteAllText((Join-Path $script:sampleTemplate 'configuration/alpha.bicepparam'), "using '../widget.bicep'`n")
+            [System.IO.File]::WriteAllText((Join-Path $script:sampleTemplate 'configuration/alpha.bicepparam'),
+                "using '../widget.bicep'`n")
             { Assert-BicepTemplate sample-bicepparam } | Should -Throw "*alpha.bicepparam uses '../widget.bicep'*"
         }
 
         It 'refuses a bicepparam slot in a template with a PrePost hook' {
             [System.IO.File]::WriteAllText((Join-Path $script:sampleTemplate 'PrePost.psm1'), '')
-            { Assert-BicepTemplate sample-bicepparam } | Should -Throw '*has a PrePost hook, so it takes no bicepparam slot*'
+            { Assert-BicepTemplate sample-bicepparam } |
+                Should -Throw '*has a PrePost hook, so it takes no bicepparam slot*'
         }
 
         It 'reports a bicepparam parameter the template does not declare' {
-            [System.IO.File]::WriteAllText((Join-Path $script:sampleTemplate 'configuration/alpha.bicepparam'), "using '../main.bicep'`n`nparam gadgetName = 'gadget'`n")
-            { Assert-BicepTemplate sample-bicepparam } | Should -Throw "*configuration/alpha.bicepparam sets parameter 'gadgetName'*"
+            [System.IO.File]::WriteAllText((Join-Path $script:sampleTemplate 'configuration/alpha.bicepparam'),
+                "using '../main.bicep'`n`nparam gadgetName = 'gadget'`n")
+            { Assert-BicepTemplate sample-bicepparam } |
+                Should -Throw "*configuration/alpha.bicepparam sets parameter 'gadgetName'*"
         }
     }
 
@@ -85,42 +90,51 @@ Describe 'Assert-BicepTemplate' -Tag 'L0', 'logic' {
         }
 
         It 'accepts a template that MIXES slotted and non-slotted configs (slot is per-config)' {
-            [System.IO.File]::WriteAllText((Join-Path $script:templatesRoot 'sample/configuration/beta-001.yml'), "ParametersFile:`n  parameters: {}")
+            [System.IO.File]::WriteAllText((Join-Path $script:templatesRoot 'sample/configuration/beta-001.yml'),
+                "ParametersFile:`n  parameters: {}")
             { Assert-BicepTemplate sample } | Should -Not -Throw
         }
 
         It 'reports an env-class violation (per-subscription env on a standard template)' {
             # nsub is a per-subscription env; placing it on a standard template trips the env-class rule.
-            [System.IO.File]::WriteAllText((Join-Path $script:templatesRoot 'sample/configuration/nsub.yml'), "ParametersFile:`n  parameters: {}")
+            [System.IO.File]::WriteAllText((Join-Path $script:templatesRoot 'sample/configuration/nsub.yml'),
+                "ParametersFile:`n  parameters: {}")
             { Assert-BicepTemplate sample } | Should -Throw '*environment_kind*'
         }
 
         It 'reports a config whose coordinate resolves to no subscription' {
-            [System.IO.Directory]::CreateDirectory((Join-Path $script:templatesRoot 'sample/configuration/globex')) | Out-Null
-            [System.IO.File]::WriteAllText((Join-Path $script:templatesRoot 'sample/configuration/globex/alpha.yml'), "ParametersFile:`n  parameters: {}")
+            [System.IO.Directory]::CreateDirectory((Join-Path $script:templatesRoot 'sample/configuration/globex')) |
+                Out-Null
+            [System.IO.File]::WriteAllText((Join-Path $script:templatesRoot 'sample/configuration/globex/alpha.yml'),
+                "ParametersFile:`n  parameters: {}")
             { Assert-BicepTemplate sample } | Should -Throw '*cannot be resolved*'
         }
 
         It 'reports a parameter the template does not declare' {
-            [System.IO.File]::WriteAllText((Join-Path $script:templatesRoot 'sample/configuration/beta-001.yml'), "ParametersFile:`n  parameters:`n    bogusParam:`n      value: 1")
+            [System.IO.File]::WriteAllText((Join-Path $script:templatesRoot 'sample/configuration/beta-001.yml'),
+                "ParametersFile:`n  parameters:`n    bogusParam:`n      value: 1")
             { Assert-BicepTemplate sample } | Should -Throw '*bogusParam*'
         }
 
         It 'reports a subfolder that is not a customer key' {
-            [System.IO.Directory]::CreateDirectory((Join-Path $script:templatesRoot 'sample/configuration/zzz')) | Out-Null
-            [System.IO.File]::WriteAllText((Join-Path $script:templatesRoot 'sample/configuration/zzz/alpha.yml'), "ParametersFile:`n  parameters: {}")
+            [System.IO.Directory]::CreateDirectory((Join-Path $script:templatesRoot 'sample/configuration/zzz')) |
+                Out-Null
+            [System.IO.File]::WriteAllText((Join-Path $script:templatesRoot 'sample/configuration/zzz/alpha.yml'),
+                "ParametersFile:`n  parameters: {}")
             { Assert-BicepTemplate sample } | Should -Throw '*not a customer key*'
         }
 
         It 'reports a missing main.bicep' {
             [System.IO.Directory]::CreateDirectory((Join-Path $script:templatesRoot 'broken/configuration')) | Out-Null
             [System.IO.File]::WriteAllText((Join-Path $script:templatesRoot 'broken/options.yml'), 'short_name: brkn')
-            [System.IO.File]::WriteAllText((Join-Path $script:templatesRoot 'broken/configuration/alpha.yml'), "ParametersFile:`n  parameters: {}")
+            [System.IO.File]::WriteAllText((Join-Path $script:templatesRoot 'broken/configuration/alpha.yml'),
+                "ParametersFile:`n  parameters: {}")
             { Assert-BicepTemplate broken } | Should -Throw '*main.bicep*'
         }
 
         It 'collects multiple violations into one consolidated error' {
-            [System.IO.File]::WriteAllText((Join-Path $script:templatesRoot 'sample/configuration/nsub.yml'), "ParametersFile:`n  parameters:`n    bogusParam:`n      value: 1")
+            [System.IO.File]::WriteAllText((Join-Path $script:templatesRoot 'sample/configuration/nsub.yml'),
+                "ParametersFile:`n  parameters:`n    bogusParam:`n      value: 1")
             $err = $null
             try {
                 Assert-BicepTemplate sample

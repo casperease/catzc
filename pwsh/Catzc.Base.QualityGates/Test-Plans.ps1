@@ -35,7 +35,8 @@ function Test-Plans {
             }
         })
     foreach ($target in $targets) {
-        Assert-True ([System.IO.Directory]::Exists($target) -or [System.IO.File]::Exists($target)) -ErrorText "Test-Plans: '$target' does not exist."
+        Assert-True ([System.IO.Directory]::Exists($target) -or
+            [System.IO.File]::Exists($target)) -ErrorText "Test-Plans: '$target' does not exist."
     }
     # The folder holds the overlays the cross-file checks read whole, even when -Path names only some of its files.
     $folder = if ($targets.Count -eq 0) {
@@ -55,7 +56,8 @@ function Test-Plans {
         $Config.folder
     }
 
-    # A plan is three parts: its file, its row in the value overlay and its chunk line in the master; the two overlays are read whole.
+    # A plan is three parts: its file, its row in the value overlay and its chunk line in the master; the two overlays
+    # are read whole.
     $readLines = {
         param([string] $Name)
         $file = Join-Path $folder $Name
@@ -66,14 +68,17 @@ function Test-Plans {
     $masterLines = @(& $readLines $Config.master_file)
     $valueLines = @(& $readLines $Config.value_file)
 
-    # A check names a command by its Verb-Noun; one that no module exports cannot prove the step, so the gate names it before a worker runs it.
-    $verbs = [System.Collections.Generic.HashSet[string]]::new([string[]] @((Get-Verb).Verb), [System.StringComparer]::OrdinalIgnoreCase)
+    # A check names a command by its Verb-Noun; one that no module exports cannot prove the step, so the gate names it
+    # before a worker runs it.
+    $verbs = [System.Collections.Generic.HashSet[string]]::new([string[]] @((Get-Verb).Verb),
+        [System.StringComparer]::OrdinalIgnoreCase)
     $commandPattern = '(?<![\w./\\-])(?<verb>[A-Z][a-z]+)-[A-Z][A-Za-z0-9]+(?![\w-]|\.\w)'
     $known = [System.Collections.Generic.Dictionary[string, bool]]::new([System.StringComparer]::OrdinalIgnoreCase)
     $isKnown = {
         param([string] $Name)
         if (-not $known.ContainsKey($Name)) {
-            $known[$Name] = @(Get-Command -Name $Name -CommandType Cmdlet, Function, Alias -ErrorAction Ignore | Where-Object {
+            $known[$Name] = @(Get-Command -Name $Name -CommandType Cmdlet, Function,
+                Alias -ErrorAction Ignore | Where-Object {
                     $_.CommandType -ne 'Function' -or -not $_.Module -or $_.Module.ExportedCommands.ContainsKey($_.Name)
                 }).Count -gt 0
         }
@@ -123,7 +128,8 @@ function Test-Plans {
         }
         $hasHeading = {
             param([string] $Prefix)
-            @($headings | Where-Object { $_.Text.StartsWith($Prefix, [System.StringComparison]::OrdinalIgnoreCase) }).Count -gt 0
+            @($headings | Where-Object { $_.Text.StartsWith($Prefix,
+                [System.StringComparison]::OrdinalIgnoreCase) }).Count -gt 0
         }
 
         $isMaster = $name -ceq $Config.master_file
@@ -203,7 +209,8 @@ function Test-Plans {
                 if ($status -notin $Config.statuses) {
                     & $add 1 'ADR-REPO-PLANS-PLANHEAD'"status '$status' is not one of: $($Config.statuses -join ', ')"
                 }
-                elseif ($status -ceq 'blocked' -and -not ($block.Contains('blocked_on') -or $block.Contains('waits_on'))) {
+                elseif ($status -ceq 'blocked' -and -not ($block.Contains('blocked_on') -or
+                    $block.Contains('waits_on'))) {
                     & $add 1 'ADR-REPO-PLANS-PLANHEAD'"a blocked plan names what blocks it in 'blocked_on' or 'waits_on'"
                 }
             }
@@ -226,7 +233,8 @@ function Test-Plans {
 
         $items = @(Get-MarkdownListItem -Line $lines)
         $openCount = [int] $openCounts[$name]
-        # A step count an overlay states ("three steps", "one step left") is the plan's open steps, or it has drifted; Format-Code rewrites it.
+        # A step count an overlay states ("three steps", "one step left") is the plan's open steps, or it has drifted;
+        # Format-Code rewrites it.
         $assertCount = {
             param([string] $Text, [string] $Overlay)
             $stated = Resolve-PlanStepCount -Text $Text
@@ -237,7 +245,8 @@ function Test-Plans {
 
         $topic = [System.IO.Path]::GetFileNameWithoutExtension($name)
         $pointer = '^\s*-\s.*->\s*' + [regex]::Escape($name) + '\b'
-        $chunk = @(Get-MarkdownListItem -Line $masterLines | Where-Object { $_.First -match $pointer }) | Select-Object -First 1
+        $chunk = @(Get-MarkdownListItem -Line $masterLines | Where-Object { $_.First -match $pointer }) |
+            Select-Object -First 1
         if (-not $chunk) {
             & $add 1 'ADR-REPO-PLANS-THREEPARTS' "the plan has no chunk line in $($Config.master_file) ('- <chunk> -> ${name}: ...')"
         }
@@ -280,7 +289,8 @@ function Test-Plans {
                 & $add $item.LineNumber 'ADR-REPO-PLANS-OPENSTEP' "the open step names no check: `"$($item.Text.Trim())`""
                 continue
             }
-            # The check is the text after the step's last standalone `check:`, so a name such as `catzc-check:` in the step is not read as one.
+            # The check is the text after the step's last standalone `check:`, so a name such as `catzc-check:` in the
+            # step is not read as one.
             $check = [regex]::Match($item.Text, '(?is)^.*(?<![\w-])check:(?<check>.*)$').Groups['check'].Value
             foreach ($match in [regex]::Matches($check, $commandPattern)) {
                 if ($verbs.Contains($match.Groups['verb'].Value) -and -not (& $isKnown $match.Value)) {

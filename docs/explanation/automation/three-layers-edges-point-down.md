@@ -44,13 +44,13 @@ content:
     - { id: g-github, kind: code, label: Github · KeyHandler · Inspiration · Listen · Claude, in: band-middle }
     - { id: s-base, kind: set, label: Base, in: band-foundation }
   edges:
-    - { from: s-azure-ext, to: g-azure, kind: flow, label: 4/5 }
-    - { from: s-azure-ext, to: s-base, kind: thick, label: 5/5 }
-    - { from: s-azure-ext, to: s-tooling, kind: thick, label: 3/5 }
-    - { from: s-azure-ext, to: g-core, kind: flow, label: "" }
-    - { from: g-azure, to: s-base, kind: thick, label: "" }
-    - { from: s-tooling, to: s-base, kind: thick, label: 6/6 }
-    - { from: g-github, to: s-base, kind: thick, label: 5/5 }
+    - { from: s-azure-ext, to: g-azure, kind: flow, label: calls, count: 4/5 }
+    - { from: s-azure-ext, to: s-base, kind: thick, label: calls, count: 5/5 }
+    - { from: s-azure-ext, to: s-tooling, kind: thick, label: calls, count: 3/5 }
+    - { from: s-azure-ext, to: g-core, kind: flow, label: calls }
+    - { from: g-azure, to: s-base, kind: thick, label: calls }
+    - { from: s-tooling, to: s-base, kind: thick, label: calls, count: 6/6 }
+    - { from: g-github, to: s-base, kind: thick, label: calls, count: 5/5 }
   markers:
     - { at: s-azure-ext, number: 1 }
     - { at: g-azure, number: 2 }

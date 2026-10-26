@@ -74,7 +74,9 @@ layout:
   g-customer: { x: 1070, y: 300, w: 180, h: 52 }
 ```
 
-![The templating and identity config layers join through one shared check and one resolver](.assets/two-layers-join-through-one-resolver.drawio.png)
+![The templating and identity config layers join through one shared check and one resolver][diagram]
+
+[diagram]: .assets/two-layers-join-through-one-resolver.drawio.png
 
 ## Walkthrough
 

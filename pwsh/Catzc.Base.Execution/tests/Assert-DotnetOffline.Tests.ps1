@@ -28,7 +28,8 @@ Describe 'Assert-DotnetOffline' -Tag 'L0', 'logic' {
     It 'passes a project under a root config that clears every source' {
         $repo = New-WidgetRepository
         { Assert-DotnetOffline $repo.Project -RepositoryRoot $repo.Root } | Should -Not -Throw
-        { Assert-DotnetOffline 'gadgets/widget' -RepositoryRoot $repo.Root } | Should -Not -Throw -Because 'a folder or a repository-relative path is read the same'
+        { Assert-DotnetOffline 'gadgets/widget' -RepositoryRoot $repo.Root } |
+            Should -Not -Throw -Because 'a folder or a repository-relative path is read the same'
     }
 
     It 'stops the call when the root config is missing' {
@@ -47,12 +48,15 @@ Describe 'Assert-DotnetOffline' -Tag 'L0', 'logic' {
     ) {
         $config = $script:cleared -replace "(<$section>\s*<clear />)", "`$1`n    <add key=`"gizmo`" value=`"https://gizmo.example/v3/index.json`" />"
         $repo = New-WidgetRepository -Config $config
-        { Assert-DotnetOffline $repo.Project -RepositoryRoot $repo.Root } | Should -Throw "*does not clear its $section*"
+        { Assert-DotnetOffline $repo.Project -RepositoryRoot $repo.Root } |
+            Should -Throw "*does not clear its $section*"
     }
 
     It 'stops the call when a section does not open with clear' {
-        $repo = New-WidgetRepository -Config ($script:cleared -replace '(?s)<auditSources>.*?</auditSources>', '<auditSources />')
-        { Assert-DotnetOffline $repo.Project -RepositoryRoot $repo.Root } | Should -Throw '*does not clear its auditSources*'
+        $repo = New-WidgetRepository -Config ($script:cleared -replace '(?s)<auditSources>.*?</auditSources>',
+            '<auditSources />')
+        { Assert-DotnetOffline $repo.Project -RepositoryRoot $repo.Root } |
+            Should -Throw '*does not clear its auditSources*'
     }
 
     It 'stops the call when a stray nuget.config sits between the project and the root' {
@@ -71,6 +75,7 @@ Describe 'Assert-DotnetOffline' -Tag 'L0', 'logic' {
 
     It 'refuses a path outside the repository' {
         $repo = New-WidgetRepository
-        { Assert-DotnetOffline (Join-Path $TestDrive 'elsewhere/gadget.csproj') -RepositoryRoot $repo.Root } | Should -Throw '*outside the repository*'
+        { Assert-DotnetOffline (Join-Path $TestDrive 'elsewhere/gadget.csproj') -RepositoryRoot $repo.Root } |
+            Should -Throw '*outside the repository*'
     }
 }

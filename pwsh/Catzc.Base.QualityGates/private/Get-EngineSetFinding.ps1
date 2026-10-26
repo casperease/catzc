@@ -31,7 +31,8 @@ function Get-EngineSetFinding {
     $lineOf = {
         param([int] $Offset)
         $line = 1
-        for ($index = $Text.IndexOf("`n"); $index -ge 0 -and $index -lt $Offset; $index = $Text.IndexOf("`n", $index + 1)) {
+        for ($index = $Text.IndexOf("`n"); $index -ge 0 -and $index -lt $Offset; $index = $Text.IndexOf("`n",
+            $index + 1)) {
             $line++
         }
         $line
@@ -61,7 +62,8 @@ function Get-EngineSetFinding {
             param([object[]] $Nodes)
             $named = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
             foreach ($node in $Nodes) {
-                if ($node -is [System.Management.Automation.Language.StringConstantExpressionAst] -and $node.Value -in $EngineName) {
+                if ($node -is [System.Management.Automation.Language.StringConstantExpressionAst] -and
+                    $node.Value -in $EngineName) {
                     [void] $named.Add($node.Value)
                 }
             }

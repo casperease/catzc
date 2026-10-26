@@ -37,7 +37,8 @@ Describe 'Catzc.Base.VSCode.VscodeSettingsConfig' -Tag 'L0' {
 
         It 'throws when settings is missing or empty' {
             Get-ViolationMessage ([ordered]@{}) | Should -BeLike "*'settings' must be a non-empty map*"
-            Get-ViolationMessage ([ordered]@{ settings = [ordered]@{} }) | Should -BeLike "*'settings' must be a non-empty map*"
+            Get-ViolationMessage ([ordered]@{ settings = [ordered]@{} }) |
+                Should -BeLike "*'settings' must be a non-empty map*"
         }
 
         It 'throws when a search.exclude entry is not a boolean' {

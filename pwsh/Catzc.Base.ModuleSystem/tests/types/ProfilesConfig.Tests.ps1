@@ -38,11 +38,13 @@ Describe 'Catzc.Base.ModuleSystem.ProfilesConfig' -Tag 'L0', 'logic' {
     }
 
     It 'throws on a non-snake_case profile name' {
-        Get-ViolationMessage ([ordered]@{ profiles = [ordered]@{ 'Bad-Name' = @('Catzc.Base.Asserts') } }) | Should -BeLike '*snake_case*'
+        Get-ViolationMessage ([ordered]@{ profiles = [ordered]@{ 'Bad-Name' = @('Catzc.Base.Asserts') } }) |
+            Should -BeLike '*snake_case*'
     }
 
     It 'throws when a profile is a single string, not a list' {
-        Get-ViolationMessage ([ordered]@{ profiles = [ordered]@{ minimal = 'Catzc.Base.Asserts' } }) | Should -BeLike '*list of module names*'
+        Get-ViolationMessage ([ordered]@{ profiles = [ordered]@{ minimal = 'Catzc.Base.Asserts' } }) |
+            Should -BeLike '*list of module names*'
     }
 
     It 'reports every violation in one throw, including an unknown key and a non-name entry' {

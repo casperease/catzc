@@ -17,7 +17,8 @@ Describe 'Get-GlossarySources' -Tag 'L0', 'logic' {
             }
             Owners = @()
         }
-        # A mock defines only the parameters its caller passed, so -All / -Module are probed, not read bare (strict mode).
+        # A mock defines only the parameters its caller passed, so -All / -Module are probed, not read bare (strict
+        # mode).
         Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -eq 'glossary' } -MockWith {
             $entries = foreach ($owner in $script:fixture.Owners) {
                 @{ Name = 'glossary'; Module = $owner; Path = Join-Path (Get-RepositoryRoot) $script:fixture.Paths[$owner] }

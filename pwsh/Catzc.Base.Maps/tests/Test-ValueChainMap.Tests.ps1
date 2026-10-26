@@ -10,7 +10,8 @@ Describe 'Test-ValueChainMap' -Tag 'L0', 'logic' {
     BeforeAll {
         $adr = {
             param([string] $External, [string] $Stack, [string[]] $Concerns)
-            [Catzc.Base.Drs.DrsRuleSet]::new('widgetry', 'fixture', 'widget', $External, 'WIDGET', 'WIDGET', $Stack, $Concerns, $Concerns)
+            [Catzc.Base.Drs.DrsRuleSet]::new('widgetry', 'fixture', 'widget', $External, 'WIDGET', 'WIDGET', $Stack,
+                $Concerns, $Concerns)
         }
         $stacks = @([Catzc.Base.Drs.DrsConfig]::Stacks)
         $concerns = @([Catzc.Base.Drs.DrsConfig]::Concerns)
@@ -68,7 +69,8 @@ Describe 'Test-ValueChainMap' -Tag 'L0', 'logic' {
     It 'reports a value_chain_ label whose head names no glossary term' -Tag 'DDR-TRACK-VALUECHAINMAP' {
         $script:labels = [pscustomobject]@{ value_chain_row_axis = 'Widgets'; value_chain_title = 'Gizmo map: widgets' }
         $issues = @((Test-ValueChainMap -OutputFolder $script:out -PassThru).Issues)
-        $issues | Should -Be @("unregistered label: maps.yml labels.value_chain_title 'Gizmo map: widgets' names no glossary term in its head (DDR-TRACK-VALUECHAINMAP)")
+        $issues |
+            Should -Be @("unregistered label: maps.yml labels.value_chain_title 'Gizmo map: widgets' names no glossary term in its head (DDR-TRACK-VALUECHAINMAP)")
     }
 
     It 'throws once listing every issue without -PassThru' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
@@ -80,7 +82,8 @@ Describe 'Test-ValueChainMap' -Tag 'L0', 'logic' {
     It 'writes the report to its folder and points latest.txt at it' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
         $result = Test-ValueChainMap -OutputFolder $script:out -PassThru
         Test-Path -LiteralPath (Join-Path $result.ReportPath 'value-chain-map.md') | Should -BeTrue
-        (Get-Content -LiteralPath (Join-Path $script:out 'latest.txt') -Raw).Trim() | Should -Be (Split-Path $result.ReportPath -Leaf)
+        (Get-Content -LiteralPath (Join-Path $script:out 'latest.txt') -Raw).Trim() |
+            Should -Be (Split-Path $result.ReportPath -Leaf)
     }
 }
 

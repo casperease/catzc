@@ -26,7 +26,8 @@ Describe 'Save-FileMetaResult' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRINTEDP
         $bytes[0] | Should -Be ([byte] [char] '-')
         [System.Text.Encoding]::UTF8.GetString($bytes) | Should -BeExactly "---`ncatzc:`n---`n# Widget`n"
         $saved.Unowned.Kind | Should -Be @('Unowned', 'UnownedHead')
-        Test-Path (Join-Path $script:root 'docs/gadget.md') | Should -BeFalse -Because 'an unowned key leaves the file as it is'
+        Test-Path (Join-Path $script:root 'docs/gadget.md') |
+            Should -BeFalse -Because 'an unowned key leaves the file as it is'
     }
 
     It 'writes nothing under -DryRun and still names what would change' {

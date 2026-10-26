@@ -14,7 +14,8 @@ Describe 'Get-RepositoryFolder' -Tag 'L0', 'logic' {
     }
 
     It 'returns the normalized absolute path for a relative folder' {
-        Get-RepositoryFolder 'widget/gadget' | Should -Be ([IO.Path]::GetFullPath((Join-Path $script:root 'widget/gadget')))
+        Get-RepositoryFolder 'widget/gadget' |
+            Should -Be ([IO.Path]::GetFullPath((Join-Path $script:root 'widget/gadget')))
     }
 
     It 'collapses a leading dot segment instead of leaking it into the result' {

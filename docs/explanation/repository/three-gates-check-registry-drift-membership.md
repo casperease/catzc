@@ -106,7 +106,9 @@ layout:
   g-root-config-files: { x: 990, y: 370, w: 240, h: 56 }
 ```
 
-![Three gates check the registry, the drift and the git membership; one rule has no gate](.assets/three-gates-check-registry-drift-membership.drawio.png)
+![Three gates check the registry, the drift and the git membership; one rule has no gate][diagram]
+
+[diagram]: .assets/three-gates-check-registry-drift-membership.drawio.png
 
 ## Walkthrough
 

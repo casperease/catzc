@@ -43,10 +43,12 @@ function Get-ContractCommandFindings {
         return $findings | ForEach-Object { "'$($Asset.AssetPath)': $_" }
     }
 
-    # The command's file spells its names in PowerShell's idiom; rendered to the normal form, they compare with the contract's.
+    # The command's file spells its names in PowerShell's idiom; rendered to the normal form, they compare with the
+    # contract's.
     $toNormal = [Func[string, string]] {
         param([string] $text)
-        [Catzc.Base.Objects.NameCase]::IsNormal($text, $normalForm) ? $text : [Catzc.Base.Objects.NameCase]::ToNormal('pascal', $text, $normalForm)
+        [Catzc.Base.Objects.NameCase]::IsNormal($text,
+            $normalForm) ? $text : [Catzc.Base.Objects.NameCase]::ToNormal('pascal', $text, $normalForm)
     }.GetNewClosure()
     try {
         $command = (Read-CommandSignature -Path (Join-Path $RepositoryRoot $Asset.Target) -Name $name).Renamed($toNormal)

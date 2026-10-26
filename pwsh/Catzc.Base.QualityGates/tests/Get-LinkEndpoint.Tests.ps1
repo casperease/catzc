@@ -1,7 +1,8 @@
 # Get-LinkEndpoint builds each distinct path's facets from the registries, read once per call.
 Describe 'Get-LinkEndpoint' -Tag 'L0', 'logic', 'ADR-REPO-LINKS-ENDPOINTSAREFACETS' {
     BeforeAll {
-        $script:inModule = { param([scriptblock] $Body, [hashtable] $With = @{}) InModuleScope Catzc.Base.QualityGates -Parameters $With $Body }
+        $script:inModule = { param([scriptblock] $Body,
+            [hashtable] $With = @{}) InModuleScope Catzc.Base.QualityGates -Parameters $With $Body }
     }
 
     BeforeEach {
@@ -22,7 +23,8 @@ Describe 'Get-LinkEndpoint' -Tag 'L0', 'logic', 'ADR-REPO-LINKS-ENDPOINTSAREFACE
                 }
             }
             $track = { param([string] $Name, [string] $Type, [string] $Place)
-                [pscustomobject] @{ name = $Name; type = $Type; place = $Place } | Add-Member -PassThru ScriptMethod PlaceLengthOf {
+                [pscustomobject] @{ name = $Name; type = $Type; place = $Place } |
+                    Add-Member -PassThru ScriptMethod PlaceLengthOf {
                     param($Path)
                     if ($Path -eq $this.place -or $Path.StartsWith($this.place + '/')) {
                         $this.place.Length
@@ -56,11 +58,14 @@ Describe 'Get-LinkEndpoint' -Tag 'L0', 'logic', 'ADR-REPO-LINKS-ENDPOINTSAREFACE
     It 'gives each path its class, aspect, track, track type and module' {
         $endpoints = & $inModule { Get-LinkEndpoint -Path 'mods/Widget/Get-Widget.ps1', 'docs/gadget.md', 'loose.txt' }
         $widget = $endpoints['mods/Widget/Get-Widget.ps1']
-        @($widget.Class, $widget.Aspect, $widget.Track, $widget.TrackType, $widget.Module) | Should -Be @('code', 'live', 'mods', 'widgets', 'Widget')
+        @($widget.Class, $widget.Aspect, $widget.Track, $widget.TrackType, $widget.Module) | Should -Be @('code',
+            'live', 'mods', 'widgets', 'Widget')
         $gadget = $endpoints['docs/gadget.md']
-        @($gadget.Class, $gadget.Aspect, $gadget.Track, $gadget.Module) | Should -Be @('reference/gadget', '', 'docs', '')
+        @($gadget.Class, $gadget.Aspect, $gadget.Track, $gadget.Module) | Should -Be @('reference/gadget', '', 'docs',
+            '')
         $loose = $endpoints['loose.txt']
-        @($loose.Class, $loose.Track, $loose.TrackType) | Should -Be @('', '', '') -Because 'a file no registry claims leaves each facet empty, never a guess'
+        @($loose.Class, $loose.Track, $loose.TrackType) | Should -Be @('', '',
+            '') -Because 'a file no registry claims leaves each facet empty, never a guess'
     }
 
     It 'resolves each distinct path once and reads each registry once per call' {

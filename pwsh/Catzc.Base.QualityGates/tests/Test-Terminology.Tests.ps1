@@ -69,7 +69,8 @@ Describe 'Test-Terminology' -Tag 'L0', 'logic' {
             $null = New-Item -ItemType File -Path $path -Force
             [System.IO.File]::WriteAllText($path, $file.Value)
         }
-        Mock Get-GitTrackedPath -ModuleName Catzc.Base.QualityGates { @('widgets/spin.md', 'Widgets/Turn.md', 'gadgets/turn.md', 'gadgets/gizmos.md', 'gadgets/gone.md') }
+        Mock Get-GitTrackedPath -ModuleName Catzc.Base.QualityGates { @('widgets/spin.md', 'Widgets/Turn.md',
+            'gadgets/turn.md', 'gadgets/gizmos.md', 'gadgets/gone.md') }
 
         $r = Test-Terminology -OutputFolder $script:reportBase -PassThru
         $r.IssueCount | Should -Be 1
@@ -87,7 +88,8 @@ Describe 'Test-Terminology' -Tag 'L0', 'logic' {
         Mock Build-TerminologyDictionary -ModuleName Catzc.Base.QualityGates {
             [pscustomobject]@{ Category = 'widget'; Path = 'x'; WordCount = 2; Changed = $true; DryRun = $true }
         }
-        { Test-Terminology -OutputFolder $script:reportBase } | Should -Throw '*Test-Terminology failed: 1 issue(s)*drift*'
+        { Test-Terminology -OutputFolder $script:reportBase } |
+            Should -Throw '*Test-Terminology failed: 1 issue(s)*drift*'
     }
 
     It 'passes clean without -PassThru' {

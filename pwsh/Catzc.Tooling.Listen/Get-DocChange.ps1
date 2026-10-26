@@ -27,7 +27,8 @@ function Get-DocChange {
     $watched = [System.IO.Path]::GetFullPath((Join-Path $root $watch))
 
     $wanted = if ($Path) {
-        [System.Collections.Generic.HashSet[string]]::new([string[]] @($Path | ForEach-Object { $_.Replace('\', '/') }), [System.StringComparer]::Ordinal)
+        [System.Collections.Generic.HashSet[string]]::new([string[]] @($Path | ForEach-Object { $_.Replace('\',
+            '/') }), [System.StringComparer]::Ordinal)
     }
     else {
         $null
@@ -113,7 +114,8 @@ function Get-DocChange {
             }
         }
     }
-    $renamedSources = [System.Collections.Generic.HashSet[string]]::new([string[]] @($renamedFrom.Values), [System.StringComparer]::Ordinal)
+    $renamedSources = [System.Collections.Generic.HashSet[string]]::new([string[]] @($renamedFrom.Values),
+        [System.StringComparer]::Ordinal)
 
     foreach ($relative in $added.Keys) {
         if ($renamedFrom.ContainsKey($relative)) {

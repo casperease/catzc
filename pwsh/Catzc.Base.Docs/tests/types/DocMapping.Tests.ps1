@@ -24,6 +24,7 @@ Describe 'DocMapping' -Tag 'L0', 'logic' {
     }
 
     It 'throws when source is missing' {
-        { [Catzc.Base.Docs.DocMapping]::new(@{ folder = 'widgets/Catzc.Fixture' }) } | Should -Throw '*source is required*'
+        { [Catzc.Base.Docs.DocMapping]::new(@{ folder = 'widgets/Catzc.Fixture' }) } |
+            Should -Throw '*source is required*'
     }
 }

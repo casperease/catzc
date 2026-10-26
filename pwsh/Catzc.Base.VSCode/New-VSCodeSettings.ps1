@@ -17,16 +17,19 @@ function New-VsCodeSettings {
 
         [System.Collections.IDictionary] $LanguageFormatter = @{},
 
-        # The repository's filters, name to the include/exclude sets each claims by, in lamp order (Get-RepositoryFilter).
+        # The repository's filters, name to the include/exclude sets each claims by, in lamp order
+        # (Get-RepositoryFilter).
         [System.Collections.IDictionary] $RepositoryFilter = @{},
 
         # The tagged languages the lamps offer, name to its tag and extensions, in the languages config's order.
         [System.Collections.IDictionary] $LampLanguage = @{},
 
-        # The settings file on disk, read for the rows another writer owns (the carried settings of vscode-settings.yml).
+        # The settings file on disk, read for the rows another writer owns (the carried settings of
+        # vscode-settings.yml).
         [string] $CurrentPath = (Join-Path (Get-RepositoryRoot) '.vscode/settings.json'),
 
-        # The .editorconfig whose sections render into the editor settings (vscode-settings.yml editorconfig maps them to languages).
+        # The .editorconfig whose sections render into the editor settings (vscode-settings.yml editorconfig maps them
+        # to languages).
         [string] $EditorConfigPath = (Join-Path (Get-RepositoryRoot) '.editorconfig')
     )
 
@@ -37,7 +40,8 @@ function New-VsCodeSettings {
     foreach ($key in $config.settings.Keys) {
         $settings[$key] = $config.settings[$key]
     }
-    # The .editorconfig baseline, so the editor follows it with no extension; an authored setting wins over a rendered one.
+    # The .editorconfig baseline, so the editor follows it with no extension; an authored setting wins over a rendered
+    # one.
     if (Test-Path -LiteralPath $EditorConfigPath -PathType Leaf) {
         $editor = ConvertFrom-EditorConfig -Text (Get-Content -LiteralPath $EditorConfigPath -Raw) -Section $config.editorconfig
         foreach ($key in $editor.Keys) {

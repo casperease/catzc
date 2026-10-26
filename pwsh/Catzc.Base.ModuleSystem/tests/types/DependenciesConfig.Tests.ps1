@@ -33,15 +33,18 @@ Describe 'Catzc.Base.ModuleSystem.DependenciesConfig' -Tag 'L0' {
         }
 
         It 'throws when a dependency target is not declared' {
-            Get-ViolationMessage @{ modules = [ordered]@{ A = @('B') } } | Should -BeLike '*not declared in configuration*'
+            Get-ViolationMessage @{ modules = [ordered]@{ A = @('B') } } |
+                Should -BeLike '*not declared in configuration*'
         }
 
         It 'throws on a two-way cycle' {
-            Get-ViolationMessage @{ modules = [ordered]@{ A = @('B'); B = @('A') } } | Should -BeLike '*dependency cycle: A -> B -> A*'
+            Get-ViolationMessage @{ modules = [ordered]@{ A = @('B'); B = @('A') } } |
+                Should -BeLike '*dependency cycle: A -> B -> A*'
         }
 
         It 'throws on a longer cycle' {
-            Get-ViolationMessage @{ modules = [ordered]@{ A = @('B'); B = @('C'); C = @('A') } } | Should -BeLike '*cycle*'
+            Get-ViolationMessage @{ modules = [ordered]@{ A = @('B'); B = @('C'); C = @('A') } } |
+                Should -BeLike '*cycle*'
         }
 
         It 'throws on a self-dependency' {
@@ -57,7 +60,8 @@ Describe 'Catzc.Base.ModuleSystem.DependenciesConfig' -Tag 'L0' {
         }
 
         It 'throws on an unknown top-level key' {
-            Get-ViolationMessage @{ modules = [ordered]@{ A = @() }; widget = 1 } | Should -BeLike "*unknown top-level key 'widget'*"
+            Get-ViolationMessage @{ modules = [ordered]@{ A = @() }; widget = 1 } |
+                Should -BeLike "*unknown top-level key 'widget'*"
         }
 
         It 'throws when an entry in a list is not a name' {

@@ -30,10 +30,15 @@ Describe 'Test-AgentDefinitions' -Tag 'L0', 'logic' {
         $script:widgetEntry = [ordered]@{ name = 'widget'; supported_by = @('ADR-WI-ONE-TURN'); checks = @('Get-Glossary') }
         $script:gadgetEntry = [ordered]@{ name = 'gadget'; supported_by = @('ADR-WI-ONE-SPIN'); checks = @() }
         $script:spinEntry = [ordered]@{ name = 'widget-spin'; supported_by = @('ADR-WI-ONE-TURN'); checks = @() }
-        $script:widgetFile = @('---', 'name: widget', 'description: >', '  The standard agent. Do NOT use it for gadget work.', 'tools: Read, Edit', 'model: haiku', 'skills: [widget-spin]', '---', '', '# Widget')
-        $script:gadgetFile = @('---', 'name: gadget', 'description: The gadget agent. Do NOT use it for widget work.', 'tools: Read', 'model: haiku', '---', '', '# Gadget')
-        $script:spinFile = @('---', 'name: widget-spin', 'description: Spin a widget; for widget; input is the widget.', 'user-invocable: false', 'allowed-tools: Read',
-            'metadata:', '  catzc:', '    immutable:', '      kind: capability', '    config:', '      model_floor: haiku', '      needs: []', '---', '1. Spin it.', '2. Report.')
+        $script:widgetFile = @('---', 'name: widget', 'description: >',
+            '  The standard agent. Do NOT use it for gadget work.', 'tools: Read, Edit', 'model: haiku',
+            'skills: [widget-spin]', '---', '', '# Widget')
+        $script:gadgetFile = @('---', 'name: gadget', 'description: The gadget agent. Do NOT use it for widget work.',
+            'tools: Read', 'model: haiku', '---', '', '# Gadget')
+        $script:spinFile = @('---', 'name: widget-spin', 'description: Spin a widget; for widget; input is the widget.',
+            'user-invocable: false', 'allowed-tools: Read',
+            'metadata:', '  catzc:', '    immutable:', '      kind: capability', '    config:',
+            '      model_floor: haiku', '      needs: []', '---', '1. Spin it.', '2. Report.')
         $script:claudeMd = "# Claude`n`n## Sub-agents`n`nEvery robot reads ADR-WI first.`n`n- **``widget``** — the standard agent.`n- **``gadget``** — the gadget agent.`n`n## Rules`n`n- **``gizmo``** — not an agent bullet.`n"
     }
 
@@ -68,9 +73,12 @@ Describe 'Test-AgentDefinitions' -Tag 'L0', 'logic' {
     }
 
     It 'reports a body over the roof, a key outside the robot set, and a key out of the fixed order' -Tag 'ADR-REPO-AGENTS-ROBOTBODYLIMIT' {
-        $long = @('---', 'name: gadget', 'description: The gadget agent. Do NOT use it for widget work.', 'tools: Read', 'model: haiku', '---') + @(1..21 | ForEach-Object { "$_. step" })
+        $long = @('---', 'name: gadget', 'description: The gadget agent. Do NOT use it for widget work.', 'tools: Read',
+            'model: haiku', '---') + @(1..21 | ForEach-Object { "$_. step" })
         Write-AgentFixture 'agents/gadget.md' $long
-        Write-AgentFixture 'agents/widget.md' @('---', 'name: widget', 'model: haiku', 'description: >', '  The standard agent. Do NOT use it for gadget work.', 'tools: Read', 'color: red', 'skills: [widget-spin]', '---', '# Widget')
+        Write-AgentFixture 'agents/widget.md' @('---', 'name: widget', 'model: haiku', 'description: >',
+            '  The standard agent. Do NOT use it for gadget work.', 'tools: Read', 'color: red',
+            'skills: [widget-spin]', '---', '# Widget')
         $issues = (Test-AgentDefinitions -OutputFolder $out -PassThru).Issues
         $issues | Should -Contain '.claude/agents/gadget.md: body has 21 lines, the roof is 20 (roofs.agent_body_lines)'
         @($issues | Where-Object { $_ -like ".claude/agents/widget.md: front-matter key 'description' is out of the fixed order*" }) | Should -HaveCount 1
@@ -78,23 +86,32 @@ Describe 'Test-AgentDefinitions' -Tag 'L0', 'logic' {
     }
 
     It 'reports a missing or inherited model and a model below a preloaded floor' -Tag 'ADR-REPO-AGENTS-NAMEDMODEL' {
-        Write-AgentFixture 'agents/gadget.md' @('---', 'name: gadget', 'description: The gadget agent. Do NOT use it for widget work.', 'tools: Read', 'model: inherit', '---', '# Gadget')
-        Write-AgentFixture 'skills/widget-spin/SKILL.md' ($script:spinFile -replace 'model_floor: haiku', 'model_floor: sonnet')
+        Write-AgentFixture 'agents/gadget.md' @('---', 'name: gadget',
+            'description: The gadget agent. Do NOT use it for widget work.', 'tools: Read', 'model: inherit', '---',
+            '# Gadget')
+        Write-AgentFixture 'skills/widget-spin/SKILL.md' ($script:spinFile -replace 'model_floor: haiku',
+            'model_floor: sonnet')
         $issues = (Test-AgentDefinitions -OutputFolder $out -PassThru).Issues
-        $issues | Should -Contain '.claude/agents/gadget.md: front matter must name a model (haiku, sonnet, opus or fable), never inherit'
-        $issues | Should -Contain ".claude/agents/widget.md: model 'haiku' is below the model_floor 'sonnet' of capability 'widget-spin'"
+        $issues |
+            Should -Contain '.claude/agents/gadget.md: front matter must name a model (haiku, sonnet, opus or fable), never inherit'
+        $issues |
+            Should -Contain ".claude/agents/widget.md: model 'haiku' is below the model_floor 'sonnet' of capability 'widget-spin'"
         $issues | Should -HaveCount 2
     }
 
     It 'reports a capability over its roof, with a wrong name, user-invocable, without allowed-tools or a floor' -Tag 'ADR-REPO-AGENTS-CAPABILITYFILE' {
-        $over = @('---', 'name: widget-spun', 'description: Spin.', 'user-invocable: true', 'metadata:', '  catzc:', '    config:', '      needs: []', '---') + @(1..27 | ForEach-Object { "$_. step" })
+        $over = @('---', 'name: widget-spun', 'description: Spin.', 'user-invocable: true', 'metadata:', '  catzc:',
+            '    config:', '      needs: []', '---') + @(1..27 | ForEach-Object { "$_. step" })
         Write-AgentFixture 'skills/widget-spin/SKILL.md' $over
         $issues = (Test-AgentDefinitions -OutputFolder $out -PassThru).Issues
-        $issues | Should -Contain ".claude/skills/widget-spin/SKILL.md: front-matter name 'widget-spun' must equal the folder name 'widget-spin'"
+        $issues |
+            Should -Contain ".claude/skills/widget-spin/SKILL.md: front-matter name 'widget-spun' must equal the folder name 'widget-spin'"
         $issues | Should -Contain '.claude/skills/widget-spin/SKILL.md: front matter must set user-invocable: false'
         $issues | Should -Contain '.claude/skills/widget-spin/SKILL.md: front matter has no allowed-tools'
-        $issues | Should -Contain '.claude/skills/widget-spin/SKILL.md: metadata.catzc.config.model_floor must be haiku, sonnet, opus or fable'
-        $issues | Should -Contain '.claude/skills/widget-spin/SKILL.md: has 31 lines outside its catzc head (4 front-matter keys and 27 body lines), the roof is 30 (roofs.capability_lines)'
+        $issues |
+            Should -Contain '.claude/skills/widget-spin/SKILL.md: metadata.catzc.config.model_floor must be haiku, sonnet, opus or fable'
+        $issues |
+            Should -Contain '.claude/skills/widget-spin/SKILL.md: has 31 lines outside its catzc head (4 front-matter keys and 27 body lines), the roof is 30 (roofs.capability_lines)'
     }
 
     It 'reports a robot and a capability body line past 140 columns' -Tag 'ADR-REPO-AGENTS-ROBOTBODYLIMIT' {
@@ -107,25 +124,32 @@ Describe 'Test-AgentDefinitions' -Tag 'L0', 'logic' {
     }
 
     It 'reports a skills name with no capability file and a capability no agent preloads' -Tag 'ADR-REPO-AGENTS-NOORPHANNOGHOST' {
-        Write-AgentFixture 'agents/widget.md' ($script:widgetFile -replace 'skills: \[widget-spin\]', 'skills: [widget-spun]')
+        Write-AgentFixture 'agents/widget.md' ($script:widgetFile -replace 'skills: \[widget-spin\]',
+            'skills: [widget-spun]')
         $issues = (Test-AgentDefinitions -OutputFolder $out -PassThru).Issues
-        $issues | Should -Contain ".claude/agents/widget.md: skills names 'widget-spun', which has no file .claude/skills/widget-spun/SKILL.md"
+        $issues |
+            Should -Contain ".claude/agents/widget.md: skills names 'widget-spun', which has no file .claude/skills/widget-spun/SKILL.md"
         $issues | Should -Contain '.claude/skills/widget-spin/SKILL.md: no agent preloads it in its skills list'
         $issues | Should -HaveCount 2
     }
 
     It 'passes a user skill no robot preloads, and reports one that is preloaded or not user-invocable' -Tag 'ADR-REPO-AGENTS-USERSKILL' {
-        $turnFile = @('---', 'name: gadget-turn', 'description: Turn a gadget; for the user; input is the gadget.', 'user-invocable: true', 'allowed-tools: Read',
+        $turnFile = @('---', 'name: gadget-turn', 'description: Turn a gadget; for the user; input is the gadget.',
+            'user-invocable: true', 'allowed-tools: Read',
             'metadata:', '  catzc:', '    config:', '      model_floor: haiku', '      needs: []', '---', '1. Turn it.')
         Write-AgentFixture 'skills/gadget-turn/SKILL.md' $turnFile
-        $script:capabilities = New-CapabilitiesFixture @($script:spinEntry, [ordered]@{ name = 'gadget-turn'; supported_by = @('ADR-WI-ONE-SPIN'); checks = @(); invoked_by = 'user' })
+        $script:capabilities = New-CapabilitiesFixture @($script:spinEntry,
+            [ordered]@{ name = 'gadget-turn'; supported_by = @('ADR-WI-ONE-SPIN'); checks = @(); invoked_by = 'user' })
         (Test-AgentDefinitions -OutputFolder $out -PassThru).Issues | Should -BeNullOrEmpty
 
-        Write-AgentFixture 'skills/gadget-turn/SKILL.md' ($turnFile -replace 'user-invocable: true', 'user-invocable: false')
-        Write-AgentFixture 'agents/gadget.md' ($script:gadgetFile -replace 'model: haiku', "model: haiku`nskills: [gadget-turn]")
+        Write-AgentFixture 'skills/gadget-turn/SKILL.md' ($turnFile -replace 'user-invocable: true',
+            'user-invocable: false')
+        Write-AgentFixture 'agents/gadget.md' ($script:gadgetFile -replace 'model: haiku',
+            "model: haiku`nskills: [gadget-turn]")
         $issues = (Test-AgentDefinitions -OutputFolder $out -PassThru).Issues
         $issues | Should -Contain '.claude/skills/gadget-turn/SKILL.md: front matter must set user-invocable: true'
-        $issues | Should -Contain ".claude/agents/gadget.md: skills names 'gadget-turn', a user skill that no robot preloads"
+        $issues |
+            Should -Contain ".claude/agents/gadget.md: skills names 'gadget-turn', a user skill that no robot preloads"
         $issues | Should -HaveCount 2
     }
 
@@ -133,27 +157,37 @@ Describe 'Test-AgentDefinitions' -Tag 'L0', 'logic' {
         $script:capabilities = New-CapabilitiesFixture @([ordered]@{ name = 'gadget-turn'; supported_by = @('ADR-WI-ONE-MISSING'); checks = @('Test-GadgetWidgetGizmo') })
         $issues = (Test-AgentDefinitions -OutputFolder $out -PassThru).Issues
         $issues | Should -Contain '.claude/skills/widget-spin/SKILL.md: has no entry in capabilities.yml'
-        $issues | Should -Contain "$(Get-CatzcModulesFolder)/Catzc.Base.Docs/configs/capabilities.yml: capability 'gadget-turn' has no file .claude/skills/gadget-turn/SKILL.md"
-        $issues | Should -Contain "$(Get-CatzcModulesFolder)/Catzc.Base.Docs/configs/capabilities.yml: capability 'gadget-turn' supported_by 'ADR-WI-ONE-MISSING' names no ADR rule"
-        $issues | Should -Contain "$(Get-CatzcModulesFolder)/Catzc.Base.Docs/configs/capabilities.yml: capability 'gadget-turn' checks 'Test-GadgetWidgetGizmo' names no command"
+        $issues |
+            Should -Contain "$(Get-CatzcModulesFolder)/Catzc.Base.Docs/configs/capabilities.yml: capability 'gadget-turn' has no file .claude/skills/gadget-turn/SKILL.md"
+        $issues |
+            Should -Contain "$(Get-CatzcModulesFolder)/Catzc.Base.Docs/configs/capabilities.yml: capability 'gadget-turn' supported_by 'ADR-WI-ONE-MISSING' names no ADR rule"
+        $issues |
+            Should -Contain "$(Get-CatzcModulesFolder)/Catzc.Base.Docs/configs/capabilities.yml: capability 'gadget-turn' checks 'Test-GadgetWidgetGizmo' names no command"
         $issues | Should -HaveCount 4
     }
 
     It 'reports a CLAUDE.md that does not name a required contract, and a robot that carries a contracts key' -Tag 'ADR-REPO-AGENTS-ROBOTBODYLIMIT' {
-        Write-AgentFixture 'CLAUDE.md' ($script:claudeMd -replace 'Every robot reads ADR-WI first\.', 'Every robot reads the contract first.')
-        Write-AgentFixture 'agents/gadget.md' @('---', 'name: gadget', 'description: The gadget agent. Do NOT use it for widget work.', 'tools: Read', 'model: haiku', 'contracts: [ADR-WI]', '---', '# Gadget')
+        Write-AgentFixture 'CLAUDE.md' ($script:claudeMd -replace 'Every robot reads ADR-WI first\.',
+            'Every robot reads the contract first.')
+        Write-AgentFixture 'agents/gadget.md' @('---', 'name: gadget',
+            'description: The gadget agent. Do NOT use it for widget work.', 'tools: Read', 'model: haiku',
+            'contracts: [ADR-WI]', '---', '# Gadget')
         $issues = (Test-AgentDefinitions -OutputFolder $out -PassThru).Issues
-        $issues | Should -Contain ".claude/CLAUDE.md: does not name the contract 'ADR-WI' that agents.yml contracts requires every robot to read first"
+        $issues |
+            Should -Contain ".claude/CLAUDE.md: does not name the contract 'ADR-WI' that agents.yml contracts requires every robot to read first"
         @($issues | Where-Object { $_ -like ".claude/agents/gadget.md: front-matter key 'contracts' is outside the robot set*" }) | Should -HaveCount 1
         $issues | Should -HaveCount 2
     }
 
     It 'counts a wrapped continuation with its line and a comment line as nothing' -Tag 'ADR-REPO-AGENTS-ROBOTBODYLIMIT', 'ADR-REPO-AGENTS-CAPABILITYFILE' {
-        $wrapped = @('---', 'name: gadget', 'description: >', '  The gadget agent.', '  Do NOT use it for widget work.', 'tools: Read', 'model: haiku', '---', '# gadget', '', '<!-- cspell:ignore gizmo -->') +
+        $wrapped = @('---', 'name: gadget', 'description: >', '  The gadget agent.', '  Do NOT use it for widget work.',
+            'tools: Read', 'model: haiku', '---', '# gadget', '', '<!-- cspell:ignore gizmo -->') +
         @(1..19 | ForEach-Object { "$_. a step that the formatter"; '   wrapped onto a second line' })
         Write-AgentFixture 'agents/gadget.md' $wrapped
-        $spin = @('---', 'name: widget-spin', 'description: Spin a widget; for widget; input is the widget.', 'user-invocable: false', 'allowed-tools: Read',
-            'metadata:', '  catzc:', '    config:', '      model_floor: haiku', '      needs: []', '---', '# widget-spin', '', '1. Spin it', '   with care.', '2. Report', '   the spin.', '3. Stop.', '4. Rest.')
+        $spin = @('---', 'name: widget-spin', 'description: Spin a widget; for widget; input is the widget.',
+            'user-invocable: false', 'allowed-tools: Read',
+            'metadata:', '  catzc:', '    config:', '      model_floor: haiku', '      needs: []', '---',
+            '# widget-spin', '', '1. Spin it', '   with care.', '2. Report', '   the spin.', '3. Stop.', '4. Rest.')
         Write-AgentFixture 'skills/widget-spin/SKILL.md' $spin
         $issues = (Test-AgentDefinitions -OutputFolder $out -PassThru).Issues
         $issues | Should -BeNullOrEmpty
@@ -161,10 +195,12 @@ Describe 'Test-AgentDefinitions' -Tag 'L0', 'logic' {
 
     It 'reports an agent file with no entry and an entry with no file' -Tag 'ADR-REPO-AGENTS-BACKEDBYRULE' {
         Remove-Item -LiteralPath (Join-Path $TestDrive 'claude/agents/gadget.md')
-        Write-AgentFixture 'agents/gizmo.md' @('---', 'name: gizmo', 'description: Gizmo. Do NOT use it.', 'tools: Read', '---')
+        Write-AgentFixture 'agents/gizmo.md' @('---', 'name: gizmo', 'description: Gizmo. Do NOT use it.',
+            'tools: Read', '---')
         $issues = (Test-AgentDefinitions -OutputFolder $out -PassThru).Issues
         $issues | Should -Contain '.claude/agents/gizmo.md: has no entry in agents.yml'
-        $issues | Should -Contain "$(Get-CatzcModulesFolder)/Catzc.Base.Docs/configs/agents.yml: agent 'gadget' has no file .claude/agents/gadget.md"
+        $issues |
+            Should -Contain "$(Get-CatzcModulesFolder)/Catzc.Base.Docs/configs/agents.yml: agent 'gadget' has no file .claude/agents/gadget.md"
     }
 
     It 'reports front matter that is missing or does not parse' -Tag 'ADR-REPO-AGENTS-ONEFILEPERAGENT' {
@@ -172,15 +208,18 @@ Describe 'Test-AgentDefinitions' -Tag 'L0', 'logic' {
         Write-AgentFixture 'agents/widget.md' @('---', 'name: [widget', '---')
         $issues = (Test-AgentDefinitions -OutputFolder $out -PassThru).Issues
         $issues | Should -Contain '.claude/agents/gadget.md: has no front matter: the first line must be ---'
-        @($issues | Where-Object { $_ -like '.claude/agents/widget.md: has front matter that is not valid YAML*' }) | Should -HaveCount 1
+        @($issues | Where-Object { $_ -like '.claude/agents/widget.md: has front matter that is not valid YAML*' }) |
+            Should -HaveCount 1
     }
 
     It 'reports a name that differs from the file name, and a missing description, Do NOT clause, or tools' -Tag 'ADR-REPO-AGENTS-ONEFILEPERAGENT' {
         Write-AgentFixture 'agents/gadget.md' @('---', 'name: gizmo', 'description: The gadget agent.', '---')
         Write-AgentFixture 'agents/widget.md' @('---', 'name: widget', 'tools: Read', '---')
         $issues = (Test-AgentDefinitions -OutputFolder $out -PassThru).Issues
-        $issues | Should -Contain ".claude/agents/gadget.md: front-matter name 'gizmo' must equal the file name 'gadget'"
-        $issues | Should -Contain ".claude/agents/gadget.md: description has no 'Do NOT' clause saying when not to use the agent"
+        $issues |
+            Should -Contain ".claude/agents/gadget.md: front-matter name 'gizmo' must equal the file name 'gadget'"
+        $issues |
+            Should -Contain ".claude/agents/gadget.md: description has no 'Do NOT' clause saying when not to use the agent"
         $issues | Should -Contain '.claude/agents/gadget.md: front matter has no tools'
         $issues | Should -Contain '.claude/agents/widget.md: front matter has no description'
     }
@@ -191,8 +230,10 @@ Describe 'Test-AgentDefinitions' -Tag 'L0', 'logic' {
             [ordered]@{ name = 'gadget'; supported_by = @('ADR-WI-ONE-MISSING'); checks = @('Test-GadgetWidgetGizmo') }
         )
         $issues = (Test-AgentDefinitions -OutputFolder $out -PassThru).Issues
-        $issues | Should -Contain "$(Get-CatzcModulesFolder)/Catzc.Base.Docs/configs/agents.yml: agent 'gadget' supported_by 'ADR-WI-ONE-MISSING' names no ADR rule"
-        $issues | Should -Contain "$(Get-CatzcModulesFolder)/Catzc.Base.Docs/configs/agents.yml: agent 'gadget' checks 'Test-GadgetWidgetGizmo' names no command"
+        $issues |
+            Should -Contain "$(Get-CatzcModulesFolder)/Catzc.Base.Docs/configs/agents.yml: agent 'gadget' supported_by 'ADR-WI-ONE-MISSING' names no ADR rule"
+        $issues |
+            Should -Contain "$(Get-CatzcModulesFolder)/Catzc.Base.Docs/configs/agents.yml: agent 'gadget' checks 'Test-GadgetWidgetGizmo' names no command"
         $issues | Should -HaveCount 2
     }
 
@@ -200,29 +241,36 @@ Describe 'Test-AgentDefinitions' -Tag 'L0', 'logic' {
         Write-AgentFixture 'CLAUDE.md' "# Claude`n`n## Sub-agents`n`nEvery robot reads ADR-WI first.`n`n- **``widget``** — the standard agent.`n- **``gizmo``** — gone.`n"
         $issues = (Test-AgentDefinitions -OutputFolder $out -PassThru).Issues
         $issues | Should -Contain ".claude/CLAUDE.md: the Sub-agents section does not list registered agent 'gadget'"
-        $issues | Should -Contain ".claude/CLAUDE.md: the Sub-agents section lists 'gizmo', which agents.yml does not register"
+        $issues |
+            Should -Contain ".claude/CLAUDE.md: the Sub-agents section lists 'gizmo', which agents.yml does not register"
         $issues | Should -HaveCount 2
     }
 
     It 'passes a brief skill no robot preloads, and reports one a robot preloads' -Tag 'ADR-REPO-AGENTS-STANDARDDRONE', 'ADR-REPO-AGENTS-NOORPHANNOGHOST' {
-        $turnFile = @('---', 'name: gadget-turn', 'description: Turn a gadget; for a brief; input is the gadget.', 'user-invocable: false', 'allowed-tools: Read',
+        $turnFile = @('---', 'name: gadget-turn', 'description: Turn a gadget; for a brief; input is the gadget.',
+            'user-invocable: false', 'allowed-tools: Read',
             'metadata:', '  catzc:', '    config:', '      model_floor: fable', '      needs: []', '---', '1. Turn it.')
         Write-AgentFixture 'skills/gadget-turn/SKILL.md' $turnFile
-        $script:capabilities = New-CapabilitiesFixture @($script:spinEntry, [ordered]@{ name = 'gadget-turn'; supported_by = @('ADR-WI-ONE-SPIN'); checks = @(); invoked_by = 'brief' })
+        $script:capabilities = New-CapabilitiesFixture @($script:spinEntry,
+            [ordered]@{ name = 'gadget-turn'; supported_by = @('ADR-WI-ONE-SPIN'); checks = @(); invoked_by = 'brief' })
         (Test-AgentDefinitions -OutputFolder $out -PassThru).Issues | Should -BeNullOrEmpty
 
-        Write-AgentFixture 'agents/gadget.md' ($script:gadgetFile -replace 'model: haiku', "model: fable`nskills: [gadget-turn]")
+        Write-AgentFixture 'agents/gadget.md' ($script:gadgetFile -replace 'model: haiku',
+            "model: fable`nskills: [gadget-turn]")
         $issues = (Test-AgentDefinitions -OutputFolder $out -PassThru).Issues
-        $issues | Should -Be @(".claude/agents/gadget.md: skills names 'gadget-turn', a brief skill that a drone loads with the Skill tool, never preloads")
+        $issues |
+            Should -Be @(".claude/agents/gadget.md: skills names 'gadget-turn', a brief skill that a drone loads with the Skill tool, never preloads")
     }
 
     It 'reports a read_only skill whose allowed-tools hold Write or Edit' -Tag 'ADR-REPO-AGENTS-CAPABILITYFILE' {
         $script:capabilities = New-CapabilitiesFixture @([ordered]@{ name = 'widget-spin'; supported_by = @('ADR-WI-ONE-TURN'); checks = @(); read_only = $true })
         (Test-AgentDefinitions -OutputFolder $out -PassThru).Issues | Should -BeNullOrEmpty
 
-        Write-AgentFixture 'skills/widget-spin/SKILL.md' ($script:spinFile -replace 'allowed-tools: Read', 'allowed-tools: Read, Edit')
+        Write-AgentFixture 'skills/widget-spin/SKILL.md' ($script:spinFile -replace 'allowed-tools: Read',
+            'allowed-tools: Read, Edit')
         $issues = (Test-AgentDefinitions -OutputFolder $out -PassThru).Issues
-        $issues | Should -Be @(".claude/skills/widget-spin/SKILL.md: a read_only skill's allowed-tools must hold no Write or Edit")
+        $issues |
+            Should -Be @(".claude/skills/widget-spin/SKILL.md: a read_only skill's allowed-tools must hold no Write or Edit")
     }
 
     It 'throws once listing every issue without -PassThru' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
@@ -243,7 +291,8 @@ Describe 'Test-AgentDefinitions — real agent definitions' -Tag 'L1', 'integrit
 
 Describe 'Test-AgentDefinitions — shipped configs/agents.yml and configs/capabilities.yml' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP-COVEREDBYREALTEST' {
     It 'finds both registries it names in the loaded module' {
-        $agents = [System.IO.File]::ReadAllText((Get-CatzcModuleRoot 'configs/agents.yml' -Module Catzc.Base.Docs)) | ConvertFrom-Yaml -Ordered
+        $agents = [System.IO.File]::ReadAllText((Get-CatzcModuleRoot 'configs/agents.yml' -Module Catzc.Base.Docs)) |
+            ConvertFrom-Yaml -Ordered
         $capabilities = [System.IO.File]::ReadAllText((Get-CatzcModuleRoot 'configs/capabilities.yml' -Module Catzc.Base.Docs)) | ConvertFrom-Yaml -Ordered
         @($agents['agents']).Count | Should -BeGreaterThan 0
         $agents.Contains('standard') | Should -BeFalse

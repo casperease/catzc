@@ -12,6 +12,7 @@ Describe 'Get-GridMinimapData' -Tag 'L1', 'integrity', 'source-only' {
     }
 
     It 'draws the same grid on a world map built once and handed in' {
-        Get-GridMinimapData -Adr 'ADR-REPO-SLIDES' -WorldMap (Get-WorldMap) -AsJson | Should -BeExactly (Get-GridMinimapData -Adr 'ADR-REPO-SLIDES' -AsJson)
+        Get-GridMinimapData -Adr 'ADR-REPO-SLIDES' -WorldMap (Get-WorldMap) -AsJson |
+            Should -BeExactly (Get-GridMinimapData -Adr 'ADR-REPO-SLIDES' -AsJson)
     }
 }

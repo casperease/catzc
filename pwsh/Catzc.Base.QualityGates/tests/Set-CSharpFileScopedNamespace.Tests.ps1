@@ -14,7 +14,8 @@ Describe 'Set-CSharpFileScopedNamespace' -Tag 'L0', 'logic' {
     It 'inserts the namespace after the using block, before the type' {
         $src = "using System;`nusing System.Text;`n`npublic class Foo { }`n"
         $out = & $script:apply $src 'Catzc.Base.Objects'
-        $out | Should -BeExactly "using System;`nusing System.Text;`n`nnamespace Catzc.Base.Objects;`n`npublic class Foo { }`n"
+        $out |
+            Should -BeExactly "using System;`nusing System.Text;`n`nnamespace Catzc.Base.Objects;`n`npublic class Foo { }`n"
     }
 
     It 'inserts after a leading comment block when there are no usings' {

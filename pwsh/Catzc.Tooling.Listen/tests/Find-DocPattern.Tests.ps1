@@ -18,12 +18,14 @@ Describe 'Find-DocPattern' -Tag 'L0', 'logic' {
     }
 
     It 'searches only the named tiers' {
-        @((Find-DocPattern -Session $script:session 'ADR-WIDGET' -Tier 'rule').Path) | Should -Be @('docs/drs/widget.md')
+        @((Find-DocPattern -Session $script:session 'ADR-WIDGET' -Tier 'rule').Path) |
+            Should -Be @('docs/drs/widget.md')
         @(Find-DocPattern -Session $script:session 'ADR-WIDGET' -Tier 'docs').Count | Should -Be 0
     }
 
     It 'searches only a slice' {
-        @((Find-DocPattern -Session $script:session 'Gadget' -Path 'docs/explanation').Path) | Should -Be @('docs/explanation/gadget.md')
+        @((Find-DocPattern -Session $script:session 'Gadget' -Path 'docs/explanation').Path) |
+            Should -Be @('docs/explanation/gadget.md')
         @(Find-DocPattern -Session $script:session 'Gadget' -Path 'docs/gizmo').Count | Should -Be 0
     }
 

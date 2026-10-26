@@ -13,7 +13,8 @@ Describe 'Test-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-TWODIRECTIONS' {
         [System.IO.File]::WriteAllText((Join-Path $root 'kit/configs/drawio.yml'), "renderer:`n  carrier: file`n")
         $script:out = Join-Path $root 'out'
         Mock Get-GitTrackedPath -ModuleName Catzc.Base.Slides {
-            'widget-flow', 'gadget-flow', 'sprocket-flow', 'cog-flow', 'gear-flow' | ForEach-Object { "docs/explanation/widget/.assets/$_.drawio.png" }
+            'widget-flow', 'gadget-flow', 'sprocket-flow', 'cog-flow', 'gear-flow' |
+                ForEach-Object { "docs/explanation/widget/.assets/$_.drawio.png" }
         }
         # A new diagram no commit holds yet: its declaration and its first put are untracked.
         [System.IO.File]::WriteAllText((Join-Path $assets 'new-flow.drawio.yml'), "content: {}`n")
@@ -25,7 +26,8 @@ Describe 'Test-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-TWODIRECTIONS' {
         Mock Write-DiagramQueryRows -ModuleName Catzc.Base.Slides { $Path }
         # The kit's check prints one JSON line per folder; the mock answers from the folder names on the command line.
         Mock Invoke-Executable -ModuleName Catzc.Base.Slides {
-            $lines = foreach ($name in 'widget-flow', 'gadget-flow', 'sprocket-flow', 'cog-flow', 'gear-flow', 'new-flow') {
+            $lines = foreach ($name in 'widget-flow', 'gadget-flow', 'sprocket-flow', 'cog-flow', 'gear-flow',
+                'new-flow') {
                 $folder = "docs/explanation/widget/.assets/$name"
                 if ($Command -notlike "*`"$folder`"*") {
                     continue
@@ -66,7 +68,8 @@ Describe 'Test-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-TWODIRECTIONS' {
 
     It 'fails a pair edited on both sides since HEAD, naming the cells and the way out' {
         $report = Test-Diagrams -Path 'docs/explanation/widget/.assets/gear-flow' -Kit 'kit' -RepositoryRoot $root -OutputFolder $out -PassThru
-        $report.Issues[0] | Should -BeLike '*gear-flow: the yml and the png both moved from HEAD and disagree in gear-train, widget-a; put or get it by name*'
+        $report.Issues[0] |
+            Should -BeLike '*gear-flow: the yml and the png both moved from HEAD and disagree in gear-train, widget-a; put or get it by name*'
     }
 
     It 'reports stale minimaps as a fact, not an issue' {
@@ -89,13 +92,15 @@ Describe 'Test-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-TWODIRECTIONS' {
 
     It 'fails a page whose yml drawio block has no image of a diagram directly below it' -Tag 'ADR-REPO-SLIDES-DECLARATION' {
         $page = Join-Path $root 'docs/explanation/widget/widget-page.md'
-        [System.IO.File]::WriteAllText($page, "# Widget`n`n``````yml drawio`ncontent: {}`n```````n`nA sentence, then the image.`n`n![Widget](.assets/widget-flow.drawio.png)`n")
+        [System.IO.File]::WriteAllText($page,
+            "# Widget`n`n``````yml drawio`ncontent: {}`n```````n`nA sentence, then the image.`n`n![Widget](.assets/widget-flow.drawio.png)`n")
         Mock Get-GitChangedPath -ModuleName Catzc.Base.Slides {
             'docs/explanation/widget/.assets/new-flow.drawio.yml', 'docs/explanation/widget/.assets/new-flow.drawio.png', 'docs/explanation/widget/widget-page.md'
         }
         try {
             $report = Test-Diagrams -Kit 'kit' -RepositoryRoot $root -OutputFolder $out -PassThru
-            @($report.Issues | Where-Object { $_.StartsWith('docs/explanation/widget/widget-page.md: 1 ', [System.StringComparison]::Ordinal) -and $_.Contains('block(s) with no image') }).Count | Should -Be 1
+            @($report.Issues | Where-Object { $_.StartsWith('docs/explanation/widget/widget-page.md: 1 ',
+                [System.StringComparison]::Ordinal) -and $_.Contains('block(s) with no image') }).Count | Should -Be 1
         }
         finally {
             [System.IO.File]::Delete($page)
@@ -109,6 +114,7 @@ Describe 'Test-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-TWODIRECTIONS' {
     }
 
     It 'refuses a path that is not a declared diagram' {
-        { Test-Diagrams -Path 'docs/explanation/widget' -Kit 'kit' -RepositoryRoot $root -OutputFolder $out } | Should -Throw '*is not a declared diagram (*'
+        { Test-Diagrams -Path 'docs/explanation/widget' -Kit 'kit' -RepositoryRoot $root -OutputFolder $out } |
+            Should -Throw '*is not a declared diagram (*'
     }
 }

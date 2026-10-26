@@ -24,7 +24,8 @@ Describe 'Write-DiagramMinimapData' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-MINIMAP
             $cells = [Catzc.Base.Maps.MinimapCell[]] @(foreach ($layer in $script:lit) {
                     [Catzc.Base.Maps.MinimapCell]::new([string[]] @($layer), 1, @($reason))
                 })
-            [Catzc.Base.Maps.MinimapData]::new('layer-stack', @([Catzc.Base.Maps.MinimapAxis]::new('layer', [string[]] @('automation', 'contract', 'pipeline'))), $cells, $cells)
+            [Catzc.Base.Maps.MinimapData]::new('layer-stack', @([Catzc.Base.Maps.MinimapAxis]::new('layer',
+                [string[]] @('automation', 'contract', 'pipeline'))), $cells, $cells)
         }
         function script:Get-DrawnLit {
             param([string] $Stem)
@@ -67,7 +68,8 @@ Describe 'Write-DiagramMinimapData' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-MINIMAP
         $stem = 'docs/explanation/gizmo/.assets/gizmo-flow'
         $source = Join-Path $script:root $stem
         [System.IO.Directory]::CreateDirectory((Split-Path $source -Parent)) | Out-Null
-        [System.IO.File]::WriteAllText("$source.drawio.yml", "about:`n  adrs:`n    - ADR-WIDGET`ncontent:`n  minimaps:`n    layer-stack:`n      - cell: automation`n        by: [ADR-WIDGET]`n")
+        [System.IO.File]::WriteAllText("$source.drawio.yml",
+            "about:`n  adrs:`n    - ADR-WIDGET`ncontent:`n  minimaps:`n    layer-stack:`n      - cell: automation`n        by: [ADR-WIDGET]`n")
         { Invoke-Writer -Stem $stem } | Should -Throw '*lists content.minimaps as a map*never the cells they light*'
     }
 }

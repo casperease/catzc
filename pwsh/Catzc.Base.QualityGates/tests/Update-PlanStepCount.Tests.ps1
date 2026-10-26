@@ -20,10 +20,14 @@ Describe 'Update-PlanStepCount' -Tag 'L0', 'logic', 'ADR-REPO-PLANS-THREEPARTS' 
             [System.IO.Directory]::Delete($script:folder, $true)
         }
         [void][System.IO.Directory]::CreateDirectory($script:folder)
-        & $script:write 'plan-widget.md' @('# Widget', '', '## Open steps', '', '- [ ] Spin it (check: it spins).', '- [ ] Oil it (check: no squeak).')
+        & $script:write 'plan-widget.md' @('# Widget', '', '## Open steps', '', '- [ ] Spin it (check: it spins).',
+            '- [ ] Oil it (check: no squeak).')
         & $script:write 'plan-gadget.md' @('# Gadget', '', '## Open steps', '', '- [ ] Turn it (check: it turns).')
-        & $script:write 'plan-master.md' @('# Master', '', '## Chunks', '', '- widget -> plan-widget.md: Five steps left, the spin', '- gadget -> plan-gadget.md: the turn,', '  one step left', '- sprocket -> plan-sprocket.md: three steps, no plan file')
-        & $script:write 'value-of-plan.md' @('# Value', '', '| Value | Plan | State |', '| --- | --- | --- |', '| medium | plan-widget | open, four steps |', '| low | plan-gadget | one step |')
+        & $script:write 'plan-master.md' @('# Master', '', '## Chunks', '',
+            '- widget -> plan-widget.md: Five steps left, the spin', '- gadget -> plan-gadget.md: the turn,',
+            '  one step left', '- sprocket -> plan-sprocket.md: three steps, no plan file')
+        & $script:write 'value-of-plan.md' @('# Value', '', '| Value | Plan | State |', '| --- | --- | --- |',
+            '| medium | plan-widget | open, four steps |', '| low | plan-gadget | one step |')
     }
 
     It 'rewrites the count of a chunk line and of a value row from the plan''s open steps, keeping the first letter''s case' {
@@ -42,9 +46,11 @@ Describe 'Update-PlanStepCount' -Tag 'L0', 'logic', 'ADR-REPO-PLANS-THREEPARTS' 
     }
 
     It 'rewrites a count Prettier wrapped across two lines of a chunk, and leaves the chunks around it in place' {
-        & $script:write 'plan-master.md' @('# Master', '', '- widget -> plan-widget.md: the spin, five', '  steps left', '- gadget -> plan-gadget.md: one step left')
+        & $script:write 'plan-master.md' @('# Master', '', '- widget -> plan-widget.md: the spin, five', '  steps left',
+            '- gadget -> plan-gadget.md: one step left')
         [void] (& $script:update)
-        & $script:read 'plan-master.md' | Should -BeExactly "# Master`n`n- widget -> plan-widget.md: the spin, two steps left`n- gadget -> plan-gadget.md: one step left`n"
+        & $script:read 'plan-master.md' |
+            Should -BeExactly "# Master`n`n- widget -> plan-widget.md: the spin, two steps left`n- gadget -> plan-gadget.md: one step left`n"
     }
 
     It 'reports nothing and writes nothing when every count is right' {
@@ -59,8 +65,10 @@ Describe 'Update-PlanStepCount' -Tag 'L0', 'logic', 'ADR-REPO-PLANS-THREEPARTS' 
     }
 
     It 'keeps a file''s CRLF line ends' {
-        & $script:write 'value-of-plan.md' @('| Value | Plan | State |', '| --- | --- | --- |', '| medium | plan-widget | four steps |') "`r`n"
+        & $script:write 'value-of-plan.md' @('| Value | Plan | State |', '| --- | --- | --- |',
+            '| medium | plan-widget | four steps |') "`r`n"
         [void] (& $script:update)
-        & $script:read 'value-of-plan.md' | Should -BeExactly "| Value | Plan | State |`r`n| --- | --- | --- |`r`n| medium | plan-widget | two steps |`r`n"
+        & $script:read 'value-of-plan.md' |
+            Should -BeExactly "| Value | Plan | State |`r`n| --- | --- | --- |`r`n| medium | plan-widget | two steps |`r`n"
     }
 }

@@ -48,7 +48,8 @@
     paths go as an array, as one comma-joined string, or as further arguments, so `pwsh -File … -Stage a.ps1,b.ps1` stages both.
 #>
 
-# The help stays in this file, not on a comment page: the script imports nothing, since it swaps the files an import reads, so the page
+# The help stays in this file, not on a comment page: the script imports nothing, since it swaps the files an import
+# reads, so the page
 # tooling that would move it is not loaded where it runs and a reader of the file alone still finds how to call it.
 param(
     [Parameter(Mandatory)]
@@ -78,8 +79,10 @@ Set-StrictMode -Version Latest
 
 $baseSuffix = '.burst-base'
 if ($Stage) {
-    # Through pwsh -File a list arrives as one comma-joined string, or its later paths land among the commands, which staging never runs.
-    $Stage = @(@($Stage) + @($Command) | ForEach-Object { $_ -split ',' } | ForEach-Object { $_.Trim() } | Where-Object { $_ })
+    # Through pwsh -File a list arrives as one comma-joined string, or its later paths land among the commands, which
+    # staging never runs.
+    $Stage = @(@($Stage) + @($Command) | ForEach-Object { $_ -split ',' } | ForEach-Object { $_.Trim() } |
+        Where-Object { $_ })
     $stageRoot = [System.IO.Path]::GetFullPath($RepositoryRoot)
     $stageFolder = if ([System.IO.Path]::IsPathRooted($StagedFolder)) {
         [System.IO.Path]::GetFullPath($StagedFolder)
@@ -116,7 +119,8 @@ $journal = "$($staged.TrimEnd('\', '/')).backup"
 $manifestPath = Join-Path $journal 'manifest.json'
 $filesFolder = Join-Path $journal 'files'
 
-# Puts every target back as the journal holds it: a file it backed up is copied over, a file the swap created is deleted.
+# Puts every target back as the journal holds it: a file it backed up is copied over, a file the swap created is
+# deleted.
 function Restore-Journal {
     foreach ($entry in @(Get-Content -LiteralPath $manifestPath -Raw | ConvertFrom-Json)) {
         $target = Join-Path $root $entry.path
@@ -155,7 +159,8 @@ elseif (Test-Path -LiteralPath $journal) {
 if (-not (Test-Path -LiteralPath $staged -PathType Container)) {
     throw "Invoke-StagedBurst: the staged folder '$staged' does not exist."
 }
-# A bounded walk, one level at a time: a staged tree deeper than the roof is a mistake, never a silent subset. It is written out here with
+# A bounded walk, one level at a time: a staged tree deeper than the roof is a mistake, never a silent subset. It is
+# written out here with
 # [System.IO] and not read through the folder walker, which is a module an import loads and this script runs without.
 $depthRoof = 10
 $pending = [System.Collections.Generic.Queue[object]]::new()
@@ -194,7 +199,8 @@ if ($relatives.Count -eq 0) {
     throw "Invoke-StagedBurst: the staged folder '$staged' holds no file."
 }
 
-# A staged '<path>.burst-delete' marker deletes its target instead of swapping a file in; the target must exist, and is journalled like any.
+# A staged '<path>.burst-delete' marker deletes its target instead of swapping a file in; the target must exist, and is
+# journalled like any.
 $deleteSuffix = '.burst-delete'
 foreach ($relative in $relatives) {
     if ($relative.EndsWith($deleteSuffix, [System.StringComparison]::Ordinal)) {
@@ -227,7 +233,8 @@ $outcome = ''
 try {
     foreach ($relative in $relatives) {
         if ($relative.EndsWith($deleteSuffix, [System.StringComparison]::Ordinal)) {
-            Remove-Item -LiteralPath (Join-Path $root $relative.Substring(0, $relative.Length - $deleteSuffix.Length)) -Force
+            Remove-Item -LiteralPath (Join-Path $root $relative.Substring(0,
+                $relative.Length - $deleteSuffix.Length)) -Force
             continue
         }
         $target = Join-Path $root $relative

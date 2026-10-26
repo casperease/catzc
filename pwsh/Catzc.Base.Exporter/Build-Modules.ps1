@@ -7,7 +7,8 @@ catzc:
 #>
 
 function Build-Modules {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseSingularNouns', '', Justification = 'Builds a set of modules; the plural is the contract name (ADR-AUTO-BUNDLE-BUNDLEISBUILD)')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseSingularNouns', '',
+        Justification = 'Builds a set of modules; the plural is the contract name (ADR-AUTO-BUNDLE-BUNDLEISBUILD)')]
     [CmdletBinding()]
     [OutputType([pscustomobject])]
     param(
@@ -73,7 +74,8 @@ function Build-Modules {
     $result = & $engine @engineArguments
 
     if (-not $DryRun) {
-        $isDeclaredBundle = -not ($PSBoundParameters.ContainsKey('Module') -or $PSBoundParameters.ContainsKey('ModuleProfile') -or
+        $isDeclaredBundle = -not ($PSBoundParameters.ContainsKey('Module') -or
+            $PSBoundParameters.ContainsKey('ModuleProfile') -or
             $PSBoundParameters.ContainsKey('VendorPolicy'))
         if ($isDeclaredBundle) {
             Assert-BundleFootprint -Path $result.BuildRoot -Bundle $config.bundles[$Bundle] | Out-Null

@@ -35,7 +35,8 @@ Describe 'Get-BicepTemplateConfiguration' -Tag 'L0', 'logic' {
         $bicepparam = Get-BicepTemplateConfiguration sample-bicepparam alpha
         $bicepparam.BicepParamFile | Should -BeLike '*sample-bicepparam*configuration*alpha.bicepparam'
         $bicepparam.Contains('ParametersFile') | Should -BeFalse
-        (Get-BicepTemplateConfiguration sample-bicepparam beta).ParametersFile.parameters.storageAccountName.value | Should -BeExactly 'btweutstsbppst'
+        (Get-BicepTemplateConfiguration sample-bicepparam beta).ParametersFile.parameters.storageAccountName.value |
+            Should -BeExactly 'btweutstsbppst'
     }
 
     It 'throws on an environment not in the template list' {

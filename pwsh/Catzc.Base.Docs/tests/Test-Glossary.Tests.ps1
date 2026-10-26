@@ -17,7 +17,8 @@ Describe 'Test-Glossary' -Tag 'L0', 'logic' {
                         short       = "The $term."
                         realized_by = [ordered]@{ kind = 'prose-only' }
                     })
-                [Catzc.Base.Docs.GlossaryEntry]::new($concept, 'Catzc.Widget', 'widgets/Catzc.Widget/configs/glossary.yml',
+                [Catzc.Base.Docs.GlossaryEntry]::new($concept, 'Catzc.Widget',
+                    'widgets/Catzc.Widget/configs/glossary.yml',
                     [Catzc.Base.Docs.GlossaryOptions]::new(@{}))
             })
     }
@@ -56,7 +57,8 @@ Describe 'Test-Glossary' -Tag 'L0', 'logic' {
         $thrown = { Test-Glossary -OutputFolder $script:out } | Should -Throw -PassThru
         $message = $thrown.Exception.Message
         $message | Should -BeLike 'Test-Glossary failed: 5 issue(s)*'
-        $order = @('G1 widget: duplicate', 'G4 docs/alpha.md:3', 'G4 docs/beta.md:1', 'G5 widget: unenforced', 'G6 docs/alpha.md:5') |
+        $order = @('G1 widget: duplicate', 'G4 docs/alpha.md:3', 'G4 docs/beta.md:1', 'G5 widget: unenforced',
+            'G6 docs/alpha.md:5') |
             ForEach-Object { $message.IndexOf($_) }
         $order | Should -Not -Contain -1
         $order | Should -Be @($order | Sort-Object)
@@ -68,7 +70,8 @@ Describe 'Test-Glossary' -Tag 'L0', 'logic' {
         $result = Test-Glossary -OutputFolder $script:out -PassThru
         $result.IssueCount | Should -Be 2
         $result.Issues | Should -Be @('G2 widget: not anchored', 'G3 widget: defined twice')
-        [System.IO.File]::ReadAllText((Join-Path $result.ReportPath 'glossary.md')) | Should -Match '- G3 widget: defined twice'
+        [System.IO.File]::ReadAllText((Join-Path $result.ReportPath 'glossary.md')) |
+            Should -Match '- G3 widget: defined twice'
     }
 
     It 'hands G4 and G6 one surface table, so a run reads each file''s prose once' {

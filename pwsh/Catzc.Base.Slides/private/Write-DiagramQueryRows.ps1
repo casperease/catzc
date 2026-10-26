@@ -37,7 +37,8 @@ function Write-DiagramQueryRows {
         }
         $point = "$($about['point'])".Trim().Trim('/')
         $level = "$($about['zoom'])"
-        Assert-True ($level -cin 'C3', 'C4') -ErrorText "Write-DiagramQueryRows: $folderPath names about.point $point at zoom '$level'; a point belongs to a C3 or C4 slide."
+        Assert-True ($level -cin 'C3',
+            'C4') -ErrorText "Write-DiagramQueryRows: $folderPath names about.point $point at zoom '$level'; a point belongs to a C3 or C4 slide."
         if (-not $seen.Add("$point|$level")) {
             continue
         }
@@ -51,6 +52,7 @@ function Write-DiagramQueryRows {
 
     $utf8 = [System.Text.UTF8Encoding]::new($false)
     [System.IO.Directory]::CreateDirectory([System.IO.Path]::GetDirectoryName($Path)) | Out-Null
-    [System.IO.File]::WriteAllText($Path, (ConvertTo-Json -InputObject @{ rows = $rows.ToArray() } -Depth 6 -Compress) + "`n", $utf8)
+    [System.IO.File]::WriteAllText($Path,
+        (ConvertTo-Json -InputObject @{ rows = $rows.ToArray() } -Depth 6 -Compress) + "`n", $utf8)
     $Path
 }

@@ -44,7 +44,8 @@ Describe 'Build-DrsIndex — generated ADR index' -Tag 'L2', 'integrity', 'sourc
                 $domain.Name
             }
         }
-        @($missing) | Should -BeNullOrEmpty -Because 'each domain section opens with the description declared in drs.yml'
+        @($missing) |
+            Should -BeNullOrEmpty -Because 'each domain section opens with the description declared in drs.yml'
     }
 
     It 'every index row links to a real ADR file under its domain folder' {
@@ -60,8 +61,10 @@ Describe 'Build-DrsIndex — generated ADR index' -Tag 'L2', 'integrity', 'sourc
 
 Describe 'Build-DrsIndex — shipped configs/drs.yml and types' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP-COVEREDBYREALTEST' {
     It 'finds the domain registry and the type sources in the loaded module' {
-        $registry = [System.IO.File]::ReadAllText((Get-CatzcModuleRoot 'configs/drs.yml' -Module Catzc.Base.Drs)) | ConvertFrom-Yaml -Ordered
+        $registry = [System.IO.File]::ReadAllText((Get-CatzcModuleRoot 'configs/drs.yml' -Module Catzc.Base.Drs)) |
+            ConvertFrom-Yaml -Ordered
         @($registry['domains'].Keys).Count | Should -BeGreaterThan 0
-        [System.IO.Directory]::EnumerateFiles((Get-CatzcModuleRoot 'types' -Module Catzc.Base.Drs), '*.cs') | Should -Not -BeNullOrEmpty
+        [System.IO.Directory]::EnumerateFiles((Get-CatzcModuleRoot 'types' -Module Catzc.Base.Drs), '*.cs') |
+            Should -Not -BeNullOrEmpty
     }
 }

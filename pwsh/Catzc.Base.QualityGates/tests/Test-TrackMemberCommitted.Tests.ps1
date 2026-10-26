@@ -2,7 +2,8 @@ Describe 'Test-TrackMemberCommitted' -Tag 'L0', 'logic', 'DDR-TRACK-TRACKISPLACE
     BeforeAll {
         function script:New-Member {
             param([string] $Path, [bool] $Committed = $true)
-            [Catzc.Base.Variants.TrackMember]::new('widget', [Catzc.Base.Variants.VariantMember]::new($Path, $false, $Committed))
+            [Catzc.Base.Variants.TrackMember]::new('widget', [Catzc.Base.Variants.VariantMember]::new($Path, $false,
+                $Committed))
         }
     }
 
@@ -26,8 +27,10 @@ Describe 'Test-TrackMemberCommitted' -Tag 'L0', 'logic', 'DDR-TRACK-TRACKISPLACE
         Mock Get-GitTrackedPath -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Path -eq 'widget' } { }
         $result = Test-TrackMemberCommitted -PassThru -OutputFolder $script:outputFolder
         $result.IssueCount | Should -Be 2
-        $result.Issues | Should -Contain "track 'widget': member 'widget' is declared committed, but git tracks none of it"
-        $result.Issues | Should -Contain "track 'widget': member 'widget.cache' is declared not committed, but git tracks 1 file(s) of it, e.g. 'widget.cache/stray.txt'"
+        $result.Issues |
+            Should -Contain "track 'widget': member 'widget' is declared committed, but git tracks none of it"
+        $result.Issues |
+            Should -Contain "track 'widget': member 'widget.cache' is declared not committed, but git tracks 1 file(s) of it, e.g. 'widget.cache/stray.txt'"
     }
 
     It 'leaves a committed member alone while nothing of it is on disk yet' {

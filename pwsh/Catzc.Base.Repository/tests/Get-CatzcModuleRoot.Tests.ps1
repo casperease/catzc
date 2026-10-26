@@ -12,7 +12,8 @@ Describe 'Get-CatzcModuleRoot' -Tag 'L0', 'logic' {
 
     Context 'explicit -Module' {
         It 'returns the module folder under the code root' {
-            Get-CatzcModuleRoot -Module Catzc.Base.Widget | Should -Be (Join-Path $script:modulesRoot 'Catzc.Base.Widget')
+            Get-CatzcModuleRoot -Module Catzc.Base.Widget |
+                Should -Be (Join-Path $script:modulesRoot 'Catzc.Base.Widget')
         }
 
         It 'joins -ChildPath below the module folder' {

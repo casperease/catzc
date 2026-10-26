@@ -23,7 +23,8 @@ function Get-GoTestCases {
     $files = @(Get-ChildPath $Folder -File -Filter '*_test.go' -Depth 3)
     [System.Array]::Sort($files, [System.StringComparer]::Ordinal)
     foreach ($file in $files) {
-        $relativeFolder = [System.IO.Path]::GetRelativePath($Folder, [System.IO.Path]::GetDirectoryName($file)).Replace('\', '/')
+        $relativeFolder = [System.IO.Path]::GetRelativePath($Folder,
+            [System.IO.Path]::GetDirectoryName($file)).Replace('\', '/')
         if ($relativeFolder -eq '.') {
             $relativeFolder = ''
         }

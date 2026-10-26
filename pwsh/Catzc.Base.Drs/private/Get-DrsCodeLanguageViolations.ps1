@@ -26,7 +26,8 @@ function Get-DrsCodeLanguageViolations {
     $cited = "^$($Adrs.CodeForm.Cited)\z"
     $numberedRule = "^$($Adrs.CodeForm.Kind)-[A-Z0-9-]+:[0-9]+\z"
     $ret = foreach ($domain in $Adrs.Domains) {
-        # A domain code of several segments is one finding; its ADRs are held to its first segment. A kind one domain owns has no domain code.
+        # A domain code of several segments is one finding; its ADRs are held to its first segment. A kind one domain
+        # owns has no domain code.
         $prefix = $domain.Kind
         if ($domain.Code) {
             $prefix = "$($domain.Kind)-$($domain.Code.Split('-')[0])"

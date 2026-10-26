@@ -35,7 +35,8 @@ Describe 'Get-ListenDiff over real git' -Tag 'L2', 'logic', 'ADR-AUTO-TEST-PROCE
         if ($script:skip) {
             Set-ItResult -Skipped -Because $script:skip; return
         }
-        & $script:diff (& $script:write 'same-a.md' "# Gadget`n") (& $script:write 'same-b.md' "# Gadget`n") | Should -BeExactly ''
+        & $script:diff (& $script:write 'same-a.md' "# Gadget`n") (& $script:write 'same-b.md' "# Gadget`n") |
+            Should -BeExactly ''
     }
 
     It 'diffs a missing side as an empty file: all added, or all removed' {

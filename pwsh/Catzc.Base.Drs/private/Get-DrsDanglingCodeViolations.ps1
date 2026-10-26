@@ -39,7 +39,8 @@ function Get-DrsDanglingCodeViolations {
                 }
                 continue
             }
-            if ($lines[$i] -match "^\s*(?<run>$([regex]::Escape($fence[0]))+)\s*$" -and $Matches['run'].Length -ge $fence.Length) {
+            if ($lines[$i] -match "^\s*(?<run>$([regex]::Escape($fence[0]))+)\s*$" -and
+                $Matches['run'].Length -ge $fence.Length) {
                 $fence = $null
             }
         }

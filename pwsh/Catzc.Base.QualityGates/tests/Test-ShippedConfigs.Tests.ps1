@@ -9,7 +9,8 @@ catzc:
 Describe 'Test-ShippedConfigs' -Tag 'L0', 'logic' {
     BeforeAll {
         $root = Join-Path $TestDrive 'widget-modules'
-        foreach ($path in 'TstWidget/configs/widget.yml', 'TstWidget/configs/widget-parts.yml', 'TstGadget/configs/gadget.yml',
+        foreach ($path in 'TstWidget/configs/widget.yml', 'TstWidget/configs/widget-parts.yml',
+            'TstGadget/configs/gadget.yml',
             'TstGadget/README.md', '.internal/configs/hidden.yml') {
             $full = Join-Path $root $path
             [void][System.IO.Directory]::CreateDirectory([System.IO.Path]::GetDirectoryName($full))
@@ -74,7 +75,8 @@ Describe 'Test-ShippedConfigs' -Tag 'L0', 'logic' {
             Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'configs' } { $registry }.GetNewClosure()
 
             $thrown = { Test-ShippedConfigs -OutputFolder $out } | Should -Throw -PassThru
-            $thrown.Exception.Message | Should -BeLike "*TstWidget/configs/widget.yml: 'ado_naming' ships 'gadget' where its type's default is 'standard'*"
+            $thrown.Exception.Message |
+                Should -BeLike "*TstWidget/configs/widget.yml: 'ado_naming' ships 'gadget' where its type's default is 'standard'*"
         }
 
         It 'passes a difference that carries its reason, and a value that matches' {
@@ -95,7 +97,8 @@ Describe 'Test-ShippedConfigs' -Tag 'L0', 'logic' {
             Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'configs' } { $registry }.GetNewClosure()
 
             $thrown = { Test-ShippedConfigs -OutputFolder $out } | Should -Throw -PassThru
-            $thrown.Exception.Message | Should -BeLike "*configs.yml: 'widget' differs 'ado_naming', but the shipped value and the type's default agree*"
+            $thrown.Exception.Message |
+                Should -BeLike "*configs.yml: 'widget' differs 'ado_naming', but the shipped value and the type's default agree*"
         }
     }
 }

@@ -34,7 +34,8 @@ Describe 'Catzc.Tooling.KeyHandler.KeyHandlerBindingsConfig' -Tag 'L0', 'logic' 
     }
 
     It 'throws when the config is not a sequence' {
-        Get-ViolationMessage ([ordered]@{ key = 'Enter'; function = 'AcceptLine' }) | Should -BeLike '*must be a sequence*'
+        Get-ViolationMessage ([ordered]@{ key = 'Enter'; function = 'AcceptLine' }) |
+            Should -BeLike '*must be a sequence*'
     }
 
     It 'throws when the sequence is empty' {

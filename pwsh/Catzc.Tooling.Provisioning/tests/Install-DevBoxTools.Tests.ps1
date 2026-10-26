@@ -41,7 +41,8 @@ Describe 'Install-DevBoxTools' -Tag 'L0', 'logic' {
     }
 
     It 'reports a tool that is usable but not managed, and leaves it untouched' {
-        $usable = [Catzc.Tooling.Provisioning.ToolStatus]::new('beta', '2.x', '2.0', 'Usable', '/bin/beta', 'other', 'user', 'Works, but not managed')
+        $usable = [Catzc.Tooling.Provisioning.ToolStatus]::new('beta', '2.x', '2.0', 'Usable', '/bin/beta', 'other',
+            'user', 'Works, but not managed')
         Mock Get-ToolsStatus { $usable } -ModuleName Catzc.Tooling.Provisioning
         Mock Write-Message { } -ModuleName Catzc.Tooling.Provisioning
         Install-DevBoxTools
@@ -62,7 +63,8 @@ Describe 'Install-DevBoxTools' -Tag 'L0', 'logic' {
         Mock Get-ToolInstallOrder { @('widget') } -ModuleName Catzc.Tooling.Provisioning
         Mock Get-ToolConfig { New-TestToolConfig @{ system_provided = $true } } -ModuleName Catzc.Tooling.Provisioning
         Mock Test-Tool { $false } -ModuleName Catzc.Tooling.Provisioning
-        { Install-DevBoxTools } | Should -Throw '*widget is required but is provided by the platform*Write-ToolProbeReport*'
+        { Install-DevBoxTools } |
+            Should -Throw '*widget is required but is provided by the platform*Write-ToolProbeReport*'
     }
 
     It 'installs git before the locked tools, so a platform-provided bash (Git Bash on Windows) is present' {

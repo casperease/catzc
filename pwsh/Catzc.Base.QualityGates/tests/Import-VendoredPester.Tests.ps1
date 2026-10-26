@@ -49,6 +49,7 @@ Describe 'Import-VendoredPester' -Tag 'L0', 'logic', 'ADR-PWSH-VENDOR-LAZYLOADEX
     It 'fails fast when the vendor folder does not hold exactly one version' {
         [System.IO.Directory]::CreateDirectory((Join-Path $script:codeRoot '.vendor/Pester/9.9.8')) | Out-Null
         Mock Get-Module { } -ModuleName Catzc.Base.QualityGates
-        { InModuleScope Catzc.Base.QualityGates { Import-VendoredPester } } | Should -Throw '*expected one vendored Pester version*found 2*'
+        { InModuleScope Catzc.Base.QualityGates { Import-VendoredPester } } |
+            Should -Throw '*expected one vendored Pester version*found 2*'
     }
 }

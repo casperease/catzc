@@ -72,9 +72,17 @@ one is the glyph legend. A comment's target is therefore usually an article's bl
       match nothing drawn, and order; the dotted row form is fixed, so reviewers never propose full paths. Batch 1 (10) ran before the six
       minimap/router fixes; restart from batch 1 on the fresh renders. Check: a per-diagram list per batch, and each next batch's brief
       sharpened from the last.
-- [ ] Edge-audit sweep wave 2: the next 20 diagrams by edges needing work in `out/edge-audit.md` (run
-      `python/catzc_diagrams/edge_audit.py`), including the unlabelled same-rank edges on `gates-check-source-and-trigger` and
-      `one-artifact-climbs-unchanged`. Check: the audit's ambiguous and reverse counts fall, each swept diagram puts clean.
+- [ ] Edge-audit sweep wave 3: the 43 ambiguous and 4 reverse edges left in `out/edge-audit.md` (run
+      `python/catzc_diagrams/edge_audit.py`) have no truthful word in `edge-labels` (calls, reads, writes, feeds, failed). Decide the
+      words first, then sweep: promotion chains between environments (`four-domains-promote-one-artifact`, the azure subscription→group
+      pairs), the zoom ladder's `zooms in`, else-chains (`callers-value-else-config-else-default`), glob-set remainder and composition
+      (`each-track-picks-its-catch-all`, `get-aspect-names-the-remainder`, `units-not-tracks-own-the-pipelines`,
+      `names-are-pure-and-never-truncated`), result→result sequences (`one-program-two-vendor-dialects`,
+      `drift-is-gated-generation-is-drs-only`, `the-step-is-named-after-its-command`), descriptor hand-offs (`bicep-template-is-a-folder`,
+      `bcl-language`'s `compiles`, `plain values`, `default pair`), and the vendor exits (`every-vendor-call-leaves-through-az`). The 4
+      reverse edges are result→env on the two climb diagrams (`one-artifact-climbs-unchanged`, `pipeline-kinds-keyed-by-one-artifact`), whose
+      `relation` opt-out the rule keeps; either the audit excuses an opted-out diagram's edges, or the climb is redrawn. Check: the
+      audit's ambiguous and reverse counts fall to what the decision leaves, each swept diagram puts clean, and `Test-Diagrams` is 0.
 - [ ] Move the article-carried diagrams off a diagram-level `relation`, to labelled arrows in the default reading (`feeds`, `calls`,
       `reads`, `writes`, `else` where a word is needed) or reworked as true state diagrams, since DDR-VISUAL-ARROWSPOINTATWHATTHEYDEPENDON
       keeps the opt-out for state and commit diagrams only. About 150 remain, declared in "yml drawio" blocks of the markdown under

@@ -7,7 +7,8 @@ catzc:
 #>
 
 function New-VsCodeExtensionFolder {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'Writes generated output under the output root; the folder is replaced on every render')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '',
+        Justification = 'Writes generated output under the output root; the folder is replaced on every render')]
     [CmdletBinding()]
     [OutputType([string])]
     param(
@@ -20,7 +21,8 @@ function New-VsCodeExtensionFolder {
         [string] $AssetDirectory = (Join-Path (Get-RepositoryRoot) (Get-TrackPlace -Track js -TrackKind extensions))
     )
 
-    # Each extension is a module of the js track: <name>/extension.js, its own files in <name>/assets/, shipped as media/.
+    # Each extension is a module of the js track: <name>/extension.js, its own files in <name>/assets/, shipped as
+    # media/.
     $script = Join-Path $AssetDirectory "$($Extension.name)/extension.js"
     Assert-PathExist $script -ErrorText "New-VsCodeExtensionFolder: extension '$($Extension.name)' has no script at '$script'."
 
@@ -44,7 +46,8 @@ function New-VsCodeExtensionFolder {
     }
     $null = New-Item -ItemType Directory -Path $folder -Force
     $utf8 = [System.Text.UTF8Encoding]::new($false)
-    [System.IO.File]::WriteAllText((Join-Path $folder 'package.json'), ($manifest | ConvertTo-Json -Depth 32) + "`n", $utf8)
+    [System.IO.File]::WriteAllText((Join-Path $folder 'package.json'), ($manifest | ConvertTo-Json -Depth 32) + "`n",
+        $utf8)
     # The entry and its sibling parts ship together; the tests/ folder below them never does.
     foreach ($part in [System.IO.Directory]::GetFiles((Split-Path $script), '*.js')) {
         $name = if ($part -eq $script) {
@@ -96,13 +99,17 @@ function New-VsCodeExtensionFolder {
     if ($bases.Count -gt 0) {
         $palette = (Get-Config -Config lamp-palette).ranges
         $stroke = '(?<=<svg [^>]*\bstroke=")#[0-9a-fA-F]{6}|(?<=<text [^>]*\bfill=")#[0-9a-fA-F]{6}'
-        # A base glyph whose top-right corner is drawn on declares data-badge="bottom"; its badge then sits bottom-right.
+        # A base glyph whose top-right corner is drawn on declares data-badge="bottom"; its badge then sits
+        # bottom-right.
         $corner = ' data-badge="bottom"'
-        # A base glyph that declares data-empty="hidden" is drawn fully transparent while its lamp claims nothing, keeping its place in the row.
+        # A base glyph that declares data-empty="hidden" is drawn fully transparent while its lamp claims nothing,
+        # keeping its place in the row.
         $hidden = ' data-empty="hidden"'
         $badges = @{
-            staged   = { param($c, $lit, $low) "  <rect x=`"11.3`" y=`"$(if ($low) { '11' } else { '0.8' })`" width=`"3.8`" height=`"3.8`" rx=`"0.8`" fill=`"$c`" stroke=`"none`"/>`n" }
-            unstaged = { param($c, $lit, $low) "  <rect x=`"11.3`" y=`"$(if ($low) { '11' } else { '0.8' })`" width=`"3.8`" height=`"3.8`" rx=`"0.8`" fill=`"$c`" stroke=`"none`"/>`n" }
+            staged   = { param($c, $lit,
+                $low) "  <rect x=`"11.3`" y=`"$(if ($low) { '11' } else { '0.8' })`" width=`"3.8`" height=`"3.8`" rx=`"0.8`" fill=`"$c`" stroke=`"none`"/>`n" }
+            unstaged = { param($c, $lit,
+                $low) "  <rect x=`"11.3`" y=`"$(if ($low) { '11' } else { '0.8' })`" width=`"3.8`" height=`"3.8`" rx=`"0.8`" fill=`"$c`" stroke=`"none`"/>`n" }
             failed   = {
                 param($c, $lit, $low)
                 $cy = if ($low) {
@@ -138,14 +145,17 @@ function New-VsCodeExtensionFolder {
                 $low = $glyphs[$state].Contains($corner)
                 $vanish = $glyphs[$state].Contains($hidden)
                 $glyph = $glyphs[$state].Replace($corner, '').Replace($hidden, '')
-                [System.IO.File]::WriteAllText((Join-Path $rendered "$lamp-$state.svg"), ($glyph -replace $stroke, $palette['committed'].$shade), $utf8)
+                [System.IO.File]::WriteAllText((Join-Path $rendered "$lamp-$state.svg"), ($glyph -replace $stroke,
+                    $palette['committed'].$shade), $utf8)
                 foreach ($condition in 'staged', 'unstaged', 'failed', 'empty') {
                     $range = $palette[$condition]
-                    $svg = ($glyph -replace $stroke, $range.$shade) -replace '</svg>\s*$', ((& $badges[$condition] $range.badge $lit $low) + '</svg>')
+                    $svg = ($glyph -replace $stroke,
+                        $range.$shade) -replace '</svg>\s*$', ((& $badges[$condition] $range.badge $lit $low) + '</svg>')
                     if ($vanish -and $condition -eq 'empty') {
                         $svg = $svg -replace '^<svg ', '<svg opacity="0" '
                     }
-                    [System.IO.File]::WriteAllText((Join-Path $rendered "$lamp-$state-$condition.svg"), $svg.TrimEnd() + "`n", $utf8)
+                    [System.IO.File]::WriteAllText((Join-Path $rendered "$lamp-$state-$condition.svg"),
+                        $svg.TrimEnd() + "`n", $utf8)
                 }
             }
             $veto = $glyphs['off'].Replace($corner, '') -replace $stroke, $palette['veto'].glyph_lit

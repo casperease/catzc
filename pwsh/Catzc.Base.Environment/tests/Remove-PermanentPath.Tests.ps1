@@ -19,7 +19,8 @@ Describe 'Remove-PermanentPath' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:originalPath = $env:PATH
 
-        # The persistent PATH lives in memory behind its seam, so no run mutates the machine's PATH or broadcasts a settings change.
+        # The persistent PATH lives in memory behind its seam, so no run mutates the machine's PATH or broadcasts a
+        # settings change.
         $script:fakeUserPath = $null
         Mock Get-EnvironmentPath { $script:fakeUserPath } -ModuleName Catzc.Base.Environment
         Mock Set-EnvironmentPath { $script:fakeUserPath = $Value } -ModuleName Catzc.Base.Environment
@@ -92,7 +93,8 @@ Describe 'Remove-PermanentPath' -Tag 'L0', 'logic' {
             It 'removes marker block from profile' {
                 $originalProfile = $PROFILE.CurrentUserCurrentHost
                 try {
-                    $PROFILE | Add-Member -NotePropertyName CurrentUserCurrentHost -NotePropertyValue $testProfile -Force
+                    $PROFILE |
+                        Add-Member -NotePropertyName CurrentUserCurrentHost -NotePropertyValue $testProfile -Force
 
                     # Set up: add a block first
                     Add-PermanentPath $tempDir -Label 'TestTool'
@@ -105,7 +107,8 @@ Describe 'Remove-PermanentPath' -Tag 'L0', 'logic' {
                     $content | Should -Not -Match '>>> catzc PATH TestTool >>>'
                 }
                 finally {
-                    $PROFILE | Add-Member -NotePropertyName CurrentUserCurrentHost -NotePropertyValue $originalProfile -Force
+                    $PROFILE |
+                        Add-Member -NotePropertyName CurrentUserCurrentHost -NotePropertyValue $originalProfile -Force
                 }
             }
         }

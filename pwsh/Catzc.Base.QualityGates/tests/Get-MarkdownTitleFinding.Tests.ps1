@@ -37,7 +37,8 @@ Describe 'Get-MarkdownTitleFinding' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT-MARKDOW
     }
 
     It 'pads a body line that followed the subtitle directly' {
-        (Get-Finding (Join-Lines '# docs/widget.md', '', '`Widget`', 'Body.', '')).Fixed | Should -Be (Join-Lines '# Widget', '', 'Body.', '')
+        (Get-Finding (Join-Lines '# docs/widget.md', '', '`Widget`', 'Body.', '')).Fixed |
+            Should -Be (Join-Lines '# Widget', '', 'Body.', '')
     }
 
     It 'keeps a title that ends the file' {
@@ -71,7 +72,8 @@ Describe 'Get-MarkdownTitleFinding' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT-MARKDOW
     }
 
     It 'reads the title after YAML front matter and leaves the front matter alone' {
-        $finding = Get-Finding (Join-Lines '---', 'name: widget', '---', '', '# docs/widget.md', '', '`Widget`', '', 'Body.', '')
+        $finding = Get-Finding (Join-Lines '---', 'name: widget', '---', '', '# docs/widget.md', '', '`Widget`', '',
+            'Body.', '')
         $finding.Kind | Should -Be 'PathTitle'
         $finding.Line | Should -Be 5
         $finding.Fixed | Should -Be (Join-Lines '---', 'name: widget', '---', '', '# Widget', '', 'Body.', '')

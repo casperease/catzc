@@ -119,7 +119,8 @@ Describe 'Test-DrsEngineNeutrality' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGA
         Mock Resolve-RepoPath -ModuleName Catzc.Base.Drs -ParameterFilter { $Path -eq 'docs/drs' } {
             $clean = Join-Path $TestDrive 'clean/adr'
             [void][System.IO.Directory]::CreateDirectory((Join-Path $clean 'widget'))
-            [System.IO.File]::WriteAllText((Join-Path $clean 'widget/widget-one.md'), "# Widget one`n`n## Rules: ADR-WI-ONE`n`n### Rule ADR-WI-ONE-SPIN`n`nA widget spins.`n")
+            [System.IO.File]::WriteAllText((Join-Path $clean 'widget/widget-one.md'),
+                "# Widget one`n`n## Rules: ADR-WI-ONE`n`n### Rule ADR-WI-ONE-SPIN`n`nA widget spins.`n")
             $clean
         }
         $result = Test-DrsEngineNeutrality -OutputFolder $out -PassThru

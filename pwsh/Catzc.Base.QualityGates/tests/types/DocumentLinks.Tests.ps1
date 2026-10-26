@@ -1,4 +1,5 @@
-# DocumentLinks lists the links a Markdown file points out of itself, in one spelling; a link that stays inside the file is not a link out.
+# DocumentLinks lists the links a Markdown file points out of itself, in one spelling; a link that stays inside the file
+# is not a link out.
 Describe 'DocumentLinks' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRINTEDPARTS' {
     BeforeAll {
         function script:Get-Links {
@@ -36,7 +37,8 @@ Describe 'DocumentLinks' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRINTEDPARTS' 
 
     It 'leaves out the file''s own comment page' {
         $text = '[comment:1](/docs/references/widget/part.cs.md#comment1) [a](../gadget/spec.md)'
-        Get-Links $text -Path 'docs/widget/part.md' -Page 'docs/references/widget/part.cs.md' | Should -Be @('docs/gadget/spec.md')
+        Get-Links $text -Path 'docs/widget/part.md' -Page 'docs/references/widget/part.cs.md' |
+            Should -Be @('docs/gadget/spec.md')
     }
 
     It 'reads no link from a code span or a fenced block' {

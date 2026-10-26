@@ -6,7 +6,8 @@ Describe 'DrsCodeForm' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMODEL' {
         $script:form = [Catzc.Base.Drs.DrsCodeForm]::new([ordered]@{ ADR = 3; GDR = 2; HDR = 3 })
         $entry = { param($rules) @{ path = 'docs/drs/widget/x.md'; rules = [string[]] $rules } }
         $script:registry = [Catzc.Base.Drs.DrsCitationMap]::new([ordered]@{
-                'ADR-WIDGET-GADGET'   = (& $entry @('ADR-WIDGET-GADGET-TURN', 'ADR-WIDGET-GADGET-SPIN', 'ADR-WIDGET-GADGET-FOLD'))
+                'ADR-WIDGET-GADGET'   = (& $entry @('ADR-WIDGET-GADGET-TURN', 'ADR-WIDGET-GADGET-SPIN',
+                    'ADR-WIDGET-GADGET-FOLD'))
                 'ADR-WIDGET-SPROCKET' = (& $entry @('ADR-WIDGET-SPROCKET-RE01', 'ADR-WIDGET-SPROCKET-RE02'))
                 'ADR-WIDGET-LONE'     = (& $entry @('ADR-WIDGET-LONE-ONLY'))
             }, @())
@@ -30,7 +31,8 @@ Describe 'DrsCodeForm' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMODEL' {
         }
 
         It 'finds a cited code of every kind in text' {
-            [regex]::Matches('see ADR-WIDGET-GADGET and GDR-SPROCKET.', $script:form.Cited).Value | Should -Be @('ADR-WIDGET-GADGET', 'GDR-SPROCKET')
+            [regex]::Matches('see ADR-WIDGET-GADGET and GDR-SPROCKET.', $script:form.Cited).Value |
+                Should -Be @('ADR-WIDGET-GADGET', 'GDR-SPROCKET')
         }
     }
 
@@ -122,11 +124,13 @@ Describe 'DrsCodeForm' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMODEL' {
         }
 
         It 'collapses duplicates' {
-            $script:form.Minimize([string[]] @('ADR-WIDGET-GADGET-TURN', 'ADR-WIDGET-GADGET-TURN')) | Should -Be @('ADR-WIDGET-GADGET-TURN')
+            $script:form.Minimize([string[]] @('ADR-WIDGET-GADGET-TURN', 'ADR-WIDGET-GADGET-TURN')) |
+                Should -Be @('ADR-WIDGET-GADGET-TURN')
         }
 
         It 'lets a code absorb every code it covers, and keeps a domain code' {
-            $script:form.Minimize([string[]] @('ADR-WIDGET-GADGET', 'ADR-WIDGET-GADGET-TURN', 'ADR-COG-BOLT-NUT', 'ADR-COG')) |
+            $script:form.Minimize([string[]] @('ADR-WIDGET-GADGET', 'ADR-WIDGET-GADGET-TURN', 'ADR-COG-BOLT-NUT',
+                'ADR-COG')) |
                 Should -Be @('ADR-COG', 'ADR-WIDGET-GADGET')
         }
 
@@ -135,7 +139,8 @@ Describe 'DrsCodeForm' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMODEL' {
         }
 
         It 'orders ordinally without a registry' {
-            $script:form.Minimize([string[]] @('ADR-WIDGET-GADGET-TURN', 'ADR-COG-BOLT-NUT', 'ADR-WIDGET-GADGET-FOLD')) |
+            $script:form.Minimize([string[]] @('ADR-WIDGET-GADGET-TURN', 'ADR-COG-BOLT-NUT',
+                'ADR-WIDGET-GADGET-FOLD')) |
                 Should -Be @('ADR-COG-BOLT-NUT', 'ADR-WIDGET-GADGET-FOLD', 'ADR-WIDGET-GADGET-TURN')
         }
 
@@ -145,14 +150,17 @@ Describe 'DrsCodeForm' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMODEL' {
         }
 
         It 'writes the ADR code when every rule the registry declares is cited' {
-            $script:form.Minimize([string[]] @('ADR-WIDGET-GADGET-SPIN', 'ADR-WIDGET-GADGET-FOLD', 'ADR-WIDGET-GADGET-TURN'), $script:registry) |
+            $script:form.Minimize([string[]] @('ADR-WIDGET-GADGET-SPIN', 'ADR-WIDGET-GADGET-FOLD',
+                'ADR-WIDGET-GADGET-TURN'), $script:registry) |
                 Should -Be @('ADR-WIDGET-GADGET')
-            $script:form.Minimize([string[]] @('ADR-WIDGET-SPROCKET-RE02', 'ADR-WIDGET-SPROCKET-RE01'), $script:registry) |
+            $script:form.Minimize([string[]] @('ADR-WIDGET-SPROCKET-RE02', 'ADR-WIDGET-SPROCKET-RE01'),
+                $script:registry) |
                 Should -Be @('ADR-WIDGET-SPROCKET')
         }
 
         It 'writes the ADR code for an ADR with a single rule when that rule is cited' {
-            $script:form.Minimize([string[]] @('ADR-WIDGET-LONE-ONLY'), $script:registry) | Should -Be @('ADR-WIDGET-LONE')
+            $script:form.Minimize([string[]] @('ADR-WIDGET-LONE-ONLY'), $script:registry) |
+                Should -Be @('ADR-WIDGET-LONE')
         }
 
         It 'keeps the rules when one is missing' {
@@ -179,7 +187,8 @@ Describe 'DrsCodeForm' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMODEL' {
         }
 
         It 'is idempotent' {
-            $first = $script:form.Minimize([string[]] @('ADR-WIDGET-GADGET-TURN', 'ADR-WIDGET-LONE-ONLY', 'ADR-COG-BOLT-NUT'), $script:registry)
+            $first = $script:form.Minimize([string[]] @('ADR-WIDGET-GADGET-TURN', 'ADR-WIDGET-LONE-ONLY',
+                'ADR-COG-BOLT-NUT'), $script:registry)
             $script:form.Minimize([string[]] @($first), $script:registry) | Should -Be $first
         }
     }

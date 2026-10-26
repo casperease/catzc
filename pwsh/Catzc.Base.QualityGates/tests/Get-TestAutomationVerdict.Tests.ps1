@@ -43,7 +43,8 @@ Describe 'Get-TestAutomationVerdict' -Tag 'L0', 'logic' {
                 -BudgetFailure -RunBudgetSeconds 180 -PassedCount 5400 -SkippedCount 40 -DurationSeconds 201.26
         }
         $verdict.Result | Should -Be 'Failed'
-        $verdict.Summary | Should -BeLike 'the run took 201.3s, over its 180s budget (tests.run_seconds in timeouts.yml)*'
+        $verdict.Summary |
+            Should -BeLike 'the run took 201.3s, over its 180s budget (tests.run_seconds in timeouts.yml)*'
     }
 
     It 'names failed tests before the budget when both failed the run' {

@@ -21,5 +21,6 @@ function Get-GlossaryFormViolations {
         [hashtable] $SurfaceCache = @{}
     )
 
-    [string[]] [Catzc.Base.Docs.GlossaryScan]::Forms([Catzc.Base.Docs.GlossaryEntry[]] @($Entry), [string[]] @($TrackedFile), $Root, $SurfaceCache)
+    [string[]] [Catzc.Base.Docs.GlossaryScan]::Forms([Catzc.Base.Docs.GlossaryEntry[]] @($Entry),
+        [string[]] @($TrackedFile), $Root, $SurfaceCache)
 }

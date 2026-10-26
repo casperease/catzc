@@ -1,7 +1,8 @@
 Describe 'Catzc.Base.Reports.QualityGateResult' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMODEL' {
     It 'holds the subject, the issues, the report path and the facts in the gate''s order' {
         $facts = [ordered]@{ Widgets = 3; Gadgets = 'two' }
-        $result = [Catzc.Base.Reports.QualityGateResult]::new('widget', [string[]] @('first', 'second'), 'out/test-widget/1', $facts)
+        $result = [Catzc.Base.Reports.QualityGateResult]::new('widget', [string[]] @('first', 'second'),
+            'out/test-widget/1', $facts)
         $result.Subject | Should -Be 'widget'
         $result.Issues | Should -Be @('first', 'second')
         $result.IssueCount | Should -Be 2
@@ -20,7 +21,8 @@ Describe 'Catzc.Base.Reports.QualityGateResult' -Tag 'L0', 'logic', 'ADR-BCL-TYP
     }
 
     It 'keeps its issues and facts read-only' {
-        $result = [Catzc.Base.Reports.QualityGateResult]::new('gadget', [string[]] @('one'), '', ([ordered]@{ Widgets = 1 }))
+        $result = [Catzc.Base.Reports.QualityGateResult]::new('gadget', [string[]] @('one'), '',
+            ([ordered]@{ Widgets = 1 }))
         { $result.Facts['Widgets'] = 2 } | Should -Throw
         { $result.Issues.Add('two') } | Should -Throw
     }

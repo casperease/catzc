@@ -25,6 +25,7 @@ Describe 'Assert-AzCliSubscriptionAccessible' -Tag 'L0', 'logic' {
         Mock Invoke-AzCli { [pscustomobject]@{ Output = ''; Errors = ''; ExitCode = 0 } } `
             -ModuleName Catzc.Azure.Cli -ParameterFilter { $Arguments -like 'account show*' }
 
-        { Assert-AzCliSubscriptionAccessible -SubscriptionId $script:sub } | Should -Throw '*cannot access subscription*'
+        { Assert-AzCliSubscriptionAccessible -SubscriptionId $script:sub } |
+            Should -Throw '*cannot access subscription*'
     }
 }

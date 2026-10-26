@@ -7,7 +7,8 @@ catzc:
 #>
 
 function Write-QualityGateReport {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-ParameterFillIn', '', Justification = 'Every gate forwards its own -OutputFolder here, empty when its caller gave none; an explicit empty argument would override a declared default (ADR-PWSH-PARAM-RESOLUTIONORDER)')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-ParameterFillIn', '',
+        Justification = 'Every gate forwards its own -OutputFolder here, empty when its caller gave none; an explicit empty argument would override a declared default (ADR-PWSH-PARAM-RESOLUTIONORDER)')]
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]
     param(
@@ -29,7 +30,8 @@ function Write-QualityGateReport {
     )
 
     $settings = Get-Config -Config reports
-    # Filled in the body, because every gate forwards its own folder here, and an explicit empty one would override a default.
+    # Filled in the body, because every gate forwards its own folder here, and an explicit empty one would override a
+    # default.
     if (-not $OutputFolder) {
         $OutputFolder = Join-Path (Get-OutputRoot -EnsureExists) $settings.FolderFor($Subject)
     }
@@ -69,8 +71,10 @@ function Write-QualityGateReport {
         }
     }
     $utf8 = [System.Text.UTF8Encoding]::new($false)
-    [System.IO.File]::WriteAllText((Join-Path $runDir $settings.ReportFileFor($Subject)), (($lines -join "`n") + "`n"), $utf8)
-    [System.IO.File]::WriteAllText((Join-Path $OutputFolder $settings.latest_file), ((Split-Path $runDir -Leaf) + "`n"), $utf8)
+    [System.IO.File]::WriteAllText((Join-Path $runDir $settings.ReportFileFor($Subject)), (($lines -join "`n") + "`n"),
+        $utf8)
+    [System.IO.File]::WriteAllText((Join-Path $OutputFolder $settings.latest_file), ((Split-Path $runDir -Leaf) + "`n"),
+        $utf8)
 
     if ($Issues.Count -eq 0) {
         Write-Message "No $Subject issues found."

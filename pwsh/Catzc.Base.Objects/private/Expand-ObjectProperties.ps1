@@ -75,7 +75,8 @@ function Expand-ObjectProperties {
         return
     }
 
-    if (-not $Value.GetType().IsValueType -and $Value -isnot [string] -and $Value -isnot [System.Collections.IEnumerable]) {
+    if (-not $Value.GetType().IsValueType -and $Value -isnot [string] -and
+        $Value -isnot [System.Collections.IEnumerable]) {
         $properties = @($Value.PSObject.Properties | Where-Object { $_.MemberType -in @('Property', 'NoteProperty') })
         if ($properties) {
             foreach ($property in $properties) {

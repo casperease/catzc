@@ -45,7 +45,8 @@ function Test-Spelling {
         $quotedPaths = foreach ($p in $batch) {
             "'$p'"
         }
-        # --dot spells the tracked files under a dot folder (.assets, .claude); --gitignore keeps the untracked ones under it out.
+        # --dot spells the tracked files under a dot folder (.assets, .claude); --gitignore keeps the untracked ones
+        # under it out.
         $command = (
             "cspell lint $($quotedPaths -join ' ') $($excludeArgs -join ' ') " +
             "--config '$configPath' --dot --gitignore --no-progress --no-color --relative"
@@ -78,7 +79,8 @@ function Test-Spelling {
         $issues = @("cspell exited $exitCode with no parsable issue line: $full")
     }
     if ($noSummary) {
-        # A run whose files checked cannot be counted proves nothing either: the wording changed, or cspell stopped before its summary.
+        # A run whose files checked cannot be counted proves nothing either: the wording changed, or cspell stopped
+        # before its summary.
         $issues = @($issues) + "Test-Spelling could not count the files checked: cspell printed no 'Files checked' summary, so the run proves nothing."
     }
     elseif ($checked -eq 0) {

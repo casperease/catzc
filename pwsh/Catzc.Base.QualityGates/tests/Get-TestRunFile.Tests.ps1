@@ -37,7 +37,8 @@ Describe 'Get-TestRunFile' -Tag 'L0', 'logic' {
     }
 
     It 'names the test file of a test with no container' {
-        Get-RunFile ([pscustomobject]@{ ScriptBlock = [pscustomobject]@{ File = 'C:\x\Gadget.Tests.ps1' } }) | Should -Be 'C:\x\Gadget.Tests.ps1'
+        Get-RunFile ([pscustomobject]@{ ScriptBlock = [pscustomobject]@{ File = 'C:\x\Gadget.Tests.ps1' } }) |
+            Should -Be 'C:\x\Gadget.Tests.ps1'
     }
 
     It 'returns empty for a test with neither a container folder nor a file' {

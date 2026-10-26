@@ -66,7 +66,8 @@ Describe 'Resolve-SessionToolHost' -Tag 'L0', 'logic' {
 
         $found.Source | Should -Be (Join-Path $withSdk $script:binaryName)
         @($env:PATH -split $script:separator)[0] | Should -Be $withSdk
-        $env:PATH -split $script:separator | Should -Contain $runtimeOnly -Because 'the other install stays on PATH — it is never removed'
+        $env:PATH -split $script:separator |
+            Should -Contain $runtimeOnly -Because 'the other install stays on PATH — it is never removed'
         Should -Invoke Write-Message -ModuleName Catzc.Tooling.Core -Times 1 -ParameterFilter { $Message -like '*widget now runs from*' }
     }
 

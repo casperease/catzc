@@ -19,7 +19,8 @@ Describe 'Update-BatsVendor' -Tag 'L0', 'logic' {
         Mock Save-VerifiedDownload -ModuleName Catzc.Tooling.Toolchain { $OutFile }
         Mock Invoke-Executable -ModuleName Catzc.Tooling.Toolchain {
             $release = Join-Path $WorkingDirectory 'bats-core-1.2.3'
-            foreach ($file in 'bin/bats', 'libexec/bats-core/bats', 'lib/bats-core/widget.bash', 'LICENSE.md', 'test/gadget.bats', 'docs/widget.md') {
+            foreach ($file in 'bin/bats', 'libexec/bats-core/bats', 'lib/bats-core/widget.bash', 'LICENSE.md',
+                'test/gadget.bats', 'docs/widget.md') {
                 $null = New-Item -ItemType File -Path (Join-Path $release $file) -Force
             }
         }

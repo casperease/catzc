@@ -29,7 +29,8 @@ Describe 'Get-ModuleProtectionIdentity' -Tag 'L0', 'logic' {
         Mock Get-Config { $script:dependencies } -ModuleName Catzc.Base.QualityGates
         Mock Get-TrackedFile { @('x/widget.ps1', 'x/gadget.ps1') } -ModuleName Catzc.Base.QualityGates
         Mock Get-ModuleGlobSet {
-            [Catzc.Base.Globs.GlobSet]::new([Catzc.Base.Objects.NameCase]::Render($Name, 'kebab'), 'd', 'module', @('x/**'), @(), @(), @(), -1, $null)
+            [Catzc.Base.Globs.GlobSet]::new([Catzc.Base.Objects.NameCase]::Render($Name, 'kebab'), 'd', 'module',
+                @('x/**'), @(), @(), @(), -1, $null)
         } -ModuleName Catzc.Base.QualityGates
         Mock Get-GlobSetHash {
             $byName = Get-Variable -Name Name -ValueOnly -ErrorAction Ignore

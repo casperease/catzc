@@ -45,7 +45,8 @@ Describe 'Get-RegisteredInstallProduct' -Tag 'L0', 'logic', 'ADR-AUTO-REMOVE-THR
             Set-ItResult -Skipped -Because 'windows_only_registry'; return
         }
         $byCode = @{}
-        InModuleScope Catzc.Tooling.Toolchain { Get-RegisteredInstallProduct '^Microsoft (Widget|Gadget)' } | ForEach-Object { $byCode[$_.ProductCode] = $_ }
+        InModuleScope Catzc.Tooling.Toolchain { Get-RegisteredInstallProduct '^Microsoft (Widget|Gadget)' } |
+            ForEach-Object { $byCode[$_.ProductCode] = $_ }
         $byCode['{widget-bundle}'].Kind | Should -Be 'Bundle'
         $byCode['{widget-bundle}'].UninstallCommand | Should -Be '"C:\cache\widget.exe" /uninstall /quiet'
         $byCode['{widget-msi}'].Kind | Should -Be 'Msi'

@@ -65,26 +65,31 @@ Describe 'Get-ContractFreezeFindings' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT-REL
 
     It 'finds a changed file' {
         Add-File 'Catzc.Widget/docs/widget.md' "# Widget`n`nThe sprocket line.`n"
-        Get-Finding | Should -Be @("contracts/widget/1.0.0/Catzc.Widget/docs/widget.md: changed since the release froze it; $script:fix")
+        Get-Finding |
+            Should -Be @("contracts/widget/1.0.0/Catzc.Widget/docs/widget.md: changed since the release froze it; $script:fix")
     }
 
     It 'finds a changed contract.yml' {
         Add-File 'contract.yml' "direction:`n  Catzc.Widget/docs/widget.md: depended-on`n"
-        Get-Finding | Should -Be @("contracts/widget/1.0.0/contract.yml: changed since the release froze it; $script:fix")
+        Get-Finding |
+            Should -Be @("contracts/widget/1.0.0/contract.yml: changed since the release froze it; $script:fix")
     }
 
     It 'finds an added file' {
         Add-File 'Catzc.Gadget/gadget.md' '# Gadget'
-        Get-Finding | Should -Be @("contracts/widget/1.0.0/Catzc.Gadget/gadget.md: added since the release froze it; $script:fix")
+        Get-Finding |
+            Should -Be @("contracts/widget/1.0.0/Catzc.Gadget/gadget.md: added since the release froze it; $script:fix")
     }
 
     It 'finds a removed file' {
         [System.IO.File]::Delete((Join-Path $script:folder 'Catzc.Widget/.widget/flows/build.yml'))
-        Get-Finding | Should -Be @("contracts/widget/1.0.0/Catzc.Widget/.widget/flows/build.yml: removed since the release froze it; $script:fix")
+        Get-Finding |
+            Should -Be @("contracts/widget/1.0.0/Catzc.Widget/.widget/flows/build.yml: removed since the release froze it; $script:fix")
     }
 
     It 'finds a file whose name changed only in case' {
-        [System.IO.File]::Move((Join-Path $script:folder 'Catzc.Widget/docs/widget.md'), (Join-Path $script:folder 'Catzc.Widget/docs/Widget.md'))
+        [System.IO.File]::Move((Join-Path $script:folder 'Catzc.Widget/docs/widget.md'),
+            (Join-Path $script:folder 'Catzc.Widget/docs/Widget.md'))
         Get-Finding | Should -Be @(
             "contracts/widget/1.0.0/Catzc.Widget/docs/widget.md: removed since the release froze it; $script:fix"
             "contracts/widget/1.0.0/Catzc.Widget/docs/Widget.md: added since the release froze it; $script:fix"
@@ -93,7 +98,8 @@ Describe 'Get-ContractFreezeFindings' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT-REL
 
     It 'finds a folder with no record' {
         [System.IO.File]::Delete((Join-Path $script:folder '.frozen'))
-        Get-Finding | Should -Be @('contracts/widget/1.0.0: holds no .frozen record, so nothing proves it unchanged; a release freezes the current version with Publish-ContractRelease, which writes it (ADR-REPO-CONTRACT-RELEASEDIMMUTABLE).')
+        Get-Finding |
+            Should -Be @('contracts/widget/1.0.0: holds no .frozen record, so nothing proves it unchanged; a release freezes the current version with Publish-ContractRelease, which writes it (ADR-REPO-CONTRACT-RELEASEDIMMUTABLE).')
     }
 
     It 'finds a malformed and a repeated record line' {

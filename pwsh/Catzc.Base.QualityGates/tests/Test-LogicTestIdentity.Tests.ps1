@@ -9,12 +9,14 @@ catzc:
 Describe 'Test-LogicTestIdentity' -Tag 'L1', 'integrity', 'source-only' {
     It 'the automation test tree is free of live-identity leaks in logic tests' {
         $result = Test-LogicTestIdentity -PassThru -OutputFolder (Join-Path $TestDrive 'logic-test-identity')
-        $result.IssueCount | Should -Be 0 -Because "logic tests must use fixtures, not live identities (ADR-REPO-LANG):`n$($result.Issues -join "`n")"
+        $result.IssueCount |
+            Should -Be 0 -Because "logic tests must use fixtures, not live identities (ADR-REPO-LANG):`n$($result.Issues -join "`n")"
     }
 
     It 'catches a live customer planted in a logic-test file' {
         $path = Join-Path $TestDrive 'Planted.Tests.ps1'
-        [System.IO.File]::WriteAllText($path, "Describe 'X' -Tag 'L0', 'logic' { It 'a' { Do-Thing -Customer 'apex' | Should -Be 1 } }")
+        [System.IO.File]::WriteAllText($path,
+            "Describe 'X' -Tag 'L0', 'logic' { It 'a' { Do-Thing -Customer 'apex' | Should -Be 1 } }")
         $result = Test-LogicTestIdentity -Path $path -PassThru -OutputFolder (Join-Path $TestDrive 'planted')
         $result.IssueCount | Should -BeGreaterThan 0
         $result.Issues[0] | Should -Match "live identity 'apex'"
@@ -23,8 +25,10 @@ Describe 'Test-LogicTestIdentity' -Tag 'L1', 'integrity', 'source-only' {
 
     It 'passes a planted fixture-only logic-test file' {
         $path = Join-Path $TestDrive 'Clean.Tests.ps1'
-        [System.IO.File]::WriteAllText($path, "Describe 'X' -Tag 'L0', 'logic' { It 'a' { Do-Thing -Customer 'acme' | Should -Be 1 } }")
-        (Test-LogicTestIdentity -Path $path -PassThru -OutputFolder (Join-Path $TestDrive 'clean')).IssueCount | Should -Be 0
+        [System.IO.File]::WriteAllText($path,
+            "Describe 'X' -Tag 'L0', 'logic' { It 'a' { Do-Thing -Customer 'acme' | Should -Be 1 } }")
+        (Test-LogicTestIdentity -Path $path -PassThru -OutputFolder (Join-Path $TestDrive 'clean')).IssueCount |
+            Should -Be 0
     }
 }
 
@@ -36,9 +40,11 @@ Describe 'Test-LogicTestIdentity — gate shape' -Tag 'L0', 'logic' {
         Mock Write-Message -ModuleName Catzc.Base.Reports { }
         $script:reportBase = Join-Path $TestDrive "reports-$([guid]::NewGuid().ToString('N'))"
         $script:clean = Join-Path $TestDrive 'Widget.Tests.ps1'
-        [System.IO.File]::WriteAllText($script:clean, "Describe 'X' -Tag 'L0', 'logic' { It 'a' { Do-Thing -Name 'widget' | Should -Be 1 } }")
+        [System.IO.File]::WriteAllText($script:clean,
+            "Describe 'X' -Tag 'L0', 'logic' { It 'a' { Do-Thing -Name 'widget' | Should -Be 1 } }")
         $script:leaky = Join-Path $TestDrive 'Gadget.Tests.ps1'
-        [System.IO.File]::WriteAllText($script:leaky, "Describe 'X' -Tag 'L0', 'logic' {`n It 'a' { Do-Thing -Name 'gizmo' | Should -Be 1 }`n}")
+        [System.IO.File]::WriteAllText($script:leaky,
+            "Describe 'X' -Tag 'L0', 'logic' {`n It 'a' { Do-Thing -Name 'gizmo' | Should -Be 1 }`n}")
     }
 
     It 'passes when no logic test names a live identity' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {

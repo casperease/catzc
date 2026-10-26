@@ -63,7 +63,8 @@ Describe 'Get-DrsUsage (repository)' -Tag 'L2', 'integrity', 'source-only' {
             Set-ItResult -Skipped -Because 'tool_git_missing'; return
         }
         $path = 'docs/drs/repository/file-meta.md'
-        # An absolute path: a relative one resolves against the process location, which a test worker does not hold at the root.
+        # An absolute path: a relative one resolves against the process location, which a test worker does not hold at
+        # the root.
         $one = @(Get-DrsUsage -Path (Join-Path (Get-RepositoryRoot) $path))
         $one.Count | Should -BeGreaterThan 0
         @($one.Path | Sort-Object -Unique) | Should -Be @($path)
@@ -75,7 +76,8 @@ Describe 'Get-DrsUsage' -Tag 'L0', 'logic' {
         $root = Join-Path $TestDrive 'repo'
         $path = 'docs/widget.md'
         [void] [System.IO.Directory]::CreateDirectory((Join-Path $root 'docs'))
-        [System.IO.File]::WriteAllText((Join-Path $root $path), "# Widget`n`nThe widget spins, as ADR-GADGET-SPIN says.`n")
+        [System.IO.File]::WriteAllText((Join-Path $root $path),
+            "# Widget`n`nThe widget spins, as ADR-GADGET-SPIN says.`n")
         Mock Get-DrsCitationMap -ModuleName Catzc.Base.QualityGates {
             [Catzc.Base.Drs.DrsCitationMap]::new(@{ 'ADR-GADGET' = @{ path = 'docs/drs/gadget.md'; rules = [string[]] @('ADR-GADGET-SPIN') } }, @())
         }

@@ -32,7 +32,8 @@ function Get-ContractVersionAsset {
     $versionFiles = @($versionFiles | Where-Object { $_ -cne '.frozen' })
 
     $appliesTo = (Read-ContractManifest -Folder $Folder).applies_to
-    # The tracked files are listed only once an asset asks for its globs to be matched: nothing is enumerated speculatively.
+    # The tracked files are listed only once an asset asks for its globs to be matched: nothing is enumerated
+    # speculatively.
     $tracked = @{ Paths = $null }
     $used = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
 
@@ -58,7 +59,8 @@ function Get-ContractVersionAsset {
                 $name
             }
             $null = $used.Add($key)
-            if (-not $commandRoot -and $place.Group -and (Get-ContractAssetKind -Name $name) -eq [Catzc.Base.Contracts.ContractAssetKind]::Command) {
+            if (-not $commandRoot -and $place.Group -and
+                (Get-ContractAssetKind -Name $name) -eq [Catzc.Base.Contracts.ContractAssetKind]::Command) {
                 $commandRoot = Get-ContractCommandRoot -Module $place.Group -RepositoryRoot $RepositoryRoot
             }
             Resolve-ContractAsset -Root $Root -Version $Version -Group $place.Group -Path $name -File (Join-Path $place.Folder $name) `

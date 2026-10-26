@@ -68,7 +68,8 @@ function ConvertFrom-PytestJunit {
             $entry.Skipped++
         }
         $seconds = 0.0
-        if ([double]::TryParse($case.GetAttribute('time'), [System.Globalization.NumberStyles]::Float, [System.Globalization.CultureInfo]::InvariantCulture, [ref] $seconds)) {
+        if ([double]::TryParse($case.GetAttribute('time'), [System.Globalization.NumberStyles]::Float,
+            [System.Globalization.CultureInfo]::InvariantCulture, [ref] $seconds)) {
             $entry.Seconds += $seconds
         }
         foreach ($line in $caseOutput) {
@@ -91,6 +92,7 @@ function ConvertFrom-PytestJunit {
         else {
             'pass'
         }
-        [Catzc.Base.Languages.PythonTestResult]::new($entry.Package, $entry.Name, $outcome, $entry.Seconds, ($entry.Output -join "`n"))
+        [Catzc.Base.Languages.PythonTestResult]::new($entry.Package, $entry.Name, $outcome, $entry.Seconds,
+            ($entry.Output -join "`n"))
     }
 }

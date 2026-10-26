@@ -47,7 +47,8 @@ function Measure-NoLiteralDefault {
         if (-not $readsConfig) {
             continue
         }
-        # The variables the function fills from a config read, directly or through a member of one: $settings = Get-Config ...
+        # The variables the function fills from a config read, directly or through a member of one: $settings =
+        # Get-Config ...
         $isConfigRead = {
             param($node)
             [bool] $node.Find({
@@ -58,7 +59,8 @@ function Measure-NoLiteralDefault {
         $configVariables = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
         $assignments = $function.Body.FindAll({ param($node) $node -is [System.Management.Automation.Language.AssignmentStatementAst] }, $true)
         foreach ($assignment in $assignments) {
-            if ($assignment.Left -is [System.Management.Automation.Language.VariableExpressionAst] -and (& $isConfigRead $assignment.Right)) {
+            if ($assignment.Left -is [System.Management.Automation.Language.VariableExpressionAst] -and
+                (& $isConfigRead $assignment.Right)) {
                 [void] $configVariables.Add($assignment.Left.VariablePath.UserPath)
             }
         }
@@ -98,18 +100,21 @@ function Measure-NoLiteralDefault {
                 continue
             }
             $condition = $if.Clauses[0].Item1
-            $test = if ($condition -is [System.Management.Automation.Language.PipelineAst] -and $condition.PipelineElements.Count -eq 1 -and
+            $test = if ($condition -is [System.Management.Automation.Language.PipelineAst] -and
+                $condition.PipelineElements.Count -eq 1 -and
                 $condition.PipelineElements[0] -is [System.Management.Automation.Language.CommandExpressionAst]) {
                 $condition.PipelineElements[0].Expression
             }
             if (-not ($test -is [System.Management.Automation.Language.UnaryExpressionAst] -and
-                    $test.TokenKind -in [System.Management.Automation.Language.TokenKind]::Not, [System.Management.Automation.Language.TokenKind]::Exclaim -and
+                    $test.TokenKind -in [System.Management.Automation.Language.TokenKind]::Not,
+                    [System.Management.Automation.Language.TokenKind]::Exclaim -and
                     $test.Child -is [System.Management.Automation.Language.VariableExpressionAst] -and
                     $configVariables.Contains($test.Child.VariablePath.UserPath))) {
                 continue
             }
             $statements = $if.Clauses[0].Item2.Statements
-            if ($statements.Count -ne 1 -or $statements[0] -isnot [System.Management.Automation.Language.AssignmentStatementAst]) {
+            if ($statements.Count -ne 1 -or
+                $statements[0] -isnot [System.Management.Automation.Language.AssignmentStatementAst]) {
                 continue
             }
             $assignment = $statements[0]
@@ -119,7 +124,8 @@ function Measure-NoLiteralDefault {
                 $value.Expression
             }
             if ($target -is [System.Management.Automation.Language.VariableExpressionAst] -and
-                $target.VariablePath.UserPath -eq $test.Child.VariablePath.UserPath -and $valueExpression -and (& $isConstant $valueExpression)) {
+                $target.VariablePath.UserPath -eq $test.Child.VariablePath.UserPath -and $valueExpression -and
+                (& $isConstant $valueExpression)) {
                 & $add $if.Extent 'A literal fallback for an empty value'
             }
         }

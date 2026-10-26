@@ -34,11 +34,13 @@ Describe 'MarkdownLinkRebaser' -Tag 'L0', 'logic', 'ADR-REPO-README-WORKINGLINKS
         }
 
         It 'keeps the #fragment and a trailing slash' {
-            & $script:rebase '[a](../gadget/#setup) [b](sub/)' | Should -BeExactly '[a](../docs/references/gadget/#setup) [b](../docs/references/widget/sub/)'
+            & $script:rebase '[a](../gadget/#setup) [b](sub/)' |
+                Should -BeExactly '[a](../docs/references/gadget/#setup) [b](../docs/references/widget/sub/)'
         }
 
         It 'an image, an angle-bracket target with a title, and a reference definition' {
-            & $script:rebase '![d](diagram.png) [t](<gadget.md> "Gadget")' | Should -BeExactly '![d](../docs/references/widget/diagram.png) [t](<../docs/references/widget/gadget.md> "Gadget")'
+            & $script:rebase '![d](diagram.png) [t](<gadget.md> "Gadget")' |
+                Should -BeExactly '![d](../docs/references/widget/diagram.png) [t](<../docs/references/widget/gadget.md> "Gadget")'
             & $script:rebase '[gadget]: gadget.md' | Should -BeExactly '[gadget]: ../docs/references/widget/gadget.md'
         }
 
@@ -56,7 +58,8 @@ Describe 'MarkdownLinkRebaser' -Tag 'L0', 'logic', 'ADR-REPO-README-WORKINGLINKS
 
         It 'link-shaped text in an inline code span' {
             $text = 'Write `[g](gadget.md)` like this, but [g](gadget.md) here.'
-            & $script:rebase $text | Should -BeExactly 'Write `[g](gadget.md)` like this, but [g](../docs/references/widget/gadget.md) here.'
+            & $script:rebase $text |
+                Should -BeExactly 'Write `[g](gadget.md)` like this, but [g](../docs/references/widget/gadget.md) here.'
         }
 
         It 'a fenced code block' {
@@ -77,7 +80,8 @@ Describe 'MarkdownLinkRebaser' -Tag 'L0', 'logic', 'ADR-REPO-README-WORKINGLINKS
 
     Context 'same folder' {
         It 'changes nothing when the copy sits beside its source' {
-            [Catzc.Base.MarkdownMeta.MarkdownLinkRebaser]::Rebase('[g](gadget.md) [u](../up.md)', 'docs/widget/index.md', 'docs/widget') |
+            [Catzc.Base.MarkdownMeta.MarkdownLinkRebaser]::Rebase('[g](gadget.md) [u](../up.md)',
+                'docs/widget/index.md', 'docs/widget') |
                 Should -BeExactly '[g](gadget.md) [u](../up.md)'
         }
     }
@@ -89,21 +93,28 @@ Describe 'MarkdownLinkRebaser' -Tag 'L0', 'logic', 'ADR-REPO-README-WORKINGLINKS
         }
 
         It 'a page that stays re-points a link to a moved file' {
-            [Catzc.Base.MarkdownMeta.MarkdownLinkRebaser]::Rebase('![s](../assets/grid/widget.png#top)', 'docs/widget/index.md', 'docs/widget', 'docs/assets/grid/widget.png', 'docs/widget/.assets/widget/grid.png') |
+            [Catzc.Base.MarkdownMeta.MarkdownLinkRebaser]::Rebase('![s](../assets/grid/widget.png#top)',
+                'docs/widget/index.md', 'docs/widget', 'docs/assets/grid/widget.png',
+                'docs/widget/.assets/widget/grid.png') |
                 Should -BeExactly '![s](.assets/widget/grid.png#top)'
         }
 
         It 'a moved file re-points its links out of the folder and keeps its links inside it' {
-            [Catzc.Base.MarkdownMeta.MarkdownLinkRebaser]::Rebase('[a](../../index.md) [g](grid.png)', 'docs/widget/assets/widget/diagram.md', 'docs/gadget/.assets/widget', 'docs/widget/assets/widget', 'docs/gadget/.assets/widget') |
+            [Catzc.Base.MarkdownMeta.MarkdownLinkRebaser]::Rebase('[a](../../index.md) [g](grid.png)',
+                'docs/widget/assets/widget/diagram.md', 'docs/gadget/.assets/widget', 'docs/widget/assets/widget',
+                'docs/gadget/.assets/widget') |
                 Should -BeExactly '[a](../../../widget/index.md) [g](grid.png)'
         }
     }
 
     Context 'RelativeLink' {
         It 'links from a folder to a repository path' {
-            [Catzc.Base.MarkdownMeta.MarkdownLinkRebaser]::RelativeLink('widget/sub', 'docs/references/widget.md') | Should -BeExactly '../../docs/references/widget.md'
-            [Catzc.Base.MarkdownMeta.MarkdownLinkRebaser]::RelativeLink('docs/widget', 'docs/widget/index.md') | Should -BeExactly 'index.md'
-            [Catzc.Base.MarkdownMeta.MarkdownLinkRebaser]::RelativeLink('', 'docs/widget.md') | Should -BeExactly 'docs/widget.md'
+            [Catzc.Base.MarkdownMeta.MarkdownLinkRebaser]::RelativeLink('widget/sub', 'docs/references/widget.md') |
+                Should -BeExactly '../../docs/references/widget.md'
+            [Catzc.Base.MarkdownMeta.MarkdownLinkRebaser]::RelativeLink('docs/widget', 'docs/widget/index.md') |
+                Should -BeExactly 'index.md'
+            [Catzc.Base.MarkdownMeta.MarkdownLinkRebaser]::RelativeLink('', 'docs/widget.md') |
+                Should -BeExactly 'docs/widget.md'
         }
     }
 }

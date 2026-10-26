@@ -35,7 +35,8 @@ Describe 'Source & test file conventions' -Tag 'L2', 'integrity', 'source-only' 
 # source-only: both dependency checks analyse the per-function source files (the same answer in both run modes).
 Describe 'Function dependencies' -Tag 'L2', 'integrity', 'source-only' {
     It 'has no unresolved function calls' {
-        (Test-FunctionDependency -PassThru -OutputFolder (Join-Path $TestDrive 'function-dependency')).IssueCount | Should -Be 0
+        (Test-FunctionDependency -PassThru -OutputFolder (Join-Path $TestDrive 'function-dependency')).IssueCount |
+            Should -Be 0
     }
 }
 

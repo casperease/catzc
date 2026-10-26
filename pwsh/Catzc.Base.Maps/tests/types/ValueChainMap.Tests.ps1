@@ -10,7 +10,8 @@ Describe 'ValueChainMap' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:adr = {
             param([string] $External, [string] $Stack, [string[]] $Concerns)
-            [Catzc.Base.Drs.DrsRuleSet]::new('widgetry', 'fixture', 'widget', $External, 'WIDGET', 'WIDGET', $Stack, $Concerns, $Concerns)
+            [Catzc.Base.Drs.DrsRuleSet]::new('widgetry', 'fixture', 'widget', $External, 'WIDGET', 'WIDGET', $Stack,
+                $Concerns, $Concerns)
         }
         $script:rows = @('TOP', 'BOTTOM')
         $script:columns = @('alpha', 'beta', 'gamma')
@@ -37,7 +38,8 @@ Describe 'ValueChainMap' -Tag 'L0', 'logic' {
     }
 
     It 'answers the cells an ADR sits in, in the map''s order, and nothing for a code it does not hold' -Tag 'DDR-TRACK-VALUECHAINMAP' {
-        @($script:map.CellsOf('ADR-WIDGET-GADGET') | ForEach-Object { "$($_.Stack) x $($_.Concern)" }) | Should -Be @('TOP x alpha', 'TOP x gamma')
+        @($script:map.CellsOf('ADR-WIDGET-GADGET') | ForEach-Object { "$($_.Stack) x $($_.Concern)" }) |
+            Should -Be @('TOP x alpha', 'TOP x gamma')
         $script:map.CellsOf('ADR-WIDGET-GIZMO') | Should -BeNullOrEmpty
         $script:map.AdrCount | Should -Be 3
         $script:map.Unplaced | Should -BeNullOrEmpty
@@ -60,11 +62,15 @@ Describe 'ValueChainMap' -Tag 'L0', 'logic' {
     }
 
     It 'throws on a repeated ADR code, a repeated axis name, an empty axis, or an item that is not an ADR' {
-        { [Catzc.Base.Maps.ValueChainMap]::Build($script:rows, $script:columns, @((& $script:adr 'ADR-WIDGET-COG' 'TOP' @('alpha')), (& $script:adr 'ADR-WIDGET-COG' 'TOP' @('beta')))) } |
+        { [Catzc.Base.Maps.ValueChainMap]::Build($script:rows, $script:columns,
+            @((& $script:adr 'ADR-WIDGET-COG' 'TOP' @('alpha')), (& $script:adr 'ADR-WIDGET-COG' 'TOP' @('beta')))) } |
             Should -Throw "*the ADR code 'ADR-WIDGET-COG' is empty or repeated*"
-        { [Catzc.Base.Maps.ValueChainMap]::Build(@('TOP', 'TOP'), $script:columns, @()) } | Should -Throw "*row of the value-chain stack 'TOP' is empty or repeated*"
-        { [Catzc.Base.Maps.ValueChainMap]::Build($script:rows, @(), @()) } | Should -Throw '*no value-chain concern is given*'
-        { [Catzc.Base.Maps.ValueChainMap]::Build($script:rows, $script:columns, @('ADR-WIDGET-COG')) } | Should -Throw '*an ADR is not a Catzc.Base.Drs.DrsRuleSet*'
+        { [Catzc.Base.Maps.ValueChainMap]::Build(@('TOP', 'TOP'), $script:columns, @()) } |
+            Should -Throw "*row of the value-chain stack 'TOP' is empty or repeated*"
+        { [Catzc.Base.Maps.ValueChainMap]::Build($script:rows, @(), @()) } |
+            Should -Throw '*no value-chain concern is given*'
+        { [Catzc.Base.Maps.ValueChainMap]::Build($script:rows, $script:columns, @('ADR-WIDGET-COG')) } |
+            Should -Throw '*an ADR is not a Catzc.Base.Drs.DrsRuleSet*'
     }
 
     It 'emits every cell as JSON' -Tag 'TDR-ONETRUTH-TRUTHISQUERYABLE' {

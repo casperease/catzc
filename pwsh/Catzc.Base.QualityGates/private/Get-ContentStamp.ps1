@@ -32,7 +32,8 @@ function Get-ContentStamp {
             if ([System.IO.Path]::GetExtension($path) -in '.ps1', '.psm1', '.psd1') {
                 $tokens = $null
                 $parseErrors = $null
-                [void] [System.Management.Automation.Language.Parser]::ParseFile($path, [ref] $tokens, [ref] $parseErrors)
+                [void] [System.Management.Automation.Language.Parser]::ParseFile($path, [ref] $tokens,
+                    [ref] $parseErrors)
                 if (-not $parseErrors) {
                     $previousWasLineEnd = $true
                     $code = foreach ($token in $tokens) {

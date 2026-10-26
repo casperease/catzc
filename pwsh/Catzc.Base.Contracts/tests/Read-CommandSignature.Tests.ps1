@@ -122,7 +122,8 @@ function Get-Widget {
     }
 
     It 'throws when the file defines no function of that name' {
-        { Read-Fixture "function Get-Gadget {`n    param([string] `$Path)`n}`n" } | Should -Throw "*defines no function 'Get-Widget'*"
+        { Read-Fixture "function Get-Gadget {`n    param([string] `$Path)`n}`n" } |
+            Should -Throw "*defines no function 'Get-Widget'*"
     }
 
     It 'throws when the file does not parse' {

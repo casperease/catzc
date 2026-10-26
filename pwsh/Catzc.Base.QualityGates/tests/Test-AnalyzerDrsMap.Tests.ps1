@@ -10,7 +10,8 @@ Describe 'Test-AnalyzerDrsMap' -Tag 'L0', 'logic' {
     BeforeAll {
         $rules = Join-Path $TestDrive '.scriptanalyzer'
         [void][System.IO.Directory]::CreateDirectory($rules)
-        [System.IO.File]::WriteAllText((Join-Path $rules 'WidgetRules.psm1'), (@('function Measure-Widget { }', 'function Get-Helper { }') -join "`n"))
+        [System.IO.File]::WriteAllText((Join-Path $rules 'WidgetRules.psm1'), (@('function Measure-Widget { }',
+            'function Get-Helper { }') -join "`n"))
         [System.IO.File]::WriteAllText((Join-Path $rules 'CatzcRules.psm1'), 'function Measure-Dispatch { }')
         [System.IO.File]::WriteAllText((Join-Path $rules 'GizmoEntry.psm1'), 'function Measure-GizmoEntry { }')
         # The entry rules are what the settings' CustomRulePath lists; the fixture names two.
@@ -48,9 +49,11 @@ Describe 'Test-AnalyzerDrsMap' -Tag 'L0', 'logic' {
     }
 
     It 'throws once naming an unknown id and an unmapped custom rule' {
-        [System.IO.File]::WriteAllText((Join-Path $TestDrive '.scriptanalyzer/GadgetRules.psm1'), 'function Measure-Gadget { }')
+        [System.IO.File]::WriteAllText((Join-Path $TestDrive '.scriptanalyzer/GadgetRules.psm1'),
+            'function Measure-Gadget { }')
         Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'analyzer-drs-map' } {
-            [pscustomobject]@{ analyzers = [ordered]@{ 'Measure-Widget' = @('ADR-TST-WIDGET-SPIN', 'ADR-TST-WIDGET-GHOST') } }
+            [pscustomobject]@{ analyzers = [ordered]@{ 'Measure-Widget' = @('ADR-TST-WIDGET-SPIN',
+                'ADR-TST-WIDGET-GHOST') } }
         }
         try {
             $thrown = { Test-AnalyzerDrsMap -OutputFolder $out } | Should -Throw -PassThru

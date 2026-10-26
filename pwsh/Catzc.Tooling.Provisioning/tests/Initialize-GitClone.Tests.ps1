@@ -74,7 +74,8 @@ Describe 'Initialize-GitClone' -Tag 'L0', 'logic' {
                 '/mnt/c/Program Files/Git/mingw64/bin/git-credential-manager.exe'
             } -ModuleName Catzc.Tooling.Provisioning
             $planned = Initialize-GitClone -DryRun
-            $planned | Should -Contain 'git config --local credential.helper "/mnt/c/Program\ Files/Git/mingw64/bin/git-credential-manager.exe"'
+            $planned |
+                Should -Contain 'git config --local credential.helper "/mnt/c/Program\ Files/Git/mingw64/bin/git-credential-manager.exe"'
         }
 
         It 'leaves credential.helper unchanged when no Windows credential manager exists' {

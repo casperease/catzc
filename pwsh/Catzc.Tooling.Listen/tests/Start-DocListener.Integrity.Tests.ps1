@@ -13,6 +13,7 @@ Describe 'Catzc.Tooling.Listen over the shipped configs' -Tag 'L1', 'integrity' 
     }
 
     It 'watches a folder that exists' {
-        [System.IO.Directory]::Exists((Join-Path (Get-RepositoryRoot) (Get-Config -Config listen).watch)) | Should -BeTrue
+        [System.IO.Directory]::Exists((Join-Path (Get-RepositoryRoot) (Get-Config -Config listen).watch)) |
+            Should -BeTrue
     }
 }

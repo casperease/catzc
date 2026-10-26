@@ -26,9 +26,11 @@ function Invoke-GoTest {
     )
 
     $root = Get-RepositoryRoot
-    # The test folder: the one named, a module's own tests/ or the holder's, else the module's folder under the holder's tests/ in go's folder case.
+    # The test folder: the one named, a module's own tests/ or the holder's, else the module's folder under the holder's
+    # tests/ in go's folder case.
     $relative = if ($Folder) {
-        [System.IO.Path]::GetRelativePath($root, [System.IO.Path]::GetFullPath($Folder, $root)).Replace('\', '/').TrimEnd('/')
+        [System.IO.Path]::GetRelativePath($root, [System.IO.Path]::GetFullPath($Folder, $root)).Replace('\',
+            '/').TrimEnd('/')
     }
     else {
         "$((Get-Config -Config go).ResolveRoot($root))/tests/$((Get-Config -Config languages).TestFolderOf('go', $Module))"
@@ -38,7 +40,8 @@ function Invoke-GoTest {
         throw "Module '$Module' has no Go tests: $relative/ does not exist."
     }
     # The generated go.mod sits in the test folder (the holder's) or at the module root above its own tests/ folder.
-    $modules = @("$relative/go.mod", "$($relative.Substring(0, [Math]::Max(0, $relative.LastIndexOf('/'))))/go.mod").Where({ Test-Path -LiteralPath (Join-Path $root $_) -PathType Leaf })
+    $modules = @("$relative/go.mod",
+        "$($relative.Substring(0, [Math]::Max(0, $relative.LastIndexOf('/'))))/go.mod").Where({ Test-Path -LiteralPath (Join-Path $root $_) -PathType Leaf })
     if ($modules.Count -eq 0) {
         throw "$relative/go.mod is missing — it is generated; regenerate with: Build-RootConfig"
     }

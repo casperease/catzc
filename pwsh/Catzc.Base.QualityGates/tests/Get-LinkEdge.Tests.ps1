@@ -2,7 +2,8 @@
 Describe 'Get-LinkEdge' -Tag 'L0', 'logic', 'ADR-REPO-LINKS-CONVENTIONSAREDERIVED', 'ADR-REPO-LINKS-CHECKEDBYONEGATE' {
     BeforeEach {
         InModuleScope Catzc.Base.QualityGates {
-            $edge = { param([string] $From, [string] $Target, [string] $Relation) [Catzc.Base.QualityGates.LinkEdge]::new($From, 1, 1, $Relation, $Target, '') }
+            $edge = { param([string] $From, [string] $Target,
+                [string] $Relation) [Catzc.Base.QualityGates.LinkEdge]::new($From, 1, 1, $Relation, $Target, '') }
             Mock Assert-SourceTree { }
             Mock Get-LinkScope { @('mods/Widget/Get-Widget.ps1') }
             Mock Invoke-LinkEngine {
@@ -32,7 +33,8 @@ Describe 'Get-LinkEdge' -Tag 'L0', 'logic', 'ADR-REPO-LINKS-CONVENTIONSAREDERIVE
     }
 
     It 'takes a folder as everything under it, so a module''s dependents are among a file''s blast radius' {
-        @((& $into 'mods/Widget') | ForEach-Object { $_.File }) | Should -Be @('docs/widget.md', 'mods/Widget/tests/Get-Widget.Tests.ps1', 'mods/Gizmo')
+        @((& $into 'mods/Widget') | ForEach-Object { $_.File }) | Should -Be @('docs/widget.md',
+            'mods/Widget/tests/Get-Widget.Tests.ps1', 'mods/Gizmo')
         @(& $into 'mods/Wid') | Should -HaveCount 0 -Because 'a path prefix is no folder'
     }
 

@@ -63,14 +63,16 @@ Describe 'Test-ManualTestPlan' -Tag 'L0', 'logic' {
     It 'reports a check section with no Test file line' {
         Set-FixtureFile $planPath "## Checks`n`n$widgetCheck`n$gadgetCheck`n### 3. Gizmo check`n`n**Guards:** nothing named.`n"
         $result = Test-ManualTestPlan -OutputFolder $out -PassThru
-        $result.Issues | Should -Contain "${planPath}: section '### 3. Gizmo check' has no **Test file:** line naming its test file and block"
+        $result.Issues |
+            Should -Contain "${planPath}: section '### 3. Gizmo check' has no **Test file:** line naming its test file and block"
     }
 
     It 'no longer reads an index row as a check' {
         Set-FixtureFile $planPath "| 1 | widget-modules/Widget/tests/Get-Widget.Tests.ps1 | Widget integrity |`n| 2 | widget-modules/Widget/tests/Get-Widget.Tests.ps1 | Gadget check |`n"
         $result = Test-ManualTestPlan -OutputFolder $out -PassThru
         $result.Facts['PlanChecks'] | Should -Be 0
-        $result.Issues | Should -Contain "${planFolder}: 0 checks for 2 integrity blocks — a stale or duplicate check, or a renamed or removed block"
+        $result.Issues |
+            Should -Contain "${planFolder}: 0 checks for 2 integrity blocks — a stale or duplicate check, or a renamed or removed block"
     }
 
     It 'reports more than 13 category files' {

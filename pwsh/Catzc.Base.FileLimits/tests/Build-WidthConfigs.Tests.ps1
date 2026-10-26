@@ -1,9 +1,11 @@
-# The widths are rendered from file-limits.yml, so this pins them to the formatters' widths before the declared widths existed.
+# The widths are rendered from file-limits.yml, so this pins them to the formatters' widths before the declared widths
+# existed.
 Describe 'Build-WidthConfigs' -Tag 'L1', 'integrity', 'ADR-REPO-FORMAT-CONFIGUREDFORMATTERS' {
     It 'renders .editorconfig with ps1 at 120 and md and py at 140, and leaves no token' {
         $text = Build-WidthConfigs -Target '.editorconfig'
         $text | Should -Not -Match '\$width\.'
-        $widths = [regex]::Matches($text, '(?m)^max_line_length = (\d+)\s*$') | ForEach-Object { [int] $_.Groups[1].Value }
+        $widths = [regex]::Matches($text, '(?m)^max_line_length = (\d+)\s*$') |
+            ForEach-Object { [int] $_.Groups[1].Value }
         $widths | Should -Be @(120, 140, 140)
     }
 

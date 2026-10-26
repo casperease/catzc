@@ -10,7 +10,8 @@ Describe 'DrsConfig.IndexPath' -Tag 'L0', 'logic' {
     It 'names index.md in the records folder under the repository root, and refuses an empty root' {
         $config = Get-Config -Config drs
         $root = Join-Path $TestDrive 'widget-repository'
-        $config.IndexPath($root) | Should -Be ([System.IO.Path]::GetFullPath((Join-Path $root "$($config.Root)/index.md")))
+        $config.IndexPath($root) |
+            Should -Be ([System.IO.Path]::GetFullPath((Join-Path $root "$($config.Root)/index.md")))
         { $config.IndexPath('') } | Should -Throw '*repositoryRoot*'
     }
 }
@@ -29,7 +30,8 @@ Describe 'DrsConfig' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMODEL' {
                         code = 'BE'; role = 'implementation'; description = 'The gadget implementation.'; depends_on = @('alpha')
                         stack = 'AUTO'; concern = @('automation')
                         rulesets = [ordered]@{
-                            'thing-two'   = [ordered]@{ external = 'ADR-BE-TWO'; concern = @('access', 'release') } # concern override
+                            'thing-two'   = [ordered]@{ external = 'ADR-BE-TWO'; concern = @('access',
+                                'release') } # concern override
                             'thing-three' = [ordered]@{ external = 'ADR-AL-THREE'; code = 'AL' } # leaf override to alpha's code
                         }
                     }
@@ -84,8 +86,10 @@ Describe 'DrsConfig' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMODEL' {
             $raw.domains.alpha['kind'] = 'GDR'
             $raw.domains.beta.Remove('code')
             $raw.domains.beta['kind'] = 'XDR'
-            { [Catzc.Base.Drs.DrsConfig]::new($raw) } | Should -Throw "*domain 'alpha': has code 'AL', but its kind GDR is its own*"
-            { [Catzc.Base.Drs.DrsConfig]::new($raw) } | Should -Throw "*domain 'beta': kind 'XDR' is not a registered kind*"
+            { [Catzc.Base.Drs.DrsConfig]::new($raw) } |
+                Should -Throw "*domain 'alpha': has code 'AL', but its kind GDR is its own*"
+            { [Catzc.Base.Drs.DrsConfig]::new($raw) } |
+                Should -Throw "*domain 'beta': kind 'XDR' is not a registered kind*"
         }
 
         It 'throws when two domains claim a kind that is not shared' {
@@ -95,7 +99,8 @@ Describe 'DrsConfig' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMODEL' {
                 $raw.domains[$name].Remove('code')
                 $raw.domains[$name]['kind'] = 'GDR'
             }
-            { [Catzc.Base.Drs.DrsConfig]::new($raw) } | Should -Throw "*domain 'beta': kind 'GDR' is owned by domain 'alpha' and is not shared*"
+            { [Catzc.Base.Drs.DrsConfig]::new($raw) } |
+                Should -Throw "*domain 'beta': kind 'GDR' is owned by domain 'alpha' and is not shared*"
         }
     }
 
@@ -180,7 +185,8 @@ Describe 'DrsConfig' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMODEL' {
     It 'rejects an unknown top-level key' {
         $raw = New-ValidRaw
         $raw['widget'] = 1
-        { [Catzc.Base.Drs.DrsConfig]::new($raw) } | Should -Throw "*unknown top-level key 'widget' (allowed: root, kinds, domains, domain_classes)*"
+        { [Catzc.Base.Drs.DrsConfig]::new($raw) } |
+            Should -Throw "*unknown top-level key 'widget' (allowed: root, kinds, domains, domain_classes)*"
     }
 
     It 'keeps every decision record under docs/drs when the registry names no root' {
@@ -206,7 +212,8 @@ Describe 'DrsConfig' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMODEL' {
     Context 'value-chain stack and concerns' -Tag 'DDR-TRACK-VALUECHAINSTACK', 'DDR-TRACK-VALUECHAINCONCERN' {
         It 'declares the stack rows and the concerns once, in value-chain order' {
             [Catzc.Base.Drs.DrsConfig]::Stacks | Should -Be @('PRIN', 'DSGN', 'AUTO', 'PIPE', 'CLOUD')
-            [Catzc.Base.Drs.DrsConfig]::Concerns | Should -Be @('automation', 'build', 'quality-control', 'release', 'deploy', 'access')
+            [Catzc.Base.Drs.DrsConfig]::Concerns | Should -Be @('automation', 'build', 'quality-control', 'release',
+                'deploy', 'access')
         }
 
         It 'carries each domain''s stack row and default concerns' {
@@ -240,7 +247,8 @@ Describe 'DrsConfig' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMODEL' {
         It 'throws on a stack that is not a row of the value-chain stack' {
             $raw = New-ValidRaw
             $raw.domains.alpha.stack = 'WIDGET'
-            { [Catzc.Base.Drs.DrsConfig]::new($raw) } | Should -Throw "*stack 'WIDGET' is not a row of the value-chain stack*"
+            { [Catzc.Base.Drs.DrsConfig]::new($raw) } |
+                Should -Throw "*stack 'WIDGET' is not a row of the value-chain stack*"
         }
 
         It 'throws on a domain with no default concern' {
@@ -252,13 +260,15 @@ Describe 'DrsConfig' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMODEL' {
         It 'throws on an unknown concern in a domain default' {
             $raw = New-ValidRaw
             $raw.domains.alpha.concern = @('gadgetry')
-            { [Catzc.Base.Drs.DrsConfig]::new($raw) } | Should -Throw "*domain 'alpha': concern 'gadgetry' is not a value-chain concern*"
+            { [Catzc.Base.Drs.DrsConfig]::new($raw) } |
+                Should -Throw "*domain 'alpha': concern 'gadgetry' is not a value-chain concern*"
         }
 
         It 'throws on an unknown concern in a ruleset override' {
             $raw = New-ValidRaw
             $raw.domains.beta.rulesets['thing-two'].concern = @('build', 'gadgetry')
-            { [Catzc.Base.Drs.DrsConfig]::new($raw) } | Should -Throw "*ruleset 'beta/thing-two': concern 'gadgetry' is not a value-chain concern*"
+            { [Catzc.Base.Drs.DrsConfig]::new($raw) } |
+                Should -Throw "*ruleset 'beta/thing-two': concern 'gadgetry' is not a value-chain concern*"
         }
 
         It 'throws on a concern given as a scalar, not a list' {
@@ -270,7 +280,8 @@ Describe 'DrsConfig' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMODEL' {
         It 'throws on an empty concern override' {
             $raw = New-ValidRaw
             $raw.domains.beta.rulesets['thing-two'].concern = @()
-            { [Catzc.Base.Drs.DrsConfig]::new($raw) } | Should -Throw "*ruleset 'beta/thing-two': 'concern' must list one or more*"
+            { [Catzc.Base.Drs.DrsConfig]::new($raw) } |
+                Should -Throw "*ruleset 'beta/thing-two': 'concern' must list one or more*"
         }
 
         It 'throws on a concern listed twice' {
@@ -288,13 +299,15 @@ Describe 'DrsConfig' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMODEL' {
         It 'throws on an unknown ruleset key' {
             $raw = New-ValidRaw
             $raw.domains.beta.rulesets['thing-two']['concerns'] = @('build')
-            { [Catzc.Base.Drs.DrsConfig]::new($raw) } | Should -Throw "*ruleset 'beta/thing-two': unknown key 'concerns'*"
+            { [Catzc.Base.Drs.DrsConfig]::new($raw) } |
+                Should -Throw "*ruleset 'beta/thing-two': unknown key 'concerns'*"
         }
     }
 
     Context 'the layer of the automation' -Tag 'ADR-AUTO-LAYERS-REALISENEVERREDEFINE' {
         It 'declares the five layers and the default once, and gives a ruleset that names none the default' {
-            [Catzc.Base.Drs.DrsConfig]::Layers | Should -Be @('automation', 'contract', 'language', 'engine', 'importer')
+            [Catzc.Base.Drs.DrsConfig]::Layers | Should -Be @('automation', 'contract', 'language', 'engine',
+                'importer')
             [Catzc.Base.Drs.DrsConfig]::DefaultLayer | Should -Be 'automation'
             $config = [Catzc.Base.Drs.DrsConfig]::new((New-ValidRaw))
             ($config.RuleSets | Where-Object Slug -EQ 'thing-one').Layer | Should -Be 'automation'
@@ -308,7 +321,8 @@ Describe 'DrsConfig' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMODEL' {
 
             $raw = New-ValidRaw
             $raw.domains.beta.rulesets['thing-two']['layer'] = 'folder'
-            { [Catzc.Base.Drs.DrsConfig]::new($raw) } | Should -Throw "*ruleset 'beta/thing-two': layer 'folder' is not one of: automation, contract, language, engine, importer*"
+            { [Catzc.Base.Drs.DrsConfig]::new($raw) } |
+                Should -Throw "*ruleset 'beta/thing-two': layer 'folder' is not one of: automation, contract, language, engine, importer*"
         }
     }
 
@@ -339,7 +353,8 @@ Describe 'DrsConfig' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMODEL' {
         It 'throws on two domains with one folder' {
             $raw = New-ValidRaw
             $raw.domains.beta['folder'] = 'alpha'
-            { [Catzc.Base.Drs.DrsConfig]::new($raw) } | Should -Throw "*domain 'beta': folder 'alpha' is also the folder of domain 'alpha'*"
+            { [Catzc.Base.Drs.DrsConfig]::new($raw) } |
+                Should -Throw "*domain 'beta': folder 'alpha' is also the folder of domain 'alpha'*"
         }
     }
 }

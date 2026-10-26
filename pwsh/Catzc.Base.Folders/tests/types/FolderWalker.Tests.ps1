@@ -5,7 +5,8 @@ Describe 'FolderWalker' -Tag 'L0', 'logic' {
         foreach ($folder in 'widget/gadget/sprocket', 'widget/.vendor', 'widget/node_modules') {
             [System.IO.Directory]::CreateDirectory((Join-Path $root $folder)) | Out-Null
         }
-        foreach ($file in 'top.txt', 'top.yml', 'widget/a.txt', 'widget/gadget/b.yml', 'widget/gadget/sprocket/deep.txt', 'widget/.vendor/v.txt', 'widget/node_modules/n.txt') {
+        foreach ($file in 'top.txt', 'top.yml', 'widget/a.txt', 'widget/gadget/b.yml',
+            'widget/gadget/sprocket/deep.txt', 'widget/.vendor/v.txt', 'widget/node_modules/n.txt') {
             [System.IO.File]::WriteAllText((Join-Path $root $file), 'x')
         }
         $script:root = $root
@@ -16,7 +17,8 @@ Describe 'FolderWalker' -Tag 'L0', 'logic' {
         }
         $script:walk = {
             param([int] $Depth, $Patterns = @('*'), [bool] $Files = $true, [bool] $Directories = $true, $Exclude = @())
-            & $script:relative ([Catzc.Base.Folders.FolderWalker]::Walk($script:root, $Depth, [string[]] $Patterns, $Files, $Directories, [string[]] $Exclude))
+            & $script:relative ([Catzc.Base.Folders.FolderWalker]::Walk($script:root, $Depth, [string[]] $Patterns,
+                $Files, $Directories, [string[]] $Exclude))
         }
     }
 
@@ -25,7 +27,8 @@ Describe 'FolderWalker' -Tag 'L0', 'logic' {
     }
 
     It 'lists one more level at depth 2 and stops there' {
-        & $walk 2 | Should -Be @('top.txt', 'top.yml', 'widget', 'widget/.vendor', 'widget/a.txt', 'widget/gadget', 'widget/node_modules')
+        & $walk 2 | Should -Be @('top.txt', 'top.yml', 'widget', 'widget/.vendor', 'widget/a.txt', 'widget/gadget',
+            'widget/node_modules')
     }
 
     It 'lists every level once the depth reaches the bottom of the tree' {
@@ -34,7 +37,8 @@ Describe 'FolderWalker' -Tag 'L0', 'logic' {
     }
 
     It 'lists folders only, or files only' {
-        & $walk 3 @('*') $false $true @('.vendor', 'node_modules') | Should -Be @('widget', 'widget/gadget', 'widget/gadget/sprocket')
+        & $walk 3 @('*') $false $true @('.vendor', 'node_modules') | Should -Be @('widget', 'widget/gadget',
+            'widget/gadget/sprocket')
         & $walk 1 @('*') $true $false | Should -Be @('top.txt', 'top.yml')
     }
 
@@ -57,11 +61,15 @@ Describe 'FolderWalker' -Tag 'L0', 'logic' {
     It 'lists files and folders apart in one walk, relative to a given root, the same sets the separate walks list' {
         $widget = Join-Path $script:root 'widget'
         $found = [Catzc.Base.Folders.FolderWalker]::WalkRelative($widget, 3, [string[]] @('node_modules'), $script:root)
-        $found[0] | Should -Be @('widget/.vendor/v.txt', 'widget/a.txt', 'widget/gadget/b.yml', 'widget/gadget/sprocket/deep.txt')
+        $found[0] | Should -Be @('widget/.vendor/v.txt', 'widget/a.txt', 'widget/gadget/b.yml',
+            'widget/gadget/sprocket/deep.txt')
         $found[1] | Should -Be @('widget/.vendor', 'widget/gadget', 'widget/gadget/sprocket')
-        $separate = & $script:relative ([Catzc.Base.Folders.FolderWalker]::Walk($widget, 3, [string[]] @('*'), $true, $true, [string[]] @('node_modules')))
-        @($found[0]) + @($found[1]) | Sort-Object { $_ } -Culture '' | Should -Be @($separate | Sort-Object { $_ } -Culture '')
-        { [Catzc.Base.Folders.FolderWalker]::WalkRelative((Join-Path $script:root 'absent'), 1, $null, $script:root) } | Should -Throw '*does not exist*'
+        $separate = & $script:relative ([Catzc.Base.Folders.FolderWalker]::Walk($widget, 3, [string[]] @('*'), $true,
+            $true, [string[]] @('node_modules')))
+        @($found[0]) + @($found[1]) | Sort-Object { $_ } -Culture '' |
+            Should -Be @($separate | Sort-Object { $_ } -Culture '')
+        { [Catzc.Base.Folders.FolderWalker]::WalkRelative((Join-Path $script:root 'absent'), 1, $null, $script:root) } |
+            Should -Throw '*does not exist*'
     }
 
     It 'returns the paths in ordinal order' {
@@ -72,9 +80,11 @@ Describe 'FolderWalker' -Tag 'L0', 'logic' {
     }
 
     It 'fails fast on a missing folder and on a depth below 1' -Tag 'ADR-AUTO-FAILFAST-ASSERTINPUTSATENTRY' {
-        { [Catzc.Base.Folders.FolderWalker]::Walk((Join-Path $root 'gadget-missing'), 1, $null, $true, $true, $null) } | Should -Throw '*does not exist*'
+        { [Catzc.Base.Folders.FolderWalker]::Walk((Join-Path $root 'gadget-missing'), 1, $null, $true, $true, $null) } |
+            Should -Throw '*does not exist*'
         { [Catzc.Base.Folders.FolderWalker]::Walk($root, 0, $null, $true, $true, $null) } | Should -Throw '*at least 1*'
-        { [Catzc.Base.Folders.FolderWalker]::Walk('', 1, $null, $true, $true, $null) } | Should -Throw '*must not be empty*'
+        { [Catzc.Base.Folders.FolderWalker]::Walk('', 1, $null, $true, $true, $null) } |
+            Should -Throw '*must not be empty*'
     }
 
     It 'treats a null pattern list as every name' {

@@ -38,7 +38,8 @@ function Get-DiagramCodeRows {
         $kind = if ($kindOf.ContainsKey("$role")) {
             $kindOf["$role"]
         }
-        elseif ($relative.EndsWith('.ps1', [System.StringComparison]::OrdinalIgnoreCase) -and -not $relative.Contains('/')) {
+        elseif ($relative.EndsWith('.ps1', [System.StringComparison]::OrdinalIgnoreCase) -and
+            -not $relative.Contains('/')) {
             'code'
         }
         else {
@@ -46,7 +47,8 @@ function Get-DiagramCodeRows {
         }
         $id = ($relative.ToLowerInvariant() -replace '[^a-z0-9]+', '-').Trim('-')
         $ids["$point/$relative"] = $id
-        # The glyph's kind already says what the file is, so its label is the name without the extension, short enough for its box.
+        # The glyph's kind already says what the file is, so its label is the name without the extension, short enough
+        # for its box.
         $nodes.Add([ordered]@{ id = $id; label = [System.IO.Path]::GetFileNameWithoutExtension($relative); kind = $kind })
     }
     $edges = [System.Collections.Generic.List[object]]::new()
@@ -55,7 +57,8 @@ function Get-DiagramCodeRows {
     foreach ($edge in @(Get-LinkEdge -To $Point -RepositoryRoot $RepositoryRoot | Sort-Object File, Target)) {
         $from = "$($edge.File)".Replace('\', '/')
         $target = "$($edge.Target)".Replace('\', '/')
-        if ($ids.ContainsKey($from) -and $ids.ContainsKey($target) -and $from -cne $target -and $pairs.Add("$from>$target")) {
+        if ($ids.ContainsKey($from) -and $ids.ContainsKey($target) -and $from -cne $target -and
+            $pairs.Add("$from>$target")) {
             $edges.Add([ordered]@{ from = $ids[$from]; to = $ids[$target] })
         }
     }

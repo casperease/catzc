@@ -41,7 +41,8 @@ Describe 'Invoke-PythonTest' -Tag 'L0', 'logic' {
         $script:syncExit = 0
         $script:lintExit = 0
         $script:seen = [System.Collections.Generic.List[object]]::new()
-        $script:probe = [Catzc.Base.Execution.ExecutableProbe]::new('uv', $script:uvPath, 'path', '0.11.26', '0.11', $true, 1, 0, 'Agent')
+        $script:probe = [Catzc.Base.Execution.ExecutableProbe]::new('uv', $script:uvPath, 'path', '0.11.26', '0.11',
+            $true, 1, 0, 'Agent')
         Mock Resolve-ToolExecutable -ModuleName Catzc.Base.Languages { $script:probe }
         Mock Resolve-EngineExecutable -ModuleName Catzc.Base.Languages { 'C:\widget\engine\pwsh.exe' }
         Mock Invoke-Executable -ModuleName Catzc.Base.Languages {
@@ -55,10 +56,12 @@ Describe 'Invoke-PythonTest' -Tag 'L0', 'logic' {
                 })
             switch -Wildcard ($Command) {
                 '* sync *' {
-                    [Catzc.Base.Execution.CliResult]::new('', 'No interpreter found for Python ==3.13.*', $script:syncExit)
+                    [Catzc.Base.Execution.CliResult]::new('', 'No interpreter found for Python ==3.13.*',
+                        $script:syncExit)
                 }
                 '* ruff check *' {
-                    [Catzc.Base.Execution.CliResult]::new('tests/catzc_widget/test_widget.py:3:1: F401 unused import', '', $script:lintExit)
+                    [Catzc.Base.Execution.CliResult]::new('tests/catzc_widget/test_widget.py:3:1: F401 unused import',
+                        '', $script:lintExit)
                 }
                 '* pytest *' {
                     if ($script:report) {
@@ -76,13 +79,15 @@ Describe 'Invoke-PythonTest' -Tag 'L0', 'logic' {
             $null = Invoke-PythonTest Catzc.Widget
             $script:seen.Command[0] | Should -Be "$script:uv sync --all-packages --quiet"
             $script:seen.Command[1] | Should -Be "$script:uv run --no-sync --quiet ruff check `"tests/catzc_widget`""
-            $script:seen.Command[2] | Should -BeLike "$script:uv run --no-sync --quiet pytest `"tests/catzc_widget`" --rootdir `"tests/catzc_widget`" --import-mode=importlib -o cache_dir=*out*pytest-cache* --junitxml *"
+            $script:seen.Command[2] |
+                Should -BeLike "$script:uv run --no-sync --quiet pytest `"tests/catzc_widget`" --rootdir `"tests/catzc_widget`" --import-mode=importlib -o cache_dir=*out*pytest-cache* --junitxml *"
             $script:seen.Directory | Sort-Object -Unique | Should -Be $script:pythonRoot
         }
 
         It 'throws with the remediation when a generated workspace file is missing' {
             $gadget = Join-Path $script:pythonRoot 'tests/catzc_gadget'
-            { Invoke-PythonTest Catzc.Gadget } | Should -Throw '*python/tests/catzc_gadget/pyproject.toml is missing*Build-RootConfig*'
+            { Invoke-PythonTest Catzc.Gadget } |
+                Should -Throw '*python/tests/catzc_gadget/pyproject.toml is missing*Build-RootConfig*'
             $script:seen.Count | Should -Be 0
             Test-Path -LiteralPath $gadget | Should -BeTrue
         }
@@ -107,7 +112,8 @@ Describe 'Invoke-PythonTest' -Tag 'L0', 'logic' {
         }
 
         It 'throws with "Run Install-Uv" when no managed uv is found, before running anything' {
-            $script:probe = [Catzc.Base.Execution.ExecutableProbe]::new('uv', $null, 'none', $null, '0.11', $false, 1, 0, 'Agent')
+            $script:probe = [Catzc.Base.Execution.ExecutableProbe]::new('uv', $null, 'none', $null, '0.11', $false, 1,
+                0, 'Agent')
             { Invoke-PythonTest Catzc.Widget } | Should -Throw '*no managed uv found*Run Install-Uv*'
             $script:seen.Count | Should -Be 0
         }
@@ -130,10 +136,12 @@ Describe 'Invoke-PythonTest' -Tag 'L0', 'logic' {
         It 'runs the named folder, a module''s own tests/ under the python track, with the member project at the module root' {
             $null = Invoke-PythonTest Widget.Kit -Folder $script:ownFolder
             $script:seen.Command[1] | Should -Be "$script:uv run --no-sync --quiet ruff check `"Widget.Kit/tests`""
-            $script:seen.Command[2] | Should -BeLike "$script:uv run --no-sync --quiet pytest `"Widget.Kit/tests`" --rootdir `"Widget.Kit/tests`" *"
+            $script:seen.Command[2] |
+                Should -BeLike "$script:uv run --no-sync --quiet pytest `"Widget.Kit/tests`" --rootdir `"Widget.Kit/tests`" *"
             $null = Invoke-PythonTest Catzc.Widget -Folder 'python/tests/catzc_widget'
             $script:seen.Command[4] | Should -Be "$script:uv run --no-sync --quiet ruff check `"tests/catzc_widget`""
-            { Invoke-PythonTest Widget.Kit -Folder 'python/Widget.Nothing/tests' } | Should -Throw '*python/Widget.Nothing/tests/ does not exist*'
+            { Invoke-PythonTest Widget.Kit -Folder 'python/Widget.Nothing/tests' } |
+                Should -Throw '*python/Widget.Nothing/tests/ does not exist*'
         }
 
         It 'never lets uv download an interpreter, and passes the engine contract loading the entry, and the root' {
@@ -151,7 +159,8 @@ Describe 'Invoke-PythonTest' -Tag 'L0', 'logic' {
 
         It 'throws with the remedy when uv sync fails' {
             $script:syncExit = 2
-            { Invoke-PythonTest Catzc.Widget } | Should -Throw '*uv sync failed*Run Install-Python*uv.lock is a gitignored product*delete it and run again*No interpreter found*'
+            { Invoke-PythonTest Catzc.Widget } |
+                Should -Throw '*uv sync failed*Run Install-Python*uv.lock is a gitignored product*delete it and run again*No interpreter found*'
         }
 
         It 'throws with the ruff output when ruff check fails' {

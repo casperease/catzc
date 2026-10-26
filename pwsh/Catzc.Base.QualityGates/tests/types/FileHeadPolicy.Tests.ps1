@@ -2,12 +2,14 @@ Describe 'FileHeadPolicy' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-HEADPOLICY' {
     It 'gives a file the facts its kinds produce by default, declared once on the type' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
         $policy = [Catzc.Base.QualityGates.FileHeadPolicy]::new($null)
         $policy.default | Should -Be ([Catzc.Base.QualityGates.HeadPolicy]::Facts)
-        [Catzc.Base.QualityGates.FileHeadPolicy]::DefaultPolicy | Should -Be ([Catzc.Base.QualityGates.HeadPolicy]::Facts)
+        [Catzc.Base.QualityGates.FileHeadPolicy]::DefaultPolicy |
+            Should -Be ([Catzc.Base.QualityGates.HeadPolicy]::Facts)
         $policy.For('widget') | Should -Be ([Catzc.Base.QualityGates.HeadPolicy]::Facts)
     }
 
     It 'reads config as the policy of a block that keeps only its authored config part' {
-        [Catzc.Base.QualityGates.FileHeadPolicy]::new(@{ classes = @{ gadget = 'config' } }).For('gadget') | Should -Be ([Catzc.Base.QualityGates.HeadPolicy]::Config)
+        [Catzc.Base.QualityGates.FileHeadPolicy]::new(@{ classes = @{ gadget = 'config' } }).For('gadget') |
+            Should -Be ([Catzc.Base.QualityGates.HeadPolicy]::Config)
     }
 
     It 'lets a class entry decide before the default' {
@@ -33,30 +35,38 @@ Describe 'FileHeadPolicy' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-HEADPOLICY' {
     }
 
     It 'rejects a value that is no policy and a key it does not know, naming each' {
-        { [Catzc.Base.QualityGates.FileHeadPolicy]::new(@{ default = 'sometimes' }) } | Should -Throw '*head_policy.default is ''sometimes''*'
-        { [Catzc.Base.QualityGates.FileHeadPolicy]::new(@{ default = 'required' }) } | Should -Throw '*allowed: facts, forbidden, config*'
-        { [Catzc.Base.QualityGates.FileHeadPolicy]::new(@{ pages = 'facts' }) } | Should -Throw '*unknown key ''pages''*'
-        { [Catzc.Base.QualityGates.FileHeadPolicy]::new(@{ classes = @{ widget = 'always' } }) } | Should -Throw '*head_policy.classes.widget*'
-        { [Catzc.Base.QualityGates.FileHeadPolicy]::new(@{ fallback = 'facts' }) } | Should -Throw '*unknown key ''fallback''*'
+        { [Catzc.Base.QualityGates.FileHeadPolicy]::new(@{ default = 'sometimes' }) } |
+            Should -Throw '*head_policy.default is ''sometimes''*'
+        { [Catzc.Base.QualityGates.FileHeadPolicy]::new(@{ default = 'required' }) } |
+            Should -Throw '*allowed: facts, forbidden, config*'
+        { [Catzc.Base.QualityGates.FileHeadPolicy]::new(@{ pages = 'facts' }) } |
+            Should -Throw '*unknown key ''pages''*'
+        { [Catzc.Base.QualityGates.FileHeadPolicy]::new(@{ classes = @{ widget = 'always' } }) } |
+            Should -Throw '*head_policy.classes.widget*'
+        { [Catzc.Base.QualityGates.FileHeadPolicy]::new(@{ fallback = 'facts' }) } |
+            Should -Throw '*unknown key ''fallback''*'
     }
 
     It 'is read from the head_policy key of the meta-kind registry' -Tag 'ADR-REPO-FILEMETA-METAKIND' {
         $config = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ head_policy = @{ classes = @{ widget = 'forbidden' } } })
         $config.PolicyFor('widget') | Should -Be ([Catzc.Base.QualityGates.HeadPolicy]::Forbidden)
         $config.PolicyFor('gadget') | Should -Be ([Catzc.Base.QualityGates.HeadPolicy]::Facts)
-        [Catzc.Base.QualityGates.FileMetaConfig]::new(@{}).PolicyFor('widget') | Should -Be ([Catzc.Base.QualityGates.HeadPolicy]::Facts)
+        [Catzc.Base.QualityGates.FileMetaConfig]::new(@{}).PolicyFor('widget') |
+            Should -Be ([Catzc.Base.QualityGates.HeadPolicy]::Facts)
     }
 
     It 'ships the policy the rule names: agents forbidden, capabilities and slides config, diagram declarations forbidden, the rest facts' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
         $shipped = Get-Config -Config file-meta
         $shipped.head_policy.default | Should -Be ([Catzc.Base.QualityGates.HeadPolicy]::Facts)
-        @($shipped.ImprintKeys()) | Should -Be @('docs') -Because 'an authored head shows its comment page and nothing else: no with_body_sha, no rule codes'
+        @($shipped.ImprintKeys()) |
+            Should -Be @('docs') -Because 'an authored head shows its comment page and nothing else: no with_body_sha, no rule codes'
         $shipped.PolicyFor('agent') | Should -Be ([Catzc.Base.QualityGates.HeadPolicy]::Forbidden)
         $shipped.PolicyFor('capability') | Should -Be ([Catzc.Base.QualityGates.HeadPolicy]::Config)
         $shipped.PolicyFor('slide') | Should -Be ([Catzc.Base.QualityGates.HeadPolicy]::Config)
         $shipped.PolicyFor('diagram-declaration') | Should -Be ([Catzc.Base.QualityGates.HeadPolicy]::Forbidden)
         foreach ($class in 'function', 'type', 'config', 'test', 'adr', 'reference', 'index', 'glossary') {
-            $shipped.PolicyFor($class) | Should -Be ([Catzc.Base.QualityGates.HeadPolicy]::Facts) -Because "a $class file carries a head only when a fact is non-empty"
+            $shipped.PolicyFor($class) |
+                Should -Be ([Catzc.Base.QualityGates.HeadPolicy]::Facts) -Because "a $class file carries a head only when a fact is non-empty"
         }
     }
 }

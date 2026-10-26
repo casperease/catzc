@@ -35,7 +35,8 @@ function Clear-Output {
             [Catzc.Base.Reports.OutputFile]::new($relative, [System.IO.File]::GetLastWriteTimeUtc($path))
         }
         $pipeline = (Get-RunEnvironment) -eq 'Pipeline'
-        $plan = [Catzc.Base.Reports.OutputRetention]::Plan([Catzc.Base.Reports.OutputFile[]] @($files), (Get-Config -Config output-formats),
+        $plan = [Catzc.Base.Reports.OutputRetention]::Plan([Catzc.Base.Reports.OutputFile[]] @($files),
+            (Get-Config -Config output-formats),
             [datetime]::UtcNow, $pipeline)
         $remove = @($plan.Remove)
         $uncovered = @($plan.Uncovered)

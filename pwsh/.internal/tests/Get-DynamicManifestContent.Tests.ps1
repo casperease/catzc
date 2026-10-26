@@ -16,8 +16,10 @@ Describe 'Get-DynamicManifestContent' -Tag 'L0', 'logic' {
     }
 
     It 'produces byte-identical output for identical inputs (deterministic)' {
-        $first = InModuleScope Catzc.Internal.Bootstrap { Get-DynamicManifestContent -NestedModule @('private/B.ps1', 'A.ps1') -FunctionToExport @('A') }
-        $second = InModuleScope Catzc.Internal.Bootstrap { Get-DynamicManifestContent -NestedModule @('private/B.ps1', 'A.ps1') -FunctionToExport @('A') }
+        $first = InModuleScope Catzc.Internal.Bootstrap { Get-DynamicManifestContent -NestedModule @('private/B.ps1',
+            'A.ps1') -FunctionToExport @('A') }
+        $second = InModuleScope Catzc.Internal.Bootstrap { Get-DynamicManifestContent -NestedModule @('private/B.ps1',
+            'A.ps1') -FunctionToExport @('A') }
         $first | Should -BeExactly $second
     }
 
@@ -80,7 +82,8 @@ Describe 'New-DynamicManifest' -Tag 'L0', 'logic' {
         $manifest = InModuleScope Catzc.Internal.Bootstrap -Parameters @{ P = $path } { param($P) New-DynamicManifest -ModulePath $P }
         $expected = InModuleScope Catzc.Internal.Bootstrap {
             Get-DynamicManifestContent -NestedModule @('../.internal/assets/Import-ModuleFiles.ps1') `
-                -ModuleFile @('private/Get-WidgetPart.ps1', 'Get-WidgetA.ps1', 'Get-WidgetB.ps1') -FunctionToExport @('Get-WidgetA', 'Get-WidgetB')
+                -ModuleFile @('private/Get-WidgetPart.ps1', 'Get-WidgetA.ps1',
+                    'Get-WidgetB.ps1') -FunctionToExport @('Get-WidgetA', 'Get-WidgetB')
         }
         $manifest | Should -Be (Join-Path $path 'DerivedWidget.psd1')
         [System.IO.File]::ReadAllText($manifest) | Should -BeExactly $expected
@@ -92,7 +95,8 @@ Describe 'New-DynamicManifest' -Tag 'L0', 'logic' {
             param($P) New-DynamicManifest -ModulePath $P -NestedModule 'MergedWidget.ps1' -FunctionToExport 'Get-WidgetA', 'Get-WidgetB'
         }
         $expected = InModuleScope Catzc.Internal.Bootstrap {
-            Get-DynamicManifestContent -NestedModule @('MergedWidget.ps1') -FunctionToExport @('Get-WidgetA', 'Get-WidgetB')
+            Get-DynamicManifestContent -NestedModule @('MergedWidget.ps1') -FunctionToExport @('Get-WidgetA',
+                'Get-WidgetB')
         }
         $text = [System.IO.File]::ReadAllText($manifest)
         $text | Should -BeExactly $expected
@@ -146,7 +150,8 @@ Describe 'New-DynamicManifest explicit lists load a merged module' -Tag 'L1', 'l
         $script:moduleName = 'GadgetMerged' + [guid]::NewGuid().ToString('N').Substring(0, 8)
         $script:path = Join-Path $TestDrive $moduleName
         [System.IO.Directory]::CreateDirectory($path) | Out-Null
-        [System.IO.File]::WriteAllText((Join-Path $path "$moduleName.ps1"), ((@("function Get-GadgetPart { 'part' }", 'function Get-Gadget { Get-GadgetPart }') -join "`n") + "`n"))
+        [System.IO.File]::WriteAllText((Join-Path $path "$moduleName.ps1"), ((@("function Get-GadgetPart { 'part' }",
+            'function Get-Gadget { Get-GadgetPart }') -join "`n") + "`n"))
         $manifest = InModuleScope Catzc.Internal.Bootstrap -Parameters @{ P = $path; N = $moduleName } {
             param($P, $N) New-DynamicManifest -ModulePath $P -NestedModule "$N.ps1" -FunctionToExport 'Get-Gadget'
         }
@@ -173,7 +178,8 @@ Describe 'New-DynamicManifest derived manifests load through the shared loader' 
         Mock Get-PrivateFunctionFolder -ModuleName Catzc.Internal.Bootstrap { 'private' }
         $script:modulesRoot = Join-Path $TestDrive 'widget-modules'
         [System.IO.Directory]::CreateDirectory((Join-Path $modulesRoot '.internal/assets')) | Out-Null
-        [System.IO.File]::Copy((Join-Path (Get-CatzcModulesRoot) '.internal/assets/Import-ModuleFiles.ps1'), (Join-Path $modulesRoot '.internal/assets/Import-ModuleFiles.ps1'))
+        [System.IO.File]::Copy((Join-Path (Get-CatzcModulesRoot) '.internal/assets/Import-ModuleFiles.ps1'),
+            (Join-Path $modulesRoot '.internal/assets/Import-ModuleFiles.ps1'))
 
         function New-SprocketModule {
             param([string] $Name, [hashtable] $File)
@@ -210,9 +216,11 @@ Describe 'New-DynamicManifest derived manifests load through the shared loader' 
     }
 
     It 'keeps each function''s source file and line' {
-        [System.IO.Path]::GetFileName($module.ExportedFunctions['Get-Sprocket'].ScriptBlock.File) | Should -Be 'Get-Sprocket.ps1'
+        [System.IO.Path]::GetFileName($module.ExportedFunctions['Get-Sprocket'].ScriptBlock.File) |
+            Should -Be 'Get-Sprocket.ps1'
         $failure = { & $module { Get-SprocketFailure } } | Should -Throw -PassThru
-        ("$($failure.ScriptStackTrace)" -split '\r?\n')[0] | Should -BeLike "at Get-SprocketFailure, *$moduleName*Get-SprocketFailure.ps1: line 3"
+        ("$($failure.ScriptStackTrace)" -split '\r?\n')[0] |
+            Should -BeLike "at Get-SprocketFailure, *$moduleName*Get-SprocketFailure.ps1: line 3"
     }
 
     It 'leaves none of the loader''s variables in the module' {

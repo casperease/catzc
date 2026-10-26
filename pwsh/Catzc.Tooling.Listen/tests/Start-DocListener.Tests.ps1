@@ -17,7 +17,8 @@ Describe 'Start-DocListener' -Tag 'L0', 'logic' {
 
         Write-ListenFixtureFile 'docs/explanation/gadget.md' "# Gadget`n`nNoted next.`n"
         Start-DocListener -Session $script:session -Cycles 1
-        @((Get-DocNote -Session $script:session).File) | Should -Be @('docs/drs/widget.md', 'docs/explanation/gadget.md')
+        @((Get-DocNote -Session $script:session).File) | Should -Be @('docs/drs/widget.md',
+            'docs/explanation/gadget.md')
     }
 
     It 'moves both sides of a rename forward' {

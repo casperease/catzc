@@ -38,7 +38,8 @@ Describe 'PdfDocument' -Tag 'L0', 'logic' {
             $entry = $entries.Substring(20 * $n, 20)
             $entry | Should -Match '^\d{10} 00000 n \n$'
             $offset = [long]$entry.Substring(0, 10)
-            $pdf.Substring($offset, "$n 0 obj`n".Length) | Should -Be "$n 0 obj`n" -Because "object $n sits at offset $offset"
+            $pdf.Substring($offset, "$n 0 obj`n".Length) |
+                Should -Be "$n 0 obj`n" -Because "object $n sits at offset $offset"
         }
         $pdf | Should -Match "trailer`n<< /Size $size /Root 1 0 R /ID \[<[0-9A-F]{32}> <[0-9A-F]{32}>\] >>`nstartxref"
     }

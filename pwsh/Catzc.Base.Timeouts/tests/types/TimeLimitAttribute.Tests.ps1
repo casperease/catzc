@@ -22,7 +22,8 @@ Describe 'TimeLimitAttribute' -Tag 'L0', 'logic', 'ADR-PWSH-ASSERT-DECLAREDTIMEL
             [Catzc.Base.Timeouts.TimeLimit(120, Pipeline = 900)]
             param()
         }
-        $limit = (Get-Command Get-Widget).ScriptBlock.Attributes | Where-Object { $_ -is [Catzc.Base.Timeouts.TimeLimitAttribute] }
+        $limit = (Get-Command Get-Widget).ScriptBlock.Attributes |
+            Where-Object { $_ -is [Catzc.Base.Timeouts.TimeLimitAttribute] }
         $limit.Devbox | Should -Be 120
         $limit.Pipeline | Should -Be 900
     }

@@ -29,7 +29,8 @@ Describe 'ContractValue' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT-CONTRACTASSET' {
     }
 
     It 'throws on a value no JSON or YAML parser gives' {
-        { [Catzc.Base.Contracts.ContractValue]::Kind([guid]::Empty) } | Should -Throw '*System.Guid is not a JSON or YAML value*'
+        { [Catzc.Base.Contracts.ContractValue]::Kind([guid]::Empty) } |
+            Should -Throw '*System.Guid is not a JSON or YAML value*'
     }
 
     It 'compares <Left> and <Right> as equal: <Equal>' -ForEach @(

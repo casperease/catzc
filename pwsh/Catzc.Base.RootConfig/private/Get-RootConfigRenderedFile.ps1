@@ -25,7 +25,8 @@ function Get-RootConfigRenderedFile {
     }
 
     $files = foreach ($record in $rendered) {
-        if ($record -is [string] -or -not $record.PSObject.Properties['Target'] -or -not $record.PSObject.Properties['Content']) {
+        if ($record -is [string] -or -not $record.PSObject.Properties['Target'] -or
+            -not $record.PSObject.Properties['Content']) {
             throw "Root-config entry '$pattern': generator $($Entry.generator) must return one string or { Target; Content } records."
         }
         $recordTarget = [string] $record.Target

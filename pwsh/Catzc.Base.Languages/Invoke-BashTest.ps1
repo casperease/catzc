@@ -24,9 +24,11 @@ function Invoke-BashTest {
     # The Bash root from bash.yml (BashConfig.ResolveRoot: the declared root, else bash/ when present, else .bash/).
     $bashRelative = (Get-Config -Config bash).ResolveRoot($root)
     $bashRoot = Join-Path $root $bashRelative
-    # The test folder: the one named, a module's own tests/ or the holder's, else the module's folder under the holder's tests/ in bash's folder case.
+    # The test folder: the one named, a module's own tests/ or the holder's, else the module's folder under the holder's
+    # tests/ in bash's folder case.
     $relative = if ($Folder) {
-        [System.IO.Path]::GetRelativePath($root, [System.IO.Path]::GetFullPath($Folder, $root)).Replace('\', '/').TrimEnd('/')
+        [System.IO.Path]::GetRelativePath($root, [System.IO.Path]::GetFullPath($Folder, $root)).Replace('\',
+            '/').TrimEnd('/')
     }
     else {
         "$bashRelative/tests/$((Get-Config -Config languages).TestFolderOf('bash', $Module))"
@@ -83,7 +85,8 @@ function Invoke-BashTest {
         throw "bats failed in $relative/ (exit $($run.ExitCode)): $($_.Exception.Message)`n$($run.Full)"
     }
 
-    if ($results.Count -eq 0 -or ($run.ExitCode -ne 0 -and -not @($results | Where-Object { $_.Outcome -eq 'fail' }).Count)) {
+    if ($results.Count -eq 0 -or ($run.ExitCode -ne 0 -and
+        -not @($results | Where-Object { $_.Outcome -eq 'fail' }).Count)) {
         throw "bats failed in $relative/ (exit $($run.ExitCode)) with no failing test:`n$($run.Full)"
     }
 

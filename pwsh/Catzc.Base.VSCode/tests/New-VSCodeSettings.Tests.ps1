@@ -55,7 +55,8 @@ Describe 'New-VsCodeSettings' -Tag 'L0', 'logic' {
         }
         $editorconfig = Join-Path $TestDrive '.editorconfig'
         Set-Content -LiteralPath $editorconfig -Value "root = true`n[*]`nindent_style = space`nindent_size = 4`nend_of_line = lf`ntrim_trailing_whitespace = true`n[*.wdg]`nindent_style = tab`nindent_size = 2`nmax_line_length = 100`n[*.cs]`ndotnet_style_widget = false"
-        $json = (New-VsCodeSettings -EditorConfigPath $editorconfig -CurrentPath (Join-Path $TestDrive 'none.json')) | ConvertFrom-Json -AsHashtable
+        $json = (New-VsCodeSettings -EditorConfigPath $editorconfig -CurrentPath (Join-Path $TestDrive 'none.json')) |
+            ConvertFrom-Json -AsHashtable
         $json['editor.insertSpaces'] | Should -BeTrue
         $json['editor.tabSize'] | Should -Be 4
         $json['editor.detectIndentation'] | Should -BeFalse
@@ -70,8 +71,10 @@ Describe 'New-VsCodeSettings' -Tag 'L0', 'logic' {
     }
 
     It 'renders the tagged languages the lamps offer, each with its tag and extensions, in the order given' {
-        $languages = [ordered]@{ widget = @{ tag = 'wdg'; extensions = @('.wdg', '.wdgx') }; gadget = @{ tag = 'gdg'; extensions = @('.gdg') } }
-        $json = (New-VsCodeSettings -LampLanguage $languages -CurrentPath (Join-Path $TestDrive 'none.json')) | ConvertFrom-Json -AsHashtable
+        $languages = [ordered]@{ widget = @{ tag = 'wdg'; extensions = @('.wdg',
+            '.wdgx') }; gadget = @{ tag = 'gdg'; extensions = @('.gdg') } }
+        $json = (New-VsCodeSettings -LampLanguage $languages -CurrentPath (Join-Path $TestDrive 'none.json')) |
+            ConvertFrom-Json -AsHashtable
         @($json['catzc.trackLamps.languages'].Keys) | Should -Be @('widget', 'gadget')
         $json['catzc.trackLamps.languages']['widget']['tag'] | Should -Be 'wdg'
         @($json['catzc.trackLamps.languages']['widget']['extensions']) | Should -Be @('.wdg', '.wdgx')
@@ -106,7 +109,8 @@ Describe 'New-VsCodeSettings' -Tag 'L0', 'logic' {
     It 'lets an authored entry win over an injected key of the same name' {
         $text = New-VsCodeSettings -ManagedTarget 'keep/searchable.psd1'
         $json = ($text -split "`n" | Where-Object { $_ -notmatch '^//' }) -join "`n" | ConvertFrom-Json
-        $json.'search.exclude'.'keep/searchable.psd1' | Should -BeFalse -Because 'an explicit authored un-exclude must survive injection'
+        $json.'search.exclude'.'keep/searchable.psd1' |
+            Should -BeFalse -Because 'an explicit authored un-exclude must survive injection'
     }
 
     It 'renders each filter''s include/exclude sets in lamp order, and no key without them' {
@@ -115,7 +119,8 @@ Describe 'New-VsCodeSettings' -Tag 'L0', 'logic' {
             gadgets = @([ordered]@{ include = @('gadgets', 'gadgets/**'); exclude = @() })
         }
         $json = (New-VsCodeSettings -RepositoryFilter $filter) | ConvertFrom-Json
-        @($json.'catzc.trackLamps.filters'.PSObject.Properties.Name) | Should -Be @('widgets', 'gadgets') -Because 'the declaration order is the lamp order'
+        @($json.'catzc.trackLamps.filters'.PSObject.Properties.Name) | Should -Be @('widgets',
+            'gadgets') -Because 'the declaration order is the lamp order'
         @($json.'catzc.trackLamps.filters'.widgets[0].exclude) | Should -Be @('widgets/tests/**')
         @($json.'catzc.trackLamps.filters'.gadgets[0].include) | Should -Be @('gadgets', 'gadgets/**')
         $bare = (New-VsCodeSettings | ConvertFrom-Json).PSObject.Properties.Name
@@ -159,14 +164,16 @@ Describe 'New-VsCodeSettings — real vscode-settings.yml' -Tag 'L1', 'integrity
         $json.'search.exclude'.$settings | Should -BeFalse
     }
 
-    It 'hides no Go test source from the explorer, search, the watcher, or gopls, for the <_>/ root' -ForEach @('go', '.go') {
+    It 'hides no Go test source from the explorer, search, the watcher, or gopls, for the <_>/ root' -ForEach @('go',
+        '.go') {
         $text = New-VsCodeSettings -ManagedTarget 'go.work', '*/tests/*/go.mod'
         $json = ($text -split "`n" | Where-Object { $_ -notmatch '^//' }) -join "`n" | ConvertFrom-Json -AsHashtable
         $source = "$_/tests/widget/widget_test.go"
         foreach ($key in 'files.exclude', 'search.exclude', 'files.watcherExclude') {
             if ($json.Contains($key)) {
                 foreach ($glob in @($json[$key].Keys | Where-Object { $json[$key][$_] -eq $true })) {
-                    # A VS Code glob as a -like pattern ('**' and '*' both span '/'), on the path and its leading '**/' form.
+                    # A VS Code glob as a -like pattern ('**' and '*' both span '/'), on the path and its leading '**/'
+                    # form.
                     $pattern = $glob -replace '\*\*', '*'
                     $source | Should -Not -BeLike $pattern -Because "$key '$glob' would hide $source"
                     "x/$source" | Should -Not -BeLike $pattern -Because "$key '$glob' would hide $source"
@@ -176,7 +183,8 @@ Describe 'New-VsCodeSettings — real vscode-settings.yml' -Tag 'L1', 'integrity
         $filters = @(if ($json.Contains('gopls') -and $json['gopls'].Contains('build.directoryFilters')) {
                 $json['gopls']['build.directoryFilters']
             })
-        @($filters | Where-Object { $_ -like '-*' -and $source -like (($_.Substring(1) -replace '\*\*', '*') + '*') }) | Should -BeNullOrEmpty
+        @($filters | Where-Object { $_ -like '-*' -and $source -like (($_.Substring(1) -replace '\*\*', '*') + '*') }) |
+            Should -BeNullOrEmpty
         $json['search.exclude']['*/tests/*/go.mod'] | Should -BeTrue
     }
 }

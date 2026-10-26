@@ -23,7 +23,8 @@ function Get-CommittedTypesDrift {
     $reasons = [System.Collections.Generic.List[string]]::new()
     $expectedManifest = "Catzc.Types.$currentHash.json"
     # @() around the whole loop: a single match must stay an array (.Count under strict mode).
-    $manifests = @(foreach ($manifest in [Catzc.Base.Folders.PathSet]::new().AddPattern($compiledRoot, 'Catzc.Types.*.json', 1).ToArray()) {
+    $manifests = @(foreach ($manifest in [Catzc.Base.Folders.PathSet]::new().AddPattern($compiledRoot,
+        'Catzc.Types.*.json', 1).ToArray()) {
             [System.IO.Path]::GetFileName($manifest)
         })
     if ($manifests.Count -ne 1 -or $manifests[0] -ne $expectedManifest) {

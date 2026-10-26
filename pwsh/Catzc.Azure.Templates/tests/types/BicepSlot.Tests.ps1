@@ -9,14 +9,17 @@ Describe 'BicepSlot' -Tag 'L0', 'logic' {
     }
 
     It 'keeps the empty slot and customer sentinels' {
-        $slot = [Catzc.Azure.Templates.BicepSlot]::new('dev', 'dev', $null, 'widget-sub', $null, 'C:\widget\configuration\dev.yml')
+        $slot = [Catzc.Azure.Templates.BicepSlot]::new('dev', 'dev', $null, 'widget-sub', $null,
+            'C:\widget\configuration\dev.yml')
         $slot.slot | Should -BeExactly ''
         $slot.customer | Should -BeExactly ''
     }
 
     It 'rejects a config file that is neither yml nor bicepparam, and a missing one' {
-        { [Catzc.Azure.Templates.BicepSlot]::new('dev', 'dev', '', 'widget-sub', '', 'C:\widget\configuration\dev.json') } |
+        { [Catzc.Azure.Templates.BicepSlot]::new('dev', 'dev', '', 'widget-sub', '',
+            'C:\widget\configuration\dev.json') } |
             Should -Throw '*must be a .yml or a .bicepparam config*'
-        { [Catzc.Azure.Templates.BicepSlot]::new('dev', 'dev', '', 'widget-sub', '', '') } | Should -Throw '*BicepSlot.file is required*'
+        { [Catzc.Azure.Templates.BicepSlot]::new('dev', 'dev', '', 'widget-sub', '', '') } |
+            Should -Throw '*BicepSlot.file is required*'
     }
 }

@@ -109,7 +109,8 @@ Describe 'Get-BicepTemplates' -Tag 'L0', 'logic' {
     }
 
     It 'overlays deployment_target from a template options.yml' {
-        $subscription = (Get-BicepTemplates) | Where-Object { $_.name -eq 'sample-subscription' } | Select-Object -First 1
+        $subscription = (Get-BicepTemplates) | Where-Object { $_.name -eq 'sample-subscription' } |
+            Select-Object -First 1
         $subscription.deployment_target | Should -Be 'Subscription'
         # Mode is not overridden in that template's options.yml, so it keeps the default.
         $subscription.deployment_mode | Should -Be 'Incremental'
@@ -132,9 +133,11 @@ Describe 'Get-BicepTemplates' -Tag 'L0', 'logic' {
         }
 
         It 'discovers the customer-subfolder slots tagged with the customer and the resolved customer subscription' {
-            $acmeSlots = @($sc.slots | Where-Object { $_.customer -eq 'acme' } | ForEach-Object { $_.name } | Sort-Object)
+            $acmeSlots = @($sc.slots | Where-Object { $_.customer -eq 'acme' } | ForEach-Object { $_.name } |
+                Sort-Object)
             $acmeSlots | Should -Be @('alpha', 'alpha-001')
-            @($sc.slots | Where-Object { $_.customer -eq 'acme' } | ForEach-Object { $_.subscription } | Select-Object -Unique) | Should -Be @('acme_lower')
+            @($sc.slots | Where-Object { $_.customer -eq 'acme' } | ForEach-Object { $_.subscription } |
+                Select-Object -Unique) | Should -Be @('acme_lower')
         }
 
         It 'treats the root and customer alpha as distinct slots (same config-name, different coordinate)' {
@@ -151,7 +154,8 @@ Describe 'Get-BicepTemplates' -Tag 'L0', 'logic' {
         It 'accepts a template that MIXES slotted and non-slotted configs (slot is per-config)' {
             # sample-customer ships acme/alpha.yml (no slot) AND acme/alpha-001.yml (slot 001).
             $sc = (Get-BicepTemplates) | Where-Object { $_.name -eq 'sample-customer' } | Select-Object -First 1
-            $acmeSlots = @($sc.slots | Where-Object { $_.customer -eq 'acme' } | ForEach-Object { $_.slot } | Sort-Object)
+            $acmeSlots = @($sc.slots | Where-Object { $_.customer -eq 'acme' } | ForEach-Object { $_.slot } |
+                Sort-Object)
             $acmeSlots | Should -Be @('', '001')
         }
 
@@ -221,7 +225,8 @@ Describe 'Get-BicepTemplates' -Tag 'L0', 'logic' {
             [object]::ReferenceEquals($first, $second) |
                 Should -BeFalse -Because 'a reset cache rebuilds a fresh result'
             @($second | ForEach-Object { $_.name } | Sort-Object) |
-                Should -Be @($first | ForEach-Object { $_.name } | Sort-Object) -Because 'same on-disk inputs yield the same templates'
+                Should -Be @($first | ForEach-Object { $_.name } |
+                Sort-Object) -Because 'same on-disk inputs yield the same templates'
         }
     }
 }

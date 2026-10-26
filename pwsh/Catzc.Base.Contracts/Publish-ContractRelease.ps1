@@ -64,7 +64,8 @@ function Publish-ContractRelease {
         foreach ($path in $hashes.Keys) {
             $lines.Add("$($hashes[$path])  $path")
         }
-        [System.IO.File]::WriteAllText((Join-Path $target '.frozen'), (($lines -join "`n") + "`n"), [System.Text.UTF8Encoding]::new($false))
+        [System.IO.File]::WriteAllText((Join-Path $target '.frozen'), (($lines -join "`n") + "`n"),
+            [System.Text.UTF8Encoding]::new($false))
     }
     catch {
         if ([System.IO.Directory]::Exists($target)) {

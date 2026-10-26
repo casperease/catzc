@@ -81,7 +81,8 @@ Describe 'Test-AzureNetworkPlan' -Tag 'L0', 'logic' {
         Mock Get-Config -ModuleName Catzc.Azure -ParameterFilter { $Config -eq 'network' } { & $script:plan 'alpha', 'ghost' }
         $thrown = { Test-AzureNetworkPlan -OutputFolder $out } | Should -Throw -PassThru
         $thrown.Exception.Message | Should -BeLike 'Test-AzureNetworkPlan failed: 2 issue(s)*'
-        $thrown.Exception.Message | Should -BeLike "*network environment 'ghost' is not a defined azure.yml environment (valid: alpha, beta, nsub)*"
+        $thrown.Exception.Message |
+            Should -BeLike "*network environment 'ghost' is not a defined azure.yml environment (valid: alpha, beta, nsub)*"
         $thrown.Exception.Message | Should -BeLike "*azure.yml environment 'beta' has no network entry in network.yml*"
     }
 
@@ -91,8 +92,10 @@ Describe 'Test-AzureNetworkPlan' -Tag 'L0', 'logic' {
         }
         $result = Test-AzureNetworkPlan -OutputFolder $out -PassThru
         $result.IssueCount | Should -Be 2
-        $result.Issues | Should -Contain "network subscription 'gadget_lower' is not a defined azure.yml subscription (valid: core_lower, widget_lower)"
-        $result.Issues | Should -Contain ("azure.yml subscription 'widget_lower' has no network entry in network.yml (it serves customer" +
+        $result.Issues |
+            Should -Contain "network subscription 'gadget_lower' is not a defined azure.yml subscription (valid: core_lower, widget_lower)"
+        $result.Issues |
+            Should -Contain ("azure.yml subscription 'widget_lower' has no network entry in network.yml (it serves customer" +
             " 'widget', so it needs a spoke)")
     }
 
@@ -102,9 +105,11 @@ Describe 'Test-AzureNetworkPlan' -Tag 'L0', 'logic' {
         }
         $result = Test-AzureNetworkPlan -OutputFolder $out -PassThru
         $result.IssueCount | Should -Be 2
-        $result.Issues | Should -Contain ("network subscription 'core_lower' is a spoke, but its azure.yml subscription serves no customer," +
+        $result.Issues |
+            Should -Contain ("network subscription 'core_lower' is a spoke, but its azure.yml subscription serves no customer," +
             ' so it needs a hub')
-        $result.Issues | Should -Contain ("network subscription 'widget_lower' is a hub, but its azure.yml subscription serves customer" +
+        $result.Issues |
+            Should -Contain ("network subscription 'widget_lower' is a hub, but its azure.yml subscription serves customer" +
             " 'widget', so it needs a spoke")
     }
 
@@ -114,8 +119,10 @@ Describe 'Test-AzureNetworkPlan' -Tag 'L0', 'logic' {
         }
         $result = Test-AzureNetworkPlan -OutputFolder $out -PassThru
         $result.IssueCount | Should -Be 2
-        $result.Issues | Should -Contain "network spoke 'widget_lower' has no workload subnet for environment 'beta', which its subscription serves"
-        $result.Issues | Should -Contain ("network spoke 'widget_lower' has workload subnet 'gamma', which names no standard environment its" +
+        $result.Issues |
+            Should -Contain "network spoke 'widget_lower' has no workload subnet for environment 'beta', which its subscription serves"
+        $result.Issues |
+            Should -Contain ("network spoke 'widget_lower' has workload subnet 'gamma', which names no standard environment its" +
             ' subscription serves (serves: alpha, beta)')
     }
 }

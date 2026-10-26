@@ -4,7 +4,8 @@ Describe 'Invoke-StagedBurst' -Tag 'L0', 'logic' {
     }
 
     BeforeEach {
-        # Each test has a repository root, a stand-in importer and a run lock of its own, so a real run on the machine never touches them.
+        # Each test has a repository root, a stand-in importer and a run lock of its own, so a real run on the machine
+        # never touches them.
         $script:lockName = "Local\catzc-test-$([guid]::NewGuid())"
         $script:root = Join-Path $TestDrive "root-$([guid]::NewGuid())"
         $script:staged = Join-Path $script:root 'out/widget/staged'
@@ -33,7 +34,8 @@ function Test-Broken { throw 'broken gadget' }
         [System.IO.File]::ReadAllText($script:target) | Should -BeExactly 'staged'
         [System.IO.File]::ReadAllText($script:created) | Should -BeExactly 'new'
         Test-Path -LiteralPath "$script:staged.backup" | Should -BeFalse
-        # The real Invoke-CatzcCommand.ps1 runs the one fixture command: its switches bind by name and are never taken for commands.
+        # The real Invoke-CatzcCommand.ps1 runs the one fixture command: its switches bind by name and are never taken
+        # for commands.
         $lines | Should -Contain '[Invoke-CatzcCommand] passed: Test-Swapped'
         $lines | Should -Contain '[Invoke-CatzcCommand] 1 of 1 passed'
         ($lines -join "`n") | Should -Not -BeLike '*is not recognized*'
@@ -48,14 +50,16 @@ function Test-Broken { throw 'broken gadget' }
         Test-Path -LiteralPath $script:created | Should -BeFalse
         Test-Path -LiteralPath "$script:staged.backup" | Should -BeFalse
         $lines | Should -Contain '[Invoke-CatzcCommand] failed: Test-Broken — broken gadget'
-        $lines | Should -Contain '[Invoke-StagedBurst] restored every target from the journal: the tests failed (exit code 1)'
+        $lines |
+            Should -Contain '[Invoke-StagedBurst] restored every target from the journal: the tests failed (exit code 1)'
     }
 
     It 'restores a journal a killed call left, before it swaps anything' {
         $journal = "$script:staged.backup"
         $null = New-Item -ItemType Directory -Path (Join-Path $journal 'files/widgets') -Force
         [System.IO.File]::WriteAllText((Join-Path $journal 'files/widgets/gadget.txt'), 'before the killed swap')
-        [System.IO.File]::WriteAllText((Join-Path $journal 'manifest.json'), '[{"path":"widgets/gadget.txt","existed":true},{"path":"widgets/sprocket.txt","existed":false}]')
+        [System.IO.File]::WriteAllText((Join-Path $journal 'manifest.json'),
+            '[{"path":"widgets/gadget.txt","existed":true},{"path":"widgets/sprocket.txt","existed":false}]')
         [System.IO.File]::WriteAllText($script:target, 'half swapped')
         [System.IO.File]::WriteAllText($script:created, 'half swapped')
         # The staged folder holds one file only, so the journal's second target is restored by the journal alone.
@@ -92,12 +96,14 @@ function Test-Broken { throw 'broken gadget' }
             $null = & $script:burst -StagedFolder 'out/widget/staged' -RepositoryRoot $script:root -Stage 'widgets/gadget.txt', 'widgets/cog.txt'
             $null = & $script:burst -StagedFolder 'out/widget/staged' -RepositoryRoot $script:root -Stage 'widgets/sprocket.txt,widgets/cog.txt'
             foreach ($name in 'gadget', 'cog', 'sprocket') {
-                [System.IO.File]::Exists((Join-Path $script:staged "widgets/$name.txt.burst-base")) | Should -BeTrue -Because $name
+                [System.IO.File]::Exists((Join-Path $script:staged "widgets/$name.txt.burst-base")) |
+                    Should -BeTrue -Because $name
             }
             Remove-Item -LiteralPath (Join-Path $script:staged 'widgets') -Recurse
             $null = & pwsh -NoProfile -File $script:burst -StagedFolder 'out/widget/staged' -RepositoryRoot $script:root -Stage 'widgets/gadget.txt' 'widgets/cog.txt'
             foreach ($name in 'gadget', 'cog') {
-                [System.IO.File]::Exists((Join-Path $script:staged "widgets/$name.txt.burst-base")) | Should -BeTrue -Because "$name through pwsh -File"
+                [System.IO.File]::Exists((Join-Path $script:staged "widgets/$name.txt.burst-base")) |
+                    Should -BeTrue -Because "$name through pwsh -File"
             }
         }
 
@@ -126,7 +132,8 @@ function Test-Broken { throw 'broken gadget' }
 
     Context 'a staged delete' {
         BeforeEach {
-            # Only the marker is staged, so these tests delete without swapping, unless one stages the gadget back itself.
+            # Only the marker is staged, so these tests delete without swapping, unless one stages the gadget back
+            # itself.
             Remove-Item -LiteralPath (Join-Path $script:staged 'widgets/gadget.txt'), (Join-Path $script:staged 'widgets/sprocket.txt')
             [System.IO.File]::WriteAllText((Join-Path $script:staged 'widgets/cog.txt.burst-delete'), '')
         }
@@ -166,6 +173,7 @@ function Test-Broken { throw 'broken gadget' }
     }
 
     It 'names no command, and stops' {
-        { & $script:burst -StagedFolder 'out/widget/staged' -RepositoryRoot $script:root -LockName $script:lockName } | Should -Throw '*at least one command*'
+        { & $script:burst -StagedFolder 'out/widget/staged' -RepositoryRoot $script:root -LockName $script:lockName } |
+            Should -Throw '*at least one command*'
     }
 }

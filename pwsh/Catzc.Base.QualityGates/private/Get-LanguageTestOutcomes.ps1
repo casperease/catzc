@@ -29,7 +29,8 @@ function Get-LanguageTestOutcomes {
 
         [string] $EngineExecutable,
 
-        # The test folder the discovery named, a module's own tests/ or the holder's; the runner finds the holder's when it is empty.
+        # The test folder the discovery named, a module's own tests/ or the holder's; the runner finds the holder's when
+        # it is empty.
         [string] $Folder
     )
 
@@ -68,11 +69,13 @@ function Get-LanguageTestOutcomes {
         $run['Folder'] = $Folder
     }
     if ($tests.engine) {
-        # A language that is an engine runs its tests under that engine only, with the executable the source session located.
+        # A language that is an engine runs its tests under that engine only, with the executable the source session
+        # located.
         $run.Remove('Engine')
     }
     $run[$tests.executable_parameter] = $Executable
-    # A runner whose tests run in no engine (JavaScript's, in node) declares no engine parameters, so it gets only those it declares.
+    # A runner whose tests run in no engine (JavaScript's, in node) declares no engine parameters, so it gets only those
+    # it declares.
     $declared = (Get-Command $tests.runner).Parameters
     foreach ($name in @($run.Keys)) {
         if (-not $declared.ContainsKey($name)) {

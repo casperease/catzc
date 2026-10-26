@@ -34,7 +34,8 @@ function Find-Executable {
     $comparer = [System.StringComparer]::OrdinalIgnoreCase
     $excluded = [System.Collections.Generic.HashSet[string]]::new($comparer)
     foreach ($entry in $Exclude) {
-        $excluded.Add([System.IO.Path]::GetFullPath([System.Environment]::ExpandEnvironmentVariables($entry))) | Out-Null
+        $excluded.Add([System.IO.Path]::GetFullPath([System.Environment]::ExpandEnvironmentVariables($entry))) |
+            Out-Null
     }
 
     # 1. Locate — file checks and the PATH lookup only, timed.

@@ -30,7 +30,8 @@ Describe 'Install-Go' -Tag 'L1', 'logic' {
             else {
                 'none'
             }
-            [Catzc.Base.Execution.ExecutableProbe]::new('go', $Path, $method, $Version, '1.27', [bool]$Version, 1, 1, 'Person')
+            [Catzc.Base.Execution.ExecutableProbe]::new('go', $Path, $method, $Version, '1.27', [bool]$Version, 1, 1,
+                'Person')
         }
 
         # A real archive holding the go/ tree, as the go.dev .zip does.

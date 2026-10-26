@@ -81,7 +81,8 @@ Describe 'Test-SourceConventions' -Tag 'L0', 'logic' {
         $message | Should -Match 'Widget/Widget.ps1: the source file is not named Verb-Noun'
         $message | Should -Match 'Widget/Get-Gadget.ps1: holds 2 top-level functions'
         $message | Should -Match "Widget/Set-Widget.ps1: defines 'Set-Gadget'"
-        $message | Should -Match 'Get-Widget: defined in more than one file \(Widget/Get-Widget.ps1, Widget/private/Get-Widget2.ps1\)'
+        $message |
+            Should -Match 'Get-Widget: defined in more than one file \(Widget/Get-Widget.ps1, Widget/private/Get-Widget2.ps1\)'
         $message | Should -Match 'Widget/tests/Widget.Tests.ps1: the test file is not named Verb-Noun'
         $message | Should -Match 'Widget/tests/types/GadgetConfig.Tests.ps1: names no C# type'
         $message | Should -Match "Set-ItResult -Because 'Not on this box' is not a constrained skip key"
@@ -98,7 +99,8 @@ Describe 'Test-SourceConventions' -Tag 'L0', 'logic' {
         & $writeCheckFixtures
         $result = Test-SourceConventions -OutputFolder $out -PassThru
         $result.IssueCount | Should -Be 3
-        $result.Issues | Should -Contain "widget-modules/Widget/README.md:1: 'widget and gadget' names 2 of the 3 engines (widget, gadget, sprocket); say 'every engine' or name them all"
+        $result.Issues |
+            Should -Contain "widget-modules/Widget/README.md:1: 'widget and gadget' names 2 of the 3 engines (widget, gadget, sprocket); say 'every engine' or name them all"
         @($result.Issues | Where-Object { $_ -like 'widget-modules/Widget/Set-Widget.ps1:1: a ValidateSet lists engine names*' }) | Should -HaveCount 1
         @($result.Issues | Where-Object { $_ -like "widget-modules/Widget/tests/Set-Widget.Tests.ps1:1: L0 fixture data uses the real ADR code 'ADR-WIDGET-GADGET-TURN'*" }) | Should -HaveCount 1
         $result.Facts['EngineSetCount'] | Should -Be 2

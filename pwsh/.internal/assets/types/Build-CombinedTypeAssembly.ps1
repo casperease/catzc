@@ -10,9 +10,11 @@ function Build-CombinedTypeAssembly {
     # .PARAMETER OutputDirectory
     #     The directory the Catzc.Types.<hash>.dll is written to; created when missing.
     # .OUTPUTS
-    #     [pscustomobject] with Hash (the 8-char combined hash), Path (the DLL), Manifest (the Catzc.Types.<hash>.json beside
+    #     [pscustomobject] with Hash (the 8-char combined hash), Path (the DLL), Manifest (the Catzc.Types.<hash>.json
+    # beside
     #     it, written when missing), Files (the source list, in order,
-    #     from Get-CombinedTypeHash), Snapshot (the per-file digests), and Compiled (whether this call ran the compiler).
+    #     from Get-CombinedTypeHash), Snapshot (the per-file digests), and Compiled (whether this call ran the
+    # compiler).
     #     $null when the selection ships no C# type source.
     # .EXAMPLE
     #     Build-CombinedTypeAssembly -ModulesRoot $root -Module 'Catzc.Base.Objects' -OutputDirectory "$build/.compiled"
@@ -50,7 +52,8 @@ function Build-CombinedTypeAssembly {
     }
 
     # Freeze the sources, then hash and compile the copy, so the DLL's name keys exactly the bytes compiled.
-    $frozenRoot = [System.IO.Path]::Combine([System.IO.Path]::GetTempPath(), "catzc-types-$PID-$([guid]::NewGuid().ToString('N'))")
+    $frozenRoot = [System.IO.Path]::Combine([System.IO.Path]::GetTempPath(),
+        "catzc-types-$PID-$([guid]::NewGuid().ToString('N'))")
     try {
         foreach ($file in $hashResult.Files) {
             $frozenTypes = [System.IO.Path]::Combine($frozenRoot, $file.Module, 'types')
@@ -62,11 +65,14 @@ function Build-CombinedTypeAssembly {
                 throw "C# type source '$($file.Path)' was removed while the types were being built. Re-run the build."
             }
         }
-        # The carrier's head form is an input of the hash too, so the frozen copy hashes the bodies the live root hashes.
+        # The carrier's head form is an input of the hash too, so the frozen copy hashes the bodies the live root
+        # hashes.
         $carriers = [System.IO.Path]::Combine('Catzc.Base.Languages', 'configs', 'file-carriers.yml')
         if ([System.IO.File]::Exists([System.IO.Path]::Combine($ModulesRoot, $carriers))) {
-            [System.IO.Directory]::CreateDirectory([System.IO.Path]::Combine($frozenRoot, 'Catzc.Base.Languages', 'configs')) | Out-Null
-            [System.IO.File]::Copy([System.IO.Path]::Combine($ModulesRoot, $carriers), [System.IO.Path]::Combine($frozenRoot, $carriers))
+            [System.IO.Directory]::CreateDirectory([System.IO.Path]::Combine($frozenRoot, 'Catzc.Base.Languages',
+                'configs')) | Out-Null
+            [System.IO.File]::Copy([System.IO.Path]::Combine($ModulesRoot, $carriers),
+                [System.IO.Path]::Combine($frozenRoot, $carriers))
         }
         $frozenArguments = @{ ModulesRoot = $frozenRoot }
         if ($PSBoundParameters.ContainsKey('Module')) {
@@ -86,7 +92,8 @@ function Build-CombinedTypeAssembly {
                     # The compiler names the frozen copies; name the sources the reader edits instead.
                     $message = $_.Exception.Message
                     foreach ($file in $hashResult.Files) {
-                        $message = $message.Replace([System.IO.Path]::Combine($frozenRoot, $file.Module, 'types', "$($file.Base).cs"), $file.Path)
+                        $message = $message.Replace([System.IO.Path]::Combine($frozenRoot, $file.Module, 'types',
+                            "$($file.Base).cs"), $file.Path)
                     }
                     throw $message
                 }

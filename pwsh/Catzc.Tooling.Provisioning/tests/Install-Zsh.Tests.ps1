@@ -63,7 +63,8 @@ Describe 'Install-Zsh' -Tag 'L0', 'logic' {
             $recorded = [System.IO.File]::ReadAllText($script:manifest) | ConvertFrom-Json
             $recorded.Package | Should -Be $script:package
             $recorded.Files | Should -Be @('usr/bin/zsh.exe', 'usr/share/zsh/widget/gadget')
-            $recorded.Directories | Should -Be @('usr/share', 'usr/share/zsh', 'usr/share/zsh/widget', 'usr/share/catzc')
+            $recorded.Directories | Should -Be @('usr/share', 'usr/share/zsh', 'usr/share/zsh/widget',
+                'usr/share/catzc')
         }
 
         It 'leaves a file the Git tree already has untouched and unrecorded' {
@@ -72,7 +73,8 @@ Describe 'Install-Zsh' -Tag 'L0', 'logic' {
             }
             Install-Zsh
             [System.IO.File]::ReadAllText((Join-Path $script:gitHome 'usr/bin/msys-gadget.dll')) | Should -Be 'git'
-            ([System.IO.File]::ReadAllText($script:manifest) | ConvertFrom-Json).Files | Should -Not -Contain 'usr/bin/msys-gadget.dll'
+            ([System.IO.File]::ReadAllText($script:manifest) | ConvertFrom-Json).Files |
+                Should -Not -Contain 'usr/bin/msys-gadget.dll'
         }
 
         It 'stops and names Install-Git when the Git tree is not there, before any download' {
@@ -112,7 +114,8 @@ Describe 'Install-Zsh' -Tag 'L0', 'logic' {
             Mock Get-ToolConfig -ModuleName Catzc.Tooling.Provisioning {
                 [pscustomobject]@{ msys2_url = 'https://widget.example/msys/zsh-gadget-2-x86_64.pkg.tar.zst'; msys2_sha256 = 'def456' }
             }
-            { Install-Zsh } | Should -Throw "*is not the pinned package 'zsh-gadget-2-x86_64.pkg.tar.zst'*Install-Zsh -Force*"
+            { Install-Zsh } |
+                Should -Throw "*is not the pinned package 'zsh-gadget-2-x86_64.pkg.tar.zst'*Install-Zsh -Force*"
         }
 
         It 'with -Force removes the installed package and installs the pinned one' {

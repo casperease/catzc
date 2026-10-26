@@ -33,19 +33,23 @@ function Get-SlideFinding {
     $result = [pscustomobject]@{ Html = ''; Faults = @() }
 
     if ($Slide.Order -isnot [int] -and $Slide.Order -isnot [long]) {
-        $faults.Add([Catzc.Base.Slides.SlideFault]::new($relative, 'order', "the head's config.order is a whole number from 1; found '$($Slide.Order)'"))
+        $faults.Add([Catzc.Base.Slides.SlideFault]::new($relative, 'order',
+            "the head's config.order is a whole number from 1; found '$($Slide.Order)'"))
     }
     elseif ([long] $Slide.Order -lt 1) {
-        $faults.Add([Catzc.Base.Slides.SlideFault]::new($relative, 'order', "the head's config.order is a whole number from 1; found '$($Slide.Order)'"))
+        $faults.Add([Catzc.Base.Slides.SlideFault]::new($relative, 'order',
+            "the head's config.order is a whole number from 1; found '$($Slide.Order)'"))
     }
 
     if ([string]::IsNullOrWhiteSpace($Slide.Pattern)) {
-        $faults.Add([Catzc.Base.Slides.SlideFault]::new($relative, 'pattern', "the head names no pattern (config.pattern); the kit holds: $(@($Kit.Patterns.Keys | Sort-Object) -join ', ')"))
+        $faults.Add([Catzc.Base.Slides.SlideFault]::new($relative, 'pattern',
+            "the head names no pattern (config.pattern); the kit holds: $(@($Kit.Patterns.Keys | Sort-Object) -join ', ')"))
         $result.Faults = $faults.ToArray()
         return $result
     }
     if (-not $Kit.Patterns.ContainsKey($Slide.Pattern)) {
-        $faults.Add([Catzc.Base.Slides.SlideFault]::new($relative, 'pattern', "the kit '$($Kit.Kit)' holds no pattern '$($Slide.Pattern)'; it holds: $(@($Kit.Patterns.Keys | Sort-Object) -join ', ')"))
+        $faults.Add([Catzc.Base.Slides.SlideFault]::new($relative, 'pattern',
+            "the kit '$($Kit.Kit)' holds no pattern '$($Slide.Pattern)'; it holds: $(@($Kit.Patterns.Keys | Sort-Object) -join ', ')"))
         $result.Faults = $faults.ToArray()
         return $result
     }
@@ -60,20 +64,23 @@ function Get-SlideFinding {
     $citations = Get-DrsCitationMap -RepositoryRoot $RepositoryRoot
     foreach ($cite in $Slide.Cites) {
         if (-not $citations.HasCode($cite)) {
-            $faults.Add([Catzc.Base.Slides.SlideFault]::new($relative, 'cites', "the ADR index knows no ADR or rule '$cite'"))
+            $faults.Add([Catzc.Base.Slides.SlideFault]::new($relative, 'cites',
+                "the ADR index knows no ADR or rule '$cite'"))
         }
     }
 
     if (-not [string]::IsNullOrWhiteSpace($Slide.Quotes)) {
         $registry = Get-AdrRuleText -Code $Slide.Quotes -RepositoryRoot $RepositoryRoot
         if ($null -eq $registry) {
-            $faults.Add([Catzc.Base.Slides.SlideFault]::new($relative, 'quotes', "the ADR index knows no rule '$($Slide.Quotes)'"))
+            $faults.Add([Catzc.Base.Slides.SlideFault]::new($relative, 'quotes',
+                "the ADR index knows no rule '$($Slide.Quotes)'"))
         }
         else {
             $bodySpec = $Kit.Patterns[$Slide.Pattern].Field('body')
             $ruleWords = [Catzc.Base.Slides.SlideSource]::WordCount($registry)
             if ($bodySpec -and $bodySpec.MaxWords -gt 0 -and $ruleWords -gt $bodySpec.MaxWords) {
-                $faults.Add([Catzc.Base.Slides.SlideFault]::new($relative, 'quotes', "the quoted rule $($Slide.Quotes) is $ruleWords words; pattern '$($Slide.Pattern)' holds at most $($bodySpec.MaxWords), so the rule itself must be trimmed"))
+                $faults.Add([Catzc.Base.Slides.SlideFault]::new($relative, 'quotes',
+                    "the quoted rule $($Slide.Quotes) is $ruleWords words; pattern '$($Slide.Pattern)' holds at most $($bodySpec.MaxWords), so the rule itself must be trimmed"))
             }
             $body = if ($Slide.Source.Fields.ContainsKey('body')) {
                 @($Slide.Source.Fields['body'].Items | ForEach-Object Text) -join ' '
@@ -83,13 +90,15 @@ function Get-SlideFinding {
             }
             $normal = [regex]::Replace($body, '\s+', ' ').Trim()
             if ($normal -cne $registry) {
-                $faults.Add([Catzc.Base.Slides.SlideFault]::new($relative, 'body', "quotes $($Slide.Quotes) but differs from the registry.`n  slide:    $normal`n  registry: $registry"))
+                $faults.Add([Catzc.Base.Slides.SlideFault]::new($relative, 'body',
+                    "quotes $($Slide.Quotes) but differs from the registry.`n  slide:    $normal`n  registry: $registry"))
             }
         }
     }
 
     # A field shows as the slide's text or, such as an image's path, as an attribute's value.
-    $attributes = @([regex]::Matches($render.Html, '\s[A-Za-z][\w-]*="([^"]*)"') | ForEach-Object { [System.Net.WebUtility]::HtmlDecode($_.Groups[1].Value) }) -join "`n"
+    $attributes = @([regex]::Matches($render.Html,
+        '\s[A-Za-z][\w-]*="([^"]*)"') | ForEach-Object { [System.Net.WebUtility]::HtmlDecode($_.Groups[1].Value) }) -join "`n"
     $rendered = [Catzc.Base.Slides.SlidePattern]::TextOf($render.Html) + "`n" + $attributes
     if ($Slide.Source.Title -and $rendered.IndexOf($Slide.Source.Title, [System.StringComparison]::Ordinal) -lt 0) {
         $faults.Add([Catzc.Base.Slides.SlideFault]::new($relative, 'title', 'the title is not in the rendered slide'))
@@ -97,7 +106,8 @@ function Get-SlideFinding {
     foreach ($field in $Slide.Source.Fields.Values) {
         foreach ($text in $field.Texts()) {
             if ($rendered.IndexOf($text, [System.StringComparison]::Ordinal) -lt 0) {
-                $faults.Add([Catzc.Base.Slides.SlideFault]::new($relative, $field.Name, "the text '$text' is not in the rendered slide"))
+                $faults.Add([Catzc.Base.Slides.SlideFault]::new($relative, $field.Name,
+                    "the text '$text' is not in the rendered slide"))
             }
         }
     }

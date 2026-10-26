@@ -49,7 +49,8 @@ Describe 'RootConfigFile' -Tag 'L0', 'logic' {
     }
 
     It 'carries the carrier of a source copy-in and of a generator entry' {
-        [Catzc.Base.RootConfig.RootConfigFile]::new(@{ target = 't'; source = 's'; carrier = 'dotfile' }).carrier | Should -Be 'dotfile'
+        [Catzc.Base.RootConfig.RootConfigFile]::new(@{ target = 't'; source = 's'; carrier = 'dotfile' }).carrier |
+            Should -Be 'dotfile'
         [Catzc.Base.RootConfig.RootConfigFile]::new(@{ target = 't'; generator = 'g'; carrier = 'go-workspace' }).carrier | Should -Be 'go-workspace'
     }
 

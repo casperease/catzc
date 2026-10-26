@@ -26,7 +26,8 @@ function Get-ParameterTypeConflict {
                 continue
             }
             foreach ($parameter in $function.Body.ParamBlock.Parameters) {
-                $constraint = $parameter.Attributes | Where-Object { $_ -is [System.Management.Automation.Language.TypeConstraintAst] } |
+                $constraint = $parameter.Attributes |
+                    Where-Object { $_ -is [System.Management.Automation.Language.TypeConstraintAst] } |
                     Select-Object -First 1
                 if (-not $constraint) {
                     continue
@@ -57,7 +58,8 @@ function Get-ParameterTypeConflict {
         [pscustomobject]@{
             Name  = $group.Name
             Types = @(foreach ($type in $types) {
-                    $functions = [System.Collections.Generic.SortedSet[string]]::new([string[]] @($type.Group.Function), [System.StringComparer]::Ordinal)
+                    $functions = [System.Collections.Generic.SortedSet[string]]::new([string[]] @($type.Group.Function),
+                        [System.StringComparer]::Ordinal)
                     [pscustomobject]@{ Type = $type.Name; Functions = @($functions) }
                 })
         }

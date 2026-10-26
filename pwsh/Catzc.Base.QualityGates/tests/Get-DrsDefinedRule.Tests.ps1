@@ -20,11 +20,13 @@ Describe 'Get-DrsDefinedRule' -Tag 'L0', 'logic', 'ADR-REPO-LINK-ONECITATIONSPEL
     }
 
     It 'lists a rule once when its heading repeats' {
-        Get-Defined "### Rule ADR-WIDGET-PART-TURN`n`n### Rule ADR-WIDGET-PART-TURN`n" | Should -Be @('ADR-WIDGET-PART-TURN')
+        Get-Defined "### Rule ADR-WIDGET-PART-TURN`n`n### Rule ADR-WIDGET-PART-TURN`n" |
+            Should -Be @('ADR-WIDGET-PART-TURN')
     }
 
     It 'takes a citation in prose, a numbered heading and a deeper heading for no definition' {
-        # The numbered heading is built from two strings, so the string-citation check reads no numbered citation in this file.
+        # The numbered heading is built from two strings, so the string-citation check reads no numbered citation in
+        # this file.
         $text = "## Rules: ADR-WIDGET-PART`n`nSee ADR-WIDGET-PART-TURN.`n`n### Rule ADR-WIDGET-PART" + ":2`n`n#### Rule ADR-WIDGET-PART-SPIN`n"
         (Get-Defined $text).Count | Should -Be 0
     }

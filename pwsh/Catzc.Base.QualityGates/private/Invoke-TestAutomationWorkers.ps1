@@ -129,7 +129,8 @@ function Invoke-TestAutomationWorkers {
     else {
         1
     }
-    # A greedy file counts against the greedy cap; one the policy keeps apart (it runs real builds) also against the one-at-a-time cap.
+    # A greedy file counts against the greedy cap; one the policy keeps apart (it runs real builds) also against the
+    # one-at-a-time cap.
     $greedyCaps = [System.Collections.Generic.List[string[]]]::new()
     $nextShardIndex = $workerCount
     foreach ($greedyFile in $GreedyFiles) {
@@ -172,7 +173,8 @@ function Invoke-TestAutomationWorkers {
                 }))
         $poolSize = Get-TestPoolSize -ParallelShardCount $shards.Count -GreedyFileCount $greedyShards.Count -GreedyGroupSize $greedyGroupSize
         $runner = [Catzc.Base.QualityGates.PesterRunner]::Run(
-            [string[]] @($pooled.ScriptPath), [string[]] @($pooled.Label), $caps, @{ greedy = $greedyGroupSize; apart = 1 },
+            [string[]] @($pooled.ScriptPath), [string[]] @($pooled.Label), $caps,
+                @{ greedy = $greedyGroupSize; apart = 1 },
             $poolSize, $WorkerEnvironment, $TimeoutSeconds, $false)
         $workerResults.AddRange($runner.Results)
         $allShards.AddRange([object[]] $pooled)
@@ -198,7 +200,8 @@ function Invoke-TestAutomationWorkers {
         $workerResult = $workerResults[$shardIndex]
         $shardExitCodes[$shard.Label] = $workerResult.ExitCode
 
-        if ($workerResult.ExitCode -notin 0, 1 -or -not (Test-Path $shard.RowsPath) -or -not (Test-Path $shard.ResultsPath)) {
+        if ($workerResult.ExitCode -notin 0, 1 -or -not (Test-Path $shard.RowsPath) -or
+            -not (Test-Path $shard.ResultsPath)) {
             $stderrTail = "$($workerResult.Stderr)".Trim()
             throw ("Test worker '$($shard.Label)' crashed (exit $($workerResult.ExitCode)) without completing its run" +
                 " — see $RunDirectory (run.json carries the run status)." +

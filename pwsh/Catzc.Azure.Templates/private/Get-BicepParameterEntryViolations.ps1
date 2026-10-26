@@ -97,7 +97,8 @@ function Get-BicepParameterEntryViolations {
             $isAllowed = $false
             foreach ($allowedValue in $Parameter.AllowedValues) {
                 if ($comparable -is [string] -and $allowedValue -is [string]) {
-                    $isAllowed = [string]::Equals($comparable, $allowedValue, [System.StringComparison]::OrdinalIgnoreCase)
+                    $isAllowed = [string]::Equals($comparable, $allowedValue,
+                        [System.StringComparison]::OrdinalIgnoreCase)
                 }
                 elseif ($null -eq $comparable -or $null -eq $allowedValue) {
                     $isAllowed = $null -eq $comparable -and $null -eq $allowedValue

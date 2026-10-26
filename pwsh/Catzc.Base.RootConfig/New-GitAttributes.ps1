@@ -78,5 +78,6 @@ function New-GitAttributes {
         $generated.Add("$(& $anchor $file.target) linguist-generated")
     }
 
-    $template.Replace($placeholder, ($blocks -join "`n`n")).Replace($generatedPlaceholder, (@($generated | Select-Object -Unique) -join "`n"))
+    $template.Replace($placeholder, ($blocks -join "`n`n")).Replace($generatedPlaceholder,
+        (@($generated | Select-Object -Unique) -join "`n"))
 }

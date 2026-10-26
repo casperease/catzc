@@ -23,5 +23,6 @@ function Get-AzCliBicepState {
         $installedVersion = [version]$Matches[1]
     }
 
-    [Catzc.Azure.Cli.BicepState]::new($true, $installedVersion, $minVersion, ($null -ne $installedVersion -and $installedVersion -ge $minVersion))
+    [Catzc.Azure.Cli.BicepState]::new($true, $installedVersion, $minVersion, ($null -ne $installedVersion -and
+        $installedVersion -ge $minVersion))
 }

@@ -109,8 +109,9 @@ layout:
 7. **Sync-GeneratedFile.** A committer in `Catzc.Base.ModuleSystem`: before it commits a generated file it asks
    `Test-GitWorkspace -MainViaPr`.
 8. **Skipped: main-via-pr on main.** On `main` or `master` in `main-via-pr` mode it writes
-   `Skipped: the git_workspace variant is 'main-via-pr' and this is <branch> — commit generated files from a working branch (variants.yml, ADR-REPO-VARIANT-GITWORKSPACE).`
-   and returns without committing. In `main-direct` mode any named branch, main included, commits.
+   `Skipped: the git_workspace variant is 'main-via-pr' and this is <branch>` followed by
+   `— commit generated files from a working branch (variants.yml, ADR-REPO-VARIANT-GITWORKSPACE).` and returns without committing. In
+   `main-direct` mode any named branch, main included, commits.
 
 ## Why it holds
 

@@ -42,7 +42,8 @@ function Measure-NoEnvRepositoryRoot {
         }
         # The left-hand side of an assignment writes the variable; only reads are the accessor's job.
         $parent = $variable.Parent
-        if ($parent -is [System.Management.Automation.Language.AssignmentStatementAst] -and $parent.Left -eq $variable) {
+        if ($parent -is [System.Management.Automation.Language.AssignmentStatementAst] -and
+            $parent.Left -eq $variable) {
             continue
         }
         $results.Add([Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord]@{

@@ -1,6 +1,7 @@
 Describe 'VariantsConfig' -Tag 'L0' {
     BeforeAll {
-        # tracks is required, so a fixture that is about another key gets one neutral track; a fixture that states tracks keeps its own.
+        # tracks is required, so a fixture that is about another key gets one neutral track; a fixture that states
+        # tracks keeps its own.
         $script:make = {
             param([System.Collections.IDictionary] $raw)
             $full = [ordered]@{}
@@ -48,8 +49,10 @@ Describe 'VariantsConfig' -Tag 'L0' {
         }
 
         It 'throws when tracks is omitted or null, naming the key and where to add it' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
-            { [Catzc.Base.Variants.VariantsConfig]::new([ordered]@{}) } | Should -Throw '*declares no tracks; add tracks: to variants.yml*'
-            { [Catzc.Base.Variants.VariantsConfig]::new([ordered]@{ tracks = $null }) } | Should -Throw '*declares no tracks*'
+            { [Catzc.Base.Variants.VariantsConfig]::new([ordered]@{}) } |
+                Should -Throw '*declares no tracks; add tracks: to variants.yml*'
+            { [Catzc.Base.Variants.VariantsConfig]::new([ordered]@{ tracks = $null }) } |
+                Should -Throw '*declares no tracks*'
         }
 
         It 'lays a declared convention over the built-in one, a declared track replacing its built-in' {
@@ -63,7 +66,8 @@ Describe 'VariantsConfig' -Tag 'L0' {
         }
 
         It 'accepts have_customers as a list of names' {
-            (& $script:make ([ordered]@{ have_customers = @('acme', 'globex') })).have_customers | Should -Be @('acme', 'globex')
+            (& $script:make ([ordered]@{ have_customers = @('acme', 'globex') })).have_customers | Should -Be @('acme',
+                'globex')
         }
 
         It 'accepts have_customers as a boolean true' {
@@ -86,7 +90,8 @@ Describe 'VariantsConfig' -Tag 'L0' {
         }
 
         It 'rejects file_heads as an unknown key, since the head policy decides every head from its facts' -Tag 'ADR-REPO-FILEMETA-HEADPOLICY' {
-            { & $script:make ([ordered]@{ file_heads = [ordered]@{ code = 'minimal' } }) } | Should -Throw '*file_heads*'
+            { & $script:make ([ordered]@{ file_heads = [ordered]@{ code = 'minimal' } }) } |
+                Should -Throw '*file_heads*'
         }
 
         It 'throws when have_customers is a non-all string' {
@@ -94,11 +99,13 @@ Describe 'VariantsConfig' -Tag 'L0' {
         }
 
         It 'throws when a have_customers list holds an invalid name' {
-            { & $script:make ([ordered]@{ have_customers = @('acme', 'Bad-Name') }) } | Should -Throw '*invalid have_customers customer name*'
+            { & $script:make ([ordered]@{ have_customers = @('acme', 'Bad-Name') }) } |
+                Should -Throw '*invalid have_customers customer name*'
         }
 
         It 'throws when a have_customers list has a duplicate name' {
-            { & $script:make ([ordered]@{ have_customers = @('acme', 'acme') }) } | Should -Throw '*duplicate have_customers customer name*'
+            { & $script:make ([ordered]@{ have_customers = @('acme', 'acme') }) } |
+                Should -Throw '*duplicate have_customers customer name*'
         }
 
         It 'accepts per-track conventions (automation live-closed, infra live-catch-all)' {
@@ -137,7 +144,8 @@ Describe 'VariantsConfig' -Tag 'L0' {
         It 'accepts tracks in declared order, with a vendor and languages optional' {
             $config = & $script:make ([ordered]@{ tracks = [ordered]@{
                         widget    = [ordered]@{ members = @('widget'); type = 'widget-works'; languages = @('widget-lang', 'gadget-lang') }
-                        '.gadget' = [ordered]@{ members = @('.gadget', '.gadget/deep'); type = 'gadget-shelf'; vendor = 'gizmo' }
+                        '.gadget' = [ordered]@{ members = @('.gadget',
+                            '.gadget/deep'); type = 'gadget-shelf'; vendor = 'gizmo' }
                     }
                 })
             $config.tracks.name | Should -Be @('widget', '.gadget')
@@ -153,14 +161,16 @@ Describe 'VariantsConfig' -Tag 'L0' {
 
         It 'reads a plain member as authored and committed, and a map member with the facts it states' -Tag 'DDR-TRACK-TRACKISPLACEDCLUSTER' {
             $config = & $script:make ([ordered]@{ tracks = [ordered]@{
-                        widget = [ordered]@{ members = @('widget', [ordered]@{ path = 'widget.cache'; generated = $true; committed = $false }); type = 'widget-works' }
+                        widget = [ordered]@{ members = @('widget',
+                            [ordered]@{ path = 'widget.cache'; generated = $true; committed = $false }); type = 'widget-works' }
                     }
                 })
             $members = $config.tracks[0].members
             $members.path | Should -Be @('widget', 'widget.cache')
             @($members[0].generated, $members[0].committed) | Should -Be @($false, $true)
             @($members[1].generated, $members[1].committed) | Should -Be @($true, $false)
-            $config.tracks[0].places | Should -Be @('widget', 'widget.cache') -Because 'places are the members'' paths, computed'
+            $config.tracks[0].places | Should -Be @('widget',
+                'widget.cache') -Because 'places are the members'' paths, computed'
             $config.tracks[0].MemberOf('widget/deep/a.txt').path | Should -BeExactly 'widget'
             $config.tracks[0].MemberOf('widget.cache').generated | Should -BeTrue
             $config.tracks[0].MemberOf('gadget/a.txt') | Should -BeNullOrEmpty
@@ -182,12 +192,14 @@ Describe 'VariantsConfig' -Tag 'L0' {
             @{ Path = 'widgets/a.txt'; Length = -1 }
             @{ Path = 'gadget/a.txt'; Length = -1 }
         ) {
-            $config = & $script:make ([ordered]@{ tracks = [ordered]@{ widget = [ordered]@{ members = @('widget', 'widget/deep'); type = 'widget-works' } } })
+            $config = & $script:make ([ordered]@{ tracks = [ordered]@{ widget = [ordered]@{ members = @('widget',
+                'widget/deep'); type = 'widget-works' } } })
             $config.tracks[0].PlaceLengthOf($Path) | Should -Be $Length
         }
 
         It 'throws on a missing or malformed type' {
-            { & $script:make ([ordered]@{ tracks = [ordered]@{ widget = [ordered]@{ members = @('widget') } } }) } | Should -Throw "*invalid type ''*"
+            { & $script:make ([ordered]@{ tracks = [ordered]@{ widget = [ordered]@{ members = @('widget') } } }) } |
+                Should -Throw "*invalid type ''*"
             { & $script:make ([ordered]@{ tracks = [ordered]@{ widget = [ordered]@{ members = @('widget'); type = 'Core' } } }) } | Should -Throw "*invalid type 'Core'*"
         }
 
@@ -226,7 +238,8 @@ Describe 'VariantsConfig' -Tag 'L0' {
 
         It 'throws on an unknown track key, a bad language name, and a duplicate language' {
             $config = [ordered]@{ tracks = [ordered]@{
-                    widget = [ordered]@{ members = @('widget'); type = 'widget-works'; languages = @('Gadget', 'widget-lang', 'widget-lang'); colour = 'blue' }
+                    widget = [ordered]@{ members = @('widget'); type = 'widget-works'; languages = @('Gadget',
+                        'widget-lang', 'widget-lang'); colour = 'blue' }
                 }
             }
             $err = { & $script:make $config } | Should -Throw -PassThru
@@ -269,7 +282,8 @@ Describe 'VariantsConfig' -Tag 'L0' {
                     }) } | Should -Throw -PassThru
             $err.Exception.Message | Should -BeLike "*unknown execution engine 'fish'*"
             $err.Exception.Message | Should -BeLike "*duplicate execution engine '$first'*"
-            $err.Exception.Message | Should -Match ([regex]::Escape("module_execution_engines['A'] must name at least one engine"))
+            $err.Exception.Message |
+                Should -Match ([regex]::Escape("module_execution_engines['A'] must name at least one engine"))
             { & $script:make ([ordered]@{ tracks = [ordered]@{
                             widget = [ordered]@{ members = @('widget'); type = 'widget-works'; execution_engines = @($first, $second); module_execution_engines = [ordered]@{ A = @($first, $second) } }
                         }
@@ -292,7 +306,8 @@ Describe 'VariantsConfig' -Tag 'L0' {
             @($config.tracks[0].kinds.Keys) | Sort-Object | Should -Be @('parts', 'sheets', 'spares')
             $config.tracks[0].KindPlace('bolts') | Should -BeNullOrEmpty
             @($config.tracks[1].kinds.Keys) | Should -HaveCount 0
-            $config.tracks[0].PlaceLengthOf('widget/parts/a/sheets/b.yml') | Should -Be 'widget/parts'.Length -Because 'kinds leave membership to places'
+            $config.tracks[0].PlaceLengthOf('widget/parts/a/sheets/b.yml') |
+                Should -Be 'widget/parts'.Length -Because 'kinds leave membership to places'
         }
 
         It 'throws on a kind outside the track''s places, a pattern with two wildcards or a bad segment, a bad kind name, and a non-map kinds' -ForEach @(
@@ -310,13 +325,15 @@ Describe 'VariantsConfig' -Tag 'L0' {
         It 'throws when tracks is empty, not a map, or holds a non-map entry' {
             { & $script:make ([ordered]@{ tracks = [ordered]@{} }) } | Should -Throw '*at least one track*'
             { & $script:make ([ordered]@{ tracks = @('widget') }) } | Should -Throw '*invalid tracks*'
-            { & $script:make ([ordered]@{ tracks = [ordered]@{ widget = 'widget' } }) } | Should -Throw '*must be a mapping { members, type, vendor, languages }*'
+            { & $script:make ([ordered]@{ tracks = [ordered]@{ widget = 'widget' } }) } |
+                Should -Throw '*must be a mapping { members, type, vendor, languages }*'
         }
 
         It 'reports every violation in one throw' {
             $err = { & $script:make ([ordered]@{ ado_naming = 'sideways'; git_workspace = 'anarchy'; have_customers = 'some'; bogus = 1 }) } |
                 Should -Throw -PassThru
-            foreach ($expected in '*unknown key*bogus*', '*invalid ado_naming*', '*invalid git_workspace*', "*a string must be 'all'*") {
+            foreach ($expected in '*unknown key*bogus*', '*invalid ado_naming*', '*invalid git_workspace*',
+                "*a string must be 'all'*") {
                 $err.Exception.Message | Should -BeLike $expected
             }
         }

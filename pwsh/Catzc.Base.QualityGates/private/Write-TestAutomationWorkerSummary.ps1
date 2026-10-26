@@ -25,7 +25,8 @@ function Write-TestAutomationWorkerSummary {
 
     Write-Message '' -NoHeader
     Write-Header 'Workers' -ForegroundColor Cyan
-    Write-Message ($rowFormat -f '#', 'worker', 'files', 'tests', 'passed', 'failed', 'skipped', 'start', 'duration') -NoHeader
+    Write-Message ($rowFormat -f '#', 'worker', 'files', 'tests', 'passed', 'failed', 'skipped', 'start',
+        'duration') -NoHeader
 
     foreach ($summary in ($WorkerSummaries | Sort-Object StartSeconds, QueueNumber)) {
         $color = if ($summary.Failed -gt 0) {

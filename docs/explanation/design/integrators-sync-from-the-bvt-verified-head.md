@@ -90,7 +90,9 @@ layout:
   c-dirty: { x: 173, y: 526, w: 44, h: 44 }
 ```
 
-![Upstream integrators sync from the BVT-verified head, never from the tip of main](.assets/integrators-sync-from-the-bvt-verified-head.drawio.png)
+![Upstream integrators sync from the BVT-verified head, never from the tip of main][diagram]
+
+[diagram]: .assets/integrators-sync-from-the-bvt-verified-head.drawio.png
 
 ## Walkthrough
 

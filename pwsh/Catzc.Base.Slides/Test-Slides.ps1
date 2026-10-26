@@ -81,7 +81,8 @@ function Test-Slides {
         if ($deck.StartsWith($rootPrefix, [System.StringComparison]::OrdinalIgnoreCase)) {
             $deck = $deck.Substring($rootPrefix.Length).TrimStart('\', '/')
         }
-        $slides = @($files | Where-Object { [System.IO.Path]::GetDirectoryName($_) -eq $folder } | ForEach-Object { $read[$_] })
+        $slides = @($files | Where-Object { [System.IO.Path]::GetDirectoryName($_) -eq $folder } |
+            ForEach-Object { $read[$_] })
         foreach ($fault in @(Get-SlideOrderFinding -Slide $slides -Deck $deck.Replace('\', '/'))) {
             $issues.Add("$fault")
         }

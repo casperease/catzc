@@ -1,4 +1,5 @@
-[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '', Justification = 'Tests lift $global:__PesterRunning to verify writer output; that flag is the writers'' test-suppression interface, set by Test-Automation')]
+[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '',
+    Justification = 'Tests lift $global:__PesterRunning to verify writer output; that flag is the writers'' test-suppression interface, set by Test-Automation')]
 param()
 
 Describe 'Write-Header' -Tag 'L0', 'logic' {
@@ -39,14 +40,16 @@ Describe 'Write-Header' -Tag 'L0', 'logic' {
         }
 
         It 'renders single star line without message' {
-            Write-Header -Style Stars -Width 20 -InformationVariable iv -InformationAction SilentlyContinue 6>&1 | Out-Null
+            Write-Header -Style Stars -Width 20 -InformationVariable iv -InformationAction SilentlyContinue 6>&1 |
+                Out-Null
             $text = ($iv | ForEach-Object { Remove-AnsiEscape $_.MessageData }) -join "`n"
             $text | Should -Match '^\*{20}$'
         }
     }
 
     It 'applies foreground color' {
-        Write-Header 'colored' -ForegroundColor Cyan -InformationVariable iv -InformationAction SilentlyContinue 6>&1 | Out-Null
+        Write-Header 'colored' -ForegroundColor Cyan -InformationVariable iv -InformationAction SilentlyContinue 6>&1 |
+            Out-Null
         $raw = $iv | ForEach-Object { $_.MessageData } | Out-String
         $raw | Should -Match '\e\[96m'
     }

@@ -69,6 +69,7 @@ Describe 'Test-FunctionDependency (fixture roots)' -Tag 'L0', 'logic', 'source-o
 Describe 'Test-FunctionDependency — build mode' -Tag 'L0', 'logic' {
     It 'stops with a named error when the session runs a built package' {
         Mock Get-CatzcRunMode { 'build' } -ModuleName Catzc.Base.Repository
-        { Test-FunctionDependency -ModulesRoot $TestDrive } | Should -Throw '*Test-FunctionDependency operates on the catzc source tree*'
+        { Test-FunctionDependency -ModulesRoot $TestDrive } |
+            Should -Throw '*Test-FunctionDependency operates on the catzc source tree*'
     }
 }

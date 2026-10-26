@@ -29,7 +29,8 @@ Describe 'Export-Comments' -Tag 'L0', 'logic' {
             ) -join "`n")
         $script:newRepository = {
             $root = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
-            & $script:writeFile $root '.editorconfig' ((@('[*.{ps1,psm1,psd1}]', 'max_line_length = 120', '') -join "`n"))
+            & $script:writeFile $root '.editorconfig' ((@('[*.{ps1,psm1,psd1}]', 'max_line_length = 120',
+                '') -join "`n"))
             & $script:writeFile $root "$(Get-CatzcModulesFolder)/Catzc.Widget/Get-Widget.ps1" $script:source
             & $script:writeFile $root "$(Get-CatzcModulesFolder)/Catzc.Widget/assets/root/gadget.yml" "# A template's header, copied verbatim,`n# stays where it is.`ngadget: 1`n"
             $root
@@ -45,14 +46,16 @@ Describe 'Export-Comments' -Tag 'L0', 'logic' {
         $text = & $readFile $root "$(Get-CatzcModulesFolder)/Catzc.Widget/Get-Widget.ps1"
         $text | Should -BeExactly "function Get-Widget {`n    Get-Gadget | Sort-Object`n}`n"
         $page = & $readFile $root $pageRelative
-        $page.Contains('# Sorted first') | Should -BeFalse -Because 'the page holds the prose without its comment marker'
+        $page.Contains('# Sorted first') |
+            Should -BeFalse -Because 'the page holds the prose without its comment marker'
         $page.Contains("across runs and the cache key never changes.`n" + '```') | Should -BeTrue
     }
 
     It 'leaves an asset''s comments in place' -Tag 'ADR-REPO-COMMENTS-COMMENTPAGEPLACE' {
         $root = & $newRepository
         Export-Comments -RepositoryRoot $root -Path (Join-Path $root (Get-CatzcModulesFolder)) | Out-Null
-        & $readFile $root "$(Get-CatzcModulesFolder)/Catzc.Widget/assets/root/gadget.yml" | Should -BeExactly "# A template's header, copied verbatim,`n# stays where it is.`ngadget: 1`n"
+        & $readFile $root "$(Get-CatzcModulesFolder)/Catzc.Widget/assets/root/gadget.yml" |
+            Should -BeExactly "# A template's header, copied verbatim,`n# stays where it is.`ngadget: 1`n"
     }
 
     It 'changes nothing on a second run' -Tag 'ADR-AUTO-IDEM-CHECKBEFOREACTING' {

@@ -38,10 +38,12 @@ Describe 'Test-Parsing' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
     }
 
     It 'throws once listing every file that does not parse, without -PassThru' {
-        { Test-Parsing -Path $script:brokenScript, $script:brokenYaml -OutputFolder $script:report } | Should -Throw '*Get-Gadget.ps1*gadget.yml*'
+        { Test-Parsing -Path $script:brokenScript, $script:brokenYaml -OutputFolder $script:report } |
+            Should -Throw '*Get-Gadget.ps1*gadget.yml*'
     }
 
     It 'throws on a file it has no parser for' {
-        { Test-Parsing -Path $script:other -OutputFolder $script:report -PassThru } | Should -Throw "*widget.txt' is not a PowerShell*"
+        { Test-Parsing -Path $script:other -OutputFolder $script:report -PassThru } |
+            Should -Throw "*widget.txt' is not a PowerShell*"
     }
 }

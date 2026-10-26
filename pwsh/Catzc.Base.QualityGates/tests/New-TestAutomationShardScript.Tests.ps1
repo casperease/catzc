@@ -110,7 +110,8 @@ Describe 'New-TestAutomationShardScript' {
             }
             $content = Get-Content -LiteralPath $built.ScriptPath -Raw
             # Quotes doubled, arguments in name order, a $true switch bare, a $false switch omitted.
-            $content | Should -Match ([regex]::Escape(". 'C:\build''s\Catzc\6.6.666\Import-Catzc.ps1' -AllowWarnings -RepositoryRoot 'C:\repo'"))
+            $content |
+                Should -Match ([regex]::Escape(". 'C:\build''s\Catzc\6.6.666\Import-Catzc.ps1' -AllowWarnings -RepositoryRoot 'C:\repo'"))
             $content | Should -Not -Match 'importer\.ps1'
             $content | Should -Not -Match '-Quiet'
             # The entry script also reaches the Pester configuration, for the Go bridge.
@@ -129,7 +130,8 @@ Describe 'New-TestAutomationShardScript' {
             }
             $content = Get-Content -LiteralPath $built.ScriptPath -Raw
             $content | Should -Match ([regex]::Escape("-LanguageExecutable `$languageExecutable"))
-            $content | Should -Match ([regex]::Escape("'' '' @{ 'go' = 'C:\widget''s go\bin\go.exe'; 'python' = 'C:\widget\uv\uv.exe' }"))
+            $content |
+                Should -Match ([regex]::Escape("'' '' @{ 'go' = 'C:\widget''s go\bin\go.exe'; 'python' = 'C:\widget\uv\uv.exe' }"))
 
             $none = InModuleScope Catzc.Base.QualityGates -Parameters @{ Dir = $script:runDirectory } {
                 param($Dir)
@@ -145,7 +147,8 @@ Describe 'New-TestAutomationShardScript' {
                     -LanguageExecutable @{ go = "C:\widget's go\bin\go.exe" }
             }
             $errors = $null
-            $null = [System.Management.Automation.Language.Parser]::ParseFile($built.ScriptPath, [ref] $null, [ref] $errors)
+            $null = [System.Management.Automation.Language.Parser]::ParseFile($built.ScriptPath, [ref] $null,
+                [ref] $errors)
             $errors | Should -BeNullOrEmpty
         }
     }
@@ -189,7 +192,8 @@ Describe 'ShardFixtureWide' -Tag 'L2', 'logic' {
             $rows = @(Get-Content -LiteralPath $shard.RowsPath -Raw | ConvertFrom-Json)
             $rows | Should -HaveCount 4
             $passed = @($rows | Where-Object Result -EQ 'Passed')
-            $passed | Should -HaveCount 2 -Because "failed rows: $(@($rows | Where-Object Result -EQ 'Failed' | ForEach-Object { $_.ErrorMessage }) -join '; ')"
+            $passed |
+                Should -HaveCount 2 -Because "failed rows: $(@($rows | Where-Object Result -EQ 'Failed' | ForEach-Object { $_.ErrorMessage }) -join '; ')"
             $passed.ExpandedPath | Should -Match 'passes'
             ($rows | Where-Object Result -EQ 'Skipped').SkipReason | Should -Be 'tool_obj_missing'
             ($rows | Where-Object Result -EQ 'NotRun').Level | Should -Be 'L2'

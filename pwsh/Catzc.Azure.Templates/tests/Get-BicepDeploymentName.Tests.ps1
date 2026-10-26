@@ -33,7 +33,8 @@ Describe 'Get-BicepDeploymentName' -Tag 'L0', 'logic' {
         }
 
         It 'does not encode the subscription/customer (names are per-subscription-scoped)' {
-            Get-BicepDeploymentName sample-customer -Environment alpha | Should -Be 'sample-customer-alpha-xCLIxx-xxxxxxx'
+            Get-BicepDeploymentName sample-customer -Environment alpha |
+                Should -Be 'sample-customer-alpha-xCLIxx-xxxxxxx'
         }
     }
 

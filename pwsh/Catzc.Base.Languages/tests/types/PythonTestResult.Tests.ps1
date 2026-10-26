@@ -1,11 +1,14 @@
 Describe 'PythonTestResult' -Tag 'L0', 'logic' {
     It 'derives the category from the name: test_integrity* is integrity, the rest logic' {
-        [Catzc.Base.Languages.PythonTestResult]::new('test_widget', 'test_integrity_widget_ships', 'pass', 0.5, '').Category | Should -Be 'integrity'
-        [Catzc.Base.Languages.PythonTestResult]::new('test_widget', 'test_widget_spins', 'pass', 0.5, '').Category | Should -Be 'logic'
+        [Catzc.Base.Languages.PythonTestResult]::new('test_widget', 'test_integrity_widget_ships', 'pass', 0.5,
+            '').Category | Should -Be 'integrity'
+        [Catzc.Base.Languages.PythonTestResult]::new('test_widget', 'test_widget_spins', 'pass', 0.5, '').Category |
+            Should -Be 'logic'
     }
 
     It 'keeps every field, with no output as empty' {
-        $result = [Catzc.Base.Languages.PythonTestResult]::new('nested.test_widget', 'test_widget_jams', 'fail', 1.25, $null)
+        $result = [Catzc.Base.Languages.PythonTestResult]::new('nested.test_widget', 'test_widget_jams', 'fail', 1.25,
+            $null)
         $result.Package | Should -Be 'nested.test_widget'
         $result.Name | Should -Be 'test_widget_jams'
         $result.Outcome | Should -Be 'fail'
@@ -21,6 +24,7 @@ Describe 'PythonTestResult' -Tag 'L0', 'logic' {
         @{ Case = 'a negative duration'; Package = 'test_widget'; Name = 'test_widget'; Outcome = 'pass'; Seconds = -1.0; Message = '*DurationSeconds*' }
         @{ Case = 'an empty package'; Package = ''; Name = 'test_widget'; Outcome = 'pass'; Seconds = 0.0; Message = '*Package is required*' }
     ) {
-        { [Catzc.Base.Languages.PythonTestResult]::new($Package, $Name, $Outcome, $Seconds, '') } | Should -Throw $Message
+        { [Catzc.Base.Languages.PythonTestResult]::new($Package, $Name, $Outcome, $Seconds, '') } |
+            Should -Throw $Message
     }
 }

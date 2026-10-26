@@ -34,14 +34,18 @@ Describe 'GlossaryEntry' -Tag 'L0', 'logic' {
     }
 
     It 'rejects a source path that is not repo-relative' -Tag 'ADR-REPO-VOCAB-SOURCESINREPOSITORY' {
-        foreach ($path in '/widgets/glossary.yml', 'C:/repo/glossary.yml', 'widgets\glossary.yml', '../glossary.yml', ' ') {
-            { & $script:make -path $path } | Should -Throw '*must be repo-relative*' -Because "'$path' is not a repo-relative '/'-separated path"
+        foreach ($path in '/widgets/glossary.yml', 'C:/repo/glossary.yml', 'widgets\glossary.yml', '../glossary.yml',
+            ' ') {
+            { & $script:make -path $path } |
+                Should -Throw '*must be repo-relative*' -Because "'$path' is not a repo-relative '/'-separated path"
         }
     }
 
     It 'requires an owner, a concept, and options' {
         { & $script:make -owner '' } | Should -Throw '*owning module*'
-        { [Catzc.Base.Docs.GlossaryEntry]::new($null, 'Catzc.Widget', 'widgets/glossary.yml', $script:source.options) } | Should -Throw '*concept*'
-        { [Catzc.Base.Docs.GlossaryEntry]::new($script:source.concepts[0], 'Catzc.Widget', 'widgets/glossary.yml', $null) } | Should -Throw '*options*'
+        { [Catzc.Base.Docs.GlossaryEntry]::new($null, 'Catzc.Widget', 'widgets/glossary.yml',
+            $script:source.options) } | Should -Throw '*concept*'
+        { [Catzc.Base.Docs.GlossaryEntry]::new($script:source.concepts[0], 'Catzc.Widget', 'widgets/glossary.yml',
+            $null) } | Should -Throw '*options*'
     }
 }

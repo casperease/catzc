@@ -25,7 +25,8 @@ function Test-AccostedCommand {
         return "${Where}: '$($command.name)' is no contracted command."
     }
 
-    # Each fault is one finding: the check is what Assert-AccostedArgument already is, caught so a gate can list them all.
+    # Each fault is one finding: the check is what Assert-AccostedArgument already is, caught so a gate can list them
+    # all.
     foreach ($argument in $command.arguments.Keys) {
         $parameter = @($contract.parameters | Where-Object { $_.Name -ceq $argument })
         if ($parameter.Count -ne 1) {

@@ -9,14 +9,16 @@ Describe 'Resolve-ImportMix' -Tag 'L0', 'logic' {
             $note = [pscustomobject]@{ name = 'note'; executable = $false; handled = $false }
             $config = [pscustomobject]@{ languages = @($widget, $gadget, $note) }
             $byExtension = @{ '.wdg' = $widget; '.gdg' = $gadget; '.note' = $note }
-            # The widget language owns the module root, the gadget language owns gizmos/; assets/ and tests/ are the shared rows.
+            # The widget language owns the module root, the gadget language owns gizmos/; assets/ and tests/ are the
+            # shared rows.
             $rows = @{
                 '.'      = [pscustomobject]@{ language = 'widget' }
                 'gizmos' = [pscustomobject]@{ language = 'gadget' }
                 'assets' = [pscustomobject]@{ language = $null }
                 'tests'  = [pscustomobject]@{ language = $null }
             }
-            $config | Add-Member -MemberType ScriptMethod -Name ForPath -Value { param($path) $byExtension[[System.IO.Path]::GetExtension($path)] }.GetNewClosure()
+            $config |
+                Add-Member -MemberType ScriptMethod -Name ForPath -Value { param($path) $byExtension[[System.IO.Path]::GetExtension($path)] }.GetNewClosure()
             $config | Add-Member -MemberType ScriptMethod -Name PlaceOf -Value {
                 param($path)
                 $slash = $path.IndexOf('/')
@@ -25,9 +27,12 @@ Describe 'Resolve-ImportMix' -Tag 'L0', 'logic' {
             $config
         }
         Mock Get-CatzcModule -ModuleName Catzc.Base.ModuleSystem {
-            [Catzc.Base.Modules.Module]::new('Widget.Alpha', 'widgets', 'widget-folder', 'widgetry', 'widgetry/Widget.Alpha', 'folder',
-                [string[]] @('Get-Widget.wdg', 'README.note', 'assets/sample.gdg', 'tests/Get-Widget.Tests.gdg'), $null, $null, $null)
-            [Catzc.Base.Modules.Module]::new('Widget.Beta', 'widgets', 'widget-folder', 'widgetry', 'widgetry/Widget.Beta', 'folder',
+            [Catzc.Base.Modules.Module]::new('Widget.Alpha', 'widgets', 'widget-folder', 'widgetry',
+                'widgetry/Widget.Alpha', 'folder',
+                [string[]] @('Get-Widget.wdg', 'README.note', 'assets/sample.gdg', 'tests/Get-Widget.Tests.gdg'), $null,
+                $null, $null)
+            [Catzc.Base.Modules.Module]::new('Widget.Beta', 'widgets', 'widget-folder', 'widgetry',
+                'widgetry/Widget.Beta', 'folder',
                 [string[]] @('Get-Gadget.wdg', 'gizmos/Gadget.gdg'), $null, $null, $null)
         }
         Mock Resolve-EngineExecutable -ModuleName Catzc.Base.ModuleSystem -ParameterFilter { $Engine -eq 'zsh' } { throw 'not found' }
@@ -60,7 +65,8 @@ Describe 'Resolve-ImportMix' -Tag 'L0', 'logic' {
 
     It 'stops with NotImplemented on a configured language without a handler' -Tag 'ADR-AUTO-IMPORTER-UNHANDLEDLANGUAGESTOPS' {
         InModuleScope Catzc.Base.ModuleSystem {
-            { Resolve-ImportMix -Languages note } | Should -Throw -ExceptionType ([System.NotImplementedException]) -ExpectedMessage '*''note''*no handler*'
+            { Resolve-ImportMix -Languages note } |
+                Should -Throw -ExceptionType ([System.NotImplementedException]) -ExpectedMessage '*''note''*no handler*'
         }
     }
 

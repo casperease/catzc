@@ -11,7 +11,8 @@ Describe 'Get-UncoveredInternalAssetDependency' -Tag 'L0', 'logic' {
         Import-InternalModule TestKit
 
         $citation = 'ADR-AUTO-ASSETDEP-COVEREDBYREALTEST'
-        $functionFile = { param([string] $Name, [string] $ChildPath) "function $Name {`n    Get-CatzcModuleRoot '$ChildPath'`n}" }
+        $functionFile = { param([string] $Name,
+            [string] $ChildPath) "function $Name {`n    Get-CatzcModuleRoot '$ChildPath'`n}" }
 
         $script:fake = New-FakeRepositoryRoot -Modules @{
             'Catzc.Base.Widget' = @{

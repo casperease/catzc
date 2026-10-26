@@ -43,27 +43,33 @@ Describe 'Shipped template integrity' -Tag 'L0', 'integrity' {
     }
 
     It 'discovery succeeds — shipped folders/files are named so Get-BicepTemplates finds them' {
-        $discoveryError | Should -BeNullOrEmpty -Because "Get-BicepTemplates must discover infrastructure/templates/ without error:`n$discoveryError"
+        $discoveryError |
+            Should -BeNullOrEmpty -Because "Get-BicepTemplates must discover infrastructure/templates/ without error:`n$discoveryError"
     }
 
     It 'at least one shipped template is discovered (guards the checks below against a silent no-op)' {
-        $templates.Count | Should -BeGreaterThan 0 -Because 'the repository ships at least one bicep template under infrastructure/templates/'
+        $templates.Count |
+            Should -BeGreaterThan 0 -Because 'the repository ships at least one bicep template under infrastructure/templates/'
     }
 
     It 'every shipped template resolves a short_name' {
-        $noShortName | Should -BeNullOrEmpty -Because "a template must resolve a short_name, derived from its folder or overridden in its optional options.yml (the Azure id segment, ADR-AZ-NAMING-TWOTEMPLATEIDENTIFIERS):`n$($noShortName -join "`n")"
+        $noShortName |
+            Should -BeNullOrEmpty -Because "a template must resolve a short_name, derived from its folder or overridden in its optional options.yml (the Azure id segment, ADR-AZ-NAMING-TWOTEMPLATEIDENTIFIERS):`n$($noShortName -join "`n")"
     }
 
     It 'short_names are globally unique across shipped templates' {
-        $dupeShortNames | Should -BeNullOrEmpty -Because "short_name is the Azure id segment — no two templates may share one:`n$($dupeShortNames -join "`n")"
+        $dupeShortNames |
+            Should -BeNullOrEmpty -Because "short_name is the Azure id segment — no two templates may share one:`n$($dupeShortNames -join "`n")"
     }
 
     It 'every shipped template has at least one slot (a configuration file under a subscription folder)' {
-        $noSlots | Should -BeNullOrEmpty -Because "a template with no config under configuration/<subscription>/ deploys nothing:`n$($noSlots -join "`n")"
+        $noSlots |
+            Should -BeNullOrEmpty -Because "a template with no config under configuration/<subscription>/ deploys nothing:`n$($noSlots -join "`n")"
     }
 
     It 'every shipped template is structurally valid WITHOUT building it (Assert-BicepTemplate, no -Build)' {
-        $validationError | Should -BeNullOrEmpty -Because "shipped templates must satisfy Assert-BicepTemplate (no build):`n$validationError"
+        $validationError |
+            Should -BeNullOrEmpty -Because "shipped templates must satisfy Assert-BicepTemplate (no build):`n$validationError"
     }
 }
 
@@ -86,7 +92,8 @@ Describe 'Every slot compiles through the .bicepparam path to the same parameter
                     param($Parameters)
                     Resolve-BicepParameterAddresses -Parameters $Parameters -ConfigFile 'shipped.yml'
                 }
-                $before = $descriptor.ParametersFile | ConvertTo-Json -Depth 10 | ConvertFrom-Json -AsHashtable -DateKind String
+                $before = $descriptor.ParametersFile | ConvertTo-Json -Depth 10 |
+                    ConvertFrom-Json -AsHashtable -DateKind String
                 $using = [System.IO.Path]::GetRelativePath($folder, $template.main).Replace('\', '/')
                 $source = Join-Path $folder "$count.bicepparam"
                 $compiled = Join-Path $folder "$count.json"
@@ -100,6 +107,7 @@ Describe 'Every slot compiles through the .bicepparam path to the same parameter
             }
         }
         $count | Should -BeGreaterThan 0
-        $differ | Should -BeNullOrEmpty -Because 'the compiled .bicepparam must hold exactly the values of the ConvertTo-Json parameters file'
+        $differ |
+            Should -BeNullOrEmpty -Because 'the compiled .bicepparam must hold exactly the values of the ConvertTo-Json parameters file'
     }
 }

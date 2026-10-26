@@ -13,8 +13,10 @@ Describe 'Get-OutputRoot — no default reaches the output track' -Tag 'L1', 'in
                 }
                 $intoOutput = $default.Find({
                         param($node)
-                        ($node -is [System.Management.Automation.Language.CommandAst] -and $node.GetCommandName() -eq 'Get-OutputRoot') -or
-                        ($node -is [System.Management.Automation.Language.StringConstantExpressionAst] -and $node.Value -match '^out([\\/]|$)')
+                        ($node -is [System.Management.Automation.Language.CommandAst] -and
+                            $node.GetCommandName() -eq 'Get-OutputRoot') -or
+                        ($node -is [System.Management.Automation.Language.StringConstantExpressionAst] -and
+                        $node.Value -match '^out([\\/]|$)')
                     }, $true)
                 if ($intoOutput) {
                     "$($Command.Name) -$($parameter.Name.VariablePath.UserPath) = $($default.Extent.Text)"

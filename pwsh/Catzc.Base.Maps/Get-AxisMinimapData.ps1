@@ -58,7 +58,8 @@ function Get-AxisMinimapData {
             $rowWide.Add($item.Row)
         }
         $note = "concern $($item.Concern), outside the axis"
-        $reasons[$key].Add([Catzc.Base.Maps.MinimapReason]::new($item.Reason.Adr, 'concern', $item.Reason.Requested, $note))
+        $reasons[$key].Add([Catzc.Base.Maps.MinimapReason]::new($item.Reason.Adr, 'concern', $item.Reason.Requested,
+            $note))
     }
     foreach ($cell in $highlight.Cells) {
         $row = $axis.RowOf($cell.Stack)
@@ -76,7 +77,8 @@ function Get-AxisMinimapData {
             else {
                 'domain'
             }
-            $reasons[$key].Add([Catzc.Base.Maps.MinimapReason]::new($reason.Adr, $basis, $reason.Requested, $reason.Domain))
+            $reasons[$key].Add([Catzc.Base.Maps.MinimapReason]::new($reason.Adr, $basis, $reason.Requested,
+                $reason.Domain))
         }
     }
     $cells = [string[][]] @(foreach ($row in $rows) {

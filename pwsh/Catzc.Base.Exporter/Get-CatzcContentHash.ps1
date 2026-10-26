@@ -32,7 +32,8 @@ function Get-CatzcContentHash {
 
     $stringBuilder = [System.Text.StringBuilder]::new()
     foreach ($relativePath in $relativePaths) {
-        $absolute = [System.IO.Path]::Combine($rootFull, $relativePath.Replace('/', [System.IO.Path]::DirectorySeparatorChar))
+        $absolute = [System.IO.Path]::Combine($rootFull, $relativePath.Replace('/',
+            [System.IO.Path]::DirectorySeparatorChar))
         $digest = [Catzc.Base.Globs.DurableHash]::HashFile($absolute)
         [void]$stringBuilder.Append($relativePath).Append('|').Append($digest).Append("`n")
     }

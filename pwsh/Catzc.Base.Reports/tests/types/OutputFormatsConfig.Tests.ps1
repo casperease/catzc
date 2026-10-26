@@ -144,9 +144,11 @@ Describe 'Catzc.Base.Reports.OutputFormatsConfig' -Tag 'L0', 'logic' {
                 'widget-fixed' = (New-Format @{ patterns = @('runs/20261014-170757/*.md') })
             }
         }
-        $message | Should -Match "pattern 'widgets/\*\.png' of 'widget-png' and pattern 'widgets/\*\.png' of 'gadget-png' can match the same path"
+        $message |
+            Should -Match "pattern 'widgets/\*\.png' of 'widget-png' and pattern 'widgets/\*\.png' of 'gadget-png' can match the same path"
         $message | Should -Match "of 'widget-png' and pattern 'widgets/\*\*' of 'widget-any' can match the same path"
-        $message | Should -Match "pattern 'runs/\{stamp\}/report\.md' of 'widget-run' and pattern 'runs/20261014-170757/\*\.md' of 'widget-fixed'"
+        $message |
+            Should -Match "pattern 'runs/\{stamp\}/report\.md' of 'widget-run' and pattern 'runs/20261014-170757/\*\.md' of 'widget-fixed'"
     }
 
     It 'accepts patterns no path can match together' -Tag 'ADR-REPO-OUTFMT-OUTPUTFORMAT' {
@@ -163,7 +165,8 @@ Describe 'Catzc.Base.Reports.OutputFormatsConfig' -Tag 'L0', 'logic' {
 
     It 'rejects a malformed pattern' -Tag 'ADR-REPO-OUTFMT-OUTPUTFORMAT' {
         $message = Get-LoadError @{ formats = @{
-                'widget-png' = (New-Format @{ patterns = @('widgets/a**/*.png', 'widgets/{run}/*.png', 'widgets//x.png') })
+                'widget-png' = (New-Format @{ patterns = @('widgets/a**/*.png', 'widgets/{run}/*.png',
+                    'widgets//x.png') })
             }
         }
         $message | Should -Match "'\*\*' must be a whole segment"

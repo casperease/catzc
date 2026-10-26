@@ -97,7 +97,8 @@ Describe 'Test-Contracts' -Tag 'L0', 'logic' {
         $report | Should -Match '- Assets: 1'
         $report | Should -Match '- FailedAssets: 1'
         $report | Should -Match ([regex]::Escape("- $script:missing"))
-        [System.IO.File]::ReadAllText((Join-Path $script:out 'latest.txt')).Trim() | Should -Be (Split-Path $result.ReportPath -Leaf)
+        [System.IO.File]::ReadAllText((Join-Path $script:out 'latest.txt')).Trim() |
+            Should -Be (Split-Path $result.ReportPath -Leaf)
     }
 
     It 'checks every asset of the current version, in both directions' -Tag 'ADR-REPO-CONTRACT-PROVENBYTESTS' {
@@ -146,7 +147,8 @@ Describe 'Test-Contracts' -Tag 'L0', 'logic' {
         Add-File 'contracts/catzc/0.1.0/gadgets/gadget.sample.json' '{}'
         $result = Test-Contracts -Version 1.0.0 -RepositoryRoot $script:root -OutputFolder $script:out -PassThru
         $result.Facts['Assets'] | Should -Be 0
-        $result.Issues | Should -Be @("contracts/catzc/1.0.0/ does not exist, so release 1.0.0 of 'catzc' is not checked; a release freezes the current version with Publish-ContractRelease before it runs Test-Contracts -Version (ADR-REPO-CONTRACT-RELEASEDIMMUTABLE).")
+        $result.Issues |
+            Should -Be @("contracts/catzc/1.0.0/ does not exist, so release 1.0.0 of 'catzc' is not checked; a release freezes the current version with Publish-ContractRelease before it runs Test-Contracts -Version (ADR-REPO-CONTRACT-RELEASEDIMMUTABLE).")
     }
 
     It 'passes over a released folder that is unchanged since its freeze' -Tag 'ADR-REPO-CONTRACT-RELEASEDIMMUTABLE' {
@@ -162,19 +164,22 @@ Describe 'Test-Contracts' -Tag 'L0', 'logic' {
         $null = Publish-ContractRelease -Root catzc -Version 1.0.0 -RepositoryRoot $script:root
         Add-File 'contracts/catzc/1.0.0/gadgets/gadget.sample.json' '{ "widget": 1 }'
         $result = Test-Contracts -RepositoryRoot $script:root -OutputFolder $script:out -PassThru
-        $result.Issues | Should -Be @('contracts/catzc/1.0.0/gadgets/gadget.sample.json: changed since the release froze it; a released version folder is immutable, so a change lands in the current version, contracts/catzc/0.1.0/ (ADR-REPO-CONTRACT-RELEASEDIMMUTABLE).')
+        $result.Issues |
+            Should -Be @('contracts/catzc/1.0.0/gadgets/gadget.sample.json: changed since the release froze it; a released version folder is immutable, so a change lands in the current version, contracts/catzc/0.1.0/ (ADR-REPO-CONTRACT-RELEASEDIMMUTABLE).')
     }
 
     It 'reports a released folder with no .frozen record' -Tag 'ADR-REPO-CONTRACT-RELEASEDIMMUTABLE' {
         Add-File 'contracts/catzc/1.0.0/gadgets/gadget.sample.json' '{}'
         $result = Test-Contracts -RepositoryRoot $script:root -OutputFolder $script:out -PassThru
-        $result.Issues | Should -Be @('contracts/catzc/1.0.0: holds no .frozen record, so nothing proves it unchanged; a release freezes the current version with Publish-ContractRelease, which writes it (ADR-REPO-CONTRACT-RELEASEDIMMUTABLE).')
+        $result.Issues |
+            Should -Be @('contracts/catzc/1.0.0: holds no .frozen record, so nothing proves it unchanged; a release freezes the current version with Publish-ContractRelease, which writes it (ADR-REPO-CONTRACT-RELEASEDIMMUTABLE).')
     }
 
     It 'reports a release folder under a vendor root, which never releases' -Tag 'ADR-REPO-CONTRACT-KEPTWHILEPINNED' {
         Add-File 'contracts/widget/1.0.0/gadgets/gadget.sample.json' '{}'
         $result = Test-Contracts -RepositoryRoot $script:root -OutputFolder $script:out -PassThru
-        $result.Issues | Should -Be @("contracts/widget/1.0.0/ is a release folder under the vendor root 'widget'; only catzc releases, and a vendor root follows its vendor in 0.1.0 (ADR-REPO-CONTRACT-KEPTWHILEPINNED).")
+        $result.Issues |
+            Should -Be @("contracts/widget/1.0.0/ is a release folder under the vendor root 'widget'; only catzc releases, and a vendor root follows its vendor in 0.1.0 (ADR-REPO-CONTRACT-KEPTWHILEPINNED).")
     }
 
     It 'reports the version folder <Version>, which is neither the current version nor a release' -Tag 'ADR-REPO-CONTRACT-CURRENTVERSION' -ForEach @(
@@ -191,7 +196,8 @@ Describe 'Test-Contracts' -Tag 'L0', 'logic' {
         Add-File 'contracts/widget/draft/gadgets/gadget.sample.json' '{}'
         $result = Test-Contracts -RepositoryRoot $script:root -OutputFolder $script:out -PassThru
         $result.IssueCount | Should -Be 1
-        $result.Issues[0] | Should -BeLike "contracts/ does not list ? contracts/widget: 'draft' is not a version folder*"
+        $result.Issues[0] |
+            Should -BeLike "contracts/ does not list ? contracts/widget: 'draft' is not a version folder*"
         $result.Facts['Assets'] | Should -Be 0
     }
 
@@ -199,14 +205,16 @@ Describe 'Test-Contracts' -Tag 'L0', 'logic' {
         Add-File 'contracts/widget/0.1.0/gadgets/flows/gadget.sample.json' '{}'
         $result = Test-Contracts -RepositoryRoot $script:root -OutputFolder $script:out -PassThru
         $result.IssueCount | Should -Be 1
-        $result.Issues[0] | Should -BeLike "contracts/ does not list ? contracts/widget/0.1.0/gadgets: 'flows' is a folder below a group*"
+        $result.Issues[0] |
+            Should -BeLike "contracts/ does not list ? contracts/widget/0.1.0/gadgets: 'flows' is a folder below a group*"
     }
 
     It 'reports a dot-prefixed folder under contracts/ as one issue' -Tag 'ADR-REPO-CONTRACT-NODOTFOLDERS' {
         Add-File 'contracts/widget/0.1.0/.widget/gadget.sample.json' '{}'
         $result = Test-Contracts -RepositoryRoot $script:root -OutputFolder $script:out -PassThru
         $result.IssueCount | Should -Be 1
-        $result.Issues[0] | Should -BeLike 'contracts/widget/0.1.0/.widget/ is a dot-prefixed folder under contracts/*applies_to*(ADR-REPO-CONTRACT-NODOTFOLDERS).'
+        $result.Issues[0] |
+            Should -BeLike 'contracts/widget/0.1.0/.widget/ is a dot-prefixed folder under contracts/*applies_to*(ADR-REPO-CONTRACT-NODOTFOLDERS).'
     }
 
     It 'accepts a dot-prefixed file name and a dot-prefixed target' -Tag 'ADR-REPO-CONTRACT-LAYOUT', 'ADR-REPO-CONTRACT-NODOTFOLDERS' {

@@ -26,7 +26,8 @@ function Get-Aspect {
         return
     }
 
-    # The type holds the declared conventions over its built-in ones (VariantsConfig.DefaultAspects), so one lookup covers both.
+    # The type holds the declared conventions over its built-in ones (VariantsConfig.DefaultAspects), so one lookup
+    # covers both.
     $aspects = Get-AspectDeclaration
     if ($aspects.ContainsKey($Track)) {
         $aspects[$Track]

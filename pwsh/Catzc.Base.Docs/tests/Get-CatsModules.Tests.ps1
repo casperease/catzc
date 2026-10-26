@@ -11,7 +11,9 @@ Describe 'Get-CatsModules' -Tag 'L0', 'logic' {
         $script:modulesRoot = Join-Path $TestDrive 'modules'
         $outsideRoot = Join-Path $TestDrive 'elsewhere'
         $fixtures = @(
-            @{ Root = $script:modulesRoot; Name = 'Catzc.Widget.Reader'; Body = @('function Get-WidgetReport {}', 'function Set-WidgetReport {}', 'function Get-WidgetHelper {}', 'Export-ModuleMember -Function Set-WidgetReport, Get-WidgetReport') -join "`n" }
+            @{ Root = $script:modulesRoot; Name = 'Catzc.Widget.Reader'; Body = @('function Get-WidgetReport {}',
+                'function Set-WidgetReport {}', 'function Get-WidgetHelper {}',
+                'Export-ModuleMember -Function Set-WidgetReport, Get-WidgetReport') -join "`n" }
             @{ Root = $script:modulesRoot; Name = 'Catzc.Gadget.Writer'; Body = "function Invoke-GadgetBackup {}`nExport-ModuleMember -Function Invoke-GadgetBackup" }
             @{ Root = $script:modulesRoot; Name = '.widget'; Body = "function Get-HiddenWidget {}`nExport-ModuleMember -Function Get-HiddenWidget" }
             @{ Root = $outsideRoot; Name = 'Catzc.Gadget.Outside'; Body = "function Get-OutsideGadget {}`nExport-ModuleMember -Function Get-OutsideGadget" }
@@ -37,11 +39,13 @@ Describe 'Get-CatsModules' -Tag 'L0', 'logic' {
     }
 
     It 'lists each module''s exported functions, sorted' {
-        ($script:modules | Where-Object { $_.Module -eq 'Catzc.Widget.Reader' }).Functions | Should -Be @('Get-WidgetReport', 'Set-WidgetReport')
+        ($script:modules | Where-Object { $_.Module -eq 'Catzc.Widget.Reader' }).Functions |
+            Should -Be @('Get-WidgetReport', 'Set-WidgetReport')
     }
 
     It 'leaves out functions the module does not export' {
-        ($script:modules | Where-Object { $_.Module -eq 'Catzc.Widget.Reader' }).Functions | Should -Not -Contain 'Get-WidgetHelper'
+        ($script:modules | Where-Object { $_.Module -eq 'Catzc.Widget.Reader' }).Functions |
+            Should -Not -Contain 'Get-WidgetHelper'
     }
 
     It 'leaves out dot-prefixed infrastructure modules and modules loaded from another root' {
@@ -63,7 +67,8 @@ Describe 'Get-CatsModules — loaded catzc modules' -Tag 'L1', 'integrity', 'ADR
     }
 
     It 'never lists a private function' {
-        ($script:modules | Where-Object { $_.Module -eq 'Catzc.Base.Docs' }).Functions | Should -Not -Contain 'Get-CatsModules'
+        ($script:modules | Where-Object { $_.Module -eq 'Catzc.Base.Docs' }).Functions |
+            Should -Not -Contain 'Get-CatsModules'
     }
 
     It 'lists only modules loaded from the code root, never the dot-prefixed infrastructure' {

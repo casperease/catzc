@@ -30,6 +30,7 @@ Describe 'Shipped template parameter model' -Tag 'L2', 'integrity', 'greedy', 'A
                 param($Template)
                 Get-BicepParameterViolations $Template
             })
-        $violations | Should -BeNullOrEmpty -Because "the rendered parameters files must satisfy main.json:`n$($violations -join "`n")"
+        $violations |
+            Should -BeNullOrEmpty -Because "the rendered parameters files must satisfy main.json:`n$($violations -join "`n")"
     }
 }

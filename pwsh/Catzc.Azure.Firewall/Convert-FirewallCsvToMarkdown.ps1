@@ -7,8 +7,10 @@ catzc:
 #>
 
 function Convert-FirewallCsvToMarkdown {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-ParameterFillIn', '', Justification = 'In Object mode -SourceName derives from the piped input, bound after defaults are evaluated (ADR-PWSH-PARAM-RESOLUTIONORDER)')]
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = 'GroupPriority is consumed inside the Sort-Object Expression scriptblock, which this rule does not trace; the render-only parameters are forwarded to Get-FirewallMarkdownTable')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-ParameterFillIn', '',
+        Justification = 'In Object mode -SourceName derives from the piped input, bound after defaults are evaluated (ADR-PWSH-PARAM-RESOLUTIONORDER)')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '',
+        Justification = 'GroupPriority is consumed inside the Sort-Object Expression scriptblock, which this rule does not trace; the render-only parameters are forwarded to Get-FirewallMarkdownTable')]
     [CmdletBinding(DefaultParameterSetName = 'Path')]
     param(
         [Parameter(Mandatory, ParameterSetName = 'Path')]
@@ -103,12 +105,14 @@ function Convert-FirewallCsvToMarkdown {
             $MarkdownPath = Join-Path $OutputFolder $markdownName
         }
 
-        # Filled in the body, not as a default: a piped path binds after the defaults are evaluated, so a default would never see it.
+        # Filled in the body, not as a default: a piped path binds after the defaults are evaluated, so a default would
+        # never see it.
         if (-not $SourceName) {
             $SourceName = Split-Path -Path $CsvPath -Leaf
         }
 
-        # Asserted in both modes, so a wrong path to the source CSV fails here by name and never as a raw CSV read error.
+        # Asserted in both modes, so a wrong path to the source CSV fails here by name and never as a raw CSV read
+        # error.
         Assert-PathExist $CsvPath -PathType Leaf
 
         $rows = @(Import-Csv -Path $CsvPath)
@@ -119,7 +123,8 @@ function Convert-FirewallCsvToMarkdown {
                 @()
             })
 
-        # The firewall's own evaluation order: group priority, then collection priority, then name; an unknown sorts last, never first.
+        # The firewall's own evaluation order: group priority, then collection priority, then name; an unknown sorts
+        # last, never first.
         $sortProps = @()
         if ('RuleCollectionGroup' -in $present) {
             $sortProps += @{ Expression = {
@@ -144,7 +149,8 @@ function Convert-FirewallCsvToMarkdown {
             $rows = @($rows | Sort-Object -Property $sortProps)
         }
 
-        # The columns are built and validated in one place, so a requested column the CSV lacks fails there instead of vanishing here.
+        # The columns are built and validated in one place, so a requested column the CSV lacks fails there instead of
+        # vanishing here.
         $columnParams = @{
             RuleNameColumn         = $RuleNameColumn
             CompositeColumns       = $CompositeColumns
@@ -159,10 +165,13 @@ function Convert-FirewallCsvToMarkdown {
         # Every time is rendered in UTC, so the same CSV gives the same page on a workstation and on a build agent.
         [void]$ret.AppendLine("# $SourceName")
         [void]$ret.AppendLine()
-        $convertedUtc = [datetime]::UtcNow.ToString('yyyy-MM-dd HH:mm', [System.Globalization.CultureInfo]::InvariantCulture)
+        $convertedUtc = [datetime]::UtcNow.ToString('yyyy-MM-dd HH:mm',
+            [System.Globalization.CultureInfo]::InvariantCulture)
         if ($null -ne $GeneratedAt) {
-            # A nullable date arrives unwrapped as a plain date, so it is null-checked and cast, never asked for HasValue or Value.
-            $generatedUtc = ([datetime]$GeneratedAt).ToUniversalTime().ToString('yyyy-MM-dd HH:mm', [System.Globalization.CultureInfo]::InvariantCulture)
+            # A nullable date arrives unwrapped as a plain date, so it is null-checked and cast, never asked for
+            # HasValue or Value.
+            $generatedUtc = ([datetime]$GeneratedAt).ToUniversalTime().ToString('yyyy-MM-dd HH:mm',
+                [System.Globalization.CultureInfo]::InvariantCulture)
             [void]$ret.AppendLine("CSV generated $generatedUtc UTC · converted to Markdown $convertedUtc UTC.")
         }
         else {

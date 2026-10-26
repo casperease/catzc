@@ -11,7 +11,8 @@ Describe 'Add-SessionLearning' -Tag 'L0', 'logic' {
         function Get-LearningFile {
             $folder = Join-Path $script:root '.claude/learnings'
             [string[]] $files = @([System.IO.Directory]::GetFiles($folder, 'learned*.md') | Sort-Object {
-                    $line = [System.IO.File]::ReadAllLines($_) | Where-Object { $_.StartsWith('Started ') } | Select-Object -First 1
+                    $line = [System.IO.File]::ReadAllLines($_) | Where-Object { $_.StartsWith('Started ') } |
+                        Select-Object -First 1
                     [DateTimeOffset]::Parse($line.Substring(8).TrimEnd('.'), [cultureinfo]::InvariantCulture)
                 })
             , $files
@@ -30,7 +31,8 @@ Describe 'Add-SessionLearning' -Tag 'L0', 'logic' {
         $lines = [System.IO.File]::ReadAllLines($written[0])
         $lines[0] | Should -BeExactly "# Session learnings $sha"
         $lines[2] | Should -BeLike 'Started 20??-*.'
-        @($lines | Select-Object -Skip 4) | Should -Be @('- 2026-10-21: The widget turns.', '- 2026-10-21: The gadget holds.')
+        @($lines | Select-Object -Skip 4) | Should -Be @('- 2026-10-21: The widget turns.',
+            '- 2026-10-21: The gadget holds.')
     }
 
     It 'appends to another log under its own folder, prefix and title, the learnings log untouched' {
@@ -46,9 +48,11 @@ Describe 'Add-SessionLearning' -Tag 'L0', 'logic' {
 
     It 'signs a line with the author when one is given' {
         $written = @(Add-SessionLearning 'If only the widget had turned.' -Log hindsight -Author Jack -Date $script:date)
-        [System.IO.File]::ReadAllLines($written[0])[4] | Should -BeExactly '- 2026-10-21 Jack: If only the widget had turned.'
+        [System.IO.File]::ReadAllLines($written[0])[4] |
+            Should -BeExactly '- 2026-10-21 Jack: If only the widget had turned.'
         $written = @(Add-SessionLearning 'The widget is on the board.' -Log hindsight -Author 'Susan from HR' -Date $script:date)
-        [System.IO.File]::ReadAllLines($written[0])[5] | Should -BeExactly '- 2026-10-21 Susan from HR: The widget is on the board.'
+        [System.IO.File]::ReadAllLines($written[0])[5] |
+            Should -BeExactly '- 2026-10-21 Susan from HR: The widget is on the board.'
         { Add-SessionLearning 'The gadget holds.' -Author 'jack smith' -Date $script:date } | Should -Throw
     }
 
@@ -64,12 +68,14 @@ Describe 'Add-SessionLearning' -Tag 'L0', 'logic' {
 
     It 'escapes a < outside code spans, so the lint never reads it as inline HTML' {
         $written = @(Add-SessionLearning 'A call needs a timeout <s> prefix, as in `timeout <s> widget`.' -Date $script:date)
-        [System.IO.File]::ReadAllLines($written[0])[4] | Should -BeExactly '- 2026-10-21: A call needs a timeout \<s> prefix, as in `timeout <s> widget`.'
+        [System.IO.File]::ReadAllLines($written[0])[4] |
+            Should -BeExactly '- 2026-10-21: A call needs a timeout \<s> prefix, as in `timeout <s> widget`.'
     }
 
     It 'counts a learning a formatter wrapped over two lines once' {
         $written = @(Add-SessionLearning 'The widget turns.' -Date $script:date)
-        [System.IO.File]::AppendAllText($written[0], "- 2026-10-21: The gadget holds a long line that a formatter wrapped,`n  onto a second line.`n")
+        [System.IO.File]::AppendAllText($written[0],
+            "- 2026-10-21: The gadget holds a long line that a formatter wrapped,`n  onto a second line.`n")
         @(Add-SessionLearning 'The gizmo waits.' -Date $script:date) | Should -Not -Be $written
         [System.IO.File]::ReadAllText($written[0]) | Should -BeLike '*onto a second line.*'
     }
@@ -87,7 +93,8 @@ Describe 'Add-SessionLearning' -Tag 'L0', 'logic' {
     It 'writes a sentence given twice in one call once, and warns of the skip' {
         Mock Write-Message -ModuleName Catzc.Base.Docs { }
         $written = @(Add-SessionLearning 'The gadget holds.', ' The gadget holds. ' -Date $script:date)
-        @([System.IO.File]::ReadAllLines($written[0]) | Where-Object { $_.StartsWith('- ') }) | Should -Be @('- 2026-10-21: The gadget holds.')
+        @([System.IO.File]::ReadAllLines($written[0]) | Where-Object { $_.StartsWith('- ') }) |
+            Should -Be @('- 2026-10-21: The gadget holds.')
         Should -Invoke Write-Message -ModuleName Catzc.Base.Docs -Times 1 -Exactly -ParameterFilter {
             $Warning -and $Message -ceq "Add-SessionLearning: skipped 'The gadget holds.', already given in this call."
         }

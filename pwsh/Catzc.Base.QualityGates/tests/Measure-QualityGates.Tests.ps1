@@ -6,7 +6,8 @@ catzc:
 ---
 #>
 
-[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = 'The fixture gates declare the parameters a real quality gate takes; what they return does not depend on them')]
+[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '',
+    Justification = 'The fixture gates declare the parameters a real quality gate takes; what they return does not depend on them')]
 param()
 
 Describe 'Measure-QualityGates' -Tag 'L1', 'logic' {
@@ -46,8 +47,10 @@ Describe 'Measure-QualityGates' -Tag 'L1', 'logic' {
 
     It 'times every gate languages.yml names in a check by default' {
         Mock Get-FileLanguage -ModuleName Catzc.Base.QualityGates {
-            [Catzc.Base.Languages.FileLanguage]::new('widget', @('.wdg'), $null, 'fixture', $null, $null, @('Test-GadgetFast', 'Test-WidgetSlow'))
-            [Catzc.Base.Languages.FileLanguage]::new('gadget', @('.gdg'), $null, 'fixture', $null, $null, @('Test-GadgetFast'))
+            [Catzc.Base.Languages.FileLanguage]::new('widget', @('.wdg'), $null, 'fixture', $null, $null,
+                @('Test-GadgetFast', 'Test-WidgetSlow'))
+            [Catzc.Base.Languages.FileLanguage]::new('gadget', @('.gdg'), $null, 'fixture', $null, $null,
+                @('Test-GadgetFast'))
         }
         @(Measure-QualityGates).Name | Sort-Object | Should -Be @('Test-GadgetFast', 'Test-WidgetSlow')
     }

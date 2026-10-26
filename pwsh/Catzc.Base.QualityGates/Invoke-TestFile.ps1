@@ -64,7 +64,8 @@ function Invoke-TestFile {
     # try/finally: the terminal run.json is stamped on every exit path — pass, fail, or crash.
     try {
         try {
-            # The worker loads from the root the run executes in (Get-TestRunLocationEntry); the test files map to it alike.
+            # The worker loads from the root the run executes in (Get-TestRunLocationEntry); the test files map to it
+            # alike.
             $entry = Get-TestRunLocationEntry -Location $location
             $effectiveMaxLevel = Resolve-TestRunMaxLevel -Location $location -Requested $MaxLevel
             $excludeTag = @(Get-TestExcludeTag -MinLevel 0 -MaxLevel $effectiveMaxLevel)
@@ -84,7 +85,8 @@ function Invoke-TestFile {
             $stopwatch = [System.Diagnostics.Stopwatch]::StartNew()
             $workerEnvironment = @{ CATZC_TEST_RUN_LOCATION_HELD = '1' }
             $runner = [Catzc.Base.QualityGates.PesterRunner]::Run(
-                [string[]] @($shard.ScriptPath), [string[]] @($shard.Label), 1, $workerEnvironment, $TimeoutSeconds, $true)
+                [string[]] @($shard.ScriptPath), [string[]] @($shard.Label), 1, $workerEnvironment, $TimeoutSeconds,
+                    $true)
             # The worker run as New-TestRunFinalManifest reads it: exit code per shard, duration, and location.
             $workerRun = [pscustomobject]@{
                 ShardExitCodes  = [ordered]@{ $shard.Label = $runner.Results[0].ExitCode }

@@ -26,7 +26,8 @@ function Build-EnglishDictionary {
     Assert-NotNullOrWhitespace $nodeRoot
 
     $triePaths = foreach ($trieName in 'en_US.trie.gz', 'en_GB.trie.gz') {
-        # The trie sits five levels down (cspell, node_modules, @cspell, package, file); the walk must enter node_modules.
+        # The trie sits five levels down (cspell, node_modules, @cspell, package, file); the walk must enter
+        # node_modules.
         $found = Get-ChildPath $nodeRoot -File -Filter $trieName -Depth 5 -Exclude @() -PruneVendor $false |
             Select-Object -First 1
         if (-not $found) {
@@ -48,7 +49,8 @@ function Build-EnglishDictionary {
     $tempFiles = [System.Collections.Generic.List[string]]::new()
     try {
         foreach ($trie in $triePaths) {
-            $tmp = [System.IO.Path]::Combine([System.IO.Path]::GetTempPath(), [System.Guid]::NewGuid().ToString('N') + '.txt')
+            $tmp = [System.IO.Path]::Combine([System.IO.Path]::GetTempPath(),
+                [System.Guid]::NewGuid().ToString('N') + '.txt')
             $tempFiles.Add($tmp)
             Invoke-Executable "npx --yes cspell-trie@10 reader '$trie' -o '$tmp'" | Out-Null
             Assert-PathExist $tmp
@@ -101,7 +103,8 @@ function Build-EnglishDictionary {
         [void][System.IO.Directory]::CreateDirectory($assetsDir)
         $utf8NoBom = [System.Text.UTF8Encoding]::new($false)
         if ($content -cne $existing) {
-            [System.IO.File]::WriteAllBytes($outPath, [Catzc.Base.QualityGates.GzipText]::Compress($utf8NoBom.GetBytes($content)))
+            [System.IO.File]::WriteAllBytes($outPath,
+                [Catzc.Base.QualityGates.GzipText]::Compress($utf8NoBom.GetBytes($content)))
         }
         if ($stampContent -cne $existingStamp) {
             [System.IO.File]::WriteAllText($stampPath, $stampContent, $utf8NoBom)

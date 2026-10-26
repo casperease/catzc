@@ -1,6 +1,7 @@
 Describe 'Catzc.Base.CodeMeta.PropertyHead' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRINTEDPARTS' {
     BeforeAll {
-        # '~' stands for a real line end in the single-quoted JSON below, so a JSON '\n' escape stays a backslash and an n.
+        # '~' stands for a real line end in the single-quoted JSON below, so a JSON '\n' escape stays a backslash and an
+        # n.
         function Get-Lines {
             param([string] $Template, [string] $NewLine = "`n")
             $Template -replace '~', $NewLine
@@ -15,11 +16,13 @@ Describe 'Catzc.Base.CodeMeta.PropertyHead' -Tag 'L0', 'logic', 'ADR-REPO-FILEME
         $text = Get-Lines '{~  "name": "widget"~}~'
         $once = [Catzc.Base.CodeMeta.PropertyHead]::Parse($text, '//').WithFacts($script:facts, $script:none)
         $once | Should -BeExactly (Get-Lines "{~  $($script:member),~  `"name`": `"widget`"~}~")
-        [Catzc.Base.CodeMeta.PropertyHead]::Parse($once, '//').WithFacts($script:facts, $script:none) | Should -BeExactly $once
+        [Catzc.Base.CodeMeta.PropertyHead]::Parse($once, '//').WithFacts($script:facts, $script:none) |
+            Should -BeExactly $once
     }
 
     It 'reads back the keys of the block it wrote' {
-        $once = [Catzc.Base.CodeMeta.PropertyHead]::Parse('{"name": "widget"}', '//').WithFacts($script:facts, $script:none)
+        $once = [Catzc.Base.CodeMeta.PropertyHead]::Parse('{"name": "widget"}', '//').WithFacts($script:facts,
+            $script:none)
         $head = [Catzc.Base.CodeMeta.PropertyHead]::Parse($once, '//')
         $head.HasHead | Should -BeTrue
         $head.Foreign | Should -BeFalse
@@ -54,22 +57,27 @@ Describe 'Catzc.Base.CodeMeta.PropertyHead' -Tag 'L0', 'logic', 'ADR-REPO-FILEME
         $text = '{"//": "catzc:\n  immutable:\n    path: old.json\n  config:\n    note: kept"}'
         $head = [Catzc.Base.CodeMeta.PropertyHead]::Parse($text, '//')
         @($head.ConfigLines) | Should -Be @('    note: kept')
-        $head.WithFacts($script:facts, $script:none) | Should -BeExactly '{"//": "catzc:\n  immutable:\n    path: a/b.json\n    kind: other\n  config:\n    note: kept"}'
+        $head.WithFacts($script:facts, $script:none) |
+            Should -BeExactly '{"//": "catzc:\n  immutable:\n    path: a/b.json\n    kind: other\n  config:\n    note: kept"}'
     }
 
     It 'removes the property when there are no facts, with its comma' {
         $first = Get-Lines "{~  `"//`": `"catzc:\n  immutable:\n    path: a/b.json`",~  `"name`": `"widget`"~}~"
-        [Catzc.Base.CodeMeta.PropertyHead]::Parse($first, '//').WithFacts($script:none, $script:none) | Should -BeExactly (Get-Lines "{~  `"name`": `"widget`"~}~")
+        [Catzc.Base.CodeMeta.PropertyHead]::Parse($first, '//').WithFacts($script:none, $script:none) |
+            Should -BeExactly (Get-Lines "{~  `"name`": `"widget`"~}~")
 
         $last = Get-Lines "{~  `"name`": `"widget`",~  `"//`": `"catzc:\n  immutable:\n    path: a/b.json`"~}~"
-        [Catzc.Base.CodeMeta.PropertyHead]::Parse($last, '//').WithFacts($script:none, $script:none) | Should -BeExactly (Get-Lines "{~  `"name`": `"widget`"~}~")
+        [Catzc.Base.CodeMeta.PropertyHead]::Parse($last, '//').WithFacts($script:none, $script:none) |
+            Should -BeExactly (Get-Lines "{~  `"name`": `"widget`"~}~")
 
         $only = Get-Lines "{~  `"//`": `"catzc:\n  immutable:\n    path: a/b.json`"~}~"
-        [Catzc.Base.CodeMeta.PropertyHead]::Parse($only, '//').WithFacts($script:none, $script:none) | Should -BeExactly (Get-Lines '{}~')
+        [Catzc.Base.CodeMeta.PropertyHead]::Parse($only, '//').WithFacts($script:none, $script:none) |
+            Should -BeExactly (Get-Lines '{}~')
     }
 
     It 'fills an empty object' {
-        [Catzc.Base.CodeMeta.PropertyHead]::Parse((Get-Lines '{}~'), '//').WithFacts($script:facts, $script:none) | Should -BeExactly (Get-Lines "{~  $($script:member)~}~")
+        [Catzc.Base.CodeMeta.PropertyHead]::Parse((Get-Lines '{}~'), '//').WithFacts($script:facts, $script:none) |
+            Should -BeExactly (Get-Lines "{~  $($script:member)~}~")
     }
 
     It 'follows the indent and the line end of the file' {
@@ -79,7 +87,8 @@ Describe 'Catzc.Base.CodeMeta.PropertyHead' -Tag 'L0', 'logic', 'ADR-REPO-FILEME
     }
 
     It 'works with the property name of a JSON schema comment' {
-        $once = [Catzc.Base.CodeMeta.PropertyHead]::Parse('{"type": "object"}', '$comment').WithFacts($script:facts, $script:none)
+        $once = [Catzc.Base.CodeMeta.PropertyHead]::Parse('{"type": "object"}', '$comment').WithFacts($script:facts,
+            $script:none)
         ($once | ConvertFrom-Json -AsHashtable).ContainsKey('$comment') | Should -BeTrue
         [Catzc.Base.CodeMeta.PropertyHead]::Parse($once, '$comment').HasHead | Should -BeTrue
     }
@@ -121,14 +130,19 @@ Describe 'Catzc.Base.CodeMeta.PropertyHead' -Tag 'L0', 'logic', 'ADR-REPO-FILEME
         }
 
         It 'imprints a labelled first property group and a second run changes nothing' {
-            $once = [Catzc.Base.CodeMeta.PropertyHead]::Parse($script:project, 'CatzcMeta').WithFacts($script:facts, $script:none)
-            $once | Should -BeLike '*<Project Sdk="Widget.Sdk">*<PropertyGroup Label="catzc">*<CatzcMeta><![[]CDATA[[]catzc:*immutable:*path: a/b.json*kind: other]]></CatzcMeta>*<Gadget>1</Gadget>*'
-            ([xml] $once).Project.PropertyGroup[0].CatzcMeta.InnerText | Should -Be "catzc:`n  immutable:`n    path: a/b.json`n    kind: other"
-            [Catzc.Base.CodeMeta.PropertyHead]::Parse($once, 'CatzcMeta').WithFacts($script:facts, $script:none) | Should -BeExactly $once
+            $once = [Catzc.Base.CodeMeta.PropertyHead]::Parse($script:project, 'CatzcMeta').WithFacts($script:facts,
+                $script:none)
+            $once |
+                Should -BeLike '*<Project Sdk="Widget.Sdk">*<PropertyGroup Label="catzc">*<CatzcMeta><![[]CDATA[[]catzc:*immutable:*path: a/b.json*kind: other]]></CatzcMeta>*<Gadget>1</Gadget>*'
+            ([xml] $once).Project.PropertyGroup[0].CatzcMeta.InnerText |
+                Should -Be "catzc:`n  immutable:`n    path: a/b.json`n    kind: other"
+            [Catzc.Base.CodeMeta.PropertyHead]::Parse($once, 'CatzcMeta').WithFacts($script:facts, $script:none) |
+                Should -BeExactly $once
         }
 
         It 'reads back the keys of the block it wrote' {
-            $once = [Catzc.Base.CodeMeta.PropertyHead]::Parse($script:project, 'CatzcMeta').WithFacts($script:facts, $script:none)
+            $once = [Catzc.Base.CodeMeta.PropertyHead]::Parse($script:project, 'CatzcMeta').WithFacts($script:facts,
+                $script:none)
             $head = [Catzc.Base.CodeMeta.PropertyHead]::Parse($once, 'CatzcMeta')
             $head.IsObject | Should -BeTrue
             $head.HasHead | Should -BeTrue
@@ -137,8 +151,10 @@ Describe 'Catzc.Base.CodeMeta.PropertyHead' -Tag 'L0', 'logic', 'ADR-REPO-FILEME
         }
 
         It 'removes the block when there are no facts and gives the original text back' {
-            $once = [Catzc.Base.CodeMeta.PropertyHead]::Parse($script:project, 'CatzcMeta').WithFacts($script:facts, $script:none)
-            [Catzc.Base.CodeMeta.PropertyHead]::Parse($once, 'CatzcMeta').WithFacts($script:none, $script:none) | Should -BeExactly $script:project
+            $once = [Catzc.Base.CodeMeta.PropertyHead]::Parse($script:project, 'CatzcMeta').WithFacts($script:facts,
+                $script:none)
+            [Catzc.Base.CodeMeta.PropertyHead]::Parse($once, 'CatzcMeta').WithFacts($script:none, $script:none) |
+                Should -BeExactly $script:project
         }
 
         It 'leaves a foreign property of that name alone and says so' {
@@ -151,14 +167,16 @@ Describe 'Catzc.Base.CodeMeta.PropertyHead' -Tag 'L0', 'logic', 'ADR-REPO-FILEME
         It 'places the block after a prolog and a comment before the root' {
             $text = "<?xml version=`"1.0`"?>`n" + $script:project
             $once = [Catzc.Base.CodeMeta.PropertyHead]::Parse($text, 'CatzcMeta').WithFacts($script:facts, $script:none)
-            $once | Should -BeLike "<?xml version=`"1.0`"?>*<!-- widget project -->*<Project Sdk=`"Widget.Sdk`">*<PropertyGroup Label=`"catzc`">*"
+            $once |
+                Should -BeLike "<?xml version=`"1.0`"?>*<!-- widget project -->*<Project Sdk=`"Widget.Sdk`">*<PropertyGroup Label=`"catzc`">*"
             { [xml] $once } | Should -Not -Throw
         }
 
         It 'follows the line end of the file' {
             $text = $script:project -replace "`n", "`r`n"
             $once = [Catzc.Base.CodeMeta.PropertyHead]::Parse($text, 'CatzcMeta').WithFacts($script:facts, $script:none)
-            $once | Should -BeLike "*`r`n  <PropertyGroup Label=`"catzc`">`r`n    <CatzcMeta>*</CatzcMeta>`r`n  </PropertyGroup>*"
+            $once |
+                Should -BeLike "*`r`n  <PropertyGroup Label=`"catzc`">`r`n    <CatzcMeta>*</CatzcMeta>`r`n  </PropertyGroup>*"
         }
     }
 }

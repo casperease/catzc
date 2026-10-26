@@ -24,7 +24,8 @@ Describe 'Build-CommentView' -Tag 'L0', 'logic' {
             ) -join "`n")
         $script:newRepository = {
             $root = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
-            & $script:writeFile $root '.editorconfig' ((@('[*.{ps1,psm1,psd1}]', 'max_line_length = 120', '') -join "`n"))
+            & $script:writeFile $root '.editorconfig' ((@('[*.{ps1,psm1,psd1}]', 'max_line_length = 120',
+                '') -join "`n"))
             & $script:writeFile $root "$(Get-CatzcModulesFolder)/Catzc.Widget/Get-Widget.ps1" $script:source
             & $script:writeFile $root "$(Get-CatzcModulesFolder)/Catzc.Widget/Get-Gadget.ps1" "function Get-Gadget { 'gadget' }`n"
             $root
@@ -43,7 +44,8 @@ Describe 'Build-CommentView' -Tag 'L0', 'logic' {
     It 'is idempotent and writes nothing under -DryRun' -Tag 'ADR-AUTO-IDEM-CHECKBEFOREACTING' {
         $root = & $newRepository
         Export-Comments -RepositoryRoot $root -Path (Join-Path $root (Get-CatzcModulesFolder)) | Out-Null
-        @(Build-CommentView -RepositoryRoot $root -Path (Join-Path $root (Get-CatzcModulesFolder)) -DryRun).Count | Should -Be 1
+        @(Build-CommentView -RepositoryRoot $root -Path (Join-Path $root (Get-CatzcModulesFolder)) -DryRun).Count |
+            Should -Be 1
         Test-Path (Join-Path $root 'out/annotated') | Should -BeFalse
         Build-CommentView -RepositoryRoot $root -Path (Join-Path $root (Get-CatzcModulesFolder)) | Out-Null
         Build-CommentView -RepositoryRoot $root -Path (Join-Path $root (Get-CatzcModulesFolder)) | Should -BeNullOrEmpty

@@ -54,12 +54,14 @@ Describe 'Build-RootConfig' -Tag 'L0', 'logic' {
     It 'copies a source entry out under the generated head, the warning and nothing else derived' {
         Build-RootConfig | Out-Null
         $text = [System.IO.File]::ReadAllText($script:copyTarget)
-        $text | Should -MatchExactly '^# ---\n# catzc:\n#   immutable:\n(#     with_body_sha: "?[0-9a-f]{12}"?\n)?#     warning: "Do Not Edit, this file is generated"\n# ---\n\nalpha: 1\nbeta: 2\n$'
+        $text |
+            Should -MatchExactly '^# ---\n# catzc:\n#   immutable:\n(#     with_body_sha: "?[0-9a-f]{12}"?\n)?#     warning: "Do Not Edit, this file is generated"\n# ---\n\nalpha: 1\nbeta: 2\n$'
     }
 
     It 'renders a generator entry through the dispatch, under the generated head' {
         Build-RootConfig | Out-Null
-        [System.IO.File]::ReadAllText($script:genTarget) | Should -MatchExactly '^# ---\n# catzc:\n#   immutable:\n(#     with_body_sha: "?[0-9a-f]{12}"?\n)?#     warning: "Do Not Edit, this file is generated"\n# ---\n\nrendered output\n$'
+        [System.IO.File]::ReadAllText($script:genTarget) |
+            Should -MatchExactly '^# ---\n# catzc:\n#   immutable:\n(#     with_body_sha: "?[0-9a-f]{12}"?\n)?#     warning: "Do Not Edit, this file is generated"\n# ---\n\nrendered output\n$'
         Should -Invoke Invoke-RootConfigGenerator -ModuleName Catzc.Base.RootConfig -ParameterFilter { $Name -eq 'Fake-Generator' -and $Target -eq 'generated.txt' }
     }
 
@@ -139,7 +141,8 @@ Describe 'Build-RootConfig — multi-file generator' -Tag 'L0', 'logic' {
         }
         $script:alpha = Join-Path $script:fake.Root 'widgets/alpha/gadget.txt'
         $script:beta = Join-Path $script:fake.Root 'widgets/beta/gadget.txt'
-        # The pattern of the generated head a generator's file carries, over the content the generator rendered; the body hash is any 12 hex digits.
+        # The pattern of the generated head a generator's file carries, over the content the generator rendered; the
+        # body hash is any 12 hex digits.
         $script:headed = {
             param([string] $Body)
             '^# ---\n# catzc:\n#   immutable:\n(#     with_body_sha: "?[0-9a-f]{12}"?\n)?#     warning: "Do Not Edit, this file is generated"\n# ---\n\n' + [regex]::Escape($Body).Replace("`n", '\n') + '$'
@@ -211,7 +214,8 @@ Describe 'Build-RootConfig — multi-file generator' -Tag 'L0', 'logic' {
     }
 
     It 'throws when -Target matches the pattern but names no rendered file' {
-        { Build-RootConfig -Target 'widgets/gamma/gadget.txt' } | Should -Throw "*renders no file 'widgets/gamma/gadget.txt'*"
+        { Build-RootConfig -Target 'widgets/gamma/gadget.txt' } |
+            Should -Throw "*renders no file 'widgets/gamma/gadget.txt'*"
     }
 }
 
@@ -221,7 +225,8 @@ Describe 'Build-RootConfig — real rootconfig.yml' -Tag 'L2', 'integrity', 'sou
         $script:skip = if (-not (Resolve-ToolExecutable -Tool go).Found) {
             'tool_go_missing'
         }
-        # -DryRun composes every opted-in target's content — a source file that is missing, or an unknown generator, throws.
+        # -DryRun composes every opted-in target's content — a source file that is missing, or an unknown generator,
+        # throws.
         if (-not $script:skip) {
             $script:rendered = Build-RootConfig -DryRun -PassThru -Silent
         }
@@ -237,7 +242,8 @@ Describe 'Build-RootConfig — real rootconfig.yml' -Tag 'L2', 'integrity', 'sou
     It 'renders .editorconfig before .vscode/settings.json, whose generator reads it, so a tree without either renders drift-free at once' {
         $targets = @((Get-Config -Config rootconfig).Files | Where-Object OptIn | ForEach-Object Target)
         [array]::IndexOf($targets, '.editorconfig') | Should -BeGreaterOrEqual 0
-        [array]::IndexOf($targets, '.editorconfig') | Should -BeLessThan ([array]::IndexOf($targets, '.vscode/settings.json'))
+        [array]::IndexOf($targets, '.editorconfig') | Should -BeLessThan ([array]::IndexOf($targets,
+            '.vscode/settings.json'))
     }
 
     It 'renders every managed root file drift-free, importer.ps1 included (Test-GeneratedFiles)' {
@@ -292,7 +298,8 @@ Describe 'Build-RootConfig — the real New-GoWorkspace generator, <_>/ root' -T
 
     It 'writes go.work and the go.mod under the Go root, with the pin as the go directive' {
         @(Build-RootConfig -PassThru -Silent).Target | Should -Be @('go.work', $script:modTarget)
-        [System.IO.File]::ReadAllText($script:work) | Should -Match ("`n`t\./" + [regex]::Escape($script:goRoot) + "/tests/widget`n")
+        [System.IO.File]::ReadAllText($script:work) |
+            Should -Match ("`n`t\./" + [regex]::Escape($script:goRoot) + "/tests/widget`n")
         [System.IO.File]::ReadAllText($script:work) | Should -Match "`ngo 1\.27`n"
         [System.IO.File]::ReadAllText($script:mod) | Should -Match "`nmodule catzc/go/tests/widget`n`ngo 1\.27`n$"
     }
@@ -312,6 +319,7 @@ Describe 'Build-RootConfig — the real New-GoWorkspace generator, <_>/ root' -T
         $rows = @(Build-RootConfig $script:modTarget -PassThru -Silent)
         $rows.Target | Should -Be $script:modTarget
         $rows.Changed | Should -BeTrue
-        (Test-GeneratedFiles -Generator New-GoWorkspace -PassThru -OutputFolder $script:report).IssueCount | Should -Be 0
+        (Test-GeneratedFiles -Generator New-GoWorkspace -PassThru -OutputFolder $script:report).IssueCount |
+            Should -Be 0
     }
 }

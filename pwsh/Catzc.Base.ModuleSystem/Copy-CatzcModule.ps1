@@ -85,14 +85,16 @@ function Copy-CatzcModule {
                 Relative    = $relative
                 Source      = $source
                 IsContainer = (Test-Path $source -PathType Container)
-                Target      = Join-Path $destinationRoot ($relative -replace '/', [System.IO.Path]::DirectorySeparatorChar)
+                Target      = Join-Path $destinationRoot ($relative -replace '/',
+                    [System.IO.Path]::DirectorySeparatorChar)
             })
     }
 
     # ---- conflict pre-scan (fast / faster / fastest) --------------------------------------------------
     if (-not $Force) {
         if ($EmptyDestination) {
-            if ([System.IO.Directory]::Exists($destinationRoot) -and @(Get-ChildPath $destinationRoot -Depth 1 -Exclude @() -PruneVendor $false).Count -gt 0) {
+            if ([System.IO.Directory]::Exists($destinationRoot) -and
+                @(Get-ChildPath $destinationRoot -Depth 1 -Exclude @() -PruneVendor $false).Count -gt 0) {
                 throw "Copy-CatzcModule: -EmptyDestination requires an empty target, but '$destinationRoot' is not empty."
             }
         }

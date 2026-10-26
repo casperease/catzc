@@ -33,8 +33,10 @@ Describe 'Get-CommandContract' -Tag 'L0', 'logic', 'ADR-REPO-CMDCONTRACT-ONEREAD
     }
 
     It 'narrows by command name and by module, with wildcards' {
-        @(Get-CommandContract -Name 'get_*' -RepositoryRoot $script:root).Name | Should -Be @('get_gadget', 'get_widget')
-        @(Get-CommandContract -Module catzc.widget -RepositoryRoot $script:root).Name | Should -Be @('get_widget', 'set_widget')
+        @(Get-CommandContract -Name 'get_*' -RepositoryRoot $script:root).Name | Should -Be @('get_gadget',
+            'get_widget')
+        @(Get-CommandContract -Module catzc.widget -RepositoryRoot $script:root).Name | Should -Be @('get_widget',
+            'set_widget')
         @(Get-CommandContract set_widget -RepositoryRoot $script:root).Name | Should -Be 'set_widget'
         @(Get-CommandContract -Name get_sprocket -RepositoryRoot $script:root).Count | Should -Be 0
     }

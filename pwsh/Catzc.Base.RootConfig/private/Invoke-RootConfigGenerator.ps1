@@ -58,7 +58,8 @@ function Invoke-RootConfigGenerator {
             else {
                 "`${workspaceFolder}/$pythonRoot/.venv/bin/python"
             }
-            # Pylance runs pyright in the mode Test-PythonTypes runs it in ([ADR-AUTO-PY-EVERYFILETYPECHECKED](/docs/drs/automation/python/python-test-artifacts.md#rule-adr-auto-py-everyfiletypechecked)).
+            # Pylance runs pyright in the mode Test-PythonTypes runs it in
+            # ([ADR-AUTO-PY-EVERYFILETYPECHECKED](/docs/drs/automation/python/python-test-artifacts.md#rule-adr-auto-py-everyfiletypechecked)).
             $machineSetting['python.analysis.typeCheckingMode'] = $python.type_checking
             # Format Document runs the same engine Format-Code runs for each language.
             $languageFormatter = [ordered]@{}
@@ -99,7 +100,8 @@ function Invoke-RootConfigGenerator {
             New-VsCodeTasks
         }
         'New-JsConfig' {
-            # The type roots are npm's global root beside the managed node, where Install-TypeScript puts the declarations; no process runs.
+            # The type roots are npm's global root beside the managed node, where Install-TypeScript puts the
+            # declarations; no process runs.
             $node = Resolve-ToolExecutable -Tool node_js
             $typeRoot = if ($node.Found) {
                 $folder = Split-Path $node.Path

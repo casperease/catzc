@@ -14,7 +14,8 @@ Describe 'Convert-TestRunLocationPath' -Tag 'L0', 'logic' {
     It 'maps a path under the working folder into the snapshot, and back' {
         $inside = & $script:convert $script:snapshotLocation @('C:\widget\automation\Mod\tests\A.Tests.ps1')
         $inside | Should -Be @('C:\tmp\catzc-run-gadget\automation\Mod\tests\A.Tests.ps1')
-        & $script:convert $script:snapshotLocation $inside -ToSource | Should -Be @('C:\widget\automation\Mod\tests\A.Tests.ps1')
+        & $script:convert $script:snapshotLocation $inside -ToSource |
+            Should -Be @('C:\widget\automation\Mod\tests\A.Tests.ps1')
     }
 
     It 'maps the root itself, case-insensitively and with either separator' {

@@ -22,5 +22,6 @@ function Write-ListenIndex {
     foreach ($key in $keys) {
         $sorted[$key] = $Index[$key]
     }
-    [System.IO.File]::WriteAllText($Path, (ConvertTo-Json -InputObject $sorted -Depth 4), [System.Text.UTF8Encoding]::new($false))
+    [System.IO.File]::WriteAllText($Path, (ConvertTo-Json -InputObject $sorted -Depth 4),
+        [System.Text.UTF8Encoding]::new($false))
 }

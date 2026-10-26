@@ -11,8 +11,10 @@ Describe 'Get-ValueChainMap' -Tag 'L0', 'logic' {
         $script:stacks = @([Catzc.Base.Drs.DrsConfig]::Stacks)
         $script:concerns = @([Catzc.Base.Drs.DrsConfig]::Concerns)
         $script:ruleSets = @(
-            [Catzc.Base.Drs.DrsRuleSet]::new('widgetry', 'fixture', 'widget-gadget', 'ADR-WIDGET-GADGET', 'WIDGET', 'WIDGET',
-                $script:stacks[0], [string[]] @($script:concerns[0], $script:concerns[2]), [string[]] @($script:concerns[0]))
+            [Catzc.Base.Drs.DrsRuleSet]::new('widgetry', 'fixture', 'widget-gadget', 'ADR-WIDGET-GADGET', 'WIDGET',
+                'WIDGET',
+                $script:stacks[0], [string[]] @($script:concerns[0], $script:concerns[2]),
+                [string[]] @($script:concerns[0]))
             [Catzc.Base.Drs.DrsRuleSet]::new('widgetry', 'fixture', 'widget-cog', 'ADR-WIDGET-COG', 'WIDGET', 'WIDGET',
                 $script:stacks[0], [string[]] @($script:concerns[0]), [string[]] @($script:concerns[0]))
         )

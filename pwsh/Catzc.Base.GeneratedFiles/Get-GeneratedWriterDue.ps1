@@ -43,7 +43,8 @@ function Get-GeneratedWriterDue {
         }
         $due = $false
         foreach ($output in $outputs) {
-            if ($output.IndexOfAny([char[]] '*?[') -lt 0 -and -not [System.IO.File]::Exists((Join-Path $RepositoryRoot $output))) {
+            if ($output.IndexOfAny([char[]] '*?[') -lt 0 -and
+                -not [System.IO.File]::Exists((Join-Path $RepositoryRoot $output))) {
                 $due = $true
                 break
             }

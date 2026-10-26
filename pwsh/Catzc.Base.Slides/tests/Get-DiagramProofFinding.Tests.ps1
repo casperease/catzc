@@ -47,7 +47,8 @@ content:
     }
 
     It 'is inert for a band diagram, whatever its about holds' {
-        @(& $script:find "about:`n  proves: nowhere.accosted.yml`ncontent:`n  title: widgets`n  bands: []").Count | Should -Be 0
+        @(& $script:find "about:`n  proves: nowhere.accosted.yml`ncontent:`n  title: widgets`n  bands: []").Count |
+            Should -Be 0
         Should -Invoke Get-AccostedFile -ModuleName Catzc.Base.Slides -Times 0 -Exactly
     }
 
@@ -63,16 +64,19 @@ content:
 
     It 'asks for about.proves when an action diagram names no file' {
         @(& $script:find "about:`n  lens: action`ncontent:`n  title: widgets").Count | Should -Be 1
-        (@(& $script:find "about:`n  lens: action`ncontent:`n  title: widgets"))[0] | Should -BeLike '*names the accosted file that proves it in about.proves'
+        (@(& $script:find "about:`n  lens: action`ncontent:`n  title: widgets"))[0] |
+            Should -BeLike '*names the accosted file that proves it in about.proves'
     }
 
     It 'names a proof file that does not exist' {
         $text = $script:action -replace 'widgets/widgets.accosted.yml', 'widgets/missing.accosted.yml'
-        (@(& $script:find $text))[0] | Should -BeLike "*about.proves names 'widgets/missing.accosted.yml', which does not exist"
+        (@(& $script:find $text))[0] |
+            Should -BeLike "*about.proves names 'widgets/missing.accosted.yml', which does not exist"
     }
 
     It 'passes a mutating action the proof file does not hold, as it is a contracted command that fits' {
-        $text = $script:action.Replace('call: { get_widget: { path: widgets/a.wdg, depth: 2 } }', 'call: { set_widget: { path: widgets/a.wdg } }')
+        $text = $script:action.Replace('call: { get_widget: { path: widgets/a.wdg, depth: 2 } }',
+            'call: { set_widget: { path: widgets/a.wdg } }')
         @(& $script:find $text).Count | Should -Be 0
     }
 
@@ -111,6 +115,7 @@ content:
     It 'names an effect whose command is not in the proof file, with where it is drawn' {
         $findings = @(& $script:find ($script:action.Replace('proves: { get_gadget: } }', 'proves: { get_gizmo: } }')))
         $findings.Count | Should -Be 1
-        $findings[0] | Should -BeLike "*: $([WildcardPattern]::Escape('effects[e-one].proves')) '*' with these arguments is not a command of widgets/widgets.accosted.yml"
+        $findings[0] |
+            Should -BeLike "*: $([WildcardPattern]::Escape('effects[e-one].proves')) '*' with these arguments is not a command of widgets/widgets.accosted.yml"
     }
 }

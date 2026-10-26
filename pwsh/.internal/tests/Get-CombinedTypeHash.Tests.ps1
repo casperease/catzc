@@ -7,7 +7,8 @@ Describe 'Get-CombinedTypeHash' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMO
             foreach ($pair in @(@('Widget', 'Alpha'), @('Widget', 'Beta'), @('Gadget', 'Gamma'))) {
                 $folder = Join-Path (Join-Path $root $pair[0]) 'types'
                 [System.IO.Directory]::CreateDirectory($folder) | Out-Null
-                [System.IO.File]::WriteAllText((Join-Path $folder "$($pair[1]).cs"), "namespace $($pair[0]);`npublic class $($pair[1]) { }`n")
+                [System.IO.File]::WriteAllText((Join-Path $folder "$($pair[1]).cs"),
+                    "namespace $($pair[0]);`npublic class $($pair[1]) { }`n")
             }
             $root
         }
@@ -58,7 +59,8 @@ Describe 'Get-CombinedTypeHash' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMO
         $root = New-TypesRoot
         $stamp = Join-Path $TestDrive "stamp-$([guid]::NewGuid().ToString('N')).json"
         $null = Get-CombinedTypeHash $root -StampPath $stamp
-        [System.IO.File]::WriteAllText((Join-Path $root 'Gadget/types/Delta.cs'), "namespace Gadget;`npublic class Delta { }`n")
+        [System.IO.File]::WriteAllText((Join-Path $root 'Gadget/types/Delta.cs'),
+            "namespace Gadget;`npublic class Delta { }`n")
         (Get-CombinedTypeHash $root -StampPath $stamp).Rehashed | Should -Be 1
         [System.IO.File]::Delete((Join-Path $root 'Gadget/types/Delta.cs'))
         $removed = Get-CombinedTypeHash $root -StampPath $stamp
@@ -85,14 +87,16 @@ Describe 'Get-CombinedTypeHash' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMO
         $result = Get-CombinedTypeHash $root -StampPath $stamp
         $result.Rehashed | Should -Be 3
         $result.CombinedHash | Should -Be (Get-CombinedTypeHash $root).CombinedHash
-        (([System.IO.File]::ReadAllText($stamp) | ConvertFrom-Json -AsHashtable)['combined']) | Should -Be $result.CombinedHash
+        (([System.IO.File]::ReadAllText($stamp) | ConvertFrom-Json -AsHashtable)['combined']) |
+            Should -Be $result.CombinedHash
     }
 
     It 'returns the hash and leaves no temporary file when another process holds the memo open' {
         $root = New-TypesRoot
         $stamp = Join-Path $TestDrive "stamp-$([guid]::NewGuid().ToString('N')).json"
         [System.IO.File]::WriteAllText($stamp, 'not json {')
-        $held = [System.IO.File]::Open($stamp, [System.IO.FileMode]::Open, [System.IO.FileAccess]::Read, [System.IO.FileShare]::Read)
+        $held = [System.IO.File]::Open($stamp, [System.IO.FileMode]::Open, [System.IO.FileAccess]::Read,
+            [System.IO.FileShare]::Read)
         try {
             $result = Get-CombinedTypeHash $root -StampPath $stamp
         }
@@ -109,7 +113,8 @@ Describe 'Get-CombinedTypeHash' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMO
                 $root = New-TypesRoot
                 $configs = Join-Path $root 'Catzc.Base.Languages/configs'
                 [System.IO.Directory]::CreateDirectory($configs) | Out-Null
-                [System.IO.File]::WriteAllText((Join-Path $configs 'file-carriers.yml'), "carriers:`n  bcl: { carrier: comment-head, block: [`"/*`", `"*/`"] }`n")
+                [System.IO.File]::WriteAllText((Join-Path $configs 'file-carriers.yml'),
+                    "carriers:`n  bcl: { carrier: comment-head, block: [`"/*`", `"*/`"] }`n")
                 $root
             }
             $script:head = "/*`n---`ncatzc:`n  edges:`n    cites:`n      - ADR-WIDGET-ONE`n---`n*/`n`n"
@@ -127,7 +132,8 @@ Describe 'Get-CombinedTypeHash' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMO
             [System.IO.File]::WriteAllText($alpha, $script:head.Replace('ADR-WIDGET-ONE', 'ADR-WIDGET-TWO') + $body)
             (Get-CombinedTypeHash $root).CombinedHash | Should -Be $bare -Because 'a changed head changes no body'
 
-            [System.IO.File]::WriteAllText($alpha, $script:head + "namespace Widget;`npublic class Alpha { public int Tag; }`n")
+            [System.IO.File]::WriteAllText($alpha,
+                $script:head + "namespace Widget;`npublic class Alpha { public int Tag; }`n")
             (Get-CombinedTypeHash $root).CombinedHash | Should -Not -Be $bare
         }
 
@@ -150,6 +156,7 @@ Describe 'Get-CombinedTypeHash' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMO
         Get-TypeSourceBody -Text "namespace Widget;`n" -Block '/*', '*/' | Should -BeExactly "namespace Widget;`n"
         $commented = "/* a plain comment */`n" + "namespace Widget;`n"
         Get-TypeSourceBody -Text $commented -Block '/*', '*/' | Should -BeExactly $commented
-        Get-TypeSourceBody -Text "/*`n---`ncatzc:`n  edges: {}`n---`n*/`n`n`nnamespace Widget;`n" -Block '/*', '*/' | Should -BeExactly "namespace Widget;`n"
+        Get-TypeSourceBody -Text "/*`n---`ncatzc:`n  edges: {}`n---`n*/`n`n`nnamespace Widget;`n" -Block '/*', '*/' |
+            Should -BeExactly "namespace Widget;`n"
     }
 }

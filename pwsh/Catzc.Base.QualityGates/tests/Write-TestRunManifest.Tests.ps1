@@ -20,7 +20,8 @@ Describe 'Write-TestRunManifest' -Tag 'L0', 'logic' {
         InModuleScope Catzc.Base.QualityGates -Parameters @{ Dir = $script:runDirectory } {
             param($Dir)
             Write-TestRunManifest -RunDirectory $Dir -Manifest ([ordered]@{ status = 'running' }) | Out-Null
-            Write-TestRunManifest -RunDirectory $Dir -Manifest ([ordered]@{ status = 'passed'; failedCount = 0 }) | Out-Null
+            Write-TestRunManifest -RunDirectory $Dir -Manifest ([ordered]@{ status = 'passed'; failedCount = 0 }) |
+                Out-Null
         }
         $manifest = Get-Content -LiteralPath (Join-Path $script:runDirectory 'run.json') -Raw | ConvertFrom-Json
         $manifest.status | Should -Be 'passed'

@@ -22,7 +22,8 @@ function Invoke-BuildForVsCode {
 
     $configuration = (Get-Config -Config bcl).configuration
     Assert-DotnetOffline $project
-    # Analyzer diagnostics stream through, and a stale committed DLL or an analyzer error fails the build by its exit code.
+    # Analyzer diagnostics stream through, and a stale committed DLL or an analyzer error fails the build by its exit
+    # code.
     $result = Invoke-Executable "dotnet build `"$project`" --configuration $configuration" -PassThru
     Assert-NotNull $result -ErrorText "dotnet build of '$project' returned no result."
 

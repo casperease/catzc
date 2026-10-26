@@ -20,7 +20,8 @@ Describe 'Get-HelpPageFinding' -Tag 'L0', 'logic', 'ADR-REPO-HELP-FIVEFAULTSREPO
     }
 
     It 'reports a file with no page and a page with no help section' {
-        & $script:find $script:code $null | Should -Be @('the file has no comment page: write its help in the page''s ## help section')
+        & $script:find $script:code $null |
+            Should -Be @('the file has no comment page: write its help in the page''s ## help section')
         & $script:find $script:code "# t`n`n## comment:1`n" | Should -Be @('the comment page has no ## help section')
     }
 
@@ -35,21 +36,26 @@ Describe 'Get-HelpPageFinding' -Tag 'L0', 'logic', 'ADR-REPO-HELP-FIVEFAULTSREPO
 
     It 'reports an outputs type that differs from [OutputType]' {
         $body = "### synopsis`n`nGets.`n`n### parameter ``Name```n`nN.`n`n### parameter ``Force```n`nF.`n`n### outputs`n`n[int] a count.`n"
-        & $script:find $script:code (& $script:page $body) | Should -Be @('outputs documents [int] but [OutputType] declares [string]')
+        & $script:find $script:code (& $script:page $body) |
+            Should -Be @('outputs documents [int] but [OutputType] declares [string]')
     }
 
     It 'reports a comment-based help block and a help line made of a citation alone' {
         $legacy = "<#`n.SYNOPSIS`n    Gets.`n#>`n" + $script:code
         $body = "### synopsis`n`nGets.`n`n### description`n`n[ADR-WIDGET-SPINS](/docs/drs/widget.md#rule-adr-widget-spins)`n`n### parameter ``Name```n`nN.`n`n### parameter ``Force```n`nF.`n"
         $found = & $script:find $legacy (& $script:page $body)
-        $found | Should -Contain 'comment-based help is not used: write the help in the ## help section of the comment page'
-        $found | Should -Contain 'a help line is made of nothing but a citation or a page link, which the tooling derives'
+        $found |
+            Should -Contain 'comment-based help is not used: write the help in the ## help section of the comment page'
+        $found |
+            Should -Contain 'a help line is made of nothing but a citation or a page link, which the tooling derives'
     }
 
     It 'reports a comment-based help block indented inside the function' {
-        $indented = $script:code.Replace("{`n    [CmdletBinding()]", "{`n    <#`n    .SYNOPSIS`n        Gets.`n    #>`n    [CmdletBinding()]")
+        $indented = $script:code.Replace("{`n    [CmdletBinding()]",
+            "{`n    <#`n    .SYNOPSIS`n        Gets.`n    #>`n    [CmdletBinding()]")
         $body = "### synopsis`n`nGets.`n`n### parameter ``Name```n`nN.`n`n### parameter ``Force```n`nF.`n"
-        & $script:find $indented (& $script:page $body) | Should -Be @('comment-based help is not used: write the help in the ## help section of the comment page')
+        & $script:find $indented (& $script:page $body) |
+            Should -Be @('comment-based help is not used: write the help in the ## help section of the comment page')
     }
 
     It 'passes the section''s shape faults through' {

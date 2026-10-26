@@ -18,7 +18,8 @@ Describe 'New-DocNote' -Tag 'L0', 'logic' {
         $text | Should -BeLike '*tier: rule*'
         $text | Should -BeLike '*rules: `[ADR-WIDGET-PARTS-SINGLE`]*'
         $text | Should -BeLike '*commit: c0ffee0000000000000000000000000000000000*'
-        $text | Should -BeLike '*## This change (against seen)*+One part*## The arc over the session (against baseline)*+One part*'
+        $text |
+            Should -BeLike '*## This change (against seen)*+One part*## The arc over the session (against baseline)*+One part*'
     }
 
     It 'numbers the notes of a session in order' {

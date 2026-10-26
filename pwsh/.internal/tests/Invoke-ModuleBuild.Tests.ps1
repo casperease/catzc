@@ -130,7 +130,8 @@ BeforeAll {
         param([string] $Root)
         $snapshot = @{}
         foreach ($file in Get-ChildPath $Root -File -Depth 64 -Exclude @() -PruneVendor $false) {
-            $snapshot[[System.IO.Path]::GetRelativePath($Root, $file).Replace('\', '/')] = [System.IO.File]::GetLastWriteTimeUtc($file).Ticks
+            $snapshot[[System.IO.Path]::GetRelativePath($Root, $file).Replace('\',
+                '/')] = [System.IO.File]::GetLastWriteTimeUtc($file).Ticks
         }
         $snapshot
     }
@@ -233,7 +234,8 @@ Describe 'Invoke-ModuleBuild' -Tag 'L2', 'logic', 'source-only' -Skip:(-not (Get
         }
 
         It 'writes canonical bytes: UTF-8 without BOM, LF only, one trailing newline' {
-            foreach ($relativePath in 'Catzc.Base.Widget/Catzc.Base.Widget.functions.ps1', 'Catzc.psd1', 'Catzc.psm1', 'build.json', 'Catzc.Base.Widget/Catzc.Base.Widget.psd1') {
+            foreach ($relativePath in 'Catzc.Base.Widget/Catzc.Base.Widget.functions.ps1', 'Catzc.psd1', 'Catzc.psm1',
+                'build.json', 'Catzc.Base.Widget/Catzc.Base.Widget.psd1') {
                 $bytes = [System.IO.File]::ReadAllBytes((Join-Path $root $relativePath))
                 $bytes[0] | Should -Not -Be 0xEF -Because "$relativePath carries no BOM"
                 $bytes | Should -Not -Contain 13 -Because "$relativePath has LF endings only"
@@ -243,12 +245,15 @@ Describe 'Invoke-ModuleBuild' -Tag 'L2', 'logic', 'source-only' -Skip:(-not (Get
         }
 
         It 'copies side folders and the initializer as git stores them: LF-stored text LF, the rest byte for byte' {
-            [System.IO.File]::ReadAllText((Join-Path $root 'Catzc.Base.Widget/assets/widget.txt')) | Should -BeExactly 'widget asset'
+            [System.IO.File]::ReadAllText((Join-Path $root 'Catzc.Base.Widget/assets/widget.txt')) |
+                Should -BeExactly 'widget asset'
             # CRLF on disk, LF in git: the bundle carries git's LF, whatever the checkout wrote.
-            [System.IO.File]::ReadAllText((Join-Path $fake.ModulesRoot '.internal/assets/Import-Catzc.ps1')) | Should -BeExactly "# initializer`r`n"
+            [System.IO.File]::ReadAllText((Join-Path $fake.ModulesRoot '.internal/assets/Import-Catzc.ps1')) |
+                Should -BeExactly "# initializer`r`n"
             [System.IO.File]::ReadAllText((Join-Path $root 'Import-Catzc.ps1')) | Should -BeExactly "# initializer`n"
             # CRLF in git (-text): kept byte for byte.
-            [System.IO.File]::ReadAllText((Join-Path $root '.vendor/powershell-yaml/0.4.12/Signed.ps1')) | Should -BeExactly "# signed`r`n"
+            [System.IO.File]::ReadAllText((Join-Path $root '.vendor/powershell-yaml/0.4.12/Signed.ps1')) |
+                Should -BeExactly "# signed`r`n"
         }
 
         It 'records a clean source tree as not dirty' {
@@ -289,7 +294,8 @@ Describe 'Invoke-ModuleBuild' -Tag 'L2', 'logic', 'source-only' -Skip:(-not (Get
         }
 
         It 'writes a root module that dot-sources the initializer' {
-            [System.IO.File]::ReadAllText((Join-Path $root 'Catzc.psm1')) | Should -BeLike "*. (Join-Path `$PSScriptRoot 'Import-Catzc.ps1')*"
+            [System.IO.File]::ReadAllText((Join-Path $root 'Catzc.psm1')) |
+                Should -BeLike "*. (Join-Path `$PSScriptRoot 'Import-Catzc.ps1')*"
         }
 
         It 'ships the full type set: the DLL compiled into the bundle, unselected sources under .compiled/types' {
@@ -305,7 +311,8 @@ Describe 'Invoke-ModuleBuild' -Tag 'L2', 'logic', 'source-only' -Skip:(-not (Get
             $record.bundle | Should -Be 'widgets'
             $record.version | Should -Be '1.2.3'
             $record.typesHash | Should -Be $fullHash
-            @($record.typeSources) | Should -Be @('Catzc.Base.Gadget/types/Lever.cs', '.compiled/types/Catzc.Base.Gizmo/Sprocket.cs')
+            @($record.typeSources) | Should -Be @('Catzc.Base.Gadget/types/Lever.cs',
+                '.compiled/types/Catzc.Base.Gizmo/Sprocket.cs')
             $record.sourceCommit | Should -Be 'f00df00df00df00df00df00df00df00df00df00d'
             $record.vendorPolicy | Should -Be 'runtime'
             @($record.modules) | Should -Be @('Catzc.Base.Gadget', 'Catzc.Base.Widget')
@@ -363,7 +370,8 @@ Describe 'Invoke-ModuleBuild' -Tag 'L2', 'logic', 'source-only' -Skip:(-not (Get
         It 'refuses to build in a pipeline' {
             Mock Test-IsRunningInPipeline { $true } -ModuleName Catzc.Internal.Builder
             $destination = Join-Path $TestDrive 'dirty-pipeline'
-            { Invoke-ModuleBuild @buildArguments -ModuleProfile widgets -Destination $destination } | Should -Throw '*differs from its commit*'
+            { Invoke-ModuleBuild @buildArguments -ModuleProfile widgets -Destination $destination } |
+                Should -Throw '*differs from its commit*'
             [System.IO.Directory]::Exists($destination) | Should -BeFalse
         }
     }
@@ -382,13 +390,16 @@ Describe 'Invoke-ModuleBuild' -Tag 'L2', 'logic', 'source-only' -Skip:(-not (Get
     Context 'a build that cannot be made' {
         It 'collects every merge-precondition violation before writing anything' {
             $destination = Join-Path $TestDrive 'gizmo'
-            $failure = { Invoke-ModuleBuild @buildArguments -ModuleProfile gizmos -Destination $destination } | Should -Throw -PassThru
+            $failure = { Invoke-ModuleBuild @buildArguments -ModuleProfile gizmos -Destination $destination } |
+                Should -Throw -PassThru
             $message = $failure.Exception.Message
-            $message | Should -BeLike '*pwsh/Catzc.Base.Gizmo/Get-GizmoPair.ps1: must hold exactly one top-level statement*'
+            $message |
+                Should -BeLike '*pwsh/Catzc.Base.Gizmo/Get-GizmoPair.ps1: must hold exactly one top-level statement*'
             $message | Should -BeLike "*pwsh/Catzc.Base.Gizmo/Get-GizmoName.ps1: defines function 'Get-SomethingElse'*"
             $message | Should -BeLike '*pwsh/Catzc.Base.Gizmo/Get-GizmoAnchor.ps1:2: reads $PSScriptRoot*'
             $message | Should -BeLike '*pwsh/Catzc.Base.Gizmo/private/Get-GizmoReq.ps1: carries a #requires statement*'
-            $message | Should -BeLike '*pwsh/Catzc.Base.Gizmo/private/Get-GizmoTop.ps1: must hold exactly one top-level statement*'
+            $message |
+                Should -BeLike '*pwsh/Catzc.Base.Gizmo/private/Get-GizmoTop.ps1: must hold exactly one top-level statement*'
             [System.IO.Directory]::Exists($destination) | Should -BeFalse
         }
 
@@ -399,10 +410,12 @@ Describe 'Invoke-ModuleBuild' -Tag 'L2', 'logic', 'source-only' -Skip:(-not (Get
                 [pscustomobject]@{ Module = 'Catzc.Base.Widget'; Function = 'Set-Widget'; ChildPath = 'configs'; File = (Get-CatzcModulesFolder) + '/Catzc.Base.Widget/Set-Widget.ps1'; Line = 2 }
             }
             $destination = Join-Path $TestDrive 'gate'
-            $failure = { Invoke-ModuleBuild @buildArguments -ModuleProfile widgets -Destination $destination } | Should -Throw -PassThru
+            $failure = { Invoke-ModuleBuild @buildArguments -ModuleProfile widgets -Destination $destination } |
+                Should -Throw -PassThru
             $message = $failure.Exception.Message
             $message | Should -BeLike '*2 internal asset dependenc*'
-            $message | Should -BeLike '*Catzc.Base.Widget/assets/missing.txt (read by Get-Widget, pwsh/Catzc.Base.Widget/Get-Widget.ps1:5)*'
+            $message |
+                Should -BeLike '*Catzc.Base.Widget/assets/missing.txt (read by Get-Widget, pwsh/Catzc.Base.Widget/Get-Widget.ps1:5)*'
             $message | Should -BeLike '*Catzc.Base.Gizmo/configs/gizmo.yml*'
             $message | Should -Not -BeLike '*Set-Widget*'
             [System.IO.Directory]::Exists($destination) | Should -BeFalse
@@ -412,11 +425,14 @@ Describe 'Invoke-ModuleBuild' -Tag 'L2', 'logic', 'source-only' -Skip:(-not (Get
             # A closure that forgets gadget's dependency on widget, the way an unlisted module in dependencies.yml does.
             Mock Get-ModuleProfile -ModuleName Catzc.Internal.Builder -RemoveParameterValidation Name { [string[]] @($Modules) }
             $destination = Join-Path $TestDrive 'closure'
-            $failure = { Invoke-ModuleBuild @buildArguments -Module 'Catzc.Base.Gadget' -Destination $destination } | Should -Throw -PassThru
+            $failure = { Invoke-ModuleBuild @buildArguments -Module 'Catzc.Base.Gadget' -Destination $destination } |
+                Should -Throw -PassThru
             $message = $failure.Exception.Message
             $message | Should -BeLike '*2 call(s) or config read(s)*'
-            $message | Should -BeLike '*pwsh/Catzc.Base.Gadget/Get-GadgetWidget.ps1:2: Get-GadgetWidget calls Get-Widget, which Catzc.Base.Widget owns*'
-            $message | Should -BeLike "*pwsh/Catzc.Base.Gadget/Get-GadgetWidget.ps1:3: reads config 'widget', which Catzc.Base.Widget owns*"
+            $message |
+                Should -BeLike '*pwsh/Catzc.Base.Gadget/Get-GadgetWidget.ps1:2: Get-GadgetWidget calls Get-Widget, which Catzc.Base.Widget owns*'
+            $message |
+                Should -BeLike "*pwsh/Catzc.Base.Gadget/Get-GadgetWidget.ps1:3: reads config 'widget', which Catzc.Base.Widget owns*"
             [System.IO.Directory]::Exists($destination) | Should -BeFalse
         }
 
@@ -426,7 +442,8 @@ Describe 'Invoke-ModuleBuild' -Tag 'L2', 'logic', 'source-only' -Skip:(-not (Get
         }
 
         It 'requires -Module or -ModuleProfile' {
-            { Invoke-ModuleBuild @buildArguments -Destination $TestDrive -DryRun } | Should -Throw '*-Module, -ModuleProfile, or both*'
+            { Invoke-ModuleBuild @buildArguments -Destination $TestDrive -DryRun } |
+                Should -Throw '*-Module, -ModuleProfile, or both*'
         }
 
         It 'rejects package metadata without a GUID' {

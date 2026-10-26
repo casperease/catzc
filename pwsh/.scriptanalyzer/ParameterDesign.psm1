@@ -47,7 +47,8 @@ function Measure-ParameterFillIn {
                 "(?i)if\s*\(\s*-not\s+\`$$name\s*\)\s*\{\s*\`$$name\s*="
                 "(?i)\`$$name\s*=\s*\`$$name\s*\?\?"
             )
-            $blocks = @($function.Body.BeginBlock, $function.Body.ProcessBlock, $function.Body.EndBlock) | Where-Object { $null -ne $_ }
+            $blocks = @($function.Body.BeginBlock, $function.Body.ProcessBlock, $function.Body.EndBlock) |
+                Where-Object { $null -ne $_ }
             foreach ($statement in @($blocks | ForEach-Object { $_.Statements })) {
                 if ($patterns | Where-Object { $statement.Extent.Text -match $_ }) {
                     $results.Add([Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord]@{
@@ -72,7 +73,8 @@ function Measure-PrimaryArgumentPosition {
         [System.Management.Automation.Language.ScriptBlockAst] $ScriptBlockAst
     )
 
-    if (-not (Test-ModuleFunctionFile $ScriptBlockAst) -or $ScriptBlockAst.Extent.File.Replace('\', '/') -match '/private/') {
+    if (-not (Test-ModuleFunctionFile $ScriptBlockAst) -or $ScriptBlockAst.Extent.File.Replace('\',
+        '/') -match '/private/') {
         return @()
     }
     $results = [System.Collections.Generic.List[Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord]]::new()
@@ -97,7 +99,8 @@ function Measure-PrimaryArgumentPosition {
 
 function Get-ParameterTypeName {
     param([System.Management.Automation.Language.ParameterAst] $Parameter)
-    $constraint = $Parameter.Attributes | Where-Object { $_ -is [System.Management.Automation.Language.TypeConstraintAst] } |
+    $constraint = $Parameter.Attributes |
+        Where-Object { $_ -is [System.Management.Automation.Language.TypeConstraintAst] } |
         Select-Object -First 1
     if ($constraint) {
         $constraint.TypeName.FullName
@@ -204,14 +207,16 @@ function Measure-CaseSensitivePattern {
     foreach ($function in Get-ParameterFunction $ScriptBlockAst) {
         foreach ($parameter in $function.Body.ParamBlock.Parameters) {
             foreach ($attribute in $parameter.Attributes) {
-                if ($attribute -isnot [System.Management.Automation.Language.AttributeAst] -or $attribute.TypeName.Name -notin 'ValidatePattern', 'ValidatePatternAttribute') {
+                if ($attribute -isnot [System.Management.Automation.Language.AttributeAst] -or
+                    $attribute.TypeName.Name -notin 'ValidatePattern', 'ValidatePatternAttribute') {
                     continue
                 }
                 $pattern = $attribute.PositionalArguments | Select-Object -First 1
                 if ($pattern -isnot [System.Management.Automation.Language.StringConstantExpressionAst]) {
                     continue
                 }
-                if ($pattern.Value.StartsWith('(?-i)') -or ($attribute.NamedArguments | Where-Object { $_.ArgumentName -eq 'Options' })) {
+                if ($pattern.Value.StartsWith('(?-i)') -or
+                    ($attribute.NamedArguments | Where-Object { $_.ArgumentName -eq 'Options' })) {
                     continue
                 }
                 if (-not (Test-CaseDependentPattern $pattern.Value)) {

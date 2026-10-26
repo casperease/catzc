@@ -1,4 +1,5 @@
-# The shared loader of a source module ([ADR-PWSH-MANIFEST](/docs/drs/automation/pwsh/dynamic-module-manifests.md)): every
+# The shared loader of a source module ([ADR-PWSH-MANIFEST](/docs/drs/automation/pwsh/dynamic-module-manifests.md)):
+# every
 # derived <Module>.psd1 names this script as its one NestedModule and lists the module's function files in
 # PrivateData.CatzcFiles (private/ first, then the root, each group ordinal, relative to the module folder). As a
 # nested .ps1 it runs in the module's session state, so each file it dot-sources defines its function there: public
@@ -11,7 +12,8 @@
 foreach ($catzcModuleFile in $ExecutionContext.SessionState.Module.PrivateData.CatzcFiles) {
     $catzcModuleFile = [System.IO.Path]::Combine($ExecutionContext.SessionState.Module.ModuleBase, $catzcModuleFile)
     $catzcParseErrors = $null
-    $catzcModuleAst = [System.Management.Automation.Language.Parser]::ParseFile($catzcModuleFile, [ref] $null, [ref] $catzcParseErrors)
+    $catzcModuleAst = [System.Management.Automation.Language.Parser]::ParseFile($catzcModuleFile, [ref] $null,
+        [ref] $catzcParseErrors)
     if ($catzcParseErrors) {
         $catzcFirstError = $catzcParseErrors[0]
         throw "$($catzcFirstError.Extent.File):$($catzcFirstError.Extent.StartLineNumber): $($catzcFirstError.Message)"

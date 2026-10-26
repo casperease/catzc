@@ -27,5 +27,6 @@ function Get-AzureEnvironment {
     Assert-True ($Environment -in $subscriptionEnvironments) -ErrorText "Subscription '$Subscription' does not serve environment '$Environment' (serves: $($subscriptionEnvironments -join ', '))"
 
     $subscriptionDescriptor = Get-AzureSubscription $Subscription
-    [Catzc.Azure.AzureEnvironment]::new($Environment, $environmentEntry.shortcode, $environmentEntry.region, $environmentEntry.region_code, $subscriptionDescriptor)
+    [Catzc.Azure.AzureEnvironment]::new($Environment, $environmentEntry.shortcode, $environmentEntry.region,
+        $environmentEntry.region_code, $subscriptionDescriptor)
 }

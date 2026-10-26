@@ -61,8 +61,10 @@ function ConvertFrom-BatsJunit {
             'pass'
         }
         $seconds = 0.0
-        $null = [double]::TryParse($case.GetAttribute('time'), [System.Globalization.NumberStyles]::Float, [System.Globalization.CultureInfo]::InvariantCulture, [ref] $seconds)
-        $results.Add([Catzc.Base.Languages.BashTestResult]::new($package, $name.Trim(), $outcome, $seconds, ($output -join "`n")))
+        $null = [double]::TryParse($case.GetAttribute('time'), [System.Globalization.NumberStyles]::Float,
+            [System.Globalization.CultureInfo]::InvariantCulture, [ref] $seconds)
+        $results.Add([Catzc.Base.Languages.BashTestResult]::new($package, $name.Trim(), $outcome, $seconds,
+            ($output -join "`n")))
     }
 
     if ($outsideTests.Count -gt 0) {

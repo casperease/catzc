@@ -33,11 +33,13 @@ Describe 'Select-RuleTaggedFiles' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-PROVENANCET
     }
 
     It 'keeps only the files whose tests cite one of the rules, in input order' {
-        $result = & $script:select @('C:\r\a.Tests.ps1', 'C:\r\b.Tests.ps1', 'C:\r\c.Tests.ps1') @('ADR-WIDGET-GADGET-SPIN', 'ADR-WIDGET-GADGET-TURN')
+        $result = & $script:select @('C:\r\a.Tests.ps1', 'C:\r\b.Tests.ps1',
+            'C:\r\c.Tests.ps1') @('ADR-WIDGET-GADGET-SPIN', 'ADR-WIDGET-GADGET-TURN')
         @($result) | Should -Be @('C:\r\a.Tests.ps1', 'C:\r\c.Tests.ps1')
     }
 
     It 'returns empty when no test cites the rule' {
-        @(& $script:select @('C:\r\a.Tests.ps1', 'C:\r\b.Tests.ps1', 'C:\r\c.Tests.ps1') @('ADR-WIDGET-GADGET-STOP')) | Should -HaveCount 0
+        @(& $script:select @('C:\r\a.Tests.ps1', 'C:\r\b.Tests.ps1', 'C:\r\c.Tests.ps1') @('ADR-WIDGET-GADGET-STOP')) |
+            Should -HaveCount 0
     }
 }

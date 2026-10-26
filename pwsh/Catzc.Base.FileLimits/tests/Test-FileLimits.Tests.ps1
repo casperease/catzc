@@ -1,4 +1,5 @@
-# The gate fails on length now, reports width until a class flips to fail, and names every file no language or extension declares.
+# The gate fails on length now, reports width until a class flips to fail, and names every file no language or extension
+# declares.
 Describe 'Test-FileLimits' -Tag 'L0', 'logic' {
     BeforeAll {
         Mock Assert-SourceTree -ModuleName Catzc.Base.FileLimits {}

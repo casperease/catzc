@@ -19,7 +19,8 @@ function Write-DiagramMinimapData {
 
     # Writes out/minimaps/<folder>/<id>.json and minimaps.json; the kit's put only draws them.
     $maps = Get-Config -Config maps
-    # The world map is built once for every folder of the call; a minimap that draws on it is handed it rather than building its own.
+    # The world map is built once for every folder of the call; a minimap that draws on it is handed it rather than
+    # building its own.
     $worldMap = Get-WorldMap
     $declared = foreach ($folderPath in $Stem) {
         $text = Get-DiagramDeclarationText -Stem $folderPath -RepositoryRoot $RepositoryRoot
@@ -49,7 +50,8 @@ function Write-DiagramMinimapData {
         if ($content -and $content.Contains('minimaps') -and $content['minimaps']) {
             $shown = $content['minimaps']
         }
-        Assert-True ($null -eq $shown -or $shown -is [System.Collections.IList]) -ErrorText "Write-DiagramMinimapData: $folderPath lists content.minimaps as a map; it is a list of ids or { id: { exclude: [cells] } }, never the cells they light."
+        Assert-True ($null -eq $shown -or
+            $shown -is [System.Collections.IList]) -ErrorText "Write-DiagramMinimapData: $folderPath lists content.minimaps as a map; it is a list of ids or { id: { exclude: [cells] } }, never the cells they light."
         $excluded = @{}
         $ids = [string[]] @(if ($shown) {
                 foreach ($entry in $shown) {
@@ -57,7 +59,8 @@ function Write-DiagramMinimapData {
                         Assert-True ($entry.Count -eq 1) -ErrorText "Write-DiagramMinimapData: $folderPath lists a minimap entry with $($entry.Count) keys; one id per entry."
                         $id = "$($entry.Keys | Select-Object -First 1)"
                         $inputs = $entry[$id]
-                        $excluded[$id] = [string[]] @(if ($inputs -is [System.Collections.IDictionary] -and $inputs.Contains('exclude')) {
+                        $excluded[$id] = [string[]] @(if ($inputs -is [System.Collections.IDictionary] -and
+                            $inputs.Contains('exclude')) {
                                 $inputs['exclude']
                             })
                         $id
@@ -75,15 +78,18 @@ function Write-DiagramMinimapData {
             if (-not $excluded.ContainsKey($id)) {
                 $excluded[$id] = [string[]] @()
             }
-            $excluded[$id] = [System.Collections.Generic.HashSet[string]]::new($excluded[$id], [System.StringComparer]::Ordinal)
+            $excluded[$id] = [System.Collections.Generic.HashSet[string]]::new($excluded[$id],
+                [System.StringComparer]::Ordinal)
         }
-        # The drawing's own glyphs, handed to the minimaps that place them: the labels as written, resolved by the maps module, never stored.
+        # The drawing's own glyphs, handed to the minimaps that place them: the labels as written, resolved by the maps
+        # module, never stored.
         $glyphs = @(if ($content -and $content.Contains('glyphs') -and $content['glyphs']) {
                 @($content['glyphs']) | Where-Object { $_ -is [System.Collections.IDictionary] }
             })
         [pscustomobject]@{ Folder = $folderPath; Adr = $adrs; Glyph = $glyphs; Ids = $ids; Excluded = $excluded }
     }
-    # The file facts of every folder's subject are read in one call; a minimap that draws on them is handed them rather than reading its own.
+    # The file facts of every folder's subject are read in one call; a minimap that draws on them is handed them rather
+    # than reading its own.
     $subjectPaths = foreach ($entry in $declared) {
         if (@($entry.Ids | Where-Object { (Get-Command $maps.minimap_data[$_]).Parameters.ContainsKey('Facts') }).Count -gt 0) {
             foreach ($cell in (Get-WorldMapHighlight -Adr $entry.Adr -WorldMap $worldMap).Cells) {
@@ -117,15 +123,18 @@ function Write-DiagramMinimapData {
                 $draw.TrackedPath = $trackedPaths
             }
             $data = & $maps.minimap_data[$id] @draw
-            # The drawn data is the computed one less the cells the author excludes; nothing computed is written back to the declaration.
+            # The drawn data is the computed one less the cells the author excludes; nothing computed is written back to
+            # the declaration.
             $excluded = $entry.Excluded[$id]
             if ($excluded.Count -gt 0) {
                 $kept = [Catzc.Base.Maps.MinimapCell[]] @($data.Lit | Where-Object { -not $excluded.Contains($_.At -join '/') })
-                $data = [Catzc.Base.Maps.MinimapData]::new($data.Id, [Catzc.Base.Maps.MinimapAxis[]] @($data.Axes), [Catzc.Base.Maps.MinimapCell[]] @($data.Cells), $kept)
+                $data = [Catzc.Base.Maps.MinimapData]::new($data.Id, [Catzc.Base.Maps.MinimapAxis[]] @($data.Axes),
+                    [Catzc.Base.Maps.MinimapCell[]] @($data.Cells), $kept)
             }
             [System.IO.File]::WriteAllText((Join-Path $target "$id.json"), "$($data.ToJson())`n", $utf8)
         }
-        [System.IO.File]::WriteAllText((Join-Path $target 'minimaps.json'), (ConvertTo-Json -InputObject $ids -Compress) + "`n", $utf8)
+        [System.IO.File]::WriteAllText((Join-Path $target 'minimaps.json'),
+            (ConvertTo-Json -InputObject $ids -Compress) + "`n", $utf8)
         $target
     }
 }

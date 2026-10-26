@@ -1,4 +1,5 @@
-# One finding per breach, each with path:line, the limit and where the limit came from, so a reader goes straight to the line.
+# One finding per breach, each with path:line, the limit and where the limit came from, so a reader goes straight to the
+# line.
 Describe 'Test-FileShape' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:wide = Join-Path $TestDrive 'widget.ps1'

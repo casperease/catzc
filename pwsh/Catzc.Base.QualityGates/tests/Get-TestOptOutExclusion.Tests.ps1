@@ -23,9 +23,11 @@ Describe 'Get-TestOptOutExclusion' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-SOURCEONLY
 
     It 'lists every in-scope test carrying the tag, resolved along the block chain' {
         $tests = @(
-            (New-FakeTest -File 'C:\x\Widget.Tests.ps1' -Name 'Widget.reads files' -BlockTags @('L0', 'integrity', 'source-only'))
+            (New-FakeTest -File 'C:\x\Widget.Tests.ps1' -Name 'Widget.reads files' -BlockTags @('L0', 'integrity',
+                'source-only'))
             (New-FakeTest -File 'C:\x\Widget.Tests.ps1' -Name 'Widget.runs code' -BlockTags @('L0', 'logic'))
-            (New-FakeTest -File 'C:\x\Gadget.Tests.ps1' -Name 'Gadget.it-level' -BlockTags @('L1', 'logic') -ItTags @('source-only'))
+            (New-FakeTest -File 'C:\x\Gadget.Tests.ps1' -Name 'Gadget.it-level' -BlockTags @('L1',
+                'logic') -ItTags @('source-only'))
         )
         $result = Invoke-Exclusion -Tests $tests -TestFiles @('C:\x\Widget.Tests.ps1', 'C:\x\Gadget.Tests.ps1')
 
@@ -48,8 +50,10 @@ Describe 'Get-TestOptOutExclusion' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-SOURCEONLY
 
     It 'ignores tests the run filters out by tier or category anyway' {
         $tests = @(
-            (New-FakeTest -File 'C:\x\Widget.Tests.ps1' -Name 'Widget.l3' -BlockTags @('L3', 'integrity', 'source-only'))
-            (New-FakeTest -File 'C:\x\Widget.Tests.ps1' -Name 'Widget.integrity' -BlockTags @('L0', 'integrity', 'source-only'))
+            (New-FakeTest -File 'C:\x\Widget.Tests.ps1' -Name 'Widget.l3' -BlockTags @('L3', 'integrity',
+                'source-only'))
+            (New-FakeTest -File 'C:\x\Widget.Tests.ps1' -Name 'Widget.integrity' -BlockTags @('L0', 'integrity',
+                'source-only'))
             (New-FakeTest -File 'C:\x\Widget.Tests.ps1' -Name 'Widget.logic' -BlockTags @('L0', 'logic'))
         )
         $result = Invoke-Exclusion -Tests $tests -ExcludeTag @('L3', 'integrity') -TestFiles @('C:\x\Widget.Tests.ps1')

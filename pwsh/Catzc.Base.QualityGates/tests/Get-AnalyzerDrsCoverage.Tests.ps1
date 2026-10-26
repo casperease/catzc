@@ -20,7 +20,8 @@ Describe 'Get-AnalyzerDrsCoverage' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-COVERAGERE
             $rows = @(Get-AnalyzerDrsCoverage)
             $rows | Should -HaveCount 3
             ($rows | ForEach-Object Kind | Sort-Object -Unique) | Should -Be 'pssa-rule'
-            ($rows | Where-Object { $_.Enforcer -eq 'Measure-FakeRule2' }).AdrId | Should -Be @('ADR-FAKE-FOLD', 'ADR-FAKE-SINK')
+            ($rows | Where-Object { $_.Enforcer -eq 'Measure-FakeRule2' }).AdrId | Should -Be @('ADR-FAKE-FOLD',
+                'ADR-FAKE-SINK')
             ($rows | Where-Object { $_.AdrId -eq 'ADR-FAKE-LIFT' }).Enforcer | Should -Be 'PSUseFakeRule'
         }
     }

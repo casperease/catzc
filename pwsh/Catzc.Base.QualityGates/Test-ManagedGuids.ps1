@@ -18,7 +18,8 @@ function Test-ManagedGuids {
     $issues = [System.Collections.Generic.List[string]]::new()
 
     $registryFile = ConvertTo-RepoRelativePath (Get-CatzcModuleRoot 'configs/guids.yml')
-    $members = [System.Collections.Generic.HashSet[string]]::new([string[]]@(Get-GlobSetFile -Name 'repository'), [System.StringComparer]::Ordinal)
+    $members = [System.Collections.Generic.HashSet[string]]::new([string[]]@(Get-GlobSetFile -Name 'repository'),
+        [System.StringComparer]::Ordinal)
     foreach ($file in (@(Get-GuidScanFiles) + $registryFile)) {
         if (-not $members.Contains($file)) {
             $issues.Add("${file}: read by the guid scan but outside the 'repository' globset (globs.yml) — its protection identity must cover it")

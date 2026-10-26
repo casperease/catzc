@@ -2,7 +2,8 @@ Describe 'Format-PropertyMetaHead' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRIN
     It 'imprints the facts as the first property, and a second run changes nothing' {
         $facts = [ordered]@{ path = 'widget/gadget.json'; kind = 'other' }
         $once = Format-PropertyMetaHead -Text "{`n  `"name`": `"widget`"`n}`n" -Property '//' -Immutable $facts
-        $once | Should -BeExactly "{`n  `"//`": `"catzc:\n  immutable:\n    path: widget/gadget.json\n    kind: other`",`n  `"name`": `"widget`"`n}`n"
+        $once |
+            Should -BeExactly "{`n  `"//`": `"catzc:\n  immutable:\n    path: widget/gadget.json\n    kind: other`",`n  `"name`": `"widget`"`n}`n"
         Format-PropertyMetaHead -Text $once -Property '//' -Immutable $facts | Should -BeExactly $once
     }
 

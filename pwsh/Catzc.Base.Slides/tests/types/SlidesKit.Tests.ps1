@@ -38,19 +38,26 @@ Describe 'SlidesKit' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-PATTERN' {
     }
 
     It 'requires the two faces' {
-        { [Catzc.Base.Slides.SlidesKit]::new(@{ token = @{ bg = '#101010' } }) } | Should -Throw '*face.display is required*face.text is required*'
+        { [Catzc.Base.Slides.SlidesKit]::new(@{ token = @{ bg = '#101010' } }) } |
+            Should -Throw '*face.display is required*face.text is required*'
     }
 
     It 'rejects an unknown section, a section that is not a mapping, and a nested value' {
-        { [Catzc.Base.Slides.SlidesKit]::new(@{ face = $script:raw.face; gadget = @{ a = 1 } }) } | Should -Throw '*unknown section ''gadget''*'
-        { [Catzc.Base.Slides.SlidesKit]::new(@{ face = $script:raw.face; token = 'x' }) } | Should -Throw '*section ''token'' must be a mapping*'
-        { [Catzc.Base.Slides.SlidesKit]::new(@{ face = $script:raw.face; token = @{ bg = @{ deep = 1 } } }) } | Should -Throw '*token.bg must be one scalar value*'
+        { [Catzc.Base.Slides.SlidesKit]::new(@{ face = $script:raw.face; gadget = @{ a = 1 } }) } |
+            Should -Throw '*unknown section ''gadget''*'
+        { [Catzc.Base.Slides.SlidesKit]::new(@{ face = $script:raw.face; token = 'x' }) } |
+            Should -Throw '*section ''token'' must be a mapping*'
+        { [Catzc.Base.Slides.SlidesKit]::new(@{ face = $script:raw.face; token = @{ bg = @{ deep = 1 } } }) } |
+            Should -Throw '*token.bg must be one scalar value*'
     }
 
     It 'rejects a token that is not a hex colour and a size that is not a whole number of pixels' {
-        { [Catzc.Base.Slides.SlidesKit]::new(@{ face = $script:raw.face; token = @{ bg = 'navy' } }) } | Should -Throw '*token.bg ''navy'' must be a six-digit hex colour*'
-        { [Catzc.Base.Slides.SlidesKit]::new(@{ face = $script:raw.face; scale = @{ h2 = 'big' } }) } | Should -Throw '*scale.h2 ''big'' must be a whole number of pixels*'
-        { [Catzc.Base.Slides.SlidesKit]::new(@{ face = $script:raw.face; layout = @{ gutter = 0 } }) } | Should -Throw '*layout.gutter ''0'' must be a whole number of pixels*'
+        { [Catzc.Base.Slides.SlidesKit]::new(@{ face = $script:raw.face; token = @{ bg = 'navy' } }) } |
+            Should -Throw '*token.bg ''navy'' must be a six-digit hex colour*'
+        { [Catzc.Base.Slides.SlidesKit]::new(@{ face = $script:raw.face; scale = @{ h2 = 'big' } }) } |
+            Should -Throw '*scale.h2 ''big'' must be a whole number of pixels*'
+        { [Catzc.Base.Slides.SlidesKit]::new(@{ face = $script:raw.face; layout = @{ gutter = 0 } }) } |
+            Should -Throw '*layout.gutter ''0'' must be a whole number of pixels*'
     }
 
     It 'reads the family from a quoted stack and from a bare one' {
@@ -82,13 +89,15 @@ Describe 'SlidesKit' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-PATTERN' {
         }
 
         It 'refuses a theme the kit does not declare, naming the themes it does' {
-            { ([Catzc.Base.Slides.SlidesKit]::new($script:raw)).ForTheme('light') } | Should -Throw '*declares no theme ''light'' (themes: dark)*'
+            { ([Catzc.Base.Slides.SlidesKit]::new($script:raw)).ForTheme('light') } |
+                Should -Throw '*declares no theme ''light'' (themes: dark)*'
         }
 
         It 'refuses a theme set that names other tokens than token' {
             $broken = $script:raw.Clone()
             $broken['token-light'] = @{ bg = '#F0F0F0'; gadget = '#000000' }
-            { [Catzc.Base.Slides.SlidesKit]::new($broken) } | Should -Throw '*token-light names the tokens of token: missing accent; unknown gadget*'
+            { [Catzc.Base.Slides.SlidesKit]::new($broken) } |
+                Should -Throw '*token-light names the tokens of token: missing accent; unknown gadget*'
         }
     }
 }

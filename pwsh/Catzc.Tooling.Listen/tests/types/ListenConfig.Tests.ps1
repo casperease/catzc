@@ -18,7 +18,8 @@ Describe 'Catzc.Tooling.Listen.ListenConfig' -Tag 'L0', 'logic', 'ADR-AUTO-DEFAU
                 $config = [Catzc.Tooling.Listen.ListenConfig]::new($raw)
                 $config.watch | Should -BeExactly 'docs'
                 $config.output | Should -BeExactly 'out/listen'
-                @($config.poll_milliseconds, $config.quiet_seconds, $config.change_wait_seconds, $config.note_wait_seconds) | Should -Be @(1000, 20, 3600, 300)
+                @($config.poll_milliseconds, $config.quiet_seconds, $config.change_wait_seconds,
+                    $config.note_wait_seconds) | Should -Be @(1000, 20, 3600, 300)
                 @($config.tiers.name) | Should -Be @('rule', 'docs')
                 $config.rest_tier | Should -BeExactly 'code'
             }
@@ -43,7 +44,8 @@ Describe 'Catzc.Tooling.Listen.ListenConfig' -Tag 'L0', 'logic', 'ADR-AUTO-DEFAU
                 })
             $config.watch | Should -BeExactly 'widget/docs'
             $config.output | Should -BeExactly 'out/gadget'
-            @($config.poll_milliseconds, $config.quiet_seconds, $config.change_wait_seconds, $config.note_wait_seconds) | Should -Be @(250, 0, 60, 30)
+            @($config.poll_milliseconds, $config.quiet_seconds, $config.change_wait_seconds,
+                $config.note_wait_seconds) | Should -Be @(250, 0, 60, 30)
             $config.tiers[0].kinds | Should -Be @('adr', 'how-to')
             $config.rest_tier | Should -BeExactly 'gadget'
         }

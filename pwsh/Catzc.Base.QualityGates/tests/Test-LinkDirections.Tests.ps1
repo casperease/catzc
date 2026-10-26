@@ -75,13 +75,15 @@ Describe 'Test-LinkDirections' -Tag 'L0', 'logic', 'ADR-REPO-LINKS-CHECKEDBYONEG
     It 'throws on a relation a row denies, naming the file, line, both classes, the row and its rule' {
         & $rows
         & $writeFile $root 'mods/widget.ps1' "`$x = 1`n# Read [gadget](/docs/gadget.md) first.`n"
-        { & $gate } | Should -Throw '*mods/widget.ps1:2 `[CodeLink`] code -> how-to denied by row 2: ADR-TST-WIDGET-AWAY*'
+        { & $gate } |
+            Should -Throw '*mods/widget.ps1:2 `[CodeLink`] code -> how-to denied by row 2: ADR-TST-WIDGET-AWAY*'
     }
 
     It 'throws on a relation no row allows' {
         & $rows
         & $writeFile $root 'docs/drs/widget/widget-rules.md' "# Widget rules`n`n### Rule ADR-TST-WIDGET-SPIN`n`nSee [gadget](../../gadget.md).`n`n### Rule ADR-TST-WIDGET-AWAY`n`nTwo.`n"
-        { & $gate 'docs/drs/widget' } | Should -Throw '*docs/drs/widget/widget-rules.md:5 `[MarkdownLink`] adr -> how-to no row allows it*'
+        { & $gate 'docs/drs/widget' } |
+            Should -Throw '*docs/drs/widget/widget-rules.md:5 `[MarkdownLink`] adr -> how-to no row allows it*'
     }
 
     It 'skips every relation of an exempt file and judges the rest' {

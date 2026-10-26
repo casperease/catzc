@@ -102,7 +102,8 @@ Describe 'ConvertFrom-GoTestJson' -Tag 'L0', 'logic' {
                 '{"Action":"output","Package":"p/widget","Output":"TestMain: gadget setup failed\n"}'
                 '{"Action":"fail","Package":"p/widget","Elapsed":0.1}'
             ) -join "`n"
-            { & $script:convert $stream } | Should -Throw '*package p/widget failed outside any test*gadget setup failed*'
+            { & $script:convert $stream } |
+                Should -Throw '*package p/widget failed outside any test*gadget setup failed*'
         }
 
         It 'throws on a line that is not a JSON event' {

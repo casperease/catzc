@@ -23,10 +23,12 @@ Describe 'Copy-CatzcModule' -Tag 'L0', 'logic' {
         Mock Assert-SourceTree -ModuleName Catzc.Base.ModuleSystem { }
         Mock Get-CatzcModule -ModuleName Catzc.Base.ModuleSystem {
             'Catzc.Base.Alpha', 'Catzc.Base.Repository' | ForEach-Object {
-                [Catzc.Base.Modules.Module]::new($_, 'widgets', 'widget-folder', $script:modules, "$($script:modules)/$_", 'folder', $null, $null, $null, $null)
+                [Catzc.Base.Modules.Module]::new($_, 'widgets', 'widget-folder', $script:modules,
+                    "$($script:modules)/$_", 'folder', $null, $null, $null, $null)
             }
         }
-        Mock Get-Track -ModuleName Catzc.Base.ModuleSystem { [Catzc.Base.Variants.VariantTrack]::new('widgets', @($script:modules), 'modules', $null, @()) }
+        Mock Get-Track -ModuleName Catzc.Base.ModuleSystem { [Catzc.Base.Variants.VariantTrack]::new('widgets',
+            @($script:modules), 'modules', $null, @()) }
         Mock Get-Config -ModuleName Catzc.Base.ModuleSystem -ParameterFilter { $Config -eq 'files' } {
             [Catzc.Base.ModuleSystem.FilesConfig]::new([ordered]@{ modules = [ordered]@{
                         '.internal'             = [ordered]@{ packages = [ordered]@{ entrypoint = @('importer.ps1') } }
@@ -117,7 +119,8 @@ Describe 'Copy-CatzcModule — build mode' -Tag 'L0', 'logic' {
     It 'stops with a named error when the session runs a built package, before copying anything' {
         Mock Get-CatzcRunMode { 'build' } -ModuleName Catzc.Base.Repository
         Mock Copy-Directory -ModuleName Catzc.Base.ModuleSystem { }
-        { Copy-CatzcModule -Destination (Join-Path $TestDrive 'widget') -DryRun } | Should -Throw '*Copy-CatzcModule operates on the catzc source tree*'
+        { Copy-CatzcModule -Destination (Join-Path $TestDrive 'widget') -DryRun } |
+            Should -Throw '*Copy-CatzcModule operates on the catzc source tree*'
         Should -Not -Invoke Copy-Directory -ModuleName Catzc.Base.ModuleSystem
     }
 }

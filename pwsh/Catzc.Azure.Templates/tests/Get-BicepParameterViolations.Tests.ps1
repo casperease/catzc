@@ -39,7 +39,8 @@ Describe 'Get-BicepParameterViolations' -Tag 'L0', 'logic' {
 
         function Write-ParameterFile {
             param([System.Collections.IDictionary] $Parameters, [string] $Name = 'parameters.alpha.json')
-            [System.IO.File]::WriteAllText((Join-Path $script:outputFolder $Name), ([ordered]@{ parameters = $Parameters } | ConvertTo-Json -Depth 10))
+            [System.IO.File]::WriteAllText((Join-Path $script:outputFolder $Name),
+                ([ordered]@{ parameters = $Parameters } | ConvertTo-Json -Depth 10))
         }
 
         function Get-Violation {
@@ -69,14 +70,16 @@ Describe 'Get-BicepParameterViolations' -Tag 'L0', 'logic' {
         $parameters = New-ConformingParameterSet
         $parameters.Remove('gadgetCount')
         Write-ParameterFile $parameters -Name 'parameters.beta.json'
-        Get-Violation | Should -Be @("sample/parameters.beta.json: parameter 'gadgetCount' is required (main.json gives it no default) but is not supplied")
+        Get-Violation |
+            Should -Be @("sample/parameters.beta.json: parameter 'gadgetCount' is required (main.json gives it no default) but is not supplied")
     }
 
     It 'reports a parameter main.json does not declare' {
         $parameters = New-ConformingParameterSet
         $parameters['gizmoName'] = @{ value = 'gizmo' }
         Write-ParameterFile $parameters
-        Get-Violation | Should -Be @("sample/parameters.alpha.json: parameter 'gizmoName' is not declared by the template's main.json")
+        Get-Violation |
+            Should -Be @("sample/parameters.alpha.json: parameter 'gizmoName' is not declared by the template's main.json")
     }
 
     It 'reports a value whose type does not match the declared type' {
@@ -87,10 +90,14 @@ Describe 'Get-BicepParameterViolations' -Tag 'L0', 'logic' {
         $parameters['gadgetTags'] = @{ value = 1.5 }
         Write-ParameterFile $parameters
         $violations = Get-Violation
-        $violations | Should -Contain "sample/parameters.alpha.json: parameter 'gadgetCount' is a JSON string, but main.json declares it int"
-        $violations | Should -Contain "sample/parameters.alpha.json: parameter 'gadgetEnabled' is a JSON string, but main.json declares it bool"
-        $violations | Should -Contain "sample/parameters.alpha.json: parameter 'widgetName' is an integer, but main.json declares it string"
-        $violations | Should -Contain "sample/parameters.alpha.json: parameter 'gadgetTags' is a non-integer number, but main.json declares it object"
+        $violations |
+            Should -Contain "sample/parameters.alpha.json: parameter 'gadgetCount' is a JSON string, but main.json declares it int"
+        $violations |
+            Should -Contain "sample/parameters.alpha.json: parameter 'gadgetEnabled' is a JSON string, but main.json declares it bool"
+        $violations |
+            Should -Contain "sample/parameters.alpha.json: parameter 'widgetName' is an integer, but main.json declares it string"
+        $violations |
+            Should -Contain "sample/parameters.alpha.json: parameter 'gadgetTags' is a non-integer number, but main.json declares it object"
         $violations.Count | Should -Be 4
     }
 
@@ -98,7 +105,8 @@ Describe 'Get-BicepParameterViolations' -Tag 'L0', 'logic' {
         $parameters = New-ConformingParameterSet
         $parameters['widgetName'] = @{ value = $null }
         Write-ParameterFile $parameters
-        Get-Violation | Should -Be @("sample/parameters.alpha.json: parameter 'widgetName' is null, but main.json declares it string and not nullable")
+        Get-Violation |
+            Should -Be @("sample/parameters.alpha.json: parameter 'widgetName' is null, but main.json declares it string and not nullable")
     }
 
     It 'reports a value outside @allowed, and each array element outside it' {
@@ -107,8 +115,10 @@ Describe 'Get-BicepParameterViolations' -Tag 'L0', 'logic' {
         $parameters['widgetZones'] = @{ value = @('1', '4') }
         Write-ParameterFile $parameters
         $violations = Get-Violation
-        $violations | Should -Contain "sample/parameters.alpha.json: parameter 'widgetSku' is `"Premium`", which is not one of the @allowed values (Basic, Standard)"
-        $violations | Should -Contain "sample/parameters.alpha.json: parameter 'widgetZones' contains `"4`", which is not one of the @allowed values (1, 2, 3)"
+        $violations |
+            Should -Contain "sample/parameters.alpha.json: parameter 'widgetSku' is `"Premium`", which is not one of the @allowed values (Basic, Standard)"
+        $violations |
+            Should -Contain "sample/parameters.alpha.json: parameter 'widgetZones' contains `"4`", which is not one of the @allowed values (1, 2, 3)"
         $violations.Count | Should -Be 2
     }
 
@@ -130,9 +140,12 @@ Describe 'Get-BicepParameterViolations' -Tag 'L0', 'logic' {
         $parameters['widgetZones'] = @{ value = @('1', '2', '3') }
         Write-ParameterFile $parameters
         $violations = Get-Violation
-        $violations | Should -Contain "sample/parameters.alpha.json: parameter 'widgetName' has length 2, below @minLength 3"
-        $violations | Should -Contain "sample/parameters.alpha.json: parameter 'widgetLabel' has length 12, above @maxLength 8"
-        $violations | Should -Contain "sample/parameters.alpha.json: parameter 'widgetZones' has length 3, above @maxLength 2"
+        $violations |
+            Should -Contain "sample/parameters.alpha.json: parameter 'widgetName' has length 2, below @minLength 3"
+        $violations |
+            Should -Contain "sample/parameters.alpha.json: parameter 'widgetLabel' has length 12, above @maxLength 8"
+        $violations |
+            Should -Contain "sample/parameters.alpha.json: parameter 'widgetZones' has length 3, above @maxLength 2"
         $violations.Count | Should -Be 3
     }
 
@@ -150,8 +163,10 @@ Describe 'Get-BicepParameterViolations' -Tag 'L0', 'logic' {
         $parameters['gadgetSettings'] = @{ value = @{ token = 'gadget-literal-token' } }
         Write-ParameterFile $parameters
         $violations = Get-Violation
-        $violations | Should -Contain "sample/parameters.alpha.json: parameter 'widgetSecret' is a secureString parameter set to a literal value — it takes only a Key Vault reference"
-        $violations | Should -Contain "sample/parameters.alpha.json: parameter 'gadgetSettings' is a secureObject parameter set to a literal value — it takes only a Key Vault reference"
+        $violations |
+            Should -Contain "sample/parameters.alpha.json: parameter 'widgetSecret' is a secureString parameter set to a literal value — it takes only a Key Vault reference"
+        $violations |
+            Should -Contain "sample/parameters.alpha.json: parameter 'gadgetSettings' is a secureObject parameter set to a literal value — it takes only a Key Vault reference"
         $violations.Count | Should -Be 2
         ($violations -join "`n") | Should -Not -Match 'gadget-literal'
     }
@@ -172,14 +187,17 @@ Describe 'Get-BicepParameterViolations' -Tag 'L0', 'logic' {
         $parameters['gadgetCount'] = @{ count = 3 }
         Write-ParameterFile $parameters
         $violations = Get-Violation
-        $violations | Should -Contain "sample/parameters.alpha.json: parameter 'widgetName' sets both a 'value' and a 'reference'"
-        $violations | Should -Contain "sample/parameters.alpha.json: parameter 'gadgetCount' sets neither a 'value' nor a 'reference'"
+        $violations |
+            Should -Contain "sample/parameters.alpha.json: parameter 'widgetName' sets both a 'value' and a 'reference'"
+        $violations |
+            Should -Contain "sample/parameters.alpha.json: parameter 'gadgetCount' sets neither a 'value' nor a 'reference'"
         $violations.Count | Should -Be 2
     }
 
     It 'reports a parameters file that is not valid JSON or has no parameters object' {
         [System.IO.File]::WriteAllText((Join-Path $script:outputFolder 'parameters.alpha.json'), '{ not json')
-        [System.IO.File]::WriteAllText((Join-Path $script:outputFolder 'parameters.beta.json'), '{ "widgetName": { "value": "widget-one" } }')
+        [System.IO.File]::WriteAllText((Join-Path $script:outputFolder 'parameters.beta.json'),
+            '{ "widgetName": { "value": "widget-one" } }')
         $violations = Get-Violation
         $violations[0] | Should -BeLike 'sample/parameters.alpha.json: is not valid JSON (*'
         $violations[1] | Should -Be "sample/parameters.beta.json: has no 'parameters' object"

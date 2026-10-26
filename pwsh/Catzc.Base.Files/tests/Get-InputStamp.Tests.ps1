@@ -40,7 +40,8 @@ Describe 'Get-InputStamp' -Tag 'L0', 'logic' {
     It 'names paths relative to -Root, so the same tree in another place stamps the same' {
         $copy = Join-Path $TestDrive 'copy'
         Copy-Item $gadgets (Join-Path $copy 'gadgets') -Recurse
-        Get-InputStamp $gadgets -Root $TestDrive | Should -BeExactly (Get-InputStamp (Join-Path $copy 'gadgets') -Root $copy)
+        Get-InputStamp $gadgets -Root $TestDrive |
+            Should -BeExactly (Get-InputStamp (Join-Path $copy 'gadgets') -Root $copy)
     }
 
     It 'includes files below a folder, recursively' {
@@ -101,7 +102,8 @@ Describe 'Get-InputStamp' -Tag 'L0', 'logic' {
                 $twin = Join-Path $copy ([System.IO.Path]::GetRelativePath($TestDrive, $file.FullName))
                 [System.IO.File]::SetLastWriteTimeUtc($twin, $file.LastWriteTimeUtc)
             }
-            Get-InputStamp $gadgets -Root $TestDrive -By Metadata | Should -BeExactly (Get-InputStamp (Join-Path $copy 'gadgets') -Root $copy -By Metadata)
+            Get-InputStamp $gadgets -Root $TestDrive -By Metadata |
+                Should -BeExactly (Get-InputStamp (Join-Path $copy 'gadgets') -Root $copy -By Metadata)
         }
 
         It 'stamps by content when -By is not given' {

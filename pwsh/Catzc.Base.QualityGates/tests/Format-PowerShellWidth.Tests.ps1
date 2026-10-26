@@ -2,13 +2,15 @@ Describe 'Format-PowerShellWidth' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:wrap = {
             param([string] $Text, [int] $Width = 60)
-            InModuleScope Catzc.Base.QualityGates -Parameters @{ T = $Text; W = $Width } { param($T, $W) Format-PowerShellWidth -Text $T -Width $W }
+            InModuleScope Catzc.Base.QualityGates -Parameters @{ T = $Text; W = $Width } { param($T,
+                $W) Format-PowerShellWidth -Text $T -Width $W }
         }
         $script:tokens = {
             param([string] $Text)
             $found = $null
             $null = [System.Management.Automation.Language.Parser]::ParseInput($Text, [ref] $found, [ref] $null)
-            @($found | Where-Object { $_.Kind -notin 'NewLine', 'LineContinuation', 'EndOfInput', 'Comment' } | ForEach-Object { "$($_.Kind)|$($_.Text)" }) -join "`n"
+            @($found | Where-Object { $_.Kind -notin 'NewLine', 'LineContinuation', 'EndOfInput', 'Comment' } |
+                ForEach-Object { "$($_.Kind)|$($_.Text)" }) -join "`n"
         }
     }
 
@@ -37,7 +39,8 @@ Describe 'Format-PowerShellWidth' -Tag 'L0', 'logic' {
         $result.Changed | Should -BeTrue
         $lines = $result.Text -split "`n"
         $lines | ForEach-Object { $_ | Should -Match '^    # ' }
-        (($lines -replace '^\s*#\s*', '') -join ' ') | Should -BeExactly 'A widget comment that runs past the width of the line so that it wraps once'
+        (($lines -replace '^\s*#\s*', '') -join ' ') |
+            Should -BeExactly 'A widget comment that runs past the width of the line so that it wraps once'
     }
 
     It 'leaves a line with no safe break, a short line, and a file that does not parse as they are' {
@@ -48,6 +51,14 @@ Describe 'Format-PowerShellWidth' -Tag 'L0', 'logic' {
         $result = & $script:wrap $broken
         $result.Changed | Should -BeFalse
         $result.Refused | Should -BeExactly 'the file does not parse'
+    }
+
+    It 'leaves a long line inside a here-string or a block comment as it is' {
+        $long = 'widget gadget sprocket cog gear ' * 4
+        $hereString = "`$widget = @'`n$long`n'@"
+        (& $script:wrap $hereString).Changed | Should -BeFalse
+        $blockComment = "<#`n$long`n#>`n`$gadget = 1"
+        (& $script:wrap $blockComment).Changed | Should -BeFalse
     }
 
     It 'keeps the CRLF line ending of a CRLF source' {

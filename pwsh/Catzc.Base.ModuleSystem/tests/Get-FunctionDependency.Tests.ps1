@@ -47,6 +47,7 @@ Describe 'Get-FunctionDependency — shared parse' -Tag 'L0', 'logic' {
 Describe 'Get-FunctionDependency — build mode' -Tag 'L0', 'logic' {
     It 'stops with a named error when the session runs a built package' {
         Mock Get-CatzcRunMode { 'build' } -ModuleName Catzc.Base.Repository
-        { Get-FunctionDependency -ModulesRoot $TestDrive } | Should -Throw '*Get-FunctionDependency operates on the catzc source tree*'
+        { Get-FunctionDependency -ModulesRoot $TestDrive } |
+            Should -Throw '*Get-FunctionDependency operates on the catzc source tree*'
     }
 }

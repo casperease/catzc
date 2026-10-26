@@ -58,7 +58,8 @@ Describe 'Get-FormatEngineStamp' -Tag 'L0', 'logic', 'ADR-AUTO-CACHE-CHECKEDFILE
 
         It 'stays when only a comment or the order of the other keys changes' {
             $before = & $script:stamp @('registry.yml#widget')
-            [System.IO.File]::WriteAllText($script:registry, "# a comment`ngadget:`n  version: `"2`"`nwidget:`n  version: `"1`"`n")
+            [System.IO.File]::WriteAllText($script:registry,
+                "# a comment`ngadget:`n  version: `"2`"`nwidget:`n  version: `"1`"`n")
             (& $script:stamp @('registry.yml#widget')) | Should -BeExactly $before
         }
 
@@ -68,20 +69,24 @@ Describe 'Get-FormatEngineStamp' -Tag 'L0', 'logic', 'ADR-AUTO-CACHE-CHECKEDFILE
             $withoutKey = & $script:stamp @('registry.yml#widget')
             $withoutKey | Should -Not -BeExactly $before
             Remove-Item -LiteralPath $script:registry
-            (& $script:stamp @('registry.yml#widget')) | Should -BeExactly $withoutKey -Because 'a missing key and a missing file are both missing'
+            (& $script:stamp @('registry.yml#widget')) |
+                Should -BeExactly $withoutKey -Because 'a missing key and a missing file are both missing'
         }
 
         It 'differs from the same file named whole, and from another key of it' {
             (& $script:stamp @('registry.yml#widget')) | Should -Not -BeExactly (& $script:stamp @('registry.yml'))
-            (& $script:stamp @('registry.yml#widget')) | Should -Not -BeExactly (& $script:stamp @('registry.yml#gadget'))
+            (& $script:stamp @('registry.yml#widget')) |
+                Should -Not -BeExactly (& $script:stamp @('registry.yml#gadget'))
         }
     }
 }
 
 Describe 'The shipped format engines'' keyed settings' -Tag 'L1', 'integrity', 'ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS' {
-    It 'name a top-level key that exists in their file: <_>' -ForEach @('prettier', 'gofmt', 'ruff', 'dotnet-format', 'bicep') {
+    It 'name a top-level key that exists in their file: <_>' -ForEach @('prettier', 'gofmt', 'ruff', 'dotnet-format',
+        'bicep') {
         $entries = @((Get-Config -Config languages).formatters[$_].settings | Where-Object { $_ -match '#' })
-        $entries.Count | Should -BeGreaterThan 0 -Because "engine $_ stamps the tools it runs, not the whole tool registry"
+        $entries.Count |
+            Should -BeGreaterThan 0 -Because "engine $_ stamps the tools it runs, not the whole tool registry"
         foreach ($entry in $entries) {
             $relative, $key = $entry -split '#', 2
             $path = Join-Path (Get-RepositoryRoot) $relative

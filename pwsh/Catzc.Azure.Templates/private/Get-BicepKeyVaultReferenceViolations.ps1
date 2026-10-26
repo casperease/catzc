@@ -22,8 +22,10 @@ function Get-BicepKeyVaultReferenceViolations {
     $vaultIdText = ''
     $keyVault = [System.Text.Json.JsonElement]::new()
     $vaultId = [System.Text.Json.JsonElement]::new()
-    if ($Reference.TryGetProperty('keyVault', [ref] $keyVault) -and $keyVault.ValueKind -eq [System.Text.Json.JsonValueKind]::Object) {
-        if ($keyVault.TryGetProperty('id', [ref] $vaultId) -and $vaultId.ValueKind -eq [System.Text.Json.JsonValueKind]::String) {
+    if ($Reference.TryGetProperty('keyVault', [ref] $keyVault) -and
+        $keyVault.ValueKind -eq [System.Text.Json.JsonValueKind]::Object) {
+        if ($keyVault.TryGetProperty('id', [ref] $vaultId) -and
+            $vaultId.ValueKind -eq [System.Text.Json.JsonValueKind]::String) {
             $vaultIdText = $vaultId.GetString()
         }
     }
@@ -33,7 +35,8 @@ function Get-BicepKeyVaultReferenceViolations {
 
     $secretNameText = ''
     $secretName = [System.Text.Json.JsonElement]::new()
-    if ($Reference.TryGetProperty('secretName', [ref] $secretName) -and $secretName.ValueKind -eq [System.Text.Json.JsonValueKind]::String) {
+    if ($Reference.TryGetProperty('secretName', [ref] $secretName) -and
+        $secretName.ValueKind -eq [System.Text.Json.JsonValueKind]::String) {
         $secretNameText = $secretName.GetString()
     }
     if ([string]::IsNullOrWhiteSpace($secretNameText)) {
@@ -41,7 +44,8 @@ function Get-BicepKeyVaultReferenceViolations {
     }
 
     $secretVersion = [System.Text.Json.JsonElement]::new()
-    if ($Reference.TryGetProperty('secretVersion', [ref] $secretVersion) -and $secretVersion.ValueKind -ne [System.Text.Json.JsonValueKind]::String) {
+    if ($Reference.TryGetProperty('secretVersion', [ref] $secretVersion) -and
+        $secretVersion.ValueKind -ne [System.Text.Json.JsonValueKind]::String) {
         $violations.Add('has a Key Vault reference whose secretVersion is not a string')
     }
 

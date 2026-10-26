@@ -9,7 +9,8 @@ catzc:
 Describe 'Test-ConfigIdentityHygiene' -Tag 'L1', 'integrity', 'source-only' {
     It 'the shipped config is free of test-fixture identities, and no fixture identity is a live one' {
         $result = Test-ConfigIdentityHygiene -PassThru -OutputFolder (Join-Path $TestDrive 'config-identity-hygiene')
-        $result.IssueCount | Should -Be 0 -Because "a shipped config must name live identities, not fixtures (ADR-REPO-LANG):`n$($result.Issues -join "`n")"
+        $result.IssueCount |
+            Should -Be 0 -Because "a shipped config must name live identities, not fixtures (ADR-REPO-LANG):`n$($result.Issues -join "`n")"
     }
 
     It 'catches a fixture identity planted in a config VALUE' {
@@ -34,7 +35,8 @@ customers:
     shortcode: ap
 '@
         [System.IO.File]::WriteAllText($path, $yaml)
-        (Test-ConfigIdentityHygiene -Path $path -PassThru -OutputFolder (Join-Path $TestDrive 'commented')).IssueCount | Should -Be 0
+        (Test-ConfigIdentityHygiene -Path $path -PassThru -OutputFolder (Join-Path $TestDrive 'commented')).IssueCount |
+            Should -Be 0
     }
 }
 
@@ -72,7 +74,8 @@ Describe 'Test-ConfigIdentityHygiene — gate shape' -Tag 'L0', 'logic' {
         }
         $result = Test-ConfigIdentityHygiene -Path $script:clean -OutputFolder $script:reportBase -PassThru
         $result.IssueCount | Should -Be 1
-        $result.Issues[0] | Should -BeLike "fixture identity 'GIZMO' is also a live identity (customer-key in customer.yml)*"
+        $result.Issues[0] |
+            Should -BeLike "fixture identity 'GIZMO' is also a live identity (customer-key in customer.yml)*"
     }
 
     It 'returns the result with the file count under -PassThru' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {

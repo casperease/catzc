@@ -32,7 +32,8 @@ Describe 'TimeoutsConfig' -Tag 'L0' {
             $config.SecondsFor('Pipeline', 'Pwsh', $false) | Should -Be 600
             $config.limits.pipeline.zsh | Should -Be 900
             { $config.SecondsFor('Devbox', 'zsh', $true) } | Should -Throw '*zsh has no background limit*'
-            { New-TimeoutsConfig ([ordered]@{ limits = @{ devbox = @{ zsh = 0 } } }) } | Should -Throw "*invalid limits.devbox.zsh '0'*"
+            { New-TimeoutsConfig ([ordered]@{ limits = @{ devbox = @{ zsh = 0 } } }) } |
+                Should -Throw "*invalid limits.devbox.zsh '0'*"
         }
 
         It 'resolves the defaults from a null config' {
@@ -54,12 +55,15 @@ Describe 'TimeoutsConfig' -Tag 'L0' {
         }
 
         It 'throws on a background limit for pwsh' {
-            { (New-TimeoutsConfig ([ordered]@{})).SecondsFor('Devbox', 'Pwsh', $true) } | Should -Throw '*pwsh has no background limit*'
+            { (New-TimeoutsConfig ([ordered]@{})).SecondsFor('Devbox', 'Pwsh', $true) } |
+                Should -Throw '*pwsh has no background limit*'
         }
 
         It 'throws on an unknown environment or shell when resolving' {
-            { (New-TimeoutsConfig ([ordered]@{})).SecondsFor('laptop', 'Bash', $false) } | Should -Throw "*unknown environment 'laptop'*"
-            { (New-TimeoutsConfig ([ordered]@{})).SecondsFor('Devbox', 'widget', $false) } | Should -Throw "*unknown shell 'widget'*"
+            { (New-TimeoutsConfig ([ordered]@{})).SecondsFor('laptop', 'Bash', $false) } |
+                Should -Throw "*unknown environment 'laptop'*"
+            { (New-TimeoutsConfig ([ordered]@{})).SecondsFor('Devbox', 'widget', $false) } |
+                Should -Throw "*unknown shell 'widget'*"
         }
 
         It 'resolves an executable entry, ignoring directory, extension and case' {
@@ -87,11 +91,13 @@ Describe 'TimeoutsConfig' -Tag 'L0' {
         }
 
         It 'throws on the removed default_seconds key' {
-            { New-TimeoutsConfig ([ordered]@{ default_seconds = 10 }) } | Should -Throw "*unknown key 'default_seconds'*"
+            { New-TimeoutsConfig ([ordered]@{ default_seconds = 10 }) } |
+                Should -Throw "*unknown key 'default_seconds'*"
         }
 
         It 'throws on a non-positive or non-whole limit, including a quoted number (there is no "no limit" value)' -ForEach @(0, -1, 2.5, 'ten', '10') {
-            { New-TimeoutsConfig ([ordered]@{ limits = @{ devbox = @{ pwsh = $_ } } }) } | Should -Throw '*invalid limits.devbox.pwsh*'
+            { New-TimeoutsConfig ([ordered]@{ limits = @{ devbox = @{ pwsh = $_ } } }) } |
+                Should -Throw '*invalid limits.devbox.pwsh*'
         }
 
         It 'throws on a background limit below its foreground limit' {
@@ -205,9 +211,12 @@ Describe 'TimeoutsConfig' -Tag 'L0' {
 
         It 'resolves the run-lock defaults when run_lock is absent' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
             $config = New-TimeoutsConfig ([ordered]@{})
-            $config.run_lock['wait_seconds'] | Should -Be ([Catzc.Base.Timeouts.TimeoutsConfig]::RunLockDefaultWaitSeconds)
-            $config.run_lock['stale_seconds'] | Should -Be ([Catzc.Base.Timeouts.TimeoutsConfig]::RunLockDefaultStaleSeconds)
-            $config.run_lock['budget_seconds'] | Should -Be ([Catzc.Base.Timeouts.TimeoutsConfig]::RunLockDefaultBudgetSeconds)
+            $config.run_lock['wait_seconds'] |
+                Should -Be ([Catzc.Base.Timeouts.TimeoutsConfig]::RunLockDefaultWaitSeconds)
+            $config.run_lock['stale_seconds'] |
+                Should -Be ([Catzc.Base.Timeouts.TimeoutsConfig]::RunLockDefaultStaleSeconds)
+            $config.run_lock['budget_seconds'] |
+                Should -Be ([Catzc.Base.Timeouts.TimeoutsConfig]::RunLockDefaultBudgetSeconds)
             [Catzc.Base.Timeouts.TimeoutsConfig]::RunLockDefaultWaitSeconds | Should -Be 120
             [Catzc.Base.Timeouts.TimeoutsConfig]::RunLockDefaultStaleSeconds | Should -Be 720
             [Catzc.Base.Timeouts.TimeoutsConfig]::RunLockDefaultBudgetSeconds | Should -Be 280
@@ -228,7 +237,8 @@ Describe 'TimeoutsConfig' -Tag 'L0' {
         }
 
         It 'resolves the janitor roof default when janitors is absent, and overrides it' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
-            (New-TimeoutsConfig ([ordered]@{})).janitors['generated_files_seconds'] | Should -Be ([Catzc.Base.Timeouts.TimeoutsConfig]::JanitorDefaultGeneratedFilesSeconds)
+            (New-TimeoutsConfig ([ordered]@{})).janitors['generated_files_seconds'] |
+                Should -Be ([Catzc.Base.Timeouts.TimeoutsConfig]::JanitorDefaultGeneratedFilesSeconds)
             [Catzc.Base.Timeouts.TimeoutsConfig]::JanitorDefaultGeneratedFilesSeconds | Should -Be 10
             (New-TimeoutsConfig ([ordered]@{ janitors = @{ generated_files_seconds = 7 } })).janitors['generated_files_seconds'] | Should -Be 7
         }
@@ -249,7 +259,8 @@ Describe 'TimeoutsConfig' -Tag 'L0' {
         }
 
         It 'rejects a commands key that is not a function name, and a limit that is not a positive whole number' {
-            $err = { New-TimeoutsConfig ([ordered]@{ commands = @{ widget = 45; 'Sync-Gadget' = 0 } }) } | Should -Throw -PassThru
+            $err = { New-TimeoutsConfig ([ordered]@{ commands = @{ widget = 45; 'Sync-Gadget' = 0 } }) } |
+                Should -Throw -PassThru
             $err.Exception.Message | Should -BeLike "*invalid commands key 'widget' (a function name: Verb-Noun)*"
             $err.Exception.Message | Should -BeLike "*invalid commands.Sync-Gadget '0'*"
         }

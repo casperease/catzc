@@ -51,7 +51,8 @@ Describe 'Publish-CleanHistory' -Tag 'L1', 'logic' {
 
     It 'refuses to publish a local history that still contains the token' {
         Mock -ModuleName Catzc.Tooling.Github Test-GitHistoryClean { [pscustomobject]@{ Clean = $false; Blobs = @('rev:file:1'); Paths = @(); Messages = @() } } -ParameterFilter { $Ref -eq 'main' }
-        { Invoke-Publish @{ ConfirmRepo = 'me/fresh'; Token = 'old-name' } } | Should -Throw '*clean it before publishing*'
+        { Invoke-Publish @{ ConfirmRepo = 'me/fresh'; Token = 'old-name' } } |
+            Should -Throw '*clean it before publishing*'
     }
 
     It 'bounds the push and the remote read with its own time limit' {
@@ -69,11 +70,13 @@ Describe 'Publish-CleanHistory' -Tag 'L1', 'logic' {
 
     It 'aborts with a do-not-publish warning when the remote holds a commit the local scan did not cover' {
         Mock -ModuleName Catzc.Tooling.Github Invoke-Executable { [pscustomobject]@{ ExitCode = 0; Output = (New-RefListing "$script:local refs/heads/main", "$script:foreign refs/heads/gadget"); Errors = '' } } -ParameterFilter { $Command -like 'git ls-remote*' }
-        { Invoke-Publish @{ ConfirmRepo = 'me/fresh'; Token = 'old-name' } } | Should -Throw "*refs/heads/gadget ($script:foreign)*DO NOT make it public*"
+        { Invoke-Publish @{ ConfirmRepo = 'me/fresh'; Token = 'old-name' } } |
+            Should -Throw "*refs/heads/gadget ($script:foreign)*DO NOT make it public*"
     }
 
     It 'aborts when the remote does not advertise the pushed branch' {
         Mock -ModuleName Catzc.Tooling.Github Invoke-Executable { [pscustomobject]@{ ExitCode = 0; Output = ''; Errors = '' } } -ParameterFilter { $Command -like 'git ls-remote*' }
-        { Invoke-Publish @{ ConfirmRepo = 'me/fresh'; Token = 'old-name' } } | Should -Throw '*does not advertise refs/heads/main*'
+        { Invoke-Publish @{ ConfirmRepo = 'me/fresh'; Token = 'old-name' } } |
+            Should -Throw '*does not advertise refs/heads/main*'
     }
 }

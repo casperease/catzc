@@ -250,7 +250,8 @@ function Invoke-BicepPostDeploy {
         }
 
         It 'proceeds when -SubscriptionIdAssertIs is given in a pipeline' {
-            { Deploy-Bicep alpha sample -SubscriptionIdAssertIs '50a0ed00-de00-50b0-0000-000000000000' } | Should -Not -Throw
+            { Deploy-Bicep alpha sample -SubscriptionIdAssertIs '50a0ed00-de00-50b0-0000-000000000000' } |
+                Should -Not -Throw
         }
     }
 }

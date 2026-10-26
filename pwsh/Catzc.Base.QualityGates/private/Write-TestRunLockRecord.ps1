@@ -7,7 +7,8 @@ catzc:
 #>
 
 function Write-TestRunLockRecord {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'Writes only the lock record of a lock this run has just taken — internal bookkeeping of the location of the test run, never user-owned state.')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '',
+        Justification = 'Writes only the lock record of a lock this run has just taken — internal bookkeeping of the location of the test run, never user-owned state.')]
     [CmdletBinding()]
     param(
         [Parameter(Mandatory)]
@@ -31,6 +32,7 @@ function Write-TestRunLockRecord {
     }
     [System.IO.Directory]::CreateDirectory([System.IO.Path]::GetDirectoryName($Path)) | Out-Null
     $temp = "$Path.$PID.tmp"
-    [System.IO.File]::WriteAllText($temp, (ConvertTo-Json -InputObject $record), [System.Text.UTF8Encoding]::new($false))
+    [System.IO.File]::WriteAllText($temp, (ConvertTo-Json -InputObject $record),
+        [System.Text.UTF8Encoding]::new($false))
     [System.IO.File]::Move($temp, $Path, $true)
 }

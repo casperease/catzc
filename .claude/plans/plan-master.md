@@ -47,6 +47,8 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
 
 - types-build-local -> plan-types-build-local.md: commit the types manifest only, build the DLL per machine, stack builds in a
   console.*.source session up to a cap; the untracking is the user's git step
+- types-contract -> plan-types-contract.md: the types surface is the catzc contract catzc.internal.types at 0.1.0, nothing under
+  pwsh/.compiled stays tracked; the untracking is the user's git step
 - language-lamps -> plan-language-lamps.md: the languages button and its pick list, a lamp per ticked language from the languages config
 - vscode-extensions -> plan-vscode-extensions.md: trim the recommendations, then the cats file icon theme, then fold editorconfig,
   regex-robin and the ANSI pair into cats extensions or generated settings

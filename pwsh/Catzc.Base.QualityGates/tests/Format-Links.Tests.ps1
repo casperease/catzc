@@ -20,7 +20,8 @@ Describe 'Format-Links' -Tag 'L0', 'logic' {
         }
         $script:newRepository = {
             $root = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
-            & $script:writeFile $root '.editorconfig' ((@('[*.{ps1,psm1,psd1}]', 'max_line_length = 120', '') -join "`n"))
+            & $script:writeFile $root '.editorconfig' ((@('[*.{ps1,psm1,psd1}]', 'max_line_length = 120',
+                '') -join "`n"))
             & $script:writeFile $root 'docs/drs/index.md' ((@(
                         '| Code | ADR |'
                         '| ---- | --- |'
@@ -28,9 +29,11 @@ Describe 'Format-Links' -Tag 'L0', 'logic' {
                         '| `ADR-TST-GADGET` | [gadget-rules](gadget/gadget-rules.md) |'
                     ) -join "`n") + "`n")
             & $script:writeFile $root 'docs/drs/widget/widget-rules.md' ((@(
-                        '# Widget rules', '', '### Rule ADR-TST-WIDGET-SPIN', '', 'One.', '', '### Rule ADR-TST-WIDGET-NEST', '', 'Two.', '', '## Widget notes', ''
+                        '# Widget rules', '', '### Rule ADR-TST-WIDGET-SPIN', '', 'One.', '',
+                            '### Rule ADR-TST-WIDGET-NEST', '', 'Two.', '', '## Widget notes', ''
                     ) -join "`n"))
-            & $script:writeFile $root 'docs/drs/gadget/gadget-rules.md' ((@('# Gadget rules', '', '### Rule ADR-TST-GADGET-TURN', '', 'One.', '') -join "`n"))
+            & $script:writeFile $root 'docs/drs/gadget/gadget-rules.md' ((@('# Gadget rules', '',
+                '### Rule ADR-TST-GADGET-TURN', '', 'One.', '') -join "`n"))
             & $script:writeFile $root 'docs/drs/widget/dora-explains.md' "# Widget DORA`n"
             & $script:writeFile $root 'docs/drs/gadget/dora-explains.md' "# Gadget DORA`n"
             $root
@@ -130,7 +133,8 @@ Describe 'Format-Links' -Tag 'L0', 'logic' {
 
         It 'aligns C# and YAML comments too' -Tag 'ADR-REPO-LINK-KINDBYFILE', 'ADR-REPO-LINK-CODELINKS' {
             # A string or value is data: its citation stays plain, never a link.
-            & $alignFile $root 'src/Gadget.cs' ((@('// Per ADR-TST-WIDGET-NEST.', 'var s = "ADR-TST-WIDGET-NEST";', '') -join "`n")) |
+            & $alignFile $root 'src/Gadget.cs' ((@('// Per ADR-TST-WIDGET-NEST.', 'var s = "ADR-TST-WIDGET-NEST";',
+                '') -join "`n")) |
                 Should -BeExactly ((@("// Per $widget2.", 'var s = "ADR-TST-WIDGET-NEST";', '') -join "`n"))
             & $alignFile $root 'src/gadget.yml' "# Per ADR-TST-WIDGET-NEST.`nkey: ADR-TST-WIDGET-NEST`n" |
                 Should -BeExactly "# Per $widget2.`nkey: ADR-TST-WIDGET-NEST`n"
@@ -143,7 +147,8 @@ Describe 'Format-Links' -Tag 'L0', 'logic' {
                 Should -BeExactly "throw 'widgets nest (ADR-TST-WIDGET:2)'`n`$doc = `"### Rule ADR-TST-WIDGET-NEST`"`n"
             & $alignFile $root 'src/Gadget.cs' "class Gadget { const string Why = `"ADR-TST-GADGET#1`"; }`n" |
                 Should -BeExactly "class Gadget { const string Why = `"ADR-TST-GADGET#1`"; }`n"
-            & $alignFile $root 'src/widget.yml' "rule: ADR-TST-WIDGET:1`n" | Should -BeExactly "rule: ADR-TST-WIDGET:1`n"
+            & $alignFile $root 'src/widget.yml' "rule: ADR-TST-WIDGET:1`n" |
+                Should -BeExactly "rule: ADR-TST-WIDGET:1`n"
         }
 
         It 'reports each numbered string citation as unfixable' -Tag 'ADR-REPO-LINK-ONECITATIONSPELLING' {
@@ -295,11 +300,13 @@ Describe 'Format-Links' -Tag 'L0', 'logic' {
                 [Catzc.Base.QualityGates.LinksConfig]::new(@{ wrap = 'off'; line_limit = @{ '.ps1' = 60 } })
             }
             $text = "    # Widgets nest gadgets per ADR-TST-WIDGET-NEST always.`n"
-            & $alignFile $root 'src/off.ps1' $text | Should -BeExactly "    # Widgets nest gadgets per $widget2 always.`n"
+            & $alignFile $root 'src/off.ps1' $text |
+                Should -BeExactly "    # Widgets nest gadgets per $widget2 always.`n"
 
             & $writeFile $root 'src/break.ps1' $text
             Format-Links -RepositoryRoot $root -Path (Join-Path $root 'src/break.ps1') -Wrap Break | Out-Null
-            & $readFile $root 'src/break.ps1' | Should -BeExactly "    # Widgets nest gadgets per`n    # $widget2 always.`n"
+            & $readFile $root 'src/break.ps1' |
+                Should -BeExactly "    # Widgets nest gadgets per`n    # $widget2 always.`n"
         }
     }
 
@@ -309,10 +316,12 @@ Describe 'Format-Links' -Tag 'L0', 'logic' {
             & $writeFile $root 'docs/widget.md' "See [rules](/docs/drs/widget/widget-rules.md#widget-notes).`n"
             Format-Links -RepositoryRoot $root -Path (Join-Path $root 'src'), (Join-Path $root 'docs/widget.md') -Kind Code | Out-Null
             & $readFile $root 'src/widget.ps1' | Should -BeExactly "# $widget2`n"
-            & $readFile $root 'docs/widget.md' | Should -BeExactly "See [rules](/docs/drs/widget/widget-rules.md#widget-notes).`n"
+            & $readFile $root 'docs/widget.md' |
+                Should -BeExactly "See [rules](/docs/drs/widget/widget-rules.md#widget-notes).`n"
 
             Format-Links -RepositoryRoot $root -Path (Join-Path $root 'docs/widget.md') -Kind Markdown | Out-Null
-            & $readFile $root 'docs/widget.md' | Should -BeExactly "See [rules](drs/widget/widget-rules.md#widget-notes).`n"
+            & $readFile $root 'docs/widget.md' |
+                Should -BeExactly "See [rules](drs/widget/widget-rules.md#widget-notes).`n"
         }
 
         It 'changes nothing on a second run' -Tag 'ADR-REPO-LINK-ALIGNEDBYTOOL' {

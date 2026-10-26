@@ -7,7 +7,8 @@ catzc:
 #>
 
 function Set-PermanentEnvironmentVariable {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'Thin wrapper around [Environment]::SetEnvironmentVariable — the registry I/O seam that exists for testability; guarding/dry-run is the caller''s concern.')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '',
+        Justification = 'Thin wrapper around [Environment]::SetEnvironmentVariable — the registry I/O seam that exists for testability; guarding/dry-run is the caller''s concern.')]
     [CmdletBinding()]
     param(
         [Parameter(Mandatory, Position = 0)]
@@ -30,7 +31,8 @@ function Set-PermanentEnvironmentVariable {
     }
 
     if ($removing) {
-        # A real null, never $null: PowerShell passes $null to a .NET string as '', which stores an empty value instead of deleting it.
+        # A real null, never $null: PowerShell passes $null to a .NET string as '', which stores an empty value instead
+        # of deleting it.
         [System.Environment]::SetEnvironmentVariable($Name, [NullString]::Value, $Scope)
         Write-Message "$Scope environment: removed $Name"
     }

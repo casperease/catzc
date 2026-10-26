@@ -32,7 +32,8 @@ Describe 'Test-IsGuidInRange' -Tag 'L0', 'logic' {
     }
 
     It 'accepts braces and upper case on every input' {
-        Test-IsGuidInRange ('{' + (New-FixtureGuid '00000015') + '}') -From $from.ToUpperInvariant() -To $to | Should -BeTrue
+        Test-IsGuidInRange ('{' + (New-FixtureGuid '00000015') + '}') -From $from.ToUpperInvariant() -To $to |
+            Should -BeTrue
     }
 
     It 'compares case-insensitively' {

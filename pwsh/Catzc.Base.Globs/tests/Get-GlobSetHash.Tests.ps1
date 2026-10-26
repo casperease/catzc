@@ -100,7 +100,8 @@ Describe 'Get-GlobSetHash' -Tag 'L1', 'logic' {
             Mock Get-TrackedFile { @('data/in.txt', 'other/out.txt') } -ModuleName Catzc.Base.Globs
 
             $narrow = [Catzc.Base.Globs.GlobSet]::new('narrow', 'd', 'module', @('data/**'), @(), @(), @(), -1, $null)
-            $wide = [Catzc.Base.Globs.GlobSet]::new('wide', 'd', 'module', @('data/**', 'other/**'), @(), @(), @(), -1, $null)
+            $wide = [Catzc.Base.Globs.GlobSet]::new('wide', 'd', 'module', @('data/**', 'other/**'), @(), @(), @(), -1,
+                $null)
             Get-GlobSetHash -GlobSet $narrow | Should -Not -Be (Get-GlobSetHash -GlobSet $wide)
         }
     }

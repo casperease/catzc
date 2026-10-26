@@ -49,6 +49,7 @@ Describe 'Get-BicepResourceName' -Tag 'L0', 'logic' {
     }
 
     It 'rejects an unknown resource type' {
-        { Get-BicepResourceName -Template sample -Environment alpha -Type zzz } | Should -Throw '*Unknown resource type*'
+        { Get-BicepResourceName -Template sample -Environment alpha -Type zzz } |
+            Should -Throw '*Unknown resource type*'
     }
 }

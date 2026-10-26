@@ -56,7 +56,8 @@ public sealed class ConsoleTextThrowingProbe {
 
     It 'cuts a string longer than MaxTextLength and counts the rest' {
         $text = 'x' * ([Catzc.Base.Objects.ConsoleText]::MaxTextLength + 7)
-        [Catzc.Base.Objects.ConsoleText]::ToConsoleValue($text) | Should -Be (('x' * [Catzc.Base.Objects.ConsoleText]::MaxTextLength) + '… (+7 chars)')
+        [Catzc.Base.Objects.ConsoleText]::ToConsoleValue($text) |
+            Should -Be (('x' * [Catzc.Base.Objects.ConsoleText]::MaxTextLength) + '… (+7 chars)')
     }
 
     It 'renders a collection as [a, b], capped at MaxItems with the rest counted' {
@@ -77,12 +78,14 @@ public sealed class ConsoleTextThrowingProbe {
     }
 
     It 'renders only the [ConsoleDisplay] properties when the type names them' {
-        "$([ConsoleTextNamedProbe]@{ Name = 'gadget'; Size = 9 })" | Should -Be 'ConsoleTextNamedProbe { Name = gadget }'
+        "$([ConsoleTextNamedProbe]@{ Name = 'gadget'; Size = 9 })" |
+            Should -Be 'ConsoleTextNamedProbe { Name = gadget }'
     }
 
     It 'renders the named properties only, and throws naming the type for an unknown one' {
         $widget = [ConsoleTextWidgetProbe]@{ Name = 'widget'; Size = 3 }
-        [Catzc.Base.Objects.ConsoleText]::ToConsoleString($widget, [string[]]@('Size')) | Should -Be 'ConsoleTextWidgetProbe { Size = 3 }'
+        [Catzc.Base.Objects.ConsoleText]::ToConsoleString($widget, [string[]]@('Size')) |
+            Should -Be 'ConsoleTextWidgetProbe { Size = 3 }'
         { [Catzc.Base.Objects.ConsoleText]::ToConsoleString($widget, [string[]]@('Missing')) } |
             Should -Throw "*'ConsoleTextWidgetProbe' has no public readable property 'Missing'*"
     }
@@ -95,15 +98,18 @@ public sealed class ConsoleTextThrowingProbe {
         $outer = [ConsoleTextWidgetProbe]@{ Name = 'outer' }
         $inner = [ConsoleTextWidgetProbe]@{ Name = 'inner'; Child = $outer }
         $outer.Child = $inner
-        "$outer" | Should -Be 'ConsoleTextWidgetProbe { Name = outer, Size = 0, Kind = Small, Child = ConsoleTextWidgetProbe { Name = inner, Size = 0, Kind = Small, Child = ConsoleTextWidgetProbe } }'
+        "$outer" |
+            Should -Be 'ConsoleTextWidgetProbe { Name = outer, Size = 0, Kind = Small, Child = ConsoleTextWidgetProbe { Name = inner, Size = 0, Kind = Small, Child = ConsoleTextWidgetProbe } }'
     }
 
     It 'renders a nested object without its own ToString as its bare type name' {
-        [Catzc.Base.Objects.ConsoleText]::ToConsoleValue([ConsoleTextPlainProbe]@{ Name = 'widget' }) | Should -Be 'ConsoleTextPlainProbe'
+        [Catzc.Base.Objects.ConsoleText]::ToConsoleValue([ConsoleTextPlainProbe]@{ Name = 'widget' }) |
+            Should -Be 'ConsoleTextPlainProbe'
     }
 
     It 'renders a throwing getter as ! plus the exception type name instead of throwing' {
-        "$([ConsoleTextThrowingProbe]::new())" | Should -Be 'ConsoleTextThrowingProbe { Name = !InvalidOperationException }'
+        "$([ConsoleTextThrowingProbe]::new())" |
+            Should -Be 'ConsoleTextThrowingProbe { Name = !InvalidOperationException }'
     }
 
     It 'gives every DictionaryRecord the rendering, without its view members' {
@@ -111,6 +117,7 @@ public sealed class ConsoleTextThrowingProbe {
     }
 
     It 'rejects a ConsoleDisplay attribute that names no property' {
-        { [Catzc.Base.Objects.ConsoleDisplayAttribute]::new([string[]]@()) } | Should -Throw '*names at least one property*'
+        { [Catzc.Base.Objects.ConsoleDisplayAttribute]::new([string[]]@()) } |
+            Should -Throw '*names at least one property*'
     }
 }

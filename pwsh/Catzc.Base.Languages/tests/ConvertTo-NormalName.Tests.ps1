@@ -34,9 +34,11 @@ Describe 'ConvertTo-NormalName' -Tag 'L0', 'logic' {
     }
 
     It 'throws on a name in none of the language''s cases, and on a language with no case for the kind' {
-        { ConvertTo-NormalName 'gadget_part' -Language widget } | Should -Throw "*'gadget_part' is not a widget function name*verb-noun*"
+        { ConvertTo-NormalName 'gadget_part' -Language widget } |
+            Should -Throw "*'gadget_part' is not a widget function name*verb-noun*"
         { ConvertTo-NormalName 'Get-Gadget' -Language plain } | Should -Throw '*naming names no function case*'
-        { ConvertTo-NormalName 'Get-Gadget' -Language gadget -NameKind folder } | Should -Throw '*naming names no folder case*'
+        { ConvertTo-NormalName 'Get-Gadget' -Language gadget -NameKind folder } |
+            Should -Throw '*naming names no folder case*'
     }
 }
 
@@ -44,7 +46,8 @@ Describe 'ConvertTo-NormalName and ConvertFrom-NormalName over the tracked funct
     It 'round-trips every tracked PowerShell function name through the normal form' -Tag 'ADR-AUTO-IDIOM-ROUNDTRIP' {
         $names = @(foreach ($path in Get-GitTrackedPath -Path (Get-CatzcModulesFolder)) {
                 $stem = [System.IO.Path]::GetFileNameWithoutExtension($path)
-                if ($path.EndsWith('.ps1', [System.StringComparison]::Ordinal) -and $stem -cmatch '^[A-Z][A-Za-z0-9]*-[A-Z][A-Za-z0-9]*$') {
+                if ($path.EndsWith('.ps1', [System.StringComparison]::Ordinal) -and
+                    $stem -cmatch '^[A-Z][A-Za-z0-9]*-[A-Z][A-Za-z0-9]*$') {
                     $stem
                 }
             })

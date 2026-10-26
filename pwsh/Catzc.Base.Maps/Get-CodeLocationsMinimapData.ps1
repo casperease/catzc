@@ -17,7 +17,8 @@ function Get-CodeLocationsMinimapData {
 
         [System.Collections.IDictionary] $Facts,
 
-        # The drawing's own glyphs, each { kind; label }: the places they name come first, the cited ADRs' places only while rows remain.
+        # The drawing's own glyphs, each { kind; label }: the places they name come first, the cited ADRs' places only
+        # while rows remain.
         [object[]] $Glyph = @(),
 
         # Every tracked path, the index a glyph label is resolved against; read once when not given.
@@ -31,7 +32,8 @@ function Get-CodeLocationsMinimapData {
     $primary = [System.Collections.Generic.List[string[]]]::new()
     $secondary = [System.Collections.Generic.List[string[]]]::new()
     $known = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
-    # The places the glyphs name come first: each label resolved to the repository files it names, a label that names none dropped and counted.
+    # The places the glyphs name come first: each label resolved to the repository files it names, a label that names
+    # none dropped and counted.
     $dropped = 0
     $resolved = @()
     if (@($Glyph).Count -gt 0) {
@@ -84,11 +86,13 @@ function Get-CodeLocationsMinimapData {
         folder = [string[]] @($sorted | ForEach-Object { $_[2] } | Select-Object -Unique)
     }
     $data = New-MinimapData -Id ([Catzc.Base.Maps.MinimapData]::CodeLocations) -Axes $axes -Cells ([string[][]] $sorted) -Count $count -Reasons $reasons
-    # The rows the place list draws are computed here, from the place triples, so the drawing only draws them: the glyphs' places first.
+    # The rows the place list draws are computed here, from the place triples, so the drawing only draws them: the
+    # glyphs' places first.
     $first = [System.Collections.Generic.HashSet[string]]::new([string[]] @($primary | ForEach-Object { $_ -join "`t" }), [System.StringComparer]::Ordinal)
     $primaryCells = [Catzc.Base.Maps.MinimapCell[]] @($data.Lit | Where-Object { $first.Contains($_.At -join "`t") })
     $secondaryCells = [Catzc.Base.Maps.MinimapCell[]] @($data.Lit | Where-Object { -not $first.Contains($_.At -join "`t") })
-    $data = $data.WithPlaceRows([Catzc.Base.Maps.PlaceRows]::From($primaryCells, $secondaryCells, (Get-Config -Config maps).minimap_places))
+    $data = $data.WithPlaceRows([Catzc.Base.Maps.PlaceRows]::From($primaryCells, $secondaryCells,
+        (Get-Config -Config maps).minimap_places))
     if ($AsJson) {
         return $data.ToJson()
     }

@@ -75,7 +75,8 @@ Describe 'AgentsConfig' -Tag 'L0', 'logic', 'ADR-REPO-AGENTS-BACKEDBYRULE' {
 
     It 'collects entry violations by index and a duplicate name' {
         $thrown = { [Catzc.Base.Docs.AgentsConfig]::new([ordered]@{
-                    agents = @($widget, $widget, 'gadget', [ordered]@{ name = 'gadget'; supported_by = @(); checks = @() })
+                    agents = @($widget, $widget, 'gadget',
+                        [ordered]@{ name = 'gadget'; supported_by = @(); checks = @() })
                 }) } | Should -Throw -PassThru
         $message = $thrown.Exception.Message
         $message | Should -Match "agents\[1\]: duplicate entry for agent 'widget'"

@@ -43,7 +43,8 @@ Describe 'GitRefs' -Tag 'L0', 'logic' {
 
     It 'finds the git directory of a checkout, and of a linked worktree through its gitdir pointer' {
         [Catzc.Base.Git.GitRefs]::GitDirectory($checkout) | Should -Be ([System.IO.Path]::GetFullPath($gitDir))
-        [Catzc.Base.Git.GitRefs]::GitDirectory($worktree) | Should -Be ([System.IO.Path]::GetFullPath((Join-Path $gitDir 'worktrees/gizmo')))
+        [Catzc.Base.Git.GitRefs]::GitDirectory($worktree) |
+            Should -Be ([System.IO.Path]::GetFullPath((Join-Path $gitDir 'worktrees/gizmo')))
     }
 
     It 'names the index file inside the git directory' {
@@ -115,10 +116,12 @@ Describe 'GitRefs — parity with git rev-parse on this repository' -Tag 'L2', '
     }
 
     It 'names the branch git names' {
-        [Catzc.Base.Git.GitRefs]::CurrentBranch($gitDir) | Should -Be (& git -C $root rev-parse --abbrev-ref HEAD).Trim()
+        [Catzc.Base.Git.GitRefs]::CurrentBranch($gitDir) |
+            Should -Be (& git -C $root rev-parse --abbrev-ref HEAD).Trim()
     }
 
     It 'finds the index git names' {
-        [Catzc.Base.Git.GitRefs]::IndexPath($gitDir) | Should -Be ([System.IO.Path]::GetFullPath((& git -C $root rev-parse --path-format=absolute --git-path index).Trim()))
+        [Catzc.Base.Git.GitRefs]::IndexPath($gitDir) |
+            Should -Be ([System.IO.Path]::GetFullPath((& git -C $root rev-parse --path-format=absolute --git-path index).Trim()))
     }
 }

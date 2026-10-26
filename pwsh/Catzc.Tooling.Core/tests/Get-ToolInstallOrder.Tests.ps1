@@ -25,7 +25,8 @@ Describe 'Get-ToolInstallOrder' -Tag 'L0' {
             @($order | Sort-Object) | Should -Be @('base', 'lone', 'mid1', 'mid2', 'top')  # all returned
             foreach ($pair in @(@('base', 'mid1'), @('base', 'mid2'), @('mid1', 'top'), @('mid2', 'top'))) {
                 [array]::IndexOf($order, $pair[0]) |
-                    Should -BeLessThan ([array]::IndexOf($order, $pair[1])) -Because "$($pair[0]) must precede $($pair[1])"
+                    Should -BeLessThan ([array]::IndexOf($order,
+                    $pair[1])) -Because "$($pair[0]) must precede $($pair[1])"
             }
         }
 
@@ -68,7 +69,8 @@ Describe 'Get-ToolInstallOrder' -Tag 'L0' {
                 if ($dependency) {
                     foreach ($dependencyName in @($dependency)) {
                         [array]::IndexOf($order, $dependencyName) |
-                            Should -BeLessThan ([array]::IndexOf($order, $name)) -Because "$name depends on $dependencyName"
+                            Should -BeLessThan ([array]::IndexOf($order,
+                            $name)) -Because "$name depends on $dependencyName"
                     }
                 }
             }

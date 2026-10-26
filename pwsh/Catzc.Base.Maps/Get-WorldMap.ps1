@@ -19,7 +19,8 @@ function Get-WorldMap {
 
     $aspects = [ordered]@{}
     foreach ($track in $tracks) {
-        # A laid-out track derives its aspects from the layout; any other track has them only when variants.yml declares them.
+        # A laid-out track derives its aspects from the layout; any other track has them only when variants.yml declares
+        # them.
         if ($languages.IsLaidOut($track.languages) -or (Test-AspectDeclaration -Track $track.name)) {
             $aspects[$track.name] = @(Get-Aspect -Track $track.name)
         }
@@ -85,8 +86,10 @@ function Get-WorldMap {
     }
 
     $citationExclude = @((Get-Config -Config maps).highlight.citation_exclude)
-    $map = [Catzc.Base.Maps.WorldMapBuilder]::Build((ConvertTo-BclValue $tracks), (ConvertTo-BclValue @(Get-FileLanguage)), (ConvertTo-BclValue $paths),
-        (ConvertTo-BclValue $aspects), $adrIndex, $adrFiles, $texts, $rootOwners, (ConvertTo-BclValue @(Get-GlobSet)), (ConvertTo-BclValue $citationExclude))
+    $map = [Catzc.Base.Maps.WorldMapBuilder]::Build((ConvertTo-BclValue $tracks),
+        (ConvertTo-BclValue @(Get-FileLanguage)), (ConvertTo-BclValue $paths),
+        (ConvertTo-BclValue $aspects), $adrIndex, $adrFiles, $texts, $rootOwners, (ConvertTo-BclValue @(Get-GlobSet)),
+        (ConvertTo-BclValue $citationExclude))
     if ($AsJson) {
         return $map.ToJson()
     }

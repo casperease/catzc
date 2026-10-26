@@ -34,7 +34,8 @@ function Build-AgentHook {
         Assert-NotNull $projectXml.DocumentElement -ErrorText "No <Project> element in $csproj."
 
         # Linked module types count as sources too, so a change to a type the hook compiles in republishes the hook.
-        $sources = @(Get-ChildPath $project -File -Filter '*.cs', '*.csproj' -Depth 1 | Sort-Object { [System.IO.Path]::GetFileName($_) })
+        $sources = @(Get-ChildPath $project -File -Filter '*.cs',
+            '*.csproj' -Depth 1 | Sort-Object { [System.IO.Path]::GetFileName($_) })
         Assert-True ($sources.Count -gt 0) -ErrorText "No hook files (*.cs, *.csproj) in $project"
         $modulesFolder = Get-CatzcModulesFolder
         $linked = @($projectXml.SelectNodes('//Compile/@Include') | ForEach-Object { $_.Value.Replace('$(CatzcModulesFolder)', $modulesFolder) } | Sort-Object)
@@ -51,7 +52,8 @@ function Build-AgentHook {
         Assert-NotNullOrWhitespace $assemblyName -ErrorText "No <AssemblyName> in $csproj — it names the published hook program."
         $programBase = Join-Path $OutputDirectory $assemblyName
         $findProgram = {
-            $application = Get-Command -Name $programBase -CommandType Application -ErrorAction Ignore | Select-Object -First 1
+            $application = Get-Command -Name $programBase -CommandType Application -ErrorAction Ignore |
+                Select-Object -First 1
             if ($application) {
                 $application.Source
             }
@@ -75,7 +77,8 @@ function Build-AgentHook {
 
         $configuration = (Get-Config -Config bcl).configuration
         Assert-DotnetOffline $csproj
-        # No build server may outlive the publish: one would hold the caller's output pipe open for minutes after it ends.
+        # No build server may outlive the publish: one would hold the caller's output pipe open for minutes after it
+        # ends.
         Invoke-Executable "dotnet publish `"$csproj`" --configuration $configuration --output `"$OutputDirectory`" --verbosity quiet --disable-build-servers -p:CatzcModulesFolder=$modulesFolder" -Silent
         $program = & $findProgram
         Assert-NotNullOrWhitespace $program -ErrorText "dotnet publish succeeded but produced no runnable '$assemblyName' program in $OutputDirectory."

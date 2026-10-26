@@ -54,24 +54,29 @@ Describe 'Resolve-BicepParameterAddresses' -Tag 'L0', 'logic' {
     }
 
     It 'throws on an unknown address, naming the config file and the parameter' -Tag 'ADR-AZ-DATAMOD-VALUEBYADDRESS' {
-        $err = { & $script:resolve ([ordered]@{ gadgetMode = [ordered]@{ address = 'global.widget.missing' } }) } | Should -Throw -PassThru
+        $err = { & $script:resolve ([ordered]@{ gadgetMode = [ordered]@{ address = 'global.widget.missing' } }) } |
+            Should -Throw -PassThru
         $err.Exception.Message | Should -BeLike "*Template config 'configuration/alpha.yml'*"
-        $err.Exception.Message | Should -BeLike "*parameter 'gadgetMode' has address 'global.widget.missing', which does not resolve*"
+        $err.Exception.Message |
+            Should -BeLike "*parameter 'gadgetMode' has address 'global.widget.missing', which does not resolve*"
     }
 
     It 'throws on an address mixed with a value' -Tag 'ADR-AZ-DATAMOD-VALUEBYADDRESS' {
         $err = { & $script:resolve ([ordered]@{ gadgetMode = [ordered]@{ address = 'global.widget.gadget.mode'; value = 'Spin' } }) } | Should -Throw -PassThru
-        $err.Exception.Message | Should -BeLike "*configuration/alpha.yml*parameter 'gadgetMode' sets 'address' together with 'value'*"
+        $err.Exception.Message |
+            Should -BeLike "*configuration/alpha.yml*parameter 'gadgetMode' sets 'address' together with 'value'*"
     }
 
     It 'throws on an address mixed with a Key Vault reference' -Tag 'ADR-AZ-DATAMOD-VALUEBYADDRESS' {
         $reference = [ordered]@{ keyVault = [ordered]@{ id = '/subscriptions/x/providers/Microsoft.KeyVault/vaults/widget' }; secretName = 'gadget' }
         $err = { & $script:resolve ([ordered]@{ widgetKey = [ordered]@{ address = 'global.widget.gadget.mode'; reference = $reference } }) } | Should -Throw -PassThru
-        $err.Exception.Message | Should -BeLike "*configuration/alpha.yml*parameter 'widgetKey' sets 'address' together with 'reference'*"
+        $err.Exception.Message |
+            Should -BeLike "*configuration/alpha.yml*parameter 'widgetKey' sets 'address' together with 'reference'*"
     }
 
     It 'throws on an address that is not a string' -Tag 'ADR-AZ-DATAMOD-VALUEBYADDRESS' {
-        { & $script:resolve ([ordered]@{ gadgetMode = [ordered]@{ address = 3 } }) } | Should -Throw "*parameter 'gadgetMode' has an 'address' that is not a global config address string*"
+        { & $script:resolve ([ordered]@{ gadgetMode = [ordered]@{ address = 3 } }) } |
+            Should -Throw "*parameter 'gadgetMode' has an 'address' that is not a global config address string*"
     }
 
     It 'reports every violation in one throw' {
@@ -108,7 +113,8 @@ Describe 'Resolve-BicepParameterAddresses (through the config reader)' -Tag 'L0'
     }
 
     It 'resolves a leaf of a typed config' -Tag 'ADR-AZ-DATAMOD-VALUEBYADDRESS' {
-        (& $script:resolve ([ordered]@{ org = [ordered]@{ address = 'global.azure.org' } })).org.value | Should -Be 'tst'
+        (& $script:resolve ([ordered]@{ org = [ordered]@{ address = 'global.azure.org' } })).org.value |
+            Should -Be 'tst'
     }
 
     It 'resolves the defaulted policy enforcement mode the config file omits' -Tag 'ADR-AZ-DATAMOD-VALUEBYADDRESS', 'ADR-AZ-DATAMOD-POLICYENFORCEMENTMODE' {
@@ -117,10 +123,12 @@ Describe 'Resolve-BicepParameterAddresses (through the config reader)' -Tag 'L0'
     }
 
     It 'throws on a key the config does not have' -Tag 'ADR-AZ-DATAMOD-VALUEBYADDRESS' {
-        { & $script:resolve ([ordered]@{ org = [ordered]@{ address = 'global.azure.missing' } }) } | Should -Throw "*parameter 'org' has address 'global.azure.missing', which does not resolve*"
+        { & $script:resolve ([ordered]@{ org = [ordered]@{ address = 'global.azure.missing' } }) } |
+            Should -Throw "*parameter 'org' has address 'global.azure.missing', which does not resolve*"
     }
 
     It 'throws on a malformed address' -Tag 'ADR-AZ-DATAMOD-VALUEBYADDRESS' {
-        { & $script:resolve ([ordered]@{ org = [ordered]@{ address = 'azure.org' } }) } | Should -Throw "*parameter 'org' has address 'azure.org', which does not resolve*"
+        { & $script:resolve ([ordered]@{ org = [ordered]@{ address = 'azure.org' } }) } |
+            Should -Throw "*parameter 'org' has address 'azure.org', which does not resolve*"
     }
 }

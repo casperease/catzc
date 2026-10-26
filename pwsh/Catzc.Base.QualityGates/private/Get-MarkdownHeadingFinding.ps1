@@ -36,7 +36,8 @@ function Get-MarkdownHeadingFinding {
     $separatorsOnly = '^[\s+,/&·;|-]*$'
     $isReferenceLine = {
         param([string] $Line)
-        $Line.Trim() -ne '' -and (($Line -replace '`[^`]*`', '' -replace '\[[^\]]*\]\([^)]*\)', '') -match $separatorsOnly)
+        $Line.Trim() -ne '' -and (($Line -replace '`[^`]*`', '' -replace '\[[^\]]*\]\([^)]*\)',
+            '') -match $separatorsOnly)
     }
 
     # Index every heading outside front matter and fences: { Index; Level; Text }.
@@ -113,7 +114,8 @@ function Get-MarkdownHeadingFinding {
     if ($RelativePath -match '(^|/)dora-explains\.md$') {
         foreach ($heading in @($headings | Where-Object Level -EQ 2)) {
             $index = $heading.Index + 1
-            while ($index -lt $lines.Count -and ($lines[$index].Trim() -eq '' -or (& $isReferenceLine $lines[$index]))) {
+            while ($index -lt $lines.Count -and ($lines[$index].Trim() -eq '' -or
+                (& $isReferenceLine $lines[$index]))) {
                 $index++
             }
             if ($index -ge $lines.Count -or $lines[$index] -match '^\s*(>|#|[-*+]\s|\d+[.)]\s)') {

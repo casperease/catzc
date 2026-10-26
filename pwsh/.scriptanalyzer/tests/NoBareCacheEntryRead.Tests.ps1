@@ -52,7 +52,8 @@ function Get-Widget {
     }
 
     It 'accepts a read after the function assigns the cache entry' {
-        Test-CacheEntryRead 'function Reset-Widget { $script:widgetCache = @{}; $script:widgetCache.Count }' | Should -BeNullOrEmpty
+        Test-CacheEntryRead 'function Reset-Widget { $script:widgetCache = @{}; $script:widgetCache.Count }' |
+            Should -BeNullOrEmpty
     }
 
     It 'leaves a .psm1 alone: it can declare its cache entries at load' {
@@ -68,10 +69,12 @@ function Get-Gadget { $script:gadgetCache }
     }
 
     It 'leaves a Pester file alone: it shares state through $script: on purpose' {
-        Test-CacheEntryReadInFile 'Get-Gadget.Tests.ps1' 'function Get-Gadget { $script:gadgetCache }' | Should -BeNullOrEmpty
+        Test-CacheEntryReadInFile 'Get-Gadget.Tests.ps1' 'function Get-Gadget { $script:gadgetCache }' |
+            Should -BeNullOrEmpty
     }
 
     It 'checks a function file' {
-        @(Test-CacheEntryReadInFile 'Get-Gadget.ps1' 'function Get-Gadget { $script:gadgetCache }') | Should -HaveCount 1
+        @(Test-CacheEntryReadInFile 'Get-Gadget.ps1' 'function Get-Gadget { $script:gadgetCache }') |
+            Should -HaveCount 1
     }
 }

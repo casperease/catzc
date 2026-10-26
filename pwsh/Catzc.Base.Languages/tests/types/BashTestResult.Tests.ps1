@@ -1,7 +1,9 @@
 Describe 'BashTestResult' -Tag 'L0', 'logic' {
     It 'derives the category from the name: "integrity:" is integrity, the rest logic' {
-        [Catzc.Base.Languages.BashTestResult]::new('widget.bats', 'integrity: widget ships', 'pass', 0.5, '').Category | Should -Be 'integrity'
-        [Catzc.Base.Languages.BashTestResult]::new('widget.bats', 'widget spins', 'pass', 0.5, '').Category | Should -Be 'logic'
+        [Catzc.Base.Languages.BashTestResult]::new('widget.bats', 'integrity: widget ships', 'pass', 0.5, '').Category |
+            Should -Be 'integrity'
+        [Catzc.Base.Languages.BashTestResult]::new('widget.bats', 'widget spins', 'pass', 0.5, '').Category |
+            Should -Be 'logic'
     }
 
     It 'keeps every field, with no output as empty' {

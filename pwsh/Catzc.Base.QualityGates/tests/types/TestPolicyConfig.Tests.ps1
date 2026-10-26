@@ -31,14 +31,17 @@ Describe 'TestPolicyConfig' -Tag 'L0', 'logic' {
 
     It 'runs greedy files two at a time unless the config says otherwise' {
         [Catzc.Base.QualityGates.TestPolicyConfig]::new([ordered]@{}).greedy_group_size | Should -Be 2
-        [Catzc.Base.QualityGates.TestPolicyConfig]::new([ordered]@{ greedy_group_size = 1 }).greedy_group_size | Should -Be 1
-        [Catzc.Base.QualityGates.TestPolicyConfig]::new([ordered]@{ greedy_group_size = 3 }).greedy_group_size | Should -Be 3
+        [Catzc.Base.QualityGates.TestPolicyConfig]::new([ordered]@{ greedy_group_size = 1 }).greedy_group_size |
+            Should -Be 1
+        [Catzc.Base.QualityGates.TestPolicyConfig]::new([ordered]@{ greedy_group_size = 3 }).greedy_group_size |
+            Should -Be 3
     }
 
     It 'keeps nine tenths of a slower duration unless the config says otherwise' {
         [Catzc.Base.QualityGates.TestPolicyConfig]::new([ordered]@{}).duration_decay | Should -Be 0.9
         [Catzc.Base.QualityGates.TestPolicyConfig]::new([ordered]@{ duration_decay = 0 }).duration_decay | Should -Be 0
-        [Catzc.Base.QualityGates.TestPolicyConfig]::new([ordered]@{ duration_decay = 0.5 }).duration_decay | Should -Be 0.5
+        [Catzc.Base.QualityGates.TestPolicyConfig]::new([ordered]@{ duration_decay = 0.5 }).duration_decay |
+            Should -Be 0.5
     }
 
     It 'throws on a duration_decay of <value>' -ForEach @(
@@ -46,7 +49,8 @@ Describe 'TestPolicyConfig' -Tag 'L0', 'logic' {
         @{ value = 1 }
         @{ value = 'slow' }
     ) {
-        { [Catzc.Base.QualityGates.TestPolicyConfig]::new(@{ duration_decay = $value }) } | Should -Throw '*duration_decay must be a number from 0 up to, not including, 1*'
+        { [Catzc.Base.QualityGates.TestPolicyConfig]::new(@{ duration_decay = $value }) } |
+            Should -Throw '*duration_decay must be a number from 0 up to, not including, 1*'
     }
 
     It 'throws on a greedy_group_size of <value>' -ForEach @(
@@ -54,7 +58,8 @@ Describe 'TestPolicyConfig' -Tag 'L0', 'logic' {
         @{ value = 65 }
         @{ value = 'pairs' }
     ) {
-        { [Catzc.Base.QualityGates.TestPolicyConfig]::new(@{ greedy_group_size = $value }) } | Should -Throw '*greedy_group_size must be a whole number from 1 to 64*'
+        { [Catzc.Base.QualityGates.TestPolicyConfig]::new(@{ greedy_group_size = $value }) } |
+            Should -Throw '*greedy_group_size must be a whole number from 1 to 64*'
     }
 
     It 'throws on <case>' -ForEach @(

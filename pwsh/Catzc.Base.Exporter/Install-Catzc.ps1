@@ -59,7 +59,8 @@ function Install-Catzc {
                     foreach ($extension in $engine.ScriptExtensions) {
                         foreach ($script in Get-ChildPath $moduleTarget -File -Filter "*$extension" -Depth 64 -Exclude @() -PruneVendor $false) {
                             if ([System.IO.File]::ReadLines($script) | Select-Object -First 1 | Where-Object { $_.StartsWith('#!') }) {
-                                [System.IO.File]::SetUnixFileMode($script, [System.IO.File]::GetUnixFileMode($script) -bor $execute)
+                                [System.IO.File]::SetUnixFileMode($script,
+                                    [System.IO.File]::GetUnixFileMode($script) -bor $execute)
                             }
                         }
                     }

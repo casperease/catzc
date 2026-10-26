@@ -20,7 +20,8 @@ function Get-ModuleGlobSet {
 
     Assert-SourceTree
 
-    # The code track is the one whose place is the catzc modules folder; its first place is the root every module and infra folder sits under.
+    # The code track is the one whose place is the catzc modules folder; its first place is the root every module and
+    # infra folder sits under.
     $codeTrack = Get-Track -Path (Get-CatzcModulesFolder)
     $codeRoot = $codeTrack.places[0]
     $config = Get-Config -Config globs
@@ -110,7 +111,8 @@ function Get-ModuleGlobSet {
     }
     foreach ($scope in '.internal', '.scriptanalyzer') {
         $scopeRoot = "$codeRoot/$scope"
-        $fileRoots = [string[]]@($codeModules.Where({ $_.shape -ceq 'file' -and $_.root.StartsWith("$scopeRoot/", [System.StringComparison]::Ordinal) }).ForEach({ $_.root }))
+        $fileRoots = [string[]]@($codeModules.Where({ $_.shape -ceq 'file' -and $_.root.StartsWith("$scopeRoot/",
+            [System.StringComparison]::Ordinal) }).ForEach({ $_.root }))
         foreach ($compiled in [Catzc.Base.Globs.AspectPartition]::Compile($scopeAspects, $scopeRoot)) {
             $scopeName = "$($scope.TrimStart('.'))-$($compiled.Name)"
             if ($scopeName -in $declaredNames) {

@@ -1,11 +1,15 @@
 Describe 'WorldMapBuilder' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:tracks = @(
-            [Catzc.Base.Variants.VariantTrack]::new('widgets', @('widgets'), 'modules', $null, @('widget-script', 'widget-config'))
-            [Catzc.Base.Variants.VariantTrack]::new('gadgets', @('gadgets'), 'infrastructure', $null, @('widget-config'))
-            [Catzc.Base.Variants.VariantTrack]::new('probes', @('probes'), 'modules', $null, @('widget-script', 'probe-lang'))
+            [Catzc.Base.Variants.VariantTrack]::new('widgets', @('widgets'), 'modules', $null, @('widget-script',
+                'widget-config'))
+            [Catzc.Base.Variants.VariantTrack]::new('gadgets', @('gadgets'), 'infrastructure', $null,
+                @('widget-config'))
+            [Catzc.Base.Variants.VariantTrack]::new('probes', @('probes'), 'modules', $null, @('widget-script',
+                'probe-lang'))
             [Catzc.Base.Variants.VariantTrack]::new('docs', @('docs'), 'documentation', $null, @('notes'))
-            [Catzc.Base.Variants.VariantTrack]::new([Catzc.Base.Maps.WorldMapBuilder]::AdoPipelinesTrack, @('pipelines'), 'pipelines', $null, @('gadget-pipe'))
+            [Catzc.Base.Variants.VariantTrack]::new([Catzc.Base.Maps.WorldMapBuilder]::AdoPipelinesTrack,
+                @('pipelines'), 'pipelines', $null, @('gadget-pipe'))
         )
         $script:languages = @(
             [Catzc.Base.Languages.FileLanguage]::new('widget-script', @('.ps1'), $null, 'fixture', $null, $null, $null)
@@ -60,10 +64,12 @@ Describe 'WorldMapBuilder' -Tag 'L0', 'logic' {
             'out/.gitkeep'
         )
         $script:adrFiles = [ordered]@{ 'ADR-WIDGET-GADGET' = 'docs/drs/widgetry/widget-gadget.md' }
-        $script:globSets = @([Catzc.Base.Globs.GlobSet]::new('widgets-set', 'The widgets.', 'loose-fileset', @('widgets/**'), @(), @(), @(), -1, 'ci-widgets'))
+        $script:globSets = @([Catzc.Base.Globs.GlobSet]::new('widgets-set', 'The widgets.', 'loose-fileset',
+            @('widgets/**'), @(), @(), @(), -1, 'ci-widgets'))
         $script:build = {
             param([string[]] $Paths = $script:paths, $Tracks = $script:tracks, $Languages = $script:languages)
-            [Catzc.Base.Maps.WorldMapBuilder]::Build($Tracks, $Languages, $Paths, $script:aspects, $script:index, $script:adrFiles, $script:texts,
+            [Catzc.Base.Maps.WorldMapBuilder]::Build($Tracks, $Languages, $Paths, $script:aspects, $script:index,
+                $script:adrFiles, $script:texts,
                 [ordered]@{ 'importer.ps1' = 'widgets/Alpha' }, $script:globSets)
         }
         $script:map = & $script:build
@@ -75,7 +81,8 @@ Describe 'WorldMapBuilder' -Tag 'L0', 'logic' {
             ($script:map.Cells | Measure-Object FileCount -Sum).Sum | Should -Be $script:paths.Count
             @($script:map.Placements.Path | Sort-Object -Unique).Count | Should -Be $script:paths.Count
             foreach ($placement in $script:map.Placements) {
-                $script:map.Cell($placement.Track, $placement.FileLanguage) | Should -Not -BeNullOrEmpty -Because $placement.Path
+                $script:map.Cell($placement.Track, $placement.FileLanguage) |
+                    Should -Not -BeNullOrEmpty -Because $placement.Path
             }
         }
 
@@ -87,8 +94,10 @@ Describe 'WorldMapBuilder' -Tag 'L0', 'logic' {
         }
 
         It 'counts a file with an unknown extension or none in the (other) column' {
-            $script:map.Placement('widgets/Alpha/configs/alpha.json').FileLanguage | Should -Be ([Catzc.Base.Maps.WorldMap]::NoFileLanguage)
-            $script:map.Placement('widgets/Alpha/configs/.gitkeep').FileLanguage | Should -Be ([Catzc.Base.Maps.WorldMap]::NoFileLanguage)
+            $script:map.Placement('widgets/Alpha/configs/alpha.json').FileLanguage |
+                Should -Be ([Catzc.Base.Maps.WorldMap]::NoFileLanguage)
+            $script:map.Placement('widgets/Alpha/configs/.gitkeep').FileLanguage |
+                Should -Be ([Catzc.Base.Maps.WorldMap]::NoFileLanguage)
             $script:map.Cell('widgets', [Catzc.Base.Maps.WorldMap]::NoFileLanguage).FileCount | Should -Be 4
         }
 
@@ -100,7 +109,8 @@ Describe 'WorldMapBuilder' -Tag 'L0', 'logic' {
 
         It 'orders the axes ordinally with the bucket last, and the cells row by row' {
             $script:map.Tracks | Should -Be @('ado-pipelines', 'docs', 'gadgets', 'probes', 'widgets', '(no track)')
-            $script:map.FileLanguages | Should -Be @('gadget-pipe', 'notes', 'probe-lang', 'widget-config', 'widget-script', '(other)')
+            $script:map.FileLanguages | Should -Be @('gadget-pipe', 'notes', 'probe-lang', 'widget-config',
+                'widget-script', '(other)')
             $script:map.Cells.Count | Should -Be 36
             $script:map.Cells[0].Track | Should -Be 'ado-pipelines'
             $script:map.Cells[0].FileLanguage | Should -Be 'gadget-pipe'
@@ -114,7 +124,8 @@ Describe 'WorldMapBuilder' -Tag 'L0', 'logic' {
         }
 
         It 'rejects a path listed twice' {
-            { & $script:build -Paths @('docs/guide.md', 'docs/guide.md') } | Should -Throw "*'docs/guide.md' is placed twice*"
+            { & $script:build -Paths @('docs/guide.md', 'docs/guide.md') } |
+                Should -Throw "*'docs/guide.md' is placed twice*"
         }
     }
 
@@ -202,8 +213,11 @@ Describe 'WorldMapBuilder' -Tag 'L0', 'logic' {
         }
 
         It 'reads no citation from a file a citation_exclude glob matches, and still places the file' {
-            $map = [Catzc.Base.Maps.WorldMapBuilder]::Build($script:tracks, $script:languages, $script:paths, $script:aspects, $script:index,
-                $script:adrFiles, $script:texts, [ordered]@{ 'importer.ps1' = 'widgets/Alpha' }, $script:globSets, @('docs/*.md', 'widgets/Alpha/tests/**'))
+            $map = [Catzc.Base.Maps.WorldMapBuilder]::Build($script:tracks, $script:languages, $script:paths,
+                $script:aspects, $script:index,
+                $script:adrFiles, $script:texts,
+                [ordered]@{ 'importer.ps1' = 'widgets/Alpha' }, $script:globSets, @('docs/*.md',
+                'widgets/Alpha/tests/**'))
             $guide = $map.Placement('docs/guide.md')
             "$($guide.Track) x $($guide.FileLanguage) $($guide.Basis)" | Should -Be 'docs x notes none'
             $guide.Citations | Should -BeNullOrEmpty
@@ -222,9 +236,12 @@ Describe 'WorldMapBuilder' -Tag 'L0', 'logic' {
             @($data.PSObject.Properties.Name) | Should -Be @('tracks', 'file_languages', 'file_count', 'cells', 'files')
             $data.file_count | Should -Be $script:paths.Count
             @($data.cells).Count | Should -Be 36
-            @($data.cells[0].PSObject.Properties.Name) | Should -Be @('track', 'file_language', 'file_count', 'stack_violation')
-            @($data.files[0].PSObject.Properties.Name) | Should -Be @('path', 'track', 'file_language', 'live', 'stack_violation', 'basis', 'adr', 'citations')
-            ($data.files | Where-Object path -EQ 'importer.ps1').citations | Should -Be @('ADR-GIZMO-COG', 'ADR-GIZMO-COG-DROP', 'ADR-WIDGET-GADGET-SPIN')
+            @($data.cells[0].PSObject.Properties.Name) | Should -Be @('track', 'file_language', 'file_count',
+                'stack_violation')
+            @($data.files[0].PSObject.Properties.Name) | Should -Be @('path', 'track', 'file_language', 'live',
+                'stack_violation', 'basis', 'adr', 'citations')
+            ($data.files | Where-Object path -EQ 'importer.ps1').citations | Should -Be @('ADR-GIZMO-COG',
+                'ADR-GIZMO-COG-DROP', 'ADR-WIDGET-GADGET-SPIN')
         }
 
         It 'renders console-ready' {

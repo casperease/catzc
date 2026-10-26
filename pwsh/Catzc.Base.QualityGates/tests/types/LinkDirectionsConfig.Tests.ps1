@@ -1,4 +1,5 @@
-# The config holds the rows in order and the exempt files with their reasons; every default is declared once on the type.
+# The config holds the rows in order and the exempt files with their reasons; every default is declared once on the
+# type.
 Describe 'LinkDirectionsConfig' -Tag 'L0', 'logic', 'ADR-REPO-LINKS-DIRECTIONSAREROWS', 'ADR-REPO-LINKS-EXCEPTIONSAREENTRIES' {
     It 'takes no rows and no exemptions when nothing is given' {
         $config = [Catzc.Base.QualityGates.LinkDirectionsConfig]::new(@{})
@@ -17,9 +18,12 @@ Describe 'LinkDirectionsConfig' -Tag 'L0', 'logic', 'ADR-REPO-LINKS-DIRECTIONSAR
     }
 
     It 'refuses an unknown key, rows that are no list, an exemption with no reason and names the bad row' {
-        { [Catzc.Base.QualityGates.LinkDirectionsConfig]::new(@{ mode = 'report' }) } | Should -Throw '*unknown key ''mode''*'
-        { [Catzc.Base.QualityGates.LinkDirectionsConfig]::new(@{ rows = 'allow' }) } | Should -Throw '*rows must be a list*'
-        { [Catzc.Base.QualityGates.LinkDirectionsConfig]::new(@{ exempt = @{ 'docs/gadget.md' = '' } }) } | Should -Throw '*needs its reason*'
+        { [Catzc.Base.QualityGates.LinkDirectionsConfig]::new(@{ mode = 'report' }) } |
+            Should -Throw '*unknown key ''mode''*'
+        { [Catzc.Base.QualityGates.LinkDirectionsConfig]::new(@{ rows = 'allow' }) } |
+            Should -Throw '*rows must be a list*'
+        { [Catzc.Base.QualityGates.LinkDirectionsConfig]::new(@{ exempt = @{ 'docs/gadget.md' = '' } }) } |
+            Should -Throw '*needs its reason*'
         { [Catzc.Base.QualityGates.LinkDirectionsConfig]::new(@{ rows = @(@{ verdict = 'allow'; because = 'ADR-WIDGET-ONE' }, @{ verdict = 'allow' }) }) } |
             Should -Throw '*row 2: because is required*'
     }

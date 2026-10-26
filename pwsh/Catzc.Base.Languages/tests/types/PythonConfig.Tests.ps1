@@ -40,7 +40,8 @@ Describe 'PythonConfig' -Tag 'L0' {
         }
 
         It 'type-checks in standard mode unless the file names another' {
-            ([Catzc.Base.Languages.PythonConfig]::new([ordered]@{ dependencies = $script:pins })).type_checking | Should -Be 'standard'
+            ([Catzc.Base.Languages.PythonConfig]::new([ordered]@{ dependencies = $script:pins })).type_checking |
+                Should -Be 'standard'
             ([Catzc.Base.Languages.PythonConfig]::new([ordered]@{ dependencies = $script:pins; type_checking = 'strict' })).type_checking | Should -Be 'strict'
         }
 

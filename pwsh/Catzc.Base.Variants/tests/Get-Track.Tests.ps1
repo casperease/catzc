@@ -4,7 +4,8 @@ Describe 'Get-Track' -Tag 'L0', 'logic' {
                 tracks = [ordered]@{
                     widget   = [ordered]@{ members = @('widget'); type = 'widget-works'; languages = @('widget-lang') }
                     gadget   = [ordered]@{ members = @('gadget'); type = 'gadget-shelf'; vendor = 'gizmo'; languages = @('gadget-lang', 'widget-lang') }
-                    '.gizmo' = [ordered]@{ members = @('.gizmo', 'gadget/gizmo-settings'); type = 'gizmo-settings'; vendor = 'gizmo' }
+                    '.gizmo' = [ordered]@{ members = @('.gizmo',
+                        'gadget/gizmo-settings'); type = 'gizmo-settings'; vendor = 'gizmo' }
                     sprocket = [ordered]@{ members = @('.sprocket'); type = 'sprocket-tests' }
                 }
             })
@@ -63,7 +64,8 @@ Describe 'Get-Track' -Tag 'L0', 'logic' {
 
     Context 'no registry declared' {
         It 'cannot happen: a variants config without tracks fails at construction, naming the key' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
-            { [Catzc.Base.Variants.VariantsConfig]::new([ordered]@{}) } | Should -Throw '*declares no tracks; add tracks:*'
+            { [Catzc.Base.Variants.VariantsConfig]::new([ordered]@{}) } |
+                Should -Throw '*declares no tracks; add tracks:*'
         }
     }
 }

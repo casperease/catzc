@@ -18,7 +18,8 @@ Describe 'Save-ResultCache' -Tag 'L1', 'logic' {
 
     It 'keeps the entries another process saved meanwhile, and its own entries win' {
         [System.IO.Directory]::CreateDirectory([System.IO.Path]::GetDirectoryName($script:path)) | Out-Null
-        [System.IO.File]::WriteAllText($script:path, (ConvertTo-Json -InputObject @{ 'gadget/other.ps1' = 'OTHER:s'; 'widget/a.ps1' = 'OLD:s' }))
+        [System.IO.File]::WriteAllText($script:path,
+            (ConvertTo-Json -InputObject @{ 'gadget/other.ps1' = 'OTHER:s'; 'widget/a.ps1' = 'OLD:s' }))
 
         InModuleScope Catzc.Base.QualityGates -Parameters @{ P = $script:path } {
             param($P) Save-ResultCache -Path $P -Cache @{ 'widget/a.ps1' = 'NEW:s' }

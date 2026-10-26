@@ -18,18 +18,21 @@ Describe 'Build-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' 
         $script:tracked = @($pages.Keys | Where-Object { $_ -like 'docs/*' }) + @(
             'docs/widgets/.assets/widget-a.drawio.png', 'docs/widgets/.assets/widget-a.drawio.yml',
             'docs/widgets/.assets/widget-b.drawio.png', 'docs/gadgets/.assets/gadget.drawio.png',
-            'docs/gizmos/.assets/gizmo.drawio.png', 'docs/widgets/loose.drawio.png', 'docs/widgets/.assets/nested/deep.drawio.png')
+            'docs/gizmos/.assets/gizmo.drawio.png', 'docs/widgets/loose.drawio.png',
+            'docs/widgets/.assets/nested/deep.drawio.png')
     }
 
     BeforeEach {
-        Mock Get-GitTrackedPath -ModuleName Catzc.Base.Slides { $script:tracked | Where-Object { $_ -notlike 'docs/gadgets/*' } }
+        Mock Get-GitTrackedPath -ModuleName Catzc.Base.Slides { $script:tracked |
+            Where-Object { $_ -notlike 'docs/gadgets/*' } }
         Mock Get-GitChangedPath -ModuleName Catzc.Base.Slides { }
         Mock Resolve-ToolExecutable -ModuleName Catzc.Base.Slides { [pscustomobject]@{ Found = $true; Path = 'C:/tools/uv.exe' } }
         Mock Write-DiagramMinimapData -ModuleName Catzc.Base.Slides { }
         Mock Write-DiagramQueryRows -ModuleName Catzc.Base.Slides { $Path }
         Mock Invoke-Executable -ModuleName Catzc.Base.Slides {
             $rows = @(if ($Command -match '--all (.+)$') {
-                    [regex]::Matches($Matches[1], '"([^"]+)"') | ForEach-Object { @{ diagram = $_.Groups[1].Value; exit = 0 } | ConvertTo-Json -Compress }
+                    [regex]::Matches($Matches[1], '"([^"]+)"') |
+                        ForEach-Object { @{ diagram = $_.Groups[1].Value; exit = 0 } | ConvertTo-Json -Compress }
                 })
             [pscustomobject]@{ ExitCode = 0; Output = $rows -join "`n" }
         }
@@ -48,7 +51,8 @@ Describe 'Build-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' 
     }
 
     It 'writes the minimap data of every declared folder in one call, one progress line per folder' {
-        $declarations = @('docs/widgets/.assets/widget-a', 'docs/widgets/.assets/widget-b' | ForEach-Object { Join-Path $script:widgetRoot "$_.drawio.yml" })
+        $declarations = @('docs/widgets/.assets/widget-a',
+            'docs/widgets/.assets/widget-b' | ForEach-Object { Join-Path $script:widgetRoot "$_.drawio.yml" })
         Mock Write-DiagramMinimapData -ModuleName Catzc.Base.Slides { foreach ($item in $Stem) {
                 "out/minimaps/$item"
             } }
@@ -69,7 +73,8 @@ Describe 'Build-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' 
 
     It 'with no path, rebuilds every diagram pair in a docs/**/.assets/ folder, and nothing outside one or nested below it' {
         $folders = @(& $script:build).Folder
-        $folders | Should -Be @('docs/widgets/.assets/widget-a', 'docs/widgets/.assets/widget-b', 'docs/gizmos/.assets/gizmo')
+        $folders | Should -Be @('docs/widgets/.assets/widget-a', 'docs/widgets/.assets/widget-b',
+            'docs/gizmos/.assets/gizmo')
     }
 
     It 'calls the kit''s renderer through uv in the kit''s own project, every folder absolute, in one call' {
@@ -82,7 +87,8 @@ Describe 'Build-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' 
 
     It 'splits the renders across the workers it is given, the default 3 declared once on SlidesConfig' {
         [Catzc.Base.Slides.SlidesConfig]::DefaultRenderParallel | Should -Be 3
-        & $script:build @{ Path = 'docs/widgets/.assets/widget-a', 'docs/widgets/.assets/widget-b'; Workers = 1 } | Out-Null
+        & $script:build @{ Path = 'docs/widgets/.assets/widget-a', 'docs/widgets/.assets/widget-b'; Workers = 1 } |
+            Out-Null
         Should -Invoke Invoke-Executable -ModuleName Catzc.Base.Slides -Times 1 -Exactly -ParameterFilter { $Command -like '* --workers 1 --rows "*" --all *' }
     }
 
@@ -90,12 +96,14 @@ Describe 'Build-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' 
         Mock Invoke-Executable -ModuleName Catzc.Base.Slides {
             [pscustomobject]@{ ExitCode = 1; Output = (@{ diagram = (Join-Path $script:widgetRoot 'docs/widgets/.assets/widget-a'); exit = 0 } | ConvertTo-Json -Compress) }
         }
-        { & $script:build @{ Path = 'docs/widgets/.assets/widget-a', 'docs/widgets/.assets/widget-b' } } | Should -Throw '*the renderer failed on docs/widgets/.assets/widget-b (exit 1)*'
+        { & $script:build @{ Path = 'docs/widgets/.assets/widget-a', 'docs/widgets/.assets/widget-b' } } |
+            Should -Throw '*the renderer failed on docs/widgets/.assets/widget-b (exit 1)*'
     }
 
     It 'refuses an orphan as an error: no page embeds its png' {
         Mock Get-GitTrackedPath -ModuleName Catzc.Base.Slides { @($script:tracked) + 'docs/gizmos/.assets/lone.drawio.png' }
-        { & $script:build @{ Path = 'docs/gizmos/.assets/lone' } } | Should -Throw '*E_ORPHAN docs/gizmos/.assets/lone: no page embeds its .drawio.png*'
+        { & $script:build @{ Path = 'docs/gizmos/.assets/lone' } } |
+            Should -Throw '*E_ORPHAN docs/gizmos/.assets/lone: no page embeds its .drawio.png*'
         Should -Invoke Invoke-Executable -ModuleName Catzc.Base.Slides -Times 0
     }
 
@@ -109,7 +117,8 @@ Describe 'Build-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' 
     It 'holds each embedding page''s Supports line against the yml, refusing the one that disagrees' -Tag 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' {
         $folder = Join-Path $script:widgetRoot 'docs/gadgets/.assets'
         [System.IO.Directory]::CreateDirectory($folder) | Out-Null
-        [System.IO.File]::WriteAllText((Join-Path $folder 'gadget.drawio.yml'), "about:`n  lens: architecture`n  adrs: [ADR-WIDGET-GADGET]`ncontent: {}`n")
+        [System.IO.File]::WriteAllText((Join-Path $folder 'gadget.drawio.yml'),
+            "about:`n  lens: architecture`n  adrs: [ADR-WIDGET-GADGET]`ncontent: {}`n")
         [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/gadgets/index.md'),
             "# Gadgets`n`nSupports ADR-WIDGET-GADGET (architecture lens).`n`n![Gadget](.assets/gadget.drawio.png)`n")
         [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/gadgets/second.md'),
@@ -121,7 +130,8 @@ Describe 'Build-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' 
         catch {
             $_.Exception.Message
         }
-        $message | Should -BeLike '*E_SUPPORTS docs/gadgets/second.md says Supports ADR-WIDGET-COG (architecture lens) for docs/gadgets/.assets/gadget; its yml says ADR-WIDGET-GADGET (architecture lens)*'
+        $message |
+            Should -BeLike '*E_SUPPORTS docs/gadgets/second.md says Supports ADR-WIDGET-COG (architecture lens) for docs/gadgets/.assets/gadget; its yml says ADR-WIDGET-GADGET (architecture lens)*'
         $message | Should -Not -BeLike '*docs/gadgets/index.md says*'
     }
 
@@ -149,7 +159,8 @@ Describe 'Build-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' 
 
     It 'finds a diagram an article declares before its first put, from its block, and writes its minimap data from the block' -Tag 'ADR-REPO-SLIDES-DECLARATION' {
         $page = Join-Path $script:widgetRoot 'docs/gizmos/cog.md'
-        [System.IO.File]::WriteAllText($page, "# Cog`n`n``````yml drawio`nabout: { lens: architecture, adrs: [ADR-WIDGET-GADGET] }`ncontent: {}`n```````n`n![Cog](.assets/cog.drawio.png)`n")
+        [System.IO.File]::WriteAllText($page,
+            "# Cog`n`n``````yml drawio`nabout: { lens: architecture, adrs: [ADR-WIDGET-GADGET] }`ncontent: {}`n```````n`n![Cog](.assets/cog.drawio.png)`n")
         Mock Get-GitChangedPath -ModuleName Catzc.Base.Slides { 'docs/gizmos/cog.md' }
         Mock Get-GitTrackedPath -ModuleName Catzc.Base.Slides { @($script:tracked) + 'docs/gizmos/cog.md' }
         Mock Write-DiagramMinimapData -ModuleName Catzc.Base.Slides { foreach ($item in $Stem) {
@@ -181,7 +192,8 @@ Describe 'Build-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' 
         Mock Invoke-Executable -ModuleName Catzc.Base.Slides { [pscustomobject]@{ ExitCode = 3; Output = (& $script:row 3) } }
         @(& $script:build $one).Status | Should -Be @('nothing')
         Mock Invoke-Executable -ModuleName Catzc.Base.Slides { [pscustomobject]@{ ExitCode = 1; Output = "line one`nTraceback: widget" } }
-        { & $script:build $one } | Should -Throw '*renderer failed on docs/widgets/.assets/widget-a (exit 1)*Traceback: widget*'
+        { & $script:build $one } |
+            Should -Throw '*renderer failed on docs/widgets/.assets/widget-a (exit 1)*Traceback: widget*'
     }
 
     It 'stops when the kit has no renderer' {
@@ -215,7 +227,8 @@ Describe 'Build-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' 
             Mock Invoke-Executable -ModuleName Catzc.Base.Slides {
                 [pscustomobject]@{ ExitCode = 0; Output = '{"diagram": "docs/widgets/.assets/widget-b", "error": "the yml and the png both moved from HEAD and disagree in widget-a"}' }
             }
-            { & $script:build @{ Path = 'docs/widgets/.assets/widget-b'; FromDrawing = $true } } | Should -Throw '*sync of docs/widgets/.assets/widget-b stopped*disagree in widget-a*'
+            { & $script:build @{ Path = 'docs/widgets/.assets/widget-b'; FromDrawing = $true } } |
+                Should -Throw '*sync of docs/widgets/.assets/widget-b stopped*disagree in widget-a*'
             Should -Invoke Test-Diagrams -ModuleName Catzc.Base.Slides -Times 0 -Exactly
         }
 
@@ -224,7 +237,8 @@ Describe 'Build-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' 
         }
 
         It 'refuses a diagram without a declaration' {
-            { & $script:build @{ Path = 'docs/widgets/.assets/widget-a'; FromDrawing = $true } } | Should -Throw '*widget-a has no declaration to sync*'
+            { & $script:build @{ Path = 'docs/widgets/.assets/widget-a'; FromDrawing = $true } } |
+                Should -Throw '*widget-a has no declaration to sync*'
         }
     }
 
@@ -248,7 +262,8 @@ Describe 'Build-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' 
         }
 
         It 'finds its diagrams itself' {
-            { & $script:build @{ Stale = $true; Path = 'docs/widgets/.assets/widget-b' } } | Should -Throw '*-Stale finds its diagrams itself*'
+            { & $script:build @{ Stale = $true; Path = 'docs/widgets/.assets/widget-b' } } |
+                Should -Throw '*-Stale finds its diagrams itself*'
         }
     }
 }

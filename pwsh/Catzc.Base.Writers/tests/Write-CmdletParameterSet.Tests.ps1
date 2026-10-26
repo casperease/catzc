@@ -1,4 +1,5 @@
-[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '', Justification = 'Tests lift $global:__PesterRunning to verify writer output; that flag is the writers'' test-suppression interface, set by Test-Automation')]
+[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '',
+    Justification = 'Tests lift $global:__PesterRunning to verify writer output; that flag is the writers'' test-suppression interface, set by Test-Automation')]
 param()
 
 Describe 'Write-CmdletParameterSet' -Tag 'L0', 'logic' {
@@ -12,7 +13,8 @@ Describe 'Write-CmdletParameterSet' -Tag 'L0', 'logic' {
         }
 
         function Test-DummyFunc {
-            [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = 'Params are used via $MyInvocation, not directly')]
+            [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '',
+                Justification = 'Params are used via $MyInvocation, not directly')]
             param([string]$Name, [string]$Secret, [switch]$Force)
             Write-CmdletParameterSet $MyInvocation -HiddenKeys 'Secret' -InformationVariable iv -InformationAction SilentlyContinue 6>&1 | Out-Null
             $iv

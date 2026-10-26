@@ -41,7 +41,8 @@ function Test-GeneratedFiles {
         })
 
     $issues = [System.Collections.Generic.List[string]]::new()
-    # With -Changed only the writers Get-GeneratedWriterDue names run their dry run: the one reading of the inputs and outputs lists.
+    # With -Changed only the writers Get-GeneratedWriterDue names run their dry run: the one reading of the inputs and
+    # outputs lists.
     $dueNames = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
     # A stamp-only check runs no writer, so it reads no due rows (the import's janitor has its own).
     if ($Changed -and -not $StampOnly) {
@@ -91,7 +92,8 @@ function Test-GeneratedFiles {
             }
             'root-config' {
                 # The managed root files: the writer selects them all, a generator only the files it renders.
-                if ($writerName -in $selected -or @($selected | Where-Object { $_ -in $rootConfigGenerators }).Count -gt 0) {
+                if ($writerName -in $selected -or
+                    @($selected | Where-Object { $_ -in $rootConfigGenerators }).Count -gt 0) {
                     foreach ($result in @(& $writerName -DryRun -PassThru -Silent)) {
                         $name = if ($result.Generator) {
                             "$($result.Generator)"

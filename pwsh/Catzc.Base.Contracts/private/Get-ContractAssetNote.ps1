@@ -40,7 +40,8 @@ function Get-ContractAssetNote {
             Write-Verbose "Get-ContractAssetNote: '$($Asset.AssetPath)' does not parse, so it carries no note: $($_.Exception.Message)"
             return
         }
-        if ($schema -is [System.Collections.IDictionary] -and $schema.Contains('$comment') -and $schema['$comment'] -is [string]) {
+        if ($schema -is [System.Collections.IDictionary] -and $schema.Contains('$comment') -and
+            $schema['$comment'] -is [string]) {
             $parts.Add($schema['$comment'])
         }
     }

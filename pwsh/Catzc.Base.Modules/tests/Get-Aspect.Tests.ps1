@@ -59,6 +59,7 @@ Describe 'Get-Aspect' -Tag 'L0', 'logic', 'ADR-AUTO-MODULE-EXISTSBYLAYOUT' {
 Describe 'Get-Aspect on the repository' -Tag 'L1', 'integrity', 'ADR-AUTO-MODULE-EXISTSBYLAYOUT' {
     It 'gives the code track the five live folders the aspects were written with' {
         $code = Get-Track -Path (Get-CatzcModulesFolder)
-        (Get-Aspect -Track $code.name)[0].Patterns | Should -Be @('*.ps1', 'private/**', 'types/**', 'configs/**', '*.py', '*.go', '*.sh', '*.js', 'assets/**')
+        (Get-Aspect -Track $code.name)[0].Patterns | Should -Be @('*.ps1', 'private/**', 'types/**', 'configs/**',
+            '*.py', '*.go', '*.sh', '*.js', 'assets/**')
     }
 }

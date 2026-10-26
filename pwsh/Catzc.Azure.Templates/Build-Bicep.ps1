@@ -7,7 +7,8 @@ catzc:
 #>
 
 function Build-Bicep {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = 'ArgumentCompleter scriptblocks require PowerShell''s fixed 5-parameter completer signature; only $fakeBoundParameters is used, but the other four are mandatory and cannot be removed')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '',
+        Justification = 'ArgumentCompleter scriptblocks require PowerShell''s fixed 5-parameter completer signature; only $fakeBoundParameters is used, but the other four are mandatory and cannot be removed')]
     [CmdletBinding()]
     param(
         [Parameter(Mandatory, Position = 0)]
@@ -81,8 +82,10 @@ function Build-Bicep {
             }
         }
 
-        if ($configurationDescriptor.Contains('ParametersFile') -and $configurationDescriptor.ParametersFile -is [System.Collections.IDictionary] -and
-            $configurationDescriptor.ParametersFile.Contains('parameters') -and $configurationDescriptor.ParametersFile.parameters -is [System.Collections.IDictionary]) {
+        if ($configurationDescriptor.Contains('ParametersFile') -and
+            $configurationDescriptor.ParametersFile -is [System.Collections.IDictionary] -and
+            $configurationDescriptor.ParametersFile.Contains('parameters') -and
+            $configurationDescriptor.ParametersFile.parameters -is [System.Collections.IDictionary]) {
             $configFolder = if ([string]::IsNullOrEmpty($slot.customer)) {
                 $templateDescriptor.configuration_folder
             }
@@ -111,7 +114,8 @@ function Build-Bicep {
             throw "Prepared configuration for $Template / $($slot.name) is missing 'ParametersFile' (check the template's PrePost.psm1)"
         }
 
-        [System.IO.File]::WriteAllText($bicepParamPath, (ConvertTo-BicepParam -Descriptor $preparedDescriptor -Using $using))
+        [System.IO.File]::WriteAllText($bicepParamPath,
+            (ConvertTo-BicepParam -Descriptor $preparedDescriptor -Using $using))
         Invoke-BicepParamsBuild -BicepParamPath $bicepParamPath -ParametersPath $paramsPath
     }
 

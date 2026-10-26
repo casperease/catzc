@@ -11,7 +11,8 @@ Describe 'FileCarrierResolver' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-KINDSCOPE'
                 carriers = [ordered]@{
                     widget   = @{ carrier = 'comment-head'; line = '#'; exclude = @{ '**/tests/**' = 'a test carries no head' } }
                     gadget   = @{ carrier = 'front-matter' }
-                    sprocket = @{ files = @('docs/special/**', '**/*.wdg.keep'); carrier = 'none'; reason = 'kept verbatim' }
+                    sprocket = @{ files = @('docs/special/**',
+                        '**/*.wdg.keep'); carrier = 'none'; reason = 'kept verbatim' }
                 }
             })
         $script:resolver = [Catzc.Base.QualityGates.FileCarrierResolver]::new($script:carriers, $script:languages)
@@ -41,11 +42,13 @@ Describe 'FileCarrierResolver' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-KINDSCOPE'
         $widget = $script:resolver.For('widgets/Widget/get.wdg')
         $script:resolver.IsExcluded($widget, 'widgets/Widget/tests/get.wdg') | Should -BeTrue
         $script:resolver.IsExcluded($widget, 'widgets/Widget/get.wdg') | Should -BeFalse
-        $script:resolver.IsExcluded($script:resolver.For('docs/read.gdg'), 'docs/tests/read.gdg') | Should -BeFalse -Because 'only the widget entry lists an exclude'
+        $script:resolver.IsExcluded($script:resolver.For('docs/read.gdg'), 'docs/tests/read.gdg') |
+            Should -BeFalse -Because 'only the widget entry lists an exclude'
     }
 
     It 'resolves with the shipped registries, every language file to its entry' -Tag 'integrity' {
-        $shipped = [Catzc.Base.QualityGates.FileCarrierResolver]::new((Get-Config -Config file-carriers), (Get-Config -Config languages))
+        $shipped = [Catzc.Base.QualityGates.FileCarrierResolver]::new((Get-Config -Config file-carriers),
+            (Get-Config -Config languages))
         $modulesFolder = Get-CatzcModulesFolder
         $shipped.For("$modulesFolder/Catzc.Base.QualityGates/Format-Code.ps1").id | Should -BeExactly 'powershell'
         $shipped.For("$modulesFolder/Catzc.Base.Languages/types/FileLanguage.cs").id | Should -BeExactly 'bcl'
@@ -53,6 +56,8 @@ Describe 'FileCarrierResolver' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-KINDSCOPE'
         $shipped.For('docs/explanation/design/.assets/gadget-spins.drawio.png').id | Should -BeExactly 'diagram-render'
         $shipped.For('docs/references/pwsh/.assets/catzc-widget.drawio.png').id | Should -BeExactly 'diagram-render'
         $shipped.For('.gitignore').id | Should -BeExactly 'dotfile'
-        $shipped.IsExcluded($shipped.For("$modulesFolder/Catzc.Base.Widget/tests/Get-Gadget.Tests.ps1"), "$modulesFolder/Catzc.Base.Widget/tests/Get-Gadget.Tests.ps1") | Should -BeFalse -Because 'a test file carries a head like any other source file'
+        $shipped.IsExcluded($shipped.For("$modulesFolder/Catzc.Base.Widget/tests/Get-Gadget.Tests.ps1"),
+            "$modulesFolder/Catzc.Base.Widget/tests/Get-Gadget.Tests.ps1") |
+            Should -BeFalse -Because 'a test file carries a head like any other source file'
     }
 }

@@ -39,7 +39,8 @@ Describe 'AzureConfig' -Tag 'L0' {
             foreach ($name in $azure.subscriptions.Keys) {
                 $token = & (Get-Module Catzc.Azure) { Get-AzureSubscriptionCustomer $args[0] } $azure.subscriptions[$name]
                 if (-not [string]::IsNullOrEmpty($token)) {
-                    { Get-AzureCustomer $token } | Should -Not -Throw -Because "shipped subscription '$name' references customer '$token'"
+                    { Get-AzureCustomer $token } |
+                        Should -Not -Throw -Because "shipped subscription '$name' references customer '$token'"
                 }
             }
         }
@@ -145,18 +146,21 @@ Describe 'AzureConfig' -Tag 'L0' {
 
             It 'throws when the staged environment does not exist' {
                 $script:staged.environments.beta.staging_for = 'gamma'
-                { & $script:make $script:staged } | Should -Throw "*environment 'beta' stages unknown environment 'gamma'*"
+                { & $script:make $script:staged } |
+                    Should -Throw "*environment 'beta' stages unknown environment 'gamma'*"
             }
 
             It 'throws when a per-subscription environment stages or is staged' {
                 $script:staged.environments.alpha.per_subscription = $true
-                { & $script:make $script:staged } | Should -Throw '*a per-subscription environment cannot stage or be staged*'
+                { & $script:make $script:staged } |
+                    Should -Throw '*a per-subscription environment cannot stage or be staged*'
             }
 
             It 'throws when a subscription serves the staging environment but not its target' {
                 $script:staged.environments.gamma = [ordered]@{ shortcode = 'ga'; region = 'westeurope'; region_code = 'weu' }
                 $script:staged.subscriptions.core_lower.environments = @('gamma', 'beta')
-                { & $script:make $script:staged } | Should -Throw "*subscription 'core_lower' serves staging environment 'beta' but not the 'alpha' it stages*"
+                { & $script:make $script:staged } |
+                    Should -Throw "*subscription 'core_lower' serves staging environment 'beta' but not the 'alpha' it stages*"
             }
         }
 
@@ -344,7 +348,8 @@ Describe 'AzureConfig' -Tag 'L0' {
             $bad.environments.alpha.region_code = 'westeurope'
             $bad.subscriptions.core_lower.environments = @('bogus')
             $err = { & $script:make $bad } | Should -Throw -PassThru
-            foreach ($expected in '*org*is invalid*', "*tenant 'fixtenant' has invalid id*", '*invalid region_code*', '*unknown environment*') {
+            foreach ($expected in '*org*is invalid*', "*tenant 'fixtenant' has invalid id*", '*invalid region_code*',
+                '*unknown environment*') {
                 $err.Exception.Message | Should -BeLike $expected
             }
         }

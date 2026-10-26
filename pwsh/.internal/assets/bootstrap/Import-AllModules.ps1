@@ -5,7 +5,8 @@
 # .PARAMETER ModulesRoot
 #     Path to the directory containing module folders.
 function Import-AllModules {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '', Justification = '$global:__CatzcLoadTimings is session-global import diagnostics collected across all modules, surfaced by importer.ps1 -DiagnoseLoadTime')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '',
+        Justification = '$global:__CatzcLoadTimings is session-global import diagnostics collected across all modules, surfaced by importer.ps1 -DiagnoseLoadTime')]
     [CmdletBinding()]
     param(
         [Parameter(Mandatory)]
@@ -23,7 +24,8 @@ function Import-AllModules {
         # must be shipped (never compiled). Passed by Invoke-Importer -Bundle; off for the mono repo.
         [switch]$Bundle,
 
-        # The importer passes console for an interactive dot-source; the types-load policy decides lazy or eager from it.
+        # The importer passes console for an interactive dot-source; the types-load policy decides lazy or eager from
+        # it.
         [ValidateSet('console', 'headless')]
         [string]$HostKind = 'headless'
     )
@@ -69,7 +71,8 @@ function Import-AllModules {
     # semantics, anchored here — the loader itself may be the foreign one). The running importer modules are
     # never removed unless this root's instance is the one running. Removal tolerates a module already gone
     # with its parent; Invoke-Importer's exclusivity assert (after the load) proves nothing foreign survived.
-    $rootInternal = [System.IO.Path]::GetFullPath([System.IO.Path]::Combine($ModulesRoot, '.internal')).TrimEnd('\', '/')
+    $rootInternal = [System.IO.Path]::GetFullPath([System.IO.Path]::Combine($ModulesRoot, '.internal')).TrimEnd('\',
+        '/')
     $evicted = [System.Collections.Generic.List[string]]::new()
     foreach ($foreign in @(Get-ForeignCatzcModule -ModulesRoot $ModulesRoot -IncludeInternal)) {
         $isInternal = $foreign.Name -like 'Catzc.Internal.*'
@@ -129,7 +132,8 @@ function Import-AllModules {
                         $fileCount++
                     }
                 }
-                $privateDir = [System.IO.Path]::Combine($dir.FullName, (Get-PrivateFunctionFolder -ModulesRoot $ModulesRoot))
+                $privateDir = [System.IO.Path]::Combine($dir.FullName,
+                    (Get-PrivateFunctionFolder -ModulesRoot $ModulesRoot))
                 if ([System.IO.Directory]::Exists($privateDir)) {
                     foreach ($pf in [System.IO.Directory]::GetFiles($privateDir, '*.ps1')) {
                         [void][System.IO.File]::ReadAllText($pf)
@@ -152,7 +156,8 @@ function Import-AllModules {
             if ($DiagnoseLoadTime) {
                 $importMs = [int]$sw.Elapsed.TotalMilliseconds
                 $total = $manifestMs + $readMs + $importMs
-                Write-ImporterMessage ('    {0,6}ms  {1} (manifest {2}ms + raw-read {3}ms + import {4}ms)' -f $total, $dir.Name, $manifestMs, $readMs, $importMs) -ForegroundColor DarkGray
+                Write-ImporterMessage ('    {0,6}ms  {1} (manifest {2}ms + raw-read {3}ms + import {4}ms)' -f $total,
+                    $dir.Name, $manifestMs, $readMs, $importMs) -ForegroundColor DarkGray
                 if ($null -ne (Get-Variable -Name '__CatzcLoadTimings' -Scope Global -ValueOnly -ErrorAction Ignore)) {
                     $global:__CatzcLoadTimings.Add([pscustomobject]@{ Stage = $dir.Name; Ms = $total; ReadMs = $readMs; ImportMs = $importMs; FileCount = $fileCount })
                 }

@@ -57,19 +57,24 @@ Describe 'Catzc.Base.QualityGates.PlansConfig' -Tag 'L0', 'logic', 'ADR-AUTO-DEF
     It 'rejects an unknown key, an empty set, a bad roof and a pattern that is no regular expression' {
         Get-ViolationMessage ([ordered]@{ widgets = 1 }) | Should -BeLike "*unknown top-level key 'widgets'*"
         Get-ViolationMessage ([ordered]@{ statuses = @() }) | Should -BeLike '*statuses must be a non-empty list*'
-        Get-ViolationMessage ([ordered]@{ tasks = @{ max = 0 } }) | Should -BeLike '*tasks.max must be a positive integer*'
-        Get-ViolationMessage ([ordered]@{ head = @{ widgets = @('a') } }) | Should -BeLike "*head: unknown key 'widgets'*"
+        Get-ViolationMessage ([ordered]@{ tasks = @{ max = 0 } }) |
+            Should -BeLike '*tasks.max must be a positive integer*'
+        Get-ViolationMessage ([ordered]@{ head = @{ widgets = @('a') } }) |
+            Should -BeLike "*head: unknown key 'widgets'*"
         Get-ViolationMessage ([ordered]@{ names = @('[') }) | Should -BeLike '*is not a regular expression*'
     }
 
     It 'lists the plan files of a folder in ordinal order, the master and every other name left out, and nothing below it' {
         $folder = Join-Path $TestDrive 'plans'
         $null = New-Item -ItemType Directory -Path (Join-Path $folder 'nested') -Force
-        foreach ($name in 'plan-widget.md', 'plan-gadget.md', 'plan-master.md', 'task-widget.md', 'nested/plan-sprocket.md') {
+        foreach ($name in 'plan-widget.md', 'plan-gadget.md', 'plan-master.md', 'task-widget.md',
+            'nested/plan-sprocket.md') {
             Set-Content -LiteralPath (Join-Path $folder $name) -Value 'x'
         }
         $files = [Catzc.Base.QualityGates.PlansConfig]::new(@{}).PlanFiles($folder)
-        @($files | ForEach-Object { [System.IO.Path]::GetFileName($_) }) | Should -Be @('plan-gadget.md', 'plan-widget.md')
-        @([Catzc.Base.QualityGates.PlansConfig]::new(@{}).PlanFiles((Join-Path $TestDrive 'missing'))).Count | Should -Be 0
+        @($files | ForEach-Object { [System.IO.Path]::GetFileName($_) }) | Should -Be @('plan-gadget.md',
+            'plan-widget.md')
+        @([Catzc.Base.QualityGates.PlansConfig]::new(@{}).PlanFiles((Join-Path $TestDrive 'missing'))).Count |
+            Should -Be 0
     }
 }

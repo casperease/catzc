@@ -53,7 +53,8 @@ function Get-DrsCitation {
     }
     foreach ($code in @($found)) {
         $own = @($defined | Where-Object { $_.StartsWith("$code-", [System.StringComparison]::Ordinal) }).Count -gt 0
-        $registered = $map.IsRule($code) -or ($map.HasCode($code) -and -not $own) -or ($withDomain -and $map.IsDomainCode($code))
+        $registered = $map.IsRule($code) -or ($map.HasCode($code) -and -not $own) -or ($withDomain -and
+            $map.IsDomainCode($code))
         if (-not $registered) {
             [void] $found.Remove($code)
         }

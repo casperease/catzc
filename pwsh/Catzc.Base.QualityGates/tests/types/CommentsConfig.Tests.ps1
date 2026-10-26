@@ -31,10 +31,14 @@ Describe 'CommentsConfig' -Tag 'L0', 'logic' {
         $config.IsExcluded('widget') | Should -BeFalse
         $config.IsExcluded('widget/spring') | Should -BeFalse
         $config.IsExcluded('test') | Should -BeFalse
-        { [Catzc.Base.QualityGates.CommentsConfig]::new(@{ exclude = @{ gadget = '' } }) } | Should -Throw '*needs a reason*'
-        { [Catzc.Base.QualityGates.CommentsConfig]::new(@{ exclude = @{ '**/gadgets/**' = 'a glob' } }) } | Should -Throw '*is not a file kind*'
-        { [Catzc.Base.QualityGates.CommentsConfig]::new(@{ exclude = @{ Gadget = 'upper case' } }) } | Should -Throw '*is not a file kind*'
-        { [Catzc.Base.QualityGates.CommentsConfig]::new(@{ exclude = 'gadgets' }) } | Should -Throw '*exclude must be a map*'
+        { [Catzc.Base.QualityGates.CommentsConfig]::new(@{ exclude = @{ gadget = '' } }) } |
+            Should -Throw '*needs a reason*'
+        { [Catzc.Base.QualityGates.CommentsConfig]::new(@{ exclude = @{ '**/gadgets/**' = 'a glob' } }) } |
+            Should -Throw '*is not a file kind*'
+        { [Catzc.Base.QualityGates.CommentsConfig]::new(@{ exclude = @{ Gadget = 'upper case' } }) } |
+            Should -Throw '*is not a file kind*'
+        { [Catzc.Base.QualityGates.CommentsConfig]::new(@{ exclude = 'gadgets' }) } |
+            Should -Throw '*exclude must be a map*'
     }
 
     It 'excludes nothing for an empty or missing class' {
@@ -72,18 +76,26 @@ Describe 'CommentsConfig' -Tag 'L0', 'logic' {
     }
 
     It 'rejects an unknown key, naming the allowed set' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
-        { [Catzc.Base.QualityGates.CommentsConfig]::new(@{ gadget = 1 }) } | Should -Throw '*unknown key*languages, min_lines*'
+        { [Catzc.Base.QualityGates.CommentsConfig]::new(@{ gadget = 1 }) } |
+            Should -Throw '*unknown key*languages, min_lines*'
     }
 
     It 'rejects a malformed value, naming its key' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
-        { [Catzc.Base.QualityGates.CommentsConfig]::new(@{ min_lines = 0 }) } | Should -Throw '*min_lines must be a positive integer*'
-        { [Catzc.Base.QualityGates.CommentsConfig]::new(@{ languages = @() }) } | Should -Throw '*languages must name at least one*'
-        { [Catzc.Base.QualityGates.CommentsConfig]::new(@{ languages = @('yaml', 'YAML') }) } | Should -Throw "*lists 'yaml' twice*"
+        { [Catzc.Base.QualityGates.CommentsConfig]::new(@{ min_lines = 0 }) } |
+            Should -Throw '*min_lines must be a positive integer*'
+        { [Catzc.Base.QualityGates.CommentsConfig]::new(@{ languages = @() }) } |
+            Should -Throw '*languages must name at least one*'
+        { [Catzc.Base.QualityGates.CommentsConfig]::new(@{ languages = @('yaml', 'YAML') }) } |
+            Should -Throw "*lists 'yaml' twice*"
         { [Catzc.Base.QualityGates.CommentsConfig]::new(@{ keep = 'widget' }) } | Should -Throw '*keep must be a map*'
-        { [Catzc.Base.QualityGates.CommentsConfig]::new(@{ keep = @{ powershell = 'widget' } }) } | Should -Throw '*keep.powershell must be a list*'
-        { [Catzc.Base.QualityGates.CommentsConfig]::new(@{ keep_run = 'widget' }) } | Should -Throw '*keep_run must be a map*'
-        { [Catzc.Base.QualityGates.CommentsConfig]::new(@{ keep_run = @{ csharp = 'widget' } }) } | Should -Throw '*keep_run.csharp must be a list*'
-        { [Catzc.Base.QualityGates.CommentsConfig]::new(@{ view = 'docs/view' }) } | Should -Throw '*view*must be a folder under out/*'
+        { [Catzc.Base.QualityGates.CommentsConfig]::new(@{ keep = @{ powershell = 'widget' } }) } |
+            Should -Throw '*keep.powershell must be a list*'
+        { [Catzc.Base.QualityGates.CommentsConfig]::new(@{ keep_run = 'widget' }) } |
+            Should -Throw '*keep_run must be a map*'
+        { [Catzc.Base.QualityGates.CommentsConfig]::new(@{ keep_run = @{ csharp = 'widget' } }) } |
+            Should -Throw '*keep_run.csharp must be a list*'
+        { [Catzc.Base.QualityGates.CommentsConfig]::new(@{ view = 'docs/view' }) } |
+            Should -Throw '*view*must be a folder under out/*'
         { [Catzc.Base.QualityGates.CommentsConfig]::new(@{ pages = @() }) } | Should -Throw '*unknown key*pages*'
     }
 }

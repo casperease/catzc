@@ -6,7 +6,8 @@ catzc:
 ---
 #>
 
-# catzc's writers are not loaded here, so the one standalone chokepoint, the Loader's Write-ImporterMessage, is imported by its path.
+# catzc's writers are not loaded here, so the one standalone chokepoint, the Loader's Write-ImporterMessage, is imported
+# by its path.
 if (-not (Get-Command Write-ImporterMessage -ErrorAction Ignore)) {
     Import-Module (Join-Path $PSScriptRoot '../../.internal/Catzc.Internal.Loader.psm1')
 }
@@ -44,7 +45,8 @@ else {
 
 # --- Check for modules left on DFS that should be moved ---
 $dfsModulePath = Join-Path $userConfigDir 'Modules'
-if ([System.IO.Directory]::Exists($dfsModulePath) -and [System.IO.Directory]::EnumerateDirectories($dfsModulePath).GetEnumerator().MoveNext()) {
+if ([System.IO.Directory]::Exists($dfsModulePath) -and
+    [System.IO.Directory]::EnumerateDirectories($dfsModulePath).GetEnumerator().MoveNext()) {
     Write-ImporterMessage ''
     Write-ImporterMessage "You have modules at '$dfsModulePath' (DFS)." -ForegroundColor Yellow
     Write-ImporterMessage 'Move them to the new local path to avoid stale copies:' -ForegroundColor Yellow

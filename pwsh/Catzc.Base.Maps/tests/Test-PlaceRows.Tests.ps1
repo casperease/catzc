@@ -4,7 +4,8 @@ Describe 'Test-PlaceRows' -Tag 'L0', 'logic' {
             param([string[]] $Rows, [string] $Counters)
             $folder = Join-Path $TestDrive 'minimaps/widget'
             New-Item -ItemType Directory -Path $folder -Force | Out-Null
-            $json = [ordered]@{ id = 'code-locations'; place_rows = [ordered]@{ rows = $Rows; counters = $Counters } } | ConvertTo-Json -Depth 5
+            $json = [ordered]@{ id = 'code-locations'; place_rows = [ordered]@{ rows = $Rows; counters = $Counters } } |
+                ConvertTo-Json -Depth 5
             Set-Content -LiteralPath (Join-Path $folder 'code-locations.json') -Value $json
         }
     }
@@ -16,7 +17,8 @@ Describe 'Test-PlaceRows' -Tag 'L0', 'logic' {
 
     It 'reports a row that kept the module prefix' {
         & $script:write @('widgets.catzc_widget.types') '1 place'
-        @(Test-PlaceRows (Join-Path $TestDrive 'minimaps')) | Should -Match "row 'widgets.catzc_widget.types' is not in the place normal form"
+        @(Test-PlaceRows (Join-Path $TestDrive 'minimaps')) |
+            Should -Match "row 'widgets.catzc_widget.types' is not in the place normal form"
     }
 
     It 'reports a counters line longer than the row budget' {

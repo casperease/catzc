@@ -31,7 +31,8 @@ Describe 'Catzc.Azure.DevOps.PipelineEnvConfig' -Tag 'L0' {
         }
 
         It 'throws when the sequence is empty' {
-            Get-ViolationMessage ([System.Collections.Generic.List[object]]::new()) | Should -BeLike '*sequence is empty*'
+            Get-ViolationMessage ([System.Collections.Generic.List[object]]::new()) |
+                Should -BeLike '*sequence is empty*'
         }
 
         It 'reports every violation in one throw: a bad name, a nested entry, and a duplicate' {
@@ -41,7 +42,8 @@ Describe 'Catzc.Azure.DevOps.PipelineEnvConfig' -Tag 'L0' {
             $message | Should -BeLike "*duplicate environment variable 'widget_id'*"
             $message | Should -BeLike "*'GADGET-NAME' is not an environment variable name*"
             $message | Should -BeLike "*'9TST' is not an environment variable name*"
-            $message | Should -BeLike "*'System.Collections.Specialized.OrderedDictionary' is not an environment variable name*"
+            $message |
+                Should -BeLike "*'System.Collections.Specialized.OrderedDictionary' is not an environment variable name*"
         }
     }
 

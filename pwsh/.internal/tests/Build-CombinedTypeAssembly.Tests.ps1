@@ -14,7 +14,8 @@ Describe 'Get-CombinedTypeHash module selection' -Tag 'L0', 'logic' {
         foreach ($entry in @(@('Widget', 'Sprocket'), @('Gadget', 'Lever'))) {
             $typesDirectory = Join-Path $root "$($entry[0])/types"
             [System.IO.Directory]::CreateDirectory($typesDirectory) | Out-Null
-            [System.IO.File]::WriteAllText((Join-Path $typesDirectory "$($entry[1]).cs"), "namespace $($entry[0]);`npublic class $($entry[1]) { }")
+            [System.IO.File]::WriteAllText((Join-Path $typesDirectory "$($entry[1]).cs"),
+                "namespace $($entry[0]);`npublic class $($entry[1]) { }")
         }
         [System.IO.Directory]::CreateDirectory((Join-Path $root 'Gizmo')) | Out-Null
     }
@@ -49,7 +50,8 @@ Describe 'Build-CombinedTypeAssembly' -Tag 'L1', 'logic' {
         foreach ($entry in @(@($widget, 'Sprocket'), @($gadget, 'Lever'))) {
             $typesDirectory = Join-Path $root "$($entry[0])/types"
             [System.IO.Directory]::CreateDirectory($typesDirectory) | Out-Null
-            [System.IO.File]::WriteAllText((Join-Path $typesDirectory "$($entry[1]).cs"), "namespace $($entry[0]);`npublic class $($entry[1]) { }")
+            [System.IO.File]::WriteAllText((Join-Path $typesDirectory "$($entry[1]).cs"),
+                "namespace $($entry[0]);`npublic class $($entry[1]) { }")
         }
         $script:output = Join-Path $TestDrive 'build/.compiled'
         $script:built = Build-CombinedTypeAssembly -ModulesRoot $root -OutputDirectory $output
@@ -69,8 +71,10 @@ Describe 'Build-CombinedTypeAssembly' -Tag 'L1', 'logic' {
         $typesDirectory = Join-Path $headed "$widget/types"
         [System.IO.Directory]::CreateDirectory($typesDirectory) | Out-Null
         [System.IO.Directory]::CreateDirectory((Join-Path $headed 'Catzc.Base.Languages/configs')) | Out-Null
-        [System.IO.File]::WriteAllText((Join-Path $headed 'Catzc.Base.Languages/configs/file-carriers.yml'), "carriers:`n  bcl: { carrier: comment-head, block: [`"/*`", `"*/`"] }`n")
-        [System.IO.File]::WriteAllText((Join-Path $typesDirectory 'Sprocket.cs'), "/*`n---`ncatzc:`n  edges:`n    cites:`n      - ADR-WIDGET-ONE`n---`n*/`n`nnamespace $widget;`npublic class Sprocket { }")
+        [System.IO.File]::WriteAllText((Join-Path $headed 'Catzc.Base.Languages/configs/file-carriers.yml'),
+            "carriers:`n  bcl: { carrier: comment-head, block: [`"/*`", `"*/`"] }`n")
+        [System.IO.File]::WriteAllText((Join-Path $typesDirectory 'Sprocket.cs'),
+            "/*`n---`ncatzc:`n  edges:`n    cites:`n      - ADR-WIDGET-ONE`n---`n*/`n`nnamespace $widget;`npublic class Sprocket { }")
         $headedBuild = Build-CombinedTypeAssembly -ModulesRoot $headed -OutputDirectory (Join-Path $TestDrive 'headed/.compiled')
         $headedBuild.Hash | Should -Be (Get-CombinedTypeHash $headed).CombinedHash
     }
@@ -115,7 +119,8 @@ Describe 'Build-CombinedTypeAssembly' -Tag 'L1', 'logic' {
         $brokenRoot = Join-Path $TestDrive 'broken'
         $brokenTypes = Join-Path $brokenRoot "$widget/types"
         [System.IO.Directory]::CreateDirectory($brokenTypes) | Out-Null
-        [System.IO.File]::WriteAllText((Join-Path $brokenTypes 'Sprocket.cs'), "namespace $widget;`npublic class Sprocket { int X => Missing(); }")
+        [System.IO.File]::WriteAllText((Join-Path $brokenTypes 'Sprocket.cs'),
+            "namespace $widget;`npublic class Sprocket { int X => Missing(); }")
         $brokenOutput = Join-Path $TestDrive 'broken-output'
         { Build-CombinedTypeAssembly -ModulesRoot $brokenRoot -OutputDirectory $brokenOutput } | Should -Throw
         @([System.IO.Directory]::EnumerateFiles($brokenOutput)).Count | Should -Be 0
@@ -126,7 +131,8 @@ Describe 'Build-CombinedTypeAssembly' -Tag 'L1', 'logic' {
         $namedTypes = Join-Path $namedRoot "$widget/types"
         [System.IO.Directory]::CreateDirectory($namedTypes) | Out-Null
         $namedSource = Join-Path $namedTypes 'Sprocket.cs'
-        [System.IO.File]::WriteAllText($namedSource, "namespace $widget;`npublic class Sprocket { int X => Missing(); }")
+        [System.IO.File]::WriteAllText($namedSource,
+            "namespace $widget;`npublic class Sprocket { int X => Missing(); }")
         $message = try {
             Build-CombinedTypeAssembly -ModulesRoot $namedRoot -OutputDirectory (Join-Path $TestDrive 'named-output')
             ''
@@ -134,7 +140,8 @@ Describe 'Build-CombinedTypeAssembly' -Tag 'L1', 'logic' {
         catch {
             $_.Exception.Message
         }
-        $message.Contains($namedSource) | Should -BeTrue -Because "the error should name $namedSource, not a temp copy: $message"
+        $message.Contains($namedSource) |
+            Should -BeTrue -Because "the error should name $namedSource, not a temp copy: $message"
         $message | Should -Not -BeLike '*catzc-types-*'
     }
 
@@ -143,10 +150,12 @@ Describe 'Build-CombinedTypeAssembly' -Tag 'L1', 'logic' {
         $raceTypes = Join-Path $raceRoot "$widget/types"
         [System.IO.Directory]::CreateDirectory($raceTypes) | Out-Null
         $raceSource = Join-Path $raceTypes 'Sprocket.cs'
-        [System.IO.File]::WriteAllText($raceSource, "namespace $widget;`npublic class Sprocket { public int Teeth => 12; }")
+        [System.IO.File]::WriteAllText($raceSource,
+            "namespace $widget;`npublic class Sprocket { public int Teeth => 12; }")
         $hashedBefore = (Get-CombinedTypeHash $raceRoot).CombinedHash
         Mock Add-Type -ModuleName Catzc.Internal.Types {
-            [System.IO.File]::WriteAllText($raceSource, "namespace $widget;`npublic class Sprocket { int X => Missing(); }")
+            [System.IO.File]::WriteAllText($raceSource,
+                "namespace $widget;`npublic class Sprocket { int X => Missing(); }")
             Microsoft.PowerShell.Utility\Add-Type @PesterBoundParameters
         }
 
@@ -156,12 +165,14 @@ Describe 'Build-CombinedTypeAssembly' -Tag 'L1', 'logic' {
         $raced.Hash | Should -Be $hashedBefore
         [System.IO.Path]::GetFileName($raced.Path) | Should -Be "Catzc.Types.$hashedBefore.dll"
         [System.IO.File]::Exists($raced.Path) | Should -BeTrue
-        @([System.IO.Directory]::EnumerateDirectories([System.IO.Path]::GetTempPath(), "catzc-types-$PID-*")).Count | Should -Be 0 -Because 'the frozen copy is removed'
+        @([System.IO.Directory]::EnumerateDirectories([System.IO.Path]::GetTempPath(), "catzc-types-$PID-*")).Count |
+            Should -Be 0 -Because 'the frozen copy is removed'
     }
 
     It 'returns nothing and writes nothing when the selection ships no C# source' {
         $emptyOutput = Join-Path $TestDrive 'empty'
-        Build-CombinedTypeAssembly -ModulesRoot $root -Module 'Gizmo' -OutputDirectory $emptyOutput | Should -BeNullOrEmpty
+        Build-CombinedTypeAssembly -ModulesRoot $root -Module 'Gizmo' -OutputDirectory $emptyOutput |
+            Should -BeNullOrEmpty
         [System.IO.Directory]::Exists($emptyOutput) | Should -BeFalse
     }
 }

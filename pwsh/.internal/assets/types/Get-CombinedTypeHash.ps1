@@ -26,8 +26,10 @@ function Get-CombinedTypeHash {
 
         [string[]] $Module,
 
-        # A machine-local memo of each file's hash keyed by length and last write: a file that shows the same pair is not read again, and
-        # the memo is rewritten when any file was. Omitted, every file is hashed, which is what the builder, the janitor and the gates ask.
+        # A machine-local memo of each file's hash keyed by length and last write: a file that shows the same pair is
+        # not read again, and
+        # the memo is rewritten when any file was. Omitted, every file is hashed, which is what the builder, the janitor
+        # and the gates ask.
         [string] $StampPath
     )
 
@@ -35,7 +37,8 @@ function Get-CombinedTypeHash {
     # $null, which would silently widen an empty selection to every module.
     $selected = $null
     if ($PSBoundParameters.ContainsKey('Module')) {
-        $selected = [System.Collections.Generic.HashSet[string]]::new([string[]] @($Module), [System.StringComparer]::OrdinalIgnoreCase)
+        $selected = [System.Collections.Generic.HashSet[string]]::new([string[]] @($Module),
+            [System.StringComparer]::OrdinalIgnoreCase)
     }
 
     # Enumerate every non-dot module's types/*.cs. Key = "<module>/<bare type>"; Path = the source file. No
@@ -90,7 +93,8 @@ function Get-CombinedTypeHash {
     # Deterministic, culture-independent order: sort by <module>/<bare type> ORDINALLY (Sort-Object is
     # culture-aware — cross-platform ADR — so use an ordinal comparer over the keys).
     $sortedFiles = [object[]]$files.ToArray()
-    [System.Array]::Sort($sortedFiles, [System.Comparison[object]] { param($a, $b) [System.StringComparer]::Ordinal.Compare($a.Key, $b.Key) })
+    [System.Array]::Sort($sortedFiles, [System.Comparison[object]] { param($a,
+        $b) [System.StringComparer]::Ordinal.Compare($a.Key, $b.Key) })
 
     $stamped = @{}
     if ($StampPath -and [System.IO.File]::Exists($StampPath)) {
@@ -114,7 +118,8 @@ function Get-CombinedTypeHash {
     # String.Replace instead of a per-byte pipeline (~1.2s per cold import). This runs before the combined
     # assembly loads, so Catzc.Base.Globs.DurableHash (the native equivalent) is not callable here.
     $latin1 = [System.Text.Encoding]::Latin1
-    # The hash is the body's: a head-only change (the file-meta imprint) keeps it, so the dll is not rebuilt for a comment. The head's form is
+    # The hash is the body's: a head-only change (the file-meta imprint) keeps it, so the dll is not rebuilt for a
+    # comment. The head's form is
     # the bcl carrier's in file-carriers.yml; a modules root without the Languages module hashes whole files.
     $carriers = [System.IO.Path]::Combine($ModulesRoot, 'Catzc.Base.Languages', 'configs', 'file-carriers.yml')
     $block = $null
@@ -131,7 +136,8 @@ function Get-CombinedTypeHash {
         foreach ($file in $sortedFiles) {
             $info = [System.IO.FileInfo]::new($file.Path)
             $known = $stamped[$file.Key]
-            if ($known -is [hashtable] -and $known['length'] -eq $info.Length -and $known['ticks'] -eq $info.LastWriteTimeUtc.Ticks -and $known['hash'] -is [string]) {
+            if ($known -is [hashtable] -and $known['length'] -eq $info.Length -and
+                $known['ticks'] -eq $info.LastWriteTimeUtc.Ticks -and $known['hash'] -is [string]) {
                 $fileHash = $known['hash']
             }
             else {
@@ -162,7 +168,8 @@ function Get-CombinedTypeHash {
         $json = [ordered]@{ form = 'body'; combined = $combinedHash; files = $memo } | ConvertTo-Json -Depth 4 -Compress
         $temporary = "$StampPath.$([guid]::NewGuid().ToString('N')).tmp"
         [System.IO.File]::WriteAllText($temporary, $json)
-        # The stamp is a cache that parallel imports share: a replace that loses to another process's read or replace leaves the next import to rehash.
+        # The stamp is a cache that parallel imports share: a replace that loses to another process's read or replace
+        # leaves the next import to rehash.
         try {
             [System.IO.File]::Move($temporary, $StampPath, $true)
         }

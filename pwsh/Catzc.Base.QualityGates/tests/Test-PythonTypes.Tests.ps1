@@ -43,7 +43,8 @@ Describe 'Test-PythonTypes' -Tag 'L0', 'logic' {
         $script:checkOutput = "WARNING: there is a new pyright version available`n" +
         "{ `"generalDiagnostics`": [ { `"file`": `"$script:widget`", `"severity`": `"error`", `"message`": `"gadget`", `"range`": { `"start`": { `"line`": 0, `"character`": 0 } } } ] }"
         $script:checkExit = 1
-        (Test-PythonTypes -PassThru -OutputFolder $script:reportFolder).Issues | Should -Be @('python/tests/catzc-widget/test_widget.py:1:1: error gadget')
+        (Test-PythonTypes -PassThru -OutputFolder $script:reportFolder).Issues |
+            Should -Be @('python/tests/catzc-widget/test_widget.py:1:1: error gadget')
     }
 
     It 'throws once listing every finding without -PassThru' {
@@ -55,7 +56,8 @@ Describe 'Test-PythonTypes' -Tag 'L0', 'logic' {
     It 'throws when pyright itself fails' {
         $script:checkOutput = 'Config file could not be parsed'
         $script:checkExit = 3
-        { Test-PythonTypes -PassThru -OutputFolder $script:reportFolder } | Should -Throw '*pyright could not check the Python files (exit 3)*'
+        { Test-PythonTypes -PassThru -OutputFolder $script:reportFolder } |
+            Should -Throw '*pyright could not check the Python files (exit 3)*'
     }
 
     It 'needs no uv when the repository holds no Python' {

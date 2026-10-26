@@ -45,7 +45,8 @@ Describe 'FunctionCallCollector' -Tag 'L0', 'logic' {
         $found = @(& $collect $source)
         $found.Count | Should -Be 1
         $found[0].NestedFunctionNames | Should -Be @('Get-InnerWidget')
-        @($found[0].Calls | ForEach-Object { "$_" }) | Should -Be @('Get-Gadget:2', 'Get-ChildItem:3', 'ForEach-Object:3', 'Set-Gadget:3')
+        @($found[0].Calls | ForEach-Object { "$_" }) | Should -Be @('Get-Gadget:2', 'Get-ChildItem:3',
+            'ForEach-Object:3', 'Set-Gadget:3')
     }
 
     It 'skips a command with no static name' {

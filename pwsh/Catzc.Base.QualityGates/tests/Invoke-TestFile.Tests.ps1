@@ -94,29 +94,35 @@ Describe 'StrictHostile' -Tag 'L0', 'logic' {
     }
 
     It 'runs tests strict, and an It-level opt-out runs that test non-strict (the harness parity contract)' {
-        { $script:run = Invoke-TestFile $script:fixture -Output Minimal -PassThru } | Should -Not -Throw -Because 'a failing file is a result, not an error'
+        { $script:run = Invoke-TestFile $script:fixture -Output Minimal -PassThru } |
+            Should -Not -Throw -Because 'a failing file is a result, not an error'
         $run = $script:run
         $run.Result | Should -Be 'Failed' -Because 'the worker runs tests strict, like every harness shard'
         $run.ExitCode | Should -Be 1
         @($run.Rows) | Should -HaveCount 3
-        @($run.Rows | Where-Object ExpandedName -EQ 'reads Count on a scalar without opting out').Result | Should -Be 'Failed'
-        @($run.Rows | Where-Object ExpandedName -EQ 'reads Count on a scalar behind an It-level opt-out').Result | Should -Be 'Passed'
+        @($run.Rows | Where-Object ExpandedName -EQ 'reads Count on a scalar without opting out').Result |
+            Should -Be 'Failed'
+        @($run.Rows | Where-Object ExpandedName -EQ 'reads Count on a scalar behind an It-level opt-out').Result |
+            Should -Be 'Passed'
     }
 
     # A file that throws while Pester discovers it holds no test, so it yields no row; the run must still fail.
     It 'fails the run when a test file throws during discovery, though it yields no row' {
         $broken = Join-Path $TestDrive 'Broken.Tests.ps1'
-        [System.IO.File]::WriteAllText($broken, "Describe 'Broken' -Tag 'L0', 'logic' {`n    throw 'widget discovery broke'`n    It 'never runs' { }`n}`n")
+        [System.IO.File]::WriteAllText($broken,
+            "Describe 'Broken' -Tag 'L0', 'logic' {`n    throw 'widget discovery broke'`n    It 'never runs' { }`n}`n")
         $run = Invoke-TestFile $broken -Output Minimal -PassThru
         $run.Result | Should -Be 'Failed'
         $run.ExitCode | Should -Be 1
         @($run.Rows) | Should -HaveCount 0
-        ([System.IO.File]::ReadAllText((Join-Path $run.RunDirectory 'run.json')) | ConvertFrom-Json).status | Should -Be 'failed'
+        ([System.IO.File]::ReadAllText((Join-Path $run.RunDirectory 'run.json')) | ConvertFrom-Json).status |
+            Should -Be 'failed'
     }
 
     It 'prints the error of a failed BeforeAll in its summary, so a test its setup never ran names the cause' {
         $setup = Join-Path $TestDrive 'Setup.Tests.ps1'
-        [System.IO.File]::WriteAllText($setup, "Describe 'Setup' -Tag 'L0', 'logic' {`n    BeforeAll { throw 'widget setup broke' }`n    It 'never runs' { 1 | Should -Be 1 }`n}`n")
+        [System.IO.File]::WriteAllText($setup,
+            "Describe 'Setup' -Tag 'L0', 'logic' {`n    BeforeAll { throw 'widget setup broke' }`n    It 'never runs' { 1 | Should -Be 1 }`n}`n")
         $run = Invoke-TestFile $setup -Output Minimal -PassThru
         $run.Result | Should -Be 'Failed'
         $run.Rows | Select-Object -First 1 -ExpandProperty ErrorMessage | Should -BeLike '*widget setup broke*'
@@ -149,18 +155,23 @@ Describe 'SystemProbe' -Tag 'L3', 'logic' {
 
         $run.Result | Should -Be 'Passed'
         $run.Location | Should -Be 'snapshot'
-        $run.RunDirectory | Should -BeLike "$(Get-OutputRoot)*" -Because 'the report lands in the working folder''s out/'
+        $run.RunDirectory |
+            Should -BeLike "$(Get-OutputRoot)*" -Because 'the report lands in the working folder''s out/'
         $observation = [System.IO.File]::ReadAllText($probe) | ConvertFrom-Json
         $observation.Root | Should -BeLike '*catzc-run-*'
-        $observation.ModuleBase | Should -BeLike "$($observation.Root)*" -Because 'the worker loads the snapshot''s modules, not the working folder''s'
-        [System.IO.Directory]::Exists($observation.Root) | Should -BeFalse -Because 'the snapshot is removed after the run'
+        $observation.ModuleBase |
+            Should -BeLike "$($observation.Root)*" -Because 'the worker loads the snapshot''s modules, not the working folder''s'
+        [System.IO.Directory]::Exists($observation.Root) |
+            Should -BeFalse -Because 'the snapshot is removed after the run'
         $manifest = [System.IO.File]::ReadAllText((Join-Path $run.RunDirectory 'run.json')) | ConvertFrom-Json
         $manifest.status | Should -Be 'passed'
-        $manifest.location | Should -Be 'snapshot' -Because 'the run.json a reader finds at home names where the run executed'
+        $manifest.location |
+            Should -Be 'snapshot' -Because 'the run.json a reader finds at home names where the run executed'
         $manifest.snapshot.path | Should -Be $observation.Root
         $manifest.snapshot.kept | Should -BeFalse
         [System.IO.File]::Exists($systemProbe) | Should -BeFalse -Because 'a snapshot run skips the L3 system tests'
         Should -Invoke Write-Message -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Message -like 'Skipping L3:*' }
-        @($run.Rows | Where-Object File -EQ $repositoryTest).Count | Should -BeGreaterThan 0 -Because 'row paths map back to the working folder'
+        @($run.Rows | Where-Object File -EQ $repositoryTest).Count |
+            Should -BeGreaterThan 0 -Because 'row paths map back to the working folder'
     }
 }

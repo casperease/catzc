@@ -40,7 +40,8 @@ function ConvertTo-ContractNoteMarkdown {
                     ''
                 }
                 $relative = [System.IO.Path]::GetRelativePath($pageRoot, $file).Replace('\', '/')
-                return $part.Value.Substring(0, $part.Value.Length - $destination.Length - 1) + $relative + $fragment + ')'
+                return $part.Value.Substring(0,
+                    $part.Value.Length - $destination.Length - 1) + $relative + $fragment + ')'
             }
             if ($part.Groups['url'].Success) {
                 return "<$($part.Value)>"

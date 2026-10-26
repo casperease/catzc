@@ -41,7 +41,8 @@ Describe 'Test-RootAnalyzerSettings' -Tag 'L0', 'logic' {
         [System.IO.File]::WriteAllText($settingsPath, '@{ ExcludeRules = ')
         $thrown = { Test-RootAnalyzerSettings -OutputFolder $out } | Should -Throw -PassThru
         $thrown.Exception.Message | Should -BeLike 'Test-RootAnalyzerSettings failed: 1 issue(s)*'
-        $thrown.Exception.Message | Should -Match 'PSScriptAnalyzerSettings.psd1: does not parse as a settings hashtable'
+        $thrown.Exception.Message |
+            Should -Match 'PSScriptAnalyzerSettings.psd1: does not parse as a settings hashtable'
     }
 
     It 'reports a missing root file and an empty one under -PassThru' {

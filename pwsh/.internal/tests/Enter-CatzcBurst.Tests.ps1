@@ -4,8 +4,10 @@ Describe 'Enter-CatzcBurst' -Tag 'L0', 'logic' {
         $script:exit = Join-Path $PSScriptRoot '../assets/Exit-CatzcBurst.ps1'
         $script:entry = Join-Path $PSScriptRoot '../assets/Invoke-CatzcCommand.ps1'
         $script:importer = Join-Path $TestDrive 'importer.ps1'
-        # The run shows a command's output through Write-Message, so the stand-in importer defines it as the real import does.
-        [System.IO.File]::WriteAllText($script:importer, "function Get-Widget { 'widget' }`nfunction Write-Message { param([AllowEmptyString()] [string] `$Message, [switch] `$NoHeader) Write-Information `$Message -InformationAction Continue }`n")
+        # The run shows a command's output through Write-Message, so the stand-in importer defines it as the real import
+        # does.
+        [System.IO.File]::WriteAllText($script:importer,
+            "function Get-Widget { 'widget' }`nfunction Write-Message { param([AllowEmptyString()] [string] `$Message, [switch] `$NoHeader) Write-Information `$Message -InformationAction Continue }`n")
         # Runs a burst on another thread, the way a session's background call would, and waits until it holds the lock.
         function script:Start-Burst {
             param([string] $Name, [int] $Seconds)
@@ -16,7 +18,8 @@ Describe 'Enter-CatzcBurst' -Tag 'L0', 'logic' {
             $handle = $shell.BeginInvoke()
             $deadline = [datetime]::UtcNow.AddSeconds(2)
             $opened = $null
-            while (-not [System.Threading.EventWaitHandle]::TryOpenExisting("$Name-burst", [ref] $opened) -and [datetime]::UtcNow -lt $deadline) {
+            while (-not [System.Threading.EventWaitHandle]::TryOpenExisting("$Name-burst", [ref] $opened) -and
+                [datetime]::UtcNow -lt $deadline) {
                 Start-Sleep -Milliseconds 10
             }
             if ($opened) {
@@ -65,10 +68,12 @@ Describe 'Enter-CatzcBurst' -Tag 'L0', 'logic' {
     It 'holds the lock against every other run until Exit-CatzcBurst ends the burst' -Tag 'ADR-AUTO-FAILFAST-BOUNDEVERYWAIT' {
         $burst = Start-Burst -Name $script:lockName -Seconds 5
         $run = Start-Run -Name $script:lockName -LockSeconds 1
-        # Past the run's own 1 s wait it still waits, since the burst holds the lock, and runs only after the burst ends.
+        # Past the run's own 1 s wait it still waits, since the burst holds the lock, and runs only after the burst
+        # ends.
         Start-Sleep -Milliseconds 1500
         $run.Handle.IsCompleted | Should -BeFalse
-        & $script:exit -LockName $script:lockName | Should -BeExactly "[Exit-CatzcBurst] ended the burst on $script:lockName"
+        & $script:exit -LockName $script:lockName |
+            Should -BeExactly "[Exit-CatzcBurst] ended the burst on $script:lockName"
         $lines = @($run.Shell.EndInvoke($run.Handle))
         $run.Shell.Dispose()
         $lines | Should -Be @(
@@ -176,8 +181,10 @@ Describe 'Enter-CatzcBurst — in a child pwsh process' -Tag 'L2', 'logic' {
         $script:enter = Join-Path $PSScriptRoot '../assets/Enter-CatzcBurst.ps1'
         $script:entry = Join-Path $PSScriptRoot '../assets/Invoke-CatzcCommand.ps1'
         $script:importer = Join-Path $TestDrive 'importer.ps1'
-        # The run shows a command's output through Write-Message, so the stand-in importer defines it as the real import does.
-        [System.IO.File]::WriteAllText($script:importer, "function Get-Widget { 'widget' }`nfunction Write-Message { param([AllowEmptyString()] [string] `$Message, [switch] `$NoHeader) Write-Information `$Message -InformationAction Continue }`n")
+        # The run shows a command's output through Write-Message, so the stand-in importer defines it as the real import
+        # does.
+        [System.IO.File]::WriteAllText($script:importer,
+            "function Get-Widget { 'widget' }`nfunction Write-Message { param([AllowEmptyString()] [string] `$Message, [switch] `$NoHeader) Write-Information `$Message -InformationAction Continue }`n")
     }
 
     BeforeEach {

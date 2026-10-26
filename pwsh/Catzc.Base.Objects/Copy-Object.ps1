@@ -7,7 +7,8 @@ catzc:
 #>
 
 function Copy-Object {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = '$AcceptWarnings is consumed inside the nested Copy-Node function (it gates the note-properties verbose message), which this rule does not trace across the nested-function boundary')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '',
+        Justification = '$AcceptWarnings is consumed inside the nested Copy-Node function (it gates the note-properties verbose message), which this rule does not trace across the nested-function boundary')]
     [CmdletBinding()]
     param(
         [Parameter(Mandatory, Position = 0, ValueFromPipeline)]

@@ -19,7 +19,8 @@ Describe 'Get-CSharpTypeDependency' -Tag 'L0', 'source-only' {
             Mock Get-CatzcModule -ModuleName Catzc.Base.TypesSystem -MockWith {
                 foreach ($dir in [System.IO.Directory]::EnumerateDirectories($fixtureRoot)) {
                     $moduleName = [System.IO.Path]::GetFileName($dir)
-                    [Catzc.Base.Modules.Module]::new($moduleName, 'widgets', 'widget-folder', 'widgetry', "widgetry/$moduleName", 'folder', $null, $null, $null, $null)
+                    [Catzc.Base.Modules.Module]::new($moduleName, 'widgets', 'widget-folder', 'widgetry',
+                        "widgetry/$moduleName", 'folder', $null, $null, $null, $null)
                 }
             }.GetNewClosure()
             $td = Join-Path $root "$Module/types"
@@ -97,6 +98,7 @@ public class Thing : Catzc.Base.Rec {
 Describe 'Get-CSharpTypeDependency — build mode' -Tag 'L0', 'logic' {
     It 'stops with a named error when the session runs a built package' {
         Mock Get-CatzcRunMode { 'build' } -ModuleName Catzc.Base.Repository
-        { Get-CSharpTypeDependency -ModulesRoot $TestDrive } | Should -Throw '*Get-CSharpTypeDependency operates on the catzc source tree*'
+        { Get-CSharpTypeDependency -ModulesRoot $TestDrive } |
+            Should -Throw '*Get-CSharpTypeDependency operates on the catzc source tree*'
     }
 }

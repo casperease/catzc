@@ -8,7 +8,8 @@ catzc:
 
 Describe 'Get-ExecutableVersion' -Tag 'L0', 'logic' {
     BeforeEach {
-        Mock Invoke-Executable { [Catzc.Base.Execution.CliResult]::new('widget version 5.2.37', '', 0) } -ModuleName Catzc.Base.Execution
+        Mock Invoke-Executable { [Catzc.Base.Execution.CliResult]::new('widget version 5.2.37', '',
+            0) } -ModuleName Catzc.Base.Execution
     }
 
     It 'runs the located path with the arguments and returns the captured version' {

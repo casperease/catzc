@@ -38,6 +38,7 @@ Describe 'Write-TypesAssemblyManifest' -Tag 'L0', 'logic' {
     }
 
     It 'throws when the assembly does not exist' {
-        { Write-TypesAssemblyManifest -Path (Join-Path $TestDrive 'Catzc.Types.0000.dll') } | Should -Throw '*does not exist*'
+        { Write-TypesAssemblyManifest -Path (Join-Path $TestDrive 'Catzc.Types.0000.dll') } |
+            Should -Throw '*does not exist*'
     }
 }

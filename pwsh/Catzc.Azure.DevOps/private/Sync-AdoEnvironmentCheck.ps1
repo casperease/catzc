@@ -46,7 +46,8 @@ function Sync-AdoEnvironmentCheck {
     $existing = $null
     if ($environmentAction -eq 'Unchanged') {
         $checks = @(Invoke-AdoRestMethod -Uri "$($Context.ApiBase)/pipelines/checks/configurations?resourceType=environment&resourceId=$($record.id)&`$expand=settings&api-version=7.1-preview.1")
-        $existing = $checks | Where-Object { $null -ne $_ -and $_.PSObject.Properties['type'] -and "$($_.type.id)" -eq $approvalTypeId } |
+        $existing = $checks |
+            Where-Object { $null -ne $_ -and $_.PSObject.Properties['type'] -and "$($_.type.id)" -eq $approvalTypeId } |
             Select-Object -First 1
     }
 

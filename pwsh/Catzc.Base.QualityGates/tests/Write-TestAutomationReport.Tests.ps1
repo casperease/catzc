@@ -56,8 +56,10 @@ Describe 'Write-TestAutomationReport' -Tag 'L0', 'logic' {
         $md | Should -Match 'Expected 1 but got 2'              # message
         $md | Should -Match '## Slowest tests'
         $md | Should -Match 'Mod\.Slow is slow'
-        $md | Should -Match '\[L2 > 30000ms\]'                  # over-limit against the configured tier limit, report-only
-        $md | Should -Match '- Run budget: 120s — exceeded by 10\.06s \(fails a devbox run' # the run against its configured budget
+        $md |
+            Should -Match '\[L2 > 30000ms\]'                  # over-limit against the configured tier limit, report-only
+        $md |
+            Should -Match '- Run budget: 120s — exceeded by 10\.06s \(fails a devbox run' # the run against its configured budget
     }
 
     It 'records a run inside its budget' {

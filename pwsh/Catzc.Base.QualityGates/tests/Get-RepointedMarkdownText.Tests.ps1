@@ -11,7 +11,8 @@ Describe 'Get-RepointedMarkdownText' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT-PLAINH
     }
 
     It 're-points a relative link to a renamed anchor, keeping the target as written' {
-        Get-Repointed 'See [it](../gadget/gadget-rules.md#validation-assert-gadget).' | Should -Be 'See [it](../gadget/gadget-rules.md#validation).'
+        Get-Repointed 'See [it](../gadget/gadget-rules.md#validation-assert-gadget).' |
+            Should -Be 'See [it](../gadget/gadget-rules.md#validation).'
     }
 
     It 're-points a link to the file''s own heading' {

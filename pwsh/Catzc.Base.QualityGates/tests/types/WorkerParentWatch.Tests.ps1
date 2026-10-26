@@ -15,7 +15,8 @@ Describe 'WorkerParentWatch' -Tag 'logic' {
 
         It 'reports a live PID with a different start time as gone (PID reuse)' {
             $ticks = [Catzc.Base.QualityGates.WorkerParentWatch]::CurrentStartTicks()
-            [Catzc.Base.QualityGates.WorkerParentWatch]::IsAlive($PID, $ticks - [TimeSpan]::FromMinutes(5).Ticks) | Should -BeFalse
+            [Catzc.Base.QualityGates.WorkerParentWatch]::IsAlive($PID, $ticks - [TimeSpan]::FromMinutes(5).Ticks) |
+                Should -BeFalse
         }
 
         It 'reports a PID with no process as gone' {
@@ -34,7 +35,8 @@ Describe 'WorkerParentWatch' -Tag 'logic' {
         }
 
         It 'rejects an interval below 1' {
-            { [Catzc.Base.QualityGates.WorkerParentWatch]::Start(0) } | Should -Throw -ExpectedMessage '*intervalMilliseconds*'
+            { [Catzc.Base.QualityGates.WorkerParentWatch]::Start(0) } |
+                Should -Throw -ExpectedMessage '*intervalMilliseconds*'
         }
 
         It 'watches nothing when the parent variables are absent' {
@@ -105,14 +107,17 @@ Start-Sleep -Seconds 120
             }
 
             $deadline = [DateTime]::UtcNow.AddSeconds(30)
-            while (-not [System.IO.File]::Exists($marker) -and -not $worker.HasExited -and [DateTime]::UtcNow -lt $deadline) {
+            while (-not [System.IO.File]::Exists($marker) -and -not $worker.HasExited -and
+                [DateTime]::UtcNow -lt $deadline) {
                 Start-Sleep -Milliseconds 100
             }
-            [System.IO.File]::Exists($marker) | Should -BeTrue -Because 'the worker must start its watch before the parent is killed'
+            [System.IO.File]::Exists($marker) |
+                Should -BeTrue -Because 'the worker must start its watch before the parent is killed'
             $worker.HasExited | Should -BeFalse -Because 'a live parent keeps the worker running'
 
             $parent.Kill()
-            $worker.WaitForExit(10000) | Should -BeTrue -Because 'the worker must end itself within a few watch intervals of its parent dying'
+            $worker.WaitForExit(10000) |
+                Should -BeTrue -Because 'the worker must end itself within a few watch intervals of its parent dying'
         }
     }
 }

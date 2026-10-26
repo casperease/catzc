@@ -84,7 +84,8 @@ function Get-Config {
             throw "Config '$($entry.Name)' is sealed (configs.yml overridable: false), so the overlay may not change it: remove $fragmentPath."
         }
         $fragment = Get-Content $fragmentPath -Raw | ConvertFrom-Yaml -Ordered
-        Assert-True ($raw -is [System.Collections.IDictionary] -and ($null -eq $fragment -or $fragment -is [System.Collections.IDictionary])) -ErrorText "Overlay fragment $fragmentPath cannot merge onto config '$($entry.Name)': a fragment and its config must both be maps."
+        Assert-True ($raw -is [System.Collections.IDictionary] -and ($null -eq $fragment -or
+            $fragment -is [System.Collections.IDictionary])) -ErrorText "Overlay fragment $fragmentPath cannot merge onto config '$($entry.Name)': a fragment and its config must both be maps."
         if ($null -ne $fragment) {
             $raw = Merge-ConfigFragment -Base $raw -Fragment $fragment
         }

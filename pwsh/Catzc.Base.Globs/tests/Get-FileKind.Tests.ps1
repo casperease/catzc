@@ -48,7 +48,8 @@ Describe 'Get-FileKind' -Tag 'L0', 'integrity', 'ADR-REPO-FILEMETA-METAKIND' {
     }
 
     It 'reads a backslash path' {
-        (Get-FileKind ((Get-CatzcModulesFolder) + '\Catzc.Base.Variants\Test-GitWorkspace.ps1')).Class | Should -BeExactly 'function/gate'
+        (Get-FileKind ((Get-CatzcModulesFolder) + '\Catzc.Base.Variants\Test-GitWorkspace.ps1')).Class |
+            Should -BeExactly 'function/gate'
     }
 
     It 'gives every shipped kind and subkind a definition' {

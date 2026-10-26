@@ -11,7 +11,8 @@ Describe 'Get-TestDurationKey' -Tag 'L0', 'logic' {
     }
 
     It 'keys a file by its repository-relative path with forward slashes' {
-        & $script:key (Join-Path $script:root 'widgets\Catzc.Widget\tests\gadget.Tests.ps1') '' | Should -BeExactly 'widgets/Catzc.Widget/tests/gadget.Tests.ps1'
+        & $script:key (Join-Path $script:root 'widgets\Catzc.Widget\tests\gadget.Tests.ps1') '' |
+            Should -BeExactly 'widgets/Catzc.Widget/tests/gadget.Tests.ps1'
     }
 
     It 'keys a one-file shard by the file the shard was given, not by the bridge script that ran it' {

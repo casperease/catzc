@@ -53,7 +53,8 @@ Describe 'Measure-NoTrackRootLiteral' -Tag 'L0', 'logic', 'ADR-AUTO-LAYERS-TOOLS
     It 'skips a file the config exempts' {
         InModuleScope NoTrackRootLiteral { $script:exempt = @('^.*Get-Widget\.ps1$') }
         try {
-            Test-TrackRootLiteralFile -Code "function Get-Widget { '$($script:place)/Catzc.Widget' }" | Should -HaveCount 0
+            Test-TrackRootLiteralFile -Code "function Get-Widget { '$($script:place)/Catzc.Widget' }" |
+                Should -HaveCount 0
         }
         finally {
             InModuleScope NoTrackRootLiteral { $script:roots = $null }

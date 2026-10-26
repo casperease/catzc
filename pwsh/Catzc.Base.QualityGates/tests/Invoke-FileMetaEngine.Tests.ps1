@@ -1,4 +1,5 @@
-[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = 'The fixture fact processors keep the State, Path and Kind parameters the engine passes by name, though they read only Path')]
+[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '',
+    Justification = 'The fixture fact processors keep the State, Path and Kind parameters the engine passes by name, though they read only Path')]
 param()
 
 Describe 'Invoke-FileMetaEngine' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRINTEDPARTS', 'ADR-REPO-CODEMETA-SAMEENGINE' {
@@ -31,7 +32,8 @@ Describe 'Invoke-FileMetaEngine' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRINTE
                 [pscustomobject]@{ name = $Matches['name'] }
             }
         }
-        # Fixture kinds with fixture processors, so the engine is proven on facts of its own, whatever kinds the shipped registry holds.
+        # Fixture kinds with fixture processors, so the engine is proven on facts of its own, whatever kinds the shipped
+        # registry holds.
         InModuleScope Catzc.Base.QualityGates {
             function script:Get-WidgetPathFileMetaFact {
                 param($State, $Path, $Kind)
@@ -72,8 +74,10 @@ Describe 'Invoke-FileMetaEngine' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRINTE
     BeforeEach {
         [System.IO.Directory]::CreateDirectory((Join-Path $script:widgetRoot 'widgets/Catzc.Widget/private')) | Out-Null
         [System.IO.Directory]::CreateDirectory((Join-Path $script:widgetRoot 'docs')) | Out-Null
-        [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'widgets/Catzc.Widget/Get-Gadget.ps1'), "function Get-Gadget { }`n")
-        [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'widgets/Catzc.Widget/private/Get-Sprocket.ps1'), "function Get-Sprocket { }`n")
+        [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'widgets/Catzc.Widget/Get-Gadget.ps1'),
+            "function Get-Gadget { }`n")
+        [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'widgets/Catzc.Widget/private/Get-Sprocket.ps1'),
+            "function Get-Sprocket { }`n")
         [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/widget.md'), "# Widget`n")
         $script:entries = @(
             [pscustomobject]@{ Path = 'widgets/Catzc.Widget/Get-Gadget.ps1'; Carrier = $script:head }
@@ -86,8 +90,10 @@ Describe 'Invoke-FileMetaEngine' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRINTE
         $result.FileCount | Should -Be 2
         $result.Files.Count | Should -Be 2
         $result.Files[0].Findings[0].Kind | Should -Be 'Drift'
-        $result.Files[0].Fixed | Should -BeExactly "<#`n---`ncatzc:`n  path: widgets/Catzc.Widget/Get-Gadget.ps1`n  module: Catzc.Widget`n  visibility: public`n  header: `"generated`"`n---`n#>`n`nfunction Get-Gadget { }`n"
-        $result.Files[1].Fixed | Should -BeLike "*  visibility: private`n  header: `"generated`"`n---`n#>`n`nfunction Get-Sprocket { }`n"
+        $result.Files[0].Fixed |
+            Should -BeExactly "<#`n---`ncatzc:`n  path: widgets/Catzc.Widget/Get-Gadget.ps1`n  module: Catzc.Widget`n  visibility: public`n  header: `"generated`"`n---`n#>`n`nfunction Get-Gadget { }`n"
+        $result.Files[1].Fixed |
+            Should -BeLike "*  visibility: private`n  header: `"generated`"`n---`n#>`n`nfunction Get-Sprocket { }`n"
     }
 
     It 'drops a fact an authored head held under immutable, and writes it in the part its kind names' -Tag 'ADR-REPO-FILEMETA-KINDSCOPE', 'ADR-REPO-FILEMETA-FILEISNODE' {
@@ -95,8 +101,10 @@ Describe 'Invoke-FileMetaEngine' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRINTE
         [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'widgets/Catzc.Widget/Get-Gadget.ps1'), $text)
         $result = & $script:run $script:entries[0]
         $result.Files[0].Findings.Kind | Should -Be @('Drift')
-        $result.Files[0].Findings[0].Actual | Should -Be 'an authored head holds an immutable part, which Format-FileMeta removes'
-        $result.Files[0].Fixed | Should -BeExactly "<#`n---`ncatzc:`n  path: widgets/Catzc.Widget/Get-Gadget.ps1`n  module: Catzc.Widget`n  visibility: public`n  header: `"generated`"`n---`n#>`n`nfunction Get-Gadget { }`n"
+        $result.Files[0].Findings[0].Actual |
+            Should -Be 'an authored head holds an immutable part, which Format-FileMeta removes'
+        $result.Files[0].Fixed |
+            Should -BeExactly "<#`n---`ncatzc:`n  path: widgets/Catzc.Widget/Get-Gadget.ps1`n  module: Catzc.Widget`n  visibility: public`n  header: `"generated`"`n---`n#>`n`nfunction Get-Gadget { }`n"
     }
 
     It 'skips an entry whose file the working tree no longer has, and still counts it in the scope' {
@@ -131,7 +139,8 @@ Describe 'Invoke-FileMetaEngine' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRINTE
         $result = & $script:run $script:entries[0]
         $result.Files[0].Findings.Kind | Should -Not -Contain 'Unowned'
         $result.Files[0].Findings.Kind | Should -Not -Contain 'UnownedHead'
-        $result.Files[0].Fixed | Should -BeLike "<#`n---`ncatzc:`n  path: widgets/Catzc.Widget/Get-Gadget.ps1*  header: `"generated`"`n  config:`n    colour: red`n---`n#>`n`nfunction Get-Gadget { }`n"
+        $result.Files[0].Fixed |
+            Should -BeLike "<#`n---`ncatzc:`n  path: widgets/Catzc.Widget/Get-Gadget.ps1*  header: `"generated`"`n  config:`n    colour: red`n---`n#>`n`nfunction Get-Gadget { }`n"
     }
 
     It 'drops a first-level key no kind owns, as the old edges part, since the block''s first level is the engine''s but for config' -Tag 'ADR-REPO-FILEMETA-KINDSCOPE' {
@@ -155,16 +164,20 @@ Describe 'Invoke-FileMetaEngine' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRINTE
     It 'nests a block at the key path its carrier names, keeps the authored config there, and reports a parent it cannot nest under' -Tag 'ADR-REPO-FILEMETA-HEADPOLICY' {
         [System.IO.Directory]::CreateDirectory((Join-Path $script:widgetRoot 'docs/skills/widget-spin')) | Out-Null
         [System.IO.Directory]::CreateDirectory((Join-Path $script:widgetRoot 'docs/skills/widget-flow')) | Out-Null
-        [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/skills/widget-spin/SKILL.md'), "---`nname: widget-spin`nmetadata:`n  catzc:`n    config:`n      floor: low`n---`n1. Spin.`n")
-        [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/skills/widget-flow/SKILL.md'), "---`nname: widget-flow`nmetadata: { catzc: { floor: low } }`n---`n1. Flow.`n")
+        [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/skills/widget-spin/SKILL.md'),
+            "---`nname: widget-spin`nmetadata:`n  catzc:`n    config:`n      floor: low`n---`n1. Spin.`n")
+        [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/skills/widget-flow/SKILL.md'),
+            "---`nname: widget-flow`nmetadata: { catzc: { floor: low } }`n---`n1. Flow.`n")
         $result = & $script:run @(
             [pscustomobject]@{ Path = 'docs/skills/widget-spin/SKILL.md'; Carrier = $script:nested }
             [pscustomobject]@{ Path = 'docs/skills/widget-flow/SKILL.md'; Carrier = $script:nested }
         )
         $spin = $result.Files | Where-Object Path -EQ 'docs/skills/widget-spin/SKILL.md'
         $spin.Findings.Kind | Should -Be @('Drift')
-        $spin.Fixed | Should -BeLike "---`nname: widget-spin`nmetadata:`n  catzc:`n    path: docs/skills/widget-spin/SKILL.md`n    header: `"generated`"`n    config:`n      floor: low`n---`n1. Spin.`n"
-        $spin.Fixed | Should -Not -BeLike ("*`n" + 'catzc:*') -Because 'the block lives at metadata.catzc and nowhere else'
+        $spin.Fixed |
+            Should -BeLike "---`nname: widget-spin`nmetadata:`n  catzc:`n    path: docs/skills/widget-spin/SKILL.md`n    header: `"generated`"`n    config:`n      floor: low`n---`n1. Spin.`n"
+        $spin.Fixed |
+            Should -Not -BeLike ("*`n" + 'catzc:*') -Because 'the block lives at metadata.catzc and nowhere else'
         $flow = $result.Files | Where-Object Path -EQ 'docs/skills/widget-flow/SKILL.md'
         $flow.Findings.Kind | Should -Be @('Unowned')
         $flow.Findings[0].Actual | Should -BeLike '*metadata.catzc holds a flow or scalar value*'
@@ -172,21 +185,26 @@ Describe 'Invoke-FileMetaEngine' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRINTE
     }
 
     It 'imprints a JSON file''s block as its first property, and finds nothing to change once it is written' {
-        [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/widget.json'), "{`n  `"name`": `"widget`"`n}`n")
+        [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/widget.json'),
+            "{`n  `"name`": `"widget`"`n}`n")
         $entry = [pscustomobject]@{ Path = 'docs/widget.json'; Carrier = $script:property }
         $first = & $script:run @($entry)
         $first.Files[0].Findings[0].Kind | Should -Be 'Drift'
-        $first.Files[0].Fixed | Should -BeExactly "{`n  `"//`": `"catzc:\n  path: docs/widget.json\n  header: \`"generated\`"`",`n  `"name`": `"widget`"`n}`n"
+        $first.Files[0].Fixed |
+            Should -BeExactly "{`n  `"//`": `"catzc:\n  path: docs/widget.json\n  header: \`"generated\`"`",`n  `"name`": `"widget`"`n}`n"
 
         [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/widget.json'), $first.Files[0].Fixed)
         @((& $script:run @($entry)).Files).Count | Should -Be 0
     }
 
     It 'replaces an old banner a property carrier strips, and reports a foreign value of the property' {
-        [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/banner.json'), "{`n  `"//`": `"$script:warning`",`n  `"name`": `"widget`"`n}`n")
-        [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/note.json'), "{`n  `"//`": `"a note someone wrote`"`n}`n")
+        [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/banner.json'),
+            "{`n  `"//`": `"$script:warning`",`n  `"name`": `"widget`"`n}`n")
+        [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/note.json'),
+            "{`n  `"//`": `"a note someone wrote`"`n}`n")
         $banner = & $script:run @([pscustomobject]@{ Path = 'docs/banner.json'; Carrier = $script:property })
-        $banner.Files[0].Fixed | Should -BeExactly "{`n  `"//`": `"catzc:\n  path: docs/banner.json\n  header: \`"generated\`"`",`n  `"name`": `"widget`"`n}`n"
+        $banner.Files[0].Fixed |
+            Should -BeExactly "{`n  `"//`": `"catzc:\n  path: docs/banner.json\n  header: \`"generated\`"`",`n  `"name`": `"widget`"`n}`n"
 
         $note = & $script:run @([pscustomobject]@{ Path = 'docs/note.json'; Carrier = $script:property })
         $note.Files[0].Findings.Kind | Should -Be @('UnownedHead')
@@ -230,7 +248,8 @@ Describe 'Invoke-FileMetaEngine' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRINTE
         }
 
         It 'removes a Markdown front matter that held nothing but the block' {
-            [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/widget.md'), "---`ncatzc:`n  edges:`n    path: docs/widget.md`n---`n`n# Widget`n")
+            [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/widget.md'),
+                "---`ncatzc:`n  edges:`n    path: docs/widget.md`n---`n`n# Widget`n")
             $forbidden = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ head_policy = @{ default = 'forbidden' }; kinds = $script:widgetKinds })
             $result = & $script:run @([pscustomobject]@{ Path = 'docs/widget.md'; Carrier = $script:front }) $forbidden
             $result.Files[0].Fixed | Should -BeExactly "# Widget`n"
@@ -238,11 +257,13 @@ Describe 'Invoke-FileMetaEngine' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRINTE
 
         It 'keeps only the authored config part of a class whose policy is config, and drops a block that has none' {
             $keep = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ head_policy = @{ classes = @{ '*' = 'config' } }; kinds = $script:widgetKinds })
-            [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/widget.md'), "---`ncatzc:`n  edges:`n    path: docs/widget.md`n  config:`n    spin: fast`n---`n`n# Widget`n")
+            [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/widget.md'),
+                "---`ncatzc:`n  edges:`n    path: docs/widget.md`n  config:`n    spin: fast`n---`n`n# Widget`n")
             $result = & $script:run @([pscustomobject]@{ Path = 'docs/widget.md'; Carrier = $script:front }) $keep
             $result.Files[0].Findings[0].Expected | Should -BeLike 'the authored config part alone*'
             $result.Files[0].Fixed | Should -BeExactly "---`ncatzc:`n  config:`n    spin: fast`n---`n`n# Widget`n"
-            [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/widget.md'), "---`ncatzc:`n  edges:`n    path: docs/widget.md`n---`n`n# Widget`n")
+            [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/widget.md'),
+                "---`ncatzc:`n  edges:`n    path: docs/widget.md`n---`n`n# Widget`n")
             $result = & $script:run @([pscustomobject]@{ Path = 'docs/widget.md'; Carrier = $script:front }) $keep
             $result.Files[0].Fixed | Should -BeExactly "# Widget`n"
         }
@@ -259,10 +280,13 @@ Describe 'Invoke-FileMetaEngine' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRINTE
         It 'gives each class by its facts: a head where a fact is non-empty, none where every fact is empty, the stale one stripped' {
             # Only the function class has a fact here, so the Markdown page's facts are all empty.
             $facts = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ kinds = [ordered]@{ 'widget-visibility' = $script:widgetKinds['widget-visibility'] } })
-            [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/widget.md'), "---`ncatzc:`n  immutable:`n    with_body_sha: 0123456789ab`n---`n`n# Widget`n")
-            $result = & $script:run @($script:entries[0], [pscustomobject]@{ Path = 'docs/widget.md'; Carrier = $script:front }) $facts
+            [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/widget.md'),
+                "---`ncatzc:`n  immutable:`n    with_body_sha: 0123456789ab`n---`n`n# Widget`n")
+            $result = & $script:run @($script:entries[0],
+                [pscustomobject]@{ Path = 'docs/widget.md'; Carrier = $script:front }) $facts
             $function = $result.Files | Where-Object Path -EQ 'widgets/Catzc.Widget/Get-Gadget.ps1'
-            $function.Fixed | Should -BeExactly "<#`n---`ncatzc:`n  visibility: public`n  header: `"generated`"`n---`n#>`n`nfunction Get-Gadget { }`n"
+            $function.Fixed |
+                Should -BeExactly "<#`n---`ncatzc:`n  visibility: public`n  header: `"generated`"`n---`n#>`n`nfunction Get-Gadget { }`n"
             $page = $result.Files | Where-Object Path -EQ 'docs/widget.md'
             $page.Findings[0].Expected | Should -BeLike '*none when every fact is empty'
             $page.Fixed | Should -BeExactly "# Widget`n"
@@ -270,9 +294,11 @@ Describe 'Invoke-FileMetaEngine' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRINTE
 
         It 'closes a head with the header note the registry declares, after its facts, and writes no head for the note alone' {
             $noted = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ header = 'widget'; kinds = [ordered]@{ 'widget-visibility' = $script:widgetKinds['widget-visibility'] } })
-            $result = & $script:run @($script:entries[0], [pscustomobject]@{ Path = 'docs/widget.md'; Carrier = $script:front }) $noted
+            $result = & $script:run @($script:entries[0],
+                [pscustomobject]@{ Path = 'docs/widget.md'; Carrier = $script:front }) $noted
             @($result.Files).Count | Should -Be 1 -Because 'the page has no fact, so it carries no head, note or not'
-            $result.Files[0].Fixed | Should -BeExactly "<#`n---`ncatzc:`n  visibility: public`n  header: `"widget`"`n---`n#>`n`nfunction Get-Gadget { }`n"
+            $result.Files[0].Fixed |
+                Should -BeExactly "<#`n---`ncatzc:`n  visibility: public`n  header: `"widget`"`n---`n#>`n`nfunction Get-Gadget { }`n"
         }
 
         It 'writes no head on a file whose facts are all empty and that holds none, so it reports nothing' {
@@ -284,10 +310,13 @@ Describe 'Invoke-FileMetaEngine' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRINTE
 
         It 'lets a class entry forbid a block where the default gives the facts' {
             $mixed = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ head_policy = [ordered]@{ classes = @{ 'widget-function' = 'forbidden' } }; kinds = $script:widgetKinds })
-            $result = & $script:run @($script:entries[0], [pscustomobject]@{ Path = 'docs/widget.md'; Carrier = $script:front }) $mixed
-            @($result.Files).Count | Should -Be 1 -Because 'the forbidden function file holds no head, so it has nothing to change'
+            $result = & $script:run @($script:entries[0],
+                [pscustomobject]@{ Path = 'docs/widget.md'; Carrier = $script:front }) $mixed
+            @($result.Files).Count |
+                Should -Be 1 -Because 'the forbidden function file holds no head, so it has nothing to change'
             $result.Files[0].Path | Should -Be 'docs/widget.md'
-            $result.Files[0].Fixed | Should -BeLike "---`ncatzc:`n  path: docs/widget.md`n  header: `"generated`"`n---*# Widget`n"
+            $result.Files[0].Fixed |
+                Should -BeLike "---`ncatzc:`n  path: docs/widget.md`n  header: `"generated`"`n---*# Widget`n"
         }
     }
 }

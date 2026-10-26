@@ -6,7 +6,8 @@ Describe 'Get-PlanOpenStepCount' -Tag 'L0', 'logic', 'ADR-REPO-PLANS-THREEPARTS'
             param([string] $Name, [string[]] $Text)
             [System.IO.File]::WriteAllText((Join-Path $script:folder $Name), ($Text -join "`n") + "`n")
         }
-        & $write 'plan-widget.md' @('# Widget', '', '## Open steps', '', '- [ ] Spin it (check: it spins).', '- [ ] Oil it,', '      one drop (check: no squeak).', '- [x] Polished.')
+        & $write 'plan-widget.md' @('# Widget', '', '## Open steps', '', '- [ ] Spin it (check: it spins).',
+            '- [ ] Oil it,', '      one drop (check: no squeak).', '- [x] Polished.')
         & $write 'plan-gadget.md' @('# Gadget', '', '## Open steps', '', '1. [ ] Turn it (check: it turns).')
         & $write 'plan-master.md' @('# Master', '', '- [ ] Not a plan step.')
         & $write 'task-widget.md' @('# Task', '', '- [ ] Not a plan either.')

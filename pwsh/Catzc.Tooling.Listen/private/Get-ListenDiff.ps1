@@ -34,7 +34,8 @@ function Get-ListenDiff {
         }
         $result = Invoke-Executable "git diff --no-index --no-color -- `"$($sides[0])`" `"$($sides[1])`"" -PassThru -Silent -NoAssert
         $lines = @($result.Output -split '\r?\n')
-        $first = [Array]::FindIndex($lines, [Predicate[string]] { param($line) $line.StartsWith('@@') -or $line.StartsWith('Binary files') })
+        $first = [Array]::FindIndex($lines,
+            [Predicate[string]] { param($line) $line.StartsWith('@@') -or $line.StartsWith('Binary files') })
         if ($first -lt 0) {
             return ''
         }

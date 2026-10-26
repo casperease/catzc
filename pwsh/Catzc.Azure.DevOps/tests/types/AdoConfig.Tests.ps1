@@ -56,7 +56,8 @@ Describe 'AdoConfig' -Tag 'L0' {
     It 'reports every violation in one throw' -Tag 'logic' {
         $bad = [ordered]@{ organization = 'dev.azure.com/x'; project = ''; tenant = 'not-a-guid'; colour = 'blue' }
         $err = { & $script:make $bad } | Should -Throw -PassThru
-        foreach ($expected in "*unknown key 'colour'*", '*organization*invalid*', '*project is empty*', '*tenant*invalid*') {
+        foreach ($expected in "*unknown key 'colour'*", '*organization*invalid*', '*project is empty*',
+            '*tenant*invalid*') {
             $err.Exception.Message | Should -BeLike $expected
         }
     }

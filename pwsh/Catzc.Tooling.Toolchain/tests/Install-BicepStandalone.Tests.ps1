@@ -29,7 +29,8 @@ Describe 'Install-BicepStandalone' -Tag 'L0', 'logic' {
         )
         Mock Write-Message -ModuleName Catzc.Tooling.Toolchain { }
         Mock Invoke-RestMethod -ModuleName Catzc.Tooling.Toolchain { , $script:releases }
-        Mock Save-VerifiedDownload -ModuleName Catzc.Tooling.Toolchain { [System.IO.File]::WriteAllText($OutFile, 'bicep'); $OutFile }
+        Mock Save-VerifiedDownload -ModuleName Catzc.Tooling.Toolchain { [System.IO.File]::WriteAllText($OutFile,
+            'bicep'); $OutFile }
         Mock Invoke-Executable -ModuleName Catzc.Tooling.Toolchain { }
     }
 
@@ -48,19 +49,22 @@ Describe 'Install-BicepStandalone' -Tag 'L0', 'logic' {
     }
 
     It 'throws when no release matches the pin, naming the tools.yml pin to bump' {
-        { InModuleScope Catzc.Tooling.Toolchain { Install-BicepStandalone -Version '0.47' } } | Should -Throw '*No Azure/bicep release matches the locked 0.47.x*tools.yml*'
+        { InModuleScope Catzc.Tooling.Toolchain { Install-BicepStandalone -Version '0.47' } } |
+            Should -Throw '*No Azure/bicep release matches the locked 0.47.x*tools.yml*'
         Should -Invoke Save-VerifiedDownload -ModuleName Catzc.Tooling.Toolchain -Times 0
     }
 
     It 'refuses an asset without a published digest' {
         $script:releases[2].assets[0].digest = ''
-        { InModuleScope Catzc.Tooling.Toolchain { Install-BicepStandalone -Version '0.48' } } | Should -Throw '*no published SHA-256*refusing an unverified download*'
+        { InModuleScope Catzc.Tooling.Toolchain { Install-BicepStandalone -Version '0.48' } } |
+            Should -Throw '*no published SHA-256*refusing an unverified download*'
         Should -Invoke Save-VerifiedDownload -ModuleName Catzc.Tooling.Toolchain -Times 0
     }
 
     It 'leaves no half-written binary when the verified download fails' {
         Mock Save-VerifiedDownload -ModuleName Catzc.Tooling.Toolchain { throw 'SHA-256 mismatch' }
-        { InModuleScope Catzc.Tooling.Toolchain { Install-BicepStandalone -Version '0.48' } } | Should -Throw '*SHA-256 mismatch*'
+        { InModuleScope Catzc.Tooling.Toolchain { Install-BicepStandalone -Version '0.48' } } |
+            Should -Throw '*SHA-256 mismatch*'
         Join-Path $script:fakeHome '.local/bin/bicep' | Should -Not -Exist
         Join-Path $script:fakeHome '.local/bin/bicep.download' | Should -Not -Exist
     }

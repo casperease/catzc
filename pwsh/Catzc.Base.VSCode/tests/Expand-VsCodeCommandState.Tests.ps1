@@ -23,7 +23,8 @@ Describe 'Expand-VsCodeCommandState' -Tag 'L0', 'logic' {
 
     It 'makes one command per declared state beside the bare one, its icon and title marked, and drops the state keys' {
         $commands = @((& $script:expand $script:contributes)['commands'])
-        $commands.ForEach({ $_['command'] }) | Should -Be @('widget.toggle', 'widget.toggle.busy', 'widget.toggle.broken', 'gadget.run')
+        $commands.ForEach({ $_['command'] }) | Should -Be @('widget.toggle', 'widget.toggle.busy',
+            'widget.toggle.broken', 'gadget.run')
         $commands[2]['icon']['dark'] | Should -Be 'media/widget-broken.svg'
         $commands[1]['title'] | Should -Be 'Widget [busy]'
         $commands[0].Contains('states') | Should -BeFalse

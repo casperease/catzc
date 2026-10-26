@@ -22,7 +22,8 @@ function Add-PermanentPath {
     Assert-PathExist $Path -PathType Container
 
     $separator = [System.IO.Path]::PathSeparator
-    $normalizedPath = $Path.TrimEnd([System.IO.Path]::DirectorySeparatorChar, [System.IO.Path]::AltDirectorySeparatorChar)
+    $normalizedPath = $Path.TrimEnd([System.IO.Path]::DirectorySeparatorChar,
+        [System.IO.Path]::AltDirectorySeparatorChar)
 
     # --- Session PATH ---
     $entries = $env:PATH -split [regex]::Escape($separator) | Where-Object { $_ -ne '' }
@@ -33,7 +34,8 @@ function Add-PermanentPath {
         [System.StringComparer]::Ordinal
     }
     $alreadyInSession = $entries | Where-Object {
-        $comparer.Equals($_.TrimEnd([System.IO.Path]::DirectorySeparatorChar, [System.IO.Path]::AltDirectorySeparatorChar), $normalizedPath)
+        $comparer.Equals($_.TrimEnd([System.IO.Path]::DirectorySeparatorChar,
+            [System.IO.Path]::AltDirectorySeparatorChar), $normalizedPath)
     } | Select-Object -First 1
 
     if (-not $alreadyInSession) {
@@ -47,7 +49,8 @@ function Add-PermanentPath {
         }
     }
 
-    # The persistent PATH goes through a thin read and write seam, so a test can stand in for it and never touch the machine's.
+    # The persistent PATH goes through a thin read and write seam, so a test can stand in for it and never touch the
+    # machine's.
     if ($IsWindows) {
         $userPath = Get-EnvironmentPath -Scope User
         $userEntries = @(if ($userPath) {
@@ -57,7 +60,8 @@ function Add-PermanentPath {
                 @()
             })
         $alreadyPersisted = $userEntries | Where-Object {
-            $comparer.Equals($_.TrimEnd([System.IO.Path]::DirectorySeparatorChar, [System.IO.Path]::AltDirectorySeparatorChar), $normalizedPath)
+            $comparer.Equals($_.TrimEnd([System.IO.Path]::DirectorySeparatorChar,
+                [System.IO.Path]::AltDirectorySeparatorChar), $normalizedPath)
         } | Select-Object -First 1
 
         if (-not $alreadyPersisted) {

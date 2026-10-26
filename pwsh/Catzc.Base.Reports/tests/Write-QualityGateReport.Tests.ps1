@@ -6,7 +6,8 @@ catzc:
 ---
 #>
 
-# The real settings type over a mocked file, so the shape every gate's report shares is pinned without writing outside the test drive.
+# The real settings type over a mocked file, so the shape every gate's report shares is pinned without writing outside
+# the test drive.
 Describe 'Write-QualityGateReport' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Get-Config -ModuleName Catzc.Base.Reports -ParameterFilter { $Config -eq 'reports' } -MockWith {
@@ -27,7 +28,8 @@ Describe 'Write-QualityGateReport' -Tag 'L0', 'logic' {
     }
 
     It 'throws once with every issue and the report path' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
-        $thrown = { Write-QualityGateReport -Subject widget -Title Test-Widget -Issues @('first problem', 'second problem') } |
+        $thrown = { Write-QualityGateReport -Subject widget -Title Test-Widget -Issues @('first problem',
+            'second problem') } |
             Should -Throw -PassThru
         $thrown.Exception.Message | Should -BeLike 'Test-Widget failed: 2 issue(s) — see *'
         $thrown.Exception.Message | Should -Match 'first problem'
@@ -37,7 +39,8 @@ Describe 'Write-QualityGateReport' -Tag 'L0', 'logic' {
     }
 
     It 'prints each finding once when it returns the result instead of throwing' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
-        $null = Write-QualityGateReport -Subject widget -Title Test-Widget -Issues @('first problem', 'second problem') -PassThru
+        $null = Write-QualityGateReport -Subject widget -Title Test-Widget -Issues @('first problem',
+            'second problem') -PassThru
         Should -Invoke Write-Message -ModuleName Catzc.Base.Reports -Times 1 -Exactly -ParameterFilter { $Message -eq 'first problem' }
         Should -Invoke Write-Message -ModuleName Catzc.Base.Reports -Times 1 -Exactly -ParameterFilter { $Message -eq 'second problem' }
     }
@@ -56,7 +59,8 @@ Describe 'Write-QualityGateReport' -Tag 'L0', 'logic' {
     It 'writes a list-valued fact into the report as its count and returns the list itself' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
         $result = Write-QualityGateReport -Subject gadget -Title Test-Gadget -Facts ([ordered]@{ Widgets = [string[]] @('one', 'two') }) -PassThru
         $result.Facts['Widgets'] | Should -Be @('one', 'two')
-        [System.IO.File]::ReadAllText((Join-Path $result.ReportPath 'gadget.md')) | Should -Match '- Widgets: 2 item\(s\)'
+        [System.IO.File]::ReadAllText((Join-Path $result.ReportPath 'gadget.md')) |
+            Should -Match '- Widgets: 2 item\(s\)'
     }
 
     It 'keeps two runs in the same second apart' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {

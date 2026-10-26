@@ -83,7 +83,8 @@ function Install-Tool {
     if ($IsWindows -and -not (Get-Command $config.command -CommandType Application -ErrorAction Ignore)) {
         $pkgRoot = Join-Path $env:LOCALAPPDATA 'Microsoft\WinGet\Packages'
         if (Test-Path $pkgRoot) {
-            # Installed commands sit at most three levels below the packages folder; the walk must enter every package folder.
+            # Installed commands sit at most three levels below the packages folder; the walk must enter every package
+            # folder.
             $exe = Get-ChildPath $pkgRoot -File -Filter "$($config.command).exe" -Depth 5 -Exclude @() -PruneVendor $false |
                 Select-Object -First 1
             $exeDirectory = if ($exe) {

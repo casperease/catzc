@@ -9,7 +9,8 @@ catzc:
 Describe 'New-GoWorkspace' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:root = Join-Path $TestDrive 'repo'
-        foreach ($file in 'go/tests/catzcwidget/widget_test.go', 'go/tests/catzcgadget/inner/gadget_test.go', 'go/tests/.hidden/hidden_test.go') {
+        foreach ($file in 'go/tests/catzcwidget/widget_test.go', 'go/tests/catzcgadget/inner/gadget_test.go',
+            'go/tests/.hidden/hidden_test.go') {
             $path = Join-Path $script:root $file
             $null = New-Item -ItemType Directory -Path (Split-Path $path -Parent) -Force
             Set-Content -LiteralPath $path -Value 'package widget'
@@ -42,7 +43,8 @@ Describe 'New-GoWorkspace' -Tag 'L0', 'logic' {
     }
 
     It 'renders go.work first, then one go.mod per Go test folder and per module, test folders then modules in ordinal order' {
-        @(New-GoWorkspace).Target | Should -Be @('go.work', 'go/tests/catzcgadget/go.mod', 'go/tests/catzcwidget/go.mod', 'go/Widget.Kit/go.mod')
+        @(New-GoWorkspace).Target | Should -Be @('go.work', 'go/tests/catzcgadget/go.mod',
+            'go/tests/catzcwidget/go.mod', 'go/Widget.Kit/go.mod')
     }
 
     It 'renders a module member''s go.mod with its module path under the module root' {
@@ -78,7 +80,8 @@ Describe 'New-GoWorkspace' -Tag 'L0', 'logic' {
     }
 
     It 'selects files with a wildcard -Target' {
-        @(New-GoWorkspace -Target 'go/tests/*/go.mod').Target | Should -Be @('go/tests/catzcgadget/go.mod', 'go/tests/catzcwidget/go.mod')
+        @(New-GoWorkspace -Target 'go/tests/*/go.mod').Target | Should -Be @('go/tests/catzcgadget/go.mod',
+            'go/tests/catzcwidget/go.mod')
         @(New-GoWorkspace -Target 'nothing').Count | Should -Be 0
     }
 
@@ -135,7 +138,8 @@ Describe 'New-GoWorkspace — a go/tests/widget/ fixture tree' -Tag 'L0', 'logic
     It 'renders the exact bytes of go.work and go/tests/widget/go.mod, with the pin as the go directive' {
         $files = @(New-GoWorkspace)
         $files.Target | Should -Be @('go.work', 'go/tests/widget/go.mod')
-        $files[0].Content | Should -BeExactly ((@('go 1.27'; ''; 'use ('; "`t./go/tests/widget"; ')') -join "`n") + "`n")
+        $files[0].Content |
+            Should -BeExactly ((@('go 1.27'; ''; 'use ('; "`t./go/tests/widget"; ')') -join "`n") + "`n")
         $files[1].Content | Should -BeExactly ((@('module catzc/go/tests/widget'; ''; 'go 1.27') -join "`n") + "`n")
     }
 
@@ -170,7 +174,8 @@ Describe 'New-GoWorkspace — the Go root' -Tag 'L0', 'logic' {
         & $script:addWidget '.go/tests'
         $files = @(New-GoWorkspace)
         $files.Target | Should -Be @('go.work', '.go/tests/widget/go.mod')
-        $files[0].Content | Should -BeExactly ((@('go 1.27'; ''; 'use ('; "`t./.go/tests/widget"; ')') -join "`n") + "`n")
+        $files[0].Content |
+            Should -BeExactly ((@('go 1.27'; ''; 'use ('; "`t./.go/tests/widget"; ')') -join "`n") + "`n")
         $files[1].Content | Should -BeExactly ((@('module catzc/go/tests/widget'; ''; 'go 1.27') -join "`n") + "`n")
     }
 

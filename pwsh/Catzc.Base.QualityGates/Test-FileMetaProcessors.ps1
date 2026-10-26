@@ -29,7 +29,8 @@ function Test-FileMetaProcessors {
     }
 
     # piped, not member-enumerated: .Name over an empty result throws in a strict scope
-    $processors = @(Get-Command -Name 'Get-?*FileMetaFact', 'Get-?*MarkdownConfigContribution' -CommandType Function -ErrorAction Ignore |
+    $processors = @(Get-Command -Name 'Get-?*FileMetaFact',
+        'Get-?*MarkdownConfigContribution' -CommandType Function -ErrorAction Ignore |
             Select-Object -ExpandProperty Name | Sort-Object -Unique)
     foreach ($processor in $processors) {
         if (-not $named.Contains($processor)) {

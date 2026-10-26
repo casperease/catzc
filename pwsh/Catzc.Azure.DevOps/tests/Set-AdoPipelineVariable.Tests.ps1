@@ -6,7 +6,8 @@ catzc:
 ---
 #>
 
-[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '', Justification = 'Tests lift $global:__PesterRunning to capture the ##vso line, which goes through the writer chokepoint; that flag is the writers'' test-suppression interface, set by Test-Automation')]
+[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '',
+    Justification = 'Tests lift $global:__PesterRunning to capture the ##vso line, which goes through the writer chokepoint; that flag is the writers'' test-suppression interface, set by Test-Automation')]
 param()
 
 Describe 'Set-AdoPipelineVariable' -Tag 'L0', 'logic' {

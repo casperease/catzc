@@ -49,7 +49,8 @@ function Format-FileMeta {
     $saved = Save-FileMetaResult -Result $result -RepositoryRoot $root -DryRun:$DryRun
     $toFix = @($saved.Fixed)
 
-    # A file a person must still repair, or one the run would change, is never recorded as clean, so the next run reports it again.
+    # A file a person must still repair, or one the run would change, is never recorded as clean, so the next run
+    # reports it again.
     $unfixable = @($saved.Unowned | ForEach-Object { [System.IO.Path]::GetFullPath((Join-Path $root $_.Path)) })
     if ($DryRun) {
         $flagged = @($toFix | ForEach-Object { [System.IO.Path]::GetFullPath((Join-Path $root $_.Path)) }) + $unfixable

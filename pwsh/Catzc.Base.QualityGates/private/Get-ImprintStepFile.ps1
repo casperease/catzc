@@ -21,7 +21,8 @@ function Get-ImprintStepFile {
 
     $root = [System.IO.Path]::GetFullPath($RepositoryRoot)
 
-    # Format-Code -Path also formats files outside the repository, which no step's scope covers: they are left out, not refused.
+    # Format-Code -Path also formats files outside the repository, which no step's scope covers: they are left out, not
+    # refused.
     if ($Path) {
         $Path = @($Path | Where-Object {
                 $resolved = Resolve-Path -LiteralPath $_ -ErrorAction Ignore
@@ -59,7 +60,8 @@ function Get-ImprintStepFile {
             return , [string[]] @($scope | ForEach-Object { [System.IO.Path]::GetFullPath([System.IO.Path]::Combine($root, $_.File)) })
         }
         'plan-counts' {
-            # The step rewrites the master and the value overlay; it is in scope with no -Path, or one in, or above, the plans folder.
+            # The step rewrites the master and the value overlay; it is in scope with no -Path, or one in, or above, the
+            # plans folder.
             $plans = Get-Config -Config plans
             $folder = [System.IO.Path]::GetFullPath([System.IO.Path]::Combine($root, $plans.folder))
             $overlays = @(foreach ($name in $plans.master_file, $plans.value_file) {

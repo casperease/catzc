@@ -36,7 +36,8 @@ function Get-FormatScope {
                 continue
             }
             $relative = [System.IO.Path]::GetRelativePath($root, $full) -replace '\\', '/'
-            Assert-False ($relative -eq '..' -or $relative.StartsWith('../')) -ErrorText "Get-FormatScope: the folder '$item' lies outside the repository '$root'; pass its files instead."
+            Assert-False ($relative -eq '..' -or
+                $relative.StartsWith('../')) -ErrorText "Get-FormatScope: the folder '$item' lies outside the repository '$root'; pass its files instead."
             foreach ($tracked in @(Get-GitTrackedPath $relative)) {
                 $files.Add([System.IO.Path]::GetFullPath([System.IO.Path]::Combine($root, $tracked)))
             }

@@ -9,11 +9,13 @@ Describe 'Get-FileMetaInputStamp' -Tag 'L0', 'logic' {
     }
     BeforeEach {
         $script:engine = 'engine-one'
-        # The engine stamp is the input stamp over the files FileMetaConfig.EngineInputs names; a fixture stands for its value here.
+        # The engine stamp is the input stamp over the files FileMetaConfig.EngineInputs names; a fixture stands for its
+        # value here.
         Mock Get-InputStamp -ModuleName Catzc.Base.QualityGates { $script:engine }
         Mock Get-DrsCitationMap -ModuleName Catzc.Base.QualityGates { throw 'the stamp reads no citation registry' }
         $script:stamp = {
-            InModuleScope Catzc.Base.QualityGates -Parameters @{ F = @($script:widget, $script:note); R = $script:root; C = $script:config } {
+            InModuleScope Catzc.Base.QualityGates -Parameters @{ F = @($script:widget,
+                $script:note); R = $script:root; C = $script:config } {
                 param($F, $R, $C)
                 Get-FileMetaInputStamp -File $F -RepositoryRoot $R -Config $C
             }

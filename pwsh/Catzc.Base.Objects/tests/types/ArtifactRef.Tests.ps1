@@ -17,7 +17,8 @@ Describe 'ArtifactRef' -Tag 'L0', 'logic', 'ADR-AUTO-PATH-PUBLISHEDARTIFACT' {
     It 'throws when the file is not under the artifact root' {
         $artifactRoot = [IO.Path]::GetFullPath((Join-Path ([IO.Path]::GetTempPath()) ('catzc-art-' + [Guid]::NewGuid())))
         $elsewhere = [IO.Path]::GetFullPath((Join-Path ([IO.Path]::GetTempPath()) ('catzc-elsewhere-' + [Guid]::NewGuid() + '/main.json')))
-        { [Catzc.Base.Objects.ArtifactRef]::Materialize($elsewhere, $artifactRoot) } | Should -Throw '*under the artifact root*'
+        { [Catzc.Base.Objects.ArtifactRef]::Materialize($elsewhere, $artifactRoot) } |
+            Should -Throw '*under the artifact root*'
     }
 
     It 're-resolves against a DIFFERENT artifact root (survives the ADO publish rename)' {
@@ -34,12 +35,14 @@ Describe 'ArtifactRef' -Tag 'L0', 'logic', 'ADR-AUTO-PATH-PUBLISHEDARTIFACT' {
     }
 
     It 'rejects a rooted (non-artifact-relative) relative form' {
-        { [Catzc.Base.Objects.ArtifactRef]::new('C:/somewhere/main.json', 'C:/x') } | Should -Throw '*artifact-relative*'
+        { [Catzc.Base.Objects.ArtifactRef]::new('C:/somewhere/main.json', 'C:/x') } |
+            Should -Throw '*artifact-relative*'
         { [Catzc.Base.Objects.ArtifactRef]::new('/abs/main.json', 'C:/x') } | Should -Throw '*artifact-relative*'
     }
 
     It 'rejects a relative form that escapes the artifact root' {
-        { [Catzc.Base.Objects.ArtifactRef]::new('../outside/main.json', 'C:/x') } | Should -Throw '*within the artifact root*'
+        { [Catzc.Base.Objects.ArtifactRef]::new('../outside/main.json', 'C:/x') } |
+            Should -Throw '*within the artifact root*'
     }
 
     It 'verifies existence at the consumer root' {
@@ -57,7 +60,8 @@ Describe 'ArtifactRef' -Tag 'L0', 'logic', 'ADR-AUTO-PATH-PUBLISHEDARTIFACT' {
     }
 
     It 'serializes both forms to JSON (and no methods)' {
-        $ref = [Catzc.Base.Objects.ArtifactRef]::new('parameters.dev.json', 'C:/build/out/template/sample/parameters.dev.json')
+        $ref = [Catzc.Base.Objects.ArtifactRef]::new('parameters.dev.json',
+            'C:/build/out/template/sample/parameters.dev.json')
         $round = $ref | ConvertTo-Json | ConvertFrom-Json
         $round.relative | Should -Be 'parameters.dev.json'
         $round.absolute | Should -Be 'C:/build/out/template/sample/parameters.dev.json'

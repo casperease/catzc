@@ -24,7 +24,8 @@ function Get-TestOptOutExclusion {
         [string[]] $TestFiles
     )
 
-    $fileLookup = [System.Collections.Generic.HashSet[string]]::new([string[]] $TestFiles, [System.StringComparer]::OrdinalIgnoreCase)
+    $fileLookup = [System.Collections.Generic.HashSet[string]]::new([string[]] $TestFiles,
+        [System.StringComparer]::OrdinalIgnoreCase)
     $excluded = [System.Collections.Generic.List[object]]::new()
     $excludedByFile = [ordered]@{}
     $runnableFiles = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)

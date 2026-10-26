@@ -8,7 +8,8 @@ catzc:
 
 Describe 'Build-Glossary' -Tag 'L0', 'logic' {
     BeforeAll {
-        # A rule whose link is longer than a line: the page wraps it the way Prettier does, so the formatter leaves it unchanged.
+        # A rule whose link is longer than a line: the page wraps it the way Prettier does, so the formatter leaves it
+        # unchanged.
         $script:longRule = 'ADR-TST-WIDGET-GADGET-SPINS-WHILE-EVERY-WIDGET-RESTS-AND-NOTHING-ELSE-MOVES'
         $entry = {
             param([string] $term, [string] $domain, [System.Collections.IDictionary] $extra = @{})
@@ -61,7 +62,8 @@ Describe 'Build-Glossary' -Tag 'L0', 'logic' {
         $text | Should -Not -BeLike '*generator:*'
         $text.IndexOf('## repository') | Should -BeLessThan $text.IndexOf('## automation')
         $text | Should -Not -Match '## flow'   # a domain without concepts gets no section
-        $text | Should -Match ([regex]::Escape('- **Defined by:** [ADR-TST-WIDGET-REST](repository/widget-thing.md#rule-adr-tst-widget-rest)'))
+        $text |
+            Should -Match ([regex]::Escape('- **Defined by:** [ADR-TST-WIDGET-REST](repository/widget-thing.md#rule-adr-tst-widget-rest)'))
         $text | Should -Match ([regex]::Escape('- **Realized by:** tag `gadget`'))
         $text | Should -Match ([regex]::Escape('- **Part of:** [widget suite](#widget-suite)'))
         $text | Should -Match ([regex]::Escape('| `widget bundle` | widget suite |'))
@@ -70,8 +72,10 @@ Describe 'Build-Glossary' -Tag 'L0', 'logic' {
     It 'renders a contrast declared on one term on both terms'' entries' -Tag 'ADR-REPO-VOCAB-SIMILARTERMSCONTRASTED' {
         Build-Glossary -Path $script:page -Silent | Out-Null
         $text = [System.IO.File]::ReadAllText($script:page)
-        $text | Should -Match ([regex]::Escape('  - [widget suite](#widget-suite): A widget suite is files at rest; a gadget run executes.'))
-        $text | Should -Match ([regex]::Escape('  - [gadget run](#gadget-run): A widget suite is files at rest; a gadget run executes.'))
+        $text |
+            Should -Match ([regex]::Escape('  - [widget suite](#widget-suite): A widget suite is files at rest; a gadget run executes.'))
+        $text |
+            Should -Match ([regex]::Escape('  - [gadget run](#gadget-run): A widget suite is files at rest; a gadget run executes.'))
     }
 
     It 'wraps a rule link longer than a line onto its own continuation line, as Prettier does' -Tag 'ADR-REPO-VOCAB-DEFINEDTERM' {
@@ -95,7 +99,8 @@ Describe 'Build-Glossary' -Tag 'L0', 'logic' {
         Build-Glossary -Path $script:page -Silent | Out-Null
         $text = [System.IO.File]::ReadAllText($script:page)
         $text | Should -Match 'warning: "Do Not Edit, this file is generated"'
-        $text | Should -Not -Match 'with_body_sha' -Because 'git does not track a fixture page, and the body hash is written only while it does'
+        $text |
+            Should -Not -Match 'with_body_sha' -Because 'git does not track a fixture page, and the body hash is written only while it does'
         $text | Should -Not -Match 'with_inputs_sha'
         (Build-Glossary -Path $script:page -PassThru -Silent).Changed | Should -BeFalse
         Should -Invoke Get-Glossary -ModuleName Catzc.Base.Docs -Times 2 -Exactly -Scope It
@@ -134,8 +139,10 @@ Describe 'Build-Glossary — generated glossary page' -Tag 'L2', 'integrity', 's
 Describe 'Build-Glossary — shipped configs/drs.yml and types' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP-COVEREDBYREALTEST' {
     It 'finds the domain registry and the type sources in the loaded module' {
         # The domain registry Build-Glossary reads through Get-Config ships in Catzc.Base.Drs.
-        $registry = [System.IO.File]::ReadAllText((Get-CatzcModuleRoot 'configs/drs.yml' -Module Catzc.Base.Drs)) | ConvertFrom-Yaml -Ordered
+        $registry = [System.IO.File]::ReadAllText((Get-CatzcModuleRoot 'configs/drs.yml' -Module Catzc.Base.Drs)) |
+            ConvertFrom-Yaml -Ordered
         @($registry['domains'].Keys).Count | Should -BeGreaterThan 0
-        [System.IO.Directory]::EnumerateFiles((Get-CatzcModuleRoot 'types' -Module Catzc.Base.Docs), '*.cs') | Should -Not -BeNullOrEmpty
+        [System.IO.Directory]::EnumerateFiles((Get-CatzcModuleRoot 'types' -Module Catzc.Base.Docs), '*.cs') |
+            Should -Not -BeNullOrEmpty
     }
 }

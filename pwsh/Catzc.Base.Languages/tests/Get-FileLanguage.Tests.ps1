@@ -10,7 +10,8 @@ Describe 'Get-FileLanguage' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:fixture = [Catzc.Base.Languages.LanguagesConfig]::new([ordered]@{
                 languages = [ordered]@{
-                    widget = [ordered]@{ extensions = @('.wdg', '.widget'); formatter = 'prettier'; adr_folder = 'widgets' }
+                    widget = [ordered]@{ extensions = @('.wdg',
+                        '.widget'); formatter = 'prettier'; adr_folder = 'widgets' }
                     gadget = [ordered]@{ extensions = @('.gdg'); no_formatter = 'binary gadgets' }
                 }
             })
@@ -108,7 +109,8 @@ Describe 'Get-FileLanguage — the real repository' -Tag 'L1', 'integrity', 'sou
                 return $false
             }
             $relative = $File.Substring($Track.PlaceLengthOf($File) + 1)
-            if (-not (Get-Config -Config languages).IsLaidOut($Track.languages) -and -not (Test-AspectDeclaration -Track $Track.name)) {
+            if (-not (Get-Config -Config languages).IsLaidOut($Track.languages) -and
+                -not (Test-AspectDeclaration -Track $Track.name)) {
                 return $true
             }
             $slash = $relative.IndexOf('/')
@@ -125,12 +127,15 @@ Describe 'Get-FileLanguage — the real repository' -Tag 'L1', 'integrity', 'sou
     }
 
     It 'places every folder git tracks a file in inside a track, except out/' {
-        # A track's places may sit below its root folder (infrastructure/templates), so the folders are checked, not the root folders.
-        $folders = @($script:tracked | Where-Object { $_.Contains('/') } | ForEach-Object { $_.Substring(0, $_.LastIndexOf('/')) } |
+        # A track's places may sit below its root folder (infrastructure/templates), so the folders are checked, not the
+        # root folders.
+        $folders = @($script:tracked | Where-Object { $_.Contains('/') } | ForEach-Object { $_.Substring(0,
+            $_.LastIndexOf('/')) } |
                 Sort-Object -Unique | Where-Object { $_.Split('/')[0] -ne 'out' })
         $folders.Count | Should -BeGreaterThan 0
         $undeclared = @($folders | Where-Object { $null -eq (Get-Track -Path $_) })
-        $undeclared | Should -BeNullOrEmpty -Because 'every tracked file lies in exactly one track (DDR-TRACK-TRACKISPLACEDCLUSTER)'
+        $undeclared |
+            Should -BeNullOrEmpty -Because 'every tracked file lies in exactly one track (DDR-TRACK-TRACKISPLACEDCLUSTER)'
     }
 
     It 'registers every file language a track declares' {
@@ -142,7 +147,8 @@ Describe 'Get-FileLanguage — the real repository' -Tag 'L1', 'integrity', 'sou
                     }
                 }
             })
-        $unknown | Should -BeNullOrEmpty -Because 'a track declares its tech-stack in registered file languages (DDR-TRACK-FILELANGUAGE)'
+        $unknown |
+            Should -BeNullOrEmpty -Because 'a track declares its tech-stack in registered file languages (DDR-TRACK-FILELANGUAGE)'
     }
 
     It 'names an existing ADR folder for every file language that declares one' {
@@ -180,6 +186,7 @@ Describe 'Get-FileLanguage — the real repository' -Tag 'L1', 'integrity', 'sou
         $report = @(foreach ($key in $violations.Keys) {
                 '{0}: {1} file(s), e.g. {2}' -f $key, $violations[$key].Count, $violations[$key][0]
             })
-        $report | Should -BeNullOrEmpty -Because 'a live file outside its track''s file languages is a second tech-stack (DDR-TRACK-ONETECHSTACK)'
+        $report |
+            Should -BeNullOrEmpty -Because 'a live file outside its track''s file languages is a second tech-stack (DDR-TRACK-ONETECHSTACK)'
     }
 }

@@ -23,7 +23,8 @@ Describe 'Get-VsCodeSession' -Tag 'L0', 'logic' {
         }
         Mock Get-FileLockingProcess -ModuleName Catzc.Base.VSCode {
             if ($Path -like '*widget01*') {
-                [Catzc.Base.Files.FileLockingProcess]::new(42, 'pwsh.exe', 'pwsh', [datetime]::new(2026, 1, 1, 10, 0, 0), $null, $null)
+                [Catzc.Base.Files.FileLockingProcess]::new(42, 'pwsh.exe', 'pwsh', [datetime]::new(2026, 1, 1, 10, 0,
+                    0), $null, $null)
             }
         }
     }
@@ -55,7 +56,8 @@ Describe 'Get-VsCodeSession' -Tag 'L0', 'logic' {
     It 'lists the builds in the shadow root, and the held ones with their holders' {
         $session = Get-VsCodeSession -ModulesRoot $script:root -LogRoot $script:logs
         $session.Builds | Should -Be @('Catzc.Types.widget01.dll', 'Catzc.Types.widget02.dll')
-        $session.HeldBuilds | Should -Be @('Catzc.Types.widget01.dll held by pwsh.exe (PID 42, started 2026-01-01 10:00)')
+        $session.HeldBuilds |
+            Should -Be @('Catzc.Types.widget01.dll held by pwsh.exe (PID 42, started 2026-01-01 10:00)')
     }
 
     It 'reads the newest log session and only the extension log lines that start or end a session' {
@@ -72,6 +74,7 @@ Describe 'Get-VsCodeSession' -Tag 'L0', 'logic' {
 
     It 'tells the session in one line' {
         $session = Get-VsCodeSession -ModulesRoot $script:root -LogRoot $script:logs
-        "$session" | Should -Be "pwsh $PID in $($Host.Name): types widget01 of sources widget02 (bound to an earlier instance); 1 held build(s)"
+        "$session" |
+            Should -Be "pwsh $PID in $($Host.Name): types widget01 of sources widget02 (bound to an earlier instance); 1 held build(s)"
     }
 }

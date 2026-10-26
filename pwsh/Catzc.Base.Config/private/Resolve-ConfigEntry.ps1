@@ -28,7 +28,8 @@ function Resolve-ConfigEntry {
         $overlayRoot = Get-ConfigOverlayRoot
         if ($overlayRoot) {
             foreach ($overlayDir in [System.IO.Directory]::EnumerateDirectories($overlayRoot)) {
-                if (-not [System.IO.Directory]::Exists([System.IO.Path]::Combine($modulesRoot, [System.IO.Path]::GetFileName($overlayDir)))) {
+                if (-not [System.IO.Directory]::Exists([System.IO.Path]::Combine($modulesRoot,
+                    [System.IO.Path]::GetFileName($overlayDir)))) {
                     $moduleDirs.Add($overlayDir)   # a local module; a bundled module's folder holds fragments, not configs
                 }
             }
@@ -42,8 +43,10 @@ function Resolve-ConfigEntry {
             if (-not [System.IO.Directory]::Exists($configsDir)) {
                 continue
             }
-            # A config is one file, or a folder of disjoint parts (configs/<name>/*.yml) when one file would pass the length cap.
-            $sources = @([System.IO.Directory]::EnumerateFiles($configsDir, '*.yml')) + @([System.IO.Directory]::EnumerateDirectories($configsDir))
+            # A config is one file, or a folder of disjoint parts (configs/<name>/*.yml) when one file would pass the
+            # length cap.
+            $sources = @([System.IO.Directory]::EnumerateFiles($configsDir,
+                '*.yml')) + @([System.IO.Directory]::EnumerateDirectories($configsDir))
             foreach ($file in $sources) {
                 $configName = if ([System.IO.Directory]::Exists($file)) {
                     [System.IO.Path]::GetFileName($file)
@@ -57,7 +60,8 @@ function Resolve-ConfigEntry {
                 $script:configIndex[$configName].Add(@{ Name = $configName; Module = $moduleName; Path = $file })
             }
         }
-        # A registered type with no shipped file is still a config, built from an empty map, so every key takes its declared default.
+        # A registered type with no shipped file is still a config, built from an empty map, so every key takes its
+        # declared default.
         $registry = Get-ConfigRegistry
         foreach ($configName in @($registry.Keys)) {
             if ($script:configIndex.ContainsKey($configName)) {

@@ -16,11 +16,13 @@ Describe 'MinimapData' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT-PROVENBYTESTS' {
         $paths = @('widgets/Alpha/Get-Widget.ps1', 'docs/drs/widgetry/widget-gadget.md', 'docs/guide.md')
         $script:worldMap = [Catzc.Base.Maps.WorldMapBuilder]::Build($tracks, $languages, $paths, [ordered]@{},
             [ordered]@{ 'ADR-WIDGET-GADGET' = 'widgetry' }, [ordered]@{ 'ADR-WIDGET-GADGET' = 'docs/drs/widgetry/widget-gadget.md' }, $texts, [ordered]@{}, @())
-        $script:worldHighlight = [Catzc.Base.Maps.WorldMapHighlight]::ForAdr($script:worldMap, @('ADR-WIDGET-GADGET'), @(), @())
+        $script:worldHighlight = [Catzc.Base.Maps.WorldMapHighlight]::ForAdr($script:worldMap, @('ADR-WIDGET-GADGET'),
+            @(), @())
 
         $adr = {
             param([string] $External, [string] $Stack, [string[]] $Concerns)
-            [Catzc.Base.Drs.DrsRuleSet]::new('widgetry', 'fixture', 'widget', $External, 'WIDGET', 'WIDGET', $Stack, $Concerns, $Concerns)
+            [Catzc.Base.Drs.DrsRuleSet]::new('widgetry', 'fixture', 'widget', $External, 'WIDGET', 'WIDGET', $Stack,
+                $Concerns, $Concerns)
         }
         $script:chain = [Catzc.Base.Maps.ValueChainMap]::Build(@('TOP', 'BOTTOM'), @('alpha', 'beta'), @(
                 & $adr 'ADR-WIDGET-GADGET' 'TOP' @('alpha')
@@ -48,16 +50,20 @@ Describe 'MinimapData' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT-PROVENBYTESTS' {
     }
 
     It 'rejects an id outside the eight minimaps, naming them' {
-        { [Catzc.Base.Maps.MinimapData]::new('widget', @(), @(), @()) } | Should -Throw "*minimap id 'widget' is not one of: grid, code-locations, axis*"
+        { [Catzc.Base.Maps.MinimapData]::new('widget', @(), @(), @()) } |
+            Should -Throw "*minimap id 'widget' is not one of: grid, code-locations, axis*"
     }
 
     It 'rejects a lit cell with no reason, and a cell whose place does not match the axes' {
         $axes = @([Catzc.Base.Maps.MinimapAxis]::new('widget', @('a', 'b')))
-        { [Catzc.Base.Maps.MinimapData]::new('grid', $axes, @(), @([Catzc.Base.Maps.MinimapCell]::new(@('a'), 1))) } | Should -Throw '*has no reason*'
-        { [Catzc.Base.Maps.MinimapData]::new('grid', $axes, @([Catzc.Base.Maps.MinimapCell]::new(@('a', 'b'), 1)), @()) } | Should -Throw '*names 2 axis values, but the minimap has 1 axes*'
+        { [Catzc.Base.Maps.MinimapData]::new('grid', $axes, @(), @([Catzc.Base.Maps.MinimapCell]::new(@('a'), 1))) } |
+            Should -Throw '*has no reason*'
+        { [Catzc.Base.Maps.MinimapData]::new('grid', $axes, @([Catzc.Base.Maps.MinimapCell]::new(@('a', 'b'), 1)),
+            @()) } | Should -Throw '*names 2 axis values, but the minimap has 1 axes*'
     }
 
     It 'the schema rejects a minimap whose lit cell has no reasons' {
-        & $script:conforms '{ "id": "grid", "axes": [], "cells": [], "lit": [ { "at": [], "count": 1 } ] }' | Should -BeFalse
+        & $script:conforms '{ "id": "grid", "axes": [], "cells": [], "lit": [ { "at": [], "count": 1 } ] }' |
+            Should -BeFalse
     }
 }

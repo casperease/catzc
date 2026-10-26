@@ -15,7 +15,8 @@ Describe 'Get-AzureResourceName' -Tag 'L0', 'logic' {
 
     It 'takes the name order from the ado_naming variant when -Order is omitted' -Tag 'ADR-AZ-NAMING-ORDERISVARIANT' {
         Mock Get-AdoNaming -ModuleName Catzc.Azure.Templates { 'classic' }
-        Get-AzureResourceName -Env alpha -RegionCode weu -Org tst -ShortName smpl -Type rg | Should -Be 'rg-tst-smpl-alpha-weu'
+        Get-AzureResourceName -Env alpha -RegionCode weu -Org tst -ShortName smpl -Type rg |
+            Should -Be 'rg-tst-smpl-alpha-weu'
     }
 
     It 'renders the env NAME for a generous (long) type' {
@@ -89,8 +90,10 @@ Describe 'Get-AzureResourceName' -Tag 'L0', 'logic' {
             $script:parts = @{ Env = 'alpha'; Shortcode = 'al'; RegionCode = 'weu'; Org = 'tst'; ShortName = 'smpl' }
         }
 
-        It 'long / standard' { Get-AzureResourceName @parts -Type rg                | Should -Be 'alpha-weu-tst-smpl-rg' }
-        It 'long / classic' { Get-AzureResourceName @parts -Type rg -Order classic | Should -Be 'rg-tst-smpl-alpha-weu' }
+        It 'long / standard' { Get-AzureResourceName @parts -Type rg                |
+            Should -Be 'alpha-weu-tst-smpl-rg' }
+        It 'long / classic' { Get-AzureResourceName @parts -Type rg -Order classic |
+            Should -Be 'rg-tst-smpl-alpha-weu' }
         It 'kv / standard' { Get-AzureResourceName @parts -Type kv                | Should -Be 'al-weu-tst-smpl-kv' }
         It 'kv / classic' { Get-AzureResourceName @parts -Type kv -Order classic | Should -Be 'kv-tst-smpl-al-weu' }
         It 'storage / standard' { Get-AzureResourceName @parts -Type st                | Should -Be 'alweutstsmplst' }

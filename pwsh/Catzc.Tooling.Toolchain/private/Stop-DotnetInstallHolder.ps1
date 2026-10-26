@@ -8,7 +8,8 @@ catzc:
 
 function Stop-DotnetInstallHolder {
     [CmdletBinding()]
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'Private step of Uninstall-Dotnet, whose -Force is the confirmation — see ADR-PWSH-DRYRUN-SUPPRESSSHOULDPROCESS')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '',
+        Justification = 'Private step of Uninstall-Dotnet, whose -Force is the confirmation — see ADR-PWSH-DRYRUN-SUPPRESSSHOULDPROCESS')]
     param(
         [Parameter(Mandatory)]
         [string] $InstallDir,

@@ -15,7 +15,8 @@ Describe 'Catzc.Base.VSCode.FileIconsConfig' -Tag 'L0' {
     Context 'logic' -Tag 'logic' {
         It 'keeps the default file colour and reads each icon, extensions without their dot' {
             $config = [Catzc.Base.VSCode.FileIconsConfig]::new([ordered]@{ icons = [ordered]@{
-                        widget   = [ordered]@{ glyph = 'gadget'; color = '#ABCDEF'; extensions = @('.WDG', 'tests.wdg') }
+                        widget   = [ordered]@{ glyph = 'gadget'; color = '#ABCDEF'; extensions = @('.WDG',
+                            'tests.wdg') }
                         sprocket = [ordered]@{ label = 'SPR'; color = '#123456'; names = @('.gadget') }
                     }
                 })

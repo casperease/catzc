@@ -19,8 +19,10 @@ Describe 'Resolve-DrsLinkTarget' -Tag 'L0', 'logic', 'ADR-REPO-LINK-MARKDOWNRELA
 
     It 'resolves a sibling, a subfolder, and another domain''s file, dropping the fragment' {
         Resolve-Fixture 'widget/widget-one.md' 'widget-two.md' | Should -Be 'widget/widget-two.md'
-        Resolve-Fixture 'widget/widget-one.md' 'sub/widget-three.md#rule-adr-wi-three2' | Should -Be 'widget/sub/widget-three.md'
-        Resolve-Fixture 'widget/sub/widget-three.md' '../../gadget/gadget-one.md#context' | Should -Be 'gadget/gadget-one.md'
+        Resolve-Fixture 'widget/widget-one.md' 'sub/widget-three.md#rule-adr-wi-three2' |
+            Should -Be 'widget/sub/widget-three.md'
+        Resolve-Fixture 'widget/sub/widget-three.md' '../../gadget/gadget-one.md#context' |
+            Should -Be 'gadget/gadget-one.md'
         Resolve-Fixture 'widget/dora-explains.md' 'widget-one.md' | Should -Be 'widget/widget-one.md'
     }
 

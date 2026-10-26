@@ -104,7 +104,8 @@ function Assert-BicepTemplate {
         $declaredParameters = @()
         if (Test-Path $main -PathType Leaf) {
             $bicep = Get-Content $main -Raw
-            $declaredParameters = @([regex]::Matches($bicep, '(?m)^\s*param\s+([A-Za-z_][A-Za-z0-9_]*)\b') | ForEach-Object { $_.Groups[1].Value })
+            $declaredParameters = @([regex]::Matches($bicep,
+                '(?m)^\s*param\s+([A-Za-z_][A-Za-z0-9_]*)\b') | ForEach-Object { $_.Groups[1].Value })
         }
 
         # Gather configs: root files are shared-platform configs; a subfolder is always a customer key.
@@ -114,14 +115,16 @@ function Assert-BicepTemplate {
             Get-ChildPath $configFolder -Depth 1 -Directory |
                 ForEach-Object { [pscustomobject]@{ path = $_; customer = [System.IO.Path]::GetFileName($_) } })
         foreach ($folder in $configFolders) {
-            $files = @([Catzc.Base.Folders.PathSet]::new((Get-Config -Config folder-walk)).AddPattern($folder.path, '*.yml', 1).AddPattern($folder.path, '*.bicepparam', 1).ToArray())
+            $files = @([Catzc.Base.Folders.PathSet]::new((Get-Config -Config folder-walk)).AddPattern($folder.path,
+                '*.yml', 1).AddPattern($folder.path, '*.bicepparam', 1).ToArray())
             $relativeFolder = if ($folder.customer) {
                 "configuration/$($folder.customer)"
             }
             else {
                 'configuration'
             }
-            foreach ($pair in @($files | Group-Object { [System.IO.Path]::GetFileNameWithoutExtension($_) } | Where-Object Count -GT 1)) {
+            foreach ($pair in @($files | Group-Object { [System.IO.Path]::GetFileNameWithoutExtension($_) } |
+                Where-Object Count -GT 1)) {
                 $errors.Add("[$name] has both $relativeFolder/$($pair.Name).yml and $relativeFolder/$($pair.Name).bicepparam for one coordinate; keep one")
             }
             foreach ($file in $files) {
@@ -174,7 +177,8 @@ function Assert-BicepTemplate {
             # Parameter alignment.
             if ($declaredParameters.Count -gt 0 -and $extension -eq '.bicepparam') {
                 $text = [System.IO.File]::ReadAllText($entry.file)
-                foreach ($parameterName in @([regex]::Matches($text, '(?m)^\s*param\s+([A-Za-z_][A-Za-z0-9_]*)\s*=') | ForEach-Object { $_.Groups[1].Value })) {
+                foreach ($parameterName in @([regex]::Matches($text,
+                    '(?m)^\s*param\s+([A-Za-z_][A-Za-z0-9_]*)\s*=') | ForEach-Object { $_.Groups[1].Value })) {
                     if ($parameterName -notin $declaredParameters) {
                         $errors.Add("[$name] $location sets parameter '$parameterName', which main.bicep does not declare")
                     }
@@ -188,7 +192,9 @@ function Assert-BicepTemplate {
                 catch {
                     $errors.Add("[$name] $location — invalid YAML: $($_.Exception.Message)")
                 }
-                if ($null -ne $configuration -and $configuration.Contains('ParametersFile') -and $configuration.ParametersFile -and $configuration.ParametersFile.Contains('parameters') -and $configuration.ParametersFile.parameters) {
+                if ($null -ne $configuration -and $configuration.Contains('ParametersFile') -and
+                    $configuration.ParametersFile -and $configuration.ParametersFile.Contains('parameters') -and
+                    $configuration.ParametersFile.parameters) {
                     foreach ($parameterName in @($configuration.ParametersFile.parameters.Keys)) {
                         if ($parameterName -notin $declaredParameters) {
                             $errors.Add("[$name] $location sets parameter '$parameterName', which main.bicep does not declare")

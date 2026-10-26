@@ -19,7 +19,8 @@ Describe 'Build-DrsCodeDictionary' -Tag 'L0', 'logic', 'ADR-REPO-DRSCODE-NAMEDNO
         [void][System.IO.Directory]::CreateDirectory((Join-Path $root 'docs/drs/widget'))
         [System.IO.File]::WriteAllText((Join-Path $root 'docs/drs/widget/widget-spinner.md'),
             "# Spinner`n`n## Rules: ADR-WI-SPINNER`n`n### Rule ADR-WI-SPINNER-SPINS`n`n### Rule ADR-WI-SPINNER:2`n`n``````text`n### Rule ADR-WI-SPINNER-HIDDEN`n```````n")
-        [System.IO.File]::WriteAllText((Join-Path $root 'docs/drs/widget/widget-gadget.md'), "# Gadget`n`n## Rules: ADR-WI-GADGET`n")
+        [System.IO.File]::WriteAllText((Join-Path $root 'docs/drs/widget/widget-gadget.md'),
+            "# Gadget`n`n## Rules: ADR-WI-GADGET`n")
         $script:root = $root
         Mock Get-Config -ModuleName Catzc.Base.Drs -ParameterFilter { $Config -eq 'drs' } { $script:fixture }
         Mock Resolve-RepoPath -ModuleName Catzc.Base.Drs -ParameterFilter { $Path -eq 'docs/drs' } { Join-Path $script:root 'docs/drs' }
@@ -52,7 +53,8 @@ Describe 'Build-DrsCodeDictionary' -Tag 'L0', 'logic', 'ADR-REPO-DRSCODE-NAMEDNO
                     }
                 })
             [void][System.IO.Directory]::CreateDirectory((Join-Path $script:root 'docs/drs/gizmo'))
-            [System.IO.File]::WriteAllText((Join-Path $script:root 'docs/drs/gizmo/gizmo-lever.md'), "# Lever`n`n## Rules: GDR-LEVER`n`n### Rule GDR-LEVER-TILTS`n")
+            [System.IO.File]::WriteAllText((Join-Path $script:root 'docs/drs/gizmo/gizmo-lever.md'),
+                "# Lever`n`n## Rules: GDR-LEVER`n`n### Rule GDR-LEVER-TILTS`n")
             Build-DrsCodeDictionary -Silent | Out-Null
             $text = [System.IO.File]::ReadAllText((Join-Path $script:root '.cspell/drs-codes.txt'))
             $words = @($text -split "`n" | Where-Object { $_ -match '^[a-z0-9]+$' })
@@ -76,7 +78,8 @@ Describe 'Build-DrsCodeDictionary' -Tag 'L0', 'logic', 'ADR-REPO-DRSCODE-NAMEDNO
 
 Describe 'Build-DrsCodeDictionary — shipped configs/drs.yml' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP-COVEREDBYREALTEST' {
     It 'finds the domain registry it names as its source in the loaded module' {
-        $registry = [System.IO.File]::ReadAllText((Get-CatzcModuleRoot 'configs/drs.yml' -Module Catzc.Base.Drs)) | ConvertFrom-Yaml -Ordered
+        $registry = [System.IO.File]::ReadAllText((Get-CatzcModuleRoot 'configs/drs.yml' -Module Catzc.Base.Drs)) |
+            ConvertFrom-Yaml -Ordered
         @($registry['domains'].Keys).Count | Should -BeGreaterThan 0
     }
 }

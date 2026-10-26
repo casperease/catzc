@@ -1,7 +1,8 @@
 Describe 'Get-ModuleFunction' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Get-CatzcModule -ModuleName Catzc.Base.ModuleSystem {
-            [Catzc.Base.Modules.Module]::new('Catzc.Base.Widget', 'widgets', 'widget-folder', 'widgetry', 'widgetry/Catzc.Base.Widget', 'folder', $null, $null, $null, $null)
+            [Catzc.Base.Modules.Module]::new('Catzc.Base.Widget', 'widgets', 'widget-folder', 'widgetry',
+                'widgetry/Catzc.Base.Widget', 'folder', $null, $null, $null, $null)
         }
         Mock Get-Module -ModuleName Catzc.Base.ModuleSystem {
             @(

@@ -100,7 +100,8 @@ Describe 'Get-LiveIdentityTokens' -Tag 'L0', 'logic' {
         $tokens = & $script:run
         $tokens.Token | Should -Contain 'FixtureProject'
         $tokens.Token | Should -Contain 'sample'
-        ($tokens | Where-Object Token -EQ 'sample').Source | Should -Be 'gadgets/blueprints' -Because 'the templates place comes from the track, not a fixed path'
+        ($tokens | Where-Object Token -EQ 'sample').Source |
+            Should -Be 'gadgets/blueprints' -Because 'the templates place comes from the track, not a fixed path'
     }
 
     It 'yields no config tokens when no loaded module declares any (a bundle without the owning modules)' {
@@ -114,7 +115,8 @@ Describe 'Get-LiveIdentityTokens' -Tag 'L0', 'logic' {
         $declarations['Catzc.Base.Gadget'] = @(
             @{ config = 'azure'; path = 'org'; kind = 'org'; suggest = 'the fixture org (tst)' }
         )
-        { & $script:run } | Should -Throw "*Catzc.Base.Gadget/configs/identity-tokens.yml declares tokens of config 'azure', which Catzc.Base.Gadget does not own*"
+        { & $script:run } |
+            Should -Throw "*Catzc.Base.Gadget/configs/identity-tokens.yml declares tokens of config 'azure', which Catzc.Base.Gadget does not own*"
     }
 
     It 'carries a Source and a Suggest for every token, de-duplicated' {

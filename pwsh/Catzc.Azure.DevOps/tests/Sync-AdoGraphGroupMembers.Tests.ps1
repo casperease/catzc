@@ -22,7 +22,8 @@ Describe 'Sync-AdoGraphGroupMembers' -Tag 'L0', 'logic' {
     It 'adds the configured members the group lacks and removes the ones the config does not list' {
         $script:current = @('aad.a', 'aad.stale')
         $group = [pscustomobject]@{ Name = 'Widget Approvers'; Descriptor = 'vssgp.g1' }
-        $result = & $script:sync @{ Context = $script:context; Group = $group; Member = @('a@widget.test', 'b@widget.test') }
+        $result = & $script:sync @{ Context = $script:context; Group = $group; Member = @('a@widget.test',
+            'b@widget.test') }
         $result.Added | Should -Be @('b@widget.test')
         $result.Removed | Should -Be @('aad.stale')
         Should -Invoke Invoke-AdoRestMethod -ModuleName Catzc.Azure.DevOps -Times 1 -Exactly -ParameterFilter { $Method -eq 'Put' -and $Uri -like '*/memberships/aad.b/vssgp.g1?*' }

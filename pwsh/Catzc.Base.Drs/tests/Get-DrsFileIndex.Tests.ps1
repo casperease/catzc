@@ -27,7 +27,8 @@ Describe 'Get-DrsFileIndex' -Tag 'L0', 'logic' {
                 }
             })
         $root = Join-Path $TestDrive 'adr'
-        foreach ($relative in 'widget/widget-one.md', 'widget/widget-two.md', 'widget/sub/widget-two.md', 'gadget/widget-one.md', 'index.md') {
+        foreach ($relative in 'widget/widget-one.md', 'widget/widget-two.md', 'widget/sub/widget-two.md',
+            'gadget/widget-one.md', 'index.md') {
             $path = Join-Path $root $relative
             [void][System.IO.Directory]::CreateDirectory((Split-Path $path -Parent))
             [System.IO.File]::WriteAllText($path, "# $relative`n")
@@ -38,7 +39,8 @@ Describe 'Get-DrsFileIndex' -Tag 'L0', 'logic' {
     }
 
     It 'lists every file relative to docs/drs/ with forward slashes' {
-        $index.Relative | Sort-Object | Should -Be @('gadget/widget-one.md', 'index.md', 'widget/sub/widget-two.md', 'widget/widget-one.md', 'widget/widget-two.md')
+        $index.Relative | Sort-Object | Should -Be @('gadget/widget-one.md', 'index.md', 'widget/sub/widget-two.md',
+            'widget/widget-one.md', 'widget/widget-two.md')
     }
 
     It 'keys files by domain folder and slug, so a shared slug stays distinct and a repeated one collects both files' {
@@ -71,7 +73,8 @@ Describe 'Get-DrsFileIndex' -Tag 'L0', 'logic' {
                 }
             })
         $nestedRoot = Join-Path $TestDrive 'nested-adr'
-        foreach ($relative in 'gadget/gadget-one.md', 'gadget/sub/note.md', 'gadget/cog/cog-one.md', 'gadget/cog/dora-explains.md', 'gadget/dora-explains.md') {
+        foreach ($relative in 'gadget/gadget-one.md', 'gadget/sub/note.md', 'gadget/cog/cog-one.md',
+            'gadget/cog/dora-explains.md', 'gadget/dora-explains.md') {
             $path = Join-Path $nestedRoot $relative
             [void][System.IO.Directory]::CreateDirectory((Split-Path $path -Parent))
             [System.IO.File]::WriteAllText($path, "# $relative`n")

@@ -13,7 +13,8 @@ Describe 'Catzc.Base.VSCode.VscodeExtensionsConfig' -Tag 'L0', 'logic' {
     }
 
     It 'accepts a well-formed registry' {
-        $config = [Catzc.Base.VSCode.VscodeExtensionsConfig]::new([ordered]@{ recommendations = @('acme.tool-one', 'globex.tool-two') })
+        $config = [Catzc.Base.VSCode.VscodeExtensionsConfig]::new([ordered]@{ recommendations = @('acme.tool-one',
+            'globex.tool-two') })
         $config.recommendations | Should -Be @('acme.tool-one', 'globex.tool-two')
     }
 
@@ -23,7 +24,8 @@ Describe 'Catzc.Base.VSCode.VscodeExtensionsConfig' -Tag 'L0', 'logic' {
     }
 
     It 'throws on an id that is not publisher.name' {
-        Get-ViolationMessage ([ordered]@{ recommendations = @('no-dot-here') }) | Should -BeLike '*not a publisher.name*'
+        Get-ViolationMessage ([ordered]@{ recommendations = @('no-dot-here') }) |
+            Should -BeLike '*not a publisher.name*'
     }
 
     It 'throws on a duplicate id, collecting every violation' {
@@ -33,7 +35,8 @@ Describe 'Catzc.Base.VSCode.VscodeExtensionsConfig' -Tag 'L0', 'logic' {
     }
 
     It 'throws on an unknown top-level key' {
-        Get-ViolationMessage ([ordered]@{ recommendations = @('acme.tool'); widget = 1 }) | Should -BeLike "*unknown top-level key 'widget'*"
+        Get-ViolationMessage ([ordered]@{ recommendations = @('acme.tool'); widget = 1 }) |
+            Should -BeLike "*unknown top-level key 'widget'*"
     }
 
     It 'reads no own extensions when extensions is absent' {
@@ -73,6 +76,7 @@ Describe 'Catzc.Base.VSCode.VscodeExtensionsConfig' -Tag 'L0', 'logic' {
     }
 
     It 'throws when extensions is not a mapping' {
-        Get-ViolationMessage ([ordered]@{ recommendations = @('acme.tool'); extensions = @('widget-ext') }) | Should -BeLike "*'extensions' must be a mapping*"
+        Get-ViolationMessage ([ordered]@{ recommendations = @('acme.tool'); extensions = @('widget-ext') }) |
+            Should -BeLike "*'extensions' must be a mapping*"
     }
 }

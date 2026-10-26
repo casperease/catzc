@@ -10,7 +10,8 @@ Describe 'GoTestResult' -Tag 'L0', 'logic' {
     }
 
     It 'derives the integrity category from a TestIntegrity* name' {
-        [Catzc.Base.Languages.GoTestResult]::new('p/widget', 'TestIntegrityGadget', 'skip', 0, $null).Category | Should -Be 'integrity'
+        [Catzc.Base.Languages.GoTestResult]::new('p/widget', 'TestIntegrityGadget', 'skip', 0, $null).Category |
+            Should -Be 'integrity'
     }
 
     It 'treats a missing output as empty' {
@@ -18,11 +19,13 @@ Describe 'GoTestResult' -Tag 'L0', 'logic' {
     }
 
     It 'throws on an unknown outcome' {
-        { [Catzc.Base.Languages.GoTestResult]::new('p/widget', 'TestWidget', 'PASS', 0, '') } | Should -Throw "*Outcome 'PASS'*"
+        { [Catzc.Base.Languages.GoTestResult]::new('p/widget', 'TestWidget', 'PASS', 0, '') } |
+            Should -Throw "*Outcome 'PASS'*"
     }
 
     It 'throws on a name that is not a top-level Go test' -ForEach @('Widget', 'TestWidget/gadget', '') {
-        { [Catzc.Base.Languages.GoTestResult]::new('p/widget', $_, 'pass', 0, '') } | Should -Throw '*not a top-level Go test name*'
+        { [Catzc.Base.Languages.GoTestResult]::new('p/widget', $_, 'pass', 0, '') } |
+            Should -Throw '*not a top-level Go test name*'
     }
 
     It 'reports every violation in one throw' {

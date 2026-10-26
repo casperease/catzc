@@ -1,12 +1,15 @@
 # Rests on [PDR-ONELIVE-ONEVERSION](/docs/drs/principles/one-living-version.md#rule-pdr-onelive-oneversion).
-# cspell:ignore nwidgets npublic nvar nwidget ngadget gadgt wdgt -- escape-sequence artifacts in the "`n…" fixture strings, and the deliberate misspelling a kept cspell directive covers
+# cspell:ignore nwidgets npublic nvar nwidget ngadget gadgt wdgt -- escape-sequence artifacts in the "`n…" fixture
+# strings, and the deliberate misspelling a kept cspell directive covers
 Describe 'CommentEngine' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:config = [Catzc.Base.QualityGates.CommentsConfig]::new(@{})
         $script:page = 'docs/references/pwsh/catzc-widget/Get-Widget.ps1.md'
         $script:export = {
-            param([string] $Text, [string] $Extension = '.ps1', [string] $Language = 'powershell', [string] $PageText = $null)
-            [Catzc.Base.QualityGates.CommentEngine]::Export($Text, $Extension, $Language, 'widgets/Catzc.Widget/Get-Widget.ps1',
+            param([string] $Text, [string] $Extension = '.ps1', [string] $Language = 'powershell',
+                [string] $PageText = $null)
+            [Catzc.Base.QualityGates.CommentEngine]::Export($Text, $Extension, $Language,
+                'widgets/Catzc.Widget/Get-Widget.ps1',
                 $script:page, $PageText, $script:config)
         }
         $script:source = @(
@@ -27,7 +30,8 @@ Describe 'CommentEngine' -Tag 'L0', 'logic' {
         $blocks[0].Kind | Should -Be ([Catzc.Base.QualityGates.CommentBlockKind]::LineRun)
         $blocks[0].Marker | Should -Be '#'
         $blocks[0].Indent | Should -Be '    '
-        $blocks[0].Lines | Should -Be @('Sorted first, so the gadget order is stable', 'across runs and the cache key never changes.')
+        $blocks[0].Lines | Should -Be @('Sorted first, so the gadget order is stable',
+            'across runs and the cache key never changes.')
     }
 
     It 'leaves nothing behind for a moved comment and names the code line it sat above on the page' -Tag 'ADR-REPO-COMMENTS-ONELINEOFINSIGHT', 'ADR-REPO-COMMENTS-MOVELOSESNOTHING' {
@@ -39,12 +43,14 @@ Describe 'CommentEngine' -Tag 'L0', 'logic' {
         ($result.Text -split "`n") | Should -Contain '    # One line stays.'
         $result.PageText.StartsWith("# widgets/Catzc.Widget/Get-Widget.ps1`n`nThe comments of the file that outgrew one line") | Should -BeTrue -Because 'the title is the file the page belongs to'
         $section = "## comment:1`n`nAbove ``" + '$widgets = Get-Gadget | Sort-Object   # a trailing note stays' + "``, written with ``#``.`n`n" + '```text' + "`nSorted first, so the gadget order is stable`nacross runs and the cache key never changes.`n" + '```'
-        $result.PageText.Contains($section) | Should -BeTrue -Because 'a section names its code line and fences the prose, indent stripped'
+        $result.PageText.Contains($section) |
+            Should -BeTrue -Because 'a section names its code line and fences the prose, indent stripped'
     }
 
     It 'puts every section back above its code line in the view' -Tag 'ADR-REPO-COMMENTS-INLINEVIEWGENERATED' {
         $result = & $export $source
-        [Catzc.Base.QualityGates.CommentEngine]::View($result.Text, '.ps1', $result.PageText) | Should -BeExactly $source
+        [Catzc.Base.QualityGates.CommentEngine]::View($result.Text, '.ps1', $result.PageText) |
+            Should -BeExactly $source
     }
 
     It 'is idempotent: a second export moves nothing and changes nothing' -Tag 'ADR-AUTO-IDEM-CHECKBEFOREACTING' {
@@ -87,7 +93,8 @@ Describe 'CommentEngine' -Tag 'L0', 'logic' {
         [Catzc.Base.QualityGates.CommentEngine]::Orphans($result.Text, $result.PageText).Count | Should -Be 0
         $edited = $result.Text -replace 'Sort-Object', 'Sort-Object -Unique'
         [Catzc.Base.QualityGates.CommentEngine]::Orphans($edited, $result.PageText) | Should -Be @(1)
-        [Catzc.Base.QualityGates.CommentEngine]::View($edited, '.ps1', $result.PageText) | Should -BeExactly $edited -Because 'a section with no line is left out of the view'
+        [Catzc.Base.QualityGates.CommentEngine]::View($edited, '.ps1', $result.PageText) |
+            Should -BeExactly $edited -Because 'a section with no line is left out of the view'
     }
 
     It 'anchors a Describe line on its name before the first -Tag, so a re-tier orphans nothing' -Tag 'ADR-REPO-COMMENTS-MOVELOSESNOTHING' {
@@ -96,7 +103,8 @@ Describe 'CommentEngine' -Tag 'L0', 'logic' {
         $result.PageText.Contains("Above ``Describe 'Get-Widget'``, written with ``#``.") | Should -BeTrue
         $retiered = $result.Text -replace "'L0', 'logic'", "'L2', 'integration'"
         [Catzc.Base.QualityGates.CommentEngine]::Orphans($retiered, $result.PageText).Count | Should -Be 0
-        [Catzc.Base.QualityGates.CommentEngine]::View($retiered, '.ps1', $result.PageText).Contains('# A widget suite note') | Should -BeTrue
+        [Catzc.Base.QualityGates.CommentEngine]::View($retiered, '.ps1',
+            $result.PageText).Contains('# A widget suite note') | Should -BeTrue
     }
 
     It 'round-trips a YAML header and a CRLF file, keeping the file''s line endings' -Tag 'ADR-REPO-COMMENTS-MOVELOSESNOTHING' {
@@ -104,7 +112,8 @@ Describe 'CommentEngine' -Tag 'L0', 'logic' {
         $yamlResult = & $export $yaml '.yml' 'yaml'
         $yamlResult.MovedCount | Should -Be 1
         $yamlResult.Text | Should -BeExactly "widgets:`r`n  - gadget   # inline stays`r`n"
-        [Catzc.Base.QualityGates.CommentEngine]::View($yamlResult.Text, '.yml', $yamlResult.PageText) | Should -BeExactly $yaml
+        [Catzc.Base.QualityGates.CommentEngine]::View($yamlResult.Text, '.yml', $yamlResult.PageText) |
+            Should -BeExactly $yaml
     }
 
     It 'moves a C# line run with its own marker' -Tag 'ADR-REPO-COMMENTS-MOVELOSESNOTHING' {
@@ -112,7 +121,8 @@ Describe 'CommentEngine' -Tag 'L0', 'logic' {
         $csResult = & $export $csharp '.cs' 'bcl'
         $csResult.PageText.Contains('written with `///`') | Should -BeTrue
         $csResult.Text.Contains('///') | Should -BeFalse
-        [Catzc.Base.QualityGates.CommentEngine]::View($csResult.Text, '.cs', $csResult.PageText) | Should -BeExactly $csharp
+        [Catzc.Base.QualityGates.CommentEngine]::View($csResult.Text, '.cs', $csResult.PageText) |
+            Should -BeExactly $csharp
     }
 
     It 'moves a delimited block, which the view writes back as line comments in the family marker' -Tag 'ADR-REPO-COMMENTS-MOVELOSESNOTHING' {
@@ -144,7 +154,8 @@ Describe 'CommentEngine' -Tag 'L0', 'logic' {
         $result = & $export $yaml '.yml' 'yaml'
         $result.MovedCount | Should -Be 2
         $result.Text | Should -BeExactly "# cspell:ignore gadgt`ngadgt: 1`n"
-        $result.PageText.Contains("# widgets/Catzc.Widget/Get-Widget.ps1`n`n<!-- cspell:ignore gadgt -->`n") | Should -BeTrue -Because 'the page ignores what the file ignores'
+        $result.PageText.Contains("# widgets/Catzc.Widget/Get-Widget.ps1`n`n<!-- cspell:ignore gadgt -->`n") |
+            Should -BeTrue -Because 'the page ignores what the file ignores'
     }
 
     It 'merges the ignored words into an existing page once' -Tag 'ADR-REPO-COMMENTS-MOVELOSESNOTHING' {
@@ -174,13 +185,16 @@ Describe 'CommentEngine' -Tag 'L0', 'logic' {
     It 'cuts a long code line at a word, never inside one' -Tag 'ADR-REPO-COMMENTS-MOVELOSESNOTHING' {
         $long = '$widgets = Get-Gadget -Name widget -Filter gadget -Recurse -Depth 3 -ErrorAction Ignore -Force'
         $result = & $export "# A long widget note`n# on two lines.`n$long`n"
-        $result.PageText.Contains('$widgets = Get-Gadget -Name widget -Filter gadget -Recurse -Depth 3...') | Should -BeTrue
-        [Catzc.Base.QualityGates.CommentEngine]::View($result.Text, '.ps1', $result.PageText) | Should -BeExactly "# A long widget note`n# on two lines.`n$long`n"
+        $result.PageText.Contains('$widgets = Get-Gadget -Name widget -Filter gadget -Recurse -Depth 3...') |
+            Should -BeTrue
+        [Catzc.Base.QualityGates.CommentEngine]::View($result.Text, '.ps1', $result.PageText) |
+            Should -BeExactly "# A long widget note`n# on two lines.`n$long`n"
     }
 
     It 'names the code line in a code span that survives the backticks inside it' -Tag 'ADR-REPO-COMMENTS-MOVELOSESNOTHING' {
         [Catzc.Base.QualityGates.CommentBlock]::CodeSpan('$widget = 1') | Should -BeExactly '`$widget = 1`'
-        [Catzc.Base.QualityGates.CommentBlock]::CodeSpan('Get-Gadget "`"$name`""') | Should -BeExactly '``Get-Gadget "`"$name`""``'
+        [Catzc.Base.QualityGates.CommentBlock]::CodeSpan('Get-Gadget "`"$name`""') |
+            Should -BeExactly '``Get-Gadget "`"$name`""``'
         [Catzc.Base.QualityGates.CommentBlock]::CodeSpan('`widget``') | Should -BeExactly '``` `widget`` ```'
     }
 
@@ -190,7 +204,8 @@ Describe 'CommentEngine' -Tag 'L0', 'logic' {
         $blocks = [Catzc.Base.QualityGates.CommentEngine]::FindBlocks($yaml, '.yml', 'yaml', $head)
         $blocks.Count | Should -Be 1
         $blocks[0].StartLine | Should -Be 4
-        $moved = [Catzc.Base.QualityGates.CommentEngine]::Export($yaml, '.yml', 'yaml', 'widgets/Catzc.Widget/widget.yml', $script:page, $null, $head)
+        $moved = [Catzc.Base.QualityGates.CommentEngine]::Export($yaml, '.yml', 'yaml',
+            'widgets/Catzc.Widget/widget.yml', $script:page, $null, $head)
         $moved.MovedCount | Should -Be 1
         $moved.Text.StartsWith("# catzc:`n#   path: docs/widget.yml`n#   module: Catzc.Widget`n`n") | Should -BeTrue
     }
@@ -213,7 +228,8 @@ Describe 'CommentEngine' -Tag 'L0', 'logic' {
 
     It 'reads a head the config does not list as prose, so the run is a block' -Tag 'ADR-REPO-CODEMETA-COMMENTSLEAVEHEAD' {
         $yaml = "# catzc:`n#   path: docs/widget.yml`n#   module: Catzc.Widget`n`ngadget: 1`n"
-        [Catzc.Base.QualityGates.CommentEngine]::FindBlocks($yaml, '.yml', 'yaml', [Catzc.Base.QualityGates.CommentsConfig]::new(@{})).Count | Should -Be 1
+        [Catzc.Base.QualityGates.CommentEngine]::FindBlocks($yaml, '.yml', 'yaml',
+            [Catzc.Base.QualityGates.CommentsConfig]::new(@{})).Count | Should -Be 1
     }
 
     It 'keeps a keep_run head in the middle of prose from hiding the lines after it' -Tag 'ADR-REPO-COMMENTS-COMMENTPAGEPLACE' {
@@ -224,7 +240,8 @@ Describe 'CommentEngine' -Tag 'L0', 'logic' {
 
     It 'does not let a single-line keep head hide the prose directly under it' -Tag 'ADR-REPO-COMMENTS-COMMENTPAGEPLACE' {
         $yaml = "# cspell:ignore gadgt`n# A widget note`n# on two lines.`ngadget: 1`n"
-        [Catzc.Base.QualityGates.CommentEngine]::FindBlocks($yaml, '.yml', 'yaml', [Catzc.Base.QualityGates.CommentsConfig]::new(@{})).Count | Should -Be 1
+        [Catzc.Base.QualityGates.CommentEngine]::FindBlocks($yaml, '.yml', 'yaml',
+            [Catzc.Base.QualityGates.CommentsConfig]::new(@{})).Count | Should -Be 1
     }
 
     It 'keeps a block whose head the language keeps, and moves nothing below min_lines' -Tag 'PDR-CONFIG-VARYINGBEHAVIOURISCONFIG' {

@@ -6,7 +6,8 @@ Describe 'Get-GeneratedStampDrift' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-COMPOS
 
         $script:write = {
             param([string] $Relative, [string] $Text)
-            [System.IO.File]::WriteAllText((Join-Path $script:root $Relative), $Text, [System.Text.UTF8Encoding]::new($false))
+            [System.IO.File]::WriteAllText((Join-Path $script:root $Relative), $Text,
+                [System.Text.UTF8Encoding]::new($false))
         }
         # A Markdown page whose head carries the hash of its body, as Format-GeneratedFileHead writes it.
         $pageBody = "# docs/current.md`n`nbody`n"
@@ -45,7 +46,8 @@ Describe 'Get-GeneratedStampDrift' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-COMPOS
     It 'reports a stamp that is not the hash of the body, naming both hashes and the file' {
         $result = & $script:run @('docs/stale.md')
         $result.Issues.Count | Should -Be 1
-        $result.Issues[0] | Should -BeLike 'docs/stale.md: stale — the head''s with_body_sha 000000000000 is not the hash of the body, *; regenerate the file with its writer'
+        $result.Issues[0] |
+            Should -BeLike 'docs/stale.md: stale — the head''s with_body_sha 000000000000 is not the hash of the body, *; regenerate the file with its writer'
     }
 
     It 'lists a file with no head or no stamp as unstamped, not as an issue, and skips a binary' {

@@ -113,7 +113,8 @@ Describe 'Invoke-TestRun' -Tag 'L0', 'logic' {
         It 'fails a devbox run that outlasts its budget, and says so' {
             Mock Test-IsRunningInPipeline -ModuleName Catzc.Base.QualityGates { $false }
 
-            { Invoke-Run @{ OutputFolder = $script:outputFolder; PassThru = $false } } | Should -Throw '*budget failure: True*'
+            { Invoke-Run @{ OutputFolder = $script:outputFolder; PassThru = $false } } |
+                Should -Throw '*budget failure: True*'
             Should -Invoke Get-TestAutomationVerdict -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter { $BudgetFailure -and $RunBudgetSeconds -eq 180 }
             Should -Invoke Write-Message -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Message -like 'Run took 200*over its 180s budget*the run fails.' }
         }
@@ -176,7 +177,8 @@ Describe 'Invoke-TestRun' -Tag 'L0', 'logic' {
 
         It 'refuses an L3-only run in a snapshot, and still releases the location' {
             $script:locationMode = 'snapshot'
-            { Invoke-Run @{ OutputFolder = $script:outputFolder; MinLevel = 3 } } | Should -Throw '*snapshot, which skips L3*'
+            { Invoke-Run @{ OutputFolder = $script:outputFolder; MinLevel = 3 } } |
+                Should -Throw '*snapshot, which skips L3*'
             Should -Invoke Invoke-TestAutomationWorkers -ModuleName Catzc.Base.QualityGates -Times 0
             Should -Invoke Exit-TestRunLocation -ModuleName Catzc.Base.QualityGates -Times 1
         }

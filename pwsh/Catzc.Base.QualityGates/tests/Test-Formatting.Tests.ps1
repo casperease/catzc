@@ -46,8 +46,11 @@ Describe 'Test-Formatting' -Tag 'L0', 'logic' {
 
     It 'throws once listing every unformatted file, repository-relative, with the command that fixes it' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
         Mock Format-Code -ModuleName Catzc.Base.QualityGates {
-            [Catzc.Base.QualityGates.FormatResult]::new('widget', 'prettier', [string[]] @($script:widgetFile), [string[]] @($script:widgetFile), $true)
-            [Catzc.Base.QualityGates.FormatResult]::new('gadget', 'gofmt', [string[]] @($script:gadgetFile, $script:typeFile, $script:blockFile), [string[]] @($script:gadgetFile, $script:typeFile), $true, @{ $script:blockFile = "block-scoped namespace — rewrite it as the file-scoped 'namespace <Module>;'" })
+            [Catzc.Base.QualityGates.FormatResult]::new('widget', 'prettier', [string[]] @($script:widgetFile),
+                [string[]] @($script:widgetFile), $true)
+            [Catzc.Base.QualityGates.FormatResult]::new('gadget', 'gofmt', [string[]] @($script:gadgetFile,
+                $script:typeFile, $script:blockFile), [string[]] @($script:gadgetFile, $script:typeFile), $true,
+                @{ $script:blockFile = "block-scoped namespace — rewrite it as the file-scoped 'namespace <Module>;'" })
         }
 
         $thrown = { Test-Formatting -OutputFolder $script:reportFolder } | Should -Throw -PassThru
@@ -65,7 +68,8 @@ Describe 'Test-Formatting' -Tag 'L0', 'logic' {
 
     It 'proves named files are in the form: it checks only those paths and fails on a file the formatting would change' -Tag 'TDR-NORMALFORM-UNCONTESTED' {
         Mock Format-Code -ModuleName Catzc.Base.QualityGates -ParameterFilter { @($Path) -contains 'docs/widget.wdg' } {
-            [Catzc.Base.QualityGates.FormatResult]::new('widget', 'prettier', [string[]] @($script:widgetFile), [string[]] @($script:widgetFile), $true)
+            [Catzc.Base.QualityGates.FormatResult]::new('widget', 'prettier', [string[]] @($script:widgetFile),
+                [string[]] @($script:widgetFile), $true)
         }
         $result = Test-Formatting -Path 'docs/widget.wdg' -PassThru -OutputFolder $script:reportFolder
         Should -Invoke Format-Code -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter {
@@ -90,7 +94,8 @@ Describe 'Test-Formatting' -Tag 'L0', 'logic' {
         $placeholder = Join-Path $script:root 'docs/gadgets/.gizmo-keep'
         $widget = $script:widgetFile
         $type = $script:typeFile
-        Mock Get-FormatScope -ModuleName Catzc.Base.QualityGates { , [string[]] @($widget, $loose, $type, $placeholder) }.GetNewClosure()
+        Mock Get-FormatScope -ModuleName Catzc.Base.QualityGates { , [string[]] @($widget, $loose, $type,
+            $placeholder) }.GetNewClosure()
 
         $result = Test-Formatting -PassThru -OutputFolder $script:reportFolder
         $result.Issues | Should -Be @(
@@ -102,7 +107,8 @@ Describe 'Test-Formatting' -Tag 'L0', 'logic' {
     }
 
     It 'throws on an undeclared language' {
-        { Test-Formatting -Language gizmo -OutputFolder $script:reportFolder } | Should -Throw "*unknown file language 'gizmo'*"
+        { Test-Formatting -Language gizmo -OutputFolder $script:reportFolder } |
+            Should -Throw "*unknown file language 'gizmo'*"
     }
 }
 

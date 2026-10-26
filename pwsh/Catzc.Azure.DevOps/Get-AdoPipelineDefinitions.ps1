@@ -54,6 +54,7 @@ function Get-AdoPipelineDefinitions {
         $repoName = $definition.repository.properties.shortName ?? $definition.repository.name
 
         [Catzc.Azure.DevOps.PipelineDefinition]::new(
-            $definition.id, $definition.name, $definition.path, $yamlPath, $fileName, $repoName, $definition.revision, $definition._links.web.href)
+            $definition.id, $definition.name, $definition.path, $yamlPath, $fileName, $repoName, $definition.revision,
+                $definition._links.web.href)
     }
 }

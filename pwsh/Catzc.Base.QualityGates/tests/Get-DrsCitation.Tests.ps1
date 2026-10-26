@@ -9,9 +9,11 @@ Describe 'Get-DrsCitation' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-NOREADBACK' {
         # The fixture codes below are the only ones this index registers, each with its rules in authored order.
         Mock Get-DrsCitationMap -ModuleName Catzc.Base.QualityGates {
             [Catzc.Base.Drs.DrsCitationMap]::new(@{
-                    'ADR-WIDGET'      = @{ path = 'docs/drs/widget.md'; rules = [string[]] @('ADR-WIDGET-TURN', 'ADR-WIDGET-SPIN') }
+                    'ADR-WIDGET'      = @{ path = 'docs/drs/widget.md'; rules = [string[]] @('ADR-WIDGET-TURN',
+                        'ADR-WIDGET-SPIN') }
                     'ADR-WIDGET-PART' = @{ path = 'docs/drs/widget-part.md'; rules = [string[]] @('ADR-WIDGET-PART-FOLD', 'ADR-WIDGET-PART-BEND') }
-                    'ADR-GADGET'      = @{ path = 'docs/drs/gadget.md'; rules = [string[]] @('ADR-GADGET-LIFT', 'ADR-GADGET-DROP', 'ADR-GADGET-RE12') }
+                    'ADR-GADGET'      = @{ path = 'docs/drs/gadget.md'; rules = [string[]] @('ADR-GADGET-LIFT',
+                        'ADR-GADGET-DROP', 'ADR-GADGET-RE12') }
                 }, @())
         }
 
@@ -51,7 +53,8 @@ Describe 'Get-DrsCitation' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-NOREADBACK' {
 
     It 'writes the ADR code, which means the whole ADR, when every rule the registry declares is cited' {
         (Get-Codes "ADR-GADGET-LIFT ADR-GADGET-DROP ADR-GADGET-RE12`n") | Should -Be @('ADR-GADGET')
-        (Get-Codes "ADR-GADGET-LIFT ADR-GADGET-DROP ADR-GADGET-RE12 ADR-WIDGET-PART-FOLD`n") | Should -Be @('ADR-GADGET', 'ADR-WIDGET-PART-FOLD')
+        (Get-Codes "ADR-GADGET-LIFT ADR-GADGET-DROP ADR-GADGET-RE12 ADR-WIDGET-PART-FOLD`n") |
+            Should -Be @('ADR-GADGET', 'ADR-WIDGET-PART-FOLD')
     }
 
     It 'keeps the rules while one rule of the ADR is not cited' {
@@ -59,7 +62,8 @@ Describe 'Get-DrsCitation' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-NOREADBACK' {
     }
 
     It 'reads a numbered citation, a group or a wildcard in body text as no citation' {
-        (Get-Codes ('The ADR-GADGET' + '#4 rule, the ADR-GADGET' + "#{2,3} group, the ADR-WIDGET-* family.`n")).Count | Should -Be 0
+        (Get-Codes ('The ADR-GADGET' + '#4 rule, the ADR-GADGET' + "#{2,3} group, the ADR-WIDGET-* family.`n")).Count |
+            Should -Be 0
     }
 
     It 'ignores a rule heading and the record code of its own ADR in a markdown file' {
@@ -67,7 +71,8 @@ Describe 'Get-DrsCitation' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-NOREADBACK' {
     }
 
     It 'cites a bare record code in a markdown file' {
-        (Get-Codes "# docs/widget.md`n`nThe whole ADR-WIDGET-PART decision applies.`n") | Should -Be @('ADR-WIDGET-PART')
+        (Get-Codes "# docs/widget.md`n`nThe whole ADR-WIDGET-PART decision applies.`n") |
+            Should -Be @('ADR-WIDGET-PART')
     }
 
     It 'finds a citation inside a link' {
@@ -98,11 +103,13 @@ Describe 'Get-DrsCitation' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-NOREADBACK' {
         }
 
         It 'lists a code alone when the text also cites a code below it, since a prefix selects everything below it' {
-            (Get-CodeCodes "// ADR-WIDGET, ADR-WIDGET-SPIN and ADR-WIDGET-PART-FOLD`nclass Widget {}`n") | Should -Be @('ADR-WIDGET')
+            (Get-CodeCodes "// ADR-WIDGET, ADR-WIDGET-SPIN and ADR-WIDGET-PART-FOLD`nclass Widget {}`n") |
+                Should -Be @('ADR-WIDGET')
         }
 
         It 'drops a code that is neither registered nor the prefix of a registered code' {
-            (Get-CodeCodes "// ADR-UNLISTED, ADR-GADGET and ADR-WIDGET-PART`n") | Should -Be @('ADR-GADGET', 'ADR-WIDGET-PART')
+            (Get-CodeCodes "// ADR-UNLISTED, ADR-GADGET and ADR-WIDGET-PART`n") | Should -Be @('ADR-GADGET',
+                'ADR-WIDGET-PART')
         }
 
         It 'ignores a numbered citation' {

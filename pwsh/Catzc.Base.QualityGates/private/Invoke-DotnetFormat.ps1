@@ -50,7 +50,8 @@ function Invoke-DotnetFormat {
     }
 
     if ($changed.Count -gt 0 -and -not $DryRun) {
-        $changedRelative = @($changed | ForEach-Object { [System.IO.Path]::GetRelativePath($root, $_) -replace '\\', '/' })
+        $changedRelative = @($changed | ForEach-Object { [System.IO.Path]::GetRelativePath($root,
+            $_) -replace '\\', '/' })
         foreach ($batch in @(Split-CommandLineBatch -Item $changedRelative)) {
             $quoted = ($batch | ForEach-Object { "`"$_`"" }) -join ' '
             $write = Invoke-Executable "dotnet format whitespace `"$root`" --folder --include $quoted" -PassThru -NoAssert -Silent

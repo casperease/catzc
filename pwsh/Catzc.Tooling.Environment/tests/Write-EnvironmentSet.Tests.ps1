@@ -85,7 +85,8 @@ Describe 'Write-EnvironmentSet' -Tag 'L0' {
 
     Context 'poka-yoke rejections' -Tag 'logic' {
         It 'rejects a bare string in -Set (directs the caller to -Value)' {
-            { Write-EnvironmentSet -Set @{ X = 'plainliteral' } -Persist } | Should -Throw '*neither a `[SecureString`]*'
+            { Write-EnvironmentSet -Set @{ X = 'plainliteral' } -Persist } |
+                Should -Throw '*neither a `[SecureString`]*'
         }
 
         It 'throws when two channels resolve to the same env var name' {

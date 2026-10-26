@@ -41,7 +41,8 @@ Describe 'SpellingOracle.CoinedFragments (shipped dictionary)' -Tag 'L1', 'integ
         $allTermPaths = @(Get-ChildPath (Join-Path (Get-RepositoryRoot) '.cspell') -File -Filter '*.txt' -Depth 1)
         $fixturePaths = @($allTermPaths | Where-Object { [System.IO.Path]::GetFileName($_) -eq 'fixture.txt' })
         $termPaths = @($allTermPaths | Where-Object { [System.IO.Path]::GetFileName($_) -ne 'fixture.txt' })
-        [Catzc.Base.QualityGates.SpellingOracle]::Initialize($englishPath, [string[]] $termPaths, [string[]] $fixturePaths)
+        [Catzc.Base.QualityGates.SpellingOracle]::Initialize($englishPath, [string[]] $termPaths,
+            [string[]] $fixturePaths)
     }
 
     It 'loads a substantial English word set' {
@@ -81,8 +82,10 @@ Describe 'SpellingOracle paths' -Tag 'L0', 'logic' {
         $root = Join-Path $TestDrive 'widget-modules'
         $assets = [Catzc.Base.QualityGates.SpellingOracle]::AssetsFolder($root)
         $assets | Should -Be ([System.IO.Path]::GetFullPath((Join-Path $root 'Catzc.Base.QualityGates/assets')))
-        [Catzc.Base.QualityGates.SpellingOracle]::DictionaryPath($assets) | Should -Be (Join-Path $assets 'english.txt.gz')
-        [Catzc.Base.QualityGates.SpellingOracle]::DictionaryStampPath($assets) | Should -Be (Join-Path $assets 'english.stamp')
+        [Catzc.Base.QualityGates.SpellingOracle]::DictionaryPath($assets) |
+            Should -Be (Join-Path $assets 'english.txt.gz')
+        [Catzc.Base.QualityGates.SpellingOracle]::DictionaryStampPath($assets) |
+            Should -Be (Join-Path $assets 'english.stamp')
     }
 
     It 'gives its inputs as the word list, its own source and the .cspell term lists, sorted, a missing term folder adding none' {
@@ -92,7 +95,8 @@ Describe 'SpellingOracle paths' -Tag 'L0', 'logic' {
         [System.IO.Directory]::CreateDirectory($terms) | Out-Null
         [System.IO.File]::WriteAllText((Join-Path $terms 'gadget.txt'), "gadget`n")
         $inputs = [Catzc.Base.QualityGates.SpellingOracle]::Inputs($repository, $modules)
-        @($inputs | ForEach-Object { [System.IO.Path]::GetRelativePath($repository, $_).Replace('\', '/') }) | Should -Be @(
+        @($inputs | ForEach-Object { [System.IO.Path]::GetRelativePath($repository, $_).Replace('\', '/') }) |
+            Should -Be @(
             '.cspell/gadget.txt'
             'widget-modules/Catzc.Base.QualityGates/assets/english.txt.gz'
             'widget-modules/Catzc.Base.QualityGates/types/SpellingOracle.cs'

@@ -8,11 +8,13 @@ Describe 'ConvertTo-BicepParam' -Tag 'L0', 'logic' {
     It 'unwraps the values a pwsh hook hands back before they reach the writer' {
         $zones = @('1', '2' | ForEach-Object { $_ })
         $descriptor = [ordered]@{ ParametersFile = [ordered]@{ parameters = [ordered]@{ zones = @{ value = $zones } } } }
-        ConvertTo-BicepParam -Descriptor $descriptor -Using '../main.bicep' | Should -Match "param zones = \[`n  '1'`n  '2'`n\]"
+        ConvertTo-BicepParam -Descriptor $descriptor -Using '../main.bicep' |
+            Should -Match "param zones = \[`n  '1'`n  '2'`n\]"
     }
 
     It 'throws when the descriptor holds no ParametersFile.parameters' {
-        { ConvertTo-BicepParam -Descriptor ([ordered]@{ widget = 1 }) -Using '../main.bicep' } | Should -Throw '*holds no ParametersFile.parameters*'
+        { ConvertTo-BicepParam -Descriptor ([ordered]@{ widget = 1 }) -Using '../main.bicep' } |
+            Should -Throw '*holds no ParametersFile.parameters*'
     }
 }
 

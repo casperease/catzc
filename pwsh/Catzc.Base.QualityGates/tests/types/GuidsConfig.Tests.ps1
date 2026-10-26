@@ -77,7 +77,8 @@ Describe 'Catzc.Base.QualityGates.GuidsConfig' -Tag 'L0', 'logic' {
     }
 
     It 'throws on an unknown top-level key' {
-        Get-ViolationMessage ([ordered]@{ guids = $null; blocked = $null }) | Should -BeLike "*unknown top-level key 'blocked'*"
+        Get-ViolationMessage ([ordered]@{ guids = $null; blocked = $null }) |
+            Should -BeLike "*unknown top-level key 'blocked'*"
     }
 
     It 'throws when the guids key is missing' {

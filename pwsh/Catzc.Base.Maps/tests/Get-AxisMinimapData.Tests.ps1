@@ -3,7 +3,8 @@ Describe 'Get-AxisMinimapData' -Tag 'L0', 'logic' {
         $script:schema = [System.IO.File]::ReadAllText((Join-Path (Get-RepositoryRoot) 'contracts/catzc/0.1.0/catzc.base.maps/minimap.schema.json'))
         $adr = {
             param([string] $External, [string] $Stack, [string[]] $Concerns)
-            [Catzc.Base.Drs.DrsRuleSet]::new('widgetry', 'fixture', 'widget', $External, 'WIDGET', 'WIDGET', $Stack, $Concerns, $Concerns)
+            [Catzc.Base.Drs.DrsRuleSet]::new('widgetry', 'fixture', 'widget', $External, 'WIDGET', 'WIDGET', $Stack,
+                $Concerns, $Concerns)
         }
         $script:map = [Catzc.Base.Maps.ValueChainMap]::Build(@('TOP', 'SIDE', 'BOTTOM'), @('alpha', 'beta', 'gamma'), @(
                 & $adr 'ADR-WIDGET-GADGET' 'TOP' @('alpha', 'beta')
@@ -11,7 +12,8 @@ Describe 'Get-AxisMinimapData' -Tag 'L0', 'logic' {
                 & $adr 'ADR-WIDGET-GEAR' 'BOTTOM' @('gamma')
             ))
         $rows = [ordered]@{ UPPER = @('TOP', 'SIDE'); LOWER = @('BOTTOM') }
-        $script:config = [Catzc.Base.Maps.MapsConfig]::new(@{ minimaps = @{ axis = @{ rows = $rows; columns = @('alpha', 'beta') } } })
+        $script:config = [Catzc.Base.Maps.MapsConfig]::new(@{ minimaps = @{ axis = @{ rows = $rows; columns = @('alpha',
+            'beta') } } })
     }
 
     BeforeEach {
@@ -24,7 +26,8 @@ Describe 'Get-AxisMinimapData' -Tag 'L0', 'logic' {
         @($data.Axes | ForEach-Object Name) | Should -Be @('domain', 'concern')
         $data.Axes[0].Values | Should -Be @('UPPER', 'LOWER')
         $data.Axes[1].Values | Should -Be @('alpha', 'beta')
-        @($data.Cells | ForEach-Object { "$($_.At -join ' x ')=$($_.Count)" }) | Should -Be @('UPPER x alpha=1', 'UPPER x beta=2', 'LOWER x alpha=0', 'LOWER x beta=0')
+        @($data.Cells | ForEach-Object { "$($_.At -join ' x ')=$($_.Count)" }) | Should -Be @('UPPER x alpha=1',
+            'UPPER x beta=2', 'LOWER x alpha=0', 'LOWER x beta=0')
     }
 
     It 'lights the cell of each covered code with the ADR as its reason, and serializes to the minimap contract' {

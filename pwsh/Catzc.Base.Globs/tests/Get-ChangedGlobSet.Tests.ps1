@@ -12,7 +12,8 @@ Describe 'Get-ChangedGlobSet' -Tag 'L0', 'logic' {
                 globsets = [ordered]@{
                     'widget' = @{ description = 'the widget surface'; layer = 'loose-fileset'; include = @('src/**') }
                     'gadget' = @{ description = 'the gadget unit'; layer = 'deployable-unit'; include = @('lib/**'); exclude = @('lib/gen/**') }
-                    'report' = @{ description = 'the report scope'; layer = 'loose-fileset'; include = @('src/**', 'docs/**') }
+                    'report' = @{ description = 'the report scope'; layer = 'loose-fileset'; include = @('src/**',
+                        'docs/**') }
                 }
             })
     }
@@ -45,8 +46,10 @@ Describe 'Get-ChangedGlobSet' -Tag 'L0', 'logic' {
 
     It 'also matches derived module sets under -IncludeModules' {
         Mock Get-ModuleGlobSet {
-            [Catzc.Base.Globs.GlobSet]::new('catzc-widget', 'd', 'module', @('widgets/Widget/**'), @(), @(), @(), -1, $null)
+            [Catzc.Base.Globs.GlobSet]::new('catzc-widget', 'd', 'module', @('widgets/Widget/**'), @(), @(), @(), -1,
+                $null)
         } -ModuleName Catzc.Base.Globs
-        (Get-ChangedGlobSet -ChangedFile @('widgets/Widget/Get-Foo.ps1') -IncludeModules).Name | Should -Be 'catzc-widget'
+        (Get-ChangedGlobSet -ChangedFile @('widgets/Widget/Get-Foo.ps1') -IncludeModules).Name |
+            Should -Be 'catzc-widget'
     }
 }

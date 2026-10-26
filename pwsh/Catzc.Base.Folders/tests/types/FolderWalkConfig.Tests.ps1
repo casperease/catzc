@@ -6,7 +6,8 @@ catzc:
 ---
 #>
 
-# The type is the only place a folder-walk default lives, so an omitted key and its default must be indistinguishable to every walker.
+# The type is the only place a folder-walk default lives, so an omitted key and its default must be indistinguishable to
+# every walker.
 Describe 'FolderWalkConfig' -Tag 'L0', 'logic' {
     It 'takes the declared defaults for every omitted key' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
         $config = [Catzc.Base.Folders.FolderWalkConfig]::new(@{})
@@ -31,23 +32,28 @@ Describe 'FolderWalkConfig' -Tag 'L0', 'logic' {
     }
 
     It 'rejects an unknown key, naming the allowed set' {
-        { [Catzc.Base.Folders.FolderWalkConfig]::new(@{ gadget = 1 }) } | Should -Throw '*unknown key ''gadget''*depth, exclude, prune_vendor_in_searches*'
+        { [Catzc.Base.Folders.FolderWalkConfig]::new(@{ gadget = 1 }) } |
+            Should -Throw '*unknown key ''gadget''*depth, exclude, prune_vendor_in_searches*'
     }
 
     It 'rejects a depth that is not a whole number from 1 to 64' {
-        { [Catzc.Base.Folders.FolderWalkConfig]::new(@{ depth = 0 }) } | Should -Throw '*depth ''0'' must be a whole number from 1 to 64*'
+        { [Catzc.Base.Folders.FolderWalkConfig]::new(@{ depth = 0 }) } |
+            Should -Throw '*depth ''0'' must be a whole number from 1 to 64*'
         { [Catzc.Base.Folders.FolderWalkConfig]::new(@{ depth = 65 }) } | Should -Throw '*from 1 to 64*'
         { [Catzc.Base.Folders.FolderWalkConfig]::new(@{ depth = 'deep' }) } | Should -Throw '*from 1 to 64*'
     }
 
     It 'rejects an exclude that is not a list of bare folder names' {
-        { [Catzc.Base.Folders.FolderWalkConfig]::new(@{ exclude = 'gadget' }) } | Should -Throw '*exclude must be a list*'
-        { [Catzc.Base.Folders.FolderWalkConfig]::new(@{ exclude = @('widget/gadget') }) } | Should -Throw '*without a path separator*'
+        { [Catzc.Base.Folders.FolderWalkConfig]::new(@{ exclude = 'gadget' }) } |
+            Should -Throw '*exclude must be a list*'
+        { [Catzc.Base.Folders.FolderWalkConfig]::new(@{ exclude = @('widget/gadget') }) } |
+            Should -Throw '*without a path separator*'
         { [Catzc.Base.Folders.FolderWalkConfig]::new(@{ exclude = @(' ') }) } | Should -Throw '*not blank*'
     }
 
     It 'rejects a prune flag that is not a boolean' {
-        { [Catzc.Base.Folders.FolderWalkConfig]::new(@{ prune_vendor_in_searches = 'yes' }) } | Should -Throw '*must be true or false*'
+        { [Catzc.Base.Folders.FolderWalkConfig]::new(@{ prune_vendor_in_searches = 'yes' }) } |
+            Should -Throw '*must be true or false*'
     }
 
     It 'reports every violation in one exception' {

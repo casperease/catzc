@@ -7,7 +7,8 @@ catzc:
 #>
 
 function Get-FirewallCsv {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = 'TimestampPattern/TimestampFormat are consumed inside the $parseStamp nested scriptblock, which this rule does not trace')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '',
+        Justification = 'TimestampPattern/TimestampFormat are consumed inside the $parseStamp nested scriptblock, which this rule does not trace')]
     [CmdletBinding()]
     [OutputType([pscustomobject])]
     param(
@@ -47,7 +48,8 @@ function Get-FirewallCsv {
     $common = "--subscription $SubscriptionId --account-name $StorageAccountName --container-name $ContainerName --auth-mode login"
 
     try {
-        # Every blob is listed, because the day-first names never sort by date; the newest is picked from the names below.
+        # Every blob is listed, because the day-first names never sort by date; the newest is picked from the names
+        # below.
         $cli = Invoke-AzCli "storage blob list $common --num-results * -o json" -PassThru -Silent
     }
     catch {
@@ -68,7 +70,8 @@ function Get-FirewallCsv {
         }   # no stamp at all: not one of our exports, skip
         $stamp = $Matches[0]
         $dateTime = [datetime]::MinValue
-        if (-not [datetime]::TryParseExact($stamp, $TimestampFormat, [System.Globalization.CultureInfo]::InvariantCulture, $utcStyles, [ref]$dateTime)) {
+        if (-not [datetime]::TryParseExact($stamp, $TimestampFormat,
+            [System.Globalization.CultureInfo]::InvariantCulture, $utcStyles, [ref]$dateTime)) {
             throw "Blob '$Name' has a timestamp-shaped segment '$stamp' that won't parse as '$TimestampFormat' — refusing to guess."
         }
         $dateTime
@@ -98,7 +101,8 @@ function Get-FirewallCsv {
 
         Write-Verbose "Downloading $ruleType : $blobName (generated $($pick.Generated.ToString('u'))) -> $destination"
         try {
-            # Name and file are quoted, because either may hold spaces; the download stays loud because it is a real action.
+            # Name and file are quoted, because either may hold spaces; the download stays loud because it is a real
+            # action.
             Invoke-AzCli "storage blob download $common --name `"$blobName`" --file `"$destination`" --overwrite true -o none"
         }
         catch {
@@ -108,6 +112,7 @@ function Get-FirewallCsv {
         # The CLI can exit cleanly and leave no file, so the download is confirmed before any object claims that path.
         Assert-PathExist $destination -PathType Leaf -ErrorText "Blob '$blobName' reported success but no file is at '$destination'."
 
-        [Catzc.Azure.Firewall.CsvExportRef]::new($ruleType, $destination, $pick.Generated, $blobName, $blob.properties.lastModified)
+        [Catzc.Azure.Firewall.CsvExportRef]::new($ruleType, $destination, $pick.Generated, $blobName,
+            $blob.properties.lastModified)
     }
 }

@@ -45,7 +45,8 @@ customers:
     details: Gizmo Fixture Co
 '@
         # A shipped config of the same name is not a fixture: only tests/assets/config/ is read.
-        [System.IO.File]::WriteAllText((Join-Path $TestDrive 'repo/pwsh/Catzc.Widget/configs/customer.yml'), "customers: {}`n")
+        [System.IO.File]::WriteAllText((Join-Path $TestDrive 'repo/pwsh/Catzc.Widget/configs/customer.yml'),
+            "customers: {}`n")
     }
 
     BeforeEach {
@@ -78,6 +79,7 @@ customers:
 
     It 'fails on a malformed fixture config, as its registered type does for a shipped one' {
         [System.IO.File]::WriteAllText((Join-Path $script:config 'customer.yml'), ("customers: {}`n" + "sprocket: 1`n"))
-        { InModuleScope Catzc.Base.QualityGates { Get-FixtureIdentityTokens } } | Should -Throw "*unknown top-level key 'sprocket'*"
+        { InModuleScope Catzc.Base.QualityGates { Get-FixtureIdentityTokens } } |
+            Should -Throw "*unknown top-level key 'sprocket'*"
     }
 }

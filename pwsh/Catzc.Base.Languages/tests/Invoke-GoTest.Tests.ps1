@@ -40,7 +40,8 @@ Describe 'Invoke-GoTest' -Tag 'L0', 'logic' {
         $script:testExit = 1
         $script:vetExit = 0
         $script:seen = [System.Collections.Generic.List[object]]::new()
-        $script:probe = [Catzc.Base.Execution.ExecutableProbe]::new('go', $script:goPath, 'probe', '1.27.1', '1.27', $true, 1, 0, 'Agent')
+        $script:probe = [Catzc.Base.Execution.ExecutableProbe]::new('go', $script:goPath, 'probe', '1.27.1', '1.27',
+            $true, 1, 0, 'Agent')
         Mock Resolve-ToolExecutable -ModuleName Catzc.Base.Languages { $script:probe }
         Mock Resolve-EngineExecutable -ModuleName Catzc.Base.Languages { 'C:\widget\engine\pwsh.exe' }
         Mock Invoke-Executable -ModuleName Catzc.Base.Languages {
@@ -101,14 +102,17 @@ Describe 'Invoke-GoTest' -Tag 'L0', 'logic' {
         }
 
         It 'throws with "Run Install-Go" when no managed go is found, before running anything' {
-            $script:probe = [Catzc.Base.Execution.ExecutableProbe]::new('go', $null, 'none', $null, '1.27', $false, 1, 0, 'Agent')
+            $script:probe = [Catzc.Base.Execution.ExecutableProbe]::new('go', $null, 'none', $null, '1.27', $false, 1,
+                0, 'Agent')
             { Invoke-GoTest Catzc.Widget } | Should -Throw '*no managed go found*Run Install-Go*'
             $script:seen.Count | Should -Be 0
         }
 
         It 'throws with "Run Install-Go" when the go found does not match the tools.yml pin' {
-            $script:probe = [Catzc.Base.Execution.ExecutableProbe]::new('go', $script:goPath, 'path', '1.22.5', '1.27', $false, 1, 3, 'Agent')
-            { Invoke-GoTest Catzc.Widget } | Should -Throw "*reports version '1.22.5', but tools.yml pins '1.27'. Run Install-Go*"
+            $script:probe = [Catzc.Base.Execution.ExecutableProbe]::new('go', $script:goPath, 'path', '1.22.5', '1.27',
+                $false, 1, 3, 'Agent')
+            { Invoke-GoTest Catzc.Widget } |
+                Should -Throw "*reports version '1.22.5', but tools.yml pins '1.27'. Run Install-Go*"
             $script:seen.Count | Should -Be 0
         }
 
@@ -124,13 +128,15 @@ Describe 'Invoke-GoTest' -Tag 'L0', 'logic' {
         }
 
         It 'throws when the module has no Go test folder' {
-            { Invoke-GoTest Catzc.Nothing } | Should -Throw "*Module 'Catzc.Nothing' has no Go tests: go/tests/catzcnothing/ does not exist*"
+            { Invoke-GoTest Catzc.Nothing } |
+                Should -Throw "*Module 'Catzc.Nothing' has no Go tests: go/tests/catzcnothing/ does not exist*"
         }
 
         It 'runs in the named folder, a module''s own tests/ under the go track, with the go.mod at the module root' {
             $null = Invoke-GoTest Widget.Kit -Folder $script:ownFolder
             $script:seen.Directory | Sort-Object -Unique | Should -Be $script:ownFolder
-            { Invoke-GoTest Widget.Kit -Folder 'go/Widget.Nothing/tests' } | Should -Throw '*go/Widget.Nothing/tests/ does not exist*'
+            { Invoke-GoTest Widget.Kit -Folder 'go/Widget.Nothing/tests' } |
+                Should -Throw '*go/Widget.Nothing/tests/ does not exist*'
         }
 
         It 'throws with the remediation when the generated go.mod is missing' {

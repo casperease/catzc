@@ -1,7 +1,8 @@
 Describe 'Invoke-JavaScriptTest' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:root = Join-Path $TestDrive 'repo'
-        # A js module is its kebab folder with its own tests/; a module without one is looked for under the root's test holder.
+        # A js module is its kebab folder with its own tests/; a module without one is looked for under the root's test
+        # holder.
         $script:own = Join-Path $script:root 'js/catzc-widget/tests'
         $null = New-Item -ItemType Directory -Path $script:own -Force
         Set-Content -LiteralPath (Join-Path $script:own 'spin.test.js') -Value 'test("spins", () => {});'
@@ -48,7 +49,8 @@ Describe 'Invoke-JavaScriptTest' -Tag 'L0', 'logic' {
     }
 
     It 'refuses a module that has no tests' {
-        { Invoke-JavaScriptTest catzc-gadget -Folder 'js/catzc-gadget' -NodeExecutable $script:nodePath } | Should -Throw '*holds no *.test.js*'
+        { Invoke-JavaScriptTest catzc-gadget -Folder 'js/catzc-gadget' -NodeExecutable $script:nodePath } |
+            Should -Throw '*holds no *.test.js*'
     }
 
     It 'returns a failing case as fail, and refuses a non-zero exit with no failing case' {

@@ -37,7 +37,8 @@ Describe 'Get-CatsDrsRules' -Tag 'L0', 'logic' {
 
     It 'returns the whole normative paragraph as one line, without the linked bullets' -Tag 'ADR-REPO-VOCAB-DEFINEDTERM' {
         $script:rules[0].Statement | Should -Be 'Alpha does the first thing deterministically.'
-        $script:rules[1].Statement | Should -Be 'Beta never happens without alpha. A **widget suite** wraps onto a second line.'
+        $script:rules[1].Statement |
+            Should -Be 'Beta never happens without alpha. A **widget suite** wraps onto a second line.'
     }
 
     It 'returns an empty summary and statement for a rule with no body' {

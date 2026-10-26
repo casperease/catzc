@@ -63,7 +63,8 @@ function Uninstall-Tool {
                     ForEach-Object { $_.TrimEnd('\', '/') }),
             [System.StringComparer]::OrdinalIgnoreCase
         )
-        $removed = [System.Collections.Generic.HashSet[string]]::new($beforeEntries, [System.StringComparer]::OrdinalIgnoreCase)
+        $removed = [System.Collections.Generic.HashSet[string]]::new($beforeEntries,
+            [System.StringComparer]::OrdinalIgnoreCase)
         $removed.ExceptWith($afterEntries)
 
         # Remove those entries from the session PATH too

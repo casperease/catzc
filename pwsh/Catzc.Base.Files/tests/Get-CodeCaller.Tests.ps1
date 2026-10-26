@@ -13,7 +13,8 @@ Describe 'Get-CodeCaller' -Tag 'L0', 'logic' {
             $null = New-Item -ItemType File -Path $full -Force
             [System.IO.File]::WriteAllText($full, $files[$relative])
         }
-        $script:tracked = @('widgets/Get-Widget.ps1', 'widgets/configs/widget.yml', 'docs/widget.md', 'docs/deleted.md', 'assets/widget.bin')
+        $script:tracked = @('widgets/Get-Widget.ps1', 'widgets/configs/widget.yml', 'docs/widget.md', 'docs/deleted.md',
+            'assets/widget.bin')
     }
 
     BeforeEach {
@@ -26,7 +27,8 @@ Describe 'Get-CodeCaller' -Tag 'L0', 'logic' {
     }
 
     It 'lists a file once when it names any of several names' {
-        Get-CodeCaller 'WidgetConfig', 'gadget_key' | Should -Be @('docs/widget.md', 'widgets/Get-Widget.ps1', 'widgets/configs/widget.yml')
+        Get-CodeCaller 'WidgetConfig', 'gadget_key' | Should -Be @('docs/widget.md', 'widgets/Get-Widget.ps1',
+            'widgets/configs/widget.yml')
     }
 
     It 'skips an untracked, a deleted and a binary file' {

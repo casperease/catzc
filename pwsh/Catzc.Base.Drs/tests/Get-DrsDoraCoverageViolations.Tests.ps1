@@ -83,11 +83,13 @@ Describe 'Get-DrsDoraCoverageViolations' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUAL
     }
 
     It 'reports a rule set no section links, even when a link outside any section names it' {
-        $findings | Should -Contain 'docs/drs/widget/dora-explains.md: no section links ADR-WI-TWO (docs/drs/widget/sub/widget-two.md)'
+        $findings |
+            Should -Contain 'docs/drs/widget/dora-explains.md: no section links ADR-WI-TWO (docs/drs/widget/sub/widget-two.md)'
     }
 
     It 'reports a rule set two sections link, with both sections'' heading lines' {
-        $findings | Should -Contain 'docs/drs/gadget/dora-explains.md:3,7: 2 sections link ADR-GA-ONE (docs/drs/gadget/gadget-one.md)'
+        $findings |
+            Should -Contain 'docs/drs/gadget/dora-explains.md:3,7: 2 sections link ADR-GA-ONE (docs/drs/gadget/gadget-one.md)'
     }
 
     It 'reports a domain without a DORA file once per rule set' {

@@ -70,7 +70,8 @@ Describe 'Get-InternalAssetDependency' -Tag 'L0', 'logic' {
     }
 
     It 'scans private/ and module-qualified calls, but not tests/ or assets/' {
-        (& $script:find 'assets/core.txt')[0].File | Should -Be "$(Get-CatzcModulesFolder)/Catzc.Base.Widget/private/Get-GadgetCore.ps1"
+        (& $script:find 'assets/core.txt')[0].File |
+            Should -Be "$(Get-CatzcModulesFolder)/Catzc.Base.Widget/private/Get-GadgetCore.ps1"
         & $script:find 'assets/from-test.txt' | Should -HaveCount 0
         & $script:find 'assets/from-asset.txt' | Should -HaveCount 0
     }
@@ -90,7 +91,8 @@ Describe 'Get-InternalAssetDependency' -Tag 'L0', 'logic' {
     }
 
     It '-Module limits the scan to the named module folders' {
-        @(Get-InternalAssetDependency -ModulesRoot $script:fake.ModulesRoot -Module Catzc.Base.Sprocket) | Should -HaveCount 0
+        @(Get-InternalAssetDependency -ModulesRoot $script:fake.ModulesRoot -Module Catzc.Base.Sprocket) |
+            Should -HaveCount 0
     }
 
     It 'returns nothing with -Violation when every call site is literal' {
@@ -127,16 +129,19 @@ Describe 'Get-InternalAssetDependency — non-literal call sites (ADR-AUTO-ASSET
     It '-Violation lists each non-literal site with its reason instead of throwing' {
         $violations = @(Get-InternalAssetDependency -ModulesRoot $script:fake.ModulesRoot -Violation)
         ($violations.Function | Sort-Object) | Should -Be @('Find-Gadget', 'Get-Gadget', 'Get-GadgetPeer', 'Set-Gadget')
-        ($violations | Where-Object Function -EQ 'Get-Gadget').Reason | Should -BeLike '*-ChildPath is not a string literal*'
+        ($violations | Where-Object Function -EQ 'Get-Gadget').Reason |
+            Should -BeLike '*-ChildPath is not a string literal*'
         ($violations | Where-Object Function -EQ 'Set-Gadget').Line | Should -Be 2
         ($violations | Where-Object Function -EQ 'Find-Gadget').Reason | Should -BeLike '*splatted*'
-        ($violations | Where-Object Function -EQ 'Get-GadgetPeer').Reason | Should -BeLike '*-Module is not a string literal*'
+        ($violations | Where-Object Function -EQ 'Get-GadgetPeer').Reason |
+            Should -BeLike '*-Module is not a string literal*'
     }
 }
 
 Describe 'Get-InternalAssetDependency — build mode' -Tag 'L0', 'logic' {
     It 'stops with a named error when the session runs a built package' {
         Mock Get-CatzcRunMode { 'build' } -ModuleName Catzc.Base.Repository
-        { Get-InternalAssetDependency -ModulesRoot $TestDrive } | Should -Throw '*Get-InternalAssetDependency operates on the catzc source tree*'
+        { Get-InternalAssetDependency -ModulesRoot $TestDrive } |
+            Should -Throw '*Get-InternalAssetDependency operates on the catzc source tree*'
     }
 }

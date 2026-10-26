@@ -39,7 +39,8 @@ function Get-DrsUsageRow {
             @()
         }
         else {
-            @([Catzc.Base.QualityGates.DocumentLinks]::Of($state.Body, $Path, (Get-CommentPage -Path $Path -Config $Pages)))
+            @([Catzc.Base.QualityGates.DocumentLinks]::Of($state.Body, $Path,
+                (Get-CommentPage -Path $Path -Config $Pages)))
         })
 
     foreach ($citation in $adrs) {

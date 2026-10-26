@@ -7,8 +7,10 @@ catzc:
 #>
 
 function Invoke-Executable {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingInvokeExpression', '', Justification = 'By design — executes CLI commands via private helpers')]
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseOutputTypeCorrectly', '', Justification = 'Returns string in -DryRun, Catzc.Base.Execution.CliResult in -PassThru')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingInvokeExpression', '',
+        Justification = 'By design — executes CLI commands via private helpers')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseOutputTypeCorrectly', '',
+        Justification = 'Returns string in -DryRun, Catzc.Base.Execution.CliResult in -PassThru')]
     [CmdletBinding(DefaultParameterSetName = 'Stream')]
     param(
         [Parameter(Mandatory, Position = 0)]

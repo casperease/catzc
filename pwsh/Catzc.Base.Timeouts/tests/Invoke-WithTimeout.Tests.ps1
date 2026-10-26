@@ -7,7 +7,8 @@ Describe 'Invoke-WithTimeout' -Tag 'L0', 'logic' {
     # L1: waits out a real 1-second limit, over the L0 time budget.
     It 'stops a block past its limit and throws a TimeoutException naming the limit' -Tag 'L1' {
         $stopwatch = [System.Diagnostics.Stopwatch]::StartNew()
-        $err = { Invoke-WithTimeout { Start-Sleep -Seconds 10 } -Seconds 1 -Activity 'gadget sync' } | Should -Throw -PassThru
+        $err = { Invoke-WithTimeout { Start-Sleep -Seconds 10 } -Seconds 1 -Activity 'gadget sync' } |
+            Should -Throw -PassThru
         $stopwatch.Elapsed.TotalSeconds | Should -BeLessThan 5
         $err.Exception | Should -BeOfType [System.TimeoutException]
         $err.Exception.Message | Should -BeLike "*'gadget sync' did not finish within its 1-second limit*timeouts.yml*"
@@ -16,7 +17,8 @@ Describe 'Invoke-WithTimeout' -Tag 'L0', 'logic' {
     # L2: drives a real child pwsh that outlives the limit.
     It 'stops a native command the block is waiting on' -Tag 'L2' {
         $stopwatch = [System.Diagnostics.Stopwatch]::StartNew()
-        { Invoke-WithTimeout { & pwsh -NoProfile -Command 'Start-Sleep -Seconds 10' } -Seconds 1 } | Should -Throw -ExceptionType ([System.TimeoutException])
+        { Invoke-WithTimeout { & pwsh -NoProfile -Command 'Start-Sleep -Seconds 10' } -Seconds 1 } |
+            Should -Throw -ExceptionType ([System.TimeoutException])
         $stopwatch.Elapsed.TotalSeconds | Should -BeLessThan 8
     }
 

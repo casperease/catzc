@@ -52,15 +52,18 @@ Describe 'Get-GoRelease' -Tag 'L0', 'logic' {
     }
 
     It 'accepts an exact patch version' {
-        (Invoke-GetGoRelease -Version '1.27.2' -Os windows -Arch amd64).filename | Should -Be 'go1.27.2.windows-amd64.zip'
+        (Invoke-GetGoRelease -Version '1.27.2' -Os windows -Arch amd64).filename |
+            Should -Be 'go1.27.2.windows-amd64.zip'
     }
 
     It 'throws when no stable release matches' {
-        { Invoke-GetGoRelease -Version '1.28' -Os windows -Arch amd64 } | Should -Throw "*No stable Go release matches the locked version '1.28'*"
+        { Invoke-GetGoRelease -Version '1.28' -Os windows -Arch amd64 } |
+            Should -Throw "*No stable Go release matches the locked version '1.28'*"
     }
 
     It 'throws when the release has no archive for the platform' {
-        { Invoke-GetGoRelease -Version '1.27' -Os darwin -Arch arm64 } | Should -Throw '*has no archive for darwin/arm64*'
+        { Invoke-GetGoRelease -Version '1.27' -Os darwin -Arch arm64 } |
+            Should -Throw '*has no archive for darwin/arm64*'
     }
 
     It 'refuses an archive without a published SHA-256' {

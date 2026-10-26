@@ -4,7 +4,8 @@ Describe 'Get-ChildPath' -Tag 'L0', 'logic' {
         foreach ($folder in 'widget/gadget/sprocket', 'widget/.vendor') {
             [System.IO.Directory]::CreateDirectory((Join-Path $root $folder)) | Out-Null
         }
-        foreach ($file in 'top.txt', 'widget/a.yml', 'widget/gadget/b.yml', 'widget/gadget/sprocket/deep.yml', 'widget/.vendor/v.yml') {
+        foreach ($file in 'top.txt', 'widget/a.yml', 'widget/gadget/b.yml', 'widget/gadget/sprocket/deep.yml',
+            'widget/.vendor/v.yml') {
             [System.IO.File]::WriteAllText((Join-Path $root $file), 'x')
         }
         $script:root = $root
@@ -22,8 +23,10 @@ Describe 'Get-ChildPath' -Tag 'L0', 'logic' {
     }
 
     It 'lists folders only with -Directory and files only with -File' {
-        & $relative (Get-ChildPath $root -Depth 2 -Directory -Exclude @() -PruneVendor $false) | Should -Be @('widget', 'widget/.vendor', 'widget/gadget')
-        & $relative (Get-ChildPath $root -Depth 2 -File -Exclude @() -PruneVendor $false) | Should -Be @('top.txt', 'widget/a.yml')
+        & $relative (Get-ChildPath $root -Depth 2 -Directory -Exclude @() -PruneVendor $false) | Should -Be @('widget',
+            'widget/.vendor', 'widget/gadget')
+        & $relative (Get-ChildPath $root -Depth 2 -File -Exclude @() -PruneVendor $false) | Should -Be @('top.txt',
+            'widget/a.yml')
     }
 
     It 'filters by wildcard and stops at the depth it is given' {
@@ -32,12 +35,15 @@ Describe 'Get-ChildPath' -Tag 'L0', 'logic' {
     }
 
     It 'prunes the vendor folder when asked to and enters it when not' -Tag 'ADR-PWSH-PARAM-RESOLUTIONORDER' {
-        (& $relative (Get-ChildPath $root -Depth 3 -File -Exclude @() -PruneVendor $true)) | Should -Not -Contain 'widget/.vendor/v.yml'
-        (& $relative (Get-ChildPath $root -Depth 3 -File -Exclude @() -PruneVendor $false)) | Should -Contain 'widget/.vendor/v.yml'
+        (& $relative (Get-ChildPath $root -Depth 3 -File -Exclude @() -PruneVendor $true)) |
+            Should -Not -Contain 'widget/.vendor/v.yml'
+        (& $relative (Get-ChildPath $root -Depth 3 -File -Exclude @() -PruneVendor $false)) |
+            Should -Contain 'widget/.vendor/v.yml'
     }
 
     It 'prunes the folder names it is given' {
-        (& $relative (Get-ChildPath $root -Depth 3 -File -Exclude @('gadget') -PruneVendor $false)) | Should -Not -Contain 'widget/gadget/b.yml'
+        (& $relative (Get-ChildPath $root -Depth 3 -File -Exclude @('gadget') -PruneVendor $false)) |
+            Should -Not -Contain 'widget/gadget/b.yml'
     }
 
     It 'takes the path as its first positional argument' {
@@ -45,7 +51,8 @@ Describe 'Get-ChildPath' -Tag 'L0', 'logic' {
     }
 
     It 'fails fast on a folder that does not exist' -Tag 'ADR-AUTO-FAILFAST-ASSERTINPUTSATENTRY' {
-        { Get-ChildPath (Join-Path $root 'gadget-missing') -Depth 1 -Exclude @() -PruneVendor $false } | Should -Throw '*does not exist*'
+        { Get-ChildPath (Join-Path $root 'gadget-missing') -Depth 1 -Exclude @() -PruneVendor $false } |
+            Should -Throw '*does not exist*'
     }
 }
 

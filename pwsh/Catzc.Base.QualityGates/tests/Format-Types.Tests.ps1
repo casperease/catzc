@@ -22,7 +22,8 @@ Describe 'Format-Types' -Tag 'L0', 'logic' {
         $script:root = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
         Mock Assert-SourceTree -ModuleName Catzc.Base.QualityGates { }
         Mock Write-Message -ModuleName Catzc.Base.QualityGates { }
-        $script:widget = & $writeType $script:root 'Catzc.Widget' 'Widget' ('namespace Catzc.Widget;', '', 'public sealed class Widget { }', '' -join "`n")
+        $script:widget = & $writeType $script:root 'Catzc.Widget' 'Widget' ('namespace Catzc.Widget;', '',
+            'public sealed class Widget { }', '' -join "`n")
     }
 
     It 'leaves a source that declares its module namespace unchanged' {
@@ -32,7 +33,8 @@ Describe 'Format-Types' -Tag 'L0', 'logic' {
     }
 
     It 'reports a mismatched and a missing namespace under -DryRun without writing them' {
-        $mismatched = & $writeType $script:root 'Catzc.Widget' 'Gadget' ('namespace Catzc.Gadget;', '', 'public sealed class Gadget { }', '' -join "`n")
+        $mismatched = & $writeType $script:root 'Catzc.Widget' 'Gadget' ('namespace Catzc.Gadget;', '',
+            'public sealed class Gadget { }', '' -join "`n")
         $missing = & $writeType $script:root 'Catzc.Gadget' 'Bare' "public sealed class Bare { }`n"
 
         $result = Format-Types -Path (Join-Path $script:root (Get-CatzcModulesFolder)) -DryRun -PassThru
@@ -41,7 +43,8 @@ Describe 'Format-Types' -Tag 'L0', 'logic' {
     }
 
     It 'writes the module namespace without -DryRun' {
-        $mismatched = & $writeType $script:root 'Catzc.Widget' 'Gadget' ('namespace Catzc.Gadget;', '', 'public sealed class Gadget { }', '' -join "`n")
+        $mismatched = & $writeType $script:root 'Catzc.Widget' 'Gadget' ('namespace Catzc.Gadget;', '',
+            'public sealed class Gadget { }', '' -join "`n")
 
         Format-Types -Path (Join-Path $script:root (Get-CatzcModulesFolder)) | Out-Null
         [System.IO.File]::ReadAllText($mismatched) | Should -BeLike 'namespace Catzc.Widget;*'

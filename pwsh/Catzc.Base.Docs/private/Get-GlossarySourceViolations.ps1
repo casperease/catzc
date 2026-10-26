@@ -16,7 +16,8 @@ function Get-GlossarySourceViolations {
 
     $violations = [System.Collections.Generic.List[string]]::new()
     $drs = Get-Config -Config drs
-    $domains = [System.Collections.Generic.HashSet[string]]::new([string[]] @($drs.Domains.Name), [System.StringComparer]::Ordinal)
+    $domains = [System.Collections.Generic.HashSet[string]]::new([string[]] @($drs.Domains.Name),
+        [System.StringComparer]::Ordinal)
 
     # First pass: who owns each term and key (the first source in order keeps it), plus the per-source facts.
     $termSource = [System.Collections.Generic.Dictionary[string, string]]::new([System.StringComparer]::Ordinal)
@@ -65,7 +66,8 @@ function Get-GlossarySourceViolations {
                 if (-not $termConcept.ContainsKey($other)) {
                     $violations.Add("$($item.Path): concept '$term': contrast target '$other' is not a defined term (ADR-REPO-VOCAB-SOURCESINREPOSITORY)")
                 }
-                # A contrast is declared once and the build shows it on both entries; the second declaration of a pair is the finding.
+                # A contrast is declared once and the build shows it on both entries; the second declaration of a pair
+                # is the finding.
                 elseif ($termConcept[$other].contrasts.ContainsKey($term) -and -not $contrasted.Add("$other`n$term")) {
                     $violations.Add("$($item.Path): concept '$term': contrasts '$other', which '$other' ($($termSource[$other])) already declares; declare a contrast once (ADR-REPO-VOCAB-SIMILARTERMSCONTRASTED)")
                 }

@@ -47,7 +47,8 @@ Describe 'Install-Dotnet — shipped install scripts' -Tag 'L1', 'integrity', 'A
         if ($IsWindows) {
             $tokens = $null
             $parseErrors = $null
-            $ast = [System.Management.Automation.Language.Parser]::ParseFile($script:scriptPath, [ref]$tokens, [ref]$parseErrors)
+            $ast = [System.Management.Automation.Language.Parser]::ParseFile($script:scriptPath, [ref]$tokens,
+                [ref]$parseErrors)
             $parameterNames = @($ast.ParamBlock.Parameters | ForEach-Object { $_.Name.VariablePath.UserPath })
             $parameterNames | Should -Contain 'Channel'
             $parameterNames | Should -Contain 'InstallDir'
@@ -82,7 +83,8 @@ Describe 'Install-Dotnet' -Tag 'L1', 'logic' {
         # The fixture install script records how it was called instead of downloading anything.
         $script:installLog = Join-Path $TestDrive "install-$([guid]::NewGuid().ToString('N')).txt"
         $script:fixtureScript = Join-Path $TestDrive 'dotnet-install-widget.ps1'
-        [System.IO.File]::WriteAllText($script:fixtureScript, "param(`$Channel, `$InstallDir, `$Quality) [System.IO.File]::WriteAllText(`$env:CATZC_WIDGET_INSTALL_LOG, `"`$Channel|`$InstallDir|`$Quality`")")
+        [System.IO.File]::WriteAllText($script:fixtureScript,
+            "param(`$Channel, `$InstallDir, `$Quality) [System.IO.File]::WriteAllText(`$env:CATZC_WIDGET_INSTALL_LOG, `"`$Channel|`$InstallDir|`$Quality`")")
         $env:CATZC_WIDGET_INSTALL_LOG = $script:installLog
 
         Mock Test-IsRunningInPipeline { $false } -ModuleName Catzc.Tooling.Toolchain

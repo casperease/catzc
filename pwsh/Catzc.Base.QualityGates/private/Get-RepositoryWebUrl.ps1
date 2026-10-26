@@ -25,7 +25,8 @@ function Get-RepositoryWebUrl {
             $inOrigin = $line -match '^\s*\[remote\s+"origin"\]'
             continue
         }
-        if ($inOrigin -and $line -match '^\s*url\s*=\s*(?:https://github\.com/|git@github\.com:)(?<slug>[^/\s]+/[^/\s]+?)(?:\.git)?\s*$') {
+        if ($inOrigin -and
+            $line -match '^\s*url\s*=\s*(?:https://github\.com/|git@github\.com:)(?<slug>[^/\s]+/[^/\s]+?)(?:\.git)?\s*$') {
             return "https://github.com/$($Matches['slug'])"
         }
     }

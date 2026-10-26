@@ -56,8 +56,10 @@ Describe 'Get-ModuleOrder' -Tag 'L0', 'logic', 'ADR-AUTO-MODULE-TOPOLOGICALORDER
 
     It 'orders the modules the resolver finds when no module is named' {
         Mock Get-CatzcModule -ModuleName Catzc.Base.ModuleSystem -ParameterFilter { $EngineTrack } {
-            [Catzc.Base.Modules.Module]::new('Catzc.B', 'widgets', 'widget-folder', 'widgetry', 'widgetry/Catzc.B', 'folder', $null, $null, $null, $null)
-            [Catzc.Base.Modules.Module]::new('Catzc.A', 'widgets', 'widget-folder', 'widgetry', 'widgetry/Catzc.A', 'folder', $null, $null, $null, $null)
+            [Catzc.Base.Modules.Module]::new('Catzc.B', 'widgets', 'widget-folder', 'widgetry', 'widgetry/Catzc.B',
+                'folder', $null, $null, $null, $null)
+            [Catzc.Base.Modules.Module]::new('Catzc.A', 'widgets', 'widget-folder', 'widgetry', 'widgetry/Catzc.A',
+                'folder', $null, $null, $null, $null)
         }
         Mock Get-ModuleGroupConfig { [ordered]@{} } -ModuleName Catzc.Base.ModuleSystem
         Mock Get-ModuleDependencyConfig { [ordered]@{ 'Catzc.A' = @('Catzc.B') } } -ModuleName Catzc.Base.ModuleSystem
@@ -74,7 +76,8 @@ Describe 'Get-ModuleOrder on the repository' -Tag 'L1', 'integrity', 'ADR-AUTO-M
         $map = InModuleScope Catzc.Base.ModuleSystem -Parameters @{ Names = $names } { param($Names) Get-ModuleDependencyMap -Module $Names }
         foreach ($name in $order) {
             foreach ($dependency in $map[$name]) {
-                [array]::IndexOf($order, $dependency) | Should -BeLessThan ([array]::IndexOf($order, $name)) -Because "$name depends on $dependency"
+                [array]::IndexOf($order, $dependency) | Should -BeLessThan ([array]::IndexOf($order,
+                    $name)) -Because "$name depends on $dependency"
             }
         }
     }

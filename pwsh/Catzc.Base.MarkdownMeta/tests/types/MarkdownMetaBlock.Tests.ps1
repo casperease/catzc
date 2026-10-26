@@ -24,15 +24,19 @@ Describe 'MarkdownMetaBlock' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRINTEDPAR
     It 'leaves out a fact or an edge with no value, so its absence reads as the empty value' {
         $immutable = [ordered]@{ kind = 'gadget'; title = '' }
         $edges = [ordered]@{ cites = [string[]] @(); links = $null }
-        $script:block::Render($immutable, $edges, $script:none) | Should -Be @('catzc:', '  immutable:', '    kind: gadget')
+        $script:block::Render($immutable, $edges, $script:none) | Should -Be @('catzc:', '  immutable:',
+            '    kind: gadget')
         $script:block::Render([ordered]@{}, $edges, $script:none).Count | Should -Be 0
     }
 
     It 'writes the docs edge first and the header note after it, always quoted, when one is given, and none when it is empty; the caller decides whether a note stands alone' {
         $edges = [ordered]@{ docs = '../docs/widget.md' }
-        $script:block::Render('generated', [ordered]@{}, $edges, $script:none) | Should -Be @('catzc:', '  docs: "../docs/widget.md"', '  header: "generated"')
-        $script:block::Render('', [ordered]@{}, $edges, $script:none) | Should -Be @('catzc:', '  docs: "../docs/widget.md"')
-        $script:block::Render('generated', [ordered]@{}, [ordered]@{}, $script:none) | Should -Be @('catzc:', '  header: "generated"')
+        $script:block::Render('generated', [ordered]@{}, $edges, $script:none) | Should -Be @('catzc:',
+            '  docs: "../docs/widget.md"', '  header: "generated"')
+        $script:block::Render('', [ordered]@{}, $edges, $script:none) | Should -Be @('catzc:',
+            '  docs: "../docs/widget.md"')
+        $script:block::Render('generated', [ordered]@{}, [ordered]@{}, $script:none) | Should -Be @('catzc:',
+            '  header: "generated"')
     }
 
     It 'leaves out the part that has nothing, and keeps the other' {
@@ -74,14 +78,16 @@ Describe 'MarkdownMetaBlock' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRINTEDPAR
     }
 
     It 'reads ADR and rule codes back from a rendered list edge' {
-        $lines = $script:block::Render([ordered]@{}, [ordered]@{ cites = [string[]] @('ADR-WIDGET-GADGET', 'ADR-WIDGET-LONE-RE02') }, $script:none)
+        $lines = $script:block::Render([ordered]@{}, [ordered]@{ cites = [string[]] @('ADR-WIDGET-GADGET',
+            'ADR-WIDGET-LONE-RE02') }, $script:none)
         $script:block::EdgeList($lines, 'cites') | Should -Be @('ADR-WIDGET-GADGET', 'ADR-WIDGET-LONE-RE02')
     }
 
     It 'keeps the authored config lines exactly as written' {
         $config = [string[]] @('    gadgets:', '      widget: { gates: [Test-Widget] }')
         $script:block::Render([ordered]@{ kind = 'gadget' }, [ordered]@{}, $config) | Should -Be @(
-            'catzc:', '  immutable:', '    kind: gadget', '  config:', '    gadgets:', '      widget: { gates: [Test-Widget] }'
+            'catzc:', '  immutable:', '    kind: gadget', '  config:', '    gadgets:',
+                '      widget: { gates: [Test-Widget] }'
         )
     }
 
@@ -101,14 +107,17 @@ Describe 'MarkdownMetaBlock' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRINTEDPAR
     }
 
     It 'lists the keys at the block''s first level, inside immutable and the names of the edges, the first-level keys that are no part' {
-        $lines = [string[]] @('catzc:', '  cites:', '    - ADR-WIDGET-TURN', '  page: docs/gadget.md', '  header: "generated"', '  immutable:', '    kind: gadget', '    "with_body_sha": x', '  config:', '    gadgets:')
+        $lines = [string[]] @('catzc:', '  cites:', '    - ADR-WIDGET-TURN', '  page: docs/gadget.md',
+            '  header: "generated"', '  immutable:', '    kind: gadget', '    "with_body_sha": x', '  config:',
+            '    gadgets:')
         $script:block::SectionKeys($lines) | Should -Be @('cites', 'page', 'header', 'immutable', 'config')
         $script:block::ImmutableKeys($lines) | Should -Be @('kind', 'with_body_sha')
         $script:block::EdgeKeys($lines) | Should -Be @('cites', 'page')
     }
 
     It 'reads the items of one list edge, and nothing for a scalar edge, a missing edge, a place fact or a config list' {
-        $lines = [string[]] @('catzc:', '  cites:', '    - ADR-WIDGET-TURN', '    - "ADR-GADGET-SPIN"', '  page: x', '  immutable:', '    cites:', '      - ADR-PLACE-DROP', '  config:', '    cites:', '      - ADR-OTHER-FOLD')
+        $lines = [string[]] @('catzc:', '  cites:', '    - ADR-WIDGET-TURN', '    - "ADR-GADGET-SPIN"', '  page: x',
+            '  immutable:', '    cites:', '      - ADR-PLACE-DROP', '  config:', '    cites:', '      - ADR-OTHER-FOLD')
         $script:block::EdgeList($lines, 'cites') | Should -Be @('ADR-WIDGET-TURN', 'ADR-GADGET-SPIN')
         @($script:block::EdgeList($lines, 'page')).Count | Should -Be 0
         @($script:block::EdgeList($lines, 'widgets')).Count | Should -Be 0
@@ -125,7 +134,8 @@ Describe 'MarkdownMetaBlock' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRINTEDPAR
     }
 
     It 'drops the config part and keeps the facts as written, and a block with nothing else is no block' -Tag 'ADR-REPO-HELP-HELPONCOMMENTPAGE' {
-        $lines = [string[]] @('catzc:', '  immutable:', '    path: widget.ps1', '  config:', '    synopsis: Gets.', '    parameters:', '      Name: N.')
+        $lines = [string[]] @('catzc:', '  immutable:', '    path: widget.ps1', '  config:', '    synopsis: Gets.',
+            '    parameters:', '      Name: N.')
         $script:block::WithoutConfig($lines) | Should -Be @('catzc:', '  immutable:', '    path: widget.ps1')
         $script:block::WithoutConfig([string[]] @('catzc:', '  config:', '    synopsis: Gets.')).Count | Should -Be 0
         $script:block::WithoutConfig([string[]] @('catzc:', '  page: p.md')) | Should -Be @('catzc:', '  page: p.md')

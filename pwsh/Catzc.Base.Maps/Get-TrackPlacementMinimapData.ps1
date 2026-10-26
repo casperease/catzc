@@ -36,7 +36,8 @@ function Get-TrackPlacementMinimapData {
             $null
         }
         $reason = [Catzc.Base.Maps.MinimapReason]::new($item.Path, 'track', $item.Requested, $vendor)
-        Add-MinimapHit -Count $count -Reasons $reasons -At @("$($item.Facts['tracktype'])", "$($item.Facts['track'])") -Reason $reason
+        Add-MinimapHit -Count $count -Reasons $reasons -At @("$($item.Facts['tracktype'])",
+            "$($item.Facts['track'])") -Reason $reason
     }
     $cells = [string[][]] @(foreach ($track in $tracks) {
             , [string[]] @($track.type, $track.name)

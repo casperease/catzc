@@ -13,9 +13,11 @@ Describe 'Get-CodeLocationsMinimapData' -Tag 'L0', 'logic' {
     It 'draws only the places a subject file sits in: track, module and folder, each lit by its files' {
         $data = Get-CodeLocationsMinimapData -Adr 'ADR-WIDGET', 'ADR-GADGET'
         @($data.Axes | ForEach-Object Name) | Should -Be @('track', 'module', 'folder')
-        @($data.Cells | ForEach-Object { $_.At -join ' / ' }) | Should -Be @('gadgets / - / .', 'widgets / Catzc.Widget / .', 'widgets / Catzc.Widget / private')
+        @($data.Cells | ForEach-Object { $_.At -join ' / ' }) | Should -Be @('gadgets / - / .',
+            'widgets / Catzc.Widget / .', 'widgets / Catzc.Widget / private')
         @($data.Lit | ForEach-Object { $_.Count }) | Should -Be @(1, 1, 2)
-        $data.Lit[2].Reasons.Subject | Should -Be @('widgets/Catzc.Widget/private/Get-Cog.ps1', 'widgets/Catzc.Widget/private/Get-Sprocket.ps1')
+        $data.Lit[2].Reasons.Subject | Should -Be @('widgets/Catzc.Widget/private/Get-Cog.ps1',
+            'widgets/Catzc.Widget/private/Get-Sprocket.ps1')
     }
 
     It 'gives every lit cell its reason and serializes to the minimap contract' {
@@ -64,7 +66,8 @@ Describe 'Get-CodeLocationsMinimapData' -Tag 'L0', 'logic' {
     }
 
     It 'hands the world map it is given to the subject' {
-        $map = [Catzc.Base.Maps.WorldMapBuilder]::Build(@(), @(), @(), [ordered]@{}, [ordered]@{}, [ordered]@{}, [ordered]@{}, [ordered]@{}, @())
+        $map = [Catzc.Base.Maps.WorldMapBuilder]::Build(@(), @(), @(),
+            [ordered]@{}, [ordered]@{}, [ordered]@{}, [ordered]@{}, [ordered]@{}, @())
         $null = Get-CodeLocationsMinimapData -Adr 'ADR-WIDGET' -WorldMap $map
         Should -Invoke Get-MinimapSubject -ModuleName Catzc.Base.Maps -Times 1 -Exactly -ParameterFilter { [object]::ReferenceEquals($WorldMap, $map) }
     }

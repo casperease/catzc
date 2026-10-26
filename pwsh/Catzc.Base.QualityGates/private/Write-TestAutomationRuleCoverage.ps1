@@ -55,7 +55,8 @@ function Write-TestAutomationRuleCoverage {
     }
 
     # The coverage universe: every declared rule, plus any id a test or analyzer references defensively.
-    $allIds = [System.Collections.Generic.SortedSet[string]]::new([string[]] $AllRuleIds, [System.StringComparer]::Ordinal)
+    $allIds = [System.Collections.Generic.SortedSet[string]]::new([string[]] $AllRuleIds,
+        [System.StringComparer]::Ordinal)
     foreach ($id in $testEnforcers.Keys) {
         [void]$allIds.Add($id)
     }

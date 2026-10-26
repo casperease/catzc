@@ -29,7 +29,8 @@ function Build-DrsCodeDictionary {
         $codes.Add($ruleSet.External)
     }
     foreach ($file in $files) {
-        foreach ($match in [regex]::Matches([System.IO.File]::ReadAllText($file), "(?m)^### Rule (?<rule>$($adrs.CodeForm.Rule))\s*$")) {
+        foreach ($match in [regex]::Matches([System.IO.File]::ReadAllText($file),
+            "(?m)^### Rule (?<rule>$($adrs.CodeForm.Rule))\s*$")) {
             $codes.Add($match.Groups['rule'].Value)
         }
     }

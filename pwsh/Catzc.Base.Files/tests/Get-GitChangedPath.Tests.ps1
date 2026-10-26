@@ -15,7 +15,8 @@ Describe 'Get-GitChangedPath' -Tag 'L0', 'logic' {
     }
 
     It 'lists modified, staged, untracked and deleted paths once each, sorted ordinally' {
-        $script:porcelain = (' M widget/b.ps1', 'A  widget/a.ps1', '?? gadget/new file.md', ' D widget/gone.ps1', 'MM widget/b.ps1', '') -join "`0"
+        $script:porcelain = (' M widget/b.ps1', 'A  widget/a.ps1', '?? gadget/new file.md', ' D widget/gone.ps1',
+            'MM widget/b.ps1', '') -join "`0"
         Get-GitChangedPath | Should -Be @('gadget/new file.md', 'widget/a.ps1', 'widget/b.ps1', 'widget/gone.ps1')
     }
 

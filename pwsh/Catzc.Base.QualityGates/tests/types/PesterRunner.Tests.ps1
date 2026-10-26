@@ -91,8 +91,10 @@ exit 0
             $tailStart = Join-Path $TestDrive 'tail-start.txt'
             $lead = Join-Path $TestDrive 'lead.ps1'
             $tail = Join-Path $TestDrive 'tail.ps1'
-            [System.IO.File]::WriteAllText($lead, "[System.IO.File]::WriteAllText('$leadEnd', [DateTimeOffset]::UtcNow.Ticks.ToString())")
-            [System.IO.File]::WriteAllText($tail, "[System.IO.File]::WriteAllText('$tailStart', [DateTimeOffset]::UtcNow.Ticks.ToString())")
+            [System.IO.File]::WriteAllText($lead,
+                "[System.IO.File]::WriteAllText('$leadEnd', [DateTimeOffset]::UtcNow.Ticks.ToString())")
+            [System.IO.File]::WriteAllText($tail,
+                "[System.IO.File]::WriteAllText('$tailStart', [DateTimeOffset]::UtcNow.Ticks.ToString())")
 
             $null = [Catzc.Base.QualityGates.PesterRunner]::Run(
                 @($lead, $tail), @('lead', 'tail'), 1, $null, 120, $true)
@@ -118,12 +120,14 @@ while (-not (Test-Path '$gadgetMarker')) {
 }
 [System.IO.File]::WriteAllText('$widgetEnd', [DateTimeOffset]::UtcNow.Ticks.ToString())
 "@)
-            [System.IO.File]::WriteAllText($sprocket, "[System.IO.File]::WriteAllText('$sprocketStart', [DateTimeOffset]::UtcNow.Ticks.ToString())")
+            [System.IO.File]::WriteAllText($sprocket,
+                "[System.IO.File]::WriteAllText('$sprocketStart', [DateTimeOffset]::UtcNow.Ticks.ToString())")
             [System.IO.File]::WriteAllText($gadget, "[System.IO.File]::WriteAllText('$gadgetMarker', 'here')")
 
             $runner = [Catzc.Base.QualityGates.PesterRunner]::Run(
                 @($widget, $sprocket, $gadget), @('widget', 'sprocket', 'gadget'),
-                [string[][]] @([string[]] @('apart'), [string[]] @('apart'), [string[]] @()), @{ apart = 1 }, 3, $null, 120, $true)
+                [string[][]] @([string[]] @('apart'), [string[]] @('apart'), [string[]] @()),
+                @{ apart = 1 }, 3, $null, 120, $true)
 
             @($runner.Results | ForEach-Object ExitCode) | Should -Be @(0, 0, 0)
             [long][System.IO.File]::ReadAllText($sprocketStart) |
@@ -131,7 +135,8 @@ while (-not (Test-Path '$gadgetMarker')) {
         }
 
         It 'rejects a worker cap that capLimits does not declare' {
-            { [Catzc.Base.QualityGates.PesterRunner]::Run(@('a.ps1'), @('a'), [string[][]] @(, @('gizmo')), @{}, 1, $null, 60, $true) } |
+            { [Catzc.Base.QualityGates.PesterRunner]::Run(@('a.ps1'), @('a'), [string[][]] @(, @('gizmo')),
+                @{}, 1, $null, 60, $true) } |
                 Should -Throw "*names the cap 'gizmo'*"
         }
 
@@ -148,7 +153,8 @@ while (-not (Test-Path '$fastDone')) {
 Write-Output 'ALPHA-MARK'
 "@
             [System.IO.File]::WriteAllText($slow, $slowContent)
-            [System.IO.File]::WriteAllText($fast, "Write-Output 'BRAVO-MARK'`n[System.IO.File]::WriteAllText('$fastDone', 'done')")
+            [System.IO.File]::WriteAllText($fast,
+                "Write-Output 'BRAVO-MARK'`n[System.IO.File]::WriteAllText('$fastDone', 'done')")
 
             $writer = [System.IO.StringWriter]::new()
             $originalOut = [Console]::Out
@@ -173,7 +179,8 @@ Write-Output 'ALPHA-MARK'
 
         It 'tells each worker who its parent is, over any caller value' {
             $echo = Join-Path $TestDrive 'parent-echo.ps1'
-            [System.IO.File]::WriteAllText($echo, 'Write-Output "pid=$env:CATZC_TEST_PARENT_PID start=$env:CATZC_TEST_PARENT_START"')
+            [System.IO.File]::WriteAllText($echo,
+                'Write-Output "pid=$env:CATZC_TEST_PARENT_PID start=$env:CATZC_TEST_PARENT_START"')
 
             $environment = @{ CATZC_TEST_PARENT_PID = '1'; CATZC_TEST_PARENT_START = '1' }
             $runner = [Catzc.Base.QualityGates.PesterRunner]::Run(@($echo), @('echo'), 1, $environment, 120, $true)

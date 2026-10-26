@@ -37,7 +37,8 @@ Describe 'CustomerConfig' -Tag 'L0' {
         }
 
         It 'throws when a shortcode is not 2 letters' {
-            { & $script:make ([ordered]@{ customers = [ordered]@{ acme = [ordered]@{ shortcode = 'a' } } }) } | Should -Throw '*invalid shortcode*'
+            { & $script:make ([ordered]@{ customers = [ordered]@{ acme = [ordered]@{ shortcode = 'a' } } }) } |
+                Should -Throw '*invalid shortcode*'
         }
 
         It 'throws for duplicate shortcodes' {
@@ -79,7 +80,8 @@ Describe 'CustomerConfig' -Tag 'L0' {
                 }
             }
             $err = { & $script:make $config } | Should -Throw -PassThru
-            foreach ($expected in '*customer name*Bad-Name*is invalid*', '*invalid shortcode*', "*customer 'globex' is missing 'shortcode'*") {
+            foreach ($expected in '*customer name*Bad-Name*is invalid*', '*invalid shortcode*',
+                "*customer 'globex' is missing 'shortcode'*") {
                 $err.Exception.Message | Should -BeLike $expected
             }
         }

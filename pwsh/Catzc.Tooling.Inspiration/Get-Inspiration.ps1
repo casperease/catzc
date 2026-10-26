@@ -29,7 +29,8 @@ function Get-Inspiration {
     $inspirations = @(
         foreach ($entry in (Get-Config -Config inspiration).inspirations) {
             $root = Resolve-InspirationRoot $entry.root
-            [Catzc.Tooling.Inspiration.Inspiration]::new($entry.id, $root, [IO.Directory]::Exists($root), $entry.description, $entry.paths)
+            [Catzc.Tooling.Inspiration.Inspiration]::new($entry.id, $root, [IO.Directory]::Exists($root),
+                $entry.description, $entry.paths)
         }
     )
 

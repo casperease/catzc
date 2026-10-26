@@ -50,12 +50,14 @@ Describe 'ContractSchema' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT-CONTRACTASSET' 
 
     Context 'the bounded subset' {
         It 'reports a keyword outside the subset as unsupported, and validates nothing' {
-            @(Get-SchemaFinding '{"type":"string","format":"uri"}' '7') | Should -Be @('schema #: unsupported keyword format')
+            @(Get-SchemaFinding '{"type":"string","format":"uri"}' '7') |
+                Should -Be @('schema #: unsupported keyword format')
         }
 
         It 'reads a pattern only on a string, and reports a pattern that is no regular expression' {
             @(Get-SchemaFinding '{"pattern":"^w"}' '7') | Should -BeNullOrEmpty
-            Get-SchemaFinding '{"pattern":"("}' '"w"' | Select-Object -First 1 | Should -BeLike 'schema #/pattern: pattern is not a valid regular expression:*'
+            Get-SchemaFinding '{"pattern":"("}' '"w"' | Select-Object -First 1 |
+                Should -BeLike 'schema #/pattern: pattern is not a valid regular expression:*'
         }
 
         It 'reads a $ref only to a local definition, and reports one that loops or names nothing' -ForEach @(
@@ -90,8 +92,10 @@ Describe 'ContractSchema' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT-CONTRACTASSET' 
         }
 
         It 'lists the annotations among the keywords it reads' {
-            [Catzc.Base.Contracts.ContractSchema]::Annotations | Should -Be @('$schema', '$id', '$comment', 'title', 'description', 'examples')
-            [Catzc.Base.Contracts.ContractSchema]::Keywords | Should -Be @('type', 'required', 'properties', 'additionalProperties', 'enum', 'items', 'const',
+            [Catzc.Base.Contracts.ContractSchema]::Annotations | Should -Be @('$schema', '$id', '$comment', 'title',
+                'description', 'examples')
+            [Catzc.Base.Contracts.ContractSchema]::Keywords | Should -Be @('type', 'required', 'properties',
+                'additionalProperties', 'enum', 'items', 'const',
                 'pattern', 'definitions', '$ref', '$schema', '$id', '$comment', 'title', 'description', 'examples')
         }
 
@@ -140,11 +144,13 @@ Describe 'ContractSchema' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT-CONTRACTASSET' 
 
     Context 'YAML values' {
         It 'validates a parsed YAML document the same as JSON' {
-            $schema = '{"type":"object","properties":{"widget":{"type":"array","items":{"type":"number"}}}}' | ConvertFrom-Json -AsHashtable
+            $schema = '{"type":"object","properties":{"widget":{"type":"array","items":{"type":"number"}}}}' |
+                ConvertFrom-Json -AsHashtable
             $pass = "widget:`n  - 1`n  - 1.5`n" | ConvertFrom-Yaml -Ordered
             $fail = "widget:`n  - one`n" | ConvertFrom-Yaml -Ordered
             @([Catzc.Base.Contracts.ContractSchema]::Validate($schema, $pass)) | Should -BeNullOrEmpty
-            @([Catzc.Base.Contracts.ContractSchema]::Validate($schema, $fail)) | Should -Be @("`$.widget[0]: expected type number, found string ('one')")
+            @([Catzc.Base.Contracts.ContractSchema]::Validate($schema, $fail)) |
+                Should -Be @("`$.widget[0]: expected type number, found string ('one')")
         }
     }
 }

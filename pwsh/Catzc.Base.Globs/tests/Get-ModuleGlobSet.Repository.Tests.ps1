@@ -34,7 +34,8 @@ Describe 'Repository unit aspects (every laid-out unit)' -Tag 'L2', 'integrity',
                 $set.Name
             }
         }
-        @($untested) | Should -BeNullOrEmpty -Because 'a unit with no test proves nothing; add its tests, or name it under tests_optional in globs.yml with its reason'
+        @($untested) |
+            Should -BeNullOrEmpty -Because 'a unit with no test proves nothing; add its tests, or name it under tests_optional in globs.yml with its reason'
     }
 
     It 'names under tests_optional only units that have a tests set' -Tag 'DDR-ASPECT-ASPECTSAREDERIVED' {
@@ -42,6 +43,7 @@ Describe 'Repository unit aspects (every laid-out unit)' -Tag 'L2', 'integrity',
             Set-ItResult -Skipped -Because 'tool_git_missing'; return
         }
         $known = @($script:testSets | ForEach-Object Name)
-        @($script:optional.Keys | Where-Object { $_ -cnotin $known }) | Should -BeNullOrEmpty -Because 'an exemption for a unit that no longer exists is stale'
+        @($script:optional.Keys | Where-Object { $_ -cnotin $known }) |
+            Should -BeNullOrEmpty -Because 'an exemption for a unit that no longer exists is stale'
     }
 }

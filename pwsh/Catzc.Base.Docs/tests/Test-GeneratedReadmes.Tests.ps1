@@ -12,7 +12,8 @@ Describe 'Test-GeneratedReadmes' -Tag 'L0', 'logic' {
         foreach ($folder in 'docs', 'widget', 'gadget') {
             [void][System.IO.Directory]::CreateDirectory((Join-Path $script:root $folder))
         }
-        [System.IO.File]::WriteAllText((Join-Path $script:root 'docs/widget.md'), "# docs/widget.md`n`nSee [gadget](gadget.md).`n")
+        [System.IO.File]::WriteAllText((Join-Path $script:root 'docs/widget.md'),
+            "# docs/widget.md`n`nSee [gadget](gadget.md).`n")
         [System.IO.File]::WriteAllText((Join-Path $script:root 'docs/gadget.md'), "# docs/gadget.md`n")
         $script:out = Join-Path $TestDrive 'out'
     }
@@ -67,7 +68,8 @@ Describe 'Test-GeneratedReadmes' -Tag 'L0', 'logic' {
     It 'reports a missing README' {
         [System.IO.File]::Delete((Join-Path $script:root 'widget/README.md'))
         $result = Test-GeneratedReadmes -OutputFolder $script:out -PassThru
-        $result.Issues | Should -Be @('widget/README.md: missing, or stale against docs/widget.md — re-run the importer (Build-Readme regenerates it)')
+        $result.Issues |
+            Should -Be @('widget/README.md: missing, or stale against docs/widget.md — re-run the importer (Build-Readme regenerates it)')
     }
 
     It 'accepts a CRLF copy of current content' {
@@ -94,7 +96,8 @@ Describe 'Test-GeneratedReadmes' -Tag 'L0', 'logic' {
         $script:absent = @([pscustomobject]@{ folder = 'gizmo'; source = 'docs/gizmo.md' })
         $result = Test-GeneratedReadmes -OutputFolder $script:out -PassThru
         @($result.Issues) | Should -HaveCount 1
-        $result.Issues[0] | Should -BeLike 'gizmo: a readme.yml pattern matches it but its article docs/gizmo.md does not exist*'
+        $result.Issues[0] |
+            Should -BeLike 'gizmo: a readme.yml pattern matches it but its article docs/gizmo.md does not exist*'
         $script:exempt = @([pscustomobject]@{ folder = 'gizmo'; reason = 'a gizmo ships nothing' })
         (Test-GeneratedReadmes -OutputFolder $script:out -PassThru).IssueCount | Should -Be 0
     }

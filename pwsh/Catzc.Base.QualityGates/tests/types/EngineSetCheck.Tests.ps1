@@ -41,9 +41,13 @@ Describe 'EngineSetCheck' -Tag 'L0', 'logic' {
     }
 
     It 'rejects a phrase without its placeholder, a malformed pattern, and a phrase list that is not a list' -Tag 'PDR-CONFIG-EXCEPTIONISCONFIGENTRY' {
-        { [Catzc.Base.QualityGates.EngineSetCheck]::new([ordered]@{ count_phrases = @('engines') }) } | Should -Throw '*no {count} placeholder*'
-        { [Catzc.Base.QualityGates.EngineSetCheck]::new([ordered]@{ name_phrases = @('({name}') }) } | Should -Throw '*not a valid regular expression*'
-        { [Catzc.Base.QualityGates.EngineSetCheck]::new([ordered]@{ name_phrases = '{name}' }) } | Should -Throw '*must be a list*'
-        { [Catzc.Base.QualityGates.EngineSetCheck]::new([ordered]@{ gadget = 1 }) } | Should -Throw "*unknown key 'gadget'*"
+        { [Catzc.Base.QualityGates.EngineSetCheck]::new([ordered]@{ count_phrases = @('engines') }) } |
+            Should -Throw '*no {count} placeholder*'
+        { [Catzc.Base.QualityGates.EngineSetCheck]::new([ordered]@{ name_phrases = @('({name}') }) } |
+            Should -Throw '*not a valid regular expression*'
+        { [Catzc.Base.QualityGates.EngineSetCheck]::new([ordered]@{ name_phrases = '{name}' }) } |
+            Should -Throw '*must be a list*'
+        { [Catzc.Base.QualityGates.EngineSetCheck]::new([ordered]@{ gadget = 1 }) } |
+            Should -Throw "*unknown key 'gadget'*"
     }
 }

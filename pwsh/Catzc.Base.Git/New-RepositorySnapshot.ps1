@@ -82,13 +82,17 @@ function New-RepositorySnapshot {
                 foreach ($segment in @($relativePath -split '/' | Select-Object -SkipLast 1)) {
                     $listed = "$listed/$segment"
                     if (-not $diskFolders.ContainsKey($listed)) {
-                        # The bounded walker, one level, nothing pruned: a tracked file under .vendor or out keeps its folder's case too.
-                        $found = @([Catzc.Base.Folders.FolderWalker]::Walk([System.IO.Path]::Join($SourceRoot, $onDisk), 1, [string[]] @($segment), $false, $true, [string[]] @()))
-                        $diskFolders[$listed] = [System.IO.Path]::Join($onDisk, [System.IO.Path]::GetFileName(($found.Count -eq 1) ? $found[0] : $segment))
+                        # The bounded walker, one level, nothing pruned: a tracked file under .vendor or out keeps its
+                        # folder's case too.
+                        $found = @([Catzc.Base.Folders.FolderWalker]::Walk([System.IO.Path]::Join($SourceRoot, $onDisk),
+                            1, [string[]] @($segment), $false, $true, [string[]] @()))
+                        $diskFolders[$listed] = [System.IO.Path]::Join($onDisk,
+                            [System.IO.Path]::GetFileName(($found.Count -eq 1) ? $found[0] : $segment))
                     }
                     $onDisk = $diskFolders[$listed]
                 }
-                $targetFile = [System.IO.Path]::Join($Destination, $onDisk, [System.IO.Path]::GetFileName($relativePath))
+                $targetFile = [System.IO.Path]::Join($Destination, $onDisk,
+                    [System.IO.Path]::GetFileName($relativePath))
                 [System.IO.Directory]::CreateDirectory([System.IO.Path]::GetDirectoryName($targetFile)) | Out-Null
                 [System.IO.File]::Copy($sourceFile, $targetFile, $true)
             }
@@ -130,7 +134,8 @@ function New-RepositorySnapshot {
         catch {
             $failure = $_
             if ([Catzc.Base.Git.GitWorkTree]::IsSnapshot($Destination)) {
-                # A cleanup that fails (a file another process holds) is announced, never thrown in place of the failure that caused it.
+                # A cleanup that fails (a file another process holds) is announced, never thrown in place of the failure
+                # that caused it.
                 try {
                     Remove-RepositorySnapshot -Path $Destination
                 }

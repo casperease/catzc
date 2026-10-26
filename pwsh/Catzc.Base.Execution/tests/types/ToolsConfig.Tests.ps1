@@ -73,7 +73,8 @@ Describe 'ToolsConfig' -Tag 'L0' {
         It 'throws when a tool declares no install mechanism' {
             $entry = & $script:tool
             $entry.Remove('winget_id')
-            { & $script:make ([ordered]@{ widget = $entry }) } | Should -Throw "*tool 'widget': needs an install mechanism*"
+            { & $script:make ([ordered]@{ widget = $entry }) } |
+                Should -Throw "*tool 'widget': needs an install mechanism*"
         }
 
         It 'throws on an empty file' {

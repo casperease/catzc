@@ -40,14 +40,20 @@ Describe 'MapsConfig' -Tag 'L0' {
                 $config.labels.legend_violation | Should -Be ([Catzc.Base.Maps.MapsLabels]::DefaultLegendViolation)
                 $config.labels.legend_highlight | Should -Be ([Catzc.Base.Maps.MapsLabels]::DefaultLegendHighlight)
                 $config.labels.value_chain_title | Should -Be ([Catzc.Base.Maps.MapsLabels]::DefaultValueChainTitle)
-                $config.labels.value_chain_row_axis | Should -Be ([Catzc.Base.Maps.MapsLabels]::DefaultValueChainRowAxis)
-                $config.labels.value_chain_column_axis | Should -Be ([Catzc.Base.Maps.MapsLabels]::DefaultValueChainColumnAxis)
-                $config.labels.value_chain_legend_adrs | Should -Be ([Catzc.Base.Maps.MapsLabels]::DefaultValueChainLegendAdrs)
-                $config.labels.value_chain_legend_highlight | Should -Be ([Catzc.Base.Maps.MapsLabels]::DefaultValueChainLegendHighlight)
+                $config.labels.value_chain_row_axis |
+                    Should -Be ([Catzc.Base.Maps.MapsLabels]::DefaultValueChainRowAxis)
+                $config.labels.value_chain_column_axis |
+                    Should -Be ([Catzc.Base.Maps.MapsLabels]::DefaultValueChainColumnAxis)
+                $config.labels.value_chain_legend_adrs |
+                    Should -Be ([Catzc.Base.Maps.MapsLabels]::DefaultValueChainLegendAdrs)
+                $config.labels.value_chain_legend_highlight |
+                    Should -Be ([Catzc.Base.Maps.MapsLabels]::DefaultValueChainLegendHighlight)
                 $config.highlight.pins.Count | Should -Be 0
                 $config.highlight.exceptions.Count | Should -Be 0
-                $config.highlight.citation_exclude | Should -Be @([Catzc.Base.Maps.MapsHighlight]::DefaultCitationExclude)
-                $config.highlight.citation_exclude | Should -Be @('.claude/hindsight/**', '.claude/learnings/**', '.claude/plans/**', 'docs/**/.assets/**', 'docs/explanation/**', 'python/catzc_diagrams/**')
+                $config.highlight.citation_exclude |
+                    Should -Be @([Catzc.Base.Maps.MapsHighlight]::DefaultCitationExclude)
+                $config.highlight.citation_exclude | Should -Be @('.claude/hindsight/**', '.claude/learnings/**',
+                    '.claude/plans/**', 'docs/**/.assets/**', 'docs/explanation/**', 'python/catzc_diagrams/**')
                 $config.output_folder | Should -Be ([Catzc.Base.Maps.MapsConfig]::DefaultOutputFolder)
             }
         }
@@ -122,7 +128,8 @@ Describe 'MapsConfig' -Tag 'L0' {
         It 'throws on a citation_exclude that is not a list of repository-relative globs' {
             { & $script:make ([ordered]@{ highlight = [ordered]@{ citation_exclude = 'widgets/**' } }) } |
                 Should -Throw '*highlight.citation_exclude must be a list of globs*'
-            { & $script:make ([ordered]@{ highlight = [ordered]@{ citation_exclude = @('/widgets/**', 'gadgets\notes.md') } }) } |
+            { & $script:make ([ordered]@{ highlight = [ordered]@{ citation_exclude = @('/widgets/**',
+                'gadgets\notes.md') } }) } |
                 Should -Throw "*citation_exclude[[]0]: '/widgets/**' is not a repository-relative glob*citation_exclude[[]1]*"
         }
 
@@ -173,21 +180,26 @@ Describe 'MapsConfig' -Tag 'L0' {
                         labels = [ordered]@{ tree_title = '  '; row_axis = 'Widgets'; column_axis = 'Gadgets'; root_files = 'Wid'; unlisted_files = 'Gizmos' }
                     }) } | Should -Throw -PassThru
             $err.Exception.Message | Should -BeLike '*labels.tree_title is empty*'
-            $err.Exception.Message | Should -BeLike "*labels.row_axis: 'Widgets' is 7 characters, longer than its limit of 4*"
-            $err.Exception.Message | Should -BeLike "*labels.column_axis: 'Gadgets' is 7 characters, longer than its limit of 4*"
-            $err.Exception.Message | Should -BeLike "*labels.unlisted_files: 'Gizmos' is 6 characters, longer than its limit of 4*"
+            $err.Exception.Message |
+                Should -BeLike "*labels.row_axis: 'Widgets' is 7 characters, longer than its limit of 4*"
+            $err.Exception.Message |
+                Should -BeLike "*labels.column_axis: 'Gadgets' is 7 characters, longer than its limit of 4*"
+            $err.Exception.Message |
+                Should -BeLike "*labels.unlisted_files: 'Gizmos' is 6 characters, longer than its limit of 4*"
             $err.Exception.Message | Should -Not -BeLike '*labels.root_files*'
         }
 
         It 'throws on a pins list that is not a list, and on an entry that is not a mapping' {
-            { & $script:make ([ordered]@{ highlight = [ordered]@{ pins = 'ADR-WIDGET' } }) } | Should -Throw '*highlight.pins must be a list*'
+            { & $script:make ([ordered]@{ highlight = [ordered]@{ pins = 'ADR-WIDGET' } }) } |
+                Should -Throw '*highlight.pins must be a list*'
             { & $script:make ([ordered]@{ highlight = [ordered]@{ exceptions = @('ADR-WIDGET') } }) } |
                 Should -Throw '*highlight.exceptions`[0`] must be a mapping*'
         }
 
         It 'throws on a pin with a bad or missing field, or an unknown key' {
             $bad = [ordered]@{ adr = 'widget-3'; track = 'Widgets'; file_language = 'Gadget'; colour = 'blue' }
-            $err = { & $script:make ([ordered]@{ highlight = [ordered]@{ pins = @((& $script:pin), $bad) } }) } | Should -Throw -PassThru
+            $err = { & $script:make ([ordered]@{ highlight = [ordered]@{ pins = @((& $script:pin), $bad) } }) } |
+                Should -Throw -PassThru
             $err.Exception.Message | Should -BeLike '*highlight.pins`[1`]: unknown key ''colour''*'
             $err.Exception.Message | Should -BeLike '*highlight.pins`[1`]: invalid adr ''widget-3''*'
             $err.Exception.Message | Should -BeLike '*highlight.pins`[1`]: invalid track ''Widgets''*'
@@ -201,12 +213,14 @@ Describe 'MapsConfig' -Tag 'L0' {
         It 'accepts a dotted track name in a pin' {
             $entry = & $script:pin
             $entry.track = '.gadgets'
-            (& $script:make ([ordered]@{ highlight = [ordered]@{ pins = @($entry) } })).highlight.pins[0].track | Should -Be '.gadgets'
+            (& $script:make ([ordered]@{ highlight = [ordered]@{ pins = @($entry) } })).highlight.pins[0].track |
+                Should -Be '.gadgets'
         }
 
         It 'throws on an output folder that is not one folder name' {
             foreach ($folder in @('widget/map', 'widget\map', '..', 'C:', '.')) {
-                { & $script:make ([ordered]@{ output_folder = $folder }) } | Should -Throw "*output_folder '$folder' must be one folder name*"
+                { & $script:make ([ordered]@{ output_folder = $folder }) } |
+                    Should -Throw "*output_folder '$folder' must be one folder name*"
             }
         }
 
@@ -214,23 +228,29 @@ Describe 'MapsConfig' -Tag 'L0' {
             $config = & $script:make ([ordered]@{})
             $config.MinimapsOf('explanation').pool | Should -Be @('axis', 'lifecycle-position', 'layer-stack', 'grid')
             $config.MinimapsOf('explanation').defaults | Should -Be @('axis', 'lifecycle-position', 'layer-stack')
-            $config.MinimapsOf('reference').pool | Should -Be @('code-locations', 'track-placement', 'engine-strip', 'module-neighbourhood', 'grid')
-            $config.MinimapsOf('reference').defaults | Should -Be @('track-placement', 'engine-strip', 'module-neighbourhood')
+            $config.MinimapsOf('reference').pool | Should -Be @('code-locations', 'track-placement', 'engine-strip',
+                'module-neighbourhood', 'grid')
+            $config.MinimapsOf('reference').defaults | Should -Be @('track-placement', 'engine-strip',
+                'module-neighbourhood')
         }
 
         It 'reads a kind''s pool and defaults from the file' {
-            $raw = [ordered]@{ minimaps = [ordered]@{ explanation = [ordered]@{ pool = @('grid', 'axis', 'layer-stack'); defaults = @('grid', 'axis', 'layer-stack') } } }
+            $raw = [ordered]@{ minimaps = [ordered]@{ explanation = [ordered]@{ pool = @('grid', 'axis',
+                'layer-stack'); defaults = @('grid', 'axis', 'layer-stack') } } }
             (& $script:make $raw).MinimapsOf('explanation').defaults | Should -Be @('grid', 'axis', 'layer-stack')
         }
 
         It 'rejects an unknown minimap id, a default outside the pool, and a count other than three' {
-            { & $script:make ([ordered]@{ minimaps = [ordered]@{ reference = [ordered]@{ pool = @('widget') } } }) } | Should -Throw "*'widget' is not one of: grid, code-locations*"
-            { & $script:make ([ordered]@{ minimaps = [ordered]@{ reference = [ordered]@{ defaults = @('grid', 'axis', 'engine-strip') } } }) } | Should -Throw "*'axis' is not in the pool*"
+            { & $script:make ([ordered]@{ minimaps = [ordered]@{ reference = [ordered]@{ pool = @('widget') } } }) } |
+                Should -Throw "*'widget' is not one of: grid, code-locations*"
+            { & $script:make ([ordered]@{ minimaps = [ordered]@{ reference = [ordered]@{ defaults = @('grid', 'axis',
+                'engine-strip') } } }) } | Should -Throw "*'axis' is not in the pool*"
             { & $script:make ([ordered]@{ minimaps = [ordered]@{ explanation = [ordered]@{ defaults = @('grid') } } }) } | Should -Throw '*names 1 minimaps; a diagram shows exactly 3*'
         }
 
         It 'rejects a diagram kind outside explanation and reference, naming them' {
-            { (& $script:make ([ordered]@{})).MinimapsOf('widget') } | Should -Throw "*diagram kind 'widget' is not one of: explanation, reference*"
+            { (& $script:make ([ordered]@{})).MinimapsOf('widget') } |
+                Should -Throw "*diagram kind 'widget' is not one of: explanation, reference*"
         }
 
         It 'names a data command for every minimap id by default, and takes an override per id' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
@@ -243,8 +263,10 @@ Describe 'MapsConfig' -Tag 'L0' {
         }
 
         It 'rejects a data command for an unknown id or one that is not a Verb-Noun name' {
-            { & $script:make ([ordered]@{ minimaps = [ordered]@{ data = [ordered]@{ widget = 'Get-Widget' } } }) } | Should -Throw "*minimaps.data: 'widget' is not one of: grid*"
-            { & $script:make ([ordered]@{ minimaps = [ordered]@{ data = [ordered]@{ grid = 'widget grid' } } }) } | Should -Throw "*minimaps.data.grid 'widget grid' must be a Verb-Noun command name*"
+            { & $script:make ([ordered]@{ minimaps = [ordered]@{ data = [ordered]@{ widget = 'Get-Widget' } } }) } |
+                Should -Throw "*minimaps.data: 'widget' is not one of: grid*"
+            { & $script:make ([ordered]@{ minimaps = [ordered]@{ data = [ordered]@{ grid = 'widget grid' } } }) } |
+                Should -Throw "*minimaps.data.grid 'widget grid' must be a Verb-Noun command name*"
         }
 
         It 'declares the axis rows and columns once, and takes the ones it is given' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
@@ -277,10 +299,14 @@ Describe 'MapsConfig' -Tag 'L0' {
         }
 
         It 'names the key and the rule when the place rows budget is wrong' {
-            { & $script:make ([ordered]@{ minimaps = [ordered]@{ places = [ordered]@{ rows = 0 } } }) } | Should -Throw '*rows must be at least 1*'
-            { & $script:make ([ordered]@{ minimaps = [ordered]@{ places = [ordered]@{ group_order = @('docs') } } }) } | Should -Throw "*minimaps.places: unknown key 'group_order'*"
-            { & $script:make ([ordered]@{ minimaps = [ordered]@{ places = [ordered]@{ widget = 1 } } }) } | Should -Throw "*minimaps.places: unknown key 'widget'*"
-            { & $script:make ([ordered]@{ minimaps = [ordered]@{ places = [ordered]@{ rows = 'many' } } }) } | Should -Throw "*minimaps.places.rows must be a whole number, not 'many'*"
+            { & $script:make ([ordered]@{ minimaps = [ordered]@{ places = [ordered]@{ rows = 0 } } }) } |
+                Should -Throw '*rows must be at least 1*'
+            { & $script:make ([ordered]@{ minimaps = [ordered]@{ places = [ordered]@{ group_order = @('docs') } } }) } |
+                Should -Throw "*minimaps.places: unknown key 'group_order'*"
+            { & $script:make ([ordered]@{ minimaps = [ordered]@{ places = [ordered]@{ widget = 1 } } }) } |
+                Should -Throw "*minimaps.places: unknown key 'widget'*"
+            { & $script:make ([ordered]@{ minimaps = [ordered]@{ places = [ordered]@{ rows = 'many' } } }) } |
+                Should -Throw "*minimaps.places.rows must be a whole number, not 'many'*"
         }
     }
 }

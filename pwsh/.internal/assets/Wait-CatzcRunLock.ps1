@@ -29,7 +29,8 @@ function Get-CatzcRunLockSetting {
         [string] $Path = (Join-Path $PSScriptRoot '../../Catzc.Base.Timeouts/configs/timeouts.yml')
     )
 
-    # The run lock is taken before any import, so the entry is read as text; the defaults live on TimeoutsConfig and the shipped file shows
+    # The run lock is taken before any import, so the entry is read as text; the defaults live on TimeoutsConfig and the
+    # shipped file shows
     # them, so a missing key is an error here, never a second default.
     if (-not [System.IO.File]::Exists($Path)) {
         throw "Get-CatzcRunLockSetting: $Path is missing, so the run lock has no wait, stale age or budget."
@@ -79,14 +80,17 @@ function Set-CatzcRunLockHolder {
         [int] $ParentId = ((Get-Process -Id $PID).Parent)?.Id ?? 0
     )
 
-    # One line: the process id and start time, so a reused id is never taken for the holder, the deadline (the budget when the lock is
-    # taken, then the run's own limits summed, or a burst's length), the holder's own caller the same way, and what it runs.
+    # One line: the process id and start time, so a reused id is never taken for the holder, the deadline (the budget
+    # when the lock is
+    # taken, then the run's own limits summed, or a burst's length), the holder's own caller the same way, and what it
+    # runs.
     $path = Get-CatzcRunLockHolderPath -LockName $LockName
     $started = (Get-Process -Id $PID).StartTime.ToUniversalTime().Ticks
     $deadline = [datetime]::UtcNow.AddSeconds($Seconds).Ticks
     $callerStarted = Get-CatzcRunLockProcessStart -ProcessId $ParentId
     [System.IO.Directory]::CreateDirectory([System.IO.Path]::GetDirectoryName($path)) | Out-Null
-    [System.IO.File]::WriteAllText($path, "$PID|$started|$deadline|$ParentId|$callerStarted|$($Holding -replace '[\r\n|]', ' ')")
+    [System.IO.File]::WriteAllText($path,
+        "$PID|$started|$deadline|$ParentId|$callerStarted|$($Holding -replace '[\r\n|]', ' ')")
 }
 
 function Get-CatzcRunLockProcessStart {
@@ -95,7 +99,8 @@ function Get-CatzcRunLockProcessStart {
         [int] $ProcessId
     )
 
-    # The start time of a live process in UTC ticks, 0 when there is none, so a reused id never passes for the process it once was.
+    # The start time of a live process in UTC ticks, 0 when there is none, so a reused id never passes for the process
+    # it once was.
     if ($ProcessId -le 0) {
         return 0L
     }
@@ -112,7 +117,8 @@ function Test-CatzcRunLockHolderGone {
         [string] $LockName
     )
 
-    # A record that names no live holder within its deadline: its process died, its id was reused, or it outlasted what it declared.
+    # A record that names no live holder within its deadline: its process died, its id was reused, or it outlasted what
+    # it declared.
     [System.IO.File]::Exists((Get-CatzcRunLockHolderPath -LockName $LockName)) -and $null -eq (Get-CatzcRunLockHolder -LockName $LockName)
 }
 
@@ -150,8 +156,10 @@ function Read-CatzcRunLockHolderRecord {
         [string] $LockName
     )
 
-    # The record's six fields, or null when there is no record. A record read while its writer is still writing is torn (empty or cut
-    # short): it is read once more, after a moment, before it counts as no holder. A file that is absent is no record at once.
+    # The record's six fields, or null when there is no record. A record read while its writer is still writing is torn
+    # (empty or cut
+    # short): it is read once more, after a moment, before it counts as no holder. A file that is absent is no record at
+    # once.
     $path = Get-CatzcRunLockHolderPath -LockName $LockName
     foreach ($attempt in 1..2) {
         if (-not [System.IO.File]::Exists($path)) {
@@ -184,8 +192,10 @@ function Get-CatzcRunLockHolder {
         [string] $LockName
     )
 
-    # The holder counts only while its process lives with the same start time, the caller that started it is still there, and its deadline
-    # has not passed: a holder whose caller is gone (its call killed by a timeout or stopped) is an orphan, which holds no one.
+    # The holder counts only while its process lives with the same start time, the caller that started it is still
+    # there, and its deadline
+    # has not passed: a holder whose caller is gone (its call killed by a timeout or stopped) is an orphan, which holds
+    # no one.
     $parts = Read-CatzcRunLockHolderRecord -LockName $LockName
     if ($null -eq $parts) {
         return $null
@@ -237,7 +247,8 @@ function Wait-CatzcRunLock {
         [int] $ParentId = ((Get-Process -Id $PID).Parent)?.Id ?? 0
     )
 
-    # The caller this wait serves: a waiter whose caller has gone (its call killed by a timeout or stopped) never takes the lock, so no
+    # The caller this wait serves: a waiter whose caller has gone (its call killed by a timeout or stopped) never takes
+    # the lock, so no
     # orphaned run holds it for no one. The start time pins the process, so a reused id never passes for it.
     $parentStart = 0L
     if ($ParentId -gt 0) {
@@ -257,7 +268,8 @@ function Wait-CatzcRunLock {
     $mutex = [System.Threading.Mutex]::new($false, $LockName)
     $queue = Join-Path ([System.IO.Path]::GetTempPath()) "catzc-run-queue/$($LockName -replace '[\\/:*?"<>|]', '_')"
     # A ticket sorts by its arrival; its process id lets a later waiter drop the ticket of a run that was killed.
-    $ticket = Join-Path $queue ('{0:D20}-{1}-{2}.ticket' -f [datetime]::UtcNow.Ticks, $PID, [guid]::NewGuid().ToString('N'))
+    $ticket = Join-Path $queue ('{0:D20}-{1}-{2}.ticket' -f [datetime]::UtcNow.Ticks, $PID,
+        [guid]::NewGuid().ToString('N'))
     foreach ($attempt in 1..3) {
         try {
             [System.IO.Directory]::CreateDirectory($queue) | Out-Null
@@ -316,7 +328,8 @@ function Wait-CatzcRunLock {
             if ($burstOpen) {
                 $burst.Dispose()
             }
-            # A burst whose holder died or ran past its declared length holds no one: the waiter falls back to its own wait.
+            # A burst whose holder died or ran past its declared length holds no one: the waiter falls back to its own
+            # wait.
             if ($burstOpen -and (Test-CatzcRunLockHolderGone -LockName $LockName)) {
                 if (-not $saidGoneBurst) {
                     "[$Caller] a burst's holder is gone or past its declared length: not waiting for it, up to $LockSeconds s"
@@ -329,7 +342,8 @@ function Wait-CatzcRunLock {
                     "[$Caller] a burst holds the run lock: waiting until it ends, then up to $LockSeconds s"
                     $saidBurst = $true
                 }
-                # A burst that hangs past this run's whole budget is waited for no longer: the budget is the ceiling of every wait.
+                # A burst that hangs past this run's whole budget is waited for no longer: the budget is the ceiling of
+                # every wait.
                 if ([datetime]::UtcNow -ge $started.AddSeconds($BudgetSeconds)) {
                     $burstOverBudget = $true
                     break
@@ -339,7 +353,8 @@ function Wait-CatzcRunLock {
             }
             $holder = Get-CatzcRunLockHolder -LockName $LockName
             if ($holder) {
-                # A deadline is the most a holder may take, never when it ends, so a live holder is waited for while this run's budget
+                # A deadline is the most a holder may take, never when it ends, so a live holder is waited for while
+                # this run's budget
                 # still leaves room for its own work; only then does the run say when to come back.
                 if ([datetime]::UtcNow -ge $started.AddSeconds($BudgetSeconds - $LockSeconds)) {
                     $overBudget = $holder
@@ -408,7 +423,8 @@ function Test-CatzcRunLockTurn {
         [int] $StaleSeconds
     )
 
-    # The oldest live ticket has the turn; a ticket whose process is gone, or older than the longest run (run_lock.stale_seconds), is dropped.
+    # The oldest live ticket has the turn; a ticket whose process is gone, or older than the longest run
+    # (run_lock.stale_seconds), is dropped.
     $stale = [datetime]::UtcNow.AddSeconds(-$StaleSeconds).Ticks
     foreach ($path in @([System.IO.Directory]::GetFiles($Queue, '*.ticket') | Sort-Object)) {
         if ($path -ceq $Ticket) {

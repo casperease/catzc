@@ -42,7 +42,8 @@ function ConvertFrom-NodeTestJunit {
         $package = if ($file) {
             [System.IO.Path]::GetRelativePath($Folder, $file).Replace('\', '/')
         }
-        if (-not $package -or -not $package.EndsWith('.test.js', [System.StringComparison]::Ordinal) -or -not $name.Trim()) {
+        if (-not $package -or -not $package.EndsWith('.test.js', [System.StringComparison]::Ordinal) -or
+            -not $name.Trim()) {
             $outsideTests.Add("$file $name`n$($output -join "`n")")
             continue
         }
@@ -56,8 +57,10 @@ function ConvertFrom-NodeTestJunit {
             'pass'
         }
         $seconds = 0.0
-        $null = [double]::TryParse($case.GetAttribute('time'), [System.Globalization.NumberStyles]::Float, [System.Globalization.CultureInfo]::InvariantCulture, [ref] $seconds)
-        $results.Add([Catzc.Base.Languages.JavaScriptTestResult]::new($package, $name.Trim(), $outcome, $seconds, ($output -join "`n")))
+        $null = [double]::TryParse($case.GetAttribute('time'), [System.Globalization.NumberStyles]::Float,
+            [System.Globalization.CultureInfo]::InvariantCulture, [ref] $seconds)
+        $results.Add([Catzc.Base.Languages.JavaScriptTestResult]::new($package, $name.Trim(), $outcome, $seconds,
+            ($output -join "`n")))
     }
 
     if ($outsideTests.Count -gt 0) {

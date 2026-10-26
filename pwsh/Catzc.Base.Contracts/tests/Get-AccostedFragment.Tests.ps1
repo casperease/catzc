@@ -50,7 +50,8 @@ runs:
 
     It 'reads the file through the one reader, so a command no contract names is refused with the reader''s message' -Tag 'ADR-AUTO-ACCOSTED-ONEREADER' {
         $path = & $script:write "runs:`n  - - get_gizmo: { path: a }"
-        { Get-AccostedFragment -Path $path -RepositoryRoot $script:root } | Should -Throw "*'get_gizmo' is no contracted command*"
+        { Get-AccostedFragment -Path $path -RepositoryRoot $script:root } |
+            Should -Throw "*'get_gizmo' is no contracted command*"
     }
 
     It 'throws on <Case>' -ForEach @(

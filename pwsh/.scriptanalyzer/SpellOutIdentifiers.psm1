@@ -11,7 +11,8 @@ Set-StrictMode -Version Latest   # this module's scope: the rule runs strict ins
 
 $script:oracleReady = $false   # declared at load so the guard reads it strict-clean
 function Initialize-SpellingOracle {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '', Justification = 'Runs inside the analyzer engine, whose custom rules may emit only diagnostic records; it binds the committed types assembly the importer already loaded and announced, and in a bare analyzer shard process there is no console session to announce to')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '',
+        Justification = 'Runs inside the analyzer engine, whose custom rules may emit only diagnostic records; it binds the committed types assembly the importer already loaded and announced, and in a bare analyzer shard process there is no console session to announce to')]
     param()
 
     if ($script:oracleReady) {

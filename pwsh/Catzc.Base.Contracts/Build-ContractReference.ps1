@@ -22,7 +22,8 @@ function Build-ContractReference {
     $pageFolder = 'docs/references/contracts'
     $records = (Get-Config -Config drs).Root
     $adr = [System.IO.Path]::GetRelativePath($pageFolder, "$records/repository/api-contracts.md").Replace('\', '/')
-    $commandAdr = [System.IO.Path]::GetRelativePath($pageFolder, "$records/repository/command-contracts.md").Replace('\', '/')
+    $commandAdr = [System.IO.Path]::GetRelativePath($pageFolder,
+        "$records/repository/command-contracts.md").Replace('\', '/')
     $kindText = @{ Presence = 'presence'; Fragment = 'fragment'; Schema = 'schema'; Sample = 'sample payload'; Command = 'command contract' }
     $directionText = @{ DependedOn = 'depended-on'; Provided = 'provided' }
     $headers = @('Group', 'Asset', 'Bound file', 'Direction', 'Kind', 'Signature')
@@ -44,7 +45,8 @@ function Build-ContractReference {
                 }
             }
             catch {
-                # One unreadable contract fails the root's read, so each asset is read on its own and only the broken one shows none.
+                # One unreadable contract fails the root's read, so each asset is read on its own and only the broken
+                # one shows none.
                 foreach ($asset in @($rootAssets | Where-Object { $_.Kind -eq [Catzc.Base.Contracts.ContractAssetKind]::Command })) {
                     try {
                         $one = Get-CommandContract -Root ([WildcardPattern]::Escape($asset.Root)) -Version ([WildcardPattern]::Escape($asset.Version)) `
@@ -126,7 +128,8 @@ function Build-ContractReference {
                 else {
                     'none'
                 }
-                $rows.Add([string[]] @("``$($asset.Group)``", $assetCell, $target, $direction, $kindText["$($asset.Kind)"], $signature))
+                $rows.Add([string[]] @("``$($asset.Group)``", $assetCell, $target, $direction,
+                    $kindText["$($asset.Kind)"], $signature))
             }
 
             # Aligned as Prettier aligns a table, so the page is formatter-stable.
@@ -165,7 +168,8 @@ function Build-ContractReference {
     # A page this writer emitted whose root has no assets left is removed; a page without the marker is someone's own.
     $folder = Join-Path $RepositoryRoot $pageFolder
     if ([System.IO.Directory]::Exists($folder)) {
-        $pages = [Catzc.Base.Folders.PathSet]::new((Get-Config -Config folder-walk)).AddPattern($folder, '*.md', 1).ToArray()
+        $pages = [Catzc.Base.Folders.PathSet]::new((Get-Config -Config folder-walk)).AddPattern($folder, '*.md',
+            1).ToArray()
         foreach ($page in $pages) {
             $rootName = [System.IO.Path]::GetFileNameWithoutExtension($page)
             if ($rootName -cin $roots -or -not [System.IO.File]::ReadAllText($page).Contains($marker)) {

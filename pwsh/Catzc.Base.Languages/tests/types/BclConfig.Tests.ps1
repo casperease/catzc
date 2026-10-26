@@ -5,7 +5,8 @@ Describe 'BclConfig' -Tag 'L0' {
             $script:config = Get-Config -Config bcl
             $script:root = Get-RepositoryRoot
             $script:tracked = @(Get-GitTrackedPath '.' | Where-Object { $_ -match '\.csproj$' -and $_ -notmatch '(^|/)\.vendor/' })
-            # The one solution is rendered (New-Solution) and gitignored, so its text is the generator's, never a tracked file's.
+            # The one solution is rendered (New-Solution) and gitignored, so its text is the generator's, never a
+            # tracked file's.
             $script:solutions = @{ 'catzc.sln' = New-Solution }
         }
 
@@ -31,13 +32,15 @@ Describe 'BclConfig' -Tag 'L0' {
             $pair = [regex]::Escape($script:config.SolutionPair())
             $offenders = foreach ($path in $script:solutions.Keys) {
                 $text = $script:solutions[$path]
-                $section = [regex]::Match($text, '(?s)GlobalSection\(SolutionConfigurationPlatforms\)[^\n]*\n(.*?)EndGlobalSection').Groups[1].Value
+                $section = [regex]::Match($text,
+                    '(?s)GlobalSection\(SolutionConfigurationPlatforms\)[^\n]*\n(.*?)EndGlobalSection').Groups[1].Value
                 foreach ($line in ($section -split '\r?\n').Where({ $_.Trim() })) {
                     if ($line.Trim() -notmatch "^$pair = $pair$") {
                         "${path}: $($line.Trim())"
                     }
                 }
-                $projects = [regex]::Match($text, '(?s)GlobalSection\(ProjectConfigurationPlatforms\)[^\n]*\n(.*?)EndGlobalSection').Groups[1].Value
+                $projects = [regex]::Match($text,
+                    '(?s)GlobalSection\(ProjectConfigurationPlatforms\)[^\n]*\n(.*?)EndGlobalSection').Groups[1].Value
                 foreach ($line in ($projects -split '\r?\n').Where({ $_.Trim() })) {
                     if ($line.Trim() -notmatch "^\{[0-9A-F-]+\}\.$pair\.(ActiveCfg|Build\.0) = $pair$") {
                         "${path}: $($line.Trim())"
@@ -52,7 +55,8 @@ Describe 'BclConfig' -Tag 'L0' {
                 $xml = [xml][System.IO.File]::ReadAllText((Join-Path $script:root $path))
                 $configurations = @($xml.SelectNodes('//Configurations') | ForEach-Object InnerText)
                 $platforms = @($xml.SelectNodes('//Platforms') | ForEach-Object InnerText)
-                if (($configurations -join ';') -cne $script:config.configuration -or ($platforms -join ';') -cne $script:config.ProjectPlatform()) {
+                if (($configurations -join ';') -cne $script:config.configuration -or
+                    ($platforms -join ';') -cne $script:config.ProjectPlatform()) {
                     "${path}: Configurations '$($configurations -join ';')', Platforms '$($platforms -join ';')'"
                 }
             }
@@ -98,7 +102,8 @@ Describe 'BclConfig' -Tag 'L0' {
                         [ordered]@{ file = 'Catzc.Base.Gadgets/types/Gadget.cs'; host = 'pwsh'; reason = ' Wraps a pipeline. ' }
                     )
                 })
-            @($config.host_bindings.file) | Should -Be @('Catzc.Base.Gadgets/types/Gadget.cs', 'Catzc.Base.Widgets/types/Widget.cs')
+            @($config.host_bindings.file) | Should -Be @('Catzc.Base.Gadgets/types/Gadget.cs',
+                'Catzc.Base.Widgets/types/Widget.cs')
             $config.host_bindings[0].reason | Should -BeExactly 'Wraps a pipeline.'
             $config.HostBindingOf('Catzc.Base.Widgets/types/Widget.cs').host | Should -BeExactly 'pwsh'
             $config.HostBindingOf('Catzc.Base.Widgets/types/Other.cs') | Should -BeNullOrEmpty
@@ -119,7 +124,8 @@ Describe 'BclConfig' -Tag 'L0' {
         }
 
         It 'rejects host_bindings that is not a list' {
-            { [Catzc.Base.Languages.BclConfig]::new([ordered]@{ host_bindings = 'widget' }) } | Should -Throw -ExpectedMessage '*invalid host_bindings*'
+            { [Catzc.Base.Languages.BclConfig]::new([ordered]@{ host_bindings = 'widget' }) } |
+                Should -Throw -ExpectedMessage '*invalid host_bindings*'
         }
     }
 }

@@ -1,15 +1,18 @@
 Describe 'Get-FileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-SUBSCRIBEBYFUNCTION' {
     BeforeAll {
         $script:state = Get-MarkdownMetaState -Text "# docs/widget.md`n`nA gadget tint.`n"
-        # Two fixture kinds with fixture processors: a fixed shade, and a tint read from the file's body, never from its head.
+        # Two fixture kinds with fixture processors: a fixed shade, and a tint read from the file's body, never from its
+        # head.
         InModuleScope Catzc.Base.QualityGates {
             function script:Get-WidgetShadeFileMetaFact {
-                [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = 'The engine passes State, Path and Kind by name; the fixture fact needs none')]
+                [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '',
+                    Justification = 'The engine passes State, Path and Kind by name; the fixture fact needs none')]
                 param($State, $Path, $Kind)
                 [ordered]@{ shade = 'blue' }
             }
             function script:Get-WidgetTintFileMetaFact {
-                [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = 'The engine passes State, Path and Kind by name; the fixture fact reads the body alone')]
+                [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '',
+                    Justification = 'The engine passes State, Path and Kind by name; the fixture fact reads the body alone')]
                 param($State, $Path, $Kind)
                 $body = if ($State.PSObject.Properties['Body']) {
                     $State.Body
@@ -21,7 +24,8 @@ Describe 'Get-FileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-SUBSCRIBEBYFU
             }
         }
 
-        # A fixture registry: the `classes` of a test's raw config become the kinds the file-kinds registry names, and none leaves every file other.
+        # A fixture registry: the `classes` of a test's raw config become the kinds the file-kinds registry names, and
+        # none leaves every file other.
         $script:kinds = [Catzc.Base.Globs.FileKindsConfig]::new(@{})
         Mock Get-Config -ModuleName Catzc.Base.Globs -ParameterFilter { $Config -eq 'file-kinds' } { $script:kinds }
 
@@ -57,7 +61,8 @@ Describe 'Get-FileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-SUBSCRIBEBYFU
 
     It 'collects the facts of every kind that applies, in registry order' {
         $facts = Get-Facts @{ kinds = [ordered]@{ 'widget-tint' = @{ keys = @('tint') }; 'widget-shade' = @{ keys = @('shade') } } }
-        @($facts.PSObject.Properties.Name) | Should -Be @('Edges') -Because 'an imprint kind writes edges only, so no immutable part comes back'
+        @($facts.PSObject.Properties.Name) |
+            Should -Be @('Edges') -Because 'an imprint kind writes edges only, so no immutable part comes back'
         $facts.Edges.Keys | Should -Be @('tint', 'shade')
         $facts.Edges['tint'] | Should -BeExactly 'A gadget tint.'
     }
@@ -65,7 +70,8 @@ Describe 'Get-FileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-SUBSCRIBEBYFU
     It 'puts every key into the edges, the one part an imprint kind writes, in registry order' -Tag 'ADR-REPO-FILEMETA-FILEISNODE' {
         Mock Get-RelativeEdgesFileMetaFact { [ordered]@{ role = 'widget' } } -ModuleName Catzc.Base.QualityGates
         $facts = Get-Facts @{ kinds = [ordered]@{ 'widget-shade' = @{ keys = @('shade') }; 'widget-tint' = @{ keys = @('tint') }; gadget = @{ keys = @('role'); processor = 'Get-RelativeEdgesFileMetaFact' } } }
-        @($facts.PSObject.Properties.Name) | Should -Be @('Edges') -Because 'an imprint kind writes edges only, so no immutable part comes back'
+        @($facts.PSObject.Properties.Name) |
+            Should -Be @('Edges') -Because 'an imprint kind writes edges only, so no immutable part comes back'
         $facts.Edges.Keys | Should -Be @('shade', 'tint', 'role')
     }
 

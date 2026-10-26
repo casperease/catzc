@@ -153,7 +153,8 @@ Describe 'ModuleTypesConfig' -Tag 'L0', 'logic', 'DDR-TRACK-ONETECHSTACK' {
 
         It 'rejects an unknown top-level key and a module_types value that is no map' {
             { [Catzc.Base.Variants.ModuleTypesConfig]::new(@{ types = @{} }) } | Should -Throw '*unknown key ''types''*'
-            { [Catzc.Base.Variants.ModuleTypesConfig]::new(@{ module_types = 'x' }) } | Should -Throw '*module_types must be a map*'
+            { [Catzc.Base.Variants.ModuleTypesConfig]::new(@{ module_types = 'x' }) } |
+                Should -Throw '*module_types must be a map*'
             { [Catzc.Base.Variants.ModuleTypesConfig]::new($null) } | Should -Throw
         }
 

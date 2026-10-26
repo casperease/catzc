@@ -1,3 +1,11 @@
+<#
+---
+catzc:
+  docs: "../../../docs/references/pwsh/catzc-base-file-limits/private/Get-StringOverflowLine.ps1.md"
+  header: "generated"
+---
+#>
+
 function Get-StringOverflowLine {
     [CmdletBinding()]
     [OutputType([int[]])]
@@ -12,7 +20,8 @@ function Get-StringOverflowLine {
         [string] $Language
     )
 
-    # The spans of every one-line string literal as (line, first column, last column), 1-based, from the language's own tokenizer.
+    # The spans of every one-line string literal as (line, first column, last column), 1-based, from the language's own
+    # tokenizer.
     $spans = [System.Collections.Generic.List[int[]]]::new()
     switch ($Language) {
         'powershell' {
@@ -22,7 +31,8 @@ function Get-StringOverflowLine {
             foreach ($token in $tokens) {
                 $isString = $token.Kind -in 'StringLiteral', 'StringExpandable', 'HereStringLiteral', 'HereStringExpandable'
                 if ($isString -and $token.Extent.StartLineNumber -eq $token.Extent.EndLineNumber) {
-                    $spans.Add([int[]] @($token.Extent.StartLineNumber, $token.Extent.StartColumnNumber, ($token.Extent.EndColumnNumber - 1)))
+                    $spans.Add([int[]] @($token.Extent.StartLineNumber, $token.Extent.StartColumnNumber,
+                        ($token.Extent.EndColumnNumber - 1)))
                 }
             }
         }
@@ -32,7 +42,8 @@ function Get-StringOverflowLine {
                 while ($scanner.MoveNext()) {
                     $token = $scanner.Current
                     if ($token -is [YamlDotNet.Core.Tokens.Scalar] -and $token.Start.Line -eq $token.End.Line) {
-                        $spans.Add([int[]] @([int] $token.Start.Line, [int] $token.Start.Column, ([int] $token.End.Column - 1)))
+                        $spans.Add([int[]] @([int] $token.Start.Line, [int] $token.Start.Column,
+                            ([int] $token.End.Column - 1)))
                     }
                 }
             }
@@ -42,7 +53,8 @@ function Get-StringOverflowLine {
             }
         }
         'xml' {
-            # The reader gives an attribute's line and the column of its name; the value runs from its opening quote to the matching one.
+            # The reader gives an attribute's line and the column of its name; the value runs from its opening quote to
+            # the matching one.
             $sourceLines = $Text -split "`r?`n"
             $settings = [System.Xml.XmlReaderSettings]::new()
             $settings.DtdProcessing = [System.Xml.DtdProcessing]::Ignore
@@ -77,8 +89,6 @@ function Get-StringOverflowLine {
             }
         }
         { $_ -in 'json', 'jsonl' } {
-            # A JSON string never spans a line, so each line is scanned on its own: a quote opens, an escaped one does not close, and
-            # outside a string a // comment (JSONC settings) ends the line.
             $number = 0
             foreach ($line in $Text -split "`r?`n") {
                 $number++
@@ -113,7 +123,8 @@ function Get-StringOverflowLine {
         }
     }
 
-    # A line is exempt when one string covers every column past the width to the end of its text, so nothing but the string overflows.
+    # A line is exempt when one string covers every column past the width to the end of its text, so nothing but the
+    # string overflows.
     $lines = $Text -split "`r?`n"
     $exempt = foreach ($span in $spans) {
         $number = $span[0]

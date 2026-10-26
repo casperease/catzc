@@ -14,7 +14,8 @@ function Get-GuidScanFiles {
 
     $tracked = Get-GitTrackedPath '.'
 
-    $binaryExtensions = @('.dll', '.exe', '.png', '.jpg', '.jpeg', '.gif', '.ico', '.gz', '.zip', '.pdf', '.woff', '.woff2', '.ttf')
+    $binaryExtensions = @('.dll', '.exe', '.png', '.jpg', '.jpeg', '.gif', '.ico', '.gz', '.zip', '.pdf', '.woff',
+        '.woff2', '.ttf')
     $registryFile = ConvertTo-RepoRelativePath (Get-CatzcModuleRoot 'configs/guids.yml')
     $modulesFolder = Get-CatzcModulesFolder
 

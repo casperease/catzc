@@ -14,9 +14,12 @@ Describe 'MarkdownlintConfig' -Tag 'L0' {
         }
 
         It 'throws on an unknown key and on a batch size outside 1 to 500' {
-            { [Catzc.Base.QualityGates.MarkdownlintConfig]::new([ordered]@{ widget = 1 }) } | Should -Throw "*unknown key 'widget'*"
-            { [Catzc.Base.QualityGates.MarkdownlintConfig]::new([ordered]@{ batch_size = 0 }) } | Should -Throw '*batch_size must be a whole number from 1 to 500*'
-            { [Catzc.Base.QualityGates.MarkdownlintConfig]::new([ordered]@{ batch_size = 'many' }) } | Should -Throw '*batch_size must be a whole number*'
+            { [Catzc.Base.QualityGates.MarkdownlintConfig]::new([ordered]@{ widget = 1 }) } |
+                Should -Throw "*unknown key 'widget'*"
+            { [Catzc.Base.QualityGates.MarkdownlintConfig]::new([ordered]@{ batch_size = 0 }) } |
+                Should -Throw '*batch_size must be a whole number from 1 to 500*'
+            { [Catzc.Base.QualityGates.MarkdownlintConfig]::new([ordered]@{ batch_size = 'many' }) } |
+                Should -Throw '*batch_size must be a whole number*'
         }
     }
 }

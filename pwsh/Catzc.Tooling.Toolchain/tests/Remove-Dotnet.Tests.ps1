@@ -18,7 +18,8 @@ Describe 'Remove-Dotnet' -Tag 'L0', 'logic', 'ADR-AUTO-REMOVE-REMOVEREFUSESMANAG
         if (-not $IsWindows) {
             Set-ItResult -Skipped -Because 'windows_only_removal'; return
         }
-        { Remove-Dotnet -InstallDir (Join-Path $TestDrive 'managed-widget') -Force } | Should -Throw '*is the managed .NET install*Uninstall-Dotnet*'
+        { Remove-Dotnet -InstallDir (Join-Path $TestDrive 'managed-widget') -Force } |
+            Should -Throw '*is the managed .NET install*Uninstall-Dotnet*'
         Should -Invoke Remove-SystemInstallation -ModuleName Catzc.Tooling.Toolchain -Times 0
     }
 

@@ -53,7 +53,8 @@ Describe 'Build-ContractReference' -Tag 'L0', 'logic' {
         $paths | Should -Be @('docs/references/contracts/catzc.md', 'docs/references/contracts/gadget.md')
 
         $page = Read-Page
-        $page | Should -Match ("(?s)^---`ncatzc:.*warning: .*---`n`n" + [regex]::Escape("# docs/references/contracts/catzc.md`n`n``The catzc contracts```n"))
+        $page |
+            Should -Match ("(?s)^---`ncatzc:.*warning: .*---`n`n" + [regex]::Escape("# docs/references/contracts/catzc.md`n`n``The catzc contracts```n"))
         $sections = @([regex]::Matches($page, '(?m)^## (.+)$') | ForEach-Object { $_.Groups[1].Value })
         $sections | Should -Be @('0.1.0', '1.10.0', '1.2.0')
     }
@@ -76,13 +77,15 @@ Describe 'Build-ContractReference' -Tag 'L0', 'logic' {
         $rows = @((Read-Page) -split "`n" | Where-Object { $_.StartsWith('| `catzc.') } | ForEach-Object {
                 , @($_.Trim().Trim('|') -split ' \| ' | ForEach-Object { $_.Trim() })
             })
-        $rows[3] | Should -Be @('`catzc.widget`', '`get_widget.command.yml`', '`widgets/Catzc.Widget/Get-Widget.ps1`', 'provided', 'command contract', '`path: string!, strict: switch -> string`')
+        $rows[3] | Should -Be @('`catzc.widget`', '`get_widget.command.yml`', '`widgets/Catzc.Widget/Get-Widget.ps1`',
+            'provided', 'command contract', '`path: string!, strict: switch -> string`')
     }
 
     It 'marks a command contract that does not read, and still writes the page' -Tag 'ADR-REPO-CMDCONTRACT-ONEREADER' {
         Add-File 'contracts/catzc/0.1.0/catzc.widget/get_widget.command.yml' "parameters:`n  path: text`n"
         Build-ContractReference -RepositoryRoot $script:root -Silent | Out-Null
-        (Read-Page) | Should -Match '(?m)^\| `catzc\.widget` +\| `get_widget\.command\.yml` .*\| not readable \(Test-Contracts reports it\) +\|$'
+        (Read-Page) |
+            Should -Match '(?m)^\| `catzc\.widget` +\| `get_widget\.command\.yml` .*\| not readable \(Test-Contracts reports it\) +\|$'
     }
 
     It 'lists the notes under the table, one item per asset that carries one' -Tag 'ADR-REPO-CONTRACT-HEADERSAYSWHATITPINS' {
@@ -92,7 +95,8 @@ Describe 'Build-ContractReference' -Tag 'L0', 'logic' {
 
         @($lines | Where-Object { $_.StartsWith('- ') }).Count | Should -Be 1
         $first | Should -BeGreaterThan 0
-        $lines[$first + 1] | Should -BeExactly '  [ADR-TST-WIDGET-TURN](../../drs/repository/widget-thing.md#rule-adr-tst-widget-turn).'
+        $lines[$first + 1] |
+            Should -BeExactly '  [ADR-TST-WIDGET-TURN](../../drs/repository/widget-thing.md#rule-adr-tst-widget-turn).'
         (Read-Page) | Should -Match "(?m)^\| ``catzc\.widget``.*\|\n\nNotes:\n\n- "
     }
 
@@ -111,7 +115,8 @@ Describe 'Build-ContractReference' -Tag 'L0', 'logic' {
         $lines = (Read-Page) -split "`n"
 
         @($lines | Where-Object { -not $_.StartsWith('|') -and $_.Length -gt 140 }) | Should -BeNullOrEmpty
-        $tables = @(([regex]::Matches((Read-Page), '(?m)(?:^\|.*\n)+')) | ForEach-Object { , @($_.Value.TrimEnd("`n") -split "`n") })
+        $tables = @(([regex]::Matches((Read-Page),
+            '(?m)(?:^\|.*\n)+')) | ForEach-Object { , @($_.Value.TrimEnd("`n") -split "`n") })
         $tables.Count | Should -Be 3
         foreach ($table in $tables) {
             @($table | ForEach-Object { $_.Length } | Select-Object -Unique).Count | Should -Be 1
@@ -121,13 +126,15 @@ Describe 'Build-ContractReference' -Tag 'L0', 'logic' {
 
     It 'is deterministic: a second run reports no change' {
         Build-ContractReference -RepositoryRoot $script:root -Silent | Out-Null
-        @(Build-ContractReference -RepositoryRoot $script:root -DryRun -PassThru -Silent | Where-Object Changed) | Should -BeNullOrEmpty
+        @(Build-ContractReference -RepositoryRoot $script:root -DryRun -PassThru -Silent | Where-Object Changed) |
+            Should -BeNullOrEmpty
     }
 
     It 'renders on every run, heads each page with the warning and no inputs stamp, and writes nothing the second time' -Tag 'ADR-REPO-FILEMETA-COMPOSEDFILES' {
         Build-ContractReference -RepositoryRoot $script:root -Silent | Out-Null
         (Read-Page) | Should -Match 'warning: "Do Not Edit, this file is generated"'
-        (Read-Page) | Should -Not -Match 'with_body_sha' -Because 'git does not track a fixture page, and the body hash is written only while it does'
+        (Read-Page) |
+            Should -Not -Match 'with_body_sha' -Because 'git does not track a fixture page, and the body hash is written only while it does'
         (Read-Page) | Should -Not -Match 'with_inputs_sha'
         $second = @(Build-ContractReference -RepositoryRoot $script:root -PassThru -Silent)
         $second | Should -Not -BeNullOrEmpty -Because 'the second run renders every page again'
@@ -158,8 +165,10 @@ Describe 'Build-ContractReference' -Tag 'L0', 'logic' {
     It 'never touches a page it did not write' {
         Add-File 'docs/references/contracts/how-pins-work.md' 'a hand-written article'
 
-        @(Build-ContractReference -RepositoryRoot $script:root -PassThru -Silent | Where-Object Removed) | Should -BeNullOrEmpty
-        [System.IO.File]::ReadAllText((Join-Path $script:root 'docs/references/contracts/how-pins-work.md')) | Should -BeExactly 'a hand-written article'
+        @(Build-ContractReference -RepositoryRoot $script:root -PassThru -Silent | Where-Object Removed) |
+            Should -BeNullOrEmpty
+        [System.IO.File]::ReadAllText((Join-Path $script:root 'docs/references/contracts/how-pins-work.md')) |
+            Should -BeExactly 'a hand-written article'
     }
 
     It 'writes nothing when there are no contracts' {
@@ -174,6 +183,7 @@ Describe 'Build-ContractReference — generated contract reference' -Tag 'L1', '
     It 'every root''s page is current — no drift from its assets' {
         $results = @(Build-ContractReference -DryRun -PassThru -Silent)
         $results.Count | Should -BeGreaterThan 0
-        @($results | Where-Object Changed | ForEach-Object Path) | Should -BeNullOrEmpty -Because 'Build-ContractReference regenerates a stale page'
+        @($results | Where-Object Changed | ForEach-Object Path) |
+            Should -BeNullOrEmpty -Because 'Build-ContractReference regenerates a stale page'
     }
 }

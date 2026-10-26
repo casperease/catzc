@@ -13,7 +13,8 @@ Describe 'Catzc.Tooling.KeyHandler.KeyHandlerSupportedConfig' -Tag 'L0', 'logic'
     }
 
     It 'maps the functions allow-list, in file order' {
-        $config = [Catzc.Tooling.KeyHandler.KeyHandlerSupportedConfig]::new([ordered]@{ functions = @('AcceptLine', 'AddLine') })
+        $config = [Catzc.Tooling.KeyHandler.KeyHandlerSupportedConfig]::new([ordered]@{ functions = @('AcceptLine',
+            'AddLine') })
         $config.functions | Should -Be @('AcceptLine', 'AddLine')
     }
 

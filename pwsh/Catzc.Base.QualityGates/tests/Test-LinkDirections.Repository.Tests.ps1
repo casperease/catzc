@@ -11,7 +11,8 @@ Describe 'Repository link directions (every tracked file)' -Tag 'L2', 'integrity
             Set-ItResult -Skipped -Because 'tool_git_missing'; return
         }
         $result.Facts['EdgeCount'] | Should -BeGreaterThan 0
-        $result.Issues | Should -BeNullOrEmpty -Because 'fix the link, correct its row with a because, or exempt the file with its reason'
+        $result.Issues |
+            Should -BeNullOrEmpty -Because 'fix the link, correct its row with a because, or exempt the file with its reason'
         $result.IssueCount | Should -Be 0
     }
 }

@@ -37,7 +37,8 @@ Describe 'LinkEngine edges' -Tag 'L0', 'logic', 'ADR-REPO-LINKS-EVERYLINKHASADIR
 
     It 'records a markdown link to a tracked file, its anchor dropped, and none for an anchor, a folder, a URL, a missing target or an image' {
         $markdown = @($edges.Where({ $_.File -eq 'docs/widget.md' }))
-        @($markdown.ForEach({ "$($_.Relation) $($_.Target)" })) | Should -Be @('MarkdownLink docs/gadget.md', 'MarkdownLink docs/gadget.md')
+        @($markdown.ForEach({ "$($_.Relation) $($_.Target)" })) | Should -Be @('MarkdownLink docs/gadget.md',
+            'MarkdownLink docs/gadget.md')
         $markdown[0].Line | Should -Be 3
     }
 
@@ -62,8 +63,10 @@ Describe 'LinkEngine edges' -Tag 'L0', 'logic', 'ADR-REPO-LINKS-EVERYLINKHASADIR
             param($Root)
             Invoke-LinkEngine -RepositoryRoot $Root -Path (Join-Path $Root 'src/plain.ps1'), (Join-Path $Root 'src/gone.ps1') -Kind Both -Wrap Break -IncludeEdge
         }
-        @($result.Edges.Where({ $_.File -eq 'src/plain.ps1' }).ForEach({ "$($_.Relation) $($_.Target)" })) | Should -Be @('DocsEdge docs/references/src/widget.ps1.md')
-        @($result.Findings.Where({ $_.File -eq 'src/gone.ps1' }).ForEach({ $_.Message })) | Should -BeLike "*docs edge '../docs/references/src/gone.ps1.md' does not resolve*"
+        @($result.Edges.Where({ $_.File -eq 'src/plain.ps1' }).ForEach({ "$($_.Relation) $($_.Target)" })) |
+            Should -Be @('DocsEdge docs/references/src/widget.ps1.md')
+        @($result.Findings.Where({ $_.File -eq 'src/gone.ps1' }).ForEach({ $_.Message })) |
+            Should -BeLike "*docs edge '../docs/references/src/gone.ps1.md' does not resolve*"
         @($result.Findings.Where({ $_.File -eq 'src/plain.ps1' })) | Should -HaveCount 0
     }
 }

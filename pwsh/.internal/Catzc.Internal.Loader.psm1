@@ -36,8 +36,6 @@ function Test-IsRunningInPipeline {
     [bool]$env:TF_BUILD -or [bool]$env:GITHUB_ACTIONS
 }
 
-# VS Code marks every terminal it opens, the PowerShell extension's own host included; this is the one reader of that
-# mark.
 function Test-IsRunningInVsCode {
     [CmdletBinding()]
     [OutputType([bool])]
@@ -46,8 +44,6 @@ function Test-IsRunningInVsCode {
     $env:TERM_PROGRAM -eq 'vscode'
 }
 
-# A host that runs -File, -Command or -EncodedCommand, or runs -NonInteractive, exits when its command ends and never
-# shows a prompt, unless -NoExit keeps it open.
 function Test-IsInteractiveHost {
     [CmdletBinding()]
     [OutputType([bool])]
@@ -83,8 +79,6 @@ function Test-IsInteractiveHost {
 
 $script:deferredJanitors = $null
 
-# The console session's janitors run once the first prompt has shown: the first render is untouched, the second runs the
-# action and restores the prompt.
 function Enable-DeferredJanitors {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '',
         Justification = 'Installs an in-memory prompt hook for this session; nothing outside the session changes')]

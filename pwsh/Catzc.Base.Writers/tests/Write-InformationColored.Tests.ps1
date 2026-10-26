@@ -6,7 +6,8 @@ catzc:
 ---
 #>
 
-[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '', Justification = 'Tests lift $global:__PesterRunning to verify writer output; that flag is the writers'' test-suppression interface, set by Test-Automation')]
+[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '',
+    Justification = 'Tests lift $global:__PesterRunning to verify writer output; that flag is the writers'' test-suppression interface, set by Test-Automation')]
 param()
 
 Describe 'Write-InformationColored' -Tag 'L0', 'logic' {
@@ -48,7 +49,8 @@ Describe 'Write-InformationColored' -Tag 'L0', 'logic' {
 
     It 'writes an inline record the host renders without a line break under -NoNewline' {
         InModuleScope Catzc.Base.Writers {
-            Write-InformationColored '.' -NoNewline -InformationVariable iv -InformationAction SilentlyContinue 6>&1 | Out-Null
+            Write-InformationColored '.' -NoNewline -InformationVariable iv -InformationAction SilentlyContinue 6>&1 |
+                Out-Null
             $iv | Should -HaveCount 1
             $iv[0].MessageData | Should -BeOfType [System.Management.Automation.HostInformationMessage]
             $iv[0].MessageData.Message | Should -Be '.'

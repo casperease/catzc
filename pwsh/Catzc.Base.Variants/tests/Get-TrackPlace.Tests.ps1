@@ -30,7 +30,8 @@ Describe 'Get-TrackPlace' -Tag 'L0', 'logic' {
     }
 
     It 'throws on a track that names no kinds' {
-        { Get-TrackPlace -Track gadget -TrackKind parts } | Should -Throw -ExpectedMessage "*names no kind 'parts' (its kinds: none)*"
+        { Get-TrackPlace -Track gadget -TrackKind parts } |
+            Should -Throw -ExpectedMessage "*names no kind 'parts' (its kinds: none)*"
     }
 
     It 'throws on an unknown track through Get-Track' {

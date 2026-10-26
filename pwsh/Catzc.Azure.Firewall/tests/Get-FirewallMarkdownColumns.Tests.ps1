@@ -29,7 +29,8 @@ Describe 'Get-FirewallMarkdownColumns' -Tag 'L0', 'logic' {
             AdditionalColumns      = @('RuleCollectionGroup')
             Present                = $script:present
         }
-        @($cols | ForEach-Object { $_.Name }) | Should -Be @('Name', 'Source', 'Protocol/Port', 'Destination', 'RuleCollectionGroup')
+        @($cols | ForEach-Object { $_.Name }) | Should -Be @('Name', 'Source', 'Protocol/Port', 'Destination',
+            'RuleCollectionGroup')
     }
 
     It 'marks the protocol/port column protoport+unsorted and other composites list+sorted' {

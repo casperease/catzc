@@ -55,12 +55,14 @@ Describe 'RungsConfig' -Tag 'L0', 'logic' {
 
     It 'rejects a rung that is not kebab-case, is not a map, or has an unknown key' {
         { [Catzc.Base.Flow.RungsConfig]::new(@{ rungs = @{ Widget_Uat = @{ environment = 'widget'; gate = 'none' } } }) } | Should -Throw '*not kebab-case*'
-        { [Catzc.Base.Flow.RungsConfig]::new(@{ rungs = @{ 'widget-uat' = 'widget' } }) } | Should -Throw '*must be a map*'
+        { [Catzc.Base.Flow.RungsConfig]::new(@{ rungs = @{ 'widget-uat' = 'widget' } }) } |
+            Should -Throw '*must be a map*'
         { [Catzc.Base.Flow.RungsConfig]::new(@{ rungs = @{ 'widget-uat' = @{ environment = 'widget'; gate = 'none'; gizmo = 1 } } }) } | Should -Throw '*unknown key ''gizmo''*'
     }
 
     It 'rejects a rung without an environment, or two rungs on one environment' {
-        { [Catzc.Base.Flow.RungsConfig]::new(@{ rungs = @{ 'widget-uat' = @{ gate = 'none' } } }) } | Should -Throw '*names no environment*'
+        { [Catzc.Base.Flow.RungsConfig]::new(@{ rungs = @{ 'widget-uat' = @{ gate = 'none' } } }) } |
+            Should -Throw '*names no environment*'
         { [Catzc.Base.Flow.RungsConfig]::new(@{ rungs = [ordered]@{
                         'widget-uat' = @{ environment = 'widget'; gate = 'none' }
                         'gadget-uat' = @{ environment = 'widget'; gate = 'rc' }

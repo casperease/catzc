@@ -48,7 +48,8 @@ Describe 'Test-Pipelines' -Tag 'L0', 'logic' {
     }
 
     It 'throws once listing every violation' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
-        $script:records = @((New-PipelineRecord 'widget-thing.yaml' 'Pipeline'), (New-PipelineRecord 'ci-gadget.yml' 'Pipeline'))
+        $script:records = @((New-PipelineRecord 'widget-thing.yaml' 'Pipeline'),
+            (New-PipelineRecord 'ci-gadget.yml' 'Pipeline'))
         $thrown = { Test-Pipelines -Path 'X:/pipelines' -OutputFolder (Join-Path $TestDrive 'pipelines') } |
             Should -Throw -PassThru
         $thrown.Exception.Message | Should -BeLike 'Test-Pipelines failed: 2 issue(s)*'
@@ -57,7 +58,8 @@ Describe 'Test-Pipelines' -Tag 'L0', 'logic' {
     }
 
     It 'returns the result with the file count under -PassThru' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
-        $script:records = @((New-PipelineRecord 'widget-thing.yaml' 'Pipeline'), (New-PipelineRecord 'ci-gadget.yaml' 'Pipeline'))
+        $script:records = @((New-PipelineRecord 'widget-thing.yaml' 'Pipeline'),
+            (New-PipelineRecord 'ci-gadget.yaml' 'Pipeline'))
         $result = Test-Pipelines -Path 'X:/pipelines' -PassThru -OutputFolder (Join-Path $TestDrive 'pipelines')
         $result.Subject | Should -Be 'pipelines'
         $result.IssueCount | Should -Be 1
@@ -73,7 +75,8 @@ Describe 'Test-Pipelines' -Tag 'L0', 'logic' {
     }
 
     It 'accepts every sanctioned type prefix' {
-        $script:records = @('cron', 'ci', 'cd', 'cde', 'deploy', 'input' | ForEach-Object { New-PipelineRecord "$_-x.yaml" 'Pipeline' })
+        $script:records = @('cron', 'ci', 'cd', 'cde', 'deploy',
+            'input' | ForEach-Object { New-PipelineRecord "$_-x.yaml" 'Pipeline' })
         Get-Issues | Should -HaveCount 0
     }
 
@@ -121,7 +124,8 @@ Describe 'Test-Pipelines' -Tag 'L0', 'logic' {
 
     It 'reports a parse failure as its own violation' {
         $script:records = @((New-PipelineRecord 'ci-broken.yaml' -Classification 'Unknown' -ParseError 'bad indent at line 4'))
-        Get-Issues | Should -BeLike '`[ADR-ADO-NAME`] .ado/pipelines/ci-broken.yaml: YAML failed to parse: bad indent at line 4'
+        Get-Issues |
+            Should -BeLike '`[ADR-ADO-NAME`] .ado/pipelines/ci-broken.yaml: YAML failed to parse: bad indent at line 4'
     }
 }
 

@@ -23,7 +23,8 @@ function Test-DrsRegistry {
 
     $rulesHeadingByPath = @{}
     foreach ($relative in $index.Relative) {
-        $heading = [regex]::Match([System.IO.File]::ReadAllText([System.IO.Path]::Combine($index.Root, $relative)), '(?m)^## Rules: (?<code>\S+)\s*$')
+        $heading = [regex]::Match([System.IO.File]::ReadAllText([System.IO.Path]::Combine($index.Root, $relative)),
+            '(?m)^## Rules: (?<code>\S+)\s*$')
         if ($heading.Success) {
             $rulesHeadingByPath[$relative] = $heading.Groups['code'].Value
         }
@@ -49,7 +50,8 @@ function Test-DrsRegistry {
         }
     }
 
-    # The key the file index gave each page, so a page under a domain folder that points into another domain's folder is checked against its own domain.
+    # The key the file index gave each page, so a page under a domain folder that points into another domain's folder is
+    # checked against its own domain.
     $keyOfPath = @{}
     foreach ($entry in $index.ByKey.GetEnumerator()) {
         foreach ($path in $entry.Value) {
@@ -96,7 +98,8 @@ function Test-DrsRegistry {
             $issues.AddRange($check.Findings)
             continue
         }
-        # A check reporting on its own writes under the caller's folder when one is given, else under its subject's default.
+        # A check reporting on its own writes under the caller's folder when one is given, else under its subject's
+        # default.
         $checkFolder = if ($OutputFolder) {
             Join-Path $OutputFolder "drs-$($check.Name)"
         }

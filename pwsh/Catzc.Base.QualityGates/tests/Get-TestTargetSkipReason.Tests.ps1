@@ -12,7 +12,8 @@ Describe 'Get-TestTargetSkipReason' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-TESTINGIN
 
     It 'skips a test that needs synthetic transactions against a read-only target, without probing it' {
         $script:probed = $false
-        Get-TestTargetSkipReason -Environment 'gadget' -Mode Synthetic -Probe { $script:probed = $true; $true } | Should -Be 'target_gadget_readonly'
+        Get-TestTargetSkipReason -Environment 'gadget' -Mode Synthetic -Probe { $script:probed = $true; $true } |
+            Should -Be 'target_gadget_readonly'
         $script:probed | Should -BeFalse
     }
 
@@ -20,7 +21,8 @@ Describe 'Get-TestTargetSkipReason' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-TESTINGIN
         @{ case = 'the probe says no'; probe = { $false } }
         @{ case = 'the probe throws'; probe = { throw 'no route to the widget' } }
     ) {
-        Get-TestTargetSkipReason -Environment 'wid-get' -Mode ReadOnly -Probe $probe | Should -Be 'target_widget_unreachable'
+        Get-TestTargetSkipReason -Environment 'wid-get' -Mode ReadOnly -Probe $probe |
+            Should -Be 'target_widget_unreachable'
     }
 
     It 'returns a constrained skip key, the environment kept to letters and digits' {
@@ -30,6 +32,7 @@ Describe 'Get-TestTargetSkipReason' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-TESTINGIN
     }
 
     It 'throws for an environment with no letter or digit' {
-        { Get-TestTargetSkipReason -Environment '--' -Mode ReadOnly -Probe { $true } } | Should -Throw '*no letter or digit*'
+        { Get-TestTargetSkipReason -Environment '--' -Mode ReadOnly -Probe { $true } } |
+            Should -Throw '*no letter or digit*'
     }
 }

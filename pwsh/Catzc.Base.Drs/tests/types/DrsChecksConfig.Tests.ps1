@@ -24,7 +24,8 @@ Describe 'DrsChecksConfig' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMODEL' 
         }
 
         It 'declares the default mode once, as gate, the zero value of CheckMode' {
-            [System.Activator]::CreateInstance([Catzc.Base.Reports.CheckMode]) | Should -Be ([Catzc.Base.Reports.CheckMode]::Gate)
+            [System.Activator]::CreateInstance([Catzc.Base.Reports.CheckMode]) |
+                Should -Be ([Catzc.Base.Reports.CheckMode]::Gate)
         }
     }
 
@@ -59,7 +60,8 @@ Describe 'DrsChecksConfig' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMODEL' 
 
         It 'finds every distinct match of a token in a line, case-sensitively' {
             $token = $config.engine_neutrality.tokens[0]
-            $token.Find('Call Gizmo-Spin, then Gizmo-Stop, then Gizmo-Spin; never gizmo-spin.') | Should -Be @('Gizmo-Spin', 'Gizmo-Stop')
+            $token.Find('Call Gizmo-Spin, then Gizmo-Stop, then Gizmo-Spin; never gizmo-spin.') |
+                Should -Be @('Gizmo-Spin', 'Gizmo-Stop')
             $token.Find('No gizmo here.') | Should -HaveCount 0
             $token.Find('') | Should -HaveCount 0
         }
@@ -93,9 +95,11 @@ Describe 'DrsChecksConfig' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMODEL' 
             $message | Should -BeLike "*token 'broken' pattern does not compile*"
             $message | Should -BeLike "*token 'empty' needs a pattern*"
             $message | Should -BeLike '*citation_graph: must be a mapping*'
-            $message | Should -BeLike "*dora_coverage: file 'notes/widget.md' must be a markdown file name, with no folder*"
+            $message |
+                Should -BeLike "*dora_coverage: file 'notes/widget.md' must be a markdown file name, with no folder*"
             $message | Should -BeLike "*dora_coverage: exempt domain 'gizmo' needs a reason*"
-            $message | Should -BeLike "*dora_coverage: exempt folder 'widget' must be a '/'-separated subfolder of a domain*"
+            $message |
+                Should -BeLike "*dora_coverage: exempt folder 'widget' must be a '/'-separated subfolder of a domain*"
             $message | Should -BeLike "*dora_coverage: exempt folder 'widget/sub' needs a reason*"
         }
     }

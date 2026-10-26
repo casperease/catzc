@@ -199,7 +199,8 @@ Describe 'Get-Contract' -Tag 'L0', 'logic' {
 
             $assets = @(Get-Contract -RepositoryRoot $script:root)
             $assets.Count | Should -Be 2
-            @($assets.Direction | Sort-Object -Unique) | Should -Be @([Catzc.Base.Contracts.ContractDirection] $Direction)
+            @($assets.Direction | Sort-Object -Unique) |
+                Should -Be @([Catzc.Base.Contracts.ContractDirection] $Direction)
         }
 
         It 'refuses a direction in contract.yml, which a root now decides' -Tag 'ADR-REPO-CONTRACT-DIRECTIONBYCONVENTION' {
@@ -255,7 +256,8 @@ Describe 'Get-Contract' -Tag 'L0', 'logic' {
             @{ Name = 'widget.yml.schema.json' }
         ) {
             Add-Asset "contracts/widget/0.1.0/gadgets/$Name" '{}'
-            { Get-Contract -RepositoryRoot $script:root } | Should -Throw "*'gadgets/$Name'*is not named in applies_to, so it binds no file*"
+            { Get-Contract -RepositoryRoot $script:root } |
+                Should -Throw "*'gadgets/$Name'*is not named in applies_to, so it binds no file*"
         }
 
         It 'reads a contract.yml only for its own version folder' -Tag 'ADR-REPO-CONTRACT-CONFIGUREDADDRESSING' {
@@ -299,7 +301,8 @@ Describe 'Get-Contract' -Tag 'L0', 'logic' {
 
         It 'throws on a command contract whose file name is not in the normal form' {
             Add-Asset 'contracts/catzc/0.1.0/catzc.widget/Get-Widget.command.yml' 'parameters:'
-            { Get-Contract -RepositoryRoot $script:root } | Should -Throw "*the command 'Get-Widget' is not in the repository normal form, snake*"
+            { Get-Contract -RepositoryRoot $script:root } |
+                Should -Throw "*the command 'Get-Widget' is not in the repository normal form, snake*"
         }
     }
 }

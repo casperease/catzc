@@ -35,7 +35,8 @@ function Sync-SessionTools {
             Write-Verbose "Ignoring the unreadable session-tools memo '$memoPath': $($_.Exception.Message)"
         }
     }
-    # The memo answers to the PATH the pass started from and to the PATH it left, so a second pass in the same session hits too.
+    # The memo answers to the PATH the pass started from and to the PATH it left, so a second pass in the same session
+    # hits too.
     if ($memo -is [hashtable] -and @($memo['keys']) -ccontains $key -and $memo['path'] -is [string]) {
         if ($env:PATH -cne $memo['path']) {
             $env:PATH = $memo['path']
@@ -79,6 +80,7 @@ function Sync-SessionTools {
     [System.IO.Directory]::CreateDirectory($folder) | Out-Null
     $keyAfterText = ($allTools | ConvertTo-Json -Depth 8 -Compress) + "`n" + $env:PATH + "`n" + $env:PATHEXT
     $keyAfter = [System.Convert]::ToHexString([System.Security.Cryptography.SHA256]::HashData([System.Text.Encoding]::UTF8.GetBytes($keyAfterText))).ToLowerInvariant()
-    $json = [ordered]@{ keys = @($key, $keyAfter | Select-Object -Unique); path = $env:PATH; foreign = @($foreignNames); locations = @($foreignLocations) } | ConvertTo-Json -Compress
+    $json = [ordered]@{ keys = @($key,
+        $keyAfter | Select-Object -Unique); path = $env:PATH; foreign = @($foreignNames); locations = @($foreignLocations) } | ConvertTo-Json -Compress
     [System.IO.File]::WriteAllText($memoPath, $json)
 }

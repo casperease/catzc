@@ -31,8 +31,10 @@ Describe 'Get-TestFileModule' -Tag 'L0', 'logic' {
     }
 
     It 'names the module folder of a test file under the modules folder' {
-        Get-Unit (Get-RepoPath "$(Get-CatzcModulesFolder)/Catzc.Gadget/tests/Get-Gadget.Tests.ps1") | Should -Be 'Catzc.Gadget'
-        Get-Unit (Get-RepoPath "$(Get-CatzcModulesFolder)/.internal/tests/Get-Gadget.Tests.ps1") | Should -Be '.internal'
+        Get-Unit (Get-RepoPath "$(Get-CatzcModulesFolder)/Catzc.Gadget/tests/Get-Gadget.Tests.ps1") |
+            Should -Be 'Catzc.Gadget'
+        Get-Unit (Get-RepoPath "$(Get-CatzcModulesFolder)/.internal/tests/Get-Gadget.Tests.ps1") |
+            Should -Be '.internal'
         Should -Invoke Get-LanguageTestFolders -ModuleName Catzc.Base.QualityGates -Times 0 -Exactly
     }
 

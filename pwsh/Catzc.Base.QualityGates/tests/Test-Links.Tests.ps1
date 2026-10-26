@@ -26,7 +26,8 @@ Describe 'Test-Links' -Tag 'L0', 'logic' {
 
     It 'passes when every link is aligned and resolves' -Tag 'ADR-REPO-LINK-ALIGNEDBYTOOL', 'ADR-AUTO-TEST-QUALITYGATE' {
         & $writeFile $root 'src/widget.ps1' "# See [ADR-TST-WIDGET-SPIN](/docs/drs/widget/widget-rules.md#rule-adr-tst-widget-spin).`n"
-        { Test-Links -RepositoryRoot $root -Path (Join-Path $root 'src') -OutputFolder $reportBase } | Should -Not -Throw
+        { Test-Links -RepositoryRoot $root -Path (Join-Path $root 'src') -OutputFolder $reportBase } |
+            Should -Not -Throw
     }
 
     It 'throws on an off-form code link, naming the file, line, and Format-Links' -Tag 'ADR-REPO-LINK-ALIGNEDBYTOOL', 'ADR-AUTO-TEST-QUALITYGATE' {
@@ -53,7 +54,8 @@ Describe 'Test-Links' -Tag 'L0', 'logic' {
         & $writeFile $root 'src/widget.ps1' (& $head 'docs/references/src/widget.ps1.md')
         $result = Test-Links -RepositoryRoot $root -Path (Join-Path $root 'src') -OutputFolder $reportBase -PassThru
         $result.IssueCount | Should -Be 1
-        $result.Issues[0] | Should -Match 'src/widget\.ps1:4:.*\[Dangling\].*docs edge .docs/references/src/widget\.ps1\.md. does not resolve from the file''s folder'
+        $result.Issues[0] |
+            Should -Match 'src/widget\.ps1:4:.*\[Dangling\].*docs edge .docs/references/src/widget\.ps1\.md. does not resolve from the file''s folder'
 
         & $writeFile $root 'src/widget.ps1' (& $head '../docs/references/src/gone.ps1.md')
         (Test-Links -RepositoryRoot $root -Path (Join-Path $root 'src') -OutputFolder $reportBase -PassThru).IssueCount | Should -Be 1
@@ -109,7 +111,8 @@ Describe 'Test-Links' -Tag 'L0', 'logic' {
 
         It 'lists the findings and passes in report mode' -Tag 'ADR-REPO-LINK-ONECITATIONSPELLING', 'PDR-CONFIG-EXCEPTIONISCONFIGENTRY' {
             & $useLinks ([ordered]@{ mode = 'report' })
-            { Test-Links -RepositoryRoot $root -Path (Join-Path $root 'src') -OutputFolder $reportBase } | Should -Not -Throw
+            { Test-Links -RepositoryRoot $root -Path (Join-Path $root 'src') -OutputFolder $reportBase } |
+                Should -Not -Throw
             $result = Test-Links -RepositoryRoot $root -Path (Join-Path $root 'src') -OutputFolder $reportBase -PassThru
             $result.IssueCount | Should -Be 0
             $result.Facts['ReportedCount'] | Should -Be 2

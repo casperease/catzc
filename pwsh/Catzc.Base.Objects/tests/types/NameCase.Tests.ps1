@@ -16,10 +16,12 @@ Describe 'NameCase' -Tag 'L0', 'logic' {
     }
 
     It 'brings a pascal-dotted name with DevOps to the snake normal form as dev_ops' {
-        [Catzc.Base.Objects.NameCase]::ToNormal('pascal-dotted', 'Widget.DevOps', 'snake') | Should -BeExactly 'widget.dev_ops'
+        [Catzc.Base.Objects.NameCase]::ToNormal('pascal-dotted', 'Widget.DevOps', 'snake') |
+            Should -BeExactly 'widget.dev_ops'
     }
 
     It 'renders the snake normal form widget.dev_ops in kebab case as widget-dev-ops' {
-        [Catzc.Base.Objects.NameCase]::FromNormal('widget.dev_ops', 'kebab', 'snake') | Should -BeExactly 'widget-dev-ops'
+        [Catzc.Base.Objects.NameCase]::FromNormal('widget.dev_ops', 'kebab', 'snake') |
+            Should -BeExactly 'widget-dev-ops'
     }
 }

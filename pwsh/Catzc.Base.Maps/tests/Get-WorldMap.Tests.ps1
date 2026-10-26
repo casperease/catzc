@@ -19,21 +19,25 @@ Describe 'Get-WorldMap' -Tag 'L0', 'logic' {
             Set-Content -LiteralPath $full -Value $file.Text -NoNewline
         }
         $script:variants = [pscustomobject]@{
-            aspects = @{ widgets = @([Catzc.Base.Variants.VariantAspect]::new('live', @('*.ps1')), [Catzc.Base.Variants.VariantAspect]::new('tests', @('**'))) }
+            aspects = @{ widgets = @([Catzc.Base.Variants.VariantAspect]::new('live', @('*.ps1')),
+                [Catzc.Base.Variants.VariantAspect]::new('tests', @('**'))) }
         }
         $script:files = [pscustomobject]@{ modules = [ordered]@{ Alpha = [pscustomobject]@{ packages = [ordered]@{ entry = @('importer.ps1', 'widgets/x') } } } }
     }
 
     BeforeEach {
         InModuleScope Catzc.Base.Maps { $script:worldMapTextCache = $null }
-        Mock Get-Track -ModuleName Catzc.Base.Maps { [Catzc.Base.Variants.VariantTrack]::new('widgets', @('widgets'), 'modules', $null, @('widget-script')) }
-        Mock Get-FileLanguage -ModuleName Catzc.Base.Maps { [Catzc.Base.Languages.FileLanguage]::new('widget-script', @('.ps1'), $null, 'fixture', $null, $null, $null) }
+        Mock Get-Track -ModuleName Catzc.Base.Maps { [Catzc.Base.Variants.VariantTrack]::new('widgets', @('widgets'),
+            'modules', $null, @('widget-script')) }
+        Mock Get-FileLanguage -ModuleName Catzc.Base.Maps { [Catzc.Base.Languages.FileLanguage]::new('widget-script',
+            @('.ps1'), $null, 'fixture', $null, $null, $null) }
         Mock Get-GitTrackedPath -ModuleName Catzc.Base.Maps { 'importer.ps1', 'widgets/Alpha/Get-Widget.ps1', 'widgets/Alpha/widget.json', 'widgets/Alpha/gone.ps1' }
         Mock Get-Aspect -ModuleName Catzc.Base.Maps { $script:variants.aspects[$Track] }
         Mock Test-AspectDeclaration -ModuleName Catzc.Base.Maps { $script:variants.aspects.ContainsKey($Track) }
         Mock Get-DrsRuleSet -ModuleName Catzc.Base.Maps { [pscustomobject]@{ External = 'ADR-WIDGET-GADGET'; Domain = 'widgetry' } }
         Mock Get-DrsCitationMap -ModuleName Catzc.Base.Maps {
-            [pscustomobject]@{} | Add-Member -MemberType ScriptMethod -Name PathOf -Value { param($Code) "docs/drs/widgetry/$($Code.ToLowerInvariant()).md" } -PassThru
+            [pscustomobject]@{} |
+                Add-Member -MemberType ScriptMethod -Name PathOf -Value { param($Code) "docs/drs/widgetry/$($Code.ToLowerInvariant()).md" } -PassThru
         }
         Mock Get-GlobSet -ModuleName Catzc.Base.Maps { }
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.Maps { $script:root }
@@ -46,7 +50,8 @@ Describe 'Get-WorldMap' -Tag 'L0', 'logic' {
         $map | Should -BeOfType [Catzc.Base.Maps.WorldMap]
         $map.FileCount | Should -Be 4
         $map.Placement('widgets/Alpha/Get-Widget.ps1').Citations | Should -Be @('ADR-WIDGET-GADGET-SPIN')
-        $map.Placement('widgets/Alpha/widget.json').StackViolation | Should -BeFalse -Because 'the widgets aspects leave a .json file in tests'
+        $map.Placement('widgets/Alpha/widget.json').StackViolation |
+            Should -BeFalse -Because 'the widgets aspects leave a .json file in tests'
     }
 
     It 'reads no text from a file kind that does not cite, and skips a file missing from the working tree' {
@@ -78,7 +83,8 @@ Describe 'Get-WorldMap' -Tag 'L0', 'logic' {
         Set-Content -LiteralPath $pipeline -Value "# ---`n# catzc:`n#   edges:`n#     cites:`n#       - ADR-WIDGET-GADGET-BEND`n# ---`n`ntrigger: none`n" -NoNewline
         Mock Get-Track -ModuleName Catzc.Base.Maps {
             [Catzc.Base.Variants.VariantTrack]::new('widgets', @('widgets'), 'modules', $null, @('widget-script'))
-            [Catzc.Base.Variants.VariantTrack]::new([Catzc.Base.Maps.WorldMapBuilder]::AdoPipelinesTrack, @('pipelines'), 'pipelines', $null, @('widget-pipe'))
+            [Catzc.Base.Variants.VariantTrack]::new([Catzc.Base.Maps.WorldMapBuilder]::AdoPipelinesTrack,
+                @('pipelines'), 'pipelines', $null, @('widget-pipe'))
         }
         Mock Get-FileLanguage -ModuleName Catzc.Base.Maps {
             [Catzc.Base.Languages.FileLanguage]::new('widget-script', @('.ps1'), $null, 'fixture', $null, $null, $null)
@@ -86,7 +92,8 @@ Describe 'Get-WorldMap' -Tag 'L0', 'logic' {
         }
         Mock Get-GitTrackedPath -ModuleName Catzc.Base.Maps { 'widgets/Alpha/Get-Widget.ps1', 'pipelines/ci-widgets.yaml' }
         Mock Get-GlobSet -ModuleName Catzc.Base.Maps {
-            [Catzc.Base.Globs.GlobSet]::new('widgets-set', 'The widgets.', 'loose-fileset', @('widgets/**'), @(), @(), @(), -1, 'ci-widgets')
+            [Catzc.Base.Globs.GlobSet]::new('widgets-set', 'The widgets.', 'loose-fileset', @('widgets/**'), @(), @(),
+                @(), -1, 'ci-widgets')
         }
         try {
             $placement = (Get-WorldMap).Placement('pipelines/ci-widgets.yaml')
@@ -136,6 +143,7 @@ Describe 'Get-WorldMap — the real repository' -Tag 'L1', 'integrity', 'source-
 
     It 'finds no stack violation' {
         $report = @($script:map.StackViolations | ForEach-Object { '{0} ({1} x {2})' -f $_.Path, $_.Track, $_.FileLanguage })
-        $report | Should -BeNullOrEmpty -Because 'a live file outside its track''s file languages is a second tech-stack (DDR-TRACK-ONETECHSTACK)'
+        $report |
+            Should -BeNullOrEmpty -Because 'a live file outside its track''s file languages is a second tech-stack (DDR-TRACK-ONETECHSTACK)'
     }
 }

@@ -73,7 +73,8 @@ Describe 'Get-AzureResourceTypeSet' -Tag 'L0', 'logic' {
         $types = Get-AzureResourceTypeSet
         foreach ($k in $types.Keys) {
             if ($types[$k].pattern -ne 'long') {
-                $k.Length | Should -BeLessOrEqual 4 -Because "the '$($types[$k].pattern)' pattern keeps a 2-4 char abbreviation"
+                $k.Length |
+                    Should -BeLessOrEqual 4 -Because "the '$($types[$k].pattern)' pattern keeps a 2-4 char abbreviation"
             }
         }
     }
@@ -85,7 +86,8 @@ Describe 'Get-AzureResourceTypeSet' -Tag 'L0', 'logic' {
                 $types[$k].Contains('limit') | Should -BeTrue -Because "long type '$k' supplies its own limit"
             }
             else {
-                $types[$k].Contains('limit') | Should -BeFalse -Because "restricted type '$k' inherits its limit from the pattern"
+                $types[$k].Contains('limit') |
+                    Should -BeFalse -Because "restricted type '$k' inherits its limit from the pattern"
             }
         }
     }

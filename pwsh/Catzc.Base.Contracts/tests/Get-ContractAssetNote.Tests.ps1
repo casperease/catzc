@@ -21,7 +21,8 @@ Describe 'Get-ContractAssetNote' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT-CONTRACT
             $null = [System.IO.Directory]::CreateDirectory([System.IO.Path]::GetDirectoryName($file))
             [System.IO.File]::WriteAllText($file, $Content)
             if ($leaf -notmatch '\.sample\.') {
-                # Every fixture written so far stays named, so a second note in the same test still finds the first bound.
+                # Every fixture written so far stays named, so a second note in the same test still finds the first
+                # bound.
                 $manifest = Join-Path $script:root 'contracts/widget/0.1.0/contract.yml'
                 if (-not [System.IO.File]::Exists($manifest)) {
                     [System.IO.File]::WriteAllText($manifest, "applies_to:`n")
@@ -43,17 +44,20 @@ Describe 'Get-ContractAssetNote' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT-CONTRACT
     }
 
     It 'joins the leading comment lines of a YAML fragment into one line' {
-        $note = Get-Note '.widget/flows/build.yml' (Join-Line -Line '# The keys the gadget host reads:', '#   the `widget` root.', '#', 'widget:', '  gadget:')
+        $note = Get-Note '.widget/flows/build.yml' (Join-Line -Line '# The keys the gadget host reads:',
+            '#   the `widget` root.', '#', 'widget:', '  gadget:')
         $note | Should -BeExactly 'The keys the gadget host reads: the `widget` root.'
     }
 
     It 'ends the note at the first line that is not a comment, a blank line included' {
-        $note = Get-Note '.widget/flows/build.yml' (Join-Line -Line '# The widget note.', '', '# Not the note.', 'widget:')
+        $note = Get-Note '.widget/flows/build.yml' (Join-Line -Line '# The widget note.', '', '# Not the note.',
+            'widget:')
         $note | Should -BeExactly 'The widget note.'
     }
 
     It 'reads the note of a YAML sample payload' {
-        Get-Note 'gadget.sample.yml' (Join-Line -Line '# A gadget the widget produces.', 'widget: gadget') | Should -BeExactly 'A gadget the widget produces.'
+        Get-Note 'gadget.sample.yml' (Join-Line -Line '# A gadget the widget produces.', 'widget: gadget') |
+            Should -BeExactly 'A gadget the widget produces.'
     }
 
     It 'gives nothing for a YAML asset that opens with no comment' {

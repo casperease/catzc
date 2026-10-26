@@ -24,7 +24,8 @@ Describe 'Split-TestAutomationFiles' -Tag 'L0', 'logic' {
 
         $split = InModuleScope Catzc.Base.QualityGates -Parameters @{ D = $discovered } {
             param($D)
-            Split-TestAutomationFiles -Discovery $D -TestFiles @('C:\x\Zulu.Tests.ps1', 'C:\x\Alpha.Tests.ps1', 'C:\x\Mike.Tests.ps1')
+            Split-TestAutomationFiles -Discovery $D -TestFiles @('C:\x\Zulu.Tests.ps1', 'C:\x\Alpha.Tests.ps1',
+                'C:\x\Mike.Tests.ps1')
         }
 
         $split.Parallel | Should -Be @('C:\x\Alpha.Tests.ps1')

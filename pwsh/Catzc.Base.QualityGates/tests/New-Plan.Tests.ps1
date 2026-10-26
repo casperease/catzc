@@ -3,12 +3,17 @@ Describe 'New-Plan' -Tag 'L0', 'logic' {
         $script:root = Join-Path $TestDrive 'widget-repository'
         $script:config = [Catzc.Base.QualityGates.PlansConfig]::new(@{})
         function Invoke-NewPlan {
-            param([string] $Topic = 'spin-widget', [string] $Value = 'medium', [string[]] $Target = @('widgets'), [string] $Class = 'feature')
+            param([string] $Topic = 'spin-widget', [string] $Value = 'medium', [string[]] $Target = @('widgets'),
+                [string] $Class = 'feature')
             New-Plan -Topic $Topic -Value $Value -Class $Class -Target $Target -Summary 'the widget spins' -Config $script:config -RepositoryRoot $script:root
         }
         $script:plans = Join-Path $script:root '.claude/plans'
-        $script:value = @('# Value', '', '## Meta plans by value', '', '| Value | Plan | Why | State |', '| --- | --- | --- | --- |', '| high | plan-master | the order | live |', '', '## Feature plans', '', '| Value | Plan | Needed docs | State |', '| --- | --- | --- | --- |', '', '## Pending deletion', '')
-        $script:master = @('# Master', '', '## Process', '', 'rules', '', '## Chunks', '', 'Open, in order.', '', '- oil-gadget -> plan-oil-gadget.md: oil it,', '  one drop.', '- user-runs -> task-user-runs.md: the user''s steps.', '', 'A new plan adds its line.', '')
+        $script:value = @('# Value', '', '## Meta plans by value', '', '| Value | Plan | Why | State |',
+            '| --- | --- | --- | --- |', '| high | plan-master | the order | live |', '', '## Feature plans', '',
+            '| Value | Plan | Needed docs | State |', '| --- | --- | --- | --- |', '', '## Pending deletion', '')
+        $script:master = @('# Master', '', '## Process', '', 'rules', '', '## Chunks', '', 'Open, in order.', '',
+            '- oil-gadget -> plan-oil-gadget.md: oil it,', '  one drop.',
+            '- user-runs -> task-user-runs.md: the user''s steps.', '', 'A new plan adds its line.', '')
     }
 
     BeforeEach {
@@ -46,13 +51,16 @@ Describe 'New-Plan' -Tag 'L0', 'logic' {
     It 'adds the master line ahead of the task pointers, after the plan items and their continuation lines' -Tag 'ADR-REPO-PLANS-THREEPARTS' {
         Invoke-NewPlan | Out-Null
         $lines = [System.IO.File]::ReadAllText((Join-Path $script:plans 'plan-master.md')) -split "`n"
-        $lines[10..13] | Should -Be @('- oil-gadget -> plan-oil-gadget.md: oil it,', '  one drop.', '- spin-widget -> plan-spin-widget.md: the widget spins', '- user-runs -> task-user-runs.md: the user''s steps.')
+        $lines[10..13] | Should -Be @('- oil-gadget -> plan-oil-gadget.md: oil it,', '  one drop.',
+            '- spin-widget -> plan-spin-widget.md: the widget spins',
+            '- user-runs -> task-user-runs.md: the user''s steps.')
     }
 
     It 'refuses a class the value overlay has no section for, and writes nothing' -Tag 'ADR-REPO-PLANS-THREEPARTS' {
         { Invoke-NewPlan -Class 'gizmo' } | Should -Throw "*no '## gizmo plans' section*"
         Join-Path $script:plans 'plan-spin-widget.md' | Should -Not -Exist
-        [System.IO.File]::ReadAllText((Join-Path $script:plans 'plan-master.md')) | Should -BeExactly ($script:master -join "`n")
+        [System.IO.File]::ReadAllText((Join-Path $script:plans 'plan-master.md')) |
+            Should -BeExactly ($script:master -join "`n")
     }
 
     It 'writes the head and the open steps section, and returns the file' {

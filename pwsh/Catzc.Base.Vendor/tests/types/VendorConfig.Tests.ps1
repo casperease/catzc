@@ -20,19 +20,23 @@ Describe 'VendorConfig' -Tag 'L0' {
         }
 
         It 'throws on an unknown key' {
-            { [Catzc.Base.Vendor.VendorConfig]::new([ordered]@{ source = 'PSGallery'; nope = 1 }) } | Should -Throw '*unknown key*'
+            { [Catzc.Base.Vendor.VendorConfig]::new([ordered]@{ source = 'PSGallery'; nope = 1 }) } |
+                Should -Throw '*unknown key*'
         }
 
         It 'throws when source is missing' {
-            { [Catzc.Base.Vendor.VendorConfig]::new([ordered]@{ sourceUrl = 'https://feed/v3/index.json' }) } | Should -Throw '*source*'
+            { [Catzc.Base.Vendor.VendorConfig]::new([ordered]@{ sourceUrl = 'https://feed/v3/index.json' }) } |
+                Should -Throw '*source*'
         }
 
         It 'throws on a non-absolute sourceUrl' {
-            { [Catzc.Base.Vendor.VendorConfig]::new([ordered]@{ source = 'Feed'; sourceUrl = 'not a url' }) } | Should -Throw '*sourceUrl*'
+            { [Catzc.Base.Vendor.VendorConfig]::new([ordered]@{ source = 'Feed'; sourceUrl = 'not a url' }) } |
+                Should -Throw '*sourceUrl*'
         }
 
         It 'reports every violation in one throw' {
-            $err = { [Catzc.Base.Vendor.VendorConfig]::new([ordered]@{ nope = 1; sourceUrl = 'not a url' }) } | Should -Throw -PassThru
+            $err = { [Catzc.Base.Vendor.VendorConfig]::new([ordered]@{ nope = 1; sourceUrl = 'not a url' }) } |
+                Should -Throw -PassThru
             $err.Exception.Message | Should -BeLike "*unknown key 'nope'*"
             $err.Exception.Message | Should -BeLike "*missing required key 'source'*"
             $err.Exception.Message | Should -BeLike "*invalid sourceUrl 'not a url'*"

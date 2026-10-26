@@ -12,8 +12,10 @@ Describe 'Get-ChangeCheckPlan' -Tag 'L0', 'logic' {
         foreach ($relative in 'a.wdg', 'b.wdg', 'c.gdg', 'd.txt', 'e.none') {
             [System.IO.File]::WriteAllText((Join-Path ([System.IO.Directory]::CreateDirectory($script:root).FullName) $relative), '')
         }
-        $widget = [Catzc.Base.Languages.FileLanguage]::new('widget', @('.wdg'), $null, 'fixture', $null, $null, @('Test-WidgetLint', 'Test-Spelling'))
-        $gadget = [Catzc.Base.Languages.FileLanguage]::new('gadget', @('.gdg'), $null, 'fixture', $null, $null, @('Test-Spelling'))
+        $widget = [Catzc.Base.Languages.FileLanguage]::new('widget', @('.wdg'), $null, 'fixture', $null, $null,
+            @('Test-WidgetLint', 'Test-Spelling'))
+        $gadget = [Catzc.Base.Languages.FileLanguage]::new('gadget', @('.gdg'), $null, 'fixture', $null, $null,
+            @('Test-Spelling'))
         $silent = [Catzc.Base.Languages.FileLanguage]::new('silent', @('.txt'), $null, 'fixture', $null, $null, @())
         Mock Get-FileLanguage -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Path -like '*.wdg' } { $widget }
         Mock Get-FileLanguage -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Path -like '*.gdg' } { $gadget }
@@ -46,21 +48,25 @@ Describe 'Get-ChangeCheckPlan' -Tag 'L0', 'logic' {
         }
         $scopes = [System.Collections.Generic.Dictionary[string, string]]::new()
         $scopes['Test-SprocketLint'] = 'global.sprockets.folder'
-        $sprocket = [Catzc.Base.Languages.FileLanguage]::new('sprocket', @('.spr'), $null, 'fixture', $null, $null, @('Test-SprocketLint', 'Test-Spelling'),
+        $sprocket = [Catzc.Base.Languages.FileLanguage]::new('sprocket', @('.spr'), $null, 'fixture', $null, $null,
+            @('Test-SprocketLint', 'Test-Spelling'),
             $null, $null, $null, $false, $null, $scopes)
         Mock Get-FileLanguage -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Path -like '*.spr' } { $sprocket }
         Mock Get-ConfigValue -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Address -eq 'global.sprockets.folder' } { 'sprockets/' }
 
         $plan = @(& $script:plan @('f.spr', 'sprockets/g.spr', 'sprockets-extra.spr'))
-        $plan.Check | Should -Be @('Test-Spelling', 'Test-SprocketLint') -Because 'the first changed file is outside the folder, so the check with a scope appears later'
+        $plan.Check | Should -Be @('Test-Spelling',
+            'Test-SprocketLint') -Because 'the first changed file is outside the folder, so the check with a scope appears later'
         $plan[0].Path | Should -Be @('f.spr', 'sprockets/g.spr', 'sprockets-extra.spr')
-        $plan[1].Path | Should -Be @('sprockets/g.spr') -Because 'a sibling folder that merely starts with the same letters is outside the scope'
+        $plan[1].Path |
+            Should -Be @('sprockets/g.spr') -Because 'a sibling folder that merely starts with the same letters is outside the scope'
     }
 
     It 'plans no check for a file outside the scope when the check with a scope is the only one its language names' {
         $scopes = [System.Collections.Generic.Dictionary[string, string]]::new()
         $scopes['Test-LonelyLint'] = 'global.loners.folder'
-        $lonely = [Catzc.Base.Languages.FileLanguage]::new('lonely', @('.lon'), $null, 'fixture', $null, $null, @('Test-LonelyLint'),
+        $lonely = [Catzc.Base.Languages.FileLanguage]::new('lonely', @('.lon'), $null, 'fixture', $null, $null,
+            @('Test-LonelyLint'),
             $null, $null, $null, $false, $null, $scopes)
         [System.IO.File]::WriteAllText((Join-Path $script:root 'h.lon'), '')
         Mock Get-FileLanguage -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Path -like '*.lon' } { $lonely }
@@ -84,7 +90,8 @@ Describe 'Get-ChangeCheckPlan — the shipped languages.yml and plans.yml' -Tag 
     It 'hands Test-Plans a changed plan and not a changed docs article, while the other markdown gates take both' {
         $plan = @(& $script:plan @('.claude/plans/plan-master.md', 'docs/how-to/pwsh/manual-test-plan.md'))
         ($plan | Where-Object Check -EQ 'Test-Plans').Path | Should -Be @('.claude/plans/plan-master.md')
-        ($plan | Where-Object Check -EQ 'Test-Spelling').Path | Should -Be @('.claude/plans/plan-master.md', 'docs/how-to/pwsh/manual-test-plan.md')
+        ($plan | Where-Object Check -EQ 'Test-Spelling').Path | Should -Be @('.claude/plans/plan-master.md',
+            'docs/how-to/pwsh/manual-test-plan.md')
     }
 
     It 'plans no Test-Plans run when only docs articles changed' {
@@ -92,7 +99,8 @@ Describe 'Get-ChangeCheckPlan — the shipped languages.yml and plans.yml' -Tag 
     }
 
     It 'reaches Test-Change: its plan names Test-Plans for a changed plan and for no docs article' {
-        (Test-Change -Path 'docs/how-to/pwsh/manual-test-plan.md' -DryRun).Checks.Check | Should -Not -Contain 'Test-Plans'
+        (Test-Change -Path 'docs/how-to/pwsh/manual-test-plan.md' -DryRun).Checks.Check |
+            Should -Not -Contain 'Test-Plans'
         (Test-Change -Path '.claude/plans/plan-master.md' -DryRun).Checks.Check | Should -Contain 'Test-Plans'
     }
 }

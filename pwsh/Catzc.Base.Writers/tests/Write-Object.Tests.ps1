@@ -1,4 +1,5 @@
-[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '', Justification = 'Tests lift $global:__PesterRunning to verify writer output; that flag is the writers'' test-suppression interface, set by Test-Automation')]
+[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '',
+    Justification = 'Tests lift $global:__PesterRunning to verify writer output; that flag is the writers'' test-suppression interface, set by Test-Automation')]
 param()
 
 Describe 'Write-Object' -Tag 'L0', 'logic' {
@@ -32,7 +33,8 @@ Describe 'Write-Object' -Tag 'L0', 'logic' {
     }
 
     It 'renders hashtable as YAML with nesting' {
-        Write-Object @{ A = 1; B = @{ C = 3 } } -InformationVariable iv -InformationAction SilentlyContinue 6>&1 | Out-Null
+        Write-Object @{ A = 1; B = @{ C = 3 } } -InformationVariable iv -InformationAction SilentlyContinue 6>&1 |
+            Out-Null
         $text = ($iv | ForEach-Object { Remove-AnsiEscape $_.MessageData }) -join "`n"
         $text | Should -Match 'A: 1'
         $text | Should -Match 'C: 3'

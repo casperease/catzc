@@ -25,12 +25,15 @@ Describe 'ConvertFrom-NormalName' -Tag 'L0', 'logic' {
     }
 
     It 'renders in the case named, one of the language''s cases for the kind' {
-        ConvertFrom-NormalName 'gadget_config' -Language widget -NameKind file -Case pascal | Should -BeExactly 'GadgetConfig'
-        { ConvertFrom-NormalName 'gadget_config' -Language widget -NameKind file -Case snake } | Should -Throw "*'snake' is not a widget file case*"
+        ConvertFrom-NormalName 'gadget_config' -Language widget -NameKind file -Case pascal |
+            Should -BeExactly 'GadgetConfig'
+        { ConvertFrom-NormalName 'gadget_config' -Language widget -NameKind file -Case snake } |
+            Should -Throw "*'snake' is not a widget file case*"
     }
 
     It 'throws on a name not in the normal form, and on words that start with no approved verb' {
-        { ConvertFrom-NormalName 'Get-Gadget' -Language widget } | Should -Throw "*'Get-Gadget' is not in the normal form*"
+        { ConvertFrom-NormalName 'Get-Gadget' -Language widget } |
+            Should -Throw "*'Get-Gadget' is not in the normal form*"
         { ConvertFrom-NormalName 'gadget_part' -Language widget } | Should -Throw '*no approved verb*'
     }
 }

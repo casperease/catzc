@@ -76,7 +76,8 @@ Describe 'DocsConfig' -Tag 'L0', 'logic' {
         $config = & $script:make @{ patterns = $patterns; without_article = @(@{ folder = 'widgets/gizmo'; reason = 'ships nothing' }) }
         $config.without_article[0].folder | Should -Be 'widgets/gizmo'
         $config.without_article[0].reason | Should -Be 'ships nothing'
-        { & $script:make @{ patterns = $patterns; without_article = @(@{ folder = 'widgets/gizmo' }) } } | Should -Throw '*reason is required*'
+        { & $script:make @{ patterns = $patterns; without_article = @(@{ folder = 'widgets/gizmo' }) } } |
+            Should -Throw '*reason is required*'
         {
             & $script:make @{ patterns = $patterns; without_article = @(@{ folder = 'widgets/gizmo'; reason = 'a' }, @{ folder = 'widgets/gizmo'; reason = 'b' }) }
         } | Should -Throw '*duplicate without_article folder*'

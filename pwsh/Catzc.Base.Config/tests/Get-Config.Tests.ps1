@@ -8,7 +8,8 @@ catzc:
 
 Describe 'Get-Config' -Tag 'L0' {
     Context 'discovery + raw default' -Tag 'integrity' {
-        # A real shipped config, so discovery in its owning module is proven; the raw default is pinned on a fixture below.
+        # A real shipped config, so discovery in its owning module is proven; the raw default is pinned on a fixture
+        # below.
         It 'discovers and loads a shipped config from its owning module' {
             $configuration = Get-Config -Config tools                       # registry type: Catzc.Base.Execution.ToolsConfig
             $configuration.Keys | Should -Contain 'python'
@@ -82,7 +83,8 @@ Describe 'Get-Config' -Tag 'L0' {
     }
 
     Context 'a consumer overlay fragment' -Tag 'logic' {
-        # A bundled config and an overlay, both fixtures behind their seams, so a merge is tested without a real consumer.
+        # A bundled config and an overlay, both fixtures behind their seams, so a merge is tested without a real
+        # consumer.
         BeforeEach {
             $script:bundled = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
             $script:overlay = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
@@ -98,8 +100,10 @@ Describe 'Get-Config' -Tag 'L0' {
         }
 
         It 'merges the fragment onto the bundled config before it is returned' {
-            Set-Content -Path (Join-Path $bundled 'widget-merged.yml') -Value @('owner: widget', 'limit: 3', 'gadgets:', '  lever: 1', '  sprung: 2')
-            Set-Content -Path (Join-Path $overlay 'Catzc.Base.Widget/configs/widget-merged.yml') -Value @('limit: 5', 'gadgets:', '  sprung: null')
+            Set-Content -Path (Join-Path $bundled 'widget-merged.yml') -Value @('owner: widget', 'limit: 3', 'gadgets:',
+                '  lever: 1', '  sprung: 2')
+            Set-Content -Path (Join-Path $overlay 'Catzc.Base.Widget/configs/widget-merged.yml') -Value @('limit: 5',
+                'gadgets:', '  sprung: null')
             $configuration = Get-Config -Config widget-merged
             $configuration.owner | Should -Be 'widget'
             $configuration.limit | Should -Be 5
@@ -125,12 +129,14 @@ Describe 'Get-Config' -Tag 'L0' {
         It 'refuses a fragment of a sealed config' {
             Set-Content -Path (Join-Path $bundled 'widget-sealed.yml') -Value 'limit: 3'
             Set-Content -Path (Join-Path $overlay 'Catzc.Base.Widget/configs/widget-sealed.yml') -Value 'limit: 5'
-            { Get-Config -Config widget-sealed } | Should -Throw "*Config 'widget-sealed' is sealed*remove*widget-sealed.yml*"
+            { Get-Config -Config widget-sealed } |
+                Should -Throw "*Config 'widget-sealed' is sealed*remove*widget-sealed.yml*"
         }
 
         It 'refuses a fragment that is not a map' {
             Set-Content -Path (Join-Path $bundled 'widget-list.yml') -Value 'limit: 3'
-            Set-Content -Path (Join-Path $overlay 'Catzc.Base.Widget/configs/widget-list.yml') -Value @('- gadget', '- gizmo')
+            Set-Content -Path (Join-Path $overlay 'Catzc.Base.Widget/configs/widget-list.yml') -Value @('- gadget',
+                '- gizmo')
             { Get-Config -Config widget-list } | Should -Throw '*must both be maps*'
         }
     }
@@ -261,8 +267,10 @@ namespace CatzcGetConfigTest {
         }
 
         It 'rejects an unknown top-level key and a non-map configs value' {
-            { [Catzc.Base.Config.ConfigsConfig]::new(@{ widget = 1 }) } | Should -Throw "*unknown top-level key 'widget' (allowed: configs)*"
-            { [Catzc.Base.Config.ConfigsConfig]::new(@{ configs = 'gadget' }) } | Should -Throw "*'configs' must be a map*"
+            { [Catzc.Base.Config.ConfigsConfig]::new(@{ widget = 1 }) } |
+                Should -Throw "*unknown top-level key 'widget' (allowed: configs)*"
+            { [Catzc.Base.Config.ConfigsConfig]::new(@{ configs = 'gadget' }) } |
+                Should -Throw "*'configs' must be a map*"
         }
 
         It 'accepts an absent or empty configs map' {
@@ -274,7 +282,8 @@ namespace CatzcGetConfigTest {
             $thrown = { [Catzc.Base.Config.ConfigsConfig]::new(@{ configs = [ordered]@{ a = @{ module = 'X' }; b = @{ type = 'Foo'; pwsh = 'Bar' }; c = $null } }) } |
                 Should -Throw -PassThru
             $thrown.Exception.Message | Should -BeLike "*config 'a': an entry must specify a 'type'*"
-            $thrown.Exception.Message | Should -BeLike "*config 'b': unknown key 'pwsh' (allowed: type, overridable, differs)*"
+            $thrown.Exception.Message |
+                Should -BeLike "*config 'b': unknown key 'pwsh' (allowed: type, overridable, differs)*"
             $thrown.Exception.Message | Should -BeLike "*config 'c': an entry must specify a 'type'*"
         }
 
@@ -304,9 +313,11 @@ namespace CatzcGetConfigTest {
 
         It 'compares a shipped key with the type''s Default constant of that key, scalars only' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
             $type = [Catzc.Base.Variants.VariantsConfig]
-            $same = [Catzc.Base.Config.ConfigDefaultDifference]::Compare($type, [ordered]@{ ado_naming = 'standard'; have_customers = $false })
+            $same = [Catzc.Base.Config.ConfigDefaultDifference]::Compare($type,
+                [ordered]@{ ado_naming = 'standard'; have_customers = $false })
             @($same).Count | Should -Be 0
-            $differs = @([Catzc.Base.Config.ConfigDefaultDifference]::Compare($type, [ordered]@{ ado_naming = 'gadget'; tracks = @{ widgets = @{} }; widget_size = 3 }))
+            $differs = @([Catzc.Base.Config.ConfigDefaultDifference]::Compare($type,
+                [ordered]@{ ado_naming = 'gadget'; tracks = @{ widgets = @{} }; widget_size = 3 }))
             $differs.Count | Should -Be 1
             $differs[0].key | Should -BeExactly 'ado_naming'
             $differs[0].shipped | Should -BeExactly 'gadget'
@@ -320,7 +331,8 @@ namespace CatzcGetConfigTest {
         }
 
         It 'the shipped registry seals the engine-intrinsic configs' -Tag 'integrity' {
-            $raw = Get-Content (Get-CatzcModuleRoot -Module Catzc.Base.Config 'configs/configs.yml') -Raw | ConvertFrom-Yaml -Ordered
+            $raw = Get-Content (Get-CatzcModuleRoot -Module Catzc.Base.Config 'configs/configs.yml') -Raw |
+                ConvertFrom-Yaml -Ordered
             $registry = [Catzc.Base.Config.ConfigsConfig]::new($raw)
             foreach ($name in 'configs', 'dependencies', 'profiles', 'exporter', 'glossary') {
                 @($registry.sealedConfigs) | Should -Contain $name

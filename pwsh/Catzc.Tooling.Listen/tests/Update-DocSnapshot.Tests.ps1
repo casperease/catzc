@@ -14,7 +14,8 @@ Describe 'Update-DocSnapshot' -Tag 'L0', 'logic' {
         Update-DocSnapshot -Session $script:session -Path 'docs/drs/widget.md'
         @(Get-DocChange -Session $script:session).Count | Should -Be 0
         [System.IO.File]::ReadAllText((Join-Path $script:session 'seen/drs/widget.md')) | Should -BeLike '*Moved on.*'
-        [System.IO.File]::ReadAllText((Join-Path $script:session 'baseline/drs/widget.md')) | Should -BeLike '*widget rule*'
+        [System.IO.File]::ReadAllText((Join-Path $script:session 'baseline/drs/widget.md')) |
+            Should -BeLike '*widget rule*'
     }
 
     It 'removes a deleted file from seen and its index' {
@@ -27,6 +28,7 @@ Describe 'Update-DocSnapshot' -Tag 'L0', 'logic' {
     }
 
     It 'throws on a path outside the watched folder' {
-        { Update-DocSnapshot -Session $script:session -Path 'gizmo/widget.ps1' } | Should -Throw "*not under the watched folder 'docs'*"
+        { Update-DocSnapshot -Session $script:session -Path 'gizmo/widget.ps1' } |
+            Should -Throw "*not under the watched folder 'docs'*"
     }
 }

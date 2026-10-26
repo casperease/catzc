@@ -84,7 +84,8 @@ function Test-Pipelines {
                 if ($record.Classification -eq 'Pipeline') {
                     $violations.Add((New-Violation -RelativePath $rel -Rule 'ADR-ADO-NAME-FLATPIPELINESFOLDER' -Message "A pipeline (trigger/pr/… shape) must live flat in $place/, not inside '$topFolder/'."))
                 }
-                elseif ($folderKind.ContainsKey($topFolder) -and $record.TemplateType -and "$($record.TemplateType)" -ne $folderKind[$topFolder]) {
+                elseif ($folderKind.ContainsKey($topFolder) -and $record.TemplateType -and
+                    "$($record.TemplateType)" -ne $folderKind[$topFolder]) {
                     $violations.Add((New-Violation -RelativePath $rel -Rule 'ADR-ADO-NAME-TEMPLATEKINDFOLDER' -Message "A '$($record.TemplateType)' template does not belong in '$topFolder/' (expected $($folderKind[$topFolder]))."))
                 }
             }

@@ -3,8 +3,10 @@ Describe 'Get-LayerStackMinimapData' -Tag 'L0', 'logic' {
         $script:schema = [System.IO.File]::ReadAllText((Join-Path (Get-RepositoryRoot) 'contracts/catzc/0.1.0/catzc.base.maps/minimap.schema.json'))
         Mock Get-DrsRuleSet -ModuleName Catzc.Base.Maps {
             $concerns = [string[]] @('alpha')
-            [Catzc.Base.Drs.DrsRuleSet]::new('widgetry', 'fixture', 'widget', 'ADR-WIDGET-GADGET', 'WIDGET', 'WIDGET', 'TOP', $concerns, $concerns, 'engine', $null)
-            [Catzc.Base.Drs.DrsRuleSet]::new('widgetry', 'fixture', 'widget', 'ADR-WIDGET-GADGET-LONG', 'WIDGET', 'WIDGET', 'TOP', $concerns, $concerns, 'importer', $null)
+            [Catzc.Base.Drs.DrsRuleSet]::new('widgetry', 'fixture', 'widget', 'ADR-WIDGET-GADGET', 'WIDGET', 'WIDGET',
+                'TOP', $concerns, $concerns, 'engine', $null)
+            [Catzc.Base.Drs.DrsRuleSet]::new('widgetry', 'fixture', 'widget', 'ADR-WIDGET-GADGET-LONG', 'WIDGET',
+                'WIDGET', 'TOP', $concerns, $concerns, 'importer', $null)
         }
         Mock Get-MinimapSubject -ModuleName Catzc.Base.Maps {
             [pscustomobject]@{ Path = 'widgets/Get-Widget.ps1'; Requested = 'ADR-WIDGET-GADGET-SPIN'; Citations = @(); Facts = $null }
@@ -22,7 +24,8 @@ Describe 'Get-LayerStackMinimapData' -Tag 'L0', 'logic' {
     }
 
     It 'hands the world map it is given to the subject' {
-        $map = [Catzc.Base.Maps.WorldMapBuilder]::Build(@(), @(), @(), [ordered]@{}, [ordered]@{}, [ordered]@{}, [ordered]@{}, [ordered]@{}, @())
+        $map = [Catzc.Base.Maps.WorldMapBuilder]::Build(@(), @(), @(),
+            [ordered]@{}, [ordered]@{}, [ordered]@{}, [ordered]@{}, [ordered]@{}, @())
         $null = Get-LayerStackMinimapData -Adr 'ADR-WIDGET' -WorldMap $map
         Should -Invoke Get-MinimapSubject -ModuleName Catzc.Base.Maps -Times 1 -Exactly -ParameterFilter { [object]::ReferenceEquals($WorldMap, $map) }
     }

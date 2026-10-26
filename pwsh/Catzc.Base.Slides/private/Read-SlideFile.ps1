@@ -20,10 +20,12 @@ function Read-SlideFile {
 
     $config = [ordered]@{}
     if ($state.HasFrontMatter) {
-        $match = [regex]::Match($text, '\A---\n(.*?)\n---(?:\n|\z)', [System.Text.RegularExpressions.RegexOptions]::Singleline)
+        $match = [regex]::Match($text, '\A---\n(.*?)\n---(?:\n|\z)',
+            [System.Text.RegularExpressions.RegexOptions]::Singleline)
         if ($match.Success) {
             $frontMatter = ConvertFrom-Yaml -Yaml $match.Groups[1].Value -Ordered
-            if ($frontMatter -is [System.Collections.IDictionary] -and $frontMatter.Contains('catzc') -and $frontMatter['catzc'] -is [System.Collections.IDictionary]) {
+            if ($frontMatter -is [System.Collections.IDictionary] -and $frontMatter.Contains('catzc') -and
+                $frontMatter['catzc'] -is [System.Collections.IDictionary]) {
                 $catzc = $frontMatter['catzc']
                 if ($catzc.Contains('config') -and $catzc['config'] -is [System.Collections.IDictionary]) {
                     $config = $catzc['config']
@@ -33,7 +35,8 @@ function Read-SlideFile {
     }
     # The cites come from the slide's text, the way the drs-codes processor finds them; the head is never read back.
     $cites = [System.Collections.Generic.SortedSet[string]]::new([System.StringComparer]::Ordinal)
-    foreach ($found in [regex]::Matches($state.Body, "(?<![\w-])$((Get-Config -Config drs).CodeForm.Cited)(?![\w#-]|:\d)")) {
+    foreach ($found in [regex]::Matches($state.Body,
+        "(?<![\w-])$((Get-Config -Config drs).CodeForm.Cited)(?![\w#-]|:\d)")) {
         [void] $cites.Add($found.Value)
     }
 

@@ -51,9 +51,9 @@ content:
     - { id: g-quality, kind: gate, label: Quality gate, in: band-repository }
     - { id: a-review, kind: drsonly, label: Same-change review, in: band-no-gate }
   edges:
-    - { from: s-azure-ext, to: s-tooling, kind: thick, label: "" }
-    - { from: s-azure-ext, to: s-base, kind: thick, label: "" }
-    - { from: s-tooling, to: s-base, kind: thick, label: "" }
+    - { from: s-azure-ext, to: s-tooling, kind: thick, label: calls }
+    - { from: s-azure-ext, to: s-base, kind: thick, label: calls }
+    - { from: s-tooling, to: s-base, kind: thick, label: calls }
     - { from: g-load, to: g-quality, kind: flow, label: "" }
   markers:
     - { at: s-azure-ext, number: 1 }

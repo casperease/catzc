@@ -25,7 +25,8 @@ function Save-Topic {
 
     $branch = "$((Invoke-Executable 'git rev-parse --abbrev-ref HEAD' -WorkingDirectory $RepositoryRoot -PassThru -Silent).Output)".Trim()
     Assert-True ($branch -cne 'HEAD') -ErrorText 'Save-Topic needs a named branch; HEAD is detached.'
-    Assert-False ((Test-GitWorkspace -MainViaPr) -and $Config.IsMain($branch)) -ErrorText "Save-Topic stopped: git_workspace is main-via-pr and '$branch' is checked out. Work on a topic branch and open a pull request."
+    Assert-False ((Test-GitWorkspace -MainViaPr) -and
+        $Config.IsMain($branch)) -ErrorText "Save-Topic stopped: git_workspace is main-via-pr and '$branch' is checked out. Work on a topic branch and open a pull request."
 
     $status = "$((Invoke-Executable 'git status --porcelain' -WorkingDirectory $RepositoryRoot -PassThru -Silent).Output)".Trim()
     if (-not $status) {

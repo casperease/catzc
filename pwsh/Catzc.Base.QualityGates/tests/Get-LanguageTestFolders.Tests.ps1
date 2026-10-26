@@ -39,7 +39,8 @@ Describe 'Get-LanguageTestFolders' -Tag 'L0', 'logic' {
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.QualityGates { $script:repo }
         Mock Get-CatzcModule -ModuleName Catzc.Base.QualityGates -ParameterFilter { $EngineTrack } {
             foreach ($name in 'Catzc.Widget', 'Catzc.Gadget.Parts', '.internal') {
-                [Catzc.Base.Modules.Module]::new($name, 'widgets', 'widget-folder', 'widgetry', "widgetry/$name", 'folder', $null, $null, $null, $null)
+                [Catzc.Base.Modules.Module]::new($name, 'widgets', 'widget-folder', 'widgetry', "widgetry/$name",
+                    'folder', $null, $null, $null, $null)
             }
         }
         Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'go' } {
@@ -55,10 +56,14 @@ Describe 'Get-LanguageTestFolders' -Tag 'L0', 'logic' {
 
     It 'maps every holder test folder to the catzc module named for it in its language''s folder case, and a module''s own tests folder to that module, by registry language then folder' -Tag 'ADR-AUTO-IDIOM-TESTFOLDERBYIDIOM' {
         $folders = @(InModuleScope Catzc.Base.QualityGates { Get-LanguageTestFolders })
-        @($folders.ForEach({ "$($_.Language) $($_.Name)" })) | Should -Be @('python catzc_widget', 'python Widget.Kit', 'go catzcgadgetparts', 'go catzcwidget', 'bash catzc-gadget-parts')
-        @($folders.Module) | Should -Be @('Catzc.Widget', 'Widget.Kit', 'Catzc.Gadget.Parts', 'Catzc.Widget', 'Catzc.Gadget.Parts')
-        $folders[0].Folder | Should -Be ([System.IO.Path]::GetFullPath((Join-Path $script:repo 'python/tests/catzc_widget')))
-        $folders[1].Folder | Should -Be ([System.IO.Path]::GetFullPath((Join-Path $script:repo 'python/Widget.Kit/tests')))
+        @($folders.ForEach({ "$($_.Language) $($_.Name)" })) | Should -Be @('python catzc_widget', 'python Widget.Kit',
+            'go catzcgadgetparts', 'go catzcwidget', 'bash catzc-gadget-parts')
+        @($folders.Module) | Should -Be @('Catzc.Widget', 'Widget.Kit', 'Catzc.Gadget.Parts', 'Catzc.Widget',
+            'Catzc.Gadget.Parts')
+        $folders[0].Folder |
+            Should -Be ([System.IO.Path]::GetFullPath((Join-Path $script:repo 'python/tests/catzc_widget')))
+        $folders[1].Folder |
+            Should -Be ([System.IO.Path]::GetFullPath((Join-Path $script:repo 'python/Widget.Kit/tests')))
         $folders[3].Folder | Should -Be ([System.IO.Path]::GetFullPath((Join-Path $script:repo 'go/tests/catzcwidget')))
     }
 

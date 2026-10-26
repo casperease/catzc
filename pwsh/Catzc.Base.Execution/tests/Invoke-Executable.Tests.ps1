@@ -207,7 +207,8 @@ Describe 'Invoke-Executable' -Tag 'L0', 'logic' {
         It 'writes the text to the child''s stdin and closes it, so a reader finishes' {
             $result = Invoke-Executable $script:inputReader -InputText "pear`nbanana`napple`n" -PassThru -Silent
             $result.ExitCode | Should -Be 0
-            @($result.Output -split "`r?`n" | Where-Object { $_ } | Sort-Object) | Should -Be @('apple', 'banana', 'pear')
+            @($result.Output -split "`r?`n" | Where-Object { $_ } | Sort-Object) | Should -Be @('apple', 'banana',
+                'pear')
         }
 
         It 'delivers an input larger than the pipe buffer without a deadlock' {
@@ -300,12 +301,14 @@ Describe 'Invoke-Executable' -Tag 'L0', 'logic' {
         }
 
         It '-DrainSeconds and -Direct are mutually exclusive, and a drain wait under one second is refused' {
-            { Invoke-Executable 'echo hello' -DrainSeconds 5 -Direct } | Should -Throw '*Parameter set cannot be resolved*'
+            { Invoke-Executable 'echo hello' -DrainSeconds 5 -Direct } |
+                Should -Throw '*Parameter set cannot be resolved*'
             { Invoke-Executable $simpleCmd -DrainSeconds 0 -Silent } | Should -Throw
         }
 
         It '-TimeoutSeconds and -Direct are mutually exclusive' {
-            { Invoke-Executable 'echo hello' -TimeoutSeconds 5 -Direct } | Should -Throw '*Parameter set cannot be resolved*'
+            { Invoke-Executable 'echo hello' -TimeoutSeconds 5 -Direct } |
+                Should -Throw '*Parameter set cannot be resolved*'
         }
     }
 
@@ -313,7 +316,8 @@ Describe 'Invoke-Executable' -Tag 'L0', 'logic' {
         # L2: drives a real child pwsh that outlives the limit.
         It 'kills a process that outlives -TimeoutSeconds and throws a TimeoutException naming the limit' -Tag 'L2' {
             $stopwatch = [System.Diagnostics.Stopwatch]::StartNew()
-            $err = { Invoke-Executable 'pwsh -NoProfile -Command Start-Sleep -Seconds 10' -TimeoutSeconds 1 -Silent } | Should -Throw -PassThru
+            $err = { Invoke-Executable 'pwsh -NoProfile -Command Start-Sleep -Seconds 10' -TimeoutSeconds 1 -Silent } |
+                Should -Throw -PassThru
             $stopwatch.Elapsed.TotalSeconds | Should -BeLessThan 8
             $err.Exception | Should -BeOfType [System.TimeoutException]
             $err.Exception.Message | Should -BeLike '*after 1s*timeouts.yml*'
@@ -322,10 +326,12 @@ Describe 'Invoke-Executable' -Tag 'L0', 'logic' {
         It 'fails fast, naming the cause, when a process the command started keeps its output open after it exits' -Tag 'L2' {
             $leaver = 'pwsh -NoProfile -NonInteractive -Command "Start-Process -NoNewWindow -FilePath pwsh -ArgumentList ''-NoProfile'',''-Command'',''Start-Sleep -Seconds 20''; exit 0"'
             $stopwatch = [System.Diagnostics.Stopwatch]::StartNew()
-            $err = { Invoke-Executable $leaver -TimeoutSeconds 60 -DrainSeconds 1 -Silent -PassThru } | Should -Throw -PassThru
+            $err = { Invoke-Executable $leaver -TimeoutSeconds 60 -DrainSeconds 1 -Silent -PassThru } |
+                Should -Throw -PassThru
             $stopwatch.Elapsed.TotalSeconds | Should -BeLessThan 15
             $err.Exception | Should -BeOfType [System.IO.IOException]
-            $err.Exception.Message | Should -BeLike '*still holds its output open*waited 1s after exit*--disable-build-servers*'
+            $err.Exception.Message |
+                Should -BeLike '*still holds its output open*waited 1s after exit*--disable-build-servers*'
         }
 
         It "defaults the limit to the executable's entry from Get-TimeoutSeconds" {
@@ -391,7 +397,8 @@ Describe 'Invoke-Executable' -Tag 'L0', 'logic' {
             try {
                 $result = Invoke-Executable $cwdCmd -WorkingDirectory $tempDirectory -Direct -Silent
                 # See the Stream-mode test: normalize the macOS /private symlink prefix on both sides.
-                (($result | Out-String).Trim() -replace '^/private', '') | Should -Be ($tempDirectory -replace '^/private', '')
+                (($result | Out-String).Trim() -replace '^/private', '') |
+                    Should -Be ($tempDirectory -replace '^/private', '')
             }
             finally {
                 Remove-Item $tempDirectory -Force

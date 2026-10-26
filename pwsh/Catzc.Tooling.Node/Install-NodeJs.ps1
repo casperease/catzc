@@ -39,7 +39,8 @@ function Install-NodeJs {
         Assert-IsAdministrator -ErrorText 'Install-NodeJs on Linux requires root (apt-get). Run as root or install node_js manually.'
         Assert-Command apt-get
 
-        # The distro package trails the pinned major, so NodeSource's repo is used; its url holds the major, so a new pin rewrites it.
+        # The distro package trails the pinned major, so NodeSource's repo is used; its url holds the major, so a new
+        # pin rewrites it.
         $sourcePath = '/etc/apt/sources.list.d/nodesource.list'
         $gpgKeyPath = '/usr/share/keyrings/nodesource.gpg'
         $repoLine = "deb [signed-by=$gpgKeyPath] https://deb.nodesource.com/node_$Version.x nodistro main"

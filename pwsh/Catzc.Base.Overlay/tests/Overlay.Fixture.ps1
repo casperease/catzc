@@ -6,7 +6,8 @@ catzc:
 ---
 #>
 
-# A real dynamic module with neutral names, so its functions and contracts behave as bundled code does without naming any real one.
+# A real dynamic module with neutral names, so its functions and contracts behave as bundled code does without naming
+# any real one.
 $script:fixtureRoot = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
 $script:modulesRoot = Join-Path $fixtureRoot 'bundle'
 $script:overlayRoot = Join-Path $fixtureRoot 'consumer/.catzc/pwsh'
@@ -17,7 +18,8 @@ Set-Content -Path (Join-Path $modulesRoot 'Catzc.Base.Widget/configs/widget.yml'
 Set-Content -Path (Join-Path $modulesRoot 'Catzc.Base.Widget/assets/lever.txt') -Value 'bundled'
 
 function script:New-OverlayFixtureModule {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '', Justification = 'Test fixture: the module lives inside one test file''s lifecycle and Remove-OverlayFixture removes it; its output belongs to Pester')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '',
+        Justification = 'Test fixture: the module lives inside one test file''s lifecycle and Remove-OverlayFixture removes it; its output belongs to Pester')]
     param()
 
     New-Module -Name Catzc.Base.Widget -ScriptBlock {
@@ -58,7 +60,8 @@ function script:Clear-OverlayFixture {
 }
 
 function script:Remove-OverlayFixture {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '', Justification = 'Test fixture: removes the module New-OverlayFixtureModule loaded for the same test file; its output belongs to Pester')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '',
+        Justification = 'Test fixture: removes the module New-OverlayFixtureModule loaded for the same test file; its output belongs to Pester')]
     param()
 
     Remove-Module Catzc.Base.Widget -Force -ErrorAction Ignore

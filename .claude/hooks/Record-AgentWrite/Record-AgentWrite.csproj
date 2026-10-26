@@ -1,15 +1,18 @@
 <!--
-  The Claude Code hook that records what agent sessions write (Program.cs). Build-AgentHook publishes it, framework-dependent,
-  to .claude/hooks/bin/ whenever its sources change; obj/bin here and the published output are gitignored.
+  The Claude Code hook that records what agent sessions write (Program.cs). Build-AgentHook publishes
+it, framework-dependent,
+  to .claude/hooks/bin/ whenever its sources change; obj/bin here and the published output are
+gitignored.
 
-  The ledger's path and line format, and the content hash, are the Catzc modules' own types, compiled in from their source files,
+  The ledger's path and line format, and the content hash, are the Catzc modules' own types, compiled
+in from their source files,
   so the hook and the listener that reads the ledger can never drift apart.
 -->
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <!-- The one configuration and platform of bcl.yml
-        ([ADR-BCL-TYPES-DEBUGANYCPU](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-debuganycpu)). -->
+    ([ADR-BCL-TYPES-DEBUGANYCPU](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-debuganycpu)). -->
     <Configurations>Debug</Configurations>
     <Platforms>AnyCPU</Platforms>
     <AssemblyName>Record-AgentWrite</AssemblyName>
@@ -23,14 +26,24 @@
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="../../../$(CatzcModulesFolder)/Catzc.Base.Objects/types/ConsoleText.cs" Link="linked/ConsoleText.cs" />
-    <Compile Include="../../../$(CatzcModulesFolder)/Catzc.Base.Objects/types/ConsoleDisplayAttribute.cs" Link="linked/ConsoleDisplayAttribute.cs" />
-    <Compile Include="../../../$(CatzcModulesFolder)/Catzc.Base.Objects/types/TypeShape.cs" Link="linked/TypeShape.cs" />
-    <Compile Include="../../../$(CatzcModulesFolder)/Catzc.Base.Objects/types/DictionaryRecord.cs" Link="linked/DictionaryRecord.cs" />
-    <Compile Include="../../../$(CatzcModulesFolder)/Catzc.Base.Globs/types/DurableHash.cs" Link="linked/DurableHash.cs" />
-    <Compile Include="../../../$(CatzcModulesFolder)/Catzc.Tooling.Listen/types/WriteLedger.cs" Link="linked/WriteLedger.cs" />
+    <Compile Include="../../../$(CatzcModulesFolder)/Catzc.Base.Objects/types/ConsoleText.cs"
+      Link="linked/ConsoleText.cs" />
+    <Compile
+      Include="../../../$(CatzcModulesFolder)/Catzc.Base.Objects/types/ConsoleDisplayAttribute.cs"
+      Link="linked/ConsoleDisplayAttribute.cs" />
+    <Compile Include="../../../$(CatzcModulesFolder)/Catzc.Base.Objects/types/TypeShape.cs"
+      Link="linked/TypeShape.cs" />
+    <Compile Include="../../../$(CatzcModulesFolder)/Catzc.Base.Objects/types/DictionaryRecord.cs"
+      Link="linked/DictionaryRecord.cs" />
+    <Compile Include="../../../$(CatzcModulesFolder)/Catzc.Base.Globs/types/DurableHash.cs"
+      Link="linked/DurableHash.cs" />
+    <Compile Include="../../../$(CatzcModulesFolder)/Catzc.Tooling.Listen/types/WriteLedger.cs"
+      Link="linked/WriteLedger.cs" />
   </ItemGroup>
-  <Target Name="RequireCatzcModulesFolder" BeforeTargets="BeforeBuild" Condition="'$(CatzcModulesFolder)' == ''">
-    <Error Text="CatzcModulesFolder is not set: build the hook with Build-AgentHook, which passes the modules folder from Get-CatzcModulesFolder." />
+  <Target Name="RequireCatzcModulesFolder" BeforeTargets="BeforeBuild"
+    Condition="'$(CatzcModulesFolder)' == ''">
+    <Error
+      Text="CatzcModulesFolder is not set: build the hook with Build-AgentHook, which passes the modules folder from Get-CatzcModulesFolder."
+    />
   </Target>
 </Project>

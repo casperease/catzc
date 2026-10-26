@@ -74,7 +74,8 @@ Describe 'Get-TestTagViolations' -Tag 'L0', 'logic' {
                 Tests = @(
                     [pscustomobject]@{
                         Tag          = @()
-                        Block        = [pscustomobject]@{ IsRoot = $false; Tag = @('L1', 'logic', 'serial'); Parent = $root }
+                        Block        = [pscustomobject]@{ IsRoot = $false; Tag = @('L1', 'logic',
+                            'serial'); Parent = $root }
                         ExpandedName = 'taggedSerial'
                         ScriptBlock  = [pscustomobject]@{ File = 'fixture.Tests.ps1' }
                     }
@@ -107,7 +108,8 @@ Describe 'Get-TestTagViolations' -Tag 'L0', 'logic' {
 
     Context 'the optional ADR provenance axis' -Tag 'ADR-AUTO-TEST-PROVENANCETAGS' {
         BeforeAll {
-            Mock Get-CatsDrsRuleIds { @('ADR-WIDGET-GADGET-TURN', 'ADR-WIDGET-SPROCKET-COG') } -ModuleName Catzc.Base.QualityGates
+            Mock Get-CatsDrsRuleIds { @('ADR-WIDGET-GADGET-TURN',
+                'ADR-WIDGET-SPROCKET-COG') } -ModuleName Catzc.Base.QualityGates
 
             function New-Discovery {
                 param([string] $Name, [string[]] $Tags)

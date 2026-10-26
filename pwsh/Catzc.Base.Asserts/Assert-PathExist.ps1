@@ -19,7 +19,8 @@ function Assert-PathExist {
     )
 
     if (-not (Test-Path -Path $Path -PathType $PathType)) {
-        # A [string] parameter turns $null into '', which ?? never coalesces, so only a truth test lets the default message through.
+        # A [string] parameter turns $null into '', which ?? never coalesces, so only a truth test lets the default
+        # message through.
         $message = if ($ErrorText) {
             $ErrorText
         }

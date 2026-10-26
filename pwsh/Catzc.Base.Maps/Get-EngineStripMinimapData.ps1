@@ -20,7 +20,8 @@ function Get-EngineStripMinimapData {
         [switch] $AsJson
     )
 
-    # Each execution engine beside the file languages it runs: a language whose extensions include one of the engine's script extensions.
+    # Each execution engine beside the file languages it runs: a language whose extensions include one of the engine's
+    # script extensions.
     $languages = @(Get-FileLanguage)
     $cells = [System.Collections.Generic.List[string[]]]::new()
     $runs = @{}

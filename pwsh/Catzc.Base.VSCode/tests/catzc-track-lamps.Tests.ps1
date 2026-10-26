@@ -13,7 +13,8 @@ Describe 'catzc-track-lamps' -Tag 'L0', 'logic' {
         $script:call = {
             param([string] $Function, [object[]] $Arguments)
             $argumentFile = Join-Path $TestDrive 'arguments.json'
-            [System.IO.File]::WriteAllText($argumentFile, (ConvertTo-Json -InputObject @($Arguments) -Depth 8 -Compress))
+            [System.IO.File]::WriteAllText($argumentFile,
+                (ConvertTo-Json -InputObject @($Arguments) -Depth 8 -Compress))
             $driver = "const m = require('$script:script'); const a = JSON.parse(require('fs').readFileSync(process.argv[1], 'utf8'));" +
             " if (['hiddenGlobs', 'census', 'evaluate'].includes('$Function')) a[1] = new Set(a[1]);" +
             " Promise.resolve(m['$Function'](...a)).then((r) => process.stdout.write(JSON.stringify(r)));"
@@ -24,16 +25,19 @@ Describe 'catzc-track-lamps' -Tag 'L0', 'logic' {
         }
     }
 
-    # The engine-core cases run in node: js/catzc-track-lamps/tests/ (Invoke-JavaScriptTest); the shared vectors stay here, read from yml.
+    # The engine-core cases run in node: js/catzc-track-lamps/tests/ (Invoke-JavaScriptTest); the shared vectors stay
+    # here, read from yml.
     It 'answers every shared vector of the lamp language: the files shown, the files no lamp claims, each lamp''s condition' {
         $vectors = Get-Content -LiteralPath (Join-Path $PSScriptRoot '../../Catzc.Base.Globs/tests/assets/lamp-vectors.yml') -Raw | ConvertFrom-Yaml -Ordered
         $vectors.cases.Count | Should -BeGreaterThan 0
         foreach ($case in $vectors.cases) {
             $answer = & $script:call evaluate @($vectors.lamps, @($case.lit), @($vectors.files), $case.facts)
             @($answer.shown | Sort-Object) | Should -Be @($case.shown | Sort-Object) -Because "$($case.name): shown"
-            @($answer.unaccounted | Sort-Object) | Should -Be @($case.unaccounted | Sort-Object) -Because "$($case.name): unaccounted"
+            @($answer.unaccounted | Sort-Object) |
+                Should -Be @($case.unaccounted | Sort-Object) -Because "$($case.name): unaccounted"
             foreach ($lamp in $case.conditions.Keys) {
-                $answer.conditions[$lamp] | Should -Be $case.conditions[$lamp] -Because "$($case.name): the $lamp lamp's condition"
+                $answer.conditions[$lamp] |
+                    Should -Be $case.conditions[$lamp] -Because "$($case.name): the $lamp lamp's condition"
             }
         }
     }
@@ -46,7 +50,8 @@ Describe 'catzc-track-lamps' -Tag 'L0', 'logic' {
         $result = $output | ConvertFrom-Json -AsHashtable
         @($result.states).Count | Should -BeGreaterThan 20 -Because 'every shipped lamp is measured off and vetoed'
         foreach ($state in $result.states) {
-            $state.size | Should -BeLessOrEqual $result.roof -Because "$($state.state) writes $($state.size) characters, over the $($result.roof) a spawned search or watcher process takes (spawn ENAMETOOLONG)"
+            $state.size |
+                Should -BeLessOrEqual $result.roof -Because "$($state.state) writes $($state.size) characters, over the $($result.roof) a spawned search or watcher process takes (spawn ENAMETOOLONG)"
         }
     }
 
@@ -69,7 +74,8 @@ Describe 'catzc-track-lamps — the real repository' -Tag 'L1', 'integrity', 'so
     }
 
     It 'puts in the tests aspect every tracked file a module or the internal modules'' folder keeps in its tests folder' {
-        # Aspects belong to units, so only a unit's tests are in scope; vendored code is no unit, its test folders are tools.
+        # Aspects belong to units, so only a unit's tests are in scope; vendored code is no unit, its test folders are
+        # tools.
         $modules = Get-CatzcModulesFolder
         $tests = $script:tracked.Where({ $_ -clike "$modules/*/tests/*" -and $_ -notlike "$modules/.vendor/*" })
         $tests.Where({ $_ -like "$modules/.internal/tests/*" }).Count | Should -BeGreaterThan 0
@@ -84,7 +90,8 @@ Describe 'catzc-track-lamps — the real repository' -Tag 'L1', 'integrity', 'so
 
     It 'renders into the editor settings the filters the repository has now' {
         $settings = Get-Content -LiteralPath (Join-Path (Get-RepositoryRoot) '.vscode/settings.json') -Raw
-        $rendered = (($settings -split "`n").Where({ $_ -notmatch '^\s*//' }) -join "`n" | ConvertFrom-Json -AsHashtable)['catzc.trackLamps.filters']
+        $rendered = (($settings -split "`n").Where({ $_ -notmatch '^\s*//' }) -join "`n" |
+            ConvertFrom-Json -AsHashtable)['catzc.trackLamps.filters']
         @($rendered.Keys) | Should -Be $script:declared -Because 'the lamps follow the declaration order'
         foreach ($filter in Get-RepositoryFilter) {
             ConvertTo-Json -InputObject @($rendered[$filter.name]) -Depth 6 -Compress |
@@ -108,8 +115,10 @@ Describe 'catzc-track-lamps — the real repository' -Tag 'L1', 'integrity', 'so
         ' process.stdout.write(JSON.stringify(r)); })();'
         $result = & node -e $driver $filterFile | ConvertFrom-Json -AsHashtable
         foreach ($lamp in $script:declared) {
-            $result[$lamp].wrong | Should -Be 0 -Because "with $lamp off no file may go against its filters (first: $($result[$lamp].first -join ', '))"
-            $result[$lamp].unclaimed | Should -Be 0 -Because "every file on disk belongs to a filter (first: $($result[$lamp].first -join ', '))"
+            $result[$lamp].wrong |
+                Should -Be 0 -Because "with $lamp off no file may go against its filters (first: $($result[$lamp].first -join ', '))"
+            $result[$lamp].unclaimed |
+                Should -Be 0 -Because "every file on disk belongs to a filter (first: $($result[$lamp].first -join ', '))"
         }
     }
 
@@ -122,10 +131,12 @@ Describe 'catzc-track-lamps — the real repository' -Tag 'L1', 'integrity', 'so
         $all = @($contributes['commands'])
         # The orchestrator is no lamp: one command per colour, each with its icon, leftmost in the title row.
         $orchestrator = @($all.Where({ $_['command'] -like 'catzc.lamps.orchestrate.*' }))
-        @($orchestrator.ForEach({ $_['command'] })) | Should -Be @('catzc.lamps.orchestrate.red', 'catzc.lamps.orchestrate.blue', 'catzc.lamps.orchestrate.green')
+        @($orchestrator.ForEach({ $_['command'] })) | Should -Be @('catzc.lamps.orchestrate.red',
+            'catzc.lamps.orchestrate.blue', 'catzc.lamps.orchestrate.green')
         # The open lamp is no switch either: one next command per condition, its empty icon drawn invisible.
         $next = @($all.Where({ $_['command'] -like 'catzc.lamps.open.next*' }))
-        @($next.ForEach({ $_['command'] })) | Should -Be @('catzc.lamps.open.next', 'catzc.lamps.open.next.staged', 'catzc.lamps.open.next.unstaged', 'catzc.lamps.open.next.failed', 'catzc.lamps.open.next.empty')
+        @($next.ForEach({ $_['command'] })) | Should -Be @('catzc.lamps.open.next', 'catzc.lamps.open.next.staged',
+            'catzc.lamps.open.next.unstaged', 'catzc.lamps.open.next.failed', 'catzc.lamps.open.next.empty')
         # The language lamps and the button that ticks them are checked below, apart from the filter lamps.
         $languageCommands = @($all.Where({ $_['command'] -like 'catzc.lamps.lang-*' }))
         $pick = @($all.Where({ $_['command'] -ceq 'catzc.lamps.languages.pick' }))
@@ -133,7 +144,8 @@ Describe 'catzc-track-lamps — the real repository' -Tag 'L1', 'integrity', 'so
         $pattern = '^catzc\.lamps\.([a-z_]+)\.(putOut|veto|light)(\.(staged|unstaged|failed|empty))?$'
         $commands.Where({ $_['command'] -notmatch $pattern }).ForEach({ $_['command'] }) | Should -BeNullOrEmpty
         $lamps = @($commands.ForEach({ $_['command'] -replace $pattern, '$1' }) | Select-Object -Unique)
-        $lamps | Should -Be @($script:declared) -Because 'the filters are the lamps, in order; the open lamp switches nothing'
+        $lamps |
+            Should -Be @($script:declared) -Because 'the filters are the lamps, in order; the open lamp switches nothing'
         # Only the base glyphs are authored: every condition variant is rendered into the extension folder's media/.
         $rendered = InModuleScope Catzc.Base.VSCode -Parameters @{ Entry = $entry; Out = (Join-Path $TestDrive 'lamps') } {
             param($Entry, $Out)
@@ -150,22 +162,28 @@ Describe 'catzc-track-lamps — the real repository' -Tag 'L1', 'integrity', 'so
                 }
             }
             $icons | Should -Contain "media/$lamp-veto.svg"
-            ([xml](Get-Content -LiteralPath (Join-Path $folder "$lamp-veto.svg") -Raw)).DocumentElement.LocalName | Should -Be 'svg'
+            ([xml](Get-Content -LiteralPath (Join-Path $folder "$lamp-veto.svg") -Raw)).DocumentElement.LocalName |
+                Should -Be 'svg'
         }
         foreach ($command in $orchestrator) {
-            ([xml](Get-Content -LiteralPath (Join-Path $folder ($command['icon']['dark'] -replace '^media/', '')) -Raw)).DocumentElement.LocalName | Should -Be 'svg'
-            @($menu.Where({ $_['command'] -ceq $command['command'] -and $_['group'] -ceq 'navigation@0' })) | Should -HaveCount 1 -Because "$($command['command']) shows leftmost, once"
+            ([xml](Get-Content -LiteralPath (Join-Path $folder ($command['icon']['dark'] -replace '^media/',
+                '')) -Raw)).DocumentElement.LocalName | Should -Be 'svg'
+            @($menu.Where({ $_['command'] -ceq $command['command'] -and $_['group'] -ceq 'navigation@0' })) |
+                Should -HaveCount 1 -Because "$($command['command']) shows leftmost, once"
         }
         foreach ($command in @($commands) + @($next)) {
-            @($menu.Where({ $_['command'] -ceq $command['command'] })) | Should -HaveCount 1 -Because "$($command['command']) shows in the title row once"
+            @($menu.Where({ $_['command'] -ceq $command['command'] })) |
+                Should -HaveCount 1 -Because "$($command['command']) shows in the title row once"
         }
-        # Every tagged language of the languages config is a lamp of its own, lang-<name>, with a lamp's commands, rendered icons and menu items.
+        # Every tagged language of the languages config is a lamp of its own, lang-<name>, with a lamp's commands,
+        # rendered icons and menu items.
         $tagged = @((Get-Config -Config languages).languages | Where-Object tag | ForEach-Object name)
         $tagged.Count | Should -BeGreaterThan 0
         $languageIcons = @($languageCommands.ForEach({ $_['icon']['dark'] }))
         foreach ($name in $tagged) {
             foreach ($state in 'veto', 'putOut', 'light') {
-                @($languageCommands.Where({ $_['command'] -ceq "catzc.lamps.lang-$name.$state" })) | Should -HaveCount 1 -Because "lang-$name has its $state command"
+                @($languageCommands.Where({ $_['command'] -ceq "catzc.lamps.lang-$name.$state" })) |
+                    Should -HaveCount 1 -Because "lang-$name has its $state command"
             }
             foreach ($switch in 'on', 'off') {
                 foreach ($condition in '', '-staged', '-unstaged', '-failed', '-empty') {
@@ -173,19 +191,26 @@ Describe 'catzc-track-lamps — the real repository' -Tag 'L1', 'integrity', 'so
                     ([xml](Get-Content -LiteralPath (Join-Path $folder "lang-$name-$switch$condition.svg") -Raw)).DocumentElement.LocalName | Should -Be 'svg'
                 }
             }
-            ([xml](Get-Content -LiteralPath (Join-Path $folder "lang-$name-veto.svg") -Raw)).DocumentElement.LocalName | Should -Be 'svg'
+            ([xml](Get-Content -LiteralPath (Join-Path $folder "lang-$name-veto.svg") -Raw)).DocumentElement.LocalName |
+                Should -Be 'svg'
         }
         foreach ($command in $languageCommands) {
-            @($menu.Where({ $_['command'] -ceq $command['command'] })) | Should -HaveCount 1 -Because "$($command['command']) shows in the title row once"
+            @($menu.Where({ $_['command'] -ceq $command['command'] })) |
+                Should -HaveCount 1 -Because "$($command['command']) shows in the title row once"
         }
         $pick | Should -HaveCount 1
-        ([xml](Get-Content -LiteralPath (Join-Path $folder 'languages-pick.svg') -Raw)).DocumentElement.LocalName | Should -Be 'svg'
-        @($menu.Where({ $_['command'] -ceq 'catzc.lamps.languages.pick' })) | Should -HaveCount 1 -Because 'the languages button shows once'
+        ([xml](Get-Content -LiteralPath (Join-Path $folder 'languages-pick.svg') -Raw)).DocumentElement.LocalName |
+            Should -Be 'svg'
+        @($menu.Where({ $_['command'] -ceq 'catzc.lamps.languages.pick' })) |
+            Should -HaveCount 1 -Because 'the languages button shows once'
         foreach ($command in $next) {
-            $svg = [xml](Get-Content -LiteralPath (Join-Path $folder ($command['icon']['dark'] -replace '^media/', '')) -Raw)
+            $svg = [xml](Get-Content -LiteralPath (Join-Path $folder ($command['icon']['dark'] -replace '^media/',
+                '')) -Raw)
             $invisible = $command['command'] -ceq 'catzc.lamps.open.next.empty'
-            ($svg.DocumentElement.GetAttribute('opacity') -eq '0') | Should -Be $invisible -Because "only the open lamp's empty icon is invisible ($($command['command']))"
-            $svg.DocumentElement.HasAttribute('data-empty') | Should -BeFalse -Because 'the marker is the renderer''s, never shipped'
+            ($svg.DocumentElement.GetAttribute('opacity') -eq '0') |
+                Should -Be $invisible -Because "only the open lamp's empty icon is invisible ($($command['command']))"
+            $svg.DocumentElement.HasAttribute('data-empty') |
+                Should -BeFalse -Because 'the marker is the renderer''s, never shipped'
         }
     }
 }

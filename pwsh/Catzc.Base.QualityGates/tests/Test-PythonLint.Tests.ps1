@@ -50,7 +50,8 @@ Describe 'Test-PythonLint' -Tag 'L0', 'logic' {
     It 'throws when ruff itself fails' {
         $script:checkOutput = 'error: Failed to parse pyproject.toml'
         $script:checkExit = 2
-        { Test-PythonLint -PassThru -OutputFolder $script:reportFolder } | Should -Throw '*ruff could not check the Python files (exit 2)*'
+        { Test-PythonLint -PassThru -OutputFolder $script:reportFolder } |
+            Should -Throw '*ruff could not check the Python files (exit 2)*'
     }
 
     It 'needs no uv when the repository holds no Python' {

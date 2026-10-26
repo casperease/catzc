@@ -51,7 +51,8 @@ function Set-CSharpFileScopedNamespace {
     $insert = $lines.Count
     for ($i = 0; $i -lt $lines.Count; $i++) {
         $trimmed = $lines[$i].Trim()
-        if ($trimmed -eq '' -or $trimmed.StartsWith('//') -or $trimmed.StartsWith('using ') -or $trimmed.StartsWith('#')) {
+        if ($trimmed -eq '' -or $trimmed.StartsWith('//') -or $trimmed.StartsWith('using ') -or
+            $trimmed.StartsWith('#')) {
             continue
         }
         $insert = $i

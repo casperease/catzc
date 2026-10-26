@@ -7,7 +7,8 @@ catzc:
 #>
 
 function Get-ModuleProtectionIdentity {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', 'HashCache', Justification = 'Read and written inside the $setHash closure — the analyzer cannot see through the scriptblock.')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', 'HashCache',
+        Justification = 'Read and written inside the $setHash closure — the analyzer cannot see through the scriptblock.')]
     [CmdletBinding()]
     [OutputType([string])]
     param(
@@ -60,7 +61,8 @@ function Get-ModuleProtectionIdentity {
         $widen = $true
     }
     elseif ($OutsideModulesFolder) {
-        # a module of another language track running its own tests: no derived globset of its own; its read set is the repo
+        # a module of another language track running its own tests: no derived globset of its own; its read set is the
+        # repo
         $widen = $true
     }
     else {

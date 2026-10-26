@@ -12,7 +12,8 @@ function Get-GeneratedTarget {
     param()
 
     foreach ($file in (Get-Config -Config rootconfig).files.Where({ $_.optIn })) {
-        [Catzc.Base.Variants.GeneratedTarget]::new($file.target, ($file.generator ? $file.generator : 'Build-RootConfig'))
+        [Catzc.Base.Variants.GeneratedTarget]::new($file.target,
+            ($file.generator ? $file.generator : 'Build-RootConfig'))
     }
 
     # The READMEs Build-Readme renders: one per folder a readme.yml pattern or mapping names.

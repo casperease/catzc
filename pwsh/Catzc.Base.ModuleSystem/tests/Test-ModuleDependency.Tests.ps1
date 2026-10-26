@@ -13,7 +13,8 @@ Describe 'Test-ModuleDependency' {
             InModuleScope Catzc.Base.ModuleSystem {
                 Mock Get-ModuleDependencyConfig { [ordered]@{ A = @('B'); B = @() } }
                 Mock Get-ModuleGroupConfig { [ordered]@{} }
-                Mock Get-CatzcModule { 'A', 'B' | ForEach-Object { [Catzc.Base.Modules.Module]::new($_, 'widgets', 'widget-folder', 'widgetry', "widgetry/$_", 'folder', $null, $null, $null, $null) } }
+                Mock Get-CatzcModule { 'A', 'B' | ForEach-Object { [Catzc.Base.Modules.Module]::new($_, 'widgets',
+                    'widget-folder', 'widgetry', "widgetry/$_", 'folder', $null, $null, $null, $null) } }
                 Mock Get-ModuleDependency { @([pscustomobject]@{ From = 'A'; To = 'B'; Functions = @('f->g:1') }) }
                 Mock Get-CSharpTypeDependency { @() }
 
@@ -25,7 +26,8 @@ Describe 'Test-ModuleDependency' {
             InModuleScope Catzc.Base.ModuleSystem {
                 Mock Get-ModuleDependencyConfig { [ordered]@{ A = @('B'); B = @() } }
                 Mock Get-ModuleGroupConfig { [ordered]@{} }
-                Mock Get-CatzcModule { 'A', 'B' | ForEach-Object { [Catzc.Base.Modules.Module]::new($_, 'widgets', 'widget-folder', 'widgetry', "widgetry/$_", 'folder', $null, $null, $null, $null) } }
+                Mock Get-CatzcModule { 'A', 'B' | ForEach-Object { [Catzc.Base.Modules.Module]::new($_, 'widgets',
+                    'widget-folder', 'widgetry', "widgetry/$_", 'folder', $null, $null, $null, $null) } }
                 Mock Get-ModuleDependency { @([pscustomobject]@{ From = 'A'; To = 'B'; Functions = @('f->g:1') }) }
                 Mock Get-CSharpTypeDependency { @() }
 
@@ -37,7 +39,8 @@ Describe 'Test-ModuleDependency' {
             InModuleScope Catzc.Base.ModuleSystem {
                 Mock Get-ModuleDependencyConfig { [ordered]@{ A = @('B'); B = @(); 'Catzc.Tpols' = @() } }
                 Mock Get-ModuleGroupConfig { [ordered]@{} }
-                Mock Get-CatzcModule { 'A', 'B', 'C' | ForEach-Object { [Catzc.Base.Modules.Module]::new($_, 'widgets', 'widget-folder', 'widgetry', "widgetry/$_", 'folder', $null, $null, $null, $null) } }
+                Mock Get-CatzcModule { 'A', 'B', 'C' | ForEach-Object { [Catzc.Base.Modules.Module]::new($_, 'widgets',
+                    'widget-folder', 'widgetry', "widgetry/$_", 'folder', $null, $null, $null, $null) } }
                 Mock Get-ModuleDependency { @([pscustomobject]@{ From = 'A'; To = 'C'; Functions = @('f->h:9') }) }
                 Mock Get-CSharpTypeDependency { @() }
 
@@ -52,7 +55,8 @@ Describe 'Test-ModuleDependency' {
             InModuleScope Catzc.Base.ModuleSystem {
                 Mock Get-ModuleDependencyConfig { [ordered]@{ A = @('B'); B = @() } }
                 Mock Get-ModuleGroupConfig { [ordered]@{} }
-                Mock Get-CatzcModule { 'A', 'B', 'C' | ForEach-Object { [Catzc.Base.Modules.Module]::new($_, 'widgets', 'widget-folder', 'widgetry', "widgetry/$_", 'folder', $null, $null, $null, $null) } }
+                Mock Get-CatzcModule { 'A', 'B', 'C' | ForEach-Object { [Catzc.Base.Modules.Module]::new($_, 'widgets',
+                    'widget-folder', 'widgetry', "widgetry/$_", 'folder', $null, $null, $null, $null) } }
                 Mock Get-ModuleDependency { @([pscustomobject]@{ From = 'A'; To = 'C'; Functions = @('f->h:9') }) }
                 Mock Get-CSharpTypeDependency { @() }
 
@@ -66,7 +70,8 @@ Describe 'Test-ModuleDependency' {
             InModuleScope Catzc.Base.ModuleSystem {
                 Mock Get-ModuleDependencyConfig { [ordered]@{ A = @('B'); B = @() } }
                 Mock Get-ModuleGroupConfig { [ordered]@{} }
-                Mock Get-CatzcModule { 'A', 'B', 'C' | ForEach-Object { [Catzc.Base.Modules.Module]::new($_, 'widgets', 'widget-folder', 'widgetry', "widgetry/$_", 'folder', $null, $null, $null, $null) } }
+                Mock Get-CatzcModule { 'A', 'B', 'C' | ForEach-Object { [Catzc.Base.Modules.Module]::new($_, 'widgets',
+                    'widget-folder', 'widgetry', "widgetry/$_", 'folder', $null, $null, $null, $null) } }
                 Mock Get-ModuleDependency { @() }
                 Mock Get-CSharpTypeDependency { @([pscustomobject]@{ From = 'A'; To = 'C'; References = @('Foo.cs -> C.Bar') }) }
 
@@ -80,7 +85,8 @@ Describe 'Test-ModuleDependency' {
             InModuleScope Catzc.Base.ModuleSystem {
                 Mock Get-ModuleDependencyConfig { [ordered]@{ A = @('B'); B = @() } }
                 Mock Get-ModuleGroupConfig { [ordered]@{} }
-                Mock Get-CatzcModule { 'A', 'B', 'C' | ForEach-Object { [Catzc.Base.Modules.Module]::new($_, 'widgets', 'widget-folder', 'widgetry', "widgetry/$_", 'folder', $null, $null, $null, $null) } }
+                Mock Get-CatzcModule { 'A', 'B', 'C' | ForEach-Object { [Catzc.Base.Modules.Module]::new($_, 'widgets',
+                    'widget-folder', 'widgetry', "widgetry/$_", 'folder', $null, $null, $null, $null) } }
                 Mock Get-ModuleDependency { @([pscustomobject]@{ From = 'C'; To = 'A'; Functions = @('x->y:2') }) }
                 Mock Get-CSharpTypeDependency { @() }
 
@@ -92,7 +98,8 @@ Describe 'Test-ModuleDependency' {
             InModuleScope Catzc.Base.ModuleSystem {
                 Mock Get-ModuleDependencyConfig { [ordered]@{ A = @('B'); B = @(); 'Catzc.Tpols' = @() } }
                 Mock Get-ModuleGroupConfig { [ordered]@{} }
-                Mock Get-CatzcModule { 'A', 'B' | ForEach-Object { [Catzc.Base.Modules.Module]::new($_, 'widgets', 'widget-folder', 'widgetry', "widgetry/$_", 'folder', $null, $null, $null, $null) } }
+                Mock Get-CatzcModule { 'A', 'B' | ForEach-Object { [Catzc.Base.Modules.Module]::new($_, 'widgets',
+                    'widget-folder', 'widgetry', "widgetry/$_", 'folder', $null, $null, $null, $null) } }
                 Mock Get-ModuleDependency { @() }
                 Mock Get-CSharpTypeDependency { @() }
 
@@ -109,7 +116,8 @@ Describe 'Test-ModuleDependency' {
             InModuleScope Catzc.Base.ModuleSystem {
                 Mock Get-ModuleDependencyConfig { [ordered]@{ A = @('G') } }
                 Mock Get-ModuleGroupConfig { [ordered]@{ G = [ordered]@{ M1 = @(); M2 = @('M1') } } }
-                Mock Get-CatzcModule { 'A', 'M1', 'M2' | ForEach-Object { [Catzc.Base.Modules.Module]::new($_, 'widgets', 'widget-folder', 'widgetry', "widgetry/$_", 'folder', $null, $null, $null, $null) } }
+                Mock Get-CatzcModule { 'A', 'M1', 'M2' | ForEach-Object { [Catzc.Base.Modules.Module]::new($_,
+                    'widgets', 'widget-folder', 'widgetry', "widgetry/$_", 'folder', $null, $null, $null, $null) } }
                 Mock Get-ModuleDependency { @([pscustomobject]@{ From = 'A'; To = 'M2'; Functions = @('a->m:1') }) }
                 Mock Get-CSharpTypeDependency { @() }
 
@@ -121,7 +129,8 @@ Describe 'Test-ModuleDependency' {
             InModuleScope Catzc.Base.ModuleSystem {
                 Mock Get-ModuleDependencyConfig { [ordered]@{ A = @('G') } }
                 Mock Get-ModuleGroupConfig { [ordered]@{ G = [ordered]@{ M1 = @(); M2 = @('M1') } } }
-                Mock Get-CatzcModule { 'A', 'M1', 'M2' | ForEach-Object { [Catzc.Base.Modules.Module]::new($_, 'widgets', 'widget-folder', 'widgetry', "widgetry/$_", 'folder', $null, $null, $null, $null) } }
+                Mock Get-CatzcModule { 'A', 'M1', 'M2' | ForEach-Object { [Catzc.Base.Modules.Module]::new($_,
+                    'widgets', 'widget-folder', 'widgetry', "widgetry/$_", 'folder', $null, $null, $null, $null) } }
                 Mock Get-ModuleDependency { @([pscustomobject]@{ From = 'M2'; To = 'M1'; Functions = @('m2->m1:1') }) }
                 Mock Get-CSharpTypeDependency { @() }
 
@@ -133,7 +142,8 @@ Describe 'Test-ModuleDependency' {
             InModuleScope Catzc.Base.ModuleSystem {
                 Mock Get-ModuleDependencyConfig { [ordered]@{ A = @('G') } }
                 Mock Get-ModuleGroupConfig { [ordered]@{ G = [ordered]@{ M1 = @(); M2 = @('M1') } } }
-                Mock Get-CatzcModule { 'A', 'M1', 'M2' | ForEach-Object { [Catzc.Base.Modules.Module]::new($_, 'widgets', 'widget-folder', 'widgetry', "widgetry/$_", 'folder', $null, $null, $null, $null) } }
+                Mock Get-CatzcModule { 'A', 'M1', 'M2' | ForEach-Object { [Catzc.Base.Modules.Module]::new($_,
+                    'widgets', 'widget-folder', 'widgetry', "widgetry/$_", 'folder', $null, $null, $null, $null) } }
                 # M1 -> M2 reverses the declared M2 -> M1 layering.
                 Mock Get-ModuleDependency { @([pscustomobject]@{ From = 'M1'; To = 'M2'; Functions = @('m1->m2:1') }) }
                 Mock Get-CSharpTypeDependency { @() }
@@ -148,7 +158,9 @@ Describe 'Test-ModuleDependency' {
             InModuleScope Catzc.Base.ModuleSystem {
                 Mock Get-ModuleDependencyConfig { [ordered]@{ A = @('G') } }
                 Mock Get-ModuleGroupConfig { [ordered]@{ G = [ordered]@{ M1 = @(); M2 = @('M1') } } }
-                Mock Get-CatzcModule { 'A', 'M1' | ForEach-Object { [Catzc.Base.Modules.Module]::new($_, 'widgets', 'widget-folder', 'widgetry', "widgetry/$_", 'folder', $null, $null, $null, $null) } }     # M2 absent on disk
+                Mock Get-CatzcModule { 'A', 'M1' | ForEach-Object { [Catzc.Base.Modules.Module]::new($_, 'widgets',
+                    'widget-folder', 'widgetry', "widgetry/$_", 'folder', $null, $null, $null,
+                    $null) } }     # M2 absent on disk
                 Mock Get-ModuleDependency { @() }
                 Mock Get-CSharpTypeDependency { @() }
 
@@ -161,7 +173,8 @@ Describe 'Test-ModuleDependency' {
 
     Context 'integrity (shipped config + real code)' -Tag 'L1', 'integrity', 'source-only' {
         It 'the real code conforms to the declared graph' {
-            (Test-ModuleDependency -PassThru -OutputFolder (Join-Path $TestDrive 'module-dependency')).IssueCount | Should -Be 0
+            (Test-ModuleDependency -PassThru -OutputFolder (Join-Path $TestDrive 'module-dependency')).IssueCount |
+                Should -Be 0
         }
     }
 }

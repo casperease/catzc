@@ -73,7 +73,8 @@ Describe 'Reset-GitHubRepository' -Tag 'L1', 'logic' {
 
     It 'aborts with a do-not-publish warning when the remote holds a commit the local scan did not cover' {
         Mock -ModuleName Catzc.Tooling.Github Invoke-Executable { [pscustomobject]@{ ExitCode = 0; Output = (New-RefListing "$script:local refs/heads/main", "$script:foreign refs/heads/gadget"); Errors = '' } } -ParameterFilter { $Command -like 'git ls-remote*' }
-        { Invoke-Reset @{ ConfirmRepo = 'me/project'; Token = 'old-name' } } | Should -Throw "*refs/heads/gadget ($script:foreign)*DO NOT make it public*"
+        { Invoke-Reset @{ ConfirmRepo = 'me/project'; Token = 'old-name' } } |
+            Should -Throw "*refs/heads/gadget ($script:foreign)*DO NOT make it public*"
     }
 
     It 'aborts with a do-not-publish warning when post-verify finds the token' {

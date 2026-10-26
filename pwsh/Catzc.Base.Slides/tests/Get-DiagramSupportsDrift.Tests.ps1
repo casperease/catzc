@@ -2,7 +2,8 @@ Describe 'Get-DiagramSupportsDrift' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-DECLARA
     BeforeAll {
         $script:root = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
         [System.IO.Directory]::CreateDirectory((Join-Path $script:root 'docs/widgets/.assets')) | Out-Null
-        [System.IO.File]::WriteAllText((Join-Path $script:root 'docs/widgets/.assets/widget-flow.drawio.yml'), "about:`n  adrs: [ADR-WIDGET-ONE, ADR-WIDGET-TWO]`n  lens: architecture`ncontent:`n  title: Widgets`n")
+        [System.IO.File]::WriteAllText((Join-Path $script:root 'docs/widgets/.assets/widget-flow.drawio.yml'),
+            "about:`n  adrs: [ADR-WIDGET-ONE, ADR-WIDGET-TWO]`n  lens: architecture`ncontent:`n  title: Widgets`n")
         $script:page = 'docs/widgets/widget-flow.md'
         $script:drift = {
             param([string] $Text)
@@ -25,6 +26,7 @@ Describe 'Get-DiagramSupportsDrift' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-DECLARA
     It 'names a wrapped Supports line that disagrees, on one line' {
         $found = @(& $script:drift "# Widgets`n`n``````text`nWidgets.`n`nSupports ADR-WIDGET-ONE`nand ADR-WIDGET-TWO (meta lens).`n```````n")
         $found | Should -HaveCount 1
-        "$($found[0])" | Should -BeLike '*says Supports ADR-WIDGET-ONE and ADR-WIDGET-TWO (meta lens)*its yml says ADR-WIDGET-ONE, ADR-WIDGET-TWO (architecture lens)'
+        "$($found[0])" |
+            Should -BeLike '*says Supports ADR-WIDGET-ONE and ADR-WIDGET-TWO (meta lens)*its yml says ADR-WIDGET-ONE, ADR-WIDGET-TWO (architecture lens)'
     }
 }

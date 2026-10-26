@@ -32,11 +32,13 @@ Describe 'Get-MarkdownHeadingFinding' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT-PLAIN
 
     It 'moves every trailing group, joined in order, and links a known citation relative to the file' {
         $result = Get-Finding (Join-Lines '## Widget model (`widget.yml`) (`ADR-TST-GADGET`)', '', 'Body.', '')
-        $result.Fixed | Should -Be (Join-Lines '## Widget model', '', '`widget.yml` · [ADR-TST-GADGET](../gadget/gadget-rules.md)', '', 'Body.', '')
+        $result.Fixed | Should -Be (Join-Lines '## Widget model', '',
+            '`widget.yml` · [ADR-TST-GADGET](../gadget/gadget-rules.md)', '', 'Body.', '')
     }
 
     It 'keeps an unknown citation as a code span' {
-        (Get-Finding (Join-Lines '### Widget (`ADR-TST-NONE`)', '')).Fixed | Should -Be (Join-Lines '### Widget', '', '`ADR-TST-NONE`', '')
+        (Get-Finding (Join-Lines '### Widget (`ADR-TST-NONE`)', '')).Fixed | Should -Be (Join-Lines '### Widget', '',
+            '`ADR-TST-NONE`', '')
     }
 
     It 'reports the anchor change of a moved group' {
@@ -46,7 +48,8 @@ Describe 'Get-MarkdownHeadingFinding' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT-PLAIN
     }
 
     It 'pads the moved line from a body line that followed the heading directly' {
-        (Get-Finding (Join-Lines '## Widget (`widget.yml`)', 'Body.', '')).Fixed | Should -Be (Join-Lines '## Widget', '', '`widget.yml`', '', 'Body.', '')
+        (Get-Finding (Join-Lines '## Widget (`widget.yml`)', 'Body.', '')).Fixed | Should -Be (Join-Lines '## Widget',
+            '', '`widget.yml`', '', 'Body.', '')
     }
 
     It 'leaves code that is the subject of a heading' {
@@ -54,7 +57,8 @@ Describe 'Get-MarkdownHeadingFinding' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT-PLAIN
     }
 
     It 'leaves a trailing group that holds prose' {
-        (Get-Finding (Join-Lines '### Why a single `.psm1` (not three `.ps1` files)', '')).Findings | Should -BeNullOrEmpty
+        (Get-Finding (Join-Lines '### Why a single `.psm1` (not three `.ps1` files)', '')).Findings |
+            Should -BeNullOrEmpty
     }
 
     It 'leaves the H1, fenced headings, and front matter alone' {
@@ -71,18 +75,21 @@ Describe 'Get-MarkdownHeadingFinding' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT-PLAIN
     }
 
     It 'judges duplicates on the normal form' {
-        (Get-Finding (Join-Lines '## Widget', '', '## Widget (`widget.yml`)', '')).Findings.Kind | Should -Contain 'Duplicate'
+        (Get-Finding (Join-Lines '## Widget', '', '## Widget (`widget.yml`)', '')).Findings.Kind |
+            Should -Contain 'Duplicate'
     }
 
     It 'keeps CRLF line endings' {
-        (Get-Finding (Join-Lines '## Widget (`widget.yml`)', '' -Newline "`r`n")).Fixed | Should -Be (Join-Lines '## Widget', '', '`widget.yml`', '' -Newline "`r`n")
+        (Get-Finding (Join-Lines '## Widget (`widget.yml`)', '' -Newline "`r`n")).Fixed |
+            Should -Be (Join-Lines '## Widget', '', '`widget.yml`', '' -Newline "`r`n")
     }
 
     Context 'dora-explains' {
         It 'quotes each entry''s DORA paragraph, after the moved citation' {
             $text = Join-Lines '## Widget rules (`ADR-TST-WIDGET`)', '', 'DORA says widgets', 'matter.', '', '- [Capability](x.md) — why.', ''
             $result = Get-Finding $text -RelativePath 'docs/drs/widget/dora-explains.md'
-            $result.Fixed | Should -Be (Join-Lines '## Widget rules', '', '[ADR-TST-WIDGET](widget-rules.md)', '', '> DORA says widgets', '> matter.', '', '- [Capability](x.md) — why.', '')
+            $result.Fixed | Should -Be (Join-Lines '## Widget rules', '', '[ADR-TST-WIDGET](widget-rules.md)', '',
+                '> DORA says widgets', '> matter.', '', '- [Capability](x.md) — why.', '')
             $result.Findings.Kind | Should -Be 'Reference', 'Quote'
         }
 

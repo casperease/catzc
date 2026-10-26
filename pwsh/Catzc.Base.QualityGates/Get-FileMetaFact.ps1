@@ -64,7 +64,8 @@ function Get-FileMetaFact {
             continue
         }
         # The engine API, not Get-Command: the cmdlet costs about a tenth of a millisecond per kind and file.
-        $processor = $ExecutionContext.InvokeCommand.GetCommand($kind.processor, [System.Management.Automation.CommandTypes]::Function)
+        $processor = $ExecutionContext.InvokeCommand.GetCommand($kind.processor,
+            [System.Management.Automation.CommandTypes]::Function)
         Assert-NotNull $processor -ErrorText "file-meta config: kind '$($kind.id)' is subscribed by '$($kind.processor)', but no such function exists."
         $produced = & $kind.processor -State $State -Path $Path[0] -Kind $kind
         $expected = @($kind.keys)

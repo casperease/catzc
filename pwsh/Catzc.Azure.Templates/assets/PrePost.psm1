@@ -46,7 +46,8 @@ Set-StrictMode -Version Latest
     The loaded `configuration/<slot>.yml` (ordered dict carrying `ParametersFile`).
 #>
 function Invoke-BicepPrepareParameterSet {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = 'Fixed extension-point hook signature: every parameter is part of the contract Build-Bicep binds by name and a template override fills in. This no-op starter reads only what it illustrates, but no parameter may be removed — see the file-level .DESCRIPTION.')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '',
+        Justification = 'Fixed extension-point hook signature: every parameter is part of the contract Build-Bicep binds by name and a template override fills in. This no-op starter reads only what it illustrates, but no parameter may be removed — see the file-level .DESCRIPTION.')]
     [CmdletBinding()]
     param(
         [Parameter(Mandatory)] $BuildInvocation,
@@ -77,7 +78,8 @@ function Invoke-BicepPrepareParameterSet {
     Preview mode — a state-changing hook must return without mutating anything when set.
 #>
 function Invoke-BicepPreDeploy {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = 'Fixed extension-point hook signature: every parameter is part of the contract Deploy-Bicep binds by name and a template override fills in. This no-op starter reads only what it illustrates, but no parameter may be removed — see the file-level .DESCRIPTION.')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '',
+        Justification = 'Fixed extension-point hook signature: every parameter is part of the contract Deploy-Bicep binds by name and a template override fills in. This no-op starter reads only what it illustrates, but no parameter may be removed — see the file-level .DESCRIPTION.')]
     [CmdletBinding()]
     param(
         [Parameter(Mandatory)] $DeployInvocation,
@@ -109,7 +111,8 @@ function Invoke-BicepPreDeploy {
     to pull through Bicep `output` values.
 #>
 function Invoke-BicepPostDeploy {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = 'Fixed extension-point hook signature: every parameter is part of the contract Deploy-Bicep binds by name and a template override fills in. This no-op starter reads only what it illustrates, but no parameter may be removed — see the file-level .DESCRIPTION.')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '',
+        Justification = 'Fixed extension-point hook signature: every parameter is part of the contract Deploy-Bicep binds by name and a template override fills in. This no-op starter reads only what it illustrates, but no parameter may be removed — see the file-level .DESCRIPTION.')]
     [CmdletBinding()]
     param(
         [Parameter(Mandatory)] $DeployInvocation,

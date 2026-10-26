@@ -75,7 +75,8 @@ Describe 'Test-DrsRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
         Mock Resolve-RepoPath -ModuleName Catzc.Base.Drs -ParameterFilter { $Path -eq 'docs/drs' } { Join-Path $TestDrive 'adr' }
         Mock Write-Message -ModuleName Catzc.Base.Reports { }
         Mock Get-DrsCitationMap -ModuleName Catzc.Base.Drs { $script:citations }
-        # The registry cases cite codes the fixture map does not hold; the dangling-code cases below run the helper itself.
+        # The registry cases cite codes the fixture map does not hold; the dangling-code cases below run the helper
+        # itself.
         Mock Get-DrsDanglingCodeViolations -ModuleName Catzc.Base.Drs -ParameterFilter { -not [object]::ReferenceEquals($Map, $script:danglingMap) } { }
     }
 
@@ -111,7 +112,8 @@ Describe 'Test-DrsRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
         It 'adds every dangling code to the gate''s issues and counts them' {
             Mock Get-DrsDanglingCodeViolations -ModuleName Catzc.Base.Drs -ParameterFilter { $true } { 'docs/drs/widget/widget-one.md:5: cites ADR-WI-ONE-GONE, which names no registered rule, record or domain (a dangling code)' }
             $result = Test-DrsRegistry -OutputFolder $out -PassThru
-            $result.Issues | Should -Contain 'docs/drs/widget/widget-one.md:5: cites ADR-WI-ONE-GONE, which names no registered rule, record or domain (a dangling code)'
+            $result.Issues |
+                Should -Contain 'docs/drs/widget/widget-one.md:5: cites ADR-WI-ONE-GONE, which names no registered rule, record or domain (a dangling code)'
             $result.Facts['DanglingCodes'] | Should -Be 1
         }
     }
@@ -135,8 +137,10 @@ Describe 'Test-DrsRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
             $message | Should -BeLike 'Test-DrsRegistry failed: 4 issue(s)*'
             $message | Should -Match 'ADR-WI-ONE: no ADR file docs/drs/widget/\*\*/widget-one\.md'
             $message | Should -Match 'ADR-GA-ONE: 2 ADR files named gadget-one\.md under docs/drs/gadget/'
-            $message | Should -Match "docs/drs/gadget/widget-one\.md: must head its rule registry '## Rules: ADR-GA-WIDGET'"
-            $message | Should -Match "docs/drs/gadget/gizmo\.md: declares '## Rules: ADR-GA-GIZMO' but no drs\.yml rule set registers it"
+            $message |
+                Should -Match "docs/drs/gadget/widget-one\.md: must head its rule registry '## Rules: ADR-GA-WIDGET'"
+            $message |
+                Should -Match "docs/drs/gadget/gizmo\.md: declares '## Rules: ADR-GA-GIZMO' but no drs\.yml rule set registers it"
         }
 
         It 'returns the issues under -PassThru instead of throwing' {
@@ -144,7 +148,8 @@ Describe 'Test-DrsRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
             $result = Test-DrsRegistry -OutputFolder $out -PassThru
             $result.Subject | Should -Be 'drs-registry'
             $result.Issues | Should -HaveCount 1
-            $result.Issues[0] | Should -Match "docs/drs/widget/widget-one\.md: must head its rule registry '## Rules: ADR-WI-ONE'"
+            $result.Issues[0] |
+                Should -Match "docs/drs/widget/widget-one\.md: must head its rule registry '## Rules: ADR-WI-ONE'"
         }
     }
 
@@ -158,7 +163,8 @@ Describe 'Test-DrsRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
             $result.IssueCount | Should -Be 0
             $result.Facts['CitationGraphMode'] | Should -Be 'report'
             $result.Facts['CitationGraphFindings'] | Should -Be 1
-            $result.Facts['CitationGraph'] | Should -Be @('docs/drs/widget/widget-one.md:7: ADR-WI-ONE-LEAN (widget) cites ADR-GA-ONE-APPLY (gadget); widget depends on: none')
+            $result.Facts['CitationGraph'] |
+                Should -Be @('docs/drs/widget/widget-one.md:7: ADR-WI-ONE-LEAN (widget) cites ADR-GA-ONE-APPLY (gadget); widget depends on: none')
             $result.Facts['DoraCoverageMode'] | Should -Be 'report'
             $result.Facts['DoraCoverage'] | Should -Be @(
                 'docs/drs/widget/dora-explains.md: missing, so no section links ADR-WI-ONE'
@@ -204,7 +210,8 @@ Describe 'Test-DrsRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
             $result = Test-DrsRegistry -OutputFolder $out -PassThru
             $result.IssueCount | Should -Be 0
             $result.Facts['CodeLanguageMode'] | Should -Be 'report'
-            $result.Facts['CodeLanguage'] | Should -Be @('docs/drs/widget/widget-one.md: 2 numbered rule heading(s); a rule is named, never numbered (ADR-REPO-DRSCODE-NAMEDNOTNUMBERED)')
+            $result.Facts['CodeLanguage'] |
+                Should -Be @('docs/drs/widget/widget-one.md: 2 numbered rule heading(s); a rule is named, never numbered (ADR-REPO-DRSCODE-NAMEDNOTNUMBERED)')
         }
 
         It 'passes named rule headings that are one segment below their ADR' {
@@ -254,7 +261,8 @@ Describe 'Test-DrsRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
             Write-AdrFixture 'widget/widget-one.md' "# Widget one`n`n## Rules: ADR-WI-SPIN`n"
             Remove-Item -LiteralPath (Join-Path $TestDrive 'adr/gadget') -Recurse -Force
             $result = Test-DrsRegistry -OutputFolder $out -PassThru
-            $result.Facts['CodeLanguage'] | Should -Be @('widget: domain code WI-SPIN is not one segment (ADR-REPO-DRSCODE-DOMAINSEGMENT)')
+            $result.Facts['CodeLanguage'] |
+                Should -Be @('widget: domain code WI-SPIN is not one segment (ADR-REPO-DRSCODE-DOMAINSEGMENT)')
         }
 
         It 'adds its findings to the gate''s issues in gate mode' {

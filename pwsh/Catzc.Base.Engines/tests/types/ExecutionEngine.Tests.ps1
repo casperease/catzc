@@ -32,8 +32,10 @@ Describe 'ExecutionEngine' -Tag 'L0', 'logic' {
     }
 
     It 'rejects an empty entry or command, naming it' {
-        { [Catzc.Base.Engines.ExecutionEngines]::Pwsh.StartArguments('', 'Get-Widget') } | Should -Throw '*entry script*'
-        { [Catzc.Base.Engines.ExecutionEngines]::Bash.StartArguments('/home/widget/importer.sh', ' ') } | Should -Throw '*needs a command*'
+        { [Catzc.Base.Engines.ExecutionEngines]::Pwsh.StartArguments('', 'Get-Widget') } |
+            Should -Throw '*entry script*'
+        { [Catzc.Base.Engines.ExecutionEngines]::Bash.StartArguments('/home/widget/importer.sh', ' ') } |
+            Should -Throw '*needs a command*'
     }
 }
 
@@ -46,7 +48,8 @@ Describe 'ExecutionEngines' -Tag 'L0', 'logic' {
     It 'gets an engine by name, and throws naming the engines for any other' {
         [Catzc.Base.Engines.ExecutionEngines]::Get('bash') | Should -Be ([Catzc.Base.Engines.ExecutionEngines]::Bash)
         [Catzc.Base.Engines.ExecutionEngines]::Get('zsh') | Should -Be ([Catzc.Base.Engines.ExecutionEngines]::Zsh)
-        { [Catzc.Base.Engines.ExecutionEngines]::Get('widget') } | Should -Throw "*'widget' is not an execution engine (one of: pwsh, bash, zsh)*"
+        { [Catzc.Base.Engines.ExecutionEngines]::Get('widget') } |
+            Should -Throw "*'widget' is not an execution engine (one of: pwsh, bash, zsh)*"
     }
 
     It 'declares what differs between the engines: <Name>' -ForEach @(

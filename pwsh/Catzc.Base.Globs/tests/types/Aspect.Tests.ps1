@@ -18,7 +18,8 @@ Describe 'Aspect / AspectPartition' -Tag 'L0', 'logic' {
             param($compiled)
             $list = [System.Collections.Generic.List[Catzc.Base.Globs.GlobSet]]::new()
             foreach ($c in $compiled) {
-                $list.Add([Catzc.Base.Globs.GlobSet]::new("m-$($c.Name)", 'd', 'module', $c.Include, $c.Exclude, @(), @(), -1, $null))
+                $list.Add([Catzc.Base.Globs.GlobSet]::new("m-$($c.Name)", 'd', 'module', $c.Include, $c.Exclude, @(),
+                    @(), -1, $null))
             }
             , $list
         }
@@ -28,11 +29,13 @@ Describe 'Aspect / AspectPartition' -Tag 'L0', 'logic' {
         It 'prefixes own patterns as include and every earlier aspect as exclude' {
             $compiled = [Catzc.Base.Globs.AspectPartition]::Compile((& $script:convention), 'widgets/M')
             $compiled[0].Name | Should -Be 'live'
-            $compiled[0].Include | Should -Be @('widgets/M/*.ps1', 'widgets/M/private/**', 'widgets/M/types/**', 'widgets/M/configs/**')
+            $compiled[0].Include | Should -Be @('widgets/M/*.ps1', 'widgets/M/private/**', 'widgets/M/types/**',
+                'widgets/M/configs/**')
             $compiled[0].Exclude | Should -Be @()
             $compiled[1].Name | Should -Be 'tests'
             $compiled[1].Include | Should -Be @('widgets/M/**')
-            $compiled[1].Exclude | Should -Be @('widgets/M/*.ps1', 'widgets/M/private/**', 'widgets/M/types/**', 'widgets/M/configs/**')
+            $compiled[1].Exclude | Should -Be @('widgets/M/*.ps1', 'widgets/M/private/**', 'widgets/M/types/**',
+                'widgets/M/configs/**')
         }
     }
 
@@ -48,7 +51,8 @@ Describe 'Aspect / AspectPartition' -Tag 'L0', 'logic' {
 
         It 'validates clean (no file in two aspects, none in zero)' {
             $sets = & $script:sets ([Catzc.Base.Globs.AspectPartition]::Compile((& $script:convention), 'widgets/M'))
-            $universe = [string[]]@('widgets/M/Get-Foo.ps1', 'widgets/M/private/H.ps1', 'widgets/M/tests/A.Tests.ps1', 'widgets/M/x.txt')
+            $universe = [string[]]@('widgets/M/Get-Foo.ps1', 'widgets/M/private/H.ps1', 'widgets/M/tests/A.Tests.ps1',
+                'widgets/M/x.txt')
             [Catzc.Base.Globs.AspectPartition]::Validate($sets, $universe).Count | Should -Be 0
         }
     }

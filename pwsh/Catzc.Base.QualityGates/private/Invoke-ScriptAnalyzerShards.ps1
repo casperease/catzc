@@ -7,7 +7,8 @@ catzc:
 #>
 
 function Invoke-ScriptAnalyzerShards {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '', Justification = 'The analyzer import runs inside each background Start-Job shard process, never in this session')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '',
+        Justification = 'The analyzer import runs inside each background Start-Job shard process, never in this session')]
     [CmdletBinding()]
     [OutputType([hashtable])]
     param(
@@ -25,7 +26,8 @@ function Invoke-ScriptAnalyzerShards {
     $worker = {
         param($shardFiles, $root, $analyzer, $settingsPath, $includeRule, $excludeRule)
         Import-Module $analyzer -Force
-        # The settings are read here, not passed in: a job's arguments are serialized, and the settings parser wants its own types back.
+        # The settings are read here, not passed in: a job's arguments are serialized, and the settings parser wants its
+        # own types back.
         $settings = Import-PowerShellDataFile $settingsPath
         if ($includeRule) {
             $settings.IncludeRules = [string[]] $includeRule
@@ -39,7 +41,8 @@ function Invoke-ScriptAnalyzerShards {
         $ProgressPreference = 'SilentlyContinue'
         try {
             $err = $null
-            $diagnostics = $shardFiles | Invoke-ScriptAnalyzer -Settings $settings -ErrorVariable err -ErrorAction SilentlyContinue
+            $diagnostics = $shardFiles |
+                Invoke-ScriptAnalyzer -Settings $settings -ErrorVariable err -ErrorAction SilentlyContinue
             if ($err) {
                 throw "PSScriptAnalyzer error analysing this shard: $($err[0].Exception.Message)"
             }
@@ -51,10 +54,12 @@ function Invoke-ScriptAnalyzerShards {
         }
     }
 
-    # Each batch gets its share of the shard budget by file count, at least one shard; round-robin spreads the heavy modules.
+    # Each batch gets its share of the shard budget by file count, at least one shard; round-robin spreads the heavy
+    # modules.
     $jobs = [System.Collections.Generic.List[object]]::new()
     foreach ($entry in $Batch) {
-        $shardCount = [Math]::Min($entry.Files.Count, [Math]::Max(1, [int][Math]::Round($budget * $entry.Files.Count / $total)))
+        $shardCount = [Math]::Min($entry.Files.Count, [Math]::Max(1,
+            [int][Math]::Round($budget * $entry.Files.Count / $total)))
         $shards = @(for ($i = 0; $i -lt $shardCount; $i++) {
                 , [System.Collections.Generic.List[string]]::new()
             })
@@ -62,7 +67,8 @@ function Invoke-ScriptAnalyzerShards {
             $shards[$i % $shardCount].Add($entry.Files[$i])
         }
         foreach ($shard in $shards) {
-            $job = Start-Job -ScriptBlock $worker -ArgumentList @($shard, $RepositoryRoot, $analyzerPath, $entry.SettingsPath, $entry.IncludeRule, $entry.ExcludeRule)
+            $job = Start-Job -ScriptBlock $worker -ArgumentList @($shard, $RepositoryRoot, $analyzerPath,
+                $entry.SettingsPath, $entry.IncludeRule, $entry.ExcludeRule)
             $jobs.Add([pscustomobject]@{ Label = $entry.Label; Job = $job })
         }
     }

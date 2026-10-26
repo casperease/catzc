@@ -28,7 +28,8 @@ function Test-Comments {
     $scope = @(Get-CommentScope -RepositoryRoot $RepositoryRoot -Path $Path)
     foreach ($entry in $scope) {
         $text = [System.IO.File]::ReadAllText((Join-Path $RepositoryRoot $entry.File))
-        foreach ($block in [Catzc.Base.QualityGates.CommentEngine]::FindBlocks($text, $entry.Extension, $entry.Language, $config)) {
+        foreach ($block in [Catzc.Base.QualityGates.CommentEngine]::FindBlocks($text, $entry.Extension, $entry.Language,
+            $config)) {
             $issues.Add("$($entry.File):$($block.StartLine + 1): a $($block.ProseLineCount)-line comment is still in the file — run Export-Comments")
         }
 

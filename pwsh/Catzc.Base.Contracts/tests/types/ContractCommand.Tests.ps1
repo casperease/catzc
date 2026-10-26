@@ -36,28 +36,33 @@ Describe 'ContractCommand' -Tag 'L0', 'logic', 'ADR-REPO-CMDCONTRACT-CONTRACTLAN
         }
 
         It 'reads a parameter back as its spec' {
-            [Catzc.Base.Contracts.ContractParameter]::Parse('Item', "string[]! = 'a b' pipeline").Spec | Should -Be "string[]! = 'a b' pipeline"
+            [Catzc.Base.Contracts.ContractParameter]::Parse('Item', "string[]! = 'a b' pipeline").Spec |
+                Should -Be "string[]! = 'a b' pipeline"
             [Catzc.Base.Contracts.ContractParameter]::Parse('Engine', 'string = auto').Spec | Should -Be 'string = auto'
             [Catzc.Base.Contracts.ContractParameter]::Parse('Strict', 'switch').Spec | Should -Be 'switch'
         }
 
         It 'takes an empty default as no default, on both sides' {
             [Catzc.Base.Contracts.ContractParameter]::Parse('Name', "string = ''").Default | Should -BeNullOrEmpty
-            [Catzc.Base.Contracts.ContractParameter]::new('Name', 'string', $false, $false, '', $false).Spec | Should -Be 'string'
+            [Catzc.Base.Contracts.ContractParameter]::new('Name', 'string', $false, $false, '', $false).Spec |
+                Should -Be 'string'
         }
 
         It 'names the command from its asset and renders the signature as one line' -Tag 'ADR-REPO-CMDCONTRACT-NOPLACEMENTFACTS' {
-            $asset = [Catzc.Base.Contracts.ContractAsset]::new('widget', '0.1.0', 'Catzc.Widget', 'Get-Widget.command.yml',
+            $asset = [Catzc.Base.Contracts.ContractAsset]::new('widget', '0.1.0', 'Catzc.Widget',
+                'Get-Widget.command.yml',
                 [Catzc.Base.Contracts.ContractAssetKind]::Command, 'widgets/Catzc.Widget/Get-Widget.ps1',
                 [Catzc.Base.Contracts.ContractDirection]::Provided)
-            $command = [Catzc.Base.Contracts.ContractCommand]::new($asset, ("parameters:`n  Path: string!`n  Strict: switch`noutput: string`n" | ConvertFrom-Yaml -Ordered))
+            $command = [Catzc.Base.Contracts.ContractCommand]::new($asset,
+                ("parameters:`n  Path: string!`n  Strict: switch`noutput: string`n" | ConvertFrom-Yaml -Ordered))
             $command.Name | Should -Be 'Get-Widget'
             $command.Asset.AssetPath | Should -Be 'contracts/widget/0.1.0/Catzc.Widget/Get-Widget.command.yml'
             $command.Signature | Should -Be 'Path: string!, Strict: switch -> string'
             [Catzc.Base.Contracts.ContractCommand]::new($asset, $null).Signature | Should -Be 'no parameters'
             (New-Command "parameters:`n  Path: string`n").Name | Should -Be ''
             $fragment = [Catzc.Base.Contracts.ContractAsset]::new('widget', '0.1.0', 'Catzc.Widget', 'widget.yml',
-                [Catzc.Base.Contracts.ContractAssetKind]::Fragment, 'widget.yml', [Catzc.Base.Contracts.ContractDirection]::DependedOn)
+                [Catzc.Base.Contracts.ContractAssetKind]::Fragment, 'widget.yml',
+                [Catzc.Base.Contracts.ContractDirection]::DependedOn)
             { [Catzc.Base.Contracts.ContractCommand]::NameOf($fragment) } | Should -Throw '*is not a command contract*'
         }
 
@@ -72,7 +77,8 @@ Describe 'ContractCommand' -Tag 'L0', 'logic', 'ADR-REPO-CMDCONTRACT-CONTRACTLAN
         }
 
         It 'rejects parameters that are not a map' {
-            { [Catzc.Base.Contracts.ContractCommand]::new(@{ parameters = 'Path' }) } | Should -Throw '*parameters must be a map*'
+            { [Catzc.Base.Contracts.ContractCommand]::new(@{ parameters = 'Path' }) } |
+                Should -Throw '*parameters must be a map*'
         }
 
         It 'reads parameter sets: a parameter in named sets, one in every set, and the default set' {
@@ -85,8 +91,10 @@ Describe 'ContractCommand' -Tag 'L0', 'logic', 'ADR-REPO-CMDCONTRACT-CONTRACTLAN
             $command.default_set | Should -Be 'All'
             $command.Sets | Should -Be @('All', 'Id', 'Random')
             $command.parameters[2].Spec | Should -Be 'switch in All,Random'
-            $command.Signature | Should -Be 'Id: string! in Id, Count: int! in Random, Spare: switch in All,Random, Quiet: switch; default set All'
-            [Catzc.Base.Contracts.ContractParameter]::Parse('Item', "string[]! = 'a b' pipeline in Gadget").Spec | Should -Be "string[]! = 'a b' pipeline in Gadget"
+            $command.Signature |
+                Should -Be 'Id: string! in Id, Count: int! in Random, Spare: switch in All,Random, Quiet: switch; default set All'
+            [Catzc.Base.Contracts.ContractParameter]::Parse('Item', "string[]! = 'a b' pipeline in Gadget").Spec |
+                Should -Be "string[]! = 'a b' pipeline in Gadget"
         }
 
         It 'declares the set defaults once: every set, and no default set' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
@@ -132,7 +140,8 @@ Describe 'ContractCommand' -Tag 'L0', 'logic', 'ADR-REPO-CMDCONTRACT-CONTRACTLAN
     Context 'the comparison' -Tag 'ADR-REPO-CMDCONTRACT-CHECKERPERLANGUAGE' {
         It 'has no finding when the command declares what the contract says' {
             $text = "parameters:`n  Path: string!`n  Engine: string = auto`n  Item: string[] pipeline`noutput: int`n"
-            [Catzc.Base.Contracts.ContractCommand]::Compare((New-Command $text), (New-Command $text)) | Should -BeNullOrEmpty
+            [Catzc.Base.Contracts.ContractCommand]::Compare((New-Command $text), (New-Command $text)) |
+                Should -BeNullOrEmpty
         }
 
         It 'finds: <Finding>' -ForEach @(
@@ -148,13 +157,16 @@ Describe 'ContractCommand' -Tag 'L0', 'logic', 'ADR-REPO-CMDCONTRACT-CONTRACTLAN
             @{ Contract = "default_set: All`n"; Command = "default_set: Id`n"; Finding = "default_set: the contract says 'All', the command declares 'Id'" }
             @{ Contract = "default_set: All`n"; Command = "parameters: {}`n"; Finding = "default_set: the contract says 'All', the command declares none" }
         ) {
-            [Catzc.Base.Contracts.ContractCommand]::Compare((New-Command $Contract), (New-Command $Command)) | Should -Be @($Finding)
+            [Catzc.Base.Contracts.ContractCommand]::Compare((New-Command $Contract), (New-Command $Command)) |
+                Should -Be @($Finding)
         }
 
         It 'does not compare a default the command computes' {
-            $computed = [Catzc.Base.Contracts.ContractParameter]::new('Root', 'string', $false, $false, [Catzc.Base.Contracts.ContractParameter]::ComputedDefault, $false)
+            $computed = [Catzc.Base.Contracts.ContractParameter]::new('Root', 'string', $false, $false,
+                [Catzc.Base.Contracts.ContractParameter]::ComputedDefault, $false)
             $command = [Catzc.Base.Contracts.ContractCommand]::new([Catzc.Base.Contracts.ContractParameter[]] @($computed), 'void')
-            [Catzc.Base.Contracts.ContractCommand]::Compare((New-Command "parameters:`n  Root: string = here`n"), $command) | Should -BeNullOrEmpty
+            [Catzc.Base.Contracts.ContractCommand]::Compare((New-Command "parameters:`n  Root: string = here`n"),
+                $command) | Should -BeNullOrEmpty
         }
     }
 }
@@ -173,14 +185,17 @@ Describe 'ContractCommand.ToAssetText' -Tag 'L0', 'logic' {
         }
         $command = [Catzc.Base.Contracts.ContractCommand]::new($raw)
         $text = $command.ToAssetText([Func[string, string]] { param($name) $name.ToLowerInvariant() })
-        $text | Should -BeExactly ("parameters:`n  path: string!`n  count: int = 3`n  items: catzc.base.widgets.gadget[]! pipeline`n" +
+        $text |
+            Should -BeExactly ("parameters:`n  path: string!`n  count: int = 3`n  items: catzc.base.widgets.gadget[]! pipeline`n" +
             "  quiet: switch in byid,byname`noutput: catzc.base.widgets.widget[]`ndefault_set: byid`n")
     }
 
     It 'leaves out a void output and an absent default set, and writes nothing for an empty contract' {
         $command = [Catzc.Base.Contracts.ContractCommand]::new([ordered]@{ parameters = [ordered]@{ Name = 'string' } })
-        $command.ToAssetText([Func[string, string]] { param($name) $name }) | Should -BeExactly "parameters:`n  Name: string`n"
-        [Catzc.Base.Contracts.ContractCommand]::new($null).ToAssetText([Func[string, string]] { param($name) $name }) | Should -BeExactly ''
+        $command.ToAssetText([Func[string, string]] { param($name) $name }) |
+            Should -BeExactly "parameters:`n  Name: string`n"
+        [Catzc.Base.Contracts.ContractCommand]::new($null).ToAssetText([Func[string, string]] { param($name) $name }) |
+            Should -BeExactly ''
     }
 }
 

@@ -36,11 +36,13 @@ function New-Plan {
 
     $root = [System.IO.Path]::GetFullPath($RepositoryRoot)
     $name = "plan-$Topic.md"
-    Assert-True ($Config.Accepts($name) -and $name -cne $Config.master_file) -ErrorText "New-Plan: '$name' is not a plan name the plans folder accepts (plan-<topic>.md, kebab case)."
+    Assert-True ($Config.Accepts($name) -and
+        $name -cne $Config.master_file) -ErrorText "New-Plan: '$name' is not a plan name the plans folder accepts (plan-<topic>.md, kebab case)."
     Assert-True ($Config.ranks -ccontains $Value) -ErrorText "New-Plan: value '$Value' is not one of the ranks: $($Config.ranks -join ', ')."
     foreach ($path in $Target) {
         $full = Join-Path $root $path
-        Assert-True ([System.IO.File]::Exists($full) -or [System.IO.Directory]::Exists($full)) -ErrorText "New-Plan: target '$path' does not exist."
+        Assert-True ([System.IO.File]::Exists($full) -or
+            [System.IO.Directory]::Exists($full)) -ErrorText "New-Plan: target '$path' does not exist."
     }
     $folder = Join-Path $root $Config.folder
     $file = Join-Path $folder $name
@@ -56,7 +58,8 @@ function New-Plan {
     $masterLines = & $readOverlay $Config.master_file
 
     # The value row: the last row of the table under the "<Class> plans" heading, one cell per column of its header.
-    $section = [Array]::FindIndex($valueLines.ToArray(), [Predicate[string]] { param($line) $line -match "^##\s+$([regex]::Escape($Class)) plans\b" })
+    $section = [Array]::FindIndex($valueLines.ToArray(),
+        [Predicate[string]] { param($line) $line -match "^##\s+$([regex]::Escape($Class)) plans\b" })
     Assert-True ($section -ge 0) -ErrorText "New-Plan: $($Config.value_file) has no '## $Class plans' section for a plan of class '$Class'."
     $header = -1
     $last = -1
@@ -97,7 +100,8 @@ function New-Plan {
     $valueLines.Insert($last + 1, "| $($cells -join ' | ') |")
 
     # The master line: in the Chunks list, ahead of the first pointer to a task file, else after the list's last item.
-    $chunks = [Array]::FindIndex($masterLines.ToArray(), [Predicate[string]] { param($line) $line -match '^##\s+Chunks' })
+    $chunks = [Array]::FindIndex($masterLines.ToArray(),
+        [Predicate[string]] { param($line) $line -match '^##\s+Chunks' })
     Assert-True ($chunks -ge 0) -ErrorText "New-Plan: $($Config.master_file) has no '## Chunks' section."
     $at = -1
     for ($i = $chunks + 1; $i -lt $masterLines.Count -and $masterLines[$i] -notmatch '^##\s'; $i++) {

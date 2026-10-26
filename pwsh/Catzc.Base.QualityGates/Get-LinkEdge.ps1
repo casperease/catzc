@@ -10,7 +10,8 @@ function Get-LinkEdge {
     [CmdletBinding()]
     [OutputType([Catzc.Base.QualityGates.LinkEdge])]
     param(
-        # The repository path whose incoming relations are wanted; a folder takes every relation into what lies under it.
+        # The repository path whose incoming relations are wanted; a folder takes every relation into what lies under
+        # it.
         [Parameter(Mandatory)]
         [string] $To,
 

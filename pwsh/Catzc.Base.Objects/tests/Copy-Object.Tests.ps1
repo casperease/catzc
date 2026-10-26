@@ -178,7 +178,8 @@ Describe 'Copy-Object' -Tag 'L0', 'logic' {
         }
 
         It 'no verbose for non-PSCustomObject types' {
-            $verbose = Copy-Object @{ a = 1 } -Verbose 4>&1 | Where-Object { $_ -is [System.Management.Automation.VerboseRecord] }
+            $verbose = Copy-Object @{ a = 1 } -Verbose 4>&1 |
+                Where-Object { $_ -is [System.Management.Automation.VerboseRecord] }
             $verbose | Should -BeNullOrEmpty
         }
     }
@@ -362,7 +363,8 @@ Describe 'Copy-Object' -Tag 'L0', 'logic' {
 
         It 'individual customer is not the same reference' {
             $firstCustomer = $config.customers.Keys | Select-Object -First 1
-            [object]::ReferenceEquals($config.customers[$firstCustomer], $clone.customers[$firstCustomer]) | Should -BeFalse
+            [object]::ReferenceEquals($config.customers[$firstCustomer], $clone.customers[$firstCustomer]) |
+                Should -BeFalse
         }
 
         It 'mutating clone customer does not affect original' {

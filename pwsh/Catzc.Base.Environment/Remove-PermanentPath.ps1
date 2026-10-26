@@ -7,7 +7,8 @@ catzc:
 #>
 
 function Remove-PermanentPath {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'Does not use ShouldProcess by design — see ADR-PWSH-DRYRUN-SUPPRESSSHOULDPROCESS')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '',
+        Justification = 'Does not use ShouldProcess by design — see ADR-PWSH-DRYRUN-SUPPRESSSHOULDPROCESS')]
     [CmdletBinding()]
     param(
         [Parameter(Mandatory, Position = 0)]
@@ -19,7 +20,8 @@ function Remove-PermanentPath {
     )
 
     $separator = [System.IO.Path]::PathSeparator
-    $normalizedPath = $Path.TrimEnd([System.IO.Path]::DirectorySeparatorChar, [System.IO.Path]::AltDirectorySeparatorChar)
+    $normalizedPath = $Path.TrimEnd([System.IO.Path]::DirectorySeparatorChar,
+        [System.IO.Path]::AltDirectorySeparatorChar)
 
     # --- Session PATH ---
     $comparer = if ($IsWindows) {
@@ -39,14 +41,16 @@ function Remove-PermanentPath {
         Write-Message "Session PATH: removed '$Path'"
     }
 
-    # The persistent PATH goes through a thin read and write seam, so a test can stand in for it and never touch the machine's.
+    # The persistent PATH goes through a thin read and write seam, so a test can stand in for it and never touch the
+    # machine's.
     if ($IsWindows) {
         $userPath = Get-EnvironmentPath -Scope User
         if ($userPath) {
             $cleaned = ($userPath -split ';' |
                     Where-Object {
                         $_ -ne '' -and -not $comparer.Equals(
-                            $_.TrimEnd([System.IO.Path]::DirectorySeparatorChar, [System.IO.Path]::AltDirectorySeparatorChar),
+                            $_.TrimEnd([System.IO.Path]::DirectorySeparatorChar,
+                                [System.IO.Path]::AltDirectorySeparatorChar),
                             $normalizedPath)
                     }) -join ';'
             Set-EnvironmentPath $cleaned -Scope User

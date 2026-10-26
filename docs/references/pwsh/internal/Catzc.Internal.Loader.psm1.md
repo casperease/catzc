@@ -105,3 +105,30 @@ Above `function Set-ImporterVerbosity {`, written with `#`.
 .PARAMETER Enabled
     Show the state-change lines on the verbose stream.
 ```
+
+## comment:8
+
+Above `function Test-IsRunningInVsCode {`, written with `#`.
+
+```text
+VS Code marks every terminal it opens, the PowerShell extension's own host included; this is the one reader of that
+mark.
+```
+
+## comment:9
+
+Above `function Test-IsInteractiveHost {`, written with `#`.
+
+```text
+A host that runs -File, -Command or -EncodedCommand, or runs -NonInteractive, exits when its command ends and never
+shows a prompt, unless -NoExit keeps it open.
+```
+
+## comment:10
+
+Above `function Enable-DeferredJanitors {`, written with `#`.
+
+```text
+The console session's janitors run once the first prompt has shown: the first render is untouched, the second runs the
+action and restores the prompt.
+```

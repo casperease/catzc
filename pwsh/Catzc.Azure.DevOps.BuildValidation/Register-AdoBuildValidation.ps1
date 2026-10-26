@@ -7,7 +7,8 @@ catzc:
 #>
 
 function Register-AdoBuildValidation {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-ParameterFillIn', '', Justification = '-Pipeline resolves from two sources keyed by -GlobSet (its build-validation.yml entry, then the globset annotation), and the body reads the same entry for -blocking; one lookup in the body beats a duplicated one in the declaration')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-ParameterFillIn', '',
+        Justification = '-Pipeline resolves from two sources keyed by -GlobSet (its build-validation.yml entry, then the globset annotation), and the body reads the same entry for -blocking; one lookup in the body beats a duplicated one in the declaration')]
     [CmdletBinding()]
     param(
         [Parameter(Mandatory, Position = 0)]
@@ -81,7 +82,8 @@ function Register-AdoBuildValidation {
     }
 
     $existingSet = @(Get-AdoBuildValidations -Branch $Branch -Project $context.Project -Organization $context.Organization -RepositoryName $context.RepositoryName)
-    $existing = $existingSet | Where-Object { "$($_.PipelineDefinitionId)" -eq "$($definition.Id)" } | Select-Object -First 1
+    $existing = $existingSet | Where-Object { "$($_.PipelineDefinitionId)" -eq "$($definition.Id)" } |
+        Select-Object -First 1
 
     $action = if (-not $existing) {
         'Create'

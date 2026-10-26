@@ -40,7 +40,8 @@ Describe 'Test-GeneratedFiles' -Tag 'L0', 'logic' {
 
         $thrown = { Test-GeneratedFiles -OutputFolder $script:reportFolder } | Should -Throw -PassThru
         $thrown.Exception.Message | Should -BeLike 'Test-GeneratedFiles failed: 3 issue(s)*'
-        $thrown.Exception.Message | Should -BeLike '*docs/widget/index.md: stale — Build-DrsIndex would change it; regenerate with: Build-DrsIndex*'
+        $thrown.Exception.Message |
+            Should -BeLike '*docs/widget/index.md: stale — Build-DrsIndex would change it; regenerate with: Build-DrsIndex*'
         $thrown.Exception.Message | Should -BeLike '*widget/.gitkeep: stale — Build-GitKeep*'
         $thrown.Exception.Message | Should -BeLike '*gadget/.gitkeep: stale — Build-GitKeep*'
     }
@@ -51,9 +52,11 @@ Describe 'Test-GeneratedFiles' -Tag 'L0', 'logic' {
         $result = Test-GeneratedFiles -PassThru -OutputFolder $script:reportFolder
         $result.Subject | Should -Be 'generated-files'
         $result.IssueCount | Should -Be 1
-        $result.Issues[0] | Should -Be 'widget/README.md: stale — Build-Readme would change it; regenerate with: Build-Readme'
+        $result.Issues[0] |
+            Should -Be 'widget/README.md: stale — Build-Readme would change it; regenerate with: Build-Readme'
         $known = InModuleScope Catzc.Base.QualityGates { @(Get-GeneratedFileGenerator).Count }
-        $result.Facts['Generators'] | Should -Be $known -Because 'the count is every writer of generated-files.yml plus every root-file generator of rootconfig.yml'
+        $result.Facts['Generators'] |
+            Should -Be $known -Because 'the count is every writer of generated-files.yml plus every root-file generator of rootconfig.yml'
     }
 
     It 'reports a generated file whose head stamp is not the hash of its body, and counts the stamped and unstamped files' -Tag 'ADR-REPO-FILEMETA-COMPOSEDFILES' {
@@ -76,15 +79,18 @@ Describe 'Test-GeneratedFiles' -Tag 'L0', 'logic' {
         $known | Should -Contain 'New-PythonProject'
         @($known | Select-Object -Unique).Count | Should -Be $known.Count
 
-        $rootGenerators = @((Get-Config -Config rootconfig).files | Where-Object { $_.optIn -and $_.generator } | ForEach-Object { "$($_.generator)" } | Select-Object -Unique)
+        $rootGenerators = @((Get-Config -Config rootconfig).files | Where-Object { $_.optIn -and $_.generator } |
+            ForEach-Object { "$($_.generator)" } | Select-Object -Unique)
         foreach ($name in $rootGenerators) {
             $known | Should -Contain $name
         }
     }
 
     It 'throws naming the known generators when a generator is unknown' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
-        $thrown = { Test-GeneratedFiles -Generator Build-Widget -OutputFolder $script:reportFolder } | Should -Throw -PassThru
-        $thrown.Exception.Message | Should -BeLike "Unknown generator 'Build-Widget'. The generators are: Build-DrsIndex*"
+        $thrown = { Test-GeneratedFiles -Generator Build-Widget -OutputFolder $script:reportFolder } |
+            Should -Throw -PassThru
+        $thrown.Exception.Message |
+            Should -BeLike "Unknown generator 'Build-Widget'. The generators are: Build-DrsIndex*"
     }
 
     It 'attributes a rendered root file to its generator and a copied one to Build-RootConfig' {
@@ -94,8 +100,10 @@ Describe 'Test-GeneratedFiles' -Tag 'L0', 'logic' {
         }
 
         $result = Test-GeneratedFiles -PassThru -OutputFolder $script:reportFolder
-        $result.Issues | Should -Contain "widget.json: stale — New-VsCodeSettings would change it; regenerate with: Build-RootConfig 'widget.json'"
-        $result.Issues | Should -Contain "gadget.json: stale — Build-RootConfig would change it; regenerate with: Build-RootConfig 'gadget.json'"
+        $result.Issues |
+            Should -Contain "widget.json: stale — New-VsCodeSettings would change it; regenerate with: Build-RootConfig 'widget.json'"
+        $result.Issues |
+            Should -Contain "gadget.json: stale — Build-RootConfig would change it; regenerate with: Build-RootConfig 'gadget.json'"
     }
 
     It 'checks only the selected generators, and a rendered generator selects only its own root files' {
@@ -105,7 +113,8 @@ Describe 'Test-GeneratedFiles' -Tag 'L0', 'logic' {
         }
 
         $result = Test-GeneratedFiles -Generator New-VsCodeSettings -PassThru -OutputFolder $script:reportFolder
-        $result.Issues | Should -Be @("widget.json: stale — New-VsCodeSettings would change it; regenerate with: Build-RootConfig 'widget.json'")
+        $result.Issues |
+            Should -Be @("widget.json: stale — New-VsCodeSettings would change it; regenerate with: Build-RootConfig 'widget.json'")
         $result.Facts['Generators'] | Should -Be 1
         Should -Invoke Build-DrsIndex -ModuleName Catzc.Base.QualityGates -Times 0
         Should -Invoke Get-EnglishDictionaryDrift -ModuleName Catzc.Base.QualityGates -Times 0
@@ -132,7 +141,8 @@ Describe 'Test-GeneratedFiles' -Tag 'L0', 'logic' {
 
         $result = Test-GeneratedFiles -Generator Build-EnglishDictionary -PassThru -OutputFolder $script:reportFolder
         $result.IssueCount | Should -Be 1
-        $result.Issues[0] | Should -BeLike "$(Get-CatzcModulesFolder)/Catzc.Base.QualityGates/assets/english.txt.gz: stale — flattened from cspell '9.1.0' but tools.yml pins '10'; regenerate with: Build-EnglishDictionary*"
+        $result.Issues[0] |
+            Should -BeLike "$(Get-CatzcModulesFolder)/Catzc.Base.QualityGates/assets/english.txt.gz: stale — flattened from cspell '9.1.0' but tools.yml pins '10'; regenerate with: Build-EnglishDictionary*"
         Should -Invoke Get-ConfigValue -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter { $Address -eq 'global.tools.cspell.version' }
     }
 
@@ -151,7 +161,8 @@ Describe 'Test-GeneratedFiles' -Tag 'L0', 'logic' {
             Mock Build-DrsIndex -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ Path = 'docs/drs/index.md'; Changed = $true; DryRun = $true } }
 
             $result = Test-GeneratedFiles -Changed -PassThru -OutputFolder $script:reportFolder
-            $result.Issues | Should -Contain 'docs/drs/index.md: stale — Build-DrsIndex would change it; regenerate with: Build-DrsIndex'
+            $result.Issues |
+                Should -Contain 'docs/drs/index.md: stale — Build-DrsIndex would change it; regenerate with: Build-DrsIndex'
             Should -Invoke Get-GeneratedStampDrift -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter { $Changed }
         }
 
@@ -175,7 +186,8 @@ Describe 'Test-GeneratedFiles' -Tag 'L0', 'logic' {
         }
 
         It 'refuses -StampOnly together with -Generator, which the parameter sets keep apart' -Tag 'ADR-AUTO-FAILFAST-ASSERTINPUTSATENTRY' {
-            { Test-GeneratedFiles -StampOnly -Generator Build-DrsIndex -PassThru -OutputFolder $script:reportFolder } | Should -Throw '*Parameter set cannot be resolved*'
+            { Test-GeneratedFiles -StampOnly -Generator Build-DrsIndex -PassThru -OutputFolder $script:reportFolder } |
+                Should -Throw '*Parameter set cannot be resolved*'
             Should -Invoke Get-GeneratedStampDrift -ModuleName Catzc.Base.QualityGates -Times 0 -Exactly
         }
 
@@ -184,7 +196,8 @@ Describe 'Test-GeneratedFiles' -Tag 'L0', 'logic' {
             Mock Build-DrsIndex -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ Path = 'docs/drs/index.md'; Changed = $true; DryRun = $true } }
 
             $result = Test-GeneratedFiles -Changed -PassThru -OutputFolder $script:reportFolder
-            $result.Issues | Should -Contain 'docs/drs/index.md: stale — Build-DrsIndex would change it; regenerate with: Build-DrsIndex'
+            $result.Issues |
+                Should -Contain 'docs/drs/index.md: stale — Build-DrsIndex would change it; regenerate with: Build-DrsIndex'
         }
 
         It 'runs only the writers the due rows name, and no writer when none is due' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
@@ -206,10 +219,12 @@ Describe 'Get-EnglishDictionaryDrift' -Tag 'L0', 'logic' {
         $script:assets = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
         [System.IO.Directory]::CreateDirectory($script:assets) | Out-Null
         $words = [System.Text.Encoding]::UTF8.GetBytes((@('gadget', 'widget', '') -join "`n"))
-        [System.IO.File]::WriteAllBytes((Join-Path $script:assets 'english.txt.gz'), [Catzc.Base.QualityGates.GzipText]::Compress($words))
+        [System.IO.File]::WriteAllBytes((Join-Path $script:assets 'english.txt.gz'),
+            [Catzc.Base.QualityGates.GzipText]::Compress($words))
         $script:writeStamp = {
             param([string] $Cspell, [int] $WordCount)
-            [System.IO.File]::WriteAllText((Join-Path $script:assets 'english.stamp'), (@{ cspell = $Cspell; word_count = $WordCount } | ConvertTo-Json))
+            [System.IO.File]::WriteAllText((Join-Path $script:assets 'english.stamp'),
+                (@{ cspell = $Cspell; word_count = $WordCount } | ConvertTo-Json))
         }
     }
 

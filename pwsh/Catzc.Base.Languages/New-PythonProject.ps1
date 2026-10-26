@@ -90,9 +90,11 @@ function New-PythonProject {
     $workspace.Add('[tool.pyright]')
     $workspace.Add("pythonVersion = `"$pythonVersion`"")
     $workspace.Add("typeCheckingMode = `"$($config.type_checking)`"")
-    $files.Add([Catzc.Base.Languages.PythonWorkspaceFile]::new("$pythonRoot/pyproject.toml", ($workspace -join "`n") + "`n"))
+    $files.Add([Catzc.Base.Languages.PythonWorkspaceFile]::new("$pythonRoot/pyproject.toml",
+        ($workspace -join "`n") + "`n"))
 
-    # The members: the test holder's folders, each named by its folder, then the modules, each named by its name in kebab case.
+    # The members: the test holder's folders, each named by its folder, then the modules, each named by its name in
+    # kebab case.
     $members = @(foreach ($folder in $folders) {
             [pscustomobject]@{ Name = $folder; Folder = "tests/$folder" }
         }) +
@@ -114,7 +116,8 @@ function New-PythonProject {
         $member.Add('')
         $member.Add('[tool.uv]')
         $member.Add('package = false')
-        $files.Add([Catzc.Base.Languages.PythonWorkspaceFile]::new("$pythonRoot/$($entry.Folder)/pyproject.toml", ($member -join "`n") + "`n"))
+        $files.Add([Catzc.Base.Languages.PythonWorkspaceFile]::new("$pythonRoot/$($entry.Folder)/pyproject.toml",
+            ($member -join "`n") + "`n"))
     }
 
     foreach ($file in $files) {

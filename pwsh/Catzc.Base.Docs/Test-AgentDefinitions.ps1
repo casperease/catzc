@@ -38,7 +38,8 @@ function Test-AgentDefinitions {
             Get-ChildPath $skillsRoot -Depth 2 -File -Filter 'SKILL.md' | ForEach-Object { [string]$_ } | Sort-Object
         })
     $floors = @{}
-    # A user skill is invoked by the user and a brief skill is named in a brief; neither is preloaded, and the registry says which are.
+    # A user skill is invoked by the user and a brief skill is named in a brief; neither is preloaded, and the registry
+    # says which are.
     $userSkills = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
     $briefSkills = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
     $readOnlySkills = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
@@ -53,7 +54,8 @@ function Test-AgentDefinitions {
             [void]$readOnlySkills.Add($entry.name)
         }
     }
-    # The carrier registry says where a capability's catzc head nests, under the file kind's class; the gate never fixes the key itself.
+    # The carrier registry says where a capability's catzc head nests, under the file kind's class; the gate never fixes
+    # the key itself.
     $carriers = Get-Config -Config file-carriers
     $fileKinds = Get-Config -Config file-kinds
     foreach ($file in $capabilityFiles) {
@@ -88,13 +90,15 @@ function Test-AgentDefinitions {
         if (-not $frontMatter.Contains('user-invocable') -or [string]$frontMatter['user-invocable'] -ne $invocable) {
             $issues.Add("${relative}: front matter must set user-invocable: $($invocable.ToLowerInvariant())")
         }
-        if (-not $frontMatter.Contains('allowed-tools') -or [string]::IsNullOrWhiteSpace([string]$frontMatter['allowed-tools'])) {
+        if (-not $frontMatter.Contains('allowed-tools') -or
+            [string]::IsNullOrWhiteSpace([string]$frontMatter['allowed-tools'])) {
             $issues.Add("${relative}: front matter has no allowed-tools")
         }
         elseif ($readOnlySkills.Contains($name) -and [string]$frontMatter['allowed-tools'] -match '\b(Write|Edit)\b') {
             $issues.Add("${relative}: a read_only skill's allowed-tools must hold no Write or Edit")
         }
-        # The floor is the author's one line in the catzc head's config part, beside the imprinted parts, so it survives every imprint.
+        # The floor is the author's one line in the catzc head's config part, beside the imprinted parts, so it survives
+        # every imprint.
         $floor = $null
         $authored = $frontMatter
         foreach ($segment in @('metadata', 'catzc', 'config')) {
@@ -119,7 +123,8 @@ function Test-AgentDefinitions {
             $issues.Add("${relative}: has $($lines.Capability) lines outside its catzc head ($($lines.Capability - $lines.Body) front-matter keys and $($lines.Body) body lines), the roof is $($config.capability_lines) (roofs.capability_lines)")
         }
         $number = 0
-        foreach ($line in ([Catzc.Base.MarkdownMeta.MarkdownDocument]::Parse([System.IO.File]::ReadAllText($file), $key).Body -split "`r?`n")) {
+        foreach ($line in ([Catzc.Base.MarkdownMeta.MarkdownDocument]::Parse([System.IO.File]::ReadAllText($file),
+            $key).Body -split "`r?`n")) {
             $number++
             if ($line.Length -gt $columnRoof) {
                 $issues.Add("${relative}: body line $number has $($line.Length) columns, the roof is $columnRoof")
@@ -202,7 +207,8 @@ function Test-AgentDefinitions {
             if ($briefSkills.Contains($skill)) {
                 $issues.Add("${relative}: skills names '$skill', a brief skill that a drone loads with the Skill tool, never preloads")
             }
-            if ($model -and $floors.ContainsKey($skill) -and $modelRank.ContainsKey($model) -and $modelRank[$model] -lt $modelRank[$floors[$skill]]) {
+            if ($model -and $floors.ContainsKey($skill) -and $modelRank.ContainsKey($model) -and
+                $modelRank[$model] -lt $modelRank[$floors[$skill]]) {
                 $issues.Add("${relative}: model '$model' is below the model_floor '$($floors[$skill])' of capability '$skill'")
             }
         }
@@ -211,7 +217,8 @@ function Test-AgentDefinitions {
             $issues.Add("${relative}: body has $($lines.Body) lines, the roof is $($config.agent_body_lines) (roofs.agent_body_lines)")
         }
         $number = 0
-        foreach ($line in ([Catzc.Base.MarkdownMeta.MarkdownDocument]::Parse([System.IO.File]::ReadAllText($file), [Catzc.Base.MarkdownMeta.MarkdownDocument]::MetaKey).Body -split "`r?`n")) {
+        foreach ($line in ([Catzc.Base.MarkdownMeta.MarkdownDocument]::Parse([System.IO.File]::ReadAllText($file),
+            [Catzc.Base.MarkdownMeta.MarkdownDocument]::MetaKey).Body -split "`r?`n")) {
             $number++
             if ($line.Length -gt $columnRoof) {
                 $issues.Add("${relative}: body line $number has $($line.Length) columns, the roof is $columnRoof")
@@ -220,7 +227,8 @@ function Test-AgentDefinitions {
     }
 
     foreach ($name in $capabilityNames) {
-        if (-not $preloaded.Contains($name) -and -not $userSkills.Contains($name) -and -not $briefSkills.Contains($name)) {
+        if (-not $preloaded.Contains($name) -and -not $userSkills.Contains($name) -and
+            -not $briefSkills.Contains($name)) {
             $issues.Add(".claude/skills/$name/SKILL.md: no agent preloads it in its skills list")
         }
     }

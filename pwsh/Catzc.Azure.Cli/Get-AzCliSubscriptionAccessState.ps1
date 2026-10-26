@@ -24,5 +24,6 @@ function Get-AzCliSubscriptionAccessState {
     # Read only on the failure path, so the error can name the right fix: log in, or ask for access.
     $session = Invoke-AzCli 'account show -o none' -PassThru -NoAssert -Silent
 
-    [Catzc.Azure.Cli.SubscriptionAccessState]::new(($session.ExitCode -eq 0), $false, $SubscriptionId, ($probe.Errors | Select-Object -First 1))
+    [Catzc.Azure.Cli.SubscriptionAccessState]::new(($session.ExitCode -eq 0), $false, $SubscriptionId,
+        ($probe.Errors | Select-Object -First 1))
 }

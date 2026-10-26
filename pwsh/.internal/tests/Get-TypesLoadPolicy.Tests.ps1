@@ -112,7 +112,8 @@ Describe 'Get-TypesLoadPolicy' -Tag 'L0', 'logic' {
 
         It 'throws for a row that is no mode' {
             $bad = New-PolicyConfig "cells:`n  console.windows.nightly:`n    load: lazy`n"
-            { Get-ModePolicy 'console.windows.source' @{ ConfigPath = $bad } } | Should -Throw '*console.windows.nightly*'
+            { Get-ModePolicy 'console.windows.source' @{ ConfigPath = $bad } } |
+                Should -Throw '*console.windows.nightly*'
         }
 
         It 'throws for an unknown setting naming the valid ones' {
@@ -144,13 +145,15 @@ Describe 'Get-TypesLoadPolicy' -Tag 'L0', 'logic' {
 
         It 'throws for more than one generation outside a console source mode, and for a generation below one' {
             $bad = New-PolicyConfig "cells:`n  headless.windows.source:`n    load: eager`n    trigger: none`n    generations: 2`n"
-            { Get-ModePolicy 'headless.windows.source' @{ ConfigPath = $bad } } | Should -Throw '*only a console.*.source row*'
+            { Get-ModePolicy 'headless.windows.source' @{ ConfigPath = $bad } } |
+                Should -Throw '*only a console.*.source row*'
             $zero = New-PolicyConfig "cells:`n  console.windows.source:`n    generations: 0`n"
             { Get-ModePolicy 'console.windows.source' @{ ConfigPath = $zero } } | Should -Throw '*at least 1*'
         }
 
         It 'throws for a missing config file and for a config without cells' {
-            { Get-ModePolicy 'console.windows.source' @{ ConfigPath = (Join-Path $TestDrive 'absent.yml') } } | Should -Throw '*does not exist*'
+            { Get-ModePolicy 'console.windows.source' @{ ConfigPath = (Join-Path $TestDrive 'absent.yml') } } |
+                Should -Throw '*does not exist*'
             $noCells = New-PolicyConfig "other: 1`n"
             { Get-ModePolicy 'console.windows.source' @{ ConfigPath = $noCells } } | Should -Throw "*no 'cells'*"
         }

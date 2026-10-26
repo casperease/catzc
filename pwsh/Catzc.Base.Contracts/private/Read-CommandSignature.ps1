@@ -47,19 +47,22 @@ function Read-CommandSignature {
                 if ($attribute -is [System.Management.Automation.Language.TypeConstraintAst]) {
                     $typeName = $attribute.TypeName.FullName
                 }
-                elseif ($attribute -is [System.Management.Automation.Language.AttributeAst] -and $attribute.TypeName.Name -cin 'Parameter', 'ParameterAttribute') {
+                elseif ($attribute -is [System.Management.Automation.Language.AttributeAst] -and
+                    $attribute.TypeName.Name -cin 'Parameter', 'ParameterAttribute') {
                     $mandatory = $false
                     $setName = $null
                     foreach ($argument in $attribute.NamedArguments) {
                         $isOn = $argument.ExpressionOmitted -or
-                        ($argument.Argument -is [System.Management.Automation.Language.VariableExpressionAst] -and $argument.Argument.VariablePath.UserPath -ieq 'true')
+                        ($argument.Argument -is [System.Management.Automation.Language.VariableExpressionAst] -and
+                        $argument.Argument.VariablePath.UserPath -ieq 'true')
                         if ($argument.ArgumentName -ieq 'Mandatory') {
                             $mandatory = $isOn
                         }
                         elseif ($argument.ArgumentName -ieq 'ValueFromPipeline') {
                             $pipeline = $pipeline -or $isOn
                         }
-                        elseif ($argument.ArgumentName -ieq 'ParameterSetName' -and $argument.Argument -is [System.Management.Automation.Language.StringConstantExpressionAst]) {
+                        elseif ($argument.ArgumentName -ieq 'ParameterSetName' -and
+                            $argument.Argument -is [System.Management.Automation.Language.StringConstantExpressionAst]) {
                             $setName = $argument.Argument.Value
                         }
                     }
@@ -73,7 +76,8 @@ function Read-CommandSignature {
                     $hasParameterAttribute = $true
                 }
             }
-            # A parameter with no [Parameter()], or one without a set name, belongs to every set, as PowerShell binds it.
+            # A parameter with no [Parameter()], or one without a set name, belongs to every set, as PowerShell binds
+            # it.
             $inEverySet = $withoutSet -or -not $hasParameterAttribute
             $mandatory = $mandatoryBySet.Count -gt 0 -and $mandatoryBySet[0]
             if (@($mandatoryBySet | Select-Object -Unique).Count -gt 1) {
@@ -91,7 +95,8 @@ function Read-CommandSignature {
                 $default = $value.Value
             }
             elseif ($value -is [System.Management.Automation.Language.ConstantExpressionAst]) {
-                $default = [System.Convert]::ToString($value.Value, [System.Globalization.CultureInfo]::InvariantCulture)
+                $default = [System.Convert]::ToString($value.Value,
+                    [System.Globalization.CultureInfo]::InvariantCulture)
             }
             elseif ($value -is [System.Management.Automation.Language.VariableExpressionAst]) {
                 $variable = $value.VariablePath.UserPath
@@ -106,13 +111,16 @@ function Read-CommandSignature {
                 $default = [Catzc.Base.Contracts.ContractParameter]::ComputedDefault
             }
             [string[]] $memberOf = $inEverySet ? @() : $sets.ToArray()
-            $parameters.Add([Catzc.Base.Contracts.ContractParameter]::new($parameter.Name.VariablePath.UserPath, $type, $isList, $mandatory, $default, $pipeline, $memberOf))
+            $parameters.Add([Catzc.Base.Contracts.ContractParameter]::new($parameter.Name.VariablePath.UserPath, $type,
+                $isList, $mandatory, $default, $pipeline, $memberOf))
         }
 
         foreach ($attribute in $block.Attributes) {
-            if ($attribute -is [System.Management.Automation.Language.AttributeAst] -and $attribute.TypeName.Name -cin 'CmdletBinding', 'CmdletBindingAttribute') {
+            if ($attribute -is [System.Management.Automation.Language.AttributeAst] -and
+                $attribute.TypeName.Name -cin 'CmdletBinding', 'CmdletBindingAttribute') {
                 foreach ($argument in $attribute.NamedArguments) {
-                    if ($argument.ArgumentName -ieq 'DefaultParameterSetName' -and $argument.Argument -is [System.Management.Automation.Language.StringConstantExpressionAst]) {
+                    if ($argument.ArgumentName -ieq 'DefaultParameterSetName' -and
+                        $argument.Argument -is [System.Management.Automation.Language.StringConstantExpressionAst]) {
                         $defaultSet = $argument.Argument.Value
                     }
                 }
@@ -120,7 +128,9 @@ function Read-CommandSignature {
         }
 
         foreach ($attribute in $block.Attributes) {
-            if ($attribute -is [System.Management.Automation.Language.AttributeAst] -and $attribute.TypeName.Name -cin 'OutputType', 'OutputTypeAttribute' -and $attribute.PositionalArguments.Count -gt 0) {
+            if ($attribute -is [System.Management.Automation.Language.AttributeAst] -and
+                $attribute.TypeName.Name -cin 'OutputType', 'OutputTypeAttribute' -and
+                $attribute.PositionalArguments.Count -gt 0) {
                 $first = $attribute.PositionalArguments[0]
                 $outputName = if ($first -is [System.Management.Automation.Language.TypeExpressionAst]) {
                     $first.TypeName.FullName

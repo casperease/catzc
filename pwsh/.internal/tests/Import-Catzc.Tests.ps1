@@ -17,7 +17,8 @@ Describe 'Import-Catzc loads a full build (walking skeleton)' -Tag 'L2', 'integr
 Describe 'Import-Catzc loads a reduced build' -Tag 'L2', 'integrity', 'greedy', 'source-only' {
     It 'a reduced build ships the full type set and loads exactly its modules (Test-BuildArtifact)' {
         $result = Test-BuildArtifact -Module 'Catzc.Base.Config' -Facet Load -PassThru -OutputFolder (Join-Path $TestDrive 'build-artifact')
-        $result.Facts['Modules'] | Should -BeLessThan (Get-ChildPath (Get-CatzcModulesRoot) -Directory -Depth 1 | Where-Object { -not [System.IO.Path]::GetFileName($_).StartsWith('.') }).Count
+        $result.Facts['Modules'] |
+            Should -BeLessThan (Get-ChildPath (Get-CatzcModulesRoot) -Directory -Depth 1 | Where-Object { -not [System.IO.Path]::GetFileName($_).StartsWith('.') }).Count
         $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")
     }
 }

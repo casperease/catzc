@@ -10,12 +10,14 @@ Describe 'Install-Catzc' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:source = Join-Path $TestDrive "$([System.Guid]::NewGuid().ToString('N'))/Catzc/1.2.3"
         [System.IO.Directory]::CreateDirectory((Join-Path $source 'Catzc.Base.Widget')) | Out-Null
-        [System.IO.File]::WriteAllText((Join-Path $source 'Catzc.Base.Widget/Catzc.Base.Widget.ps1'), 'function Get-Widget { }')
+        [System.IO.File]::WriteAllText((Join-Path $source 'Catzc.Base.Widget/Catzc.Base.Widget.ps1'),
+            'function Get-Widget { }')
         [System.IO.File]::WriteAllText((Join-Path $source 'Import-Catzc.ps1'), @'
 param([string] $RepositoryRoot, [switch] $AllowWarnings)
 [System.IO.File]::WriteAllText((Join-Path $RepositoryRoot 'invoked.json'), (@{ From = $PSScriptRoot; RepositoryRoot = $RepositoryRoot; AllowWarnings = [bool] $AllowWarnings } | ConvertTo-Json))
 '@)
-        [System.IO.File]::WriteAllText((Join-Path $source 'build.json'), (@{ version = '1.2.3'; contentHash = 'aaa111' } | ConvertTo-Json))
+        [System.IO.File]::WriteAllText((Join-Path $source 'build.json'),
+            (@{ version = '1.2.3'; contentHash = 'aaa111' } | ConvertTo-Json))
 
         $script:root = Join-Path $TestDrive "$([System.Guid]::NewGuid().ToString('N'))"
         $script:userModules = Join-Path $TestDrive "$([System.Guid]::NewGuid().ToString('N'))"
@@ -79,7 +81,8 @@ param([string] $RepositoryRoot, [switch] $AllowWarnings)
         Test-Path $marker | Should -BeFalse
 
         [System.IO.File]::WriteAllText($marker, 'wiped')
-        [System.IO.File]::WriteAllText((Join-Path $source 'build.json'), (@{ version = '1.2.3'; contentHash = 'bbb222' } | ConvertTo-Json))
+        [System.IO.File]::WriteAllText((Join-Path $source 'build.json'),
+            (@{ version = '1.2.3'; contentHash = 'bbb222' } | ConvertTo-Json))
         (Install-Catzc -Root $root -Source $source -Silent).AlreadyCurrent | Should -BeFalse
         Test-Path $marker | Should -BeFalse
     }
@@ -101,7 +104,9 @@ param([string] $RepositoryRoot, [switch] $AllowWarnings)
         Mock Get-OutputRoot { Join-Path $TestDrive 'missing-out' } -ModuleName Catzc.Base.Exporter
         Mock Get-Config { [ordered]@{ direct_install_version = '6.6.666'; default_bundle = 'widgets' } } -ModuleName Catzc.Base.Exporter -ParameterFilter { $Config -eq 'exporter' }
         Mock Assert-CatzcBundle { throw "no build at $Path" } -ModuleName Catzc.Base.Exporter
-        { Install-Catzc -Root $root -Silent } | Should -Throw -ExpectedMessage "*$(Join-Path (Join-Path $TestDrive 'missing-out') 'pwsh/built/widgets/Catzc/6.6.666')*"
-        { Install-Catzc -Root $root -Bundle gadgets -Silent } | Should -Throw -ExpectedMessage "*$(Join-Path (Join-Path $TestDrive 'missing-out') 'pwsh/built/gadgets/Catzc/6.6.666')*"
+        { Install-Catzc -Root $root -Silent } |
+            Should -Throw -ExpectedMessage "*$(Join-Path (Join-Path $TestDrive 'missing-out') 'pwsh/built/widgets/Catzc/6.6.666')*"
+        { Install-Catzc -Root $root -Bundle gadgets -Silent } |
+            Should -Throw -ExpectedMessage "*$(Join-Path (Join-Path $TestDrive 'missing-out') 'pwsh/built/gadgets/Catzc/6.6.666')*"
     }
 }

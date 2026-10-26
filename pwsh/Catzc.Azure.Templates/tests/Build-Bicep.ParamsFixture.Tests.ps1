@@ -22,7 +22,8 @@ Describe 'BicepParams.Fixture (the strict build-params stand-in)' -Tag 'L0', 'lo
     It 'reads az.getSecret on one line and wrapped, into the ARM Key Vault reference' {
         $parameters = & $script:read ("param widgetSecret = az.getSecret('sub-1', 'widget-rg', 'widget-kv', 'widget-secret')`n" +
             "param gadgetSecret = az.getSecret(`n  'sub-1',`n  'widget-rg',`n  'widget-kv',`n  'gadget-secret',`n  'v2'`n)")
-        $parameters.widgetSecret.reference.keyVault.id | Should -BeExactly '/subscriptions/sub-1/resourceGroups/widget-rg/providers/Microsoft.KeyVault/vaults/widget-kv'
+        $parameters.widgetSecret.reference.keyVault.id |
+            Should -BeExactly '/subscriptions/sub-1/resourceGroups/widget-rg/providers/Microsoft.KeyVault/vaults/widget-kv'
         $parameters.widgetSecret.reference.secretName | Should -BeExactly 'widget-secret'
         $parameters.gadgetSecret.reference.secretVersion | Should -BeExactly 'v2'
         $parameters.gadgetSecret.Contains('value') | Should -BeFalse

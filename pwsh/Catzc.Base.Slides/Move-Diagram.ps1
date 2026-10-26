@@ -28,11 +28,13 @@ function Move-Diagram {
     $root = [System.IO.Path]::GetFullPath($RepositoryRoot)
     $relative = {
         param([string] $Value)
-        ([System.IO.Path]::GetRelativePath($root, [System.IO.Path]::GetFullPath((Join-Path $root $Value))) -replace '\\', '/').TrimEnd('/')
+        ([System.IO.Path]::GetRelativePath($root,
+            [System.IO.Path]::GetFullPath((Join-Path $root $Value))) -replace '\\', '/').TrimEnd('/')
     }
     $from = & $relative $Path
     $to = & $relative $Destination
-    Assert-False ($from -eq '.' -or $from.StartsWith('../') -or $to -eq '.' -or $to.StartsWith('../')) -ErrorText "Move-Diagram: '$Path' and '$Destination' must both lie inside the repository '$root'."
+    Assert-False ($from -eq '.' -or $from.StartsWith('../') -or $to -eq '.' -or
+        $to.StartsWith('../')) -ErrorText "Move-Diagram: '$Path' and '$Destination' must both lie inside the repository '$root'."
     # A diagram pair moves whole, named by either file or its stem; any other path moves as it is.
     $pair = $from -cmatch '\.drawio\.(png|yml)$' -or -not (Test-Path -LiteralPath (Join-Path $root $from))
     if ($pair) {
@@ -45,7 +47,8 @@ function Move-Diagram {
         else {
             $from
         })
-    Assert-False ($to -ceq $from -or $to.StartsWith("$from/")) -ErrorText "Move-Diagram: '$Destination' is '$Path' or lies inside it."
+    Assert-False ($to -ceq $from -or
+        $to.StartsWith("$from/")) -ErrorText "Move-Diagram: '$Destination' is '$Path' or lies inside it."
     foreach ($target in @(if ($pair) {
                 "$to.drawio.png", "$to.drawio.yml"
             }
@@ -92,7 +95,8 @@ function Move-Diagram {
         }
         $rebased = $text
         foreach ($source in $sources) {
-            $rebased = [Catzc.Base.MarkdownMeta.MarkdownLinkRebaser]::Rebase($rebased, $page, $folder, $source, $to + $source.Substring($from.Length))
+            $rebased = [Catzc.Base.MarkdownMeta.MarkdownLinkRebaser]::Rebase($rebased, $page, $folder, $source,
+                $to + $source.Substring($from.Length))
         }
         if ($rebased -cne $text) {
             $edits.Add([pscustomobject]@{ Page = $target; Text = $rebased })
@@ -110,7 +114,8 @@ function Move-Diagram {
     if ($articleCarried -and $fromArticles -cne $toArticles) {
         $imageOf = {
             param([string] $Name, [string] $Text)
-            $labels = @((Get-DiagramImageReference -Text $Text).GetEnumerator() | Where-Object { $_.Value -ceq $Name } | ForEach-Object { [regex]::Escape($_.Key) })
+            $labels = @((Get-DiagramImageReference -Text $Text).GetEnumerator() | Where-Object { $_.Value -ceq $Name } |
+                ForEach-Object { [regex]::Escape($_.Key) })
             $reference = ''
             if ($labels.Count) {
                 $reference = '|\[(?i:' + ($labels -join '|') + ')\]'
@@ -163,9 +168,11 @@ function Move-Diagram {
         else {
             & $textOf $targets[0].Page
         }
-        $placed = $target.Insert([regex]::Match($target, '(?m)^' + (& $imageOf $toName $target)).Index, $holders[0].Block)
+        $placed = $target.Insert([regex]::Match($target, '(?m)^' + (& $imageOf $toName $target)).Index,
+            $holders[0].Block)
         foreach ($change in @([pscustomobject]@{ Page = $holders[0].Page; Text = $stripped }, [pscustomobject]@{ Page = $targets[0].Page; Text = $placed })) {
-            # A page whose links were re-pointed already has an entry; the block-moved text replaces it, and a page with none is simply added.
+            # A page whose links were re-pointed already has an entry; the block-moved text replaces it, and a page with
+            # none is simply added.
             $prior = $edits | Where-Object { $_.Page -ceq $change.Page } | Select-Object -First 1
             if ($null -ne $prior) {
                 $edits.Remove($prior) | Out-Null
@@ -173,7 +180,8 @@ function Move-Diagram {
             $edits.Add($change)
         }
     }
-    # A stem's role entry follows it, so drawio.yml keeps naming the diagram after the move; the kit's one editor re-keys it.
+    # A stem's role entry follows it, so drawio.yml keeps naming the diagram after the move; the kit's one editor
+    # re-keys it.
     $rekey = $false
     if ($null -ne $configText) {
         $config = ConvertFrom-Yaml -Yaml $configText -Ordered
@@ -182,7 +190,8 @@ function Move-Diagram {
                     $config[$section].Keys
                 }
             })
-        $rekey = @($keys | Where-Object { "$_" -ceq $from -or "$_".StartsWith("$from/", [System.StringComparison]::Ordinal) }).Count -gt 0
+        $rekey = @($keys | Where-Object { "$_" -ceq $from -or "$_".StartsWith("$from/",
+            [System.StringComparison]::Ordinal) }).Count -gt 0
     }
 
     if ($DryRun) {
@@ -214,7 +223,8 @@ function Move-Diagram {
             Assert-True $tool.Found -ErrorText 'Move-Diagram: uv is not installed (no managed uv found). Run Install-Uv.'
             Invoke-Executable "`"$($tool.Path)`" run --project `"$($kitCode.Folder)`" python `"$($kitCode.Declaration)`" rekey `"$from`" `"$to`" `"$kitConfig`"" -WorkingDirectory $root -Silent | Out-Null
         }
-        # A re-pointed link changes its line's length, so every rewritten page is formatted again, as the repository formats it.
+        # A re-pointed link changes its line's length, so every rewritten page is formatted again, as the repository
+        # formats it.
         $pages = @(foreach ($edit in $edits) {
                 if ($edit.Page.EndsWith('.md', [System.StringComparison]::OrdinalIgnoreCase)) {
                     [System.IO.Path]::GetFullPath((Join-Path $root $edit.Page))

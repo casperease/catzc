@@ -25,24 +25,28 @@ Describe 'Get-EngineContract' -Tag 'L0', 'logic' {
 
     It 'names pwsh, its start arguments loading the repository importer, and the root for a source run' {
         $contract = InModuleScope Catzc.Base.Languages { Get-EngineContract }
-        @($contract.Keys) | Should -Be @('CATZC_ENGINE', 'CATZC_ENGINE_EXECUTABLE', 'CATZC_ENGINE_ENTRY', 'CATZC_ENGINE_START', 'CATZC_REPOSITORY_ROOT', 'CATZC_ENGINE_TIMEOUT_SECONDS')
+        @($contract.Keys) | Should -Be @('CATZC_ENGINE', 'CATZC_ENGINE_EXECUTABLE', 'CATZC_ENGINE_ENTRY',
+            'CATZC_ENGINE_START', 'CATZC_REPOSITORY_ROOT', 'CATZC_ENGINE_TIMEOUT_SECONDS')
         $contract['CATZC_ENGINE_ENTRY'] | Should -Be (Join-Path $script:root 'importer.ps1')
         $contract['CATZC_ENGINE'] | Should -Be 'pwsh'
         $contract['CATZC_ENGINE_EXECUTABLE'] | Should -Be 'C:\widget\engine\pwsh.exe'
         $start = @($contract['CATZC_ENGINE_START'] | ConvertFrom-Json)
-        $start | Should -Be ([Catzc.Base.Engines.ExecutionEngines]::Pwsh.StartArguments((Join-Path $script:root 'importer.ps1'), '{command}'))
+        $start |
+            Should -Be ([Catzc.Base.Engines.ExecutionEngines]::Pwsh.StartArguments((Join-Path $script:root 'importer.ps1'), '{command}'))
         $start[-1] | Should -BeLike "*widget''s repo*; {command}"
         $contract['CATZC_REPOSITORY_ROOT'] | Should -Be $script:root
     }
 
     It 'bounds one engine start by the configured engine start limit' -Tag 'ADR-AUTO-FAILFAST-BOUNDEVERYWAIT' {
         $contract = InModuleScope Catzc.Base.Languages { Get-EngineContract }
-        $contract['CATZC_ENGINE_TIMEOUT_SECONDS'] | Should -BeExactly ([string] (Get-Config -Config timeouts).EngineStartSeconds())
+        $contract['CATZC_ENGINE_TIMEOUT_SECONDS'] |
+            Should -BeExactly ([string] (Get-Config -Config timeouts).EngineStartSeconds())
     }
 
     It 'loads the build''s entry for a build run' {
         $contract = InModuleScope Catzc.Base.Languages -Parameters @{ Entry = $script:buildEntry } { param($Entry) Get-EngineContract -EntryScript $Entry }
-        @($contract['CATZC_ENGINE_START'] | ConvertFrom-Json)[-1] | Should -BeLike "*Import-Catzc.ps1' *> `$null; {command}"
+        @($contract['CATZC_ENGINE_START'] | ConvertFrom-Json)[-1] |
+            Should -BeLike "*Import-Catzc.ps1' *> `$null; {command}"
     }
 
     It 'starts bash from the caller''s executable, loading importer.sh, with cats before the command and the build entry for cats' {
@@ -53,7 +57,8 @@ Describe 'Get-EngineContract' -Tag 'L0', 'logic' {
         $contract['CATZC_ENGINE'] | Should -Be 'bash'
         $contract['CATZC_ENGINE_EXECUTABLE'] | Should -Be $script:bash
         $importer = (Join-Path $script:root 'importer.sh').Replace('\', '/')
-        @($contract['CATZC_ENGINE_START'] | ConvertFrom-Json) | Should -Be ([Catzc.Base.Engines.ExecutionEngines]::Bash.StartArguments($importer, '{command}'))
+        @($contract['CATZC_ENGINE_START'] | ConvertFrom-Json) |
+            Should -Be ([Catzc.Base.Engines.ExecutionEngines]::Bash.StartArguments($importer, '{command}'))
         @($contract['CATZC_ENGINE_START'] | ConvertFrom-Json)[-1] | Should -BeLike '*; cats {command}'
         $contract['CATZC_IMPORTER'] | Should -Be (Resolve-Path -LiteralPath $script:buildEntry).ProviderPath
         $contract['CATZC_ENGINE_ENTRY'] | Should -Be $importer
@@ -77,6 +82,7 @@ Describe 'Get-EngineContract' -Tag 'L0', 'logic' {
     }
 
     It 'throws when the build''s entry does not exist' {
-        { InModuleScope Catzc.Base.Languages { Get-EngineContract -EntryScript 'C:\widget\absent\Import-Catzc.ps1' } } | Should -Throw
+        { InModuleScope Catzc.Base.Languages { Get-EngineContract -EntryScript 'C:\widget\absent\Import-Catzc.ps1' } } |
+            Should -Throw
     }
 }

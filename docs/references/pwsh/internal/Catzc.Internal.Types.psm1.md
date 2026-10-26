@@ -144,3 +144,48 @@ Above `[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '
 .EXAMPLE
     Enable-DeferredTypesLoad -CommandName (Get-Command -Module Widget).Name
 ```
+
+## comment:8
+
+Above `[bool] $ShadowCopy = $true`, written with `#`.
+
+```text
+false loads the file in place: a system that does not lock a loaded file needs no copy (types-load.yml
+shadowCopy).
+```
+
+## comment:9
+
+Above `$script:typesLoadDefault = [ordered]@{ Load = 'lazy'; Trigger =...`, written with `#`.
+
+```text
+The default row and the allowed values live here, not on a C# type: the policy is read while the types assembly is
+still unloaded.
+```
+
+## comment:10
+
+Above `if ($policy.Generations -gt 1 -and $cell -notlike 'console.*.source') {`, written with `#`.
+
+```text
+Builds stack side by side only in a developer's interactive session in the source tree; every other cell keeps
+one.
+```
+
+## comment:11
+
+Above `[int] $Generation = 1`, written with `#`.
+
+```text
+Which build of this root the session loads: 1 for the first, more when changed builds stack (types-load.yml
+generations).
+```
+
+## comment:12
+
+Above `$assembly = @([System.AppDomain]::CurrentDomain.GetAssemblies() |...`, written with `#`.
+
+```text
+A full type name keeps resolving to the first-loaded build, so each accelerator takes its type from this
+build's assembly.
+```

@@ -41,7 +41,8 @@ Describe 'Repair-IdiomaticNames' -Tag 'L0', 'logic' {
         Join-Path $script:root 'python/widget_gadget/tool.py' | Should -Exist
         Join-Path $script:root 'python/widget/gadget_thing.py' | Should -Exist
         Join-Path $script:root 'python/Widget.Gadget' | Should -Not -Exist
-        [System.IO.File]::ReadAllText((Join-Path $script:root 'docs/widget.md')) | Should -Match 'python/Widget\.Gadget/tool\.py'
+        [System.IO.File]::ReadAllText((Join-Path $script:root 'docs/widget.md')) |
+            Should -Match 'python/Widget\.Gadget/tool\.py'
     }
 
     It 'lands a case-only rename' {

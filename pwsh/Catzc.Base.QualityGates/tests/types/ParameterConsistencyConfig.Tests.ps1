@@ -25,7 +25,8 @@ Describe 'ParameterConsistencyConfig' -Tag 'L0' {
             $err.Exception.Message | Should -BeLike "*unknown key 'widget'*"
             $err.Exception.Message | Should -BeLike "*invalid parameter name '-Kind'*"
             $err.Exception.Message | Should -BeLike '*exempt.Count needs the reason*'
-            { [Catzc.Base.QualityGates.ParameterConsistencyConfig]::new([ordered]@{ exempt = @('Kind') }) } | Should -Throw '*exempt must be a map*'
+            { [Catzc.Base.QualityGates.ParameterConsistencyConfig]::new([ordered]@{ exempt = @('Kind') }) } |
+                Should -Throw '*exempt must be a map*'
         }
     }
 }

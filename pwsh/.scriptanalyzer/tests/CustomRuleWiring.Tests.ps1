@@ -6,7 +6,8 @@ catzc:
 ---
 #>
 
-[Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-NoRawVsoCommand', '', Justification = 'Fixture intentionally contains a raw ##vso[task.*] string to prove the rule fires through the engine.')]
+[Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-NoRawVsoCommand', '',
+    Justification = 'Fixture intentionally contains a raw ##vso[task.*] string to prove the rule fires through the engine.')]
 param()
 
 Describe 'Custom PSScriptAnalyzer rules — engine wiring' -Tag 'L2', 'logic' {
@@ -45,7 +46,8 @@ $longBody
     }
 
     It 'the settings hand the engine the two entry rules: every check, and the spelling check on its own' {
-        @($script:rulePaths | ForEach-Object { Split-Path $_ -Leaf }) | Should -Be @('CatzcRules.psm1', 'CatzcSpelling.psm1')
+        @($script:rulePaths | ForEach-Object { Split-Path $_ -Leaf }) | Should -Be @('CatzcRules.psm1',
+            'CatzcSpelling.psm1')
     }
 
     It 'PSScriptAnalyzer fires <Rule> through the entry rule, under its own rule name' -ForEach @(

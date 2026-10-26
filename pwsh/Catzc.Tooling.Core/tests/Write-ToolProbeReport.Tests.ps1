@@ -9,8 +9,10 @@ catzc:
 Describe 'Write-ToolProbeReport' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Write-Message { } -ModuleName Catzc.Tooling.Core
-        $script:found = [Catzc.Base.Execution.ExecutableProbe]::new('widget', '/opt/widget/bin/widget', 'probe', '5.2.37', '5', $true, 4, 150, 'Agent')
-        $script:missing = [Catzc.Base.Execution.ExecutableProbe]::new('gadget', $null, 'none', $null, '1.27', $false, 2, 0, 'Agent')
+        $script:found = [Catzc.Base.Execution.ExecutableProbe]::new('widget', '/opt/widget/bin/widget', 'probe',
+            '5.2.37', '5', $true, 4, 150, 'Agent')
+        $script:missing = [Catzc.Base.Execution.ExecutableProbe]::new('gadget', $null, 'none', $null, '1.27', $false, 2,
+            0, 'Agent')
     }
 
     It 'renders a header row and one row per tool, with every field' {
@@ -35,7 +37,8 @@ Describe 'Write-ToolProbeReport' -Tag 'L0', 'logic' {
     }
 
     It 'checks every tool in tools.yml when called with no arguments' {
-        Mock Get-Config { [pscustomobject]@{ Keys = @('widget', 'gadget') } } -ModuleName Catzc.Tooling.Core -ParameterFilter { $Config -eq 'tools' }
+        Mock Get-Config { [pscustomobject]@{ Keys = @('widget',
+            'gadget') } } -ModuleName Catzc.Tooling.Core -ParameterFilter { $Config -eq 'tools' }
         Mock Test-Tool {
             if ($Tool -eq 'widget') {
                 $script:found

@@ -124,7 +124,8 @@ function Get-ToolsStatus {
             else {
                 "Run Install-$command"
             }
-            [Catzc.Tooling.Provisioning.ToolStatus]::new($toolName, "$($config.version).x", $null, 'Missing', $null, $null, $null, $missingAction)
+            [Catzc.Tooling.Provisioning.ToolStatus]::new($toolName, "$($config.version).x", $null, 'Missing', $null,
+                $null, $null, $missingAction)
             continue
         }
 
@@ -182,11 +183,13 @@ function Get-ToolsStatus {
             }
         }
 
-        [Catzc.Tooling.Provisioning.ToolStatus]::new($toolName, "$($config.version).x", $installed, $status, $location, $manager, $scope, $action)
+        [Catzc.Tooling.Provisioning.ToolStatus]::new($toolName, "$($config.version).x", $installed, $status, $location,
+            $manager, $scope, $action)
     }
 
     if ($IsWindows -and (Test-Command choco)) {
-        $ret += [Catzc.Tooling.Provisioning.ToolStatus]::new('Chocolatey', $null, 'present', 'Unwanted', (Get-Command choco).Source, $null, $null, 'Run Uninstall-Chocolatey')
+        $ret += [Catzc.Tooling.Provisioning.ToolStatus]::new('Chocolatey', $null, 'present', 'Unwanted',
+            (Get-Command choco).Source, $null, $null, 'Run Uninstall-Chocolatey')
     }
 
     # One-line summary via Write-Message

@@ -23,7 +23,8 @@ Describe 'WorldMapPdf' -Tag 'L0', 'logic' {
         $script:highlight = [Catzc.Base.Maps.WorldMapHighlight]::ForPaths($script:map, @('gadgets/e.yml'))
         $script:lines = { param([Catzc.Base.Maps.PdfPage] $page) @($page.Content -split "`n" | Where-Object { $_ -ne '' }) }
         $script:fill = { param([string] $hex) [Catzc.Base.Maps.PdfPage]::new(1, 1).SetFillColor($hex).Content.Trim() }
-        $script:stroke = { param([string] $hex) [Catzc.Base.Maps.PdfPage]::new(1, 1).SetStrokeColor($hex).Content.Trim() }
+        $script:stroke = { param([string] $hex) [Catzc.Base.Maps.PdfPage]::new(1,
+            1).SetStrokeColor($hex).Content.Trim() }
         $script:rect = {
             param([double] $x, [double] $y, [double] $w, [double] $h, [string] $op)
             '{0} {1} {2} {3} {4}' -f ([Catzc.Base.Maps.PdfNumber]::Format($x)), ([Catzc.Base.Maps.PdfNumber]::Format($y)),
@@ -50,8 +51,10 @@ Describe 'WorldMapPdf' -Tag 'L0', 'logic' {
         }
 
         It 'writes the same bytes on two runs' {
-            $one = [Catzc.Base.Maps.WorldMapPdf]::Render((& $script:newMap), $script:config, $script:highlight, $true, $true).ToBytes()
-            $two = [Catzc.Base.Maps.WorldMapPdf]::Render((& $script:newMap), $script:config, $script:highlight, $true, $true).ToBytes()
+            $one = [Catzc.Base.Maps.WorldMapPdf]::Render((& $script:newMap), $script:config, $script:highlight, $true,
+                $true).ToBytes()
+            $two = [Catzc.Base.Maps.WorldMapPdf]::Render((& $script:newMap), $script:config, $script:highlight, $true,
+                $true).ToBytes()
             [Convert]::ToBase64String($two) | Should -Be ([Convert]::ToBase64String($one))
             $pdf = & $script:text $one
             $pdf.StartsWith('%PDF-1.4') | Should -BeTrue
@@ -59,7 +62,8 @@ Describe 'WorldMapPdf' -Tag 'L0', 'logic' {
         }
 
         It 'throws when no view is requested' {
-            { [Catzc.Base.Maps.WorldMapPdf]::Render($script:map, $script:config, $null, $false, $false) } | Should -Throw '*no view requested*'
+            { [Catzc.Base.Maps.WorldMapPdf]::Render($script:map, $script:config, $null, $false, $false) } |
+                Should -Throw '*no view requested*'
         }
     }
 
@@ -75,7 +79,8 @@ Describe 'WorldMapPdf' -Tag 'L0', 'logic' {
             $layout.CellBottom(0) | Should -Be ($layout.Top - $layout.ColumnHeaderHeight - $layout.CellHeight)
             ($layout.CellBottom(0) - $layout.CellBottom(1)) | Should -BeGreaterThan ($layout.CellHeight - 1e-9)
             $layout.Right | Should -BeLessOrEqual (842 - [Catzc.Base.Maps.WorldMapGridLayout]::Margin + 1e-9)
-            $layout.Bottom | Should -BeGreaterOrEqual ($layout.LegendBottom + [Catzc.Base.Maps.WorldMapGridLayout]::LegendHeight)
+            $layout.Bottom |
+                Should -BeGreaterOrEqual ($layout.LegendBottom + [Catzc.Base.Maps.WorldMapGridLayout]::LegendHeight)
             $layout.Top | Should -BeLessThan $layout.TitleBaseline
             $layout.CellHeight | Should -Be ([Catzc.Base.Maps.WorldMapGridLayout]::MaxCellHeight)
             { $layout.CellLeft(3) } | Should -Throw
@@ -88,7 +93,8 @@ Describe 'WorldMapPdf' -Tag 'L0', 'logic' {
             $padding = [Catzc.Base.Maps.WorldMapGridLayout]::Padding
             $layout.ColumnHeaderHeight | Should -Be ($layout.ColumnAxisHeight + $layout.ColumnNameHeight)
             $layout.ColumnAxisHeight | Should -Be ($size + 2 * $padding)
-            $layout.ColumnNameHeight | Should -BeGreaterOrEqual (([Catzc.Base.Maps.WorldMapGridLayout]::LineSpacing + 0.7) * $size + 2 * $padding)
+            $layout.ColumnNameHeight |
+                Should -BeGreaterOrEqual (([Catzc.Base.Maps.WorldMapGridLayout]::LineSpacing + 0.7) * $size + 2 * $padding)
         }
 
         It 'makes the row header as wide as its longest printed label' {
@@ -99,15 +105,18 @@ Describe 'WorldMapPdf' -Tag 'L0', 'logic' {
 
         It 'fills each cell at its layout position, shaded by its file count' {
             $layout = [Catzc.Base.Maps.WorldMapGridLayout]::new($script:map, $script:config)
-            $content = [Catzc.Base.Maps.WorldMapPdf]::Render($script:map, $script:config, $null, $true, $false).Pages[0].Content
+            $content = [Catzc.Base.Maps.WorldMapPdf]::Render($script:map, $script:config, $null, $true,
+                $false).Pages[0].Content
             $max = [Catzc.Base.Maps.WorldMapPdf]::ShadeOf(3, 3, $script:config.palette)
-            $content | Should -BeLike "*$(& $script:fill $max)`n$(& $script:rect $layout.CellLeft(1) $layout.CellBottom(1) $layout.CellWidth $layout.CellHeight 're f')`n*"
+            $content |
+                Should -BeLike "*$(& $script:fill $max)`n$(& $script:rect $layout.CellLeft(1) $layout.CellBottom(1) $layout.CellWidth $layout.CellHeight 're f')`n*"
         }
     }
 
     Context 'labels' {
         It 'prints the bucket row and column by their terms, never the bucket keys' {
-            $content = [Catzc.Base.Maps.WorldMapPdf]::Render($script:map, $script:config, $null, $true, $false).Pages[0].Content
+            $content = [Catzc.Base.Maps.WorldMapPdf]::Render($script:map, $script:config, $null, $true,
+                $false).Pages[0].Content
             $content | Should -BeLike '*(Root files) Tj*'
             $content | Should -BeLike '*(Unlisted files) Tj*'
             $content | Should -Not -BeLike '*(\(no track\)) Tj*'
@@ -135,19 +144,22 @@ Describe 'WorldMapPdf' -Tag 'L0', 'logic' {
             [Catzc.Base.Maps.WorldMapPdf]::Fit('widget', 'Helvetica', 8, 6, 100, [ref] $size) | Should -Be 'widget'
             $size | Should -Be 8
             $wide = [Catzc.Base.Maps.HelveticaMetrics]::Width('Helvetica', 8, 'widget')
-            [Catzc.Base.Maps.WorldMapPdf]::Fit('widget', 'Helvetica', 8, 6, $wide * 0.8, [ref] $size) | Should -Be 'widget'
+            [Catzc.Base.Maps.WorldMapPdf]::Fit('widget', 'Helvetica', 8, 6, $wide * 0.8, [ref] $size) |
+                Should -Be 'widget'
             $size | Should -BeLessThan 8
             $size | Should -BeGreaterOrEqual 6
             $cut = [Catzc.Base.Maps.WorldMapPdf]::Fit('widget gadget sprocket', 'Helvetica', 8, 6, 30, [ref] $size)
             $cut | Should -BeLike "*$([char]0x2026)"
             $size | Should -Be 6
             [Catzc.Base.Maps.HelveticaMetrics]::Width('Helvetica', 6, $cut) | Should -BeLessOrEqual 30
-            [Catzc.Base.Maps.WorldMapPdf]::Fit('widget gadget sprocket', 'Helvetica', 8, 6, 30, [ref] $size) | Should -Be $cut
+            [Catzc.Base.Maps.WorldMapPdf]::Fit('widget gadget sprocket', 'Helvetica', 8, 6, 30, [ref] $size) |
+                Should -Be $cut
             [Catzc.Base.Maps.WorldMapPdf]::Fit('widget', 'Helvetica', 8, 6, 1, [ref] $size) | Should -Be ''
             $size | Should -Be 0
             $marker = [Catzc.Base.Maps.HelveticaMetrics]::Width('Helvetica', 6, [string][char]0x2026)
             [Catzc.Base.Maps.WorldMapPdf]::Fit('widget', 'Helvetica', 8, 6, $marker + 0.5, [ref] $size) | Should -Be ''
-            [Catzc.Base.Maps.WorldMapPdf]::Fit('widget', 'Helvetica', 8, 6, $marker + 5, [ref] $size) | Should -Be "w$([char]0x2026)"
+            [Catzc.Base.Maps.WorldMapPdf]::Fit('widget', 'Helvetica', 8, 6, $marker + 5, [ref] $size) |
+                Should -Be "w$([char]0x2026)"
         }
 
         It 'keeps a header that fits on one line' {
@@ -159,21 +171,25 @@ Describe 'WorldMapPdf' -Tag 'L0', 'logic' {
 
         It 'wraps a header at a space (dropped) or after a hyphen (kept) before it shrinks' {
             $size = 0.0
-            [Catzc.Base.Maps.WorldMapPdf]::FitLines('widget gadget', 'Helvetica', 8, 6, 30, [ref] $size) | Should -Be @('widget', 'gadget')
+            [Catzc.Base.Maps.WorldMapPdf]::FitLines('widget gadget', 'Helvetica', 8, 6, 30, [ref] $size) |
+                Should -Be @('widget', 'gadget')
             $size | Should -Be 8
-            [Catzc.Base.Maps.WorldMapPdf]::FitLines('widget-gadget', 'Helvetica', 8, 6, 30, [ref] $size) | Should -Be @('widget-', 'gadget')
+            [Catzc.Base.Maps.WorldMapPdf]::FitLines('widget-gadget', 'Helvetica', 8, 6, 30, [ref] $size) |
+                Should -Be @('widget-', 'gadget')
             $size | Should -Be 8
         }
 
         It 'wraps at the break that leaves the wider line narrowest' {
             $size = 0.0
-            [Catzc.Base.Maps.WorldMapPdf]::FitLines('widget gadget sprocket', 'Helvetica', 8, 6, 50, [ref] $size) | Should -Be @('widget gadget', 'sprocket')
+            [Catzc.Base.Maps.WorldMapPdf]::FitLines('widget gadget sprocket', 'Helvetica', 8, 6, 50, [ref] $size) |
+                Should -Be @('widget gadget', 'sprocket')
             $size | Should -Be 8
         }
 
         It 'shrinks the wrapped header when its lines are too wide, then cuts each line at the smallest size' {
             $size = 0.0
-            [Catzc.Base.Maps.WorldMapPdf]::FitLines('widget-gadget', 'Helvetica', 8, 5, 20, [ref] $size) | Should -Be @('widget-', 'gadget')
+            [Catzc.Base.Maps.WorldMapPdf]::FitLines('widget-gadget', 'Helvetica', 8, 5, 20, [ref] $size) |
+                Should -Be @('widget-', 'gadget')
             $size | Should -BeLessThan 8
             $size | Should -BeGreaterOrEqual 5
             [Catzc.Base.Maps.HelveticaMetrics]::Width('Helvetica', $size, 'widget-') | Should -BeLessOrEqual 20
@@ -193,13 +209,15 @@ Describe 'WorldMapPdf' -Tag 'L0', 'logic' {
             $one | Should -Be @([Catzc.Base.Maps.WorldMapPdf]::Fit('sprockets', 'Helvetica', 8, 6, 30, [ref] $fit))
             $size | Should -Be $fit
             $size | Should -BeLessThan 8
-            @([Catzc.Base.Maps.WorldMapPdf]::FitLines('widget gadget', 'Helvetica', 8, 6, 1, [ref] $size)).Count | Should -Be 0
+            @([Catzc.Base.Maps.WorldMapPdf]::FitLines('widget gadget', 'Helvetica', 8, 6, 1, [ref] $size)).Count |
+                Should -Be 0
             $size | Should -Be 0
         }
 
         It 'prints a narrow column''s header on two lines, the first above the second' {
             $config = [Catzc.Base.Maps.MapsConfig]::new([ordered]@{ limits = [ordered]@{ page_width = 240 } })
-            $content = [Catzc.Base.Maps.WorldMapPdf]::Render($script:map, $config, $null, $true, $false).Pages[0].Content
+            $content = [Catzc.Base.Maps.WorldMapPdf]::Render($script:map, $config, $null, $true,
+                $false).Pages[0].Content
             $content | Should -Not -BeLike '*(Unlisted files) Tj*'
             $content | Should -BeLike '*(widget-) Tj*'
             $first = [regex]::Match($content, '([\d.]+) Td \(Unlisted\) Tj')
@@ -213,9 +231,11 @@ Describe 'WorldMapPdf' -Tag 'L0', 'logic' {
     Context 'marks and the highlight' {
         It 'marks the stack-violation cell in the violation colour' {
             $layout = [Catzc.Base.Maps.WorldMapGridLayout]::new($script:map, $script:config)
-            $content = [Catzc.Base.Maps.WorldMapPdf]::Render($script:map, $script:config, $null, $true, $false).Pages[0].Content
+            $content = [Catzc.Base.Maps.WorldMapPdf]::Render($script:map, $script:config, $null, $true,
+                $false).Pages[0].Content
             $border = & $script:rect ($layout.CellLeft(0) + 0.75) ($layout.CellBottom(1) + 0.75) ($layout.CellWidth - 1.5) ($layout.CellHeight - 1.5) 're S'
-            $content | Should -BeLike "*$(& $script:stroke ([Catzc.Base.Maps.MapsPalette]::DefaultViolation))`n1.5 w`n$border`n*"
+            $content |
+                Should -BeLike "*$(& $script:stroke ([Catzc.Base.Maps.MapsPalette]::DefaultViolation))`n1.5 w`n$border`n*"
         }
 
         It 'outlines each lit cell in the highlight colour, on both pages' {
@@ -238,7 +258,8 @@ Describe 'WorldMapPdf' -Tag 'L0', 'logic' {
         It 'throws on a highlight cell the map does not have' {
             $cell = [Catzc.Base.Maps.HighlightedCell]::new('sprockets', 'widget-script', @(), @('path'))
             $stray = [Catzc.Base.Maps.WorldMapHighlight]::new('path', @(), @($cell))
-            { [Catzc.Base.Maps.WorldMapPdf]::Render($script:map, $script:config, $stray, $true, $false) } | Should -Throw "*'sprockets' x 'widget-script'*"
+            { [Catzc.Base.Maps.WorldMapPdf]::Render($script:map, $script:config, $stray, $true, $false) } |
+                Should -Throw "*'sprockets' x 'widget-script'*"
         }
     }
 

@@ -229,7 +229,8 @@ Describe 'Get-AdoYamlFiles' -Tag 'L0' {
         }
 
         It 'stops at a -Depth that overrides the default' {
-            @(Get-AdoYamlFiles -Path $script:widgetRoot -Depth 3 | ForEach-Object RelativePath) | Should -Not -Contain 'a/b/c/d/e/gadget.yaml'
+            @(Get-AdoYamlFiles -Path $script:widgetRoot -Depth 3 | ForEach-Object RelativePath) |
+                Should -Not -Contain 'a/b/c/d/e/gadget.yaml'
         }
 
         It 'never searches a .terraform provider cache' {

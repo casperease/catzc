@@ -53,7 +53,8 @@ Describe 'Import-RepositoryWithHistory' -Tag 'L2', 'logic', 'DDR-TRACK-UNORDERED
 
     It 'refuses a landing address that is taken and adds no suffix' {
         [System.IO.Directory]::CreateDirectory((Join-Path $script:target $script:address)) | Out-Null
-        { Import-RepositoryWithHistory -Source $script:source -RepositoryRoot $script:target } | Should -Throw '*is taken*'
+        { Import-RepositoryWithHistory -Source $script:source -RepositoryRoot $script:target } |
+            Should -Throw '*is taken*'
         (& git -C $script:target rev-parse HEAD) | Should -Be $script:head
         Test-Path -LiteralPath (Join-Path $script:target '.unordered/widget-tools-2') | Should -BeFalse
     }
@@ -72,7 +73,8 @@ Describe 'Import-RepositoryWithHistory' -Tag 'L2', 'logic', 'DDR-TRACK-UNORDERED
         $dirty = Join-Path $TestDrive 'sprocket-kit'
         New-WidgetRepository -Path $dirty -Messages @('cut the sprocket')
         [System.IO.File]::WriteAllText((Join-Path $dirty 'loose.txt'), "loose`n")
-        { Import-RepositoryWithHistory -Source $dirty -RepositoryRoot $script:target } | Should -Throw '*uncommitted changes*'
+        { Import-RepositoryWithHistory -Source $dirty -RepositoryRoot $script:target } |
+            Should -Throw '*uncommitted changes*'
         (& git -C $script:target rev-parse HEAD) | Should -Be $script:head
     }
 

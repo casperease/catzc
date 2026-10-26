@@ -51,7 +51,8 @@ Describe 'GitIndex' -Tag 'L0', 'logic' {
 
                 if ($Version -eq 4) {
                     $common = 0
-                    while ($common -lt [Math]::Min($previous.Length, $path.Length) -and $previous[$common] -eq $path[$common]) {
+                    while ($common -lt [Math]::Min($previous.Length, $path.Length) -and
+                        $previous[$common] -eq $path[$common]) {
                         $common++
                     }
                     # git's offset varint (varint.c encode_varint).
@@ -122,11 +123,13 @@ Describe 'GitIndex' -Tag 'L0', 'logic' {
         }
 
         It 'decodes non-ASCII paths as UTF-8, literally' {
-            [Catzc.Base.Git.GitIndex]::Parse((New-GitIndexBytes @('widget/blåbær.txt'))).Paths | Should -Be @('widget/blåbær.txt')
+            [Catzc.Base.Git.GitIndex]::Parse((New-GitIndexBytes @('widget/blåbær.txt'))).Paths |
+                Should -Be @('widget/blåbær.txt')
         }
 
         It 'lists an unmerged path once, though the index holds one entry per conflict stage' {
-            $bytes = New-GitIndexBytes @('a.txt', @{ Path = 'b.txt'; Stage = 1 }, @{ Path = 'b.txt'; Stage = 2 }, @{ Path = 'b.txt'; Stage = 3 }, 'c.txt')
+            $bytes = New-GitIndexBytes @('a.txt',
+                @{ Path = 'b.txt'; Stage = 1 }, @{ Path = 'b.txt'; Stage = 2 }, @{ Path = 'b.txt'; Stage = 3 }, 'c.txt')
             [Catzc.Base.Git.GitIndex]::Parse($bytes).Paths | Should -Be @('a.txt', 'b.txt', 'c.txt')
         }
 
@@ -148,8 +151,10 @@ Describe 'GitIndex' -Tag 'L0', 'logic' {
         It 'keys the parsed index on its bytes: equal bytes, equal hash; different bytes, different hash' {
             $one = New-GitIndexBytes @('a.txt')
             $two = New-GitIndexBytes @('a.txt', 'b.txt')
-            [Catzc.Base.Git.GitIndex]::Parse($one).ContentHash | Should -Be ([Catzc.Base.Git.GitIndex]::HashContent($one))
-            [Catzc.Base.Git.GitIndex]::HashContent($one) | Should -Not -Be ([Catzc.Base.Git.GitIndex]::HashContent($two))
+            [Catzc.Base.Git.GitIndex]::Parse($one).ContentHash |
+                Should -Be ([Catzc.Base.Git.GitIndex]::HashContent($one))
+            [Catzc.Base.Git.GitIndex]::HashContent($one) |
+                Should -Not -Be ([Catzc.Base.Git.GitIndex]::HashContent($two))
         }
     }
 
@@ -160,7 +165,8 @@ Describe 'GitIndex' -Tag 'L0', 'logic' {
         }
 
         It 'throws on an unsupported index version' {
-            { [Catzc.Base.Git.GitIndex]::Parse((New-GitIndexBytes @('a.txt') -Version 5)) } | Should -Throw '*version 5*'
+            { [Catzc.Base.Git.GitIndex]::Parse((New-GitIndexBytes @('a.txt') -Version 5)) } |
+                Should -Throw '*version 5*'
         }
 
         It 'throws when the checksum does not match (corruption, or a SHA-256 repository)' {
@@ -188,12 +194,14 @@ Describe 'GitIndex' -Tag 'L0', 'logic' {
 
     Context 'Under (the ls-files pathspec)' {
         BeforeAll {
-            $script:index = [Catzc.Base.Git.GitIndex]::Parse((New-GitIndexBytes @('a.txt', 'widget/gadget.yml', 'widget/sub/x.md', 'widgets/y.md')))
+            $script:index = [Catzc.Base.Git.GitIndex]::Parse((New-GitIndexBytes @('a.txt', 'widget/gadget.yml',
+                'widget/sub/x.md', 'widgets/y.md')))
         }
 
         It "returns every path for '.' (and its spellings)" {
             foreach ($all in '.', './', '') {
-                $script:index.Under([string[]] @($all)) | Should -Be @('a.txt', 'widget/gadget.yml', 'widget/sub/x.md', 'widgets/y.md')
+                $script:index.Under([string[]] @($all)) | Should -Be @('a.txt', 'widget/gadget.yml', 'widget/sub/x.md',
+                    'widgets/y.md')
             }
         }
 

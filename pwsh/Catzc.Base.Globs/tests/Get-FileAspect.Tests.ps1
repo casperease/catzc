@@ -2,8 +2,10 @@ Describe 'Get-FileAspect' -Tag 'L0', 'logic' {
     BeforeAll {
         Mock Get-AspectGlobSet -ModuleName Catzc.Base.Globs {
             [ordered]@{
-                live  = @([Catzc.Base.Globs.GlobSet]::new('widget-live', 'd', 'module', @('widget/*.ps1'), @(), @(), @(), -1, $null))
-                tests = @([Catzc.Base.Globs.GlobSet]::new('widget-tests', 'd', 'module', @('widget/tests/**'), @(), @(), @(), -1, $null))
+                live  = @([Catzc.Base.Globs.GlobSet]::new('widget-live', 'd', 'module', @('widget/*.ps1'), @(), @(),
+                    @(), -1, $null))
+                tests = @([Catzc.Base.Globs.GlobSet]::new('widget-tests', 'd', 'module', @('widget/tests/**'), @(), @(),
+                    @(), -1, $null))
             }
         }
     }

@@ -103,7 +103,8 @@ function Test-BuildArtifact {
                             if ($observed.ModulesRoot -ne $buildRoot) {
                                 $issues.Add("[load] the code root is '$($observed.ModulesRoot)', not the build root")
                             }
-                            if ($observed.RepositoryRoot -ne $expectedRepository -or $observed.Repository -ne $expectedRepository) {
+                            if ($observed.RepositoryRoot -ne $expectedRepository -or
+                                $observed.Repository -ne $expectedRepository) {
                                 $issues.Add("[load] the working root is '$($observed.RepositoryRoot)', not the repository")
                             }
                             foreach ($name in $builtModules) {
@@ -122,7 +123,8 @@ function Test-BuildArtifact {
                                     $issues.Add("[load] $name loads $($entry.Instances) times (Get-Module -All); a merged file never adds a same-named nested module")
                                 }
                             }
-                            foreach ($name in @($loaded.Keys | Where-Object { $_ -notin $builtModules } | Sort-Object)) {
+                            foreach ($name in @($loaded.Keys | Where-Object { $_ -notin $builtModules } |
+                                Sort-Object)) {
                                 $issues.Add("[load] $name loads but was not built")
                             }
                             foreach ($base in @($observed.InternalBases)) {

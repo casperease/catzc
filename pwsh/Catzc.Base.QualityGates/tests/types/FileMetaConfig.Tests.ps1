@@ -80,7 +80,8 @@ Describe 'FileMetaConfig' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-METAKIND' {
 
     It 'defaults a class-list setting to the classes the kind selects' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
         $config = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{
-                kinds = [ordered]@{ widget = @{ select = @(@{ languages = @('markdown') }, @{ classes = @('widget-type', 'gadget-*') }); settings = @{ held_classes = @('cog') } } }
+                kinds = [ordered]@{ widget = @{ select = @(@{ languages = @('markdown') }, @{ classes = @('widget-type',
+                    'gadget-*') }); settings = @{ held_classes = @('cog') } } }
             })
         $config.kinds[0].ClassSetting('domain_classes') | Should -Be @('widget-type', 'gadget-*')
         $config.kinds[0].ClassSetting('held_classes') | Should -Be @('cog')
@@ -89,7 +90,8 @@ Describe 'FileMetaConfig' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-METAKIND' {
     It 'maps every key it is given, in file order' {
         $config = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{
                 kinds = [ordered]@{
-                    widget = @{ keys = @('size', 'shape'); select = @(@{ classes = @('widget-*'); languages = @('markdown') }); settings = @{ limit = 3 } }
+                    widget = @{ keys = @('size',
+                        'shape'); select = @(@{ classes = @('widget-*'); languages = @('markdown') }); settings = @{ limit = 3 } }
                     gadget = @{ direction = 'gather'; target = 'gadgets'; processor = 'Get-CustomGadget' }
                 }
             })
@@ -107,7 +109,8 @@ Describe 'FileMetaConfig' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-METAKIND' {
         @{ Id = 'widget'; Direction = 'Imprint'; Expected = 'Get-WidgetFileMetaFact' }
         @{ Id = 'gadget-list'; Direction = 'Gather'; Expected = 'Get-GadgetListMarkdownConfigContribution' }
     ) -Tag 'ADR-REPO-FILEMETA-SUBSCRIBEBYFUNCTION' {
-        [Catzc.Base.QualityGates.FileMetaKind]::ConventionName($Id, [Catzc.Base.QualityGates.FileMetaDirection]$Direction) | Should -BeExactly $Expected
+        [Catzc.Base.QualityGates.FileMetaKind]::ConventionName($Id,
+            [Catzc.Base.QualityGates.FileMetaDirection]$Direction) | Should -BeExactly $Expected
     }
 
     It 'lists the imprint kinds in order and the gather kinds of one config' {
@@ -175,11 +178,15 @@ Describe 'FileMetaConfig.EngineInputs' -Tag 'L0', 'logic', 'ADR-AUTO-CACHE-CHECK
     }
 
     It 'names the registries, the engine, every fact processor and the registry types under the modules root, each once' {
-        $relative = @(& $script:inputs | ForEach-Object { [System.IO.Path]::GetRelativePath($script:root, $_).Replace('\', '/') })
+        $relative = @(& $script:inputs | ForEach-Object { [System.IO.Path]::GetRelativePath($script:root,
+            $_).Replace('\', '/') })
         $relative | Should -Be @(
-            'Catzc.Base.Languages/configs/file-carriers.yml', 'Catzc.Base.QualityGates/Format-FileMeta.ps1', 'Catzc.Base.QualityGates/Get-FileMetaFact.ps1',
-            'Catzc.Base.QualityGates/configs/file-meta.yml', 'Catzc.Base.QualityGates/private/Get-WidgetFileMetaFact.ps1',
-            'Catzc.Base.QualityGates/private/Invoke-FileMetaEngine.ps1', 'Catzc.Base.QualityGates/types/FileHeadPolicy.cs',
+            'Catzc.Base.Languages/configs/file-carriers.yml', 'Catzc.Base.QualityGates/Format-FileMeta.ps1',
+                'Catzc.Base.QualityGates/Get-FileMetaFact.ps1',
+            'Catzc.Base.QualityGates/configs/file-meta.yml',
+            'Catzc.Base.QualityGates/private/Get-WidgetFileMetaFact.ps1',
+            'Catzc.Base.QualityGates/private/Invoke-FileMetaEngine.ps1',
+            'Catzc.Base.QualityGates/types/FileHeadPolicy.cs',
             'Catzc.Base.QualityGates/types/FileMetaConfig.cs', 'Catzc.Base.QualityGates/types/HeadPolicy.cs'
         ) -Because 'a test file and a type outside FileMeta*.cs and *HeadPolicy.cs feed no head'
     }
@@ -199,10 +206,12 @@ Describe 'FileMetaConfig.EngineInputs' -Tag 'L0', 'logic', 'ADR-AUTO-CACHE-CHECK
         [System.IO.File]::WriteAllText("$script:languages/configs/file-carriers.yml", "carriers: { widget: {} }`n")
         $carrier = & $script:stamp
         $carrier | Should -Not -Be $before
-        [System.IO.File]::WriteAllText("$script:gates/private/Invoke-FileMetaEngine.ps1", "function Invoke-FileMetaEngine { 'gadget' }`n")
+        [System.IO.File]::WriteAllText("$script:gates/private/Invoke-FileMetaEngine.ps1",
+            "function Invoke-FileMetaEngine { 'gadget' }`n")
         $engine = & $script:stamp
         $engine | Should -Not -Be $carrier
-        [System.IO.File]::WriteAllText("$script:gates/private/Get-GadgetFileMetaFact.ps1", "function Get-GadgetFileMetaFact {}`n")
+        [System.IO.File]::WriteAllText("$script:gates/private/Get-GadgetFileMetaFact.ps1",
+            "function Get-GadgetFileMetaFact {}`n")
         & $script:stamp | Should -Not -Be $engine
     }
 

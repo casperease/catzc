@@ -80,7 +80,9 @@ layout:
   g-module-dependency: { x: 680, y: 370, w: 240, h: 70 }
 ```
 
-![Values and module edges pass a quality gate; the no-direct-read rule is left to review](.assets/values-and-edges-gated-reads-reviewed.drawio.png)
+![Values and module edges pass a quality gate; the no-direct-read rule is left to review][diagram]
+
+[diagram]: .assets/values-and-edges-gated-reads-reviewed.drawio.png
 
 ## Walkthrough
 

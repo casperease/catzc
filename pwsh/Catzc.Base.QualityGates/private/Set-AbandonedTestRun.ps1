@@ -7,7 +7,8 @@ catzc:
 #>
 
 function Set-AbandonedTestRun {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'Rewrites run records under out/ only — the gitignored output folder — as an automatic step of starting a run; nothing user-owned changes.')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '',
+        Justification = 'Rewrites run records under out/ only — the gitignored output folder — as an automatic step of starting a run; nothing user-owned changes.')]
     [OutputType([string])]
     param(
         [Parameter(Mandatory)]

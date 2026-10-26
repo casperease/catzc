@@ -11,8 +11,10 @@ Describe 'CommentPagesConfig' -Tag 'L0', 'logic' {
             Should -Be 'docs/references/pwsh/catzc-widget-gadgets/private/Get-Gadget.ps1.md'
         $config.PageFor('pwsh/Catzc.Widget.Gadgets/configs/gadgets.yml') |
             Should -Be 'docs/references/pwsh/catzc-widget-gadgets/configs/gadgets.yml.md'
-        $config.PageFor('.ado/pipelines/widget/build.yaml') | Should -Be 'docs/references/ado/pipelines/widget/build.yaml.md'
-        $config.PageFor('.claude/hooks/Gadget/Program.cs') | Should -Be 'docs/references/pwsh/claude-hooks/Gadget/Program.cs.md'
+        $config.PageFor('.ado/pipelines/widget/build.yaml') |
+            Should -Be 'docs/references/ado/pipelines/widget/build.yaml.md'
+        $config.PageFor('.claude/hooks/Gadget/Program.cs') |
+            Should -Be 'docs/references/pwsh/claude-hooks/Gadget/Program.cs.md'
     }
 
     It 'maps no page for a file outside every source, a dot-prefixed module folder, or a file directly in the prefix' -Tag 'ADR-REPO-COMMENTS-COMMENTPAGEPLACE' {
@@ -31,22 +33,28 @@ Describe 'CommentPagesConfig' -Tag 'L0', 'logic' {
                     [ordered]@{ source = 'widgets/*'; docs = 'docs/references/widgets/{kebab}' }
                 )
             })
-        $config.PageFor('widgets/Catzc.Widget.Gadgets/Get-Gadget.ps1') | Should -Be 'docs/references/gadgets/Get-Gadget.ps1.md'
-        $config.PageFor('widgets/Catzc.Widget.Other/Get-Gadget.ps1') | Should -Be 'docs/references/widgets/catzc-widget-other/Get-Gadget.ps1.md'
+        $config.PageFor('widgets/Catzc.Widget.Gadgets/Get-Gadget.ps1') |
+            Should -Be 'docs/references/gadgets/Get-Gadget.ps1.md'
+        $config.PageFor('widgets/Catzc.Widget.Other/Get-Gadget.ps1') |
+            Should -Be 'docs/references/widgets/catzc-widget-other/Get-Gadget.ps1.md'
     }
 
     It 'rejects an unknown key, naming the allowed set' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
-        { [Catzc.Base.CodeMeta.CommentPagesConfig]::new(@{ gadget = 1 }) } | Should -Throw '*unknown key*allowed: pages*'
+        { [Catzc.Base.CodeMeta.CommentPagesConfig]::new(@{ gadget = 1 }) } |
+            Should -Throw '*unknown key*allowed: pages*'
     }
 
     It 'rejects an empty pages list' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
-        { [Catzc.Base.CodeMeta.CommentPagesConfig]::new(@{ pages = @() }) } | Should -Throw '*pages must be a non-empty list*'
+        { [Catzc.Base.CodeMeta.CommentPagesConfig]::new(@{ pages = @() }) } |
+            Should -Throw '*pages must be a non-empty list*'
     }
 
     It 'rejects a pages entry that is not a folder map with a docs folder' -Tag 'PDR-CONFIG-VARYINGBEHAVIOURISCONFIG' {
         # A '[' in a -Throw pattern is a wildcard class, so the index brackets are escaped.
-        { [Catzc.Base.CodeMeta.CommentPagesConfig]::new(@{ pages = @('widget') }) } | Should -Throw '*pages`[0`]*must be a map*'
-        { [Catzc.Base.CodeMeta.CommentPagesConfig]::new(@{ pages = @(@{ source = 'widget' }) }) } | Should -Throw '*pages`[0`]*docs is required*'
+        { [Catzc.Base.CodeMeta.CommentPagesConfig]::new(@{ pages = @('widget') }) } |
+            Should -Throw '*pages`[0`]*must be a map*'
+        { [Catzc.Base.CodeMeta.CommentPagesConfig]::new(@{ pages = @(@{ source = 'widget' }) }) } |
+            Should -Throw '*pages`[0`]*docs is required*'
         { [Catzc.Base.CodeMeta.CommentPagesConfig]::new(@{ pages = @(@{ source = 'widget'; docs = 'notes/widget' }) }) } |
             Should -Throw '*must be a folder under docs/*'
         { [Catzc.Base.CodeMeta.CommentPagesConfig]::new(@{ pages = @(@{ source = 'widget/**'; docs = 'docs/widget' }) }) } |

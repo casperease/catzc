@@ -13,7 +13,8 @@ Set-StrictMode -Version Latest   # this module's scope: the rule runs strict ins
 function Test-CommandParameter {
     param($Command, [string] $ParameterName)
     foreach ($element in $Command.CommandElements) {
-        if ($element -is [System.Management.Automation.Language.CommandParameterAst] -and $element.ParameterName -eq $ParameterName) {
+        if ($element -is [System.Management.Automation.Language.CommandParameterAst] -and
+            $element.ParameterName -eq $ParameterName) {
             return $true
         }
     }
@@ -25,7 +26,8 @@ function Get-CommandArgument {
     $elements = $Command.CommandElements
     for ($i = 1; $i -lt $elements.Count; $i++) {
         $element = $elements[$i]
-        if ($element -isnot [System.Management.Automation.Language.CommandParameterAst] -or $element.ParameterName -ne $ParameterName) {
+        if ($element -isnot [System.Management.Automation.Language.CommandParameterAst] -or
+            $element.ParameterName -ne $ParameterName) {
             continue
         }
         if ($element.Argument) {
@@ -223,7 +225,8 @@ function Measure-AnnounceStateChange {
                 if ($owner -is [System.Management.Automation.Language.CommandAst]) {
                     $ownerName = $owner.GetCommandName()
                     if ($ownerName -in $otherRunspaceCommands -or
-                        ($ownerName -in 'ForEach-Object', '%', 'foreach' -and (Test-CommandParameter $owner 'Parallel'))) {
+                        ($ownerName -in 'ForEach-Object', '%', 'foreach' -and
+                        (Test-CommandParameter $owner 'Parallel'))) {
                         return $true
                     }
                 }
@@ -359,10 +362,12 @@ function Measure-PersistentWriteThroughSeam {
     $getPersistentWrite = {
         param($node)
         if ($node -is [System.Management.Automation.Language.InvokeMemberExpressionAst]) {
-            if (-not ($node.Static -and $node.Expression -is [System.Management.Automation.Language.TypeExpressionAst])) {
+            if (-not ($node.Static -and
+                $node.Expression -is [System.Management.Automation.Language.TypeExpressionAst])) {
                 return $null
             }
-            if ($node.Expression.TypeName.FullName -notin $environmentTypes -or $node.Member.Extent.Text -ne 'SetEnvironmentVariable') {
+            if ($node.Expression.TypeName.FullName -notin $environmentTypes -or
+                $node.Member.Extent.Text -ne 'SetEnvironmentVariable') {
                 return $null
             }
             if (-not $node.Arguments -or $node.Arguments.Count -lt 3) {
@@ -374,7 +379,8 @@ function Measure-PersistentWriteThroughSeam {
             }
             return 'the persistent environment'
         }
-        if ($node -is [System.Management.Automation.Language.CommandAst] -and $node.GetCommandName() -in $registryCommands) {
+        if ($node -is [System.Management.Automation.Language.CommandAst] -and
+            $node.GetCommandName() -in $registryCommands) {
             $pathArgument = Get-CommandArgument $node 'Path'
             if (-not $pathArgument) {
                 $pathArgument = Get-CommandArgument $node 'LiteralPath'

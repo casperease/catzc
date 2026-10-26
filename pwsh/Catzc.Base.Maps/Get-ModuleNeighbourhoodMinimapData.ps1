@@ -20,7 +20,8 @@ function Get-ModuleNeighbourhoodMinimapData {
         [switch] $AsJson
     )
 
-    # The subject's modules, the modules they depend on, and the modules that depend on them, from the module dependency registry.
+    # The subject's modules, the modules they depend on, and the modules that depend on them, from the module dependency
+    # registry.
     $dependencies = Get-Config -Config dependencies
     $dependsOn = @{}
     foreach ($group in $dependencies.groups.Values) {
@@ -47,7 +48,8 @@ function Get-ModuleNeighbourhoodMinimapData {
             $null
         }
         [void] $subject.Add($module)
-        Add-MinimapHit -Count $count -Reasons $reasons -At @('subject', $module) -Reason ([Catzc.Base.Maps.MinimapReason]::new($item.Path, 'module', $item.Requested, $note))
+        Add-MinimapHit -Count $count -Reasons $reasons -At @('subject',
+            $module) -Reason ([Catzc.Base.Maps.MinimapReason]::new($item.Path, 'module', $item.Requested, $note))
     }
 
     # A neighbour's count is how many subject modules it is joined to.

@@ -14,7 +14,8 @@ function Get-GeneratedWriterMemo {
         [string] $MemoPath
     )
 
-    # The stamps stored after each writer's last run; a missing or unreadable memo reads as empty, so every writer is due.
+    # The stamps stored after each writer's last run; a missing or unreadable memo reads as empty, so every writer is
+    # due.
     if (-not [System.IO.File]::Exists($MemoPath)) {
         return @{}
     }

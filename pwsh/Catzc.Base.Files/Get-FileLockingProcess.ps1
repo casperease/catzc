@@ -28,7 +28,8 @@ function Get-FileLockingProcess {
     # One CIM query for every holder — a per-process query (or a per-process GetOwner call) costs ~100 ms each.
     $filter = ($holders | ForEach-Object { "ProcessId=$($_.ProcessId)" }) -join ' OR '
     $processes = @{}
-    foreach ($process in (Get-CimInstance -ClassName Win32_Process -Filter $filter -Property ProcessId, Name, CommandLine, ParentProcessId)) {
+    foreach ($process in (Get-CimInstance -ClassName Win32_Process -Filter $filter -Property ProcessId, Name,
+        CommandLine, ParentProcessId)) {
         $processes[[int] $process.ProcessId] = $process
     }
 

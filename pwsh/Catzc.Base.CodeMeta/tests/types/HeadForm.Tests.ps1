@@ -15,13 +15,17 @@ Describe 'HeadForm' -Tag 'L0', 'logic', 'ADR-REPO-CODEMETA-CODEFILEHEAD' {
 
     It 'lists the old head openers the formatter strips, none by default' {
         ([Catzc.Base.CodeMeta.HeadForm]::ForLine('#')).Strip.Count | Should -Be 0
-        ([Catzc.Base.CodeMeta.HeadForm]::ForBlock('/*', '*/', [Catzc.Base.CodeMeta.HeadAnchor]::Start, 0, [string[]] @('// catzc:'))).Strip | Should -Be @('// catzc:')
+        ([Catzc.Base.CodeMeta.HeadForm]::ForBlock('/*', '*/', [Catzc.Base.CodeMeta.HeadAnchor]::Start, 0,
+            [string[]] @('// catzc:'))).Strip | Should -Be @('// catzc:')
     }
 
     It 'takes a fixed number of preamble lines only with the anchor that needs them' {
-        ([Catzc.Base.CodeMeta.HeadForm]::ForLine('#', [Catzc.Base.CodeMeta.HeadAnchor]::AfterPreamble, 2)).PreambleLines | Should -Be 2
-        { [Catzc.Base.CodeMeta.HeadForm]::ForLine('#', [Catzc.Base.CodeMeta.HeadAnchor]::AfterPreamble, 0) } | Should -Throw '*preambleLines is required, and only allowed*'
-        { [Catzc.Base.CodeMeta.HeadForm]::ForLine('#', [Catzc.Base.CodeMeta.HeadAnchor]::Start, 2) } | Should -Throw '*preambleLines is required, and only allowed*'
+        ([Catzc.Base.CodeMeta.HeadForm]::ForLine('#', [Catzc.Base.CodeMeta.HeadAnchor]::AfterPreamble,
+            2)).PreambleLines | Should -Be 2
+        { [Catzc.Base.CodeMeta.HeadForm]::ForLine('#', [Catzc.Base.CodeMeta.HeadAnchor]::AfterPreamble, 0) } |
+            Should -Throw '*preambleLines is required, and only allowed*'
+        { [Catzc.Base.CodeMeta.HeadForm]::ForLine('#', [Catzc.Base.CodeMeta.HeadAnchor]::Start, 2) } |
+            Should -Throw '*preambleLines is required, and only allowed*'
     }
 
     It 'rejects an empty or spaced comment syntax' {

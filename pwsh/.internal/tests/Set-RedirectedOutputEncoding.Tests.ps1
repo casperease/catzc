@@ -51,6 +51,7 @@ Describe 'Set-RedirectedOutputEncoding' -Tag 'L1', 'logic', 'ADR-PWSH-ANNOUNCE-I
     }
 
     It 'announces the change on the importer''s verbose load record' -Tag 'ADR-PWSH-ANNOUNCE-IMPORTERLOADSEQUENCE' {
-        @($script:output | Where-Object { $_ -like '*console output encoding UTF-8 (output is redirected)*' }).Count | Should -Be 1
+        @($script:output | Where-Object { $_ -like '*console output encoding UTF-8 (output is redirected)*' }).Count |
+            Should -Be 1
     }
 }

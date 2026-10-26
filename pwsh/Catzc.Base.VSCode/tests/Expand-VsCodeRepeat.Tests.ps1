@@ -25,7 +25,8 @@ Describe 'Expand-VsCodeRepeat' -Tag 'L0', 'logic' {
 
     It 'writes a repeating entry once per leading item, item of its config list and trailing item, in order, and leaves the rest alone' {
         $commands = @((& $script:expand $script:contributes)['commands'])
-        $commands.ForEach({ $_['command'] }) | Should -Be @('widget.gizmo.toggle', 'widget.red.toggle', 'widget.blue.toggle', 'widget.gadget.toggle', 'gadget.run')
+        $commands.ForEach({ $_['command'] }) | Should -Be @('widget.gizmo.toggle', 'widget.red.toggle',
+            'widget.blue.toggle', 'widget.gadget.toggle', 'gadget.run')
         $commands[2]['title'] | Should -Be 'blue, the blue widget'
         $commands[3]['icon']['dark'] | Should -Be 'media/gadget.svg'
         $commands[0].Contains('repeat') | Should -BeFalse
@@ -33,7 +34,8 @@ Describe 'Expand-VsCodeRepeat' -Tag 'L0', 'logic' {
 
     It 'fills menu entries the same way, with each item''s position, and drops the repeat block' {
         $expanded = & $script:expand $script:contributes
-        @($expanded['menus']['view/title']).ForEach({ $_['group'] }) | Should -Be @('navigation@91', 'navigation@92', 'navigation@93', 'navigation@94')
+        @($expanded['menus']['view/title']).ForEach({ $_['group'] }) | Should -Be @('navigation@91', 'navigation@92',
+            'navigation@93', 'navigation@94')
         $expanded.Contains('repeat') | Should -BeFalse
     }
 

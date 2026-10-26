@@ -33,5 +33,6 @@ function Get-AzCliConnectionState {
     $subscriptionMatch = ((-not $SubscriptionId) -or ($output.id -eq $SubscriptionId))
     $tenantMatch = ((-not $TenantId) -or ($output.tenantId -eq $TenantId))
 
-    [Catzc.Azure.Cli.ConnectionState]::new($true, ($subscriptionMatch -and $tenantMatch), $TenantId, $SubscriptionId, $output.tenantId, $output.id)
+    [Catzc.Azure.Cli.ConnectionState]::new($true, ($subscriptionMatch -and $tenantMatch), $TenantId, $SubscriptionId,
+        $output.tenantId, $output.id)
 }

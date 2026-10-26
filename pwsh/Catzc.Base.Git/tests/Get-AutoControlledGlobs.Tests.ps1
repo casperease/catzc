@@ -29,7 +29,8 @@ Describe 'Get-AutoControlledGlobs' -Tag 'L0', 'logic' {
     It 'includes the conventional generated-artifact classes' {
         $globs = InModuleScope Catzc.Base.Git { Get-AutoControlledGlobs }
         $modules = Get-CatzcModulesFolder
-        foreach ($expected in "$modules/*/*.psd1", '*/README.md', '.cspell/*', 'out/*', '.vscode/*', "$modules/.compiled/*.dll", "$modules/.compiled/*.tmp") {
+        foreach ($expected in "$modules/*/*.psd1", '*/README.md', '.cspell/*', 'out/*', '.vscode/*',
+            "$modules/.compiled/*.dll", "$modules/.compiled/*.tmp") {
             $globs | Should -Contain $expected
         }
     }

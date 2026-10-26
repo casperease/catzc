@@ -7,7 +7,8 @@ catzc:
 #>
 
 function Invoke-TestRun {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-ParameterFillIn', '', Justification = '-OutputFolder is forwarded empty by every entry point that got none, and its default is keyed by the entry point the body resolves; an explicit empty argument would override a declared default (ADR-PWSH-PARAM-RESOLUTIONORDER)')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-ParameterFillIn', '',
+        Justification = '-OutputFolder is forwarded empty by every entry point that got none, and its default is keyed by the entry point the body resolves; an explicit empty argument would override a declared default (ADR-PWSH-PARAM-RESOLUTIONORDER)')]
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.TestRunResult])]
     param(
@@ -221,7 +222,8 @@ function Invoke-TestRun {
         if ($PassThru) {
             $notRunCount = @($rows | Where-Object { $_.Result -eq 'NotRun' }).Count
             [Catzc.Base.Reports.TestRunResult]::new($runResult, $passedCount, $failedCount, $skippedCount, $notRunCount,
-                [math]::Round($workerRun.DurationSeconds, 2), $runDir, [object[]] $rows, [object[]] @($workerRun.Shards),
+                [math]::Round($workerRun.DurationSeconds, 2), $runDir, [object[]] $rows,
+                [object[]] @($workerRun.Shards),
                 [string[]] @($protectedModules), [object[]] @($optOutExcludedTests))
         }
         elseif ($runResult -ne 'Passed' -or $timingFailure -or $budgetFailure) {

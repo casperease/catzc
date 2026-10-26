@@ -25,7 +25,8 @@ Describe 'Get-TestRunLocationSummary' -Tag 'L0', 'logic' {
                 Mode = 'snapshot'; Root = $snapshot.Path; Snapshot = $snapshot; KeepSandbox = $true
                 Holder = [pscustomobject]@{ Description = 'Test-Automation (pid 1)' }
             })
-        $summary.Text | Should -Be 'snapshot of C:\widget @ 0a69309 + 7 modified, 2 untracked, 0 deleted file(s) in C:\tmp\catzc-run-gadget (kept)'
+        $summary.Text |
+            Should -Be 'snapshot of C:\widget @ 0a69309 + 7 modified, 2 untracked, 0 deleted file(s) in C:\tmp\catzc-run-gadget (kept)'
         $summary.Manifest['location'] | Should -Be 'snapshot'
         $summary.Manifest['snapshot']['commit'] | Should -Be '0a69309f00d'
         $summary.Manifest['snapshot']['kept'] | Should -BeTrue

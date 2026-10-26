@@ -9,7 +9,8 @@ catzc:
 Describe 'Test-ShippedTypes' -Tag 'L0', 'logic' {
     BeforeAll {
         $root = Join-Path $TestDrive 'widget-modules'
-        foreach ($path in 'System/types/String.cs', 'TstWidget/types/Gadget.cs', 'TstWidget/README.md', '.internal/types/Hidden.cs') {
+        foreach ($path in 'System/types/String.cs', 'TstWidget/types/Gadget.cs', 'TstWidget/README.md',
+            '.internal/types/Hidden.cs') {
             $full = Join-Path $root $path
             [void][System.IO.Directory]::CreateDirectory([System.IO.Path]::GetDirectoryName($full))
             [System.IO.File]::WriteAllText($full, '')
@@ -25,7 +26,8 @@ Describe 'Test-ShippedTypes' -Tag 'L0', 'logic' {
     It 'throws once naming each type that does not resolve, skipping dot-folders' {
         $thrown = { Test-ShippedTypes -OutputFolder $out } | Should -Throw -PassThru
         $thrown.Exception.Message | Should -BeLike 'Test-ShippedTypes failed: 1 issue(s)*'
-        $thrown.Exception.Message | Should -BeLike "*TstWidget/types/Gadget.cs: type 'TstWidget.Gadget' does not resolve after import*"
+        $thrown.Exception.Message |
+            Should -BeLike "*TstWidget/types/Gadget.cs: type 'TstWidget.Gadget' does not resolve after import*"
     }
 
     It 'returns the result and counts every type file under -PassThru' {

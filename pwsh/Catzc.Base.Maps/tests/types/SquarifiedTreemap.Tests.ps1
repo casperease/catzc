@@ -1,8 +1,10 @@
 Describe 'SquarifiedTreemap' -Tag 'L0', 'logic' {
     BeforeAll {
-        $script:keys = @('widget-a', 'widget-b', 'gadget-c', 'gadget-d', 'widget-e', 'gadget-f', 'widget-g', 'gadget-h', 'widget-i')
+        $script:keys = @('widget-a', 'widget-b', 'gadget-c', 'gadget-d', 'widget-e', 'gadget-f', 'widget-g', 'gadget-h',
+            'widget-i')
         $script:weights = [double[]] @(500, 300, 120, 60, 10, 7, 3, 1, 1)
-        $script:layout = { param([string[]] $k, [double[]] $w) [Catzc.Base.Maps.SquarifiedTreemap]::Layout($k, $w, 20, 30, 400, 250) }
+        $script:layout = { param([string[]] $k, [double[]] $w) [Catzc.Base.Maps.SquarifiedTreemap]::Layout($k, $w, 20,
+            30, 400, 250) }
         $script:describe = { param($rectangles) @($rectangles | ForEach-Object { '{0}:{1:R},{2:R},{3:R},{4:R}' -f $_.Key, $_.X, $_.Y, $_.Width, $_.Height }) -join ';' }
     }
 
@@ -25,7 +27,8 @@ Describe 'SquarifiedTreemap' -Tag 'L0', 'logic' {
                 $b = $rectangles[$j]
                 $overlapX = [Math]::Min($a.X + $a.Width, $b.X + $b.Width) - [Math]::Max($a.X, $b.X)
                 $overlapY = [Math]::Min($a.Y + $a.Height, $b.Y + $b.Height) - [Math]::Max($a.Y, $b.Y)
-                ([Math]::Max(0, $overlapX) * [Math]::Max(0, $overlapY)) | Should -BeLessThan 1e-6 -Because "$($a.Key) and $($b.Key) must not overlap"
+                ([Math]::Max(0, $overlapX) * [Math]::Max(0, $overlapY)) |
+                    Should -BeLessThan 1e-6 -Because "$($a.Key) and $($b.Key) must not overlap"
             }
         }
         ($rectangles | Measure-Object -Property Area -Sum).Sum | Should -BeGreaterThan (400 * 250 - 1e-6)
@@ -35,7 +38,8 @@ Describe 'SquarifiedTreemap' -Tag 'L0', 'logic' {
         $total = ($script:weights | Measure-Object -Sum).Sum
         foreach ($rect in & $script:layout $script:keys $script:weights) {
             $expected = $rect.Weight / $total * 400 * 250
-            [Math]::Abs($rect.Area - $expected) / $expected | Should -BeLessThan 0.01 -Because "$($rect.Key) has weight $($rect.Weight)"
+            [Math]::Abs($rect.Area - $expected) / $expected |
+                Should -BeLessThan 0.01 -Because "$($rect.Key) has weight $($rect.Weight)"
         }
     }
 
@@ -50,7 +54,8 @@ Describe 'SquarifiedTreemap' -Tag 'L0', 'logic' {
     }
 
     It 'orders the rectangles heaviest first, ties by ordinal key, and drops a zero weight' {
-        $rectangles = [Catzc.Base.Maps.SquarifiedTreemap]::Layout(@('gadget', 'Widget', 'widget', 'sprocket'), [double[]] @(2, 2, 5, 0), 0, 0, 100, 100)
+        $rectangles = [Catzc.Base.Maps.SquarifiedTreemap]::Layout(@('gadget', 'Widget', 'widget', 'sprocket'),
+            [double[]] @(2, 2, 5, 0), 0, 0, 100, 100)
         @($rectangles.Key) | Should -Be @('widget', 'Widget', 'gadget')
     }
 
@@ -59,9 +64,13 @@ Describe 'SquarifiedTreemap' -Tag 'L0', 'logic' {
     }
 
     It 'throws on a negative weight, a duplicate key, mismatched lengths and an empty box' {
-        { [Catzc.Base.Maps.SquarifiedTreemap]::Layout(@('widget'), [double[]] @(-1), 0, 0, 10, 10) } | Should -Throw '*not a number of zero or more*'
-        { [Catzc.Base.Maps.SquarifiedTreemap]::Layout(@('widget', 'widget'), [double[]] @(1, 2), 0, 0, 10, 10) } | Should -Throw '*listed twice*'
-        { [Catzc.Base.Maps.SquarifiedTreemap]::Layout(@('widget'), [double[]] @(1, 2), 0, 0, 10, 10) } | Should -Throw '*1 keys but 2 weights*'
-        { [Catzc.Base.Maps.SquarifiedTreemap]::Layout(@('widget'), [double[]] @(1), 0, 0, 0, 10) } | Should -Throw '*is empty*'
+        { [Catzc.Base.Maps.SquarifiedTreemap]::Layout(@('widget'), [double[]] @(-1), 0, 0, 10, 10) } |
+            Should -Throw '*not a number of zero or more*'
+        { [Catzc.Base.Maps.SquarifiedTreemap]::Layout(@('widget', 'widget'), [double[]] @(1, 2), 0, 0, 10, 10) } |
+            Should -Throw '*listed twice*'
+        { [Catzc.Base.Maps.SquarifiedTreemap]::Layout(@('widget'), [double[]] @(1, 2), 0, 0, 10, 10) } |
+            Should -Throw '*1 keys but 2 weights*'
+        { [Catzc.Base.Maps.SquarifiedTreemap]::Layout(@('widget'), [double[]] @(1), 0, 0, 0, 10) } |
+            Should -Throw '*is empty*'
     }
 }

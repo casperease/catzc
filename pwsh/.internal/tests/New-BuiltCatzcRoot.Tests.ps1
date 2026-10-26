@@ -17,7 +17,8 @@ Describe 'New-BuiltCatzcRoot' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-SAMETESTSBOTHRU
         Mock Build-Modules -ModuleName Catzc.Internal.TestKit {
             $buildRoot = Join-Path $Destination 'Catzc/6.6.666'
             [void][System.IO.Directory]::CreateDirectory($buildRoot)
-            [pscustomobject]@{ BuildRoot = $buildRoot; Version = '6.6.666'; Modules = @('Catzc.Widget', 'Catzc.Gadget') }
+            [pscustomobject]@{ BuildRoot = $buildRoot; Version = '6.6.666'; Modules = @('Catzc.Widget',
+                'Catzc.Gadget') }
         }
     }
 

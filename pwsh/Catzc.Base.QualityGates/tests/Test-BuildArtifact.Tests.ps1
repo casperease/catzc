@@ -45,7 +45,8 @@ Describe 'Test-BuildArtifact' -Tag 'L0', 'logic' {
         Mock Get-CombinedTypeHash -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ CombinedHash = 'abcd1234' } }
         Mock Get-CommittedTypesDrift -ModuleName Catzc.Base.QualityGates { }
         Mock Build-Modules -ModuleName Catzc.Base.QualityGates {
-            [pscustomobject]@{ BuildRoot = $script:buildRoot; Modules = @('Catzc.Base.Config', 'Catzc.Gadget'); TypesHash = 'abcd1234' }
+            [pscustomobject]@{ BuildRoot = $script:buildRoot; Modules = @('Catzc.Base.Config',
+                'Catzc.Gadget'); TypesHash = 'abcd1234' }
         }
         Mock Invoke-BuildArtifactProbe -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ ExitCode = 0; Output = ''; Observed = $script:observation } }
         Mock Get-ModuleSourceFunctions -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Name -eq 'Catzc.Base.Config' } {
@@ -71,14 +72,16 @@ Describe 'Test-BuildArtifact' -Tag 'L0', 'logic' {
         $script:observation.RunMode = 'source'
         Mock Format-Code -ModuleName Catzc.Base.QualityGates {
             $manifest = Join-Path $script:buildRoot 'Catzc.Gadget/Catzc.Gadget.psd1'
-            [Catzc.Base.QualityGates.FormatResult]::new('powershell', 'psscriptanalyzer', [string[]] @($manifest), [string[]] @($manifest), $true)
+            [Catzc.Base.QualityGates.FormatResult]::new('powershell', 'psscriptanalyzer', [string[]] @($manifest),
+                [string[]] @($manifest), $true)
         }
 
         $thrown = { Test-BuildArtifact -OutputFolder $script:reportFolder } | Should -Throw -PassThru
         $thrown.Exception.Message | Should -BeLike 'Test-BuildArtifact failed: 3 issue(s)*'
         $thrown.Exception.Message | Should -BeLike '*`[types`] widget-modules/.compiled has pending git changes*'
         $thrown.Exception.Message | Should -BeLike "*``[load``] the session runs in 'source' mode, not build mode*"
-        $thrown.Exception.Message | Should -BeLike '*`[manifest`] Catzc.Gadget/Catzc.Gadget.psd1 is not formatter-stable*'
+        $thrown.Exception.Message |
+            Should -BeLike '*`[manifest`] Catzc.Gadget/Catzc.Gadget.psd1 is not formatter-stable*'
     }
 
     It 'returns the result with the built modules and types hash under -PassThru' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
@@ -91,7 +94,8 @@ Describe 'Test-BuildArtifact' -Tag 'L0', 'logic' {
 
     It 'turns each violation of a failed build into one issue' {
         Mock Build-Modules -ModuleName Catzc.Base.QualityGates {
-            throw (@("Catzc build at 'x' is invalid:", 'missing build.json', "module 'Catzc.Gadget' is missing its manifest") -join "`n")
+            throw (@("Catzc build at 'x' is invalid:", 'missing build.json',
+                "module 'Catzc.Gadget' is missing its manifest") -join "`n")
         }
 
         $result = Test-BuildArtifact -PassThru -OutputFolder $script:reportFolder
@@ -107,7 +111,8 @@ Describe 'Test-BuildArtifact' -Tag 'L0', 'logic' {
         Mock Get-CombinedTypeHash -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ CombinedHash = 'ffff0000' } }
 
         $result = Test-BuildArtifact -Facet Manifest -PassThru -OutputFolder $script:reportFolder
-        $result.Issues | Should -Be @("[build] the build's typesHash abcd1234 is not the source tree's ffff0000 — a build ships the full type set")
+        $result.Issues |
+            Should -Be @("[build] the build's typesHash abcd1234 is not the source tree's ffff0000 — a build ships the full type set")
     }
 
     It 'reports a build that does not load, with the child output' {
@@ -172,7 +177,8 @@ Describe 'Get-CommittedTypesDrift' -Tag 'L0', 'logic' {
     }
 
     It 'reports nothing for exactly the current manifest' {
-        [System.IO.File]::WriteAllText((Join-Path $script:root 'widget-modules/.compiled/Catzc.Types.abcd1234.json'), '{}')
+        [System.IO.File]::WriteAllText((Join-Path $script:root 'widget-modules/.compiled/Catzc.Types.abcd1234.json'),
+            '{}')
         InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:root } {
             @(Get-CommittedTypesDrift -RepositoryRoot $Root) | Should -BeNullOrEmpty
         }
@@ -180,24 +186,29 @@ Describe 'Get-CommittedTypesDrift' -Tag 'L0', 'logic' {
 
     It 'reports a missing manifest' {
         InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:root } {
-            Get-CommittedTypesDrift -RepositoryRoot $Root | Should -BeLike 'widget-modules/.compiled holds 0 Catzc.Types.*.json*expected exactly Catzc.Types.abcd1234.json*'
+            Get-CommittedTypesDrift -RepositoryRoot $Root |
+                Should -BeLike 'widget-modules/.compiled holds 0 Catzc.Types.*.json*expected exactly Catzc.Types.abcd1234.json*'
         }
     }
 
     It 'reports a manifest that is not the current one, and pending git changes' {
-        [System.IO.File]::WriteAllText((Join-Path $script:root 'widget-modules/.compiled/Catzc.Types.0000ffff.json'), '{}')
+        [System.IO.File]::WriteAllText((Join-Path $script:root 'widget-modules/.compiled/Catzc.Types.0000ffff.json'),
+            '{}')
         Mock Test-GitPathChanged -ModuleName Catzc.Base.QualityGates { $true }
         InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:root } {
             $reasons = @(Get-CommittedTypesDrift -RepositoryRoot $Root)
             $reasons | Should -HaveCount 2
-            $reasons[0] | Should -BeLike 'widget-modules/.compiled holds 1 Catzc.Types.*.json (Catzc.Types.0000ffff.json)*'
+            $reasons[0] |
+                Should -BeLike 'widget-modules/.compiled holds 1 Catzc.Types.*.json (Catzc.Types.0000ffff.json)*'
             $reasons[1] | Should -BeLike 'widget-modules/.compiled has pending git changes*'
         }
     }
 
     It 'ignores a per-machine DLL left in .compiled, which git ignores' {
-        [System.IO.File]::WriteAllText((Join-Path $script:root 'widget-modules/.compiled/Catzc.Types.0000ffff.dll'), 'widget')
-        [System.IO.File]::WriteAllText((Join-Path $script:root 'widget-modules/.compiled/Catzc.Types.abcd1234.json'), '{}')
+        [System.IO.File]::WriteAllText((Join-Path $script:root 'widget-modules/.compiled/Catzc.Types.0000ffff.dll'),
+            'widget')
+        [System.IO.File]::WriteAllText((Join-Path $script:root 'widget-modules/.compiled/Catzc.Types.abcd1234.json'),
+            '{}')
         InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:root } {
             @(Get-CommittedTypesDrift -RepositoryRoot $Root) | Should -BeNullOrEmpty
         }
@@ -207,7 +218,8 @@ Describe 'Get-CommittedTypesDrift' -Tag 'L0', 'logic' {
 Describe 'Get-ModuleSourceFunctions' -Tag 'L0', 'logic' {
     It 'reads the public and private function names from the module folder' {
         $modulesRoot = Join-Path $TestDrive 'widget-modules'
-        foreach ($file in 'Catzc.Gadget/Set-Gadget.ps1', 'Catzc.Gadget/Get-Gadget.ps1', 'Catzc.Gadget/private/Resolve-Gadget.ps1') {
+        foreach ($file in 'Catzc.Gadget/Set-Gadget.ps1', 'Catzc.Gadget/Get-Gadget.ps1',
+            'Catzc.Gadget/private/Resolve-Gadget.ps1') {
             $path = Join-Path $modulesRoot $file
             [System.IO.Directory]::CreateDirectory((Split-Path $path -Parent)) | Out-Null
             [System.IO.File]::WriteAllText($path, '')

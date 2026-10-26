@@ -1,4 +1,5 @@
-# A scratch server and clones are made and driven with real git (clone, rebase, push, rev-parse), so the point of the file is the launch: L2.
+# A scratch server and clones are made and driven with real git (clone, rebase, push, rev-parse), so the point of the
+# file is the launch: L2.
 Describe 'The git topic flow over a scratch server' -Tag 'L2', 'logic', 'FDR-GIT-USERRUNSGIT' {
     BeforeAll {
         $script:skip = if (Get-Command git -ErrorAction Ignore) {
@@ -42,7 +43,8 @@ Describe 'The git topic flow over a scratch server' -Tag 'L2', 'logic', 'FDR-GIT
         if ($script:skip) {
             return
         }
-        # Every flow command names its clone; a git call that fell back to the loaded repository would land here and fail.
+        # Every flow command names its clone; a git call that fell back to the loaded repository would land here and
+        # fail.
         $script:nowhere = Join-Path $TestDrive 'not-a-repository'
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.Git { $script:nowhere }
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.Execution { $script:nowhere }
@@ -88,8 +90,10 @@ Describe 'The git topic flow over a scratch server' -Tag 'L2', 'logic', 'FDR-GIT
         }
         Add-Commit -Path $script:topic -File 'widget.txt' -Text 'topic edit'
         Add-Commit -Path $script:seed -File 'widget.txt' -Text 'server edit' -Push
-        { Sync-Topic -Config $script:config -RepositoryRoot $script:topic -WarningAction SilentlyContinue } | Should -Throw '*conflicts in: widget.txt*git rebase --abort*'
-        Test-Path -LiteralPath (Join-Path $script:topic '.git/rebase-merge') | Should -BeTrue -Because 'the rebase waits for the user'
+        { Sync-Topic -Config $script:config -RepositoryRoot $script:topic -WarningAction SilentlyContinue } |
+            Should -Throw '*conflicts in: widget.txt*git rebase --abort*'
+        Test-Path -LiteralPath (Join-Path $script:topic '.git/rebase-merge') |
+            Should -BeTrue -Because 'the rebase waits for the user'
         Invoke-Scratch $script:topic @('rebase', '--abort') | Out-Null
     }
 
@@ -106,7 +110,8 @@ Describe 'The git topic flow over a scratch server' -Tag 'L2', 'logic', 'FDR-GIT
         Invoke-Scratch $script:server @('rev-parse', 'main') | Should -BeExactly $result.Commit
         Invoke-Scratch $script:server @('rev-parse', 'main~1') | Should -BeExactly $before
         Invoke-Scratch $script:server @('log', '-1', '--format=%s', 'main') | Should -BeExactly 'spin the widget'
-        Invoke-Scratch $script:server @('ls-tree', '--name-only', 'main') | Should -BeLike '*cog.txt*gadget.txt*sprocket.txt*'
+        Invoke-Scratch $script:server @('ls-tree', '--name-only', 'main') |
+            Should -BeLike '*cog.txt*gadget.txt*sprocket.txt*'
     }
 
     It 'stops on a rejected push and keeps the commit' {

@@ -13,7 +13,8 @@ Describe 'Test-RootConfigFiles' -Tag 'L0', 'logic' {
         [System.IO.File]::WriteAllText((Join-Path $root 'src/widget.json'), '{}')
         [System.IO.File]::WriteAllText((Join-Path $root 'src/gadget.json'), '{ "a": 1 }')
         [System.IO.File]::WriteAllText((Join-Path $root 'sprocket.json'), '{}')
-        New-Item -ItemType HardLink -Path (Join-Path $root 'cog.json') -Value (Join-Path $root 'src/widget.json') | Out-Null
+        New-Item -ItemType HardLink -Path (Join-Path $root 'cog.json') -Value (Join-Path $root 'src/widget.json') |
+            Out-Null
         # A managed copy is its template under the generated head, as Build-RootConfig writes it.
         $copyOf = {
             param([string] $Target, [string] $Source)
@@ -63,7 +64,8 @@ Describe 'Test-RootConfigFiles' -Tag 'L0', 'logic' {
         $message = $thrown.Exception.Message
         $message | Should -BeLike 'Test-RootConfigFiles failed: 6 issue(s)*'
         $message | Should -Match 'sprocket.json: committed:false but no .gitignore rule ignores it'
-        $message | Should -Match "sprocket.json: committed:false but tracked — a gitignored artifact; run 'git rm --cached sprocket.json'"
+        $message |
+            Should -Match "sprocket.json: committed:false but tracked — a gitignored artifact; run 'git rm --cached sprocket.json'"
         $message | Should -Match 'sprocket.json: differs from src/widget.json under its generated head'
         $message | Should -Match 'cog.json: committed:true but not tracked'
         $message | Should -Match 'cog.json: committed:true but matched by a .gitignore rule'
@@ -75,9 +77,11 @@ Describe 'Test-RootConfigFiles' -Tag 'L0', 'logic' {
         (Test-RootConfigFiles -OutputFolder $out -PassThru).IssueCount | Should -Be 0
         try {
             [System.IO.File]::WriteAllText($gadget, $script:gadgetCopy + "edited`n")
-            (Test-RootConfigFiles -OutputFolder $out -PassThru).Issues | Should -Be @('gadget.json: differs from src/gadget.json under its generated head — edit the template, then re-run the importer')
+            (Test-RootConfigFiles -OutputFolder $out -PassThru).Issues |
+                Should -Be @('gadget.json: differs from src/gadget.json under its generated head — edit the template, then re-run the importer')
             [System.IO.File]::Delete($gadget)
-            (Test-RootConfigFiles -OutputFolder $out -PassThru).Issues | Should -Be @('gadget.json: missing — re-run the importer (Build-RootConfig copies src/gadget.json)')
+            (Test-RootConfigFiles -OutputFolder $out -PassThru).Issues |
+                Should -Be @('gadget.json: missing — re-run the importer (Build-RootConfig copies src/gadget.json)')
         }
         finally {
             [System.IO.File]::WriteAllText($gadget, $script:gadgetCopy)

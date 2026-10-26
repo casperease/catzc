@@ -54,7 +54,8 @@ Describe 'Write-DiagramQueryRows' -Tag 'L0', 'logic', 'DDR-VISUAL-ZOOMISANAXIS' 
 
     It 'asks a point''s query once, however many slides share it' {
         $twin = 'docs/explanation/widget/.assets/widget-code-twin'
-        [System.IO.File]::Copy((Join-Path $script:root "$($script:widget).drawio.yml"), (Join-Path $script:root "$twin.drawio.yml"))
+        [System.IO.File]::Copy((Join-Path $script:root "$($script:widget).drawio.yml"),
+            (Join-Path $script:root "$twin.drawio.yml"))
         @((Invoke-Writer -Stem $script:widget, $twin).rows).Count | Should -Be 1
         Should -Invoke Get-DiagramCodeRows -ModuleName Catzc.Base.Slides -Times 1 -Exactly
     }
@@ -63,7 +64,8 @@ Describe 'Write-DiagramQueryRows' -Tag 'L0', 'logic', 'DDR-VISUAL-ZOOMISANAXIS' 
         $wrong = 'docs/explanation/wrong/.assets/wrong-level'
         $source = Join-Path $script:root $wrong
         [System.IO.Directory]::CreateDirectory((Split-Path $source -Parent)) | Out-Null
-        [System.IO.File]::WriteAllText("$source.drawio.yml", "about:`n  adrs: [ADR-WIDGET]`n  zoom: C2`n  point: widgets`ncontent:`n  title: Wrong`n")
+        [System.IO.File]::WriteAllText("$source.drawio.yml",
+            "about:`n  adrs: [ADR-WIDGET]`n  zoom: C2`n  point: widgets`ncontent:`n  title: Wrong`n")
         { Invoke-Writer -Stem $wrong } | Should -Throw "*$wrong names about.point widgets at zoom 'C2'*"
     }
 }

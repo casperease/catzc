@@ -81,7 +81,8 @@ function ConvertFrom-GoTestJson {
             }
             elseif ($action -eq 'fail') {
                 $failedPackages.Add($package)
-                if ($record.ContainsKey('FailedBuild') -and $record['FailedBuild'] -and -not $buildFailures.Contains([string] $record['FailedBuild'])) {
+                if ($record.ContainsKey('FailedBuild') -and $record['FailedBuild'] -and
+                    -not $buildFailures.Contains([string] $record['FailedBuild'])) {
                     $buildFailures.Add([string] $record['FailedBuild'])
                 }
             }
@@ -133,7 +134,8 @@ function ConvertFrom-GoTestJson {
         else {
             'fail'
         }
-        [Catzc.Base.Languages.GoTestResult]::new($test.Package, $test.Name, $outcome, $test.Elapsed, $test.Output.ToString())
+        [Catzc.Base.Languages.GoTestResult]::new($test.Package, $test.Name, $outcome, $test.Elapsed,
+            $test.Output.ToString())
     }
     $results = @($results)
 

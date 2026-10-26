@@ -29,13 +29,16 @@ function Test-ShellScripts {
         }
     }
     $importer = [Catzc.Base.Engines.ExecutionEngines]::Bash.ImporterEntry
-    if (-not $scripts.Contains($importer) -and (Test-Path -LiteralPath (Join-Path $repositoryRoot $importer) -PathType Leaf)) {
+    if (-not $scripts.Contains($importer) -and
+        (Test-Path -LiteralPath (Join-Path $repositoryRoot $importer) -PathType Leaf)) {
         $scripts.Add($importer)
     }
     $scripts.Sort([System.StringComparer]::Ordinal)
 
-    $executable = [System.Collections.Generic.HashSet[string]]::new([string[]]@(Get-GitTrackedPath '.' -ExecutableOnly), [System.StringComparer]::Ordinal)
-    $tracked = [System.Collections.Generic.HashSet[string]]::new([string[]]@(Get-GitTrackedPath '.'), [System.StringComparer]::Ordinal)
+    $executable = [System.Collections.Generic.HashSet[string]]::new([string[]]@(Get-GitTrackedPath '.' -ExecutableOnly),
+        [System.StringComparer]::Ordinal)
+    $tracked = [System.Collections.Generic.HashSet[string]]::new([string[]]@(Get-GitTrackedPath '.'),
+        [System.StringComparer]::Ordinal)
     $issues = [System.Collections.Generic.List[string]]::new()
     foreach ($script in $scripts) {
         $full = Join-Path $repositoryRoot $script
@@ -54,7 +57,8 @@ function Test-ShellScripts {
 
     # The vendored bats-core runner: the LF check only (third-party code, run but not owned).
     $batsFolder = "$((Get-Config -Config bash).ResolveRoot($repositoryRoot))/$([Catzc.Base.Languages.BashConfig]::BatsFolder)/"
-    $vendoredRunner = @($tracked | Where-Object { $_.StartsWith($batsFolder, [System.StringComparison]::Ordinal) } | Sort-Object)
+    $vendoredRunner = @($tracked | Where-Object { $_.StartsWith($batsFolder, [System.StringComparison]::Ordinal) } |
+        Sort-Object)
     foreach ($file in $vendoredRunner) {
         $full = Join-Path $repositoryRoot $file
         if ((Test-Path -LiteralPath $full -PathType Leaf) -and ([System.IO.File]::ReadAllBytes($full) -contains 13)) {
@@ -65,7 +69,8 @@ function Test-ShellScripts {
     $zshScripts = @($scripts | Where-Object { $_.EndsWith('.zsh', [System.StringComparison]::Ordinal) })
     $analysed = @($scripts | Where-Object {
             $path = $_
-            -not $path.EndsWith('.zsh', [System.StringComparison]::Ordinal) -and -not @($ShellCheckExclude | Where-Object { $path -like $_ }).Count
+            -not $path.EndsWith('.zsh',
+                [System.StringComparison]::Ordinal) -and -not @($ShellCheckExclude | Where-Object { $path -like $_ }).Count
         })
     if ($analysed.Count -gt 0) {
         $shellcheck = Resolve-ToolExecutable -Tool shellcheck
@@ -105,7 +110,8 @@ function Test-ShellScripts {
                 if (-not $line.Trim()) {
                     continue
                 }
-                # zsh names the file as it was given ('<file>:<line>: <message>'); a line without it gets the file prefixed.
+                # zsh names the file as it was given ('<file>:<line>: <message>'); a line without it gets the file
+                # prefixed.
                 $issue = if ($line.StartsWith("${script}:", [System.StringComparison]::Ordinal)) {
                     $line
                 }

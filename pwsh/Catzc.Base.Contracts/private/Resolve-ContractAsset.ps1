@@ -72,12 +72,14 @@ function Resolve-ContractAsset {
         $commandLanguage = $languages.languages | Where-Object name -ceq 'powershell' | Select-Object -First 1
         $stem = $name.Substring(0, $name.Length - '.command.yml'.Length)
         try {
-            $command = [Catzc.Base.Objects.NameCase]::FromNormal($stem, $commandLanguage.naming.function[0], $languages.naming_normal_form)
+            $command = [Catzc.Base.Objects.NameCase]::FromNormal($stem, $commandLanguage.naming.function[0],
+                $languages.naming_normal_form)
         }
         catch {
             throw "contract asset '$assetName': the command '$stem' is not in the repository normal form, $($languages.naming_normal_form) (ADR-REPO-CMDCONTRACT-NOPLACEMENTFACTS)."
         }
-        return [Catzc.Base.Contracts.ContractAsset]::new($Root, $Version, $Group, $Path, $kind, "$CommandRoot/$command.ps1", $direction)
+        return [Catzc.Base.Contracts.ContractAsset]::new($Root, $Version, $Group, $Path, $kind,
+            "$CommandRoot/$command.ps1", $direction)
     }
 
     if ($kind -eq [Catzc.Base.Contracts.ContractAssetKind]::Schema) {
@@ -98,11 +100,13 @@ function Resolve-ContractAsset {
             else {
                 "contracts/$Root/$Version/"
             }
-            return [Catzc.Base.Contracts.ContractAsset]::new($Root, $Version, $Group, $Path, $kind, "$folder$($samples[0])", $direction)
+            return [Catzc.Base.Contracts.ContractAsset]::new($Root, $Version, $Group, $Path, $kind,
+                "$folder$($samples[0])", $direction)
         }
     }
 
-    # A presence asset, a fragment, or a schema with no sample beside it binds the files its applies_to entry names, and only those.
+    # A presence asset, a fragment, or a schema with no sample beside it binds the files its applies_to entry names, and
+    # only those.
     if (-not $isNamed) {
         throw "${manifest}: '$key', a $kind asset, is not named in applies_to, so it binds no file (ADR-REPO-CONTRACT-CONFIGUREDADDRESSING)."
     }

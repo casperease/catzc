@@ -8,16 +8,19 @@ Describe 'New-Cspell' -Tag 'L0', 'logic' {
 
         function script:New-WidgetSet {
             param([string[]] $Include, [string[]] $Exclude = @())
-            [Catzc.Base.Globs.GlobSet]::new('widget-parts', 'Widget parts, never authored here.', 'loose-fileset', $Include, $Exclude, @(), @(), -1, $null)
+            [Catzc.Base.Globs.GlobSet]::new('widget-parts', 'Widget parts, never authored here.', 'loose-fileset',
+                $Include, $Exclude, @(), @(), -1, $null)
         }
 
-        Mock Get-GlobSet -ModuleName Catzc.Base.RootConfig { New-WidgetSet -Include @('**/gadgets/**', 'widgets/spare.*') }
+        Mock Get-GlobSet -ModuleName Catzc.Base.RootConfig { New-WidgetSet -Include @('**/gadgets/**',
+            'widgets/spare.*') }
     }
 
     It 'replaces the placeholder with a comment and one quoted ignore path per include of the glob set, in set order' {
         Set-Template "ignorePaths:`n  - .git/**`n  - `"{{third-party}}`"`n  - out/**`n"
         $text = New-Cspell -TemplatePath $script:templatePath
-        $text | Should -BeExactly "ignorePaths:`n  - .git/**`n  # The third-party glob set (globs.yml): vendored or downloaded files, never authored here.`n  - `"**/gadgets/**`"`n  - `"widgets/spare.*`"`n  - out/**`n"
+        $text |
+            Should -BeExactly "ignorePaths:`n  - .git/**`n  # The third-party glob set (globs.yml): vendored or downloaded files, never authored here.`n  - `"**/gadgets/**`"`n  - `"widgets/spare.*`"`n  - out/**`n"
         Should -Invoke Get-GlobSet -ModuleName Catzc.Base.RootConfig -Times 1 -Exactly -ParameterFilter { $Name -eq 'third-party' }
     }
 

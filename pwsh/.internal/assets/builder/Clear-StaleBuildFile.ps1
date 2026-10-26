@@ -17,7 +17,8 @@ function Clear-StaleBuildFile {
     if (-not [System.IO.Directory]::Exists($BuildRoot)) {
         return $removed
     }
-    # A named whole-tree walk ([ADR-PWSH-ENUM-ALWAYSBOUNDED](/docs/drs/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): a stale
+    # A named whole-tree walk
+    # ([ADR-PWSH-ENUM-ALWAYSBOUNDED](/docs/drs/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): a stale
     # file anywhere under the build root must go, so nothing is pruned.
     foreach ($file in @(Get-ChildPath $BuildRoot -File -Depth 64 -Exclude @() -PruneVendor $false)) {
         $relativePath = [System.IO.Path]::GetRelativePath($BuildRoot, $file).Replace('\', '/')
@@ -33,7 +34,8 @@ function Clear-StaleBuildFile {
     }
     # Deepest folders first, so a parent empties after its children.
     $folders = [string[]] @(Get-ChildPath $BuildRoot -Directory -Depth 64 -Exclude @() -PruneVendor $false)
-    [System.Array]::Sort($folders, [System.Comparison[string]] { param($left, $right) $right.Length.CompareTo($left.Length) })
+    [System.Array]::Sort($folders, [System.Comparison[string]] { param($left,
+        $right) $right.Length.CompareTo($left.Length) })
     foreach ($folder in $folders) {
         if (-not [System.IO.Directory]::EnumerateFileSystemEntries($folder).GetEnumerator().MoveNext()) {
             [System.IO.Directory]::Delete($folder)

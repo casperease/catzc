@@ -77,10 +77,12 @@ if ($InBurst) {
     $owned = $true
 }
 else {
-    # The lock is taken before the import, so a waiting run holds no import; the waiting lines pass through as they happen.
+    # The lock is taken before the import, so a waiting run holds no import; the waiting lines pass through as they
+    # happen.
     . (Join-Path $PSScriptRoot 'Wait-CatzcRunLock.ps1')
     $settings = Get-CatzcRunLockSetting
-    # Filled in here, not as parameter defaults: the settings reader is dot-sourced just above, after the param block has bound.
+    # Filled in here, not as parameter defaults: the settings reader is dot-sourced just above, after the param block
+    # has bound.
     if (-not $PSBoundParameters.ContainsKey('LockSeconds')) {
         $LockSeconds = $settings.wait_seconds
     }
@@ -101,10 +103,13 @@ $failed = 0
 try {
     . $Importer
 
-    # Imported, the run knows its commands' time limits, so the holder record's deadline moves from the budget to their sum.
-    # Get-Module loads nothing, so an importer without the timeouts module leaves the deadline at the budget and autoloads no module.
+    # Imported, the run knows its commands' time limits, so the holder record's deadline moves from the budget to their
+    # sum.
+    # Get-Module loads nothing, so an importer without the timeouts module leaves the deadline at the budget and
+    # autoloads no module.
     if ($lock -and (Get-Module Catzc.Base.Timeouts)) {
-        # Only a declared limit counts (a TimeLimit or a commands: entry); one command without one keeps the deadline at the budget, since
+        # Only a declared limit counts (a TimeLimit or a commands: entry); one command without one keeps the deadline at
+        # the budget, since
         # the shell default would cut it short and let waiters give up on a run that is still working.
         $timeouts = Get-Config -Config timeouts
         $limit = 0
@@ -122,32 +127,40 @@ try {
             }
         }
         if (-not $undeclared -and $limit -gt 0) {
-            Set-CatzcRunLockHolder -LockName $LockName -Seconds ([Math]::Min($limit, $BudgetSeconds)) -Holding "Invoke-CatzcCommand $($Command -join '; ')"
+            Set-CatzcRunLockHolder -LockName $LockName -Seconds ([Math]::Min($limit,
+                $BudgetSeconds)) -Holding "Invoke-CatzcCommand $($Command -join '; ')"
         }
     }
 
-    # Every command runs from the repository root, where the importer sits, so a relative path never resolves against the caller's folder.
+    # Every command runs from the repository root, where the importer sits, so a relative path never resolves against
+    # the caller's folder.
     Push-Location -LiteralPath (Split-Path -Parent ([System.IO.Path]::GetFullPath($Importer)))
-    # A test file reports a red run in its result object alone, so every Invoke-TestFile of the run returns one, -PassThru named or not.
+    # A test file reports a red run in its result object alone, so every Invoke-TestFile of the run returns one,
+    # -PassThru named or not.
     $PSDefaultParameterValues['Invoke-TestFile:PassThru'] = $true
     try {
         foreach ($line in $Command) {
             try {
                 $ErrorActionPreference = 'Stop'
                 $output = @(& ([scriptblock]::Create($line)))
-                # A result object (Invoke-TestFile -PassThru) carries the verdict of a command that reports a failure without throwing.
+                # A result object (Invoke-TestFile -PassThru) carries the verdict of a command that reports a failure
+                # without throwing.
                 $results = @($output | Where-Object { $null -ne $_ -and $_.PSObject.Properties['Result'] })
-                # The command's own output is shown as the host renders it, through the information stream, never as a verdict line.
-                $output | Where-Object { $results -notcontains $_ } | Out-String -Stream | ForEach-Object { Write-Message $_ -NoHeader }
+                # The command's own output is shown as the host renders it, through the information stream, never as a
+                # verdict line.
+                $output | Where-Object { $results -notcontains $_ } | Out-String -Stream |
+                    ForEach-Object { Write-Message $_ -NoHeader }
                 if (@($results | Where-Object { $_.Result -eq 'Failed' }).Count -gt 0) {
                     throw 'it reported Failed'
                 }
-                # A per-test record (Invoke-PythonTest's) carries its own outcome, so one failed test fails the command though nothing threw.
+                # A per-test record (Invoke-PythonTest's) carries its own outcome, so one failed test fails the command
+                # though nothing threw.
                 $failedTests = @($output | Where-Object { $null -ne $_ -and $_.PSObject.Properties['Outcome'] -and $_.Outcome -eq 'fail' })
                 if ($failedTests.Count -gt 0) {
                     throw "it reported $($failedTests.Count) failed test(s)"
                 }
-                # A gate called with -PassThru returns its issues instead of throwing, so its issue count is its verdict.
+                # A gate called with -PassThru returns its issues instead of throwing, so its issue count is its
+                # verdict.
                 $gates = @($output | Where-Object { $null -ne $_ -and $_.PSObject.Properties['IssueCount'] -and $_.IssueCount -gt 0 })
                 if ($gates.Count -gt 0) {
                     throw "it reported $(($gates | ForEach-Object { "$($_.IssueCount) $($_.Subject) issue(s)" }) -join ', ')"

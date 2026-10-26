@@ -7,7 +7,8 @@ catzc:
 #>
 
 function Invoke-PsScriptAnalyzerFormat {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '', Justification = 'The shard worker''s analyzer import runs inside each background Start-Job process, never in this session')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '',
+        Justification = 'The shard worker''s analyzer import runs inside each background Start-Job process, never in this session')]
     [CmdletBinding()]
     [OutputType([string[]])]
     param(
@@ -43,7 +44,8 @@ function Invoke-PsScriptAnalyzerFormat {
         }
     }
 
-    $shardCount = [Math]::Min([Math]::Max(1, [Math]::Min([Environment]::ProcessorCount - 1, 4)), [int][Math]::Floor($File.Count / 25))
+    $shardCount = [Math]::Min([Math]::Max(1, [Math]::Min([Environment]::ProcessorCount - 1, 4)),
+        [int][Math]::Floor($File.Count / 25))
     if ($shardCount -lt 2) {
         if (-not (Get-Module PSScriptAnalyzer)) {
             Write-Message 'Loading PSScriptAnalyzer (first use this session)...'
@@ -73,7 +75,8 @@ function Invoke-PsScriptAnalyzerFormat {
     }
     $analyzerPath = Join-Path (Get-CatzcModulesRoot) '.vendor/PSScriptAnalyzer'
     $jobs = for ($i = 0; $i -lt $shardCount; $i++) {
-        Start-Job -ScriptBlock $worker -ArgumentList @($shards[$i].ToArray(), (Get-RepositoryRoot), $analyzerPath, $settingsPath, [bool] $DryRun, $formatFiles.ToString())
+        Start-Job -ScriptBlock $worker -ArgumentList @($shards[$i].ToArray(), (Get-RepositoryRoot), $analyzerPath,
+            $settingsPath, [bool] $DryRun, $formatFiles.ToString())
     }
     try {
         $null = $jobs | Wait-Job

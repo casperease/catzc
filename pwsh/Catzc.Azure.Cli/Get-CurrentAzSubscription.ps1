@@ -21,5 +21,6 @@ function Get-CurrentAzSubscription {
 
     $account = $cli.Output | ConvertFrom-Json
 
-    [Catzc.Azure.Cli.SubscriptionContext]::new($account.id, $account.name, $account.tenantId, $account.state, $account.isDefault)
+    [Catzc.Azure.Cli.SubscriptionContext]::new($account.id, $account.name, $account.tenantId, $account.state,
+        $account.isDefault)
 }

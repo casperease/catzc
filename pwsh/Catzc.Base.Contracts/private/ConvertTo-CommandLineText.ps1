@@ -18,7 +18,8 @@ function ConvertTo-CommandLineText {
         [string[]] $Argument
     )
 
-    # The command line CliRunner splits back into the same arguments: each in double quotes, an inner quote escaped as \".
+    # The command line CliRunner splits back into the same arguments: each in double quotes, an inner quote escaped as
+    # \".
     @(foreach ($item in @($Executable) + $Argument) {
             '"' + $item.Replace('"', '\"') + '"'
         }) -join ' '

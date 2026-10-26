@@ -10,7 +10,8 @@ function Resolve-LampPaletteShade {
     [CmdletBinding()]
     [OutputType([object])]
     param(
-        # A settings or manifest tree; every string 'palette.<range>.<shade>' in it, optionally '/<aa>' to set the alpha, becomes its hex.
+        # A settings or manifest tree; every string 'palette.<range>.<shade>' in it, optionally '/<aa>' to set the
+        # alpha, becomes its hex.
         [AllowNull()]
         [object] $InputObject,
 

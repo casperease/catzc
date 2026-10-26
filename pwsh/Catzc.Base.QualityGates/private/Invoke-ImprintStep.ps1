@@ -32,7 +32,8 @@ function Invoke-ImprintStep {
             if ($File.Count -eq 0) {
                 return $outcome
             }
-            $resolver = [Catzc.Base.QualityGates.FileCarrierResolver]::new((Get-Config -Config file-carriers), (Get-Config -Config languages))
+            $resolver = [Catzc.Base.QualityGates.FileCarrierResolver]::new((Get-Config -Config file-carriers),
+                (Get-Config -Config languages))
             $entries = foreach ($path in $File) {
                 $relative = [System.IO.Path]::GetRelativePath($root, $path) -replace '\\', '/'
                 [pscustomobject]@{ Path = $relative; Carrier = $resolver.For($relative) }
@@ -58,14 +59,16 @@ function Invoke-ImprintStep {
             if ($File.Count -eq 0) {
                 return $outcome
             }
-            # The help is the ## help section of the file's comment page, so the step only reports what a person must settle and changes no file.
+            # The help is the ## help section of the file's comment page, so the step only reports what a person must
+            # settle and changes no file.
             $commentPages = Get-Config -Config comment-pages
             foreach ($path in $File) {
                 # A path the index lists but the working tree has lost, a deletion not yet staged, has no help to check.
                 if (-not [System.IO.File]::Exists($path)) {
                     continue
                 }
-                $page = Get-CommentPage -Path ([System.IO.Path]::GetRelativePath($root, $path) -replace '\\', '/') -Config $commentPages
+                $page = Get-CommentPage -Path ([System.IO.Path]::GetRelativePath($root, $path) -replace '\\',
+                    '/') -Config $commentPages
                 $pageText = if ($page -and [System.IO.File]::Exists((& $absolute $page))) {
                     [System.IO.File]::ReadAllText((& $absolute $page))
                 }
@@ -82,7 +85,8 @@ function Invoke-ImprintStep {
             if ($File.Count -eq 0) {
                 return $outcome
             }
-            # The width is the code width the file limits resolve for PowerShell; a break the proof refuses leaves its file as it is.
+            # The width is the code width the file limits resolve for PowerShell; a break the proof refuses leaves its
+            # file as it is.
             $width = (Get-Config -Config file-limits).Resolve('powershell').width
             $outcome.Changed = [string[]] @(foreach ($path in $File) {
                     if (-not [System.IO.File]::Exists($path)) {
@@ -112,13 +116,15 @@ function Invoke-ImprintStep {
             if ($File.Count -eq 0) {
                 return $outcome
             }
-            # The counts are derived from the plans beside each overlay, so each folder the files sit in is rewritten once.
+            # The counts are derived from the plans beside each overlay, so each folder the files sit in is rewritten
+            # once.
             $plans = Get-Config -Config plans
             $folders = @($File | ForEach-Object { [System.IO.Path]::GetDirectoryName([System.IO.Path]::GetFullPath($_)) } | Sort-Object -Unique)
             $outcome.Changed = [string[]] @(foreach ($folder in $folders) {
                     Update-PlanStepCount $folder -Config $plans -DryRun:$DryRun
                 })
-            # A rewritten overlay can lie outside -Path, past the formatter's pass, so the step formats what it wrote itself.
+            # A rewritten overlay can lie outside -Path, past the formatter's pass, so the step formats what it wrote
+            # itself.
             if (-not $DryRun -and $outcome.Changed.Count -gt 0) {
                 $null = Invoke-FormatterEngine -Engine prettier -File $outcome.Changed
             }

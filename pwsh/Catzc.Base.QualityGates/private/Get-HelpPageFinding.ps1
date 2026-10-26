@@ -49,7 +49,8 @@ function Get-HelpPageFinding {
         $findings.Add($finding)
     }
 
-    $texts = @($help.synopsis, $help.description, $help.inputs, $help.outputs, $help.notes) + @($help.parameters | ForEach-Object Value)
+    $texts = @($help.synopsis, $help.description, $help.inputs, $help.outputs,
+        $help.notes) + @($help.parameters | ForEach-Object Value)
     foreach ($value in @($texts | Where-Object { $_ })) {
         foreach ($line in ("$value" -split "`n")) {
             if ($line.Trim() -cmatch '^\[(ADR-[A-Z0-9-]+(#\d+)?|comment:\d+)\]\([^)]*\)$') {
@@ -61,7 +62,8 @@ function Get-HelpPageFinding {
 
     # The function the file is about: its first statement, else the script's own param block.
     $function = $null
-    if ($null -eq $ast.ParamBlock -and $ast.EndBlock.Statements.Count -gt 0 -and $ast.EndBlock.Statements[0] -is [System.Management.Automation.Language.FunctionDefinitionAst]) {
+    if ($null -eq $ast.ParamBlock -and $ast.EndBlock.Statements.Count -gt 0 -and
+        $ast.EndBlock.Statements[0] -is [System.Management.Automation.Language.FunctionDefinitionAst]) {
         $function = $ast.EndBlock.Statements[0]
     }
     $paramBlock = if ($null -ne $function) {
@@ -91,19 +93,22 @@ function Get-HelpPageFinding {
         }
 
         if ($null -ne $function -and $help.outputs -and $null -ne $paramBlock) {
-            $outputType = $paramBlock.Attributes | Where-Object { $_.TypeName.Name -ceq 'OutputType' } | Select-Object -First 1
+            $outputType = $paramBlock.Attributes | Where-Object { $_.TypeName.Name -ceq 'OutputType' } |
+                Select-Object -First 1
             $documentedType = [regex]::Match("$($help.outputs)", '\[([A-Za-z0-9_.]+(?:\[[A-Za-z0-9_.,\[\] ]*\])*)\]')
             if ($null -ne $outputType -and $documentedType.Success) {
                 $declaredType = $outputType.PositionalArguments | Select-Object -First 1
                 $short = {
                     param([string] $Value)
                     $name = $Value.Trim().Trim("'", '"')
-                    if ($name.StartsWith('[', [System.StringComparison]::Ordinal) -and $name.EndsWith(']', [System.StringComparison]::Ordinal)) {
+                    if ($name.StartsWith('[', [System.StringComparison]::Ordinal) -and $name.EndsWith(']',
+                        [System.StringComparison]::Ordinal)) {
                         $name = $name.Substring(1, $name.Length - 2)
                     }
                     (($name -replace '\s+', '') -replace '(?:[A-Za-z0-9_]+\.)+', '').ToLowerInvariant()
                 }
-                if ($null -ne $declaredType -and (& $short $documentedType.Groups[1].Value) -ne (& $short $declaredType.Extent.Text)) {
+                if ($null -ne $declaredType -and
+                    (& $short $documentedType.Groups[1].Value) -ne (& $short $declaredType.Extent.Text)) {
                     $findings.Add("outputs documents [$($documentedType.Groups[1].Value)] but [OutputType] declares $($declaredType.Extent.Text)")
                 }
             }

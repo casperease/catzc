@@ -88,7 +88,8 @@ Describe 'Test-GitHistoryClean' -Tag 'L2', 'logic' {
 
     It 'names each content hit by its blob, a path it lives under, and the line' {
         $blob = (& git -C $script:repo rev-parse 'HEAD~2:config.txt').Trim()
-        (Test-GitHistoryClean -Token 'sekret-token' -RepositoryPath $script:repo).Blobs | Should -Be @("${blob}:config.txt:connection=SEKRET-TOKEN-value")
+        (Test-GitHistoryClean -Token 'sekret-token' -RepositoryPath $script:repo).Blobs |
+            Should -Be @("${blob}:config.txt:connection=SEKRET-TOKEN-value")
     }
 
     It 'sweeps every ref with --all' {
@@ -99,7 +100,8 @@ Describe 'Test-GitHistoryClean' -Tag 'L2', 'logic' {
         & git -C $script:repo checkout -q gadget *> $null
         try {
             (Test-GitHistoryClean -Token 'gizmo-marker' -RepositoryPath $script:repo).Clean | Should -BeTrue
-            (Test-GitHistoryClean -Token 'gizmo-marker' -Ref '--all' -RepositoryPath $script:repo).Clean | Should -BeFalse
+            (Test-GitHistoryClean -Token 'gizmo-marker' -Ref '--all' -RepositoryPath $script:repo).Clean |
+                Should -BeFalse
         }
         finally {
             & git -C $script:repo checkout -q main *> $null
@@ -109,7 +111,8 @@ Describe 'Test-GitHistoryClean' -Tag 'L2', 'logic' {
     }
 
     It 'skips a binary file, as git grep -I does' {
-        [System.IO.File]::WriteAllBytes((Join-Path $script:repo 'gadget.bin'), [byte[]] (@(0, 1, 2) + [System.Text.Encoding]::ASCII.GetBytes('binary-marker')))
+        [System.IO.File]::WriteAllBytes((Join-Path $script:repo 'gadget.bin'), [byte[]] (@(0, 1,
+            2) + [System.Text.Encoding]::ASCII.GetBytes('binary-marker')))
         & git -C $script:repo add -A *> $null
         & git -C $script:repo commit -m 'binary drop' *> $null
         try {
@@ -121,6 +124,7 @@ Describe 'Test-GitHistoryClean' -Tag 'L2', 'logic' {
     }
 
     It 'throws for a ref that does not resolve' {
-        { Test-GitHistoryClean -Token 'sekret-token' -Ref 'no-such-widget' -RepositoryPath $script:repo } | Should -Throw "*Cannot resolve ref 'no-such-widget'*"
+        { Test-GitHistoryClean -Token 'sekret-token' -Ref 'no-such-widget' -RepositoryPath $script:repo } |
+            Should -Throw "*Cannot resolve ref 'no-such-widget'*"
     }
 }

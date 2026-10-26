@@ -70,18 +70,21 @@ Describe 'Build-Bicep (sample-with-prepost merge seam)' -Tag 'L0', 'logic' {
     It 'merges the per-environment ranges (alpha and beta differ)' {
         $script:alphaJson.parameters.addressPrefix.value | Should -Be $script:alphaNetwork.vnet_address_space
         $script:betaJson.parameters.addressPrefix.value | Should -Be $script:betaNetwork.vnet_address_space
-        $script:alphaJson.parameters.addressPrefix.value | Should -Not -Be $script:betaJson.parameters.addressPrefix.value
+        $script:alphaJson.parameters.addressPrefix.value |
+            Should -Not -Be $script:betaJson.parameters.addressPrefix.value
     }
 
     It 'injects values (the ranges) the per-slot config does not carry' {
         $configuration = Get-Content (Join-Path $script:configRoot 'alpha.yml') -Raw | ConvertFrom-Yaml
-        $configuration.ParametersFile.parameters.Contains('addressPrefix') | Should -BeFalse -Because 'the merge seam, not the config, supplies the ranges'
+        $configuration.ParametersFile.parameters.Contains('addressPrefix') |
+            Should -BeFalse -Because 'the merge seam, not the config, supplies the ranges'
         $script:alphaJson.parameters.addressPrefix.value | Should -Be $script:alphaNetwork.vnet_address_space
     }
 
     It 'injects an ARM Key Vault reference for sharedReference, derived from fixture identity not config' {
         $configuration = Get-Content (Join-Path $script:configRoot 'alpha.yml') -Raw | ConvertFrom-Yaml
-        $configuration.ParametersFile.parameters.Contains('sharedReference') | Should -BeFalse -Because 'the KV reference is injected by the hook, not carried by config'
+        $configuration.ParametersFile.parameters.Contains('sharedReference') |
+            Should -BeFalse -Because 'the KV reference is injected by the hook, not carried by config'
 
         $reference = $script:alphaJson.parameters.sharedReference.reference
 

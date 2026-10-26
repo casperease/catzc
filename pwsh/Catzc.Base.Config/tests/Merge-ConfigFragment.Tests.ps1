@@ -2,7 +2,8 @@ Describe 'Merge-ConfigFragment' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:merge = {
             param($Base, $Fragment)
-            & (Get-Module Catzc.Base.Config) { param($b, $f) Merge-ConfigFragment -Base $b -Fragment $f } $Base $Fragment
+            & (Get-Module Catzc.Base.Config) { param($b,
+                $f) Merge-ConfigFragment -Base $b -Fragment $f } $Base $Fragment
         }
         $script:newBase = {
             [ordered]@{

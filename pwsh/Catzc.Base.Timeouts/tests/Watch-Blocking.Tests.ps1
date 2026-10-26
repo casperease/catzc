@@ -6,7 +6,8 @@ catzc:
 ---
 #>
 
-[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '', Justification = 'Tests lift $global:__PesterRunning to verify writer output; that flag is the writers'' test-suppression interface, set by Test-Automation')]
+[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '',
+    Justification = 'Tests lift $global:__PesterRunning to verify writer output; that flag is the writers'' test-suppression interface, set by Test-Automation')]
 param()
 
 Describe 'Watch-Blocking' -Tag 'L0', 'logic' {
@@ -14,7 +15,8 @@ Describe 'Watch-Blocking' -Tag 'L0', 'logic' {
     BeforeAll {
         $global:__PesterRunning = $false
 
-        # Runs Watch-Blocking with its sleeping replaced, and returns the written lines in order. -SleepMs 0 makes every tick instant.
+        # Runs Watch-Blocking with its sleeping replaced, and returns the written lines in order. -SleepMs 0 makes every
+        # tick instant.
         function Get-WaitLine {
             param([hashtable] $Arguments = @{}, [int] $SleepMs = 0)
 
@@ -53,9 +55,11 @@ Describe 'Watch-Blocking' -Tag 'L0', 'logic' {
 
         It 'sleeps until each tick is due and never longer than one slice, so an overrun does not carry into the next tick' {
             $lines = Get-WaitLine @{ Seconds = 2 }
-            $due = @($lines | Where-Object { $_ -like '*tick */10: due +*' } | ForEach-Object { [int][regex]::Match($_, 'due \+(\d+) ms').Groups[1].Value })
+            $due = @($lines | Where-Object { $_ -like '*tick */10: due +*' } | ForEach-Object { [int][regex]::Match($_,
+                'due \+(\d+) ms').Groups[1].Value })
             $due | Should -Be @(200, 400, 600, 800, 1000, 1200, 1400, 1600, 1800, 2001)
-            # The mock sleeps nothing, so each request is what is left until the tick is due: the first one slice, the last nearly all.
+            # The mock sleeps nothing, so each request is what is left until the tick is due: the first one slice, the
+            # last nearly all.
             Should -Invoke Start-Sleep -ModuleName Catzc.Base.Timeouts -Times 10 -Exactly -ParameterFilter { $Milliseconds -le 2001 }
             Should -Invoke Start-Sleep -ModuleName Catzc.Base.Timeouts -ParameterFilter { $Milliseconds -ge 190 -and $Milliseconds -le 200 }
             Should -Invoke Start-Sleep -ModuleName Catzc.Base.Timeouts -ParameterFilter { $Milliseconds -ge 1800 }

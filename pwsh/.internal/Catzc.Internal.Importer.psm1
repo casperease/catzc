@@ -136,8 +136,6 @@ function Invoke-Importer {
         }
 
         Write-Verbose "Discovering modules in: $modulesRoot"
-        # An interactive dot-source is the only console host; a script, a test worker, a -File or -Command process and a
-        # pipeline load the types and run the janitors at import.
         $hostKind = if ($isConsoleSession -and (Test-IsInteractiveHost) -and -not (Test-IsRunningInPipeline)) {
             'console'
         }
@@ -157,8 +155,6 @@ function Invoke-Importer {
             Write-LoadTime 'All modules loaded'
         }
 
-        # The mix is resolved once the modules are loaded and kept as the session record; the modules outside it are
-        # removed.
         $mixArgs = @{}
         foreach ($axis in 'Languages', 'Engines') {
             if ($PSBoundParameters.ContainsKey($axis)) {
@@ -183,8 +179,6 @@ function Invoke-Importer {
 
         $deferJanitors = -not $SkipJanitors -and $hostKind -eq 'console' -and -not $CleanClone
         if ($deferMix) {
-            # A console import stays types-free: the mix needs the types, so it is resolved once the first prompt has
-            # shown, before the janitors.
             $show = $showStateChanges
             Enable-DeferredJanitors -Action {
                 [void] (Set-ImportMix)
@@ -201,8 +195,6 @@ function Invoke-Importer {
             Write-Verbose 'Import mix deferred until the first prompt has shown'
         }
         elseif ($deferJanitors) {
-            # A console import stays types-free: the janitors call catzc commands, so they run once the first prompt has
-            # shown.
             Enable-DeferredJanitors -ShowStateChanges:$showStateChanges
             Write-Verbose 'Janitors deferred until the first prompt has shown'
         }
@@ -235,8 +227,6 @@ function Invoke-Importer {
                 $initializerSeconds = [math]::Round($initializerEnd.TotalSeconds, 1)
                 $importSeconds = [math]::Round(($finalizerStart - $initializerEnd).TotalSeconds, 1)
                 $finalizerSeconds = [math]::Round(($sw.Elapsed - $finalizerStart).TotalSeconds, 1)
-                # Run through its command info: a lookup by name is a first use and would load the pending types for a
-                # status line.
                 & $writeMessage "Loaded in $totalSeconds seconds (session initializer ${initializerSeconds}s, module import ${importSeconds}s, session finalizer ${finalizerSeconds}s)"
             }
         }
@@ -254,7 +244,7 @@ function Invoke-ConsumerOverlay {
     )
 
     if (-not [System.IO.Directory]::Exists([System.IO.Path]::Combine($RepositoryRoot, '.catzc',
-        $script:modulesFolder))) {
+                $script:modulesFolder))) {
         return
     }
     if (-not (Get-Command Import-CatzcOverlay -ErrorAction Ignore)) {
@@ -324,8 +314,6 @@ function Invoke-TypeCacheJanitor {
     }
 }
 
-# The one line a janitor prints instead of working inside VS Code: what it left undone and the command to run from a
-# terminal outside the editor.
 function Write-InsideVsCodeNotice {
     [CmdletBinding()]
     param(
@@ -374,8 +362,6 @@ function Invoke-AgentHookJanitor {
     }
 }
 
-# Installs the repository's own editor extensions whose installed copy is missing or stale, so loading the repo is the
-# whole setup.
 function Invoke-EditorExtensionJanitor {
     [CmdletBinding()]
     param()

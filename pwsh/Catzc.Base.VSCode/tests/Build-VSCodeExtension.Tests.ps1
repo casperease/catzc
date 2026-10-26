@@ -1,4 +1,5 @@
-# Rests on [ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS](/docs/drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-isolatethroughseams).
+# Rests on
+# [ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS](/docs/drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-isolatethroughseams).
 Describe 'Build-VsCodeExtension' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:folder = Join-Path $TestDrive 'widget-ext'
@@ -23,7 +24,8 @@ Describe 'Build-VsCodeExtension' -Tag 'L0', 'logic' {
         finally {
             $zip.Dispose()
         }
-        $entries | Should -Be @('[Content_Types].xml', 'extension.vsixmanifest', 'extension/extension.js', 'extension/lib/gadget.js', 'extension/package.json')
+        $entries | Should -Be @('[Content_Types].xml', 'extension.vsixmanifest', 'extension/extension.js',
+            'extension/lib/gadget.js', 'extension/package.json')
     }
 
     It 'writes a manifest that names the identity and the engine, escaped, as valid XML' {
@@ -54,7 +56,8 @@ Describe 'Build-VsCodeExtension' -Tag 'L0', 'logic' {
         $broken = Join-Path $TestDrive 'gadget-ext'
         $null = New-Item -ItemType Directory -Path $broken -Force
         Set-Content -LiteralPath (Join-Path $broken 'package.json') -Value '{ "name": "gadget-ext", "version": "1.0.0" }'
-        { Build-VsCodeExtension -Path $broken -OutputDirectory $script:out } | Should -Throw '*breaks the extension manifest contract*publisher*'
+        { Build-VsCodeExtension -Path $broken -OutputDirectory $script:out } |
+            Should -Throw '*breaks the extension manifest contract*publisher*'
         Test-Path -LiteralPath (Join-Path $script:out 'gadget-ext-1.0.0.vsix') | Should -BeFalse
     }
 }

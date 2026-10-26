@@ -1,4 +1,5 @@
-# Rests on [ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS](/docs/drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-isolatethroughseams).
+# Rests on
+# [ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS](/docs/drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-isolatethroughseams).
 Describe 'New-VsCodeExtensionFolder' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:assets = Join-Path $TestDrive 'assets'
@@ -35,7 +36,8 @@ Describe 'New-VsCodeExtensionFolder' -Tag 'L0', 'logic' {
     }
 
     It 'copies the script from the asset folder to extension.js' {
-        Get-Content -LiteralPath (Join-Path $script:folder 'extension.js') -Raw | Should -Be (Get-Content -LiteralPath (Join-Path $script:assets 'widget-ext/extension.js') -Raw)
+        Get-Content -LiteralPath (Join-Path $script:folder 'extension.js') -Raw |
+            Should -Be (Get-Content -LiteralPath (Join-Path $script:assets 'widget-ext/extension.js') -Raw)
     }
 
     It 'ships the extension''s own folder as media, and no media when it has none' {
@@ -59,7 +61,8 @@ Describe 'New-VsCodeExtensionFolder' -Tag 'L0', 'logic' {
     }
 
     It 'refuses an entry whose script is missing' {
-        $missing = [Catzc.Base.VSCode.VscodeOwnExtension]::new('gadget-ext', [ordered]@{ displayName = 'Gadget'; description = 'A gadget.'; activationEvents = @('onStartupFinished') })
+        $missing = [Catzc.Base.VSCode.VscodeOwnExtension]::new('gadget-ext',
+            [ordered]@{ displayName = 'Gadget'; description = 'A gadget.'; activationEvents = @('onStartupFinished') })
         {
             InModuleScope Catzc.Base.VSCode -Parameters @{ Entry = $missing; Out = (Join-Path $TestDrive 'out'); Assets = $script:assets } {
                 param($Entry, $Out, $Assets)
@@ -82,7 +85,8 @@ Describe 'New-VsCodeExtensionFolder — real vscode-extensions.yml' -Tag 'L1', '
             $manifest.name | Should -Be $entry.name
             (Get-Item -LiteralPath (Join-Path $folder 'extension.js')).Length | Should -BeGreaterThan 0
             Build-VsCodeExtension -Path $folder -OutputDirectory (Join-Path $TestDrive 'vsix') | Should -Exist
-            $commands = if ($manifest.PSObject.Properties['contributes'] -and $manifest.contributes.PSObject.Properties['commands']) {
+            $commands = if ($manifest.PSObject.Properties['contributes'] -and
+                $manifest.contributes.PSObject.Properties['commands']) {
                 @($manifest.contributes.commands)
             }
             else {
@@ -93,7 +97,8 @@ Describe 'New-VsCodeExtensionFolder — real vscode-extensions.yml' -Tag 'L1', '
                     continue
                 }
                 foreach ($icon in @($command.icon.light, $command.icon.dark)) {
-                    Join-Path $folder $icon | Should -Exist -Because "$($entry.name) command '$($command.command)' names it"
+                    Join-Path $folder $icon |
+                        Should -Exist -Because "$($entry.name) command '$($command.command)' names it"
                 }
             }
         }

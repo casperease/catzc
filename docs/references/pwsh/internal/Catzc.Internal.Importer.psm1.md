@@ -359,3 +359,66 @@ The native C# type compile/load (every module's types/*.cs via Import-CSharpType
 'types (combined)' row below; a 'compile+load' row is a cold cache (Roslyn), a 'cache load' row reused
 the committed pwsh/.compiled DLL.
 ```
+
+## comment:32
+
+Above `$hostKind = if ($isConsoleSession -and (Test-IsInteractiveHost) -and -not...`, written with `#`.
+
+```text
+An interactive dot-source is the only console host; a script, a test worker, a -File or -Command process and a
+pipeline load the types and run the janitors at import.
+```
+
+## comment:33
+
+Above `$mixArgs = @{}`, written with `#`.
+
+```text
+The mix is resolved once the modules are loaded and kept as the session record; the modules outside it are
+removed.
+```
+
+## comment:34
+
+Above `$show = $showStateChanges`, written with `#`.
+
+```text
+A console import stays types-free: the mix needs the types, so it is resolved once the first prompt has
+shown, before the janitors.
+```
+
+## comment:35
+
+Above `Enable-DeferredJanitors -ShowStateChanges:$showStateChanges`, written with `#`.
+
+```text
+A console import stays types-free: the janitors call catzc commands, so they run once the first prompt has
+shown.
+```
+
+## comment:36
+
+Above `& $writeMessage "Loaded in $totalSeconds seconds (session initializer...`, written with `#`.
+
+```text
+Run through its command info: a lookup by name is a first use and would load the pending types for a
+status line.
+```
+
+## comment:37
+
+Above `function Write-InsideVsCodeNotice {`, written with `#`.
+
+```text
+The one line a janitor prints instead of working inside VS Code: what it left undone and the command to run from a
+terminal outside the editor.
+```
+
+## comment:38
+
+Above `function Invoke-EditorExtensionJanitor {`, written with `#`.
+
+```text
+Installs the repository's own editor extensions whose installed copy is missing or stale, so loading the repo is the
+whole setup.
+```

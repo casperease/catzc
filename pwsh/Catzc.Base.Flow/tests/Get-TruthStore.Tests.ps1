@@ -18,7 +18,8 @@ Describe 'Get-TruthStore' -Tag 'L0', 'logic' {
         $store = Get-TruthStore -Name widget-runtime
         $store | Should -BeOfType ([Catzc.Base.Flow.TruthStore])
         $store.owner | Should -BeExactly 'widget-itsm'
-        (Get-TruthStore -StoreKind state-machine, version-controlled-repository).name | Should -Be @('widget-repository', 'widget-itsm')
+        (Get-TruthStore -StoreKind state-machine, version-controlled-repository).name |
+            Should -Be @('widget-repository', 'widget-itsm')
     }
 
     Context 'the contract samples' {
@@ -29,7 +30,8 @@ Describe 'Get-TruthStore' -Tag 'L0', 'logic' {
         ) {
             $folder = Join-Path (Get-RepositoryRoot) 'contracts/catzc/0.1.0/catzc.base.flow'
             $schema = [System.IO.File]::ReadAllText((Join-Path $folder "$name.schema.json"))
-            [System.IO.File]::ReadAllText((Join-Path $folder "$name.sample.json")) | Test-Json -Schema $schema | Should -BeTrue
+            [System.IO.File]::ReadAllText((Join-Path $folder "$name.sample.json")) | Test-Json -Schema $schema |
+                Should -BeTrue
         }
     }
 }

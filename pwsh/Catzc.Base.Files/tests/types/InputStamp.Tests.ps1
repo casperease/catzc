@@ -20,7 +20,8 @@ Describe 'InputStamp' -Tag 'L0', 'logic' {
         $many = [Catzc.Base.Files.InputStamp]::ComputeMany($sets, '*', [string[]] @(), $root, $salts, $by)
         $many | Should -HaveCount 3
         for ($i = 0; $i -lt 3; $i++) {
-            $many[$i] | Should -BeExactly ([Catzc.Base.Files.InputStamp]::Compute($sets[$i], '*', [string[]] @(), $root, $salts[$i], $by))
+            $many[$i] | Should -BeExactly ([Catzc.Base.Files.InputStamp]::Compute($sets[$i], '*', [string[]] @(), $root,
+                $salts[$i], $by))
         }
     }
 
@@ -35,7 +36,8 @@ Describe 'InputStamp' -Tag 'L0', 'logic' {
     }
 
     It 'refuses a salt list that does not hold one salt per set' -Tag 'ADR-AUTO-FAILFAST-ASSERTINPUTSATENTRY' {
-        { [Catzc.Base.Files.InputStamp]::ComputeMany($sets, '*', [string[]] @(), $root, [string[]] @('one'), [Catzc.Base.Files.InputStampIdentity]::Metadata) } |
+        { [Catzc.Base.Files.InputStamp]::ComputeMany($sets, '*', [string[]] @(), $root, [string[]] @('one'),
+            [Catzc.Base.Files.InputStampIdentity]::Metadata) } |
             Should -Throw '*one salt per path set*'
     }
 }

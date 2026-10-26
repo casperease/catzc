@@ -6,8 +6,10 @@ catzc:
 ---
 #>
 
-# cspell:ignore inittypes enabletypes FIXTUREWIDGET  -- fixture folder prefixes and an upper-cased fixture command name, data
-[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '', Justification = 'Tests set and read $global:__CatzcDeferredTypes, the session-global pending record the deferred load reads')]
+# cspell:ignore inittypes enabletypes FIXTUREWIDGET  -- fixture folder prefixes and an upper-cased fixture command name,
+# data
+[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '',
+    Justification = 'Tests set and read $global:__CatzcDeferredTypes, the session-global pending record the deferred load reads')]
 param()
 
 Describe 'Initialize-Types'-Tag 'L1', 'logic' {
@@ -17,7 +19,8 @@ Describe 'Initialize-Types'-Tag 'L1', 'logic' {
         $script:savedRecord = Get-Variable -Name '__CatzcDeferredTypes' -Scope Global -ValueOnly -ErrorAction Ignore
         $script:savedHook = $ExecutionContext.InvokeCommand.PreCommandLookupAction
 
-        # A fixture with a manifest written by hand, as the builder would: one type with an alias and a display set, one plain.
+        # A fixture with a manifest written by hand, as the builder would: one type with an alias and a display set, one
+        # plain.
         function script:New-FixtureAssembly {
             param([bool] $WithManifest = $true)
             $run = 'r' + [guid]::NewGuid().ToString('N').Substring(0, 8)
@@ -32,7 +35,8 @@ Describe 'Initialize-Types'-Tag 'L1', 'logic' {
                         [ordered]@{ name = "$space.Widget"; aliases = @("Fx.Widget$run"); display = @('Size') }
                     )
                 }
-                [System.IO.File]::WriteAllText([System.IO.Path]::ChangeExtension($dll, 'json'), ($manifest | ConvertTo-Json -Depth 5))
+                [System.IO.File]::WriteAllText([System.IO.Path]::ChangeExtension($dll, 'json'),
+                    ($manifest | ConvertTo-Json -Depth 5))
             }
             [pscustomobject]@{ Dll = $dll; Space = $space; Run = $run }
         }
@@ -70,7 +74,8 @@ Describe 'Initialize-Types'-Tag 'L1', 'logic' {
         $global:__CatzcDeferredTypes['root-a'].Loaded | Should -BeTrue
         $accelerators = [psobject].Assembly.GetType('System.Management.Automation.TypeAccelerators')
         $accelerators::Get["Fx.Widget$($fx.Run)"].FullName | Should -Be "$($fx.Space).Widget"
-        (Get-TypeData -TypeName "$($fx.Space).Widget").DefaultDisplayPropertySet.ReferencedProperties | Should -Be @('Size')
+        (Get-TypeData -TypeName "$($fx.Space).Widget").DefaultDisplayPropertySet.ReferencedProperties |
+            Should -Be @('Size')
         Get-TypeData -TypeName "$($fx.Space).Gadget" | Should -BeNullOrEmpty
     }
 
@@ -95,7 +100,8 @@ Describe 'Initialize-Types'-Tag 'L1', 'logic' {
         Register-DeferredTypes -RootKey 'root-a' -Path $fx.Dll -ShadowCopy $true
         $result = Initialize-Types
         $result.Loaded | Should -Be (Join-Path $shadowRoot ([System.IO.Path]::GetFileName($fx.Dll)))
-        ([System.Management.Automation.PSTypeName]"$($fx.Space).Widget").Type.Assembly.Location | Should -Be $result.Loaded
+        ([System.Management.Automation.PSTypeName]"$($fx.Space).Widget").Type.Assembly.Location |
+            Should -Be $result.Loaded
     }
 
     It 'loads in place when the shadow copy is off' {
@@ -131,13 +137,16 @@ Describe 'Enable-DeferredTypesLoad' -Tag 'L1', 'logic' {
         $script:savedRecord = Get-Variable -Name '__CatzcDeferredTypes' -Scope Global -ValueOnly -ErrorAction Ignore
         $script:savedHook = $ExecutionContext.InvokeCommand.PreCommandLookupAction
 
-        # Each case gets its own assembly: a loaded type cannot be unloaded, so a shared one would be loaded by the first case.
+        # Each case gets its own assembly: a loaded type cannot be unloaded, so a shared one would be loaded by the
+        # first case.
         function script:New-PendingFixture {
             $run = 'r' + [guid]::NewGuid().ToString('N').Substring(0, 8)
             $space = "CatzcEnableWidget$run"
             $dll = Join-Path $script:fixtureRoot "Catzc.Types.$run.dll"
             Add-Type -TypeDefinition "namespace $space { public class Widget { } }" -OutputAssembly $dll -OutputType Library
-            [System.IO.File]::WriteAllText([System.IO.Path]::ChangeExtension($dll, 'json'), (@{ hash = $run; types = @(@{ name = "$space.Widget"; aliases = @(); display = @() }) } | ConvertTo-Json -Depth 5))
+            [System.IO.File]::WriteAllText([System.IO.Path]::ChangeExtension($dll, 'json'),
+                (@{ hash = $run; types = @(@{ name = "$space.Widget"; aliases = @(); display = @() }) } |
+                ConvertTo-Json -Depth 5))
             $global:__CatzcDeferredTypes = @{}
             Register-DeferredTypes -RootKey 'root-a' -Path $dll -ShadowCopy $false
             $space

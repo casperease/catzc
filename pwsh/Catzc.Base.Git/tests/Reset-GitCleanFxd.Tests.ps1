@@ -9,7 +9,8 @@ catzc:
 Describe 'Reset-GitCleanFxd' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Assert-Command { } -ModuleName Catzc.Base.Git
-        Mock Get-AutoControlledGlobs { @('out', 'out/*', '*/README.md', '.vscode', '.vscode/*') } -ModuleName Catzc.Base.Git
+        Mock Get-AutoControlledGlobs { @('out', 'out/*', '*/README.md', '.vscode',
+            '.vscode/*') } -ModuleName Catzc.Base.Git
         Mock Write-Message { } -ModuleName Catzc.Base.Git
         Mock Invoke-Executable {
             [pscustomobject]@{

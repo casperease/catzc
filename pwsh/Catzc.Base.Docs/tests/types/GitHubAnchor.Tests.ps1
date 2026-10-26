@@ -12,12 +12,14 @@ Describe 'GitHubAnchor' -Tag 'L0', 'logic' {
     }
 
     It 'drops punctuation and keeps the space either side of an em dash as two hyphens' -Tag 'ADR-REPO-LINK-MARKDOWNRELATIVE' {
-        [Catzc.Base.Docs.GitHubAnchor]::Slug('responsibility:1 — Widget invocation') | Should -BeExactly 'responsibility1--widget-invocation'
+        [Catzc.Base.Docs.GitHubAnchor]::Slug('responsibility:1 — Widget invocation') |
+            Should -BeExactly 'responsibility1--widget-invocation'
     }
 
     It 'reduces inline markup to its text: code spans, links, and emphasis' -Tag 'ADR-REPO-LINK-MARKDOWNRELATIVE' {
         [Catzc.Base.Docs.GitHubAnchor]::Slug('The `widget/` folder') | Should -BeExactly 'the-widget-folder'
-        [Catzc.Base.Docs.GitHubAnchor]::Slug('See [the gadget](gadget.md) **now**') | Should -BeExactly 'see-the-gadget-now'
+        [Catzc.Base.Docs.GitHubAnchor]::Slug('See [the gadget](gadget.md) **now**') |
+            Should -BeExactly 'see-the-gadget-now'
     }
 
     It 'drops a code span made only of punctuation and keeps both spaces around it as two hyphens' -Tag 'ADR-REPO-LINK-MARKDOWNRELATIVE' {

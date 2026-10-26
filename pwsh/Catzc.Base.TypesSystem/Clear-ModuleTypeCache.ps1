@@ -59,7 +59,8 @@ function Clear-ModuleTypeCache {
         $null
     }
 
-    foreach ($dll in [Catzc.Base.Folders.PathSet]::new((Get-Config -Config folder-walk)).AddPattern($compiledDir, '*.dll', 1).ToArray()) {
+    foreach ($dll in [Catzc.Base.Folders.PathSet]::new((Get-Config -Config folder-walk)).AddPattern($compiledDir,
+        '*.dll', 1).ToArray()) {
         if ($keep -and [System.IO.Path]::GetFileName($dll) -ieq $keep) {
             continue
         }   # current build — keep
@@ -99,7 +100,8 @@ function Clear-ModuleTypeCache {
         }
     }
 
-    # A build another process still holds is that process's own until it exits: a fact to name, never an error or a wait.
+    # A build another process still holds is that process's own until it exits: a fact to name, never an error or a
+    # wait.
     if ($failed.Count -and -not $Silent) {
         # Best-effort: the holder only enriches the message, so a lookup failure leaves the delete error alone.
         $details = foreach ($entry in $failed) {

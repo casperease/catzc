@@ -42,7 +42,8 @@ function Get-VsCodeSession {
     $logSession = $null
     $logLines = @()
     if (Test-Path -LiteralPath $LogRoot -PathType Container) {
-        $newest = Get-ChildPath $LogRoot -Directory -Depth 1 | Sort-Object { Split-Path $_ -Leaf } -Descending | Select-Object -First 1
+        $newest = Get-ChildPath $LogRoot -Directory -Depth 1 | Sort-Object { Split-Path $_ -Leaf } -Descending |
+            Select-Object -First 1
         if ($newest) {
             $logSession = $newest
             $log = Get-ChildPath $newest -File -Filter 'PowerShell.log' -Depth 4 | Select-Object -First 1
@@ -53,6 +54,7 @@ function Get-VsCodeSession {
     }
 
     [Catzc.Base.VSCode.VscodeSession]::new(
-        $Host.Name, $PID, $types.LoadedHash, $types.SourceHash, [bool] $types.Current, [string[]] @($types.Drift), [string[]] $builds.ToArray(),
+        $Host.Name, $PID, $types.LoadedHash, $types.SourceHash, [bool] $types.Current, [string[]] @($types.Drift),
+            [string[]] $builds.ToArray(),
         [string[]] $held.ToArray(), [string[]] $contributed, $logSession, [string[]] $logLines)
 }

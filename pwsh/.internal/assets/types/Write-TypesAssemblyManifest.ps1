@@ -2,7 +2,8 @@ function Write-TypesAssemblyManifest {
     # .SYNOPSIS
     #     Writes the manifest Catzc.Types.<hash>.json beside a combined types assembly, unless it is there already.
     # .DESCRIPTION
-    #     The manifest is generated from the assembly's own metadata, never edited, and named by the same hash as the assembly, so
+    #     The manifest is generated from the assembly's own metadata, never edited, and named by the same hash as the
+    # assembly, so
     #     the two always describe the same build. It is written to a temporary file and moved into place.
     # .PARAMETER Path
     #     The assembly (Catzc.Types.<hash>.dll) to describe.
@@ -10,8 +11,10 @@ function Write-TypesAssemblyManifest {
     #     [string] The manifest path.
     # .EXAMPLE
     #     Write-TypesAssemblyManifest -Path $dll
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'Writes a generated build artifact beside the assembly; the build and the importer announce the build.')]
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '', Justification = 'The caller (Build-CombinedTypeAssembly, Import-CSharpTypes) announces the build; the analyzer rule runs where only diagnostic records may be emitted.')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '',
+        Justification = 'Writes a generated build artifact beside the assembly; the build and the importer announce the build.')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '',
+        Justification = 'The caller (Build-CombinedTypeAssembly, Import-CSharpTypes) announces the build; the analyzer rule runs where only diagnostic records may be emitted.')]
     [CmdletBinding()]
     [OutputType([string])]
     param(

@@ -7,7 +7,8 @@ catzc:
 #>
 
 # cspell:ignore importcs dlllock  -- a fixture folder prefix and a skip reason, data
-[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '', Justification = 'Tests read $global:__CatzcDeferredTypes, the session-global pending record of the deferred types load')]
+[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '',
+    Justification = 'Tests read $global:__CatzcDeferredTypes, the session-global pending record of the deferred types load')]
 param()
 
 Describe 'Import-CSharpTypes cross-root types guard' -Tag 'L0' {
@@ -46,7 +47,8 @@ Describe 'Import-CSharpTypes cross-root types guard' -Tag 'L0' {
         Mock Write-ImporterMessage { } -ModuleName Catzc.Internal.Bootstrap
         $shadowRoot = Join-Path $script:fixtureRoot 'shadow'
         Mock Get-TypesShadowRoot { $shadowRoot }.GetNewClosure() -ModuleName Catzc.Internal.Types
-        # A run from a VS Code terminal carries its mark; every case here is a plain devbox unless it sets the mark itself.
+        # A run from a VS Code terminal carries its mark; every case here is a plain devbox unless it sets the mark
+        # itself.
         $script:originalTerminalProgram = $env:TERM_PROGRAM
         $env:TERM_PROGRAM = ''
     }

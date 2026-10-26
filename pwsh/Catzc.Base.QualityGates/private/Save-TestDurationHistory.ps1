@@ -38,5 +38,6 @@ function Save-TestDurationHistory {
         $sorted[$key] = $history[$key]
     }
     [System.IO.Directory]::CreateDirectory([System.IO.Path]::GetDirectoryName($Path)) | Out-Null
-    [System.IO.File]::WriteAllText($Path, (ConvertTo-Json -InputObject $sorted) + "`n", [System.Text.UTF8Encoding]::new($false))
+    [System.IO.File]::WriteAllText($Path, (ConvertTo-Json -InputObject $sorted) + "`n",
+        [System.Text.UTF8Encoding]::new($false))
 }

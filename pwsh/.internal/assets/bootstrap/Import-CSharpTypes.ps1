@@ -3,7 +3,8 @@
 # .DESCRIPTION
 #     One assembly lets a type in one module reference a type in another; the module graph is policed by tests.
 # .PARAMETER ModulesRoot
-#     The modules folder. Its non-dot subfolders are the modules; the manifest is written to its .compiled/, the assembly to the shadow root.
+#     The modules folder. Its non-dot subfolders are the modules; the manifest is written to its .compiled/, the
+# assembly to the shadow root.
 # .PARAMETER DiagnoseLoadTime
 #     Emit a single combined compile/cache-load timing line (surfaced by importer.ps1 -DiagnoseLoadTime).
 # .PARAMETER PrebuiltOnly
@@ -11,7 +12,8 @@
 # .PARAMETER HostKind
 #     console or headless, the host axis of the types-load policy. Only the interactive importer passes console.
 function Import-CSharpTypes {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '', Justification = 'Session-global by design: $global:__CatzcTypes (per-ModulesRoot hash+snapshot) must survive module reimport to detect C# source changes across the session, and $global:__CatzcLoadTimings collects import diagnostics')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '',
+        Justification = 'Session-global by design: $global:__CatzcTypes (per-ModulesRoot hash+snapshot) must survive module reimport to detect C# source changes across the session, and $global:__CatzcLoadTimings collects import diagnostics')]
     [CmdletBinding()]
     param(
         [Parameter(Mandatory)]
@@ -34,7 +36,8 @@ function Import-CSharpTypes {
     # drift between loader and janitor. The importer loads Catzc.Internal.Types before this pre-pass; the
     # Import-InternalModule call is a no-op guard that keeps this callable if the module was unloaded.
     Import-InternalModule Types
-    # The hash memo lives beside the shadow copies, machine-local like them; a bundle is read-only and hashes every file.
+    # The hash memo lives beside the shadow copies, machine-local like them; a bundle is read-only and hashes every
+    # file.
     $hashArguments = @{ ModulesRoot = $ModulesRoot }
     if (-not $PrebuiltOnly) {
         $hashArguments['StampPath'] = Get-TypesStampPath -ModulesRoot $ModulesRoot
@@ -113,11 +116,13 @@ function Import-CSharpTypes {
         if (Test-IsRunningInPipeline) {
             throw "$changeSummary Restart PowerShell to pick up the change."
         }
-        # A developer's console session in the source tree may load the new build beside the old one and re-point the Catzc.*
+        # A developer's console session in the source tree may load the new build beside the old one and re-point the
+        # Catzc.*
         # accelerators, up to the policy's generations; past that cap, or in any other cell, the paths below hold.
         if (-not $PrebuiltOnly -and $typeState.LoadedHash) {
             $deferredRecords = Get-Variable -Name '__CatzcDeferredTypes' -Scope Global -ValueOnly -ErrorAction Ignore
-            $generation = if ($deferredRecords -and $deferredRecords.ContainsKey($rootKey) -and $deferredRecords[$rootKey].ContainsKey('Generation')) {
+            $generation = if ($deferredRecords -and $deferredRecords.ContainsKey($rootKey) -and
+                $deferredRecords[$rootKey].ContainsKey('Generation')) {
                 $deferredRecords[$rootKey].Generation
             }
             else {
@@ -133,7 +138,8 @@ function Import-CSharpTypes {
         $loaded = $false
     }
     elseif (-not $typeState.Current) {
-        # A throw cannot restart VS Code's terminal or host, so the session keeps the loaded assembly, whatever drifted, and names it.
+        # A throw cannot restart VS Code's terminal or host, so the session keeps the loaded assembly, whatever drifted,
+        # and names it.
         if (Test-IsRunningInVsCode) {
             $loadedDll = if ($typeState.LoadedHash) {
                 $typeState.LoadedHash
@@ -294,7 +300,8 @@ function Import-CSharpTypes {
         else {
             'cache load'
         }
-        Write-ImporterMessage ('    {0,6}ms  types (combined, {1} files) ({2})' -f $ms, $arr.Count, $label) -ForegroundColor DarkGray
+        Write-ImporterMessage ('    {0,6}ms  types (combined, {1} files) ({2})' -f $ms, $arr.Count,
+            $label) -ForegroundColor DarkGray
         if ($null -ne (Get-Variable -Name '__CatzcLoadTimings' -Scope Global -ValueOnly -ErrorAction Ignore)) {
             $global:__CatzcLoadTimings.Add([pscustomobject]@{ Stage = 'types (combined)'; Ms = $ms; ReadMs = 0; ImportMs = 0; FileCount = $arr.Count })
         }

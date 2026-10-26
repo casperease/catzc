@@ -83,7 +83,8 @@ Describe 'Shipped build-validation config integrity' -Tag 'L0', 'integrity' {
             else {
                 $set.Pipeline
             }
-            $pipeline | Should -Not -BeNullOrEmpty -Because "entry '$($entry.globset)' must resolve a pipeline (its own key or the globset's annotation)"
+            $pipeline |
+                Should -Not -BeNullOrEmpty -Because "entry '$($entry.globset)' must resolve a pipeline (its own key or the globset's annotation)"
         }
     }
 }

@@ -38,9 +38,11 @@ function Complete-DocNote {
     Assert-True (-not $note[0].Processed) -ErrorText "Complete-DocNote: the note '$Id' is already processed."
 
     $reason = $FactCheckReason.Trim()
-    Assert-True ($reason.Trim('.', ' ') -cne $FactCheck) -ErrorText "Complete-DocNote: the reason for '$FactCheck' only repeats the verdict; give what supports it, with its path:line."
+    Assert-True ($reason.Trim('.',
+        ' ') -cne $FactCheck) -ErrorText "Complete-DocNote: the reason for '$FactCheck' only repeats the verdict; give what supports it, with its path:line."
     foreach ($value in $reason, $Pattern, $Plan) {
-        Assert-True (-not $value.Contains('|') -and -not $value.Contains("`n")) -ErrorText "Complete-DocNote: '$value' holds a '|' or a line break, which the ledger line cannot carry."
+        Assert-True (-not $value.Contains('|') -and
+            -not $value.Contains("`n")) -ErrorText "Complete-DocNote: '$value' holds a '|' or a line break, which the ledger line cannot carry."
     }
     $line = "- $Id | fact-check: $FactCheck | because: $reason | pattern: $Pattern | plan: $Plan`n"
     [System.IO.File]::AppendAllText((Join-Path $Session 'processed.md'), $line, [System.Text.UTF8Encoding]::new($false))

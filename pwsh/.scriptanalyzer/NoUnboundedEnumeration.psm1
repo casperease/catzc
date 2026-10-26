@@ -40,10 +40,12 @@ function Measure-NoUnboundedEnumeration {
         if (-not $name -or $name -notin $listingCommands) {
             continue
         }
-        # A literal provider path (env:, function:, HKLM:) lists a provider, not the filesystem; a drive name of one letter is a filesystem drive.
+        # A literal provider path (env:, function:, HKLM:) lists a provider, not the filesystem; a drive name of one
+        # letter is a filesystem drive.
         $providerPath = $false
         foreach ($element in @($command.CommandElements | Select-Object -Skip 1)) {
-            if ($element -is [System.Management.Automation.Language.StringConstantExpressionAst] -and $element.Value -match '^[A-Za-z]{2,}:') {
+            if ($element -is [System.Management.Automation.Language.StringConstantExpressionAst] -and
+                $element.Value -match '^[A-Za-z]{2,}:') {
                 $providerPath = $true
                 break
             }
@@ -60,10 +62,12 @@ function Measure-NoUnboundedEnumeration {
     }
 
     foreach ($member in $ScriptBlockAst.FindAll($isMember, $true)) {
-        if (-not $member.Static -or $member.Member -isnot [System.Management.Automation.Language.StringConstantExpressionAst]) {
+        if (-not $member.Static -or
+            $member.Member -isnot [System.Management.Automation.Language.StringConstantExpressionAst]) {
             continue
         }
-        if ($member.Member.Value -ne 'AllDirectories' -or $member.Expression -isnot [System.Management.Automation.Language.TypeExpressionAst]) {
+        if ($member.Member.Value -ne 'AllDirectories' -or
+            $member.Expression -isnot [System.Management.Automation.Language.TypeExpressionAst]) {
             continue
         }
         if ($member.Expression.TypeName.FullName -notin $searchOptionTypes) {

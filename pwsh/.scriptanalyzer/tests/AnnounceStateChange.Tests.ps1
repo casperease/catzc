@@ -56,7 +56,8 @@ function Set-Widget {
         }
 
         It 'does not count a verbose-routed Write-Message' {
-            Test-StateChange "function Set-Widget { `$env:WIDGET = 'x'; Write-Message 'set' -Verbose }" | Should -Not -BeNullOrEmpty
+            Test-StateChange "function Set-Widget { `$env:WIDGET = 'x'; Write-Message 'set' -Verbose }" |
+                Should -Not -BeNullOrEmpty
         }
 
         It 'does not count a writer in another function' {
@@ -131,7 +132,8 @@ function Invoke-Widget {
         }
 
         It 'still flags a change in a plain ForEach-Object scriptblock (same runspace)' {
-            Test-StateChange "function Set-Widget { 1..2 | ForEach-Object { `$env:WIDGET = 'x' } }" | Should -Not -BeNullOrEmpty
+            Test-StateChange "function Set-Widget { 1..2 | ForEach-Object { `$env:WIDGET = 'x' } }" |
+                Should -Not -BeNullOrEmpty
         }
 
         It 'skips test files, whose state changes belong to Pester' {

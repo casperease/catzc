@@ -26,7 +26,8 @@ function Get-FileMetaScope {
     $languages = Get-Config -Config languages
     $fileKinds = Get-Config -Config file-kinds
 
-    # A file named in -Path counts only while git tracks it, as a folder lists its tracked files: an untracked authored file carries no head.
+    # A file named in -Path counts only while git tracks it, as a folder lists its tracked files: an untracked authored
+    # file carries no head.
     $paths = @(if ($lookup.Count -gt 0) {
             Get-GitTrackedPath ([string[]] @($lookup))
         })

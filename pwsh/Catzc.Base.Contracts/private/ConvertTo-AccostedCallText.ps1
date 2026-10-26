@@ -20,7 +20,8 @@ function ConvertTo-AccostedCallText {
         [Catzc.Base.Engines.ExecutionEngine] $Engine
     )
 
-    # pwsh takes the command as PowerShell names it; every other engine takes it through cats, in the shell's kebab case.
+    # pwsh takes the command as PowerShell names it; every other engine takes it through cats, in the shell's kebab
+    # case.
     $normalForm = (Get-Config -Config languages).naming_normal_form
     $isPwsh = $Engine.Name -ceq [Catzc.Base.Engines.ExecutionEngines]::Pwsh.Name
     $parts = [System.Collections.Generic.List[string]]::new()

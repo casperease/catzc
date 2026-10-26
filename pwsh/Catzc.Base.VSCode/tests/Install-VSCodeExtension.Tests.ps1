@@ -1,4 +1,5 @@
-# Rests on [ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS](/docs/drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-isolatethroughseams).
+# Rests on
+# [ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS](/docs/drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-isolatethroughseams).
 Describe 'Install-VsCodeExtension' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:root = Join-Path $TestDrive 'extensions'
@@ -89,7 +90,8 @@ Describe 'Install-VsCodeExtension' -Tag 'L0', 'logic' {
     }
 
     It 'refuses a name that is not a registry entry' {
-        { Install-VsCodeExtension @script:install -Name plain } | Should -Throw "*'plain' is not an entry under extensions*"
+        { Install-VsCodeExtension @script:install -Name plain } |
+            Should -Throw "*'plain' is not an entry under extensions*"
     }
 
     It 'says so when the editor CLI is not on PATH' {

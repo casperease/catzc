@@ -12,9 +12,11 @@ Describe 'Test-WorldMap' -Tag 'L0', 'logic' {
         $newMap = {
             param([object[]] $Rows)
             $placements = @(foreach ($row in $Rows) {
-                    [Catzc.Base.Maps.MapPlacement]::new($row[0], $row[1], $row[2], $true, $row[3], 'none', $null, [string[]] @())
+                    [Catzc.Base.Maps.MapPlacement]::new($row[0], $row[1], $row[2], $true, $row[3], 'none', $null,
+                        [string[]] @())
                 })
-            [Catzc.Base.Maps.WorldMap]::new(@('gadgets', 'widgets'), @('gadget-text', 'widget-script'), $placements, $null)
+            [Catzc.Base.Maps.WorldMap]::new(@('gadgets', 'widgets'), @('gadget-text', 'widget-script'), $placements,
+                $null)
         }
 
         $noTrack = [Catzc.Base.Maps.WorldMap]::NoTrack
@@ -66,7 +68,8 @@ Describe 'Test-WorldMap' -Tag 'L0', 'logic' {
         $script:map = $script:brokenMap
         $result = Test-WorldMap -OutputFolder $script:out -PassThru
         $result.Facts['StackViolations'] | Should -Be 2
-        $result.Issues | Should -Contain "stack violation: widgets x gadget-text holds 2 live file(s) outside the track's file languages, e.g. widgets/Alpha/a.txt (DDR-TRACK-ONETECHSTACK)"
+        $result.Issues |
+            Should -Contain "stack violation: widgets x gadget-text holds 2 live file(s) outside the track's file languages, e.g. widgets/Alpha/a.txt (DDR-TRACK-ONETECHSTACK)"
     }
 
     It 'reports each root folder no track names, never out/ or a file at the root' -Tag 'DDR-TRACK-TRACKISPLACEDCLUSTER' {
@@ -111,7 +114,8 @@ Describe 'Test-WorldMap' -Tag 'L0', 'logic' {
     It 'writes the report to its folder and points latest.txt at it' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
         $result = Test-WorldMap -OutputFolder $script:out -PassThru
         Test-Path -LiteralPath (Join-Path $result.ReportPath 'world-map.md') | Should -BeTrue
-        (Get-Content -LiteralPath (Join-Path $script:out 'latest.txt') -Raw).Trim() | Should -Be (Split-Path $result.ReportPath -Leaf)
+        (Get-Content -LiteralPath (Join-Path $script:out 'latest.txt') -Raw).Trim() |
+            Should -Be (Split-Path $result.ReportPath -Leaf)
     }
 }
 

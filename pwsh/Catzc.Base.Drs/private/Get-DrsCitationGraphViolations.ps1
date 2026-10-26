@@ -28,7 +28,8 @@ function Get-DrsCitationGraphViolations {
     }
     $ruleHeading = "^###\s+Rule\s+(?<code>$($Adrs.CodeForm.Rule))\s*$"
     $citation = "(?<![A-Za-z0-9-])$($Adrs.CodeForm.Cited)"
-    # A link's domain is the one with the longest folder that holds its target, so a domain folder nested in another keeps its own links.
+    # A link's domain is the one with the longest folder that holds its target, so a domain folder nested in another
+    # keeps its own links.
     $folders = @($Adrs.Domains | Sort-Object -Property { $_.Folder.Length } -Descending)
 
     $ret = foreach ($domain in $Adrs.Domains) {
@@ -91,7 +92,8 @@ function Get-DrsCitationGraphViolations {
                     if (-not $target -or $target.IndexOf('/') -lt 0) {
                         continue
                     }
-                    $owner = $folders | Where-Object { $target.StartsWith("$($_.Folder)/", [System.StringComparison]::Ordinal) } | Select-Object -First 1
+                    $owner = $folders | Where-Object { $target.StartsWith("$($_.Folder)/",
+                        [System.StringComparison]::Ordinal) } | Select-Object -First 1
                     if ($owner) {
                         $references.Add(@{ Text = $match.Groups['target'].Value; Domain = $owner.Name })
                     }

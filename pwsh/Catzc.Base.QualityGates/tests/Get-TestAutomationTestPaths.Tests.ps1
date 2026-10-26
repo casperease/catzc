@@ -41,7 +41,8 @@ Describe 'Get-TestAutomationTestPaths' -Tag 'L0', 'logic' {
 
         It 'puts a module''s language test folders after its tests folder, and includes a module with only those' {
             $paths = @(InModuleScope Catzc.Base.QualityGates { Get-TestAutomationTestPaths })
-            $paths | Should -Be @((Get-FixtureTests 'Catzc.Widget'), $script:widgetGo, $script:widgetPython, $script:gizmoGo, (Get-FixtureTests 'Catzc.Gadget'), (Get-FixtureTests '.internal'))
+            $paths | Should -Be @((Get-FixtureTests 'Catzc.Widget'), $script:widgetGo, $script:widgetPython,
+                $script:gizmoGo, (Get-FixtureTests 'Catzc.Gadget'), (Get-FixtureTests '.internal'))
         }
 
         It 'narrows the language test folders to the named modules' {
@@ -52,24 +53,28 @@ Describe 'Get-TestAutomationTestPaths' -Tag 'L0', 'logic' {
         It 'keeps the language test folders with their modules in the ordinal fallback order' {
             Mock Get-ModuleOrder -ModuleName Catzc.Base.QualityGates { throw 'Cycle in the widget graph' }
             $paths = @(InModuleScope Catzc.Base.QualityGates { Get-TestAutomationTestPaths })
-            $paths | Should -Be @((Get-FixtureTests 'Catzc.Gadget'), $script:gizmoGo, (Get-FixtureTests 'Catzc.Widget'), $script:widgetGo, $script:widgetPython, (Get-FixtureTests '.internal'))
+            $paths | Should -Be @((Get-FixtureTests 'Catzc.Gadget'), $script:gizmoGo, (Get-FixtureTests 'Catzc.Widget'),
+                $script:widgetGo, $script:widgetPython, (Get-FixtureTests '.internal'))
         }
 
         It 'throws when a test folder matches no catzc module' {
             Mock Get-LanguageTestFolders -ModuleName Catzc.Base.QualityGates { throw 'Test folder(s) matching no catzc module: python/tests/catzc-sprocket/.' }
-            { InModuleScope Catzc.Base.QualityGates { Get-TestAutomationTestPaths } } | Should -Throw '*python/tests/catzc-sprocket/*'
+            { InModuleScope Catzc.Base.QualityGates { Get-TestAutomationTestPaths } } |
+                Should -Throw '*python/tests/catzc-sprocket/*'
         }
     }
 
     It 'returns the existing tests folders in dependency order, dot-prefixed infrastructure last' {
         $paths = @(InModuleScope Catzc.Base.QualityGates { Get-TestAutomationTestPaths })
-        $paths | Should -Be @((Get-FixtureTests 'Catzc.Widget'), (Get-FixtureTests 'Catzc.Gadget'), (Get-FixtureTests '.internal'))
+        $paths | Should -Be @((Get-FixtureTests 'Catzc.Widget'), (Get-FixtureTests 'Catzc.Gadget'),
+            (Get-FixtureTests '.internal'))
     }
 
     It 'falls back to the ordinal module order when the dependency order cannot be computed' {
         Mock Get-ModuleOrder -ModuleName Catzc.Base.QualityGates { throw 'Cycle in the widget graph' }
         $paths = @(InModuleScope Catzc.Base.QualityGates { Get-TestAutomationTestPaths })
-        $paths | Should -Be @((Get-FixtureTests 'Catzc.Gadget'), (Get-FixtureTests 'Catzc.Widget'), (Get-FixtureTests '.internal'))
+        $paths | Should -Be @((Get-FixtureTests 'Catzc.Gadget'), (Get-FixtureTests 'Catzc.Widget'),
+            (Get-FixtureTests '.internal'))
     }
 
     It 'narrows to the named modules and drops infrastructure when filtered' {
@@ -78,6 +83,7 @@ Describe 'Get-TestAutomationTestPaths' -Tag 'L0', 'logic' {
     }
 
     It 'returns nothing when no named module has a tests folder' {
-        @(InModuleScope Catzc.Base.QualityGates { Get-TestAutomationTestPaths -Modules 'Catzc.Gizmo' }) | Should -HaveCount 0
+        @(InModuleScope Catzc.Base.QualityGates { Get-TestAutomationTestPaths -Modules 'Catzc.Gizmo' }) |
+            Should -HaveCount 0
     }
 }

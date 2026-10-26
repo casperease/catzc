@@ -7,7 +7,8 @@ Describe 'Get-GeneratedWriterDue' -Tag 'L0', 'logic' {
                     'Build-Gadget'   = [ordered]@{ inputs = @('gadget/*.yml'); outputs = @('docs/missing.md') }
                     # A writer whose ignored target is one of its own inputs, as the root configs declare theirs.
                     'Build-Sprocket' = [ordered]@{ inputs = @('.sprocket.yml'); outputs = @('.sprocket.yml') }
-                    # A writer that writes one file into every folder a wildcard claims, as the root configs write each pyproject.toml.
+                    # A writer that writes one file into every folder a wildcard claims, as the root configs write each
+                    # pyproject.toml.
                     'Build-Cog'      = [ordered]@{ inputs = @('cogs/*/cog.toml') }
                     'Build-Gizmo'    = $null
                 }
@@ -50,7 +51,8 @@ Describe 'Get-GeneratedWriterDue' -Tag 'L0', 'logic' {
         & $script:due @(& $script:run) 'Build-Widget' | Should -BeFalse
         & $script:write 'widget/spin.txt' 'gadget, wound'
         & $script:due @(& $script:run) 'Build-Widget' | Should -BeTrue
-        & $script:due @(& $script:run @('widget/spin.txt')) 'Build-Gizmo' | Should -BeTrue -Because 'a writer with neither list is due whenever anything changed'
+        & $script:due @(& $script:run @('widget/spin.txt')) 'Build-Gizmo' |
+            Should -BeTrue -Because 'a writer with neither list is due whenever anything changed'
     }
 
     It 'is not due when only an output changed' {

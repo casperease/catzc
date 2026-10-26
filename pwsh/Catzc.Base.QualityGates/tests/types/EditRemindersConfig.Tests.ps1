@@ -23,16 +23,20 @@ Describe 'EditRemindersConfig' -Tag 'L0', 'logic', 'PDR-CONFIG-VARYINGBEHAVIOURI
     }
 
     It 'writes the PostToolUse output that hands the reminders to the session, and nothing when none is owed' {
-        $json = [Catzc.Base.QualityGates.EditRemindersConfig]::HookOutput($script:config.For('widgets/spin.md')) | ConvertFrom-Json
+        $json = [Catzc.Base.QualityGates.EditRemindersConfig]::HookOutput($script:config.For('widgets/spin.md')) |
+            ConvertFrom-Json
         $json.hookSpecificOutput.hookEventName | Should -Be 'PostToolUse'
         $json.hookSpecificOutput.additionalContext | Should -Be "check the widget`ncheck everything"
         [Catzc.Base.QualityGates.EditRemindersConfig]::HookOutput([string[]] @()) | Should -BeNullOrEmpty
     }
 
     It 'rejects an unknown key, an entry without paths or say, and a path that is not repository-relative' {
-        { [Catzc.Base.QualityGates.EditRemindersConfig]::new(@{ gadget = 1 }) } | Should -Throw '*unknown top-level key*reminders*'
-        { [Catzc.Base.QualityGates.EditRemindersConfig]::new(@{ reminders = @(@{ say = 'x' }) }) } | Should -Throw '*paths must name at least one pattern*'
-        { [Catzc.Base.QualityGates.EditRemindersConfig]::new(@{ reminders = @(@{ paths = @('widgets/*') }) }) } | Should -Throw '*say is required*'
+        { [Catzc.Base.QualityGates.EditRemindersConfig]::new(@{ gadget = 1 }) } |
+            Should -Throw '*unknown top-level key*reminders*'
+        { [Catzc.Base.QualityGates.EditRemindersConfig]::new(@{ reminders = @(@{ say = 'x' }) }) } |
+            Should -Throw '*paths must name at least one pattern*'
+        { [Catzc.Base.QualityGates.EditRemindersConfig]::new(@{ reminders = @(@{ paths = @('widgets/*') }) }) } |
+            Should -Throw '*say is required*'
         { [Catzc.Base.QualityGates.EditRemindersConfig]::new(@{ reminders = @(@{ paths = @('/widgets'); say = 'x' }) }) } | Should -Throw '*repository-relative*'
         { [Catzc.Base.QualityGates.EditRemindersConfig]::new(@{ reminders = @(@{ paths = @('widgets'); say = 'x'; colour = 'red' }) }) } | Should -Throw '*unknown key*paths, say*'
     }
@@ -46,14 +50,17 @@ Describe 'EditRemindersConfig' -Tag 'L0', 'logic', 'PDR-CONFIG-VARYINGBEHAVIOURI
     It 'reminds an edit of the ADR registry or a glossary source of its build and its check' -Tag 'L1' {
         $shipped = Get-Config -Config edit-reminders
         $modules = Get-CatzcModulesFolder
-        ($shipped.For("$modules/Catzc.Base.Drs/configs/drs.yml") -join "`n") | Should -BeLike '*Build-DrsIndex*Test-DrsRegistry*'
-        ($shipped.For("$modules/Catzc.Base.Slides/configs/glossary.yml") -join "`n") | Should -BeLike '*Build-Glossary*Test-Glossary*'
+        ($shipped.For("$modules/Catzc.Base.Drs/configs/drs.yml") -join "`n") |
+            Should -BeLike '*Build-DrsIndex*Test-DrsRegistry*'
+        ($shipped.For("$modules/Catzc.Base.Slides/configs/glossary.yml") -join "`n") |
+            Should -BeLike '*Build-Glossary*Test-Glossary*'
         $shipped.For("$modules/Catzc.Base.Docs/configs/adrs-checks.yml").Count | Should -Be 1
     }
 
     It 'reminds an edit of any module config of a parse check' -Tag 'L1' {
         $shipped = Get-Config -Config edit-reminders
         $modules = Get-CatzcModulesFolder
-        @($shipped.For("$modules/Catzc.Base.VSCode/configs/vscode-extensions.yml")) | Should -BeLike '*Parse-check*ConvertFrom-Yaml*'
+        @($shipped.For("$modules/Catzc.Base.VSCode/configs/vscode-extensions.yml")) |
+            Should -BeLike '*Parse-check*ConvertFrom-Yaml*'
     }
 }

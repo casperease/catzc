@@ -15,9 +15,12 @@ BeforeAll {
 
 Describe 'Export-WorldMapPdf' -Tag 'L0', 'logic' {
     BeforeAll {
-        $script:placement = { param([string] $path, [string] $track, [string] $language) [Catzc.Base.Maps.MapPlacement]::new($path, $track, $language, $true, $false, 'none', $null, @()) }
+        $script:placement = { param([string] $path, [string] $track,
+            [string] $language) [Catzc.Base.Maps.MapPlacement]::new($path, $track, $language, $true, $false, 'none',
+            $null, @()) }
         $script:map = [Catzc.Base.Maps.WorldMap]::new(@('widgets', 'gadgets'), @('widget-script'),
-            @((& $script:placement 'widgets/a.ps1' 'widgets' 'widget-script'), (& $script:placement 'gadgets/b.ps1' 'gadgets' 'widget-script')), $null)
+            @((& $script:placement 'widgets/a.ps1' 'widgets' 'widget-script'),
+            (& $script:placement 'gadgets/b.ps1' 'gadgets' 'widget-script')), $null)
         $script:maps = [Catzc.Base.Maps.MapsConfig]::new([ordered]@{})
         $script:lit = [Catzc.Base.Maps.WorldMapHighlight]::ForPaths($script:map, @('widgets/a.ps1'))
     }
@@ -33,7 +36,8 @@ Describe 'Export-WorldMapPdf' -Tag 'L0', 'logic' {
 
     It 'writes the grid and the tree, one file each, and returns their paths grid first' {
         $paths = @(Export-WorldMapPdf)
-        $paths | Should -Be @((Join-Path $script:folder 'world-map.grid.pdf'), (Join-Path $script:folder 'world-map.tree.pdf'))
+        $paths | Should -Be @((Join-Path $script:folder 'world-map.grid.pdf'),
+            (Join-Path $script:folder 'world-map.tree.pdf'))
         foreach ($path in $paths) {
             & $script:assertPdf $path
         }
@@ -47,9 +51,11 @@ Describe 'Export-WorldMapPdf' -Tag 'L0', 'logic' {
     }
 
     It 'writes a highlight beside the plain map, and passes -Adr or -Path on' {
-        @(Export-WorldMapPdf -View Grid -Adr 'ADR-WIDGET-GADGET-FOLD') | Should -Be @((Join-Path $script:folder 'world-map.grid.highlight.pdf'))
+        @(Export-WorldMapPdf -View Grid -Adr 'ADR-WIDGET-GADGET-FOLD') |
+            Should -Be @((Join-Path $script:folder 'world-map.grid.highlight.pdf'))
         Should -Invoke Get-WorldMapHighlight -ModuleName Catzc.Base.Maps -Times 1 -Exactly -ParameterFilter { $Adr -eq 'ADR-WIDGET-GADGET-FOLD' }
-        @(Export-WorldMapPdf -View Grid -Path 'widgets/a.ps1') | Should -Be @((Join-Path $script:folder 'world-map.grid.highlight.pdf'))
+        @(Export-WorldMapPdf -View Grid -Path 'widgets/a.ps1') |
+            Should -Be @((Join-Path $script:folder 'world-map.grid.highlight.pdf'))
         Should -Invoke Get-WorldMapHighlight -ModuleName Catzc.Base.Maps -Times 1 -Exactly -ParameterFilter { $Path -eq 'widgets/a.ps1' }
         [System.Text.Encoding]::Latin1.GetString([System.IO.File]::ReadAllBytes((Join-Path $script:folder 'world-map.grid.highlight.pdf'))) |
             Should -BeLike '*Lit cell: widgets/a.ps1*'

@@ -43,13 +43,20 @@ function Format-PowerShellWidth {
             }
             $indent = $line.Substring(0, $line.Length - $line.TrimStart().Length)
             $onLine = @($parsed.Tokens | Where-Object { $_.Extent.StartLineNumber -eq $number -and $_.Extent.EndLineNumber -eq $number })
+            # A line inside a here-string or a block comment holds no token of its own, so it has no safe break.
+            if ($onLine.Count -eq 0) {
+                $null = $skipped.Add($number)
+                continue
+            }
 
             # A whole-line comment reflows at the last space that fits, as a second comment line under it.
-            if ($onLine.Count -le 2 -and $onLine[0].Kind -eq 'Comment' -and $onLine[0].Text.StartsWith('#') -and $line.TrimStart().StartsWith('#')) {
+            if ($onLine.Count -le 2 -and $onLine[0].Kind -eq 'Comment' -and $onLine[0].Text.StartsWith('#') -and
+                $line.TrimStart().StartsWith('#')) {
                 $cut = $line.LastIndexOf(' ', $Width)
                 $lead = $indent.Length + 2
                 if ($cut -gt $lead) {
-                    $break = @{ Line = $index; Head = $line.Substring(0, $cut).TrimEnd(); Tail = "$indent# " + $line.Substring($cut + 1).TrimStart() }
+                    $break = @{ Line = $index; Head = $line.Substring(0,
+                        $cut).TrimEnd(); Tail = "$indent# " + $line.Substring($cut + 1).TrimStart() }
                 }
                 else {
                     $null = $skipped.Add($number)
@@ -57,7 +64,8 @@ function Format-PowerShellWidth {
                 continue
             }
 
-            # Inside parentheses a newline after a comma or a logical operator continues the expression; at statement level, after a pipe.
+            # Inside parentheses a newline after a comma or a logical operator continues the expression; at statement
+            # level, after a pipe.
             $depth = 0
             $candidate = $null
             $all = @($parsed.Tokens | Where-Object { $_.Extent.StartLineNumber -le $number })
@@ -86,7 +94,8 @@ function Format-PowerShellWidth {
             }
             if ($candidate) {
                 $at = $candidate.Extent.EndColumnNumber - 1
-                # A line that already continues the one above keeps its indent; the first break of a statement indents one level.
+                # A line that already continues the one above keeps its indent; the first break of a statement indents
+                # one level.
                 $previous = if ($index -gt 0) {
                     $lines[$index - 1].TrimEnd()
                 }
@@ -100,7 +109,8 @@ function Format-PowerShellWidth {
                 else {
                     "$indent    "
                 }
-                $break = @{ Line = $index; Head = $line.Substring(0, $at).TrimEnd(); Tail = $tailIndent + $line.Substring($at).TrimStart() }
+                $break = @{ Line = $index; Head = $line.Substring(0,
+                    $at).TrimEnd(); Tail = $tailIndent + $line.Substring($at).TrimStart() }
             }
             else {
                 $null = $skipped.Add($number)
@@ -118,11 +128,13 @@ function Format-PowerShellWidth {
     if ($current -ceq $Text) {
         return [pscustomobject]@{ Text = $Text; Changed = $false; Refused = $null }
     }
-    # The proof: the result parses, its code tokens are the source's one for one, and its comments hold the same words in order.
+    # The proof: the result parses, its code tokens are the source's one for one, and its comments hold the same words
+    # in order.
     $after = & $tokenize $current
     $code = {
         param($Tokens)
-        @($Tokens | Where-Object { $_.Kind -notin 'NewLine', 'LineContinuation', 'EndOfInput', 'Comment' } | ForEach-Object { "$($_.Kind)|$($_.Text)" })
+        @($Tokens | Where-Object { $_.Kind -notin 'NewLine', 'LineContinuation', 'EndOfInput', 'Comment' } |
+            ForEach-Object { "$($_.Kind)|$($_.Text)" })
     }
     $words = {
         param($Tokens)

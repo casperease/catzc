@@ -11,7 +11,8 @@ Describe 'Build-Modules' -Tag 'L0', 'logic' {
         $script:stubbedEngine = $false
         if (-not (Get-Command Invoke-ModuleBuild -ErrorAction Ignore)) {
             $null = New-Item -Path Function:\global:Invoke-ModuleBuild -Value {
-                param([string[]] $Module, [string] $ModuleProfile, [string] $Version, [string] $VendorPolicy, [string] $Destination, [string] $Bundle, [hashtable] $PackageMetadata, [switch] $DryRun)
+                param([string[]] $Module, [string] $ModuleProfile, [string] $Version, [string] $VendorPolicy,
+                    [string] $Destination, [string] $Bundle, [hashtable] $PackageMetadata, [switch] $DryRun)
                 throw "stub, mocked in tests: $Module $ModuleProfile $Version $VendorPolicy $Destination $Bundle $($PackageMetadata.Count) $DryRun"
             }
             $script:stubbedEngine = $true
@@ -36,7 +37,8 @@ Describe 'Build-Modules' -Tag 'L0', 'logic' {
                     module_guid            = '211b36c7-f7eb-4f3c-93f5-9132b535fa56'
                     package                = [ordered]@{
                         author = 'Test Author'; company = 'Test Co'; description = 'A test package.'
-                        tags = @('widget', 'gadget'); project_uri = 'https://forge.example/widget'; license_uri = 'https://forge.example/widget/license'
+                        tags = @('widget',
+                            'gadget'); project_uri = 'https://forge.example/widget'; license_uri = 'https://forge.example/widget/license'
                     }
                 })
         } -ModuleName Catzc.Base.Exporter -ParameterFilter { $Config -eq 'exporter' }
@@ -45,7 +47,8 @@ Describe 'Build-Modules' -Tag 'L0', 'logic' {
         Mock Import-InternalModule { } -ModuleName Catzc.Base.Exporter -ParameterFilter { $Name -eq 'Builder' }
         Mock Invoke-ModuleBuild {
             [pscustomobject]@{
-                BuildRoot = "$Destination/Catzc/$Version"; Version = $Version; Modules = @('Catzc.Base.Widget', 'Catzc.Base.Gadget')
+                BuildRoot = "$Destination/Catzc/$Version"; Version = $Version; Modules = @('Catzc.Base.Widget',
+                    'Catzc.Base.Gadget')
                 TypesHash = 'abc12345'; ContentHash = ('0' * 64); FileCount = 12; DryRun = [bool] $DryRun
             }
         } -ModuleName Catzc.Base.Exporter
@@ -100,7 +103,8 @@ Describe 'Build-Modules' -Tag 'L0', 'logic' {
     }
 
     It 'rejects a bundle exporter.yml does not declare' {
-        { Build-Modules -Bundle sprockets } | Should -Throw -ExpectedMessage "*Unknown bundle 'sprockets'*widgets, gadgets*"
+        { Build-Modules -Bundle sprockets } |
+            Should -Throw -ExpectedMessage "*Unknown bundle 'sprockets'*widgets, gadgets*"
         Should -Invoke Invoke-ModuleBuild -ModuleName Catzc.Base.Exporter -Times 0
     }
 

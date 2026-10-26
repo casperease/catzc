@@ -28,7 +28,8 @@ Describe 'GitFlowConfig' -Tag 'L0', 'logic', 'PDR-CONFIG-DEFAULTDECLAREDONCE' {
 
     It 'finds a user command a command line invokes, and none in a path or name that holds it' -Tag 'FDR-GIT-USERRUNSGIT' {
         $config = [Catzc.Base.Git.GitFlowConfig]::new(@{})
-        $config.UserCommandIn('pwsh -NoProfile -Command ". ./importer.ps1; Push-Topic -Message x"') | Should -BeExactly 'Push-Topic'
+        $config.UserCommandIn('pwsh -NoProfile -Command ". ./importer.ps1; Push-Topic -Message x"') |
+            Should -BeExactly 'Push-Topic'
         $config.UserCommandIn('pwsh -c "sync-topic"') | Should -BeExactly 'Sync-Topic'
         $config.UserCommandIn('pwsh -c "Get-SyncPoint"') | Should -BeNullOrEmpty
         $config.UserCommandIn('timeout 330 pwsh -File out/run.ps1 -Path pwsh/Catzc.Base.Git/tests/Save-Topic.Tests.ps1') | Should -BeNullOrEmpty
@@ -49,12 +50,14 @@ Describe 'GitFlowConfig' -Tag 'L0', 'logic', 'PDR-CONFIG-DEFAULTDECLAREDONCE' {
         $config = [Catzc.Base.Git.GitFlowConfig]::new(@{})
         $config.UserCommandIn('echo "the user runs Push-Topic"') | Should -BeNullOrEmpty
         $config.UserCommandIn("printf '%s\n' Push-Topic >> out/log.md") | Should -BeNullOrEmpty
-        $config.UserCommandIn("cat > out/note.md <<'EOF'`nPush-Topic -Message x`nEOF`necho done") | Should -BeNullOrEmpty
+        $config.UserCommandIn("cat > out/note.md <<'EOF'`nPush-Topic -Message x`nEOF`necho done") |
+            Should -BeNullOrEmpty
         $config.UserCommandIn('pwsh -c "Write-Output ''run Save-Topic next''"') | Should -BeNullOrEmpty
     }
 
     It 'finds the shipped config under the modules folder' -Tag 'L1' {
-        ([Catzc.Base.Git.GitFlowConfig]::FindConfig((Get-RepositoryRoot))).Replace('\', '/') | Should -BeLike '*/Catzc.Base.Git/configs/git.yml'
+        ([Catzc.Base.Git.GitFlowConfig]::FindConfig((Get-RepositoryRoot))).Replace('\', '/') |
+            Should -BeLike '*/Catzc.Base.Git/configs/git.yml'
     }
 
     It 'rejects <case>' -ForEach @(

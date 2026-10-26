@@ -3,7 +3,8 @@ function Write-ModuleBuildOutput {
     #     Converges the build root to a plan: writes what differs, compiles the types, prunes what the plan omits.
     # .OUTPUTS
     #     [pscustomobject] Built — the combined-types build result, or $null when the selection ships no type.
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-NoBareCacheEntryRead', '', Justification = 'The module constants are assigned once in Catzc.Internal.Builder.psm1, whose shared scope this file is dot-sourced into, before any call.')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-NoBareCacheEntryRead', '',
+        Justification = 'The module constants are assigned once in Catzc.Internal.Builder.psm1, whose shared scope this file is dot-sourced into, before any call.')]
     [CmdletBinding()]
     [OutputType([pscustomobject])]
     param(
@@ -60,13 +61,15 @@ function Write-ModuleBuildOutput {
     }
 
     # The one compile path (Build-CombinedTypeAssembly) over the full type set, into the per-machine shadow root; the
-    # bundle takes a byte copy, so a rebuild of the same sources ships the same bytes (a compile is not byte-deterministic).
+    # bundle takes a byte copy, so a rebuild of the same sources ships the same bytes (a compile is not
+    # byte-deterministic).
     if (@($Entries | Where-Object { $_.Kind -eq 'Types' }).Count -gt 0) {
         $built = Build-CombinedTypeAssembly -ModulesRoot $SourceRoot -OutputDirectory (Get-TypesShadowRoot)
         $bundleCompiled = [System.IO.Path]::Combine($BuildRoot, '.compiled')
         [System.IO.Directory]::CreateDirectory($bundleCompiled) | Out-Null
         foreach ($file in $built.Path, $built.Manifest) {
-            [void] (Copy-BuildFileIfChanged -Source $file -Destination ([System.IO.Path]::Combine($bundleCompiled, [System.IO.Path]::GetFileName($file))) -Normalize:$false)
+            [void] (Copy-BuildFileIfChanged -Source $file -Destination ([System.IO.Path]::Combine($bundleCompiled,
+                [System.IO.Path]::GetFileName($file))) -Normalize:$false)
         }
         $built
     }

@@ -1,6 +1,7 @@
 Describe 'Catzc.Base.Reports.IsolationRunResult' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMODEL' {
     It 'holds the isolation, the sandbox, the modules and the counts, and succeeds exactly when nothing failed' {
-        $result = [Catzc.Base.Reports.IsolationRunResult]::new('InProcess', 'C:/tmp/widget', [string[]] @('Catzc.Widget', 'Catzc.Gadget'), 5, 0,
+        $result = [Catzc.Base.Reports.IsolationRunResult]::new('InProcess', 'C:/tmp/widget',
+            [string[]] @('Catzc.Widget', 'Catzc.Gadget'), 5, 0,
             'minimal', 'C:/tmp/widget/.isolation-results.xml')
         $result.Isolation | Should -Be 'InProcess'
         $result.Sandbox | Should -Be 'C:/tmp/widget'
@@ -21,9 +22,12 @@ Describe 'Catzc.Base.Reports.IsolationRunResult' -Tag 'L0', 'logic', 'ADR-BCL-TY
     }
 
     It 'rejects an unknown isolation, a missing sandbox and a negative total' {
-        { [Catzc.Base.Reports.IsolationRunResult]::new('Thread', 'C:/tmp/widget', $null, 0, 0) } | Should -Throw '*Process or InProcess*'
-        { [Catzc.Base.Reports.IsolationRunResult]::new('Process', '', $null, 0, 0) } | Should -Throw '*sandbox is required*'
-        { [Catzc.Base.Reports.IsolationRunResult]::new('Process', 'C:/tmp/widget', $null, -1, 0) } | Should -Throw '*never negative*'
+        { [Catzc.Base.Reports.IsolationRunResult]::new('Thread', 'C:/tmp/widget', $null, 0, 0) } |
+            Should -Throw '*Process or InProcess*'
+        { [Catzc.Base.Reports.IsolationRunResult]::new('Process', '', $null, 0, 0) } |
+            Should -Throw '*sandbox is required*'
+        { [Catzc.Base.Reports.IsolationRunResult]::new('Process', 'C:/tmp/widget', $null, -1, 0) } |
+            Should -Throw '*never negative*'
     }
 
     It 'keeps any failure count, the exit code of a Process run with no results file' {
@@ -32,6 +36,7 @@ Describe 'Catzc.Base.Reports.IsolationRunResult' -Tag 'L0', 'logic', 'ADR-BCL-TY
     }
 
     It 'renders console-ready text' -Tag 'ADR-BCL-TYPES-CONSOLEREADYTOSTRING' {
-        [Catzc.Base.Reports.IsolationRunResult]::new('Process', 'C:/tmp/widget', $null, 3, 0).ToString() | Should -Match 'Process'
+        [Catzc.Base.Reports.IsolationRunResult]::new('Process', 'C:/tmp/widget', $null, 3, 0).ToString() |
+            Should -Match 'Process'
     }
 }

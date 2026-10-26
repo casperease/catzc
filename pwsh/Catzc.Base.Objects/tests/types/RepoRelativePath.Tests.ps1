@@ -8,11 +8,13 @@ catzc:
 
 Describe 'RepoRelativePath' -Tag 'L0', 'logic' {
     It 'strips a leading ./ from a relative path' {
-        [Catzc.Base.Objects.RepoRelativePath]::new('./widgets/mod/file.ps1').Relative | Should -Be 'widgets/mod/file.ps1'
+        [Catzc.Base.Objects.RepoRelativePath]::new('./widgets/mod/file.ps1').Relative |
+            Should -Be 'widgets/mod/file.ps1'
     }
 
     It 'collapses a .. segment' {
-        [Catzc.Base.Objects.RepoRelativePath]::new('widgets/mod/../mod/file.ps1').Relative | Should -Be 'widgets/mod/file.ps1'
+        [Catzc.Base.Objects.RepoRelativePath]::new('widgets/mod/../mod/file.ps1').Relative |
+            Should -Be 'widgets/mod/file.ps1'
     }
 
     It 'converts backslashes to forward slashes' {
@@ -20,7 +22,8 @@ Describe 'RepoRelativePath' -Tag 'L0', 'logic' {
     }
 
     It 'collapses duplicate separators' {
-        [Catzc.Base.Objects.RepoRelativePath]::new('widgets//mod///file.ps1').Relative | Should -Be 'widgets/mod/file.ps1'
+        [Catzc.Base.Objects.RepoRelativePath]::new('widgets//mod///file.ps1').Relative |
+            Should -Be 'widgets/mod/file.ps1'
     }
 
     It 'renders the relative form from ToString' {
@@ -47,7 +50,8 @@ Describe 'RepoRelativePath' -Tag 'L0', 'logic' {
     }
 
     It 'throws when a relative path escapes the repository root' {
-        { [Catzc.Base.Objects.RepoRelativePath]::new('../outside/file.ps1') } | Should -Throw '*escapes the repository root*'
+        { [Catzc.Base.Objects.RepoRelativePath]::new('../outside/file.ps1') } |
+            Should -Throw '*escapes the repository root*'
     }
 
     It 'throws on an empty path' {

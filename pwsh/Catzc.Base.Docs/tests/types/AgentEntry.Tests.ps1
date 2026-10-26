@@ -9,7 +9,8 @@ catzc:
 Describe 'AgentEntry' -Tag 'L0', 'logic', 'ADR-REPO-AGENTS-BACKEDBYRULE' {
     It 'constructs and exposes name, supported_by, and checks' {
         $entry = [Catzc.Base.Docs.AgentEntry]::new([ordered]@{
-                name = 'widget-worker'; supported_by = @('ADR-WIDGET-ONE-TURN', 'ADR-WIDGET-TWO-PARTS-SPIN'); checks = @('Test-Widget', 'Invoke-Gadget')
+                name = 'widget-worker'; supported_by = @('ADR-WIDGET-ONE-TURN',
+                    'ADR-WIDGET-TWO-PARTS-SPIN'); checks = @('Test-Widget', 'Invoke-Gadget')
             })
         $entry.name | Should -Be 'widget-worker'
         $entry.supported_by | Should -Be @('ADR-WIDGET-ONE-TURN', 'ADR-WIDGET-TWO-PARTS-SPIN')
@@ -39,7 +40,8 @@ Describe 'AgentEntry' -Tag 'L0', 'logic', 'ADR-REPO-AGENTS-BACKEDBYRULE' {
 
     It 'collects every violation into one ArgumentException' {
         $thrown = { [Catzc.Base.Docs.AgentEntry]::new([ordered]@{
-                    name = 'Widget_Worker'; supported_by = @('ADR-WIDGET', 'ADR-WIDGET-ONE-TURN', 'ADR-WIDGET-ONE-TURN'); checks = @('widget'); gizmo = 1
+                    name = 'Widget_Worker'; supported_by = @('ADR-WIDGET', 'ADR-WIDGET-ONE-TURN',
+                        'ADR-WIDGET-ONE-TURN'); checks = @('widget'); gizmo = 1
                 }) } | Should -Throw -PassThru
         $thrown.Exception.InnerException | Should -BeOfType ([System.ArgumentException])
         $message = $thrown.Exception.Message

@@ -72,7 +72,8 @@ Describe 'Get-LoadedTypeDrift' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-ONEDRIFTMEASUR
         $state.Current | Should -BeFalse
         $state.LoadedHash | Should -Be 'aaaa1111'
         $state.SourceHash | Should -Be (Get-CombinedTypeHash $root).CombinedHash
-        @($state.Drift) | Should -Be @('changed Catzc.Base.Objects/ConsoleText', 'added Catzc.Widget/Gadget', 'removed Catzc.Widget/Sprocket')
+        @($state.Drift) | Should -Be @('changed Catzc.Base.Objects/ConsoleText', 'added Catzc.Widget/Gadget',
+            'removed Catzc.Widget/Sprocket')
         @($state.MissingTypes) | Should -Be @('added Catzc.Widget/Gadget')
         $state.Summary | Should -BeLike "*changed since they were loaded (aaaa1111 -> $($state.SourceHash))*"
     }

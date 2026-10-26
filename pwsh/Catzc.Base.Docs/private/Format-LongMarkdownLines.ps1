@@ -47,7 +47,8 @@ function Format-LongMarkdownLines {
         $isQuote = $first.TrimStart().StartsWith('>')
 
         $end = $i + 1
-        while ($end -lt $lines.Count -and $lines[$end] -match '\S' -and $lines[$end] -notmatch $skip -and $lines[$end] -notmatch $marker -and
+        while ($end -lt $lines.Count -and $lines[$end] -match '\S' -and $lines[$end] -notmatch $skip -and
+            $lines[$end] -notmatch $marker -and
             ($lines[$end].TrimStart().StartsWith('>') -eq $isQuote)) {
             $end++
         }

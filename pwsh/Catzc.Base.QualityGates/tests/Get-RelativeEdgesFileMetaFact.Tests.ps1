@@ -11,7 +11,8 @@ Describe 'Get-RelativeEdgesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-
         $script:relations = @(
             @{ name = 'docs'; link = '[{leaf}]({relative_path})'; rules = @(@{ paths = @('{page}') }) }
             @{ name = 'test'; rules = @(@{ classes = @('widget-function'); paths = @('widgets/{module}/tests/{stem}.Tests.ps1') }) }
-            @{ name = 'source'; rules = @(@{ classes = @('widget-test'); paths = @('widgets/{module}/{stem}.ps1', 'widgets/{module}/private/{stem}.ps1') }) }
+            @{ name = 'source'; rules = @(@{ classes = @('widget-test'); paths = @('widgets/{module}/{stem}.ps1',
+                'widgets/{module}/private/{stem}.ps1') }) }
         )
 
         function script:Get-Kind {
@@ -27,10 +28,13 @@ Describe 'Get-RelativeEdgesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-
                 param($Kind, $Path, $Root)
                 $mockRoot = $Root
                 Mock Get-RepositoryRoot { $mockRoot }
-                # The fixture modules live under widgets/, which is no track of the shipped registry; the resolver's own tests prove the real rule.
-                Mock Get-PathModule { [pscustomobject]@{ name = (($Path -replace '\\', '/') -split '/')[1]; type = 'widget-folder' } }
+                # The fixture modules live under widgets/, which is no track of the shipped registry; the resolver's own
+                # tests prove the real rule.
+                Mock Get-PathModule { [pscustomobject]@{ name = (($Path -replace '\\',
+                    '/') -split '/')[1]; type = 'widget-folder' } }
                 Mock Get-CommentPage { [Catzc.Base.CodeMeta.CommentPagesConfig]::new(@{ pages = @(@{ source = 'widgets/*'; docs = 'docs/{kebab}' }) }).PageFor($Path) }
-                # An edge no rule fills is an empty string, which the block leaves out; these cases look at the edges that are there.
+                # An edge no rule fills is an empty string, which the block leaves out; these cases look at the edges
+                # that are there.
                 $edges = Get-RelativeEdgesFileMetaFact -State ([pscustomobject]@{}) -Path $Path -Kind $Kind
                 $found = [ordered]@{}
                 foreach ($key in $edges.Keys) {
@@ -63,14 +67,16 @@ Describe 'Get-RelativeEdgesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-
     It 'links the page from a file one folder below its module' {
         New-File 'widgets/Catzc.Gadget/private/Get-Bolt.ps1'
         New-File 'docs/catzc-gadget/private/Get-Bolt.ps1.md'
-        (Get-Relatives 'widgets/Catzc.Gadget/private/Get-Bolt.ps1')['docs'] | Should -BeExactly '[Get-Bolt.ps1.md](../../../docs/catzc-gadget/private/Get-Bolt.ps1.md)'
+        (Get-Relatives 'widgets/Catzc.Gadget/private/Get-Bolt.ps1')['docs'] |
+            Should -BeExactly '[Get-Bolt.ps1.md](../../../docs/catzc-gadget/private/Get-Bolt.ps1.md)'
     }
 
     It 'keeps {path} for a link that wants the repository-relative path' {
         New-File 'widgets/Catzc.Gadget/Get-Nut.ps1'
         New-File 'docs/catzc-gadget/Get-Nut.ps1.md'
         $rooted = Get-Kind @(@{ name = 'docs'; link = '[{leaf}]({path})'; rules = @(@{ paths = @('{page}') }) })
-        (Get-Relatives 'widgets/Catzc.Gadget/Get-Nut.ps1' $rooted)['docs'] | Should -BeExactly '[Get-Nut.ps1.md](docs/catzc-gadget/Get-Nut.ps1.md)'
+        (Get-Relatives 'widgets/Catzc.Gadget/Get-Nut.ps1' $rooted)['docs'] |
+            Should -BeExactly '[Get-Nut.ps1.md](docs/catzc-gadget/Get-Nut.ps1.md)'
     }
 
     It 'names the first source candidate that exists for a test file' {
@@ -83,7 +89,8 @@ Describe 'Get-RelativeEdgesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-
 
     It 'applies a rule only to the classes it names' {
         New-File 'widgets/Catzc.Gadget/tests/Get-Spring.Tests.ps1'
-        (Get-Relatives 'widgets/Catzc.Gadget/tests/Get-Spring.Tests.ps1').Contains('test') | Should -BeFalse -Because 'a test file is no widget-function'
+        (Get-Relatives 'widgets/Catzc.Gadget/tests/Get-Spring.Tests.ps1').Contains('test') |
+            Should -BeFalse -Because 'a test file is no widget-function'
     }
 
     It 'gives every key of the kind, an empty string for an edge no rule fills' {
@@ -104,7 +111,8 @@ Describe 'Get-RelativeEdgesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-
         New-File 'widgets/Catzc.Gadget/Get-Gear.ps1'
         New-File 'docs/catzc-gadget/Get-Gear.ps1.md'
         $bare = Get-Kind @(@{ name = 'docs'; rules = @(@{ paths = @('{page}') }) })
-        (Get-Relatives 'widgets/Catzc.Gadget/Get-Gear.ps1' $bare)['docs'] | Should -BeExactly 'docs/catzc-gadget/Get-Gear.ps1.md'
+        (Get-Relatives 'widgets/Catzc.Gadget/Get-Gear.ps1' $bare)['docs'] |
+            Should -BeExactly 'docs/catzc-gadget/Get-Gear.ps1.md'
     }
 
     It 'leaves a relation out when its file does not exist, so the map can be empty' {
@@ -118,6 +126,7 @@ Describe 'Get-RelativeEdgesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-
     }
 
     It 'rejects a relation without rules' {
-        { Get-Relatives 'widgets/Catzc.Gadget/Get-Cog.ps1' (Get-Kind @(@{ name = 'docs' })) } | Should -Throw "*entries need 'name' and 'rules'*"
+        { Get-Relatives 'widgets/Catzc.Gadget/Get-Cog.ps1' (Get-Kind @(@{ name = 'docs' })) } |
+            Should -Throw "*entries need 'name' and 'rules'*"
     }
 }

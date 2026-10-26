@@ -3,7 +3,8 @@ Describe 'Invoke-Accosted' -Tag 'L0', 'logic' {
         $script:root = Join-Path $TestDrive 'repo'
         $script:file = [Catzc.Base.Contracts.AccostedFile]::new([ordered]@{
                 runs = @(
-                    , @([ordered]@{ get_widget = [ordered]@{ widget_path = "a b's"; depth = 2; strict = $true } }, [ordered]@{ test_gadget = [ordered]@{ quiet = $false } })
+                    ,
+                        @([ordered]@{ get_widget = [ordered]@{ widget_path = "a b's"; depth = 2; strict = $true } }, [ordered]@{ test_gadget = [ordered]@{ quiet = $false } })
                     , @([ordered]@{ get_widget = [ordered]@{ widget_path = 'c' } })
                 )
             })
@@ -35,9 +36,11 @@ Describe 'Invoke-Accosted' -Tag 'L0', 'logic' {
     It 'renders each run in the idiom of each engine, the commands chained with &&' {
         $results = @(Invoke-Accosted -Path 'widgets.accosted.yml' -Engine ([Catzc.Base.Engines.ExecutionEngines]::Pwsh.Name), ([Catzc.Base.Engines.ExecutionEngines]::Bash.Name) -RepositoryRoot $script:root)
         $results.Count | Should -Be 4
-        $results[0].Command | Should -BeExactly "Get-Widget -WidgetPath 'a b''s' -Depth 2 -Strict && Test-Gadget -Quiet `$false"
+        $results[0].Command |
+            Should -BeExactly "Get-Widget -WidgetPath 'a b''s' -Depth 2 -Strict && Test-Gadget -Quiet `$false"
         $results[2].Engine | Should -Be 'bash'
-        $results[2].Command | Should -BeExactly "get-widget --widget-path 'a b'\''s' --depth 2 --strict && cats test-gadget --quiet false"
+        $results[2].Command |
+            Should -BeExactly "get-widget --widget-path 'a b'\''s' --depth 2 --strict && cats test-gadget --quiet false"
     }
 
     It 'bounds every run by the configured run-list limit, and passes a run exactly when its engine exits 0' {

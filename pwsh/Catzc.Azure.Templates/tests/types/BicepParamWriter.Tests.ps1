@@ -1,6 +1,7 @@
 Describe 'BicepParamWriter' -Tag 'L0', 'logic' {
     BeforeAll {
-        $script:write = { param($Parameters) [Catzc.Azure.Templates.BicepParamWriter]::Write('../main.bicep', $Parameters) }
+        $script:write = { param($Parameters) [Catzc.Azure.Templates.BicepParamWriter]::Write('../main.bicep',
+            $Parameters) }
         $script:vault = '/subscriptions/a2000000-7e57-50b0-0000-000000000000/resourceGroups/widget-rg/providers/Microsoft.KeyVault/vaults/widget-kv'
     }
 
@@ -22,9 +23,11 @@ Describe 'BicepParamWriter' -Tag 'L0', 'logic' {
 
     It 'writes nested objects and arrays two spaces per level, quoting a key that is not an identifier' {
         $text = & $script:write ([ordered]@{
-                tags = @{ value = [ordered]@{ owner = 'widget'; 'cost-center' = 'gadget'; zones = @('1', '2'); empty = @() } }
+                tags = @{ value = [ordered]@{ owner = 'widget'; 'cost-center' = 'gadget'; zones = @('1',
+                    '2'); empty = @() } }
             })
-        $text | Should -BeExactly ("using '../main.bicep'`n`nparam tags = {`n  owner: 'widget'`n  'cost-center': 'gadget'`n  zones: [`n    '1'`n" +
+        $text |
+            Should -BeExactly ("using '../main.bicep'`n`nparam tags = {`n  owner: 'widget'`n  'cost-center': 'gadget'`n  zones: [`n    '1'`n" +
             "    '2'`n  ]`n  empty: []`n}`n")
     }
 
@@ -38,17 +41,22 @@ Describe 'BicepParamWriter' -Tag 'L0', 'logic' {
                 widgetPassword = @{ reference = @{ keyVault = @{ id = $script:vault }; secretName = 'widget-secret' } }
                 gadgetPassword = @{ reference = @{ keyVault = @{ id = $script:vault }; secretName = 'gadget-secret'; secretVersion = 'v2' } }
             })
-        $text | Should -Match ([regex]::Escape("param widgetPassword = az.getSecret('a2000000-7e57-50b0-0000-000000000000', 'widget-rg', 'widget-kv', 'widget-secret')"))
+        $text |
+            Should -Match ([regex]::Escape("param widgetPassword = az.getSecret('a2000000-7e57-50b0-0000-000000000000', 'widget-rg', 'widget-kv', 'widget-secret')"))
         # Wider than the formatter's 120 columns on one line, so one argument per line, as bicep format writes it.
-        $text | Should -Match ([regex]::Escape("param gadgetPassword = az.getSecret(`n  'a2000000-7e57-50b0-0000-000000000000',`n  'widget-rg',`n  'widget-kv',`n  'gadget-secret',`n  'v2'`n)`n"))
+        $text |
+            Should -Match ([regex]::Escape("param gadgetPassword = az.getSecret(`n  'a2000000-7e57-50b0-0000-000000000000',`n  'widget-rg',`n  'widget-kv',`n  'gadget-secret',`n  'v2'`n)`n"))
     }
 
     It 'throws naming the parameter on a malformed vault id, a fraction, and an entry with neither or both forms' {
         { & $script:write ([ordered]@{ widgetPassword = @{ reference = @{ keyVault = @{ id = '/vaults/widget-kv' }; secretName = 's' } } }) } |
             Should -Throw "*parameter 'widgetPassword': a Key Vault reference needs keyVault.id*"
-        { & $script:write ([ordered]@{ ratio = @{ value = [double]0.5 } }) } | Should -Throw "*parameter 'ratio':*no Bicep literal*"
-        { & $script:write ([ordered]@{ gadget = @{ address = 'global.widget.id' } }) } | Should -Throw "*parameter 'gadget': an entry holds exactly one of value or reference*"
-        { & $script:write ([ordered]@{ gadget = @{ value = 1; reference = @{} } }) } | Should -Throw "*parameter 'gadget': an entry holds exactly one*"
+        { & $script:write ([ordered]@{ ratio = @{ value = [double]0.5 } }) } |
+            Should -Throw "*parameter 'ratio':*no Bicep literal*"
+        { & $script:write ([ordered]@{ gadget = @{ address = 'global.widget.id' } }) } |
+            Should -Throw "*parameter 'gadget': an entry holds exactly one of value or reference*"
+        { & $script:write ([ordered]@{ gadget = @{ value = 1; reference = @{} } }) } |
+            Should -Throw "*parameter 'gadget': an entry holds exactly one*"
     }
 }
 

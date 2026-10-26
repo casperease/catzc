@@ -6,7 +6,8 @@ catzc:
 ---
 #>
 
-# Each compiled search must return exactly what a PowerShell predicate over FindAll returns, so swapping one for the other changes nothing.
+# Each compiled search must return exactly what a PowerShell predicate over FindAll returns, so swapping one for the
+# other changes nothing.
 Describe 'SyntaxSearch' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:parse = {
@@ -33,8 +34,10 @@ Get-Gadget
 
     Context 'Commands' {
         It 'lists every command call in document order, nested script blocks included' {
-            $names = [Catzc.Base.Repository.SyntaxSearch]::Commands($script:script) | ForEach-Object { $_.GetCommandName() }
-            $names | Should -Be @('Join-Path', 'Get-Gadget', $null, 'Get-Gadget', 'Get-Cog', 'Catzc.Base.Widget\Get-Gadget', 'Get-Gadget')
+            $names = [Catzc.Base.Repository.SyntaxSearch]::Commands($script:script) |
+                ForEach-Object { $_.GetCommandName() }
+            $names | Should -Be @('Join-Path', 'Get-Gadget', $null, 'Get-Gadget', 'Get-Cog',
+                'Catzc.Base.Widget\Get-Gadget', 'Get-Gadget')
         }
     }
 
@@ -56,7 +59,8 @@ Get-Gadget
         }
 
         It 'refuses an empty name' {
-            { [Catzc.Base.Repository.SyntaxSearch]::CommandsNamed($script:script, '', $false) } | Should -Throw '*a command name is required*'
+            { [Catzc.Base.Repository.SyntaxSearch]::CommandsNamed($script:script, '', $false) } |
+                Should -Throw '*a command name is required*'
         }
     }
 
@@ -68,7 +72,8 @@ Get-Gadget
         }
 
         It 'refuses an empty name' {
-            { [Catzc.Base.Repository.SyntaxSearch]::VariableReads($script:script, '') } | Should -Throw '*a variable name is required*'
+            { [Catzc.Base.Repository.SyntaxSearch]::VariableReads($script:script, '') } |
+                Should -Throw '*a variable name is required*'
         }
     }
 
@@ -92,7 +97,8 @@ Get-Gadget
             @{ Text = 'function private:New-Widget {}' }
             @{ Text = 'function New-Widget {}' }
         ) {
-            $function = [Catzc.Base.Repository.SyntaxSearch]::TopLevelFunctions((& $script:parse $Text)) | Select-Object -First 1
+            $function = [Catzc.Base.Repository.SyntaxSearch]::TopLevelFunctions((& $script:parse $Text)) |
+                Select-Object -First 1
             [Catzc.Base.Repository.SyntaxSearch]::BareName($function) | Should -BeExactly 'New-Widget'
         }
 

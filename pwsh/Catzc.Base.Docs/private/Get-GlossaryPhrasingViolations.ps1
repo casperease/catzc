@@ -21,5 +21,6 @@ function Get-GlossaryPhrasingViolations {
         [hashtable] $SurfaceCache = @{}
     )
 
-    [string[]] [Catzc.Base.Docs.GlossaryScan]::Phrasing([Catzc.Base.Docs.GlossaryEntry[]] @($Entry), [string[]] @($TrackedFile), $Root, $SurfaceCache)
+    [string[]] [Catzc.Base.Docs.GlossaryScan]::Phrasing([Catzc.Base.Docs.GlossaryEntry[]] @($Entry),
+        [string[]] @($TrackedFile), $Root, $SurfaceCache)
 }

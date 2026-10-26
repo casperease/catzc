@@ -74,7 +74,8 @@ Describe 'Get-GlossaryDefinitionViolations' -Tag 'L0', 'logic' {
     It 'reports a second rule whose summary defines the term, across a wrapped line and in any case' -Tag 'ADR-REPO-VOCAB-DEFINEDTERM' {
         $found = & $script:violations @(& $script:entry 'gadget run' 'ADR-TST-WIDGET-RUN')
         $found.Count | Should -Be 1
-        $found[0] | Should -Be "widgets/Catzc.Widget/configs/glossary.yml: concept 'gadget run': ADR-TST-GADGET-SELECT defines '**gadget run**' a second time — it is defined by ADR-TST-WIDGET-RUN (ADR-REPO-VOCAB-DEFINEDTERM)"
+        $found[0] |
+            Should -Be "widgets/Catzc.Widget/configs/glossary.yml: concept 'gadget run': ADR-TST-GADGET-SELECT defines '**gadget run**' a second time — it is defined by ADR-TST-WIDGET-RUN (ADR-REPO-VOCAB-DEFINEDTERM)"
     }
 
     It 'does not count a rule that only bolds the term' -Tag 'ADR-REPO-VOCAB-DEFINEDTERM' {
@@ -85,7 +86,8 @@ Describe 'Get-GlossaryDefinitionViolations' -Tag 'L0', 'logic' {
     }
 
     It 'skips a source that opts out of the single check' -Tag 'ADR-REPO-VOCAB-GLOSSARYSOURCE' {
-        & $script:violations @(& $script:entry 'gadget run' 'ADR-TST-WIDGET-RUN' @('anchored', 'avoid', 'enforced')) | Should -BeNullOrEmpty
+        & $script:violations @(& $script:entry 'gadget run' 'ADR-TST-WIDGET-RUN' @('anchored', 'avoid', 'enforced')) |
+            Should -BeNullOrEmpty
     }
 
     It 'reads the repository glossary by default' -Tag 'ADR-REPO-VOCAB-DEFINEDTERM' {

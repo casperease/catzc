@@ -75,7 +75,8 @@ Describe 'ToolConfig' -Tag 'L0', 'logic' {
     ) {
         $entry = $script:required.Clone()
         $entry[$key] = $value
-        { [Catzc.Base.Execution.ToolConfig]::new($entry) } | Should -Throw '*msys2_url and msys2_sha256 are declared together*'
+        { [Catzc.Base.Execution.ToolConfig]::new($entry) } |
+            Should -Throw '*msys2_url and msys2_sha256 are declared together*'
     }
 
     It 'rejects an msys2_sha256 that is not 64 lowercase hex digits: <case>' -Tag 'ADR-AUTO-PKGMGR-VERIFYDOWNLOADS' -ForEach @(

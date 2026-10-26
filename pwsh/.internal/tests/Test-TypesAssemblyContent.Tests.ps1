@@ -12,7 +12,8 @@ namespace $($script:space) {
         Add-Type -TypeDefinition $source -OutputAssembly $script:dll -OutputType Library
 
         function script:Get-FixtureAssembly {
-            [System.AppDomain]::CurrentDomain.GetAssemblies() | Where-Object { -not $_.IsDynamic -and $_.GetType("$($script:space).Widget", $false) }
+            [System.AppDomain]::CurrentDomain.GetAssemblies() |
+                Where-Object { -not $_.IsDynamic -and $_.GetType("$($script:space).Widget", $false) }
         }
         function script:New-Expected {
             param([string[]] $Bases)
@@ -32,20 +33,24 @@ namespace $($script:space) {
     }
 
     It 'does not count a non-public type' {
-        { Test-TypesAssemblyContent -Path $dll -Expected (New-Expected 'Hidden') } | Should -Throw "*'$($script:space).Hidden' was not produced*"
+        { Test-TypesAssemblyContent -Path $dll -Expected (New-Expected 'Hidden') } |
+            Should -Throw "*'$($script:space).Hidden' was not produced*"
     }
 
     It 'does not count a nested type as a top-level one' {
-        { Test-TypesAssemblyContent -Path $dll -Expected (New-Expected 'Inner') } | Should -Throw "*'$($script:space).Inner' was not produced*"
+        { Test-TypesAssemblyContent -Path $dll -Expected (New-Expected 'Inner') } |
+            Should -Throw "*'$($script:space).Inner' was not produced*"
     }
 
     It 'matches the namespace as well as the name' {
         $wrong = @([pscustomobject]@{ Module = 'Other.Space'; Base = 'Widget' })
-        { Test-TypesAssemblyContent -Path $dll -Expected $wrong } | Should -Throw "*'Other.Space.Widget' was not produced*"
+        { Test-TypesAssemblyContent -Path $dll -Expected $wrong } |
+            Should -Throw "*'Other.Space.Widget' was not produced*"
     }
 
     It 'throws when the file does not exist' {
-        { Test-TypesAssemblyContent -Path (Join-Path $TestDrive 'missing.dll') -Expected (New-Expected 'Widget') } | Should -Throw '*does not exist*'
+        { Test-TypesAssemblyContent -Path (Join-Path $TestDrive 'missing.dll') -Expected (New-Expected 'Widget') } |
+            Should -Throw '*does not exist*'
     }
 
     It 'never loads the assembly into the process' {

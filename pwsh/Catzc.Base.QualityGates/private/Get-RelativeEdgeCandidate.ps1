@@ -26,7 +26,8 @@ function Get-RelativeEdgeCandidate {
     Assert-True ($relations.Count -le $maxRelations) `
         -ErrorText "file-meta config: kind '$($Kind.id)' lists $($relations.Count) relations, at most $maxRelations are allowed."
     foreach ($relation in $relations) {
-        Assert-True ($relation -is [System.Collections.IDictionary] -and $relation.Contains('name') -and $relation.Contains('rules')) `
+        Assert-True ($relation -is [System.Collections.IDictionary] -and $relation.Contains('name') -and
+            $relation.Contains('rules')) `
             -ErrorText "file-meta config: kind '$($Kind.id)' settings.relations entries need 'name' and 'rules'."
         foreach ($rule in @($relation['rules'])) {
             Assert-True ($rule -is [System.Collections.IDictionary] -and $rule.Contains('paths')) `
@@ -46,7 +47,9 @@ function Get-RelativeEdgeCandidate {
             $paths = [System.Collections.Generic.List[string]]::new()
             foreach ($rule in @($relation['rules'])) {
                 # A rule without classes applies to every file the kind selects.
-                if ($rule.Contains('classes') -and -not [Catzc.Base.QualityGates.FileMetaKind]::InClasses([string[]] @($rule['classes']), $fileClass)) {
+                if ($rule.Contains('classes') -and
+                    -not [Catzc.Base.QualityGates.FileMetaKind]::InClasses([string[]] @($rule['classes']),
+                    $fileClass)) {
                     continue
                 }
                 foreach ($template in @($rule['paths'])) {

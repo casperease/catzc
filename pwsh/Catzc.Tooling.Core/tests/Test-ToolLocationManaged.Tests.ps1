@@ -79,7 +79,8 @@ Describe 'Test-ToolLocationManaged' -Tag 'L0', 'logic' {
     ) {
         InModuleScope Catzc.Tooling.Core -Parameters @{ location = $location; expected = $expected } {
             param($location, $expected)
-            # Neutral fixture ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+            # Neutral fixture
+            # ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
             Mock Get-ScriptInstallDir { 'C:\Users\me\AppData\Local\Gadget' }
             $config = [Catzc.Base.Execution.ToolConfig]::new(@{
                     version = '1'; command = 'widget'; version_command = 'widget --version'; version_pattern = '(?<ver>.+)'

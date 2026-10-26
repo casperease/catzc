@@ -34,19 +34,23 @@ Describe 'Test-Slides' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-CHECKABLECLAIMS' {
     }
 
     It 'fails a slide whose pattern the kit does not hold, naming the file and the field' {
-        { Test-Slides -Path 'docs/decks/broken-deck' -Kit 'kit' -RepositoryRoot $root -OutputFolder $out } | Should -Throw '*Test-Slides failed: 1 issue(s)*'
+        { Test-Slides -Path 'docs/decks/broken-deck' -Kit 'kit' -RepositoryRoot $root -OutputFolder $out } |
+            Should -Throw '*Test-Slides failed: 1 issue(s)*'
         $report = Test-Slides -Path 'docs/decks/broken-deck' -Kit 'kit' -RepositoryRoot $root -OutputFolder $out -PassThru
         $report.IssueCount | Should -Be 1
-        $report.Issues[0] | Should -Be "docs/decks/broken-deck/three.slide.md: field 'pattern': the kit 'kit' holds no pattern 'gadget'; it holds: widget"
+        $report.Issues[0] |
+            Should -Be "docs/decks/broken-deck/three.slide.md: field 'pattern': the kit 'kit' holds no pattern 'gadget'; it holds: widget"
     }
 
     It 'names the quoted rule as the thing to trim when the rule is longer than the pattern holds' {
         $report = Test-Slides -Path 'quotes/four.slide.md' -Kit 'kit' -RepositoryRoot $root -OutputFolder $out -PassThru
-        $report.Issues | Should -Contain "quotes/four.slide.md: field 'quotes': the quoted rule ADR-WIDGET-GADGET-SPIN is 6 words; pattern 'widget' holds at most 5, so the rule itself must be trimmed"
+        $report.Issues |
+            Should -Contain "quotes/four.slide.md: field 'quotes': the quoted rule ADR-WIDGET-GADGET-SPIN is 6 words; pattern 'widget' holds at most 5, so the rule itself must be trimmed"
     }
 
     It 'checks every slide file under docs when no path is given' {
-        { Test-Slides -Kit 'kit' -RepositoryRoot $root -OutputFolder $out } | Should -Throw '*Test-Slides failed: 1 issue(s)*'
+        { Test-Slides -Kit 'kit' -RepositoryRoot $root -OutputFolder $out } |
+            Should -Throw '*Test-Slides failed: 1 issue(s)*'
     }
 
     It 'reports a gap in the orders of a deck folder it reads whole, and never of one slide file named alone' -Tag 'ADR-REPO-SLIDES-SLIDEFILE' {
@@ -59,6 +63,7 @@ Describe 'Test-Slides' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-CHECKABLECLAIMS' {
     }
 
     It 'fails fast on a path that is neither a slide file nor a deck folder' -Tag 'ADR-AUTO-FAILFAST-ASSERTINPUTSATENTRY' {
-        { Test-Slides -Path 'docs/decks/missing' -Kit 'kit' -RepositoryRoot $root -OutputFolder $out } | Should -Throw '*neither a slide file nor a deck folder*'
+        { Test-Slides -Path 'docs/decks/missing' -Kit 'kit' -RepositoryRoot $root -OutputFolder $out } |
+            Should -Throw '*neither a slide file nor a deck folder*'
     }
 }

@@ -6,7 +6,8 @@ catzc:
 ---
 #>
 
-# Every load-time rejection is pinned, so a root in any but the portable stored form can never slip into a loaded config.
+# Every load-time rejection is pinned, so a root in any but the portable stored form can never slip into a loaded
+# config.
 Describe 'Catzc.Tooling.Inspiration.InspirationConfig' -Tag 'L0', 'logic', 'ADR-REPO-INSPIRE-DECLAREDINSPIRATION' {
     BeforeAll {
         function New-Entry {
@@ -38,7 +39,8 @@ Describe 'Catzc.Tooling.Inspiration.InspirationConfig' -Tag 'L0', 'logic', 'ADR-
         It 'maps the entries in file order, with their paths' {
             $widget = New-Entry
             $widget['paths'] = @('docs', 'specs/widget')
-            $config = [Catzc.Tooling.Inspiration.InspirationConfig]::new([ordered]@{ inspirations = @($widget, (New-Entry -Id 'gadget' -Root 'gadget/home')) })
+            $config = [Catzc.Tooling.Inspiration.InspirationConfig]::new([ordered]@{ inspirations = @($widget,
+                (New-Entry -Id 'gadget' -Root 'gadget/home')) })
 
             @($config.inspirations.id) | Should -Be @('widget', 'gadget')
             @($config.inspirations.root) | Should -Be @('{workspace}/widget', 'gadget/home')
@@ -67,13 +69,15 @@ Describe 'Catzc.Tooling.Inspiration.InspirationConfig' -Tag 'L0', 'logic', 'ADR-
 
         It 'applies to an omitted or null inspirations key' {
             @([Catzc.Tooling.Inspiration.InspirationConfig]::new([ordered]@{}).inspirations.id) | Should -Be @('eac')
-            @([Catzc.Tooling.Inspiration.InspirationConfig]::new([ordered]@{ inspirations = $null }).inspirations.id) | Should -Be @('eac')
+            @([Catzc.Tooling.Inspiration.InspirationConfig]::new([ordered]@{ inspirations = $null }).inspirations.id) |
+                Should -Be @('eac')
         }
     }
 
     Context 'rejections' {
         It 'rejects a duplicate id' {
-            Get-ViolationMessage ([ordered]@{ inspirations = @((New-Entry), (New-Entry)) }) | Should -BeLike "*entry 1 repeats the id 'widget'*"
+            Get-ViolationMessage ([ordered]@{ inspirations = @((New-Entry), (New-Entry)) }) |
+                Should -BeLike "*entry 1 repeats the id 'widget'*"
         }
 
         It 'rejects an empty root' {
@@ -102,7 +106,8 @@ Describe 'Catzc.Tooling.Inspiration.InspirationConfig' -Tag 'L0', 'logic', 'ADR-
 
         It 'rejects the bare anchor, an inner anchor, and an empty segment' {
             Get-RootViolation '{workspace}' | Should -BeLike '*names no folder under the anchor*'
-            Get-RootViolation 'widget/{workspace}/gadget' | Should -BeLike "*has an anchor other than a leading '{workspace}/'*"
+            Get-RootViolation 'widget/{workspace}/gadget' |
+                Should -BeLike "*has an anchor other than a leading '{workspace}/'*"
             Get-RootViolation 'widget//gadget' | Should -BeLike '*has an empty segment*'
         }
 
@@ -115,7 +120,8 @@ Describe 'Catzc.Tooling.Inspiration.InspirationConfig' -Tag 'L0', 'logic', 'ADR-
         }
 
         It 'rejects an id that is not kebab-case, and a missing id and description' {
-            Get-ViolationMessage ([ordered]@{ inspirations = @(New-Entry -Id 'Widget_One') }) | Should -BeLike "*id 'Widget_One' is not kebab-case*"
+            Get-ViolationMessage ([ordered]@{ inspirations = @(New-Entry -Id 'Widget_One') }) |
+                Should -BeLike "*id 'Widget_One' is not kebab-case*"
             $message = Get-ViolationMessage ([ordered]@{ inspirations = @([ordered]@{ root = 'widget' }) })
             $message | Should -BeLike "*entry 0 has no 'id'*"
             $message | Should -BeLike "*entry 0 has no 'description'*"
@@ -134,11 +140,13 @@ Describe 'Catzc.Tooling.Inspiration.InspirationConfig' -Tag 'L0', 'logic', 'ADR-
             $entry = New-Entry
             $entry['paths'] = [ordered]@{ docs = 1 }
             Get-ViolationMessage ([ordered]@{ inspirations = @($entry) }) | Should -BeLike "*'paths' is not a list*"
-            Get-ViolationMessage ([ordered]@{ inspirations = 'widget' }) | Should -BeLike "*'inspirations' is not a list*"
+            Get-ViolationMessage ([ordered]@{ inspirations = 'widget' }) |
+                Should -BeLike "*'inspirations' is not a list*"
         }
 
         It 'rejects an entry that is not a mapping' {
-            Get-ViolationMessage ([ordered]@{ inspirations = @('widget') }) | Should -BeLike '*entry 0 is not a mapping*'
+            Get-ViolationMessage ([ordered]@{ inspirations = @('widget') }) |
+                Should -BeLike '*entry 0 is not a mapping*'
         }
     }
 }

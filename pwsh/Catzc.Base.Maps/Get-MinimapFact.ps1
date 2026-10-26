@@ -15,7 +15,8 @@ function Get-MinimapFact {
         [string[]] $Path
     )
 
-    # A file's place is read from where it sits, never from its head: its track, the module that holds it and its language.
+    # A file's place is read from where it sits, never from its head: its track, the module that holds it and its
+    # language.
     $languages = Get-Config -Config languages
     $facts = @{}
     foreach ($file in @($Path | Sort-Object -Unique)) {

@@ -7,8 +7,10 @@ Describe 'TimeoutExemptionsConfig' -Tag 'L0' {
 
         It 'names only registered budget GUIDs (each single, and both ends of each range)' {
             foreach ($entry in (Get-Config -Config timeout-exemptions).exempt) {
-                Test-ManagedGuid $entry.from | Should -BeTrue -Because "exemption from '$($entry.from)' must be a registered budget"
-                Test-ManagedGuid $entry.to | Should -BeTrue -Because "exemption to '$($entry.to)' must be a registered budget"
+                Test-ManagedGuid $entry.from |
+                    Should -BeTrue -Because "exemption from '$($entry.from)' must be a registered budget"
+                Test-ManagedGuid $entry.to |
+                    Should -BeTrue -Because "exemption to '$($entry.to)' must be a registered budget"
             }
         }
     }
@@ -91,7 +93,8 @@ Describe 'TimeoutExemptionsConfig' -Tag 'L0' {
         }
 
         It 'throws on a budget that is not a GUID when finding' {
-            { (New-ExemptionsConfig ([ordered]@{})).Find('widget', 'Devbox', 'Pwsh') } | Should -Throw "*budget 'widget' is not a GUID*"
+            { (New-ExemptionsConfig ([ordered]@{})).Find('widget', 'Devbox', 'Pwsh') } |
+                Should -Throw "*budget 'widget' is not a GUID*"
         }
 
         It 'throws on <case>' -ForEach @(
@@ -148,12 +151,14 @@ Describe 'TimeoutExemptionsConfig' -Tag 'L0' {
         It 'orders ranges the same way Test-IsGuidInRange does' {
             $config = New-ExemptionsConfig ([ordered]@{ exempt = @(@{ range = @{ from = $gadgetFrom; to = $gadgetTo }; reason = 'gadget family' }) })
             foreach ($candidate in (New-FixtureGuid 'b9ffffff'), $gadgetInside, (New-FixtureGuid 'ba010000')) {
-                ($null -ne $config.Find($candidate, 'Devbox', 'Pwsh')) | Should -Be (Test-IsGuidInRange $candidate -From $gadgetFrom -To $gadgetTo)
+                ($null -ne $config.Find($candidate, 'Devbox', 'Pwsh')) |
+                    Should -Be (Test-IsGuidInRange $candidate -From $gadgetFrom -To $gadgetTo)
             }
         }
 
         It 'reports every violation in one throw' {
-            $err = { New-ExemptionsConfig ([ordered]@{ nope = 1; exempt = @(@{ reason = '' }) }) } | Should -Throw -PassThru
+            $err = { New-ExemptionsConfig ([ordered]@{ nope = 1; exempt = @(@{ reason = '' }) }) } |
+                Should -Throw -PassThru
             $err.Exception.Message | Should -BeLike "*unknown key 'nope'*"
             $err.Exception.Message | Should -BeLike '*needs exactly one of single | range*'
             $err.Exception.Message | Should -BeLike '*needs a non-empty reason*'

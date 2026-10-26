@@ -3,7 +3,8 @@ Describe 'Get-TestAutomationTestFiles' -Tag 'L0', 'logic' {
         $script:widget = Join-Path $TestDrive 'widget/tests'
         $script:gadget = Join-Path $TestDrive 'gadget/tests'
         foreach ($relative in 'widget/tests/Set-Widget.Tests.ps1', 'widget/tests/Get-Widget.Tests.ps1',
-            'widget/tests/types/WidgetRecord.Tests.ps1', 'widget/tests/assets/notes.txt', 'gadget/tests/Get-Gadget.Tests.ps1') {
+            'widget/tests/types/WidgetRecord.Tests.ps1', 'widget/tests/assets/notes.txt',
+            'gadget/tests/Get-Gadget.Tests.ps1') {
             $path = Join-Path $TestDrive $relative
             [System.IO.Directory]::CreateDirectory([System.IO.Path]::GetDirectoryName($path)) | Out-Null
             [System.IO.File]::WriteAllText($path, '# fixture')
@@ -25,7 +26,8 @@ Describe 'Get-TestAutomationTestFiles' -Tag 'L0', 'logic' {
     }
 
     It 'lists each language test folder as one run file, in its place' {
-        $files = InModuleScope Catzc.Base.QualityGates -Parameters @{ P = @($script:widgetGo, $script:widgetPython, $script:gadget) } {
+        $files = InModuleScope Catzc.Base.QualityGates -Parameters @{ P = @($script:widgetGo, $script:widgetPython,
+            $script:gadget) } {
             param($P)
             Get-TestAutomationTestFiles -TestPath $P
         }

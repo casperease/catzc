@@ -19,7 +19,8 @@ function Get-BicepConfigClassViolations {
     $violations = @()
 
     $environmentEntry = $AzureConfig.environments[$Environment]
-    $environmentPerSubscription = ($null -ne $environmentEntry -and $environmentEntry.Contains('per_subscription') -and $environmentEntry['per_subscription'])
+    $environmentPerSubscription = ($null -ne $environmentEntry -and $environmentEntry.Contains('per_subscription') -and
+        $environmentEntry['per_subscription'])
     if ($EnvironmentKind -eq 'subscription' -and -not $environmentPerSubscription) {
         $violations += "$Location uses standard env '$Environment', but the template is environment_kind 'subscription' — use a per-subscription env (nsub/psub)"
     }

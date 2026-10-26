@@ -21,7 +21,8 @@ function Get-PythonCheckScope {
     $pythonRoot = (Get-Config -Config python).ResolveRoot($repositoryRoot) + '/'
     $others = [System.Collections.Generic.List[string]]::new()
     foreach ($tracked in @(Get-GitTrackedPath '.')) {
-        if ($tracked.EndsWith('.py', [System.StringComparison]::Ordinal) -and -not $tracked.StartsWith($pythonRoot, [System.StringComparison]::Ordinal)) {
+        if ($tracked.EndsWith('.py', [System.StringComparison]::Ordinal) -and -not $tracked.StartsWith($pythonRoot,
+            [System.StringComparison]::Ordinal)) {
             $others.Add($tracked)
         }
     }

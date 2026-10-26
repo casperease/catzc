@@ -39,7 +39,8 @@ Describe 'Enable-DeferredJanitors' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-CONSOLEVER
 
     It 'installs the janitor action when none is given' {
         Enable-DeferredJanitors
-        (Get-Command prompt -CommandType Function).ScriptBlock.ToString() | Should -BeLike '*Invoke-DeferredJanitorsPrompt*'
+        (Get-Command prompt -CommandType Function).ScriptBlock.ToString() |
+            Should -BeLike '*Invoke-DeferredJanitorsPrompt*'
         $state = InModuleScope Catzc.Internal.Loader { $script:deferredJanitors }
         $state.Action.ToString() | Should -BeLike '*Invoke-ImporterJanitors*'
         InModuleScope Catzc.Internal.Loader { $script:deferredJanitors = $null }

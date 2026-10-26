@@ -1,8 +1,10 @@
-# The writers' due rows (Get-GeneratedWriterDue), or nothing when they cannot be read: every build janitor then runs, as before the lists.
+# The writers' due rows (Get-GeneratedWriterDue), or nothing when they cannot be read: every build janitor then runs, as
+# before the lists.
 function Get-DueWriterRow {
     [CmdletBinding()]
     param(
-        # The writers the import may run; a writer the import never runs is never stamped there, so it is not asked about.
+        # The writers the import may run; a writer the import never runs is never stamped there, so it is not asked
+        # about.
         [string[]] $Name
     )
 

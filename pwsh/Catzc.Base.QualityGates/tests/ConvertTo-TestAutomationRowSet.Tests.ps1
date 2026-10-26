@@ -51,7 +51,8 @@ Describe 'ConvertTo-TestAutomationRowSet' -Tag 'L0', 'logic' {
                 New-FakeTest -Path 'Mod.Wide is out of scope' -Result 'NotRun' -Ms 0 -Tags @('L3', 'logic') `
                     -File 'C:\x\Wide.Tests.ps1' -Line 30
                 New-FakeTest -Path 'Mod.Cited enforces a rule' -Result 'Passed' -Ms 3 `
-                    -Tags @('L1', 'logic', 'ADR-WIDGET-GADGET-SPIN', 'ADR-WIDGET-GADGET-TURN') -File 'C:\x\Cited.Tests.ps1' -Line 8
+                    -Tags @('L1', 'logic', 'ADR-WIDGET-GADGET-SPIN',
+                        'ADR-WIDGET-GADGET-TURN') -File 'C:\x\Cited.Tests.ps1' -Line 8
             )
         }
 
@@ -93,7 +94,8 @@ Describe 'ConvertTo-TestAutomationRowSet' -Tag 'L0', 'logic' {
     }
 
     It 'gives a test a failed setup never ran the error of the nearest block that holds one, with its inner exception' {
-        $test = New-FakeTest -Path 'Mod.Setup never ran' -Result 'Failed' -Ms 0 -Tags @('L2', 'logic') -File 'C:\x\Setup.Tests.ps1' -Line 7
+        $test = New-FakeTest -Path 'Mod.Setup never ran' -Result 'Failed' -Ms 0 -Tags @('L2',
+            'logic') -File 'C:\x\Setup.Tests.ps1' -Line 7
         $inner = [pscustomobject]@{ Message = 'widget file in use' }
         $test.Block.Parent | Add-Member -NotePropertyName ErrorRecord -NotePropertyValue @([pscustomobject]@{
                 Exception        = [pscustomobject]@{ Message = 'widget publish failed'; InnerException = $inner }

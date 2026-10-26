@@ -6,7 +6,8 @@ catzc:
 ---
 #>
 
-# A watched docs folder in TestDrive with short timings, so a listen test never touches the real tree or waits on real timers.
+# A watched docs folder in TestDrive with short timings, so a listen test never touches the real tree or waits on real
+# timers.
 function Write-ListenFixtureFile {
     param(
         [string] $Relative,
@@ -101,7 +102,8 @@ function Register-ListenFixtureMocks {
             [Catzc.Base.Globs.FileKindMatch]::new('explanation', $null, 'A gadget page.')
         }
     }
-    # The committed reference: the fixture's files as committed, plus a code file and a binary one outside the watched folder.
+    # The committed reference: the fixture's files as committed, plus a code file and a binary one outside the watched
+    # folder.
     Mock New-RepositorySnapshot -ModuleName Catzc.Tooling.Listen {
         $root = $ExecutionContext.SessionState.PSVariable.GetValue('script:root')
         foreach ($relative in 'docs/drs/widget.md', 'docs/explanation/gadget.md') {
@@ -109,7 +111,8 @@ function Register-ListenFixtureMocks {
             [void] [System.IO.Directory]::CreateDirectory([System.IO.Path]::GetDirectoryName($target))
             [System.IO.File]::Copy((Join-Path $root $relative), $target)
         }
-        [System.IO.File]::WriteAllText((Join-Path $Destination 'Get-Widget.ps1'), "# Follows ADR-WIDGET-PARTS-SINGLE.`n")
+        [System.IO.File]::WriteAllText((Join-Path $Destination 'Get-Widget.ps1'),
+            "# Follows ADR-WIDGET-PARTS-SINGLE.`n")
         [System.IO.File]::WriteAllBytes((Join-Path $Destination 'widget.bin'), [byte[]] @(65, 0, 66))
         [void] [System.IO.Directory]::CreateDirectory((Join-Path $Destination '.git'))
         [System.IO.File]::WriteAllText((Join-Path $Destination '.git/HEAD'), "ADR-WIDGET-PARTS-SINGLE`n")

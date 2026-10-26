@@ -39,6 +39,7 @@ Describe 'Get-GlossaryRuleStatements' -Tag 'L0', 'logic' {
     }
 
     It 'drops inline code spans, which are mentions rather than definitions' -Tag 'ADR-REPO-VOCAB-AVOIDEDPHRASINGREPLACED' {
-        $script:statements['ADR-TST-WIDGET-SUITE'] | Should -Be 'A **widget suite** is every widget file at rest; write it .'
+        $script:statements['ADR-TST-WIDGET-SUITE'] |
+            Should -Be 'A **widget suite** is every widget file at rest; write it .'
     }
 }

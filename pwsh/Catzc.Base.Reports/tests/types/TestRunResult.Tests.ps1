@@ -2,7 +2,8 @@ Describe 'Catzc.Base.Reports.TestRunResult' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-N
     It 'holds the counts, the rows, the shards and the run directory, and counts the rows as the total' {
         $rows = @([pscustomobject]@{ Name = 'widget spins'; Result = 'Passed' }, [pscustomobject]@{ Name = 'gadget turns'; Result = 'Failed' })
         $shards = @([pscustomobject]@{ Index = 0 })
-        $result = [Catzc.Base.Reports.TestRunResult]::new('Failed', 1, 1, 0, 0, 1.25, 'out/test-widget/1', [object[]] $rows, [object[]] $shards,
+        $result = [Catzc.Base.Reports.TestRunResult]::new('Failed', 1, 1, 0, 0, 1.25, 'out/test-widget/1',
+            [object[]] $rows, [object[]] $shards,
             [string[]] @('Catzc.Widget'), [object[]] @([pscustomobject]@{ ExpandedPath = 'Widget.reads files' }))
         $result.Result | Should -Be 'Failed'
         $result.TotalCount | Should -Be 2
@@ -35,7 +36,8 @@ Describe 'Catzc.Base.Reports.TestRunResult' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-N
     }
 
     It 'takes Passed or Failed as its result and no negative count' {
-        { [Catzc.Base.Reports.TestRunResult]::new('Spinning', 0, 0, 0, 0, 0.0, '') } | Should -Throw '*Passed or Failed*'
+        { [Catzc.Base.Reports.TestRunResult]::new('Spinning', 0, 0, 0, 0, 0.0, '') } |
+            Should -Throw '*Passed or Failed*'
         { [Catzc.Base.Reports.TestRunResult]::new('Passed', -1, 0, 0, 0, 0.0, '') } | Should -Throw '*never negative*'
     }
 

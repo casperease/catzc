@@ -11,7 +11,8 @@ function ConvertFrom-EditorConfig {
         [System.Collections.Generic.IReadOnlyDictionary[string, string[]]] $Section
     )
 
-    # The editorconfig properties VS Code has a setting for; every other property stays for the tools that read .editorconfig itself.
+    # The editorconfig properties VS Code has a setting for; every other property stays for the tools that read
+    # .editorconfig itself.
     $convert = {
         param([string] $Name, [string] $Value)
         switch ($Name) {

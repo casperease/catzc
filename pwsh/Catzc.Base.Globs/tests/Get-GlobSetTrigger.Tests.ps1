@@ -9,7 +9,8 @@ catzc:
 Describe 'Get-GlobSetTrigger' -Tag 'L0', 'logic' {
     It 'projects a simple single-include set to both dialects' {
         $t = & (Get-Module Catzc.Base.Globs) {
-            $set = [Catzc.Base.Globs.GlobSet]::new('unit', 'd', 'loose-fileset', @('widgets/**'), @(), @(), @(), -1, $null)
+            $set = [Catzc.Base.Globs.GlobSet]::new('unit', 'd', 'loose-fileset', @('widgets/**'), @(), @(), @(), -1,
+                $null)
             Get-GlobSetTrigger -GlobSet $set
         }
         $t.GitHub | Should -Be @('widgets/**')
@@ -19,7 +20,8 @@ Describe 'Get-GlobSetTrigger' -Tag 'L0', 'logic' {
 
     It 'renders excludes as GitHub ! negations and ADO exclude entries, in program order' {
         $t = & (Get-Module Catzc.Base.Globs) {
-            $set = [Catzc.Base.Globs.GlobSet]::new('unit', 'd', 'loose-fileset', @('src/**'), @('src/gen/**'), @(), @(), -1, $null)
+            $set = [Catzc.Base.Globs.GlobSet]::new('unit', 'd', 'loose-fileset', @('src/**'), @('src/gen/**'), @(), @(),
+                -1, $null)
             Get-GlobSetTrigger -GlobSet $set
         }
         $t.GitHub | Should -Be @('src/**', '!src/gen/**')

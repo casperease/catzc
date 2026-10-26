@@ -62,7 +62,8 @@ Describe 'Get-GlossarySourceViolations' -Tag 'L0', 'logic' {
         $second = & $script:source 'Widget' ([ordered]@{ 'widget suite' = (& $script:concept 'widget_bundle') })
         $found = & $script:violations @($first, $second)
         $found.Count | Should -Be 1
-        $found[0] | Should -BeLike "widgets/Catzc.Widget/configs/glossary.yml: term 'widget suite' is already defined by widgets/Catzc.Gadget/configs/glossary.yml*"
+        $found[0] |
+            Should -BeLike "widgets/Catzc.Widget/configs/glossary.yml: term 'widget suite' is already defined by widgets/Catzc.Gadget/configs/glossary.yml*"
     }
 
     It 'accepts a named rule citation and reports an ADR''s code as defined_by, by the registry''s kinds' -Tag 'ADR-REPO-DRSCODE-NAMEDNOTNUMBERED' {
@@ -71,7 +72,8 @@ Describe 'Get-GlossarySourceViolations' -Tag 'L0', 'logic' {
         $adr = & $script:source 'Widget' ([ordered]@{ 'widget suite' = (& $script:concept 'widget_suite' @{ defined_by = 'ADR-COG-GADGET' }) })
         $found = & $script:violations @($adr)
         $found.Count | Should -Be 1 -Because 'two segments name an ADR, not a rule'
-        $found[0] | Should -BeLike "widgets/Catzc.Widget/configs/glossary.yml: concept 'widget suite': defined_by 'ADR-COG-GADGET' is not a rule's code*"
+        $found[0] |
+            Should -BeLike "widgets/Catzc.Widget/configs/glossary.yml: concept 'widget suite': defined_by 'ADR-COG-GADGET' is not a rule's code*"
     }
 
     It 'reports a machine key used by two sources' -Tag 'ADR-REPO-VOCAB-DEFINEDTERM' {
@@ -79,7 +81,8 @@ Describe 'Get-GlossarySourceViolations' -Tag 'L0', 'logic' {
         $second = & $script:source 'Widget' ([ordered]@{ 'widget suite' = (& $script:concept 'widget_suite') })
         $found = & $script:violations @($first, $second)
         $found.Count | Should -Be 1
-        $found[0] | Should -BeLike "widgets/Catzc.Widget/configs/glossary.yml: concept 'widget suite': key 'widget_suite' is already used by 'gadget run' in widgets/Catzc.Gadget/*"
+        $found[0] |
+            Should -BeLike "widgets/Catzc.Widget/configs/glossary.yml: concept 'widget suite': key 'widget_suite' is already used by 'gadget run' in widgets/Catzc.Gadget/*"
     }
 
     It 'reports a domain that drs.yml does not declare' -Tag 'ADR-REPO-VOCAB-DEFINEDTERM' {
@@ -96,7 +99,8 @@ Describe 'Get-GlossarySourceViolations' -Tag 'L0', 'logic' {
             })
         $found = & $script:violations @($gadget, $widget)
         $found.Count | Should -Be 1
-        $found[0] | Should -BeLike "widgets/Catzc.Widget/*: concept 'widget suite': avoided phrase 'gadget run' is the term defined by widgets/Catzc.Gadget/*"
+        $found[0] |
+            Should -BeLike "widgets/Catzc.Widget/*: concept 'widget suite': avoided phrase 'gadget run' is the term defined by widgets/Catzc.Gadget/*"
     }
 
     It 'reports a contrast or relation target that no source defines' -Tag 'ADR-REPO-VOCAB-SOURCESINREPOSITORY' {
@@ -108,8 +112,10 @@ Describe 'Get-GlossarySourceViolations' -Tag 'L0', 'logic' {
             })
         $found = & $script:violations @($widget)
         $found | Should -HaveCount 2
-        $found | Should -Contain "widgets/Catzc.Widget/configs/glossary.yml: concept 'widget suite': contrast target 'gadget run' is not a defined term (ADR-REPO-VOCAB-SOURCESINREPOSITORY)"
-        $found | Should -Contain "widgets/Catzc.Widget/configs/glossary.yml: concept 'widget suite': part_of target 'widget module' is not a defined term (ADR-REPO-VOCAB-SOURCESINREPOSITORY)"
+        $found |
+            Should -Contain "widgets/Catzc.Widget/configs/glossary.yml: concept 'widget suite': contrast target 'gadget run' is not a defined term (ADR-REPO-VOCAB-SOURCESINREPOSITORY)"
+        $found |
+            Should -Contain "widgets/Catzc.Widget/configs/glossary.yml: concept 'widget suite': part_of target 'widget module' is not a defined term (ADR-REPO-VOCAB-SOURCESINREPOSITORY)"
     }
 
     It 'reports a contrast declared on both terms, once, against the second declaration' -Tag 'ADR-REPO-VOCAB-SIMILARTERMSCONTRASTED' {
@@ -121,14 +127,16 @@ Describe 'Get-GlossarySourceViolations' -Tag 'L0', 'logic' {
             })
         $found = & $script:violations @($gadget, $widget)
         $found.Count | Should -Be 1
-        $found[0] | Should -BeLike "widgets/Catzc.Widget/*: concept 'widget suite': contrasts 'gadget run', which 'gadget run' (widgets/Catzc.Gadget/configs/glossary.yml) already declares; declare a contrast once*"
+        $found[0] |
+            Should -BeLike "widgets/Catzc.Widget/*: concept 'widget suite': contrasts 'gadget run', which 'gadget run' (widgets/Catzc.Gadget/configs/glossary.yml) already declares; declare a contrast once*"
     }
 
     It 'reports a source that git does not track' -Tag 'ADR-REPO-VOCAB-SOURCESINREPOSITORY' {
         $widget = & $script:source 'Widget' ([ordered]@{ 'widget suite' = (& $script:concept 'widget_suite') }) $false
         $found = & $script:violations @($widget)
         $found.Count | Should -Be 1
-        $found[0] | Should -BeLike 'widgets/Catzc.Widget/configs/glossary.yml: the glossary source is not tracked by git*'
+        $found[0] |
+            Should -BeLike 'widgets/Catzc.Widget/configs/glossary.yml: the glossary source is not tracked by git*'
     }
 
     It 'reports nothing for no sources' {

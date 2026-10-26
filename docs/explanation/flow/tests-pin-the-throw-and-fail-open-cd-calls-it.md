@@ -84,7 +84,9 @@ layout:
   c-changes-step: { x: 560, y: 540, w: 300, h: 44 }
 ```
 
-![Tests pin the throw and the fail-open, a rule pins detection, and the CD stages call it with no gate](.assets/tests-pin-the-throw-and-fail-open-cd-calls-it.drawio.png)
+![Tests pin the throw and the fail-open, a rule pins detection, and the CD stages call it with no gate][diagram]
+
+[diagram]: .assets/tests-pin-the-throw-and-fail-open-cd-calls-it.drawio.png
 
 ## Walkthrough
 

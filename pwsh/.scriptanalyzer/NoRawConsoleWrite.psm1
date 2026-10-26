@@ -70,7 +70,8 @@ function Measure-NoRawConsoleWrite {
             $writtenThrough = $member -in $consoleWriterMembers -and
             $parent -is [System.Management.Automation.Language.InvokeMemberExpressionAst] -and
             $parent.Expression -eq $node -and $parent.Member.Extent.Text -in $writerMethods
-            if (($member -in $consoleWriteMembers -and $parent -isnot [System.Management.Automation.Language.AssignmentStatementAst]) -or $writtenThrough) {
+            if (($member -in $consoleWriteMembers -and
+                $parent -isnot [System.Management.Automation.Language.AssignmentStatementAst]) -or $writtenThrough) {
                 $finding = "[Console]::$member writes to the console past the information stream."
             }
         }
@@ -78,7 +79,8 @@ function Measure-NoRawConsoleWrite {
             $receiver = $node.Expression.Extent.Text
             $member = $node.Member.Extent.Text
             if (($receiver -match '^\$Host\.UI$' -and $member -like 'Write*') -or
-                ($receiver -match '^\$Host\.UI\.RawUI$' -and ($member -like 'Set*' -or $member -like 'Flush*' -or $member -like 'Scroll*'))) {
+                ($receiver -match '^\$Host\.UI\.RawUI$' -and ($member -like 'Set*' -or $member -like 'Flush*' -or
+                $member -like 'Scroll*'))) {
                 $finding = "$receiver.$member() writes to the console past the information stream."
             }
         }

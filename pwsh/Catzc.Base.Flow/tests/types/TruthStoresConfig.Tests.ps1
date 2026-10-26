@@ -8,7 +8,8 @@ Describe 'TruthStoresConfig' -Tag 'L0', 'logic' {
     }
 
     It 'holds the three kinds of truth store and no other' {
-        @([Catzc.Base.Flow.TruthStoresConfig]::Kinds) | Should -Be @('version-controlled-repository', 'fact-source', 'state-machine')
+        @([Catzc.Base.Flow.TruthStoresConfig]::Kinds) | Should -Be @('version-controlled-repository', 'fact-source',
+            'state-machine')
     }
 
     It 'reads a configured map in declared order, with a repository''s projections' {

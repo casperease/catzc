@@ -20,7 +20,8 @@ Describe 'Remove-TokenFromHistory' -Tag 'L1', 'logic' {
     }
 
     It 'honours a custom -ReplaceWith placeholder' {
-        (Remove-TokenFromHistory -Token 'secret' -ReplaceWith 'GONE' -RepositoryPath 'TestDrive:/' -DryRun).Expression | Should -Be 'secret==>GONE'
+        (Remove-TokenFromHistory -Token 'secret' -ReplaceWith 'GONE' -RepositoryPath 'TestDrive:/' -DryRun).Expression |
+            Should -Be 'secret==>GONE'
     }
 
     It 'launches nothing during -DryRun' {

@@ -33,7 +33,8 @@ function Test-LinkDirections {
             $edge.Target
         })
     $endpoints = Get-LinkEndpoint -Path $paths
-    $findings = [Catzc.Base.QualityGates.LinkDirectionEngine]::Judge([Catzc.Base.QualityGates.LinkEdge[]] $edges, $endpoints, (Get-Config -Config link-directions))
+    $findings = [Catzc.Base.QualityGates.LinkDirectionEngine]::Judge([Catzc.Base.QualityGates.LinkEdge[]] $edges,
+        $endpoints, (Get-Config -Config link-directions))
     $issues = [string[]] @(foreach ($finding in $findings) {
             "$finding"
         })

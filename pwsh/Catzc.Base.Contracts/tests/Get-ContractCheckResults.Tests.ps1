@@ -80,17 +80,20 @@ Describe 'Get-ContractCheckResults' -Tag 'L0', 'logic' {
             Add-File 'docs/Gadget.md' '# Gadget'
             $result = Get-CheckResult 'docs/gadget.md'
             $result.Passed | Should -BeFalse
-            $result.Findings | Should -Be @("the target 'docs/gadget.md' is missing in that case: 'docs' holds 'Gadget.md', not 'gadget.md'; a contract names its target with the exact case of its path.")
+            $result.Findings |
+                Should -Be @("the target 'docs/gadget.md' is missing in that case: 'docs' holds 'Gadget.md', not 'gadget.md'; a contract names its target with the exact case of its path.")
         }
 
         It 'fails when a folder of the path exists only in another case' {
             Add-File 'Docs/gadget.md' '# Gadget'
-            (Get-CheckResult 'docs/gadget.md').Findings | Should -BeLike "*the repository root holds 'Docs', not 'docs'*"
+            (Get-CheckResult 'docs/gadget.md').Findings |
+                Should -BeLike "*the repository root holds 'Docs', not 'docs'*"
         }
 
         It 'fails when the target is a folder' {
             Add-File 'docs/gadget.md/widget.md' '# Widget'
-            (Get-CheckResult 'docs/gadget.md').Findings | Should -Be @("the target 'docs/gadget.md' is a folder, not a file.")
+            (Get-CheckResult 'docs/gadget.md').Findings |
+                Should -Be @("the target 'docs/gadget.md' is a folder, not a file.")
         }
     }
 
@@ -136,7 +139,8 @@ jobs:
             (Get-CheckResult 'gadget.json').Passed | Should -BeTrue
 
             Add-File 'gadget.json' '{"widgets":[{"name":"sprocket"}]}'
-            (Get-CheckResult 'gadget.json').Findings | Should -Be @("`$.widgets: fragment element [0] ({name: 'cog'}) is matched by no element of the target array")
+            (Get-CheckResult 'gadget.json').Findings |
+                Should -Be @("`$.widgets: fragment element [0] ({name: 'cog'}) is matched by no element of the target array")
         }
 
         It 'reports a target that does not parse' {
@@ -154,12 +158,14 @@ jobs:
         It 'fails a text fragment out of order' {
             Add-Asset 'README.md' "# Widget`nGadget`n"
             Add-File 'README.md' "Gadget`n# Widget`n"
-            (Get-CheckResult 'README.md').Findings | Should -Be @("fragment line 2 'Gadget' is out of order: the target has it only at or before line 2, where fragment line 1 matched")
+            (Get-CheckResult 'README.md').Findings |
+                Should -Be @("fragment line 2 'Gadget' is out of order: the target has it only at or before line 2, where fragment line 1 matched")
         }
 
         It 'reports only presence when the target is missing' {
             Add-Asset 'README.md' "# Widget`n"
-            (Get-CheckResult 'README.md').Findings | Should -Be @("the target 'README.md' does not exist: the repository root holds no 'README.md'.")
+            (Get-CheckResult 'README.md').Findings |
+                Should -Be @("the target 'README.md' does not exist: the repository root holds no 'README.md'.")
         }
     }
 
@@ -180,7 +186,8 @@ widget: cog
 
         It 'fails a YAML target that does not validate' {
             Add-File 'gadget.yml' "widget: gear`n"
-            (Get-CheckResult 'gadget.yml.schema.json').Findings | Should -Be @("`$.widget: 'gear' is not one of the enum values 'cog', 'sprocket'")
+            (Get-CheckResult 'gadget.yml.schema.json').Findings |
+                Should -Be @("`$.widget: 'gear' is not one of the enum values 'cog', 'sprocket'")
         }
 
         It 'still validates a real target against a schema with annotations' {
@@ -194,17 +201,20 @@ widget: cog
         It 'fails on a keyword outside the subset' {
             Add-Asset 'gadget.yml.schema.json' '{"type":"object","minProperties":1}'
             Add-File 'gadget.yml' "widget: cog`n"
-            (Get-CheckResult 'gadget.yml.schema.json').Findings | Should -Be @('schema #: unsupported keyword minProperties')
+            (Get-CheckResult 'gadget.yml.schema.json').Findings |
+                Should -Be @('schema #: unsupported keyword minProperties')
         }
 
         It 'reports only presence when the target is missing' {
-            (Get-CheckResult 'gadget.yml.schema.json').Findings | Should -Be @("the target 'gadget.yml' does not exist: the repository root holds no 'gadget.yml'.")
+            (Get-CheckResult 'gadget.yml.schema.json').Findings |
+                Should -Be @("the target 'gadget.yml' does not exist: the repository root holds no 'gadget.yml'.")
         }
 
         It 'reports a target that is neither JSON nor YAML' {
             Add-Asset 'gadget.md.schema.json' '{"type":"object"}'
             Add-File 'gadget.md' '# Gadget'
-            (Get-CheckResult 'gadget.md.schema.json').Findings | Should -Be @("'gadget.md' is neither JSON nor YAML (.json, .yml, .yaml), so it cannot be parsed.")
+            (Get-CheckResult 'gadget.md.schema.json').Findings |
+                Should -Be @("'gadget.md' is neither JSON nor YAML (.json, .yml, .yaml), so it cannot be parsed.")
         }
     }
 
@@ -218,7 +228,8 @@ widget: cog
 
         It 'fails a sample with no schema beside it when it does not parse' {
             Add-Asset 'rest/gadget.sample.yml' "widget: [1`n"
-            (Get-CheckResult 'gadget.sample.yml').Findings | Should -BeLike "'contracts/catzc/0.1.0/rest/gadget.sample.yml' does not parse as Yaml:*"
+            (Get-CheckResult 'gadget.sample.yml').Findings |
+                Should -BeLike "'contracts/catzc/0.1.0/rest/gadget.sample.yml' does not parse as Yaml:*"
         }
 
         It 'fails a sample that is neither JSON nor YAML' {
@@ -266,7 +277,8 @@ widget: cog
         It 'fails a schema beside a sample on the schema''s result when it does not parse' {
             Add-Asset 'rest/gadget.schema.json' '{"type":'
             Add-Asset 'rest/gadget.sample.json' '{"gadget":1}'
-            (Get-CheckResult 'gadget.schema.json').Findings | Should -BeLike "'contracts/catzc/0.1.0/rest/gadget.schema.json' does not parse as Json:*"
+            (Get-CheckResult 'gadget.schema.json').Findings |
+                Should -BeLike "'contracts/catzc/0.1.0/rest/gadget.schema.json' does not parse as Json:*"
         }
     }
 
@@ -285,7 +297,8 @@ widget: cog
 
         It 'checks the assets given by -Asset' {
             $assets = @(Get-Contract -RepositoryRoot $script:root -Path 'docs/widget.md')
-            @(Get-ContractCheckResults -Asset $assets -RepositoryRoot $script:root).Asset.Path | Should -Be @('widget.md')
+            @(Get-ContractCheckResults -Asset $assets -RepositoryRoot $script:root).Asset.Path |
+                Should -Be @('widget.md')
         }
 
         It 'checks nothing for an empty pipeline' {
@@ -297,7 +310,8 @@ widget: cog
         }
 
         It 'throws on a repository root that does not exist' {
-            { Get-ContractCheckResults -RepositoryRoot (Join-Path $script:root 'gadget') } | Should -Throw '*does not exist*'
+            { Get-ContractCheckResults -RepositoryRoot (Join-Path $script:root 'gadget') } |
+                Should -Throw '*does not exist*'
         }
     }
 
@@ -341,7 +355,8 @@ widget: cog
             Add-Asset 'get_widget.command.yml' "parameters:`n  Path: string`n"
             $result = Get-CheckResult 'get_widget.command.yml'
             $result.Findings.Count | Should -Be 1
-            $result.Findings[0] | Should -BeLike "'contracts/catzc/0.1.0/catzc.widget/get_widget.command.yml': 'Path' is not in the repository normal form, snake (*)"
+            $result.Findings[0] |
+                Should -BeLike "'contracts/catzc/0.1.0/catzc.widget/get_widget.command.yml': 'Path' is not in the repository normal form, snake (*)"
         }
 
         It 'fails when the command file is missing, and says so when the name is a private function' {
@@ -349,7 +364,8 @@ widget: cog
             $result = Get-CheckResult 'get_widget.command.yml'
             $result.Passed | Should -BeFalse
             $result.Findings.Count | Should -Be 1
-            $result.Findings[0] | Should -BeLike "the target 'widgets/Catzc.Widget/Get-Widget.ps1' does not exist*'widgets/Catzc.Widget/private/Get-Widget.ps1' exists, so 'Get-Widget' is a private function, not a command*"
+            $result.Findings[0] |
+                Should -BeLike "the target 'widgets/Catzc.Widget/Get-Widget.ps1' does not exist*'widgets/Catzc.Widget/private/Get-Widget.ps1' exists, so 'Get-Widget' is a private function, not a command*"
         }
 
         It 'fails when the contract is not written in the contract language' {
@@ -357,7 +373,8 @@ widget: cog
             Add-Asset 'get_widget.command.yml' "parameters:`n  path: text`n"
             $result = Get-CheckResult 'get_widget.command.yml'
             $result.Findings.Count | Should -Be 1
-            $result.Findings[0] | Should -BeLike "'contracts/catzc/0.1.0/catzc.widget/get_widget.command.yml': command contract validation failed*type 'text' is not one of*"
+            $result.Findings[0] |
+                Should -BeLike "'contracts/catzc/0.1.0/catzc.widget/get_widget.command.yml': command contract validation failed*type 'text' is not one of*"
         }
     }
 }

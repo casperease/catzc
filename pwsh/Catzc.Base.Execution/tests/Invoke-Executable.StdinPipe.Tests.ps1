@@ -27,7 +27,8 @@ BeforeAll {
         $child = [System.Diagnostics.Process]::Start($startInfo)
         [pscustomobject]@{ Process = $child; Output = $child.StandardOutput.ReadToEndAsync(); Errors = $child.StandardError.ReadToEndAsync() }
     }
-    # Only a run that blocks every launch ('1') keeps the child from starting; 'tier' arms the L0 and L1 Describes alone.
+    # Only a run that blocks every launch ('1') keeps the child from starting; 'tier' arms the L0 and L1 Describes
+    # alone.
     $script:inputPipeChild = if ($env:CATZC_BLOCK_REAL_PROCESS -ne '1') {
         Start-InputPipeChild
     }
@@ -60,7 +61,8 @@ Describe 'Invoke-Executable from a caller whose stdin is not a terminal' -Tag 'L
         $errorTask = $started.Errors
         try {
             $exited = $child.WaitForExit(120000)
-            $exited | Should -BeTrue -Because "the child should not wait on its open stdin pipe. stderr: $(if ($errorTask.IsCompleted) { $errorTask.Result })"
+            $exited |
+                Should -BeTrue -Because "the child should not wait on its open stdin pipe. stderr: $(if ($errorTask.IsCompleted) { $errorTask.Result })"
             $child.ExitCode | Should -Be 0 -Because "stdout: $($outputTask.Result) stderr: $($errorTask.Result)"
         }
         finally {

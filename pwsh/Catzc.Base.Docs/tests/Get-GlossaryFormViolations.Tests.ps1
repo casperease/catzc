@@ -23,7 +23,8 @@ Describe 'Get-GlossaryFormViolations' -Tag 'L0', 'logic' {
                 [Catzc.Base.Docs.GlossaryOptions]::new($options))
         }
         $script:scan = {
-            param([System.Collections.IDictionary] $files, [System.Collections.IDictionary] $options = @{}, [bool] $verbs = $false)
+            param([System.Collections.IDictionary] $files,
+                [System.Collections.IDictionary] $options = @{}, [bool] $verbs = $false)
             foreach ($relative in $files.Keys) {
                 $full = Join-Path $TestDrive $relative
                 [System.IO.Directory]::CreateDirectory((Split-Path $full -Parent)) | Out-Null
@@ -54,12 +55,14 @@ Describe 'Get-GlossaryFormViolations' -Tag 'L0', 'logic' {
     }
 
     It 'reads no link label that is a bare repository path as prose' -Tag 'ADR-REPO-VOCAB-FAMILYFORMS' {
-        $text = @('# Alpha', '', '- [docs/plan-sprocket-widget.md][3]: selected by the rule.', '', '[3]: ../docs/plan-sprocket-widget.md')
+        $text = @('# Alpha', '', '- [docs/plan-sprocket-widget.md][3]: selected by the rule.', '',
+            '[3]: ../docs/plan-sprocket-widget.md')
         & $script:scan @{ 'docs/alpha.md' = $text } | Should -BeNullOrEmpty
     }
 
     It 'reports a hyphenated or line-wrapped qualifier, and the verb forms' -Tag 'ADR-REPO-VOCAB-FAMILYFORMS' {
-        $found = & $script:scan @{ 'docs/alpha.md' = @('A pre-sprocket widget, a sprocket-widget, a sprocket', 'widget; it is widgeted, double-widgeting.') }
+        $found = & $script:scan @{ 'docs/alpha.md' = @('A pre-sprocket widget, a sprocket-widget, a sprocket',
+            'widget; it is widgeted, double-widgeting.') }
         $found | Should -HaveCount 4
         $found | Should -Contain "docs/alpha.md:1 says `"sprocket widget`" — $script:tail"
         $found | Should -Contain "docs/alpha.md:1 says `"sprocket-widget`" — $script:tail"
@@ -68,22 +71,26 @@ Describe 'Get-GlossaryFormViolations' -Tag 'L0', 'logic' {
     }
 
     It 'allows the verb forms of a concept that sets verbs' -Tag 'ADR-REPO-VOCAB-FAMILYFORMS' {
-        & $script:scan @{ 'docs/alpha.md' = @('It is widgeted, then widgeting again.') } @{} $true | Should -BeNullOrEmpty
+        & $script:scan @{ 'docs/alpha.md' = @('It is widgeted, then widgeting again.') } @{} $true |
+            Should -BeNullOrEmpty
     }
 
     It 'reads no link or image destination as prose' -Tag 'ADR-REPO-VOCAB-FAMILYFORMS' {
-        $text = @('# Alpha', '', 'See [the article](../pick-widget.md) and ![a gadget widget](../pick-widget.drawio.png).')
+        $text = @('# Alpha', '',
+            'See [the article](../pick-widget.md) and ![a gadget widget](../pick-widget.drawio.png).')
         & $script:scan @{ 'docs/alpha.md' = $text } | Should -BeNullOrEmpty
     }
 
     It 'reads no meta block in the front matter as prose, and still reads the rest of the front matter' -Tag 'ADR-REPO-VOCAB-FAMILYFORMS', 'ADR-REPO-FILEMETA-HEADPOLICY' {
-        $text = @('---', 'catzc:', '  immutable:', '    path: docs/explanation/pick-sprocket-widget.md', '    kind: explanation', 'note: a sprocket widget', '---', '', '# Alpha')
+        $text = @('---', 'catzc:', '  immutable:', '    path: docs/explanation/pick-sprocket-widget.md',
+            '    kind: explanation', 'note: a sprocket widget', '---', '', '# Alpha')
         $found = & $script:scan @{ 'docs/alpha.md' = $text }
         $found | Should -Be @("docs/alpha.md:6 says `"sprocket widget`" — $script:tail")
     }
 
     It 'reads no immutable block of a code head as prose, and still reads the rest of the head' -Tag 'ADR-REPO-VOCAB-FAMILYFORMS', 'ADR-REPO-FILEMETA-HEADPOLICY' {
-        $text = @('<#', '---', 'catzc:', '  immutable:', '    path: widgets/Catzc.Widget/Get-Widget.ps1', '    name: get-sprocket-widget', '    kind: function',
+        $text = @('<#', '---', 'catzc:', '  immutable:', '    path: widgets/Catzc.Widget/Get-Widget.ps1',
+            '    name: get-sprocket-widget', '    kind: function',
             '  config:', '    synopsis: A sprocket widget.', '---', '#>', 'function Get-Widget { }')
         $found = & $script:scan @{ 'widgets/Catzc.Widget/Get-Widget.ps1' = $text }
         $found | Should -Be @("widgets/Catzc.Widget/Get-Widget.ps1:9 says `"sprocket widget`" — $script:tail")
@@ -94,7 +101,8 @@ Describe 'Get-GlossaryFormViolations' -Tag 'L0', 'logic' {
     }
 
     It 'reads PowerShell comments through the parser' -Tag 'ADR-REPO-VOCAB-FAMILYFORMS' {
-        $found = & $script:scan @{ 'widgets/Catzc.Widget/Get-Widget.ps1' = @('# the sprocket widget', 'function Get-Widget { }') }
+        $found = & $script:scan @{ 'widgets/Catzc.Widget/Get-Widget.ps1' = @('# the sprocket widget',
+            'function Get-Widget { }') }
         $found | Should -Be @("widgets/Catzc.Widget/Get-Widget.ps1:1 says `"sprocket widget`" — $script:tail")
     }
 
@@ -110,9 +118,11 @@ Describe 'Get-GlossaryFormViolations' -Tag 'L0', 'logic' {
                 short       = 'A sprocket widget.'
                 realized_by = [ordered]@{ kind = 'prose-only' }
             })
-        $defined = [Catzc.Base.Docs.GlossaryEntry]::new($sprocketWidget, 'Catzc.Gadget', 'widgets/Catzc.Gadget/configs/glossary.yml',
+        $defined = [Catzc.Base.Docs.GlossaryEntry]::new($sprocketWidget, 'Catzc.Gadget',
+            'widgets/Catzc.Gadget/configs/glossary.yml',
             [Catzc.Base.Docs.GlossaryOptions]::new(@{}))
-        $parameters = @{ Entries = @((& $script:entry), $defined); Files = [string[]] @($relative); Root = [string] $TestDrive }
+        $parameters = @{ Entries = @((& $script:entry),
+            $defined); Files = [string[]] @($relative); Root = [string] $TestDrive }
         $found = @(InModuleScope Catzc.Base.Docs -Parameters $parameters {
                 Get-GlossaryFormViolations -Entry $Entries -TrackedFile $Files -Root $Root
             })
@@ -120,7 +130,8 @@ Describe 'Get-GlossaryFormViolations' -Tag 'L0', 'logic' {
     }
 
     It 'skips a source that opts out of the forms check' -Tag 'ADR-REPO-VOCAB-GLOSSARYSOURCE' {
-        & $script:scan @{ 'docs/alpha.md' = @('The sprocket widget runs.') } @{ checks = @('anchored', 'single', 'avoid', 'enforced') } |
+        & $script:scan @{ 'docs/alpha.md' = @('The sprocket widget runs.') } @{ checks = @('anchored', 'single',
+            'avoid', 'enforced') } |
             Should -BeNullOrEmpty
     }
 
@@ -138,7 +149,9 @@ Describe 'Get-GlossaryFormViolations' -Tag 'L0', 'logic' {
         @(InModuleScope Catzc.Base.Docs -Parameters $parameters $check) | Should -BeNullOrEmpty
         @($parameters.Table.Keys) | Should -Be @($relative)
 
-        $parameters.Table[$relative] = @([Catzc.Base.Docs.GlossarySegment]::new('markdown', 1, 'The sprocket widget runs.'))
-        @(InModuleScope Catzc.Base.Docs -Parameters $parameters $check) | Should -Be @("docs/alpha.md:1 says `"sprocket widget`" — $script:tail")
+        $parameters.Table[$relative] = @([Catzc.Base.Docs.GlossarySegment]::new('markdown', 1,
+            'The sprocket widget runs.'))
+        @(InModuleScope Catzc.Base.Docs -Parameters $parameters $check) |
+            Should -Be @("docs/alpha.md:1 says `"sprocket widget`" — $script:tail")
     }
 }

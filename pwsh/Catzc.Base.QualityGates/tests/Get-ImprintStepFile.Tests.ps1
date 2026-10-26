@@ -46,7 +46,8 @@ Describe 'Get-ImprintStepFile' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT-CONFIGUREDFO
             param($Root)
             Get-ImprintStepFile -Step ps-help -RepositoryRoot $Root
         }
-        $found | Should -Be @((Join-Path $script:root 'widget-modules/Widget/Get-Gadget.ps1'), (Join-Path $script:root 'widget-modules/Widget/private/Get-Cog.ps1'))
+        $found | Should -Be @((Join-Path $script:root 'widget-modules/Widget/Get-Gadget.ps1'),
+            (Join-Path $script:root 'widget-modules/Widget/private/Get-Cog.ps1'))
     }
 
     It 'returns the absolute paths of the files the comment scope covers for the comments step' {
@@ -77,7 +78,8 @@ Describe 'Get-ImprintStepFile' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT-CONFIGUREDFO
 
         It 'returns the overlays of the plans folder that exist, with no -Path or one inside the folder' -Tag 'ADR-REPO-PLANS-THREEPARTS' {
             & $script:scope | Should -Be @((Join-Path $script:root 'plans/plan-master.md'))
-            & $script:scope @((Join-Path $script:root 'plans/plan-widget.md')) | Should -Be @((Join-Path $script:root 'plans/plan-master.md'))
+            & $script:scope @((Join-Path $script:root 'plans/plan-widget.md')) |
+                Should -Be @((Join-Path $script:root 'plans/plan-master.md'))
             & $script:scope @($script:root) | Should -Be @((Join-Path $script:root 'plans/plan-master.md'))
         }
 

@@ -56,7 +56,8 @@ function Test-FolderConventions {
         }
 
         $privateDirectory = Join-Path $moduleDirectory $privateFolderName
-        foreach ($path in [Catzc.Base.Folders.PathSet]::new($walk).AddPattern($privateDirectory, '*.Tests.ps1', 1).ToArray()) {
+        foreach ($path in [Catzc.Base.Folders.PathSet]::new($walk).AddPattern($privateDirectory, '*.Tests.ps1',
+            1).ToArray()) {
             $issues.Add("$module/$privateFolderName/$([System.IO.Path]::GetFileName($path)): a test file in $privateFolderName/ — tests belong in $testFolderName/")
         }
 

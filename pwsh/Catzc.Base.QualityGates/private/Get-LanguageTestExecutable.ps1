@@ -12,7 +12,8 @@ function Get-LanguageTestExecutable {
     param()
 
     $languages = @(Get-LanguageTestFolders | ForEach-Object Language | Select-Object -Unique)
-    # The languages whose tests need tools come from the registry; a language that is an engine resolves with the engines below.
+    # The languages whose tests need tools come from the registry; a language that is an engine resolves with the
+    # engines below.
     $toolLanguages = @((Get-Config -Config languages).languages | Where-Object { $_.tests -and -not $_.tests.engine })
     $executables = @{}
     foreach ($language in $toolLanguages) {
@@ -37,7 +38,8 @@ function Get-LanguageTestExecutable {
         if ($language.name -notin $languages) {
             continue
         }
-        # Every tool the entry names must resolve at its locked version; the first one's path is the one the runner takes.
+        # Every tool the entry names must resolve at its locked version; the first one's path is the one the runner
+        # takes.
         $resolved = @(foreach ($tool in $language.tests.tools) {
                 Resolve-ToolExecutable -Tool $tool
             })

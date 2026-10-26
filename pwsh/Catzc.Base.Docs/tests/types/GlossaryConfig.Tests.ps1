@@ -40,7 +40,8 @@ Describe 'GlossaryConfig' -Tag 'L0', 'logic' {
         $c.options.checks | Should -Be @('anchored', 'single', 'avoid', 'enforced', 'forms')
         $c.options.surfaces | Should -Be @('markdown', 'comments', 'help', 'messages')
         $c.options.scope | Should -Be @('**')
-        $c.options.exclude | Should -Be @('docs/drs/research/**', 'docs/references/dora/**', 'out/**', '.unordered/**', '**/.vendor/**', '.claude/plans/**', '.claude/hindsight/**', '.claude/learnings/**')
+        $c.options.exclude | Should -Be @('docs/drs/research/**', 'docs/references/dora/**', 'out/**', '.unordered/**',
+            '**/.vendor/**', '.claude/plans/**', '.claude/hindsight/**', '.claude/learnings/**')
     }
 
     It 'keeps concepts in source order' {
@@ -52,13 +53,15 @@ Describe 'GlossaryConfig' -Tag 'L0', 'logic' {
 
     It 'overrides only the options a source sets, and always keeps the default excludes first' -Tag 'ADR-REPO-VOCAB-GLOSSARYSOURCE' {
         $c = & $script:make ([ordered]@{
-                options  = [ordered]@{ checks = @('avoid'); scope = @('docs/**'); exclude = @('docs/widget/**', 'out/**') }
+                options  = [ordered]@{ checks = @('avoid'); scope = @('docs/**'); exclude = @('docs/widget/**',
+                    'out/**') }
                 concepts = [ordered]@{ 'widget suite' = (& $script:concept) }
             })
         $c.options.checks | Should -Be @('avoid')
         $c.options.scope | Should -Be @('docs/**')
         $c.options.surfaces | Should -Be @('markdown', 'comments', 'help', 'messages')
-        $c.options.exclude | Should -Be @('docs/drs/research/**', 'docs/references/dora/**', 'out/**', '.unordered/**', '**/.vendor/**', '.claude/plans/**', '.claude/hindsight/**', '.claude/learnings/**', 'docs/widget/**')
+        $c.options.exclude | Should -Be @('docs/drs/research/**', 'docs/references/dora/**', 'out/**', '.unordered/**',
+            '**/.vendor/**', '.claude/plans/**', '.claude/hindsight/**', '.claude/learnings/**', 'docs/widget/**')
     }
 
     It 'accepts an explicit empty checks list (opted in, structural check only)' -Tag 'ADR-REPO-VOCAB-GLOSSARYSOURCE' {
@@ -68,9 +71,12 @@ Describe 'GlossaryConfig' -Tag 'L0', 'logic' {
 
     It 'rejects an unknown option key, check, or surface' -Tag 'ADR-REPO-VOCAB-GLOSSARYSOURCE' {
         $body = [ordered]@{ 'widget suite' = (& $script:concept) }
-        { & $script:make ([ordered]@{ options = @{ colour = 'blue' }; concepts = $body }) } | Should -Throw "*unknown key 'colour'*"
-        { & $script:make ([ordered]@{ options = @{ checks = @('widget') }; concepts = $body }) } | Should -Throw "*options.checks: 'widget' is not one of*"
-        { & $script:make ([ordered]@{ options = @{ surfaces = @('gadget') }; concepts = $body }) } | Should -Throw "*options.surfaces: 'gadget' is not one of*"
+        { & $script:make ([ordered]@{ options = @{ colour = 'blue' }; concepts = $body }) } |
+            Should -Throw "*unknown key 'colour'*"
+        { & $script:make ([ordered]@{ options = @{ checks = @('widget') }; concepts = $body }) } |
+            Should -Throw "*options.checks: 'widget' is not one of*"
+        { & $script:make ([ordered]@{ options = @{ surfaces = @('gadget') }; concepts = $body }) } |
+            Should -Throw "*options.surfaces: 'gadget' is not one of*"
     }
 
     It 'rejects a scope or exclude glob that is not repo-relative' -Tag 'ADR-REPO-VOCAB-SOURCESINREPOSITORY' {
@@ -102,7 +108,8 @@ Describe 'GlossaryConfig' -Tag 'L0', 'logic' {
         $thrown = { & $script:single ([ordered]@{}) } | Should -Throw -PassThru
         $message = $thrown.Exception.Message
         foreach ($field in 'key', 'domain', 'defined_by', 'short', 'realized_by') {
-            $message | Should -BeLike "*$field is required*" -Because "the missing '$field' must be reported in the same throw"
+            $message |
+                Should -BeLike "*$field is required*" -Because "the missing '$field' must be reported in the same throw"
         }
     }
 
@@ -121,7 +128,8 @@ Describe 'GlossaryConfig' -Tag 'L0', 'logic' {
         foreach ($citation in 'ADR-COG-GADGET:30', 'ADR-COG-GADGET#0', 'ADR-COG-#3', 'adr-cog-gadget#3') {
             $body = & $script:concept
             $body.defined_by = $citation
-            { & $script:single $body } | Should -Throw "*must be a rule's code*" -Because "'$citation' is not a named rule code"
+            { & $script:single $body } |
+                Should -Throw "*must be a rule's code*" -Because "'$citation' is not a named rule code"
         }
     }
 
@@ -136,7 +144,8 @@ Describe 'GlossaryConfig' -Tag 'L0', 'logic' {
         $body.defined_by = 'ADR-COG-GADGET-SPINS'
         (& $script:single $body).concepts[0].defined_by | Should -Be 'ADR-COG-GADGET-SPINS'
         $body.defined_by = 'ADR-COG'
-        { & $script:single $body } | Should -Throw "*must be a rule's code*" -Because 'the type checks the shape only; the registry''s segment count is Get-GlossarySourceViolations'' check'
+        { & $script:single $body } |
+            Should -Throw "*must be a rule's code*" -Because 'the type checks the shape only; the registry''s segment count is Get-GlossarySourceViolations'' check'
     }
 
     It 'keeps declared forms in order, empty when none, and rejects a non-word or a repeated form' -Tag 'ADR-REPO-VOCAB-FAMILYFORMS' {

@@ -32,7 +32,8 @@ Describe 'Measure-NoUnsafeFirstIndex' -Tag 'L0', 'logic', 'ADR-PWSH-ERROR-STRICT
     }
 
     It 'flags a nested occurrence once' {
-        @(Test-FirstIndex 'function Get-Gadget { foreach ($item in $items) { @($item.Keys)[0] } }') | Should -HaveCount 1
+        @(Test-FirstIndex 'function Get-Gadget { foreach ($item in $items) { @($item.Keys)[0] } }') |
+            Should -HaveCount 1
     }
 
     It 'accepts an index whose length the code owns: <Code>' -ForEach @(

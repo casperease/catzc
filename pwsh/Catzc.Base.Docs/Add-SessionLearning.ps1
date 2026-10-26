@@ -16,7 +16,8 @@ function Add-SessionLearning {
         [ValidateSet('learnings', 'hindsight')]
         [string] $Log = 'learnings',
 
-        [ValidatePattern('^[A-Z][a-z]+( [A-Za-z]+){0,3}$', Options = 'None', ErrorMessage = "Author '{0}' must be a capitalised person name of at most four words, the robot's persona in agents.yml.")]
+        [ValidatePattern('^[A-Z][a-z]+( [A-Za-z]+){0,3}$', Options = 'None',
+            ErrorMessage = "Author '{0}' must be a capitalised person name of at most four words, the robot's persona in agents.yml.")]
         [string] $Author,
 
         [DateTime] $Date = [DateTime]::Today
@@ -46,9 +47,11 @@ function Add-SessionLearning {
     $written = [System.Collections.Generic.List[string]]::new()
     $started = 'Started '
     foreach ($text in $sentences) {
-        # A file's start time is its 'Started <time>.' line, not its name or its file time, so the order survives a clone.
+        # A file's start time is its 'Started <time>.' line, not its name or its file time, so the order survives a
+        # clone.
         $dated = @(foreach ($file in $config.FilesIn($folder)) {
-                $line = @([System.IO.File]::ReadAllLines($file) | Where-Object { $_.StartsWith($started, [StringComparison]::Ordinal) } | Select-Object -First 1)
+                $line = @([System.IO.File]::ReadAllLines($file) | Where-Object { $_.StartsWith($started,
+                    [StringComparison]::Ordinal) } | Select-Object -First 1)
                 Assert-True ($line.Count -eq 1) -ErrorText "Add-SessionLearning: '$file' has no '$started<time>.' line."
                 [pscustomobject]@{ Path = $file; Since = [DateTimeOffset]::Parse($line[0].Substring($started.Length).TrimEnd('.'), [cultureinfo]::InvariantCulture) }
             })
@@ -59,7 +62,8 @@ function Add-SessionLearning {
         else {
             $null
         }
-        if (-not $current -or @([System.IO.File]::ReadAllLines($current) | Where-Object { $_.StartsWith('- ') }).Count -ge $config.lines_per_file) {
+        if (-not $current -or
+            @([System.IO.File]::ReadAllLines($current) | Where-Object { $_.StartsWith('- ') }).Count -ge $config.lines_per_file) {
             $since = [DateTimeOffset]::Now.ToString('o', [cultureinfo]::InvariantCulture)
             $digest = [System.Security.Cryptography.SHA256]::HashData([System.Text.Encoding]::UTF8.GetBytes("$($config.folder)|$since"))
             $sha = [Convert]::ToHexString($digest).Substring(0, 6).ToLowerInvariant()

@@ -2,7 +2,8 @@ Describe 'Invoke-CatzcCommand' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:entry = Join-Path $PSScriptRoot '../assets/Invoke-CatzcCommand.ps1'
         $script:importer = Join-Path $TestDrive 'importer.ps1'
-        [System.IO.File]::WriteAllText($script:importer, "function Get-Widget { 'widget' }`nfunction Test-Gadget { param([string] `$Result) [pscustomobject]@{ Result = `$Result } }`nfunction Test-Doohickey { param([string[]] `$Issue = @(), [switch] `$PassThru) if (`$PassThru) { [pscustomobject]@{ Subject = 'doohickey'; IssueCount = @(`$Issue).Count; Issues = `$Issue; ReportPath = 'out/doohickey' } } }`nfunction Test-Gizmo { param([string[]] `$Outcome) foreach (`$each in `$Outcome) { [pscustomobject]@{ Name = 'gizmo'; Outcome = `$each } } }`nfunction Invoke-TestFile { [CmdletBinding()] param([string] `$Path, [switch] `$PassThru) if (`$PassThru) { [pscustomobject]@{ Result = 'Failed' } } }`nfunction Write-Message { param([AllowEmptyString()] [string] `$Message, [switch] `$NoHeader) Write-Information `$Message -InformationAction Continue }`n")
+        [System.IO.File]::WriteAllText($script:importer,
+            "function Get-Widget { 'widget' }`nfunction Test-Gadget { param([string] `$Result) [pscustomobject]@{ Result = `$Result } }`nfunction Test-Doohickey { param([string[]] `$Issue = @(), [switch] `$PassThru) if (`$PassThru) { [pscustomobject]@{ Subject = 'doohickey'; IssueCount = @(`$Issue).Count; Issues = `$Issue; ReportPath = 'out/doohickey' } } }`nfunction Test-Gizmo { param([string[]] `$Outcome) foreach (`$each in `$Outcome) { [pscustomobject]@{ Name = 'gizmo'; Outcome = `$each } } }`nfunction Invoke-TestFile { [CmdletBinding()] param([string] `$Path, [switch] `$PassThru) if (`$PassThru) { [pscustomobject]@{ Result = 'Failed' } } }`nfunction Write-Message { param([AllowEmptyString()] [string] `$Message, [switch] `$NoHeader) Write-Information `$Message -InformationAction Continue }`n")
         # An importer that throws, so a run that must not import shows it did not.
         $script:throwingImporter = Join-Path $TestDrive 'throwing-importer.ps1'
         [System.IO.File]::WriteAllText($script:throwingImporter, "throw 'imported'`n")
@@ -98,7 +99,8 @@ Describe 'Invoke-CatzcCommand' -Tag 'L0', 'logic' {
     }
 
     It 'releases the run lock when the import throws' {
-        { & $script:entry 'Get-Widget' -Importer $script:throwingImporter -LockName $script:lockName } | Should -Throw 'imported'
+        { & $script:entry 'Get-Widget' -Importer $script:throwingImporter -LockName $script:lockName } |
+            Should -Throw 'imported'
         # Another thread takes it at once, which it could not while this thread still held it.
         $holder = Start-LockHolder -Name $script:lockName -Milliseconds 1
         try {
@@ -111,11 +113,13 @@ Describe 'Invoke-CatzcCommand' -Tag 'L0', 'logic' {
     }
 
     It 'throws on -InBurst when no burst holds the lock' {
-        { & $script:entry 'Get-Widget' -Importer $script:importer -LockName $script:lockName -InBurst } | Should -Throw '*no burst holds*'
+        { & $script:entry 'Get-Widget' -Importer $script:importer -LockName $script:lockName -InBurst } |
+            Should -Throw '*no burst holds*'
     }
 
     It 'takes no lock with -InBurst while a burst holds it' {
-        $burst = [System.Threading.EventWaitHandle]::new($false, [System.Threading.EventResetMode]::ManualReset, "$script:lockName-burst")
+        $burst = [System.Threading.EventWaitHandle]::new($false, [System.Threading.EventResetMode]::ManualReset,
+            "$script:lockName-burst")
         $holder = Start-LockHolder -Name $script:lockName -Milliseconds 1500
         try {
             $lines = @(& $script:entry 'Get-Widget' -Importer $script:importer -LockName $script:lockName -InBurst)
@@ -129,7 +133,8 @@ Describe 'Invoke-CatzcCommand' -Tag 'L0', 'logic' {
     }
 
     It 'throws when no command is named' {
-        { & $script:entry -Importer $script:importer -LockName $script:lockName } | Should -Throw '*name at least one command*'
+        { & $script:entry -Importer $script:importer -LockName $script:lockName } |
+            Should -Throw '*name at least one command*'
     }
 
     It 'says it waits for a held run lock, then runs once the lock is free' -Tag 'ADR-AUTO-FAILFAST-BOUNDEVERYWAIT' {
@@ -137,7 +142,8 @@ Describe 'Invoke-CatzcCommand' -Tag 'L0', 'logic' {
         try {
             $lines = @(& $script:entry 'Get-Widget' -Importer $script:importer -LockName $script:lockName -LockSeconds 1)
             $LASTEXITCODE | Should -Be 0
-            $lines[0] | Should -BeExactly '[Invoke-CatzcCommand] waiting for the run lock: another run holds it (up to 1 s)'
+            $lines[0] |
+                Should -BeExactly '[Invoke-CatzcCommand] waiting for the run lock: another run holds it (up to 1 s)'
             $lines[1] | Should -BeExactly '[Invoke-CatzcCommand] passed: Get-Widget'
         }
         finally {

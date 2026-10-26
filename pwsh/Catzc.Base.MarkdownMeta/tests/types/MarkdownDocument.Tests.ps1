@@ -43,7 +43,8 @@ Describe 'MarkdownDocument' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-HEADPOLICY' {
             $doc.HasMetaBlock | Should -BeTrue
             $doc.CanHoldMetaBlock | Should -BeTrue
             $doc.MetaBlock | Should -Be @('catzc:', '  immutable:', '    kind: gadget', '  config:', '    floor: low')
-            $doc.OtherFrontMatter | Should -Be @('name: widget', 'metadata:', '  other: 1', '  last: 2', 'catzc:', '  immutable:', '    kind: decoy')
+            $doc.OtherFrontMatter | Should -Be @('name: widget', 'metadata:', '  other: 1', '  last: 2', 'catzc:',
+                '  immutable:', '    kind: decoy')
             $doc.ToText() | Should -BeExactly $script:nested
         }
 
@@ -63,29 +64,37 @@ Describe 'MarkdownDocument' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-HEADPOLICY' {
         }
 
         It 'writes the parent keys it does not find, at the end of the front matter or above a body with none' {
-            $doc = [Catzc.Base.MarkdownMeta.MarkdownDocument]::Parse("---`nname: widget`nmetadata:`n---`nbody`n", 'metadata.catzc')
-            $doc.WithMetaBlock($script:block) | Should -BeExactly "---`nname: widget`nmetadata:`n  catzc:`n    immutable:`n      kind: widget`n---`nbody`n"
+            $doc = [Catzc.Base.MarkdownMeta.MarkdownDocument]::Parse("---`nname: widget`nmetadata:`n---`nbody`n",
+                'metadata.catzc')
+            $doc.WithMetaBlock($script:block) |
+                Should -BeExactly "---`nname: widget`nmetadata:`n  catzc:`n    immutable:`n      kind: widget`n---`nbody`n"
             $doc = [Catzc.Base.MarkdownMeta.MarkdownDocument]::Parse("---`nname: widget`n---`nbody`n", 'a.b.catzc')
-            $doc.WithMetaBlock($script:block) | Should -BeExactly "---`nname: widget`na:`n  b:`n    catzc:`n      immutable:`n        kind: widget`n---`nbody`n"
+            $doc.WithMetaBlock($script:block) |
+                Should -BeExactly "---`nname: widget`na:`n  b:`n    catzc:`n      immutable:`n        kind: widget`n---`nbody`n"
             $doc = [Catzc.Base.MarkdownMeta.MarkdownDocument]::Parse("body`n", 'metadata.catzc')
-            $doc.WithMetaBlock($script:block) | Should -BeExactly "---`nmetadata:`n  catzc:`n    immutable:`n      kind: widget`n---`n`nbody`n"
+            $doc.WithMetaBlock($script:block) |
+                Should -BeExactly "---`nmetadata:`n  catzc:`n    immutable:`n      kind: widget`n---`n`nbody`n"
         }
 
         It 'cannot nest under a parent that holds a flow mapping or a scalar, and says which key' {
             $doc = [Catzc.Base.MarkdownMeta.MarkdownDocument]::Parse("---`nname: widget`nmetadata: { catzc: { floor: low } }`n---`nbody`n", 'metadata.catzc')
             $doc.HasMetaBlock | Should -BeFalse
             $doc.CanHoldMetaBlock | Should -BeFalse
-            { $doc.WithMetaBlock($script:block) } | Should -Throw "*'metadata' holds a flow or scalar value*metadata.catzc*"
-            $doc.WithMetaBlock([string[]] @()) | Should -BeExactly "---`nname: widget`nmetadata: { catzc: { floor: low } }`n---`nbody`n"
+            { $doc.WithMetaBlock($script:block) } |
+                Should -Throw "*'metadata' holds a flow or scalar value*metadata.catzc*"
+            $doc.WithMetaBlock([string[]] @()) |
+                Should -BeExactly "---`nname: widget`nmetadata: { catzc: { floor: low } }`n---`nbody`n"
         }
 
         It 'reads a key path as dotted plain keys that end in catzc' {
             [Catzc.Base.MarkdownMeta.MarkdownDocument]::IsKeyPath('metadata.catzc') | Should -BeTrue
             [Catzc.Base.MarkdownMeta.MarkdownDocument]::IsKeyPath('catzc') | Should -BeTrue
             foreach ($bad in @('', 'metadata', 'metadata.', '.catzc', 'meta data.catzc', 'a:b.catzc')) {
-                [Catzc.Base.MarkdownMeta.MarkdownDocument]::IsKeyPath($bad) | Should -BeFalse -Because "'$bad' is no key path"
+                [Catzc.Base.MarkdownMeta.MarkdownDocument]::IsKeyPath($bad) |
+                    Should -BeFalse -Because "'$bad' is no key path"
             }
-            { [Catzc.Base.MarkdownMeta.MarkdownDocument]::Parse('body', 'metadata') } | Should -Throw "*ending in 'catzc'*"
+            { [Catzc.Base.MarkdownMeta.MarkdownDocument]::Parse('body', 'metadata') } |
+                Should -Throw "*ending in 'catzc'*"
         }
     }
 
@@ -120,7 +129,8 @@ Describe 'MarkdownDocument' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-HEADPOLICY' {
 
     It 'removes the meta block, and the front matter when nothing else is left' {
         $doc = [Catzc.Base.MarkdownMeta.MarkdownDocument]::Parse($script:withMeta)
-        $doc.WithMetaBlock([string[]] @()) | Should -BeExactly "---`nname: widget`nother: 1`n---`n# docs/widget.md`n`nbody text`n"
+        $doc.WithMetaBlock([string[]] @()) |
+            Should -BeExactly "---`nname: widget`nother: 1`n---`n# docs/widget.md`n`nbody text`n"
         $only = [Catzc.Base.MarkdownMeta.MarkdownDocument]::Parse("---`ncatzc:`n  immutable:`n    kind: gadget`n---`nbody`n")
         $only.WithMetaBlock([string[]] @()) | Should -BeExactly "body`n"
     }
@@ -135,15 +145,18 @@ Describe 'MarkdownDocument' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-HEADPOLICY' {
         $a = [Catzc.Base.MarkdownMeta.MarkdownDocument]::Parse($script:withMeta).BodyHash()
         $a | Should -Match '^[0-9a-f]{12}$'
         [Catzc.Base.MarkdownMeta.MarkdownDocument]::Parse($script:plain).BodyHash() | Should -BeExactly $a
-        [Catzc.Base.MarkdownMeta.MarkdownDocument]::Parse($script:plain.Replace("`n", "`r`n")).BodyHash() | Should -BeExactly $a
+        [Catzc.Base.MarkdownMeta.MarkdownDocument]::Parse($script:plain.Replace("`n", "`r`n")).BodyHash() |
+            Should -BeExactly $a
         [Catzc.Base.MarkdownMeta.MarkdownDocument]::Parse($script:plain + 'more').BodyHash() | Should -Not -BeExactly $a
         [Catzc.Base.MarkdownMeta.MarkdownDocument]::HashOf($script:plain) | Should -BeExactly $a
-        [Catzc.Base.MarkdownMeta.MarkdownDocument]::HashOf("`n`n" + $script:plain.Replace("`n", "`r`n")) | Should -BeExactly $a
+        [Catzc.Base.MarkdownMeta.MarkdownDocument]::HashOf("`n`n" + $script:plain.Replace("`n", "`r`n")) |
+            Should -BeExactly $a
     }
 
     It 'does not count the blank line after written front matter, so a second imprint records the same hash' {
         $first = [Catzc.Base.MarkdownMeta.MarkdownDocument]::Parse($script:plain)
-        $written = [Catzc.Base.MarkdownMeta.MarkdownDocument]::Parse($first.WithMetaBlock([string[]] @('catzc:', '  immutable:', '    kind: gadget')))
+        $written = [Catzc.Base.MarkdownMeta.MarkdownDocument]::Parse($first.WithMetaBlock([string[]] @('catzc:',
+            '  immutable:', '    kind: gadget')))
         $written.Body | Should -BeExactly "`n$($script:plain)"
         $written.BodyHash() | Should -BeExactly $first.BodyHash()
     }

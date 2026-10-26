@@ -18,7 +18,8 @@ function Get-CSharpTypeDependency {
     # Longest module name first, so 'Catzc.Azure.Templates.Foo' maps to Catzc.Azure.Templates, not Catzc.Azure.
     $byLength = @($modules | Sort-Object -Property Length -Descending)
 
-    # Only a token that starts with a module name's first segment can name a module, so the scan leaves every other dotted name unmatched.
+    # Only a token that starts with a module name's first segment can name a module, so the scan leaves every other
+    # dotted name unmatched.
     $roots = @($modules | ForEach-Object { [regex]::Escape($_.Split('.')[0]) } | Sort-Object -Unique) -join '|'
     $dotted = [regex] "(?<![A-Za-z0-9_.])(?:$roots)(?:\.[A-Za-z_][A-Za-z0-9_]*)+"
     $edges = [ordered]@{}   # "From|To" -> List[string] of reference descriptions
@@ -32,7 +33,8 @@ function Get-CSharpTypeDependency {
         }
 
         # The walker and System.IO over the cmdlets: at about 20 ms a call, the cmdlets dominate a scan of every type.
-        foreach ($cs in [Catzc.Base.Folders.PathSet]::new((Get-Config -Config folder-walk)).AddPattern($typesDir, '*.cs', 1).ToArray()) {
+        foreach ($cs in [Catzc.Base.Folders.PathSet]::new((Get-Config -Config folder-walk)).AddPattern($typesDir,
+            '*.cs', 1).ToArray()) {
             $csName = [System.IO.Path]::GetFileName($cs)
             # Comments and literals are stripped first, so only real code tokens count as references.
             $code = [System.IO.File]::ReadAllText($cs)

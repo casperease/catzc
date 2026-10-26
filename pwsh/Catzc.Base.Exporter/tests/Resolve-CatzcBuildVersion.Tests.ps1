@@ -46,7 +46,8 @@ Describe 'Resolve-CatzcBuildVersion' -Tag 'L0', 'logic' {
             @{ Bad = 'v1.2.3' }
             @{ Bad = '1.2.3-preview' }
         ) {
-            { Resolve-CatzcBuildVersion -Version $Bad } | Should -Throw -ExpectedMessage "*Invalid build version '$Bad'*"
+            { Resolve-CatzcBuildVersion -Version $Bad } |
+                Should -Throw -ExpectedMessage "*Invalid build version '$Bad'*"
         }
     }
 
@@ -65,7 +66,8 @@ Describe 'Resolve-CatzcBuildVersion' -Tag 'L0', 'logic' {
         }
 
         It 'rejects a bundle exporter.yml does not declare' {
-            { Resolve-CatzcBuildVersion -Bundle sprockets } | Should -Throw -ExpectedMessage "*Unknown bundle 'sprockets'*"
+            { Resolve-CatzcBuildVersion -Bundle sprockets } |
+                Should -Throw -ExpectedMessage "*Unknown bundle 'sprockets'*"
         }
 
         It 'throws on a shallow clone rather than miscounting' {
@@ -83,7 +85,8 @@ Describe 'Resolve-CatzcBuildVersion' -Tag 'L0', 'logic' {
         }
 
         It 'rejects the placeholder passed explicitly' {
-            { Resolve-CatzcBuildVersion -Version 6.6.666 } | Should -Throw -ExpectedMessage '*devbox placeholder*rejected in a pipeline*'
+            { Resolve-CatzcBuildVersion -Version 6.6.666 } |
+                Should -Throw -ExpectedMessage '*devbox placeholder*rejected in a pipeline*'
         }
 
         It 'honours another explicit version' {

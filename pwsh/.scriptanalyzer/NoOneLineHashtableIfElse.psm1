@@ -30,7 +30,8 @@ function Measure-NoOneLineHashtableIfElse {
         # An outer one-line hashtable already covers the one inside it: report the outermost only.
         $covered = $false
         foreach ($outer in $flagged) {
-            if ($outer.Extent.StartOffset -le $hashtable.Extent.StartOffset -and $outer.Extent.EndOffset -ge $hashtable.Extent.EndOffset) {
+            if ($outer.Extent.StartOffset -le $hashtable.Extent.StartOffset -and
+                $outer.Extent.EndOffset -ge $hashtable.Extent.EndOffset) {
                 $covered = $true
             }
         }

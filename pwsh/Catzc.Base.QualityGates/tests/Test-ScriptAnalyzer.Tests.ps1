@@ -64,7 +64,8 @@ Describe 'Test-ScriptAnalyzer' -Tag 'L0', 'logic' {
             [pscustomobject]@{ ScriptPath = 'repo/a.ps1'; Line = 3; Column = 5; Severity = 'Warning'; RuleName = 'PSAvoidUsingCmdletAliases'; Message = 'Avoid alias' }
             [pscustomobject]@{ ScriptPath = 'repo/b.ps1'; Line = 9; Column = 3; Severity = 'Error'; RuleName = 'PSAvoidExclaimOperator'; Message = 'Bang' }
         )
-        $thrown = { Test-ScriptAnalyzer -Path $script:targetFile -OutputFolder $script:reportBase } | Should -Throw -PassThru
+        $thrown = { Test-ScriptAnalyzer -Path $script:targetFile -OutputFolder $script:reportBase } |
+            Should -Throw -PassThru
         $message = $thrown.Exception.Message
         $message | Should -BeLike 'Test-ScriptAnalyzer failed: 2 issue(s)*'
         $message | Should -Match 'repo/a\.ps1:3:5 Warning PSAvoidUsingCmdletAliases Avoid alias'
@@ -88,7 +89,8 @@ Describe 'Test-ScriptAnalyzer' -Tag 'L0', 'logic' {
             [pscustomobject]@{ ScriptPath = 'repo/a.ps1'; Line = 7; Column = 1; Severity = 'Warning'; RuleName = 'PSUseConsistentWhitespace'; Message = 'Whitespace' }
         )
         $result = Test-ScriptAnalyzer -Path $script:targetFile -OutputFolder $script:reportBase -PassThru
-        (Get-Content (Join-Path $result.ReportPath 'script-analyzer.md') -Raw) | Should -Match 'PSUseConsistentWhitespace'
+        (Get-Content (Join-Path $result.ReportPath 'script-analyzer.md') -Raw) |
+            Should -Match 'PSUseConsistentWhitespace'
         $result.Issues[0] | Should -BeLike 'repo/a.ps1:7:1 *'
     }
 
@@ -112,6 +114,7 @@ Describe 'Test-ScriptAnalyzer (real analyzer)' -Tag 'L2', 'integrity', 'greedy',
 
         $result.IssueCount | Should -BeGreaterThan 0
         $result.Facts['FileCount'] | Should -Be 1   # only the violating file has issues; the clean one contributes none
-        (Get-Content (Join-Path $result.ReportPath 'script-analyzer.md') -Raw) | Should -Match 'PSAvoidUsingCmdletAliases'
+        (Get-Content (Join-Path $result.ReportPath 'script-analyzer.md') -Raw) |
+            Should -Match 'PSAvoidUsingCmdletAliases'
     }
 }

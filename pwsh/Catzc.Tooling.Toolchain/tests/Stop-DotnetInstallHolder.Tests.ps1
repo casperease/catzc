@@ -3,7 +3,8 @@ Describe 'Stop-DotnetInstallHolder' -Tag 'L0', 'logic' {
         $script:installDir = Join-Path $TestDrive 'widget-dotnet'
         $script:widget = [Catzc.Base.Files.FileLockingProcess]::new(4242, 'widget', [datetime]'2026-01-01')
         # A stand-in for the running process: WaitForExit is all the function asks of it.
-        $script:running = [pscustomobject]@{} | Add-Member -MemberType ScriptMethod -Name WaitForExit -Value { $true } -PassThru
+        $script:running = [pscustomobject]@{} |
+            Add-Member -MemberType ScriptMethod -Name WaitForExit -Value { $true } -PassThru
         Mock Get-Process { $script:running } -ModuleName Catzc.Tooling.Toolchain
         Mock Stop-Process { } -ModuleName Catzc.Tooling.Toolchain
         Mock Get-DotnetInstallHolder { } -ModuleName Catzc.Tooling.Toolchain
@@ -12,7 +13,8 @@ Describe 'Stop-DotnetInstallHolder' -Tag 'L0', 'logic' {
 
     It 'stops exactly the named process ids, announcing each' {
         $gadget = [Catzc.Base.Files.FileLockingProcess]::new(4343, 'gadget', [datetime]'2026-01-01')
-        InModuleScope Catzc.Tooling.Toolchain -Parameters @{ Dir = $script:installDir; Holders = @($script:widget, $gadget) } {
+        InModuleScope Catzc.Tooling.Toolchain -Parameters @{ Dir = $script:installDir; Holders = @($script:widget,
+            $gadget) } {
             param($Dir, $Holders) Stop-DotnetInstallHolder -InstallDir $Dir -Holder $Holders
         }
         Should -Invoke Stop-Process -ModuleName Catzc.Tooling.Toolchain -Times 2 -Exactly
@@ -32,7 +34,8 @@ Describe 'Stop-DotnetInstallHolder' -Tag 'L0', 'logic' {
     It 'refuses to stop the calling session and stops nothing' {
         $self = [Catzc.Base.Files.FileLockingProcess]::new($PID, 'pwsh', [datetime]'2026-01-01')
         {
-            InModuleScope Catzc.Tooling.Toolchain -Parameters @{ Dir = $script:installDir; Holders = @($script:widget, $self) } {
+            InModuleScope Catzc.Tooling.Toolchain -Parameters @{ Dir = $script:installDir; Holders = @($script:widget,
+                $self) } {
                 param($Dir, $Holders) Stop-DotnetInstallHolder -InstallDir $Dir -Holder $Holders
             }
         } | Should -Throw '*this session*holds*'

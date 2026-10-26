@@ -36,7 +36,8 @@ Describe 'Select-InScopeTestFiles' -Tag 'L0', 'logic' {
     }
 
     It 'keeps only the files holding an in-scope test, and returns every test of the dropped ones' {
-        $result = Select-Scope -Tests $script:tests -ExcludeTag @('L0', 'L1', 'L2') -TestFiles @($script:widget, $script:gadget)
+        $result = Select-Scope -Tests $script:tests -ExcludeTag @('L0', 'L1', 'L2') -TestFiles @($script:widget,
+            $script:gadget)
         $result.Files | Should -Be @($script:widget)
         @($result.OutOfScopeTests.ExpandedPath) | Should -Be @('Gadget.logic', 'Gadget.integrity')
     }
@@ -55,7 +56,8 @@ Describe 'Select-InScopeTestFiles' -Tag 'L0', 'logic' {
 
     It 'keeps a file discovery found no test in, so its worker still reports why' {
         $broken = 'C:\repo\automation\Gizmo\tests\Get-Gizmo.Tests.ps1'
-        $result = Select-Scope -Tests $script:tests -ExcludeTag @('L0', 'L1', 'L2') -TestFiles @($script:gadget, $broken)
+        $result = Select-Scope -Tests $script:tests -ExcludeTag @('L0', 'L1', 'L2') -TestFiles @($script:gadget,
+            $broken)
         $result.Files | Should -Be @($broken)
         @($result.OutOfScopeTests.ExpandedPath) | Should -Be @('Gadget.logic', 'Gadget.integrity')
     }
@@ -66,7 +68,8 @@ Describe 'Select-InScopeTestFiles' -Tag 'L0', 'logic' {
     }
 
     It 'returns nothing to run when no file holds an in-scope test' {
-        $result = Select-Scope -Tests $script:tests -ExcludeTag @('L0', 'L1', 'L2', 'L3') -TestFiles @($script:widget, $script:gadget)
+        $result = Select-Scope -Tests $script:tests -ExcludeTag @('L0', 'L1', 'L2', 'L3') -TestFiles @($script:widget,
+            $script:gadget)
         @($result.Files).Count | Should -Be 0
         @($result.OutOfScopeTests).Count | Should -Be 4
     }

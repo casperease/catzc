@@ -1,7 +1,8 @@
 Describe 'Get-LifecyclePositionMinimapData' -Tag 'L0', 'logic', 'FDR-CD-RUNGSREGISTRY' {
     BeforeAll {
         $script:schema = [System.IO.File]::ReadAllText((Join-Path (Get-RepositoryRoot) 'contracts/catzc/0.1.0/catzc.base.maps/minimap.schema.json'))
-        $script:subject = { param([string] $Path, [string[]] $Citations) [pscustomobject]@{ Path = $Path; Requested = 'ADR-WIDGET'; Citations = $Citations; Facts = $null } }
+        $script:subject = { param([string] $Path,
+            [string[]] $Citations) [pscustomobject]@{ Path = $Path; Requested = 'ADR-WIDGET'; Citations = $Citations; Facts = $null } }
         Mock Get-Rung -ModuleName Catzc.Base.Maps {
             [Catzc.Base.Flow.Rung]::new('widget-uat', 'widget', 'none', @('ADR-WIDGET-GADGET-SPIN'))
             [Catzc.Base.Flow.Rung]::new('gadget-uat', 'gadget', 'rc', @('ADR-WIDGET-GADGET-FOLD'))
@@ -24,7 +25,8 @@ Describe 'Get-LifecyclePositionMinimapData' -Tag 'L0', 'logic', 'FDR-CD-RUNGSREG
 
     It 'lights every rung whose rule sits under a cited ADR' {
         Mock Get-MinimapSubject -ModuleName Catzc.Base.Maps { & $script:subject 'docs/widget.md' @('ADR-WIDGET-GADGET') }
-        @((Get-LifecyclePositionMinimapData -Adr 'ADR-WIDGET').Lit | ForEach-Object { $_.At[0] }) | Should -Be @('widget-uat', 'gadget-uat')
+        @((Get-LifecyclePositionMinimapData -Adr 'ADR-WIDGET').Lit | ForEach-Object { $_.At[0] }) |
+            Should -Be @('widget-uat', 'gadget-uat')
     }
 
     It 'lights nothing for a subject that cites no rung''s rule, and still draws every rung' {
@@ -36,7 +38,8 @@ Describe 'Get-LifecyclePositionMinimapData' -Tag 'L0', 'logic', 'FDR-CD-RUNGSREG
 
     It 'hands the world map it is given to the subject' {
         Mock Get-MinimapSubject -ModuleName Catzc.Base.Maps { & $script:subject 'docs/widget.md' @('ADR-GIZMO') }
-        $map = [Catzc.Base.Maps.WorldMapBuilder]::Build(@(), @(), @(), [ordered]@{}, [ordered]@{}, [ordered]@{}, [ordered]@{}, [ordered]@{}, @())
+        $map = [Catzc.Base.Maps.WorldMapBuilder]::Build(@(), @(), @(),
+            [ordered]@{}, [ordered]@{}, [ordered]@{}, [ordered]@{}, [ordered]@{}, @())
         $null = Get-LifecyclePositionMinimapData -Adr 'ADR-GIZMO' -WorldMap $map
         Should -Invoke Get-MinimapSubject -ModuleName Catzc.Base.Maps -Times 1 -Exactly -ParameterFilter { [object]::ReferenceEquals($WorldMap, $map) }
     }

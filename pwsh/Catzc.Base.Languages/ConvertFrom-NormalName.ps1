@@ -9,7 +9,8 @@ catzc:
 function ConvertFrom-NormalName {
     [CmdletBinding()]
     [OutputType([string])]
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-ParameterFillIn', '', Justification = '-Case defaults to the first case -Language configures for -NameKind, so the body first checks that the language names one and says so; a declared default would fail before that message (ADR-PWSH-PARAM-RESOLUTIONORDER)')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-ParameterFillIn', '',
+        Justification = '-Case defaults to the first case -Language configures for -NameKind, so the body first checks that the language names one and says so; a declared default would fail before that message (ADR-PWSH-PARAM-RESOLUTIONORDER)')]
     param(
         [Parameter(Mandatory, Position = 0, ValueFromPipeline)]
         [string] $Name,

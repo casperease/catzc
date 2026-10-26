@@ -16,11 +16,13 @@ function Get-ConventionEdge {
         [string[]] $Path
     )
 
-    # Derived from the declarations on every call, so a moved test or a new dependency changes the relations with no edit here.
+    # Derived from the declarations on every call, so a moved test or a new dependency changes the relations with no
+    # edit here.
     $files = @($Path | ForEach-Object { $_.Replace('\', '/') } | Select-Object -Unique)
     $known = [System.Collections.Generic.HashSet[string]]::new([string[]] $files, [System.StringComparer]::Ordinal)
     $edges = [System.Collections.Generic.List[Catzc.Base.QualityGates.LinkEdge]]::new()
-    $edge = { param([string] $From, [string] $To) $edges.Add([Catzc.Base.QualityGates.LinkEdge]::new($From, 0, 0, 'Convention', $To, '')) }
+    $edge = { param([string] $From, [string] $To) $edges.Add([Catzc.Base.QualityGates.LinkEdge]::new($From, 0, 0,
+        'Convention', $To, '')) }
 
     # A test points at the file of its unit, outside tests/, whose name without extension is the test's stem.
     $subjects = @{}
@@ -42,7 +44,8 @@ function Get-ConventionEdge {
         # Assigned in the branch: an `if` expression would turn an empty list into $null.
         $candidates = @()
         if ($subjects.ContainsKey($Matches['stem'])) {
-            $candidates = @($subjects[$Matches['stem']].Where({ $_.StartsWith($unit, [System.StringComparison]::Ordinal) }))
+            $candidates = @($subjects[$Matches['stem']].Where({ $_.StartsWith($unit,
+                [System.StringComparison]::Ordinal) }))
         }
         if ($candidates.Count -gt 0) {
             & $edge $file $candidates[0]
@@ -57,7 +60,8 @@ function Get-ConventionEdge {
         }
     }
 
-    # A module points at each module it declares as a dependency; its folder stands for it, and a group name is no module.
+    # A module points at each module it declares as a dependency; its folder stands for it, and a group name is no
+    # module.
     $modulesFolder = Get-CatzcModulesFolder
     $folders = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
     foreach ($file in $files) {

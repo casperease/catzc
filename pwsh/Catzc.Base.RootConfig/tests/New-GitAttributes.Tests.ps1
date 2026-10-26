@@ -21,7 +21,8 @@ Describe 'New-GitAttributes' -Tag 'L0', 'logic' {
                                 cog = [ordered]@{ definition = 'A cog.'; files = @('widgets/cogs/**'); git = @{ attributes = @('catzc-cog'); why = 'Cogs are data.' } }
                             }
                             files      = @('widgets/**', 'extras/**')
-                            git        = @{ attributes = @('catzc-widget', 'eol=lf'); why = 'Widgets are data on purpose.' }
+                            git        = @{ attributes = @('catzc-widget',
+                                'eol=lf'); why = 'Widgets are data on purpose.' }
                         }
                         sprocket = [ordered]@{ definition = 'A sprocket.'; files = @('sprockets/**') }
                     }
@@ -55,7 +56,8 @@ Describe 'New-GitAttributes' -Tag 'L0', 'logic' {
     It 'replaces the placeholder with a why comment and one line per glob, subkind first, in registry order' {
         Set-Template "# head`n{{file-kind-attributes}}`n# tail`n$script:roots"
         $text = New-GitAttributes
-        $text | Should -BeExactly "# head`n# catzc: Cogs are data.`nwidgets/cogs/** catzc-cog`n`n# catzc: Widgets are data on purpose.`nwidgets/** catzc-widget eol=lf`nextras/** catzc-widget eol=lf`n# tail`n$script:generated"
+        $text |
+            Should -BeExactly "# head`n# catzc: Cogs are data.`nwidgets/cogs/** catzc-cog`n`n# catzc: Widgets are data on purpose.`nwidgets/** catzc-widget eol=lf`nextras/** catzc-widget eol=lf`n# tail`n$script:generated"
     }
 
     It 'marks every writer output, then every committed root config, generated, root-anchored unless it spans folders, and leaves an uncommitted root out' -Tag 'PDR-ONELIVE-ONEVERSION', 'ADR-REPO-FILEMETA-COMPOSEDFILES' {
@@ -82,7 +84,8 @@ Describe 'New-GitAttributes' -Tag 'L0', 'logic' {
         }
         Set-Template "{{file-kind-attributes}}`n$script:roots"
         $text = New-GitAttributes
-        $text | Should -BeLike "*extras/** catzc-widget eol=lf`n`n# catzc: Gadgets wait here unchecked.`n.gadgets/** catzc-gadget`nspare-gadgets/** catzc-gadget`n*"
+        $text |
+            Should -BeLike "*extras/** catzc-widget eol=lf`n`n# catzc: Gadgets wait here unchecked.`n.gadgets/** catzc-gadget`nspare-gadgets/** catzc-gadget`n*"
         $text | Should -Not -Match 'widgets/\*\* catzc-gadget'
     }
 
@@ -131,7 +134,8 @@ Describe 'New-GitAttributes — shipped assets/root/.gitattributes-template' -Ta
         $text | Should -Match '(?m)^pwsh/\.compiled/\*\* binary$'
         $text | Should -Match '(?m)^\S+ .*catzc-'
         foreach ($root in @((Get-Config -Config rootconfig).files | Where-Object { $_.committed })) {
-            $text | Should -Match "(?m)^/$([regex]::Escape($root.target)) linguist-generated$" -Because "$($root.target) is a committed root config"
+            $text |
+                Should -Match "(?m)^/$([regex]::Escape($root.target)) linguist-generated$" -Because "$($root.target) is a committed root config"
         }
         foreach ($writer in (Get-Config -Config generated-files).writers.Values) {
             foreach ($output in @($writer.outputs)) {
@@ -141,7 +145,8 @@ Describe 'New-GitAttributes — shipped assets/root/.gitattributes-template' -Ta
                 else {
                     "/$output"
                 }
-                $text | Should -Match "(?m)^$([regex]::Escape($line)) linguist-generated$" -Because "$output is a declared writer output"
+                $text |
+                    Should -Match "(?m)^$([regex]::Escape($line)) linguist-generated$" -Because "$output is a declared writer output"
             }
         }
     }

@@ -2,13 +2,18 @@ Describe 'Get-DiagramEmbedder' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMM
     BeforeAll {
         $script:root = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
         [System.IO.Directory]::CreateDirectory((Join-Path $script:root 'docs/widgets')) | Out-Null
-        [System.IO.File]::WriteAllText((Join-Path $script:root 'docs/widgets/gadget.md'), "# Gadget`n`n![Gadget](.assets/gadget.drawio.png)`n")
-        [System.IO.File]::WriteAllText((Join-Path $script:root 'docs/widgets/cog.slide.md'), "# Cog`n`n## Image`n`n.assets/cog.drawio.png`n`n## Caption`n`nA cog.`n")
-        [System.IO.File]::WriteAllText((Join-Path $script:root 'docs/widgets/sprocket.md'), "# Sprocket`n`n## Image`n`n.assets/sprocket.drawio.png`n")
-        [System.IO.File]::WriteAllText((Join-Path $script:root 'docs/widgets/widget.md'), "# Widget`n`n![Widget][D]`n`n[d]: .assets/widget.drawio.png`n[unused]: .assets/gizmo.drawio.png`n")
+        [System.IO.File]::WriteAllText((Join-Path $script:root 'docs/widgets/gadget.md'),
+            "# Gadget`n`n![Gadget](.assets/gadget.drawio.png)`n")
+        [System.IO.File]::WriteAllText((Join-Path $script:root 'docs/widgets/cog.slide.md'),
+            "# Cog`n`n## Image`n`n.assets/cog.drawio.png`n`n## Caption`n`nA cog.`n")
+        [System.IO.File]::WriteAllText((Join-Path $script:root 'docs/widgets/sprocket.md'),
+            "# Sprocket`n`n## Image`n`n.assets/sprocket.drawio.png`n")
+        [System.IO.File]::WriteAllText((Join-Path $script:root 'docs/widgets/widget.md'),
+            "# Widget`n`n![Widget][D]`n`n[d]: .assets/widget.drawio.png`n[unused]: .assets/gizmo.drawio.png`n")
         $script:found = InModuleScope Catzc.Base.Slides -Parameters @{ Root = $script:root } {
             param($Root)
-            Get-DiagramEmbedder -Tracked @('docs/widgets/gadget.md', 'docs/widgets/cog.slide.md', 'docs/widgets/sprocket.md', 'docs/widgets/widget.md') -RepositoryRoot $Root
+            Get-DiagramEmbedder -Tracked @('docs/widgets/gadget.md', 'docs/widgets/cog.slide.md',
+                'docs/widgets/sprocket.md', 'docs/widgets/widget.md') -RepositoryRoot $Root
         }
     }
 

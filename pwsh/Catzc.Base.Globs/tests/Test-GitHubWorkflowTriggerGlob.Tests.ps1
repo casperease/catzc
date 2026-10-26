@@ -34,7 +34,8 @@ Describe 'Test-GitHubWorkflowTriggerGlob' -Tag 'L0', 'logic' {
         $thrown = { Test-GitHubWorkflowTriggerGlob -Name widget -WorkflowPath '.github/workflows/ci-widget.yml' -OutputFolder (Join-Path $TestDrive 'gh') } |
             Should -Throw -PassThru
         $thrown.Exception.Message | Should -BeLike 'Test-GitHubWorkflowTriggerGlob failed: 1 issue(s)*'
-        $thrown.Exception.Message | Should -Match 'widget: \.github/workflows/ci-widget\.yml trigger drifted .* on on\.push\.paths, on\.pull_request\.paths'
+        $thrown.Exception.Message |
+            Should -Match 'widget: \.github/workflows/ci-widget\.yml trigger drifted .* on on\.push\.paths, on\.pull_request\.paths'
     }
 
     It 'reports a missing workflow file under -PassThru' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {

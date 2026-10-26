@@ -14,12 +14,15 @@ Describe 'CitationScanner' -Tag 'L0', 'logic' {
             '### Rule ADR-WIDGET-GADGET-TURN'
             'ADR-GIZMO-COG decides; ADR-WIDGET-GADGET-RE12 too, and `ADR-WIDGET-GADGET`.'
         ) -join "`n"
-        & $script:scan $text | Should -Be @('ADR-GIZMO-COG', 'ADR-WIDGET-GADGET', 'ADR-WIDGET-GADGET-RE12', 'ADR-WIDGET-GADGET-TURN')
+        & $script:scan $text | Should -Be @('ADR-GIZMO-COG', 'ADR-WIDGET-GADGET', 'ADR-WIDGET-GADGET-RE12',
+            'ADR-WIDGET-GADGET-TURN')
     }
 
     It 'keeps a code whose longest listed prefix is an ADR of its own' {
-        & $script:scan 'ADR-WIDGET-GADGET-X-SPIN and ADR-WIDGET-GADGET-X' | Should -Be @('ADR-WIDGET-GADGET-X', 'ADR-WIDGET-GADGET-X-SPIN')
-        [Catzc.Base.Maps.CitationScanner]::CodeOf('ADR-WIDGET-GADGET-X-SPIN', $script:index) | Should -Be 'ADR-WIDGET-GADGET-X'
+        & $script:scan 'ADR-WIDGET-GADGET-X-SPIN and ADR-WIDGET-GADGET-X' | Should -Be @('ADR-WIDGET-GADGET-X',
+            'ADR-WIDGET-GADGET-X-SPIN')
+        [Catzc.Base.Maps.CitationScanner]::CodeOf('ADR-WIDGET-GADGET-X-SPIN', $script:index) |
+            Should -Be 'ADR-WIDGET-GADGET-X'
     }
 
     It 'ignores the decoys' {
@@ -38,12 +41,14 @@ Describe 'CitationScanner' -Tag 'L0', 'logic' {
     }
 
     It 'reads the code before a numbered rule as the code alone' {
-        & $script:scan ('ADR-GIZMO-COG: the cog. ADR-WIDGET-GADGET' + '#3') | Should -Be @('ADR-GIZMO-COG', 'ADR-WIDGET-GADGET')
+        & $script:scan ('ADR-GIZMO-COG: the cog. ADR-WIDGET-GADGET' + '#3') | Should -Be @('ADR-GIZMO-COG',
+            'ADR-WIDGET-GADGET')
     }
 
     It 'returns nothing for empty text or an empty index' {
         & $script:scan '' | Should -BeNullOrEmpty
-        @([Catzc.Base.Maps.CitationScanner]::Scan('ADR-GIZMO-COG', [Catzc.Base.Maps.CitationScanner]::Index(@{}))) | Should -BeNullOrEmpty
+        @([Catzc.Base.Maps.CitationScanner]::Scan('ADR-GIZMO-COG', [Catzc.Base.Maps.CitationScanner]::Index(@{}))) |
+            Should -BeNullOrEmpty
     }
 
     It 'maps a citation to its domain through the index' {
@@ -69,7 +74,8 @@ Describe 'CitationScanner' -Tag 'L0', 'logic' {
     }
 
     It 'reads only the file kinds that cite' {
-        foreach ($path in 'widget/Get-Widget.ps1', 'widget/types/Widget.cs', 'widget/configs/widget.yml', 'gadget/ci.yaml', 'docs/widget.MD') {
+        foreach ($path in 'widget/Get-Widget.ps1', 'widget/types/Widget.cs', 'widget/configs/widget.yml',
+            'gadget/ci.yaml', 'docs/widget.MD') {
             [Catzc.Base.Maps.CitationScanner]::Cites($path) | Should -BeTrue -Because $path
         }
         foreach ($path in 'widget/widget.json', 'docs/.assets/widget.png', 'widget/.gitkeep', 'widget/WIDGET') {
@@ -79,7 +85,8 @@ Describe 'CitationScanner' -Tag 'L0', 'logic' {
 
     It 'places each citation on its line, as header help, a passing comment or text' {
         $sites = { param([string] $Path, [string[]] $Lines)
-            @([Catzc.Base.Maps.CitationScanner]::Sites($Path, ($Lines -join "`n"), $script:index) | ForEach-Object { "$($_.Line) $($_.Kind) $($_.Citation)" })
+            @([Catzc.Base.Maps.CitationScanner]::Sites($Path, ($Lines -join "`n"),
+                $script:index) | ForEach-Object { "$($_.Line) $($_.Kind) $($_.Citation)" })
         }
         & $sites 'widgets/Get-Widget.ps1' @(
             '# ADR-WIDGET-GADGET-TURN'
@@ -92,19 +99,25 @@ Describe 'CitationScanner' -Tag 'L0', 'logic' {
             '    # ADR-GIZMO-COG'
             '    ''ADR-WIDGET-GADGET-FOLD'''
             '}'
-        ) | Should -Be @('1 help ADR-WIDGET-GADGET-TURN', '5 help ADR-GIZMO-COG-SPIN', '7 comment ADR-WIDGET-GADGET', '8 comment ADR-GIZMO-COG',
+        ) | Should -Be @('1 help ADR-WIDGET-GADGET-TURN', '5 help ADR-GIZMO-COG-SPIN', '7 comment ADR-WIDGET-GADGET',
+            '8 comment ADR-GIZMO-COG',
             '9 text ADR-WIDGET-GADGET-FOLD')
-        & $sites 'widgets/types/Widget.cs' @('// ADR-GIZMO-COG', 'class Widget {', '    /// ADR-WIDGET-GADGET', '    int cogs; // ADR-GIZMO-COG-LIFT', '}') |
+        & $sites 'widgets/types/Widget.cs' @('// ADR-GIZMO-COG', 'class Widget {', '    /// ADR-WIDGET-GADGET',
+            '    int cogs; // ADR-GIZMO-COG-LIFT', '}') |
             Should -Be @('1 help ADR-GIZMO-COG', '3 help ADR-WIDGET-GADGET', '4 comment ADR-GIZMO-COG-LIFT')
-        & $sites 'widgets/configs/widget.yml' @('# ADR-GIZMO-COG', 'gadget: ADR-WIDGET-GADGET', 'cogs: 2 # ADR-GIZMO-COG-SPIN') |
+        & $sites 'widgets/configs/widget.yml' @('# ADR-GIZMO-COG', 'gadget: ADR-WIDGET-GADGET',
+            'cogs: 2 # ADR-GIZMO-COG-SPIN') |
             Should -Be @('1 help ADR-GIZMO-COG', '2 text ADR-WIDGET-GADGET', '3 comment ADR-GIZMO-COG-SPIN')
-        & $sites 'docs/widget.md' @('# ADR-GIZMO-COG', 'Read ADR-WIDGET-GADGET.') | Should -Be @('1 text ADR-GIZMO-COG', '2 text ADR-WIDGET-GADGET')
+        & $sites 'docs/widget.md' @('# ADR-GIZMO-COG', 'Read ADR-WIDGET-GADGET.') | Should -Be @('1 text ADR-GIZMO-COG',
+            '2 text ADR-WIDGET-GADGET')
         & $sites 'docs/widget.md' @('ADR-WIDGET-UNKNOWN') | Should -BeNullOrEmpty
     }
 
     It 'rejects an index key that is not an ADR code' {
-        { [Catzc.Base.Maps.CitationScanner]::Index(@{ 'WIDGET-GADGET' = 'widgetry' }) } | Should -Throw "*'WIDGET-GADGET' is not an ADR code*"
-        { [Catzc.Base.Maps.CitationScanner]::Index(@{ ('ADR-WIDGET-GADGET' + '#2') = 'widgetry' }) } | Should -Throw '*is not an ADR code*'
+        { [Catzc.Base.Maps.CitationScanner]::Index(@{ 'WIDGET-GADGET' = 'widgetry' }) } |
+            Should -Throw "*'WIDGET-GADGET' is not an ADR code*"
+        { [Catzc.Base.Maps.CitationScanner]::Index(@{ ('ADR-WIDGET-GADGET' + '#2') = 'widgetry' }) } |
+            Should -Throw '*is not an ADR code*'
         { [Catzc.Base.Maps.CitationScanner]::Index(@{ 'ADR-WIDGET-GADGET' = '' }) } | Should -Throw '*names no domain*'
     }
 }

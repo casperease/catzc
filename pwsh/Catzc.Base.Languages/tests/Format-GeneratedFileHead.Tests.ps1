@@ -23,7 +23,8 @@ Describe 'Format-GeneratedFileHead' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-COMPO
     }
 
     BeforeEach {
-        # Whether git tracks the path: a tracked path comes back from the index read, an untracked one does not; a fixture stands for it here.
+        # Whether git tracks the path: a tracked path comes back from the index read, an untracked one does not; a
+        # fixture stands for it here.
         $script:tracked = $true
         Mock Get-GitTrackedPath -ModuleName Catzc.Base.Languages { if ($script:tracked) {
                 $Path
@@ -45,21 +46,24 @@ Describe 'Format-GeneratedFileHead' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-COMPO
 
     It 'writes the body hash of a tracked file and the warning, and nothing else, in the comment style of the file language' {
         $text = Format-GeneratedFileHead -Text "widget body`n" -Path 'docs/gen.wdg' -Carriers $script:carriers -Languages $script:languages
-        $text | Should -BeExactly "# ---`n# catzc:`n#   immutable:`n#     with_body_sha: `"9534a2e15c8b`"`n#     warning: `"$script:warning`"`n# ---`n`nwidget body`n"
+        $text |
+            Should -BeExactly "# ---`n# catzc:`n#   immutable:`n#     with_body_sha: `"9534a2e15c8b`"`n#     warning: `"$script:warning`"`n# ---`n`nwidget body`n"
         Should -Invoke Get-GitTrackedPath -ModuleName Catzc.Base.Languages -Times 1 -ParameterFilter { $Path -contains 'docs/gen.wdg' }
     }
 
     It 'opens the immutable part with the body hash, so the head reads immutable for this body, whatever the carrier' -Tag 'ADR-REPO-FILEMETA-COMPOSEDFILES' {
         foreach ($path in 'docs/gen.wdg', 'docs/gen.gdg') {
             $text = Format-GeneratedFileHead -Text "body`n" -Path $path -Carriers $script:carriers -Languages $script:languages
-            $text | Should -Match '(?m)^\W*immutable:\r?\n\W*with_body_sha: ' -Because "the first key under immutable in $path is the body hash"
+            $text |
+                Should -Match '(?m)^\W*immutable:\r?\n\W*with_body_sha: ' -Because "the first key under immutable in $path is the body hash"
         }
     }
 
     It 'writes the warning only on a file git does not track' {
         $script:tracked = $false
         $text = Format-GeneratedFileHead -Text "widget body`n" -Path 'docs/gen.wdg' -Carriers $script:carriers -Languages $script:languages
-        $text | Should -BeExactly "# ---`n# catzc:`n#   immutable:`n#     warning: `"$script:warning`"`n# ---`n`nwidget body`n"
+        $text |
+            Should -BeExactly "# ---`n# catzc:`n#   immutable:`n#     warning: `"$script:warning`"`n# ---`n`nwidget body`n"
     }
 
     It 'writes no place fact, no generator, no source and no edge: each is derived on demand' {
@@ -76,7 +80,8 @@ Describe 'Format-GeneratedFileHead' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-COMPO
     It 'hashes the body only, which the head itself and the line endings never move' {
         $arguments = @{ Path = 'docs/gen.wdg' } + $script:arguments
         $once = Format-GeneratedFileHead -Text "body`n" @arguments
-        # The block renderer quotes a value YAML would not read back as the same string, so a hash that opens with a digit is quoted.
+        # The block renderer quotes a value YAML would not read back as the same string, so a hash that opens with a
+        # digit is quoted.
         $once | Should -BeLike "*#     with_body_sha: `"9e2ec912af5d`"`n*"
         Format-GeneratedFileHead -Text $once @arguments | Should -BeLike '*with_body_sha: "9e2ec912af5d"*'
         Format-GeneratedFileHead -Text "body`r`n" @arguments | Should -BeLike '*with_body_sha: "9e2ec912af5d"*'
@@ -101,7 +106,8 @@ Describe 'Format-GeneratedFileHead' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-COMPO
         $bare = Format-PropertyMetaHead -Text $json -Property '$comment' -Strip @($script:warning) -Immutable ([ordered]@{})
         $hash = [Catzc.Base.MarkdownMeta.MarkdownDocument]::HashOf($bare)
         $text = Format-GeneratedFileHead -Text $json -Path 'docs/gen.schema.dat' -Carrier schema -Carriers $script:carriers -Languages $script:languages
-        $text | Should -BeExactly "{`n  `"`$comment`": `"catzc:\n  immutable:\n    with_body_sha: \`"$hash\`"\n    warning: \`"$script:warning\`"`",`n  `"type`": `"object`"`n}`n"
+        $text |
+            Should -BeExactly "{`n  `"`$comment`": `"catzc:\n  immutable:\n    with_body_sha: \`"$hash\`"\n    warning: \`"$script:warning\`"`",`n  `"type`": `"object`"`n}`n"
     }
 
     It 'refuses a carrier that holds no head, and an undeclared carrier' {

@@ -6,7 +6,8 @@ Describe 'Set-AbandonedTestRun' -Tag 'L0', 'logic' {
             param([string] $Name, [System.Collections.IDictionary] $Manifest)
             $dir = Join-Path $script:root $Name
             [System.IO.Directory]::CreateDirectory($dir) | Out-Null
-            [System.IO.File]::WriteAllText((Join-Path $dir 'run.json'), (ConvertTo-Json -InputObject $Manifest -Depth 4))
+            [System.IO.File]::WriteAllText((Join-Path $dir 'run.json'),
+                (ConvertTo-Json -InputObject $Manifest -Depth 4))
             $dir
         }
 
@@ -41,7 +42,8 @@ Describe 'Set-AbandonedTestRun' -Tag 'L0', 'logic' {
         InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:root } { param($Root) Set-AbandonedTestRun -OutputFolder $Root } | Out-Null
 
         # The raw text, not a parsed value: ConvertFrom-Json would hide the offset the file actually carries.
-        [System.IO.File]::ReadAllText((Join-Path $script:root 'widget-utc/run.json')) | Should -Match ([regex]::Escape("`"startedAt`": `"$startedAt`""))
+        [System.IO.File]::ReadAllText((Join-Path $script:root 'widget-utc/run.json')) |
+            Should -Match ([regex]::Escape("`"startedAt`": `"$startedAt`""))
     }
 
     It 'abandons a running run that names no owner' {

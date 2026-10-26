@@ -120,11 +120,14 @@ function New-SyntheticHistory {
     foreach ($ref in @(Invoke-Executable 'git for-each-ref --format=%(refname) refs/original refs/stash' -WorkingDirectory $RepositoryPath -PassThru -NoAssert -Silent).Output -split '\r?\n' | Where-Object { $_ }) {
         Invoke-Executable "git update-ref -d $ref" -WorkingDirectory $RepositoryPath -NoAssert -Silent | Out-Null
     }
-    Invoke-Executable 'git reflog expire --expire=now --all' -WorkingDirectory $RepositoryPath -NoAssert -Silent | Out-Null
+    Invoke-Executable 'git reflog expire --expire=now --all' -WorkingDirectory $RepositoryPath -NoAssert -Silent |
+        Out-Null
     $limit = Get-TimeoutSeconds -Command 'New-SyntheticHistory'
-    Invoke-Executable 'git gc --prune=now' -WorkingDirectory $RepositoryPath -NoAssert -Silent -TimeoutSeconds $limit | Out-Null
+    Invoke-Executable 'git gc --prune=now' -WorkingDirectory $RepositoryPath -NoAssert -Silent -TimeoutSeconds $limit |
+        Out-Null
     if ($originUrl) {
-        Invoke-Executable "git remote set-url origin $originUrl" -WorkingDirectory $RepositoryPath -NoAssert -Silent | Out-Null
+        Invoke-Executable "git remote set-url origin $originUrl" -WorkingDirectory $RepositoryPath -NoAssert -Silent |
+            Out-Null
     }
 
     Write-Message "Built synthetic history: $committed commit(s) on '$Branch', authored by $AuthorName."

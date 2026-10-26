@@ -41,7 +41,8 @@ function Invoke-Accosted {
         $runIndex = 0
         foreach ($run in $file.runs) {
             $runIndex++
-            # The engine prefixes the first command; each later one in the run takes the prefix itself, and && stops at a failure.
+            # The engine prefixes the first command; each later one in the run takes the prefix itself, and && stops at
+            # a failure.
             $calls = @(foreach ($command in $run.commands) {
                     ConvertTo-AccostedCallText -Command $command -Contract $contracts[$command.name] -Engine $model
                 })
@@ -52,7 +53,8 @@ function Invoke-Accosted {
             }
             $line = ConvertTo-CommandLineText -Executable $executable -Argument $model.StartArguments($entry, $text)
             $result = Invoke-Executable $line -PassThru -NoAssert -Silent -TimeoutSeconds $seconds -WorkingDirectory $RepositoryRoot
-            [Catzc.Base.Contracts.AccostedRunResult]::new($runIndex, $model.Name, $result.ExitCode, $text, "$($result.Full)")
+            [Catzc.Base.Contracts.AccostedRunResult]::new($runIndex, $model.Name, $result.ExitCode, $text,
+                "$($result.Full)")
         }
     }
 }

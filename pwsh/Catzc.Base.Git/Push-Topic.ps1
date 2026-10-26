@@ -67,7 +67,8 @@ function Push-Topic {
     & $run "commit -m $quoted" | Out-Null
     $ahead = [int] (& $git "rev-list --count $serverHead..HEAD")
     $behind = [int] (& $git "rev-list --count HEAD..$serverHead")
-    Assert-True ($ahead -eq 1 -and $behind -eq 0) -ErrorText "Push-Topic: '$branch' is $ahead ahead and $behind behind $($Config.remote)/$main after the squash; expected 1 ahead and 0 behind."
+    Assert-True ($ahead -eq 1 -and
+        $behind -eq 0) -ErrorText "Push-Topic: '$branch' is $ahead ahead and $behind behind $($Config.remote)/$main after the squash; expected 1 ahead and 0 behind."
     $commit = & $git 'rev-parse HEAD'
 
     if (Test-GitWorkspace -MainViaPr) {

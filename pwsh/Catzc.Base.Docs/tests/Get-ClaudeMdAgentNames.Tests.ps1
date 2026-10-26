@@ -18,9 +18,12 @@ Describe 'Get-ClaudeMdAgentNames' -Tag 'L0', 'logic', 'ADR-REPO-AGENTS-LISTEDINC
 
     It 'returns the bold-code bullets of the Sub-agents section only, in file order' {
         $path = Write-ClaudeMdFixture (@(
-                '# Claude', '', '- **`gizmo`** — before the section.', '', '## Sub-agents', '', 'Prose naming **`gizmo`**.', '',
-                '- **`widget`** — the standard agent,', '  continued **`gizmo`**.', '- **`gadget`** — the gadget agent.', '',
-                '### Detail', '', '- **`sprocket`** — under a subheading.', '', '## Rules', '', '- **`gizmo`** — after the section.'
+                '# Claude', '', '- **`gizmo`** — before the section.', '', '## Sub-agents', '',
+                    'Prose naming **`gizmo`**.', '',
+                '- **`widget`** — the standard agent,', '  continued **`gizmo`**.',
+                '- **`gadget`** — the gadget agent.', '',
+                '### Detail', '', '- **`sprocket`** — under a subheading.', '', '## Rules', '',
+                '- **`gizmo`** — after the section.'
             ) -join "`n")
         $names = InModuleScope Catzc.Base.Docs -Parameters @{ Path = $path } { Get-ClaudeMdAgentNames -Path $Path }
         $names | Should -Be @('widget', 'gadget', 'sprocket')

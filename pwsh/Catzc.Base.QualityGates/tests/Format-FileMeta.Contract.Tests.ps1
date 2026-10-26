@@ -1,12 +1,15 @@
-# The provided head contract names the keys of a file's meta head; this proves they are the keys the code writes, so neither can drift.
+# The provided head contract names the keys of a file's meta head; this proves they are the keys the code writes, so
+# neither can drift.
 Describe 'The provided head contract' -Tag 'L1', 'integrity', 'source-only', 'ADR-REPO-CONTRACT-PROVENBYTESTS' {
     BeforeAll {
         $folder = Join-Path (Get-RepositoryRoot) 'contracts/catzc/0.1.0/catzc.base.quality_gates'
         $script:sample = Get-Content -LiteralPath (Join-Path $folder 'head.sample.yml') -Raw | ConvertFrom-Yaml -Ordered
-        $script:schema = Get-Content -LiteralPath (Join-Path $folder 'head.schema.json') -Raw | ConvertFrom-Json -AsHashtable
+        $script:schema = Get-Content -LiteralPath (Join-Path $folder 'head.schema.json') -Raw |
+            ConvertFrom-Json -AsHashtable
         $registry = Get-Config -Config file-meta
         $composed = (Get-Config -Config generated-head).order
-        # The generated-file head holds place facts only, under immutable; the imprint kinds write the edges at the block's first level.
+        # The generated-file head holds place facts only, under immutable; the imprint kinds write the edges at the
+        # block's first level.
         $script:writtenImmutable = @($composed | Sort-Object -Unique)
         $script:writtenEdges = @($registry.ImprintKeys() | Sort-Object -Unique)
         $script:parts = $script:schema['properties']['catzc']['properties']
@@ -39,7 +42,8 @@ Describe 'The provided head contract' -Tag 'L1', 'integrity', 'source-only', 'AD
         foreach ($relation in $relatives.settings['relations']) {
             foreach ($rule in $relation['rules']) {
                 foreach ($path in $rule['paths']) {
-                    $path | Should -Match '^\{page\}$|^[a-z]+/\{module\}/' -Because "the '$($relation['name'])' relation must stay in the file's own module or docs section"
+                    $path |
+                        Should -Match '^\{page\}$|^[a-z]+/\{module\}/' -Because "the '$($relation['name'])' relation must stay in the file's own module or docs section"
                 }
             }
         }
@@ -58,7 +62,8 @@ Describe 'The provided head contract' -Tag 'L1', 'integrity', 'source-only', 'AD
         $script:schema['properties']['catzc']['properties']['header']['type'] | Should -Be 'string'
         $script:sample['catzc']['header'] | Should -BeExactly (Get-Config -Config file-meta).header
         @($script:sample['catzc'].Keys) | Should -Be @('docs', 'header')
-        $script:schema['properties']['catzc']['properties'].Contains('warning') | Should -BeFalse -Because 'only a generated file carries a warning, under immutable'
+        $script:schema['properties']['catzc']['properties'].Contains('warning') |
+            Should -BeFalse -Because 'only a generated file carries a warning, under immutable'
     }
 
     It 'requires no key, since an authored head holds its edge only and a generated one holds the body hash only while tracked' -Tag 'ADR-REPO-FILEMETA-HEADPOLICY' {

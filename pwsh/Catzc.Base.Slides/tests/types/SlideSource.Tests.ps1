@@ -84,13 +84,15 @@ Say it plainly.
         $errors | Should -Contain "text outside a field: 'stray'"
         $errors | Should -Contain 'a slide has one level-one heading, its title; a second one was found'
         $errors | Should -Contain "the field 'body' appears twice"
-        ([Catzc.Base.Slides.SlideSource]::Parse("## Body`n`na")).Errors | Should -Contain 'a slide has a level-one heading, its title; none was found'
+        ([Catzc.Base.Slides.SlideSource]::Parse("## Body`n`na")).Errors |
+            Should -Contain 'a slide has a level-one heading, its title; none was found'
     }
 
     It 'joins an indented continuation line to the list item above it, as a formatter wraps a long item' {
         $wrapped = [Catzc.Base.Slides.SlideSource]::Parse("# T`n`n## Cards`n`n- **Pin** Another trunk pins the widget and`n  controls when it changes.`n- **Clone** A team clones it.")
         $wrapped.Fields['cards'].Items.Count | Should -Be 2
-        $wrapped.Fields['cards'].Items[0].Text | Should -Be 'Another trunk pins the widget and controls when it changes.'
+        $wrapped.Fields['cards'].Items[0].Text |
+            Should -Be 'Another trunk pins the widget and controls when it changes.'
         $wrapped.Fields['cards'].Items[1].Lead | Should -Be 'Clone'
     }
 

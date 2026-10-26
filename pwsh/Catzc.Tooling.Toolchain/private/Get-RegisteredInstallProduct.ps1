@@ -7,7 +7,8 @@ catzc:
 #>
 
 function Get-RegisteredInstallProduct {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-NoUnboundedEnumeration', '', Justification = 'It lists the registry provider (HKLM Uninstall keys), not the filesystem; the path sits in a variable the rule cannot read')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-NoUnboundedEnumeration', '',
+        Justification = 'It lists the registry provider (HKLM Uninstall keys), not the filesystem; the path sits in a variable the rule cannot read')]
     [CmdletBinding()]
     [OutputType([pscustomobject])]
     param(

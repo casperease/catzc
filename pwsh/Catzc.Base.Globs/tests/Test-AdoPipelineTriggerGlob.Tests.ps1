@@ -35,12 +35,14 @@ Describe 'Test-AdoPipelineTriggerGlob' -Tag 'L0', 'logic' {
     It 'throws once listing every drifted and missing pipeline' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
         Mock Test-Path -ParameterFilter { $LiteralPath -like '*cd-widget.yaml' } { $false } -ModuleName Catzc.Base.Globs
         Mock Get-PipelineTrigger {
-            [pscustomobject]@{ TriggerInclude = @('lib/**', 'oops/**'); TriggerExclude = @('lib/gen/**'); PrInclude = @('lib/**'); PrExclude = @('lib/gen/**') }
+            [pscustomobject]@{ TriggerInclude = @('lib/**',
+                'oops/**'); TriggerExclude = @('lib/gen/**'); PrInclude = @('lib/**'); PrExclude = @('lib/gen/**') }
         } -ModuleName Catzc.Base.Globs
 
         $thrown = { Test-AdoPipelineTriggerGlob -OutputFolder (Join-Path $TestDrive 'ado') } | Should -Throw -PassThru
         $thrown.Exception.Message | Should -BeLike 'Test-AdoPipelineTriggerGlob failed: 2 issue(s)*'
-        $thrown.Exception.Message | Should -Match 'gadget: gizmo/pipes/cd-gadget\.yaml trigger drifted .* on trigger\.paths\.include'
+        $thrown.Exception.Message |
+            Should -Match 'gadget: gizmo/pipes/cd-gadget\.yaml trigger drifted .* on trigger\.paths\.include'
         $thrown.Exception.Message | Should -Match 'widget: pipeline file not found: gizmo/pipes/cd-widget\.yaml'
     }
 

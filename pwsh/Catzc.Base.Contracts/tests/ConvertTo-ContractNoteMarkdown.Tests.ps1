@@ -20,7 +20,8 @@ Describe 'ConvertTo-ContractNoteMarkdown' -Tag 'L0', 'logic' {
     It 'makes a repository-rooted link relative to the page, keeping its fragment' -Tag 'ADR-REPO-LINK-MARKDOWNRELATIVE' {
         ConvertTo-Markdown 'Pinned by [ADR-TST-WIDGET-SPIN](/docs/drs/repository/widget-thing.md#rule-adr-tst-widget-spin).' |
             Should -BeExactly 'Pinned by [ADR-TST-WIDGET-SPIN](../../drs/repository/widget-thing.md#rule-adr-tst-widget-spin).'
-        ConvertTo-Markdown 'See [gadget](/docs/references/widgets/gadget.md).' | Should -BeExactly 'See [gadget](gadget.md).'
+        ConvertTo-Markdown 'See [gadget](/docs/references/widgets/gadget.md).' |
+            Should -BeExactly 'See [gadget](gadget.md).'
     }
 
     It 'leaves a relative link, an autolink, and a code span as written' -Tag 'ADR-REPO-LINK-MARKDOWNRELATIVE' {
@@ -29,10 +30,12 @@ Describe 'ConvertTo-ContractNoteMarkdown' -Tag 'L0', 'logic' {
     }
 
     It 'turns a bare address into an autolink, leaving trailing punctuation outside' -Tag 'ADR-REPO-LINK-OFFREPOSITORYURLS' {
-        ConvertTo-Markdown 'Spec: https://example.com/widget/gadget.' | Should -BeExactly 'Spec: <https://example.com/widget/gadget>.'
+        ConvertTo-Markdown 'Spec: https://example.com/widget/gadget.' |
+            Should -BeExactly 'Spec: <https://example.com/widget/gadget>.'
     }
 
     It 'escapes a < that opens no autolink, and leaves a pipe as written' {
-        ConvertTo-Markdown 'The `widget|gadget` key, per <id>.' | Should -BeExactly 'The `widget|gadget` key, per \<id>.'
+        ConvertTo-Markdown 'The `widget|gadget` key, per <id>.' |
+            Should -BeExactly 'The `widget|gadget` key, per \<id>.'
     }
 }

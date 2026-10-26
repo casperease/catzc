@@ -110,7 +110,8 @@ Describe 'Get-BicepDeploymentContext (devbox)' -Tag 'L0', 'logic' {
         $context = Get-BicepDeploymentContext -Environment alpha -Template sample
         $context.artifacts.folder | Should -Be 'out/test-isolation/deployment-context/template/sample'
         $context.artifacts.template_file | Should -Be 'out/test-isolation/deployment-context/template/sample/main.json'
-        $context.artifacts.parameters_file | Should -Be 'out/test-isolation/deployment-context/template/sample/parameters.alpha.json'
+        $context.artifacts.parameters_file |
+            Should -Be 'out/test-isolation/deployment-context/template/sample/parameters.alpha.json'
         [IO.Path]::IsPathRooted($context.artifacts.template_file) | Should -BeFalse
     }
 
@@ -122,12 +123,14 @@ Describe 'Get-BicepDeploymentContext (devbox)' -Tag 'L0', 'logic' {
 
     It 'throws when the environment is in azure.yml but not in the template list' {
         # gamma is in the fixture azure.yml, but sample only configures alpha + beta
-        { Get-BicepDeploymentContext -Environment gamma -Template sample } | Should -Throw '*not configured for template*'
+        { Get-BicepDeploymentContext -Environment gamma -Template sample } |
+            Should -Throw '*not configured for template*'
     }
 
     It 'throws when -DoNotRebuild is set but the build folder is missing' {
         # outputRoot was wiped in BeforeEach; no Build-Bicep invocation will populate it
-        { Get-BicepDeploymentContext -Environment alpha -Template sample -DoNotRebuild } | Should -Throw '*No template build found*'
+        { Get-BicepDeploymentContext -Environment alpha -Template sample -DoNotRebuild } |
+            Should -Throw '*No template build found*'
     }
 }
 
@@ -179,7 +182,8 @@ Describe 'Get-BicepDeploymentContext (per-customer)' -Tag 'L0', 'logic' {
             }
         } -ModuleName Catzc.Azure.Templates
         $context = Get-BicepDeploymentContext -Environment alpha -Template sample-customer
-        $context.deployment.resource_group | Should -Be 'alpha-weu-tst-scus-acme-rg'   # customer from the session subscription
+        $context.deployment.resource_group |
+            Should -Be 'alpha-weu-tst-scus-acme-rg'   # customer from the session subscription
         $context.deployment.name | Should -BeLike 'sample-customer-alpha-*'
         $context.environment.subscription.name | Should -Be 'acme_lower'
         $context.artifacts.parameters_file | Should -BeLike '*parameters.acme.alpha.json'

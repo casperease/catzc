@@ -44,7 +44,8 @@ Describe 'Write-TestAutomationRuleCoverage' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-C
     It 'counts every tagged test that cites a rule as an enforcer' {
         $script:md | Should -Match '\| ADR-FAKE-TURN \| 2 \|'
         # the ADR-FAKE-TURN pester-test enforcers are both cited rows
-        @($script:csv | Where-Object { $_.AdrId -eq 'ADR-FAKE-TURN' -and $_.Kind -eq 'pester-test' }).Count | Should -Be 2
+        @($script:csv | Where-Object { $_.AdrId -eq 'ADR-FAKE-TURN' -and $_.Kind -eq 'pester-test' }).Count |
+            Should -Be 2
     }
 
     It 'credits an analyzer rule as a pssa-rule enforcer' {

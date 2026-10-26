@@ -21,7 +21,8 @@ Describe 'Get-DrsCitationMap' -Tag 'L0', 'logic' {
             '| `ADR-TST-WIDGET` | [widget-rules](widget/widget-rules.md) |'
             '| `ADR-TST-GADGET` | [gadget-rules](gadget/gadget-rules.md) |'
         )
-        & $write 'docs/drs/widget/widget-rules.md' @('# Widget', '', '### Rule ADR-TST-WIDGET-TURN', '', 'One.', '', '### Rule ADR-TST-WIDGET-RE02', '', 'Two.')
+        & $write 'docs/drs/widget/widget-rules.md' @('# Widget', '', '### Rule ADR-TST-WIDGET-TURN', '', 'One.', '',
+            '### Rule ADR-TST-WIDGET-RE02', '', 'Two.')
         & $write 'docs/drs/gadget/gadget-rules.md' @('# Gadget', '', '### Rule ADR-TST-GADGET-FOLD', '', 'One.')
         & $write 'docs/drs/widget/widget-notes.md' @('# Widget notes')
         & $write 'docs/drs/gadget/widget-notes.md' @('# Gadget notes')
@@ -39,7 +40,8 @@ Describe 'Get-DrsCitationMap' -Tag 'L0', 'logic' {
     }
 
     It 'derives the repository-rooted destination from the citation' -Tag 'ADR-REPO-LINK-CODELINKS' {
-        $map.Destination('ADR-TST-WIDGET-RE02') | Should -BeExactly '/docs/drs/widget/widget-rules.md#rule-adr-tst-widget-re02'
+        $map.Destination('ADR-TST-WIDGET-RE02') |
+            Should -BeExactly '/docs/drs/widget/widget-rules.md#rule-adr-tst-widget-re02'
         $map.Destination('ADR-TST-GADGET') | Should -BeExactly '/docs/drs/gadget/gadget-rules.md'
     }
 

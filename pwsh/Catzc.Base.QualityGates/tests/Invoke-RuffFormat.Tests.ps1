@@ -31,7 +31,8 @@ Describe 'Invoke-RuffFormat' -Tag 'L0', 'logic' {
     }
 
     It 'checks every given file from the workspace, then rewrites exactly the listed files' {
-        $changed = InModuleScope Catzc.Base.QualityGates -Parameters @{ Files = @($script:widgetFile, $script:helper) } {
+        $changed = InModuleScope Catzc.Base.QualityGates -Parameters @{ Files = @($script:widgetFile,
+            $script:helper) } {
             param($Files)
             Invoke-RuffFormat -File $Files
         }

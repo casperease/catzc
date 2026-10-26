@@ -36,7 +36,8 @@ Describe 'Get-ScopeLookup' -Tag 'L0', 'logic' {
     }
 
     It 'refuses a path neither on disk nor tracked' {
-        { & $script:lookup 'docs/no-such-gizmo.md' } | Should -Throw "*'docs/no-such-gizmo.md' does not exist and is not tracked*"
+        { & $script:lookup 'docs/no-such-gizmo.md' } |
+            Should -Throw "*'docs/no-such-gizmo.md' does not exist and is not tracked*"
     }
 
     It 'refuses a path outside the repository' {

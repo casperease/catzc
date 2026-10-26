@@ -9,7 +9,8 @@ Describe 'Assert-AdoDeploymentHistory' -Tag 'L0', 'logic' {
     }
 
     BeforeEach {
-        # Run 10 is the CI run that built commit aaa; run 11 built bbb. Runs 20 and 21 are DEPLOY runs naming a CI run; run 30 is a CD run.
+        # Run 10 is the CI run that built commit aaa; run 11 built bbb. Runs 20 and 21 are DEPLOY runs naming a CI run;
+        # run 30 is a CD run.
         $script:runs = @{
             '10' = [pscustomobject]@{ sourceVersion = 'aaa' }
             '11' = [pscustomobject]@{ sourceVersion = 'bbb' }
@@ -32,12 +33,14 @@ Describe 'Assert-AdoDeploymentHistory' -Tag 'L0', 'logic' {
 
     It 'stops a commit absent from the pre-prod history' {
         $script:history = @([pscustomobject]@{ owner = @{ id = 20 }; result = 'succeeded' })
-        { & $script:assert @{ Environment = 'widget-pre-prod'; CiRunId = 10 } } | Should -Throw '*Commit aaa (CI run 10) has no successful deployment*widget-pre-prod*'
+        { & $script:assert @{ Environment = 'widget-pre-prod'; CiRunId = 10 } } |
+            Should -Throw '*Commit aaa (CI run 10) has no successful deployment*widget-pre-prod*'
     }
 
     It 'stops a commit whose only pre-prod deployment failed' {
         $script:history = @([pscustomobject]@{ owner = @{ id = 21 }; result = 'failed' })
-        { & $script:assert @{ Environment = 'widget-pre-prod'; CiRunId = 10 } } | Should -Throw '*has no successful deployment*'
+        { & $script:assert @{ Environment = 'widget-pre-prod'; CiRunId = 10 } } |
+            Should -Throw '*has no successful deployment*'
     }
 
     It 'passes a commit a DEPLOY run put on pre-prod, through the CI run it names' {
@@ -57,6 +60,7 @@ Describe 'Assert-AdoDeploymentHistory' -Tag 'L0', 'logic' {
 
     It 'throws when the environment does not exist' {
         Mock Invoke-AdoRestMethod -ModuleName Catzc.Azure.DevOps -ParameterFilter { $Uri -like '*/distributedtask/environments?name=*' } { @() }
-        { & $script:assert @{ Environment = 'widget-pre-prod'; CiRunId = 10 } } | Should -Throw "*Environment 'widget-pre-prod' does not exist*"
+        { & $script:assert @{ Environment = 'widget-pre-prod'; CiRunId = 10 } } |
+            Should -Throw "*Environment 'widget-pre-prod' does not exist*"
     }
 }

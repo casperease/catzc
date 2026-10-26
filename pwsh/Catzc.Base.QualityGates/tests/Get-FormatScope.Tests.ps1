@@ -9,7 +9,8 @@ catzc:
 Describe 'Get-FormatScope' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:root = [System.IO.Path]::GetFullPath((Join-Path $TestDrive 'repo'))
-        foreach ($relative in 'widgets/a.wdg', 'widgets/tests/assets/b.wdg', 'third-party/c.wdg', 'gadgets/d.gdg', 'contracts/widget/v1/e.wdg', 'built/f.wdg') {
+        foreach ($relative in 'widgets/a.wdg', 'widgets/tests/assets/b.wdg', 'third-party/c.wdg', 'gadgets/d.gdg',
+            'contracts/widget/v1/e.wdg', 'built/f.wdg') {
             $null = New-Item -ItemType File -Path (Join-Path $script:root $relative) -Force
         }
         $script:outside = Join-Path $TestDrive 'build/e.wdg'
@@ -35,7 +36,8 @@ Describe 'Get-FormatScope' -Tag 'L0', 'logic' {
 
     It 'is every tracked file present on disk, fixtures included, minus vendored code, byte-frozen contract assets and binary files' -Tag 'ADR-REPO-CONTRACT-RELEASEDIMMUTABLE' {
         $scope = InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:root } { param($Root) Get-FormatScope -RepositoryRoot $Root }
-        $scope | Should -Be @((& $script:full 'widgets/a.wdg'), (& $script:full 'widgets/tests/assets/b.wdg'), (& $script:full 'gadgets/d.gdg'))
+        $scope | Should -Be @((& $script:full 'widgets/a.wdg'), (& $script:full 'widgets/tests/assets/b.wdg'),
+            (& $script:full 'gadgets/d.gdg'))
     }
 
     It 'narrows to a folder''s tracked files, and takes a given file as it is, even outside the repository' {
@@ -43,7 +45,8 @@ Describe 'Get-FormatScope' -Tag 'L0', 'logic' {
             param($Root, $Folder, $Outside)
             Get-FormatScope -RepositoryRoot $Root -Path $Folder, $Outside
         }
-        $scope | Should -Be @((& $script:full 'widgets/a.wdg'), (& $script:full 'widgets/tests/assets/b.wdg'), [System.IO.Path]::GetFullPath($script:outside))
+        $scope | Should -Be @((& $script:full 'widgets/a.wdg'), (& $script:full 'widgets/tests/assets/b.wdg'),
+            [System.IO.Path]::GetFullPath($script:outside))
     }
 
     It 'takes a folder under the output root as its files on disk, since git tracks nothing there' -Tag 'ADR-AUTO-DEFAULT-OUTPUTONLYBYADDRESS' {

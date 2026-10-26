@@ -7,7 +7,8 @@ catzc:
 #>
 
 # cspell:ignore importcs dlllock  -- a fixture folder prefix and a skip reason, data
-[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '', Justification = 'Tests read $global:__CatzcDeferredTypes, the session-global pending record of the deferred types load')]
+[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '',
+    Justification = 'Tests read $global:__CatzcDeferredTypes, the session-global pending record of the deferred types load')]
 param()
 
 Describe 'Import-CSharpTypes' -Tag 'L0' {
@@ -48,7 +49,8 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
         Mock Get-TypesShadowRoot { $shadowRoot }.GetNewClosure() -ModuleName Catzc.Internal.Types
         Mock Get-TypesShadowRoot { $shadowRoot }.GetNewClosure() -ModuleName Catzc.Internal.Bootstrap
         $script:shadowRoot = $shadowRoot
-        # A run from a VS Code terminal carries its mark; every case here is a plain devbox unless it sets the mark itself.
+        # A run from a VS Code terminal carries its mark; every case here is a plain devbox unless it sets the mark
+        # itself.
         $script:originalTerminalProgram = $env:TERM_PROGRAM
         $env:TERM_PROGRAM = ''
     }
@@ -67,7 +69,8 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
             $compiled = Join-Path $root '.compiled'
             @([System.IO.Directory]::EnumerateFiles($compiled, 'Catzc.Types.*.dll')).Count | Should -Be 0
             @([System.IO.Directory]::EnumerateFiles($compiled, 'Catzc.Types.*.json')).Count | Should -Be 1
-            $hash = [System.IO.Path]::GetFileNameWithoutExtension(([System.IO.Directory]::EnumerateFiles($compiled, 'Catzc.Types.*.json') | Select-Object -First 1))
+            $hash = [System.IO.Path]::GetFileNameWithoutExtension(([System.IO.Directory]::EnumerateFiles($compiled,
+                'Catzc.Types.*.json') | Select-Object -First 1))
             [System.IO.File]::Exists((Join-Path $script:shadowRoot "$hash.dll")) | Should -BeTrue
         }
 
@@ -114,14 +117,16 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
             InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R }
             $manifests = @([System.IO.Directory]::EnumerateFiles((Join-Path $root '.compiled'), 'Catzc.Types.*.json'))
             $manifests.Count | Should -Be 1
-            @(([System.IO.File]::ReadAllText($manifests[0]) | ConvertFrom-Json).types.name) | Should -Be @("$namespace.Omega")
+            @(([System.IO.File]::ReadAllText($manifests[0]) | ConvertFrom-Json).types.name) |
+                Should -Be @("$namespace.Omega")
         }
 
         It 'restores a missing manifest beside a DLL that predates it' {
             $namespace = "CatzcTestRestore$runId"
             $root = New-FixtureRoot @{ $namespace = @{ Psi = 'public class Psi { }' } }
             InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R }
-            $manifest = [System.IO.Directory]::EnumerateFiles((Join-Path $root '.compiled'), 'Catzc.Types.*.json') | Select-Object -First 1
+            $manifest = [System.IO.Directory]::EnumerateFiles((Join-Path $root '.compiled'), 'Catzc.Types.*.json') |
+                Select-Object -First 1
             [System.IO.File]::Delete($manifest)
             InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R }
             [System.IO.File]::Exists($manifest) | Should -BeTrue
@@ -131,7 +136,8 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
             $namespace = "CatzcTestBundle$runId"
             $root = New-FixtureRoot @{ $namespace = @{ Chi = 'public class Chi { }' } }
             InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R }
-            $manifest = [System.IO.Directory]::EnumerateFiles((Join-Path $root '.compiled'), 'Catzc.Types.*.json') | Select-Object -First 1
+            $manifest = [System.IO.Directory]::EnumerateFiles((Join-Path $root '.compiled'), 'Catzc.Types.*.json') |
+                Select-Object -First 1
             # A bundle ships the DLL beside its manifest in .compiled.
             $dll = [System.IO.Path]::ChangeExtension($manifest, 'dll')
             [System.IO.File]::Copy((Join-Path $script:shadowRoot ([System.IO.Path]::GetFileName($dll))), $dll)
@@ -161,7 +167,8 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
             $root = New-FixtureRoot @{ $namespace = @{ Mu = 'public class Mu { }' } }
             InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R -HostKind console }
             # A bundle ships the DLL beside its manifest in .compiled.
-            $manifest = [System.IO.Directory]::EnumerateFiles((Join-Path $root '.compiled'), 'Catzc.Types.*.json') | Select-Object -First 1
+            $manifest = [System.IO.Directory]::EnumerateFiles((Join-Path $root '.compiled'), 'Catzc.Types.*.json') |
+                Select-Object -First 1
             $dll = [System.IO.Path]::ChangeExtension($manifest, 'dll')
             [System.IO.File]::Copy((Join-Path $script:shadowRoot ([System.IO.Path]::GetFileName($dll))), $dll)
             $stamp = [System.IO.File]::GetLastWriteTimeUtc($dll)
@@ -184,13 +191,15 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
             InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R -HostKind console }
             $types = Join-Path $root "$namespace/types"
 
-            [System.IO.File]::WriteAllText((Join-Path $types 'Gadget.cs'), "namespace $namespace;`npublic class Gadget { }")
+            [System.IO.File]::WriteAllText((Join-Path $types 'Gadget.cs'),
+                "namespace $namespace;`npublic class Gadget { }")
             InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R -HostKind console }
             ([System.Management.Automation.PSTypeName]"$namespace.Gadget").Type | Should -Not -BeNullOrEmpty
             $global:__CatzcDeferredTypes[[System.IO.Path]::GetFullPath($root)].Generation | Should -Be 2
             Should -Invoke Write-ImporterMessage -ModuleName Catzc.Internal.Bootstrap -ParameterFilter { "$Message" -like 'Loaded changed types*build 2 of 2*' }
 
-            [System.IO.File]::WriteAllText((Join-Path $types 'Gizmo.cs'), "namespace $namespace;`npublic class Gizmo { }")
+            [System.IO.File]::WriteAllText((Join-Path $types 'Gizmo.cs'),
+                "namespace $namespace;`npublic class Gizmo { }")
             { InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R -HostKind console } } |
                 Should -Throw '*Restart PowerShell*'
             ([System.Management.Automation.PSTypeName]"$namespace.Gizmo").Type | Should -BeNullOrEmpty
@@ -276,7 +285,8 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
             $namespace = "CatzcTestEpsilon$runId"
             $root = New-FixtureRoot @{ $namespace = @{ Epsilon = 'public class Epsilon { }' } }
             InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R }
-            $manifest = [System.IO.Directory]::EnumerateFiles((Join-Path $root '.compiled'), 'Catzc.Types.*.json') | Select-Object -First 1
+            $manifest = [System.IO.Directory]::EnumerateFiles((Join-Path $root '.compiled'), 'Catzc.Types.*.json') |
+                Select-Object -First 1
             $dll = Join-Path $script:shadowRoot ([System.IO.Path]::GetFileNameWithoutExtension($manifest) + '.dll')
             $dll | Should -Not -BeNullOrEmpty
 
@@ -296,7 +306,8 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
                 $namespace = "CatzcTestGamma$runId"
                 $root = New-FixtureRoot @{ $namespace = @{ Gamma = 'public class Gamma { }' } }
                 InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R }
-                [System.IO.File]::WriteAllText((Join-Path $root "$namespace/types/Gamma.cs"), "namespace $namespace;`npublic class Gamma { public int X; }")
+                [System.IO.File]::WriteAllText((Join-Path $root "$namespace/types/Gamma.cs"),
+                    "namespace $namespace;`npublic class Gamma { public int X; }")
                 { InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R } } |
                     Should -Not -Throw
                 Should -Invoke Write-ImporterMessage -ModuleName Catzc.Internal.Bootstrap -ParameterFilter { $Message -match 'Using the old C# types' }
@@ -316,7 +327,8 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
                 $namespace = "CatzcTestGammaAdd$runId"
                 $root = New-FixtureRoot @{ $namespace = @{ Gamma = 'public class Gamma { }' } }
                 InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R }
-                [System.IO.File]::WriteAllText((Join-Path $root "$namespace/types/Delta.cs"), "namespace $namespace;`npublic class Delta { }")
+                [System.IO.File]::WriteAllText((Join-Path $root "$namespace/types/Delta.cs"),
+                    "namespace $namespace;`npublic class Delta { }")
                 { InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R } } |
                     Should -Throw "*added $namespace/Delta*Restart PowerShell*"
             }
@@ -333,7 +345,8 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
                 $namespace = "CatzcTestGammaCi$runId"   # fresh namespace: a type persists for the process, so the first import must load it clean
                 $root = New-FixtureRoot @{ $namespace = @{ Gamma = 'public class Gamma { }' } }
                 InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R }
-                [System.IO.File]::WriteAllText((Join-Path $root "$namespace/types/Gamma.cs"), "namespace $namespace;`npublic class Gamma { public int X; }")
+                [System.IO.File]::WriteAllText((Join-Path $root "$namespace/types/Gamma.cs"),
+                    "namespace $namespace;`npublic class Gamma { public int X; }")
                 { InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R } } |
                     Should -Throw '*changed since they were loaded*'
             }
@@ -353,7 +366,8 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
                 $root = New-FixtureRoot @{ $namespace = @{ Gamma = 'public class Gamma { }' } }
                 InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R }
                 $loadedHash = (Get-Variable -Name '__CatzcTypes' -Scope Global -ValueOnly)[[System.IO.Path]::GetFullPath($root)].Hash
-                [System.IO.File]::WriteAllText((Join-Path $root "$namespace/types/Gamma.cs"), "namespace $namespace;`npublic class Gamma { public int X; }")
+                [System.IO.File]::WriteAllText((Join-Path $root "$namespace/types/Gamma.cs"),
+                    "namespace $namespace;`npublic class Gamma { public int X; }")
                 { InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R } } |
                     Should -Not -Throw
                 Should -Invoke Write-ImporterMessage -ModuleName Catzc.Internal.Bootstrap -ParameterFilter {
@@ -378,7 +392,8 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
                 $namespace = "CatzcTestGammaCodeAdd$runId"
                 $root = New-FixtureRoot @{ $namespace = @{ Gamma = 'public class Gamma { }' } }
                 InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R }
-                [System.IO.File]::WriteAllText((Join-Path $root "$namespace/types/Delta.cs"), "namespace $namespace;`npublic class Delta { }")
+                [System.IO.File]::WriteAllText((Join-Path $root "$namespace/types/Delta.cs"),
+                    "namespace $namespace;`npublic class Delta { }")
                 { InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R } } |
                     Should -Not -Throw
                 Should -Invoke Write-ImporterMessage -ModuleName Catzc.Internal.Bootstrap -ParameterFilter { $Message -like 'Loaded inside VS Code with non-current types dll:*' }
@@ -397,7 +412,8 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
                 $namespace = "CatzcTestGammaCodeCi$runId"
                 $root = New-FixtureRoot @{ $namespace = @{ Gamma = 'public class Gamma { }' } }
                 InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R }
-                [System.IO.File]::WriteAllText((Join-Path $root "$namespace/types/Gamma.cs"), "namespace $namespace;`npublic class Gamma { public int X; }")
+                [System.IO.File]::WriteAllText((Join-Path $root "$namespace/types/Gamma.cs"),
+                    "namespace $namespace;`npublic class Gamma { public int X; }")
                 { InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R } } |
                     Should -Throw '*changed since they were loaded*'
             }

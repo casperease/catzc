@@ -1,4 +1,5 @@
-# Get-ConventionEdge derives the relations no file writes: a test to its subject, a file to its comment page, a module to its dependencies.
+# Get-ConventionEdge derives the relations no file writes: a test to its subject, a file to its comment page, a module
+# to its dependencies.
 Describe 'Get-ConventionEdge' -Tag 'L0', 'logic', 'ADR-REPO-LINKS-CONVENTIONSAREDERIVED' {
     BeforeEach {
         InModuleScope Catzc.Base.QualityGates {
@@ -25,7 +26,8 @@ Describe 'Get-ConventionEdge' -Tag 'L0', 'logic', 'ADR-REPO-LINKS-CONVENTIONSARE
 
     It 'points a test at the file of its own unit with its stem, a typed test included' {
         $edges = & $derive @('mods/Widget/Get-Widget.ps1', 'mods/Widget/types/Cog.cs', 'mods/Gadget/Get-Widget.ps1',
-            'mods/Widget/tests/Get-Widget.Tests.ps1', 'mods/Widget/tests/types/Cog.Tests.ps1', 'mods/Widget/tests/Get-Sprocket.Tests.ps1')
+            'mods/Widget/tests/Get-Widget.Tests.ps1', 'mods/Widget/tests/types/Cog.Tests.ps1',
+            'mods/Widget/tests/Get-Sprocket.Tests.ps1')
         @(& $shown $edges.Where({ $_.File -like '*/tests/*' })) | Should -Be @(
             'mods/Widget/tests/Get-Widget.Tests.ps1 -> mods/Widget/Get-Widget.ps1'
             'mods/Widget/tests/types/Cog.Tests.ps1 -> mods/Widget/types/Cog.cs'
@@ -33,13 +35,16 @@ Describe 'Get-ConventionEdge' -Tag 'L0', 'logic', 'ADR-REPO-LINKS-CONVENTIONSARE
     }
 
     It 'points a file at its comment page only when the page is tracked' {
-        $edges = & $derive @('mods/Widget/Get-Widget.ps1', 'docs/references/mods/Widget/Get-Widget.ps1.md', 'mods/Widget/Get-Gizmo.ps1')
-        @(& $shown $edges.Where({ $_.Target -like 'docs/*' })) | Should -Be @('mods/Widget/Get-Widget.ps1 -> docs/references/mods/Widget/Get-Widget.ps1.md')
+        $edges = & $derive @('mods/Widget/Get-Widget.ps1', 'docs/references/mods/Widget/Get-Widget.ps1.md',
+            'mods/Widget/Get-Gizmo.ps1')
+        @(& $shown $edges.Where({ $_.Target -like 'docs/*' })) |
+            Should -Be @('mods/Widget/Get-Widget.ps1 -> docs/references/mods/Widget/Get-Widget.ps1.md')
     }
 
     It 'points a module at each declared dependency that is a module, and no other' {
         $edges = & $derive @('mods/Widget/Get-Widget.ps1', 'mods/Gadget/Get-Gadget.ps1')
-        @(& $shown $edges.Where({ $_.File -eq 'mods/Widget' })) | Should -Be @('mods/Widget -> mods/Gadget') -Because 'Toolbox has no folder: a group name, no module'
+        @(& $shown $edges.Where({ $_.File -eq 'mods/Widget' })) |
+            Should -Be @('mods/Widget -> mods/Gadget') -Because 'Toolbox has no folder: a group name, no module'
     }
 
     It 'marks every edge as a convention relation with no line of its own' {

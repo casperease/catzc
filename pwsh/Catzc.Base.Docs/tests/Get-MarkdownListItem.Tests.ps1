@@ -13,7 +13,8 @@ Describe 'Get-MarkdownListItem' -Tag 'L0', 'logic' {
             ))
         $items.Count | Should -Be 3
         $items[0].LineNumber | Should -Be 3
-        $items[0].Text | Should -BeExactly '- [ ] spin the widget, a long item the formatter wrapped onto a second line (check: it spins).'
+        $items[0].Text |
+            Should -BeExactly '- [ ] spin the widget, a long item the formatter wrapped onto a second line (check: it spins).'
         $items[0].First | Should -BeExactly '- [ ] spin the widget, a long item the formatter wrapped'
         $items[1].LineNumber | Should -Be 5
         $items[1].Text | Should -BeExactly '1. [ ] turn the gadget Check: it turns.'

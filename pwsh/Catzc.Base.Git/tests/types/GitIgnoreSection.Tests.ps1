@@ -18,11 +18,14 @@ Describe 'GitIgnoreSection' -Tag 'L0', 'logic' {
     It 'throws when both or neither of patterns/inject are declared' {
         { [Catzc.Base.Git.GitIgnoreSection]::new(@{ id = 's'; title = 't'; why = 'w'; patterns = @('a'); inject = 'p' }) } |
             Should -Throw '*exactly one*'
-        { [Catzc.Base.Git.GitIgnoreSection]::new(@{ id = 's'; title = 't'; why = 'w' }) } | Should -Throw '*exactly one*'
+        { [Catzc.Base.Git.GitIgnoreSection]::new(@{ id = 's'; title = 't'; why = 'w' }) } |
+            Should -Throw '*exactly one*'
     }
 
     It 'throws when a required field is missing' {
-        { [Catzc.Base.Git.GitIgnoreSection]::new(@{ title = 't'; why = 'w'; patterns = @('a') }) } | Should -Throw '*id is required*'
-        { [Catzc.Base.Git.GitIgnoreSection]::new(@{ id = 's'; title = 't'; patterns = @('a') }) } | Should -Throw '*why is required*'
+        { [Catzc.Base.Git.GitIgnoreSection]::new(@{ title = 't'; why = 'w'; patterns = @('a') }) } |
+            Should -Throw '*id is required*'
+        { [Catzc.Base.Git.GitIgnoreSection]::new(@{ id = 's'; title = 't'; patterns = @('a') }) } |
+            Should -Throw '*why is required*'
     }
 }

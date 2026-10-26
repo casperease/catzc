@@ -48,7 +48,8 @@ Describe 'Test-TestTitles' -Tag 'L0', 'logic' {
         $thrown = { Test-TestTitles -OutputFolder $out } | Should -Throw -PassThru
         $message = $thrown.Exception.Message
         $message | Should -BeLike 'Test-TestTitles failed: 2 issue(s)*'
-        $message | Should -Match ([regex]::Escape("widget-modules/Widget/tests/Get-Gadget.Tests.ps1: Context 'configs/$token.yml' has a template token"))
+        $message |
+            Should -Match ([regex]::Escape("widget-modules/Widget/tests/Get-Gadget.Tests.ps1: Context 'configs/$token.yml' has a template token"))
         $message | Should -Match ([regex]::Escape("It 'expands $token' has a template token"))
     }
 

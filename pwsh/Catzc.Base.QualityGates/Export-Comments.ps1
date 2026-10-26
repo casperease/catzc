@@ -38,7 +38,8 @@ function Export-Comments {
             }
         }
         $text = [System.IO.File]::ReadAllText($filePath)
-        $result = [Catzc.Base.QualityGates.CommentEngine]::Export($text, $entry.Extension, $entry.Language, $entry.File, $entry.Page,
+        $result = [Catzc.Base.QualityGates.CommentEngine]::Export($text, $entry.Extension, $entry.Language, $entry.File,
+            $entry.Page,
             $pageTexts[$entry.Page], $config)
         if (-not $result.Changed) {
             continue

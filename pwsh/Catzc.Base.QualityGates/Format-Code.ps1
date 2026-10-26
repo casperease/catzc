@@ -96,7 +96,8 @@ function Format-Code {
             }
         }
         $changed = @(Invoke-FormatterEngine -Engine $engine -File $pending -DryRun:$DryRun | ForEach-Object { $_ })
-        $changedSet = [System.Collections.Generic.HashSet[string]]::new([string[]] $changed, [System.StringComparer]::OrdinalIgnoreCase)
+        $changedSet = [System.Collections.Generic.HashSet[string]]::new([string[]] $changed,
+            [System.StringComparer]::OrdinalIgnoreCase)
 
         if ($DryRun) {
             Update-ResultCache -Cache $cache -Key $split.Key -Checked $pending -Flagged $changed
@@ -144,7 +145,8 @@ function Format-Code {
             })
         $stamp = Get-FormatEngineStamp -Engine "imprint:$step" -Settings @($config.steps[$step].settings) -RepositoryRoot $root
 
-        # A step has its own cache file: one file passes through an engine and several steps, and the cache keeps one slot per file.
+        # A step has its own cache file: one file passes through an engine and several steps, and the cache keeps one
+        # slot per file.
         $stepCachePath = Join-Path (Get-OutputRoot) "cache/format-code-$step.json"
         $stepCache = if ($NoCache) {
             @{}
@@ -157,7 +159,8 @@ function Format-Code {
             Get-FileMetaInputStamp -File $candidates -RepositoryRoot $root
         }
         elseif ($step -ceq 'plan-counts') {
-            # The plan-counts step's verdict reads the open steps of the plans beside each overlay, so their counts join its key.
+            # The plan-counts step's verdict reads the open steps of the plans beside each overlay, so their counts join
+            # its key.
             $stamps = @{}
             foreach ($candidate in $candidates) {
                 $counts = Get-PlanOpenStepCount ([System.IO.Path]::GetDirectoryName($candidate)) -Config (Get-Config -Config plans)
@@ -215,7 +218,9 @@ function Format-Code {
             $kinds = " ($($languageOutcome.Changed.Count - $wrapOnly) in content, $wrapOnly only in wrapping)"
         }
         Write-Message "${name}: $($languageOutcome.Changed.Count) of $($languageOutcome.Files.Count) file(s) $($DryRun ? 'would change' : 'changed')$kinds."
-        $results.Add([Catzc.Base.QualityGates.FormatResult]::new($name, $languageOutcome.Engine, [string[]] $languageOutcome.Files, $languageOutcome.Changed.ToArray(), [bool] $DryRun, $languageOutcome.Unfixable))
+        $results.Add([Catzc.Base.QualityGates.FormatResult]::new($name, $languageOutcome.Engine,
+            [string[]] $languageOutcome.Files, $languageOutcome.Changed.ToArray(), [bool] $DryRun,
+            $languageOutcome.Unfixable))
     }
     Save-ResultCache -Path $cachePath -Cache $cache
 

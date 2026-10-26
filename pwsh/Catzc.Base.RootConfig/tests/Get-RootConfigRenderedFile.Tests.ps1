@@ -50,13 +50,15 @@ Describe 'Get-RootConfigRenderedFile' -Tag 'L0', 'logic' {
     It 'throws when a wildcard entry''s generator returns one string' {
         Mock Invoke-RootConfigGenerator -ModuleName Catzc.Base.RootConfig { "rendered`n" }
         $entry = [pscustomobject]@{ target = 'widgets/*/gadget.txt'; generator = 'New-Widget' }
-        { InModuleScope Catzc.Base.RootConfig $render -ArgumentList $entry } | Should -Throw '*wildcard target needs one { Target; Content } record*'
+        { InModuleScope Catzc.Base.RootConfig $render -ArgumentList $entry } |
+            Should -Throw '*wildcard target needs one { Target; Content } record*'
     }
 
     It 'throws when a record does not match the entry''s target, case-sensitively' {
         Mock Invoke-RootConfigGenerator -ModuleName Catzc.Base.RootConfig { [pscustomobject]@{ Target = 'Widgets/alpha/gadget.txt'; Content = "x`n" } }
         $entry = [pscustomobject]@{ target = 'widgets/*/gadget.txt'; generator = 'New-Widget' }
-        { InModuleScope Catzc.Base.RootConfig $render -ArgumentList $entry } | Should -Throw "*rendered 'Widgets/alpha/gadget.txt', which does not match*"
+        { InModuleScope Catzc.Base.RootConfig $render -ArgumentList $entry } |
+            Should -Throw "*rendered 'Widgets/alpha/gadget.txt', which does not match*"
     }
 
     It 'throws when a literal target renders a file besides itself' {
@@ -68,6 +70,7 @@ Describe 'Get-RootConfigRenderedFile' -Tag 'L0', 'logic' {
     It 'throws on output that is neither one string nor records' {
         Mock Invoke-RootConfigGenerator -ModuleName Catzc.Base.RootConfig { 'one', 'two' }
         $entry = [pscustomobject]@{ target = 'widget.txt'; generator = 'New-Widget' }
-        { InModuleScope Catzc.Base.RootConfig $render -ArgumentList $entry } | Should -Throw '*must return one string or { Target; Content } records*'
+        { InModuleScope Catzc.Base.RootConfig $render -ArgumentList $entry } |
+            Should -Throw '*must return one string or { Target; Content } records*'
     }
 }

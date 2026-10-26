@@ -11,7 +11,8 @@ function Resolve-VendorRepository {
     [OutputType([string])]
     param()
 
-    foreach ($cmd in 'Find-PSResource', 'Save-PSResource', 'Get-PSResourceRepository', 'Register-PSResourceRepository') {
+    foreach ($cmd in 'Find-PSResource', 'Save-PSResource', 'Get-PSResourceRepository',
+        'Register-PSResourceRepository') {
         if (-not (Get-Command $cmd -ErrorAction Ignore)) {
             throw "Vendor operations require Microsoft.PowerShell.PSResourceGet ('$cmd' not found) — it ships with PowerShell 7.4+."
         }

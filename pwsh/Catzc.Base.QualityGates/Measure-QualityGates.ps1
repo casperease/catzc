@@ -36,7 +36,8 @@ function Measure-QualityGates {
             foreach ($ruleName in $rules) {
                 $stopwatch = [System.Diagnostics.Stopwatch]::StartNew()
                 $records = @($files | Invoke-ScriptAnalyzer -Settings $settings -IncludeRule $ruleName -ErrorAction SilentlyContinue)
-                $rows.Add([pscustomobject]@{ Name = $ruleName; Seconds = [math]::Round($stopwatch.Elapsed.TotalSeconds, 2); IssueCount = $records.Count; Error = $null })
+                $rows.Add([pscustomobject]@{ Name = $ruleName; Seconds = [math]::Round($stopwatch.Elapsed.TotalSeconds,
+                    2); IssueCount = $records.Count; Error = $null })
             }
         }
         else {
@@ -53,10 +54,12 @@ function Measure-QualityGates {
                 $stopwatch = [System.Diagnostics.Stopwatch]::StartNew()
                 try {
                     $result = & $command @arguments 6> $null
-                    $rows.Add([pscustomobject]@{ Name = $gate; Seconds = [math]::Round($stopwatch.Elapsed.TotalSeconds, 2); IssueCount = @($result.Issues).Count; Error = $null })
+                    $rows.Add([pscustomobject]@{ Name = $gate; Seconds = [math]::Round($stopwatch.Elapsed.TotalSeconds,
+                        2); IssueCount = @($result.Issues).Count; Error = $null })
                 }
                 catch {
-                    $rows.Add([pscustomobject]@{ Name = $gate; Seconds = [math]::Round($stopwatch.Elapsed.TotalSeconds, 2); IssueCount = $null; Error = $_.Exception.Message })
+                    $rows.Add([pscustomobject]@{ Name = $gate; Seconds = [math]::Round($stopwatch.Elapsed.TotalSeconds,
+                        2); IssueCount = $null; Error = $_.Exception.Message })
                 }
             }
         }

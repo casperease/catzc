@@ -20,7 +20,8 @@ Describe 'Resolve-RepoPath' -Tag 'L0', 'logic' {
         Mock Get-OutputRoot { Join-Path $script:root 'out' } -ModuleName Catzc.Base.Repository
         $base = [IO.Path]::GetFullPath([IO.Path]::GetTempPath())
         $raw = Join-Path $base 'gadget/./widget/../main.json'
-        Resolve-RepoPath $raw | Should -Be (Join-Path $base 'gadget/main.json').Replace('/', [IO.Path]::DirectorySeparatorChar)
+        Resolve-RepoPath $raw | Should -Be (Join-Path $base 'gadget/main.json').Replace('/',
+            [IO.Path]::DirectorySeparatorChar)
     }
 
     It 'resolves the out/ sentinel against the output root (local: under the repo)' {

@@ -1,4 +1,5 @@
-[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '', Justification = 'Tests lift $global:__PesterRunning to verify writer output; that flag is the writers'' test-suppression interface, set by Test-Automation')]
+[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '',
+    Justification = 'Tests lift $global:__PesterRunning to verify writer output; that flag is the writers'' test-suppression interface, set by Test-Automation')]
 param()
 
 Describe 'a janitor line after the import has removed Bootstrap' -Tag 'L0', 'logic' {
@@ -66,12 +67,17 @@ Describe 'the build janitors and the writers lists' -Tag 'L0', 'logic' {
     }
 
     BeforeEach {
-        foreach ($name in 'Invoke-GeneratedFilesJanitor', 'Invoke-TypeCacheJanitor', 'Invoke-AgentHookJanitor', 'Invoke-EditorExtensionJanitor', 'Sync-SessionTools', 'Build-DrsIndex', 'Build-Glossary', 'Build-ContractReference', 'Build-Readme', 'Build-GitKeep', 'Build-TerminologyDictionary', 'Build-DrsCodeDictionary', 'Build-RootConfig') {
+        foreach ($name in 'Invoke-GeneratedFilesJanitor', 'Invoke-TypeCacheJanitor', 'Invoke-AgentHookJanitor',
+            'Invoke-EditorExtensionJanitor', 'Sync-SessionTools', 'Build-DrsIndex', 'Build-Glossary',
+            'Build-ContractReference', 'Build-Readme', 'Build-GitKeep', 'Build-TerminologyDictionary',
+            'Build-DrsCodeDictionary', 'Build-RootConfig') {
             Mock $name { } -ModuleName Catzc.Internal.Importer
         }
-        # The registry the janitor reads: the eight at-import writers in the order the import runs them, and one writer the import leaves alone.
+        # The registry the janitor reads: the eight at-import writers in the order the import runs them, and one writer
+        # the import leaves alone.
         $script:writers = [ordered]@{}
-        foreach ($name in 'Build-DrsIndex', 'Build-Glossary', 'Build-ContractReference', 'Build-Readme', 'Build-GitKeep', 'Build-TerminologyDictionary', 'Build-DrsCodeDictionary', 'Build-RootConfig') {
+        foreach ($name in 'Build-DrsIndex', 'Build-Glossary', 'Build-ContractReference', 'Build-Readme',
+            'Build-GitKeep', 'Build-TerminologyDictionary', 'Build-DrsCodeDictionary', 'Build-RootConfig') {
             $script:writers[$name] = [pscustomobject]@{ name = $name; at_import = $true }
         }
         $script:writers['Build-EnglishDictionary'] = [pscustomobject]@{ name = 'Build-EnglishDictionary'; at_import = $false }
@@ -80,7 +86,8 @@ Describe 'the build janitors and the writers lists' -Tag 'L0', 'logic' {
         # A writer the janitor runs stores its stamp; the test keeps that out of the repository's memo.
         Mock Save-GeneratedWriterStamp { } -ModuleName Catzc.Internal.Importer
         $script:rows = @(
-            foreach ($name in 'Build-DrsIndex', 'Build-Glossary', 'Build-ContractReference', 'Build-Readme', 'Build-GitKeep', 'Build-TerminologyDictionary', 'Build-DrsCodeDictionary') {
+            foreach ($name in 'Build-DrsIndex', 'Build-Glossary', 'Build-ContractReference', 'Build-Readme',
+                'Build-GitKeep', 'Build-TerminologyDictionary', 'Build-DrsCodeDictionary') {
                 [pscustomobject]@{ Name = $name; Due = $false; HasLists = $true }
             }
             [pscustomobject]@{ Name = 'Build-RootConfig'; Due = $false; HasLists = $false }

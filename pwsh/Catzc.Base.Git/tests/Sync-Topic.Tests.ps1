@@ -47,7 +47,8 @@ Describe 'Sync-Topic' -Tag 'L0', 'logic', 'FDR-GIT-SYNCBYREBASE' {
 
     It 'stops on a conflict with the files and the continue and abort commands, and never aborts on its own' {
         Set-Git -RebaseExit 1
-        { Sync-Topic -Config $script:config } | Should -Throw '*conflicts in: widget.ps1, gadget.yml*git rebase --continue*git rebase --abort*'
+        { Sync-Topic -Config $script:config } |
+            Should -Throw '*conflicts in: widget.ps1, gadget.yml*git rebase --continue*git rebase --abort*'
         Should -Invoke Invoke-Executable -ModuleName Catzc.Base.Git -Times 0 -ParameterFilter { $Command -like 'git rebase --abort*' -or $Command -like 'git rebase --skip*' }
     }
 

@@ -27,7 +27,8 @@ Describe 'Find-Executable' -Tag 'L1', 'logic' {
             param([hashtable] $Keys = @{})
             $probe = @{
                 Name             = 'widget'
-                Candidate        = @('%CATZC_WIDGET_ROOT%/missing/widget.exe', '%CATZC_WIDGET_ROOT%/user/widget.exe', '%CATZC_WIDGET_ROOT%/machine/widget.exe')
+                Candidate        = @('%CATZC_WIDGET_ROOT%/missing/widget.exe', '%CATZC_WIDGET_ROOT%/user/widget.exe',
+                    '%CATZC_WIDGET_ROOT%/machine/widget.exe')
                 Exclude          = @('%CATZC_WIDGET_ROOT%/wsl/widget.exe')
                 VersionArguments = '--version'
                 VersionPattern   = 'version (?<ver>[\d.]+)'
@@ -91,7 +92,8 @@ Describe 'Find-Executable' -Tag 'L1', 'logic' {
 
     Context 'excluded executables (the WSL launcher)' {
         It 'skips an excluded candidate even when it exists' {
-            $probe = Invoke-WidgetProbe @{ Candidate = @('%CATZC_WIDGET_ROOT%/wsl/widget.exe', '%CATZC_WIDGET_ROOT%/machine/widget.exe') }
+            $probe = Invoke-WidgetProbe @{ Candidate = @('%CATZC_WIDGET_ROOT%/wsl/widget.exe',
+                '%CATZC_WIDGET_ROOT%/machine/widget.exe') }
             $probe.Path | Should -Be (Get-FixturePath 'machine')
         }
 

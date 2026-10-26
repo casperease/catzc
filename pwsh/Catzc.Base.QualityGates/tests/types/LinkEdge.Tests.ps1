@@ -1,7 +1,9 @@
-# LinkEdge is one relation the link walk recognised; it always names the file it is written in and the file it points at.
+# LinkEdge is one relation the link walk recognised; it always names the file it is written in and the file it points
+# at.
 Describe 'LinkEdge' -Tag 'L0', 'logic', 'ADR-REPO-LINKS-EVERYLINKHASADIRECTION' {
     It 'keeps where it is written, its relation and its target, with no code for a plain link' {
-        $edge = [Catzc.Base.QualityGates.LinkEdge]::new('docs/widget/part.md', 3, 7, 'MarkdownLink', 'docs/gadget/spec.md', $null)
+        $edge = [Catzc.Base.QualityGates.LinkEdge]::new('docs/widget/part.md', 3, 7, 'MarkdownLink',
+            'docs/gadget/spec.md', $null)
         $edge.File | Should -Be 'docs/widget/part.md'
         $edge.Line | Should -Be 3
         $edge.Column | Should -Be 7
@@ -11,17 +13,21 @@ Describe 'LinkEdge' -Tag 'L0', 'logic', 'ADR-REPO-LINKS-EVERYLINKHASADIRECTION' 
     }
 
     It 'carries the rule code of a citation' {
-        $edge = [Catzc.Base.QualityGates.LinkEdge]::new('mods/Widget/Get-Widget.ps1', 1, 1, 'CodeLink', 'docs/drs/widget.md', 'ADR-WIDGET-ONE')
+        $edge = [Catzc.Base.QualityGates.LinkEdge]::new('mods/Widget/Get-Widget.ps1', 1, 1, 'CodeLink',
+            'docs/drs/widget.md', 'ADR-WIDGET-ONE')
         $edge.Code | Should -Be 'ADR-WIDGET-ONE'
         "$edge" | Should -Be 'mods/Widget/Get-Widget.ps1:1:1 [CodeLink] docs/drs/widget.md'
     }
 
     It 'knows exactly the three written relations and the convention relation' {
-        [enum]::GetNames([Catzc.Base.QualityGates.LinkRelation]) | Should -Be @('MarkdownLink', 'CodeLink', 'DocsEdge', 'Convention')
+        [enum]::GetNames([Catzc.Base.QualityGates.LinkRelation]) | Should -Be @('MarkdownLink', 'CodeLink', 'DocsEdge',
+            'Convention')
     }
 
     It 'refuses an edge with no file or no target' {
-        { [Catzc.Base.QualityGates.LinkEdge]::new('', 1, 1, 'DocsEdge', 'docs/gadget.md', '') } | Should -Throw '*written in a file*'
-        { [Catzc.Base.QualityGates.LinkEdge]::new('mods/Widget/a.ps1', 1, 1, 'DocsEdge', '', '') } | Should -Throw '*names a target*'
+        { [Catzc.Base.QualityGates.LinkEdge]::new('', 1, 1, 'DocsEdge', 'docs/gadget.md', '') } |
+            Should -Throw '*written in a file*'
+        { [Catzc.Base.QualityGates.LinkEdge]::new('mods/Widget/a.ps1', 1, 1, 'DocsEdge', '', '') } |
+            Should -Throw '*names a target*'
     }
 }

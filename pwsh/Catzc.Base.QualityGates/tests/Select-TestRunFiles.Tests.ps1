@@ -26,15 +26,18 @@ Describe 'Select-TestRunFiles' -Tag 'L0', 'logic' {
         $script:gadget = 'C:\repo\automation\Gadget\tests\Get-Gadget.Tests.ps1'
         $script:discovery = [pscustomobject]@{
             Tests = @(
-                (New-FakeTest -File $script:widget -Name 'Widget.logic' -BlockTags @('L0', 'logic', 'ADR-TST-WIDGET-TURN'))
-                (New-FakeTest -File $script:gadget -Name 'Gadget.real environment' -BlockTags @('L3', 'logic', 'source-only'))
+                (New-FakeTest -File $script:widget -Name 'Widget.logic' -BlockTags @('L0', 'logic',
+                    'ADR-TST-WIDGET-TURN'))
+                (New-FakeTest -File $script:gadget -Name 'Gadget.real environment' -BlockTags @('L3', 'logic',
+                    'source-only'))
             )
         }
     }
 
     BeforeEach {
         # The real shape: ONE array object (`, $array`), so a caller that wraps it in @() instead of casting it breaks.
-        Mock Get-TestAutomationTestFiles -ModuleName Catzc.Base.QualityGates { , [string[]] @($script:widget, $script:gadget) }
+        Mock Get-TestAutomationTestFiles -ModuleName Catzc.Base.QualityGates { , [string[]] @($script:widget,
+            $script:gadget) }
         Mock Write-TestOptOutExclusion -ModuleName Catzc.Base.QualityGates { }
         $script:arguments = @{
             TestPath = @('C:\repo\automation\Widget\tests'); Discovery = $script:discovery

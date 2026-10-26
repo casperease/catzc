@@ -35,7 +35,8 @@ function Get-BicepParameterViolations {
             $section = [System.Text.Json.JsonElement]::new()
             $root = $document.RootElement
             $hasSection = $false
-            if ($root.ValueKind -eq [System.Text.Json.JsonValueKind]::Object -and $root.TryGetProperty('parameters', [ref] $section)) {
+            if ($root.ValueKind -eq [System.Text.Json.JsonValueKind]::Object -and $root.TryGetProperty('parameters',
+                [ref] $section)) {
                 $hasSection = $section.ValueKind -eq [System.Text.Json.JsonValueKind]::Object
             }
             if (-not $hasSection) {

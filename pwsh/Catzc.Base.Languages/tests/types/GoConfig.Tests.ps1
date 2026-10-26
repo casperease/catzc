@@ -34,7 +34,8 @@ Describe 'GoConfig' -Tag 'L0' {
             $config = [Catzc.Base.Languages.GoConfig]::new([ordered]@{
                     dependencies = [ordered]@{ 'example.com/widget' = 'v1.0.0'; 'example.com/Gadget' = 'v2.0.0'; 'example.com/assert' = 'v0.1.0' }
                 })
-            @($config.dependencies.Keys) | Should -Be @('example.com/Gadget', 'example.com/assert', 'example.com/widget')
+            @($config.dependencies.Keys) | Should -Be @('example.com/Gadget', 'example.com/assert',
+                'example.com/widget')
         }
 
         It 'resolves the Go root to go when the repository has a go/ folder, else to .go' {
@@ -63,15 +64,18 @@ Describe 'GoConfig' -Tag 'L0' {
         }
 
         It 'throws on an unknown key' {
-            { [Catzc.Base.Languages.GoConfig]::new([ordered]@{ gadget = '1.24' }) } | Should -Throw "*unknown key 'gadget'*"
+            { [Catzc.Base.Languages.GoConfig]::new([ordered]@{ gadget = '1.24' }) } |
+                Should -Throw "*unknown key 'gadget'*"
         }
 
         It 'throws on a malformed module_root' -ForEach @('/acme/go', 'acme/go/', 'Acme/go', 'acme//go') {
-            { [Catzc.Base.Languages.GoConfig]::new([ordered]@{ module_root = $_ }) } | Should -Throw '*invalid module_root*'
+            { [Catzc.Base.Languages.GoConfig]::new([ordered]@{ module_root = $_ }) } |
+                Should -Throw '*invalid module_root*'
         }
 
         It 'throws on dependencies that are not a map' {
-            { [Catzc.Base.Languages.GoConfig]::new([ordered]@{ dependencies = @('example.com/widget') }) } | Should -Throw '*invalid dependencies (must be a map*'
+            { [Catzc.Base.Languages.GoConfig]::new([ordered]@{ dependencies = @('example.com/widget') }) } |
+                Should -Throw '*invalid dependencies (must be a map*'
         }
 
         It 'throws on a dependency path without a dot in its first segment' {

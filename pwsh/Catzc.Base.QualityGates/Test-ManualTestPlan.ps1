@@ -43,7 +43,8 @@ function Test-ManualTestPlan {
             $tagValue = $null
             for ($i = 1; $i -lt $elements.Count; $i++) {
                 $element = $elements[$i]
-                if ($element -isnot [System.Management.Automation.Language.CommandParameterAst] -or $element.ParameterName -ine 'Tag') {
+                if ($element -isnot [System.Management.Automation.Language.CommandParameterAst] -or
+                    $element.ParameterName -ine 'Tag') {
                     continue
                 }
                 $tagValue = $element.Argument
@@ -61,7 +62,8 @@ function Test-ManualTestPlan {
             }
 
             # The block name is the first positional argument (Pester always names the block first).
-            if ($elements.Count -lt 2 -or $elements[1] -isnot [System.Management.Automation.Language.StringConstantExpressionAst]) {
+            if ($elements.Count -lt 2 -or
+                $elements[1] -isnot [System.Management.Automation.Language.StringConstantExpressionAst]) {
                 continue
             }
             $blocks.Add([pscustomobject]@{ File = $relative; Block = $elements[1].Value })

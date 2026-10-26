@@ -113,7 +113,8 @@ Describe 'FileKindsConfig' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-METAKIND' {
             @{ Name = 'an upper-case kind'; Kinds = @{ Widget = @{ definition = 'A widget.'; files = @('a/**') } }; Message = '*lowercase words joined by*' }
             @{ Name = 'an unknown key on a kind'; Kinds = @{ widget = @{ definition = 'A widget.'; files = @('a/**'); nope = 1 } }; Message = '*unknown key ''nope''*' }
             @{ Name = 'an unknown key on a subkind'; Kinds = @{ widget = @{ definition = 'A widget.'; subkinds = @{ cog = @{ definition = 'A cog.'; files = @('a/**'); nope = 1 } } } }; Message = '*unknown key ''nope''*' }
-            @{ Name = 'an empty glob'; Kinds = @{ widget = @{ definition = 'A widget.'; files = @('a/**', ' ') } }; Message = '*a glob in ''files'' is empty*' }
+            @{ Name = 'an empty glob'; Kinds = @{ widget = @{ definition = 'A widget.'; files = @('a/**',
+                ' ') } }; Message = '*a glob in ''files'' is empty*' }
             @{ Name = 'a kind that is not a map'; Kinds = @{ widget = 'x' }; Message = '*must be a map*' }
         ) {
             { New-Config $Kinds } | Should -Throw $Message
@@ -146,7 +147,8 @@ Describe 'FileKindsConfig' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-METAKIND' {
                 }
                 [Catzc.Base.Globs.FileKindsConfig]::new($raw)
             }
-            $script:paths = [string[]] @('widgets/a.txt', 'widgets/b.txt', 'gadgets/cog-1.txt', 'gadgets/x.txt', 'other/one.txt')
+            $script:paths = [string[]] @('widgets/a.txt', 'widgets/b.txt', 'gadgets/cog-1.txt', 'gadgets/x.txt',
+                'other/one.txt')
         }
 
         It 'has no overlaps by default, and reads the pairs in order' {
@@ -169,20 +171,26 @@ Describe 'FileKindsConfig' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-METAKIND' {
         }
 
         It 'reports nothing for a listed pair, and nothing below the shadowed share' {
-            @((New-Shadowed @(@('widget', 'sprocket'), @('gadget', 'sprocket'))).Shadowing($script:paths)).Count | Should -Be 0
-            @((New-Shadowed).Shadowing([string[]] @('widgets/a.txt', 'other/one.txt', 'other/two.txt'))).Count | Should -Be 0
+            @((New-Shadowed @(@('widget', 'sprocket'), @('gadget', 'sprocket'))).Shadowing($script:paths)).Count |
+                Should -Be 0
+            @((New-Shadowed).Shadowing([string[]] @('widgets/a.txt', 'other/one.txt', 'other/two.txt'))).Count |
+                Should -Be 0
             @((New-Shadowed).Shadowing([string[]] @())).Count | Should -Be 0
         }
 
         It 'counts a subkind''s files as the kind''s own' {
-            @((New-Shadowed).Shadowing([string[]] @('gadgets/cog-1.txt', 'gadgets/cog-2.txt', 'gadgets/x.txt')) | Where-Object Hidden -eq 'gadget').Count | Should -Be 0
+            @((New-Shadowed).Shadowing([string[]] @('gadgets/cog-1.txt', 'gadgets/cog-2.txt',
+                'gadgets/x.txt')) | Where-Object Hidden -eq 'gadget').Count | Should -Be 0
         }
 
         It 'rejects <Name>' -ForEach @(
             @{ Name = 'an overlap that is not a pair'; Overlaps = @(, @('widget')); Message = '*an overlap is a pair*' }
-            @{ Name = 'an overlap naming an undeclared kind'; Overlaps = @(, @('widget', 'cog')); Message = '*names a kind the registry does not declare*' }
-            @{ Name = 'an overlap out of precedence order'; Overlaps = @(, @('sprocket', 'widget')); Message = '*not in precedence order*' }
-            @{ Name = 'an overlap listed twice'; Overlaps = @(@('widget', 'sprocket'), @('widget', 'sprocket')); Message = '*listed twice*' }
+            @{ Name = 'an overlap naming an undeclared kind'; Overlaps = @(, @('widget',
+                'cog')); Message = '*names a kind the registry does not declare*' }
+            @{ Name = 'an overlap out of precedence order'; Overlaps = @(, @('sprocket',
+                'widget')); Message = '*not in precedence order*' }
+            @{ Name = 'an overlap listed twice'; Overlaps = @(@('widget', 'sprocket'), @('widget',
+                'sprocket')); Message = '*listed twice*' }
             @{ Name = 'overlaps that are not a list'; Overlaps = 'widget'; Message = '*overlaps must be a list*' }
         ) {
             { New-Shadowed $Overlaps } | Should -Throw $Message

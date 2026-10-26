@@ -6,7 +6,8 @@ catzc:
 ---
 #>
 
-# cspell:ignore tmain tforeground tbackground tsleep tsubagent tpipeline  -- "`t" escape artifacts in the tab-separated log lines
+# cspell:ignore tmain tforeground tbackground tsleep tsubagent tpipeline  -- "`t" escape artifacts in the tab-separated
+# log lines
 Describe 'BashSafeguard' -Tag 'L0', 'logic' {
     BeforeAll {
         # Tight fixture limits, so every verdict is visible: devbox 7 s / 70 s, pipeline 60 s / 600 s.
@@ -32,7 +33,8 @@ Describe 'BashSafeguard' -Tag 'L0', 'logic' {
                 $payload.agent_type = $AgentType
             }
             $logLine = $null
-            $reason = [Catzc.Base.Timeouts.BashSafeguard]::Decide(($payload | ConvertTo-Json -Compress), $script:config, $Environment, [ref] $logLine)
+            $reason = [Catzc.Base.Timeouts.BashSafeguard]::Decide(($payload | ConvertTo-Json -Compress), $script:config,
+                $Environment, [ref] $logLine)
             [pscustomobject]@{ Reason = $reason; LogLine = $logLine }
         }
     }
@@ -74,7 +76,8 @@ Describe 'BashSafeguard' -Tag 'L0', 'logic' {
         }
 
         It 'uses the pipeline limit in a pipeline' {
-            (Get-Verdict @{ command = 'ls'; timeout = 60001 } -Environment Pipeline).Reason | Should -BeLike '*timeout <= 60000 ms*'
+            (Get-Verdict @{ command = 'ls'; timeout = 60001 } -Environment Pipeline).Reason |
+                Should -BeLike '*timeout <= 60000 ms*'
         }
     }
 
@@ -116,7 +119,8 @@ Describe 'BashSafeguard' -Tag 'L0', 'logic' {
         }
 
         It 'uses the pipeline background limit in a pipeline' {
-            (Get-Verdict @{ command = 'timeout 600 sleep 1'; run_in_background = $true } -Environment Pipeline).Reason | Should -BeNullOrEmpty
+            (Get-Verdict @{ command = 'timeout 600 sleep 1'; run_in_background = $true } -Environment Pipeline).Reason |
+                Should -BeNullOrEmpty
             (Get-Verdict @{ command = 'timeout 601 sleep 1'; run_in_background = $true } -Environment Pipeline).Reason |
                 Should -BeLike '*background limit is 600 s*'
         }
@@ -162,7 +166,8 @@ Describe 'BashSafeguard' -Tag 'L0', 'logic' {
 
         It 'throws on a payload that is not JSON' {
             $logLine = $null
-            { [Catzc.Base.Timeouts.BashSafeguard]::Decide('not json', $script:config, 'Devbox', [ref] $logLine) } | Should -Throw
+            { [Catzc.Base.Timeouts.BashSafeguard]::Decide('not json', $script:config, 'Devbox', [ref] $logLine) } |
+                Should -Throw
         }
     }
 }
@@ -182,13 +187,15 @@ Describe 'BashSafeguard.FindConfig' -Tag 'L0', 'logic', 'ADR-AUTO-LAYERS-TOOLSRU
     It 'finds the config in the one top-level folder that holds it, whatever that folder is named' {
         $expected = [System.IO.Path]::GetFullPath((New-Config 'widget-modules'))
         [void][System.IO.Directory]::CreateDirectory((Join-Path $script:root 'docs'))
-        [System.IO.Path]::GetFullPath([Catzc.Base.Timeouts.BashSafeguard]::FindConfig($script:root)) | Should -Be $expected
+        [System.IO.Path]::GetFullPath([Catzc.Base.Timeouts.BashSafeguard]::FindConfig($script:root)) |
+            Should -Be $expected
     }
 
     It 'looks one level down only, so a deeper copy (a built bundle under out/) is never read' {
         $expected = [System.IO.Path]::GetFullPath((New-Config 'widget-modules'))
         New-Config 'out/built/gadget' | Out-Null
-        [System.IO.Path]::GetFullPath([Catzc.Base.Timeouts.BashSafeguard]::FindConfig($script:root)) | Should -Be $expected
+        [System.IO.Path]::GetFullPath([Catzc.Base.Timeouts.BashSafeguard]::FindConfig($script:root)) |
+            Should -Be $expected
     }
 
     It 'throws when no folder or more than one folder holds it' {
@@ -196,6 +203,7 @@ Describe 'BashSafeguard.FindConfig' -Tag 'L0', 'logic', 'ADR-AUTO-LAYERS-TOOLSRU
         { [Catzc.Base.Timeouts.BashSafeguard]::FindConfig($script:root) } | Should -Throw '*No top-level folder*'
         New-Config 'widget-modules' | Out-Null
         New-Config 'gadget-modules' | Out-Null
-        { [Catzc.Base.Timeouts.BashSafeguard]::FindConfig($script:root) } | Should -Throw '*More than one top-level folder*'
+        { [Catzc.Base.Timeouts.BashSafeguard]::FindConfig($script:root) } |
+            Should -Throw '*More than one top-level folder*'
     }
 }

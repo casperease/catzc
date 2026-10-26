@@ -32,8 +32,10 @@ Describe 'Assert-CatzcBundle' -Tag 'L0', 'logic' {
             $staging = Join-Path $TestDrive "$([System.Guid]::NewGuid().ToString('N'))"
             [System.IO.Directory]::CreateDirectory("$staging/Catzc.Base.Widget/types") | Out-Null
             [System.IO.Directory]::CreateDirectory("$staging/Catzc.Base.Gadget/types") | Out-Null
-            [System.IO.File]::Copy((Join-Path $root 'Catzc.Base.Widget/types/Widget.cs'), "$staging/Catzc.Base.Widget/types/Widget.cs")
-            [System.IO.File]::Copy((Join-Path $root '.compiled/types/Catzc.Base.Gadget/Gadget.cs'), "$staging/Catzc.Base.Gadget/types/Gadget.cs")
+            [System.IO.File]::Copy((Join-Path $root 'Catzc.Base.Widget/types/Widget.cs'),
+                "$staging/Catzc.Base.Widget/types/Widget.cs")
+            [System.IO.File]::Copy((Join-Path $root '.compiled/types/Catzc.Base.Gadget/Gadget.cs'),
+                "$staging/Catzc.Base.Gadget/types/Gadget.cs")
             Import-InternalModule Types
             $typesHash = (Get-CombinedTypeHash -ModulesRoot $staging).CombinedHash
             & $write ".compiled/Catzc.Types.$typesHash.dll" 'MZ'
@@ -102,32 +104,38 @@ Describe 'Assert-CatzcBundle' -Tag 'L0', 'logic' {
     It 'throws when the folder is not named for the version' {
         $fixture.Build.version = '9.9.9'
         & $script:resealBuild $fixture
-        { Assert-CatzcBundle -Path $fixture.Root } | Should -Throw -ExpectedMessage '*does not match build.json version 9.9.9*'
+        { Assert-CatzcBundle -Path $fixture.Root } |
+            Should -Throw -ExpectedMessage '*does not match build.json version 9.9.9*'
     }
 
     It 'throws when a tests file shipped outside .vendor' {
         [System.IO.Directory]::CreateDirectory((Join-Path $fixture.Root 'Catzc.Base.Widget/Tests')) | Out-Null
         [System.IO.File]::WriteAllText((Join-Path $fixture.Root 'Catzc.Base.Widget/Tests/Get-Widget.Tests.ps1'), 'x')
         & $script:resealBuild $fixture
-        { Assert-CatzcBundle -Path $fixture.Root } | Should -Throw -ExpectedMessage '*1 test file(s) shipped*Catzc.Base.Widget/Tests/Get-Widget.Tests.ps1*'
+        { Assert-CatzcBundle -Path $fixture.Root } |
+            Should -Throw -ExpectedMessage '*1 test file(s) shipped*Catzc.Base.Widget/Tests/Get-Widget.Tests.ps1*'
     }
 
     It 'throws when the types DLL is missing' {
         [System.IO.File]::Delete((Join-Path $fixture.Root ".compiled/Catzc.Types.$($fixture.TypesHash).dll"))
         & $script:resealBuild $fixture
-        { Assert-CatzcBundle -Path $fixture.Root } | Should -Throw -ExpectedMessage '*exactly one .compiled/Catzc.Types.<hash>.dll, found 0*'
+        { Assert-CatzcBundle -Path $fixture.Root } |
+            Should -Throw -ExpectedMessage '*exactly one .compiled/Catzc.Types.<hash>.dll, found 0*'
     }
 
     It 'throws when the types manifest is missing' {
         [System.IO.File]::Delete((Join-Path $fixture.Root ".compiled/Catzc.Types.$($fixture.TypesHash).json"))
         & $script:resealBuild $fixture
-        { Assert-CatzcBundle -Path $fixture.Root } | Should -Throw -ExpectedMessage '*exactly one .compiled/Catzc.Types.<hash>.json, found 0*'
+        { Assert-CatzcBundle -Path $fixture.Root } |
+            Should -Throw -ExpectedMessage '*exactly one .compiled/Catzc.Types.<hash>.json, found 0*'
     }
 
     It 'throws when the types manifest is not named for the DLL' {
-        [System.IO.File]::Move((Join-Path $fixture.Root ".compiled/Catzc.Types.$($fixture.TypesHash).json"), (Join-Path $fixture.Root '.compiled/Catzc.Types.00000000.json'))
+        [System.IO.File]::Move((Join-Path $fixture.Root ".compiled/Catzc.Types.$($fixture.TypesHash).json"),
+            (Join-Path $fixture.Root '.compiled/Catzc.Types.00000000.json'))
         & $script:resealBuild $fixture
-        { Assert-CatzcBundle -Path $fixture.Root } | Should -Throw -ExpectedMessage '*types manifest .compiled/Catzc.Types.00000000.json is not named for the types DLL*'
+        { Assert-CatzcBundle -Path $fixture.Root } |
+            Should -Throw -ExpectedMessage '*types manifest .compiled/Catzc.Types.00000000.json is not named for the types DLL*'
     }
 
     It 'throws when a second types DLL is present' {
@@ -137,15 +145,19 @@ Describe 'Assert-CatzcBundle' -Tag 'L0', 'logic' {
     }
 
     It 'throws when the DLL is not named for typesHash' {
-        [System.IO.File]::Move((Join-Path $fixture.Root ".compiled/Catzc.Types.$($fixture.TypesHash).dll"), (Join-Path $fixture.Root '.compiled/Catzc.Types.00000000.dll'))
+        [System.IO.File]::Move((Join-Path $fixture.Root ".compiled/Catzc.Types.$($fixture.TypesHash).dll"),
+            (Join-Path $fixture.Root '.compiled/Catzc.Types.00000000.dll'))
         & $script:resealBuild $fixture
-        { Assert-CatzcBundle -Path $fixture.Root } | Should -Throw -ExpectedMessage "*Catzc.Types.00000000.dll does not match build.json typesHash $($fixture.TypesHash)*"
+        { Assert-CatzcBundle -Path $fixture.Root } |
+            Should -Throw -ExpectedMessage "*Catzc.Types.00000000.dll does not match build.json typesHash $($fixture.TypesHash)*"
     }
 
     It 'throws when a shipped type source differs from what the DLL was built from' {
-        [System.IO.File]::WriteAllText((Join-Path $fixture.Root '.compiled/types/Catzc.Base.Gadget/Gadget.cs'), 'namespace Catzc.Base.Gadget; public class Gadget { int x; }')
+        [System.IO.File]::WriteAllText((Join-Path $fixture.Root '.compiled/types/Catzc.Base.Gadget/Gadget.cs'),
+            'namespace Catzc.Base.Gadget; public class Gadget { int x; }')
         & $script:resealBuild $fixture
-        { Assert-CatzcBundle -Path $fixture.Root } | Should -Throw -ExpectedMessage '*type sources hash to*the DLL was not built from the shipped sources*'
+        { Assert-CatzcBundle -Path $fixture.Root } |
+            Should -Throw -ExpectedMessage '*type sources hash to*the DLL was not built from the shipped sources*'
     }
 
     It 'hashes a type source without its meta head, reading the delimiters from the build''s own file-carriers.yml' {
@@ -168,12 +180,14 @@ Describe 'Assert-CatzcBundle' -Tag 'L0', 'logic' {
             [System.IO.File]::Copy((Join-Path $fixture.Root $relative), (Join-Path $staging $relative))
         }
         [System.IO.Directory]::CreateDirectory((Join-Path $staging 'Catzc.Base.Gadget/types')) | Out-Null
-        [System.IO.File]::Copy((Join-Path $fixture.Root '.compiled/types/Catzc.Base.Gadget/Gadget.cs'), (Join-Path $staging 'Catzc.Base.Gadget/types/Gadget.cs'))
+        [System.IO.File]::Copy((Join-Path $fixture.Root '.compiled/types/Catzc.Base.Gadget/Gadget.cs'),
+            (Join-Path $staging 'Catzc.Base.Gadget/types/Gadget.cs'))
         $headless = (Get-CombinedTypeHash -ModulesRoot $staging).CombinedHash
         $headless | Should -Not -BeExactly $fixture.TypesHash
 
         foreach ($extension in 'dll', 'json') {
-            [System.IO.File]::Move((Join-Path $fixture.Root ".compiled/Catzc.Types.$($fixture.TypesHash).$extension"), (Join-Path $fixture.Root ".compiled/Catzc.Types.$headless.$extension"))
+            [System.IO.File]::Move((Join-Path $fixture.Root ".compiled/Catzc.Types.$($fixture.TypesHash).$extension"),
+                (Join-Path $fixture.Root ".compiled/Catzc.Types.$headless.$extension"))
         }
         $fixture.Build.typesHash = $headless
         & $script:resealBuild $fixture
@@ -184,13 +198,16 @@ Describe 'Assert-CatzcBundle' -Tag 'L0', 'logic' {
     It 'throws when a recorded type source is missing' {
         [System.IO.File]::Delete((Join-Path $fixture.Root 'Catzc.Base.Widget/types/Widget.cs'))
         & $script:resealBuild $fixture
-        { Assert-CatzcBundle -Path $fixture.Root } | Should -Throw -ExpectedMessage '*type source Catzc.Base.Widget/types/Widget.cs is recorded in build.json but missing*'
+        { Assert-CatzcBundle -Path $fixture.Root } |
+            Should -Throw -ExpectedMessage '*type source Catzc.Base.Widget/types/Widget.cs is recorded in build.json but missing*'
     }
 
     It 'throws when a shipped type source is not recorded' {
-        [System.IO.File]::WriteAllText((Join-Path $fixture.Root '.compiled/types/Catzc.Base.Gadget/Sprocket.cs'), 'namespace Catzc.Base.Gadget; public class Sprocket { }')
+        [System.IO.File]::WriteAllText((Join-Path $fixture.Root '.compiled/types/Catzc.Base.Gadget/Sprocket.cs'),
+            'namespace Catzc.Base.Gadget; public class Sprocket { }')
         & $script:resealBuild $fixture
-        { Assert-CatzcBundle -Path $fixture.Root } | Should -Throw -ExpectedMessage '*Sprocket.cs ships but is not in build.json typeSources*'
+        { Assert-CatzcBundle -Path $fixture.Root } |
+            Should -Throw -ExpectedMessage '*Sprocket.cs ships but is not in build.json typeSources*'
     }
 
     It 'throws when a module is missing its <Kind>' -ForEach @(
@@ -199,30 +216,38 @@ Describe 'Assert-CatzcBundle' -Tag 'L0', 'logic' {
     ) {
         [System.IO.File]::Delete((Join-Path $fixture.Root "Catzc.Base.Widget/$File"))
         & $script:resealBuild $fixture
-        { Assert-CatzcBundle -Path $fixture.Root } | Should -Throw -ExpectedMessage "*missing its $Kind Catzc.Base.Widget/$File*"
+        { Assert-CatzcBundle -Path $fixture.Root } |
+            Should -Throw -ExpectedMessage "*missing its $Kind Catzc.Base.Widget/$File*"
     }
 
     It 'throws when a manifest export has no function in the merged file' {
-        [System.IO.File]::WriteAllText((Join-Path $fixture.Root 'Catzc.Base.Widget/Catzc.Base.Widget.psd1'), "@{ NestedModules = @('Catzc.Base.Widget.functions.ps1'); FunctionsToExport = @('Get-Widget', 'Set-Widget') }")
+        [System.IO.File]::WriteAllText((Join-Path $fixture.Root 'Catzc.Base.Widget/Catzc.Base.Widget.psd1'),
+            "@{ NestedModules = @('Catzc.Base.Widget.functions.ps1'); FunctionsToExport = @('Get-Widget', 'Set-Widget') }")
         & $script:resealBuild $fixture
         { Assert-CatzcBundle -Path $fixture.Root } | Should -Throw -ExpectedMessage '*does not define: Set-Widget*'
     }
 
     It 'throws when the manifest nests a file named for the module (a second same-named module)' {
-        [System.IO.File]::Move((Join-Path $fixture.Root 'Catzc.Base.Widget/Catzc.Base.Widget.functions.ps1'), (Join-Path $fixture.Root 'Catzc.Base.Widget/Catzc.Base.Widget.ps1'))
-        [System.IO.File]::WriteAllText((Join-Path $fixture.Root 'Catzc.Base.Widget/Catzc.Base.Widget.psd1'), "@{ NestedModules = @('Catzc.Base.Widget.ps1'); FunctionsToExport = @('Get-Widget') }")
+        [System.IO.File]::Move((Join-Path $fixture.Root 'Catzc.Base.Widget/Catzc.Base.Widget.functions.ps1'),
+            (Join-Path $fixture.Root 'Catzc.Base.Widget/Catzc.Base.Widget.ps1'))
+        [System.IO.File]::WriteAllText((Join-Path $fixture.Root 'Catzc.Base.Widget/Catzc.Base.Widget.psd1'),
+            "@{ NestedModules = @('Catzc.Base.Widget.ps1'); FunctionsToExport = @('Get-Widget') }")
         & $script:resealBuild $fixture
-        { Assert-CatzcBundle -Path $fixture.Root } | Should -Throw -ExpectedMessage '*missing its merged Catzc.Base.Widget/Catzc.Base.Widget.functions.ps1*'
+        { Assert-CatzcBundle -Path $fixture.Root } |
+            Should -Throw -ExpectedMessage '*missing its merged Catzc.Base.Widget/Catzc.Base.Widget.functions.ps1*'
     }
 
     It 'throws when the manifest does not nest exactly the merged file' {
-        [System.IO.File]::WriteAllText((Join-Path $fixture.Root 'Catzc.Base.Widget/Catzc.Base.Widget.psd1'), "@{ NestedModules = @('Catzc.Base.Widget.ps1'); FunctionsToExport = @('Get-Widget') }")
+        [System.IO.File]::WriteAllText((Join-Path $fixture.Root 'Catzc.Base.Widget/Catzc.Base.Widget.psd1'),
+            "@{ NestedModules = @('Catzc.Base.Widget.ps1'); FunctionsToExport = @('Get-Widget') }")
         & $script:resealBuild $fixture
-        { Assert-CatzcBundle -Path $fixture.Root } | Should -Throw -ExpectedMessage "*NestedModules must be exactly 'Catzc.Base.Widget.functions.ps1', found 'Catzc.Base.Widget.ps1'*"
+        { Assert-CatzcBundle -Path $fixture.Root } |
+            Should -Throw -ExpectedMessage "*NestedModules must be exactly 'Catzc.Base.Widget.functions.ps1', found 'Catzc.Base.Widget.ps1'*"
     }
 
     It 'does not count a nested function as a top-level export' {
-        [System.IO.File]::WriteAllText((Join-Path $fixture.Root 'Catzc.Base.Widget/Catzc.Base.Widget.functions.ps1'), "function Get-WidgetPart { function Get-Widget { } }`n")
+        [System.IO.File]::WriteAllText((Join-Path $fixture.Root 'Catzc.Base.Widget/Catzc.Base.Widget.functions.ps1'),
+            "function Get-WidgetPart { function Get-Widget { } }`n")
         & $script:resealBuild $fixture
         { Assert-CatzcBundle -Path $fixture.Root } | Should -Throw -ExpectedMessage '*does not define: Get-Widget*'
     }
@@ -232,7 +257,8 @@ Describe 'Assert-CatzcBundle' -Tag 'L0', 'logic' {
         $fixture.Build.modules = @('Catzc.Base.Widget', 'Catzc.Base.Sprocket')
         & $script:resealBuild $fixture
         $thrown = { Assert-CatzcBundle -Path $fixture.Root } | Should -Throw -PassThru
-        $thrown.Exception.Message | Should -BeLike "*module 'Catzc.Base.Sprocket' is recorded in build.json but has no folder*"
+        $thrown.Exception.Message |
+            Should -BeLike "*module 'Catzc.Base.Sprocket' is recorded in build.json but has no folder*"
         $thrown.Exception.Message | Should -BeLike "*module folder 'Catzc.Base.Gadget' is not recorded in build.json*"
     }
 

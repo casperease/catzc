@@ -6,7 +6,8 @@ catzc:
 ---
 #>
 
-[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = 'The lock-holding helper''s Name parameter is consumed via $using: inside its Start-ThreadJob scriptblock, which this rule does not trace')]
+[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '',
+    Justification = 'The lock-holding helper''s Name parameter is consumed via $using: inside its Start-ThreadJob scriptblock, which this rule does not trace')]
 param()
 
 # L1: real named mutexes, held and abandoned from thread jobs — the snapshot itself is mocked.
@@ -85,7 +86,8 @@ Describe 'Enter-TestRunLocation' -Tag 'L1', 'logic' {
     }
 
     It 'may run L3 in place when it also takes the user''s system-test lock' {
-        $systemMutex = [System.Threading.Mutex]::new($false, 'Global\catzc-widget-system-' + [guid]::NewGuid().ToString('N'))
+        $systemMutex = [System.Threading.Mutex]::new($false,
+            'Global\catzc-widget-system-' + [guid]::NewGuid().ToString('N'))
         [void]$systemMutex.WaitOne(0)
         $lock = [pscustomobject]@{ Acquired = $true; Mutex = $systemMutex; LockPath = $null; Holder = $null }
         Mock Enter-SystemTestLock { $lock } -ModuleName Catzc.Base.QualityGates
@@ -116,7 +118,8 @@ Describe 'Enter-TestRunLocation' -Tag 'L1', 'logic' {
             startedAt        = [DateTimeOffset]::Now.ToString('o')
             runDirectory     = 'C:\out\20261013-174616'
         }
-        [System.IO.File]::WriteAllText((Join-Path $script:outRoot '.test-run-lock.json'), (ConvertTo-Json -InputObject $record))
+        [System.IO.File]::WriteAllText((Join-Path $script:outRoot '.test-run-lock.json'),
+            (ConvertTo-Json -InputObject $record))
 
         $script:location = InModuleScope Catzc.Base.QualityGates { Enter-TestRunLocation -EntryPoint 'Invoke-TestFile' }
         $script:location.Mode | Should -Be 'snapshot'
@@ -144,7 +147,8 @@ Describe 'Enter-TestRunLocation' -Tag 'L1', 'logic' {
 
         $script:location = InModuleScope Catzc.Base.QualityGates { Enter-TestRunLocation -EntryPoint 'Invoke-TestFile' -Isolated }
 
-        [System.IO.File]::ReadAllText((Join-Path $snapshotPath 'out/cache/format-code.json')) | Should -Be '{"widget.ps1":"key"}'
+        [System.IO.File]::ReadAllText((Join-Path $snapshotPath 'out/cache/format-code.json')) |
+            Should -Be '{"widget.ps1":"key"}'
     }
 
     It 'starts the snapshot without caches when the working folder has none' {
@@ -169,9 +173,11 @@ Describe 'Enter-TestRunLocation' -Tag 'L1', 'logic' {
         catch {
             $thrown = $_.Exception.Message
         }
-        $thrown | Should -BeLike '*went to a snapshot, but priming the snapshot failed (exit 1)*the gadget type failed to compile*'
+        $thrown |
+            Should -BeLike '*went to a snapshot, but priming the snapshot failed (exit 1)*the gadget type failed to compile*'
         Should -Invoke Remove-RepositorySnapshot -ModuleName Catzc.Base.QualityGates -Times 0
-        $log = @([System.IO.Directory]::GetFiles((Join-Path $script:outRoot 'test-snapshot-priming'), 'catzc-run-*.log'))
+        $log = @([System.IO.Directory]::GetFiles((Join-Path $script:outRoot 'test-snapshot-priming'),
+            'catzc-run-*.log'))
         $log | Should -HaveCount 1
         [System.IO.File]::ReadAllText($log[0]) | Should -BeExactly "loading widgets`nthe gadget type failed to compile"
         $thrown | Should -BeLike "*$($log[0])*"
@@ -187,7 +193,8 @@ Describe 'Enter-TestRunLocation' -Tag 'L1', 'logic' {
     It 'calls a record stale when its pid no longer belongs to the process that wrote it' {
         $script:holder = & $script:holdLock (& $script:mutexName $script:root)
         $record = [ordered]@{ pid = $PID; processStartedAt = '2001-01-01T00:00:00Z'; entryPoint = 'Test-Automation' }
-        [System.IO.File]::WriteAllText((Join-Path $script:outRoot '.test-run-lock.json'), (ConvertTo-Json -InputObject $record))
+        [System.IO.File]::WriteAllText((Join-Path $script:outRoot '.test-run-lock.json'),
+            (ConvertTo-Json -InputObject $record))
         $script:location = InModuleScope Catzc.Base.QualityGates { Enter-TestRunLocation -EntryPoint 'Invoke-TestFile' }
         $script:location.Holder.Known | Should -BeFalse
         $script:location.Holder.Description | Should -BeLike '*stale*'

@@ -1,8 +1,10 @@
 Describe 'Catzc.Base.Git.GitWorkTree' -Tag 'L0', 'logic' {
     It 'joins the .git folder and the snapshot marker onto a work tree, full paths' {
         $root = Join-Path $TestDrive 'widget-tree'
-        [Catzc.Base.Git.GitWorkTree]::GitFolder($root) | Should -Be ([System.IO.Path]::GetFullPath((Join-Path $root '.git')))
-        [Catzc.Base.Git.GitWorkTree]::SnapshotMarker($root) | Should -Be ([System.IO.Path]::GetFullPath((Join-Path $root '.git/catzc-snapshot.json')))
+        [Catzc.Base.Git.GitWorkTree]::GitFolder($root) |
+            Should -Be ([System.IO.Path]::GetFullPath((Join-Path $root '.git')))
+        [Catzc.Base.Git.GitWorkTree]::SnapshotMarker($root) |
+            Should -Be ([System.IO.Path]::GetFullPath((Join-Path $root '.git/catzc-snapshot.json')))
     }
 
     It 'calls a work tree a snapshot only while its marker exists' {

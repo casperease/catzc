@@ -30,7 +30,8 @@ function Get-InternalAssetDependency {
         param([string] $Name)
         $match = @($helperParameters.Values | Where-Object { $_.Name -ieq $Name -or $_.Aliases -icontains $Name })
         if ($match.Count -eq 0) {
-            $match = @($helperParameters.Values | Where-Object { $_.Name.StartsWith($Name, [System.StringComparison]::OrdinalIgnoreCase) })
+            $match = @($helperParameters.Values | Where-Object { $_.Name.StartsWith($Name,
+                [System.StringComparison]::OrdinalIgnoreCase) })
         }
         if ($match.Count -eq 1) {
             return $match[0]
@@ -56,7 +57,8 @@ function Get-InternalAssetDependency {
             $files.Add([pscustomobject]@{ Path = $path; Relative = "$modulesFolder/$moduleName/$([System.IO.Path]::GetFileName($path))" })
         }
         $privateDirectory = Join-Path $moduleDirectory $privateFolderName
-        foreach ($path in [Catzc.Base.Folders.PathSet]::new($walk).AddPattern($privateDirectory, '*.ps1', 1).ToArray()) {
+        foreach ($path in [Catzc.Base.Folders.PathSet]::new($walk).AddPattern($privateDirectory, '*.ps1',
+            1).ToArray()) {
             $files.Add([pscustomobject]@{ Path = $path; Relative = "$modulesFolder/$moduleName/$privateFolderName/$([System.IO.Path]::GetFileName($path))" })
         }
 
@@ -100,7 +102,8 @@ function Get-InternalAssetDependency {
                         }
                         continue
                     }
-                    if ($element -is [System.Management.Automation.Language.VariableExpressionAst] -and $element.Splatted) {
+                    if ($element -is [System.Management.Automation.Language.VariableExpressionAst] -and
+                        $element.Splatted) {
                         $reasons.Add("splatted arguments (@$($element.VariablePath.UserPath)) hide -ChildPath and -Module")
                         continue
                     }

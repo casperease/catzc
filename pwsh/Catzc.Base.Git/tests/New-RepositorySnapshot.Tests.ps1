@@ -68,7 +68,8 @@ Describe 'New-RepositorySnapshot' -Tag 'L2', 'logic' {
     }
 
     It 'copies working-tree bytes exactly (LF stays LF under core.autocrlf=true)' {
-        foreach ($relative in 'widget.txt', 'gadget/staged.txt', 'gadget/both.txt', 'untouched.txt', 'fresh/untracked.txt') {
+        foreach ($relative in 'widget.txt', 'gadget/staged.txt', 'gadget/both.txt', 'untouched.txt',
+            'fresh/untracked.txt') {
             $expected = [System.IO.File]::ReadAllBytes((Join-Path $script:source $relative))
             $actual = [System.IO.File]::ReadAllBytes((Join-Path $script:snapshot.Path $relative))
             [Convert]::ToHexString($actual) | Should -Be ([Convert]::ToHexString($expected)) -Because $relative
@@ -133,7 +134,8 @@ Describe 'New-RepositorySnapshot' -Tag 'L2', 'logic' {
             @($committed.Modified, $committed.Untracked, $committed.Deleted) | Should -Be @(0, 0, 0)
             (& $script:statusOf $committed.Path) | Should -BeNullOrEmpty
             [System.IO.File]::ReadAllText((Join-Path $committed.Path 'widget.txt')).TrimEnd() | Should -Be 'widget v1'
-            [System.IO.File]::ReadAllText((Join-Path $committed.Path 'gadget/both.txt')).TrimEnd() | Should -Be 'both v1'
+            [System.IO.File]::ReadAllText((Join-Path $committed.Path 'gadget/both.txt')).TrimEnd() |
+                Should -Be 'both v1'
             [System.IO.File]::Exists((Join-Path $committed.Path 'gone.txt')) | Should -BeTrue
             [System.IO.File]::Exists((Join-Path $committed.Path 'fresh/untracked.txt')) | Should -BeFalse
         }
@@ -161,7 +163,8 @@ Describe 'New-RepositorySnapshot' -Tag 'L2', 'logic' {
             $caseSnapshot = New-RepositorySnapshot -SourceRoot $renamed
             @([System.IO.Directory]::GetDirectories($caseSnapshot.Path) | ForEach-Object { [System.IO.Path]::GetFileName($_) } | Where-Object { $_ -ne '.git' }) |
                 Should -BeExactly @('widget.gadget')
-            [System.IO.File]::ReadAllText((Join-Path $caseSnapshot.Path 'widget.gadget/Sprocket/a.txt')) | Should -BeExactly "a`n"
+            [System.IO.File]::ReadAllText((Join-Path $caseSnapshot.Path 'widget.gadget/Sprocket/a.txt')) |
+                Should -BeExactly "a`n"
         }
         finally {
             if ($caseSnapshot) {
@@ -172,7 +175,8 @@ Describe 'New-RepositorySnapshot' -Tag 'L2', 'logic' {
     }
 
     It 'refuses an existing destination' {
-        { New-RepositorySnapshot -SourceRoot $script:source -Destination $script:snapshot.Path } | Should -Throw '*already exists*'
+        { New-RepositorySnapshot -SourceRoot $script:source -Destination $script:snapshot.Path } |
+            Should -Throw '*already exists*'
     }
 
     It 'is deleted by Remove-RepositorySnapshot' {

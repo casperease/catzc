@@ -27,7 +27,8 @@ function Save-ResultCache {
     [System.IO.Directory]::CreateDirectory([System.IO.Path]::GetDirectoryName($Path)) | Out-Null
     $staging = "$Path.$PID.tmp"
     try {
-        [System.IO.File]::WriteAllText($staging, (ConvertTo-Json -InputObject $sorted) + "`n", [System.Text.UTF8Encoding]::new($false))
+        [System.IO.File]::WriteAllText($staging, (ConvertTo-Json -InputObject $sorted) + "`n",
+            [System.Text.UTF8Encoding]::new($false))
         [System.IO.File]::Move($staging, $Path, $true)
     }
     catch [System.IO.IOException], [System.UnauthorizedAccessException] {

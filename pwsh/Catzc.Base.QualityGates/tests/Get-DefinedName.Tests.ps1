@@ -27,7 +27,8 @@ Describe 'Get-DefinedName' -Tag 'L0', 'logic' {
     }
 
     It 'reads the functions and types each language defines: PowerShell by its parser, past a scope qualifier, Python and Go by their keywords' -Tag 'ADR-AUTO-IDIOM-HELDBYGATE' {
-        $paths = @('widgets/Get-Widget.ps1', 'widgets/gadget.py', 'widgets/gadget.go', 'widgets/notes.md', 'widgets/Plain.pln', 'widgets/Missing.ps1')
+        $paths = @('widgets/Get-Widget.ps1', 'widgets/gadget.py', 'widgets/gadget.go', 'widgets/notes.md',
+            'widgets/Plain.pln', 'widgets/Missing.ps1')
         $found = @(InModuleScope Catzc.Base.QualityGates -Parameters @{ Paths = $paths; Root = $script:root } {
                 param($Paths, $Root)
                 Get-DefinedName -Path $Paths -RepositoryRoot $Root

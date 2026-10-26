@@ -50,7 +50,8 @@ Describe 'Test-ShellScripts' -Tag 'L0', 'logic' {
 
         $result = Test-ShellScripts -PassThru -OutputFolder $script:reportFolder
 
-        $result.Issues | Should -Be @('gadget-bash/.vendor/bats-core/libexec/bats-core/bats: CRLF line endings — the shell reads the carriage return as part of the command; the file must be LF (.gitattributes eol=lf)')
+        $result.Issues |
+            Should -Be @('gadget-bash/.vendor/bats-core/libexec/bats-core/bats: CRLF line endings — the shell reads the carriage return as part of the command; the file must be LF (.gitattributes eol=lf)')
         Should -Invoke Invoke-Executable -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter {
             $Command -eq '"C:\widget\shellcheck.exe" --format=gcc --external-sources "importer.sh" "widget/run.sh"'
         }
@@ -66,13 +67,15 @@ Describe 'Test-ShellScripts' -Tag 'L0', 'logic' {
 
     It 'reports CRLF line endings in any script, vendored ones included' {
         $result = Test-ShellScripts -PassThru -OutputFolder $script:reportFolder
-        $result.Issues | Should -Be @('widget-modules/Catzc.Widget/assets/scripts/dotnet-install.sh: CRLF line endings — the shell reads the carriage return as part of the command; the file must be LF (.gitattributes eol=lf)')
+        $result.Issues |
+            Should -Be @('widget-modules/Catzc.Widget/assets/scripts/dotnet-install.sh: CRLF line endings — the shell reads the carriage return as part of the command; the file must be LF (.gitattributes eol=lf)')
     }
 
     It 'reports a tracked script with a shebang that is not executable in git, but not a sourced one' {
         Mock Get-GitTrackedPath -ModuleName Catzc.Base.QualityGates -ParameterFilter { $ExecutableOnly } { 'widget-modules/Catzc.Widget/assets/scripts/dotnet-install.sh' }
         $result = Test-ShellScripts -PassThru -OutputFolder $script:reportFolder
-        $result.Issues | Should -Contain 'widget/run.sh: has a shebang but is not executable in git (mode 100644) — run: git update-index --chmod=+x widget/run.sh'
+        $result.Issues |
+            Should -Contain 'widget/run.sh: has a shebang but is not executable in git (mode 100644) — run: git update-index --chmod=+x widget/run.sh'
         @($result.Issues | Where-Object { $_ -like 'importer.sh:*executable*' }) | Should -HaveCount 0
     }
 
@@ -80,13 +83,15 @@ Describe 'Test-ShellScripts' -Tag 'L0', 'logic' {
         $script:checkOutput = 'widget/run.sh:2:6: warning: Double quote to prevent globbing and word splitting. [SC2086]'
         $script:checkExit = 1
         $result = Test-ShellScripts -PassThru -OutputFolder $script:reportFolder
-        $result.Issues | Should -Contain 'widget/run.sh:2:6: warning: Double quote to prevent globbing and word splitting. [SC2086]'
+        $result.Issues |
+            Should -Contain 'widget/run.sh:2:6: warning: Double quote to prevent globbing and word splitting. [SC2086]'
     }
 
     It 'throws when ShellCheck itself fails' {
         $script:checkOutput = 'shellcheck: unknown option'
         $script:checkExit = 3
-        { Test-ShellScripts -PassThru -OutputFolder $script:reportFolder } | Should -Throw '*ShellCheck could not check the shell scripts (exit 3)*'
+        { Test-ShellScripts -PassThru -OutputFolder $script:reportFolder } |
+            Should -Throw '*ShellCheck could not check the shell scripts (exit 3)*'
     }
 
     It 'throws with "Run Install-Shellcheck" when ShellCheck at the pin is missing' {
@@ -123,8 +128,10 @@ Describe 'Test-ShellScripts' -Tag 'L0', 'logic' {
         It 'takes the LF and executable-bit checks' {
             $result = Test-ShellScripts -PassThru -OutputFolder $script:reportFolder
             $result.Facts['Scripts'] | Should -Be 4
-            $result.Issues | Should -Contain 'gadget/crlf.zsh: CRLF line endings — the shell reads the carriage return as part of the command; the file must be LF (.gitattributes eol=lf)'
-            $result.Issues | Should -Contain 'gadget/run.zsh: has a shebang but is not executable in git (mode 100644) — run: git update-index --chmod=+x gadget/run.zsh'
+            $result.Issues |
+                Should -Contain 'gadget/crlf.zsh: CRLF line endings — the shell reads the carriage return as part of the command; the file must be LF (.gitattributes eol=lf)'
+            $result.Issues |
+                Should -Contain 'gadget/run.zsh: has a shebang but is not executable in git (mode 100644) — run: git update-index --chmod=+x gadget/run.zsh'
         }
 
         It 'takes zsh -n, one call per file, in place of ShellCheck' {
@@ -151,7 +158,8 @@ Describe 'Test-ShellScripts' -Tag 'L0', 'logic' {
         It 'throws when zsh itself fails' {
             $script:zshOutput = 'zsh: no such file'
             $script:zshExit = 127
-            { Test-ShellScripts -PassThru -OutputFolder $script:reportFolder } | Should -Throw "*zsh could not check 'gadget/crlf.zsh' (exit 127)*"
+            { Test-ShellScripts -PassThru -OutputFolder $script:reportFolder } |
+                Should -Throw "*zsh could not check 'gadget/crlf.zsh' (exit 127)*"
         }
 
         It 'throws with "Run Install-Zsh" when zsh at the pin is missing' {

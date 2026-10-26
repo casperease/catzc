@@ -10,7 +10,8 @@ Describe 'Catzc.Base.Slides.DrawioKit' -Tag 'L0', 'logic' {
     }
 
     It 'rejects an empty repository root or kit' {
-        { [Catzc.Base.Slides.DrawioKit]::new('', 'tools/widget_kit') } | Should -Throw '*repositoryRoot must not be empty*'
+        { [Catzc.Base.Slides.DrawioKit]::new('', 'tools/widget_kit') } |
+            Should -Throw '*repositoryRoot must not be empty*'
         { [Catzc.Base.Slides.DrawioKit]::new($TestDrive, '') } | Should -Throw '*kit must not be empty*'
     }
 }

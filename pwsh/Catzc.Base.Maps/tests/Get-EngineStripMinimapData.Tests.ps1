@@ -25,7 +25,8 @@ Describe 'Get-EngineStripMinimapData' -Tag 'L0', 'logic' {
     }
 
     It 'hands the world map it is given to the subject' {
-        $map = [Catzc.Base.Maps.WorldMapBuilder]::Build(@(), @(), @(), [ordered]@{}, [ordered]@{}, [ordered]@{}, [ordered]@{}, [ordered]@{}, @())
+        $map = [Catzc.Base.Maps.WorldMapBuilder]::Build(@(), @(), @(),
+            [ordered]@{}, [ordered]@{}, [ordered]@{}, [ordered]@{}, [ordered]@{}, @())
         $null = Get-EngineStripMinimapData -Adr 'ADR-WIDGET' -WorldMap $map
         Should -Invoke Get-MinimapSubject -ModuleName Catzc.Base.Maps -Times 1 -Exactly -ParameterFilter { [object]::ReferenceEquals($WorldMap, $map) }
     }

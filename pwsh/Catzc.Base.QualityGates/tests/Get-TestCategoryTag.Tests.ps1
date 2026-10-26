@@ -17,7 +17,8 @@ Describe 'Get-TestCategoryTag' -Tag 'L0', 'logic' {
     }
 
     It 'returns the single resolved category (innermost wins)' {
-        (& $script:category (New-FakeTest -OuterTags @('logic') -InnerTags @('L2', 'integrity'))) | Should -Be 'integrity'
+        (& $script:category (New-FakeTest -OuterTags @('logic') -InnerTags @('L2', 'integrity'))) |
+            Should -Be 'integrity'
     }
 
     It 'returns $null when no category tag is present' {

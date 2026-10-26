@@ -40,7 +40,8 @@ function Get-Contract {
         }
         foreach ($asset in Get-ContractRootAsset -Root $rootName -Folder $rootFolder -Version $Version -RepositoryRoot $RepositoryRoot) {
             $isGroup = @($Group | Where-Object { $asset.Group -like $_ }).Count -gt 0
-            $isPath = @($Path | Where-Object { $asset.Path -like $_ -or ($null -ne $asset.Target -and $asset.Target -like $_) }).Count -gt 0
+            $isPath = @($Path | Where-Object { $asset.Path -like $_ -or ($null -ne $asset.Target -and
+                $asset.Target -like $_) }).Count -gt 0
             if ($isGroup -and $isPath) {
                 $asset
             }

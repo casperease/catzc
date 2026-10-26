@@ -59,7 +59,8 @@ Describe 'Build-TerminologyDictionary — real registry' -Tag 'L2', 'integrity',
         Build-TerminologyDictionary -Silent | Out-Null
         foreach ($category in (Get-Config -Config terminology).categories) {
             $text = [System.IO.File]::ReadAllText((Join-Path (Get-RepositoryRoot) ".cspell/$category.txt"))
-            $text | Should -Not -Match 'with_body_sha' -Because "$category is gitignored, and only a file git tracks carries the body hash"
+            $text |
+                Should -Not -Match 'with_body_sha' -Because "$category is gitignored, and only a file git tracks carries the body hash"
             $text | Should -Not -Match 'with_inputs_sha' -Because "$category carries no inputs stamp"
         }
         @(Build-TerminologyDictionary -Silent -PassThru | Where-Object Changed) | Should -BeNullOrEmpty

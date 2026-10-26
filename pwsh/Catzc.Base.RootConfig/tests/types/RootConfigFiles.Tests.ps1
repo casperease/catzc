@@ -42,15 +42,18 @@ Describe 'RootConfigFiles' -Tag 'L0', 'logic' {
     }
 
     It 'rejects an unknown top-level key' {
-        { [Catzc.Base.RootConfig.RootConfigFiles]::new(@{ widget = 1 }) } | Should -Throw "*unknown top-level key 'widget'*"
+        { [Catzc.Base.RootConfig.RootConfigFiles]::new(@{ widget = 1 }) } |
+            Should -Throw "*unknown top-level key 'widget'*"
     }
 }
 
 Describe 'RootConfigFiles tool settings' -Tag 'L0', 'logic' {
     It 'names cspell.yml and .markdownlint.yml at the repository root, and refuses an empty root' {
         $root = Join-Path $TestDrive 'widget-repository'
-        [Catzc.Base.RootConfig.RootConfigFiles]::SpellingConfigPath($root) | Should -Be ([System.IO.Path]::GetFullPath((Join-Path $root 'cspell.yml')))
-        [Catzc.Base.RootConfig.RootConfigFiles]::MarkdownlintConfigPath($root) | Should -Be ([System.IO.Path]::GetFullPath((Join-Path $root '.markdownlint.yml')))
+        [Catzc.Base.RootConfig.RootConfigFiles]::SpellingConfigPath($root) |
+            Should -Be ([System.IO.Path]::GetFullPath((Join-Path $root 'cspell.yml')))
+        [Catzc.Base.RootConfig.RootConfigFiles]::MarkdownlintConfigPath($root) |
+            Should -Be ([System.IO.Path]::GetFullPath((Join-Path $root '.markdownlint.yml')))
         { [Catzc.Base.RootConfig.RootConfigFiles]::SpellingConfigPath('') } | Should -Throw '*repositoryRoot*'
     }
 }

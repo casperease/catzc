@@ -29,7 +29,8 @@ function New-MinimapData {
         [hashtable] $Reasons
     )
 
-    # Each cell is keyed by its place joined with a tab: Count holds what it holds, Reasons the MinimapReason list that lights it.
+    # Each cell is keyed by its place joined with a tab: Count holds what it holds, Reasons the MinimapReason list that
+    # lights it.
     $axisList = [Catzc.Base.Maps.MinimapAxis[]] @(foreach ($name in $Axes.Keys) {
             [Catzc.Base.Maps.MinimapAxis]::new($name, [string[]] @($Axes[$name]))
         })
@@ -45,7 +46,8 @@ function New-MinimapData {
         }
         $cellList.Add([Catzc.Base.Maps.MinimapCell]::new($at, $held))
         if ($Reasons.ContainsKey($key)) {
-            $litList.Add([Catzc.Base.Maps.MinimapCell]::new($at, $held, [Catzc.Base.Maps.MinimapReason[]] @($Reasons[$key])))
+            $litList.Add([Catzc.Base.Maps.MinimapCell]::new($at, $held,
+                [Catzc.Base.Maps.MinimapReason[]] @($Reasons[$key])))
         }
     }
     [Catzc.Base.Maps.MinimapData]::new($Id, $axisList, $cellList.ToArray(), $litList.ToArray())

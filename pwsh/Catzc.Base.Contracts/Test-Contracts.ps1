@@ -57,7 +57,8 @@ function Test-Contracts {
                 continue
             }
             $versions = [string[]] @($layout.Folders($rootFolder) | ForEach-Object { [System.IO.Path]::GetFileName($_) })
-            if ($Version -cne [Catzc.Base.Contracts.ContractLayout]::CurrentVersion -and $versions -cnotcontains $Version) {
+            if ($Version -cne [Catzc.Base.Contracts.ContractLayout]::CurrentVersion -and
+                $versions -cnotcontains $Version) {
                 $issues.Add("contracts/$root/$Version/ does not exist, so release $Version of '$root' is not checked; a release freezes the current version with Publish-ContractRelease before it runs Test-Contracts -Version (ADR-REPO-CONTRACT-RELEASEDIMMUTABLE).")
             }
             foreach ($released in @($versions | Where-Object { $_ -match '^[0-9]+\.[0-9]+\.[0-9]+$' -and [int] $_.Split('.')[0] -ge 1 })) {

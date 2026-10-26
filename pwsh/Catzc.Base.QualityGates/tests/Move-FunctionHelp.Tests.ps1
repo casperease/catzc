@@ -32,16 +32,19 @@ Describe 'Move-FunctionHelp' -Tag 'L0', 'logic', 'ADR-REPO-HELP-HELPONCOMMENTPAG
 
     It 'puts the help before the comment sections of an existing page and keeps them as they are' -Tag 'ADR-REPO-COMMENTS-PAGEISAUTHORED' {
         [System.IO.Directory]::CreateDirectory((Join-Path $script:widgetRoot ([System.IO.Path]::GetDirectoryName($script:pagePath)))) | Out-Null
-        [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot $script:pagePath), "# t`n`nThe intro.`n`n## comment:1`n`nAbove ``x``.`n")
+        [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot $script:pagePath),
+            "# t`n`nThe intro.`n`n## comment:1`n`nAbove ``x``.`n")
         & $script:move | Out-Null
         [System.IO.File]::ReadAllText((Join-Path $script:widgetRoot $script:pagePath)) |
             Should -BeExactly "# t`n`nThe intro.`n`n## help`n`n### synopsis`n`nGets a widget.`n`n### parameter ``Name```n`nThe widget name.`n`n## comment:1`n`nAbove ``x``.`n"
     }
 
     It 'removes a head left with nothing but its config part' {
-        [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot $script:codePath), "<#`n---`ncatzc:`n  config:`n    synopsis: Gets.`n---`n#>`n`nfunction Get-Widget { }`n")
+        [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot $script:codePath),
+            "<#`n---`ncatzc:`n  config:`n    synopsis: Gets.`n---`n#>`n`nfunction Get-Widget { }`n")
         & $script:move | Out-Null
-        [System.IO.File]::ReadAllText((Join-Path $script:widgetRoot $script:codePath)) | Should -BeExactly "function Get-Widget { }`n"
+        [System.IO.File]::ReadAllText((Join-Path $script:widgetRoot $script:codePath)) |
+            Should -BeExactly "function Get-Widget { }`n"
     }
 
     It 'changes nothing on a second move, once the head holds no help' {
@@ -52,7 +55,8 @@ Describe 'Move-FunctionHelp' -Tag 'L0', 'logic', 'ADR-REPO-HELP-HELPONCOMMENTPAG
     }
 
     It 'leaves a file alone whose config part holds a key that is no help key, naming it' {
-        [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot $script:codePath), "<#`n---`ncatzc:`n  config:`n    synopsis: Gets.`n    owner: gadget-team`n---`n#>`n`nfunction Get-Widget { }`n")
+        [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot $script:codePath),
+            "<#`n---`ncatzc:`n  config:`n    synopsis: Gets.`n    owner: gadget-team`n---`n#>`n`nfunction Get-Widget { }`n")
         $result = & $script:move
         $result.Moved | Should -BeFalse
         $result.Reason | Should -BeLike '*no help keys (owner)*'
@@ -66,7 +70,8 @@ Describe 'Move-FunctionHelp' -Tag 'L0', 'logic', 'ADR-REPO-HELP-HELPONCOMMENTPAG
             Move-FunctionHelp -Path $Path -RepositoryRoot $Root -RestsOn $Links -DryRun
         }
         $result.PageText.Contains("### synopsis`n`nGets a widget.`n`n### description`n`nIt rests on [ADR-WIDGET-TURN](/docs/drs/widget.md#rule-adr-widget-turn) and [ADR-GADGET](/docs/drs/gadget.md).`n`n### parameter ``Name``") | Should -BeTrue
-        [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot $script:codePath), "<#`n---`ncatzc:`n  config:`n    synopsis: Gets.`n    description: Reads the registry.`n---`n#>`n`nfunction Get-Widget { }`n")
+        [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot $script:codePath),
+            "<#`n---`ncatzc:`n  config:`n    synopsis: Gets.`n    description: Reads the registry.`n---`n#>`n`nfunction Get-Widget { }`n")
         $result = InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:widgetRoot; Path = $script:codePath; Links = @($links[0]) } {
             param($Root, $Path, $Links)
             Move-FunctionHelp -Path $Path -RepositoryRoot $Root -RestsOn $Links -DryRun
@@ -90,6 +95,7 @@ Describe 'Move-FunctionHelp' -Tag 'L0', 'logic', 'ADR-REPO-HELP-HELPONCOMMENTPAG
         $result.Moved | Should -BeTrue
         $result.PageText | Should -BeLike '*## help*'
         [System.IO.File]::Exists((Join-Path $script:widgetRoot $script:pagePath)) | Should -BeFalse
-        [System.IO.File]::ReadAllText((Join-Path $script:widgetRoot $script:codePath)) | Should -BeExactly $script:headed
+        [System.IO.File]::ReadAllText((Join-Path $script:widgetRoot $script:codePath)) |
+            Should -BeExactly $script:headed
     }
 }

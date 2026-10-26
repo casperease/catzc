@@ -11,7 +11,8 @@ Describe 'Get-MarkerBlastRadius' -Tag 'L0', 'logic' {
             })
         Mock Get-Config { $script:config } -ModuleName Catzc.Base.Globs
         Mock Get-ModuleGlobSet {
-            [Catzc.Base.Globs.GlobSet]::new('catzc-fake', 'd', 'module', @('widgets/Catzc.Fake/**'), @(), @(), @(), -1, $null)
+            [Catzc.Base.Globs.GlobSet]::new('catzc-fake', 'd', 'module', @('widgets/Catzc.Fake/**'), @(), @(), @(), -1,
+                $null)
         } -ModuleName Catzc.Base.Globs
     }
 

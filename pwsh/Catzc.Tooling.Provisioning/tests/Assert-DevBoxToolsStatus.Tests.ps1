@@ -8,10 +8,14 @@ catzc:
 
 Describe 'Assert-DevBoxToolsStatus' -Tag 'L0', 'logic' {
     BeforeAll {
-        $script:ok = [Catzc.Tooling.Provisioning.ToolStatus]::new('alpha', '1.x', '1.2', 'OK', '/bin/alpha', 'winget', 'user', 'None')
-        $script:usable = [Catzc.Tooling.Provisioning.ToolStatus]::new('beta', '2.x', '2.0', 'Usable', '/bin/beta', 'other', 'user', 'Works, but not managed')
-        $script:missing = [Catzc.Tooling.Provisioning.ToolStatus]::new('gamma', '3.x', $null, 'Missing', $null, $null, $null, 'Run Install-Gamma')
-        $script:wrong = [Catzc.Tooling.Provisioning.ToolStatus]::new('delta', '4.x', '3.9', 'WrongVersion', '/bin/delta', 'winget', 'user', 'Run Install-Delta -Force')
+        $script:ok = [Catzc.Tooling.Provisioning.ToolStatus]::new('alpha', '1.x', '1.2', 'OK', '/bin/alpha', 'winget',
+            'user', 'None')
+        $script:usable = [Catzc.Tooling.Provisioning.ToolStatus]::new('beta', '2.x', '2.0', 'Usable', '/bin/beta',
+            'other', 'user', 'Works, but not managed')
+        $script:missing = [Catzc.Tooling.Provisioning.ToolStatus]::new('gamma', '3.x', $null, 'Missing', $null, $null,
+            $null, 'Run Install-Gamma')
+        $script:wrong = [Catzc.Tooling.Provisioning.ToolStatus]::new('delta', '4.x', '3.9', 'WrongVersion',
+            '/bin/delta', 'winget', 'user', 'Run Install-Delta -Force')
     }
 
     It 'does not throw when every tool is OK or Usable' {

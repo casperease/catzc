@@ -8,7 +8,8 @@ Describe 'Set-ImportMix' -Tag 'L0', 'logic' {
         $script:loaded.Clear()
         $script:loaded.AddRange([string[]] @('Widget.Alpha', 'Widget.Beta'))
         Mock Resolve-ImportMix -ModuleName Catzc.Base.ModuleSystem {
-            [Catzc.Base.ModuleSystem.ImportMix]::new(@('widget'), @('pwsh'), @('Widget.Alpha'), @(), @('Widget.Beta', 'Widget.Gamma'))
+            [Catzc.Base.ModuleSystem.ImportMix]::new(@('widget'), @('pwsh'), @('Widget.Alpha'), @(), @('Widget.Beta',
+                'Widget.Gamma'))
         }
         Mock Get-Module -ModuleName Catzc.Base.ModuleSystem -ParameterFilter { $Name } { if ($script:loaded.Contains($Name[0])) {
                 [pscustomobject]@{ Name = $Name[0] }

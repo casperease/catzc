@@ -59,7 +59,8 @@ Describe 'sample-indexed (indexed slots)' -Tag 'L0', 'logic' {
         $names | Should -Contain 'alpha-002'
         # both slots are the same environment (alpha), two slots
         @($templateDescriptor.slots | ForEach-Object { $_.environment } | Select-Object -Unique) | Should -Be @('alpha')
-        ($templateDescriptor.slots | Where-Object { $_.name -eq 'alpha-001' } | Select-Object -First 1).slot | Should -Be '001'
+        ($templateDescriptor.slots | Where-Object { $_.name -eq 'alpha-001' } | Select-Object -First 1).slot |
+            Should -Be '001'
     }
 
     It "a slot-less call selects the env's base slot, which this template does not have" {
@@ -88,7 +89,9 @@ Describe 'sample-indexed (indexed slots)' -Tag 'L0', 'logic' {
     }
 
     It 'puts the slot in the deployment name so slots never collide' {
-        Get-BicepDeploymentName sample-indexed -Environment alpha -Slot 001 | Should -BeLike 'sample-indexed-alpha-001-*'
-        Get-BicepDeploymentName sample-indexed -Environment alpha -Slot 002 | Should -BeLike 'sample-indexed-alpha-002-*'
+        Get-BicepDeploymentName sample-indexed -Environment alpha -Slot 001 |
+            Should -BeLike 'sample-indexed-alpha-001-*'
+        Get-BicepDeploymentName sample-indexed -Environment alpha -Slot 002 |
+            Should -BeLike 'sample-indexed-alpha-002-*'
     }
 }

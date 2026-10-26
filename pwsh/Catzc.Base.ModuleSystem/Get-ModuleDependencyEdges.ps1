@@ -21,7 +21,8 @@ function Get-ModuleDependencyEdges {
             $members = $groups[$group]
             foreach ($member in $members.Keys) {
                 foreach ($dependency in @($members[$member])) {
-                    $edges.Add([Catzc.Base.ModuleSystem.ModuleDependencyEdge]::new($member, $dependency, 'declared', 0, @()))
+                    $edges.Add([Catzc.Base.ModuleSystem.ModuleDependencyEdge]::new($member, $dependency, 'declared', 0,
+                        @()))
                 }
             }
         }
@@ -30,7 +31,8 @@ function Get-ModuleDependencyEdges {
         $modules = Get-ModuleDependencyConfig
         foreach ($module in $modules.Keys) {
             foreach ($dependency in @($modules[$module])) {
-                $edges.Add([Catzc.Base.ModuleSystem.ModuleDependencyEdge]::new($module, $dependency, 'declared', 0, @()))
+                $edges.Add([Catzc.Base.ModuleSystem.ModuleDependencyEdge]::new($module, $dependency, 'declared', 0,
+                    @()))
             }
         }
     }

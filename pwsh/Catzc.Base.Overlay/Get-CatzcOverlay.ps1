@@ -37,7 +37,8 @@ function Get-CatzcOverlay {
             continue
         }
 
-        # Every file of a consumer module is classified, so the walk prunes nothing: a skipped file would be an override nobody sees.
+        # Every file of a consumer module is classified, so the walk prunes nothing: a skipped file would be an override
+        # nobody sees.
         $files = [string[]] @(Get-ChildPath $folder -File -Depth 64 -Exclude @() -PruneVendor $false)
         [System.Array]::Sort($files, [System.StringComparer]::Ordinal)
         foreach ($file in $files) {
@@ -51,12 +52,14 @@ function Get-CatzcOverlay {
                 $target = [System.IO.Path]::GetFileNameWithoutExtension($relative)
                 $visibility = 'public'
             }
-            elseif ($segments.Count -eq 2 -and $segments[0] -ceq $privateFolderName -and $relative.EndsWith('.ps1', [System.StringComparison]::OrdinalIgnoreCase)) {
+            elseif ($segments.Count -eq 2 -and $segments[0] -ceq $privateFolderName -and $relative.EndsWith('.ps1',
+                [System.StringComparison]::OrdinalIgnoreCase)) {
                 $kind = 'FunctionOverride'
                 $target = [System.IO.Path]::GetFileNameWithoutExtension($relative)
                 $visibility = 'private'
             }
-            elseif ($segments.Count -eq 2 -and $segments[0] -ceq 'configs' -and $relative.EndsWith('.yml', [System.StringComparison]::Ordinal)) {
+            elseif ($segments.Count -eq 2 -and $segments[0] -ceq 'configs' -and $relative.EndsWith('.yml',
+                [System.StringComparison]::Ordinal)) {
                 $kind = 'ConfigFragment'
                 $target = [System.IO.Path]::GetFileNameWithoutExtension($relative)
             }

@@ -26,10 +26,6 @@ and free to change in place (ADR-REPO-CONTRACT-CURRENTVERSION). The tracked file
 
 ## Open steps
 
-1. [ ] ADR first: rewrite ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD in `docs/drs/automation/caching.md` — the key is the source hash, local only
-       (shadow root), git keeps no file under `pwsh/.compiled`; the types surface is the provided contract named above. Re-read and re-word
-       the `.compiled` lines of `hosting-csharp-types.md`, `native-csharp-types.md`, `platform-bundle.md` and `conventional-folders.md` that
-       say the manifest is committed. Check: `git grep -n "Catzc.Types.<hash>.json" docs/drs` names no committed manifest.
 2. [ ] `Write-TypesContract` in `pwsh/.internal/assets/types/` (one function per file, ADR-PWSH-ONEFUNC): reads the surface with
        `Get-TypesAssemblyManifest`, renders `types.sample.json` (LF, stable order by name), writes via `Write-FileIfChanged`. Plus
        `types.schema.json` by hand, and its header `$comment` says what it pins (ADR-REPO-CONTRACT-HEADERSAYSWHATITPINS). Check: L0 test in
@@ -55,8 +51,6 @@ and free to change in place (ADR-REPO-CONTRACT-CURRENTVERSION). The tracked file
 9. [ ] Supersedes step 10 of `plan-types-build-local.md` ("commit the current manifest"); strike it there once that file is clean. The
        untracking of `pwsh/.compiled/Catzc.Types.*.json` is the user's git step (`git rm --cached`), in task-user-runs-and-commits. Check:
        `git ls-files pwsh/.compiled` prints nothing.
-10. [ ] Add this plan's chunk line to `plan-master.md` once that file is clean (it was dirty in a peer session when this plan landed).
-        Check: `Test-Plans -Path .claude/plans/plan-types-contract.md` green.
 
 ## Open questions
 

@@ -27,7 +27,8 @@ function Invoke-FileMetaEngine {
         else {
             Get-FileMetaScope -RepositoryRoot $RepositoryRoot -Path $Path -Config $Config
         })
-    # The block's first level is wholly the engine's but for the authored config part: a key no kind owns there is dropped on imprint.
+    # The block's first level is wholly the engine's but for the authored config part: a key no kind owns there is
+    # dropped on imprint.
 
     $entries = foreach ($entry in $files) {
         $file = $entry.Path
@@ -36,7 +37,8 @@ function Invoke-FileMetaEngine {
         $isProperty = $carrier -eq [Catzc.Base.Languages.CarrierKind]::Property
         $findings = [System.Collections.Generic.List[pscustomobject]]::new()
 
-        # A path the index lists but the working tree has lost, a deletion not yet staged, has nothing to imprint or to look beside.
+        # A path the index lists but the working tree has lost, a deletion not yet staged, has nothing to imprint or to
+        # look beside.
         if (-not [System.IO.File]::Exists((Join-Path $RepositoryRoot $file))) {
             continue
         }
@@ -63,7 +65,8 @@ function Invoke-FileMetaEngine {
         }
         else {
             $state = Get-MarkdownMetaState -Text $text -Key $entry.Carrier.key
-            # A parent key written as a flow mapping or a scalar is the author's to open up; the block cannot nest under it.
+            # A parent key written as a flow mapping or a scalar is the author's to open up; the block cannot nest under
+            # it.
             if (-not $state.CanHoldMetaBlock) {
                 $findings.Add([pscustomobject]@{ Path = $file; Line = 0; Kind = 'Unowned'; Actual = "a key above $($entry.Carrier.key) holds a flow or scalar value"; Expected = 'a block mapping the catzc block can nest under' })
             }
@@ -71,13 +74,17 @@ function Invoke-FileMetaEngine {
 
         $fixed = $text
         $policy = $Config.PolicyFor((Get-FileKind $file).Class)
-        # A forbidden block that holds an authored config part is the author's to move: stripping it would drop their keys.
-        if ($findings.Count -eq 0 -and $policy -eq [Catzc.Base.QualityGates.HeadPolicy]::Forbidden -and $state.ConfigLines.Count -gt 0) {
+        # A forbidden block that holds an authored config part is the author's to move: stripping it would drop their
+        # keys.
+        if ($findings.Count -eq 0 -and $policy -eq [Catzc.Base.QualityGates.HeadPolicy]::Forbidden -and
+            $state.ConfigLines.Count -gt 0) {
             $findings.Add([pscustomobject]@{ Path = $file; Line = 1; Kind = 'ForbiddenConfig'; Actual = 'a config part'; Expected = 'no meta block, as the head policy forbids one' })
         }
-        # The writers drop a block whose facts and config part are all empty, so a file with no fact to show carries no head.
+        # The writers drop a block whose facts and config part are all empty, so a file with no fact to show carries no
+        # head.
         if ($findings.Count -eq 0) {
-            $facts = if ($policy -in [Catzc.Base.QualityGates.HeadPolicy]::Forbidden, [Catzc.Base.QualityGates.HeadPolicy]::Config) {
+            $facts = if ($policy -in [Catzc.Base.QualityGates.HeadPolicy]::Forbidden,
+                [Catzc.Base.QualityGates.HeadPolicy]::Config) {
                 [pscustomobject]@{ Edges = [ordered]@{} }
             }
             else {
@@ -105,7 +112,8 @@ function Invoke-FileMetaEngine {
                 else {
                     'the imprinted meta block, or none when every fact is empty'
                 }
-                # An authored head has no immutable part: Format-FileMeta removes one, and the finding says so before it does.
+                # An authored head has no immutable part: Format-FileMeta removes one, and the finding says so before it
+                # does.
                 $drifted = if ('immutable' -in @($state.Sections)) {
                     'an authored head holds an immutable part, which Format-FileMeta removes'
                 }

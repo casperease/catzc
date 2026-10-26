@@ -106,8 +106,10 @@ Describe 'Test-ExpectedPackageManager — MSYS2-package tools that also declare 
             return
         }
         Mock Invoke-Executable { throw 'no package manager may be asked' } -ModuleName Catzc.Tooling.Core
-        Test-ExpectedPackageManager $script:config -Path (Join-Path $TestDrive 'gadget/usr/bin/widget.exe') | Should -BeTrue
-        Test-ExpectedPackageManager $script:config -Path (Join-Path $TestDrive 'other/usr/bin/widget.exe') | Should -BeFalse
+        Test-ExpectedPackageManager $script:config -Path (Join-Path $TestDrive 'gadget/usr/bin/widget.exe') |
+            Should -BeTrue
+        Test-ExpectedPackageManager $script:config -Path (Join-Path $TestDrive 'other/usr/bin/widget.exe') |
+            Should -BeFalse
     }
 
     It 'on Linux, asks dpkg for the declared package: <Description>' -ForEach @(

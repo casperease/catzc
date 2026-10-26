@@ -13,7 +13,8 @@ function Sync-GeneratedFile {
         [switch] $DryRun
     )
 
-    # The generated paths the janitor owns, each with the commit-message subject naming it; the modules folder comes from its resolver.
+    # The generated paths the janitor owns, each with the commit-message subject naming it; the modules folder comes
+    # from its resolver.
     $modulesFolder = Get-CatzcModulesFolder
     $compiled = "$modulesFolder/.compiled"
     $generatedPaths = [ordered]@{

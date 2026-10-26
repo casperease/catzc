@@ -41,7 +41,8 @@ Describe 'Catzc.Base.ModuleSystem.FilesConfig' -Tag 'L0', 'logic' {
     }
 
     It 'throws when a module has no packages map' {
-        Get-ViolationMessage ([ordered]@{ modules = [ordered]@{ '.internal' = [ordered]@{} } }) | Should -BeLike "*'packages'*"
+        Get-ViolationMessage ([ordered]@{ modules = [ordered]@{ '.internal' = [ordered]@{} } }) |
+            Should -BeLike "*'packages'*"
     }
 
     It 'throws on a non-snake_case package name' {

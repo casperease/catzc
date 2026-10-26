@@ -22,7 +22,8 @@ Describe 'Get-JavaScriptTestCases' -Tag 'L0', 'logic' {
     }
 
     It 'finds every top-level test() of every .test.js file, skipped ones too, and nothing else' {
-        $script:cases.ForEach({ $_.Key }) | Should -Be @('nested/gear.test.js spins', 'nested/gear.test.js turns', 'spin.test.js spins', 'spin.test.js integrity: ships', 'spin.test.js stalls')
+        $script:cases.ForEach({ $_.Key }) | Should -Be @('nested/gear.test.js spins', 'nested/gear.test.js turns',
+            'spin.test.js spins', 'spin.test.js integrity: ships', 'spin.test.js stalls')
     }
 
     It 'files a case under integrity by its name''s prefix, logic otherwise' {
@@ -32,6 +33,7 @@ Describe 'Get-JavaScriptTestCases' -Tag 'L0', 'logic' {
 
     It 'titles a case by its name, with its package only when two files declare the same name' {
         ($script:cases | Where-Object Name -EQ 'turns').Title | Should -Be 'turns'
-        @($script:cases | Where-Object Name -EQ 'spins').ForEach({ $_.Title }) | Should -Be @('nested/gear.test.js: spins', 'spin.test.js: spins')
+        @($script:cases | Where-Object Name -EQ 'spins').ForEach({ $_.Title }) |
+            Should -Be @('nested/gear.test.js: spins', 'spin.test.js: spins')
     }
 }

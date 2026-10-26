@@ -30,7 +30,8 @@ Describe 'GlobsConfig' -Tag 'L0', 'logic' {
     Context 'a valid registry' {
         It 'constructs and exposes the sets with lookup' {
             $c = & $script:make @{
-                'widget' = @{ description = 'the widget surface'; layer = 'loose-fileset'; include = @('src/**', 'main.ps1') }
+                'widget' = @{ description = 'the widget surface'; layer = 'loose-fileset'; include = @('src/**',
+                    'main.ps1') }
                 'gadget' = @{ description = 'the gadget unit'; layer = 'deployable-unit'; include = @('lib/**'); exclude = @('**/*.md') }
             }
             $c.globsets.Count | Should -Be 2
@@ -67,7 +68,8 @@ Describe 'GlobsConfig' -Tag 'L0', 'logic' {
             $set = $c.Get('unit')
             $set.Matches('mine/a.txt') | Should -BeTrue
             $set.Matches('shared/a.txt') | Should -BeTrue
-            $set.Matches('shared/private/a.txt') | Should -BeFalse -Because 'the composed set contributes its EFFECTIVE members'
+            $set.Matches('shared/private/a.txt') |
+                Should -BeFalse -Because 'the composed set contributes its EFFECTIVE members'
             $set.Matches('other/a.txt') | Should -BeFalse
         }
 
@@ -86,9 +88,11 @@ Describe 'GlobsConfig' -Tag 'L0', 'logic' {
             $c = & $script:make @{
                 'leaf' = @{ description = 'd'; layer = 'deployable-unit'; include = @('leaf/**') }
                 'mid'  = @{ description = 'd'; layer = 'deployable-unit'; compose = @('leaf'); include = @('mid/**') }
-                'top'  = @{ description = 'd'; layer = 'deployable-unit'; compose = @('mid', 'leaf'); include = @('top/**') }
+                'top'  = @{ description = 'd'; layer = 'deployable-unit'; compose = @('mid',
+                    'leaf'); include = @('top/**') }
             }
-            # top composes [mid, leaf]; mid already pulls leaf. Raw: +leaf,+mid,+leaf,+top -> dedupe-last: +mid,+leaf,+top
+            # top composes [mid, leaf]; mid already pulls leaf. Raw: +leaf,+mid,+leaf,+top -> dedupe-last:
+            # +mid,+leaf,+top
             (& $script:program $c.Get('top')) | Should -Be @('+ mid/**', '+ leaf/**', '+ top/**')
         }
 
@@ -160,8 +164,10 @@ Describe 'GlobsConfig' -Tag 'L0', 'logic' {
         It 'maps each unit to its reason, and refuses one without a reason or a list in place of the map' {
             $config = [Catzc.Base.Globs.GlobsConfig]::new(@{ globsets = $unit; tests_optional = @{ 'gadget-tests' = 'a holder of other units only' } })
             $config.tests_optional['gadget-tests'] | Should -Be 'a holder of other units only'
-            { [Catzc.Base.Globs.GlobsConfig]::new(@{ globsets = $unit; tests_optional = @{ 'gadget-tests' = ' ' } }) } | Should -Throw '*needs its reason*'
-            { [Catzc.Base.Globs.GlobsConfig]::new(@{ globsets = $unit; tests_optional = @('gadget-tests') }) } | Should -Throw '*must be a map*'
+            { [Catzc.Base.Globs.GlobsConfig]::new(@{ globsets = $unit; tests_optional = @{ 'gadget-tests' = ' ' } }) } |
+                Should -Throw '*needs its reason*'
+            { [Catzc.Base.Globs.GlobsConfig]::new(@{ globsets = $unit; tests_optional = @('gadget-tests') }) } |
+                Should -Throw '*must be a map*'
         }
     }
 }

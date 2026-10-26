@@ -93,7 +93,9 @@ layout:
   g-customer-file: { x: 1110, y: 538, w: 150, h: 52 }
 ```
 
-![Discovery resolves every config file's coordinate through one shared check](.assets/coordinate-resolved-file-by-file-at-discovery.drawio.png)
+![Discovery resolves every config file's coordinate through one shared check][diagram]
+
+[diagram]: .assets/coordinate-resolved-file-by-file-at-discovery.drawio.png
 
 ## Walkthrough
 

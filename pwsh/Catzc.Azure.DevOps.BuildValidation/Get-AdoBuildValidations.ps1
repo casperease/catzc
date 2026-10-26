@@ -29,7 +29,8 @@ function Get-AdoBuildValidations {
             continue
         }
         $scopes = @($configuration.settings.scope)
-        $matchingScope = $scopes | Where-Object { "$($_.repositoryId)" -eq "$($context.RepositoryId)" } | Select-Object -First 1
+        $matchingScope = $scopes | Where-Object { "$($_.repositoryId)" -eq "$($context.RepositoryId)" } |
+            Select-Object -First 1
         if (-not $matchingScope) {
             continue
         }

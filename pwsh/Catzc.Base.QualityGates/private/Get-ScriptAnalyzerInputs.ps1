@@ -35,7 +35,8 @@ function Get-ScriptAnalyzerInputs {
             else {
                 '*.ps*1'
             }
-            # The rule files sit directly in .scriptanalyzer and the manifest one version folder into the vendored module.
+            # The rule files sit directly in .scriptanalyzer and the manifest one version folder into the vendored
+            # module.
             foreach ($file in @(Get-ChildPath $folder -File -Filter $pattern -Depth 3 -PruneVendor $false | Sort-Object)) {
                 if ($file -match '[\\/]tests[\\/]') {
                     continue
@@ -48,7 +49,8 @@ function Get-ScriptAnalyzerInputs {
         }
     }
     if ($Pass -eq 'spelling') {
-        $inputs.AddRange([string[]] [Catzc.Base.QualityGates.SpellingOracle]::Inputs($RepositoryRoot, (Join-Path $RepositoryRoot (Get-CatzcModulesFolder))))
+        $inputs.AddRange([string[]] [Catzc.Base.QualityGates.SpellingOracle]::Inputs($RepositoryRoot,
+            (Join-Path $RepositoryRoot (Get-CatzcModulesFolder))))
     }
     , [string[]] $inputs.ToArray()
 }

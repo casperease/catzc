@@ -21,7 +21,8 @@ Describe 'Get-DrsDomainEdges' -Tag 'L0', 'logic' {
                         rulesets = [ordered]@{ 'gadget-one' = [ordered]@{ external = 'ADR-GA-ONE' } }
                     }
                     gizmo  = [ordered]@{
-                        code = 'GI'; role = 'reference'; description = 'The gizmo reference.'; depends_on = @('widget', 'gadget')
+                        code = 'GI'; role = 'reference'; description = 'The gizmo reference.'; depends_on = @('widget',
+                            'gadget')
                         stack = 'CLOUD'; concern = @('deploy')
                         rulesets = [ordered]@{ 'gizmo-one' = [ordered]@{ external = 'ADR-GI-ONE' } }
                     }
@@ -37,7 +38,8 @@ Describe 'Get-DrsDomainEdges' -Tag 'L0', 'logic' {
         $edges = Get-DrsDomainEdges
         $edges | Should -HaveCount 3
         $edges[0] | Should -BeOfType 'Catzc.Base.Drs.DrsDomainEdge'
-        @($edges | ForEach-Object { "$($_.From)->$($_.To)" }) | Should -Be @('gadget->widget', 'gizmo->widget', 'gizmo->gadget')
+        @($edges | ForEach-Object { "$($_.From)->$($_.To)" }) | Should -Be @('gadget->widget', 'gizmo->widget',
+            'gizmo->gadget')
     }
 
     It 'returns no edges for a registry with no dependency links' {

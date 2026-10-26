@@ -145,7 +145,8 @@ Describe 'exporter.yml' -Tag 'L0', 'integrity' {
     It 'every bundle names a profile that profiles.yml declares' {
         $profiles = (Get-Config -Config profiles).profiles
         foreach ($bundle in (Get-Config -Config exporter).bundles.Values) {
-            $profiles.Keys | Should -Contain $bundle.profile -Because "bundle '$($bundle.name)' builds profile '$($bundle.profile)'"
+            $profiles.Keys |
+                Should -Contain $bundle.profile -Because "bundle '$($bundle.name)' builds profile '$($bundle.profile)'"
         }
     }
 }

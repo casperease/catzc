@@ -55,7 +55,8 @@ Describe 'Test-Spelling' -Tag 'L0', 'logic' {
         $result.IssueCount | Should -Be 3
         $result.Facts['FileCount'] | Should -Be 2
         $result.Facts['ExitCode'] | Should -Be 1
-        (Get-Content (Join-Path $result.ReportPath 'spelling.md') -Raw) | Should -Match 'b\.ps1:2:3 - Unknown word \(bar\)'
+        (Get-Content (Join-Path $result.ReportPath 'spelling.md') -Raw) |
+            Should -Match 'b\.ps1:2:3 - Unknown word \(bar\)'
     }
 
     It 'checks a long path list in batches, one cspell call each, and merges their issues' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
@@ -71,7 +72,8 @@ Describe 'Test-Spelling' -Tag 'L0', 'logic' {
     It 'never passes a failing cspell run whose output it cannot parse' {
         $script:cspellExit = 1
         $script:cspellOut = 'CSpell: Files checked: 3, something new happened'
-        { Test-Spelling -OutputFolder $script:reportBase } | Should -Throw '*cspell exited 1 with no parsable issue line*'
+        { Test-Spelling -OutputFolder $script:reportBase } |
+            Should -Throw '*cspell exited 1 with no parsable issue line*'
     }
 
     It 'throws "no files" when the globs match nothing' {
@@ -176,9 +178,11 @@ Describe 'Repository spelling integrity' -Tag 'L2', 'integrity', 'source-only' {
                 $file
             }
         }
-        $members = [System.Collections.Generic.HashSet[string]]::new([string[]]@(Get-GlobSetFile -Name 'repository'), [System.StringComparer]::Ordinal)
+        $members = [System.Collections.Generic.HashSet[string]]::new([string[]]@(Get-GlobSetFile -Name 'repository'),
+            [System.StringComparer]::Ordinal)
         $uncovered = @($spelled | Where-Object { -not $members.Contains($_) })
-        $uncovered | Should -BeNullOrEmpty -Because 'every file the spelling scan reads must re-key its protection identity (globs.yml repository)'
+        $uncovered |
+            Should -BeNullOrEmpty -Because 'every file the spelling scan reads must re-key its protection identity (globs.yml repository)'
     }
 
     It 'the real repository content is spell-clean (real cspell, default content scope)' {

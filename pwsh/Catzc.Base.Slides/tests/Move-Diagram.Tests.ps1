@@ -6,7 +6,8 @@ catzc:
 ---
 #>
 
-# A fixture repository is made and moved in with real git (git init, git mv, git ls-files), so the point of the file is the launch: L2.
+# A fixture repository is made and moved in with real git (git init, git mv, git ls-files), so the point of the file is
+# the launch: L2.
 Describe 'Move-Diagram' -Tag 'L2', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' {
     BeforeAll {
         $script:skip = if (Get-Command git -ErrorAction Ignore) {
@@ -55,8 +56,10 @@ Describe 'Move-Diagram' -Tag 'L2', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' {
         $index | Should -Contain 'docs/widgets/.assets/widget.drawio.yml'
         $index | Should -Contain 'docs/widgets/.assets/widget.drawio.png'
         $index | Should -Not -Contain 'docs/widgets/assets/widget.drawio.yml'
-        & $script:read 'docs/widgets/index.md' | Should -BeExactly "# Widgets`n`n![Widget](.assets/widget.drawio.png)`n`n[the gadget](../gadgets/index.md) [plain](./plain.md)`n"
-        & $script:read 'docs/gadgets/index.md' | Should -BeExactly "# Gadgets`n`n![the widget slide](../widgets/.assets/widget.drawio.png)`n"
+        & $script:read 'docs/widgets/index.md' |
+            Should -BeExactly "# Widgets`n`n![Widget](.assets/widget.drawio.png)`n`n[the gadget](../gadgets/index.md) [plain](./plain.md)`n"
+        & $script:read 'docs/gadgets/index.md' |
+            Should -BeExactly "# Gadgets`n`n![the widget slide](../widgets/.assets/widget.drawio.png)`n"
         @($result.Pages | Sort-Object) | Should -Be @('docs/gadgets/index.md', 'docs/widgets/index.md')
         @((Test-Links -Path (Join-Path $script:widgetRoot docs) -RepositoryRoot $script:widgetRoot -PassThru 6> $null).Issues) | Should -BeNullOrEmpty
     }
@@ -68,7 +71,8 @@ Describe 'Move-Diagram' -Tag 'L2', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' {
         Move-Diagram docs/widgets/plain.md docs/gadgets/simple.md -RepositoryRoot $script:widgetRoot
 
         & $script:read 'docs/gadgets/simple.md' | Should -BeExactly "# Plain`n`n[up](../widgets/index.md)`n"
-        & $script:read 'docs/widgets/index.md' | Should -BeExactly "# Widgets`n`n![Widget](assets/widget.drawio.png)`n`n[the gadget](../gadgets/index.md) [plain](../gadgets/simple.md)`n"
+        & $script:read 'docs/widgets/index.md' |
+            Should -BeExactly "# Widgets`n`n![Widget](assets/widget.drawio.png)`n`n[the gadget](../gadgets/index.md) [plain](../gadgets/simple.md)`n"
     }
 
     It 'lists the moves and the pages under -DryRun and changes nothing' {
@@ -103,7 +107,8 @@ Describe 'Move-Diagram' -Tag 'L2', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' {
         Should -Invoke Format-Code -ModuleName Catzc.Base.Slides -Times 0 -Exactly
 
         Move-Diagram docs/widgets/assets/widget docs/widgets/.assets/widget -RepositoryRoot $script:widgetRoot
-        $expected = @('docs/gadgets/index.md', 'docs/widgets/index.md' | ForEach-Object { [System.IO.Path]::GetFullPath((Join-Path $script:widgetRoot $_)) })
+        $expected = @('docs/gadgets/index.md',
+            'docs/widgets/index.md' | ForEach-Object { [System.IO.Path]::GetFullPath((Join-Path $script:widgetRoot $_)) })
         Should -Invoke Format-Code -ModuleName Catzc.Base.Slides -Times 1 -Exactly -ParameterFilter {
             $Language -eq 'markdown' -and (@($Path | Sort-Object) -join '|') -eq (@($expected | Sort-Object) -join '|')
         }
@@ -123,11 +128,15 @@ Describe 'Move-Diagram' -Tag 'L2', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' {
         if ($script:skip) {
             Set-ItResult -Skipped -Because $script:skip; return
         }
-        { Move-Diagram docs/widgets/assets docs/gadgets -RepositoryRoot $script:widgetRoot } | Should -Throw '*already exists*'
+        { Move-Diagram docs/widgets/assets docs/gadgets -RepositoryRoot $script:widgetRoot } |
+            Should -Throw '*already exists*'
         { Move-Diagram docs/widgets/assets/widget.drawio.png docs/widgets/assets/widget -RepositoryRoot $script:widgetRoot } | Should -Throw '*lies inside it*'
-        { Move-Diagram docs/widgets/assets docs/widgets/assets/inner -RepositoryRoot $script:widgetRoot } | Should -Throw '*lies inside it*'
-        { Move-Diagram docs/widgets/assets ../elsewhere -RepositoryRoot $script:widgetRoot } | Should -Throw '*inside the repository*'
-        { Move-Diagram docs/nothing docs/somewhere -RepositoryRoot $script:widgetRoot } | Should -Throw '*holds no tracked file*'
+        { Move-Diagram docs/widgets/assets docs/widgets/assets/inner -RepositoryRoot $script:widgetRoot } |
+            Should -Throw '*lies inside it*'
+        { Move-Diagram docs/widgets/assets ../elsewhere -RepositoryRoot $script:widgetRoot } |
+            Should -Throw '*inside the repository*'
+        { Move-Diagram docs/nothing docs/somewhere -RepositoryRoot $script:widgetRoot } |
+            Should -Throw '*holds no tracked file*'
     }
 }
 
@@ -174,9 +183,12 @@ Describe 'Move-Diagram — an article-carried diagram' -Tag 'L2', 'logic', 'sour
         }
         Move-Diagram docs/widgets/.assets/gadget docs/gadgets/.assets/gadget -RepositoryRoot $script:widgetRoot -Kit python/catzc_diagrams
 
-        & $script:read 'docs/gadgets/gadget.md' | Should -BeExactly "# Gadget here`n`n$($script:block)![Gadget](.assets/gadget.drawio.png)`n"
-        & $script:read 'docs/widgets/gadget.md' | Should -BeExactly "# Gadget`n`n![Gadget](../gadgets/.assets/gadget.drawio.png)`n"
-        & $script:read 'python/catzc_diagrams/configs/drawio.yml' | Should -BeExactly "renderer:`n  carrier: file # the default`nroles: # by stem`n  docs/gadgets/.assets/gadget: legend`n"
+        & $script:read 'docs/gadgets/gadget.md' |
+            Should -BeExactly "# Gadget here`n`n$($script:block)![Gadget](.assets/gadget.drawio.png)`n"
+        & $script:read 'docs/widgets/gadget.md' |
+            Should -BeExactly "# Gadget`n`n![Gadget](../gadgets/.assets/gadget.drawio.png)`n"
+        & $script:read 'python/catzc_diagrams/configs/drawio.yml' |
+            Should -BeExactly "renderer:`n  carrier: file # the default`nroles: # by stem`n  docs/gadgets/.assets/gadget: legend`n"
         Test-Path (Join-Path $script:widgetRoot 'docs/gadgets/.assets/gadget.drawio.png') | Should -BeTrue
     }
 
@@ -184,13 +196,16 @@ Describe 'Move-Diagram — an article-carried diagram' -Tag 'L2', 'logic', 'sour
         if ($script:skip) {
             Set-ItResult -Skipped -Because $script:skip; return
         }
-        [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/gadgets/gadget.md'), "# Gadget here`n`n![Gadget](.assets/gadget.drawio.png)`n")
+        [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/gadgets/gadget.md'),
+            "# Gadget here`n`n![Gadget](.assets/gadget.drawio.png)`n")
         Invoke-Executable 'git add -A' -WorkingDirectory $script:widgetRoot -Silent | Out-Null
 
         Move-Diagram docs/widgets/.assets/gadget docs/gadgets/.assets/gadget -RepositoryRoot $script:widgetRoot -Kit python/catzc_diagrams
 
-        & $script:read 'docs/gadgets/gadget.md' | Should -BeExactly "# Gadget here`n`n$($script:block)![Gadget](.assets/gadget.drawio.png)`n"
-        & $script:read 'docs/widgets/gadget.md' | Should -BeExactly "# Gadget`n`n![Gadget](../gadgets/.assets/gadget.drawio.png)`n"
+        & $script:read 'docs/gadgets/gadget.md' |
+            Should -BeExactly "# Gadget here`n`n$($script:block)![Gadget](.assets/gadget.drawio.png)`n"
+        & $script:read 'docs/widgets/gadget.md' |
+            Should -BeExactly "# Gadget`n`n![Gadget](../gadgets/.assets/gadget.drawio.png)`n"
     }
 
     It 'refuses, changing nothing, when no page beside the new .assets embeds the png' {
@@ -198,7 +213,8 @@ Describe 'Move-Diagram — an article-carried diagram' -Tag 'L2', 'logic', 'sour
             Set-ItResult -Skipped -Because $script:skip; return
         }
         { Move-Diagram docs/widgets/.assets/gadget docs/drs/.assets/gadget -RepositoryRoot $script:widgetRoot -Kit python/catzc_diagrams } | Should -Throw '*Carry it to the file carrier first*'
-        & $script:read 'docs/widgets/gadget.md' | Should -BeExactly "# Gadget`n`n$($script:block)![Gadget](.assets/gadget.drawio.png)`n"
+        & $script:read 'docs/widgets/gadget.md' |
+            Should -BeExactly "# Gadget`n`n$($script:block)![Gadget](.assets/gadget.drawio.png)`n"
         Test-Path (Join-Path $script:widgetRoot 'docs/widgets/.assets/gadget.drawio.png') | Should -BeTrue
         & $script:read 'python/catzc_diagrams/configs/drawio.yml' | Should -Match 'docs/widgets/\.assets/gadget: legend'
     }

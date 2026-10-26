@@ -31,7 +31,8 @@ function Assert-BicepParamSlot {
         throw "Template '$Template': $name has no using line; a bicepparam slot names its template's main.bicep."
     }
     $target = [System.IO.Path]::GetFullPath((Join-Path ([System.IO.Path]::GetDirectoryName($File)) $using.Groups['path'].Value))
-    if (-not [string]::Equals($target, [System.IO.Path]::GetFullPath($Main), [System.StringComparison]::OrdinalIgnoreCase)) {
+    if (-not [string]::Equals($target, [System.IO.Path]::GetFullPath($Main),
+        [System.StringComparison]::OrdinalIgnoreCase)) {
         throw "Template '$Template': $name uses '$($using.Groups['path'].Value)', which is not the template's main.bicep."
     }
 }

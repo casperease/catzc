@@ -27,21 +27,25 @@ function Test-JavaScriptTypes {
     $tsc = Resolve-ToolExecutable -Tool typescript
     Assert-True $tsc.Found -ErrorText 'Test-JavaScriptTypes: tsc is not installed (no managed TypeScript found). Run Install-TypeScript.'
 
-    # tsc prints one line per error, path(line,col): error TSnnnn: message; exit 0 is clean, 1 or 2 is errors, anything else is tsc failing.
+    # tsc prints one line per error, path(line,col): error TSnnnn: message; exit 0 is clean, 1 or 2 is errors, anything
+    # else is tsc failing.
     $pattern = '^(?<file>.+?)\((?<line>\d+),(?<column>\d+)\): error (?<code>TS\d+): (?<message>.*)$'
     $issues = [System.Collections.Generic.List[string]]::new()
     foreach ($name in $projects) {
         $project = Join-Path $repositoryRoot $name
         $check = Invoke-Executable "`"$($tsc.Path)`" --noEmit --pretty false -p `"$project`"" -WorkingDirectory $repositoryRoot -PassThru -NoAssert -Silent
-        # A project left with no files (every module raised out of the lenient one) has nothing to check, which tsc reports as TS18003.
+        # A project left with no files (every module raised out of the lenient one) has nothing to check, which tsc
+        # reports as TS18003.
         $lines = @($check.Output -split '\r?\n')
-        if ($check.ExitCode -ne 0 -and @($lines -match 'error TS18003:').Count -gt 0 -and @($lines -match $pattern).Count -eq 0) {
+        if ($check.ExitCode -ne 0 -and @($lines -match 'error TS18003:').Count -gt 0 -and
+            @($lines -match $pattern).Count -eq 0) {
             continue
         }
         $found = 0
         foreach ($line in @($check.Output -split '\r?\n')) {
             if ($line -match $pattern) {
-                $file = [System.IO.Path]::GetRelativePath($repositoryRoot, [System.IO.Path]::GetFullPath($Matches['file'], $repositoryRoot)).Replace('\', '/')
+                $file = [System.IO.Path]::GetRelativePath($repositoryRoot,
+                    [System.IO.Path]::GetFullPath($Matches['file'], $repositoryRoot)).Replace('\', '/')
                 $issues.Add("${file}:$($Matches['line']):$($Matches['column']): error $($Matches['code']) $($Matches['message'].Trim())")
                 $found++
             }

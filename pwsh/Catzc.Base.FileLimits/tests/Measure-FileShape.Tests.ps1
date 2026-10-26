@@ -1,4 +1,5 @@
-# One streaming pass must report the line count and the widest line with its number, the same lines the gate and the linters see.
+# One streaming pass must report the line count and the widest line with its number, the same lines the gate and the
+# linters see.
 Describe 'Measure-FileShape' -Tag 'L0', 'logic' {
     It 'counts every line and names the widest one' {
         $file = Join-Path $TestDrive 'widget.txt'

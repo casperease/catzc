@@ -14,11 +14,13 @@ Describe 'Get-SlideOrderFinding' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-SLIDEFILE'
     }
 
     It 'names each order two slides hold, and the slides holding it' {
-        & $find @(1, 1, 2) | Should -Be @("decks/widget-deck: field 'order': the order 1 is held by 2 slides: widget-0, widget-1")
+        & $find @(1, 1, 2) |
+            Should -Be @("decks/widget-deck: field 'order': the order 1 is held by 2 slides: widget-0, widget-1")
     }
 
     It 'names the first gap only' {
-        & $find @(1, 3, 5) | Should -Be @("decks/widget-deck: field 'order': the orders have a gap: expected 2, found 3")
+        & $find @(1, 3, 5) |
+            Should -Be @("decks/widget-deck: field 'order': the orders have a gap: expected 2, found 3")
     }
 
     It 'leaves an order that is not a whole number to the slide''s own finding' {

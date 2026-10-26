@@ -8,7 +8,8 @@ Describe 'New-JsConfig' -Tag 'L0', 'logic' {
     }
 
     It 'checks every file of the js track, not yet strict, against the declarations in the type root it is given' {
-        $config = New-JsConfig -TypeRoot 'C:/widget/node_modules/@types' -RepositoryRoot $script:root | ConvertFrom-Json -AsHashtable
+        $config = New-JsConfig -TypeRoot 'C:/widget/node_modules/@types' -RepositoryRoot $script:root |
+            ConvertFrom-Json -AsHashtable
         $config['compilerOptions']['checkJs'] | Should -BeTrue
         $config['compilerOptions']['noEmit'] | Should -BeTrue
         $config['compilerOptions']['strict'] | Should -BeFalse
@@ -45,8 +46,10 @@ Describe 'New-JsConfig' -Tag 'L0', 'logic' {
 Describe 'New-JsConfig — the editor declarations match the manifests' -Tag 'L1', 'integrity' {
     It 'pins @types/vscode to the editor version every extension manifest declares' {
         $engine = [Catzc.Base.VSCode.VscodeOwnExtension]::DefaultEngine
-        $engine -match '^\^(?<major>\d+)\.(?<minor>\d+)\.' | Should -BeTrue -Because "the manifests declare a caret engine range ($engine)"
+        $engine -match '^\^(?<major>\d+)\.(?<minor>\d+)\.' |
+            Should -BeTrue -Because "the manifests declare a caret engine range ($engine)"
         $declared = "$($Matches['major']).$($Matches['minor'])"
-        (Get-ToolConfig -Tool types_vscode).version | Should -Be $declared -Because 'the types must match the editor the extensions run against'
+        (Get-ToolConfig -Tool types_vscode).version |
+            Should -Be $declared -Because 'the types must match the editor the extensions run against'
     }
 }

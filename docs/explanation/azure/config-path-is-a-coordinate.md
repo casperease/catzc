@@ -66,7 +66,9 @@ layout:
   e-group: { x: 1050, y: 198, w: 180, h: 52 }
 ```
 
-![A config file's path is a coordinate that resolves to one subscription and one resource group](.assets/config-path-is-a-coordinate.drawio.png)
+![A config file's path is a coordinate that resolves to one subscription and one resource group][diagram]
+
+[diagram]: .assets/config-path-is-a-coordinate.drawio.png
 
 ## Walkthrough
 

@@ -43,7 +43,8 @@ function Measure-NoBareCacheEntryRead {
     foreach ($assignment in $ScriptBlockAst.FindAll($isAssignment, $false)) {
         $left = $assignment.Left
         $isPlain = $assignment.Operator -eq [System.Management.Automation.Language.TokenKind]::Equals
-        if ($isPlain -and $left -is [System.Management.Automation.Language.VariableExpressionAst] -and $left.VariablePath.IsScript) {
+        if ($isPlain -and $left -is [System.Management.Automation.Language.VariableExpressionAst] -and
+            $left.VariablePath.IsScript) {
             [void]$declared.Add(($left.VariablePath.UserPath -replace '^(?i)script:', ''))
         }
     }
@@ -61,9 +62,11 @@ function Measure-NoBareCacheEntryRead {
             $left = $assignment.Left
             # only a plain '=' sets the cache entry: '??=', '+=' and the like read it first
             $isPlain = $assignment.Operator -eq [System.Management.Automation.Language.TokenKind]::Equals
-            if ($isPlain -and $left -is [System.Management.Automation.Language.VariableExpressionAst] -and $left.VariablePath.IsScript) {
+            if ($isPlain -and $left -is [System.Management.Automation.Language.VariableExpressionAst] -and
+                $left.VariablePath.IsScript) {
                 $name = $left.VariablePath.UserPath -replace '^(?i)script:', ''
-                if (-not $firstAssignment.ContainsKey($name) -or $assignment.Extent.StartOffset -lt $firstAssignment[$name]) {
+                if (-not $firstAssignment.ContainsKey($name) -or
+                    $assignment.Extent.StartOffset -lt $firstAssignment[$name]) {
                     $firstAssignment[$name] = $assignment.Extent.StartOffset
                 }
             }

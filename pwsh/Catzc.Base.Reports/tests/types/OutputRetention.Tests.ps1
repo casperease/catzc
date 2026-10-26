@@ -25,7 +25,8 @@ Describe 'Catzc.Base.Reports.OutputRetention' -Tag 'L0', 'logic', 'ADR-REPO-OUTD
         }
         function script:Get-Plan {
             param([object[]] $Files, [bool] $Pipeline = $false)
-            [Catzc.Base.Reports.OutputRetention]::Plan([Catzc.Base.Reports.OutputFile[]] $Files, $script:config, $script:now, $Pipeline)
+            [Catzc.Base.Reports.OutputRetention]::Plan([Catzc.Base.Reports.OutputFile[]] $Files, $script:config,
+                $script:now, $Pipeline)
         }
     }
 

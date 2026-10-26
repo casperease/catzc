@@ -1,7 +1,10 @@
 Describe 'PlaceRows' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:places = [Catzc.Base.Maps.MapsMinimapPlaces]::Default()
-        $script:cell = { param([string] $Track, [string] $Module, [string] $Folder) [Catzc.Base.Maps.MinimapCell]::new([string[]] @($Track, $Module, $Folder), 1, [Catzc.Base.Maps.MinimapReason[]] @([Catzc.Base.Maps.MinimapReason]::new("$Track/$Module/$Folder/x", 'citation', 'ADR-WIDGET', $null))) }
+        $script:cell = { param([string] $Track, [string] $Module,
+            [string] $Folder) [Catzc.Base.Maps.MinimapCell]::new([string[]] @($Track, $Module, $Folder), 1,
+            [Catzc.Base.Maps.MinimapReason[]] @([Catzc.Base.Maps.MinimapReason]::new("$Track/$Module/$Folder/x",
+            'citation', 'ADR-WIDGET', $null))) }
         $script:cells = { param([object[]] $Places) [Catzc.Base.Maps.MinimapCell[]] @($Places | ForEach-Object { & $script:cell $_[0] $_[1] $_[2] }) }
         $script:rowsOf = { param([object[]] $Places) [Catzc.Base.Maps.PlaceRows]::From([Catzc.Base.Maps.MinimapCell[]] @(& $script:cells $Places), $script:places) }
     }
@@ -20,26 +23,33 @@ Describe 'PlaceRows' -Tag 'L0', 'logic' {
 
         It 'takes its joins and its root marker from the configuration, not from the code' {
             $other = [Catzc.Base.Maps.MapsMinimapPlaces]::new(7, 1, 40, 'Catzc.', '+', '#', '/', '-', '<root>')
-            [Catzc.Base.Maps.PlaceRows]::Form('widgets', 'Catzc.Widget.Cog', 'types', $other) | Should -BeExactly 'widgets/widget-cog/types'
+            [Catzc.Base.Maps.PlaceRows]::Form('widgets', 'Catzc.Widget.Cog', 'types', $other) |
+                Should -BeExactly 'widgets/widget-cog/types'
         }
     }
 
     Context 'one place in its minimised form' {
         It 'is the path from the root joined with dots, the module prefix dropped and its dots made underscores, in lower case' {
-            [Catzc.Base.Maps.PlaceRows]::Form('widgets', 'Catzc.Widget', '.', $script:places) | Should -BeExactly 'widgets.widget'
-            [Catzc.Base.Maps.PlaceRows]::Form('widgets', 'Catzc.Widget.Cog', 'types', $script:places) | Should -BeExactly 'widgets.widget_cog.types'
+            [Catzc.Base.Maps.PlaceRows]::Form('widgets', 'Catzc.Widget', '.', $script:places) |
+                Should -BeExactly 'widgets.widget'
+            [Catzc.Base.Maps.PlaceRows]::Form('widgets', 'Catzc.Widget.Cog', 'types', $script:places) |
+                Should -BeExactly 'widgets.widget_cog.types'
         }
 
         It 'names the folder of a place outside any module, its path joined with dots' {
-            [Catzc.Base.Maps.PlaceRows]::Form('docs', '-', 'explanation/ado', $script:places) | Should -BeExactly 'docs.explanation.ado'
-            [Catzc.Base.Maps.PlaceRows]::Form('.claude', '-', 'skills', $script:places) | Should -BeExactly '.claude.skills'
+            [Catzc.Base.Maps.PlaceRows]::Form('docs', '-', 'explanation/ado', $script:places) |
+                Should -BeExactly 'docs.explanation.ado'
+            [Catzc.Base.Maps.PlaceRows]::Form('.claude', '-', 'skills', $script:places) |
+                Should -BeExactly '.claude.skills'
         }
 
         It 'never cuts a name: a module row that is too long counts its folders, a folder path counts the segments left out' {
-            $row = [Catzc.Base.Maps.PlaceRows]::Form('widgets', 'Catzc.Widget.Sprocket.Assembly.Gadgetry', 'types', $script:places)
+            $row = [Catzc.Base.Maps.PlaceRows]::Form('widgets', 'Catzc.Widget.Sprocket.Assembly.Gadgetry', 'types',
+                $script:places)
             $row | Should -BeExactly 'widgets.widget_sprocket_assembly_gadgetry.+1'
             $row | Should -Not -BeLike '*...*'
-            [Catzc.Base.Maps.PlaceRows]::Form('docs', '-', 'explanation/automation/pwsh/very-long-folder-name-here', $script:places) | Should -BeExactly 'docs.explanation.automation.pwsh.+1'
+            [Catzc.Base.Maps.PlaceRows]::Form('docs', '-', 'explanation/automation/pwsh/very-long-folder-name-here',
+                $script:places) | Should -BeExactly 'docs.explanation.automation.pwsh.+1'
         }
 
         It 'knows whether a row is already in the minimised form' {
@@ -47,7 +57,8 @@ Describe 'PlaceRows' -Tag 'L0', 'logic' {
             [Catzc.Base.Maps.PlaceRows]::IsNormal('widgets.Widget.types', $script:places) | Should -BeFalse
             [Catzc.Base.Maps.PlaceRows]::IsNormal('widgets.catzc_widget.types', $script:places) | Should -BeFalse
             [Catzc.Base.Maps.PlaceRows]::IsNormal(('widgets.' + ('x' * 50)), $script:places) | Should -BeTrue
-            [Catzc.Base.Maps.PlaceRows]::IsNormal('widgets.widget.(root)|configs|types', $script:places) | Should -BeTrue
+            [Catzc.Base.Maps.PlaceRows]::IsNormal('widgets.widget.(root)|configs|types', $script:places) |
+                Should -BeTrue
             [Catzc.Base.Maps.PlaceRows]::IsNormal('widgets.widget.types|configs', $script:places) | Should -BeFalse
             [Catzc.Base.Maps.PlaceRows]::IsNormal('widgets.widget.configs|...', $script:places) | Should -BeFalse
         }
@@ -64,7 +75,8 @@ Describe 'PlaceRows' -Tag 'L0', 'logic' {
                 , @('docs', '-', 'explanation/ado')
                 , @('.claude', '-', 'skills')
             )
-            @($rows.Rows) | Should -Be @('.claude.skills', 'docs.explanation.ado', 'widgets.widget.configs|types', 'widgets.widget_cog', 'widgets.widget_gear.(root)|tests')
+            @($rows.Rows) | Should -Be @('.claude.skills', 'docs.explanation.ado', 'widgets.widget.configs|types',
+                'widgets.widget_cog', 'widgets.widget_gear.(root)|tests')
             $rows.Counters | Should -BeExactly '7 places'
         }
 

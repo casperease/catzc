@@ -17,7 +17,8 @@ function Get-AzureResourceTypeSet {
         vnet  = @{ pattern = 'long'; limit = 64 }   # virtual network
         sql   = @{ pattern = 'long'; limit = 63 }   # SQL logical server (lowercase, hyphens ok)
         sqldb = @{ pattern = 'long'; limit = 128 }  # SQL database (5-char type ok — long pattern)
-        vm    = @{ pattern = 'vm'; omit = @('org', 'customer', 'role') }  # virtual machine (15; omits RG-encoded segments to fit)
+        vm    = @{ pattern = 'vm'; omit = @('org', 'customer',
+            'role') }  # virtual machine (15; omits RG-encoded segments to fit)
         synw  = @{ pattern = 'long'; limit = 50 }   # Synapse Analytics workspace
         adf   = @{ pattern = 'long'; limit = 63 }   # Data Factory (V2) — 3-63 chars
         log   = @{ pattern = 'long'; limit = 63 }   # Log Analytics workspace (4-63)

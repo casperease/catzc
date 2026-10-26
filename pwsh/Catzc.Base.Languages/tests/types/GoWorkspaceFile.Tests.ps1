@@ -5,8 +5,10 @@ Describe 'GoWorkspaceFile' -Tag 'L0', 'logic' {
         $file.Content | Should -Be "module widget`n"
     }
 
-    It 'throws on a target that is not repository-relative and forward-slashed' -ForEach @('go\tests\go.mod', '/go.work', '') {
-        { [Catzc.Base.Languages.GoWorkspaceFile]::new($_, "go 1.24`n") } | Should -Throw '*repository-relative, forward-slashed*'
+    It 'throws on a target that is not repository-relative and forward-slashed' -ForEach @('go\tests\go.mod',
+        '/go.work', '') {
+        { [Catzc.Base.Languages.GoWorkspaceFile]::new($_, "go 1.24`n") } |
+            Should -Throw '*repository-relative, forward-slashed*'
     }
 
     It 'throws on content that is not LF with a trailing newline' -ForEach @("go 1.24`r`n", 'go 1.24') {

@@ -7,7 +7,8 @@ catzc:
 #>
 
 function Test-InIsolation {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-NoEnvRepositoryRoot', '', Justification = 'The InProcess mode swaps $env:RepositoryRoot for the sandbox and restores it: the variable itself is the subject, so it saves the hand-off value, not the root through the accessor')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-NoEnvRepositoryRoot', '',
+        Justification = 'The InProcess mode swaps $env:RepositoryRoot for the sandbox and restores it: the variable itself is the subject, so it saves the hand-off value, not the root through the accessor')]
     [CmdletBinding(DefaultParameterSetName = 'ModuleProfile')]
     [OutputType([Catzc.Base.Reports.IsolationRunResult])]
     param(
@@ -146,7 +147,8 @@ exit `$r.FailedCount
         else {
             $null
         }
-        $ret = [Catzc.Base.Reports.IsolationRunResult]::new($Isolation, $sandbox, [string[]] @($set), $total, $failed, $profileName, $keptResults)
+        $ret = [Catzc.Base.Reports.IsolationRunResult]::new($Isolation, $sandbox, [string[]] @($set), $total, $failed,
+            $profileName, $keptResults)
 
         Write-Message "Test-InIsolation ($Isolation): $($ret.Total) test(s), $($ret.Failed) failed — sandbox $sandbox"
 

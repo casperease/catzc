@@ -15,9 +15,11 @@ Describe 'Get-LanguageTestOutcomes' -Tag 'L0', 'logic' {
             param([string] $Name, [string] $Package = $script:package)
             [pscustomobject]@{ Key = "$Package $Name"; Package = $Package; Name = $Name; Category = 'logic'; Title = $Name }
         }
-        $script:cases = @((New-Case 'TestWidgetSpins'), (New-Case 'TestWidgetJams'), (New-Case 'TestWidgetNaps'), (New-Case 'TestWidgetVanishes'))
+        $script:cases = @((New-Case 'TestWidgetSpins'), (New-Case 'TestWidgetJams'), (New-Case 'TestWidgetNaps'),
+            (New-Case 'TestWidgetVanishes'))
         function Invoke-Outcomes {
-            param([string] $Language = 'go', [object[]] $Case = $script:cases, [string] $EntryScript, [string] $Executable = $script:goPath)
+            param([string] $Language = 'go', [object[]] $Case = $script:cases, [string] $EntryScript,
+                [string] $Executable = $script:goPath)
             InModuleScope Catzc.Base.QualityGates -Parameters @{ Language = $Language; Case = $Case; EntryScript = $EntryScript; Executable = $Executable } {
                 param($Language, $Case, $EntryScript, $Executable)
                 Get-LanguageTestOutcomes -Language $Language -Module 'Catzc.Widget' -Case $Case -EntryScript $EntryScript -Executable $Executable
@@ -29,8 +31,10 @@ Describe 'Get-LanguageTestOutcomes' -Tag 'L0', 'logic' {
         Mock Resolve-ToolExecutable -ModuleName Catzc.Base.QualityGates { throw 'the worker never locates a tool itself' }
         Mock Invoke-GoTest -ModuleName Catzc.Base.QualityGates {
             [Catzc.Base.Languages.GoTestResult]::new('catzc/go/tests/catzc-widget', 'TestWidgetSpins', 'pass', 0.1, '')
-            [Catzc.Base.Languages.GoTestResult]::new('catzc/go/tests/catzc-widget', 'TestWidgetJams', 'fail', 0.2, 'widget_test.go:9: jammed')
-            [Catzc.Base.Languages.GoTestResult]::new('catzc/go/tests/catzc-widget', 'TestWidgetNaps', 'skip', 0.0, 'widget_test.go:12: asleep')
+            [Catzc.Base.Languages.GoTestResult]::new('catzc/go/tests/catzc-widget', 'TestWidgetJams', 'fail', 0.2,
+                'widget_test.go:9: jammed')
+            [Catzc.Base.Languages.GoTestResult]::new('catzc/go/tests/catzc-widget', 'TestWidgetNaps', 'skip', 0.0,
+                'widget_test.go:12: asleep')
         }
         Mock Invoke-PythonTest -ModuleName Catzc.Base.QualityGates {
             [Catzc.Base.Languages.PythonTestResult]::new('test_widget', 'test_widget_spins', 'pass', 0.1, '')

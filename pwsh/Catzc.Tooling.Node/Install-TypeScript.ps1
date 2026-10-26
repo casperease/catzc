@@ -7,7 +7,8 @@ function Install-TypeScript {
     # npm ships with Node.js — assert it is present and at the locked version first.
     Assert-Tool 'node_js'
 
-    # The compiler and the declarations it checks against, each at its tools.yml pin, into npm's global root; never into the repository.
+    # The compiler and the declarations it checks against, each at its tools.yml pin, into npm's global root; never into
+    # the repository.
     foreach ($tool in 'typescript', 'types_node', 'types_vscode') {
         $config = Get-ToolConfig -Tool $tool
         $installed = if (Test-Command $config.command) {

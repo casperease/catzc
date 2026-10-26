@@ -26,7 +26,8 @@ function Resolve-ImportMix {
         }
     }
 
-    # A module's code languages are the executable languages of the files a language's own layout row places; the shared rows (assets, tests) never count.
+    # A module's code languages are the executable languages of the files a language's own layout row places; the shared
+    # rows (assets, tests) never count.
     $languageConfig = Get-Config -Config languages
     $moduleLanguages = [ordered]@{}
     foreach ($module in Get-CatzcModule -EngineTrack) {
@@ -63,7 +64,8 @@ function Resolve-ImportMix {
             $handled)
     }
     catch [System.Management.Automation.MethodInvocationException] {
-        # The resolution's own error (an unknown name, an absent engine, an unhandled language) surfaces as itself, not as the call's wrapper.
+        # The resolution's own error (an unknown name, an absent engine, an unhandled language) surfaces as itself, not
+        # as the call's wrapper.
         throw $_.Exception.InnerException
     }
 }

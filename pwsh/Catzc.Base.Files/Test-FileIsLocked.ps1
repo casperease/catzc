@@ -17,7 +17,8 @@ function Test-FileIsLocked {
     Assert-PathExist $Path -PathType Leaf
 
     try {
-        $stream = [System.IO.File]::Open($Path, [System.IO.FileMode]::Open, [System.IO.FileAccess]::Read, [System.IO.FileShare]::None)
+        $stream = [System.IO.File]::Open($Path, [System.IO.FileMode]::Open, [System.IO.FileAccess]::Read,
+            [System.IO.FileShare]::None)
         $stream.Dispose()
         $false
     }

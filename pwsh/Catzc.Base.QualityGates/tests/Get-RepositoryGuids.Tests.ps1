@@ -54,7 +54,8 @@ Describe 'Get-RepositoryGuids' -Tag 'L0', 'logic' {
     }
 
     It 'skips a listed file that is missing on disk' {
-        Mock Get-GuidScanFiles { @((Join-Path $script:sandbox 'deleted.yml'), $script:alphaFile) } -ModuleName Catzc.Base.QualityGates
+        Mock Get-GuidScanFiles { @((Join-Path $script:sandbox 'deleted.yml'),
+            $script:alphaFile) } -ModuleName Catzc.Base.QualityGates
         @(Get-RepositoryGuids).Count | Should -Be 3
     }
 

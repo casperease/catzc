@@ -27,19 +27,23 @@ function Invoke-ImporterJanitors {
     # Tidy superseded type assemblies (.compiled stays a clean -1/+1 diff) — see Invoke-TypeCacheJanitor.
     Invoke-TypeCacheJanitor -ShowReport:$ShowStateChanges
 
-    # A build janitor re-renders only when the changed set or a missing output makes its writer due; the writers it considers, in order, and
+    # A build janitor re-renders only when the changed set or a missing output makes its writer due; the writers it
+    # considers, in order, and
     # the lists are generated-files.yml's (at_import).
     $atImport = @(if (Get-Command Get-Config -ErrorAction Ignore) {
-            (Get-Config -Config generated-files).writers.Values | Where-Object { $_.at_import } | ForEach-Object { $_.name }
+            (Get-Config -Config generated-files).writers.Values | Where-Object { $_.at_import } |
+                ForEach-Object { $_.name }
         })
     $due = Get-DueWriterRow -Name $atImport
     $saveStamp = Get-Command Save-GeneratedWriterStamp -ErrorAction Ignore
     # Keep the generated ADR pages current (Catzc.Base.Docs): [index](/docs/drs/index.md) from drs.yml and
     # [glossary](/docs/drs/glossary.md) from the glossary sources — committed so GitHub has them, rebuilt BEFORE
-    # Build-Readme (the docs/drs README is generated from the index). See [ADR-REPO-README](/docs/drs/repository/generated-readmes.md).
+    # Build-Readme (the docs/drs README is generated from the index). See
+    # [ADR-REPO-README](/docs/drs/repository/generated-readmes.md).
     #
     # Keep the generated contract pages current (Catzc.Base.Contracts): docs/references/contracts/<unit>.md from the
-    # contract assets' header comments — committed so GitHub has them. See [ADR-REPO-README](/docs/drs/repository/generated-readmes.md).
+    # contract assets' header comments — committed so GitHub has them. See
+    # [ADR-REPO-README](/docs/drs/repository/generated-readmes.md).
     #
     # Keep the generated README copy-ins current (Catzc.Base.Docs). Fast no-op when nothing changed — Build-Readme
     # rewrites a README only when its composed content differs (compared EOL-insensitively), so a clean tree costs
@@ -72,7 +76,8 @@ function Invoke-ImporterJanitors {
     # installer layer (e.g. nvm-managed node) — and report any running from a non-owned location on one line.
     # Session-only, self-skips in CI. The importer is dot-sourced, so its PATH nudges land in the caller's live
     # session. The janitor announces each nudge like any function, but at every shell open the same nudges are part
-    # of the load record ([ADR-PWSH-ANNOUNCE-IMPORTERLOADSEQUENCE](/docs/drs/automation/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-importerloadsequence)):
+    # of the load record
+    # ([ADR-PWSH-ANNOUNCE-IMPORTERLOADSEQUENCE](/docs/drs/automation/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-importerloadsequence)):
     # the importer's -Verbose decides whether they are shown, so a plain import prints only the Loaded line. The
     # quieting is the session-wide information preference, restored in the finally
     # ([ADR-PWSH-ANNOUNCE-UNANNOUNCEDCHANGES](/docs/drs/automation/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-unannouncedchanges)): a common parameter

@@ -19,7 +19,8 @@ Describe 'Add-PermanentPath' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:originalPath = $env:PATH
 
-        # The persistent PATH lives in memory behind its seam, so no run mutates the machine's PATH or broadcasts a settings change.
+        # The persistent PATH lives in memory behind its seam, so no run mutates the machine's PATH or broadcasts a
+        # settings change.
         $script:fakeUserPath = $null
         Mock Get-EnvironmentPath { $script:fakeUserPath } -ModuleName Catzc.Base.Environment
         Mock Set-EnvironmentPath { $script:fakeUserPath = $Value } -ModuleName Catzc.Base.Environment
@@ -99,7 +100,8 @@ Describe 'Add-PermanentPath' -Tag 'L0', 'logic' {
                 # Temporarily override $PROFILE to point at our test file
                 $originalProfile = $PROFILE.CurrentUserCurrentHost
                 try {
-                    $PROFILE | Add-Member -NotePropertyName CurrentUserCurrentHost -NotePropertyValue $testProfile -Force
+                    $PROFILE |
+                        Add-Member -NotePropertyName CurrentUserCurrentHost -NotePropertyValue $testProfile -Force
                     Add-PermanentPath $tempDir -Label 'TestTool'
                     $content = Get-Content $testProfile -Raw
                     $content | Should -Match '>>> catzc PATH TestTool >>>'
@@ -107,7 +109,8 @@ Describe 'Add-PermanentPath' -Tag 'L0', 'logic' {
                     $content | Should -Match '<<< catzc PATH TestTool <<<'
                 }
                 finally {
-                    $PROFILE | Add-Member -NotePropertyName CurrentUserCurrentHost -NotePropertyValue $originalProfile -Force
+                    $PROFILE |
+                        Add-Member -NotePropertyName CurrentUserCurrentHost -NotePropertyValue $originalProfile -Force
                 }
             }
         }

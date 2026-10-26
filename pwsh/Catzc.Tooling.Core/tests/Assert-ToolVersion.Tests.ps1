@@ -27,7 +27,8 @@ Describe 'Assert-ToolVersion' -Tag 'L0', 'logic' {
         It 'still enforces the locked version for a tool with no devbox_version lever' {
             Mock Get-ToolConfig { [pscustomobject]@{ version = '3.14'; command = 'lockedtool'; devbox_version = $null } } -ModuleName Catzc.Tooling.Core
             Mock Get-ToolVersion { '3.11.0' } -ModuleName Catzc.Tooling.Core
-            { & (Get-Module Catzc.Tooling.Core) { Assert-ToolVersion -Tool 'lockedtool' } } | Should -Throw '*version mismatch*'
+            { & (Get-Module Catzc.Tooling.Core) { Assert-ToolVersion -Tool 'lockedtool' } } |
+                Should -Throw '*version mismatch*'
         }
     }
 
@@ -37,7 +38,8 @@ Describe 'Assert-ToolVersion' -Tag 'L0', 'logic' {
         It 'ignores devbox_version and rejects an off-pin version' {
             Mock Get-ToolConfig { [pscustomobject]@{ version = '2.87'; command = 'faketool'; devbox_version = '2.84' } } -ModuleName Catzc.Tooling.Core
             Mock Get-ToolVersion { '2.84.0' } -ModuleName Catzc.Tooling.Core
-            { & (Get-Module Catzc.Tooling.Core) { Assert-ToolVersion -Tool 'faketool' } } | Should -Throw '*version mismatch*'
+            { & (Get-Module Catzc.Tooling.Core) { Assert-ToolVersion -Tool 'faketool' } } |
+                Should -Throw '*version mismatch*'
         }
 
         It 'accepts an installed version matching the locked pin' {

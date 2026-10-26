@@ -32,7 +32,8 @@ function Get-LocalModuleViolation {
         $relative = [System.IO.Path]::GetRelativePath($Path, $file).Replace('\', '/')
         $segments = $relative.Split('/')
         $isFolderFunction = $segments.Count -eq 1 -or ($segments.Count -eq 2 -and $segments[0] -ceq $privateFolderName)
-        $isFunctionFile = $isFolderFunction -and $relative.EndsWith('.ps1', [System.StringComparison]::OrdinalIgnoreCase)
+        $isFunctionFile = $isFolderFunction -and $relative.EndsWith('.ps1',
+            [System.StringComparison]::OrdinalIgnoreCase)
         if ($isFunctionFile) {
             $functionFiles.Add($file)
             foreach ($violation in @(Get-FunctionFileViolation -Path $file -RelativePath "$RelativePath/$relative")) {
@@ -42,7 +43,8 @@ function Get-LocalModuleViolation {
         elseif ($segments[0] -ceq 'types') {
             "${RelativePath}/${relative}: a local module carries no types/; a bundle compiles no C#"
         }
-        elseif (-not (($segments.Count -eq 2 -and $segments[0] -ceq 'configs' -and $relative.EndsWith('.yml', [System.StringComparison]::Ordinal)) -or
+        elseif (-not (($segments.Count -eq 2 -and $segments[0] -ceq 'configs' -and $relative.EndsWith('.yml',
+            [System.StringComparison]::Ordinal)) -or
                 ($segments.Count -ge 2 -and $segments[0] -cin 'assets', 'tests'))) {
             "${RelativePath}/${relative}: not part of a module; a local module holds <Function>.ps1, $privateFolderName/<Function>.ps1, configs/<config>.yml, assets/<path> and tests/<path>"
         }
@@ -56,7 +58,8 @@ function Get-LocalModuleViolation {
             continue
         }
         $public = [System.IO.Path]::GetFileNameWithoutExtension($file)
-        $existing = Get-Command -Name $public -ErrorAction Ignore | Where-Object { $_.ModuleName -ne $name } | Select-Object -First 1
+        $existing = Get-Command -Name $public -ErrorAction Ignore | Where-Object { $_.ModuleName -ne $name } |
+            Select-Object -First 1
         if ($existing) {
             "${RelativePath}: public function $public takes the name of a command already loaded$(if ($existing.ModuleName) { " from $($existing.ModuleName)" }); to replace a bundled function, override it in its module's folder"
         }

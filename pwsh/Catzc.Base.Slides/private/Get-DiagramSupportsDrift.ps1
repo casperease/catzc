@@ -42,13 +42,15 @@ function Get-DiagramSupportsDrift {
     $cited = (Get-Config -Config drs).CodeForm.Cited
     foreach ($pagePath in $Page) {
         $text = [System.IO.File]::ReadAllText((Join-Path $RepositoryRoot $pagePath))
-        # A Supports line may wrap onto the next lines of its fence; its codes hold no parenthesis or backtick, so a match never leaves it.
+        # A Supports line may wrap onto the next lines of its fence; its codes hold no parenthesis or backtick, so a
+        # match never leaves it.
         $lines = @([regex]::Matches($text, '(?m)^Supports ([^()`]+?) \((\w+) lens\)\.?[ \t]*\r?$'))
         if ($lines.Count -eq 0) {
             continue
         }
         $agrees = @($lines | Where-Object {
-                $said = [string[]] @([regex]::Matches($_.Groups[1].Value, $cited) | ForEach-Object Value) | Sort-Object -Unique
+                $said = [string[]] @([regex]::Matches($_.Groups[1].Value, $cited) | ForEach-Object Value) |
+                    Sort-Object -Unique
                 $_.Groups[2].Value -ceq $lens -and (($said -join ' ') -ceq ($codes -join ' '))
             })
         if ($agrees.Count -eq 0) {

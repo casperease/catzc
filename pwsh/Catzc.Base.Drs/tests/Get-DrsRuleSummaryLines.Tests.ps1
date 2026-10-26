@@ -65,6 +65,7 @@ Describe 'Get-DrsRuleSummaryLines' -Tag 'L0', 'logic' {
     It 'returns nothing for a file without rules' {
         $plain = Join-Path $TestDrive 'plain.md'
         [System.IO.File]::WriteAllText($plain, "# Plain`n`nNo rules here.`n")
-        InModuleScope Catzc.Base.Drs -Parameters @{ Path = $plain } { Get-DrsRuleSummaryLines $Path } | Should -HaveCount 0
+        InModuleScope Catzc.Base.Drs -Parameters @{ Path = $plain } { Get-DrsRuleSummaryLines $Path } |
+            Should -HaveCount 0
     }
 }

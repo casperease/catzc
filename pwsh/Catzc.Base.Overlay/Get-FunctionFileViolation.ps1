@@ -37,7 +37,8 @@ function Get-FunctionFileViolation {
     if (@($syntaxTree.UsingStatements).Count -gt 0) {
         "${RelativePath}: carries a using statement; a merged file cannot hold per-file using statements"
     }
-    if ($syntaxTree.ParamBlock -or $syntaxTree.BeginBlock -or $syntaxTree.ProcessBlock -or $syntaxTree.DynamicParamBlock) {
+    if ($syntaxTree.ParamBlock -or $syntaxTree.BeginBlock -or $syntaxTree.ProcessBlock -or
+        $syntaxTree.DynamicParamBlock) {
         "${RelativePath}: has a script-level param/begin/process block; only one function may sit at the top level"
     }
 

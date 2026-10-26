@@ -127,11 +127,14 @@ Notes for $Id.
         $shown = Get-Content (Join-Path $result.OutputFolder 'project/slides/shown.html') -Raw
         $shown | Should -Match '<img src="\.assets/gadget/gadget\.png" alt="The gadget shown"'
         $shown | Should -Match '<p>The gadget, drawn\.</p>'
-        Get-Content (Join-Path $result.OutputFolder 'project/slides/.assets/gadget/gadget.png') -Raw | Should -BeExactly 'not really a png'
+        Get-Content (Join-Path $result.OutputFolder 'project/slides/.assets/gadget/gadget.png') -Raw |
+            Should -BeExactly 'not really a png'
         $faults = @($result.Faults | ForEach-Object ToString)
         $faults.Count | Should -Be 2 -Because ($faults -join "`n")
-        ($faults -join "`n") | Should -Match "decks/image-deck/escaping\.slide\.md: field 'image': the image '\.\./gadget-deck/gadget\.png' must sit beside the slide file"
-        ($faults -join "`n") | Should -Match "decks/image-deck/missing\.slide\.md: field 'image': the image '\.assets/gadget/widget\.png' does not exist beside the slide file"
+        ($faults -join "`n") |
+            Should -Match "decks/image-deck/escaping\.slide\.md: field 'image': the image '\.\./gadget-deck/gadget\.png' must sit beside the slide file"
+        ($faults -join "`n") |
+            Should -Match "decks/image-deck/missing\.slide\.md: field 'image': the image '\.assets/gadget/widget\.png' does not exist beside the slide file"
     }
 
     It 'reports a duplicate order and a gap, and still renders every slide' -Tag 'ADR-REPO-SLIDES-SLIDEFILE' {
@@ -145,7 +148,8 @@ Notes for $Id.
         ($faults -join "`n") | Should -Match "field 'order': the orders have a gap: expected 2, found 4"
         $result.SlideCount | Should -Be 3
         Test-Path (Join-Path $result.OutputFolder 'project/slides/c.html') | Should -BeTrue
-        Get-Content (Join-Path $result.OutputFolder 'gap-deck.faults.md') -Raw | Should -Match 'the order 1 is held by 2 slides'
+        Get-Content (Join-Path $result.OutputFolder 'gap-deck.faults.md') -Raw |
+            Should -Match 'the order 1 is held by 2 slides'
     }
 
     It 'reports a quoted rule that differs from the registry, a cite the index does not know, and a section starting on no slide' -Tag 'ADR-REPO-SLIDES-CHECKABLECLAIMS' {
@@ -155,15 +159,19 @@ Notes for $Id.
         # An ADR code in the text is a cite like a rule code; a group of numbers is no code, so it is no cite.
         ($faults -join "`n") | Should -Not -Match "'ADR-WIDGET-GADGET'"
         ($faults -join "`n") | Should -Not -Match '#\{1-2\}'
-        ($faults -join "`n") | Should -Match "d\.slide\.md: field 'body': quotes ADR-WIDGET-GADGET-SPIN but differs from the registry\."
+        ($faults -join "`n") |
+            Should -Match "d\.slide\.md: field 'body': quotes ADR-WIDGET-GADGET-SPIN but differs from the registry\."
         ($faults -join "`n") | Should -Match 'registry: A widget spins when wound\.'
-        $faults | Should -Contain "decks/drift-deck/d.slide.md: field 'cites': the ADR index knows no ADR or rule 'ADR-WIDGET-GADGET-GHOST'"
-        $faults | Should -Contain "decks/drift-deck/deck.md: field 'sections': the section 'Starts on no slide.' starts on 'nowhere', and no slide has that id"
+        $faults |
+            Should -Contain "decks/drift-deck/d.slide.md: field 'cites': the ADR index knows no ADR or rule 'ADR-WIDGET-GADGET-GHOST'"
+        $faults |
+            Should -Contain "decks/drift-deck/deck.md: field 'sections': the section 'Starts on no slide.' starts on 'nowhere', and no slide has that id"
     }
 
     It 'never reads a cite back from the head' -Tag 'ADR-REPO-FILEMETA-NOREADBACK' {
         & $write 'decks/head-deck/deck.md' "# Head`n"
-        & $write 'decks/head-deck/h.slide.md' ((& $slide 'h' 1 'H' 'h.') -replace 'catzc:\r?\n', "catzc:`n  edges:`n    cites: [ADR-WIDGET-GADGET-GHOST]`n")
+        & $write 'decks/head-deck/h.slide.md' ((& $slide 'h' 1 'H' 'h.') -replace 'catzc:\r?\n',
+            "catzc:`n  edges:`n    cites: [ADR-WIDGET-GADGET-GHOST]`n")
         $faults = @((Build-SlideDeck -Deck 'decks/head-deck' -Kit 'kit' -RepositoryRoot $root -PassThru).Faults | ForEach-Object ToString)
         ($faults -join "`n") | Should -Not -Match 'GHOST'
     }
@@ -171,23 +179,30 @@ Notes for $Id.
     It 'reports a slide whose head names no pattern, or a pattern the kit does not hold, and a non-numeric order' -Tag 'ADR-REPO-SLIDES-PATTERN' {
         & $write 'decks/pattern-deck/deck.md' "# Patterns`n"
         & $write 'decks/pattern-deck/e.slide.md' (& $slide 'e' 1 'E' 'e.').Replace('pattern: widget', 'pattern: gadget')
-        & $write 'decks/pattern-deck/f.slide.md' (& $slide 'f' 2 'F' 'f.').Replace("    pattern: widget`n", '').Replace('order: 2', 'order: second')
+        & $write 'decks/pattern-deck/f.slide.md' (& $slide 'f' 2 'F' 'f.').Replace("    pattern: widget`n",
+            '').Replace('order: 2', 'order: second')
         $faults = @((Build-SlideDeck -Deck 'decks/pattern-deck' -Kit 'kit' -RepositoryRoot $root -PassThru).Faults | ForEach-Object ToString)
-        $faults | Should -Contain "decks/pattern-deck/e.slide.md: field 'pattern': the kit 'kit' holds no pattern 'gadget'; it holds: widget"
-        $faults | Should -Contain "decks/pattern-deck/f.slide.md: field 'pattern': the head names no pattern (config.pattern); the kit holds: widget"
-        $faults | Should -Contain "decks/pattern-deck/f.slide.md: field 'order': the head's config.order is a whole number from 1; found 'second'"
+        $faults |
+            Should -Contain "decks/pattern-deck/e.slide.md: field 'pattern': the kit 'kit' holds no pattern 'gadget'; it holds: widget"
+        $faults |
+            Should -Contain "decks/pattern-deck/f.slide.md: field 'pattern': the head names no pattern (config.pattern); the kit holds: widget"
+        $faults |
+            Should -Contain "decks/pattern-deck/f.slide.md: field 'order': the head's config.order is a whole number from 1; found 'second'"
     }
 
     It 'fails fast on a deck folder that does not exist, a deck with no deck file, and a deck with no slide' -Tag 'ADR-AUTO-FAILFAST-ASSERTINPUTSATENTRY' {
         { Build-SlideDeck -Deck 'decks/missing' -Kit 'kit' -RepositoryRoot $root } | Should -Throw '*does not exist*'
         & $write 'decks/empty-deck/stray.md' 'x'
-        { Build-SlideDeck -Deck 'decks/empty-deck' -Kit 'kit' -RepositoryRoot $root } | Should -Throw '*holds no deck.md*'
+        { Build-SlideDeck -Deck 'decks/empty-deck' -Kit 'kit' -RepositoryRoot $root } |
+            Should -Throw '*holds no deck.md*'
         & $write 'decks/empty-deck/deck.md' "# Empty`n"
-        { Build-SlideDeck -Deck 'decks/empty-deck' -Kit 'kit' -RepositoryRoot $root } | Should -Throw '*holds no slide file*'
+        { Build-SlideDeck -Deck 'decks/empty-deck' -Kit 'kit' -RepositoryRoot $root } |
+            Should -Throw '*holds no slide file*'
     }
 
     It 'fails fast on a kit with no patterns folder' -Tag 'ADR-AUTO-FAILFAST-ASSERTINPUTSATENTRY' {
         & $write 'bare-kit/slides.yml' "face:`n  display: Georgia, serif`n  text: Arial, sans-serif`n"
-        { Build-SlideDeck -Deck 'decks/gadget-deck' -Kit 'bare-kit' -RepositoryRoot $root } | Should -Throw '*holds no patterns/ folder*'
+        { Build-SlideDeck -Deck 'decks/gadget-deck' -Kit 'bare-kit' -RepositoryRoot $root } |
+            Should -Throw '*holds no patterns/ folder*'
     }
 }

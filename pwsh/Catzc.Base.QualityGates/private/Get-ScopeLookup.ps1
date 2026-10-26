@@ -23,10 +23,12 @@ function Get-ScopeLookup {
     if (-not $Path) {
         return , [string[]] @('.')
     }
-    # A relative path is the caller's own when they stand inside this repository, else the repository's: a snapshot run stands elsewhere.
+    # A relative path is the caller's own when they stand inside this repository, else the repository's: a snapshot run
+    # stands elsewhere.
     $here = (Get-Location).ProviderPath
     $hereRelative = [System.IO.Path]::GetRelativePath($root, $here) -replace '\\', '/'
-    $base = if ($hereRelative -eq '..' -or $hereRelative.StartsWith('../') -or [System.IO.Path]::IsPathRooted($hereRelative)) {
+    $base = if ($hereRelative -eq '..' -or $hereRelative.StartsWith('../') -or
+        [System.IO.Path]::IsPathRooted($hereRelative)) {
         $root
     }
     else {
@@ -35,8 +37,10 @@ function Get-ScopeLookup {
     $lookup = foreach ($item in $Path) {
         $full = [System.IO.Path]::GetFullPath($item, $base)
         $relative = [System.IO.Path]::GetRelativePath($root, $full) -replace '\\', '/'
-        Assert-False ($relative -eq '..' -or $relative.StartsWith('../')) -ErrorText "${Command}: -Path '$item' lies outside the repository '$root'."
-        # A path the index lists but the working tree has lost, a deletion not yet staged, stays in scope; the reader skips it.
+        Assert-False ($relative -eq '..' -or
+            $relative.StartsWith('../')) -ErrorText "${Command}: -Path '$item' lies outside the repository '$root'."
+        # A path the index lists but the working tree has lost, a deletion not yet staged, stays in scope; the reader
+        # skips it.
         if (-not (Test-Path -LiteralPath $full)) {
             Assert-True (@(Get-GitTrackedPath $relative).Count -gt 0) -ErrorText "${Command}: -Path '$item' does not exist and is not tracked."
         }

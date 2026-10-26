@@ -33,7 +33,8 @@ public static class ConsoleReadyStaticProbe { }
 
     It 'exempts the kinds never held as a value: enum, interface, abstract, static, attribute, exception, delegate' {
         InModuleScope Catzc.Base.TypesSystem {
-            foreach ($type in [System.DayOfWeek], [System.IDisposable], [ConsoleReadyBaseProbe], [ConsoleReadyStaticProbe],
+            foreach ($type in [System.DayOfWeek], [System.IDisposable], [ConsoleReadyBaseProbe],
+                [ConsoleReadyStaticProbe],
                 [System.ObsoleteAttribute], [System.InvalidOperationException], [System.Action]) {
                 Test-ConsoleReadyType -Type $type | Should -BeTrue -Because $type.Name
             }

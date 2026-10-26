@@ -11,7 +11,8 @@ Set-StrictMode -Version Latest   # this module's scope: the rule runs strict ins
 $script:functionBodyLength = $null
 
 function Get-FunctionBodyLength {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '', Justification = 'Runs inside the analyzer engine, whose custom rules may emit only diagnostic records; it binds the vendored YAML reader the importer already loaded and announced, and in a bare analyzer shard process there is no console session to announce to')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '',
+        Justification = 'Runs inside the analyzer engine, whose custom rules may emit only diagnostic records; it binds the vendored YAML reader the importer already loaded and announced, and in a bare analyzer shard process there is no console session to announce to')]
     [CmdletBinding()]
     [OutputType([int])]
     param()
@@ -19,7 +20,8 @@ function Get-FunctionBodyLength {
     if ($null -ne $script:functionBodyLength) {
         return $script:functionBodyLength
     }
-    # The rule sits in the modules root, so it reads file-limits.yml from there; an analyzer shard process has no Get-Config.
+    # The rule sits in the modules root, so it reads file-limits.yml from there; an analyzer shard process has no
+    # Get-Config.
     $modulesRoot = [System.IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
     if (-not (Get-Command ConvertFrom-Yaml -ErrorAction Ignore)) {
         $versions = [System.IO.Directory]::GetDirectories((Join-Path $modulesRoot '.vendor/powershell-yaml'))

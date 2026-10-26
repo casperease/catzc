@@ -51,7 +51,8 @@ Describe 'Get-Glossary' -Tag 'L0', 'logic' {
         $widget.Owner | Should -Be 'Catzc.Widget'
         $widget.SourcePath | Should -Be 'widgets/Catzc.Widget/configs/glossary.yml'
         $widget.Options.checks | Should -Be @('avoid')
-        ($glossary | Where-Object { $_.Concept.term -eq 'gadget run' }).Options.checks | Should -Be @('anchored', 'single', 'avoid', 'enforced', 'forms')
+        ($glossary | Where-Object { $_.Concept.term -eq 'gadget run' }).Options.checks | Should -Be @('anchored',
+            'single', 'avoid', 'enforced', 'forms')
     }
 
     It 'sorts the merged concepts by term (ordinal), across sources' {

@@ -11,17 +11,21 @@ Describe 'SlidesConfig' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-SLIDEFILEKIND' {
     It 'takes the declared default theme, maps a theme it is given, and rejects one that is not a theme name' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
         ([Catzc.Base.Slides.SlidesConfig]::new(@{})).theme | Should -Be 'dark'
         ([Catzc.Base.Slides.SlidesConfig]::new(@{ theme = 'light' })).theme | Should -Be 'light'
-        { [Catzc.Base.Slides.SlidesConfig]::new(@{ theme = 'Light Mode' }) } | Should -Throw '*theme ''Light Mode'' must be a theme name*'
+        { [Catzc.Base.Slides.SlidesConfig]::new(@{ theme = 'Light Mode' }) } |
+            Should -Throw '*theme ''Light Mode'' must be a theme name*'
     }
 
     It 'maps a draw.io kit it is given, and rejects one not in communication form' {
         ([Catzc.Base.Slides.SlidesConfig]::new(@{ drawio_kit = 'widget/kit/' })).drawio_kit | Should -Be 'widget/kit'
-        { [Catzc.Base.Slides.SlidesConfig]::new(@{ drawio_kit = '../kit' }) } | Should -Throw '*drawio_kit*communication form*'
+        { [Catzc.Base.Slides.SlidesConfig]::new(@{ drawio_kit = '../kit' }) } |
+            Should -Throw '*drawio_kit*communication form*'
     }
 
     It 'lists no diagram: a diagram is found under docs/**/.assets/, so the old keys are unknown' -Tag 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' {
-        { [Catzc.Base.Slides.SlidesConfig]::new(@{ diagram_folders = @('docs/widgets/.assets') }) } | Should -Throw '*unknown key ''diagram_folders''*'
-        { [Catzc.Base.Slides.SlidesConfig]::new(@{ diagram_batch = 7 }) } | Should -Throw '*unknown key ''diagram_batch''*'
+        { [Catzc.Base.Slides.SlidesConfig]::new(@{ diagram_folders = @('docs/widgets/.assets') }) } |
+            Should -Throw '*unknown key ''diagram_folders''*'
+        { [Catzc.Base.Slides.SlidesConfig]::new(@{ diagram_batch = 7 }) } |
+            Should -Throw '*unknown key ''diagram_batch''*'
     }
 
     It 'maps the kit folder it is given, without a trailing slash' {

@@ -23,7 +23,8 @@ function Build-Glossary {
     $citations = Get-DrsCitationMap
     $relationLabels = [ordered]@{ kind_of = 'Kind of'; part_of = 'Part of'; selected_by = 'Selected by' }
 
-    # A contrast is declared once, on either term, and shows on both entries; a term's own declaration wins over the mirrored one.
+    # A contrast is declared once, on either term, and shows on both entries; a term's own declaration wins over the
+    # mirrored one.
     $contrasts = [System.Collections.Generic.Dictionary[string, System.Collections.Generic.Dictionary[string, string]]]::new([System.StringComparer]::Ordinal)
     foreach ($entry in @($entries)) {
         $contrasts[$entry.Concept.term] = [System.Collections.Generic.Dictionary[string, string]]::new([System.StringComparer]::Ordinal)

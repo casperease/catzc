@@ -4,7 +4,8 @@ Describe 'Get-CommentPage' -Tag 'L0', 'logic', 'ADR-REPO-COMMENTS-COMMENTPAGEPLA
     }
 
     It 'returns the comment page of a file a pages entry covers' {
-        Get-CommentPage -Path 'widgets/Catzc.Widget.Gadgets/Get-Gadget.ps1' -Config $script:config | Should -BeExactly 'docs/catzc-widget-gadgets/Get-Gadget.ps1.md'
+        Get-CommentPage -Path 'widgets/Catzc.Widget.Gadgets/Get-Gadget.ps1' -Config $script:config |
+            Should -BeExactly 'docs/catzc-widget-gadgets/Get-Gadget.ps1.md'
     }
 
     It 'returns nothing for a file no pages entry covers' {

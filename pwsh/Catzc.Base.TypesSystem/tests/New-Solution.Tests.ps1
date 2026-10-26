@@ -11,16 +11,19 @@ Describe 'New-Solution' -Tag 'L0', 'logic' {
             $projectId = "$(ConvertTo-Guid "$($hook.Replace('-', ' ').ToLowerInvariant()) hook project")".ToUpperInvariant()
             # Gadget-Hook and Widget-Hook carry no inner capital, so the sentence is the name's words as written.
             $hooksId = "$(ConvertTo-Guid 'claude hooks folder')".ToUpperInvariant()
-            $solution | Should -Match ([regex]::Escape("`"$hook`", `".claude\hooks\$hook\$hook.csproj`", `"{$projectId}`""))
+            $solution |
+                Should -Match ([regex]::Escape("`"$hook`", `".claude\hooks\$hook\$hook.csproj`", `"{$projectId}`""))
             $solution | Should -Match ([regex]::Escape("{$projectId} = {$hooksId}"))
             $solution | Should -Match ([regex]::Escape("{$projectId}.Debug|Any CPU.Build.0"))
         }
     }
 
     It 'keeps the ids the solution has always carried' {
-        Mock Get-AgentHookName -ModuleName Catzc.Base.TypesSystem { , [string[]] @('Assert-BashTimeout', 'Record-AgentWrite') }
+        Mock Get-AgentHookName -ModuleName Catzc.Base.TypesSystem { , [string[]] @('Assert-BashTimeout',
+            'Record-AgentWrite') }
         $solution = New-Solution
-        foreach ($sentence in 'catzc types project', 'assert bash timeout hook project', 'record agent write hook project', 'claude hooks folder') {
+        foreach ($sentence in 'catzc types project', 'assert bash timeout hook project',
+            'record agent write hook project', 'claude hooks folder') {
             $solution | Should -Match "$(ConvertTo-Guid $sentence)".ToUpperInvariant()
         }
     }

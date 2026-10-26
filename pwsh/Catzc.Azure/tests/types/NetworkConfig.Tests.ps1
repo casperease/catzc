@@ -100,12 +100,14 @@ Describe 'NetworkConfig' -Tag 'L0' {
         It 'throws when an environment default subnet is outside its vnet' {
             $bad = Copy-Object $baseConfig
             $bad.environments.alpha.default_subnet = '10.11.0.0/24'
-            { & $script:make $bad } | Should -Throw "*network environment 'alpha' default_subnet '10.11.0.0/24' is not inside*"
+            { & $script:make $bad } |
+                Should -Throw "*network environment 'alpha' default_subnet '10.11.0.0/24' is not inside*"
         }
 
         It 'throws when an environment key is not a valid identifier' {
             $bad = Copy-Object $baseConfig
-            $bad.environments.Add('Bad-Env', [ordered]@{ vnet_address_space = '10.50.0.0/16'; default_subnet = '10.50.0.0/24' })
+            $bad.environments.Add('Bad-Env',
+                [ordered]@{ vnet_address_space = '10.50.0.0/16'; default_subnet = '10.50.0.0/24' })
             { & $script:make $bad } | Should -Throw '*not a valid identifier*'
         }
 
@@ -170,7 +172,8 @@ Describe 'NetworkConfig' -Tag 'L0' {
             $bad.subscriptions.gadget_edge.Remove('subnets')
             $err = { & $script:make $bad } | Should -Throw -PassThru
             $err.Exception.Message | Should -BeLike "*network subscription 'widget_core' is missing 'kind'*"
-            $err.Exception.Message | Should -BeLike "*network subscription 'gadget_edge' is missing 'vnet_address_space'*"
+            $err.Exception.Message |
+                Should -BeLike "*network subscription 'gadget_edge' is missing 'vnet_address_space'*"
             $err.Exception.Message | Should -BeLike "*network subscription 'gadget_edge' is missing 'subnets'*"
         }
 
@@ -192,33 +195,39 @@ Describe 'NetworkConfig' -Tag 'L0' {
             $bad.subscriptions.widget_core.vnet_address_space = '10.0.0.0/33'
             $bad.subscriptions.gadget_edge.subnets.alpha = '10.100.1.7/24'
             $err = { & $script:make $bad } | Should -Throw -PassThru
-            $err.Exception.Message | Should -BeLike "*network subscription 'widget_core' has invalid vnet_address_space '10.0.0.0/33'*"
-            $err.Exception.Message | Should -BeLike "*network subscription 'gadget_edge' subnet 'alpha' has invalid range '10.100.1.7/24'*"
+            $err.Exception.Message |
+                Should -BeLike "*network subscription 'widget_core' has invalid vnet_address_space '10.0.0.0/33'*"
+            $err.Exception.Message |
+                Should -BeLike "*network subscription 'gadget_edge' subnet 'alpha' has invalid range '10.100.1.7/24'*"
         }
 
         It 'throws when a subnet lies outside its vnet' {
             $bad = Copy-Object $baseConfig
             $bad.subscriptions.gadget_edge.subnets.beta = '10.101.2.0/24'
-            { & $script:make $bad } | Should -Throw "*network subscription 'gadget_edge' subnet 'beta' (10.101.2.0/24) is not inside its vnet_address_space '10.100.0.0/16'*"
+            { & $script:make $bad } |
+                Should -Throw "*network subscription 'gadget_edge' subnet 'beta' (10.101.2.0/24) is not inside its vnet_address_space '10.100.0.0/16'*"
         }
 
         It 'throws when two subnets of one vnet overlap' {
             $bad = Copy-Object $baseConfig
             $bad.subscriptions.gadget_edge.subnets.beta = '10.100.1.128/25'
-            { & $script:make $bad } | Should -Throw "*network subscription 'gadget_edge' subnet 'beta' (10.100.1.128/25) overlaps subnet 'alpha' (10.100.1.0/24)*"
+            { & $script:make $bad } |
+                Should -Throw "*network subscription 'gadget_edge' subnet 'beta' (10.100.1.128/25) overlaps subnet 'alpha' (10.100.1.0/24)*"
         }
 
         It 'throws when a subscription vnet overlaps an environment vnet' {
             $bad = Copy-Object $baseConfig
             $bad.subscriptions.widget_core.vnet_address_space = '10.0.0.0/8'
-            { & $script:make $bad } | Should -Throw "*the vnet of subscription 'widget_core' (10.0.0.0/8) overlaps the vnet of environment 'alpha' (10.10.0.0/16)*"
+            { & $script:make $bad } |
+                Should -Throw "*the vnet of subscription 'widget_core' (10.0.0.0/8) overlaps the vnet of environment 'alpha' (10.10.0.0/16)*"
         }
 
         It 'throws when the address spaces of two subscriptions overlap' {
             $bad = Copy-Object $baseConfig
             $bad.subscriptions.gadget_edge.vnet_address_space = '10.0.0.0/16'
             $bad.subscriptions.gadget_edge.subnets = [ordered]@{ 'private-endpoints' = '10.0.2.0/24' }
-            { & $script:make $bad } | Should -Throw "*the vnet of subscription 'gadget_edge' (10.0.0.0/16) overlaps the vnet of subscription 'widget_core' (10.0.0.0/16)*"
+            { & $script:make $bad } |
+                Should -Throw "*the vnet of subscription 'gadget_edge' (10.0.0.0/16) overlaps the vnet of subscription 'widget_core' (10.0.0.0/16)*"
         }
 
         It 'throws when a hub lacks a hub subnet or carries another subnet' {
@@ -226,20 +235,23 @@ Describe 'NetworkConfig' -Tag 'L0' {
             $bad.subscriptions.widget_core.subnets.Remove('GatewaySubnet')
             $bad.subscriptions.widget_core.subnets.alpha = '10.0.2.0/24'
             $err = { & $script:make $bad } | Should -Throw -PassThru
-            $err.Exception.Message | Should -BeLike "*network subscription 'widget_core' is a hub without subnet 'GatewaySubnet'*"
+            $err.Exception.Message |
+                Should -BeLike "*network subscription 'widget_core' is a hub without subnet 'GatewaySubnet'*"
             $err.Exception.Message | Should -BeLike "*network subscription 'widget_core' is a hub with subnet 'alpha'*"
         }
 
         It 'throws when a spoke lacks private-endpoints' {
             $bad = Copy-Object $baseConfig
             $bad.subscriptions.gadget_edge.subnets.Remove('private-endpoints')
-            { & $script:make $bad } | Should -Throw "*network subscription 'gadget_edge' is a spoke without subnet 'private-endpoints'*"
+            { & $script:make $bad } |
+                Should -Throw "*network subscription 'gadget_edge' is a spoke without subnet 'private-endpoints'*"
         }
 
         It 'throws when a spoke workload subnet is not an environment name' {
             $bad = Copy-Object $baseConfig
             $bad.subscriptions.gadget_edge.subnets.'shared-services' = '10.100.3.0/24'
-            { & $script:make $bad } | Should -Throw "*network subscription 'gadget_edge' is a spoke with workload subnet 'shared-services'*"
+            { & $script:make $bad } |
+                Should -Throw "*network subscription 'gadget_edge' is a spoke with workload subnet 'shared-services'*"
         }
     }
 }

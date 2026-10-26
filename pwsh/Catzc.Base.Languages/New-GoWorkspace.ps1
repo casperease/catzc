@@ -45,7 +45,8 @@ function New-GoWorkspace {
     }
     $folders.Sort([System.StringComparer]::Ordinal)
 
-    # One Go module per module folder of the track: a folder the module-type registry names as a module, holding Go code.
+    # One Go module per module folder of the track: a folder the module-type registry names as a module, holding Go
+    # code.
     $modules = [System.Collections.Generic.List[string]]::new()
     $goRoot = Join-Path $repositoryRoot $goRelative
     if (Test-Path -LiteralPath $goRoot -PathType Container) {
@@ -63,7 +64,8 @@ function New-GoWorkspace {
     }
     $modules.Sort([System.StringComparer]::Ordinal)
 
-    # The members: the test holder's folders under tests/, then the modules, each with its module path under module_root.
+    # The members: the test holder's folders under tests/, then the modules, each with its module path under
+    # module_root.
     $members = @(foreach ($folder in $folders) {
             [pscustomobject]@{ Folder = "$testsRelative/$folder"; Path = "$($config.module_root)/tests/$folder" }
         }) +

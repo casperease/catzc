@@ -1,4 +1,5 @@
-# ContractLayout lists one level of the contracts tree through the bounded walker: folders, file names and entry names, in ordinal order.
+# ContractLayout lists one level of the contracts tree through the bounded walker: folders, file names and entry names,
+# in ordinal order.
 Describe 'ContractLayout' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT-LAYOUT' {
     BeforeAll {
         $root = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
@@ -13,8 +14,10 @@ Describe 'ContractLayout' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT-LAYOUT' {
     }
 
     It 'lists the folders directly in a folder as full paths, in ordinal order, the config''s names pruned' -Tag 'ADR-PWSH-ENUM-PRUNEFOLDERS' {
-        @($script:layout.Folders($script:unit) | ForEach-Object { [System.IO.Path]::GetFileName($_) }) | Should -Be @('0.0.0', '1.2.0')
-        $script:layout.Folders($script:unit) | ForEach-Object { [System.IO.Path]::IsPathFullyQualified($_) | Should -BeTrue }
+        @($script:layout.Folders($script:unit) | ForEach-Object { [System.IO.Path]::GetFileName($_) }) |
+            Should -Be @('0.0.0', '1.2.0')
+        $script:layout.Folders($script:unit) | ForEach-Object { [System.IO.Path]::IsPathFullyQualified($_) |
+            Should -BeTrue }
     }
 
     It 'lists the names of the files directly in a folder, in ordinal order' {
@@ -22,7 +25,8 @@ Describe 'ContractLayout' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT-LAYOUT' {
     }
 
     It 'lists every entry name for a presence check, none pruned' {
-        $script:layout.EntryNames($script:unit) | Should -Be @('.vendor', '0.0.0', '1.2.0', 'README.md', 'contract.yml', 'node_modules')
+        $script:layout.EntryNames($script:unit) | Should -Be @('.vendor', '0.0.0', '1.2.0', 'README.md', 'contract.yml',
+            'node_modules')
     }
 
     It 'fails on a folder the layout requires that is missing, naming it' -Tag 'ADR-AUTO-FAILFAST-ASSERTINPUTSATENTRY' {

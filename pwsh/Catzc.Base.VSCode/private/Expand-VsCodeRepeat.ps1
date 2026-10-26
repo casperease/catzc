@@ -34,7 +34,8 @@ function Expand-VsCodeRepeat {
             $Item.$Key
         }
     }
-    # Each source: the declared leading items, the items of a config's list, then the declared trailing items, as { value, title, position }.
+    # Each source: the declared leading items, the items of a config's list, then the declared trailing items, as {
+    # value, title, position }.
     $sources = @{}
     foreach ($name in $Contributes['repeat'].Keys) {
         $source = $Contributes['repeat'][$name]
@@ -69,7 +70,8 @@ function Expand-VsCodeRepeat {
     $fill = {
         param($Node, [string] $Name, $Item)
         if ($Node -is [string]) {
-            return $Node.Replace("{$Name.title}", $Item.Title).Replace("{$Name.position}", "$($Item.Position)").Replace("{$Name}", $Item.Value)
+            return $Node.Replace("{$Name.title}", $Item.Title).Replace("{$Name.position}",
+                "$($Item.Position)").Replace("{$Name}", $Item.Value)
         }
         if ($Node -is [System.Collections.IDictionary]) {
             $copy = [ordered]@{}

@@ -94,13 +94,13 @@ content:
     - { id: f-configs-yml, kind: file, label: configs.yml, in: band-miss }
     - { id: f-fragment, kind: file, label: <Module>/configs/<name>.yml, in: band-miss }
   edges:
-    - { from: g-get-config, to: g-resolve-entry, kind: flow, label: "" }
-    - { from: g-resolve-entry, to: g-overlay-root, kind: flow, label: "" }
-    - { from: g-overlay-root, to: g-registry, kind: flow, label: "" }
+    - { from: g-get-config, to: g-resolve-entry, kind: flow, label: calls }
+    - { from: g-resolve-entry, to: g-overlay-root, kind: flow, label: calls }
+    - { from: g-overlay-root, to: g-registry, kind: flow, label: calls }
     - { from: g-registry, to: g-sealed, kind: flow, label: "" }
     - { from: g-sealed, to: f-sealed, kind: fail, label: "" }
     - { from: g-sealed, to: g-merge, kind: flow, label: "" }
-    - { from: g-merge, to: t-new, kind: flow, label: "" }
+    - { from: g-merge, to: t-new, kind: flow, label: calls }
   markers:
     - { at: g-get-config, number: 1 }
     - { at: g-resolve-entry, number: 2 }

@@ -3,7 +3,8 @@ function Get-ModuleBuildPlan {
     #     Computes every file a build writes, from the source tree alone, and collects every reason it cannot.
     # .DESCRIPTION
     #     Reads the sources and writes nothing, so the plan can be checked or returned before any write.
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-NoBareCacheEntryRead', '', Justification = 'The module constants are assigned once in Catzc.Internal.Builder.psm1, whose shared scope this file is dot-sourced into, before any call.')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-NoBareCacheEntryRead', '',
+        Justification = 'The module constants are assigned once in Catzc.Internal.Builder.psm1, whose shared scope this file is dot-sourced into, before any call.')]
     [CmdletBinding()]
     [OutputType([pscustomobject])]
     param(
@@ -53,7 +54,8 @@ function Get-ModuleBuildPlan {
         $entries.Add([pscustomobject]@{ Path = "$name/$name.psd1"; Kind = 'Manifest'; Source = $null; Content = $null; Exports = $exports })
         # The folders a build copies verbatim are the layout's shipped rows.
         foreach ($folder in (Get-Config -Config languages).ShippedFolders()) {
-            $copies = Get-BuildFileCopy -SourceDirectory ([System.IO.Path]::Combine($moduleDirectory, $folder)) -TargetPath "$name/$folder" -SourceRoot $SourceRoot -Index $Index -IncludeUntracked:($folder -eq 'types')
+            $copies = Get-BuildFileCopy -SourceDirectory ([System.IO.Path]::Combine($moduleDirectory,
+                $folder)) -TargetPath "$name/$folder" -SourceRoot $SourceRoot -Index $Index -IncludeUntracked:($folder -eq 'types')
             foreach ($copy in @($copies)) {
                 $entries.Add($copy)
             }
@@ -78,7 +80,8 @@ function Get-ModuleBuildPlan {
         $entries.Add([pscustomobject]@{ Path = ".internal/$relativePath"; Kind = 'Copy'; Source = $source; Content = $null; Exports = $null; Normalize = $normalize })
     }
     if ($VendorPolicy -eq 'full') {
-        foreach ($copy in @(Get-BuildFileCopy -SourceDirectory ([System.IO.Path]::Combine($SourceRoot, '.scriptanalyzer')) -TargetPath '.scriptanalyzer' -SourceRoot $SourceRoot -Index $Index -ExcludeDirectory 'tests')) {
+        foreach ($copy in @(Get-BuildFileCopy -SourceDirectory ([System.IO.Path]::Combine($SourceRoot,
+            '.scriptanalyzer')) -TargetPath '.scriptanalyzer' -SourceRoot $SourceRoot -Index $Index -ExcludeDirectory 'tests')) {
             $entries.Add($copy)
         }
     }
@@ -94,7 +97,8 @@ function Get-ModuleBuildPlan {
             if ($VendorPolicy -eq 'runtime' -and $vendorName -in $script:testToolVendorModules) {
                 continue
             }
-            foreach ($copy in @(Get-BuildFileCopy -SourceDirectory ([System.IO.Path]::Combine($vendorRoot, $vendorName)) -TargetPath ".vendor/$vendorName" -SourceRoot $SourceRoot -Index $Index)) {
+            foreach ($copy in @(Get-BuildFileCopy -SourceDirectory ([System.IO.Path]::Combine($vendorRoot,
+                $vendorName)) -TargetPath ".vendor/$vendorName" -SourceRoot $SourceRoot -Index $Index)) {
                 $entries.Add($copy)
             }
         }
@@ -133,7 +137,8 @@ function Get-ModuleBuildPlan {
     $hashResult = Get-CombinedTypeHash -ModulesRoot $SourceRoot
     if ($hashResult.CombinedHash) {
         $typeHash = $hashResult.CombinedHash
-        $selectedModules = [System.Collections.Generic.HashSet[string]]::new([string[]] @($Module), [System.StringComparer]::OrdinalIgnoreCase)
+        $selectedModules = [System.Collections.Generic.HashSet[string]]::new([string[]] @($Module),
+            [System.StringComparer]::OrdinalIgnoreCase)
         $typeSources = [string[]] @(foreach ($file in $hashResult.Files) {
                 if ($selectedModules.Contains($file.Module)) {
                     "$($file.Module)/types/$($file.Base).cs"

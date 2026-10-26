@@ -18,14 +18,16 @@ function Get-CommentScope {
 
     $config = Get-Config -Config comments
     $commentPages = Get-Config -Config comment-pages
-    $languages = [System.Collections.Generic.HashSet[string]]::new([string[]] @($config.languages), [System.StringComparer]::OrdinalIgnoreCase)
+    $languages = [System.Collections.Generic.HashSet[string]]::new([string[]] @($config.languages),
+        [System.StringComparer]::OrdinalIgnoreCase)
     $candidates = @(Get-LinkScope -RepositoryRoot $RepositoryRoot -Path $Path | Sort-Object)
 
     # A folder -Path lists disk files: drop what git ignores (build output), keep new untracked files.
     $engineRoot = [System.IO.Path]::GetFullPath($RepositoryRoot).TrimEnd('\', '/')
     $loadedRoot = [System.IO.Path]::GetFullPath((Get-RepositoryRoot)).TrimEnd('\', '/')
     if ($engineRoot -ieq $loadedRoot -and $candidates.Count -gt 0) {
-        $tracked = [System.Collections.Generic.HashSet[string]]::new([string[]] @(Get-GitTrackedPath '.'), [System.StringComparer]::Ordinal)
+        $tracked = [System.Collections.Generic.HashSet[string]]::new([string[]] @(Get-GitTrackedPath '.'),
+            [System.StringComparer]::Ordinal)
         $untracked = @($candidates | Where-Object { -not $tracked.Contains($_) })
         $ignored = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
         $batchSize = 50
@@ -46,7 +48,8 @@ function Get-CommentScope {
         $candidates = @($candidates | Where-Object { -not $ignored.Contains($_) })
     }
 
-    # The registry's own ForPath, once: a function call per file costs more than the lookup, and the language test is cheaper than the globs.
+    # The registry's own ForPath, once: a function call per file costs more than the lookup, and the language test is
+    # cheaper than the globs.
     $languageRegistry = Get-Config -Config languages
     $fileKinds = Get-Config -Config file-kinds
     foreach ($file in $candidates) {

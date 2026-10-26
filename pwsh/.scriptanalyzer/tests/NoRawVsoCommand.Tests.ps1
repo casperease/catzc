@@ -6,7 +6,8 @@ catzc:
 ---
 #>
 
-[Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-NoRawVsoCommand', '', Justification = 'Test fixtures intentionally contain raw ##vso[task.*] strings to prove the rule flags them.')]
+[Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-NoRawVsoCommand', '',
+    Justification = 'Test fixtures intentionally contain raw ##vso[task.*] strings to prove the rule flags them.')]
 param()
 
 Describe 'Measure-NoRawVsoCommand' -Tag 'L0', 'logic' {

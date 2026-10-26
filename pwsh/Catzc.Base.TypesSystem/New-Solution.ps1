@@ -11,7 +11,8 @@ function New-Solution {
     [OutputType([string])]
     param()
 
-    # Every project id is minted from a sentence of its path, so a new hook enters the solution with its id the moment its folder exists.
+    # Every project id is minted from a sentence of its path, so a new hook enters the solution with its id the moment
+    # its folder exists.
     $csharpType = '9A19103F-16F7-4668-BE54-9A1E7A4F7556'
     $folderType = '2150E333-8FDC-42A3-9474-1A3956D46DE8'
     $id = { param($Sentence) "$(ConvertTo-Guid $Sentence)".ToUpperInvariant() }
@@ -39,7 +40,8 @@ function New-Solution {
     $lines.Add('Microsoft Visual Studio Solution File, Format Version 12.00')
     $lines.Add('VisualStudioVersion = 17.0.31903.59')
     $lines.Add('MinimumVisualStudioVersion = 10.0.40219.1')
-    $entry = { param($Type, $Name, $Path, $Guid) $lines.Add("Project(`"{$Type}`") = `"$Name`", `"$Path`", `"{$Guid}`""); $lines.Add('EndProject') }
+    $entry = { param($Type, $Name, $Path,
+        $Guid) $lines.Add("Project(`"{$Type}`") = `"$Name`", `"$Path`", `"{$Guid}`""); $lines.Add('EndProject') }
     & $entry $csharpType $projects[0].Name $projects[0].Path $projects[0].Id
     $hookProjects = @($projects | Where-Object Parent)
     if ($hookProjects.Count -gt 0) {

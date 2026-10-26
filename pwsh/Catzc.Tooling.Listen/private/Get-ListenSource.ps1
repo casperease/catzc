@@ -21,5 +21,6 @@ function Get-ListenSource {
     $root = Get-RepositoryRoot
     $agent = [Catzc.Tooling.Listen.WriteLedger]::Read((Join-Path $root ([Catzc.Tooling.Listen.WriteLedger]::AgentLedger)))
     $editor = [Catzc.Tooling.Listen.WriteLedger]::Read((Join-Path $root ([Catzc.Tooling.Listen.WriteLedger]::EditorLedger)))
-    [Catzc.Tooling.Listen.WriteLedger]::SourceOf($agent, $editor, $Path, $Hash, $WrittenAt, (Get-TimeoutSeconds -Shell Bash -Background), [DateTimeOffset]::Now)
+    [Catzc.Tooling.Listen.WriteLedger]::SourceOf($agent, $editor, $Path, $Hash, $WrittenAt,
+        (Get-TimeoutSeconds -Shell Bash -Background), [DateTimeOffset]::Now)
 }

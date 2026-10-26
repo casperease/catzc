@@ -22,8 +22,10 @@ Describe 'LinksConfig' -Tag 'L0', 'logic' {
             })
         $config.string_citations.IsReport | Should -BeTrue
         $config.string_citations.IsExempt('src/widget.Tests.ps1') | Should -BeTrue
-        { [Catzc.Base.QualityGates.LinksConfig]::new(@{ string_citations = 'report' }) } | Should -Throw '*string_citations must be a map*'
-        { [Catzc.Base.QualityGates.LinksConfig]::new(@{ string_citations = @{ mode = 'loud' } }) } | Should -Throw '*gate, report*'
+        { [Catzc.Base.QualityGates.LinksConfig]::new(@{ string_citations = 'report' }) } |
+            Should -Throw '*string_citations must be a map*'
+        { [Catzc.Base.QualityGates.LinksConfig]::new(@{ string_citations = @{ mode = 'loud' } }) } |
+            Should -Throw '*gate, report*'
     }
 
     It 'maps every key it is given' -Tag 'ADR-REPO-LINK-ALIGNEDBYTOOL' {
@@ -39,7 +41,8 @@ Describe 'LinksConfig' -Tag 'L0', 'logic' {
 
     It 'rejects an unknown key and a line limit that is not an extension' -Tag 'ADR-REPO-LINK-ALIGNEDBYTOOL' {
         { [Catzc.Base.QualityGates.LinksConfig]::new(@{ gadget = 1 }) } | Should -Throw '*unknown key*'
-        { [Catzc.Base.QualityGates.LinksConfig]::new(@{ line_limit = @{ ps1 = 90 } }) } | Should -Throw "*starting with '.'*"
+        { [Catzc.Base.QualityGates.LinksConfig]::new(@{ line_limit = @{ ps1 = 90 } }) } |
+            Should -Throw "*starting with '.'*"
     }
 }
 

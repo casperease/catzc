@@ -24,6 +24,7 @@ Describe 'Get-RepositoryFile' -Tag 'L0', 'logic' {
     }
 
     It 'collapses a parent (..) segment' {
-        Get-RepositoryFile 'gadget/../widget.ps1' | Should -Be ([IO.Path]::GetFullPath((Join-Path $script:root 'widget.ps1')))
+        Get-RepositoryFile 'gadget/../widget.ps1' |
+            Should -Be ([IO.Path]::GetFullPath((Join-Path $script:root 'widget.ps1')))
     }
 }

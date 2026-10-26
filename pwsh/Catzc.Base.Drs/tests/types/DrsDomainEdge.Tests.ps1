@@ -18,7 +18,8 @@ Describe 'DrsDomainEdge' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMODEL' {
     }
 
     It 'throws on an empty To domain' {
-        { [Catzc.Base.Drs.DrsDomainEdge]::new('widget', ' ') } | Should -Throw "*from 'widget' requires a non-empty 'To'*"
+        { [Catzc.Base.Drs.DrsDomainEdge]::new('widget', ' ') } |
+            Should -Throw "*from 'widget' requires a non-empty 'To'*"
     }
 
     It 'throws on a self-edge' {

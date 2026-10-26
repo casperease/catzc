@@ -1,7 +1,8 @@
 Describe 'Get-DrsUsageRow' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-NOREADBACK' {
     BeforeAll {
         $script:map = [Catzc.Base.Drs.DrsCitationMap]::new(
-            @{ 'ADR-WIDGET-PART' = @{ path = 'docs/drs/widget/part.md'; rules = [string[]] @('ADR-WIDGET-PART-TURN', 'ADR-WIDGET-PART-SPIN', 'ADR-WIDGET-PART-FOLD') } },
+            @{ 'ADR-WIDGET-PART' = @{ path = 'docs/drs/widget/part.md'; rules = [string[]] @('ADR-WIDGET-PART-TURN',
+                'ADR-WIDGET-PART-SPIN', 'ADR-WIDGET-PART-FOLD') } },
             @('docs/drs/widget/part.md', 'docs/drs/index.md'))
 
         function script:Get-Rows {
@@ -54,6 +55,7 @@ Describe 'Get-DrsUsageRow' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-NOREADBACK' {
     }
 
     It 'reads no code from a head, so a file whose only citation is in its head gives no row' {
-        @(Get-Rows "---`ncatzc:`n  edges:`n    cites:`n      - ADR-WIDGET-PART-SPIN`n---`n`n# Spec`n").Count | Should -Be 0
+        @(Get-Rows "---`ncatzc:`n  edges:`n    cites:`n      - ADR-WIDGET-PART-SPIN`n---`n`n# Spec`n").Count |
+            Should -Be 0
     }
 }

@@ -172,7 +172,8 @@ Describe 'Bootstrap' -Tag 'L0', 'logic' {
         }
 
         It 'fails the import, naming the duplicated function' {
-            { Invoke-Sandbox -Capture $moduleListExpr } | Should -Throw -ExpectedMessage '*collision*Get-Dupe: defined by*'
+            { Invoke-Sandbox -Capture $moduleListExpr } |
+                Should -Throw -ExpectedMessage '*collision*Get-Dupe: defined by*'
         }
     }
 
@@ -204,10 +205,12 @@ Describe 'Run-mode eviction across code roots' -Tag 'L2', 'logic', 'greedy' {
             Copy-Directory (Join-Path (Get-CatzcModulesRoot) '.vendor') (Join-Path $modulesRoot '.vendor')
             $languagesConfigs = [System.IO.Directory]::CreateDirectory((Join-Path $modulesRoot 'Catzc.Base.Languages/configs')).FullName
             Copy-Item -Path (Join-Path (Get-CatzcModulesRoot) 'Catzc.Base.Languages/configs/languages.yml') -Destination $languagesConfigs
-            foreach ($entry in @(@($OnlyModule, $OnlyFunction, $OnlyBody), @('Catzc.Shared', 'Get-SharedOrigin', "'$Label'"))) {
+            foreach ($entry in @(@($OnlyModule, $OnlyFunction, $OnlyBody), @('Catzc.Shared', 'Get-SharedOrigin',
+                "'$Label'"))) {
                 $folder = Join-Path $modulesRoot $entry[0]
                 [System.IO.Directory]::CreateDirectory($folder) | Out-Null
-                [System.IO.File]::WriteAllText((Join-Path $folder "$($entry[1]).ps1"), "function $($entry[1]) { $($entry[2]) }")
+                [System.IO.File]::WriteAllText((Join-Path $folder "$($entry[1]).ps1"),
+                    "function $($entry[1]) { $($entry[2]) }")
             }
             $root
         }

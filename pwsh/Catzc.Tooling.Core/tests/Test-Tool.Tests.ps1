@@ -69,7 +69,8 @@ Describe 'Test-Tool' -Tag 'L0', 'logic' {
 
     Context 'the probe (Resolve-ToolExecutable)' {
         BeforeEach {
-            $script:probe = [Catzc.Base.Execution.ExecutableProbe]::new('widget', '/opt/widget', 'probe', '3.0.1', '3.0', $true, 1, 0, 'Person')
+            $script:probe = [Catzc.Base.Execution.ExecutableProbe]::new('widget', '/opt/widget', 'probe', '3.0.1',
+                '3.0', $true, 1, 0, 'Person')
             Mock Resolve-ToolExecutable { $script:probe } -ModuleName Catzc.Tooling.Core
             Mock Get-ToolVersion { '3.0.1' } -ModuleName Catzc.Tooling.Core
         }
@@ -101,7 +102,8 @@ Describe 'Test-Tool' -Tag 'L0', 'logic' {
             Mock Get-ToolConfig {
                 [Catzc.Base.Execution.ToolConfig]::new(@{ version = '3.0'; command = 'widget'; version_command = 'widget --version'; version_pattern = '(?<ver>.+)'; unix_probes = @('/opt/widget') })
             } -ModuleName Catzc.Tooling.Core
-            Mock Resolve-ToolExecutable { [Catzc.Base.Execution.ExecutableProbe]::new('widget', '/opt/widget', 'probe', $version, '3.0', $false, 1, 0, 'Person') } -ModuleName Catzc.Tooling.Core
+            Mock Resolve-ToolExecutable { [Catzc.Base.Execution.ExecutableProbe]::new('widget', '/opt/widget', 'probe',
+                $version, '3.0', $false, 1, 0, 'Person') } -ModuleName Catzc.Tooling.Core
             Test-Tool 'widget' | Should -Be $ok
             Test-Tool 'widget' -SkipVersionCheck | Should -Be $present
         }

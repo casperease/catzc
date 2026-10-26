@@ -2,7 +2,8 @@
 Describe 'LinkDirectionRow' -Tag 'L0', 'logic', 'ADR-REPO-LINKS-DIRECTIONSAREROWS' {
     BeforeAll {
         $script:row = { param([hashtable] $Raw) [Catzc.Base.QualityGates.LinkDirectionRow]::new($Raw, 'row 1') }
-        $script:end = { param([string] $Path, [string] $Class) [Catzc.Base.QualityGates.LinkEndpoint]::new($Path, $Class, '', '', '', '') }
+        $script:end = { param([string] $Path, [string] $Class) [Catzc.Base.QualityGates.LinkEndpoint]::new($Path,
+            $Class, '', '', '', '') }
     }
 
     It 'maps every key and matches its relation and both ends' {
@@ -31,18 +32,22 @@ Describe 'LinkDirectionRow' -Tag 'L0', 'logic', 'ADR-REPO-LINKS-DIRECTIONSAREROW
         $required = & $row @{ relations = @('docs_edge'); when = @('convention'); to = @{ classes = @('comment-page') }; verdict = 'require'; because = 'ADR-WIDGET-ONE' }
         $required.verdict | Should -Be ([Catzc.Base.QualityGates.LinkVerdict]::Require)
         $required.when | Should -Be @([Catzc.Base.QualityGates.LinkRelation]::Convention)
-        { & $row @{ verdict = 'require'; because = 'ADR-WIDGET-ONE' } } | Should -Throw '*a require row names the relations it requires*'
-        { & $row @{ when = @('convention'); verdict = 'allow'; because = 'ADR-WIDGET-ONE' } } | Should -Throw '*when belongs to a require row only*'
+        { & $row @{ verdict = 'require'; because = 'ADR-WIDGET-ONE' } } |
+            Should -Throw '*a require row names the relations it requires*'
+        { & $row @{ when = @('convention'); verdict = 'allow'; because = 'ADR-WIDGET-ONE' } } |
+            Should -Throw '*when belongs to a require row only*'
         { & $row @{ relations = @('docs_edge'); when = @('gadget_link'); verdict = 'require'; because = 'ADR-WIDGET-ONE' } } | Should -Throw '*when*convention*'
     }
 
     It 'refuses a row with no because, an unknown key, an empty or unknown verdict and an unknown relation' {
         { & $row @{ verdict = 'allow' } } | Should -Throw '*because is required*'
         { & $row @{ verdict = 'allow'; because = '  ' } } | Should -Throw '*because is required*'
-        { & $row @{ verdict = 'allow'; because = 'ADR-WIDGET-ONE'; note = 'x' } } | Should -Throw '*unknown key ''note''*'
+        { & $row @{ verdict = 'allow'; because = 'ADR-WIDGET-ONE'; note = 'x' } } |
+            Should -Throw '*unknown key ''note''*'
         { & $row @{ verdict = ''; because = 'ADR-WIDGET-ONE' } } | Should -Throw '*verdict*allow, deny*'
         { & $row @{ verdict = 'maybe'; because = 'ADR-WIDGET-ONE' } } | Should -Throw '*verdict*allow, deny*'
         { & $row @{ verdict = 1; because = 'ADR-WIDGET-ONE' } } | Should -Throw '*verdict*allow, deny*'
-        { & $row @{ relations = @('gadget_link'); verdict = 'deny'; because = 'ADR-WIDGET-ONE' } } | Should -Throw '*relations*markdown_link*'
+        { & $row @{ relations = @('gadget_link'); verdict = 'deny'; because = 'ADR-WIDGET-ONE' } } |
+            Should -Throw '*relations*markdown_link*'
     }
 }

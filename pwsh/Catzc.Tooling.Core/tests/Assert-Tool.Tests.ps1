@@ -15,17 +15,20 @@ Describe 'Assert-Tool' -Tag 'L0', 'logic' {
     }
 
     It 'passes for a found tool at the locked version' {
-        Mock Resolve-ToolExecutable { [Catzc.Base.Execution.ExecutableProbe]::new('widget', '/opt/widget', 'probe', '5.2', '5', $true, 1, 1, 'Person') } -ModuleName Catzc.Tooling.Core
+        Mock Resolve-ToolExecutable { [Catzc.Base.Execution.ExecutableProbe]::new('widget', '/opt/widget', 'probe',
+            '5.2', '5', $true, 1, 1, 'Person') } -ModuleName Catzc.Tooling.Core
         { Assert-Tool 'widget' } | Should -Not -Throw
     }
 
     It 'throws a self-contained message when the tool is not found' {
-        Mock Resolve-ToolExecutable { [Catzc.Base.Execution.ExecutableProbe]::new('widget', $null, 'none', $null, '5', $false, 1, 0, 'Person') } -ModuleName Catzc.Tooling.Core
+        Mock Resolve-ToolExecutable { [Catzc.Base.Execution.ExecutableProbe]::new('widget', $null, 'none', $null, '5',
+            $false, 1, 0, 'Person') } -ModuleName Catzc.Tooling.Core
         { Assert-Tool 'widget' } | Should -Throw '*widget is not installed*candidate paths or on PATH*'
     }
 
     It 'throws on a version below the pin, naming the path, unless -SkipVersionCheck' {
-        Mock Resolve-ToolExecutable { [Catzc.Base.Execution.ExecutableProbe]::new('widget', '/opt/widget', 'probe', '4.4', '5', $false, 1, 1, 'Person') } -ModuleName Catzc.Tooling.Core
+        Mock Resolve-ToolExecutable { [Catzc.Base.Execution.ExecutableProbe]::new('widget', '/opt/widget', 'probe',
+            '4.4', '5', $false, 1, 1, 'Person') } -ModuleName Catzc.Tooling.Core
         { Assert-Tool 'widget' } | Should -Throw "*expected 5.x, found 4.4 at '/opt/widget'*"
         { Assert-Tool 'widget' -SkipVersionCheck } | Should -Not -Throw
     }

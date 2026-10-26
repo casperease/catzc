@@ -43,7 +43,8 @@ Describe 'Build-AgentHook' -Tag 'L0', 'logic' {
 
     It 'throws when the publish produces no runnable program' {
         Mock Invoke-Executable -ModuleName Catzc.Base.TypesSystem { }
-        { Build-AgentHook Assert-BashTimeout -OutputDirectory $script:outputDirectory } | Should -Throw "*produced no runnable 'Assert-BashTimeout' program*"
+        { Build-AgentHook Assert-BashTimeout -OutputDirectory $script:outputDirectory } |
+            Should -Throw "*produced no runnable 'Assert-BashTimeout' program*"
         Join-Path $script:outputDirectory 'Assert-BashTimeout.source.sha256' | Should -Not -Exist
     }
 
@@ -62,13 +63,16 @@ Describe 'Build-AgentHook' -Tag 'L0', 'logic' {
             Copy-Item -LiteralPath $hostExecutable -Destination (Join-Path $script:outputDirectory ($assembly + [IO.Path]::GetExtension($hostExecutable)))
         }
         $programs = @(Build-AgentHook -OutputDirectory $script:outputDirectory)
-        @($programs | ForEach-Object { [System.IO.Path]::GetFileNameWithoutExtension($_) }) | Should -Be @('Assert-BashTimeout', 'Record-AgentWrite', 'Record-SessionMessage', 'Show-EditReminder')
+        @($programs | ForEach-Object { [System.IO.Path]::GetFileNameWithoutExtension($_) }) |
+            Should -Be @('Assert-BashTimeout', 'Record-AgentWrite', 'Record-SessionMessage', 'Show-EditReminder')
         Join-Path $script:outputDirectory 'Record-AgentWrite.source.sha256' | Should -Exist
-        Get-Content -LiteralPath (Join-Path $script:outputDirectory 'Record-AgentWrite.source.sha256') -Raw | Should -BeLike '*Catzc.Tooling.Listen/types/WriteLedger.cs:*'
+        Get-Content -LiteralPath (Join-Path $script:outputDirectory 'Record-AgentWrite.source.sha256') -Raw |
+            Should -BeLike '*Catzc.Tooling.Listen/types/WriteLedger.cs:*'
     }
 
     It 'with -Test names a stale hook and builds nothing, and names none once it is current' {
-        Build-AgentHook Assert-BashTimeout -ListStale -OutputDirectory $script:outputDirectory | Should -Be 'Assert-BashTimeout'
+        Build-AgentHook Assert-BashTimeout -ListStale -OutputDirectory $script:outputDirectory |
+            Should -Be 'Assert-BashTimeout'
         Should -Invoke Invoke-Executable -ModuleName Catzc.Base.TypesSystem -Times 0 -Exactly
 
         $null = Build-AgentHook Assert-BashTimeout -OutputDirectory $script:outputDirectory
@@ -186,8 +190,10 @@ executables:
             return
         }
         $result = Invoke-Hook '{"tool_input":{"command":"ls","run_in_background":true}}'
-        ($result.Output | ConvertFrom-Json).hookSpecificOutput.permissionDecisionReason | Should -BeLike '*has no*timeout <duration>*prefix*'
-        Get-Content -LiteralPath (Join-Path $script:root 'out/time-safeguard.log') -Raw | Should -BeLike "*background`tno timeout prefix`t70 s`tls*"
+        ($result.Output | ConvertFrom-Json).hookSpecificOutput.permissionDecisionReason |
+            Should -BeLike '*has no*timeout <duration>*prefix*'
+        Get-Content -LiteralPath (Join-Path $script:root 'out/time-safeguard.log') -Raw |
+            Should -BeLike "*background`tno timeout prefix`t70 s`tls*"
     }
 
     It 'denies a foreground call without a timeout, naming the limit' -ForEach @(
@@ -262,7 +268,8 @@ Describe 'Build-AgentHook — the published Record-AgentWrite' -Tag 'L2', 'logic
         $line.Count | Should -Be 1
         $line[0].event | Should -BeExactly 'write'
         $line[0].path | Should -BeExactly 'docs/widget.md'
-        $line[0].hash | Should -BeExactly ([Catzc.Base.Globs.DurableHash]::HashFile((Join-Path $script:root 'docs/widget.md')))
+        $line[0].hash |
+            Should -BeExactly ([Catzc.Base.Globs.DurableHash]::HashFile((Join-Path $script:root 'docs/widget.md')))
         $line[0].session | Should -BeExactly 'gadget'
         $line[0].id | Should -BeExactly 'call-1'
     }
@@ -338,7 +345,8 @@ Describe 'Build-AgentHook — the published Record-SessionMessage' -Tag 'L2', 'l
             return
         }
         $prompt = '<cross-session-message from=\"uds:pipe\" from-name=\"widget\" from-mode=\"prompting\">\nhold; oil the gadget\n</cross-session-message>'
-        Invoke-Hook ('{"hook_event_name":"UserPromptSubmit","session_id":"gadget","prompt":"' + $prompt + '"}') | Out-Null
+        Invoke-Hook ('{"hook_event_name":"UserPromptSubmit","session_id":"gadget","prompt":"' + $prompt + '"}') |
+            Out-Null
         Get-LogLine | Should -HaveCount 1
         Get-LogLine | Select-Object -First 1 | Should -Match '^\d{2}:\d{2} widget -> gadget: hold; oil the gadget$'
     }
@@ -365,7 +373,8 @@ Describe 'Build-AgentHook — no package feed reaches a hook build' -Tag 'L2', '
         }
     }
 
-    # NuGet reads its config from the project's folder up, so each hook folder must see the generated root config's cleared feeds alone.
+    # NuGet reads its config from the project's folder up, so each hook folder must see the generated root config's
+    # cleared feeds alone.
     It 'lists no package feed from the hook folder <name>' -ForEach @(
         foreach ($folder in [System.IO.Directory]::GetDirectories((Join-Path (Get-RepositoryRoot) '.claude/hooks'))) {
             if ([System.IO.Directory]::GetFiles($folder, '*.csproj').Count -gt 0) {
@@ -379,7 +388,8 @@ Describe 'Build-AgentHook — no package feed reaches a hook build' -Tag 'L2', '
         }
         $listed = Invoke-Executable 'dotnet nuget list source' -WorkingDirectory $folder -PassThru -Silent
         $listed.ExitCode | Should -Be 0
-        $listed.Full | Should -Not -Match '\[(Enabled|Disabled)\]' -Because 'a listed feed is one a restore would contact'
+        $listed.Full |
+            Should -Not -Match '\[(Enabled|Disabled)\]' -Because 'a listed feed is one a restore would contact'
         $listed.Full | Should -Match 'No sources found'
     }
 }

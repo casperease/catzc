@@ -3,7 +3,8 @@ Describe 'Split-CommandLineBatch' -Tag 'L0', 'logic' {
         $batches = InModuleScope Catzc.Base.QualityGates {
             @(Split-CommandLineBatch -Item @('widget', 'gadget', 'sprocket', 'gizmo') -MaxLength 20)
         }
-        # widget and gadget cost 9 each (18); sprocket (11) would pass 20, so it opens the next batch, which gizmo (8) joins.
+        # widget and gadget cost 9 each (18); sprocket (11) would pass 20, so it opens the next batch, which gizmo (8)
+        # joins.
         $batches | Should -HaveCount 2
         $batches[0] | Should -Be @('widget', 'gadget')
         $batches[1] | Should -Be @('sprocket', 'gizmo')

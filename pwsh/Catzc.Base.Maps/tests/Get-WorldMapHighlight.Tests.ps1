@@ -2,8 +2,10 @@ Describe 'Get-WorldMapHighlight' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:map = [Catzc.Base.Maps.WorldMapBuilder]::Build(
             @([Catzc.Base.Variants.VariantTrack]::new('widgets', @('widgets'), 'modules', $null, @('widget-script')),
-                [Catzc.Base.Variants.VariantTrack]::new('gadgets', @('gadgets'), 'infrastructure', $null, @('widget-script'))),
-            @([Catzc.Base.Languages.FileLanguage]::new('widget-script', @('.ps1'), $null, 'fixture', $null, $null, $null)),
+                [Catzc.Base.Variants.VariantTrack]::new('gadgets', @('gadgets'), 'infrastructure', $null,
+                @('widget-script'))),
+            @([Catzc.Base.Languages.FileLanguage]::new('widget-script', @('.ps1'), $null, 'fixture', $null, $null,
+            $null)),
             @('widgets/Alpha/Get-Widget.ps1', 'widgets/Beta/Get-Gadget.ps1', 'README.md'),
             [ordered]@{}, [ordered]@{ 'ADR-WIDGET-GADGET' = 'widgetry' }, [ordered]@{}, [ordered]@{ 'widgets/Alpha/Get-Widget.ps1' = '# ADR-WIDGET-GADGET' },
             [ordered]@{}, @())
@@ -22,13 +24,15 @@ Describe 'Get-WorldMapHighlight' -Tag 'L0', 'logic' {
     It 'lights the cells of an ADR code given by position, with the maps.yml pins applied' {
         $highlight = Get-WorldMapHighlight ADR-WIDGET-GADGET
         $highlight | Should -BeOfType [Catzc.Base.Maps.WorldMapHighlight]
-        @($highlight.Cells | ForEach-Object { "$($_.Track) x $($_.FileLanguage)" }) | Should -Be @('gadgets x widget-script', 'widgets x widget-script')
+        @($highlight.Cells | ForEach-Object { "$($_.Track) x $($_.FileLanguage)" }) |
+            Should -Be @('gadgets x widget-script', 'widgets x widget-script')
         $highlight.Cells[0].Sources | Should -Be @('pin')
     }
 
     It 'lights the cells on the world map it is given, without building one' {
         $highlight = Get-WorldMapHighlight ADR-WIDGET-GADGET -WorldMap $script:map
-        @($highlight.Cells | ForEach-Object { "$($_.Track) x $($_.FileLanguage)" }) | Should -Be @('gadgets x widget-script', 'widgets x widget-script')
+        @($highlight.Cells | ForEach-Object { "$($_.Track) x $($_.FileLanguage)" }) |
+            Should -Be @('gadgets x widget-script', 'widgets x widget-script')
         Should -Invoke Get-WorldMap -ModuleName Catzc.Base.Maps -Times 0 -Exactly
     }
 
@@ -39,11 +43,13 @@ Describe 'Get-WorldMapHighlight' -Tag 'L0', 'logic' {
     }
 
     It 'lights the cells of the working tree''s changes on the zero-argument call, skipping a file the map does not hold' {
-        Mock Get-GitChangedPath -ModuleName Catzc.Base.Maps { @('README.md', 'widgets/Beta/Get-Gadget.ps1', 'widgets/Gamma/New-Widget.ps1') }
+        Mock Get-GitChangedPath -ModuleName Catzc.Base.Maps { @('README.md', 'widgets/Beta/Get-Gadget.ps1',
+            'widgets/Gamma/New-Widget.ps1') }
         $highlight = Get-WorldMapHighlight
         $highlight.Kind | Should -Be 'path'
         $highlight.Requested | Should -Be @('README.md', 'widgets/Beta/Get-Gadget.ps1')
-        @($highlight.Cells | ForEach-Object { "$($_.Track) x $($_.FileLanguage)" }) | Should -Be @('widgets x widget-script', '(no track) x (other)')
+        @($highlight.Cells | ForEach-Object { "$($_.Track) x $($_.FileLanguage)" }) |
+            Should -Be @('widgets x widget-script', '(no track) x (other)')
         Should -Invoke Get-GitChangedPath -ModuleName Catzc.Base.Maps -Times 1 -Exactly
     }
 

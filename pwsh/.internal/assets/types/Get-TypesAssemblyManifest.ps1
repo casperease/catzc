@@ -3,15 +3,20 @@ $script:typesDisplayAttribute = 'Catzc.Base.Objects.ConsoleDisplayAttribute'
 
 function Get-TypesAssemblyManifest {
     # .SYNOPSIS
-    #     Lists the public types of a combined types assembly with the facts the importer registers for them, reading metadata only.
+    #     Lists the public types of a combined types assembly with the facts the importer registers for them, reading
+    # metadata only.
     # .DESCRIPTION
-    #     For each public top-level type: its full name, the PSTypeAlias names it declares, and the ConsoleDisplay properties that
-    #     apply to it (its own, else the nearest base type's in the same assembly, as the attribute is inherited). The file is read
-    #     into memory and parsed with System.Reflection.Metadata, so the assembly is never loaded and the file never locked.
+    #     For each public top-level type: its full name, the PSTypeAlias names it declares, and the ConsoleDisplay
+    # properties that
+    #     apply to it (its own, else the nearest base type's in the same assembly, as the attribute is inherited). The
+    # file is read
+    #     into memory and parsed with System.Reflection.Metadata, so the assembly is never loaded and the file never
+    # locked.
     # .PARAMETER Path
     #     The assembly file to read.
     # .OUTPUTS
-    #     [pscustomobject] with Types: the types sorted ordinally by Name, each with Name, Aliases and Display (string arrays).
+    #     [pscustomobject] with Types: the types sorted ordinally by Name, each with Name, Aliases and Display (string
+    # arrays).
     # .EXAMPLE
     #     (Get-TypesAssemblyManifest -Path $dll).Types
     [CmdletBinding()]
@@ -43,7 +48,8 @@ function Get-TypesAssemblyManifest {
                 $constructor = $reader.GetMethodDefinition($tokens::MethodDefinitionHandle($tokens::GetRowNumber($attribute.Constructor)))
                 $attributeType = $reader.GetTypeDefinition($constructor.GetDeclaringType())
                 $attributeName = $reader.GetString($attributeType.Namespace) + '.' + $reader.GetString($attributeType.Name)
-                if ($attributeName -ne $script:typesAliasAttribute -and $attributeName -ne $script:typesDisplayAttribute) {
+                if ($attributeName -ne $script:typesAliasAttribute -and
+                    $attributeName -ne $script:typesDisplayAttribute) {
                     continue
                 }
                 $blob = $reader.GetBlobReader($attribute.Value)
@@ -96,6 +102,7 @@ function Get-TypesAssemblyManifest {
         }
     }
     $sorted = [object[]] @($types)
-    [System.Array]::Sort($sorted, [System.Comparison[object]] { param($a, $b) [System.StringComparer]::Ordinal.Compare($a.Name, $b.Name) })
+    [System.Array]::Sort($sorted, [System.Comparison[object]] { param($a,
+        $b) [System.StringComparer]::Ordinal.Compare($a.Name, $b.Name) })
     [pscustomobject]@{ Types = $sorted }
 }

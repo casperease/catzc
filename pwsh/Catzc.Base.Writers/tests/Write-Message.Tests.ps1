@@ -1,4 +1,5 @@
-[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '', Justification = 'Tests lift $global:__PesterRunning to verify writer output; that flag is the writers'' test-suppression interface, set by Test-Automation')]
+[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '',
+    Justification = 'Tests lift $global:__PesterRunning to verify writer output; that flag is the writers'' test-suppression interface, set by Test-Automation')]
 param()
 
 Describe 'Write-Message' -Tag 'L0', 'logic' {
@@ -116,12 +117,14 @@ Describe 'Write-Message' -Tag 'L0', 'logic' {
 
         It "a 'rainbow' bareword side-grades to the ring head, red" {
             Write-Message 'bare' -ForegroundColor rainbow -NoHeader -InformationVariable iv -InformationAction SilentlyContinue 6>&1 | Out-Null
-            (($iv | ForEach-Object { [string]$_.MessageData }) -join '') | Should -Match ([regex]::Escape("`e[91m"))   # red
+            (($iv | ForEach-Object { [string]$_.MessageData }) -join '') |
+                Should -Match ([regex]::Escape("`e[91m"))   # red
         }
 
         It "a 'base-rainbow' bareword side-grades to that base" {
             Write-Message 'based' -ForegroundColor green-rainbow -NoHeader -InformationVariable iv -InformationAction SilentlyContinue 6>&1 | Out-Null
-            (($iv | ForEach-Object { [string]$_.MessageData }) -join '') | Should -Match ([regex]::Escape("`e[92m"))   # green
+            (($iv | ForEach-Object { [string]$_.MessageData }) -join '') |
+                Should -Match ([regex]::Escape("`e[92m"))   # green
         }
     }
 }

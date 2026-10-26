@@ -45,7 +45,8 @@ Describe 'TrackTypesConfig' -Tag 'L0', 'logic', 'DDR-TRACKTYPE-CLOSEDSETOFTYPES'
 
     Context 'validation' {
         It 'refuses an unknown top-level key' {
-            { [Catzc.Base.Variants.TrackTypesConfig]::new([ordered]@{ gizmos = @{} }) } | Should -Throw '*unknown key ''gizmos''*'
+            { [Catzc.Base.Variants.TrackTypesConfig]::new([ordered]@{ gizmos = @{} }) } |
+                Should -Throw '*unknown key ''gizmos''*'
         }
 
         It 'refuses a role outside the closed set' {
@@ -53,7 +54,8 @@ Describe 'TrackTypesConfig' -Tag 'L0', 'logic', 'DDR-TRACKTYPE-CLOSEDSETOFTYPES'
         }
 
         It 'refuses a track type without a definition' {
-            { New-Config ([ordered]@{ 'widget-works' = [ordered]@{ role = 'holder' } }) } | Should -Throw '*needs a definition*'
+            { New-Config ([ordered]@{ 'widget-works' = [ordered]@{ role = 'holder' } }) } |
+                Should -Throw '*needs a definition*'
         }
 
         It 'refuses an unknown key on a track type and on a vendor' {

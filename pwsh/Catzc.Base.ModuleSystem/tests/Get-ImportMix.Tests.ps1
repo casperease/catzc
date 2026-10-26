@@ -12,7 +12,8 @@ Describe 'Get-ImportMix' -Tag 'L0', 'logic' {
 
     It 'returns the record Set-ImportMix kept for the session, without resolving again' -Tag 'ADR-AUTO-IMPORTER-ONEMIXRECORD' {
         InModuleScope Catzc.Base.ModuleSystem {
-            $script:importMix = [Catzc.Base.ModuleSystem.ImportMix]::new(@('gadget'), @('pwsh'), @('Widget.Beta'), @(), @())
+            $script:importMix = [Catzc.Base.ModuleSystem.ImportMix]::new(@('gadget'), @('pwsh'), @('Widget.Beta'), @(),
+                @())
         }
         (Get-ImportMix).languages | Should -Be @('gadget')
         Should -Invoke Resolve-ImportMix -ModuleName Catzc.Base.ModuleSystem -Times 0

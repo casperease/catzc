@@ -26,8 +26,10 @@ Describe 'SourceConventionsConfig' -Tag 'L0' {
         }
 
         It 'rejects an unknown key and a check that is not a map' -Tag 'PDR-CONFIG-EXCEPTIONISCONFIGENTRY' {
-            { [Catzc.Base.QualityGates.SourceConventionsConfig]::new([ordered]@{ gadget = 1 }) } | Should -Throw "*unknown key 'gadget'*"
-            { [Catzc.Base.QualityGates.SourceConventionsConfig]::new([ordered]@{ neutral_codes = 'report' }) } | Should -Throw '*must be a map*'
+            { [Catzc.Base.QualityGates.SourceConventionsConfig]::new([ordered]@{ gadget = 1 }) } |
+                Should -Throw "*unknown key 'gadget'*"
+            { [Catzc.Base.QualityGates.SourceConventionsConfig]::new([ordered]@{ neutral_codes = 'report' }) } |
+                Should -Throw '*must be a map*'
         }
     }
 

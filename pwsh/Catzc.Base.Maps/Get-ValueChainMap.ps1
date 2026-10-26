@@ -13,7 +13,8 @@ function Get-ValueChainMap {
         [switch] $AsJson
     )
 
-    $map = [Catzc.Base.Maps.ValueChainMap]::Build([Catzc.Base.Drs.DrsConfig]::Stacks, [Catzc.Base.Drs.DrsConfig]::Concerns,
+    $map = [Catzc.Base.Maps.ValueChainMap]::Build([Catzc.Base.Drs.DrsConfig]::Stacks,
+        [Catzc.Base.Drs.DrsConfig]::Concerns,
         (ConvertTo-BclValue @(Get-DrsRuleSet)))
     if ($AsJson) {
         return $map.ToJson()

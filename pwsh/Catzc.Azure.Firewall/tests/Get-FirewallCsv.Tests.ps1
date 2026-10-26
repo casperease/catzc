@@ -12,7 +12,8 @@ Describe 'Get-FirewallCsv' -Tag 'L2', 'logic' {
         $script:assets = Join-Path (Get-CatzcModulesRoot) 'Catzc.Azure.Firewall/tests/assets'
         $script:subscriptionId = '50a0ed00-de00-50b0-0000-000000000000'
 
-        # Day-first names whose string order is not their date order, so only a pick by the name's own timestamp finds the newest.
+        # Day-first names whose string order is not their date order, so only a pick by the name's own timestamp finds
+        # the newest.
         $script:blobJson = @'
 [
   { "name": "ApplicationRules-30-01-2026-23-59.csv", "properties": { "lastModified": "2026-01-30T23:59:00+00:00" } },
@@ -26,7 +27,8 @@ Describe 'Get-FirewallCsv' -Tag 'L2', 'logic' {
 
         Mock Assert-AzCliConnected -ModuleName Catzc.Azure.Firewall {}
 
-        # The download copies a fixture to the requested file, so the emitted path is a real CSV and nothing ever reaches the cloud.
+        # The download copies a fixture to the requested file, so the emitted path is a real CSV and nothing ever
+        # reaches the cloud.
         Mock Invoke-AzCli -ModuleName Catzc.Azure.Firewall {
             if ($Arguments -match 'blob list') {
                 return [pscustomobject]@{ Output = $blobJson; ExitCode = 0 }

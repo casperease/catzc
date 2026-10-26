@@ -11,6 +11,7 @@ Describe 'Assert-IsNotTimeoutExempt' -Tag 'L0', 'logic' {
 
     It 'throws naming the reason for an exempt budget' {
         Mock Get-TimeoutExemption -ModuleName Catzc.Base.Timeouts { @{ reason = 'widget sync is being tuned' } }
-        { Assert-IsNotTimeoutExempt $widget } | Should -Throw '*is exempt from its time limit here (widget sync is being tuned)*'
+        { Assert-IsNotTimeoutExempt $widget } |
+            Should -Throw '*is exempt from its time limit here (widget sync is being tuned)*'
     }
 }

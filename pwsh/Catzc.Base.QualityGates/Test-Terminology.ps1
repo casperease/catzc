@@ -38,7 +38,8 @@ function Test-Terminology {
             )
         }
 
-        $corpus = Get-TerminologyCorpus -Root $root -Exclude $config.DefiningFiles($root, (Join-Path $root (Get-CatzcModulesFolder)))
+        $corpus = Get-TerminologyCorpus -Root $root -Exclude $config.DefiningFiles($root,
+            (Join-Path $root (Get-CatzcModulesFolder)))
         foreach ($term in $config.terms) {
             if (-not $corpus.Contains($term.term.ToLowerInvariant())) {
                 $issues.Add(
@@ -48,11 +49,13 @@ function Test-Terminology {
             }
         }
 
-        # A reserved term names one thing, so it may stand only in the files its category's scope lists; the scope ignores case, as the term does.
+        # A reserved term names one thing, so it may stand only in the files its category's scope lists; the scope
+        # ignores case, as the term does.
         $reserved = @($config.terms | Where-Object { $_.category -ceq 'reserved' })
         if ($reserved.Count -gt 0) {
             $allowed = @(if ($config.categoryScopes.ContainsKey('reserved')) {
-                    $config.categoryScopes['reserved'] | ForEach-Object { [Catzc.Base.Globs.GlobPattern]::new($_.ToLowerInvariant()) }
+                    $config.categoryScopes['reserved'] |
+                        ForEach-Object { [Catzc.Base.Globs.GlobPattern]::new($_.ToLowerInvariant()) }
                 })
             foreach ($relative in @(Get-GitTrackedPath '.')) {
                 $lowered = $relative.ToLowerInvariant()

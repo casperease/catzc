@@ -73,7 +73,8 @@ Describe 'Remove-SystemInstallation' -Tag 'L1', 'logic', 'ADR-AUTO-TEST-SYSTEMTE
         if ($IsWindows) {
             Set-ItResult -Skipped -Because 'unix_only_refusal'; return
         }
-        { Remove-SystemInstallation -InstallDir $script:installDir } | Should -Throw -ExpectedMessage '*only supported on Windows*'
+        { Remove-SystemInstallation -InstallDir $script:installDir } |
+            Should -Throw -ExpectedMessage '*only supported on Windows*'
         Should -Invoke Remove-Item -ModuleName Catzc.Tooling.Core -Times 0
     }
 }

@@ -51,7 +51,8 @@ Describe 'Invoke-BashTest' -Tag 'L0', 'logic' {
     Context 'the bats command' {
         It 'runs the vendored bats under bash from the Bash root, recursively, with a JUnit report' {
             $null = Invoke-BashTest Catzc.Widget
-            $script:seen[0].Command | Should -BeLike '"C:\widget\engine\bash.exe" .vendor/bats-core/bin/bats --recursive --report-formatter junit --output "*" "tests/catzc-widget"'
+            $script:seen[0].Command |
+                Should -BeLike '"C:\widget\engine\bash.exe" .vendor/bats-core/bin/bats --recursive --report-formatter junit --output "*" "tests/catzc-widget"'
             $script:seen[0].Directory | Should -Be $script:bashRoot
         }
 
@@ -81,7 +82,8 @@ Describe 'Invoke-BashTest' -Tag 'L0', 'logic' {
             $null = New-Item -ItemType Directory -Path $own -Force
             $null = Invoke-BashTest Widget.Kit -Folder $own
             $script:seen[0].Command | Should -BeLike '*--output "*" "Widget.Kit/tests"'
-            { Invoke-BashTest Widget.Kit -Folder 'bash/Widget.Nothing/tests' } | Should -Throw '*bash/Widget.Nothing/tests/ does not exist*'
+            { Invoke-BashTest Widget.Kit -Folder 'bash/Widget.Nothing/tests' } |
+                Should -Throw '*bash/Widget.Nothing/tests/ does not exist*'
         }
 
         It 'throws with "Run Update-BatsVendor" when the vendored runner is missing, before running anything' {

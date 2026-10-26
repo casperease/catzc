@@ -58,7 +58,8 @@ function Install-Go {
         }
         New-Item -Path $staging -ItemType Directory -Force | Out-Null
         $archive = Join-Path $staging $release.filename
-        Save-VerifiedDownload -Uri "https://go.dev/dl/$($release.filename)" -OutFile $archive -Sha256 $release.sha256 | Out-Null
+        Save-VerifiedDownload -Uri "https://go.dev/dl/$($release.filename)" -OutFile $archive -Sha256 $release.sha256 |
+            Out-Null
 
         Write-Message "Extracting $($release.version) to '$installDir'"
         if ($isZip) {

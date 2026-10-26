@@ -32,14 +32,17 @@ Describe 'Test-JavaScriptTypes' -Tag 'L0', 'logic' {
     It 'reports every tsc error as one issue at its repository path, line and column' {
         $script:exit = 2
         $script:output = "js/catzc-widget/extension.js(4,7): error TS2339: Property 'spin' does not exist on type 'Widget'.`nFound 1 error."
-        { Test-JavaScriptTypes -OutputFolder (Join-Path $TestDrive 'errors') } | Should -Throw 'Test-JavaScriptTypes failed: 1 issue(s)*'
+        { Test-JavaScriptTypes -OutputFolder (Join-Path $TestDrive 'errors') } |
+            Should -Throw 'Test-JavaScriptTypes failed: 1 issue(s)*'
         $result = Test-JavaScriptTypes -OutputFolder (Join-Path $TestDrive 'errors-pass') -PassThru
-        $result.Issues | Should -Be @("js/catzc-widget/extension.js:4:7: error TS2339 Property 'spin' does not exist on type 'Widget'.")
+        $result.Issues |
+            Should -Be @("js/catzc-widget/extension.js:4:7: error TS2339 Property 'spin' does not exist on type 'Widget'.")
     }
 
     It 'checks the strict project too, once a module is raised, and asks for it when it is missing' {
         $script:strict = @('catzc-widget')
-        { Test-JavaScriptTypes -OutputFolder (Join-Path $TestDrive 'no-strict') } | Should -Throw '*jsconfig.strict.json is missing*'
+        { Test-JavaScriptTypes -OutputFolder (Join-Path $TestDrive 'no-strict') } |
+            Should -Throw '*jsconfig.strict.json is missing*'
         Set-Content -LiteralPath (Join-Path $script:root 'jsconfig.strict.json') -Value '{}'
         $script:commands.Clear()
         $result = Test-JavaScriptTypes -OutputFolder (Join-Path $TestDrive 'strict') -PassThru

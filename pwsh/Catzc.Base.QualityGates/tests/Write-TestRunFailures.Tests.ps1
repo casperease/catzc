@@ -43,7 +43,8 @@ Describe 'Write-TestRunFailures' -Tag 'L0', 'logic' {
             [pscustomobject]@{ File = 'C:\widget\Gizmo.Tests.ps1'; Result = 'Passed'; ErrorMessage = '' }
         )
         & $script:write @() $files
-        $script:headers | Should -Be @('Failures (1)') -Because 'a file whose tests failed has no error of its own; its rows carry them'
+        $script:headers |
+            Should -Be @('Failures (1)') -Because 'a file whose tests failed has no error of its own; its rows carry them'
         $script:lines | Should -Contain 'FAIL C:\widget\Gadget.Tests.ps1 (failed before its tests ran)'
         $script:lines | Should -Contain '     gadget discovery broke'
     }

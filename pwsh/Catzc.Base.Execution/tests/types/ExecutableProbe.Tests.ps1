@@ -9,7 +9,8 @@ catzc:
 Describe 'ExecutableProbe' -Tag 'L0', 'logic' {
 
     It 'reads a found executable as Found with its path' {
-        $probe = [Catzc.Base.Execution.ExecutableProbe]::new('widget', '/opt/widget/bin/widget', 'probe', '2.1.0', '2', $true, 3, 120, 'Person')
+        $probe = [Catzc.Base.Execution.ExecutableProbe]::new('widget', '/opt/widget/bin/widget', 'probe', '2.1.0', '2',
+            $true, 3, 120, 'Person')
         $probe.Name | Should -Be 'widget'
         $probe.Found | Should -BeTrue
         $probe.Path | Should -Be '/opt/widget/bin/widget'

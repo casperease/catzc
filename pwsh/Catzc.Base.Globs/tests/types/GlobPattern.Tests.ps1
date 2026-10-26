@@ -108,13 +108,15 @@ Describe 'GlobPattern' -Tag 'L0', 'logic' {
 
         It 'keeps the paths any pattern matches, in their order, once each' {
             $paths = [string[]] @('gadget/b.yml', 'widget/a.txt', 'docs/index.md', 'gadget/c.txt', 'widget/deep/d.txt')
-            $kept = [Catzc.Base.Globs.GlobPattern]::MatchingPaths([string[]] @('widget/**', 'gadget/*.yml', 'widget/a.txt'), $paths)
+            $kept = [Catzc.Base.Globs.GlobPattern]::MatchingPaths([string[]] @('widget/**', 'gadget/*.yml',
+                'widget/a.txt'), $paths)
             @($kept) | Should -Be @('gadget/b.yml', 'widget/a.txt', 'widget/deep/d.txt')
         }
 
         It 'matches what Matches matches, path by path' {
             $patterns = [string[]] @('widget/*/spin.yml', '**/README.md')
-            $paths = [string[]] @('widget/gadget/spin.yml', 'widget/spin.yml', 'README.md', 'gadget/README.md', 'widget/gadget/deep/spin.yml')
+            $paths = [string[]] @('widget/gadget/spin.yml', 'widget/spin.yml', 'README.md', 'gadget/README.md',
+                'widget/gadget/deep/spin.yml')
             $expected = @($paths | Where-Object { $p = $_; @($patterns | Where-Object { [Catzc.Base.Globs.GlobPattern]::new($_).Matches($p) }).Count -gt 0 })
             @([Catzc.Base.Globs.GlobPattern]::MatchingPaths($patterns, $paths)) | Should -Be $expected
         }

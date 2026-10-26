@@ -56,19 +56,25 @@ Describe 'Catzc.Base.GeneratedFiles.GeneratedFilesConfig' -Tag 'L0', 'logic' {
         $config = [Catzc.Base.GeneratedFiles.GeneratedFilesConfig]::new([ordered]@{ writers = [ordered]@{ 'Build-Widget' = $null } })
         $config.input_depth | Should -Be ([Catzc.Base.GeneratedFiles.GeneratedFilesConfig]::DefaultInputDepth)
         [Catzc.Base.GeneratedFiles.GeneratedFilesConfig]::new([ordered]@{ writers = [ordered]@{ 'Build-Widget' = $null }; input_depth = 4 }).input_depth | Should -Be 4
-        Get-ViolationMessage ([ordered]@{ writers = [ordered]@{ 'Build-Widget' = $null }; input_depth = 0 }) | Should -BeLike "*'input_depth' must be a positive whole number*"
+        Get-ViolationMessage ([ordered]@{ writers = [ordered]@{ 'Build-Widget' = $null }; input_depth = 0 }) |
+            Should -BeLike "*'input_depth' must be a positive whole number*"
     }
 
     It 'rejects an unknown top-level key, an empty registry and a missing writers key' {
-        Get-ViolationMessage ([ordered]@{ writers = [ordered]@{ 'Build-Widget' = $null }; gadgets = 1 }) | Should -BeLike "*unknown top-level key 'gadgets' (allowed: writers, input_depth)*"
-        Get-ViolationMessage ([ordered]@{ writers = [ordered]@{} }) | Should -BeLike "*'writers' must be a non-empty map*"
+        Get-ViolationMessage ([ordered]@{ writers = [ordered]@{ 'Build-Widget' = $null }; gadgets = 1 }) |
+            Should -BeLike "*unknown top-level key 'gadgets' (allowed: writers, input_depth)*"
+        Get-ViolationMessage ([ordered]@{ writers = [ordered]@{} }) |
+            Should -BeLike "*'writers' must be a non-empty map*"
         Get-ViolationMessage ([ordered]@{}) | Should -BeLike "*'writers' must be a non-empty map*"
     }
 
     It 'rejects a name that is not a command name, an unknown key, an unknown check and a result path on a check that reads none' {
-        Get-ViolationMessage ([ordered]@{ writers = [ordered]@{ widget = $null } }) | Should -BeLike "*writer name 'widget' is invalid*"
-        Get-ViolationMessage ([ordered]@{ writers = [ordered]@{ 'Build-Widget' = [ordered]@{ gadget = 1 } } }) | Should -BeLike "*writer 'Build-Widget' carries unknown key 'gadget'*"
-        Get-ViolationMessage ([ordered]@{ writers = [ordered]@{ 'Build-Widget' = [ordered]@{ check = 'gadget' } } }) | Should -BeLike "*writer 'Build-Widget' has unknown check 'gadget'*"
+        Get-ViolationMessage ([ordered]@{ writers = [ordered]@{ widget = $null } }) |
+            Should -BeLike "*writer name 'widget' is invalid*"
+        Get-ViolationMessage ([ordered]@{ writers = [ordered]@{ 'Build-Widget' = [ordered]@{ gadget = 1 } } }) |
+            Should -BeLike "*writer 'Build-Widget' carries unknown key 'gadget'*"
+        Get-ViolationMessage ([ordered]@{ writers = [ordered]@{ 'Build-Widget' = [ordered]@{ check = 'gadget' } } }) |
+            Should -BeLike "*writer 'Build-Widget' has unknown check 'gadget'*"
         Get-ViolationMessage ([ordered]@{ writers = [ordered]@{ 'Build-Widget' = [ordered]@{ check = 'root-config'; result_path = 'Path' } } }) | Should -BeLike "*writer 'Build-Widget' sets result_path*"
     }
 

@@ -10,7 +10,8 @@ Describe 'Get-ValueChainHighlight' -Tag 'L0', 'logic' {
     BeforeAll {
         $adr = {
             param([string] $External, [string] $Stack, [string[]] $Concerns)
-            [Catzc.Base.Drs.DrsRuleSet]::new('widgetry', 'fixture', 'widget', $External, 'WIDGET', 'WIDGET', $Stack, $Concerns, $Concerns)
+            [Catzc.Base.Drs.DrsRuleSet]::new('widgetry', 'fixture', 'widget', $External, 'WIDGET', 'WIDGET', $Stack,
+                $Concerns, $Concerns)
         }
         $script:map = [Catzc.Base.Maps.ValueChainMap]::Build(@('TOP', 'BOTTOM'), @('alpha', 'beta'), @(
                 & $adr 'ADR-WIDGET-GADGET' 'TOP' @('alpha', 'beta')
@@ -25,7 +26,8 @@ Describe 'Get-ValueChainHighlight' -Tag 'L0', 'logic' {
     It 'lights the cells of an ADR code given by position' -Tag 'DDR-TRACK-VALUECHAINMAP' {
         $highlight = Get-ValueChainHighlight ADR-WIDGET-GADGET
         $highlight | Should -BeOfType [Catzc.Base.Maps.ValueChainHighlight]
-        @($highlight.Cells | ForEach-Object { "$($_.Stack) x $($_.Concern)" }) | Should -Be @('TOP x alpha', 'TOP x beta')
+        @($highlight.Cells | ForEach-Object { "$($_.Stack) x $($_.Concern)" }) | Should -Be @('TOP x alpha',
+            'TOP x beta')
     }
 
     It 'lights a rule citation''s ADR cells' -Tag 'DDR-TRACK-LITCELL' {
@@ -42,7 +44,8 @@ Describe 'Get-ValueChainHighlight' -Tag 'L0', 'logic' {
     }
 
     It 'throws on an unknown code' {
-        { Get-ValueChainHighlight -Adr 'ADR-WIDGET-UNKNOWN' } | Should -Throw "*'ADR-WIDGET-UNKNOWN' is not an ADR code*"
+        { Get-ValueChainHighlight -Adr 'ADR-WIDGET-UNKNOWN' } |
+            Should -Throw "*'ADR-WIDGET-UNKNOWN' is not an ADR code*"
     }
 }
 

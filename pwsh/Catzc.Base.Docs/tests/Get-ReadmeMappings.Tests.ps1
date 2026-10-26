@@ -8,10 +8,12 @@ catzc:
 
 Describe 'Get-ReadmeMappings' -Tag 'L0', 'logic' {
     BeforeAll {
-        # The source-tree guard is its own unit (below); here the fixture stands in for the source tree in either run mode.
+        # The source-tree guard is its own unit (below); here the fixture stands in for the source tree in either run
+        # mode.
         Mock Assert-SourceTree -ModuleName Catzc.Base.Docs { }
         $script:root = Join-Path $TestDrive ([guid]::NewGuid())
-        foreach ($d in 'widgets/Catzc.Azure.DevOps', 'widgets/Catzc.Base.Files', 'widgets/Catzc.NoDoc', 'widgets/.vendor', 'docs/references/pwsh') {
+        foreach ($d in 'widgets/Catzc.Azure.DevOps', 'widgets/Catzc.Base.Files', 'widgets/Catzc.NoDoc',
+            'widgets/.vendor', 'docs/references/pwsh') {
             [System.IO.Directory]::CreateDirectory((Join-Path $script:root $d)) | Out-Null
         }
         [System.IO.File]::WriteAllText((Join-Path $script:root 'docs/references/pwsh/catzc-azure-dev-ops.md'), '# x')
@@ -44,7 +46,8 @@ Describe 'Get-ReadmeMappings' -Tag 'L0', 'logic' {
                 mappings = @()
             }
             $result = Get-ReadmeMappings -Config $config -RepositoryRoot $Root
-            ($result | Where-Object folder -EQ 'gadgets/catzc_widget_kit').source | Should -Be 'docs/references/gadgets/catzc_widget_kit.md'
+            ($result | Where-Object folder -EQ 'gadgets/catzc_widget_kit').source |
+                Should -Be 'docs/references/gadgets/catzc_widget_kit.md'
         }
     }
 
@@ -106,7 +109,8 @@ Describe 'Get-ReadmeMappings' -Tag 'L0', 'logic' {
                 mappings = @([pscustomobject]@{ folder = 'widgets/Catzc.Azure.DevOps'; source = 'docs/custom/override.md' })
             }
             $result = Get-ReadmeMappings -Config $config -RepositoryRoot $Root
-            ($result | Where-Object folder -EQ 'widgets/Catzc.Azure.DevOps').source | Should -Be 'docs/custom/override.md'
+            ($result | Where-Object folder -EQ 'widgets/Catzc.Azure.DevOps').source |
+                Should -Be 'docs/custom/override.md'
         }
     }
 

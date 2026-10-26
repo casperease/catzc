@@ -5,7 +5,8 @@ Describe 'Push-Topic' -Tag 'L0', 'logic', 'FDR-GIT-SQUASHREBASESQUASH' {
         $script:base = 'b' * 40
         $script:commit = 'd' * 40
         function Set-Git {
-            param([string] $Branch = 'widget', [bool] $MainViaPr = $true, [string] $Ahead = '1', [string] $Before = '3', [int] $PushExit = 0, [int] $RebaseExit = 0)
+            param([string] $Branch = 'widget', [bool] $MainViaPr = $true, [string] $Ahead = '1', [string] $Before = '3',
+                [int] $PushExit = 0, [int] $RebaseExit = 0)
             $script:calls = [System.Collections.Generic.List[string]]::new()
             $script:git = @{ Branch = $Branch; MainViaPr = $MainViaPr; Ahead = $Ahead; Before = $Before; PushExit = $PushExit; RebaseExit = $RebaseExit }
             Mock Save-Topic -ModuleName Catzc.Base.Git { $script:calls.Add('Save-Topic'); [pscustomobject]@{ Branch = $script:git.Branch; Saved = $true; Message = $Message } }
@@ -102,7 +103,8 @@ Describe 'Push-Topic' -Tag 'L0', 'logic', 'FDR-GIT-SQUASHREBASESQUASH' {
 
     It 'stops on a rebase conflict with the continue and abort commands' {
         Set-Git -RebaseExit 1
-        { Push-Topic -Config $script:config } | Should -Throw '*conflicts in: widget.ps1*git rebase --continue*git rebase --abort*'
+        { Push-Topic -Config $script:config } |
+            Should -Throw '*conflicts in: widget.ps1*git rebase --continue*git rebase --abort*'
     }
 
     It 'pushes nothing when the topic holds no change beyond the server' {

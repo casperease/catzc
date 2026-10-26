@@ -18,8 +18,10 @@ function Install-UvStandalone {
     Write-Message "Resolving the astral-sh/uv release for the locked $Version.x"
     $releases = Invoke-RestMethod -Uri 'https://api.github.com/repos/astral-sh/uv/releases?per_page=100' -Headers @{ Accept = 'application/vnd.github+json' }
     $escaped = [regex]::Escape($Version)
-    # Select-Object -First 1 is $null on no match (indexing an empty array throws under strict), so the assert reports it
-    $release = $releases | Where-Object { ($_.tag_name -replace '^v', '') -match "^$escaped(\.|$)" } | Select-Object -First 1
+    # Select-Object -First 1 is $null on no match (indexing an empty array throws under strict), so the assert reports
+    # it
+    $release = $releases | Where-Object { ($_.tag_name -replace '^v', '') -match "^$escaped(\.|$)" } |
+        Select-Object -First 1
     Assert-NotNull $release -ErrorText "No astral-sh/uv release matches the locked $Version.x — bump the uv pin in tools.yml."
 
     $architecture = if ([System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture -eq 'Arm64') {
@@ -29,7 +31,8 @@ function Install-UvStandalone {
         'x86_64'
     }
     $assetName = "uv-$architecture-unknown-linux-gnu.tar.gz"
-    # Select-Object -First 1 is $null on no match (indexing an empty array throws under strict), so the assert reports it
+    # Select-Object -First 1 is $null on no match (indexing an empty array throws under strict), so the assert reports
+    # it
     $asset = $release.assets | Where-Object { $_.name -eq $assetName } | Select-Object -First 1
     Assert-NotNull $asset -ErrorText "astral-sh/uv release $($release.tag_name) has no asset '$assetName'."
 

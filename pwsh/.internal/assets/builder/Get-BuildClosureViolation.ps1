@@ -20,10 +20,12 @@ function Get-BuildClosureViolation {
     )
 
     $sourceFolder = [System.IO.Path]::GetFileName($SourceRoot.TrimEnd('\', '/'))
-    $selected = [System.Collections.Generic.HashSet[string]]::new([string[]] @($Module), [System.StringComparer]::Ordinal)
+    $selected = [System.Collections.Generic.HashSet[string]]::new([string[]] @($Module),
+        [System.StringComparer]::Ordinal)
 
     foreach ($call in @(Get-FunctionDependency -ModulesRoot $SourceRoot -ParsedScripts $ParsedScripts)) {
-        if ($call.CrossModule -and $selected.Contains($call.CallerModule) -and -not $selected.Contains($call.TargetModule)) {
+        if ($call.CrossModule -and $selected.Contains($call.CallerModule) -and
+            -not $selected.Contains($call.TargetModule)) {
             "$sourceFolder/$($call.CallerModule)/$($call.CallerFile):$($call.CallerLine): $($call.CallerFunction) calls $($call.TargetFunction), which $($call.TargetModule) owns"
         }
     }
@@ -70,7 +72,8 @@ function Get-BuildClosureViolation {
                 $config = $argument.Value
                 $owners = @(foreach ($directory in [System.IO.Directory]::GetDirectories($SourceRoot)) {
                         $owner = [System.IO.Path]::GetFileName($directory)
-                        if (-not $owner.StartsWith('.') -and [System.IO.File]::Exists([System.IO.Path]::Combine($directory, 'configs', "$config.yml"))) {
+                        if (-not $owner.StartsWith('.') -and
+                            [System.IO.File]::Exists([System.IO.Path]::Combine($directory, 'configs', "$config.yml"))) {
                             $owner
                         }
                     })

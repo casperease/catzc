@@ -55,8 +55,6 @@ function Import-TypesAssembly {
 
         [TimeSpan] $PruneAfter = [TimeSpan]::FromDays(1),
 
-        # false loads the file in place: a system that does not lock a loaded file needs no copy (types-load.yml
-        # shadowCopy).
         [bool] $ShadowCopy = $true
     )
 
@@ -140,8 +138,6 @@ function Test-TypesAssemblyContent {
 }
 
 
-# The default row and the allowed values live here, not on a C# type: the policy is read while the types assembly is
-# still unloaded.
 $script:typesLoadDefault = [ordered]@{ Load = 'lazy'; Trigger = 'lookup-hook'; EagerTypes = @(); ShadowCopy = $true; Generations = 1 }
 $script:typesLoadHosts = 'console', 'headless'
 $script:typesLoadSystems = 'windows', 'unix'
@@ -263,8 +259,6 @@ function Get-TypesLoadPolicy {
     if ($policy.Generations -isnot [int] -or $policy.Generations -lt 1) {
         throw "Row '$cell' has generations '$($policy.Generations)'; it is a whole number of at least 1."
     }
-    # Builds stack side by side only in a developer's interactive session in the source tree; every other cell keeps
-    # one.
     if ($policy.Generations -gt 1 -and $cell -notlike 'console.*.source') {
         throw "Row '$cell' has generations $($policy.Generations); only a console.*.source row may stack more than 1 build."
     }
@@ -289,8 +283,6 @@ function Register-DeferredTypes {
 
         [bool] $ShadowCopy = $true,
 
-        # Which build of this root the session loads: 1 for the first, more when changed builds stack (types-load.yml
-        # generations).
         [int] $Generation = 1
     )
 
@@ -334,8 +326,6 @@ function Initialize-Types {
         $aliases = 0
         $displayed = 0
         $accelerators = [psobject].Assembly.GetType('System.Management.Automation.TypeAccelerators')
-        # A full type name keeps resolving to the first-loaded build, so each accelerator takes its type from this
-        # build's assembly.
         $assembly = @([System.AppDomain]::CurrentDomain.GetAssemblies() | Where-Object { -not $_.IsDynamic -and $_.Location -eq $loadedFrom }) | Select-Object -Last 1
         foreach ($type in $manifest.types) {
             $resolved = if ($assembly) {

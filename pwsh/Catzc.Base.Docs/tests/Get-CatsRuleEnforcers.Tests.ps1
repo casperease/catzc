@@ -24,7 +24,8 @@ Describe 'widget' -Tag 'L0', 'logic', '$tagged' {
     }
 }
 "@)
-        [System.IO.File]::WriteAllText((Join-Path $vendor 'Gadget.Tests.ps1'), "Describe 'gadget' -Tag '$('ADR-WIDGET-GADGET-' + 'VENDOR')' { }")
+        [System.IO.File]::WriteAllText((Join-Path $vendor 'Gadget.Tests.ps1'),
+            "Describe 'gadget' -Tag '$('ADR-WIDGET-GADGET-' + 'VENDOR')' { }")
 
         function Reset-EnforcerCache {
             InModuleScope Catzc.Base.Docs { $script:catsRuleEnforcersCache = $null }
@@ -56,7 +57,8 @@ Describe 'widget' -Tag 'L0', 'logic', '$tagged' {
     It 'credits a test file for each -Tag citation of Describe and Context, beside its analyzer' {
         $script:enforcers['ADR-WIDGET-GADGET-TAG'].Tests | Should -Be @('widget-modules/Widget/tests/Widget.Tests.ps1')
         $script:enforcers['ADR-WIDGET-GADGET-TAG'].Analyzers | Should -Be @('Measure-Widget')
-        $script:enforcers['ADR-WIDGET-GADGET-CONTEXT'].Tests | Should -Be @('widget-modules/Widget/tests/Widget.Tests.ps1')
+        $script:enforcers['ADR-WIDGET-GADGET-CONTEXT'].Tests |
+            Should -Be @('widget-modules/Widget/tests/Widget.Tests.ps1')
     }
 
     It 'ignores a citation-shaped string that is not a -Tag (AST, not text scan), and the vendored tree' {

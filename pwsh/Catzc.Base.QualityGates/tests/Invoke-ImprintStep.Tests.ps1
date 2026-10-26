@@ -11,10 +11,12 @@ Describe 'Invoke-ImprintStep' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT-CONFIGUREDFOR
         $script:root = [System.IO.Path]::GetFullPath((Join-Path $TestDrive 'step-adapter-repo'))
         $script:carriers = [Catzc.Base.Languages.FileCarriersConfig]::new(@{ carriers = [ordered]@{ markdown = @{ carrier = 'front-matter' }; powershell = @{ carrier = 'comment-head'; block = @('<#', '#>') } } })
         $script:languages = [Catzc.Base.Languages.LanguagesConfig]::new(@{ languages = [ordered]@{ markdown = @{ extensions = @('.md'); formatter = 'prettier' } } })
-        # A fixture kind with a fixture processor, so the step is proven on a fact of its own, whatever kinds the shipped registry holds.
+        # A fixture kind with a fixture processor, so the step is proven on a fact of its own, whatever kinds the
+        # shipped registry holds.
         InModuleScope Catzc.Base.QualityGates {
             function script:Get-WidgetShadeFileMetaFact {
-                [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = 'The engine passes State, Path and Kind by name; the fixture fact needs none')]
+                [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '',
+                    Justification = 'The engine passes State, Path and Kind by name; the fixture fact needs none')]
                 param($State, $Path, $Kind)
                 [ordered]@{ shade = 'blue' }
             }
@@ -48,7 +50,8 @@ Describe 'Invoke-ImprintStep' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT-CONFIGUREDFOR
             }
             $outcome.Changed | Should -Be @($script:widget)
             $outcome.Unfixable.Count | Should -Be 0
-            [System.IO.File]::ReadAllText($script:widget) | Should -BeLike "---`ncatzc:`n  shade: blue`n  header: `"generated`"`n---*# Widget*"
+            [System.IO.File]::ReadAllText($script:widget) |
+                Should -BeLike "---`ncatzc:`n  shade: blue`n  header: `"generated`"`n---*# Widget*"
         }
 
         It 'changes nothing under -DryRun, and still names the file it would change' {
@@ -80,7 +83,8 @@ Describe 'Invoke-ImprintStep' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT-CONFIGUREDFOR
             }
             $script:typeFile = $typeFile
             $script:block = $block
-            $outcome = InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:root; Files = @($typeFile, $block) } {
+            $outcome = InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:root; Files = @($typeFile,
+                $block) } {
                 param($Root, $Files)
                 Invoke-ImprintStep -Step bcl-namespace -File $Files -RepositoryRoot $Root -DryRun
             }
@@ -94,7 +98,8 @@ Describe 'Invoke-ImprintStep' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT-CONFIGUREDFOR
         BeforeEach {
             $script:helpFile = Join-Path $script:root "$(Get-CatzcModulesFolder)/Widget/Get-Gadget.ps1"
             $null = New-Item -ItemType Directory -Path (Split-Path $script:helpFile) -Force
-            $function = @('function Get-Gadget {', '    [OutputType([string])]', '    param(', '        [string] $Widget', '    )', '}')
+            $function = @('function Get-Gadget {', '    [OutputType([string])]', '    param(',
+                '        [string] $Widget', '    )', '}')
             $script:helpText = ($function -join "`n") + "`n"
             [System.IO.File]::WriteAllText($script:helpFile, $script:helpText)
             $script:helpPage = Join-Path $script:root (Get-CommentPage -Path "$(Get-CatzcModulesFolder)/Widget/Get-Gadget.ps1" -Config (Get-Config -Config comment-pages))
@@ -121,7 +126,8 @@ Describe 'Invoke-ImprintStep' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT-CONFIGUREDFOR
                 Invoke-ImprintStep -Step ps-help -File $File -RepositoryRoot $Root
             }
             $outcome.Changed.Count | Should -Be 0
-            $outcome.Unfixable[$script:helpFile] | Should -BeLike '*the parameter Widget is declared but has no ### parameter subsection*'
+            $outcome.Unfixable[$script:helpFile] |
+                Should -BeLike '*the parameter Widget is declared but has no ### parameter subsection*'
             [System.IO.File]::ReadAllText($script:helpPage) | Should -BeExactly $broken
         }
 
@@ -135,7 +141,8 @@ Describe 'Invoke-ImprintStep' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT-CONFIGUREDFOR
         }
 
         It 'reports a comment-based help block as a file to repair' {
-            [System.IO.File]::WriteAllText($script:helpFile, ($script:helpText.Replace('function Get-Gadget', "<#`n.SYNOPSIS`n    Old.`n#>`n" + 'function Get-Gadget')))
+            [System.IO.File]::WriteAllText($script:helpFile, ($script:helpText.Replace('function Get-Gadget',
+                "<#`n.SYNOPSIS`n    Old.`n#>`n" + 'function Get-Gadget')))
             $outcome = InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:root; File = $script:helpFile } {
                 param($Root, $File)
                 Invoke-ImprintStep -Step ps-help -File $File -RepositoryRoot $Root
@@ -169,7 +176,8 @@ Describe 'Invoke-ImprintStep' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT-CONFIGUREDFOR
             Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'plans' } { [Catzc.Base.QualityGates.PlansConfig]::new(@{}) }
             Mock Update-PlanStepCount -ModuleName Catzc.Base.QualityGates { [string[]] @($script:plansFolder + '/plan-master.md') }
             Mock Invoke-FormatterEngine -ModuleName Catzc.Base.QualityGates { }
-            $outcome = InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:root; Files = @($master, $value) } {
+            $outcome = InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:root; Files = @($master,
+                $value) } {
                 param($Root, $Files)
                 Invoke-ImprintStep -Step plan-counts -File $Files -RepositoryRoot $Root -DryRun
             }

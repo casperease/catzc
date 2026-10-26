@@ -192,7 +192,7 @@ function Get-BuildFileCopy {
             }
         }
         if (-not $excluded -and ($IncludeUntracked -or
-            (Test-BuildSourceShippable -Index $Index -SourceRoot $SourceRoot -Path $file))) {
+                (Test-BuildSourceShippable -Index $Index -SourceRoot $SourceRoot -Path $file))) {
             $normalize = Test-BuildSourceLfOnly -Index $Index -SourceRoot $SourceRoot -Path $file
             [pscustomobject]@{ Path = "$TargetPath/$relativePath"; Kind = 'Copy'; Source = $file; Content = $null; Exports = $null; Normalize = $normalize }
         }
@@ -379,7 +379,7 @@ function Invoke-ModuleBuild {
         modules      = $modules
     }
     [void] (Write-FileIfChanged -Path ([System.IO.Path]::Combine($buildRoot,
-        'build.json')) -Content ($record | ConvertTo-Json -Depth 5))
+                'build.json')) -Content ($record | ConvertTo-Json -Depth 5))
 
     [pscustomobject]@{
         BuildRoot   = $buildRoot

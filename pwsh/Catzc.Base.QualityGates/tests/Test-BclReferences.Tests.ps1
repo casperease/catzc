@@ -7,7 +7,8 @@ Describe 'Test-BclReferences' -Tag 'L0', 'logic' {
         $files = [ordered]@{
             'Catzc.Base.Widgets/types/Widget.cs' = $hostUsing
             'Catzc.Base.Widgets/types/Gadget.cs' = $plain
-            'Catzc.Base.Sprockets/types/Cog.cs'  = $hostUsing.Replace('using System.Management', 'using static System.Management')
+            'Catzc.Base.Sprockets/types/Cog.cs'  = $hostUsing.Replace('using System.Management',
+                'using static System.Management')
             'Catzc.Base.Widgets/assets/Note.cs'  = $hostUsing
             '.internal/types/Hidden.cs'          = $hostUsing
         }
@@ -47,7 +48,8 @@ Describe 'Test-BclReferences' -Tag 'L0', 'logic' {
         $thrown = { Test-BclReferences -ModulesRoot $script:root -OutputFolder $script:out } | Should -Throw -PassThru
         $message = $thrown.Exception.Message
         $message | Should -BeLike 'Test-BclReferences failed: 2 issue(s)*'
-        $message | Should -Match 'Catzc.Base.Sprockets/types/Cog.cs: uses System.Management.Automation without a host binding'
+        $message |
+            Should -Match 'Catzc.Base.Sprockets/types/Cog.cs: uses System.Management.Automation without a host binding'
         $message | Should -Match 'bcl.yml Catzc.Base.Widgets/types/Gadget.cs: binds a type source that does not use'
     }
 }

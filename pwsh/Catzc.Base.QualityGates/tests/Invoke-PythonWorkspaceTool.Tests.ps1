@@ -43,7 +43,8 @@ Describe 'Invoke-PythonWorkspaceTool' -Tag 'L0', 'logic' {
 
     It 'names the workspace config with the option the tool takes' {
         $null = InModuleScope Catzc.Base.QualityGates { Invoke-PythonWorkspaceTool -Tool 'pyright --outputjson' -File 'C:\widget\a.py' -ConfigOption '--project' }
-        $script:seen.Command[-1] | Should -Be "`"$script:uvPath`" run --no-sync --quiet pyright --outputjson --project pyproject.toml `"C:\widget\a.py`""
+        $script:seen.Command[-1] |
+            Should -Be "`"$script:uvPath`" run --no-sync --quiet pyright --outputjson --project pyproject.toml `"C:\widget\a.py`""
     }
 
     It 'never lets uv download an interpreter, and restores the variable' {

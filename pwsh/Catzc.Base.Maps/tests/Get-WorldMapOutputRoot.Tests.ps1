@@ -14,7 +14,8 @@ Describe 'Get-WorldMapOutputRoot' -Tag 'L0', 'logic' {
         Mock Get-Config -ModuleName Catzc.Base.Maps -ParameterFilter { $Config -eq 'maps' } {
             [Catzc.Base.Maps.MapsConfig]::new([ordered]@{ output_folder = 'gadget-map' })
         }
-        InModuleScope Catzc.Base.Maps { Get-WorldMapOutputRoot } | Should -Be (Join-Path $script:outputRoot 'gadget-map')
+        InModuleScope Catzc.Base.Maps { Get-WorldMapOutputRoot } |
+            Should -Be (Join-Path $script:outputRoot 'gadget-map')
     }
 
     It 'creates the folder with -EnsureExists' {

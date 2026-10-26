@@ -121,7 +121,8 @@ Describe 'TerminologyConfig' -Tag 'L0', 'logic' {
 
     It 'rejects an unknown top-level key' {
         $raw = @{ categories = $script:cats; terms = @{ product = @(@{ term = 'bicep'; meaning = 'Azure Bicep' }) }; widget = 1 }
-        { [Catzc.Base.QualityGates.TerminologyConfig]::new($raw) } | Should -Throw "*unknown top-level key 'widget' (allowed: categories, terms)*"
+        { [Catzc.Base.QualityGates.TerminologyConfig]::new($raw) } |
+            Should -Throw "*unknown top-level key 'widget' (allowed: categories, terms)*"
     }
 
     It 'names the files that define the terms: one registry part and one dictionary per category, full paths in ordinal order' {

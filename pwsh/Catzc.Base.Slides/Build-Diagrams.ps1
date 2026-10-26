@@ -35,11 +35,13 @@ function Build-Diagrams {
     $diagramKit = [Catzc.Base.Slides.DrawioKit]::new($root, $Kit)
     $renderer = $diagramKit.Renderer
     Assert-PathExist $renderer -PathType Leaf -ErrorText "Build-Diagrams: the draw.io kit '$Kit' has no drawio_forward.py; slides.yml drawio_kit names the kit."
-    Assert-True (-not ($FromDrawing -and $Stale)) -ErrorText 'Build-Diagrams: -FromDrawing and -Stale are two journeys; pass one.'
+    Assert-True (-not ($FromDrawing -and
+        $Stale)) -ErrorText 'Build-Diagrams: -FromDrawing and -Stale are two journeys; pass one.'
     # -Stale rebuilds only the diagrams whose minimaps a tree change left stale: the set Test-Diagrams reports.
     if ($Stale) {
         Assert-True (-not $Path) -ErrorText 'Build-Diagrams: -Stale finds its diagrams itself; pass no -Path.'
-        # The stale set is checked before it becomes -Path, whose ValidatePathGiven refuses an empty list on assignment too.
+        # The stale set is checked before it becomes -Path, whose ValidatePathGiven refuses an empty list on assignment
+        # too.
         $stalePaths = @((Test-Diagrams -Kit $Kit -RepositoryRoot $root -PassThru).Facts['StaleDiagrams'])
         if ($stalePaths.Count -eq 0) {
             Write-Message 'Build-Diagrams: no diagram carries a stale minimap.'
@@ -51,15 +53,19 @@ function Build-Diagrams {
     # A diagram is found by its tracked png or its yml, never listed, so a new one gets its first put.
     $tracked = @(Get-GitTrackedPath '.')
     $candidates = @($tracked) + @(Get-GitChangedPath 'docs')
-    # A diagram is the pair <article-folder>/.assets/<name>.drawio.png and .yml, named by its stem <article-folder>/.assets/<name>.
+    # A diagram is the pair <article-folder>/.assets/<name>.drawio.png and .yml, named by its stem
+    # <article-folder>/.assets/<name>.
     $found = @($candidates | Where-Object { $_ -cmatch '^docs/(.+/)?\.assets/[^/]+\.drawio\.(png|yml)$' } |
             Where-Object { $_.EndsWith('.png') -or (Test-Path -LiteralPath (Join-Path $root $_) -PathType Leaf) } |
             ForEach-Object { $_ -creplace '\.drawio\.(png|yml)$', '' } | Select-Object -Unique)
-    # A diagram in the article carrier has no yml beside its png, and before its first put no png either: its block names it.
+    # A diagram in the article carrier has no yml beside its png, and before its first put no png either: its block
+    # names it.
     $found = @($found) + @(Get-DiagramArticleStem -RepositoryRoot $root -Candidate $candidates | Where-Object { $found -cnotcontains $_ })
     $folders = @(if ($Path) {
             @(foreach ($folderPath in $Path) {
-                    $relative = ([System.IO.Path]::GetRelativePath($root, [System.IO.Path]::GetFullPath((Join-Path $root $folderPath))) -replace '\\', '/') -creplace '\.drawio\.(png|yml)$', ''
+                    $relative = ([System.IO.Path]::GetRelativePath($root,
+                        [System.IO.Path]::GetFullPath((Join-Path $root $folderPath))) -replace '\\',
+                        '/') -creplace '\.drawio\.(png|yml)$', ''
                     Assert-True ($found -ccontains $relative) -ErrorText "Build-Diagrams: '$relative' is not a diagram (<article-folder>/.assets/<name>.drawio.yml, a tracked <name>.drawio.png, or a `yml drawio` block above an image of it in an article)."
                     $relative
                 })
@@ -68,7 +74,8 @@ function Build-Diagrams {
             $found
         })
 
-    # Every article and slide that embeds a diagram's png, wherever it sits; each one's Supports line is held against the yml.
+    # Every article and slide that embeds a diagram's png, wherever it sits; each one's Supports line is held against
+    # the yml.
     $embedders = Get-DiagramEmbedder -Tracked $tracked -RepositoryRoot $root
     $articles = @{}
     $findings = [System.Collections.Generic.List[string]]::new()
@@ -85,7 +92,8 @@ function Build-Diagrams {
     }
     # Every finding is an error, by the one setting of the kit's drawio.yml (renderer findings-fail); none is a warning.
     $failOnFindings = (Get-Content -LiteralPath (Join-Path $diagramKit.Folder 'configs/drawio.yml') -Raw) -match '(?m)^\s*findings-fail:\s*yes'
-    Assert-True (-not ($failOnFindings -and $findings.Count -gt 0)) -ErrorText "Build-Diagrams: $($findings.Count) finding(s), each an error:`n$($findings -join "`n")"
+    Assert-True (-not ($failOnFindings -and
+        $findings.Count -gt 0)) -ErrorText "Build-Diagrams: $($findings.Count) finding(s), each an error:`n$($findings -join "`n")"
 
     $uv = 'uv'
     if (-not $DryRun -and $folders.Count -gt 0) {
@@ -101,7 +109,8 @@ function Build-Diagrams {
     # -Stale found its set through Test-Diagrams, which has just written the minimap data of every declared diagram.
     if (-not $DryRun -and -not $Stale -and $declared.Count -gt 0) {
         Write-Message "Build-Diagrams: writing the minimap data of $($declared.Count) declared diagram(s), then $(if ($FromDrawing) { 'syncing' } else { 'rendering' }) $($folders.Count)."
-        # One call builds the world map once for every diagram; each diagram's target streams back as its data is written.
+        # One call builds the world map once for every diagram; each diagram's target streams back as its data is
+        # written.
         $index = 0
         $step = [System.Diagnostics.Stopwatch]::StartNew()
         Write-DiagramMinimapData -Stem $declared -RepositoryRoot $root | ForEach-Object {
@@ -126,8 +135,10 @@ function Build-Diagrams {
             $step = [System.Diagnostics.Stopwatch]::StartNew()
             $result = Invoke-Executable "$uv $arguments" -WorkingDirectory $root -PassThru -NoAssert -Silent
             $run.ExitCode = $result.ExitCode
-            $row = @($result.Output -split "`r?`n" | Where-Object { $_.StartsWith('{') }) | Select-Object -Last 1 | ForEach-Object { $_ | ConvertFrom-Json }
-            Assert-True ($result.ExitCode -eq 0 -and $row -and -not $row.PSObject.Properties['error']) -ErrorText "Build-Diagrams: the sync of $folderPath stopped: $(if ($row -and $row.PSObject.Properties['error']) { $row.error } else { @($result.Output -split "`r?`n" | Select-Object -Last 5) -join ' | ' })"
+            $row = @($result.Output -split "`r?`n" | Where-Object { $_.StartsWith('{') }) | Select-Object -Last 1 |
+                ForEach-Object { $_ | ConvertFrom-Json }
+            Assert-True ($result.ExitCode -eq 0 -and $row -and
+                -not $row.PSObject.Properties['error']) -ErrorText "Build-Diagrams: the sync of $folderPath stopped: $(if ($row -and $row.PSObject.Properties['error']) { $row.error } else { @($result.Output -split "`r?`n" | Select-Object -Last 5) -join ' | ' })"
             $run.Stage = "sync ($(@($row.ran) -join ', '))"
             $run.Status = 'clean'
             Write-Message "sync $($runs.Count)/$($folders.Count) $folderPath clean ($([Math]::Round($step.Elapsed.TotalSeconds, 1)) s)"
@@ -164,7 +175,8 @@ function Build-Diagrams {
                 continue
             }
             $run.ExitCode = $exits[$folderPath]
-            # The renderer's exit codes: 0 clean, 2 findings (errors) with every artifact delivered, 3 nothing to render; no row is a failure.
+            # The renderer's exit codes: 0 clean, 2 findings (errors) with every artifact delivered, 3 nothing to
+            # render; no row is a failure.
             $run.Status = switch ($run.ExitCode) {
                 0 {
                     'clean'

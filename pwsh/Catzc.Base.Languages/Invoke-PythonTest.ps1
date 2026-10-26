@@ -29,9 +29,11 @@ function Invoke-PythonTest {
     $python = Get-Config -Config python
     $pythonRelative = $python.ResolveRoot($root)
     $pythonRoot = Join-Path $root $pythonRelative
-    # The test folder: the one named, a module's own tests/ or the holder's, else the module's folder under the holder's tests/ in python's folder case.
+    # The test folder: the one named, a module's own tests/ or the holder's, else the module's folder under the holder's
+    # tests/ in python's folder case.
     $relative = if ($Folder) {
-        [System.IO.Path]::GetRelativePath($root, [System.IO.Path]::GetFullPath($Folder, $root)).Replace('\', '/').TrimEnd('/')
+        [System.IO.Path]::GetRelativePath($root, [System.IO.Path]::GetFullPath($Folder, $root)).Replace('\',
+            '/').TrimEnd('/')
     }
     else {
         $moduleFolder = (Get-Config -Config languages).TestFolderOf('python', $Module)
@@ -53,7 +55,8 @@ function Invoke-PythonTest {
         throw "$pythonRelative/pyproject.toml is missing — it is generated; regenerate with: Build-RootConfig"
     }
     # The workspace member is the test folder itself (the holder's) or the module above its own tests/ folder.
-    $member = @("$relative/pyproject.toml", "$($relative.Substring(0, [Math]::Max(0, $relative.LastIndexOf('/'))))/pyproject.toml").Where({ Test-Path -LiteralPath (Join-Path $root $_) -PathType Leaf })
+    $member = @("$relative/pyproject.toml",
+        "$($relative.Substring(0, [Math]::Max(0, $relative.LastIndexOf('/'))))/pyproject.toml").Where({ Test-Path -LiteralPath (Join-Path $root $_) -PathType Leaf })
     if ($member.Count -eq 0) {
         throw "$relative/pyproject.toml is missing — it is generated; regenerate with: Build-RootConfig"
     }
@@ -126,7 +129,8 @@ function Invoke-PythonTest {
         throw "pytest failed in $relative/ (exit $($run.ExitCode)): $($_.Exception.Message)`n$($run.Full)"
     }
 
-    if ($run.ExitCode -ne 0 -and -not ($run.ExitCode -eq 1 -and @($results | Where-Object { $_.Outcome -eq 'fail' }).Count)) {
+    if ($run.ExitCode -ne 0 -and -not ($run.ExitCode -eq 1 -and
+        @($results | Where-Object { $_.Outcome -eq 'fail' }).Count)) {
         throw "pytest failed in $relative/ (exit $($run.ExitCode)) with no failing test:`n$($run.Full)"
     }
 

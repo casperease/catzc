@@ -26,14 +26,17 @@ Describe 'Catzc.Azure.DevOps.EnvironmentApprovalsConfig' -Tag 'L0' {
             $config.units | Should -Be @('widget')
             $config.prod_environments | Should -BeNullOrEmpty
             $config.approver_group | Should -Be ([Catzc.Azure.DevOps.EnvironmentApprovalsConfig]::DefaultApproverGroup)
-            $config.approver_description | Should -Be ([Catzc.Azure.DevOps.EnvironmentApprovalsConfig]::DefaultApproverDescription)
+            $config.approver_description |
+                Should -Be ([Catzc.Azure.DevOps.EnvironmentApprovalsConfig]::DefaultApproverDescription)
             $config.approver_members.Count | Should -Be 0
             $config.timeout_hours | Should -Be ([Catzc.Azure.DevOps.EnvironmentApprovalsConfig]::DefaultTimeoutHours)
         }
 
         It 'derives each unit''s release-gate environments from the rungs registry, then the prod tier' -Tag 'FDR-CD-RUNGSREGISTRY' {
-            $config = [Catzc.Azure.DevOps.EnvironmentApprovalsConfig]::new([ordered]@{ units = @('widget', 'gadget'); prod_environments = @('widget-psub') })
-            $config.Environments($ladder) | Should -Be @('widget-gadget-uat', 'widget-gizmo-stage', 'gadget-gadget-uat', 'gadget-gizmo-stage', 'widget-psub')
+            $config = [Catzc.Azure.DevOps.EnvironmentApprovalsConfig]::new([ordered]@{ units = @('widget',
+                'gadget'); prod_environments = @('widget-psub') })
+            $config.Environments($ladder) | Should -Be @('widget-gadget-uat', 'widget-gizmo-stage', 'gadget-gadget-uat',
+                'gadget-gizmo-stage', 'widget-psub')
         }
 
         It 'follows a renamed rung without an edit here' -Tag 'FDR-CD-RUNGSREGISTRY' {
@@ -60,7 +63,8 @@ Describe 'Catzc.Azure.DevOps.EnvironmentApprovalsConfig' -Tag 'L0' {
         }
 
         It 'throws on an unknown key, top-level or in the group' {
-            Get-ViolationMessage ([ordered]@{ units = @('widget'); gadget = 1 }) | Should -BeLike "*Unknown top-level key: 'gadget'*"
+            Get-ViolationMessage ([ordered]@{ units = @('widget'); gadget = 1 }) |
+                Should -BeLike "*Unknown top-level key: 'gadget'*"
             Get-ViolationMessage ([ordered]@{ approver_group = [ordered]@{ owner = 'x' }; units = @('widget') }) |
                 Should -BeLike "*Unknown approver_group key: 'owner'*"
         }
@@ -71,7 +75,8 @@ Describe 'Catzc.Azure.DevOps.EnvironmentApprovalsConfig' -Tag 'L0' {
         }
 
         It 'throws on a member listed twice' {
-            Get-ViolationMessage ([ordered]@{ approver_group = [ordered]@{ members = @('a@widget.test', 'A@widget.test') }; units = @('widget') }) |
+            Get-ViolationMessage ([ordered]@{ approver_group = [ordered]@{ members = @('a@widget.test',
+                'A@widget.test') }; units = @('widget') }) |
                 Should -BeLike "*members lists 'A@widget.test' twice*"
         }
 
@@ -80,13 +85,16 @@ Describe 'Catzc.Azure.DevOps.EnvironmentApprovalsConfig' -Tag 'L0' {
         }
 
         It 'throws on a unit or a prod environment listed twice' {
-            Get-ViolationMessage ([ordered]@{ units = @('widget', 'Widget') }) | Should -BeLike "*units lists 'Widget' twice*"
-            Get-ViolationMessage ([ordered]@{ units = @('widget'); prod_environments = @('widget-psub', 'WIDGET-psub') }) |
+            Get-ViolationMessage ([ordered]@{ units = @('widget', 'Widget') }) |
+                Should -BeLike "*units lists 'Widget' twice*"
+            Get-ViolationMessage ([ordered]@{ units = @('widget'); prod_environments = @('widget-psub',
+                'WIDGET-psub') }) |
                 Should -BeLike "*prod_environments lists 'WIDGET-psub' twice*"
         }
 
         It 'throws on a timeout outside 1 to the ADO ceiling' -ForEach @(@{ Hours = 0 }, @{ Hours = 721 }, @{ Hours = 'soon' }) {
-            Get-ViolationMessage ([ordered]@{ timeout_hours = $Hours; units = @('widget') }) | Should -BeLike '*timeout_hours*whole number from 1 to 720*'
+            Get-ViolationMessage ([ordered]@{ timeout_hours = $Hours; units = @('widget') }) |
+                Should -BeLike '*timeout_hours*whole number from 1 to 720*'
         }
     }
 

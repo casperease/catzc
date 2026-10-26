@@ -36,7 +36,8 @@ Describe 'Test-Markdownlint' -Tag 'L0', 'logic' {
 
     It 'throws once listing every violation' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
         $script:markdownlintExit = 1
-        $script:markdownlintOut = ('docs/x.md:1:1 MD041/first-line-heading First line', 'docs/y.md:3:1 MD013/line-length Line length', '' -join "`n")
+        $script:markdownlintOut = ('docs/x.md:1:1 MD041/first-line-heading First line',
+            'docs/y.md:3:1 MD013/line-length Line length', '' -join "`n")
         $thrown = { Test-Markdownlint -OutputFolder $script:reportBase } | Should -Throw -PassThru
         $message = $thrown.Exception.Message
         $message | Should -BeLike 'Test-Markdownlint failed: 2 issue(s)*'
@@ -57,7 +58,8 @@ Describe 'Test-Markdownlint' -Tag 'L0', 'logic' {
     It 'never passes a failing run whose output it cannot parse' {
         $script:markdownlintExit = 1
         $script:markdownlintOut = "Summary: 1 error(s)`n"
-        { Test-Markdownlint -OutputFolder $script:reportBase } | Should -Throw '*markdownlint-cli2 exited 1 with no parsable violation line*'
+        { Test-Markdownlint -OutputFolder $script:reportBase } |
+            Should -Throw '*markdownlint-cli2 exited 1 with no parsable violation line*'
     }
 
     It 'ignores banner lines that carry no MD rule id' {
@@ -121,7 +123,8 @@ Describe 'Test-Markdownlint (real markdownlint-cli2)' -Tag 'L2', 'logic' {
         }
         $file = Join-Path $TestDrive 'clean.md'
         Set-Content -Path $file -Value @('# Title', '', 'A short compliant paragraph.') -Encoding utf8
-        $result = Test-Markdownlint -Path ($file -replace '\\', '/') -OutputFolder (Join-Path $TestDrive 'reports') -PassThru
+        $result = Test-Markdownlint -Path ($file -replace '\\',
+            '/') -OutputFolder (Join-Path $TestDrive 'reports') -PassThru
         $result.IssueCount | Should -Be 0
     }
 }

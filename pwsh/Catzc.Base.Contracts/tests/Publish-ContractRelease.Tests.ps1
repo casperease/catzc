@@ -48,7 +48,8 @@ Describe 'Publish-ContractRelease' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT-RELEAS
         @(Get-Tree 'contracts/catzc/1.2.3') | Should -Be (@('.frozen') + $current)
         foreach ($path in $current) {
             $copy = [System.Convert]::ToBase64String([System.IO.File]::ReadAllBytes((Join-Path $script:root "contracts/catzc/1.2.3/$path")))
-            $copy | Should -BeExactly ([System.Convert]::ToBase64String([System.IO.File]::ReadAllBytes((Join-Path $script:root "contracts/catzc/0.1.0/$path")))) -Because $path
+            $copy |
+                Should -BeExactly ([System.Convert]::ToBase64String([System.IO.File]::ReadAllBytes((Join-Path $script:root "contracts/catzc/0.1.0/$path")))) -Because $path
         }
 
         $record = @([System.IO.File]::ReadAllLines((Join-Path $script:root 'contracts/catzc/1.2.3/.frozen')) | Where-Object { -not $_.StartsWith('#') })
@@ -130,7 +131,8 @@ Describe 'Publish-ContractRelease' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT-RELEAS
 
     It 'removes the target again when the freeze fails part-way' {
         Mock Get-ContractFileHashes -ModuleName Catzc.Base.Contracts { throw 'widget hash failed' }
-        { Publish-ContractRelease -Root catzc -Version 1.2.3 -RepositoryRoot $script:root } | Should -Throw '*widget hash failed*'
+        { Publish-ContractRelease -Root catzc -Version 1.2.3 -RepositoryRoot $script:root } |
+            Should -Throw '*widget hash failed*'
         [System.IO.Directory]::Exists((Join-Path $script:root 'contracts/catzc/1.2.3')) | Should -BeFalse
     }
 }

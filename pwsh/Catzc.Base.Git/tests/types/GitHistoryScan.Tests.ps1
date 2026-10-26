@@ -38,7 +38,8 @@ Describe 'GitHistoryScan' -Tag 'L0', 'logic' {
         }
 
         $ids = @{}
-        foreach ($name in 'clean', 'secret', 'binary', 'gadgetTree', 'vendorTree', 'tree1', 'tree2', 'commit1', 'commit2', 'unreachable') {
+        foreach ($name in 'clean', 'secret', 'binary', 'gadgetTree', 'vendorTree', 'tree1', 'tree2', 'commit1',
+            'commit2', 'unreachable') {
             $ids[$name] = New-ObjectId ($ids.Count + 1)
         }
         $script:ids = $ids
@@ -110,8 +111,10 @@ Describe 'GitHistoryScan' -Tag 'L0', 'logic' {
 
     It 'follows an annotated tag to its commit' {
         $tag = New-ObjectId 99
-        $batch = [byte[]] ($script:batch + (New-Record $tag 'tag' (New-Text "object $($ids.commit2)", 'type commit', 'tag v1', '', 'release')))
-        [Catzc.Base.Git.GitHistoryScan]::Scan($batch, [string[]] @($tag), 'sekret', [string[]] @()).Paths | Should -Be @('sekret-plan.md')
+        $batch = [byte[]] ($script:batch + (New-Record $tag 'tag' (New-Text "object $($ids.commit2)", 'type commit',
+            'tag v1', '', 'release')))
+        [Catzc.Base.Git.GitHistoryScan]::Scan($batch, [string[]] @($tag), 'sekret', [string[]] @()).Paths |
+            Should -Be @('sekret-plan.md')
     }
 
     It 'throws on <problem>' -ForEach @(
@@ -123,7 +126,8 @@ Describe 'GitHistoryScan' -Tag 'L0', 'logic' {
             $length = 10
         }
         $bytes = [byte[]] $script:batch[0..($length - 1)]
-        { [Catzc.Base.Git.GitHistoryScan]::Scan($bytes, [string[]] @($ids.commit2), 'sekret', [string[]] @()) } | Should -Throw $expected
+        { [Catzc.Base.Git.GitHistoryScan]::Scan($bytes, [string[]] @($ids.commit2), 'sekret', [string[]] @()) } |
+            Should -Throw $expected
     }
 
     It 'throws when a reachable object is missing' {

@@ -38,7 +38,8 @@ function Write-TestAutomationVerdict {
     Write-Message '' -NoHeader
     Write-Header "Test Automation $($Result.ToUpperInvariant()) — $Summary" -ForegroundColor $rainbow
     $detail = [string]::Format([System.Globalization.CultureInfo]::InvariantCulture,
-        '{0} passed · {1} skipped · {2} failed · {3:N1}s wall clock', $PassedCount, $SkippedCount, $FailedCount, $DurationSeconds)
+        '{0} passed · {1} skipped · {2} failed · {3:N1}s wall clock', $PassedCount, $SkippedCount, $FailedCount,
+        $DurationSeconds)
     Write-Message $detail -NoHeader
     if ($ReportPath) {
         Write-Message "Report: $ReportPath" -NoHeader

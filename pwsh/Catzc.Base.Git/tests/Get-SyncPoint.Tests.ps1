@@ -29,7 +29,8 @@ Describe 'Get-SyncPoint' -Tag 'L0', 'logic', 'FDR-GIT-SYNCPOINT' {
 
     It 'takes the BVT-verified head when the marked ref is on the server, preferring an annotated tag''s commit' {
         $config = [Catzc.Base.Git.GitFlowConfig]::new(@{ bvt_mark = @{ ref = 'refs/tags/widget-verified' } })
-        Set-Remote @("$script:main`trefs/heads/main", "$script:tagObject`trefs/tags/widget-verified", "$script:verified`trefs/tags/widget-verified^{}")
+        Set-Remote @("$script:main`trefs/heads/main", "$script:tagObject`trefs/tags/widget-verified",
+            "$script:verified`trefs/tags/widget-verified^{}")
         $point = Get-SyncPoint -Config $config
         $point.Commit | Should -BeExactly $script:verified
         $point.Source | Should -BeExactly 'bvt'
@@ -49,6 +50,7 @@ Describe 'Get-SyncPoint' -Tag 'L0', 'logic', 'FDR-GIT-SYNCPOINT' {
 
     It 'stops when the server has none of the main branches' {
         Set-Remote @("$script:main`trefs/heads/widget")
-        { Get-SyncPoint -Config ([Catzc.Base.Git.GitFlowConfig]::new(@{})) } | Should -Throw '*has none of the main branches main, master*'
+        { Get-SyncPoint -Config ([Catzc.Base.Git.GitFlowConfig]::new(@{})) } |
+            Should -Throw '*has none of the main branches main, master*'
     }
 }

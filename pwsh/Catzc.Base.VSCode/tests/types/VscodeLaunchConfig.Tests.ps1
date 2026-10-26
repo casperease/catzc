@@ -37,7 +37,8 @@ Describe 'Catzc.Base.VSCode.VscodeLaunchConfig' -Tag 'L0', 'logic' {
     }
 
     It 'throws when configurations is missing or empty' {
-        Get-ViolationMessage ([ordered]@{ version = '0.2.0'; configurations = @() }) | Should -BeLike '*non-empty list of launch profiles*'
+        Get-ViolationMessage ([ordered]@{ version = '0.2.0'; configurations = @() }) |
+            Should -BeLike '*non-empty list of launch profiles*'
     }
 
     It 'throws when a profile lacks name, type, or request' {

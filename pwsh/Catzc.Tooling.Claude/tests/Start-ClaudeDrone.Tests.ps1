@@ -10,7 +10,8 @@ Describe 'Start-ClaudeDrone' -Tag 'L0', 'logic', 'ADR-PWSH-DRYRUN-EARLYRETURNBRA
         $result = @(Start-ClaudeDrone -PassThru)
         $result.Count | Should -Be 1
         $result[0] | Should -BeOfType [string]
-        $result[0] | Should -BeLike "wt.exe -d `"C:/widget/repo`" new-tab *pwsh -NoExit -Command `"& claude --agent 'catzc-drone'`""
+        $result[0] |
+            Should -BeLike "wt.exe -d `"C:/widget/repo`" new-tab *pwsh -NoExit -Command `"& claude --agent 'catzc-drone'`""
         Should -Invoke Start-Process -ModuleName Catzc.Tooling.Claude -Times 1 -Exactly -ParameterFilter { $WorkingDirectory -eq 'C:/widget/repo' -and $FilePath -eq 'wt.exe' }
     }
 
@@ -20,7 +21,8 @@ Describe 'Start-ClaudeDrone' -Tag 'L0', 'logic', 'ADR-PWSH-DRYRUN-EARLYRETURNBRA
     }
 
     It 'passes the prompt as the last argument, keeping its quotes' {
-        Start-ClaudeDrone -DryRun -Prompt "do the widget's work" | Should -BeLike "*--agent 'catzc-drone' 'do the widget''s work'*"
+        Start-ClaudeDrone -DryRun -Prompt "do the widget's work" |
+            Should -BeLike "*--agent 'catzc-drone' 'do the widget''s work'*"
     }
 
     It 'starts as many drones as -Count asks for, each titled by its index' {

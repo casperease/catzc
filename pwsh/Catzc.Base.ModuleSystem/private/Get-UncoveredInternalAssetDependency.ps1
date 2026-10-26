@@ -51,7 +51,8 @@ function Get-UncoveredInternalAssetDependency {
         param([string] $Path)
         $tokens = $null
         $parseErrors = $null
-        $syntaxTree = [System.Management.Automation.Language.Parser]::ParseFile($Path, [ref] $tokens, [ref] $parseErrors)
+        $syntaxTree = [System.Management.Automation.Language.Parser]::ParseFile($Path, [ref] $tokens,
+            [ref] $parseErrors)
         $isItBlock = {
             param($node)
             $node -is [System.Management.Automation.Language.CommandAst] -and $node.GetCommandName() -ieq 'It'
@@ -60,7 +61,8 @@ function Get-UncoveredInternalAssetDependency {
             $chainTags = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
             $node = $itBlock
             while ($node) {
-                if ($node -is [System.Management.Automation.Language.CommandAst] -and $node.GetCommandName() -in $blockNames) {
+                if ($node -is [System.Management.Automation.Language.CommandAst] -and
+                    $node.GetCommandName() -in $blockNames) {
                     foreach ($tag in @(& $getBlockTags $node)) {
                         [void] $chainTags.Add($tag)
                     }
@@ -82,7 +84,8 @@ function Get-UncoveredInternalAssetDependency {
         $testsDirectory = Join-Path $ModulesRoot "$definingModule/tests"
         $pattern = '^' + [regex]::Escape($functionName) + '(\.[^.]+)?\.Tests\.ps1$'
         $testFiles = @(
-            [Catzc.Base.Folders.PathSet]::new((Get-Config -Config folder-walk)).AddPattern($testsDirectory, '*.Tests.ps1', 1).ToArray() |
+            [Catzc.Base.Folders.PathSet]::new((Get-Config -Config folder-walk)).AddPattern($testsDirectory,
+                '*.Tests.ps1', 1).ToArray() |
                 Where-Object { [System.IO.Path]::GetFileName($_) -match $pattern }
         )
 

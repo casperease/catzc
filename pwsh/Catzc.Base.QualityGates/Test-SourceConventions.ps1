@@ -48,7 +48,8 @@ function Test-SourceConventions {
     $skipReasonCount = 0
 
     # One folder's files of a pattern, through the walker; a folder that does not exist lists nothing.
-    $list = { param([string] $Folder, [string] $Pattern) [Catzc.Base.Folders.PathSet]::new().AddPattern($Folder, $Pattern, 1).ToArray() }
+    $list = { param([string] $Folder, [string] $Pattern) [Catzc.Base.Folders.PathSet]::new().AddPattern($Folder,
+        $Pattern, 1).ToArray() }
     # Every module folder, the dot folders too: their tests are held to the names as well.
     foreach ($moduleDirectory in Get-ChildPath $modulesRoot -Depth 1 -Directory -Exclude @() -PruneVendor $false) {
         $module = [System.IO.Path]::GetFileName($moduleDirectory)
@@ -129,7 +130,8 @@ function Test-SourceConventions {
             $elements = $call.CommandElements
             for ($i = 1; $i -lt $elements.Count; $i++) {
                 $element = $elements[$i]
-                if ($element -isnot [System.Management.Automation.Language.CommandParameterAst] -or $element.ParameterName -ine 'Because') {
+                if ($element -isnot [System.Management.Automation.Language.CommandParameterAst] -or
+                    $element.ParameterName -ine 'Because') {
                     continue
                 }
                 $argument = $element.Argument

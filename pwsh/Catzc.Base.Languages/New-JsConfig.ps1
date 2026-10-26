@@ -10,11 +10,13 @@ function New-JsConfig {
     [CmdletBinding()]
     [OutputType([string])]
     param(
-        # The folder of the installed type declarations (npm's global root's @types); none when node is not installed, so the gate says so.
+        # The folder of the installed type declarations (npm's global root's @types); none when node is not installed,
+        # so the gate says so.
         [AllowEmptyString()]
         [string] $TypeRoot,
 
-        # jsconfig.json, every module not yet raised, or jsconfig.strict.json, the modules javascript.yml's strict list names.
+        # jsconfig.json, every module not yet raised, or jsconfig.strict.json, the modules javascript.yml's strict list
+        # names.
         [ValidateSet('jsconfig.json', 'jsconfig.strict.json')]
         [string] $Target = 'jsconfig.json',
 

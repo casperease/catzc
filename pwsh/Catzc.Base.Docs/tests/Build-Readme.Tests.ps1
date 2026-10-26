@@ -53,7 +53,8 @@ Describe 'Build-Readme' -Tag 'L0', 'logic' {
             'Prose with a [sibling link](../../docs/references/pwsh/catzc-base-asserts.md) that resolves at the source location.'
             ''
         ) -join "`n"
-        $text | Should -MatchExactly ('^---\ncatzc:\n  immutable:\n(    [^\n]*\n)+---\n\n' + [regex]::Escape($body) + '$')
+        $text |
+            Should -MatchExactly ('^---\ncatzc:\n  immutable:\n(    [^\n]*\n)+---\n\n' + [regex]::Escape($body) + '$')
         $text | Should -BeLike "*`n    warning: `"$((Get-Config -Config generated-head).warning)`"`n*"
         $text | Should -Not -BeLike '*source:*'
         $text | Should -Not -BeLike '*role:*'
@@ -97,7 +98,8 @@ Describe 'Build-Readme' -Tag 'L0', 'logic' {
 
         [System.IO.File]::ReadAllText($script:source) | Should -BeExactly $before
         [System.IO.File]::ReadAllText($script:readme) | Should -BeLike '*    warning: *'
-        (Get-Item -LiteralPath $script:source).LinkType | Should -BeNullOrEmpty -Because 'the source is no longer one of two hard-linked names'
+        (Get-Item -LiteralPath $script:source).LinkType |
+            Should -BeNullOrEmpty -Because 'the source is no longer one of two hard-linked names'
     }
 
     It 'with -DryRun does not write a missing README' {

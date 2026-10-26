@@ -60,7 +60,8 @@ Describe 'Get-GlossaryPhrasingViolations' -Tag 'L0', 'logic' {
         }
 
         It 'skips fenced code blocks' -Tag 'ADR-REPO-VOCAB-AVOIDEDPHRASINGREPLACED' {
-            $text = @('```powershell', 'Get-Widget # the widget bundle', '```', '~~~', 'widget bundle', '~~~', 'Then the widget bundle.')
+            $text = @('```powershell', 'Get-Widget # the widget bundle', '```', '~~~', 'widget bundle', '~~~',
+                'Then the widget bundle.')
             $found = & $script:scan @{ 'docs/alpha.md' = $text }
             $found | Should -Be @('docs/alpha.md:7 says "widget bundle" — say "widget suite" (ADR-TST-WIDGET-REST)')
         }
@@ -68,7 +69,8 @@ Describe 'Get-GlossaryPhrasingViolations' -Tag 'L0', 'logic' {
 
     Context 'PowerShell surfaces' {
         It 'reads comments and comment-based help as their own surfaces' -Tag 'ADR-REPO-VOCAB-AVOIDEDPHRASINGREPLACED' {
-            $text = @('<#', '.SYNOPSIS', '    Builds the widget bundle.', '#>', 'function Get-Widget {', '    # the widget bundle again', '}')
+            $text = @('<#', '.SYNOPSIS', '    Builds the widget bundle.', '#>', 'function Get-Widget {',
+                '    # the widget bundle again', '}')
             $found = & $script:scan @{ 'widgets/Get-Widget.ps1' = $text }
             $found | Should -Be @(
                 'widgets/Get-Widget.ps1:3 says "widget bundle" — say "widget suite" (ADR-TST-WIDGET-REST)'
@@ -86,8 +88,10 @@ Describe 'Get-GlossaryPhrasingViolations' -Tag 'L0', 'logic' {
             )
             $found = & $script:scan @{ 'widgets/Get-Widget.ps1' = $text }
             $found.Count | Should -Be 3
-            $found | Should -Contain 'widgets/Get-Widget.ps1:1 says "widget bundle" — say "widget suite" (ADR-TST-WIDGET-REST)'
-            $found | Should -Contain 'widgets/Get-Widget.ps1:3 says "widget bundle" — say "widget suite" (ADR-TST-WIDGET-REST)'
+            $found |
+                Should -Contain 'widgets/Get-Widget.ps1:1 says "widget bundle" — say "widget suite" (ADR-TST-WIDGET-REST)'
+            $found |
+                Should -Contain 'widgets/Get-Widget.ps1:3 says "widget bundle" — say "widget suite" (ADR-TST-WIDGET-REST)'
         }
 
         It 'reads the -ErrorText and -Because values of any command' -Tag 'ADR-REPO-VOCAB-AVOIDEDPHRASINGREPLACED' {
@@ -110,7 +114,8 @@ Describe 'Get-GlossaryPhrasingViolations' -Tag 'L0', 'logic' {
                 "throw `"the widget bundle `$(Get-Name 'widget bundle') is gone`""
             )
             $found = & $script:scan @{ 'widgets/Get-Widget.ps1' = $text }
-            $found | Should -Be @('widgets/Get-Widget.ps1:2 says "widget bundle" — say "widget suite" (ADR-TST-WIDGET-REST)')
+            $found |
+                Should -Be @('widgets/Get-Widget.ps1:2 says "widget bundle" — say "widget suite" (ADR-TST-WIDGET-REST)')
         }
     }
 
@@ -130,7 +135,8 @@ Describe 'Get-GlossaryPhrasingViolations' -Tag 'L0', 'logic' {
         }
 
         It 'skips a source that opts out of the avoid check' -Tag 'ADR-REPO-VOCAB-GLOSSARYSOURCE' {
-            & $script:scan @{ 'docs/alpha.md' = @('the widget bundle') } @{ checks = @('anchored', 'single', 'enforced', 'forms') } | Should -BeNullOrEmpty
+            & $script:scan @{ 'docs/alpha.md' = @('the widget bundle') } @{ checks = @('anchored', 'single', 'enforced',
+                'forms') } | Should -BeNullOrEmpty
         }
 
         It 'reads no file type that is not a surface' -Tag 'ADR-REPO-VOCAB-GLOSSARYSOURCE' {

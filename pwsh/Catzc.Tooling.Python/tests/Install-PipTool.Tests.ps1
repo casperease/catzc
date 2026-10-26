@@ -8,7 +8,8 @@ catzc:
 
 Describe 'Install-PipTool' -Tag 'L1', 'logic' {
     BeforeEach {
-        # A neutral library-shaped tool, so the case covers a package with no launcher of its own without naming a real one.
+        # A neutral library-shaped tool, so the case covers a package with no launcher of its own without naming a real
+        # one.
         Mock Get-ToolConfig { [pscustomobject]@{ command = 'widget'; pip_package = 'widgetlib'; version = '4.1'; version_command = 'widget --version' } } -ParameterFilter { $Tool -eq 'widget' } -ModuleName Catzc.Tooling.Python
         Mock Get-ToolConfig { [pscustomobject]@{ version = '3.13' } } -ParameterFilter { $Tool -eq 'python' } -ModuleName Catzc.Tooling.Python
         Mock Get-ToolCommandSuffix { 'Widget' } -ModuleName Catzc.Tooling.Python
