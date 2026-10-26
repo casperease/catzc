@@ -100,8 +100,12 @@ sample or a command contract, or matches no tracked file is a finding; and a fra
 
 ### Rule ADR-REPO-CONTRACT-HEADERSAYSWHATITPINS
 
-An asset says what it pins in its own header comment — the leading `#` lines of a YAML asset, the `$comment` of a schema — and a vendor
-asset also says its source and the date it was taken, so a reviewer can compare it with the vendor. `contracts/` holds only assets and their
+An asset says what it guarantees in one plain sentence it holds itself: the `description` key of a command contract, which is its command's
+help synopsis stripped of links, rule codes and markup, the `$comment` of a schema, or the leading `#` lines of another YAML asset. The
+sentence is letters, digits, spaces and `. , - ( ) '` only, on one line, so a YAML plain scalar holds it unquoted, and `Test-Contracts`
+checks that form and that a command contract's `description` equals its command's synopsis. A vendor-shaped schema also says its source
+and the date it was taken in its `description` annotation, so a reviewer can compare it with the vendor; a sample payload says nothing,
+since a key would change what it pins. `contracts/` holds only assets and their
 `contract.yml` maps. `Build-ContractReference` generates one committed page per root, `docs/references/contracts/<root>.md`, with one table
 per version folder listing every asset's group, the files it applies to, its direction, and its kind, and the assets' notes in a list under
 the table. An asset whose check compares every byte or key — a presence asset, a text fragment, a JSON fragment or sample payload — carries

@@ -1,3 +1,11 @@
+/*
+---
+catzc:
+  docs: "../../../docs/references/pwsh/catzc-base-contracts/types/ContractsConfig.cs.md"
+  header: "generated"
+---
+*/
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,10 +14,6 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Base.Contracts;
 
-// How a contract group folder is named, and nothing else: contracts are addressed by root, version, group and file
-// (ContractLayout), never by a mode set here. A group is the module's track and its folder in the normal form
-// (pwsh.base.vs_code for Catzc.Base.VSCode); an exception names one module's group outright, for the rare module the
-// rule names wrongly.
 public sealed class ContractsConfig
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
