@@ -73,8 +73,6 @@ public sealed class GlobsConfig
                     errors.Add(string.Format("globset '{0}': unknown key '{1}' (allowed: description, layer, include, exclude, compose, verify, pipeline, track)", name, field));
                 }
             }
-            // A whole track's set declares its track in globs.yml and takes its patterns from the generated track-sets.yml part
-            // ([FDR-CD-GLOBS-TRACKSETDERIVED](/docs/drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-tracksetderived)); a part that adds patterns to no declared set is a stale generated entry.
             if (entry.Contains("track") && !entry.Contains("include"))
             {
                 errors.Add(string.Format("globset '{0}': track '{1}' has no derived include; run Build-TrackGlobSets", name, ReadStr(entry, "track")));

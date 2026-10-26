@@ -34,8 +34,6 @@ function Invoke-PythonTest {
             '/').TrimEnd('/')
     }
     else {
-        # A test folder is named for its module's folder, which drops the modules track's namespace
-        # ([DDR-TRACK-MODULENAMESPACE](/docs/drs/design/tracks.md#rule-ddr-track-modulenamespace)).
         $moduleFolder = (Get-Config -Config languages).TestFolderOf('python', (Get-Track -Name (Get-CatzcModulesFolder)).FolderNameOf($Module))
         $own = "$pythonRelative/$moduleFolder/tests"
         if (Test-Path -LiteralPath (Join-Path $root $own) -PathType Container) {

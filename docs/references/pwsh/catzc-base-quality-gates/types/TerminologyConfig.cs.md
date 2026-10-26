@@ -40,3 +40,13 @@ Above `object termsObj = (raw != null && raw.Contains("terms")) ? raw["terms"] :
 ---- terms: a non-empty map of category -> list of entries; each valid, unique, under a defined
      category. The group key IS the category, so entries carry no category field. ----
 ```
+
+## comment:4
+
+Above `public string[] DefiningFiles(string repositoryRoot, string moduleRoot)`, written with `//`.
+
+```text
+The files that define the terms, which the orphan search leaves out: the registry, and one generated dictionary per category. The
+caller passes the QualityGates module's root, since its folder drops the namespace its name carries
+([DDR-TRACK-MODULENAMESPACE](/docs/drs/design/tracks.md#rule-ddr-track-modulenamespace)).
+```

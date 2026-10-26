@@ -51,3 +51,12 @@ Above `public static string FindConfig(string repositoryRoot)`, written with `//
 The hook runs outside cats, so it finds the modules folder by the one top-level folder that holds this config
 ([ADR-AUTO-LAYERS](/docs/drs/automation/layers.md)).
 ```
+
+## comment:5
+
+Above `public const string ConfigModulePath = "Base.Timeouts/configs/timeouts.yml";`, written with `//`.
+
+```text
+The module's folder, without the namespace: the hook runs before any session and cannot resolve it
+([DDR-TRACK-MODULENAMESPACE](/docs/drs/design/tracks.md#rule-ddr-track-modulenamespace)).
+```

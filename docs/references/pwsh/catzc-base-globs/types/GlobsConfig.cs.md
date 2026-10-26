@@ -58,3 +58,12 @@ Above `private static string FindComposeCycle(GlobSet set, Dictionary<string,...
 Depth-first walk of the compose references; returns the cycle path when one exists, else null.
 Guarded against unresolved references (already reported) by walking the name map only.
 ```
+
+## comment:6
+
+Above `if (entry.Contains("track") && !entry.Contains("include"))`, written with `//`.
+
+```text
+A whole track's set declares its track in globs.yml and takes its patterns from the generated track-sets.yml part
+([FDR-CD-GLOBS-TRACKSETDERIVED](/docs/drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-tracksetderived)); a part that adds patterns to no declared set is a stale generated entry.
+```

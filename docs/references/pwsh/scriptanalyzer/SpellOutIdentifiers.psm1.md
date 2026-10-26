@@ -106,3 +106,12 @@ Above `$isFunction = {`, written with `#`.
 The noun of each function name (the verb is checked by PSUseApprovedVerbs). Predicate as a local
 ([ADR-PWSH-FORMAT-MULTILINEPREDICATEBOUND](/docs/drs/automation/pwsh/powershell-formatting.md#rule-adr-pwsh-format-multilinepredicatebound)).
 ```
+
+## comment:11
+
+Above `. (Join-Path $modulesRoot '.internal/assets/bootstrap/Resolve-ModuleName.ps1')`, written with `#`.
+
+```text
+The QualityGates folder, resolved from its full name under the modules track's namespace before any import
+([DDR-TRACK-MODULENAMESPACE](/docs/drs/design/tracks.md#rule-ddr-track-modulenamespace)).
+```

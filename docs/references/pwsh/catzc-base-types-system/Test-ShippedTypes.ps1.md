@@ -35,3 +35,12 @@ Return the result ({ Subject; IssueCount; Issues; ReportPath; Types }) instead o
 ```powershell
 Test-ShippedTypes
 ```
+
+## comment:1
+
+Above `$trackName = [System.IO.Path]::GetFileName($modulesRoot.TrimEnd('\', '/'))`, written with `#`.
+
+```text
+A type's namespace is its module's full name, the folder joined to the track's namespace
+([DDR-TRACK-MODULENAMESPACE](/docs/drs/design/tracks.md#rule-ddr-track-modulenamespace)).
+```

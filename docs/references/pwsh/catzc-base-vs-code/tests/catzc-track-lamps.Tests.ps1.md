@@ -38,3 +38,12 @@ Above `$driver = "const m = require('$script'); const f =...`, written with `#`.
 The disk is walked once, and each lamp's census reads the verdict its plan reached, as the live engine does
 ([ADR-AUTO-TEST-SETUPONCE](/docs/drs/automation/test-automation.md#rule-adr-auto-test-setuponce)).
 ```
+
+## comment:5
+
+Above `$script:lampsFolder = "$(Get-TrackPlace -Track js -TrackKind...`, written with `#`.
+
+```text
+The extension's folder, resolved from its name through the js track
+([DDR-TRACK-MODULENAMESPACE](/docs/drs/design/tracks.md#rule-ddr-track-modulenamespace)).
+```

@@ -5,7 +5,7 @@ comment sat above (Export-Comments), and Build-CommentView puts every comment ba
 
 ## comment:1
 
-Above `$script:own = Join-Path $script:root 'js/catzc-widget/tests'`, written with `#`.
+Above `$script:own = Join-Path $script:root 'js/widget/tests'`, written with `#`.
 
 ```text
 A js module is its kebab folder with its own tests/; a module without one is looked for under the root's test

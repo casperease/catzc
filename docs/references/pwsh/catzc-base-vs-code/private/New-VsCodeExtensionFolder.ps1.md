@@ -60,11 +60,11 @@ the lamps it repeats need no hand-drawn icon; the pass below recolours them per 
 
 ## comment:3
 
-Above `$script = Join-Path $AssetDirectory "$($Extension.name)/extension.js"`, written with `#`.
+Above `$script = Join-Path $AssetDirectory "$sourceFolder/extension.js"`, written with `#`.
 
 ```text
-Each extension is a module of the js track: <name>/extension.js, its own files in <name>/assets/, shipped as
-media/.
+Each extension is a module of the js track: <folder>/extension.js, the folder its name without the track's namespace, its own
+files in <folder>/assets/, shipped as media/.
 ```
 
 ## comment:4

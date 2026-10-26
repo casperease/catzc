@@ -8,8 +8,6 @@ catzc:
 
 Describe 'catzc-track-lamps' -Tag 'L0', 'logic' {
     BeforeAll {
-        # The extension's folder, resolved from its name through the js track
-        # ([DDR-TRACK-MODULENAMESPACE](/docs/drs/design/tracks.md#rule-ddr-track-modulenamespace)).
         $script:lampsFolder = "$(Get-TrackPlace -Track js -TrackKind extensions)/$((Get-Track -Name js).FolderNameOf('catzc-track-lamps'))"
         $script:script = (Resolve-Path (Join-Path (Get-RepositoryRoot) "$script:lampsFolder/extension.js")).Path -replace '\\', '/'
         # Runs one exported function of the extension under node with JSON arguments and returns its JSON result.

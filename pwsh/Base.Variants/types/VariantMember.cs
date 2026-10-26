@@ -1,3 +1,11 @@
+/*
+---
+catzc:
+  docs: "../../../docs/references/pwsh/catzc-base-variants/types/VariantMember.cs.md"
+  header: "generated"
+---
+*/
+
 using System;
 
 namespace Catzc.Base.Variants;
@@ -39,8 +47,6 @@ public sealed class VariantMember
         this.committed = committed;
     }
 
-    // Whether the member holds a '/'-separated repository-relative path: a plain member holds itself and what lies under it, a glob
-    // member the paths it matches.
     public bool Contains(string relativePath)
     {
         if (string.IsNullOrEmpty(relativePath)) { return false; }

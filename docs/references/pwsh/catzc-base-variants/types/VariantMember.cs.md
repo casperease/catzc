@@ -11,3 +11,12 @@ Above `public sealed class VariantMember`, written with `//`.
 One member of a track: a folder or a file, with its two facts
 ([DDR-TRACK-TRACKISPLACEDCLUSTER](/docs/drs/design/tracks.md#rule-ddr-track-trackisplacedcluster)).
 ```
+
+## comment:2
+
+Above `public bool Contains(string relativePath)`, written with `//`.
+
+```text
+Whether the member holds a '/'-separated repository-relative path: a plain member holds itself and what lies under it, a glob
+member the paths it matches.
+```

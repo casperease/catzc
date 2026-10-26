@@ -86,3 +86,12 @@ Split on non-letters (snake_case underscores, digits) and case boundaries: a cam
 lower-cased; non-letter runs are separators and are dropped, so numeric suffixes never form fragments.
 </summary>
 ```
+
+## comment:7
+
+Above `public static string AssetsFolder(string moduleRoot)`, written with `//`.
+
+```text
+The folder the English word list ships in: the QualityGates module's assets. The caller passes that module's root, since its folder
+drops the namespace its name carries ([DDR-TRACK-MODULENAMESPACE](/docs/drs/design/tracks.md#rule-ddr-track-modulenamespace)).
+```

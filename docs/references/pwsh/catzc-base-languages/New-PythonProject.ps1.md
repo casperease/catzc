@@ -64,3 +64,13 @@ Above `$members = @(foreach ($folder in $folders) {`, written with `#`.
 The members: the test holder's folders, each named by its folder, then the modules, each named by its name in
 kebab case.
 ```
+
+## comment:3
+
+Above `$track = Get-Track -Path $pythonRoot`, written with `#`.
+
+```text
+A member's name is its full name, the folder under the python track's namespace
+([DDR-TRACK-MODULENAMESPACE](/docs/drs/design/tracks.md#rule-ddr-track-modulenamespace)); the folder never spells
+it.
+```

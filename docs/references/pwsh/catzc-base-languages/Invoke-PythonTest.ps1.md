@@ -144,3 +144,12 @@ Above `$relative = if ($Folder) {`, written with `#`.
 The test folder: the one named, a module's own tests/ or the holder's, else the module's folder under the holder's
 tests/ in python's folder case.
 ```
+
+## comment:6
+
+Above `$moduleFolder = (Get-Config -Config languages).TestFolderOf('python',...`, written with `#`.
+
+```text
+A test folder is named for its module's folder, which drops the modules track's namespace
+([DDR-TRACK-MODULENAMESPACE](/docs/drs/design/tracks.md#rule-ddr-track-modulenamespace)).
+```

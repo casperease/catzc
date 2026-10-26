@@ -36,10 +36,10 @@ from `git clean` matches too.
 
 ## comment:1
 
-Above `$ret.Add("$modulesFolder/*/*.psd1")`, written with `#`.
+Above `$ret.Add($member.path)`, written with `#`.
 
 ```text
-Generated module manifests (dynamic-module-manifests; the vendored .psd1 are committed, so they
+Generated members, the module manifests among them (dynamic-module-manifests; the vendored .psd1 are committed, so they
 can never appear among untracked clean candidates).
 ```
 
