@@ -28,17 +28,17 @@ folders. Heavy runs wait for a turn in the orchestrator's memory queue, one run 
       psscriptanalyzer about 50 s on 1,997 files and prettier about 41 s on 3,049, the cold engines being the open fan-out question's; and
       17.5 s and 14.9 s warm, of it about 12 s fixed overhead with nothing pending: the scope and cache load before the first engine, 5.6 to
       7.4 s, and the imprint steps' planning and stamping. In memory the warm path's about 12 s is the scope walk 3.0 to 3.6 s, the imprint
-      steps' own file lists 2.7 to 3.1 s, `Get-FileMetaInputStamp` 2.0 to 2.5 s and the cache splits 2.4 to 2.6 s. Next, catzc-68's:
-      `Get-FormatScope`'s existence filter as a loop with `File.Exists` and an ordinal set (A/B 1.93 s to 0.45 s, identical list), then the
-      step lists reusing the scope walk; `Get-FileMetaInputStamp` only after catzc-2b's 4a burst lands, routed through the orchestrator.
-      Known red until the user's edit and item 32's untracking: `.claude/CLAUDE.md` unformatted and the tracked build outputs) and
-      `Get-RepositoryFilter.Tests.ps1` (16.1 s). `Test-Automation.Tests.ps1` (15.6 s) is left as it is: its cost is one
-      `Test-SourceConventions` run over the tree (catzc-68, 2026-10-26). `Test-Spelling.Tests.ps1` (18.5 s) is left as it is: its cost is
-      one cspell process over 5,669 files (19.3 s measured); a 4-way extension shard measured 10.1 s, but parallel cspell needs a fan-out
-      seam in Base.Execution that the L0 mocks can reach, the open question below (catzc-68, 2026-10-26). A red file is made green by its
-      owner before its speed is touched, and a file measured with no safe gain is recorded as left as it is. Check: `Invoke-TestFile` twice
-      per file, the same test names and `Should` count, an A/B of each cause with identical output, and `Test-ScriptAnalyzer -Path` at 0 on
-      each changed file.
+      steps' own file lists 2.7 to 3.1 s, `Get-FileMetaInputStamp` 2.0 to 2.5 s and the cache splits 2.4 to 2.6 s. The scope walk is down to
+      1.4 to 1.7 s (catzc-68, `Get-FormatScope`'s filters as loops, the warm path about 10 s). The step lists are left as they are: only the
+      comments list (1.7 to 2.3 s, of it `Get-LinkScope` 1.0 s of existence checks and the exempt lookup, its loop form no faster) and the
+      file-meta list (1.4 s) cost, and neither is the format scope's set. Next: `Get-FileMetaInputStamp` and the file-meta list only after catzc-2b's 4a burst lands, routed through the orchestrator. Known red until the user's
+      edit and item 32's untracking: `.claude/CLAUDE.md` unformatted and the tracked build outputs) and `Get-RepositoryFilter.Tests.ps1`
+      (16.1 s). `Test-Automation.Tests.ps1` (15.6 s) is left as it is: its cost is one `Test-SourceConventions` run over the tree (catzc-68,
+      2026-10-26). `Test-Spelling.Tests.ps1` (18.5 s) is left as it is: its cost is one cspell process over 5,669 files (19.3 s measured); a
+      4-way extension shard measured 10.1 s, but parallel cspell needs a fan-out seam in Base.Execution that the L0 mocks can reach, the
+      open question below (catzc-68, 2026-10-26). A red file is made green by its owner before its speed is touched, and a file measured
+      with no safe gain is recorded as left as it is. Check: `Invoke-TestFile` twice per file, the same test names and `Should` count, an
+      A/B of each cause with identical output, and `Test-ScriptAnalyzer -Path` at 0 on each changed file.
 
 ## Open questions
 

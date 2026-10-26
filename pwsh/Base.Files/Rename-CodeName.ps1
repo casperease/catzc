@@ -28,9 +28,11 @@ function Rename-CodeName {
     foreach ($old in $Map.Keys) {
         $lookup[$old] = $Map[$old]
     }
+    # Longest first, so a name containing another is replaced whole; a name matches only as a token, never inside a longer one.
     $alternation = (@($lookup.Keys) | Sort-Object { $_.Length } -Descending |
             ForEach-Object { [regex]::Escape($_) }) -join '|'
     $token = [regex]::new("(?<![\w-])(?:$alternation)(?![\w-])")
+    # A longer token a name sits inside, such as an id g-<name>, is skipped by design and reported, so the caller decides.
     $within = [regex]::new("[\w-]*(?:$alternation)[\w-]*")
 
     $root = Get-RepositoryRoot

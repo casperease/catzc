@@ -38,6 +38,19 @@ function Test-TrackMemberCommitted {
                 "track '$($member.track)': member '$($member.path)' is declared not committed, but git tracks $($tracked.Count) file(s) of it, e.g. '$($tracked[0])'"
             }
         })
+    # Every root entry on disk lies in a track (DDR-TRACKTYPE-LONGESTPLACEWINS): a file or folder a member covers, or a folder that
+    # holds a member, such as .ado holding .ado/pipelines; git's own folder is no entry of the repository.
+    $memberPaths = @($members | ForEach-Object { $_.path })
+    $issues += @(foreach ($entry in [System.IO.Directory]::GetFileSystemEntries($root)) {
+            $name = [System.IO.Path]::GetFileName($entry)
+            if ($name -ceq '.git' -or (Get-Track -Path $name)) {
+                continue
+            }
+            if (@($memberPaths | Where-Object { $_.StartsWith("$name/", [System.StringComparison]::Ordinal) }).Count -gt 0) {
+                continue
+            }
+            "root entry '$name' lies in no track; add it as a member of the track that owns it in variants.yml"
+        })
 
     Write-QualityGateReport -Subject track-member-committed -Title Test-TrackMemberCommitted -Issues ([string[]] @($issues)) `
         -Facts ([ordered]@{ Members = $members.Count }) -OutputFolder $OutputFolder -PassThru:$PassThru

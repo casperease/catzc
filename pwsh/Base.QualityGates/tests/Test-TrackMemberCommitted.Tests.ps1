@@ -13,6 +13,8 @@ Describe 'Test-TrackMemberCommitted' -Tag 'L0', 'logic', 'DDR-TRACK-TRACKISPLACE
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.QualityGates { $TestDrive }
         # The index tracks one file under every member unless a case says otherwise.
         Mock Get-GitTrackedPath -ModuleName Catzc.Base.QualityGates { "$Path/widget.txt" }
+        # Every root entry lies in a track unless a case says otherwise.
+        Mock Get-Track -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ name = 'widget' } }
         foreach ($folder in 'widget', 'widget.cache') {
             [System.IO.Directory]::CreateDirectory((Join-Path $TestDrive $folder)) | Out-Null
         }
@@ -51,6 +53,20 @@ Describe 'Test-TrackMemberCommitted' -Tag 'L0', 'logic', 'DDR-TRACK-TRACKISPLACE
         Mock Get-TrackMember -ModuleName Catzc.Base.QualityGates { New-Member 'widget'; New-Member '.landing' }
         Mock Get-GitTrackedPath -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Path -eq '.landing' } { }
         (Test-TrackMemberCommitted -PassThru -OutputFolder $script:outputFolder).IssueCount | Should -Be 0
+    }
+
+    It 'names a root entry no track covers, and passes a folder that only holds a member' -Tag 'DDR-TRACKTYPE-LONGESTPLACEWINS' {
+        $root = Join-Path $TestDrive "root-$([guid]::NewGuid().ToString('N'))"
+        foreach ($folder in 'widget', 'holder/inner', '.git') {
+            [System.IO.Directory]::CreateDirectory((Join-Path $root $folder)) | Out-Null
+        }
+        [System.IO.File]::WriteAllText((Join-Path $root 'stray.txt'), 'stray')
+        Mock Get-RepositoryRoot -ModuleName Catzc.Base.QualityGates { $root }
+        Mock Get-TrackMember -ModuleName Catzc.Base.QualityGates { New-Member 'widget'; New-Member 'holder/inner' }
+        Mock Get-Track -ModuleName Catzc.Base.QualityGates { }
+        Mock Get-Track -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Path -eq 'widget' } { [pscustomobject]@{ name = 'widget' } }
+        $result = Test-TrackMemberCommitted -PassThru -OutputFolder $script:outputFolder
+        $result.Issues | Should -Be @("root entry 'stray.txt' lies in no track; add it as a member of the track that owns it in variants.yml")
     }
 }
 

@@ -20,6 +20,7 @@ function Get-StringOverflowLine {
         [string] $Language
     )
 
+    # Every one-line string literal as (line, first column, last column), 1-based, from the language's own tokenizer.
     $spans = [System.Collections.Generic.List[int[]]]::new()
     switch ($Language) {
         'powershell' {
@@ -51,6 +52,7 @@ function Get-StringOverflowLine {
             }
         }
         'xml' {
+            # The reader gives an attribute's line and its name's column; the value runs from its opening quote to the matching one.
             $sourceLines = $Text -split "`r?`n"
             $settings = [System.Xml.XmlReaderSettings]::new()
             $settings.DtdProcessing = [System.Xml.DtdProcessing]::Ignore
@@ -85,6 +87,7 @@ function Get-StringOverflowLine {
             }
         }
         { $_ -in 'json', 'jsonl' } {
+            # A JSON string never spans a line, so each line is scanned alone; outside a string, a // comment (JSONC) ends the line.
             $number = 0
             foreach ($line in $Text -split "`r?`n") {
                 $number++
@@ -126,6 +129,7 @@ function Get-StringOverflowLine {
         }
     }
 
+    # Exempt when one string covers every column past the width to the end of the text, so nothing but the string overflows.
     $lines = $Text -split "`r?`n"
     $exempt = foreach ($span in $spans) {
         $number = $span[0]

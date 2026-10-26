@@ -28,6 +28,7 @@ function Test-FileLimits {
         # A tracked file deleted on disk but not yet committed has nothing to measure; the next commit drops it from the index.
         @(Get-GitTrackedPath '.').Where({ [System.IO.File]::Exists($_) })
     }
+    # A comment page is authored prose though its root is a generated target, so it stays in scope.
     $authored = @(foreach ($page in (Get-Config -Config comment-pages).pages) {
             ($page.docs -replace '\{[^}]+\}', '*') + '/*'
         })

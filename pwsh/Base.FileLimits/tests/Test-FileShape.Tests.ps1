@@ -6,6 +6,7 @@ catzc:
 ---
 #>
 
+# One finding per breach, with path:line, the limit and its source, so a reader goes straight to the line.
 Describe 'Test-FileShape' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:wide = Join-Path $TestDrive 'widget.ps1'

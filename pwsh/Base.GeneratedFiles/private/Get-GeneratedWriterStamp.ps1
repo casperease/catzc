@@ -21,12 +21,14 @@ function Get-GeneratedWriterStamp {
         [string] $RepositoryRoot
     )
 
+    # Every matching file on disk counts, committed or ignored, so a pull or a hand-drifted file changes the stamp as surely as an edit.
     $prefix = $RepositoryRoot.TrimEnd('\', '/') + [System.IO.Path]::DirectorySeparatorChar
     $stamps = @{}
     $names = [System.Collections.Generic.List[string]]::new()
     $sets = [System.Collections.Generic.List[string[]]]::new()
     $salts = [System.Collections.Generic.List[string]]::new()
     foreach ($entry in $Writer) {
+        # Salted with the folders a wildcard leaf could be written into, so a new folder that should get a file makes the writer due.
         $globs = [string[]] @($entry.inputs | Where-Object { $_ })
         $matched = [Catzc.Base.Objects.GlobPattern]::MatchingPaths($globs, [string[]] @($Walk.File))
         $folderGlobs = [string[]] @(foreach ($glob in $globs) {

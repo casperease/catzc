@@ -14,6 +14,7 @@ function Get-GeneratedWriterMemo {
         [string] $MemoPath
     )
 
+    # A missing or unreadable memo reads as empty, so every writer is due.
     if (-not [System.IO.File]::Exists($MemoPath)) {
         return @{}
     }

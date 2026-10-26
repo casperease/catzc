@@ -17,6 +17,7 @@ function Get-LocalModuleViolation {
         [string] $RelativePath
     )
 
+    # A folder never spells the modules track's namespace: the folder resolves to its full name, and the bundle names the fix.
     $name = [System.IO.Path]::GetFileName($Path)
     $namespace = (Get-Track -Name pwsh).namespace
     if ($namespace -and $name.StartsWith("$namespace.", [System.StringComparison]::OrdinalIgnoreCase)) {

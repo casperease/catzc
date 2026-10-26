@@ -4,6 +4,7 @@
 #   header: "generated"
 # ---
 
+# Every key is optional and defaults on FileLimitsConfig; a language value wins over its class default, inside these bounds.
 bounds: { length: { min: 100, max: 500 }, width: { min: 80, max: 200 } }
 defaults: { code: { length: 400, width: 120 }, config: { length: 300, width: 140 }, prose: { length: 400, width: 140 } }
 languages: { python: { width: 140, length: 500 } }

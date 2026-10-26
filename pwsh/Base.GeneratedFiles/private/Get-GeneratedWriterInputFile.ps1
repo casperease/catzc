@@ -17,6 +17,7 @@ function Get-GeneratedWriterInputFile {
         [string] $RepositoryRoot
     )
 
+    # Only a glob with no literal folder walks the root, so a narrow writer pays only for the folders its own globs reach.
     $files = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
     $folders = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
     $walks = @{}
@@ -41,6 +42,7 @@ function Get-GeneratedWriterInputFile {
         }
     }
     $levels = { param([string] $Prefix) $Prefix.Split('/', [System.StringSplitOptions]::RemoveEmptyEntries).Count }
+    # One walk per folder lists its files and folders apart, already relative to the root, so nothing is cut per path here.
     $root = [System.IO.Path]::GetFullPath($RepositoryRoot)
     $pruned = [Catzc.Base.Folders.PathSet]::Pruned((Get-Config -Config folder-walk))
     foreach ($prefix in @($walks.Keys | Sort-Object { & $levels $_ })) {

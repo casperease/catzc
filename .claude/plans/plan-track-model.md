@@ -82,20 +82,11 @@ has a track.
 
 ## Open steps
 
-1. [ ] `pwsh/Base.Variants/configs/variants.yml`: every track renamed to its normal-form name (DDR-TRACKTYPE-NAMEFROMMEMBERS), the vendor id
-       `claude` renamed `ai` in `track-types.yml` with `.github` moved to the git vendor, the catch-up tracks, `out`, and the root files
-       moved into their tracks; every caller of an old track name changed in the same pass, `infrastructure` with its pipeline triggers,
-       globsets and deployable units (check: `Test-TrackDeclaration`, and `Get-Track -Path` answers `vendor_git.root_configs` for
-       `.gitignore`).
-2. [ ] `Test-TrackDeclaration`: every track name checked in the normal form through `Catzc.Base.Objects.NameCase.IsNormal` with
-       `(Get-Config -Config languages).naming_normal_form`, each offender listed; `VariantsConfig` keeps no naming policy (the orchestrator,
-       2026-10-26), edited in place after step 1's renames (check: `Invoke-TestFile` on Test-TrackDeclaration's test, and the real tree at
-       0).
-3. [ ] `pwsh/Base.QualityGates/Test-TrackMemberCommitted.ps1`: every root entry on disk lies in a track, `LICENSE` in `contracts`, once step
-       1 moves the root files into their tracks (check:
+1. [ ] `pwsh/Base.QualityGates/Test-TrackMemberCommitted.ps1`: every root entry on disk lies in a track, `LICENSE` in `contracts`, now
+       that the root files are in their tracks (check:
        `Invoke-TestFile -Path pwsh/Base.QualityGates/tests/Test-TrackMemberCommitted.Tests.ps1`).
-4. [ ] `pwsh/Base.Git/private/Get-AutoControlledGlobs.ps1`: `out` and `out/*` come from the out track's gitignored member once step 1
-       declares it, and their hand-written lines are deleted (check:
+2. [ ] `pwsh/Base.Git/private/Get-AutoControlledGlobs.ps1`: `out` and `out/*` come from the out track's gitignored member, now declared, and
+       their hand-written lines are deleted (check:
        `Invoke-TestFile -Path pwsh/Base.Git/tests/Get-AutoControlledGlobs.Tests.ps1`).
 
 ## Open questions

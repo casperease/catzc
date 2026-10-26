@@ -30,6 +30,7 @@ function Write-QualityGateReport {
     )
 
     $settings = Get-Config -Config reports
+    # Filled in the body: every gate forwards its own folder here, and an explicit empty one would override a parameter default.
     if (-not $OutputFolder) {
         $OutputFolder = Join-Path (Get-OutputRoot -EnsureExists) $settings.FolderFor($Subject)
     }

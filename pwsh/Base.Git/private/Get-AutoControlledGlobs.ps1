@@ -29,8 +29,14 @@ function Get-AutoControlledGlobs {
         if (-not $written) {
             continue
         }
-        if ($member.path.EndsWith('/**', [System.StringComparison]::Ordinal)) {
-            $folder = $member.path.Substring(0, $member.path.Length - 3)
+        # A folder member, written as a '/**' glob or as a folder on disk such as the out track's out, is the folder and its content.
+        $folder = if ($member.path.EndsWith('/**', [System.StringComparison]::Ordinal)) {
+            $member.path.Substring(0, $member.path.Length - 3)
+        }
+        elseif ([System.IO.Directory]::Exists((Join-Path (Get-RepositoryRoot) $member.path))) {
+            $member.path
+        }
+        if ($folder) {
             $ret.Add($folder)
             $ret.Add("$folder/*")
         }
@@ -46,9 +52,7 @@ function Get-AutoControlledGlobs {
     $ret.Add('.cspell')
     $ret.Add('.cspell/*')
 
-    # out/ is written by hand until it is its own track's member (plan-track-model).
-    $ret.Add('out')
-    $ret.Add('out/*')
+    # out/ comes from the out track's member above; the plans parked in it stay out of a clean.
     $ret.Add('!out/plan-*.md')
 
     # The generated .vscode editor config (generated-root-configs); clean may list the whole folder.

@@ -6,6 +6,7 @@ catzc:
 ---
 #>
 
+# The files a type owns, named under a base or found by a pattern through the bounded walker: full paths, sorted, unique.
 Describe 'PathSet' -Tag 'L0', 'logic' {
     BeforeAll {
         $root = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))

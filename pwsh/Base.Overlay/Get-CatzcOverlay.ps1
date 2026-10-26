@@ -22,6 +22,7 @@ function Get-CatzcOverlay {
     # The overlay's own folders, every one: an overlay is listed whole, nothing pruned.
     $folders = [string[]] @(Get-ChildPath $overlayRoot -Directory -Depth 1 -Exclude @() -PruneVendor $false)
     [System.Array]::Sort($folders, [System.StringComparer]::Ordinal)
+    # An overlay folder mirrors a bundled module's folder, without the namespace; a local module's name is its folder's.
     $namespace = (Get-Track -Name pwsh).namespace
     foreach ($folder in $folders) {
         $folderName = [System.IO.Path]::GetFileName($folder)
@@ -40,6 +41,7 @@ function Get-CatzcOverlay {
         }
         $moduleName = [Catzc.Base.Variants.VariantTrack]::FullNameIn($namespace, $folderName)
 
+        # Every file of a consumer module is classified, so the walk prunes nothing: a skipped file would be an override nobody sees.
         $files = [string[]] @(Get-ChildPath $folder -File -Depth 64 -Exclude @() -PruneVendor $false)
         [System.Array]::Sort($files, [System.StringComparer]::Ordinal)
         foreach ($file in $files) {

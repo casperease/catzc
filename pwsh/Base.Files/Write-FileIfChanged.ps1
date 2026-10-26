@@ -33,6 +33,7 @@ function Write-FileIfChanged {
     $changed = $canonical -cne $existing
 
     if ($changed -and -not $DryRun) {
+        # Inside a staged burst the write is journalled first, so a failed burst puts the file back.
         if (Get-Command -Name Save-BurstJournalWrite -ErrorAction Ignore) {
             Save-BurstJournalWrite -Path $Path
         }

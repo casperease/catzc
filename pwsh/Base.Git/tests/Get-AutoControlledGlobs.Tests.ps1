@@ -44,6 +44,19 @@ Describe 'Get-AutoControlledGlobs' -Tag 'L0', 'logic' {
         $globs | Should -Not -Contain 'widget/notes.txt' -Because 'a gitignored member no generator writes is in-flight work, never cleaned'
     }
 
+    It 'takes a generated folder member on disk, such as the out track''s out, as the folder and its contents' -Tag 'DDR-TRACK-TRACKISPLACEDCLUSTER' {
+        $root = Join-Path $TestDrive "root-$([guid]::NewGuid().ToString('N'))"
+        [System.IO.Directory]::CreateDirectory((Join-Path $root 'widget-out')) | Out-Null
+        Mock Get-RepositoryRoot -ModuleName Catzc.Base.Git { $root }
+        Mock Get-TrackMember -ModuleName Catzc.Base.Git {
+            [Catzc.Base.Variants.TrackMember]::new('widget_out', [Catzc.Base.Variants.VariantMember]::new('widget-out', $true, $false))
+        }
+        Mock Get-GeneratedTarget -ModuleName Catzc.Base.Git { }
+        $globs = InModuleScope Catzc.Base.Git { Get-AutoControlledGlobs }
+        $globs | Should -Contain 'widget-out'
+        $globs | Should -Contain 'widget-out/*'
+    }
+
     It 'includes the conventional generated-artifact classes' {
         $globs = InModuleScope Catzc.Base.Git { Get-AutoControlledGlobs }
         $modules = Get-CatzcModulesFolder

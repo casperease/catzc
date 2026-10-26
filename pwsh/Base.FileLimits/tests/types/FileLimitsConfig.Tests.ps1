@@ -6,6 +6,7 @@ catzc:
 ---
 #>
 
+# The type is the only place a file-limits default lives, and its bounds are asserted on construction, before any gate.
 Describe 'FileLimitsConfig' -Tag 'L0', 'logic' {
     It 'takes the declared defaults for every omitted key' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
         $config = [Catzc.Base.FileLimits.FileLimitsConfig]::new(@{})

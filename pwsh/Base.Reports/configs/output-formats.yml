@@ -181,6 +181,7 @@ formats:
     producer: an agent session (dumps, measurements, file lists, backups)
     audience: the session that wrote it
     validator: { kind: text }
+  # Never pruned: the time safeguard log is the record the limits are tuned from.
   session-log:
     area: log
     max_age: none
