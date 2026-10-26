@@ -48,8 +48,8 @@ content:
     - { id: f-source-only, kind: failure, label: Source tree only, in: band-stops }
   edges:
     - { from: g-importer, to: g-assert-exclusive, kind: flow, label: "" }
-    - { from: g-import-module, to: g-import-catzc, kind: flow, label: "" }
-    - { from: g-dir-importer, to: g-import-catzc, kind: flow, label: "" }
+    - { from: g-import-module, to: g-import-catzc, kind: flow, label: calls }
+    - { from: g-dir-importer, to: g-import-catzc, kind: flow, label: calls }
     - { from: g-import-catzc, to: g-assert-exclusive, kind: flow, label: "" }
     - { from: g-assert-exclusive, to: f-exclusivity, kind: fail, label: "" }
     - { from: g-assert-source, to: f-source-only, kind: fail, label: "" }

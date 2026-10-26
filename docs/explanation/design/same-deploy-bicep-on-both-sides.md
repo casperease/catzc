@@ -46,8 +46,8 @@ content:
     - { id: f-failed, kind: failure, label: "... failed (az exited N)", in: band-delegated }
     - { id: r-succeeded, kind: result, label: Deployment ... succeeded, in: band-substrate }
   edges:
-    - { from: g-connect, to: g-deploy, kind: flow, label: "" }
-    - { from: g-mode, to: g-deploy, kind: flow, label: "" }
+    - { from: g-connect, to: g-deploy, kind: flow, label: calls }
+    - { from: g-mode, to: g-deploy, kind: flow, label: calls }
     - { from: g-deploy, to: f-rejected, kind: fail, label: "" }
     - { from: g-deploy, to: r-preview, kind: flow, label: "" }
     - { from: g-deploy, to: f-failed, kind: fail, label: "" }

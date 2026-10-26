@@ -38,9 +38,9 @@ content:
     - { id: g-render, kind: runner, label: render or sync, in: band-pipeline }
     - { id: g-report, kind: result, label: report, in: band-pipeline }
   edges:
-    - { from: g-folders, to: g-articles, kind: flow, label: "" }
-    - { from: g-articles, to: g-minimaps, kind: flow, label: "" }
-    - { from: g-minimaps, to: g-render, kind: flow, label: "" }
+    - { from: g-folders, to: g-articles, kind: flow, label: feeds }
+    - { from: g-articles, to: g-minimaps, kind: flow, label: feeds }
+    - { from: g-minimaps, to: g-render, kind: flow, label: calls }
     - { from: g-render, to: g-report, kind: flow, label: "" }
   markers:
     - { at: g-render, number: 1 }

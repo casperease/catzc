@@ -13,7 +13,8 @@ Build-RootConfig filters the registry to the opted-in entries, then copies or re
 8  Write-FileIfChanged          the one write for every file, after Build-RootConfig deletes a link left at the target
 9  headed root file             what every branch leaves at the root path
 
-Supports ADR-REPO-ROOTCFG-REGISTRY, ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION, ADR-REPO-ROOTCFG-COMPOSEDROOTFILE, ADR-REPO-ROOTCFG-HEADEDCOPY and ADR-REPO-ROOTCFG-WILDCARDGENERATOR (implementation lens).
+Supports ADR-REPO-ROOTCFG-REGISTRY, ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION, ADR-REPO-ROOTCFG-COMPOSEDROOTFILE,
+ADR-REPO-ROOTCFG-HEADEDCOPY and ADR-REPO-ROOTCFG-WILDCARDGENERATOR (implementation lens).
 ```
 
 `Build-RootConfig` is a short function with one filter and two branches. It loads the registry through the config reader, which types and

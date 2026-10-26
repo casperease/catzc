@@ -148,7 +148,8 @@ function Get-ModuleBuildPlan {
                 $entries.Add([pscustomobject]@{ Path = ".compiled/types/$($file.Module)/$($file.Base).cs"; Kind = 'Copy'; Source = $file.Path; Content = $null; Exports = $null; Normalize = $normalize })
             }
         }
-        # Git keeps no DLL (ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD), so the build compiles it, and its manifest, into the bundle.
+        # Git keeps no DLL
+        # ([ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD](/docs/drs/automation/caching.md#rule-adr-auto-cache-compiledtypeprebuild)), so the build compiles it, and its manifest, into the bundle.
         $entries.Add([pscustomobject]@{ Path = ".compiled/Catzc.Types.$typeHash.dll"; Kind = 'Types'; Source = $null; Content = $null; Exports = $null })
         $entries.Add([pscustomobject]@{ Path = ".compiled/Catzc.Types.$typeHash.json"; Kind = 'Types'; Source = $null; Content = $null; Exports = $null })
     }

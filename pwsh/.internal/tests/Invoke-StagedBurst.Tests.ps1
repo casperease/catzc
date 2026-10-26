@@ -75,6 +75,40 @@ function Test-Broken { throw 'broken gadget' }
         ($lines -join "`n") | Should -BeLike '*holds no file*'
     }
 
+    Context 'a staged base' {
+        BeforeEach {
+            Remove-Item -LiteralPath (Join-Path $script:staged 'widgets/gadget.txt'), (Join-Path $script:staged 'widgets/sprocket.txt')
+            $null = & $script:burst -StagedFolder 'out/widget/staged' -RepositoryRoot $script:root -Stage 'widgets/gadget.txt'
+            [System.IO.File]::WriteAllText((Join-Path $script:staged 'widgets/gadget.txt'), 'staged')
+        }
+
+        It 'stages a target with the hash it had, beside the copy' {
+            [System.IO.File]::Exists((Join-Path $script:staged 'widgets/gadget.txt.burst-base')) | Should -BeTrue
+        }
+
+        It 'applies a staged copy whose target has not changed since it was staged' {
+            $null = @(& $script:burst -StagedFolder 'out/widget/staged' -RepositoryRoot $script:root -Importer $script:importer -LockName $script:lockName -LockSeconds 1 -Seconds 30 'Test-Swapped')
+            $LASTEXITCODE | Should -Be 0
+            [System.IO.File]::ReadAllText($script:target) | Should -BeExactly 'staged'
+            Test-Path -LiteralPath "$script:target.burst-base" | Should -BeFalse
+        }
+
+        It 'refuses a staged copy whose target changed after it was staged, naming it, before touching anything' {
+            [System.IO.File]::WriteAllText($script:target, 'a peer''s edit')
+            $lines = @(& $script:burst -StagedFolder 'out/widget/staged' -RepositoryRoot $script:root -Importer $script:importer -LockName $script:lockName -LockSeconds 1 -Seconds 30 'Test-Swapped')
+            $LASTEXITCODE | Should -Be 1
+            [System.IO.File]::ReadAllText($script:target) | Should -BeExactly 'a peer''s edit'
+            ($lines -join "`n") | Should -BeLike "*'widgets*gadget.txt' changed since it was staged*"
+        }
+
+        It 'applies a new file staged with no base' {
+            [System.IO.File]::WriteAllText((Join-Path $script:staged 'widgets/sprocket.txt'), 'new')
+            $null = @(& $script:burst -StagedFolder 'out/widget/staged' -RepositoryRoot $script:root -Importer $script:importer -LockName $script:lockName -LockSeconds 1 -Seconds 30 'Test-Swapped')
+            $LASTEXITCODE | Should -Be 0
+            [System.IO.File]::ReadAllText($script:created) | Should -BeExactly 'new'
+        }
+    }
+
     Context 'a staged delete' {
         BeforeEach {
             # Only the marker is staged, so these tests delete without swapping, unless one stages the gadget back itself.

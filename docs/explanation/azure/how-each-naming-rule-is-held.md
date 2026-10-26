@@ -10,7 +10,9 @@ All eight naming rules are held in code; seven behind a check that throws, one b
 5  length limit           #7: throws on every over-limit render; never truncates
 6  throw                  every check ends here; nothing is truncated or repaired
 
-Supports ADR-AZ-NAMING-DETERMINISTICNAMES, ADR-AZ-NAMING-TWOTEMPLATEIDENTIFIERS, ADR-AZ-NAMING-ENVIRONMENTFIRST, ADR-AZ-NAMING-PATTERNPERRESOURCETYPE, ADR-AZ-NAMING-ORDERISVARIANT, ADR-AZ-NAMING-LOWERCASECOMPONENTS, ADR-AZ-NAMING-NEVERTRUNCATE and ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT (governance lens).
+Supports ADR-AZ-NAMING-DETERMINISTICNAMES, ADR-AZ-NAMING-TWOTEMPLATEIDENTIFIERS, ADR-AZ-NAMING-ENVIRONMENTFIRST,
+ADR-AZ-NAMING-PATTERNPERRESOURCETYPE, ADR-AZ-NAMING-ORDERISVARIANT, ADR-AZ-NAMING-LOWERCASECOMPONENTS, ADR-AZ-NAMING-NEVERTRUNCATE
+and ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT (governance lens).
 ```
 
 The Azure naming standard has eight rules, and cats holds every one of them in code. Seven sit behind a check that throws: one at template

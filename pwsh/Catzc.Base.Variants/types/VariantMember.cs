@@ -2,7 +2,8 @@ using System;
 
 namespace Catzc.Base.Variants;
 
-// One member of a track: a folder or a file, with its two facts (DDR-TRACK-TRACKISPLACEDCLUSTER).
+// One member of a track: a folder or a file, with its two facts
+// ([DDR-TRACK-TRACKISPLACEDCLUSTER](/docs/drs/design/tracks.md#rule-ddr-track-trackisplacedcluster)).
 public sealed class VariantMember
 {
     private static readonly char[] WildcardCharacters = { '*', '?', '[' };

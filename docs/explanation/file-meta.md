@@ -34,11 +34,15 @@ run anything to see them. It is never the source:
 
 Three things can sit in front matter, and only the first is a fact:
 
-| Part                              | Owner                    | Who reads it                                                                                      |
-| --------------------------------- | ------------------------ | ------------------------------------------------------------------------------------------------- |
-| `catzc.immutable`, `catzc.edges`  | the imprint (derived)    | no command: each fact is recomputed                                                               |
-| `catzc.config`                    | the author               | the tool the values are for, such as a capability's tooling, on a class out of the policy's scope |
-| foreign keys (`name`, `tools`, …) | another tool, the vendor | only the tool that owns them, such as the agent tooling for a `.claude/agents/` file              |
+- **`catzc.immutable`, `catzc.edges`**
+  - Owner: the imprint (derived)
+  - Who reads it: no command: each fact is recomputed
+- **`catzc.config`**
+  - Owner: the author
+  - Who reads it: the tool the values are for, such as a capability's tooling, on a class out of the policy's scope
+- **foreign keys (`name`, `tools`, …)**
+  - Owner: another tool, the vendor
+  - Who reads it: only the tool that owns them, such as the agent tooling for a `.claude/agents/` file
 
 ## Where each fact comes from
 
@@ -47,22 +51,23 @@ Every imprinted kind is an entry of `pwsh/Catzc.Base.QualityGates/configs/file-m
 [ADR-REPO-FILEMETA-SUBSCRIBEBYFUNCTION](../drs/repository/file-meta.md#rule-adr-repo-filemeta-subscribebyfunction)), and each derives from
 outside the head:
 
-| Fact                                        | Source                                                                                                                                                      |
-| ------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `path`, `folder`, `name`, `filetype`        | the path                                                                                                                                                    |
-| `kind`, `subkind`                           | `file-kinds.yml` by glob                                                                                                                                    |
-| `language`                                  | `languages.yml` by extension                                                                                                                                |
-| `track`, `tracktype`, `vendor`              | the tracks registry                                                                                                                                         |
-| `module`, `moduletype`, `catzc_bundle`      | the module-types and exporter registries                                                                                                                    |
-| `visibility`                                | the module's `private/` folder                                                                                                                              |
-| `repo_status`                               | the file class (`locked_classes`); the git-only states come from `Get-RepoStatus` and are never written                                                     |
-| `generator`, `source`                       | the writer registry `generated-files.yml`, on demand and never written into a head; a generated file is told by it and `linguist-generated`                 |
-| `with_body_sha`                             | a hash of a tracked generated file's body, recomputed and compared by `Get-GeneratedStampDrift`; an authored file carries none                              |
-| `defines`, `links`                          | the Markdown body                                                                                                                                           |
-| `cites`                                     | the text and the comment page; a code with no other home is a one-line `Rests on` link beside the code it binds                                             |
-| `docs`                                      | the `relative-edges` path rule and the disk                                                                                                                 |
-| the test                                    | the convention, its stem under `tests/`; never an edge                                                                                                      |
-| comments (a long comment lives on its page) | `comments.yml`, the code and its page ([ADR-REPO-COMMENTS-ONELINEOFINSIGHT](../drs/repository/comments-in-docs.md#rule-adr-repo-comments-onelineofinsight)) |
+- **`path`, `folder`, `name`, `filetype`**: the path
+- **`kind`, `subkind`**: `file-kinds.yml` by glob
+- **`language`**: `languages.yml` by extension
+- **`track`, `tracktype`, `vendor`**: the tracks registry
+- **`module`, `moduletype`, `catzc_bundle`**: the module-types and exporter registries
+- **`visibility`**: the module's `private/` folder
+- **`repo_status`**: the file class (`locked_classes`); the git-only states come from `Get-RepoStatus` and are never written
+- **`generator`, `source`**: the writer registry `generated-files.yml`, on demand and never written into a head; a generated file is told by
+  it and `linguist-generated`
+- **`with_body_sha`**: a hash of a tracked generated file's body, recomputed and compared by `Get-GeneratedStampDrift`; an authored file
+  carries none
+- **`defines`, `links`**: the Markdown body
+- **`cites`**: the text and the comment page; a code with no other home is a one-line `Rests on` link beside the code it binds
+- **`docs`**: the `relative-edges` path rule and the disk
+- **the test**: the convention, its stem under `tests/`; never an edge
+- **comments (a long comment lives on its page)**: `comments.yml`, the code and its page
+  ([ADR-REPO-COMMENTS-ONELINEOFINSIGHT](../drs/repository/comments-in-docs.md#rule-adr-repo-comments-onelineofinsight))
 
 `Get-DrsUsage` counts the rule citations and links of the tree through the same processors, so its rows are the same with or without heads.
 
@@ -72,23 +77,51 @@ A head shows only what a reader needs to step on from the file: a generated file
 authored file's `docs` and `cites` edges. Every other fact about a file is derived on demand, so a head that showed it would be a second
 statement of it that can drift. These keys are never written into a head; each still has its meaning and its one source:
 
-| Key            | Meaning                                                                                  | Derived on demand by                                                                  |
-| -------------- | ---------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
-| `repo_status`  | whether the file is generated (`locked`, edit its source) or authored, and its git state | `Get-RepoStatus`; the generated class from `generated-files.yml` and `file-kinds.yml` |
-| `path`         | the repository-relative path of the file                                                 | the path itself                                                                       |
-| `folder`       | the folder of the file under its module                                                  | the path                                                                              |
-| `name`         | the file's name in kebab case                                                            | the path                                                                              |
-| `filetype`     | the extension, which tells the sorts of file inside one language apart (ps1, psm1, psd1) | the path                                                                              |
-| `subkind`      | the finer role inside a file kind                                                        | `file-kinds.yml` by glob, through `Get-FileKind`                                      |
-| `language`     | the file language                                                                        | `languages.yml` by extension, through `Get-FileLanguage`                              |
-| `tracktype`    | the type of the file's track (modules, pipelines, vendor-settings, …)                    | the tracks variant, through `Get-Track`                                               |
-| `vendor`       | the vendor that reads the track's files                                                  | the tracks variant, through `Get-Track`                                               |
-| `module`       | the module the file is placed in                                                         | `module-types.yml`, through `Get-PathModule`                                          |
-| `moduletype`   | the type of that module (pwsh-folder, settings, pipeline, …)                             | `module-types.yml`, through `Get-PathModule`                                          |
-| `catzc_bundle` | the smallest bundle of the catzc exporter that holds the module                          | `exporter.yml` and the module's profile, through `Get-ModuleProfile`                  |
-| `visibility`   | whether a PowerShell function file is public or private                                  | the module's `private/` folder                                                        |
-| `defines`      | the rules a decision record defines in its own rule headings                             | the record's `### Rule` headings, read by `Get-DrsDefinedRule`                        |
-| `links`        | every link a Markdown file points out of itself                                          | the Markdown body, read by `Test-Links`                                               |
+- **`repo_status`**
+  - Meaning: whether the file is generated (`locked`, edit its source) or authored, and its git state
+  - Derived on demand by: `Get-RepoStatus`; the generated class from `generated-files.yml` and `file-kinds.yml`
+- **`path`**
+  - Meaning: the repository-relative path of the file
+  - Derived on demand by: the path itself
+- **`folder`**
+  - Meaning: the folder of the file under its module
+  - Derived on demand by: the path
+- **`name`**
+  - Meaning: the file's name in kebab case
+  - Derived on demand by: the path
+- **`filetype`**
+  - Meaning: the extension, which tells the sorts of file inside one language apart (ps1, psm1, psd1)
+  - Derived on demand by: the path
+- **`subkind`**
+  - Meaning: the finer role inside a file kind
+  - Derived on demand by: `file-kinds.yml` by glob, through `Get-FileKind`
+- **`language`**
+  - Meaning: the file language
+  - Derived on demand by: `languages.yml` by extension, through `Get-FileLanguage`
+- **`tracktype`**
+  - Meaning: the type of the file's track (modules, pipelines, vendor-settings, …)
+  - Derived on demand by: the tracks variant, through `Get-Track`
+- **`vendor`**
+  - Meaning: the vendor that reads the track's files
+  - Derived on demand by: the tracks variant, through `Get-Track`
+- **`module`**
+  - Meaning: the module the file is placed in
+  - Derived on demand by: `module-types.yml`, through `Get-PathModule`
+- **`moduletype`**
+  - Meaning: the type of that module (pwsh-folder, settings, pipeline, …)
+  - Derived on demand by: `module-types.yml`, through `Get-PathModule`
+- **`catzc_bundle`**
+  - Meaning: the smallest bundle of the catzc exporter that holds the module
+  - Derived on demand by: `exporter.yml` and the module's profile, through `Get-ModuleProfile`
+- **`visibility`**
+  - Meaning: whether a PowerShell function file is public or private
+  - Derived on demand by: the module's `private/` folder
+- **`defines`**
+  - Meaning: the rules a decision record defines in its own rule headings
+  - Derived on demand by: the record's `### Rule` headings, read by `Get-DrsDefinedRule`
+- **`links`**
+  - Meaning: every link a Markdown file points out of itself
+  - Derived on demand by: the Markdown body, read by `Test-Links`
 
 The module facts, `module`, `moduletype`, `catzc_bundle`, `tracktype` and `vendor`, are each one question to the registry that places the
 module ([module-types](../drs/design/module-types.md)) or declares its track, so a head that showed them would be a second list of what the
@@ -102,14 +135,24 @@ Every file on disk is format-managed: a `Format-*` command covers it and decides
 command covers is a finding. The default is no head, and a head is printed only where a reader needs it
 ([ADR-REPO-FILEMETA-HEADPOLICY](../drs/repository/file-meta.md#rule-adr-repo-filemeta-headpolicy)):
 
-| Files                                                          | Head                                          | Why                                                                                    |
-| -------------------------------------------------------------- | --------------------------------------------- | -------------------------------------------------------------------------------------- |
-| generated files tracked in git, the DRS index and glossary too | the warning and `with_body_sha`, nothing else | the warning says not to edit the file, and the hash stamps the composed body           |
-| generated files git does not track                             | the warning only                              | no commit compares the body, so a stamp would say nothing                              |
-| authored files with a comment page or rule codes to cite       | `docs` and `cites` only                       | the page and the rules are one step away; the test is found by its stem under `tests/` |
-| every other authored file, diagram declarations included       | none                                          | every fact is derivable, so a head would be a second statement of it that can drift    |
-| binaries                                                       | none possible                                 | format-managed, with no place for a head                                               |
-| agent, skill and slide definitions                             | their own tool's front matter, as authored    | out of scope: another tool reads those keys                                            |
+- **generated files tracked in git, the DRS index and glossary too**
+  - Head: the warning and `with_body_sha`, nothing else
+  - Why: the warning says not to edit the file, and the hash stamps the composed body
+- **generated files git does not track**
+  - Head: the warning only
+  - Why: no commit compares the body, so a stamp would say nothing
+- **authored files with a comment page or rule codes to cite**
+  - Head: `docs` and `cites` only
+  - Why: the page and the rules are one step away; the test is found by its stem under `tests/`
+- **every other authored file, diagram declarations included**
+  - Head: none
+  - Why: every fact is derivable, so a head would be a second statement of it that can drift
+- **binaries**
+  - Head: none possible
+  - Why: format-managed, with no place for a head
+- **agent, skill and slide definitions**
+  - Head: their own tool's front matter, as authored
+  - Why: out of scope: another tool reads those keys
 
 Because no command reads an imprinted fact, a policy change is safe in both directions: adding heads changes no verdict, and removing them
 changes none either. `Test-FileMeta` reports a head that disagrees with the policy, absent where it calls for one, present where it does

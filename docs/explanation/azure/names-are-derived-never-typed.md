@@ -11,7 +11,8 @@ An operator changes settings and runs a command; cats derives the name or stops 
 6  dev-001-weu-zct-sidx-rg  the name that passes: printed, or the deploy's resource group
 7  throw                    an error to act on: fix a setting and rerun
 
-Supports ADR-AZ-NAMING-DETERMINISTICNAMES, ADR-AZ-NAMING-ORDERISVARIANT, ADR-AZ-NAMING-LOWERCASECOMPONENTS, ADR-AZ-NAMING-NEVERTRUNCATE and ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT (operations lens).
+Supports ADR-AZ-NAMING-DETERMINISTICNAMES, ADR-AZ-NAMING-ORDERISVARIANT, ADR-AZ-NAMING-LOWERCASECOMPONENTS,
+ADR-AZ-NAMING-NEVERTRUNCATE and ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT (operations lens).
 ```
 
 An Azure resource name in cats is never typed by an operator. A person runs a deploy or asks for a name, and the naming standard derives it

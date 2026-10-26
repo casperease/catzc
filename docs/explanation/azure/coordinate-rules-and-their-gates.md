@@ -11,7 +11,9 @@ Two ADRs rule the coordinate; one shared check and the integrity tests hold them
 6  subscription                           the resolved value, never a path segment or an argument (D1)
 7  resource group                         its name derived by the namer; no gate checks a config for a typed one (D5, no gate)
 
-Supports ADR-AZ-DATAMOD-TWOCONFIGLAYERS, ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION, ADR-AZ-DATAMOD-NAMEKEYEDMAPS, ADR-AZ-DATAMOD-DERIVEDRESOURCEGROUPNAME and ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY, and ADR-AZ-CUSTOMER-TWOBINDINGS and ADR-AZ-CUSTOMER-KEYISSUBFOLDER (governance lens).
+Supports ADR-AZ-DATAMOD-TWOCONFIGLAYERS, ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION, ADR-AZ-DATAMOD-NAMEKEYEDMAPS,
+ADR-AZ-DATAMOD-DERIVEDRESOURCEGROUPNAME and ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY, and ADR-AZ-CUSTOMER-TWOBINDINGS
+and ADR-AZ-CUSTOMER-KEYISSUBFOLDER (governance lens).
 ```
 
 Two decisions govern a config file's coordinate in cats: the templating data model, which says what the path means and that it resolves to

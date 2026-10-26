@@ -11,7 +11,8 @@ Four checks in code order, three returns, and no check falls through on failure.
 6  Assert-NotNullOrWhitespace    check 4: the token is not empty; returns Bearer $result.Output
 7  No ADO token available        the throw when the az CLI yields no token
 
-Supports ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE, ADR-ADO-AUTH-PROVETARGET, ADR-ADO-AUTH-EXPLICITDETECTION and ADR-ADO-AUTH-ASSERTWHENNOTOKEN (implementation lens).
+Supports ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE, ADR-ADO-AUTH-PROVETARGET, ADR-ADO-AUTH-EXPLICITDETECTION
+and ADR-ADO-AUTH-ASSERTWHENNOTOKEN (implementation lens).
 ```
 
 `Get-AdoAuthorizationHeader` in `Catzc.Azure.DevOps` builds the `Authorization` header for every Azure DevOps REST call in cats. In code it

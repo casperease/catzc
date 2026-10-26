@@ -11,7 +11,8 @@ No gate checks the runner rules 1 or 4, and the step template breaks rule 3.
 6  expected-failures 1b         replays its own copy of the template's guard
 7  expected-failures - Pester   steps 1a and 1c prove the trap; Pester covers the sanitizer
 
-Supports FDR-CD-RUNNER-NOINLINEPOWERSHELL, FDR-CD-RUNNER-IMPORTONCE, FDR-CD-RUNNER-THINSTEPTEMPLATES and FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE, and ADR-ADO-NAME-ABSOLUTETEMPLATEPATH (governance lens).
+Supports FDR-CD-RUNNER-NOINLINEPOWERSHELL, FDR-CD-RUNNER-IMPORTONCE, FDR-CD-RUNNER-THINSTEPTEMPLATES
+and FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE, and ADR-ADO-NAME-ABSOLUTETEMPLATEPATH (governance lens).
 ```
 
 The pipeline runner pattern has four rules, one for each stage a pipeline step passes through: the YAML, the step template, the runner and

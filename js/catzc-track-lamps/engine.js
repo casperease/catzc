@@ -166,6 +166,7 @@ function activateEngine(context, api) {
         const facts = gitFacts(root, repository?.state);
         const sources = config().get("failingSources");
         if (Array.isArray(sources)) setFailingSources(sources);
+        /** @type {import("./facts.js").DiagnosticEntry[]} */
         const entries = vscode.languages.getDiagnostics().map(([uri, diagnostics]) => [uri, diagnostics.filter((d) => !isRemembered(d))]);
         const before = JSON.stringify(context.workspaceState.get(HELD, {}));
         held = await lapsedFaults(root, heldFaults(root, held, entries));

@@ -12,7 +12,8 @@ What you set decides the credential, and each wrong setup stops with its own mes
 7  No ADO token available     the message when the session yields no token
 8  Authorization header       what a working setup gives the REST call
 
-Supports ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE, ADR-ADO-AUTH-PROVETARGET, ADR-ADO-AUTH-ASSERTWHENNOTOKEN and ADR-ADO-AUTH-TEMPLATESMAPSYSTEMTOKEN (operations lens).
+Supports ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE, ADR-ADO-AUTH-PROVETARGET, ADR-ADO-AUTH-ASSERTWHENNOTOKEN
+and ADR-ADO-AUTH-TEMPLATESMAPSYSTEMTOKEN (operations lens).
 ```
 
 Anyone who runs an Azure DevOps REST function in cats, from a pipeline or a terminal, gets its credential from one ladder. The first thing

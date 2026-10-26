@@ -12,7 +12,8 @@ CI, CD and DEPLOY are separate pipeline kinds, keyed together by one artifact.
 7  pre-prod, production  DEPLOY-Prod stages the artifact inactive, then activates it live
 8  the CD run's path     the apex and shared CD pipelines deploy the prod tier themselves today
 
-Supports FDR-CD-SEPARATEPIPELINEKINDS, FDR-CD-CDCONTAINSCI, FDR-CD-CDSTAYSINNONPROD, FDR-CD-TWORELEASEGATES and FDR-CD-PREPRODRUNG (architecture lens).
+Supports FDR-CD-SEPARATEPIPELINEKINDS, FDR-CD-CDCONTAINSCI, FDR-CD-CDSTAYSINNONPROD, FDR-CD-TWORELEASEGATES
+and FDR-CD-PREPRODRUNG (architecture lens).
 ```
 
 Cats does not build one giant pipeline from commit to production. CI, CD and DEPLOY are separate pipeline kinds, each with its own trigger,

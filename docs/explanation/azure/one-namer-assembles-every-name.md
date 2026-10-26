@@ -15,7 +15,8 @@ reads the registries, the consumer calls the resolver, and the deploy code, the 
 8  deploy code                 the actor that starts the flow: the deploy asks for the resource-group name
 9  Get-BicepResourceGroupName  the one in-tree consumer: the resource-group name
 
-Supports ADR-AZ-NAMING-DETERMINISTICNAMES, ADR-AZ-NAMING-PATTERNPERRESOURCETYPE, ADR-AZ-NAMING-ORDERISVARIANT and ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT (architecture lens).
+Supports ADR-AZ-NAMING-DETERMINISTICNAMES, ADR-AZ-NAMING-PATTERNPERRESOURCETYPE, ADR-AZ-NAMING-ORDERISVARIANT
+and ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT (architecture lens).
 ```
 
 Every Azure resource name in cats comes out of one place. A resolver gathers the name components from three config files, and a single

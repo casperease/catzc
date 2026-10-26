@@ -55,8 +55,8 @@ content:
     - { id: g-az-cli, kind: external, label: az CLI, in: band-delegated }
     - { id: g-substrate, kind: drsonly, label: swappable substrate, in: band-substrate }
   edges:
-    - { from: g-naming, to: g-functions, kind: flow, label: "" }
-    - { from: g-config, to: g-functions, kind: flow, label: "" }
+    - { from: g-naming, to: g-functions, kind: flow, label: calls }
+    - { from: g-config, to: g-functions, kind: flow, label: calls }
     - { from: g-everything-code, to: g-functions, kind: adr, label: "" }
     - { from: g-assert-tool, to: g-az-cli, kind: flow, label: "" }
     - { from: g-no-reimplementation, to: g-az-cli, kind: adr, label: "" }

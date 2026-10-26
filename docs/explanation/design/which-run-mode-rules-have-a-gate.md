@@ -52,11 +52,11 @@ content:
     - { id: g-run-mode, kind: code, label: Get-CatzcRunMode, in: band-after }
     - { id: g-build-kinds, kind: drsonly, label: Three build kinds, in: band-after }
   edges:
-    - { from: g-test-automation, to: g-importer, kind: flow, label: "" }
-    - { from: g-test-build, to: g-import-catzc, kind: flow, label: "" }
+    - { from: g-test-automation, to: g-importer, kind: flow, label: calls }
+    - { from: g-test-build, to: g-import-catzc, kind: flow, label: calls }
     - { from: g-importer, to: g-exclusive, kind: flow, label: "" }
     - { from: g-import-catzc, to: g-exclusive, kind: flow, label: "" }
-    - { from: g-source-tree, to: g-run-mode, kind: flow, label: "" }
+    - { from: g-source-tree, to: g-run-mode, kind: flow, label: calls }
   markers:
     - { at: g-test-automation, number: 1 }
     - { at: g-test-build, number: 2 }

@@ -163,7 +163,8 @@ function Import-CSharpTypes {
         $null
     }
     # Git keeps only the manifest in .compiled; the DLL is a per-machine build in the shadow root
-    # (ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD). A bundle ships its DLL beside the manifest and never compiles.
+    # ([ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD](/docs/drs/automation/caching.md#rule-adr-auto-cache-compiledtypeprebuild)).
+    # A bundle ships its DLL beside the manifest and never compiles.
     $compiledDir = [System.IO.Path]::Combine($ModulesRoot, '.compiled')
     $buildDir = if ($PrebuiltOnly) {
         $compiledDir

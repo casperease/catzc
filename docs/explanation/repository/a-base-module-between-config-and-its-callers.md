@@ -46,12 +46,12 @@ content:
     - { id: g-upper-base, kind: code, label: Globs · ModuleSystem · Maps, in: band-callers }
     - { id: g-tooling, kind: drsonly, label: Tooling, in: band-callers }
   edges:
-    - { from: g-variants-yml, to: g-config, kind: flow, label: "" }
-    - { from: g-config, to: g-variants, kind: flow, label: "" }
-    - { from: g-objects, to: g-variants, kind: flow, label: "" }
-    - { from: g-asserts, to: g-variants, kind: flow, label: "" }
+    - { from: g-variants-yml, to: g-config, kind: flow, label: feeds }
+    - { from: g-variants, to: g-config, kind: flow, label: calls }
+    - { from: g-variants, to: g-objects, kind: flow, label: calls }
+    - { from: g-variants, to: g-asserts, kind: flow, label: calls }
     - { from: g-variants, to: g-azure-ext, kind: thick, label: "" }
-    - { from: g-variants, to: g-upper-base, kind: flow, label: "" }
+    - { from: g-upper-base, to: g-variants, kind: flow, label: calls }
     - { from: g-variants, to: g-tooling, kind: adr, label: "" }
   markers:
     - { at: g-variants-yml, number: 1 }

@@ -40,6 +40,11 @@
 
 .PARAMETER InBurst
     The swap and its tests, run under the lock the burst holds; the call starts it itself and nothing else passes it.
+
+.PARAMETER Stage
+    Stages these repository-relative files instead of swapping: each is copied into the staged folder with a <path>.burst-base beside it,
+    the SHA-256 the target has now. A later swap refuses, before touching anything, a staged file whose target no longer has that hash, so a
+    stale whole-file copy never overwrites a peer's edit; a staged file with no base, such as a new one, is swapped as before.
 #>
 
 # The help stays in this file, not on a comment page: the script imports nothing, since it swaps the files an import reads, so the page
@@ -63,10 +68,35 @@ param(
     [ValidateRange(1, 360)]
     [int] $LockSeconds,
 
-    [switch] $InBurst
+    [switch] $InBurst,
+
+    [string[]] $Stage
 )
 
 Set-StrictMode -Version Latest
+
+$baseSuffix = '.burst-base'
+if ($Stage) {
+    $stageRoot = [System.IO.Path]::GetFullPath($RepositoryRoot)
+    $stageFolder = if ([System.IO.Path]::IsPathRooted($StagedFolder)) {
+        [System.IO.Path]::GetFullPath($StagedFolder)
+    }
+    else {
+        [System.IO.Path]::GetFullPath((Join-Path $stageRoot $StagedFolder))
+    }
+    foreach ($relative in $Stage) {
+        $source = Join-Path $stageRoot $relative
+        if (-not (Test-Path -LiteralPath $source -PathType Leaf)) {
+            throw "Invoke-StagedBurst: '$relative' does not exist, so there is nothing to stage; write a new file into the staged folder directly."
+        }
+        $copy = Join-Path $stageFolder $relative
+        $null = New-Item -ItemType Directory -Path (Split-Path -Parent $copy) -Force
+        Copy-Item -LiteralPath $source -Destination $copy -Force
+        Set-Content -LiteralPath "$copy$baseSuffix" -Value (Get-FileHash -Algorithm SHA256 -LiteralPath $source).Hash -NoNewline
+        "[Invoke-StagedBurst] staged $relative with its base"
+    }
+    return
+}
 
 $Command = @($Command | Where-Object { -not [string]::IsNullOrWhiteSpace($_) })
 if ($Command.Count -eq 0) {
@@ -138,6 +168,22 @@ while ($pending.Count -gt 0) {
             throw "Invoke-StagedBurst: the staged folder '$staged' is deeper than $depthRoof levels."
         }
         $pending.Enqueue(@($child, ($depth + 1)))
+    }
+}
+# A base is no swap: it guards the staged file beside it, which is refused when its target moved on since it was staged.
+$bases = @($relatives | Where-Object { $_.EndsWith($baseSuffix, [System.StringComparison]::Ordinal) })
+$relatives = @($relatives | Where-Object { -not $_.EndsWith($baseSuffix, [System.StringComparison]::Ordinal) })
+foreach ($base in $bases) {
+    $guarded = $base.Substring(0, $base.Length - $baseSuffix.Length)
+    $target = Join-Path $root $guarded
+    $now = if (Test-Path -LiteralPath $target -PathType Leaf) {
+        (Get-FileHash -Algorithm SHA256 -LiteralPath $target).Hash
+    }
+    else {
+        'absent'
+    }
+    if ($now -ne (Get-Content -LiteralPath (Join-Path $staged $base) -Raw).Trim()) {
+        throw "Invoke-StagedBurst: '$guarded' changed since it was staged, so the staged copy would overwrite a newer edit; stage it again from the current file."
     }
 }
 $relatives = @($relatives)

@@ -10,7 +10,8 @@ Catzc.Base.Globs computes every globset role from one typed registry.
 5  Protection identity     Get-GlobSetHash: the live durable SHA of a set
 6  Test-Automation         reads a composite identity per module, never parses globs.yml
 
-Supports FDR-CD-GLOBS-NAMEDGLOBSETS, FDR-CD-GLOBS-DURABLESHAIDENTITY, FDR-CD-GLOBS-NATIVEPATHFILTER and FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT (architecture lens).
+Supports FDR-CD-GLOBS-NAMEDGLOBSETS, FDR-CD-GLOBS-DURABLESHAIDENTITY, FDR-CD-GLOBS-NATIVEPATHFILTER
+and FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT (architecture lens).
 ```
 
 `Catzc.Base.Globs` is the one module that maps every area-of-control in cats, such as a deployable unit, a track or a scan scope, onto its

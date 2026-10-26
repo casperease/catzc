@@ -11,7 +11,27 @@ const REMEMBERED = " · remembered";
 const MAX_REMEMBERED = 20;
 const MARKERS = "out/test-results";
 
+// The shapes read here, structural so the editor's objects and the tests' plain ones both fit.
+/** @typedef {import("./language.js").Facts} Facts */
+/** @typedef {{ fsPath: string, scheme?: string }} Uri */
+/** @typedef {{ line?: number, character?: number }} Position */
+/**
+ * @typedef {{ severity?: number, source?: string, message?: string, range?: { start?: Position, end?: Position },
+ *   code?: string | number | { value?: string | number } }} Diagnostic
+ */
+/** @typedef {[Uri, Diagnostic[] | undefined]} DiagnosticEntry one file's diagnostics, as the editor's getDiagnostics pairs them */
+/** @typedef {{ message: string, range: number[], source: string, code?: string }} StoredError */
+/** @typedef {Record<string, { seen: number, diagnostics: StoredError[] }>} Held the held faults, by place */
+/** @typedef {{ uri: Uri }} Change */
+/** @typedef {{ indexChanges?: Change[], workingTreeChanges?: Change[], untrackedChanges?: Change[], mergeChanges?: Change[] }} RepositoryState */
+/** @typedef {{ tabs?: readonly unknown[] }} TabGroup a tab group; a tab's input is the editor's own, narrowed where it is read */
+
 // A path of the editor's, made '/'-separated from the root; undefined when it lies outside the root.
+/**
+ * @param {string} root
+ * @param {string} fsPath
+ * @returns {string | undefined}
+ */
 function relativeTo(root, fsPath) {
     const relative = path.relative(root, fsPath);
     if (!relative || relative.startsWith("..") || path.isAbsolute(relative)) return undefined;
@@ -19,6 +39,12 @@ function relativeTo(root, fsPath) {
 }
 
 // The facts in one map, a file's change and fault side by side; unstaged outranks staged for a file in both lists.
+/**
+ * @param {Facts} facts
+ * @param {string | undefined} place
+ * @param {"change" | "fault"} field
+ * @param {string} value
+ */
 function addFact(facts, place, field, value) {
     if (!place) return;
     const fact = (facts[place] ??= {});
@@ -28,6 +54,12 @@ function addFact(facts, place, field, value) {
 
 // The change facts from the git extension's repository state: staged for the index's changes, unstaged for the working tree's, the
 // untracked and the merge changes.
+/**
+ * @param {string} root
+ * @param {RepositoryState | undefined} state
+ * @param {Facts} [facts]
+ * @returns {Facts}
+ */
 function gitFacts(root, state, facts = {}) {
     for (const change of state?.indexChanges ?? []) addFact(facts, relativeTo(root, change.uri.fsPath), "change", "staged");
     for (const list of [state?.workingTreeChanges, state?.untrackedChanges, state?.mergeChanges])
@@ -38,14 +70,21 @@ function gitFacts(root, state, facts = {}) {
 // The linters a quality gate fails on for any finding: their Warnings are failures too, so a lamp never shows green what the gate
 // fails (the Ruff extension reports every lint finding as a Warning). Set from catzc.trackLamps.failingSources on activation.
 const FAILING_SOURCES = new Set(["Ruff", "PSScriptAnalyzer"]);
-const setFailingSources = (sources) => {
+const setFailingSources = (/** @type {string[] | undefined} */ sources) => {
     FAILING_SOURCES.clear();
     for (const source of sources ?? []) FAILING_SOURCES.add(source);
 };
 // A diagnostic that fails its file: an Error (severity 0), or a Warning (severity 1) from a failing source.
-const fails = (diagnostic) => diagnostic.severity === 0 || (diagnostic.severity === 1 && FAILING_SOURCES.has(diagnostic.source));
+const fails = (/** @type {Diagnostic} */ diagnostic) =>
+    diagnostic.severity === 0 || (diagnostic.severity === 1 && FAILING_SOURCES.has(diagnostic.source ?? ""));
 
 // The fault facts from the diagnostics, [uri, diagnostics] pairs: failed for a file carrying a failing diagnostic.
+/**
+ * @param {string} root
+ * @param {DiagnosticEntry[] | undefined} entries
+ * @param {Facts} [facts]
+ * @returns {Facts}
+ */
 function diagnosticFacts(root, entries, facts = {}) {
     for (const [uri, diagnostics] of entries ?? [])
         if ((diagnostics ?? []).some(fails)) addFact(facts, relativeTo(root, uri.fsPath), "fault", "failed");
@@ -53,15 +92,24 @@ function diagnosticFacts(root, entries, facts = {}) {
 }
 
 // The places carrying an Error right now, for the log line that tells a held fault from a live one.
+/**
+ * @param {string} root
+ * @param {DiagnosticEntry[] | undefined} entries
+ * @returns {string[]}
+ */
 function errorPlaces(root, entries) {
     return (entries ?? [])
         .filter(([, diagnostics]) => (diagnostics ?? []).some(fails))
         .map(([uri]) => relativeTo(root, uri.fsPath))
-        .filter(Boolean)
+        .filter((place) => place !== undefined)
         .sort();
 }
 
 // An Error as it is stored and published again: its message, range (start line and character, end line and character), source and code.
+/**
+ * @param {Diagnostic} diagnostic
+ * @returns {StoredError}
+ */
 function storedError(diagnostic) {
     const { start, end } = diagnostic.range ?? {};
     const code = typeof diagnostic.code === "object" ? diagnostic.code?.value : diagnostic.code;
@@ -74,13 +122,20 @@ function storedError(diagnostic) {
 }
 
 // A diagnostic this extension published for a closed file's remembered Error; the live diagnostics are read without them.
-const isRemembered = (diagnostic) => typeof diagnostic.source === "string" && diagnostic.source.endsWith(REMEMBERED);
+const isRemembered = (/** @type {Diagnostic} */ diagnostic) => typeof diagnostic.source === "string" && diagnostic.source.endsWith(REMEMBERED);
 
 // The files whose Error stays a fault while the editor's diagnostics fall silent: a language server reports a file's Error only while the
 // file is open (a closed preview tab clears it) and while it is not re-analysing, and red always wins over the change colours. held maps
 // a place to { seen: the time its Error was first seen, diagnostics: its Errors as last reported }; the fault stays until the file
 // reports a non-error set, is edited or saved (the caller), or changes on disk after that time (lapsed); silence and a closed tab never
 // release it. Returns the new map.
+/**
+ * @param {string} root
+ * @param {Held | undefined} held
+ * @param {DiagnosticEntry[] | undefined} entries
+ * @param {number} [now]
+ * @returns {Held}
+ */
 function heldFaults(root, held, entries, now = Date.now()) {
     const next = { ...(held ?? {}) };
     for (const [uri, diagnostics] of entries ?? []) {
@@ -96,6 +151,11 @@ function heldFaults(root, held, entries, now = Date.now()) {
 }
 
 // The held places whose file changed on disk after its Error was seen, or is gone: the held map without them.
+/**
+ * @param {string} root
+ * @param {Held} held
+ * @returns {Promise<Held>}
+ */
 async function lapsedFaults(root, held) {
     const next = { ...held };
     for (const [place, fault] of Object.entries(held)) {
@@ -110,6 +170,12 @@ async function lapsedFaults(root, held) {
 
 // The Errors to publish again: the held places the language servers report no Error for now, each with its stored Errors. A place with a
 // live Error is left to its server, so nothing shows twice.
+/**
+ * @param {string} root
+ * @param {Held | undefined} held
+ * @param {DiagnosticEntry[] | undefined} entries
+ * @returns {Record<string, StoredError[]>}
+ */
 function remembering(root, held, entries) {
     // Only a live Error paints the file red in the editor; a file failed by a Warning (a gate's linter) is painted gold, so its failures
     // are published as Errors too, and the tree, the tab and every folder above show red.
@@ -117,7 +183,7 @@ function remembering(root, held, entries) {
         (entries ?? [])
             .filter(([, diagnostics]) => (diagnostics ?? []).some((diagnostic) => diagnostic.severity === 0))
             .map(([uri]) => relativeTo(root, uri.fsPath))
-            .filter(Boolean),
+            .filter((place) => place !== undefined),
     );
     return Object.fromEntries(
         Object.entries(held ?? {})
@@ -127,6 +193,10 @@ function remembering(root, held, entries) {
 }
 
 // The module a test file tests: the folder above its first tests segment, else its own folder.
+/**
+ * @param {string} test
+ * @returns {string}
+ */
 function testedModule(test) {
     const parts = test.split("/");
     const at = parts.indexOf("tests");
@@ -135,9 +205,14 @@ function testedModule(test) {
 
 // The fault facts from the test-result markers, out/test-results/<test file>.failed: a marker makes its test file failed while it is
 // newer than the test file and every file of the module it tests, so an edit after the run lapses it. Existence and timestamps only.
+/**
+ * @param {string} root
+ * @param {Facts} [facts]
+ * @returns {Promise<Facts>}
+ */
 async function markerFacts(root, facts = {}) {
     const markers = (await walkDisk(path.join(root, MARKERS))).files.filter((place) => place.endsWith(".failed"));
-    const newest = async (folder) => {
+    const newest = async (/** @type {string} */ folder) => {
         let latest = 0;
         for (const place of (await walkDisk(path.join(root, folder))).files) {
             try {
@@ -163,17 +238,28 @@ async function markerFacts(root, facts = {}) {
 }
 
 // How many editors are open, every tab of every group counted, whatever it shows.
+/**
+ * @param {readonly TabGroup[] | undefined} tabGroups
+ * @returns {number}
+ */
 function editorCount(tabGroups) {
     return (tabGroups ?? []).reduce((sum, group) => sum + (group?.tabs?.length ?? 0), 0);
 }
 
 // The files open in an editor, '/'-separated from the root, from the editor's tab groups: a text tab's file, a diff tab's modified side,
 // a notebook's file; a tab outside the root or not on disk is none.
+/**
+ * @param {string} root
+ * @param {readonly TabGroup[] | undefined} tabGroups
+ * @returns {string[]}
+ */
 function openFiles(root, tabGroups) {
+    /** @type {Set<string>} */
     const open = new Set();
     for (const group of tabGroups ?? [])
         for (const tab of group.tabs ?? []) {
-            const uri = tab.input?.modified ?? tab.input?.uri;
+            const input = /** @type {{ input?: { modified?: Uri, uri?: Uri } } | undefined} */ (tab)?.input;
+            const uri = input?.modified ?? input?.uri;
             const place = uri?.scheme === "file" ? relativeTo(root, uri.fsPath) : undefined;
             if (place) open.add(place);
         }

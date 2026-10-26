@@ -11,7 +11,8 @@ A quality gate keeps units and modules disjoint; loose-filesets are exempt; two 
 6  module sets               derived-only, disjoint on their own contribution
 7  Config-load validation    GlobsConfig rejects a declared module layer or reserved name
 
-Supports FDR-CD-GLOBS-EVERYSETHASLAYER, FDR-CD-GLOBS-NOOVERLAPWITHINLAYER, ADR-AUTO-TEST-QUALITYGATE and ADR-REPO-PROTGLOB (governance lens).
+Supports FDR-CD-GLOBS-EVERYSETHASLAYER, FDR-CD-GLOBS-NOOVERLAPWITHINLAYER, ADR-AUTO-TEST-QUALITYGATE
+and ADR-REPO-PROTGLOB (governance lens).
 ```
 
 The per-layer independence rule says that peers in a layer never share a file on their own contribution. In cats a quality gate enforces it

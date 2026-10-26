@@ -33,45 +33,41 @@ A commit only climbs, then ends in one of three ways ([commit-lifecycle](../../d
 
 Two whole-picture diagrams of the same lifecycle ([commit-lifecycle](../../drs/flow/commit-lifecycle.md)). They have no separate lenses.
 
-| Picture         | Article                                                                                                                          |
-| --------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| ten commits     | [Ten numbered commits trace the whole lifecycle across pipeline, environments and git](ten-commits-trace-the-whole-lifecycle.md) |
-| pipeline shapes | [Each pipeline shape runs a stretch of the same ladder](each-pipeline-shape-runs-a-stretch-of-the-ladder.md)                     |
+- **ten commits**:
+  [Ten numbered commits trace the whole lifecycle across pipeline, environments and git](ten-commits-trace-the-whole-lifecycle.md)
+- **pipeline shapes**: [Each pipeline shape runs a stretch of the same ladder](each-pipeline-shape-runs-a-stretch-of-the-ladder.md)
 
 ## Out-of-band topic deploy
 
 Deploying a topic commit is not integrating it ([commit-lifecycle](../../drs/flow/commit-lifecycle.md)).
 
-| Lens           | Article                                                                                                                            |
-| -------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| meta           | [Deploying a topic commit is not integrating it](deploying-is-not-integrating.md)                                                  |
-| architecture   | [Deploying a topic commit and integrating it share only the topic commit](deploy-and-integrate-share-only-the-topic.md)            |
-| implementation | [Every Deploy stage in cats runs only from main, so no topic commit is deployed](every-deploy-stage-is-main-only.md)               |
-| operations     | [Merging to main is what deploys; there is no run that deploys a topic](merging-to-main-is-what-deploys.md)                        |
-| governance     | [No gate checks the out-of-band deploy rule, and the only gate on deploys in code is main-only](out-of-band-deploy-is-drs-only.md) |
+- **meta**: [Deploying a topic commit is not integrating it](deploying-is-not-integrating.md)
+- **architecture**: [Deploying a topic commit and integrating it share only the topic commit](deploy-and-integrate-share-only-the-topic.md)
+- **implementation**: [Every Deploy stage in cats runs only from main, so no topic commit is deployed](every-deploy-stage-is-main-only.md)
+- **operations**: [Merging to main is what deploys; there is no run that deploys a topic](merging-to-main-is-what-deploys.md)
+- **governance**:
+  [No gate checks the out-of-band deploy rule, and the only gate on deploys in code is main-only](out-of-band-deploy-is-drs-only.md)
 
 ## The sync point
 
 Upstream integrators sync from the last certified commit, not from the tip of main ([commit-lifecycle](../../drs/flow/commit-lifecycle.md)).
 This diagram has no implementation or operations lens.
 
-| Lens         | Article                                                                                                                            |
-| ------------ | ---------------------------------------------------------------------------------------------------------------------------------- |
-| meta         | [Sync from the BVT-verified head, not from the tip of main](sync-from-the-bvt-verified-head.md)                                    |
-| architecture | [Upstream integrators sync from the BVT-verified head, never from the tip of main](integrators-sync-from-the-bvt-verified-head.md) |
-| governance   | [Only BVT has a gate in code; the sync-point rules are DRS-only](sync-point-rules-are-drs-only.md)                                 |
+- **meta**: [Sync from the BVT-verified head, not from the tip of main](sync-from-the-bvt-verified-head.md)
+- **architecture**:
+  [Upstream integrators sync from the BVT-verified head, never from the tip of main](integrators-sync-from-the-bvt-verified-head.md)
+- **governance**: [Only BVT has a gate in code; the sync-point rules are DRS-only](sync-point-rules-are-drs-only.md)
 
 ## Run modes
 
 Where the code loads from decides the run mode ([run-modes](../../drs/design/run-modes.md)).
 
-| Lens           | Article                                                                                                                     |
-| -------------- | --------------------------------------------------------------------------------------------------------------------------- |
-| meta           | [Where the code loads from decides the run mode](where-code-loads-from-decides-the-mode.md)                                 |
-| architecture   | [Two code roots feed one importer, which loads the same modules](two-roots-one-importer-same-modules.md)                    |
-| implementation | [Each entry script sets the code root, and Get-CatzcRunMode reads the mode back from it](shims-set-roots-mode-read-back.md) |
-| operations     | [Each run mode has one entry script, and a mixed session throws](one-entry-script-per-mode.md)                              |
-| governance     | [Run-mode rules 1 to 6 each have a gate; rule 7's build kinds need none](which-run-mode-rules-have-a-gate.md)               |
+- **meta**: [Where the code loads from decides the run mode](where-code-loads-from-decides-the-mode.md)
+- **architecture**: [Two code roots feed one importer, which loads the same modules](two-roots-one-importer-same-modules.md)
+- **implementation**:
+  [Each entry script sets the code root, and Get-CatzcRunMode reads the mode back from it](shims-set-roots-mode-read-back.md)
+- **operations**: [Each run mode has one entry script, and a mixed session throws](one-entry-script-per-mode.md)
+- **governance**: [Run-mode rules 1 to 6 each have a gate; rule 7's build kinds need none](which-run-mode-rules-have-a-gate.md)
 
 ## Module folder layout
 
@@ -90,13 +86,12 @@ Every module file is in exactly one aspect, and the manifest and the aspects bot
 
 A track ships through a deployable-unit, and each unit has one pipeline ([tracks](../../drs/design/tracks.md)).
 
-| Lens           | Article                                                                                                                                          |
-| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| meta           | [A track ships through a deployable-unit, and each unit has one pipeline](one-unit-one-pipeline.md)                                              |
-| architecture   | [CD pipelines bind through deployable-units, while CI pipelines bind the track sets directly](units-not-tracks-own-the-pipelines.md)             |
-| implementation | [One field in globs.yml, pipeline:, binds a set to its pipeline file](globs-yml-pipeline-field-is-the-binding.md)                                |
-| operations     | [A push starts only the pipelines whose globset it touches](a-push-fires-only-touched-pipelines.md)                                              |
-| governance     | [Tracks and deployable-units have a gate in code, but one unit to one pipeline is held by review alone](unit-to-pipeline-rule-is-review-only.md) |
+- **meta**: [A track ships through a deployable-unit, and each unit has one pipeline](one-unit-one-pipeline.md)
+- **architecture**:
+  [CD pipelines bind through deployable-units, while CI pipelines bind the track sets directly](units-not-tracks-own-the-pipelines.md)
+- **implementation**: [One field in globs.yml, pipeline:, binds a set to its pipeline file](globs-yml-pipeline-field-is-the-binding.md)
+- **operations**: [A push starts only the pipelines whose globset it touches](a-push-fires-only-touched-pipelines.md)
+- **governance**: [Tracks and deployable-units have a gate in code, but one unit to one pipeline is held by review alone][unit-review]
 
 ## The sibling model
 
@@ -111,24 +106,28 @@ Catzc and eac, the same family in two languages, compared model by model ([track
 
 Consumers bind to one CLI, and everything behind it is delegated to the vendor ([thin-platforms](../../drs/design/thin-platforms.md)).
 
-| Lens           | Article                                                                                                                                  |
-| -------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| meta           | [Consumers bind to one CLI, and everything behind it is delegated to the vendor](bind-to-one-cli-delegate-the-rest.md)                   |
-| architecture   | [Every vendor call leaves cats through the az CLI](every-vendor-call-leaves-through-az.md)                                               |
-| implementation | [Deploy-Bicep adds the guards and the config lookup, and hands every vendor step to az](deploy-bicep-delegates-to-az.md)                 |
-| operations     | [A developer and a pipeline type the same Deploy-Bicep; only the pipeline must pin the subscription](same-deploy-bicep-on-both-sides.md) |
-| governance     | [Three gates guard the CLI and az, but nothing checks that cats stays thin](what-keeps-the-platform-thin.md)                             |
+- **meta**: [Consumers bind to one CLI, and everything behind it is delegated to the vendor](bind-to-one-cli-delegate-the-rest.md)
+- **architecture**: [Every vendor call leaves cats through the az CLI](every-vendor-call-leaves-through-az.md)
+- **implementation**:
+  [Deploy-Bicep adds the guards and the config lookup, and hands every vendor step to az](deploy-bicep-delegates-to-az.md)
+- **operations**:
+  [A developer and a pipeline type the same Deploy-Bicep; only the pipeline must pin the subscription](same-deploy-bicep-on-both-sides.md)
+- **governance**: [Three gates guard the CLI and az, but nothing checks that cats stays thin](what-keeps-the-platform-thin.md)
 
 ## Server remote integration
 
 Changes enter through one door, and consumers build on one stable point
 ([server-remote-integration](../../drs/design/server-remote-integration.md)).
 
-| Lens           | Article                                                                                                                                     |
-| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| meta           | [Changes enter through one door, and consumers build on one stable point](one-door-in-one-stable-point-out.md)                              |
-| architecture   | [Clients bridge to one server remote: in through a pull request, out from the verified point](clients-bridge-to-one-server.md)              |
-| architecture   | [Out from the verified point, back in through its own topic](out-from-the-verified-point-back-through-a-topic.md)                           |
-| implementation | [The code carries both halves of ingress, but nothing finds the last verified commit](local-guard-and-server-policies.md)                   |
-| operations     | [A person turns on the local guard with one variant; an admin syncs the server policies with one command](guard-and-policies-by-command.md) |
-| governance     | [Only ingress is checked by gates; the source-of-truth and integration rules rest on code review](ingress-gated-the-rest-by-review.md)      |
+- **meta**: [Changes enter through one door, and consumers build on one stable point](one-door-in-one-stable-point-out.md)
+- **architecture**:
+  [Clients bridge to one server remote: in through a pull request, out from the verified point](clients-bridge-to-one-server.md)
+- **architecture**: [Out from the verified point, back in through its own topic](out-from-the-verified-point-back-through-a-topic.md)
+- **implementation**:
+  [The code carries both halves of ingress, but nothing finds the last verified commit](local-guard-and-server-policies.md)
+- **operations**: [A person turns on the local guard with one variant; an admin syncs the server policies with one command][guard-policies]
+- **governance**:
+  [Only ingress is checked by gates; the source-of-truth and integration rules rest on code review](ingress-gated-the-rest-by-review.md)
+
+[unit-review]: unit-to-pipeline-rule-is-review-only.md
+[guard-policies]: guard-and-policies-by-command.md

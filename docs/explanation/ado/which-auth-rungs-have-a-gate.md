@@ -9,7 +9,9 @@ The PAT proof and the empty-token assert have no gate, and neither do #4 and #7.
 4  az CLI                  #2 checked by two L0 tests; the #5 empty-token assert has none
 5  invoke-automation.yaml  #6, checked by a step in the AzureAuthTests job
 
-Supports ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE, ADR-ADO-AUTH-PROVETARGET, ADR-ADO-AUTH-EXPLICITDETECTION, ADR-ADO-AUTH-SEPARATETOKENFUNCTION, ADR-ADO-AUTH-ASSERTWHENNOTOKEN, ADR-ADO-AUTH-TEMPLATESMAPSYSTEMTOKEN and FDR-CD-PIPELINE-NOSTOREDTOKENS (governance lens).
+Supports ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE, ADR-ADO-AUTH-PROVETARGET, ADR-ADO-AUTH-EXPLICITDETECTION,
+ADR-ADO-AUTH-SEPARATETOKENFUNCTION, ADR-ADO-AUTH-ASSERTWHENNOTOKEN, ADR-ADO-AUTH-TEMPLATESMAPSYSTEMTOKEN
+and FDR-CD-PIPELINE-NOSTOREDTOKENS (governance lens).
 ```
 
 ADR-ADO-AUTH has six rules and FDR-CD-PIPELINE-NOSTOREDTOKENS adds the seventh, and tests check only some of them. The L0 tests of

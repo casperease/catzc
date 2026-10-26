@@ -45,7 +45,7 @@ content:
     - { id: f-stale, kind: failure, label: "stale, regenerate", in: band-target }
     - { id: f-disagree, kind: failure, label: registry and git disagree, in: band-target }
   edges:
-    - { from: g-importer, to: g-build-root-config, kind: flow, label: "" }
+    - { from: g-importer, to: g-build-root-config, kind: flow, label: calls }
     - { from: g-build-root-config, to: r-current, kind: flow, label: "" }
     - { from: r-current, to: grp-gates, kind: flow, label: "" }
     - { from: g-generated-files, to: f-stale, kind: fail, label: "" }

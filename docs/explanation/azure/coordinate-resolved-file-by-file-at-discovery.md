@@ -13,7 +13,8 @@ Discovery resolves every config file's coordinate through one shared check.
 8  has an invalid config                  the throw: Template '<name>' has an invalid config: <violations>.
 9  BicepSlot                              the slot: name, environment, slot, subscription, customer; one per config file
 
-Supports ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION, ADR-AZ-DATAMOD-NAMEKEYEDMAPS and ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY, and ADR-AZ-CUSTOMER-TWOBINDINGS and ADR-AZ-CUSTOMER-KEYISSUBFOLDER (implementation lens).
+Supports ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION, ADR-AZ-DATAMOD-NAMEKEYEDMAPS and ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY,
+and ADR-AZ-CUSTOMER-TWOBINDINGS and ADR-AZ-CUSTOMER-KEYISSUBFOLDER (implementation lens).
 ```
 
 Discovery is the moment cats turns a template's `configuration/` tree into slots, and it is where the coordinate of every config file is

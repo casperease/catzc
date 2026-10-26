@@ -45,10 +45,10 @@ content:
     - { id: g-tests, kind: set, label: <module>-tests, in: band-aspects }
     - { id: g-locks, kind: drsonly, label: aspect sha locks, in: band-aspects }
   edges:
-    - { from: g-root, to: g-bootstrap, kind: flow, label: "" }
+    - { from: g-root, to: g-bootstrap, kind: flow, label: calls }
     - { from: g-bootstrap, to: g-psd1, kind: flow, label: "" }
-    - { from: g-variants, to: g-globs, kind: flow, label: "" }
-    - { from: g-root, to: g-globs, kind: flow, label: "" }
+    - { from: g-variants, to: g-globs, kind: flow, label: calls }
+    - { from: g-root, to: g-globs, kind: flow, label: calls }
     - { from: g-globs, to: g-live, kind: thick, label: "" }
     - { from: g-globs, to: g-tests, kind: thick, label: "" }
     - { from: g-live, to: g-locks, kind: adr, label: "" }

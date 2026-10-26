@@ -14,7 +14,8 @@ One function owns the credential precedence, and ado.yml anchors every proof.
 9  Catzc.Azure.Cli         the module whose Assert-AzCliConnected checks the session
 10 ado.yml                 the config every proof is checked against
 
-Supports ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE, ADR-ADO-AUTH-PROVETARGET, ADR-ADO-AUTH-SEPARATETOKENFUNCTION and ADR-ADO-AUTH-TEMPLATESMAPSYSTEMTOKEN (architecture lens).
+Supports ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE, ADR-ADO-AUTH-PROVETARGET, ADR-ADO-AUTH-SEPARATETOKENFUNCTION
+and ADR-ADO-AUTH-TEMPLATESMAPSYSTEMTOKEN (architecture lens).
 ```
 
 Cats calls the Azure DevOps REST API from several modules, but only one function, `Get-AdoAuthorizationHeader`, decides which credential a

@@ -13,7 +13,8 @@ Strip, split, read once, walk one segment at a time; every wrong turn throws.
 8  unknown or ambiguous name    no module ships the config, or more than one does
 9  key or property not found    a segment resolves at neither, named with its address
 
-Supports ADR-CONF-ADDRESSING-GLOBALADDRESSFORM, ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG and ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST (implementation lens).
+Supports ADR-CONF-ADDRESSING-GLOBALADDRESSFORM, ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
+and ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST (implementation lens).
 ```
 
 Resolving a global config address is three small functions in `Catzc.Base.Config` in a fixed order. `Get-ConfigValue` strips the marker and

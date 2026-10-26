@@ -10,9 +10,12 @@ Three gates check the registry, the drift and the git membership; one clause of 
 5  Write-FileIfChanged          the content primitive: canonical, EOL-insensitive, delete-then-write (#4)
 6  managed root files           the targets; committed decides their git membership (#3)
 7  Test-GeneratedFiles          the drift gate (#6): every target equals what the writer composes now
-8  Test-RootConfigFiles         the integrity gate: git membership (#3), registry = .gitignore = index, copies equal templates, no link (#6, #7)
+8  Test-RootConfigFiles         the integrity gate: git membership (#3), registry = .gitignore = index, copies equal templates,
+                               no link (#6, #7)
 
-Supports ADR-REPO-ROOTCFG-FULLYMANAGED, ADR-REPO-ROOTCFG-REGISTRY, ADR-REPO-ROOTCFG-COMMITTEDFLAG, ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION, ADR-REPO-ROOTCFG-COMPOSEDROOTFILE, ADR-REPO-ROOTCFG-THREEWAYAGREEMENT, ADR-REPO-ROOTCFG-HEADEDCOPY and ADR-REPO-ROOTCFG-WILDCARDGENERATOR (governance lens).
+Supports ADR-REPO-ROOTCFG-FULLYMANAGED, ADR-REPO-ROOTCFG-REGISTRY, ADR-REPO-ROOTCFG-COMMITTEDFLAG, ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION,
+ADR-REPO-ROOTCFG-COMPOSEDROOTFILE, ADR-REPO-ROOTCFG-THREEWAYAGREEMENT, ADR-REPO-ROOTCFG-HEADEDCOPY
+and ADR-REPO-ROOTCFG-WILDCARDGENERATOR (governance lens).
 ```
 
 The eight rules of the generated-root-configs decision are enforced at three points. A malformed registry stops the config load; a target
@@ -57,9 +60,9 @@ content:
     - { id: g-root-config-files, kind: gate, label: Test-RootConfigFiles, in: grp-gates }
   edges:
     - { from: g-registry, to: g-type, kind: flow, label: "" }
-    - { from: g-type, to: g-build, kind: flow, label: "" }
-    - { from: g-build, to: g-copy-content, kind: flow, label: "" }
-    - { from: g-build, to: g-write, kind: flow, label: "" }
+    - { from: g-type, to: g-build, kind: flow, label: calls }
+    - { from: g-build, to: g-copy-content, kind: flow, label: calls }
+    - { from: g-build, to: g-write, kind: flow, label: calls }
     - { from: g-write, to: r-managed, kind: flow, label: "" }
     - { from: r-managed, to: grp-gates, kind: flow, label: "" }
   markers:

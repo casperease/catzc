@@ -9,7 +9,8 @@ The analyzer checks rule 1, a test checks rule 4, and rules 2, 3 and 5 have no g
 4  Test-IsRunningInPipeline.Tests.ps1  the L0 test that proves the boolean's three cases
 5  Measure-NoRawPipelineDetection      the analyzer rule, mapped to rule 1 in analyzer-drs-map.yml
 
-Supports FDR-CD-DETECT-NODIRECTVARIABLECHECK, FDR-CD-DETECT-VISIBLECONTEXTBEHAVIOUR, FDR-CD-DETECT-PARAMETERSOVERDETECTION, FDR-CD-DETECT-BOOLEANNOTMODAL, FDR-CD-DETECT-FASTDETECTION and ADR-AUTO-PARITY-ONESEAM (governance lens).
+Supports FDR-CD-DETECT-NODIRECTVARIABLECHECK, FDR-CD-DETECT-VISIBLECONTEXTBEHAVIOUR, FDR-CD-DETECT-PARAMETERSOVERDETECTION,
+FDR-CD-DETECT-BOOLEANNOTMODAL, FDR-CD-DETECT-FASTDETECTION and ADR-AUTO-PARITY-ONESEAM (governance lens).
 ```
 
 Five rules govern pipeline detection in cats, and one gate carries most of the weight. The analyzer rule enforces the first, never read the

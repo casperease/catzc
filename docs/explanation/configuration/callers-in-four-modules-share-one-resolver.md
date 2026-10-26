@@ -9,7 +9,8 @@ Callers in four modules dereference an address through Catzc.Base.Config; the wa
 4  Get-Config               the one reader the resolver is built on
 5  configs/<name>.yml       the committed file the reader opens; all an address can reach
 
-Supports ADR-CONF-ADDRESSING-GLOBALADDRESSFORM, ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG and ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY (architecture lens).
+Supports ADR-CONF-ADDRESSING-GLOBALADDRESSFORM, ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
+and ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY (architecture lens).
 ```
 
 A global config address can be held by code in any module, but only one module knows how to dereference it. `Catzc.Base.Config` exports the

@@ -36,7 +36,7 @@ content:
     - { id: r-pipeline, kind: runner, label: Pipeline, in: band-pipelines }
   edges:
     - { from: s-track, to: s-unit, kind: thick, label: "" }
-    - { from: s-unit, to: r-pipeline, kind: flow, label: "" }
+    - { from: s-unit, to: r-pipeline, kind: flow, label: feeds }
   markers:
     - { at: s-track, number: 1 }
     - { at: s-track->s-unit, number: 2 }

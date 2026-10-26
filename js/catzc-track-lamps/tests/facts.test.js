@@ -48,6 +48,7 @@ test("holds a file's Error while the diagnostics fall silent, so red wins on the
     const root = folder(["mods/Widget/Get-Widget.ps1"]);
     const red = "mods/Widget/Get-Widget.ps1";
     const other = "gadgets/a.ps1";
+    /** @type {(place: string, diagnostics: import("../facts.js").Diagnostic[]) => import("../facts.js").DiagnosticEntry} */
     const entry = (place, diagnostics) => [{ fsPath: `${root}/${place}` }, diagnostics];
     const error = { severity: 0, message: "bad", source: "bicep", range: { start: { line: 3, character: 1 }, end: { line: 3, character: 9 } } };
     let held = engine.heldFaults(root, {}, [entry(red, [error])], 1000);

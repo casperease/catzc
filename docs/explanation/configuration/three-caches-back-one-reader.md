@@ -14,7 +14,8 @@ Three session caches back the one config reader, each filled once and kept until
 9   Get-ConfigRegistry            the private registry reader, validated by ConfigsConfig
 10  $script:configRegistryCache   the registry's configs: map, read once per session
 
-Supports ADR-CONF-LOADING-ONEREADER, ADR-CONF-LOADING-EXISTENCEDISCOVERED, ADR-CONF-LOADING-CACHEBYPATH and ADR-CONF-LOADING-CSHARPCONFIGTYPE (implementation lens).
+Supports ADR-CONF-LOADING-ONEREADER, ADR-CONF-LOADING-EXISTENCEDISCOVERED, ADR-CONF-LOADING-CACHEBYPATH
+and ADR-CONF-LOADING-CSHARPCONFIGTYPE (implementation lens).
 ```
 
 `Get-Config` is the one config reader in cats, and it stays fast because three `$script:` caches stand behind it: `configIndex` maps config

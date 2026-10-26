@@ -11,7 +11,8 @@ Callers in any module depend on one config module; the owner only ships a file a
 6  owner's C# type           built once on the miss; its constructor maps and validates
 7  Catzc.Base.QualityGates   its gate Test-ShippedConfigs calls the same reader
 
-Supports ADR-CONF-LOADING-ONEREADER, ADR-CONF-LOADING-EXISTENCEDISCOVERED, ADR-CONF-LOADING-CACHEBYPATH, ADR-CONF-LOADING-CSHARPCONFIGTYPE and ADR-CONF-LOADING-READINGISGLOBAL (architecture lens).
+Supports ADR-CONF-LOADING-ONEREADER, ADR-CONF-LOADING-EXISTENCEDISCOVERED, ADR-CONF-LOADING-CACHEBYPATH,
+ADR-CONF-LOADING-CSHARPCONFIGTYPE and ADR-CONF-LOADING-READINGISGLOBAL (architecture lens).
 ```
 
 A config belongs to the module that ships it, but the code that reads it can live anywhere in cats. The architecture keeps those two apart:

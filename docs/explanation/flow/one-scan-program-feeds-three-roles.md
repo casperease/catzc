@@ -13,7 +13,8 @@ One method, GlobSet.ScanProgram(), feeds all three globset role functions.
 8  Test-GlobSetAffected    answers "is this set touched?", failing open on doubt
 9  Test-GlobSetProtection  compares the live identity with the recorded one
 
-Supports FDR-CD-GLOBS-TRACKEDFILESONLY, FDR-CD-GLOBS-DURABLESHAIDENTITY, FDR-CD-GLOBS-NATIVEPATHFILTER and FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT (implementation lens).
+Supports FDR-CD-GLOBS-TRACKEDFILESONLY, FDR-CD-GLOBS-DURABLESHAIDENTITY, FDR-CD-GLOBS-NATIVEPATHFILTER
+and FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT (implementation lens).
 ```
 
 `GlobSet.ScanProgram()` is the one method behind a globset's membership, its trigger and its identity in cats. The code runs from

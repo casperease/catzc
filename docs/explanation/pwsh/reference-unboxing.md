@@ -7,14 +7,17 @@ says so.
 
 ## 1. Words, used one way
 
-| Term                     | Meaning here                                                                                                                                                                                                                                                                                                                 |
-| ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Box**                  | Copy a value type (int, bool, enum, struct) into a new heap object so it can be held as `object`, an interface, `ValueType` or `Enum`. This is the allocation.                                                                                                                                                               |
-| **Unbox**                | Read the value back out of a box with a cast (`(int)o`) or a pattern (`o is int n`). A type check and a copy. No allocation.                                                                                                                                                                                                 |
-| **Wrap**                 | PowerShell's own layer: a `PSObject` around any .NET object, carrying extra PowerShell members. A different thing from a box, and it can wrap a reference type.                                                                                                                                                              |
-| **Unwrap**               | `psobject.BaseObject`, or `ContractValue.Unwrap` in this repository. Read the .NET object out of the wrapper.                                                                                                                                                                                                                |
-| **Crossing**             | One call from PowerShell into a .NET method, or back. Every argument is converted and every result is held as `object`.                                                                                                                                                                                                      |
-| **Bounded fast context** | A path where the item count N is small and fixed by design, and the per-item cost multiplies into something a person waits for: the import, a per-file scope loop, a config read, a console message. The time safeguard (3 s on a devbox for one foreground call) and the test roofs make these paths real constraints here. |
+- ****Box****: Copy a value type (int, bool, enum, struct) into a new heap object so it can be held as `object`, an interface, `ValueType`
+  or `Enum`. This is the allocation.
+- ****Unbox****: Read the value back out of a box with a cast (`(int)o`) or a pattern (`o is int n`). A type check and a copy. No
+  allocation.
+- ****Wrap****: PowerShell's own layer: a `PSObject` around any .NET object, carrying extra PowerShell members. A different thing from a
+  box, and it can wrap a reference type.
+- ****Unwrap****: `psobject.BaseObject`, or `ContractValue.Unwrap` in this repository. Read the .NET object out of the wrapper.
+- ****Crossing****: One call from PowerShell into a .NET method, or back. Every argument is converted and every result is held as `object`.
+- ****Bounded fast context****: A path where the item count N is small and fixed by design, and the per-item cost multiplies into something
+  a person waits for: the import, a per-file scope loop, a config read, a console message. The time safeguard (3 s on a devbox for one
+  foreground call) and the test roofs make these paths real constraints here.
 
 The user's phrase "reduce unboxing in a bounded fast context" therefore means: remove the type tests, conversions and boxes that sit on a
 hot, bounded path, and prove the saving with a measurement before claiming it.
@@ -23,12 +26,22 @@ hot, bounded path, and prove the saving with a measurement before claiming it.
 
 ### 2.1 The three IL operations
 
-| IL            | Source form                          | Cost                                  | Failure                                                                        |
-| ------------- | ------------------------------------ | ------------------------------------- | ------------------------------------------------------------------------------ |
-| `box T`       | `object o = 5;`                      | allocates an object, copies the value | none                                                                           |
-| `unbox.any T` | `(int)o`                             | one method-table compare, one copy    | `NullReferenceException` for null; `InvalidCastException` for a different type |
-| `unbox`       | `ref readonly` access to the payload | a compare, returns a pointer          | same                                                                           |
-| `isinst T`    | `o is int`                           | the compare, no copy                  | none                                                                           |
+- **`box T`**
+  - Source form: `object o = 5;`
+  - Cost: allocates an object, copies the value
+  - Failure: none
+- **`unbox.any T`**
+  - Source form: `(int)o`
+  - Cost: one method-table compare, one copy
+  - Failure: `NullReferenceException` for null; `InvalidCastException` for a different type
+- **`unbox`**
+  - Source form: `ref readonly` access to the payload
+  - Cost: a compare, returns a pointer
+  - Failure: same
+- **`isinst T`**
+  - Source form: `o is int`
+  - Cost: the compare, no copy
+  - Failure: none
 
 **Measured:** `(int)boxedInt` 2.5 ns, 0 B. `boxedInt is int v` 3.9 ns, 0 B. Box plus unbox in a loop 10.8 ns and 24 B. The unbox is the
 cheap half. A bytes-per-iteration figure is the box.
@@ -49,16 +62,16 @@ box plus 8 B reference) against 4 B in an `int[]`. The .NET 10 JIT did not remov
 
 ### 2.4 Where boxes hide
 
-| Site                                                                                  | Why it boxes                                                                                                      |
-| ------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| `object`, `ValueType`, `Enum` or interface-typed variable, field, parameter or return | assignment converts                                                                                               |
-| `params object[]` call with value arguments                                           | one box per argument, plus the array (measured: 88 B for two integers)                                            |
-| `string.Format("{0}", i)` and `string.Concat(object, ...)`                            | the `object` overload (measured: 63 B total, 24 B of it the box). Interpolation `$"{i}"` and `"a" + i` do not box |
-| `PropertyInfo.GetValue`, `MethodInfo.Invoke`, `FieldInfo.GetValue`                    | the result is `object` (measured: 24 B per int, bool or enum read)                                                |
-| non-generic collections: `ArrayList`, `Hashtable`, `IEnumerable` over a value array   | the element type is `object` (measured: 24 B per element enumerated)                                              |
-| `enum.ToString()`, `IComparable c = i; c.CompareTo(3)`                                | the receiver is boxed (measured: 24 B and 48 B)                                                                   |
-| a struct that does not override `Equals`, `GetHashCode`                               | the base implementation takes `object` (general knowledge)                                                        |
-| a closed delegate over a struct instance method                                       | the receiver is boxed once (general knowledge)                                                                    |
+- **`object`, `ValueType`, `Enum` or interface-typed variable, field, parameter or return**: assignment converts
+- **`params object[]` call with value arguments**: one box per argument, plus the array (measured: 88 B for two integers)
+- **`string.Format("{0}", i)` and `string.Concat(object, ...)`**: the `object` overload (measured: 63 B total, 24 B of it the box).
+  Interpolation `$"{i}"` and `"a" + i` do not box
+- **`PropertyInfo.GetValue`, `MethodInfo.Invoke`, `FieldInfo.GetValue`**: the result is `object` (measured: 24 B per int, bool or enum read)
+- **non-generic collections: `ArrayList`, `Hashtable`, `IEnumerable` over a value array**: the element type is `object` (measured: 24 B per
+  element enumerated)
+- **`enum.ToString()`, `IComparable c = i; c.CompareTo(3)`**: the receiver is boxed (measured: 24 B and 48 B)
+- **a struct that does not override `Equals`, `GetHashCode`**: the base implementation takes `object` (general knowledge)
+- **a closed delegate over a struct instance method**: the receiver is boxed once (general knowledge)
 
 Generics over value types are **not** boxing: `List<int>`, `Dictionary<string, int>` and `HashSet<int>` store the values inline, and a
 constrained generic call (`where T : IFoo`) calls the interface method on the struct without a box. The repository has only five structs,
@@ -169,33 +182,65 @@ from the general path for any input (int against long and double must stay equal
 
 ### 6.1 Where unwrapping and unboxing live (read from the code)
 
-| Place                                                                                                                | What happens                                                                                                                                                                                                               | Hot?                                                                                    |
-| -------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
-| `Catzc.Base.Contracts` `ContractValue`, `ContractSchema`, `ContractFragment`                                         | The only structural `PSObject` unwrap in first-party code. Values are `object` trees (YAML or JSON), tested with `is`, compared through `Kind()` strings                                                                   | Bounded: one contract asset per call, but `Equal` recurses and `MatchArray` is O(n x m) |
-| `DictionaryRecord` (`Contains`, indexer, `Keys`, `ToHashtable`)                                                      | `PropertyInfo.GetProperty` or `GetProperties` on every call, then `GetValue`                                                                                                                                               | Bounded, called from PowerShell, 24 B per int or bool read                              |
-| `ConsoleText.ToConsoleString`                                                                                        | `GetCustomAttribute(true)`, `GetProperties`, and `GetCustomAttributes(true)` per property on every call                                                                                                                    | Every console message about a record; a message loop multiplies it                      |
-| Config types reading raw YAML dictionaries (`Flag`, `TimeoutsConfig`, `ConfigsConfig`)                               | `is bool`, `(int)` on boxed values                                                                                                                                                                                         | Once per file; `Get-Config` caches                                                      |
-| `Hashtable` and `List<Hashtable>` in `TimeoutsConfig`, `TimeoutExemptionsConfig`, `EngineCaseTable`, `ConfigsConfig` | Non-generic storage of boxed values for PowerShell callers                                                                                                                                                                 | Built once per config load                                                              |
-| 678 `string.Format` calls in 132 type files                                                                          | About 58 pass an int-like value; nearly all on error paths                                                                                                                                                                 | No                                                                                      |
-| PowerShell: `.BaseObject`, `AsPSObject`, `ArrayList`                                                                 | None in first-party `.ps1` or `.psm1` (the `.PSObject.Properties` uses are vendored Pester, tests, and two first-party member reads in `Resolve-ConfigKeyPath` and `Install-UvStandalone`, which read members, not unwrap) | No                                                                                      |
+- **`Catzc.Base.Contracts` `ContractValue`, `ContractSchema`, `ContractFragment`**
+  - What happens: The only structural `PSObject` unwrap in first-party code. Values are `object` trees (YAML or JSON), tested with `is`,
+    compared through `Kind()` strings
+  - Hot?: Bounded: one contract asset per call, but `Equal` recurses and `MatchArray` is O(n x m)
+- **`DictionaryRecord` (`Contains`, indexer, `Keys`, `ToHashtable`)**
+  - What happens: `PropertyInfo.GetProperty` or `GetProperties` on every call, then `GetValue`
+  - Hot?: Bounded, called from PowerShell, 24 B per int or bool read
+- **`ConsoleText.ToConsoleString`**
+  - What happens: `GetCustomAttribute(true)`, `GetProperties`, and `GetCustomAttributes(true)` per property on every call
+  - Hot?: Every console message about a record; a message loop multiplies it
+- **Config types reading raw YAML dictionaries (`Flag`, `TimeoutsConfig`, `ConfigsConfig`)**
+  - What happens: `is bool`, `(int)` on boxed values
+  - Hot?: Once per file; `Get-Config` caches
+- **`Hashtable` and `List<Hashtable>` in `TimeoutsConfig`, `TimeoutExemptionsConfig`, `EngineCaseTable`, `ConfigsConfig`**
+  - What happens: Non-generic storage of boxed values for PowerShell callers
+  - Hot?: Built once per config load
+- **678 `string.Format` calls in 132 type files**
+  - What happens: About 58 pass an int-like value; nearly all on error paths
+  - Hot?: No
+- **PowerShell: `.BaseObject`, `AsPSObject`, `ArrayList`**
+  - What happens: None in first-party `.ps1` or `.psm1` (the `.PSObject.Properties` uses are vendored Pester, tests, and two first-party
+    member reads in `Resolve-ConfigKeyPath` and `Install-UvStandalone`, which read members, not unwrap)
+  - Hot?: No
 
 Correction to the 2026-10-15 analysis: it says `Hashtable` appears in the types only to hand a result to PowerShell. It is also the storage
 type of four config types above. The conclusion (once per load, cached) stands.
 
 ### 6.2 What the measurements say
 
-| Measured (C#, ns/op, B/op)                              | Current            | Prototype                                                         |
-| ------------------------------------------------------- | ------------------ | ----------------------------------------------------------------- |
-| `ContractValue.Unwrap`, raw / wrapped                   | 5.0 / 10.1 ns, 0 B | -                                                                 |
-| `Kind(int)`                                             | 37.3 ns            | 9.6 ns (exact scalar types first)                                 |
-| `Kind(string)`                                          | 9.5 ns             | 8.3 ns                                                            |
-| `Equal(int, int)`                                       | 107.0 ns           | 14.0 ns                                                           |
-| `Equal(string, string)`                                 | 63.5 ns            | 17.4 ns                                                           |
-| `Equal(long, int)`                                      | 107.2 ns           | no fast path (falls to the general path)                          |
-| `widget.Contains("Count")`                              | 73.3 ns, 24 B      | 54.7 ns, 24 B (cached property table)                             |
-| `widget.ToHashtable()`                                  | 588 ns, 609 B      | not prototyped                                                    |
-| `widget.ToString()` (`ConsoleText`)                     | 2,009 ns, 1,304 B  | not prototyped; its reflection lookups add up to about 680 ns     |
-| `ContractSchema.Validate`, 5 properties, 11 value nodes | 7,588 ns, 11,016 B | not changed: its allocation is LINQ and list building, not boxing |
+- **`ContractValue.Unwrap`, raw / wrapped**
+  - Current: 5.0 / 10.1 ns, 0 B
+  - Prototype: -
+- **`Kind(int)`**
+  - Current: 37.3 ns
+  - Prototype: 9.6 ns (exact scalar types first)
+- **`Kind(string)`**
+  - Current: 9.5 ns
+  - Prototype: 8.3 ns
+- **`Equal(int, int)`**
+  - Current: 107.0 ns
+  - Prototype: 14.0 ns
+- **`Equal(string, string)`**
+  - Current: 63.5 ns
+  - Prototype: 17.4 ns
+- **`Equal(long, int)`**
+  - Current: 107.2 ns
+  - Prototype: no fast path (falls to the general path)
+- **`widget.Contains("Count")`**
+  - Current: 73.3 ns, 24 B
+  - Prototype: 54.7 ns, 24 B (cached property table)
+- **`widget.ToHashtable()`**
+  - Current: 588 ns, 609 B
+  - Prototype: not prototyped
+- **`widget.ToString()` (`ConsoleText`)**
+  - Current: 2,009 ns, 1,304 B
+  - Prototype: not prototyped; its reflection lookups add up to about 680 ns
+- **`ContractSchema.Validate`, 5 properties, 11 value nodes**
+  - Current: 7,588 ns, 11,016 B
+  - Prototype: not changed: its allocation is LINQ and list building, not boxing
 
 The box inside `GetValue` stays in the prototype (24 B before and after). Removing it would need a generated typed accessor per property,
 which this repository has no reason to build at these call rates.

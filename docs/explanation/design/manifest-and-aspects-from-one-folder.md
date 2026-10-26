@@ -49,11 +49,11 @@ content:
     - { id: g-tests, kind: set, label: <kebab>-tests, in: band-sets }
   edges:
     - { from: g-root, to: g-assert-unique, kind: flow, label: "" }
-    - { from: g-assert-unique, to: g-manifest, kind: flow, label: "" }
+    - { from: g-assert-unique, to: g-manifest, kind: flow, label: calls }
     - { from: g-manifest, to: g-psd1, kind: flow, label: "" }
-    - { from: g-languages, to: g-get-aspect, kind: flow, label: "" }
-    - { from: g-get-aspect, to: g-compile, kind: flow, label: "" }
-    - { from: g-root, to: g-compile, kind: flow, label: "" }
+    - { from: g-languages, to: g-get-aspect, kind: flow, label: feeds }
+    - { from: g-get-aspect, to: g-compile, kind: flow, label: calls }
+    - { from: g-root, to: g-compile, kind: flow, label: calls }
     - { from: g-compile, to: g-live, kind: thick, label: "" }
     - { from: g-compile, to: g-tests, kind: thick, label: "" }
   markers:

@@ -9,7 +9,8 @@ A config file's path is a coordinate that resolves to one subscription and one r
 4  subscription              the one subscription the coordinate resolves to, never spelled into the path
 5  resource group            the one resource group the config deploys, its name derived from the coordinate
 
-Supports ADR-AZ-DATAMOD-TWOCONFIGLAYERS, ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION and ADR-AZ-DATAMOD-NAMEKEYEDMAPS, and ADR-AZ-CUSTOMER-KEYISSUBFOLDER (meta lens).
+Supports ADR-AZ-DATAMOD-TWOCONFIGLAYERS, ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION and ADR-AZ-DATAMOD-NAMEKEYEDMAPS,
+and ADR-AZ-CUSTOMER-KEYISSUBFOLDER (meta lens).
 ```
 
 A Bicep template in cats keeps one config file per deployment under its `configuration/` folder, and where that file sits is its whole

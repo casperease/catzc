@@ -11,7 +11,9 @@ Two L0 test files check the address rules; read-only and committed-only rest on 
 6  Get-ConfigValue.Tests         the L0 file that checks A1, A2 and A4
 7  Write-EnvironmentSet.Tests    the L0 file that checks E7
 
-Supports ADR-CONF-ADDRESSING-GLOBALADDRESSFORM, ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG, ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY, ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST and ADR-CONF-ADDRESSING-RESOLVEDNODEISREAD, and ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS (governance lens).
+Supports ADR-CONF-ADDRESSING-GLOBALADDRESSFORM, ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG, ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY,
+ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST and ADR-CONF-ADDRESSING-RESOLVEDNODEISREAD,
+and ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS (governance lens).
 ```
 
 Five addressing rules and one environment-variable rule constrain how cats dereferences a global config address. Each stage of the walk

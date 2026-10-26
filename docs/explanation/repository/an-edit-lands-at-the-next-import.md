@@ -12,7 +12,8 @@ An edit to a variant lands at the next import; a wrong value fails once at load,
 7  Sync-GeneratedFile            a committer that asks Test-GitWorkspace -MainViaPr first
 8  Skipped: main-via-pr on main  its stop, naming the branch to use instead
 
-Supports ADR-REPO-VARIANT-SESSIONVARIANT, ADR-REPO-VARIANT-NODIRECTREADS, ADR-REPO-VARIANT-HAVECUSTOMERS and ADR-REPO-VARIANT-GITWORKSPACE (operations lens).
+Supports ADR-REPO-VARIANT-SESSIONVARIANT, ADR-REPO-VARIANT-NODIRECTREADS, ADR-REPO-VARIANT-HAVECUSTOMERS
+and ADR-REPO-VARIANT-GITWORKSPACE (operations lens).
 ```
 
 Changing a repo-wide decision in cats is an edit and a re-import. The edit is one key in `variants.yml`; the re-import is
@@ -49,7 +50,7 @@ content:
     - { id: f-disabled, kind: failure, label: deployments are disabled, in: band-ask }
     - { id: f-skipped, kind: failure, label: "Skipped: main-via-pr on main", in: band-ask }
   edges:
-    - { from: g-variants-yml, to: g-importer, kind: flow, label: "" }
+    - { from: g-variants-yml, to: g-importer, kind: flow, label: feeds }
     - { from: g-importer, to: g-variants-config, kind: flow, label: "" }
     - { from: g-variants-config, to: g-assert-have-customers, kind: flow, label: "" }
     - { from: g-variants-config, to: f-validation, kind: fail, label: "" }

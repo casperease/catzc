@@ -238,25 +238,78 @@ suggestions.
 The root is a closed set of folders, each with a fixed meaning. The **Kind** column marks whether the name is declared as a track's place in
 `variants.yml` (_declared_) or a reader infers it (_free_); `out/` is declared too, the place of the `output` track.
 
-| Directory         | Kind     | Meaning                                                                                                                                                                | Programmed against by                                               |
-| ----------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `pwsh/`           | declared | Module system root — all PowerShell modules and infrastructure (Levels 2–3)                                                                                            | `importer.ps1`, `Test-Automation`, `Install-VendorModule`           |
-| `docs/`           | mixed    | Documentation — `adr/` decision records, `references/` reference articles, `how-to/` guides, `explanation/` articles, `.assets/` diagrams                              | `Build-DrsIndex`, `Build-Readme`; human consumption                 |
-| `infrastructure/` | mixed    | Bicep IaC — reusable `modules/` and deployable `templates/<name>/`                                                                                                     | Bicep build/deploy tooling, `Get-BicepTemplates`                    |
-| `contracts/`      | declared | Thin, binding promises at the repository boundary, both directions — `<root>/<version>/[<group>/]<asset>`; see [api-contracts](api-contracts.md)                       | The owning modules' contract tests; outside consumers and platforms |
-| `go/`             | declared | The Go root: black-box Go tests, `tests/<module>/`; see [go-test-artifacts](../automation/go/go-test-artifacts.md)                                                     | `GoConfig`, `New-GoWorkspace`, `Invoke-GoTest`                      |
-| `python/`         | declared | The Python root: black-box Python tests, `tests/<module>/`, and the generated test project; see [python-test-artifacts](../automation/python/python-test-artifacts.md) | `PythonConfig`, `New-PythonProject`, `Invoke-PythonTest`            |
-| `bash/`           | declared | The Bash root: black-box Bash tests, `tests/<module>/`, and the vendored bats runner; see [bash-test-artifacts](../automation/bash/bash-test-artifacts.md)             | `BashConfig`, `Invoke-BashTest`                                     |
-| `out/`            | declared | All output files (gitignored) — see [dedicated-output-directory](dedicated-output-directory.md)                                                                        | Output functions, CI artifacts, cleanup scripts                     |
-| `.github/`        | declared | GitHub Actions — `workflows/`, actions, templates                                                                                                                      | GitHub Actions runner                                               |
-| `.ado/`           | declared | Azure DevOps — `pipelines/` holds the ado pipelines, per-kind templates, and the runner                                                                                | Azure DevOps runner, `Invoke-AdoScript.ps1`                         |
-| `.vscode/`        | declared | Managed, generated editor config — every file reproduced on import; see [generated-root-configs](generated-root-configs.md)                                            | VS Code; `Build-RootConfig`                                         |
-| `.claude/`        | declared | Claude Code project config — `CLAUDE.md`, `settings.json`, the `agents/`, `hooks/`, and `drawio/` folders                                                              | Claude Code                                                         |
-| `.cspell/`        | declared | Generated cspell dictionaries — one `<category>.txt` per `terminology.yml` category; only `.gitkeep` is committed                                                      | `cspell.yml`; `Build-TerminologyDictionary`                         |
-| `.go/`            | declared | The Go root when the repository has no `go/` folder — the same layout as `go/`, dot-prefixed as tooling                                                                | `GoConfig`, `New-GoWorkspace`, `Invoke-GoTest`                      |
-| `.python/`        | declared | The Python root when the repository has no `python/` folder — the same layout as `python/`, dot-prefixed as tooling                                                    | `PythonConfig`, `New-PythonProject`, `Invoke-PythonTest`            |
-| `.bash/`          | declared | The Bash root when the repository has no `bash/` folder — the same layout as `bash/`, dot-prefixed as tooling                                                          | `BashConfig`, `Invoke-BashTest`                                     |
-| `.git/`           | —        | Git's own store. The boundary of _our_ conventions: git owns it, we do not document it.                                                                                | Git                                                                 |
+- **`pwsh/`**
+  - Kind: declared
+  - Meaning: Module system root — all PowerShell modules and infrastructure (Levels 2–3)
+  - Programmed against by: `importer.ps1`, `Test-Automation`, `Install-VendorModule`
+- **`docs/`**
+  - Kind: mixed
+  - Meaning: Documentation — `adr/` decision records, `references/` reference articles, `how-to/` guides, `explanation/` articles,
+    `.assets/` diagrams
+  - Programmed against by: `Build-DrsIndex`, `Build-Readme`; human consumption
+- **`infrastructure/`**
+  - Kind: mixed
+  - Meaning: Bicep IaC — reusable `modules/` and deployable `templates/<name>/`
+  - Programmed against by: Bicep build/deploy tooling, `Get-BicepTemplates`
+- **`contracts/`**
+  - Kind: declared
+  - Meaning: Thin, binding promises at the repository boundary, both directions — `<root>/<version>/[<group>/]<asset>`; see
+    [api-contracts](api-contracts.md)
+  - Programmed against by: The owning modules' contract tests; outside consumers and platforms
+- **`go/`**
+  - Kind: declared
+  - Meaning: The Go root: black-box Go tests, `tests/<module>/`; see [go-test-artifacts](../automation/go/go-test-artifacts.md)
+  - Programmed against by: `GoConfig`, `New-GoWorkspace`, `Invoke-GoTest`
+- **`python/`**
+  - Kind: declared
+  - Meaning: The Python root: black-box Python tests, `tests/<module>/`, and the generated test project; see
+    [python-test-artifacts](../automation/python/python-test-artifacts.md)
+  - Programmed against by: `PythonConfig`, `New-PythonProject`, `Invoke-PythonTest`
+- **`bash/`**
+  - Kind: declared
+  - Meaning: The Bash root: black-box Bash tests, `tests/<module>/`, and the vendored bats runner; see
+    [bash-test-artifacts](../automation/bash/bash-test-artifacts.md)
+  - Programmed against by: `BashConfig`, `Invoke-BashTest`
+- **`out/`**
+  - Kind: declared
+  - Meaning: All output files (gitignored) — see [dedicated-output-directory](dedicated-output-directory.md)
+  - Programmed against by: Output functions, CI artifacts, cleanup scripts
+- **`.github/`**
+  - Kind: declared
+  - Meaning: GitHub Actions — `workflows/`, actions, templates
+  - Programmed against by: GitHub Actions runner
+- **`.ado/`**
+  - Kind: declared
+  - Meaning: Azure DevOps — `pipelines/` holds the ado pipelines, per-kind templates, and the runner
+  - Programmed against by: Azure DevOps runner, `Invoke-AdoScript.ps1`
+- **`.vscode/`**
+  - Kind: declared
+  - Meaning: Managed, generated editor config — every file reproduced on import; see [generated-root-configs](generated-root-configs.md)
+  - Programmed against by: VS Code; `Build-RootConfig`
+- **`.claude/`**
+  - Kind: declared
+  - Meaning: Claude Code project config — `CLAUDE.md`, `settings.json`, the `agents/`, `hooks/`, and `drawio/` folders
+  - Programmed against by: Claude Code
+- **`.cspell/`**
+  - Kind: declared
+  - Meaning: Generated cspell dictionaries — one `<category>.txt` per `terminology.yml` category; only `.gitkeep` is committed
+  - Programmed against by: `cspell.yml`; `Build-TerminologyDictionary`
+- **`.go/`**
+  - Kind: declared
+  - Meaning: The Go root when the repository has no `go/` folder — the same layout as `go/`, dot-prefixed as tooling
+  - Programmed against by: `GoConfig`, `New-GoWorkspace`, `Invoke-GoTest`
+- **`.python/`**
+  - Kind: declared
+  - Meaning: The Python root when the repository has no `python/` folder — the same layout as `python/`, dot-prefixed as tooling
+  - Programmed against by: `PythonConfig`, `New-PythonProject`, `Invoke-PythonTest`
+- **`.bash/`**
+  - Kind: declared
+  - Meaning: The Bash root when the repository has no `bash/` folder — the same layout as `bash/`, dot-prefixed as tooling
+  - Programmed against by: `BashConfig`, `Invoke-BashTest`
+- **`.git/`**
+  - Kind: —
+  - Meaning: Git's own store. The boundary of _our_ conventions: git owns it, we do not document it.
+  - Programmed against by: Git
 
 `pwsh/` is the only root the module system interacts with; its internals are Levels 2–3 below. The rest separate concerns at the repo level,
 and each has its own conventional sub-layout:
@@ -337,10 +390,12 @@ conscious architectural decision — an amendment to this ADR — not a casual a
 Level 2: `pwsh/` — modules vs. infrastructure
 ```
 
-| Convention             | Meaning                                         | Examples                                                            |
-| ---------------------- | ----------------------------------------------- | ------------------------------------------------------------------- |
-| Dot-prefixed directory | Infrastructure — invisible to module discovery  | `.internal/`, `.vendor/`, `.scriptanalyzer/`, `.compiled/`          |
-| Non-dot directory      | Module — auto-discovered by `Import-AllModules` | `Catzc.Base.Asserts/`, `Catzc.Base.Writers/`, `Catzc.Tooling.Core/` |
+- **Dot-prefixed directory**
+  - Meaning: Infrastructure — invisible to module discovery
+  - Examples: `.internal/`, `.vendor/`, `.scriptanalyzer/`, `.compiled/`
+- **Non-dot directory**
+  - Meaning: Module — auto-discovered by `Import-AllModules`
+  - Examples: `Catzc.Base.Asserts/`, `Catzc.Base.Writers/`, `Catzc.Tooling.Core/`
 
 `Import-AllModules` filters with `$_.Name -notmatch '^\.'`. This is the entire module discovery mechanism: if the folder name starts with a
 dot, it is infrastructure; otherwise, it is a module. No registration, no manifest, no list of module names.
@@ -353,14 +408,24 @@ directory listings, visually separating it from modules.
 
 Every module directory follows the same internal layout:
 
-| Directory/Pattern | Meaning                                                                                                           | Programmed against by                                          |
-| ----------------- | ----------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------- |
-| `*.ps1` (root)    | Public exported functions — file name = function name                                                             | `New-DynamicManifest` (derives `FunctionsToExport`)            |
-| `private/`        | Private helper functions — loaded, not exported                                                                   | `New-DynamicManifest` (lists the files the loader dot-sources) |
-| `tests/`          | Pester test files (`*.Tests.ps1`) plus their fixtures in `tests/assets/`                                          | `Test-Automation` (discovers test paths)                       |
-| `assets/`         | Consumable assets the module ships — templates, scripts, schemas (not test fixtures, not the module's own config) | Module functions via `Get-CatzcModuleRoot`                     |
-| `configs/`        | The module's own internal config (flat kebab-case `.yml`) the module loads to configure itself                    | `Get-Config` (via `Get-CatzcModuleRoot`)                       |
-| `types/`          | Native C# sources (`*.cs`) autoloaded as .NET types                                                               | `Import-CSharpTypes` (one combined assembly, loaded at import) |
+- **`*.ps1` (root)**
+  - Meaning: Public exported functions — file name = function name
+  - Programmed against by: `New-DynamicManifest` (derives `FunctionsToExport`)
+- **`private/`**
+  - Meaning: Private helper functions — loaded, not exported
+  - Programmed against by: `New-DynamicManifest` (lists the files the loader dot-sources)
+- **`tests/`**
+  - Meaning: Pester test files (`*.Tests.ps1`) plus their fixtures in `tests/assets/`
+  - Programmed against by: `Test-Automation` (discovers test paths)
+- **`assets/`**
+  - Meaning: Consumable assets the module ships — templates, scripts, schemas (not test fixtures, not the module's own config)
+  - Programmed against by: Module functions via `Get-CatzcModuleRoot`
+- **`configs/`**
+  - Meaning: The module's own internal config (flat kebab-case `.yml`) the module loads to configure itself
+  - Programmed against by: `Get-Config` (via `Get-CatzcModuleRoot`)
+- **`types/`**
+  - Meaning: Native C# sources (`*.cs`) autoloaded as .NET types
+  - Programmed against by: `Import-CSharpTypes` (one combined assembly, loaded at import)
 
 **`private/`** contains `.ps1` files that follow the same one-function-per-file convention as root files. They are loaded into the module's
 session state by the module's loader but excluded from `FunctionsToExport`. The folder name `private/` means "non-exported" everywhere, in
@@ -419,20 +484,42 @@ folder must exist.
 
 ### Violation patterns
 
-| Pattern                                                             | Problem                                                                                              | Fix                                                         |
-| ------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ----------------------------------------------------------- |
-| Private helpers in `internal/`, `helpers/`, or `util/`              | Bootstrap does not scan these — functions are invisible                                              | Rename to `private/`                                        |
-| Tests in `test/`, `spec/`, or the module root                       | Test runner does not find them — they never execute                                                  | Move to `tests/` with `*.Tests.ps1` naming                  |
-| The module's own config in the module root alongside `.ps1` files   | Config files could collide with function naming; unclear boundaries                                  | Move to `configs/` as a kebab-case `.yml`                   |
-| Standalone scripts in the module root                               | Bootstrap treats them as public functions                                                            | Move to `assets/`                                           |
-| Using `config/` or `scripts/` as module subdirectories              | Not a conventional folder — tooling ignores them, convention test fails                              | Module config → `configs/`; scripts → `assets/`             |
-| The module's own config under `assets/config/` or bare in `assets/` | Internal config belongs in `configs/`, not `assets/`; the convention test fails on `assets/config/`  | Move to `configs/` as a flat kebab-case `.yml`              |
-| Test fixtures under `assets/test/`                                  | Fixtures and the tests that use them drift apart; the convention test fails on `assets/test/`        | Move to `tests/assets/` (packaged with the tests)           |
-| A non-dot folder under `pwsh/` that is not a module                 | `Import-AllModules` discovers it and tries to build a manifest                                       | Dot-prefix it (infrastructure) or make it a module          |
-| A dot-prefixed module that should be discovered                     | `Import-AllModules` skips it — module is invisible                                                   | Remove the dot prefix                                       |
-| Passing `-PrivatePath` or similar parameters to Bootstrap           | A per-call name lets one caller disagree with the repository's setting                               | Read the setting through its resolver; remove the parameter |
-| A `module.yml` mapping folder names to meanings                     | Second source of truth that drifts from the actual structure                                         | Remove the mapping; use the convention directly             |
-| Putting output files in `assets/`                                   | Mixes transient output with source — see [dedicated-output-directory](dedicated-output-directory.md) | Write to `out/`                                             |
+- **Private helpers in `internal/`, `helpers/`, or `util/`**
+  - Problem: Bootstrap does not scan these — functions are invisible
+  - Fix: Rename to `private/`
+- **Tests in `test/`, `spec/`, or the module root**
+  - Problem: Test runner does not find them — they never execute
+  - Fix: Move to `tests/` with `*.Tests.ps1` naming
+- **The module's own config in the module root alongside `.ps1` files**
+  - Problem: Config files could collide with function naming; unclear boundaries
+  - Fix: Move to `configs/` as a kebab-case `.yml`
+- **Standalone scripts in the module root**
+  - Problem: Bootstrap treats them as public functions
+  - Fix: Move to `assets/`
+- **Using `config/` or `scripts/` as module subdirectories**
+  - Problem: Not a conventional folder — tooling ignores them, convention test fails
+  - Fix: Module config → `configs/`; scripts → `assets/`
+- **The module's own config under `assets/config/` or bare in `assets/`**
+  - Problem: Internal config belongs in `configs/`, not `assets/`; the convention test fails on `assets/config/`
+  - Fix: Move to `configs/` as a flat kebab-case `.yml`
+- **Test fixtures under `assets/test/`**
+  - Problem: Fixtures and the tests that use them drift apart; the convention test fails on `assets/test/`
+  - Fix: Move to `tests/assets/` (packaged with the tests)
+- **A non-dot folder under `pwsh/` that is not a module**
+  - Problem: `Import-AllModules` discovers it and tries to build a manifest
+  - Fix: Dot-prefix it (infrastructure) or make it a module
+- **A dot-prefixed module that should be discovered**
+  - Problem: `Import-AllModules` skips it — module is invisible
+  - Fix: Remove the dot prefix
+- **Passing `-PrivatePath` or similar parameters to Bootstrap**
+  - Problem: A per-call name lets one caller disagree with the repository's setting
+  - Fix: Read the setting through its resolver; remove the parameter
+- **A `module.yml` mapping folder names to meanings**
+  - Problem: Second source of truth that drifts from the actual structure
+  - Fix: Remove the mapping; use the convention directly
+- **Putting output files in `assets/`**
+  - Problem: Mixes transient output with source — see [dedicated-output-directory](dedicated-output-directory.md)
+  - Fix: Write to `out/`
 
 ### Stable locators
 

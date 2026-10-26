@@ -76,9 +76,6 @@ No class has a width count of 0 yet (2026-10-26, catzc-5c, `out/catzc-5c-widths/
 `report`. Each step below flips its class's `width_mode` to `fail` once its count reaches 0 and, in the same step, moves `Get-LinkLineLimit`
 from the rendered `.editorconfig` to `Get-FileLimit` for that class's extensions (catzc-f2, 2026-10-26).
 
-6. [ ] **prose, tables**: 59 files with table rows over 140 (1060 rows, 2026-10-26, `out/catzc-5c-widths/list-table.txt`); prettier never
-       wraps a table, so each splits into narrower tables or a list by hand, one folder at a time. Check: no table row over 140 in the
-       folder, `Test-Markdownlint` and `Test-Links` on it.
 7. [ ] **prose, fences**: 99 files with fenced lines over 140 (369 lines, `out/catzc-5c-widths/list-fence.txt`), shortened by hand. Check:
        no fenced line over 140 in the folder, `Test-Markdownlint` on it.
 8. [ ] **prose, manual test plan** (catzc-5c, after step 6): `Test-ManualTestPlan` reads each check from its `### N. <block>` section, which
@@ -86,11 +83,15 @@ from the rendered `.editorconfig` to `Get-FileLimit` for that class's extensions
        shrinks to `# | Tier | [check](#anchor)`, and the row form is removed. The gate, its test of the new reading and the 14 pages
        (`docs/how-to/pwsh/manual-test-plan.md` and `manual-test-plan/*.md`) land as one staged burst (catzc-f2, 2026-10-26). Check:
        `Test-ManualTestPlan.Tests.ps1` passes, `Test-ManualTestPlan` reports 0 issues, and no line of the 14 pages is over 140.
-10. [ ] **prose, leftover**: the 3 `.claude/plans/` files and `docs/drs/design/visual-design.md` (another session's), skipped on purpose.
-        Check: none of them over 140.
-11. [ ] **prose, the flip**: once steps 6 to 10 leave 0, `width_mode.prose: fail`, the MD013 `tables` and `code_blocks` true in the
+9. [ ] **prose, leftover** (tables done elsewhere, catzc-5c, 2026-10-26): the 3 `.claude/plans/` files (`plan-slim-agents.md`,
+       `plan-vscode-extensions.md`, `value-of-plan.md`); `docs/drs/design/visual-design.md` and `docs/drs/azure/azure-naming-standard.md`
+       (another session's, skipped while dirty); `docs/explanation/thesis/product-thesis/nowaste.slide.md` (its `## Rows` table is slide-kit
+       input, catzc-2f's); and `docs/references/pwsh/index.md`, whose 240-column module table is a table by the authoring guide
+       `docs/references/pwsh/CLAUDE.md` ("add a row to the table in `index.md`"): it becomes a list once that guide says so, a CLAUDE.md
+       edit the user makes. Check: none of them over 140.
+10. [ ] **prose, the flip**: once steps 7 to 9 leave 0, `width_mode.prose: fail`, the MD013 `tables` and `code_blocks` true in the
         `.markdownlint.yml` template (Build-WidthConfigs), and `Get-LinkLineLimit` moved to `Get-FileLimit` for `.md`. Check: the prose
         width count is 0, `Test-FileLimits` and `Test-Markdownlint` over the tree pass, and `Test-Links` over the tree passes.
-12. [ ] **config**: 155 files over 140 columns (pipeline YAML, configs). Check: as for prose, with `width_mode.config: fail`.
-13. [ ] **code**: 1830 files over 120 columns (the `.cs`, `.go` and `.js` link-wrap widths change with the move, from 140 to 120). Check: as
+11. [ ] **config**: 155 files over 140 columns (pipeline YAML, configs). Check: as for prose, with `width_mode.config: fail`.
+12. [ ] **code**: 1830 files over 120 columns (the `.cs`, `.go` and `.js` link-wrap widths change with the move, from 140 to 120). Check: as
         for prose, with `width_mode.code: fail`.

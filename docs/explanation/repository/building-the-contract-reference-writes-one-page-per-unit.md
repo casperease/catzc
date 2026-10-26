@@ -10,7 +10,8 @@ A maintainer changes a contract; one command rewrites the reference pages, and t
 5  Every link on the catzc page resolves           zone 2, local, after 3: test_links on the page
 6  The generated-files quality gate                        zone 2, local, after 4: test_generated_files sees no drift for the builder
 
-Supports ADR-REPO-CONTRACT-LAYOUT, ADR-REPO-CMDCONTRACT-ONEREADER, ADR-REPO-README-AUTHOREDSOURCES and DDR-VISUAL-ACTIONISALENS (action lens).
+Supports ADR-REPO-CONTRACT-LAYOUT, ADR-REPO-CMDCONTRACT-ONEREADER, ADR-REPO-README-AUTHOREDSOURCES
+and DDR-VISUAL-ACTIONISALENS (action lens).
 ```
 
 The contracts under `contracts/<unit>/<version>/` are the repository's binding interfaces, and the reference pages under

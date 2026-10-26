@@ -42,7 +42,8 @@ function Get-DiagramSupportsDrift {
     $cited = (Get-Config -Config drs).CodeForm.Cited
     foreach ($pagePath in $Page) {
         $text = [System.IO.File]::ReadAllText((Join-Path $RepositoryRoot $pagePath))
-        $lines = @([regex]::Matches($text, '(?m)^Supports (.+?) \((\w+) lens\)\.?\s*$'))
+        # A Supports line may wrap onto the next lines of its fence; its codes hold no parenthesis or backtick, so a match never leaves it.
+        $lines = @([regex]::Matches($text, '(?m)^Supports ([^()`]+?) \((\w+) lens\)\.?[ \t]*\r?$'))
         if ($lines.Count -eq 0) {
             continue
         }
@@ -51,7 +52,7 @@ function Get-DiagramSupportsDrift {
                 $_.Groups[2].Value -ceq $lens -and (($said -join ' ') -ceq ($codes -join ' '))
             })
         if ($agrees.Count -eq 0) {
-            "$pagePath says Supports $($lines[0].Groups[1].Value) ($($lines[0].Groups[2].Value) lens) for $Stem; its yml says $($codes -join ', ') ($lens lens)"
+            "$pagePath says Supports $($lines[0].Groups[1].Value -replace '\s+', ' ') ($($lines[0].Groups[2].Value) lens) for $Stem; its yml says $($codes -join ', ') ($lens lens)"
         }
     }
 }

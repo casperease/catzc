@@ -60,7 +60,7 @@ content:
     - { from: g-root, to: g-source-conventions, kind: flow, label: "" }
     - { from: g-root, to: g-folder-conventions, kind: flow, label: "" }
     - { from: g-root, to: g-assert-unique, kind: flow, label: "" }
-    - { from: g-assert-unique, to: g-manifest, kind: flow, label: "" }
+    - { from: g-assert-unique, to: g-manifest, kind: flow, label: calls }
     - { from: g-variants-config, to: g-validate, kind: adr, label: "" }
     - { from: g-variants-config, to: g-sha-lock, kind: adr, label: "" }
   markers:

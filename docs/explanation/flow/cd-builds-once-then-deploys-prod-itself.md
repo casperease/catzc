@@ -10,7 +10,8 @@ The customer CD pipeline builds once, then deploys the prod tier itself.
 5  nsub, dev, test                   the non-prod targets
 6  psub, prod                        the prod-tier targets, deployed in the same run
 
-Supports FDR-CD-SEPARATEPIPELINEKINDS, FDR-CD-CDCONTAINSCI, FDR-CD-CDSTAYSINNONPROD and FDR-CD-TWOENVIRONMENTACTIVATION (implementation lens).
+Supports FDR-CD-SEPARATEPIPELINEKINDS, FDR-CD-CDCONTAINSCI, FDR-CD-CDSTAYSINNONPROD
+and FDR-CD-TWOENVIRONMENTACTIVATION (implementation lens).
 ```
 
 Every customer CD ado pipeline in cats extends one template, `.ado/pipelines/extends/cd-customer.yaml`. The thin root pipelines

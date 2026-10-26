@@ -14,7 +14,8 @@ Get-AzureResourceName looks up, forms, checks and renders, then throws or return
 9   limit throw            an over-limit name throws
 10  return $name           a name within the limit is returned unchanged
 
-Supports ADR-AZ-NAMING-PATTERNPERRESOURCETYPE, ADR-AZ-NAMING-ORDERISVARIANT, ADR-AZ-NAMING-LOWERCASECOMPONENTS and ADR-AZ-NAMING-NEVERTRUNCATE (implementation lens).
+Supports ADR-AZ-NAMING-PATTERNPERRESOURCETYPE, ADR-AZ-NAMING-ORDERISVARIANT, ADR-AZ-NAMING-LOWERCASECOMPONENTS
+and ADR-AZ-NAMING-NEVERTRUNCATE (implementation lens).
 ```
 
 `Get-AzureResourceName` is the one function that turns name components into an Azure name. It runs four steps in code order: it looks up the

@@ -11,7 +11,8 @@ Three gates check the projection; generation is DRS-only.
 6  Test-AdoPipelineTriggerGlob    quality gate: the pipeline's four lists equal the projection
 7  Test-GlobSetTriggerCoverage    quality gate: every member hits an ADO include
 
-Supports FDR-CD-GLOBS-TRACKEDFILESONLY, FDR-CD-GLOBS-NATIVEPATHFILTER and FDR-CD-GLOBS-COMPOSESETS, and ADR-AUTO-TEST-QUALITYGATE (governance lens).
+Supports FDR-CD-GLOBS-TRACKEDFILESONLY, FDR-CD-GLOBS-NATIVEPATHFILTER and FDR-CD-GLOBS-COMPOSESETS,
+and ADR-AUTO-TEST-QUALITYGATE (governance lens).
 ```
 
 The projection of a globset into vendor path filters is the stage of the globset rules in cats that quality gates cover best: three gates

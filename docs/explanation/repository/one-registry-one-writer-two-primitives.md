@@ -45,10 +45,10 @@ content:
     - { id: r-gitignored, kind: result, label: gitignored targets, in: band-target }
     - { id: r-tracked, kind: result, label: tracked targets, in: band-target }
   edges:
-    - { from: g-templates, to: g-build-root-config, kind: flow, label: "" }
-    - { from: g-generators, to: g-build-root-config, kind: flow, label: "" }
-    - { from: g-rootconfig-yml, to: g-build-root-config, kind: flow, label: "" }
-    - { from: g-build-root-config, to: g-write-if-changed, kind: flow, label: 28/28 }
+    - { from: g-templates, to: g-build-root-config, kind: flow, label: feeds }
+    - { from: g-generators, to: g-build-root-config, kind: flow, label: feeds }
+    - { from: g-rootconfig-yml, to: g-build-root-config, kind: flow, label: feeds }
+    - { from: g-build-root-config, to: g-write-if-changed, kind: flow, label: calls, count: 28/28 }
     - { from: g-write-if-changed, to: r-gitignored, kind: flow, label: "22" }
     - { from: g-write-if-changed, to: r-tracked, kind: flow, label: "6" }
   markers:

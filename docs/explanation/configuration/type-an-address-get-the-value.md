@@ -12,7 +12,8 @@ Type an address and get its value back; a wrong address throws its message at th
 7  wrong address throws          a malformed address, an unknown config or a bad key, at the call
 8  invalid addressed parameters  one throw naming the config file and every bad parameter
 
-Supports ADR-CONF-ADDRESSING-GLOBALADDRESSFORM, ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY and ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST, and ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS (operations lens).
+Supports ADR-CONF-ADDRESSING-GLOBALADDRESSFORM, ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY and ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST,
+and ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS (operations lens).
 ```
 
 Three commands dereference a global config address in cats, and each shows the person or the pipeline step that runs it the same two things:

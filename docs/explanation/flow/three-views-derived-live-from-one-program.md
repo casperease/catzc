@@ -9,7 +9,8 @@ A globset is one ordered program, and its three views are derived live, never co
 4  Change report    the view that answers "which areas did a change touch?"
 5  Protection       the view that answers "did these inputs change?"
 
-Supports FDR-CD-GLOBS-NAMEDGLOBSETS, FDR-CD-GLOBS-TRACKEDFILESONLY, FDR-CD-GLOBS-DURABLESHAIDENTITY and FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT (meta lens).
+Supports FDR-CD-GLOBS-NAMEDGLOBSETS, FDR-CD-GLOBS-TRACKEDFILESONLY, FDR-CD-GLOBS-DURABLESHAIDENTITY
+and FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT (meta lens).
 ```
 
 A globset in cats names an area-of-control and maps it onto files under version control. Every question that asks whether a change concerns

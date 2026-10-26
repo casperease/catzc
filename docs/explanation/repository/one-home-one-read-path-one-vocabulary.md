@@ -38,8 +38,8 @@ content:
     - { id: g-vocabulary, kind: code, label: one guard vocabulary, in: band-primitives }
     - { id: g-callers, kind: set, label: any module above Config, in: band-callers }
   edges:
-    - { from: g-home, to: g-read-path, kind: flow, label: "" }
-    - { from: g-read-path, to: g-vocabulary, kind: flow, label: "" }
+    - { from: g-home, to: g-read-path, kind: flow, label: feeds }
+    - { from: g-read-path, to: g-vocabulary, kind: flow, label: calls }
     - { from: g-vocabulary, to: g-callers, kind: thick, label: "" }
   markers:
     - { at: g-home, number: 1 }

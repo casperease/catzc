@@ -9,7 +9,8 @@ A config address is a read-only walk over the one cached config, never a second 
 4  one node        the leaf or subtree the walk ends on: a live reference, to read
 5  wrong address   a bad name or a bad key throws at the call, never an empty value
 
-Supports ADR-CONF-ADDRESSING-GLOBALADDRESSFORM, ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST and ADR-CONF-ADDRESSING-RESOLVEDNODEISREAD (meta lens).
+Supports ADR-CONF-ADDRESSING-GLOBALADDRESSFORM, ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+and ADR-CONF-ADDRESSING-RESOLVEDNODEISREAD (meta lens).
 ```
 
 A global config address is a config value with a name that can be written down: `global.<config>.<key>`, the by-reference form of one node

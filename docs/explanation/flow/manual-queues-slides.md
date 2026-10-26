@@ -20,7 +20,8 @@ Where a person stands on the ladder: three manual queues, one automated switch.
 9   slot switch      automated and monitored; never a queue
 10  production       the top rung
 
-Supports FDR-CD-QUEUE-THREEQUEUES, FDR-CD-QUEUE-AUTHORINGISTHEFIRST, FDR-CD-QUEUE-SIGNATUREISTHEGATE and FDR-CD-QUEUE-SLOTSWITCHISAUTOMATED (meta lens).
+Supports FDR-CD-QUEUE-THREEQUEUES, FDR-CD-QUEUE-AUTHORINGISTHEFIRST, FDR-CD-QUEUE-SIGNATUREISTHEGATE
+and FDR-CD-QUEUE-SLOTSWITCHISAUTOMATED (meta lens).
 ```
 
 ```yml drawio

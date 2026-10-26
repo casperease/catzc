@@ -9,7 +9,8 @@ Every managed root file has one source of truth, one writer, and one boolean tha
 4  gitignored target   a derived file that git ignores: 22 of the 28 entries
 5  tracked target      a file git or the bootstrap reads before the importer runs: 6 of 28
 
-Supports ADR-REPO-ROOTCFG-FULLYMANAGED, ADR-REPO-ROOTCFG-REGISTRY, ADR-REPO-ROOTCFG-COMMITTEDFLAG, ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION and ADR-REPO-ROOTCFG-HEADEDCOPY (meta lens).
+Supports ADR-REPO-ROOTCFG-FULLYMANAGED, ADR-REPO-ROOTCFG-REGISTRY, ADR-REPO-ROOTCFG-COMMITTEDFLAG,
+ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION and ADR-REPO-ROOTCFG-HEADEDCOPY (meta lens).
 ```
 
 The repository root carries configuration files for git, editors and quality-gate tools. Cats does not keep them by hand: each one that is

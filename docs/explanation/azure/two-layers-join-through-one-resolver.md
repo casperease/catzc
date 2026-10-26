@@ -11,7 +11,8 @@ Templating and identity join through one shared check and one resolver.
 6  azure.yml                              the identity layer: subscriptions, the environments they serve, an optional customer
 7  customer.yml                           the customer catalogue: each key with its two-letter shortcode
 
-Supports ADR-AZ-DATAMOD-TWOCONFIGLAYERS, ADR-AZ-DATAMOD-NAMEKEYEDMAPS and ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY, and ADR-AZ-CUSTOMER-TWOBINDINGS (architecture lens).
+Supports ADR-AZ-DATAMOD-TWOCONFIGLAYERS, ADR-AZ-DATAMOD-NAMEKEYEDMAPS and ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY,
+and ADR-AZ-CUSTOMER-TWOBINDINGS (architecture lens).
 ```
 
 Two config layers describe what cats deploys onto Azure. The config layer for identity, `azure.yml` and `customer.yml`, says which

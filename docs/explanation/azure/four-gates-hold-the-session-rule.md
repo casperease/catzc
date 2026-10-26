@@ -1,7 +1,8 @@
 # Four gates hold the session rule; the customer and the name hold by construction
 
 ```text
-Four throwing gates hold ADR-AZ-DATAMOD-JOINSINPOWERSHELL; rules #4, #5 and ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT hold by construction, with no gate.
+Four throwing gates hold ADR-AZ-DATAMOD-JOINSINPOWERSHELL;
+rules #4, #5 and ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT hold by construction, with no gate.
 
 1  assert given in a pipeline  #7: Deploy-Bicep throws in a pipeline without -SubscriptionIdAssertIs
 2  subscription declared       #7: Get-AzCliSessionSubscription throws on an id azure.yml does not declare
@@ -11,7 +12,8 @@ Four throwing gates hold ADR-AZ-DATAMOD-JOINSINPOWERSHELL; rules #4, #5 and ADR-
 6  throw                       every gate ends here when it fails; nothing retargets or falls back
 7  RG name derived             #5 and NAMING#8: Get-BicepResourceGroupName builds the name; no subscription in it
 
-Supports ADR-AZ-DATAMOD-CUSTOMERAXIS, ADR-AZ-DATAMOD-DERIVEDRESOURCEGROUPNAME and ADR-AZ-DATAMOD-JOINSINPOWERSHELL, and ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT (governance lens).
+Supports ADR-AZ-DATAMOD-CUSTOMERAXIS, ADR-AZ-DATAMOD-DERIVEDRESOURCEGROUPNAME and ADR-AZ-DATAMOD-JOINSINPOWERSHELL,
+and ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT (governance lens).
 ```
 
 The rule that the az session is the deploy target has four parts, and cats holds each one behind a check that throws: a pipeline must give
