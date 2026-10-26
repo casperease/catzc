@@ -50,6 +50,15 @@ Describe 'SlidesConfig' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-SLIDEFILEKIND' {
         { [Catzc.Base.Slides.SlidesConfig]::new(@{ kit = '../widget' }) } | Should -Throw '*communication form*'
         { [Catzc.Base.Slides.SlidesConfig]::new(@{ kit = ' ' }) } | Should -Throw '*communication form*'
     }
+
+    It 'declares no name mention by default, maps each declared path to its reason, and rejects a path or a reason that is not one' -Tag 'DDR-VISUAL-NONAMEINPICTURE' {
+        ([Catzc.Base.Slides.SlidesConfig]::new(@{})).name_mentions.Count | Should -Be 0
+        $config = [Catzc.Base.Slides.SlidesConfig]::new(@{ name_mentions = @{ 'docs/widgets/.assets/widget-act' = ' the widget is drawn against the gadget ' } })
+        $config.name_mentions['docs/widgets/.assets/widget-act'] | Should -Be 'the widget is drawn against the gadget'
+        { [Catzc.Base.Slides.SlidesConfig]::new(@{ name_mentions = @{ 'docs\widgets' = 'a reason' } }) } | Should -Throw '*name_mentions key*communication form*'
+        { [Catzc.Base.Slides.SlidesConfig]::new(@{ name_mentions = @{ 'docs/widgets' = ' ' } }) } | Should -Throw '*must say why*'
+        { [Catzc.Base.Slides.SlidesConfig]::new(@{ name_mentions = 'docs/widgets' }) } | Should -Throw '*name_mentions must map*'
+    }
 }
 
 Describe 'SlidesConfig (shipped slides.yml)' -Tag 'L1', 'integrity' {

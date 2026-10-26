@@ -385,6 +385,16 @@ zoom down, in each component's own neighbourhood.
 
 - [The zoom ladder](#the-zoom-ladder)
 
+### Rule DDR-VISUAL-NONAMEINPICTURE
+
+A diagram or a slide never names **catzc** or **cats** as a word: it says what the thing is, "the modules", "the platform", "the run", or
+names it by an identifier. A name joined into an identifier passes, whether by `.`, `-`, `_` or `/`, so `Catzc.Base.Git`, `Get-CatzcModuleRoot`,
+`Import-Catzc` and `Catzc/<v>` all stand. A line that names both draws the contrast between them and passes. Every other mention is a declared
+contrast or the thing itself, listed once in `slides.yml` under `name_mentions` by diagram stem or slide path with its reason. `Test-Diagrams`
+reports each remaining mention in a declaration, and `Test-Slides` each in a slide, as `path:line`.
+
+- [No name in the picture](#no-name-in-the-picture)
+
 ## One axis, read left to right
 
 Time, the value chain, the delivery process, and git history all advance together from left to right, so one horizontal axis carries all of
@@ -652,3 +662,10 @@ as it is and lets any lens be drawn at any level. The ladder is Simon Brown's C4
 the repository sits among, since a repository is never the whole landscape. The badge prints the level beside the lens, so a reader moving
 down a ladder always knows how far out the slide stands, and the subtitle keeps its one job of naming the decisions. The deep levels are
 generated, because a hand-placed module or file list goes stale with the first rename, and the queries that answer it already exist.
+
+## No name in the picture
+
+A picture that says "catzc does it" tells the reader nothing the frame does not already say, since every diagram here is about this system.
+Naming what acts, the importer, the modules or the platform band, carries the meaning instead. The name stays where it is the thing
+itself: an identifier, a bundle a build prints, a product cover, or a band drawn against another system. Those exceptions are few, so
+each is declared once with its reason rather than guessed by a pattern, and the check holds the rest at zero.

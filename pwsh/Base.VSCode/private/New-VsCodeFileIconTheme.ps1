@@ -20,8 +20,8 @@ function New-VsCodeFileIconTheme {
         [Catzc.Base.VSCode.FileIconsConfig] $Config = (Get-Config -Config file-icons),
 
         [string[]] $GlyphDirectory = @(
-            (Join-Path (Get-RepositoryRoot) "$(Get-TrackPlace -Track js -TrackKind extensions)/catzc-file-icons/assets")
-            (Join-Path (Get-RepositoryRoot) "$(Get-TrackPlace -Track js -TrackKind extensions)/catzc-track-lamps/assets")
+            (Join-Path (Get-RepositoryRoot) "$(Get-TrackPlace -Track js -TrackKind extensions)/$((Get-Track -Name js).FolderNameOf('catzc-file-icons'))/assets")
+            (Join-Path (Get-RepositoryRoot) "$(Get-TrackPlace -Track js -TrackKind extensions)/$((Get-Track -Name js).FolderNameOf('catzc-track-lamps'))/assets")
         ),
 
         $Languages = (Get-Config -Config languages).languages

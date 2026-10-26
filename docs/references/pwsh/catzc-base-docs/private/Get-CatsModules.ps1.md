@@ -49,3 +49,12 @@ Above `$loaded = foreach ($folder in @(Get-ChildPath -Path $ModulesRoot -Depth 1
 A cats module is a folder of the modules root that a module of the same name is loaded from; the walker lists the
 folders.
 ```
+
+## comment:3
+
+Above `$all = @(Get-Module)`, written with `#`.
+
+```text
+A module folder drops the namespace the module's name carries, so a loaded module is matched to its folder by the folder it
+loaded from, never by name.
+```
