@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "3a36f22dd7d0"
+#     with_body_sha: "5f660a9402c4"
 #     warning: "Do Not Edit, this file is generated"
 # ---
 
@@ -45,6 +45,7 @@ pwsh/**/*.psd1
 # New-Solution from every C# project in the tree on every load, so a hand edit to the root copy is lost.
 /PSScriptAnalyzerSettings.psd1
 /.vscode/settings.json
+/jsconfig.json
 /.vscode/extensions.json
 /.vscode/launch.json
 /.vscode/tasks.json

@@ -143,6 +143,34 @@ prettier:
   version_command: "prettier --version"
   version_pattern: "^(?<ver>[\\d.]+)"
 
+# The TypeScript compiler, the js track's types gate (Test-JavaScriptTypes), and the type declarations it checks against, each installed by
+# Install-TypeScript into npm's global root, which the generated jsconfig.json names as its type roots; nothing lands in the repository.
+typescript:
+  version: "5"
+  command: tsc
+  depends_on: node_js
+  npm_package: typescript
+  version_command: "tsc --version"
+  version_pattern: "Version (?<ver>[\\d.]+)"
+
+# A type-only package has no command of its own: npm reports its installed version.
+types_node:
+  version: "24"
+  command: npm
+  depends_on: node_js
+  npm_package: "@types/node"
+  version_command: "npm ls -g @types/node --depth=0"
+  version_pattern: "@types/node@(?<ver>[\\d.]+)"
+
+# Pinned to the editor version the extension manifests declare (VscodeOwnExtension.DefaultEngine), so the types match what they run against.
+types_vscode:
+  version: "1.90"
+  command: npm
+  depends_on: node_js
+  npm_package: "@types/vscode"
+  version_command: "npm ls -g @types/vscode --depth=0"
+  version_pattern: "@types/vscode@(?<ver>[\\d.]+)"
+
 terraform:
   version: "1.15"
   command: terraform

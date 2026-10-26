@@ -1,3 +1,11 @@
+<#
+---
+catzc:
+  docs: "../../docs/references/pwsh/catzc-base-variants/Get-TrackMember.ps1.md"
+  header: "generated"
+---
+#>
+
 function Get-TrackMember {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Variants.TrackMember])]
@@ -12,12 +20,12 @@ function Get-TrackMember {
         [Nullable[bool]] $Committed
     )
 
-    $tracks = if ($Name) {
-        @(Get-Track -Name $Name)
-    }
-    else {
-        @(Get-Track)
-    }
+    $tracks = @(if ($Name) {
+            Get-Track -Name $Name
+        }
+        else {
+            Get-Track
+        })
 
     # A path names the one member that contains it, in the track Get-Track -Path finds, so the two always agree.
     if ($PSBoundParameters.ContainsKey('Path')) {
@@ -27,12 +35,12 @@ function Get-TrackMember {
     }
 
     foreach ($track in $tracks) {
-        $members = if ($PSBoundParameters.ContainsKey('Path')) {
-            @($track.MemberOf($normalized) | Where-Object { $_ })
-        }
-        else {
-            @($track.members)
-        }
+        $members = @(if ($PSBoundParameters.ContainsKey('Path')) {
+                $track.MemberOf($normalized) | Where-Object { $_ }
+            }
+            else {
+                $track.members
+            })
         foreach ($member in $members) {
             if ($null -ne $Generated -and $member.generated -ne $Generated) {
                 continue

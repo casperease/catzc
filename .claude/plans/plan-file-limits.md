@@ -63,7 +63,6 @@ Long files are where agents lose context and reviews lose focus; widths drift si
 - `Test-FileLimits` — the gate: tracked files, both checks, `Write-QualityGateReport`, joins `Test-Automation`.
 - `Build-WidthConfigs` — renders `.editorconfig` `max_line_length`, prettier `printWidth`, markdownlint MD013 and the ruff line from the one
   config, so the "keep in sync" comments are deleted; `New-PythonProject` and `Get-LinkLineLimit` read `Get-FileLimit`.
-- `FunctionLength.psm1` reads its 300 from the same config (`max_function_body_length`).
 
 ## Over the 500-line cap today (2026-10-25, tracked code and config)
 
@@ -73,8 +72,16 @@ step 4's `exempt:` map starts empty.
 
 ## Open steps
 
-4. [ ] `Build-WidthConfigs`; re-point `.editorconfig`, `.prettierrc.yml`, `.markdownlint.yml`, `New-PythonProject`, `Get-LinkLineLimit`,
-       `FunctionLength.psm1`; delete the sync comments. Check: `Test-GeneratedFiles`, `Test-Formatting`, `Test-ShippedConfigs`.
 5. [ ] Register the gate in `Test-Automation` and the timeouts roof. Check: `Test-Plans` sees the new gate exported; the gate's run time
        under its `timeouts.yml` roof.
 6. [ ] Flip `width_mode` to `fail` per class once its width count reaches 0 (today every class is `report`). Check: `Test-FileLimits`.
+
+## Open questions
+
+- `FunctionLength.psm1` keeps its 300 body lines as a literal: a script analyzer rule runs where `Get-Config` is not loaded, and the module
+  article says the function-body limit belongs to the rule's own setting, not to file-limits. Should the rule read a `function_body_length`
+  key from `file-limits.yml` straight from disk, as `NoTrackRootLiteral` reads `variants.yml`, or keep its own setting? Recommend the disk
+  read: one declared value, by a mechanism a rule already uses (catzc-5c, 2026-10-26).
+- `Get-LinkLineLimit` still parses `.editorconfig`, which is now rendered from file-limits.yml, so it reads the declared width. Reading
+  `Get-FileLimit` per extension instead would change the link-wrap width of `.cs`, `.go`, `.js` and `.psd1`, which step 6 decides per class.
+  Recommend leaving it on the rendered `.editorconfig` until step 6.

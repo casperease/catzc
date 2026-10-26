@@ -38,6 +38,14 @@ files:
       - pwsh/Catzc.Base.Globs/configs/filters.yml
     carrier: jsonc
     optIn: true
+  # The js track's types gate reads this; its type roots are the machine's npm global root, so it is gitignored and rendered per machine.
+  - target: jsconfig.json
+    generator: New-JsConfig
+    sources:
+      - pwsh/Catzc.Base.Languages/configs/javascript.yml
+      - pwsh/Catzc.Base.Execution/configs/tools.yml
+    carrier: jsonc
+    optIn: true
   - target: .vscode/extensions.json
     generator: New-VsCodeExtensions
     sources:

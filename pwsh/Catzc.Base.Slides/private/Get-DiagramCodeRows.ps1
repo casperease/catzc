@@ -9,18 +9,24 @@ function Get-DiagramCodeRows {
         [string] $RepositoryRoot
     )
 
-    # C4: one module's files, each a glyph of the kind its folder's role draws, and the link edges between two of them.
+    # C4: one module's tracked files, its tests left out, each a glyph of the kind its folder's role draws, and the link edges between two
+    # of them; a build's output beside the sources is no file of the module.
     $languages = Get-Config -Config languages
-    $folder = [System.IO.Path]::GetFullPath((Join-Path $RepositoryRoot $Point))
-    Assert-True ([System.IO.Directory]::Exists($folder)) -ErrorText "Get-DiagramCodeRows: the point $Point is no folder of the repository."
-    $kindOf = @{ 'private-function' = 'private'; 'type' = 'type'; 'test' = 'gate' }
+    $point = $Point.Trim('/')
+    $folder = [System.IO.Path]::GetFullPath((Join-Path $RepositoryRoot $point))
+    Assert-True ([System.IO.Directory]::Exists($folder)) -ErrorText "Get-DiagramCodeRows: the point $point is no folder of the repository."
+    $kindOf = @{ 'private-function' = 'private'; 'type' = 'type' }
     $nodes = [System.Collections.Generic.List[object]]::new()
     $ids = @{}
-    foreach ($file in @(Get-ChildPath $folder -File -Depth 3)) {
-        $relative = [System.IO.Path]::GetRelativePath($folder, $file).Replace('\', '/')
+    $tracked = @(Get-GitTrackedPath $point)
+    foreach ($file in @($tracked | Sort-Object)) {
+        $relative = "$file".Replace('\', '/').Substring($point.Length + 1)
         $place = $languages.PlaceOf($relative)
         $role = if ($place) {
             $place.role
+        }
+        if ($role -ceq 'test') {
+            continue
         }
         $kind = if ($kindOf.ContainsKey("$role")) {
             $kindOf["$role"]
@@ -32,9 +38,9 @@ function Get-DiagramCodeRows {
             'file'
         }
         $id = ($relative.ToLowerInvariant() -replace '[^a-z0-9]+', '-').Trim('-')
-        $ids[[System.IO.Path]::GetRelativePath($RepositoryRoot, $file).Replace('\', '/')] = $id
+        $ids["$point/$relative"] = $id
         # The glyph's kind already says what the file is, so its label is the name without the extension, short enough for its box.
-        $nodes.Add([ordered]@{ id = $id; label = [System.IO.Path]::GetFileNameWithoutExtension($file); kind = $kind })
+        $nodes.Add([ordered]@{ id = $id; label = [System.IO.Path]::GetFileNameWithoutExtension($relative); kind = $kind })
     }
     $edges = [System.Collections.Generic.List[object]]::new()
     $pairs = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)

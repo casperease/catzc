@@ -11,7 +11,7 @@ functions that resolve and check a file's limits. It deliberately does **not** o
 | ---------------- | -------- | -------------------------------------------------------------------------------- |
 | responsibility:1 | defaults | [Limits in the registry](#responsibility1--limits-in-the-registry)               |
 | responsibility:2 | measure  | [Measuring and checking a file](#responsibility2--measuring-and-checking-a-file) |
-| responsibility:3 | tools    | [Tool widths](#responsibility3--tool-widths) |
+| responsibility:3 | tools    | [Tool widths](#responsibility3--tool-widths)                                     |
 
 ### responsibility:1 — Limits in the registry
 
@@ -44,11 +44,11 @@ reused for the run.
 
 The module's public functions and configuration, sorted into the responsibilities above.
 
-| Responsibility                                   | Function            |
-| ------------------------------------------------ | ------------------- |
-| responsibility:1 — Limits in the registry        | `Get-FileLimit`     |
-| config                                           | `file-limits.yml`   |
-| responsibility:2 — Measuring and checking a file | `Measure-FileShape` |
-|                                                  | `Test-FileShape`    |
-|                                                  | `Test-FileLimits`   |
-| responsibility:3 — Tool widths | `Build-WidthConfigs` |
+| Responsibility                                   | Function             |
+| ------------------------------------------------ | -------------------- |
+| responsibility:1 — Limits in the registry        | `Get-FileLimit`      |
+| config                                           | `file-limits.yml`    |
+| responsibility:2 — Measuring and checking a file | `Measure-FileShape`  |
+|                                                  | `Test-FileShape`     |
+|                                                  | `Test-FileLimits`    |
+| responsibility:3 — Tool widths                   | `Build-WidthConfigs` |

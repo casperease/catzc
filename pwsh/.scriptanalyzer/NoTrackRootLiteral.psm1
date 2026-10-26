@@ -31,7 +31,15 @@ function Initialize-TrackRootLiteralData {
     # The relocatable modules root (Get-CatzcModulesRoot) holds the track whose modules run under this engine, pwsh; its places are the ones no string may spell.
     $script:roots = @(foreach ($track in $variants['tracks'].Values) {
             if (@($track['execution_engines']) -ccontains 'pwsh') {
-                @($track['places'])
+                # A member is a plain path or a map whose path it names.
+                foreach ($member in @($track['members'])) {
+                    if ($member -is [System.Collections.IDictionary]) {
+                        $member['path']
+                    }
+                    else {
+                        $member
+                    }
+                }
             }
         })
     $conventions = ConvertFrom-Yaml ([System.IO.File]::ReadAllText((Join-Path $modulesRoot 'Catzc.Base.QualityGates/configs/source-conventions.yml')))

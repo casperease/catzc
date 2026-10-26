@@ -98,6 +98,21 @@ function Invoke-RootConfigGenerator {
             # The VS Code tasks, rendered from the vscode-tasks registry (Catzc.Base.VSCode).
             New-VsCodeTasks
         }
+        'New-JsConfig' {
+            # The type roots are npm's global root beside the managed node, where Install-TypeScript puts the declarations; no process runs.
+            $node = Resolve-ToolExecutable -Tool node_js
+            $typeRoot = if ($node.Found) {
+                $folder = Split-Path $node.Path
+                $global = if ($IsWindows) {
+                    Join-Path $folder 'node_modules'
+                }
+                else {
+                    Join-Path (Split-Path $folder) 'lib/node_modules'
+                }
+                (Join-Path $global '@types') -replace '\\', '/'
+            }
+            New-JsConfig -TypeRoot $typeRoot
+        }
         'New-GoWorkspace' {
             # One record per file; the entry's target picks go.work or a go.mod.
             New-GoWorkspace -Target $Target

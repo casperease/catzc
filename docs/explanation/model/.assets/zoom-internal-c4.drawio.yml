@@ -5,7 +5,7 @@ about:
   zoom: C4
   point: pwsh/.internal
 content:
-  title: The internal files and the links between them
+  title: The internal folder's tracked files
   kind: explanation
   flow: left-to-right
   theme: dark

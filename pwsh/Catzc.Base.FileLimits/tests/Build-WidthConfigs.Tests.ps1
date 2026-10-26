@@ -23,6 +23,6 @@ Describe 'Build-WidthConfigs' -Tag 'L1', 'integrity', 'ADR-REPO-FORMAT-CONFIGURE
     }
 
     It 'rejects a target it does not render' {
-        { Build-WidthConfigs -Target '.gizmorc' } | Should -Throw
+        { Build-WidthConfigs -Target '.prettierignore' } | Should -Throw
     }
 }

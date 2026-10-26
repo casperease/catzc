@@ -10,7 +10,7 @@ function Build-WidthConfigs {
     [CmdletBinding()]
     [OutputType([string])]
     param(
-        [Parameter(Mandatory)]
+        [Parameter(Mandatory, Position = 0)]
         [ValidateSet('.editorconfig', '.prettierrc.yml', '.markdownlint.yml')]
         [string] $Target
     )
@@ -20,7 +20,7 @@ function Build-WidthConfigs {
     $text = [System.IO.File]::ReadAllText($template)
     $widths = @{}
     # A token names an extension, so each tool's width is the one file-limits.yml declares for the files it formats.
-    [regex]::Replace($text, '\$width(?<extension>\.[A-Za-z0-9]+)', {
+    [regex]::Replace($text, '[$]width(?<extension>[.][A-Za-z0-9]+)', {
             param($match)
             $extension = $match.Groups['extension'].Value
             if (-not $widths.ContainsKey($extension)) {

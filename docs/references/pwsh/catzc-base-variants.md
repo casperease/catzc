@@ -55,8 +55,8 @@ The repository's tracks, each a placed cluster of one track type
 ([DDR-TRACK-TRACKISPLACEDCLUSTER](../../drs/design/tracks.md#rule-ddr-track-trackisplacedcluster)), declared in `variants.yml` against the
 track types of `track-types.yml` and the module types of `module-types.yml`. `Get-Track` returns all tracks, the named ones, or the one that
 owns a path; `Get-TrackMember` returns the tracks' members with their generated and committed facts, filtered on either, or the one member
-that holds a path; `Get-TrackPlace` returns the place pattern of one kind of a track; `Get-PathModule` returns the module a path is placed in and
-its module type; `Test-TrackDeclaration` checks that tracks, track types, vendors and module types agree.
+that holds a path; `Get-TrackPlace` returns the place pattern of one kind of a track; `Get-PathModule` returns the module a path is placed
+in and its module type; `Test-TrackDeclaration` checks that tracks, track types, vendors and module types agree.
 
 ## What the module does
 

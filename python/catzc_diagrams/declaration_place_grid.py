@@ -7,6 +7,8 @@ import html
 import math
 from types import SimpleNamespace
 
+import query_rows
+
 from declaration_cells import TAGGED_KINDS, cell, chrome, edge_cell, glyph_tags, ladder_rungs
 from declaration_constants import (
     ANCHOR,
@@ -84,6 +86,8 @@ def place_grid(declaration):
             if "rhombus" in glyph_lib[item["kind"]]["style"]:  # a diamond is as big as its label needs, never smaller than the glyph
                 fit = diamond_fit(item["label"])["size"]
                 return max(base[0], fit[0]), max(base[1], fit[1])
+            if query_rows.drawn_by_query(item["id"]):  # a query's label is a file or module name no author shortened: the box fits it
+                return max(base[0], 8 * len(str(item.get("label", ""))) + 24), base[1]
             return base
         inner_w, inner_h = grid_size(item["id"])
         return inner_w + 2 * PAD, inner_h + LABEL_ROW + PAD
