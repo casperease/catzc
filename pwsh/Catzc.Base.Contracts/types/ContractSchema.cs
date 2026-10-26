@@ -90,10 +90,10 @@ public static class ContractSchema
                     }
                     break;
                 case "additionalProperties":
+                    // true or false opens or closes the object; a schema checks every member properties does not name.
                     if (!(argument is bool))
                     {
-                        findings.Add(string.Format(CultureInfo.InvariantCulture,
-                            "schema {0}: unsupported form of additionalProperties: only true or false is supported, not a schema", here));
+                        Read(root, argument, here, findings);
                     }
                     break;
                 case "enum":
@@ -296,7 +296,9 @@ public static class ContractSchema
         IDictionary properties = ContractValue.TryGetMember(map, "properties", out object declared)
             ? (IDictionary)declared
             : null;
-        bool closed = ContractValue.TryGetMember(map, "additionalProperties", out object additional) && !(bool)additional;
+        bool hasAdditional = ContractValue.TryGetMember(map, "additionalProperties", out object additional);
+        bool closed = hasAdditional && additional is bool open && !open;
+        object additionalSchema = hasAdditional && !(additional is bool) ? additional : null;
         foreach (DictionaryEntry entry in instance)
         {
             string key = ContractValue.Text(entry.Key);
@@ -304,6 +306,10 @@ public static class ContractSchema
             if (properties != null && ContractValue.TryGetMember(properties, key, out object nested))
             {
                 Check(root, nested, entry.Value, at + "/properties/" + Pointer(key), member, findings);
+            }
+            else if (additionalSchema != null)
+            {
+                Check(root, additionalSchema, entry.Value, at + "/additionalProperties", member, findings);
             }
             else if (closed)
             {

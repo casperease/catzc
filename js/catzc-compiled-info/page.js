@@ -1,11 +1,20 @@
 // The note the compiled-types editor shows: the build's name against the hash of the current sources. No editor API, so node tests load it.
 
-const escape = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+const escape = (/** @type {string} */ s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
+/**
+ * @param {string} name
+ * @returns {string | undefined}
+ */
 function builtHash(name) {
     return (/^Catzc\.Types\.([0-9a-f]{8})\.dll$/i.exec(name) || [])[1];
 }
 
+/**
+ * @param {string} name
+ * @param {string | null} current
+ * @returns {string}
+ */
 function stateText(name, current) {
     const built = builtHash(name);
     return current === null
@@ -16,6 +25,12 @@ function stateText(name, current) {
             "A session that loaded this build keeps it until it exits; a new pwsh loads the current one.";
 }
 
+/**
+ * @param {string} name
+ * @param {string | null} current
+ * @param {string} info
+ * @returns {string}
+ */
 function page(name, current, info) {
     const state = stateText(name, current);
     return `<!doctype html><html><head><meta charset="utf-8"><style>

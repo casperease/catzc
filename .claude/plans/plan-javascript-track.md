@@ -47,10 +47,6 @@ pwsh-to-extension boundary checked instead of implied.
 
 ## Open steps
 
-- [ ] `catzc-ansi-logs`: `isRunLog` tests `/[\/]out[\/].*\.log$/` against `document.uri.fsPath`, whose separators are `\` on Windows, so no
-      run log there is ever painted; the class must take both separators (found by catzc-ed in the strict-types pass, 2026-10-26, left as it
-      is since that pass changes types only). Check: a node test of the path test with a `\` path, and `Test-JavaScriptTypes` green.
-- [ ] Strict types for `catzc-compiled-info`. Check: `Test-JavaScriptTypes` green.
 - [ ] Strict types for `catzc-track-lamps`, last, one part per change with its node tests and the lamp vectors after each. Check:
       `Test-JavaScriptTypes` green, `Invoke-JavaScriptTest catzc-track-lamps`, `catzc-track-lamps.Tests.ps1`.
 - [ ] Phase 5, contract (after `plan-contracts-layout.md`'s move): `contracts/vscode/0.1.0/extensions/package.schema.json`, the trimmed

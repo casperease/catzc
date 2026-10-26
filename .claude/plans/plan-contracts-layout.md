@@ -20,8 +20,5 @@ so today `catzc` is the only root.
 
 ## Open steps
 
-- [ ] `Build-ContractReference`: its one page per root (today `docs/references/contracts/catzc.md`) speaks of the root, not a unit, and its
-      table per version has the columns group, asset, bound files, direction, kind and signature; the contracts README follows. Check:
-      `Test-GeneratedFiles` and `Test-Links` on `docs/references/contracts`.
 - [ ] `ContractSchema`: `additionalProperties` as a schema, so the workflow schema checks each job and its steps, not only the top level.
       Check: `ContractSchema.Tests.ps1`, then `Test-Contracts` on the workflows.

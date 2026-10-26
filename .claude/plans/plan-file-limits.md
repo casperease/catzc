@@ -79,8 +79,8 @@ from the rendered `.editorconfig` to `Get-FileLimit` for that class's extensions
 6. [ ] **prose, tables**: 59 files with table rows over 140 (1060 rows, 2026-10-26, `out/catzc-5c-widths/list-table.txt`); prettier never
        wraps a table, so each splits into narrower tables or a list by hand, one folder at a time. Check: no table row over 140 in the
        folder, `Test-Markdownlint` and `Test-Links` on it.
-7. [ ] **prose, fences**: 99 files with fenced lines over 140 (369 lines, `out/catzc-5c-widths/list-fence.txt`), shortened by hand.
-       Check: no fenced line over 140 in the folder, `Test-Markdownlint` on it.
+7. [ ] **prose, fences**: 99 files with fenced lines over 140 (369 lines, `out/catzc-5c-widths/list-fence.txt`), shortened by hand. Check:
+       no fenced line over 140 in the folder, `Test-Markdownlint` on it.
 8. [ ] **prose, unbreakable links**: 13 diagram embeds `![…](.assets/….drawio.png)` (the diagram kit finds a page's diagram by the inline
        embed, so a reference-style image waits on `Get-DiagramEmbedder` reading one), 7 rule citations `([ADR-…](…#rule-…))` in
        `identity-and-access.md` and `markdown-config-contributions.md` (the one citation spelling, rewritten by `Update-DrsCitation`), and
@@ -92,4 +92,4 @@ from the rendered `.editorconfig` to `Get-FileLimit` for that class's extensions
         width count is 0, `Test-FileLimits` and `Test-Markdownlint` over the tree pass, and `Test-Links` over the tree passes.
 11. [ ] **config**: 155 files over 140 columns (pipeline YAML, configs). Check: as for prose, with `width_mode.config: fail`.
 12. [ ] **code**: 1830 files over 120 columns (the `.cs`, `.go` and `.js` link-wrap widths change with the move, from 140 to 120). Check: as
-       for prose, with `width_mode.code: fail`.
+        for prose, with `width_mode.code: fail`.

@@ -24,12 +24,12 @@ decision kind; the thesis frames them all, and the other domains cite it through
 
 ![The record domains and how they cite each other](.assets/zoom-drs-c3.drawio.png)
 
-This slide is drawn from `Get-DrsDomainEdges` at every build: one glyph per domain, its chip counting the domains it cites and that cite it.
+This slide is drawn from `Get-DrsDomainEdges` at every build: one glyph per domain in a column, and every citation an arrow in a lane of its own.
 
 ## C4: one domain's records
 
 ![The design records and the links between them](.assets/zoom-drs-c4.drawio.png)
 
-The deepest slide stands in one domain, `docs/drs/design/`: each record is a glyph, its chip counting the links between it and the other
-records, from `Get-LinkEdge`
+The deepest slide stands in one domain, `docs/drs/design/`: each record is a glyph in a column, and each link between two of them an
+arrow in a lane of its own, from `Get-LinkEdge`
 ([ADR-REPO-LINKS-EVERYLINKHASADIRECTION](../../drs/repository/links-in-repository.md#rule-adr-repo-links-everylinkhasadirection)).

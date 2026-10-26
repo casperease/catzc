@@ -8,6 +8,10 @@ const path = require("path");
 const { execFile } = require("child_process");
 const { escape, page } = require("./page.js");
 
+/**
+ * @param {string} modulesRoot
+ * @returns {Promise<string | null>}
+ */
 function sourcesHash(modulesRoot) {
     const loader = path.join(modulesRoot, ".internal", "Catzc.Internal.Loader.psm1");
     const command =
@@ -20,6 +24,10 @@ function sourcesHash(modulesRoot) {
     });
 }
 
+/**
+ * @param {string} file
+ * @returns {Promise<string>}
+ */
 async function render(file) {
     const name = path.basename(file);
     const current = await sourcesHash(path.dirname(path.dirname(file)));
@@ -28,6 +36,7 @@ async function render(file) {
     return page(name, current, info);
 }
 
+/** @param {import("vscode").ExtensionContext} context */
 function activate(context) {
     context.subscriptions.push(
         vscode.window.registerCustomEditorProvider(

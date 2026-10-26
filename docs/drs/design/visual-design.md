@@ -375,8 +375,10 @@ default, so a diagram without it is drawn as before, and a value outside the lis
 badge printing `C<n>` beside its lens badge, and the badge alone carries the level: the subtitle stays the diagram's ADR codes. A C3 or C4
 slide is filled from the query rows of its level, never placed by hand: its declaration stores the inputs, the level and the point of the
 tree in `about.point`, and `Build-Diagrams` asks the level's query for that point and hands the rows to the renderer by an address it names,
-which expands them into generated cells that the source never holds. A query slide draws its cells and, on each, a count chip of its edges
-in and out; the edges themselves are not drawn.
+which expands them into generated cells that the source never holds. A query slide of at most the renderer's `query-edges-max-nodes` cells
+(45 by default, declared once in the kit's `drawio.yml`) draws its cells in one column and every edge in a vertical lane of its own beside
+it, so no edge crosses a cell; a larger one draws its cells with a count chip of their edges in and out on each, since its edges live one
+zoom down, in each component's own neighbourhood.
 
 - [The zoom ladder](#the-zoom-ladder)
 

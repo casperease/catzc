@@ -42,5 +42,5 @@ the diagram's decision codes. A diagram without a zoom is drawn as before.
 
 A C3 or C4 slide is never placed by hand. Its declaration stores only its inputs: the level and the point of the tree (`about.point`).
 `Build-Diagrams` asks the level's query for that point, `Get-ModuleDependencyEdges` for C3 and `Get-LinkEdge` for C4, and hands the rows to
-the renderer, which writes them out as cells the source never holds. Each cell carries a count chip of its edges in and out, and the edges
-themselves are not drawn. When the tree changes, the next build draws the change.
+the renderer, which writes them out as cells the source never holds. Up to 45 cells, they stand in one column with every edge in a lane of its own beside it; a larger slide gives each cell a
+count chip of its edges in and out instead, since its edges live one zoom down. When the tree changes, the next build draws the change.

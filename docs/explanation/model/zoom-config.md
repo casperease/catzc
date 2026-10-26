@@ -15,8 +15,8 @@ The fourth ladder stands at `pwsh/Catzc.Base.Config/`, one module of the [pwsh l
 
 ![The config module and the modules that call it](.assets/zoom-config-c3.drawio.png)
 
-The slide holds only the modules an edge joins to this one, the modules it calls and the many that call it, each with a chip counting its
-calls, from `Get-ModuleDependencyEdges`
+The slide holds only the modules an edge joins to this one, the modules it calls and the many that call it, each call an arrow in a lane of
+its own, from `Get-ModuleDependencyEdges`
 ([ADR-AUTO-DEPM-UNIFIEDGRAPH](../../drs/automation/controlling-module-dependencies.md#rule-adr-auto-depm-unifiedgraph)).
 
 ## C4: the module's files
