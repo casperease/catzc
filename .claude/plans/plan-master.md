@@ -56,8 +56,8 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
   globsets derived from tracks, a DDR-VENDOR for the vendor umbrella, normal-form track names, filter lamps per aspect plus a language
   field, minimaps and lamps out of the ADRs; eighteen steps, the first waiting on the user's example names
 - reference-normal-form -> plan-reference-normal-form.md: reference pages at a derived path
-  (`docs/references/<language>/<module>/<aspect path>/<file>.md`), no `docs:` links; steps 1 and 2 staged by catzc-98 in its
-  scratchpad, then the step-3 rename script, then the user's rename
+  (`docs/references/<language>/<module>/<aspect path>/<file>.md`), no `docs:` links; steps 1 and 2 staged by catzc-98 in its scratchpad,
+  then the step-3 rename script, then the user's rename
 - module-types-contracts -> plan-module-types-contracts.md: each module group publishes its compiled type surface as `types.json` beside its
   command contracts, replacing the global sample; command contracts' types checked against it
 - idiomatic-names -> plan-idiomatic-names.md: one step left, the naming gate wired into languages.yml once the user stages the folder moves
@@ -85,6 +85,8 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
   run pays; two steps
 - debt-format-cache -> plan-debt-format-cache.md: the format cache keyed on the imprint steps' code and the installed tools' versions, so a
   gate never passes a file on a stale verdict; two steps
+- debt-function-help -> plan-debt-function-help.md: the 29 functions whose help the ps-help step cannot repair, written on their comment
+  pages, one module per step; twelve steps
 - vscode-session-binding -> plan-vscode-session-binding.md: the one-instance-per-session decision observed in VS Code: the hang proven gone
   or caught from the inside, and the two janitors that talk to the editor and dotnet from inside its own session judged
 - comment-insights -> plan-comment-insights.md: distilled one-line insight comments back in code at the line each comment page section

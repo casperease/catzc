@@ -68,6 +68,12 @@ has a track.
   computed by a `Get-*` command over the generated truths, never drawn or stored by hand; what a minimap or a lamp is lives in the docs of
   the tool that draws it, never in a rule.
 
+## Decided (the user, 2026-10-26)
+
+- The example track names: `.github` → `vendor_github`, `.claude` → `vendor_claude`, `.vscode` → `vendor_vscode`, `.cspell` →
+  `vendor_cspell`, `.gitignore` and the root dotfiles → `vendor_git.root_configs`, `pwsh/.vendor` → `vendor_pwsh.modules`, `bash/.vendor` →
+  `vendor_bash.modules`, `.typescript` → `vendor_typescript.types`.
+
 ## Open steps
 
 1. [ ] `docs/drs/design/track-types.md` (the user names three or four real paths and their track names first): the naming rule of a track in

@@ -53,8 +53,10 @@ def report(rows):
     lines = [
         "# Language audit",
         "",
-        f"{len(rows)} code glyphs in {len({r['stem'] for r in rows})} diagrams, {len(untagged)} of them untagged. Read-only: nothing is rebuilt"
-        " and no declaration changes.",
+        (
+            f"{len(rows)} code glyphs in {len({r['stem'] for r in rows})} diagrams, {len(untagged)} of them untagged. Read-only: nothing is rebuilt"
+            " and no declaration changes."
+        ),
         "",
         "## Glyphs per language",
         "",
