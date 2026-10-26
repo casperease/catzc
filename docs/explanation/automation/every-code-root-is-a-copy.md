@@ -12,7 +12,8 @@ One engine builds the bundle, and every code root is a copy of its output.
 7  Catzc.Base.Exporter      the exporter module that drives the engine and owns the lifecycle
 8  Checked again            Install-Catzc runs the guard before it copies
 
-Supports ADR-AUTO-BUNDLE-BUNDLEISBUILD, ADR-AUTO-BUNDLE-TWOROOTS, ADR-AUTO-BUNDLE-ONELIVINGIMPORTER and ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL (architecture lens).
+Supports ADR-AUTO-BUNDLE-BUNDLEISBUILD, ADR-AUTO-BUNDLE-TWOROOTS, ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
+and ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL (architecture lens).
 ```
 
 Cats runs from a code root: the folder its modules load from. In the repository that root is the source tree itself, but a bundle carries

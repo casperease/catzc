@@ -11,7 +11,8 @@ Only ingress is checked by gates; the source-of-truth and integration rules rest
 6  code review      the only check on where consumers integrate from (R2, R3, L6)
 7  consumer clones  meant to build on the verified point; nothing resolves it
 
-Supports DDR-REMOTE-SERVERREMOTEISTRUTH, DDR-REMOTE-INTEGRATEFROMVERIFIED, DDR-REMOTE-NORECONCILINGTIPS and DDR-REMOTE-PULLREQUESTISINGRESS, ADR-REPO-VARIANT-GITWORKSPACE and FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD (governance lens).
+Supports DDR-REMOTE-SERVERREMOTEISTRUTH, DDR-REMOTE-INTEGRATEFROMVERIFIED, DDR-REMOTE-NORECONCILINGTIPS
+and DDR-REMOTE-PULLREQUESTISINGRESS, ADR-REPO-VARIANT-GITWORKSPACE and FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD (governance lens).
 ```
 
 DDR-REMOTE makes four rules about the server remote, but only one of them is checked by something that runs. The way in has two gates: a

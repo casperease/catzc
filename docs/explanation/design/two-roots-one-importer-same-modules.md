@@ -12,7 +12,8 @@ Two code roots feed one importer, which loads the same modules.
 7  Catzc.* modules               the same modules in both modes, one script scope each
 8  Catzc.Base.Repository         hands each module the code root it finds its files under
 
-Supports DDR-RUNMODE-TWORUNMODES, DDR-RUNMODE-SAMEMODULEINBOTH, DDR-RUNMODE-OWNSCRIPTSCOPE and DDR-RUNMODE-THREEBUILDKINDS (architecture lens).
+Supports DDR-RUNMODE-TWORUNMODES, DDR-RUNMODE-SAMEMODULEINBOTH, DDR-RUNMODE-OWNSCRIPTSCOPE
+and DDR-RUNMODE-THREEBUILDKINDS (architecture lens).
 ```
 
 The two run modes of cats differ only in where the code root sits: source mode loads straight from the repository, and build mode loads from

@@ -89,4 +89,4 @@ const assertFilters = (lamps) => {
     return lamps;
 };
 
-module.exports = { host, trace, config, SHIPPED_LAMPS, LANGUAGE, languageSets, languages, declaredFilters, filters, assertShipped };
+module.exports = { host, editor, trace, config, SHIPPED_LAMPS, LANGUAGE, languageSets, languages, declaredFilters, filters, assertShipped };

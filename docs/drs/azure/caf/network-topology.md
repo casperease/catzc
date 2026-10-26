@@ -461,7 +461,7 @@ Virtual WAN, no Virtual Network Manager, no IPv6, no on-premises network, and on
 
 ```text
 CAF Network topology and connectivity — Traditional Azure networking topology — recommendation 1
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/traditional-azure-networking-topology
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/traditional-azure-networking-topology
   (retrieved 2026-10-15)
 Summary (ours): Choose a traditional hub-and-spoke design when the network is regional, or multi-region without much
 cross-region transit between landing zones, when no transit between VPN and ExpressRoute is needed, when hybrid links are
@@ -499,7 +499,7 @@ realised — the landing zones form a hub-and-spoke network declared in `network
 
 ```text
 CAF Network topology and connectivity — Traditional Azure networking topology — recommendation 2
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/traditional-azure-networking-topology
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/traditional-azure-networking-topology
   (retrieved 2026-10-15)
 Summary (ours): For a regional deployment, put one hub in each region and peer the spokes to it. The hub serves ExpressRoute
 through two peering locations, branch VPN, spoke-to-spoke traffic through appliances and user-defined routes, and protects
@@ -537,7 +537,7 @@ partly realised — a hub per tier with its spokes peered; the hub's gateway and
 
 ```text
 CAF Network topology and connectivity — Traditional Azure networking topology — recommendation 3
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/traditional-azure-networking-topology
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/traditional-azure-networking-topology
   (retrieved 2026-10-15)
 Summary (ours): A diagram of the hub-and-spoke topology, offered as the configuration that meets most segmentation and
 inspection needs.
@@ -556,7 +556,7 @@ realised — the topology is the one of rule 1.
 
 ```text
 CAF Network topology and connectivity — Traditional Azure networking topology — recommendation 4
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/traditional-azure-networking-topology
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/traditional-azure-networking-topology
   (retrieved 2026-10-15)
 Summary (ours): Connect several hub networks over several ExpressRoute circuits at different peering locations when business
 units need strong isolation, dedicated bandwidth, or more connections than one gateway allows.
@@ -576,7 +576,7 @@ not adopted, because there is no ExpressRoute circuit.
 
 ```text
 CAF Network topology and connectivity — Traditional Azure networking topology — recommendation 5
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/traditional-azure-networking-topology
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/traditional-azure-networking-topology
   (retrieved 2026-10-15)
 Summary (ours): A diagram of the topology of recommendation 4, with several hubs on several ExpressRoute circuits.
 ```
@@ -593,7 +593,7 @@ not adopted, because rule 4 is not adopted.
 
 ```text
 CAF Network topology and connectivity — Traditional Azure networking topology — recommendation 6
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/traditional-azure-networking-topology
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/traditional-azure-networking-topology
   (retrieved 2026-10-15)
 Summary (ours): For dual-homed peering within one city, consider ExpressRoute Metro.
 ```
@@ -611,7 +611,7 @@ not adopted, because there is no ExpressRoute circuit.
 
 ```text
 CAF Network topology and connectivity — Traditional Azure networking topology — recommendation 7
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/traditional-azure-networking-topology
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/traditional-azure-networking-topology
   (retrieved 2026-10-15)
 Summary (ours): Put Azure Firewall or a partner network appliance in the hub to filter traffic between spokes and traffic to
 and from the internet.
@@ -644,7 +644,7 @@ planned (follow-up) — a firewall in the hub and a default route to it in every
 
 ```text
 CAF Network topology and connectivity — Traditional Azure networking topology — recommendation 8
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/traditional-azure-networking-topology
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/traditional-azure-networking-topology
   (retrieved 2026-10-15)
 Summary (ours): Keep the hub to a minimal set of shared services: the ExpressRoute and VPN gateways, the firewall or
 appliances, and where needed domain controllers and DNS servers.
@@ -680,7 +680,7 @@ partly realised — the hub holds only shared network services and DNS, plus the
 
 ```text
 CAF Network topology and connectivity — Traditional Azure networking topology — recommendation 9
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/traditional-azure-networking-topology
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/traditional-azure-networking-topology
   (retrieved 2026-10-15)
 Summary (ours): Deploy one DDoS Protection plan in the connectivity subscription and use it for every landing zone and
 platform virtual network.
@@ -702,7 +702,7 @@ not adopted, because no network has a public address to protect.
 
 ```text
 CAF Network topology and connectivity — Traditional Azure networking topology — recommendation 10
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/traditional-azure-networking-topology
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/traditional-azure-networking-topology
   (retrieved 2026-10-15)
 Summary (ours): Connect branches to headquarters over the existing private wide-area or SD-WAN network; without Route Server, Azure does
 not carry traffic between ExpressRoute and VPN.
@@ -720,7 +720,7 @@ not adopted, because there is no on-premises network or branch.
 
 ```text
 CAF Network topology and connectivity — Traditional Azure networking topology — recommendation 11
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/traditional-azure-networking-topology
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/traditional-azure-networking-topology
   (retrieved 2026-10-15)
 Summary (ours): Repeats recommendation 7: filter traffic between spokes and to and from the internet with Azure Firewall
 or partner appliances in the hub.
@@ -738,7 +738,7 @@ planned (follow-up) — as rule 7.
 
 ```text
 CAF Network topology and connectivity — Traditional Azure networking topology — recommendation 12
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/traditional-azure-networking-topology
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/traditional-azure-networking-topology
   (retrieved 2026-10-15)
 Summary (ours): Deploy partner networking appliances as their vendor advises, so the deployment is supported, highly
 available, and performs well, and does not conflict with Azure networking.
@@ -757,7 +757,7 @@ not adopted, because no partner appliance is deployed.
 
 ```text
 CAF Network topology and connectivity — Traditional Azure networking topology — recommendation 13
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/traditional-azure-networking-topology
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/traditional-azure-networking-topology
   (retrieved 2026-10-15)
 Summary (ours): Do not run Application Gateway or a similar inbound application-level device as a shared service in the
 hub; it belongs in the landing zone of the application it serves.
@@ -778,7 +778,7 @@ realised — the hub holds no inbound application proxy.
 
 ```text
 CAF Network topology and connectivity — Traditional Azure networking topology — recommendation 14
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/traditional-azure-networking-topology
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/traditional-azure-networking-topology
   (retrieved 2026-10-15)
 Summary (ours): Repeats recommendation 9: one DDoS Protection plan in the connectivity subscription.
 ```
@@ -795,7 +795,7 @@ not adopted, because no network has a public address to protect (rule 9).
 
 ```text
 CAF Network topology and connectivity — Traditional Azure networking topology — recommendation 15
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/traditional-azure-networking-topology
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/traditional-azure-networking-topology
   (retrieved 2026-10-15)
 Summary (ours): Repeats recommendation 10: connect branches over the existing private wide-area or SD-WAN network.
 ```
@@ -812,7 +812,7 @@ not adopted, because there is no on-premises network or branch (rule 10).
 
 ```text
 CAF Network topology and connectivity — Traditional Azure networking topology — recommendation 16
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/traditional-azure-networking-topology
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/traditional-azure-networking-topology
   (retrieved 2026-10-15)
 Summary (ours): When traffic must pass between ExpressRoute and VPN gateways in a hub-and-spoke network, use Azure Route
 Server.
@@ -830,7 +830,7 @@ not adopted, because there is no ExpressRoute or VPN gateway.
 
 ```text
 CAF Network topology and connectivity — Traditional Azure networking topology — recommendation 17
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/traditional-azure-networking-topology
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/traditional-azure-networking-topology
   (retrieved 2026-10-15)
 Summary (ours): With hubs in several regions and only a few landing zones that must talk across regions, peer those spokes
 directly with global peering; it is fast but bypasses the hub appliances.
@@ -850,7 +850,7 @@ not adopted, because there is one region.
 
 ```text
 CAF Network topology and connectivity — Traditional Azure networking topology — recommendation 18
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/traditional-azure-networking-topology
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/traditional-azure-networking-topology
   (retrieved 2026-10-15)
 Summary (ours): When most landing zones talk across regions, or bypassing the hub appliances is unacceptable, route between
 hubs through their appliances, over global peering (fast, billed by traffic) or ExpressRoute (more latency, bound by the
@@ -869,7 +869,7 @@ not adopted, because there is one region.
 
 ```text
 CAF Network topology and connectivity — Traditional Azure networking topology — recommendation 19
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/traditional-azure-networking-topology
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/traditional-azure-networking-topology
   (retrieved 2026-10-15)
 Summary (ours): To connect two regions, peer their two hubs with global peering.
 ```
@@ -888,7 +888,7 @@ not adopted, because there is one region and the two hubs separate the tiers.
 
 ```text
 CAF Network topology and connectivity — Traditional Azure networking topology — recommendation 20
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/traditional-azure-networking-topology
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/traditional-azure-networking-topology
   (retrieved 2026-10-15)
 Summary (ours): Move to a managed global transit network based on Virtual WAN when hub-and-spoke must span more than two
 regions, landing zones need global transit between them, and management overhead must stay low.
@@ -908,7 +908,7 @@ not adopted, because the network spans one region and needs no global transit.
 
 ```text
 CAF Network topology and connectivity — Traditional Azure networking topology — recommendation 21
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/traditional-azure-networking-topology
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/traditional-azure-networking-topology
   (retrieved 2026-10-15)
 Summary (ours): Beyond two regions, connect every regional hub to the same ExpressRoute circuits instead of maintaining a
 mesh of peerings and user-defined routes.
@@ -926,7 +926,7 @@ not adopted, because there is one region and no ExpressRoute circuit.
 
 ```text
 CAF Network topology and connectivity — Traditional Azure networking topology — recommendation 22
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/traditional-azure-networking-topology
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/traditional-azure-networking-topology
   (retrieved 2026-10-15)
 Summary (ours): When ExpressRoute carries cross-region traffic, spokes learn each other's routes over BGP and skip the
 firewall; to force inspection, add specific routes to the local hub firewall or stop BGP propagation on the spoke route
@@ -946,7 +946,7 @@ not adopted, because there is no ExpressRoute and no learned route.
 
 ```text
 CAF Network topology and connectivity — Traditional Azure networking topology — recommendation 23
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/traditional-azure-networking-topology
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/traditional-azure-networking-topology
   (retrieved 2026-10-15)
 Summary (ours): Repeats recommendation 20: Virtual WAN for hub-and-spoke across more than two regions with global transit
 and low management overhead.
@@ -964,7 +964,7 @@ not adopted, because the network spans one region and needs no global transit (r
 
 ```text
 CAF Network topology and connectivity — Traditional Azure networking topology — recommendation 24
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/traditional-azure-networking-topology
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/traditional-azure-networking-topology
   (retrieved 2026-10-15)
 Summary (ours): Deploy each region's hub network resources into a resource group of their own.
 ```
@@ -996,7 +996,7 @@ realised — one resource group per hub, in its region.
 
 ```text
 CAF Network topology and connectivity — Traditional Azure networking topology — recommendation 25
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/traditional-azure-networking-topology
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/traditional-azure-networking-topology
   (retrieved 2026-10-15)
 Summary (ours): Manage connectivity and security configuration across subscriptions with Azure Virtual Network Manager.
 ```
@@ -1016,7 +1016,7 @@ not adopted, because connectivity and security rules are declared in config and 
 
 ```text
 CAF Network topology and connectivity — Traditional Azure networking topology — recommendation 26
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/traditional-azure-networking-topology
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/traditional-azure-networking-topology
   (retrieved 2026-10-15)
 Summary (ours): Monitor the end-to-end state of the network with Network Watcher's network insights.
 ```
@@ -1047,7 +1047,7 @@ planned (follow-up) — with the flow logs of rule 54.
 
 ```text
 CAF Network topology and connectivity — Traditional Azure networking topology — recommendation 27
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/traditional-azure-networking-topology
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/traditional-azure-networking-topology
   (retrieved 2026-10-15)
 Summary (ours): Keep the number of spokes per hub within the peering limit of a virtual network and within the number of
 prefixes ExpressRoute private peering can advertise.
@@ -1079,7 +1079,7 @@ realised — each hub's peerings are far below the limit, and there is no Expres
 
 ```text
 CAF Network topology and connectivity — Plan for IP addressing — recommendation 28
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-ip-addressing
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-ip-addressing
   (retrieved 2026-10-15)
 Summary (ours): Plan the address spaces in advance so that no two Azure regions or on-premises locations overlap.
 ```
@@ -1112,7 +1112,7 @@ realised — the plan rejects any overlap when it loads.
 
 ```text
 CAF Network topology and connectivity — Plan for IP addressing — recommendation 29
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-ip-addressing
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-ip-addressing
   (retrieved 2026-10-15)
 Summary (ours): Take addresses from the private ranges set aside for private networks (RFC 1918).
 ```
@@ -1143,7 +1143,7 @@ partly realised — every range is private; a check that rejects a non-private r
 
 ```text
 CAF Network topology and connectivity — Plan for IP addressing — recommendation 30
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-ip-addressing
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-ip-addressing
   (retrieved 2026-10-15)
 Summary (ours): Do not use multicast, broadcast, loopback, or link-local ranges, or the address Azure reserves for its own
 DNS.
@@ -1174,7 +1174,7 @@ partly realised — no reserved range is used; the check of rule 29 is planned (
 
 ```text
 CAF Network topology and connectivity — Plan for IP addressing — recommendation 31
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-ip-addressing
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-ip-addressing
   (retrieved 2026-10-15)
 Summary (ours): Where private IPv4 addresses are scarce, consider IPv6; a virtual network can be IPv4 only or dual-stack.
 ```
@@ -1193,7 +1193,7 @@ not adopted, because private IPv4 is plentiful and the plan is IPv4 only.
 
 ```text
 CAF Network topology and connectivity — Plan for IP addressing — recommendation 32
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-ip-addressing
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-ip-addressing
   (retrieved 2026-10-15)
 Summary (ours): Avoid large virtual networks such as a /16, so addresses are not wasted; IPv4 subnets range from /29 to /2,
 and IPv6 subnets are exactly /64.
@@ -1226,7 +1226,7 @@ not adopted, because a /16 per network keeps the plan simple and the private blo
 
 ```text
 CAF Network topology and connectivity — Plan for IP addressing — recommendation 33
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-ip-addressing
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-ip-addressing
   (retrieved 2026-10-15)
 Summary (ours): Do not create a virtual network before its address space is planned.
 ```
@@ -1260,7 +1260,7 @@ realised — every network's range is planned in `network.yml` before the networ
 
 ```text
 CAF Network topology and connectivity — Plan for IP addressing — recommendation 34
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-ip-addressing
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-ip-addressing
   (retrieved 2026-10-15)
 Summary (ours): Do not address virtual networks from public ranges, least of all from public ranges the organisation does not
 own.
@@ -1290,7 +1290,7 @@ partly realised — no public range is used; the check of rule 29 is planned (fo
 
 ```text
 CAF Network topology and connectivity — Plan for IP addressing — recommendation 35
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-ip-addressing
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-ip-addressing
   (retrieved 2026-10-15)
 Summary (ours): Account for the services that reserve address ranges of their own, such as Kubernetes with Azure CNI.
 ```
@@ -1323,7 +1323,7 @@ realised — the reserved subnets are sized for their services, and no deployed 
 
 ```text
 CAF Network topology and connectivity — Plan for IP addressing — recommendation 36
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-ip-addressing
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-ip-addressing
   (retrieved 2026-10-15)
 Summary (ours): Counter IPv4 exhaustion with spoke networks that are not routed to the rest of the estate, reached through
 Azure Private Link service.
@@ -1343,7 +1343,7 @@ not adopted, because private IPv4 is plentiful and every spoke has a unique rang
 
 ```text
 CAF Network topology and connectivity — Plan for IP addressing — IPv6 considerations — recommendation 37
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-ip-addressing
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-ip-addressing
   (retrieved 2026-10-15)
 Summary (ours): To serve IPv6 clients from an IPv4-only back end, run dual-stack network appliances in a flexible virtual
 machine scale set behind a public Standard Load Balancer, translating to IPv4 for the application subnet.
@@ -1361,7 +1361,7 @@ not adopted, because there are no IPv6 clients.
 
 ```text
 CAF Network topology and connectivity — Plan for IP addressing — IPv6 considerations — recommendation 38
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-ip-addressing
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-ip-addressing
   (retrieved 2026-10-15)
 Summary (ours): Alternatively, let Front Door take IPv6 web clients and proxy them to an IPv4 back end; appliances inside the
 network and a global Front Door can also be combined.
@@ -1379,7 +1379,7 @@ not adopted, because there are no IPv6 web clients.
 
 ```text
 CAF Network topology and connectivity — Plan for IP addressing — IPv6 virtual network CIDR blocks — recommendation 39
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-ip-addressing
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-ip-addressing
   (retrieved 2026-10-15)
 Summary (ours): A virtual network takes one IPv6 block; give subnets a /64, which also keeps routing to on-premises
 networks possible.
@@ -1398,7 +1398,7 @@ not adopted, because the network is IPv4 only.
 
 ```text
 CAF Network topology and connectivity — Plan for IP addressing — IPv6 virtual network CIDR blocks — recommendation 40
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-ip-addressing
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-ip-addressing
   (retrieved 2026-10-15)
 Summary (ours): An IPv4-only virtual network can be made dual-stack; the two protocols then work independently.
 ```
@@ -1415,7 +1415,7 @@ not adopted, because the network is IPv4 only.
 
 ```text
 CAF Network topology and connectivity — Plan for IP addressing — IPv6 virtual network CIDR blocks — recommendation 41
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-ip-addressing
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-ip-addressing
   (retrieved 2026-10-15)
 Summary (ours): IPv4 support cannot be removed from a virtual network.
 ```
@@ -1432,7 +1432,7 @@ not adopted, because the network is IPv4 only and the statement asks for no acti
 
 ```text
 CAF Network topology and connectivity — Plan for IP addressing — IPv6 virtual network CIDR blocks — recommendation 42
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-ip-addressing
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-ip-addressing
   (retrieved 2026-10-15)
 Summary (ours): Give the virtual network and its subnets an IPv6 block, Azure-assigned or brought by the organisation; the
 item also explains IPv4 and IPv6 address notation.
@@ -1450,7 +1450,7 @@ not adopted, because the network is IPv4 only.
 
 ```text
 CAF Network topology and connectivity — Plan for IP addressing — IPv6 virtual network CIDR blocks — recommendation 43
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-ip-addressing
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-ip-addressing
   (retrieved 2026-10-15)
 Summary (ours): Add IPv6 routes to the route tables, sending public IPv6 traffic to the VPN or ExpressRoute gateway.
 ```
@@ -1467,7 +1467,7 @@ not adopted, because the network is IPv4 only.
 
 ```text
 CAF Network topology and connectivity — Plan for IP addressing — IPv6 virtual network CIDR blocks — recommendation 44
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-ip-addressing
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-ip-addressing
   (retrieved 2026-10-15)
 Summary (ours): Add explicit IPv6 rules to the network security groups.
 ```
@@ -1485,7 +1485,7 @@ not adopted, because the network is IPv4 only.
 
 ```text
 CAF Network topology and connectivity — Plan for IP addressing — IPv6 virtual network CIDR blocks — recommendation 45
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-ip-addressing
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-ip-addressing
   (retrieved 2026-10-15)
 Summary (ours): Where a resource does not support IPv6, use dual stack or an appliance that translates.
 ```
@@ -1502,7 +1502,7 @@ not adopted, because the network is IPv4 only.
 
 ```text
 CAF Network topology and connectivity — Plan for IP addressing — IP address management tools — recommendation 46
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-ip-addressing
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-ip-addressing
   (retrieved 2026-10-15)
 Summary (ours): Let landing zones request ranges of different sizes, for example small, medium, and large ranges of /24,
 /22, and /20.
@@ -1533,7 +1533,7 @@ not adopted, because every network takes one /16.
 
 ```text
 CAF Network topology and connectivity — Plan for IP addressing — IP address management tools — recommendation 47
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-ip-addressing
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-ip-addressing
   (retrieved 2026-10-15)
 Summary (ours): The IP address management tool needs an API, so that infrastructure as code and subscription vending can
 reserve non-overlapping ranges automatically.
@@ -1567,7 +1567,7 @@ partly realised — the plan is read by config address and validated on load; no
 
 ```text
 CAF Network topology and connectivity — Plan for IP addressing — IP address management tools — recommendation 48
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-ip-addressing
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-ip-addressing
   (retrieved 2026-10-15)
 Summary (ours): Arrange the address spaces systematically, by region and by workload archetype.
 ```
@@ -1599,7 +1599,7 @@ realised — the plan is arranged by hub and spoke in its one region.
 
 ```text
 CAF Network topology and connectivity — Plan for IP addressing — IP address management tools — recommendation 49
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-ip-addressing
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-ip-addressing
   (retrieved 2026-10-15)
 Summary (ours): Decommissioning a workload includes returning its address ranges to the pool for reuse.
 ```
@@ -1631,7 +1631,7 @@ realised — a range leaves the plan with its subscription or environment.
 
 ```text
 CAF Network topology and connectivity — Plan for landing zone network segmentation — recommendation 50
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-landing-zone-network-segmentation
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-landing-zone-network-segmentation
   (retrieved 2026-10-15)
 Summary (ours): Let landing zone owners design their own subnets, and have the platform team use policy to guarantee every
 subnet a network security group with baseline deny rules, such as no SSH or RDP from the internet.
@@ -1670,7 +1670,7 @@ is planned (follow-up).
 
 ```text
 CAF Network topology and connectivity — Plan for landing zone network segmentation — recommendation 51
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-landing-zone-network-segmentation
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-landing-zone-network-segmentation
   (retrieved 2026-10-15)
 Summary (ours): Use network security groups to control traffic between subnets and between landing zones.
 ```
@@ -1704,7 +1704,7 @@ partly realised — a security group on every workload subnet; rules per subnet 
 
 ```text
 CAF Network topology and connectivity — Plan for landing zone network segmentation — recommendation 52
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-landing-zone-network-segmentation
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-landing-zone-network-segmentation
   (retrieved 2026-10-15)
 Summary (ours): Workload teams protect virtual machines in tiers with application security groups inside the subnet's
 network security group rules.
@@ -1723,7 +1723,7 @@ not adopted, because no template deploys a virtual machine.
 
 ```text
 CAF Network topology and connectivity — Plan for landing zone network segmentation — recommendation 53
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-landing-zone-network-segmentation
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-landing-zone-network-segmentation
   (retrieved 2026-10-15)
 Summary (ours): Segment traffic inside a landing zone with network security groups and application security groups rather
 than sending it through a central appliance.
@@ -1755,7 +1755,7 @@ partly realised — segmentation by security group per subnet, with no central a
 
 ```text
 CAF Network topology and connectivity — Plan for landing zone network segmentation — recommendation 54
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-landing-zone-network-segmentation
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-landing-zone-network-segmentation
   (retrieved 2026-10-15)
 Summary (ours): Turn on virtual network flow logs with traffic analytics, at least on the critical networks, for insight
 into traffic, investigation, and compliance.
@@ -1789,7 +1789,7 @@ planned (follow-up) — virtual network flow logs with traffic analytics in `dis
 
 ```text
 CAF Network topology and connectivity — Plan for landing zone network segmentation — recommendation 55
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-landing-zone-network-segmentation
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-landing-zone-network-segmentation
   (retrieved 2026-10-15)
 Summary (ours): Plan the migration of existing network security group flow logs to virtual network flow logs.
 ```
@@ -1806,7 +1806,7 @@ not adopted, because there is no security group flow log to migrate.
 
 ```text
 CAF Network topology and connectivity — Plan for landing zone network segmentation — recommendation 56
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-landing-zone-network-segmentation
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-landing-zone-network-segmentation
   (retrieved 2026-10-15)
 Summary (ours): Use network security groups to allow connectivity between landing zones selectively.
 ```
@@ -1839,7 +1839,7 @@ partly realised — spokes are isolated from each other by the topology; selecti
 
 ```text
 CAF Network topology and connectivity — Plan for landing zone network segmentation — recommendation 57
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-landing-zone-network-segmentation
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-landing-zone-network-segmentation
   (retrieved 2026-10-15)
 Summary (ours): In a Virtual WAN topology, send traffic between landing zones through Azure Firewall when it must be filtered
 or logged.
@@ -1857,7 +1857,7 @@ not adopted, because there is no Virtual WAN.
 
 ```text
 CAF Network topology and connectivity — Plan for landing zone network segmentation — recommendation 58
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-landing-zone-network-segmentation
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-landing-zone-network-segmentation
   (retrieved 2026-10-15)
 Summary (ours): With forced tunnelling, add outbound security rules that allow traffic to the virtual network and deny it
 to the internet, so traffic cannot leak straight to the internet if the default route learned over BGP drops; adjust the
@@ -1878,7 +1878,7 @@ not adopted, because there is no forced tunnelling.
 
 ```text
 CAF Network topology and connectivity — Azure Virtual Network Manager in an Azure landing zone — recommendation 59
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/azure-virtual-network-manager
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/azure-virtual-network-manager
   (retrieved 2026-10-15)
 Summary (ours): Set Virtual Network Manager to cover the root management group or the tenant, so security admin rules for
 the whole organisation reach every existing and future resource.
@@ -1899,7 +1899,7 @@ not adopted, because the repository deploys nothing above a subscription.
 
 ```text
 CAF Network topology and connectivity — Azure Virtual Network Manager in an Azure landing zone — recommendation 60
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/azure-virtual-network-manager
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/azure-virtual-network-manager
   (retrieved 2026-10-15)
 Summary (ours): Create the Virtual Network Manager instance in the connectivity subscription, covering the intermediate root
 management group, with security admin turned on, so security groups can be handed to the landing zone owners.
@@ -1918,7 +1918,7 @@ not adopted, because there is no management group for the instance to cover.
 
 ```text
 CAF Network topology and connectivity — Azure Virtual Network Manager in an Azure landing zone — recommendation 61
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/azure-virtual-network-manager
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/azure-virtual-network-manager
   (retrieved 2026-10-15)
 Summary (ours): Segment networks by grouping them, statically or dynamically through policy.
 ```
@@ -1937,7 +1937,7 @@ not adopted, because the static spoke list in config is the grouping.
 
 ```text
 CAF Network topology and connectivity — Azure Virtual Network Manager in an Azure landing zone — recommendation 62
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/azure-virtual-network-manager
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/azure-virtual-network-manager
   (retrieved 2026-10-15)
 Summary (ours): Turn on direct connectivity between spokes that talk often and need low latency, while they keep using the
 hub's services.
@@ -1955,7 +1955,7 @@ not adopted, because spokes must not reach each other.
 
 ```text
 CAF Network topology and connectivity — Azure Virtual Network Manager in an Azure landing zone — recommendation 63
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/azure-virtual-network-manager
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/azure-virtual-network-manager
   (retrieved 2026-10-15)
 Summary (ours): Use a global mesh when every network in every region must reach every other.
 ```
@@ -1972,7 +1972,7 @@ not adopted, because no network needs to reach every other.
 
 ```text
 CAF Network topology and connectivity — Azure Virtual Network Manager in an Azure landing zone — recommendation 64
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/azure-virtual-network-manager
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/azure-virtual-network-manager
   (retrieved 2026-10-15)
 Summary (ours): Give every security admin rule a priority; a lower number wins.
 ```
@@ -1990,7 +1990,7 @@ not adopted, because there are no security admin rules.
 
 ```text
 CAF Network topology and connectivity — Azure Virtual Network Manager in an Azure landing zone — recommendation 65
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/azure-virtual-network-manager
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/azure-virtual-network-manager
   (retrieved 2026-10-15)
 Summary (ours): Enforce the flows that must always be allowed or denied with security admin rules, which security groups
 cannot override, and hand the security groups fully to the workload teams.

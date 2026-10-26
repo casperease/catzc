@@ -9,7 +9,8 @@ A track ships through a deployable-unit, and each unit binds one pipeline.
 4  Binds one         one unit, one pipeline; two only when DEPLOY splits out of CD
 5  Pipeline          the unit's delivery machine
 
-Supports DDR-TRACK-TRACKISPLACEDCLUSTER, DDR-TRACK-ONETRACKTYPE, DDR-TRACK-SUBSCRIBABLENOTPATHCOUPLED and DDR-TRACK-DEPLOYABLEUNIT (meta lens).
+Supports DDR-TRACK-TRACKISPLACEDCLUSTER, DDR-TRACK-ONETRACKTYPE, DDR-TRACK-SUBSCRIBABLENOTPATHCOUPLED
+and DDR-TRACK-DEPLOYABLEUNIT (meta lens).
 ```
 
 Three words carry the delivery side of cats: a track is a concern, a deployable-unit is what ships, and a pipeline is a unit's delivery

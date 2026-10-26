@@ -123,7 +123,7 @@ not apply to it.
 
 ```text
 SE:01 — Establish a security baseline
-Source: https://learn.microsoft.com/en-us/azure/well-architected/security/establish-baseline (retrieved 2026-10-15)
+Source: learn /azure/well-architected/security/establish-baseline (retrieved 2026-10-15)
 Summary (ours): Write down the minimum security requirements the workload must meet, drawn from compliance obligations,
 industry benchmarks, and the platform's own benchmark, and agree them with business and technical leaders before design
 begins. The baseline covers technical controls and operations alike, turns its criteria into guardrails such as policy as
@@ -169,7 +169,7 @@ templates against it.
 
 ```text
 SE:02 — Align secure development lifecycle (SDL) throughout the software development lifecycle
-Source: https://learn.microsoft.com/en-us/azure/well-architected/security/secure-development-lifecycle (retrieved 2026-10-15)
+Source: learn /azure/well-architected/security/secure-development-lifecycle (retrieved 2026-10-15)
 Summary (ours): Build security into every stage of development, from requirements through build, deployment, and
 decommissioning, and extend it to the whole software supply chain: workstations, repositories, build agents, and pipelines.
 Threat modeling, secure coding, automated security testing, keeping secrets out of version control, and staged releases keep
@@ -217,7 +217,7 @@ threat model are planned (follow-up).
 
 ```text
 SE:03 — Classify and consistently apply sensitivity and information type labels
-Source: https://learn.microsoft.com/en-us/azure/well-architected/security/data-classification (retrieved 2026-10-15)
+Source: learn /azure/well-architected/security/data-classification (retrieved 2026-10-15)
 Summary (ours): Use the organisation's taxonomy to label all workload data, and the components that process it, by
 sensitivity, information type, and compliance scope. The labels drive design choices such as segmentation, encryption
 strength, masking, and retention, and they travel with the data through every component.
@@ -251,7 +251,7 @@ always present and always one of the taxonomy's values.
 
 ```text
 SE:04 — Create intentional segmentation and perimeters
-Source: https://learn.microsoft.com/en-us/azure/well-architected/security/segmentation (retrieved 2026-10-15)
+Source: learn /azure/well-architected/security/segmentation (retrieved 2026-10-15)
 Summary (ours): Divide the workload into segments, each secured as a unit, using identity, network, roles, and resource
 organisation together, so a breach in one segment cannot spread to the next. Identity is the main perimeter and the network
 adds to it; clear ownership of each segment speeds up incident response.
@@ -296,7 +296,7 @@ allow all traffic inside the peered networks.
 
 ```text
 SE:05 — Implement strict, conditional, and auditable identity and access management (IAM)
-Source: https://learn.microsoft.com/en-us/azure/well-architected/security/identity-access (retrieved 2026-10-15)
+Source: learn /azure/well-architected/security/identity-access (retrieved 2026-10-15)
 Summary (ours): Authenticate and authorise every human, workload, and resource identity through one trusted identity
 provider using standard protocols, and grant each only the access its role needs, for only as long as needed. Access that is
 not identity-based, such as shared keys, is minimised and audited, and every action is logged so it can be traced.
@@ -338,7 +338,7 @@ planned (follow-up) as code.
 
 ```text
 SE:06 — Isolate, filter, and control network traffic
-Source: https://learn.microsoft.com/en-us/azure/well-architected/security/networking (retrieved 2026-10-15)
+Source: learn /azure/well-architected/security/networking (retrieved 2026-10-15)
 Summary (ours): Classify each traffic flow by exposure, direction, and reach, then segment, filter, and where useful
 transform traffic at every boundary, assuming any point may be breached. Keep as much of the workload private as possible,
 use private endpoints for platform services, force egress through a central firewall, put a web application firewall in
@@ -388,7 +388,7 @@ network access off on both services. Nothing else to add while the workload has 
 
 ```text
 SE:07 — Encrypt data by using modern, industry-standard methods
-Source: https://learn.microsoft.com/en-us/azure/well-architected/security/encryption (retrieved 2026-10-15)
+Source: learn /azure/well-architected/security/encryption (retrieved 2026-10-15)
 Summary (ours): Protect data at rest, in transit, and where requirements demand it in use, at a strength set by the data's
 classification. Prefer the platform's built-in encryption and standard algorithms over custom cryptography, use TLS 1.2 or
 later everywhere, and manage keys and certificates, including customer-managed keys where needed, as carefully as the data.
@@ -427,7 +427,7 @@ data's classification does not require them.
 
 ```text
 SE:08 — Harden all workload components
-Source: https://learn.microsoft.com/en-us/azure/well-architected/security/harden-resources (retrieved 2026-10-15)
+Source: learn /azure/well-architected/security/harden-resources (retrieved 2026-10-15)
 Summary (ours): Shrink the attack surface of every component and tighten what remains, so cheap, well-known attacks stop
 working. Remove unused features, ports, legacy protocols, and default accounts; keep public endpoints to a minimum; enforce
 hardening at scale with policy; and verify it regularly against a benchmark, as a continuous, documented activity.
@@ -466,7 +466,7 @@ planned (follow-up) to gain the same defaults.
 
 ```text
 SE:09 — Protect application secrets
-Source: https://learn.microsoft.com/en-us/azure/well-architected/security/application-secrets (retrieved 2026-10-15)
+Source: learn /azure/well-architected/security/application-secrets (retrieved 2026-10-15)
 Summary (ours): Keep the number of secrets as low as possible by letting the platform handle credentials, and keep the rest
 in a dedicated, access-controlled, and audited secret store, never in code, infrastructure as code, or pipelines. Secrets
 are rotated routinely and can be rotated on demand without disrupting the workload, and a secret found in the wrong place is
@@ -507,7 +507,7 @@ to be automated.
 
 ```text
 SE:10 — Implement a holistic monitoring strategy
-Source: https://learn.microsoft.com/en-us/azure/well-architected/security/monitor-threats (retrieved 2026-10-15)
+Source: learn /azure/well-architected/security/monitor-threats (retrieved 2026-10-15)
 Summary (ours): Capture security-relevant events from every part of the workload — users, identities, network, builds, and
 hosts — and keep them as an audit trail of who did what and when, in durable sinks outside the workload. Correlate them with
 platform threat detection so alerts reach security operations quickly, and use them after an incident to reconstruct it.
@@ -548,7 +548,7 @@ logs and threat detection are planned (follow-up).
 
 ```text
 SE:11 — Establish a comprehensive testing regimen
-Source: https://learn.microsoft.com/en-us/azure/well-architected/security/test (retrieved 2026-10-15)
+Source: learn /azure/well-architected/security/test (retrieved 2026-10-15)
 Summary (ours): Test security continuously from inside and outside the workload, highest-severity threats on the most
 critical flows first. Cover prevention controls, detection and alerting, and compliance evidence, mixing automated and
 manual tests, penetration tests, and team exercises, and feed the results back into the threat model and the tests.
@@ -585,7 +585,7 @@ deployed workload.
 
 ```text
 SE:12 — Define and test effective incident response procedures
-Source: https://learn.microsoft.com/en-us/azure/well-architected/security/incident-response (retrieved 2026-10-15)
+Source: learn /azure/well-architected/security/incident-response (retrieved 2026-10-15)
 Summary (ours): Prepare one tested incident response process, shared with the central security operations team, that names
 who is notified, who triages, and who decides. It covers containment, recovery through the disaster recovery process where
 needed, communication, and post-incident learning, so time to detect and mitigate stays short.

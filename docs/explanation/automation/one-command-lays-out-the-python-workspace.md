@@ -13,7 +13,8 @@ A maintainer adds a Python folder; one command renders the uv workspace, the tre
 8  The Test-PythonTypes                                    zone 3, local, after 6: test_python_types passes over the workspace
 9  The Test-Formatting                               zone 3, local, after 5: test_formatting passes for the Python language
 
-Supports ADR-AUTO-UVPY-UVHANDLESPYTHON, ADR-AUTO-PY-GENERATEDWORKSPACE, ADR-AUTO-PY-ONEPYTHONVERSION, ADR-AUTO-PY-EVERYFILETYPECHECKED and ADR-AUTO-IDIOM-LANGUAGEIDIOM (action lens).
+Supports ADR-AUTO-UVPY-UVHANDLESPYTHON, ADR-AUTO-PY-GENERATEDWORKSPACE, ADR-AUTO-PY-ONEPYTHONVERSION,
+ADR-AUTO-PY-EVERYFILETYPECHECKED and ADR-AUTO-IDIOM-LANGUAGEIDIOM (action lens).
 ```
 
 uv is the single handler for Python in this repository: it provisions the interpreter, pins it, and runs every Python tool. What uv needs

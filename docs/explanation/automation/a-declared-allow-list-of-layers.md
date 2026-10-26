@@ -10,7 +10,8 @@ One declared allow-list says what may depend on what, and every allowed edge poi
 5  Vendor tool         the last hop: the call reaches the tool through Base
 6  Undeclared edge     any real edge the declaration does not list; it fails the build
 
-Supports ADR-AUTO-DEPM-CODEBUILTFROM, ADR-AUTO-DEPM-TWOSECTIONS, ADR-AUTO-DEPM-GROUPAWAREINTEGRITY and ADR-AUTO-DEPM-EXTENDBYDECLARING (meta lens).
+Supports ADR-AUTO-DEPM-CODEBUILTFROM, ADR-AUTO-DEPM-TWOSECTIONS, ADR-AUTO-DEPM-GROUPAWAREINTEGRITY
+and ADR-AUTO-DEPM-EXTENDBYDECLARING (meta lens).
 ```
 
 The module dependency declaration is one file that says which module may depend on which, and cats checks the code against that file, never

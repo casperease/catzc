@@ -121,7 +121,7 @@ workload: a storage account and a SQL database behind private endpoints).
 
 ```text
 CAF network — Connectivity to Azure PaaS services — recommendation 1 (import item 62)
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/connectivity-to-azure-paas-services (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/connectivity-to-azure-paas-services (retrieved 2026-10-15)
 Summary (ours): Inject a PaaS service into the virtual network when it must reach private resources, but keep its management-plane traffic
 to the service's public addresses working, restricted with user-defined routes, network security groups, and service tags.
 ```
@@ -142,7 +142,7 @@ management-plane rules this item names.
 
 ```text
 CAF network — Connectivity to Azure PaaS services — recommendation 2 (import item 63)
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/connectivity-to-azure-paas-services (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/connectivity-to-azure-paas-services (retrieved 2026-10-15)
 Summary (ours): Use Private Link where protection against data exfiltration and private-only addressing are firm requirements.
 ```
 
@@ -187,7 +187,7 @@ services keep public network access off.
 
 ```text
 CAF network — Connectivity to Azure PaaS services — recommendation 3 (import item 64)
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/connectivity-to-azure-paas-services (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/connectivity-to-azure-paas-services (retrieved 2026-10-15)
 Summary (ours): Consider service endpoints where exfiltration is a lesser concern, where Private Link is not available, or for large
 volumes of ingest, because service endpoints are free while Private Link is charged per gigabyte.
 ```
@@ -220,7 +220,7 @@ Private endpoints only, for both data services.
 
 ```text
 CAF network — Connectivity to Azure PaaS services — recommendation 4 (import item 65)
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/connectivity-to-azure-paas-services (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/connectivity-to-azure-paas-services (retrieved 2026-10-15)
 Summary (ours): From on-premises, use a service's public endpoint when private access is not needed and the bandwidth suffices;
 otherwise use ExpressRoute private peering or a site-to-site VPN, with injection or Private Link.
 ```
@@ -240,7 +240,7 @@ the `privatelink` zones (rules 8 and 10).
 
 ```text
 CAF network — Connectivity to Azure PaaS services — recommendation 5 (import item 66)
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/connectivity-to-azure-paas-services (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/connectivity-to-azure-paas-services (retrieved 2026-10-15)
 Summary (ours): Enable service endpoints case by case, never on every subnet by default.
 ```
 
@@ -270,7 +270,7 @@ Not applicable: it creates no subnet ([ADR-AZ-LZ-WORKLOADOWNSNONE](../landing-zo
 
 ```text
 CAF network — Connectivity to Azure PaaS services — recommendation 6 (import item 67)
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/connectivity-to-azure-paas-services (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/connectivity-to-azure-paas-services (retrieved 2026-10-15)
 Summary (ours): Avoid forcing internet-bound traffic back to on-premises through a default route; it breaks the control-plane traffic
 some PaaS services need, such as Application Gateway v2.
 ```
@@ -303,7 +303,7 @@ Not applicable: it creates no route.
 
 ```text
 CAF network — DNS for on-premises and Azure resources — recommendation 7 (import item 127)
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/dns-for-on-premises-and-azure-resources (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/dns-for-on-premises-and-azure-resources (retrieved 2026-10-15)
 Summary (ours): Where resolution is needed only inside Azure, use Azure Private DNS zones, with a delegated zone for the organisation's
 own names and automatic registration of virtual machine records.
 ```
@@ -336,7 +336,7 @@ adopted, because no template deploys a virtual machine.
 
 ```text
 CAF network — DNS for on-premises and Azure resources — recommendation 8 (import item 128)
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/dns-for-on-premises-and-azure-resources (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/dns-for-on-premises-and-azure-resources (retrieved 2026-10-15)
 Summary (ours): Where names must resolve across Azure and on-premises, use DNS Private Resolver with Private DNS zones, which is cheaper,
 highly available, and scalable compared with DNS on virtual machines; if Active Directory-integrated DNS stays, run it on at least two
 virtual machines and point the virtual networks at them.
@@ -355,7 +355,7 @@ resource to add once a gateway connects an on-premises network (ADR-AZ-CAF-NETCO
 
 ```text
 CAF network — DNS for on-premises and Azure resources — recommendation 9 (import item 129)
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/dns-for-on-premises-and-azure-resources (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/dns-for-on-premises-and-azure-resources (retrieved 2026-10-15)
 Summary (ours): Where Azure Firewall exists, consider it as a DNS proxy.
 ```
 
@@ -373,7 +373,7 @@ network rules filter by name, and the spokes would point their DNS at it; this i
 
 ```text
 CAF network — DNS for on-premises and Azure resources — recommendation 10 (import item 130)
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/dns-for-on-premises-and-azure-resources (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/dns-for-on-premises-and-azure-resources (retrieved 2026-10-15)
 Summary (ours): Link the private DNS zones to the virtual networks, and use a resolver forwarding ruleset so that Azure queries for
 on-premises names go to on-premises DNS, while on-premises servers forward the Azure zones to the resolver's inbound endpoint.
 ```
@@ -407,7 +407,7 @@ name needs forwarding.
 
 ```text
 CAF network — DNS for on-premises and Azure resources — recommendation 11 (import item 131)
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/dns-for-on-premises-and-azure-resources (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/dns-for-on-premises-and-azure-resources (retrieved 2026-10-15)
 Summary (ours): Give DNS Private Resolver two dedicated subnets in the connectivity hub, one inbound and one outbound, each at least a /28,
 with up to five endpoints each and rulesets for the on-premises namespaces; where it sits beside the ExpressRoute gateway, make sure
 public names still resolve.
@@ -428,7 +428,7 @@ decided by ADR-AZ-CAF-NETTOP.
 
 ```text
 CAF network — DNS for on-premises and Azure resources — recommendation 12 (import item 132)
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/dns-for-on-premises-and-azure-resources (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/dns-for-on-premises-and-azure-resources (retrieved 2026-10-15)
 Summary (ours): A workload that requires and deploys its own DNS, such as Red Hat OpenShift, keeps it.
 ```
 
@@ -445,7 +445,7 @@ servers on its subnet's network, which `virtual-network.bicep` does not offer; i
 
 ```text
 CAF network — DNS for on-premises and Azure resources — recommendation 13 (import item 133)
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/dns-for-on-premises-and-azure-resources (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/dns-for-on-premises-and-azure-resources (retrieved 2026-10-15)
 Summary (ours): Host the Private DNS zones, including the privatelink zones of private endpoints such as the blob zone, in a global
 connectivity subscription.
 ```

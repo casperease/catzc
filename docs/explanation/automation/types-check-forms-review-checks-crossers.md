@@ -12,7 +12,9 @@ Three types check path forms at construction; the rules about crossing the bound
 7  Published artifact  rule #10: both forms, anchored on the artifact root
 8  ArtifactRef         throws when the file is outside the artifact root
 
-Supports ADR-AUTO-PATH-TWOFORMS, ADR-AUTO-PATH-COMMUNICATIONFORM, ADR-AUTO-PATH-BINDINGFORMONLYATBINDING, ADR-AUTO-PATH-CENTRALNORMALIZATION, ADR-AUTO-PATH-STOREDCOMMUNICATIONFORM, ADR-AUTO-PATH-NAMEBYFORM, ADR-AUTO-PATH-OUTANCHOR, ADR-AUTO-PATH-PUBLISHEDARTIFACT and ADR-AUTO-PATH-WORKSPACEANCHOR (governance lens).
+Supports ADR-AUTO-PATH-TWOFORMS, ADR-AUTO-PATH-COMMUNICATIONFORM, ADR-AUTO-PATH-BINDINGFORMONLYATBINDING,
+ADR-AUTO-PATH-CENTRALNORMALIZATION, ADR-AUTO-PATH-STOREDCOMMUNICATIONFORM, ADR-AUTO-PATH-NAMEBYFORM, ADR-AUTO-PATH-OUTANCHOR,
+ADR-AUTO-PATH-PUBLISHEDARTIFACT and ADR-AUTO-PATH-WORKSPACEANCHOR (governance lens).
 ```
 
 The path rules of cats are enforced by construction, not by a linter. A record that holds a `RepoRelativePath`, an inspiration root checked

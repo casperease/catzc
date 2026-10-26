@@ -12,7 +12,8 @@ Two crossers anchor on the repository root and the output root; a published arti
 7  artifact root               the only anchor that survives a stage boundary
 8  ArtifactRef                 the cross-stage type: both forms, anchored on the artifact root
 
-Supports ADR-AUTO-PATH-CENTRALNORMALIZATION, ADR-AUTO-PATH-NAMEBYFORM, ADR-AUTO-PATH-OUTANCHOR and ADR-AUTO-PATH-PUBLISHEDARTIFACT (architecture lens).
+Supports ADR-AUTO-PATH-CENTRALNORMALIZATION, ADR-AUTO-PATH-NAMEBYFORM, ADR-AUTO-PATH-OUTANCHOR
+and ADR-AUTO-PATH-PUBLISHEDARTIFACT (architecture lens).
 ```
 
 The path contract of cats is built from two functions in `Catzc.Base.Repository` and three anchors. `ConvertTo-RepoRelativePath` and

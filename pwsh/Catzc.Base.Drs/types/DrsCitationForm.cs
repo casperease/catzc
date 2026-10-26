@@ -1,5 +1,6 @@
-// The one citation spelling has two forms, chosen by the line's width (ADR-REPO-LINK-ONECITATIONSPELLING): an inline citation whose line
-// outgrows the markdown width becomes a reference, its definition at the end of the file.
+// The one citation spelling has two forms, chosen by the line's width
+// ([ADR-REPO-LINK-ONECITATIONSPELLING](/docs/drs/repository/markdown-links.md#rule-adr-repo-link-onecitationspelling)): an inline citation
+// whose line outgrows the markdown width becomes a reference, its definition at the end of the file.
 
 using System;
 using System.Collections.Generic;

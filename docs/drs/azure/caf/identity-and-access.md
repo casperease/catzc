@@ -486,7 +486,7 @@ storage account and a SQL database behind private endpoints).
 
 ```text
 CAF identity and access — Hybrid identity with Active Directory and Microsoft Entra ID — recommendation 1
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity (retrieved 2026-10-14)
 Summary (ours): Record which authentication provider each application relies on, and choose the identity services from that
   inventory with the help of the identity architecture guidance.
 ```
@@ -506,7 +506,7 @@ elsewhere.
 
 ```text
 CAF identity and access — Hybrid identity with Active Directory and Microsoft Entra ID — recommendation 2
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity (retrieved 2026-10-14)
 Summary (ours): For applications that need legacy domain protocols, prefer a new Entra Domain Services managed domain with the
   legacy protocols turned off over extending an on-premises domain that keeps them on.
 ```
@@ -524,7 +524,7 @@ private endpoints. A managed directory becomes a question with the first workloa
 
 ```text
 CAF identity and access — Hybrid identity with Active Directory and Microsoft Entra ID — recommendation 3
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity (retrieved 2026-10-14)
 Summary (ours): Entra ID is globally redundant, but Domain Services and self-run AD DS are not; design them for resilience,
   considering deployment to more than one region.
 ```
@@ -543,7 +543,7 @@ need a second region the network plan does not have.
 
 ```text
 CAF identity and access — Hybrid identity with Active Directory and Microsoft Entra ID — recommendation 4
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity (retrieved 2026-10-14)
 Summary (ours): When extending on-premises AD DS into Azure, define each Azure region as an AD site with subnet objects for its
   address ranges, so clients authenticate against directory servers in their own region.
 ```
@@ -562,7 +562,7 @@ of `pwsh/Catzc.Azure/configs/network.yml`, the one home of every address
 
 ```text
 CAF identity and access — Hybrid identity with Active Directory and Microsoft Entra ID — recommendation 5
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity (retrieved 2026-10-14)
 Summary (ours): For access by guests, customers, or partners, decide between Entra B2B collaboration and Entra External ID.
 ```
 
@@ -579,7 +579,7 @@ an audience outside the tenant, and inviting guests is a directory operation.
 
 ```text
 CAF identity and access — Hybrid identity with Active Directory and Microsoft Entra ID — recommendation 6
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity (retrieved 2026-10-14)
 Summary (ours): Do not route internal (intranet) access through Entra application proxy, because it adds latency.
 ```
 
@@ -596,7 +596,7 @@ endpoints ([ADR-AZ-LZ-WORKLOADOWNSNONE](../landing-zones.md#rule-adr-az-lz-workl
 
 ```text
 CAF identity and access — Hybrid identity with Active Directory and Microsoft Entra ID — recommendation 7
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity (retrieved 2026-10-14)
 Summary (ours): When Entra Connect is the synchronisation tool, keep a staging server in a second region for recovery, or spread
   it across availability zones when there is only one region.
 ```
@@ -613,7 +613,7 @@ Synchronisation runs between an on-premises directory and the tenant; the reposi
 
 ```text
 CAF identity and access — Hybrid identity with Active Directory and Microsoft Entra ID — recommendation 8
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity (retrieved 2026-10-14)
 Summary (ours): When Entra Cloud Sync is the synchronisation tool, install at least three agents on separate servers spread over
   regions or availability zones.
 ```
@@ -630,7 +630,7 @@ As rule 7: there is no directory to synchronise.
 
 ```text
 CAF identity and access — Hybrid identity with Active Directory and Microsoft Entra ID — recommendation 9
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity (retrieved 2026-10-14)
 Summary (ours): Pick the synchronisation tool that fits the requirements, Entra Connect or Entra Cloud Sync.
 ```
 
@@ -646,7 +646,7 @@ As rule 7: there is no directory to synchronise, so there is no tool to choose.
 
 ```text
 CAF identity and access — Hybrid identity with Active Directory and Microsoft Entra ID — recommendation 10
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity (retrieved 2026-10-14)
 Summary (ours): When AD FS is a requirement, deploy it in Azure by following Microsoft's AD FS deployment guide.
 ```
 
@@ -663,7 +663,7 @@ FS.
 
 ```text
 CAF identity and access — Hybrid identity with Active Directory and Microsoft Entra ID — recommendation 11
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity (retrieved 2026-10-14)
 Summary (ours): When AD FS federates with Entra ID, keep password hash synchronisation as a fallback; Microsoft also advises
   moving off AD FS to Entra ID authentication unless AD FS is truly needed.
 ```
@@ -680,7 +680,7 @@ As rule 10: there is no AD FS, so the end state Microsoft advises, Entra ID auth
 
 ```text
 CAF identity and access — Hybrid identity with Active Directory and Microsoft Entra ID — recommendation 12
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity (retrieved 2026-10-14)
 Summary (ours): Publish web applications that use on-premises authentication to remote users through Entra application proxy,
   with no VPN; it is one instance for the whole tenant, so application owners and the identity team configure it together.
 ```
@@ -698,7 +698,7 @@ administrators would run.
 
 ```text
 CAF identity and access — Hybrid identity with Active Directory and Microsoft Entra ID — recommendation 13
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity (retrieved 2026-10-14)
 Summary (ours): Check each workload against both AD DS on Windows Server and Entra Domain Services before choosing one.
 ```
 
@@ -714,7 +714,7 @@ The workload of `expedition` is two platform services that need no directory bey
 
 ```text
 CAF identity and access — Hybrid identity with Active Directory and Microsoft Entra ID — recommendation 14
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity (retrieved 2026-10-14)
 Summary (ours): Deploy domain controller virtual machines or Domain Services replica sets into the identity platform
   subscription, under the platform management group.
 ```
@@ -733,7 +733,7 @@ subscription, because no template deploys an identity resource, and there is no 
 
 ```text
 CAF identity and access — Hybrid identity with Active Directory and Microsoft Entra ID — recommendation 15
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity (retrieved 2026-10-14)
 Summary (ours): Put the domain controllers in their own subnet behind a network security group, with no direct path to the
   internet, and route to that subnet only from applications that need identity services.
 ```
@@ -752,7 +752,7 @@ plan, its own network security group denying inbound internet traffic ([ADR-AZ-W
 
 ```text
 CAF identity and access — Hybrid identity with Active Directory and Microsoft Entra ID — recommendation 16
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity (retrieved 2026-10-14)
 Summary (ours): Use Azure Virtual Network Manager network groups, filled by policy or by tags, so that only the virtual networks
   that need AD services can reach the domain controller subnet.
 ```
@@ -770,7 +770,7 @@ There is no directory subnet to reach. The repository declares peering staticall
 
 ```text
 CAF identity and access — Hybrid identity with Active Directory and Microsoft Entra ID — recommendation 17
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity (retrieved 2026-10-14)
 Summary (ours): Control-plane roles such as Contributor or Virtual Machine Contributor can run commands on domain controllers;
   limit who holds them in the identity subscription and keep broad roles from being inherited from above.
 ```
@@ -788,7 +788,7 @@ returns with the first template that deploys one.
 
 ```text
 CAF identity and access — Hybrid identity with Active Directory and Microsoft Entra ID — recommendation 18
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity (retrieved 2026-10-14)
 Summary (ours): When Azure Arc manages on-premises domain controllers or identity servers, keep their Arc resources in the
   identity subscription under the same strict access.
 ```
@@ -805,7 +805,7 @@ The repository manages no server outside Azure, through Arc or otherwise.
 
 ```text
 CAF identity and access — Hybrid identity with Active Directory and Microsoft Entra ID — recommendation 19
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity (retrieved 2026-10-14)
 Summary (ours): Keep core applications in or near the region of the Domain Services replica sets; deploy Domain Services in the
   core platform's region and extend it with up to four more replica sets in peered virtual networks of one subscription.
 ```
@@ -822,7 +822,7 @@ No template deploys a managed directory, so there is no replica set to place app
 
 ```text
 CAF identity and access — Hybrid identity with Active Directory and Microsoft Entra ID — recommendation 20
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity (retrieved 2026-10-14)
 Summary (ours): Spread AD DS domain controllers over several regions and availability zones, or availability sets, for resilience.
 ```
 
@@ -839,7 +839,7 @@ database ([ADR-AZ-LZ-EVERYPILLAR](../landing-zones.md#rule-adr-az-lz-everypillar
 
 ```text
 CAF identity and access — Hybrid identity with Active Directory and Microsoft Entra ID — recommendation 21
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity (retrieved 2026-10-14)
 Summary (ours): Weigh the Entra ID authentication methods (cloud only, hybrid, or on-premises) as part of identity planning.
 ```
 
@@ -857,7 +857,7 @@ pipeline through its service connection, and both are verified against `azure.ym
 
 ```text
 CAF identity and access — Hybrid identity with Active Directory and Microsoft Entra ID — recommendation 22
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity (retrieved 2026-10-14)
 Summary (ours): For Kerberos access to Azure Files, use Entra Kerberos rather than deploying domain controllers in the cloud.
 ```
 
@@ -874,7 +874,7 @@ added later would follow this item, since there are no directory servers to auth
 
 ```text
 CAF identity and access — Landing zone identity and access management — recommendation 23
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-landing-zones (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-landing-zones (retrieved 2026-10-14)
 Summary (ours): Require Entra multi-factor authentication from every user with any rights in Azure, the platform, application
   subscriptions, and the tenant alike, including readers; prefer phishing-resistant methods over SMS, email, or push.
 ```
@@ -894,7 +894,7 @@ verification functions check where a session points, not how it signed in
 
 ```text
 CAF identity and access — Landing zone identity and access management — recommendation 24
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-landing-zones (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-landing-zones (retrieved 2026-10-14)
 Summary (ours): Apply Entra Conditional Access to Azure users, with stricter policies for administrators, for example on
   location, trusted workstations, and sign-in risk.
 ```
@@ -911,7 +911,7 @@ Conditional Access policies are objects of the tenant's directory; no template c
 
 ```text
 CAF identity and access — Landing zone identity and access management — recommendation 25
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-landing-zones (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-landing-zones (retrieved 2026-10-14)
 Summary (ours): Turn on Microsoft Defender for Identity with sensors on the domain controllers, on-premises and in Azure, and
   combine it with Conditional Access to block risky sign-ins.
 ```
@@ -929,7 +929,7 @@ planned by [ADR-AZ-CAF-SEC-DEFENDERCLOUDEVERYSUBSCRIPTION](landing-zone-security
 
 ```text
 CAF identity and access — Landing zone identity and access management — recommendation 26
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-landing-zones (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-landing-zones (retrieved 2026-10-14)
 Summary (ours): Use Microsoft Sentinel over Azure Monitor, Entra ID, and Microsoft 365 logs for threat detection and response.
 ```
 
@@ -947,7 +947,7 @@ workspace in each subscription is where Sentinel would attach.
 
 ```text
 CAF identity and access — Landing zone identity and access management — recommendation 27
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-landing-zones (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-landing-zones (retrieved 2026-10-14)
 Summary (ours): Keep administration off everyday accounts: separate cloud-only accounts for highly privileged roles, and
   just-in-time elevation through PIM or separate accounts for lesser management roles.
 ```
@@ -965,7 +965,7 @@ accounts the tenant uses for administration reach the resources through group me
 
 ```text
 CAF identity and access — Landing zone identity and access management — recommendation 28
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-landing-zones (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-landing-zones (retrieved 2026-10-14)
 Summary (ours): Do not assign roles to users directly, since a subscription has a limit on assignments; assign them to groups,
   manage membership through PIM for groups and entitlement management, and use cloud-only groups for control-plane access so
   that a change in an on-premises directory cannot grant it.
@@ -1007,7 +1007,7 @@ planned (follow-up) as code, to groups.
 
 ```text
 CAF identity and access — Landing zone identity and access management — recommendation 29
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-landing-zones (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-landing-zones (retrieved 2026-10-14)
 Summary (ours): Keep a small number of highly privileged emergency-access (break-glass) accounts, assigned to named people,
   with their credentials stored safely, their use monitored, and their working regularly tested.
 ```
@@ -1048,7 +1048,7 @@ tested; tenant emergency-access accounts are not adopted, because they belong to
 
 ```text
 CAF identity and access — Landing zone identity and access management — recommendation 30
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-landing-zones (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-landing-zones (retrieved 2026-10-14)
 Summary (ours): Send the Entra ID sign-in and audit logs, through a diagnostic setting, to the central Log Analytics workspace in
   the management subscription.
 ```
@@ -1069,7 +1069,7 @@ The tenant's administrators choose where the directory's logs go.
 
 ```text
 CAF identity and access — Landing zone identity and access management — recommendation 31
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-landing-zones (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-landing-zones (retrieved 2026-10-14)
 Summary (ours): Control group membership through access packages of Entra ID Governance entitlement management, with approval
   flows and periodic reviews of privileged members.
 ```
@@ -1086,7 +1086,7 @@ The repository names groups (rule 28) but does not manage their members; members
 
 ```text
 CAF identity and access — Landing zone identity and access management — recommendation 32
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-landing-zones (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-landing-zones (retrieved 2026-10-14)
 Summary (ours): Manage the tenant's identity settings with the matching Entra built-in roles, such as Global Administrator
   (held by no more than five people), Hybrid Identity Administrator, Security Administrator, and Application Administrator;
   the page's table maps settings to roles.
@@ -1104,7 +1104,7 @@ Directory roles govern the tenant, which the repository does not administer; non
 
 ```text
 CAF identity and access — Landing zone identity and access management — recommendation 33
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-landing-zones (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-landing-zones (retrieved 2026-10-14)
 Summary (ours): Do not use a more privileged Entra role for a task a less privileged one can do, for example User Administrator
   rather than Global Administrator for managing users.
 ```
@@ -1121,7 +1121,7 @@ The repository grants no directory role. The same principle for Azure roles is r
 
 ```text
 CAF identity and access — Landing zone identity and access management — recommendation 34
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-landing-zones (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-landing-zones (retrieved 2026-10-14)
 Summary (ours): Restrict administrators to a part of the directory with administrative units, which also separates Microsoft
   365 administration from Azure administration without a second tenant.
 ```
@@ -1138,7 +1138,7 @@ Administrative units divide the tenant's directory, which the repository does no
 
 ```text
 CAF identity and access — Landing zone identity and access management — recommendation 35
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-landing-zones (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-landing-zones (retrieved 2026-10-14)
 Summary (ours): Protect sensitive directory objects, such as service accounts and privileged groups, with restricted management
   administrative units, so only designated administrators can change them and privileges cannot be escalated through them.
 ```
@@ -1156,7 +1156,7 @@ them is the tenant's decision.
 
 ```text
 CAF identity and access — Landing zone identity and access management — recommendation 36
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-landing-zones (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-landing-zones (retrieved 2026-10-14)
 Summary (ours): Use the same roles and the same assignment patterns in every workload landing zone, which simplifies
   administration and lowers the risk of misconfiguration.
 ```
@@ -1195,7 +1195,7 @@ its resource-level data roles are rule 37.
 
 ```text
 CAF identity and access — Landing zone identity and access management — recommendation 37
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-landing-zones (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-landing-zones (retrieved 2026-10-14)
 Summary (ours): Use Azure RBAC for access to data as well, for example in Key Vault, storage, and databases, and keep data-plane
   rights separate from control-plane rights.
 ```
@@ -1235,7 +1235,7 @@ roles are planned (follow-up).
 
 ```text
 CAF identity and access — Landing zone identity and access management — recommendation 38
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-landing-zones (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-landing-zones (retrieved 2026-10-14)
 Summary (ours): Give a shared central Log Analytics workspace the resource-context permission model, so each team reads only the
   logs of the resources it has rights to.
 ```
@@ -1274,7 +1274,7 @@ default is planned (follow-up).
 
 ```text
 CAF identity and access — Landing zone identity and access management — recommendation 39
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-landing-zones (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-landing-zones (retrieved 2026-10-14)
 Summary (ours): Check whether built-in roles meet the requirement, combining several where they fit, and define a custom role
   only where the built-in ones would grant more than least privilege allows.
 ```
@@ -1310,7 +1310,7 @@ Its planned data roles should be the built-in data roles of storage.
 
 ```text
 CAF identity and access — Landing zone identity and access management — recommendation 40
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-landing-zones (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-landing-zones (retrieved 2026-10-14)
 Summary (ours): Many built-in roles overlap, so when a principal holds several assignments, check what they grant together.
 ```
 
@@ -1327,7 +1327,7 @@ combined effect is reviewed in one change.
 
 ```text
 CAF identity and access — Landing zone identity and access management — recommendation 41
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-landing-zones (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-landing-zones (retrieved 2026-10-14)
 Summary (ours): Watch Microsoft's announcements of new role definitions, because a new role may fit a need better than an
   existing one.
 ```
@@ -1345,7 +1345,7 @@ guidance changes ([ADR-AZ-CAF-SEC-SECURITYREQUIREMENTSALIGNEDAZUREROADMAPS][r2])
 
 ```text
 CAF identity and access — Landing zone identity and access management — recommendation 42
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-landing-zones (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-landing-zones (retrieved 2026-10-14)
 Summary (ours): The CAF reference landing zone defines custom roles beside the built-in ones, for the platform owner, the
   subscription owner, the application owner, network operations, and security operations, each with its permitted and denied
   actions in the page's table; extend them to match the organisation's split of responsibilities.
@@ -1364,7 +1364,7 @@ Those roles are defined at a management group and serve a platform team that own
 
 ```text
 CAF identity and access — Landing zone identity and access management — recommendation 43
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-landing-zones (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-landing-zones (retrieved 2026-10-14)
 Summary (ours): When the platform team provisions a workload landing zone, the provisioning creates the security groups, the
   standard role assignments, and the user-assigned managed identities the workload needs.
 ```
@@ -1403,7 +1403,7 @@ user-assigned identities are not adopted, because system-assigned ones serve the
 
 ```text
 CAF identity and access — Landing zone identity and access management — recommendation 44
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-landing-zones (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-landing-zones (retrieved 2026-10-14)
 Summary (ours): Make landing-zone role assignments at a subscription or a resource group, below the management groups where the
   policies are assigned, so that landing-zone owners act on their own but cannot change the policies that govern them.
 ```
@@ -1439,7 +1439,7 @@ give is not adopted, because the repository owns none.
 
 ```text
 CAF identity and access — Landing zone identity and access management — recommendation 45
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-landing-zones (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-landing-zones (retrieved 2026-10-14)
 Summary (ours): Give each workload landing zone its own groups and role assignments rather than generic groups shared across
   landing zones; people who need access to several get it through Entra ID Governance.
 ```
@@ -1475,7 +1475,7 @@ config is the change.
 
 ```text
 CAF identity and access — Landing zone identity and access management — recommendation 46
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-landing-zones (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-landing-zones (retrieved 2026-10-14)
 Summary (ours): Assign roles to groups rather than users, so that access stays right as people join, move, and leave, and manage
   membership through Entra ID Governance rather than by hand.
 ```
@@ -1505,7 +1505,7 @@ As rule 28.
 
 ```text
 CAF identity and access — Landing zone identity and access management — recommendation 47
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-landing-zones (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-landing-zones (retrieved 2026-10-14)
 Summary (ours): Treat each environment of an application (development, test, production) as its own landing zone, with its own
   groups and role assignments, and never share a managed identity or service principal between environments.
 ```
@@ -1549,7 +1549,7 @@ a service connection and a secret, and every environment shares the SQL administ
 
 ```text
 CAF identity and access — Landing zone identity and access management — recommendation 48
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-landing-zones (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-landing-zones (retrieved 2026-10-14)
 Summary (ours): Decide whether platform administrators need rights on workload landing zones; where they do, grant them just in
   time through PIM, with approval and least privilege, never as standing access.
 ```
@@ -1568,7 +1568,7 @@ platform access is its deploying identity, one service connection per subscripti
 
 ```text
 CAF identity and access — Landing zone identity and access management — recommendation 49
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-landing-zones (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-landing-zones (retrieved 2026-10-14)
 Summary (ours): When delegating the right to assign roles, for example User Access Administrator or Role Based Access Control
   Administrator to a workload team, delegate only what is needed and constrain it with conditions on which roles and which
   principal types may be assigned; keep Owner, User Access Administrator, and RBAC Administrator themselves out of delegation,
@@ -1604,7 +1604,7 @@ connection.
 
 ```text
 CAF identity and access — Landing zone identity and access management — recommendation 50
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-landing-zones (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-landing-zones (retrieved 2026-10-14)
 Summary (ours): The page's table shows an example structure: per application and environment, groups for owners, security
   administrators, data administrators, and testers on that application's subscriptions; an Owner group for sandboxes; a PIM
   group for platform Contributor; and tenant-wide groups for security operations, Conditional Access administrators, network
@@ -1624,7 +1624,7 @@ tenant-wide groups belong to the tenant's administrators.
 
 ```text
 CAF identity and access — Landing zone identity and access management — recommendation 51
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-landing-zones (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-landing-zones (retrieved 2026-10-14)
 Summary (ours): A policy assignment with a deploy-if-not-exists effect needs a managed identity: a system-assigned one receives
   its rights automatically, a user-assigned one needs them granted by hand. Grant least privilege, directly to the identity
   rather than through a group, and use built-in roles only.
@@ -1660,7 +1660,7 @@ Not applicable: a workload assigns no policy ([ADR-AZ-LZ-WORKLOADOWNSNONE](../la
 
 ```text
 CAF identity and access — Landing zone identity and access management — recommendation 52
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-landing-zones (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-landing-zones (retrieved 2026-10-14)
 Summary (ours): Use Entra Privileged Identity Management so that each role holds only the minimum access it needs, in line with
   Zero Trust and least privilege.
 ```
@@ -1678,7 +1678,7 @@ Privileged Identity Management is a tenant setting, not a resource a template de
 
 ```text
 CAF identity and access — Landing zone identity and access management — recommendation 53
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-landing-zones (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-landing-zones (retrieved 2026-10-14)
 Summary (ours): Run recurring access reviews of resource entitlements through Privileged Identity Management.
 ```
 
@@ -1695,7 +1695,7 @@ a config, and every planned role assignment will be a resource of a template.
 
 ```text
 CAF identity and access — Landing zone identity and access management — recommendation 54
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-landing-zones (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-landing-zones (retrieved 2026-10-14)
 Summary (ours): Give privileged automation, such as runbooks and deployment pipelines, the same governance as privileged
   people, and make sure a workload's pipeline cannot be used to raise the privileges of the team that owns it.
 ```
@@ -1740,7 +1740,7 @@ with the landing zone's identity and the what-if preview has no read-only identi
 
 ```text
 CAF identity and access — Landing zone identity and access management — recommendation 55
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-landing-zones (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-landing-zones (retrieved 2026-10-14)
 Summary (ours): Put highly privileged roles such as Owner and User Access Administrator on subscriptions and management groups
   behind PIM for groups, for example a standing least-privileged administrators group and an eligible owners group that is
   activated on demand.
@@ -1760,7 +1760,7 @@ standard role set (rule 36) would name such groups once they exist.
 
 ```text
 CAF identity and access — Landing zone identity and access management — recommendation 56
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-landing-zones (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-landing-zones (retrieved 2026-10-14)
 Summary (ours): Attach Conditional Access requirements, such as phishing-resistant multi-factor authentication, to sensitive
   permissions through protected actions.
 ```
@@ -1777,7 +1777,7 @@ Protected actions are configured on the tenant's directory permissions, with Con
 
 ```text
 CAF identity and access — Application identity and access management — recommendation 57
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-application-access (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-application-access (retrieved 2026-10-14)
 Summary (ours): CI/CD pipelines, in GitHub or Azure DevOps, should sign in to Azure with OpenID Connect workload identity
   federation, which issues short-lived tokens and needs no stored secret; only where it is not supported, fall back to a service
   principal with a credential.
@@ -1814,7 +1814,7 @@ every connection is one; that rule belongs with the pipelines' setup.
 
 ```text
 CAF identity and access — Application identity and access management — recommendation 58
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-application-access (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-application-access (retrieved 2026-10-14)
 Summary (ours): Narrow data access further with attribute-based access control conditions where the service supports them, for
   example on Blob Storage.
 ```
@@ -1832,7 +1832,7 @@ container is the tool to keep one consumer out of another's data in the same acc
 
 ```text
 CAF identity and access — Application identity and access management — recommendation 59
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-application-access (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-application-access (retrieved 2026-10-14)
 Summary (ours): Where possible, sign in to Linux and Windows virtual machines with Entra ID identities instead of local accounts,
   which brings Conditional Access, multi-factor authentication, and audit.
 ```
@@ -1852,7 +1852,7 @@ sign-in instead.
 
 ```text
 CAF identity and access — Application identity and access management — recommendation 60
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-application-access (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-application-access (retrieved 2026-10-14)
 Summary (ours): Use managed identities for access between Azure resources, so that no credential is needed.
 ```
 
@@ -1888,7 +1888,7 @@ role assignments are planned (follow-up).
 
 ```text
 CAF identity and access — Application identity and access management — recommendation 61
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-application-access (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-application-access (retrieved 2026-10-14)
 Summary (ours): Give each application instance and environment its own credentials and identities, and never reuse a production
   identity in development or test.
 ```
@@ -1926,7 +1926,7 @@ decides.
 
 ```text
 CAF identity and access — Application identity and access management — recommendation 62
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-application-access (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-application-access (retrieved 2026-10-14)
 Summary (ours): Where managed identities are needed at scale, such as the Azure Monitor Agent on many virtual machines, use one
   user-assigned identity per resource type and region, assigned by Azure Policy, to avoid churn of identities.
 ```
@@ -1943,7 +1943,7 @@ No template deploys a fleet of machines or an agent; the managed identities are 
 
 ```text
 CAF identity and access — Application identity and access management — recommendation 63
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-application-access (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-application-access (retrieved 2026-10-14)
 Summary (ours): Keep application secrets, keys, and certificates in Key Vault, authorize both its data plane and its control
   plane through Azure RBAC, and let applications reach it with managed identities.
 ```
@@ -1978,7 +1978,7 @@ References its one secret from the vault; no service reads the vault at run time
 
 ```text
 CAF identity and access — Application identity and access management — recommendation 64
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-application-access (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-application-access (retrieved 2026-10-14)
 Summary (ours): Use a separate key vault for each application environment in each region, governed by RBAC and deployed in the
   workload landing zone.
 ```
@@ -2018,7 +2018,7 @@ workload is not adopted, because the secret must exist before the workload.
 
 ```text
 CAF identity and access — Application identity and access management — recommendation 65
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-application-access (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-application-access (retrieved 2026-10-14)
 Summary (ours): Expose web applications that use on-premises authentication through Entra application proxy; configuring it
   needs Application Administrator, so either the platform team does it for application owners, or the owners automate it
   through Microsoft Graph from a pipeline with the right privileges.
@@ -2036,7 +2036,7 @@ This repeats rule 12, which decides it: there is no on-premises application to p
 
 ```text
 CAF identity and access — Application identity and access management — recommendation 66
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-application-access (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-application-access (retrieved 2026-10-14)
 Summary (ours): Applications that use legacy protocols such as Kerberos need a network path from their landing zone to the domain
   controllers in the identity subscription.
 ```
@@ -2054,7 +2054,7 @@ subnet in `network.yml`, like every other path ([ADR-AZ-LZ-HUBANDSPOKE](../landi
 
 ```text
 CAF identity and access — Application identity and access management — recommendation 67
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-application-access (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-application-access (retrieved 2026-10-14)
 Summary (ours): Cloud-native applications should use the Microsoft identity platform, which is OpenID Connect compliant, as their
   identity provider, for work and school accounts, personal Microsoft accounts, and social or local accounts.
 ```
@@ -2073,7 +2073,7 @@ outside the templates.
 
 ```text
 CAF identity and access — Application identity and access management — recommendation 68
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-application-access (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-application-access (retrieved 2026-10-14)
 Summary (ours): Follow the Microsoft identity platform's checklist of best practices when integrating an application.
 ```
 

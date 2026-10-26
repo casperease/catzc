@@ -322,7 +322,7 @@ private endpoints).
 
 ```text
 CAF security — Security design in Azure — recommendation 1
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/security (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/security (retrieved 2026-10-15)
 Summary (ours): Produce access-control audit reports from the reporting features of Microsoft Entra ID.
 ```
 
@@ -341,7 +341,7 @@ ID group as SQL administrator ([ADR-AZ-LZ-SQLENTRAADMINS](../landing-zones.md#ru
 
 ```text
 CAF security — Security design in Azure — recommendation 2
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/security (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/security (retrieved 2026-10-15)
 Summary (ours): Keep the activity logs in Azure Monitor Logs, and archive them to a storage account when they must be kept longer
 than two years.
 ```
@@ -378,7 +378,7 @@ planned (follow-up), and a storage archive is not adopted while nothing asks for
 
 ```text
 CAF security — Security design in Azure — recommendation 3
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/security (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/security (retrieved 2026-10-15)
 Summary (ours): Turn on the paid plans of Microsoft Defender for Cloud on every subscription, and use Azure Policy to keep them on.
 ```
 
@@ -411,7 +411,7 @@ Not applicable: the workload is covered by its subscription's plans and deploys 
 
 ```text
 CAF security — Security design in Azure — recommendation 4
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/security (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/security (retrieved 2026-10-15)
 Summary (ours): Track drift in operating system patching with Azure Monitor Logs and Defender for Cloud.
 ```
 
@@ -429,7 +429,7 @@ tracking becomes relevant with the first template that deploys a virtual machine
 
 ```text
 CAF security — Security design in Azure — recommendation 5
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/security (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/security (retrieved 2026-10-15)
 Summary (ours): Use Azure Policy to deploy virtual machine extensions, so every machine gets a compliant baseline configuration.
 ```
 
@@ -447,7 +447,7 @@ extensions would be part of its module.
 
 ```text
 CAF security — Security design in Azure — recommendation 6
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/security (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/security (retrieved 2026-10-15)
 Summary (ours): Use Azure Policy to watch the security configuration of virtual machines for drift.
 ```
 
@@ -463,7 +463,7 @@ No template deploys a virtual machine (rule 4), so there is no machine configura
 
 ```text
 CAF security — Security design in Azure — recommendation 7
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/security (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/security (retrieved 2026-10-15)
 Summary (ours): Have the default configuration of every resource report its logs into a central Log Analytics workspace.
 ```
 
@@ -497,7 +497,7 @@ planned (follow-up).
 
 ```text
 CAF security — Security design in Azure — recommendation 8
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/security (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/security (retrieved 2026-10-15)
 Summary (ours): Drive real-time alerts from logs through a solution built on Azure Event Grid.
 ```
 
@@ -515,7 +515,7 @@ travel through Event Grid or through Azure Monitor alert rules is decided when t
 
 ```text
 CAF security — Security design in Azure — recommendation 9
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/security (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/security (retrieved 2026-10-15)
 Summary (ours): Use Azure Attestation to prove a virtual machine's boot chain, to release the disk keys of confidential virtual
 machines securely, and to verify trusted execution environments.
 ```
@@ -533,7 +533,7 @@ encryption serves ([ADR-AZ-WAF-SE-SE07](../waf/security.md#rule-adr-az-waf-se-se
 
 ```text
 CAF security — Security design in Azure — recommendation 10
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/security (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/security (retrieved 2026-10-15)
 Summary (ours): Review each required service against the organisation's requirements together, for example whether it supports
 bring-your-own-key, close the gaps found, and choose region pairs and disaster recovery regions that keep latency low.
 ```
@@ -553,7 +553,7 @@ disaster recovery region is chosen ([ADR-AZ-WAF-RE-RE05](../waf/reliability.md#r
 
 ```text
 CAF security — Security design in Azure — recommendation 11
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/security (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/security (retrieved 2026-10-15)
 Summary (ours): Plan how a service is assessed before it is allowed — its security configuration, monitoring, and alerts — and how it
 joins the systems in place.
 ```
@@ -589,7 +589,7 @@ Uses `storage-account.bicep`, `sql-server.bicep`, `sql-database.bicep`, `private
 
 ```text
 CAF security — Security design in Azure — recommendation 12
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/security (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/security (retrieved 2026-10-15)
 Summary (ours): Have an incident response plan for a service before the service goes to production.
 ```
 
@@ -607,7 +607,7 @@ the logs of each subscription in one workspace. The landing zone adds nothing of
 
 ```text
 CAF security — Security design in Azure — recommendation 13
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/security (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/security (retrieved 2026-10-15)
 Summary (ours): Follow the Azure roadmaps so new security controls are adopted as they ship.
 ```
 
@@ -625,7 +625,7 @@ new control enters.
 
 ```text
 CAF security — Security design in Azure — recommendation 14
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/security (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/security (retrieved 2026-10-15)
 Summary (ours): Apply a Zero Trust approach to access to the platform where it fits.
 ```
 
@@ -661,7 +661,7 @@ and ADR-AZ-WAF-SE-SE06 close them.
 
 ```text
 CAF security — Encryption and key management in Azure — recommendation 15
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/encryption-and-keys (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/encryption-and-keys (retrieved 2026-10-15)
 Summary (ours): Spread the load over many vaults, a federated model, so no vault reaches its transaction limits.
 ```
 
@@ -692,7 +692,7 @@ Reads its break-glass password from the vault of the subscription it deploys to,
 
 ```text
 CAF security — Encryption and key management in Azure — recommendation 16
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/encryption-and-keys (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/encryption-and-keys (retrieved 2026-10-15)
 Summary (ours): Authorise the Key Vault data plane with Azure RBAC rather than the older vault access policies.
 ```
 
@@ -722,7 +722,7 @@ Not applicable: the workload deploys no vault; the deploy-time reference is read
 
 ```text
 CAF security — Encryption and key management in Azure — recommendation 17
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/encryption-and-keys (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/encryption-and-keys (retrieved 2026-10-15)
 Summary (ours): Create every vault with soft delete and purge protection turned on.
 ```
 
@@ -754,7 +754,7 @@ Not applicable: no vault; its secret is protected by the vault it reads from.
 
 ```text
 CAF security — Encryption and key management in Azure — recommendation 18
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/encryption-and-keys (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/encryption-and-keys (retrieved 2026-10-15)
 Summary (ours): Let only dedicated custom Entra ID roles permanently delete (purge) keys, secrets, and certificates.
 ```
 
@@ -785,7 +785,7 @@ Not applicable: no vault.
 
 ```text
 CAF security — Encryption and key management in Azure — recommendation 19
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/encryption-and-keys (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/encryption-and-keys (retrieved 2026-10-15)
 Summary (ours): Automate the issuing and renewal of certificates with public certificate authorities.
 ```
 
@@ -803,7 +803,7 @@ public endpoint with its own host name makes this item apply.
 
 ```text
 CAF security — Encryption and key management in Azure — recommendation 20
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/encryption-and-keys (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/encryption-and-keys (retrieved 2026-10-15)
 Summary (ours): Rotate keys and certificates by an automated process.
 ```
 
@@ -833,7 +833,7 @@ A rotation should be a vault operation followed by a deploy, with no config chan
 
 ```text
 CAF security — Encryption and key management in Azure — recommendation 21
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/encryption-and-keys (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/encryption-and-keys (retrieved 2026-10-15)
 Summary (ours): Limit network access to a vault with its firewall and virtual network service endpoints.
 ```
 
@@ -870,7 +870,7 @@ Not applicable: it reads the vault through Azure Resource Manager, not over the 
 
 ```text
 CAF security — Encryption and key management in Azure — recommendation 22
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/encryption-and-keys (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/encryption-and-keys (retrieved 2026-10-15)
 Summary (ours): Audit how every vault's keys, certificates, and secrets are used in the platform's central Log Analytics workspace.
 ```
 
@@ -900,7 +900,7 @@ Not applicable: its reads of the vault are logged by the vault's setting.
 
 ```text
 CAF security — Encryption and key management in Azure — recommendation 23
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/encryption-and-keys (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/encryption-and-keys (retrieved 2026-10-15)
 Summary (ours): Let application teams create their own vaults and hold privileged access to them, with Azure Policy keeping every vault's
 configuration consistent and compliant.
 ```
@@ -932,7 +932,7 @@ Creates no vault; it uses `foundation`'s.
 
 ```text
 CAF security — Encryption and key management in Azure — recommendation 24
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/encryption-and-keys (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/encryption-and-keys (retrieved 2026-10-15)
 Summary (ours): Use Microsoft-managed keys by default, and customer-managed keys only where a requirement calls for them.
 ```
 
@@ -962,7 +962,7 @@ Storage and SQL encrypt at rest with Microsoft-managed keys.
 
 ```text
 CAF security — Encryption and key management in Azure — recommendation 25
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/encryption-and-keys (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/encryption-and-keys (retrieved 2026-10-15)
 Summary (ours): Do not keep application keys or secrets in one shared central vault (Managed HSM aside): many vaults shrink the blast
 radius, cut latency and throttling, and follow the boundaries of the workloads.
 ```
@@ -995,7 +995,7 @@ Uses no run-time secret, so it creates no vault of its own.
 
 ```text
 CAF security — Encryption and key management in Azure — recommendation 26
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/encryption-and-keys (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/encryption-and-keys (retrieved 2026-10-15)
 Summary (ours): Never share a vault between applications or between environments, so no secret is shared across them.
 ```
 
@@ -1028,7 +1028,7 @@ slot is planned (follow-up).
 
 ```text
 CAF security — Incorporate Zero Trust practices in your landing zone — recommendation 27
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/security-zero-trust (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/security-zero-trust (retrieved 2026-10-15)
 Summary (ours): Plan identity management in Entra ID beyond Azure resources: federation with on-premises directories, Conditional
 Access, and signals from the user, device, location, and behaviour that feed authorisation.
 ```
@@ -1047,7 +1047,7 @@ templates.
 
 ```text
 CAF security — Incorporate Zero Trust practices in your landing zone — recommendation 28
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/security-zero-trust (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/security-zero-trust (retrieved 2026-10-15)
 Summary (ours): Deploy the landing zone with its own subscription for identity resources such as domain controllers.
 ```
 
@@ -1065,7 +1065,7 @@ subscription would hold nothing.
 
 ```text
 CAF security — Incorporate Zero Trust practices in your landing zone — recommendation 29
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/security-zero-trust (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/security-zero-trust (retrieved 2026-10-15)
 Summary (ours): Use Microsoft Entra managed identities wherever a service supports them.
 ```
 
@@ -1096,7 +1096,7 @@ The storage account and the SQL server each have a system-assigned identity.
 
 ```text
 CAF security — Incorporate Zero Trust practices in your landing zone — recommendation 30
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/security-zero-trust (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/security-zero-trust (retrieved 2026-10-15)
 Summary (ours): Plan the management of endpoints with Zero Trust practices, alongside the landing zone rather than inside it.
 ```
 
@@ -1112,7 +1112,7 @@ Endpoints here are user devices, managed by the organisation's device management
 
 ```text
 CAF security — Incorporate Zero Trust practices in your landing zone — recommendation 31
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/security-zero-trust (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/security-zero-trust (retrieved 2026-10-15)
 Summary (ours): A pointer: devices and servers are covered by the Zero Trust infrastructure pillar.
 ```
 
@@ -1128,7 +1128,7 @@ The item points on to the infrastructure recommendations, which are rules 36–3
 
 ```text
 CAF security — Incorporate Zero Trust practices in your landing zone — recommendation 32
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/security-zero-trust (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/security-zero-trust (retrieved 2026-10-15)
 Summary (ours): Manage access to applications with Microsoft Defender for Cloud Apps.
 ```
 
@@ -1145,7 +1145,7 @@ has no user-facing application: a storage account and a database behind private 
 
 ```text
 CAF security — Incorporate Zero Trust practices in your landing zone — recommendation 33
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/security-zero-trust (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/security-zero-trust (retrieved 2026-10-15)
 Summary (ours): Enforce application practices with the standard policies that Defender for Cloud Apps provides.
 ```
 
@@ -1161,7 +1161,7 @@ Follows rule 32: without Defender for Cloud Apps, its policies have nothing to a
 
 ```text
 CAF security — Incorporate Zero Trust practices in your landing zone — recommendation 34
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/security-zero-trust (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/security-zero-trust (retrieved 2026-10-15)
 Summary (ours): Onboard every application to the organisation's access practices, trusting self-hosted applications no more than
 third-party ones.
 ```
@@ -1179,7 +1179,7 @@ only. A workload that adds a user-facing application registers it in the tenant'
 
 ```text
 CAF security — Incorporate Zero Trust practices in your landing zone — recommendation 35
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/security-zero-trust (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/security-zero-trust (retrieved 2026-10-15)
 Summary (ours): Use Microsoft Purview to govern data, protect it, and manage its risk.
 ```
 
@@ -1197,7 +1197,7 @@ workload owner's.
 
 ```text
 CAF security — Incorporate Zero Trust practices in your landing zone — recommendation 36
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/security-zero-trust (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/security-zero-trust (retrieved 2026-10-15)
 Summary (ours): Apply the standard Azure landing zone policies, so non-compliant deployments are blocked and logging is enforced.
 ```
 
@@ -1233,7 +1233,7 @@ management-group policy set is not adopted, because the repository owns no manag
 
 ```text
 CAF security — Incorporate Zero Trust practices in your landing zone — recommendation 37
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/security-zero-trust (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/security-zero-trust (retrieved 2026-10-15)
 Summary (ours): Grant highly privileged roles just in time through Privileged Identity Management in Entra ID.
 ```
 
@@ -1250,7 +1250,7 @@ deploying identities are service connections, one per subscription, and their ri
 
 ```text
 CAF security — Incorporate Zero Trust practices in your landing zone — recommendation 38
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/security-zero-trust (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/security-zero-trust (retrieved 2026-10-15)
 Summary (ours): Use the just-in-time access of Defender for Cloud for virtual machines.
 ```
 
@@ -1267,7 +1267,7 @@ internet ([ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-th
 
 ```text
 CAF security — Incorporate Zero Trust practices in your landing zone — recommendation 39
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/security-zero-trust (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/security-zero-trust (retrieved 2026-10-15)
 Summary (ours): Plan how each workload is monitored and managed on its own.
 ```
 
@@ -1299,7 +1299,7 @@ ADR-AZ-WAF-OE-OE07's alerts exist.
 
 ```text
 CAF security — Incorporate Zero Trust practices in your landing zone — recommendation 40
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/security-zero-trust (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/security-zero-trust (retrieved 2026-10-15)
 Summary (ours): Deploy with the Zero Trust network variants of the landing-zone accelerators (portal, Bicep, Terraform).
 ```
 
@@ -1317,7 +1317,7 @@ repository does not own, so their Zero Trust variants are ideas, weighed in rule
 
 ```text
 CAF security — Incorporate Zero Trust practices in your landing zone — recommendation 41
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/security-zero-trust (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/security-zero-trust (retrieved 2026-10-15)
 Summary (ours): A pointer to the Zero Trust pattern for web applications, with Application Gateway in front of Azure Firewall.
 ```
 
@@ -1335,7 +1335,7 @@ first public endpoint makes the pattern apply.
 
 ```text
 CAF security — Incorporate Zero Trust practices in your landing zone — recommendation 42
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/security-zero-trust (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/security-zero-trust (retrieved 2026-10-15)
 Summary (ours): Plan each workload's networking with the Zero Trust deployment plans for Azure.
 ```
 
@@ -1372,7 +1372,7 @@ Places its private endpoints in the `private-endpoints` subnet of its spoke, or 
 
 ```text
 CAF security — Incorporate Zero Trust practices in your landing zone — recommendation 43
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/security-zero-trust (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/security-zero-trust (retrieved 2026-10-15)
 Summary (ours): Deploy Microsoft Sentinel as part of the Azure landing zone.
 ```
 
@@ -1403,7 +1403,7 @@ Not applicable: it sends its logs to `foundation`'s workspace.
 
 ```text
 CAF security — Incorporate Zero Trust practices in your landing zone — recommendation 44
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/security-zero-trust (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/security-zero-trust (retrieved 2026-10-15)
 Summary (ours): Plan how the signals of Entra ID and the Microsoft 365 tools are fed into the Sentinel workspace.
 ```
 
@@ -1419,7 +1419,7 @@ Follows rule 43: the connectors are tenant-level settings of a Sentinel instance
 
 ```text
 CAF security — Incorporate Zero Trust practices in your landing zone — recommendation 45
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/security-zero-trust (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/security-zero-trust (retrieved 2026-10-15)
 Summary (ours): Plan regular threat-hunting exercises and a continuous improvement of the security posture.
 ```
 

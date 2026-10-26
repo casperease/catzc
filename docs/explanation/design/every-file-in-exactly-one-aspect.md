@@ -9,7 +9,8 @@ Every module file is in exactly one aspect: live first by a closed convention, t
 4  live lock      DRS-only: the live aspect's own sha lock
 5  tests lock     DRS-only: the tests aspect's own sha lock
 
-Supports DDR-ASPECT-MODULESPARTITIONINTOASPECTS, DDR-ASPECT-ASPECTSAREDERIVED, DDR-ASPECT-ASPECTISAGLOBSET and DDR-ASPECT-PARTITIONISCHECKED (meta lens).
+Supports DDR-ASPECT-MODULESPARTITIONINTOASPECTS, DDR-ASPECT-ASPECTSAREDERIVED, DDR-ASPECT-ASPECTISAGLOBSET
+and DDR-ASPECT-PARTITIONISCHECKED (meta lens).
 ```
 
 A cats module holds two kinds of thing with opposite roles: the runtime code that ships, and the tests that verify it. Aspects keep them

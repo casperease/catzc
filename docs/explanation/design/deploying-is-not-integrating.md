@@ -9,7 +9,8 @@ A topic commit can reach an environment without reaching main; only landing on m
 4  main                 landing on main is the integration; the commit turns grey
 5  BVT                  turns the landed commit into a BVT-verified one, yellow
 
-Supports FDR-CD-LIFE-ONESTATEADVANCESONERUNG and FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND, and DDR-VISUAL-FIXEDCOMMITPALETTE and DDR-VISUAL-ENVIRONMENTISCONTAINER (meta lens).
+Supports FDR-CD-LIFE-ONESTATEADVANCESONERUNG and FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND, and DDR-VISUAL-FIXEDCOMMITPALETTE
+and DDR-VISUAL-ENVIRONMENTISCONTAINER (meta lens).
 ```
 
 Deploying a commit and integrating it are separate events: a commit can reach an environment without reaching main. The commit lifecycle

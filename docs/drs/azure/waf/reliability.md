@@ -102,7 +102,7 @@ cites.
 
 ```text
 RE:01 — Focus your workload design on simplicity and efficiency
-Source: https://learn.microsoft.com/en-us/azure/well-architected/reliability/simplify (retrieved 2026-10-15)
+Source: learn /azure/well-architected/reliability/simplify (retrieved 2026-10-15)
 Summary (ours): Trace every component and design choice back to a business requirement, because each extra moving part adds
 coordination and new ways to fail. Working out flows, requirements and targets with stakeholders shows what the design needs; managed
 platform services take building and running work off the team; loose coupling stops one failure from cascading; cross-cutting concerns
@@ -142,7 +142,7 @@ realised — every template builds from managed services and shared modules, wit
 
 ```text
 RE:02 — Identify and rate user and system flows
-Source: https://learn.microsoft.com/en-us/azure/well-architected/reliability/identify-flows (retrieved 2026-10-15)
+Source: learn /azure/well-architected/reliability/identify-flows (retrieved 2026-10-15)
 Summary (ours): Early in design, list every user flow and system flow with its start, end, steps and dependencies, and tie each to the
 business process it serves, its owner and its business impact. Rate each flow's criticality (high, medium, low) so reliability investment
 goes to the most critical first, write down each flow's capacity, availability and recovery assumptions, and revisit the rating as
@@ -179,7 +179,7 @@ partly realised — criticality is rated per deployment in its tags, and no flow
 
 ```text
 RE:03 — Use failure mode analysis (FMA) to identify potential failures in your workload
-Source: https://learn.microsoft.com/en-us/azure/well-architected/reliability/failure-mode-analysis (retrieved 2026-10-15)
+Source: learn /azure/well-architected/reliability/failure-mode-analysis (retrieved 2026-10-15)
 Summary (ours): Failures happen however much resiliency is built in, so walk each critical flow step by step, list the components and
 the internal and external dependencies it uses, class each dependency as strong or weak, and ask how each failure mode — a region, zone
 or service outage, an attack, a misconfiguration, an operator error, maintenance, overload — would affect it. For each relevant failure,
@@ -219,7 +219,7 @@ partly realised — the templates' dependencies are classed here; a failure mode
 
 ```text
 RE:04 — Define reliability and recovery targets
-Source: https://learn.microsoft.com/en-us/azure/well-architected/reliability/metrics (retrieved 2026-10-15)
+Source: learn /azure/well-architected/reliability/metrics (retrieved 2026-10-15)
 Summary (ours): Agree realistic availability, correctness and recovery targets with the business and use them both to drive the design
 and to build the workload's health model. Measure each SLO through SLIs over a window, compose the SLOs of every dependency together with
 code, configuration and deployment risk, treat a provider SLA as an input whose real coverage has to be understood, and set RTO, RPO and
@@ -256,7 +256,7 @@ users.
 
 ```text
 RE:05 — Add redundancy at different levels, especially for critical flows
-Source: https://learn.microsoft.com/en-us/azure/well-architected/reliability/redundancy (retrieved 2026-10-15)
+Source: learn /azure/well-architected/reliability/redundancy (retrieved 2026-10-15)
 Summary (ours): Run several instances of each component, and where the targets demand it whole copies of the workload, so that one
 failing resource does not stop a critical flow. Decide the amount and placement per flow from its targets, weighed against cost and
 latency: managed services with built-in redundancy first, zone-redundant deployment, data replicated across zones or regions, deployment
@@ -301,7 +301,7 @@ scope.
 
 ```text
 RE:06 — Implement a timely and reliable scaling strategy at the application, data, and infrastructure levels
-Source: https://learn.microsoft.com/en-us/azure/well-architected/reliability/scaling (retrieved 2026-10-15)
+Source: learn /azure/well-architected/reliability/scaling (retrieved 2026-10-15)
 Summary (ours): Scaling must keep up with demand without operator effort, so design it from the observed or expected load of each flow
 and component. Keep components stateless and free of instance affinity so they scale out, scale on a schedule for predictable load and
 on thresholds for spikes, keep the autoscale settings in infrastructure as code with a cap on scale units, account for slow-scaling
@@ -340,7 +340,7 @@ when to scale.
 
 ```text
 RE:07 — Strengthen the resiliency of your workload by implementing self-preservation and self-healing measures
-Source: https://learn.microsoft.com/en-us/azure/well-architected/reliability/self-preservation (retrieved 2026-10-15)
+Source: learn /azure/well-architected/reliability/self-preservation (retrieved 2026-10-15)
 Summary (ours): Design so a failing component neither takes the whole workload down (self-preservation) nor needs a person to recover
 (self-healing). Limit the blast radius with bulkheads and deployment stamps, turn on automatic failover where a service offers it, let
 monitoring trigger automated remediation, make long work resumable with checkpoints, retries and dead-letter queues, and plan a degraded
@@ -380,7 +380,7 @@ partly realised — isolation per customer subscription and platform failover ar
 
 ```text
 RE:08 — Test for resiliency and availability scenarios by applying the principles of chaos engineering
-Source: https://learn.microsoft.com/en-us/azure/well-architected/reliability/reliability-test (retrieved 2026-10-15)
+Source: learn /azure/well-architected/reliability/reliability-test (retrieved 2026-10-15)
 Summary (ours): A resiliency mechanism is trusted only once tested, so test critical flows end to end against their SLO, RTO and RPO,
 with scenarios taken from the failure mode analysis. Restore backups regularly and time it, check retries, timeouts and the switch to a
 fallback, load-test scaling with faults injected, test dependency failures, run contained chaos experiments and full failover drills,
@@ -417,7 +417,7 @@ not adopted, because the example deployments target placeholder subscriptions wi
 
 ```text
 RE:09 — Implement structured, tested, and documented disaster recovery (DR) plans
-Source: https://learn.microsoft.com/en-us/azure/well-architected/reliability/disaster-recovery (retrieved 2026-10-15)
+Source: learn /azure/well-architected/reliability/disaster-recovery (retrieved 2026-10-15)
 Summary (ours): Write a disaster recovery plan, derived from business criticality, that says when an event counts as a disaster, who
 decides and communicates, and the ordered steps that recover components, data and the whole workload. Prepare the secondary region,
 replicate data to match the RPO, plan the return to the primary region separately, automate recovery as idempotent deployments, drill the plan regularly,
@@ -461,7 +461,7 @@ of scope.
 
 ```text
 RE:10 — Continuously measure and track system health using uptime and reliability indicators
-Source: https://learn.microsoft.com/en-us/azure/well-architected/reliability/monitoring (retrieved 2026-10-15)
+Source: learn /azure/well-architected/reliability/monitoring (retrieved 2026-10-15)
 Summary (ours): Monitor whether the workload delivers correct results to users and meets its availability and recovery targets, from the
 application, its data stores and its network. Roll the signals up into a health model so an alert points at real user impact, add
 functional and synthetic checks, track capacity and recovery metrics, alert on Service Health and Resource Health, and keep telemetry long

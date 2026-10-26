@@ -10,7 +10,8 @@ Values and module edges have a gate; the rule that nothing reads the file direct
 5  Catzc.Base.Variants    rule 3: depends on Config, Objects and Asserts only
 6  Test-ModuleDependency  the quality gate for rule 3, run by an L1 integrity test
 
-Supports ADR-REPO-VARIANT-SESSIONVARIANT, ADR-REPO-VARIANT-NODIRECTREADS, ADR-REPO-VARIANT-MINIMALDEPENDENCIES, ADR-REPO-VARIANT-ADONAMING, ADR-REPO-VARIANT-HAVECUSTOMERS and ADR-REPO-VARIANT-GITWORKSPACE (governance lens).
+Supports ADR-REPO-VARIANT-SESSIONVARIANT, ADR-REPO-VARIANT-NODIRECTREADS, ADR-REPO-VARIANT-MINIMALDEPENDENCIES,
+ADR-REPO-VARIANT-ADONAMING, ADR-REPO-VARIANT-HAVECUSTOMERS and ADR-REPO-VARIANT-GITWORKSPACE (governance lens).
 ```
 
 The six rules of the variants decision are held by two gates and one habit. The config type checks the file and its values whenever it

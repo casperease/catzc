@@ -8,7 +8,9 @@ Two siblings of one family, catzc and eac, compared model by model: where they m
 3  the parting     rules as decision records or as specifications; a place where imports land, or none
 4  the crossing    an idea is named where it is used and rebuilt to this repository's rules
 
-Supports PDR-ONELIVE-ONEVERSION and PDR-ONELIVE-HISTORYINGIT, ADR-AUTO-GO-MODULESBYLAYOUT, PDR-CATS-CATZCISSOURCENAME and PDR-CATS-CATSISPERSONNAME, and DDR-TRACK-TRACKISPLACEDCLUSTER, DDR-TRACK-ONETECHSTACK, DDR-TRACK-DEPLOYABLEUNIT and DDR-TRACK-UNORDEREDTRACK.
+Supports PDR-ONELIVE-ONEVERSION and PDR-ONELIVE-HISTORYINGIT, ADR-AUTO-GO-MODULESBYLAYOUT, PDR-CATS-CATZCISSOURCENAME
+and PDR-CATS-CATSISPERSONNAME, and DDR-TRACK-TRACKISPLACEDCLUSTER, DDR-TRACK-ONETECHSTACK, DDR-TRACK-DEPLOYABLEUNIT
+and DDR-TRACK-UNORDEREDTRACK.
 ```
 
 Cats has a sibling. The eac repository is the same project family built in Go: a repository automation CLI, an extension CLI for

@@ -14,7 +14,8 @@ ConvertTo-RepoRelativePath tries the output root, then the repository root, else
  9  ArtifactRef                    relative and absolute, immutable
 10  ResolveAt / ExistsAt           the consumer's re-resolve and existence check
 
-Supports ADR-AUTO-PATH-CENTRALNORMALIZATION, ADR-AUTO-PATH-FOREIGNPATHS, ADR-AUTO-PATH-OUTANCHOR and ADR-AUTO-PATH-PUBLISHEDARTIFACT (implementation lens).
+Supports ADR-AUTO-PATH-CENTRALNORMALIZATION, ADR-AUTO-PATH-FOREIGNPATHS, ADR-AUTO-PATH-OUTANCHOR
+and ADR-AUTO-PATH-PUBLISHEDARTIFACT (implementation lens).
 ```
 
 `ConvertTo-RepoRelativePath` and `Resolve-RepoPath`, both in `Catzc.Base.Repository`, are the two boundary crossers of cats, and the order

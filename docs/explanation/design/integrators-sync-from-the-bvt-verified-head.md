@@ -10,7 +10,8 @@ Upstream integrators take the BVT-verified head, every rung takes its commit fro
 5  production           holds commit 4; takes its commit from pre-prod
 6  dirty HEAD           commit 10, the newest commit on main, which failed in main-UAT
 
-Supports FDR-CD-LIFE-ONECOMMITPERENVIRONMENT, FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD, FDR-CD-LIFE-DIRTYHEADUNSAFE and FDR-CD-LIFE-FAILEDSTAYSUPSTREAM, FDR-CD-TWORELEASEGATES and FDR-CD-PREPRODRUNG (architecture lens).
+Supports FDR-CD-LIFE-ONECOMMITPERENVIRONMENT, FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD, FDR-CD-LIFE-DIRTYHEADUNSAFE
+and FDR-CD-LIFE-FAILEDSTAYSUPSTREAM, FDR-CD-TWORELEASEGATES and FDR-CD-PREPRODRUNG (architecture lens).
 ```
 
 Each always-on environment in cats holds one commit, its occupant, and anyone outside the repository who needs a stable base takes the

@@ -8,7 +8,8 @@ A commit only climbs the promotion ladder, then ends superseded, discarded or re
 3  discarded   rejection at a named gate, before any value was delivered
 4  retired     a production commit that served and was replaced; a success
 
-Supports FDR-CD-LIFE-ONESTATEADVANCESONERUNG, FDR-CD-LIFE-DISCARDISTERMINAL, FDR-CD-LIFE-RETIREMENTISNOTDISCARD, FDR-CD-LIFE-SUPERSESSIONABANDONSOVERTAKEN and FDR-CD-LIFE-FAILEDSTAYSUPSTREAM (meta lens).
+Supports FDR-CD-LIFE-ONESTATEADVANCESONERUNG, FDR-CD-LIFE-DISCARDISTERMINAL, FDR-CD-LIFE-RETIREMENTISNOTDISCARD,
+FDR-CD-LIFE-SUPERSESSIONABANDONSOVERTAKEN and FDR-CD-LIFE-FAILEDSTAYSUPSTREAM (meta lens).
 ```
 
 A commit in cats holds one lifecycle state at a time. It climbs the promotion ladder one rung at a time and never moves backward, because

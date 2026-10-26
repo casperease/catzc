@@ -140,7 +140,8 @@ function Build-Diagrams {
     if ($render -and $folders.Count -gt 0) {
         # One renderer call for every folder: each worker pays the imports once, and each folder ends with its JSON row.
         $quoted = ($folders | ForEach-Object { "`"$(Join-Path $root $_)`"" }) -join ' '
-        # The query rows go to an address named here, never a default (DDR-VISUAL-ZOOMISANAXIS).
+        # The query rows go to an address named here, never a default
+        # ([DDR-VISUAL-ZOOMISANAXIS](/docs/drs/design/visual-design.md#rule-ddr-visual-zoomisanaxis)).
         $rowsPath = Join-Path (Get-OutputRoot -EnsureExists) 'diagrams/query-rows.json'
         if (-not $DryRun) {
             $null = Write-DiagramQueryRows -Stem $declared -RepositoryRoot $root -Path $rowsPath

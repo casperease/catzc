@@ -132,7 +132,7 @@ three do, or say plainly what they do not.
 
 ```text
 CO:01 — Create a culture of financial responsibility
-Source: https://learn.microsoft.com/en-us/azure/well-architected/cost-optimization/create-culture-financial-responsibility (retrieved 2026-10-15)
+Source: learn /azure/well-architected/cost-optimization/create-culture-financial-responsibility (retrieved 2026-10-15)
 Summary (ours): The workload team shares ownership of what the workload costs and has the skills and figures to spend well. Open budgets
   and cost data, ongoing training, room to propose savings, and clearly stated financial goals build that ownership.
 ```
@@ -167,7 +167,7 @@ Partly realised — budgets and cost ownership are open in config; the people pr
 
 ```text
 CO:02 — Create and maintain a cost model
-Source: https://learn.microsoft.com/en-us/azure/well-architected/cost-optimization/cost-model (retrieved 2026-10-15)
+Source: learn /azure/well-architected/cost-optimization/cost-model (retrieved 2026-10-15)
 Summary (ours): Forecast what the workload costs up front, at its running rate, and over time, covering services, licences, reliability,
   operations, and supporting services such as monitoring and security. The model is the basis for a budget with a buffer for unplanned
   spend, and it is kept current with usage data and design changes.
@@ -203,7 +203,7 @@ Planned (follow-up) — a cost model per template, and budget amounts derived fr
 
 ```text
 CO:03 — Collect and review cost data
-Source: https://learn.microsoft.com/en-us/azure/well-architected/cost-optimization/collect-review-cost-data (retrieved 2026-10-15)
+Source: learn /azure/well-architected/cost-optimization/collect-review-cost-data (retrieved 2026-10-15)
 Summary (ours): Gather daily cost data, actual and amortized, into one central place where it can be grouped and reported. Stakeholders
   review spend regularly against the budget and the cost model, and automated alerts flag threshold crossings and deviations from the
   trend.
@@ -245,7 +245,7 @@ planned (follow-up).
 
 ```text
 CO:04 — Set spending guardrails
-Source: https://learn.microsoft.com/en-us/azure/well-architected/cost-optimization/set-spending-guardrails (retrieved 2026-10-15)
+Source: learn /azure/well-architected/cost-optimization/set-spending-guardrails (retrieved 2026-10-15)
 Summary (ours): Use automated controls, enforced by the platform rather than by manual review, to keep the workload within its budget and
   away from what it should not use. Guardrails span governance policies, access control, release gates, alerts, and infrastructure as
   code.
@@ -293,7 +293,7 @@ are planned (follow-up).
 
 ```text
 CO:05 — Get the best rates from providers
-Source: https://learn.microsoft.com/en-us/azure/well-architected/cost-optimization/get-best-rates (retrieved 2026-10-15)
+Source: learn /azure/well-architected/cost-optimization/get-best-rates (retrieved 2026-10-15)
 Summary (ours): Lower the unit price of what the workload uses, without changing its design, by choosing the right billing model and using
   discounts and licence benefits. Start with the most expensive items and revisit the rates regularly.
 ```
@@ -327,7 +327,7 @@ Not adopted, because rates and commitments are set at the billing account, above
 
 ```text
 CO:06 — Align usage to billing increments
-Source: https://learn.microsoft.com/en-us/azure/well-architected/cost-optimization/align-usage-to-billing-increments (retrieved 2026-10-15)
+Source: learn /azure/well-architected/cost-optimization/align-usage-to-billing-increments (retrieved 2026-10-15)
 Summary (ours): Learn how each service is metered — time, requests, data transferred, storage — and shape the service choice or the usage
   so consumption matches the meter. A short proof of concept confirms the billing assumptions for the main cost drivers before the design
   is committed.
@@ -364,7 +364,7 @@ Partly realised — the SKUs and diagnostic categories follow the meter; a per-s
 
 ```text
 CO:07 — Optimize component costs
-Source: https://learn.microsoft.com/en-us/azure/well-architected/cost-optimization/optimize-component-costs (retrieved 2026-10-15)
+Source: learn /azure/well-architected/cost-optimization/optimize-component-costs (retrieved 2026-10-15)
 Summary (ours): Review the running workload for application features, platform features, and resources that cost more than they return,
   and remove, right-size, or rework them. Avoid new waste by finding the root cause before changing a solution and by keeping every
   resource tracked.
@@ -402,7 +402,7 @@ Partly realised — the inventory, owners, and redeploy-based recovery exist; an
 
 ```text
 CO:08 — Optimize environment costs
-Source: https://learn.microsoft.com/en-us/azure/well-architected/cost-optimization/optimize-environment-costs (retrieved 2026-10-15)
+Source: learn /azure/well-architected/cost-optimization/optimize-environment-costs (retrieved 2026-10-15)
 Summary (ours): Spend on each environment — production, pre-production, recovery, operations — in proportion to its value and risk instead
   of making them all alike. Non-production stays close enough to production to catch problems, with deliberate, governed reductions in
   scale, tier, and running hours.
@@ -441,7 +441,7 @@ Partly realised — the database, backups, budgets, and policy mode differ by cl
 
 ```text
 CO:09 — Optimize flow costs
-Source: https://learn.microsoft.com/en-us/azure/well-architected/cost-optimization/optimize-flow-costs (retrieved 2026-10-15)
+Source: learn /azure/well-architected/cost-optimization/optimize-flow-costs (retrieved 2026-10-15)
 Summary (ours): Match what each user or system flow costs to how much it matters, putting money into critical flows and running lower-
   priority ones on cheaper configurations. That can mean separating flows with different needs onto different resources, or combining
   similar flows onto shared ones.
@@ -473,7 +473,7 @@ Not adopted, because the example workloads carry one flow each.
 
 ```text
 CO:10 — Optimize data costs
-Source: https://learn.microsoft.com/en-us/azure/well-architected/cost-optimization/optimize-data-costs (retrieved 2026-10-15)
+Source: learn /azure/well-architected/cost-optimization/optimize-data-costs (retrieved 2026-10-15)
 Summary (ours): Spend on storing and handling data according to how important it is and how often it is read. That covers lifecycle
   management (tiering and retention), how much data is kept, how it is replicated and backed up, which file formats are used, and which
   storage service holds it.
@@ -508,7 +508,7 @@ Partly realised — retention and redundancy are bounded per class; blob lifecyc
 
 ```text
 CO:11 — Optimize code costs
-Source: https://learn.microsoft.com/en-us/azure/well-architected/cost-optimization/optimize-code-costs (retrieved 2026-10-15)
+Source: learn /azure/well-architected/cost-optimization/optimize-code-costs (retrieved 2026-10-15)
 Summary (ours): Change application code so it gives the same functional and nonfunctional results with fewer or cheaper resources, once
   scaling and sizing are in place. Instrumentation shows hot paths and waste that autoscaling or serverless can otherwise hide.
 ```
@@ -538,7 +538,7 @@ Not adopted, because the templates carry no application code.
 
 ```text
 CO:12 — Optimize scaling costs
-Source: https://learn.microsoft.com/en-us/azure/well-architected/cost-optimization/optimize-scaling-costs (retrieved 2026-10-15)
+Source: learn /azure/well-architected/cost-optimization/optimize-scaling-costs (retrieved 2026-10-15)
 Summary (ours): Scale out or up only when needed and back down as soon as practical, choosing the scaling approach that is cheapest for the
   required result. Compare options against the cost model and the service limits, and manage both demand and supply.
 ```
@@ -570,7 +570,7 @@ Realised — the one component that scales does so between a floor and a ceiling
 
 ```text
 CO:13 — Optimize personnel time
-Source: https://learn.microsoft.com/en-us/azure/well-architected/cost-optimization/optimize-personnel-time (retrieved 2026-10-15)
+Source: learn /azure/well-architected/cost-optimization/optimize-personnel-time (retrieved 2026-10-15)
 Summary (ours): People are usually a workload's largest cost, so spend each hour by the priority of the task without lowering the quality
   of the outcome: faster feedback in development, smoother collaboration and processes, and less noise in operations.
 ```
@@ -606,7 +606,7 @@ Realised — shared modules, config addresses, change-scoped pipelines, and comp
 
 ```text
 CO:14 — Consolidate resources and responsibility
-Source: https://learn.microsoft.com/en-us/azure/well-architected/cost-optimization/consolidation (retrieved 2026-10-15)
+Source: learn /azure/well-architected/cost-optimization/consolidation (retrieved 2026-10-15)
 Summary (ours): Run more on fewer resources inside the workload, and use shared resources and specialist teams the organisation has instead
   of duplicating them. Weigh every consolidation against its effect on isolation, security, compliance, and redundancy.
 ```

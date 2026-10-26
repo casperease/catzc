@@ -315,7 +315,7 @@ takeaway below points at what those do, or says plainly what they do not.
 
 ```text
 CAF platform automation and DevOps — Automation, Platform automation design recommendation — recommendation 1
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/considerations/automation (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/considerations/automation (retrieved 2026-10-15)
 Summary (ours): Treat the platform, its documentation, its deployment, and its tests as code, for full transparency and control.
 ```
 
@@ -355,7 +355,7 @@ created outside the repository; declaring them as code is planned (follow-up).
 
 ```text
 CAF platform automation and DevOps — Automation, Platform automation design recommendation — recommendation 2
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/considerations/automation (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/considerations/automation (retrieved 2026-10-15)
 Summary (ours): Put infrastructure, policy, configuration, deployment, and documentation code under version control.
 ```
 
@@ -376,7 +376,7 @@ Realised — infrastructure, policy, configuration, pipelines, and documentation
 
 ```text
 CAF platform automation and DevOps — Automation, Platform automation design recommendation — recommendation 3
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/considerations/automation (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/considerations/automation (retrieved 2026-10-15)
 Summary (ours): Have every change reviewed by a second person, by pair programming or peer review, before it reaches production.
 ```
 
@@ -412,7 +412,7 @@ is planned (follow-up).
 
 ```text
 CAF platform automation and DevOps — Automation, Platform automation design recommendation — recommendation 4
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/considerations/automation (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/considerations/automation (retrieved 2026-10-15)
 Summary (ours): Choose a branching strategy and protect the important branches with policies, so changes merge only through pull requests.
 ```
 
@@ -448,7 +448,7 @@ is a server setting outside the repository.
 
 ```text
 CAF platform automation and DevOps — Automation, Platform automation design recommendation — recommendation 5
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/considerations/automation (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/considerations/automation (retrieved 2026-10-15)
 Summary (ours): Automate testing and the deployment to each environment with continuous integration and continuous delivery.
 ```
 
@@ -493,7 +493,7 @@ instead of by promotion; the choice between DEPLOY and CDe is open.
 
 ```text
 CAF platform automation and DevOps — Automation, Platform automation design recommendation — recommendation 6
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/considerations/automation (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/considerations/automation (retrieved 2026-10-15)
 Summary (ours): Automate the provisioning, configuration, and management of the platform, and the provisioning of landing zone
   subscriptions.
 ```
@@ -538,7 +538,7 @@ repository is given its subscriptions; encoding the spoke rollout and the secret
 
 ```text
 CAF platform automation and DevOps — Automation, Platform automation design recommendation — recommendation 7
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/considerations/automation (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/considerations/automation (retrieved 2026-10-15)
 Summary (ours): Begin with the landing zone accelerator that suits the team's maturity.
 ```
 
@@ -559,7 +559,7 @@ Not adopted, because the accelerators assume management groups and a platform th
 
 ```text
 CAF platform automation and DevOps — Automation, Platform automation design recommendation — recommendation 8
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/considerations/automation (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/considerations/automation (retrieved 2026-10-15)
 Summary (ours): Plan to deploy in stages, adding your own automation over the accelerator for what it does not cover.
 ```
 
@@ -591,7 +591,7 @@ provide.
 
 ```text
 CAF platform automation and DevOps — Automation, Platform automation design recommendation — recommendation 9
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/considerations/automation (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/considerations/automation (retrieved 2026-10-15)
 Summary (ours): Make emergency fixes through code as well, and record each in the backlog so it is reworked properly and debt stays small.
 ```
 
@@ -626,7 +626,7 @@ Partly realised — every fix is a commit deployed by the pipelines, while an em
 
 ```text
 CAF platform automation and DevOps — Automation, Platform automation design recommendation — recommendation 10
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/considerations/automation (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/considerations/automation (retrieved 2026-10-15)
 Summary (ours): Deploy and manage Azure Policy with infrastructure as code.
 ```
 
@@ -660,7 +660,7 @@ Realised — every policy assignment is Bicep in `discovery`, with its definitio
 
 ```text
 CAF platform automation and DevOps — Automation, Platform automation design recommendation — recommendation 11
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/considerations/automation (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/considerations/automation (retrieved 2026-10-15)
 Summary (ours): Give workload teams a process to request a policy exemption, so a policy does not leave them stuck.
 ```
 
@@ -694,7 +694,7 @@ Not adopted, because the landing zone makes no exemption; a change to a policy i
 
 ```text
 CAF platform automation and DevOps — Automation, Platform automation design recommendation — recommendation 12
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/considerations/automation (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/considerations/automation (retrieved 2026-10-15)
 Summary (ours): Stop a non-compliant deployment with a deny policy rather than correcting it quietly at deploy time, so the code and what is
   deployed do not drift apart; the considerations name modify effects as the risk.
 ```
@@ -728,7 +728,7 @@ Realised — deny effects block a non-compliant resource in production, and no p
 
 ```text
 CAF platform automation and DevOps — DevOps considerations, DevOps recommendations: Define your DevOps framework — recommendation 13
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/considerations/devops-principles-and-practices (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/considerations/devops-principles-and-practices (retrieved 2026-10-15)
 Summary (ours): Start from available frameworks — the Microsoft DevOps Resource Center and the DevOps Dojo taxonomy — rather than inventing
   one.
 ```
@@ -748,7 +748,7 @@ Not adopted, because the repository's framework is its own flow model grounded i
 
 ```text
 CAF platform automation and DevOps — DevOps considerations, DevOps recommendations: Define DevOps practices — recommendation 14
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/considerations/devops-principles-and-practices (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/considerations/devops-principles-and-practices (retrieved 2026-10-15)
 Summary (ours): For the landing zone's management, follow the pages on its development lifecycle and on DevOps security.
 ```
 
@@ -766,7 +766,7 @@ Realised — both pages are reviewed here, the first as rules, the second as con
 
 ```text
 CAF platform automation and DevOps — DevOps considerations, DevOps recommendations: Plan your DevOps implementation journey — recommendation 15
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/considerations/devops-principles-and-practices (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/considerations/devops-principles-and-practices (retrieved 2026-10-15)
 Summary (ours): Assess current practices, team structure, and operating model, define the target from the adoption plan, and get there by an
   incremental roadmap.
 ```
@@ -785,7 +785,7 @@ Not adopted, because improvement here is continuous and evidence-led rather than
 
 ```text
 CAF platform automation and DevOps — DevOps considerations, DevOps recommendations: Implement desired DevOps metrics — recommendation 16
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/considerations/devops-principles-and-practices (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/considerations/devops-principles-and-practices (retrieved 2026-10-15)
 Summary (ours): Pick visible, outcome-oriented metrics for business outcomes, software delivery performance (the four DORA metrics), and
   quality.
 ```
@@ -808,7 +808,7 @@ Partly realised — the DORA metrics are the chosen measures, while collecting t
 
 ```text
 CAF platform automation and DevOps — DevOps considerations, DevOps recommendations: Define your DevOps technology ecosystem — recommendation 17
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/considerations/devops-principles-and-practices (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/considerations/devops-principles-and-practices (retrieved 2026-10-15)
 Summary (ours): Choose tools per DevOps activity, balancing team fit against standardisation; the toolchain shapes practices, security, and
   the landing zone lifecycle.
 ```
@@ -830,7 +830,7 @@ Realised — each tool is chosen once, pinned, and installed the same way everyw
 
 ```text
 CAF platform automation and DevOps — Development lifecycle, Repository strategy: Design recommendations — recommendation 18
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/considerations/development-strategy-development-lifecycle (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/considerations/development-strategy-development-lifecycle (retrieved 2026-10-15)
 Summary (ours): Use Git for version control.
 ```
 
@@ -848,7 +848,7 @@ Realised — Git is the version control system, and the delivery automation depe
 
 ```text
 CAF platform automation and DevOps — Development lifecycle, Repository strategy: Design recommendations — recommendation 19
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/considerations/development-strategy-development-lifecycle (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/considerations/development-strategy-development-lifecycle (retrieved 2026-10-15)
 Summary (ours): Keep the code of Azure landing zones in private repositories.
 ```
 
@@ -867,7 +867,7 @@ Not adopted, because repository visibility is a setting of the server remote, ou
 
 ```text
 CAF platform automation and DevOps — Development lifecycle, Repository strategy: Design recommendations — recommendation 20
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/considerations/development-strategy-development-lifecycle (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/considerations/development-strategy-development-lifecycle (retrieved 2026-10-15)
 Summary (ours): Use public repositories only for material that is not confidential: samples, documentation, and openly licensed code.
 ```
 
@@ -884,7 +884,7 @@ Realised — the only material published outward is the built automation package
 
 ```text
 CAF platform automation and DevOps — Development lifecycle, Repository strategy: Design recommendations — recommendation 21
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/considerations/development-strategy-development-lifecycle (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/considerations/development-strategy-development-lifecycle (retrieved 2026-10-15)
 Summary (ours): Deploy, manage, and govern cloud resources through infrastructure as code.
 ```
 
@@ -921,7 +921,7 @@ deleted resources are tracked under ADR-AZ-WAF-OE-OE05.
 
 ```text
 CAF platform automation and DevOps — Development lifecycle, Branch strategy: Design recommendations — recommendation 22
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/considerations/development-strategy-development-lifecycle (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/considerations/development-strategy-development-lifecycle (retrieved 2026-10-15)
 Summary (ours): Use trunk-based development: everyone integrates into one branch and resolves conflicts as they commit.
 ```
 
@@ -940,7 +940,7 @@ Realised — `main` is the one trunk, and every CI and CD pipeline runs on it.
 
 ```text
 CAF platform automation and DevOps — Development lifecycle, Branch strategy: Design recommendations — recommendation 23
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/considerations/development-strategy-development-lifecycle (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/considerations/development-strategy-development-lifecycle (retrieved 2026-10-15)
 Summary (ours): Agree branch naming conventions that show what kind of work a branch holds.
 ```
 
@@ -957,7 +957,7 @@ Not adopted, because branches are short-lived and nothing reads their names.
 
 ```text
 CAF platform automation and DevOps — Development lifecycle, Branch strategy: Design recommendations — recommendation 24
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/considerations/development-strategy-development-lifecycle (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/considerations/development-strategy-development-lifecycle (retrieved 2026-10-15)
 Summary (ours): Set read and write permissions per branch for users and groups.
 ```
 
@@ -976,7 +976,7 @@ Not adopted, because branch permissions are a server setting; the repository rel
 
 ```text
 CAF platform automation and DevOps — Development lifecycle, Branch strategy: Design recommendations — recommendation 25
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/considerations/development-strategy-development-lifecycle (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/considerations/development-strategy-development-lifecycle (retrieved 2026-10-15)
 Summary (ours): Protect main with branch policies: pull requests required, a minimum number of reviewers, approvals reset on new changes,
   reviewers added automatically, and comments resolved before merge.
 ```
@@ -1009,7 +1009,7 @@ Partly realised — blocking build validation per globset is code, while reviewe
 
 ```text
 CAF platform automation and DevOps — Development lifecycle, Branch strategy: Design recommendations — recommendation 26
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/considerations/development-strategy-development-lifecycle (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/considerations/development-strategy-development-lifecycle (retrieved 2026-10-15)
 Summary (ours): Squash-merge pull requests so each lands on the default branch as one commit.
 ```
 
@@ -1030,7 +1030,7 @@ planned (follow-up).
 
 ```text
 CAF platform automation and DevOps — Development lifecycle, Automated builds: Design recommendations — recommendation 27
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/considerations/development-strategy-development-lifecycle (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/considerations/development-strategy-development-lifecycle (retrieved 2026-10-15)
 Summary (ours): Use continuous integration so every commit is built and tested automatically.
 ```
 
@@ -1063,7 +1063,7 @@ Realised — every infrastructure change is built and tested before and after it
 
 ```text
 CAF platform automation and DevOps — Development lifecycle, Automated builds: Design recommendations — recommendation 28
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/considerations/development-strategy-development-lifecycle (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/considerations/development-strategy-development-lifecycle (retrieved 2026-10-15)
 Summary (ours): Include unit tests for both infrastructure code and application code in the build.
 ```
 
@@ -1104,7 +1104,7 @@ planned (follow-up).
 
 ```text
 CAF platform automation and DevOps — Development lifecycle, Automated builds: Design recommendations — recommendation 29
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/considerations/development-strategy-development-lifecycle (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/considerations/development-strategy-development-lifecycle (retrieved 2026-10-15)
 Summary (ours): Prefer Microsoft-hosted agents over self-hosted ones, for an isolated, fresh machine on every run.
 ```
 
@@ -1138,7 +1138,7 @@ Realised — every job runs on a Microsoft-hosted agent.
 
 ```text
 CAF platform automation and DevOps — Development lifecycle, Automated builds: Design recommendations — recommendation 30
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/considerations/development-strategy-development-lifecycle (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/considerations/development-strategy-development-lifecycle (retrieved 2026-10-15)
 Summary (ours): When pipelines connect to Azure through service connections or stored secrets, limit each connection to the resources it
   needs.
 ```
@@ -1182,7 +1182,7 @@ environment, and a read-only preview identity are planned (follow-up).
 
 ```text
 CAF platform automation and DevOps — Development lifecycle, Automated builds: Design recommendations — recommendation 31
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/considerations/development-strategy-development-lifecycle (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/considerations/development-strategy-development-lifecycle (retrieved 2026-10-15)
 Summary (ours): Pull credentials, certificates, and keys from Key Vault into pipeline variables instead of writing them into code.
 ```
 
@@ -1221,7 +1221,7 @@ ADR-AZ-WAF-OE-OE03.
 
 ```text
 CAF platform automation and DevOps — Development lifecycle, Deployment strategy: Design recommendations — recommendation 32
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/considerations/development-strategy-development-lifecycle (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/considerations/development-strategy-development-lifecycle (retrieved 2026-10-15)
 Summary (ours): Deliver continuously to production-like environments, so the code is always ready to deploy and defects show early.
 ```
 
@@ -1257,7 +1257,7 @@ Partly realised — every merge deploys to non-production, while on-demand envir
 
 ```text
 CAF platform automation and DevOps — Development lifecycle, Deployment strategy: Design recommendations — recommendation 33
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/considerations/development-strategy-development-lifecycle (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/considerations/development-strategy-development-lifecycle (retrieved 2026-10-15)
 Summary (ours): Use pipeline environments for deployment history, traceability to commits and work items, resource health, and security.
 ```
 
@@ -1295,7 +1295,7 @@ Partly realised — every deploy runs in a named environment with its history, w
 
 ```text
 CAF platform automation and DevOps — Development lifecycle, Deployment strategy: Design recommendations — recommendation 34
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/considerations/development-strategy-development-lifecycle (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/considerations/development-strategy-development-lifecycle (retrieved 2026-10-15)
 Summary (ours): Before deploying infrastructure code, preview what it will create, change, and delete (what-if or plan).
 ```
 
@@ -1327,7 +1327,7 @@ Partly realised — the what-if preview is one switch on `Deploy-Bicep`, while r
 
 ```text
 CAF platform automation and DevOps — Development lifecycle, Rollback strategy: Design recommendations — recommendation 35
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/considerations/development-strategy-development-lifecycle (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/considerations/development-strategy-development-lifecycle (retrieved 2026-10-15)
 Summary (ours): Roll back by Git's undo operations: revert, discard, or reset.
 ```
 
@@ -1361,7 +1361,7 @@ longer declares are planned (follow-up).
 
 ```text
 CAF platform automation and DevOps — DevOps toolchain, DevOps toolchain recommendations for Azure Landing Zones — recommendation 36
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/considerations/devops-toolchain (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/considerations/devops-toolchain (retrieved 2026-10-15)
 Summary (ours): A toolchain covers planning, CI and CD with infrastructure as code, operations, and collaboration; the first option is Azure
   DevOps for all of it, for organisations deep in Microsoft's ecosystem.
 ```
@@ -1380,7 +1380,7 @@ Partly realised — CI and CD run on Azure DevOps, while planning and collaborat
 
 ```text
 CAF platform automation and DevOps — DevOps toolchain, DevOps toolchain recommendations for Azure Landing Zones — recommendation 37
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/considerations/devops-toolchain (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/considerations/devops-toolchain (retrieved 2026-10-15)
 Summary (ours): The second option combines Azure DevOps and GitHub, to use the strengths of each.
 ```
 

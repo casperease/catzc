@@ -10,7 +10,8 @@ Out from the verified point, back in through its own topic: the pull request tru
 5  branch policy    the merge gates verify that topic HEAD, then the server merges it
 6  HEAD             the tip of the server's main; the merge lands here, from the verified topic HEAD, never from the clone
 
-Supports DDR-REMOTE-SERVERREMOTEISTRUTH, DDR-REMOTE-INTEGRATEFROMVERIFIED and DDR-REMOTE-PULLREQUESTISINGRESS, and FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD and FDR-CD-LIFE-DIRTYHEADUNSAFE (architecture lens).
+Supports DDR-REMOTE-SERVERREMOTEISTRUTH, DDR-REMOTE-INTEGRATEFROMVERIFIED and DDR-REMOTE-PULLREQUESTISINGRESS,
+and FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD and FDR-CD-LIFE-DIRTYHEADUNSAFE (architecture lens).
 ```
 
 A clone never writes the server's main. It leaves from the verified point, works, and pushes upward to one remote ref it owns: its own topic

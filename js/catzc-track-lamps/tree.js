@@ -10,10 +10,20 @@ const { OUTPUT, lampSets, evaluate } = require("./language.js");
 // the processes it hands the list to (Windows takes 32767 characters in all).
 const EXCLUDE_ROOF = 20000;
 
+/** @typedef {{ files: string[], folders: string[] }} Disk the files and folders on disk, '/'-separated from the root */
+/** @typedef {import("./language.js").LampSets} LampSets */
+
 // The files and the folders on disk, '/'-separated from the root, in one walk; .git is no part of the tree.
+/**
+ * @param {string} root
+ * @returns {Promise<Disk>}
+ */
 async function walkDisk(root) {
+    /** @type {string[]} */
     const files = [];
+    /** @type {string[]} */
     const folders = [];
+    /** @type {(folder: string) => Promise<void>} */
     const walk = async (folder) => {
         let found;
         try {
@@ -35,7 +45,7 @@ async function walkDisk(root) {
 }
 
 // A file's extension as written ('.ps1'), empty for none, a dotfile, or one a glob would read as a pattern.
-const extensionOf = (place) => {
+const extensionOf = (/** @type {string} */ place) => {
     const name = path.posix.basename(place);
     const at = name.lastIndexOf(".");
     const extension = at > 0 ? name.slice(at) : "";
@@ -47,10 +57,18 @@ const extensionOf = (place) => {
 // folder (so a dead folder, emptied by the lamps or empty on disk, leaves the tree too). A hidden file in a shown folder rides on its
 // extension where no shown file shares it: '**/*<ext>' when none does anywhere, else '<folder>/**/*<ext>' for its topmost folder holding
 // none; otherwise it is written itself, in its on-disk spelling.
+/**
+ * @param {string[]} files
+ * @param {string[]} folders
+ * @param {string[]} shown
+ * @returns {string[]}
+ */
 function hiddenEntries(files, folders, shown) {
+    /** @type {Set<string>} */
     const live = new Set();
     for (const place of shown) for (let at = path.posix.dirname(place); at !== "."; at = path.posix.dirname(at)) live.add(at);
     const showing = new Set(shown);
+    /** @type {(place: string) => string | undefined} */
     const topmostDead = (place) => {
         let dead;
         for (let at = path.posix.dirname(place); at !== "."; at = path.posix.dirname(at)) if (!live.has(at)) dead = at;
@@ -72,7 +90,7 @@ function hiddenEntries(files, folders, shown) {
         const extension = key(extensionOf(place));
         if (extension) shownDirectly.add(`${extension}|${key(path.posix.dirname(place))}`);
     }
-    const rollUp = (place) => {
+    const rollUp = (/** @type {string} */ place) => {
         const extension = extensionOf(place);
         if (!extension) return place;
         if (!shownUnder.has(`${key(extension)}|.`)) return `**/*${extension}`;
@@ -94,7 +112,7 @@ function hiddenEntries(files, folders, shown) {
         namedUnder.add(`${name}|.`);
         for (let at = path.posix.dirname(place); at !== "."; at = path.posix.dirname(at)) namedUnder.add(`${name}|${key(at)}`);
     }
-    const deadEntry = (folder) => {
+    const deadEntry = (/** @type {string} */ folder) => {
         const name = path.posix.basename(folder);
         if (!folder.includes("/") || /[*?[\]{}!,]/.test(name)) return folder;
         if (!namedUnder.has(`${key(name)}|.`)) return `**/${name}`;
@@ -122,7 +140,15 @@ function hiddenEntries(files, folders, shown) {
 // The entries for the unlit lamps, from one walk of the disk: out holds the unlit lamps, open the files open in an editor, vetoed the
 // unlit lamps that also hide their whole zone. Every lamp lit writes nothing, as without the extension.
 // disk is the extension's in-memory index of the walk ({ files, folders }); without it the disk is walked, as the tests do.
-/** @param {Iterable<string>} [vetoed] */
+/**
+ * @param {string} root
+ * @param {Set<string>} out
+ * @param {LampSets} declared
+ * @param {string[]} [open]
+ * @param {Iterable<string>} [vetoed]
+ * @param {Disk} [disk]
+ * @returns {Promise<string[]>}
+ */
 async function hiddenGlobs(root, out, declared, open = [], vetoed = [], disk = undefined) {
     const sets = lampSets(declared, open);
     const lit = new Set(Object.keys(sets).filter((name) => !out.has(name)));
@@ -134,6 +160,15 @@ async function hiddenGlobs(root, out, declared, open = [], vetoed = [], disk = u
 // Every file on disk accounted for: the written entries must hide exactly the files the language does not show. Returns the totals, the
 // files shown, the files per signature, the files no lamp claims, and the files whose visibility breaks the rule. The run output, the files
 // the out lamp claims, is counted apart (output), since it comes and goes with every run: total and shown count the repository's own files.
+/**
+ * @param {string} root
+ * @param {Set<string>} out
+ * @param {LampSets} declared
+ * @param {string[]} globs
+ * @param {string[]} [open]
+ * @param {Iterable<string>} [vetoed]
+ * @param {Disk} [disk]
+ */
 async function census(root, out, declared, globs, open = [], vetoed = [], disk = undefined) {
     const sets = lampSets(declared, open);
     const lit = new Set(Object.keys(sets).filter((name) => !out.has(name)));
@@ -150,8 +185,10 @@ async function census(root, out, declared, globs, open = [], vetoed = [], disk =
         shown: 0,
         sum: { shown: 0, hidden: 0, output: 0 },
         output: { total: 0, shown: 0 },
+        /** @type {Record<string, number>} */
         signatures: {},
         unclaimed: verdict.unaccounted,
+        /** @type {string[]} */
         wrong: [],
     };
     for (const place of files) {
@@ -176,6 +213,12 @@ async function census(root, out, declared, globs, open = [], vetoed = [], disk =
 
 // The next files.exclude: the current one without the keys the lamps added before, plus the wanted entries. An entry the settings
 // already carry is theirs, never the lamps', so the lamps own only the keys they add.
+/**
+ * @param {Record<string, boolean>} current
+ * @param {string[]} owned
+ * @param {string[]} wanted
+ * @returns {{ next: Record<string, boolean>, ours: string[] }}
+ */
 function merge(current, owned, wanted) {
     const authored = { ...current };
     owned.forEach((glob) => delete authored[glob]);
@@ -186,6 +229,6 @@ function merge(current, owned, wanted) {
 }
 
 // What files.exclude costs on a command line: each glob and a flag with its quotes.
-const excludeSize = (exclude) => Object.keys(exclude).reduce((total, glob) => total + glob.length + 6, 0);
+const excludeSize = (/** @type {Record<string, unknown>} */ exclude) => Object.keys(exclude).reduce((total, glob) => total + glob.length + 6, 0);
 
 module.exports = { EXCLUDE_ROOF, walkDisk, hiddenEntries, hiddenGlobs, census, merge, excludeSize };

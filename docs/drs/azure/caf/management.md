@@ -208,7 +208,7 @@ says plainly what they do not.
 
 ```text
 CAF management — Inventory and visibility considerations, Inventory and visibility recommendations — recommendation 1
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/management-platform (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/management-platform (retrieved 2026-10-15)
 Summary (ours): Run the platform from one central Log Analytics workspace, unless access control, data sovereignty, or retention rules
   force a split; workload teams may add workspaces of their own for workload-specific data.
 ```
@@ -244,7 +244,7 @@ Not adopted, because a workspace per subscription keeps each customer's telemetr
 
 ```text
 CAF management — Inventory and visibility considerations, Inventory and visibility recommendations — recommendation 2
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/management-platform (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/management-platform (retrieved 2026-10-15)
 Summary (ours): When logs must be kept for more than seven years, export them to Azure Storage under an immutable (write-once) policy.
 ```
 
@@ -276,7 +276,7 @@ Not adopted, because no example customer needs logs kept beyond the workspace's 
 
 ```text
 CAF management — Inventory and visibility considerations, Inventory and visibility recommendations — recommendation 3
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/management-platform (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/management-platform (retrieved 2026-10-15)
 Summary (ours): Use Azure Policy to enforce the settings that must hold across the organisation and to report compliance with them.
 ```
 
@@ -308,7 +308,7 @@ Realised — three built-in policies per subscription, with Azure's compliance r
 
 ```text
 CAF management — Inventory and visibility considerations, Inventory and visibility recommendations — recommendation 4
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/management-platform (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/management-platform (retrieved 2026-10-15)
 Summary (ours): Use Traffic Analytics to see the IP traffic that flows through the virtual networks.
 ```
 
@@ -339,7 +339,7 @@ Planned (follow-up) — virtual network flow logs with Traffic Analytics, as par
 
 ```text
 CAF management — Inventory and visibility considerations, Inventory and visibility recommendations — recommendation 5
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/management-platform (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/management-platform (retrieved 2026-10-15)
 Summary (ours): Put resource locks on critical shared services so they cannot be deleted by accident.
 ```
 
@@ -371,7 +371,7 @@ Planned (follow-up) — a delete lock on the hub's network and private DNS zones
 
 ```text
 CAF management — Inventory and visibility considerations, Inventory and visibility recommendations — recommendation 6
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/management-platform (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/management-platform (retrieved 2026-10-15)
 Summary (ours): Let role assignments decide who may deploy, and deny policies decide what may be deployed, so the two together act as
   guardrails.
 ```
@@ -405,7 +405,7 @@ Realised — a service connection per subscription decides who deploys, and deny
 
 ```text
 CAF management — Inventory and visibility considerations, Inventory and visibility recommendations — recommendation 7
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/management-platform (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/management-platform (retrieved 2026-10-15)
 Summary (ours): Include Service Health and Resource Health events in the platform's monitoring.
 ```
 
@@ -436,7 +436,7 @@ Partly realised — the events are collected per subscription; alerts on them ar
 
 ```text
 CAF management — Inventory and visibility considerations, Inventory and visibility recommendations — recommendation 8
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/management-platform (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/management-platform (retrieved 2026-10-15)
 Summary (ours): Do not ship raw Azure log entries back to on-premises monitoring systems; keep them in Azure and forward only critical
   alerts to an on-premises security event system.
 ```
@@ -454,7 +454,7 @@ Not adopted, because there is no on-premises system to forward to.
 
 ```text
 CAF management — Business continuity and disaster recovery, Design recommendations — recommendation 9
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/management-business-continuity-disaster-recovery (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/management-business-continuity-disaster-recovery (retrieved 2026-10-15)
 Summary (ours): Use Azure Site Recovery to replicate virtual machines to another region, for low recovery point and time objectives and
   drills that do not disrupt production, with policy to enable and audit the replication.
 ```
@@ -474,7 +474,7 @@ Not adopted, because no virtual machine is deployed and there is no second regio
 
 ```text
 CAF management — Business continuity and disaster recovery, Design recommendations — recommendation 10
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/management-business-continuity-disaster-recovery (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/management-business-continuity-disaster-recovery (retrieved 2026-10-15)
 Summary (ours): Rely on the replication and failover that platform services provide themselves, with Azure Policy to audit and enforce
   their configuration.
 ```
@@ -510,7 +510,7 @@ build-time check is planned (follow-up).
 
 ```text
 CAF management — Business continuity and disaster recovery, Design recommendations — recommendation 11
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/management-business-continuity-disaster-recovery (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/management-business-continuity-disaster-recovery (retrieved 2026-10-15)
 Summary (ours): Back up with Azure Backup and the backup features built into platform services rather than third-party tools, with
   policy to enforce the backup configuration.
 ```
@@ -544,7 +544,7 @@ Partly realised — native backups with per-class retention; a policy that enfor
 
 ```text
 CAF management — Business continuity and disaster recovery, Design recommendations — recommendation 12
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/management-business-continuity-disaster-recovery (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/management-business-continuity-disaster-recovery (retrieved 2026-10-15)
 Summary (ours): Connect to on-premises over ExpressRoute from several regions and peering locations, so the link survives a regional or
   provider outage.
 ```
@@ -564,7 +564,7 @@ Not adopted, because there is no hybrid connectivity to make redundant.
 
 ```text
 CAF management — Business continuity and disaster recovery, Design recommendations — recommendation 13
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/management-business-continuity-disaster-recovery (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/management-business-continuity-disaster-recovery (retrieved 2026-10-15)
 Summary (ours): Give production and recovery networks address ranges that do not overlap, so a failover needs no re-addressing and every
   site can be connected at once.
 ```
@@ -598,7 +598,7 @@ Realised — no two ranges of the plan overlap, checked when the plan loads.
 
 ```text
 CAF management — Operational compliance considerations, Operational compliance recommendations — recommendation 14
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/management-operational-compliance (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/management-operational-compliance (retrieved 2026-10-15)
 Summary (ours): Patch Windows and Linux virtual machines with Azure Update Manager, enforced by policy so every machine is covered, with
   workload teams setting their own schedules and the central team keeping visibility.
 ```
@@ -616,7 +616,7 @@ Not adopted, because no virtual machine is deployed.
 
 ```text
 CAF management — Operational compliance considerations, Operational compliance recommendations — recommendation 15
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/management-operational-compliance (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/management-operational-compliance (retrieved 2026-10-15)
 Summary (ours): Audit configuration drift inside virtual machines with Machine Configuration, assigned through Azure Policy.
 ```
 
@@ -634,7 +634,7 @@ Not adopted, because no virtual machine is deployed.
 
 ```text
 CAF management — Azure workload management and monitoring, Workload management and monitoring recommendations — recommendation 16
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/management-workloads (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/management-workloads (retrieved 2026-10-15)
 Summary (ours): Collect the logs and metrics of infrastructure and platform services alike in a Log Analytics workspace.
 ```
 
@@ -668,7 +668,7 @@ Partly realised — every resource but `foundation`'s vault sends its telemetry 
 
 ```text
 CAF management — Azure workload management and monitoring, Workload management and monitoring recommendations — recommendation 17
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/management-workloads (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/management-workloads (retrieved 2026-10-15)
 Summary (ours): Govern who can read a workspace and its logs with Azure role-based access control.
 ```
 
@@ -701,7 +701,7 @@ Partly realised — access follows the subscription boundary; role assignments o
 
 ```text
 CAF management — Azure workload management and monitoring, Workload management and monitoring recommendations — recommendation 18
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/management-workloads (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/management-workloads (retrieved 2026-10-15)
 Summary (ours): Use Azure Monitor Metrics, a time-series store, for fast alerting and performance analysis, and correlate it with logs to
   find root causes.
 ```
@@ -734,7 +734,7 @@ Partly realised — metrics are available and copied beside the logs; metric ale
 
 ```text
 CAF management — Azure workload management and monitoring, Workload management and monitoring recommendations — recommendation 19
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/management-workloads (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/management-workloads (retrieved 2026-10-15)
 Summary (ours): Use Azure Monitor Logs to analyse and report across the data of many services; shared landing-zone storage accounts may
   hold the logs of the virtual machine diagnostics extension.
 ```
@@ -766,7 +766,7 @@ Partly realised — the logs are collected and queryable; reports as code are pl
 
 ```text
 CAF management — Azure workload management and monitoring, Workload management and monitoring recommendations — recommendation 20
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/management-workloads (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/management-workloads (retrieved 2026-10-15)
 Summary (ours): Generate operational alerts with Azure Monitor alerts across metrics and logs, with actions and smart grouping of related
   alerts.
 ```
@@ -801,7 +801,7 @@ Planned (follow-up) — an action group per subscription and alert rules in the 
 
 ```text
 CAF management — Azure workload management and monitoring, Workload management and monitoring recommendations — recommendation 21
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/management-workloads (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/management-workloads (retrieved 2026-10-15)
 Summary (ours): Group a workload's resources across subscriptions and resource groups with Azure Service Groups, to make monitoring them
   simpler.
 ```
@@ -820,7 +820,7 @@ Not adopted, because each workload deployment sits in one resource group of one 
 
 ```text
 CAF management — Azure workload management and monitoring, Workload management and monitoring recommendations — recommendation 22
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/management-workloads (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/management-workloads (retrieved 2026-10-15)
 Summary (ours): Model the health of a service group's resources and their dependencies with Azure Monitor health models (in preview).
 ```
 

@@ -440,7 +440,7 @@ three do, or says plainly what they do not.
 
 ```text
 CAF billing and tenant — Azure Enterprise Agreement enrollment design area guidance, Design recommendations — recommendation 1
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-enterprise-agreement
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-enterprise-agreement
   (retrieved 2026-10-14)
 Summary (ours): Make creating and managing subscriptions an automated, self-service process: subscription vending.
 ```
@@ -461,7 +461,7 @@ Partly realised — onboarding by pull request; creating the subscription is not
 
 ```text
 CAF billing and tenant — Azure Enterprise Agreement enrollment design area guidance, Design recommendations — recommendation 2
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-enterprise-agreement
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-enterprise-agreement
   (retrieved 2026-10-14)
 Summary (ours): Give every EA role a work or school (Entra) account, never a personal Microsoft account.
 ```
@@ -480,7 +480,7 @@ Not adopted, because the repository administers no enrollment account.
 
 ```text
 CAF billing and tenant — Azure Enterprise Agreement enrollment design area guidance, Design recommendations — recommendation 3
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-enterprise-agreement
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-enterprise-agreement
   (retrieved 2026-10-14)
 Summary (ours): Set the enrollment's notification contact to a shared group mailbox.
 ```
@@ -499,7 +499,7 @@ Not adopted, because the notification contact is set on the enrollment, above th
 
 ```text
 CAF billing and tenant — Azure Enterprise Agreement enrollment design area guidance, Design recommendations — recommendation 4
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-enterprise-agreement
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-enterprise-agreement
   (retrieved 2026-10-14)
 Summary (ours): Shape EA departments and accounts after the organisation (by function, division, geography, or a mix) to split billing.
 ```
@@ -517,7 +517,7 @@ Not adopted, because departments and accounts are billing structure above the re
 
 ```text
 CAF billing and tenant — Azure Enterprise Agreement enrollment design area guidance, Design recommendations — recommendation 5
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-enterprise-agreement
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-enterprise-agreement
   (retrieved 2026-10-14)
 Summary (ours): Use Cost Management's reports and views to analyse spend, sliced by Azure metadata such as tags and location.
 ```
@@ -559,7 +559,7 @@ Partly realised — every resource is tagged and kept in one region; CAF tags on
 
 ```text
 CAF billing and tenant — Azure Enterprise Agreement enrollment design area guidance, Design recommendations — recommendation 6
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-enterprise-agreement
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-enterprise-agreement
   (retrieved 2026-10-14)
 Summary (ours): Restrict account owners to a few people, because each one gains administrative reach over subscriptions and resources.
 ```
@@ -577,7 +577,7 @@ Not adopted, because account owners are billing roles the repository neither gra
 
 ```text
 CAF billing and tenant — Azure Enterprise Agreement enrollment design area guidance, Design recommendations — recommendation 7
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-enterprise-agreement
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-enterprise-agreement
   (retrieved 2026-10-14)
 Summary (ours): Give each department and account a budget, with an alert on it.
 ```
@@ -597,7 +597,7 @@ Not adopted at department and account level, because the repository holds no bil
 
 ```text
 CAF billing and tenant — Azure Enterprise Agreement enrollment design area guidance, Design recommendations — recommendation 8
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-enterprise-agreement
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-enterprise-agreement
   (retrieved 2026-10-14)
 Summary (ours): Create a separate IT department in the enrollment only where a business unit genuinely runs its own IT.
 ```
@@ -614,7 +614,7 @@ Not adopted, because departments are billing structure above the repository.
 
 ```text
 CAF billing and tenant — Azure Enterprise Agreement enrollment design area guidance, Design recommendations — recommendation 9
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-enterprise-agreement
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-enterprise-agreement
   (retrieved 2026-10-14)
 Summary (ours): With several tenants, make each account owner a member of the tenant its account's subscriptions are created in.
 ```
@@ -633,7 +633,7 @@ Not adopted, because account owners are set on the enrollment, above the reposit
 
 ```text
 CAF billing and tenant — Azure Enterprise Agreement enrollment design area guidance, Design recommendations — recommendation 10
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-enterprise-agreement
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-enterprise-agreement
   (retrieved 2026-10-14)
 Summary (ours): Run development and test workloads on the Enterprise Dev/Test offer where it is available, within its terms of use.
 ```
@@ -652,7 +652,7 @@ Not adopted, because the offer is chosen when a subscription is created, outside
 
 ```text
 CAF billing and tenant — Azure Enterprise Agreement enrollment design area guidance, Design recommendations — recommendation 11
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-enterprise-agreement
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-enterprise-agreement
   (retrieved 2026-10-14)
 Summary (ours): Read and act on the mail sent to the notification address, because Microsoft uses it for important enrollment prompts.
 ```
@@ -669,7 +669,7 @@ Not adopted, because the notification mailbox belongs to billing administration 
 
 ```text
 CAF billing and tenant — Azure Enterprise Agreement enrollment design area guidance, Design recommendations — recommendation 12
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-enterprise-agreement
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-enterprise-agreement
   (retrieved 2026-10-14)
 Summary (ours): Do not move, rename, or delete the Entra user behind an EA enrollment account.
 ```
@@ -686,7 +686,7 @@ Not adopted, because the repository manages no Entra user.
 
 ```text
 CAF billing and tenant — Azure Enterprise Agreement enrollment design area guidance, Design recommendations — recommendation 13
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-enterprise-agreement
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-enterprise-agreement
   (retrieved 2026-10-14)
 Summary (ours): Review regularly who has access in Cost Management, and keep personal Microsoft accounts out of it.
 ```
@@ -704,7 +704,7 @@ Not adopted, because access to Cost Management is granted and reviewed above the
 
 ```text
 CAF billing and tenant — Azure Enterprise Agreement enrollment design area guidance, Design recommendations — recommendation 14
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-enterprise-agreement
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-enterprise-agreement
   (retrieved 2026-10-14)
 Summary (ours): Turn on charge visibility for both department admins and account owners on every enrollment, so authorised users can see
   Cost Management data.
@@ -723,7 +723,7 @@ Not adopted, because charge visibility is an enrollment setting above the reposi
 
 ```text
 CAF billing and tenant — Azure Enterprise Agreement enrollment design area guidance, Design recommendations — recommendation 15
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-enterprise-agreement
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-enterprise-agreement
   (retrieved 2026-10-14)
 Summary (ours): Treat anyone who can create subscriptions from the enrollment as privileged, and protect them with MFA like other
   privileged accounts.
@@ -741,7 +741,7 @@ Not adopted, because the repository grants no right to create subscriptions and 
 
 ```text
 CAF billing and tenant — Microsoft customer agreement and Microsoft Entra tenants, Design recommendations — recommendation 16
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-microsoft-customer-agreement
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-microsoft-customer-agreement
   (retrieved 2026-10-14)
 Summary (ours): As for an EA, automate creating and managing subscriptions as a self-service vending process.
 ```
@@ -759,7 +759,7 @@ Partly realised — onboarding by pull request; creating the subscription is not
 
 ```text
 CAF billing and tenant — Microsoft customer agreement and Microsoft Entra tenants, Design recommendations — recommendation 17
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-microsoft-customer-agreement
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-microsoft-customer-agreement
   (retrieved 2026-10-14)
 Summary (ours): Route the MCA billing account's notifications to a group mailbox.
 ```
@@ -777,7 +777,7 @@ Not adopted, because the billing account's notification contact is administratio
 
 ```text
 CAF billing and tenant — Microsoft customer agreement and Microsoft Entra tenants, Design recommendations — recommendation 18
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-microsoft-customer-agreement
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-microsoft-customer-agreement
   (retrieved 2026-10-14)
 Summary (ours): Give each invoice section or billing profile a budget with an alert.
 ```
@@ -794,7 +794,7 @@ Not adopted at invoice-section and billing-profile level, because the repository
 
 ```text
 CAF billing and tenant — Microsoft customer agreement and Microsoft Entra tenants, Design recommendations — recommendation 19
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-microsoft-customer-agreement
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-microsoft-customer-agreement
   (retrieved 2026-10-14)
 Summary (ours): Map the organisation's structure onto the MCA hierarchy; invoice sections fit most cases.
 ```
@@ -812,7 +812,7 @@ Not adopted, because the MCA hierarchy is billing structure above the repository
 
 ```text
 CAF billing and tenant — Microsoft customer agreement and Microsoft Entra tenants, Design recommendations — recommendation 20
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-microsoft-customer-agreement
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-microsoft-customer-agreement
   (retrieved 2026-10-14)
 Summary (ours): Give a business unit that runs its own IT its own invoice section.
 ```
@@ -829,7 +829,7 @@ Not adopted, because invoice sections are billing structure above the repository
 
 ```text
 CAF billing and tenant — Microsoft customer agreement and Microsoft Entra tenants, Design recommendations — recommendation 21
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-microsoft-customer-agreement
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-microsoft-customer-agreement
   (retrieved 2026-10-14)
 Summary (ours): Watch the contact mailbox, because it carries important prompts from Microsoft.
 ```
@@ -846,7 +846,7 @@ Not adopted, because the contact mailbox belongs to billing administration above
 
 ```text
 CAF billing and tenant — Microsoft customer agreement and Microsoft Entra tenants, Design recommendations — recommendation 22
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-microsoft-customer-agreement
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-microsoft-customer-agreement
   (retrieved 2026-10-14)
 Summary (ours): Review the billing role assignments on the agreement on a regular schedule.
 ```
@@ -864,7 +864,7 @@ Not adopted, because billing role assignments are made and reviewed above the re
 
 ```text
 CAF billing and tenant — Microsoft customer agreement and Microsoft Entra tenants, Design recommendations — recommendation 23
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-microsoft-customer-agreement
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-microsoft-customer-agreement
   (retrieved 2026-10-14)
 Summary (ours): Put non-production on the MCA dev/test plan where it is available, within its terms.
 ```
@@ -882,7 +882,7 @@ Not adopted, because the offer is chosen when a subscription is created, outside
 
 ```text
 CAF billing and tenant — Microsoft customer agreement and Microsoft Entra tenants, Design recommendations — recommendation 24
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-microsoft-customer-agreement
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-microsoft-customer-agreement
   (retrieved 2026-10-14)
 Summary (ours): Require MFA for every identity that can create subscriptions on any MCA billing level, as for all privileged accounts.
 ```
@@ -899,7 +899,7 @@ Not adopted, because the repository grants no right to create subscriptions and 
 
 ```text
 CAF billing and tenant — Cloud Solution Provider service, Design recommendations — recommendation 25
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-cloud-solution-provider
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-cloud-solution-provider
   (retrieved 2026-10-14)
 Summary (ours): Have the CSP partner reach the organisation's resources for support through Azure Lighthouse.
 ```
@@ -918,7 +918,7 @@ Not adopted, because the repository's subscriptions come from no CSP partner and
 
 ```text
 CAF billing and tenant — Cloud Solution Provider service, Design recommendations — recommendation 26
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-cloud-solution-provider
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-cloud-solution-provider
   (retrieved 2026-10-14)
 Summary (ours): Partners should hold granular delegated admin privileges (GDAP) rather than the broad, older delegated admin privileges.
 ```
@@ -936,7 +936,7 @@ Not adopted, because partner admin privileges are granted between organisations,
 
 ```text
 CAF billing and tenant — Cloud Solution Provider service, Design recommendations — recommendation 27
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-cloud-solution-provider
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-cloud-solution-provider
   (retrieved 2026-10-14)
 Summary (ours): Apply Partner Center's security best practices for customers.
 ```
@@ -954,7 +954,7 @@ Not adopted, because Partner Center's customer security practices concern tenant
 
 ```text
 CAF billing and tenant — Cloud Solution Provider service, Design recommendations — recommendation 28
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-cloud-solution-provider
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-cloud-solution-provider
   (retrieved 2026-10-14)
 Summary (ours): The partner should apply Partner Center's security best practices for CSP partners.
 ```
@@ -971,7 +971,7 @@ Not adopted, because the partner's own security practices are outside the reposi
 
 ```text
 CAF billing and tenant — Cloud Solution Provider service, Design recommendations — recommendation 29
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-cloud-solution-provider
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-cloud-solution-provider
   (retrieved 2026-10-14)
 Summary (ours): Agree with the partner how support cases are raised and escalated.
 ```
@@ -988,7 +988,7 @@ Not adopted, because support arrangements with a partner are outside the reposit
 
 ```text
 CAF billing and tenant — Cloud Solution Provider service, Design recommendations — recommendation 30
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-cloud-solution-provider
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-cloud-solution-provider
   (retrieved 2026-10-14)
 Summary (ours): Agree with the partner how subscriptions will be created on a self-service basis.
 ```
@@ -1006,7 +1006,7 @@ Not adopted, because creating a subscription is outside the repository.
 
 ```text
 CAF billing and tenant — Cloud Solution Provider service, Design recommendations — recommendation 31
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-cloud-solution-provider
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-cloud-solution-provider
   (retrieved 2026-10-14)
 Summary (ours): Use Cost Management's reports and views, filtered by tags and location, to analyse spend.
 ```
@@ -1025,7 +1025,7 @@ Partly realised — every resource is tagged and kept in one region; CAF tags on
 
 ```text
 CAF billing and tenant — Cloud Solution Provider service, Design recommendations — recommendation 32
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-cloud-solution-provider
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-cloud-solution-provider
   (retrieved 2026-10-14)
 Summary (ours): Protect every identity that can create subscriptions with MFA.
 ```
@@ -1042,7 +1042,7 @@ Not adopted, because the repository grants no right to create subscriptions and 
 
 ```text
 CAF billing and tenant — Cloud Solution Provider service, Design recommendations — recommendation 33
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-cloud-solution-provider
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-cloud-solution-provider
   (retrieved 2026-10-14)
 Summary (ours): A CSP partner should create subscriptions in the organisation's own, well-defined Entra tenant, never in a tenant the
   partner manages.
@@ -1062,7 +1062,7 @@ Not adopted, because the repository's subscriptions come from no CSP partner.
 
 ```text
 CAF billing and tenant — Define Microsoft Entra tenants, Design recommendations — recommendation 34
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-ad-define (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-ad-define (retrieved 2026-10-14)
 Summary (ours): Add the organisation's custom domain names to the tenant; when synchronising with Entra Connect, check that the user
   principal names in on-premises Active Directory use them.
 ```
@@ -1080,7 +1080,7 @@ Not adopted, because custom names and directory synchronisation are tenant admin
 
 ```text
 CAF billing and tenant — Define Microsoft Entra tenants, Design recommendations — recommendation 35
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-ad-define (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-ad-define (retrieved 2026-10-14)
 Summary (ours): Decide how single sign-on works through Entra Connect, choosing one of its supported topologies.
 ```
 
@@ -1097,7 +1097,7 @@ Not adopted, because single sign-on is tenant administration above the repositor
 
 ```text
 CAF billing and tenant — Define Microsoft Entra tenants, Design recommendations — recommendation 36
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-ad-define (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-ad-define (retrieved 2026-10-14)
 Summary (ours): An organisation with no identity infrastructure starts cloud-only on Entra ID, adding Entra Domain Services and Intune or
   EMS to protect its SaaS, applications, and devices.
 ```
@@ -1115,7 +1115,7 @@ Not adopted, because the repository builds no identity estate.
 
 ```text
 CAF billing and tenant — Define Microsoft Entra tenants, Design recommendations — recommendation 37
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-ad-define (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-ad-define (retrieved 2026-10-14)
 Summary (ours): Use Entra multifactor authentication, and enforce phishing-resistant MFA through Conditional Access on every privileged
   account.
 ```
@@ -1151,7 +1151,7 @@ tenant's policies reach it.
 
 ```text
 CAF billing and tenant — Define Microsoft Entra tenants, Design recommendations — recommendation 38
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-ad-define (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-ad-define (retrieved 2026-10-14)
 Summary (ours): Keep emergency access (break-glass) accounts so the tenant cannot be locked out entirely.
 ```
 
@@ -1185,7 +1185,7 @@ Not adopted for the tenant, because emergency accounts are tenant administration
 
 ```text
 CAF billing and tenant — Define Microsoft Entra tenants, Design recommendations — recommendation 39
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-ad-define (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-ad-define (retrieved 2026-10-14)
 Summary (ours): Manage privileged identities and their access through Entra Privileged Identity Management (PIM).
 ```
 
@@ -1217,7 +1217,7 @@ Not adopted, because PIM is tenant configuration; SQL administrators are a group
 
 ```text
 CAF billing and tenant — Define Microsoft Entra tenants, Design recommendations — recommendation 40
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-ad-define (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-ad-define (retrieved 2026-10-14)
 Summary (ours): Send every Microsoft Entra diagnostic log to a central Azure Monitor Log Analytics workspace.
 ```
 
@@ -1251,7 +1251,7 @@ Not adopted, because Entra's diagnostic settings are made at tenant level, where
 
 ```text
 CAF billing and tenant — Define Microsoft Entra tenants, Design recommendations — recommendation 41
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-ad-define (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-ad-define (retrieved 2026-10-14)
 Summary (ours): Keep one tenant per organisation unless a concrete business need requires more, because each extra tenant adds management
   effort and security risk; a note points to the landing zone testing approach for anyone considering a separate test tenant.
 ```
@@ -1301,7 +1301,7 @@ Realised — one tenant, declared once and named by every subscription; the depl
 
 ```text
 CAF billing and tenant — Define Microsoft Entra tenants, Design recommendations — recommendation 42
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-ad-define (retrieved 2026-10-14)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-ad-define (retrieved 2026-10-14)
 Summary (ours): Give partners and other third parties access to resources in the organisation's tenant, and centralise access across
   tenants, through Azure Lighthouse.
 ```
@@ -1320,7 +1320,7 @@ Not adopted, because the repository grants no partner access across tenants.
 ```text
 CAF billing and tenant — Considerations and recommendations for multitenant Azure landing zone scenarios, Recommendations —
   recommendation 43
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/multi-tenant/considerations-recommendations
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/multi-tenant/considerations-recommendations
   (retrieved 2026-10-15)
 Summary (ours): Use the organisation's one corporate tenant by default, and add a tenant only for a requirement it genuinely cannot meet.
 ```
@@ -1366,7 +1366,7 @@ Realised — every customer lives in the one tenant, separated by subscription.
 ```text
 CAF billing and tenant — Considerations and recommendations for multitenant Azure landing zone scenarios, Recommendations —
   recommendation 44
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/multi-tenant/considerations-recommendations
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/multi-tenant/considerations-recommendations
   (retrieved 2026-10-15)
 Summary (ours): Give workload teams safe, isolated room to experiment as sandbox subscriptions inside the same tenant, not as separate
   tenants.
@@ -1402,7 +1402,7 @@ Not adopted, because experiments run as configuration slots of non-production su
 ```text
 CAF billing and tenant — Considerations and recommendations for multitenant Azure landing zone scenarios, Recommendations —
   recommendation 45
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/multi-tenant/considerations-recommendations
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/multi-tenant/considerations-recommendations
   (retrieved 2026-10-15)
 Summary (ours): Build integrations of operational tools that span tenants (an IT service management tool, for example) as multitenant Entra
   applications.
@@ -1422,7 +1422,7 @@ Not adopted, because the repository integrates no operational tool across tenant
 ```text
 CAF billing and tenant — Considerations and recommendations for multitenant Azure landing zone scenarios, Recommendations —
   recommendation 46
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/multi-tenant/considerations-recommendations
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/multi-tenant/considerations-recommendations
   (retrieved 2026-10-15)
 Summary (ours): An independent software vendor (ISV) should read the landing zone guidance written for ISVs.
 ```
@@ -1442,7 +1442,7 @@ Not adopted, because the repository is not an ISV offering.
 ```text
 CAF billing and tenant — Considerations and recommendations for multitenant Azure landing zone scenarios, Recommendations —
   recommendation 47
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/multi-tenant/considerations-recommendations
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/multi-tenant/considerations-recommendations
   (retrieved 2026-10-15)
 Summary (ours): Simplify management across tenants with Azure Lighthouse.
 ```
@@ -1460,7 +1460,7 @@ Not adopted, because the repository manages one tenant.
 ```text
 CAF billing and tenant — Considerations and recommendations for multitenant Azure landing zone scenarios, Recommendations —
   recommendation 48
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/multi-tenant/considerations-recommendations
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/multi-tenant/considerations-recommendations
   (retrieved 2026-10-15)
 Summary (ours): Create the EA and MCA account owners, invoice-section owners, and subscription creators in the destination tenant, so that
   new subscriptions are born there and never need a change of directory afterwards.
@@ -1504,7 +1504,7 @@ check is planned (follow-up).
 ```text
 CAF billing and tenant — Considerations and recommendations for multitenant Azure landing zone scenarios, Recommendations —
   recommendation 49
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/multi-tenant/considerations-recommendations
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/multi-tenant/considerations-recommendations
   (retrieved 2026-10-15)
 Summary (ours): Follow the Microsoft Entra security operations guide.
 ```
@@ -1522,7 +1522,7 @@ Not adopted, because security operations for the tenant are outside the reposito
 ```text
 CAF billing and tenant — Considerations and recommendations for multitenant Azure landing zone scenarios, Recommendations —
   recommendation 50
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/multi-tenant/considerations-recommendations
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/multi-tenant/considerations-recommendations
   (retrieved 2026-10-15)
 Summary (ours): Keep fewer than five Global Administrator accounts.
 ```
@@ -1540,7 +1540,7 @@ Not adopted, because Global Administrators are tenant administration above the r
 ```text
 CAF billing and tenant — Considerations and recommendations for multitenant Azure landing zone scenarios, Recommendations —
   recommendation 51
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/multi-tenant/considerations-recommendations
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/multi-tenant/considerations-recommendations
   (retrieved 2026-10-15)
 Summary (ours): Manage every admin account through PIM, with no standing privilege and just-in-time elevation.
 ```
@@ -1559,7 +1559,7 @@ Not adopted, because PIM is tenant configuration.
 ```text
 CAF billing and tenant — Considerations and recommendations for multitenant Azure landing zone scenarios, Recommendations —
   recommendation 52
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/multi-tenant/considerations-recommendations
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/multi-tenant/considerations-recommendations
   (retrieved 2026-10-15)
 Summary (ours): Require an approval in PIM before a critical role such as Global Administrator activates, ideally from approvers in more
   than one team.
@@ -1578,7 +1578,7 @@ Not adopted, because PIM approval is tenant configuration.
 ```text
 CAF billing and tenant — Considerations and recommendations for multitenant Azure landing zone scenarios, Recommendations —
   recommendation 53
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/multi-tenant/considerations-recommendations
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/multi-tenant/considerations-recommendations
   (retrieved 2026-10-15)
 Summary (ours): Notify the relevant people whenever the Global Administrator role is activated.
 ```
@@ -1596,7 +1596,7 @@ Not adopted, because alerting on Global Administrator activation is tenant confi
 ```text
 CAF billing and tenant — Considerations and recommendations for multitenant Azure landing zone scenarios, Recommendations —
   recommendation 54
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/multi-tenant/considerations-recommendations
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/multi-tenant/considerations-recommendations
   (retrieved 2026-10-15)
 Summary (ours): Keep the setting that lets Global Administrators elevate themselves over all Azure resources off unless it is needed; a
   callout repeats Microsoft's least-privilege advice for the Global Administrator role.
@@ -1616,7 +1616,7 @@ Not adopted, because the elevation setting belongs to the tenant's Global Admini
 ```text
 CAF billing and tenant — Considerations and recommendations for multitenant Azure landing zone scenarios, Recommendations —
   recommendation 55
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/multi-tenant/considerations-recommendations
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/multi-tenant/considerations-recommendations
   (retrieved 2026-10-15)
 Summary (ours): To ease work across tenants, configure B2B collaboration, B2B direct connect, cross-tenant access settings, cross-tenant
   synchronisation, and the multitenant organisation feature.
@@ -1635,7 +1635,7 @@ Not adopted, because the repository works in one tenant.
 ```text
 CAF billing and tenant — Considerations and recommendations for multitenant Azure landing zone scenarios, Recommendations —
   recommendation 56
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/multi-tenant/considerations-recommendations
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/multi-tenant/considerations-recommendations
   (retrieved 2026-10-15)
 Summary (ours): An organisation with tenants in several Microsoft clouds (commercial, the China cloud, government) configures the B2B
   settings between clouds.
@@ -1654,7 +1654,7 @@ Not adopted, because the repository targets one tenant in one Microsoft cloud.
 ```text
 CAF billing and tenant — Considerations and recommendations for multitenant Azure landing zone scenarios, Recommendations —
   recommendation 57
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/multi-tenant/considerations-recommendations
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/multi-tenant/considerations-recommendations
   (retrieved 2026-10-15)
 Summary (ours): Workload teams building multitenant applications should read the Architecture Center's guidance on multitenant solutions.
 ```
@@ -1672,7 +1672,7 @@ Not adopted, because the example workload is deployed per customer subscription.
 
 ```text
 CAF billing and tenant — Azure Lighthouse usage in Azure landing zones multitenant scenarios, Recommendations — recommendation 58
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/multi-tenant/lighthouse
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/multi-tenant/lighthouse
   (retrieved 2026-10-15)
 Summary (ours): Read the guidance on Azure Lighthouse in enterprise scenarios.
 ```
@@ -1689,7 +1689,7 @@ Not adopted, because the repository uses no Azure Lighthouse.
 
 ```text
 CAF billing and tenant — Azure Lighthouse usage in Azure landing zones multitenant scenarios, Recommendations — recommendation 59
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/multi-tenant/lighthouse
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/multi-tenant/lighthouse
   (retrieved 2026-10-15)
 Summary (ours): An ISV should read the guidance on Azure Lighthouse in ISV scenarios.
 ```
@@ -1706,7 +1706,7 @@ Not adopted, because the repository is not an ISV offering and uses no Azure Lig
 
 ```text
 CAF billing and tenant — Azure Lighthouse usage in Azure landing zones multitenant scenarios, Recommendations — recommendation 60
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/multi-tenant/lighthouse
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/multi-tenant/lighthouse
   (retrieved 2026-10-15)
 Summary (ours): Delegate with Azure Lighthouse in both directions between tenants, which for many tasks removes the need for B2B guest
   accounts and duplicate accounts.
@@ -1724,7 +1724,7 @@ Not adopted, because the repository delegates nothing between tenants.
 
 ```text
 CAF billing and tenant — Azure Lighthouse usage in Azure landing zones multitenant scenarios, Recommendations — recommendation 61
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/multi-tenant/lighthouse
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/multi-tenant/lighthouse
   (retrieved 2026-10-15)
 Summary (ours): Make Lighthouse delegations eligible through PIM rather than permanent; only the managing tenant needs Entra ID P2 for it.
 ```

@@ -9,7 +9,8 @@ Changes enter the mainline through one door, and consumers build on one stable p
 4  verified point   the last commit the server proved verified; it never moves
 5  consumer clones  every consumer builds on the verified point, never on HEAD
 
-Supports DDR-REMOTE-SERVERREMOTEISTRUTH, DDR-REMOTE-INTEGRATEFROMVERIFIED, DDR-REMOTE-NORECONCILINGTIPS and DDR-REMOTE-PULLREQUESTISINGRESS (meta lens).
+Supports DDR-REMOTE-SERVERREMOTEISTRUTH, DDR-REMOTE-INTEGRATEFROMVERIFIED, DDR-REMOTE-NORECONCILINGTIPS
+and DDR-REMOTE-PULLREQUESTISINGRESS (meta lens).
 ```
 
 The mainline of cats lives on an audited server git remote, and every developer box and CI agent is a client that bridges to it. Work

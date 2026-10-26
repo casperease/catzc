@@ -10,7 +10,8 @@ The deploy path and the integration path share only the topic commit; nothing on
 5  BVT                   produces the BVT-verified commit, yellow
 6  the landing edge      the only link between the two paths is their start
 
-Supports FDR-CD-LIFE-ONESTATEADVANCESONERUNG and FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND, and DDR-VISUAL-FIXEDCOMMITPALETTE and DDR-VISUAL-ENVIRONMENTISCONTAINER (architecture lens).
+Supports FDR-CD-LIFE-ONESTATEADVANCESONERUNG and FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND, and DDR-VISUAL-FIXEDCOMMITPALETTE
+and DDR-VISUAL-ENVIRONMENTISCONTAINER (architecture lens).
 ```
 
 Cats keeps two events apart that are easy to blur: deploying a commit and integrating it. A commit on a topic branch can reach an

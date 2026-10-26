@@ -10,7 +10,8 @@ Two gates check the layer pins, and one rule is left to review.
 5  Quality gate        the real code and the on-disk modules, checked against the declaration
 6  Same-change review  a new edge lands with its code; no gate checks it
 
-Supports ADR-AUTO-DEPM-CODEBUILTFROM, ADR-AUTO-DEPM-UNIFIEDGRAPH, ADR-AUTO-DEPM-TWOSECTIONS, ADR-AUTO-DEPM-GROUPAWAREINTEGRITY and ADR-AUTO-DEPM-EXTENDBYDECLARING, and ADR-AUTO-TEST-QUALITYGATE (governance lens).
+Supports ADR-AUTO-DEPM-CODEBUILTFROM, ADR-AUTO-DEPM-UNIFIEDGRAPH, ADR-AUTO-DEPM-TWOSECTIONS, ADR-AUTO-DEPM-GROUPAWAREINTEGRITY
+and ADR-AUTO-DEPM-EXTENDBYDECLARING, and ADR-AUTO-TEST-QUALITYGATE (governance lens).
 ```
 
 The layer pins of cats' module graph, the groups and modules each consumer may use, are held by the same ADR rules on every layer, and they

@@ -12,7 +12,8 @@ Run-mode rules 1 to 6 each have a gate; rule 7's build kinds need none.
 7  Get-CatzcRunMode              derives the mode from the code root: rule 4
 8  Three build kinds             temporary, installed and saved, told apart by place: rule 7
 
-Supports DDR-RUNMODE-TWORUNMODES, DDR-RUNMODE-SAMEMODULEINBOTH, DDR-RUNMODE-OWNSCRIPTSCOPE, DDR-RUNMODE-MODEISDERIVED, DDR-RUNMODE-NEVERCOEXIST, DDR-RUNMODE-SAMETESTSBOTHMODES and DDR-RUNMODE-THREEBUILDKINDS (governance lens).
+Supports DDR-RUNMODE-TWORUNMODES, DDR-RUNMODE-SAMEMODULEINBOTH, DDR-RUNMODE-OWNSCRIPTSCOPE, DDR-RUNMODE-MODEISDERIVED,
+DDR-RUNMODE-NEVERCOEXIST, DDR-RUNMODE-SAMETESTSBOTHMODES and DDR-RUNMODE-THREEBUILDKINDS (governance lens).
 ```
 
 The run-modes DDR makes seven rules about how cats loads its modules from source and from a built package. Six of them are checked by code:

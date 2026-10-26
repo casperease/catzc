@@ -8,7 +8,8 @@ Consumers bind to one CLI; everything behind it is delegated to the vendor's own
 3  vendor tooling  a templating language and a control-plane CLI that do the work
 4  cloud vendor    the substrate behind the CLI, swappable in principle; Azure today
 
-Supports DDR-THINPLAT-THINPLATFORM, DDR-THINPLAT-DELEGATENOTREIMPLEMENT, DDR-THINPLAT-PLATFORMASCLI and DDR-THINPLAT-SWAPPABLESUBSTRATE (meta lens).
+Supports DDR-THINPLAT-THINPLATFORM, DDR-THINPLAT-DELEGATENOTREIMPLEMENT, DDR-THINPLAT-PLATFORMASCLI
+and DDR-THINPLAT-SWAPPABLESUBSTRATE (meta lens).
 ```
 
 Cats is a thin platform: a single CLI that standardizes how an organization uses a cloud vendor without reimplementing the vendor. Its idea

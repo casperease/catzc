@@ -14,7 +14,9 @@ Only the BVT rung has a gate in code; every sync-point rule is DRS-only.
 9   upstream integrator  syncs from the BVT-verified head, never from the dirty HEAD; no check
 10  dirty HEAD           commit 10, failed in main-UAT; nothing syncs from it
 
-Supports FDR-CD-LIFE-DISCARDISTERMINAL, FDR-CD-LIFE-ONECOMMITPERENVIRONMENT, FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD, FDR-CD-LIFE-DIRTYHEADUNSAFE and FDR-CD-LIFE-FAILEDSTAYSUPSTREAM, FDR-CD-CDSTAYSINNONPROD, FDR-CD-TWORELEASEGATES and FDR-CD-PREPRODRUNG (governance lens).
+Supports FDR-CD-LIFE-DISCARDISTERMINAL, FDR-CD-LIFE-ONECOMMITPERENVIRONMENT, FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD,
+FDR-CD-LIFE-DIRTYHEADUNSAFE and FDR-CD-LIFE-FAILEDSTAYSUPSTREAM, FDR-CD-CDSTAYSINNONPROD, FDR-CD-TWORELEASEGATES
+and FDR-CD-PREPRODRUNG (governance lens).
 ```
 
 The sync point is the BVT-verified server head: upstream integrators take it, never the tip of main. The same commit goes into `main-UAT`

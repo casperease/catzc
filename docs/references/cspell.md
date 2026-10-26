@@ -3,7 +3,7 @@
 Generated cspell word lists — **do not edit, do not commit.**
 
 Each `<category>.txt` in `.cspell/` is a cspell dictionary generated from the single source of truth,
-[`terminology.yml`](../../pwsh/Catzc.Base.QualityGates/configs/terminology.yml) — the approved-vocabulary registry — by
+[`terminology/`](../../pwsh/Catzc.Base.QualityGates/configs/terminology/) — the approved-vocabulary registry — by
 `Build-TerminologyDictionary` (module `Catzc.Base.QualityGates`). One file is emitted per vocabulary category defined in the registry, and
 the root `cspell.yml` references them as separate dictionaries (one `dictionaryDefinition` per category — that list must match the
 registry's `categories:`).

@@ -115,7 +115,7 @@ that machinery first and the templates second.
 
 ```text
 OE:01 — Define your standard practices to develop and operate your workload
-Source: https://learn.microsoft.com/en-us/azure/well-architected/operational-excellence/devops-culture (retrieved 2026-10-15)
+Source: learn /azure/well-architected/operational-excellence/devops-culture (retrieved 2026-10-15)
 Summary (ours): The workload team owns design, deployment, and operation end to end, with clear roles, a named decision-maker for
 disputes, and practices that each member's specialism maps onto. A blameless, respectful culture and protected time for improvement and
 learning keep those practices getting better; compliance requirements are built into the practices as guardrails that tests and
@@ -162,7 +162,7 @@ authority stay with the operating organisation.
 ```text
 OE:02 — Standardize operations
 Title: ours — the checklist item has no lead words, so this short title follows its guide page.
-Source: https://learn.microsoft.com/en-us/azure/well-architected/operational-excellence/formalize-operations-tasks (retrieved 2026-10-15)
+Source: learn /azure/well-architected/operational-excellence/formalize-operations-tasks (retrieved 2026-10-15)
 Summary (ours): Make routine, ad-hoc, and emergency operations predictable by doing them the same way every time, through written,
 actionable procedures and through automation where it reduces variation. The team owns its procedures, reuses organisational standards
 where they exist, keeps them under version control with an author and a review date, and keeps them current.
@@ -207,7 +207,7 @@ lack a written procedure.
 ```text
 OE:03 — Formalize software development practices
 Title: ours — the checklist item has no lead words, so this short title follows its guide page.
-Source: https://learn.microsoft.com/en-us/azure/well-architected/operational-excellence/formalize-development-practices (retrieved 2026-10-15)
+Source: learn /azure/well-architected/operational-excellence/formalize-development-practices (retrieved 2026-10-15)
 Summary (ours): Run the whole development lifecycle, from idea to delivery, through consistent and visible practices, so everyone knows
 what is being built, why, and how far it has got. Standard ways to record work, write and review code, and integrate changes — a
 branching strategy, peer-reviewed pull requests, automated builds and tests, static analysis, dependency and secret scanning, versioned
@@ -250,7 +250,7 @@ required-reviewer policy are planned.
 
 ```text
 OE:04 — Enhance software development and quality assurance
-Source: https://learn.microsoft.com/en-us/azure/well-architected/operational-excellence/tools-processes (retrieved 2026-10-15)
+Source: learn /azure/well-architected/operational-excellence/tools-processes (retrieved 2026-10-15)
 Summary (ours): Use mature, standard tools and industry-proven practices for development and testing instead of building your own, and
 standardise them: version control, branching with policies, a style guide with enforced formatting and IaC linting, naming and tagging
 standards, version-controlled architecture decision records, shift-left testing, and delivery metrics. Consistency makes roles clear,
@@ -290,7 +290,7 @@ Partly realised — the tools, formatting, naming, tagging, and ADRs are standar
 
 ```text
 OE:05 — Use a standardized infrastructure as code (IaC) approach to prepare resources and configurations
-Source: https://learn.microsoft.com/en-us/azure/well-architected/operational-excellence/infrastructure-as-code-design (retrieved 2026-10-15)
+Source: learn /azure/well-architected/operational-excellence/infrastructure-as-code-design (retrieved 2026-10-15)
 Summary (ours): All infrastructure and configuration changes go through code deployed by pipelines, so environments stay consistent and
 free of drift. That code meets the same style, modularity, and quality standards as application code; declarative, platform-native
 tools with pinned versions are preferred; one parameterised set of assets serves every environment; pipelines are split by rate of
@@ -336,7 +336,7 @@ templates and the cleanup of removed resources are planned.
 
 ```text
 OE:06 — Build a workload supply chain that drives changes
-Source: https://learn.microsoft.com/en-us/azure/well-architected/operational-excellence/workload-supply-chain (retrieved 2026-10-15)
+Source: learn /azure/well-architected/operational-excellence/workload-supply-chain (retrieved 2026-10-15)
 Summary (ours): Every change to an environment in the promotion chain travels one standard supply chain of automated CI/CD pipelines
 that test it and move it through environments behind quality gates. Manual changes to those environments are not allowed, deployments
 are template-based with gated write access, the same artifacts reach every environment varied only by parameters, and pipelines are
@@ -384,7 +384,7 @@ stage as non-production instead of by a DEPLOY pipeline.
 
 ```text
 OE:07 — Design a monitoring stack
-Source: https://learn.microsoft.com/en-us/azure/well-architected/operational-excellence/observability (retrieved 2026-10-15)
+Source: learn /azure/well-architected/operational-excellence/observability (retrieved 2026-10-15)
 Summary (ours): Build a monitoring stack beside the functional stack that collects logs, metrics, traces, and events from
 infrastructure and code, organised around a health model and key indicators. Consolidate telemetry into central stores kept separate per
 environment, with retention chosen per access pattern, and build dashboards and alerts on changes in health, so problems are found early,
@@ -429,7 +429,7 @@ model are planned.
 
 ```text
 OE:08 — Establish a clear, structured incident management process
-Source: https://learn.microsoft.com/en-us/azure/well-architected/operational-excellence/incident-response (retrieved 2026-10-15)
+Source: learn /azure/well-architected/operational-excellence/incident-response (retrieved 2026-10-15)
 Summary (ours): Prepare a documented incident response plan with named roles, a communication and escalation path, and procedures for
 detection, triage, containment, and recovery, and design the architecture to make those steps fast — segmentation and decoupling for
 containment, structured telemetry for detection, audit trails and fallbacks for recovery. Rehearse the plan, and turn each incident's
@@ -471,7 +471,7 @@ not.
 
 ```text
 OE:09 — Enhance the quality of your workload
-Source: https://learn.microsoft.com/en-us/azure/well-architected/operational-excellence/testing (retrieved 2026-10-15)
+Source: learn /azure/well-architected/operational-excellence/testing (retrieved 2026-10-15)
 Summary (ours): Testing confirms each change works and introduces no new problems, so set a test strategy per workload and a test plan
 per release, both tied to business objectives. Test from design onwards, in layers (unit, integration, end to end) with fast tests in
 the build pipeline, keep test code in the same repository under the same review rules, fix or remove flaky tests, and test in
@@ -515,7 +515,7 @@ Partly realised — the inner loop tests every template on every change, while s
 
 ```text
 OE:10 — Design automation to be reliable, secure, and maintainable
-Source: https://learn.microsoft.com/en-us/azure/well-architected/operational-excellence/enable-automation (retrieved 2026-10-15)
+Source: learn /azure/well-architected/operational-excellence/enable-automation (retrieved 2026-10-15)
 Summary (ours): Design the workload so routine work such as provisioning, scaling, deployment, and maintenance can be automated, and
 automate the repetitive tasks that clearly repay the effort, with off-the-shelf tools the team knows. Treat automation as part of the
 workload — kept under version control, authenticated by managed identities, tested, monitored, and revisited — and hold desired state
@@ -558,7 +558,7 @@ Realised — automation is version-controlled, tested, idempotent, dry-runnable,
 
 ```text
 OE:11 — Clearly define your workload's safe deployment practices
-Source: https://learn.microsoft.com/en-us/azure/well-architected/operational-excellence/safe-deployments (retrieved 2026-10-15)
+Source: learn /azure/well-architected/operational-excellence/safe-deployments (retrieved 2026-10-15)
 Summary (ours): Treat every production change as risky and deploy it through a consistent, automated process in small, frequent,
 quality-gated increments. Expose changes progressively with health checks and bake time between stages, stop at the first sign of
 trouble, keep defined rollback or roll-forward options and versioned artifacts, check changes before deployment, and define faster but

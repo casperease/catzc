@@ -70,7 +70,7 @@ The [CAF reference](../../../references/caf/index.md) lists every CAF record in 
 
 ```text
 CAF Design principles — Azure landing zone design principles — recommendation 1
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-principles#subscription-democratization
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-principles#subscription-democratization
         (retrieved 2026-10-14)
 Summary (ours): Workload teams own and run their own subscriptions inside the guardrails of the platform, so that migration and new
 development scale. The subscription is the unit of management, assigned to business units; development, test and production are
@@ -136,7 +136,7 @@ subscriptions it is given.
 
 ```text
 CAF Design principles — Azure landing zone design principles — recommendation 2
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-principles#policy-driven-governance
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-principles#policy-driven-governance
         (retrieved 2026-10-14)
 Summary (ours): Azure Policy provides tool-agnostic guardrails that keep deployments within security, governance and regulatory
 controls. Policy lets the platform team enforce and audit control-plane and data-plane configuration, which is what makes it safe to
@@ -191,7 +191,7 @@ partly realised — three built-in policies per subscription with one repository
 
 ```text
 CAF Design principles — Azure landing zone design principles — recommendation 3
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-principles#single-control-and-management-plane
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-principles#single-control-and-management-plane
         (retrieved 2026-10-14)
 Summary (ours): Do not put custom portals or tooling abstractions in front of Azure. Azure Resource Manager is the one consistent
 control plane for central and workload operations alike, governed across the estate by role-based access control and policy.
@@ -242,7 +242,7 @@ monitoring is kept per subscription for isolation between customers.
 
 ```text
 CAF Design principles — Azure landing zone design principles — recommendation 4
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-principles#application-centric-service-model
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-principles#application-centric-service-model
         (retrieved 2026-10-14)
 Summary (ours): Organise migration and development around applications rather than moving infrastructure, such as virtual machines,
 as it is. The design treats old and new, IaaS and PaaS applications alike, and every application gets a secure environment.
@@ -290,7 +290,7 @@ realised — workloads land in a landing zone they do not own, segmented by cust
 
 ```text
 CAF Design principles — Azure landing zone design principles — recommendation 5
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-principles#alignment-with-azure-native-design-and-roadmaps
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-principles#alignment-with-azure-native-design-and-roadmaps
         (retrieved 2026-10-14)
 Summary (ours): Prefer Azure-native platform services wherever possible, and follow the Azure roadmaps so that new capabilities reach
 the environment and inform migration and the direction of the landing zone.

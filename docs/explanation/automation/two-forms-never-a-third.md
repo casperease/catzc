@@ -9,7 +9,8 @@ A path has two forms, never a third, and one pair of crossers moves it between t
 4  A hybrid form       {root}/./sub: neither form, always a bug, produced by nothing
 5  Published artifact  a file that crosses a stage boundary, anchored on its own artifact root
 
-Supports ADR-AUTO-PATH-TWOFORMS, ADR-AUTO-PATH-COMMUNICATIONFORM, ADR-AUTO-PATH-BINDINGFORMONLYATBINDING, ADR-AUTO-PATH-CENTRALNORMALIZATION and ADR-AUTO-PATH-PUBLISHEDARTIFACT (meta lens).
+Supports ADR-AUTO-PATH-TWOFORMS, ADR-AUTO-PATH-COMMUNICATIONFORM, ADR-AUTO-PATH-BINDINGFORMONLYATBINDING,
+ADR-AUTO-PATH-CENTRALNORMALIZATION and ADR-AUTO-PATH-PUBLISHEDARTIFACT (meta lens).
 ```
 
 Every path that moves through cats is either data or an address. As data it is in communication form: relative to the repository root or the

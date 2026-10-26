@@ -434,7 +434,7 @@ says plainly what they do not.
 
 ```text
 CAF network topology and connectivity — Connectivity to Azure — recommendation 1
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/connectivity-to-azure (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/connectivity-to-azure (retrieved 2026-10-15)
 Summary (ours): Connect on-premises networks to Azure through ExpressRoute first, and keep a VPN connection as the backup path.
 ```
 
@@ -454,7 +454,7 @@ Not adopted, because the repository connects no on-premises site.
 
 ```text
 CAF network topology and connectivity — Connectivity to Azure — recommendation 2
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/connectivity-to-azure (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/connectivity-to-azure (retrieved 2026-10-15)
 Summary (ours): Use two ExpressRoute circuits from two different peering locations, so no single location is a point of failure.
 ```
 
@@ -471,7 +471,7 @@ Not adopted, because there is no ExpressRoute circuit.
 
 ```text
 CAF network topology and connectivity — Connectivity to Azure — recommendation 3
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/connectivity-to-azure (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/connectivity-to-azure (retrieved 2026-10-15)
 Summary (ours): With several ExpressRoute circuits, choose the preferred paths with BGP local preference and AS-path prepending.
 ```
 
@@ -488,7 +488,7 @@ Not adopted, because there is no ExpressRoute circuit to route across.
 
 ```text
 CAF network topology and connectivity — Connectivity to Azure — recommendation 4
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/connectivity-to-azure (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/connectivity-to-azure (retrieved 2026-10-15)
 Summary (ours): Choose the ExpressRoute or VPN gateway SKU that matches the bandwidth and performance the connection needs.
 ```
 
@@ -505,7 +505,7 @@ Not adopted, because no ExpressRoute or VPN gateway is deployed.
 
 ```text
 CAF network topology and connectivity — Connectivity to Azure — recommendation 5
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/connectivity-to-azure (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/connectivity-to-azure (retrieved 2026-10-15)
 Summary (ours): Deploy the ExpressRoute gateway zone-redundant in regions that offer availability zones.
 ```
 
@@ -523,7 +523,7 @@ Not adopted, because no ExpressRoute gateway is deployed.
 
 ```text
 CAF network topology and connectivity — Connectivity to Azure — recommendation 6
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/connectivity-to-azure (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/connectivity-to-azure (retrieved 2026-10-15)
 Summary (ours): Use ExpressRoute Direct when a connection needs more than 10 Gbps or dedicated 10 or 100 Gbps ports.
 ```
 
@@ -539,7 +539,7 @@ Not adopted, because there is no ExpressRoute connection of any bandwidth.
 
 ```text
 CAF network topology and connectivity — Connectivity to Azure — recommendation 7
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/connectivity-to-azure (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/connectivity-to-azure (retrieved 2026-10-15)
 Summary (ours): Enable FastPath so traffic bypasses the ExpressRoute gateway when low latency or more than 10 Gbps is needed.
 ```
 
@@ -555,7 +555,7 @@ Not adopted, because no ExpressRoute gateway sits in any data path.
 
 ```text
 CAF network topology and connectivity — Connectivity to Azure — recommendation 8
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/connectivity-to-azure (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/connectivity-to-azure (retrieved 2026-10-15)
 Summary (ours): Connect branches and remote sites through VPN gateways, zone-redundant for resilience, since the SKUs without
   availability-zone support are being retired.
 ```
@@ -573,7 +573,7 @@ Not adopted, because no branch or remote site connects to the networks.
 
 ```text
 CAF network topology and connectivity — Connectivity to Azure — recommendation 9
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/connectivity-to-azure (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/connectivity-to-azure (retrieved 2026-10-15)
 Summary (ours): Connect large offices and data centres that each use ExpressRoute to one another through Global Reach.
 ```
 
@@ -590,7 +590,7 @@ Not adopted, because no site uses ExpressRoute.
 
 ```text
 CAF network topology and connectivity — Connectivity to Azure — recommendation 10
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/connectivity-to-azure (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/connectivity-to-azure (retrieved 2026-10-15)
 Summary (ours): Use separate ExpressRoute circuits, for example for production and non-production, when traffic must be isolated or
   needs dedicated bandwidth.
 ```
@@ -610,7 +610,7 @@ Not adopted, because there is no circuit to separate.
 
 ```text
 CAF network topology and connectivity — Connectivity to Azure — recommendation 11
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/connectivity-to-azure (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/connectivity-to-azure (retrieved 2026-10-15)
 Summary (ours): Watch ExpressRoute peerings, connections, and gateways with network insights, and measure the paths between Azure
   and on-premises sites with Connection Monitor.
 ```
@@ -628,7 +628,7 @@ Not adopted, because there is no ExpressRoute connection or on-premises site to 
 
 ```text
 CAF network topology and connectivity — Connectivity to Azure — recommendation 12
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/connectivity-to-azure (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/connectivity-to-azure (retrieved 2026-10-15)
 Summary (ours): Do not rely on ExpressRoute circuits from a single peering location, which is a single point of failure.
 ```
 
@@ -645,7 +645,7 @@ Not adopted, because there is no ExpressRoute circuit.
 
 ```text
 CAF network topology and connectivity — Plan for application delivery — recommendation 13
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-app-delivery (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-app-delivery (retrieved 2026-10-15)
 Summary (ours): Deliver internal and external applications from the landing zone of the application: an Application Gateway is part
   of the application in its spoke, not a shared hub service, because tuning its firewall alerts needs knowledge of the application,
   and a shared instance mixes teams' configuration and reaches its limits.
@@ -667,7 +667,7 @@ Not adopted, because no workload is reached from the internet.
 
 ```text
 CAF network topology and connectivity — Plan for application delivery — recommendation 14
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-app-delivery (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-app-delivery (retrieved 2026-10-15)
 Summary (ours): Deliver HTTP and HTTPS applications through Application Gateway v2 with web application firewall policies turned on.
 ```
 
@@ -686,7 +686,7 @@ Not adopted, because no workload serves HTTP traffic to the internet.
 
 ```text
 CAF network topology and connectivity — Plan for application delivery — recommendation 15
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-app-delivery (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-app-delivery (retrieved 2026-10-15)
 Summary (ours): Use a partner network virtual appliance for inbound web traffic only when Application Gateway v2 cannot be used.
 ```
 
@@ -703,7 +703,7 @@ Not adopted, because there is no inbound web traffic to put an appliance in fron
 
 ```text
 CAF network topology and connectivity — Plan for application delivery — recommendation 16
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-app-delivery (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-app-delivery (retrieved 2026-10-15)
 Summary (ours): Deploy the Application Gateway v2 or partner appliance for inbound web traffic inside the landing-zone virtual
   network, beside the applications it protects.
 ```
@@ -721,7 +721,7 @@ Not adopted, because no inbound gateway exists.
 
 ```text
 CAF network topology and connectivity — Plan for application delivery — recommendation 17
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-app-delivery (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-app-delivery (retrieved 2026-10-15)
 Summary (ours): Protect every public IP address in a landing zone with a DDoS Protection plan.
 ```
 
@@ -759,7 +759,7 @@ Not adopted, because no template deploys a public IP address; removing the publi
 
 ```text
 CAF network topology and connectivity — Plan for application delivery — recommendation 18
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-app-delivery (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-app-delivery (retrieved 2026-10-15)
 Summary (ours): Deliver global HTTP and HTTPS applications that span regions through Azure Front Door with web application firewall
   policies.
 ```
@@ -777,7 +777,7 @@ Not adopted, because no workload is global or reached from the internet.
 
 ```text
 CAF network topology and connectivity — Plan for application delivery — recommendation 19
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-app-delivery (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-app-delivery (retrieved 2026-10-15)
 Summary (ours): Read Microsoft's guidance on global routing redundancy before making Front Door the only entry to a critical application.
 ```
 
@@ -793,7 +793,7 @@ Not adopted, because Front Door is not used.
 
 ```text
 CAF network topology and connectivity — Plan for application delivery — recommendation 20
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-app-delivery (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-app-delivery (retrieved 2026-10-15)
 Summary (ours): When both are used, put the web application firewall policies on Front Door and lock the Application Gateway so it
   accepts traffic from Front Door only.
 ```
@@ -811,7 +811,7 @@ Not adopted, because neither Front Door nor Application Gateway is used.
 
 ```text
 CAF network topology and connectivity — Plan for application delivery — recommendation 21
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-app-delivery (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-app-delivery (retrieved 2026-10-15)
 Summary (ours): Deliver global applications that use protocols other than HTTP and HTTPS through Traffic Manager.
 ```
 
@@ -827,7 +827,7 @@ Not adopted, because no workload is global.
 
 ```text
 CAF network topology and connectivity — Plan for inbound and outbound internet connectivity — recommendation 22
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (retrieved 2026-10-15)
 Summary (ours): Make NAT Gateway the default for outbound internet traffic that leaves directly: it scales source network address
   translation, gives static outbound addresses, relieves port exhaustion on load balancers, firewalls, and App Service, and allows
   outbound traffic only.
@@ -865,7 +865,7 @@ Not adopted, because the planned egress path is the hub firewall, and no workloa
 
 ```text
 CAF network topology and connectivity — Plan for inbound and outbound internet connectivity — recommendation 23
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (retrieved 2026-10-15)
 Summary (ours): Use Azure Firewall to control outbound internet traffic, inbound traffic that is not HTTP or HTTPS, and traffic
   between networks inside Azure where that needs filtering.
 ```
@@ -905,7 +905,7 @@ Planned (follow-up) — a firewall in each hub with spoke routes to it, the egre
 
 ```text
 CAF network topology and connectivity — Plan for inbound and outbound internet connectivity — recommendation 24
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (retrieved 2026-10-15)
 Summary (ours): Enable the firewall's management NIC: create AzureFirewallManagementSubnet (at least /26) in advance, give it a
   public IP address, and keep gateway route propagation off on its route table.
 ```
@@ -943,7 +943,7 @@ ADR-AZ-NETWORK-NETWORKPERSUBSCRIPTION.
 
 ```text
 CAF network topology and connectivity — Plan for inbound and outbound internet connectivity — recommendation 25
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (retrieved 2026-10-15)
 Summary (ours): Use Azure Firewall Premium where TLS inspection, intrusion detection and prevention, URL filtering, or web categories are
   needed; Standard and Premium need the management NIC enabled when they are created, while Basic always has it.
 ```
@@ -962,7 +962,7 @@ Not adopted, because no firewall is deployed; the firewall follow-up picks the S
 
 ```text
 CAF network topology and connectivity — Plan for inbound and outbound internet connectivity — recommendation 26
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (retrieved 2026-10-15)
 Summary (ours): Manage the firewalls of Virtual WAN hubs and of hub virtual networks through Azure Firewall Manager.
 ```
 
@@ -979,7 +979,7 @@ Not adopted, because no firewall is deployed.
 
 ```text
 CAF network topology and connectivity — Plan for inbound and outbound internet connectivity — recommendation 27
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (retrieved 2026-10-15)
 Summary (ours): Where the same addresses and ranges recur in firewall rules, collect them in IP Groups and reuse them across rules,
   firewalls, regions, and subscriptions.
 ```
@@ -998,7 +998,7 @@ Not adopted, because no firewall rule exists.
 
 ```text
 CAF network topology and connectivity — Plan for inbound and outbound internet connectivity — recommendation 28
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (retrieved 2026-10-15)
 Summary (ours): In user-defined routes that steer traffic to Azure platform services, use service tags as the prefixes so Azure keeps
   the addresses current; do not attach a custom route table to the firewall's management subnet, or keep a default route to the
   internet on it if one is needed.
@@ -1033,7 +1033,7 @@ Not adopted, because platform services are reached through private endpoints, no
 
 ```text
 CAF network topology and connectivity — Plan for inbound and outbound internet connectivity — recommendation 29
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (retrieved 2026-10-15)
 Summary (ours): Create one global Azure Firewall policy, assigned to every firewall, as the organisation's baseline security posture.
 ```
 
@@ -1050,7 +1050,7 @@ Not adopted, because no firewall is deployed to take a policy.
 
 ```text
 CAF network topology and connectivity — Plan for inbound and outbound internet connectivity — recommendation 30
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (retrieved 2026-10-15)
 Summary (ours): Let regional security teams own child firewall policies for regional needs, delegated through role-based access control.
 ```
 
@@ -1067,7 +1067,7 @@ Not adopted, because there is no firewall policy and every landing zone deploys 
 
 ```text
 CAF network topology and connectivity — Plan for inbound and outbound internet connectivity — recommendation 31
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (retrieved 2026-10-15)
 Summary (ours): Protect inbound HTTP and HTTPS traffic from the internet with a web application firewall inside the landing-zone
   virtual network.
 ```
@@ -1085,7 +1085,7 @@ Not adopted, because no workload takes inbound web traffic.
 
 ```text
 CAF network topology and connectivity — Plan for inbound and outbound internet connectivity — recommendation 32
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (retrieved 2026-10-15)
 Summary (ours): Protect global inbound HTTP and HTTPS traffic with Front Door and web application firewall policies, after reading the
   global routing redundancy guidance.
 ```
@@ -1103,7 +1103,7 @@ Not adopted, because no workload is global or reached from the internet.
 
 ```text
 CAF network topology and connectivity — Plan for inbound and outbound internet connectivity — recommendation 33
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (retrieved 2026-10-15)
 Summary (ours): When Front Door and Application Gateway protect web applications together, put the firewall policies on Front Door and
   let Application Gateway accept traffic from Front Door only.
 ```
@@ -1120,7 +1120,7 @@ Not adopted, because neither Front Door nor Application Gateway is used.
 
 ```text
 CAF network topology and connectivity — Plan for inbound and outbound internet connectivity — recommendation 34
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (retrieved 2026-10-15)
 Summary (ours): When partner network virtual appliances handle inbound web traffic, deploy them in the landing-zone network beside the
   applications they expose.
 ```
@@ -1138,7 +1138,7 @@ Not adopted, because no inbound appliance exists.
 
 ```text
 CAF network topology and connectivity — Plan for inbound and outbound internet connectivity — recommendation 35
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (retrieved 2026-10-15)
 Summary (ours): Never depend on Azure's default outbound internet access: it risks port exhaustion, is open by default, and uses
   addresses the organisation does not own and that can change.
 ```
@@ -1173,7 +1173,7 @@ Planned (follow-up) — default outbound access off on every subnet, as a secure
 
 ```text
 CAF network topology and connectivity — Plan for inbound and outbound internet connectivity — recommendation 36
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (retrieved 2026-10-15)
 Summary (ours): Landing zones that are not connected to the hub use NAT Gateway for outbound traffic when no firewall or appliance has
   to inspect it.
 ```
@@ -1192,7 +1192,7 @@ Not adopted, because every landing zone is connected to a hub.
 
 ```text
 CAF network topology and connectivity — Plan for inbound and outbound internet connectivity — recommendation 37
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (retrieved 2026-10-15)
 Summary (ours): Where the organisation uses software-as-a-service security providers for outbound protection, connect them through
   Firewall Manager.
 ```
@@ -1210,7 +1210,7 @@ Not adopted, because there is no firewall or Firewall Manager to integrate a pro
 
 ```text
 CAF network topology and connectivity — Plan for inbound and outbound internet connectivity — recommendation 38
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (retrieved 2026-10-15)
 Summary (ours): With partner appliances protecting traffic between networks or to and from the internet, place them in a separate
   appliance network connected to the hub in a Virtual WAN design, or in the central hub otherwise.
 ```
@@ -1229,7 +1229,7 @@ Not adopted, because the planned filtering device is Azure Firewall, not a partn
 
 ```text
 CAF network topology and connectivity — Plan for inbound and outbound internet connectivity — recommendation 39
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (retrieved 2026-10-15)
 Summary (ours): Expose no management port of a virtual machine to the internet: block virtual machines with public IP addresses by policy
   and reach jump hosts through Bastion.
 ```
@@ -1271,7 +1271,7 @@ address from `vm.bicep` is planned (follow-up).
 
 ```text
 CAF network topology and connectivity — Plan for inbound and outbound internet connectivity — recommendation 40
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (retrieved 2026-10-15)
 Summary (ours): Protect the public endpoints in virtual networks with Azure DDoS Protection plans.
 ```
 
@@ -1288,7 +1288,7 @@ Not adopted, because no network holds a public endpoint.
 
 ```text
 CAF network topology and connectivity — Plan for inbound and outbound internet connectivity — recommendation 41
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (retrieved 2026-10-15)
 Summary (ours): Do not rebuild on-premises perimeter network and demilitarised-zone designs in Azure; use patterns made for the cloud.
 ```
 
@@ -1321,7 +1321,7 @@ Realised — no perimeter network; each subnet and each service carries its own 
 
 ```text
 CAF network topology and connectivity — Use Azure Bastion for virtual machine remote access — recommendation 42
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-virtual-machine-remote-access (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-virtual-machine-remote-access (retrieved 2026-10-15)
 Summary (ours): Use the Standard or Premium Bastion SKU for production workloads, and the free Developer SKU for sandbox and test where
   the region offers it.
 ```
@@ -1340,7 +1340,7 @@ Not adopted, because no template deploys a virtual machine.
 
 ```text
 CAF network topology and connectivity — Use Azure Bastion for virtual machine remote access — recommendation 43
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-virtual-machine-remote-access (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-virtual-machine-remote-access (retrieved 2026-10-15)
 Summary (ours): Reach virtual machines from on-premises over the ExpressRoute or VPN connectivity that already exists.
 ```
 
@@ -1356,7 +1356,7 @@ Not adopted, because there is neither a virtual machine nor private connectivity
 
 ```text
 CAF network topology and connectivity — Use Azure Bastion for virtual machine remote access — recommendation 44
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-virtual-machine-remote-access (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-virtual-machine-remote-access (retrieved 2026-10-15)
 Summary (ours): In a Virtual WAN topology, deploy Bastion in each spoke, or one central Bastion in a spoke, which needs fewer instances
   but gives users Reader on Bastion and on that spoke's network.
 ```
@@ -1374,7 +1374,7 @@ Not adopted, because the topology is not Virtual WAN.
 
 ```text
 CAF network topology and connectivity — Use Azure Bastion for virtual machine remote access — recommendation 45
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-virtual-machine-remote-access (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-virtual-machine-remote-access (retrieved 2026-10-15)
 Summary (ours): In a hub-and-spoke topology, one Bastion in the hub serves the peered spokes, with users given Reader on Bastion and on
   the hub network; where that grant is not allowed, deploy a Bastion in each spoke that needs one.
 ```
@@ -1395,7 +1395,7 @@ Not adopted, because no template deploys a virtual machine.
 
 ```text
 CAF network topology and connectivity — Use Azure Bastion for virtual machine remote access — recommendation 46
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-virtual-machine-remote-access (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-virtual-machine-remote-access (retrieved 2026-10-15)
 Summary (ours): Protect Bastion and the virtual machines it reaches with the network security group rules Microsoft documents.
 ```
 
@@ -1412,7 +1412,7 @@ Not adopted, because no Bastion is deployed.
 
 ```text
 CAF network topology and connectivity — Use Azure Bastion for virtual machine remote access — recommendation 47
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-virtual-machine-remote-access (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-virtual-machine-remote-access (retrieved 2026-10-15)
 Summary (ours): Send Bastion's diagnostic logs to the central Log Analytics workspace.
 ```
 
@@ -1429,7 +1429,7 @@ Not adopted, because no Bastion is deployed.
 
 ```text
 CAF network topology and connectivity — Use Azure Bastion for virtual machine remote access — recommendation 48
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-virtual-machine-remote-access (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-virtual-machine-remote-access (retrieved 2026-10-15)
 Summary (ours): Create the role assignments that let the users and groups who connect through Bastion do so.
 ```
 
@@ -1446,7 +1446,7 @@ Not adopted, because no Bastion is deployed and the templates grant no role to p
 
 ```text
 CAF network topology and connectivity — Use Azure Bastion for virtual machine remote access — recommendation 49
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-virtual-machine-remote-access (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-virtual-machine-remote-access (retrieved 2026-10-15)
 Summary (ours): Connect to Linux virtual machines over SSH with private keys kept in Key Vault.
 ```
 
@@ -1463,7 +1463,7 @@ Not adopted, because no Linux virtual machine is deployed.
 
 ```text
 CAF network topology and connectivity — Use Azure Bastion for virtual machine remote access — recommendation 50
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-virtual-machine-remote-access (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-virtual-machine-remote-access (retrieved 2026-10-15)
 Summary (ours): Keep both Bastion and ExpressRoute or VPN access where specific needs, such as break-glass access, call for both.
 ```
 
@@ -1480,7 +1480,7 @@ Not adopted, because there is neither a Bastion nor private connectivity.
 
 ```text
 CAF network topology and connectivity — Use Azure Bastion for virtual machine remote access — recommendation 51
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-virtual-machine-remote-access (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-virtual-machine-remote-access (retrieved 2026-10-15)
 Summary (ours): Do not allow remote access to Windows or Linux virtual machines through public IP addresses, and never allow remote access
   without strict network security groups and firewalling.
 ```
@@ -1499,7 +1499,7 @@ Partly realised — as rule 39; removing the public IP address from `vm.bicep` i
 
 ```text
 CAF network topology and connectivity — Define network encryption requirements — recommendation 52
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/define-network-encryption-requirements (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/define-network-encryption-requirements (retrieved 2026-10-15)
 Summary (ours): Connections from on-premises through a VPN gateway are encrypted with IPsec.
 ```
 
@@ -1515,7 +1515,7 @@ Not adopted, because no VPN connection exists.
 
 ```text
 CAF network topology and connectivity — Define network encryption requirements — recommendation 53
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/define-network-encryption-requirements (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/define-network-encryption-requirements (retrieved 2026-10-15)
 Summary (ours): Where traffic between virtual machines must be encrypted, inside a network or across peered networks, use virtual network
   encryption.
 ```
@@ -1552,7 +1552,7 @@ Not adopted, because no traffic flows between virtual machines; every connection
 
 ```text
 CAF network topology and connectivity — Define network encryption requirements — recommendation 54
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/define-network-encryption-requirements (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/define-network-encryption-requirements (retrieved 2026-10-15)
 Summary (ours): Encrypt ExpressRoute Direct links at layer 2 with MACsec.
 ```
 
@@ -1568,7 +1568,7 @@ Not adopted, because there is no ExpressRoute Direct port.
 
 ```text
 CAF network topology and connectivity — Define network encryption requirements — recommendation 55
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/define-network-encryption-requirements (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/define-network-encryption-requirements (retrieved 2026-10-15)
 Summary (ours): In Virtual WAN where MACsec is not an option, run IPsec over ExpressRoute private peering through the Virtual WAN VPN
   gateway.
 ```
@@ -1585,7 +1585,7 @@ Not adopted, because there is neither Virtual WAN nor ExpressRoute.
 
 ```text
 CAF network topology and connectivity — Define network encryption requirements — recommendation 56
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/define-network-encryption-requirements (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/define-network-encryption-requirements (retrieved 2026-10-15)
 Summary (ours): Outside Virtual WAN and where MACsec is not an option, encrypt with partner appliances over private peering, a VPN over
   Microsoft peering, or a site-to-site VPN over private peering.
 ```
@@ -1603,7 +1603,7 @@ Not adopted, because there is no ExpressRoute connection to encrypt.
 
 ```text
 CAF network topology and connectivity — Define network encryption requirements — recommendation 57
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/define-network-encryption-requirements (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/define-network-encryption-requirements (retrieved 2026-10-15)
 Summary (ours): If the native options do not meet the requirements, encrypt traffic over private peering with partner appliances.
 ```
 
@@ -1620,7 +1620,7 @@ Not adopted, because there is no private connection to encrypt.
 
 ```text
 CAF network topology and connectivity — Plan for traffic inspection — recommendation 58
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-traffic-inspection (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-traffic-inspection (retrieved 2026-10-15)
 Summary (ours): Record traffic with virtual network flow logs and move away from network security group flow logs: they are simpler to
   set up, cover a whole network, and add encryption status and Virtual Network Manager rule details. Network security group flow logs
   are being retired.
@@ -1659,7 +1659,7 @@ Planned (follow-up) — a virtual network flow log per landing-zone network, the
 
 ```text
 CAF network topology and connectivity — Plan for traffic inspection — recommendation 59
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-traffic-inspection (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-traffic-inspection (retrieved 2026-10-15)
 Summary (ours): Turn on traffic analytics, for ready-made views of the traffic and security analysis over the flow logs.
 ```
 
@@ -1688,7 +1688,7 @@ Planned (follow-up) with rule 58 — traffic analytics on the flow log, into `fo
 
 ```text
 CAF network topology and connectivity — Plan for traffic inspection — recommendation 60
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-traffic-inspection (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-traffic-inspection (retrieved 2026-10-15)
 Summary (ours): If traffic analytics does not offer enough, add a partner solution from the Marketplace.
 ```
 
@@ -1705,7 +1705,7 @@ Not adopted, because traffic analytics is planned, not deployed.
 
 ```text
 CAF network topology and connectivity — Plan for traffic inspection — recommendation 61
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-traffic-inspection (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-traffic-inspection (retrieved 2026-10-15)
 Summary (ours): Run Network Watcher packet captures at different times through the week to learn which traffic flows.
 ```
 
@@ -1722,7 +1722,7 @@ Not adopted, because no template deploys a virtual machine to capture on.
 
 ```text
 CAF network topology and connectivity — Plan for traffic inspection — recommendation 62
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-traffic-inspection (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-traffic-inspection (retrieved 2026-10-15)
 Summary (ours): Do not build a custom traffic-mirroring solution for a large estate; it is hard to support.
 ```
 

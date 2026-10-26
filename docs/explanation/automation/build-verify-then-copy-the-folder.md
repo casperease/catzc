@@ -12,7 +12,8 @@ Build-Modules builds, verifies, and leaves one folder that every target copies w
 7  New-CatzcNuGetPackage    packs the folder into out/automation/packages/
 8  Checked again            Install-Catzc's first call is the guard
 
-Supports ADR-AUTO-BUNDLE-BUNDLEISBUILD, ADR-AUTO-BUNDLE-IMMUTABLEBUILD, ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL and ADR-AUTO-BUNDLE-AUTOVERSION (implementation lens).
+Supports ADR-AUTO-BUNDLE-BUNDLEISBUILD, ADR-AUTO-BUNDLE-IMMUTABLEBUILD, ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL
+and ADR-AUTO-BUNDLE-AUTOVERSION (implementation lens).
 ```
 
 A bundle, in code, is a short chain of functions in `Catzc.Base.Exporter` and one `.internal` engine. `Build-Modules` reads its options,

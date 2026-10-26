@@ -12,7 +12,8 @@ Every vendor call leaves cats through the az CLI, the one exit to Azure.
 7  Azure                    the vendor substrate, today the only one
 8  the single exit          the only edge that reaches Azure leaves from az
 
-Supports DDR-THINPLAT-THINPLATFORM, DDR-THINPLAT-DELEGATENOTREIMPLEMENT and DDR-THINPLAT-PLATFORMASCLI, and ADR-AZ-CLI-AZBYDEFAULT, ADR-AZ-CLI-ASSERTAZ and ADR-AZ-CLI-NOAZMODULEIMPORT (architecture lens).
+Supports DDR-THINPLAT-THINPLATFORM, DDR-THINPLAT-DELEGATENOTREIMPLEMENT and DDR-THINPLAT-PLATFORMASCLI, and ADR-AZ-CLI-AZBYDEFAULT,
+ADR-AZ-CLI-ASSERTAZ and ADR-AZ-CLI-NOAZMODULEIMPORT (architecture lens).
 ```
 
 Cats is a thin platform over Azure: it standardizes how the vendor is used and leaves the work to the vendor's own tools. On the Bicep

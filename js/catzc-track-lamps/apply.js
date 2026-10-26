@@ -1,7 +1,7 @@
 // The filter's write (see extension.js for the whole): one pass computes the entries for the switches as they are and writes the
 // workspace's files.exclude and the list of the rows the lamps own. The engine's press queue runs the passes one at a time.
 
-const { host, trace, filters } = require("./host.js");
+const { host, editor, trace, filters } = require("./host.js");
 const { openFiles } = require("./facts.js");
 const { EXCLUDE_ROOF, hiddenGlobs, merge, excludeSize } = require("./tree.js");
 
@@ -9,14 +9,20 @@ const { EXCLUDE_ROOF, hiddenGlobs, merge, excludeSize } = require("./tree.js");
 const OWNED_KEY = "owned";
 
 // The files.exclude the lamps wrote last, so the settings change their own write raises is not taken for a new one.
+/** @type {string | undefined} */
 let written;
 const lastWritten = () => written;
 
 // One pass of the filter for the switches as they are now (state: out, vetoed): the entries computed, the settings written when
 // they differ. Passes never overlap: the press queue in activate runs one at a time, the latest switches winning, so a slow write of an
 // older state can never land after a newer one.
+/**
+ * @param {unknown} context the extension's context; a pass reads only the editor's settings
+ * @param {{ out: Iterable<string>, vetoed: Iterable<string> }} state the switches as they are now
+ * @param {import("./tree.js").Disk} [disk]
+ */
 async function apply(context, state, disk) {
-    const { vscode, log } = host;
+    const vscode = editor();
     const folder = vscode.workspace.workspaceFolders?.[0];
     if (!folder) {
         return undefined;
@@ -27,10 +33,10 @@ async function apply(context, state, disk) {
     const open = openFiles(root, vscode.window.tabGroups.all);
     const wanted = await hiddenGlobs(root, out, filters(), open, vetoed, disk);
     const files = vscode.workspace.getConfiguration("files", folder.uri);
-    const current = files.inspect("exclude")?.workspaceValue ?? {};
+    const current = /** @type {Record<string, boolean>} */ (files.inspect("exclude")?.workspaceValue ?? {});
     // The owned list lives in the settings file beside the rows, so the settings generator carries both and judges only its own part.
     const settings = vscode.workspace.getConfiguration("catzc.trackLamps", folder.uri);
-    const owned = settings.inspect(OWNED_KEY)?.workspaceValue ?? [];
+    const owned = /** @type {string[]} */ (settings.inspect(OWNED_KEY)?.workspaceValue ?? []);
     const { next, ours } = merge(current, owned, wanted);
     trace(
         `apply: unlit [${[...out].join(", ")}], vetoed [${[...vetoed].join(", ")}], ${wanted.length} entries wanted, ${ours.length} owned`,
@@ -45,7 +51,7 @@ async function apply(context, state, disk) {
     }
     const size = excludeSize(next);
     if (size > EXCLUDE_ROOF) {
-        log.appendLine(
+        host.log?.appendLine(
             `warning: files.exclude is ${size} characters in ${Object.keys(next).length} keys, over the ${EXCLUDE_ROOF} the editor's search and watcher processes take on a command line (spawn ENAMETOOLONG); unlit [${[...out].join(", ")}]`,
         );
     }

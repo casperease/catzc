@@ -116,7 +116,7 @@ says plainly what they do not.
 
 ```text
 CAF governance — Azure governance design area, Deployment acceleration recommendations — recommendation 1
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/governance (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/governance (retrieved 2026-10-15)
 Summary (ours): Decide which tags are mandatory and have Azure Policy enforce them, using the append mode so a missing tag is added rather
   than left out; the tagging strategy page holds the detail.
 ```
@@ -157,7 +157,7 @@ required by convention only.
 
 ```text
 CAF governance — Azure governance design area, Deployment acceleration recommendations — recommendation 2
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/governance (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/governance (retrieved 2026-10-15)
 Summary (ours): Translate the regulatory and compliance obligations that apply into concrete policy definitions and role assignments.
 ```
 
@@ -189,7 +189,7 @@ Not adopted, because no example customer has a regulatory obligation to map.
 
 ```text
 CAF governance — Azure governance design area, Deployment acceleration recommendations — recommendation 3
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/governance (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/governance (retrieved 2026-10-15)
 Summary (ours): Create custom policy definitions at the top-level root management group, so they can be assigned at any level beneath it.
 ```
 
@@ -209,7 +209,7 @@ Not adopted, because the repository owns no management group and defines no cust
 
 ```text
 CAF governance — Azure governance design area, Deployment acceleration recommendations — recommendation 4
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/governance (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/governance (retrieved 2026-10-15)
 Summary (ours): Assign each policy at the highest level where it fits, and exclude a lower level only when it needs to differ.
 ```
 
@@ -244,7 +244,7 @@ Realised — one assignment per policy at subscription level, the highest level 
 
 ```text
 CAF governance — Azure governance design area, Deployment acceleration recommendations — recommendation 5
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/governance (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/governance (retrieved 2026-10-15)
 Summary (ours): Use Azure Policy at subscription or management-group level to control which resource providers may be registered.
 ```
 
@@ -275,7 +275,7 @@ Not adopted, because the landing zone governs location, tagging, and exposure, n
 
 ```text
 CAF governance — Azure governance design area, Deployment acceleration recommendations — recommendation 6
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/governance (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/governance (retrieved 2026-10-15)
 Summary (ours): Use built-in policy definitions wherever they fit, to keep the effort of maintaining policy low.
 ```
 
@@ -315,7 +315,7 @@ Realised — three built-in definitions, pinned by id and registered, and no cus
 
 ```text
 CAF governance — Azure governance design area, Deployment acceleration recommendations — recommendation 7
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/governance (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/governance (retrieved 2026-10-15)
 Summary (ours): Give application teams the built-in Resource Policy Contributor role where they work, so they can govern their own
   applications.
 ```
@@ -337,7 +337,7 @@ Not adopted, because a workload owns no policy and the templates assign no roles
 
 ```text
 CAF governance — Azure governance design area, Deployment acceleration recommendations — recommendation 8
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/governance (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/governance (retrieved 2026-10-15)
 Summary (ours): Make few assignments at the root management group, so exclusions do not have to be managed at every level beneath it.
 ```
 
@@ -356,7 +356,7 @@ Not adopted, because the repository makes no assignment above a subscription.
 
 ```text
 CAF governance — Azure governance design area, Cost management recommendations — recommendation 9
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/governance (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/governance (retrieved 2026-10-15)
 Summary (ours): Use Microsoft Cost Management to keep financial oversight of the whole environment.
 ```
 
@@ -390,7 +390,7 @@ Partly realised — a budget with role-addressed alerts per subscription; cost e
 
 ```text
 CAF governance — Azure governance design area, Cost management recommendations — recommendation 10
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/governance (retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/governance (retrieved 2026-10-15)
 Summary (ours): Tag resources with metadata such as the cost centre or the project, so cost can be analysed at a finer grain.
 ```
 

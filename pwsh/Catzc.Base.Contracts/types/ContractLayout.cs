@@ -14,10 +14,12 @@ namespace Catzc.Base.Contracts;
 
 public sealed class ContractLayout
 {
-    // The one version folder of every root that holds its current contracts (ADR-REPO-CONTRACT-CURRENTVERSION).
+    // The one version folder of every root that holds its current contracts
+    // ([ADR-REPO-CONTRACT-CURRENTVERSION](/docs/drs/repository/api-contracts.md#rule-adr-repo-contract-currentversion)).
     public const string CurrentVersion = "0.1.0";
 
-    // The one root whose assets are provided; every other root is a vendor and its assets are depended-on (ADR-REPO-CONTRACT-DIRECTIONBYCONVENTION).
+    // The one root whose assets are provided; every other root is a vendor and its assets are depended-on
+    // ([ADR-REPO-CONTRACT-DIRECTIONBYCONVENTION](/docs/drs/repository/api-contracts.md#rule-adr-repo-contract-directionbyconvention)).
     public const string ProvidedRoot = "catzc";
 
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

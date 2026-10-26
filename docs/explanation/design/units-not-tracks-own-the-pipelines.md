@@ -10,7 +10,8 @@ The four CD pipelines bind deployable-units; the two CI pipelines bind the track
 5  nova, apex, flux, shared     four configured units, each composing the base unit
 6  cd-<unit>                    the four CD pipelines, one per unit
 
-Supports DDR-TRACK-ONETRACKTYPE, DDR-TRACK-ONETECHSTACK, DDR-TRACK-SUBSCRIBABLENOTPATHCOUPLED and DDR-TRACK-DEPLOYABLEUNIT (architecture lens).
+Supports DDR-TRACK-ONETRACKTYPE, DDR-TRACK-ONETECHSTACK, DDR-TRACK-SUBSCRIBABLENOTPATHCOUPLED
+and DDR-TRACK-DEPLOYABLEUNIT (architecture lens).
 ```
 
 Cats is one repository made of tracks, the root concerns such as `pwsh` and `infrastructure`. A track does not ship by itself: what ships is

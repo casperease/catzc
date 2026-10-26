@@ -268,7 +268,7 @@ catalogue in `customer.yml` ([customer-model](../azure-customer-model.md)).
 
 ```text
 CAF Resource organization — Management groups — recommendation 1
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-management-groups
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-management-groups
   (retrieved 2026-10-15)
 Summary (ours): Keep the management group hierarchy shallow, three to four levels at most, so that inheritance stays easy to follow.
 ```
@@ -289,7 +289,7 @@ not adopted, because the repository deploys only into subscriptions it is given 
 
 ```text
 CAF Resource organization — Management groups — recommendation 2
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-management-groups
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-management-groups
   (retrieved 2026-10-15)
 Summary (ours): A management group exists to apply policy to workloads that share security and compliance needs. Do not shape the
   hierarchy after the organisation chart, and do not use it for billing or for access control.
@@ -312,7 +312,7 @@ not adopted, because there are no management groups; the subscription model grou
 
 ```text
 CAF Resource organization — Management groups — recommendation 3
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-management-groups
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-management-groups
   (retrieved 2026-10-15)
 Summary (ours): Give workload teams their roles at subscription or resource group level, normally through the vending process, never at a
   management group, where inheritance grants more than intended. Platform teams may hold rights at management-group level only through
@@ -351,7 +351,7 @@ realised — no role is granted above a subscription, and every deploy runs unde
 
 ```text
 CAF Resource organization — Management groups — recommendation 4
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-management-groups
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-management-groups
   (retrieved 2026-10-15)
 Summary (ours): For cross-cutting questions, query by tags enforced through policy rather than adding levels to the hierarchy.
 ```
@@ -387,7 +387,7 @@ partly realised — the CAF tags are on every resource and `cost-center` is enfo
 
 ```text
 CAF Resource organization — Management groups — recommendation 5
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-management-groups
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-management-groups
   (retrieved 2026-10-15)
 Summary (ours): Keep a sandbox management group where users can experiment, isolated from development, test, and production.
 ```
@@ -409,7 +409,7 @@ not adopted, because there are no management groups; experiments run as configur
 
 ```text
 CAF Resource organization — Management groups — recommendation 6
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-management-groups
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-management-groups
   (retrieved 2026-10-15)
 Summary (ours): Under the root, a platform management group holds the policies and role assignments common to the platform and gathers
   the foundational subscriptions, and with them their billing.
@@ -430,7 +430,7 @@ not adopted, because there are no management groups; the shared subscriptions ca
 
 ```text
 CAF Resource organization — Management groups — recommendation 7
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-management-groups
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-management-groups
   (retrieved 2026-10-15)
 Summary (ours): Under the landing zones management group, add one child per kind of workload (such as online, corp, or local) whose
   members share their security, compliance, connectivity, and feature needs.
@@ -453,7 +453,7 @@ not adopted, because there are no management groups and every customer subscript
 
 ```text
 CAF Resource organization — Management groups — recommendation 8
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-management-groups
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-management-groups
   (retrieved 2026-10-15)
 Summary (ours): Assign as little as possible at the root management group, so that what is inherited further down stays easy to debug.
 ```
@@ -472,7 +472,7 @@ not adopted, because the repository owns no management group; nothing is assigne
 
 ```text
 CAF Resource organization — Management groups — recommendation 9
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-management-groups
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-management-groups
   (retrieved 2026-10-15)
 Summary (ours): Enforce compliance requirements through Azure Policy assigned at management group or subscription level.
 ```
@@ -508,7 +508,7 @@ realised — every subscription's landing zone enforces its policies at subscrip
 
 ```text
 CAF Resource organization — Management groups — recommendation 10
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-management-groups
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-management-groups
   (retrieved 2026-10-15)
 Summary (ours): Turn on the hierarchy setting that requires a role to create management groups; by default any user may create one under
   the root.
@@ -528,7 +528,7 @@ not adopted, because the setting is tenant administration outside what the repos
 
 ```text
 CAF Resource organization — Management groups — recommendation 11
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-management-groups
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-management-groups
   (retrieved 2026-10-15)
 Summary (ours): Set a default management group, the sandbox being a good choice, so that a newly created subscription (a Visual Studio
   one, for example) never lands under the root.
@@ -548,7 +548,7 @@ not adopted, because the setting is tenant administration outside what the repos
 
 ```text
 CAF Resource organization — Management groups — recommendation 12
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-management-groups
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-management-groups
   (retrieved 2026-10-15)
 Summary (ours): Do not create management groups for production, test, and development; separate the environments by subscription inside
   one management group.
@@ -585,7 +585,7 @@ realised — production and non-production are separate subscriptions, with no m
 
 ```text
 CAF Resource organization — Management groups — recommendation 13
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-management-groups
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-management-groups
   (retrieved 2026-10-15)
 Summary (ours): Use the standard hierarchy for deployments across several regions too; only a regulatory need tied to location, such as data
   residency or sovereignty, justifies management groups by location.
@@ -606,7 +606,7 @@ not adopted, because there are no management groups and the repository deploys t
 
 ```text
 CAF Resource organization — Subscriptions — Organization and governance — recommendation 14
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-subscriptions
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-subscriptions
   (retrieved 2026-10-15)
 Summary (ours): Treat the subscription as the unit of management, cut to fit the needs of the business.
 ```
@@ -641,7 +641,7 @@ realised — every subscription is declared once and gets the same baseline and 
 
 ```text
 CAF Resource organization — Subscriptions — Organization and governance — recommendation 15
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-subscriptions
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-subscriptions
   (retrieved 2026-10-15)
 Summary (ours): Make sure subscription owners know what they are responsible for: reviewing privileged access periodically, owning the
   budget and the resources, and keeping the subscription compliant with policy, remediating where it is not.
@@ -677,7 +677,7 @@ organisation.
 
 ```text
 CAF Resource organization — Subscriptions — Organization and governance — recommendation 16
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-subscriptions
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-subscriptions
   (retrieved 2026-10-15)
 Summary (ours): Decide whether a requirement needs a new subscription by four tests: scale limits (a large, specialised workload gets its
   own), a management boundary, a policy boundary (a regulated workload such as one under PCI), and network topology (a virtual network
@@ -717,7 +717,7 @@ partly realised — management, policy, and network boundaries decide the subscr
 
 ```text
 CAF Resource organization — Subscriptions — Organization and governance — recommendation 17
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-subscriptions
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-subscriptions
   (retrieved 2026-10-15)
 Summary (ours): Subscriptions that need the same policies and role assignments sit under the same management group.
 ```
@@ -737,7 +737,7 @@ not adopted, because there are no management groups; `azure.yml` groups the subs
 
 ```text
 CAF Resource organization — Subscriptions — Organization and governance — recommendation 18
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-subscriptions
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-subscriptions
   (retrieved 2026-10-15)
 Summary (ours): Run the platform in four separate subscriptions — management, security, connectivity, and identity — and never merge
   them, so that each gets its own policies, roles, and billing.
@@ -777,7 +777,7 @@ step when it outgrows that.
 
 ```text
 CAF Resource organization — Subscriptions — Organization and governance — recommendation 19
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-subscriptions
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-subscriptions
   (retrieved 2026-10-15)
 Summary (ours): Automate creating subscriptions for workload teams behind a self-service request.
 ```
@@ -824,7 +824,7 @@ subscription is not adopted, because it needs rights above any subscription.
 
 ```text
 CAF Resource organization — Subscriptions — Organization and governance — recommendation 20
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-subscriptions
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-subscriptions
   (retrieved 2026-10-15)
 Summary (ours): Avoid a rigid subscription model; group subscriptions by criteria that can change with the organisation. Some
   applications share a landing zone subscription, others need their own.
@@ -860,7 +860,7 @@ realised — subscriptions, their customers, and their environments are config e
 
 ```text
 CAF Resource organization — Subscriptions — Operational excellence — recommendation 21
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-subscriptions
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-subscriptions
   (retrieved 2026-10-15)
 Summary (ours): Give every subscription Service Health alerts, so that a platform incident affecting its resources reaches the people who
   run them.
@@ -896,7 +896,7 @@ partly realised — Service Health events reach the workspace for every subscrip
 
 ```text
 CAF Resource organization — Subscriptions — Multiple regions — recommendation 22
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-subscriptions
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-subscriptions
   (retrieved 2026-10-15)
 Summary (ours): Add subscriptions per region only when a region needs its own governance, such as sovereignty, or to get past a quota
   limit.
@@ -929,7 +929,7 @@ realised — subscriptions are cut by customer and environment class, never by r
 
 ```text
 CAF Resource organization — Subscriptions — Multiple regions — recommendation 23
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-subscriptions
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-subscriptions
   (retrieved 2026-10-15)
 Summary (ours): Where scale is no concern, a primary and secondary disaster-recovery pair may share one subscription (some recovery tools
   require it); deployments that run active-active and are managed independently belong in separate subscriptions.
@@ -950,7 +950,7 @@ not adopted, because no template deploys to a secondary region.
 
 ```text
 CAF Resource organization — Subscriptions — Multiple regions — recommendation 24
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-subscriptions
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-subscriptions
   (retrieved 2026-10-15)
 Summary (ours): Create a resource group in the same region as the resources it contains.
 ```
@@ -984,7 +984,7 @@ realised — the resource group and its resources take the same region from the 
 
 ```text
 CAF Resource organization — Subscriptions — Multiple regions — recommendation 25
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-subscriptions
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-subscriptions
   (retrieved 2026-10-15)
 Summary (ours): Do not put resources from different regions in one resource group.
 ```
@@ -1015,7 +1015,7 @@ realised — one region per environment, enforced in production by the allowed-l
 
 ```text
 CAF Resource organization — Subscriptions — Quota and capacity — recommendation 26
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-subscriptions
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-subscriptions
   (retrieved 2026-10-15)
 Summary (ours): Scale out across subscriptions rather than running into one subscription's platform limits.
 ```
@@ -1048,7 +1048,7 @@ partly realised — subscriptions per customer spread the load; splitting a cust
 
 ```text
 CAF Resource organization — Subscriptions — Quota and capacity — recommendation 27
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-subscriptions
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-subscriptions
   (retrieved 2026-10-15)
 Summary (ours): In regions where capacity is constrained, reserve capacity for the resources the workload depends on.
 ```
@@ -1067,7 +1067,7 @@ not adopted, because no template deploys capacity-constrained compute.
 
 ```text
 CAF Resource organization — Subscriptions — Quota and capacity — recommendation 28
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-subscriptions
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-subscriptions
   (retrieved 2026-10-15)
 Summary (ours): Build a dashboard with views of how much capacity is used, and alert as use approaches critical thresholds, such as 90
   percent CPU.
@@ -1100,7 +1100,7 @@ planned (follow-up) — metric alerts on the database and a capacity workbook ov
 
 ```text
 CAF Resource organization — Subscriptions — Quota and capacity — recommendation 29
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-subscriptions
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-subscriptions
   (retrieved 2026-10-15)
 Summary (ours): Request quota increases, such as virtual machine cores, while the subscription is provisioned, before workloads exceed the
   defaults.
@@ -1120,7 +1120,7 @@ not adopted, because no template comes near a default quota.
 
 ```text
 CAF Resource organization — Subscriptions — Quota and capacity — recommendation 30
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-subscriptions
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-subscriptions
   (retrieved 2026-10-15)
 Summary (ours): Confirm that the services and features the workload needs are available in the regions it will run in.
 ```
@@ -1139,7 +1139,7 @@ not adopted as a check, because the repository uses one region where every servi
 
 ```text
 CAF Resource organization — Subscriptions — Quota and capacity — recommendation 31
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-subscriptions
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-subscriptions
   (retrieved 2026-10-15)
 Summary (ours): Share quota across subscriptions by putting them in a Quota Group.
 ```
@@ -1157,7 +1157,7 @@ not adopted, because no template consumes the quota a Quota Group shares.
 
 ```text
 CAF Resource organization — Subscriptions — Quota and capacity — recommendation 32
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-subscriptions
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-subscriptions
   (retrieved 2026-10-15)
 Summary (ours): Automate quota requests through the Azure Quota REST API.
 ```
@@ -1175,7 +1175,7 @@ not adopted, because the repository makes no quota requests.
 
 ```text
 CAF Resource organization — Subscriptions — Quota and capacity — recommendation 33
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-subscriptions
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-subscriptions
   (retrieved 2026-10-15)
 Summary (ours): Alert subscription owners as their usage approaches a quota limit.
 ```
@@ -1193,7 +1193,7 @@ not adopted, because no template comes near a quota limit.
 
 ```text
 CAF Resource organization — Subscriptions — Tenant transfer restriction — recommendation 34
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-subscriptions
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-subscriptions
   (retrieved 2026-10-15)
 Summary (ours): Set the subscription policy so that no one may move a subscription out of the Entra directory or into it.
 ```
@@ -1213,7 +1213,7 @@ not adopted, because the setting is tenant administration outside what the repos
 
 ```text
 CAF Resource organization — Subscriptions — Tenant transfer restriction — recommendation 35
-Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-subscriptions
+Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-subscriptions
   (retrieved 2026-10-15)
 Summary (ours): Exempt only a few users from the transfer policy: members of platform operations and the break-glass accounts.
 ```

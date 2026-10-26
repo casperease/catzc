@@ -115,7 +115,7 @@ ADR-AZ-LZ-WORKLOADOWNSNONE). Every takeaway below points at one of them.
 
 ```text
 PE:01 — Define performance targets
-Source: https://learn.microsoft.com/en-us/azure/well-architected/performance-efficiency/performance-targets (retrieved 2026-10-15)
+Source: learn /azure/well-architected/performance-efficiency/performance-targets (retrieved 2026-10-15)
 Summary (ours): Before a workload is deployed, give every flow numeric performance targets tied to business and user requirements:
 error rate, throughput, concurrency, and latency, stated as percentiles rather than averages. Numbers instead of words like "fast" make
 performance measurable, give the team shared goals, and show where resources should go. Record the targets centrally, show them on
@@ -150,7 +150,7 @@ Not adopted, because the example templates serve no users and so have no flow to
 
 ```text
 PE:02 — Conduct capacity planning
-Source: https://learn.microsoft.com/en-us/azure/well-architected/performance-efficiency/capacity-planning (retrieved 2026-10-15)
+Source: learn /azure/well-architected/performance-efficiency/capacity-planning (retrieved 2026-10-15)
 Summary (ours): Work out the compute, memory, storage, network, and staff a workload needs to meet its targets, ahead of expected changes
 in demand such as seasonal peaks, launches, or campaigns. Base it on historical use or, for a new workload, on research and pilots;
 forecast demand; check the forecast against objectives and provider service levels; and know each service's limits before the design
@@ -190,7 +190,7 @@ Partly realised: capacity is a per-environment config value, but no forecast or 
 
 ```text
 PE:03 — Select the right services
-Source: https://learn.microsoft.com/en-us/azure/well-architected/performance-efficiency/select-services (retrieved 2026-10-15)
+Source: learn /azure/well-architected/performance-efficiency/select-services (retrieved 2026-10-15)
 Summary (ours): Choose services, infrastructure, and tiers that can meet the performance targets and absorb expected growth, preferring
 platform features and managed services over custom builds. Check limits, quotas, and region availability early; choose the region and
 availability zones for latency and features, keeping services that talk often close together; pick compute, database, storage, and cache
@@ -230,7 +230,7 @@ Realised: managed services, one region, zone redundancy, and a tier per environm
 
 ```text
 PE:04 — Establish consistent performance measurement
-Source: https://learn.microsoft.com/en-us/azure/well-architected/performance-efficiency/monitoring (retrieved 2026-10-15)
+Source: learn /azure/well-architected/performance-efficiency/monitoring (retrieved 2026-10-15)
 Summary (ours): Measure performance the same way over time, so behaviour can be compared with a baseline and slowdowns, waste, or scaling
 gaps show early. Collect latency, throughput, and resource signals from the application, the resources, the data stores, and the operating
 system; keep production and non-production data apart, and performance data apart from business data. Put a diagnostic setting on every
@@ -270,7 +270,7 @@ baseline, alert, or dashboard reads the data.
 
 ```text
 PE:05 — Optimize scaling and partitioning
-Source: https://learn.microsoft.com/en-us/azure/well-architected/performance-efficiency/scale-partition (retrieved 2026-10-15)
+Source: learn /azure/well-architected/performance-efficiency/scale-partition (retrieved 2026-10-15)
 Summary (ours): Make scaling and partitioning deliberate and dependable, built on a defined scale unit, so the workload keeps up as demand
 rises and stops paying when it falls. Choose vertical or horizontal scaling per component; avoid singletons and client affinity; keep the
 application stateless; autoscale managed services with upper limits, meaningful metrics, and thresholds that do not flap; add scale units
@@ -312,7 +312,7 @@ scale and no autoscale rule exists.
 
 ```text
 PE:06 — Optimize your workload's performance by regularly testing in a production-like environment
-Source: https://learn.microsoft.com/en-us/azure/well-architected/performance-efficiency/performance-test (retrieved 2026-10-15)
+Source: learn /azure/well-architected/performance-efficiency/performance-test (retrieved 2026-10-15)
 Summary (ours): Test performance early and regularly, in an environment close enough to production that the results mean something.
 Derive pass and fail criteria from the targets, run performance tests in deployment pipelines and on a schedule to catch regressions,
 use load, stress, spike, and soak tests with realistic data, compare a baseline with each variant, and record and refresh the baselines.
@@ -347,7 +347,7 @@ Not adopted, because the example workload has no application or traffic to load.
 
 ```text
 PE:07 — Optimize code and infrastructure
-Source: https://learn.microsoft.com/en-us/azure/well-architected/performance-efficiency/optimize-code-infrastructure (retrieved 2026-10-15)
+Source: learn /azure/well-architected/performance-efficiency/optimize-code-infrastructure (retrieved 2026-10-15)
 Summary (ours): Make code efficient and hand responsibilities to the platform, using code and infrastructure only for their core purpose
 and only where needed. Profile to find hot paths and fix them at the root instead of adding capacity; use asynchronous work, queues, and
 connection pooling; set resource limits; keep infrastructure simple and offload work such as security filtering; and tune the network with
@@ -381,7 +381,7 @@ Not adopted, because the templates deploy no application code; the infrastructur
 
 ```text
 PE:08 — Optimize data usage
-Source: https://learn.microsoft.com/en-us/azure/well-architected/performance-efficiency/optimize-data-performance (retrieved 2026-10-15)
+Source: learn /azure/well-architected/performance-efficiency/optimize-data-performance (retrieved 2026-10-15)
 Summary (ours): Tune data stores, partitions, and indexes to how the workload is meant to use its data and how it actually does, so
 reading, writing, and processing data does not become the bottleneck. Profile the data and its access patterns, watch data-specific metrics
 such as query time and I/O, partition with a chosen key, rewrite slow queries and avoid N+1 patterns, maintain indexes, cache and use read
@@ -415,7 +415,7 @@ Not adopted, because the example database has no schema, data, or queries to tun
 
 ```text
 PE:09 — Prioritize the performance of critical flows
-Source: https://learn.microsoft.com/en-us/azure/well-architected/performance-efficiency/prioritize-critical-flows (retrieved 2026-10-15)
+Source: learn /azure/well-architected/performance-efficiency/prioritize-critical-flows (retrieved 2026-10-15)
 Summary (ours): Give the flows that carry the most important business processes, users, and operations first claim on resources and on
 optimisation effort, and let lower-priority flows give way when capacity is short. Inventory every flow with its metrics, rate each one
 high, medium, or low by business impact, isolate critical flows with dedicated resources or reserved capacity, rate-limit the rest, and
@@ -451,7 +451,7 @@ Not adopted, because the example workload has no flows to rate; customers are is
 
 ```text
 PE:10 — Optimize operational tasks
-Source: https://learn.microsoft.com/en-us/azure/well-architected/performance-efficiency/optimize-operational-tasks (retrieved 2026-10-15)
+Source: learn /azure/well-architected/performance-efficiency/optimize-operational-tasks (retrieved 2026-10-15)
 Summary (ours): Routine operations — deployments, backups, secret rotation, virus scans, index rebuilds — share resources with the workload,
 so measure their effect on performance, keep it small, and count it in the performance targets. Deploy blue-green or canary with gradual
 traffic shift and without dropping instance counts; test in-place upgrades first and schedule them off-peak; tune security tooling; and use
@@ -488,7 +488,7 @@ Partly realised: every operational task runs on the platform, but none is measur
 
 ```text
 PE:11 — Respond to live performance issues
-Source: https://learn.microsoft.com/en-us/azure/well-architected/performance-efficiency/respond-live-performance-issues (retrieved 2026-10-15)
+Source: learn /azure/well-architected/performance-efficiency/respond-live-performance-issues (retrieved 2026-10-15)
 Summary (ours): Prepare to handle production performance problems quickly and precisely, with clear lines of communication, roles, and
 access to data. Keep architecture diagrams current, grant time-limited least-privilege access to monitoring data, alert on deviation from
 baselines, follow a documented triage plan, find the root cause from correlated data, and turn each finding into automation or a sharper
@@ -522,7 +522,7 @@ Not adopted, because without targets and baselines there is nothing to alert on.
 
 ```text
 PE:12 — Continuously optimize performance
-Source: https://learn.microsoft.com/en-us/azure/well-architected/performance-efficiency/continuous-performance-optimize (retrieved 2026-10-15)
+Source: learn /azure/well-architected/performance-efficiency/continuous-performance-optimize (retrieved 2026-10-15)
 Summary (ours): Keep optimising performance for the workload's whole life, because usage, data volume, features, and technical debt change
 how it behaves. Make targets, baselines, and thresholds visible and give the work time; evaluate new platform features; focus on parts that
 tend to degrade, such as databases and networking, and on critical flows; automate testing, monitoring, and remediation; and keep tuning
