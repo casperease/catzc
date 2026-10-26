@@ -66,7 +66,7 @@ Invoke-BashTest Catzc.Base.Repository -EntryScript out/build/Import-Catzc.ps1
 
 ## comment:1
 
-Above `if ($results.Count -eq 0 -or ($run.ExitCode -ne 0 -and -not @($results |...`, written with `#`.
+Above `if ($results.Count -eq 0 -or ($run.ExitCode -ne 0 -and`, written with `#`.
 
 ```text
 bats exits 1 when a test failed; a non-zero exit with no failing test, or no test at all, means it failed around

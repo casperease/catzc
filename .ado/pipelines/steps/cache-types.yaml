@@ -14,5 +14,5 @@ steps:
   - task: Cache@2
     displayName: "Cache the C# types build"
     inputs:
-      key: 'catzc-types | "$(Agent.OS)" | pwsh/.compiled/*.json'
+      key: 'catzc-types | "$(Agent.OS)" | pwsh/**/types/**/*.cs | pwsh/.internal/assets/Catzc.Types.csproj'
       path: $(CatzcTypesShadowRoot)

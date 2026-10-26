@@ -1,6 +1,6 @@
 # pwsh/Catzc.Base.Vendor/types/VendorConfig.cs
 
-The typed record for [vendor.yml](../configs/vendor.yml.md), the vendor registry
+The typed record for `vendor.yml`, the vendor registry
 ([ADR-PWSH-VENDOR](../../../../drs/automation/pwsh/vendor-toolset-dependencies.md)). It is registered in
 `Catzc.Base.Config/configs/configs.yml`, so `Get-Config -Config vendor` returns it. Its properties mirror the YAML keys exactly, including
 the file's own `sourceUrl` spelling

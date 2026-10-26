@@ -26,6 +26,24 @@ Describe 'Get-AutoControlledGlobs' -Tag 'L0', 'logic' {
         $globs | Should -Not -Contain 'LICENSE'
     }
 
+    It 'takes the gitignored members a generator writes from the track model, a folder glob as its folder and contents' -Tag 'DDR-TRACK-TRACKISPLACEDCLUSTER' {
+        Mock Get-TrackMember -ModuleName Catzc.Base.Git {
+            foreach ($path in 'widget/*/*.wdg', 'widget/build/**', 'widget/notes.txt') {
+                [Catzc.Base.Variants.TrackMember]::new('widget', [Catzc.Base.Variants.VariantMember]::new($path, $false, $false))
+            }
+            [Catzc.Base.Variants.TrackMember]::new('widget', [Catzc.Base.Variants.VariantMember]::new('widget/cache', $true, $false))
+        }
+        Mock Get-GeneratedTarget -ModuleName Catzc.Base.Git {
+            [pscustomobject]@{ path = 'widget/*/*.wdg'; generator = 'Build-Widget' }
+            [pscustomobject]@{ path = 'widget/build/**'; generator = 'dotnet build' }
+        }
+        $globs = InModuleScope Catzc.Base.Git { Get-AutoControlledGlobs }
+        foreach ($expected in 'widget/*/*.wdg', 'widget/build', 'widget/build/*', 'widget/cache') {
+            $globs | Should -Contain $expected
+        }
+        $globs | Should -Not -Contain 'widget/notes.txt' -Because 'a gitignored member no generator writes is in-flight work, never cleaned'
+    }
+
     It 'includes the conventional generated-artifact classes' {
         $globs = InModuleScope Catzc.Base.Git { Get-AutoControlledGlobs }
         $modules = Get-CatzcModulesFolder

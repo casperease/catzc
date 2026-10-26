@@ -79,6 +79,8 @@ function Test-ManualTestPlan {
         $issues.Add("${planRelative}/: $($categoryFiles.Count) category files, at most $maxCategories — merge categories")
     }
     $checks = [System.Collections.Generic.List[string]]::new()
+    # The category page each check sits on, by the check's index: a missing block's check belongs on the page that holds its test file.
+    $pages = [System.Collections.Generic.List[string]]::new()
     foreach ($categoryFile in $categoryFiles) {
         $categoryRelative = $categoryFile.Substring($repositoryRoot.Length + 1) -replace '\\', '/'
         $heading = $null
@@ -101,6 +103,7 @@ function Test-ManualTestPlan {
             if ($heading) {
                 if ($fileLine) {
                     $checks.Add("$heading $fileLine")
+                    $pages.Add($categoryRelative)
                 }
                 else {
                     $issues.Add("${categoryRelative}: section '$heading' has no **Test file:** line naming its test file and block")
@@ -119,7 +122,14 @@ function Test-ManualTestPlan {
     foreach ($block in $blocks) {
         $matched = @($checks | Where-Object { $_.Contains($block.File) -and $_.Contains($block.Block) })
         if ($matched.Count -eq 0) {
-            $issues.Add("$($block.File) :: $($block.Block): no manual-test-plan check — add one (or remove the integrity tag)")
+            $page = 'a category page'
+            for ($index = 0; $index -lt $checks.Count; $index++) {
+                if ($checks[$index].Contains($block.File)) {
+                    $page = $pages[$index]
+                    break
+                }
+            }
+            $issues.Add("$($block.File) :: $($block.Block): no manual-test-plan check — add one to $page (or remove the integrity tag)")
         }
     }
     if ($checks.Count -ne $blocks.Count) {

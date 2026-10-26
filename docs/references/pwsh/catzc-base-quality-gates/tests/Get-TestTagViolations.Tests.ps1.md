@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Mock Get-CatsDrsRuleIds { @('ADR-WIDGET-GADGET-TURN',...`, written with `#`.
+Above `Mock Get-CatsDrsRuleIds { @('ADR-WIDGET-GADGET-TURN',`, written with `#`.
 
 ```text
 A fixture rule-id set so the validation is hermetic — it never reads the

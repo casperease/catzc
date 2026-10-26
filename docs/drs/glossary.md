@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "80e865f79c11"
+    with_body_sha: "6c7f4cb47590"
     warning: "Do Not Edit, this file is generated"
 ---
 
@@ -266,7 +266,7 @@ A track whose type owns deployable-units — collections of its modules that the
 What ships — a whole track or a reduced composition — bound one-to-one to its pipeline.
 
 - **Defined by:** [DDR-TRACK-DEPLOYABLEUNIT](design/tracks.md#rule-ddr-track-deployableunit)
-- **Realized by:** config-key `pwsh/Catzc.Base.Globs/configs/globs.yml`
+- **Realized by:** config-key `pwsh/Catzc.Base.Globs/configs/globs/globs.yml`
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
   - [bundle](#bundle): A deployable-unit is what ships from the mono-repository, composed from a whole track or part of one; a bundle is one
@@ -356,6 +356,15 @@ A named unit placed in a track — a folder or one file, found by where its file
   - [module type](#module-type): A module is one named unit placed in a track; a module type is the sort of module found at a place, one of
     a closed set.
   - [track](#track): A module is one named unit placed in a track; a track is the cluster of module contents and the concern it holds.
+
+### module namespace
+
+The name a modules track declares once and joins to each module folder's name to form the module's full name, so the folders are named
+without it.
+
+- **Defined by:** [DDR-TRACK-MODULENAMESPACE](design/tracks.md#rule-ddr-track-modulenamespace)
+- **Realized by:** config-key `pwsh/Catzc.Base.Variants/configs/variants.yml`
+- **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 
 ### module type
 
@@ -1051,7 +1060,7 @@ A named, declared selection of tests that runs as one unit — a globset's verif
 Test-Automation -Suite.
 
 - **Defined by:** [ADR-AUTO-TEST-TESTSUITE](automation/test-automation.md#rule-adr-auto-test-testsuite)
-- **Realized by:** config-key `pwsh/Catzc.Base.Globs/configs/globs.yml`
+- **Realized by:** config-key `pwsh/Catzc.Base.Globs/configs/globs/globs.yml`
 - **Source:** `pwsh/Catzc.Base.QualityGates/configs/glossary.yml`
 - **Contrasts:**
   - [all tests](#all-tests): A test suite is a named selection, usually a few modules up to a tier; all tests is every test there is.

@@ -10,8 +10,6 @@ function New-JsConfig {
     [CmdletBinding()]
     [OutputType([string])]
     param(
-        # jsconfig.json, the project the editor reads, or jsconfig.lenient.json, the modules javascript.yml's strict list does not
-        # name yet.
         [ValidateSet('jsconfig.json', 'jsconfig.lenient.json')]
         [string] $Target = 'jsconfig.json',
 
@@ -22,8 +20,6 @@ function New-JsConfig {
     $javascript = Get-Config -Config javascript
     $root = $javascript.ResolveRoot($RepositoryRoot)
     $raised = @($javascript.strict | ForEach-Object { "$root/$_/**/*.js" })
-    # The editor reads only jsconfig.json, so it always covers files: the raised modules, strictly, or every module, leniently, while none
-    # is raised. The lenient project extends it with whatever is left, which is nothing once every module is raised.
     $config = if ($Target -eq 'jsconfig.lenient.json') {
         [ordered]@{
             extends         = './jsconfig.json'

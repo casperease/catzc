@@ -94,6 +94,19 @@ Describe 'Test-ManualTestPlan' -Tag 'L0', 'logic' {
         $message | Should -Match '1 checks for 2 integrity blocks'
     }
 
+    It 'names the category page that holds the uncovered block''s test file, so the fix is one edit' {
+        Set-FixtureFile "$planFolder/gadgets.md" "## Checks`n`n$widgetCheck"
+        $result = Test-ManualTestPlan -OutputFolder $out -PassThru
+        $result.Issues | Should -Contain ('widget-modules/Widget/tests/Get-Widget.Tests.ps1 :: Gadget check: no manual-test-plan check — add one to ' +
+            "$planFolder/gadgets.md (or remove the integrity tag)")
+    }
+
+    It 'names no page when no check holds the block''s test file' {
+        Set-FixtureFile $planPath "# Plan`n"
+        $result = Test-ManualTestPlan -OutputFolder $out -PassThru
+        $result.Issues | Where-Object { $_ -like '*Gadget check: no manual-test-plan check — add one to a category page*' } | Should -HaveCount 1
+    }
+
     It 'reports a stale check as a count mismatch' {
         Set-FixtureFile $planPath "## Checks`n`n$widgetCheck`n$gadgetCheck`n### 3. Gone`n`n**Test file:** ``widget-modules/Widget/tests/Get-Gone.Tests.ps1`` (L1), block ``Gone``.`n"
         $result = Test-ManualTestPlan -OutputFolder $out -PassThru

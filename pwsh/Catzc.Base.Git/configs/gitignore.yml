@@ -83,13 +83,13 @@ sections:
         }
 
   - id: compiled-types
-    title: Compiled C# types — the DLL is a per-machine build
+    title: Compiled C# types — a per-machine build, never committed
     why: >
-      Git keeps only the manifest, pwsh/.compiled/Catzc.Types.<hash>.json; the combined assembly is built per machine into the per-user
-      shadow root (see docs/drs/automation/caching.md), so a DLL or a concurrent-compile temp file under pwsh/.compiled is never committed.
+      The combined assembly and its manifest are a per-machine build in the per-user shadow root, keyed by the source hash (see
+      docs/drs/automation/caching.md), so git keeps no file under pwsh/.compiled. What a consumer binds to, the types surface, is the
+      provided contract in contracts/catzc/0.1.0/catzc.internal.types/.
     patterns:
-      - pwsh/.compiled/*.dll
-      - pwsh/.compiled/*.tmp
+      - pwsh/.compiled/
 
   - id: ide-build
     title: IDE-only C# project build output

@@ -5,7 +5,7 @@ comment sat above (Export-Comments), and Build-CommentView puts every comment ba
 
 ## comment:1
 
-Above `shelves        = [ordered]@{ places = @('shelf'); type = 'shelf-works';...`, written with `#`.
+Above `shelves        = [ordered]@{ members = @('shelf'); type = 'shelf-works';...`, written with `#`.
 
 ```text
 A third language's track, the shape every language track takes: folder modules, the track's own

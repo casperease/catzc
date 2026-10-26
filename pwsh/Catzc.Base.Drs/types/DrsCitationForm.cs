@@ -1,7 +1,3 @@
-// The one citation spelling has two forms, chosen by the line's width
-// ([ADR-REPO-LINK-ONECITATIONSPELLING](/docs/drs/repository/markdown-links.md#rule-adr-repo-link-onecitationspelling)): an inline citation
-// whose line outgrows the markdown width becomes a reference, its definition at the end of the file.
-
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -16,9 +12,6 @@ public static class DrsCitationForm
     static readonly Regex Definition = new Regex(@"^ {0,3}\[(?<label>[^\]\r\n]+)\]:[ \t]*(?<dest>\S+)", RegexOptions.Compiled | RegexOptions.Multiline);
     static readonly Regex NumberedLabel = new Regex(@"^r(?<n>[1-9][0-9]*)$", RegexOptions.Compiled);
 
-    // Respells, on each listed line wider than width, its inline citations as references, the longest destination first, until the line fits.
-    // The label is plumbing, r1, r2, ... in order of first use: a destination already defined keeps its label, and a new one takes the next
-    // free number, so an existing label never moves and a definition stays as short as its destination allows.
     public static string ToReference(string text, string path, ISet<int> lines, int width, string codePattern, List<DrsCitationChange> changes)
     {
         if (text == null) { throw new ArgumentNullException(nameof(text)); }

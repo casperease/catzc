@@ -110,7 +110,7 @@ helpers use) while still resolving through normal command lookup.
 
 ## comment:3
 
-Above `$isDeclaredBundle = -not ($PSBoundParameters.ContainsKey('Module') -or...`, written with `#`.
+Above `$isDeclaredBundle = -not ($PSBoundParameters.ContainsKey('Module') -or`, written with `#`.
 
 ```text
 The footprint limits describe the bundle as declared. A build whose selection or vendor policy is overridden

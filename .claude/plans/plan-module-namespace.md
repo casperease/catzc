@@ -40,28 +40,15 @@ form from the short one, declared once on the track (`ADR-AUTO-DEFAULT-ONERESOLU
 
 ## Open steps
 
-1. [ ] **The namespace setting on the track.** `VariantTrack.cs` gains `Namespace` (string, default empty = folder name is the full name),
-       and `variants.yml`'s `pwsh` track sets `namespace: Catzc`. `Get-Track` returns it; `Test-TrackDeclaration` rejects a namespace on a
-       track of a type without modules. Check: the type's L0 tests and `Get-Track pwsh` showing `Catzc`.
-2. [ ] **One resolver.** A private `Resolve-ModuleName` (and its C# twin in the types the bootstrap uses) maps folder → full name and back:
-       `Base.Git` → `Catzc.Base.Git`. Every reader below calls it; no other code concatenates the prefix. Check: L0 tests with widget/gadget
-       fixtures, round trip both directions.
-3. [ ] **The loader names modules by the resolver.** `Import-AllModules.ps1`, the manifest writer (`Write-ModuleBuildOutput.ps1`) and
-       `Assert-UniqueModuleFunctionName` produce `Catzc.<folder>.psd1`/`.psm1` from a short folder; `Catzc.Internal.Bootstrap.psm1:335`
-       keeps its full-name filter unchanged (it reads loaded modules, which stay full). The bootstrap loads before the types, so the
-       namespace is read from `variants.yml` inline, one level, like the folder walk (`ADR-PWSH-ENUM-EARLYLOADINGCODE`). Check: a fresh full
-       import, `Get-Module Catzc.*` lists every module with its full name.
-4. [ ] **Path readers.** Every glob and path naming `pwsh/Catzc.*/` becomes `pwsh/*/` (dot folders already excluded): `file-kinds.yml`,
-       `MapsMinimapPlaces.DefaultDropPrefix`, `Get-LocalModuleViolation.ps1`, and the module→path resolvers in `Catzc.Base.Modules`. Found
-       by grep for `pwsh/Catzc.` outside `research/` and `out/`, one file at a time. Check: that grep returns nothing, and each file's tests
-       pass.
-5. [ ] **The move.** Each `pwsh/Catzc.X/` folder moves to `pwsh/X/` on disk (no git scripts; the user commits). Then the path references
+1. [ ] **The move.** Each `pwsh/Catzc.X/` folder moves to `pwsh/X/` on disk (no git scripts; the user commits). Then the path references
        inside docs, plans, `relatives:` heads and tests are re-pointed by `link-fixer` and `Update-AdrCitation`, one file at a time.
-       Module-name references (`Catzc.Base.Git` as a name, not a path) do not change. Check: `Test-Links` on the re-pointed files.
-6. [ ] **The rules.** `tracks.md` gains the rule that a modules track may declare a namespace and its folders are named without it;
-       `cats-and-catzc.md`'s `PDR-CATS-CATZCISSOURCENAME` says the token lives in the full module name and the track's namespace, not the
-       folder. The glossary gets **module namespace**. Check: `Test-Glossary`, `Test-Links` on both pages.
-7. [ ] **Full import in a fresh session**, the last step (`importer-path-edits-break-every-session`): steps 3–5 land in one pass, then
+       Module-name references (`Catzc.Base.Git` as a name, not a path) do not change. In the same pass the resolver (`Resolve-ModuleName`,
+       `VariantTrack.FullNameOf`) drops its case for a folder that already spells its full name, which only bridges the unmoved tree
+       (PDR-ONELIVE), with its tests. The two readers of the `Catzc.` prefix on a folder name change in the same pass:
+       `MapsMinimapPlaces.DefaultDropPrefix` stops dropping it, and `Get-LocalModuleViolation.ps1` checks a local folder's resolved full
+       name against the bundle. Check: `Test-Links` on the re-pointed files, `Resolve-ModuleName.Tests.ps1`, `MapsConfig.Tests.ps1` and
+       `Assert-CatzcOverlay.Tests.ps1` green.
+2. [ ] **Full import in a fresh session**, the last step (`importer-path-edits-break-every-session`): step 1 lands in one pass, then
        `. ./importer.ps1` in a new `pwsh` before anything else runs. Check: the import ends without error and `Get-Module Catzc.*` lists
        every module.
 

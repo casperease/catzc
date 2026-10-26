@@ -105,11 +105,15 @@ pipeline. The flattened program is what both the native projection (FDR-CD-GLOBS
 ### Rule FDR-CD-GLOBS-TRACKSETDERIVED
 
 A whole track's globset is **derived** from the track's members
-([DDR-TRACK-TRACKISPLACEDCLUSTER](../design/tracks.md#rule-ddr-track-trackisplacedcluster)), never written by hand in `globs.yml`: the track
-declaration is its one source, so a member that joins or leaves a track joins or leaves its globset in the same edit. A buildable track's
-globset, the one that starts its pipeline, leaves out the track's **generated** members, so a regeneration (a rendered README, a generated
-root file) never starts a pipeline by itself. A vendor's track globset classifies and filters, and starts no pipeline. `globs.yml` keeps
-only the globsets that are not a whole track: the deployable-units and the slices of a track.
+([DDR-TRACK-TRACKISPLACEDCLUSTER](../design/tracks.md#rule-ddr-track-trackisplacedcluster)), never written by hand: the track declaration is
+its one source, so a member that joins or leaves a track joins or leaves its globset in the same edit. The authored `globs.yml` declares the
+set (its name, layer, pipeline and verify) and names its `track`; `Build-TrackGlobSets` writes its patterns into the generated
+`track-sets.yml` beside it, and the config folder joins the two. A buildable track's globset, the one that starts its pipeline, leaves out
+the track's **generated** members and every generated target under its places, so a regeneration (a rendered README, a generated root file)
+never starts a pipeline by itself. A track nested in another's place stays in the parent's set unless a set of its own starts a pipeline for
+it: a nested track with no pipeline, such as the vendored modules under `pwsh/`, has its changes tested by the parent's pipeline, so a
+vendored Pester bump runs the PowerShell CI. A vendor's track globset classifies and filters, and starts no pipeline. The globsets that are
+not a whole track, the deployable-units and the slices of a track, keep their patterns in `globs.yml`.
 
 - [One configuration point](#one-configuration-point)
 

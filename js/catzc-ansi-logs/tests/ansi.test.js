@@ -1,4 +1,5 @@
 // The escapes a coloured log holds and the spans they paint.
+// cspell:ignore mwidget mgadget mdone  -- fixture words run into the "m" that ends an escape
 const test = require("node:test");
 const assert = require("node:assert");
 

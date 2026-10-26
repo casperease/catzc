@@ -3,7 +3,7 @@
 
 const { host, editor, trace, filters } = require("./host.js");
 const { openFiles } = require("./facts.js");
-const { EXCLUDE_ROOF, hiddenGlobs, merge, excludeSize } = require("./tree.js");
+const { EXCLUDE_ROOF, hiddenPlan, merge, excludeSize } = require("./tree.js");
 
 // The setting under catzc.trackLamps that lists the files.exclude rows the lamps added (vscode-settings.yml carries them).
 const OWNED_KEY = "owned";
@@ -31,7 +31,7 @@ async function apply(context, state, disk) {
     const out = new Set(state.out);
     const vetoed = new Set(state.vetoed);
     const open = openFiles(root, vscode.window.tabGroups.all);
-    const wanted = await hiddenGlobs(root, out, filters(), open, vetoed, disk);
+    const { globs: wanted, verdict } = await hiddenPlan(root, out, filters(), open, vetoed, disk);
     const files = vscode.workspace.getConfiguration("files", folder.uri);
     const current = /** @type {Record<string, boolean>} */ (files.inspect("exclude")?.workspaceValue ?? {});
     // The owned list lives in the settings file beside the rows, so the settings generator carries both and judges only its own part.
@@ -55,7 +55,7 @@ async function apply(context, state, disk) {
             `warning: files.exclude is ${size} characters in ${Object.keys(next).length} keys, over the ${EXCLUDE_ROOF} the editor's search and watcher processes take on a command line (spawn ENAMETOOLONG); unlit [${[...out].join(", ")}]`,
         );
     }
-    return { root, out, vetoed, wanted, open, disk };
+    return { root, out, vetoed, wanted, open, disk, verdict };
 }
 
 module.exports = { apply, lastWritten };

@@ -48,8 +48,8 @@ Describe 'Repository links (every tracked file)' -Tag 'L2', 'integrity', 'source
     }
 
     It 'the VS Code registries make code links clickable' -Tag 'ADR-REPO-LINK-CODELINKS' {
-        (Get-Config -Config vscode-extensions).recommendations | Should -Contain 'DanLevett.regex-robin'
-        $rules = @((Get-Config -Config vscode-settings).settings['regexrobin.rules'])
-        @($rules | Where-Object { $_.regex -like '*docs/drs/*' }).Count | Should -Be 1
+        $drsLinks = @((Get-Config -Config vscode-extensions).extensions | Where-Object name -EQ 'catzc-drs-links')
+        $drsLinks | Should -HaveCount 1
+        $drsLinks[0].description | Should -BeLike '*/docs/drs/*'
     }
 }

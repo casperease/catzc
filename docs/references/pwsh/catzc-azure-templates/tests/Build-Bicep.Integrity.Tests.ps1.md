@@ -48,7 +48,7 @@ short_name, env-class, identity references, and parameter alignment — every pr
 
 ## comment:4
 
-Above `$validationError | Should -BeNullOrEmpty -Because "shipped templates must...`, written with `#`.
+Above `$validationError |`, written with `#`.
 
 ```text
 Deliberately no -Build: this validates the files (main.bicep, options schema, identity references,

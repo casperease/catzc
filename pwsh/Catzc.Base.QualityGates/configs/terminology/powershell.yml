@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   docs: "../../../../docs/references/pwsh/catzc-base-quality-gates/configs/terminology.yml.md"
-#   header: "generated"
-# ---
-
 categories:
   powershell:
     description: "PowerShell language and runtime vocabulary — cmdlet/parameter names, automatic variables, and concepts."

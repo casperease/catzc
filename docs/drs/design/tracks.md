@@ -34,6 +34,16 @@ rather than owning one.
 
 - [The taxonomy](#the-taxonomy)
 
+### Rule DDR-TRACK-MODULENAMESPACE
+
+A modules track may declare a **module namespace**, once, in its track declaration: a module's full name is that namespace joined to its
+folder name with a dot, so the track's module folders are named without it. The full name is what leaves the repository and what code names
+(a manifest, a loaded module, a C# namespace); the folder name is what the path, which already states the track, adds. One resolver maps a
+folder name to a full name and back, and no other code joins the namespace by hand. A track that declares none names its modules by their
+folders, and only a track whose type admits modules may declare one.
+
+- [Module namespaces](#module-namespaces)
+
 ### Rule DDR-TRACK-ONETECHSTACK
 
 A track owns one coherent **tech-stack**, and a new tech-stack opens a new track — never a subfolder inside an existing one. `pwsh`'s stack
@@ -221,6 +231,14 @@ nothing: `go/tests/` holds black-box tests that start the engine as a process an
 deployable-unit's output, and no bundle can hold them. The three language tracks, Go, Python and Bash, each have their own ADR in the
 automation domain. The taxonomy earns its keep in review: a proposed root that is none of these is probably a subfolder of an existing
 track, and a cross-cutting need (all config files, all markdown) is a **scope** — a globset selecting through tracks — not a new root.
+
+### Module namespaces
+
+A name is short where its container states the rest, and full wherever it travels. Inside the repository a module's path already names its
+track, so repeating the product name in every folder adds nothing the path does not say; outside it, in a bundle, a gallery package or a
+consumer's session, no track or folder is around to supply that context, so the full name must stand on its own. Declaring the namespace
+once on the track keeps one resolution of the long form from the short one, never a second spelling kept in step by hand. The `pwsh` track
+declares `Catzc`; a future track declares its own, and its folders stay short in the same way.
 
 ### A track has a tech-stack
 

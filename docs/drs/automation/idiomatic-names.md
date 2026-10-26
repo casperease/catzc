@@ -44,8 +44,8 @@ test — names it in the normal form.
 
 ### Rule ADR-AUTO-IDIOM-PLACENORMALFORM
 
-A place in the repository, a track, a module, a folder inside a module or a folder of a track without modules, has one place normal form
-wherever it is shown in a row: its path from the repository root, normalised as a repository-relative path
+A place in the repository, a track, a module, a folder inside a module or a folder of a track without modules, has one place normal form,
+its one short form in any projection that shows it in a row: its path from the repository root, normalised as a repository-relative path
 ([ADR-AUTO-PATH](path-representation.md)), joined with `.` (`pwsh.azure.types`, `docs.explanation.ado`, `.claude.skills`). The module's
 `Catzc.` prefix is dropped whole, and a dot inside a module name becomes `_`, so the module name is lower-case snake, the repository normal
 form (`Azure.Templates` is `azure_templates`); the dot is then only ever the path join. A module's lit sub-folders share one row, joined by
@@ -55,15 +55,8 @@ only repeats its track (`.claude` in `.claude`) is no module, and a place at the
 counted. Rows are sorted in true repository path order, the track first and then the module's or the folder's path (`.claude` before `docs`
 before `pwsh`). A row never cuts a name: it holds every joined folder whole, or, when they do not fit the configured characters, the count
 of the places (`pwsh.azure.+3`); a folder path keeps the whole segments that fit and counts the rest (`docs.explanation.automation.+2`); no
-row carries an elision. When there are more rows than the budget, the modules of one track fold into one row naming the modules
-(`pwsh.base_drs|base_maps|base_variants`) or, when the names do not fit, the count of their places (`pwsh.+9`), and rows still over the
-budget are left out. The places come first from the drawing's own glyphs, each code or file glyph's label resolved to the repository place
-it names (a command by its function file, a type by its types folder, a file by its name, a module by its manifest), and from the cited ADRs
-only while rows remain: a label that names no repository file is dropped and counted, and the docs places of the cited ADRs are dropped when
-the drawing draws no doc. The counters line says every place there is: `N places`, and `+k more · N places` when the rows hide places. The
-budget, the row join, the name join, the root marker, the fold separator and the count prefix are configuration of the maps config, and a
-minimap's rows are computed once, beside its data, by `Catzc.Base.Maps` from the labels the declaration carries (a minimap input, never a
-computed row stored in it); a drawing prints the rows as given and cuts nothing itself.
+row carries an elision. A projection computes its rows once, beside its data, from the inputs its source carries, and whatever shows the
+projection prints the rows as given and cuts nothing itself; how a projection budgets and folds its rows is its own configuration.
 
 - [Places have one short form](#places-have-one-short-form)
 
@@ -147,14 +140,14 @@ language's own idiom, Python's, which costs nothing: a normal form that happens 
 
 ### Places have one short form
 
-A minimap names the places a diagram lives in, and the sidebar that holds it is a few dozen characters wide. Left to the drawing, each place
-is cut where the width runs out, so two places that differ only at the end read as the same, and the cut falls inside a word. A place is
+A projection names places in a row only a few dozen characters wide, such as a diagram's sidebar. Left to whatever shows it, each place is
+cut where the width runs out, so two places that differ only at the end read as the same, and the cut falls inside a word. A place is
 already a path, and a path is already one entity ([ADR-AUTO-PATH](path-representation.md)); what is missing is one short way to write it.
 Dropping the prefix every module shares and writing the module in the repository normal form gives a row that is still a path, shorter, and
 one that reads the same wherever a name appears; keeping the dot for the path join alone means a row splits into track, module and folders
 without a guess. A module's folders share its row because the module is what a reader looks for. When even that is too long, whole names are
-kept and the rest is marked, never a name cut in the middle. Computing the rows once, beside the data, means every drawing of the same
-places prints the same rows, and the budget stays one setting.
+kept and the rest is marked, never a name cut in the middle. Computing the rows once, beside the data, means every projection of the same
+places prints the same rows, and its budget stays one setting.
 
 ### Acronyms are words
 
@@ -183,14 +176,12 @@ one assertion hold it over the tracked files.
 - **`Test-IdiomaticNames`** is the quality gate, in the `checks` of every language with a `naming:` entry; **`Assert-IdiomaticNames`**
   throws with the same findings.
 - **`Repair-IdiomaticNames`** moves a misnamed folder or file on disk, with `-DryRun`, and lists the tracked files that name the old path.
-- **`PlaceRows`** of `Catzc.Base.Maps` turns the lit places of the code-locations minimap into their rows and counters line, from the
-  `minimaps.places` budget of the maps config, and carries them in the minimap data as `place_rows`; `Get-CodeLocationsMinimapData` attaches
-  them, and the diagram kit prints them as given.
 
 ## Consequences
 
 - A reader of each language finds the names that language's tools and conventions expect.
-- A place has one short row, so the same place reads the same in every minimap, and a row cut at a segment boundary still names its place.
+- A place has one short row, so the same place reads the same in every projection, and a row cut at a segment boundary still names its
+  place.
 - A name has one identity across languages; a contract or a lookup names it once, and each language renders its own.
 - A new language's idiom is one `naming:` entry; a new case is a change to the closed set and its two directions, reviewed as mechanism.
 - Renaming a misnamed folder touches every file that names its path, so a rename is a step of its own, with those edits beside it.

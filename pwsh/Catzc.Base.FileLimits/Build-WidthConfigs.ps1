@@ -15,7 +15,7 @@ function Build-WidthConfigs {
         [string] $Target
     )
 
-    $template = Get-CatzcModuleRoot "assets/root/$Target" -Module Catzc.Base.RootConfig
+    $template = Join-Path (Get-CatzcModuleRoot 'assets/root' -Module Catzc.Base.RootConfig) $Target
     Assert-PathExist $template -PathType Leaf -ErrorText "Build-WidthConfigs: no template for '$Target' at '$template'."
     $text = [System.IO.File]::ReadAllText($template)
     $widths = @{}

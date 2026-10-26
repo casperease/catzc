@@ -1,6 +1,6 @@
 # ---
 # catzc:
-#   docs: "../../../docs/references/pwsh/catzc-base-globs/configs/globs.yml.md"
+#   docs: "../../../../docs/references/pwsh/catzc-base-globs/configs/globs/globs.yml.md"
 #   header: "generated"
 # ---
 
@@ -9,12 +9,13 @@ tests_optional:
   catzc-file-icons-tests: an icon theme rendered by pwsh, tested there; the script itself only registers the theme
 
 globsets:
+  # A whole track's set names its track; its include and exclude are derived from the track's members into track-sets.yml by
+  # Build-TrackGlobSets (FDR-CD-GLOBS-TRACKSETDERIVED).
   pwsh:
     description: The pwsh track - the module system under pwsh/.
     layer: loose-fileset
     pipeline: ci-pwsh
-    include:
-      - pwsh/**
+    track: pwsh
 
   infrastructure:
     description: The infrastructure track - the Bicep IaC tree, reusable modules and deployable templates.
@@ -23,8 +24,7 @@ globsets:
     verify:
       modules: [Catzc.Azure.Templates]
       level: 2
-    include:
-      - infrastructure/**
+    track: infrastructure
 
   templates:
     description: All infrastructure templates' shared surface - every template excluding deployment configuration.
@@ -125,6 +125,7 @@ globsets:
       - out/**
       - "**/.vendor/**"
       - "**/.venv/**"
+      - "**/.pytest_cache/**"
       - "**/node_modules/**"
 
   third-party:

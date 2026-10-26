@@ -40,3 +40,12 @@ Above `header: "generated"`, written with `#`.
 Whether a file of a class carries the facts its kinds produce, none at all, or only its authored config part; the first class that matches decides, else the default (facts on the type): a head only when a fact is non-empty.
 The note an authored head closes with, below its edges, that the head itself is generated; a file with no fact still carries no head.
 ```
+
+## comment:7
+
+Above `relative-edges:`, written with `#`.
+
+```text
+The comment page a file points at, only when it exists, as its path from the file's own folder; a test is found by convention, its
+stem under tests/.
+```

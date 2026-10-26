@@ -9,6 +9,7 @@ catzc:
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using Catzc.Base.Objects;
 
 namespace Catzc.Base.Globs;
 

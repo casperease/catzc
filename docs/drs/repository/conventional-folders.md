@@ -50,9 +50,9 @@ Documentation folders are markdown-only. `docs/` organizes its subfolders freely
 `.md` files — except the dot-prefixed `.assets/` folders, which hold the diagrams the markdown embeds. An `.assets/` folder sits beside the
 pages that embed its diagrams and holds each diagram as flat files named by the diagram, never a folder of its own: the render
 `<page-folder>/.assets/<name>.drawio.png` and, by default, its one source `<name>.drawio.yml` put to it (a diagram the kit's `drawio.yml`
-puts in the article carrier keeps its source as a `yml drawio` block in the article instead), so `<name>` is the diagram's only name; its
-minimaps are embedded in the render, drawn from computed data, never kept as files of their own. Each subfolder of `docs/drs/` is a
-decision-record **domain**: a group of decision records that `drs.yml` declares with its role and the domains it depends on.
+puts in the article carrier keeps its source as a `yml drawio` block in the article instead), so `<name>` is the diagram's only name; the
+projections it shows are embedded in the render, drawn from computed data, never kept as files of their own. Each subfolder of `docs/drs/`
+is a decision-record **domain**: a group of decision records that `drs.yml` declares with its role and the domains it depends on.
 
 - [Level 1: Repository root](#level-1-repository-root)
 
@@ -324,7 +324,7 @@ how cats works and why, in a subfolder per decision-record domain. These four ar
 topic buckets. The dot-prefixed `.assets/` holds the binary diagram assets (`*.drawio.png`) the markdown embeds — the one non-markdown
 content under `docs/`, set apart by the dot-prefix convention (ADR-REPO-FOLDERS-DOTMEANSTOOLING). A diagram is a pair of files in the
 `.assets/` beside the page that embeds it, so moving the diagram moves the pair and the page finds it by locality: `<name>.drawio.yml`, its
-declaration, the one source its words and cells live in, and `<name>.drawio.png`, put from it. A minimap's reasons travel in its computed
+declaration, the one source its words and cells live in, and `<name>.drawio.png`, put from it. A projection's reasons travel in its computed
 data and in the diagram's declaration.
 
 **`infrastructure/`** splits into `modules/` (reusable Bicep modules — flat `*.bicep`, _not_ discovered as templates) and

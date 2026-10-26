@@ -181,8 +181,8 @@ function Test-BurstHeld { `$event = `$null; if (-not [System.Threading.EventWait
     ) {
         $null = @(& $script:burst -StagedFolder 'out/widget/staged' -RepositoryRoot $script:root -Importer $script:importer -LockName $script:lockName -LockSeconds 1 -Seconds 30 @Commands)
         $LASTEXITCODE | Should -Be $Exit
-        $event = $null
-        [System.Threading.EventWaitHandle]::TryOpenExisting("$($script:lockName)-burst", [ref] $event) | Should -BeFalse
+        $handle = $null
+        [System.Threading.EventWaitHandle]::TryOpenExisting("$($script:lockName)-burst", [ref] $handle) | Should -BeFalse
     }
 
     It 'names no command, and stops' {

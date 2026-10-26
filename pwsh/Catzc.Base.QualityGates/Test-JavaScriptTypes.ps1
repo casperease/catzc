@@ -18,24 +18,18 @@ function Test-JavaScriptTypes {
     Assert-SourceTree
 
     $repositoryRoot = Get-RepositoryRoot
-    # The editor's project and the lenient one beside it; the lenient one holds no file once every module is raised, which tsc reports
-    # as no inputs and the loop below takes as nothing to check.
     $projects = @('jsconfig.json', 'jsconfig.lenient.json')
     foreach ($name in $projects) {
         Assert-PathExist (Join-Path $repositoryRoot $name) -PathType Leaf -ErrorText "Test-JavaScriptTypes: $name is missing; Build-RootConfig $name renders it."
     }
-    $tsc = Resolve-ToolExecutable -Tool typescript
-    Assert-True $tsc.Found -ErrorText 'Test-JavaScriptTypes: tsc is not installed (no managed TypeScript found). Run Install-TypeScript.'
+    $compiler = Resolve-ToolExecutable -Tool typescript
+    Assert-True $compiler.Found -ErrorText 'Test-JavaScriptTypes: tsc is not installed (no managed TypeScript found). Run Install-TypeScript.'
 
-    # tsc prints one line per error, path(line,col): error TSnnnn: message; exit 0 is clean, 1 or 2 is errors, anything
-    # else is tsc failing.
     $pattern = '^(?<file>.+?)\((?<line>\d+),(?<column>\d+)\): error (?<code>TS\d+): (?<message>.*)$'
     $issues = [System.Collections.Generic.List[string]]::new()
     foreach ($name in $projects) {
         $project = Join-Path $repositoryRoot $name
-        $check = Invoke-Executable "`"$($tsc.Path)`" --noEmit --pretty false -p `"$project`"" -WorkingDirectory $repositoryRoot -PassThru -NoAssert -Silent
-        # A project left with no files (every module raised out of the lenient one) has nothing to check, which tsc
-        # reports as TS18003.
+        $check = Invoke-Executable "`"$($compiler.Path)`" --noEmit --pretty false -p `"$project`"" -WorkingDirectory $repositoryRoot -PassThru -NoAssert -Silent
         $lines = @($check.Output -split '\r?\n')
         if ($check.ExitCode -ne 0 -and @($lines -match 'error TS18003:').Count -gt 0 -and
             @($lines -match $pattern).Count -eq 0) {

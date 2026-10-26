@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  docs: "../../../../docs/references/pwsh/catzc-base-languages/tests/types/LanguagesConfig.Naming.Tests.ps1.md"
+  docs: "../../../../docs/references/pwsh/catzc-base-languages/tests/types/LanguageNaming.Tests.ps1.md"
   header: "generated"
 ---
 #>

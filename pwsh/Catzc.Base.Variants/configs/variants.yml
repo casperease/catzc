@@ -27,12 +27,23 @@ aspects:
     - live: ["**"]
 
 tracks:
+  # The gitignored build outputs are members too, so a clean finds them in the model; each one's generated fact comes from its
+  # generator's target.
   pwsh:
     {
-      members: [pwsh],
+      members:
+        [
+          pwsh,
+          { path: pwsh/*/*.psd1, committed: false },
+          { path: pwsh/.compiled/*.dll, committed: false },
+          { path: pwsh/.compiled/*.tmp, committed: false },
+          { path: pwsh/.internal/assets/bin/**, committed: false },
+          { path: pwsh/.internal/assets/obj/**, committed: false },
+        ],
       type: modules,
       languages: [powershell, bcl, yaml, json, jsonl, bash, xml, css, javascript, solution, stamp, asset],
       execution_engines: [pwsh],
+      namespace: Catzc,
     }
   pwsh-vendor: { members: [pwsh/.vendor], type: vendored-code }
   infrastructure:

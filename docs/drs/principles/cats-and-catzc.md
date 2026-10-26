@@ -4,9 +4,9 @@
 
 ### Rule PDR-CATS-CATZCISSOURCENAME
 
-**catzc** is the source-level name of the system: the `Catzc.*` module prefix, the C# `Catzc.*` namespaces, the `Catzc.` type-accelerator
-prefix, and the literal product token in code, configuration keys, contract paths and precise references. Code and the facts the tooling
-writes say catzc.
+**catzc** is the source-level name of the system: the `Catzc` token that opens every full module name, declared once as the `pwsh` track's
+module namespace rather than repeated in each module folder, the C# `Catzc.*` namespaces, the `Catzc.` type-accelerator prefix, and the
+literal product token in code, configuration keys, contract paths and precise references. Code and the facts the tooling writes say catzc.
 
 - [Two names, two audiences](#two-names-two-audiences)
 - [The inner namespace](#the-inner-namespace)

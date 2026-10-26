@@ -255,8 +255,6 @@ function Test-Plans {
         else {
             $state = @($valueRow.Trim().Trim('|') -split '\|')[-1]
             & $assertCount $state "its row in $($Config.value_file)"
-            # A row holds as many cells as its table's header, so a cell lost or added never shifts the columns unseen.
-            # The header is the first line of the row's own table, the unbroken run of table lines it sits in.
             $at = [array]::IndexOf($valueLines, $valueRow)
             while ($at -gt 0 -and $valueLines[$at - 1] -match '^\s*\|') {
                 $at--

@@ -53,7 +53,7 @@ function Test-Terminology {
         if ($reserved.Count -gt 0) {
             $allowed = @(if ($config.categoryScopes.ContainsKey('reserved')) {
                     $config.categoryScopes['reserved'] |
-                        ForEach-Object { [Catzc.Base.Globs.GlobPattern]::new($_.ToLowerInvariant()) }
+                        ForEach-Object { [Catzc.Base.Objects.GlobPattern]::new($_.ToLowerInvariant()) }
                 })
             foreach ($relative in @(Get-GitTrackedPath '.')) {
                 $lowered = $relative.ToLowerInvariant()

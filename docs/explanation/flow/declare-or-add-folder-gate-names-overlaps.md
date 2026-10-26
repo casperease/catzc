@@ -15,8 +15,8 @@ Supports FDR-CD-GLOBS-EVERYSETHASLAYER and FDR-CD-GLOBS-NOOVERLAPWITHINLAYER (op
 ```
 
 Changing what cats maps takes either an edit to `globs.yml` or a new folder. Deployable-units and loose-filesets are declared in
-`pwsh/Catzc.Base.Globs/configs/globs.yml`; a module is added by adding its folder under `pwsh/`. One run of `Test-GlobSetIndependence` then
-either passes or names every same-layer pair that shares a file.
+`pwsh/Catzc.Base.Globs/configs/globs/globs.yml`; a module is added by adding its folder under `pwsh/`. One run of `Test-GlobSetIndependence`
+then either passes or names every same-layer pair that shares a file.
 
 ```yml drawio
 description:

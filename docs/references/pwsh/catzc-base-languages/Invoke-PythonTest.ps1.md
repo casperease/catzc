@@ -129,7 +129,7 @@ commands only, then restored. UV_PYTHON_DOWNLOADS=never keeps uv on the managed 
 
 ## comment:4
 
-Above `if ($run.ExitCode -ne 0 -and -not ($run.ExitCode -eq 1 -and @($results |...`, written with `#`.
+Above `if ($run.ExitCode -ne 0 -and -not ($run.ExitCode -eq 1 -and`, written with `#`.
 
 ```text
 pytest exits 1 when a test failed; any other non-zero exit, or 1 with no failing test, means it failed around

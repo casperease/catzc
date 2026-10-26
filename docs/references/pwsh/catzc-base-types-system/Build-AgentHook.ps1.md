@@ -59,7 +59,7 @@ Build-AgentHook -Name Assert-BashTimeout -Force
 
 ## comment:1
 
-Above `$sources = @(Get-ChildPath $project -File -Filter '*.cs', '*.csproj' -Depth 1...`, written with `#`.
+Above `$sources = @(Get-ChildPath $project -File -Filter '*.cs',`, written with `#`.
 
 ```text
 The sources are this folder's *.cs/*.csproj plus every linked <Compile Include> (the module types the hook

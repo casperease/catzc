@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  docs: "../../../../docs/references/pwsh/catzc-base-globs/tests/types/GlobPattern.Tests.ps1.md"
+  docs: "../../../../docs/references/pwsh/catzc-base-objects/tests/types/GlobPattern.Tests.ps1.md"
   header: "generated"
 ---
 #>
@@ -10,7 +10,7 @@ Describe 'GlobPattern' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:match = {
             param([string] $pattern, [string] $path)
-            [Catzc.Base.Globs.GlobPattern]::new($pattern).Matches($path)
+            [Catzc.Base.Objects.GlobPattern]::new($pattern).Matches($path)
         }
     }
 
@@ -77,38 +77,38 @@ Describe 'GlobPattern' -Tag 'L0', 'logic' {
             @{ pattern = 'a/x**/b'; why = '** embedded inside a segment' }
             @{ pattern = 'a/[ab.md'; why = 'a malformed wildcard segment (unclosed [)' }
         ) {
-            { [Catzc.Base.Globs.GlobPattern]::new($pattern) } | Should -Throw
+            { [Catzc.Base.Objects.GlobPattern]::new($pattern) } | Should -Throw
         }
 
         It 'reports the offending pattern in the error' {
-            { [Catzc.Base.Globs.GlobPattern]::new('a/x**/b') } | Should -Throw '*a/x`*`*/b*'
+            { [Catzc.Base.Objects.GlobPattern]::new('a/x**/b') } | Should -Throw '*a/x`*`*/b*'
         }
     }
 
     Context 'match input handling' {
         It 'matches nothing on a null or empty path' {
-            $p = [Catzc.Base.Globs.GlobPattern]::new('**')
+            $p = [Catzc.Base.Objects.GlobPattern]::new('**')
             $p.Matches($null) | Should -BeFalse
             $p.Matches('') | Should -BeFalse
         }
 
         It 'exposes the authored pattern' {
-            [Catzc.Base.Globs.GlobPattern]::new('a/**/b').Pattern | Should -Be 'a/**/b'
-            "$([Catzc.Base.Globs.GlobPattern]::new('a/**/b'))" | Should -Be 'a/**/b'
+            [Catzc.Base.Objects.GlobPattern]::new('a/**/b').Pattern | Should -Be 'a/**/b'
+            "$([Catzc.Base.Objects.GlobPattern]::new('a/**/b'))" | Should -Be 'a/**/b'
         }
     }
 
     Context 'matching a path list in one call' {
         It 'names the folder before the first wildcard segment as the literal prefix' {
-            [Catzc.Base.Globs.GlobPattern]::new('widget/gadget/**').LiteralPrefix | Should -Be 'widget/gadget/'
-            [Catzc.Base.Globs.GlobPattern]::new('widget/*/spin.yml').LiteralPrefix | Should -Be 'widget/'
-            [Catzc.Base.Globs.GlobPattern]::new('**/README.md').LiteralPrefix | Should -Be ''
-            [Catzc.Base.Globs.GlobPattern]::new('widget/spin.yml').LiteralPrefix | Should -Be 'widget/'
+            [Catzc.Base.Objects.GlobPattern]::new('widget/gadget/**').LiteralPrefix | Should -Be 'widget/gadget/'
+            [Catzc.Base.Objects.GlobPattern]::new('widget/*/spin.yml').LiteralPrefix | Should -Be 'widget/'
+            [Catzc.Base.Objects.GlobPattern]::new('**/README.md').LiteralPrefix | Should -Be ''
+            [Catzc.Base.Objects.GlobPattern]::new('widget/spin.yml').LiteralPrefix | Should -Be 'widget/'
         }
 
         It 'keeps the paths any pattern matches, in their order, once each' {
             $paths = [string[]] @('gadget/b.yml', 'widget/a.txt', 'docs/index.md', 'gadget/c.txt', 'widget/deep/d.txt')
-            $kept = [Catzc.Base.Globs.GlobPattern]::MatchingPaths([string[]] @('widget/**', 'gadget/*.yml',
+            $kept = [Catzc.Base.Objects.GlobPattern]::MatchingPaths([string[]] @('widget/**', 'gadget/*.yml',
                     'widget/a.txt'), $paths)
             @($kept) | Should -Be @('gadget/b.yml', 'widget/a.txt', 'widget/deep/d.txt')
         }
@@ -117,8 +117,8 @@ Describe 'GlobPattern' -Tag 'L0', 'logic' {
             $patterns = [string[]] @('widget/*/spin.yml', '**/README.md')
             $paths = [string[]] @('widget/gadget/spin.yml', 'widget/spin.yml', 'README.md', 'gadget/README.md',
                 'widget/gadget/deep/spin.yml')
-            $expected = @($paths | Where-Object { $p = $_; @($patterns | Where-Object { [Catzc.Base.Globs.GlobPattern]::new($_).Matches($p) }).Count -gt 0 })
-            @([Catzc.Base.Globs.GlobPattern]::MatchingPaths($patterns, $paths)) | Should -Be $expected
+            $expected = @($paths | Where-Object { $p = $_; @($patterns | Where-Object { [Catzc.Base.Objects.GlobPattern]::new($_).Matches($p) }).Count -gt 0 })
+            @([Catzc.Base.Objects.GlobPattern]::MatchingPaths($patterns, $paths)) | Should -Be $expected
         }
     }
 }

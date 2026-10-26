@@ -137,14 +137,12 @@ with no code of its own (the index, a domain's `dora-explains`) takes the file n
 
 ### Code links in the editor
 
-VS Code's built-in link detection does not read markdown links outside `.md` files, so a code link needs one workspace rule to be
-Ctrl+clickable. The repository's VS Code registries carry it, version-controlled like every other editor setting: the extension
-recommendations (`pwsh/Catzc.Base.VSCode/configs/vscode-extensions.yml`) recommend Regex Robin, and the workspace settings
-(`vscode-settings.yml`) hold one `regexrobin.rules` entry that matches `[…](/docs/drs/<path>.md…)` in any language and opens
-`file:///${workspaceFolder}/docs/drs/<path>.md`. The rule relies only on the repository's own layout — every target exists at its rooted
-path in the checked-out workspace — so it works in any clone without per-user setup beyond installing the recommended extension. The
-`#rule-…` fragment is not passed to the editor, which opens a file by line rather than by heading: the click lands on the ADR, and the rule
-is one search away. Markdown links need no rule; the built-in markdown support already resolves them.
+VS Code's built-in link detection does not read markdown links outside `.md` files, so a code link needs a link provider to be
+Ctrl+clickable. The repository ships its own: the `catzc-drs-links` extension, declared in
+`pwsh/Catzc.Base.VSCode/configs/vscode-extensions.yml` and built like every other cats extension, matches `[…](/docs/drs/<path>.md…)` in any
+file and opens `docs/drs/<path>.md` with its `#rule-…` fragment kept. It relies only on the repository's own layout — every target exists at
+its rooted path in the checked-out workspace — so it works in any clone once the cats extensions are installed. Markdown links need no
+provider; the built-in markdown support already resolves them.
 
 The same registry turns on VS Code's built-in markdown link validation (`markdown.validate.*`), so a dangling file or a bad `#fragment` in a
 `.md` file shows as a warning while it is being written, and `markdown.updateLinksOnFileMove` offers to re-point relative links when a file
@@ -204,9 +202,9 @@ mechanically and `Test-Links` checks them.
   and an ADR that links into code, from the same walk of the same files ([links-in-repository](links-in-repository.md)).
 - **One engine** — both commands drive the compiled `Catzc.Base.QualityGates.LinkEngine` over the files in parallel, with the citation map
   from `Get-DrsCitationMap` (in `Catzc.Base.Docs`), so the aligner and the gate cannot disagree.
-- **The VS Code registries** — `vscode-extensions.yml` recommends Regex Robin and `vscode-settings.yml` carries the `regexrobin.rules`
-  code-link rule, and `vscode-settings.yml` enables markdown link validation and link updates on file moves; `Build-RootConfig` renders both
-  into `.vscode/`, so every clone gets the same Ctrl+clickable code links and in-editor link warnings.
+- **The VS Code registries** — `vscode-extensions.yml` declares the `catzc-drs-links` extension that makes code links clickable, and
+  `vscode-settings.yml` enables markdown link validation and link updates on file moves; `Build-RootConfig` renders the settings into
+  `.vscode/`, so every clone gets the same Ctrl+clickable code links and in-editor link warnings.
 
 ## Consequences
 
@@ -214,8 +212,8 @@ mechanically and `Test-Links` checks them.
   `Format-Links` rather than found by a reader.
 - Comment lines grow. A code link is longer than the bare citation it replaces, so many comment lines are wrapped onto a second line; the
   aligner breaks before a link, never inside it.
-- In VS Code a code link is Ctrl+clickable through the recommended Regex Robin extension and the version-controlled workspace rule; it opens
-  the ADR file, not the rule's heading. Without the extension the link is plain text in the editor, but nothing breaks.
+- In VS Code a code link is Ctrl+clickable through the `catzc-drs-links` extension; it opens the ADR file at the rule's fragment. Without
+  the extension the link is plain text in the editor, but nothing breaks.
 - GitHub's source view does not render markdown in code files, so there a code link is text; it is a valid link wherever the text is
   rendered as markdown, and its rooted destination reads as the file's repository path.
 - Markdown fragments are checked against GitHub's slugs, so a renamed heading breaks the build instead of silently breaking its links.

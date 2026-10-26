@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "073cd40d3776"
+#     with_body_sha: "226ecb765e17"
 #     warning: "Do Not Edit, this file is generated"
 # ---
 
@@ -87,12 +87,11 @@ pwsh/**/*.psd1
 # a contract asset named README.md pins its target; contracts/README.md stays generated
 !contracts/*/**/README.md
 
-# ── Compiled C# types — the DLL is a per-machine build ──────────────────────────────────────────────────────────────
-# Git keeps only the manifest, pwsh/.compiled/Catzc.Types.<hash>.json; the combined assembly is built per machine into
-# the per-user shadow root (see docs/drs/automation/caching.md), so a DLL or a concurrent-compile temp file under
-# pwsh/.compiled is never committed.
-pwsh/.compiled/*.dll
-pwsh/.compiled/*.tmp
+# ── Compiled C# types — a per-machine build, never committed ────────────────────────────────────────────────────────
+# The combined assembly and its manifest are a per-machine build in the per-user shadow root, keyed by the source hash
+# (see docs/drs/automation/caching.md), so git keeps no file under pwsh/.compiled. What a consumer binds to, the types
+# surface, is the provided contract in contracts/catzc/0.1.0/catzc.internal.types/.
+pwsh/.compiled/
 
 # ── IDE-only C# project build output ────────────────────────────────────────────────────────────────────────────────
 # The root catzc.sln references pwsh/.internal/assets/Catzc.Types.csproj for editor tooling, and MSBuild emits obj/bin

@@ -62,3 +62,12 @@ Above `- ${{ if gt(length(parameters.Expeditions), 0) }}:`, written with `#`.
 A customer without an expedition config passes an empty Expeditions list: Build-Bicep
 throws when no slot matches, so the build, its artifact, and its deploy stage are skipped.
 ```
+
+## comment:4
+
+Above `fetchDepth: 0`, written with `#`.
+
+```text
+Test-GlobSetAffected diffs real refs
+([FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT](/docs/drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-changecomputedfromgit))
+```

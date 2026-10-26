@@ -48,8 +48,9 @@ Three things can sit in front matter, and only the first is a fact:
 
 Every imprinted kind is an entry of `pwsh/Catzc.Base.QualityGates/configs/file-meta.yml` with a `Get-<Kind>FileMetaFact` processor
 ([ADR-REPO-FILEMETA-METAKIND](../drs/repository/file-meta.md#rule-adr-repo-filemeta-metakind),
-[ADR-REPO-FILEMETA-SUBSCRIBEBYFUNCTION](../drs/repository/file-meta.md#rule-adr-repo-filemeta-subscribebyfunction)), and each derives from
-outside the head:
+[ADR-REPO-FILEMETA-SUBSCRIBEBYFUNCTION](../drs/repository/file-meta.md#rule-adr-repo-filemeta-subscribebyfunction)). A kind's id names its
+subscriber, so kind `drs-codes` calls `Get-DrsCodesFileMetaFact`, and renaming either means renaming both. Each kind derives from outside
+the head:
 
 - **`path`, `folder`, `name`, `filetype`**: the path
 - **`kind`, `subkind`**: `file-kinds.yml` by glob

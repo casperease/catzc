@@ -1,14 +1,15 @@
 Describe 'Test-TrackMemberCommitted' -Tag 'L0', 'logic', 'DDR-TRACK-TRACKISPLACEDCLUSTER' {
     BeforeAll {
         function script:New-Member {
-            param([string] $Path, [bool] $Committed = $true)
-            [Catzc.Base.Variants.TrackMember]::new('widget', [Catzc.Base.Variants.VariantMember]::new($Path, $false,
+            param([string] $Path, [bool] $Committed = $true, [bool] $Generated = $false)
+            [Catzc.Base.Variants.TrackMember]::new('widget', [Catzc.Base.Variants.VariantMember]::new($Path, $Generated,
                     $Committed))
         }
     }
 
     BeforeEach {
         Mock Assert-SourceTree -ModuleName Catzc.Base.QualityGates { }
+        Mock Get-GeneratedTarget -ModuleName Catzc.Base.QualityGates { }
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.QualityGates { $TestDrive }
         # The index tracks one file under every member unless a case says otherwise.
         Mock Get-GitTrackedPath -ModuleName Catzc.Base.QualityGates { "$Path/widget.txt" }
@@ -31,6 +32,19 @@ Describe 'Test-TrackMemberCommitted' -Tag 'L0', 'logic', 'DDR-TRACK-TRACKISPLACE
             Should -Contain "track 'widget': member 'widget' is declared committed, but git tracks none of it"
         $result.Issues |
             Should -Contain "track 'widget': member 'widget.cache' is declared not committed, but git tracks 1 file(s) of it, e.g. 'widget.cache/stray.txt'"
+    }
+
+    It 'names a member that declares generated while a generator already writes it, and passes one only the member declares' {
+        Mock Get-GeneratedTarget -ModuleName Catzc.Base.QualityGates {
+            [pscustomobject]@{ path = 'widget/**'; generator = 'Build-Widget' }
+        }
+        Mock Get-TrackMember -ModuleName Catzc.Base.QualityGates {
+            New-Member 'widget/rendered.md' -Generated $true; New-Member 'gadget.cache' -Generated $true
+        }
+        $result = Test-TrackMemberCommitted -PassThru -OutputFolder $script:outputFolder
+        $result.IssueCount | Should -Be 1
+        $result.Issues |
+            Should -Be "track 'widget': member 'widget/rendered.md' declares generated, but Build-Widget already writes it as a generated target; drop the declaration"
     }
 
     It 'leaves a committed member alone while nothing of it is on disk yet' {

@@ -112,7 +112,7 @@ function Resolve-ContractAsset {
         $Tracked.Paths = [string[]] @(Get-GitTrackedPath '.')
     }
     $globs = [string[]] @($AppliesTo[$key])
-    $targets = [Catzc.Base.Globs.GlobPattern]::MatchingPaths($globs, $Tracked.Paths)
+    $targets = [Catzc.Base.Objects.GlobPattern]::MatchingPaths($globs, $Tracked.Paths)
     if ($targets.Count -eq 0) {
         throw "${manifest}: applies_to of '$key' matches no tracked file ($($globs -join ', ')) (ADR-REPO-CONTRACT-CONFIGUREDADDRESSING)."
     }

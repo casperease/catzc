@@ -117,3 +117,12 @@ Above `public FileLanguage ForPath(string path)`, written with `//`.
 The file language of a file path, by the longest extension a language declares, so x.widget.yml takes the language that declares
 .widget.yml while x.yml keeps the one that declares .yml; null when no extension of the file names one.
 ```
+
+## comment:12
+
+Above `public string FolderOf(string role)`, written with `//`.
+
+```text
+The module subfolder the layout gives a role (e.g. test, private-function): the one resolver of a folder-name setting
+([ADR-REPO-FOLDERS-NAMESARESETTINGS](/docs/drs/repository/conventional-folders.md#rule-adr-repo-folders-namesaresettings)).
+```

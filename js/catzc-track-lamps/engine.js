@@ -247,8 +247,8 @@ function activateEngine(context, api) {
     );
     const count = async (/** @type {Awaited<ReturnType<typeof apply>>} */ applied) => {
         if (!applied) return;
-        const { root, out, vetoed, wanted, open, disk } = applied;
-        const tally = await census(root, out, filters(), wanted, open, vetoed, disk);
+        const { root, out, vetoed, wanted, open, disk, verdict } = applied;
+        const tally = await census(root, out, filters(), wanted, open, vetoed, disk, verdict);
         const matrix = Object.entries(tally.signatures)
             .sort((a, b) => b[1] - a[1])
             .map(([signature, files]) => `${signature}: ${files}`);

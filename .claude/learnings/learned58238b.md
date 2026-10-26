@@ -68,7 +68,7 @@ Started 2026-10-25T19:43:41.2738963+01:00.
 - 2026-10-25 Cats: In hindsight I wish I knew this fact: one diagram render is about 1 s inside python and an empty uv start 0.1 s, so the
   per-diagram process cost was the imports and repeated registry reads, not uv.
 - 2026-10-25 Cats: In hindsight I wish I knew this fact: minimaps.registry reads through read_registry, cached by full path with libyaml
-  (yaml.__with_libyaml__ is true in the kit venv), so a test that swaps minimaps.REPO needs no cache_clear for it.
+  (`yaml.__with_libyaml__` is true in the kit venv), so a test that swaps minimaps.REPO needs no cache_clear for it.
 - 2026-10-25 Cats: In hindsight I wish I knew this fact: Git Bash on this devbox has no bc, so timings belong in a pwsh Stopwatch, not shell
   arithmetic.
 - 2026-10-25 Cats: Token tip: Next time, save tokens by: print profile timings with Write-Host, since $x = & $block captures the timing line

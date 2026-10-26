@@ -32,5 +32,5 @@ cell keeps its behaviour. Nothing spawns a process.
 
 ## Open steps
 
-10. [ ] Untrack the committed `pwsh/.compiled/*.dll` and commit the current manifest: the user's git step. Check: the user's commit
-        (task-user-runs-and-commits), then `Import-CSharpTypes.Shipped.Tests.ps1` green.
+1. [ ] Untrack the committed `pwsh/.compiled/*.dll` and commit the current manifest: the user's git step. Check: the user's commit
+       (task-user-runs-and-commits), then `Import-CSharpTypes.Shipped.Tests.ps1` green.

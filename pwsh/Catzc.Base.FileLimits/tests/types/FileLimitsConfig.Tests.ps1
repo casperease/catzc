@@ -1,5 +1,11 @@
-# The type is the only place a file-limits default lives, and its bounds are asserted on construction so a wrong number
-# never reaches a gate.
+<#
+---
+catzc:
+  docs: "../../../../docs/references/pwsh/catzc-base-file-limits/tests/types/FileLimitsConfig.Tests.ps1.md"
+  header: "generated"
+---
+#>
+
 Describe 'FileLimitsConfig' -Tag 'L0', 'logic' {
     It 'takes the declared defaults for every omitted key' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
         $config = [Catzc.Base.FileLimits.FileLimitsConfig]::new(@{})

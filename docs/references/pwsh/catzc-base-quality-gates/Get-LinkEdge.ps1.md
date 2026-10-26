@@ -31,7 +31,7 @@ The repository root. Default: the loaded repository.
 
 ## comment:1
 
-Above `[Parameter(Mandatory)]`, written with `#`.
+Above `[Parameter(Mandatory, Position = 0)]`, written with `#`.
 
 ```text
 The repository path whose incoming relations are wanted; a folder takes every relation into what lies under

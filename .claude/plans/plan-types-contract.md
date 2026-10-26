@@ -26,20 +26,9 @@ and free to change in place (ADR-REPO-CONTRACT-CURRENTVERSION). The tracked file
 
 ## Open steps
 
-5. [ ] Bundle: `Get-ModuleBuildPlan.ps1` keeps shipping `.compiled/Catzc.Types.<hash>.json` beside the DLL (a bundle's local cache key, not
-       the contract); `Invoke-ModuleBuild` runs the step-4 check before packing. Check: `Invoke-ModuleBuild.Tests.ps1` green.
-6. [ ] Pipeline cache: `.ado/pipelines/steps/cache-types.yaml` keys on the sources, `pwsh/**/types/**/*.cs` and
-       `pwsh/.internal/assets/Catzc.Types.csproj`, not `pwsh/.compiled/*.json`; regenerate its reference page. Check: `Test-Contracts` (ado
-       pipeline schema) and `Test-GeneratedFiles` green.
-7. [ ] Gitignore: the `compiled-types` entry in `pwsh/Catzc.Base.Git/configs/gitignore.yml` ignores all of `pwsh/.compiled/`, its
-       description says the contract lives in `contracts/catzc/0.1.0/catzc.internal.types/`; rebuild `.gitignore`. The file has uncommitted
-       edits from another session: land this after they are committed. Check: `git status --ignored pwsh/.compiled` lists every file
-       ignored.
-8. [ ] Contract map and reference: `Build-ContractReference` regenerates `docs/references/contracts/catzc.md`. Check: `Test-GeneratedFiles`
-       green.
-9. [ ] Supersedes step 10 of `plan-types-build-local.md` ("commit the current manifest"); strike it there once that file is clean. The
-       untracking of `pwsh/.compiled/Catzc.Types.*.json` is the user's git step (`git rm --cached`), in task-user-runs-and-commits. Check:
-       `git ls-files pwsh/.compiled` prints nothing.
+1. [ ] Supersedes the untrack-and-commit step of `plan-types-build-local.md` ("commit the current manifest"); strike it there once that file
+       is clean. The untracking of `pwsh/.compiled/Catzc.Types.*.json` is the user's git step (`git rm --cached`), in
+       task-user-runs-and-commits. Check: `git ls-files pwsh/.compiled` prints nothing.
 
 ## Open questions
 

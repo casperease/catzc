@@ -20,6 +20,10 @@ function Test-TrackDeclaration {
         if (-not $trackType) {
             $violations.Add("track '$($track.name)': track type '$($track.type)' is not declared in track-types.yml")
         }
+        # A namespace names a track's module folders, so only a track whose type admits modules may declare one.
+        if ($track.namespace -and $trackType -and @($trackType.admits).Count -eq 0) {
+            $violations.Add("track '$($track.name)': namespace '$($track.namespace)' on a track of type '$($track.type)', which holds no modules")
+        }
         if ($track.vendor -and -not $trackTypes.VendorOf($track.vendor)) {
             $violations.Add("track '$($track.name)': vendor '$($track.vendor)' is not declared in track-types.yml")
         }

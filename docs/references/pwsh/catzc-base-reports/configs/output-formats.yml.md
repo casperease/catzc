@@ -37,3 +37,23 @@ Above `max_age: none`, written with `#`.
 a plan cannot be regenerated
 ([ADR-REPO-OUTDIR-PLANNOTES](/docs/drs/repository/dedicated-output-directory.md#rule-adr-repo-outdir-plannotes)), so a person retires it
 ```
+
+## comment:3
+
+Above `session-log:`, written with `#`.
+
+```text
+The time safeguard log is never pruned
+([ADR-REPO-OUTDIR-EVERYFILEHASFORMAT](/docs/drs/repository/dedicated-output-directory.md#rule-adr-repo-outdir-everyfilehasformat)):
+it is the record the limits are tuned from, and the hook appends to it for as long as the repository is worked in; a session's own
+logs belong in its session folder, and Clear-Output -All is the one way the top of out/ is emptied.
+```
+
+## comment:4
+
+Above `output-keep:`, written with `#`.
+
+```text
+---- the folder's own keep file ----
+([ADR-REPO-OUTDIR-OUTGITIGNORED](/docs/drs/repository/dedicated-output-directory.md#rule-adr-repo-outdir-outgitignored))
+```

@@ -25,7 +25,7 @@ function Get-TerminologyCorpus {
         [System.StringComparer]::OrdinalIgnoreCase)
 
     $ignored = @(foreach ($glob in ([System.IO.File]::ReadAllText([Catzc.Base.RootConfig.RootConfigFiles]::SpellingConfigPath($Root)) | ConvertFrom-Yaml).ignorePaths) {
-            [Catzc.Base.Globs.GlobPattern]::new($(if ($glob.Contains('/')) {
+            [Catzc.Base.Objects.GlobPattern]::new($(if ($glob.Contains('/')) {
                         $glob
                     }
                     else {

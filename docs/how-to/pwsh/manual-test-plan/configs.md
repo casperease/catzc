@@ -275,7 +275,7 @@ carrier entry (ADR-REPO-FILEMETA-KINDSCOPE).
 
 ### 26. integrity (shipped languages.yml layout)
 
-**Test file:** `pwsh/Catzc.Base.Languages/tests/types/LanguagesConfig.Naming.Tests.ps1` (L0), block
+**Test file:** `pwsh/Catzc.Base.Languages/tests/types/LanguageNaming.Tests.ps1` (L0), block
 `integrity (shipped languages.yml layout)`.
 
 **Guards:** The shipped languages.yml layout places the five live folders the aspects were written with, and the shared tests folder is not

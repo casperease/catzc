@@ -1,0 +1,29 @@
+# ---
+# catzc:
+#   immutable:
+#     warning: "Do Not Edit, this file is generated"
+# ---
+
+# The derived patterns of every whole track's set that globs.yml declares (FDR-CD-GLOBS-TRACKSETDERIVED).
+globsets:
+  pwsh:
+    include:
+      - "pwsh/**"
+    exclude:
+      - "pwsh/*/*.psd1"
+      - "pwsh/*/README.md"
+      - "pwsh/.compiled/**"
+      - "pwsh/.internal/assets/Catzc.Types.csproj"
+      - "pwsh/.internal/assets/bin/**"
+      - "pwsh/.internal/assets/importer-commands.sh"
+      - "pwsh/.internal/assets/obj/**"
+      - "pwsh/Catzc.Base.Globs/configs/globs/track-sets.yml"
+  infrastructure:
+    include:
+      - "infrastructure/**"
+    exclude:
+      - "infrastructure/README.md"
+      - "infrastructure/modules/README.md"
+      - "infrastructure/templates/discovery/README.md"
+      - "infrastructure/templates/expedition/README.md"
+      - "infrastructure/templates/foundation/README.md"

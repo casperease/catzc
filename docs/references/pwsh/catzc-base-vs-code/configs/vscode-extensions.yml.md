@@ -82,3 +82,21 @@ Above `language:`, written with `#`.
 One lamp per tagged language of the languages config, named lang-<name> and labelled with its tag; the languages button ticks
 which of them stand in the row, after the filters.
 ```
+
+## comment:11
+
+Above `extensions:`, written with `#`.
+
+```text
+The repository's own extensions: each renders to out/vscode-extensions/<name>/ from its js track module, js/<name>/extension.js
+and assets/.
+```
+
+## comment:12
+
+Above `colors:`, written with `#`.
+
+```text
+The lamps' one mapping ([DDR-FILTER-STATEALWAYSSHOWN](/docs/drs/design/repository-filters.md#rule-ddr-filter-statealwaysshown)):
+local work in progress is blue-grey, staged dark, unstaged lighter.
+```

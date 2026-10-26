@@ -284,8 +284,8 @@ drawing. Its lens badge prints PROOF, and its subtitle ends in `proof`.
 
 A **legend band** is the one band under every drawing, band diagrams included, and a **legend segment** is one captioned box of it, as wide
 as the part of the drawing it stands under: Action and Proof under the frame, Map key under the sidebar. In every segment the swatches stand
-centred in a left column and the words are left-aligned beside them. The band never starts above the bottom of the sidebar's minimaps, so a
-drawing shorter than the sidebar leaves room beneath itself and the band stays under the sidebar.
+centred in a left column and the words are left-aligned beside them. The band never starts above the bottom of the sidebar's projections, so
+a drawing shorter than the sidebar leaves room beneath itself and the band stays under the sidebar.
 
 - [One legend band](#one-legend-band)
 

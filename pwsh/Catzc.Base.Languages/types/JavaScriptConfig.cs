@@ -1,3 +1,11 @@
+/*
+---
+catzc:
+  docs: "../../../docs/references/pwsh/catzc-base-languages/types/JavaScriptConfig.cs.md"
+  header: "generated"
+---
+*/
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,8 +23,6 @@ public sealed class JavaScriptConfig : Catzc.Base.Objects.DictionaryRecord
     // The JavaScript root otherwise: the dot-prefixed tooling folder.
     public const string FallbackRoot = ".js";
 
-    // The repository-relative, gitignored folder the tooling installs the type declarations into (npm --prefix), so the generated
-    // jsconfig.json names the same relative type root on every machine.
     public const string DefaultTypesFolder = ".typescript";
 
     private const string Failed = "javascript config validation failed:\n";

@@ -18,13 +18,5 @@ function Get-DrsDefinedRule {
         $Form = (Get-Config -Config drs).CodeForm
     )
 
-    $rules = [System.Collections.Generic.List[string]]::new()
-    $ruleHeading = "(?m)^###[ \t]+Rule[ \t]+(?<code>$($Form.Rule))[ \t]*\r?$"
-    foreach ($match in [regex]::Matches($Text, $ruleHeading)) {
-        $citation = $match.Groups['code'].Value
-        if (-not $rules.Contains($citation)) {
-            $rules.Add($citation)
-        }
-    }
-    [string[]] $rules.ToArray()
+    [string[]] [Catzc.Base.Drs.DrsCitationScanner]::new($Form, $null).DefinedRules($Text)
 }

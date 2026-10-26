@@ -28,7 +28,7 @@ function Get-GeneratedWriterStamp {
     $salts = [System.Collections.Generic.List[string]]::new()
     foreach ($entry in $Writer) {
         $globs = [string[]] @($entry.inputs | Where-Object { $_ })
-        $matched = [Catzc.Base.Globs.GlobPattern]::MatchingPaths($globs, [string[]] @($Walk.File))
+        $matched = [Catzc.Base.Objects.GlobPattern]::MatchingPaths($globs, [string[]] @($Walk.File))
         $folderGlobs = [string[]] @(foreach ($glob in $globs) {
                 $slash = $glob.LastIndexOf('/')
                 if ($slash -gt 0 -and $glob.IndexOfAny([char[]] '*?[') -ge 0 -and
@@ -36,7 +36,7 @@ function Get-GeneratedWriterStamp {
                     $glob.Substring(0, $slash)
                 }
             })
-        $folders = [Catzc.Base.Globs.GlobPattern]::MatchingPaths($folderGlobs, [string[]] @($Walk.Folder))
+        $folders = [Catzc.Base.Objects.GlobPattern]::MatchingPaths($folderGlobs, [string[]] @($Walk.Folder))
         $salt = (@($folders | Sort-Object) | ForEach-Object { "folder:$_" }) -join ';'
         if ($matched.Count -eq 0) {
             $stamps[$entry.name] = [System.Convert]::ToHexString([System.Security.Cryptography.SHA256]::HashData([System.Text.Encoding]::UTF8.GetBytes($salt)))

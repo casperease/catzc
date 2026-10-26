@@ -151,7 +151,7 @@ function Import-AllModules {
             # script scope, which every function in the module inherits
             # ([ADR-PWSH-ERROR](/docs/drs/automation/pwsh/error-handling.md)).
             . $importedModule { Set-StrictMode -Version Latest }
-            $imported.Add($dir.Name)
+            $imported.Add($importedModule.Name)
             $commandNames.AddRange([string[]]@($importedModule.ExportedCommands.Keys))
             if ($DiagnoseLoadTime) {
                 $importMs = [int]$sw.Elapsed.TotalMilliseconds
@@ -165,7 +165,7 @@ function Import-AllModules {
         }
         else {
             # Clean up stale .psd1 if module dir became empty
-            $stalePsd1 = Join-Path $dir.FullName "$($dir.Name).psd1"
+            $stalePsd1 = Join-Path $dir.FullName "$(Resolve-ModuleName -Folder $dir.Name -Namespace (Get-ModuleNamespace -ModulesRoot $ModulesRoot)).psd1"
             if ([System.IO.File]::Exists($stalePsd1)) {
                 [System.IO.File]::Delete($stalePsd1)
             }

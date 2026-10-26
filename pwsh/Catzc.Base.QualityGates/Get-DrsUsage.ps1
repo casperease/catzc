@@ -27,6 +27,7 @@ function Get-DrsUsage {
     $config = Get-Config -Config file-meta
     $pages = Get-Config -Config comment-pages
     $drs = Get-Config -Config drs
+    $scanner = [Catzc.Base.Drs.DrsCitationScanner]::new($drs.CodeForm, $map)
     $rows = foreach ($entry in Get-FileMetaScope -RepositoryRoot $RepositoryRoot -Path $Path -Config $config) {
         $carrier = $entry.Carrier.carrier
         if ($carrier -eq [Catzc.Base.Languages.CarrierKind]::Property) {
@@ -46,6 +47,7 @@ function Get-DrsUsage {
             CodeForm       = $drs.CodeForm
             DomainClasses  = $drs.DomainClasses
             FileClass      = $entry.Class
+            Scanner        = $scanner
         }
         if ($carrier -eq [Catzc.Base.Languages.CarrierKind]::CommentHead) {
             $arguments['Form'] = $entry.Carrier.Form()

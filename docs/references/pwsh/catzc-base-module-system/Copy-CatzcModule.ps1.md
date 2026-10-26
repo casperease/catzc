@@ -88,7 +88,7 @@ Copy-CatzcModule -Destination ./vendor/catzc -ExcludePackages gitignore -DryRun
 
 ## comment:1
 
-Above `if ([System.IO.Directory]::Exists($destinationRoot) -and @(Get-ChildPath...`, written with `#`.
+Above `if ([System.IO.Directory]::Exists($destinationRoot) -and`, written with `#`.
 
 ```text
 The emptiness probe is a one-level bounded walk

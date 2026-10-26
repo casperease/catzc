@@ -9,6 +9,8 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 Moves a diagram's pair, or any other file or folder, with git mv and re-points every relative link in it and into it.
 
+It moves with `git mv`, so a session that may not change git moves the pair on disk itself and re-points the links a `-DryRun` lists.
+
 ### description
 
 A diagram is the pair `<article-folder>/.assets/<name>.drawio.yml` and `<name>.drawio.png`, named by either file or by its stem, so moving a

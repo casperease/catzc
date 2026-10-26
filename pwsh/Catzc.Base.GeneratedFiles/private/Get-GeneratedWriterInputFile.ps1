@@ -28,7 +28,7 @@ function Get-GeneratedWriterInputFile {
             }
             continue
         }
-        $prefix = [Catzc.Base.Globs.GlobPattern]::new($glob).LiteralPrefix
+        $prefix = [Catzc.Base.Objects.GlobPattern]::new($glob).LiteralPrefix
         $rest = $glob.Substring($prefix.Length).Split('/')
         $depth = if ($rest -contains '**') {
             $inputDepth

@@ -33,7 +33,9 @@ function Get-DrsUsageRow {
         [AllowEmptyCollection()]
         [string[]] $DomainClasses = (Get-Config -Config drs).DomainClasses,
 
-        [string] $FileClass = (Get-FileKind $Path).Class
+        [string] $FileClass = (Get-FileKind $Path).Class,
+
+        [Catzc.Base.Drs.DrsCitationScanner] $Scanner = [Catzc.Base.Drs.DrsCitationScanner]::new($CodeForm, $Map)
     )
 
     # The rows come from the file's text through the processors the imprint uses, never from its head.
@@ -53,6 +55,7 @@ function Get-DrsUsageRow {
         Pages          = $Pages
         Form           = $CodeForm
         FileClass      = $FileClass
+        Scanner        = $Scanner
     }
     $adrs = @(Get-DrsCitation @citation)
     $links = @(if ($isCode) {

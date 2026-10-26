@@ -13,7 +13,7 @@ host_bindings:
   - file: Catzc.Base.Docs/types/GlossaryProse.cs
     host: pwsh
     reason: Walks the PowerShell syntax tree (CommandAst, ExpandableStringExpressionAst) to find the prose a glossary term appears in.
-  - file: Catzc.Base.Globs/types/GlobPattern.cs
+  - file: Catzc.Base.Objects/types/GlobPattern.cs
     host: pwsh
     reason: Matches with PowerShell's WildcardPattern, so a glob means in C# exactly what it means to -Like and -Path.
   - file: Catzc.Base.ModuleSystem/types/FunctionCallCollector.cs

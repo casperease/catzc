@@ -12,6 +12,7 @@ const EXCLUDE_ROOF = 20000;
 
 /** @typedef {{ files: string[], folders: string[] }} Disk the files and folders on disk, '/'-separated from the root */
 /** @typedef {import("./language.js").LampSets} LampSets */
+/** @typedef {ReturnType<typeof evaluate>} Verdict the language's verdict over the files on disk */
 
 // The files and the folders on disk, '/'-separated from the root, in one walk; .git is no part of the tree.
 /**
@@ -150,11 +151,27 @@ function hiddenEntries(files, folders, shown) {
  * @returns {Promise<string[]>}
  */
 async function hiddenGlobs(root, out, declared, open = [], vetoed = [], disk = undefined) {
+    return (await hiddenPlan(root, out, declared, open, vetoed, disk)).globs;
+}
+
+// The entries and the verdict they came from, so a census over the same walk reads the verdict instead of evaluating the files again.
+// Every lamp lit evaluates nothing and leaves the verdict to the census.
+/**
+ * @param {string} root
+ * @param {Set<string>} out
+ * @param {LampSets} declared
+ * @param {string[]} [open]
+ * @param {Iterable<string>} [vetoed]
+ * @param {Disk} [disk]
+ * @returns {Promise<{ globs: string[], verdict: Verdict | undefined }>}
+ */
+async function hiddenPlan(root, out, declared, open = [], vetoed = [], disk = undefined) {
     const sets = lampSets(declared, open);
     const lit = new Set(Object.keys(sets).filter((name) => !out.has(name)));
-    if (lit.size === Object.keys(sets).length) return [];
+    if (lit.size === Object.keys(sets).length) return { globs: [], verdict: undefined };
     const { files, folders } = disk ?? (await walkDisk(root));
-    return hiddenEntries(files, folders, evaluate(sets, lit, files, {}, vetoed).shown);
+    const verdict = evaluate(sets, lit, files, {}, vetoed);
+    return { globs: hiddenEntries(files, folders, verdict.shown), verdict };
 }
 
 // Every file on disk accounted for: the written entries must hide exactly the files the language does not show. Returns the totals, the
@@ -168,12 +185,13 @@ async function hiddenGlobs(root, out, declared, open = [], vetoed = [], disk = u
  * @param {string[]} [open]
  * @param {Iterable<string>} [vetoed]
  * @param {Disk} [disk]
+ * @param {Verdict} [planned] the verdict hiddenPlan reached over the same walk, read instead of evaluating the files again
  */
-async function census(root, out, declared, globs, open = [], vetoed = [], disk = undefined) {
+async function census(root, out, declared, globs, open = [], vetoed = [], disk = undefined, planned = undefined) {
     const sets = lampSets(declared, open);
     const lit = new Set(Object.keys(sets).filter((name) => !out.has(name)));
     const { files } = disk ?? (await walkDisk(root));
-    const verdict = evaluate(sets, lit, files, {}, vetoed);
+    const verdict = planned ?? evaluate(sets, lit, files, {}, vetoed);
     const showing = new Set(verdict.shown);
     const written = entryClaimer(globs);
     const output = sets[OUTPUT] ? claimer(sets[OUTPUT]) : () => false;
@@ -232,4 +250,4 @@ function merge(current, owned, wanted) {
 const excludeSize = (/** @type {Record<string, unknown>} */ exclude) =>
     Object.keys(exclude).reduce((total, glob) => total + glob.length + 6, 0);
 
-module.exports = { EXCLUDE_ROOF, walkDisk, hiddenEntries, hiddenGlobs, census, merge, excludeSize };
+module.exports = { EXCLUDE_ROOF, walkDisk, hiddenEntries, hiddenGlobs, hiddenPlan, census, merge, excludeSize };

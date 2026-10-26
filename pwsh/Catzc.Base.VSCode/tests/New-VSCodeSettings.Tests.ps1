@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-vs-code/tests/New-VSCodeSettings.Tests.ps1.md"
+  docs: "../../../docs/references/pwsh/catzc-base-vs-code/tests/New-VsCodeSettings.Tests.ps1.md"
   header: "generated"
 ---
 #>

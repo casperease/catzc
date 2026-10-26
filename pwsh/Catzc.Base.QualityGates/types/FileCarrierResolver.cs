@@ -9,7 +9,7 @@ catzc:
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Catzc.Base.Globs;
+using Catzc.Base.Objects;
 using Catzc.Base.Languages;
 
 namespace Catzc.Base.QualityGates;

@@ -68,13 +68,5 @@ one is the glyph legend. A comment's target is therefore usually an article's bl
       match nothing drawn, and order; the dotted row form is fixed, so reviewers never propose full paths. Batch 1 (10) ran before the six
       minimap/router fixes; restart from batch 1 on the fresh renders. Check: a per-diagram list per batch, and each next batch's brief
       sharpened from the last.
-- [ ] Move the article-carried diagrams off a diagram-level `relation`, to labelled arrows in the default reading (`feeds`, `calls`,
-      `reads`, `writes`, `else` where a word is needed) or reworked as true state diagrams, since DDR-VISUAL-ARROWSPOINTATWHATTHEYDEPENDON
-      keeps the opt-out for state and commit diagrams only. About 150 remain, declared in "yml drawio" blocks of the markdown under
-      `docs/explanation`, `docs/how-to`, `docs/references` and `docs/drs`; the six standalone `*.drawio.yml` ones are done. The two state
-      diagrams the rule names are the two in `docs/drs/flow/commit-lifecycle.md` ("advances one rung", "points at"), which keep theirs, and
-      the climb and lifecycle diagrams under `docs/explanation/design` and `docs/explanation/flow` are state diagrams that keep theirs too.
-      One page per change, render, read, respond, as a burst under the run lock. Check: a grep for `relation:` over the markdown and the
-      `*.drawio.yml` files finds only state and commit diagrams, and `Test-Diagrams` is clean.
 - [ ] `ConvertTo-NormalName` round-trip test fails on `*VSCode` names (`Assert-IsRunningInVSCode` against `…VsCode`), found by the Languages
       test run. Check: the Languages module passes `Test-Automation -Modules Catzc.Base.Languages` with 0 failed.

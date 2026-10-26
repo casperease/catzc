@@ -1,3 +1,4 @@
+# cspell:ignore ypes  -- 'C:<tab>ypes', the folder a "C:\types" with an unescaped tab becomes, fed in on purpose
 Describe 'JavaScriptConfig' -Tag 'L0', 'logic' {
     It 'takes a declared root and resolves to it' {
         $config = [Catzc.Base.Languages.JavaScriptConfig]::new([ordered]@{ root = 'tools/widgets' })

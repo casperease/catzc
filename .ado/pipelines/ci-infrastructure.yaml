@@ -9,12 +9,24 @@ trigger:
     include: [main]
   paths:
     include: [infrastructure/**]
+    exclude:
+      - infrastructure/README.md
+      - infrastructure/modules/README.md
+      - infrastructure/templates/discovery/README.md
+      - infrastructure/templates/expedition/README.md
+      - infrastructure/templates/foundation/README.md
 
 pr:
   branches:
     include: [main]
   paths:
     include: [infrastructure/**]
+    exclude:
+      - infrastructure/README.md
+      - infrastructure/modules/README.md
+      - infrastructure/templates/discovery/README.md
+      - infrastructure/templates/expedition/README.md
+      - infrastructure/templates/foundation/README.md
 
 jobs:
   - job: CI

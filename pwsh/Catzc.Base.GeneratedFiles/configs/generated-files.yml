@@ -6,6 +6,18 @@
 
 # The one list of generated-file writers and what each reads and writes; their order here is the order they re-render in.
 writers:
+  # First, since every reader of the globs config needs the derived part it writes.
+  Build-TrackGlobSets:
+    at_import: true
+    inputs:
+      - pwsh/Catzc.Base.Globs/Build-TrackGlobSets.ps1
+      - pwsh/Catzc.Base.Globs/configs/globs/globs.yml
+      - pwsh/Catzc.Base.Variants/configs/variants.yml
+      - pwsh/*/configs/generated.yml
+      - pwsh/Catzc.Base.Docs/configs/readme.yml
+      - pwsh/Catzc.Base.RootConfig/configs/rootconfig.yml
+      - pwsh/Catzc.Base.CodeMeta/configs/comment-pages.yml
+    outputs: [pwsh/Catzc.Base.Globs/configs/globs/track-sets.yml]
   Build-DrsIndex:
     at_import: true
     inputs: [docs/drs/**, pwsh/Catzc.Base.Drs/**]
@@ -80,7 +92,7 @@ writers:
       - pwsh/Catzc.Base.Execution/configs/tools.yml
       - pwsh/Catzc.Base.Globs/configs/file-kinds.yml
       - pwsh/Catzc.Base.Globs/configs/filters.yml
-      - pwsh/Catzc.Base.Globs/configs/globs.yml
+      - pwsh/Catzc.Base.Globs/configs/globs/*.yml
       - pwsh/Catzc.Base.TypesSystem/assets/Catzc.Types.csproj.xml
       - pwsh/Catzc.Base.Variants/configs/variants.yml
       - PSScriptAnalyzerSettings.psd1

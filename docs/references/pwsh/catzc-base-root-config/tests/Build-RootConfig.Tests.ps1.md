@@ -67,7 +67,7 @@ body hash is any 12 hex digits.
 
 ## comment:8
 
-Above `if (-not $script:skip) {`, written with `#`.
+Above `$script:rendered = Build-RootConfig -DryRun -PassThru -Silent`, written with `#`.
 
 ```text
 -DryRun composes every opted-in target's content — a source file that is missing, or an unknown generator,

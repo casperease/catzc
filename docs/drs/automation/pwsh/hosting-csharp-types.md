@@ -187,7 +187,7 @@ result or a splat is fine as a dictionary or `[pscustomobject]`.
 `Why the console text has to be C#`
 
 A class that keeps `object.ToString()` renders in pwsh as its fully-qualified name: `Write-Message "Switched to $context"` prints
-`Switched to Catzc.Azure.Cli.SubscriptionContext`, and a collection property shows `{Catzc.Base.Globs.GlobPattern, …}` in a table. The fix
+`Switched to Catzc.Azure.Cli.SubscriptionContext`, and a collection property shows `{Catzc.Base.Objects.GlobPattern, …}` in a table. The fix
 has to be in C#: PowerShell's interpolation and `[string]` cast call the type's own .NET `ToString()` and ignore a `ToString` registered
 through the extended type system, which only `-join`, an explicit `.ToString()`, and the formatter honour.
 

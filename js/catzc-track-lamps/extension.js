@@ -21,7 +21,7 @@ const fs = require("fs");
 const path = require("path");
 const { key, globMatcher, claimer, entryClaimer } = require("./glob.js");
 const { lampSets, evaluate, summaryOf, revealFailed, nextFailed } = require("./language.js");
-const { EXCLUDE_ROOF, walkDisk, hiddenEntries, hiddenGlobs, census, merge, excludeSize } = require("./tree.js");
+const { EXCLUDE_ROOF, walkDisk, hiddenEntries, hiddenGlobs, hiddenPlan, census, merge, excludeSize } = require("./tree.js");
 const { statusLine } = require("./status.js");
 const {
     gitFacts,
@@ -133,6 +133,7 @@ module.exports = {
     summaryOf,
     hiddenEntries,
     hiddenGlobs,
+    hiddenPlan,
     lampSets,
     markerFacts,
     merge,

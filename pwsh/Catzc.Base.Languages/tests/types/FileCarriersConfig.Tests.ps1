@@ -25,7 +25,7 @@ Describe 'FileCarriersConfig' -Tag 'L0' {
             @($noForm | ForEach-Object id) |
                 Should -BeNullOrEmpty -Because 'every comment-head entry yields a head form'
             foreach ($glob in @($carriers.carriers | ForEach-Object { $_.exclude.Keys })) {
-                { [Catzc.Base.Globs.GlobPattern]::new($glob) } |
+                { [Catzc.Base.Objects.GlobPattern]::new($glob) } |
                     Should -Not -Throw -Because "exclude '$glob' is a valid glob"
             }
         }

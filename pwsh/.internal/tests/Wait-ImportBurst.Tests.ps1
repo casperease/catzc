@@ -5,11 +5,12 @@ Describe 'Wait-ImportBurst' -Tag 'L0', 'logic' {
         # A burst held for a while on a thread of its own, the way Enter-CatzcBurst holds the event in its own process.
         $script:holdBurst = {
             param([string] $Name, [int] $Milliseconds)
-            Start-ThreadJob -ArgumentList $Name, $Milliseconds -ScriptBlock {
-                param($Name, $Milliseconds)
-                $event = [System.Threading.EventWaitHandle]::new($false, [System.Threading.EventResetMode]::ManualReset, "$Name-burst")
-                Start-Sleep -Milliseconds $Milliseconds
-                $event.Dispose()
+            $burst = "$Name-burst"
+            $hold = $Milliseconds
+            Start-ThreadJob -ScriptBlock {
+                $handle = [System.Threading.EventWaitHandle]::new($false, [System.Threading.EventResetMode]::ManualReset, $using:burst)
+                Start-Sleep -Milliseconds $using:hold
+                $handle.Dispose()
             }
         }
     }

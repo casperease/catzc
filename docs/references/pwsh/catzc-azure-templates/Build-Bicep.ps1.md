@@ -122,7 +122,7 @@ equal any non-empty string) or a number never reads as undefined.
 
 ## comment:6
 
-Above `if ($configurationDescriptor.Contains('ParametersFile') -and...`, written with `#`.
+Above `if ($configurationDescriptor.Contains('ParametersFile') -and`, written with `#`.
 
 ```text
 A config-addressed parameter `{ address: global.<config>.<key>… }` renders as the value it addresses

@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   docs: "../../../../docs/references/pwsh/catzc-base-quality-gates/configs/terminology.yml.md"
-#   header: "generated"
-# ---
-
 categories:
   adr:
     description: "An ADR rule-citation code — the short code naming a docs/drs rule."

@@ -23,10 +23,22 @@ terms:
       meaning: "the Diagnoser half of BenchmarkDotNet's MemoryDiagnoser, quoted in the unboxing reference"
     - term: claudecode
       meaning: "the CLAUDECODE environment variable Claude Code sets in its shells (Test-IsRunningAsAgent)"
-    - term: regexrobin
-      meaning: "the Regex Robin VS Code extension's settings prefix (regexrobin.rules) — makes code links clickable"
     - term: levett
-      meaning: "the Regex Robin extension's Marketplace publisher (DanLevett.regex-robin)"
+      meaning: "the Regex Robin extension's Marketplace publisher (DanLevett.regex-robin), named by the plan that replaced it"
+    - term: untracking
+      meaning: "removing a committed file from git's index while keeping it on disk (git rm --cached)"
+    - term: segoe
+      meaning: "the Segoe UI font family, named in the font stack of a generated extension's SVG"
+    - term: linecap
+      meaning: "the SVG stroke-linecap attribute, in a generated extension icon"
+    - term: linejoin
+      meaning: "the SVG stroke-linejoin attribute, in a generated extension icon"
+    - term: tobytes
+      meaning: "the NumPy array method that returns an array's raw bytes, used by the diagram kit's PNG shape reader"
+    - term: delenv
+      meaning: "the pytest fixture method that removes an environment variable in a Python test"
+    - term: libyaml
+      meaning: "the C YAML library PyYAML binds for its fast loader (yaml.__with_libyaml__), used by the diagram kit"
     - term: dtmp
       meaning: "draw.io desktop's temporary-file extension (*.dtmp), written beside a diagram while it is open; gitignored"
     - term: py

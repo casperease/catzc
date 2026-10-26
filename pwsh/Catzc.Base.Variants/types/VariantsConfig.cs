@@ -17,7 +17,8 @@ namespace Catzc.Base.Variants;
 public sealed class VariantsConfig : Catzc.Base.Objects.DictionaryRecord
 {
     private static readonly string[] AllowedKeys = { "ado_naming", "git_workspace", "have_customers", "aspects", "tracks" };
-    private static readonly string[] AllowedTrackKeys = { "members", "type", "vendor", "languages", "execution_engines", "module_execution_engines", "kinds" };
+    private static readonly string[] AllowedTrackKeys = { "members", "type", "vendor", "languages", "execution_engines", "module_execution_engines", "kinds", "namespace" };
+    private static readonly System.Text.RegularExpressions.Regex NamespaceName = new System.Text.RegularExpressions.Regex(@"^[A-Z][A-Za-z0-9]*(\.[A-Z][A-Za-z0-9]*)*$");
     private static readonly Regex CustomerName = new Regex("^[a-z][a-z0-9]+$");
     private static readonly Regex AspectName = new Regex("^[a-z][a-z0-9]*(-[a-z0-9]+)*$");
     private static readonly Regex TrackName = new Regex("^\\.?[a-z][a-z0-9]*(-[a-z0-9]+)*$");
@@ -267,7 +268,7 @@ public sealed class VariantsConfig : Catzc.Base.Objects.DictionaryRecord
                 VariantMember member = ReadMember(name, item, errors);
                 if (member == null) { continue; }
                 string place = member.path;
-                if (!PlacePath.IsMatch(place) || place.Split('/').Any(s => s == "." || s == ".."))
+                if ((!member.glob && !PlacePath.IsMatch(place)) || place.Split('/').Any(s => s == "." || s == ".."))
                 {
                     errors.Add(string.Format("tracks['{0}']: invalid member '{1}' (a repository-relative path with '/' separators, e.g. pwsh or .github/workflows)", name, place));
                 }
@@ -352,7 +353,14 @@ public sealed class VariantsConfig : Catzc.Base.Objects.DictionaryRecord
 
             Dictionary<string, string> kinds = ReadKinds(name, Has(entry, "kinds") ? entry["kinds"] : null, places, errors);
 
-            result.Add(new VariantTrack(name, members.ToArray(), trackType, vendor, languages.ToArray(), engines.ToArray(), moduleEngines, kinds));
+            string moduleNamespace = Has(entry, "namespace") ? Text(entry["namespace"]) : "";
+            if (Has(entry, "namespace") && !NamespaceName.IsMatch(moduleNamespace))
+            {
+                errors.Add(string.Format("tracks['{0}']: invalid namespace '{1}' (dotted PascalCase segments, e.g. Catzc)", name, moduleNamespace));
+                moduleNamespace = "";
+            }
+
+            result.Add(new VariantTrack(name, members.ToArray(), trackType, vendor, languages.ToArray(), engines.ToArray(), moduleEngines, kinds, moduleNamespace));
         }
         return result;
     }

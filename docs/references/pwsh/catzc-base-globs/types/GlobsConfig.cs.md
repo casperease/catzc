@@ -8,7 +8,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 Above `using System;`, written with `//`.
 
 ```text
-The globset registry (configs/globs.yml) and its validity rules: a non-empty 'globsets' map of
+The globset registry (configs/globs/) and its validity rules: a non-empty 'globsets' map of
 kebab-case name -> { description, layer (deployable-unit | loose-fileset — 'module' is derived-only and
 rejected here, [FDR-CD-GLOBS-EVERYSETHASLAYER](/docs/drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-everysethaslayer)), [include: [...]], [exclude: [...]],
 [compose: [...]],

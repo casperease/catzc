@@ -95,12 +95,10 @@ final full run last.
     register the `Record-SessionMessage` hook in `.claude/settings.json` (a PostToolUse entry matching `SendMessage`, and a UserPromptSubmit
     entry), once catzc-a0 has built it. Check: `Test-AgentDefinitions`, and one message sent between sessions appears in
     `out/orchestrator-<date>.log`.
-18. plan-debt-full-run-failures step 2: stage the case-only renames of 12 files to their names on disk (`git mv -f` each), so the module
-    builder finds them: in `pwsh/Catzc.Base.VSCode` `Build-`, `Install-`, `New-VSCodeExtensions`, `New-VSCodeLaunch`, `New-VSCodeSettings`,
-    `New-VSCodeTasks` and `private/New-VSCodeExtensionFolder` (`VSCode` -> `VsCode`); `Catzc.Base.Asserts/Assert-IsRunningInVSCode`;
-    `Catzc.Base.TypesSystem/Invoke-BuildForVSCode`; `Catzc.Base.QualityGates/private/Invoke-PSScriptAnalyzerFormat` (`PS` -> `Ps`);
-    `Catzc.Tooling.KeyHandler/Import-` and `Save-PSReadLineKeyHandlerSet` (`PSReadLine` -> `PsReadLine`). Check: `git ls-files` matches the
-    disk names, and `Invoke-TestFile` on `Get-DynamicManifestContent.Tests.ps1` and `Test-CatzcBuild.Parity.Tests.ps1` passes.
+18. plan-debt-full-run-failures step 2: stage the case-only renames, sources, tests and comment pages, so the module builder finds them: run
+    the `git mv -f` lines in `out/case-renames.txt` (26, listed by the read-only `out/case-renames.ps1`; rerun it first, it lists what
+    differs now). Check: rerunning `out/case-renames.ps1` lists 0, and `Invoke-TestFile` on `Get-DynamicManifestContent.Tests.ps1` and
+    `Test-CatzcBuild.Parity.Tests.ps1` passes.
 19. plan-diagram-review: add one bullet to `.claude/CLAUDE.md`, section Sub-agents, for the new `diagram-review` agent ("reviews one named
     diagram with the user: reads it, asks one question in context, one plan step from the written answer"). Until it is there,
     `Test-AgentDefinitions` reports the registered agent as unlisted. Check: `Test-AgentDefinitions`.

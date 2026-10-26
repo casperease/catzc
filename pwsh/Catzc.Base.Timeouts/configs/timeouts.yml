@@ -38,6 +38,4 @@ tests:
 run_lock:
   wait_seconds: 120 # how long a run waits past a live holder's deadline, or the end of a burst, before it says run lock busy
   stale_seconds: 720 # a queue ticket older than the longest run is dropped
-  # A run's whole budget, under the 300 s call it runs in: a live holder is waited for until only the run's own wait is left of it,
-  # whatever deadline it declares, a burst until the budget is spent, then the run says when to retry.
   budget_seconds: 280

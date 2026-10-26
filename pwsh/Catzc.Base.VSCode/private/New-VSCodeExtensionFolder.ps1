@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-vs-code/private/New-VSCodeExtensionFolder.ps1.md"
+  docs: "../../../docs/references/pwsh/catzc-base-vs-code/private/New-VsCodeExtensionFolder.ps1.md"
   header: "generated"
 ---
 #>

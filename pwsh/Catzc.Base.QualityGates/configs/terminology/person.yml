@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   docs: "../../../../docs/references/pwsh/catzc-base-quality-gates/configs/terminology.yml.md"
-#   header: "generated"
-# ---
-
 categories:
   person:
     description: "A cited author or thinker referenced in the docs."

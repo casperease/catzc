@@ -20,6 +20,15 @@ One command reads the contract assets through the one reader and writes a refere
 | ----------------------------------------------------------------------------------------------------------------------- |
 | [Building the contract reference writes one page per unit](building-the-contract-reference-writes-one-page-per-unit.md) |
 
+## Minimaps
+
+A diagram's minimaps are one projection, computed from data and never drawn by hand
+([slides-as-markdown](../../drs/repository/slides-as-markdown.md)).
+
+| Article                                                                                            |
+| -------------------------------------------------------------------------------------------------- |
+| [A diagram's minimaps are one projection, computed from data and never drawn by hand](minimaps.md) |
+
 ## Diagram build
 
 Build-Diagrams runs five stages in one command, and rendering is the cost

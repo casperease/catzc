@@ -6,7 +6,9 @@ Describe 'Write-TypesContract' -Tag 'L0', 'logic' {
             param([object[]] $Types)
             InModuleScope Catzc.Internal.Types -Parameters @{ Types = $Types; Root = $script:root } {
                 param($Types, $Root)
-                Mock Get-TypesAssemblyManifest { [pscustomobject]@{ Types = $Types } }
+                # The mock reads the surface from the module's script scope, where this scope hands it.
+                $script:mockedTypes = $Types
+                Mock Get-TypesAssemblyManifest { [pscustomobject]@{ Types = $script:mockedTypes } }
                 Write-TypesContract -Path 'C:/widget/Catzc.Types.0badc0de.dll' -RepositoryRoot $Root
             }
         }
@@ -41,7 +43,8 @@ Describe 'Write-TypesContract' -Tag 'L0', 'logic' {
         (& $script:write $script:surface).Written | Should -BeFalse -Because 'an equal surface leaves git clean'
         $moved = @(
             [pscustomobject]@{ Name = 'Catzc.Widgets.Widget'; Aliases = @('Catzc.Widget',
-                'Catzc.Sprocket'); Display = @('Name') },
+                    'Catzc.Sprocket'); Display = @('Name')
+            },
             $script:surface[1]
         )
         (& $script:write $moved).Written | Should -BeTrue

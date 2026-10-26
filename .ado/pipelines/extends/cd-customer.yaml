@@ -24,8 +24,6 @@ stages:
           vmImage: ubuntu-latest
         steps:
           - checkout: self
-            # Test-GlobSetAffected diffs real refs
-            # ([FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT](/docs/drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-changecomputedfromgit))
             fetchDepth: 0
 
           - template: /.ado/pipelines/steps/invoke-automation.yaml

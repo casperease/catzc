@@ -10,7 +10,7 @@ concepts:
     domain: design
     defined_by: DDR-TRACK-DEPLOYABLEUNIT
     short: What ships — a whole track or a reduced composition — bound one-to-one to its pipeline.
-    realized_by: { kind: config-key, pattern: "pwsh/Catzc.Base.Globs/configs/globs.yml" }
+    realized_by: { kind: config-key, pattern: "pwsh/Catzc.Base.Globs/configs/globs/globs.yml" }
     contrasts:
       release candidate:
         A release candidate is one commit's tagged, immutable build of a deployable-unit; a deployable-unit is the composition that ships,
@@ -93,13 +93,20 @@ concepts:
       file language:
         A file language is the kind of text a file holds, named by its extension; a track is the cluster the file lives in, and its
         tech-stack is a set of file languages.
-      root file:
-        A root file is a file on disk that no track's member names; a track is a cluster of members and every file under them.
+      root file: A root file is a file on disk that no track's member names; a track is a cluster of members and every file under them.
       value-chain concern:
         A value-chain concern is where along delivery a decision acts; a track is a concern of the repository, the cluster where files live.
       track type: A track type is the sort of cluster a track is, one of a closed set; a track is the named cluster itself.
       place: A place is one path a track covers; a track is the cluster of module contents, whatever places select it.
       module: A module is one named unit placed in a track; a track is the cluster of module contents and the concern it holds.
+  module namespace:
+    key: module_namespace
+    domain: design
+    defined_by: DDR-TRACK-MODULENAMESPACE
+    short:
+      The name a modules track declares once and joins to each module folder's name to form the module's full name, so the folders are named
+      without it.
+    realized_by: { kind: config-key, pattern: "pwsh/Catzc.Base.Variants/configs/variants.yml" }
   module:
     key: module
     domain: design

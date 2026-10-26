@@ -9,10 +9,28 @@ name: CI
 on:
   push:
     branches: [main]
-    paths: [pwsh/**]
+    paths:
+      - pwsh/**
+      - "!pwsh/*/*.psd1"
+      - "!pwsh/*/README.md"
+      - "!pwsh/.compiled/**"
+      - "!pwsh/.internal/assets/Catzc.Types.csproj"
+      - "!pwsh/.internal/assets/bin/**"
+      - "!pwsh/.internal/assets/importer-commands.sh"
+      - "!pwsh/.internal/assets/obj/**"
+      - "!pwsh/Catzc.Base.Globs/configs/globs/track-sets.yml"
   pull_request:
     branches: [main]
-    paths: [pwsh/**]
+    paths:
+      - pwsh/**
+      - "!pwsh/*/*.psd1"
+      - "!pwsh/*/README.md"
+      - "!pwsh/.compiled/**"
+      - "!pwsh/.internal/assets/Catzc.Types.csproj"
+      - "!pwsh/.internal/assets/bin/**"
+      - "!pwsh/.internal/assets/importer-commands.sh"
+      - "!pwsh/.internal/assets/obj/**"
+      - "!pwsh/Catzc.Base.Globs/configs/globs/track-sets.yml"
   workflow_dispatch:
 
 jobs:

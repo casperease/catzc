@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   docs: "../../../../docs/references/pwsh/catzc-base-quality-gates/configs/terminology.yml.md"
-#   header: "generated"
-# ---
-
 categories:
   platform:
     description: "Operating-system, .NET, filesystem, registry, or low-level runtime and encoding vocabulary."

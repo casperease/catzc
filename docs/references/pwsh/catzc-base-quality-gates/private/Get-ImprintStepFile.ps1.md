@@ -32,15 +32,6 @@ Optional files or folders to limit the scope to.
 
 `[string[]]` Absolute paths.
 
-## comment:1
-
-Above `$scope = Get-FormatScope -RepositoryRoot $root -Path $Path`, written with `#`.
-
-```text
-The formatter's own scope, so vendored code is never rewritten, narrowed to the PowerShell code files.
-Get-FormatScope returns its paths as one array: assign it, so the filter walks the paths, not the array.
-```
-
 ## comment:2
 
 Above `if ($Path) {`, written with `#`.

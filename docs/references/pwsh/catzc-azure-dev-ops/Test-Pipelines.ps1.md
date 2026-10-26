@@ -108,7 +108,7 @@ structural pipeline has no business inside a template folder.
 
 ## comment:5
 
-Above `elseif ($folderKind.ContainsKey($topFolder) -and $record.TemplateType -and...`, written with `#`.
+Above `elseif ($folderKind.ContainsKey($topFolder) -and $record.TemplateType -and`, written with `#`.
 
 ```text
 [ADR-ADO-NAME-TEMPLATEKINDFOLDER](/docs/drs/ado/pipeline-naming-and-placement.md#rule-adr-ado-name-templatekindfolder) — a

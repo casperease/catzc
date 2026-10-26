@@ -79,8 +79,8 @@ layout:
 
 ## Walkthrough
 
-1. **deployable-unit sets.** The five entries in `configs/globs.yml` with `layer: deployable-unit`, loaded by `GlobsConfig` and returned by
-   `Get-GlobSet`. `nova`, `apex`, `flux` and `shared` compose the base `template-azure-subscription-foundation`.
+1. **deployable-unit sets.** The five entries in `configs/globs/globs.yml` with `layer: deployable-unit`, loaded by `GlobsConfig` and
+   returned by `Get-GlobSet`. `nova`, `apex`, `flux` and `shared` compose the base `template-azure-subscription-foundation`.
 2. **declared loose-filesets.** The five entries with `layer: loose-fileset`: `automation`, `infrastructure`, `templates`, `markdown-scope`
    and `repository`. Their group is skipped, so they reach no gate.
 3. **ReservedNames umbrellas.** `Get-ModuleGlobSet` builds one set per name in `GlobsConfig.ReservedNames` (`internal`, `vendor`,

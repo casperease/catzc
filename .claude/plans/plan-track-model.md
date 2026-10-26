@@ -15,8 +15,8 @@ plan:
       pwsh/Catzc.Base.Variants/Get-Track.ps1,
       pwsh/Catzc.Base.Variants/Test-TrackDeclaration.ps1,
       pwsh/Catzc.Base.Git/private/Get-AutoControlledGlobs.ps1,
-      pwsh/Catzc.Base.Globs/configs/globs.yml,
-      pwsh/Catzc.Base.Globs/Get-GlobSetTrigger.ps1,
+      pwsh/Catzc.Base.Globs/configs/globs/globs.yml,
+      pwsh/Catzc.Base.Globs/Build-TrackGlobSets.ps1,
     ]
 ---
 
@@ -77,9 +77,8 @@ has a track.
        step 1 lands (check: `Test-Links -Path docs/drs/design/tracks.md`).
 3. [ ] `pwsh/Catzc.Base.Variants/configs/track-types.yml`: every vendor named by its tool, once step 1 settles the names (check:
        `Invoke-TestFile -Path pwsh/Catzc.Base.Variants/tests/types/TrackTypesConfig.Tests.ps1`).
-4. [ ] `pwsh/Catzc.Base.Variants/types/VariantMember.cs`: glob members, with the `Catzc.Base.Variants` -> `Catzc.Base.Globs` edge, in the
-       first step that declares one (until then a glob member is a load error naming that wait), and the track name checked in the normal
-       form through `Catzc.Base.Objects.NameCase.IsNormal` once step 1 lands (check:
+4. [ ] `pwsh/Catzc.Base.Variants/types/VariantsConfig.cs`: the track name checked in the normal form through
+       `Catzc.Base.Objects.NameCase.IsNormal` once step 1 lands (check:
        `Invoke-TestFile -Path pwsh/Catzc.Base.Variants/tests/types/VariantsConfig.Tests.ps1`).
 5. [ ] `pwsh/Catzc.Base.Variants/configs/variants.yml`: every track renamed to its normal-form name, the catch-up tracks, `out`, and the
        root files moved into their tracks; every caller of an old track name changed in the same pass (check: `Test-TrackDeclaration`, and
@@ -89,24 +88,9 @@ has a track.
        member a catzc generator writes takes it from `Get-GeneratedTarget`, both at once an issue), and every root entry on disk lies in a
        track, `LICENSE` in `contracts` (check:
        `Invoke-TestFile -Path pwsh/Catzc.Base.QualityGates/tests/Test-TrackMemberCommitted.Tests.ps1`).
-7. [ ] `pwsh/Catzc.Base.Git/private/Get-AutoControlledGlobs.ps1`: the generated, gitignored members come from the track model and the
-       hand-written shapes are deleted (check: `Invoke-TestFile -Path pwsh/Catzc.Base.Git/tests/Get-AutoControlledGlobs.Tests.ps1`).
-8. [ ] `pwsh/Catzc.Base.Globs/Get-GlobSetTrigger.ps1` and `pwsh/Catzc.Base.Globs/configs/globs.yml`: a whole-track globset derived from the
-       track's members without its generated ones; the hand-written track globsets deleted from `globs.yml` (check:
-       `Invoke-TestFile -Path pwsh/Catzc.Base.Globs/tests/Get-GlobSetTrigger.Tests.ps1`, and the `ci-infrastructure` filter excludes
-       `infrastructure/README.md`).
-9. [ ] `docs/drs/repository/slides-as-markdown.md`: ADR-REPO-SLIDES-MINIMAPSFROMDATA generalised to a projection computed by a `Get-*`
-       command over the generated truths; the minimap specifics (the three slots, the eight ids, the pools, `out/minimaps/`) moved first to
-       a new page `docs/explanation/repository/minimaps.md`, so nothing is dropped (check: `Test-Links` on both files, and every moved fact
-       found on the new page by a grep).
-10. [ ] `docs/drs/automation/idiomatic-names.md`: ADR-AUTO-IDIOM-PLACENORMALFORM generalised to a place's one short form in any projection;
-        the minimap rows, `PlaceRows` and the maps budget moved to `docs/explanation/repository/minimaps.md` (check:
-        `Test-Links -Path docs/drs/automation/idiomatic-names.md`, and `grep -ci minimap` on it answers 0).
-11. [ ] `docs/drs/repository/conventional-folders.md` and `docs/drs/design/visual-design.md`: each minimap mention reworded as a projection
-        or moved to the page (check: `grep -ci minimap` on each answers 0, `Test-Links` on each).
-12. [ ] `docs/drs/flow/commit-lifecycle.md` and `docs/drs/azure/azure-naming-standard.md`: the `minimaps:` line of each quoted diagram
-        declaration deleted, the quote keeping what the rule cites it for (check: `grep -ci minimap` on each answers 0, `Test-Links` on
-        each).
+7. [ ] `pwsh/Catzc.Base.Git/private/Get-AutoControlledGlobs.ps1`: `out` and `out/*` come from the out track's gitignored member once step 5
+       declares it, and their hand-written lines are deleted (check:
+       `Invoke-TestFile -Path pwsh/Catzc.Base.Git/tests/Get-AutoControlledGlobs.Tests.ps1`).
 
 ## Refs
 

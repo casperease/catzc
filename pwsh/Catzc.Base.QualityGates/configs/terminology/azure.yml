@@ -13,6 +13,8 @@ terms:
       meaning: "CIDR notation for an IP range (e.g. 10.0.0.0/16)"
     - term: budg
       meaning: "Azure budget resource-type token (budg) in the naming registry"
+    - term: paas
+      meaning: "Platform as a Service, lowercased in Microsoft Learn URL slugs (connectivity-to-azure-paas-services)"
     - term: privatelink
       meaning: "Azure Private Link DNS name prefix (privatelink.<service>.<suffix>)"
     - term: vaultcore

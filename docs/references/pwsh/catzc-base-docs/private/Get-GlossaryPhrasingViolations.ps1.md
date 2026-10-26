@@ -26,7 +26,7 @@ surfaces its `surfaces` name:
 PowerShell files (`*.ps1`, `*.psm1`) are read through the parser, never by regex. A phrase matches case-insensitively, as whole words, with
 any whitespace between its words (so a wrapped line still counts). A mention — the phrase inside backticks, "double" or “curly” quotes,
 within one paragraph — is exempt, so the vocabulary can talk about itself. Globs are the repository's one glob dialect
-(Catzc.Base.Globs.GlobPattern).
+(Catzc.Base.Objects.GlobPattern).
 
 Private helper for the glossary checks; not exported.
 

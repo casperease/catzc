@@ -12,7 +12,6 @@ function Get-AutoControlledGlobs {
     param()
 
     $ret = [System.Collections.Generic.List[string]]::new()
-    $modulesFolder = Get-CatzcModulesFolder
 
     # The managed, gitignored root-config targets — the registry names them (generated-root-configs).
     $rootConfig = Get-Config -Config rootconfig
@@ -22,7 +21,23 @@ function Get-AutoControlledGlobs {
         }
     }
 
-    $ret.Add("$modulesFolder/*/*.psd1")
+    $targets = @(Get-GeneratedTarget)
+    foreach ($member in @(Get-TrackMember -Committed $false)) {
+        $written = $member.generated -or @($targets | Where-Object {
+                [Catzc.Base.Objects.GlobPattern]::MatchingPaths([string[]] @($_.path), [string[]] @($member.path)).Count -gt 0
+            }).Count -gt 0
+        if (-not $written) {
+            continue
+        }
+        if ($member.path.EndsWith('/**', [System.StringComparison]::Ordinal)) {
+            $folder = $member.path.Substring(0, $member.path.Length - 3)
+            $ret.Add($folder)
+            $ret.Add("$folder/*")
+        }
+        else {
+            $ret.Add($member.path)
+        }
+    }
 
     # Generated READMEs (generated-readmes): a gitignored README.md is a generated copy by construction.
     $ret.Add('README.md')
@@ -31,6 +46,7 @@ function Get-AutoControlledGlobs {
     $ret.Add('.cspell')
     $ret.Add('.cspell/*')
 
+    # out/ is written by hand until it is its own track's member (plan-track-model).
     $ret.Add('out')
     $ret.Add('out/*')
     $ret.Add('!out/plan-*.md')
@@ -39,16 +55,7 @@ function Get-AutoControlledGlobs {
     $ret.Add('.vscode')
     $ret.Add('.vscode/*')
 
-    # The IDE-only C# project's build output (native-csharp-types).
-    $ret.Add("$modulesFolder/.internal/assets/bin")
-    $ret.Add("$modulesFolder/.internal/assets/bin/*")
-    $ret.Add("$modulesFolder/.internal/assets/obj")
-    $ret.Add("$modulesFolder/.internal/assets/obj/*")
-
-    # The compiled-type build and its scratch; git keeps only the hash-keyed manifest.
-    $ret.Add("$modulesFolder/.compiled/*.dll")
-    $ret.Add("$modulesFolder/.compiled/*.tmp")
-
+    # The drawio autosave shadow lies in any folder, so it is no one track's member.
     $ret.Add('**/.$*.drawio.png.bkp')
 
     , $ret.ToArray()

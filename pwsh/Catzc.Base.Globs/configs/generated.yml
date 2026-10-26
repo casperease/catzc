@@ -1,0 +1,3 @@
+# What this module's generators write (Get-GeneratedTarget reads every module's generated.yml).
+targets:
+  - { path: pwsh/Catzc.Base.Globs/configs/globs/track-sets.yml, generator: Build-TrackGlobSets }

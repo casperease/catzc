@@ -86,7 +86,8 @@ function New-DynamicManifest {
         [string[]]$FunctionToExport
     )
 
-    $moduleName = Split-Path $ModulePath -Leaf
+    # The module's full name, from its folder name under the namespace its track declares ([DDR-TRACK-MODULENAMESPACE](/docs/drs/design/tracks.md#rule-ddr-track-modulenamespace)).
+    $moduleName = Resolve-ModuleName -Folder (Split-Path $ModulePath -Leaf) -Namespace (Get-ModuleNamespace -ModulesRoot (Split-Path $ModulePath -Parent))
     $manifestPath = Join-Path $ModulePath "$moduleName.psd1"
 
     if ($ReadOnly) {
@@ -148,6 +149,8 @@ $script:moduleFilesLoader = '../.internal/assets/Import-ModuleFiles.ps1'
 $script:privateFunctionFolder = $null
 
 # The functions that outgrew this file live one per file beside it; they share its scope.
+. (Join-Path $PSScriptRoot 'assets/bootstrap/Resolve-ModuleName.ps1')
+. (Join-Path $PSScriptRoot 'assets/bootstrap/Get-ModuleNamespace.ps1')
 . (Join-Path $PSScriptRoot 'assets/bootstrap/Import-CSharpTypes.ps1')
 . (Join-Path $PSScriptRoot 'assets/bootstrap/Import-AllModules.ps1')
 

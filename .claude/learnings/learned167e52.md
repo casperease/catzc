@@ -82,7 +82,7 @@ Started 2026-10-23T19:08:35.6112403+02:00.
 - 2026-10-25 Cats: In hindsight I wish I knew this fact: the meta queries already exist (Get-Track, Get-TrackPlace, Get-Aspect,
   Get-ModuleDependencyEdges, Get-LinkEdge, Get-DrsDomainEdges).
 - 2026-10-25 Cats: Token tip: write the out/ script before starting its background run.
-- 2026-10-25 Cats: Token tip: list exported Test-* names with ls pwsh/*/ before naming a check in a plan.
+- 2026-10-25 Cats: Token tip: list exported `Test-*` names with `ls pwsh/*/` before naming a check in a plan.
 - 2026-10-25 Cats: In hindsight I wish I knew this fact: renaming a member of a C# type that the importer compiles breaks every session the
   moment the file is saved, so a type and every reference to it must land in one edit or a staged copy.
 - 2026-10-25 Cats: In hindsight I wish I knew this fact: an insight line placed directly next to another comment line reaches the export

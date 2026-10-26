@@ -364,8 +364,6 @@ function Invoke-ModuleBuild {
     if ($null -ne $built -and $built.Hash -ne $plan.TypesHash) {
         throw "Invoke-ModuleBuild: C# type sources changed during the build ($($plan.TypesHash) -> $($built.Hash)). Rebuild."
     }
-    # The types surface a bundle carries must be the committed contract; a build checks it and never writes it
-    # ([ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD](/docs/drs/automation/caching.md#rule-adr-auto-cache-compiledtypeprebuild)).
     $typesDll = [System.IO.Path]::Combine((Get-TypesShadowRoot), "Catzc.Types.$($plan.TypesHash).dll")
     $drift = @(Get-TypesContractDrift -Path $typesDll -RepositoryRoot (Get-RepositoryRoot))
     if ($drift.Count -gt 0) {

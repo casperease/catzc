@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   docs: "../../../../docs/references/pwsh/catzc-base-quality-gates/configs/terminology.yml.md"
-#   header: "generated"
-# ---
-
 categories:
   abbreviation:
     description: "A short form standing for a full word or phrase; carries expands_to with the full form."

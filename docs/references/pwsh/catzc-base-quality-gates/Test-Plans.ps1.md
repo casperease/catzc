@@ -109,3 +109,12 @@ Above `$check = [regex]::Match($item.Text,...`, written with `#`.
 The check is the text after the step's last standalone `check:`, so a name such as `catzc-check:` in the
 step is not read as one.
 ```
+
+## comment:5
+
+Above `$at = [array]::IndexOf($valueLines, $valueRow)`, written with `#`.
+
+```text
+A row holds as many cells as its table's header, so a cell lost or added never shifts the columns unseen.
+The header is the first line of the row's own table, the unbroken run of table lines it sits in.
+```

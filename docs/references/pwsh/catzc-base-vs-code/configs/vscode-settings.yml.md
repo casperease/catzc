@@ -240,3 +240,12 @@ Above `editorconfig:`, written with `#`.
 The .editorconfig sections New-VsCodeSettings renders into per-language settings, each glob to its VS Code language ids; [*] renders into
 the top-level settings, and a section without a row here (the C# analyzer rules) stays for the tools that read .editorconfig.
 ```
+
+## comment:26
+
+Above `xml.format.enabled: false`, written with `#`.
+
+```text
+XML is never reformatted: no engine formats it (languages.yml), and the editor's XML formatter rewraps element text,
+which broke a project's <HintPath> once. Width is measured, never forced, so nothing needs the rewrap.
+```

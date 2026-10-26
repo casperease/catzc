@@ -48,7 +48,7 @@ dictionary and an array an array, wrapped or not.
 
 ## comment:2
 
-Above `if (-not $Value.GetType().IsValueType -and $Value -isnot [string] -and $Value...`, written with `#`.
+Above `if (-not $Value.GetType().IsValueType -and $Value -isnot [string] -and`, written with `#`.
 
 ```text
 Complex CLR object (e.g. a typed/validated config model): reflect over its public

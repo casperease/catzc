@@ -39,7 +39,7 @@ Get-GeneratedWriterStamp -InputGlob 'widget/**' -Walk $walk -RepositoryRoot $roo
 
 ## comment:1
 
-Above `$globs = [string[]] @($InputGlob | Where-Object { $_ })`, written with `#`.
+Above `$globs = [string[]] @($entry.inputs | Where-Object { $_ })`, written with `#`.
 
 ```text
 The stamp of every file on disk a writer's inputs match, committed, changed or ignored alike, so a pull or a drifted ignored file

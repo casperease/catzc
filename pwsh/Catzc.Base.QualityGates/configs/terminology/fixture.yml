@@ -19,6 +19,8 @@ terms:
   fixture:
     - term: tmpl
       meaning: "placeholder C# type name 'Tmpl' (template) in Get-CSharpTypeDependency tests, alongside Ctx/Use"
+    - term: wdgx
+      meaning: "placeholder file extension '.wdgx' (a widget file) in New-VSCodeSettings tests"
     - term: appname
       meaning: "placeholder scalar value 'appname' in Write-EnvironmentSet examples/tests"
     - term: blockout

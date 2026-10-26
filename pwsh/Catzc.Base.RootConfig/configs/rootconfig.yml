@@ -16,7 +16,7 @@ files:
       - pwsh/.internal/Catzc.Internal.Importer.psm1
     committed: true
     optIn: true
-  # The bash and zsh entry that defines `cats`; committed because a fresh clone needs it before any import.
+  # The POSIX-shell entry that defines `cats`; committed because a fresh clone needs it before any import.
   - target: importer.sh
     source: pwsh/Catzc.Base.RootConfig/assets/root/importer.sh
     committed: true
@@ -161,7 +161,8 @@ files:
     generator: New-Cspell
     sources:
       - pwsh/Catzc.Base.RootConfig/assets/root/cspell-template.yml
-      - pwsh/Catzc.Base.Globs/configs/globs.yml
+      - pwsh/Catzc.Base.Globs/configs/globs/globs.yml
+      - pwsh/Catzc.Base.Globs/configs/globs/track-sets.yml
     optIn: true
   # JSON has no comments, so the managed-file marker is an ignored "//" property in the source.
   - target: dotnet-tools.json

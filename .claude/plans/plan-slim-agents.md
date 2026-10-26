@@ -101,21 +101,21 @@ Kit skills kept as they are, loaded by a job skill's steps: `drawio-declaration`
 
 ## Open steps
 
-3. [ ] Parked with step 4 behind task-user-runs-and-commits item 25 (the four CLAUDE.md bullets); the drafts of both steps are in
-       `out/catzc-5c-drones/`, landed in one pass, and the three old skills are deleted when step 5 removes the last robot that preloads
+1. [ ] Parked with the drone-files step behind task-user-runs-and-commits item 25 (the four CLAUDE.md bullets); the drafts of both steps are
+       in `out/catzc-5c-drones/`, landed in one pass, and the three old skills are deleted when step 5 removes the last robot that preloads
        them. `catzc-core` from `catzc-run`, `git-readonly` and `report-fixed`, with the peer-dirty line and one line that a new agent type
        appears only in a session started after its file lands, so a new job skill is tried through a stand-in drone at once (decided by
        catzc-5c from the harness fact, 2026-10-26); the three files deleted. Check: `Test-AgentDefinitions`.
-4. [ ] The four drone files and their `agents.yml` entries (`model_reason` on sonnet, opus and fable). Check: `Test-AgentDefinitions`.
-5. [ ] One job skill per row of the mapping, one file at a time: the robot's body folded into its skill, the duplicate lines dropped, the
+2. [ ] The four drone files and their `agents.yml` entries (`model_reason` on sonnet, opus and fable). Check: `Test-AgentDefinitions`.
+3. [ ] One job skill per row of the mapping, one file at a time: the robot's body folded into its skill, the duplicate lines dropped, the
        robot file and its `agents.yml` entry deleted, the `capabilities.yml` entry updated. The `plan-decide` skill gains one merged line:
        the open-question search matches all three shapes in one grep (`## Open questions`, `[ ] Open question`,
        `Proposed ... Answer: yes or no`), and every option's description carries its why and its outcome in the tree (the user, 2026-10-25).
        Check: `Test-AgentDefinitions` after each.
-6. [ ] `pwsh/Catzc.Tooling.Claude/types/ClaudeDroneConfig.cs` and its config: the default agent `catzc-drone` is removed;
+4. [ ] `pwsh/Catzc.Tooling.Claude/types/ClaudeDroneConfig.cs` and its config: the default agent `catzc-drone` is removed;
        `Start-ClaudeDrone` takes a required skill and resolves the drone from its `model_floor`, its tests with it. Check: `Invoke-TestFile`
        on `ClaudeDroneConfig.Tests.ps1` and `Start-ClaudeDrone.Tests.ps1`.
-7. [ ] `.claude/CLAUDE.md` Sub-agents section: four bullets and one line saying jobs are the skills in `capabilities.yml`; this replaces
+5. [ ] `.claude/CLAUDE.md` Sub-agents section: four bullets and one line saying jobs are the skills in `capabilities.yml`; this replaces
        plan-claude-diet step 1, which is deleted in the same edit. The user's file. Check: `Test-AgentDefinitions`.
-8. [ ] Grep the tree for every old robot name (plans, prompts, docs, hooks, tests) and re-point each, one file at a time. Check: no match
+6. [ ] Grep the tree for every old robot name (plans, prompts, docs, hooks, tests) and re-point each, one file at a time. Check: no match
        outside `git log`.

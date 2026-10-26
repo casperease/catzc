@@ -9,12 +9,30 @@ trigger:
     include: [main]
   paths:
     include: [pwsh/**]
+    exclude:
+      - pwsh/*/*.psd1
+      - pwsh/*/README.md
+      - pwsh/.compiled/**
+      - pwsh/.internal/assets/Catzc.Types.csproj
+      - pwsh/.internal/assets/bin/**
+      - pwsh/.internal/assets/importer-commands.sh
+      - pwsh/.internal/assets/obj/**
+      - pwsh/Catzc.Base.Globs/configs/globs/track-sets.yml
 
 pr:
   branches:
     include: [main]
   paths:
     include: [pwsh/**]
+    exclude:
+      - pwsh/*/*.psd1
+      - pwsh/*/README.md
+      - pwsh/.compiled/**
+      - pwsh/.internal/assets/Catzc.Types.csproj
+      - pwsh/.internal/assets/bin/**
+      - pwsh/.internal/assets/importer-commands.sh
+      - pwsh/.internal/assets/obj/**
+      - pwsh/Catzc.Base.Globs/configs/globs/track-sets.yml
 
 jobs:
   - job: UnitTests

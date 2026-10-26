@@ -46,9 +46,6 @@ It cuts a cost paid by every session and every spawn that loads the project inst
        Saves about 830 bytes (about 210 tokens) per session. Check: `Test-Links -Path .claude/CLAUDE.md`, `Test-AgentDefinitions`, and
        `wc -c .claude/CLAUDE.md` at least 800 bytes below its size before the edit.
 
-4. [ ] Once catzc-6e's remaining-arguments change lands (catzc-97's finalize (b)): `catzc-run` step 2 names the burst-step form, a step that
-       runs `Invoke-CatzcCommand.ps1 -InBurst` in the burst's own process, merged into an existing line. Check: `Test-AgentDefinitions`.
-
 ## Open questions
 
 - Should the `Show-EditReminder` hook text add one line that `Format-Code -Path` on a plan also re-wraps `plan-master.md`? Recommended: yes,

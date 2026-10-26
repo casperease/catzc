@@ -8,6 +8,7 @@ catzc:
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Catzc.Base.Variants;
 
@@ -40,9 +41,14 @@ public sealed class VariantTrack
 
     public IReadOnlyDictionary<string, string> kinds { get; }
 
+    // The module namespace ([DDR-TRACK-MODULENAMESPACE](/docs/drs/design/tracks.md#rule-ddr-track-modulenamespace)): joined to a folder name, it gives the module's full name; empty when undeclared.
+    public string @namespace { get; }
+
     public VariantTrack(string name, VariantMember[] members, string type, string vendor, string[] languages, string[] executionEngines = null,
-        IDictionary<string, string[]> moduleExecutionEngines = null, IDictionary<string, string> kinds = null)
+        IDictionary<string, string[]> moduleExecutionEngines = null, IDictionary<string, string> kinds = null,
+        string moduleNamespace = null)
     {
+        this.@namespace = moduleNamespace ?? string.Empty;
         this.kinds = kinds == null
             ? new Dictionary<string, string>(StringComparer.Ordinal)
             : new Dictionary<string, string>(kinds, StringComparer.Ordinal);
@@ -56,12 +62,29 @@ public sealed class VariantTrack
         this.name = name;
         VariantMember[] declared = members == null ? Array.Empty<VariantMember>() : (VariantMember[])members.Clone();
         this.members = declared;
-        string[] paths = new string[declared.Length];
-        for (int i = 0; i < declared.Length; i++) { paths[i] = declared[i].path; }
-        this.places = paths;
+        // A place is a folder or file the track sits in; a glob member names files inside a place and is never one itself.
+        this.places = declared.Where(m => !m.glob).Select(m => m.path).ToArray();
         this.type = type;
         this.vendor = string.IsNullOrEmpty(vendor) ? null : vendor;
         this.languages = languages == null ? Array.Empty<string>() : (string[])languages.Clone();
+    }
+
+    // A module's full name from its folder name; a folder already spelling it, or a track without a namespace, keeps the folder name.
+    public string FullNameOf(string folder)
+    {
+        if (string.IsNullOrEmpty(folder)) { throw new ArgumentException("FullNameOf needs a module folder name"); }
+        if (@namespace.Length == 0 || folder.StartsWith(@namespace + ".", StringComparison.Ordinal)) { return folder; }
+        return @namespace + "." + folder;
+    }
+
+    // A module's folder name from its full name: the name without the namespace and its dot, else the full name unchanged.
+    public string FolderNameOf(string fullName)
+    {
+        if (string.IsNullOrEmpty(fullName)) { throw new ArgumentException("FolderNameOf needs a module's full name"); }
+        string prefix = @namespace + ".";
+        return @namespace.Length > 0 && fullName.StartsWith(prefix, StringComparison.Ordinal) && fullName.Length > prefix.Length
+            ? fullName.Substring(prefix.Length)
+            : fullName;
     }
 
     // The engines a module of this track runs under: its own override when it names one, else the track's list (empty: auto).
@@ -84,20 +107,19 @@ public sealed class VariantTrack
         VariantMember best = null;
         foreach (VariantMember member in members)
         {
-            bool contains = path == member.path || path.StartsWith(member.path + "/", StringComparison.Ordinal);
-            if (contains && (best == null || member.path.Length > best.path.Length)) { best = member; }
+            if (member.Contains(path) && (best == null || member.path.Length > best.path.Length)) { best = member; }
         }
         return best;
     }
 
-    // The length of the longest place that contains a '/'-separated repository-relative path, or -1 when none does.
+    // The length of the longest member that contains a '/'-separated repository-relative path, or -1 when none does; a glob member
+    // counts by its pattern's length, so a glob inside another track's place takes the files it names.
     public int PlaceLengthOf(string path)
     {
         int best = -1;
-        foreach (string place in places)
+        foreach (VariantMember member in members)
         {
-            bool contains = path == place || path.StartsWith(place + "/", StringComparison.Ordinal);
-            if (contains && place.Length > best) { best = place.Length; }
+            if (member.Contains(path) && member.path.Length > best) { best = member.path.Length; }
         }
         return best;
     }

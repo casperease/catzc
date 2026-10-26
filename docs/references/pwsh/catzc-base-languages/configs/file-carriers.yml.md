@@ -22,3 +22,12 @@ Above `diagram-render:`, written with `#`.
 Classes of files that belong to no language.
 A diagram's render carries no block: the <name>.drawio.yml beside it is the diagram's one source.
 ```
+
+## comment:3
+
+Above `msbuild-project: { files: ["pwsh/.internal/assets/Catzc.Types.csproj",...`, written with `#`.
+
+```text
+An XML comment cannot hold the fence and an editor's project loader refuses a processing instruction, so the block is a CDATA
+property of the project's first labelled property group.
+```

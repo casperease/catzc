@@ -49,3 +49,12 @@ Above `executables:`, written with `#`.
 Per-executable limits, keyed by the executable's name without directory or extension (`dotnet`, not
 `C:\...\dotnet.exe`). These are the tools whose ordinary runs outlast the default.
 ```
+
+## comment:3
+
+Above `budget_seconds: 280`, written with `#`.
+
+```text
+A run's whole budget, under the 300 s call it runs in: a live holder is waited for until only the run's own wait is left of it,
+whatever deadline it declares, a burst until the budget is spent, then the run says when to retry.
+```

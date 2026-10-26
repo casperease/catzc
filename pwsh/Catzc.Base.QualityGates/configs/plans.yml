@@ -1,5 +1,9 @@
-# The settings Test-Plans holds the plans folder to ([ADR-REPO-PLANS](/docs/drs/repository/plans.md)); the defaults are declared once on
-# PlansConfig.
+# ---
+# catzc:
+#   docs: "../../../docs/references/pwsh/catzc-base-quality-gates/configs/plans.yml.md"
+#   header: "generated"
+# ---
+
 folder: .claude/plans
 statuses: [active, blocked]
 ranks: [highest, high, medium-high, medium, low-medium, low]

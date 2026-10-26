@@ -19,7 +19,7 @@ function Test-GlobSetTriggerCoverage {
     $issues = [System.Collections.Generic.List[string]]::new()
     foreach ($name in $boundSets) {
         $includes = @(foreach ($pattern in (Get-GlobSetTrigger -Name $name).AdoInclude) {
-                [Catzc.Base.Globs.GlobPattern]::new($pattern)
+                [Catzc.Base.Objects.GlobPattern]::new($pattern)
             })
         foreach ($member in (Get-GlobSetFile -Name $name)) {
             $covered = $false

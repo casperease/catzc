@@ -151,15 +151,12 @@ diagram. A token no set declares fails, naming the tokens it may be.
 
 ### Rule ADR-REPO-SLIDES-MINIMAPSFROMDATA
 
-A diagram shows exactly three minimaps: the ones its declaration names, or its kind's three defaults from the pools `maps.yml` declares,
-each one of the eight minimap ids. A minimap's data is computed, never drawn by hand and never stored in the declaration: `Catzc.Base.Maps`
-projects the diagram's subject, the rule codes in `about.adrs` and the files that cite them, onto the minimap's axes with the data command
-`maps.yml` names for its id, and every lit cell carries its reason. The declaration holds only the inputs: `about.adrs`, and under
-`content.minimaps` the ids of the minimaps it shows, each with an optional `exclude:` list of the cells its author rejects. A drawn minimap
-lights the computed cells less the excluded ones, so a citing file that is added or moves changes the drawing and leaves the declaration as
-it is. The data is contract JSON ([ADR-REPO-CONTRACT](api-contracts.md)), written to `out/minimaps/` by `Build-Diagrams` and `Test-Diagrams`
-and never written back; the kit validates it and only draws it, and no minimap file lives beside a diagram. A diagram whose data is missing
-does not put.
+A projection of the repository is computed by a `Get-*` command over the generated truths, never drawn by hand and never stored in the
+source that shows it: the source holds only the inputs the projection is computed from and the parts its author rejects, so a file that is
+added or moves changes the projection and leaves the source as it is. The projection's data is contract JSON
+([ADR-REPO-CONTRACT](api-contracts.md)), written to `out/` by the commands that build and check it and never written back; whatever draws it
+only validates and draws it. A source whose projection is missing does not render. A diagram's minimaps are one such projection
+([minimaps](../../explanation/repository/minimaps.md)).
 
 - [The declaration is the source](#the-declaration-is-the-source)
 

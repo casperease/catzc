@@ -17,7 +17,7 @@ repository is the L2 integrity test in Test-Formatting.Tests.ps1.
 
 ## comment:2
 
-Above `Describe 'combined types assembly is committed and current'`, written with `#`.
+Above `Describe 'combined types surface matches its contract'`, written with `#`.
 
 ```text
 Mixed tiers: the git-status drift guard and the dotnet-build stamp check drive CLIs (L2 — process startup
@@ -38,14 +38,13 @@ genuinely separate C# implementation of the same hash; see native-csharp-types).
 
 ## comment:4
 
-Above `It 'is exactly one committed manifest whose hash matches the current sources...`, written with `#`.
+Above `It 'commits the current build''s types surface as its contract...`, written with `#`.
 
 ```text
-Drift guard: the importer (which ran before this test file) rebuilds pwsh/.compiled/Catzc.Types.<hash>.dll
-from source whenever a types/*.cs changed, and every build copies that DLL. Test-BuildArtifact's types facet
-checks it is exactly one assembly named for the current sources' hash, with no pending git change (a
-forgotten commit of the prebuilt assembly stays red until it is committed). source-only: it reads the
-repository's own .compiled through the source tree.
+Drift guard: the importer (which ran before this test file) builds the current sources into the shadow root
+and rewrites the types contract when their surface moved. Test-BuildArtifact's types facet checks that the
+committed contract is that surface, with no pending git change (a forgotten commit of the regenerated
+contract stays red until it is committed). source-only: it reads the repository's own contract.
 ```
 
 ## comment:5

@@ -114,9 +114,18 @@ as one record per file; the entry's target selects which.
 
 ## comment:10
 
-Above `New-PythonProject -Target $Target`, written with `#`.
+Above `New-PythonProject -LineLength (Get-FileLimit -Path 'width.py').width -Target...`, written with `#`.
 
 ```text
 The Python test workspace (Catzc.Base.Languages): the uv workspace root and one member per Python test
 folder, as one record per file; the entry's target selects which.
+```
+
+## comment:11
+
+Above `$machineSetting['python.analysis.typeCheckingMode'] = $python.type_checking`, written with `#`.
+
+```text
+Pylance runs pyright in the mode Test-PythonTypes runs it in
+([ADR-AUTO-PY-EVERYFILETYPECHECKED](/docs/drs/automation/python/python-test-artifacts.md#rule-adr-auto-py-everyfiletypechecked)).
 ```

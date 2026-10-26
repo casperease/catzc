@@ -17,7 +17,7 @@ public sealed class GlobsConfig
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
     // The config, as lookup errors name it: by its module, so no modules folder is spelled.
-    public const string ConfigPath = "Catzc.Base.Globs/configs/globs.yml";
+    public const string ConfigPath = "Catzc.Base.Globs/configs/globs/";
 
     public static readonly string[] ReservedNames = { "internal", "vendor", "compiled", "scriptanalyzer" };
 
@@ -68,10 +68,22 @@ public sealed class GlobsConfig
             {
                 string field = entryKey == null ? null : entryKey.ToString();
                 if (field != "description" && field != "layer" && field != "include" && field != "exclude"
-                    && field != "compose" && field != "verify" && field != "pipeline")
+                    && field != "compose" && field != "verify" && field != "pipeline" && field != "track")
                 {
-                    errors.Add(string.Format("globset '{0}': unknown key '{1}' (allowed: description, layer, include, exclude, compose, verify, pipeline)", name, field));
+                    errors.Add(string.Format("globset '{0}': unknown key '{1}' (allowed: description, layer, include, exclude, compose, verify, pipeline, track)", name, field));
                 }
+            }
+            // A whole track's set declares its track in globs.yml and takes its patterns from the generated track-sets.yml part
+            // ([FDR-CD-GLOBS-TRACKSETDERIVED](/docs/drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-tracksetderived)); a part that adds patterns to no declared set is a stale generated entry.
+            if (entry.Contains("track") && !entry.Contains("include"))
+            {
+                errors.Add(string.Format("globset '{0}': track '{1}' has no derived include; run Build-TrackGlobSets", name, ReadStr(entry, "track")));
+                continue;
+            }
+            if (!entry.Contains("layer") && !entry.Contains("description") && entry.Contains("include"))
+            {
+                errors.Add(string.Format("globset '{0}': track-sets.yml derives patterns for a set globs.yml does not declare; run Build-TrackGlobSets", name));
+                continue;
             }
 
             if (Array.IndexOf(ReservedNames, name) >= 0)

@@ -16,7 +16,9 @@ Describe 'Get-TypesContractDrift' -Tag 'L0', 'logic' {
         $script:drift = {
             InModuleScope Catzc.Internal.Types -Parameters @{ Types = $script:surface; Root = $script:root } {
                 param($Types, $Root)
-                Mock Get-TypesAssemblyManifest { [pscustomobject]@{ Types = $Types } }
+                # The mock reads the surface from the module's script scope, where this scope hands it.
+                $script:mockedTypes = $Types
+                Mock Get-TypesAssemblyManifest { [pscustomobject]@{ Types = $script:mockedTypes } }
                 @(Get-TypesContractDrift -Path 'C:/widget/Catzc.Types.abcd1234.dll' -RepositoryRoot $Root)
             }
         }

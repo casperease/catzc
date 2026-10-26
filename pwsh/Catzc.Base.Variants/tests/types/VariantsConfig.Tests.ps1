@@ -45,6 +45,16 @@ Describe 'VariantsConfig' -Tag 'L0' {
             $config.aspects['infrastructure'].Name | Should -Be @('tests', 'live')
         }
 
+        It 'reads a track''s namespace, empty by default, and refuses one that is not dotted PascalCase' {
+            (& $script:make ([ordered]@{})).tracks[0].namespace | Should -BeExactly ''
+            $named = & $script:make ([ordered]@{ tracks = [ordered]@{ widgets = [ordered]@{ members = @('widgetry'); type = 'modules'; namespace = 'Gadgets.Kit' } } })
+            $named.tracks[0].namespace | Should -BeExactly 'Gadgets.Kit'
+            foreach ($bad in 'gadgets', 'Gadgets.', '.Gadgets', 'Gad gets') {
+                { & $script:make ([ordered]@{ tracks = [ordered]@{ widgets = [ordered]@{ members = @('widgetry'); type = 'modules'; namespace = $bad } } }) } |
+                    Should -Throw "*invalid namespace '$bad'*" -Because "'$bad' is no dotted PascalCase namespace"
+            }
+        }
+
         It 'reads a null key as an omitted one: both take the default' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
             $nulls = & $script:make ([ordered]@{ ado_naming = $null; git_workspace = $null; have_customers = $null; aspects = $null })
             $omitted = & $script:make ([ordered]@{})
@@ -184,8 +194,24 @@ Describe 'VariantsConfig' -Tag 'L0' {
             $config.tracks[0].MemberOf('gadget/a.txt') | Should -BeNullOrEmpty
         }
 
-        It 'throws on a glob member, an unknown member key and a fact that is not a boolean' -ForEach @(
-            @{ Member = 'widget/*.txt'; Message = "*track member 'widget/`*.txt' is a glob; glob members wait on the step that first needs one*" }
+        It 'reads a glob member as files inside a place, never a place itself, and gives it the paths it matches' -Tag 'DDR-TRACK-TRACKISPLACEDCLUSTER' {
+            $config = & $script:make ([ordered]@{ tracks = [ordered]@{
+                        widget = [ordered]@{ members = @('widget',
+                                [ordered]@{ path = 'widget/*/*.wdg'; generated = $true; committed = $false }); type = 'widget-works'
+                        }
+                    }
+                })
+            $track = $config.tracks[0]
+            $track.places | Should -Be @('widget')
+            $track.members[1].glob | Should -BeTrue
+            $track.members[0].glob | Should -BeFalse
+            $track.MemberOf('widget/gear/spin.wdg').path | Should -BeExactly 'widget/*/*.wdg'
+            $track.MemberOf('widget/gear/spin.txt').path | Should -BeExactly 'widget'
+            $track.PlaceLengthOf('widget/gear/spin.wdg') | Should -Be 14
+        }
+
+        It 'throws on a malformed glob member, an unknown member key and a fact that is not a boolean' -ForEach @(
+            @{ Member = 'widget/x**/b'; Message = "*glob pattern 'widget/x`*`*/b'*" }
             @{ Member = [ordered]@{ path = 'widget'; colour = 'blue' }; Message = "*member has unknown key 'colour'*" }
             @{ Member = [ordered]@{ path = 'widget'; committed = 'yes' }; Message = "*member 'widget' committed must be true or false*" }
         ) {

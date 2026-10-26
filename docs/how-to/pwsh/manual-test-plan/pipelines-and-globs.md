@@ -20,6 +20,7 @@ The Azure DevOps configs, the ado pipelines tree, and the globset projections th
 | 11  | L0   | [integrity (shipped config)][c11]                                |
 | 12  | L2   | [Repository unit aspects (every laid-out unit)][c12]             |
 | 13  | L1   | [Get-RepositoryFilter — the real repository][c13]                |
+| 14  | L1   | [Build-TrackGlobSets — the real tree][c14]                       |
 
 [c1]: #1-scanning-real-repo-yaml
 [c2]: #2-passes-for-the-shipped-adoyml
@@ -34,6 +35,7 @@ The Azure DevOps configs, the ado pipelines tree, and the globset projections th
 [c11]: #11-integrity-shipped-config
 [c12]: #12-repository-unit-aspects-every-laid-out-unit
 [c13]: #13-get-repositoryfilter--the-real-repository
+[c14]: #14-build-trackglobsets--the-real-tree
 
 ## Checks
 
@@ -140,3 +142,11 @@ one.
 **Test file:** `pwsh/Catzc.Base.Globs/tests/Get-RepositoryFilter.Tests.ps1` (L1), block `Get-RepositoryFilter — the real repository`.
 
 **Guards:** The shipped repository filters resolve over the real tree, each to the include and exclude sets it claims by.
+
+### 14. Build-TrackGlobSets — the real tree
+
+**Test file:** `pwsh/Catzc.Base.Globs/tests/Build-TrackGlobSets.Tests.ps1` (L1), block `Build-TrackGlobSets — the real tree`.
+
+**Guards:** The committed `track-sets.yml` is what `Build-TrackGlobSets` derives from the track members (FDR-CD-GLOBS-TRACKSETDERIVED): the
+infrastructure set leaves out its generated READMEs, and the pwsh set keeps the vendored modules nested under it, which have no pipeline of
+their own.

@@ -31,3 +31,12 @@ Build-Bicep writes each template to out/template/<name>; publish that as the art
 deploy stages consume. -Shared scopes the build to the configuration-root (shared platform)
 slots — customer subfolders are built by their own customer CD.
 ```
+
+## comment:4
+
+Above `fetchDepth: 0`, written with `#`.
+
+```text
+Test-GlobSetAffected diffs real refs
+([FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT](/docs/drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-changecomputedfromgit))
+```

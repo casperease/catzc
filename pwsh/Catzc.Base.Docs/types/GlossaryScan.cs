@@ -151,8 +151,8 @@ public static class GlossaryScan
 
     static IEnumerable<(string, GlossarySegment)> Segments(Source source, IEnumerable<string> trackedFiles, string root, IDictionary surfaceCache)
     {
-        Catzc.Base.Globs.GlobPattern[] scope = source.Options.scope.Select(p => new Catzc.Base.Globs.GlobPattern(p)).ToArray();
-        Catzc.Base.Globs.GlobPattern[] exclude = source.Options.exclude.Select(p => new Catzc.Base.Globs.GlobPattern(p)).ToArray();
+        Catzc.Base.Objects.GlobPattern[] scope = source.Options.scope.Select(p => new Catzc.Base.Objects.GlobPattern(p)).ToArray();
+        Catzc.Base.Objects.GlobPattern[] exclude = source.Options.exclude.Select(p => new Catzc.Base.Objects.GlobPattern(p)).ToArray();
         HashSet<string> surfaces = new HashSet<string>(source.Options.surfaces, StringComparer.OrdinalIgnoreCase);
         foreach (string file in trackedFiles)
         {

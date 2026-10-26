@@ -12,7 +12,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using Catzc.Base.Reports;
-using Catzc.Base.Globs;
+using Catzc.Base.Objects;
 
 namespace Catzc.Base.QualityGates;
 

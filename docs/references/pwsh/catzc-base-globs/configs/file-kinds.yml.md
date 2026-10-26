@@ -13,3 +13,12 @@ in a file's head. Kinds are checked in the order written: the first whose globs,
 file no entry selects is `other`. A consumer extends this in a config fragment, which adds a kind (checked after these) or replaces the
 globs of one.
 ```
+
+## comment:2
+
+Above `overlaps:`, written with `#`.
+
+```text
+The intended overlaps, [earlier, later]: the earlier kind takes most of the later kind's files on purpose, since the later one is the
+catch-all of its tree; a kind mostly shadowed by a pair not listed here fails Test-FileKindReachability.
+```

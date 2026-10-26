@@ -51,20 +51,20 @@ kinds:
     subkinds:
       gate:
         definition: A quality gate that checks the repository and reports every issue.
-        files: ["pwsh/Catzc.*/Test-*.ps1"]
+        files: ["pwsh/[A-Z]*/Test-*.ps1"]
       writer:
         definition: A function that composes and writes a generated file.
-        files: ["pwsh/Catzc.*/Build-*.ps1", "pwsh/Catzc.*/New-*.ps1"]
+        files: ["pwsh/[A-Z]*/Build-*.ps1", "pwsh/[A-Z]*/New-*.ps1"]
       assert:
         definition: A function that stops the caller when a condition does not hold.
-        files: ["pwsh/Catzc.*/Assert-*.ps1"]
+        files: ["pwsh/[A-Z]*/Assert-*.ps1"]
       formatter:
         definition: A function that rewrites a file into its one canonical form.
-        files: ["pwsh/Catzc.*/Format-*.ps1"]
+        files: ["pwsh/[A-Z]*/Format-*.ps1"]
       fact:
         definition: A processor that computes one derived fact of a file's meta head.
-        files: ["pwsh/Catzc.*/private/Get-*FileMetaFact.ps1"]
-    files: ["pwsh/Catzc.*/*.ps1", "pwsh/Catzc.*/private/*.ps1"]
+        files: ["pwsh/[A-Z]*/private/Get-*FileMetaFact.ps1"]
+    files: ["pwsh/[A-Z]*/*.ps1", "pwsh/[A-Z]*/private/*.ps1"]
   analyzer-rule:
     definition: A PSScriptAnalyzer rule module that enforces a domain rule.
     files: ["pwsh/.scriptanalyzer/**"]
@@ -167,8 +167,6 @@ kinds:
     definition: The README of a folder.
     files: ["**/README.md"]
 
-# The intended overlaps, [earlier, later]: the earlier kind takes most of the later kind's files on purpose, since the later one is the
-# catch-all of its tree; a kind mostly shadowed by a pair not listed here fails Test-FileKindReachability.
 overlaps:
   - [test, fixture]
   - [comment-page, fixture]

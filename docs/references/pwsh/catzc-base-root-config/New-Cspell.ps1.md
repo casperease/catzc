@@ -14,7 +14,7 @@ cspell.yml target.
 
 Reads the template (assets/root/cspell-template.yml, not named cspell.yml, since cspell would take a file of that name beside it for a
 config) and replaces its one `- "{{third-party}}"` placeholder line with a comment and one quoted ignore path per include of the
-`third-party` glob set (configs/globs.yml of Catzc.Base.Globs, via Get-GlobSet): the files vendored or downloaded and never authored here,
+`third-party` glob set (configs/globs/globs.yml of Catzc.Base.Globs, via Get-GlobSet): the files vendored or downloaded and never authored here,
 so the spelling quality gate skips exactly what that one declaration names. A template that holds the placeholder line zero or several times
 throws, and so does a glob set that carries an exclude or a compose entry, since ignorePaths has no way to say it.
 

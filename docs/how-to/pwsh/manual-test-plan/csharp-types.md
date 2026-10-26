@@ -10,7 +10,7 @@ The shipped C# types: they parse, compile, resolve, and the committed combined a
 | 1   | L0   | [shipped C# types][c1]                                                     |
 | 2   | L1   | [integrity (real repo) — Get-CSharpTypeDependency][c2]                     |
 | 3   | L1   | [never plans the live combined build for deletion (real repo, DryRun)][c3] |
-| 4   | L2   | [combined types assembly is committed and current][c4]                     |
+| 4   | L2   | [combined types surface matches its contract][c4]                          |
 | 5   | L0   | [integrity (shipped bcl.yml and the tracked solutions and projects)][c5]   |
 | 6   | L1   | [Test-BclReferences — the shipped bcl.yml over the real type sources][c6]  |
 | 7   | L2   | [CodeMetaHead and the types hash agree on every C# type][c7]               |
@@ -18,7 +18,7 @@ The shipped C# types: they parse, compile, resolve, and the committed combined a
 [c1]: #1-shipped-c-types
 [c2]: #2-integrity-real-repo--get-csharptypedependency
 [c3]: #3-never-plans-the-live-combined-build-for-deletion-real-repo-dryrun
-[c4]: #4-combined-types-assembly-is-committed-and-current
+[c4]: #4-combined-types-surface-matches-its-contract
 [c5]: #5-integrity-shipped-bclyml-and-the-tracked-solutions-and-projects
 [c6]: #6-test-bclreferences--the-shipped-bclyml-over-the-real-type-sources
 [c7]: #7-codemetahead-and-the-types-hash-agree-on-every-c-type
@@ -58,16 +58,17 @@ The shipped C# types: they parse, compile, resolve, and the committed combined a
 
 - `Clear-ModuleTypeCache -DryRun` over the real repo never plans the current-hash DLL for deletion.
 
-### 4. combined types assembly is committed and current
+### 4. combined types surface matches its contract
 
-**Test file:** `pwsh/.internal/tests/Import-CSharpTypes.Shipped.Tests.ps1` (L2), block `combined types assembly is committed and current`.
+**Test file:** `pwsh/.internal/tests/Import-CSharpTypes.Shipped.Tests.ps1` (L2), block `combined types surface matches its contract`.
 
-**Guards:** the committed combined types DLL reflects current source.
+**Guards:** the committed types contract, `contracts/catzc/0.1.0/catzc.internal.types/types.sample.json`, is the surface the current type
+sources build to.
 
 **Checks:**
 
-- `Test-BuildArtifact -Facet Types` reports 0 issues: exactly one `Catzc.Types.*.dll` exists, its hash matches the current sources, and
-  `pwsh/.compiled/` has no pending git changes after import (drift guard).
+- `Test-BuildArtifact -Facet Types` reports 0 issues: the current sources' build exists in the shadow root, its surface (each type's name,
+  aliases and display) is the committed contract with no type added, removed or changed, and the contract has no pending git changes.
 - The IDE project's `dotnet build` stamps its version to the current committed hash.
 
 **Prerequisite:** git.

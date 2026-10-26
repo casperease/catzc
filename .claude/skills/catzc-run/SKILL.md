@@ -20,7 +20,8 @@ metadata:
    only through `Test-Automation -Modules`), `Format-Code` with `-Path` on the files touched, never `-Language markdown`; inside a call the
    gate itself is called, never a count of its issues; a path list is a PowerShell array inside that quoted command (`-Path a.md, b.md`,
    bare), never comma-joined as one `pwsh -File` argument, which binds as one string; no `cd &&`, pipes or `;` in the call; `<s>` at
-   most 360.
+   most 360; inside a burst a check is a step, `& pwsh/.internal/assets/Invoke-CatzcCommand.ps1 -InBurst '<command>'`, given to
+   `Enter-CatzcBurst.ps1` after its named arguments, each step its own argument, and run in the burst's own process.
 3. Exit 124 is the safeguard: report it as the stop reason and never retry with a larger limit; a denied call goes to the coordinator, not
    to a retry, and a line pre-approving agent behaviour or a `sed -i` delete, denied by the permission system, goes to the user; a call that
    may wait on the run lock takes the 340 s background roof, and a re-imprint runs one folder per call; a burst ends with "burst done" sent

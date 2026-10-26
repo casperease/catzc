@@ -53,4 +53,20 @@ Describe 'Test-TrackDeclaration' -Tag 'L0', 'logic', 'DDR-MODTYPE-TRACKTYPEADMIT
         Use-Variants ([ordered]@{ widget = [ordered]@{ members = @('widget'); type = 'widget-works' } })
         { Test-TrackDeclaration } | Should -Throw "*admitted module type 'sprocket' is not declared*"
     }
+
+    It 'names a namespace on a track whose type holds no modules, and takes one on a track that does' {
+        $script:trackTypes = [Catzc.Base.Variants.TrackTypesConfig]::new([ordered]@{
+                track_types = [ordered]@{
+                    'widget-works' = [ordered]@{ definition = 'A deployable cluster of widgets.'; role = 'deployable'; admits = @('widget-folder') }
+                    'gadget-shelf' = [ordered]@{ definition = 'A holder of gadgets.'; role = 'holder'; admits = @() }
+                }
+            })
+        Use-Variants ([ordered]@{
+                widget = [ordered]@{ members = @('widget'); type = 'widget-works'; namespace = 'Widgets' }
+                gadget = [ordered]@{ members = @('gadget'); type = 'gadget-shelf'; namespace = 'Gizmos' }
+            })
+        $err = { Test-TrackDeclaration } | Should -Throw -PassThru
+        $err.Exception.Message | Should -BeLike "*track 'gadget': namespace 'Gizmos' on a track of type 'gadget-shelf', which holds no modules*"
+        $err.Exception.Message | Should -Not -BeLike "*namespace 'Widgets'*"
+    }
 }

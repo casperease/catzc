@@ -13,4 +13,4 @@ The vendor registry: the one place that says where vendored PowerShell modules c
 ## How it is read
 
 `Get-Config -Config vendor` loads the file into the typed `Catzc.Base.Vendor.VendorConfig` record, which rejects unknown keys at load
-([VendorConfig.cs](../types/VendorConfig.cs.md)). Only the module's own functions read it.
+(`VendorConfig.cs`). Only the module's own functions read it.

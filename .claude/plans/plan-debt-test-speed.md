@@ -19,19 +19,17 @@ folders. Heavy runs wait for a turn in the orchestrator's memory queue, one run 
 
 - [ ] `Import-Catzc.Tests.ps1` (22.1 s), measured and fixed one cause at a time once it can pass: it waits on the VSCode case-only rename
       (plan-debt-full-run-failures, the `Get-DynamicManifestContent` step, the user's), its full-build test failing in 2 to 3 s on
-      "Catzc.Base.VSCode has no function files" (the reduced-build test alone is about 7 s). A compiled helper for `Get-DrsUsage`'s per-file
-      loop (about 10 s left, the PowerShell call overhead of the citation and state processors over 5,374 files) is the next lever there,
-      measured against PowerShell before it is kept. Check: `Invoke-TestFile` twice, the same test names and `Should` count, and
-      `Test-ScriptAnalyzer -Path` at 0 on each changed file.
-- [ ] The next files the report `out/test-optimization-2026-10-22.md` names, each measured and fixed as the step above, one session per file
-      (`Test-Markdownlint.Tests.ps1` measured and left as it is: 14.1 s and 17.0 s, its 6.2 to 7.6 s is the whole-tree markdownlint run it
-      exists to prove, already skipped after a green run, catzc-e9, 2026-10-22):
-      `pwsh/Catzc.Base.QualityGates/tests/Test-CatzcBuild.Parity.Tests.ps1` (15.2 s; waits on the VSCode case-only rename like
-      `Import-Catzc.Tests.ps1`: its full build fails in 2.8 s on "Catzc.Base.VSCode has no function files", catzc-a0, 2026-10-22,
-      `out/catzc-a0-test-speed-3-parity.md`); `Import-CSharpTypes.Tests.ps1` measured and left as it is (13.8 s: about 7.3 s fixed worker
-      start, 2.5 s the L2 dotnet build, 0.1 s Roslyn per case in its own namespace, catzc-54, 2026-10-22). A file measured with no safe gain
-      is recorded as left as it is (taken by the orchestrator as delegated, 2026-10-22). Check: `Invoke-TestFile` twice per file, the same
-      test names and `Should` count, and `Test-ScriptAnalyzer -Path` at 0 on each changed file.
+      "Catzc.Base.VSCode has no function files" (the reduced-build test alone is about 7 s). Check: `Invoke-TestFile` twice, the same test
+      names and `Should` count, and `Test-ScriptAnalyzer -Path` at 0 on each changed file.
+- [ ] The ten slowest test files, each measured alone and fixed one cause at a time, slowest first (ranked 2026-10-26 by catzc-2f from the
+      2026-10-25 sharded run's `durations.json`, its top 16 re-timed alone; `Import-Catzc.Tests.ps1` and `Test-CatzcBuild.Parity.Tests.ps1`
+      wait on the VSCode case-only rename, the step above): `catzc-track-lamps.Tests.ps1` (102.4 s),
+      `Get-BicepParameterModel.Shipped.Tests.ps1` (93.4 s), `Invoke-TestFile.Tests.ps1` (77.4 s), `Wait-CatzcRunLock.Tests.ps1` (30.6 s),
+      `Build-Bicep.L2.Tests.ps1` (29.9 s), `Build-Bicep.Integrity.Tests.ps1` (22.9 s), `Test-Spelling.Tests.ps1` (18.5 s, 1 test red before
+      any change), `Test-Formatting.Tests.ps1` (17.6 s, 1 test red before any change), `Get-RepositoryFilter.Tests.ps1` (16.1 s) and
+      `Test-Automation.Tests.ps1` (15.6 s). A red file is made green by its owner before its speed is touched, and a file measured with no
+      safe gain is recorded as left as it is. Check: `Invoke-TestFile` twice per file, the same test names and `Should` count, an A/B of
+      each cause with identical output, and `Test-ScriptAnalyzer -Path` at 0 on each changed file.
 
 ## Decided
 

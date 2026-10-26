@@ -203,3 +203,12 @@ The presence check
 ([ADR-AUTO-ASSETDEP-ENFORCEDMECHANICALLY](/docs/drs/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-enforcedmechanically)), checked
 against the plan so a missing asset fails before any write.
 ```
+
+## comment:17
+
+Above `$typesDll = [System.IO.Path]::Combine((Get-TypesShadowRoot),...`, written with `#`.
+
+```text
+The types surface a bundle carries must be the committed contract; a build checks it and never writes it
+([ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD](/docs/drs/automation/caching.md#rule-adr-auto-cache-compiledtypeprebuild)).
+```

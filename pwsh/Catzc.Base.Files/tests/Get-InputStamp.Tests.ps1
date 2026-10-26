@@ -98,9 +98,9 @@ Describe 'Get-InputStamp' -Tag 'L0', 'logic' {
             Remove-Item -LiteralPath $copy -Recurse -Force -ErrorAction Ignore
             [void] [System.IO.Directory]::CreateDirectory($copy)
             Copy-Item $gadgets (Join-Path $copy 'gadgets') -Recurse
-            foreach ($file in Get-ChildItem $gadgets -Recurse -File) {
-                $twin = Join-Path $copy ([System.IO.Path]::GetRelativePath($TestDrive, $file.FullName))
-                [System.IO.File]::SetLastWriteTimeUtc($twin, $file.LastWriteTimeUtc)
+            foreach ($file in Get-ChildPath $gadgets -File -Depth 64) {
+                $twin = Join-Path $copy ([System.IO.Path]::GetRelativePath($TestDrive, $file))
+                [System.IO.File]::SetLastWriteTimeUtc($twin, [System.IO.File]::GetLastWriteTimeUtc($file))
             }
             Get-InputStamp $gadgets -Root $TestDrive -By Metadata |
                 Should -BeExactly (Get-InputStamp (Join-Path $copy 'gadgets') -Root $copy -By Metadata)

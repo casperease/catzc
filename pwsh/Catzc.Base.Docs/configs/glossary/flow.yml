@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   docs: "../../../../docs/references/pwsh/catzc-base-docs/configs/glossary.yml.md"
-#   header: "generated"
-# ---
-
 concepts:
   manual queue:
     key: manual_queue

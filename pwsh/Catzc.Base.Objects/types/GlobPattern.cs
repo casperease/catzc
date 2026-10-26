@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-globs/types/GlobPattern.cs.md"
+  docs: "../../../docs/references/pwsh/catzc-base-objects/types/GlobPattern.cs.md"
   header: "generated"
 ---
 */
@@ -9,7 +9,7 @@ catzc:
 using System;
 using System.Management.Automation;
 
-namespace Catzc.Base.Globs;
+namespace Catzc.Base.Objects;
 
 public sealed class GlobPattern
 {

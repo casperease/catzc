@@ -70,3 +70,12 @@ Above `$ret.Add('**/.$*.drawio.png.bkp')`, written with `#`.
 drawio editor autosave shadows ('.$<name>.drawio.png.bkp') — disposable copies the editor writes
 beside a committed .drawio.png asset (drawio-diagrams-and-cli); regenerable, safe to clean.
 ```
+
+## comment:5
+
+Above `$targets = @(Get-GeneratedTarget)`, written with `#`.
+
+```text
+The gitignored members the track model declares whose writer is a generator: a glob as written, a folder glob as its folder and
+what lies in it (DDR-TRACK-TRACKISPLACEDCLUSTER).
+```

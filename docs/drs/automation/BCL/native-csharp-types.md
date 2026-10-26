@@ -404,8 +404,8 @@ own config type, `LanguagesConfig` or `VariantsConfig`, which validates it at lo
 How an object reads at the console is part of its design
 ([console-output-matters](../console-output-matters.md#rule-adr-auto-console-everylineearnsplace)). A class that keeps `object.ToString()`
 renders as its fully-qualified name: a message about a subscription context prints `Catzc.Azure.Cli.SubscriptionContext`, and a collection
-property shows `{Catzc.Base.Globs.GlobPattern, …}` in a table. The host's string conversion reads the type's own `ToString()`, so the fix is
-in C#.
+property shows `{Catzc.Base.Objects.GlobPattern, …}` in a table. The host's string conversion reads the type's own `ToString()`, so the fix
+is in C#.
 
 So the rendering is one shared extension method, `ConsoleText.ToConsoleString()`, and each type opts in with a one-line override. The format
 is the C# `record` convention a .NET reader already knows, `TypeName { A = 1, B = x }`, on one line: the bare type name, a null property

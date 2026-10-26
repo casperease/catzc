@@ -53,7 +53,7 @@ is verified in full, vendored modules included, so nothing is pruned.
 
 ## comment:2
 
-Above `$staging = [System.IO.Path]::Combine([System.IO.Path]::GetTempPath(),...`, written with `#`.
+Above `$staging = [System.IO.Path]::Combine([System.IO.Path]::GetTempPath(),`, written with `#`.
 
 ```text
 Stage the sources build.json records in the one layout Get-CombinedTypeHash reads (<Module>/types/<File>.cs), so the

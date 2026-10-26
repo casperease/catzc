@@ -105,9 +105,11 @@ Describe 'catzc-track-lamps — the real repository' -Tag 'L1', 'integrity', 'so
             $resolved[$filter.name] = @($filter.sets)
         }
         [System.IO.File]::WriteAllText($filterFile, (ConvertTo-Json -InputObject $resolved -Depth 8 -Compress))
+        # The disk is walked once, and each lamp's census reads the verdict its plan reached, as the live engine does
+        # ([ADR-AUTO-TEST-SETUPONCE](/docs/drs/automation/test-automation.md#rule-adr-auto-test-setuponce)).
         $driver = "const m = require('$script'); const f = JSON.parse(require('fs').readFileSync(process.argv[1], 'utf8'));" +
-        ' (async () => { const r = {}; for (const lamp of Object.keys(f)) { const out = new Set([lamp]);' +
-        " const g = await m.hiddenGlobs('$root', out, f); const t = await m.census('$root', out, f, g);" +
+        " (async () => { const r = {}; const disk = await m.walkDisk('$root'); for (const lamp of Object.keys(f)) { const out = new Set([lamp]);" +
+        " const p = await m.hiddenPlan('$root', out, f, [], [], disk); const t = await m.census('$root', out, f, p.globs, [], [], disk, p.verdict);" +
         ' r[lamp] = { wrong: t.wrong.length, unclaimed: t.unclaimed.length, first: t.wrong.concat(t.unclaimed).slice(0, 3) }; }' +
         ' process.stdout.write(JSON.stringify(r)); })();'
         $result = & node -e $driver $filterFile | ConvertFrom-Json -AsHashtable

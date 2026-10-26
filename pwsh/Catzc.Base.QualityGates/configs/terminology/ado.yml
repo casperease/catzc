@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   docs: "../../../../docs/references/pwsh/catzc-base-quality-gates/configs/terminology.yml.md"
-#   header: "generated"
-# ---
-
 categories:
   ado:
     description: "Azure DevOps vocabulary: predefined pipeline variables, REST area names, and logging commands."

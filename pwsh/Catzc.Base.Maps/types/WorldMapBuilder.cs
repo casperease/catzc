@@ -21,11 +21,11 @@ public static class WorldMapBuilder
     public static WorldMap Build(IEnumerable tracks, IEnumerable fileLanguages, IEnumerable paths, IDictionary aspects, IDictionary adrIndex,
         IDictionary adrFiles, IDictionary texts, IDictionary rootOwners, IEnumerable globSets, IEnumerable citationExclude = null)
     {
-        List<Catzc.Base.Globs.GlobPattern> excluded = new List<Catzc.Base.Globs.GlobPattern>();
+        List<Catzc.Base.Objects.GlobPattern> excluded = new List<Catzc.Base.Objects.GlobPattern>();
         foreach (object glob in citationExclude ?? Array.Empty<object>())
         {
             string pattern = Convert.ToString(glob, CultureInfo.InvariantCulture);
-            if (!string.IsNullOrEmpty(pattern)) { excluded.Add(new Catzc.Base.Globs.GlobPattern(pattern)); }
+            if (!string.IsNullOrEmpty(pattern)) { excluded.Add(new Catzc.Base.Objects.GlobPattern(pattern)); }
         }
         List<Catzc.Base.Variants.VariantTrack> trackList = Items<Catzc.Base.Variants.VariantTrack>(tracks, "track");
         List<Catzc.Base.Languages.FileLanguage> languageList = Items<Catzc.Base.Languages.FileLanguage>(fileLanguages, "file language");
@@ -52,7 +52,7 @@ public static class WorldMapBuilder
         {
             if (!adrByPath.ContainsKey(fileByCode[code])) { adrByPath[fileByCode[code]] = code; }
         }
-        Dictionary<string, List<KeyValuePair<string, Catzc.Base.Globs.GlobPattern[]>>> aspectsByTrack = CompileAspects(aspects);
+        Dictionary<string, List<KeyValuePair<string, Catzc.Base.Objects.GlobPattern[]>>> aspectsByTrack = CompileAspects(aspects);
         Dictionary<string, string> ownerByRootFile = Strings(rootOwners);
         Dictionary<string, string> textByPath = Strings(texts);
 
@@ -144,17 +144,17 @@ public static class WorldMapBuilder
 
     // Is a file of a track in the track's live aspect?
     private static bool IsLive(string path, Catzc.Base.Variants.VariantTrack track, int placeLength,
-        Dictionary<string, List<KeyValuePair<string, Catzc.Base.Globs.GlobPattern[]>>> aspectsByTrack)
+        Dictionary<string, List<KeyValuePair<string, Catzc.Base.Objects.GlobPattern[]>>> aspectsByTrack)
     {
         if (Array.IndexOf(NeverLiveTypes, track.type) >= 0) { return false; }
         string relative = path.Length > placeLength ? path.Substring(placeLength + 1) : "";
-        List<KeyValuePair<string, Catzc.Base.Globs.GlobPattern[]>> trackAspects;
+        List<KeyValuePair<string, Catzc.Base.Objects.GlobPattern[]>> trackAspects;
         if (!aspectsByTrack.TryGetValue(track.name, out trackAspects)) { return true; }
         int slash = relative.IndexOf('/');
         string unitRelative = slash < 0 ? relative : relative.Substring(slash + 1);
-        foreach (KeyValuePair<string, Catzc.Base.Globs.GlobPattern[]> aspect in trackAspects)
+        foreach (KeyValuePair<string, Catzc.Base.Objects.GlobPattern[]> aspect in trackAspects)
         {
-            foreach (Catzc.Base.Globs.GlobPattern pattern in aspect.Value)
+            foreach (Catzc.Base.Objects.GlobPattern pattern in aspect.Value)
             {
                 if (pattern.Matches(unitRelative)) { return string.Equals(aspect.Key, "live", StringComparison.Ordinal); }
             }
@@ -210,21 +210,21 @@ public static class WorldMapBuilder
         return sites.ToArray();
     }
 
-    private static Dictionary<string, List<KeyValuePair<string, Catzc.Base.Globs.GlobPattern[]>>> CompileAspects(IDictionary aspects)
+    private static Dictionary<string, List<KeyValuePair<string, Catzc.Base.Objects.GlobPattern[]>>> CompileAspects(IDictionary aspects)
     {
-        Dictionary<string, List<KeyValuePair<string, Catzc.Base.Globs.GlobPattern[]>>> compiled =
-            new Dictionary<string, List<KeyValuePair<string, Catzc.Base.Globs.GlobPattern[]>>>(StringComparer.Ordinal);
+        Dictionary<string, List<KeyValuePair<string, Catzc.Base.Objects.GlobPattern[]>>> compiled =
+            new Dictionary<string, List<KeyValuePair<string, Catzc.Base.Objects.GlobPattern[]>>>(StringComparer.Ordinal);
         if (aspects == null) { return compiled; }
         foreach (DictionaryEntry entry in aspects)
         {
             string trackName = Convert.ToString(entry.Key, CultureInfo.InvariantCulture);
-            List<KeyValuePair<string, Catzc.Base.Globs.GlobPattern[]>> list = new List<KeyValuePair<string, Catzc.Base.Globs.GlobPattern[]>>();
+            List<KeyValuePair<string, Catzc.Base.Objects.GlobPattern[]>> list = new List<KeyValuePair<string, Catzc.Base.Objects.GlobPattern[]>>();
             foreach (Catzc.Base.Variants.VariantAspect aspect in
                 Items<Catzc.Base.Variants.VariantAspect>(entry.Value as IEnumerable, "aspect of track " + trackName))
             {
-                List<Catzc.Base.Globs.GlobPattern> patterns = new List<Catzc.Base.Globs.GlobPattern>();
-                foreach (string pattern in aspect.Patterns ?? Array.Empty<string>()) { patterns.Add(new Catzc.Base.Globs.GlobPattern(pattern)); }
-                list.Add(new KeyValuePair<string, Catzc.Base.Globs.GlobPattern[]>(aspect.Name, patterns.ToArray()));
+                List<Catzc.Base.Objects.GlobPattern> patterns = new List<Catzc.Base.Objects.GlobPattern>();
+                foreach (string pattern in aspect.Patterns ?? Array.Empty<string>()) { patterns.Add(new Catzc.Base.Objects.GlobPattern(pattern)); }
+                list.Add(new KeyValuePair<string, Catzc.Base.Objects.GlobPattern[]>(aspect.Name, patterns.ToArray()));
             }
             compiled[trackName] = list;
         }

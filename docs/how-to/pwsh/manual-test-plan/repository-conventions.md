@@ -385,3 +385,10 @@ before its body runs.
 - The zero-argument `Get-WorldMapHighlight` returns a `WorldMapHighlight` of kind `path` without error.
 
 **Prerequisite:** git.
+
+### 39. Resolve-ModuleName — the real pwsh track
+
+**Test file:** `pwsh/.internal/tests/Resolve-ModuleName.Tests.ps1` (L1), block `Resolve-ModuleName — the real pwsh track`.
+
+**Guards:** the pwsh track declares the `Catzc` namespace, the bootstrap reads the same namespace before the types load, and every module
+folder resolves to its own full name through both `Resolve-ModuleName` and `VariantTrack.FullNameOf` (DDR-TRACK-MODULENAMESPACE).
