@@ -24,7 +24,7 @@ Describe 'Get-ContractCheckResults' -Tag 'L0', 'logic' {
                     $Relative.Substring(0, $slash)
                 }
                 else {
-                    'catzc.widget'
+                    'pwsh.widget'
                 }
                 Add-File "contracts/catzc/0.1.0/$group/$leaf" $Content
                 return
@@ -171,7 +171,7 @@ jobs:
 
     Context 'a schema' -Tag 'ADR-REPO-CONTRACT-CONTRACTASSET' {
         BeforeEach {
-            Add-Asset 'gadget.yml.schema.json' '{"type":"object","required":["widget"],"properties":{"widget":{"enum":["cog","sprocket"]}}}'
+            Add-Asset 'gadget.yml.schema.json' '{"$comment":"The shape of a gadget.","type":"object","required":["widget"],"properties":{"widget":{"enum":["cog","sprocket"]}}}'
         }
 
         It 'passes a YAML target that validates' {
@@ -191,7 +191,7 @@ widget: cog
         }
 
         It 'still validates a real target against a schema with annotations' {
-            Add-Asset 'gadget.yml.schema.json' '{"$schema":"https://json-schema.org/draft/2020-12/schema","description":"a gadget","type":"object","required":["widget"]}'
+            Add-Asset 'gadget.yml.schema.json' '{"$comment":"The shape of a gadget.","$schema":"https://json-schema.org/draft/2020-12/schema","description":"a gadget","type":"object","required":["widget"]}'
             Add-File 'gadget.yml' "size: 2`n"
             $result = Get-CheckResult 'gadget.yml.schema.json'
             $result.Asset.Target | Should -Be 'gadget.yml'
@@ -199,7 +199,7 @@ widget: cog
         }
 
         It 'fails on a keyword outside the subset' {
-            Add-Asset 'gadget.yml.schema.json' '{"type":"object","minProperties":1}'
+            Add-Asset 'gadget.yml.schema.json' '{"$comment":"The shape of a gadget.","type":"object","minProperties":1}'
             Add-File 'gadget.yml' "widget: cog`n"
             (Get-CheckResult 'gadget.yml.schema.json').Findings |
                 Should -Be @('schema #: unsupported keyword minProperties')
@@ -211,7 +211,7 @@ widget: cog
         }
 
         It 'reports a target that is neither JSON nor YAML' {
-            Add-Asset 'gadget.md.schema.json' '{"type":"object"}'
+            Add-Asset 'gadget.md.schema.json' '{"$comment":"The shape of a gadget.","type":"object"}'
             Add-File 'gadget.md' '# Gadget'
             (Get-CheckResult 'gadget.md.schema.json').Findings |
                 Should -Be @("'gadget.md' is neither JSON nor YAML (.json, .yml, .yaml), so it cannot be parsed.")
@@ -238,13 +238,13 @@ widget: cog
         }
 
         It 'passes a sample that validates against the schema beside it' {
-            Add-Asset 'rest/gadget.schema.json' '{"type":"object","required":["widget"]}'
+            Add-Asset 'rest/gadget.schema.json' '{"$comment":"The shape of a gadget.","type":"object","required":["widget"]}'
             Add-Asset 'rest/gadget.sample.json' '{"widget":1}'
             (Get-CheckResult 'gadget.sample.json').Passed | Should -BeTrue
         }
 
         It 'keeps an ISO 8601 time in a JSON sample a string, so it validates as one' {
-            Add-Asset 'rest/gadget.schema.json' '{"type":"object","required":["read_at"],"properties":{"read_at":{"type":"string"}}}'
+            Add-Asset 'rest/gadget.schema.json' '{"$comment":"The shape of a gadget.","type":"object","required":["read_at"],"properties":{"read_at":{"type":"string"}}}'
             Add-Asset 'rest/gadget.sample.json' '{"read_at":"2026-10-21T08:00:00Z"}'
             $result = Get-CheckResult 'gadget.sample.json'
             $result.Findings | Should -BeNullOrEmpty
@@ -252,7 +252,7 @@ widget: cog
         }
 
         It 'fails a sample that does not validate against the schema beside it, with one finding on the sample only' {
-            Add-Asset 'rest/gadget.schema.json' '{"$schema":"https://json-schema.org/draft/2020-12/schema","title":"Gadget","type":"object","required":["widget"]}'
+            Add-Asset 'rest/gadget.schema.json' '{"$comment":"The shape of a gadget.","$schema":"https://json-schema.org/draft/2020-12/schema","title":"Gadget","type":"object","required":["widget"]}'
             Add-Asset 'rest/gadget.sample.json' '{"gadget":1}'
             $results = @(Get-Contract -RepositoryRoot $script:root | Get-ContractCheckResults -RepositoryRoot $script:root)
             $results.Count | Should -Be 2
@@ -267,7 +267,7 @@ widget: cog
         }
 
         It 'fails a malformed schema beside a sample on the schema''s result' {
-            Add-Asset 'rest/gadget.schema.json' '{"type":"object","minProperties":1}'
+            Add-Asset 'rest/gadget.schema.json' '{"$comment":"The shape of a gadget.","type":"object","minProperties":1}'
             Add-Asset 'rest/gadget.sample.json' '{"gadget":1}'
             $schema = Get-CheckResult 'gadget.schema.json'
             $schema.Passed | Should -BeFalse
@@ -275,7 +275,7 @@ widget: cog
         }
 
         It 'fails a schema beside a sample on the schema''s result when it does not parse' {
-            Add-Asset 'rest/gadget.schema.json' '{"type":'
+            Add-Asset 'rest/gadget.schema.json' '{"$comment":"The shape of a gadget.","type":'
             Add-Asset 'rest/gadget.sample.json' '{"gadget":1}'
             (Get-CheckResult 'gadget.schema.json').Findings |
                 Should -BeLike "'contracts/catzc/0.1.0/rest/gadget.schema.json' does not parse as Json:*"
@@ -350,11 +350,11 @@ widget: cog
             Add-File 'widgets/Catzc.Widget/Get-Widget.ps1' "function Get-Widget {`n    [OutputType([string])]`n    param(`n        [Parameter(Mandatory)]`n        [string] `$Path,`n`n        [switch] `$Strict`n    )`n}`n"
             Add-Asset 'get_widget.command.yml' "description: Returns a widget.`nparameters:`n  path: string!`n  strict: switch`noutput: string`n"
             $result = Get-CheckResult 'get_widget.command.yml'
-            $result.Findings | Should -Be @("'contracts/catzc/0.1.0/catzc.widget/get_widget.command.yml': description is not the command's synopsis as plain text; write 'Returns the widget.', or change the synopsis on its comment page")
+            $result.Findings | Should -Be @("'contracts/catzc/0.1.0/pwsh.widget/get_widget.command.yml': description is not the command's synopsis as plain text; write 'Returns the widget.', or change the synopsis on its comment page")
         }
 
         It 'compares a catzc type and a parameter set in the normal form' {
-            Add-Asset 'get_widget.command.yml' "description: Returns the widget.`nparameters:`n  path: string! in by_path`noutput: catzc.widgets.widget_gadget[]`n"
+            Add-Asset 'get_widget.command.yml' "description: Returns the widget.`nparameters:`n  path: string! in by_path`noutput: pwsh.widgets.widget_gadget[]`n"
             Add-File 'widgets/Catzc.Widget/Get-Widget.ps1' "function Get-Widget {`n    [OutputType([Catzc.Widgets.WidgetGadget[]])]`n    param(`n        [Parameter(Mandatory, ParameterSetName = 'ByPath')]`n        [string] `$Path`n    )`n}`n"
             $result = Get-CheckResult 'get_widget.command.yml'
             $result.Passed | Should -BeTrue -Because ($result.Findings -join "`n")
@@ -366,7 +366,7 @@ widget: cog
             $result = Get-CheckResult 'get_widget.command.yml'
             $result.Findings.Count | Should -Be 1
             $result.Findings[0] |
-                Should -BeLike "'contracts/catzc/0.1.0/catzc.widget/get_widget.command.yml': 'Path' is not in the repository normal form, snake (*)"
+                Should -BeLike "'contracts/catzc/0.1.0/pwsh.widget/get_widget.command.yml': 'Path' is not in the repository normal form, snake (*)"
         }
 
         It 'fails when the command file is missing, and says so when the name is a private function' {
@@ -384,7 +384,7 @@ widget: cog
             $result = Get-CheckResult 'get_widget.command.yml'
             $result.Findings.Count | Should -Be 1
             $result.Findings[0] |
-                Should -BeLike "'contracts/catzc/0.1.0/catzc.widget/get_widget.command.yml': command contract validation failed*type 'text' is not one of*"
+                Should -BeLike "'contracts/catzc/0.1.0/pwsh.widget/get_widget.command.yml': command contract validation failed*type 'text' is not one of*"
         }
     }
 }

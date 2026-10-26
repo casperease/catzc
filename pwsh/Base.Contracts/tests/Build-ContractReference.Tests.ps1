@@ -37,7 +37,7 @@ Describe 'Build-ContractReference' -Tag 'L0', 'logic' {
         Add-File 'contracts/catzc/0.1.0/pwsh.widget/build.yml' ((@('# The keys the gadget host reads, per [ADR-TST-WIDGET-TURN](/docs/drs/repository/widget-thing.md#rule-adr-tst-widget-turn).', 'widget:') -join "`n") + "`n")
         Add-File 'contracts/catzc/0.1.0/pwsh.widget/README.md' ''
         Add-File 'contracts/catzc/0.1.0/pwsh.gadget/gadget.sample.json' '{ "gadget": 1 }'
-        Add-File 'contracts/catzc/0.1.0/pwsh.widget/get_widget.command.yml' "parameters:`n  path: string!`n  strict: switch`noutput: string`n"
+        Add-File 'contracts/catzc/0.1.0/pwsh.widget/get_widget.command.yml' "description: Returns the widget.`nparameters:`n  path: string!`n  strict: switch`noutput: string`n"
         Add-File 'contracts/catzc/0.1.0/contract.yml' $appliesTo
         foreach ($release in '1.2.0', '1.10.0') {
             Add-File "contracts/catzc/$release/pwsh.widget/README.md" ''
@@ -82,7 +82,7 @@ Describe 'Build-ContractReference' -Tag 'L0', 'logic' {
     }
 
     It 'marks a command contract that does not read, and still writes the page' -Tag 'ADR-REPO-CMDCONTRACT-ONEREADER' {
-        Add-File 'contracts/catzc/0.1.0/pwsh.widget/get_widget.command.yml' "parameters:`n  path: text`n"
+        Add-File 'contracts/catzc/0.1.0/pwsh.widget/get_widget.command.yml' "description: Returns the widget.`nparameters:`n  path: text`n"
         Build-ContractReference -RepositoryRoot $script:root -Silent | Out-Null
         (Read-Page) |
             Should -Match '(?m)^\| `pwsh\.widget` +\| `get_widget\.command\.yml` .*\| not readable \(Test-Contracts reports it\) +\|$'
@@ -93,7 +93,9 @@ Describe 'Build-ContractReference' -Tag 'L0', 'logic' {
         $lines = (Read-Page) -split "`n"
         $first = [array]::IndexOf($lines, '- `pwsh.widget/build.yml`: The keys the gadget host reads, per')
 
-        @($lines | Where-Object { $_.StartsWith('- ') }).Count | Should -Be 1
+        # The fragment's header comment and the command contract's description, each one note.
+        @($lines | Where-Object { $_.StartsWith('- ') }).Count | Should -Be 2
+        $lines | Should -Contain '- `pwsh.widget/get_widget.command.yml`: Returns the widget.'
         $first | Should -BeGreaterThan 0
         $lines[$first + 1] |
             Should -BeExactly '  [ADR-TST-WIDGET-TURN](../../drs/repository/widget-thing.md#rule-adr-tst-widget-turn).'

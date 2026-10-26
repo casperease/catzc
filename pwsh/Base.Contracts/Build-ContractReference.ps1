@@ -68,7 +68,9 @@ function Build-ContractReference {
         $lines.Add('')
         $lines.Add("$marker ``contracts/$rootName/``: edit an asset, its description or its header comment, never this page.")
         $lines.Add('')
-        $lines.Add('Each note is the asset''s own: the `description` of a command contract, the `$comment` of a schema, or the leading `#` lines of another YAML asset.')
+        foreach ($line in (Format-MarkdownParagraph -Text 'Each note is the asset''s own: the `description` of a command contract, the `$comment` of a schema, or the leading `#` lines of another YAML asset.')) {
+            $lines.Add($line)
+        }
         $lines.Add('')
         $lines.Add('A presence asset, a text fragment, and a JSON fragment or sample payload carry no note: a comment would change what they pin.')
         $lines.Add('')

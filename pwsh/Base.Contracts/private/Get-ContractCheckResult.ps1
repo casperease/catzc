@@ -42,14 +42,17 @@ function Get-ContractCheckResult {
                     }
                 }
                 # A schema says what it guarantees in its $comment, one plain sentence; with no synopsis behind it the check is form only.
-                $schema = Read-ContractData -RepositoryRoot $RepositoryRoot -Path $Asset.AssetPath
-                $comment = if ($schema -is [System.Collections.IDictionary] -and $schema.Contains('$comment')) {
-                    "$($schema['$comment'])"
+                # A schema that does not parse is already a finding above, so it has no $comment to judge.
+                $schema = try {
+                    Read-ContractData -RepositoryRoot $RepositoryRoot -Path $Asset.AssetPath
                 }
-                else {
-                    ''
+                catch {
+                    $null
                 }
-                Get-ContractDescriptionFindings -AssetPath $Asset.AssetPath -Key '$comment' -Description $comment
+                if ($schema -is [System.Collections.IDictionary]) {
+                    $comment = $schema.Contains('$comment') ? "$($schema['$comment'])" : ''
+                    Get-ContractDescriptionFindings -AssetPath $Asset.AssetPath -Key '$comment' -Description $comment
+                }
             }
             ([Catzc.Base.Contracts.ContractAssetKind]::Sample) {
                 Get-ContractSampleFindings -RepositoryRoot $RepositoryRoot -Asset $Asset
