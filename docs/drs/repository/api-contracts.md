@@ -26,7 +26,10 @@ so today `catzc` is the only root. `<version>` is a version folder (ADR-REPO-CON
 folder in the repository normal form ([ADR-AUTO-IDIOM-NORMALFORM](../automation/idiomatic-names.md#rule-adr-auto-idiom-normalform),
 `pwsh.base.contracts` for `Catzc.Base.Contracts`), never the namespace the module carries. The form and its rare exceptions are declared
 once, in the contracts config, and one resolver turns a module into its group and back. In a vendor root a group is the vendor's area
-(`workflows`, `pipelines`, `templates`). No deeper folder exists.
+(`workflows`, `pipelines`, `templates`). A group may hold one level of folders that sort its assets by the format they describe
+(`pwsh.azure.templates/arm/` for the compiled ARM template's schema), so the tree is `contracts/<root>/<version>/[<group>/[<folder>/]]<asset>`
+and an asset's key is its path below the version folder. Such a folder holds schemas, fragments, presence assets and samples; a command
+contract, the types surface and the types schema belong to the group itself. No deeper folder exists.
 
 - [One root per promiser](#one-root-per-promiser)
 - [Flat by design](#flat-by-design)
@@ -195,14 +198,15 @@ contracts/
 
 ### Flat by design
 
-`One group folder at most`
+`One group folder at most, and one sorting folder in it`
 
 A contract is found by who promised it and what it is called. A deeper tree would only repeat the path of the file it binds, and the files a
 contract binds are many, scattered, and often under dot-prefixed folders, so a mirrored path is either deep, dotted, or wrong. One optional
 group folder keeps related assets together — a module's command contracts, its schemas of the files a vendor reads — and the version's
 `contract.yml` says which files each asset binds. The group is named by the module's track, not its namespace: the namespace is already the
 root, so repeating it in every group says nothing, while the track says which language the contract's module is written in, and a group read
-in a listing points straight at the folder that holds the module.
+in a listing points straight at the folder that holds the module. A group that describes several formats may sort its schemas into one
+folder per format (`arm/`), never deeper: the folder names the format a schema describes, not the path of the files it binds.
 
 ### One current version
 
@@ -347,7 +351,7 @@ immutability is what lets a consumer pin a release and trust it does not move un
 ## Decision
 
 `contracts/` holds every thin promise at the repository boundary: `contracts/catzc/` what we promise the world, the only public API, and one
-root per vendor for what that vendor promised us. It is laid out as `contracts/<root>/<version>/[<group>/]<asset>`, at most one group deep.
+root per vendor for what that vendor promised us. It is laid out as `contracts/<root>/<version>/[<group>/[<folder>/]]<asset>`, at most one group and one folder deep.
 Every root's current contracts live in `0.1.0`, edited in place and always checked, and every internal binding points there; the rest of the
 `0.1` range is reserved, `0.0.0` is never a folder, `1.0.0` and up are frozen `catzc` releases kept while pinned, and `6.6.666` is a local
 build, never a folder. An asset's name picks its kind, its root its direction, and its version folder's `contract.yml` the files it binds.
@@ -362,7 +366,7 @@ one living version.
   every contract with no hand-written test.
 
 - **The layout check** in `Test-Contracts` reports a version folder other than `0.1.0` below `1.0.0`, a `6.6.666` folder, a release folder
-  under a vendor root, a folder deeper than one group, and each dot-prefixed folder (ADR-REPO-CONTRACT-LAYOUT,
+  under a vendor root, a folder deeper than one group and one folder, and each dot-prefixed folder (ADR-REPO-CONTRACT-LAYOUT,
   ADR-REPO-CONTRACT-CURRENTVERSION, ADR-REPO-CONTRACT-NODOTFOLDERS).
 
 - **The frozen-folder test** compares each release folder with the `.frozen` record `Publish-ContractRelease` wrote at release, and fails on

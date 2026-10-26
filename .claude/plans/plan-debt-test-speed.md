@@ -25,18 +25,10 @@ folders. Heavy runs wait for a turn in the orchestrator's memory queue, one run 
       2026-10-25 sharded run's `durations.json`, its top 16 re-timed alone; `Import-Catzc.Tests.ps1` and `Test-CatzcBuild.Parity.Tests.ps1`
       wait on the VSCode case-only rename, the step above): `Invoke-TestFile.Tests.ps1` (77.4 s), `Test-Spelling.Tests.ps1` (18.5 s, 1 test
       red before any change), `Test-Formatting.Tests.ps1` (17.6 s, 1 test red before any change) and `Get-RepositoryFilter.Tests.ps1` (16.1
-      s). `Test-Automation.Tests.ps1` (15.6 s) is left as it is: its cost is one `Test-SourceConventions` run over the tree, the C# visitor
-      open question below (catzc-68, 2026-10-26). A red file is made green by its owner before its speed is touched, and a file measured
-      with no safe gain is recorded as left as it is. Check: `Invoke-TestFile` twice per file, the same test names and `Should` count, an
-      A/B of each cause with identical output, and `Test-ScriptAnalyzer -Path` at 0 on each changed file.
-- [ ] `Test-SourceConventions` scans each tree once in C# (decided by the orchestrator, 2026-10-26, type-first optimization; catzc-68 has
-      it). Measured by catzc-68: the gate takes 13.2 s warm (20.9 s cold), of it the engine-set loop 6.3 s and the neutral-codes loop 4.3 s;
-      each file is already parsed once. The cost is the scriptblock predicate of `Ast.FindAll`: one scriptblock walk over all 2,010 trees
-      (878,424 nodes) takes 3.5 s, a typed-delegate walk 0.9 s; the engine set walks every tree once, the neutral codes every test tree
-      twice, and `Get-NeutralCodeFinding` pays 1.4 s of per-call setup over its 1,025 calls. The change: a C# `AstVisitor2` type in
-      Base.QualityGates collecting what both finders read in one walk per tree, and the neutral-code setup built once per gate run. Check:
-      the gate's findings over the whole tree byte-identical before and after, the finders' tests and `Test-Automation.Tests.ps1` green,
-      `Test-ScriptAnalyzer -Path` at 0 on each changed file, and the phase timing re-run as an A/B.
+      s). `Test-Automation.Tests.ps1` (15.6 s) is left as it is: its cost is one `Test-SourceConventions` run over the tree (catzc-68,
+      2026-10-26). A red file is made green by its owner before its speed is touched, and a file measured with no safe gain is recorded as
+      left as it is. Check: `Invoke-TestFile` twice per file, the same test names and `Should` count, an A/B of each cause with identical
+      output, and `Test-ScriptAnalyzer -Path` at 0 on each changed file.
 
 ## Open questions
 

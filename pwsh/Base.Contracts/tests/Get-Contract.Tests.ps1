@@ -82,9 +82,23 @@ Describe 'Get-Contract' -Tag 'L0', 'logic' {
             { Get-Contract -RepositoryRoot $script:root } | Should -Throw "*'gadget.md' sits outside a version folder*"
         }
 
-        It 'throws on a folder below a group, since the tree is at most root, version, group, asset' -Tag 'ADR-REPO-CONTRACT-LAYOUT' {
+        It 'lists an asset in one folder of a group, keyed and sampled by its path below the version folder' -Tag 'ADR-REPO-CONTRACT-LAYOUT' {
+            Add-Asset 'contracts/widget/0.1.0/gadgets/flows/a.schema.json' '{}'
             Add-Asset 'contracts/widget/0.1.0/gadgets/flows/a.sample.json' '{}'
-            { Get-Contract -RepositoryRoot $script:root } | Should -Throw "*'flows' is a folder below a group*"
+            $assets = @(Get-Contract -RepositoryRoot $script:root | Sort-Object Key)
+            $assets.Key | Should -Be @('gadgets/flows/a.sample.json', 'gadgets/flows/a.schema.json')
+            $assets[0].Group | Should -Be 'gadgets'
+            $assets[1].Target | Should -Be 'contracts/widget/0.1.0/gadgets/flows/a.sample.json'
+        }
+
+        It 'throws on a second folder below a group, since the tree is at most root, version, group, folder, asset' -Tag 'ADR-REPO-CONTRACT-LAYOUT' {
+            Add-Asset 'contracts/widget/0.1.0/gadgets/flows/deep/a.sample.json' '{}'
+            { Get-Contract -RepositoryRoot $script:root } | Should -Throw "*'deep' is a second folder below a group*"
+        }
+
+        It 'throws on a command contract in a group''s folder, which belongs to the group itself' -Tag 'ADR-REPO-CONTRACT-LAYOUT' {
+            Add-Asset 'contracts/widget/0.1.0/gadgets/flows/get_gadget.command.yml' 'output: string'
+            { Get-Contract -RepositoryRoot $script:root } | Should -Throw '*sits at group level*'
         }
 
         It 'skips the .frozen record of a released version folder' -Tag 'ADR-REPO-CONTRACT-RELEASEDIMMUTABLE' {

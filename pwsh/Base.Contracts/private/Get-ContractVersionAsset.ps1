@@ -35,33 +35,38 @@ function Get-ContractVersionAsset {
     $tracked = @{ Paths = $null }
     $used = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
 
-    # An asset sits directly in the version folder or in one group folder, and no group folder holds a folder.
+    # An asset sits directly in the version folder, in a group folder, or in one folder of a group that sorts its assets by format.
     $places = [System.Collections.Generic.List[object]]::new()
-    $places.Add([pscustomobject]@{ Group = ''; Folder = $Folder; Files = [string[]] $versionFiles })
+    $places.Add([pscustomobject]@{ Group = ''; Prefix = ''; Folder = $Folder; Files = [string[]] $versionFiles })
     foreach ($groupFolder in $layout.Folders($Folder)) {
         $group = [System.IO.Path]::GetFileName($groupFolder)
-        $deeper = @($layout.Folders($groupFolder) | ForEach-Object { [System.IO.Path]::GetFileName($_) })
-        if ($deeper.Count -gt 0) {
-            throw "contracts/$Root/$Version/${group}: '$($deeper -join "', '")' is a folder below a group; a group holds only assets, so the tree is contracts/<root>/<version>/[<group>/]<asset> (ADR-REPO-CONTRACT-LAYOUT)."
+        $places.Add([pscustomobject]@{ Group = $group; Prefix = ''; Folder = $groupFolder; Files = [string[]] @($layout.FileNames($groupFolder)) })
+        foreach ($sortFolder in $layout.Folders($groupFolder)) {
+            $sort = [System.IO.Path]::GetFileName($sortFolder)
+            $deeper = @($layout.Folders($sortFolder) | ForEach-Object { [System.IO.Path]::GetFileName($_) })
+            if ($deeper.Count -gt 0) {
+                throw "contracts/$Root/$Version/$group/${sort}: '$($deeper -join "', '")' is a second folder below a group; a group holds assets and one level of folders, so the tree is contracts/<root>/<version>/[<group>/[<folder>/]]<asset> (ADR-REPO-CONTRACT-LAYOUT)."
+            }
+            $places.Add([pscustomobject]@{ Group = $group; Prefix = "$sort/"; Folder = $sortFolder; Files = [string[]] @($layout.FileNames($sortFolder)) })
         }
-        $places.Add([pscustomobject]@{ Group = $group; Folder = $groupFolder; Files = [string[]] @($layout.FileNames($groupFolder)) })
     }
 
     foreach ($place in $places) {
         $commandRoot = $null
         foreach ($name in $place.Files) {
+            $path = "$($place.Prefix)$name"
             $key = if ($place.Group) {
-                "$($place.Group)/$name"
+                "$($place.Group)/$path"
             }
             else {
-                $name
+                $path
             }
             $null = $used.Add($key)
-            if (-not $commandRoot -and $place.Group -and
+            if (-not $commandRoot -and $place.Group -and -not $place.Prefix -and
                 (Get-ContractAssetKind -Name $name) -eq [Catzc.Base.Contracts.ContractAssetKind]::Command) {
                 $commandRoot = Get-ContractCommandRoot -Module $place.Group -RepositoryRoot $RepositoryRoot
             }
-            Resolve-ContractAsset -Root $Root -Version $Version -Group $place.Group -Path $name -File (Join-Path $place.Folder $name) `
+            Resolve-ContractAsset -Root $Root -Version $Version -Group $place.Group -Path $path -File (Join-Path $place.Folder $name) `
                 -CommandRoot $commandRoot -AppliesTo $appliesTo -Tracked $tracked
         }
     }

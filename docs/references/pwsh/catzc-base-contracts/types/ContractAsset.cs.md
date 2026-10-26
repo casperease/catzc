@@ -28,3 +28,12 @@ Every path is in communication form ([ADR-AUTO-PATH-TWOFORMS](/docs/drs/automati
   Direction  DependedOn or Provided
   IsDirectionOverridden  true when the version's contract.yml set Direction instead of the convention
 ```
+
+## comment:2
+
+Above `private static string AssetPathBelowGroup(string value, bool inGroup)`, written with `//`.
+
+```text
+An asset's path below its group: its file name, or one folder that sorts the group's assets and the file name. An asset
+directly in its version folder has no folder.
+```

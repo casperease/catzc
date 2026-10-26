@@ -150,7 +150,7 @@ settings:
   json.schemas:
     - fileMatch:
         - "**/main.json"
-      url: ./contracts/catzc/0.1.0/pwsh.azure.templates/main.json.schema.json
+      url: ./contracts/catzc/0.1.0/pwsh.azure.templates/arm/main.json.schema.json
 
   workbench.editorAssociations:
     "*.drawio.png": imagePreview.previewEditor

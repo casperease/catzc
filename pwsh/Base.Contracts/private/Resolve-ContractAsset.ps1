@@ -33,7 +33,7 @@ function Resolve-ContractAsset {
         [hashtable] $Tracked = @{}
     )
 
-    $name = $Path
+    $name = [System.IO.Path]::GetFileName($Path)
     $key = if ($Group) {
         "$Group/$Path"
     }
@@ -49,6 +49,13 @@ function Resolve-ContractAsset {
         $direction = [Catzc.Base.Contracts.ContractDirection]::Provided
     }
     $isNamed = $AppliesTo.ContainsKey($key)
+    # A group's folder sorts schemas, fragments, presence assets and samples; a command contract, the types surface and the types schema
+    # belong to the group itself.
+    if ($Path.Contains('/') -and ($kind -eq [Catzc.Base.Contracts.ContractAssetKind]::Command -or
+            $kind -eq [Catzc.Base.Contracts.ContractAssetKind]::Types -or
+            $name -ceq [Catzc.Base.Contracts.ContractLayout]::TypesSchemaName)) {
+        throw "contract asset '$assetName': a $kind asset sits at group level, never in a group's folder (ADR-REPO-CONTRACT-LAYOUT)."
+    }
 
     if ($kind -eq [Catzc.Base.Contracts.ContractAssetKind]::Sample -or $kind -eq [Catzc.Base.Contracts.ContractAssetKind]::Types) {
         if ($isNamed) {
@@ -94,12 +101,7 @@ function Resolve-ContractAsset {
             if ($isNamed) {
                 throw "${manifest}: applies_to names '$key', a schema that applies to the sample payload beside it; only a schema with no sample beside it takes files (ADR-REPO-CONTRACT-CONFIGUREDADDRESSING)."
             }
-            $folder = if ($Group) {
-                "contracts/$Root/$Version/$Group/"
-            }
-            else {
-                "contracts/$Root/$Version/"
-            }
+            $folder = $assetName.Substring(0, $assetName.LastIndexOf('/') + 1)
             return [Catzc.Base.Contracts.ContractAsset]::new($Root, $Version, $Group, $Path, $kind,
                 "$folder$($samples[0])", $direction)
         }

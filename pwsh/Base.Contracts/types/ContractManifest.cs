@@ -58,7 +58,7 @@ public sealed class ContractManifest
         applies_to = globs;
     }
 
-    // An asset's key: its file name, or <group>/<file name> when it sits in a group folder; never deeper.
+    // An asset's key: its path below the version folder, <file>, <group>/<file> or <group>/<folder>/<file>; never deeper.
     private static bool IsKey(string asset)
     {
         if (string.IsNullOrEmpty(asset) || asset.Contains('\\') || asset.StartsWith("/", StringComparison.Ordinal))
@@ -66,7 +66,7 @@ public sealed class ContractManifest
             return false;
         }
         string[] segments = asset.Split('/');
-        if (segments.Length > 2)
+        if (segments.Length > 3)
         {
             return false;
         }
@@ -85,7 +85,7 @@ public sealed class ContractManifest
         string asset = Convert.ToString(entry.Key, CultureInfo.InvariantCulture);
         if (!IsKey(asset))
         {
-            errors.Add(string.Format(CultureInfo.InvariantCulture, "applies_to key '{0}' is not an asset's <file> or <group>/<file> in the version folder", asset));
+            errors.Add(string.Format(CultureInfo.InvariantCulture, "applies_to key '{0}' is not an asset's <file>, <group>/<file> or <group>/<folder>/<file> in the version folder", asset));
             return;
         }
         var patterns = new List<string>();

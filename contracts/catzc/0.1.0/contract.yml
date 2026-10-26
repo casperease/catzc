@@ -3,7 +3,7 @@
 applies_to:
   pwsh.azure.dev_ops/pipeline.yaml.schema.json:
     - ".ado/pipelines/**/*.yaml"
-  pwsh.azure.templates/main.json.schema.json:
+  pwsh.azure.templates/arm/main.json.schema.json:
     - "pwsh/Azure.Templates/tests/assets/parameter-model/main.json"
   pwsh.tooling.github/workflow.yml.schema.json:
     - ".github/workflows/*.yml"

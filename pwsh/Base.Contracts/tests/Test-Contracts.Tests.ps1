@@ -201,12 +201,12 @@ Describe 'Test-Contracts' -Tag 'L0', 'logic' {
         $result.Facts['Assets'] | Should -Be 0
     }
 
-    It 'reports a folder below a group as one issue' -Tag 'ADR-REPO-CONTRACT-LAYOUT' {
-        Add-File 'contracts/widget/0.1.0/gadgets/flows/gadget.sample.json' '{}'
+    It 'reports a second folder below a group as one issue' -Tag 'ADR-REPO-CONTRACT-LAYOUT' {
+        Add-File 'contracts/widget/0.1.0/gadgets/flows/deep/gadget.sample.json' '{}'
         $result = Test-Contracts -RepositoryRoot $script:root -OutputFolder $script:out -PassThru
         $result.IssueCount | Should -Be 1
         $result.Issues[0] |
-            Should -BeLike "contracts/ does not list ? contracts/widget/0.1.0/gadgets: 'flows' is a folder below a group*"
+            Should -BeLike "contracts/ does not list ? contracts/widget/0.1.0/gadgets/flows: 'deep' is a second folder below a group*"
     }
 
     It 'reports a dot-prefixed folder under contracts/ as one issue' -Tag 'ADR-REPO-CONTRACT-NODOTFOLDERS' {

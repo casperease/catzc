@@ -37,7 +37,7 @@ public sealed class ContractAsset
         }
         Version = version;
         Group = string.IsNullOrEmpty(group) ? "" : Segment("group", group);
-        Path = Segment("path", path);
+        Path = AssetPathBelowGroup(path, Group.Length > 0);
         Key = Group.Length == 0 ? Path : string.Format("{0}/{1}", Group, Path);
         AssetPath = string.Format("contracts/{0}/{1}/{2}", Root, Version, Key);
         Kind = kind;
@@ -65,6 +65,19 @@ public sealed class ContractAsset
         if (checkedValue.Contains('/'))
         {
             throw new ArgumentException(string.Format("contract asset: {0} '{1}' must be one folder or file name", what, value));
+        }
+        return checkedValue;
+    }
+
+    private static string AssetPathBelowGroup(string value, bool inGroup)
+    {
+        string checkedValue = Relative("path", value);
+        int depth = checkedValue.Split('/').Length;
+        if (depth > (inGroup ? 2 : 1))
+        {
+            throw new ArgumentException(string.Format(inGroup
+                ? "contract asset: path '{0}' must be a file name or one folder and a file name"
+                : "contract asset: path '{0}' must be one folder or file name", value));
         }
         return checkedValue;
     }

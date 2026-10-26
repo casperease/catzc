@@ -41,15 +41,24 @@ Describe 'ContractAsset' -Tag 'L0', 'logic' {
             Should -Throw '*contract asset*'
     }
 
-    It 'rejects a version that is not a three-part version, and a root, group or path of more than one name' -Tag 'ADR-REPO-CONTRACT-LAYOUT' {
+    It 'rejects a version that is not a three-part version, a root or group of more than one name, and a path deeper than its place allows' -Tag 'ADR-REPO-CONTRACT-LAYOUT' {
         { [Catzc.Base.Contracts.ContractAsset]::new('widget', 'v1', 'gadgets', 'a.md', $script:fragment, 'a.md',
                 $script:dependedOn) } | Should -Throw "*version 'v1'*"
         { [Catzc.Base.Contracts.ContractAsset]::new('widget/gadget', '0.1.0', 'gadgets', 'a.md', $script:fragment,
                 'a.md', $script:dependedOn) } | Should -Throw '*one folder or file name*'
         { [Catzc.Base.Contracts.ContractAsset]::new('widget', '0.1.0', 'gadget/s', 'a.md', $script:fragment, 'a.md',
                 $script:dependedOn) } | Should -Throw '*one folder or file name*'
-        { [Catzc.Base.Contracts.ContractAsset]::new('widget', '0.1.0', 'gadgets', 'x/a.md', $script:fragment, 'a.md',
+        { [Catzc.Base.Contracts.ContractAsset]::new('widget', '0.1.0', '', 'x/a.md', $script:fragment, 'a.md',
                 $script:dependedOn) } | Should -Throw '*one folder or file name*'
+        { [Catzc.Base.Contracts.ContractAsset]::new('widget', '0.1.0', 'gadgets', 'x/y/a.md', $script:fragment, 'a.md',
+                $script:dependedOn) } | Should -Throw '*one folder and a file name*'
+    }
+
+    It 'keys an asset in a group''s folder by its path below the version folder' -Tag 'ADR-REPO-CONTRACT-LAYOUT' {
+        $asset = [Catzc.Base.Contracts.ContractAsset]::new('widget', '0.1.0', 'gadgets', 'flows/a.md', $script:fragment,
+            'a.md', $script:dependedOn)
+        $asset.Key | Should -Be 'gadgets/flows/a.md'
+        $asset.AssetPath | Should -Be 'contracts/widget/0.1.0/gadgets/flows/a.md'
     }
 
     It 'gives a sample payload no target, and every other kind one' -Tag 'ADR-REPO-CONTRACT-CONTRACTASSET' {

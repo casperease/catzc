@@ -23,10 +23,15 @@ Describe 'ContractManifest' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT-CONFIGUREDADD
             Should -Throw "*unknown key 'direction' (allowed: applies_to)*"
     }
 
-    It 'collects every violation: a key below a group, an empty glob list, a rooted glob, and applies_to that is not a map' {
-        $raw = @{ applies_to = [ordered]@{ 'a/b/c.json' = @('a.yml'); 'gadgets/a.json' = @(); 'gadgets/b.json' = @('/b.yml') } }
+    It 'keys an asset in one folder of a group by its path below the version folder' -Tag 'ADR-REPO-CONTRACT-LAYOUT' {
+        $manifest = [Catzc.Base.Contracts.ContractManifest]::new(@{ applies_to = [ordered]@{ 'gadgets/flows/a.schema.json' = @('a.json') } })
+        $manifest.applies_to.Keys | Should -Be @('gadgets/flows/a.schema.json')
+    }
+
+    It 'collects every violation: a key two folders below a group, an empty glob list, a rooted glob, and applies_to that is not a map' {
+        $raw = @{ applies_to = [ordered]@{ 'a/b/c/d.json' = @('a.yml'); 'gadgets/a.json' = @(); 'gadgets/b.json' = @('/b.yml') } }
         { [Catzc.Base.Contracts.ContractManifest]::new($raw) } |
-            Should -Throw "*'a/b/c.json' is not an asset's <file> or <group>/<file>*'gadgets/a.json' must be a non-empty list*'/b.yml' is not a repository-relative*"
+            Should -Throw "*'a/b/c/d.json' is not an asset's <file>, <group>/<file> or <group>/<folder>/<file>*'gadgets/a.json' must be a non-empty list*'/b.yml' is not a repository-relative*"
         { [Catzc.Base.Contracts.ContractManifest]::new(@{ applies_to = 'a.yml' }) } |
             Should -Throw '*applies_to must be a map*'
     }

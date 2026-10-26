@@ -118,9 +118,9 @@ Describe 'Publish-ContractRelease' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT-RELEAS
     }
 
     It 'refuses a current version that does not list, and writes nothing' {
-        Add-File 'contracts/catzc/0.1.0/gadgets/flows/gadget.sample.json' '{}'
+        Add-File 'contracts/catzc/0.1.0/gadgets/flows/deep/gadget.sample.json' '{}'
         { Publish-ContractRelease -Root catzc -Version 1.2.3 -RepositoryRoot $script:root } |
-            Should -Throw '*is a folder below a group*'
+            Should -Throw '*is a second folder below a group*'
         [System.IO.Directory]::Exists((Join-Path $script:root 'contracts/catzc/1.2.3')) | Should -BeFalse
     }
 

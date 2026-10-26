@@ -169,7 +169,15 @@ final full run last.
     setuptools entry (build requirements are not locked). Check: `git status --short python pwsh/Base.Languages pwsh/Base.Slides` lists
     these files and nothing else of this plan's.
 
-30. The final full run, in a fresh session, when the chunks in plan-master have landed. Once it is green and committed, the work is done and
+30. plan-debt-test-speed (catzc-68): commit the `Test-SourceConventions` scan and the four faster test files. The scan:
+    `pwsh/Base.QualityGates/types/SourceConventionScan.cs` (new) with `pwsh/Base.QualityGates/tests/types/SourceConventionScan.Tests.ps1`
+    (new) and their comment pages, `pwsh/Base.QualityGates/private/Get-EngineSetFinding.ps1`,
+    `pwsh/Base.QualityGates/private/Get-NeutralCodeFinding.ps1`, and the host-binding row in `pwsh/Base.Languages/configs/bcl.yml`. The
+    test files: `pwsh/Azure.Templates/tests/Get-BicepParameterModel.Shipped.Tests.ps1`, `pwsh/.internal/tests/Wait-CatzcRunLock.Tests.ps1`,
+    `pwsh/Azure.Templates/tests/Build-Bicep.L2.Tests.ps1` and `pwsh/Azure.Templates/tests/Build-Bicep.Integrity.Tests.ps1`. Check:
+    `git status --short pwsh/Base.QualityGates pwsh/Azure.Templates/tests pwsh/.internal/tests docs/references` lists these files.
+
+31. The final full run, in a fresh session, when the chunks in plan-master have landed. Once it is green and committed, the work is done and
     every plan, task and prompt in `.claude/plans` is deleted (the user, 2026-10-20). Check: `.claude/plans` is empty.
 
 ## Report
