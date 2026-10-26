@@ -7,7 +7,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Quality gate: the sub-agent definitions, their capabilities, both registries, and the .claude/CLAUDE.md list agree.
+Checks that the sub-agent definitions, their capabilities, both registries and the agent list in CLAUDE.md agree.
 
 ### description
 

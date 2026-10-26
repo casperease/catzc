@@ -1,4 +1,6 @@
 function Test-BuildSourceShippable {
+    # .SYNOPSIS
+    #     Returns whether a source file may ship in a build: tracked by git, or untracked and not ignored.
     [CmdletBinding()]
     [OutputType([bool])]
     param(

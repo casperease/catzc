@@ -7,8 +7,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Quality gate: checks a GitHub workflow's trigger path filters against a globset's projection — the trigger-drift quality gate for GitHub
-Actions.
+Checks a GitHub workflow's trigger path filters against a globset's projection, the trigger-drift quality gate for GitHub Actions.
 
 ### description
 

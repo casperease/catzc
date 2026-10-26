@@ -7,7 +7,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Quality gate: the root PSScriptAnalyzerSettings.psd1 parses as a settings hashtable through its link.
+Checks that the root PSScriptAnalyzerSettings.psd1 parses as a settings hashtable through its link.
 
 ### description
 

@@ -7,7 +7,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Quality gate: every guid in tracked text is registered in guids.yml, none is denied, and every entry is live.
+Checks that every guid in tracked text is registered in guids.yml, that none is denied, and that every entry is live.
 
 ### description
 

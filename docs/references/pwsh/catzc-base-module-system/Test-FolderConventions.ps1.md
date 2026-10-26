@@ -7,7 +7,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Quality gate: every module folder under pwsh/ follows the folder and file conventions.
+Checks that every module folder of the modules track follows the folder and file conventions.
 
 ### description
 

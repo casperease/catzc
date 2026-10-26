@@ -1,4 +1,8 @@
 function Test-BuildSourceDirty {
+    # .SYNOPSIS
+    #     Returns whether the source root differs from its commit: a modified, staged, deleted or untracked file.
+    # .DESCRIPTION
+    #     Content decides, not stat data: a checkout with other line endings is still the same commit.
     [CmdletBinding()]
     [OutputType([bool])]
     param(

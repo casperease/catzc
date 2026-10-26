@@ -7,7 +7,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Checks the controlled vocabulary against the repository: every glossary check, every issue in one report.
+Checks the controlled vocabulary against the repository with every glossary check, every issue in one report.
 
 ### description
 

@@ -7,7 +7,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Quality gate: every managed root config file agrees with rootconfig.yml on git tracking, .gitignore, and link mechanism.
+Checks that every managed root config file agrees with rootconfig.yml on git tracking, the gitignore and the link mechanism.
 
 ### description
 

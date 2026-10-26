@@ -7,7 +7,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Quality gate: checks the pipelines/ tree against the naming-and-placement contract.
+Checks the ado pipelines tree against the naming-and-placement contract and returns its result.
 
 ### description
 

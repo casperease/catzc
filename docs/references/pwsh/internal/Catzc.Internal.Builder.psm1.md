@@ -59,52 +59,9 @@ module is named for its file, so <Module>.ps1 would load a second module named <
 and Get-Module <Module>, Mock -ModuleName and InModuleScope would each see two modules of that name.
 ```
 
-## comment:6
-
-Above `[CmdletBinding()]`, written with `#`.
-
-```text
-.SYNOPSIS
-    Returns the files a build may ship — the tracked files and the untracked files git does not ignore — each
-    marked with whether git stores it with LF-only line endings.
-.DESCRIPTION
-    An untracked file that is not ignored ships and dirties the tree, which a pipeline refuses.
-.OUTPUTS
-    [System.Collections.Generic.Dictionary[string, bool]] source-root-relative, forward-slashed path -> LF-only.
-```
-
-## comment:7
-
-Above `[CmdletBinding()]` (occurrence 2), written with `#`.
-
-```text
-.SYNOPSIS
-    Returns whether the source root differs from its commit: a modified, staged, deleted or untracked file.
-.DESCRIPTION
-    Content decides, not stat data: a checkout with other line endings is still the same commit.
-```
-
-## comment:8
-
-Above `[CmdletBinding()]` (occurrence 3), written with `#`.
-
-```text
-.SYNOPSIS
-    Returns whether a source file ships LF-normalised: it is tracked and git stores it with LF-only endings.
-```
-
-## comment:9
-
-Above `[CmdletBinding()]` (occurrence 4), written with `#`.
-
-```text
-.SYNOPSIS
-    Returns whether a source file may ship in a build: tracked by git, or untracked and not ignored.
-```
-
 ## comment:10
 
-Above `[CmdletBinding()]` (occurrence 5), written with `#`.
+Above `[CmdletBinding()]`, written with `#`.
 
 ```text
 .SYNOPSIS
@@ -114,7 +71,7 @@ Above `[CmdletBinding()]` (occurrence 5), written with `#`.
 
 ## comment:11
 
-Above `[CmdletBinding()]` (occurrence 6), written with `#`.
+Above `[CmdletBinding()]` (occurrence 2), written with `#`.
 
 ```text
 .SYNOPSIS
@@ -144,7 +101,7 @@ copies every shippable file, so nothing is pruned here.
 
 ## comment:13
 
-Above `[CmdletBinding()]` (occurrence 7), written with `#`.
+Above `[CmdletBinding()]` (occurrence 3), written with `#`.
 
 ```text
 .SYNOPSIS
@@ -155,7 +112,7 @@ Above `[CmdletBinding()]` (occurrence 7), written with `#`.
 
 ## comment:14
 
-Above `[CmdletBinding()]` (occurrence 8), written with `#`.
+Above `[CmdletBinding()]` (occurrence 4), written with `#`.
 
 ```text
 .SYNOPSIS
@@ -164,7 +121,7 @@ Above `[CmdletBinding()]` (occurrence 8), written with `#`.
 
 ## comment:15
 
-Above `[CmdletBinding()]` (occurrence 9), written with `#`.
+Above `[CmdletBinding()]` (occurrence 5), written with `#`.
 
 ```text
 .SYNOPSIS

@@ -7,7 +7,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Quality gate: checks that every generated file equals what its generator would write now.
+Checks that every generated file equals what its generator would write now.
 
 ### description
 

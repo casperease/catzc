@@ -7,7 +7,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Returns a template's Bicep parameter model: every parameter its compiled main.json declares, with type, default, allowed values, and bounds.
+Returns a template's Bicep parameter model, every parameter its compiled main.json declares with its type, default, allowed values and bounds.
 
 ### description
 

@@ -7,8 +7,8 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Copies a module profile into a tmp sandbox and runs its tests in isolation — a clean child pwsh (true isolation) or the current session
-(fast) — so a subset of the toolset is verified deterministically.
+Copies a module profile into a temporary sandbox and runs its tests in isolation, in a clean child pwsh or the current session, so a
+subset of the toolset is verified deterministically.
 
 ### description
 

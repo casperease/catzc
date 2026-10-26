@@ -7,7 +7,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Spell-checks the repository's known file types with cspell and writes a report under out/.
+Spell-checks the repository's known file types with cspell and writes a report to the output folder.
 
 ### description
 

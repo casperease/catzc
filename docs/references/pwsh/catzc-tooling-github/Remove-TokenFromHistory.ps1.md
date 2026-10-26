@@ -7,7 +7,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Scrubs a token from a git history's blob content and commit messages with git-filter-repo. The fallback route — prefer New-SyntheticHistory.
+Scrubs a token from a git history's blob content and commit messages with git-filter-repo, the fallback route to New-SyntheticHistory.
 
 ### description
 

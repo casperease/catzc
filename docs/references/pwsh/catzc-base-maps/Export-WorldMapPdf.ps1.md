@@ -7,7 +7,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Writes the world map as PDFs: the grid view, the tree view, or both, optionally with a highlight.
+Writes the world map as PDFs, the grid view, the tree view or both, optionally with a highlight.
 
 ### description
 

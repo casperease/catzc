@@ -7,7 +7,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-The function dependency quality gate: every function-to-function call resolves to a defined command.
+Checks that every function-to-function call resolves to a defined command.
 
 ### description
 

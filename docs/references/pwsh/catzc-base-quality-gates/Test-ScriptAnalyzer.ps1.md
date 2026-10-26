@@ -7,7 +7,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Analyzes the automation PowerShell with PSScriptAnalyzer and writes a report under out/.
+Analyzes the automation PowerShell with PSScriptAnalyzer and writes a report to the output folder.
 
 ### description
 

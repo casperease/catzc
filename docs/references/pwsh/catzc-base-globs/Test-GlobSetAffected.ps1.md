@@ -7,7 +7,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Whether the current context's change touches a globset — the in-pipeline "is there anything here for us to process?" check.
+Returns whether the current context's change touches a globset, the in-pipeline check for anything to process.
 
 ### description
 

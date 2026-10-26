@@ -7,8 +7,8 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Quality gate: the repository honours every binding contract asset, every released version folder is unchanged, and contracts/ holds no
-dot-prefixed folder.
+Checks that the repository honours every binding contract asset, that every released version folder is unchanged, and that the contracts
+folder holds no dot-prefixed folder.
 
 ### description
 

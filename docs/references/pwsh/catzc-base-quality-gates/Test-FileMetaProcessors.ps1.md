@@ -7,7 +7,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Quality gate: every meta kind resolves to a processor function, and every convention-named processor function belongs to a kind.
+Checks that every meta kind resolves to a processor function and that every convention-named processor function belongs to a kind.
 
 ### description
 

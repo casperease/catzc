@@ -7,7 +7,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Runs a build run: the same tests as Test-Automation, against a fresh build of the selected modules.
+Runs a build run, the same tests as Test-Automation, against a fresh build of the selected modules.
 
 ### description
 

@@ -7,7 +7,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Quality gate: every member of a pipeline-bound globset matches one of its ADO trigger include patterns.
+Checks that every member of a pipeline-bound globset matches one of its ADO trigger include patterns.
 
 ### description
 

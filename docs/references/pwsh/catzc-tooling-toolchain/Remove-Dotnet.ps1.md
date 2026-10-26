@@ -7,7 +7,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Evicts an off-config .NET install — one the tooling's managed user-space install does not own.
+Evicts an off-config .NET install, one the tooling's managed user-space install does not own.
 
 ### description
 

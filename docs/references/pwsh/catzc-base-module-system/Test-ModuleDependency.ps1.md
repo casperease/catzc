@@ -7,7 +7,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Quality gate: checks that the actual module dependencies conform to the declared graph.
+Checks that the actual module dependencies conform to the declared graph.
 
 ### description
 

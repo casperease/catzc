@@ -7,7 +7,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Quality gate: the ADR registry (drs.yml) and the ADR rule files under docs/drs/ agree.
+Checks that the ADR registry (drs.yml) and the ADR rule files agree.
 
 ### description
 

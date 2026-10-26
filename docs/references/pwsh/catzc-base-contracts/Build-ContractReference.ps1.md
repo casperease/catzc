@@ -7,8 +7,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Generates the contract reference: one page per root, `docs/references/contracts/<root>.md`, listing every contract asset of every version
-folder with its note.
+Generates the contract reference, one page per root listing every contract asset of every version folder with its note.
 
 ### description
 

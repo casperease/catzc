@@ -7,7 +7,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-The link quality gate: fails on any off-form, dangling, or dead link or citation.
+Checks links and fails on any off-form, dangling or dead link or citation.
 
 ### description
 

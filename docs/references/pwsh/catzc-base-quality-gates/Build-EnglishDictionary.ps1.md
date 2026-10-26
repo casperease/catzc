@@ -7,8 +7,8 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Generates the committed English word list the spell-out-names analyzer rule checks identifiers against — flattened from cspell's own bundled
-dictionaries so the two checks agree on "what is a word".
+Generates the committed English word list the spell-out-names analyzer rule checks identifiers against, flattened from cspell's own bundled
+dictionaries so the two checks agree on what a word is.
 
 ### description
 

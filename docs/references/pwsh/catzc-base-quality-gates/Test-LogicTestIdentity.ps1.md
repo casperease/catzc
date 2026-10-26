@@ -7,8 +7,8 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Quality gate: no LOGIC test may name a live production identity (a real customer, subscription, org, template, or ADO project) as a code
-string literal — the tag-aware, comment-blind enforcer of the test/live zone separation.
+Checks that no logic test names a live production identity (a real customer, subscription, org, template or ADO project) as a code string
+literal, the tag-aware, comment-blind enforcer of the separation of the test and live zones.
 
 ### description
 

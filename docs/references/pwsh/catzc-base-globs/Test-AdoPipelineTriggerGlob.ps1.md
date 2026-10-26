@@ -7,7 +7,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Quality gate: checks each ADO pipeline's trigger path filters against its globset's projection — the trigger-drift quality gate.
+Checks each ADO pipeline's trigger path filters against its globset's projection, the trigger-drift quality gate.
 
 ### description
 

@@ -7,7 +7,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Quality gate: the real module-to-module call graph has no cycle.
+Checks that the real module-to-module call graph has no cycle.
 
 ### description
 

@@ -7,7 +7,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Quality gate: checks per-layer independence — no two same-layer globsets select a common file on their OWN contribution.
+Checks per-layer independence, that no two same-layer globsets select a common file on their own contribution.
 
 ### description
 

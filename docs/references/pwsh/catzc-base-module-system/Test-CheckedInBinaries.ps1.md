@@ -7,7 +7,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Quality gate: every checked-in binary in the repository is stored byte-exact.
+Checks that every checked-in binary in the repository is stored byte-exact.
 
 ### description
 

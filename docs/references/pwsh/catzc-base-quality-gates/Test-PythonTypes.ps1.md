@@ -7,7 +7,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Quality gate: type-checks every Python file the repository holds with pyright, the engine Pylance runs in the editor.
+Type-checks every Python file the repository holds with pyright, the engine Pylance runs in the editor.
 
 ### description
 

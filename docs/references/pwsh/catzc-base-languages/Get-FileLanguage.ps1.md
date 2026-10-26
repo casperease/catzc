@@ -7,7 +7,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Returns the repository's file languages — all of them, the named ones, or the one a file is written in.
+Returns the repository's file languages, all of them, the named ones, or the one a file is written in.
 
 ### description
 

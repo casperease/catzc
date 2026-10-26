@@ -7,7 +7,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Collects the spell-checker's flagged tokens into a triage queue for classification — the on-ramp to the terminology registry, never an
+Collects the spell-checker's flagged tokens into a triage queue for classification, the on-ramp to the terminology registry, never an
 automatic acceptance.
 
 ### description

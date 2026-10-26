@@ -7,7 +7,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Renders the Go test workspace — the repository-root go.work and each `<root>/tests/<folder>/go.mod` — from configs/go.yml.
+Renders the Go test workspace, the repository-root go.work and one go.mod per Go test folder, from the go config.
 
 ### description
 

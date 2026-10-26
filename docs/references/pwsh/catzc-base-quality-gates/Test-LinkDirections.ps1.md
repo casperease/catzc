@@ -7,7 +7,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-The link-direction quality gate: fails on every relation that points a way the direction rows do not allow.
+Checks link directions and fails on every relation that points a way the direction rows do not allow.
 
 ### description
 

@@ -7,7 +7,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Quality gate: the network plan (network.yml) and the azure config's environments and subscriptions are in sync.
+Checks that the network plan (network.yml) and the azure config's environments and subscriptions are in sync.
 
 ### description
 

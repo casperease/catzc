@@ -7,7 +7,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Quality gate: every generated README is gitignored, untracked, and current with its source.
+Checks that every generated README is gitignored, untracked and current with its source.
 
 ### description
 

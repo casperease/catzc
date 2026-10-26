@@ -7,7 +7,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Quality gate: every ADR sits in a cell of the value-chain map, and every label the value-chain map prints is a glossary term.
+Checks that every ADR sits in a cell of the value-chain map and that every label the value-chain map prints is a glossary term.
 
 ### description
 

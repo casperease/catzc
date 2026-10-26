@@ -1,4 +1,6 @@
 function Test-BuildSourceLfOnly {
+    # .SYNOPSIS
+    #     Returns whether a source file ships LF-normalised: it is tracked and git stores it with LF-only endings.
     [CmdletBinding()]
     [OutputType([bool])]
     param(

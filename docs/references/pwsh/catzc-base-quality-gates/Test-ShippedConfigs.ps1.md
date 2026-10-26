@@ -7,7 +7,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Quality gate: every shipped config has a registered C# config type and loads through it.
+Checks that every shipped config has a registered config type and loads through it.
 
 ### description
 

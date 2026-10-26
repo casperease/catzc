@@ -7,8 +7,8 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Quality gate: no shipped config may carry a TEST-fixture identity in its data — the reverse of Test-LogicTestIdentity, closing the other
-half of the language-zone separation.
+Checks that no shipped config carries a test-fixture identity in its data, the reverse of Test-LogicTestIdentity, closing the other half
+of the language-zone separation.
 
 ### description
 

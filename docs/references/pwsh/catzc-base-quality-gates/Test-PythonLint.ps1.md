@@ -7,7 +7,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Quality gate: lints every Python file the repository holds with ruff.
+Lints every Python file the repository holds with ruff.
 
 ### description
 

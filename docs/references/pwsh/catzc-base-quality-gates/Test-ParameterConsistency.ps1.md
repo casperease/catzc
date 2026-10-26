@@ -7,7 +7,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Quality gate: one parameter name means one type across the public functions.
+Checks that one parameter name means one type across the public functions.
 
 ### description
 

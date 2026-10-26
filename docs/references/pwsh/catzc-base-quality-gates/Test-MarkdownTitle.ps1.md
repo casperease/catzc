@@ -7,7 +7,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-The Markdown title and heading quality gate: fails on any in-scope file whose H1 is not a title or whose headings are not in normal form.
+Checks Markdown titles and headings and fails on any in-scope file whose H1 is not a title or whose headings are not in normal form.
 
 ### description
 

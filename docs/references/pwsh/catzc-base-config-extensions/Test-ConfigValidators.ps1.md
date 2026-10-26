@@ -7,7 +7,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Quality gate: every `Assert-<Name>Config` validator maps to a `configs/<name>.yml` in its own module.
+Checks that every config validator maps to the config file of the same name in its own module.
 
 ### description
 

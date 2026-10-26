@@ -7,7 +7,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Renders the Python test workspace: the uv workspace root `<root>/pyproject.toml` and one member pyproject.toml per Python test folder.
+Renders the Python test workspace, the uv workspace root pyproject.toml and one member pyproject.toml per Python test folder.
 
 ### description
 

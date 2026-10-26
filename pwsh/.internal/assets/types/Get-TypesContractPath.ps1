@@ -8,7 +8,8 @@ function Get-TypesContractPath {
     # .PARAMETER RepositoryRoot
     #     The repository root the contract sits under.
     # .OUTPUTS
-    #     [string] The contract file, repository-relative; with no such group yet, the path under the modules track.
+    #     [string] The contract file, repository-relative; with no such group yet, the path under the modules track, the
+    #     one folder under the root that holds this module.
     # .EXAMPLE
     #     Get-TypesContractPath -RepositoryRoot $root
     [CmdletBinding()]
@@ -31,8 +32,15 @@ function Get-TypesContractPath {
         $groups[0]
     }
     else {
-        # No group yet: the modules track is the folder that holds this module's .internal folder.
-        "$([System.IO.Path]::GetFileName([System.IO.Path]::GetFullPath((Join-Path $PSScriptRoot '../../..')))).$short"
+        # No group yet: the modules track is the folder under the repository root that holds this module, read from the
+        # root alone, so a build's staging copy names the same group as the repository it builds.
+        $tracks = @([System.IO.Directory]::GetDirectories($RepositoryRoot) |
+                Where-Object { [System.IO.File]::Exists([System.IO.Path]::Combine($_, '.internal', 'Catzc.Internal.Types.psm1')) } |
+                ForEach-Object { [System.IO.Path]::GetFileName($_) })
+        if ($tracks.Count -ne 1) {
+            throw "Get-TypesContractPath: no types group under $version, and $($tracks.Count) folders under '$RepositoryRoot' hold .internal/Catzc.Internal.Types.psm1; one must, to name the group."
+        }
+        "$($tracks[0]).$short"
     }
     "$version/$group/types.sample.json"
 }

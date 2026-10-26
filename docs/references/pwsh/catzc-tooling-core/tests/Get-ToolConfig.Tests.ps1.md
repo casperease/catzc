@@ -22,3 +22,12 @@ shipped tools.yml ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automatio
 mock returns a STABLE typed ToolsConfig (Get-ToolConfig inherits its
 same-reference caching from Get-Config's cached read), so both calls see one ToolConfig.
 ```
+
+## comment:3
+
+Above `$script:installableEntries = $script:toolEntries | Where-Object { -not...`, written with `#`.
+
+```text
+OS-provided tools (winget) are asserted, never installed — they have no Install-/Uninstall- functions.
+A tool another tool's installer installs alongside itself (installed_by) has no pair of its own either.
+```

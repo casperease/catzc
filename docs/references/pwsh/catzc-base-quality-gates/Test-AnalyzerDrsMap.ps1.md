@@ -7,7 +7,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Quality gate: analyzer-drs-map.yml cites only real ADR rules and maps every custom analyzer rule.
+Checks that analyzer-drs-map.yml cites only real ADR rules and maps every custom analyzer rule.
 
 ### description
 

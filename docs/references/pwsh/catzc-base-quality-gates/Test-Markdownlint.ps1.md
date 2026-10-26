@@ -7,7 +7,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Lints the repository's Markdown with markdownlint-cli2 and writes a report under out/.
+Lints the repository's Markdown with markdownlint-cli2 and writes a report to the output folder.
 
 ### description
 

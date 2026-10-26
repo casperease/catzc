@@ -7,7 +7,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Checks the terminology registry: no drift, no orphans, no unjustified entries. Writes a report under out/.
+Checks the terminology registry for drift, orphans and unjustified entries and writes a report to the output folder.
 
 ### description
 

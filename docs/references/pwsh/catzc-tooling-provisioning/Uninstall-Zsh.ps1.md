@@ -7,7 +7,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Uninstalls the zsh Install-Zsh placed: in Git Bash's tree on Windows, the apt-get package on Linux.
+Uninstalls the zsh Install-Zsh placed, in Git Bash's tree on Windows and the apt-get package on Linux.
 
 ### description
 

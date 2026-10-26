@@ -7,8 +7,8 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Quality gate: checks every shell script the repository holds — LF line endings, the executable bit, and ShellCheck or zsh's syntax check on
-the repository's own.
+Checks every shell script the repository holds for LF line endings, the executable bit, and ShellCheck or zsh's syntax check on the
+repository's own.
 
 ### description
 

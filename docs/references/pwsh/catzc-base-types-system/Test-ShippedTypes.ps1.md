@@ -7,7 +7,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Quality gate: every shipped C# type resolves in the session as `<module>.<basename>`.
+Checks that every shipped compiled type resolves in the session under its module's namespace and file name.
 
 ### description
 

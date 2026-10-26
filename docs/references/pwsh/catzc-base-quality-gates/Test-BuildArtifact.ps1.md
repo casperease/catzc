@@ -7,7 +7,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Quality gate: builds the selected modules once into a temporary destination and verifies the built artifact.
+Builds the selected modules once into a temporary destination and verifies the built artifact.
 
 ### description
 

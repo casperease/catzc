@@ -7,7 +7,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Quality gate: every tracked file sits in a declared track and its tech-stack, and every label the world map prints is a glossary term.
+Checks that every tracked file sits in a declared track and its tech-stack, and that every label the world map prints is a glossary term.
 
 ### description
 

@@ -7,7 +7,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Quality gate: the rule summaries of the configured ADR domains carry no engine-specific syntax.
+Checks that the rule summaries of the configured ADR domains carry no engine-specific syntax.
 
 ### description
 

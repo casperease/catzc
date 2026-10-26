@@ -7,7 +7,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Quality gate over what changed: runs the tests and the checks of the changed files, and reports only their issues.
+Runs the tests and the checks of the changed files and reports only their issues.
 
 ### description
 

@@ -1,4 +1,11 @@
 function Get-BuildSourceIndex {
+    # .SYNOPSIS
+    #     Returns the files a build may ship — the tracked files and the untracked files git does not ignore — each
+    #     marked with whether git stores it with LF-only line endings.
+    # .DESCRIPTION
+    #     An untracked file that is not ignored ships and dirties the tree, which a pipeline refuses.
+    # .OUTPUTS
+    #     [System.Collections.Generic.Dictionary[string, bool]] source-root-relative, forward-slashed path -> LF-only.
     [CmdletBinding()]
     [OutputType([System.Collections.Generic.Dictionary[string, bool]])]
     param(
