@@ -19,8 +19,9 @@ names are checked against the surfaces.
 - Its content comes from the compiled DLL (the Add-Type build), never written by hand: a generated contract, as the global types sample is
   today.
 - A type's group comes from its namespace, `Catzc.<module folder>`, matched to the one group folder ending in the folder's normal form (as
-  Get-TypesContractPath matches); a missing group is an error naming the module, never a folder the writer creates, and Test-Contracts
-  pins that each mapping equals Get-ContractGroup (the orchestrator, 2026-10-26).
+  Get-TypesContractPath matches); a missing group is derived by the form (`<track>.<normal folder>`, contracts.yml exceptions) and
+  created, as a types surface is a provided contract even without commands; Test-Contracts pins that each mapping equals
+  Get-ContractGroup (the orchestrator, 2026-10-26).
 - Each type lists name, aliases, display and its public members: property and method names, sorted, each with its kind, no signatures or
   bodies; a body edit leaves the file unchanged, a new public member moves it (the orchestrator, 2026-10-26).
 
@@ -34,5 +35,4 @@ names are checked against the surfaces.
        Get-TypesContractDrift.Tests.ps1 and Invoke-ModuleBuild.Tests.ps1.
 4. [ ] The cross-check: every type a command contract names in `parameters` or `output` exists in some group's `types.json`, a
        Test-Contracts finding otherwise. Check: Test-Contracts with an L0 case per direction and the real tree at 0.
-5. [ ] The rule text in `docs/drs/repository/api-contracts.md` and `docs/drs/automation/caching.md`. Check: Test-DrsRegistry and
-       Test-Links.
+5. [ ] The rule text in `docs/drs/repository/api-contracts.md` and `docs/drs/automation/caching.md`. Check: Test-DrsRegistry and Test-Links.

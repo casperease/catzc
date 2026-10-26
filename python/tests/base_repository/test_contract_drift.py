@@ -18,7 +18,9 @@ from pathlib import PurePath
 import pytest
 
 COMMAND = "Get-RepositoryFile"
-MODULE = "Catzc.Base.Repository"
+# The contract names the command and its group in normal form.
+CONTRACT = "get_repository_file"
+GROUP = "pwsh.base.repository"
 # What this caller passes and what it reads back; it changes only when the caller does.
 CALLER_ARGUMENTS = {"Path": "README.md"}
 CALLER_OUTPUT = "string"
@@ -112,9 +114,9 @@ def drift(signature: Signature, arguments: dict[str, str], output: str) -> list[
 def read_signature() -> Signature:
     """Read the command's contract signature from the contracts under CATZC_REPOSITORY_ROOT, through the one reader."""
     root = require_env("CATZC_REPOSITORY_ROOT").replace("\\", "/")
-    text = run_engine(expression(f"(Get-CommandContract -Name {COMMAND} -Module {MODULE} -RepositoryRoot {root}).Signature"))
+    text = run_engine(expression(f"(Get-CommandContract -Name {CONTRACT} -Module {GROUP} -RepositoryRoot {root}).Signature"))
     if not text:
-        pytest.fail(f"no command contract names {MODULE}/{COMMAND} under {root}/contracts")
+        pytest.fail(f"no command contract names {GROUP}/{CONTRACT} under {root}/contracts")
     return parse_signature(text)
 
 
