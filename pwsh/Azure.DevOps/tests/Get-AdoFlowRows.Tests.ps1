@@ -11,7 +11,8 @@ Describe 'Get-AdoFlowRows' -Tag 'L0', 'logic' {
             'trigger:', '  branches:', '    include: [main]', 'pr: none',
             'extends:', '  template: /.ado/pipelines/extends/cd-gadget.yaml')
         Set-Content -Path (Join-Path $pipelines 'deploy-widget.yaml') -Value @(
-            'trigger: none', 'pr: none', 'stages:', '  - template: /.ado/pipelines/stages/deploy-unit.yaml')
+            'trigger: none', 'pr: none', 'stages:', '  - template: /.ado/pipelines/stages/deploy-unit.yaml',
+            '  - template: /.ado/pipelines/stages/deploy-unit.yaml')
         $script:point = '.ado/pipelines/ci-widget.yaml; .ado/pipelines/cd-widget.yaml;.ado/pipelines/deploy-widget.yaml'
     }
 
@@ -52,6 +53,7 @@ Describe 'Get-AdoFlowRows' -Tag 'L0', 'logic' {
         $script:lane['ci-widget'].templates[0].kind | Should -Be 'stage'
         $script:lane['cd-widget'].templates[0].kind | Should -Be 'extends'
         $script:lane['cd-widget'].templates[0].name | Should -Be '.ado/pipelines/extends/cd-gadget.yaml'
+        @($script:lane['deploy-widget'].templates) | Should -HaveCount 1 -Because 'a template referenced twice is drawn once'
     }
 
     It 'takes the environments from the rungs, the gated ones on the deploy lane marked for approval' {

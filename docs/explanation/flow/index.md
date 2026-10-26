@@ -25,6 +25,7 @@ One artifact is built once and climbs to production unchanged
 | implementation | [The customer CD pipeline builds once, then deploys the prod tier itself](cd-builds-once-then-deploys-prod-itself.md)   |
 | operations     | [A merge to main runs the CD pipeline all the way to prod, with no approval](a-merge-runs-cd-to-prod.md)                |
 | governance     | [The CI budget is the only promotion rule a quality gate checks](ci-budget-is-the-only-quality-gate.md)                 |
+| flow           | [A pwsh commit runs CI, is certified by CD, and deploy climbs the gated rungs](ci-pwsh-to-deploy-apex.md)               |
 
 The manual queues of the promotion ladder ([manual-queues](../../drs/flow/manual-queues.md)), in ten slides:
 [The manual queues of the promotion ladder, in ten slides](manual-queues-slides.md).

@@ -34,7 +34,8 @@ function Get-AdoFlowRows {
         if ($triggers.Count -eq 0) {
             $triggers.Add('manual')
         }
-        $templates = @(foreach ($reference in @(Get-PipelineTemplateReference -Path $file)) {
+        # A lane draws each template it references once, in the order it is first referenced.
+        $templates = @(foreach ($reference in @(Get-PipelineTemplateReference -Path $file | Select-Object -Unique)) {
                 $folder = (Split-Path (Split-Path $reference -Parent) -Leaf)
                 [ordered]@{ name = $reference.TrimStart('/'); kind = $kinds.ContainsKey($folder) ? $kinds[$folder] : 'template' }
             })
