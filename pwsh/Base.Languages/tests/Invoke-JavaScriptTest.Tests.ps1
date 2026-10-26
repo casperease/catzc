@@ -9,10 +9,10 @@ catzc:
 Describe 'Invoke-JavaScriptTest' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:root = Join-Path $TestDrive 'repo'
-        $script:own = Join-Path $script:root 'js/catzc-widget/tests'
+        $script:own = Join-Path $script:root 'js/widget/tests'
         $null = New-Item -ItemType Directory -Path $script:own -Force
         Set-Content -LiteralPath (Join-Path $script:own 'spin.test.js') -Value 'test("spins", () => {});'
-        $null = New-Item -ItemType Directory -Path (Join-Path $script:root 'js/catzc-gadget') -Force
+        $null = New-Item -ItemType Directory -Path (Join-Path $script:root 'js/gadget') -Force
         $script:nodePath = Join-Path $TestDrive 'node/node.exe'
         $null = New-Item -ItemType File -Path $script:nodePath -Force
 
@@ -45,17 +45,17 @@ Describe 'Invoke-JavaScriptTest' -Tag 'L0', 'logic' {
         $results | Should -HaveCount 1
         $results[0].Package | Should -Be 'spin.test.js'
         $results[0].Outcome | Should -Be 'pass'
-        $script:seen[0].Directory | Should -Be (Join-Path $script:root 'js/catzc-widget/tests')
+        $script:seen[0].Directory | Should -Be (Join-Path $script:root 'js/widget/tests')
         $script:seen[0].Command | Should -BeLike '*--test --test-reporter=junit*spin.test.js*'
     }
 
     It 'runs the folder it is named, wherever the module''s own tests sit' {
-        $null = @(Invoke-JavaScriptTest catzc-gadget -Folder 'js/catzc-widget/tests' -NodeExecutable $script:nodePath)
-        $script:seen[0].Directory | Should -Be (Join-Path $script:root 'js/catzc-widget/tests')
+        $null = @(Invoke-JavaScriptTest catzc-gadget -Folder 'js/widget/tests' -NodeExecutable $script:nodePath)
+        $script:seen[0].Directory | Should -Be (Join-Path $script:root 'js/widget/tests')
     }
 
     It 'refuses a module that has no tests' {
-        { Invoke-JavaScriptTest catzc-gadget -Folder 'js/catzc-gadget' -NodeExecutable $script:nodePath } |
+        { Invoke-JavaScriptTest catzc-gadget -Folder 'js/gadget' -NodeExecutable $script:nodePath } |
             Should -Throw '*holds no *.test.js*'
     }
 

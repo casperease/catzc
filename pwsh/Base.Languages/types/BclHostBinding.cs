@@ -60,7 +60,7 @@ public sealed class BclHostBinding : Catzc.Base.Objects.DictionaryRecord
         string reason = Read(map, "reason");
         if (file == null || !File.IsMatch(file))
         {
-            errors.Add(string.Format(CultureInfo.InvariantCulture, "{0}: invalid file '{1}' (a type source relative to the modules folder, e.g. 'Catzc.Base.Widgets/types/Gadget.cs')", place, file));
+            errors.Add(string.Format(CultureInfo.InvariantCulture, "{0}: invalid file '{1}' (a type source relative to the modules folder, e.g. 'Base.Widgets/types/Gadget.cs')", place, file));
         }
         if (host == null || !Host.IsMatch(host))
         {

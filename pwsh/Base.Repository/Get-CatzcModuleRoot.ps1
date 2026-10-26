@@ -26,10 +26,14 @@ function Get-CatzcModuleRoot {
     }
     Assert-NotNull $loaded -ErrorText "Get-CatzcModuleRoot found no loaded module$(if ($Module) { " '$Module'" } else { '; called from outside a module, pass -Module <name>' })."
     $moduleRoot = $loaded.ModuleBase
+    $overlayRoot = Get-CatzcOverlayRoot
+    # A consumer's local module is a dynamic module with no file, named for its overlay folder (it carries no namespace).
+    if (-not $loaded.Path -and $overlayRoot -and [System.IO.Directory]::Exists([System.IO.Path]::Combine($overlayRoot, $loaded.Name))) {
+        $moduleRoot = [System.IO.Path]::Combine($overlayRoot, $loaded.Name)
+    }
     $folderName = [System.IO.Path]::GetFileName($moduleRoot)
     $modulesRoot = Get-CatzcModulesRoot
     $isBundled = [System.IO.Path]::GetFullPath([System.IO.Path]::GetDirectoryName($moduleRoot)) -eq [System.IO.Path]::GetFullPath($modulesRoot)
-    $overlayRoot = Get-CatzcOverlayRoot
     Assert-PathExist $moduleRoot -PathType Container
 
     if (-not $ChildPath) {

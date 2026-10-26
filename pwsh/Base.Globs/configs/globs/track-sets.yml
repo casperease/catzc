@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: ed254a224aed
+#     with_body_sha: "8014ae15125f"
 #     warning: "Do Not Edit, this file is generated"
 # ---
 
@@ -18,7 +18,7 @@ globsets:
       - "pwsh/.internal/assets/bin/**"
       - "pwsh/.internal/assets/importer-commands.sh"
       - "pwsh/.internal/assets/obj/**"
-      - "pwsh/Catzc.Base.Globs/configs/globs/track-sets.yml"
+      - "pwsh/Base.Globs/configs/globs/track-sets.yml"
   infrastructure:
     include:
       - "infrastructure/**"

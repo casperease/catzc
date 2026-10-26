@@ -20,15 +20,19 @@ function Invoke-JavaScriptTest {
 
     $root = Get-RepositoryRoot
     $jsRelative = (Get-Config -Config javascript).ResolveRoot($root)
+    # A module's folder drops its track's namespace, so the full name resolves to it (DDR-TRACK-MODULENAMESPACE): an extension through the js
+    # track, a pwsh module whose js tests sit in the tests holder through the modules track.
+    $extensionFolder = (Get-Track -Path $jsRelative).FolderNameOf($Module)
     $relative = if ($Folder) {
         [System.IO.Path]::GetRelativePath($root, [System.IO.Path]::GetFullPath($Folder, $root)).Replace('\',
             '/').TrimEnd('/')
     }
-    elseif (Test-Path -LiteralPath (Join-Path $root "$jsRelative/$Module/tests") -PathType Container) {
-        "$jsRelative/$Module/tests"
+    elseif (Test-Path -LiteralPath (Join-Path $root "$jsRelative/$extensionFolder/tests") -PathType Container) {
+        "$jsRelative/$extensionFolder/tests"
     }
     else {
-        "$jsRelative/tests/$((Get-Config -Config languages).TestFolderOf('javascript', $Module))"
+        $moduleFolder = (Get-Track -Name (Get-CatzcModulesFolder)).FolderNameOf($Module)
+        "$jsRelative/tests/$((Get-Config -Config languages).TestFolderOf('javascript', $moduleFolder))"
     }
     $folder = Join-Path $root $relative
     if (-not (Test-Path -LiteralPath $folder -PathType Container)) {

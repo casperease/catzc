@@ -104,21 +104,21 @@ Describe 'BclConfig' -Tag 'L0' {
         It 'maps the host bindings in ordinal file order and finds one by file' {
             $config = [Catzc.Base.Languages.BclConfig]::new([ordered]@{
                     host_bindings = @(
-                        [ordered]@{ file = 'Catzc.Base.Widgets/types/Widget.cs'; host = 'pwsh'; reason = 'Parses scripts.' }
+                        [ordered]@{ file = 'Base.Widgets/types/Widget.cs'; host = 'pwsh'; reason = 'Parses scripts.' }
                         [ordered]@{ file = 'Catzc.Base.Gadgets/types/Gadget.cs'; host = 'pwsh'; reason = ' Wraps a pipeline. ' }
                     )
                 })
             @($config.host_bindings.file) | Should -Be @('Catzc.Base.Gadgets/types/Gadget.cs',
-                'Catzc.Base.Widgets/types/Widget.cs')
+                'Base.Widgets/types/Widget.cs')
             $config.host_bindings[0].reason | Should -BeExactly 'Wraps a pipeline.'
-            $config.HostBindingOf('Catzc.Base.Widgets/types/Widget.cs').host | Should -BeExactly 'pwsh'
-            $config.HostBindingOf('Catzc.Base.Widgets/types/Other.cs') | Should -BeNullOrEmpty
+            $config.HostBindingOf('Base.Widgets/types/Widget.cs').host | Should -BeExactly 'pwsh'
+            $config.HostBindingOf('Base.Widgets/types/Other.cs') | Should -BeNullOrEmpty
         }
 
         It 'rejects a host binding without its reason, a bad file or host, and a file bound twice, naming each row' {
             $raw = [ordered]@{
                 host_bindings = @(
-                    [ordered]@{ file = 'Catzc.Base.Widgets/types/Widget.cs'; host = 'pwsh' }
+                    [ordered]@{ file = 'Base.Widgets/types/Widget.cs'; host = 'pwsh' }
                     [ordered]@{ file = 'widget.cs'; host = 'Pwsh!'; reason = 'x' }
                     [ordered]@{ file = 'Catzc.Base.Gadgets/types/Gadget.cs'; host = 'pwsh'; reason = 'x' }
                     [ordered]@{ file = 'Catzc.Base.Gadgets/types/Gadget.cs'; host = 'pwsh'; reason = 'y' }

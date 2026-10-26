@@ -28,7 +28,7 @@ Describe 'Get-RepositoryFilter — the real repository' -Tag 'L1', 'integrity', 
             }
             $false
         }
-        $script:globs = (Get-CatzcModulesFolder) + '/Catzc.Base.Globs'
+        $script:globs = ConvertTo-RepoRelativePath (Get-CatzcModuleRoot -Module Catzc.Base.Globs)
     }
 
     It 'resolves every declared filter, in order, to at least one include/exclude set' {
@@ -70,7 +70,7 @@ Describe 'Get-RepositoryFilter — the real repository' -Tag 'L1', 'integrity', 
         $claims = $script:claims
         foreach ($path in "$script:globs/configs/filters.yml",
             'infrastructure/templates/discovery/configuration/apex/nsub.yml',
-            'python/catzc_diagrams/configs/drawio.yml') {
+            'python/diagrams/configs/drawio.yml') {
             & $claims 'configs' $path | Should -BeTrue -Because "'$path' is configuration"
             & $claims 'live' $path | Should -BeTrue -Because "'$path' stays live"
             & $claims 'code' $path | Should -BeFalse -Because "'$path' is configuration, not code"
@@ -83,12 +83,12 @@ Describe 'Get-RepositoryFilter — the real repository' -Tag 'L1', 'integrity', 
     It 'splits the live aspect: code is its executable part by extension, live is all of it, and neither takes a test' {
         $claims = $script:claims
         foreach ($path in "$script:globs/Get-RepositoryFilter.ps1",
-            "$script:globs/types/FiltersConfig.cs", 'js/catzc-track-lamps/extension.js',
+            "$script:globs/types/FiltersConfig.cs", 'js/track-lamps/extension.js',
             'infrastructure/modules/data-factory.bicep') {
             & $claims 'code' $path | Should -BeTrue -Because "'$path' is live code"
             & $claims 'live' $path | Should -BeTrue -Because "'$path' is live"
         }
-        foreach ($path in 'js/catzc-track-lamps/assets/code-on.svg', "$script:globs/configs/filters.yml") {
+        foreach ($path in 'js/track-lamps/assets/code-on.svg', "$script:globs/configs/filters.yml") {
             & $claims 'code' $path | Should -BeFalse -Because "'$path' is live but no code"
             & $claims 'live' $path | Should -BeTrue -Because "'$path' is live"
         }

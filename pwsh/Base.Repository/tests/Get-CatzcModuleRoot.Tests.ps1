@@ -9,7 +9,7 @@ Describe 'Get-CatzcModuleRoot' -Tag 'L0', 'logic' {
     }
     BeforeEach {
         Mock Get-Module -ModuleName Catzc.Base.Repository -ParameterFilter { $Name -ceq 'Catzc.Base.Widget' } -MockWith {
-            [pscustomobject]@{ Name = 'Catzc.Base.Widget'; ModuleBase = $script:widgetRoot }
+            [pscustomobject]@{ Name = 'Catzc.Base.Widget'; Path = (Join-Path $script:widgetRoot 'Catzc.Base.Widget.psd1'); ModuleBase = $script:widgetRoot }
         }
     }
     AfterAll {
