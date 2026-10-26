@@ -55,5 +55,5 @@ Watch-Blocking -Seconds 0 -Milliseconds 250
 
 ## Ticks are scheduled, not slept
 
-Each tick sleeps until it is due, not for the whole slice: a sleep overruns by a few milliseconds, and a fixed slice would carry that overrun
-into every later tick, so the last tick would read late with nothing blocked.
+Each tick sleeps until it is due, not for the whole slice: a sleep overruns by a few milliseconds, and a fixed slice would carry that
+overrun into every later tick, so the last tick would read late with nothing blocked.

@@ -1,7 +1,7 @@
 # pwsh/Base.Git/New-RepositorySnapshot.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The builder of a repository snapshot: a throwaway copy of the working tree, as it is right now, verified against the source and marked so that
+only `Remove-RepositorySnapshot` deletes it.
 
 ## help
 
@@ -75,65 +75,24 @@ finally {
 New-RepositorySnapshot -SourceRoot C:\projects\other -Destination C:\tmp\other-snapshot
 ```
 
-## comment:1
+## The marker goes in first
 
-Above `$marker = [ordered]@{`, written with `#`.
+The provenance marker is written first, so the cleanup (and any later `Remove-RepositorySnapshot`) recognises even a half-built snapshot as
+one it may delete. A cleanup that fails (a file another process holds) is announced, never thrown in place of the failure that caused it.
 
-```text
-The provenance marker goes in first, so the cleanup below (and any later Remove-RepositorySnapshot)
-recognises even a half-built snapshot as one it may delete.
-```
+## The verification gate
 
-## comment:2
+The snapshot's status must equal the source's. `--no-optional-locks` keeps the source's index untouched (a plain status may rewrite it, racing
+other git commands on the source). The counts are relative to HEAD: `1`, `2` and `u` lines are changed entries (deleted when either side of
+the XY code is `D`), `?` lines are untracked files.
 
-Above `$statusCommand = 'git --no-optional-locks -C "{0}" -c core.quotepath=off...`, written with `#`.
+## The committed form
 
-```text
-The gate: the snapshot's status must equal the source's. --no-optional-locks keeps the source's index
-untouched (a plain status may rewrite it, racing other git commands on the source).
-```
+The committed form checks the commit out in the snapshot itself: nothing of the source's working tree reaches it, so it cannot differ from its
+source and needs no verification.
 
-## comment:3
+## Folder case
 
-Above `$modified = 0`, written with `#`.
-
-```text
-Status counts relative to HEAD: '1'/'2'/'u' lines are changed entries (deleted when either side of
-the XY code is D), '?' lines are untracked files.
-```
-
-## comment:4
-
-Above `if ($Committed) {`, written with `#`.
-
-```text
-The committed form checks the commit out in the snapshot itself: nothing of the source's working tree reaches it, so it
-cannot differ from its source and needs no verification.
-```
-
-## comment:5
-
-Above `$diskFolders = @{}`, written with `#`.
-
-```text
-A folder renamed only in case keeps its old case in the index (core.ignorecase never records it), so each target folder takes
-the name its source folder has on disk, resolved once per folder.
-```
-
-## comment:6
-
-Above `$found =...`, written with `#`.
-
-```text
-The bounded walker, one level, nothing pruned: a tracked file under .vendor or out keeps its
-folder's case too.
-```
-
-## comment:7
-
-Above `try {` (occurrence 2), written with `#`.
-
-```text
-A cleanup that fails (a file another process holds) is announced, never thrown in place of the failure
-that caused it.
-```
+A folder renamed only in case keeps its old case in the index (`core.ignorecase` never records it), so each target folder takes the name its
+source folder has on disk, resolved once per folder. The walk is the bounded walker, one level, nothing pruned: a tracked file under `.vendor`
+or `out` keeps its folder's case too.

@@ -1,13 +1,8 @@
 # pwsh/Base.MarkdownMeta/tests/types/MarkdownLinkRebaser.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The tests of the `MarkdownLinkRebaser` type.
 
-## comment:1
+## Why it is shaped so
 
-Above `Describe 'MarkdownLinkRebaser'`, written with `#`.
-
-```text
-A generated README copies an article into another folder; its relative links are rebased so they resolve there
-([ADR-REPO-README-WORKINGLINKS](/docs/drs/repository/generated-readmes.md#rule-adr-repo-readme-workinglinks)).
-```
+A generated README copies an article into another folder, so its relative links are rebased to resolve there
+([ADR-REPO-README-WORKINGLINKS](../../../../../drs/repository/generated-readmes.md#rule-adr-repo-readme-workinglinks)).

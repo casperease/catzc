@@ -1,7 +1,7 @@
 # pwsh/Base.Writers/private/Write-InformationColored.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The private chokepoint every writer routes through: it writes coloured text to the information stream as embedded ANSI, and stays silent
+during a Pester run.
 
 ## help
 
@@ -65,21 +65,13 @@ Write-InformationColored 'Build succeeded' -ForegroundColor Green
 Write-InformationColored 'WARN' -ForegroundColor Yellow
 ```
 
-## comment:1
+## Silence during a test run
 
-Above `if (Get-Variable -Name '__PesterRunning' -Scope Global -ValueOnly...`, written with `#`.
+`Test-Automation` sets the `$global:__PesterRunning` flag, and the single chokepoint for all writers returns before writing, so nothing
+routed through it can leak into test output. The description above says why a flag and not a stream preference. The flag is read through
+`Get-Variable`, because it is unset outside a test run and strict mode rejects an unset variable.
 
-```text
-Suppress during Pester runs (flag set by Test-Automation). The single chokepoint for all writers,
-so nothing routed through here can leak into test output. See .DESCRIPTION for why a flag, not a stream.
-Read through Get-Variable: the flag is unset outside a test run, and strict mode rejects an unset variable.
-```
+## One colour map
 
-## comment:2
-
-Above `$ansi = [Catzc.Base.Writers.Ansi]::Code($ForegroundColor)`, written with `#`.
-
-```text
-The ConsoleColor -> ANSI SGR map lives once, in the Ansi type (shared with the rainbow writer),
-so this chokepoint and RainbowColor can never disagree on a colour's code. Empty = no escape.
-```
+The `ConsoleColor` to ANSI SGR map lives once, in the `Ansi` type shared with the rainbow writer, so this chokepoint and `RainbowColor` can
+never disagree on a colour's code. An empty code means no escape.

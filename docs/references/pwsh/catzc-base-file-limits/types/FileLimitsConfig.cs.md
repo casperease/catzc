@@ -1,13 +1,8 @@
 # pwsh/Base.FileLimits/types/FileLimitsConfig.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The typed record for `file-limits.yml`: it holds the length and width limits by class and language and resolves them for a file.
 
-## comment:1
+## Resolving a file
 
-Above `public ResolvedFileLimit ResolveFile(string path, string language)`, written with `//`.
-
-```text
-An override is applied before the language lookup, an exact file name first, then the extension; it takes its class's defaults, never the
-language's own values. A file no override and no language declares fails, so nothing tracked escapes unlimited.
-```
+`ResolveFile` applies an override before the language lookup, an exact file name first and then the extension. An override takes its class's
+defaults, never the language's own values. A file that no override and no language declares fails, so nothing tracked escapes unlimited.

@@ -1,7 +1,6 @@
 # pwsh/Base.TypesSystem/New-Solution.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The writer of `catzc.sln`, the solution of every C# project in the tree.
 
 ## help
 
@@ -24,11 +23,6 @@ and only the two Visual Studio type ids are registered in guids.yml. The RootCon
 New-Solution | Set-Content out/catzc.sln.new -NoNewline
 ```
 
-## comment:1
+## Project ids
 
-Above `$csharpType = '9A19103F-16F7-4668-BE54-9A1E7A4F7556'`, written with `#`.
-
-```text
-Every project id is minted from a sentence of its path, so a new hook enters the solution with its id the moment
-its folder exists.
-```
+Every project id is minted from a sentence of its path, so a new hook enters the solution with its id the moment its folder exists.

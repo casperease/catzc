@@ -1,7 +1,6 @@
 # pwsh/Base.Slides/private/Get-DiagramProofFinding.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The proof check of an action diagram: it returns one finding per fault in the action, the effects and the accosted file that proves them.
 
 ## help
 
@@ -37,20 +36,7 @@ The root about.proves resolves against.
 
 `[string[]]` One finding per fault; nothing when the diagram is a band diagram or proven.
 
-## comment:1
+## Two kinds of check
 
-Above `$action = $content['action']`, written with `#`.
-
-```text
-The action and an executing effect are any contracted command, mutating included: each fits its contract, not the
-proof file.
-```
-
-## comment:2
-
-Above `$drawn = [System.Collections.Generic.List[object]]::new()`, written with `#`.
-
-```text
-An effect is a state change (proves, run by the proof file) or an execution (call, held to its contract), never
-both.
-```
+The action and an executing effect are any contracted command, mutating included: each fits its contract, not the proof file. An effect is a
+state change (`proves`, run by the proof file) or an execution (`call`, held to its contract), never both.

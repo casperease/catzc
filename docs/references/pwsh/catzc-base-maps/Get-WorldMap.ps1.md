@@ -1,7 +1,7 @@
 # pwsh/Base.Maps/Get-WorldMap.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The command that builds the world map: every tracked file placed in one cell of tracks by file languages. It gathers the repository's
+registries, reads the text of the files that cite ADRs and hands both to the WorldMapBuilder type.
 
 ## help
 
@@ -57,31 +57,17 @@ Return the map as JSON (axes, cells and per-file placements) instead of the obje
 Get-WorldMap -AsJson
 ```
 
-## comment:1
+## The text cache
 
-Above `$script:worldMapTextCache = @{}`, written with `#`.
+The file texts live in a script-scope cache, probed strict-clean through the session state, so an unset variable reads as null instead of
+throwing ([ADR-PWSH-CACHE-STRICTSAFEPROBE](../../../drs/automation/pwsh/script-scope-caching.md#rule-adr-pwsh-cache-strictsafeprobe)).
 
-```text
-strict-clean probe of the lazy cache entry
-([ADR-PWSH-CACHE-STRICTSAFEPROBE](/docs/drs/automation/pwsh/script-scope-caching.md#rule-adr-pwsh-cache-strictsafeprobe))
-```
+## Citations and heads
 
-## comment:2
+A file's head is derived from its citations, never read back as them
+([ADR-REPO-FILEMETA-NOREADBACK](../../../drs/repository/file-meta.md#rule-adr-repo-filemeta-noreadback)). The file cites from its body and
+its comment page, the same source the head is built from.
 
-Above `$carrier = $resolver.For($path)`, written with `#`.
+## Aspects
 
-```text
-A file's catzc head is derived from its citations, never read back as them
-([ADR-REPO-FILEMETA-NOREADBACK](/docs/drs/repository/file-meta.md#rule-adr-repo-filemeta-noreadback)): the
-file cites from
-its body and its comment page, the same source the head is built from.
-```
-
-## comment:3
-
-Above `if ($languages.IsLaidOut($track.languages) -or (Test-AspectDeclaration -Track...`, written with `#`.
-
-```text
-A laid-out track derives its aspects from the layout; any other track has them only when variants.yml declares
-them.
-```
+A laid-out track derives its aspects from its layout. Any other track has aspects only when `variants.yml` declares them.

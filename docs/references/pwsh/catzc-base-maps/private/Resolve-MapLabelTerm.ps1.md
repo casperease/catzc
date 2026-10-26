@@ -1,7 +1,6 @@
 # pwsh/Base.Maps/private/Resolve-MapLabelTerm.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The helper that finds the glossary term a printed map label names, so the map gates can reject a label that names none.
 
 ## help
 

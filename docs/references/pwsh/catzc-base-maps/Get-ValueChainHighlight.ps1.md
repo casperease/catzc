@@ -1,7 +1,6 @@
 # pwsh/Base.Maps/Get-ValueChainHighlight.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The command that lights the value-chain map's cells for a set of ADR codes: the cells each ADR sits in, with the ADRs that light each one.
 
 ## help
 

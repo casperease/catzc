@@ -1,7 +1,6 @@
 # pwsh/Base.Drs/Get-CatsDrsRuleIds.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Returns the set of every rule id the ADRs declare, the authoritative list a rule citation is validated against.
 
 ## help
 
@@ -33,20 +32,12 @@ path, so a fixture path and the real path never collide.
 
 `[string[]]` the distinct rule ids in registry form (e.g. 'ADR-PWSH-ERROR-THROWNOTWRITEERROR'), ordinally sorted.
 
-## comment:1
+## Cache
 
-Above `$script:catsAdrRuleIdsCache = @{}`, written with `#`.
+The result is memoized per index path in a script-scope table. The lazy entry is read with a strict-clean probe
+([ADR-PWSH-CACHE-STRICTSAFEPROBE](../../../drs/automation/pwsh/script-scope-caching.md#rule-adr-pwsh-cache-strictsafeprobe)).
 
-```text
-strict-clean probe of the lazy cache entry
-([ADR-PWSH-CACHE-STRICTSAFEPROBE](/docs/drs/automation/pwsh/script-scope-caching.md#rule-adr-pwsh-cache-strictsafeprobe))
-```
+## Path resolution
 
-## comment:2
-
-Above `$adrRoot = Split-Path $IndexPath -Parent`, written with `#`.
-
-```text
-Index rows carry ADR paths relative to the index's own folder (docs/drs/), so resolve against it rather
-than a hardcoded docs/drs — that keeps a fixture index beside fixture ADR files working the same way.
-```
+Index rows carry ADR paths relative to the index's own folder (`docs/drs/`), so the command resolves against that folder rather than a
+hardcoded `docs/drs`. That keeps a fixture index beside fixture ADR files working the same way.

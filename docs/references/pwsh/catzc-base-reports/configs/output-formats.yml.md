@@ -5,8 +5,8 @@ The catalogue of every kind of file a producer writes under the output root, dec
 
 ## How it is used
 
-`Catzc.Base.Reports.OutputFormatsConfig` validates it on load. `Test-OutputFormats` classifies the files under each format's folders and runs
-its validator. `Clear-Output` prunes by each format's area.
+`Catzc.Base.Reports.OutputFormatsConfig` validates it on load. `Test-OutputFormats` classifies the files under each format's folders and
+runs its validator. `Clear-Output` prunes by each format's area.
 
 ## Keys
 
@@ -30,11 +30,11 @@ and `delegate` (names an existing `Assert-*` that already proves the format).
 ## Entries that are never pruned
 
 - A plan cannot be regenerated
-  ([ADR-REPO-OUTDIR-PLANNOTES](../../../../drs/repository/dedicated-output-directory.md#rule-adr-repo-outdir-plannotes)), so its `max_age` is
-  `none` and a person retires it.
+  ([ADR-REPO-OUTDIR-PLANNOTES](../../../../drs/repository/dedicated-output-directory.md#rule-adr-repo-outdir-plannotes)), so its `max_age`
+  is `none` and a person retires it.
 - The time safeguard log is never pruned
-  ([ADR-REPO-OUTDIR-EVERYFILEHASFORMAT](../../../../drs/repository/dedicated-output-directory.md#rule-adr-repo-outdir-everyfilehasformat)): it is
-  the record the limits are tuned from, and the hook appends to it for as long as the repository is worked in. A session's own logs belong in
-  its session folder, and `Clear-Output -All` is the one way the top of `out/` is emptied.
+  ([ADR-REPO-OUTDIR-EVERYFILEHASFORMAT](../../../../drs/repository/dedicated-output-directory.md#rule-adr-repo-outdir-everyfilehasformat)):
+  it is the record the limits are tuned from, and the hook appends to it for as long as the repository is worked in. A session's own logs
+  belong in its session folder, and `Clear-Output -All` is the one way the top of `out/` is emptied.
 - The folder's own keep file is declared as a format
   ([ADR-REPO-OUTDIR-OUTGITIGNORED](../../../../drs/repository/dedicated-output-directory.md#rule-adr-repo-outdir-outgitignored)).

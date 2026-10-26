@@ -1,7 +1,7 @@
 # pwsh/Base.Maps/Get-EngineStripMinimapData.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The data of the engine strip minimap: each execution engine beside the file languages it runs, lit where a diagram's subject files are
+written.
 
 ## help
 
@@ -43,11 +43,7 @@ Return the data as JSON in the minimap contract's shape instead of the object.
 (Get-EngineStripMinimapData ADR-AUTO-ENGINE).Lit
 ```
 
-## comment:1
+## Which language an engine runs
 
-Above `$languages = @(Get-FileLanguage)`, written with `#`.
-
-```text
-Each execution engine beside the file languages it runs: a language whose extensions include one of the engine's
-script extensions.
-```
+An engine runs a file language when the language's extensions include one of the engine's script extensions. The pairs are built from
+`Get-FileLanguage` and the engine registry.

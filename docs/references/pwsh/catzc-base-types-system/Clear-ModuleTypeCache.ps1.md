@@ -1,7 +1,7 @@
 # pwsh/Base.TypesSystem/Clear-ModuleTypeCache.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The janitor of the compiled C# type builds: it removes the superseded assemblies from the shadow root and keeps the current build and every
+build loaded within the prune age.
 
 ## help
 
@@ -59,58 +59,24 @@ Clear-ModuleTypeCache
 Clear-ModuleTypeCache -DryRun
 ```
 
-## comment:1
+## What is kept and what is pruned
 
-Above `if (Test-IsRunningInPipeline) {`, written with `#`.
-
-```text
-Pipeline: nothing is deleted (CI makes no source-control changes); the shadow root is a devbox cache.
-```
-
-## comment:2
-
-Above `Import-InternalModule Types`, written with `#`.
-
-```text
-Keep the current build (Catzc.Types.<combinedHash8>.dll) and every build loaded within the prune age; prune the rest.
-The combined hash is the ONE implementation shared with the loader (Import-CSharpTypes), reached through
-the .internal shared module — so the janitor cannot drift from the loader and plan the live build for
-deletion. Import-InternalModule is a no-op when the importer already loaded it (the usual case).
-```
-
-## comment:4
-
-Above `$details = foreach ($entry in $failed) {`, written with `#`.
-
-```text
-Who holds each surviving file — best-effort: the lookup only enriches the message, so a Restart Manager
-error or a non-Windows host degrades to the delete error alone.
-```
-
-## comment:5
-
-Above `if ($failed.Count -and -not $Silent) {`, written with `#`.
-
-```text
-A superseded build another process still has open is that process's bound instance until it exits: a fact to name, never an error,
-and never a reason to stop or wait on anything ([ADR-PWSH-TYPES-ONEINSTANCEPERSESSION](/docs/drs/automation/pwsh/hosting-csharp-types.md#rule-adr-pwsh-types-oneinstancepersession)).
-```
-
-## comment:6
-
-Above `Import-InternalModule Types`, written with `#`.
-
-```text
 The builds are a per-machine cache in the shadow root
-([ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD](/docs/drs/automation/caching.md#rule-adr-auto-cache-compiledtypeprebuild));
-git keeps only the manifest.
-```
+([ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD](../../../drs/automation/caching.md#rule-adr-auto-cache-compiledtypeprebuild)); git keeps only the
+manifest. The janitor keeps the current build (`Catzc.Types.<combinedHash8>.dll`) and every build loaded within the prune age, and prunes
+the rest.
 
-## comment:7
+The combined hash is the one implementation shared with the loader (`Import-CSharpTypes`), reached through the `.internal` shared module, so
+the janitor cannot drift from the loader and plan the live build for deletion. `Import-InternalModule` is a no-op when the importer already
+loaded it, which is the usual case.
 
-Above `if ($failed.Count -and -not $Silent) {`, written with `#`.
+In a pipeline nothing is deleted: CI makes no source-control changes, and the shadow root is a devbox cache.
 
-```text
-A build another process still holds is that process's own until it exits: a fact to name, never an error or a
-wait.
-```
+## A build another process holds
+
+A superseded build another process still has open is that process's bound instance until it exits. That is a fact to name, never an error
+and never a reason to stop or wait on anything
+([ADR-PWSH-TYPES-ONEINSTANCEPERSESSION](../../../drs/automation/pwsh/hosting-csharp-types.md#rule-adr-pwsh-types-oneinstancepersession)).
+
+Who holds each surviving file is looked up best-effort: the lookup only enriches the message, so a Restart Manager error or a non-Windows
+host degrades to the delete error alone.

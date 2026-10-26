@@ -1,32 +1,9 @@
 # pwsh/Base.Config/tests/Config-Conventions.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The backstop test of the config registry: every shipped config has a registered C# config type and loads through it, or the run fails here.
 
-## comment:1
+## The gate
 
-Above `Describe 'Config conventions'`, written with `#`.
-
-```text
-Poka-yoke backstop for the config registry (see ADR module-config-loading): every shipped config has a
-registered C# config type and loads through it (Test-ShippedConfigs).
-```
-
-## comment:2
-
-Above `$result = Test-ShippedConfigs -PassThru -OutputFolder (Join-Path $TestDrive...`, written with `#`.
-
-```text
-The quality gate (Test-ShippedConfigs, in Catzc.Base.QualityGates: Catzc.Base.Reports depends on
-Catzc.Base.Config, so the gate cannot live here) lists every issue over the loaded code root
-([ADR-AUTO-TEST-QUALITYGATE](/docs/drs/automation/test-automation.md#rule-adr-auto-test-qualitygate)).
-```
-
-## comment:3
-
-Above `Describe 'Config conventions'`, written with `#`.
-
-```text
-A backstop for the registry: every shipped config must have a registered type and load through it, or the run fails
-here.
-```
+The test runs the quality gate `Test-ShippedConfigs`, which lists every issue over the loaded code root
+([ADR-AUTO-TEST-QUALITYGATE](../../../../drs/automation/test-automation.md#rule-adr-auto-test-qualitygate)). The gate lives in
+`Catzc.Base.QualityGates` and not in this module, because `Catzc.Base.Reports` depends on `Catzc.Base.Config`.

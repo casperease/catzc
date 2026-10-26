@@ -1,13 +1,8 @@
 # pwsh/Base.Exporter/tests/Build-Modules.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The L0 tests of `Build-Modules`, with the build engine as a mocked boundary.
 
-## comment:1
+## The engine stub
 
-Above `$script:stubbedEngine = $false`, written with `#`.
-
-```text
-The engine (Catzc.Internal.Builder) is loaded on demand and is a mocked boundary here; a stub makes the
-command exist for Mock when the engine module is not loaded in this session.
-```
+The engine (`Catzc.Internal.Builder`) is loaded on demand. A stub makes its command exist for `Mock` when the engine module is not loaded in
+the session.

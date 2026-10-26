@@ -1,7 +1,6 @@
 # pwsh/Base.RootConfig/New-Cspell.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The generator of the repository-root `cspell.yml`: a pure renderer that fills a template with the `third-party` glob set and writes nothing.
 
 ## help
 
@@ -29,12 +28,3 @@ The template to fill. Default: assets/root/cspell-template.yml of this module.
 ### outputs
 
 `[string]` The rendered cspell.yml content (LF-joined; the writer canonicalises).
-
-## comment:1
-
-Above `$thirdParty = Get-GlobSet -Name 'third-party'`, written with `#`.
-
-```text
-The third-party glob set is the one declaration of what is not authored here; the spelling check skips exactly its
-includes.
-```

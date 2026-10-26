@@ -1,7 +1,7 @@
 # pwsh/Base.Slides/Build-SlideDeck.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The renderer of a slide deck: it reads a deck folder's slide files, renders each through its pattern from the slides kit and writes the result
+and every fault found, without publishing.
 
 ## help
 
@@ -59,20 +59,11 @@ Build-SlideDeck docs/explanation/thesis/product-thesis
 $result = Build-SlideDeck docs/explanation/thesis/product-thesis -PassThru; $result.Faults
 ```
 
-## comment:1
+## Output folder
 
-Above `if ([string]::IsNullOrWhiteSpace($OutputFolder)) {`, written with `#`.
+`OutputFolder` is filled in the body, not as a default: it is relative to `-RepositoryRoot`, declared after it, and to the kit config loaded
+above.
 
-```text
-Filled in here, not as a default: it is relative to -RepositoryRoot, declared after it, and to the kit config
-loaded above.
-```
+## Images
 
-## comment:2
-
-Above `$slideRelative = [System.IO.Path]::GetRelativePath($RepositoryRoot,...`, written with `#`.
-
-```text
-An image the slide shows sits beside its slide file; it lands at the same relative path beside the slide's
-HTML.
-```
+An image the slide shows sits beside its slide file; it lands at the same relative path beside the slide's HTML.

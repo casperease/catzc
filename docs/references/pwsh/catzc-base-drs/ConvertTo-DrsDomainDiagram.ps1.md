@@ -1,7 +1,6 @@
 # pwsh/Base.Drs/ConvertTo-DrsDomainDiagram.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Draws the ADR domain dependency edges as PlantUML, Mermaid or a Markdown table, so the domain graph reads like the module graph.
 
 ## help
 

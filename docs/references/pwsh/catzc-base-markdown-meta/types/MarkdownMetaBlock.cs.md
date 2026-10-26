@@ -1,33 +1,22 @@
 # pwsh/Base.MarkdownMeta/types/MarkdownMetaBlock.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Renders and reads the `catzc:` meta block of a Markdown front matter, in its one canonical form.
 
-## comment:1
+## Parts
 
-Above `public const string ImmutableKey = "immutable";`, written with `//`.
+The block has three parts, each a two-space-indented key under `catzc:`: `immutable`, the edges and `config`
+([ADR-REPO-FILEMETA-HEADPOLICY](../../../../drs/repository/file-meta.md#rule-adr-repo-filemeta-headpolicy)). The facts come as an ordered
+dictionary, so their order is the order written.
 
-```text
-The three parts of the block, each a two-space-indented key under `catzc:`
-([ADR-REPO-FILEMETA-HEADPOLICY](/docs/drs/repository/file-meta.md#rule-adr-repo-filemeta-headpolicy)). The facts come as an
-ordered dictionary, so their order is the order written.
-```
+## Render
 
-## comment:2
+The first overload renders the place facts and then the edges in the order given, then the authored config lines as written. A value is a
+scalar or a list of scalars. No facts and no config lines render no block at all.
 
-Above `public static IReadOnlyList<string> Render(IDictionary immutable, IDictionary...`, written with `//`.
+The second overload takes a header note as well. It renders the imprinted facts at the first level (the docs edge first), the header note,
+the place facts of a generated head, then the authored config.
 
-```text
-Renders the block in its one canonical form: the place facts and then the edges in the order given, then the authored config lines as
-written.
-A value is a scalar or a list of scalars. No facts and no config lines render no block at all.
-```
+## Reading
 
-## comment:3
-
-Above `public static IReadOnlyList<string> Render(string header, IDictionary...`, written with `//`.
-
-```text
-The block in its one canonical order: the imprinted facts at the first level (the docs edge first), the header note, the place
-facts of a generated head, then the authored config.
-```
+`ConfigLines`, `WithoutConfig`, `SectionKeys`, `ImmutableKeys`, `EdgeKeys` and `EdgeList` read a rendered block back, so a caller changes
+one part and keeps the rest.

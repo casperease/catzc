@@ -1,7 +1,6 @@
 # pwsh/Base.Exporter/private/Get-CatzcUserModulePath.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The private resolver of the current user's PowerShell 7 module folder, where `Install-Catzc -Scope CurrentUser` places Catzc.
 
 ## help
 

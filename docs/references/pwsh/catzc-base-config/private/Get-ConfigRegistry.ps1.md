@@ -1,7 +1,6 @@
 # pwsh/Base.Config/private/Get-ConfigRegistry.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The private loader of the config registry, `configs/configs.yml`, validated by its own C# type and cached for the session.
 
 ## help
 
@@ -17,11 +16,7 @@ registers for its own 'configs' config), and cached for the session. The file is
 registry resolves inside the loaded module in both run modes
 ([ADR-AUTO-ASSETDEP-INTERNALASSETDEPENDENCY](../../../../drs/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-internalassetdependency)).
 
-## comment:1
+## Cache probe
 
-Above `$cached =...`, written with `#`.
-
-```text
-strict-clean
-([ADR-PWSH-CACHE-STRICTSAFEPROBE](/docs/drs/automation/pwsh/script-scope-caching.md#rule-adr-pwsh-cache-strictsafeprobe))
-```
+The cache entry is probed strict-clean
+([ADR-PWSH-CACHE-STRICTSAFEPROBE](../../../../drs/automation/pwsh/script-scope-caching.md#rule-adr-pwsh-cache-strictsafeprobe)).

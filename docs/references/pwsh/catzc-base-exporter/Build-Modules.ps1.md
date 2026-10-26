@@ -1,7 +1,7 @@
 # pwsh/Base.Exporter/Build-Modules.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The command that builds the selected modules into one installable, versioned Catzc module. It resolves the selection and the version, hands
+the package metadata to the build engine, and checks the footprint limits.
 
 ## help
 
@@ -89,31 +89,17 @@ Build-Modules -Bundle azure
 Build-Modules Catzc.Base.Config -DryRun
 ```
 
-## comment:1
+## Dry run
 
-Above `function Build-Modules {`, written with `#`.
+The command takes `-DryRun`, not `ShouldProcess` or `-WhatIf`, because the branch comes before any side effect
+([ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT](../../../drs/automation/dry-run.md#rule-adr-auto-dryrun-branchbeforesideeffect)).
 
-```text
-Uses -DryRun, not ShouldProcess/-WhatIf — see
-[ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT](/docs/drs/automation/dry-run.md#rule-adr-auto-dryrun-branchbeforesideeffect).
-```
+## The build engine
 
-## comment:2
+The engine is an `.internal` module, loaded on demand and not part of the post-import command set, so it is invoked by name. That keeps it
+off the static function-dependency graph (the pattern the bootstrap helpers use) while it still resolves through normal command lookup.
 
-Above `Import-InternalModule Builder`, written with `#`.
+## Footprint limits
 
-```text
-The engine is an .internal module, loaded on demand and not part of the post-import command set, so it is
-invoked by name — which keeps it off the static function-dependency graph (the pattern the bootstrap
-helpers use) while still resolving through normal command lookup.
-```
-
-## comment:3
-
-Above `$isDeclaredBundle = -not ($PSBoundParameters.ContainsKey('Module') -or`, written with `#`.
-
-```text
-The footprint limits describe the bundle as declared. A build whose selection or vendor policy is overridden
-(an experiment, or a test build that adds the test toolset) is not that bundle, so it is not measured
-against them.
-```
+The footprint limits describe the bundle as declared. A build whose selection or vendor policy is overridden (an experiment, or a test build
+that adds the test toolset) is not that bundle, so it is not measured against them.

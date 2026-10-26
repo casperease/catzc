@@ -1,67 +1,42 @@
 # pwsh/Base.Maps/configs/maps.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The map settings: the palette, the limits and the printed labels of the world map and the value-chain map, the minimaps, the reviewed
+highlight pins and exceptions, and the folder the PDFs are written to. The shipped file is empty (`{}`): every key has its default on
+`Catzc.Base.Maps.MapsConfig` and the section types it holds
+([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../../../../drs/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)), and a
+key is set only to change it. `Get-Config -Config maps` loads it.
 
-## comment:1
+## Keys
 
-Above `{}`, written with `#`.
+- **`palette`** — colours, each `#` and six hex digits: `background` (the page, drawn first), `row`, `column` and `cell` (the headers and an
+  empty cell, the idle end of the file-count scale), `shade` (the fullest cell), `line`, `text`, `violation` (the mark of a cell that breaks
+  its track's tech-stack) and `highlight` (the outline of a lit cell; the slide minimaps fill a lit cell with it). The defaults are the dark
+  tokens of the diagram kit.
+- **`limits`** — positive numbers: `page_width` and `page_height` in PDF points (842 by 595, A4 landscape), `min_font_size` (the smallest a
+  label shrinks to, 6), `max_row_label` (24 characters of a track name) and `max_column_label` (16 characters of a file-language name).
+- **`labels`** — the fixed text the maps print. The world map has `grid_title`, `tree_title`, `row_axis`, `column_axis`, `root_files`,
+  `unlisted_files` and three legend entries. The value-chain map has the keys that start `value_chain_`: a title, two axes and two legend
+  entries. A label is WinAnsi text, the only text the base-14 PDF fonts show, and its head, the text before the first `:`, names a defined
+  term ([DDR-TRACK-LABELSNAMEDEFINEDTERMS](../../../../drs/design/tracks.md#rule-ddr-track-labelsnamedefinedterms)). The row labels fit
+  `max_row_label` and the column labels `max_column_label`; the value-chain labels have no limit.
+- **`highlight`** — reviewed overrides of the derived highlight: `pins` (cells an ADR always lights), `exceptions` (cells an ADR never
+  lights, a passing mention) and `citation_exclude` (globs of files whose citations light nothing; each still sits in its cell). A pin or
+  exception is `{ adr, track, file_language, reason }`.
+- **`minimaps`** — which minimaps an explanation or a reference diagram may show, the command that computes each one's data, and the axis
+  and place budgets.
+- **`output_folder`** — one folder name under the output root, `world-map` by default
+  ([ADR-REPO-OUTDIR-SUBDIRECTORYPERPRODUCER](../../../../drs/repository/dedicated-output-directory.md#rule-adr-repo-outdir-subdirectoryperproducer)).
 
-```text
-maps.yml — the map settings: the palette, the limits, the printed labels of the world map and the value-chain map,
-the reviewed highlight pins and exceptions, and the folder under the output root the PDFs are written to
-([ADR-REPO-OUTDIR-SUBDIRECTORYPERPRODUCER](/docs/drs/repository/dedicated-output-directory.md#rule-adr-repo-outdir-subdirectoryperproducer)). Every key has a
-sensible default, declared once on Catzc.Base.Maps.MapsConfig and the section types it holds
-([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/drs/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)); set a key only to change
-it. Loaded via Get-Config -Config maps.
+## Why the labels name terms
 
-  palette:                        # colours, each '#' and six hex digits
-    background: '#1E2430'         #   the whole page, drawn first (the diagram kit's dark page; reads in any viewer)
-    row: '#262E3B'                #   a track's row header
-    column: '#262E3B'             #   a file language's column header
-    cell: '#262E3B'               #   an empty cell, the idle end of the file-count scale
-    shade: '#DDE2E9'              #   the fullest cell, the top of the file-count scale (the kit's title ink; a lit outline stays distinct)
-    line: '#3A4555'               #   the grid lines
-    text: '#CDD3DC'               #   titles, headers and counts
-    violation: '#E57373'          #   the mark of a cell that breaks its track's tech-stack (the kit's only red)
-    highlight: '#E6EAF0'          #   the outline of a lit cell; the slide minimaps fill a lit cell with it
-  limits:                         # each a positive number
-    page_width: 842               #   PDF points (A4 landscape)
-    page_height: 595
-    min_font_size: 6              #   the smallest a label may shrink to
-    max_row_label: 24             #   characters a track name prints (whole number)
-    max_column_label: 16          #   characters a file-language name prints (whole number)
-  labels:                         # WinAnsi text only: the base-14 PDF fonts show nothing else; each names a defined
-                                  #   term in its head, the text before its first ':'
-                                  #   ([DDR-TRACK-LABELSNAMEDEFINEDTERMS](/docs/drs/design/tracks.md#rule-ddr-track-labelsnamedefinedterms))
-    grid_title: 'World map: tracks × file languages'
-    tree_title: 'World map: repository tree'
-    row_axis: Track               #   at most max_row_label characters
-    column_axis: File language    #   at most max_column_label characters
-    root_files: Root files        #   the row of the root files; at most max_row_label
-                                  #   ([DDR-TRACK-ROOTFILE](/docs/drs/design/tracks.md#rule-ddr-track-rootfile))
-    unlisted_files: Unlisted files #  the column of the unlisted files; at most max_column_label
-                                  #   ([DDR-TRACK-UNLISTEDFILE](/docs/drs/design/tracks.md#rule-ddr-track-unlistedfile))
-    legend_files: 'Cell: files'
-    legend_violation: Stack violation
-    legend_highlight: Lit cell
-    # the value-chain map's labels, checked by Test-ValueChainMap; no length limit
-    #   ([DDR-TRACK-VALUECHAINMAP](/docs/drs/design/tracks.md#rule-ddr-track-valuechainmap))
-    value_chain_title: 'Value-chain map: value-chain stack × value-chain concerns'
-    value_chain_row_axis: Value-chain stack
-    value_chain_column_axis: Value-chain concern
-    value_chain_legend_adrs: 'Cell: ADRs'
-    value_chain_legend_highlight: Lit cell
-  highlight:                     # reviewed overrides of the derived highlight
-    pins: []                      #   cells an ADR always lights
-    exceptions: []                #   cells an ADR never lights (a passing mention)
-      # each: { adr: <ADR code, optionally #n>, track: <track>, file_language: <file language>, reason: <why> }
-    citation_exclude:             #   globs of files whose citations light nothing; each still sits in its cell
-      - .claude/hindsight/**      #   the session logs and the plans: about the system, not the system
-      - .claude/learnings/**
-      - .claude/plans/**
-      - docs/**/.assets/**        #   the diagram declarations, so a minimap never lights its own description
-      - docs/explanation/**       #   the explanation articles the slides illustrate
-      - python/diagrams/**  #   the drawing tooling
-  output_folder: world-map        # one folder name under the output root
-```
+The catch-all row prints the root files
+([DDR-TRACK-ROOTFILE](../../../../drs/design/tracks.md#rule-ddr-track-rootfile)) and the catch-all column the unlisted files
+([DDR-TRACK-UNLISTEDFILE](../../../../drs/design/tracks.md#rule-ddr-track-unlistedfile)). The value-chain labels follow
+[DDR-TRACK-VALUECHAINMAP](../../../../drs/design/tracks.md#rule-ddr-track-valuechainmap). `Test-WorldMap` checks the world-map labels and
+`Test-ValueChainMap` the value-chain ones.
+
+## Default citation exclusions
+
+By default the files whose citations light nothing are the session logs and plans under `.claude/`, the diagram assets under
+`docs/**/.assets/`, the explanation articles under `docs/explanation/` and the drawing tooling under `python/diagrams/`. A slide's minimap
+then lights the repository's citations of its ADRs, never the slide's own words.

@@ -1,7 +1,6 @@
 # pwsh/Base.Drs/private/Get-DrsCitationGraphViolations.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The private helper of `Test-DrsRegistry` that finds ADR citations leaving their domain for one it does not depend on.
 
 ## help
 
@@ -39,11 +38,6 @@ The docs/drs/ file index (Get-DrsFileIndex).
 `[string[]]` One finding per violation: '`<file>:<line>`: `<rule>` (`<domain>`) cites `<reference>` (`<domain>`); `<domain>` depends on:
 ...'.
 
-## comment:1
+## Which domain a link belongs to
 
-Above `$folders = @($Adrs.Domains | Sort-Object -Property { $_.Folder.Length }...`, written with `#`.
-
-```text
-A link's domain is the one with the longest folder that holds its target, so a domain folder nested in another
-keeps its own links.
-```
+A link's domain is the one with the longest folder that holds its target, so a domain folder nested in another keeps its own links.

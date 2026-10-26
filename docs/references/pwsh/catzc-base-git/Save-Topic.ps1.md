@@ -1,7 +1,6 @@
 # pwsh/Base.Git/Save-Topic.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The first step of the git topic flow: it commits every change of the working tree to the topic branch, at the user's hand.
 
 ## help
 

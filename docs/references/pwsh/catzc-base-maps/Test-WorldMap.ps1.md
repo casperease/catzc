@@ -1,7 +1,7 @@
 # pwsh/Base.Maps/Test-WorldMap.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The quality gate over the world map: it checks that every tracked file sits in a declared track and tech-stack, and that every label the
+map prints names a glossary term.
 
 ## help
 

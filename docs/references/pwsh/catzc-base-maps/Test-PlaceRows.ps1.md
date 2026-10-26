@@ -1,7 +1,7 @@
 # pwsh/Base.Maps/Test-PlaceRows.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The check that every row a code-locations minimap prints is in the one minimised place form, so a drawing never carries a longer row than
+the maps config allows.
 
 ## help
 

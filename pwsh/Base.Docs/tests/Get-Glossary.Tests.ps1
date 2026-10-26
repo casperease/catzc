@@ -40,6 +40,7 @@ Describe 'Get-Glossary' -Tag 'L0', 'logic' {
     }
 
     AfterAll {
+        # The cache is keyed by the real repository root, so a fixture glossary left in it would be served to a later caller in this worker.
         InModuleScope Catzc.Base.Docs { $script:glossaryCache = $null }
     }
 

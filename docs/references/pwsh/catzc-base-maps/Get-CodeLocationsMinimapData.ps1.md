@@ -1,7 +1,7 @@
 # pwsh/Base.Maps/Get-CodeLocationsMinimapData.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The data of the "Where does it live?" minimap. It has no fixed frame: the places are the tracks, modules and folders a diagram's subject
+files sit in, and each place is lit by its files.
 
 ## help
 
@@ -51,38 +51,16 @@ Return the data as JSON in the minimap contract's shape instead of the object.
 (Get-CodeLocationsMinimapData ADR-AUTO-ENGINE).Lit
 ```
 
-## comment:1
+## Places
 
-Above `$count = @{}`, written with `#`.
+A place is a triple: the track, the module in it (`-` outside one) and the folder under the module (`.` at its root). Only the places a
+subject file sits in are drawn.
 
-```text
-Where the subject's code lives, with no static frame: each place is a track, the module in it ('-' outside one) and the
-folder under the module ('.' at its root), and only the places a subject file sits in are drawn, each lit by its files.
-```
+## Glyphs first
 
-## comment:2
+A drawing can carry glyphs of its own, each `{ kind; label }`. The places they name come first. Each label is resolved to the repository
+files it names; a label that names none is dropped and counted. The places of the cited ADRs follow only while rows remain.
 
-Above `[object[]] $Glyph = @(),`, written with `#`.
+## Rows are computed here
 
-```text
-The drawing's own glyphs, each { kind; label }: the places they name come first, the cited ADRs' places only
-while rows remain.
-```
-
-## comment:3
-
-Above `$dropped = 0`, written with `#`.
-
-```text
-The places the glyphs name come first: each label resolved to the repository files it names, a label that names
-none dropped and counted.
-```
-
-## comment:4
-
-Above `$first = [System.Collections.Generic.HashSet[string]]::new([string[]]...`, written with `#`.
-
-```text
-The rows the place list draws are computed here, from the place triples, so the drawing only draws them: the
-glyphs' places first.
-```
+The rows the place list draws are worked out here from the place triples, glyph places first, so the drawing only draws them.

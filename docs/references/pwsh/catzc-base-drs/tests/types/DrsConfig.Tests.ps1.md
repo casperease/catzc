@@ -1,15 +1,9 @@
 # pwsh/Base.Drs/tests/types/DrsConfig.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The tests of `DrsConfig`, the typed record of `drs.yml`.
 
-## comment:1
+## Fixtures
 
-Above `function New-ValidRaw {`, written with `#`.
-
-```text
-Neutral fixtures ([ADR-REPO-LANG](/docs/drs/repository/domain-language-separation.md)): invented
-domains/codes, never real ADR vocabulary. Defined in
-BeforeAll so the helper is in scope for the run phase and visible to every It (a Describe-body function is
-only in discovery scope).
-```
+The fixtures are neutral: invented domains and codes, never real ADR vocabulary
+([ADR-REPO-LANG](../../../../../drs/repository/domain-language-separation.md)). The `New-ValidRaw` helper is defined in `BeforeAll`, so it
+is in scope for the run phase and visible to every `It`. A function in a `Describe` body is only in discovery scope.

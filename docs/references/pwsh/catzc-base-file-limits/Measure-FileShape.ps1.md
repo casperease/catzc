@@ -1,7 +1,6 @@
 # pwsh/Base.FileLimits/Measure-FileShape.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The measurement of a file's shape: its line count and its widest line, in one streaming pass.
 
 ## help
 

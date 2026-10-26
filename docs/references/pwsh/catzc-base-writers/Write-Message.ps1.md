@@ -1,7 +1,7 @@
 # pwsh/Base.Writers/Write-Message.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The status-message writer: it prefixes the calling function's name and writes to the information stream, or to the verbose stream when
+`-Verbose` is passed.
 
 ## help
 
@@ -76,44 +76,22 @@ Write-Message 'Done' -ForegroundColor Green -NoHeader
 Write-Message -Warning 'Two builds present - is a console session locking the old DLL?'
 ```
 
-## comment:1
+## Verbose routing
 
-Above `if ($PSBoundParameters.ContainsKey('Verbose')) {`, written with `#`.
+A message is verbose only when `-Verbose` is explicitly bound. It then goes to the verbose stream instead of the always-on information
+stream, and its visibility follows the `-Verbose` value the caller passed: an explicit `-Verbose` sets this call's `$VerbosePreference`,
+which `Write-Verbose` honours, so `-Verbose:$false` stays silent. Requiring an explicit `-Verbose` keeps ordinary messages on the
+information stream even when the session's `$VerbosePreference` is `Continue`. `-ForegroundColor` does not apply to the verbose stream.
 
-```text
-A verbose message (an explicitly-bound -Verbose) routes to the verbose stream instead of the always-on
-information stream; its visibility follows the -Verbose value the caller passed (an explicit -Verbose
-sets this call's $VerbosePreference, which Write-Verbose honours, so -Verbose:$false stays silent).
-Requiring an EXPLICIT -Verbose keeps ordinary messages on the info stream even when the session's
-$VerbosePreference is Continue. -ForegroundColor does not apply to the verbose stream.
-```
+## Warning
 
-## comment:2
+`-Warning` is sugar for yellow
+([ADR-AUTO-CONSOLE-SPARINGCOLOUR](../../../drs/automation/console-output-matters.md#rule-adr-auto-console-sparingcolour)) on the information
+stream, never the terminating `Write-Warning` stream. The parameter sets make it exclusive with `-ForegroundColor`, so at most one branch
+carries a colour.
 
-Above `if ($Warning) {`, written with `#`.
+## Rainbow input
 
-```text
--Warning is sugar for yellow
-([ADR-AUTO-CONSOLE-SPARINGCOLOUR](/docs/drs/automation/console-output-matters.md#rule-adr-auto-console-sparingcolour)) on the
-information stream, NOT the terminating Write-Warning stream.
-Parameter sets make it exclusive with -ForegroundColor, so at most one of these branches carries a colour.
-```
-
-## comment:3
-
-Above `$plan = Resolve-WriterColor -ForegroundColor $ForegroundColor -Bound`, written with `#`.
-
-```text
-A status line is one solid line, not a rule, so a rainbow input side-grades to its base colour: the
-shared resolver flattens a ConsoleColor, its name, a 'rainbow'/'<base>-rainbow' bareword, or a
-RainbowColor profile to one ConsoleColor. Passing a rainbow to Write-Message therefore just works.
-```
-
-## comment:4
-
-Above `if ($Warning) {`, written with `#`.
-
-```text
-Yellow on the information stream, never the warning stream; the parameter sets keep it apart from
--ForegroundColor.
-```
+A status line is one solid line, not a rule, so a rainbow input side-grades to its base colour. The shared resolver flattens a
+`ConsoleColor`, its name, a `rainbow` or `<base>-rainbow` bareword, or a `RainbowColor` profile to one `ConsoleColor`, so passing a rainbow
+to `Write-Message` just works.

@@ -1,7 +1,7 @@
 # pwsh/Base.Timeouts/Get-TimeoutSeconds.ps1
 
-The one resolver of a time limit: every consumer of the time safeguard asks it how many seconds a call, an executable, a shell or a
-command may run.
+The one resolver of a time limit: every consumer of the time safeguard asks it how many seconds a call, an executable, a shell or a command
+may run.
 
 ## help
 

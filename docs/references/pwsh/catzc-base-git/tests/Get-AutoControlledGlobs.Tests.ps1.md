@@ -1,22 +1,13 @@
 # pwsh/Base.Git/tests/Get-AutoControlledGlobs.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The tests of `Get-AutoControlledGlobs`: they classify paths against the whitelist over a fixture registry.
 
-## comment:1
+## The fixture registry
 
-Above `Mock Get-Config {`, written with `#`.
+The registry holds one gitignored managed target (it belongs in the whitelist), one committed managed target (`importer.ps1`-shaped, which
+must not be whitelisted) and one not opted in.
 
-```text
-A fixture registry: one gitignored managed target (belongs in the whitelist), one committed
-managed target (importer.ps1-shaped — must NOT be whitelisted), one not opted in.
-```
+## Plan files
 
-## comment:2
-
-Above `& $isControlled 'out/plan-widget.md' | Should -BeFalse`, written with `#`.
-
-```text
-the authored plan files are working notes, not output
-([ADR-REPO-OUTDIR-PLANNOTES](/docs/drs/repository/dedicated-output-directory.md#rule-adr-repo-outdir-plannotes))
-```
+The authored plan files are working notes, not output
+([ADR-REPO-OUTDIR-PLANNOTES](../../../../drs/repository/dedicated-output-directory.md#rule-adr-repo-outdir-plannotes)).

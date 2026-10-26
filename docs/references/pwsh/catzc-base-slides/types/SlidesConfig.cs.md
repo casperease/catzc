@@ -1,13 +1,8 @@
 # pwsh/Base.Slides/types/SlidesConfig.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The typed record of the slides settings (`configs/slides.yml`), with the defaults declared once on the type.
 
-## comment:1
+## name_mentions
 
-Above `public IReadOnlyDictionary<string, string> name_mentions { get; }`, written with `//`.
-
-```text
-The diagrams (by stem) and slides (by path) whose naming of catzc or cats is a declared contrast, each with its reason
-([DDR-VISUAL-NONAMEINPICTURE](/docs/drs/design/visual-design.md#rule-ddr-visual-nonameinpicture)); empty when none is declared.
-```
+`name_mentions` holds the diagrams (by stem) and slides (by path) whose naming of catzc or cats is a declared contrast, each with its reason
+([DDR-VISUAL-NONAMEINPICTURE](../../../../drs/design/visual-design.md#rule-ddr-visual-nonameinpicture)); it is empty when none is declared.

@@ -101,6 +101,7 @@ concepts:
     defined_by: ADR-REPO-LANG-THREEREGISTERS
     short: One of the three registers — design, test, live — each with its own terminology and identities; a token belongs to exactly one.
     realized_by: { kind: prose-only }
+    # landing, dns and availability are Azure's own terms (a CAF landing zone, a private DNS zone, an availability zone), not language zones.
     forms: [language, design, test, live, landing, dns, availability]
     contrasts:
       file language:

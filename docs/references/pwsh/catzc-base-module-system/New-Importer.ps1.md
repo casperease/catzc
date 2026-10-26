@@ -1,7 +1,7 @@
 # pwsh/Base.ModuleSystem/New-Importer.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Generates a repository's `importer.ps1`, a thin shim that carries the importer's public parameter form and delegates the load sequence to
+`Invoke-Importer`. It renders the shim from the overlay's own parameter block, so the two cannot drift.
 
 ## help
 
@@ -50,61 +50,24 @@ New-Importer -Force
 New-Importer -RepositoryRoot ./some/other/repo
 ```
 
-## comment:1
+## Parameter block
 
-Above `$parseErrors = $null`, written with `#`.
+The overlay's parameter block is read from source, since the overlay is not loaded after the import. Each parameter becomes one clean
+`[type] $Name` line, and the overlay keeps its own per-parameter doc comments. The block opens with `[CmdletBinding()]`, so the shim accepts
+`-Verbose` and forwards it to `Invoke-Importer` through `@PSBoundParameters`, which shows the importer's own state-change record
+([ADR-PWSH-ANNOUNCE-IMPORTERLOADSEQUENCE](../../../drs/automation/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-importerloadsequence)).
+The shim is dot-sourced, so the preference stays inside the import and does not leak into the caller's session.
 
-```text
-Read the overlay's parameter block from source (the overlay is not loaded post-import). Each parameter
-becomes one clean `[type] $Name` line; the overlay keeps its own per-parameter doc comments.
-```
+## Template
 
-## comment:2
+The template around the generated block is fixed. Its single-quoted here-strings keep `$env:`, `$PSScriptRoot` and `@PSBoundParameters`
+literal, and it is the one living copy of the shim body, because `importer.ps1` is generated. The shim sets `$env:RepositoryRoot`, but the
+announcement is delegated
+([ADR-AUTO-CONSOLE-ANNOUNCELASTINGCHANGES](../../../drs/automation/console-output-matters.md#rule-adr-auto-console-announcelastingchanges)):
+`Invoke-Importer` names it on its Roots line, the first point a writer is loaded. The modules folder is read back through the resolver, so
+this generator names no folder of its own and the shim spells the folder from the same place.
 
-Above `$suppression =...`, written with `#`.
+## Line endings
 
-```text
-The shim sets $env:RepositoryRoot, but its announcement is delegated
-([ADR-AUTO-CONSOLE-ANNOUNCELASTINGCHANGES](/docs/drs/automation/console-output-matters.md#rule-adr-auto-console-announcelastingchanges)):
-Invoke-Importer
-names it on its Roots line, the first point a writer is loaded.
-```
-
-## comment:3
-
-Above ``$paramBlock = "$suppression`n" + "[CmdletBinding()]`n" + "param(`n" +...``, written with `#`.
-
-```text
-[CmdletBinding()] makes the shim accept -Verbose (forwarded to Invoke-Importer by @PSBoundParameters), which
-shows the importer's own state-change record
-([ADR-PWSH-ANNOUNCE-IMPORTERLOADSEQUENCE](/docs/drs/automation/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-importerloadsequence)).
-Dot-sourced, the preference stays inside
-the import and does not leak into the caller's session.
-```
-
-## comment:4
-
-Above `$explanation = @'`, written with `#`.
-
-```text
-Fixed template around the generated param block. Single-quoted here-strings keep $env:/$PSScriptRoot/
-@PSBoundParameters literal. The one living copy of the shim body lives here; importer.ps1 is generated.
-```
-
-## comment:5
-
-Above ``$content = ($explanation + "`n" + $paramBlock + "`n`n" + $body +...``, written with `#`.
-
-```text
-LF throughout, one trailing newline. The explanation/param/body join and the EOF newline match the committed
-importer.ps1 below its generated-file head byte-for-byte (the drift test compares EOL-insensitively).
-```
-
-## comment:6
-
-Above `$modulesFolder = [System.IO.Path]::GetRelativePath((Get-RepositoryRoot),...`, written with `#`.
-
-```text
-The modules folder, relative to the root, as the importer's one constant set it (read back through the resolver), so this
-generator names no folder of its own and the shim it writes spells the folder from the same place.
-```
+The output uses LF throughout and one trailing newline. The explanation, parameter block and body join, and the end-of-file newline, match the
+committed `importer.ps1` below its generated-file head byte for byte. The drift test compares them insensitive to line endings.

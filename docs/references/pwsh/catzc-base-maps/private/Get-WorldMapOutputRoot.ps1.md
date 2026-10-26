@@ -1,7 +1,6 @@
 # pwsh/Base.Maps/private/Get-WorldMapOutputRoot.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The helper that names the output folder the world-map PDFs are written to, and the seam a test mocks.
 
 ## help
 

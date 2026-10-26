@@ -1,7 +1,7 @@
 # pwsh/Base.Maps/Get-AxisMinimapData.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The data of the axis minimap: the value chain cut a second way, the top ADR domains down and the delivery concerns across. A diagram's
+subject lights the cells its ADR codes sit in.
 
 ## help
 
@@ -34,11 +34,7 @@ Return the data as JSON in the minimap contract's shape instead of the object.
 (Get-AxisMinimapData ADR-AUTO-ENGINE).Lit
 ```
 
-## comment:1
+## Where the rows come from
 
-Above `$axis = (Get-Config -Config maps).minimap_axis`, written with `#`.
-
-```text
-The value chain re-cut: the top ADR domains down, each gathering its value-chain stacks, the delivery concerns across; a cell
-holds the ADRs placed there and is lit by the codes the diagram covers.
-```
+The `minimap_axis` setting of the maps config ([configs/maps.yml](configs/maps.yml.md)) names the rows and their value-chain stacks. Each row
+is one top ADR domain gathering its stacks. A cell holds the ADRs placed there and is lit by the codes the diagram covers.

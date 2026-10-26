@@ -1,7 +1,6 @@
 # pwsh/Base.Maps/private/Get-MinimapPlace.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The helper that reads the place of one file for the code-locations minimap: its track, its module and the folder inside the module.
 
 ## help
 
@@ -32,20 +31,11 @@ The file's facts (Get-MinimapFact): its track and the module that holds it.
 Get-MinimapPlace -Path pwsh/Azure/configs/azure.yml -Facts @{ track = 'pwsh'; module = 'Catzc.Azure' }
 ```
 
-## comment:1
+## The triple
 
-Above `$module = if ($Facts['module'] -and "$($Facts['module'])" -ne $track) {`, written with `#`.
-
-```text
-A place is [track, module, folder]: '-' for no module, and '.' for the module's own root; a folder inside the module is the path
+A place is `[track, module, folder]`. `-` stands for no module and `.` for the module's own root. A folder inside the module is the path
 between the module's folder and the file.
-```
 
-## comment:2
+## A module that repeats its track
 
-Above `$module = if ($Facts['module'] -and "$($Facts['module'])" -ne $track) {`, written with `#`.
-
-```text
-A module that only repeats its track (`.claude` in `.claude`) is no module: the place is the track and the folder
-the file sits in.
-```
+A module that only repeats its track (`.claude` in `.claude`) is no module. The place is then the track and the folder the file sits in.

@@ -1,6 +1,7 @@
 # pwsh/Base.Overlay/private/Get-LocalModuleViolation.ps1
 
-The check of a consumer's local module: it returns one message per reason the module cannot load, so `Assert-CatzcOverlay` can list them all.
+The check of a consumer's local module: it returns one message per reason the module cannot load, so `Assert-CatzcOverlay` can list them
+all.
 
 ## help
 
@@ -32,10 +33,11 @@ The folder as the messages show it.
 ## Why the walk prunes nothing
 
 A violation anywhere in the module must show, so the walk is a named whole-tree walk
-([ADR-PWSH-ENUM-ALWAYSBOUNDED](../../../../drs/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)) that prunes nothing.
+([ADR-PWSH-ENUM-ALWAYSBOUNDED](../../../../drs/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)) that prunes
+nothing.
 
 ## The folder name
 
 A folder never spells the modules track's namespace
-([DDR-TRACK-MODULENAMESPACE](../../../../drs/design/tracks.md#rule-ddr-track-modulenamespace)): the folder resolves to its full name, and the
-bundle names the fix.
+([DDR-TRACK-MODULENAMESPACE](../../../../drs/design/tracks.md#rule-ddr-track-modulenamespace)): the folder resolves to its full name, and
+the bundle names the fix.

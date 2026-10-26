@@ -1,13 +1,8 @@
 # pwsh/Base.ModuleSystem/configs/importer.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The importer's own settings: which languages it loads and which execution engines it serves.
 
-## comment:1
+## Keys
 
-Above `languages: auto`, written with `#`.
-
-```text
-Every key is optional: an omitted key takes the default declared once on ImporterConfig, and the importer's -Languages and -Engines
-switches override it. A value is auto, or a list of names.
-```
+Both keys are optional. An omitted key takes the default declared once on the `ImporterConfig` type, and the importer's `-Languages` and
+`-Engines` switches override the file. A value is `auto` or a list of names.

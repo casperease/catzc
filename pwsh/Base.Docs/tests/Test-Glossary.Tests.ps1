@@ -83,6 +83,7 @@ Describe 'Test-Glossary' -Tag 'L0', 'logic' {
     }
 }
 
+# L2 because G1 and G4 reach git; Test-Glossary runs once and every It reads its part of that one result (ADR-AUTO-TEST-SETUPONCE).
 Describe 'Test-Glossary — real glossary sources' -Tag 'L2', 'integrity', 'source-only' {
     BeforeAll {
         $script:sources = @(InModuleScope Catzc.Base.Docs { Get-GlossarySources })

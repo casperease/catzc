@@ -1,7 +1,7 @@
 # pwsh/Base.Slides/private/Get-DiagramSupportsDrift.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The drift check between a diagram and the pages that embed it: it returns one finding, an error, per page whose Supports line disagrees with
+the diagram's declaration.
 
 ## help
 
@@ -31,20 +31,6 @@ The repository root the paths are under.
 
 `[string]` One line per page whose Supports line disagrees with the declaration.
 
-## comment:1
+## Wrapped lines
 
-Above `$text = Get-DiagramDeclarationText -Stem $Stem -RepositoryRoot $RepositoryRoot`, written with `#`.
-
-```text
-Each embedding page's `Supports <codes> (<lens> lens)` lines against the diagram's yml: a page passes when one of its lines
-names the yml's ADR codes and lens, and a page with no Supports line is not checked. One finding, an error, per page that disagrees.
-```
-
-## comment:2
-
-Above ``$lines = @([regex]::Matches($text, '(?m)^Supports ([^()`]+?) \((\w+)...``, written with `#`.
-
-```text
-A Supports line may wrap onto the next lines of its fence; its codes hold no parenthesis or backtick, so a
-match never leaves it.
-```
+A Supports line may wrap onto the next lines of its fence; its codes hold no parenthesis or backtick, so a match never leaves it.

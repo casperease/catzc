@@ -1,13 +1,8 @@
 # pwsh/Base.Drs/tests/ConvertTo-DrsDomainDiagram.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The tests of `ConvertTo-DrsDomainDiagram`, a pure renderer.
 
-## comment:1
+## Fixtures
 
-Above `Describe 'ConvertTo-DrsDomainDiagram'`, written with `#`.
-
-```text
-ConvertTo-DrsDomainDiagram — a pure renderer, fed fixture edges and a fixture DrsConfig for the node roles
-(Get-Config mocked). Neutral fixture names ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
-```
+It is fed fixture edges and a fixture `DrsConfig` for the node roles, with `Get-Config` mocked. The fixture names are neutral
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).

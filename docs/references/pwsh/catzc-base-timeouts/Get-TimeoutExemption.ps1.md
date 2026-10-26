@@ -1,6 +1,7 @@
 # pwsh/Base.Timeouts/Get-TimeoutExemption.ps1
 
-The lookup of a timeout exemption: it finds the entry of `timeout-exemptions.yml` that covers a budget GUID in this run environment and shell.
+The lookup of a timeout exemption: it finds the entry of `timeout-exemptions.yml` that covers a budget GUID in this run environment and
+shell.
 
 ## help
 

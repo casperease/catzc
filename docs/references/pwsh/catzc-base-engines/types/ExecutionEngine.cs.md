@@ -1,67 +1,40 @@
 # pwsh/Base.Engines/types/ExecutionEngine.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+One of the repository's execution engines, the shells its own code runs under
+([ADR-AUTO-ENGINE](../../../../drs/automation/execution-engines.md)). Everything that differs between the engines is declared here, once, so
+no caller restates a flag, a quote rule or a file name.
 
-## comment:1
+## What it holds
 
-Above `using System;`, written with `//`.
-
-```text
-One of the repository's execution engines — the shells its own code runs under
-([ADR-AUTO-ENGINE](/docs/drs/automation/execution-engines.md)). Everything that differs between the engines is declared
-here, once, so no caller restates a flag, a quote rule, or a file name: how the engine's executable is named and
-located, which script files it runs, how it is started non-interactively, how it loads an entry script and runs a
-command, its strict mode, its time safeguard, the line endings and executable bit its scripts need, and its importer
-entry. The three instances live in ExecutionEngines; this type has no public constructor, so no caller invents a fourth.
+How the engine's executable is named and located, which script files it runs, how it is started non-interactively, how it loads an entry
+script and runs a command, its strict mode, its time safeguard, the line endings and executable bit its scripts need, and its importer entry.
+The three instances live in `ExecutionEngines`. The type has no public constructor, so no caller invents a fourth.
 
 A model type, so its properties are PascalCase
-([ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
-```
+([ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](../../../../drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
 
-## comment:2
+## Locating the executable
 
-Above `public const string LocateByPsHome = "ps-home";`, written with `//`.
+`Locate` is `LocateByPsHome` or `LocateByTool`. The first finds the executable beside the running PowerShell (`$PSHOME`). The second goes
+through the engine's `tools.yml` entry, named by `ToolKey` (the existence check is `Resolve-ToolExecutable`).
 
-```text
-How the engine's executable is found: beside the running PowerShell ($PSHOME), or through its tools.yml entry
-(the existence check, Resolve-ToolExecutable).
-```
+## Time safeguard
 
-## comment:3
+`TimeSafeguard` says how a call is bounded in time in this engine
+([ADR-AUTO-FAILFAST-BOUNDEVERYWAIT](../../../../drs/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast-boundeverywait)).
 
-Above `public string TimeSafeguard { get; }`, written with `//`.
+## Command prefix
 
-```text
-How a call is bounded in time in this engine
-([ADR-AUTO-FAILFAST-BOUNDEVERYWAIT](/docs/drs/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast-boundeverywait)).
-```
+`CommandPrefix` is what goes before a catzc command in this engine: nothing in pwsh, where the commands are native, and `cats ` in bash and
+zsh, the dispatcher `importer.sh` defines, which runs the command through pwsh. A command's text is the same in every engine.
 
-## comment:4
+## Quote
 
-Above `public string CommandPrefix { get; }`, written with `//`.
+`Quote(text)` returns the text as one literal string in the engine's own quoting: single quotes, with an embedded single quote written the
+engine's way (`''` in pwsh, `'\''` in bash and zsh).
 
-```text
-What goes before a catzc command in this engine: nothing in pwsh, where the commands are native; "cats " in bash
-and zsh, the dispatcher importer.sh defines, which runs the command through pwsh. A command's text is the same in
-every engine.
-```
+## StartArguments
 
-## comment:5
-
-Above `public string Quote(string text)`, written with `//`.
-
-```text
-The text as one literal string in the engine's own quoting: single quotes, with an embedded single quote written
-the engine's way ('' in pwsh, '\'' in bash and zsh).
-```
-
-## comment:6
-
-Above `public string[] StartArguments(string entry, string command)`, written with `//`.
-
-```text
-The arguments (after the executable) that start the engine non-interactively, load the entry script, and run the
-catzc command: the non-interactive arguments, the command flag, then one command text
-"<source the entry>; <command prefix><command>". The command is catzc command text, the same in every engine.
-```
+`StartArguments(entry, command)` returns the arguments, after the executable, that start the engine non-interactively, load the entry script
+and run the catzc command: the non-interactive arguments, the command flag, then one command text
+`<source the entry>; <command prefix><command>`.

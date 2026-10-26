@@ -1,7 +1,7 @@
 # pwsh/Base.TypesSystem/Assert-LoadedTypesCurrent.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The throwing form of the loaded-types check: it asserts that the C# types loaded in this PowerShell process are current with their sources.
+`Test-LoadedTypesCurrent` is the query form.
 
 ## help
 

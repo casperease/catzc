@@ -1,7 +1,7 @@
 # pwsh/Base.TypesSystem/Get-CSharpTypeDependency.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The scanner that finds which modules reference which: it reads each module's `types/*.cs` and compiles the module-to-module edges from the
+cross-module type references.
 
 ## help
 
@@ -46,41 +46,18 @@ Get-CSharpTypeDependency
 Get-CSharpTypeDependency | Where-Object { $_.From -eq 'Catzc.Azure.Templates' }
 ```
 
-## comment:1
+## Reading the files
 
-Above `foreach ($cs in [Catzc.Base.Folders.PathSet]::new((Get-Config -Config...`, written with `#`.
+A module's `types/*.cs` are listed through the bounded folder walker (`PathSet`, configured by folder-walk) instead of `Get-ChildItem`, and
+read with `[System.IO]` instead of `Get-Content`: the cmdlets cost about 20 ms per call
+([ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS](../../../drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-systemioonhotpaths)).
 
-```text
-The module's types/*.cs are listed through the bounded folder walker (PathSet, configured by folder-walk) instead of Get-ChildItem, and
-read with [System.IO] instead of Get-Content: the cmdlets cost about 20 ms per call
-([ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS](/docs/drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-systemioonhotpaths)).
-```
+## What counts as a reference
 
-## comment:2
+Block comments, line comments, then double- and single-quoted literals are stripped, so only real code tokens are scanned. That is a
+heuristic, but a reliable one here: references are fully qualified names with no `using` aliasing. Only a token that starts with a module
+name's first segment can name a module, so the scan leaves every other dotted name unmatched.
 
-Above `$code = [System.IO.File]::ReadAllText($cs)`, written with `#`.
-
-```text
-Strip block comments, line comments, then double- and single-quoted literals, so only real code
-tokens are scanned. A heuristic, but reliable here: references are FQN with no 'using' aliasing.
-```
-
-## comment:3
-
-Above `$code = [regex]::Replace($code,...`, written with `#`.
-
-```text
-Drop the file's own file-scoped namespace declaration ("namespace <module>;"). It names THIS file's
-own module, never a cross-module reference, and its token would otherwise mis-map to a shorter
-known-module prefix: 'namespace Catzc.Azure.Templates;' has no 'Catzc.Azure.Templates.' continuation,
-so it would resolve to the parent module Catzc.Azure and fabricate a false Templates -> Azure edge.
-```
-
-## comment:4
-
-Above `$roots = @($modules | ForEach-Object { [regex]::Escape($_.Split('.')[0]) } |...`, written with `#`.
-
-```text
-Only a token that starts with a module name's first segment can name a module, so the scan leaves every other
-dotted name unmatched.
-```
+The file's own file-scoped namespace declaration (`namespace <module>;`) is dropped. It names the file's own module, never a cross-module
+reference, and its token would otherwise map to a shorter known-module prefix: `namespace Catzc.Azure.Templates;` has no
+`Catzc.Azure.Templates.` continuation, so it would resolve to the parent module `Catzc.Azure` and fabricate a false Templates to Azure edge.

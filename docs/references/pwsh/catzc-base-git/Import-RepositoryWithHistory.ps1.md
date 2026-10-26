@@ -1,7 +1,7 @@
 # pwsh/Base.Git/Import-RepositoryWithHistory.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The import of an outside repository with its full history: it lands the source's files at one address under the unordered track and joins the
+history by a subtree merge.
 
 ## help
 
@@ -68,13 +68,4 @@ Import-RepositoryWithHistory -Source https://example.com/gadget.git -Name gadget
 
 ```powershell
 Import-RepositoryWithHistory -Source C:\projects\widget-tools -DryRun
-```
-
-## comment:1
-
-Above ``$git = "git -C `"$root`""``, written with `#`.
-
-```text
-The history move: fetch the source ref, read its tree in under the address, and record one merge commit with both
-parents.
 ```

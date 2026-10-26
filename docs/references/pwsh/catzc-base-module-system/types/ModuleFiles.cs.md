@@ -1,20 +1,20 @@
 # pwsh/Base.ModuleSystem/types/ModuleFiles.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+One module's entry in `files.yml` (`modules: <module>: { packages: { <package>: [paths] } }`): the named packages of repository-root-relative
+file artifacts the module owns beyond its own folder, which `Copy-CatzcModule` copies with it. Its properties mirror the YAML keys
+([ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](../../../../drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
 
-## comment:1
+## Validation
 
-Above `using System;`, written with `//`.
+Constructing an entry maps and validates it and gathers every violation into one `ArgumentException`:
 
-```text
-One module's entry in configs/files.yml (`modules: <module>: { packages: { <package>: [paths] } }`): the named
-packages of repository-root-relative file artifacts the module owns beyond its own folder, which Copy-CatzcModule
-copies with it. Constructing one MAPS and VALIDATES the entry, collecting every violation into one throw:
-  - the entry is a map whose only key is a non-empty 'packages' map;
-  - each package name is snake_case;
-  - each package is a non-empty list of non-empty paths (not a single string), each repository-root-relative and
-    forward-slashed (not rooted, no '\', no '..' segment), as the file's own header declares.
-Global package-name uniqueness spans modules, so FilesConfig checks it. Mirrors the YAML mapping (snake_case keys,
-[ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
-```
+- the entry is a map whose only key is a non-empty `packages` map;
+- each package name is snake_case;
+- each package is a non-empty list of non-empty paths, not a single string;
+- each path is repository-root-relative and forward-slashed: no `\`, no leading `/`, no `:` and no `..` segment.
+
+Package-name uniqueness spans modules, so [FilesConfig](FilesConfig.cs.md) checks it.
+
+## Properties
+
+- **`packages`** — package name to its path list, in declaration order, read-only.

@@ -1,7 +1,6 @@
 # pwsh/Base.FileLimits/Test-FileLimits.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The quality gate that checks every tracked file in scope against the length and width limits of the file-limits config.
 
 ## help
 
@@ -39,11 +38,7 @@ Return the gate result as well as writing the report.
 Test-FileLimits
 ```
 
-## comment:1
+## Scope
 
-Above `$authored = @(foreach ($page in (Get-Config -Config comment-pages).pages) {`, written with `#`.
-
-```text
-Generated, vendor and unordered files are out by their track: generated targets as declared, the vendor folder and the unordered track.
+Generated, vendor and unordered files are out by their track: the generated targets as declared, the vendor folder and the unordered track.
 A comment page is authored prose (ADR-REPO-COMMENTS-PAGEISAUTHORED) though its root is a generated target, so it stays in scope.
-```

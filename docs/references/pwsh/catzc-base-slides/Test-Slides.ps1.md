@@ -1,7 +1,7 @@
 # pwsh/Base.Slides/Test-Slides.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The quality gate of the slide files: it renders every slide through its pattern and fails each fault found, then reports through the
+quality-gate report.
 
 ## help
 

@@ -1,7 +1,6 @@
 # pwsh/Base.Exporter/Get-CatzcContentHash.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The command that computes the durable content hash of a directory tree: the content-addressed identity of a bundle.
 
 ## help
 
@@ -33,11 +32,8 @@ part of the content it identifies.
 Get-CatzcContentHash -Path (Join-Path (Get-OutputRoot) 'automation/built/full/Catzc/6.6.666') -Exclude 'build.json'
 ```
 
-## comment:1
+## The walk
 
-Above `$files = Get-ChildPath $rootFull -File -Depth 64 -Exclude @() -PruneVendor...`, written with `#`.
-
-```text
-A named whole-tree walk ([ADR-PWSH-ENUM-ALWAYSBOUNDED](/docs/drs/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): the hash
-covers every file, so nothing is pruned and no depth drops one.
-```
+The walk is a named whole-tree walk
+([ADR-PWSH-ENUM-ALWAYSBOUNDED](../../../drs/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): the hash covers every
+file, so nothing is pruned and no depth drops one.

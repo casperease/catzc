@@ -73,8 +73,8 @@ The cache is keyed by the resolved file path
 ([ADR-CONF-LOADING-CACHEBYPATH](../../../drs/configuration/module-config-loading.md#rule-adr-conf-loading-cachebypath)), and its entry is
 probed strict-clean
 ([ADR-PWSH-CACHE-STRICTSAFEPROBE](../../../drs/automation/pwsh/script-scope-caching.md#rule-adr-pwsh-cache-strictsafeprobe)). In build mode
-the key also carries the stamp of the consumer overlay's fragment
-([ADR-AUTO-OVERLAY](../../../drs/automation/consumer-overlay.md)), so an edited fragment is never served from a stale merge.
+the key also carries the stamp of the consumer overlay's fragment ([ADR-AUTO-OVERLAY](../../../drs/automation/consumer-overlay.md)), so an
+edited fragment is never served from a stale merge.
 
 ## Typed construction
 
@@ -83,5 +83,5 @@ The registered C# type maps and validates the parsed dictionary at construction
 
 ## Overlay folder
 
-An overlay folder is named like the bundled module's folder, which drops the namespace the module's full name carries. A registered type with
-no shipped file finds its folder through its loaded module.
+An overlay folder is named like the bundled module's folder, which drops the namespace the module's full name carries. A registered type
+with no shipped file finds its folder through its loaded module.

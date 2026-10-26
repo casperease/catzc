@@ -1,7 +1,6 @@
 # pwsh/Base.Maps/private/Get-MinimapSubject.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The helper that turns a diagram's ADR codes into its subject: the files they light on the world map, each with its facts.
 
 ## help
 

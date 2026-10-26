@@ -1,13 +1,8 @@
 # pwsh/Base.TypesSystem/tests/Invoke-BuildForVsCode.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The L0 tests of `Invoke-BuildForVsCode`.
 
-## comment:1
+## The offline guard
 
-Above `Mock Assert-DotnetOffline -ModuleName Catzc.Base.TypesSystem { }`, written with `#`.
-
-```text
-The modules root is the test drive, outside the repository; the offline guard's own cases are
-Assert-DotnetOffline.Tests.ps1.
-```
+The offline guard is mocked: the modules root is the test drive, outside the repository, and the guard's own cases are in
+`Assert-DotnetOffline.Tests.ps1`.

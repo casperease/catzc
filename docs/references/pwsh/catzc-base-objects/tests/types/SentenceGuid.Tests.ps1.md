@@ -2,14 +2,9 @@
 
 <!-- cspell:ignore oilzstgq -->
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The L0 logic tests of `SentenceGuid`, the mint behind `ConvertTo-Guid`.
 
-## comment:1
+## The empty result
 
-Above `$result = [Catzc.Base.Objects.SentenceGuid]::Convert('!!! ??? ,,,')`, written with `#`.
-
-```text
-Compared as [guid]::Empty, not a literal — the all-zeros GUID is on the registry's denied list
+An input with no mappable characters is compared against `[guid]::Empty`, not a literal: the all-zeros GUID is on the registry's denied list
 and never appears in tracked text.
-```

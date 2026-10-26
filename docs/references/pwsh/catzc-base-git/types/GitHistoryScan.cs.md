@@ -1,30 +1,22 @@
 # pwsh/Base.Git/types/GitHistoryScan.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+A token hunt over a git history in one pass: every commit message, every path and every distinct file content reachable from a set of root
+objects, each read exactly once.
 
-## comment:1
+## Input and speed
 
-Above `using System;`, written with `//`.
+The input is the byte stream of `git cat-file --batch-all-objects --batch --unordered`: git's own C code decompresses the objects, and this
+type indexes them, walks what the roots reach, and searches. Scanning each distinct blob once (rather than once per revision that contains it,
+as `git grep <revs>` does) is what makes the scan fast
+([ADR-AUTO-TRACKED](../../../../drs/automation/tracked-files-from-the-index.md)).
 
-```text
-A token hunt over a git history in one pass: every commit message, every path and every distinct file content
-reachable from a set of root objects, each read exactly once. The input is the byte stream of
-`git cat-file --batch-all-objects --batch --unordered` — git's own C code decompresses the objects; this type
-indexes them, walks what the roots reach, and searches. Scanning each distinct blob once (rather than once per
-revision that contains it, as `git grep <revs>` does) is what makes the scan fast
-([ADR-AUTO-TRACKED](/docs/drs/automation/tracked-files-from-the-index.md)).
+## Matching
 
-Matching mirrors the CLI scan it replaces: the token is a literal, matched ignoring ASCII case (other characters
-match exactly); a blob with a NUL byte in its first 8000 bytes is binary and skipped, as `git grep -I` skips it;
-a blob or path whose every path lies under an excluded prefix is ignored.
-```
+Matching mirrors the CLI scan it replaces: the token is a literal, matched ignoring ASCII case (other characters match exactly). A blob with
+a NUL byte in its first 8000 bytes is binary and skipped, as `git grep -I` skips it. A blob or path whose every path lies under an excluded
+prefix is ignored.
 
-## comment:2
+## Blobs
 
-Above `public string[] Blobs { get; }`, written with `//`.
-
-```text
-Content hits, one per matching line of each distinct blob: `<blob>:<path>:<line>`, where path is the
-blob's first non-excluded path in ordinal order.
-```
+`Blobs` holds the content hits, one per matching line of each distinct blob: `<blob>:<path>:<line>`, where path is the blob's first
+non-excluded path in ordinal order.

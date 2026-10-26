@@ -1,7 +1,6 @@
 # pwsh/Base.Slides/private/Write-DiagramMinimapData.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The writer of a diagram's minimap data: it computes the minimaps each declaration lists and writes their data for the draw.io kit to draw.
 
 ## help
 
@@ -37,56 +36,19 @@ The repository root the stems are under; the data is written under its out/minim
 Write-DiagramMinimapData -Stem docs/drs/automation/.assets/widget -RepositoryRoot (Get-RepositoryRoot)
 ```
 
-## comment:1
+## What is computed
 
-Above `$maps = Get-Config -Config maps`, written with `#`.
+Each declared folder's three minimaps are computed from its ADR codes by the data command `maps.yml` names per id, and written as
+`out/minimaps/<folder>/<id>.json` beside `minimaps.json`, the ids in order. The kit's put draws from them and computes nothing.
 
-```text
-Each declared folder's three minimaps, computed from its ADR codes by the data command maps.yml names per id, written as
-out/minimaps/<folder>/<id>.json beside minimaps.json, the ids in order; the kit's put draws from them and computes nothing.
-```
+## What the declaration holds
 
-## comment:2
+The declaration lists only the inputs: each shown minimap is an id, or `{ id: { exclude: [cells] } }` naming the lit cells its author rejects
+as their `at` values joined by `/`; a declaration that lists none shows its kind's defaults. The drawn data is the computed one less the
+excluded cells; nothing computed is written back to the declaration.
 
-Above `$shown = $null`, written with `#`.
+## Shared reads
 
-```text
-The declaration lists only the inputs: each shown minimap is an id, or { id: { exclude: [cells] } } naming the lit cells its
-author rejects as their at values joined by '/'; a declaration that lists none shows its kind's defaults.
-```
-
-## comment:3
-
-Above `$worldMap = Get-WorldMap`, written with `#`.
-
-```text
-The world map is built once for every folder of the call; a minimap that draws on it is handed it rather than
-building its own.
-```
-
-## comment:4
-
-Above `$glyphs = @(if ($content -and $content.Contains('glyphs') -and...`, written with `#`.
-
-```text
-The drawing's own glyphs, handed to the minimaps that place them: the labels as written, resolved by the maps
-module, never stored.
-```
-
-## comment:5
-
-Above `$subjectPaths = foreach ($entry in $declared) {`, written with `#`.
-
-```text
-The file facts of every folder's subject are read in one call; a minimap that draws on them is handed them rather
-than reading its own.
-```
-
-## comment:6
-
-Above `$excluded = $entry.Excluded[$id]`, written with `#`.
-
-```text
-The drawn data is the computed one less the cells the author excludes; nothing computed is written back to
-the declaration.
-```
+The world map is built once for every folder of the call, and the file facts of every folder's subject are read in one call; a minimap that
+draws on either is handed it rather than building its own. The drawing's own glyphs are handed to the minimaps that place them: the labels as
+written, resolved by the maps module, never stored.

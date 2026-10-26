@@ -1,7 +1,6 @@
 # pwsh/Base.FileLimits/Test-FileShape.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The pure check of files against their resolved limits, returning one finding per breach.
 
 ## help
 
@@ -28,11 +27,6 @@ The files to check.
 Test-FileShape -Path pwsh/Base.Folders/Get-ChildPath.ps1
 ```
 
-## comment:1
+## String overflow
 
-Above `$text = [System.IO.File]::ReadAllText($file)`, written with `#`.
-
-```text
-A line whose overflow lies wholly inside one string literal passes, so the width is the widest line
-that is not one.
-```
+A line whose overflow lies wholly inside one string literal passes, so the width is the widest line that is not one.

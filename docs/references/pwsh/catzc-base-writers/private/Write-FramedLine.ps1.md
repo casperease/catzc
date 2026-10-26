@@ -1,7 +1,6 @@
 # pwsh/Base.Writers/private/Write-FramedLine.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The private render step shared by the header and footer writers: it colours their lines by a colour plan and emits them as one record.
 
 ## help
 
@@ -25,12 +24,7 @@ Ordered line segments: @( @{ Text = '...'; Rule = $true|$false }, ... ), in rend
 
 The colour plan from Resolve-WriterColor: { HasColor; IsRainbow; Rainbow; Base }.
 
-## comment:1
+## Pre-coloured text
 
-Above `$rendered = foreach ($s in $Segment) {`, written with `#`.
-
-```text
-A rule line takes the per-character gradient; a titled line takes the base colour (the profile
-side-grades to Base). The text is pre-coloured here, so it passes through the chokepoint with no
--ForegroundColor of its own.
-```
+A rule line takes the per-character gradient and a titled line takes the base colour, the profile side-grading to its base. The text is
+coloured here, so it passes through the chokepoint with no `-ForegroundColor` of its own.

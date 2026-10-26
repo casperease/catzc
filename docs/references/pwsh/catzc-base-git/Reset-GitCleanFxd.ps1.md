@@ -1,7 +1,7 @@
 # pwsh/Base.Git/Reset-GitCleanFxd.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The safe form of `git clean -fxd`: it deletes only the untracked files the automation generates and owns, and reports every candidate it
+refused to touch.
 
 ## help
 
@@ -45,20 +45,8 @@ Reset-GitCleanFxd -DryRun
 Reset-GitCleanFxd
 ```
 
-## comment:1
+## Why it is shaped so
 
-Above `function Reset-GitCleanFxd {`, written with `#`.
-
-```text
-Uses -DryRun, not ShouldProcess/-WhatIf — see
-[ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT](/docs/drs/automation/dry-run.md#rule-adr-auto-dryrun-branchbeforesideeffect).
-```
-
-## comment:2
-
-Above `$listing = Invoke-Executable 'git clean -xdn' -PassThru -Silent`, written with `#`.
-
-```text
-git's own dry run is the source of the candidates: exactly what `git clean -fxd` would remove, no
-re-implementation of ignore semantics.
-```
+It uses `-DryRun`, not ShouldProcess or `-WhatIf`
+([ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT](../../../drs/automation/dry-run.md#rule-adr-auto-dryrun-branchbeforesideeffect)). Git's own dry run is
+the source of the candidates: exactly what `git clean -fxd` would remove, with no re-implementation of ignore semantics.

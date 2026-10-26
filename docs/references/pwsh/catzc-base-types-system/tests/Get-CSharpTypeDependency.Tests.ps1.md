@@ -1,14 +1,9 @@
 # pwsh/Base.TypesSystem/tests/Get-CSharpTypeDependency.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The tests of `Get-CSharpTypeDependency`, over fixture modules written into a temporary root.
 
-## comment:1
+## The fixture helper
 
-Above `function New-TypeModule {`, written with `#`.
-
-```text
-Writes <root>/<module>/types/<type>.cs for each entry. Module names double as namespaces.
-[System.IO] rather than New-Item/Set-Content — ~0.1ms vs ~20ms/call
-([ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS](/docs/drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-systemioonhotpaths)).
-```
+`New-TypeModule` writes `<root>/<module>/types/<type>.cs` for each entry, and module names double as namespaces. It uses `[System.IO]`
+rather than `New-Item` and `Set-Content`, about 0.1 ms against 20 ms a call
+([ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS](../../../../drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-systemioonhotpaths)).

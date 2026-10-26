@@ -1,7 +1,6 @@
 # pwsh/Base.Exporter/Install-Catzc.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The command that installs a Catzc build, either two-part beside a working root or into the current user's module path.
 
 ## help
 
@@ -69,31 +68,15 @@ Install-Catzc -Root C:\work\project
 Install-Catzc -Scope CurrentUser
 ```
 
-## comment:1
+## Dry run
 
-Above `function Install-Catzc {`, written with `#`.
+The command takes `-DryRun`, not `ShouldProcess` or `-WhatIf`, because the branch comes before any side effect
+([ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT](../../../drs/automation/dry-run.md#rule-adr-auto-dryrun-branchbeforesideeffect)).
 
-```text
-Uses -DryRun, not ShouldProcess/-WhatIf — see
-[ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT](/docs/drs/automation/dry-run.md#rule-adr-auto-dryrun-branchbeforesideeffect).
-```
+## Executable bits on Unix
 
-## comment:2
-
-Above `if (-not $IsWindows) {`, written with `#`.
-
-```text
 A copy drops the executable bit, which an engine whose scripts need it (bash) requires on Unix
-([ADR-AUTO-ENGINE-DIFFERENCESDECLAREDONCE](/docs/drs/automation/execution-engines.md#rule-adr-auto-engine-differencesdeclaredonce)): every shipped script
-of such an engine that starts with its shebang is made executable again.
-```
-
-## comment:3
-
-Above `foreach ($script in Get-ChildPath $moduleTarget -File -Filter "*$extension"...`, written with `#`.
-
-```text
-A named whole-tree walk
-([ADR-PWSH-ENUM-ALWAYSBOUNDED](/docs/drs/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): every shebang
+([ADR-AUTO-ENGINE-DIFFERENCESDECLAREDONCE](../../../drs/automation/execution-engines.md#rule-adr-auto-engine-differencesdeclaredonce)).
+Every shipped script of such an engine that starts with its shebang is made executable again. The walk that finds them is a named whole-tree
+walk ([ADR-PWSH-ENUM-ALWAYSBOUNDED](../../../drs/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): every shebang
 script of the installed module is re-marked.
-```

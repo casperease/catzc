@@ -1,14 +1,5 @@
 # pwsh/Base.Maps/types/PdfFont.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
-
-## comment:1
-
-Above `namespace Catzc.Base.Maps;`, written with `//`.
-
-```text
-The base-14 fonts the world-map PDFs print with. A base-14 font is built into every PDF reader, so PdfDocument
-embeds no font program and the output stays small and deterministic; the price is WinAnsi-only text (WinAnsi).
-PdfDocument names Helvetica /F1 and Helvetica-Bold /F2 in every page's resources.
-```
+The base-14 fonts the world-map PDFs print with. A base-14 font is built into every PDF reader, so `PdfDocument` embeds no font program and
+the output stays small and deterministic. The price is WinAnsi-only text (see `WinAnsi`). `PdfDocument` names Helvetica `/F1` and
+Helvetica-Bold `/F2` in every page's resources.

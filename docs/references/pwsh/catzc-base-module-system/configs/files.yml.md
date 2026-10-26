@@ -1,20 +1,14 @@
 # pwsh/Base.ModuleSystem/configs/files.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Maps a module to its packages, the repository files it owns beyond its own folder, which `Copy-CatzcModule` carries with it.
 
-## comment:1
+## Packages
 
-Above `modules:`, written with `#`.
+A package is a named group of repository-root-relative file artifacts. `Copy-CatzcModule` copies a selected module's folder plus its
+packages, minus any named in `-ExcludePackages`. Package names are globally unique, because the name is the exclude unit. Only modules that
+own extra artifacts appear. Paths are repository-root-relative and forward-slashed.
 
-```text
-files.yml — module -> packages, for Copy-CatzcModule (Catzc.Base.ModuleSystem).
+## Validation
 
-Each automation module may declare packages. A package is a named group of repository-root-relative file
-artifacts the module owns beyond its own folder. Copy-CatzcModule copies a selected module's folder plus its
-packages, minus any named in -ExcludePackages; package names are globally unique (the exclude unit). Only
-modules that own extra artifacts appear here. Paths are repository-root-relative and forward-slashed.
-
-Loaded via Get-Config -Config files; mapped and validated by the FilesConfig type (a 'modules' map whose
-entries have a non-empty 'packages' map; snake_case, globally-unique package names; non-empty path lists).
-```
+The file loads through `Get-Config -Config files` into the typed record ([FilesConfig](../types/FilesConfig.cs.md)): a `modules` map whose
+entries ([ModuleFiles](../types/ModuleFiles.cs.md)) each hold a non-empty `packages` map with snake_case names and non-empty path lists.

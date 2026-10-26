@@ -1,14 +1,5 @@
 # pwsh/Base.Drs/types/DrsCitationChangeKind.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
-
-## comment:1
-
-Above `namespace Catzc.Base.Drs;`, written with `//`.
-
-```text
-What one DrsCitationChange rewrote: the closed set of ADR reference forms Update-DrsCitation recognises, plus the
-one form it found and could not rewrite mechanically
-([ADR-BCL-TYPES-NATIVETYPEDMODEL](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-nativetypedmodel)).
-```
+What one `DrsCitationChange` rewrote: the closed set of ADR reference forms `Update-DrsCitation` recognises, plus the one form it found and
+could not rewrite mechanically, `Unhandled`
+([ADR-BCL-TYPES-NATIVETYPEDMODEL](../../../../drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-nativetypedmodel)).

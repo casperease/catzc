@@ -1,7 +1,6 @@
 # pwsh/Base.Drs/private/Get-DrsFileIndex.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The private helper that indexes the markdown files under `docs/drs/` by domain folder and slug, and maps each rule set to its one file.
 
 ## help
 
@@ -32,11 +31,7 @@ The absolute docs/drs/ folder.
 `[pscustomobject]` { Root; Relative; ByKey; FileOf }: Relative lists every file's path under docs/drs/ ('/'-separated), ByKey maps each key
 to its list of relative paths, and FileOf maps an External code to its one relative path.
 
-## comment:1
+## Which domain a page belongs to
 
-Above `$folders = @($RuleSets.Folder | Sort-Object -Unique | Sort-Object -Property...`, written with `#`.
-
-```text
-A page belongs to the domain with the longest folder that holds it, so a domain folder nested in another domain's
-folder keeps its own pages.
-```
+A page belongs to the domain with the longest folder that holds it, so a domain folder nested in another domain's folder keeps its own
+pages.

@@ -1,16 +1,12 @@
 # pwsh/Base.ModuleSystem/configs/artifacts.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The publish targets for versioned, immutable module-manifest artifacts: the feeds a CI build promotes the gold manifest to. The keys load and
+validate through `Get-Config -Config artifacts`, but no publish code reads them yet, so they are inert configuration surface.
 
-## comment:1
+## Targets
 
-Above `ado: { enabled: false, organization: "", project: "", feed: "" }`, written with `#`.
-
-```text
-Publish targets for versioned, immutable module-manifest artifacts (the gold psd1 objects a CI build
-promotes to a feed). NOT YET IMPLEMENTED — these keys are inert config surface: present, documented, and
-loaded via Get-Config, but no publish code reads them yet (that is Phase 2: the CI publish step + the BVT
-pipeline that promotes the gold artifact). See [ADR-AUTO-TEST](/docs/drs/automation/test-automation.md) (BVT) and
-out/tmp/plan-psd1-gold-artifacts.md.
-```
+Three targets are declared, `ado`, `github` and `artifactory`, each with an `enabled` switch and its own coordinates (organization, project
+and feed; owner, repository and feed; url and repository). The shape and the load-time checks live on the typed record
+([ArtifactsConfig](../types/ArtifactsConfig.cs.md)). The publish step and the pipeline that promotes the gold artifact are where the keys will
+be read; the build verification test is the stage that produces the gold output
+([ADR-AUTO-TEST-BUILDVERIFICATIONTEST](../../../../drs/automation/test-automation.md#rule-adr-auto-test-buildverificationtest)).

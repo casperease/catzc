@@ -1,7 +1,6 @@
 # pwsh/Base.Slides/private/Read-SlideFile.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The reader of one slide file: it returns the file's head values and its parsed body.
 
 ## help
 

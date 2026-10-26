@@ -1,7 +1,7 @@
 # pwsh/Base.RootConfig/Build-RootConfig.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The writer of the managed root files: it reproduces each opted-in target of the root-config registry from its single source of truth, on
+every import.
 
 ## help
 
@@ -74,39 +74,17 @@ Build-RootConfig 'PSScriptAnalyzerSettings.psd1'
 Reproduces only that managed file.
 ```
 
-## comment:2
+## Generator output
 
-Above `foreach ($listed in $entry.sources) {`, written with `#`.
+A generator's rendered output owns its whole content below the head: one file, or one record per file of a wildcard target. The write
+canonicalises, compares EOL-insensitively and writes on change through the one shared primitive (`Write-FileIfChanged`, `Catzc.Base.Files`).
 
-```text
-A generator's rendered output (which owns its whole content below the head): one file, or one
-record per file of a wildcard target.
-```
+## Links
 
-## comment:3
+A target that is currently a link is stale regardless of content equality: the compare would read through the link, and the write would reach
+the file it points at, so the link is deleted first and the copy is written as a file of its own.
 
-Above `$item = Get-Item -LiteralPath $targetPath -Force -ErrorAction Ignore`, written with `#`.
+## Skipping a whole run
 
-```text
-A target that is currently a LINK is stale regardless of content equality: the compare would read
-through the link, and the write would reach the file it points at, so the link is deleted first and
-the copy is written as a file of its own.
-```
-
-## comment:4
-
-Above `$changed = Write-FileIfChanged -Path $targetPath -Content $file.Content...`, written with `#`.
-
-```text
-Canonicalise, EOL-insensitively compare, and write-on-change via the one shared primitive
-(Write-FileIfChanged, Catzc.Base.Files).
-```
-
-## comment:5
-
-Above `$whole = -not $Target -and -not $DryRun -and -not $PassThru`, written with `#`.
-
-```text
-A whole run is skipped when nothing it declares as an input in generated-files.yml (its generators, sources and targets) changed
-since its last run: the one writer memo every generated-file writer reads.
-```
+A whole run is skipped when nothing it declares as an input in `generated-files.yml` (its generators, sources and targets) changed since its
+last run: the one writer memo every generated-file writer reads.

@@ -1,14 +1,8 @@
 # pwsh/Base.Objects/tests/ConvertTo-FlatSettingSet.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The L0 logic tests of `ConvertTo-FlatSettingSet`.
 
-## comment:1
+## Typed fixtures
 
-Above `class CatzcFlatSettingSetDb {`, written with `#`.
-
-```text
-Real CLR types (PowerShell classes are genuine .NET types, parsed by PowerShell — no Roslyn compile) used to
-prove the reflect-over-public-members path with a nested typed member. Avoids Add-Type, whose Roslyn compile
-was the entire cost of this L0 file.
-```
+The reflect-over-public-members path is proved with real CLR types that are PowerShell classes, with a nested typed member. PowerShell parses
+them without a Roslyn compile, which avoids `Add-Type`, whose compile was the entire cost of this file.

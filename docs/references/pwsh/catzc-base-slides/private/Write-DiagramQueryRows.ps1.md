@@ -1,7 +1,7 @@
 # pwsh/Base.Slides/private/Write-DiagramQueryRows.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The writer of query rows: it reads the rows of every C3 and C4 slide among the given diagrams and writes them into one JSON file for the
+renderer to expand.
 
 ## help
 
@@ -41,11 +41,7 @@ The JSON file to write.
 Write-DiagramQueryRows -Stem docs/drs/.assets/drs-domains -RepositoryRoot (Get-RepositoryRoot) -Path out/drawio/query-rows.json
 ```
 
-## comment:1
+## What a slide stores
 
-Above `$rows = [System.Collections.Generic.List[object]]::new()`, written with `#`.
-
-```text
 A C3 or C4 slide stores its level and its point; its cells are the level's query for that point
-([DDR-VISUAL-ZOOMISANAXIS](/docs/drs/design/visual-design.md#rule-ddr-visual-zoomisanaxis)).
-```
+([DDR-VISUAL-ZOOMISANAXIS](../../../../drs/design/visual-design.md#rule-ddr-visual-zoomisanaxis)).

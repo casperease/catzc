@@ -1,7 +1,7 @@
 # pwsh/Base.Config/private/Resolve-ConfigEntry.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The private discovery seam of `Get-Config`: it indexes the configs shipped by the loaded modules and resolves a name to its owning module
+and file.
 
 ## help
 
@@ -31,38 +31,16 @@ Disambiguates a name present in multiple modules.
 
 Returns every module's entry for the name instead of resolving a single one.
 
-## comment:1
+## Cache probe
 
-Above `$script:configIndex = @{}`, written with `#`.
+The index entry is probed strict-clean
+([ADR-PWSH-CACHE-STRICTSAFEPROBE](../../../../drs/automation/pwsh/script-scope-caching.md#rule-adr-pwsh-cache-strictsafeprobe)).
 
-```text
-strict-clean probe of the lazy cache entry
-([ADR-PWSH-CACHE-STRICTSAFEPROBE](/docs/drs/automation/pwsh/script-scope-caching.md#rule-adr-pwsh-cache-strictsafeprobe))
-```
+## Split configs
 
-## comment:2
+A config is one file, or a folder of disjoint parts (`configs/<name>/*.yml`) when one file would pass the length cap.
 
-Above `$registry = Get-ConfigRegistry`, written with `#`.
+## A registered type with no shipped file
 
-```text
-A registered type with no shipped file is a config too: its type's namespace names the module, and it builds from {} plus the
-repository's fragment, so every key takes the default the type declares.
-```
-
-## comment:3
-
-Above `$sources = @([System.IO.Directory]::EnumerateFiles($configsDir,`, written with `#`.
-
-```text
-A config is one file, or a folder of disjoint parts (configs/<name>/*.yml) when one file would pass the
-length cap.
-```
-
-## comment:4
-
-Above `$registry = Get-ConfigRegistry`, written with `#`.
-
-```text
-A registered type with no shipped file is still a config, built from an empty map, so every key takes its
-declared default.
-```
+Such a type is a config too: its type's namespace names the module, and it builds from an empty map plus the repository's fragment, so every
+key takes the default the type declares.

@@ -1,7 +1,6 @@
 # pwsh/Base.Writers/private/Resolve-WriterColor.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The private resolver that turns a writer's `-ForegroundColor` argument into one colour plan, shared by the header and footer writers.
 
 ## help
 
@@ -33,11 +32,7 @@ The raw argument (a ConsoleColor, its string name, or a RainbowColor). Ignored w
 
 Whether the caller bound -ForegroundColor at all — an unbound call renders with no colour.
 
-## comment:1
+## String arguments
 
-Above `if ($ForegroundColor -is [string]) {`, written with `#`.
-
-```text
-A 'rainbow' / '<base>-rainbow' bareword resolves to a gradient profile (the ToString round-trip); any
-other string falls through to the plain ConsoleColor cast below.
-```
+A `rainbow` or `<base>-rainbow` bareword resolves to a gradient profile, the `ToString` round trip of `RainbowColor`. Any other string falls
+through to the plain `ConsoleColor` cast.

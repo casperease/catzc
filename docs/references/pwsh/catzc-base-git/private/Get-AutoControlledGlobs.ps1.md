@@ -1,7 +1,7 @@
 # pwsh/Base.Git/private/Get-AutoControlledGlobs.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The whitelist behind `Reset-GitCleanFxd`: it computes, on every call and in memory only, the glob patterns of what the automation itself
+generates and owns.
 
 ## help
 
@@ -34,38 +34,12 @@ from `git clean` matches too.
 
 `[string[]]` The -like patterns of the auto-controlled set; a '!'-prefixed pattern is an exclusion.
 
-## comment:1
+## The members
 
-Above `$ret.Add($member.path)`, written with `#`.
-
-```text
-Generated members, the module manifests among them (dynamic-module-manifests; the vendored .psd1 are committed, so they
-can never appear among untracked clean candidates).
-```
-
-## comment:2
-
-Above `$ret.Add('.cspell')`, written with `#`.
-
-```text
-Generated cspell dictionaries, regenerated at the importer tail
-([ADR-REPO-OUTDIR-DICTIONARIESGENERATED](/docs/drs/repository/dedicated-output-directory.md#rule-adr-repo-outdir-dictionariesgenerated)).
-```
-
-## comment:4
-
-Above `$ret.Add('**/.$*.drawio.png.bkp')`, written with `#`.
-
-```text
-drawio editor autosave shadows ('.$<name>.drawio.png.bkp') — disposable copies the editor writes
-beside a committed .drawio.png asset (drawio-diagrams-and-cli); regenerable, safe to clean.
-```
-
-## comment:5
-
-Above `$targets = @(Get-GeneratedTarget)`, written with `#`.
-
-```text
-The gitignored members the track model declares whose writer is a generator: a glob as written, a folder glob as its folder and
-what lies in it (DDR-TRACK-TRACKISPLACEDCLUSTER).
-```
+- The generated members of the track model, the module manifests among them: the vendored `.psd1` files are committed, so they can never
+  appear among untracked clean candidates. These are the gitignored members whose writer is a generator: a glob as written, a folder glob as
+  its folder and what lies in it (DDR-TRACK-TRACKISPLACEDCLUSTER).
+- The generated cspell dictionaries, regenerated at the importer tail
+  ([ADR-REPO-OUTDIR-DICTIONARIESGENERATED](../../../../drs/repository/dedicated-output-directory.md#rule-adr-repo-outdir-dictionariesgenerated)).
+- The drawio editor's autosave shadows (`.$<name>.drawio.png.bkp`): disposable copies the editor writes beside a committed `.drawio.png`
+  asset; regenerable, safe to clean.

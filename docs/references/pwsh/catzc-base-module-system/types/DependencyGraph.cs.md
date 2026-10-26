@@ -1,35 +1,17 @@
 # pwsh/Base.ModuleSystem/types/DependencyGraph.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The graph helpers behind the declared module dependency graph: reading one node's dependency list from the parsed YAML, and finding a cycle in
+a node-to-dependencies adjacency map. [DependenciesConfig](DependenciesConfig.cs.md) uses them for the module graph and
+[ModuleGroup](ModuleGroup.cs.md) for each group's internal member graph, so both graphs are read and cycle-checked the same way
+([ADR-AUTO-DEPM-GROUPAWAREINTEGRITY](../../../../drs/automation/controlling-module-dependencies.md#rule-adr-auto-depm-groupawareintegrity)).
 
-## comment:1
+## ReadNames
 
-Above `using System;`, written with `//`.
+Reads one node's dependency list. A null value, a node that is declared and depends on nothing, is the empty list. A list of non-empty names
+is the list. A single string, a map or a non-name item is a violation: the `owner` text prefixes the message, and `what` names the expected
+entries, for example `names` or `member modules`.
 
-```text
-The graph helpers behind the declared module dependency graph (configs/dependencies.yml): reading one
-node's dependency list from the parsed YAML, and finding a cycle in a node -> dependencies adjacency map.
-Shared by DependenciesConfig (the module graph) and ModuleGroup (each group's internal member graph), so
-both graphs read and cycle-check the same way
-([ADR-AUTO-DEPM-GROUPAWAREINTEGRITY](/docs/drs/automation/controlling-module-dependencies.md#rule-adr-auto-depm-groupawareintegrity)).
-```
+## FindCycle
 
-## comment:2
-
-Above `public static string[] ReadNames(object value, string owner, string what,...`, written with `//`.
-
-```text
-Reads one node's dependency list: null (declared, depends on nothing) is empty; a list of non-empty
-names is the list; a single string, a map, or a non-name item is a violation ('owner' prefixes it, and
-'what' names the expected entries, e.g. "names" or "member modules").
-```
-
-## comment:3
-
-Above `public static string FindCycle(OrderedDictionary adjacency)`, written with `//`.
-
-```text
-The first cycle (as "A -> B -> A") in a node -> string[] adjacency, visiting nodes and edges in
-declaration order; null when the graph is acyclic. Edges to nodes outside the map are ignored.
-```
+Returns the first cycle, written as `A -> B -> A`, in a node-to-`string[]` adjacency, visiting nodes and edges in declaration order; null when
+the graph is acyclic. Edges to nodes outside the map are ignored.

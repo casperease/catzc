@@ -1,28 +1,18 @@
 # pwsh/Base.Git/types/GitIgnoreSection.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+One section of the gitignore registry (`configs/gitignore.yml`): a titled, explained group of ignore patterns.
 
-## comment:1
+## Patterns or inject
 
-Above `using System;`, written with `//`.
+A section declares either `patterns` (a static list, each a bare string or `{ pattern, note }`) or `inject: <provider>` (the patterns are
+supplied at render time by the caller, for example the root-config registry's `committed: false` targets), never both. `inject` is the name
+of the render-time pattern provider (for example `rootconfig-committed-false`).
 
-```text
-One section of the gitignore registry (configs/gitignore.yml) — a titled, explained group of ignore
-patterns. A section declares EITHER `patterns` (a static list, each a bare string or { pattern, note }) OR
-`inject: <provider>` (the patterns are supplied at render time by the caller — e.g. the root-config
-registry's committed:false targets), never both. `title` and `why` render as the section's comment block, so
-every rule in the generated .gitignore carries its explanation.
+## Title and why
 
-Derives from Catzc.Base.Objects.DictionaryRecord, so an instance also presents as a read-only dictionary
-over its own properties and its constructor uses the base's extraction helpers.
-```
+`title` and `why` render as the section's comment block, so every rule in the generated `.gitignore` carries its explanation.
 
-## comment:2
+## Base type
 
-Above `public string inject { get; }`, written with `//`.
-
-```text
-Name of the render-time pattern provider (e.g. 'rootconfig-committed-false'). Exactly one of
-patterns/inject.
-```
+It derives from `Catzc.Base.Objects.DictionaryRecord`, so an instance also presents as a read-only dictionary over its own properties and its
+constructor uses the base's extraction helpers.

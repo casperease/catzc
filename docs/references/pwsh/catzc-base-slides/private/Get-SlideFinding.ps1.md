@@ -1,7 +1,6 @@
 # pwsh/Base.Slides/private/Get-SlideFinding.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The slide check shared by the render and the gate: it renders one slide through its pattern and returns the section with every fault found.
 
 ## help
 

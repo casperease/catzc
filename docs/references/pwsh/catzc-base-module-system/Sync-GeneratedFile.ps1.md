@@ -1,7 +1,7 @@
 # pwsh/Base.ModuleSystem/Sync-GeneratedFile.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The dev-box janitor: after an import, it commits the generated files the importer maintains (today the compiled type assembly under
+`pwsh/.compiled/`) so they never sit uncommitted. It runs on every load and only ever skips, never breaks the load.
 
 ## help
 
@@ -73,42 +73,19 @@ Sync-GeneratedFile
 Sync-GeneratedFile -DryRun
 ```
 
-## comment:1
+## Generated paths
 
-Above `$changed = @($generatedPaths.Keys | Where-Object { Test-GitPathChanged $_ })`, written with `#`.
+The janitor owns a small table of generated paths, each with the commit-message subject that names it. The modules folder comes from its
+resolver. Which of those paths actually changed decides both the commit's pathspec and its message, so the stamp commit stages and names
+exactly what this sync did, never a sibling path that was clean.
 
-```text
-Which generated paths actually changed decides both the commit's pathspec and its message — the
-stamp commit stages and names exactly what this sync did, never a sibling path that was clean.
-```
+## Why the compiled folder is held back
 
-## comment:2
+The compiled folder must hold exactly the current build
+([ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD](../../../drs/automation/caching.md#rule-adr-auto-cache-compiledtypeprebuild)). Two cases hold its
+commit back until they clear, while any other changed generated path still commits:
 
-Above `if ($changed -contains $compiled) {`, written with `#`.
-
-```text
-.compiled must hold exactly the current build
-([ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD](/docs/drs/automation/caching.md#rule-adr-auto-cache-compiledtypeprebuild)). A superseded DLL that
-survived the
-janitor (a session still holds it) would otherwise be committed next to the new one — the +1 without
-the -1. Hold the .compiled commit back until it is tidy; any other changed generated path still commits.
-```
-
-## comment:3
-
-Above `if ($changed -contains $compiled -and (Test-GitPathChanged...`, written with `#`.
-
-```text
-The build is named for the hash of the working-tree type sources. While any of them differs from HEAD — often
-another session's in-flight edit — committing it would leave HEAD carrying a build its own sources do not
-produce. Hold .compiled back until the sources are committed.
-```
-
-## comment:4
-
-Above `$modulesFolder = Get-CatzcModulesFolder`, written with `#`.
-
-```text
-The generated paths the janitor owns, each with the commit-message subject naming it; the modules folder comes
-from its resolver.
-```
+- A superseded DLL that survived the janitor, because a session still holds it, would be committed next to the new one: the plus one without
+  the minus one.
+- The build is named for the hash of the working-tree type sources. While any of them differs from HEAD, often another session's in-flight
+  edit, committing the build would leave HEAD carrying one its own sources do not produce.

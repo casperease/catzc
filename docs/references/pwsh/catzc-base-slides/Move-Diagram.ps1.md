@@ -1,7 +1,7 @@
 # pwsh/Base.Slides/Move-Diagram.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The move of a diagram, or any file or folder, that keeps every relative link right: it stages the move with `git mv` and re-points the links in
+and into the moved path.
 
 ## help
 
@@ -55,56 +55,23 @@ Return the move: `From`, `To`, `Moves` (one `From`/`To` per file), `Pages` (the 
 Move-Diagram docs/explanation/configuration/.assets/an-address-is-a-read-only-walk docs/explanation/design/.assets/an-address-is-a-read-only-walk -DryRun
 ```
 
-## comment:1
+## What moves
 
-Above `$pair = $from -cmatch '\.drawio\.(png|yml)$' -or -not (Test-Path -LiteralPath...`, written with `#`.
+A diagram is the pair `<stem>.drawio.png` and `<stem>.drawio.yml`, named by either file or by its stem, and it moves whole; any other path, a
+file or a folder, moves as it is.
 
-```text
-A diagram is the pair <stem>.drawio.png and <stem>.drawio.yml, named by either file or by its stem, and it moves whole; any other
-path, a file or a folder, moves as it is.
-```
+## The kit's role entry
 
-## comment:2
+The kit's `drawio.yml` keys a diagram's role by its stem, and a repository without one has no legend. A stem's role entry follows the diagram,
+so `drawio.yml` keeps naming it after the move; the kit's one editor re-keys it.
 
-Above `$kitConfig = [Catzc.Base.Slides.DrawioKit]::new($root, $Kit).Config`, written with `#`.
+## Article-carried diagrams
 
-```text
-The kit's drawio.yml keys a diagram's role by its stem; a repository without one has no legend. A diagram is article-carried when it
-is a pair with no yml beside its png (its declaration is a block in an article).
-```
+A diagram is article-carried when it is a pair with no yml beside its png (its declaration is a block in an article). The block declares the
+png below it only from a page beside its `.assets`, so it moves to the one page there that embeds the png. An image of the png is inline, or a
+reference whose definition on the same page names it. A page whose links were re-pointed already has an entry; the block-moved text replaces
+it, and a page with none is simply added.
 
-## comment:3
+## Formatting
 
-Above `$imageOf = {`, written with `#`.
-
-```text
-The block declares the png below it only from a page beside its .assets, so it moves to the one page there that embeds the png.
-An image of the png is inline, or a reference whose definition on the same page names it.
-```
-
-## comment:4
-
-Above `$prior = $edits | Where-Object { $_.Page -ceq $change.Page } | Select-Object...`, written with `#`.
-
-```text
-A page whose links were re-pointed already has an entry; the block-moved text replaces it, and a page with
-none is simply added.
-```
-
-## comment:5
-
-Above `$rekey = $false`, written with `#`.
-
-```text
-A stem's role entry follows it, so drawio.yml keeps naming the diagram after the move; the kit's one editor
-re-keys it.
-```
-
-## comment:6
-
-Above `$pages = @(foreach ($edit in $edits) {`, written with `#`.
-
-```text
-A re-pointed link changes its line's length, so every rewritten page is formatted again, as the repository
-formats it.
-```
+A re-pointed link changes its line's length, so every rewritten page is formatted again, as the repository formats it.

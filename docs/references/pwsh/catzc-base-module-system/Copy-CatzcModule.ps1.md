@@ -1,7 +1,7 @@
 # pwsh/Base.ModuleSystem/Copy-CatzcModule.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Copies a chosen subset of this repository's toolset, selected modules plus the extra files they own, into a destination that mirrors the
+repository root. It exists so a test can run against a fresh temporary root, and so the toolset can be vendored as a package.
 
 ## help
 
@@ -86,31 +86,16 @@ Copy-CatzcModule -Destination $tmp -ModuleNames Catzc.Base.Config -EmptyDestinat
 Copy-CatzcModule -Destination ./vendor/catzc -ExcludePackages gitignore -DryRun
 ```
 
-## comment:1
+## Sources
 
-Above `if ([System.IO.Directory]::Exists($destinationRoot) -and`, written with `#`.
+The copy list is repository-root-relative: each selected module's folder plus its packages' paths, minus the excluded packages. A module's
+folder is the root the resolver gives it. An infrastructure folder (`.internal`, `.compiled`, `.vendor`) sits in the code track's first place.
 
-```text
-The emptiness probe is a one-level bounded walk
-([ADR-PWSH-ENUM-ALWAYSBOUNDED](/docs/drs/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)) with nothing excluded and
-the vendor folder not pruned, so an entry of any kind, hidden and pruned names included, makes the target non-empty.
-```
+## Bounded walks
 
-## comment:2
+Both file system walks are named and bounded
+([ADR-PWSH-ENUM-ALWAYSBOUNDED](../../../drs/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)):
 
-Above `foreach ($file in Get-ChildPath $item.Source -File -Depth 64 -Exclude @()...`, written with `#`.
-
-```text
-A named whole-tree walk
-([ADR-PWSH-ENUM-ALWAYSBOUNDED](/docs/drs/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): every file the
-copy would write is checked for a conflict.
-```
-
-## comment:3
-
-Above `$codePlace = Get-CatzcModulesFolder`, written with `#`.
-
-```text
-Repository-root-relative sources: each selected module's folder + its packages' paths (minus excluded). A module's folder is
-the root the resolver gives it; an infrastructure folder (.internal, .compiled, .vendor) sits in the code track's first place.
-```
+- The emptiness probe is a one-level walk with nothing excluded and the vendor folder not pruned, so an entry of any kind, hidden and pruned
+  names included, makes the target non-empty.
+- The conflict pre-scan is a whole-tree walk of each source: every file the copy would write is checked for a conflict.

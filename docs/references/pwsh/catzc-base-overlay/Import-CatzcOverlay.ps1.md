@@ -1,7 +1,7 @@
 # pwsh/Base.Overlay/Import-CatzcOverlay.ps1
 
-The step that applies a consumer overlay to a loaded bundle: it checks the overlay as a whole, replaces the overridden functions inside their
-modules, then loads the consumer's local modules.
+The step that applies a consumer overlay to a loaded bundle: it checks the overlay as a whole, replaces the overridden functions inside
+their modules, then loads the consumer's local modules.
 
 ## help
 

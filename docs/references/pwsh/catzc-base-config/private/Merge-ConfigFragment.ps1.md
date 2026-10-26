@@ -1,7 +1,6 @@
 # pwsh/Base.Config/private/Merge-ConfigFragment.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The private merge that lays a consumer overlay's config fragment over a bundled config, or joins the disjoint parts of one split config.
 
 ## help
 
@@ -33,11 +32,6 @@ The parsed overlay fragment.
 Merges the parts of one split config, which are disjoint: a key both inputs set as a value throws, never overrides. Maps under one key still
 merge, part by part.
 
-## comment:1
+## Disjoint parts
 
-Above `[switch] $Disjoint`, written with `#`.
-
-```text
-The parts of one split config are disjoint: a key two parts both set as a value is an error, never an
-override.
-```
+The parts of one split config are disjoint: a key two parts both set as a value is an error, never an override.

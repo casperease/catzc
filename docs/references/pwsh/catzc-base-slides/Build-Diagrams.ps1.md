@@ -1,7 +1,7 @@
 # pwsh/Base.Slides/Build-Diagrams.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The one command that rebuilds diagrams: it finds each diagram's pair of `<name>.drawio.yml` and `<name>.drawio.png`, writes the minimap data
+and calls the draw.io kit's renderer.
 
 ## help
 
@@ -94,101 +94,32 @@ Build-Diagrams
 Build-Diagrams -Path docs/explanation/configuration/.assets/an-address-is-a-read-only-walk.drawio.yml -DryRun
 ```
 
-## comment:1
+## Syncing after an edit
 
-Above `if ($FromDrawing) {`, written with `#`.
+`-FromDrawing` syncs the named diagrams after an edit: the kit's sync runs get when the drawing moved since HEAD, then put, and stops on a
+conflict before put; the drift gate then checks the diagrams. The renderer does not run.
 
-```text
--FromDrawing syncs named diagrams after an edit: the kit's sync runs get when the drawing moved since HEAD, then put, and stops
-on a conflict before put; the drift gate then checks the diagrams. The renderer does not run.
-```
+## Finding the diagrams
 
-## comment:2
+A diagram is the pair `<article-folder>/.assets/<name>.drawio.png` and `.drawio.yml`, named by its stem `<article-folder>/.assets/<name>`. It
+is found by a tracked png or a yml tracked or not, so a new diagram gets its first put; it is found, never listed. A diagram in the article
+carrier has no yml beside its png, and before its first put no png either: its block names it.
 
-Above `$tracked = @(Get-GitTrackedPath '.')`, written with `#`.
+Every article and slide that embeds a diagram's png is found wherever it sits, and each one's Supports line is held against the yml.
 
-```text
-A diagram is the pair `<article-folder>/.assets/<name>.drawio.png` and `.drawio.yml`, found by a tracked png or a yml tracked or not,
-so a new diagram gets its first put; it is found, never listed.
-```
+## One renderer call
 
-## comment:3
-
-Above ``$quoted = ($folders | ForEach-Object { "`"$(Join-Path $root $_)`"" }) -join ' '``, written with `#`.
-
-```text
-One renderer call takes every folder and splits it across its workers, each paying uv, python and the kit's imports once;
-it ends each folder with a JSON row, in folder order.
-```
-
-## comment:4
-
-Above `$rowsPath = Join-Path (Get-OutputRoot -EnsureExists) 'diagrams/query-rows.json'`, written with `#`.
-
-```text
-A C3 or C4 slide's cells are its query's rows, written to an address named here and handed to the renderer
-(DDR-VISUAL-ZOOMISANAXIS).
-```
-
-## comment:5
-
-Above `$rowsPath = Join-Path (Get-OutputRoot -EnsureExists) 'diagrams/query-rows.json'`, written with `#`.
-
-```text
-The query rows go to an address named here, never a default
-([DDR-VISUAL-ZOOMISANAXIS](/docs/drs/design/visual-design.md#rule-ddr-visual-zoomisanaxis)).
-```
-
-## comment:6
-
-Above `$stalePaths = @((Test-Diagrams -Kit $Kit -RepositoryRoot $root...`, written with `#`.
-
-```text
-The stale set is checked before it becomes -Path, whose ValidatePathGiven refuses an empty list on assignment
-too.
-```
-
-## comment:7
-
-Above `$found = @($candidates | Where-Object { $_ -cmatch...`, written with `#`.
-
-```text
-A diagram is the pair <article-folder>/.assets/<name>.drawio.png and .yml, named by its stem
-<article-folder>/.assets/<name>.
-```
-
-## comment:8
-
-Above `$found = @($found) + @(Get-DiagramArticleStem -RepositoryRoot $root...`, written with `#`.
-
-```text
-A diagram in the article carrier has no yml beside its png, and before its first put no png either: its block
-names it.
-```
-
-## comment:9
-
-Above `$embedders = Get-DiagramEmbedder -Tracked $tracked -RepositoryRoot $root`, written with `#`.
-
-```text
-Every article and slide that embeds a diagram's png, wherever it sits; each one's Supports line is held against
-the yml.
-```
-
-## comment:10
-
-Above `$index = 0`, written with `#`.
-
-```text
-One call builds the world map once for every diagram; each diagram's target streams back as its data is
+One renderer call takes every folder and splits it across its workers, each paying uv, python and the kit's imports once; it ends each folder
+with a JSON row, in folder order. One call also builds the world map once for every diagram; each diagram's target streams back as its data is
 written.
-```
 
-## comment:11
+The renderer's exit codes: 0 clean, 2 findings (errors) with every artifact delivered, 3 nothing to render; no row is a failure.
 
-Above `$run.Status = switch ($run.ExitCode) {`, written with `#`.
+## Query rows
 
-```text
-The renderer's exit codes: 0 clean, 2 findings (errors) with every artifact delivered, 3 nothing to
-render; no row is a failure.
-```
+A C3 or C4 slide's cells are its query's rows. They go to an address named here, never a default, and are handed to the renderer
+([DDR-VISUAL-ZOOMISANAXIS](../../../drs/design/visual-design.md#rule-ddr-visual-zoomisanaxis)).
+
+## The stale set
+
+The stale set is checked before it becomes `-Path`, whose `ValidatePathGiven` refuses an empty list on assignment too.

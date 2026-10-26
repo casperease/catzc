@@ -1,7 +1,6 @@
 # pwsh/Base.Drs/Build-DrsIndex.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Generates the ADR index, `docs/drs/index.md`, from `drs.yml`, so the registry is edited in one place and the page is always its projection.
 
 ## help
 
@@ -54,22 +53,14 @@ Build-DrsIndex -DryRun -PassThru
 Reports whether the on-disk index is stale without writing it.
 ```
 
-## comment:1
+## Reflowed prose
 
-Above `$reflow = {`, written with `#`.
+The authored prose in `drs-index.yml` is wrapped for reading there, not for the page. Every paragraph and list item goes through
+`Format-MarkdownParagraph` (Prettier's fill), so the generated page is formatter-stable
+([ADR-REPO-FORMAT-GENERATEDARTIFACTSFORMATTED](../../../drs/repository/uniform-formatting.md#rule-adr-repo-format-generatedartifactsformatted)).
+A heading and a blank line pass through. A `- ` line opens a list item, and an indented or plain line continues the open block.
 
-```text
-The authored prose above is wrapped for reading here, not for the page: reflow every paragraph and list item
-through Format-MarkdownParagraph (Prettier's fill), so the generated page is formatter-stable
-([ADR-REPO-FORMAT-GENERATEDARTIFACTSFORMATTED](/docs/drs/repository/uniform-formatting.md#rule-adr-repo-format-generatedartifactsformatted)). A heading and a blank
-line pass through; a '- ' line opens a list item, and an indented or plain line continues the open block.
-```
+## Code tables
 
-## comment:3
-
-Above `$sections = foreach ($domain in $adrs.Domains) {`, written with `#`.
-
-```text
-One aligned code-registry table per domain, in declared order. Rows carry the backtick-wrapped external
-code and the slug link in the exact shape Get-CatsDrsIndex parses.
-```
+One aligned code-registry table per domain, in declared order. Rows carry the backtick-wrapped external code and the slug link in the exact
+shape `Get-CatsDrsIndex` parses.

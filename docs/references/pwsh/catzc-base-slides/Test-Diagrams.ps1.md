@@ -1,7 +1,6 @@
 # pwsh/Base.Slides/Test-Diagrams.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The quality gate of the declared diagrams: it runs the kit's check over each one and fails a diagram whose png differs from put of its yml.
 
 ## help
 
@@ -60,65 +59,23 @@ Test-Diagrams
 Test-Diagrams -Path docs/explanation/thesis/.assets/product-thesis
 ```
 
-## comment:1
+## The kit's rows
 
-Above ``foreach ($line in @($result.Output -split "`r?`n" | Where-Object {...``, written with `#`.
+The kit's check prints one JSON line per diagram: the cells of a pair edited on both sides since HEAD, the cells whose png differs from put
+of the yml, the minimaps a registry change left stale, or an error.
 
-```text
-One JSON line per diagram: the cells of a pair edited on both sides since HEAD, the cells whose png differs from put of the
-yml, the minimaps a registry change left stale, or an error.
-```
+## Which diagrams are checked
 
-## comment:2
-
-Above `$candidates = @(Get-GitTrackedPath '.') + @(Get-GitChangedPath 'docs')`, written with `#`.
-
-```text
-A declared diagram is a <name>.drawio.yml under docs/**/.assets/, tracked or not, named by its stem .assets/<name>; a new one is
+A declared diagram is a `<name>.drawio.yml` under `docs/**/.assets/`, tracked or not, named by its stem `.assets/<name>`; a new one is
 checked once its first put has run.
-```
 
-## comment:3
-
-Above `$pngStems = @($candidates | Where-Object { $_ -cmatch...`, written with `#`.
-
-```text
 A diagram in the article carrier has no yml beside its png: its stem is a tracked png with no yml, or an image a `yml drawio` block sits
-above, and the kit's check reads that block, failing a diagram with no block or two.
-```
+above, and the kit's check reads that block, failing a diagram with no block or two. Over the whole tree, a `yml drawio` block declares only
+the png embedded directly below it; a block with no such image is a finding.
 
-## comment:4
+A legend diagram has no yml: the kit's `drawio.yml` names its stem under roles, and its png is checked against the painted glyph library.
 
-Above `$rowsPath = Join-Path (Get-OutputRoot -EnsureExists) 'diagrams/query-rows.json'`, written with `#`.
+## Query rows
 
-```text
-A C3 or C4 slide is checked against its query's rows, as Build-Diagrams rendered it
-([DDR-VISUAL-ZOOMISANAXIS](/docs/drs/design/visual-design.md#rule-ddr-visual-zoomisanaxis)).
-```
-
-## comment:5
-
-Above `$kitConfigPath = $diagramKit.Config`, written with `#`.
-
-```text
-A legend diagram has no yml: the kit's drawio.yml names its stem under roles, and its png is checked against the
-painted glyph library.
-```
-
-## comment:6
-
-Above `$pngStems = @($candidates | Where-Object { $_ -cmatch...`, written with `#`.
-
-```text
-An article-carried diagram has no yml beside its png: its stem is a tracked png with no yml, or an image a `yml
-drawio` block sits above.
-```
-
-## comment:7
-
-Above `if (-not $Path) {`, written with `#`.
-
-```text
-Over the whole tree, a `yml drawio` block declares only the png embedded directly below it; a block with no such
-image is a finding.
-```
+A C3 or C4 slide is checked against its query's rows, as `Build-Diagrams` rendered it
+([DDR-VISUAL-ZOOMISANAXIS](../../../drs/design/visual-design.md#rule-ddr-visual-zoomisanaxis)).

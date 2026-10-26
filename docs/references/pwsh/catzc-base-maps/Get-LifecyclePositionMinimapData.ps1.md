@@ -1,7 +1,7 @@
 # pwsh/Base.Maps/Get-LifecyclePositionMinimapData.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The data of the lifecycle position minimap: the rungs of the promotion ladder in climbing order, lit where a diagram's subject concerns
+them.
 
 ## help
 
@@ -43,11 +43,7 @@ Return the data as JSON in the minimap contract's shape instead of the object.
 (Get-LifecyclePositionMinimapData FDR-CD).Lit
 ```
 
-## comment:1
+## Rungs
 
-Above `$rungs = @(Get-Rung)`, written with `#`.
-
-```text
-The rungs in climbing order; a subject file lights a rung when it cites one of the rung's rules, or the ADR that
+The rungs come from `Get-Rung` in climbing order. A subject file lights a rung when it cites one of the rung's rules, or the ADR that
 holds the rule.
-```

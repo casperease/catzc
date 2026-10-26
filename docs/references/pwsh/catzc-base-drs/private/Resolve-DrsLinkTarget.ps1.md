@@ -1,7 +1,7 @@
 # pwsh/Base.Drs/private/Resolve-DrsLinkTarget.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The private helper that turns a markdown link written in a `docs/drs/` file into the target's path under `docs/drs/`, for the link-reading
+checks.
 
 ## help
 

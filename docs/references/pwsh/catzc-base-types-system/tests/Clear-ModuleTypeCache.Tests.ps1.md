@@ -1,24 +1,14 @@
 # pwsh/Base.TypesSystem/tests/Clear-ModuleTypeCache.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The L0 tests of `Clear-ModuleTypeCache`, against fixture DLLs in a stand-in shadow root.
 
-## comment:1
+## The shared hash
 
-Above `BeforeEach {`, written with `#`.
+The fixture DLL name and the real-repository drift check both use the one shared hash (`Get-CombinedTypeHash`, loaded by the importer), the
+same function the janitor under test calls, so there is no separate mirror to keep in step. The independent oracle for that function is the
+cross-language MSBuild stamp, tested in the `Import-CSharpTypes` test file's "IDE project build stamps" test.
 
-```text
-The fixture DLL name (BeforeEach) and the real-repo drift check both use the ONE shared hash
-(Get-CombinedTypeHash, loaded by the importer) — the same function the janitor under test calls, so there is
-no separate mirror to keep in step. The independent oracle for that function is the cross-language MSBuild
-stamp (see the Import-CSharpTypes test file's 'IDE project build stamps …' test).
-```
+## Building the fixture
 
-## comment:2
-
-Above `foreach ($m in 'Mod.One', 'Mod.Two') {`, written with `#`.
-
-```text
-Build the fixture with [System.IO] rather than New-Item/Set-Content — the cmdlets carry ~20ms of
-per-call overhead on Windows, which dominated this per-test setup. CreateDirectory makes parents too.
-```
+The fixture is built with `[System.IO]` rather than `New-Item` and `Set-Content`: the cmdlets carry about 20 ms of per-call overhead on
+Windows, which dominated this per-test setup. `CreateDirectory` makes parents too.

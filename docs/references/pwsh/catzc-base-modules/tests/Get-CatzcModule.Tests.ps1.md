@@ -1,22 +1,10 @@
 # pwsh/Base.Modules/tests/Get-CatzcModule.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The L0 tests of `Get-CatzcModule`: they resolve neutral tracks laid out in `TestDrive:`.
 
-## comment:1
+## Fixtures
 
-Above `shelves        = [ordered]@{ members = @('shelf'); type = 'shelf-works';...`, written with `#`.
-
-```text
-A third language's track, the shape every language track takes: folder modules, the track's own
-test holder, a nested vendor track.
-```
-
-## comment:2
-
-Above `$script:codeModules.name | Should -Be @($sorted | ForEach-Object {...`, written with `#`.
-
-```text
-Each folder resolves to its module's full name under the track's namespace
-([DDR-TRACK-MODULENAMESPACE](/docs/drs/design/tracks.md#rule-ddr-track-modulenamespace)).
-```
+One fixture track stands for a third language's track, the shape every language track takes: folder modules, the track's own test holder and
+a nested vendor track. The tests check that the vendor track's files, a dot folder's cache and the test holder are not a folder module's
+files, and that each folder resolves to its module's full name under the track's namespace
+([DDR-TRACK-MODULENAMESPACE](../../../../drs/design/tracks.md#rule-ddr-track-modulenamespace)).

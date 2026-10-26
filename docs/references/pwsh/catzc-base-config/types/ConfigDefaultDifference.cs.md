@@ -1,13 +1,9 @@
 # pwsh/Base.Config/types/ConfigDefaultDifference.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The record of one top-level key whose value in a shipped config file differs from the default its config type declares for it, and the
+comparison that finds those keys.
 
-## comment:1
+## Comparison
 
-Above `public static IReadOnlyList<ConfigDefaultDifference> Compare(Type configType,...`, written with `//`.
-
-```text
-The keys of a shipped file whose scalar value differs from the type's Default<Key> constant (the key in Pascal case); a key with no such
-constant, or one whose default is no scalar (a list or a map), compares nothing.
-```
+`Compare` returns the keys of a shipped file whose scalar value differs from the type's `Default<Key>` constant, the key in Pascal case. A
+key with no such constant, or one whose default is no scalar (a list or a map), compares nothing.

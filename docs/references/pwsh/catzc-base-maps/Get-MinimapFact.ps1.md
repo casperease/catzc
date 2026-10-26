@@ -1,7 +1,7 @@
 # pwsh/Base.Maps/Get-MinimapFact.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The place lookup the minimap data commands share: for each subject path, its track, module and language, read once for a caller that
+draws many minimaps.
 
 ## help
 
@@ -29,11 +29,7 @@ The repository-relative paths of the subject files; repeats are read once.
 Get-MinimapFact -Path pwsh/Base.Maps/Get-WorldMap.ps1
 ```
 
-## comment:1
+## Where it sits
 
-Above `$languages = Get-Config -Config languages`, written with `#`.
-
-```text
-A file's place is read from where it sits, never from its head: its track, the module that holds it and its
-language.
-```
+A file's place is read from where it sits in the tree, never from its head. The language comes from the extension and the languages
+config.

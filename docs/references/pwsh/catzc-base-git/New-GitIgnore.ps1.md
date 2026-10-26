@@ -1,7 +1,7 @@
 # pwsh/Base.Git/New-GitIgnore.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The renderer of the repository-root `.gitignore`: a pure function from the gitignore registry, and from what the caller injects, to the file's
+text.
 
 ## help
 
@@ -38,12 +38,7 @@ names must be supplied — an unknown provider throws; an empty list renders the
 New-GitIgnore -Inject @{ 'rootconfig-committed-false' = @('/PSScriptAnalyzerSettings.psd1') }
 ```
 
-## comment:1
+## Injected sections
 
-Above `$patterns = @(if ($section.inject) {`, written with `#`.
-
-```text
-Resolve the section's patterns: static from the registry, or injected by the caller. An inject
-provider the caller did not supply is a wiring defect — fail loudly, never render a silently
-incomplete .gitignore.
-```
+A section's patterns are static from the registry, or injected by the caller. An inject provider the caller did not supply is a wiring
+defect: it fails loudly, and a silently incomplete `.gitignore` is never rendered.

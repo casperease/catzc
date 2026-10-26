@@ -1,23 +1,20 @@
 # pwsh/Base.ModuleSystem/types/FilesConfig.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The typed record for `files.yml`, the module-to-packages bindings `Copy-CatzcModule` reads: per module, the named packages of
+repository-root-relative file artifacts it owns beyond its own folder. It is registered in `Catzc.Base.Config/configs/configs.yml`, so
+`Get-Config -Config files` returns it. Its properties mirror the YAML keys
+([ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](../../../../drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
 
-## comment:1
+## Validation
 
-Above `using System;`, written with `//`.
+Constructing the record maps and validates the parsed YAML and gathers every violation into one `ArgumentException`:
 
-```text
-The module -> packages bindings of configs/files.yml, for Copy-CatzcModule: per module, the named packages of
-repository-root-relative file artifacts it owns beyond its own folder. Constructing an instance MAPS and
-VALIDATES the parsed YAML, collecting every violation into one throw. Registered in
-Catzc.Base.Config/configs/configs.yml (type: Catzc.Base.ModuleSystem.FilesConfig), so
-Get-Config -Config files returns this typed model. Mirrors the YAML mapping (snake_case keys,
-[ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
+- only the top-level key `modules` is allowed, and it is a required, non-empty map;
+- every module entry is well-formed ([ModuleFiles](ModuleFiles.cs.md));
+- each package name is globally unique across all modules, because it is the `-ExcludePackages` unit.
 
-Load-time rules:
-  - only the top-level key 'modules', a required, non-empty map;
-  - every module entry is well-formed (ModuleFiles);
-  - each package name is globally unique across all modules (it is the -ExcludePackages unit).
-Module keys are module folder names ('Catzc.Base.Repository', '.internal'), so they are not snake_case-checked.
-```
+Module keys are module folder names such as `Catzc.Base.Repository` and `.internal`, so they are not checked for snake_case.
+
+## Properties
+
+- **`modules`** — module folder name to its `ModuleFiles`, in declaration order, read-only.

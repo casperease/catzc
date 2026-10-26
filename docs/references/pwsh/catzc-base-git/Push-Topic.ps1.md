@@ -1,7 +1,6 @@
 # pwsh/Base.Git/Push-Topic.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The last step of the git topic flow: it lands the topic as one commit on the current server HEAD and pushes it, at the user's hand.
 
 ## help
 

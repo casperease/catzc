@@ -1,15 +1,14 @@
 # pwsh/Base.Maps/types/HighlightedCell.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+One lit cell of a world-map highlight: the cell (a track and a file language), the files in it that the request lit, the steps that lit it
+and why each file lights it.
 
-## comment:1
+## Fields
 
-Above `using System;`, written with `//`.
+The steps are a `MapPlacement` basis, `path` for a requested file, or `pin` for a reviewed pin of `configs/maps.yml`. `Reasons` holds one
+`HighlightReason` per lit file, and `Touched` is true when all of them are passing mentions.
 
-```text
-One lit cell of a world-map highlight: the cell (a track and a file language), the files in it that the request
-lit, the steps that lit it (a MapPlacement basis, "path" for a requested file, "pin" for a reviewed pin of
-configs/maps.yml), and why each lights it (Reasons; Touched when all are passing mentions). A result type, so the
-properties are PascalCase ([ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
-```
+## Shape
+
+It is a result type, so its properties are PascalCase
+([ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](../../../../drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).

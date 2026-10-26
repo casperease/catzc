@@ -1,7 +1,6 @@
 # pwsh/Base.TypesSystem/Invoke-BuildForVsCode.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The command that builds the IDE-only C# type project (`Catzc.Types.csproj`), so VS Code's C# Dev Kit sees the native type sources.
 
 ## help
 
@@ -51,20 +50,7 @@ Invoke-BuildForVsCode -PassThru
 Builds the project and returns the result object for inspection.
 ```
 
-## comment:1
+## Build output
 
-Above ``$result = Invoke-Executable "dotnet build `"$project`" --configuration...``, written with `#`.
-
-```text
-The stamp task's "stamped version …" line and any analyzer diagnostics stream through. A non-zero exit
-(a stale committed DLL, an analyzer error) throws via Invoke-Executable.
-```
-
-## comment:2
-
-Above ``$result = Invoke-Executable "dotnet build `"$project`" --configuration...``, written with `#`.
-
-```text
-Analyzer diagnostics stream through, and a stale committed DLL or an analyzer error fails the build by its exit
-code.
-```
+The stamp task's "stamped version ..." line and any analyzer diagnostics stream through. A non-zero exit, from a stale committed DLL or an
+analyzer error, fails the build and throws via `Invoke-Executable`.

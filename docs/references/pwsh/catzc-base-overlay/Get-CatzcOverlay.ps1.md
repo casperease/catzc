@@ -39,13 +39,14 @@ Get-CatzcOverlay | Format-Table Kind, Module, Target
 ## The walk prunes nothing
 
 Every file of a consumer module is classified, so the walk is a named whole-tree walk
-([ADR-PWSH-ENUM-ALWAYSBOUNDED](../../../drs/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)) that excludes nothing: a skipped
-file would be an override nobody sees.
+([ADR-PWSH-ENUM-ALWAYSBOUNDED](../../../drs/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)) that excludes nothing:
+a skipped file would be an override nobody sees.
 
 ## Where the paths and names come from
 
-The overlay root is `.catzc/<track folder>` ([PDR-CATS-FOLDERSUSECATZC](../../../drs/principles/cats-and-catzc.md#rule-pdr-cats-foldersusecatzc))
-and names its own folder, so the records spell no track folder of their own.
+The overlay root is `.catzc/<track folder>`
+([PDR-CATS-FOLDERSUSECATZC](../../../drs/principles/cats-and-catzc.md#rule-pdr-cats-foldersusecatzc)) and names its own folder, so the
+records spell no track folder of their own.
 
 An overlay folder mirrors a bundled module's folder, which never spells the namespace; the record carries the folder and the full name the
 resolver gives it ([DDR-TRACK-MODULENAMESPACE](../../../drs/design/tracks.md#rule-ddr-track-modulenamespace)). A local module's name is its

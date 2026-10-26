@@ -1,22 +1,12 @@
 # pwsh/Base.Slides/configs/slides.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The settings of the slides module: where the slides kit lives and which pictures may name catzc or cats.
 
-## comment:1
+## Keys
 
-Above `kit: python/diagrams/assets/slides`, written with `#`.
-
-```text
-Where the slides kit lives, as a repository-relative folder (ADR-REPO-SLIDES-SLIDEFILEKIND). The kit's own defaults, its patterns and its style
-guide are read from there; the default is declared once on SlidesConfig, so this file states only a deviation from it.
-```
-
-## comment:2
-
-Above `name_mentions:`, written with `#`.
-
-```text
-The pictures whose naming of catzc or cats is a contrast or the thing itself, each with why
-([DDR-VISUAL-NONAMEINPICTURE](/docs/drs/design/visual-design.md#rule-ddr-visual-nonameinpicture)).
-```
+- **`kit`** — where the slides kit lives, as a repository-relative folder
+  ([ADR-REPO-SLIDES-SLIDEFILEKIND](../../../../drs/repository/slides-as-markdown.md#rule-adr-repo-slides-slidefilekind)). The kit's own defaults, its
+  patterns and its style guide are read from there. The default is declared once on `SlidesConfig`, so this file states only a deviation from
+  it.
+- **`name_mentions`** — the pictures whose naming of catzc or cats is a contrast or the thing itself, each with why
+  ([DDR-VISUAL-NONAMEINPICTURE](../../../../drs/design/visual-design.md#rule-ddr-visual-nonameinpicture)).

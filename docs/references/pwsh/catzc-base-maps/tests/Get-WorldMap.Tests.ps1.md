@@ -1,13 +1,8 @@
 # pwsh/Base.Maps/tests/Get-WorldMap.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The tests of `Get-WorldMap`.
 
-## comment:1
+## The real repository
 
-Above `Describe 'Get-WorldMap — the real repository'`, written with `#`.
-
-```text
-The real repository: every tracked file of the git index gets a cell, and no live file breaks its track's
-tech-stack ([DDR-TRACK-ONETECHSTACK](/docs/drs/design/tracks.md#rule-ddr-track-onetechstack)).
-```
+One block runs against the repository itself: every tracked file of the git index gets a cell, and no live file breaks its track's
+tech-stack ([DDR-TRACK-ONETECHSTACK](../../../../drs/design/tracks.md#rule-ddr-track-onetechstack)).

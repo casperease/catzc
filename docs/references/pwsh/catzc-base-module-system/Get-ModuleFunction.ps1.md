@@ -1,7 +1,6 @@
 # pwsh/Base.ModuleSystem/Get-ModuleFunction.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Lists the exported functions of the loaded catzc modules, optionally only those no other catzc function calls.
 
 ## help
 
@@ -37,13 +36,4 @@ Get-ModuleFunction
 
 ```powershell
 Get-ModuleFunction -NotUsedInternally
-```
-
-## comment:1
-
-Above `$moduleNames = (Get-CatzcModule -EngineTrack).name`, written with `#`.
-
-```text
-[System.IO] enumeration
-([ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS](/docs/drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-systemioonhotpaths))
 ```

@@ -1,7 +1,6 @@
 # pwsh/Base.Objects/private/Expand-ObjectProperties.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The private recursion behind `ConvertTo-FlatSettingSet`: it walks a nested value and adds a dot-notation key for each leaf.
 
 ## help
 
@@ -34,24 +33,15 @@ The depth at which flattening stops. Default 10.
 
 The depth reached so far; callers leave it at 0 and the recursion raises it.
 
-## comment:1
+## Shape order
 
-Above `if ($Value -is [System.Collections.IDictionary]) {`, written with `#`.
+A dictionary and an array are checked before a `PSCustomObject`. A top-level value arrives wrapped in a `PSObject`, because
+`ConvertTo-FlatSettingSet` binds `[PSObject[]]`, and a wrapped dictionary matches `-is [PSCustomObject]`. Routing it there would reflect the
+dictionary's own CLR members (`Count`, `Keys`, `SyncRoot`) instead of its entries. Matching the more specific shapes first keeps a dictionary
+a dictionary and an array an array, wrapped or not.
 
-```text
-IDictionary and array are checked before PSCustomObject: a top-level value arrives here wrapped in a
-PSObject (ConvertTo-FlatSettingSet binds [PSObject[]]), and a PSObject-wrapped dictionary matches
--is [PSCustomObject]. Routing it there would reflect the dictionary's own CLR members (Count, Keys,
-SyncRoot, ...) instead of its entries. Matching the more specific shapes first keeps a dictionary a
-dictionary and an array an array, wrapped or not.
-```
+## Complex CLR objects
 
-## comment:2
-
-Above `if (-not $Value.GetType().IsValueType -and $Value -isnot [string] -and`, written with `#`.
-
-```text
-Complex CLR object (e.g. a typed/validated config model): reflect over its public
-members so a typed config subtree flattens the same way a dictionary or PSCustomObject
-does. Strings and value types (numbers, bool, DateTime, Guid, enums) fall through to leaf.
-```
+A complex CLR object, such as a typed and validated config model, is flattened by reflecting over its public members, so a typed config
+subtree flattens the same way a dictionary or a `PSCustomObject` does. Strings and value types (numbers, booleans, `DateTime`, `Guid`,
+enums) fall through to leaves.

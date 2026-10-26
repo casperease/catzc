@@ -1,17 +1,15 @@
 # pwsh/Base.Git/types/GitIgnoreConfig.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The typed record of the gitignore registry (`configs/gitignore.yml`) and its validity rules.
 
-## comment:1
+## Shape and validation
 
-Above `using System;`, written with `//`.
+It requires a `sections` list of explained pattern groups, each validated by `GitIgnoreSection`, with unique section ids. Constructing an
+instance validates the registry, collecting every malformed section into one error, and exposes the parsed sections to the renderer
+(`New-GitIgnore`).
 
-```text
-The gitignore registry (configs/gitignore.yml) and its validity rules: a required 'sections' list of
-explained pattern groups, each validated by GitIgnoreSection, with unique section ids. Constructing an
-instance validates the registry (collecting every malformed section into one error) and exposes the parsed
-sections to the renderer (New-GitIgnore). Registered as the `gitignore` config's type override in
-Catzc.Base.Config/configs/configs.yml. See [ADR-CONF-LOADING](/docs/drs/configuration/module-config-loading.md) and
-[ADR-REPO-ROOTCFG](/docs/drs/repository/generated-root-configs.md).
-```
+## Registration
+
+It is registered as the `gitignore` config's type override in `Catzc.Base.Config/configs/configs.yml`. See
+[ADR-CONF-LOADING](../../../../drs/configuration/module-config-loading.md) and
+[ADR-REPO-ROOTCFG](../../../../drs/repository/generated-root-configs.md).

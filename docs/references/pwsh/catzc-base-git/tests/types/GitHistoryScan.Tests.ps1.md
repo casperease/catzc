@@ -1,24 +1,16 @@
 # pwsh/Base.Git/tests/types/GitHistoryScan.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The tests of `GitHistoryScan`: they scan a hand-built `git cat-file --batch` stream for a token.
 
-## comment:1
+## The stream
 
-Above `function script:New-ObjectId {`, written with `#`.
+`New-ObjectId` builds the stream by hand. The object ids are made up (any 40 hex digits): the scan indexes the stream by id and never
+re-hashes content.
 
-```text
-Builds a `git cat-file --batch` stream by hand. Object ids are made up (any 40 hex digits): the scan
-indexes the stream by id and never re-hashes content.
-```
+## The history
 
-## comment:2
+The fixture is a two-commit history:
 
-Above `$ids = @{}`, written with `#`.
-
-```text
-A two-commit history:
-  commit 1 (root): widget.txt (clean), gadget/ (a tree holding notes.txt with the token)
-  commit 2: adds the token to its message, a binary blob holding the token, a vendored copy of the token
-  blob, and a path named after the token.
-```
+- commit 1 (root): `widget.txt` (clean), `gadget/` (a tree holding `notes.txt` with the token);
+- commit 2: adds the token to its message, a binary blob holding the token, a vendored copy of the token blob, and a path named after the
+  token.

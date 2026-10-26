@@ -1,7 +1,7 @@
 # pwsh/Base.Drs/private/Import-DrsCitationMapFile.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The private helper that reads a tab-separated code map or rule map into rows, failing before any reference is rewritten when the file is
+malformed.
 
 ## help
 

@@ -4,8 +4,8 @@ The repository test of the declared time limit: it scans the shipped scripts and
 
 ## What it pins
 
-A function bounds its own long-running work through `Get-TimeoutSeconds -Command` and its `[TimeLimit]` decoration, never a number literal as
-the parameter default
+A function bounds its own long-running work through `Get-TimeoutSeconds -Command` and its `[TimeLimit]` decoration, never a number literal
+as the parameter default
 ([ADR-PWSH-ASSERT-DECLAREDTIMELIMIT](../../../../drs/automation/pwsh/assert-idioms.md#rule-adr-pwsh-assert-declaredtimelimit)). It reads the
 shipped .ps1 files by syntax tree, so it runs in the source and the build run alike.
 

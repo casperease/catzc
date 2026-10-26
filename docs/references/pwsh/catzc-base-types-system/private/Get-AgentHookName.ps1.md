@@ -1,7 +1,6 @@
 # pwsh/Base.TypesSystem/private/Get-AgentHookName.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The private lister of the agent hooks: each folder under `.claude/hooks/` that holds a `.csproj`, in ordinal order.
 
 ## help
 

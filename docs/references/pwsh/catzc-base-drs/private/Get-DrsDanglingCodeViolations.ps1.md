@@ -1,7 +1,6 @@
 # pwsh/Base.Drs/private/Get-DrsDanglingCodeViolations.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The private helper of `Test-DrsRegistry` that finds citation codes in the ADR pages which name nothing the registry knows.
 
 ## help
 
@@ -34,20 +33,12 @@ The citation map the codes are resolved against (Get-DrsCitationMap).
 `[string[]]` One finding per dangling code: '`<file>:<line>`: cites `<code>`, which names no registered rule, record or domain (a dangling
 code)'.
 
-## comment:1
+## What counts as a citation
 
-Above `$pattern = "(?<![\w-])$($Adrs.CodeForm.Cited)(?![\w#-]|:\d)"`, written with `#`.
+A code named in prose is a citation like a link: one that names no registered rule, record or domain dangles. Fenced blocks are examples, so
+they are left out. A code followed by `#` or `:<n>` is another form, which the code-language check owns.
 
-```text
-A code named in prose is a citation like a link: one that names no registered rule, record or domain dangles. Fenced blocks are
-examples, so they are left out, and a code followed by '#' or ':<n>' is another form the code-language check owns.
-```
+## Fences
 
-## comment:2
-
-Above `$fence = $null`, written with `#`.
-
-```text
-A fence closes only on a bare run of its own character at least as long as the one that opened it, so a four-tick fence can hold
-a three-tick example whole.
-```
+A fence closes only on a bare run of its own character at least as long as the one that opened it, so a four-tick fence can hold a
+three-tick example whole.

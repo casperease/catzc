@@ -1,7 +1,7 @@
 # pwsh/Base.Maps/Get-WorldMapHighlight.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The command that lights the world map's cells: for ADR codes, for named files, or for the files the working tree changes. It answers
+"where on the map does this sit".
 
 ## help
 

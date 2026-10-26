@@ -1,7 +1,7 @@
 # pwsh/Base.Maps/Get-LayerStackMinimapData.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The data of the layer stack minimap: the layers of the automation in stack order, each lit when a diagram's subject cites an ADR that
+belongs to it.
 
 ## help
 

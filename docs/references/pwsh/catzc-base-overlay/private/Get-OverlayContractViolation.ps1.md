@@ -1,6 +1,7 @@
 # pwsh/Base.Overlay/private/Get-OverlayContractViolation.ps1
 
-The contract check of a function override: it compares the override's syntax tree with the loaded original and returns one message per break.
+The contract check of a function override: it compares the override's syntax tree with the loaded original and returns one message per
+break.
 
 ## help
 

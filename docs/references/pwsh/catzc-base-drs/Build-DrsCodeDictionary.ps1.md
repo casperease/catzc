@@ -1,7 +1,7 @@
 # pwsh/Base.Drs/Build-DrsCodeDictionary.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Generates the word list of ADR code segments that the spell checker loads, so a rule's spelled-out name needs no hand-written dictionary
+entry.
 
 ## help
 

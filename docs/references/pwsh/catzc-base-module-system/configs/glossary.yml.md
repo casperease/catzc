@@ -1,15 +1,10 @@
 # pwsh/Base.ModuleSystem/configs/glossary.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The glossary source of this module: the vocabulary of what ships and how it advances, namely deployable units, the release candidates built
+from them, and the environments' occupants ([ADR-REPO-VOCAB](../../../../drs/repository/controlled-vocabulary.md)).
 
-## comment:1
+## Options
 
-Above `concepts:`, written with `#`.
-
-```text
-glossary.yml — the Catzc.Base.ModuleSystem glossary source: the vocabulary of what ships and how it advances —
-deployable-units, the release candidates built from them, and the environments' occupants ([ADR-REPO-VOCAB](/docs/drs/repository/controlled-vocabulary.md)).
-Every option is defaulted: all five checks, the whole repository, every text surface
-([ADR-REPO-VOCAB-GLOSSARYSOURCE](/docs/drs/repository/controlled-vocabulary.md#rule-adr-repo-vocab-glossarysource)). Checked by Test-Glossary.
-```
+The file declares `concepts` only, and every option is defaulted: all five checks, the whole repository, every text surface
+([ADR-REPO-VOCAB-GLOSSARYSOURCE](../../../../drs/repository/controlled-vocabulary.md#rule-adr-repo-vocab-glossarysource)). `Test-Glossary`
+checks it.

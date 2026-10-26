@@ -1,7 +1,7 @@
 # pwsh/Base.Maps/private/New-MinimapData.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The helper every minimap data command ends with: it assembles the MinimapData from the axes, the cells and the counts and reasons gathered
+for them.
 
 ## help
 
@@ -45,11 +45,7 @@ The MinimapReason list of each lit cell, keyed the same way.
 New-MinimapData -Id ([Catzc.Base.Maps.MinimapData]::CodeLocations) -Axes $axes -Cells $cells -Count $count -Reasons $reasons
 ```
 
-## comment:1
+## Keys
 
-Above `$axisList = [Catzc.Base.Maps.MinimapAxis[]] @(foreach ($name in $Axes.Keys) {`, written with `#`.
-
-```text
-Each cell is keyed by its place joined with a tab: Count holds what it holds, Reasons the MinimapReason list that
-lights it.
-```
+Each cell is keyed by its place joined with a tab. The count table holds what each cell holds, and the reasons table the MinimapReason list
+that lights it.

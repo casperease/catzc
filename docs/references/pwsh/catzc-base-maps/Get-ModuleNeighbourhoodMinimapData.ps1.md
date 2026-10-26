@@ -1,7 +1,7 @@
 # pwsh/Base.Maps/Get-ModuleNeighbourhoodMinimapData.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The data of the module neighbourhood minimap: the modules a diagram's subject sits in, ringed by the modules they depend on and the
+modules that depend on them.
 
 ## help
 
@@ -43,11 +43,7 @@ Return the data as JSON in the minimap contract's shape instead of the object.
 (Get-ModuleNeighbourhoodMinimapData ADR-AUTO-DEPM).Cells
 ```
 
-## comment:1
+## Rings
 
-Above `$dependencies = Get-Config -Config dependencies`, written with `#`.
-
-```text
-The subject's modules, the modules they depend on, and the modules that depend on them, from the module dependency
-registry.
-```
+The three rings are read from the `dependencies` config: the subject's own modules, the modules they depend on, and the modules that
+depend on them.

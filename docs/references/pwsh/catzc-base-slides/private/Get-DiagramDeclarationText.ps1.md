@@ -1,7 +1,6 @@
 # pwsh/Base.Slides/private/Get-DiagramDeclarationText.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The reader of a diagram's declaration: it returns the YAML text from whichever carrier the diagram has on disk, the yml file or the article block.
 
 ## help
 
@@ -33,20 +32,6 @@ The repository root the stem is under.
 Get-DiagramDeclarationText -Stem docs/drs/automation/.assets/widget -RepositoryRoot $root
 ```
 
-## comment:1
+## Both carriers
 
-Above `$source = Join-Path $RepositoryRoot "$Stem.drawio.yml"`, written with `#`.
-
-```text
-The carrier is what is on disk: the yml beside the png (a diagram with both is a finding the drift check reports, and reads as the
-file), else the article carrier.
-```
-
-## comment:2
-
-Above `$name = $Stem.Substring($Stem.LastIndexOf('/') + 1)`, written with `#`.
-
-```text
-The article carrier: the one `yml drawio` block, in a page beside the diagram's .assets, directly above the image
-of its png.
-```
+A diagram with both a yml and an article block is a finding the drift check reports, and it reads as the file.

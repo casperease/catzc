@@ -1,7 +1,6 @@
 # pwsh/Base.Git/private/Format-GitIgnoreSection.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The formatter of one gitignore section for `New-GitIgnore`: a titled comment block followed by the section's pattern lines.
 
 ## help
 

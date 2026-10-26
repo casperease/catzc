@@ -1,7 +1,6 @@
 # pwsh/Base.RootConfig/private/Get-RootConfigTargets.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The filter of the root-config registry: it returns the opted-in entries `Build-RootConfig` generates.
 
 ## help
 
@@ -31,12 +30,3 @@ committed generated file reads the mix-independent list, so its content never de
 ### outputs
 
 `[object[]]` The opted-in RootConfigFile entries, in registry order.
-
-## comment:1
-
-Above `$mixEngines = $null`, written with `#`.
-
-```text
-An engine's importer entry follows the session's mix: it is managed only when one of the engines it serves is in
-the mix.
-```

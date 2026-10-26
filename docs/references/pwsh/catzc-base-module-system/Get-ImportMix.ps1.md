@@ -1,7 +1,7 @@
 # pwsh/Base.ModuleSystem/Get-ImportMix.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Returns the session's one [ImportMix](types/ImportMix.cs.md) record. The importer sets it once after loading; a session the importer did not
+finish resolves it once from the configuration and keeps it.
 
 ## help
 
@@ -23,13 +23,4 @@ the importer did not finish resolves it once from the configuration, with no cal
 
 ```powershell
 (Get-ImportMix).engines
-```
-
-## comment:1
-
-Above `$recorded =...`, written with `#`.
-
-```text
-The record the importer set for the session; a session the importer did not finish resolves it from the
-configuration once.
 ```

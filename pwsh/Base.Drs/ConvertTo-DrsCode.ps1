@@ -44,6 +44,7 @@ function ConvertTo-DrsCode {
 
             $segments = $new.Split('-')
             $leaf = $segments[-1]
+            # A word the code already says, leading the rule segment, is said once, where the words prove the boundary.
             foreach ($said in $segments[1..($segments.Count - 2)]) {
                 if ($said.Length -lt 3 -or -not $leaf.StartsWith($said, [System.StringComparison]::Ordinal)) {
                     continue

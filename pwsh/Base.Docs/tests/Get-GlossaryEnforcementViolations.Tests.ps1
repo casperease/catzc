@@ -29,6 +29,7 @@ Describe 'Get-GlossaryEnforcementViolations' -Tag 'L0', 'logic' {
             [Catzc.Base.Docs.GlossaryEntry]::new($concept, 'Catzc.Widget', 'widgets/Catzc.Widget/configs/glossary.yml',
                 [Catzc.Base.Docs.GlossaryOptions]::new($options))
         }
+        # ADR-TST-WIDGET-TESTED is cited by a test, -ANALYZED by an analyzer, -BARE by nothing.
         $script:enforcer = @{
             'ADR-TST-WIDGET-TESTED'   = [pscustomobject]@{ Analyzers = @(); Tests = @('widgets/Catzc.Widget/tests/Get-Widget.Tests.ps1') }
             'ADR-TST-WIDGET-ANALYZED' = [pscustomobject]@{ Analyzers = @('Measure-Widget'); Tests = @() }

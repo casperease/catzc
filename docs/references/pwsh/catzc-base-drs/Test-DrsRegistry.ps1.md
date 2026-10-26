@@ -1,7 +1,6 @@
 # pwsh/Base.Drs/Test-DrsRegistry.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+A quality gate that checks the ADR registry and the ADR rule files agree, and runs the configured citation-graph and DORA-coverage checks.
 
 ## help
 
@@ -54,29 +53,16 @@ check's findings in either mode.
 Test-DrsRegistry
 ```
 
-## comment:1
+## Configured checks
 
-Above `$configured = @(`, written with `#`.
+The citation-graph and DORA-coverage checks each have one mode setting, and both get the same handling
+([PDR-CONFIG-VARYINGBEHAVIOURISCONFIG](../../../drs/principles/configure-not-program.md#rule-pdr-config-varyingbehaviourisconfig)).
 
-```text
-The configured checks: one mode setting each, the same handling for both
-([PDR-CONFIG-VARYINGBEHAVIOURISCONFIG](/docs/drs/principles/configure-not-program.md#rule-pdr-config-varyingbehaviourisconfig)).
-```
+## Page keys
 
-## comment:2
+The file index gives each page a key, so a page under a domain folder that points into another domain's folder is checked against its own
+domain.
 
-Above `$keyOfPath = @{}`, written with `#`.
+## Report folder
 
-```text
-The key the file index gave each page, so a page under a domain folder that points into another domain's folder is
-checked against its own domain.
-```
-
-## comment:3
-
-Above `$checkFolder = if ($OutputFolder) {`, written with `#`.
-
-```text
-A check reporting on its own writes under the caller's folder when one is given, else under its subject's
-default.
-```
+A check in report mode writes its own report under the caller's folder when `-OutputFolder` is given, else under its subject's default.

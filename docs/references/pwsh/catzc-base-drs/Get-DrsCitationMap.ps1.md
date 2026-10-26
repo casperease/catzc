@@ -1,7 +1,6 @@
 # pwsh/Base.Drs/Get-DrsCitationMap.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Builds the immutable citation map of the ADRs, which the link engine reads to derive every code link's destination.
 
 ## help
 
@@ -34,11 +33,7 @@ The repository root whose [index](../../../drs/index.md) is read. Defaults to th
 (Get-DrsCitationMap).Destination('ADR-PWSH-ERROR', 3)   # /docs/drs/automation/pwsh/error-handling.md#rule-adr-pwsh-error-thrownotwriteerror
 ```
 
-## comment:1
+## Cache
 
-Above `$script:adrCitationMapCache = @{}`, written with `#`.
-
-```text
-strict-clean probe of the lazy cache entry
-([ADR-PWSH-CACHE-STRICTSAFEPROBE](/docs/drs/automation/pwsh/script-scope-caching.md#rule-adr-pwsh-cache-strictsafeprobe))
-```
+The map is memoized per repository root in a script-scope table. The lazy entry is read with a strict-clean probe
+([ADR-PWSH-CACHE-STRICTSAFEPROBE](../../../drs/automation/pwsh/script-scope-caching.md#rule-adr-pwsh-cache-strictsafeprobe)).

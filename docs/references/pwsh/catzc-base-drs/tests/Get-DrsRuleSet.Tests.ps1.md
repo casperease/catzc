@@ -1,23 +1,14 @@
 # pwsh/Base.Drs/tests/Get-DrsRuleSet.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The tests of `Get-DrsRuleSet`, in two parts: the command over a fixture `DrsConfig`, and an integrity check of the real registry.
 
-## comment:1
+## Unit tests
 
-Above `Describe 'Get-DrsRuleSet'`, written with `#`.
+The command runs over a fixture `DrsConfig` with `Get-Config` mocked. The flattening and the effective codes are `DrsConfig` construction
+rules, covered by its type test, so these tests pin only the projection and the `-Domain` filter. The fixture names are neutral
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 
-```text
-Get-DrsRuleSet over a fixture DrsConfig (Get-Config mocked): the flattening and effective codes are DrsConfig
-construction rules (its type test), so this pins only the projection and the -Domain filter. Neutral fixture names
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
-```
+## Integrity
 
-## comment:2
-
-Above `Describe 'Get-DrsRuleSet integrity'`, written with `#`.
-
-```text
-Integrity: drs.yml and the ADR rule files agree, through the quality gate Test-DrsRegistry
-([ADR-AUTO-TEST-QUALITYGATE](/docs/drs/automation/test-automation.md#rule-adr-auto-test-qualitygate)).
-```
+`drs.yml` and the ADR rule files must agree, which the quality gate `Test-DrsRegistry` checks
+([ADR-AUTO-TEST-QUALITYGATE](../../../../drs/automation/test-automation.md#rule-adr-auto-test-qualitygate)).

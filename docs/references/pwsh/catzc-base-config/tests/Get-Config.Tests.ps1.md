@@ -1,63 +1,24 @@
 # pwsh/Base.Config/tests/Get-Config.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The L0 tests of `Get-Config`: discovery, memoization, the not-found path, parameter validation, registry validation and the overlay merge.
 
-## comment:1
+## Shipped config
 
-Above `It 'discovers and loads a shipped config from its owning module' {`, written with `#`.
+One case reads the shipped `tools.yml`, so discovery in its owning module is proven for a real config
+([ADR-AUTO-TEST-LOGICANDINTEGRITY](../../../../drs/automation/test-automation.md#rule-adr-auto-test-logicandintegrity)). The raw default
+itself is pinned hermetically, on a fixture config with no registry entry.
 
-```text
-Reads the shipped tools.yml — guards that a real config is discovered in its owning module and loads
-([ADR-AUTO-TEST-LOGICANDINTEGRITY](/docs/drs/automation/test-automation.md#rule-adr-auto-test-logicandintegrity)). The raw default itself
-is pinned hermetically below, on a fixture config with no registry entry.
-```
+## Function behaviour
 
-## comment:2
+Memoization, the not-found error path and parameter-binding validation hold whatever configs are shipped. The caching test owns a fixture
+config through the `Resolve-ConfigEntry` seam, so it never reads a shipped config
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 
-Above `It 'returns the same cached object reference on repeat calls' {`, written with `#`.
+## Registry validation
 
-```text
-Function behaviour, independent of which configs are shipped: memoization, the not-found error
-path, and parameter-binding validation
-([ADR-AUTO-TEST-LOGICANDINTEGRITY](/docs/drs/automation/test-automation.md#rule-adr-auto-test-logicandintegrity)). The caching test owns a
-fixture config
-through the Resolve-ConfigEntry seam, so it never reads a shipped config
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
-```
+The validator is exercised on inline, synthetic registries, independent of any shipped `configs.yml`.
 
-## comment:3
+## Overlay merge
 
-Above `BeforeEach {`, written with `#`.
-
-```text
-A bundled config and a consumer overlay, both fixtures, through the Resolve-ConfigEntry, overlay-root and
-registry seams ([ADR-AUTO-OVERLAY](/docs/drs/automation/consumer-overlay.md)).
-```
-
-## comment:4
-
-Above `It 'accepts a valid registry (one type per entry)' {`, written with `#`.
-
-```text
-Validator logic on inline (synthetic) registries — independent of any shipped configs.yml
-([ADR-AUTO-TEST-LOGICANDINTEGRITY](/docs/drs/automation/test-automation.md#rule-adr-auto-test-logicandintegrity)).
-```
-
-## comment:5
-
-Above `It 'discovers and loads a shipped config from its owning module' {`, written with `#`.
-
-```text
-A real shipped config, so discovery in its owning module is proven; the raw default is pinned on a fixture
-below.
-```
-
-## comment:6
-
-Above `BeforeEach {`, written with `#`.
-
-```text
-A bundled config and an overlay, both fixtures behind their seams, so a merge is tested without a real
-consumer.
-```
+A bundled config and a consumer overlay are both fixtures behind the `Resolve-ConfigEntry`, overlay-root and registry seams, so a merge is
+tested without a real consumer ([ADR-AUTO-OVERLAY](../../../../drs/automation/consumer-overlay.md)).

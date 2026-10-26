@@ -1,7 +1,7 @@
 # pwsh/Base.Timeouts/Invoke-WithTimeout.ps1
 
-The time safeguard for a script block: it runs the block in the current runspace under a watchdog and throws a timeout error when the
-block outlives its limit.
+The time safeguard for a script block: it runs the block in the current runspace under a watchdog and throws a timeout error when the block
+outlives its limit.
 
 ## help
 

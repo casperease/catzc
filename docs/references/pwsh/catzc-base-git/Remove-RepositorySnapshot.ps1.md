@@ -1,7 +1,6 @@
 # pwsh/Base.Git/Remove-RepositorySnapshot.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The deleter of a repository snapshot: it removes a folder only when it carries the provenance marker `New-RepositorySnapshot` wrote.
 
 ## help
 
@@ -29,11 +28,8 @@ None.
 Remove-RepositorySnapshot $snapshot.Path
 ```
 
-## comment:1
+## The walk prunes nothing
 
-Above `foreach ($file in Get-ChildPath $Path -File -Depth 64 -Exclude @()...`, written with `#`.
-
-```text
-A named whole-tree walk ([ADR-PWSH-ENUM-ALWAYSBOUNDED](/docs/drs/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): the
-read-only files are mostly git objects under .git, so nothing is pruned.
-```
+Clearing read-only files is a named whole-tree walk
+([ADR-PWSH-ENUM-ALWAYSBOUNDED](../../../drs/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): the read-only files are
+mostly git objects under `.git`, so nothing is pruned.

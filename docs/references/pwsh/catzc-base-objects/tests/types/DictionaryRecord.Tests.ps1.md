@@ -1,25 +1,15 @@
 # pwsh/Base.Objects/tests/types/DictionaryRecord.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The L0 logic tests of `DictionaryRecord`, the shared base of the YAML-mirror records.
 
-## comment:1
+## What it proves
 
-Above `Describe 'DictionaryRecord'`, written with `#`.
+The base gives a derived record a dictionary view over its own data properties, and protected extraction helpers (`Req`, `OptStr`, `StrArr`,
+`Flag`) for a derived constructor. The tests run through a probe record compiled by `Add-Type` against the loaded combined assembly, which
+also shows that a type compiled later can derive from the base. The fixtures use neutral names
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 
-```text
-DictionaryRecord — the shared base of the YAML-mirror records: a dictionary view over a derived record's own
-data properties, and the protected extraction helpers (Req / OptStr / StrArr / Flag) a derived constructor uses.
-Exercised through a probe record compiled by Add-Type against the loaded combined assembly, which also shows a
-type compiled later can derive from the base. Neutral fixture names
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
-```
+## An unset property
 
-## comment:2
-
-Above `Add-Type -ReferencedAssemblies $assembly -TypeDefinition @'`, written with `#`.
-
-```text
-Gadget is never assigned by the first constructor -> genuinely null. (Passing $null from PowerShell
-would coerce to '', the [string] $null->'' pitfall, so that constructor leaves it unset.)
-```
+The probe's `Gadget` property is never assigned by the first constructor, so it is genuinely null. Passing `$null` from PowerShell would
+coerce to `''`, the `[string]` null-to-empty pitfall, so that constructor leaves the property unset.

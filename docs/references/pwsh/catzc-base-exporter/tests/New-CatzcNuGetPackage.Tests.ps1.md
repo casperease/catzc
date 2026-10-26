@@ -1,18 +1,11 @@
 # pwsh/Base.Exporter/tests/New-CatzcNuGetPackage.Tests.ps1
 
-<!-- cspell:ignore nfunction -->
+The L0 tests of `New-CatzcNuGetPackage`, against a minimal fixture build in `TestDrive:`.
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+## One pack
 
-## comment:1
-
-Above `$script:source = Join-Path $TestDrive...`, written with `#`.
-
-```text
-A minimal fixture build (neutral names,
-[ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)), packed ONCE: every
-assertion below is a facet
-of the one pack ([ADR-AUTO-TEST-ONEIMPORTPERCASE](/docs/drs/automation/test-automation.md#rule-adr-auto-test-oneimportpercase)) —
-Compress-PSResource costs real time.
-```
+The fixture build uses neutral names
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)) and
+is packed once: every assertion is a facet of the one pack
+([ADR-AUTO-TEST-ONEIMPORTPERCASE](../../../../drs/automation/test-automation.md#rule-adr-auto-test-oneimportpercase)), because
+`Compress-PSResource` costs real time.

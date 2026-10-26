@@ -1,7 +1,7 @@
 # pwsh/Base.Slides/private/Get-NameMentionFinding.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The check of a picture's wording: it returns one finding per line of a diagram declaration or slide that names catzc or cats as a word
+([DDR-VISUAL-NONAMEINPICTURE](../../../../drs/design/visual-design.md#rule-ddr-visual-nonameinpicture)).
 
 ## help
 
@@ -36,13 +36,4 @@ The paths whose mentions are a declared contrast, from slides.yml's `name_mentio
 
 ```powershell
 Get-NameMentionFinding -Path docs/explanation/widget/.assets/widget-flow.drawio.yml -Text (Get-Content -Raw docs/explanation/widget/.assets/widget-flow.drawio.yml)
-```
-
-## comment:1
-
-Above `[CmdletBinding()]`, written with `#`.
-
-```text
-The lines of a diagram declaration or a slide that name catzc or cats as a word
-([DDR-VISUAL-NONAMEINPICTURE](/docs/drs/design/visual-design.md#rule-ddr-visual-nonameinpicture)).
 ```

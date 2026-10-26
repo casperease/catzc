@@ -21,5 +21,5 @@ The values are checked when the attribute is created: whole seconds above zero, 
 
 ## Budget
 
-`Budget` is the work's immutable budget GUID (managed in `guids.yml`); while `timeout-exemptions.yml` exempts it, the exemption's ceiling wins.
-It is empty when the function has no budget.
+`Budget` is the work's immutable budget GUID (managed in `guids.yml`); while `timeout-exemptions.yml` exempts it, the exemption's ceiling
+wins. It is empty when the function has no budget.

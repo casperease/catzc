@@ -1,14 +1,9 @@
 # pwsh/Base.Drs/tests/Get-DrsDomainEdges.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The tests of `Get-DrsDomainEdges` over a fixture `DrsConfig`, with `Get-Config` mocked.
 
-## comment:1
+## What it pins
 
-Above `Describe 'Get-DrsDomainEdges'`, written with `#`.
-
-```text
-Get-DrsDomainEdges over a fixture DrsConfig (Get-Config mocked): the registry's own construction holds the
-edge invariants (declared ends, no self-edge, acyclic), so this pins only the projection. Neutral fixture names
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
-```
+The registry's own construction holds the edge invariants: declared ends, no self-edge, acyclic. So the tests pin only the projection. The
+fixture names are neutral
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).

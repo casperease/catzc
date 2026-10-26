@@ -10,6 +10,7 @@ Describe 'Build-GitKeep' -Tag 'L0', 'logic' {
     BeforeAll {
         Import-InternalModule TestKit
 
+        # One fixture .gitkeep sits deep in out/ and must never be touched: the walk checks out/.gitkeep itself, not below it.
         $script:fake = New-FakeRepositoryRoot -Modules @{ 'Catzc.Fixture' = @{} } -Files @{
             'contracts/.gitkeep'                              = "stale`n"
             'pipelines/jobs/.gitkeep'                         = ''
@@ -68,6 +69,7 @@ Describe 'Build-GitKeep' -Tag 'L0', 'logic' {
 Describe 'Build-GitKeep — shipped assets/gitkeep' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP-COVEREDBYREALTEST' {
     BeforeAll {
         Import-InternalModule TestKit
+        # -WorkingRootOnly: the .gitkeep files live in the fixture working root, while the asset under test is the shipped one.
         $script:fake = New-FakeRepositoryRoot -WorkingRootOnly -Files @{ 'widgets/.gitkeep' = "stale`n" }
         Mock Write-Message -ModuleName Catzc.Base.Docs { }
         # The fake root is no git checkout, so the generated head reads no file as tracked.

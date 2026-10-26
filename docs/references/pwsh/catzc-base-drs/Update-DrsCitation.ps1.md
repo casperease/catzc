@@ -1,7 +1,6 @@
 # pwsh/Base.Drs/Update-DrsCitation.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Rewrites the ADR references of one file through a code map and a rule map, the mechanism for moving, renaming or splitting ADRs.
 
 ## help
 
@@ -82,11 +81,7 @@ git ls-files '*.md' '*.ps1' '*.cs' '*.yml' | ForEach-Object { Update-DrsCitation
 Lists, file by file, what would change across the tracked text files without writing any. -Path takes one file, so a tree-wide dry run is one pipeline that calls the command per file; each call reads both maps and the ADR index again, and a file that is not valid UTF-8, such as a binary, throws, so the list names text files only.
 ```
 
-## comment:1
+## Encoding
 
-Above `$bytes = [System.IO.File]::ReadAllBytes($file)`, written with `#`.
-
-```text
-Decode strictly, so a file that is not UTF-8 fails here instead of being re-encoded; the byte order mark is
-kept aside and written back as it was.
-```
+The file is decoded strictly, so one that is not UTF-8 fails at the read instead of being re-encoded. The byte order mark is kept aside and
+written back as it was.

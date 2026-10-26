@@ -1,7 +1,6 @@
 # pwsh/Base.Objects/ConvertTo-BclValue.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The unwrapper that gives a .NET type plain BCL values: it strips PowerShell's PSObject wrapper from a value and everything nested in it.
 
 ## help
 
@@ -27,11 +26,6 @@ The value to unwrap; null is allowed.
 $plain = ConvertTo-BclValue @{ widget = @('gadget', 'sprocket' | ForEach-Object { $_ }) }
 ```
 
-## comment:1
+## Hashtables
 
-Above `$copy = $Object.Clone()`, written with `#`.
-
-```text
-Clone keeps the table's key comparer; the values are then replaced on the copy, never on the caller's
-table.
-```
+A hashtable is cloned, so the copy keeps the table's key comparer. The values are then replaced on the copy, never on the caller's table.

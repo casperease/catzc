@@ -1,7 +1,6 @@
 # pwsh/Base.Drs/private/Get-DrsDoraCoverageViolations.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The private helper of `Test-DrsRegistry` that finds rule sets whose ADR is linked from no section, or more than one, of its domain's DORA file.
 
 ## help
 

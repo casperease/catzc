@@ -1,7 +1,6 @@
 # pwsh/Base.TypesSystem/Test-ShippedTypes.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The check that every shipped compiled type resolves in the session under its module's namespace and file name.
 
 ## help
 
@@ -36,11 +35,7 @@ Return the result ({ Subject; IssueCount; Issues; ReportPath; Types }) instead o
 Test-ShippedTypes
 ```
 
-## comment:1
+## Namespace
 
-Above `$trackName = [System.IO.Path]::GetFileName($modulesRoot.TrimEnd('\', '/'))`, written with `#`.
-
-```text
 A type's namespace is its module's full name, the folder joined to the track's namespace
-([DDR-TRACK-MODULENAMESPACE](/docs/drs/design/tracks.md#rule-ddr-track-modulenamespace)).
-```
+([DDR-TRACK-MODULENAMESPACE](../../../drs/design/tracks.md#rule-ddr-track-modulenamespace)).

@@ -1,7 +1,7 @@
 # pwsh/Base.Exporter/Assert-CatzcBundle.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The integrity guard of a Catzc build: it checks the build, or an install of one, against the `build.json` it recorded, and throws with every
+violation.
 
 ## help
 
@@ -41,40 +41,20 @@ The build root to verify (the `Catzc/<version>/` folder).
 Assert-CatzcBundle -Path (Join-Path (Get-OutputRoot) 'automation/built/full/Catzc/6.6.666')
 ```
 
-## comment:1
+## The file scan
 
-Above `$files = foreach ($file in Get-ChildPath $root -File -Depth 64 -Exclude @()...`, written with `#`.
+Every file is listed once, build-relative and forward-slashed; the `tests/` scan and the shipped type sources read that list. The walk is a
+named whole-tree walk ([ADR-PWSH-ENUM-ALWAYSBOUNDED](../../../drs/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)):
+the bundle is verified in full, vendored modules included, so nothing is pruned.
 
-```text
-Every file once, build-relative and forward-slashed: the tests/ scan and the shipped type sources read it.
-A named whole-tree walk ([ADR-PWSH-ENUM-ALWAYSBOUNDED](/docs/drs/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): the bundle
-is verified in full, vendored modules included, so nothing is pruned.
-```
+## No test folder ships
 
-## comment:2
+No test folder ships: `tests/` is never live by the layout
+([ADR-AUTO-MODULE-EXISTSBYLAYOUT](../../../drs/automation/module-model.md#rule-adr-auto-module-existsbylayout)). Vendored modules are
+verbatim copies and keep their own (powershell-yaml carries its own `Tests/`).
 
-Above `$staging = [System.IO.Path]::Combine([System.IO.Path]::GetTempPath(),`, written with `#`.
+## The types hash
 
-```text
-Stage the sources build.json records in the one layout Get-CombinedTypeHash reads (<Module>/types/<File>.cs), so the
-hash comes from the one implementation rather than a second copy of its recipe.
-```
-
-## comment:3
-
-Above `$leaked = @($files | Where-Object { -not $_.StartsWith('.vendor/') -and "/$_"...`, written with `#`.
-
-```text
-No test folder ships: tests/ is never live by the layout
-([ADR-AUTO-MODULE-EXISTSBYLAYOUT](/docs/drs/automation/module-model.md#rule-adr-auto-module-existsbylayout)).
-Vendored modules are verbatim copies (powershell-yaml carries its own Tests/).
-```
-
-## comment:4
-
-Above `$carriers = [System.IO.Path]::Combine($root, '.compiled', 'types',...`, written with `#`.
-
-```text
-The hash leaves each file's meta head out and reads the head's delimiters from the carriers
-config, so the build's own copy rides along, shipped beside the type sources and staged there too.
-```
+The sources `build.json` records are staged in the one layout `Get-CombinedTypeHash` reads (`<Module>/types/<File>.cs`), so the hash comes
+from that one implementation rather than a second copy of its recipe. The hash leaves each file's meta head out and reads the head's
+delimiters from the carriers config, so the build's own copy rides along, shipped beside the type sources and staged there too.

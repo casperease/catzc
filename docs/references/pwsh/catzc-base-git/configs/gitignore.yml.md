@@ -1,21 +1,17 @@
 # pwsh/Base.Git/configs/gitignore.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The gitignore registry: the single source of truth for the repository-root `.gitignore`.
 
-## comment:1
+## How it becomes the file
 
-Above `sections:`, written with `#`.
+`New-GitIgnore` renders these sections, in order, into the sectioned, commented `.gitignore`, which is itself a managed, committed root file
+(`Build-RootConfig` materialises it on import; see `rootconfig.yml` and
+[ADR-REPO-ROOTCFG](../../../../drs/repository/generated-root-configs.md)). It is loaded via `Get-Config -Config gitignore`, and
+`Catzc.Base.Git.GitIgnoreConfig` validates its shape.
 
-```text
-Gitignore registry — the single source of truth for the repository-root .gitignore. New-GitIgnore renders
-these sections (in order) into the sectioned, commented .gitignore, which is itself a managed, COMMITTED root
-file (Build-RootConfig materialises it on import; see rootconfig.yml and [ADR-REPO-ROOTCFG](/docs/drs/repository/generated-root-configs.md)).
+## Sections
 
-Each section is a titled, explained group: `title` + `why` render as the section's comment block, `patterns`
-are verbatim git wildmatch lines (a bare string, or { pattern, note } for an aligned trailing comment). A
-section with `inject: <provider>` takes its patterns from the caller at render time instead — the root-config
-section is injected from rootconfig.yml's committed:false targets, so that list is never restated here.
-
-Loaded via Get-Config -Config gitignore; the shape is validated by Catzc.Base.Git.GitIgnoreConfig.
-```
+Each section is a titled, explained group: `title` and `why` render as the section's comment block, and `patterns` are verbatim git wildmatch
+lines (a bare string, or `{ pattern, note }` for an aligned trailing comment). A section with `inject: <provider>` takes its patterns from the
+caller at render time instead: the root-config section is injected from `rootconfig.yml`'s `committed: false` targets, so that list is never
+restated here.

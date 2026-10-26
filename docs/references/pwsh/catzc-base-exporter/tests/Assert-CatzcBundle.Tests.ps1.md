@@ -1,27 +1,12 @@
 # pwsh/Base.Exporter/tests/Assert-CatzcBundle.Tests.ps1
 
-<!-- cspell:ignore nfunction -->
+The L0 tests of `Assert-CatzcBundle`: each guard is pinned on its own against a hand-made build in `TestDrive:`.
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+## Fixtures
 
-## comment:1
+The fixture is a hand-made, well-formed build of two neutral modules
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)). The
+widget module is selected, so its type source ships under `Catzc.Base.Widget/types/`; the gadget module's type source rides along under
+`.compiled/types/`, since every build ships the full type set. The types hash comes from the one implementation, over the same two sources.
 
-Above `$script:newFixtureBuild = {`, written with `#`.
-
-```text
-A hand-made, well-formed build of two neutral modules
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)): widget is selected (its type
-source
-ships under Catzc.Base.Widget/types/), gadget's type source rides along under .compiled/types/ (every build
-ships the full type set). typesHash comes from the one implementation, over the same two sources.
-```
-
-## comment:2
-
-Above `$script:resealBuild = {`, written with `#`.
-
-```text
-Rewrites build.json after a fixture mutation, keeping the content hash current so only the mutated
-property is under test.
-```
+After a fixture mutation `build.json` is rewritten with the content hash kept current, so only the mutated property is under test.

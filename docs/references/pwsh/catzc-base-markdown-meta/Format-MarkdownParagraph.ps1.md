@@ -1,7 +1,7 @@
 # pwsh/Base.MarkdownMeta/Format-MarkdownParagraph.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Wraps one paragraph or list item of generated markdown at the prose width, so the generators' output is already what the formatter would
+write.
 
 ## help
 

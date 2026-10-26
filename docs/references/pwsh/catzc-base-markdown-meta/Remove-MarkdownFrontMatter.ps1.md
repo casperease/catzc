@@ -1,7 +1,6 @@
 # pwsh/Base.MarkdownMeta/Remove-MarkdownFrontMatter.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Cuts the YAML front matter off a Markdown text and returns the rest, for copies that carry the content but not the file's meta.
 
 ## help
 

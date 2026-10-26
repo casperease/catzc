@@ -1,62 +1,23 @@
 # pwsh/Base.Writers/types/Ansi.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The single source of the `ConsoleColor` to ANSI SGR foreground-escape map, shared by every writer that emits colour
+([ADR-AUTO-CONSOLE-SPARINGCOLOUR](../../../../drs/automation/console-output-matters.md#rule-adr-auto-console-sparingcolour)).
+`Write-InformationColored`, the writer chokepoint, resolves a colour's escape here instead of an inline switch, and `RainbowColor` builds
+its per-character gradient from the same table, so the mapping lives once.
 
-## comment:1
+## The map
 
-Above `public static class Ansi`, written with `//`.
+The codes are the normal and bright SGR foregrounds matching the 16 `System.ConsoleColor` values, indexed by the colour's integer value
+(Black = 0 to White = 15). The enum's declaration order is not the ANSI order, so the table is a deliberate remap and never 30 plus the
+index.
 
-```text
-Single source of the ConsoleColor -> ANSI SGR foreground-escape map, shared by every writer that emits
-color. Write-InformationColored (the writer chokepoint) resolves a colour's escape here instead of an
-inline switch, and RainbowColor builds its per-character gradient from the same table — so the mapping
-lives once. Codes are the normal/bright SGR foregrounds matching the 16 [System.ConsoleColor] values.
-See [ADR-AUTO-CONSOLE-SPARINGCOLOUR](/docs/drs/automation/console-output-matters.md#rule-adr-auto-console-sparingcolour).
-```
+## Members
 
-## comment:2
-
-Above `private const char Esc = (char)27;`, written with `//`.
-
-```text
-The ESC control byte (0x1B) that opens every SGR sequence. Built from its code point rather than an
-escape literal so the source carries no raw control character.
-```
-
-## comment:3
-
-Above `public static readonly string Reset = Esc + "[0m";`, written with `//`.
-
-```text
-SGR reset — closes a coloured run. CI log renderers reset ANSI at newlines, so a multi-line caller
-re-opens the colour per line rather than spanning the newline.
-```
-
-## comment:4
-
-Above `private static readonly int[] Codes =`, written with `//`.
-
-```text
-SGR foreground code per ConsoleColor, indexed by (int)color (Black = 0 .. White = 15). The enum's
-declaration order is NOT the ANSI order, so this is a deliberate remap, not (30 + index).
-```
-
-## comment:5
-
-Above `public static string Code(ConsoleColor color)`, written with `//`.
-
-```text
-The opening escape for a colour (e.g. ESC[91m for Red); empty string for an out-of-range value,
-so a caller can treat "no colour" as "pass the text through unchanged".
-```
-
-## comment:6
-
-Above `public static string Wrap(string text, ConsoleColor color)`, written with `//`.
-
-```text
-Wrap one run of text in a colour and reset. Single-line by contract: multi-line wrapping (re-opening
-the colour per line for CI) stays the caller's concern, because only the caller knows whether its text
-is one logical line or several.
-```
+- **`Esc`** — the ESC control byte (0x1B) that opens every SGR sequence, built from its code point so the source carries no raw control
+  character.
+- **`Reset`** — the SGR reset that closes a coloured run. CI log renderers reset ANSI at newlines, so a multi-line caller re-opens the
+  colour per line rather than spanning the newline.
+- **`Code`** — the opening escape for a colour (for example `ESC[91m` for Red), or an empty string for an out-of-range value, so a caller
+  can treat "no colour" as "pass the text through unchanged".
+- **`Wrap`** — wraps one run of text in a colour and a reset. It is single-line by contract: multi-line wrapping stays the caller's concern,
+  because only the caller knows whether its text is one logical line or several.

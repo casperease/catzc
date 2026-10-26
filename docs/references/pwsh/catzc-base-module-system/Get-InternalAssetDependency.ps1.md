@@ -1,7 +1,7 @@
 # pwsh/Base.ModuleSystem/Get-InternalAssetDependency.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Inventories every `Get-CatzcModuleRoot` call site in the module code, one record per site, by parsing the function files. The code is the
+registration, so there is no separate list of internal asset dependencies to keep in step.
 
 ## help
 
@@ -70,12 +70,8 @@ Get-InternalAssetDependency | Format-Table Module, ChildPath, Function
 Get-InternalAssetDependency -Violation
 ```
 
-## comment:1
+## How arguments are bound
 
-Above `$helperName = 'Get-CatzcModuleRoot'`, written with `#`.
-
-```text
-The helper's own parameter metadata decides how each argument binds: which names (or unambiguous
-prefixes, or aliases) mean -ChildPath / -Module, and which other parameters take a value (common
-parameters such as -ErrorAction) so their value is never mistaken for the positional child path.
-```
+The helper's own parameter metadata decides how each argument binds. It says which names, unambiguous prefixes or aliases mean `-ChildPath`
+and `-Module`, and which other parameters take a value (common parameters such as `-ErrorAction`), so their value is never mistaken for the
+positional child path.

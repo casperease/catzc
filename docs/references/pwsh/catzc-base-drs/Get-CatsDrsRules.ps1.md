@@ -1,7 +1,6 @@
 # pwsh/Base.Drs/private/Get-CatsDrsRules.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Reads one ADR file and lists its rules, each with its id, its one-line summary and its normative statement.
 
 ## help
 

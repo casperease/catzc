@@ -22,6 +22,7 @@ Describe 'Build-Readme' -Tag 'L0', 'logic' {
         $script:source = Join-Path $script:fake.Root 'docs/references/pwsh/foo.md'
 
         Mock Write-Message -ModuleName Catzc.Base.Docs { }
+        # The fixture root is not the loaded code root, which the run-mode guard reads as a built package; the guard is asserted apart below.
         Mock Assert-SourceTree -ModuleName Catzc.Base.Docs { }
         # The fake root is no git checkout, so the generated head reads no file as tracked.
         Set-GitTrackedPathMock
@@ -154,6 +155,7 @@ Describe 'Build-Readme — real readme.yml' -Tag 'L2', 'integrity', 'source-only
                 ForEach-Object { [System.IO.Path]::GetFileName($_) } |
                 Where-Object { -not $_.StartsWith('.') })
         $mapped = @($script:results.Folder)
+        # One Should over the violating set: a Should per module pays Pester's per-assertion cost across the whole pwsh/ tree.
         $violations = foreach ($module in $modules) {
             if ("$modulesFolder/$module" -notin $mapped) {
                 "$modulesFolder/$module has no docs/references/pwsh/<kebab>.md reference article"

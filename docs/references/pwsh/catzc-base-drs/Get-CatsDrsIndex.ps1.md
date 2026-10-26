@@ -1,7 +1,6 @@
 # pwsh/Base.Drs/private/Get-CatsDrsIndex.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Parses the ADR index into one entry per ADR, the code, title slug and path that `Show-Cats` presents.
 
 ## help
 
@@ -25,11 +24,8 @@ the cache keys on the path, so a fixture path and the real path never collide.
 
 `[object[]]` One { Code; Title; Path } per ADR row in the index.
 
-## comment:1
+## Cache
 
-Above `$script:catsAdrIndexCache = @{}`, written with `#`.
-
-```text
-strict-clean probe of the lazy cache entry
-([ADR-PWSH-CACHE-STRICTSAFEPROBE](/docs/drs/automation/pwsh/script-scope-caching.md#rule-adr-pwsh-cache-strictsafeprobe))
-```
+The result is memoized per index path in a script-scope table. The lazy entry is read with a strict-clean probe, so an unset script variable
+reads as null instead of throwing
+([ADR-PWSH-CACHE-STRICTSAFEPROBE](../../../drs/automation/pwsh/script-scope-caching.md#rule-adr-pwsh-cache-strictsafeprobe)).

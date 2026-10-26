@@ -1,7 +1,7 @@
 # pwsh/Base.Timeouts/configs/timeouts.yml
 
-The time-safeguard registry: how long a call may run before it is stopped, per run environment, shell, executable and command, and the limits
-of a test run.
+The time-safeguard registry: how long a call may run before it is stopped, per run environment, shell, executable and command, and the
+limits of a test run.
 
 ## What it holds
 
@@ -12,8 +12,8 @@ The consumers are:
 
 - `Invoke-Executable` (streamed mode) kills a child process that outlives its limit;
 - `Invoke-WithTimeout` and `Assert-CompletesWithin` stop a script block that outlives its limit;
-- the Claude Code PreToolUse hook (`.claude/hooks/Assert-BashTimeout/`, a C# program `Build-AgentHook` publishes on import) bounds every Bash
-  call an agent makes, foreground and background.
+- the Claude Code PreToolUse hook (`.claude/hooks/Assert-BashTimeout/`, a C# program `Build-AgentHook` publishes on import) bounds every
+  Bash call an agent makes, foreground and background.
 
 ## Keys
 
@@ -35,8 +35,8 @@ commands:
 `executables` holds per-executable limits, keyed by the executable's name without directory or extension (`dotnet`, not
 `C:\...\dotnet.exe`). These are the tools whose ordinary runs outlast the default.
 
-The run lock's `budget_seconds` is a run's whole budget, set under the 300 s call it runs in: a live holder is waited for until only the run's
-own wait is left of it, whatever deadline it declares, a burst until the budget is spent, then the run says when to retry.
+The run lock's `budget_seconds` is a run's whole budget, set under the 300 s call it runs in: a live holder is waited for until only the
+run's own wait is left of it, whatever deadline it declares, a burst until the budget is spent, then the run says when to retry.
 
 ## Resolution
 
@@ -46,6 +46,6 @@ A function whose work is long by nature declares its limit beside its code, as a
 
 ## Defaults
 
-Every key is optional: the sensible defaults are declared once, on `TimeoutsConfig`, so this file states only what has been tuned. The devbox
-defaults are deliberately tight while the blockers are tuned: a call that legitimately needs longer gets an entry under `executables` or a
-budget, not a raised default.
+Every key is optional: the sensible defaults are declared once, on `TimeoutsConfig`, so this file states only what has been tuned. The
+devbox defaults are deliberately tight while the blockers are tuned: a call that legitimately needs longer gets an entry under `executables`
+or a budget, not a raised default.

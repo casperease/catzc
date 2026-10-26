@@ -1,7 +1,6 @@
 # pwsh/Base.Drs/private/Get-DrsCodeLanguageViolations.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The private helper of `Test-DrsRegistry` that finds ADR codes and rule headings breaking the ADR code language.
 
 ## help
 
@@ -32,11 +31,7 @@ The docs/drs/ file index (Get-DrsFileIndex).
 
 `[string[]]` One finding per code, domain, rule heading, or ADR file with numbered rule headings, each ending with the rule it breaks.
 
-## comment:1
+## Domain codes
 
-Above `$prefix = $domain.Kind`, written with `#`.
-
-```text
-A domain code of several segments is one finding; its ADRs are held to its first segment. A kind one domain
-owns has no domain code.
-```
+A domain code of several segments is one finding, and its ADRs are held to its first segment. A kind that one domain owns has no domain
+code.

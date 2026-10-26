@@ -1,7 +1,7 @@
 # pwsh/Base.Engines/Get-ExecutionEngine.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The one public command of the engines module. It returns the three execution engines, pwsh, bash and zsh, as `ExecutionEngine` objects, so a
+caller asks the model what differs between the shells instead of restating it.
 
 ## help
 

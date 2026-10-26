@@ -1,20 +1,16 @@
 # pwsh/Base.Config/types/ConfigsConfig.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The typed record for the config registry, `configs/configs.yml`, and its validity rules. The registry binds each shipped config name to the
+C# config type `Get-Config` constructs it as; this type's only job is to enforce that shape at construction time, so a malformed registry
+can never produce an instance.
 
-## comment:1
+## Data model
 
-Above `using System;`, written with `//`.
+Under the top-level `configs` map, each entry is a map holding `type`, a non-blank C# type full name, and optionally `overridable`, a
+boolean where absent means true. `configs` is the only top-level key, and an absent or empty `configs` map is valid.
 
-```text
-The config registry (configs/configs.yml) and its validity rules. The registry binds each shipped config
-name to the C# config type Get-Config constructs it as; this type's only job is to enforce that shape at
-construction time, so a malformed registry can never produce an instance.
+## Properties
 
-The data model it guards: under the top-level `configs` map, each entry is a map holding `type` (a non-blank
-C# type FQN) and, optionally, `overridable` (a boolean; absent means true); `configs` is the only top-level
-key. An absent or empty `configs` map is valid. `configs` exposes the registry as config name -> type FQN, in
-file order; `sealedConfigs` names the entries a consumer overlay may not change (overridable: false — the
-engine-intrinsic configs, [ADR-AUTO-OVERLAY](/docs/drs/automation/consumer-overlay.md)).
-```
+- **`configs`** — the registry as config name to type full name, in file order.
+- **`sealedConfigs`** — the entries a consumer overlay may not change (`overridable: false`), the engine-intrinsic configs
+  ([ADR-AUTO-OVERLAY](../../../../drs/automation/consumer-overlay.md)).

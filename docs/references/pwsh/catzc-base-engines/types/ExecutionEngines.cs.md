@@ -1,24 +1,14 @@
 # pwsh/Base.Engines/types/ExecutionEngines.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The static home of the repository's execution engines: exactly three, pwsh, bash and zsh, declared once
+([ADR-AUTO-ENGINE](../../../../drs/automation/execution-engines.md)).
 
-## comment:1
+## Names
 
-Above `using System;`, written with `//`.
+Every list of engines in the codebase, such as config keys per shell, per-engine fixture columns or an engine argument's allowed values, is
+`Names`. Adding or changing an engine is one edit here.
 
-```text
-The repository's execution engines — exactly three, pwsh, bash and zsh, declared once
-([ADR-AUTO-ENGINE](/docs/drs/automation/execution-engines.md)). Every list of engines in the codebase — config keys
-per shell, per-engine fixture columns, an engine argument's allowed values — is Names, so adding or changing an
-engine is one edit here.
-```
+## zsh
 
-## comment:2
-
-Above `public static readonly ExecutionEngine Zsh = new ExecutionEngine(`, written with `//`.
-
-```text
-zsh: the third engine, the default login shell on macOS, located through its tools.yml entry. It shares bash's
-POSIX quoting and its importer entry, importer.sh, which runs under both.
-```
+zsh is the third engine, the default login shell on macOS, located through its `tools.yml` entry. It shares bash's POSIX quoting and its
+importer entry, `importer.sh`, which runs under both.

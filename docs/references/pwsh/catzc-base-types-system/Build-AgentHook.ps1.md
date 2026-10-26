@@ -1,7 +1,6 @@
 # pwsh/Base.TypesSystem/Build-AgentHook.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The command that publishes the Claude Code agent hooks, the small C# programs under `.claude/hooks/`, whose source has changed.
 
 ## help
 
@@ -57,39 +56,18 @@ Build-AgentHook
 Build-AgentHook -Name Assert-BashTimeout -Force
 ```
 
-## comment:1
+## Which sources count
 
-Above `$sources = @(Get-ChildPath $project -File -Filter '*.cs',`, written with `#`.
+The sources are the hook folder's `*.cs` and `*.csproj` files plus every linked `<Compile Include>` (the module types the hook compiles in),
+so a change to any of them republishes the hook.
 
-```text
-The sources are this folder's *.cs/*.csproj plus every linked <Compile Include> (the module types the hook
-compiles in), so a change to any of them republishes the hook.
-```
+## The program's name
 
-## comment:2
+The program's name is the project's `AssemblyName`, the one place it is set. The publish adds the platform's executable extension (if any),
+so the program is found as an application by that name, never by a guessed suffix.
 
-Above `$assemblyName = $projectXml.Project.PropertyGroup.AssemblyName | Where-Object...`, written with `#`.
+## No build server outlives the publish
 
-```text
-The program's name is the project's AssemblyName — the one place it is set. The publish adds the platform's
-executable extension (if any), so the program is found as an application by that name, never by a guessed suffix.
-```
-
-## comment:3
-
-Above ``Invoke-Executable "dotnet publish `"$csproj`" --configuration $configuration...``, written with `#`.
-
-```text
---disable-build-servers: no MSBuild node or compiler server outlives the publish. A server started here would
-inherit this call's output pipe and hold it open for its whole idle lifetime (minutes), so the caller — the
-importer, or a test run priming a snapshot — would wait on that pipe long after dotnet itself exited.
-```
-
-## comment:4
-
-Above ``Invoke-Executable "dotnet publish `"$csproj`" --configuration $configuration...``, written with `#`.
-
-```text
-No build server may outlive the publish: one would hold the caller's output pipe open for minutes after it
-ends.
-```
+The publish runs with `--disable-build-servers`: no MSBuild node or compiler server outlives it. A server started here would inherit the
+call's output pipe and hold it open for its whole idle lifetime (minutes), so the caller, the importer or a test run priming a snapshot,
+would wait on that pipe long after `dotnet` itself exited.

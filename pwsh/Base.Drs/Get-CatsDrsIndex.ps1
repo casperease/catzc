@@ -14,6 +14,7 @@ function Get-CatsDrsIndex {
     )
 
     if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:catsAdrIndexCache')) {
+        # Probed strict-clean: an unset script variable reads as null through SessionState instead of throwing.
         $script:catsAdrIndexCache = @{}
     }
     if ($script:catsAdrIndexCache.ContainsKey($IndexPath)) {
