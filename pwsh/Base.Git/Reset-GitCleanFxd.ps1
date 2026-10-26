@@ -6,6 +6,7 @@ catzc:
 ---
 #>
 
+# -DryRun, not ShouldProcess or -WhatIf: the branch comes before any side effect.
 function Reset-GitCleanFxd {
     [CmdletBinding()]
     param(
@@ -14,6 +15,7 @@ function Reset-GitCleanFxd {
 
     Assert-Command git
 
+    # git's own dry run gives the candidates, exactly what git clean -fxd would remove, with no second copy of ignore semantics.
     $listing = Invoke-Executable 'git clean -xdn' -PassThru -Silent
     $candidates = foreach ($line in ($listing.Output -split '\r?\n')) {
         if ($line -match '^Would remove (.+)$') {

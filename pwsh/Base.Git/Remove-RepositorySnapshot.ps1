@@ -25,6 +25,7 @@ function Remove-RepositorySnapshot {
         [System.IO.Directory]::Delete($Path, $true)
     }
     catch [System.UnauthorizedAccessException] {
+        # A named whole-tree walk: the read-only files are mostly git objects under .git, so nothing is pruned.
         foreach ($file in Get-ChildPath $Path -File -Depth 64 -Exclude @() -PruneVendor $false) {
             [System.IO.File]::SetAttributes($file, [System.IO.FileAttributes]::Normal)
         }

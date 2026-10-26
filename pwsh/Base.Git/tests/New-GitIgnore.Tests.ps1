@@ -8,6 +8,7 @@ catzc:
 
 Describe 'New-GitIgnore' -Tag 'L0', 'logic' {
     BeforeAll {
+        # Isolated through the config seam: one static section (a noted and a bare pattern) and one injected section.
         Mock Get-Config -ModuleName Catzc.Base.Git {
             [pscustomobject]@{
                 sections = @(

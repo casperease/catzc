@@ -14,6 +14,7 @@ function Get-TestTagViolations {
         $Discovery
     )
 
+    # Resolved on the first citation only, so a run with none never reads the rule ids.
     $validRuleIds = $null
     $form = (Get-Config -Config drs).CodeForm
     $citationTag = "^$($form.Kind)-"
@@ -43,7 +44,8 @@ function Get-TestTagViolations {
             $reasons += "category resolves to $($categoryTags.Count) (need exactly one of logic|integrity)$detail"
         }
 
-        $candidates = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
+        # Provenance axis: every tag with the reserved 'ADR-' marker across the block chain, then classified.
+        $candidates =[System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
         foreach ($tag in $test.Tag) {
             if ($tag -cmatch $citationTag) {
                 [void]$candidates.Add($tag)

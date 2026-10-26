@@ -26,6 +26,7 @@ function Get-TestBlockTag {
         $block = $block.Parent
     }
 
+    # The nearest level with a tag of this axis wins; two matches is an ambiguous block, flagged upstream.
     foreach ($levelTags in $levels) {
         $ret = @(
             foreach ($tag in $levelTags) {

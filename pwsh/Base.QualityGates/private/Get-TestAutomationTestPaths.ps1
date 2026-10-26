@@ -45,6 +45,7 @@ function Get-TestAutomationTestPaths {
         }
     }
 
+    # Each language test folder runs after its module's tests folder.
     foreach ($testFolder in @(Get-LanguageTestFolders)) {
         if ($Modules -and $testFolder.Module -notin $Modules) {
             continue

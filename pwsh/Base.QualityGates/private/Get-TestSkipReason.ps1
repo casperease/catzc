@@ -21,6 +21,7 @@ function Get-TestSkipReason {
 
     $message = "$($records[-1].Exception.Message)".Trim()
 
+    # Set-ItResult renders "is skipped, because <reason>".
     if ($message -match 'because\s+(.+?)\s*$') {
         $found = $Matches[1]
         return $found

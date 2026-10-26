@@ -23,6 +23,7 @@ function Get-ModuleProtectionIdentity {
         [hashtable] $HashCache
     )
 
+    # A holder, so the closure below fills it once and every set shares it.
     $universe = @{}
     $setHash = {
         param([string] $setName)
@@ -35,6 +36,7 @@ function Get-ModuleProtectionIdentity {
                 Get-GlobSetHash -Name repository -TrackedFile $tracked
             }
             else {
+                # A module folds its aspect sets' hashes, ordinal by name.
                 $sets = @(Get-ModuleGlobSet -Name $setName) | Sort-Object Name
                 $fold = [System.Text.StringBuilder]::new()
                 foreach ($set in $sets) {
@@ -61,11 +63,13 @@ function Get-ModuleProtectionIdentity {
         $widen = $true
     }
     elseif ($OutsideModulesFolder) {
+        # An unconstrained read set is unknown, so widen: skip less, never wrongly.
         $widen = $true
     }
     else {
         [void]$constituents.Add([Catzc.Base.Objects.NameCase]::Render($Module, 'kebab'))
 
+        # The declared closure; a group reference permits any member, so it expands to all.
         $dependencies = Get-Config -Config dependencies
         $moduleDeclarations = $dependencies.modules
 
@@ -118,6 +122,7 @@ function Get-ModuleProtectionIdentity {
         [void]$constituents.Add('repository')
     }
 
+    # The durable-sha fold: name|hash lines, ordinal by name.
     $names = [string[]]$constituents
     [System.Array]::Sort($names, [System.StringComparer]::Ordinal)
     $stringBuilder = [System.Text.StringBuilder]::new()

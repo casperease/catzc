@@ -27,6 +27,7 @@ function Invoke-ImprintStep {
     $outcome = [pscustomobject]@{ Changed = [string[]] @(); Unfixable = [System.Collections.Generic.Dictionary[string, string]]::new() }
     $absolute = { param([string] $Relative) [System.IO.Path]::GetFullPath([System.IO.Path]::Combine($root, $Relative)) }
 
+    # Each case returns early for no files: the adapter is proven, and no command defaults to the whole repository.
     switch -CaseSensitive ($Step) {
         'file-meta' {
             if ($File.Count -eq 0) {
@@ -59,6 +60,7 @@ function Invoke-ImprintStep {
             if ($File.Count -eq 0) {
                 return $outcome
             }
+            # The help lives on the comment page, so the step only reports what a person must settle.
             $commentPages = Get-Config -Config comment-pages
             foreach ($path in $File) {
                 # A path the index lists but the working tree has lost, a deletion not yet staged, has no help to check.
@@ -83,6 +85,7 @@ function Invoke-ImprintStep {
             if ($File.Count -eq 0) {
                 return $outcome
             }
+            # The comment page is the file's companion; paths stay absolute, as the link scope resolves relative ones elsewhere.
             $moved = @(Export-Comments -Path $File -RepositoryRoot $root -DryRun:$DryRun)
             $outcome.Changed = [string[]] @($moved | ForEach-Object { & $absolute $_ })
         }
@@ -90,11 +93,13 @@ function Invoke-ImprintStep {
             if ($File.Count -eq 0) {
                 return $outcome
             }
+            # Counts come from the plans beside each overlay, each folder rewritten once.
             $plans = Get-Config -Config plans
             $folders = @($File | ForEach-Object { [System.IO.Path]::GetDirectoryName([System.IO.Path]::GetFullPath($_)) } | Sort-Object -Unique)
             $outcome.Changed = [string[]] @(foreach ($folder in $folders) {
                     Update-PlanStepCount $folder -Config $plans -DryRun:$DryRun
                 })
+            # A rewritten overlay can lie outside -Path, so the step formats what it wrote.
             if (-not $DryRun -and $outcome.Changed.Count -gt 0) {
                 $null = Invoke-FormatterEngine -Engine prettier -File $outcome.Changed
             }

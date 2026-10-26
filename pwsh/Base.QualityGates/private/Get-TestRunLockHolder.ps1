@@ -31,6 +31,7 @@ function Get-TestRunLockHolder {
         }
     }
 
+    # Both [datetime] and string shapes are read as instants; a string cast would drop the zone.
     $toInstant = {
         param($value)
         if ($value -is [datetime]) {

@@ -44,6 +44,7 @@ function Get-TestAutomationVerdict {
         'Passed'
     }
 
+    # Invariant: a da-DK box would otherwise render '42,3s'.
     $seconds = [math]::Round($DurationSeconds, 1).ToString([System.Globalization.CultureInfo]::InvariantCulture)
     $summary = if ($result -eq 'Passed') {
         "$PassedCount passed, $SkippedCount skipped in ${seconds}s"

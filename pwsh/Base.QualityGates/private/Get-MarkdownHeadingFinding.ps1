@@ -79,6 +79,7 @@ function Get-MarkdownHeadingFinding {
         $words = $Heading
         $groups = [System.Collections.Generic.List[string]]::new()
         while ($words -match '^(?<head>.*?)\s*\((?<inner>[^()]*`[^()]*)\)\s*$') {
+            # Captured before the next -match overwrites $Matches.
             $head = $Matches['head']
             $inner = $Matches['inner']
             if ($head.Trim() -eq '' -or ($inner -replace '`[^`]*`', '') -notmatch $separatorsOnly) {

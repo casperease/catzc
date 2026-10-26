@@ -12,13 +12,16 @@ function Get-LanguageTestFolders {
     param()
 
     $repositoryRoot = Get-RepositoryRoot
+    # Per language with a runner: its root, its test-file pattern, and its modules by test folder.
     $languagesConfig = Get-Config -Config languages
     $testFolderName = $languagesConfig.FolderOf('test')
     $engineModules = @(Get-CatzcModule -EngineTrack)
     $moduleNames = @($engineModules.name.Where({ [Catzc.Base.Objects.NameCase]::IsInCase('pascal-dotted', $_) }))
+    # A test folder is named for its module's folder, without the track's namespace.
     $variants = Get-Config -Config variants
     $languages = @(foreach ($entry in $languagesConfig.languages) {
             if ($entry.tests) {
+                # Keyed by the test folder TestFolderOf names, so a folder maps back to the module it tests.
                 $modulesByFolder = @{}
                 foreach ($module in $moduleNames) {
                     $modulesByFolder[$languagesConfig.TestFolderOf($entry.name, $variants, $module)] = $module
@@ -36,7 +39,8 @@ function Get-LanguageTestFolders {
     $unmatched = [System.Collections.Generic.List[string]]::new()
     $records = [System.Collections.Generic.List[pscustomobject]]::new()
     foreach ($language in $languages) {
-        $testsRoot = [System.IO.Path]::GetFullPath([System.IO.Path]::Combine($repositoryRoot, $language.Root,
+        # The track's test holder: one folder per module, testing it from outside.
+        $testsRoot =[System.IO.Path]::GetFullPath([System.IO.Path]::Combine($repositoryRoot, $language.Root,
                 $testFolderName))
         if ([System.IO.Directory]::Exists($testsRoot)) {
             foreach ($folder in Get-ChildPath $testsRoot -Depth 1 -Directory -Exclude @() -PruneVendor $false) {
@@ -44,6 +48,7 @@ function Get-LanguageTestFolders {
                 if ($name.StartsWith('.')) {
                     continue
                 }
+                # Test files sit directly or in a package one level down; the third level is headroom.
                 if (-not @(Get-ChildPath $folder -File -Filter $language.Pattern -Depth 3).Count) {
                     continue
                 }

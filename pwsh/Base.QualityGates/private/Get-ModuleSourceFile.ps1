@@ -37,12 +37,14 @@ function Get-ModuleSourceFile {
 
         $testsPath = Join-Path $moduleDir $testFolderName
         if (Test-Path $testsPath) {
-            foreach ($script in Get-ChildPath $testsPath -File -Filter '*.Tests.ps1' -Depth 3) {
+            # Nested test code counts too; tests/assets/ holds no test files.
+            foreach ($script in Get-ChildPath $testsPath-File -Filter '*.Tests.ps1' -Depth 3) {
                 $files.Add($script)
             }
         }
     }
 
+    # Dot folders are no modules, but their authored PowerShell meets the same bar.
     $analyzerRoot = Join-Path $modulesRoot '.scriptanalyzer'
     if (Test-Path $analyzerRoot) {
         foreach ($script in [Catzc.Base.QualityGates.AnalyzerDrsMapConfig]::RuleFiles($modulesRoot)) {
@@ -56,6 +58,7 @@ function Get-ModuleSourceFile {
         }
     }
 
+    # .internal: the loader, the bootstrap and the shared library modules, with their tests.
     $internalRoot = Join-Path $modulesRoot '.internal'
     if (Test-Path $internalRoot) {
         foreach ($script in Get-ChildPath $internalRoot -File -Filter '*.psm1' -Depth 1) {
@@ -69,6 +72,7 @@ function Get-ModuleSourceFile {
         }
     }
 
+    # Shipped files outside the module tree: importer.ps1 and the one authored analyzer .psd1.
     $importerPath = Join-Path $root 'importer.ps1'
     if (Test-Path $importerPath) {
         $files.Add($importerPath)

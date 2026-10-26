@@ -12,11 +12,13 @@ function Get-LanguageTestExecutable {
     param()
 
     $languages = @(Get-LanguageTestFolders | ForEach-Object Language | Select-Object -Unique)
+    # A language that is an engine resolves with the engines below, not as a tool.
     $toolLanguages = @((Get-Config -Config languages).languages | Where-Object { $_.tests -and -not $_.tests.engine })
     $executables = @{}
     foreach ($language in $toolLanguages) {
         $executables[$language.name] = ''
     }
+    # The model's engines other than the running pwsh, which every language's tests also run under.
     $pwsh = [Catzc.Base.Engines.ExecutionEngines]::Pwsh.Name
     foreach ($engine in [Catzc.Base.Engines.ExecutionEngines]::All) {
         if ($engine.Name -eq $pwsh) {
@@ -36,6 +38,7 @@ function Get-LanguageTestExecutable {
         if ($language.name -notin $languages) {
             continue
         }
+        # Every named tool must resolve at its locked version; the runner takes the first one's path.
         $resolved = @(foreach ($tool in $language.tests.tools) {
                 Resolve-ToolExecutable -Tool $tool
             })

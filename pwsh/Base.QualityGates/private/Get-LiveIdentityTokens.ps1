@@ -13,6 +13,7 @@ function Get-LiveIdentityTokens {
 
     $ret = [System.Collections.Generic.List[object]]::new()
     $seen = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
+    # 'exact' flags a literal anywhere; 'position' flags an ambiguous word only bound to an identity parameter.
     $add = {
         param($token, $kind, $source, $suggest, $matchMode = 'exact')
         $value = "$token"
@@ -37,6 +38,7 @@ function Get-LiveIdentityTokens {
         param($entry, [string] $skipWhen)
         $skipWhen -and [bool] (& $childOf $entry $skipWhen)
     }
+    # A key steps in, '*' steps into every entry not set to skip, the path's end yields the value.
     $walk = {
         param($node, [string[]] $path, [int] $depth, $rule)
         if ($null -eq $node) {
@@ -70,6 +72,7 @@ function Get-LiveIdentityTokens {
         }
     }
 
+    # Each owning module declares the identities in its own configs.
     foreach ($owner in @(Get-Config -Config identity-tokens -ListOwners)) {
         $declaration = Get-Config -Config identity-tokens -Module $owner.Module
         foreach ($rule in $declaration.tokens) {
@@ -86,6 +89,7 @@ function Get-LiveIdentityTokens {
 
     # Shipped template names (<templates place>/<name>).
     $templatesPlace = Get-TrackPlace -Track vendor_azure.bicep -TrackKind templates
+    # Deployable-unit and pipeline names stay out: the generic ones are structural folder words.
     $templatesRoot = Join-Path (Get-RepositoryRoot) $templatesPlace
     if ([System.IO.Directory]::Exists($templatesRoot)) {
         foreach ($dir in Get-ChildPath $templatesRoot -Depth 1 -Directory -Exclude @() -PruneVendor $false) {

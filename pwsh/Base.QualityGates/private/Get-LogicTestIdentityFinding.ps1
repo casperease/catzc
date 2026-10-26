@@ -30,6 +30,7 @@ function Get-LogicTestIdentityFinding {
     $parseErrors = $null
     $ast = [System.Management.Automation.Language.Parser]::ParseFile($Path, [ref]$parseTokens, [ref]$parseErrors)
 
+    # Predicates bound to locals, never inlined in a FindAll call.
     $isCommandNode = {
         param($node)
         $node -is [System.Management.Automation.Language.CommandAst]
@@ -40,6 +41,7 @@ function Get-LogicTestIdentityFinding {
     }
     $commands = $ast.FindAll($isCommandNode, $true)
 
+    # One walk: is there a logic tag, and where are the integrity blocks whose literals are carved out.
     $hasLogic = $false
     $integrityRanges = [System.Collections.Generic.List[object]]::new()
     foreach ($command in $commands) {
@@ -98,6 +100,7 @@ function Get-LogicTestIdentityFinding {
         $false
     }
 
+    # Exact pass: a distinctive identity as a bare literal outside an integrity block.
     $literals = $ast.FindAll($isStringLiteral, $true)
     foreach ($literal in $literals) {
         $value = $literal.Value
@@ -108,6 +111,7 @@ function Get-LogicTestIdentityFinding {
         if ($record.MatchMode -ne 'exact') {
             continue
         }
+        # A hashtable key names a parameter or property, never a value.
         $parent = $literal.Parent
         if ($parent -is [System.Management.Automation.Language.HashtableAst] -and
             @($parent.KeyValuePairs | Where-Object { [object]::ReferenceEquals($_.Item1, $literal) }).Count) {
@@ -127,7 +131,8 @@ function Get-LogicTestIdentityFinding {
             })
     }
 
-    $identityParameters = 'Environment', 'Env', 'Shortcode'
+    # Position pass: an ambiguous identity counts only when bound to an identity parameter.
+    $identityParameters ='Environment', 'Env', 'Shortcode'
     foreach ($command in $commands) {
         $elements = $command.CommandElements
         for ($i = 0; $i -lt $elements.Count - 1; $i++) {

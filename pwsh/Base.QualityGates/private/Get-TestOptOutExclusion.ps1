@@ -30,6 +30,7 @@ function Get-TestOptOutExclusion {
     $excludedByFile = [ordered]@{}
     $runnableFiles = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
 
+    # Get-TestBlockTag returns one array object; wrapping it in @() would make every count 1.
     foreach ($test in @($Discovery.Tests)) {
         # The test's run file: its test file, or the Go test folder of a Go bridge test.
         $file = Get-TestRunFile -Test $test

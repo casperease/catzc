@@ -66,6 +66,7 @@ function Import-RepositoryWithHistory {
         return [pscustomobject]@{ Name = $Name; Address = $address; Source = $Source; Ref = $sourceRef; Commits = $null }
     }
 
+    # The history move: fetch the source ref, read its tree in under the address, and record one merge commit with both parents.
     $git = "git -C `"$root`""
     Invoke-Executable "$git fetch --quiet --no-tags `"$Source`" `"$sourceRef`"" -PassThru -Silent | Out-Null
     $fetched = (Invoke-Executable "$git rev-parse FETCH_HEAD" -PassThru -Silent).Output.Trim()

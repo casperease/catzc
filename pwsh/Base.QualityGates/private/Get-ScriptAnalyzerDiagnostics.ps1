@@ -27,12 +27,14 @@ function Get-ScriptAnalyzerDiagnostics {
     }
 
     $fullRoot = [System.IO.Path]::GetFullPath((Get-RepositoryRoot))
-    $spellingRule = 'Measure-CatzcSpelling'
+    # Two passes, each cached on its own inputs: a dictionary edit re-runs the spelling pass alone.
+    $spellingRule ='Measure-CatzcSpelling'
     $passes = @(
         [pscustomobject]@{ Label = 'rules'; Cache = 'script-analyzer.json'; IncludeRule = @(); ExcludeRule = @($spellingRule) }
         [pscustomobject]@{ Label = 'spelling'; Cache = 'script-analyzer-spelling.json'; IncludeRule = @($spellingRule); ExcludeRule = @() }
     )
 
+    # A file last found clean, whose bytes and analyzer inputs are unchanged, is skipped.
     $batch = [System.Collections.Generic.List[object]]::new()
     foreach ($pass in $passes) {
         $inputs = Get-ScriptAnalyzerInputs -RepositoryRoot $fullRoot -SettingsPath $SettingsPath -Pass $pass.Label

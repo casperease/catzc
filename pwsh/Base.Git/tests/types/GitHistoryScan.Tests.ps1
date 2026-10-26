@@ -8,6 +8,7 @@ catzc:
 
 Describe 'GitHistoryScan' -Tag 'L0', 'logic' {
     BeforeAll {
+        # A hand-built cat-file --batch stream; ids are made up, since the scan indexes by id and never re-hashes.
         function script:New-ObjectId {
             param([int] $Number)
             '{0:x40}' -f $Number
@@ -37,6 +38,7 @@ Describe 'GitHistoryScan' -Tag 'L0', 'logic' {
             New-Text ($lines -join "`n")
         }
 
+        # Two commits: a clean root plus a token in a tree; then the token in the message, a binary, a vendored copy and a path.
         $ids = @{}
         foreach ($name in 'clean', 'secret', 'binary', 'gadgetTree', 'vendorTree', 'tree1', 'tree2', 'commit1',
             'commit2', 'unreachable') {

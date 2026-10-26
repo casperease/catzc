@@ -29,9 +29,11 @@ function Get-LanguageTestOutcomes {
 
         [string] $EngineExecutable,
 
+        # A module's own tests/ or the holder's; empty, the runner finds the holder's.
         [string] $Folder
     )
 
+    # The registry names the runner; a language without a tests entry has nothing to run.
     $entry = @((Get-Config -Config languages).languages | Where-Object { $_.name -ceq $Language })
     $tests = if ($entry.Count -eq 1) {
         $entry[0].tests
@@ -67,9 +69,11 @@ function Get-LanguageTestOutcomes {
         $run['Folder'] = $Folder
     }
     if ($tests.engine) {
+        # A language that is an engine runs its tests under that engine only.
         $run.Remove('Engine')
     }
     $run[$tests.executable_parameter] = $Executable
+    # A runner in no engine (node's) gets only the parameters it declares.
     $declared = (Get-Command $tests.runner).Parameters
     foreach ($name in @($run.Keys)) {
         if (-not $declared.ContainsKey($name)) {

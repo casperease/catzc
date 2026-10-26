@@ -16,6 +16,7 @@ function Get-LinkScope {
         [string[]] $Path
     )
 
+    # Never a whole drive: '.' run from C:\ would be all of C:.
     $isDiskRoot = {
         param([string] $FullPath)
         $FullPath.TrimEnd('\', '/') -eq ([System.IO.Path]::GetPathRoot($FullPath)).TrimEnd('\', '/')
@@ -28,6 +29,7 @@ function Get-LinkScope {
             $full = [System.IO.Path]::GetFullPath((Resolve-Path -LiteralPath $item).Path)
             Assert-False (& $isDiskRoot $full) -ErrorText "Get-LinkScope: -Path '$item' resolves to the disk root '$full' — refusing to scan a whole drive."
             $found = if (Test-Path -LiteralPath $full -PathType Container) {
+                # Tracked files reach nine levels down; ten leaves one of headroom.
                 Get-ChildPath $full -File -Depth 10
             }
             else {

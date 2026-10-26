@@ -4,6 +4,7 @@
 #   header: "generated"
 # ---
 
+# The one source of the root .gitignore: each section renders as a titled, explained block; an inject section takes its patterns from the caller.
 sections:
   - id: local
     title: Local, never-committed files

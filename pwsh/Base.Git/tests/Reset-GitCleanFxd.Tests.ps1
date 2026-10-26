@@ -7,6 +7,7 @@ catzc:
 #>
 
 Describe 'Reset-GitCleanFxd' -Tag 'L0', 'logic' {
+    # git's dry-run listing is the one boundary; the whitelist is mocked, so only classification is exercised.
     BeforeEach {
         Mock Assert-Command { } -ModuleName Catzc.Base.Git
         Mock Get-AutoControlledGlobs { @('out', 'out/*', '*/README.md', '.vscode',

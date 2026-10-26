@@ -18,6 +18,7 @@ function New-GitIgnore {
     $lines = [System.Collections.Generic.List[string]]::new()
 
     foreach ($section in $config.sections) {
+        # Static from the registry, or injected by the caller; a provider the caller did not supply fails, never renders a partial file.
         $patterns = @(if ($section.inject) {
                 if (-not $Inject.ContainsKey($section.inject)) {
                     throw "gitignore section '$($section.id)' names inject provider '$($section.inject)', which the caller did not supply. Providers given: $(if ($Inject.Keys.Count) { $Inject.Keys -join ', ' } else { '(none)' })."

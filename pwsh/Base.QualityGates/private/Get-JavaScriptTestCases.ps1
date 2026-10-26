@@ -16,6 +16,7 @@ function Get-JavaScriptTestCases {
 
     Assert-PathExist $Folder -PathType Container
     $integrityPrefix = [Catzc.Base.Languages.JavaScriptTestResult]::IntegrityPrefix
+    # A case is a top-level test() call whose one string literal is the name node reports.
     $declaration = [regex]::new('(?m)^test(?:\.skip)?\((?:"(?<name>[^"]+)"|''(?<name>[^'']+)''|`(?<name>[^`$]+)`)')
 
     $files = @(Get-ChildPath $Folder -File -Filter '*.test.js' -Depth 3)

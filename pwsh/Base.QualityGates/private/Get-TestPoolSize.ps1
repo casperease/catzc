@@ -23,5 +23,6 @@ function Get-TestPoolSize {
         [int] $GreedyGroupSize
     )
 
+    # Every shard starts with the run, and the greedy files get workers of their own up to the group size.
     [Math]::Max($ParallelShardCount + [Math]::Min($GreedyGroupSize, $GreedyFileCount), 1)
 }

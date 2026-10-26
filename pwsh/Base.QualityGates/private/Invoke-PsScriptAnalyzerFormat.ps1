@@ -51,10 +51,12 @@ function Invoke-PsScriptAnalyzerFormat {
         }
     }
 
-    $shardCount = [Math]::Min([Math]::Max(1, [Math]::Min([Environment]::ProcessorCount - 1, 4)),
+    # A cold pass costs about 40 ms a file, so a large batch shards across a few processes.
+    $shardCount =[Math]::Min([Math]::Max(1, [Math]::Min([Environment]::ProcessorCount - 1, 4)),
         [int][Math]::Floor($File.Count / 25))
     if ($shardCount -lt 2) {
         if (-not (Get-Module PSScriptAnalyzer)) {
+            # The vendored import takes seconds, so it is announced first.
             Write-Message 'Loading PSScriptAnalyzer (first use this session)...'
             Import-Module (Join-Path (Get-CatzcModulesRoot) '.vendor/PSScriptAnalyzer') -Force
         }

@@ -14,6 +14,7 @@ function Get-TestRuleTags {
         $Test
     )
 
+    # Get-TestBlockTag's walk, but unioned across every level rather than stopping at the first.
     $levels = [System.Collections.Generic.List[object]]::new()
     $levels.Add($Test.Tag)
     $block = $Test.Block
@@ -26,6 +27,7 @@ function Get-TestRuleTags {
     $ids = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
     foreach ($levelTags in $levels) {
         foreach ($tag in $levelTags) {
+            # Only a well-formed code counts; a malformed tag is Get-TestTagViolations' concern.
             if ($form.IsRule($tag)) {
                 [void]$ids.Add($tag)
             }

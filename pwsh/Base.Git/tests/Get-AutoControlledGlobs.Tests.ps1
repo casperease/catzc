@@ -8,6 +8,7 @@ catzc:
 
 Describe 'Get-AutoControlledGlobs' -Tag 'L0', 'logic' {
     BeforeEach {
+        # One gitignored managed target (whitelisted), one committed one (never whitelisted), one not opted in.
         Mock Get-Config {
             [pscustomobject]@{
                 files = @(
@@ -91,6 +92,7 @@ Describe 'Get-AutoControlledGlobs' -Tag 'L0', 'logic' {
         & $isControlled 'docs/drs/glossary.md' | Should -BeFalse
         & $isControlled 'docs/drs/repository/new-draft.md' | Should -BeFalse
         & $isControlled 'out/report-widget.md' | Should -BeTrue
+        # Authored plan files are working notes, not output.
         & $isControlled 'out/plan-widget.md' | Should -BeFalse
         & $isControlled "$modules/Catzc.Base.Git/New-Draft.ps1" | Should -BeFalse
         & $isControlled "$modules/.compiled/Catzc.Types.abc123.dll" | Should -BeTrue

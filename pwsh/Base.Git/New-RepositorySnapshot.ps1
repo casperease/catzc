@@ -41,6 +41,7 @@ function New-RepositorySnapshot {
         try {
             Invoke-Executable "git clone --quiet --shared --no-checkout `"$SourceRoot`" `"$Destination`"" -PassThru -Silent | Out-Null
 
+            # The provenance marker goes in first, so a cleanup recognises even a half-built snapshot as one it may delete.
             $marker = [ordered]@{
                 sourceRoot = $SourceRoot
                 commit     = $commit
@@ -50,9 +51,11 @@ function New-RepositorySnapshot {
             [System.IO.File]::WriteAllText([Catzc.Base.Git.GitWorkTree]::SnapshotMarker($Destination),
                 (ConvertTo-Json -InputObject $marker), [System.Text.UTF8Encoding]::new($false))
 
+            # The committed form checks the commit out in the snapshot itself, so nothing of the working tree reaches it to verify.
             if ($Committed) {
                 $checkoutSeconds = Get-TimeoutSeconds -Command 'New-RepositorySnapshot'
                 Invoke-Executable "git -C `"$Destination`" checkout --quiet --detach $commit" -PassThru -Silent -TimeoutSeconds $checkoutSeconds | Out-Null
+                # Status counts against HEAD: '1', '2' and 'u' lines are changed entries, '?' lines untracked files.
                 $modified = 0
                 $deleted = 0
                 $untracked = 0
@@ -70,6 +73,7 @@ function New-RepositorySnapshot {
                     [void]$relativePaths.Add($line)
                 }
             }
+            # A folder renamed only in case keeps its old case in the index, so each target takes its source folder's name on disk.
             $diskFolders = @{}
             foreach ($relativePath in $relativePaths) {
                 $sourceFile = Join-Path $SourceRoot $relativePath
@@ -82,6 +86,7 @@ function New-RepositorySnapshot {
                 foreach ($segment in @($relativePath -split '/' | Select-Object -SkipLast 1)) {
                     $listed = "$listed/$segment"
                     if (-not $diskFolders.ContainsKey($listed)) {
+                        # The bounded walker, one level, nothing pruned: a tracked file under .vendor or out keeps its folder's case too.
                         $found = @([Catzc.Base.Folders.FolderWalker]::Walk([System.IO.Path]::Join($SourceRoot, $onDisk),
                                 1, [string[]] @($segment), $false, $true, [string[]] @()))
                         $diskFolders[$listed] = [System.IO.Path]::Join($onDisk,
@@ -95,6 +100,7 @@ function New-RepositorySnapshot {
                 [System.IO.File]::Copy($sourceFile, $targetFile, $true)
             }
 
+            # The snapshot's status must equal the source's; --no-optional-locks keeps the source's index untouched by the check.
             $statusCommand = 'git --no-optional-locks -C "{0}" -c core.quotepath=off status --porcelain=v2 --untracked-files=all'
             $sourceStatus = @((Invoke-Executable ($statusCommand -f $SourceRoot) -PassThru -Silent).Output -split '\r?\n' | Where-Object { $_ })
             $snapshotStatus = @((Invoke-Executable ($statusCommand -f $Destination) -PassThru -Silent).Output -split '\r?\n' | Where-Object { $_ })

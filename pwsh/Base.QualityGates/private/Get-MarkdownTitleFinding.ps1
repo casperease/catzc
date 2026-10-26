@@ -74,6 +74,7 @@ function Get-MarkdownTitleFinding {
     }
 
     if ($kind -eq 'PathTitle') {
+        # The H1 takes the subtitle's text; a blank line keeps it apart from a following body line.
         $lines.RemoveRange($titleIndex, $subtitleIndex - $titleIndex + 1)
         $lines.Insert($titleIndex, $expected)
         $next = $titleIndex + 1

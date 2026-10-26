@@ -29,7 +29,8 @@ function Invoke-BicepFormat {
     $folder = Join-Path ([System.IO.Path]::GetTempPath()) "catzc-bicep-format-$([guid]::NewGuid().ToString('N'))"
     [System.IO.Directory]::CreateDirectory($folder) | Out-Null
     try {
-        $copies = [string[]]::new($File.Count)
+        # Numbered copies keep their extension, so same-named files never collide.
+        $copies =[string[]]::new($File.Count)
         for ($index = 0; $index -lt $File.Count; $index++) {
             $copies[$index] = Join-Path $folder "$index$([System.IO.Path]::GetExtension($File[$index]))"
             [System.IO.File]::Copy($File[$index], $copies[$index])

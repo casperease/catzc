@@ -32,7 +32,8 @@ function Get-ParameterTypeConflict {
                 if (-not $constraint) {
                     continue
                 }
-                $reflected = $constraint.TypeName.GetReflectionType()
+                # Through .NET, an accelerator and its full name are one type; an unresolved one keeps its written name.
+                $reflected =$constraint.TypeName.GetReflectionType()
                 if ($reflected -and $reflected.IsArray) {
                     $reflected = $reflected.GetElementType()
                 }

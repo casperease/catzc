@@ -21,6 +21,7 @@ function Get-AutoControlledGlobs {
         }
     }
 
+    # The gitignored members whose writer is a generator: a glob as written, a folder glob as its folder and its contents.
     $targets = @(Get-GeneratedTarget)
     foreach ($member in @(Get-TrackMember -Committed $false)) {
         $written = $member.generated -or @($targets | Where-Object {
@@ -41,6 +42,7 @@ function Get-AutoControlledGlobs {
             $ret.Add("$folder/*")
         }
         else {
+            # Generated members, module manifests among them; vendored .psd1 are committed, so never clean candidates.
             $ret.Add($member.path)
         }
     }
@@ -49,6 +51,7 @@ function Get-AutoControlledGlobs {
     $ret.Add('README.md')
     $ret.Add('*/README.md')
 
+    # Generated cspell dictionaries, regenerated at the importer tail.
     $ret.Add('.cspell')
     $ret.Add('.cspell/*')
 

@@ -9,6 +9,7 @@ catzc:
 # cspell:ignore blåbær  -- the non-ASCII fixture path
 Describe 'GitIndex' -Tag 'L0', 'logic' {
     BeforeAll {
+        # Index bytes by hand: entries, a raw -Extension, and a SHA-1 trailer (zeros with -ZeroChecksum, as under index.skipHash).
         function New-GitIndexBytes {
             param([object[]] $Entry = @(), [int] $Version = 2, [byte[]] $Extension = @(), [switch] $ZeroChecksum)
 

@@ -35,6 +35,7 @@ function Get-ScriptAnalyzerInputs {
             else {
                 '*.ps*1'
             }
+            # Rule files sit directly in .scriptanalyzer, the manifest one version folder down.
             foreach ($file in @(Get-ChildPath $folder -File -Filter $pattern -Depth 3 -PruneVendor $false | Sort-Object)) {
                 if ($file -match '[\\/]tests[\\/]') {
                     continue
