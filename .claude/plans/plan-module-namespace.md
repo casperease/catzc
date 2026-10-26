@@ -38,10 +38,7 @@ form from the short one, declared once on the track (`ADR-AUTO-DEFAULT-ONERESOLU
 
 ## Open steps
 
-1. [ ] **The manual test plan covers the new integrity blocks** (catzc-ed's red sweep): six integrity blocks added in phase 2 have no
-       manual-test-plan section yet (Build-WidthConfigs, Build-TrackGlobSets, Build-EnglishDictionary, ConvertTo-PesterRunTarget,
-       Test-GeneratedFiles, plus the count of 212 checks for 217 blocks). Check: `Test-ManualTestPlan` reports no issues.
-2. [ ] **Full import in a fresh session**, the last step (`importer-path-edits-break-every-session`), after the user's contract-group run
+1. [ ] **Full import in a fresh session**, the last step (`importer-path-edits-break-every-session`), after the user's contract-group run
        and the staging item in `task-user-runs-and-commits.md`: `. ./importer.ps1` in a new `pwsh` before anything else runs, then
        `Test-ManualTestPlan`, `Test-GeneratedFiles`, `Test-Links`, `Test-Comments`, `Test-FileMeta` and `Test-TrackNamespace`. Check: the
        import ends without error, `Get-Module Catzc.*` lists the same 56 full names as `out/ns3/before.txt`, and every gate reports none.

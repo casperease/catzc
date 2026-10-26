@@ -142,9 +142,9 @@ final full run last.
 
 28. plan-module-namespace: run `pwsh -NoProfile -File out/ns5/Rename-CasePages.ps1` from the repository root, then commit with the rest of
     the working tree. It stages the last phase-2 renames: the seven comment pages under `docs/references/pwsh/` whose case-only rename git
-    cannot see (`core.ignorecase` is true), each as two `git mv` steps through a temporary name. It stops on the first git error, and a
-    page already staged is skipped. `-WhatIf` prints the 14 commands first. Check: `git ls-files docs/references | grep -cE
-    'VSCode|PSModulePath'` prints 0, and `git status` is clean.
+    cannot see (`core.ignorecase` is true), each as two `git mv` steps through a temporary name. It stops on the first git error, and a page
+    already staged is skipped. `-WhatIf` prints the 14 commands first. Check:
+    `git ls-files docs/references | grep -cE 'VSCode|PSModulePath'` prints 0, and `git status` is clean.
 29. The final full run, in a fresh session, when the chunks in plan-master have landed. Once it is green and committed, the work is done and
     every plan, task and prompt in `.claude/plans` is deleted (the user, 2026-10-20). Check: `.claude/plans` is empty.
 
