@@ -29,12 +29,9 @@ names are checked against the surfaces.
 
 1. [ ] Format-Code -Language json selects no file under `contracts/` (0 of 0), so the generated types.json are formatter-clean only by the
        writer's own form (0 of 44 changed off-tree). Check: Format-Code -Language json on a types.json reports 1 file checked.
-2. [ ] A peer that imports while a C# + .ps1 burst's steps run (after the swap) loads the new .ps1 against its old types build; the importer
-       waits on the run lock for the whole burst, not just the swap, when the burst staged a .cs. Check: a peer import during such a burst
-       waits, then loads green.
-3. [ ] Format-Types resolves a staged .cs copy under `out/` to no manifest and imprints its namespace without `Catzc`; Get-ModuleFullName
+2. [ ] Format-Types resolves a staged .cs copy under `out/` to no manifest and imprints its namespace without `Catzc`; Get-ModuleFullName
        (or Format-Types) maps a staged path to its live module folder through the burst's `.burst-base` mirror. Check: Format-Code on a
        staged copy of a `types/*.cs` leaves `namespace Catzc.<Module>;`.
-4. [ ] A burst's journal lives beside its staged folder, so an `out/` wipe mid-burst (one at about 15:22 on 2026-10-26 removed a staged
+3. [ ] A burst's journal lives beside its staged folder, so an `out/` wipe mid-burst (one at about 15:22 on 2026-10-26 removed a staged
        burst and its scripts) loses the only copy of what a rollback restores; the journal lives outside `out/`, or the burst refuses to
        swap without it. Check: a burst whose journal folder is deleted mid-run still restores, or refuses to swap.

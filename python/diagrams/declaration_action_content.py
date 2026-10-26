@@ -22,8 +22,8 @@ from .declaration_constants import (
 )
 from .declaration_dump import _flow, entry
 from .declaration_vocabulary import DeclarationError, choices
-from .kit_yaml import load_yaml
 from .drawio_png import DEFAULTS
+from .kit_yaml import load_yaml
 
 
 def contract_call(raw, where, what):

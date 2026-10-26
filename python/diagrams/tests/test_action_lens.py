@@ -15,9 +15,10 @@ from pathlib import Path
 import pytest
 import yaml
 from catzc.diagrams import declaration, declaration_settings
+from catzc.diagrams.module_paths import REPO
 
 FIXTURES = Path(__file__).resolve().parent / "action-lens"
-OUT = Path(__file__).resolve().parents[3] / "out" / "drawio"
+OUT = REPO / "out" / "drawio"
 
 
 def sample(name="action-sample"):

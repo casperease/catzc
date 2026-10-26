@@ -14,7 +14,6 @@ import base64
 import io
 import re
 from functools import cache
-from pathlib import Path
 
 from PIL import Image, ImageDraw
 

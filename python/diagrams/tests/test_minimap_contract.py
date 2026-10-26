@@ -4,13 +4,10 @@ usage (repo root, background): timeout 120 uv run -q --project python python -m 
 """
 
 import json
-from pathlib import Path
 
 import jsonschema
 import pytest
 from catzc.diagrams import minimap_contract
-
-KIT = Path(__file__).resolve().parents[1]
 
 SAMPLE = minimap_contract.SCHEMA.with_name("minimap.sample.json")
 

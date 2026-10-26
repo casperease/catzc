@@ -97,6 +97,7 @@ from .declaration_sync import (
 )
 from .declaration_vocabulary import EDGE_KINDS, EDGE_LABELS, EDGE_SEMANTICS, GLYPH_KINDS, LIB, DeclarationError, choices, span_vocabulary
 from .drawio_png import DEFAULTS, paint, plain, render, style_map
+from .module_paths import REPO
 
 __all__ = [
     "ACTION",
@@ -224,7 +225,7 @@ def main():
         return
     if len(args) == 3 and args[0] == "carry":  # the declaration moved to the other carrier
         where, png = carry(diagram_of(args[1]), args[2])
-        target = png.resolve().relative_to(KIT.parents[1]).as_posix() if png.resolve().is_relative_to(KIT.parents[1]) else png
+        target = png.resolve().relative_to(REPO).as_posix() if png.resolve().is_relative_to(REPO) else png
         print(f"carry {where}; render with: Build-Diagrams -Path {target}")
         return
     if len(args) in (3, 4) and args[0] == "rekey":  # a moved stem's roles: entries re-keyed, in the kit's drawio.yml or the given one

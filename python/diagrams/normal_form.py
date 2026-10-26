@@ -8,10 +8,9 @@ programmed once, on LanguagesConfig, and shown in the shipped file; a file witho
 
 import re
 from functools import cache
-from pathlib import Path
 
 from .kit_yaml import load_yaml
-from .module_paths import REPO, module_file
+from .module_paths import module_file
 
 LANGUAGES = module_file("Catzc.Base.Languages", "configs", "languages.yml")
 

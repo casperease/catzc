@@ -145,14 +145,13 @@ final full run last.
     kind and its cross-check (`ContractAssetKind.cs`, `ContractAsset.cs`, `ContractLayout.cs`, `ContractCommand.cs` with their comment
     pages, `Get-ContractAssetKind.ps1`, `Resolve-ContractAsset.ps1`, `Get-ContractCheckResult.ps1`, `Build-ContractReference.ps1`, the new
     `Get-ContractTypeFindings.ps1` and its test, `Test-Contracts.ps1`); the writer, drift and manifest (`pwsh/.internal/assets/types/`,
-    `Import-CSharpTypes.ps1`, `Get-CommittedTypesDrift.ps1`, their tests); the burst journal (`Invoke-StagedBurst.ps1` and its tests, the new
-    `Save-BurstJournalWrite.ps1`, its test and `burst-journal.psd1`, `Catzc.Internal.Types.psm1`, `Write-FileIfChanged.ps1` and its test);
-    the registrations (`generated-files.yml`, `Base.TypesSystem/configs/generated.yml`); and the rule text (`api-contracts.md`,
+    `Import-CSharpTypes.ps1`, `Get-CommittedTypesDrift.ps1`, their tests); the burst journal (`Invoke-StagedBurst.ps1` and its tests, the
+    new `Save-BurstJournalWrite.ps1`, its test and `burst-journal.psd1`, `Catzc.Internal.Types.psm1`, `Write-FileIfChanged.ps1` and its
+    test); the registrations (`generated-files.yml`, `Base.TypesSystem/configs/generated.yml`); and the rule text (`api-contracts.md`,
     `caching.md`, `native-csharp-types.md`, `csharp-types.md`). Before committing, check `git status` on `contracts/`: an earlier `git add`
-    staged the types.json while they were briefly deleted on disk. Separately, untrack
-    the old hash-named manifest with `out/untrack-compiled.ps1` (`git rm --cached -r pwsh/.compiled`; the folder is gitignored). Check:
-    `git ls-files pwsh/.compiled` prints nothing, `git status --short contracts` is clean, and `Test-BuildArtifact -Facet Types` reports no
-    issues.
+    staged the types.json while they were briefly deleted on disk. Separately, untrack the old hash-named manifest with
+    `out/untrack-compiled.ps1` (`git rm --cached -r pwsh/.compiled`; the folder is gitignored). Check: `git ls-files pwsh/.compiled` prints
+    nothing, `git status --short contracts` is clean, and `Test-BuildArtifact -Facet Types` reports no issues.
 
 28. Blocked: plan-reference-normal-form steps 1 and 2 are rebuilt first (their staging and this step's script were lost when out/ was
     cleared on 2026-10-26), then the orchestrator hands this step its script under out/. Once unblocked: plan-reference-normal-form step 3,

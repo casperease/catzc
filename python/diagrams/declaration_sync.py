@@ -13,7 +13,7 @@ from PIL import Image
 from PIL.PngImagePlugin import PngInfo
 
 from . import declaration_settings, minimap_contract
-from .declaration_constants import ACTION_LENS, DERIVED, DERIVED_PREFIXES, KINDS, KIT, PROOF_LENS, SLIDE, SOURCE
+from .declaration_constants import ACTION_LENS, DERIVED, DERIVED_PREFIXES, KINDS, PROOF_LENS, SLIDE, SOURCE
 from .declaration_dump import flow_yaml, print_width
 from .declaration_expand import drawn, undrawn
 from .declaration_finish import to_xml
@@ -25,6 +25,7 @@ from .declaration_source import article_block, blocks_in, carrier_of, diagram_of
 from .declaration_vocabulary import EDGE_LABELS, DeclarationError
 from .drawio_png import THEMES, decode, encode, mxfile_chunk, render
 from .kit_yaml import load_yaml
+from .module_paths import REPO
 
 
 def uniform_label(content):
@@ -64,7 +65,7 @@ def put_png(folder, declaration, theme=None):
     img = render(ET.fromstring(model), page="model").convert("RGB")  # the model's own page: its theme's
     info = PngInfo()
     info.add_text("mxfile", encode(model, declaration["content"]["lens"]))
-    dst = slide_of(folder) if theme == THEMES[0] else KIT.parents[1] / "out" / "drawio" / "themes" / theme / slide_of(folder).name
+    dst = slide_of(folder) if theme == THEMES[0] else REPO / "out" / "drawio" / "themes" / theme / slide_of(folder).name
     dst.parent.mkdir(parents=True, exist_ok=True)
     img.save(dst, "PNG", pnginfo=info)
     return dst
@@ -75,7 +76,7 @@ def minimap_data(folder):
     <id>.json holds each, its computed lit cells less the ones the declaration excludes, checked against the minimap contract. Missing
     data fails, naming the commands that write it."""
     folder = diagram_of(folder).resolve()
-    repo = KIT.parents[1]
+    repo = REPO
     rel = folder.relative_to(repo).as_posix() if folder.is_relative_to(repo) else folder.name
     root = repo / "out" / "minimaps" / rel
     index = root / "minimaps.json"

@@ -8,9 +8,10 @@ from pathlib import Path
 import yaml
 
 from . import edge_rules
-from .declaration_constants import ABOUT_KEYS, CONTENT_KEYS, KIT, OPERATORS
+from .declaration_constants import ABOUT_KEYS, CONTENT_KEYS, OPERATORS
 from .declaration_edges import end_kinds
 from .declaration_vocabulary import LIB, DeclarationError, choices
+from .module_paths import REPO
 
 
 def entry(item, keys, where, what, optional=None):
@@ -86,7 +87,7 @@ def dump(declaration):
 
 def print_width(root=None):
     """The longest printed line: max_line_length under [*.md] in the repository root's .editorconfig, read at print time, never copied."""
-    path = Path(root or KIT.parents[1]) / ".editorconfig"
+    path = Path(root or REPO) / ".editorconfig"
     if not path.is_file():
         raise DeclarationError(f"{path}: not found, so the print width ([*.md] max_line_length) cannot be read")
     section = None
