@@ -166,9 +166,12 @@ final full run last.
     `pwsh/Base.Languages/New-PythonProject.ps1` with their tests; the callers on `python -m` (`pwsh/Base.Slides/Build-Diagrams.ps1`,
     `Test-Diagrams.ps1`, `Move-Diagram.ps1` and their tests, `.claude/skills/drawio-declaration`, `.claude/skills/drawio-renderer`,
     `.claude/agents/print-artifacts.md`, `python/diagrams/assets/STYLE.md`); `pwsh/Base.Slides/types/DrawioKit.cs` (module names read from
-    the manifest, formatted) with its test; and the one-line `states:` value in `python/diagrams/configs/drawio.yml`. uv.lock holds no
-    setuptools entry (build requirements are not locked). Check: `git status --short python pwsh/Base.Languages pwsh/Base.Slides` lists
-    these files and nothing else of this plan's.
+    the manifest, formatted) with its test; the one-line `states:` value in `python/diagrams/configs/drawio.yml`; the kit's YAML loaders in
+    `python/diagrams/kit_yaml.py` (new) and its one repository-root resolver in `module_paths.py`; the strict editable install and the
+    package data (`python/pyproject.toml`, `python/diagrams/pyproject.toml`, the `build_backend` defaults on `PythonConfig.cs`); and the
+    `/*/*/build/` line in `pwsh/Base.Git/configs/gitignore.yml` with the regenerated `.gitignore`. uv.lock holds no setuptools entry (build
+    requirements are not locked). Check: `git status --short python pwsh/Base.Languages pwsh/Base.Slides` lists these files and nothing else
+    of this plan's.
 
 30. plan-debt-test-speed (catzc-68): commit the `Test-SourceConventions` scan and the four faster test files. The scan:
     `pwsh/Base.QualityGates/types/SourceConventionScan.cs` (new) with `pwsh/Base.QualityGates/tests/types/SourceConventionScan.Tests.ps1`

@@ -158,6 +158,25 @@ Describe 'Format-Code engine grouping and result cache' -Tag 'L0', 'logic' {
         $script:handed | Should -Be @($script:widgetFile, $script:gadgetFile)
     }
 
+    It 'checks every file again when the code of its engine''s adapter changes, though no settings file did' -Tag 'ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS' {
+        Mock Get-FormatEngineAdapter -ModuleName Catzc.Base.QualityGates { 'Invoke-WidgetFormatAdapter' }
+        try {
+            function global:Invoke-WidgetFormatAdapter {
+                'the widget adapter, first form'
+            }
+            $null = Format-Code -DryRun
+            $script:handed.Clear()
+            function global:Invoke-WidgetFormatAdapter {
+                'the widget adapter, second form'
+            }
+            $null = Format-Code -DryRun
+            $script:handed | Should -Be @($script:widgetFile, $script:gadgetFile) -Because 'a verdict of the old code says nothing about the new'
+        }
+        finally {
+            Remove-Item -LiteralPath Function:\Invoke-WidgetFormatAdapter -ErrorAction Ignore
+        }
+    }
+
     It 'does not record a file the engine would still change' -Tag 'ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS' {
         Mock Invoke-FormatterEngine -ModuleName Catzc.Base.QualityGates {
             foreach ($file in $File) {

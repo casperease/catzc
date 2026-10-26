@@ -39,9 +39,9 @@ A reference page's path is derived from its source file, so no code head carries
 
 ## Open steps
 
-1. [ ] The resolver: `Get-CommentPage` (and its CommentPagesConfig rule) maps a source file to its derived page and a page back to its
-       file, through the track (`FolderNameOf`) and `ConvertTo-NormalName`; tests both ways and the collision case. Check: `Invoke-TestFile`
-       on the Get-CommentPage and CommentPagesConfig tests.
+1. [ ] The resolver: `Get-CommentPage` (and its CommentPagesConfig rule) maps a source file to its derived page and a page back to its file,
+       through the track (`FolderNameOf`) and `ConvertTo-NormalName`; tests both ways and the collision case. Check: `Invoke-TestFile` on
+       the Get-CommentPage and CommentPagesConfig tests.
 2. [ ] The gate: every reference page maps back to exactly one source file, and no two sources share a page. Check: its L1 real-tree test
        at 0.
 3. [ ] After step 1's resolver, `out/ns5/Rename-ReferencePages.ps1` and its map generator: the generator derives a csv (old, new, source) of
@@ -52,5 +52,5 @@ A reference page's path is derived from its source file, so no code head carries
 4. [ ] The repair: every code head's `docs:` key and every page's link back removed (Format-FileMeta, Sync-FileMeta), the readers
        (Build-CommentView, Export-Comments, Test-Comments, Get-ReadmeMappings) resolving through step 1, and every inbound link to a
        reference page re-pointed from the csv. Check: `Test-Comments`, `Test-FileMeta`, `Test-Links` and `Test-GeneratedFiles` at 0.
-5. [ ] The rule text: the derived path (language, module, aspect path, file) and the no-link rule in the comments ADR (`docs/drs/repository/comments-in-docs.md`) and the
-       file-meta head policy. Check: `Test-DrsRegistry` and `Test-Links` on both pages.
+5. [ ] The rule text: the derived path (language, module, aspect path, file) and the no-link rule in the comments ADR
+       (`docs/drs/repository/comments-in-docs.md`) and the file-meta head policy. Check: `Test-DrsRegistry` and `Test-Links` on both pages.

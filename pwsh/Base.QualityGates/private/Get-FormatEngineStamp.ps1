@@ -42,6 +42,11 @@ function Get-FormatEngineStamp {
         $keyed.Add("${relative}#${key}:$valueHash")
     }
 
+    # A formatter engine's verdict also rests on its adapter's code, so a changed adapter re-checks every file it judged.
+    if ($Engine -cin [Catzc.Base.Languages.LanguagesConfig]::FormatterEngines) {
+        $code = (Get-Command -Name (Get-FormatEngineAdapter -Engine $Engine) -CommandType Function).ScriptBlock.ToString()
+        $keyed.Add("adapter:$([System.Convert]::ToHexString([System.Security.Cryptography.SHA256]::HashData([System.Text.Encoding]::UTF8.GetBytes($code))))")
+    }
     $stamp = Get-ContentStamp -Label "format:$Engine" -File $files.ToArray() -RepositoryRoot $RepositoryRoot
     if ($keyed.Count -eq 0) {
         return $stamp

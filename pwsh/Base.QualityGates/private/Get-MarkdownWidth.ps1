@@ -1,3 +1,11 @@
+<#
+---
+catzc:
+  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-MarkdownWidth.ps1.md"
+  header: "generated"
+---
+#>
+
 function Get-MarkdownWidth {
     [CmdletBinding()]
     [OutputType([int])]
