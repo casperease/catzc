@@ -10,6 +10,7 @@ Set-StrictMode -Version Latest   # this module's scope: the rule runs strict ins
 . (Join-Path $PSScriptRoot 'Test-AnalyzedFileIsTest.ps1')   # the shared test-file scope check, in this module's scope
 
 $script:oracleReady = $false   # declared at load so the guard reads it strict-clean
+# Runs at rule time, not at load: the analyzer's runspace does not inherit the importer's assemblies, and shards are bare pwsh.
 function Initialize-SpellingOracle {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '',
         Justification = 'Runs inside the analyzer engine, whose custom rules may emit only diagnostic records; it binds the committed types assembly the importer already loaded and announced, and in a bare analyzer shard process there is no console session to announce to')]
@@ -29,6 +30,7 @@ function Initialize-SpellingOracle {
         if (-not [System.IO.File]::Exists($typesDll)) {
             throw "Measure-SpellOutIdentifiers: the compiled types assembly for the current sources ($typesDll) was not found — run the importer to build it."
         }
+        # The build is keyed by the combined hash, never by file age, and loads through a shadow copy so no host locks .compiled.
         Import-TypesAssembly -Path $typesDll | Out-Null
     }
 

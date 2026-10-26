@@ -6,14 +6,18 @@
 
 # yaml-language-server: $schema=.not-azure-schema.json
 
+# The <org> segment of every Azure resource name; the segment order is the ado_naming variant.
 org: zct
 
+# Asserted before every az bicep build, so a too-old Bicep CLI fails fast instead of emitting no main.json.
 bicep_min_version: "0.43.8"
 
+# The IDs are placeholders: replace them with the real tenant and subscription IDs of each deployment target.
 tenants:
   placeholder:
     id: fa0e0000-7e0a-0700-1d00-000000000000
 
+# Keyed by the readable name, the deploy handle; customers are defined in customer.yml, not here.
 environments:
   dev:
     shortcode: de
@@ -32,6 +36,7 @@ environments:
     shortcode: pr
     region: westeurope
     region_code: weu
+  # One identity environment per subscription: nsub for the nonprod one, psub for the prod one.
   nsub:
     shortcode: ns
     region: westeurope
@@ -43,6 +48,7 @@ environments:
     region_code: weu
     per_subscription: true
 
+# A root config's environment resolves to a shared subscription; a configuration/<customer>/ config's to its customer's.
 subscriptions:
   shared_nonprod:
     id: 50a0ed00-de00-50b0-0000-000000000000
@@ -58,6 +64,7 @@ subscriptions:
       - preprod
       - prod
       - psub
+  # A customer subscription names its customer by key or 2-char shortcode; its configs live under configuration/<customer>/.
   apex_nonprod:
     id: a0e00000-de00-50b0-0000-000000000000
     tenant: placeholder

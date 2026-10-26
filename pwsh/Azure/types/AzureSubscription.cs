@@ -10,6 +10,7 @@ using System;
 
 namespace Catzc.Azure;
 
+// A mid node of the identity graph: the subscription, its tenant, and its customer when it serves one.
 public sealed class AzureSubscription
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
@@ -20,6 +21,7 @@ public sealed class AzureSubscription
     // The Azure subscription GUID. Always present.
     public string id { get; }
 
+    // Null for a platform subscription, so a typed null-check separates the two kinds.
     public string customer { get; }
 
     // The Entra tenant that owns this subscription. Always present.

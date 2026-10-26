@@ -13,6 +13,7 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Azure;
 
+// One tenants entry of azure.yml, keyed by name.
 public sealed class AzureTenantRecord : Catzc.Base.Objects.DictionaryRecord
 {
     private static readonly string[] AllowedKeys = { "id" };

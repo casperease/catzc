@@ -4,6 +4,7 @@
 #   header: "generated"
 # ---
 
+# The live identities in this module's configs, which a hermetic logic test must never name.
 tokens:
   - config: customer
     path: customers

@@ -4,6 +4,7 @@
 #   header: "generated"
 # ---
 
+# Which customers this repo can deploy for; which are enabled is the have_customers variant.
 customers:
   apex:
     shortcode: ap

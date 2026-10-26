@@ -7,6 +7,7 @@ catzc:
 #>
 
 Describe 'Get-AzureBicepMinVersion' -Tag 'L0', 'logic' {
+    # A read-only resolver: the config mock and cache reset run once, not per test.
     BeforeAll {
         # Isolate from the shipped azure.yml: resolve identity from the test config fixture.
         Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -in 'azure', 'network' } -MockWith {

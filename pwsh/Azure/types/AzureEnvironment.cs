@@ -10,6 +10,7 @@ using System;
 
 namespace Catzc.Azure;
 
+// The root of the resolved identity graph: an environment paired with the subscription that serves it.
 public sealed class AzureEnvironment
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

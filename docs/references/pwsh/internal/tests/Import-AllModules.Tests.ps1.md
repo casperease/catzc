@@ -7,8 +7,8 @@ of one code root's modules by another's.
 
 The sandbox holds the importer, the `.internal` shared modules (loader, bootstrap and the rest) and the vendored modules, with no
 application modules. Each test populates it and runs the importer in a fresh child pwsh process, a cold, fully isolated re-derive of module
-state from the current files. The importer is a pure function of the file system, so one import per distinct tree shape is enough: each
-test captures everything it needs from a single import, then asserts the facets in separate `It` blocks.
+state from the current files. The importer is a pure function of the file system, so one import per distinct tree shape is enough: each test
+captures everything it needs from a single import, then asserts the facets in separate `It` blocks.
 
 The `.internal` and vendor folders are copied with `Copy-Directory` (raw `System.IO`) rather than `Copy-Item -Recurse`: the vendored
 modules, about 88 files, copy in about 190 ms against about 1.25 s with the cmdlet.

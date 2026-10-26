@@ -48,6 +48,7 @@ function Measure-NoUnboundedEnumeration {
         if (-not $name -or $name -notin $listingCommands) {
             continue
         }
+        # A provider path (env:, function:, HKLM:) lists a provider, not the filesystem; a one-letter drive is a filesystem drive.
         $providerPath = $false
         foreach ($element in @($command.CommandElements | Select-Object -Skip 1)) {
             if ($element -is [System.Management.Automation.Language.StringConstantExpressionAst] -and

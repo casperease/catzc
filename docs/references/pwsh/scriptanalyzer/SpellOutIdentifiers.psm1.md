@@ -28,9 +28,9 @@ neither the module system nor `$env:RepositoryRoot`. So the paths resolve from `
 
 The initialiser is idempotent: a module-scope flag guards it, and the type load is skipped when the type already resolves.
 
-The types assembly is the build for the current sources, keyed by the one shared hash (`Get-CombinedTypeHash`), never picked by file age.
-It loads through the one shared load path (`Import-TypesAssembly`, a per-user shadow copy), so an editor host or analyzer shard never locks
-a build inside `.compiled`. `Catzc.Internal.Types` has no importer dependencies, so it imports by path even in a bare analyzer process.
+The types assembly is the build for the current sources, keyed by the one shared hash (`Get-CombinedTypeHash`), never picked by file age. It
+loads through the one shared load path (`Import-TypesAssembly`, a per-user shadow copy), so an editor host or analyzer shard never locks a
+build inside `.compiled`. `Catzc.Internal.Types` has no importer dependencies, so it imports by path even in a bare analyzer process.
 
 The quality-gates module folder is resolved from its full name under the modules track's namespace before any import
 ([DDR-TRACK-MODULENAMESPACE](../../../drs/design/tracks.md#rule-ddr-track-modulenamespace)).

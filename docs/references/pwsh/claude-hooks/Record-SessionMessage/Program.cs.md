@@ -1,7 +1,7 @@
 # .claude/hooks/Record-SessionMessage/Program.cs
 
-The Claude Code hook that logs, for every session, each cross-session message it sends and each it receives, so no session spends a tool call
-on its log.
+The Claude Code hook that logs, for every session, each cross-session message it sends and each it receives, so no session spends a tool
+call on its log.
 
 ## What it logs
 

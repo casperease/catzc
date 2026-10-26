@@ -6,5 +6,5 @@ test files are covered too.
 
 ## Provider paths
 
-A literal provider path (`env:`, `function:`, `HKLM:`) lists a provider, not the filesystem, and is not flagged. A drive name of one
-letter is a filesystem drive.
+A literal provider path (`env:`, `function:`, `HKLM:`) lists a provider, not the filesystem, and is not flagged. A drive name of one letter
+is a filesystem drive.

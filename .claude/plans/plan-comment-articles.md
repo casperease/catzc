@@ -35,7 +35,8 @@ comment, and the page ready for the next `Export-Comments` run.
       `Test-Markdownlint`, `Test-Spelling`, `Test-Links` and `Test-Glossary` on the pages report 0 issues,
       `Test-Comments -Path <source folder>` reports 0 issues, `Export-Comments -Path <source folder> -DryRun` moves nothing, and the tests
       of every changed source file pass after a fresh import.
-- [ ] The non-module trees last: `docs/references/python/`, `pwsh/.internal`, `scriptanalyzer`, `claude-hooks`. Check: as per module.
+- [ ] The pages held for the reference-normal-form burst: the six `Catzc.Internal.*.psm1` pages merged into their `catzc-internal-*.md`
+      articles there, written as articles after that burst lands. Check: as per module.
 
 ## Close-out
 

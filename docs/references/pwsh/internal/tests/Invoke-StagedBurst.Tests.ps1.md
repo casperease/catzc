@@ -1,31 +1,15 @@
 # pwsh/.internal/tests/Invoke-StagedBurst.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The tests of `Invoke-StagedBurst`, which swaps staged files in, runs commands under one import and restores on failure.
 
-## comment:1
+## Isolation
 
-Above `$script:lockName = "Local\catzc-test-$([guid]::NewGuid())"`, written with `#`.
+Each test has a repository root, a stand-in importer and a run lock of its own, so a real run on the machine never touches them.
 
-```text
-Each test has a repository root, a stand-in importer and a run lock of its own, so a real run on the machine
-never touches them.
-```
+## The command run
 
-## comment:2
+The real `Invoke-CatzcCommand.ps1` runs the one fixture command: its switches bind by name and are never taken for commands.
 
-Above `$lines | Should -Contain '[Invoke-CatzcCommand] passed: Test-Swapped'`, written with `#`.
+## Deleting without swapping
 
-```text
-The real Invoke-CatzcCommand.ps1 runs the one fixture command: its switches bind by name and are never taken
-for commands.
-```
-
-## comment:3
-
-Above `Remove-Item -LiteralPath (Join-Path $script:staged 'widgets/gadget.txt'),...` (occurrence 2), written with `#`.
-
-```text
-Only the marker is staged, so these tests delete without swapping, unless one stages the gadget back
-itself.
-```
+Only the marker is staged, so the delete tests remove files without swapping, unless one stages the gadget back itself.

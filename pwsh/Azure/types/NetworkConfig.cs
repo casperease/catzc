@@ -12,10 +12,13 @@ using System.Collections.Generic;
 
 namespace Catzc.Azure;
 
+// The IP plan of network.yml: per-environment ranges and per-subscription hub or spoke networks.
 public sealed class NetworkConfig : Catzc.Base.Objects.DictionaryRecord
 {
+    // In file order: the dictionary is never mutated after construction.
     public IReadOnlyDictionary<string, NetworkEnvironment> environments { get; }
 
+    // Empty when the file has no subscriptions key.
     public IReadOnlyDictionary<string, NetworkSubscription> subscriptions { get; }
 
     public NetworkConfig(IDictionary d)
@@ -76,6 +79,7 @@ public sealed class NetworkConfig : Catzc.Base.Objects.DictionaryRecord
         if (errors.Count > 0) { throw new ArgumentException("network configuration validation failed:\n" + string.Join("\n", errors)); }
     }
 
+    // No two virtual networks share an address; a range already reported invalid is skipped.
     private static void CheckVnetOverlap(Dictionary<string, NetworkEnvironment> environmentMap,
         Dictionary<string, NetworkSubscription> subscriptionMap, List<string> errors)
     {

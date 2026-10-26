@@ -13,6 +13,7 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Azure;
 
+// One customer of customer.yml: a readable key for names and folders, and a 2-char shortcode.
 public sealed class AzureCustomer : Catzc.Base.Objects.DictionaryRecord
 {
     private static readonly string[] AllowedKeys = { "shortcode", "details" };

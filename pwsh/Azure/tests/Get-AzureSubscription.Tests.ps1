@@ -7,7 +7,9 @@ catzc:
 #>
 
 Describe 'Get-AzureSubscription' -Tag 'L0', 'logic' {
+    # A read-only resolver: the config mock and cache reset run once, not per test.
     BeforeAll {
+        # The fixture configs stand in for the shipped azure.yml, so this test owns its identity inputs.
         Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -in 'azure', 'network', 'customer' } -MockWith {
             @{ Name = $Config; Module = 'Catzc.Azure'
                 Path = Join-Path (Get-CatzcModuleRoot -Module Catzc.Azure) "tests/assets/config/$Config.yml"

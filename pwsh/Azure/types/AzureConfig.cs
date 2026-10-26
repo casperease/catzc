@@ -14,6 +14,7 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Azure;
 
+// The Azure identity part of azure.yml: org, Bicep minimum, and tenants, environments and subscriptions keyed by name.
 public sealed class AzureConfig : Catzc.Base.Objects.DictionaryRecord
 {
     // A tenant or subscription name: a lower-snake_case identifier.
@@ -29,6 +30,7 @@ public sealed class AzureConfig : Catzc.Base.Objects.DictionaryRecord
     // The policy enforcement modes, spelled as the Azure policy assignment's enforcementMode takes them.
     private static readonly string[] PolicyEnforcementModes = { "Default", "DoNotEnforce" };
 
+    // Declared once: production enforces its policies, every other environment audits them.
     public static IReadOnlyDictionary<string, string> DefaultPolicyEnforcement { get; } = new ReadOnlyDictionary<string, string>(
         new Dictionary<string, string>(StringComparer.Ordinal) { { "production", "Default" }, { "nonproduction", "DoNotEnforce" } });
 
@@ -47,6 +49,7 @@ public sealed class AzureConfig : Catzc.Base.Objects.DictionaryRecord
     // The environments, keyed by readable name.
     public IReadOnlyDictionary<string, AzureEnvironmentRecord> environments { get; }
 
+    // Always complete: a key the file omits takes DefaultPolicyEnforcement.
     public IReadOnlyDictionary<string, string> policy_enforcement { get; }
 
     public AzureConfig(IDictionary d)
@@ -104,6 +107,7 @@ public sealed class AzureConfig : Catzc.Base.Objects.DictionaryRecord
         throw new ArgumentException("azure configuration validation failed:\n" + string.Join("\n", errors));
     }
 
+    // A partial map keeps its own keys and takes the default for the rest; an unknown key or mode is a violation.
     private static IReadOnlyDictionary<string, string> PolicyEnforcement(IDictionary d, List<string> errors)
     {
         Dictionary<string, string> modes = new Dictionary<string, string>(StringComparer.Ordinal);
@@ -146,6 +150,7 @@ public sealed class AzureConfig : Catzc.Base.Objects.DictionaryRecord
         }
     }
 
+    // A staging environment is its target's inactive slot: every subscription serving it serves the target too.
     private void CheckStaging(List<string> errors)
     {
         foreach (AzureEnvironmentRecord environment in environments.Values)
@@ -201,6 +206,7 @@ public sealed class AzureConfig : Catzc.Base.Objects.DictionaryRecord
         }
     }
 
+    // A customer config resolves to one subscription, so no two of a customer's may serve the same environment.
     private void CheckCustomerDisjointness(List<string> errors)
     {
         Dictionary<string, Dictionary<string, string>> servedBy = new Dictionary<string, Dictionary<string, string>>(StringComparer.Ordinal);
@@ -226,6 +232,7 @@ public sealed class AzureConfig : Catzc.Base.Objects.DictionaryRecord
         }
     }
 
+    // A non-mapping entry passes null, so the record reports it.
     private static List<KeyValuePair<string, IDictionary>> Entries(object value, string key, List<string> errors)
     {
         List<KeyValuePair<string, IDictionary>> entries = new List<KeyValuePair<string, IDictionary>>();

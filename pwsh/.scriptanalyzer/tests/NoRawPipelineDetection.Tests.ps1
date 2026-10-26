@@ -19,6 +19,7 @@ Describe 'Measure-NoRawPipelineDetection' -Tag 'L0', 'logic' {
             Measure-NoRawPipelineDetection -ScriptBlockAst $ast
         }
 
+        # The test-file exemption keys off Extent.File, so this case needs a real file path (ParseInput leaves it empty).
         function Test-RawDetectionFile {
             param([string] $Code, [string] $FileName)
             $path = Join-Path $TestDrive $FileName

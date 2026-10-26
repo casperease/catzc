@@ -9,6 +9,7 @@ catzc:
 # cspell:ignore toolong
 Describe 'AzureConfig' -Tag 'L0' {
     BeforeAll {
+        # Fixture identities distinct from the shipped azure.yml, so editing it never changes these outcomes.
         $script:baseConfig = [ordered]@{
             org               = 'tst'
             bicep_min_version = '0.30.0'
@@ -45,6 +46,7 @@ Describe 'AzureConfig' -Tag 'L0' {
             }
         }
 
+        # The normalised counterpart of the load-time check: shortcode bindings resolve to customer keys first.
         It 'every shipped customer — and the non-customer set — serves each environment through exactly one subscription' {
             $azure = Get-Config -Config azure
             $servedBy = @{}
@@ -247,6 +249,7 @@ Describe 'AzureConfig' -Tag 'L0' {
             { & $script:make $bad } | Should -Throw '*Duplicate environment shortcode*'
         }
 
+        # A customer field is a cross-asset reference, checked by the integrity test and Get-AzureCustomer, never at load.
         It 'ignores a subscription customer field (not validated at load)' {
             $ok = Copy-Object $baseConfig
             $ok.subscriptions.core_lower.customer = 'acme'

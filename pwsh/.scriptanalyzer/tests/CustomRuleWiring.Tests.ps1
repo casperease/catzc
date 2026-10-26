@@ -18,6 +18,7 @@ Describe 'Custom PSScriptAnalyzer rules — engine wiring' -Tag 'L2', 'logic' {
         # The shipped wiring: exactly what the settings file hands the engine.
         $settings = Import-PowerShellDataFile (Join-Path (Get-CatzcModulesRoot) '.internal/assets/PSScriptAnalyzerSettings.psd1')
         $script:rulePaths = @($settings.CustomRulePath | ForEach-Object { Join-Path $env:RepositoryRoot $_ })
+        # Explicit settings: otherwise the engine also finds the generated root settings file and loads the custom rules twice.
         $script:analyzerSettings = @{ CustomRulePath = [string[]] $script:rulePaths; IncludeRules = [string[]] @('Measure-*') }
 
         $longBody = (1..301 | ForEach-Object { '    $null = 1' }) -join "`n"

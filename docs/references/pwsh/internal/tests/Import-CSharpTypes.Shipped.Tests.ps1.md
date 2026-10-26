@@ -27,14 +27,14 @@ forgotten commit of the regenerated contract stays red until it is committed. It
 
 The IDE project (`Catzc.Types.csproj`) stamps its version from the committed `.compiled` DLL and fails its build when that DLL is stale or
 missing. The test drives the real `dotnet build` and asserts that the `deps.json` project entry carries the current hash, so a drift between
-the committed assembly and the stamp, or a broken stamping target, is caught here rather than only at IDE-build time. The stamping
-algorithm mirrors the loader's, and this build proves it still agrees.
+the committed assembly and the stamp, or a broken stamping target, is caught here rather than only at IDE-build time. The stamping algorithm
+mirrors the loader's, and this build proves it still agrees.
 
 It probes with `Test-Tool 'dotnet'`, not `Get-Command`: a machine can carry the dotnet host with no SDK, and `dotnet build` needs the SDK.
 `Test-Tool` probes the pinned version, which only an installed SDK answers.
 
 ## Accelerators
 
-A `[Catzc.Base.Objects.PSTypeAlias("Name")]` on a type publishes a PowerShell type accelerator at load, so `[Name]` resolves to it. The
-test asserts the real registration of `[Catzc.Module.Depm]` on the shipped `ModuleDependencyFormat`; the importer ran, and so registered it,
+A `[Catzc.Base.Objects.PSTypeAlias("Name")]` on a type publishes a PowerShell type accelerator at load, so `[Name]` resolves to it. The test
+asserts the real registration of `[Catzc.Module.Depm]` on the shipped `ModuleDependencyFormat`; the importer ran, and so registered it,
 before Pester started.

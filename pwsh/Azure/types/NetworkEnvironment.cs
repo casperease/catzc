@@ -13,6 +13,7 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Azure;
 
+// One environment's vnet address space and default subnet, keyed by the azure.yml environment name.
 public sealed class NetworkEnvironment : Catzc.Base.Objects.DictionaryRecord
 {
     private static readonly string[] AllowedKeys = { "vnet_address_space", "default_subnet" };

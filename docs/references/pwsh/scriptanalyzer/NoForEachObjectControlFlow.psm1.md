@@ -13,8 +13,8 @@ Inside a `ForEach-Object` scriptblock `return` acts like `continue` and `break` 
 2. It collects the scriptblock arguments of the call: the `-Process`, `-Begin` and `-End` blocks, or positional scriptblocks.
 3. In each block it finds the `return`, `break` and `continue` statements that are direct children of that block, not inside a nested
    `foreach`, `for`, `while`, `do`, `switch`, function or scriptblock, where they would be valid.
-4. For each statement it walks up the syntax tree to see whether a loop, switch or function sits between the statement and the
-   scriptblock. If one does, the keyword targets that construct, not the scriptblock, and is not flagged.
+4. For each statement it walks up the syntax tree to see whether a loop, switch or function sits between the statement and the scriptblock.
+   If one does, the keyword targets that construct, not the scriptblock, and is not flagged.
 
 ## Predicates
 

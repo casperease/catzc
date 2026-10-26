@@ -1,41 +1,31 @@
 # pwsh/.internal/tests/Test-ScriptAnalyzer.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The tests that run PSScriptAnalyzer over the repository's own files, through the same engine `Test-ScriptAnalyzer` uses.
 
-## comment:1
+## Why it is greedy
 
-Above `Describe 'PSScriptAnalyzer'`, written with `#`.
+The analysis shards across `min(ProcessorCount - 1, 10)` background pwsh processes of its own. Stacked on the parallel worker pool, that
+fan-out oversubscribes the machine and inflates neighbouring tests' wall clock against the level time limits, so the greedy phase runs it
+after the pool instead.
 
-```text
-greedy: the analysis shards across min(ProcessorCount - 1, 10) background pwsh processes of its own —
-stacked on the parallel worker pool that fan-out oversubscribes the machine (and inflates neighbouring
-tests' wall clock against the level time limits); the greedy phase runs it after the pool instead.
-```
+## Which files
 
-## comment:2
+The files come from the one shared selector, `Get-ModuleSourceFile`, so this test cannot drift from `Test-ScriptAnalyzer`
+([ADR-PWSH-FORMAT-EVERYFILECOVERED](../../../../drs/automation/pwsh/powershell-formatting.md#rule-adr-pwsh-format-everyfilecovered)). The
+selector covers:
 
-Above `$script:targetFiles = [System.Collections.Generic.List[string]]::new()`, written with `#`.
+- module `*.ps1` files (the root and `private/`);
+- `tests/**/*.Tests.ps1`, recursively, so `tests/types/` is included;
+- the `.internal` and `.scriptanalyzer` infrastructure folders (bootstrap, TestKit, custom analyzer rules and their tests);
+- the root `importer.ps1`;
+- authored `.psd1` config.
 
-```text
-Draw the exact files from the one shared selector (Get-ModuleSourceFile), so this gate cannot
-drift from Test-ScriptAnalyzer
-([ADR-PWSH-FORMAT-EVERYFILECOVERED](/docs/drs/automation/pwsh/powershell-formatting.md#rule-adr-pwsh-format-everyfilecovered)). The
-selector covers module *.ps1
-(root, private/), tests/**/*.Tests.ps1 recursively (so tests/types/ is included), the
-.internal/.scriptanalyzer infrastructure folders (bootstrap, TestKit, custom analyzer rules, and
-their tests), the root importer.ps1, and authored .psd1 config; .vendor, .compiled, and generated
-manifests are excluded as build output. Sorted here for stable, reproducible shard assignment.
-```
+`.vendor`, `.compiled` and generated manifests are excluded as build output. The list is sorted for stable, reproducible shard assignment.
 
-## comment:3
+## The engine
 
-Above `$allDiagnostics = & (Get-Module Catzc.Base.QualityGates) {`, written with `#`.
-
-```text
-The one analysis engine Test-ScriptAnalyzer runs (Get-ScriptAnalyzerDiagnostics): the file list sharded
-across background processes, each importing the vendored analyzer once, and its result cache, which skips
-every file the analyzer last found clean whose bytes and analyzer inputs are unchanged since
-([ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS](/docs/drs/automation/caching.md#rule-adr-auto-cache-checkedfilesacrosssessions)) — a pipeline, without the
-cache, analyzes every file. A shard error fails the run loudly inside the engine.
-```
+`Get-ScriptAnalyzerDiagnostics` is the one analysis engine `Test-ScriptAnalyzer` runs: the file list is sharded across background processes,
+each importing the vendored analyzer once. Its result cache skips every file the analyzer last found clean whose bytes and analyzer inputs
+are unchanged since
+([ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS](../../../../drs/automation/caching.md#rule-adr-auto-cache-checkedfilesacrosssessions)); a
+pipeline, without the cache, analyzes every file. A shard error fails the run loudly inside the engine.

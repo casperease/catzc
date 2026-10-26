@@ -13,6 +13,7 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Azure;
 
+// The one place an IPv4 range is parsed, so every network check reads ranges the same way.
 public static class NetworkCidr
 {
     private const string Shape = @"^\d{1,3}(\.\d{1,3}){3}/\d{1,2}$";

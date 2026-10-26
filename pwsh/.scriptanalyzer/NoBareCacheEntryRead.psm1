@@ -39,6 +39,7 @@ function Measure-NoBareCacheEntryRead {
         $node -is [System.Management.Automation.Language.VariableExpressionAst] -and $node.VariablePath.IsScript
     }
 
+    # A top-level $script:<entry> = in a .psm1 counts as declared, which covers an editor buffer that has lost its file name.
     $declared = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
     foreach ($assignment in $ScriptBlockAst.FindAll($isAssignment, $false)) {
         $left = $assignment.Left

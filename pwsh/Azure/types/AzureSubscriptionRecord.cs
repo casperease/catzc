@@ -13,6 +13,7 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Azure;
 
+// One subscriptions entry of azure.yml; the customer token stays raw, as written.
 public sealed class AzureSubscriptionRecord : Catzc.Base.Objects.DictionaryRecord
 {
     private static readonly string[] AllowedKeys = { "id", "tenant", "environments", "customer" };

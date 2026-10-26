@@ -7,6 +7,7 @@ catzc:
 #>
 
 Describe 'Get-AzureEnvironment' -Tag 'L0', 'logic' {
+    # A read-only resolver: the config mock and cache reset run once, not per test.
     BeforeAll {
         Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -in 'azure', 'network', 'customer' } -MockWith {
             @{ Name = $Config; Module = 'Catzc.Azure'

@@ -2,127 +2,55 @@
 
 <!-- cspell:ignore importcs dlllock -->
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The tests of `Import-CSharpTypes`, which compiles the modules' C# types into one combined assembly and loads it.
 
-## comment:1
+## Fixtures
 
-Above `$script:fixtureRoot = Join-Path ([System.IO.Path]::GetTempPath())...`, written with `#`.
+The fixtures live outside `TestDrive`: `Add-Type` loads each compiled DLL into the process, so the file is locked for the process lifetime
+and can never be deleted in-session. `TestDrive`'s mandatory teardown would fail on the lock, so a self-managed temp directory is cleaned
+best-effort and leaks only the DLL. Loads go through the per-user shadow copy (`Import-TypesAssembly`), kept under the fixture root and out
+of the real `%LOCALAPPDATA%\catzc\types`, since a loaded copy stays locked too.
 
-```text
-Fixtures live OUTSIDE TestDrive: Add-Type loads each compiled DLL into the process, so the file is
-locked for the process lifetime and can never be deleted in-session. TestDrive's mandatory teardown
-would fail on the lock; a self-managed temp dir lets us best-effort clean and leak only the DLL.
-```
+The module and type suffix is unique per run. .NET types persist for the whole process, so a fixed name would already be loaded on a second
+run in the same session, and the loader would take its no-op branch and skip the compile.
 
-## comment:2
+`New-FixtureRoot` writes a modules root: one subfolder per module in `$Modules`, keyed by module name, each with `types/<name>.cs` for every
+entry in its value hashtable, keyed by the bare type name. Sources mirror shipped types: each declares its module's file-scoped namespace,
+which the loader requires, so the builder prepends `namespace <module>;` unless the case already supplies a namespace line (the negative
+tests ship a wrong or block-scoped one to exercise the check). It returns the root to pass as `-ModulesRoot`, and `Import-CSharpTypes`
+writes the combined assembly to `<root>/.compiled/`. It writes with `System.IO` rather than `New-Item` and `Set-Content`, about 0.1 ms
+against 20 ms a call
+([ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS](../../../../drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-systemioonhotpaths)).
+`WriteAllText` writes the string verbatim, and the prepended line uses LF, so a fixture's line endings are exactly the source's bar that one
+line; the line-ending case relies on that.
 
-Above `$script:runId = 'r' + [guid]::NewGuid().ToString('N').Substring(0, 8)`, written with `#`.
+The loader announces a real build through `Write-ImporterMessage`; the tests mock it so compile tests stay quiet and the announce test can
+assert the call. A run from a VS Code terminal carries its mark, so every case is a plain devbox unless it sets the mark itself.
 
-```text
-Per-run-unique module/type suffix. .NET types persist for the whole process, so a fixed name would
-be already-loaded on a second test run in the same session — the loader would then take its no-op
-branch and skip the compile. A fresh suffix per run keeps the "fresh type" precondition true.
-```
+## Compile and cache
 
-## comment:3
+The first compile case is L1: the first `Add-Type` in the file pays Roslyn's cold start (about 0.5 s) on top of the compile itself, and the
+sibling compile tests run against a warm compiler and stay within the L0 budget. It compiles fresh modules, loads their types and caches one
+combined DLL.
 
-Above `function New-FixtureRoot {`, written with `#`.
+## Line endings
 
-```text
-Writes a fixture MODULES ROOT: a fresh dir containing one subfolder per module in $Modules (keyed by
-module name), each with types/<name>.cs for each entry in its value hashtable (keyed by the BARE type
-name). Sources mirror shipped types: each declares its module's file-scoped namespace, which the loader
-requires — so New-FixtureRoot auto-prepends "namespace <module>;" UNLESS the case already supplies a
-namespace line (the negative tests ship a wrong/block-scoped one to exercise the gate). Returns the root
-to pass as -ModulesRoot. Import-CSharpTypes writes the combined assembly to <root>/.compiled/.
-[System.IO] rather than New-Item/Set-Content — ~0.1ms vs ~20ms/call
-([ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS](/docs/drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-systemioonhotpaths)). WriteAllText writes the
-string verbatim (no trailing newline appended); the auto-prepend uses LF, so a fixture's line endings
-are exactly the source's bar that one leading line — the CRLF/LF-flip regression below relies on that.
-```
+The combined hash is insensitive to line endings, so a checkout under git `core.autocrlf`, or an editor re-saving a file, that flips line
+endings must not be mistaken for a source change. The case flips a fixture's endings and expects no `changed since they were loaded` throw.
 
-## comment:4
+## One guard per root
 
-Above `Mock Write-ImporterMessage { } -ModuleName Catzc.Internal.Bootstrap`, written with `#`.
+The session guard is keyed by `ModulesRoot`. Loading root A, then a different root B (as the test-fixture trees do beside the real `pwsh/`
+tree), must not make a re-import of root A throw a bogus "types changed". Each root tracks its own hash and snapshot.
 
-```text
-The loader announces a real build via Write-ImporterMessage. Mock it so compile tests stay quiet,
-and so the announce test can assert the call.
-```
+## Devbox and pipeline
 
-## comment:5
+A loaded assembly cannot be swapped in-process, but a devbox degrades gracefully: it warns and keeps the already-loaded types this session.
+The case clears both pipeline environment variables so it takes the devbox path even in CI.
 
-Above `$shadowRoot = Join-Path $script:fixtureRoot 'shadow'`, written with `#`.
+## The namespace rule
 
-```text
-Loads go through the per-user shadow copy (Import-TypesAssembly); keep the fixtures' copies out of the
-real %LOCALAPPDATA%\catzc\types. Under fixtureRoot, not TestDrive: a loaded copy stays locked too.
-```
-
-## comment:6
-
-Above `It 'compiles fresh modules, loads their types, and caches ONE combined DLL'...`, written with `#`.
-
-```text
-L1: the first Add-Type in the file pays Roslyn's cold-start (~0.5s) on top of the compile itself;
-the sibling compile tests run against a warm compiler and stay within the L0 budget.
-```
-
-## comment:7
-
-Above `$namespace = "CatzcTestEol$runId"`, written with `#`.
-
-```text
-Regression: the combined hash is EOL-insensitive, so a checkout under git core.autocrlf (or an editor
-re-saving the file) that flips line endings must NOT be mistaken for a source change. Before the fix
-this threw '*changed since they were loaded*' even though the content was byte-identical bar EOLs.
-```
-
-## comment:8
-
-Above `$namespaceA = "CatzcTestRootA$runId"`, written with `#`.
-
-```text
-Regression: the session guard is keyed by ModulesRoot. Loading root A, then a DIFFERENT root B
-(this is exactly what the test-fixture trees do vs the real pwsh/ tree), must NOT make a
-re-import of root A throw a bogus "types changed". Before the fix a single global was overwritten
-by the last root loaded, so the next real import after a test run threw on session-leaked
-fixture state. Each root must track its own hash/snapshot.
-```
-
-## comment:9
-
-Above `$savedTfBuild = $env:TF_BUILD`, written with `#`.
-
-```text
-A loaded assembly cannot be swapped in-process, but a devbox degrades gracefully: warn and keep the
-already-loaded types this session. Clear BOTH pipeline env vars so this is the devbox path even in CI.
-```
-
-## comment:10
-
-Above ``$root = New-FixtureRoot @{ $namespace = @{ Widget = "namespace Other;`npublic...``, written with `#`.
-
-```text
-The source must declare its module's file-scoped namespace; a different one is the mismatch the
-loader rejects (the same invariant Test-Formatting checks). The explicit namespace bypasses auto-prepend.
-```
-
-## comment:11
-
-Above `$root = Join-Path $script:fixtureRoot ([guid]::NewGuid().ToString('N'))` (occurrence 2), written with `#`.
-
-```text
-Bypass New-FixtureRoot's auto-prepend by writing the source directly, so the file genuinely lacks
-a namespace — the loader must reject it rather than silently produce a type in the global namespace.
-```
-
-## comment:12
-
-Above `$script:originalTerminalProgram = $env:TERM_PROGRAM`, written with `#`.
-
-```text
-A run from a VS Code terminal carries its mark; every case here is a plain devbox unless it sets the mark
-itself.
-```
+The source must declare its module's file-scoped namespace; a different one is the mismatch the loader rejects (the invariant
+`Test-Formatting` checks too), and an explicit namespace bypasses the builder's prepend. A second case bypasses `New-FixtureRoot` and writes
+the source directly, so the file genuinely lacks a namespace; the loader must reject it rather than silently produce a type in the global
+namespace.

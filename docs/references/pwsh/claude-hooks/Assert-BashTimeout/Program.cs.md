@@ -5,9 +5,9 @@ The Claude Code PreToolUse hook that denies a Bash call that does not run inside
 
 ## One decision, shared
 
-The decision is `Catzc.Base.Timeouts.BashSafeguard` and the limits are `Catzc.Base.Timeouts.TimeoutsConfig`. They are the module's own source
-files, compiled into this program (see the `.csproj`), so the hook, `Get-TimeoutSeconds` and the L0 tests share one parser, one set of
-defaults and one verdict
+The decision is `Catzc.Base.Timeouts.BashSafeguard` and the limits are `Catzc.Base.Timeouts.TimeoutsConfig`. They are the module's own
+source files, compiled into this program (see the `.csproj`), so the hook, `Get-TimeoutSeconds` and the L0 tests share one parser, one set
+of defaults and one verdict
 ([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../../../../drs/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)).
 
 ## What the file does itself

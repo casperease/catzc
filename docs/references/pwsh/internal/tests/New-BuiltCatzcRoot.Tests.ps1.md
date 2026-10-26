@@ -1,14 +1,9 @@
 # pwsh/.internal/tests/New-BuiltCatzcRoot.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The tests of `New-BuiltCatzcRoot` and of `Invoke-InBuiltCatzc` against it.
 
-## comment:1
+## The stand-in build root
 
-Above `Describe 'Invoke-InBuiltCatzc'`, written with `#`.
-
-```text
-Invoke-InBuiltCatzc against a stand-in build root: its Import-Catzc.ps1 is a fixture that sets the two roots
-the way the real entry script does and prints importer-style console lines — the noise the result channel must
-survive. A real child pwsh, but no importer, so it stays fast.
-```
+`Invoke-InBuiltCatzc` runs against a stand-in build root. Its `Import-Catzc.ps1` is a fixture that sets the two roots the way the real entry
+script does and prints importer-style console lines, the noise the result channel must survive. It is a real child pwsh but no importer, so
+it stays fast.

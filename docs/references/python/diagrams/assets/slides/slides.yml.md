@@ -12,5 +12,5 @@ every slide at the next render.
 ## Shape
 
 The file is a two-level mapping only: a section, then `key: value`. Its sections are `token` (the dark theme), `token-light` (the light
-theme), `face`, `scale`, `layout`, `render`, `fact` and `strip`; the last two hold the sizes that `slide_png.py` uses for the fact picture and the
-ladder strip.
+theme), `face`, `scale`, `layout`, `render`, `fact` and `strip`; the last two hold the sizes that `slide_png.py` uses for the fact picture
+and the ladder strip.

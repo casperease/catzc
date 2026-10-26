@@ -1,7 +1,7 @@
 # pwsh/.scriptanalyzer/AnnounceStateChange.psm1
 
-The custom analyzer check module for state changes: a function that changes the session's state must announce it, and persistent
-environment and registry writes go only through their seams.
+The custom analyzer check module for state changes: a function that changes the session's state must announce it, and persistent environment
+and registry writes go only through their seams.
 
 ## Announcing a change
 

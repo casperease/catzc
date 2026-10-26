@@ -10,6 +10,7 @@ using System;
 
 namespace Catzc.Azure;
 
+// The leaf of the resolved identity graph: the Entra directory that owns subscriptions.
 public sealed class Tenant
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

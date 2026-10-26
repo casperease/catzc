@@ -12,8 +12,10 @@ using System.Collections.Generic;
 
 namespace Catzc.Azure;
 
+// The customer catalogue; which customers are enabled is the have_customers variant.
 public sealed class CustomerConfig : Catzc.Base.Objects.DictionaryRecord
 {
+    // In file order: the dictionary is never mutated after construction.
     public IReadOnlyDictionary<string, AzureCustomer> customers { get; }
 
     public CustomerConfig(IDictionary d)

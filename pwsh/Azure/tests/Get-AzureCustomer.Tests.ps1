@@ -7,6 +7,7 @@ catzc:
 #>
 
 Describe 'Get-AzureCustomer' -Tag 'L0', 'logic' {
+    # The customer config points at the fixture catalogue; a read-only resolver, so the setup runs once.
     BeforeAll {
         Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -eq 'customer' } -MockWith {
             @{ Name = 'customer'; Module = 'Catzc.Azure'

@@ -1,14 +1,8 @@
 # pwsh/.internal/tests/Test-FolderConventions.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The tests of the folder and file conventions over the real tree, through `Test-FolderConventions` in `Catzc.Base.ModuleSystem`
+([ADR-AUTO-TEST-QUALITYGATE](../../../../drs/automation/test-automation.md#rule-adr-auto-test-qualitygate)).
 
-## comment:1
+## What the block does
 
-Above `Describe 'Folder & file conventions'`, written with `#`.
-
-```text
-The folder and file conventions over the real tree, through their quality gate (Test-FolderConventions,
-Catzc.Base.ModuleSystem — [ADR-AUTO-TEST-QUALITYGATE](/docs/drs/automation/test-automation.md#rule-adr-auto-test-qualitygate)). The gate
-scans the tree once and lists every offender; this block runs it at its tier and guards it against a silent no-op.
-```
+The check scans the tree once and lists every offender; the test block runs it at its tier and guards it against a silent no-op.

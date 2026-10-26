@@ -12,8 +12,8 @@ Checks that every module folder of the modules track follows the folder and file
 ### description
 
 A quality gate ([ADR-AUTO-TEST-QUALITYGATE](../../../drs/automation/test-automation.md#rule-adr-auto-test-qualitygate)) over the module
-folders of `<RepositoryRoot>/pwsh` (dot-prefixed folders are infrastructure, not modules). It scans the tree once with `[System.IO]` and
-collects every issue ([ADR-REPO-FOLDERS](../../../drs/repository/conventional-folders.md)):
+folders of `<RepositoryRoot>/pwsh` (dot-prefixed folders are infrastructure, not modules). It walks each module folder with the bounded
+`Get-ChildPath` walker and a `PathSet`, and collects every issue ([ADR-REPO-FOLDERS](../../../drs/repository/conventional-folders.md)):
 
 - every module subdirectory is a conventional folder: private, tests, assets, types, configs;
 - no test file (`*.Tests.ps1`) sits at the module root or in private/ — tests belong in tests/;

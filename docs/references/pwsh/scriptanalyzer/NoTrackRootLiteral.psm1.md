@@ -4,9 +4,9 @@ The custom analyzer check `Measure-NoTrackRootLiteral`: no string spells a place
 
 ## The places
 
-The modules track's places and the exempt globs are read once per analyzer session
-([ADR-AUTO-LAYERS](../../../drs/automation/layers.md)). The relocatable modules root (`Get-CatzcModulesRoot`) holds the track whose modules
-run under this engine, pwsh; its places are the ones no string may spell.
+The modules track's places and the exempt globs are read once per analyzer session ([ADR-AUTO-LAYERS](../../../drs/automation/layers.md)).
+The relocatable modules root (`Get-CatzcModulesRoot`) holds the track whose modules run under this engine, pwsh; its places are the ones no
+string may spell.
 
 ## Bare place names
 

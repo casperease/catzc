@@ -89,6 +89,7 @@ function Measure-NoTrackRootLiteral {
             continue
         }
         $value = $node.Value -replace '\\', '/'
+        # A bare place name is also an ordinary word, so alone it counts only where a path is built.
         $parent = $node.Parent
         while ($parent -is [System.Management.Automation.Language.CommandParameterAst] -or
             $parent -is [System.Management.Automation.Language.ParenExpressionAst] -or

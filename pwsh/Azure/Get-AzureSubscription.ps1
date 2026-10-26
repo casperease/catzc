@@ -21,6 +21,7 @@ function Get-AzureSubscription {
     Assert-True ($azure.tenants.ContainsKey($found.tenant)) -ErrorText "Subscription '$Subscription' references unknown tenant '$($found.tenant)'"
 
     $tenant = [Catzc.Azure.Tenant]::new($found.tenant, $azure.tenants[$found.tenant].id)
+    # The customer field may name a key or a shortcode; normalised to the key, it is empty for a non-customer subscription.
     $customerToken = Get-AzureSubscriptionCustomer $found
     $customer = if ([string]::IsNullOrEmpty($customerToken)) {
         ''

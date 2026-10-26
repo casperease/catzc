@@ -1,14 +1,9 @@
 # pwsh/.internal/tests/Import-TypesAssembly.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The tests of `Import-TypesAssembly`, which loads a prebuilt types assembly through a shadow copy.
 
-## comment:1
+## Fixture
 
-Above `BeforeAll {`, written with `#`.
-
-```text
-L1: the fixture DLL is compiled once with Add-Type (Roslyn's cold start). The source DLL lives in TestDrive —
-it is never loaded, which is the property under test. The shadow folder lives OUTSIDE TestDrive: the loaded
-copy stays locked for the process lifetime on Windows, so TestDrive's teardown could not delete it.
-```
+The L1 fixture DLL is compiled once with `Add-Type` (Roslyn's cold start). The source DLL lives in `TestDrive` and is never loaded, which is
+the property under test. The shadow folder lives outside `TestDrive`: on Windows the loaded copy stays locked for the process lifetime, so
+`TestDrive`'s teardown could not delete it.

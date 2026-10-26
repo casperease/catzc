@@ -13,6 +13,7 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Azure;
 
+// One subscription's hub or spoke vnet, keyed by the azure.yml subscription name.
 public sealed class NetworkSubscription : Catzc.Base.Objects.DictionaryRecord
 {
     // The kind of a non-customer (shared) subscription's network.
@@ -28,6 +29,7 @@ public sealed class NetworkSubscription : Catzc.Base.Objects.DictionaryRecord
 
     private static readonly string[] HubSubnetNames = { "GatewaySubnet", "AzureFirewallSubnet", "shared-services" };
 
+    // Exactly the two reserved Azure subnets and shared-services.
     public static IReadOnlyList<string> HubSubnets => HubSubnetNames;
 
     // The subscription name (the map key; an azure.yml subscription).
@@ -156,6 +158,7 @@ public sealed class NetworkSubscription : Catzc.Base.Objects.DictionaryRecord
         }
     }
 
+    // Names as written, bad ranges included, so a bad range is reported once and not also as missing.
     private static List<string> SubnetNames(IDictionary d)
     {
         List<string> names = new List<string>();
@@ -185,6 +188,7 @@ public sealed class NetworkSubscription : Catzc.Base.Objects.DictionaryRecord
         }
     }
 
+    // A spoke carries private-endpoints; every other subnet is a workload subnet named for an environment.
     private static void CheckSpoke(string where, List<string> names, List<string> errors)
     {
         if (names.Count == 0) { return; }

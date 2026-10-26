@@ -4,6 +4,7 @@
 #   header: "generated"
 # ---
 
+# The single source of vnet and subnet ranges, keyed by azure.yml environment name.
 environments:
   dev:
     vnet_address_space: 10.10.0.0/16

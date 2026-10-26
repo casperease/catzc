@@ -8,6 +8,7 @@ catzc:
 
 Describe 'NetworkConfig' -Tag 'L0' {
     BeforeAll {
+        # Fixture environments and subscriptions distinct from the shipped ones, so editing azure.yml never changes these outcomes.
         $script:baseConfig = [ordered]@{
             environments  = [ordered]@{
                 alpha = [ordered]@{ vnet_address_space = '10.10.0.0/16'; default_subnet = '10.10.0.0/24' }

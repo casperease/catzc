@@ -32,10 +32,10 @@ PSScriptAnalyzer). The `runtime` vendor policy leaves them out; every other vend
 
 - `Resolve-BuildModuleSet` returns the closure-expanded, ordinally sorted module set of a build: the union of a profile and explicit module
   names, each expanded through `Get-ModuleProfile` (`dependencies.yml`).
-- `Get-BuildFileCopy` lists the plan entries that copy a source folder's tracked files to a build-relative, forward-slashed folder. The index
-  from `Get-BuildSourceIndex` says which files may ship and in which line-ending form, and an ignored file is skipped. Folder names given as
-  excluded (tests, for one) are skipped at any depth. Only the types folders take untracked files, because their sources must equal the type
-  set that the DLL name proves. The walk is a named whole-tree one
+- `Get-BuildFileCopy` lists the plan entries that copy a source folder's tracked files to a build-relative, forward-slashed folder. The
+  index from `Get-BuildSourceIndex` says which files may ship and in which line-ending form, and an ignored file is skipped. Folder names
+  given as excluded (tests, for one) are skipped at any depth. Only the types folders take untracked files, because their sources must equal
+  the type set that the DLL name proves. The walk is a named whole-tree one
   ([ADR-PWSH-ENUM-ALWAYSBOUNDED](../../../drs/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): the build copies
   every shippable file, so nothing is pruned.
 - `Copy-BuildFileIfChanged` copies a file only when the target is missing or differs, and returns whether it wrote. Normalising yields the
@@ -45,8 +45,8 @@ PSScriptAnalyzer). The `runtime` vendor policy leaves them out; every other vend
 
 ## Invoke-ModuleBuild
 
-The engine writes no console output; its caller reports the result. It takes explicit module names, a `profiles.yml` key, or both, and
-needs at least one of the two. The version is the resolved `MAJOR.MINOR.PATCH`: the engine never resolves `auto`. The build goes to
+The engine writes no console output; its caller reports the result. It takes explicit module names, a `profiles.yml` key, or both, and needs
+at least one of the two. The version is the resolved `MAJOR.MINOR.PATCH`: the engine never resolves `auto`. The build goes to
 `<Destination>/Catzc/<Version>/`, records the named bundle (an `exporter.yml` bundles key) in `build.json`, and takes the `Catzc.psd1`
 metadata (Guid, Author, CompanyName, Description, Tags, ProjectUri, LicenseUri). A dry run still runs every check, since all checks run
 before anything is written. It returns BuildRoot, Version, Modules, TypesHash, ContentHash (`$null` under a dry run), FileCount, Dirty and

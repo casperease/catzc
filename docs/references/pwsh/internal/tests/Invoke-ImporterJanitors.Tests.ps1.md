@@ -1,13 +1,8 @@
 # pwsh/.internal/tests/Invoke-ImporterJanitors.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The tests of the build janitors the importer runs and of the writers list they read from `generated-files.yml`.
 
-## comment:1
+## The registry
 
-Above `$script:writers = [ordered]@{}`, written with `#`.
-
-```text
-The registry the janitor reads: the eight at-import writers in the order the import runs them, and one writer
-the import leaves alone.
-```
+The registry the janitor reads holds the eight at-import writers in the order the import runs them, and one writer the import leaves alone
+(`at_import` false). The janitor considers only the writers marked at import, none of its own list.

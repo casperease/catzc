@@ -13,6 +13,7 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Azure;
 
+// One environments entry of azure.yml, keyed by its readable name.
 public sealed class AzureEnvironmentRecord : Catzc.Base.Objects.DictionaryRecord
 {
     private static readonly string[] AllowedKeys = { "shortcode", "region", "region_code", "per_subscription", "staging_for" };

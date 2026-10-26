@@ -48,6 +48,7 @@ Describe 'Test-AzureNetworkPlan' -Tag 'L0', 'logic' {
             }
             [ordered]@{ kind = 'spoke'; vnet_address_space = "10.$Octet.0.0/16"; subnets = $subnets }
         }
+        # Environment entries by name, plus the subscription block: the in-sync one when none is given.
         $script:plan = {
             param([string[]] $Names, [System.Collections.IDictionary] $Subscriptions)
             $map = [ordered]@{}

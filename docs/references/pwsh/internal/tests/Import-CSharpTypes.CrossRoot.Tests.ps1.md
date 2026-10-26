@@ -14,8 +14,8 @@ which keeps the fixtures' copies out of the real `%LOCALAPPDATA%\catzc\types`, a
 ## A fresh name per run
 
 The module and type suffix is unique per run. .NET types persist for the whole process, so a fixed name would already be loaded on a second
-run in the same session, and the loader would take its no-op branch and skip the compile. A fresh suffix keeps the "fresh type"
-precondition true.
+run in the same session, and the loader would take its no-op branch and skip the compile. A fresh suffix keeps the "fresh type" precondition
+true.
 
 ## The fixture builder
 

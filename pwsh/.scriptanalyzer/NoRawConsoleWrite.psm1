@@ -27,6 +27,7 @@ function Measure-NoRawConsoleWrite {
         'Write', 'WriteLine', 'Clear', 'ResetColor', 'SetCursorPosition', 'Beep', 'SetWindowSize',
         'SetWindowPosition', 'SetBufferSize', 'MoveBufferArea', 'OpenStandardOutput', 'OpenStandardError'
     )
+    # [Console]::Out and ::Error are raw writers only when written through; reading them to restore a SetOut capture is fine.
     $consoleWriterMembers = @('Out', 'Error')
     $writerMethods = @('Write', 'WriteLine', 'WriteAsync', 'WriteLineAsync', 'Flush')
 

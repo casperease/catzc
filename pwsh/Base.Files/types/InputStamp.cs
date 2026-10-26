@@ -166,6 +166,7 @@ public static class InputStamp
         return full.StartsWith(rootFull, StringComparison.OrdinalIgnoreCase) ? slashed.Substring(rootFull.Length) : slashed;
     }
 
+    // An exclude is a wildcard (* and ?, a backtick escapes the next character) matched against the full path with '/' separators, ignoring case.
     private static Regex ToRegex(string wildcard)
     {
         StringBuilder expression = new StringBuilder("^");
