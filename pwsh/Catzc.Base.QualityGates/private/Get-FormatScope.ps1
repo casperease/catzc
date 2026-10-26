@@ -30,8 +30,8 @@ function Get-FormatScope {
             }
             $underOutput = [System.IO.Path]::GetRelativePath($output, $full) -replace '\\', '/'
             if (-not ($underOutput -eq '..' -or $underOutput.StartsWith('../'))) {
-                foreach ($file in @(Get-ChildItem -LiteralPath $full -Recurse -File)) {
-                    $files.Add($file.FullName)
+                foreach ($file in @(Get-ChildPath $full -File)) {
+                    $files.Add($file)
                 }
                 continue
             }

@@ -3,8 +3,8 @@
 
 const fs = require("fs");
 const path = require("path");
-const { key } = require("./glob.js");
-const { OPEN, CONDITIONS, EMPTY, claimer, lampSets, evaluate, summaryOf, revealFailed, nextFailed } = require("./language.js");
+const { key, claimer } = require("./glob.js");
+const { OPEN, CONDITIONS, EMPTY, lampSets, evaluate, summaryOf, revealFailed, nextFailed } = require("./language.js");
 const { host, trace, config, LANGUAGE, languages, declaredFilters, filters, assertShipped } = require("./host.js");
 const { statusLine } = require("./status.js");
 const { walkDisk, census } = require("./tree.js");

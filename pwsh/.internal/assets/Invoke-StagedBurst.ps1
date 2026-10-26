@@ -5,7 +5,8 @@
 .DESCRIPTION
     A change to a file every session's next import reads (an importer-path script, a type, a root asset) is edited on staged copies and
     swapped in by this one mechanism, never by hand. The staged folder mirrors the repository: a file at <staged>/pwsh/x.ps1 replaces
-    <root>/pwsh/x.ps1, and a file with no counterpart is created. The call takes the run lock as a burst (Enter-CatzcBurst.ps1), writes a
+    <root>/pwsh/x.ps1, and a file with no counterpart is created. An empty marker <staged>/<path>.burst-delete deletes <root>/<path> instead; its
+    target must exist, or the call stops before touching anything, and it is journalled and restored like any swapped file. The call takes the run lock as a burst (Enter-CatzcBurst.ps1), writes a
     backup journal beside the staged folder (<staged>.backup), copies the staged files over their targets, and runs -Command in one
     Invoke-CatzcCommand -InBurst call, which is the one fresh import. When any command fails, or anything throws, every target is
     restored from the journal (a target the swap created is deleted) and the call exits 1; when all pass, the journal is removed and the
@@ -144,8 +145,22 @@ if ($relatives.Count -eq 0) {
     throw "Invoke-StagedBurst: the staged folder '$staged' holds no file."
 }
 
+# A staged '<path>.burst-delete' marker deletes its target instead of swapping a file in; the target must exist, and is journalled like any.
+$deleteSuffix = '.burst-delete'
+foreach ($relative in $relatives) {
+    if ($relative.EndsWith($deleteSuffix, [System.StringComparison]::Ordinal)) {
+        $doomed = $relative.Substring(0, $relative.Length - $deleteSuffix.Length)
+        if (-not (Test-Path -LiteralPath (Join-Path $root $doomed) -PathType Leaf)) {
+            throw "Invoke-StagedBurst: the staged folder marks '$doomed' for deletion, but it does not exist."
+        }
+    }
+}
+
 # The journal is complete before the first target is touched.
 $entries = foreach ($relative in $relatives) {
+    if ($relative.EndsWith($deleteSuffix, [System.StringComparison]::Ordinal)) {
+        $relative = $relative.Substring(0, $relative.Length - $deleteSuffix.Length)
+    }
     $target = Join-Path $root $relative
     $existed = Test-Path -LiteralPath $target -PathType Leaf
     if ($existed) {
@@ -162,6 +177,10 @@ $passed = $false
 $outcome = ''
 try {
     foreach ($relative in $relatives) {
+        if ($relative.EndsWith($deleteSuffix, [System.StringComparison]::Ordinal)) {
+            Remove-Item -LiteralPath (Join-Path $root $relative.Substring(0, $relative.Length - $deleteSuffix.Length)) -Force
+            continue
+        }
         $target = Join-Path $root $relative
         $null = New-Item -ItemType Directory -Path (Split-Path -Parent $target) -Force
         Copy-Item -LiteralPath (Join-Path $staged $relative) -Destination $target -Force

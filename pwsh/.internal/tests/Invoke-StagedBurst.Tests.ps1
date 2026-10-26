@@ -75,6 +75,47 @@ function Test-Broken { throw 'broken gadget' }
         ($lines -join "`n") | Should -BeLike '*holds no file*'
     }
 
+    Context 'a staged delete' {
+        BeforeEach {
+            # Only the marker is staged, so these tests delete without swapping, unless one stages the gadget back itself.
+            Remove-Item -LiteralPath (Join-Path $script:staged 'widgets/gadget.txt'), (Join-Path $script:staged 'widgets/sprocket.txt')
+            [System.IO.File]::WriteAllText((Join-Path $script:staged 'widgets/cog.txt.burst-delete'), '')
+        }
+
+        It 'deletes the target a marker names, under the same import, and removes the journal' {
+            $lines = @(& $script:burst -StagedFolder 'out/widget/staged' -RepositoryRoot $script:root -Importer $script:importer -LockName $script:lockName -LockSeconds 1 -Seconds 30 'Test-Deleted')
+            $LASTEXITCODE | Should -Be 0
+            Test-Path -LiteralPath $script:doomed | Should -BeFalse
+            Test-Path -LiteralPath "$script:doomed.burst-delete" | Should -BeFalse
+            Test-Path -LiteralPath "$script:staged.backup" | Should -BeFalse
+        }
+
+        It 'puts the deleted target back when a test fails' {
+            $null = @(& $script:burst -StagedFolder 'out/widget/staged' -RepositoryRoot $script:root -Importer $script:importer -LockName $script:lockName -LockSeconds 1 -Seconds 30 'Test-Deleted' 'Test-Broken')
+            $LASTEXITCODE | Should -Be 1
+            [System.IO.File]::ReadAllText($script:doomed) | Should -BeExactly 'cog'
+            Test-Path -LiteralPath "$script:staged.backup" | Should -BeFalse
+        }
+
+        It 'restores a swap and a delete together when a test fails' {
+            [System.IO.File]::WriteAllText((Join-Path $script:staged 'widgets/gadget.txt'), 'staged')
+            $null = @(& $script:burst -StagedFolder 'out/widget/staged' -RepositoryRoot $script:root -Importer $script:importer -LockName $script:lockName -LockSeconds 1 -Seconds 30 'Test-Swapped' 'Test-Deleted' 'Test-Broken')
+            $LASTEXITCODE | Should -Be 1
+            [System.IO.File]::ReadAllText($script:target) | Should -BeExactly 'original'
+            [System.IO.File]::ReadAllText($script:doomed) | Should -BeExactly 'cog'
+        }
+
+        It 'refuses a marker whose target does not exist, before touching anything' {
+            [System.IO.File]::WriteAllText((Join-Path $script:staged 'widgets/gadget.txt'), 'staged')
+            [System.IO.File]::WriteAllText((Join-Path $script:staged 'widgets/sprocket.txt.burst-delete'), '')
+            $lines = @(& $script:burst -StagedFolder 'out/widget/staged' -RepositoryRoot $script:root -Importer $script:importer -LockName $script:lockName -LockSeconds 1 -Seconds 30 'Test-Deleted')
+            $LASTEXITCODE | Should -Be 1
+            [System.IO.File]::ReadAllText($script:target) | Should -BeExactly 'original'
+            [System.IO.File]::ReadAllText($script:doomed) | Should -BeExactly 'cog'
+            ($lines -join "`n") | Should -BeLike "*marks 'widgets*sprocket.txt' for deletion, but it does not exist*"
+        }
+    }
+
     It 'names no command, and stops' {
         { & $script:burst -StagedFolder 'out/widget/staged' -RepositoryRoot $script:root -LockName $script:lockName } | Should -Throw '*at least one command*'
     }

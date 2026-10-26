@@ -23,4 +23,5 @@ content:
   edges:
     - { from: d-principles, to: d-thesis, kind: flow, label: cites }
     - { from: d-others, to: d-principles, kind: flow, label: cites }
+    - { from: d-others, to: d-research, kind: flow, label: cites }
   legend: auto

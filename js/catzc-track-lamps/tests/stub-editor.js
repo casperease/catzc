@@ -104,7 +104,8 @@ function stub(seed) {
 }
 
 // Node resolves "vscode" for the extension through this hook; the shell is the only part that requires it itself.
-const Module = require("module");
+// _load is node's internal loader, outside its published types.
+const Module = /** @type {any} */ (require("module"));
 let current;
 const original = Module._load;
 Module._load = function (request, ...rest) {

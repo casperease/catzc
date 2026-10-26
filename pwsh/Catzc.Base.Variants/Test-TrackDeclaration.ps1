@@ -23,10 +23,12 @@ function Test-TrackDeclaration {
         if ($track.vendor -and -not $trackTypes.VendorOf($track.vendor)) {
             $violations.Add("track '$($track.name)': vendor '$($track.vendor)' is not declared in track-types.yml")
         }
-        # A member's committed fact is declared, and the git index is what it must agree with (DDR-TRACK-TRACKISPLACEDCLUSTER).
+        # A member's committed fact is declared, and the git index is what it must agree with (DDR-TRACK-TRACKISPLACEDCLUSTER); a
+        # committed member with nothing on disk yet, such as an empty landing address, has nothing to disagree with.
         foreach ($member in $track.members) {
             $tracked = @(Get-GitTrackedPath $member.path)
-            if ($member.committed -and $tracked.Count -eq 0) {
+            $onDisk = Test-Path -LiteralPath (Join-Path (Get-RepositoryRoot) $member.path)
+            if ($member.committed -and $tracked.Count -eq 0 -and $onDisk) {
                 $violations.Add("track '$($track.name)': member '$($member.path)' is declared committed, but git tracks none of it")
             }
             elseif (-not $member.committed -and $tracked.Count -gt 0) {

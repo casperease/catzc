@@ -5,7 +5,7 @@ about:
   zoom: C4
   point: pwsh/Catzc.Base.Config
 content:
-  title: The config module's files and the links between them
+  title: The config module's tracked files, by kind
   kind: explanation
   flow: left-to-right
   theme: dark

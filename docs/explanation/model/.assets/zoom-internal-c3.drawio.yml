@@ -5,7 +5,7 @@ about:
   zoom: C3
   point: pwsh/.internal
 content:
-  title: The internal modules that load every other module
+  title: The internal modules of pwsh/.internal
   kind: explanation
   flow: left-to-right
   theme: dark

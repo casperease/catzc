@@ -59,12 +59,14 @@ const assertShipped = (all) => {
     const added = all.filter((lamp) => lamp.startsWith(LANGUAGE));
     return [...assertFilters(all.filter((lamp) => !lamp.startsWith(LANGUAGE))), ...added];
 };
+// The last mismatch the assert spoke of, so it speaks once per mismatch and not on every call.
+let mismatchSaid;
 const assertFilters = (lamps) => {
     const ok = lamps.length === SHIPPED_LAMPS.length && lamps.every((lamp, at) => lamp === SHIPPED_LAMPS[at]);
     if (!ok) {
         const said = lamps.join(",");
-        if (assertShipped.said === said) return SHIPPED_LAMPS.filter((lamp) => lamps.includes(lamp));
-        assertShipped.said = said;
+        if (mismatchSaid === said) return SHIPPED_LAMPS.filter((lamp) => lamps.includes(lamp));
+        mismatchSaid = said;
         host.log?.appendLine(
             `error: the lamps in play [${lamps.join(", ")}] are not the shipped lamps [${SHIPPED_LAMPS.join(", ")}] in order; only the shipped ones are shown`,
         );

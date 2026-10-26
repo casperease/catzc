@@ -122,6 +122,7 @@ function hiddenEntries(files, folders, shown) {
 // The entries for the unlit lamps, from one walk of the disk: out holds the unlit lamps, open the files open in an editor, vetoed the
 // unlit lamps that also hide their whole zone. Every lamp lit writes nothing, as without the extension.
 // disk is the extension's in-memory index of the walk ({ files, folders }); without it the disk is walked, as the tests do.
+/** @param {Iterable<string>} [vetoed] */
 async function hiddenGlobs(root, out, declared, open = [], vetoed = [], disk = undefined) {
     const sets = lampSets(declared, open);
     const lit = new Set(Object.keys(sets).filter((name) => !out.has(name)));
@@ -158,7 +159,7 @@ async function census(root, out, declared, globs, open = [], vetoed = [], disk =
         const signature = verdict.signatures[place];
         const label = signature.length ? signature.join("+") : "(none)";
         result.signatures[label] = (result.signatures[label] ?? 0) + 1;
-        const hidden = written(place, parts);
+        const hidden = written(place);
         const isOutput = output(place, parts);
         const tally = isOutput ? result.output : result;
         tally.total++;

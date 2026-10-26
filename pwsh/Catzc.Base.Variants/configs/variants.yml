@@ -55,5 +55,5 @@ tracks:
   .github: { members: [.github], type: vendor-settings, vendor: github, languages: [yaml, markdown] }
   .cspell: { members: [.cspell], type: vendor-settings, vendor: cspell }
   .claude: { members: [.claude], type: vendor-settings, vendor: claude, languages: [markdown, python, bcl, json, xml, html, powershell] }
-  .vscode: { members: [.vscode], type: vendor-settings, vendor: vscode, languages: [json] }
+  .vscode: { members: [{ path: .vscode, committed: false }], type: vendor-settings, vendor: vscode, languages: [json] }
   .unordered: { members: [.unordered], type: unordered, languages: [markdown] }

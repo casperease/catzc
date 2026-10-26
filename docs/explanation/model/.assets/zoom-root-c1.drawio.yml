@@ -23,10 +23,10 @@ content:
     - { id: r-pipelines, kind: runner, label: Pipelines, in: band-platform }
     - { id: x-azure, kind: external, label: Azure, in: band-platform }
   edges:
-    - { from: a-engineer, to: e-devbox, kind: flow, label: works on }
+    - { from: a-engineer, to: e-devbox, kind: flow, label: uses }
     - { from: e-devbox, to: c-importer, kind: flow, label: calls }
     - { from: c-importer, to: s-repo, kind: read }
     - { from: x-ado, to: r-pipelines, kind: flow, label: calls }
     - { from: r-pipelines, to: c-importer, kind: flow, label: calls }
-    - { from: r-pipelines, to: x-azure, kind: flow, label: deploys to }
+    - { from: r-pipelines, to: x-azure, kind: flow, label: deploys }
   legend: auto

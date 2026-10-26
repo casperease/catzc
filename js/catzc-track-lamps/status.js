@@ -14,11 +14,11 @@ function statusLine(tally, facts, budget = 48, view = undefined) {
     const mood = red ? "red" : unstaged + staged ? "wip" : "clean";
     const icon = { red: "$(error)", wip: "$(git-compare)", clean: "$(pass)" }[mood];
     // Only the hard numbers: every changed file, and of those the staged; the unstaged are the difference, never printed.
-    const work = [
+    const work = /** @type {[number, string][]} */ ([
         [red, "red"],
         [unstaged + staged, "changed"],
         [staged, "staged"],
-    ]
+    ])
         .filter(([n]) => n > 0)
         .map(([n, word]) => `${n} ${word}`);
     const width = (text) => text.replace(/\$\([a-z-]+\)/g, "ii").length;

@@ -2,8 +2,9 @@
 
 The file-limits module. It owns the one declaration of how long and how wide a tracked file may be, per file class, and the one way to
 measure a file against it: a config type that holds the defaults and their bounds, a compiled measure that reads a file in one pass, and the
-functions that resolve and check a file's limits. It deliberately does **not** own which language a file is (that is
-[Catzc.Base.Languages](catzc-base-languages.md)) or the limit on one function's body (that is the analyzer rule that reads its own setting).
+functions that resolve and check a file's limits. It also declares the limit on one function's body, which the analyzer rule
+`FunctionLength` reads from the same config. It deliberately does **not** own which language a file is (that is
+[Catzc.Base.Languages](catzc-base-languages.md)) or the check of a function's body (that is the analyzer rule).
 
 ## Responsibilities
 

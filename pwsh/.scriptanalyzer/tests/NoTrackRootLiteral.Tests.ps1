@@ -25,6 +25,14 @@ Describe 'Measure-NoTrackRootLiteral' -Tag 'L0', 'logic', 'ADR-AUTO-LAYERS-TOOLS
         $diagnostics[0].Message | Should -BeLike '*Get-CatzcModulesRoot*(ADR-*'
     }
 
+    It 'reads the modules track''s places from its members, so a lone separator is never taken for a place' -Tag 'DDR-TRACK-TRACKISPLACEDCLUSTER' {
+        $code = "function Get-Widget {`n    `$a = `$path.Replace('\', '/')`n    `$b = Join-Path `$root '/'`n    `$c = '\gadget'`n}"
+        Test-TrackRootLiteralFile -Code $code | Should -HaveCount 0
+        $roots = & (Get-Module NoTrackRootLiteral) { $script:roots }
+        $roots | Should -Contain $script:place
+        $roots | Should -Not -Contain ''
+    }
+
     It 'leaves a comment, a word that only starts with the place, and another track alone' {
         $code = "function Get-Widget {`n    # '$($script:place)/Catzc.Widget' in a comment`n    `$a = '$($script:place)-gadget'`n    `$b = 'docs/widget.md'`n}"
         Test-TrackRootLiteralFile -Code $code | Should -HaveCount 0

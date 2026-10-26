@@ -28,6 +28,7 @@ function lampSets(declared, open = []) {
 function evaluate(sets, lit, files, facts = {}, vetoed = []) {
     const vetoes = new Set(vetoed);
     const names = Object.keys(sets);
+    /** @type {[string, (place: string, parts: string[]) => boolean][]} */
     const claims = names.map((name) => [name, claimer(sets[name])]);
     const signatureOf = (place) => {
         const parts = place.split("/");
