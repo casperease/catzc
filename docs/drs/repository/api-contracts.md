@@ -27,9 +27,10 @@ folder in the repository normal form ([ADR-AUTO-IDIOM-NORMALFORM](../automation/
 `pwsh.base.contracts` for `Catzc.Base.Contracts`), never the namespace the module carries. The form and its rare exceptions are declared
 once, in the contracts config, and one resolver turns a module into its group and back. In a vendor root a group is the vendor's area
 (`workflows`, `pipelines`, `templates`). A group may hold one level of folders that sort its assets by the format they describe
-(`pwsh.azure.templates/arm/` for the compiled ARM template's schema), so the tree is `contracts/<root>/<version>/[<group>/[<folder>/]]<asset>`
-and an asset's key is its path below the version folder. Such a folder holds schemas, fragments, presence assets and samples; a command
-contract, the types surface and the types schema belong to the group itself. No deeper folder exists.
+(`pwsh.azure.templates/arm/` for the compiled ARM template's schema), so the tree is
+`contracts/<root>/<version>/[<group>/[<folder>/]]<asset>` and an asset's key is its path below the version folder. Such a folder holds
+schemas, fragments, presence assets and samples; a command contract, the types surface and the types schema belong to the group itself. No
+deeper folder exists.
 
 - [One root per promiser](#one-root-per-promiser)
 - [Flat by design](#flat-by-design)
@@ -351,12 +352,12 @@ immutability is what lets a consumer pin a release and trust it does not move un
 ## Decision
 
 `contracts/` holds every thin promise at the repository boundary: `contracts/catzc/` what we promise the world, the only public API, and one
-root per vendor for what that vendor promised us. It is laid out as `contracts/<root>/<version>/[<group>/[<folder>/]]<asset>`, at most one group and one folder deep.
-Every root's current contracts live in `0.1.0`, edited in place and always checked, and every internal binding points there; the rest of the
-`0.1` range is reserved, `0.0.0` is never a folder, `1.0.0` and up are frozen `catzc` releases kept while pinned, and `6.6.666` is a local
-build, never a folder. An asset's name picks its kind, its root its direction, and its version folder's `contract.yml` the files it binds.
-Every contract is verified by tests, so a break is caught in CI, not in production. Everything outside `contracts/` is internal and follows
-one living version.
+root per vendor for what that vendor promised us. It is laid out as `contracts/<root>/<version>/[<group>/[<folder>/]]<asset>`, at most one
+group and one folder deep. Every root's current contracts live in `0.1.0`, edited in place and always checked, and every internal binding
+points there; the rest of the `0.1` range is reserved, `0.0.0` is never a folder, `1.0.0` and up are frozen `catzc` releases kept while
+pinned, and `6.6.666` is a local build, never a folder. An asset's name picks its kind, its root its direction, and its version folder's
+`contract.yml` the files it binds. Every contract is verified by tests, so a break is caught in CI, not in production. Everything outside
+`contracts/` is internal and follows one living version.
 
 ### How this is enforced
 

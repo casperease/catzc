@@ -33,7 +33,21 @@ may have several tracks, and the tracks of one type but of two vendors stay two:
 of one type, `pipelines`, because each is bound to a different pipeline model. The settings of each tool the repository configures are one
 `vendor-settings` track per vendor, and every `.vendor` folder and every vendor's settings sit under the one vendor umbrella
 ([DDR-VENDOR-ONEUMBRELLA](vendoring.md#rule-ddr-vendor-oneumbrella)). `vendor` is the tool the repository vendors, never the platform that
-reads a file. The name of a vendor's track follows the naming of DDR-TRACKTYPE (pending).
+reads a file. The name of a vendor's track follows [DDR-TRACKTYPE-NAMEFROMMEMBERS](#rule-ddr-tracktype-namefrommembers).
+
+- [Vendors](#vendors)
+
+### Rule DDR-TRACKTYPE-NAMEFROMMEMBERS
+
+A track's **name** is its definitive name in `variants.yml`, in the repository's normal form for names: `snake` segments joined by `.`, one
+segment per level, the minimal path. A vendor's track starts with the vendor, `vendor_<tool>`, and takes one more segment, `.<part>`, naming
+what its members hold whenever they are not that vendor's settings folder: `.github` is `vendor_github`, `.claude` is `vendor_claude`,
+`.vscode` is `vendor_vscode` and `.cspell` is `vendor_cspell`; the root dotfiles of git are `vendor_git.root_configs`; the vendored code
+under a language's track is `modules` of that language, so `pwsh/.vendor` is `vendor_pwsh.modules` and `bash/.vendor` is
+`vendor_bash.modules`; the type declarations under `.typescript` are `vendor_typescript.types`; and a vendor's pipeline definitions are
+`vendor_<tool>.pipelines`. A track with no vendor is named by the place it covers, without a leading dot: `pwsh`, `docs`, `contracts`,
+`unordered`. The name is computed from the members, so two tracks never share one, and a track whose members move is renamed with every
+caller in the same change.
 
 - [Vendors](#vendors)
 

@@ -316,6 +316,21 @@ Describe 'Format-Code imprint steps' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT-CONFIG
         $script:stepRuns[0] | Should -Be 'file-meta|a.gdg' -Because 'a flagged file is never recorded as done'
     }
 
+    It 'checks a step''s files again when the code the step runs changes, though no settings file did' -Tag 'ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS' {
+        Mock Get-ImprintStepAdapter -ModuleName Catzc.Base.QualityGates { 'Invoke-WidgetStepAdapter' }
+        try {
+            function global:Invoke-WidgetStepAdapter { 'the widget step, first form' }
+            $null = Format-Code -DryRun
+            $script:stepRuns.Clear()
+            function global:Invoke-WidgetStepAdapter { 'the widget step, second form' }
+            $null = Format-Code -DryRun
+            $script:stepRuns | Should -Be @('file-meta|a.wdg,a.gdg', 'bcl-namespace|a.wdg') -Because 'a verdict of the old code says nothing about the new'
+        }
+        finally {
+            Remove-Item -LiteralPath Function:\Invoke-WidgetStepAdapter -ErrorAction Ignore
+        }
+    }
+
     It 'skips files a step found current, and checks them all again when a file its stamp reads changes' -Tag 'ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS' {
         $null = Format-Code -DryRun
         $script:stepRuns.Clear()

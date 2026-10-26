@@ -26,3 +26,12 @@ The module folder, relative or absolute.
 ```powershell
 Get-ModuleFullName (Join-Path (Get-CatzcModulesRoot) 'Base.Repository')
 ```
+
+## comment:1
+
+Above `$levels = @($full) + @([System.IO.Directory]::EnumerateDirectories($full))`, written with `#`.
+
+```text
+A staged burst copy mirrors the repository and carries a .burst-base beside each staged file, in the folder or one level
+down; it is named by the live module folder it mirrors, the nearest ancestor-relative path that exists in the repository.
+```

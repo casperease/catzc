@@ -21,16 +21,16 @@ metadata:
    one background `pwsh/.internal/assets/Enter-CatzcBurst.ps1 -Seconds <s> '<step>' '<step>' …` call holds the run lock, runs the swap-in,
    the checks and one fresh full import (`Invoke-CatzcCommand.ps1 -InBurst`) as its steps, each its own argument, and releases it; on
    failure restore them from HEAD; staged files are edited under `<scratchpad>/<topic>/staged/`, never `out/`, and swapped in by
-   `pwsh/.internal/assets/Invoke-StagedBurst.ps1 -StagedFolder <that folder> '<command>' …` in place of a hand burst (it backs up,
-   swaps, tests under one fresh import, restores on failure; a staged folder reported ready is frozen until its burst ends, and a burst
-   changing a type runs every test file whose fixtures build that type), a public staged copy proved by that swap, never by dot-sourcing it
-   (the exported command stays); `Get-CodeCaller -Name <type or config key>` lists callers of a changed type or config, never a recursive
-   grep, and a cross-module type call first reads `dependencies.yml` for a cycle; a C# type edit that adds a call and its member lands in
-   one Edit. A new folder under `.claude/hooks` is an import-path change too, since every import builds each hook folder with a csproj, so
-   it is drafted outside the tree and lands in a burst, and a change to a file the Bash hook compiles (`TestTiers.cs`, a new `timeouts.yml`
-   key) runs `Build-AgentHook` in that same burst; a Python file writer passes `newline="\n"`, since `Path.write_text` writes CRLF on
-   Windows; a G6 family-form hit on a new page is fixed with a declared form, never a new one. A test file red on HEAD is fixed inside the
-   burst that touches its subject; a burst leaves out only files red for commit state or a named race, each listed in its step.
+   `pwsh/.internal/assets/Invoke-StagedBurst.ps1 -StagedFolder <that folder> '<command>' …` in place of a hand burst (it backs up, swaps,
+   tests under one fresh import, restores on failure; a staged folder reported ready is frozen until its burst ends, and a burst changing a
+   type runs every test file whose fixtures build that type), a public staged copy proved by that swap, never by dot-sourcing it (the
+   exported command stays); `Get-CodeCaller -Name <type or config key>` lists callers of a changed type or config, never a recursive grep,
+   and a cross-module type call first reads `dependencies.yml` for a cycle; a C# type edit that adds a call and its member lands in one
+   Edit. A new folder under `.claude/hooks` is an import-path change too, since every import builds each hook folder with a csproj, so it is
+   drafted outside the tree and lands in a burst, and a change to a file the Bash hook compiles (`TestTiers.cs`, a new `timeouts.yml` key)
+   runs `Build-AgentHook` in that same burst; a Python file writer passes `newline="\n"`, since `Path.write_text` writes CRLF on Windows; a
+   G6 family-form hit on a new page is fixed with a declared form, never a new one. A test file red on HEAD is fixed inside the burst that
+   touches its subject; a burst leaves out only files red for commit state or a named race, each listed in its step.
 2. At the end on the owned files, each at 0: `Test-ScriptAnalyzer -Path <ps1> -PassThru`, `Test-Spelling -Path <files> -PassThru`,
    `Format-Types -Path <module>/types -DryRun -PassThru` for C#, `Format-Code -Path <files>` (before any fresh import: formatting a C# type
    changes the types hash; a new test file or a new or changed comment page puts its code file in that `-Path` to re-imprint it, since the

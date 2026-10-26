@@ -62,3 +62,12 @@ Delete-then-write: an in-place write through a linked target would tunnel the co
 into the link's source of truth; deleting first severs any link, so the write is always a fresh,
 independent file.
 ```
+
+## comment:2
+
+Above `if (Get-Command -Name Save-BurstJournalWrite -ErrorAction Ignore) {`, written with `#`.
+
+```text
+Inside a staged burst the write is journalled first, so a failed burst puts the file back; the recorder lives in
+the internal types module, which every import loads first.
+```

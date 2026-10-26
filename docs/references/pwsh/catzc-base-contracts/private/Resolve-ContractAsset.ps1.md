@@ -76,3 +76,21 @@ Above `if (-not $isNamed) {`, written with `#`.
 A presence asset, a fragment, or a schema with no sample beside it binds the files its applies_to entry names, and
 only those.
 ```
+
+## comment:2
+
+Above `if ($Path.Contains('/') -and ($kind -eq...`, written with `#`.
+
+```text
+A group's folder sorts schemas, fragments, presence assets and samples; a command contract, the types surface and the types schema
+belong to the group itself.
+```
+
+## comment:3
+
+Above `if ($name -ceq [Catzc.Base.Contracts.ContractLayout]::TypesSchemaName) {`, written with `#`.
+
+```text
+The one types schema applies to every group's generated types surface in its version, found on disk, so a
+surface binds before it is committed.
+```

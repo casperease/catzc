@@ -12,8 +12,9 @@ member only a vendor tool writes declares it on the member, and both at once is 
 agrees with the git index. A **place** is the path of one member: a track's places are computed from its members and never declared beside
 them. Every file on disk lies in exactly one track, found by the longest member that contains it
 ([DDR-TRACKTYPE-LONGESTPLACEWINS](track-types.md#rule-ddr-tracktype-longestplacewins)), or is a root file (DDR-TRACK-ROOTFILE). `out/` is a
-track too, the `output` track, its one member generated and not committed. A track's name is its one definitive name, per DDR-TRACKTYPE
-naming (pending). Tracks are what this mono repository is composed of.
+track too, the `output` track, its one member generated and not committed. A track's name is its one definitive name, computed from its
+members ([DDR-TRACKTYPE-NAMEFROMMEMBERS](track-types.md#rule-ddr-tracktype-namefrommembers)). Tracks are what this mono repository is
+composed of.
 
 - [What a track is](#what-a-track-is)
 
