@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ff12f88bb921
+    with_body_sha: "2158970e7b9f"
     warning: "Do Not Edit, this file is generated"
 ---
 
@@ -54,12 +54,12 @@ cats does not manage that distributed system better. **It removes it.**
 
 Each claim is a thesis record, and each row is its first rule, read from the record itself.
 
-| Record                                                      | Rule                                                                                                                                                                                                                                                                                                                                                                           |
-| ----------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| [`TDR-ONETRUTH`](../docs/drs/thesis/one-source-of-truth.md) | A **source of truth** is the one store whose content decides what is true about the delivered system.                                                                                                                                                                                                                                                                          |
-| [`TDR-STORES`](../docs/drs/thesis/truth-stores.md)          | A **truth store** is any store that holds part of the truth about a delivered system.                                                                                                                                                                                                                                                                                          |
-| [`TDR-NORMALFORM`](../docs/drs/thesis/eac-normal-form.md)   | Everything inside a responsibility domain is code, managed through the one change process ([TDR-STORES-RESPONSIBILITYDOMAIN](../docs/drs/thesis/truth-stores.md#rule-tdr-stores-responsibilitydomain), [TDR-ONETRUTH-REPOSITORYISRECORD](../docs/drs/thesis/one-source-of-truth.md#rule-tdr-onetruth-repositoryisrecord)).                                                     |
-| [`TDR-CLOSEDLOOP`](../docs/drs/thesis/closed-loop.md)       | Catzc is deterministic AI for closed-loop experimental DevOps: a digital twin platform builds quality in through checks, tests and gates, while an orchestrated three-phase continuous flow carries changes authored by users alongside agentic actors into one trunk-based truth store holding everything as code plus configuration (EaC), auditable, sustainable, mappable. |
+| Record                                                                                                                                | Rule                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| ------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [One source of truth — delivery collapsed into one repository with one change process](../docs/drs/thesis/one-source-of-truth.md)     | A **source of truth** is the one store whose content decides what is true about the delivered system.                                                                                                                                                                                                                                                                                                                                           |
+| [Truth stores — repositories, fact sources, and state machines, reconciled into actionable facts](../docs/drs/thesis/truth-stores.md) | A **truth store** is any store that holds part of the truth about a delivered system.                                                                                                                                                                                                                                                                                                                                                           |
+| [Eac normal form — any code, verifiable within the repository's enabling constraints](../docs/drs/thesis/eac-normal-form.md)          | Everything inside a responsibility domain is code, managed through the one change process ([Truth stores — repositories, fact sources, and state machines, reconciled into actionable facts](../docs/drs/thesis/truth-stores.md#rule-tdr-stores-responsibilitydomain), [One source of truth — delivery collapsed into one repository with one change process](../docs/drs/thesis/one-source-of-truth.md#rule-tdr-onetruth-repositoryisrecord)). |
+| [Closed loop — deterministic AI for experimental DevOps on one trunk](../docs/drs/thesis/closed-loop.md)                              | Catzc is deterministic AI for closed-loop experimental DevOps: a digital twin platform builds quality in through checks, tests and gates, while an orchestrated three-phase continuous flow carries changes authored by users alongside agentic actors into one trunk-based truth store holding everything as code plus configuration (EaC), auditable, sustainable, mappable.                                                                  |
 
 ---
 
@@ -76,25 +76,26 @@ Each claim is a thesis record, and each row is its first rule, read from the rec
 | ~~Internal version matrices~~            | **Everything at HEAD; versions only at the boundary**  |
 
 Service management follows delivery, never the reverse: a change record is the commit and its review
-([TDR-ONETRUTH-PROCESSESFOLLOWDELIVERY](../docs/drs/thesis/one-source-of-truth.md#rule-tdr-onetruth-processesfollowdelivery)).
+([processes follow delivery](../docs/drs/thesis/one-source-of-truth.md#rule-tdr-onetruth-processesfollowdelivery)).
 
 ---
 
 ## A thin platform, not a framework
 
 cats is the **Thinnest Viable Platform** of Team Topologies: a reusable command-line surface over a vendor substrate. It standardises _how_
-the organisation uses the vendor — it never reimplements it ([DDR-THINPLAT](../docs/drs/design/thin-platforms.md)).
+the organisation uses the vendor — it never reimplements it
+([an abstraction over the vendor, not a copy of it](../docs/drs/design/thin-platforms.md)).
 
 - **Delegate, don't reimplement** — Bicep does ARM templating, the az CLI does the control plane; cats harmonises one calling convention,
   one auth path and one set of defaults on top. _Abstractions, not illusions._
 - **The platform is a CLI** — `Verb-Noun` commands plus configuration _are_ the API. Consumers edit config and compose commands; they never
   touch the vendor wiring.
 - **Everything is code** — automation, configs, pinned tool versions, vendored dependencies and vendor bindings, in one living version
-  ([PDR-ONELIVE](../docs/drs/principles/one-living-version.md)).
+  ([no legacy, no back-compat, history in git](../docs/drs/principles/one-living-version.md)).
 - **Swappable substrate** — the vendor sits behind the CLI; the consequential choices (cost, region, scale, blast radius) stay visible in
   configuration.
 - **Safe self-service** — consumers provision through the repository, and every delivery travels as one immutable artifact
-  ([DDR-SELFSERV](../docs/drs/design/self-service.md)).
+  ([consumers provision themselves](../docs/drs/design/self-service.md)).
 
 ---
 
@@ -102,10 +103,10 @@ the organisation uses the vendor — it never reimplements it ([DDR-THINPLAT](..
 
 **Drop a file, get a command.** No manifests, no installers, no registration: a folder is a module, a file is a function, and its location
 decides whether it is public. Every choice is judged against two questions — _does this add ceremony?_ and _can the author get this wrong?_
-([ADR-AUTO-ZERO](../docs/drs/automation/zero-ceremony-poka-yoke.md)).
+([zero ceremony, hard to fail](../docs/drs/automation/zero-ceremony-poka-yoke.md)).
 
 Self-contained by design: vendored dependencies, no network calls at import, the same commands on a devbox and in a pipeline
-([ADR-AUTO-PARITY](../docs/drs/automation/devbox-pipeline-parity.md)).
+([the devbox and the pipeline are one environment](../docs/drs/automation/devbox-pipeline-parity.md)).
 
 ---
 
@@ -113,15 +114,15 @@ Self-contained by design: vendored dependencies, no network calls at import, the
 
 The design axioms every other decision cites, each with its first rule.
 
-| Record                                                          | Rule                                                                                                                                                                                                                                                                                                                                                                         |
-| --------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [`PDR-EAC`](../docs/drs/principles/everything-as-code.md)       | Every artifact required to build, test, deploy, or operate the system lives in version control — application code, infrastructure, pipelines, environment config, schemas/migrations, specs, tests, container/orchestration, networking/DNS, and governing docs.                                                                                                             |
-| [`PDR-CONFIG`](../docs/drs/principles/configure-not-program.md) | Behaviour that varies by instance — a language, a tool, a target, an environment, a file class — is a config entry.                                                                                                                                                                                                                                                          |
-| [`PDR-REDUCEVAR`](../docs/drs/principles/reduce-variability.md) | Reduce variability in processes, tooling, and artifacts so outcomes are predictable and deviations stand out — build/test/deploy through the same steps, the same tools and versions, and a uniform artifact structure.                                                                                                                                                      |
-| [`PDR-NOWASTE`](../docs/drs/principles/reduce-waste.md)         | For any step, ask "could I deliver the same outcome without this step?" — if yes, the step is waste; eliminate it, or address the structural constraint that makes it necessary.                                                                                                                                                                                             |
-| [`PDR-POKAYOKE`](../docs/drs/principles/poka-yoke.md)           | Prefer structural prevention — make the wrong thing impossible to express; derive behavior from convention (naming, placement, structure) so there is no separate registration to fall out of sync.                                                                                                                                                                          |
-| [`PDR-ONELIVE`](../docs/drs/principles/one-living-version.md)   | The codebase expresses exactly one version of every **internal** behaviour — the current one.                                                                                                                                                                                                                                                                                |
-| [`PDR-CATS`](../docs/drs/principles/cats-and-catzc.md)          | **catzc** is the source-level name of the system: the `Catzc` token that opens every full module name, declared once as the `pwsh` track's module namespace rather than repeated in each module folder, the C# `Catzc.*` namespaces, the `Catzc.` type-accelerator prefix, and the literal product token in code, configuration keys, contract paths and precise references. |
+| Record                                                                                                                              | Rule                                                                                                                                                                                                                                                                                                                                                                         |
+| ----------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [Everything as code](../docs/drs/principles/everything-as-code.md)                                                                  | Every artifact required to build, test, deploy, or operate the system lives in version control — application code, infrastructure, pipelines, environment config, schemas/migrations, specs, tests, container/orchestration, networking/DNS, and governing docs.                                                                                                             |
+| [Configure, don't program — one mechanism per kind, one config entry per instance](../docs/drs/principles/configure-not-program.md) | Behaviour that varies by instance — a language, a tool, a target, an environment, a file class — is a config entry.                                                                                                                                                                                                                                                          |
+| [Reduce variability](../docs/drs/principles/reduce-variability.md)                                                                  | Reduce variability in processes, tooling, and artifacts so outcomes are predictable and deviations stand out — build/test/deploy through the same steps, the same tools and versions, and a uniform artifact structure.                                                                                                                                                      |
+| [Reduce waste](../docs/drs/principles/reduce-waste.md)                                                                              | For any step, ask "could I deliver the same outcome without this step?" — if yes, the step is waste; eliminate it, or address the structural constraint that makes it necessary.                                                                                                                                                                                             |
+| [Poka-yoke — make mistakes impossible](../docs/drs/principles/poka-yoke.md)                                                         | Prefer structural prevention — make the wrong thing impossible to express; derive behavior from convention (naming, placement, structure) so there is no separate registration to fall out of sync.                                                                                                                                                                          |
+| [One living version — no legacy, no back-compat, history in git](../docs/drs/principles/one-living-version.md)                      | The codebase expresses exactly one version of every **internal** behaviour — the current one.                                                                                                                                                                                                                                                                                |
+| [Cats and catzc](../docs/drs/principles/cats-and-catzc.md)                                                                          | **catzc** is the source-level name of the system: the `Catzc` token that opens every full module name, declared once as the `pwsh` track's module namespace rather than repeated in each module folder, the C# `Catzc.*` namespaces, the `Catzc.` type-accelerator prefix, and the literal product token in code, configuration keys, contract paths and precise references. |
 
 ---
 
@@ -130,12 +131,13 @@ The design axioms every other decision cites, each with its first rule.
 The rigour that makes delivery auditable is exactly what an AI agent needs to contribute safely. Every rule in the repository is a decision
 record with a citable code, every defined term has one meaning, and every gate is a command an agent can run and read.
 
-- **Citable rules** — every decision carries a code such as `ADR-PWSH-ERROR-THROWNOTWRITEERROR`, resolvable to its anchor
-  ([DRS index](../docs/drs/index.md)).
+- **Citable rules** — every decision carries a short code that resolves to the rule it names
+  ([every decision record, by domain](../docs/drs/index.md)).
 - **A controlled vocabulary** — one glossary, generated from the modules that own the terms ([glossary](../docs/drs/glossary.md)).
-- **An agent contract** — what every agent reads first and may never do ([ADR-REPO-AI](../docs/drs/repository/ai-agent-contract.md)).
+- **An agent contract** — what every agent reads first and may never do
+  ([the contract every agent works under](../docs/drs/repository/ai-agent-contract.md)).
 - **Bounded everywhere** — every wait has a limit, so neither a person nor an agent hangs on a call
-  ([ADR-AUTO-FAILFAST](../docs/drs/automation/fail-fast-with-asserts.md)).
+  ([fail fast, and bound every wait](../docs/drs/automation/fail-fast-with-asserts.md)).
 
 ---
 
