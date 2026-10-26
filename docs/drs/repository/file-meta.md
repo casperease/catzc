@@ -329,8 +329,8 @@ relation, so a new relation is a new name and a registry entry, and the target o
 
 `A file's companions are found by convention and derivation, never named in the head`
 
-A file has two companions a reader wants one step away: its test and the page that holds its moved comments. Both cost nothing to find:
-the convention places the test, its stem under `tests/`, and the page sits at a path derived from the file's own
+A file has two companions a reader wants one step away: its test and the page that holds its moved comments. Both cost nothing to find: the
+convention places the test, its stem under `tests/`, and the page sits at a path derived from the file's own
 ([ADR-REPO-COMMENTS-COMMENTPAGEPLACE](comments-in-docs.md#rule-adr-repo-comments-commentpageplace)). A head that named either would only
 repeat the rule and churn with every move, so the head names neither, and an authored file carries no edge at all.
 

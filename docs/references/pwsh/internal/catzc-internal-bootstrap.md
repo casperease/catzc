@@ -21,7 +21,7 @@ Bootstrap is the part of the load sequence that turns a folder of `.ps1` files i
   is silently ignored — which is one of the mechanical enforcements of [use-ps1-not-psm1](../../../drs/automation/pwsh/use-ps1-not-psm1.md).
   `Get-DynamicManifestContent` renders the manifest text: the `=` column is computed from the longest key rather than hand-padded, endings
   are LF, and the output is formatter-stable — running the formatter over it is a no-op — so the bytes are identical on every platform and
-  every build of a commit ([ADR-REPO-FORMAT-TOOLSFORMAT](../../../drs/repository/uniform-formatting.md)).
+  every build of a commit ([ADR-REPO-FORMAT-TOOLSFORMAT](../../../drs/repository/uniform-formatting.md#rule-adr-repo-format-toolsformat)).
 - **C# type compile and load** — `Import-CSharpTypes` compiles every module's `types/*.cs` into one hash-keyed assembly,
   `pwsh/.compiled/Catzc.Types.<hash>.dll`, so a type in one module can reference a type in another. It keys the assembly off the combined
   source hash from [Catzc.Internal.Types](catzc-internal-types.md) (the same hash the cache janitor uses, so the two can never drift),
@@ -38,17 +38,51 @@ Bootstrap is the part of the load sequence that turns a folder of `.ps1` files i
   switch forces a rebuild from source. It is best-effort (a locked DLL is skipped) and distinct from the post-import `Clear-ModuleTypeCache`
   janitor, which keeps the current build and self-skips in CI.
 
+## Manifest details
+
+- **Read-only load** — a bundle is a read-only install, so `-ReadOnly` never generates or writes a manifest: it must already be present
+  (`Build-Modules` pre-generates every module's manifest) and its path is returned.
+- **Explicit lists** — a module that is not one function per file passes `-NestedModule` (relative to the module folder, forward slashes, in
+  load order) and `-FunctionToExport` together, and the folder is not enumerated. `-ExportPrivates` exports every function (`'*'`).
+- **Determinism** — the shared loader (the manifest's one nested module, `../.internal/assets/Import-ModuleFiles.ps1`, since a module folder
+  sits directly under the modules root beside `.internal`) dot-sources each listed `.ps1` into the module's session state in list order.
+  Private functions group first, then public; each group is ordinal-sorted and its paths use forward slashes, so the emitted manifest is
+  byte-identical on every platform and every build of the same commit.
+- **Write only on change** — `Write-DynamicManifest` writes the rendered text only when it differs, so an unchanged module yields identical
+  bytes and no write, and parallel workers never race on the manifest files. The L2 tests guard the canonical form.
+- **Private-function folder** — `Get-PrivateFunctionFolder` is the pre-types reader of the powershell layout's private-function row in
+  `languages.yml`; once types load, `LanguagesConfig.FolderOf` reads the same row
+  ([ADR-REPO-FOLDERS-NAMESARESETTINGS](../../../drs/repository/folders.md#rule-adr-repo-folders-namesaresettings)).
+
+## Collision guard details
+
+The guard checks two cases. The first is two catzc modules exporting one name (with `-ExportPrivates`, the `private/` functions join the
+check). The second is a module function shadowing an already-imported **shipped** command. Shipped means a command that loads before the
+catzc modules and would be silently shadowed by their `-Scope Global` import: a built-in (under `$PSHOME`), a vendored module (under
+`.vendor/`), or an `.internal` shared module. The `.internal` modules sit directly in their folder, so their `ModuleBase` ends at `.internal`
+with no trailing separator, and the match covers that too. Scoping the check to shipped commands by module path means a user's unrelated
+session module never blocks the import, and catzc's own modules (current, or stale on a devbox re-import) are excluded naturally, since
+their base is none of those.
+
+`Get-ForeignCatzcModule` returns every loaded catzc module that does not come from a given code root (`-IncludeInternal` adds the
+`Catzc.Internal.*` loader modules, which belong to a root through its `.internal` folder). The package module also belongs when its
+`ModuleBase` is the root's parent, since its code root is `pwsh/`.
+
 ## Functions
 
 The exported surface the importer calls:
 
 - `Import-AllModules` — discover, guard, and import every `pwsh/*` module, compiling the combined C# type assembly first.
-- `Clear-CompiledType` — delete the compiled type DLLs before import so the types rebuild from source (`-ClearCompiledTypes`).
+- `Clear-CompiledType` — delete the compiled type DLLs before import so the types rebuild from source (`-ClearCompiledTypes`); unlike
+  `Clear-ModuleTypeCache` it wipes every build in any context, skipping only locked DLLs.
+- `Get-ForeignCatzcModule` — list the loaded catzc modules that do not come from the given code root.
 
 The module-internal engine `Import-AllModules` drives (not exported):
 
-- `New-DynamicManifest` — generate a module's canonical `<Module>.psd1` from its `.ps1` files.
+- `New-DynamicManifest` — generate a module's canonical `<Module>.psd1` from its `.ps1` files, and return its path.
+- `Write-DynamicManifest` — write rendered manifest text to its `.psd1` only when it differs.
 - `Get-DynamicManifestContent` — render the manifest hashtable as canonical, formatter-stable `.psd1` text.
+- `Get-PrivateFunctionFolder` — read the private-function folder name from the languages config before types load.
 - `Import-CSharpTypes` — compile and load every module's `types/*.cs` into the one hash-keyed `Catzc.Types.<hash>.dll`.
 - `Assert-UniqueModuleFunctionName` — fail the import on a duplicate or shadowing exported function name.
 
@@ -62,171 +96,3 @@ The module-internal engine `Import-AllModules` drives (not exported):
 - Reference: [Catzc.Internal.Types](catzc-internal-types.md) — the shared hash; the [BCL type-system reference](../../BCL/types-system.md);
   [Catzc.Base.ModuleSystem](../base-module-system/index.md) — the post-import dependency-graph check over the same modules; the
   [internal area overview](index.md).
-
-## comment:1
-
-Above `function Clear-CompiledType {`, written with `#`.
-
-```text
-.SYNOPSIS
-    Deletes the compiled C# type assembly so the next import rebuilds it from source.
-.DESCRIPTION
-    Unlike Clear-ModuleTypeCache it wipes every build before import in any context, skipping only locked DLLs.
-.PARAMETER ModulesRoot
-    Path to the modules folder (the parent of .compiled/).
-```
-
-## comment:2
-
-Above `function New-DynamicManifest {`, written with `#`.
-
-```text
-.SYNOPSIS
-    Writes a module's generated <Module>.psd1 and returns its path.
-.DESCRIPTION
-    A caller whose module is not one function per file passes both lists explicitly, and the folder is not enumerated.
-.PARAMETER ModulePath
-    The module folder; the manifest is <ModulePath>/<leaf>.psd1.
-.PARAMETER ExportPrivates
-    Export every function ('*'), so tests can reach privates.
-.PARAMETER ReadOnly
-    Never write: assert the manifest is already present and return its path.
-.PARAMETER NestedModule
-    Explicit NestedModules, relative to ModulePath with forward slashes, in load order. Requires -FunctionToExport.
-.PARAMETER FunctionToExport
-    Explicit FunctionsToExport names. Requires -NestedModule.
-```
-
-## comment:3
-
-Above `[switch]$ReadOnly,`, written with `#`.
-
-```text
-Read-only load (a bundle): never generate or write the manifest — it must already be present
-(Build-Modules pre-generates every module's manifest), so a read-only install store is never written to.
-```
-
-## comment:4
-
-Above `$privateRelative = [string[]] @(foreach ($f in $privateFiles) {`, written with `#`.
-
-```text
-The shared loader (the manifest's one NestedModule) dot-sources each listed .ps1 into the module's session
-state, in list order. Private functions group first, then public; each group is ordinal-sorted and its paths
-use forward slashes, so the emitted manifest is byte-identical on every platform and every build of the same
-commit.
-```
-
-## comment:5
-
-Above `$content = Get-DynamicManifestContent -NestedModule $script:moduleFilesLoader...`, written with `#`.
-
-```text
-Canonical, formatter-stable text — no hand-padded alignment
-([ADR-REPO-FORMAT-TOOLSFORMAT](/docs/drs/repository/uniform-formatting.md#rule-adr-repo-format-toolsformat)); the L2 tests guard the
-invariant.
-```
-
-## comment:6
-
-Above `$script:moduleFilesLoader = '../.internal/assets/Import-ModuleFiles.ps1'`, written with `#`.
-
-```text
-The shared loader every derived manifest names as its one NestedModule, relative to the module folder: a module
-folder sits directly under the modules root, beside .internal.
-```
-
-## comment:7
-
-Above `[CmdletBinding()]` (occurrence 2), written with `#`.
-
-```text
-.SYNOPSIS
-    Writes rendered manifest text to its .psd1 only when it differs, and returns the path.
-.DESCRIPTION
-    An unchanged module yields identical bytes and no write, so parallel workers never race on the manifest files.
-```
-
-## comment:8
-
-Above `[CmdletBinding()]` (occurrence 3), written with `#`.
-
-```text
-.SYNOPSIS
-    Renders a module manifest hashtable as canonical .psd1 text.
-.DESCRIPTION
-    Canonical by construction: the alignment column derives from the longest key and the text is formatter-stable.
-```
-
-## comment:9
-
-Above `$fields = [ordered]@{`, written with `#`.
-
-```text
-Ordered fields with their value literals. The '=' column width is derived from the longest key, so a new
-field re-aligns automatically and no alignment is maintained by hand
-([ADR-REPO-FORMAT-TOOLSFORMAT](/docs/drs/repository/uniform-formatting.md#rule-adr-repo-format-toolsformat)).
-```
-
-## comment:10
-
-Above `function Assert-UniqueModuleFunctionName {`, written with `#`.
-
-```text
-.SYNOPSIS
-    Fails the import when an exported function name collides — across catzc modules, or with a shipped
-    (vendored/built-in) command that is already imported.
-.DESCRIPTION
-    PowerShell silently lets the last imported command shadow the rest, so this turns a clash into a loud failure.
-.PARAMETER ModuleDirs
-    The discovered module directories (dot-prefixed infrastructure already excluded).
-.PARAMETER ExportPrivates
-    When set, private/ functions are exported too, so they join the uniqueness check.
-```
-
-## comment:11
-
-Above `$shipped = @{}`, written with `#`.
-
-```text
-2) A module function shadowing an already-imported SHIPPED command (vendored module or built-in).
-   Vendor modules and built-ins import before our modules, so a name clash means our -Scope Global import
-   would silently shadow them. Scope the check to shipped commands by module path — under .vendor/ or
-   $PSHOME — so a user's unrelated session module never blocks the import, and our own modules (current
-   or stale on a devbox re-import) are naturally excluded (their base is neither).
-```
-
-## comment:12
-
-Above `$isShipped = ($base -like "$PSHOME*") -or ($base -match '[\\/]\.vendor[\\/]')...`, written with `#`.
-
-```text
-Shipped = a command that loads BEFORE our catzc modules and would be silently shadowed by our
--Scope Global import: built-ins ($PSHOME), vendored third-party (.vendor), and the .internal shared
-modules (loaded by the importer before this check). The .internal modules sit directly in the folder,
-so their ModuleBase ENDS at .internal (no trailing separator) — match that too.
-```
-
-## comment:13
-
-Above `function Get-ForeignCatzcModule {`, written with `#`.
-
-```text
-.SYNOPSIS
-    Returns every loaded catzc module that does not come from the given code root.
-.DESCRIPTION
-    The package module also belongs when its ModuleBase is the root's parent, since its code root is pwsh/.
-.PARAMETER ModulesRoot
-    The active code root (CatzcModulesRoot).
-.PARAMETER IncludeInternal
-    Include the Catzc.Internal.* loader modules (they belong to a root through its .internal folder).
-```
-
-## comment:14
-
-Above `if ($script:privateFunctionFolder -and $script:privateFunctionFolder.Root...`, written with `#`.
-
-```text
-The pre-types reader of the powershell layout's private-function row; once types load, LanguagesConfig.FolderOf reads the same row
-(ADR-REPO-FOLDERS-NAMESARESETTINGS).
-```
