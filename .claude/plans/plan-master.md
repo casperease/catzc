@@ -55,13 +55,11 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
 - track-model -> plan-track-model.md: tracks as members with generated and committed facts, catch-up vendor tracks and `out` for the root,
   globsets derived from tracks, a DDR-VENDOR for the vendor umbrella, normal-form track names, filter lamps per aspect plus a language
   field, minimaps and lamps out of the ADRs; eighteen steps, the first waiting on the user's example names
-- reference-normal-form -> plan-reference-normal-form.md: reference pages at a derived four-part path
-  (`docs/references/<language>/<module>/<aspect>/<file>.md`), no `docs:` links; the staged steps 1, 2 and 4 and the step-3 rename script
-  were lost in the out/ wipe of 2026-10-26 15:22 and are rebuilt outside out/ before the user's rename
+- reference-normal-form -> plan-reference-normal-form.md: reference pages at a derived path
+  (`docs/references/<language>/<module>/<aspect path>/<file>.md`), no `docs:` links; steps 1 and 2 staged by catzc-98 in its
+  scratchpad, then the step-3 rename script, then the user's rename
 - module-types-contracts -> plan-module-types-contracts.md: each module group publishes its compiled type surface as `types.json` beside its
   command contracts, replacing the global sample; command contracts' types checked against it
-- python-namespace-package -> plan-python-namespace-package.md: the diagram kit becomes a package that code imports as `catzc.diagrams`
-  while its folder stays short; one step, after module-namespace leaves the tree green
 - idiomatic-names -> plan-idiomatic-names.md: one step left, the naming gate wired into languages.yml once the user stages the folder moves
   (task-user-runs-and-commits).
 - listen-internal-readers -> plan-listen-internal-readers.md: one step left, the user's `.claude/CLAUDE.md` edit
