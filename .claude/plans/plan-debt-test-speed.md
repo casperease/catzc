@@ -31,9 +31,10 @@ folders. Heavy runs wait for a turn in the orchestrator's memory queue, one run 
       steps' own file lists 2.7 to 3.1 s, `Get-FileMetaInputStamp` 2.0 to 2.5 s and the cache splits 2.4 to 2.6 s. The scope walk is down to
       1.4 to 1.7 s (catzc-68, `Get-FormatScope`'s filters as loops, the warm path about 10 s). The step lists are left as they are: only the
       comments list (1.7 to 2.3 s, of it `Get-LinkScope` 1.0 s of existence checks and the exempt lookup, its loop form no faster) and the
-      file-meta list (1.4 s) cost, and neither is the format scope's set. Next: `Get-FileMetaInputStamp` and the file-meta list only after catzc-2b's 4a burst lands, routed through the orchestrator. Known red until the user's
-      edit and item 32's untracking: `.claude/CLAUDE.md` unformatted and the tracked build outputs) and `Get-RepositoryFilter.Tests.ps1`
-      (16.1 s). `Test-Automation.Tests.ps1` (15.6 s) is left as it is: its cost is one `Test-SourceConventions` run over the tree (catzc-68,
+      file-meta list (1.4 s) cost, and neither is the format scope's set. Next: `Get-FileMetaInputStamp` and the file-meta list only after
+      catzc-2b's 4a burst lands, routed through the orchestrator. Known red until the user's edit and item 32's untracking:
+      `.claude/CLAUDE.md` unformatted and the tracked build outputs) and `Get-RepositoryFilter.Tests.ps1` (16.1 s).
+      `Test-Automation.Tests.ps1` (15.6 s) is left as it is: its cost is one `Test-SourceConventions` run over the tree (catzc-68,
       2026-10-26). `Test-Spelling.Tests.ps1` (18.5 s) is left as it is: its cost is one cspell process over 5,669 files (19.3 s measured); a
       4-way extension shard measured 10.1 s, but parallel cspell needs a fan-out seam in Base.Execution that the L0 mocks can reach, the
       open question below (catzc-68, 2026-10-26). A red file is made green by its owner before its speed is touched, and a file measured
