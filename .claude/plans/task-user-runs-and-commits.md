@@ -154,11 +154,11 @@ final full run last.
     (`git rm --cached -r pwsh/.compiled`; the folder is gitignored). Check: `git ls-files pwsh/.compiled` prints nothing,
     `git status --short contracts` is clean, and `Test-BuildArtifact -Facet Types` reports no issues.
 
-28. Blocked: plan-reference-normal-form steps 1 and 2 are rebuilt first (their staging and this step's script were lost when out/ was
-    cleared on 2026-10-26), then the orchestrator hands this step its script under out/. Once unblocked: plan-reference-normal-form step 3,
-    move every reference page to its derived path. First refresh the map csv from the committed tree (ask the orchestrator for the refresh),
-    then run the script with `-WhatIf`, then without it; then tell the orchestrator, so steps 1, 2 and 4 swap in together. Check: the
-    `-WhatIf` lists each page once and no target exists, and after the run `git status --short docs/references` shows only renames.
+28. plan-reference-normal-form step 3: move every reference page to its derived path. First ask catzc-98, the step's keeper, to refresh
+    `out/ns5/ref-map.csv` from the committed tree (New-ReferencePageMap.ps1). Then run
+    `pwsh -NoProfile -File out/ns5/Rename-ReferencePages.ps1 -WhatIf`, then the same without `-WhatIf`, and tell the orchestrator, so steps
+    1, 2 and 4 land in one burst. Check: the `-WhatIf` lists each page once and refuses nothing, and after the run
+    `git status --short docs/references` shows only renames.
 
 29. plan-python-namespace-package: commit the kit as the package `catzc.diagrams`: `python/diagrams/__init__.py` (new) and every kit module
     and test under `python/diagrams` (package-relative imports, `python -m catzc.diagrams.<tool>` usage lines); the build backend pinned at

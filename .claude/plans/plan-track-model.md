@@ -70,9 +70,11 @@ has a track.
 
 ## Decided (the user, 2026-10-26)
 
-- The example track names: `.github` → `vendor_github`, `.claude` → `vendor_claude`, `.vscode` → `vendor_vscode`, `.cspell` →
-  `vendor_cspell`, `.gitignore` and the root dotfiles → `vendor_git.root_configs`, `pwsh/.vendor` → `vendor_pwsh.modules`, `bash/.vendor` →
-  `vendor_bash.modules`, `.typescript` → `vendor_typescript.types`.
+- The example track names, with the 2026-10-24 decision winning where they differ: `.claude` → `vendor_ai.claude`; `.github`, `.gitignore`
+  and the other root dotfiles of git → `vendor_git.root_configs`; `.vscode` → `vendor_vscode`; `.cspell` → `vendor_cspell`; `pwsh/.vendor`
+  → `vendor_pwsh.modules`; `bash/.vendor` → `vendor_bash.modules`; `.typescript` → `vendor_typescript.types`; `infrastructure` →
+  `vendor_azure.bicep`, renamed with every pipeline trigger, globset and deployable unit in the same pass; `ado-pipelines` →
+  `vendor_ado.pipelines`; `github-workflows` → `vendor_github.pipelines`.
 
 ## Open steps
 

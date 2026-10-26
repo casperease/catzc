@@ -28,6 +28,11 @@ The parsed bundled config.
 
 The parsed overlay fragment.
 
+### parameter `Disjoint`
+
+Merges the parts of one split config, which are disjoint: a key both inputs set as a value throws, never overrides. Maps under one key
+still merge, part by part.
+
 ## comment:1
 
 Above `[switch] $Disjoint`, written with `#`.

@@ -84,7 +84,7 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
 - debt-test-speed -> plan-debt-test-speed.md: the slowest Pester files measured one at a time in the memory queue, and the import every test
   run pays; two steps
 - debt-format-cache -> plan-debt-format-cache.md: the format cache keyed on the imprint steps' code and the installed tools' versions, so a
-  gate never passes a file on a stale verdict; two steps
+  gate never passes a file on a stale verdict; one step
 - debt-function-help -> plan-debt-function-help.md: the 29 functions whose help the ps-help step cannot repair, written on their comment
   pages, one module per step; twelve steps
 - vscode-session-binding -> plan-vscode-session-binding.md: the one-instance-per-session decision observed in VS Code: the hang proven gone
