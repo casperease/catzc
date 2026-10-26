@@ -23,7 +23,20 @@ function Get-ContractAssetNote {
     $format = Get-ContractDataFormat -Path $Asset.Path
     $parts = [System.Collections.Generic.List[string]]::new()
 
-    if ($format -ceq 'Yaml') {
+    if ($Asset.Kind -eq [Catzc.Base.Contracts.ContractAssetKind]::Command) {
+        # A command contract carries its note as its description, not as a header comment.
+        try {
+            $command = Read-ContractData -RepositoryRoot $RepositoryRoot -Path $Asset.AssetPath
+        }
+        catch {
+            Write-Verbose "Get-ContractAssetNote: '$($Asset.AssetPath)' does not parse, so it carries no note: $($_.Exception.Message)"
+            return
+        }
+        if ($command -is [System.Collections.IDictionary] -and $command.Contains('description') -and $command['description'] -is [string]) {
+            $parts.Add($command['description'])
+        }
+    }
+    elseif ($format -ceq 'Yaml') {
         foreach ($line in [System.IO.File]::ReadAllLines((Join-Path $RepositoryRoot $Asset.AssetPath))) {
             $comment = [regex]::Match($line, '^\s*#(.*)$')
             if (-not $comment.Success) {

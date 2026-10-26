@@ -22,9 +22,13 @@ public sealed class ContractCommand
 
     public const string Suffix = ".command.yml";
 
-    private static readonly string[] AllowedKeys = { "parameters", "output", "default_set" };
+    private static readonly string[] AllowedKeys = { "description", "parameters", "output", "default_set" };
 
     private static readonly System.Text.RegularExpressions.Regex SetNameRe = new System.Text.RegularExpressions.Regex("^[A-Za-z][A-Za-z0-9_]*$");
+
+    // What the command guarantees, one plain sentence: its help synopsis stripped of links, codes and markup. A contract requires it; a
+    // signature read from a command file carries none.
+    public string description { get; }
 
     // The parameters in the order the contract states them (snake_case: the YAML keys).
     public IReadOnlyList<ContractParameter> parameters { get; }
@@ -103,9 +107,26 @@ public sealed class ContractCommand
         var errors = new List<string>();
         string outputType = DefaultOutput;
         string defaultSet = null;
+        string text = null;
 
+        if (raw == null || !raw.Contains("description") || raw["description"] == null)
+        {
+            errors.Add("description is required: one plain sentence saying what the command guarantees");
+        }
         if (raw != null)
         {
+            if (raw.Contains("description") && raw["description"] != null)
+            {
+                if (raw["description"] is string value && value.Trim().Length > 0)
+                {
+                    text = value;
+                }
+                else
+                {
+                    errors.Add("description must be one plain sentence");
+                }
+            }
+
             foreach (object key in raw.Keys)
             {
                 string name = Convert.ToString(key, CultureInfo.InvariantCulture);
@@ -165,6 +186,7 @@ public sealed class ContractCommand
         {
             throw new ArgumentException("command contract validation failed:\n" + string.Join("\n", errors));
         }
+        description = text;
         parameters = list;
         output = outputType;
         default_set = defaultSet;
@@ -172,8 +194,9 @@ public sealed class ContractCommand
     }
 
     // The signature a checker read from a command's file, in the same shape as a contract, so the two compare.
-    public ContractCommand(IEnumerable<ContractParameter> parameterList, string outputType, string defaultSet = null)
+    public ContractCommand(IEnumerable<ContractParameter> parameterList, string outputType, string defaultSet = null, string descriptionText = null)
     {
+        description = string.IsNullOrEmpty(descriptionText) ? null : descriptionText;
         var list = new List<ContractParameter>(parameterList ?? Array.Empty<ContractParameter>());
         parameters = list;
         output = string.IsNullOrEmpty(outputType) ? DefaultOutput : outputType;
@@ -289,13 +312,17 @@ public sealed class ContractCommand
             list.Add(new ContractParameter(rename(parameter.Name), TypeOf(parameter.Type, rename), parameter.IsList, parameter.Mandatory,
                 parameter.Default, parameter.Pipeline, sets));
         }
-        return new ContractCommand(list, TypeOf(output, rename), default_set == null ? null : rename(default_set));
+        return new ContractCommand(list, TypeOf(output, rename), default_set == null ? null : rename(default_set), description);
     }
 
     public string ToAssetText(Func<string, string> rename)
     {
         if (rename == null) { throw new ArgumentNullException(nameof(rename), "contract command: the rename is required"); }
         var text = new System.Text.StringBuilder();
+        if (description != null)
+        {
+            text.Append("description: ").Append(description).Append('\n');
+        }
         if (parameters.Count > 0)
         {
             text.Append("parameters:\n");

@@ -1,8 +1,33 @@
 Describe 'ContractCommand' -Tag 'L0', 'logic', 'ADR-REPO-CMDCONTRACT-CONTRACTLANGUAGE' {
     BeforeAll {
+        # A contract of the given keys; one without a description gets a plain one, so each case states only what it tests.
         function New-Command {
             param([string] $Yaml)
+            if ($Yaml -notmatch '(?m)^description:') {
+                $Yaml = "description: Returns the widget.`n$Yaml"
+            }
             [Catzc.Base.Contracts.ContractCommand]::new(($Yaml | ConvertFrom-Yaml -Ordered))
+        }
+    }
+
+    Context 'the description' {
+        It 'reads the description as the plain sentence it holds' {
+            (New-Command "description: Checks the gadget.`n").description | Should -BeExactly 'Checks the gadget.'
+        }
+
+        It 'requires a description, one plain sentence' {
+            { [Catzc.Base.Contracts.ContractCommand]::new($null) } | Should -Throw '*description is required*'
+            { [Catzc.Base.Contracts.ContractCommand]::new(@{ parameters = @{ Path = 'string' } }) } | Should -Throw '*description is required*'
+        }
+
+        It 'keeps the description through a rename and writes it first' {
+            $command = (New-Command "description: Returns the widget.`nparameters:`n  Path: string`n").Renamed([Func[string, string]] { param($name) $name })
+            $command.description | Should -BeExactly 'Returns the widget.'
+            $command.ToAssetText([Func[string, string]] { param($name) $name }) | Should -BeLike "description: Returns the widget.`nparameters:*"
+        }
+
+        It 'carries no description on a signature read from a command file' {
+            [Catzc.Base.Contracts.ContractCommand]::new([Catzc.Base.Contracts.ContractParameter[]] @(), 'void').description | Should -BeNullOrEmpty
         }
     }
 
@@ -31,8 +56,8 @@ Describe 'ContractCommand' -Tag 'L0', 'logic', 'ADR-REPO-CMDCONTRACT-CONTRACTLAN
             $command.parameters[0].Default | Should -BeNullOrEmpty
             $command.parameters[0].Pipeline | Should -BeFalse
             $command.output | Should -Be 'void'
-            [Catzc.Base.Contracts.ContractCommand]::new($null).parameters.Count | Should -Be 0
-            [Catzc.Base.Contracts.ContractCommand]::new(@{}).output | Should -Be 'void'
+            (New-Command '').parameters.Count | Should -Be 0
+            (New-Command '').output | Should -Be 'void'
         }
 
         It 'reads a parameter back as its spec' {
@@ -54,11 +79,11 @@ Describe 'ContractCommand' -Tag 'L0', 'logic', 'ADR-REPO-CMDCONTRACT-CONTRACTLAN
                 [Catzc.Base.Contracts.ContractAssetKind]::Command, 'widgets/Catzc.Widget/Get-Widget.ps1',
                 [Catzc.Base.Contracts.ContractDirection]::Provided)
             $command = [Catzc.Base.Contracts.ContractCommand]::new($asset,
-                ("parameters:`n  Path: string!`n  Strict: switch`noutput: string`n" | ConvertFrom-Yaml -Ordered))
+                ("description: Returns the widget.`nparameters:`n  Path: string!`n  Strict: switch`noutput: string`n" | ConvertFrom-Yaml -Ordered))
             $command.Name | Should -Be 'Get-Widget'
             $command.Asset.AssetPath | Should -Be 'contracts/widget/0.1.0/Catzc.Widget/Get-Widget.command.yml'
             $command.Signature | Should -Be 'Path: string!, Strict: switch -> string'
-            [Catzc.Base.Contracts.ContractCommand]::new($asset, $null).Signature | Should -Be 'no parameters'
+            [Catzc.Base.Contracts.ContractCommand]::new($asset, @{ description = 'Returns the widget.' }).Signature | Should -Be 'no parameters'
             (New-Command "parameters:`n  Path: string`n").Name | Should -Be ''
             $fragment = [Catzc.Base.Contracts.ContractAsset]::new('widget', '0.1.0', 'Catzc.Widget', 'widget.yml',
                 [Catzc.Base.Contracts.ContractAssetKind]::Fragment, 'widget.yml',
@@ -174,6 +199,7 @@ Describe 'ContractCommand' -Tag 'L0', 'logic', 'ADR-REPO-CMDCONTRACT-CONTRACTLAN
 Describe 'ContractCommand.ToAssetText' -Tag 'L0', 'logic' {
     It 'writes every part of the grammar, passing each name, set and catzc type through the rename' {
         $raw = [ordered]@{
+            description = 'Returns the widget.'
             parameters  = [ordered]@{
                 Path  = 'string!'
                 Count = 'int = 3'
@@ -186,16 +212,16 @@ Describe 'ContractCommand.ToAssetText' -Tag 'L0', 'logic' {
         $command = [Catzc.Base.Contracts.ContractCommand]::new($raw)
         $text = $command.ToAssetText([Func[string, string]] { param($name) $name.ToLowerInvariant() })
         $text |
-            Should -BeExactly ("parameters:`n  path: string!`n  count: int = 3`n  items: catzc.base.widgets.gadget[]! pipeline`n" +
+            Should -BeExactly ("description: Returns the widget.`nparameters:`n  path: string!`n  count: int = 3`n  items: catzc.base.widgets.gadget[]! pipeline`n" +
                 "  quiet: switch in byid,byname`noutput: catzc.base.widgets.widget[]`ndefault_set: byid`n")
     }
 
-    It 'leaves out a void output and an absent default set, and writes nothing for an empty contract' {
-        $command = [Catzc.Base.Contracts.ContractCommand]::new([ordered]@{ parameters = [ordered]@{ Name = 'string' } })
+    It 'leaves out a void output and an absent default set, and writes only the description for a contract with nothing else' {
+        $command = [Catzc.Base.Contracts.ContractCommand]::new([ordered]@{ description = 'Returns the widget.'; parameters = [ordered]@{ Name = 'string' } })
         $command.ToAssetText([Func[string, string]] { param($name) $name }) |
-            Should -BeExactly "parameters:`n  Name: string`n"
-        [Catzc.Base.Contracts.ContractCommand]::new($null).ToAssetText([Func[string, string]] { param($name) $name }) |
-            Should -BeExactly ''
+            Should -BeExactly "description: Returns the widget.`nparameters:`n  Name: string`n"
+        [Catzc.Base.Contracts.ContractCommand]::new(@{ description = 'Returns the widget.' }).ToAssetText([Func[string, string]] { param($name) $name }) |
+            Should -BeExactly "description: Returns the widget.`n"
     }
 }
 
@@ -204,7 +230,7 @@ Describe 'ContractCommand.ToAssetText — every shipped command asset round-trip
         $differ = @(foreach ($contract in Get-CommandContract -Module '*' -Name '*') {
                 $text = $contract.ToAssetText([Func[string, string]] { param($name) $name })
                 $again = [Catzc.Base.Contracts.ContractCommand]::new(($text | ConvertFrom-Yaml -Ordered))
-                if ($again.Signature -cne $contract.Signature) {
+                if ($again.Signature -cne $contract.Signature -or $again.description -cne $contract.description) {
                     "$($contract.Asset.AssetPath): $($contract.Signature) <> $($again.Signature)"
                 }
             })

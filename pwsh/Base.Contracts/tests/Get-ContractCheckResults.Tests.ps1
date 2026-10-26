@@ -320,7 +320,10 @@ widget: cog
             Mock -ModuleName Catzc.Base.Contracts Get-CatzcModule {
                 [pscustomobject]@{ name = 'Catzc.Widget'; root = 'widgets/Catzc.Widget'; languages = @('powershell') }
             }
-            Add-Asset 'get_widget.command.yml' "parameters:`n  path: string!`n  strict: switch`noutput: string`n"
+            # The command's comment page, whose synopsis the contract's description holds as plain text.
+            Mock -ModuleName Catzc.Base.Contracts Get-CommentPage { 'docs/widget-page.md' }
+            Add-File 'docs/widget-page.md' "## help`n`n### synopsis`n`nReturns the [widget](widget.md).`n"
+            Add-Asset 'get_widget.command.yml' "description: Returns the widget.`nparameters:`n  path: string!`n  strict: switch`noutput: string`n"
         }
 
         It 'passes when the command declares the signature the contract states, its names rendered to the normal form' {
@@ -343,8 +346,15 @@ widget: cog
             )
         }
 
+        It 'fails when the description is not the command''s synopsis as plain text' -Tag 'ADR-REPO-CONTRACT-HEADERSAYSWHATITPINS' {
+            Add-File 'widgets/Catzc.Widget/Get-Widget.ps1' "function Get-Widget {`n    [OutputType([string])]`n    param(`n        [Parameter(Mandatory)]`n        [string] `$Path,`n`n        [switch] `$Strict`n    )`n}`n"
+            Add-Asset 'get_widget.command.yml' "description: Returns a widget.`nparameters:`n  path: string!`n  strict: switch`noutput: string`n"
+            $result = Get-CheckResult 'get_widget.command.yml'
+            $result.Findings | Should -Be @("'contracts/catzc/0.1.0/catzc.widget/get_widget.command.yml': description is not the command's synopsis as plain text; write 'Returns the widget.', or change the synopsis on its comment page")
+        }
+
         It 'compares a catzc type and a parameter set in the normal form' {
-            Add-Asset 'get_widget.command.yml' "parameters:`n  path: string! in by_path`noutput: catzc.widgets.widget_gadget[]`n"
+            Add-Asset 'get_widget.command.yml' "description: Returns the widget.`nparameters:`n  path: string! in by_path`noutput: catzc.widgets.widget_gadget[]`n"
             Add-File 'widgets/Catzc.Widget/Get-Widget.ps1' "function Get-Widget {`n    [OutputType([Catzc.Widgets.WidgetGadget[]])]`n    param(`n        [Parameter(Mandatory, ParameterSetName = 'ByPath')]`n        [string] `$Path`n    )`n}`n"
             $result = Get-CheckResult 'get_widget.command.yml'
             $result.Passed | Should -BeTrue -Because ($result.Findings -join "`n")
@@ -352,7 +362,7 @@ widget: cog
 
         It 'fails when the contract names anything outside the normal form' -Tag 'ADR-REPO-CMDCONTRACT-CONTRACTLANGUAGE' {
             Add-File 'widgets/Catzc.Widget/Get-Widget.ps1' "function Get-Widget {`n    param([string] `$Path)`n}`n"
-            Add-Asset 'get_widget.command.yml' "parameters:`n  Path: string`n"
+            Add-Asset 'get_widget.command.yml' "description: Returns the widget.`nparameters:`n  Path: string`n"
             $result = Get-CheckResult 'get_widget.command.yml'
             $result.Findings.Count | Should -Be 1
             $result.Findings[0] |
@@ -370,7 +380,7 @@ widget: cog
 
         It 'fails when the contract is not written in the contract language' {
             Add-File 'widgets/Catzc.Widget/Get-Widget.ps1' "function Get-Widget {`n    param([string] `$Path)`n}`n"
-            Add-Asset 'get_widget.command.yml' "parameters:`n  path: text`n"
+            Add-Asset 'get_widget.command.yml' "description: Returns the widget.`nparameters:`n  path: text`n"
             $result = Get-CheckResult 'get_widget.command.yml'
             $result.Findings.Count | Should -Be 1
             $result.Findings[0] |

@@ -1,5 +1,5 @@
 {
-  "$comment": "Provided schema of one outbound junction message, validated against the sample beside it (TDR-STORES-STATEMACHINE, ADR-REPO-CONTRACT-CONTRACTASSET): catzc messages a state machine to report facts proactively, such as a deployment it has made or evidence a gate has produced; every fact carries its origin.",
+  "$comment": "The schema of one outbound junction message, catzc reporting facts to a state machine proactively, every fact with its origin.",
   "type": "object",
   "required": ["junction", "state_machine", "sent_at", "facts"],
   "additionalProperties": false,

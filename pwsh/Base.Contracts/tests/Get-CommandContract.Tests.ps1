@@ -14,9 +14,9 @@ Describe 'Get-CommandContract' -Tag 'L0', 'logic', 'ADR-REPO-CMDCONTRACT-ONEREAD
         Mock -ModuleName Catzc.Base.Contracts Get-CatzcModule {
             [pscustomobject]@{ name = $Name; root = "widgets/$Name"; languages = @('powershell') }
         }
-        Add-Asset 'widget/0.1.0/catzc.widget/get_widget.command.yml' "parameters:`n  path: string!`n  strict: switch`noutput: string`n"
-        Add-Asset 'widget/0.1.0/catzc.widget/set_widget.command.yml' ''
-        Add-Asset 'widget/0.1.0/catzc.gadget/get_gadget.command.yml' "parameters:`n  count: int = 2`n"
+        Add-Asset 'widget/0.1.0/catzc.widget/get_widget.command.yml' "description: Returns the widget.`nparameters:`n  path: string!`n  strict: switch`noutput: string`n"
+        Add-Asset 'widget/0.1.0/catzc.widget/set_widget.command.yml' "description: Sets the widget.`n"
+        Add-Asset 'widget/0.1.0/catzc.gadget/get_gadget.command.yml' "description: Returns the gadget.`nparameters:`n  count: int = 2`n"
         Add-Asset 'widget/0.1.0/catzc.gadget/gadget.yml' 'gadget: 1'
         Add-Asset 'widget/0.1.0/contract.yml' "applies_to:`n  catzc.gadget/gadget.yml: ['gadget.yml']`n"
         Mock -ModuleName Catzc.Base.Contracts Get-GitTrackedPath { 'gadget.yml' }

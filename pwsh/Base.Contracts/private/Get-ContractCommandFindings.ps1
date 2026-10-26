@@ -57,4 +57,22 @@ function Get-ContractCommandFindings {
     }
 
     [Catzc.Base.Contracts.ContractCommand]::Compare($contract, $command)
+
+    # The description is the command's help synopsis as plain text; the synopsis on the comment page is its one source.
+    $page = Get-CommentPage -Path $Asset.Target -Config (Get-Config -Config comment-pages)
+    $pageFile = if ($page) {
+        Join-Path $RepositoryRoot $page
+    }
+    $synopsis = if ($pageFile -and [System.IO.File]::Exists($pageFile)) {
+        [Catzc.Base.CodeMeta.PlainText]::Synopsis([System.IO.File]::ReadAllText($pageFile))
+    }
+    else {
+        ''
+    }
+    if (-not $synopsis) {
+        "'$($Asset.AssetPath)': '$name' has no help synopsis on its comment page to describe it"
+    }
+    else {
+        Get-ContractDescriptionFindings -AssetPath $Asset.AssetPath -Key description -Description "$($contract.description)" -Synopsis $synopsis
+    }
 }

@@ -1,5 +1,4 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Test-Pipelines, the quality gate that checks the
-# .ado/pipelines/ tree against the naming-and-placement contract and returns its result under -PassThru.
+description: Checks the ado pipelines tree against the naming-and-placement contract and returns its result.
 parameters:
   path: string
   output_folder: string

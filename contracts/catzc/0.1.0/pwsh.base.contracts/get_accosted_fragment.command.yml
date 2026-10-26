@@ -1,6 +1,4 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Get-AccostedFragment, which renders the commands
-# of an accosted file as a PowerShell fragment through the one reader (ADR-AUTO-ACCOSTED-ONEREADER). RepositoryRoot defaults to the
-# repository root, a computed default the contract does not restate.
+description: Renders the commands of an accosted file as a PowerShell fragment for an article, through the one reader.
 parameters:
   path: string!
   run_number: int

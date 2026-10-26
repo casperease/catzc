@@ -1,5 +1,4 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Test-FolderConventions, the quality gate that
-# checks every module folder under pwsh/ follows the folder and file conventions, and returns its result under -PassThru.
+description: Checks that every module folder of the modules track follows the folder and file conventions.
 parameters:
   output_folder: string
   pass_thru: switch

@@ -1,5 +1,4 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Test-GeneratedReadmes, the quality gate that
-# checks every generated README is gitignored, untracked and current, and returns its result under -PassThru.
+description: Checks that every generated README is gitignored, untracked and current with its source.
 parameters:
   output_folder: string
   pass_thru: switch

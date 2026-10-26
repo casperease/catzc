@@ -1,6 +1,4 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Install-NodeJs, which installs Node.js. Version
-# defaults to the version tools.yml locks for 'node_js', a computed default the contract does not restate; Force reinstalls over a present
-# install.
+description: Installs Node.js via the platform package manager.
 parameters:
   version: string
   force: switch

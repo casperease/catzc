@@ -1,5 +1,4 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Test-CatzcBuild, the build run of all tests: it
-# builds the selected modules into a disposable build, runs their tests against it and returns the run's result under -PassThru.
+description: Runs a build run, the same tests as Test-Automation, against a fresh build of the selected modules.
 parameters:
   module: string[]
   module_profile: string

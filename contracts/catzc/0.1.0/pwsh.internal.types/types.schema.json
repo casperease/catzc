@@ -1,5 +1,5 @@
 {
-  "$comment": "The types surface of the combined catzc types assembly, a provided contract (ADR-REPO-CONTRACT-CONTRACTASSET): every public type's full name, the PSTypeAlias accelerators it declares, and the ConsoleDisplay properties that apply to it, sorted by name. It pins what a consumer binds to, never the build: the source hash that names a build is a local cache key and is not part of it. Write-TypesContract regenerates types.sample.json beside it from the compiled assembly and writes it only when the surface moves.",
+  "$comment": "The schema of the types surface of the combined catzc types assembly, every public type with its accelerators and display properties, what a consumer binds to and never the build.",
   "type": "object",
   "required": ["types"],
   "properties": {

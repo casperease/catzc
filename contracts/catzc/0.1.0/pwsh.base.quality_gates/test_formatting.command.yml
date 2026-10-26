@@ -1,5 +1,4 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Test-Formatting, the quality gate that checks
-# formatting would leave the repository unchanged, for every file language or the named ones, and returns its result under -PassThru.
+description: Checks that formatting would leave the repository unchanged.
 parameters:
   language: string[]
   path: string[]

@@ -1,5 +1,5 @@
 {
-  "$comment": "Provided schema of one inbound junction call, validated against the sample beside it (TDR-STORES-STATEMACHINE, ADR-REPO-CONTRACT-CONTRACTASSET): a state machine calls catzc's outer boundary at a point it defines, such as an approval check, and catzc answers with a verdict and the actionable facts it rests on.",
+  "$comment": "The schema of one inbound junction call, a state machine calling catzc at a point it defines and catzc answering with a verdict and the actionable facts it rests on.",
   "type": "object",
   "required": ["junction", "state_machine", "request", "verdict"],
   "additionalProperties": false,

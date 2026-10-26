@@ -1,5 +1,4 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Get-Inspiration, which lists the inspirations
-# catzc reads for ideas: all of them, one by id, or a count of them at random with an optional seed.
+description: Lists the inspirations catzc reads for ideas, and whether each is available on this machine.
 parameters:
   id: string! in id
   count: int! in random

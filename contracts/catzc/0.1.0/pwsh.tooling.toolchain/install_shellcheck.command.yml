@@ -1,6 +1,4 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Install-Shellcheck, which installs ShellCheck.
-# Version defaults to the version tools.yml locks for 'shellcheck', a computed default the contract does not restate; Force reinstalls over
-# a present install.
+description: Installs ShellCheck, the analyzer for the repository's shell scripts, at the tools.yml pin.
 parameters:
   version: string
   force: switch

@@ -1,5 +1,4 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Test-PythonTypes, the quality gate that
-# type-checks every Python file the repository holds with pyright, and returns its result under -PassThru.
+description: Type-checks every Python file the repository holds with pyright, the engine Pylance runs in the editor.
 parameters:
   output_folder: string
   pass_thru: switch

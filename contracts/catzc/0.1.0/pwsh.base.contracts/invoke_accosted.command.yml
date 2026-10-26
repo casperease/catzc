@@ -1,6 +1,4 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Invoke-Accosted, which runs every run of an
-# accosted file under each named engine, each run bounded (ADR-AUTO-ACCOSTED-RUNNER). Engine defaults to every engine of the engine
-# registry and RepositoryRoot to the repository root, computed defaults the contract does not restate.
+description: Runs every run of an accosted file under each execution engine and returns one result per run and engine.
 parameters:
   path: string!
   engine: string[]

@@ -1,2 +1,1 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Uninstall-Chocolatey, which uninstalls Chocolatey
-# from the current machine; it takes no parameters.
+description: Uninstalls Chocolatey from the current machine.

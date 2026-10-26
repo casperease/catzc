@@ -1,5 +1,4 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Invoke-GoTest, the Go test runner of one module.
-# Engine defaults to the pwsh engine of the engine registry, a computed default the contract does not restate.
+description: Runs a catzc module's Go tests and returns one result per Go test.
 parameters:
   module: string!
   entry_script: string

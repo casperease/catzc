@@ -38,8 +38,8 @@ that is mandatory in one set and optional in another has no spec, so a command t
 A command contract stores nothing its placement says ([zero-ceremony](../automation/zero-ceremony-poka-yoke.md)): the command's name is the
 file name and the owning module is the group folder, both in the repository normal form, the version is the current `0.1.0`, the
 implementation language is the language of the file that holds the command, and the engines the command runs under are every engine of the
-engine registry. The asset holds the call interface and, where a signature does not say what the command promises, the header comment of
-[ADR-REPO-CONTRACT-HEADERSAYSWHATITPINS](api-contracts.md#rule-adr-repo-contract-headersayswhatitpins).
+engine registry. The asset holds its `description` first, the command's help synopsis as plain text, and then the call interface
+([ADR-REPO-CONTRACT-HEADERSAYSWHATITPINS](api-contracts.md#rule-adr-repo-contract-headersayswhatitpins)); it carries no comment.
 
 - [Placement says the rest](#placement-says-the-rest)
 

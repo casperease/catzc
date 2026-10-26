@@ -1,5 +1,4 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Test-Automation, the source run of all tests: it
-# runs the tests in scope in worker shards, writes its report under out/test-automation and returns the run's result under -PassThru.
+description: Runs all Pester tests found across the catzc modules, sharded across parallel worker processes.
 parameters:
   min_level: int = 0
   max_level: int = 3

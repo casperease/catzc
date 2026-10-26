@@ -1,6 +1,4 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Get-ContractCheckResults, the per-asset contract
-# check; the assets arrive by parameter or from the pipeline. RepositoryRoot defaults to the repository root, a computed default
-# the contract does not restate.
+description: Checks contract assets against the real repository and returns one result per asset.
 parameters:
   asset: catzc.base.contracts.contract_asset[] pipeline
   repository_root: string

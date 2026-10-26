@@ -1,5 +1,4 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Test-GlobSetAffected, which says whether the
-# current context's change touches the named globset.
+description: Returns whether the current context's change touches a globset, the in-pipeline check for anything to process.
 parameters:
   name: string!
 output: bool

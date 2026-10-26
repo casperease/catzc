@@ -1,2 +1,1 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Uninstall-Cspell, which uninstalls cspell, the
-# global npm package; it takes no parameters and skips when cspell or npm is absent.
+description: Uninstalls cspell (the global npm package).

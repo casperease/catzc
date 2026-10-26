@@ -1,5 +1,4 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Test-ShippedConfigs, the quality gate that checks
-# every shipped config has a registered C# config type and loads through it, and returns its result under -PassThru.
+description: Checks that every shipped config has a registered config type and loads through it.
 parameters:
   output_folder: string
   pass_thru: switch

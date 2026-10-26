@@ -1,5 +1,6 @@
 {
-  "$comment": "Our schema of an Azure Pipelines file, an inner contract (ADR-REPO-CONTRACT-CONTRACTASSET): the shape Azure DevOps reads, kept local so an editor and a gate need no download. source: https://github.com/microsoft/azure-pipelines-vscode service-schema.json (the full schema models a step's task as one anyOf branch per known task version, which offline reports every branch that does not match), trimmed to the top-level shape, the container types, and one loose step whose task is Name@Major or a template expression. Every pipeline file is bound to it by contract.yml's applies_to. Taken 2026-10-25.",
+  "$comment": "Our schema of an Azure Pipelines file, the shape Azure DevOps reads, kept local so an editor and a gate need no download.",
+  "description": "Our schema of an Azure Pipelines file, an inner contract (ADR-REPO-CONTRACT-CONTRACTASSET): the shape Azure DevOps reads, kept local so an editor and a gate need no download. source: https://github.com/microsoft/azure-pipelines-vscode service-schema.json (the full schema models a step's task as one anyOf branch per known task version, which offline reports every branch that does not match), trimmed to the top-level shape, the container types, and one loose step whose task is Name@Major or a template expression. Every pipeline file is bound to it by contract.yml's applies_to. Taken 2026-10-25.",
   "type": "object",
   "properties": {
     "name": { "type": "string" },

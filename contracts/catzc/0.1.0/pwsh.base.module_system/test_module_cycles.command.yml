@@ -1,5 +1,4 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Test-ModuleCycles, the quality gate that checks
-# the real module-to-module call graph has no cycle, and returns its result under -PassThru.
+description: Checks that the real module-to-module call graph has no cycle.
 parameters:
   output_folder: string
   pass_thru: switch

@@ -1,5 +1,4 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Test-AzureNetworkPlan, the quality gate that
-# checks the network plan against the azure config's environments and subscriptions and returns its result under -PassThru.
+description: Checks that the network plan (network.yml) and the azure config's environments and subscriptions are in sync.
 parameters:
   output_folder: string
   pass_thru: switch

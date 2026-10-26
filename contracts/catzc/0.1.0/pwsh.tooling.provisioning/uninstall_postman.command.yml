@@ -1,2 +1,1 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Uninstall-Postman, which uninstalls the Postman
-# desktop app; it takes no parameters.
+description: Uninstalls the Postman desktop app.

@@ -1,6 +1,4 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Uninstall-Dotnet, which uninstalls the managed
-# install. Remove escalates to Remove-Dotnet for an off-config install, and Force confirms that destructive step
-# (ADR-AUTO-REMOVE-DOUBLYGUARDED).
+description: Uninstalls the .NET SDK installed by Install-Dotnet.
 parameters:
   remove: switch
   force: switch

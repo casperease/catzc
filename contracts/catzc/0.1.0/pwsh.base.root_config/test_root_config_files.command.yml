@@ -1,6 +1,4 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Test-RootConfigFiles, the quality gate that checks
-# every managed root config file agrees with rootconfig.yml on tracking, .gitignore and link mechanism, and returns its result under
-# -PassThru.
+description: Checks that every managed root config file agrees with rootconfig.yml on git tracking, the gitignore and the link mechanism.
 parameters:
   output_folder: string
   pass_thru: switch

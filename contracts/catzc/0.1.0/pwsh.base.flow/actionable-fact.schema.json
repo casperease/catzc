@@ -1,5 +1,5 @@
 {
-  "$comment": "Provided schema of one actionable fact, validated against the sample beside it (TDR-STORES-RECONCILEFACTS, ADR-REPO-CONTRACT-CONTRACTASSET): verifiable, because its origin names the truth store, the address read and the moment of reading, so anyone can read it again; actionable, because it names the one change or the one report it calls for.",
+  "$comment": "The schema of one actionable fact, verifiable by the truth store, address and moment its origin names, and actionable by the one change or report it calls for.",
   "type": "object",
   "required": ["statement", "origin", "calls_for"],
   "additionalProperties": false,

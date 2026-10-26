@@ -1,5 +1,4 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Get-AccostedFile, the one reader of an accosted
-# file (ADR-AUTO-ACCOSTED-ONEREADER). RepositoryRoot defaults to the repository root, a computed default the contract does not restate.
+description: Reads an accosted file and checks every call in it against its command contract.
 parameters:
   path: string!
   repository_root: string

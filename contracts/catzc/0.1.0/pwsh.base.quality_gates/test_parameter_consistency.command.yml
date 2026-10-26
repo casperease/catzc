@@ -1,5 +1,4 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Test-ParameterConsistency, the quality gate that
-# checks one parameter name means one type across the public functions, and returns its result under -PassThru.
+description: Checks that one parameter name means one type across the public functions.
 parameters:
   output_folder: string
   pass_thru: switch

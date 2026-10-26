@@ -298,6 +298,7 @@ groups:
     Catzc.Base.Contracts:
       [
         Catzc.Base.MarkdownMeta,
+        Catzc.Base.CodeMeta,
         Catzc.Base.Config,
         Catzc.Base.Repository,
         Catzc.Base.Objects,

@@ -1,5 +1,4 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Test-ConfigIdentityHygiene, the quality gate that
-# checks no shipped config carries a test-fixture identity in its data, and returns its result under -PassThru.
+description: Checks that no shipped config carries a test-fixture identity in its data, the reverse of Test-LogicTestIdentity, closing the other half of the language-zone separation.
 parameters:
   path: string[]
   output_folder: string

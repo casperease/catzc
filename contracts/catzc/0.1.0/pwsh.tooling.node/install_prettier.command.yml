@@ -1,6 +1,4 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Install-Prettier, which installs Prettier. Version
-# defaults to the version tools.yml locks for 'prettier', a computed default the contract does not restate; Force reinstalls over a present
-# install.
+description: Installs Prettier (the prettier formatter engine's CLI) globally via npm.
 parameters:
   version: string
   force: switch

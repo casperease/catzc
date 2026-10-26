@@ -1,5 +1,4 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Invoke-Poetry, which runs poetry with the given
-# arguments.
+description: Runs poetry with the given arguments.
 parameters:
   arguments: string!
   pass_thru: switch

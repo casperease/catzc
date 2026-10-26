@@ -1,5 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
+  "$comment": "The schema of the trimmed extension manifest VS Code expects of a cats extension, checked on every rendered package.json before packing.",
   "title": "A cats extension's package.json",
   "description": "The trimmed extension manifest VS Code expects of a cats extension, the fields New-VsCodeExtensionFolder renders from vscode-extensions.yml. Build-VsCodeExtension validates every rendered package.json against this schema before packing and fails the build on a mismatch; the rendered manifests live under out/ and are reached only by address, so package.sample.json beside it is what Test-Contracts checks it against. contributes is VS Code's vocabulary and is held open.",
   "type": "object",

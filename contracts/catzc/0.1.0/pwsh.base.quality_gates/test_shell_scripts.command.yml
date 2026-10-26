@@ -1,5 +1,4 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Test-ShellScripts, the quality gate that checks
-# every shell script for LF line endings, the executable bit and its syntax check, and returns its result under -PassThru.
+description: Checks every shell script the repository holds for LF line endings, the executable bit, and ShellCheck or zsh's syntax check on the repository's own.
 parameters:
   shell_check_exclude: string[]
   output_folder: string

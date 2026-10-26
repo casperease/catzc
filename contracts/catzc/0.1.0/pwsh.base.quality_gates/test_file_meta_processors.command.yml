@@ -1,5 +1,4 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Test-FileMetaProcessors, the quality gate that
-# checks every meta kind resolves to a processor and every processor belongs to a kind, and returns its result under -PassThru.
+description: Checks that every meta kind resolves to a processor function and that every convention-named processor function belongs to a kind.
 parameters:
   config: catzc.base.quality_gates.file_meta_config
   output_folder: string

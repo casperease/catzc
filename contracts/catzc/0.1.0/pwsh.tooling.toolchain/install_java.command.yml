@@ -1,6 +1,4 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Install-Java, which installs Java. Version
-# defaults to the version tools.yml locks for 'java', a computed default the contract does not restate; Force reinstalls over a present
-# install.
+description: Installs Microsoft OpenJDK via the platform package manager.
 parameters:
   version: string
   force: switch

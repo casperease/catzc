@@ -1,6 +1,4 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Test-WorldMap, the quality gate that checks every
-# tracked file sits in a declared track and its tech-stack and every label the map prints is a glossary term, and returns its result under
-# -PassThru.
+description: Checks that every tracked file sits in a declared track and its tech-stack, and that every label the world map prints is a glossary term.
 parameters:
   output_folder: string
   pass_thru: switch

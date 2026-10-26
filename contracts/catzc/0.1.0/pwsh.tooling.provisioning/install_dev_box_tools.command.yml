@@ -1,4 +1,3 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Install-DevBoxTools, which provisions the local
-# development environment with every required tool; Force reinstalls over present installs.
+description: Provisions the local development environment with all required tools.
 parameters:
   force: switch

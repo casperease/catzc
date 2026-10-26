@@ -1,2 +1,1 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Uninstall-DevBoxTools, which removes every tool
-# Install-DevBoxTools installed; it takes no parameters.
+description: Removes all tools installed by Install-DevBoxTools.

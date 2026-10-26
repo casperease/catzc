@@ -1,6 +1,4 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Remove-AzCli, which evicts an off-config
-# install. InstallDir defaults to the install it finds, a computed default the contract does not restate; without Force it shows what
-# it would remove (ADR-AUTO-REMOVE-DOUBLYGUARDED).
+description: Destructively evicts an off-config Azure CLI so the managed (uv-venv) build can win.
 parameters:
   install_dir: string
   force: switch

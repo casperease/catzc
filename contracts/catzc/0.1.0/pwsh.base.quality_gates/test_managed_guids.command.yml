@@ -1,5 +1,4 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Test-ManagedGuids, the quality gate that checks
-# every guid in tracked text is registered, none is denied and every entry is live, and returns its result under -PassThru.
+description: Checks that every guid in tracked text is registered in guids.yml, that none is denied, and that every entry is live.
 parameters:
   output_folder: string
   pass_thru: switch

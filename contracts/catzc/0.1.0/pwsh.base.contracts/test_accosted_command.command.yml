@@ -1,6 +1,4 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Test-AccostedCommand, which lists the faults of
-# one accosted-form call against its command contract through the one reader (ADR-AUTO-ACCOSTED-ONEREADER), without asking whether it is
-# harmless. RepositoryRoot defaults to the repository root, a computed default the contract does not restate.
+description: Lists the faults of one accosted-form call against its command contract, through the one contract reader.
 parameters:
   call: string!
   where: string!

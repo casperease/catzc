@@ -1,6 +1,4 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Install-AzCli, which installs the Azure CLI.
-# Version defaults to the version tools.yml locks for 'az_cli', a computed default the contract does not restate; Force reinstalls over a
-# present install.
+description: Installs the Azure CLI, user-space into a dedicated uv venv.
 parameters:
   version: string
   force: switch

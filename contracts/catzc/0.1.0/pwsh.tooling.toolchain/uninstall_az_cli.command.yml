@@ -1,6 +1,4 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Uninstall-AzCli, which uninstalls the managed
-# install. Remove escalates to Remove-AzCli for an off-config install, and Force confirms that destructive step
-# (ADR-AUTO-REMOVE-DOUBLYGUARDED).
+description: Uninstalls the Azure CLI.
 parameters:
   remove: switch
   force: switch

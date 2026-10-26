@@ -1,4 +1,3 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Uninstall-Bicep, which uninstalls the
-# tool. Version defaults to the installed or locked version, a computed default the contract does not restate.
+description: Uninstalls the Bicep CLI that Install-Bicep installed.
 parameters:
   version: string
