@@ -107,17 +107,15 @@ final full run last.
     `Test-Links -Path docs/references/pwsh/CLAUDE.md`.
 21. plan-types-build-local step 9: one ci-pwsh pipeline run once `cache-types.yaml` lands. Check: the second run of a job restores the types
     cache (Cache@2 "Cache restored") and skips the DLL build.
-22. plan-file-limits: untrack the 2 `__pycache__/*.pyc` files under `python/tests/base_repository/` (`git rm --cached`). Check:
-    `git ls-files '*.pyc'` prints nothing.
-23. plan-vscode-extensions: rebuild and install the two new extensions (`Build-VsCodeExtension`, then `Install-VsCodeExtension`), reload VS
+22. plan-vscode-extensions: rebuild and install the two new extensions (`Build-VsCodeExtension`, then `Install-VsCodeExtension`), reload VS
     Code, click a `/docs/drs/` link in a markdown file and open a coloured `out/**/*.log`. Check: the link opens its ADR and the log shows
     colours, not escape codes; then the plan's last step is struck and the plan deleted. In the same reload (plan-language-lamps step 5):
     rebuild and install `catzc-track-lamps`, press the languages button, tick two languages, put one out, veto the other, untick both.
     Check: each lamp appears, lights, vetoes and disappears with no reload.
-24. plan-comment-insights: review the RootConfig pilot, 26 one-line insights in `Build-RootConfig.ps1`, `rootconfig.yml`,
+23. plan-comment-insights: review the RootConfig pilot, 26 one-line insights in `Build-RootConfig.ps1`, `rootconfig.yml`,
     `Invoke-RootConfigGenerator.ps1` and two test files, and say go or what to change; the rollout (its step 3) and plan-comment-articles'
     rollout wait on it. Check: the user's answer is recorded in plan-comment-insights.md.
-25. plan-slim-agents steps 3 and 4: insert these four bullets at the top of `.claude/CLAUDE.md`, section Sub-agents, above `catzc-drone`,
+24. plan-slim-agents steps 3 and 4: insert these four bullets at the top of `.claude/CLAUDE.md`, section Sub-agents, above `catzc-drone`,
     leaving the other bullets as they are (step 5 removes them one robot at a time):
 
     ```markdown
@@ -131,11 +129,11 @@ final full run last.
     catzc-5c then lands the drafts in `out/catzc-5c-drones/` (the four drone files, `catzc-core` and their registry entries). Check:
     `Test-AgentDefinitions` reports no issues after the drafts land.
 
-26. plan-file-limits (prose widths): `docs/references/pwsh/index.md`'s module table is now a list (catzc-5c, 2026-10-26), so edit
+25. plan-file-limits (prose widths): `docs/references/pwsh/index.md`'s module table is now a list (catzc-5c, 2026-10-26), so edit
     `docs/references/pwsh/CLAUDE.md` line 136 to read "2. Add an item to the list in `index.md` (module name, one-line summary), keeping the
     foundation-first order." Check: `grep -n "Add an item to the list" docs/references/pwsh/CLAUDE.md` finds line 136.
 
-27. plan-types-contract + plan-module-types-contracts: commit the per-group types contracts: `types.json` in 25 new group folders under
+26. plan-types-contract + plan-module-types-contracts: commit the per-group types contracts: `types.json` in 25 new group folders under
     `contracts/catzc/0.1.0/` (pwsh.azure.cli, pwsh.azure.firewall, pwsh.base.asserts, pwsh.base.code_meta, pwsh.base.config,
     pwsh.base.engines, pwsh.base.execution, pwsh.base.exporter, pwsh.base.file_limits, pwsh.base.files, pwsh.base.folders,
     pwsh.base.generated_files, pwsh.base.git, pwsh.base.markdown_meta, pwsh.base.modules, pwsh.base.objects, pwsh.base.reports,
@@ -154,13 +152,13 @@ final full run last.
     (`git rm --cached -r pwsh/.compiled`; the folder is gitignored). Check: `git ls-files pwsh/.compiled` prints nothing,
     `git status --short contracts` is clean, and `Test-BuildArtifact -Facet Types` reports no issues.
 
-28. plan-reference-normal-form step 3: move every reference page to its derived path. First ask catzc-2b, the step's keeper, to refresh
+27. plan-reference-normal-form step 3: move every reference page to its derived path. First ask catzc-2b, the step's keeper, to refresh
     `out/ns5/ref-map.csv` from the committed tree (New-ReferencePageMap.ps1). Then run
     `pwsh -NoProfile -File out/ns5/Rename-ReferencePages.ps1 -WhatIf`, then the same without `-WhatIf`, and tell the orchestrator, so steps
     1, 2 and 4 land in one burst. Check: the `-WhatIf` lists each page once and refuses nothing, and after the run
     `git status --short docs/references` shows only renames.
 
-29. plan-python-namespace-package: commit the kit as the package `catzc.diagrams`: `python/diagrams/__init__.py` (new) and every kit module
+28. plan-python-namespace-package: commit the kit as the package `catzc.diagrams`: `python/diagrams/__init__.py` (new) and every kit module
     and test under `python/diagrams` (package-relative imports, `python -m catzc.diagrams.<tool>` usage lines); the build backend pinned at
     `setuptools==80.9.0` in `python/diagrams/pyproject.toml`, rendered from `pwsh/Base.Languages/types/PythonConfig.cs` and
     `pwsh/Base.Languages/New-PythonProject.ps1` with their tests; the callers on `python -m` (`pwsh/Base.Slides/Build-Diagrams.ps1`,
@@ -173,18 +171,20 @@ final full run last.
     requirements are not locked). Check: `git status --short python pwsh/Base.Languages pwsh/Base.Slides` lists these files and nothing else
     of this plan's.
 
-30. plan-debt-test-speed (catzc-68): commit the `Test-SourceConventions` scan and the four faster test files. The scan:
+29. plan-debt-test-speed (catzc-68): commit the `Test-SourceConventions` scan and the four faster test files. The scan:
     `pwsh/Base.QualityGates/types/SourceConventionScan.cs` (new) with `pwsh/Base.QualityGates/tests/types/SourceConventionScan.Tests.ps1`
     (new) and their comment pages, `pwsh/Base.QualityGates/private/Get-EngineSetFinding.ps1`,
     `pwsh/Base.QualityGates/private/Get-NeutralCodeFinding.ps1`, and the host-binding row in `pwsh/Base.Languages/configs/bcl.yml`. The test
     files: `pwsh/Azure.Templates/tests/Get-BicepParameterModel.Shipped.Tests.ps1`, `pwsh/.internal/tests/Wait-CatzcRunLock.Tests.ps1`,
-    `pwsh/Azure.Templates/tests/Build-Bicep.L2.Tests.ps1` and `pwsh/Azure.Templates/tests/Build-Bicep.Integrity.Tests.ps1`. The help pages
-    of plan-debt-function-help steps 3, 4, 5, 7, 8 and 10 under `docs/references/pwsh/` (FileLimits, GeneratedFiles, Globs with the new
-    `Build-TrackGlobSets.ps1.md` and its head in `pwsh/Base.Globs/Build-TrackGlobSets.ps1`, six QualityGates pages, Repository,
-    TypesSystem). Check: `git status --short pwsh/Base.QualityGates pwsh/Azure.Templates/tests pwsh/.internal/tests docs/references` lists
-    these files.
+    `pwsh/Azure.Templates/tests/Build-Bicep.L2.Tests.ps1` and `pwsh/Azure.Templates/tests/Build-Bicep.Integrity.Tests.ps1`. The
+    function-help pages under `docs/references/pwsh/` (FileLimits, GeneratedFiles, Globs with the new `Build-TrackGlobSets.ps1.md` and its
+    head in `pwsh/Base.Globs/Build-TrackGlobSets.ps1`, six QualityGates pages, Repository, TypesSystem, and Contracts with the new
+    `Get-ContractDescriptionFindings.ps1.md` and its head in `pwsh/Base.Contracts/private/Get-ContractDescriptionFindings.ps1`), and the two
+    files formatted in place: `pwsh/Base.QualityGates/private/Get-FormatEngineAdapter.ps1` (its head) and
+    `pwsh/Base.Git/configs/gitignore.yml` (a comment reflow). Check:
+    `git status --short pwsh/Base.QualityGates pwsh/Azure.Templates/tests pwsh/.internal/tests docs/references` lists these files.
 
-31. Commit the contracts `arm/` folder (catzc-98, 2026-10-26): `contracts/catzc/0.1.0/pwsh.azure.templates/main.json.schema.json` moved to
+30. Commit the contracts `arm/` folder (catzc-98, 2026-10-26): `contracts/catzc/0.1.0/pwsh.azure.templates/main.json.schema.json` moved to
     `pwsh.azure.templates/arm/main.json.schema.json`; `contracts/catzc/0.1.0/contract.yml` and
     `pwsh/Base.VSCode/configs/vscode-settings.yml` re-pointed; `docs/drs/repository/api-contracts.md` (ADR-REPO-CONTRACT-LAYOUT: one sorting
     folder per group); in `pwsh/Base.Contracts` `private/Get-ContractVersionAsset.ps1`, `private/Resolve-ContractAsset.ps1`,
@@ -193,13 +193,13 @@ final full run last.
     `docs/references/contracts/catzc.md`. Check: `Test-Contracts` reports no issues and `git status --short contracts` shows the move as a
     rename.
 
-32. Untrack the build outputs commit `bf34994ff` took in (catzc-f8, 2026-10-26):
+31. Untrack the build outputs commit `bf34994ff` took in (catzc-f8, 2026-10-26):
     `git rm -r --cached python/diagrams/catzc_diagrams.egg-info python/tests/base_repository/__pycache__`, then commit with the new
     `/*/*/*.egg-info/` line in `pwsh/Base.Git/configs/gitignore.yml` and the regenerated `.gitignore` (`__pycache__/` already ignored them;
     a tracked file stays tracked). Check: `git ls-files | grep -E "egg-info|__pycache__"` prints nothing, and `git status --short python`
     lists neither.
 
-33. Commit the formatting gate and cache fixes (catzc-2b, 2026-10-26): in `pwsh/Base.QualityGates` the comment-page width
+32. Commit the formatting gate and cache fixes (catzc-2b, 2026-10-26): in `pwsh/Base.QualityGates` the comment-page width
     (`types/CommentEngine.cs`, `types/CommentPageText.cs`, `Export-Comments.ps1` with its `-StagedFolder`, `private/Move-FunctionHelp.ps1`,
     the new `private/Get-MarkdownWidth.ps1`), the per-file formatter catch (`private/Invoke-PsScriptAnalyzerFormat.ps1`, `Format-Code.ps1`,
     `private/Invoke-FormatterEngine.ps1`), the cache stamp (`private/Get-FormatEngineStamp.ps1` and the new
@@ -214,6 +214,18 @@ final full run last.
     `.claude/plans/plan-debt-function-help.md` with its value and master rows. Check:
     `git status --short pwsh/Base.QualityGates js/track-lamps docs/references/pwsh/catzc-base-quality-gates` lists these files, and
     `Invoke-TestFile -Path pwsh/Base.QualityGates/tests/Format-Code.Tests.ps1` passes.
+
+33. Commit the function-help pages and the kit's lint fixes (catzc-f8, 2026-10-26). Help under `docs/references/pwsh/`:
+    `catzc-base-config/private/Merge-ConfigFragment.ps1.md` and `Resolve-ConfigEntry.ps1.md`; in `catzc-base-languages/`,
+    `New-JsConfig.ps1.md`, `New-PythonProject.ps1.md`, `Invoke-PythonTest.ps1.md`, `private/Get-ModuleTestFolder.ps1.md` and
+    `private/ConvertFrom-NodeTestJunit.ps1.md` (new); in `catzc-base-slides/`, `Build-Diagrams.ps1.md` and the `private/` pages
+    `Get-DiagramCodeRows`, `Get-DiagramComponentRows`, `Get-DiagramImageReference`, `Get-NameMentionFinding` and `Write-DiagramQueryRows`;
+    in `catzc-base-vs-code/`, `New-VsCodeSettings.ps1.md` and `private/ConvertFrom-EditorConfig.ps1.md`; in `catzc-tooling-node/`,
+    `Install-TypeScript.ps1.md` and `Uninstall-TypeScript.ps1.md` (new); with the head Format-Code imprinted on
+    `pwsh/Base.Languages/private/ConvertFrom-NodeTestJunit.ps1`. The kit's fixes: `python/diagrams/slide_png.py` (Pillow's
+    `Image.Resampling` and `Image.Transform` enums, `re.DOTALL`) and `python/diagrams/language_audit.py` (one sentence parenthesised).
+    Check: `Test-Formatting` lists no function help hand edit outside Base.Contracts, and `git status --short docs/references/pwsh python`
+    lists these files and nothing else of this item's.
 
 34. The final full run, in a fresh session, when the chunks in plan-master have landed. Once it is green and committed, the work is done and
     every plan, task and prompt in `.claude/plans` is deleted (the user, 2026-10-20). Check: `.claude/plans` is empty.

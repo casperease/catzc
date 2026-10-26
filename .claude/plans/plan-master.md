@@ -83,8 +83,6 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
   the user's full run; one step (the rename)
 - debt-test-speed -> plan-debt-test-speed.md: the slowest Pester files measured one at a time in the memory queue, and the import every test
   run pays; two steps
-- debt-function-help -> plan-debt-function-help.md: the 29 functions whose help the ps-help step cannot repair, written on their comment
-  pages, one module per step; four steps
 - vscode-session-binding -> plan-vscode-session-binding.md: the one-instance-per-session decision observed in VS Code: the hang proven gone
   or caught from the inside, and the two janitors that talk to the editor and dotnet from inside its own session judged
 - comment-insights -> plan-comment-insights.md: distilled one-line insight comments back in code at the line each comment page section
