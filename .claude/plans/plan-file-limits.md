@@ -78,11 +78,6 @@ from the rendered `.editorconfig` to `Get-FileLimit` for that class's extensions
 
 7. [ ] **prose, fences**: 99 files with fenced lines over 140 (369 lines, `out/catzc-5c-widths/list-fence.txt`), shortened by hand. Check:
        no fenced line over 140 in the folder, `Test-Markdownlint` on it.
-8. [ ] **prose, manual test plan** (catzc-5c, after step 6): `Test-ManualTestPlan` reads each check from its `### N. <block>` section, which
-       carries a `Test file: <path>` line and its Guards, instead of an index row holding the file and the block on one line; the index
-       shrinks to `# | Tier | [check](#anchor)`, and the row form is removed. The gate, its test of the new reading and the 14 pages
-       (`docs/how-to/pwsh/manual-test-plan.md` and `manual-test-plan/*.md`) land as one staged burst (catzc-f2, 2026-10-26). Check:
-       `Test-ManualTestPlan.Tests.ps1` passes, `Test-ManualTestPlan` reports 0 issues, and no line of the 14 pages is over 140.
 9. [ ] **prose, leftover** (tables done elsewhere, catzc-5c, 2026-10-26): the 3 `.claude/plans/` files (`plan-slim-agents.md`,
        `plan-vscode-extensions.md`, `value-of-plan.md`); `docs/drs/design/visual-design.md` and `docs/drs/azure/azure-naming-standard.md`
        (another session's, skipped while dirty); `docs/explanation/thesis/product-thesis/nowaste.slide.md` (its `## Rows` table is slide-kit

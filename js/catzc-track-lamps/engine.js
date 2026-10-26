@@ -36,10 +36,16 @@ const TICKED = "catzc.trackLamps.languages.ticked";
 // The engine: everything the lamps do in the editor. The installed package is a shell that runs the repository's copy of this file and
 // swaps it on save (activate in extension.js), so a change of logic lands without an install or a reload; api is the shell's vscode
 // module, since a file outside the installed package cannot require it itself.
+/**
+ * @param {import("./host.js").EngineContext} context
+ * @param {typeof import("vscode")} [api]
+ */
 function activateEngine(context, api) {
-    host.vscode = api ?? require("vscode");
-    host.log = host.vscode.window.createOutputChannel("Catzc track lamps");
-    const { vscode, log } = host;
+    /** @type {typeof import("vscode")} */
+    const vscode = api ?? require("vscode");
+    const log = vscode.window.createOutputChannel("Catzc track lamps");
+    host.vscode = vscode;
+    host.log = log;
     host.ticked = context.workspaceState.get(TICKED, []);
     context.subscriptions.push(log);
     let judgeTimer;
