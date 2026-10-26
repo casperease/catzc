@@ -122,6 +122,8 @@ BeforeAll {
                     }) | Sort-Object -Unique)
         }
     }
+    # The fake repository carries no types contract; the surface check has its own tests, and one case below makes it fail.
+    Mock Get-TypesContractDrift { } -ModuleName Catzc.Internal.Builder
     Mock Get-InternalAssetDependency -ModuleName Catzc.Internal.Builder {
         [pscustomobject]@{ Module = 'Catzc.Base.Widget'; Function = 'Get-Widget'; ChildPath = 'assets/widget.txt'; File = (Get-CatzcModulesFolder) + '/Catzc.Base.Widget/Get-Widget.ps1'; Line = 5 }
     }
@@ -434,6 +436,12 @@ Describe 'Invoke-ModuleBuild' -Tag 'L2', 'logic', 'source-only' -Skip:(-not (Get
             $message |
                 Should -BeLike "*pwsh/Catzc.Base.Gadget/Get-GadgetWidget.ps1:3: reads config 'widget', which Catzc.Base.Widget owns*"
             [System.IO.Directory]::Exists($destination) | Should -BeFalse
+        }
+
+        It 'refuses to finish a build whose types surface is not the committed contract' {
+            Mock Get-TypesContractDrift { 'types.sample.json differs from the build''s surface: added [Catzc.Widgets.Widget]' } -ModuleName Catzc.Internal.Builder
+            { Invoke-ModuleBuild @buildArguments -ModuleProfile widgets -Module 'Catzc.Base.Gadget' -Destination (Join-Path $TestDrive 'drifted') } |
+                Should -Throw '*types surface is not the committed contract*added `[Catzc.Widgets.Widget`]*'
         }
 
         It 'rejects a version that is not MAJOR.MINOR.PATCH' {

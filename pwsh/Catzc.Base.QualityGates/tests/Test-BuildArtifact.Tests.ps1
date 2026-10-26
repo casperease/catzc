@@ -173,55 +173,38 @@ Describe 'Get-CommittedTypesDrift' -Tag 'L0', 'logic' {
         $script:shadow = Join-Path $script:root 'shadow'
         [System.IO.Directory]::CreateDirectory($script:shadow) | Out-Null
         [System.IO.File]::WriteAllText((Join-Path $script:shadow 'Catzc.Types.abcd1234.dll'), 'widget')
-        $script:contract = Join-Path $script:root 'contracts/catzc/0.1.0/catzc.internal.types/types.sample.json'
-        [System.IO.Directory]::CreateDirectory((Split-Path $script:contract)) | Out-Null
-        $script:surface = @(
-            [pscustomobject]@{ Name = 'Catzc.Gadgets.Gadget'; Aliases = @(); Display = @('Name') },
-            [pscustomobject]@{ Name = 'Catzc.Widgets.Widget'; Aliases = @('Catzc.Widget'); Display = @() }
-        )
-        $script:writeContract = {
-            param([object[]] $Types)
-            $json = ConvertTo-Json -InputObject @{ types = @($Types | ForEach-Object { [ordered]@{ name = $_.Name; aliases = @($_.Aliases); display = @($_.Display) } }) } -Depth 4
-            [System.IO.File]::WriteAllText($script:contract, $json)
-        }
         Mock Import-InternalModule -ModuleName Catzc.Base.QualityGates { }
         Mock Get-CatzcModulesFolder -ModuleName Catzc.Base.QualityGates { 'widget-modules' }
         Mock Get-CombinedTypeHash -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ CombinedHash = 'abcd1234' } }
         Mock Get-TypesShadowRoot -ModuleName Catzc.Base.QualityGates { $script:shadow }
-        Mock Get-TypesAssemblyManifest -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ Types = $script:surface } }
+        Mock Get-TypesContractDrift -ModuleName Catzc.Base.QualityGates { }
         Mock Test-GitPathChanged -ModuleName Catzc.Base.QualityGates { $false }
     }
 
-    It 'reports nothing while the committed contract is the current build''s surface' {
-        & $script:writeContract $script:surface
+    It 'reports nothing while the current build''s surface is the committed contract and git has it' {
         InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:root } {
             @(Get-CommittedTypesDrift -RepositoryRoot $Root) | Should -BeNullOrEmpty
         }
+        Should -Invoke Get-TypesContractDrift -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter { $Path -like '*Catzc.Types.abcd1234.dll' }
     }
 
-    It 'names every added, removed and changed type when the surface moved' {
-        & $script:writeContract @(
-            [pscustomobject]@{ Name = 'Catzc.Gadgets.Gadget'; Aliases = @(); Display = @('Name', 'Size') },
-            [pscustomobject]@{ Name = 'Catzc.Sprockets.Sprocket'; Aliases = @(); Display = @() }
-        )
-        InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:root } {
-            Get-CommittedTypesDrift -RepositoryRoot $Root |
-                Should -BeLike '*differs from the current build''s surface: added `[Catzc.Widgets.Widget`], removed `[Catzc.Sprockets.Sprocket`], changed `[Catzc.Gadgets.Gadget`]*'
-        }
-    }
-
-    It 'reports a missing contract, a missing build, and pending git changes' {
+    It 'passes the surface drift on, then adds pending git changes of the contract' {
+        Mock Get-TypesContractDrift -ModuleName Catzc.Base.QualityGates { 'types.sample.json differs from the build''s surface: added [Catzc.Widgets.Widget]' }
         Mock Test-GitPathChanged -ModuleName Catzc.Base.QualityGates { $true }
         InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:root } {
             $reasons = @(Get-CommittedTypesDrift -RepositoryRoot $Root)
             $reasons | Should -HaveCount 2
-            $reasons[0] | Should -BeLike '*types.sample.json is missing*'
+            $reasons[0] | Should -BeLike '*added `[Catzc.Widgets.Widget`]*'
             $reasons[1] | Should -BeLike '*types.sample.json has pending git changes*'
         }
+    }
+
+    It 'reports a missing build of the current sources, without comparing anything' {
         Remove-Item -LiteralPath (Join-Path $script:shadow 'Catzc.Types.abcd1234.dll')
         InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:root } {
             Get-CommittedTypesDrift -RepositoryRoot $Root | Should -BeLike 'no build of the current type sources (abcd1234)*'
         }
+        Should -Invoke Get-TypesContractDrift -ModuleName Catzc.Base.QualityGates -Times 0
     }
 }
 
