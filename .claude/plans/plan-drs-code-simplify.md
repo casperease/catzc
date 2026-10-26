@@ -38,6 +38,11 @@ and external guidance (CAF, WAF, DORA, the Agile Manifesto, lean theory, Pester)
   `ConvertTo-DrsCode`; a word is dropped only where cspell's English dictionary proves the boundary. The map is applied once and deleted;
   the tree keeps only the future names.
 
+## Open questions
+
+- Should the `catzc-run` capability say that cspell skips any file under the ignored `out/` and takes a scratch word list on `stdin`, so the
+  next word check costs one call, not four probes?
+
 ## Open steps
 
 - [ ] `docs/drs/repository/drs-code-language.md`: rewrite `ADR-REPO-DRSCODE` for the capitalization setting, the length budget, unique rule

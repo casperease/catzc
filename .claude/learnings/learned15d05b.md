@@ -33,3 +33,17 @@ Started 2026-10-26T16:36:54.9565876+01:00.
   outputs.
 - 2026-10-26 Cats: Token tip: Next time, save tokens by: building one helper script per repeated check (copy, dry run, measure) instead of
   retyping long command lines.
+- 2026-10-26 Cats: In hindsight I wish I knew this fact: cspell 10 skips every file under the gitignored out/ folder even with
+  --no-gitignore, and checks text given on stdin.
+- 2026-10-26 Cats: In hindsight I wish I knew this fact: Test-/Assert- verbs bind by ADR-PWSH-VERBS-TESTANDASSERT and a code transform is
+  ConvertTo-, never Format-, which only arranges for display.
+- 2026-10-26 Cats: In hindsight I wish I knew this fact: Update-DrsCitation reads a tab-separated rule map, old_rule new_rule kind why, so a
+  rename map needs no new format.
+- 2026-10-26 Cats: In hindsight I wish I knew this fact: in all-caps codes a word boundary is invisible, so dropping a repeated word needs a
+  dictionary proof that the said word does not run on into a longer word.
+- 2026-10-26 Cats: In hindsight I wish I knew this fact: 19 rule names repeat across records today, so a rule name alone is no identity
+  until the rename lands.
+- 2026-10-26 Cats: In hindsight I wish I knew this fact: YAML reads a bare on as true, so a config value on is written quoted.
+- 2026-10-26 Cats: Token tip: Next time, save tokens by: generating a large list to a file and reading only the counts and the review lines,
+  not the whole list.
+- 2026-10-26 Cats: Token tip: Next time, save tokens by: probing a CLI on three sample words before wiring it into a generator run.
