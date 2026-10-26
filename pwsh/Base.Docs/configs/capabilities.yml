@@ -55,6 +55,11 @@ capabilities:
     supported_by: [ADR-REPO-LINK-ONECITATIONSPELLING]
     checks: []
 
+  # The shared core every drone preloads: git read-only, the peer-dirty rule, the fixed report.
+  - name: catzc-core
+    supported_by: [ADR-REPO-AGENTS-STANDARDDRONE, WDR-BUILTIN-GATESAREPARTOFWORK]
+    checks: []
+
   # The fixed end-of-run report of every robot.
   - name: report-fixed
     supported_by: [ADR-REPO-AGENTS-STANDARDDRONE]

@@ -23,6 +23,29 @@ agents:
       - Build-DrsIndex
       - Test-GeneratedFiles
 
+  # A drone on haiku: runs one job skill a brief names, the skills whose model_floor is haiku.
+  - name: drone-haiku
+    supported_by: [ADR-REPO-AGENTS-STANDARDDRONE, PDR-REDUCEVAR-ESSENTIALDIFFERENCESEXPLICIT, WDR-BUILTIN-GATESAREPARTOFWORK]
+    checks: [Invoke-TestFile, Format-Code, Test-Links]
+
+  # A drone on sonnet: runs one job skill a brief names, the skills whose model_floor is sonnet.
+  - name: drone-sonnet
+    model_reason: runs the job skills whose model_floor is sonnet, the jobs that write code or docs that must pass the gates first time
+    supported_by: [ADR-REPO-AGENTS-STANDARDDRONE, PDR-REDUCEVAR-ESSENTIALDIFFERENCESEXPLICIT, WDR-BUILTIN-GATESAREPARTOFWORK]
+    checks: [Invoke-TestFile, Format-Code, Test-Links]
+
+  # A drone on opus: runs one job skill a brief names, the skills whose model_floor is opus.
+  - name: drone-opus
+    model_reason: runs the job skills whose model_floor is opus, the jobs that judge evidence across the whole tree
+    supported_by: [ADR-REPO-AGENTS-STANDARDDRONE, PDR-REDUCEVAR-ESSENTIALDIFFERENCESEXPLICIT, WDR-BUILTIN-GATESAREPARTOFWORK]
+    checks: [Invoke-TestFile, Format-Code, Test-Links]
+
+  # A drone on fable: runs one job skill a brief names, the skills whose model_floor is fable.
+  - name: drone-fable
+    model_reason: runs the job skills whose model_floor is fable, the hardest reasoning a brief can hand over
+    supported_by: [ADR-REPO-AGENTS-STANDARDDRONE, PDR-REDUCEVAR-ESSENTIALDIFFERENCESEXPLICIT, WDR-BUILTIN-GATESAREPARTOFWORK]
+    checks: [Invoke-TestFile, Format-Code, Test-Links]
+
   # Authors new diagrams in the visual grammar and lands the approved ones under docs/.assets/, embedded in their ADRs.
   - name: drawio-diagram-waves
     supported_by: [DDR-VISUAL-LEFTTORIGHTISTIME, DDR-VISUAL-FIXEDCOMMITPALETTE, ADR-REPO-FOLDERS-DOCUMENTATIONMARKDOWNONLY]

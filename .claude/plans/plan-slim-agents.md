@@ -45,6 +45,8 @@ description. After it, a new job is one skill and one `capabilities.yml` entry.
   its capability; `roofs.agent_body_lines` stays 20, and a drone uses about 8.
 - **Personas move with their job**: `persona: Jack` and `persona: Susan from HR` move from the `agents.yml` entries to the skill entries in
   `capabilities.yml`.
+- **catzc-core is smaller than the duplicate table says** (the orchestrator, 2026-10-26, roof `capability_lines` 30): catzc-core =
+  git-readonly + report-fixed + 2 lines; catzc-run stays its own skill, preloaded beside it, since the three together pass the roof.
 - **Lost and accepted**: `disallowedTools` no longer keeps the read-only jobs (`gate`, `drs-review`, `fact-check`, `doc-scout`,
   `devbox-diagnose`) read-only; the skill's `allowed-tools` and its job line say so, and `Test-AgentDefinitions` checks that every read-only
   skill's `allowed-tools` holds no Write or Edit.
@@ -101,12 +103,8 @@ Kit skills kept as they are, loaded by a job skill's steps: `drawio-declaration`
 
 ## Open steps
 
-1. [ ] Rebuild the drafts first: the four drone files, `catzc-core` and their registry entries were drafted in `out/catzc-5c-drones/`, which
-       was lost when `out/` was cleared on 2026-10-26, so the four CLAUDE.md bullets wait on them. Then land both steps in one pass, and
-       delete the three old skills when step 5 removes the last robot that preloads them. `catzc-core` from `catzc-run`, `git-readonly` and
-       `report-fixed`, with the peer-dirty line and one line that a new agent type appears only in a session started after its file lands,
-       so a new job skill is tried through a stand-in drone at once (decided by catzc-5c from the harness fact, 2026-10-26); the three files
-       deleted. Check: `Test-AgentDefinitions`.
+1. [ ] `git-readonly` and `report-fixed` deleted, with their `capabilities.yml` entries, in the final pass, once no robot preloads them
+       (catzc-core holds both since 2026-10-26). Check: `Test-AgentDefinitions`.
 2. [ ] The four drone files and their `agents.yml` entries (`model_reason` on sonnet, opus and fable). Check: `Test-AgentDefinitions`.
 3. [ ] One job skill per row of the mapping, one file at a time: the robot's body folded into its skill, the duplicate lines dropped, the
        robot file and its `agents.yml` entry deleted, the `capabilities.yml` entry updated. The `plan-decide` skill gains one merged line:

@@ -59,6 +59,7 @@ lenses: # the closed set of lenses a diagram is drawn through (its about.lens, t
   source: one responsibility of one module, drawn from the code
   action: one action, its cause on the left rim and its effects on rings, in accosted words
   proof: one action's normalized statement, and the words each engine runs it as
+  flow: how a commit flows through the pipelines and workflows, one lane each, time left to right
 zooms: # the closed ladder of how far out a diagram stands (its optional about.zoom, no default), crossing the lens; the zoom badge prints the level
   C0: landscape, the truth stores around the repository
   C1: context, the repository as one system with its actors
@@ -112,6 +113,19 @@ action-lens: # what the action lens draws with: its layout numbers in diagram un
   show: both # words | call | both: what an effect's note prints, its words, its observation or call, or both; show: on an effect overrides it
   actor: shown # shown | hidden: the stick man drawn over the finished drawing for the onlooker, the cause's fragment as his head, his body hanging from it
   proof-engines: pwsh pascal, bash kebab, zsh kebab # the engines a Proof box prints, each with the idiom its words take
+flow-lens: # what the flow lens draws with: its layout numbers in diagram units, the word glyph's strokes, and its glyph kinds (glyphs.xml ids g-<kind>)
+  lane-height: 120 # one pipeline or workflow lane, its chips and its rhombi
+  slot-size: 16 # one of a word's three equal parts, square; a word glyph is three of them wide
+  stroke: 1.6 # every symbol's stroke but the thin double line
+  thin-stroke: 1 # the double line =
+  glyphs: env-flow
+flow-glyphs: # the closed list of flow glyphs, each a word of three symbols from O 0 - _ = . (DDR-VISUAL-FLOWGLYPHSAREWORDS); hint is the editor icon it is styled after, for the reader only
+  - { id: pipeline, word: "O=0", meaning: a pipeline or workflow, hint: js/file-icons/assets/pipe.svg }
+  - { id: stage, word: "=0=", meaning: a stage, hint: js/file-icons/assets/pipe-stages.svg }
+  - { id: job, word: "=O_", meaning: a job, hint: js/file-icons/assets/pipe-jobs.svg }
+  - { id: step, word: "O_-", meaning: a step, hint: js/file-icons/assets/pipe-steps.svg }
+  - { id: extends, word: "0=0", meaning: a template feeding a pipeline, hint: js/file-icons/assets/pipe-extends.svg }
+  - { id: variables, word: "O..", meaning: a variables file, hint: js/file-icons/assets/pipe-variables.svg }
 themes: # the themes a diagram renders in, each a theme-<name> token set below; the first is the default and the one whose raster is committed
   dark: the dark page and the light ink of STYLE.md
   light: the light page and the dark ink of the light-era kit, rendered on demand to out/

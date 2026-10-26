@@ -60,6 +60,10 @@ registry and this list in step ([agent-definitions](../docs/drs/repository/agent
 [ADR-REPO-AI](../docs/drs/repository/ai-agent-contract.md) first.
 
 - **`catzc-drone`** — the standard agent for one delegated task, when no specialised agent fits.
+- **`drone-haiku`** — runs one job skill a brief names, on the haiku model.
+- **`drone-sonnet`** — runs one job skill a brief names, on the sonnet model.
+- **`drone-opus`** — runs one job skill a brief names, on the opus model.
+- **`drone-fable`** — runs one job skill a brief names, on the fable model.
 - **`drawio-diagram-waves`** — authors new draw.io diagrams in bounded parallel waves.
 - **`edit-diagram-yml`** — changes a diagram by its `<name>.drawio.yml` and re-renders it.
 - **`2020-hindsight`** — keeps the hindsight log, each lesson checked against the tree.
