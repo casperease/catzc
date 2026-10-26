@@ -7,6 +7,7 @@ catzc:
 #>
 
 BeforeAll {
+    # A child whose stdin is an open pipe never written: inheriting it would leave a stdin reader waiting forever.
     function script:Start-InputPipeChild {
         # sort reads stdin to EOF.
         $inputReader = if ($IsWindows) {
@@ -27,6 +28,7 @@ BeforeAll {
         $child = [System.Diagnostics.Process]::Start($startInfo)
         [pscustomobject]@{ Process = $child; Output = $child.StandardOutput.ReadToEndAsync(); Errors = $child.StandardError.ReadToEndAsync() }
     }
+    # Its import takes seconds, so it starts here while the rest runs; only a run blocking every launch starts none.
     $script:inputPipeChild = if ($env:CATZC_BLOCK_REAL_PROCESS -ne '1') {
         Start-InputPipeChild
     }

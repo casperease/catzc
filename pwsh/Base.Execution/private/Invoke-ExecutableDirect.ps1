@@ -31,6 +31,7 @@ function Invoke-ExecutableDirect {
 
     Reset-LastExitCode
 
+    # Output goes straight to the console, spinners included, and leaks to the pipeline unless the caller suppresses it.
     Push-Location $WorkingDirectory
     try {
         & {

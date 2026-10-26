@@ -39,6 +39,7 @@ function Invoke-ExecutableStreamed {
 
     Reset-LastExitCode
 
+    # In a Pester run the child's echo is muted too (it bypasses the writers); the output is still captured.
     $suppressOutput = [bool]$Silent -or [bool](Get-Variable -Name '__PesterRunning' -Scope Global -ValueOnly -ErrorAction Ignore)
 
     # CliRunner is autoloaded at import time from types/ (Bootstrap's Import-CSharpTypes).

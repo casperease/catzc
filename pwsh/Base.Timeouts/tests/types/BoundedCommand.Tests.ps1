@@ -8,6 +8,7 @@ catzc:
 
 Describe 'BoundedCommand' -Tag 'L0', 'logic' {
     BeforeDiscovery {
+        # Every case under every engine; one that does not apply says why ("n/a: <reason>"), so engine parity reads side by side.
         $script:cases = @(Get-EngineCaseTable (Join-Path $PSScriptRoot '../assets/engine-cases/bounded-command.yml') -Applicable)
     }
 

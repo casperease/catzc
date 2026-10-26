@@ -9,6 +9,7 @@ catzc:
 Describe 'Resolve-ToolExecutable' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:windows = [bool]$IsWindows
+        # The typed registry the real Get-Config returns, so the function reads typed properties as in production.
         $script:tools = [Catzc.Base.Execution.ToolsConfig]::new([ordered]@{
                 widget = @{
                     version                 = '5'

@@ -6,6 +6,7 @@ catzc:
 ---
 #>
 
+# -DryRun, not -WhatIf; the result splits Output (stdout), Errors (stderr), Full (merged in order), ExitCode and Raw.
 function Invoke-Executable {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingInvokeExpression', '',
         Justification = 'By design — executes CLI commands via private helpers')]
@@ -42,6 +43,7 @@ function Invoke-Executable {
         [switch] $DryRun
     )
 
+    # The test tripwire: a launch here means a Mock missed, almost always a wrong -ModuleName, so fail loudly.
     if (-not $DryRun -and (Test-RealProcessBlocked)) {
         throw (
             "Blocked a real process launch during a unit test: '$Command'. A Mock did not intercept it — " +

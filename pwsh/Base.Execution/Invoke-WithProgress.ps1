@@ -25,6 +25,7 @@ function Invoke-WithProgress {
         Write-Message $Message -NoHeader -NoNewline
     }
 
+    # The dot writer's thread job imports this session's Writers module and Pester guard, so its dots act like Write-Message.
     $writersPath = (Get-Module Catzc.Base.Writers).Path
     $silenced = [bool](Get-Variable -Name '__PesterRunning' -Scope Global -ValueOnly -ErrorAction Ignore)   # unset outside a test run
     $dotJob = Start-ThreadJob -StreamingHost $Host -ScriptBlock {
@@ -42,6 +43,7 @@ function Invoke-WithProgress {
         & $ScriptBlock
     }
     finally {
+        # No Receive-Job, which would replay the dots; -Force, since a thread job may still be stopping.
         $dotJob | Remove-Job -Force
         Write-Message '' -NoHeader
     }

@@ -20,6 +20,7 @@ function Get-ExecutableVersion {
         [string] $Pattern
     )
 
+    # Run in the binary's own folder, so go.work or global.json cannot report a project's version instead of the binary's.
     $folder = [System.IO.Path]::GetDirectoryName($Path)
     $result = Invoke-Executable "`"$Path`" $Arguments".TrimEnd() -WorkingDirectory $folder -PassThru -NoAssert -Silent
 

@@ -7,6 +7,7 @@ catzc:
 #>
 
 Describe 'Invoke-Executable' -Tag 'L0', 'logic' {
+    # where.exe or which, real executables everywhere: echo is a shell builtin on Windows.
     BeforeAll {
         $script:simpleCmd = if ($IsWindows) {
             'where.exe where'
@@ -324,6 +325,7 @@ Describe 'Invoke-Executable' -Tag 'L0', 'logic' {
         }
 
         It 'fails fast, naming the cause, when a process the command started keeps its output open after it exits' -Tag 'L2' {
+            # The grandchild inherits the output pipe for 20 s, as a dotnet build server does; the run must not wait it out.
             $leaver = 'pwsh -NoProfile -NonInteractive -Command "Start-Process -NoNewWindow -FilePath pwsh -ArgumentList ''-NoProfile'',''-Command'',''Start-Sleep -Seconds 20''; exit 0"'
             $stopwatch = [System.Diagnostics.Stopwatch]::StartNew()
             $err = { Invoke-Executable $leaver -TimeoutSeconds 60 -DrainSeconds 1 -Silent -PassThru } |
@@ -384,6 +386,7 @@ Describe 'Invoke-Executable' -Tag 'L0', 'logic' {
             New-Item -ItemType Directory -Path $tempDirectory | Out-Null
             try {
                 $result = Invoke-Executable $cwdCmd -WorkingDirectory $tempDirectory -PassThru -Silent
+                # macOS reports /var and /tmp under /private, so both sides drop the prefix.
                 ($result.Output.Trim() -replace '^/private', '') | Should -Be ($tempDirectory -replace '^/private', '')
             }
             finally {
@@ -425,6 +428,7 @@ Describe 'Invoke-Executable' -Tag 'L0', 'logic' {
 
     Context 'CliRunner parser — quoted arguments' {
         It 'quoted argument with spaces is passed as single argument' {
+            # The help output proves the argument arrived whole, never split at its space.
             $command = if ($IsWindows) {
                 'cmd /c echo "hello world"'
             }

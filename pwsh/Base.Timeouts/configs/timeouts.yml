@@ -4,6 +4,7 @@
 #   header: "generated"
 # ---
 
+# Per-executable limits keyed by the bare name (dotnet, not C:\...\dotnet.exe): the tools whose ordinary runs outlast the default.
 executables:
   pwsh: 360 # isolated test runs (Test-InIsolation) and snapshot imports — a full snapshot run takes about 250 s
   dotnet: 600 # builds
@@ -38,4 +39,5 @@ tests:
 run_lock:
   wait_seconds: 120 # how long a run waits past a live holder's deadline, or the end of a burst, before it says run lock busy
   stale_seconds: 720 # a queue ticket older than the longest run is dropped
+  # A run's whole budget under its 300 s call: it waits out a holder or a burst until the budget is spent, then says when to retry.
   budget_seconds: 280

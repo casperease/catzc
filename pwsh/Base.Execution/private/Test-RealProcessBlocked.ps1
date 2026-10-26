@@ -22,6 +22,7 @@ function Test-RealProcessBlocked {
         throw "CATZC_BLOCK_REAL_PROCESS is '$mode', which is neither '$([Catzc.Base.Timeouts.TestTiers]::BlockEveryLaunch)' nor '$([Catzc.Base.Timeouts.TestTiers]::BlockByTier)'."
     }
 
+    # Armed per container: only an L0 or L1 Describe forbids a real process; outside any Describe nothing is armed.
     $pester = Get-Module Pester
     if (-not $pester) {
         return $false

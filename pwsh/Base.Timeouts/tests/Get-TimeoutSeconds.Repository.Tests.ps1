@@ -6,10 +6,12 @@ catzc:
 ---
 #>
 
+# A function bounds its long work through Get-TimeoutSeconds and its [TimeLimit] decoration, never a number literal default.
 Describe 'TimeoutSeconds defaults come from the time safeguard' -Tag 'L1', 'integrity', 'ADR-PWSH-ASSERT-DECLAREDTIMELIMIT' {
     It 'no function defaults a TimeoutSeconds parameter to a number literal above zero' {
         $root = Get-CatzcModulesRoot
         $isParameter = { param($node) $node -is [System.Management.Automation.Language.ParameterAst] }
+        # Scripts reach four levels below pwsh/ (module, tests, types, file); the vendored modules are pruned by the walk.
         $violations = foreach ($file in Get-ChildPath $root -File -Filter '*.ps1' -Depth 4) {
             $relative = [System.IO.Path]::GetRelativePath($root, $file) -replace '\\', '/'
             if ($relative -like '.vendor/*' -or $relative -like '*/tests/*') {

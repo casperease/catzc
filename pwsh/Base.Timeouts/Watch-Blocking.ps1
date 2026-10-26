@@ -45,6 +45,7 @@ function Watch-Blocking {
             $tickMs
         }
         $dueMs += $sleepMs
+        # Sleep until the tick is due, not a whole slice: a sleep overruns by a few ms, which a fixed slice would carry into every tick.
         $remainingMs = $dueMs - [long]$watch.ElapsedMilliseconds
         if ($remainingMs -gt 0) {
             Start-Sleep -Milliseconds $remainingMs

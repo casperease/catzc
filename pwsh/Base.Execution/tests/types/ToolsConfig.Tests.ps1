@@ -7,6 +7,7 @@ catzc:
 #>
 
 Describe 'ToolsConfig' -Tag 'L0' {
+    # Reads the shipped tools.yml, so it guards real repository content.
     Context 'integrity (shipped tools.yml)' -Tag 'integrity' {
         It 'accepts the shipped tools.yml (all snake_case)' {
             $path = Join-Path $PSScriptRoot '../../configs/tools.yml'
@@ -15,6 +16,7 @@ Describe 'ToolsConfig' -Tag 'L0' {
         }
     }
 
+    # Inline configs; only the literal python tool is real, since the rule keys on the pinned interpreter.
     Context 'logic (inline configs)' -Tag 'logic' {
         BeforeAll {
             $script:make = { param([System.Collections.IDictionary] $raw) [Catzc.Base.Execution.ToolsConfig]::new($raw) }

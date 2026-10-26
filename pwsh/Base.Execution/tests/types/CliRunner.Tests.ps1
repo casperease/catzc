@@ -8,6 +8,7 @@ catzc:
 
 Describe 'CliRunner.ExecutableName' -Tag 'L0', 'logic' {
 
+    # The name a time limit is looked up by: a wrong parse gives the command another executable's limit.
     It 'reads the first token of <commandLine> as <expected>' -ForEach @(
         @{ commandLine = 'widget'; expected = 'widget' }
         @{ commandLine = 'widget build std'; expected = 'widget' }

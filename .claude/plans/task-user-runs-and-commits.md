@@ -18,21 +18,17 @@ under `Invoke-TestFile`, one gate on named paths, a grep or a file read. The one
 
 ## Steps
 
-1. Run the git steps: `pwsh -NoProfile -File out/user/Invoke-UserGitSteps.ps1 -WhatIf`, then the same without `-WhatIf`. It stages every
-   case-only rename (each through a temporary name; `core.ignorecase` is true), untracks the committed build outputs
-   (`python/diagrams/catzc_diagrams.egg-info`, `python/tests/base_repository/__pycache__`, `pwsh/.compiled`), and prints
-   `git status --short`. Check: a second `-WhatIf` run lists 0 case-only renames and no untrack.
-2. Review `out/user/CLAUDE.md.diff` and copy `out/user/CLAUDE.md.proposed` over `.claude/CLAUDE.md`. It is the CLAUDE.md edits in one: the
+1. Review `out/user/CLAUDE.md.diff` and copy `out/user/CLAUDE.md.proposed` over `.claude/CLAUDE.md`. It is the CLAUDE.md edits in one: the
    `.unordered/` line's "nothing internal reads", the BCL line for `types/*.cs`, `docs/references/pwsh/index.md` as where a design round
    starts, `## DRS` and the "domain rules / DRS rules" pair, the Sub-agents list cut to one clause each, the Time safeguard section pointing
    at `catzc-run` (Grep and Read as the probes, absolute paths, the hook's git-topic deny), and `Invoke-CatzcCommand.ps1` in the "Run
    PowerShell yourself" rule. Check: `Test-AgentDefinitions` passes, `Test-Links -Path .claude/CLAUDE.md` passes, and
    `wc -c .claude/CLAUDE.md` is at most 11900.
-3. plan-debt-agent-traffic: add the `catzc-drone` line the plan quotes to `.claude/agents/catzc-drone.md` (a drone's permission mode refused
+2. plan-debt-agent-traffic: add the `catzc-drone` line the plan quotes to `.claude/agents/catzc-drone.md` (a drone's permission mode refused
    it as self-modification), and register the `Record-SessionMessage` hook in `.claude/settings.json` (a PostToolUse entry matching
    `SendMessage`, and a UserPromptSubmit entry). Check: `Test-AgentDefinitions`, and one message sent between sessions appears in
    `out/orchestrator-<date>.log`.
-4. Commit the working tree, one commit. Before it, `git status --short` lists only paths the plans name, with no `??` under `out/` and no
+3. Commit the working tree, one commit. Before it, `git status --short` lists only paths the plans name, with no `??` under `out/` and no
    `pwsh/.compiled`. After it:
    - `Invoke-TestFile` passes on `pwsh/Base.Slides/tests/Build-Diagrams.Tests.ps1`,
      `pwsh/Azure.Templates/tests/Build-Bicep.Integrity.Tests.ps1`, `pwsh/Base.Git/tests/Push-Topic.Flow.Tests.ps1` and
@@ -43,17 +39,18 @@ under `Invoke-TestFile`, one gate on named paths, a grep or a file read. The one
      `pwsh/.compiled`;
    - `Test-Contracts` and `Test-BuildArtifact -Facet Types` report no issues;
    - `Test-Formatting` lists no function help hand edit outside Base.Contracts.
-5. plan-reference-normal-form step 3: move every reference page to its derived path. First ask catzc-2b, the step's keeper, to refresh
-   `out/ns5/ref-map.csv` from the committed tree (`out/ns5/New-ReferencePageMap.ps1`). Then run `pwsh -NoProfile -File out/ns5/Rename-ReferencePages.ps1 -WhatIf`, then the same without `-WhatIf`, and tell the orchestrator.
-   Check: the `-WhatIf` lists each page once and refuses nothing, and after the run `git status --short docs/references` shows only renames.
-6. plan-types-build-local step 9: one ci-pwsh pipeline run once `cache-types.yaml` lands. Check: the second run of a job restores the types
+4. plan-reference-normal-form step 3: move every reference page to its derived path. First ask catzc-2b, the step's keeper, to refresh
+   `out/ns5/ref-map.csv` from the committed tree (`out/ns5/New-ReferencePageMap.ps1`). Then run
+   `pwsh -NoProfile -File out/ns5/Rename-ReferencePages.ps1 -WhatIf`, then the same without `-WhatIf`, and tell the orchestrator. Check: the
+   `-WhatIf` lists each page once and refuses nothing, and after the run `git status --short docs/references` shows only renames.
+5. plan-types-build-local step 9: one ci-pwsh pipeline run once `cache-types.yaml` lands. Check: the second run of a job restores the types
    cache (Cache@2 "Cache restored") and skips the DLL build.
-7. plan-vscode-extensions: rebuild and install the two new extensions (`Build-VsCodeExtension`, then `Install-VsCodeExtension`), reload VS
+6. plan-vscode-extensions: rebuild and install the two new extensions (`Build-VsCodeExtension`, then `Install-VsCodeExtension`), reload VS
    Code, click a `/docs/drs/` link in a markdown file and open a coloured `out/**/*.log`. Check: the link opens its ADR and the log shows
    colours, not escape codes. In the same reload (plan-language-lamps step 5): rebuild and install `catzc-track-lamps`, press the languages
    button, tick two languages, put one out, veto the other, untick both. Check: each lamp appears, lights, vetoes and disappears with no
    reload.
-8. The final full run, in a fresh session, when the chunks in plan-master have landed. Once it is green and committed, the work is done and
+7. The final full run, in a fresh session, when the chunks in plan-master have landed. Once it is green and committed, the work is done and
    every plan, task and prompt in `.claude/plans` is deleted (the user, 2026-10-20). Check: `.claude/plans` is empty.
 
 ## Report

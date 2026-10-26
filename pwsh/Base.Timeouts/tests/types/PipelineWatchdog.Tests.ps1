@@ -24,6 +24,7 @@ Describe 'PipelineWatchdog' -Tag 'L0', 'logic' {
     }
 
     It 'never stops a pipeline after Dispose, even when the limit passes as the pipeline returns' {
+        # The limit lands around each return, so the timer fires before, during and after dispose; a stray stop would end the process.
         foreach ($run in 1..200) {
             $pipeline = [PowerShell]::Create([System.Management.Automation.RunspaceMode]::CurrentRunspace).AddScript('1')
             $watchdog = [Catzc.Base.Timeouts.PipelineWatchdog]::new($pipeline,
