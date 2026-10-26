@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Get-FileMetaInputStamp.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The stamp of the files beside a file that its meta block is read from. A file-meta result cache joins it to the file's key, so a change to the
+comment page or to a relation's candidate checks the file again.
 
 ## help
 

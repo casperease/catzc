@@ -1,14 +1,8 @@
 # infrastructure/modules/resource-group.bicep
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The reusable module for a resource group. It deploys at subscription level (`targetScope = 'subscription'`).
 
-## comment:1
+## Use
 
-Above `targetScope = 'subscription'`, written with `//`.
-
-```text
-Reusable bicep module: a resource group, deployed at subscription scope. A subscription-level template
-(targetScope = 'subscription') creates its resource groups with it and then deploys resource-group
-modules into them (`scope: resourceGroup(<name>)`). `az bicep build` inlines it.
-```
+A template that deploys at subscription level creates its resource groups with this module, then deploys resource-group modules into them
+with `scope: resourceGroup(<name>)`. `az bicep build` inlines the module.

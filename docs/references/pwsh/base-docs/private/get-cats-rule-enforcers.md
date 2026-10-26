@@ -34,12 +34,3 @@ Private helper for Show-Cats; not exported.
 ### outputs
 
 `[hashtable]` citation ('#' form) -> `[pscustomobject]{` Analyzers; Tests } (both sorted sets, possibly empty).
-
-## comment:1
-
-Above `$cached =...`, written with `#`.
-
-```text
-The strict-clean probe of a lazy cache entry
-([ADR-PWSH-CACHE-STRICTSAFEPROBE](/docs/drs/automation/pwsh/script-scope-caching.md#rule-adr-pwsh-cache-strictsafeprobe)).
-```

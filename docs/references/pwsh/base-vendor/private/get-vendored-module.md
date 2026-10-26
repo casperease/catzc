@@ -1,7 +1,7 @@
 # pwsh/Base.Vendor/private/Get-VendoredModule.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The single reader of the vendored modules on disk: it lists each module folder under `pwsh/.vendor/` with its name, committed version and
+path, and returns an empty array when the folder is absent.
 
 ## help
 

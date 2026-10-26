@@ -1,7 +1,7 @@
 # pwsh/Base.Vendor/private/Resolve-VendorRepository.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Resolves the repository name the vendor commands download from and check against. It reads the `source` of `configs/vendor.yml` and, when a
+custom `sourceUrl` is set, registers a trusted repository under that name on first use.
 
 ## help
 

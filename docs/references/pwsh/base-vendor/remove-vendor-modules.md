@@ -1,7 +1,7 @@
 # pwsh/Base.Vendor/Remove-VendorModules.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Removes vendored modules from `pwsh/.vendor/`, and only after proving each is restorable from the configured source. Without `-Force` it is
+a dry run that reports the targets and the recreate command.
 
 ## help
 

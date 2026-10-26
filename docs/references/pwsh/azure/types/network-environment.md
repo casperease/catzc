@@ -1,18 +1,13 @@
 # pwsh/Azure/types/NetworkEnvironment.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+One environment's IP plan in `configs/network.yml` ([ADR-AZ-NETWORK](../../../../drs/azure/azure-network-model.md)): the vnet address space
+and the default subnet, keyed by the `azure.yml` environment name. It mirrors an `environments` entry with snake_case keys
+([ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](../../../../drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
+`NetworkConfig` builds one per entry and collects its violations with the file's.
 
-## comment:1
+## shape
 
-Above `using System;`, written with `//`.
-
-```text
-One environment's IP plan in configs/network.yml ([ADR-AZ-NETWORK](/docs/drs/azure/azure-network-model.md)): the
-vnet address space and default subnet, keyed by the azure.yml environment name. Mirrors an `environments` entry
-(snake_case keys, [ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
-NetworkConfig builds one per entry and collects its violations with the file's.
-
-Shape: the name is a lower-snake_case identifier; vnet_address_space and default_subnet are required, aligned IPv4
-CIDRs (NetworkCidr); the default subnet lies inside the vnet address space; no other key.
-```
+- The name is a lower-snake_case identifier.
+- `vnet_address_space` and `default_subnet` are required, aligned IPv4 CIDRs (`NetworkCidr`).
+- The default subnet lies inside the vnet address space.
+- No other key is allowed.

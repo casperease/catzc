@@ -16,5 +16,8 @@ public enum ToolStatusKind
     Missing,
 
     // Installed but not wanted by the lock.
-    Unwanted
+    Unwanted,
+
+    // The managed copy is fine in this session, but an unmanaged one comes first on the Machine;User PATH every GUI app builds.
+    Shadowed
 }

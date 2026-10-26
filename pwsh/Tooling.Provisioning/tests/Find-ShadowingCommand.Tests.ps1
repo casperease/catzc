@@ -1,7 +1,9 @@
 Describe 'Find-ShadowingCommand' -Tag 'L0', 'logic' {
     BeforeEach {
-        $script:machineDir = Join-Path $TestDrive 'machine'
-        $script:userDir = Join-Path $TestDrive 'user'
+        # Fresh folders per test: $TestDrive is shared by the whole Describe, so one test's copy would shadow the next's.
+        $root = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
+        $script:machineDir = Join-Path $root 'machine'
+        $script:userDir = Join-Path $root 'user'
         [System.IO.Directory]::CreateDirectory($script:machineDir) | Out-Null
         [System.IO.Directory]::CreateDirectory($script:userDir) | Out-Null
         Mock Get-EnvironmentPath { $Scope -eq 'Machine' ? $script:machineDir : $script:userDir } -ModuleName Catzc.Tooling.Provisioning

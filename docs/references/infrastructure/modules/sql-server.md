@@ -1,20 +1,25 @@
 # infrastructure/modules/sql-server.bicep
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The reusable module for a SQL logical server with the Well-Architected defaults.
 
-## comment:1
+## Defaults
 
-Above `@description('SQL logical server name (1-63 lowercase, globally unique).')`, written with `//`.
+- An Entra ID administrator, a group by default.
+- Entra-only authentication.
+- No public network access.
+- TLS 1.2 minimum.
+- A system-assigned managed identity.
 
-```text
-Reusable bicep module: a SQL logical server with the Well-Architected defaults — an Entra ID
-administrator (a group by default), Entra-only authentication, no public network access, TLS 1.2
-minimum, and a system-assigned managed identity. Reach it through a private endpoint
-(../../modules/private-endpoint.bicep, group id `sqlServer`). Databases are separate
-(../../modules/sql-database.bicep). Templates reference it with a relative `module` declaration;
-`az bicep build` inlines it.
+## Reaching it
 
-A break-glass SQL login is opt-in: pass `entraOnlyAuthentication: false` together with
-`administratorLogin` and `administratorLoginPassword` (the password as a Key Vault reference).
-```
+Reach the server through a private endpoint (`../../modules/private-endpoint.bicep`, group id `sqlServer`). Databases are separate
+(`../../modules/sql-database.bicep`).
+
+## Break-glass login
+
+A SQL login is opt-in: pass `entraOnlyAuthentication: false` together with `administratorLogin` and `administratorLoginPassword`, the
+password as a Key Vault reference.
+
+## Use
+
+A template references it with a relative `module` declaration, and `az bicep build` inlines it.

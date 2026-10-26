@@ -1,7 +1,17 @@
 # .ado/pipelines/Invoke-AdoScript.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The one entry point every pipeline step uses to run a catzc command. The `invoke-automation.yaml` step template dot-sources it with the
+command the author wrote, so a command runs in the pipeline exactly as a developer types it after `.\importer.ps1` locally.
+
+## Behaviour
+
+- **Imports first** — it dot-sources the root `importer.ps1`, so every function is available without module qualification, and the command
+  runs in that same scope.
+- **Traps errors** — an error is written with `Write-Exception` and stops the step.
+- **Sanitizes the command** — `ConvertFrom-AdoPipelineCommand` removes the YAML and ADO escaping artifacts from the command string.
+- **Logs in coloured blocks** — the label (with the mode and the service connection when set), the environment diagnostic, the sanitized
+  command and the command's own output, each between a header and a footer. With `SYSTEM_DEBUG` set to `true` it also turns verbose output
+  on and writes the full environment diagnostic.
 
 ## help
 

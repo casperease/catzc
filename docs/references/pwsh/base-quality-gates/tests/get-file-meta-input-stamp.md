@@ -1,13 +1,8 @@
 # pwsh/Base.QualityGates/tests/Get-FileMetaInputStamp.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The tests of `Get-FileMetaInputStamp`, the stamp of the files beside a file that its meta block is read from.
 
-## comment:1
+## The engine stamp
 
-Above `Mock Get-InputStamp -ModuleName Catzc.Base.QualityGates { $script:engine }`, written with `#`.
-
-```text
-The engine stamp is the input stamp over the files FileMetaConfig.EngineInputs names; a fixture stands for its
-value here.
-```
+The engine stamp is the input stamp over the files `FileMetaConfig.EngineInputs` names, so the tests mock `Get-InputStamp` and let a fixture
+value stand for it.

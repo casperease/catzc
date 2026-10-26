@@ -1,7 +1,7 @@
 # pwsh/Azure/Get-AzureBicepMinVersion.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The public accessor for the minimum Bicep CLI version that `configs/azure.yml` requires. It exists so the Bicep assert and test commands
+compare against one declared value instead of a literal in their own code.
 
 ## help
 

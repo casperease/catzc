@@ -1,15 +1,13 @@
 # infrastructure/modules/private-dns-zone.bicep
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The reusable module for a private DNS zone (for example `privatelink.blob.core.windows.net`) with a virtual network link to each listed
+network.
 
-## comment:1
+## Links
 
-Above `@description('Zone name, e.g. privatelink.database.windows.net.')`, written with `//`.
+The linked networks may live in other subscriptions. The hub owns the zones and links them to every spoke, so a private endpoint registered
+in a zone resolves from any linked network. Each link is named after its network.
 
-```text
-Reusable bicep module: a private DNS zone (e.g. privatelink.blob.core.windows.net) with a virtual
-network link to each listed VNet, which may live in other subscriptions. The hub owns the zones and
-links them to every spoke, so a private endpoint registered in a zone resolves from any linked VNet.
-Each link is named after its VNet. `az bicep build` inlines it.
-```
+## Use
+
+`az bicep build` inlines the module into the template that references it.

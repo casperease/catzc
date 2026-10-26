@@ -1,3 +1,4 @@
+# Every step expects to fail (continueOnError), so a guard that stops failing shows as a green step.
 trigger:
   branches:
     include: [main]

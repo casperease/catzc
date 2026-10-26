@@ -1,42 +1,25 @@
 # pwsh/Azure/tests/types/AzureConfig.Tests.ps1
 
-<!-- cspell:ignore toolong -->
+The logic tests of the `AzureConfig` type, plus the integrity checks that read the shipped `azure.yml`. They prove what the constructor
+accepts and each violation it reports.
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+## fixtures
 
-## comment:1
+The base config uses deliberately distinct tokens: org `tst`, tenant `fixtenant`, Greek environments and `core_*` subscriptions. The type
+validates a passed dictionary on its own, so the fixture needs no shipped config, and editing the shipped `azure.yml` cannot change the
+outcome ([ADR-AUTO-TEST-ONECATEGORY](../../../../../drs/automation/test-automation.md#rule-adr-auto-test-onecategory),
+[ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 
-Above `$script:baseConfig = [ordered]@{`, written with `#`.
+## normalized customer uniqueness
 
-```text
-Fixture identity — deliberately-distinct tokens (org tst, tenant fixtenant, Greek envs, core_*
-subscriptions) so this logic test owns its inputs and editing the shipped azure.yml can never
-change its outcome ([ADR-AUTO-TEST-ONECATEGORY](/docs/drs/automation/test-automation.md#rule-adr-auto-test-onecategory),
-[ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)). The AzureConfig type
-validates the passed dict standalone, so the fixture needs no shipped config.
-```
+At load time the type groups customer subscriptions by their raw customer token, because it must not read `customer.yml`
+([ADR-AZ-CUSTOMER](../../../../../drs/azure/azure-customer-model.md)). The integrity test of the shipped assets is the normalized
+counterpart. With shortcodes resolved to canonical keys, every shipped customer still serves each environment exactly once, and so does the
+non-customer set. Every configuration file resolution rests on that uniqueness
+([ADR-AZ-DATAMOD](../../../../../drs/azure/azure-data-model.md)).
 
-## comment:2
+## customer field is not validated
 
-Above `It 'every shipped customer — and the non-customer set — serves each...`, written with `#`.
-
-```text
-The load-time type groups customer subscriptions by their RAW customer token (it must not read
-customer.yml — see [ADR-AZ-CUSTOMER](/docs/drs/azure/azure-customer-model.md)); this is the NORMALIZED
-counterpart: with shortcode
-bindings resolved to canonical keys, every shipped customer still serves each env exactly once,
-and so does the non-customer (shared) set — the uniqueness every configuration file resolution
-rests on ([ADR-AZ-DATAMOD](/docs/drs/azure/azure-data-model.md)).
-```
-
-## comment:3
-
-Above `It 'ignores a subscription customer field (not validated at load)' {`, written with `#`.
-
-```text
-A subscription's `customer` field is a cross-asset reference into customer.yml (by key or
-shortcode); it is NOT validated at azure-load time (that is enforced by the integrity test above
-and at runtime by Get-AzureCustomer). So a customer token in a fixture azure config does not need
-customer.yml here — the type carries it raw.
-```
+A subscription's `customer` field is a cross-asset reference into `customer.yml`, by key or shortcode. The type carries it raw and does not
+check it at load time. The integrity test above checks it, and `Get-AzureCustomer` checks it at runtime. A fixture Azure config can
+therefore name a customer without a `customer.yml`.

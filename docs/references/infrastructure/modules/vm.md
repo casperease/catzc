@@ -1,14 +1,11 @@
 # infrastructure/modules/vm.bicep
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The reusable module for a Windows virtual machine with its network interface and a dynamic public IP.
 
-## comment:1
+## Network
 
-Above `@description('VM name. Also used as the Windows computer name, so keep it <=...`, written with `//`.
+The module takes an existing subnet: create the network with `../../modules/virtual-network.bicep` and pass one of its subnet ids.
 
-```text
-Reusable bicep module: a Windows virtual machine with its NIC and a dynamic public IP. Takes an
-existing subnet (create the vnet with ../../modules/virtual-network.bicep and pass one of its subnetIds).
-Cheapest SKU by default (Standard_B1s) — this is a PoC VM. `az bicep build` inlines it.
-```
+## Size
+
+The default is the cheapest SKU (`Standard_B1s`), because this is a proof-of-concept machine. `az bicep build` inlines the module.

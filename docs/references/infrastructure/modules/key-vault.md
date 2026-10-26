@@ -1,14 +1,9 @@
 # infrastructure/modules/key-vault.bicep
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The reusable module for a Key Vault. The vault is RBAC-authorized and carries no access policies, so access is granted through role
+assignments only.
 
-## comment:1
+## Use
 
-Above `@description('Key vault name (3-24 alphanumeric/hyphen, starts with a letter,...`, written with `//`.
-
-```text
-Reusable bicep module: a Key Vault (RBAC-authorized, no access policies). Templates reference it
-with a relative `module` declaration (../../modules/key-vault.bicep) and `az bicep build` inlines
-it into the template's main.json.
-```
+A template references it with a relative `module` declaration (`../../modules/key-vault.bicep`), and `az bicep build` inlines it into the
+template's `main.json`.

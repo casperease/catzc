@@ -1,7 +1,7 @@
 # pwsh/Base.Vendor/Test-VendorModuleAvailable.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The querying half of the restorability check for vendored modules: it asks the configured source whether a module, at a given version if
+one is named, is available, and returns a boolean.
 
 ## help
 

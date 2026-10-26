@@ -34,10 +34,9 @@ under `Invoke-TestFile`, one gate on named paths, a grep or a file read. The one
      (`docs/explanation/model/.assets/zoom-internal-c4.drawio.png`, `docs/explanation/model/.assets/zoom-pwsh-c3.drawio.png`);
    - `Invoke-TestFile -Path pwsh/Base.ModuleSystem/tests/Test-FunctionDependency.Tests.ps1` passes: the commit carries the one-character fix
      at `pwsh/Tooling.Toolchain/private/Install-UvStandalone.ps1:57` (`Get-ChildPath $extractDirectory`).
-2. plan-reference-normal-form step 3: move every reference page to its derived path. First ask catzc-68, the step's keeper, to refresh
-   `out/ns5/ref-map.csv` from the committed tree (`out/ns5/New-ReferencePageMap.ps1`). Then run
-   `pwsh -NoProfile -File out/ns5/Rename-ReferencePages.ps1 -WhatIf`, then the same without `-WhatIf`, and tell the orchestrator. Check: the
-   `-WhatIf` lists each page once and refuses nothing, and after the run `git status --short docs/references` shows only renames.
+2. Evict the machine Go 1.24.4 that shadows the managed Go 1.27 (Get-ToolsStatus: go Shadowed): in a catzc session run `Remove-Go` (dry run;
+   it names the registered MSI and its uninstall command), run that command from an elevated shell, run `Remove-Go` again (and
+   `Remove-Go -Force` elevated only if it still says "Would remove"), then restart VS Code. Check: `Get-ToolsStatus` shows go OK.
 3. plan-types-build-local step 9: one ci-pwsh pipeline run once `cache-types.yaml` lands. Check: the second run of a job restores the types
    cache (Cache@2 "Cache restored") and skips the DLL build.
 4. plan-vscode-extensions: rebuild and install the two new extensions (`Build-VsCodeExtension`, then `Install-VsCodeExtension`), reload VS

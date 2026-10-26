@@ -1,26 +1,20 @@
 # pwsh/Azure/configs/identity-tokens.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The live production identities this module's configs carry: the customers, the org, the subscriptions and the environments. A hermetic logic
+test must never name them, and uses the fixture the entry's suggestion names instead
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 
-## comment:1
+## how it is read
 
-Above `tokens:`, written with `#`.
+`Get-LiveIdentityTokens` reads every module's `identity-tokens.yml`, so the check follows the shipped config without naming it. The
+`IdentityTokensConfig` type validates the file on load. Each entry has these keys:
 
-```text
-The live production identities this module's configs carry — the customers, the org, the subscriptions and the
-environments — which a hermetic logic test must never name; it uses the fixture the suggestion names instead
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)). Get-LiveIdentityTokens reads every
-module's identity-tokens.yml, so the gate follows the shipped config without naming it. Validated on load by the
-IdentityTokensConfig type: path walks the config by key ('*' = every entry of a map), take is value (default) or
-keys, match is exact (default) or position, skip_when leaves out a map entry that sets that key true.
-```
+- `path` walks the config by key, and `*` stands for every entry of a map.
+- `take` is `value`, the default, or `keys`.
+- `match` is `exact`, the default, or `position`.
+- `skip_when` leaves out a map entry that sets that key true.
 
-## comment:2
+## environment names
 
-Above `- config: azure` (occurrence 3), written with `#`.
-
-```text
-Environment names are ambiguous words ('test', 'dev'), so they match only when bound to an identity parameter.
-The per-subscription identity environments (nsub/psub) are shared structural vocabulary, not an identity.
-```
+Environment names are ambiguous words such as `test` and `dev`, so they match only when bound to an identity parameter. The per-subscription
+identity environments, `nsub` and `psub`, are shared structural vocabulary and not an identity, so `skip_when` leaves them out.

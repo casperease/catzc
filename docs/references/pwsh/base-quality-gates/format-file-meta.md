@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/Format-FileMeta.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The formatter that brings the meta block of every in-scope file to its head policy: it derives the facts, imprints the parts the engine owns,
+and leaves the authored `config` part alone. `Test-FileMeta` is its checking half.
 
 ## help
 
@@ -66,29 +66,14 @@ Format-FileMeta -DryRun -PassThru
 Format-FileMeta -Path docs/references
 ```
 
-## comment:1
+## Dry run
 
-Above `function Format-FileMeta {`, written with `#`.
+The repository's preview switch is `-DryRun`, so `ShouldProcess` and `-WhatIf` are deliberately absent
+([ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT](../../../drs/automation/dry-run.md#rule-adr-auto-dryrun-branchbeforesideeffect)).
 
-```text
-The repository's preview switch is -DryRun, so ShouldProcess and -WhatIf are deliberately absent.
-[ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT](/docs/drs/automation/dry-run.md#rule-adr-auto-dryrun-branchbeforesideeffect)
-```
+## The result cache
 
-## comment:2
-
-Above `$stamp = Get-FormatEngineStamp -Engine 'imprint:file-meta' -Settings...`, written with `#`.
-
-```text
-The cache is Format-Code's own for its file-meta step: one verdict, one cache, so either command skips what the other found clean.
-A head also reads the files beside its own (the comment page, the relations' candidates), so each file's key carries their stamp too.
-```
-
-## comment:3
-
-Above `$unfixable = @($saved.Unowned | ForEach-Object {...`, written with `#`.
-
-```text
-A file a person must still repair, or one the run would change, is never recorded as clean, so the next run
+The cache is Format-Code's own for its file-meta step: one verdict, one cache, so either command skips what the other found clean. A head
+also reads the files beside its own (the comment page, the relations' candidates), so each file's key carries their stamp too
+(`Get-FileMetaInputStamp`). A file a person must still repair, or one the run would change, is never recorded as clean, so the next run
 reports it again.
-```

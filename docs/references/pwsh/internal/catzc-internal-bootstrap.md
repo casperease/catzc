@@ -59,10 +59,10 @@ Bootstrap is the part of the load sequence that turns a folder of `.ps1` files i
 The guard checks two cases. The first is two catzc modules exporting one name (with `-ExportPrivates`, the `private/` functions join the
 check). The second is a module function shadowing an already-imported **shipped** command. Shipped means a command that loads before the
 catzc modules and would be silently shadowed by their `-Scope Global` import: a built-in (under `$PSHOME`), a vendored module (under
-`.vendor/`), or an `.internal` shared module. The `.internal` modules sit directly in their folder, so their `ModuleBase` ends at `.internal`
-with no trailing separator, and the match covers that too. Scoping the check to shipped commands by module path means a user's unrelated
-session module never blocks the import, and catzc's own modules (current, or stale on a devbox re-import) are excluded naturally, since
-their base is none of those.
+`.vendor/`), or an `.internal` shared module. The `.internal` modules sit directly in their folder, so their `ModuleBase` ends at
+`.internal` with no trailing separator, and the match covers that too. Scoping the check to shipped commands by module path means a user's
+unrelated session module never blocks the import, and catzc's own modules (current, or stale on a devbox re-import) are excluded naturally,
+since their base is none of those.
 
 `Get-ForeignCatzcModule` returns every loaded catzc module that does not come from a given code root (`-IncludeInternal` adds the
 `Catzc.Internal.*` loader modules, which belong to a root through its `.internal` folder). The package module also belongs when its

@@ -1,7 +1,7 @@
 # pwsh/Azure/Get-AzureEnvironment.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The resolver for an environment identity joined to the subscription that serves it. Deployment code needs the region, the codes and the
+subscription together, and this builds that one object and checks that the pair is a real one.
 
 ## help
 

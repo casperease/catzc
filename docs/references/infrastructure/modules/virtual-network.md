@@ -1,17 +1,16 @@
 # infrastructure/modules/virtual-network.bicep
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The reusable module for a virtual network with its subnets declared inline.
 
-## comment:1
+## Subnets are owned here
 
-Above `@description('A subnet of the virtual network.')`, written with `//`.
+A virtual network owns its subnets: redeploying a network whose subnet list omits a subnet tries to delete that subnet. The network a
+template deploys therefore lists every subnet here. `subnet.bicep` is for adding a subnet to a network the template does not deploy.
 
-```text
-Reusable bicep module: a virtual network with its subnets declared inline. A virtual network owns its
-subnets: redeploying a VNet whose subnet list omits a subnet tries to delete that subnet, so the VNet a
-template deploys lists every subnet here (subnet.bicep is for adding a subnet to a VNet the template
-does not deploy). Each subnet may carry a network security group (nsg.bicep) and a route table
-(route-table.bicep). Templates reference it with a relative `module` declaration
-(../../modules/virtual-network.bicep); `az bicep build` inlines it.
-```
+## Attachments
+
+Each subnet may carry a network security group (`nsg.bicep`) and a route table (`route-table.bicep`).
+
+## Use
+
+A template references it with a relative `module` declaration (`../../modules/virtual-network.bicep`), and `az bicep build` inlines it.

@@ -25,6 +25,7 @@ param location string = resourceGroup().location
 @description('Address space CIDR for the virtual network.')
 param addressPrefix string = '10.0.0.0/16'
 
+// Redeploying with a subnet left out of this list deletes that subnet, so list every one.
 @description('The subnets, each within addressPrefix.')
 param subnets subnetSpec[] = [
   {

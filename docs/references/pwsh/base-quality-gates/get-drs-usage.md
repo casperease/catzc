@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/Get-DrsUsage.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The reader of who cites what in the decision records: it lists every ADR citation and ADR link the tracked files make, derived from the
+text and never from a head, so the answer does not depend on a head being current.
 
 ## help
 

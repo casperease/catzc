@@ -1,23 +1,15 @@
 # pwsh/Azure/tests/Get-AzureSubscription.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The logic tests of the subscription resolver, run against a fixture Azure config. They prove the id, the embedded tenant and the customer
+come back for a named subscription.
 
-## comment:1
+## setup
 
-Above `BeforeAll {`, written with `#`.
+The tests only read, so the config mock and the cache reset run once in `BeforeAll`, not per test. The mocked config is the same every test
+and nothing mutates it, so the cache stays warm
+([ADR-AUTO-TEST-SETUPONCE](../../../../drs/automation/test-automation.md#rule-adr-auto-test-setuponce),
+[ADR-AUTO-TEST-SAFESEAMSWAPS](../../../../drs/automation/test-automation.md#rule-adr-auto-test-safeseamswaps)).
 
-```text
-Read-only resolver tests: the config mock + cache reset run ONCE, not per test — the mocked config is
-identical every test and no test mutates it, so the cache stays warm
-([ADR-AUTO-TEST-SETUPONCE](/docs/drs/automation/test-automation.md#rule-adr-auto-test-setuponce)/[ADR-AUTO-TEST-SAFESEAMSWAPS](/docs/drs/automation/test-automation.md#rule-adr-auto-test-safeseamswaps)).
-```
+## fixture root
 
-## comment:2
-
-Above `Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter {...`, written with `#`.
-
-```text
-Redirect the config-assets root to the test fixture so this logic test owns its identity
-inputs and never depends on the shipped azure.yml.
-```
+The config-assets root is redirected to the test fixture, so the test owns its identity inputs and never depends on the shipped `azure.yml`.

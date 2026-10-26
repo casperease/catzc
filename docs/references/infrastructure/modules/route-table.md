@@ -1,14 +1,11 @@
 # infrastructure/modules/route-table.bicep
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The reusable module for a route table of user-defined routes.
 
-## comment:1
+## Routes
 
-Above `@description('Route table name (1-80 characters, unique within the resource...`, written with `//`.
+The caller passes the routes in the ARM `routes` shape: `{ name, properties: { addressPrefix, nextHopType, nextHopIpAddress? } }`.
 
-```text
-Reusable bicep module: a route table (user-defined routes). The caller passes the routes in the ARM
-`routes` shape ({ name, properties: { addressPrefix, nextHopType, nextHopIpAddress? } }). Attach it
-to a subnet through virtual-network.bicep or subnet.bicep. `az bicep build` inlines it.
-```
+## Use
+
+Attach the table to a subnet through `virtual-network.bicep` or `subnet.bicep`. `az bicep build` inlines the module.

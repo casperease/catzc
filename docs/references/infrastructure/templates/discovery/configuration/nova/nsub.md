@@ -1,13 +1,6 @@
 # infrastructure/templates/discovery/configuration/nova/nsub.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The discovery configuration for the nova customer's nonprod subscription (env `nsub`, customer `nova`). It deploys a spoke.
 
-## comment:1
-
-Above `ParametersFile:`, written with `#`.
-
-```text
-discovery, nova nonprod subscription (env nsub, customer nova): a spoke. The kind and the ranges come from
-network.yml by config address; the spoke peers to the nonprod hub. nova is dev-only -> nonprod only.
-```
+The kind and the address ranges come from `network.yml` by config address. The spoke peers to the nonprod hub. The nova customer is
+dev-only, so it has a nonprod configuration and no prod one.

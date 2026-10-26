@@ -1,15 +1,13 @@
 # infrastructure/modules/private-endpoint.bicep
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The reusable module for a private endpoint to one sub-resource of a target service, such as the `blob` of a storage account or the
+`sqlServer` of a SQL server.
 
-## comment:1
+## What it deploys
 
-Above `@description('Private endpoint name (2-64 characters, unique within the...`, written with `//`.
+The endpoint sits in a subnet and carries a private DNS zone group that registers its address in the given private DNS zones. Those zones
+may live in the hub's subscription.
 
-```text
-Reusable bicep module: a private endpoint for one sub-resource of a target service (the `blob` of a
-storage account, the `sqlServer` of a SQL server), placed in a subnet, with a private DNS zone group
-that registers its address in the given private DNS zones (which may live in the hub's
-subscription). `az bicep build` inlines it.
-```
+## Use
+
+`az bicep build` inlines the module into the template that references it.

@@ -1,13 +1,11 @@
 # .ado/pipelines/deploy-shared.yaml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The manual DEPLOY pipeline of the shared platform unit: it promotes the artifact a certifying `cd-shared` run built to the `release-uat`
+rung, through the unit's one deploy path in `stages/deploy-unit.yaml`. It has no triggers and takes two parameters: `CiRunId`, the run id of
+the certifying `cd-shared` run, and `Target`, which is `release-uat` only.
 
-## comment:1
+## Target
 
-Above `- ${{ if eq(parameters.Target, 'release-uat') }}:`, written with `#`.
-
-```text
-release-uat is test; the RC approval check on shared-release-uat holds the job for its certifier
-([FDR-CD-TWORELEASEGATES](/docs/drs/flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-tworeleasegates)).
-```
+`release-uat` deploys one expedition at `test`, in the ADO environment `shared-release-uat`, from the artifact of the `cd-shared` run named
+by `CiRunId`. This rung is test; the RC approval check on that environment holds the job for its certifier
+([FDR-CD-TWORELEASEGATES](../../../drs/flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-tworeleasegates)).

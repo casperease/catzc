@@ -10,27 +10,20 @@ mirror the YAML keys
 
 ## Properties
 
-- **`source`** — a repository-relative folder (`pipelines`), or `<prefix>/*` for each immediate, non-dot-prefixed subfolder of the prefix
-  (`pwsh/*`), the same convention `readme.yml` uses.
-- **`docs`** — the docs folder the pages go under, starting with `docs/`. With a `/*` source it may carry `{kebab}`, the matched module's
-  name rendered in the kebab case of `NameCase` (`pwsh/Base.QualityGates` becomes `catzc-base-quality-gates`).
+- **`source`** — a repository-relative folder (`.ado/pipelines`), or `<prefix>/*` for each immediate, non-dot-prefixed subfolder of the
+  prefix (`pwsh/*`), the same convention `readme.yml` uses. A hidden folder needs an entry of its own to have pages.
+- **`docs`** — the plain docs folder the pages go under, starting with `docs/`.
 
 ## Validation
 
 Constructing the entry rejects an unknown key, a missing `source` or `docs`, a path with a backslash or a leading or trailing slash, a
-pattern other than a trailing `/*` in `source`, a `docs` outside `docs/` or holding a pattern, and a `{kebab}` without a `/*` source.
+pattern other than a trailing `/*` in `source`, a `docs` outside `docs/`, and a `docs` that holds a pattern or a brace.
 
 ## The page of a file
 
-The page of a file is `<docs>/<path relative to the matched folder>.md`, so `pwsh/Base.QualityGates/private/Get-FormatScope.ps1` has the
-page `docs/references/pwsh/catzc-base-quality-gates/private/Get-FormatScope.ps1.md`. The extension stays in the name, so a page maps back to
-exactly one file. A file directly under the prefix, or under a dot-prefixed folder, has no page from a `/*` entry.
-
-## comment:1
-
-Above `static string FileStem(string fileName)`, written with `//`.
-
-```text
-A file name in the normal form with its trailing language extension and its .Tests role dropped; an inner part of the name is kept,
-so Get-OutputRoot.OutputOnlyByAddress.Tests.ps1 is get-output-root-output-only-by-address.
-```
+The page of a file is `<docs>/[<module>/][<aspect path>/]<file>.md`, every part in the normal form, so
+`pwsh/Base.QualityGates/private/Get-FormatScope.ps1` has the page `docs/references/pwsh/base-quality-gates/private/get-format-scope.md`. A
+folder or module name is rendered in the kebab case, so a namespace never appears in a folder. The file name drops its trailing language
+extension and its `.Tests` role and keeps an inner part, so `Get-OutputRoot.OutputOnlyByAddress.Tests.ps1` is
+`get-output-root-output-only-by-address`. A module's article is `<docs>/<module>/index.md`. A file directly under the prefix, or under a
+dot-prefixed folder, has no page from a `/*` entry.

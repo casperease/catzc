@@ -1,14 +1,13 @@
 # infrastructure/modules/budget.bicep
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The reusable module for a cost budget. It deploys at subscription level (`targetScope = 'subscription'`) and creates one alert per threshold
+the caller lists.
 
-## comment:1
+## Alerts
 
-Above `targetScope = 'subscription'`, written with `//`.
+Each alert goes to the holders of the listed subscription roles, Owner by default. No email address is kept in configuration; the recipients
+follow the role assignments of the subscription.
 
-```text
-Reusable bicep module: a cost budget at subscription scope, with one alert per threshold. Alerts go
-to the holders of the listed subscription roles (Owner by default), so no email address is kept in
-configuration. `az bicep build` inlines it.
-```
+## Use
+
+A template references the module with a relative `module` declaration, and `az bicep build` inlines it into the template's `main.json`.

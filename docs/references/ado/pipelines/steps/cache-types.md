@@ -1,13 +1,12 @@
 # .ado/pipelines/steps/cache-types.yaml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The step template that restores the C# types build from the pipeline cache, so a job loads it instead of compiling it.
 
-## comment:1
+## Behaviour
 
-Above `steps:`, written with `#`.
+- **Resolve** — it imports the types module and sets `CatzcTypesShadowRoot` from its one resolver, `Get-TypesShadowRoot`.
+- **Cache** — a `Cache@2` task caches that folder under a key made of the agent OS, the C# files of the types (`pwsh/**/types/**/*.cs`) and the project
+  they compile with (`pwsh/.internal/assets/Catzc.Types.csproj`).
 
-```text
-The combined C# types build is a per-machine cache keyed by the type sources and the project they compile with
-(ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD), so a job restores it instead of compiling it. The shadow root comes from its one resolver, Get-TypesShadowRoot.
-```
+The combined types build is a per-machine cache keyed by its inputs ([ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD](../../../../drs/automation/caching.md#rule-adr-auto-cache-compiledtypeprebuild)),
+so any change to those files or the project makes a new key.

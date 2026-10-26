@@ -1,14 +1,6 @@
 # infrastructure/templates/expedition/configuration/apex/prod.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The expedition configuration for apex prod (customer `apex`, subscription `apex_prod`).
 
-## comment:1
-
-Above `ParametersFile:`, written with `#`.
-
-```text
-expedition, apex prod (customer apex, apex_prod subscription): in the apex prod spoke, registered in the prod
-hub's private DNS zones. Production class: a provisioned database with geo backups, zone-redundant by the
-template default.
-```
+The workload sits in the apex prod spoke and registers in the prod hub's private DNS zones. It is the production class: a provisioned
+database with geo backups, zone-redundant by the template default.

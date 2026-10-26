@@ -1,132 +1,76 @@
 # pwsh/Azure/configs/azure.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The global Azure identity for the templating system: the org, the minimum Bicep version, and the tenants, environments and subscriptions.
+The GUIDs are placeholders, replaced with real tenant and subscription IDs per deployment target. `Get-Config -Config azure` loads it and
+the `AzureConfig` type validates it.
 
-## comment:1
+## schema pin
 
-Above `org: zct`, written with `#`.
+The file starts with an empty, match-anything schema pin. Without it the editor matches the file to the Azure Developer CLI `azure.yaml`
+schema by filename alone and wrongly demands a `name` key.
 
-```text
-(Pins an empty, match-anything schema. Without it the editor matches this file to the Azure
- Developer CLI `azure.yaml` schema by filename alone and wrongly demands a `name` key.)
-```
+## org
 
-## comment:2
+`org` is the vertical or organization shortcode, global and one per repository. It is the org component of every Azure resource name
+([ADR-AZ-NAMING](../../../../drs/azure/azure-naming-standard.md)). The value is a placeholder, set to the organization's shortcode. The
+order of the name components is not in this file: it is a durable tooling setting in code, `Get-AzureNameOrderSet`, and changing it means
+re-editing every typed name in the configs.
 
-Above `org: zct`, written with `#`.
+## bicep_min_version
 
-```text
-Global Azure identity for the templating system.
+The minimum Bicep CLI version required to build and deploy templates, as MAJOR.MINOR.PATCH. `Assert-AzCliBicep` checks it before every
+`az bicep build`, so a too-old or missing Bicep CLI fails fast with `az bicep upgrade` or `az bicep install` instead of silently emitting no
+`main.json`.
 
-Placeholder GUIDs — replace with real tenant/subscription IDs per deployment target.
-Loaded by Get-Config -Config azure; validated by the AzureConfig type.
-```
+## policy_enforcement
 
-## comment:3
+`policy_enforcement` is the `enforcementMode` of the policy assignments the templates make, per environment class: `Default` enforces and
+`DoNotEnforce` only audits. The key is optional, and omitted keys take the default declared on `AzureConfig`: production `Default`,
+nonproduction `DoNotEnforce`. A stricter repository sets `nonproduction: Default`. Templates read it by config address,
+`global.azure.policy_enforcement.<key>`
+([ADR-AZ-DATAMOD-POLICYENFORCEMENTMODE](../../../../drs/azure/azure-data-model.md#rule-adr-az-datamod-policyenforcementmode)).
 
-Above `org: zct`, written with `#`.
+## environments
 
-```text
-Vertical / organization shortcode — global, one per repo. The <org> component of every Azure
-resource name (see [ADR-AZ-NAMING](/docs/drs/azure/azure-naming-standard.md)). Placeholder — set your org's shortcode.
-(The resource-name component ORDER is NOT here — it is a durable tooling setting in code:
- Get-AzureNameOrder. Changing it requires re-editing every typed name in the configs.)
-```
+The map key is the readable environment name. It is the deploy handle, the config-file name and the environment segment of relaxed resource
+names ([ADR-AZ-NAMING](../../../../drs/azure/azure-naming-standard.md)), and it is unique.
 
-## comment:4
+- `shortcode` is a unique 2-letter code. It is the environment segment of the restricted, tight-budget patterns only (`kv`, `storage`,
+  `vm`), so a readable name never costs a tight name a byte. Its second character lets environments with the same first letter coexist, such
+  as preprod `pp` and prod `pr`.
+- `region` is the Azure deployment location, and `region_code` is its 3-letter name component, such as `weu`.
+- `staging_for` marks an environment as another's staging slot, inactive until activated. Preprod stages prod
+  ([ADR-AZ-DATAMOD-STAGINGSLOT](../../../../drs/azure/azure-data-model.md#rule-adr-az-datamod-stagingslot)).
 
-Above `bicep_min_version: "0.43.8"`, written with `#`.
+## per-subscription environments
 
-```text
-Minimum Bicep CLI version required to build/deploy templates. Asserted before every `az bicep build`
-(Assert-AzCliBicep) so a too-old or missing Bicep CLI fails fast with `az bicep upgrade` / `az bicep
-install`, rather than silently emitting no main.json. MAJOR.MINOR.PATCH.
-```
+An environment with `per_subscription: true` exists exactly once per subscription: the subscription's identity environment, used by
+templates of `environment_kind: subscription`, such as the foundation. `nsub` belongs to the nonprod subscription and `psub` to the prod
+subscription. The standard environments above are many-per-subscription.
 
-## comment:5
+## subscriptions
 
-Above `tenants:`, written with `#`.
+A template's configuration tree addresses subscriptions by convention ([ADR-AZ-DATAMOD](../../../../drs/azure/azure-data-model.md)):
 
-```text
-policy_enforcement — the enforcementMode of the policy assignments the templates make, per environment class:
-Default (enforce) or DoNotEnforce (audit only). Optional; omitted keys take the default declared on
-AzureConfig, { production: Default, nonproduction: DoNotEnforce }. A stricter repository sets
-nonproduction: Default. Templates read it by config address (global.azure.policy_enforcement.<key>),
-[ADR-AZ-DATAMOD-POLICYENFORCEMENTMODE](/docs/drs/azure/azure-data-model.md#rule-adr-az-datamod-policyenforcementmode).
-policy_enforcement: { production: Default, nonproduction: Default }
-```
+- A config at the `configuration/` root, `<env>[-<slot>].yml`, is a shared-platform deployment. Its environment must be served by exactly
+  one non-customer subscription, which is the resolved target.
+- A config under a `configuration/<customer>/` subfolder, where the folder is always a customer key from `customer.yml`, resolves to that
+  customer's one subscription serving the environment.
 
-## comment:6
+The subscription is always resolved and never spelled into a path. At deploy time the target is the az session's subscription, the service
+connection, verified against this declaration and the explicit `-SubscriptionIdAssertIs` guard.
 
-Above `environments:`, written with `#`.
+A subscription may carry an optional `customer`, a reference into `customer.yml` by key or by 2-character shortcode. It is the single source
+of "is this a customer subscription", and the customer renders into the resource names of anything deployed there. Customer definitions live
+in `configs/customer.yml` ([ADR-AZ-CUSTOMER](../../../../drs/azure/azure-customer-model.md)), and which customers are enabled for deployment
+is the `have_customers` variant in `variants.yml`.
 
-```text
-Customer DEFINITIONS live in configs/customer.yml (the catalogue), not here — see
-[ADR-AZ-CUSTOMER](/docs/drs/azure/azure-customer-model.md). A subscription below binds a customer by naming it in its `customer`
-field, by EITHER its key (apex) OR its 2-char shortcode (ap); WHICH customers are enabled for deployment
-is the `have_customers` variant in variants.yml.
-```
+A subscription's `environments` may mix standard environments (dev, test, preprod, prod) freely with at most one per-subscription identity
+environment, `nsub` xor `psub`.
 
-## comment:7
+## shared and customer subscriptions
 
-Above `environments:`, written with `#`.
-
-```text
-Environments. The map KEY is the readable env name (the deploy handle, the config-file name, and
-the env-segment of relaxed resource names — see [ADR-AZ-NAMING](/docs/drs/azure/azure-naming-standard.md)); it must be
-unique. `shortcode` is a 2-letter code, unique, used
-as the env-segment of the restricted (tight-budget) patterns only — `kv`/`storage`/`vm` — so a
-readable name never costs a tight name a byte; its 2nd char lets same-first-letter envs coexist
-(e.g. preprod `pp` vs prod `pr`). `region` is the Azure deployment location; `region_code`
-is its 3-letter name component (`weu`). `staging_for` marks an environment as another's staging slot,
-inactive until activated (preprod stages prod, [ADR-AZ-DATAMOD-STAGINGSLOT](/docs/drs/azure/azure-data-model.md#rule-adr-az-datamod-stagingslot)).
-```
-
-## comment:8
-
-Above `nsub:`, written with `#`.
-
-```text
-Per-subscription environments (per_subscription: true) — exactly one per subscription (the sub's
-identity env), used by environment_kind: subscription templates (e.g. foundation). nsub = the
-nonprod subscription, psub = the prod subscription. Standard envs (above) are many-per-subscription.
-```
-
-## comment:9
-
-Above `subscriptions:`, written with `#`.
-
-```text
-Subscriptions. A template's configuration tree addresses subscriptions by convention
-([ADR-AZ-DATAMOD](/docs/drs/azure/azure-data-model.md)): a config at the configuration/ ROOT (`<env>[-<slot>].yml`) is a
-shared-platform deployment — its env must be served by exactly ONE non-customer subscription, which is
-the resolved target; a config under a `configuration/<customer>/` subfolder (the folder is always a
-customer KEY from customer.yml) resolves to that customer's one subscription serving the env. The
-subscription is always resolved, never spelled into a path — and at deploy time the target is the az
-session's subscription (the service connection), verified against this declaration and the explicit
--SubscriptionIdAssertIs guard. A subscription MAY carry an optional `customer` (a reference into
-customer.yml, by key or 2-char shortcode) — the single source of "is this a customer subscription?";
-the customer renders into the resource names of anything deployed here (see
-[ADR-AZ-NAMING](/docs/drs/azure/azure-naming-standard.md)). A subscription's `environments` may freely mix standard envs
-(dev/test/preprod/prod) with AT MOST ONE per-subscription identity env (nsub xor psub) — the identity
-env addresses once-per-subscription templates (environment_kind: subscription).
-```
-
-## comment:10
-
-Above `shared_nonprod:`, written with `#`.
-
-```text
-The shared platform pair — the only non-customer subscriptions, so every root config's env resolves
-to exactly one of them (nonprod serves dev/test/nsub; prod serves preprod/prod/psub).
-```
-
-## comment:11
-
-Above `apex_nonprod:`, written with `#`.
-
-```text
-Customer subscriptions — carry a `customer` key; their configs live under the
-configuration/<customer>/ subfolder. One pair per customer (nova/flux are nonprod-only for now).
-```
+`shared_nonprod` and `shared_prod` are the shared platform pair and the only non-customer subscriptions, so every root config's environment
+resolves to exactly one of them: nonprod serves dev, test and `nsub`, and prod serves preprod, prod and `psub`. The customer subscriptions
+carry a `customer` key, and their configs live under the `configuration/<customer>/` subfolder. There is one pair per customer, and some
+customers are nonprod-only.

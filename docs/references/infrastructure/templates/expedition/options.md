@@ -1,17 +1,10 @@
 # infrastructure/templates/expedition/options.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The per-template options of expedition, the Well-Architected workload: storage and a SQL database behind private endpoints, landing in a
+discovery network. It deploys into its own resource group, one per configuration slot.
 
-## comment:1
+## Classification
 
-Above `short_name: exped`, written with `#`.
+The classification follows [ADR-AZ-DATAMOD](../../../../drs/azure/azure-data-model.md).
 
-```text
-Per-template options for 'expedition' — the Well-Architected workload: storage and a SQL database behind
-private endpoints, landing in a discovery network. Deployed into its own resource group, one per
-configuration slot.
-
-Classification ([ADR-AZ-DATAMOD](/docs/drs/azure/azure-data-model.md)):
-  environment_kind: standard  -> configs use the standard envs (dev/test/preprod/prod), slotted per config
-```
+- `environment_kind: standard` — configs use the standard envs (dev, test, preprod, prod), slotted per config.

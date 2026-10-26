@@ -1,7 +1,7 @@
 # pwsh/Azure/Get-AzureSubscriptionCustomer.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The one accessor for the `customer` field of a subscription entry. Two resolvers read that field, and keeping the read in one place stops
+them from drifting apart.
 
 ## help
 

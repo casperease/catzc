@@ -1,42 +1,29 @@
 # .ado/pipelines/cd-shared.yaml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The CD pipeline of the shared platform unit. It builds the foundation, discovery and expedition templates for the configuration slots the shared unit owns, publishes
+each as an artifact, and deploys them through `stages/deploy-unit.yaml`, on `main` only.
 
-## comment:1
+## Triggers
 
-Above `trigger:`, written with `#`.
+The include list takes the shared templates and modules plus the root `configuration/*.yml` of each tier; the exclude list drops every
+customer subfolder, which the customer CD pipelines own. Root ymls and customer subfolders sit at one folder depth, so ADO may drop a root
+yml from the filter; `Test-GlobSetAffected` is the exact backstop ([FDR-CD-GLOBS](../../../drs/flow/durable-sha-globs.md)).
 
-```text
-Stage order is the safety property: foundation owns the Key Vault the others use, and expedition lands in discovery's network.
-[FDR-CD-TYPE](/docs/drs/flow/pipeline-types.md), [ADR-AZ-LZ-LINKSNEEDBOTHNETWORKS](/docs/drs/azure/landing-zones.md#rule-adr-az-lz-linksneedbothnetworks),
-[ADR-AZ-DATAMOD](/docs/drs/azure/azure-data-model.md) [comment:1](/docs/references/ado/pipelines/cd-shared.yaml.md#comment1)
-```
+## Stages
 
-## comment:2
+- **CI** — one `Build` job on `ubuntu-latest`. It checks out with `fetchDepth: 0`, because `Test-GlobSetAffected` diffs real refs
+  ([FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT](../../../drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-changecomputedfromgit)). It publishes the
+  step output `AFFECTED`, then runs `Build-Bicep <tier> -Shared` for foundation, discovery and expedition. `Build-Bicep` writes each
+  template to `out/template/<name>`, and the pipeline publishes that folder as the artifact the deploy stages consume. `-Shared` limits the
+  build to the configuration slots at the configuration root; customer subfolders are built by their own customer CD.
+- **Deploy** — the unit's one deploy path in `deploy-unit.yaml`, shared with its DEPLOY pipeline: foundation, then discovery, then
+  expedition. Foundations and discoveries run at `nsub` and `psub`; expeditions at `dev` (ADO environment `shared-main-uat`) and `test`.
 
-Above `trigger:`, written with `#`.
+## Why it is shaped so
 
-```text
-Root ymls and customer subfolders sit at one folder depth, so ADO may drop a root yml; Test-GlobSetAffected is the exact backstop.
-[FDR-CD-GLOBS](/docs/drs/flow/durable-sha-globs.md) [comment:2](/docs/references/ado/pipelines/cd-shared.yaml.md#comment2)
-```
-
-## comment:3
-
-Above `- template: /.ado/pipelines/steps/invoke-automation.yaml`, written with `#`.
-
-```text
-Build-Bicep writes each template to out/template/<name>; publish that as the artifact the
-deploy stages consume. -Shared scopes the build to the configuration-root (shared platform)
-slots — customer subfolders are built by their own customer CD.
-```
-
-## comment:4
-
-Above `fetchDepth: 0`, written with `#`.
-
-```text
-Test-GlobSetAffected diffs real refs
-([FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT](/docs/drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-changecomputedfromgit))
-```
+- **Stage order is the safety property.** Foundation owns the Key Vault the others use, and expedition lands in discovery's network
+  ([FDR-CD-TYPE](../../../drs/flow/pipeline-types.md),
+  [ADR-AZ-LZ-LINKSNEEDBOTHNETWORKS](../../../drs/azure/landing-zones.md#rule-adr-az-lz-linksneedbothnetworks),
+  [ADR-AZ-DATAMOD](../../../drs/azure/azure-data-model.md)).
+- **An untouched unit deploys nothing.** The first Deploy stage is skipped when `AFFECTED` is not `True`, and the later Deploy stages chain
+  on it, so they skip with it. Every Deploy stage also requires the `main` branch.

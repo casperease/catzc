@@ -1,7 +1,7 @@
 # pwsh/Azure/Get-AzureSubscriptionEnvironment.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The lookup of a subscription's identity environment, `nsub` or `psub`. A template of the standard kind uses it to find the
+once-per-subscription template deployed in the same subscription.
 
 ## help
 

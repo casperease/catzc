@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/Get-FileMetaFact.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The read-only door to the file facts: it derives what the imprint would write into each file's meta block from the registries, git and the
+disk, and writes nothing.
 
 ## help
 

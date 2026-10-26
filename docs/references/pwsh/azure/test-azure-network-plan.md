@@ -1,7 +1,7 @@
 # pwsh/Azure/Test-AzureNetworkPlan.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The quality gate that keeps the network plan and the Azure identity config in step. It runs the join of `Get-NetworkPlanViolations` over the
+two shipped configs and reports every violation, so an environment or subscription added to one file cannot be missed in the other.
 
 ## help
 

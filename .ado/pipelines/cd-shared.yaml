@@ -42,6 +42,7 @@ stages:
           vmImage: ubuntu-latest
         steps:
           - checkout: self
+            # Test-GlobSetAffected diffs real refs.
             fetchDepth: 0
 
           - template: /.ado/pipelines/steps/invoke-automation.yaml

@@ -34,11 +34,7 @@ The comment-pages config: a Catzc.Base.CodeMeta.CommentPagesConfig.
 Get-CommentPage -Path 'pwsh/Base.CodeMeta/Get-CommentPage.ps1' -Config (Get-Config -Config comment-pages)
 ```
 
-## comment:1
+## Page back to its sources
 
-Above `$index = $Config.PageIndex([string[]] $TrackedPath)`, written with `#`.
-
-```text
-A page back to its sources: the tracked files map forward once and the result is inverted, since the normal form reads back to no
-file name.
-```
+With `-Page` and `-TrackedPath` the command answers the other way and returns the sources that render to the page: the tracked files map forward once through the pages entries and the result is inverted, since the
+normal form reads back to no file name.

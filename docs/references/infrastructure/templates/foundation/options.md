@@ -1,17 +1,12 @@
 # infrastructure/templates/foundation/options.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The per-template options of foundation, the once-per-subscription baseline (Log Analytics and Key Vault). Its Key Vault holds the SQL admin
+password that consuming templates reference.
 
-## comment:1
+## Classification
 
-Above `short_name: fnd`, written with `#`.
+The classification follows [ADR-AZ-DATAMOD](../../../../drs/azure/azure-data-model.md).
 
-```text
-Per-template options for 'foundation' — the once-per-subscription baseline (Log Analytics + Key
-Vault). Its Key Vault holds the SQL admin password that consuming templates reference.
+- `environment_kind: subscription` — configs use the per-subscription envs (`nsub`, `psub`), once per subscription.
 
-Classification ([ADR-AZ-DATAMOD](/docs/drs/azure/azure-data-model.md)):
-  environment_kind: subscription  -> configs use per-subscription envs (nsub/psub), once per sub
-(Slot is per-config, not a template bit — foundation's configs simply carry no slot.)
-```
+The slot is per config, not a template property: foundation's configs simply carry no slot.

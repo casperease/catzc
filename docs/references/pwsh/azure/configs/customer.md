@@ -1,24 +1,22 @@
 # pwsh/Azure/configs/customer.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The customer catalogue: the customers this repository can deploy for, split out of `azure.yml`
+([ADR-AZ-CUSTOMER](../../../../drs/azure/azure-customer-model.md)). `Get-Config -Config customer` loads it and the `CustomerConfig` type
+validates it.
 
-## comment:1
+## binding
 
-Above `customers:`, written with `#`.
+A subscription in `azure.yml` binds to a customer by naming it in its `customer` field, by the readable key (apex) or by the 2-character
+shortcode (ap). Both resolve to the same customer. The key is the customer segment of relaxed resource names and the name of the
+configuration subfolder. The unique 2-character `shortcode` is the customer segment of the restricted `kv`, `storage` and `vm` patterns, the
+same name and shortcode split as environments ([ADR-AZ-NAMING](../../../../drs/azure/azure-naming-standard.md)). `details` is a free-text
+label.
 
-```text
-Customer catalogue — the customers this repo can deploy for. Split out of azure.yml (see
-[ADR-AZ-CUSTOMER](/docs/drs/azure/azure-customer-model.md)). Loaded by Get-Config -Config customer; validated by
-the CustomerConfig type.
+## enabled customers
 
-A subscription in azure.yml binds to a customer by naming it in its `customer` field — by EITHER the
-readable key (apex) OR the 2-char shortcode (ap); both resolve to the same customer. The key is the
-customer-segment of relaxed (generous) resource names and the config subfolder; the 2-char `shortcode`
-(unique) is the customer-segment of the restricted kv/storage/vm patterns — the same name/shortcode
-split as environments (see [ADR-AZ-NAMING](/docs/drs/azure/azure-naming-standard.md)). `details` is a free-text label.
+This file is only the catalogue of who the customers are. Which of them are enabled for deployment is the `have_customers` variant in
+`variants.yml`.
 
-WHICH of these customers are actually enabled for deployment is the `have_customers` variant in
-variants.yml (false | all | [names]) — this file is only the catalogue of who they are. Optional — a
-repo with no customers omits the file (Get-AzureCustomers returns @()).
-```
+## optional file
+
+A repository with no customers omits the file, and `Get-AzureCustomers` then returns an empty array.

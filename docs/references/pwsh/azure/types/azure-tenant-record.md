@@ -1,17 +1,10 @@
 # pwsh/Azure/types/AzureTenantRecord.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+One `tenants` entry of `configs/azure.yml` ([ADR-AZ-DATAMOD](../../../../drs/azure/azure-data-model.md)): an Entra tenant keyed by name. It
+is the config mirror, with snake_case keys
+([ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](../../../../drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)). The
+resolved identity node is `Tenant`. `AzureConfig` builds one record per entry and collects its violations with the file's.
 
-## comment:1
+## shape
 
-Above `using System;`, written with `//`.
-
-```text
-One `tenants` entry of configs/azure.yml ([ADR-AZ-DATAMOD](/docs/drs/azure/azure-data-model.md)): an Entra tenant
-keyed by name. The config mirror (snake_case keys,
-[ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)); the resolved identity
-node is Tenant. AzureConfig builds one per entry and collects its violations with the file's.
-
-Shape: the name is a lower-snake_case identifier, `id` is a GUID, and no other key.
-```
+The name is a lower-snake_case identifier, `id` is a GUID, and no other key is allowed.

@@ -1,22 +1,17 @@
 # .ado/pipelines/deploy-apex.yaml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The manual DEPLOY pipeline of the customer apex: it promotes the artifact a certifying `cd-apex` run built to one rung of the ladder,
+through the unit's one deploy path in `stages/deploy-unit.yaml`. It has no triggers and takes two parameters: `CiRunId`, the run id of the
+certifying `cd-apex` run, and `Target`, either `release-uat` or `prod`.
 
-## comment:1
+## Targets
 
-Above `- ${{ if eq(parameters.Target, 'release-uat') }}:`, written with `#`.
+- **`release-uat`** — one expedition at `test`, in the ADO environment `apex-release-uat`. This rung is test; the RC approval check on that
+  environment holds the job for its certifier ([FDR-CD-TWORELEASEGATES](../../../drs/flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-tworeleasegates)).
+- **`prod`** — two stages. The exact artifact is staged in pre-prod, the copy of prod that is not in use (`_preprod`, environment `apex-pre-prod`),
+  then activated to prod (`_prod`, environment `apex-prod`)
+  ([FDR-CD-TWOENVIRONMENTACTIVATION](../../../drs/flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-twoenvironmentactivation)). The prod
+  stage depends on the pre-prod one and sets `CertifiedBy: apex-pre-prod`, so no job deploys unless that environment's deployment history
+  holds the commit.
 
-```text
-release-uat is test; the RC approval check on apex-release-uat holds the job for its certifier
-([FDR-CD-TWORELEASEGATES](/docs/drs/flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-tworeleasegates)).
-```
-
-## comment:2
-
-Above `- ${{ if eq(parameters.Target, 'prod') }}:`, written with `#`.
-
-```text
-Stage the exact artifact in pre-prod, the inactive slot of prod, then activate it to prod
-([FDR-CD-TWOENVIRONMENTACTIVATION](/docs/drs/flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-twoenvironmentactivation)).
-```
+Both targets download the artifact from the `cd-apex` run named by `CiRunId`, so the bytes deployed are the bytes CI built.

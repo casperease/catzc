@@ -25,10 +25,9 @@ place: on a declaration or first code line, one line that says something useful 
 
 ## Open steps
 
-- [ ] The rollout after the user's review: one module per step, in the master's order. Check: per module, `Test-Comments -Path` on it
-      reports no long comment and no orphan section, and its tests pass one file at a time.
-- [ ] Base.Docs and Base.CodeMeta (catzc-68): the root, private and configs files are done; left are the `tests/` and `tests/types/` pages,
-      the Base.Docs `types/*.cs` (through a staged burst) and Base.CodeMeta's HeadAnchor.cs, HeadForm.cs and PlainText.cs, skipping every
-      file in the reference-normal-form staging until its burst lands. After each Edit, `git diff -U0 <file>` shows only `#` lines. Check:
-      `Test-Comments -Path pwsh/Base.Docs, pwsh/Base.CodeMeta` reports no long comment and no orphan section, and the touched files' tests
-      pass.
+- [ ] The last leftovers: every other module has its lines. Left are the Base.QualityGates FileMeta files in catzc-68's staging
+      (`Format-FileMeta`, `file-meta.yml`, `Get-FileMetaScope`, `Get-ImprintStepFile`, `Get-RelativeEdgesFileMetaFact`,
+      `Invoke-FileMetaEngine`, `FileMetaConfig.cs` and their tests), once that staging lands, and 10 sections in Base.Docs and Base.CodeMeta
+      (`Get-CommentPage`, `comment-pages.yml`, `CommentPageMap.cs`, `Get-Glossary`, `agents.yml`, `readme.yml`, `Test-Glossary.Tests` and
+      three more) found by the 2026-10-26 audit. Check: a page section whose code line has no one-line comment above it is left only where
+      the rules allow it, `Test-Comments -Path pwsh` reports 0, and the touched files' tests pass one file at a time.

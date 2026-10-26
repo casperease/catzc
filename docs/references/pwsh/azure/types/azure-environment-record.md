@@ -1,22 +1,20 @@
 # pwsh/Azure/types/AzureEnvironmentRecord.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+One `environments` entry of `configs/azure.yml` ([ADR-AZ-DATAMOD](../../../../drs/azure/azure-data-model.md),
+[ADR-AZ-NAMING](../../../../drs/azure/azure-naming-standard.md)): a deployment environment keyed by its readable name. It is the config
+mirror, with snake_case keys
+([ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](../../../../drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)). The
+resolved identity node is `AzureEnvironment`. `AzureConfig` builds one record per entry and collects its violations with the file's;
+shortcode uniqueness is `AzureConfig`'s.
 
-## comment:1
+## shape
 
-Above `using System;`, written with `//`.
-
-```text
-One `environments` entry of configs/azure.yml ([ADR-AZ-DATAMOD](/docs/drs/azure/azure-data-model.md),
-[ADR-AZ-NAMING](/docs/drs/azure/azure-naming-standard.md)): a deployment environment keyed by its readable name.
-The config mirror (snake_case keys, [ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml));
-the resolved identity node is AzureEnvironment. AzureConfig builds one per entry and collects its violations
-with the file's (shortcode uniqueness is AzureConfig's).
-
-Shape: the name (the deploy handle, the config-file name, and the relaxed env-segment) is 2+ lowercase
-alphanumeric with a leading letter; `shortcode` is 2 lowercase letters (the tight-pattern env-segment); `region`
-is non-empty; `region_code` is 3 lowercase letters; `per_subscription`, when present, is a boolean;
-`staging_for`, when present, names another environment this one stages (its inactive slot before activation, ADR-AZ-DATAMOD-STAGINGSLOT;
-AzureConfig checks the target); no other key.
-```
+- The name is the deploy handle, the config-file name and the relaxed environment segment. It is 2 or more lowercase alphanumeric characters
+  with a leading letter.
+- `shortcode` is 2 lowercase letters, the environment segment of the tight patterns.
+- `region` is non-empty, and `region_code` is 3 lowercase letters.
+- `per_subscription`, when present, is a boolean.
+- `staging_for`, when present, names another environment this one stages, its inactive slot before activation
+  ([ADR-AZ-DATAMOD-STAGINGSLOT](../../../../drs/azure/azure-data-model.md#rule-adr-az-datamod-stagingslot)). `AzureConfig` checks the
+  target.
+- No other key is allowed.

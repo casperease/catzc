@@ -53,6 +53,7 @@ jobs:
           # / cold-JIT push near-limit tests over). The report stays as the signal; the gate does not fail CI.
           Test-Automation -Level 2
 
+  # Equal hashes across OSes prove the build ships the bytes git stores, not the bytes a CRLF checkout wrote.
   bundle-hash:
     strategy:
       matrix:

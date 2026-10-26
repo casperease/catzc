@@ -1,16 +1,13 @@
 # infrastructure/modules/diagnostic-setting.bicep
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The reusable module that sends one resource's logs and metrics to a Log Analytics workspace.
 
-## comment:1
+## How it attaches
 
-Above `@description('Kind of the target resource.')`, written with `//`.
+A diagnostic setting attaches to a typed resource, so the caller names the resource kind and the resource. The module picks the log and
+metric categories that kind exposes, taking the logs through the `allLogs` category group.
 
-```text
-Reusable bicep module: a diagnostic setting that sends a resource's logs and metrics to a Log
-Analytics workspace. A diagnostic setting attaches to a typed resource, so the caller names the
-resource kind and the resource; the module picks the log and metric categories that kind exposes
-(logs by the `allLogs` category group). The subscription's activity log has its own module
-(subscription-diagnostic-setting.bicep). `az bicep build` inlines it.
-```
+## Related module
+
+The subscription's activity log has its own module, `subscription-diagnostic-setting.bicep`. `az bicep build` inlines this module into the
+template that references it.

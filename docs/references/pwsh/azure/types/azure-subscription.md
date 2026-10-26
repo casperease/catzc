@@ -1,24 +1,10 @@
 # pwsh/Azure/types/AzureSubscription.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+A resolved subscription identity: a named Azure subscription, the Entra tenant that owns it and, for customer subscriptions only, the
+customer it serves. It is the middle node of the identity graph, `Tenant`, then `AzureSubscription`, then `AzureEnvironment`. The type
+mirrors a `subscriptions` entry of `configs/azure.yml`, so the property names are the YAML keys verbatim.
 
-## comment:1
+## customer
 
-Above `using System;`, written with `//`.
-
-```text
-A resolved subscription identity: a named Azure subscription, the Entra tenant that owns it, and —
-for customer subscriptions only — the customer it serves. A mid node of the identity graph
-(Tenant ← AzureSubscription ← AzureEnvironment). Mirrors a `subscriptions` entry in configs/azure.yml,
-so the property names are the YAML keys verbatim.
-```
-
-## comment:2
-
-Above `public string customer { get; }`, written with `//`.
-
-```text
-The customer this subscription serves; this value renders into customer resource names. Null for a
-non-customer (platform/shared) subscription, so a typed null-check separates the two kinds.
-```
+`customer` is the customer this subscription serves, and the value renders into customer resource names. It is null for a non-customer
+(platform or shared) subscription, so a typed null check separates the two kinds.

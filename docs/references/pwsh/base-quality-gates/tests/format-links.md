@@ -1,16 +1,10 @@
 # pwsh/Base.QualityGates/tests/Format-Links.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The tests of `Format-Links`, the link aligner and the repository-wide migration
+([ADR-REPO-LINK-ALIGNEDBYTOOL](../../../../drs/repository/markdown-links.md#rule-adr-repo-link-alignedbytool)), in isolation.
 
-## comment:1
+## Fixture
 
-Above `Describe 'Format-Links'`, written with `#`.
-
-```text
-Format-Links is the link aligner and the repository-wide migration
-([ADR-REPO-LINK-ALIGNEDBYTOOL](/docs/drs/repository/markdown-links.md#rule-adr-repo-link-alignedbytool)), tested in isolation: every test
-builds its own fixture repository in $TestDrive — a two-ADR index with neutral widget/gadget codes
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)),
-an .editorconfig, and the source files under test — and aligns only that tree (-RepositoryRoot, -Path).
-```
+Every test builds its own fixture repository in `$TestDrive`: a two-ADR index with neutral widget and gadget codes
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)), an
+`.editorconfig`, and the source files under test. It aligns only that tree (`-RepositoryRoot`, `-Path`).

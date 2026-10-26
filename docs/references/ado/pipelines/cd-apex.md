@@ -1,32 +1,25 @@
 # .ado/pipelines/cd-apex.yaml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The CD pipeline of the customer apex: a thin root that picks what to deploy and hands everything else to the shared customer template
+`extends/cd-customer.yaml`.
 
-## comment:1
+## What it supplies
 
-Above `trigger:`, written with `#`.
+- **Customer key** — `apex`.
+- **Foundations and Discoveries** — the apex spoke at `nsub` and `psub`.
+- **Expeditions** — `dev` (with its ADO environment), the named configuration slot `blu` of `dev`, and `prod`.
+- **Per deployment** — the service connection the run logs in with and the `subscriptionIdAssertIs` GUID (from `azure.yml`) that pins the
+  target subscription, so a connection pointing at the wrong subscription fails the run.
 
-```text
-CD pipeline for customer apex — thin root that extends the shared customer CD template.
+The lists name exactly the configs apex has: apex has both tiers, nonprod and prod. The service connection names (`sc-apex-*`) are
+illustrative until real service connections and a non-placeholder `azure.yml` exist.
 
-Supplies only meta selection criteria: the customer key and the per-deployment env/slot/service-
-connection/assert map. All structure (CI build, foundation -> discovery -> expedition ordering) lives
-in /.ado/pipelines/extends/cd-customer.yaml. apex has both tiers, and the lists name exactly apex's configs:
-foundation and discovery (the apex spoke) at nsub and psub; expedition at dev, the special slot
-dev-blu, and prod. The target subscription is what each service connection logs into; the
-subscriptionIdAssertIs GUID (from azure.yml) pins it. Triggers live here because they are honored
-only at the pipeline root.
+## Why it is shaped so
 
-Reference shape: 'sc-apex-*' are illustrative until real service connections + a non-placeholder
-azure.yml exist.
-```
-
-## comment:2
-
-Above `trigger:`, written with `#`.
-
-```text
-The deeper apex include sits under the broader exclude of other deployments' config, so ADO keeps it in the trigger.
-[FDR-CD-GLOBS](/docs/drs/flow/durable-sha-globs.md) [comment:2](/docs/references/ado/pipelines/cd-apex.yaml.md#comment2)
-```
+- **Structure lives in the template.** The CI build and the foundation, discovery, expedition ordering are in the extended template, so a
+  customer root stays a list of selection criteria.
+- **Triggers live here.** ADO honours `trigger:` and `pr:` only at the pipeline root, never in an extended template.
+- **Path filters are by configuration subfolder.** The include list takes the shared templates and modules plus apex's own configuration
+  subfolders; the exclude list drops the shared root configuration and every customer subfolder. The deeper apex include sits under that
+  broader exclude, so ADO keeps it in the trigger. Other deployments' changes never trigger apex
+  ([FDR-CD-GLOBS](../../../drs/flow/durable-sha-globs.md)).

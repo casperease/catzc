@@ -1,7 +1,7 @@
 # pwsh/Azure/Get-AzureCustomers.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The list of customer keys in the customer catalogue, `configs/customer.yml`. It tells which customers the repository can deploy for, not
+which are enabled; that is the `have_customers` variant.
 
 ## help
 

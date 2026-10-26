@@ -1,31 +1,22 @@
 # .ado/pipelines/cd-flux.yaml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The CD pipeline of the customer flux: a thin root that picks what to deploy and hands everything else to the shared customer template
+`extends/cd-customer.yaml`.
 
-## comment:1
+## What it supplies
 
-Above `trigger:`, written with `#`.
+- **Customer key** — `flux`.
+- **Foundations and Discoveries** — the flux spoke at `nsub`, the nonprod tier only.
+- **Expeditions** — an empty list. Flux has no expedition config, so `Deploy_Expedition` runs no job.
+- **Per deployment** — the service connection and the `subscriptionIdAssertIs` GUID (from `azure.yml`) that pins the target subscription.
 
-```text
-CD pipeline for customer flux — thin root that extends the shared customer CD template.
+The prod tier (`psub`, preprod, `prod`) is added when flux grows. The connection name `sc-flux-nonprod` is illustrative until real service
+connections and a non-placeholder `azure.yml` exist.
 
-flux is dev-only (nonprod tier only), and the lists name exactly flux's configs: foundation and
-discovery (the flux spoke) at nsub. flux has no expedition config, so its Expeditions list is empty
-and Deploy_Expedition runs no job. Add the prod tier (psub / preprod / prod) when flux grows. All structure
-lives in /.ado/pipelines/extends/cd-customer.yaml; triggers live here (honored only at the pipeline root).
-The target subscription is what the service connection logs into; the subscriptionIdAssertIs GUID
-(from azure.yml) pins it.
+## Why it is shaped so
 
-Reference shape: 'sc-flux-nonprod' is illustrative until real service connections + a non-placeholder
-azure.yml exist.
-```
-
-## comment:2
-
-Above `trigger:`, written with `#`.
-
-```text
-Flux has no expedition config, so its own include covers only foundation and discovery; other deployments' config is excluded.
-[FDR-CD-GLOBS](/docs/drs/flow/durable-sha-globs.md) [comment:2](/docs/references/ado/pipelines/cd-flux.yaml.md#comment2)
-```
+- **Structure lives in the template.** The CI build and the stage ordering are in the extended template.
+- **Triggers live here.** ADO honours `trigger:` and `pr:` only at the pipeline root.
+- **Path filters match the configs flux has.** The include list covers the shared templates and modules and flux's foundation and discovery
+  configuration subfolders only, since there is no expedition config; the exclude list drops the other deployments' configuration
+  ([FDR-CD-GLOBS](../../../drs/flow/durable-sha-globs.md)).

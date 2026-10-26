@@ -1,28 +1,22 @@
 # pwsh/Azure/configs/network.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The global cross-cutting network configuration: the IP address plan, beside `azure.yml`. It is the single source of truth for vnet and
+subnet ranges. A template that creates a vnet reads the ranges at build time, in its PrePost prepare hook or through a config address in its
+parameter file, so the central plan is never duplicated into every template's per-slot config. `Get-Config -Config network` loads it and the
+`NetworkConfig` type validates it.
 
-## comment:1
+## blocks
 
-Above `environments:`, written with `#`.
+Two blocks, and no two networks in the file overlap ([ADR-AZ-NETWORK](../../../../drs/azure/azure-network-model.md)):
 
-```text
-Global cross-cutting network configuration — the IP address plan, side by side with azure.yml. The
-single source of truth for vnet / subnet ranges. A template that creates a vnet reads the right
-ranges at build time (its PrePost prepare hook, or a config address in its parameter file), so the
-central plan is never duplicated into every template's per-slot config. Loaded via
-Get-Config -Config network; validated by the NetworkConfig type.
+- `environments` is keyed by environment name, matching the standard environments of `azure.yml`, so each environment gets a non-overlapping
+  address space.
+- `subscriptions` is keyed by subscription name, matching the subscriptions of `azure.yml`: the hub-and-spoke network the subscriptions
+  deploy.
 
-Two blocks, and no two networks in the file overlap (see [ADR-AZ-NETWORK](/docs/drs/azure/azure-network-model.md)):
+## hub and spoke
 
-- `environments` is keyed by environment name (matching azure.yml's standard environments), so
-  each environment gets a non-overlapping address space.
-- `subscriptions` is keyed by subscription name (matching azure.yml's subscriptions): the
-  hub-and-spoke network the subscriptions deploy. A subscription without `customer:` in
-  azure.yml carries a `hub`: exactly GatewaySubnet and AzureFirewallSubnet (reserved — nothing is
-  deployed into them) and shared-services. A subscription with `customer:` carries a `spoke`:
-  private-endpoints, plus one workload subnet per standard environment it serves, named for that
-  environment. Hubs take 10.0–10.1, spokes 10.100 upward, one /16 each; every subnet lies inside
-  its vnet and no two subnets of a vnet overlap.
-```
+A subscription without `customer` in `azure.yml` carries a `hub`: exactly `GatewaySubnet` and `AzureFirewallSubnet`, which are reserved and
+hold nothing deployed, and `shared-services`. A subscription with a `customer` carries a `spoke`: `private-endpoints`, plus one workload
+subnet per standard environment it serves, named for that environment. Hubs take 10.0 to 10.1, spokes take 10.100 upward, one /16 each.
+Every subnet lies inside its vnet and no two subnets of a vnet overlap.

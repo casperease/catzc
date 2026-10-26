@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/Format-Links.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The link aligner of the repository: it rewrites ADR citations in code comments into canonical code links and repository-rooted markdown links
+into relative ones, in place. `Test-Links` reports what it cannot fix.
 
 ## help
 

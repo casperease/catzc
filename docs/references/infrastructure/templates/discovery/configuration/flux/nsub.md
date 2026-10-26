@@ -1,13 +1,6 @@
 # infrastructure/templates/discovery/configuration/flux/nsub.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The discovery configuration for the flux customer's nonprod subscription (env `nsub`, customer `flux`). It deploys a spoke.
 
-## comment:1
-
-Above `ParametersFile:`, written with `#`.
-
-```text
-discovery, flux nonprod subscription (env nsub, customer flux): a spoke. The kind and the ranges come from
-network.yml by config address; the spoke peers to the nonprod hub. flux is dev-only -> nonprod only.
-```
+The kind and the address ranges come from `network.yml` by config address. The spoke peers to the nonprod hub. The flux customer is
+dev-only, so it has a nonprod configuration and no prod one.

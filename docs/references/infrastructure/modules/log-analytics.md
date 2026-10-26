@@ -1,13 +1,7 @@
 # infrastructure/modules/log-analytics.bicep
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The reusable module for a Log Analytics workspace, the sink that the diagnostic-setting modules send logs to.
 
-## comment:1
+## Use
 
-Above `@description('Log Analytics workspace name.')`, written with `//`.
-
-```text
-Reusable bicep module: a Log Analytics workspace. Templates reference it with a relative `module`
-declaration (../../modules/log-analytics.bicep); `az bicep build` inlines it.
-```
+A template references it with a relative `module` declaration (`../../modules/log-analytics.bicep`), and `az bicep build` inlines it.

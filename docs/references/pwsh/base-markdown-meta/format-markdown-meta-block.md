@@ -1,7 +1,7 @@
 # pwsh/Base.MarkdownMeta/Format-MarkdownMetaBlock.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+Imprints the meta block of a Markdown text from the given facts and edges, in one canonical order, and returns the whole text with the block
+replaced. It is pure: no file or config is read, and the authored `config` part is kept as written.
 
 ## help
 

@@ -1,7 +1,7 @@
 # pwsh/Azure/private/Get-NetworkPlanViolations.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The private join behind the network plan check. It compares the two typed configs, `network.yml` and `azure.yml`, and returns every
+disagreement as a message. Neither type can see the other config, so the cross-config rule lives here, in PowerShell.
 
 ## help
 

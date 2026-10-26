@@ -1,7 +1,6 @@
 # pwsh/Base.QualityGates/private/Get-ImprintStepFile.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The scope of one imprint step of `Format-Code`: it answers which files the named step reads, so the step is never tied to a language.
 
 ## help
 
@@ -32,20 +31,11 @@ Optional files or folders to limit the scope to.
 
 `[string[]]` Absolute paths.
 
-## comment:2
+## Paths outside the repository
 
-Above `if ($Path) {`, written with `#`.
+`Format-Code -Path` also formats files outside the repository, which no step's scope covers: they are left out, not refused.
 
-```text
-Format-Code -Path also formats files outside the repository, which no step's scope covers: they are left out, not
-refused.
-```
+## The plan-counts step
 
-## comment:3
-
-Above `$plans = Get-Config -Config plans`, written with `#`.
-
-```text
-The step rewrites the master and the value overlay; it is in scope with no -Path, or one in, or above, the
+The `plan-counts` step rewrites the plans master and the value overlay, so it is in scope with no `-Path`, or with one in, or above, the
 plans folder.
-```

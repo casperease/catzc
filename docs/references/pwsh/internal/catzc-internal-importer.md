@@ -5,8 +5,8 @@ parameter block **is** the importer's public switch surface. The root `importer.
 in [Catzc.Base.ModuleSystem](../base-module-system/index.md)) that carries the same parameter block, sets `$env:RepositoryRoot`, and
 delegates here — so the committed entry point can never drift from the load logic it delegates to (see
 [one-living-version](../../../drs/principles/one-living-version.md)). A bundle's entry runs the same body in its `-Bundle` mode
-([ADR-AUTO-BUNDLE-ONELIVINGIMPORTER](../../../drs/automation/platform-bundle.md#rule-adr-auto-bundle-onelivingimporter)). Like the bootstrap,
-this overlay is import-time orchestration, not shared library code: the shim removes it once `Invoke-Importer` returns.
+([ADR-AUTO-BUNDLE-ONELIVINGIMPORTER](../../../drs/automation/platform-bundle.md#rule-adr-auto-bundle-onelivingimporter)). Like the
+bootstrap, this overlay is import-time orchestration, not shared library code: the shim removes it once `Invoke-Importer` returns.
 
 ## What it does
 
@@ -21,11 +21,11 @@ this overlay is import-time orchestration, not shared library code: the shim rem
 4. **Dependencies and modules** — install the custom error view, load the vendored dependencies (`Import-VendorModules`, deferring Pester
    and PSScriptAnalyzer as lazy), optionally wipe the compiled type DLLs first (`-ClearCompiledTypes`), then discover and import every
    `pwsh/*` module (`Import-AllModules`, which compiles the combined C# type assembly once before any module's functions).
-5. **Post-import janitors** — keep the derived artifacts current and the session honest, in the fixed order of `Invoke-ImporterJanitors`: the
-   type-cache tidy (`Clear-ModuleTypeCache`), the generated READMEs (`Build-Readme`), the cSpell dictionaries
+5. **Post-import janitors** — keep the derived artifacts current and the session honest, in the fixed order of `Invoke-ImporterJanitors`:
+   the type-cache tidy (`Clear-ModuleTypeCache`), the generated READMEs (`Build-Readme`), the cSpell dictionaries
    (`Build-TerminologyDictionary`), the managed root config files (`Build-RootConfig`), the session-PATH reconcile (`Sync-SessionTools`),
-   the agent-hook, editor-extension and generated-file janitors, and a Windows warning when `PSModulePath` contains a network share. Each
-   is guarded (absent in the bootstrap sandbox) and each is a fast no-op on a clean tree.
+   the agent-hook, editor-extension and generated-file janitors, and a Windows warning when `PSModulePath` contains a network share. Each is
+   guarded (absent in the bootstrap sandbox) and each is a fast no-op on a clean tree.
 6. **Teardown** — remove the transient bootstrap module, leaving the resident Loader, Types, and Vendor in the session, and print the
    console load timer.
 
@@ -50,9 +50,9 @@ diverge. The switches are the toolset's load surface:
 `-Verbose` shows the importer's state-change record
 ([ADR-PWSH-ANNOUNCE-IMPORTERLOADSEQUENCE](../../../drs/automation/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-importerloadsequence)).
 The dot-sourced shim binds it in the caller's scope, so the importer quiets the session-wide preference for the import and restores it in a
-`finally`; otherwise every `Import-Module` would list each function it dot-sources and exports. Nothing about committing is a switch: who
-is running decides (`Get-SessionActor`, ADR-BCL-TYPES-JANITORSBYCALLER) — a person's import commits the generated `pwsh/.compiled`, an
-agent's announces it, and a pipeline's or a test-run snapshot's never commits.
+`finally`; otherwise every `Import-Module` would list each function it dot-sources and exports. Nothing about committing is a switch: who is
+running decides (`Get-SessionActor`, ADR-BCL-TYPES-JANITORSBYCALLER) — a person's import commits the generated `pwsh/.compiled`, an agent's
+announces it, and a pipeline's or a test-run snapshot's never commits.
 
 ## Roots
 
@@ -69,9 +69,9 @@ The importer sets two roots ([ADR-AUTO-BUNDLE-TWOROOTS](../../../drs/automation/
   the toolset relocatable.
 
 This establishes the session every entry loads into
-([ADR-AUTO-BUNDLE-BUNDLEISSESSION](../../../drs/automation/platform-bundle.md#rule-adr-auto-bundle-bundleissession)). The two run modes never
-coexist ([DDR-RUNMODE-NEVERCOEXIST](../../../drs/design/run-modes.md#rule-ddr-runmode-nevercoexist)): `Import-AllModules` evicts the other
-mode, and `Assert-CatzcRunModeExclusive` proves it before any janitor touches the tree from a mixed session.
+([ADR-AUTO-BUNDLE-BUNDLEISSESSION](../../../drs/automation/platform-bundle.md#rule-adr-auto-bundle-bundleissession)). The two run modes
+never coexist ([DDR-RUNMODE-NEVERCOEXIST](../../../drs/design/run-modes.md#rule-ddr-runmode-nevercoexist)): `Import-AllModules` evicts the
+other mode, and `Assert-CatzcRunModeExclusive` proves it before any janitor touches the tree from a mixed session.
 
 ## Console sessions
 
@@ -91,10 +91,11 @@ mode, and `Assert-CatzcRunModeExclusive` proves it before any janitor touches th
 
 Every lasting change to the caller's session is announced
 ([ADR-AUTO-CONSOLE-ANNOUNCELASTINGCHANGES](../../../drs/automation/console-output-matters.md#rule-adr-auto-console-announcelastingchanges)):
-the preferences and the error view, then the two roots and the internal modules that stay loaded. `RepositoryRoot` is set by the shim and the
-modules by `Import-InternalModule`, which both delegate their announcement here. This is where `Write-ImporterMessage`
-([Loader](catzc-internal-loader.md)) first announces; like every announcement of the importer's own load, the lines go on its verbose record. A redirected session writes UTF-8
-(`Set-RedirectedOutputEncoding`), the encoding the process relays stream, so a captured log has one encoding.
+the preferences and the error view, then the two roots and the internal modules that stay loaded. `RepositoryRoot` is set by the shim and
+the modules by `Import-InternalModule`, which both delegate their announcement here. This is where `Write-ImporterMessage`
+([Loader](catzc-internal-loader.md)) first announces; like every announcement of the importer's own load, the lines go on its verbose
+record. A redirected session writes UTF-8 (`Set-RedirectedOutputEncoding`), the encoding the process relays stream, so a captured log has
+one encoding.
 
 The loader is already imported by the shim. Bootstrap does the import-time discovery and is removed at the end; the loader, Types and Vendor
 stay in the session, so post-import cover functions can `Import-InternalModule` the same shared code and delegate to it.
@@ -104,8 +105,8 @@ stay in the session, so post-import cover functions can `Import-InternalModule` 
 Under `-DiagnoseLoadTime` the importer collects per-stage timings and prints a summary of file-read and parse totals and the three slowest
 stages.
 
-- The raw-read figure is a pure `[IO.File]::ReadAllText` of every `.ps1` before `Import-Module`, so it isolates the cold file-read I/O (disk,
-  network share, antivirus-on-read) from the parse. It is warm-cached after the first access, so a small value does not mean "no
+- The raw-read figure is a pure `[IO.File]::ReadAllText` of every `.ps1` before `Import-Module`, so it isolates the cold file-read I/O
+  (disk, network share, antivirus-on-read) from the parse. It is warm-cached after the first access, so a small value does not mean "no
   antivirus": a scanner on script parse (AMSI) lands in the parse/compile figure instead.
 - The native C# type compile and load (every module's `types/*.cs` through `Import-CSharpTypes`) appears as one `types (combined)` row. A
   `compile+load` row is a cold cache (Roslyn); a `cache load` row reused the committed `pwsh/.compiled` DLL.

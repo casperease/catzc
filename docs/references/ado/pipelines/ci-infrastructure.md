@@ -1,25 +1,16 @@
 # .ado/pipelines/ci-infrastructure.yaml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The CI pipeline of the infrastructure tree: it validates and builds the foundation, discovery and expedition templates and runs the
+infrastructure test suite. It builds and verifies only, with no artifact and no deploy ([FDR-CD-TYPE](../../../drs/flow/pipeline-types.md)).
 
-## comment:1
+## Behaviour
 
-Above `trigger:`, written with `#`.
-
-```text
-Build and verify only, no artifact and no deploy; az bicep build is offline, so Mode stays none and no auth is needed.
-[FDR-CD-TYPE](/docs/drs/flow/pipeline-types.md),
-[FDR-CD-GLOBS](/docs/drs/flow/durable-sha-globs.md) [comment:1](/docs/references/ado/pipelines/ci-infrastructure.yaml.md#comment1)
-```
-
-## comment:2
-
-Above `- template: /.ado/pipelines/steps/invoke-automation.yaml` (occurrence 7), written with `#`.
-
-```text
-The infrastructure globset's test suite: its verify scope (Catzc.Azure.Templates up to L2,
-[ADR-AUTO-TEST-TESTSUITE](/docs/drs/automation/test-automation.md#rule-adr-auto-test-testsuite)), including the L2 test that
-builds every shipped template and checks its rendered parameters files against the compiled parameter model
-([ADR-AZ-DATAMOD-PARAMETERCONTRACT](/docs/drs/azure/azure-data-model.md#rule-adr-az-datamod-parametercontract)).
-```
+- **Triggers** — any change under `infrastructure/**` on `main` or in a pull request, except the README files of the tree
+  ([FDR-CD-GLOBS](../../../drs/flow/durable-sha-globs.md)).
+- **No auth** — `az bicep build` is offline, so no mode is set and the pipeline needs no service connection.
+- **Per tier** — `Assert-BicepTemplate <tier>` then `Build-Bicep <tier>` (compile, render and verify) for foundation, discovery and
+  expedition.
+- **Suite** — `Test-Automation -Suite infrastructure` closes the job. The infrastructure globset's test suite is what it verifies:
+  `Catzc.Azure.Templates` up to L2 ([ADR-AUTO-TEST-TESTSUITE](../../../drs/automation/test-automation.md#rule-adr-auto-test-testsuite)).
+  The L2 test builds every shipped template and checks its rendered parameters files against the compiled parameter model
+  ([ADR-AZ-DATAMOD-PARAMETERCONTRACT](../../../drs/azure/azure-data-model.md#rule-adr-az-datamod-parametercontract)).

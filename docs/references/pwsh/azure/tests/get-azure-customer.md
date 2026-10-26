@@ -1,14 +1,8 @@
 # pwsh/Azure/tests/Get-AzureCustomer.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The logic tests of the customer resolver. They prove a key and a shortcode resolve to the same record, and that an unknown token throws.
 
-## comment:1
+## setup
 
-Above `BeforeAll {`, written with `#`.
-
-```text
-Redirect the 'customer' config to the fixture catalogue (acme/ac, globex/gx). Read-only resolver, so
-the mock + cache reset run once
-([ADR-AUTO-TEST-SETUPONCE](/docs/drs/automation/test-automation.md#rule-adr-auto-test-setuponce)).
-```
+The `customer` config is redirected to a fixture catalogue (acme with shortcode ac, globex with gx). The resolver only reads, so the mock
+and the cache reset run once ([ADR-AUTO-TEST-SETUPONCE](../../../../drs/automation/test-automation.md#rule-adr-auto-test-setuponce)).

@@ -1,3 +1,4 @@
+# Triggers live here because ADO honours them only at the pipeline root, never in an extended template.
 trigger:
   branches:
     include: [main]

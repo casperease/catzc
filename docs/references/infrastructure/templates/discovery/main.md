@@ -1,31 +1,29 @@
 # infrastructure/templates/discovery/main.bicep
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The discovery template, the CAF application landing zone. It deploys once per subscription (envs `nsub` and `psub`) at subscription level: a
+hub in each shared subscription and a spoke in each customer subscription.
 
-## comment:1
+## Where the network comes from
 
-Above `targetScope = 'subscription'`, written with `//`.
+The kind, the address space and the subnets come from `network.yml` by config address, so the IP plan is read, never copied
+([ADR-AZ-NETWORK-ONEIPPLAN](../../../../drs/azure/azure-network-model.md#rule-adr-az-network-oneipplan)).
 
-```text
-discovery — the CAF application landing zone. Deployed once per subscription (envs nsub/psub) at
-subscription scope: a hub in each shared subscription, a spoke in each customer subscription. The
-kind, the address space, and the subnets come from network.yml by config address, so the IP plan is
-read, never copied ([ADR-AZ-NETWORK-ONEIPPLAN](/docs/drs/azure/azure-network-model.md#rule-adr-az-network-oneipplan)).
+## What both kinds deploy
 
-Both kinds deploy one resource group with the virtual network (every subnet inline), a network security
-group per subnet named in networkSecurityGroupNames, the activity log and the network diagnostics to
-foundation's Log Analytics workspace, three policy assignments, and a budget. A spoke adds a route table
-and its peering to the hub; a hub adds its peerings to the spokes it lists and the private DNS zones,
-linked to the hub and to every spoke. The reserved hub subnets (GatewaySubnet, AzureFirewallSubnet) get no
-network security group and nothing is deployed into them.
-```
+- One resource group with the virtual network, every subnet inline.
+- A network security group per subnet named in `networkSecurityGroupNames`.
+- The activity log and the network diagnostics, sent to foundation's Log Analytics workspace.
+- Three policy assignments.
+- A budget.
 
-## comment:2
+## What differs
 
-Above `var securityRules = [`, written with `//`.
+- A spoke adds a route table and its peering to the hub.
+- A hub adds its peerings to the spokes it lists and the private DNS zones, linked to the hub and to every spoke.
 
-```text
-Inbound: allow traffic inside the virtual networks, deny traffic from the internet. The Azure default
-rules (deny all other inbound) apply beneath them.
-```
+The reserved hub subnets (`GatewaySubnet`, `AzureFirewallSubnet`) get no network security group and nothing is deployed into them.
+
+## Security rules
+
+The inbound rules allow traffic inside the virtual networks and deny traffic from the internet. The Azure default rules (deny all other
+inbound) apply beneath them.

@@ -8,23 +8,20 @@ its typed record.
 
 Each `pages:` entry has two keys, and the first entry that covers a file decides:
 
-- **`source`** — a repository-relative folder, or `<prefix>/*` for each immediate subfolder of the prefix.
-- **`docs`** — the folder under `docs/` the pages go under. With a `/*` source it may carry `{kebab}`, the matched module's name in the
-  kebab case of `NameCase`.
+- **`source`** — a repository-relative folder, or `<prefix>/*` for each immediate, non-dot-prefixed subfolder of the prefix (a module).
+- **`docs`** — a plain folder under `docs/` the pages go under; it holds no pattern, since the module, aspect and file parts below it are
+  derived.
 
-The page keeps the file's name and extension plus `.md`, so every page maps back to exactly one file:
-`pwsh/Base.QualityGates/Format-Code.ps1` has the page `docs/references/pwsh/catzc-base-quality-gates/Format-Code.ps1.md`.
+The page of a file is `<docs>/[<module>/][<aspect path>/]<file>.md`, every part in the normal form (the kebab case of `NameCase`), with the
+file's trailing extension and its `.Tests` role dropped. A module folder's article is `<docs>/<module>/index.md`. Every page maps back to
+exactly one source: `pwsh/Base.QualityGates/Format-Code.ps1` has the page `docs/references/pwsh/base-quality-gates/format-code.md`.
+
+## Articles and exclusions
+
+`articles:` lists the authored pages under a `docs` folder that no source file has, and `exclude:` lists the folders whose files have no
+page, such as vendored scripts we ship but do not write.
 
 ## Hidden folders
 
 A `<prefix>/*` source never matches a dot-prefixed subfolder, so `.vendor` has no pages and `.scriptanalyzer` and `.internal` are listed by
 name, each with an entry of its own.
-
-## comment:1
-
-Above `pages:`, written with `#`.
-
-```text
-First match wins. A page is <docs>/[<module>/][<aspect path>/]<file>.md, every part in the normal form and the file's trailing
-extension and .Tests role dropped; a module folder's article is <docs>/<module>/index.md. Every page maps back to exactly one source.
-```

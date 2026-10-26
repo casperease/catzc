@@ -65,12 +65,3 @@ Format-MarkdownTitle -Path docs/references
 
 The command offers `-DryRun`, never `ShouldProcess` or `-WhatIf`
 ([ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT](../../../drs/automation/dry-run.md#rule-adr-auto-dryrun-branchbeforesideeffect)).
-
-## comment:1
-
-Above `function Format-MarkdownTitle {`, written with `#`.
-
-```text
--DryRun, never ShouldProcess/-WhatIf
-([ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT](/docs/drs/automation/dry-run.md#rule-adr-auto-dryrun-branchbeforesideeffect)).
-```

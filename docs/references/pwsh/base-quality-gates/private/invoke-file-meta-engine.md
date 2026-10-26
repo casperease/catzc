@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Invoke-FileMetaEngine.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The engine behind `Format-FileMeta` and `Test-FileMeta`: for every in-scope file it computes the meta block the imprint would write and the
+findings against the block on disk, so the formatter and its checking half cannot disagree.
 
 ## help
 
@@ -37,56 +37,19 @@ The files to check, each { Path; Carrier }, instead of the scope git and the reg
 `[pscustomobject]` @{ FileCount; Files } — Files holds every file with a finding: @{ Path; Findings; Fixed }, each finding @{ Path; Line;
 Kind; Actual; Expected }.
 
-## comment:1
+## What the engine leaves to the author
 
-Above `$entries = foreach ($entry in $files) {`, written with `#`.
+The block's first level is wholly the engine's but for the authored config part, so a key no kind owns there is dropped on imprint. That is
+why such a file is reported as Unowned and left unchanged until the author decides.
 
-```text
-The block's first level is wholly the engine's but for the authored config part: a key no kind owns there is
-dropped on imprint.
-```
+- A parent key written as a flow mapping or a scalar is the author's to open up; the block cannot nest under it.
+- A forbidden block that holds an authored config part is the author's to move: stripping it would drop their keys.
 
-## comment:2
+## Empty and missing
 
-Above `if (-not [System.IO.File]::Exists((Join-Path $RepositoryRoot $file))) {`, written with `#`.
+- A path the index lists but the working tree has lost, a deletion not yet staged, has nothing to imprint or to look beside.
+- The writers drop a block whose facts and config part are all empty, so a file with no fact to show carries no head.
 
-```text
-A path the index lists but the working tree has lost, a deletion not yet staged, has nothing to imprint or to
-look beside.
-```
+## Drift
 
-## comment:3
-
-Above `if (-not $state.CanHoldMetaBlock) {`, written with `#`.
-
-```text
-A parent key written as a flow mapping or a scalar is the author's to open up; the block cannot nest under
-it.
-```
-
-## comment:4
-
-Above `if ($findings.Count -eq 0 -and $policy -eq...`, written with `#`.
-
-```text
-A forbidden block that holds an authored config part is the author's to move: stripping it would drop their
-keys.
-```
-
-## comment:5
-
-Above `if ($findings.Count -eq 0) {`, written with `#`.
-
-```text
-The writers drop a block whose facts and config part are all empty, so a file with no fact to show carries no
-head.
-```
-
-## comment:6
-
-Above `$drifted = if ('immutable' -in @($state.Sections)) {`, written with `#`.
-
-```text
-An authored head has no immutable part: Format-FileMeta removes one, and the finding says so before it
-does.
-```
+An authored head has no immutable part. `Format-FileMeta` removes one, and the finding says so before it does.

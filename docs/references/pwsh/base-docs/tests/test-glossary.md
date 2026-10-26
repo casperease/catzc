@@ -16,12 +16,3 @@ part of that one result ([ADR-AUTO-TEST-SETUPONCE](../../../../drs/automation/te
 [ADR-AUTO-TEST-ONEIMPORTPERCASE](../../../../drs/automation/test-automation.md#rule-adr-auto-test-oneimportpercase)): it prefixes each
 check's issues with the check's code, pinned at L0 above, so each check's `It` reads its own issues from that run rather than running the
 check a second time.
-
-## comment:1
-
-Above `Describe 'Test-Glossary — real glossary sources'`, written with `#`.
-
-```text
-L2 because G1 and G4 reach git; Test-Glossary runs once and every It reads its part of that one result
-([ADR-AUTO-TEST-SETUPONCE](/docs/drs/automation/test-automation.md#rule-adr-auto-test-setuponce)).
-```

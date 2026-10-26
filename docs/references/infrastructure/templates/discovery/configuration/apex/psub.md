@@ -1,13 +1,6 @@
 # infrastructure/templates/discovery/configuration/apex/psub.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The discovery configuration for the apex customer's prod subscription (env `psub`, customer `apex`). It deploys a spoke.
 
-## comment:1
-
-Above `ParametersFile:`, written with `#`.
-
-```text
-discovery, apex prod subscription (env psub, customer apex): a spoke. The kind and the ranges come from
-network.yml by config address; the spoke peers to the prod hub.
-```
+The kind and the address ranges come from `network.yml` by config address, so this file carries no copy of the IP plan. The spoke peers to
+the prod hub.

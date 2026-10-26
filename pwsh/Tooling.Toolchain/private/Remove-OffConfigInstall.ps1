@@ -56,8 +56,7 @@ function Remove-OffConfigInstall {
         throw "'$resolvedDir' is the managed $Label install. Use Uninstall-$Tool instead."
     }
 
-    # Registered products are removed by their mechanism, checked before the folder so registrations whose files are gone are still reported.
-    # Assigned in the branch: an `if` expression would turn an empty @() into $null.
+    # Products before the folder, so a registration whose files are gone is still reported; assigned in branches, as `if` turns @() to $null.
     [object[]] $products = @()
     if ($ProductPattern -and $resolvedDir -in $MachineFolders) {
         $products = @(Get-RegisteredInstallProduct $ProductPattern)

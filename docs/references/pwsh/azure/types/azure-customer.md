@@ -1,21 +1,18 @@
 # pwsh/Azure/types/AzureCustomer.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+One customer of the catalogue, `configs/customer.yml` ([ADR-AZ-CUSTOMER](../../../../drs/azure/azure-customer-model.md)). It mirrors a
+`customers` entry with snake_case keys
+([ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](../../../../drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)), and
+`key` is the map key.
 
-## comment:1
+## fields
 
-Above `using System;`, written with `//`.
+- `key` is the readable name: the customer segment of relaxed resource names and the name of the configuration subfolder.
+- `shortcode` is the customer segment of the restricted `kv`, `storage` and `vm` patterns.
+- `details` is optional free text.
 
-```text
-One customer of the catalogue (configs/customer.yml, [ADR-AZ-CUSTOMER](/docs/drs/azure/azure-customer-model.md)):
-a readable key (the customers-map key — the customer-segment of relaxed resource names and the configuration
-subfolder name), a 2-char shortcode (the customer-segment of the restricted kv/storage/vm patterns), and optional
-free-text details. Mirrors a `customers` entry (snake_case keys,
-[ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)); `key` is the map key.
+## validation
 
-Constructing an instance validates the entry, collecting every violation into one ArgumentException: the key is
-2+ lowercase alphanumeric with a leading letter, the shortcode is exactly 2 lowercase letters, and the entry
-carries no key but shortcode and details. Catalogue-wide rules (shortcode uniqueness, key ≠ any shortcode) are
-CustomerConfig's.
-```
+Constructing an instance validates the entry and collects every violation into one `ArgumentException`. The key is 2 or more lowercase
+alphanumeric characters with a leading letter, the shortcode is exactly 2 lowercase letters, and the entry carries no key besides
+`shortcode` and `details`. The catalogue-wide rules, shortcode uniqueness and no key equal to any shortcode, belong to `CustomerConfig`.

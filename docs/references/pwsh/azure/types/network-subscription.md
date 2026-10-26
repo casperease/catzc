@@ -1,49 +1,34 @@
 # pwsh/Azure/types/NetworkSubscription.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+One subscription's network in `configs/network.yml` ([ADR-AZ-NETWORK](../../../../drs/azure/azure-network-model.md)): a hub or a spoke vnet,
+keyed by the `azure.yml` subscription name. It mirrors a `subscriptions` entry with snake_case keys
+([ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](../../../../drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
+`NetworkConfig` builds one per entry and collects its violations with the file's.
 
-## comment:1
+## shape
 
-Above `using System;`, written with `//`.
+- The name is a lower-snake_case identifier.
+- `kind` is `hub` or `spoke`.
+- `vnet_address_space` is an aligned IPv4 CIDR (`NetworkCidr`).
+- `subnets` is a non-empty map of subnet name to aligned IPv4 CIDR. Each subnet lies inside the vnet and no two overlap.
+- No other key is allowed.
 
-```text
-One subscription's network in configs/network.yml ([ADR-AZ-NETWORK](/docs/drs/azure/azure-network-model.md)): a hub
-or a spoke VNet, keyed by the azure.yml subscription name. Mirrors a `subscriptions` entry (snake_case keys,
-[ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)). NetworkConfig builds one
-per entry and collects its violations with the file's.
+## hub
 
-Shape: the name is a lower-snake_case identifier; `kind` is `hub` or `spoke`; `vnet_address_space` is an aligned
-IPv4 CIDR (NetworkCidr); `subnets` is a non-empty map of subnet name -> aligned IPv4 CIDR, each inside the VNet and
-no two overlapping; no other key. A hub carries exactly the hub subnets (GatewaySubnet and AzureFirewallSubnet,
-reserved, and shared-services). A spoke carries private-endpoints plus workload subnets, each named for the
-environment it serves (a lower-snake_case identifier). Which kind a subscription needs, and which environments it
-serves, are azure.yml facts, so that join is the quality gate Test-AzureNetworkPlan's, not this type's.
-```
+A hub carries exactly the hub subnets: `GatewaySubnet` and `AzureFirewallSubnet`, which are reserved, and nothing is deployed into them,
+plus `shared-services`. The `HubSubnets` list holds them.
 
-## comment:2
+## spoke
 
-Above `public static IReadOnlyList<string> HubSubnets => HubSubnetNames;`, written with `//`.
+A spoke carries `private-endpoints` plus workload subnets. Every other subnet is a workload subnet named for the environment it serves, so
+its name is a lower-snake_case identifier. The check is skipped when `subnets` is missing or empty, because that is reported already.
 
-```text
-The subnets a hub carries, exactly: the two reserved Azure subnets (nothing is deployed into them) and
-shared-services.
-```
+## what the type leaves out
 
-## comment:3
+Which kind a subscription needs, and which environments it serves, are `azure.yml` facts. That join belongs to the quality gate
+`Test-AzureNetworkPlan`, not to this type.
 
-Above `private static List<string> SubnetNames(IDictionary d)`, written with `//`.
+## subnet names
 
-```text
-The subnet names as written, including those with an invalid range, so a subnet with a bad range is reported
-once (as a bad range), not also as missing. Empty when subnets is missing or not a map.
-```
-
-## comment:4
-
-Above `private static void CheckSpoke(string where, List<string> names, List<string>...`, written with `//`.
-
-```text
-A spoke carries private-endpoints; every other subnet is a workload subnet named for an environment. Skipped
-when subnets is missing or empty (reported already).
-```
+The subnet names are read as written, including those with an invalid range. A subnet with a bad range is then reported once, as a bad
+range, and not also as missing. The list is empty when `subnets` is missing or not a map.

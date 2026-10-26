@@ -1,13 +1,6 @@
 # infrastructure/templates/discovery/configuration/nsub.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The discovery configuration for the shared nonprod subscription (env `nsub`). It deploys the nonprod hub.
 
-## comment:1
-
-Above `ParametersFile:`, written with `#`.
-
-```text
-discovery, shared nonprod subscription (env nsub): the nonprod hub. The kind and the ranges come from
-network.yml by config address; the hub peers to the nonprod spokes and links its private DNS zones to them.
-```
+The kind and the address ranges come from `network.yml` by config address. The hub peers to the nonprod spokes and links its private DNS
+zones to them.

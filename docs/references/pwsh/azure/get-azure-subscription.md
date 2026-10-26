@@ -1,7 +1,7 @@
 # pwsh/Azure/Get-AzureSubscription.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The by-name resolver for a subscription identity: its id, its embedded tenant and, for a customer subscription, the customer. It is the one
+lookup that resolved configuration coordinates and the session reverse lookup build on.
 
 ## help
 
@@ -36,12 +36,8 @@ $sub.tenant.id
 (Get-AzureSubscription apex_nonprod).customer   # -> apex
 ```
 
-## comment:1
+## customer
 
-Above `$customerToken = Get-AzureSubscriptionCustomer $found`, written with `#`.
-
-```text
-The subscription's `customer` field may name a customer by its key OR its 2-char shortcode; normalize
-to the canonical key so the resolved object is the same whichever form the config used. Empty when the
-subscription is not a customer subscription. See [ADR-AZ-CUSTOMER](/docs/drs/azure/azure-customer-model.md).
-```
+A subscription's `customer` field may hold a customer key or a shortcode. The resolver normalizes it to the canonical key, so the resolved
+object is the same whichever form the config used. The value is empty for a subscription that is not a customer subscription. See
+[ADR-AZ-CUSTOMER](../../../drs/azure/azure-customer-model.md).

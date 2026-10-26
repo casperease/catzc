@@ -1,3 +1,4 @@
+// One side of a peering: the hub deploys hub to spoke and the spoke deploys spoke to hub, each with this module.
 @description('Name of the existing local virtual network (in the deployment resource group).')
 param virtualNetworkName string
 

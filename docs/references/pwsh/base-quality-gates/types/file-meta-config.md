@@ -1,33 +1,17 @@
 # pwsh/Base.QualityGates/types/FileMetaConfig.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The typed record of the meta-kind registry `file-meta.yml`: which kinds of derived fact and of config contribution exist is data, never a
+list in an engine ([ADR-REPO-FILEMETA-METAKIND](../../../../drs/repository/file-meta.md#rule-adr-repo-filemeta-metakind),
+[ADR-CONF-LOADING-CSHARPCONFIGTYPE](../../../../drs/configuration/module-config-loading.md#rule-adr-conf-loading-csharpconfigtype)). It holds
+the kinds and the head policy per file class.
 
-## comment:1
+## Which kinds apply
 
-Above `using System;`, written with `//`.
+`Selects` is true when the kind applies to a file, by the file's class (its kind, or kind/subkind, from the file-kinds registry) and its
+language, which is null when no language claims the file.
 
-```text
-The meta-kind registry (file-meta.yml): which kinds of derived fact and of config contribution exist is data, never a list in an engine.
-[ADR-REPO-FILEMETA-METAKIND](/docs/drs/repository/file-meta.md#rule-adr-repo-filemeta-metakind),
-[ADR-CONF-LOADING-CSHARPCONFIGTYPE](/docs/drs/configuration/module-config-loading.md#rule-adr-conf-loading-csharpconfigtype)
-```
+## Engine inputs
 
-## comment:2
-
-Above `public bool Selects(FileMetaKind kind, string fileClass, string language) =>...`, written with `//`.
-
-```text
-True when the kind applies to the file, by the file's class (its kind, or kind/subkind, from the file-kinds registry) and its
-language (null when no language claims it).
-```
-
-## comment:3
-
-Above `public static string[] EngineInputs(string modulesRoot)`, written with `//`.
-
-```text
-The files that decide every head, read under the modules root the run loaded from, so a fixture tree hashes the code and registries the
-run uses: the two registries, the engine, every fact processor found by its name as the engine finds it (Get-*FileMetaFact.ps1, to the
-folder-walk depth), and the registry's types (FileMeta*.cs, *HeadPolicy.cs).
-```
+`EngineInputs` names the files that decide every head, read under the modules root the run loaded from, so a fixture tree hashes the code
+and registries the run uses: the two registries, the engine, every fact processor found by its name as the engine finds it
+(`Get-*FileMetaFact.ps1`), and the registry's types (`FileMeta*.cs`, `*HeadPolicy.cs`).

@@ -1,13 +1,8 @@
 # pwsh/Base.QualityGates/tests/Format-FileMeta.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The tests of `Format-FileMeta` and `Test-FileMeta` over a fixture repository.
 
-## comment:1
+## Fixture kinds
 
-Above `InModuleScope Catzc.Base.QualityGates {`, written with `#`.
-
-```text
-Fixture kinds with fixture processors: a role from the file's class, and a tint read from its body, never from
-its head.
-```
+The fixture kinds come with fixture processors: a role taken from the file's class, and a tint read from its body, never from its head, so
+the tests prove the facts are derived and not read back.

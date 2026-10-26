@@ -13,10 +13,9 @@ are expanded by `Get-ReadmeMappings`. All paths are repository-root-relative and
 ## Ways a folder gets a source
 
 - **`patterns`** — a glob whose every matched folder derives its source by convention. Only a trailing `/*` is supported: `<prefix>/*`
-  matches the immediate, non-dot-prefixed subdirectories of `<prefix>`, so `.vendor` and `.internal` never match. In the source template
-  `{kebab}` is the matched module's full name in the kebab case of `NameCase` (`pwsh/Azure.DevOps` becomes
-  `docs/references/pwsh/catzc-azure-dev-ops.md`), and `{name}` keeps the full name in its track's join form, as a Python package's is. A
-  matched folder whose derived source does not exist is skipped, so a module with no reference article yet is fine.
+  matches the immediate, non-dot-prefixed subdirectories of `<prefix>`, so `.vendor` and `.internal` never match. A pattern holds no source:
+  the matched module's article is the one the comment-pages resolver derives from `configs/comment-pages.yml`. A matched folder whose
+  derived article does not exist is skipped, so a module with no reference article yet is fine.
 - **`mappings`** — an explicit folder-to-source entry for a folder that does not follow a convention. An explicit mapping wins over any
   pattern that also matches its folder.
 - **`without_article`** — a pattern-matched folder that is allowed to have no source article, with its reason; `Test-GeneratedReadmes`
@@ -28,12 +27,3 @@ are expanded by `Get-ReadmeMappings`. All paths are repository-root-relative and
   ([ADR-REPO-README-WORKINGLINKS](../../../../drs/repository/generated-readmes.md#rule-adr-repo-readme-workinglinks)).
 - Every `.gitkeep` folder is backed by a reference article (the `Build-GitKeep` integrity check), because the generic `.gitkeep` points at
   the README these mappings copy in. The three template-kind folders share one source.
-
-## comment:1
-
-Above `- folder: docs/drs`, written with `#`.
-
-```text
-The ADR folder's README comes from its own index, same folder, so its relative links need no rebasing
-([ADR-REPO-README-WORKINGLINKS](/docs/drs/repository/generated-readmes.md#rule-adr-repo-readme-workinglinks)).
-```
