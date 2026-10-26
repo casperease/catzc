@@ -59,6 +59,8 @@ is planned here, one step each, so no record carries a planned item.
 - [ ] Finer security-group rules between hub and spoke. Check: the rule set is no wider than the needed flows.
 - [ ] A required-reviewer policy for `main-via-pr`: minimum reviewers, vote reset, automatic reviewers, comment resolution. Check: the
       policy in `build-validation.yml`.
+- [ ] A merge-type branch policy for `main-via-pr` declared as code beside the reviewer policy. Check: the policy in `build-validation.yml`.
+- [ ] A scan of every change for secrets in the CI pipeline. Check: a committed fake secret fails the build.
 - [ ] A written emergency-change procedure. Check: the procedure page exists.
 - [ ] Rollback by deploying an earlier commit's artifact, and removal of what a revert takes out of a template. Check: a rollback drill.
 - [ ] The Bicep linter as a quality gate, system tests of a deployed template in an on-demand environment, and `-DryRun` before every

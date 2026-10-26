@@ -1,0 +1,10 @@
+description:
+  "A pwsh commit's route through the real pipelines: the ci-pwsh run a push or a pull request starts, the cd-apex run that certifies the
+  commit on the ungated rungs, and the deploy-apex run pinned to it that climbs the gated rungs to prod, each lane read from its file."
+about:
+  adrs: [DDR-VISUAL-FLOWISALENS, DDR-VISUAL-SPANNERSNAMETAXONOMY, FDR-CD-RUNGSREGISTRY]
+  lens: flow
+  point: .ado/pipelines/ci-pwsh.yaml;.ado/pipelines/cd-apex.yaml;.ado/pipelines/deploy-apex.yaml
+content:
+  title: A pwsh commit runs CI, is certified by CD, and deploy climbs the gated rungs
+  kind: explanation

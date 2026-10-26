@@ -113,8 +113,8 @@ of the same symbols as the VS Code file icons, so the editor tree and the diagra
       `tests/flow-lens/flow-sample.drawio.yml` and read the PNG)
 - [ ] `docs/explanation/flow/.assets/`: one flow diagram of the real `ci-pwsh` → `cd-apex` → `deploy-apex` route, declared by its files
       alone. (check: `Build-Diagrams` writes it; `Test-Diagrams` clean)
-- [ ] The readers' rows carry each rung's occupant commit, and the rhombus prints it. (check: the `test_flow_lens` rhombus case asserts
-      the commit text)
+- [ ] The readers' rows carry each rung's occupant commit, and the rhombus prints it. (check: the `test_flow_lens` rhombus case asserts the
+      commit text)
 
 ## Refs
 
