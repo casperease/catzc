@@ -37,6 +37,15 @@ guids:
   policy_nic_no_public_ip:
     guid: 83a86a26-fd1f-447c-b59d-e51f44264114
     description: Azure built-in policy definition 'Network interfaces should not have public IPs' (discovery main.bicep)
+  policy_storage_no_public_access:
+    guid: b2982f36-99f2-4db5-8eff-283140c09693
+    description: Azure built-in policy definition 'Storage accounts should disable public network access' (discovery main.bicep)
+  policy_sql_no_public_access:
+    guid: 1b8ca024-1d5c-4dec-8995-b1a932b41780
+    description: Azure built-in policy definition 'Public network access on Azure SQL Database should be disabled' (discovery main.bicep)
+  policy_audit_diagnostic_setting:
+    guid: 7f89b1eb-583c-429a-8828-af049802c1d9
+    description: Azure built-in policy definition 'Audit diagnostic setting for selected resource types' (discovery main.bicep)
 
   # -- shipped placeholder topology: the minted ids in the shipped azure.yml demo config -------------------
   tenant_placeholder:

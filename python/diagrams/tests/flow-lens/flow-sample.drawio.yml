@@ -3,6 +3,9 @@ about:
   adrs: []
   lens: flow
   point: .ado/pipelines/ci-widget.yaml;.ado/pipelines/cd-widget.yaml;.ado/pipelines/deploy-widget.yaml
+  occupants:
+    widget-main-uat: a1b2c3d4e5
+    widget-prod: { commit: 0f9e8d7, state: release-uat }
 content:
   title: A widget commit climbs from CI to production
   kind: explanation

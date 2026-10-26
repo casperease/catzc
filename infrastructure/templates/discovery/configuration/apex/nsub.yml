@@ -44,6 +44,9 @@ ParametersFile:
         allowedLocations: nsub-weu-zct-disco-apex-loc-pa
         requireTag: nsub-weu-zct-disco-apex-tag-pa
         noPublicIp: nsub-weu-zct-disco-apex-pip-pa
+        storageNoPublicAccess: nsub-weu-zct-disco-apex-stpna-pa
+        sqlNoPublicAccess: nsub-weu-zct-disco-apex-sqlpna-pa
+        dataDiagnostics: nsub-weu-zct-disco-apex-diag-pa
     budgetName:
       value: nsub-weu-zct-disco-apex-budg
     budgetAmount:

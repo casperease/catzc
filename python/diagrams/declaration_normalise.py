@@ -108,7 +108,9 @@ def normalise(raw, where="the declaration"):
     if lens == FLOW_LENS and point is not None and query_rows.rows_file() is not None:
         route = query_rows.read(query_rows.rows_file()).get((point, FLOW_LENS))
         if route is None:
-            raise DeclarationError(f"{where}: the query rows at {query_rows.rows_file()} hold nothing for {point} under the {FLOW_LENS} lens")
+            raise DeclarationError(
+                f"{where}: the query rows at {query_rows.rows_file()} hold nothing for {point} under the {FLOW_LENS} lens"
+            )
         out["route"] = route
     kind = content.get("kind", KINDS[0])
     if kind not in KINDS:
@@ -402,6 +404,24 @@ def normalise(raw, where="the declaration"):
         if not isinstance(proves, str) or not proves.strip():
             raise DeclarationError(f"{where}: about.proves is the repository path of a <name>.accosted.yml file")
         about["proves"] = proves.strip()
+    # A flow diagram's occupants: the commit each environment holds, a runtime fact the tree cannot derive, so the declaration carries it
+    # as an input (TDR-STORES): `<environment id>: <commit>` or `{commit, state}`, the state defaulting to the rung's when it is a palette
+    # state. The drawing prints it inside the rhombus; get leaves it out and save keeps the source's.
+    occupants = about_raw.get("occupants")
+    if occupants is not None and lens != FLOW_LENS:
+        raise DeclarationError(f"{where}: about.occupants names a flow diagram's environment occupants; this diagram's lens is {lens}")
+    if occupants is not None:
+        if not isinstance(occupants, dict):
+            raise DeclarationError(f"{where}: about.occupants is a map of environment id to a commit or {{commit, state}}")
+        held = {}
+        for env, value in occupants.items():
+            occupant = {"commit": value} if isinstance(value, str) else value
+            if not isinstance(occupant, dict) or set(occupant) - {"commit", "state"} or not str(occupant.get("commit") or "").strip():
+                raise DeclarationError(f"{where}: about.occupants.{env} is a commit or {{commit, state}}")
+            if occupant.get("state") is not None and occupant["state"] not in COMMIT_STATES:
+                choices(f"{where}: about.occupants.{env} state", occupant["state"], COMMIT_STATES)
+            held[str(env)] = {k: str(v).strip() for k, v in occupant.items() if v is not None}
+        about["occupants"] = out["occupants"] = held
     for chip in out["chips"]:
         if chip["kind"] == "rule" and chip["rule"] not in about["adrs"]:
             choices(f"{where}: rule chip at '{chip['at']}' rule", chip["rule"], about["adrs"])

@@ -14,8 +14,6 @@ is planned here, one step each, so no record carries a planned item.
 
 ## Open steps
 
-- [ ] Further built-in policy assignments in `discovery`: public network access off on storage and SQL, a diagnostic setting on every data
-      resource. Check: the assignments are listed in `main.bicep` and registered in `guids.yml`.
 - [ ] A quality gate that flags outdated or preview API versions in `infrastructure/modules/`. Check: it reports `2021-05-01-preview` on the
       diagnostic setting module.
 - [ ] A gate over the compiled templates (`main.json`) that fails a resource without the CAF tags, a resource kind without a diagnostic

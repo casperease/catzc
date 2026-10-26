@@ -257,7 +257,9 @@ templates write every tag deterministically, so the policy's job is to stop a re
 
 Each policy is assigned at subscription scope, the highest level the repository owns, through
 `infrastructure/modules/policy-assignment.bicep`, once per subscription and named per config (`policyAssignmentNames`, with the `-loc-pa`,
-`-tag-pa`, and `-pip-pa` suffixes). `discovery/main.bicep` holds the three definition ids in its `policyDefinitions` map, each with its
+`-tag-pa`, `-pip-pa`, `-stpna-pa`, `-sqlpna-pa` and `-diag-pa` suffixes): allowed locations, the required tag, no public IP on a network
+interface, public network access off on storage and on SQL (deny), and an audit of a diagnostic setting on every data resource kind
+(storage, SQL database, Key Vault, Data Factory). `discovery/main.bicep` holds the six definition ids in its `policyDefinitions` map, each with its
 parameters and a non-compliance message, and each config reads `policyEnforcementMode` from `global.azure.policy_enforcement`. No assignment
 sets `assignIdentity`, so no remediation identity exists. Every resource group of the subscription inherits the assignments, those of
 `foundation` and `expedition` included. Production and non-production differ through the enforcement mode, never through a narrower

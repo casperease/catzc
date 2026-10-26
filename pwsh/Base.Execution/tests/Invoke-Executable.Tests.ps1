@@ -400,6 +400,17 @@ Describe 'Invoke-Executable' -Tag 'L0', 'logic' {
             }
         }
 
+        It 'resolves a relative -WorkingDirectory against the repository root, never the caller''s location' {
+            Push-Location $env:TEMP
+            try {
+                $result = Invoke-Executable $cwdCmd -WorkingDirectory 'pwsh' -PassThru -Silent
+                $result.Output.Trim() | Should -Be (Join-Path $env:RepositoryRoot 'pwsh')
+            }
+            finally {
+                Pop-Location
+            }
+        }
+
         It 'throws on non-existent path' {
             { Invoke-Executable $simpleCmd -WorkingDirectory (Join-Path ([System.IO.Path]::GetTempPath()) ([guid]::NewGuid().ToString('N'))) -Silent } | Should -Throw
         }

@@ -89,7 +89,21 @@ function Invoke-PythonTest {
         [System.Environment]::SetEnvironmentVariable($name, $environment[$name])
     }
     try {
-        $sync = Invoke-Executable "$uvCommand sync --all-packages --quiet" -WorkingDirectory $pythonRoot -PassThru -NoAssert
+        # A strict editable install links files one by one, so a new module has no link until its package is reinstalled.
+        $reinstall = ''
+        $memberRoot = Split-Path -Parent (Join-Path $root $member[0])
+        $buildCopy = @(Get-Item -Path (Join-Path $memberRoot 'build/__editable__.*') -ErrorAction Ignore).Where({ $_.PSIsContainer }, 'First')
+        if ($buildCopy) {
+            $linked = [System.Collections.Generic.HashSet[string]]::new(
+                [string[]]@(Get-ChildItem -LiteralPath $buildCopy[0].FullName -Filter '*.py' -Recurse -File).Name)
+            $unlinked = @(Get-ChildItem -LiteralPath $memberRoot -Filter '*.py' -File).Where({ -not $linked.Contains($_.Name) })
+            $package = [regex]::Match([System.IO.File]::ReadAllText((Join-Path $memberRoot 'pyproject.toml')),
+                '(?m)^name\s*=\s*"([^"]+)"').Groups[1].Value
+            if ($unlinked.Count -and $package) {
+                $reinstall = " --reinstall-package $package"
+            }
+        }
+        $sync = Invoke-Executable "$uvCommand sync --all-packages --quiet$reinstall" -WorkingDirectory $pythonRoot -PassThru -NoAssert
         if ($sync.ExitCode -ne 0) {
             throw ("uv sync failed in $pythonRelative/ (exit $($sync.ExitCode)); is the python pin installed? Run Install-Python. " +
                 "If a workspace member moved: $pythonRelative/uv.lock is a gitignored product that pins member paths; delete it and run again.`n$($sync.Full)")

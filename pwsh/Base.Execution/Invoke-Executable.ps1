@@ -44,6 +44,8 @@ function Invoke-Executable {
         )
     }
 
+    # A relative working directory names a folder of the repository, never of the caller's location.
+    $WorkingDirectory = [System.IO.Path]::GetFullPath($WorkingDirectory, (Get-RepositoryRoot))
     Assert-PathExist $WorkingDirectory -PathType Container
 
     # Log the command from this function so Write-Message shows [Invoke-Executable].

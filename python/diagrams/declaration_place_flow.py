@@ -5,14 +5,16 @@ import html
 
 from . import flow_glyphs
 from .declaration_cells import cell, chrome, edge_cell
-from .declaration_constants import BAND, FLOW, GAP, PAD, PAGE, SPAN_LABEL, TEXT
+from .declaration_constants import BAND, COMMIT_STATES, FLOW, GAP, PAD, PAGE, SPAN_LABEL, TEXT
 from .declaration_finish import finish
+from .declaration_routes import commit_style
 from .declaration_vocabulary import LIB, DeclarationError
 from .embed_images import data_uri
 
 SPAN_BAR = "shape=crossbar;whiteSpace=wrap;html=1;rounded=1;fillColor=none;strokeColor=@line;strokeWidth=1.5;shadow=0;"
 NAME = "text;html=1;align=center;verticalAlign=top;fontSize=10;fontColor=@quiet;"
 ENV = 48  # an environment's rhombus, square
+OCCUPANT = "fontSize=8;fontStyle=1;fontFamily=monospace;"  # the occupant commit's short sha, small enough to sit inside the rhombus
 SPANNER_ROW = 34  # the row of words over a lane: a span bar and its label
 CAP = 12  # an end cap of the full flow, O at its start and 0 at its end
 
@@ -64,6 +66,7 @@ def place_flow(declaration):
     word_w = 3 * part
     tag = lib["effect"]["tag"]
     rhombus = lib["env-flow"]
+    occupants = content.get("occupants") or {}
     cells: list = []
     drop = chrome(content, cells)
     frame = {"x": PAGE["x"], "y": PAGE["band_y"] + drop, "w": PAGE["width"]}
@@ -102,9 +105,16 @@ def place_flow(declaration):
             gx = x + (slot - w) // 2
             if glyph == "env":
                 ey = middle + part // 2 - ENV // 2
-                cells.append(cell(cid, "", rhombus["style"], gx, ey, ENV, ENV))
+                environment = environments[n - 1 - len(templates)]
+                held = occupants.get(environment["id"])
+                if held:  # the occupant commit inside the rhombus, the rhombus in that commit's state colour
+                    state = held.get("state") or (environment.get("rung") if environment.get("rung") in COMMIT_STATES else COMMIT_STATES[0])
+                    style = commit_style(rhombus["style"], state, False) + OCCUPANT
+                    cells.append(cell(cid, html.escape(held["commit"][:7], quote=False), style, gx, ey, ENV, ENV))
+                else:
+                    cells.append(cell(cid, "", rhombus["style"], gx, ey, ENV, ENV))
                 named(cells, cid, name, gx, ENV, ey + ENV)
-                if environments[n - 1 - len(templates)].get("approve"):
+                if environment.get("approve"):
                     spanner(cells, f"{lid}-approve-{n - len(templates)}", "Approve", x, x + slot, y)
             else:
                 cells.append(word_cell(cid, glyph, gx, middle, theme))

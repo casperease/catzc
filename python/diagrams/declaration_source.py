@@ -317,6 +317,9 @@ def save(folder, declaration):
         point = declaration["about"].get("point") or held["about"].get("point")  # the drawing never carries the point of the tree
         if point:
             about["point"] = point
+        occupants = declaration["about"].get("occupants") or held["about"].get("occupants")  # the drawing never carries the occupants
+        if occupants:
+            about["occupants"] = occupants
         declaration = {**declaration, "about": about, "content": undrawn(declaration["content"], held)}
         # The drawing carries a row only as its expansion: when the drawing still draws what the source's rows expand to, the source
         # keeps its rows (the layout is the drawing's); when it draws something else, the drawing wins.

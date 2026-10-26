@@ -133,6 +133,21 @@ Describe 'Invoke-PythonTest' -Tag 'L0', 'logic' {
             $script:seen.Command[1] | Should -Be "$script:uv run --no-sync --quiet ruff check `"gadgets/tests`""
         }
 
+        It 'reinstalls a strict editable kit only when a module of it has no link in its build copy' {
+            $kit = Join-Path $script:pythonRoot 'sprockets'
+            $null = New-Item -ItemType Directory -Path (Join-Path $kit 'tests') -Force
+            Set-Content -LiteralPath (Join-Path $kit 'pyproject.toml') -Value "[project]`nname = `"widget-sprockets`""
+            $linked = Join-Path $kit 'build/__editable__.widget_sprockets-0.0.0-py3-none-any/widget/sprockets'
+            $null = New-Item -ItemType Directory -Path $linked -Force
+            Set-Content -LiteralPath (Join-Path $kit 'cog.py') -Value ''
+            Set-Content -LiteralPath (Join-Path $linked 'cog.py') -Value ''
+            $null = Invoke-PythonTest sprockets
+            $script:seen.Command[0] | Should -Be "$script:uv sync --all-packages --quiet"
+            Set-Content -LiteralPath (Join-Path $kit 'gear.py') -Value ''
+            $null = Invoke-PythonTest sprockets
+            $script:seen.Command[3] | Should -Be "$script:uv sync --all-packages --quiet --reinstall-package widget-sprockets"
+        }
+
         It 'runs the named folder, a module''s own tests/ under the python track, with the member project at the module root' {
             $null = Invoke-PythonTest Widget.Kit -Folder $script:ownFolder
             $script:seen.Command[1] | Should -Be "$script:uv run --no-sync --quiet ruff check `"Widget.Kit/tests`""

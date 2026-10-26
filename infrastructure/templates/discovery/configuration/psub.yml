@@ -40,6 +40,9 @@ ParametersFile:
         allowedLocations: psub-weu-zct-disco-loc-pa
         requireTag: psub-weu-zct-disco-tag-pa
         noPublicIp: psub-weu-zct-disco-pip-pa
+        storageNoPublicAccess: psub-weu-zct-disco-stpna-pa
+        sqlNoPublicAccess: psub-weu-zct-disco-sqlpna-pa
+        dataDiagnostics: psub-weu-zct-disco-diag-pa
     budgetName:
       value: psub-weu-zct-disco-budg
     budgetAmount:

@@ -44,6 +44,9 @@ ParametersFile:
         allowedLocations: nsub-weu-zct-disco-nova-loc-pa
         requireTag: nsub-weu-zct-disco-nova-tag-pa
         noPublicIp: nsub-weu-zct-disco-nova-pip-pa
+        storageNoPublicAccess: nsub-weu-zct-disco-nova-stpna-pa
+        sqlNoPublicAccess: nsub-weu-zct-disco-nova-sqlpna-pa
+        dataDiagnostics: nsub-weu-zct-disco-nova-diag-pa
     budgetName:
       value: nsub-weu-zct-disco-nova-budg
     budgetAmount:

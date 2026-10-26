@@ -75,8 +75,9 @@ of the same symbols as the VS Code file icons, so the editor tree and the diagra
 
 ## Open steps
 
-- [ ] The readers' rows carry each rung's occupant commit, and the rhombus prints it. (check: the `test_flow_lens` rhombus case asserts the
-      commit text)
+- [ ] A live occupant reader in `Azure.DevOps` reads each `<unit>-<rung>` environment's latest deployment from ADO and writes the commit
+      into the flow declaration's `about.occupants` (an input, never a row; TDR-STORES), through Write-FileIfChanged. (check: a Pester case
+      with a mocked environment-deployments response asserts the `about.occupants` map it writes)
 
 ## Refs
 

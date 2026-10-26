@@ -15,7 +15,7 @@ type remoteNetwork = {
   peeringName: string
 }
 
-@description('Names of the three policy assignments.')
+@description('Names of the six policy assignments.')
 type policyAssignmentNameSet = {
   @description('The allowed-locations assignment.')
   allowedLocations: string
@@ -25,6 +25,15 @@ type policyAssignmentNameSet = {
 
   @description('The no-public-IP-on-network-interfaces assignment.')
   noPublicIp: string
+
+  @description('The storage-accounts-disable-public-network-access assignment.')
+  storageNoPublicAccess: string
+
+  @description('The SQL-Database-public-network-access-disabled assignment.')
+  sqlNoPublicAccess: string
+
+  @description('The diagnostic-setting-on-data-resources audit assignment.')
+  dataDiagnostics: string
 }
 
 @description('Azure region of the resource group and its resources. Defaults to the deployment location.')
@@ -134,7 +143,42 @@ var policyDefinitions = {
     parameters: {}
     message: 'Network interfaces in this landing zone have no public IP address.'
   }
+  storageNoPublicAccess: {
+    id: 'b2982f36-99f2-4db5-8eff-283140c09693'
+    parameters: {
+      effect: {
+        value: 'Deny'
+      }
+    }
+    message: 'Storage accounts in this landing zone have public network access off.'
+  }
+  sqlNoPublicAccess: {
+    id: '1b8ca024-1d5c-4dec-8995-b1a932b41780'
+    parameters: {
+      effect: {
+        value: 'Deny'
+      }
+    }
+    message: 'SQL servers in this landing zone have public network access off.'
+  }
+  dataDiagnostics: {
+    id: '7f89b1eb-583c-429a-8828-af049802c1d9'
+    parameters: {
+      listOfResourceTypes: {
+        value: dataResourceTypes
+      }
+    }
+    message: 'Every data resource in this landing zone has a diagnostic setting.'
+  }
 }
+
+// The data resource kinds the diagnostic-setting audit covers.
+var dataResourceTypes = [
+  'Microsoft.Storage/storageAccounts'
+  'Microsoft.Sql/servers/databases'
+  'Microsoft.KeyVault/vaults'
+  'Microsoft.DataFactory/factories'
+]
 
 // The private DNS zones of the private-link services the workloads use (SQL Database and Blob Storage).
 var privateDnsZoneNames = [

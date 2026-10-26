@@ -8,6 +8,7 @@ from pathlib import Path
 import pytest
 import yaml
 from catzc.diagrams import declaration, query_rows
+from catzc.diagrams.declaration_constants import COMMITS
 
 FIXTURES = Path(__file__).resolve().parent / "flow-lens"
 
@@ -79,6 +80,23 @@ def test_an_environment_is_a_rhombus_and_a_word_is_an_embedded_image(sample_mode
     assert env.startswith("rhombus;")
     word = re.search(r'<mxCell id="ci-widget-pipeline"[^>]*style="([^"]*)"', sample_model).group(1)
     assert "shape=image" in word and "image=data:image/svg+xml," in word
+
+
+def test_a_rhombus_prints_its_occupant_commit_in_that_commits_state_colour(sample_model):
+    def env(cid):
+        return re.search(rf'<mxCell id="{cid}" value="([^"]*)"[^>]*style="([^"]*)"', sample_model).groups()
+
+    value, style = env("cd-widget-env-1")
+    assert value == "a1b2c3d" and style.startswith("rhombus;")  # the short sha, the rung's own state by default
+    assert f"fillColor={COMMITS['main-uat'][0]};" in style
+    value, style = env("deploy-widget-env-2")
+    assert value == "0f9e8d7" and f"fillColor={COMMITS['release-uat'][0]};" in style  # a declared state wins over the rung's
+    assert env("deploy-widget-env-1")[0] == ""  # an environment without an occupant stays empty
+
+
+def test_occupants_outside_the_flow_lens_are_refused_naming_the_lens():
+    with pytest.raises(declaration.DeclarationError, match="about.occupants names a flow diagram's"):
+        declaration.normalise({"about": {"occupants": {"widget-prod": "abc"}}, "content": {"title": "A gadget"}})
 
 
 def test_the_spanners_name_the_type_review_and_each_gated_environment(sample_model):

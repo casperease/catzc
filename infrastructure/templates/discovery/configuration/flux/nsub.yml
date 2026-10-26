@@ -44,6 +44,9 @@ ParametersFile:
         allowedLocations: nsub-weu-zct-disco-flux-loc-pa
         requireTag: nsub-weu-zct-disco-flux-tag-pa
         noPublicIp: nsub-weu-zct-disco-flux-pip-pa
+        storageNoPublicAccess: nsub-weu-zct-disco-flux-stpna-pa
+        sqlNoPublicAccess: nsub-weu-zct-disco-flux-sqlpna-pa
+        dataDiagnostics: nsub-weu-zct-disco-flux-diag-pa
     budgetName:
       value: nsub-weu-zct-disco-flux-budg
     budgetAmount:
