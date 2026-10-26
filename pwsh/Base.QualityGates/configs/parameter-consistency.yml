@@ -6,7 +6,9 @@
 
 exempt:
   As: the output format of a diagram converter, typed per diagram (an enum where the format set is closed, text where it is open)
-  Committed: a three-way filter on a track member's committed fact (Get-TrackMember; true, false or unset) versus the opt-in to snapshot committed files only (New-RepositorySnapshot)
+  Committed:
+    a three-way filter on a track member's committed fact (Get-TrackMember; true, false or unset) versus the opt-in to snapshot committed
+    files only (New-RepositorySnapshot)
   Config: a config's name to load (Get-Config) versus a loaded config's content to validate (Invoke-ConfigValidator)
   Edge: the edges of a diagram, typed per diagram domain (ADR domains versus module dependencies)
   GlobSet: a loaded globset to read versus the name of a globset an Azure DevOps build validation registers

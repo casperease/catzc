@@ -12,8 +12,8 @@ Returns globsets from the globs.yml registry — all of them, or the named ones.
 ### description
 
 The typed read of the single source of truth
-([FDR-CD-GLOBS-NAMEDGLOBSETS](../../../drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-namedglobsets)): configs/globs/, loaded and
-validated through Get-Config as a `[Catzc.Base.Globs.GlobsConfig]`. Each result is a `[Catzc.Base.Globs.GlobSet]` carrying the compiled
+([FDR-CD-GLOBS-NAMEDGLOBSETS](../../../drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-namedglobsets)): configs/globs/, loaded and validated
+through Get-Config as a `[Catzc.Base.Globs.GlobsConfig]`. Each result is a `[Catzc.Base.Globs.GlobSet]` carrying the compiled
 include/exclude patterns and Matches(). An unknown name throws, naming the config file.
 
 ### parameter `Name`

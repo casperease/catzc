@@ -19,9 +19,9 @@ A diagram in cats lives in exactly one of two lanes, and the lane decides which 
 
 - **The docs lane.** A diagram is a pair of files in an `.assets/` beside its article: the `<name>.drawio.yml` that declares it element by
   element and the `<name>.drawio.png` put from it, a draw.io model embedded in a PNG, with an article in `docs/explanation/` that narrates
-  it. The kit in `python/diagrams/assets/STYLE.md` owns its words, glyphs, colours and sidebar; the kit renderer is the one way its
-  raster is made, put from the diagram's yml (`drawio-declaration` step 1). The `drawio-*` capabilities and the three diagram robots work
-  only in this lane.
+  it. The kit in `python/diagrams/assets/STYLE.md` owns its words, glyphs, colours and sidebar; the kit renderer is the one way its raster
+  is made, put from the diagram's yml (`drawio-declaration` step 1). The `drawio-*` capabilities and the three diagram robots work only in
+  this lane.
 - **The page lane.** A claude.ai page a session publishes with the Artifact tool. Today that is the Diagram Waves Review page the
   `print-artifacts` robot republishes through `artifact-publish`, plus any page a session draws for a reader at the user's ask. A picture
   drawn on such a page is inline SVG, and the skill's mechanics govern it. The page lane never lands a file under `docs/`, and a review

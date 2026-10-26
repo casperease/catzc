@@ -27,11 +27,9 @@ neutral_codes:
     pwsh/Azure.DevOps/tests/Test-Pipelines.Tests.ps1: it asserts the gate's exact messages, which cite its real rules
     pwsh/Azure.Templates/tests/Build-Bicep.Integrity.Tests.ps1:
       an integrity test over the shipped templates; its -Because message names the real rule they meet
-    pwsh/Base.Contracts/tests/Get-ContractFreezeFindings.Tests.ps1:
-      it asserts the findings' exact messages, which cite their real rule
+    pwsh/Base.Contracts/tests/Get-ContractFreezeFindings.Tests.ps1: it asserts the findings' exact messages, which cite their real rule
     pwsh/Base.Contracts/tests/Test-Contracts.Tests.ps1: it asserts the gate's exact messages, which cite their real rules
-    pwsh/Base.Docs/tests/Get-Glossary*Violations.Tests.ps1:
-      they assert the glossary checks' exact messages, which cite their real rules
+    pwsh/Base.Docs/tests/Get-Glossary*Violations.Tests.ps1: they assert the glossary checks' exact messages, which cite their real rules
     pwsh/Base.Drs/tests/Test-DrsRegistry.Tests.ps1: it asserts the gate's exact messages, which cite their real rules
     pwsh/Base.Globs/tests/types/GlobsConfig.Tests.ps1: it asserts the config's exact errors, which cite their real rule
     pwsh/Base.Maps/tests/Test-ValueChainMap.Tests.ps1: it asserts the gate's exact messages, which cite their real rules
@@ -47,8 +45,7 @@ track_root_literal:
     pwsh/.internal/assets/PSScriptAnalyzerSettings.psd1:
       the analyzer reads its custom rule path relative to the repository root, and a .psd1 data file cannot call a resolver
     pwsh/Base.Repository/Get-CatzcModulesRoot.ps1: the resolver, whose fallback outside an import is the same constant
-    pwsh/Base.Repository/Get-CatzcRunMode.ps1:
-      it compares the loaded modules against the source modules folder, which is that constant
+    pwsh/Base.Repository/Get-CatzcRunMode.ps1: it compares the loaded modules against the source modules folder, which is that constant
     pwsh/Base.Exporter/Build-Modules.ps1:
       its out/ area pwsh/built is named after the track (Q6), renamed with the output-formats.yml areas in P4
     pwsh/Base.Exporter/Export-Catzc.ps1:

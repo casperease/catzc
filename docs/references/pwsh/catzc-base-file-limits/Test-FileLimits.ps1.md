@@ -13,9 +13,9 @@ The quality gate for file limits: checks every tracked file in scope against its
 
 Generated targets, the vendor folder and the unordered track are out of scope. A length breach fails unless the file is in the exempt map
 with its reason; a width breach is only reported while its class's width_mode is report. A file no language, extension or file name declares
-fails as unclassified. While `string_overflow` is `exempt`, its default, a line whose part past the width lies wholly inside one string literal
-does not breach: the width is the widest line that is not one. Each language's own tokenizer judges the string (a PowerShell string, a YAML
-scalar, an XML attribute value), so the overflow must end with the string; a language with no tokenizer exempts nothing.
+fails as unclassified. While `string_overflow` is `exempt`, its default, a line whose part past the width lies wholly inside one string
+literal does not breach: the width is the widest line that is not one. Each language's own tokenizer judges the string (a PowerShell string,
+a YAML scalar, an XML attribute value), so the overflow must end with the string; a language with no tokenizer exempts nothing.
 
 ### parameter `Path`
 

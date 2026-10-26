@@ -2,7 +2,14 @@ description: >-
   The physical model in six layers: the tree of files, the tracks that place them, the file languages that name their checks, the world map
   that crosses the two, the aspects a module's files split into, and the directed links between files.
 about:
-  adrs: [DDR-TRACK-TRACKISPLACEDCLUSTER, DDR-TRACK-FILELANGUAGE, DDR-TRACK-WORLDMAP, DDR-ASPECT-MODULESPARTITIONINTOASPECTS, ADR-REPO-LINKS-EVERYLINKHASADIRECTION]
+  adrs:
+    [
+      DDR-TRACK-TRACKISPLACEDCLUSTER,
+      DDR-TRACK-FILELANGUAGE,
+      DDR-TRACK-WORLDMAP,
+      DDR-ASPECT-MODULESPARTITIONINTOASPECTS,
+      ADR-REPO-LINKS-EVERYLINKHASADIRECTION,
+    ]
   lens: meta
 content:
   title: The physical model is six layers over one tree

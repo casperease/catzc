@@ -22,7 +22,7 @@ holds the decision: ADR-REPO-AI is named once, and no file carries the per-file 
 ## Where it lives now
 
 - The CLAUDE.md session-start line names ADR-REPO-AI before the ADR index, so every session and every robot reads it first.
-- A top-level `contracts:` entry in `pwsh/Base.Docs/configs/agents.yml`, beside `standard:`, is the data form the gate can read when a
-  check needs it.
+- A top-level `contracts:` entry in `pwsh/Base.Docs/configs/agents.yml`, beside `standard:`, is the data form the gate can read when a check
+  needs it.
 - This page holds the meaning and the context of the key. When ADR-REPO-AI is written, its Context section absorbs this page and the page is
   deleted (PDR-ONELIVE).

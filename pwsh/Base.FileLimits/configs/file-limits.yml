@@ -49,7 +49,8 @@ exempt:
   js/track-lamps/engine.js: "486 lines against the code limit 400; splits by responsibility"
   pwsh/.internal/assets/Wait-CatzcRunLock.ps1: "430 lines against the code limit 400; splits by responsibility"
   pwsh/.internal/Catzc.Internal.Importer.psm1: "443 lines against the code limit 400; splits by responsibility"
-  docs/references/pwsh/internal/Catzc.Internal.Importer.psm1.md: "424 lines against the prose limit 400; the comment page of the exempt Catzc.Internal.Importer.psm1, splits with it"
+  docs/references/pwsh/internal/Catzc.Internal.Importer.psm1.md:
+    "424 lines against the prose limit 400; the comment page of the exempt Catzc.Internal.Importer.psm1, splits with it"
   pwsh/.internal/tests/Import-CSharpTypes.Tests.ps1: "450 lines against the code limit 400; splits by Describe into test files"
   pwsh/.internal/tests/Invoke-ModuleBuild.Tests.ps1: "439 lines against the code limit 400; splits by Describe into test files"
   pwsh/.scriptanalyzer/AnnounceStateChange.psm1: "411 lines against the code limit 400; splits by responsibility"
@@ -60,8 +61,7 @@ exempt:
   pwsh/Base.Drs/types/DrsConfig.cs: "475 lines against the code limit 400; splits by responsibility"
   pwsh/Base.Execution/tests/Invoke-Executable.Tests.ps1: "460 lines against the code limit 400; splits by Describe into test files"
   pwsh/Base.Execution/types/CliRunner.cs: "402 lines against the code limit 400; splits by responsibility"
-  pwsh/Base.Languages/tests/types/LanguagesConfig.Tests.ps1:
-    "486 lines against the code limit 400; splits by Describe into test files"
+  pwsh/Base.Languages/tests/types/LanguagesConfig.Tests.ps1: "486 lines against the code limit 400; splits by Describe into test files"
   pwsh/Base.Languages/types/LanguageEntryReaders.cs: "405 lines against the code limit 400; splits by responsibility"
   pwsh/Base.Languages/types/LanguagesConfig.cs: "456 lines against the code limit 400; splits by responsibility"
   pwsh/Base.Maps/types/MapsConfig.cs: "417 lines against the code limit 400; splits by responsibility"
@@ -81,6 +81,8 @@ exempt:
   pwsh/Tooling.Toolchain/assets/scripts/dotnet-install.ps1: "third-party installer script, shipped as published"
   pwsh/Tooling.Toolchain/assets/scripts/dotnet-install.sh: "third-party installer script, shipped as published"
   python/diagrams/assets/atlas.template.html: "603 lines against the code limit 400; splits by responsibility"
-  python/diagrams/assets/glyphs.xml: "526 lines against the config limit 300; drawio tags split one attribute per line so long style values end their line"
+  python/diagrams/assets/glyphs.xml:
+    "526 lines against the config limit 300; drawio tags split one attribute per line so long style values end their line"
   python/diagrams/assets/STYLE.md: "513 lines against the prose limit 400; splits by section into a folder of linked pages"
-  python/diagrams/assets/template-slide.xml: "610 lines against the config limit 300; drawio tags split one attribute per line so long style values end their line"
+  python/diagrams/assets/template-slide.xml:
+    "610 lines against the config limit 300; drawio tags split one attribute per line so long style values end their line"

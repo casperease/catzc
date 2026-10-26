@@ -90,7 +90,6 @@ declares, a group never lands in a row, and the scan narrows by code, source and
 
 ### 9. Build-DrsCodeDictionary — shipped configs/drs.yml
 
-**Test file:** `pwsh/Base.Drs/tests/Build-DrsCodeDictionary.Tests.ps1` (L1), block
-`Build-DrsCodeDictionary — shipped configs/drs.yml`.
+**Test file:** `pwsh/Base.Drs/tests/Build-DrsCodeDictionary.Tests.ps1` (L1), block `Build-DrsCodeDictionary — shipped configs/drs.yml`.
 
 **Guards:** Build-DrsCodeDictionary finds the domain registry it stamps in the loaded module (ADR-AUTO-ASSETDEP-COVEREDBYREALTEST).

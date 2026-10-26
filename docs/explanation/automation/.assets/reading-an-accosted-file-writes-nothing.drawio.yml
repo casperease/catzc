@@ -1,6 +1,5 @@
 description:
-  "An author reads an accosted file: one harmless call, and the observations that show the file and the contract checks are as
-  they were."
+  "An author reads an accosted file: one harmless call, and the observations that show the file and the contract checks are as they were."
 about:
   adrs:
     - ADR-AUTO-ACCOSTED-HARMLESS

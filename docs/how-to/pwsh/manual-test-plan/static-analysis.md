@@ -138,8 +138,7 @@ formatter or the reason it has none (PDR-CONFIG-NEWINSTANCEISCONFIGCHANGE, PDR-C
 
 ### 12. The shipped format engines' keyed settings
 
-**Test file:** `pwsh/Base.QualityGates/tests/Get-FormatEngineStamp.Tests.ps1` (L1), block
-`The shipped format engines' keyed settings`.
+**Test file:** `pwsh/Base.QualityGates/tests/Get-FormatEngineStamp.Tests.ps1` (L1), block `The shipped format engines' keyed settings`.
 
 **Guards:** Each shipped format engine's keyed settings name a top-level key that exists in their file, and an engine never lists the whole
 tool registry again (ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS).
@@ -173,8 +172,7 @@ tool registry again (ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS).
 
 ### 16. Test-TrackMemberCommitted — the real tree
 
-**Test file:** `pwsh/Base.QualityGates/tests/Test-TrackMemberCommitted.Tests.ps1` (L1), block
-`Test-TrackMemberCommitted — the real tree`.
+**Test file:** `pwsh/Base.QualityGates/tests/Test-TrackMemberCommitted.Tests.ps1` (L1), block `Test-TrackMemberCommitted — the real tree`.
 
 **Guards:** every declared track member is in step with the git index.
 
@@ -198,8 +196,8 @@ tool registry again (ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS).
 
 **Test file:** `pwsh/Base.QualityGates/tests/Test-TrackNamespace.Tests.ps1` (L1), block `Test-TrackNamespace — the real tree`.
 
-**Guards:** no folder or file under a track spells the namespace that track declares, in the track's join form
-(DDR-TRACK-MODULENAMESPACE). The files that name the product keep it, each declared once in the track's `namespace_exempt`.
+**Guards:** no folder or file under a track spells the namespace that track declares, in the track's join form (DDR-TRACK-MODULENAMESPACE).
+The files that name the product keep it, each declared once in the track's `namespace_exempt`.
 
 **Checks:**
 

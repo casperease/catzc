@@ -144,8 +144,8 @@ tree, and the VS Code registries carry the code-link rule.
 
 **Test file:** `pwsh/Base.Slides/tests/Get-NameMentionFinding.Tests.ps1` (L1), block `Get-NameMentionFinding (real tree)`.
 
-**Guards:** no diagram declaration or slide names catzc or cats as a word, outside the contrasts `slides.yml` declares under
-`name_mentions` (DDR-VISUAL-NONAMEINPICTURE).
+**Guards:** no diagram declaration or slide names catzc or cats as a word, outside the contrasts `slides.yml` declares under `name_mentions`
+(DDR-VISUAL-NONAMEINPICTURE).
 
 **Checks:**
 

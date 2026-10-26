@@ -1,6 +1,6 @@
 description: >-
-  The repository as one system with its actors: the engineer works on the devbox, the devbox and the pipelines call the one importer,
-  which reads the repository, and the pipelines deploy to Azure through Azure DevOps.
+  The repository as one system with its actors: the engineer works on the devbox, the devbox and the pipelines call the one importer, which
+  reads the repository, and the pipelines deploy to Azure through Azure DevOps.
 about:
   adrs: [TDR-STORES-RESPONSIBILITYDOMAIN, ADR-AUTO-ENGINE-IMPORTERENTRY, DDR-VISUAL-ZOOMISANAXIS]
   lens: architecture

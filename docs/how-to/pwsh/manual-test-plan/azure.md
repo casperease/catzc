@@ -108,8 +108,7 @@ The shipped Azure configs and bicep templates. Part of the [manual test plan](..
 
 ### 8. Get-BicepTemplatesRoot — the real repository
 
-**Test file:** `pwsh/Azure.Templates/tests/Get-BicepTemplatesRoot.Tests.ps1` (L1), block
-`Get-BicepTemplatesRoot — the real repository`.
+**Test file:** `pwsh/Azure.Templates/tests/Get-BicepTemplatesRoot.Tests.ps1` (L1), block `Get-BicepTemplatesRoot — the real repository`.
 
 **Guards:** `Get-BicepTemplatesRoot` resolves the folder that holds the shipped templates.
 

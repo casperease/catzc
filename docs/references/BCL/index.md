@@ -17,8 +17,8 @@ files:
 
 - **Its files** are the `types/*.cs` sources of every module, one type per file, each in the namespace of its module.
 - **Its build pair** is one configuration on one platform, Debug on Any CPU, declared once on `BclConfig` and read through
-  `pwsh/Base.Languages/configs/bcl.yml`. Every non-vendored solution and project declares only that pair, and every `dotnet` call a
-  catzc command makes builds it.
+  `pwsh/Base.Languages/configs/bcl.yml`. Every non-vendored solution and project declares only that pair, and every `dotnet` call a catzc
+  command makes builds it.
 - **Its reference set** is the Base Class Library and nothing else. There is no NuGet in this toolset, so a type that wants a package is
   asking for logic that belongs in a script calling a vendored tool.
 

@@ -96,16 +96,14 @@ check.
 
 ### 7. Resolve-ToolExecutable on the shipped bash entry
 
-**Test file:** `pwsh/Base.Execution/tests/Resolve-ToolExecutable.Tests.ps1` (L0), block
-`Resolve-ToolExecutable on the shipped bash entry`.
+**Test file:** `pwsh/Base.Execution/tests/Resolve-ToolExecutable.Tests.ps1` (L0), block `Resolve-ToolExecutable on the shipped bash entry`.
 
 **Guards:** The shipped tools.yml bash entry resolves through the executable probe and never accepts the WSL launcher (System32 or
 WindowsApps bash.exe).
 
 ### 8. Get-EngineCaseTable — every shipped engine case table
 
-**Test file:** `pwsh/Tooling.Core/tests/Get-EngineCaseTable.Tests.ps1` (L1), block
-`Get-EngineCaseTable — every shipped engine case table`.
+**Test file:** `pwsh/Tooling.Core/tests/Get-EngineCaseTable.Tests.ps1` (L1), block `Get-EngineCaseTable — every shipped engine case table`.
 
 **Guards:** Every `tests/assets/engine-cases/*.yml` table fills every engine column (ExecutionEngines) for every case, or names why not
 (`n/a: <reason>`).

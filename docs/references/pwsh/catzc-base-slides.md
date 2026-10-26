@@ -29,18 +29,18 @@ folders, and with no path checks every slide file under `docs/`.
 
 ### responsibility:3 — Reading the kit
 
-The module reads the kit from one configured folder, `slides` in the config registry, `python/diagrams/assets/slides` by default: the
-kit's `slides.yml` becomes a `SlidesKit` of tokens, faces, scale and layout, and each `patterns/<name>.html` a `SlidePattern` that knows its
+The module reads the kit from one configured folder, `slides` in the config registry, `python/diagrams/assets/slides` by default: the kit's
+`slides.yml` becomes a `SlidesKit` of tokens, faces, scale and layout, and each `patterns/<name>.html` a `SlidePattern` that knows its
 fields, which are required and how much each holds. A pattern's placeholders decide what a slide may say; the module changes for no pattern.
 
 ### responsibility:4 — Diagram render from source
 
 Rebuilding a diagram, the pair `<article-folder>/.assets/<name>.drawio.yml` and `<name>.drawio.png`, from what the tree holds: its
 declaration, or the model embedded in its png, and the repository's maps, through the draw.io kit's renderer (`drawio_kit` in `slides.yml`,
-`python/diagrams` by default), stage by stage. One diagram is one call; the whole tree is that call repeated over every diagram found
-under `docs/**/.assets/`, so no session decides anything and a rebuild from a clean checkout gives the same slides. A diagram's article is
-the one page beside its `.assets` that embeds the slide: none is an orphan, reported; two stop the run. Moving a diagram moves its pair,
-with every relative link into it re-pointed.
+`python/diagrams` by default), stage by stage. One diagram is one call; the whole tree is that call repeated over every diagram found under
+`docs/**/.assets/`, so no session decides anything and a rebuild from a clean checkout gives the same slides. A diagram's article is the one
+page beside its `.assets` that embeds the slide: none is an orphan, reported; two stop the run. Moving a diagram moves its pair, with every
+relative link into it re-pointed.
 
 ## What the module does
 

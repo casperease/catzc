@@ -1,9 +1,8 @@
 # pwsh/Base.Vendor/types/VendorConfig.cs
 
-The typed record for `vendor.yml`, the vendor registry
-([ADR-PWSH-VENDOR](../../../../drs/automation/pwsh/vendor-toolset-dependencies.md)). It is registered in
-`Catzc.Base.Config/configs/configs.yml`, so `Get-Config -Config vendor` returns it. Its properties mirror the YAML keys exactly, including
-the file's own `sourceUrl` spelling
+The typed record for `vendor.yml`, the vendor registry ([ADR-PWSH-VENDOR](../../../../drs/automation/pwsh/vendor-toolset-dependencies.md)).
+It is registered in `Catzc.Base.Config/configs/configs.yml`, so `Get-Config -Config vendor` returns it. Its properties mirror the YAML keys
+exactly, including the file's own `sourceUrl` spelling
 ([ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](../../../../drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
 
 ## Validation

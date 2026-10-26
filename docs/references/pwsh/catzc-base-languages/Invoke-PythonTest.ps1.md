@@ -42,8 +42,8 @@ CATZC_REPOSITORY_ROOT    the repository root.
 Returns one PythonTestResult per top-level test function (parametrised cases fold into it), with its category from its name:
 `test_integrity*` is integrity, everything else is logic. A failing test is a result, not an error. The call throws, with the uv output,
 when uv sync or ruff check fails, and when pytest fails without a failing test (a collection error, or no tests). Under Pester the ruff
-throw lands in the `BeforeAll` of `pwsh/Base.QualityGates/tests/Language.Bridge.ps1`, so one lint line fails every case of every
-engine: read the first failure's message before the case count.
+throw lands in the `BeforeAll` of `pwsh/Base.QualityGates/tests/Language.Bridge.ps1`, so one lint line fails every case of every engine:
+read the first failure's message before the case count.
 
 ### parameter `Module`
 

@@ -1,11 +1,17 @@
+/*
+---
+catzc:
+  docs: "../../../docs/references/pwsh/catzc-base-code-meta/types/PlainText.cs.md"
+  header: "generated"
+---
+*/
+
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 namespace Catzc.Base.CodeMeta;
 
-// A comment page's synopsis and its plain-text projection: the one sentence a contract's description holds, with every link, rule code,
-// code span and markup stripped, and the form a YAML plain scalar takes without quoting.
 public static class PlainText
 {
     static readonly Regex Link = new Regex(@"\[([^\]]*)\]\([^)]*\)", RegexOptions.CultureInvariant);
@@ -44,8 +50,6 @@ public static class PlainText
         return string.Join(" ", parts);
     }
 
-    // The text with links reduced to their words, rule codes and the brackets they leave empty removed, code spans and emphasis unmarked,
-    // and every run of white space one space.
     public static string Plain(string text)
     {
         if (string.IsNullOrEmpty(text)) { return ""; }
@@ -58,8 +62,6 @@ public static class PlainText
         return plain.Trim();
     }
 
-    // Why the text is no plain description: one line of letters, digits, spaces and . , - ( ) ' only, so a YAML plain scalar holds it as
-    // written; null when it is one.
     public static string PlainScalarFinding(string text)
     {
         if (string.IsNullOrWhiteSpace(text)) { return "is empty"; }

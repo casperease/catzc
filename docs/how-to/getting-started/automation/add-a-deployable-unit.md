@@ -1,9 +1,9 @@
 # Add a deployable unit (a globset and its triggers)
 
-A deployable unit is defined exactly once, as a **globset** in `pwsh/Base.Globs/configs/globs/globs.yml` — a named set of glob
-patterns over the files under version control. Pipelines and workflows trigger on the globset's **native path-filter projection** (generated
-from the set, never hand-authored), and "did this change touch the unit?" is reflected from git at the real refs — nothing is committed per
-set. The full model is the [durable-sha-globs](../../../drs/flow/durable-sha-globs.md) FDR; this page is the workflow.
+A deployable unit is defined exactly once, as a **globset** in `pwsh/Base.Globs/configs/globs/globs.yml` — a named set of glob patterns over
+the files under version control. Pipelines and workflows trigger on the globset's **native path-filter projection** (generated from the set,
+never hand-authored), and "did this change touch the unit?" is reflected from git at the real refs — nothing is committed per set. The full
+model is the [durable-sha-globs](../../../drs/flow/durable-sha-globs.md) FDR; this page is the workflow.
 
 ## Define the globset
 

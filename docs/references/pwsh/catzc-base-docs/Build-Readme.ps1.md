@@ -27,8 +27,8 @@ See [ADR-REPO-README](../../../drs/repository/generated-readmes.md) and
 
 ### parameter `Folder`
 
-Generate only the mapping whose target folder equals this repo-relative path (e.g. 'pwsh/Azure.DevOps'). Throws when it matches no
-mapping. Default: every mapping.
+Generate only the mapping whose target folder equals this repo-relative path (e.g. 'pwsh/Azure.DevOps'). Throws when it matches no mapping.
+Default: every mapping.
 
 ### parameter `DryRun`
 

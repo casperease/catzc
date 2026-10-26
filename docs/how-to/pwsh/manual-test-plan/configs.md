@@ -177,8 +177,7 @@ valid customer-name list.
 
 ### 12. integrity (shipped timeout-exemptions.yml)
 
-**Test file:** `pwsh/Base.Timeouts/tests/types/TimeoutExemptionsConfig.Tests.ps1` (L0), block
-`integrity (shipped timeout-exemptions.yml)`.
+**Test file:** `pwsh/Base.Timeouts/tests/types/TimeoutExemptionsConfig.Tests.ps1` (L0), block `integrity (shipped timeout-exemptions.yml)`.
 
 **Guards:** The shipped timeout-exemptions.yml loads through `TimeoutExemptionsConfig`, and every GUID it names is a registered budget.
 
@@ -275,8 +274,7 @@ carrier entry (ADR-REPO-FILEMETA-KINDSCOPE).
 
 ### 26. integrity (shipped languages.yml layout)
 
-**Test file:** `pwsh/Base.Languages/tests/types/LanguageNaming.Tests.ps1` (L0), block
-`integrity (shipped languages.yml layout)`.
+**Test file:** `pwsh/Base.Languages/tests/types/LanguageNaming.Tests.ps1` (L0), block `integrity (shipped languages.yml layout)`.
 
 **Guards:** The shipped languages.yml layout places the five live folders the aspects were written with, and the shared tests folder is not
 live (ADR-AUTO-MODULE-EXISTSBYLAYOUT).
@@ -330,8 +328,7 @@ live (ADR-AUTO-MODULE-EXISTSBYLAYOUT).
 
 ### 33. Build-AgentHook — no package feed reaches a hook build
 
-**Test file:** `pwsh/Base.TypesSystem/tests/Build-AgentHook.Tests.ps1` (L2), block
-`Build-AgentHook — no package feed reaches a hook build`.
+**Test file:** `pwsh/Base.TypesSystem/tests/Build-AgentHook.Tests.ps1` (L2), block `Build-AgentHook — no package feed reaches a hook build`.
 
 **Guards:** a hook build contacts no package feed, because NuGet reads its config from the project's folder up and finds the generated root
 config's cleared feeds alone.

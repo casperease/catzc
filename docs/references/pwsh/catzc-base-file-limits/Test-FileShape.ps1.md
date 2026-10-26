@@ -11,8 +11,8 @@ Checks files against their resolved limits and returns one finding per breach.
 
 ### description
 
-Pure: it reads the files it is given and writes nothing. A length breach points at the last line and a width breach at the widest line,
-each with its limit and where the limit came from. A file of the class none is not measured.
+Pure: it reads the files it is given and writes nothing. A length breach points at the last line and a width breach at the widest line, each
+with its limit and where the limit came from. A file of the class none is not measured.
 
 ### parameter `Path`
 

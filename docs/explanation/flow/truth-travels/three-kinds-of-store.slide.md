@@ -18,8 +18,8 @@ catzc:
 
 ## Lead
 
-Back at the top: the repository is the store that is written; a fact source is read; a state machine is met. Each kind has its own rule for what
-counts as true.
+Back at the top: the repository is the store that is written; a fact source is read; a state machine is met. Each kind has its own rule for
+what counts as true.
 
 ## Image
 
