@@ -40,12 +40,9 @@ function Write-DiagramQueryRows {
             }
             if ($null -eq $readers) {
                 $kitConfig = ConvertFrom-Yaml -Yaml ([System.IO.File]::ReadAllText($Config)) -Ordered
-                $readers = if ($kitConfig.Contains('flow-readers')) {
-                    @($kitConfig['flow-readers'].Values)
-                }
-                else {
-                    @()
-                }
+                $readers = @(if ($kitConfig.Contains('flow-readers')) {
+                        $kitConfig['flow-readers'].Values
+                    })
             }
             $tracks = @($point -split ';' | ForEach-Object { $_.Trim() } | Where-Object { $_ } | ForEach-Object { (Get-Track -Path $_).name } |
                     Select-Object -Unique)

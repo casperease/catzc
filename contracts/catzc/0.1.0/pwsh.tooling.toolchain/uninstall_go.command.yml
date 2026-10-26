@@ -1,1 +1,4 @@
 description: Uninstalls the Go toolchain installed by Install-Go.
+parameters:
+  remove: switch
+  force: switch

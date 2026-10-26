@@ -1,4 +1,4 @@
-# RDR: DORA — Working in small batches
+# EDR: DORA — Working in small batches
 
 ## Rules: EDR-DORA-SMALLBATCH
 
@@ -7,42 +7,47 @@
 Break work into the smallest unit that is independent, negotiable, valuable, estimable, small, and testable (INVEST) — a slice that can be
 deployed and validated on its own rather than a fragment that only makes sense bundled with other work.
 
-- [Summary](#summary)
+Source: [DORA, Working in small batches](../../../references/dora/capabilities.md#working-in-small-batches)
+
+Binds to [WDR-PULLWORK-SMALLESTBATCH](../../process/pull-work.md#rule-wdr-pullwork-smallestbatch) and
+[WDR-QUEUECOST-BATCHSIZEDRIVESQUEUES](../../process/queues-cost-money.md#rule-wdr-queuecost-batchsizedrivesqueues).
 
 ### Rule EDR-DORA-SMALLBATCH-WEEKISTOOLARGE
 
 Treat a unit of work that takes longer than a week to complete as too large. Split it further; do not let a large pull request —
 AI-generated or hand-written — stand in for decomposition that was skipped.
 
-- [Common pitfalls](#common-pitfalls)
+Source: [DORA, Working in small batches](../../../references/dora/capabilities.md#working-in-small-batches)
 
 ### Rule EDR-DORA-SMALLBATCH-DAILYCHECKIN
 
 Check releasable changes into trunk at least daily. Small batches only shorten the feedback loop when they are integrated continuously, not
 accumulated on a branch and merged in one motion.
 
-- [How to apply](#how-to-apply)
+Source: [DORA, Working in small batches](../../../references/dora/capabilities.md#working-in-small-batches)
+
+Binds to [FDR-CD-SHORTINTEGRATIONCYCLE](../../flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-shortintegrationcycle).
 
 ### Rule EDR-DORA-SMALLBATCH-TOGGLESFORINCOMPLETEWORK
 
 Use dark launching or feature toggles to merge incomplete work safely. Code completion and user-facing release are separate events; a batch
 can integrate today and activate later.
 
-- [How to apply](#how-to-apply)
+Source: [DORA, Working in small batches](../../../references/dora/capabilities.md#working-in-small-batches)
 
 ### Rule EDR-DORA-SMALLBATCH-RELEASEEACHBATCH
 
 Release and validate each batch as it completes. Never regroup several small batches into one larger release before testing or shipping —
 that delays exactly the defect and user-validation feedback small batching exists to speed up.
 
-- [Common pitfalls](#common-pitfalls)
+Source: [DORA, Working in small batches](../../../references/dora/capabilities.md#working-in-small-batches)
 
 ### Rule EDR-DORA-SMALLBATCH-HOLDBATCHSIZEWITHAI
 
 Hold batch size down deliberately when AI assistance raises throughput. Small batches are the safety net that keeps faster, machine-assisted
 change from turning into delivery instability.
 
-- [Why it matters](#why-it-matters)
+Source: [DORA, Working in small batches](../../../references/dora/capabilities.md#working-in-small-batches)
 
 ## Context
 
@@ -91,11 +96,6 @@ dark launching or a feature toggle instead of delaying the merge.
 Measure the discipline rather than assuming it: track how often production releases are possible across teams, what proportion of features
 complete within a week or less, and whether features are actively decomposed to support minimum viable slices and rapid cycles. A team that
 cannot answer these is not yet working in small batches, regardless of intent.
-
-This platform's pull discipline is the same lever under a different name: work is pulled in the smallest batch that can move on its own,
-because batch size is what drives queue size and cost of delay. The CI discipline's small, continuously-integrated increments into one
-mainline are small batching applied to the integration step specifically.
-
 ## Common pitfalls
 
 - **Insufficient decomposition.** Work that takes longer than a week to complete is too large. AI-assisted development tends to generate

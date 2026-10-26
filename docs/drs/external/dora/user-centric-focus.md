@@ -1,4 +1,4 @@
-# RDR: DORA — User-centric focus
+# EDR: DORA — User-centric focus
 
 ## Rules: EDR-DORA-USERFOCUS
 
@@ -8,21 +8,24 @@ Judge software by its usefulness to the individual at the end of the value chain
 way — understanding actual user needs and prioritizing user experience are explicit design goals, not an afterthought left to whoever
 happens to talk to a customer.
 
-- [Summary](#summary)
+Source: [DORA, User-centric focus](../../../references/dora/capabilities.md#user-centric-focus)
+
+Binds to [ADR-AUTO-CONSOLE-EVERYLINEEARNSPLACE](../../automation/console-output-matters.md#rule-adr-auto-console-everylineearnsplace) and
+[ADR-AUTO-DEFAULT-ZEROARGUMENTCALL](../../automation/sensible-defaults.md#rule-adr-auto-default-zeroargumentcall).
 
 ### Rule EDR-DORA-USERFOCUS-AIAMPLIFIESFOCUS
 
 Treat AI as an amplifier of whatever focus already exists, not a substitute for it — a team without a user-centric practice that adopts AI
 does not become user-centric by accident; it produces more low-value output, faster.
 
-- [Why it matters](#why-it-matters)
+Source: [DORA, User-centric focus](../../../references/dora/capabilities.md#user-centric-focus)
 
 ### Rule EDR-DORA-USERFOCUS-FEEDBACKINPLANNING
 
 Wire user feedback into planning as a low-latency loop, and let it actually change priorities — a channel that collects feedback but never
 causes work to be reprioritized is a suggestion box, not a feedback loop.
 
-- [How to apply](#how-to-apply)
+Source: [DORA, User-centric focus](../../../references/dora/capabilities.md#user-centric-focus)
 
 ### Rule EDR-DORA-USERFOCUS-EXPERIENCEMETRICS
 
@@ -30,14 +33,14 @@ Put user-experience metrics (satisfaction, adoption, retention, task completion)
 give engineers direct exposure to user research — observing real usage or reading raw feedback — rather than routing everything through a
 distilled summary that loses signal.
 
-- [How to apply](#how-to-apply)
+Source: [DORA, User-centric focus](../../../references/dora/capabilities.md#user-centric-focus)
 
 ### Rule EDR-DORA-USERFOCUS-OUTCOMESNOTOUTPUT
 
 Measure and reward outcomes, not output — features shipped, story points closed, or commit volume are not evidence that value reached a
 user, and treating them as such is the feature-factory failure mode this capability exists to prevent.
 
-- [Common pitfalls](#common-pitfalls)
+Source: [DORA, User-centric focus](../../../references/dora/capabilities.md#user-centric-focus)
 
 ## Context
 
@@ -67,15 +70,6 @@ magnifying an existing strength turns a user-centric team into one that ships mo
 existing weakness turns a team without that focus into one that can "accelerate the production of low-value software, leading to high
 activity but low impact." The mechanism is not that AI makes teams user-centric — it makes whichever pattern already exists more visible and
 more consequential.
-
-## How to apply
-
-This platform treats console output as its user interface, because the person running an automation function has no GUI or dashboard to fall
-back on — every decision about what a line of output says, and whether it says anything at all, is a user-experience decision, not merely a
-logging concern. Sensible defaults apply the same lens to the calling code itself: a function's parameter surface is designed around what
-the caller most likely wants, so the caller's actual need drives the interface rather than the implementation's internal shape.
-Zero-ceremony design extends this to the contributor experience of the platform, judging every addition by whether it removes friction for
-the person using it rather than by whether it is convenient to build.
 
 ## Common pitfalls
 

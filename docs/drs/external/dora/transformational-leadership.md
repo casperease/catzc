@@ -1,4 +1,4 @@
-# RDR: DORA — Transformational leadership
+# EDR: DORA — Transformational leadership
 
 ## Rules: EDR-DORA-LEADERSHIP
 
@@ -8,14 +8,17 @@ Transformational leadership is five distinct behaviors — vision, inspirational
 leadership, and personal recognition — not a single trait, a job title, or a slogan; treat all five as necessary, not a menu to pick one
 from.
 
-- [Summary](#summary)
+Source: [DORA, Transformational leadership](../../../references/dora/capabilities.md#transformational-leadership)
+
+Binds to [WDR-ANDON-STOPPINGISCHEAP](../../process/holding-the-line.md#rule-wdr-andon-stoppingischeap) and
+[WDR-KAIZEN-CONTINUOUSIMPROVEMENT](../../process/inspect-and-adapt.md#rule-wdr-kaizen-continuousimprovement).
 
 ### Rule EDR-DORA-LEADERSHIP-INDIRECTLEVER
 
 Treat leadership as an indirect lever on delivery performance: its effect runs through the technical and product-management practices it
 enables a team to adopt, not through the leader producing outcomes directly.
 
-- [Why it matters](#why-it-matters)
+Source: [DORA, Transformational leadership](../../../references/dora/capabilities.md#transformational-leadership)
 
 ### Rule EDR-DORA-LEADERSHIP-NOTSUFFICIENTALONE
 
@@ -23,21 +26,21 @@ Never treat strong leadership behaviors as sufficient on their own. Pair them wi
 leadership quality alone predicts only part of the variation in delivery performance, and even highly transformational leaders see teams
 with widely varying outcomes when the underlying practices are missing.
 
-- [Common pitfalls](#common-pitfalls)
+Source: [DORA, Transformational leadership](../../../references/dora/capabilities.md#transformational-leadership)
 
 ### Rule EDR-DORA-LEADERSHIP-CLEARGOALS
 
 Set clear, measurable delivery goals, use intellectual stimulation to help a team question its own assumptions, and recognize good work and
 safe experimentation deliberately — including attempts that fail — and hold to that behavior consistently, especially under stress.
 
-- [How to apply](#how-to-apply)
+Source: [DORA, Transformational leadership](../../../references/dora/capabilities.md#transformational-leadership)
 
 ### Rule EDR-DORA-LEADERSHIP-DISTRIBUTEDLEADERSHIP
 
 Distribute leadership rather than concentrating it in one named role. Anyone in a position to set direction, challenge assumptions, or
 recognize good work can and should practice these five behaviors, not only the person with the title.
 
-- [How to apply](#how-to-apply)
+Source: [DORA, Transformational leadership](../../../references/dora/capabilities.md#transformational-leadership)
 
 ## Context
 
@@ -76,15 +79,7 @@ obstacle to adopting them, regardless of how good the practices are on paper.
 
 ## How to apply
 
-This platform cannot encode leadership behavior directly — it is a property of people, not of code — but two of its process decisions are
-the concrete form two of the five dimensions take here. Holding the line states plainly that stopping the line is cheap and expected, never
-a failure event, and that punishing a stop teaches people to route around the cord instead — that is supportive leadership applied to a
-specific moment: whether a team member who halts the flow to report a defect is treated with support or blame decides whether the andon cord
-gets pulled again. Inspect-and-adapt builds continuous, evidence-driven reflection into the process itself — the discipline of routinely
-questioning how the team works and why — which is intellectual stimulation made a standing habit rather than an occasional leadership
-gesture.
-
-Beyond what a platform can enforce, apply the capability by setting delivery goals that are specific enough to be measurably true or false,
+Apply the capability by setting delivery goals that are specific enough to be measurably true or false,
 by treating obstacles as questions to put to the team rather than answers to hand down, by rewarding deliberate experimentation even when an
 attempt fails, and by keeping the same supportive, recognition-giving behavior under deadline pressure as when things are calm. Treat
 leadership as something anyone in a position to influence a team can practice, not as a behavior reserved for a named role.

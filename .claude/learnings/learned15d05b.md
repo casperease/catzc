@@ -47,3 +47,14 @@ Started 2026-10-26T16:36:54.9565876+01:00.
 - 2026-10-26 Cats: Token tip: Next time, save tokens by: generating a large list to a file and reading only the counts and the review lines,
   not the whole list.
 - 2026-10-26 Cats: Token tip: Next time, save tokens by: probing a CLI on three sample words before wiring it into a generator run.
+- 2026-10-26 Cats: In hindsight I wish I knew this fact: a staged burst whose C# adds an enum member must not be dry-run from a process that
+  dot-sourced the importer; the old Catzc.Types stays loaded and the new member reads unknown.
+- 2026-10-26 Cats: In hindsight I wish I knew this fact: Pester expands \<name> in an It title as a template variable, so a literal
+  {tool.\<name>} title fails with an unset variable.
+- 2026-10-26 Cats: In hindsight I wish I knew this fact: Test-GeneratedFiles over the whole tree fails on peers' stale outputs during a busy
+  session; -Generator scopes it to the writer a change touches.
+- 2026-10-26 Cats: In hindsight I wish I knew this fact: Get-FileMetaScope and Get-GeneratedStampDrift read tracked files only, so a
+  gitignored generated file never reaches the head checks.
+- 2026-10-26 Cats: Token tip: Next time, save tokens by: running the analyzer on staged files directly before the first dry run, not after
+  it fails.
+- 2026-10-26 Cats: Token tip: Next time, save tokens by: making the dry-run script snapshot in a child process from the start.

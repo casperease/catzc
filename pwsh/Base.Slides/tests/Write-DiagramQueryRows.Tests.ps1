@@ -37,18 +37,20 @@ Describe 'Write-DiagramQueryRows' -Tag 'L0', 'logic', 'DDR-VISUAL-ZOOMISANAXIS' 
         [System.IO.File]::WriteAllText($script:config,
             "flow-readers:`n  widget: { track: widget.pipelines, command: Get-WidgetFlowRows }`n  gadget: { track: gadget.workflows, command: Get-GadgetFlowRows }`n")
         Mock Get-Track -ModuleName Catzc.Base.Slides {
-            [pscustomobject]@{ name = $(if ($Path -like '.ado/*') {
-                        'widget.pipelines'
-                    }
-                    elseif ($Path -like '.github/*') {
-                        'gadget.workflows'
-                    }
-                    else {
-                        'docs'
-                    }) }
+            $name = if ($Path -like '.ado/*') {
+                'widget.pipelines'
+            }
+            elseif ($Path -like '.github/*') {
+                'gadget.workflows'
+            }
+            else {
+                'docs'
+            }
+            [pscustomobject]@{ name = $name }
         }
         function global:Get-WidgetFlowRows {
             param([string] $Point, [string] $RepositoryRoot)
+            $script:widgetReaderRoot = $RepositoryRoot
             [ordered]@{ point = $Point; lens = 'flow'; lanes = @([ordered]@{
                         id = 'ci-widget'; type = 'CI'; unit = 'widget'; engine = 'ado'; triggers = @('push'); review = $false
                         templates = @([ordered]@{ name = 'stages/build-widget.yaml'; kind = 'stage' }); environments = @()
@@ -83,10 +85,11 @@ Describe 'Write-DiagramQueryRows' -Tag 'L0', 'logic', 'DDR-VISUAL-ZOOMISANAXIS' 
 
     It 'files a flow point''s row from the reader its files'' track names in the kit config' -Tag 'DDR-VISUAL-FLOWISALENS' {
         $written = Invoke-Writer -Stem $script:flow
-        $row = @($written.rows)[0]
+        $row = $written.rows | Select-Object -First 1
         $row.lens | Should -BeExactly 'flow'
         $row.point | Should -BeExactly '.ado/pipelines/ci-widget.yaml;.ado/pipelines/cd-widget.yaml'
         $row.lanes[0].id | Should -BeExactly 'ci-widget'
+        $script:widgetReaderRoot | Should -BeExactly $script:root
     }
 
     It 'throws naming both tracks when a flow point''s files sit on two' {

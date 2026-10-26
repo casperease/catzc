@@ -1,4 +1,4 @@
-# RDR: DORA — Well-being
+# EDR: DORA — Well-being
 
 ## Rules: EDR-DORA-WELLBEING
 
@@ -7,21 +7,26 @@
 Well-being is a directly measured outcome — individuals' happiness and job satisfaction — because DORA's research ties it to organizational
 performance and job tenure, not a soft afterthought layered onto delivery metrics after the fact.
 
-- [Summary](#summary)
+Source: [DORA, Well-being](../../../references/dora/capabilities.md#well-being)
 
 ### Rule EDR-DORA-WELLBEING-REDUCEDEPLOYMENTPAIN
 
 Reduce deployment pain — the fear and anxiety of pushing code to production — with the same technical practices that drive continuous
 delivery; a painful release process is a well-being problem with a delivery-practice fix, not a separate morale program.
 
-- [How to apply](#how-to-apply)
+Source: [DORA, Well-being](../../../references/dora/capabilities.md#well-being)
+
+Binds to [FDR-CD-SHORTINTEGRATIONCYCLE](../../flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-shortintegrationcycle).
 
 ### Rule EDR-DORA-WELLBEING-SHRINKREWORK
 
 Track and shrink rework — unplanned, reactive work such as break/fix, emergency patches, and firefighting — because the ratio of new work to
 rework is simultaneously a quality signal and a well-being signal: teams that spend more time firefighting report worse outcomes on both.
 
-- [Why it matters](#why-it-matters)
+Source: [DORA, Well-being](../../../references/dora/capabilities.md#well-being)
+
+Binds to [PDR-POKAYOKE-FAILFAST](../../principles/poka-yoke.md#rule-pdr-pokayoke-failfast) and
+[PDR-POKAYOKE-ZEROCEREMONY](../../principles/poka-yoke.md#rule-pdr-pokayoke-zeroceremony).
 
 ### Rule EDR-DORA-WELLBEING-BURNOUTISENVIRONMENT
 
@@ -29,7 +34,7 @@ Treat burnout as a property of the work environment, never a property of the per
 (overload, lack of control, insufficient reward, breakdown of community, absence of fairness, value conflict) by changing how work is
 organized, not by asking individuals to cope better.
 
-- [Common pitfalls](#common-pitfalls)
+Source: [DORA, Well-being](../../../references/dora/capabilities.md#well-being)
 
 ## Context
 
@@ -62,16 +67,6 @@ new work and 22 percent less time on rework. Continuous delivery predicts lower 
 significant way, so implementing its technical practices drives higher quality as well as less firefighting. Burnout follows the same
 pattern: it correlates with pathological cultures and wasteful, unproductive work, so fixing delivery practices and culture also treats the
 conditions that produce burnout.
-
-## How to apply
-
-This platform reduces the two contributors within engineering's direct control. Deployment pain shrinks through the CI discipline and
-promotion flow, which keeps releases small, frequent, and mechanically gated rather than rare and high-stakes. Rework shrinks through
-fail-fast inline assertions, which surface a broken assumption at its exact point of failure instead of days later as an unplanned
-firefight, and through the zero-ceremony, hard-to-fail design, which prevents whole classes of mistakes structurally so they never become
-rework at all. None of this reaches the organizational risk factors behind burnout directly — those are a matter of how the organization
-manages people, not of platform design — but shrinking deployment pain and rework removes two of DORA's three named contributors to poor
-well-being.
 
 ## Common pitfalls
 

@@ -1,4 +1,4 @@
-# RDR: DORA — Visual management
+# EDR: DORA — Visual management
 
 ## Rules: EDR-DORA-VISUAL
 
@@ -7,35 +7,37 @@
 Display key information about the team's process — in-progress work, build status, deployment pipeline state, production telemetry — in a
 shared space every team member can reach, rather than leaving it in a private tool, a personal notebook, or someone's head.
 
-- [Summary](#summary)
+Source: [DORA, Visual management](../../../references/dora/capabilities.md#visual-management)
+
+Binds to [WDR-OBSERVEWIP-WORKSTATEVISIBLE](../../process/observe-work.md#rule-wdr-observewip-workstatevisible).
 
 ### Rule EDR-DORA-VISUAL-PARTOFCOMBINATION
 
 Treat visual management as one leg of a combination, not a standalone practice: a display raises delivery performance when it is paired with
 WIP limits and with feeding production telemetry back into business decisions, not when it stands alone as a dashboard nobody acts on.
 
-- [Why it matters](#why-it-matters)
+Source: [DORA, Visual management](../../../references/dora/capabilities.md#visual-management)
 
 ### Rule EDR-DORA-VISUAL-CHOSENWITHTEAM
 
 Choose what a display shows together with the team that reads it, and keep each display simple and actionable. A complex display, or one the
 team was never consulted on, does not get read and does not get acted on.
 
-- [Common pitfalls](#common-pitfalls)
+Source: [DORA, Visual management](../../../references/dora/capabilities.md#visual-management)
 
 ### Rule EDR-DORA-VISUAL-DISPLAYISMEANS
 
 Treat the display as a means, never the goal. A team that keeps a dashboard current but does not change its behaviour from what the
 dashboard shows has confused maintaining the display with solving the problem the display exists to surface.
 
-- [Common pitfalls](#common-pitfalls)
+Source: [DORA, Visual management](../../../references/dora/capabilities.md#visual-management)
 
 ### Rule EDR-DORA-VISUAL-REVIEWEDONCADENCE
 
 Review every display on a cadence — in a retrospective, ask whether it still gives people the information they need, whether it is up to
 date, and whether anyone is acting on it — and adjust, replace, or retire it as the team's context changes.
 
-- [How to apply](#how-to-apply)
+Source: [DORA, Visual management](../../../references/dora/capabilities.md#visual-management)
 
 ## Context
 
@@ -71,14 +73,6 @@ DORA's implementation guidance names retrospective as the mechanism for keeping 
 giving the team the information it needs, whether the information is up to date, whether people are acting on it, and whether the display is
 driving measurable improvement toward the team's goals. A negative answer to any of those questions is the signal to investigate, then
 adjust, eliminate, or prototype a replacement display — the practice is iterative, not a one-time setup.
-
-This platform realizes the capability in a few places. The value-chain diagrams render every commit's delivery state by construction —
-position is time, colour is the furthest state reached — so a reader decodes where a change is at a glance instead of reconstructing it from
-git history. The broader principle of making the state of the work visible, and judging progress from the real running artifact rather than
-a proxy, is stated directly as observe-the-work. Console output is treated as the CLI automation's only user-facing display surface, and is
-held to the same bar the DORA page sets for a good dashboard — signal over noise, current, and actionable — so a console session is itself a
-form of visual management for a tool with no GUI.
-
 ## Common pitfalls
 
 - **Choosing metrics without the team.** Selecting what a display shows unilaterally, rather than with the people who will read and act on

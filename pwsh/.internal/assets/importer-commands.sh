@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "876f031d5e13"
+#     with_body_sha: eddcbf3d7098
 #     warning: "Do Not Edit, this file is generated"
 # ---
 
@@ -310,7 +310,8 @@ uninstall_dev_box_tools			0	0	0	contracts/catzc/0.1.0/pwsh.tooling.provisioning/
 uninstall_dotnet	remove	switch	0	0	0	contracts/catzc/0.1.0/pwsh.tooling.toolchain/uninstall_dotnet.command.yml			uninstall-dotnet	remove	Uninstall-Dotnet	Remove
 uninstall_dotnet	force	switch	0	0	0	contracts/catzc/0.1.0/pwsh.tooling.toolchain/uninstall_dotnet.command.yml			uninstall-dotnet	force	Uninstall-Dotnet	Force
 uninstall_git			0	0	0	contracts/catzc/0.1.0/pwsh.tooling.provisioning/uninstall_git.command.yml			uninstall-git		Uninstall-Git	
-uninstall_go			0	0	0	contracts/catzc/0.1.0/pwsh.tooling.toolchain/uninstall_go.command.yml			uninstall-go		Uninstall-Go	
+uninstall_go	remove	switch	0	0	0	contracts/catzc/0.1.0/pwsh.tooling.toolchain/uninstall_go.command.yml			uninstall-go	remove	Uninstall-Go	Remove
+uninstall_go	force	switch	0	0	0	contracts/catzc/0.1.0/pwsh.tooling.toolchain/uninstall_go.command.yml			uninstall-go	force	Uninstall-Go	Force
 uninstall_java	version	string	0	0	0	contracts/catzc/0.1.0/pwsh.tooling.toolchain/uninstall_java.command.yml			uninstall-java	version	Uninstall-Java	Version
 uninstall_java	remove	switch	0	0	0	contracts/catzc/0.1.0/pwsh.tooling.toolchain/uninstall_java.command.yml			uninstall-java	remove	Uninstall-Java	Remove
 uninstall_java	force	switch	0	0	0	contracts/catzc/0.1.0/pwsh.tooling.toolchain/uninstall_java.command.yml			uninstall-java	force	Uninstall-Java	Force

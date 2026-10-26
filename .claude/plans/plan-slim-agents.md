@@ -105,16 +105,23 @@ Kit skills kept as they are, loaded by a job skill's steps: `drawio-declaration`
 
 1. [ ] `git-readonly` and `report-fixed` deleted, with their `capabilities.yml` entries, in the final pass, once no robot preloads them
        (catzc-core holds both since 2026-10-26). Check: `Test-AgentDefinitions`.
-2. [ ] The four drone files and their `agents.yml` entries (`model_reason` on sonnet, opus and fable). Check: `Test-AgentDefinitions`.
-3. [ ] One job skill per row of the mapping, one file at a time: the robot's body folded into its skill, the duplicate lines dropped, the
+2. [ ] One job skill per row of the mapping, one file at a time: the robot's body folded into its skill, the duplicate lines dropped, the
        robot file and its `agents.yml` entry deleted, the `capabilities.yml` entry updated. The `plan-decide` skill gains one merged line:
        the open-question search matches all three shapes in one grep (`## Open questions`, `[ ] Open question`,
        `Proposed ... Answer: yes or no`), and every option's description carries its why and its outcome in the tree (the user, 2026-10-25).
        Check: `Test-AgentDefinitions` after each.
-4. [ ] `pwsh/Tooling.Claude/types/ClaudeDroneConfig.cs` and its config: the default agent `catzc-drone` is removed; `Start-ClaudeDrone`
-       takes a required skill and resolves the drone from its `model_floor`, its tests with it. Check: `Invoke-TestFile` on
-       `ClaudeDroneConfig.Tests.ps1` and `Start-ClaudeDrone.Tests.ps1`.
-5. [ ] `.claude/CLAUDE.md` Sub-agents section: four bullets and one line saying jobs are the skills in `capabilities.yml`; this replaces
-       plan-claude-diet step 1, which is deleted in the same edit. The user's file. Check: `Test-AgentDefinitions`.
-6. [ ] Grep the tree for every old robot name (plans, prompts, docs, hooks, tests) and re-point each, one file at a time. Check: no match
+3. [ ] `pwsh/Tooling.Claude/types/ClaudeDroneConfig.cs` and its config: the default agent `catzc-drone` is removed; `Start-ClaudeDrone`
+       takes a required skill and resolves the drone from its `model_floor`, its tests with it. Staged with `.burst-base` files and dry-run
+       green (4 of 4) in
+       `C:\Users\caspe\AppData\Local\Temp\claude\C--projects-catzc\be4ec0a5-64dd-4146-bdb1-98f57bdfa3c0\scratchpad\slim-burst\staged` (new
+       private `Resolve-ClaudeSkillDrone` with its test); land with `Invoke-StagedBurst` in the final pass, rebuilt from this step if that
+       folder is gone. Check: `Invoke-TestFile` on `ClaudeDroneConfig.Tests.ps1`, `Start-ClaudeDrone.Tests.ps1` and
+       `Resolve-ClaudeSkillDrone.Tests.ps1`.
+4. [ ] `.claude/CLAUDE.md` Sub-agents section: the four drone bullets (in since 2026-10-26) stay, the deleted robots' bullets go, and one
+       line says jobs are the skills in `capabilities.yml`; the orchestrator applies it (the user authorized CLAUDE.md edits on 2026-10-26).
+       Check: `Test-AgentDefinitions`.
+5. [ ] Grep the tree for every old robot name (plans, prompts, docs, hooks, tests) and re-point each, one file at a time. Check: no match
        outside `git log`.
+6. [ ] Order: steps 1, 2, 3's burst and 5 run as one final pass, called by the orchestrator once every live session is at rest and right
+       before the user's commit (a session started earlier can still spawn a deleted robot); the orchestrator applies step 4 last. Check:
+       `Test-AgentDefinitions`, and a session started after the commit lists only the four drones and the kept specialists.

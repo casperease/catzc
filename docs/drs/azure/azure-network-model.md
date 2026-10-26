@@ -65,6 +65,15 @@ a workload's own are not used.
 
 - [CAF private access](#caf-private-access)
 
+### Rule ADR-AZ-NETWORK-CAFTOPOLOGY
+
+The network is hub-and-spoke per tier in one region, with `network.yml` as the one IP address management, every range a /16 inside 10.0.0.0/8,
+IPv4 only, and a security group per workload subnet that denies inbound internet traffic. The hub carries reserved gateway and firewall
+subnets with nothing deployed, so there is no hybrid link, no filtered egress, no spoke-to-spoke transit, no Virtual WAN, and no Virtual
+Network Manager.
+
+- [CAF topology](#caf-topology)
+
 ## Context
 
 A template that creates a virtual network needs an address space and subnet ranges. Those ranges are **global, cross-cutting state**: every
@@ -189,6 +198,40 @@ requires an entry for every subscription of the shipped `azure.yml`.
   cross-asset join over the two loaded configs and lists every violation; its integrity test runs it over the shipped files.
 - The shipped `network.yml` is exercised by the same integrity discipline as `azure.yml` (see
   [`test-automation`](../automation/test-automation.md)).
+
+### CAF topology
+
+Each tier has one hub in the one region with its spokes peered to it, the hub's resources in one resource group named with the region code
+(`nsub-weu-zct-disco-rg`), and each hub lists a handful of spokes, far below the peering limit. A spoke peers only to its hub and nothing
+is forwarded, so one spoke cannot reach another, and the non-production and production hubs are deliberately not peered. There is no
+ExpressRoute circuit, VPN gateway, branch, partner appliance, or route learned over BGP (the spoke route tables are empty), so nothing is
+dual-homed or force-tunnelled, no ExpressRoute and VPN transit needs Route Server, and customers are isolated by subscription and spoke.
+The hub carries only the two reserved subnets, `shared-services`, and the private DNS zones; the shared platform's own workload also lands
+in `shared-services`, which is more than the minimal set. It holds no Application Gateway or other inbound proxy; a workload that needs one
+carries it in its own template. No workload has a public endpoint, so a DDoS Protection plan has nothing to protect. Every environment
+deploys to one region, so no cross-region peering, hub routing, global mesh, or Virtual WAN transit has anything to connect. Network
+Watcher monitoring arrives with the flow logs, and the virtual network and its security groups send their logs and metrics to
+`foundation`'s workspace.
+
+`network.yml` is the one IP plan and `NetworkConfig` rejects any overlap between its networks
+([ADR-AZ-NETWORK-NOOVERLAP](#rule-adr-az-network-nooverlap)); there is no on-premises range to avoid. A virtual network takes its address
+space only from `network.yml` by config address, so no network exists without a planned range. The plan is arranged by archetype, hubs in
+10.0 and 10.1, the environment networks in 10.10 to 10.40, spokes from 10.100 upward, and every network is a /16, one even step per
+subscription, of which the private block holds 256, so the plan has room to spare and no sizes to request. Every range lies inside
+10.0.0.0/8, but no check requires a private range or rejects a reserved or public one; a private-range check in `NetworkConfig` would do
+both. A subscription removed from `azure.yml` makes `Test-AzureNetworkPlan` fail until its network leaves `network.yml`, which frees its
+range; a new subscription reserves its range by pull request, validated on load, and no API reserves one automatically. The hub reserves
+`GatewaySubnet` and `AzureFirewallSubnet` at the sizes those services need, and no template deploys another service that reserves
+addresses. The plan is IPv4 only, no workload has IPv6 clients, and so there is no dual-stack network, IPv6 block, route, or security rule,
+no translating appliance, and no Front Door.
+
+Every workload subnet has a network security group that denies inbound internet traffic and allows all traffic among the peered networks, so
+segmentation is a group per subnet with no central appliance between them and no rule finer than the virtual network boundary. The subnets
+are planned centrally in `network.yml`, not by the landing zone's owner, and no policy requires a security group. No template deploys a
+virtual machine, so an application security group has nothing to group, and no outbound rule is needed because nothing is force-tunnelled.
+Peerings and security rules are declared in config and deployed by `discovery`, not managed by Virtual Network Manager, which has no
+management group or tenant to reach here; the flows that must hold are the security group rules the landing zone owns, not admin rules above
+them. Virtual network flow logs with traffic analytics are not deployed.
 
 ### CAF private access
 

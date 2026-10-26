@@ -1,4 +1,4 @@
-# RDR: DORA — Work in process limits
+# EDR: DORA — Work in process limits
 
 ## Rules: EDR-DORA-WIP
 
@@ -7,35 +7,41 @@
 A work in process (WIP) limit caps how much work is simultaneously assigned to a team member or sits in a workflow stage at once, so effort
 concentrates on finishing a small number of high-priority items rather than spreading across many concurrent ones.
 
-- [Summary](#summary)
+Source: [DORA, WIP limits](../../../references/dora/capabilities.md#wip-limits)
+
+Binds to [WDR-PULLWORK-LIMITWORKINPROGRESS](../../process/pull-work.md#rule-wdr-pullwork-limitworkinprogress).
 
 ### Rule EDR-DORA-WIP-VISUALIZEFIRST
 
 Visualize the work before limiting it. A board with a column per workflow stage — analysis, development, testing, operations — is the
 precondition a WIP limit needs, because a limit on invisible work cannot be enforced or checked.
 
-- [How to apply](#how-to-apply)
+Source: [DORA, WIP limits](../../../references/dora/capabilities.md#wip-limits)
+
+Binds to [WDR-OBSERVEWIP-WORKSTATEVISIBLE](../../process/observe-work.md#rule-wdr-observewip-workstatevisible).
 
 ### Rule EDR-DORA-WIP-SIZETOCAPACITY
 
 Size each column's limit to the real capacity of the people who work it, not to an aspirational or round number — for example, four pairs of
 developers implies a development-column limit of four, not more.
 
-- [How to apply](#how-to-apply)
+Source: [DORA, WIP limits](../../../references/dora/capabilities.md#wip-limits)
 
 ### Rule EDR-DORA-WIP-HOLDTHELIMIT
 
 Hold the limit once set, including through the idle time it sometimes produces. Idle time is a signal to fix the process causing the delay,
 never a reason to raise the limit back up.
 
-- [Common pitfalls](#common-pitfalls)
+Source: [DORA, WIP limits](../../../references/dora/capabilities.md#wip-limits)
 
 ### Rule EDR-DORA-WIP-IMPOSEDNOTMEASURED
 
 Treat the limit itself as something imposed, not measured. What gets measured is its effect — mean lead time and its variability, whether
 flow is increasing, whether obstacles surface, and whether the resulting actions target the real constraint.
 
-- [Why it matters](#why-it-matters)
+Source: [DORA, WIP limits](../../../references/dora/capabilities.md#wip-limits)
+
+Binds to [WDR-QUEUECOST-LITTLESLAW](../../process/queues-cost-money.md#rule-wdr-queuecost-littleslaw).
 
 ## Context
 
@@ -74,12 +80,6 @@ Make the invisible work visible first: a storyboard with a column per workflow s
 board there is nothing concrete to cap. Give each column an explicit limit — how many items may sit in it at once — set from the real
 capacity of the people who work it, not from an aspirational or round number. When a stage's limit is reached, stop starting new work there
 and instead work on unblocking what is already in flight.
-
-Within this platform, the pull discipline this capability enforces is the general rule: work is drawn into a stage only when it has capacity
-to finish it, and limiting work in progress is what turns that pull into a mechanism rather than a slogan. The economic case for the cap
-follows Little's Law — with throughput roughly fixed in the short run, cutting work in progress is what lowers lead time. And the storyboard
-itself depends on the work being observed and rendered rather than tracked from memory.
-
 ## Common pitfalls
 
 - **Limiting a stage without visualizing the whole stream.** Capping one column while the rest of the value stream stays invisible leads

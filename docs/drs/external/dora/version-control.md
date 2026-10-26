@@ -1,4 +1,4 @@
-# RDR: DORA — Version control
+# EDR: DORA — Version control
 
 ## Rules: EDR-DORA-VCS
 
@@ -7,28 +7,34 @@
 Everything required to reproduce a build, deployment, or environment lives in version control — application code, scripts, configuration,
 infrastructure definitions, and pipeline definitions — not only the application source.
 
-- [Summary](#summary)
+Source: [DORA, Version control](../../../references/dora/capabilities.md#version-control)
+
+Binds to [PDR-EAC-EVERYTHINGCOMMITTED](../../principles/everything-as-code.md#rule-pdr-eac-everythingcommitted).
 
 ### Rule EDR-DORA-VCS-REPRODUCIBLEANDTRACEABLE
 
 Version control exists to serve two properties: reproducibility (any past state can be rebuilt from the recorded history) and traceability
 (every change is attributable to an author, a time, and a reason).
 
-- [Why it matters](#why-it-matters)
+Source: [DORA, Version control](../../../references/dora/capabilities.md#version-control)
+
+Binds to [PDR-EAC-DIFFABLEISVERSIONED](../../principles/everything-as-code.md#rule-pdr-eac-diffableisversioned).
 
 ### Rule EDR-DORA-VCS-VCSSCOPE
 
 Comprehensive versioning is the scope, not partial versioning — a system whose code is tracked but whose configuration or infrastructure is
 not is only partly under version control, and the untracked part is where irreproducible drift accumulates.
 
-- [Common pitfalls](#common-pitfalls)
+Source: [DORA, Version control](../../../references/dora/capabilities.md#version-control)
+
+Binds to [PDR-ONELIVE-ONEVERSION](../../principles/one-living-version.md#rule-pdr-onelive-oneversion).
 
 ### Rule EDR-DORA-VCS-SMALLFREQUENTCOMMITS
 
 Inner-loop discipline is part of the capability — frequent, small commits with clear messages are what make the history a usable safety net;
 large, infrequent commits and unmanaged merge conflicts erode it.
 
-- [Common pitfalls](#common-pitfalls)
+Source: [DORA, Version control](../../../references/dora/capabilities.md#version-control)
 
 ## Context
 
@@ -58,12 +64,6 @@ DORA's research associates comprehensive version control with higher software de
 reproducibility and traceability: when any state can be rebuilt and every change is attributable, disaster recovery becomes a checkout,
 auditing becomes reading history, and diagnosing a defect becomes bisecting a known sequence of changes rather than reconstructing what
 happened. Without it, each of those becomes archaeology.
-
-## How to apply
-
-This platform realizes the capability by keeping every operational artifact in the repository and carrying exactly one living version of
-each with all history in git rather than in retained files. Trunk-based development and short-lived branches keep the inner-loop discipline
-this capability depends on, and the audited server remote is the single source of truth for what is on main.
 
 ## Common pitfalls
 

@@ -1,4 +1,4 @@
-# RDR: DORA — Test data management
+# EDR: DORA — Test data management
 
 ## Rules: EDR-DORA-TESTDATA
 
@@ -7,21 +7,26 @@
 Every automated test owns the data it exercises — a fixture the test (or its harness) creates and controls, never a shared or external data
 set whose shape the test cannot pin down.
 
-- [Summary](#summary)
+Source: [DORA, Test data management](../../../references/dora/capabilities.md#test-data-management)
+
+Binds to [ADR-AUTO-TEST-LOGICANDINTEGRITY](../../automation/test-automation.md#rule-adr-auto-test-logicandintegrity) and
+[ADR-AUTO-TEST-DISTINCTFIXTURES](../../automation/test-automation.md#rule-adr-auto-test-distinctfixtures).
 
 ### Rule EDR-DORA-TESTDATA-MINIMIZEFIRST
 
 Minimize test data before managing it. A test that needs no external data — an in-memory value, a generated input, a synthetic record —
 beats one that acquires, wires, and maintains a data set, because the acquired set is the ongoing cost.
 
-- [Why it matters](#why-it-matters)
+Source: [DORA, Test data management](../../../references/dora/capabilities.md#test-data-management)
 
 ### Rule EDR-DORA-TESTDATA-ISOLATEDDATA
 
 Test data is isolated per test (or per run): no test's data is read, written, or reset by another test, another process, or a shared
 environment. Isolation is a property the test setup guarantees, not a habit of carefulness.
 
-- [Common pitfalls](#common-pitfalls)
+Source: [DORA, Test data management](../../../references/dora/capabilities.md#test-data-management)
+
+Binds to [ADR-AUTO-TEST-SAFESEAMSWAPS](../../automation/test-automation.md#rule-adr-auto-test-safeseamswaps).
 
 ### Rule EDR-DORA-TESTDATA-EXTERNALDATALASTRESORT
 
@@ -29,14 +34,18 @@ Database-stored or externally-hosted test data is a last resort, chosen only whe
 in-memory or file-based fixture is preferred by default, because a shared datastore blocks parallel test runs and invites ordering-dependent
 flakiness.
 
-- [How to apply](#how-to-apply)
+Source: [DORA, Test data management](../../../references/dora/capabilities.md#test-data-management)
+
+Binds to [ADR-AUTO-TEST-NOCLOUDBELOWLTHREE](../../automation/test-automation.md#rule-adr-auto-test-nocloudbelowlthree).
 
 ### Rule EDR-DORA-TESTDATA-NOPRODUCTIONDATA
 
 Production data never reaches a test fixture verbatim. Data derived from production is masked, hashed, or replaced with synthetic values
 before a test touches it, and a fixture's identity is always distinct from any real environment, customer, or record.
 
-- [Common pitfalls](#common-pitfalls)
+Source: [DORA, Test data management](../../../references/dora/capabilities.md#test-data-management)
+
+Binds to [ADR-AUTO-TEST-DISTINCTFIXTURES](../../automation/test-automation.md#rule-adr-auto-test-distinctfixtures).
 
 ## Context
 
@@ -68,18 +77,6 @@ for use in tests poses a security risk whenever that data contains anything sens
 
 Each of these costs compounds: a test suite that depends on scarce, slow, or risky data gets run less often, trusted less, and eventually
 worked around rather than fixed — the opposite of what automated testing is meant to buy a team.
-
-## How to apply
-
-This platform's split between logic tests and integrity tests is this capability applied directly: a logic test owns its own fixture data
-under `tests/assets/` with deliberately distinct identities (envs `alpha`/`beta`, customers `acme`/`globex`, org `tst`) so it can never
-collide with, or depend on, production. Isolation comes from mockable seams — `Get-BicepTemplatesRoot`, `Resolve-ConfigEntry` — that
-redirect discovery to a fixture tree rather than from editing or borrowing real data. No tier below L3 depends on live connectivity, so the
-data a test needs is exactly the data it carries with it.
-
-The conventional folder layout makes this the only place fixture data can go: `tests/assets/` is packaged with the tests that consume it,
-distinct from the module's own shipped `assets/`, so a reviewer sees at a glance that a test's data is scoped to that test and not a runtime
-asset masquerading as one.
 
 ## Common pitfalls
 

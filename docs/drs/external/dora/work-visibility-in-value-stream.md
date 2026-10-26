@@ -1,4 +1,4 @@
-# RDR: DORA — Visibility of work in the value stream
+# EDR: DORA — Visibility of work in the value stream
 
 ## Rules: EDR-DORA-WORKVIS
 
@@ -8,14 +8,18 @@ Make the flow of work visible end to end, from business intent through to the cu
 Visibility of work means understanding how work moves through the whole value stream and having visibility into that flow, including product
 and feature status.
 
-- [Summary](#summary)
+Source: [DORA, Work visibility in value stream](../../../references/dora/capabilities.md#work-visibility-in-value-stream)
+
+Binds to [WDR-OBSERVEWIP-OBSERVEWHOLESTREAM](../../process/observe-work.md#rule-wdr-observewip-observewholestream).
 
 ### Rule EDR-DORA-WORKVIS-SHAREDDISPLAY
 
 Keep the current state of work on a shared, visual display or dashboard that anyone can read, rather than reconstructing it from memory, a
 status meeting, or a chat thread. Information about the flow of product development work stays readily available, not gathered on request.
 
-- [How to apply](#how-to-apply)
+Source: [DORA, Work visibility in value stream](../../../references/dora/capabilities.md#work-visibility-in-value-stream)
+
+Binds to [WDR-OBSERVEWIP-WORKSTATEVISIBLE](../../process/observe-work.md#rule-wdr-observewip-workstatevisible).
 
 ### Rule EDR-DORA-WORKVIS-MAPWITHSTAKEHOLDERS
 
@@ -23,21 +27,21 @@ Map the value stream with the cross-functional stakeholders who actually do the 
 team's segment of it, and record lead time, process time, and percent complete and accurate at each step. Re-run the mapping exercise
 periodically rather than treating one map as permanent.
 
-- [How to apply](#how-to-apply)
+Source: [DORA, Work visibility in value stream](../../../references/dora/capabilities.md#work-visibility-in-value-stream)
 
 ### Rule EDR-DORA-WORKVIS-DRIVESPERFORMANCE
 
 Treat visibility of work as a driver of organizational performance as well as delivery performance — profitability, market share, and
 productivity — not merely a delivery-team convenience.
 
-- [Why it matters](#why-it-matters)
+Source: [DORA, Work visibility in value stream](../../../references/dora/capabilities.md#work-visibility-in-value-stream)
 
 ### Rule EDR-DORA-WORKVIS-TARGETBOTTLENECK
 
 Direct improvement effort at the bottleneck the value-stream map actually shows, and grant the team the authority to change it, rather than
 assuming the organization already understands its own stream or polishing the step that is easiest to see.
 
-- [Common pitfalls](#common-pitfalls)
+Source: [DORA, Work visibility in value stream](../../../references/dora/capabilities.md#work-visibility-in-value-stream)
 
 ## Context
 
@@ -70,12 +74,7 @@ irritating rather than the one that is actually constraining throughput.
 
 ## How to apply
 
-This platform renders the flow rather than reporting on it: the value-chain diagrams show every commit's delivery state by construction —
-position is time, colour is the furthest state reached — so a reader decodes where a change sits without asking anyone. The underlying
-discipline that diagram specialises is stated generally: treat the state of work as something rendered and observed, not inferred from
-memory, and judge progress from the real running artifact rather than a proxy like a ticket status.
-
-Applying the capability elsewhere follows the same shape: pick a flow worth mapping, walk it end to end with the people who actually do each
+Pick a flow worth mapping, walk it end to end with the people who actually do each
 step, record where time is spent rather than assuming, and put the resulting picture somewhere everyone can see it without asking — a
 dashboard, a rendered diagram, or a shared board — and revisit it on a cadence rather than once.
 

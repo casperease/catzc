@@ -1,4 +1,4 @@
-# DORA research — capability summaries
+# EDR: DORA — capability summaries
 
 This area summarizes [DORA](../../../references/dora/index.md) — the research program behind the repository's delivery thinking — as a set
 of external records, one per capability. Each article carries an `EDR-DORA-<NAME>` rule domain so its findings can be cited like any other

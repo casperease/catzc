@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "68915e562576"
+    with_body_sha: c5e8f1b8a9ce
     warning: "Do Not Edit, this file is generated"
 ---
 
@@ -266,7 +266,7 @@ The current version: edited in place
 | `pwsh.tooling.toolchain`              | `uninstall_az_cli.command.yml`                   | `pwsh/Tooling.Toolchain/Uninstall-AzCli.ps1`                           | provided  | command contract | `remove: switch, force: switch`                                                                                                                                                                                                                                                                                                                                     |
 | `pwsh.tooling.toolchain`              | `uninstall_bicep.command.yml`                    | `pwsh/Tooling.Toolchain/Uninstall-Bicep.ps1`                           | provided  | command contract | `version: string`                                                                                                                                                                                                                                                                                                                                                   |
 | `pwsh.tooling.toolchain`              | `uninstall_dotnet.command.yml`                   | `pwsh/Tooling.Toolchain/Uninstall-Dotnet.ps1`                          | provided  | command contract | `remove: switch, force: switch`                                                                                                                                                                                                                                                                                                                                     |
-| `pwsh.tooling.toolchain`              | `uninstall_go.command.yml`                       | `pwsh/Tooling.Toolchain/Uninstall-Go.ps1`                              | provided  | command contract | `no parameters`                                                                                                                                                                                                                                                                                                                                                     |
+| `pwsh.tooling.toolchain`              | `uninstall_go.command.yml`                       | `pwsh/Tooling.Toolchain/Uninstall-Go.ps1`                              | provided  | command contract | `remove: switch, force: switch`                                                                                                                                                                                                                                                                                                                                     |
 | `pwsh.tooling.toolchain`              | `uninstall_java.command.yml`                     | `pwsh/Tooling.Toolchain/Uninstall-Java.ps1`                            | provided  | command contract | `version: string, remove: switch, force: switch`                                                                                                                                                                                                                                                                                                                    |
 | `pwsh.tooling.toolchain`              | `uninstall_shellcheck.command.yml`               | `pwsh/Tooling.Toolchain/Uninstall-Shellcheck.ps1`                      | provided  | command contract | `version: string`                                                                                                                                                                                                                                                                                                                                                   |
 | `pwsh.tooling.toolchain`              | `uninstall_terraform.command.yml`                | `pwsh/Tooling.Toolchain/Uninstall-Terraform.ps1`                       | provided  | command contract | `version: string`                                                                                                                                                                                                                                                                                                                                                   |
@@ -470,8 +470,8 @@ Notes:
   highlight.
 - `pwsh.base.maps/minimap.schema.json`: The schema of one minimap's data, the axes and cells the maps module writes and the diagram kit
   draws, every lit cell with its reason.
-- `pwsh.base.maps/query-rows.schema.json`: The schema of the query rows a C3, C4 or flow slide is drawn from: one row per level and point of
-  the tree with its nodes and the edges between them, or one row per flow point with its lanes and the edges between them.
+- `pwsh.base.maps/query-rows.schema.json`: The schema of the query rows a C3, C4 or flow slide is drawn from, one row per point with its
+  edges, and its level and nodes or its flow lens and lanes.
 - `pwsh.base.maps/test_value_chain_map.command.yml`: Checks that every ADR sits in a cell of the value-chain map and that every label the
   value-chain map prints is a glossary term.
 - `pwsh.base.maps/test_world_map.command.yml`: Checks that every tracked file sits in a declared track and its tech-stack, and that every
