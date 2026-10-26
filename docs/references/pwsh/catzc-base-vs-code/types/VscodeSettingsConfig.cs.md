@@ -1,16 +1,15 @@
 # pwsh/Base.VSCode/types/VscodeSettingsConfig.cs
 
-The typed record of the VS Code workspace-settings registry, `configs/vscode-settings.yml`: the one authored file that
-`New-VsCodeSettings` renders to the managed `.vscode/settings.json`
-([ADR-REPO-ROOTCFG](../../../../drs/repository/generated-root-configs.md)). It is registered in `Catzc.Base.Config/configs/configs.yml`
-(`type: Catzc.Base.VSCode.VscodeSettingsConfig`), so `Get-Config -Config vscode-settings` returns this typed model. Its properties mirror the
-YAML mapping
+The typed record of the VS Code workspace-settings registry, `configs/vscode-settings.yml`: the one authored file that `New-VsCodeSettings`
+renders to the managed `.vscode/settings.json` ([ADR-REPO-ROOTCFG](../../../../drs/repository/generated-root-configs.md)). It is registered
+in `Catzc.Base.Config/configs/configs.yml` (`type: Catzc.Base.VSCode.VscodeSettingsConfig`), so `Get-Config -Config vscode-settings` returns
+this typed model. Its properties mirror the YAML mapping
 ([ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](../../../../drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
 
 ## Settings
 
-The settings are VS Code's own keys (dotted, camelCase: `markdown.preview.fontSize`, `[powershell]`), data passed through to the editor as is.
-The type keeps them as an ordered passthrough map (`settings`) rather than typing each key.
+The settings are VS Code's own keys (dotted, camelCase: `markdown.preview.fontSize`, `[powershell]`), data passed through to the editor as
+is. The type keeps them as an ordered passthrough map (`settings`) rather than typing each key.
 
 ## Validation
 

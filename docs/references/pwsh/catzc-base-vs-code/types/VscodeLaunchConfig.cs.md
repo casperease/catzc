@@ -1,7 +1,7 @@
 # pwsh/Base.VSCode/types/VscodeLaunchConfig.cs
 
-The typed record of the VS Code launch-profile registry, `configs/vscode-launch.yml`: the one authored file that `New-VsCodeLaunch`
-renders to the managed `.vscode/launch.json` ([ADR-REPO-ROOTCFG](../../../../drs/repository/generated-root-configs.md)). It is registered in
+The typed record of the VS Code launch-profile registry, `configs/vscode-launch.yml`: the one authored file that `New-VsCodeLaunch` renders
+to the managed `.vscode/launch.json` ([ADR-REPO-ROOTCFG](../../../../drs/repository/generated-root-configs.md)). It is registered in
 `Catzc.Base.Config/configs/configs.yml` (`type: Catzc.Base.VSCode.VscodeLaunchConfig`), so `Get-Config -Config vscode-launch` returns this
 typed model. Its properties mirror the YAML mapping
 ([ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](../../../../drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).

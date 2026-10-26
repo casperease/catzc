@@ -49,10 +49,10 @@ extension's id.
 
 ## Lamp glyphs
 
-A lamp is authored as its two green base glyphs, `<lamp>-on.svg` and `<lamp>-off.svg`. Every condition variant is rendered from them with the
-lamp palette: the stroke takes the range's glyph shade, the condition adds its badge, and veto strikes the unlit glyph.
+A lamp is authored as its two green base glyphs, `<lamp>-on.svg` and `<lamp>-off.svg`. Every condition variant is rendered from them with
+the lamp palette: the stroke takes the range's glyph shade, the condition adds its badge, and veto strikes the unlit glyph.
 
 - A base glyph whose top-right corner is drawn on declares `data-badge="bottom"`; its badge then sits bottom-right.
 - A base glyph that declares `data-empty="hidden"` is drawn fully transparent while its lamp claims nothing, keeping its place in the row.
-- A repeat that names glyphs draws one label glyph per item, `<glyphs><key>-on/off.svg` with the item's title as its label, so the
-  lamps it repeats need no hand-drawn icon; the pass that recolours the base glyphs per condition recolours them too.
+- A repeat that names glyphs draws one label glyph per item, `<glyphs><key>-on/off.svg` with the item's title as its label, so the lamps it
+  repeats need no hand-drawn icon; the pass that recolours the base glyphs per condition recolours them too.

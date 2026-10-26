@@ -26,5 +26,5 @@ The extension's contributes block as the config declares it.
 
 ## The item lists
 
-Each repeat's list is the declared leading items, the items of a config's list, then the declared trailing items, each as `{ value, title,
-position }`.
+Each repeat's list is the declared leading items, the items of a config's list, then the declared trailing items, each as
+`{ value, title, position }`.

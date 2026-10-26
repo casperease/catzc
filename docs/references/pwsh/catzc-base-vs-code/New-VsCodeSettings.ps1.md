@@ -1,7 +1,7 @@
 # pwsh/Base.VSCode/New-VsCodeSettings.ps1
 
-The renderer of `.vscode/settings.json` from the `vscode-settings` registry, completed with the machine-resolved settings, the formatters, the
-lamps' filters and the `.editorconfig` baseline.
+The renderer of `.vscode/settings.json` from the `vscode-settings` registry, completed with the machine-resolved settings, the formatters,
+the lamps' filters and the `.editorconfig` baseline.
 
 ## help
 

@@ -1,6 +1,7 @@
 # pwsh/Base.VSCode/configs/vscode-settings.yml
 
-The VS Code workspace-settings registry: the one authored file that `.vscode/settings.json` is rendered from. Edit this file, never `settings.json`.
+The VS Code workspace-settings registry: the one authored file that `.vscode/settings.json` is rendered from. Edit this file, never
+`settings.json`.
 
 ## Rendering and validation
 
@@ -8,9 +9,9 @@ The settings file the editor reads is a managed, gitignored copy rendered from t
 `Build-RootConfig`; see `rootconfig.yml` and [ADR-REPO-ROOTCFG](../../../../drs/repository/generated-root-configs.md)). Explanations live in
 the registry as comments; the rendered JSON carries only a generated-file header, which is legal since VS Code reads JSONC.
 
-`Get-Config -Config vscode-settings` loads it as `Catzc.Base.VSCode.VscodeSettingsConfig`. The settings stay a free-form, ordered passthrough
-map of VS Code keys; the type checks the shape: only `settings`, non-empty; a `[language]` override is a map; `search.exclude` maps each glob
-to true or false.
+`Get-Config -Config vscode-settings` loads it as `Catzc.Base.VSCode.VscodeSettingsConfig`. The settings stay a free-form, ordered
+passthrough map of VS Code keys; the type checks the shape: only `settings`, non-empty; a `[language]` override is a map; `search.exclude`
+maps each glob to true or false.
 
 The `search.exclude` map is completed at render time. Every managed root-config target (`rootconfig.yml`, opted in) is added automatically,
 so find-all always hits the authored file, never a generated copy, and the editor stays glued to the tooling with no second list to
@@ -35,7 +36,8 @@ Code reads every footnote use (`[^1]`) as an undefined reference link, and markd
 - One-line blocks (`if ($x) { ... }`) are broken across lines on format, so no block keeps its braces on a single line. This matches the
   psd1's `PSPlaceOpenBrace` and `PSPlaceCloseBrace` `IgnoreOneLineBlock = $false`.
 
-The formatter of `[markdown]`, and of every language `languages.yml` gives a formatter engine, is injected by the generator from that registry
+The formatter of `[markdown]`, and of every language `languages.yml` gives a formatter engine, is injected by the generator from that
+registry
 ([ADR-REPO-FORMAT-CONFIGUREDFORMATTERS](../../../../drs/repository/uniform-formatting.md#rule-adr-repo-format-configuredformatters)), so
 Format Document runs the engine `Format-Code` runs. Format-on-save stays off: formatting is on demand and enforced by `Test-Formatting`. XML
 is never reformatted: no engine formats it (`languages.yml`), and the editor's XML formatter rewraps element text.
@@ -50,26 +52,26 @@ is never reformatted: no engine formats it (`languages.yml`), and the editor's X
   hand-edited, so it stays watched. The installed tool trees (the Python test environment, node packages) hold thousands of files nobody
   edits, so they are not watched. `out/` stays watched: the explorer shows each new run's report as it lands.
 - **`files.exclude`** hides ignored paths that have no `!` exception, everywhere (explorer, search, quick open). The globs with exceptions
-  (`README.md`, `*.psd1`, `*.pdf`) stay visible, because `files.exclude` would hide the tracked files too. `explorer.excludeGitIgnore` is not
-  set: it would hide the generated settings folders (`.vscode` and the root config copies), which are ignored on purpose and still wanted in
-  the explorer.
+  (`README.md`, `*.psd1`, `*.pdf`) stay visible, because `files.exclude` would hide the tracked files too. `explorer.excludeGitIgnore` is
+  not set: it would hide the generated settings folders (`.vscode` and the root config copies), which are ignored on purpose and still
+  wanted in the explorer.
 - **`hidden_actions`** lists the editor actions kept off its menus, by menu id: the Explorer's title row shows only the track lamps. VS Code
   keeps this in its own state store, never in `settings.json`; `Set-VsCodeHiddenAction` writes it there while VS Code is closed.
 
 ## File associations and editors
 
 `files.associations` treats LICENSE files as plain text so markdownlint ignores them, maps `.yml` to generic YAML and `.yaml` to Azure
-Pipelines YAML, maps `.markdownlintignore` to the built-in `ignore` (`.gitignore`) language so it is treated as a gitignore-syntax ignore file
-and not as Markdown, and maps captured console output under `out/` to `ansi` (`iliazeus.vscode-ansi`), so the writers' colours render and the
-escape codes are hidden.
+Pipelines YAML, maps `.markdownlintignore` to the built-in `ignore` (`.gitignore`) language so it is treated as a gitignore-syntax ignore
+file and not as Markdown, and maps captured console output under `out/` to `ansi` (`iliazeus.vscode-ansi`), so the writers' colours render
+and the escape codes are hidden.
 
 `workbench.editorAssociations` routes `*.drawio.png` to VS Code's built-in image preview editor (viewType `imagePreview.previewEditor`, from
 the bundled media-preview extension) instead of the Draw.io extension's binary custom editor. That is what makes git Compare show a real
 raw-pixel image diff (side by side or slider), which the Draw.io editor cannot give. The value must be the image-preview viewType, not
 `default`: `default` is the built-in text editor and yields "file is binary or uses an unsupported encoding" on a PNG. VS Code has no way to
 pick an editor by diff versus open, so the association also applies to a plain open: double-clicking a `.drawio.png` shows the image, and
-editing the diagram is right-click, Reopen Editor With, "Draw.io (Binary)". Pixels first was the deliberate call: these diagrams are compared
-far more than edited.
+editing the diagram is right-click, Reopen Editor With, "Draw.io (Binary)". Pixels first was the deliberate call: these diagrams are
+compared far more than edited.
 
 ## Languages and tools
 
@@ -82,8 +84,8 @@ far more than edited.
   the tests run through `Test-Automation`, not an activated venv. Both activation keys are set: the Python extension reads the first, the
   Python Environments extension the second. Python writes its bytecode cache to `out/pycache` in every terminal of the editor, as
   `Invoke-PythonTest` has it, never beside the code files.
-- **Schemas**: no extension fetches a schema. The YAML extension never asks SchemaStore and JSON never downloads one; every schema the editor
-  checks against is a local file named in the settings.
+- **Schemas**: no extension fetches a schema. The YAML extension never asks SchemaStore and JSON never downloads one; every schema the
+  editor checks against is a local file named in the settings.
 - **Spell checking**: the single repository dictionary lives in `/cspell.yml`, auto-discovered by Code Spell Checker; the extension is
   recommended in `.vscode/extensions.json`.
 
@@ -96,8 +98,8 @@ stale-environment indicator stays on.
 
 ## Git state
 
-The Git decorations on the open file take the lamps' one mapping (DDR-FILTER), with the shades named from the lamp palette, in the explorer and
-the tab title. The gutter, right-hand ruler and minimap show the working tree's changes, so unstaged.
+The Git decorations on the open file take the lamps' one mapping (DDR-FILTER), with the shades named from the lamp palette, in the explorer
+and the tab title. The gutter, right-hand ruler and minimap show the working tree's changes, so unstaged.
 
 ## editorconfig
 
