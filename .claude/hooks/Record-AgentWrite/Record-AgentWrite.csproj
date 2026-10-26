@@ -1,11 +1,8 @@
 <!--
-  The Claude Code hook that records what agent sessions write (Program.cs). Build-AgentHook publishes
-it, framework-dependent,
-  to .claude/hooks/bin/ whenever its sources change; obj/bin here and the published output are
-gitignored.
+  The Claude Code hook that records what agent sessions write (Program.cs). Build-AgentHook publishes it, framework-dependent,
+  to .claude/hooks/bin/ whenever its sources change; obj/bin here and the published output are gitignored.
 
-  The ledger's path and line format, and the content hash, are the Catzc modules' own types, compiled
-in from their source files,
+  The ledger's path and line format, and the content hash, are the Catzc modules' own types, compiled in from their source files,
   so the hook and the listener that reads the ledger can never drift apart.
 -->
 <Project Sdk="Microsoft.NET.Sdk">

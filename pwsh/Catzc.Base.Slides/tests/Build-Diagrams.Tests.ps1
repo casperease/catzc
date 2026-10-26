@@ -24,7 +24,7 @@ Describe 'Build-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' 
 
     BeforeEach {
         Mock Get-GitTrackedPath -ModuleName Catzc.Base.Slides { $script:tracked |
-            Where-Object { $_ -notlike 'docs/gadgets/*' } }
+                Where-Object { $_ -notlike 'docs/gadgets/*' } }
         Mock Get-GitChangedPath -ModuleName Catzc.Base.Slides { }
         Mock Resolve-ToolExecutable -ModuleName Catzc.Base.Slides { [pscustomobject]@{ Found = $true; Path = 'C:/tools/uv.exe' } }
         Mock Write-DiagramMinimapData -ModuleName Catzc.Base.Slides { }

@@ -54,7 +54,8 @@ Describe 'GlossaryConfig' -Tag 'L0', 'logic' {
     It 'overrides only the options a source sets, and always keeps the default excludes first' -Tag 'ADR-REPO-VOCAB-GLOSSARYSOURCE' {
         $c = & $script:make ([ordered]@{
                 options  = [ordered]@{ checks = @('avoid'); scope = @('docs/**'); exclude = @('docs/widget/**',
-                    'out/**') }
+                        'out/**')
+                }
                 concepts = [ordered]@{ 'widget suite' = (& $script:concept) }
             })
         $c.options.checks | Should -Be @('avoid')

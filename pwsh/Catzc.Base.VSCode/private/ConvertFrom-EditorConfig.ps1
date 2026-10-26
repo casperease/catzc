@@ -1,3 +1,11 @@
+<#
+---
+catzc:
+  docs: "../../../docs/references/pwsh/catzc-base-vs-code/private/ConvertFrom-EditorConfig.ps1.md"
+  header: "generated"
+---
+#>
+
 function ConvertFrom-EditorConfig {
     [CmdletBinding()]
     [OutputType([System.Collections.Specialized.OrderedDictionary])]
@@ -11,8 +19,6 @@ function ConvertFrom-EditorConfig {
         [System.Collections.Generic.IReadOnlyDictionary[string, string[]]] $Section
     )
 
-    # The editorconfig properties VS Code has a setting for; every other property stays for the tools that read
-    # .editorconfig itself.
     $convert = {
         param([string] $Name, [string] $Value)
         switch ($Name) {
@@ -49,14 +55,13 @@ function ConvertFrom-EditorConfig {
         }
         if ($line -match '^\[(?<glob>.+)\]$') {
             $glob = $Matches['glob']
-            $target = if ($glob -eq '*') {
-                @('')
+            # No target, an unmapped section, skips its keys; the root section writes them bare.
+            $target = $null
+            if ($glob -eq '*') {
+                $target = @('')
             }
             elseif ($Section.ContainsKey($glob)) {
-                @($Section[$glob] | ForEach-Object { "[$_]" })
-            }
-            else {
-                $null
+                $target = @($Section[$glob] | ForEach-Object { "[$_]" })
             }
             continue
         }
@@ -64,7 +69,7 @@ function ConvertFrom-EditorConfig {
             continue
         }
         $mapped = & $convert $Matches['name'] $Matches['value'].Trim().ToLowerInvariant()
-        if (-not $mapped -or $null -eq @($mapped.Values)[0]) {
+        if (-not $mapped -or $null -eq ($mapped.Values | Select-Object -First 1)) {
             continue
         }
         foreach ($key in $target) {

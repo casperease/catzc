@@ -26,3 +26,12 @@ The memo file, out/cache/generated-writers.json in a normal run.
 ```powershell
 Get-GeneratedWriterMemo -MemoPath (Join-Path (Get-OutputRoot) 'cache/generated-writers.json')
 ```
+
+## comment:1
+
+Above `if (-not [System.IO.File]::Exists($MemoPath)) {`, written with `#`.
+
+```text
+The stamps stored after each writer's last run; a missing or unreadable memo reads as empty, so every writer is
+due.
+```

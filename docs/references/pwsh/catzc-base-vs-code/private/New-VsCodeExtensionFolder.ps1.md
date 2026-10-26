@@ -57,3 +57,30 @@ Above `$repeats = if ($Extension.contributes.Contains('repeat')) {`, written wit
 A repeat source that names glyphs draws one label glyph per item, <glyphs><key>-on/off.svg with the item's title as its label, so
 the lamps it repeats need no hand-drawn icon; the pass below recolours them per condition like every other base glyph.
 ```
+
+## comment:3
+
+Above `$script = Join-Path $AssetDirectory "$($Extension.name)/extension.js"`, written with `#`.
+
+```text
+Each extension is a module of the js track: <name>/extension.js, its own files in <name>/assets/, shipped as
+media/.
+```
+
+## comment:4
+
+Above `$corner = ' data-badge="bottom"'`, written with `#`.
+
+```text
+A base glyph whose top-right corner is drawn on declares data-badge="bottom"; its badge then sits
+bottom-right.
+```
+
+## comment:5
+
+Above `$hidden = ' data-empty="hidden"'`, written with `#`.
+
+```text
+A base glyph that declares data-empty="hidden" is drawn fully transparent while its lamp claims nothing,
+keeping its place in the row.
+```

@@ -30,11 +30,9 @@ function Test-Diagrams {
     # A yml under docs/**/.assets, tracked or not, declares a diagram; a new one is checked after its first put.
     $candidates = @(Get-GitTrackedPath '.') + @(Get-GitChangedPath 'docs')
     $found = @($candidates | Where-Object { $_ -cmatch '^docs/(.+/)?\.assets/[^/]+\.drawio\.(png|yml)$' } |
-        ForEach-Object { $_ -creplace '\.drawio\.(png|yml)$', '' } |
+            ForEach-Object { $_ -creplace '\.drawio\.(png|yml)$', '' } |
             Select-Object -Unique |
             Where-Object { Test-Path -LiteralPath (Join-Path $root "$_.drawio.yml") -PathType Leaf })
-    # A legend diagram has no yml: the kit's drawio.yml names its stem under roles, and its png is checked against the
-    # painted glyph library.
     $kitConfigPath = $diagramKit.Config
     $kitConfig = if ([System.IO.File]::Exists($kitConfigPath)) {
         ConvertFrom-Yaml -Yaml ([System.IO.File]::ReadAllText($kitConfigPath)) -Ordered
@@ -44,16 +42,14 @@ function Test-Diagrams {
                 Where-Object { $kitConfig['roles'][$_] -ceq 'legend' -and (Test-Path -LiteralPath (Join-Path $root "$_.drawio.png") -PathType Leaf) }
         })
     $found = @($found) + @($legends | Where-Object { $found -cnotcontains $_ })
-    # An article-carried diagram has no yml beside its png: its stem is a tracked png with no yml, or an image a `yml
-    # drawio` block sits above.
     $pngStems = @($candidates | Where-Object { $_ -cmatch '^docs/(.+/)?\.assets/[^/]+\.drawio\.png$' } |
-        ForEach-Object { $_ -creplace '\.drawio\.png$', '' })
+            ForEach-Object { $_ -creplace '\.drawio\.png$', '' })
     $articleCarried = @(@($pngStems) + @(Get-DiagramArticleStem -RepositoryRoot $root -Candidate $candidates) | Select-Object -Unique)
     $found = @($found) + @($articleCarried | Where-Object { $found -cnotcontains $_ })
     $folders = @(if ($Path) {
             foreach ($folderPath in $Path) {
                 $relative = ([System.IO.Path]::GetRelativePath($root,
-                    [System.IO.Path]::GetFullPath((Join-Path $root $folderPath))) -replace '\\',
+                        [System.IO.Path]::GetFullPath((Join-Path $root $folderPath))) -replace '\\',
                     '/') -creplace '\.drawio\.(png|yml)$', ''
                 Assert-True ($found -ccontains $relative) -ErrorText "Test-Diagrams: '$relative' is not a declared diagram (a <name>.drawio.yml under docs/**/.assets/, a diagram the kit's drawio.yml puts in an article, or a legend it names)."
                 $relative
@@ -100,8 +96,6 @@ function Test-Diagrams {
             }
         }
     }
-    # Over the whole tree, a `yml drawio` block declares only the png embedded directly below it; a block with no such
-    # image is a finding.
     if (-not $Path) {
         $bound = '(?m)^```yml drawio[ \t]*\r?\n(?:(?!```)[^\r\n]*\r?\n)*```[ \t]*\r?\n(?:[ \t]*\r?\n)*!\[[^\]]*\](?:\((?:\./)?\.assets/[^/)\s]+\.drawio\.png\)|\[([^\]]+)\])'
         foreach ($page in @($candidates | Where-Object { $_ -like 'docs/*.md' } | Select-Object -Unique)) {
@@ -114,7 +108,7 @@ function Test-Diagrams {
             # A reference image binds its block only when its definition names a diagram's png.
             $references = Get-DiagramImageReference -Text $text
             $bounded = @([regex]::Matches($text,
-                $bound) | Where-Object { -not $_.Groups[1].Success -or $references.ContainsKey($_.Groups[1].Value.ToLowerInvariant()) })
+                    $bound) | Where-Object { -not $_.Groups[1].Success -or $references.ContainsKey($_.Groups[1].Value.ToLowerInvariant()) })
             $unbound = $fences.Count - $bounded.Count
             if ($unbound -gt 0) {
                 $issues.Add("${page}: $unbound ``yml drawio`` block(s) with no image of an .assets/<name>.drawio.png directly below")

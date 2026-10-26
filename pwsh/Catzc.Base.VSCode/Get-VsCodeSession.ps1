@@ -55,6 +55,6 @@ function Get-VsCodeSession {
 
     [Catzc.Base.VSCode.VscodeSession]::new(
         $Host.Name, $PID, $types.LoadedHash, $types.SourceHash, [bool] $types.Current, [string[]] @($types.Drift),
-            [string[]] $builds.ToArray(),
+        [string[]] $builds.ToArray(),
         [string[]] $held.ToArray(), [string[]] $contributed, $logSession, [string[]] $logLines)
 }

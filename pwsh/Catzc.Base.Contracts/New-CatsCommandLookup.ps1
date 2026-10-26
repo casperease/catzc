@@ -13,14 +13,12 @@ function New-CatsCommandLookup {
         [string] $RepositoryRoot = (Get-RepositoryRoot)
     )
 
-    # Every name is keyed by its normal form and carries its two renderings: kebab, as cats takes it, and PowerShell's,
-    # as pwsh binds it.
     $languages = Get-Config -Config languages
     $normalForm = $languages.naming_normal_form
     $commandLanguage = $languages.languages | Where-Object name -ceq 'powershell' | Select-Object -First 1
     $functionCase = $commandLanguage.naming.function[0]
     $render = { param([string] $name, [string] $case) [Catzc.Base.Objects.NameCase]::FromNormal($name, $case,
-        $normalForm) }
+            $normalForm) }
 
     $lines = [System.Collections.Generic.List[string]]::new()
     $lines.Add('# shellcheck shell=bash')
@@ -38,13 +36,13 @@ function New-CatsCommandLookup {
         $parameters = @($contract.parameters)
         if ($parameters.Count -eq 0) {
             $lines.Add(($contract.Name, '', '', '0', '0', '0', $asset, '', $defaultSet, $command[0], '', $command[1],
-                '') -join "`t")
+                    '') -join "`t")
             continue
         }
         foreach ($parameter in $parameters) {
             $sets = $parameter.Sets -join ','
             $lines.Add(($contract.Name, $parameter.Name, $parameter.Type, [int] $parameter.IsList,
-                [int] $parameter.Mandatory, [int] $parameter.Pipeline, $asset, $sets, $defaultSet,
+                    [int] $parameter.Mandatory, [int] $parameter.Pipeline, $asset, $sets, $defaultSet,
                     $command[0], (& $render $parameter.Name 'kebab'), $command[1],
                     (& $render $parameter.Name 'pascal')) -join "`t")
         }

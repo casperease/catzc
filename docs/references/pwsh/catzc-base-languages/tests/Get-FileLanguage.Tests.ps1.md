@@ -33,3 +33,12 @@ Is a tracked file of a track in its live aspect? Its unit is the track root's fi
 template folder); a file directly under the track root is its own unit. A track without an aspects entry is
 live throughout.
 ```
+
+## comment:4
+
+Above `$folders = @($script:tracked | Where-Object { $_.Contains('/') } |...`, written with `#`.
+
+```text
+A track's places may sit below its root folder (infrastructure/templates), so the folders are checked, not the
+root folders.
+```

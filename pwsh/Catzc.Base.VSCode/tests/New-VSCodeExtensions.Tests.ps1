@@ -10,7 +10,8 @@ Describe 'New-VsCodeExtensions' -Tag 'L0', 'logic' {
     BeforeAll {
         Mock Get-Config -ModuleName Catzc.Base.VSCode {
             [Catzc.Base.VSCode.VscodeExtensionsConfig]::new([ordered]@{ recommendations = @('acme.tool-one',
-                'globex.tool-two') })
+                        'globex.tool-two')
+                })
         }
     }
 
@@ -36,8 +37,6 @@ Describe 'New-VsCodeExtensions — real vscode-extensions.yml' -Tag 'L1', 'integ
         $json = ($text -split "`n" | Where-Object { $_ -notmatch '^//' }) -join "`n" | ConvertFrom-Json
         @($json.recommendations).Count | Should -BeGreaterThan 0
         @($json.recommendations) | Should -Contain 'ms-vscode.powershell'
-        # The Go language server for the Go tests, under either Go root (go/ or .go/): it reads the repository-root
-        # go.work.
         @($json.recommendations) | Should -Contain 'golang.go'
     }
 }

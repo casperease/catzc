@@ -59,3 +59,30 @@ Above `$count = @{}`, written with `#`.
 Where the subject's code lives, with no static frame: each place is a track, the module in it ('-' outside one) and the
 folder under the module ('.' at its root), and only the places a subject file sits in are drawn, each lit by its files.
 ```
+
+## comment:2
+
+Above `[object[]] $Glyph = @(),`, written with `#`.
+
+```text
+The drawing's own glyphs, each { kind; label }: the places they name come first, the cited ADRs' places only
+while rows remain.
+```
+
+## comment:3
+
+Above `$dropped = 0`, written with `#`.
+
+```text
+The places the glyphs name come first: each label resolved to the repository files it names, a label that names
+none dropped and counted.
+```
+
+## comment:4
+
+Above `$first = [System.Collections.Generic.HashSet[string]]::new([string[]]...`, written with `#`.
+
+```text
+The rows the place list draws are computed here, from the place triples, so the drawing only draws them: the
+glyphs' places first.
+```

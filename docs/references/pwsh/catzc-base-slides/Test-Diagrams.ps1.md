@@ -95,3 +95,30 @@ Above `$rowsPath = Join-Path (Get-OutputRoot -EnsureExists) 'diagrams/query-rows
 A C3 or C4 slide is checked against its query's rows, as Build-Diagrams rendered it
 ([DDR-VISUAL-ZOOMISANAXIS](/docs/drs/design/visual-design.md#rule-ddr-visual-zoomisanaxis)).
 ```
+
+## comment:5
+
+Above `$kitConfigPath = $diagramKit.Config`, written with `#`.
+
+```text
+A legend diagram has no yml: the kit's drawio.yml names its stem under roles, and its png is checked against the
+painted glyph library.
+```
+
+## comment:6
+
+Above `$pngStems = @($candidates | Where-Object { $_ -cmatch...`, written with `#`.
+
+```text
+An article-carried diagram has no yml beside its png: its stem is a tracked png with no yml, or an image a `yml
+drawio` block sits above.
+```
+
+## comment:7
+
+Above `if (-not $Path) {`, written with `#`.
+
+```text
+Over the whole tree, a `yml drawio` block declares only the png embedded directly below it; a block with no such
+image is a finding.
+```

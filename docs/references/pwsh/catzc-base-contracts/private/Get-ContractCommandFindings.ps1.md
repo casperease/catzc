@@ -37,3 +37,12 @@ The command contract asset.
 ```powershell
 Get-ContractCommandFindings -RepositoryRoot $root -Asset $asset
 ```
+
+## comment:1
+
+Above `$toNormal = [Func[string, string]] {`, written with `#`.
+
+```text
+The command's file spells its names in PowerShell's idiom; rendered to the normal form, they compare with the
+contract's.
+```

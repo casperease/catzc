@@ -2,9 +2,9 @@
 Describe 'Get-Aspect' -Tag 'L0', 'logic', 'ADR-AUTO-MODULE-EXISTSBYLAYOUT' {
     BeforeAll {
         $script:tracks = [Catzc.Base.Variants.VariantsConfig]::new([ordered]@{ tracks = [ordered]@{
-                    widgets = [ordered]@{ places = @('widgetry'); type = 'modules'; languages = @('widget-script') }
-                    gizmos  = [ordered]@{ places = @('gizmo'); type = 'gizmo-shelf' }
-                    shelves = [ordered]@{ places = @('shelf'); type = 'shelf-works'; languages = @('widget-script') }
+                    widgets = [ordered]@{ members = @('widgetry'); type = 'modules'; languages = @('widget-script') }
+                    gizmos  = [ordered]@{ members = @('gizmo'); type = 'gizmo-shelf' }
+                    shelves = [ordered]@{ members = @('shelf'); type = 'shelf-works'; languages = @('widget-script') }
                 }
             }).tracks
         $script:languages = [Catzc.Base.Languages.LanguagesConfig]::new([ordered]@{ languages = [ordered]@{
@@ -17,7 +17,7 @@ Describe 'Get-Aspect' -Tag 'L0', 'logic', 'ADR-AUTO-MODULE-EXISTSBYLAYOUT' {
             })
         Mock Get-Track -ModuleName Catzc.Base.Modules { $script:tracks }
         Mock Get-Config -ModuleName Catzc.Base.Modules -ParameterFilter { $Config -eq 'languages' } { $script:languages }
-        Mock Get-AspectDeclaration -ModuleName Catzc.Base.Modules { , [Catzc.Base.Variants.VariantsConfig]::new([ordered]@{ tracks = [ordered]@{ widgets = [ordered]@{ places = @('widgetry'); type = 'modules' } } }).aspects }
+        Mock Get-AspectDeclaration -ModuleName Catzc.Base.Modules { , [Catzc.Base.Variants.VariantsConfig]::new([ordered]@{ tracks = [ordered]@{ widgets = [ordered]@{ members = @('widgetry'); type = 'modules' } } }).aspects }
     }
 
     It 'derives a code track''s convention from the layout: live closed to the layout''s live rows, tests the catch-all' {
@@ -42,7 +42,7 @@ Describe 'Get-Aspect' -Tag 'L0', 'logic', 'ADR-AUTO-MODULE-EXISTSBYLAYOUT' {
 
     It 'returns a configured convention in declared order, ahead of the built-in one' {
         Mock Get-AspectDeclaration -ModuleName Catzc.Base.Modules {
-            , [Catzc.Base.Variants.VariantsConfig]::new([ordered]@{ tracks = [ordered]@{ widgets = [ordered]@{ places = @('widgetry'); type = 'modules' } }; aspects = [ordered]@{ gizmos = @([ordered]@{ live = @('src/**') }, [ordered]@{ tests = @('**') }) } }).aspects
+            , [Catzc.Base.Variants.VariantsConfig]::new([ordered]@{ tracks = [ordered]@{ widgets = [ordered]@{ members = @('widgetry'); type = 'modules' } }; aspects = [ordered]@{ gizmos = @([ordered]@{ live = @('src/**') }, [ordered]@{ tests = @('**') }) } }).aspects
         }
         $aspects = @(Get-Aspect -Track gizmos)
         $aspects.Name | Should -Be @('live', 'tests')

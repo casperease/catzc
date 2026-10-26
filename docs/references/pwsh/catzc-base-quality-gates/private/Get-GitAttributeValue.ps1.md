@@ -31,3 +31,12 @@ The attribute names to read.
 ### outputs
 
 `[hashtable]` path -> @{ `<attribute>` = 'set' | 'unset' | `<value>` }, for the paths with any attribute specified.
+
+## comment:1
+
+Above ``$listing = Invoke-Executable "git -C `"$RepositoryRoot`" -c...``, written with `#`.
+
+```text
+One git process reads every path from stdin, NUL-separated both ways: a process per batch costs about 25 ms each,
+and no path is quoted or split.
+```

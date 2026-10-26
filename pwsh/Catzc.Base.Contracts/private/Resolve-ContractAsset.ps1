@@ -105,8 +105,6 @@ function Resolve-ContractAsset {
         }
     }
 
-    # A presence asset, a fragment, or a schema with no sample beside it binds the files its applies_to entry names, and
-    # only those.
     if (-not $isNamed) {
         throw "${manifest}: '$key', a $kind asset, is not named in applies_to, so it binds no file (ADR-REPO-CONTRACT-CONFIGUREDADDRESSING)."
     }

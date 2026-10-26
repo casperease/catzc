@@ -41,3 +41,12 @@ Above `$message = if ($ErrorText) {`, written with `#`.
 Not $ErrorText ?? ... : a [string] param coerces $null to '', and ?? only coalesces $null, so the
 default would never apply (the throw would be blank). See ADR: automatic-variable-pitfalls.
 ```
+
+## comment:2
+
+Above `$message = if ($ErrorText) {`, written with `#`.
+
+```text
+A [string] parameter turns $null into '', which ?? never coalesces, so only a truth test lets the default
+message through.
+```

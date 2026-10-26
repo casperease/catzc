@@ -25,8 +25,6 @@ function Write-TestRunFailures {
 
     Write-Message '' -NoHeader
     Write-Header "Failures ($($failedRows.Count + $failedFiles.Count))" -ForegroundColor Red
-    # Rows that share a message share a cause: each is named, and the message is written once, in the order it first
-    # failed.
     $byMessage = [ordered]@{}
     foreach ($row in $failedRows) {
         $message = "$($row.ErrorMessage)".TrimEnd()

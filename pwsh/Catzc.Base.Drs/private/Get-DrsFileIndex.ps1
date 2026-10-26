@@ -20,8 +20,6 @@ function Get-DrsFileIndex {
 
     Assert-PathExist $DrsRoot
 
-    # A page belongs to the domain with the longest folder that holds it, so a domain folder nested in another domain's
-    # folder keeps its own pages.
     $folders = @($RuleSets.Folder | Sort-Object -Unique | Sort-Object -Property Length -Descending)
     $relativePaths = [System.Collections.Generic.List[string]]::new()
     $byKey = @{}

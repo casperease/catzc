@@ -5,7 +5,8 @@ Describe 'Get-Track' -Tag 'L0', 'logic' {
                     widget   = [ordered]@{ members = @('widget'); type = 'widget-works'; languages = @('widget-lang') }
                     gadget   = [ordered]@{ members = @('gadget'); type = 'gadget-shelf'; vendor = 'gizmo'; languages = @('gadget-lang', 'widget-lang') }
                     '.gizmo' = [ordered]@{ members = @('.gizmo',
-                        'gadget/gizmo-settings'); type = 'gizmo-settings'; vendor = 'gizmo' }
+                            'gadget/gizmo-settings'); type = 'gizmo-settings'; vendor = 'gizmo'
+                    }
                     sprocket = [ordered]@{ members = @('.sprocket'); type = 'sprocket-tests' }
                 }
             })

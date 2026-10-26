@@ -6,8 +6,6 @@ catzc:
 ---
 #>
 
-# Every check config parses its mode through this one function, so a second spelling or error text would show here
-# first.
 Describe 'CheckModes' -Tag 'L0', 'logic', 'PDR-ONELIVE-ONEVERSION' {
     It 'returns the default, gate, with no error when the mode is omitted' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
         foreach ($raw in @($null, [ordered]@{}, [ordered]@{ mode = $null })) {

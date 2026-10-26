@@ -29,3 +29,12 @@ Above `InModuleScope Catzc.Base.Docs {`, written with `#`.
 No Root plumbing: the glob-shape check throws before RepositoryRoot is ever read, so a literal
 placeholder root is enough here.
 ```
+
+## comment:4
+
+Above `Mock Assert-SourceTree -ModuleName Catzc.Base.Docs { }`, written with `#`.
+
+```text
+The source-tree guard is its own unit (below); here the fixture stands in for the source tree in either run
+mode.
+```

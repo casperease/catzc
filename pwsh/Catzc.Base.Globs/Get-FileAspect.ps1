@@ -11,7 +11,7 @@ function Get-FileAspect {
     [OutputType([System.Collections.Specialized.OrderedDictionary])]
     param(
         # Repository-relative, '/'-separated paths.
-        [Parameter(Mandatory)]
+        [Parameter(Mandatory, Position = 0)]
         [AllowEmptyCollection()]
         [string[]] $Path
     )

@@ -37,3 +37,12 @@ The repository-relative folder to watch. Default: listen.yml's watch.
 ```powershell
 New-DocSnapshot -Watch docs
 ```
+
+## comment:1
+
+Above `Write-ListenIndex (Join-Path $session 'baseline.json') -Index $index`, written with `#`.
+
+```text
+seen.json is what makes a folder a session, so it is written last: a start that fails half way leaves no session
+behind.
+```

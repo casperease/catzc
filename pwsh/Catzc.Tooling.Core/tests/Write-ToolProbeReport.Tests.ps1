@@ -38,7 +38,8 @@ Describe 'Write-ToolProbeReport' -Tag 'L0', 'logic' {
 
     It 'checks every tool in tools.yml when called with no arguments' {
         Mock Get-Config { [pscustomobject]@{ Keys = @('widget',
-            'gadget') } } -ModuleName Catzc.Tooling.Core -ParameterFilter { $Config -eq 'tools' }
+                    'gadget')
+            } } -ModuleName Catzc.Tooling.Core -ParameterFilter { $Config -eq 'tools' }
         Mock Test-Tool {
             if ($Tool -eq 'widget') {
                 $script:found

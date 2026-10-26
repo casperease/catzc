@@ -3,7 +3,7 @@ Describe 'LinkDirectionRow' -Tag 'L0', 'logic', 'ADR-REPO-LINKS-DIRECTIONSAREROW
     BeforeAll {
         $script:row = { param([hashtable] $Raw) [Catzc.Base.QualityGates.LinkDirectionRow]::new($Raw, 'row 1') }
         $script:end = { param([string] $Path, [string] $Class) [Catzc.Base.QualityGates.LinkEndpoint]::new($Path,
-            $Class, '', '', '', '') }
+                $Class, '', '', '', '') }
     }
 
     It 'maps every key and matches its relation and both ends' {

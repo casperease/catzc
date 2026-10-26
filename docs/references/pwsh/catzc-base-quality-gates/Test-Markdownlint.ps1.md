@@ -50,3 +50,12 @@ Test-Markdownlint
 $result = Test-Markdownlint -PassThru
 $result.IssueCount
 ```
+
+## comment:1
+
+Above `$result = Invoke-Executable $command -PassThru -NoAssert -Silent`, written with `#`.
+
+```text
+-Silent: capture markdownlint-cli2's output instead of streaming it to the console; the report prints the
+issues.
+```

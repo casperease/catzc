@@ -36,3 +36,12 @@ The registry entry that subscribed this function.
 ### outputs
 
 `[System.Collections.Specialized.OrderedDictionary]` one entry per key of the kind, the path of the relative or an empty string.
+
+## comment:1
+
+Above `if ($relation.Contains('link')) {`, written with `#`.
+
+```text
+A relation with a link template shows its file as a link: {path} is its repository-relative path,
+{relative_path} its path from the head's own folder.
+```

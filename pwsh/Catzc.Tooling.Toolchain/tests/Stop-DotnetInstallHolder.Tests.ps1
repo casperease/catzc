@@ -14,7 +14,8 @@ Describe 'Stop-DotnetInstallHolder' -Tag 'L0', 'logic' {
     It 'stops exactly the named process ids, announcing each' {
         $gadget = [Catzc.Base.Files.FileLockingProcess]::new(4343, 'gadget', [datetime]'2026-01-01')
         InModuleScope Catzc.Tooling.Toolchain -Parameters @{ Dir = $script:installDir; Holders = @($script:widget,
-            $gadget) } {
+                $gadget)
+        } {
             param($Dir, $Holders) Stop-DotnetInstallHolder -InstallDir $Dir -Holder $Holders
         }
         Should -Invoke Stop-Process -ModuleName Catzc.Tooling.Toolchain -Times 2 -Exactly
@@ -35,7 +36,8 @@ Describe 'Stop-DotnetInstallHolder' -Tag 'L0', 'logic' {
         $self = [Catzc.Base.Files.FileLockingProcess]::new($PID, 'pwsh', [datetime]'2026-01-01')
         {
             InModuleScope Catzc.Tooling.Toolchain -Parameters @{ Dir = $script:installDir; Holders = @($script:widget,
-                $self) } {
+                    $self)
+            } {
                 param($Dir, $Holders) Stop-DotnetInstallHolder -InstallDir $Dir -Holder $Holders
             }
         } | Should -Throw '*this session*holds*'

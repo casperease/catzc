@@ -3,7 +3,7 @@ Describe 'Assert-BundleFootprint' -Tag 'L0', 'logic' {
         $script:run = {
             param($Path, $Bundle)
             & (Get-Module Catzc.Base.Exporter) { param($p,
-                $b) Assert-BundleFootprint -Path $p -Bundle $b } $Path $Bundle
+                    $b) Assert-BundleFootprint -Path $p -Bundle $b } $Path $Bundle
         }
     }
 
@@ -20,7 +20,7 @@ Describe 'Assert-BundleFootprint' -Tag 'L0', 'logic' {
             [System.IO.File]::WriteAllBytes($file, [byte[]]::new($entry.Size))
         }
         $script:limits = { param($Files,
-            $Bytes) [pscustomobject]@{ name = 'widgets'; max_files = $Files; max_bytes = $Bytes } }
+                $Bytes) [pscustomobject]@{ name = 'widgets'; max_files = $Files; max_bytes = $Bytes } }
     }
 
     It 'measures the build and passes within its limits' {

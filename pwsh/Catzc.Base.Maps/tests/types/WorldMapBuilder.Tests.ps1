@@ -2,11 +2,11 @@ Describe 'WorldMapBuilder' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:tracks = @(
             [Catzc.Base.Variants.VariantTrack]::new('widgets', @('widgets'), 'modules', $null, @('widget-script',
-                'widget-config'))
+                    'widget-config'))
             [Catzc.Base.Variants.VariantTrack]::new('gadgets', @('gadgets'), 'infrastructure', $null,
                 @('widget-config'))
             [Catzc.Base.Variants.VariantTrack]::new('probes', @('probes'), 'modules', $null, @('widget-script',
-                'probe-lang'))
+                    'probe-lang'))
             [Catzc.Base.Variants.VariantTrack]::new('docs', @('docs'), 'documentation', $null, @('notes'))
             [Catzc.Base.Variants.VariantTrack]::new([Catzc.Base.Maps.WorldMapBuilder]::AdoPipelinesTrack,
                 @('pipelines'), 'pipelines', $null, @('gadget-pipe'))
@@ -65,7 +65,7 @@ Describe 'WorldMapBuilder' -Tag 'L0', 'logic' {
         )
         $script:adrFiles = [ordered]@{ 'ADR-WIDGET-GADGET' = 'docs/drs/widgetry/widget-gadget.md' }
         $script:globSets = @([Catzc.Base.Globs.GlobSet]::new('widgets-set', 'The widgets.', 'loose-fileset',
-            @('widgets/**'), @(), @(), @(), -1, 'ci-widgets'))
+                @('widgets/**'), @(), @(), @(), -1, 'ci-widgets'))
         $script:build = {
             param([string[]] $Paths = $script:paths, $Tracks = $script:tracks, $Languages = $script:languages)
             [Catzc.Base.Maps.WorldMapBuilder]::Build($Tracks, $Languages, $Paths, $script:aspects, $script:index,
@@ -217,7 +217,7 @@ Describe 'WorldMapBuilder' -Tag 'L0', 'logic' {
                 $script:aspects, $script:index,
                 $script:adrFiles, $script:texts,
                 [ordered]@{ 'importer.ps1' = 'widgets/Alpha' }, $script:globSets, @('docs/*.md',
-                'widgets/Alpha/tests/**'))
+                    'widgets/Alpha/tests/**'))
             $guide = $map.Placement('docs/guide.md')
             "$($guide.Track) x $($guide.FileLanguage) $($guide.Basis)" | Should -Be 'docs x notes none'
             $guide.Citations | Should -BeNullOrEmpty

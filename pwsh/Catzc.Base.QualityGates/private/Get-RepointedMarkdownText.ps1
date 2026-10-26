@@ -34,7 +34,7 @@ function Get-RepointedMarkdownText {
         else {
             [System.IO.Path]::GetRelativePath($standIn,
                 [System.IO.Path]::GetFullPath([System.IO.Path]::Combine($standIn, $directory,
-                $target))) -replace '\\', '/'
+                        $target))) -replace '\\', '/'
         }
         $key = "$resolved#$($match.Groups['fragment'].Value)"
         if (-not $Rename.ContainsKey($key)) {

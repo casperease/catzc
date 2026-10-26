@@ -43,7 +43,8 @@ Describe 'FileCarriersConfig' -Tag 'L0' {
 
         It 'reads a block-comment head below a prolog' {
             $config = & $script:one ([ordered]@{ carrier = 'comment-head'; block = @('<!--',
-                '-->'); anchor = 'after-prolog' })
+                        '-->'); anchor = 'after-prolog'
+                })
             $config.carriers[0].block | Should -Be @('<!--', '-->')
             $config.carriers[0].anchor | Should -Be ([Catzc.Base.CodeMeta.HeadAnchor]::AfterProlog)
         }

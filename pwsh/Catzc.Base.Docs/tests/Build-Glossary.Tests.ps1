@@ -8,8 +8,6 @@ catzc:
 
 Describe 'Build-Glossary' -Tag 'L0', 'logic' {
     BeforeAll {
-        # A rule whose link is longer than a line: the page wraps it the way Prettier does, so the formatter leaves it
-        # unchanged.
         $script:longRule = 'ADR-TST-WIDGET-GADGET-SPINS-WHILE-EVERY-WIDGET-RESTS-AND-NOTHING-ELSE-MOVES'
         $entry = {
             param([string] $term, [string] $domain, [System.Collections.IDictionary] $extra = @{})

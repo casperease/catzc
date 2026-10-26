@@ -63,3 +63,30 @@ Return the result ({ Subject; IssueCount; Issues; ReportPath; Agents; Files; Cap
 ```powershell
 Test-AgentDefinitions
 ```
+
+## comment:1
+
+Above `$userSkills =...`, written with `#`.
+
+```text
+A user skill is invoked by the user and a brief skill is named in a brief; neither is preloaded, and the registry
+says which are.
+```
+
+## comment:2
+
+Above `$carriers = Get-Config -Config file-carriers`, written with `#`.
+
+```text
+The carrier registry says where a capability's catzc head nests, under the file kind's class; the gate never fixes
+the key itself.
+```
+
+## comment:3
+
+Above `$floor = $null`, written with `#`.
+
+```text
+The floor is the author's one line in the catzc head's config part, beside the imprinted parts, so it survives
+every imprint.
+```

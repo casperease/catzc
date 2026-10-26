@@ -26,8 +26,6 @@ function Invoke-GoTest {
     )
 
     $root = Get-RepositoryRoot
-    # The test folder: the one named, a module's own tests/ or the holder's, else the module's folder under the holder's
-    # tests/ in go's folder case.
     $relative = if ($Folder) {
         [System.IO.Path]::GetRelativePath($root, [System.IO.Path]::GetFullPath($Folder, $root)).Replace('\',
             '/').TrimEnd('/')

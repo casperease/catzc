@@ -29,3 +29,12 @@ Optional files or folders to limit the scope to.
 ### outputs
 
 `[pscustomobject]` { File, Extension, Language, Page } per file, in path order.
+
+## comment:1
+
+Above `$languageRegistry = Get-Config -Config languages`, written with `#`.
+
+```text
+The registry's own ForPath, once: a function call per file costs more than the lookup, and the language test is
+cheaper than the globs.
+```

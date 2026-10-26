@@ -9,8 +9,6 @@ catzc:
 Describe 'Resolve-ToolExecutable' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:windows = [bool]$IsWindows
-        # The typed registry the real Get-Config returns, so the function reads typed properties as it does in
-        # production.
         $script:tools = [Catzc.Base.Execution.ToolsConfig]::new([ordered]@{
                 widget = @{
                     version                 = '5'
@@ -38,7 +36,7 @@ Describe 'Resolve-ToolExecutable' -Tag 'L0', 'logic' {
         Mock Get-Config { $script:tools } -ModuleName Catzc.Base.Execution -ParameterFilter { $Config -eq 'tools' }
         Mock Get-RunEnvironment { 'Devbox' } -ModuleName Catzc.Base.Execution
         Mock Find-Executable { [Catzc.Base.Execution.ExecutableProbe]::new($Name, '/opt/widget/user', 'probe', '5.2',
-            $RequiredVersion, $true, 1, 1, 'Person') } -ModuleName Catzc.Base.Execution
+                $RequiredVersion, $true, 1, 1, 'Person') } -ModuleName Catzc.Base.Execution
     }
 
     It 'returns the probe record named by the tool key' {

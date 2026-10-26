@@ -52,8 +52,6 @@ function Test-ScriptAnalyzer {
         }
     }
 
-    # Third-party files are not authored here, so the analyzer never judges them; a file outside the repository is never
-    # third-party.
     $thirdParty = Get-GlobSet -Name 'third-party'
     $authored = [System.Collections.Generic.List[string]]::new()
     foreach ($file in $files) {

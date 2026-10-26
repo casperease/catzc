@@ -21,9 +21,4 @@ content:
     - { id: z-c2, kind: set, label: C2 containers, in: band-c2 }
     - { id: z-c3, kind: set, label: C3 components, in: band-c3 }
     - { id: z-c4, kind: set, label: C4 code, in: band-c4 }
-  edges:
-    - { from: z-c0, to: z-c1, kind: flow, label: zooms in }
-    - { from: z-c1, to: z-c2, kind: flow, label: zooms in }
-    - { from: z-c2, to: z-c3, kind: flow, label: zooms in }
-    - { from: z-c3, to: z-c4, kind: flow, label: zooms in }
   legend: auto

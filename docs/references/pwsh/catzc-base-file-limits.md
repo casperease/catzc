@@ -26,7 +26,9 @@ type. A value outside its bounds fails the config load, so a wrong number never 
 Reading a file once for its line count and its widest line, resolving the file's limits from the registry, and reporting one finding per
 breach with the file, the line, the limit and where the limit came from. A file no language declares fails at once instead of escaping
 unlimited. The gate runs this over every tracked file in scope: a length breach fails it unless the file is exempt with a reason, and a
-width breach is reported until its class is switched to fail.
+width breach is only reported, never a failure. Width is measured, not forced: the user chose to skip aligning every source file to a short
+width and to keep the measure and its ideas (2026-10-26). A line whose overflow lies wholly inside one string literal is left out of the
+width it reports.
 
 ### responsibility:3 — Tool widths
 

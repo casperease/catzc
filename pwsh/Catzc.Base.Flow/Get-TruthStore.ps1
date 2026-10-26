@@ -19,7 +19,7 @@ function Get-TruthStore {
 
     foreach ($store in (Get-Config -Config truth-stores).stores) {
         if ((-not $Name -or $Name -ccontains $store.name) -and (-not $StoreKind -or
-            $StoreKind -ccontains $store.kind)) {
+                $StoreKind -ccontains $store.kind)) {
             $store
         }
     }

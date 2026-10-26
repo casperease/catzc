@@ -51,6 +51,8 @@ tracks:
   python: { members: [python], type: modules, languages: [python, html, markdown, xml, yaml] }
   bash: { members: [bash], type: modules, languages: [bash] }
   bash-vendor: { members: [bash/.vendor], type: vendored-code }
+  # The type declarations Install-TypeScript installs for the js track's types gate: downloaded third-party code, never committed.
+  .typescript: { members: [{ path: .typescript, committed: false }], type: vendored-code }
   js: { members: [js], type: modules, languages: [javascript, json, asset], kinds: { extensions: js } }
   .github: { members: [.github], type: vendor-settings, vendor: github, languages: [yaml, markdown] }
   .cspell: { members: [.cspell], type: vendor-settings, vendor: cspell }

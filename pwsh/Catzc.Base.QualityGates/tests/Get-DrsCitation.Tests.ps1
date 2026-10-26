@@ -10,10 +10,12 @@ Describe 'Get-DrsCitation' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-NOREADBACK' {
         Mock Get-DrsCitationMap -ModuleName Catzc.Base.QualityGates {
             [Catzc.Base.Drs.DrsCitationMap]::new(@{
                     'ADR-WIDGET'      = @{ path = 'docs/drs/widget.md'; rules = [string[]] @('ADR-WIDGET-TURN',
-                        'ADR-WIDGET-SPIN') }
+                            'ADR-WIDGET-SPIN')
+                    }
                     'ADR-WIDGET-PART' = @{ path = 'docs/drs/widget-part.md'; rules = [string[]] @('ADR-WIDGET-PART-FOLD', 'ADR-WIDGET-PART-BEND') }
                     'ADR-GADGET'      = @{ path = 'docs/drs/gadget.md'; rules = [string[]] @('ADR-GADGET-LIFT',
-                        'ADR-GADGET-DROP', 'ADR-GADGET-RE12') }
+                            'ADR-GADGET-DROP', 'ADR-GADGET-RE12')
+                    }
                 }, @())
         }
 

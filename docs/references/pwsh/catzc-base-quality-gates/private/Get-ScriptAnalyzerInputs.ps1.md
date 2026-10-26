@@ -34,3 +34,12 @@ The analyzer pass: `rules` (every rule but the spelling entry rule) or `spelling
 ### outputs
 
 `[string[]]` Absolute paths, in a stable order.
+
+## comment:1
+
+Above `foreach ($file in @(Get-ChildPath $folder -File -Filter $pattern -Depth 3...`, written with `#`.
+
+```text
+The rule files sit directly in .scriptanalyzer and the manifest one version folder into the vendored
+module.
+```

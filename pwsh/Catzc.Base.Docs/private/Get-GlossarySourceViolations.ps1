@@ -66,8 +66,6 @@ function Get-GlossarySourceViolations {
                 if (-not $termConcept.ContainsKey($other)) {
                     $violations.Add("$($item.Path): concept '$term': contrast target '$other' is not a defined term (ADR-REPO-VOCAB-SOURCESINREPOSITORY)")
                 }
-                # A contrast is declared once and the build shows it on both entries; the second declaration of a pair
-                # is the finding.
                 elseif ($termConcept[$other].contrasts.ContainsKey($term) -and -not $contrasted.Add("$other`n$term")) {
                     $violations.Add("$($item.Path): concept '$term': contrasts '$other', which '$other' ($($termSource[$other])) already declares; declare a contrast once (ADR-REPO-VOCAB-SIMILARTERMSCONTRASTED)")
                 }

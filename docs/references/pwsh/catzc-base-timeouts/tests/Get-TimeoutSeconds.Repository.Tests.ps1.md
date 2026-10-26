@@ -13,3 +13,12 @@ a number literal as the parameter default
 ([ADR-PWSH-ASSERT-DECLAREDTIMELIMIT](/docs/drs/automation/pwsh/assert-idioms.md#rule-adr-pwsh-assert-declaredtimelimit)). Reads the shipped .ps1
 files by AST, so it runs in the source and the build run alike.
 ```
+
+## comment:2
+
+Above `$violations = foreach ($file in Get-ChildPath $root -File -Filter '*.ps1'...`, written with `#`.
+
+```text
+Scripts reach four levels below pwsh/ (module, tests, types, file); the vendored modules are pruned by the
+walk.
+```

@@ -4,7 +4,7 @@ Describe 'Invoke-Accosted' -Tag 'L0', 'logic' {
         $script:file = [Catzc.Base.Contracts.AccostedFile]::new([ordered]@{
                 runs = @(
                     ,
-                        @([ordered]@{ get_widget = [ordered]@{ widget_path = "a b's"; depth = 2; strict = $true } }, [ordered]@{ test_gadget = [ordered]@{ quiet = $false } })
+                    @([ordered]@{ get_widget = [ordered]@{ widget_path = "a b's"; depth = 2; strict = $true } }, [ordered]@{ test_gadget = [ordered]@{ quiet = $false } })
                     , @([ordered]@{ get_widget = [ordered]@{ widget_path = 'c' } })
                 )
             })

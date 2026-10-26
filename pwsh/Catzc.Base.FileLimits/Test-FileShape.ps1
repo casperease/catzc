@@ -10,7 +10,7 @@ function Test-FileShape {
     [CmdletBinding()]
     [OutputType([pscustomobject])]
     param(
-        [Parameter(Mandatory, ValueFromPipeline, ValueFromPipelineByPropertyName)]
+        [Parameter(Mandatory, Position = 0, ValueFromPipeline, ValueFromPipelineByPropertyName)]
         [Alias('FullName')]
         [string[]] $Path
     )
@@ -35,8 +35,6 @@ function Test-FileShape {
             }
             if ($null -ne $limit.width -and $shape.width -gt $limit.width -and
                 (Get-Config -Config file-limits).string_overflow -eq 'exempt') {
-                # A line whose overflow lies wholly inside one string literal passes, so the width is the widest line
-                # that is not one.
                 $text = [System.IO.File]::ReadAllText($file)
                 $exemptLines = Get-StringOverflowLine -Text $text -Width $limit.width -Language $limit.language
                 $exempt = [System.Collections.Generic.HashSet[int]]::new([int[]] $exemptLines)

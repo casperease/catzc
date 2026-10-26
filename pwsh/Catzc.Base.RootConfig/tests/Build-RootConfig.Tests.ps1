@@ -141,8 +141,6 @@ Describe 'Build-RootConfig — multi-file generator' -Tag 'L0', 'logic' {
         }
         $script:alpha = Join-Path $script:fake.Root 'widgets/alpha/gadget.txt'
         $script:beta = Join-Path $script:fake.Root 'widgets/beta/gadget.txt'
-        # The pattern of the generated head a generator's file carries, over the content the generator rendered; the
-        # body hash is any 12 hex digits.
         $script:headed = {
             param([string] $Body)
             '^# ---\n# catzc:\n#   immutable:\n(#     with_body_sha: "?[0-9a-f]{12}"?\n)?#     warning: "Do Not Edit, this file is generated"\n# ---\n\n' + [regex]::Escape($Body).Replace("`n", '\n') + '$'
@@ -221,35 +219,28 @@ Describe 'Build-RootConfig — multi-file generator' -Tag 'L0', 'logic' {
 
 Describe 'Build-RootConfig — real rootconfig.yml' -Tag 'L2', 'integrity', 'source-only' {
     BeforeAll {
-        # The settings generator asks the machine's go for its root, a real process launch.
-        $script:skip = if (-not (Resolve-ToolExecutable -Tool go).Found) {
-            'tool_go_missing'
-        }
-        # -DryRun composes every opted-in target's content — a source file that is missing, or an unknown generator,
-        # throws.
-        if (-not $script:skip) {
-            $script:rendered = Build-RootConfig -DryRun -PassThru -Silent
-        }
+        $script:rendered = Build-RootConfig -DryRun -PassThru -Silent
     }
 
     It 'resolves every opted-in entry without writing (sources exist, generators render)' {
-        if ($script:skip) {
-            Set-ItResult -Skipped -Because $script:skip; return
-        }
         @($script:rendered).Count | Should -BeGreaterThan 0
+    }
+
+    It 'renders .vscode/settings.json with no absolute machine path, so the editor finds its tools as the terminal does' {
+        $settings = "$(InModuleScope Catzc.Base.RootConfig { Invoke-RootConfigGenerator -Name New-VsCodeSettings -Target '.vscode/settings.json' })"
+        $settings | Should -Not -BeNullOrEmpty
+        $settings | Should -Not -Match '"[A-Za-z]:[\\/]|"/(Users|home)/'
+        $settings | Should -Not -Match 'go\.goroot'
     }
 
     It 'renders .editorconfig before .vscode/settings.json, whose generator reads it, so a tree without either renders drift-free at once' {
         $targets = @((Get-Config -Config rootconfig).Files | Where-Object OptIn | ForEach-Object Target)
         [array]::IndexOf($targets, '.editorconfig') | Should -BeGreaterOrEqual 0
         [array]::IndexOf($targets, '.editorconfig') | Should -BeLessThan ([array]::IndexOf($targets,
-            '.vscode/settings.json'))
+                '.vscode/settings.json'))
     }
 
     It 'renders every managed root file drift-free, importer.ps1 included (Test-GeneratedFiles)' {
-        if ($script:skip) {
-            Set-ItResult -Skipped -Because $script:skip; return
-        }
         if (-not (Get-Command git -ErrorAction Ignore)) {
             Set-ItResult -Skipped -Because 'tool_git_missing'; return
         }

@@ -4,7 +4,7 @@ Describe 'SquarifiedTreemap' -Tag 'L0', 'logic' {
             'widget-i')
         $script:weights = [double[]] @(500, 300, 120, 60, 10, 7, 3, 1, 1)
         $script:layout = { param([string[]] $k, [double[]] $w) [Catzc.Base.Maps.SquarifiedTreemap]::Layout($k, $w, 20,
-            30, 400, 250) }
+                30, 400, 250) }
         $script:describe = { param($rectangles) @($rectangles | ForEach-Object { '{0}:{1:R},{2:R},{3:R},{4:R}' -f $_.Key, $_.X, $_.Y, $_.Width, $_.Height }) -join ';' }
     }
 

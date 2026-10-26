@@ -40,3 +40,12 @@ Above `$writer = (Get-Config -Config generated-files).writers[$Name]`, written w
 Stores a writer's input stamp once it has run, taken after the run, so an input it writes itself (a target declared as an input) is
 part of the stored stamp and the writer is not due again until one of its inputs changes.
 ```
+
+## comment:2
+
+Above `$writer = (Get-Config -Config generated-files).writers[$Name]`, written with `#`.
+
+```text
+Taken after the run, so a file the writer both reads and writes is in the stored stamp and never makes it due
+again by itself.
+```

@@ -16,11 +16,11 @@ BeforeAll {
 Describe 'Export-WorldMapPdf' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:placement = { param([string] $path, [string] $track,
-            [string] $language) [Catzc.Base.Maps.MapPlacement]::new($path, $track, $language, $true, $false, 'none',
-            $null, @()) }
+                [string] $language) [Catzc.Base.Maps.MapPlacement]::new($path, $track, $language, $true, $false, 'none',
+                $null, @()) }
         $script:map = [Catzc.Base.Maps.WorldMap]::new(@('widgets', 'gadgets'), @('widget-script'),
             @((& $script:placement 'widgets/a.ps1' 'widgets' 'widget-script'),
-            (& $script:placement 'gadgets/b.ps1' 'gadgets' 'widget-script')), $null)
+                (& $script:placement 'gadgets/b.ps1' 'gadgets' 'widget-script')), $null)
         $script:maps = [Catzc.Base.Maps.MapsConfig]::new([ordered]@{})
         $script:lit = [Catzc.Base.Maps.WorldMapHighlight]::ForPaths($script:map, @('widgets/a.ps1'))
     }

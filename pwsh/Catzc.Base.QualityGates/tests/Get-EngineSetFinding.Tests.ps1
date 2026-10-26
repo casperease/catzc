@@ -83,7 +83,7 @@ Describe 'Get-EngineSetFinding' -Tag 'L0', 'logic' {
     Context 'C# code' {
         It 'flags two engine names as string literals on one line' -Tag 'ADR-AUTO-ENGINE-THREEENGINES' {
             $text = (@('namespace Widget;', 'class A { static readonly string[] Names = { "widget", "gadget" }; }',
-                '') -join "`n")
+                    '') -join "`n")
             $found = @(& $find 'src/A.cs' $text)
             $found | Should -HaveCount 1
             $found[0] | Should -BeLike 'src/A.cs:2: a literal list of engine names (widget, gadget)*'

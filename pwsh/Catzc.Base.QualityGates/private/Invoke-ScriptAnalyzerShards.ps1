@@ -26,8 +26,6 @@ function Invoke-ScriptAnalyzerShards {
     $worker = {
         param($shardFiles, $root, $analyzer, $settingsPath, $includeRule, $excludeRule)
         Import-Module $analyzer -Force
-        # The settings are read here, not passed in: a job's arguments are serialized, and the settings parser wants its
-        # own types back.
         $settings = Import-PowerShellDataFile $settingsPath
         if ($includeRule) {
             $settings.IncludeRules = [string[]] $includeRule
@@ -54,12 +52,10 @@ function Invoke-ScriptAnalyzerShards {
         }
     }
 
-    # Each batch gets its share of the shard budget by file count, at least one shard; round-robin spreads the heavy
-    # modules.
     $jobs = [System.Collections.Generic.List[object]]::new()
     foreach ($entry in $Batch) {
         $shardCount = [Math]::Min($entry.Files.Count, [Math]::Max(1,
-            [int][Math]::Round($budget * $entry.Files.Count / $total)))
+                [int][Math]::Round($budget * $entry.Files.Count / $total)))
         $shards = @(for ($i = 0; $i -lt $shardCount; $i++) {
                 , [System.Collections.Generic.List[string]]::new()
             })

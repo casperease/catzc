@@ -15,3 +15,12 @@ types and the enforcer map is passed in, in Get-CatsRuleEnforcers' shape, so no 
 and rule codes are neutral (widget/gadget, tst —
 [ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```
+
+## comment:2
+
+Above `$script:enforcer = @{`, written with `#`.
+
+```text
+ADR-TST-WIDGET-TESTED is cited by a test, ADR-TST-WIDGET-ANALYZED by an analyzer, ADR-TST-WIDGET-BARE by
+nothing.
+```

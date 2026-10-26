@@ -21,3 +21,12 @@ Above `$engineExtension = @((Get-Config -Config languages).formatters.Values |..
 Get-Config constructs the VscodeExtensionsConfig type on load, so a render is also the shape proof. The
 engines' extensions arrive as the root-config generator passes them.
 ```
+
+## comment:3
+
+Above `@($json.recommendations) | Should -Contain 'golang.go'`, written with `#`.
+
+```text
+The Go language server for the Go tests, under either Go root (go/ or .go/): it reads the repository-root
+go.work.
+```

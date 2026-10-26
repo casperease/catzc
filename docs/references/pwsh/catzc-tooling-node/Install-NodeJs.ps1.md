@@ -48,3 +48,12 @@ The distro `nodejs` package trails the pinned major badly (Ubuntu jammy ships No
 from the NodeSource apt repository for the locked major — mirroring the HashiCorp repo setup in
 Install-Terraform. The repo URL embeds the major, so re-write the source when the pin changes.
 ```
+
+## comment:2
+
+Above `$sourcePath = '/etc/apt/sources.list.d/nodesource.list'`, written with `#`.
+
+```text
+The distro package trails the pinned major, so NodeSource's repo is used; its url holds the major, so a new
+pin rewrites it.
+```

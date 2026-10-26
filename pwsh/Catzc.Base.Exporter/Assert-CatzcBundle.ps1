@@ -18,7 +18,7 @@ function Assert-CatzcBundle {
     $violations = [System.Collections.Generic.List[string]]::new()
 
     foreach ($required in @('Catzc.psd1', 'Catzc.psm1', 'Import-Catzc.ps1', '.internal/Catzc.Internal.Loader.psm1',
-        '.internal/assets/types-load.yml')) {
+            '.internal/assets/types-load.yml')) {
         if (-not [System.IO.File]::Exists([System.IO.Path]::Combine($root, $required))) {
             $violations.Add("missing $required")
         }
@@ -43,9 +43,6 @@ function Assert-CatzcBundle {
     }
     $files = @($files)
 
-    # No test folder ships: tests/ is never live by the layout
-    # ([ADR-AUTO-MODULE-EXISTSBYLAYOUT](/docs/drs/automation/module-model.md#rule-adr-auto-module-existsbylayout)).
-    # Vendored modules are verbatim copies (powershell-yaml carries its own Tests/).
     $leaked = @($files | Where-Object { -not $_.StartsWith('.vendor/') -and "/$_" -match '(?i)/tests/' })
     if ($leaked.Count -gt 0) {
         $violations.Add("$($leaked.Count) test file(s) shipped in the build: $(@($leaked | Select-Object -First 5) -join ', ')")
@@ -111,14 +108,12 @@ function Assert-CatzcBundle {
                     }
                 }
                 if ($sourcesComplete) {
-                    # The hash leaves each file's meta head out and reads the head's delimiters from the carriers
-                    # config, so the build's own copy rides along.
                     $carriers = [System.IO.Path]::Combine($root, 'Catzc.Base.Languages', 'configs', 'file-carriers.yml')
                     if ([System.IO.File]::Exists($carriers)) {
                         $stagedConfigs = [System.IO.Path]::Combine($staging, 'Catzc.Base.Languages', 'configs')
                         [System.IO.Directory]::CreateDirectory($stagedConfigs) | Out-Null
                         [System.IO.File]::Copy($carriers, [System.IO.Path]::Combine($stagedConfigs,
-                            'file-carriers.yml'), $true)
+                                'file-carriers.yml'), $true)
                     }
                     Import-InternalModule Types
                     $actualTypesHash = (Get-CombinedTypeHash -ModulesRoot $staging).CombinedHash

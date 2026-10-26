@@ -113,3 +113,12 @@ Above `Write-Message "Analyzing $($files.Count) PowerShell file(s) with...`, wri
 Analyze, sharded across background processes with live progress (Get-ScriptAnalyzerDiagnostics) — a
 serial pass is ~90s of silence and reads as a hang. The upfront message confirms work has started.
 ```
+
+## comment:6
+
+Above `$thirdParty = Get-GlobSet -Name 'third-party'`, written with `#`.
+
+```text
+Third-party files are not authored here, so the analyzer never judges them; a file outside the repository is never
+third-party.
+```

@@ -54,3 +54,12 @@ Above `$prefix = ".catzc/$([System.IO.Path]::GetFileName($overlayRoot.TrimEnd('\
 The overlay root is .catzc/<track folder> ([PDR-CATS-FOLDERSUSECATZC](/docs/drs/principles/cats-and-catzc.md#rule-pdr-cats-foldersusecatzc))
 and names its own folder, so the records spell no track folder of their own.
 ```
+
+## comment:3
+
+Above `$files = [string[]] @(Get-ChildPath $folder -File -Depth 64 -Exclude @()...`, written with `#`.
+
+```text
+Every file of a consumer module is classified, so the walk prunes nothing: a skipped file would be an override
+nobody sees.
+```

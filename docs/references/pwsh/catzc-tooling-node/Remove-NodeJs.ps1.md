@@ -62,3 +62,12 @@ Unix: evict an off-config install by the mechanism that placed it (native packag
 ([ADR-AUTO-REMOVE-ELEVATIONFOLLOWSMECHANISM](/docs/drs/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-elevationfollowsmechanism)), so no admin assert
 here.
 ```
+
+## comment:3
+
+Above `if ($IsLinux -or $IsMacOS) {`, written with `#`.
+
+```text
+An off-config install leaves by the mechanism that placed it, so elevation is that mechanism's, never asserted
+here.
+```

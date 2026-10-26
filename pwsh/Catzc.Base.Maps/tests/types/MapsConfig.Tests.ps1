@@ -129,7 +129,9 @@ Describe 'MapsConfig' -Tag 'L0' {
             { & $script:make ([ordered]@{ highlight = [ordered]@{ citation_exclude = 'widgets/**' } }) } |
                 Should -Throw '*highlight.citation_exclude must be a list of globs*'
             { & $script:make ([ordered]@{ highlight = [ordered]@{ citation_exclude = @('/widgets/**',
-                'gadgets\notes.md') } }) } |
+                                'gadgets\notes.md')
+                        }
+                    }) } |
                 Should -Throw "*citation_exclude[[]0]: '/widgets/**' is not a repository-relative glob*citation_exclude[[]1]*"
         }
 
@@ -236,7 +238,10 @@ Describe 'MapsConfig' -Tag 'L0' {
 
         It 'reads a kind''s pool and defaults from the file' {
             $raw = [ordered]@{ minimaps = [ordered]@{ explanation = [ordered]@{ pool = @('grid', 'axis',
-                'layer-stack'); defaults = @('grid', 'axis', 'layer-stack') } } }
+                            'layer-stack'); defaults                                 = @('grid', 'axis', 'layer-stack')
+                    }
+                }
+            }
             (& $script:make $raw).MinimapsOf('explanation').defaults | Should -Be @('grid', 'axis', 'layer-stack')
         }
 
@@ -244,7 +249,10 @@ Describe 'MapsConfig' -Tag 'L0' {
             { & $script:make ([ordered]@{ minimaps = [ordered]@{ reference = [ordered]@{ pool = @('widget') } } }) } |
                 Should -Throw "*'widget' is not one of: grid, code-locations*"
             { & $script:make ([ordered]@{ minimaps = [ordered]@{ reference = [ordered]@{ defaults = @('grid', 'axis',
-                'engine-strip') } } }) } | Should -Throw "*'axis' is not in the pool*"
+                                    'engine-strip')
+                            }
+                        }
+                    }) } | Should -Throw "*'axis' is not in the pool*"
             { & $script:make ([ordered]@{ minimaps = [ordered]@{ explanation = [ordered]@{ defaults = @('grid') } } }) } | Should -Throw '*names 1 minimaps; a diagram shows exactly 3*'
         }
 

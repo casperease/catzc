@@ -47,7 +47,7 @@ Describe 'Test-ManagedGuids' -Tag 'L0', 'logic' {
 
     It 'throws once naming an uncovered file, a denied and an unregistered guid, and a dead entry' {
         Mock Get-GuidScanFiles -ModuleName Catzc.Base.QualityGates { @('docs/widget.md', 'docs/gadget.md',
-            'docs/sprocket.md') }
+                'docs/sprocket.md') }
         Mock Get-RepositoryGuids -ModuleName Catzc.Base.QualityGates {
             [pscustomobject]@{ file = 'docs/widget.md'; line = 1; guid = $widgetGuid }
             [pscustomobject]@{ file = 'docs/widget.md'; line = 2; guid = $deniedGuid }

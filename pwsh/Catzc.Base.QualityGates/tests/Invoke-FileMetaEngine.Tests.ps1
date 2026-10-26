@@ -1,3 +1,11 @@
+<#
+---
+catzc:
+  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/Invoke-FileMetaEngine.Tests.ps1.md"
+  header: "generated"
+---
+#>
+
 [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '',
     Justification = 'The fixture fact processors keep the State, Path and Kind parameters the engine passes by name, though they read only Path')]
 param()
@@ -32,8 +40,6 @@ Describe 'Invoke-FileMetaEngine' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRINTE
                 [pscustomobject]@{ name = $Matches['name'] }
             }
         }
-        # Fixture kinds with fixture processors, so the engine is proven on facts of its own, whatever kinds the shipped
-        # registry holds.
         InModuleScope Catzc.Base.QualityGates {
             function script:Get-WidgetPathFileMetaFact {
                 param($State, $Path, $Kind)

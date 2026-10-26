@@ -167,3 +167,48 @@ Above `$generatedUtc =...`, written with `#`.
 PowerShell binds Nullable[datetime] as a plain [datetime], so check for $null and cast —
 do NOT use .HasValue/.Value, which don't exist on the unwrapped struct.
 ```
+
+## comment:7
+
+Above `if (-not $SourceName) {`, written with `#`.
+
+```text
+Filled in the body, not as a default: a piped path binds after the defaults are evaluated, so a default would
+never see it.
+```
+
+## comment:8
+
+Above `Assert-PathExist $CsvPath -PathType Leaf`, written with `#`.
+
+```text
+Asserted in both modes, so a wrong path to the source CSV fails here by name and never as a raw CSV read
+error.
+```
+
+## comment:9
+
+Above `$sortProps = @()`, written with `#`.
+
+```text
+The firewall's own evaluation order: group priority, then collection priority, then name; an unknown sorts
+last, never first.
+```
+
+## comment:10
+
+Above `$columnParams = @{`, written with `#`.
+
+```text
+The columns are built and validated in one place, so a requested column the CSV lacks fails there instead of
+vanishing here.
+```
+
+## comment:11
+
+Above `$generatedUtc =...`, written with `#`.
+
+```text
+A nullable date arrives unwrapped as a plain date, so it is null-checked and cast, never asked for
+HasValue or Value.
+```

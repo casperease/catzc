@@ -84,3 +84,12 @@ Above `$names = [string[]]$constituents`, written with `#`.
 ---- fold: name|hash lines, ordinal by name — the
 [FDR-CD-GLOBS-DURABLESHAIDENTITY](/docs/drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-durableshaidentity) recipe over set hashes ----
 ```
+
+## comment:6
+
+Above `$widen = $true` (occurrence 2), written with `#`.
+
+```text
+a module of another language track running its own tests: no derived globset of its own; its read set is the
+repo
+```

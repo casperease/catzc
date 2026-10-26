@@ -76,3 +76,12 @@ The glossary sources, as Get-GlossarySources returns them ({ Owner; Path; Config
 ```powershell
 Get-GlossarySourceViolations
 ```
+
+## comment:1
+
+Above `elseif ($termConcept[$other].contrasts.ContainsKey($term) -and -not...`, written with `#`.
+
+```text
+A contrast is declared once and the build shows it on both entries; the second declaration of a pair
+is the finding.
+```

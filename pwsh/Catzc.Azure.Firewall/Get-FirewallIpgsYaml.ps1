@@ -21,12 +21,8 @@ function Get-FirewallIpgsYaml {
     )
 
     begin {
-        # The extension is asserted once, but no connection: each target names its own subscription, so a missing
-        # session fails its call.
         Assert-AzCliExtension 'ip-group'
 
-        # Each byte padded to three digits, so a string sort of addresses is a numeric one; an unparseable address sorts
-        # as text.
         $addressSortKey = {
             param([string]$Address)
             $first = ($Address -split '[-/]')[0].Trim()
@@ -61,8 +57,6 @@ function Get-FirewallIpgsYaml {
             throw "No IP Groups found in resource group '$ResourceGroupName' (subscription $SubscriptionId). Wrong RG or missing access?"
         }
 
-        # Sources are keyed by resource group, so two targets that share one across subscriptions collide loudly instead
-        # of overwriting.
         if ($allSources.Contains($ResourceGroupName)) {
             if ($allSources[$ResourceGroupName].subscriptionId -ne $SubscriptionId) {
                 throw "Source name collision: resource group '$ResourceGroupName' appears in two subscriptions ($($allSources[$ResourceGroupName].subscriptionId) and $SubscriptionId). Source names (resource group names) must be unique across targets."
@@ -73,8 +67,6 @@ function Get-FirewallIpgsYaml {
         }
 
         foreach ($g in $groups) {
-            # Group names are unique within one source only, so a clash across sources is surfaced and never silently
-            # replaced.
             if ($allIpgs.Contains($g.name)) {
                 throw "IP Group name collision: '$($g.name)' exists under more than one source ('$($allIpgs[$g.name].source)' and '$ResourceGroupName'). IP Group names must be unique across targets."
             }

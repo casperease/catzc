@@ -12,7 +12,8 @@ Describe 'ImporterConfig' -Tag 'L0', 'logic' {
 
     It 'maps explicit lists for both axes' {
         $config = [Catzc.Base.ModuleSystem.ImporterConfig]::new(@{ languages = @('widget',
-            'gadget'); engines = [Catzc.Base.Engines.ExecutionEngines]::Names[0..1] })
+                    'gadget'); engines                                       = [Catzc.Base.Engines.ExecutionEngines]::Names[0..1]
+            })
         $config.languages | Should -Be @('widget', 'gadget')
         $config.engines | Should -Be ([Catzc.Base.Engines.ExecutionEngines]::Names[0..1])
         [Catzc.Base.ModuleSystem.ImporterConfig]::IsAuto($config.engines) | Should -BeFalse

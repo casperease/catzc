@@ -69,3 +69,12 @@ A body fill-in on purpose: every gate forwards its own -OutputFolder here, empty
 an explicit empty argument would override a declared default
 ([ADR-PWSH-PARAM-RESOLUTIONORDER](/docs/drs/automation/pwsh/parameter-design.md#rule-adr-pwsh-param-resolutionorder)).
 ```
+
+## comment:2
+
+Above `if (-not $OutputFolder) {`, written with `#`.
+
+```text
+Filled in the body, because every gate forwards its own folder here, and an explicit empty one would override a
+default.
+```

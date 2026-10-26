@@ -46,3 +46,12 @@ Above `$markerRoot = Join-Path $OutputRoot 'test-results'`, written with `#`.
 One marker per failing test file at a fixed path, out/test-results/<repository path of the test file>.failed, so a reader (the
 editor's lamps) needs only its existence and its timestamp; a passing file's marker is deleted. Returns the markers written.
 ```
+
+## comment:2
+
+Above `[switch] $KeepPassing,`, written with `#`.
+
+```text
+A run filtered to some tests says nothing of the others, so it only records failures and never clears a
+marker.
+```

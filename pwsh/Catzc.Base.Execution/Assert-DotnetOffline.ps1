@@ -32,8 +32,6 @@ function Assert-DotnetOffline {
         [System.StringComparison]::OrdinalIgnoreCase)
     Assert-True $inside -ErrorText "Assert-DotnetOffline: '$Path' lies outside the repository '$root', where no generated nuget.config keeps dotnet offline."
 
-    # NuGet reads these names in every folder from the project up; the root's one clears what the user's and the
-    # machine's configs add.
     $names = 'nuget.config', 'NuGet.config', 'NuGet.Config'
     $config = Join-Path $root 'nuget.config'
     Assert-True ([System.IO.File]::Exists($config)) -ErrorText "Assert-DotnetOffline: $config is missing, so dotnet would restore from the user's package feeds. Run Build-RootConfig, which generates it."

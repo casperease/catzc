@@ -1,5 +1,11 @@
-# Rests on
-# [ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS](/docs/drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-isolatethroughseams).
+<#
+---
+catzc:
+  docs: "../../../docs/references/pwsh/catzc-base-vs-code/tests/New-VSCodeTasks.Tests.ps1.md"
+  header: "generated"
+---
+#>
+
 Describe 'New-VsCodeTasks' -Tag 'L0', 'logic' {
     BeforeAll {
         Mock Get-Config -ModuleName Catzc.Base.VSCode {

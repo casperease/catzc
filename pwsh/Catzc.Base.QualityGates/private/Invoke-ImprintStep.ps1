@@ -59,8 +59,6 @@ function Invoke-ImprintStep {
             if ($File.Count -eq 0) {
                 return $outcome
             }
-            # The help is the ## help section of the file's comment page, so the step only reports what a person must
-            # settle and changes no file.
             $commentPages = Get-Config -Config comment-pages
             foreach ($path in $File) {
                 # A path the index lists but the working tree has lost, a deletion not yet staged, has no help to check.
@@ -81,30 +79,6 @@ function Invoke-ImprintStep {
                 }
             }
         }
-        'wrap-powershell' {
-            if ($File.Count -eq 0) {
-                return $outcome
-            }
-            # The width is the code width the file limits resolve for PowerShell; a break the proof refuses leaves its
-            # file as it is.
-            $width = (Get-Config -Config file-limits).Resolve('powershell').width
-            $outcome.Changed = [string[]] @(foreach ($path in $File) {
-                    if (-not [System.IO.File]::Exists($path)) {
-                        continue
-                    }
-                    $text = [System.IO.File]::ReadAllText($path)
-                    $result = Format-PowerShellWidth -Text $text -Width $width
-                    if ($result.Refused -and $result.Refused -ne 'the file does not parse') {
-                        $outcome.Unfixable[$path] = "a line past $width columns needs a hand edit: $($result.Refused)"
-                    }
-                    if ($result.Changed) {
-                        if (-not $DryRun) {
-                            [System.IO.File]::WriteAllText($path, $result.Text, [System.Text.UTF8Encoding]::new($false))
-                        }
-                        $path
-                    }
-                })
-        }
         'comments' {
             if ($File.Count -eq 0) {
                 return $outcome
@@ -116,15 +90,11 @@ function Invoke-ImprintStep {
             if ($File.Count -eq 0) {
                 return $outcome
             }
-            # The counts are derived from the plans beside each overlay, so each folder the files sit in is rewritten
-            # once.
             $plans = Get-Config -Config plans
             $folders = @($File | ForEach-Object { [System.IO.Path]::GetDirectoryName([System.IO.Path]::GetFullPath($_)) } | Sort-Object -Unique)
             $outcome.Changed = [string[]] @(foreach ($folder in $folders) {
                     Update-PlanStepCount $folder -Config $plans -DryRun:$DryRun
                 })
-            # A rewritten overlay can lie outside -Path, past the formatter's pass, so the step formats what it wrote
-            # itself.
             if (-not $DryRun -and $outcome.Changed.Count -gt 0) {
                 $null = Invoke-FormatterEngine -Engine prettier -File $outcome.Changed
             }

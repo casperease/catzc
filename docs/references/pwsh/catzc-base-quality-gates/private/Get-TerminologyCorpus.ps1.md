@@ -62,3 +62,12 @@ Above `foreach ($path in Get-ChildPath $Root -File -Depth 10) {`, written with `
 Tracked files reach nine levels below the root, so ten leaves one level of headroom. The corpus is searched for words,
 never read in order, so the walker's file order does not matter.
 ```
+
+## comment:4
+
+Above `$ignored = @(foreach ($glob in...`, written with `#`.
+
+```text
+Test-Spelling's one scope: the ignorePaths of the root cspell.yml, read as cspell reads them, where a glob with no
+'/' matches a name at any depth.
+```

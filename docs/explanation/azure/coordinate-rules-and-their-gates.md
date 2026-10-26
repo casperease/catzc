@@ -59,7 +59,7 @@ content:
     - { from: g-integrity, to: g-validator, kind: flow, label: calls }
     - { from: g-validator, to: g-check, kind: flow, label: "" }
     - { from: g-check, to: e-subscription, kind: flow, label: "" }
-    - { from: e-subscription, to: e-group, kind: flow, label: "" }
+    - { from: e-group, to: e-subscription, kind: flow, label: in }
   markers:
     - { at: g-config, number: 1 }
     - { at: g-discovery, number: 2 }

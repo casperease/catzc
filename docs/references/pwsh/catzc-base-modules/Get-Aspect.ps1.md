@@ -36,3 +36,12 @@ Get-Aspect -Track automation      # -> live (closed, from the layout), tests (ca
 ```powershell
 (Get-Aspect -Track infrastructure)[-1].Name   # -> 'live' (a deployment's catch-all is live)
 ```
+
+## comment:1
+
+Above `$aspects = Get-AspectDeclaration`, written with `#`.
+
+```text
+The type holds the declared conventions over its built-in ones (VariantsConfig.DefaultAspects), so one lookup
+covers both.
+```

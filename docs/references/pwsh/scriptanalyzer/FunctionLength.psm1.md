@@ -23,3 +23,12 @@ Above `$isFunctionDefinition = {`, written with `#`.
 Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew
 ([ADR-PWSH-FORMAT-MULTILINEPREDICATEBOUND](/docs/drs/automation/pwsh/powershell-formatting.md#rule-adr-pwsh-format-multilinepredicatebound)).
 ```
+
+## comment:3
+
+Above `$modulesRoot = [System.IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))`, written with `#`.
+
+```text
+The rule sits in the modules root, so it reads file-limits.yml from there; an analyzer shard process has no
+Get-Config.
+```

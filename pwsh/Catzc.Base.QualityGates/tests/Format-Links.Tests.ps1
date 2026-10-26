@@ -21,7 +21,7 @@ Describe 'Format-Links' -Tag 'L0', 'logic' {
         $script:newRepository = {
             $root = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
             & $script:writeFile $root '.editorconfig' ((@('[*.{ps1,psm1,psd1}]', 'max_line_length = 120',
-                '') -join "`n"))
+                        '') -join "`n"))
             & $script:writeFile $root 'docs/drs/index.md' ((@(
                         '| Code | ADR |'
                         '| ---- | --- |'
@@ -30,10 +30,10 @@ Describe 'Format-Links' -Tag 'L0', 'logic' {
                     ) -join "`n") + "`n")
             & $script:writeFile $root 'docs/drs/widget/widget-rules.md' ((@(
                         '# Widget rules', '', '### Rule ADR-TST-WIDGET-SPIN', '', 'One.', '',
-                            '### Rule ADR-TST-WIDGET-NEST', '', 'Two.', '', '## Widget notes', ''
+                        '### Rule ADR-TST-WIDGET-NEST', '', 'Two.', '', '## Widget notes', ''
                     ) -join "`n"))
             & $script:writeFile $root 'docs/drs/gadget/gadget-rules.md' ((@('# Gadget rules', '',
-                '### Rule ADR-TST-GADGET-TURN', '', 'One.', '') -join "`n"))
+                        '### Rule ADR-TST-GADGET-TURN', '', 'One.', '') -join "`n"))
             & $script:writeFile $root 'docs/drs/widget/dora-explains.md' "# Widget DORA`n"
             & $script:writeFile $root 'docs/drs/gadget/dora-explains.md' "# Gadget DORA`n"
             $root
@@ -134,7 +134,7 @@ Describe 'Format-Links' -Tag 'L0', 'logic' {
         It 'aligns C# and YAML comments too' -Tag 'ADR-REPO-LINK-KINDBYFILE', 'ADR-REPO-LINK-CODELINKS' {
             # A string or value is data: its citation stays plain, never a link.
             & $alignFile $root 'src/Gadget.cs' ((@('// Per ADR-TST-WIDGET-NEST.', 'var s = "ADR-TST-WIDGET-NEST";',
-                '') -join "`n")) |
+                        '') -join "`n")) |
                 Should -BeExactly ((@("// Per $widget2.", 'var s = "ADR-TST-WIDGET-NEST";', '') -join "`n"))
             & $alignFile $root 'src/gadget.yml' "# Per ADR-TST-WIDGET-NEST.`nkey: ADR-TST-WIDGET-NEST`n" |
                 Should -BeExactly "# Per $widget2.`nkey: ADR-TST-WIDGET-NEST`n"

@@ -1,5 +1,7 @@
 # pwsh/.internal/tests/Import-CSharpTypes.CrossRoot.Tests.ps1
 
+<!-- cspell:ignore importcs dlllock -->
+
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
 
@@ -77,3 +79,11 @@ The loader's per-root session record (the session-global __CatzcTypes), read wit
 reference: the record for <Root>, or $null when that root never recorded.
 ```
 
+## comment:8
+
+Above `$script:originalTerminalProgram = $env:TERM_PROGRAM`, written with `#`.
+
+```text
+A run from a VS Code terminal carries its mark; every case here is a plain devbox unless it sets the mark
+itself.
+```

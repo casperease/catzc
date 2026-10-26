@@ -17,9 +17,9 @@ Describe 'Get-DynamicManifestContent' -Tag 'L0', 'logic' {
 
     It 'produces byte-identical output for identical inputs (deterministic)' {
         $first = InModuleScope Catzc.Internal.Bootstrap { Get-DynamicManifestContent -NestedModule @('private/B.ps1',
-            'A.ps1') -FunctionToExport @('A') }
+                'A.ps1') -FunctionToExport @('A') }
         $second = InModuleScope Catzc.Internal.Bootstrap { Get-DynamicManifestContent -NestedModule @('private/B.ps1',
-            'A.ps1') -FunctionToExport @('A') }
+                'A.ps1') -FunctionToExport @('A') }
         $first | Should -BeExactly $second
     }
 
@@ -83,7 +83,7 @@ Describe 'New-DynamicManifest' -Tag 'L0', 'logic' {
         $expected = InModuleScope Catzc.Internal.Bootstrap {
             Get-DynamicManifestContent -NestedModule @('../.internal/assets/Import-ModuleFiles.ps1') `
                 -ModuleFile @('private/Get-WidgetPart.ps1', 'Get-WidgetA.ps1',
-                    'Get-WidgetB.ps1') -FunctionToExport @('Get-WidgetA', 'Get-WidgetB')
+                'Get-WidgetB.ps1') -FunctionToExport @('Get-WidgetA', 'Get-WidgetB')
         }
         $manifest | Should -Be (Join-Path $path 'DerivedWidget.psd1')
         [System.IO.File]::ReadAllText($manifest) | Should -BeExactly $expected
@@ -151,7 +151,7 @@ Describe 'New-DynamicManifest explicit lists load a merged module' -Tag 'L1', 'l
         $script:path = Join-Path $TestDrive $moduleName
         [System.IO.Directory]::CreateDirectory($path) | Out-Null
         [System.IO.File]::WriteAllText((Join-Path $path "$moduleName.ps1"), ((@("function Get-GadgetPart { 'part' }",
-            'function Get-Gadget { Get-GadgetPart }') -join "`n") + "`n"))
+                        'function Get-Gadget { Get-GadgetPart }') -join "`n") + "`n"))
         $manifest = InModuleScope Catzc.Internal.Bootstrap -Parameters @{ P = $path; N = $moduleName } {
             param($P, $N) New-DynamicManifest -ModulePath $P -NestedModule "$N.ps1" -FunctionToExport 'Get-Gadget'
         }

@@ -1,3 +1,11 @@
+<#
+---
+catzc:
+  docs: "../../../docs/references/pwsh/catzc-base-generated-files/tests/Get-GeneratedWriterDue.Tests.ps1.md"
+  header: "generated"
+---
+#>
+
 Describe 'Get-GeneratedWriterDue' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:root = Join-Path $TestDrive 'widget-repository'
@@ -7,8 +15,6 @@ Describe 'Get-GeneratedWriterDue' -Tag 'L0', 'logic' {
                     'Build-Gadget'   = [ordered]@{ inputs = @('gadget/*.yml'); outputs = @('docs/missing.md') }
                     # A writer whose ignored target is one of its own inputs, as the root configs declare theirs.
                     'Build-Sprocket' = [ordered]@{ inputs = @('.sprocket.yml'); outputs = @('.sprocket.yml') }
-                    # A writer that writes one file into every folder a wildcard claims, as the root configs write each
-                    # pyproject.toml.
                     'Build-Cog'      = [ordered]@{ inputs = @('cogs/*/cog.toml') }
                     'Build-Gizmo'    = $null
                 }

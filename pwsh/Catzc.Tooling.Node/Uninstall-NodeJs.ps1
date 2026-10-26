@@ -14,8 +14,6 @@ function Uninstall-NodeJs {
         [switch] $Force
     )
 
-    # With -Remove a failure means a foreign install the escalation still removes, so it is logged; alone, it
-    # propagates.
     try {
         Uninstall-Tool -Tool 'node_js' -Version $Version
     }

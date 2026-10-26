@@ -18,8 +18,6 @@ function Get-AspectGlobSet {
     }
     $codeTrack = Get-Track -Path (Get-CatzcModulesFolder)
     $aspectNames = @(Get-Aspect -Track $codeTrack.name).ForEach({ $_.Name })
-    # A single-file module's set is the degenerate one-aspect partition: live
-    # ([DDR-ASPECT-ASPECTISAGLOBSET](/docs/drs/design/module-aspects.md#rule-ddr-aspect-aspectisaglobset)).
     $singleFile = @(Get-CatzcModule -Track $codeTrack.name -IncludeInternal).Where({ $_.shape -ceq 'file' }).ForEach({ [Catzc.Base.Objects.NameCase]::Render($_.name, 'kebab') })
     foreach ($set in @(Get-ModuleGlobSet).Where({ $_.Layer -ceq 'module' })) {
         if ($set.Name -cin $singleFile) {
@@ -40,7 +38,7 @@ function Get-AspectGlobSet {
         foreach ($place in $track.places) {
             foreach ($compiled in [Catzc.Base.Globs.AspectPartition]::Compile($aspects, $place)) {
                 & $add $compiled.Name ([Catzc.Base.Globs.GlobSet]::new("$($track.name)-$($compiled.Name)",
-                    "Track aspect - $place [$($compiled.Name)]", 'module',
+                        "Track aspect - $place [$($compiled.Name)]", 'module',
                         [string[]]$compiled.Include, [string[]]$compiled.Exclude, @(), @(), -1, $null))
             }
         }

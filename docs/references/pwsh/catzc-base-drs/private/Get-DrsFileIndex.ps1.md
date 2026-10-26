@@ -31,3 +31,12 @@ The absolute docs/drs/ folder.
 
 `[pscustomobject]` { Root; Relative; ByKey; FileOf }: Relative lists every file's path under docs/drs/ ('/'-separated), ByKey maps each key
 to its list of relative paths, and FileOf maps an External code to its one relative path.
+
+## comment:1
+
+Above `$folders = @($RuleSets.Folder | Sort-Object -Unique | Sort-Object -Property...`, written with `#`.
+
+```text
+A page belongs to the domain with the longest folder that holds it, so a domain folder nested in another domain's
+folder keeps its own pages.
+```

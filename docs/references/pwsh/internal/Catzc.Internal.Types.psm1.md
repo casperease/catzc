@@ -96,7 +96,7 @@ Above `[CmdletBinding()]` (occurrence 2), written with `#`.
 
 ## comment:5
 
-Above `[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '',...`, written with `#`.
+Above `[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '',`, written with `#`.
 
 ```text
 .SYNOPSIS
@@ -115,7 +115,7 @@ Above `[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '
 
 ## comment:6
 
-Above `[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '',...` (occurrence 2), written with `#`.
+Above `[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '',` (occurrence 2), written with `#`.
 
 ```text
 .SYNOPSIS
@@ -131,7 +131,7 @@ Above `[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '
 
 ## comment:7
 
-Above `[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '',...` (occurrence 3), written with `#`.
+Above `[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '',` (occurrence 3), written with `#`.
 
 ```text
 .SYNOPSIS

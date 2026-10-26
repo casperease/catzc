@@ -12,3 +12,12 @@ Test-DrsRegistry over a fixture docs/drs tree in $TestDrive, a fixture DrsConfig
 Resolve-RepoPath mocked), so each test pins one rule. Neutral fixture names
 ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```
+
+## comment:2
+
+Above `Mock Get-DrsDanglingCodeViolations -ModuleName Catzc.Base.Drs...`, written with `#`.
+
+```text
+The registry cases cite codes the fixture map does not hold; the dangling-code cases below run the helper
+itself.
+```

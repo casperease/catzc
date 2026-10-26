@@ -43,12 +43,7 @@ function Invoke-RootConfigGenerator {
             $managedTargets = @(foreach ($entry in @(Get-RootConfigTargets -Config $config)) {
                     $entry.target
                 })
-            # Pin the managed Go toolchain: on Windows a machine-wide go would otherwise win on PATH.
             $machineSetting = @{}
-            $go = Resolve-ToolExecutable -Tool go
-            if ($go.Found -and $go.VersionOk) {
-                $machineSetting['go.goroot'] = [System.IO.Path]::GetDirectoryName([System.IO.Path]::GetDirectoryName($go.Path))
-            }
             # The Python extension resolves and runs the tests in the one workspace environment.
             $python = Get-Config -Config python
             $pythonRoot = $python.ResolveRoot((Get-RepositoryRoot))
@@ -100,20 +95,7 @@ function Invoke-RootConfigGenerator {
             New-VsCodeTasks
         }
         'New-JsConfig' {
-            # The type roots are npm's global root beside the managed node, where Install-TypeScript puts the
-            # declarations; no process runs.
-            $node = Resolve-ToolExecutable -Tool node_js
-            $typeRoot = if ($node.Found) {
-                $folder = Split-Path $node.Path
-                $global = if ($IsWindows) {
-                    Join-Path $folder 'node_modules'
-                }
-                else {
-                    Join-Path (Split-Path $folder) 'lib/node_modules'
-                }
-                (Join-Path $global '@types') -replace '\\', '/'
-            }
-            New-JsConfig -TypeRoot $typeRoot -Target $Target
+            New-JsConfig -Target $Target
         }
         'New-GoWorkspace' {
             # One record per file; the entry's target picks go.work or a go.mod.

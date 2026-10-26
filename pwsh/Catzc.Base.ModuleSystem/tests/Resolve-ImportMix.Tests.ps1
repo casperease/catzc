@@ -1,3 +1,11 @@
+<#
+---
+catzc:
+  docs: "../../../docs/references/pwsh/catzc-base-module-system/tests/Resolve-ImportMix.Tests.ps1.md"
+  header: "generated"
+---
+#>
+
 Describe 'Resolve-ImportMix' -Tag 'L0', 'logic' {
     BeforeAll {
         Mock Get-Config -ModuleName Catzc.Base.ModuleSystem -ParameterFilter { $Config -eq 'importer' } {
@@ -9,8 +17,6 @@ Describe 'Resolve-ImportMix' -Tag 'L0', 'logic' {
             $note = [pscustomobject]@{ name = 'note'; executable = $false; handled = $false }
             $config = [pscustomobject]@{ languages = @($widget, $gadget, $note) }
             $byExtension = @{ '.wdg' = $widget; '.gdg' = $gadget; '.note' = $note }
-            # The widget language owns the module root, the gadget language owns gizmos/; assets/ and tests/ are the
-            # shared rows.
             $rows = @{
                 '.'      = [pscustomobject]@{ language = 'widget' }
                 'gizmos' = [pscustomobject]@{ language = 'gadget' }

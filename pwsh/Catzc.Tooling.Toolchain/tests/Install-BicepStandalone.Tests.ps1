@@ -30,7 +30,7 @@ Describe 'Install-BicepStandalone' -Tag 'L0', 'logic' {
         Mock Write-Message -ModuleName Catzc.Tooling.Toolchain { }
         Mock Invoke-RestMethod -ModuleName Catzc.Tooling.Toolchain { , $script:releases }
         Mock Save-VerifiedDownload -ModuleName Catzc.Tooling.Toolchain { [System.IO.File]::WriteAllText($OutFile,
-            'bicep'); $OutFile }
+                'bicep'); $OutFile }
         Mock Invoke-Executable -ModuleName Catzc.Tooling.Toolchain { }
     }
 

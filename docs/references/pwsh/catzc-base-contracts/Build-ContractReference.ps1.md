@@ -75,3 +75,12 @@ Above `$signatures = @{}`, written with `#`.
 The signatures of the root's command contracts, by asset path, from the one reader; a root whose contracts do not all parse
 shows none, and Test-Contracts reports the asset.
 ```
+
+## comment:2
+
+Above `foreach ($asset in @($rootAssets | Where-Object { $_.Kind -eq...`, written with `#`.
+
+```text
+One unreadable contract fails the root's read, so each asset is read on its own and only the broken
+one shows none.
+```

@@ -1,11 +1,17 @@
+<#
+---
+catzc:
+  docs: "../../../docs/references/pwsh/internal/tests/Invoke-StagedBurst.Tests.ps1.md"
+  header: "generated"
+---
+#>
+
 Describe 'Invoke-StagedBurst' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:burst = Join-Path $PSScriptRoot '../assets/Invoke-StagedBurst.ps1'
     }
 
     BeforeEach {
-        # Each test has a repository root, a stand-in importer and a run lock of its own, so a real run on the machine
-        # never touches them.
         $script:lockName = "Local\catzc-test-$([guid]::NewGuid())"
         $script:root = Join-Path $TestDrive "root-$([guid]::NewGuid())"
         $script:staged = Join-Path $script:root 'out/widget/staged'
@@ -25,6 +31,7 @@ function Write-Message { param([AllowEmptyString()] [string] `$Message, [switch]
 function Test-Swapped { if ((Get-Content -LiteralPath '$gadget' -Raw) -ne 'staged') { throw 'the staged gadget is not in place' } }
 function Test-Deleted { if (Test-Path -LiteralPath '$cog') { throw 'the cog is still there' } }
 function Test-Broken { throw 'broken gadget' }
+function Test-BurstHeld { `$event = `$null; if (-not [System.Threading.EventWaitHandle]::TryOpenExisting('$($script:lockName)-burst', [ref] `$event)) { throw 'no burst event while the swap runs' }; `$event.Dispose() }
 "@)
     }
 
@@ -34,8 +41,6 @@ function Test-Broken { throw 'broken gadget' }
         [System.IO.File]::ReadAllText($script:target) | Should -BeExactly 'staged'
         [System.IO.File]::ReadAllText($script:created) | Should -BeExactly 'new'
         Test-Path -LiteralPath "$script:staged.backup" | Should -BeFalse
-        # The real Invoke-CatzcCommand.ps1 runs the one fixture command: its switches bind by name and are never taken
-        # for commands.
         $lines | Should -Contain '[Invoke-CatzcCommand] passed: Test-Swapped'
         $lines | Should -Contain '[Invoke-CatzcCommand] 1 of 1 passed'
         ($lines -join "`n") | Should -Not -BeLike '*is not recognized*'
@@ -132,14 +137,12 @@ function Test-Broken { throw 'broken gadget' }
 
     Context 'a staged delete' {
         BeforeEach {
-            # Only the marker is staged, so these tests delete without swapping, unless one stages the gadget back
-            # itself.
             Remove-Item -LiteralPath (Join-Path $script:staged 'widgets/gadget.txt'), (Join-Path $script:staged 'widgets/sprocket.txt')
             [System.IO.File]::WriteAllText((Join-Path $script:staged 'widgets/cog.txt.burst-delete'), '')
         }
 
         It 'deletes the target a marker names, under the same import, and removes the journal' {
-            $lines = @(& $script:burst -StagedFolder 'out/widget/staged' -RepositoryRoot $script:root -Importer $script:importer -LockName $script:lockName -LockSeconds 1 -Seconds 30 'Test-Deleted')
+            $null = @(& $script:burst -StagedFolder 'out/widget/staged' -RepositoryRoot $script:root -Importer $script:importer -LockName $script:lockName -LockSeconds 1 -Seconds 30 'Test-Deleted')
             $LASTEXITCODE | Should -Be 0
             Test-Path -LiteralPath $script:doomed | Should -BeFalse
             Test-Path -LiteralPath "$script:doomed.burst-delete" | Should -BeFalse
@@ -170,6 +173,16 @@ function Test-Broken { throw 'broken gadget' }
             [System.IO.File]::ReadAllText($script:doomed) | Should -BeExactly 'cog'
             ($lines -join "`n") | Should -BeLike "*marks 'widgets*sprocket.txt' for deletion, but it does not exist*"
         }
+    }
+
+    It 'holds the burst event for the swap window, so an import outside it waits, and lets it go after a pass and after a failure' -ForEach @(
+        @{ Commands = @('Test-BurstHeld'); Exit = 0 }
+        @{ Commands = @('Test-BurstHeld', 'Test-Broken'); Exit = 1 }
+    ) {
+        $null = @(& $script:burst -StagedFolder 'out/widget/staged' -RepositoryRoot $script:root -Importer $script:importer -LockName $script:lockName -LockSeconds 1 -Seconds 30 @Commands)
+        $LASTEXITCODE | Should -Be $Exit
+        $event = $null
+        [System.Threading.EventWaitHandle]::TryOpenExisting("$($script:lockName)-burst", [ref] $event) | Should -BeFalse
     }
 
     It 'names no command, and stops' {

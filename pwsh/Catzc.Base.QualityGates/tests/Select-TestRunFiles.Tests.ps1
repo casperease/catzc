@@ -37,7 +37,7 @@ Describe 'Select-TestRunFiles' -Tag 'L0', 'logic' {
     BeforeEach {
         # The real shape: ONE array object (`, $array`), so a caller that wraps it in @() instead of casting it breaks.
         Mock Get-TestAutomationTestFiles -ModuleName Catzc.Base.QualityGates { , [string[]] @($script:widget,
-            $script:gadget) }
+                $script:gadget) }
         Mock Write-TestOptOutExclusion -ModuleName Catzc.Base.QualityGates { }
         $script:arguments = @{
             TestPath = @('C:\repo\automation\Widget\tests'); Discovery = $script:discovery

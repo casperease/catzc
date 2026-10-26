@@ -19,7 +19,8 @@ Describe 'Test-Change' -Tag 'L1', 'logic' {
         function global:Test-GadgetScan {
             param([switch] $PassThru)
             [pscustomobject]@{ Issues = @('widget/a.wdg:3: gadget loose', 'gizmo/elsewhere.wdg: not ours',
-                'registry: gadget missing') }
+                    'registry: gadget missing')
+            }
         }
         function global:Test-GizmoProbe {
             param([switch] $PassThru)

@@ -41,8 +41,8 @@ Describe 'Install-VendorModule' -Tag 'L0', 'logic' {
         Install-VendorModule Widget
 
         @([System.IO.Directory]::GetDirectories($version) | ForEach-Object { [System.IO.Path]::GetFileName($_) } |
-            Sort-Object) |
-            Should -Be @('net8.0', 'Settings')
+                Sort-Object) |
+                Should -Be @('net8.0', 'Settings')
     }
 }
 

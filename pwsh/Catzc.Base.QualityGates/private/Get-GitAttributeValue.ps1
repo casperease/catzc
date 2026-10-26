@@ -29,8 +29,6 @@ function Get-GitAttributeValue {
     if ($Path.Count -eq 0) {
         return $ret
     }
-    # One git process reads every path from stdin, NUL-separated both ways: a process per batch costs about 25 ms each,
-    # and no path is quoted or split.
     $listing = Invoke-Executable "git -C `"$RepositoryRoot`" -c core.quotepath=off check-attr -z --stdin $($Attribute -join ' ')" -InputText (($Path -join "`0") + "`0") -PassThru -Silent
     $fields = $listing.Output -split "`0"
     for ($position = 0; $position + 2 -lt $fields.Count; $position += 3) {

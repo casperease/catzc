@@ -1,5 +1,11 @@
-# PathSet holds the files a type owns: named under a base, or found by a pattern through the bounded walker; full paths,
-# sorted, unique.
+<#
+---
+catzc:
+  docs: "../../../../docs/references/pwsh/catzc-base-folders/tests/types/PathSet.Tests.ps1.md"
+  header: "generated"
+---
+#>
+
 Describe 'PathSet' -Tag 'L0', 'logic' {
     BeforeAll {
         $root = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))

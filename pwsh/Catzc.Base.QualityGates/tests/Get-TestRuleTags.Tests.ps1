@@ -27,7 +27,7 @@ Describe 'Get-TestRuleTags' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-PROVENANCETAGS' {
 
     It 'unions citations across own tags and every ancestor block' {
         $result = & $script:rules (New-FakeTest -OwnTags @('L0', 'logic',
-            'ADR-WIDGET-GADGET-SPIN') -InnerTags @('ADR-WIDGET-GADGET-TURN') -OuterTags @('ADR-WIDGET-GADGET-STOP'))
+                'ADR-WIDGET-GADGET-SPIN') -InnerTags @('ADR-WIDGET-GADGET-TURN') -OuterTags @('ADR-WIDGET-GADGET-STOP'))
         $result | Should -Be @('ADR-WIDGET-GADGET-SPIN', 'ADR-WIDGET-GADGET-STOP', 'ADR-WIDGET-GADGET-TURN')
     }
 
@@ -42,7 +42,7 @@ Describe 'Get-TestRuleTags' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-PROVENANCETAGS' {
 
     It 'ignores a malformed citation (the numbered and colon forms, an ADR code that names no rule, wrong case)' {
         $result = & $script:rules (New-FakeTest -InnerTags @('ADR-WIDGET-GADGET#3', 'ADR-WIDGET-GADGET:3',
-            'ADR-WIDGET-GADGET', 'adr-widget-gadget-spin'))
+                'ADR-WIDGET-GADGET', 'adr-widget-gadget-spin'))
         $result | Should -HaveCount 0
     }
 

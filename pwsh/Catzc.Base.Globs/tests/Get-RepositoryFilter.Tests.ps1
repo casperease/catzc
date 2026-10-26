@@ -10,6 +10,25 @@ Describe 'Get-RepositoryFilter — the real repository' -Tag 'L1', 'integrity', 
                     [string[]]@($set.exclude), @(), @(), -1, $null)
             }
         }
+        # The named filter's sets, and whether one of them claims a path.
+        $script:setsOf = {
+            param([string] $Filter)
+            foreach ($entry in $script:filters) {
+                if ($entry.name -ceq $Filter) {
+                    & $script:globSets @($entry.sets)
+                }
+            }
+        }
+        $script:claims = {
+            param([string] $Filter, [string] $Path)
+            foreach ($set in & $script:setsOf $Filter) {
+                if ($set.Matches($Path)) {
+                    return $true
+                }
+            }
+            $false
+        }
+        $script:globs = (Get-CatzcModulesFolder) + '/Catzc.Base.Globs'
     }
 
     It 'resolves every declared filter, in order, to at least one include/exclude set' {
@@ -33,11 +52,7 @@ Describe 'Get-RepositoryFilter — the real repository' -Tag 'L1', 'integrity', 
     }
 
     It 'gives the pipeline and workflow definitions their own filter and keeps them out of the vendor tools' {
-        $claims = {
-            param([string] $Filter, [string] $Path)
-            $sets = & $script:globSets @($script:filters.Where({ $_.name -ceq $Filter })[0].sets)
-            $sets.Where({ $_.Matches($Path) }, 'First').Count -gt 0
-        }
+        $claims = $script:claims
         foreach ($path in '.github/workflows/ci.yaml', '.ado/pipelines/ci-pwsh.yaml') {
             & $claims 'pipelines' $path | Should -BeTrue -Because "'$path' is a pipeline definition"
             & $claims 'tools' $path |
@@ -52,49 +67,41 @@ Describe 'Get-RepositoryFilter — the real repository' -Tag 'L1', 'integrity', 
     }
 
     It 'gives the configuration part of everything as code its own filter, through the config file kind, and keeps it live' {
-        $claims = {
-            param([string] $Filter, [string] $Path)
-            $sets = & $script:globSets @($script:filters.Where({ $_.name -ceq $Filter })[0].sets)
-            $sets.Where({ $_.Matches($Path) }, 'First').Count -gt 0
-        }
-        foreach ($path in 'pwsh/Catzc.Base.Globs/configs/filters.yml',
+        $claims = $script:claims
+        foreach ($path in "$script:globs/configs/filters.yml",
             'infrastructure/templates/discovery/configuration/apex/nsub.yml',
             'python/catzc_diagrams/configs/drawio.yml') {
             & $claims 'configs' $path | Should -BeTrue -Because "'$path' is configuration"
             & $claims 'live' $path | Should -BeTrue -Because "'$path' stays live"
             & $claims 'code' $path | Should -BeFalse -Because "'$path' is configuration, not code"
         }
-        & $claims 'configs' 'pwsh/Catzc.Base.Globs/Get-RepositoryFilter.ps1' |
+        & $claims 'configs' "$script:globs/Get-RepositoryFilter.ps1" |
             Should -BeFalse -Because 'a function is code, not configuration'
         { Get-RepositoryFilter -Name code | Out-Null } | Should -Not -Throw
     }
 
     It 'splits the live aspect: code is its executable part by extension, live is all of it, and neither takes a test' {
-        $claims = {
-            param([string] $Filter, [string] $Path)
-            $sets = & $script:globSets @($script:filters.Where({ $_.name -ceq $Filter })[0].sets)
-            $sets.Where({ $_.Matches($Path) }, 'First').Count -gt 0
-        }
-        foreach ($path in 'pwsh/Catzc.Base.Globs/Get-RepositoryFilter.ps1',
-            'pwsh/Catzc.Base.Globs/types/FiltersConfig.cs', 'js/catzc-track-lamps/extension.js',
+        $claims = $script:claims
+        foreach ($path in "$script:globs/Get-RepositoryFilter.ps1",
+            "$script:globs/types/FiltersConfig.cs", 'js/catzc-track-lamps/extension.js',
             'infrastructure/modules/data-factory.bicep') {
             & $claims 'code' $path | Should -BeTrue -Because "'$path' is live code"
             & $claims 'live' $path | Should -BeTrue -Because "'$path' is live"
         }
-        foreach ($path in 'js/catzc-track-lamps/assets/code-on.svg', 'pwsh/Catzc.Base.Globs/configs/filters.yml') {
+        foreach ($path in 'js/catzc-track-lamps/assets/code-on.svg', "$script:globs/configs/filters.yml") {
             & $claims 'code' $path | Should -BeFalse -Because "'$path' is live but no code"
             & $claims 'live' $path | Should -BeTrue -Because "'$path' is live"
         }
         foreach ($filter in 'code', 'live') {
-            & $claims $filter 'pwsh/Catzc.Base.Globs/tests/Get-RepositoryFilter.Tests.ps1' |
+            & $claims $filter "$script:globs/tests/Get-RepositoryFilter.Tests.ps1" |
                 Should -BeFalse -Because 'a test is the tests aspect'
         }
     }
 
     It 'gives the contracts their own lamp, apart from every other track''s live files' {
-        $contract = @($script:tracked.Where({ $_ -like 'contracts/*/*/*' -and $_ -notlike '*/tests/*' }))[0]
+        $contract = $script:tracked.Where({ $_ -like 'contracts/*/*/*' -and $_ -notlike '*/tests/*' }) | Select-Object -First 1
         $contract | Should -Not -BeNullOrEmpty -Because 'the repository holds a frozen contract'
-        $sets = { param([string] $Filter) & $script:globSets @($script:filters.Where({ $_.name -ceq $Filter })[0].sets) }
+        $sets = $script:setsOf
         (& $sets 'contracts').Where({ $_.Matches($contract) }, 'First').Count |
             Should -Be 1 -Because "'$contract' is the contracts track's"
         foreach ($filter in 'code', 'live') {

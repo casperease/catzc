@@ -77,8 +77,6 @@ function Write-EnvironmentSet {
         $origins[$entry.Name] = $entry.Origin
     }
 
-    # Scoped restores every target in a finally, so a throwing block never leaves a variable changed; Persist leaves
-    # them set.
     $scoped = -not $Persist
 
     $snapshot = [ordered]@{}

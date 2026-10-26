@@ -44,3 +44,12 @@ the texts the two files have after the move.
 RestsOn carries the codes the head lists that no text of the file spells out, so the move keeps each as a real link in the help's
 description and none is lost when the head goes
 ([ADR-REPO-FILEMETA-NOREADBACK](../../../../drs/repository/file-meta.md#rule-adr-repo-filemeta-noreadback)).
+
+## comment:1
+
+Above `$RestsOn = [string[]] @($RestsOn | Where-Object { $_ })`, written with `#`.
+
+```text
+A caller that hands an empty list through a scope boundary hands $null, so the list is rebuilt before it is
+counted.
+```

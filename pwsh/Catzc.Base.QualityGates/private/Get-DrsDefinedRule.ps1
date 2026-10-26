@@ -12,11 +12,14 @@ function Get-DrsDefinedRule {
     param(
         [Parameter(Mandatory)]
         [AllowEmptyString()]
-        [string] $Text
+        [string] $Text,
+
+        # The drs code form, which a caller over many texts resolves once and passes in.
+        $Form = (Get-Config -Config drs).CodeForm
     )
 
     $rules = [System.Collections.Generic.List[string]]::new()
-    $ruleHeading = "(?m)^###[ \t]+Rule[ \t]+(?<code>$((Get-Config -Config drs).CodeForm.Rule))[ \t]*\r?$"
+    $ruleHeading = "(?m)^###[ \t]+Rule[ \t]+(?<code>$($Form.Rule))[ \t]*\r?$"
     foreach ($match in [regex]::Matches($Text, $ruleHeading)) {
         $citation = $match.Groups['code'].Value
         if (-not $rules.Contains($citation)) {

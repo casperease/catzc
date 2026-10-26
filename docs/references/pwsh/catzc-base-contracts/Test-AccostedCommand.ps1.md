@@ -37,3 +37,12 @@ The root the command contracts resolve against. Default: the repository root.
 ```powershell
 Test-AccostedCommand -Call '{"get_widget": {"path": "widgets/a.wdg"}}' -Where 'widget-act: action.call'
 ```
+
+## comment:1
+
+Above `foreach ($argument in $command.arguments.Keys) {`, written with `#`.
+
+```text
+Each fault is one finding: the check is what Assert-AccostedArgument already is, caught so a gate can list them
+all.
+```

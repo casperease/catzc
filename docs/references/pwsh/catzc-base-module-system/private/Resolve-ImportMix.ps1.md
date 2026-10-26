@@ -27,3 +27,21 @@ The caller's engines; when not given, the configuration's.
 ### outputs
 
 `[Catzc.Base.ModuleSystem.ImportMix]` The resolved mix.
+
+## comment:1
+
+Above `$languageConfig = Get-Config -Config languages`, written with `#`.
+
+```text
+A module's code languages are the executable languages of the files a language's own layout row places; the shared
+rows (assets, tests) never count.
+```
+
+## comment:2
+
+Above `throw $_.Exception.InnerException`, written with `#`.
+
+```text
+The resolution's own error (an unknown name, an absent engine, an unhandled language) surfaces as itself, not
+as the call's wrapper.
+```

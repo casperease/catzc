@@ -10,7 +10,7 @@ function Measure-FileShape {
     [CmdletBinding()]
     [OutputType([Catzc.Base.FileLimits.FileShape])]
     param(
-        [Parameter(Mandatory, ValueFromPipeline, ValueFromPipelineByPropertyName)]
+        [Parameter(Mandatory, Position = 0, ValueFromPipeline, ValueFromPipelineByPropertyName)]
         [Alias('FullName')]
         [string[]] $Path
     )

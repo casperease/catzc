@@ -31,9 +31,7 @@ function Get-CatzcModule {
     $moduleTypes = Get-Config -Config module-types
     $languages = Get-Config -Config languages
     $byName = [System.Comparison[Catzc.Base.Modules.Module]] { param($a, $b) [string]::CompareOrdinal($a.name,
-        $b.name) }
-    # The engine this resolver runs in: the track whose modules run under it is the one the relocatable modules root
-    # holds.
+            $b.name) }
     $engine = [Catzc.Base.Engines.ExecutionEngines]::Pwsh.Name
 
     $allTracks = @(Get-Track)
@@ -56,19 +54,17 @@ function Get-CatzcModule {
         $relocated = $anchored -and $trackEntry.execution_engines -ccontains $engine
         $admitted = @($moduleTypes.types.Where({ $typeEntry.admits -ccontains $_.id }))
         $admittedPlaces = @($admitted | ForEach-Object { $_.places })
-        # A place of another track nested under this track's places holds its own files
-        # ([DDR-TRACKTYPE-LONGESTPLACEWINS](/docs/drs/design/track-types.md#rule-ddr-tracktype-longestplacewins)).
         $nestedPlaces = @($allTracks.Where({ $_.name -cne $trackEntry.name }) | ForEach-Object { $_.places } |
-            Where-Object {
-                $nested = $_
-                $trackEntry.places.Where({ $nested.StartsWith("$_/", [System.StringComparison]::Ordinal) }).Count -gt 0
-            })
+                Where-Object {
+                    $nested = $_
+                    $trackEntry.places.Where({ $nested.StartsWith("$_/", [System.StringComparison]::Ordinal) }).Count -gt 0
+                })
 
         $found = [System.Collections.Generic.List[Catzc.Base.Modules.Module]]::new()
         foreach ($moduleType in $admitted) {
             foreach ($place in $moduleType.places) {
                 $trackPlace = @($trackEntry.places.Where({ $place.root -ceq $_ -or $place.root.StartsWith("$_/",
-                    [System.StringComparison]::Ordinal) }))
+                                [System.StringComparison]::Ordinal) }))
                 if ($trackPlace.Count -eq 0 -or ($place.internal -and -not $IncludeInternal)) {
                     continue
                 }
@@ -94,25 +90,21 @@ function Get-CatzcModule {
                         $files.Add($entry.Root.Substring($place.root.Length + 1))
                     }
                     else {
-                        # A whole module tree is listed on purpose, a named exception to the bounded walk: tests nest
-                        # fixtures up to six levels below the module.
                         $prefixLength = $entry.Folder.TrimEnd('\', '/').Length + 1
                         foreach ($path in Get-ChildPath $entry.Folder -File -Depth 8) {
                             $relative = $path.Substring($prefixLength).Replace('\', '/')
                             if ($entry.Shape -ceq 'root') {
-                                # The track's own module holds what no other place of the track names, no nested track
-                                # holds, and no dot folder caches.
                                 $full = "$($entry.Root)/$relative"
                                 $slash = $relative.IndexOf('/')
                                 if ($slash -gt 0 -and $relative.StartsWith('.')) {
                                     continue
                                 }
                                 if ($nestedPlaces.Where({ $full.StartsWith("$_/",
-                                    [System.StringComparison]::Ordinal) }).Count -gt 0) {
+                                                [System.StringComparison]::Ordinal) }).Count -gt 0) {
                                     continue
                                 }
                                 if ($admittedPlaces.Where({ -not [object]::ReferenceEquals($_,
-                                    $place) -and $_.NameOf($full) }).Count -gt 0) {
+                                                $place) -and $_.NameOf($full) }).Count -gt 0) {
                                     continue
                                 }
                             }
@@ -127,8 +119,6 @@ function Get-CatzcModule {
                         if ($laidOut -and $entry.Shape -ceq 'folder' -and $null -eq $row) {
                             $unplaced.Add($file)
                         }
-                        # The languages of a module are those of its live files: a test, or a README, is no second
-                        # tech-stack.
                         $language = $null -eq $row -or $row.live ? $languages.ForPath($file) : $null
                         if ($language) {
                             [void] $languageNames.Add($language.name)

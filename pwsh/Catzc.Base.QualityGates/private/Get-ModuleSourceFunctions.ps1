@@ -22,7 +22,7 @@ function Get-ModuleSourceFunctions {
     $names = {
         param([string] $Directory)
         $found = [string[]] @(foreach ($file in [Catzc.Base.Folders.PathSet]::new().AddPattern($Directory, '*.ps1',
-            1).ToArray()) {
+                    1).ToArray()) {
                 [System.IO.Path]::GetFileNameWithoutExtension($file)
             })
         [System.Array]::Sort($found, [System.StringComparer]::Ordinal)

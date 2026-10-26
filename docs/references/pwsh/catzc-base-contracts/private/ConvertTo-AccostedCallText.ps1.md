@@ -39,3 +39,12 @@ The execution engine the text is written for; it decides the name case and quote
 ```powershell
 ConvertTo-AccostedCallText -Command $widgetCommand -Contract $widgetContract -Engine ([Catzc.Base.Engines.ExecutionEngines]::Pwsh)
 ```
+
+## comment:1
+
+Above `$normalForm = (Get-Config -Config languages).naming_normal_form`, written with `#`.
+
+```text
+pwsh takes the command as PowerShell names it; every other engine takes it through cats, in the shell's kebab
+case.
+```

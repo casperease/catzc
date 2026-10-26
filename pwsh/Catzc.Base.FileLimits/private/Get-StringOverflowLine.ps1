@@ -20,8 +20,6 @@ function Get-StringOverflowLine {
         [string] $Language
     )
 
-    # The spans of every one-line string literal as (line, first column, last column), 1-based, from the language's own
-    # tokenizer.
     $spans = [System.Collections.Generic.List[int[]]]::new()
     switch ($Language) {
         'powershell' {
@@ -32,7 +30,7 @@ function Get-StringOverflowLine {
                 $isString = $token.Kind -in 'StringLiteral', 'StringExpandable', 'HereStringLiteral', 'HereStringExpandable'
                 if ($isString -and $token.Extent.StartLineNumber -eq $token.Extent.EndLineNumber) {
                     $spans.Add([int[]] @($token.Extent.StartLineNumber, $token.Extent.StartColumnNumber,
-                        ($token.Extent.EndColumnNumber - 1)))
+                            ($token.Extent.EndColumnNumber - 1)))
                 }
             }
         }
@@ -43,7 +41,7 @@ function Get-StringOverflowLine {
                     $token = $scanner.Current
                     if ($token -is [YamlDotNet.Core.Tokens.Scalar] -and $token.Start.Line -eq $token.End.Line) {
                         $spans.Add([int[]] @([int] $token.Start.Line, [int] $token.Start.Column,
-                            ([int] $token.End.Column - 1)))
+                                ([int] $token.End.Column - 1)))
                     }
                 }
             }
@@ -53,8 +51,6 @@ function Get-StringOverflowLine {
             }
         }
         'xml' {
-            # The reader gives an attribute's line and the column of its name; the value runs from its opening quote to
-            # the matching one.
             $sourceLines = $Text -split "`r?`n"
             $settings = [System.Xml.XmlReaderSettings]::new()
             $settings.DtdProcessing = [System.Xml.DtdProcessing]::Ignore
@@ -113,7 +109,14 @@ function Get-StringOverflowLine {
                     if ($end -ge $line.Length) {
                         break
                     }
-                    $spans.Add([int[]] @($number, ($at + 1), ($end + 1)))
+                    # A string followed by only its member's comma still ends its line.
+                    $last = if ($line.Substring($end + 1).Trim() -eq ',') {
+                        $line.TrimEnd().Length
+                    }
+                    else {
+                        $end + 1
+                    }
+                    $spans.Add([int[]] @($number, ($at + 1), $last))
                     $at = $end + 1
                 }
             }
@@ -123,8 +126,6 @@ function Get-StringOverflowLine {
         }
     }
 
-    # A line is exempt when one string covers every column past the width to the end of its text, so nothing but the
-    # string overflows.
     $lines = $Text -split "`r?`n"
     $exempt = foreach ($span in $spans) {
         $number = $span[0]

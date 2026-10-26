@@ -69,3 +69,12 @@ Above `if ($original -notmatch '(?m)^\s*namespace\s+\S+?\s*;' -and $original -ma
 A block-scoped `namespace X { … }` is not a shape this repo authors, and rewriting it is not a one-line
 fix: report it for a hand edit instead.
 ```
+
+## comment:3
+
+Above `foreach ($typeFile in Get-ChildPath $item -File -Filter '*.cs' -Depth 3) {`, written with `#`.
+
+```text
+A types file sits two levels below its module (types/), so a folder as wide as pwsh/ is three levels
+up.
+```

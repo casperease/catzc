@@ -112,7 +112,7 @@ Describe 'GitHistoryScan' -Tag 'L0', 'logic' {
     It 'follows an annotated tag to its commit' {
         $tag = New-ObjectId 99
         $batch = [byte[]] ($script:batch + (New-Record $tag 'tag' (New-Text "object $($ids.commit2)", 'type commit',
-            'tag v1', '', 'release')))
+                    'tag v1', '', 'release')))
         [Catzc.Base.Git.GitHistoryScan]::Scan($batch, [string[]] @($tag), 'sekret', [string[]] @()).Paths |
             Should -Be @('sekret-plan.md')
     }

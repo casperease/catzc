@@ -59,7 +59,8 @@ Pester output verbosity inside the worker. Defaults to 'Detailed' — a hand-run
 
 ### parameter `MaxLevel`
 
-The highest tier to run (alias: -Level): 3 by default, every tier but the opt-in L4; 4 runs the file's L4 tests too.
+The highest tier to run (alias: -Level): 3 by default, every tier but the opt-in L4; 4 runs the file's L4 tests too; 0 or 1 runs only the
+file's tiers up to it, so one file's logic tests run under the real-process tripwire without its integrity tests.
 
 ### parameter `TimeoutSeconds`
 
@@ -135,4 +136,13 @@ Above `$files = @(if ([System.IO.File]::Exists($shard.FilesPath)) {`, written wi
 Every failure's message, on the console at every -Output level (the worker's own output does not reach a
 redirected console): failed tests from the rows, and a file that failed before its tests ran from the
 files sidecar.
+```
+
+## comment:5
+
+Above `$entry = Get-TestRunLocationEntry -Location $location`, written with `#`.
+
+```text
+The worker loads from the root the run executes in (Get-TestRunLocationEntry); the test files map to it
+alike.
 ```

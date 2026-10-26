@@ -19,6 +19,15 @@ sections:
       - "*.dtmp"
       - bash.exe.stackdump
 
+  - id: typescript-declarations
+    title: TypeScript declarations
+    why: >
+      The type declarations the js track's types gate checks against (@types/node, @types/vscode) are installed by Install-TypeScript into
+      the repository-relative folder javascript.yml declares, so the generated jsconfig.json names the same relative type root on every
+      machine; they are per-machine tool output, never committed (ADR-AUTO-JS-TYPESGATE).
+    patterns:
+      - /.typescript/
+
   - id: output
     title: Output directory
     why: >

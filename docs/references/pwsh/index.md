@@ -42,6 +42,8 @@ Modules are layered — a module may only call into the modules it declares in `
   environment
 - **[Catzc.Base.FileLimits](catzc-base-file-limits.md)**: File length and width limits per file class — one config with bounds, a one-pass
   measure, and the checks that read them
+- **[Catzc.Base.GeneratedFiles](catzc-base-generated-files.md)**: The generated-file writer registry — what each writer reads and writes,
+  and which writers are due
 - **[Catzc.Base.Folders](catzc-base-folders.md)**: Bounded folder listing — a compiled walker with a shallow default depth, and its defaults
   in the registry
 - **[Catzc.Base.Reports](catzc-base-reports.md)**: The shared quality-gate report — one report, one printed summary, one verdict

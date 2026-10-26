@@ -32,7 +32,7 @@ function Get-ContractRootAsset {
 
     $versionFolders = $layout.Folders($Folder)
     $misnamed = @($versionFolders | ForEach-Object { [System.IO.Path]::GetFileName($_) } |
-        Where-Object { $_ -notmatch '^[0-9]+\.[0-9]+\.[0-9]+$' })
+            Where-Object { $_ -notmatch '^[0-9]+\.[0-9]+\.[0-9]+$' })
     if ($misnamed.Count -gt 0) {
         throw "contracts/${Root}: '$($misnamed -join "', '")' is not a version folder; a version folder is named <major>.<minor>.<patch> (ADR-REPO-CONTRACT-LAYOUT)."
     }

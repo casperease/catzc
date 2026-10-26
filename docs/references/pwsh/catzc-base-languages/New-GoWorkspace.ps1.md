@@ -63,3 +63,21 @@ The one Go version: the go tool's tools.yml pin, read by address (reading config
 [ADR-CONF-ADDRESSING](/docs/drs/configuration/config-value-addressing.md)). A major.minor pin (1.27) is a valid go
 directive, as is a full 1.N.P.
 ```
+
+## comment:2
+
+Above `$modules = [System.Collections.Generic.List[string]]::new()`, written with `#`.
+
+```text
+One Go module per module folder of the track: a folder the module-type registry names as a module, holding Go
+code.
+```
+
+## comment:3
+
+Above `$members = @(foreach ($folder in $folders) {`, written with `#`.
+
+```text
+The members: the test holder's folders under tests/, then the modules, each with its module path under
+module_root.
+```

@@ -122,3 +122,21 @@ Above `Assert-PathExist $destination -PathType Leaf -ErrorText "Blob '$blobName'
 az can exit 0 yet leave no file (e.g. a silent partial). Confirm the download landed before
 emitting an object that claims this Path, so a downstream consumer never trusts a missing file.
 ```
+
+## comment:6
+
+Above `$cli = Invoke-AzCli "storage blob list $common --num-results * -o json"...`, written with `#`.
+
+```text
+Every blob is listed, because the day-first names never sort by date; the newest is picked from the names
+below.
+```
+
+## comment:7
+
+Above ``Invoke-AzCli "storage blob download $common --name `"$blobName`" --file...``, written with `#`.
+
+```text
+Name and file are quoted, because either may hold spaces; the download stays loud because it is a real
+action.
+```

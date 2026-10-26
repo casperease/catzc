@@ -54,3 +54,12 @@ Above `$outputRoot = [IO.Path]::GetFullPath((Get-OutputRoot))`, written with `#`
 1. Prefer the reserved output anchor — an output artifact stays portable as 'out/...' even when the
    output root sits outside the repo (a pipeline's staging area), where no repo-relative form exists.
 ```
+
+## comment:2
+
+Above `$outputRoot = [IO.Path]::GetFullPath((Get-OutputRoot))`, written with `#`.
+
+```text
+The output anchor wins first, so an artifact stays 'out/...' even when the output root lies outside the
+repository.
+```

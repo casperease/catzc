@@ -3,11 +3,11 @@ Describe 'Get-TrackPlace' -Tag 'L0', 'logic' {
         $script:fixture = [Catzc.Base.Variants.VariantsConfig]::new([ordered]@{
                 tracks = [ordered]@{
                     widget = [ordered]@{
-                        places = @('widget/parts', 'widget/spares')
-                        type   = 'widget-works'
-                        kinds  = [ordered]@{ parts = 'widget/parts'; sheets = 'widget/parts/*/sheets'; spares = 'widget/spares' }
+                        members = @('widget/parts', 'widget/spares')
+                        type    = 'widget-works'
+                        kinds   = [ordered]@{ parts = 'widget/parts'; sheets = 'widget/parts/*/sheets'; spares = 'widget/spares' }
                     }
-                    gadget = [ordered]@{ places = @('gadget'); type = 'gadget-shelf' }
+                    gadget = [ordered]@{ members = @('gadget'); type = 'gadget-shelf' }
                 }
             })
     }

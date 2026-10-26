@@ -47,3 +47,21 @@ Above `$files = @($Path | ForEach-Object { $_.Replace('\', '/') } | Select-Objec
 Each relation is derived from the declaration that implies it, never read from a file
 ([ADR-REPO-LINKS-CONVENTIONSAREDERIVED](/docs/drs/repository/links-in-repository.md#rule-adr-repo-links-conventionsarederived)).
 ```
+
+## comment:3
+
+Above `$files = @($Path | ForEach-Object { $_.Replace('\', '/') } | Select-Object...`, written with `#`.
+
+```text
+Derived from the declarations on every call, so a moved test or a new dependency changes the relations with no
+edit here.
+```
+
+## comment:4
+
+Above `$modulesFolder = Get-CatzcModulesFolder`, written with `#`.
+
+```text
+A module points at each module it declares as a dependency; its folder stands for it, and a group name is no
+module.
+```

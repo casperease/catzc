@@ -47,3 +47,12 @@ Test-IdiomaticNames
 ```powershell
 (Test-IdiomaticNames -PassThru).Issues
 ```
+
+## comment:1
+
+Above `$definitions = @(Get-DefinedName -Path $tracked)`, written with `#`.
+
+```text
+Every misnamed folder and file, then every function and type name a tracked file defines that breaks its case or
+its round trip.
+```

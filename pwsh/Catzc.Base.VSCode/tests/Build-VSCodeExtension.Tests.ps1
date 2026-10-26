@@ -1,5 +1,11 @@
-# Rests on
-# [ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS](/docs/drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-isolatethroughseams).
+<#
+---
+catzc:
+  docs: "../../../docs/references/pwsh/catzc-base-vs-code/tests/Build-VSCodeExtension.Tests.ps1.md"
+  header: "generated"
+---
+#>
+
 Describe 'Build-VsCodeExtension' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:folder = Join-Path $TestDrive 'widget-ext'

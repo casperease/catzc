@@ -35,7 +35,7 @@ function Clear-StaleBuildFile {
     # Deepest folders first, so a parent empties after its children.
     $folders = [string[]] @(Get-ChildPath $BuildRoot -Directory -Depth 64 -Exclude @() -PruneVendor $false)
     [System.Array]::Sort($folders, [System.Comparison[string]] { param($left,
-        $right) $right.Length.CompareTo($left.Length) })
+                $right) $right.Length.CompareTo($left.Length) })
     foreach ($folder in $folders) {
         if (-not [System.IO.Directory]::EnumerateFileSystemEntries($folder).GetEnumerator().MoveNext()) {
             [System.IO.Directory]::Delete($folder)

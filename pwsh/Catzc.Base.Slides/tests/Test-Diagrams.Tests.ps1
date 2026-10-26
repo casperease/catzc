@@ -100,7 +100,7 @@ Describe 'Test-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-TWODIRECTIONS' {
         try {
             $report = Test-Diagrams -Kit 'kit' -RepositoryRoot $root -OutputFolder $out -PassThru
             @($report.Issues | Where-Object { $_.StartsWith('docs/explanation/widget/widget-page.md: 1 ',
-                [System.StringComparison]::Ordinal) -and $_.Contains('block(s) with no image') }).Count | Should -Be 1
+                        [System.StringComparison]::Ordinal) -and $_.Contains('block(s) with no image') }).Count | Should -Be 1
         }
         finally {
             [System.IO.File]::Delete($page)

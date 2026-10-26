@@ -18,9 +18,9 @@ function Test-JavaScriptTypes {
     Assert-SourceTree
 
     $repositoryRoot = Get-RepositoryRoot
-    $projects = @('jsconfig.json') + @(if (@((Get-Config -Config javascript).strict).Count -gt 0) {
-            'jsconfig.strict.json'
-        })
+    # The editor's project and the lenient one beside it; the lenient one holds no file once every module is raised, which tsc reports
+    # as no inputs and the loop below takes as nothing to check.
+    $projects = @('jsconfig.json', 'jsconfig.lenient.json')
     foreach ($name in $projects) {
         Assert-PathExist (Join-Path $repositoryRoot $name) -PathType Leaf -ErrorText "Test-JavaScriptTypes: $name is missing; Build-RootConfig $name renders it."
     }

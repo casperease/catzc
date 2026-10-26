@@ -83,6 +83,12 @@ def test_an_edge_of_a_diagram_with_its_own_relation_is_judged_and_listed_as_an_o
     assert not next(r for r in rows if r["label"]).get("relation_opt_out")
 
 
+def test_every_edge_of_a_state_diagram_is_excused_whatever_its_ranks(tmp_path):
+    make(tmp_path, "widget-states", [("gadget-result", "gadget-file", '""'), ("widget-a", "widget-b", '""')], relation="relation: moves on\n  states: true")
+    rows, _ = edge_audit.audit(tmp_path)
+    assert [r["verdict"] for r in rows] == ["excused", "excused"]
+
+
 def test_the_audit_writes_its_two_reports_and_nothing_else(tmp_path):
     make(tmp_path, "widget-flow", [("widget-actor", "widget-a", '""'), ("gadget-file", "widget-a", '""')])
     before = {p: p.read_bytes() for p in (tmp_path / "docs").rglob("*") if p.is_file()}

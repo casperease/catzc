@@ -15,7 +15,7 @@ formatters:
       - pwsh/Catzc.Base.FileLimits/configs/file-limits.yml
       - pwsh/Catzc.Base.Execution/configs/tools.yml#prettier
       - pwsh/Catzc.Base.Execution/configs/tools.yml#node_js
-  # gofmt through the Go extension, which runs the managed go the settings generator injects as go.goroot.
+  # gofmt through the Go extension, which finds the managed go on PATH and GOROOT, as the terminal does.
   gofmt:
     vscode_extension: golang.go
     settings:
@@ -61,10 +61,6 @@ steps:
       - pwsh/Catzc.Base.QualityGates/configs/file-meta.yml
       - pwsh/Catzc.Base.Languages/configs/file-carriers.yml
       - pwsh/Catzc.Base.Languages/configs/languages.yml
-  # The step breaks a PowerShell line past its width only where the syntax allows, each rewrite proven token for token.
-  wrap-powershell:
-    settings:
-      - pwsh/Catzc.Base.FileLimits/configs/file-limits.yml
   # The step counts the plan overlays state, rewritten from each plan's open steps.
   plan-counts:
     settings:
@@ -96,7 +92,7 @@ languages:
     formatter: psscriptanalyzer
     adr_folder: automation/pwsh
     checks: [Test-ScriptAnalyzer, Test-Formatting, Test-Spelling, Test-Links, Test-LinkDirections, Test-Comments]
-    imprint: [ps-help, wrap-powershell]
+    imprint: [ps-help]
     layout:
       - { folder: ".", role: public-function, extensions: [.ps1], shipped: false }
       - { folder: ".", role: manifest, extensions: [.psd1], live: false, shipped: false }

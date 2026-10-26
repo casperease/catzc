@@ -59,3 +59,12 @@ Above `Describe 'Format-Code (real prettier)'`, written with `#`.
 The prettier engine over throwaway files, nothing mocked but the console; self-skips when prettier is absent
 ([ADR-AUTO-TEST-TAGBYOUTERMOSTRING](/docs/drs/automation/test-automation.md#rule-adr-auto-test-tagbyoutermostring)).
 ```
+
+## comment:7
+
+Above `Join-Path $root ($settingsFile -split '#', 2)[0] |`, written with `#`.
+
+```text
+An entry may end in #key: the file is what must exist here, the key is checked by the stamp's own
+tests.
+```

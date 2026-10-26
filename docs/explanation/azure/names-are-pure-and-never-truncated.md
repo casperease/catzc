@@ -46,7 +46,7 @@ content:
     - { id: f-throw, kind: failure, label: throw, in: band-limit }
     - { id: r-name, kind: result, label: the same name, in: band-limit }
   edges:
-    - { from: s-components, to: s-pattern, kind: flow, label: "" }
+    - { from: s-pattern, to: s-components, kind: flow, label: composes }
     - { from: s-pattern, to: g-limit, kind: flow, label: "" }
     - { from: g-limit, to: f-throw, kind: fail, label: "" }
     - { from: g-limit, to: r-name, kind: flow, label: "" }

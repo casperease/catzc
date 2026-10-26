@@ -41,7 +41,7 @@ when they have content. There is no line roof: the cleaner shortens a plan only 
 An **open step** is a checkbox line that names one file, the edit, and the check that proves it, `(check: ...)` on the same item, in present
 tense. A step that lands is deleted once the tree holds the work, never ticked and kept; its record is the tree and `git log`. A check names
 commands that exist: `Test-Plans` resolves each through `Get-Command` in the session that runs it, so the answer depends on what that
-session has imported.
+session has imported. A step names another step by its words, never by its number, since `Format-Code` renumbers an ordered list.
 
 - [The shape](#the-shape)
 

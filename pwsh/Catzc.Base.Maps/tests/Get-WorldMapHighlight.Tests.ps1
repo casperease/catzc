@@ -3,9 +3,9 @@ Describe 'Get-WorldMapHighlight' -Tag 'L0', 'logic' {
         $script:map = [Catzc.Base.Maps.WorldMapBuilder]::Build(
             @([Catzc.Base.Variants.VariantTrack]::new('widgets', @('widgets'), 'modules', $null, @('widget-script')),
                 [Catzc.Base.Variants.VariantTrack]::new('gadgets', @('gadgets'), 'infrastructure', $null,
-                @('widget-script'))),
+                    @('widget-script'))),
             @([Catzc.Base.Languages.FileLanguage]::new('widget-script', @('.ps1'), $null, 'fixture', $null, $null,
-            $null)),
+                    $null)),
             @('widgets/Alpha/Get-Widget.ps1', 'widgets/Beta/Get-Gadget.ps1', 'README.md'),
             [ordered]@{}, [ordered]@{ 'ADR-WIDGET-GADGET' = 'widgetry' }, [ordered]@{}, [ordered]@{ 'widgets/Alpha/Get-Widget.ps1' = '# ADR-WIDGET-GADGET' },
             [ordered]@{}, @())
@@ -44,7 +44,7 @@ Describe 'Get-WorldMapHighlight' -Tag 'L0', 'logic' {
 
     It 'lights the cells of the working tree''s changes on the zero-argument call, skipping a file the map does not hold' {
         Mock Get-GitChangedPath -ModuleName Catzc.Base.Maps { @('README.md', 'widgets/Beta/Get-Gadget.ps1',
-            'widgets/Gamma/New-Widget.ps1') }
+                'widgets/Gamma/New-Widget.ps1') }
         $highlight = Get-WorldMapHighlight
         $highlight.Kind | Should -Be 'path'
         $highlight.Requested | Should -Be @('README.md', 'widgets/Beta/Get-Gadget.ps1')

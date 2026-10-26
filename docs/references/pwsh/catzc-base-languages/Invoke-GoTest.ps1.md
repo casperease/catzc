@@ -113,3 +113,12 @@ Above `$relative = if ($Folder) {`, written with `#`.
 The test folder: the one named, a module's own tests/ or the holder's, else the holder's tests/<kebab> of the module
 under the Go root from go.yml (GoConfig.ResolveRoot: the declared root, else go/ when present, else .go/).
 ```
+
+## comment:4
+
+Above `$relative = if ($Folder) {`, written with `#`.
+
+```text
+The test folder: the one named, a module's own tests/ or the holder's, else the module's folder under the holder's
+tests/ in go's folder case.
+```

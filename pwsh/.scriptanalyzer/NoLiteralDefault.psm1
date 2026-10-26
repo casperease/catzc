@@ -1,3 +1,11 @@
+<#
+---
+catzc:
+  docs: "../../docs/references/pwsh/scriptanalyzer/NoLiteralDefault.psm1.md"
+  header: "generated"
+---
+#>
+
 Set-StrictMode -Version Latest   # this module's scope: the rule runs strict inside the analyzer engine
 
 function Measure-NoLiteralDefault {
@@ -47,8 +55,6 @@ function Measure-NoLiteralDefault {
         if (-not $readsConfig) {
             continue
         }
-        # The variables the function fills from a config read, directly or through a member of one: $settings =
-        # Get-Config ...
         $isConfigRead = {
             param($node)
             [bool] $node.Find({

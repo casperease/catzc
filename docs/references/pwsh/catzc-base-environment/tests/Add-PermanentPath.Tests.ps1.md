@@ -22,3 +22,12 @@ Seed with the entry already there → Add must detect it and skip the registry w
 (Asserting on Set-EnvironmentPath invocation avoids relying on mock-to-mock state round-tripping,
 which hits a Pester $script: scope surprise — see docs/drs test-automation Gotchas.)
 ```
+
+## comment:3
+
+Above `$script:fakeUserPath = $null`, written with `#`.
+
+```text
+The persistent PATH lives in memory behind its seam, so no run mutates the machine's PATH or broadcasts a
+settings change.
+```

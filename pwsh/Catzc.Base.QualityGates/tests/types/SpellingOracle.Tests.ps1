@@ -97,10 +97,10 @@ Describe 'SpellingOracle paths' -Tag 'L0', 'logic' {
         $inputs = [Catzc.Base.QualityGates.SpellingOracle]::Inputs($repository, $modules)
         @($inputs | ForEach-Object { [System.IO.Path]::GetRelativePath($repository, $_).Replace('\', '/') }) |
             Should -Be @(
-            '.cspell/gadget.txt'
-            'widget-modules/Catzc.Base.QualityGates/assets/english.txt.gz'
-            'widget-modules/Catzc.Base.QualityGates/types/SpellingOracle.cs'
-        )
+                '.cspell/gadget.txt'
+                'widget-modules/Catzc.Base.QualityGates/assets/english.txt.gz'
+                'widget-modules/Catzc.Base.QualityGates/types/SpellingOracle.cs'
+            )
         [System.IO.Directory]::Delete($terms, $true)
         @([Catzc.Base.QualityGates.SpellingOracle]::Inputs($repository, $modules)).Count | Should -Be 2
     }

@@ -103,7 +103,7 @@ Describe 'Test-Tool' -Tag 'L0', 'logic' {
                 [Catzc.Base.Execution.ToolConfig]::new(@{ version = '3.0'; command = 'widget'; version_command = 'widget --version'; version_pattern = '(?<ver>.+)'; unix_probes = @('/opt/widget') })
             } -ModuleName Catzc.Tooling.Core
             Mock Resolve-ToolExecutable { [Catzc.Base.Execution.ExecutableProbe]::new('widget', '/opt/widget', 'probe',
-                $version, '3.0', $false, 1, 0, 'Person') } -ModuleName Catzc.Tooling.Core
+                    $version, '3.0', $false, 1, 0, 'Person') } -ModuleName Catzc.Tooling.Core
             Test-Tool 'widget' | Should -Be $ok
             Test-Tool 'widget' -SkipVersionCheck | Should -Be $present
         }

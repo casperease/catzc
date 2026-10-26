@@ -80,7 +80,7 @@ Describe 'Test-GeneratedFiles' -Tag 'L0', 'logic' {
         @($known | Select-Object -Unique).Count | Should -Be $known.Count
 
         $rootGenerators = @((Get-Config -Config rootconfig).files | Where-Object { $_.optIn -and $_.generator } |
-            ForEach-Object { "$($_.generator)" } | Select-Object -Unique)
+                ForEach-Object { "$($_.generator)" } | Select-Object -Unique)
         foreach ($name in $rootGenerators) {
             $known | Should -Contain $name
         }

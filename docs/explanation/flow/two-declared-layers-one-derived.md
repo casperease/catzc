@@ -46,7 +46,7 @@ content:
     - { id: g-modules, kind: set, label: Module sets, in: grp-module-derived }
     - { id: g-leftovers, kind: set, label: module-leftovers, in: grp-module-derived }
   edges:
-    - { from: g-configured, to: g-base, kind: thick, label: compose }
+    - { from: g-configured, to: g-base, kind: thick, label: composes }
   markers:
     - { at: g-configured, number: 1 }
     - { at: g-base, number: 2 }

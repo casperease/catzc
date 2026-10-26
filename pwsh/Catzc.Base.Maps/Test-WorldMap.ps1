@@ -60,7 +60,7 @@ function Test-WorldMap {
     $labels = (Get-Config -Config maps).labels
     $labelNames = [string[]] @(foreach ($property in $labels.PSObject.Properties) {
             if (-not $property.Name.StartsWith([Catzc.Base.Maps.MapsLabels]::ValueChainPrefix,
-                [System.StringComparison]::Ordinal)) {
+                    [System.StringComparison]::Ordinal)) {
                 $property.Name
             }
         })

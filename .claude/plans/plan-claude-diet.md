@@ -49,26 +49,6 @@ It cuts a cost paid by every session and every spawn that loads the project inst
 4. [ ] Once catzc-6e's remaining-arguments change lands (catzc-97's finalize (b)): `catzc-run` step 2 names the burst-step form, a step that
        runs `Invoke-CatzcCommand.ps1 -InBurst` in the burst's own process, merged into an existing line. Check: `Test-AgentDefinitions`.
 
-5. [ ] Plans authoring conventions (`docs/drs/repository/plans.md`): one line that steps cross-reference each other by name, never by
-       number, since `Format-Code` renumbers an ordered list (catzc-59, decided by the user, 2026-10-25). Check: `Test-Links` on the page
-       and `Test-Plans`.
-6. [ ] `implementation-orchestrator` brief: one line that it runs as the main session, since as a subagent it cannot see the peers' replies
-       (catzc-59). Check: `Test-AgentDefinitions`.
-7. [ ] `.claude/skills/catzc-verify/SKILL.md`: a change to a file the Bash hook compiles (`TestTiers.cs`, a new `timeouts.yml` key) runs
-       `Build-AgentHook` in the same burst, merged into the burst line (a new key broke every Bash call once). Check:
-       `Test-AgentDefinitions` and the capability still at its line roof.
-8. [ ] `Invoke-TestFile -MaxLevel` takes 0 and 1 too, so one file can run under the real-process tripwire instead of a whole module's tier
-       run. Check: `Invoke-TestFile.Tests.ps1` with a case for `-MaxLevel 0` and one for 1, `Test-ScriptAnalyzer -Path` at 0.
-9. [ ] `Test-Plans` checks that a `value-of-plan.md` row has as many cells as its table's header (only markdownlint caught a 6-cell row).
-       Check: `Test-Plans.Tests.ps1` with a short row and a long row, both red.
-10. [ ] `.claude/skills/catzc-check/SKILL.md`: one line naming the diagram kit's suite run,
-        `uv run -q --no-sync --project python python -m pytest python/catzc_diagrams/tests`, kept within the capability's line roof
-        (catzc-69, decided by the user, 2026-10-25). Check: `Test-AgentDefinitions`.
-11. [ ] `docs/drs/index.md`, authoring conventions: one clause that the index lists records, never rule codes, which `Test-DrsRegistry`
-        reads from the record itself. Check: `Test-Links` on the page.
-12. [ ] `docs/explanation/index.md`, "How to read the diagrams": one clause that an inspection note is deleted when the engine answers it,
-        never marked done. Check: `Test-Links` on the page.
-
 ## Open questions
 
 - Should the `Show-EditReminder` hook text add one line that `Format-Code -Path` on a plan also re-wraps `plan-master.md`? Recommended: yes,

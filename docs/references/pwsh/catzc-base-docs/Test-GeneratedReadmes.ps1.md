@@ -42,3 +42,12 @@ Return the result ({ Subject; IssueCount; Issues; ReportPath; Readmes }) instead
 ```powershell
 Test-GeneratedReadmes
 ```
+
+## comment:1
+
+Above `$missing = @(Get-ReadmeMappings -Config $config -Missing)`, written with `#`.
+
+```text
+A folder a pattern matches gets its README only from an article; a missing article is a finding unless readme.yml
+names the folder.
+```

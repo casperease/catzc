@@ -34,3 +34,12 @@ The folder the .vsix is written to. Default: the vsix folder under the output ro
 ```powershell
 Build-VsCodeExtension out/vscode-extensions/catzc-git-changes
 ```
+
+## comment:1
+
+Above `$repositoryRoot = Get-RepositoryRoot`, written with `#`.
+
+```text
+Every rendered manifest is held against the extension manifest contract before it is packed; a mismatch stops the
+build.
+```

@@ -20,8 +20,6 @@ function Get-FunctionBodyLength {
     if ($null -ne $script:functionBodyLength) {
         return $script:functionBodyLength
     }
-    # The rule sits in the modules root, so it reads file-limits.yml from there; an analyzer shard process has no
-    # Get-Config.
     $modulesRoot = [System.IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
     if (-not (Get-Command ConvertFrom-Yaml -ErrorAction Ignore)) {
         $versions = [System.IO.Directory]::GetDirectories((Join-Path $modulesRoot '.vendor/powershell-yaml'))

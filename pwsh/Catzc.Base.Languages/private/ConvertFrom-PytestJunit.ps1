@@ -69,7 +69,7 @@ function ConvertFrom-PytestJunit {
         }
         $seconds = 0.0
         if ([double]::TryParse($case.GetAttribute('time'), [System.Globalization.NumberStyles]::Float,
-            [System.Globalization.CultureInfo]::InvariantCulture, [ref] $seconds)) {
+                [System.Globalization.CultureInfo]::InvariantCulture, [ref] $seconds)) {
             $entry.Seconds += $seconds
         }
         foreach ($line in $caseOutput) {

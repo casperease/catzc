@@ -37,7 +37,7 @@ function Get-MarkdownHeadingFinding {
     $isReferenceLine = {
         param([string] $Line)
         $Line.Trim() -ne '' -and (($Line -replace '`[^`]*`', '' -replace '\[[^\]]*\]\([^)]*\)',
-            '') -match $separatorsOnly)
+                '') -match $separatorsOnly)
     }
 
     # Index every heading outside front matter and fences: { Index; Level; Text }.
@@ -115,7 +115,7 @@ function Get-MarkdownHeadingFinding {
         foreach ($heading in @($headings | Where-Object Level -EQ 2)) {
             $index = $heading.Index + 1
             while ($index -lt $lines.Count -and ($lines[$index].Trim() -eq '' -or
-                (& $isReferenceLine $lines[$index]))) {
+                    (& $isReferenceLine $lines[$index]))) {
                 $index++
             }
             if ($index -ge $lines.Count -or $lines[$index] -match '^\s*(>|#|[-*+]\s|\d+[.)]\s)') {

@@ -37,3 +37,12 @@ The real ADR codes, from the ADR registry (Get-DrsCitationMap).
 ### outputs
 
 `[string[]]` One '`<path>:<line>`: `<message>`' per real code used, in line order.
+
+## comment:1
+
+Above `$value = $element`, written with `#`.
+
+```text
+A value belongs to the parameter before it (-Tag 'x', or -Tag:'x'), or is positional: the first is the
+title.
+```

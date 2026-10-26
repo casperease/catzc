@@ -48,3 +48,21 @@ The bounded folder walker lists the immediate subdirectories of the prefix, one 
 ([ADR-PWSH-ENUM-ALWAYSBOUNDED](/docs/drs/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)), sorted so the
 generated list keeps one order. '*' excludes dot-prefixed infrastructure folders, which the loop skips by their leaf name.
 ```
+
+## comment:2
+
+Above `$kebab = [Catzc.Base.Objects.NameCase]::Render($leaf, 'kebab')`, written with `#`.
+
+```text
+{kebab} kebab-cases the folder name, as a module's article is named; {name} keeps it, as a python
+package's is.
+```
+
+## comment:3
+
+Above `$absent.Add([pscustomobject]@{ folder = $folder; source = $source })`, written with `#`.
+
+```text
+No authored source yet: Build-Readme skips it so the importer never throws, and -Missing hands it to
+the gate.
+```

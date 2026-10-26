@@ -31,7 +31,8 @@ Describe 'Invoke-Gofmt' -Tag 'L0', 'logic' {
 
     It 'lists with the managed gofmt -l, then rewrites exactly the listed files' {
         $changed = InModuleScope Catzc.Base.QualityGates -Parameters @{ Files = @($script:widgetFile,
-            $script:gadgetFile) } {
+                $script:gadgetFile)
+        } {
             param($Files)
             Invoke-Gofmt -File $Files
         }

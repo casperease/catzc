@@ -33,3 +33,12 @@ The carrier resolver. Default: built from the shipped file-carriers and language
 ### outputs
 
 `[pscustomobject]` @{ Path; Carrier } per file, Path repository-relative and '/'-separated, in git's order.
+
+## comment:1
+
+Above `$paths = @(if ($lookup.Count -gt 0) {`, written with `#`.
+
+```text
+A file named in -Path counts only while git tracks it, as a folder lists its tracked files: an untracked authored
+file carries no head.
+```

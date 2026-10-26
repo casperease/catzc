@@ -119,3 +119,21 @@ Above `$diskFolders = @{}`, written with `#`.
 A folder renamed only in case keeps its old case in the index (core.ignorecase never records it), so each target folder takes
 the name its source folder has on disk, resolved once per folder.
 ```
+
+## comment:6
+
+Above `$found =...`, written with `#`.
+
+```text
+The bounded walker, one level, nothing pruned: a tracked file under .vendor or out keeps its
+folder's case too.
+```
+
+## comment:7
+
+Above `try {` (occurrence 2), written with `#`.
+
+```text
+A cleanup that fails (a file another process holds) is announced, never thrown in place of the failure
+that caused it.
+```

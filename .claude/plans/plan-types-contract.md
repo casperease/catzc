@@ -26,17 +26,6 @@ and free to change in place (ADR-REPO-CONTRACT-CURRENTVERSION). The tracked file
 
 ## Open steps
 
-2. [ ] `Write-TypesContract` in `pwsh/.internal/assets/types/` (one function per file, ADR-PWSH-ONEFUNC): reads the surface with
-       `Get-TypesAssemblyManifest`, renders `types.sample.json` (LF, stable order by name), writes via `Write-FileIfChanged`. Plus
-       `types.schema.json` by hand, and its header `$comment` says what it pins (ADR-REPO-CONTRACT-HEADERSAYSWHATITPINS). Check: L0 test in
-       `pwsh/.internal/tests/` with widget/gadget types: same surface → no write; added alias → one write.
-3. [ ] `Import-CSharpTypes.ps1`: delete the committed-manifest copy and the stale-file sweep (lines ~208-220); after a compile, outside
-       `-PrebuiltOnly` and outside a pipeline, call `Write-TypesContract`. The shadow manifest beside the DLL stays as is. Same pass:
-       `Import-CSharpTypes.Shipped.Tests.ps1` and `Clear-CompiledType.Tests.ps1` stop expecting a file in `pwsh/.compiled`. Check: fresh
-       full import right after (importer-path edit), then the two test files green.
-4. [ ] The stamp check: `Test-GeneratedFiles` (or the types gate it runs) builds the surface from the current assembly and fails when it
-       differs from the committed `types.sample.json`, naming the added, removed or changed types. `Test-Contracts` already validates the
-       sample against its schema. Check: L0 test of the diff; `Test-Contracts` green on the new asset.
 5. [ ] Bundle: `Get-ModuleBuildPlan.ps1` keeps shipping `.compiled/Catzc.Types.<hash>.json` beside the DLL (a bundle's local cache key, not
        the contract); `Invoke-ModuleBuild` runs the step-4 check before packing. Check: `Invoke-ModuleBuild.Tests.ps1` green.
 6. [ ] Pipeline cache: `.ado/pipelines/steps/cache-types.yaml` keys on the sources, `pwsh/**/types/**/*.cs` and

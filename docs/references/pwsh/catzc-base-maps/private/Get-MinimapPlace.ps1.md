@@ -40,3 +40,12 @@ Above `$module = if ($Facts['module'] -and "$($Facts['module'])" -ne $track) {`,
 A place is [track, module, folder]: '-' for no module, and '.' for the module's own root; a folder inside the module is the path
 between the module's folder and the file.
 ```
+
+## comment:2
+
+Above `$module = if ($Facts['module'] -and "$($Facts['module'])" -ne $track) {`, written with `#`.
+
+```text
+A module that only repeats its track (`.claude` in `.claude`) is no module: the place is the track and the folder
+the file sits in.
+```

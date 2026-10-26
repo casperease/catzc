@@ -1,3 +1,11 @@
+<#
+---
+catzc:
+  docs: "../../../docs/references/pwsh/catzc-base-types-system/tests/Invoke-BuildForVSCode.Tests.ps1.md"
+  header: "generated"
+---
+#>
+
 Describe 'Invoke-BuildForVsCode' -Tag 'L0', 'logic' {
     BeforeEach {
         # The guard is the boundary to the run mode; these cases exercise the build itself.
@@ -5,8 +13,6 @@ Describe 'Invoke-BuildForVsCode' -Tag 'L0', 'logic' {
         Mock Get-CatzcModulesRoot -ModuleName Catzc.Base.TypesSystem { $TestDrive }
         Mock Assert-PathExist -ModuleName Catzc.Base.TypesSystem { }
         Mock Test-Command -ModuleName Catzc.Base.Asserts { $true }
-        # The modules root is the test drive, outside the repository; the offline guard's own cases are
-        # Assert-DotnetOffline.Tests.ps1.
         Mock Assert-DotnetOffline -ModuleName Catzc.Base.TypesSystem { }
         Mock Invoke-Executable -ModuleName Catzc.Base.TypesSystem {
             [pscustomobject]@{ ExitCode = 0; Full = 'Build succeeded.'; Output = 'Build succeeded.' }

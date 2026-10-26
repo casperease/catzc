@@ -55,14 +55,14 @@ function Assert-CatzcOverlay {
                     $violations.Add("$($item.RelativePath): config '$($item.Target)' is sealed (configs.yml overridable: false); the overlay may not change it")
                 }
                 elseif (-not [System.IO.File]::Exists([System.IO.Path]::Combine((Get-CatzcModulesRoot), $item.Module,
-                    'configs', "$($item.Target).yml"))) {
+                            'configs', "$($item.Target).yml"))) {
                     $violations.Add("$($item.RelativePath): $($item.Module) ships no config '$($item.Target)' to merge onto; a new config belongs in a local module")
                 }
             }
             'AssetOverride' {
                 $marker = "/$($item.Module)/"
                 $relative = $item.RelativePath.Substring($item.RelativePath.IndexOf($marker,
-                    [System.StringComparison]::Ordinal) + $marker.Length)
+                        [System.StringComparison]::Ordinal) + $marker.Length)
                 $bundled = [System.IO.Path]::Combine((Get-CatzcModulesRoot), $item.Module, $relative)
                 if (-not [System.IO.File]::Exists($bundled)) {
                     $violations.Add("$($item.RelativePath): $($item.Module) ships no asset $relative to replace; a new asset belongs in a local module")

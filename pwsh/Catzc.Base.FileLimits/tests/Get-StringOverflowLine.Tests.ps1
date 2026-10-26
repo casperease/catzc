@@ -45,6 +45,13 @@ Describe 'Get-StringOverflowLine' -Tag 'L0', 'logic' {
         @(& $script:lines $two 'json') | Should -BeNullOrEmpty
     }
 
+    It 'exempts a JSON string followed by only its comma, not one followed by another member' {
+        $comma = "{`n  `"`$comment`": `"a widget schema comment that runs far past the width`",`n  `"cog`": 1`n}"
+        @(& $script:lines $comma 'json') | Should -Be @(2)
+        $more = "{`n  `"widget`": `"a gadget value past the width of the line`", `"x`": 1`n}"
+        @(& $script:lines $more 'json') | Should -BeNullOrEmpty
+    }
+
     It 'reads an escaped quote inside a JSON string, and a // comment outside one, as JSONC settings write them' {
         $escaped = "{ `"widget`": `"a \`"quoted\`" gadget that runs far past the width of a line`" }"
         @(& $script:lines $escaped 'json' -Width 60) | Should -BeNullOrEmpty

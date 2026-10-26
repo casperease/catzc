@@ -157,7 +157,7 @@ types_node:
   command: npm
   depends_on: node_js
   npm_package: "@types/node"
-  version_command: "npm ls -g @types/node --depth=0"
+  version_command: "npm ls --prefix .typescript @types/node --depth=0"
   version_pattern: "@types/node@(?<ver>[\\d.]+)"
 
 # Pinned to the editor version the extension manifests declare (VscodeOwnExtension.DefaultEngine), so the types match what they run against.
@@ -166,7 +166,7 @@ types_vscode:
   command: npm
   depends_on: node_js
   npm_package: "@types/vscode"
-  version_command: "npm ls -g @types/vscode --depth=0"
+  version_command: "npm ls --prefix .typescript @types/vscode --depth=0"
   version_pattern: "@types/vscode@(?<ver>[\\d.]+)"
 
 terraform:

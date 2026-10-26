@@ -109,7 +109,7 @@ Describe 'GlobPattern' -Tag 'L0', 'logic' {
         It 'keeps the paths any pattern matches, in their order, once each' {
             $paths = [string[]] @('gadget/b.yml', 'widget/a.txt', 'docs/index.md', 'gadget/c.txt', 'widget/deep/d.txt')
             $kept = [Catzc.Base.Globs.GlobPattern]::MatchingPaths([string[]] @('widget/**', 'gadget/*.yml',
-                'widget/a.txt'), $paths)
+                    'widget/a.txt'), $paths)
             @($kept) | Should -Be @('gadget/b.yml', 'widget/a.txt', 'widget/deep/d.txt')
         }
 

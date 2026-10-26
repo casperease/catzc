@@ -25,7 +25,7 @@ Describe 'Build-CommentView' -Tag 'L0', 'logic' {
         $script:newRepository = {
             $root = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
             & $script:writeFile $root '.editorconfig' ((@('[*.{ps1,psm1,psd1}]', 'max_line_length = 120',
-                '') -join "`n"))
+                        '') -join "`n"))
             & $script:writeFile $root "$(Get-CatzcModulesFolder)/Catzc.Widget/Get-Widget.ps1" $script:source
             & $script:writeFile $root "$(Get-CatzcModulesFolder)/Catzc.Widget/Get-Gadget.ps1" "function Get-Gadget { 'gadget' }`n"
             $root

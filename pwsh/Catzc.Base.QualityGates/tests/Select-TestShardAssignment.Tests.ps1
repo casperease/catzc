@@ -40,8 +40,6 @@ Describe 'Select-TestShardAssignment' -Tag 'L0', 'logic' {
             'widgets/Catzc.Widget/tests/widget.Tests.ps1' = 9000
             'widgets/Catzc.Widget/tests/gadget.Tests.ps1' = 1000
         }
-        # The median of 1 s and 9 s is 9 s (the upper middle), so sprocket ties widget and keeps its given order after
-        # it.
         $shards = & $script:assign $files 3 $durations
         $shards[0] | Should -Be @(& $script:path 'widget')
         $shards[1] | Should -Be @(& $script:path 'sprocket')
@@ -61,7 +59,8 @@ Describe 'Select-TestShardAssignment' -Tag 'L0', 'logic' {
         $one[0] | Should -Be @(& $script:path 'widget')
         $one[1].Count | Should -Be 0
         $single = InModuleScope Catzc.Base.QualityGates -Parameters @{ Files = @((& $script:path 'widget'),
-            (& $script:path 'gadget')); Root = $script:root } {
+                (& $script:path 'gadget')); Root                             = $script:root
+        } {
             param($Files, $Root)
             $shards = @(Select-TestShardAssignment -File $Files -WorkerCount 1 -RepositoryRoot $Root)
             '{0}:{1}' -f $shards.Count, $shards[0].Count

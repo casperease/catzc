@@ -23,7 +23,7 @@ function Get-ModuleSourceFile {
     foreach ($moduleDir in $modules) {
         foreach ($script in Get-ChildPath $moduleDir -File -Filter '*.ps1' -Depth 1) {
             if (-not [System.IO.Path]::GetFileName($script).EndsWith('.Tests.ps1',
-                [System.StringComparison]::OrdinalIgnoreCase)) {
+                    [System.StringComparison]::OrdinalIgnoreCase)) {
                 $files.Add($script)
             }
         }

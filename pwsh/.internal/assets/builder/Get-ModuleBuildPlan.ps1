@@ -55,7 +55,7 @@ function Get-ModuleBuildPlan {
         # The folders a build copies verbatim are the layout's shipped rows.
         foreach ($folder in (Get-Config -Config languages).ShippedFolders()) {
             $copies = Get-BuildFileCopy -SourceDirectory ([System.IO.Path]::Combine($moduleDirectory,
-                $folder)) -TargetPath "$name/$folder" -SourceRoot $SourceRoot -Index $Index -IncludeUntracked:($folder -eq 'types')
+                    $folder)) -TargetPath "$name/$folder" -SourceRoot $SourceRoot -Index $Index -IncludeUntracked:($folder -eq 'types')
             foreach ($copy in @($copies)) {
                 $entries.Add($copy)
             }
@@ -81,7 +81,7 @@ function Get-ModuleBuildPlan {
     }
     if ($VendorPolicy -eq 'full') {
         foreach ($copy in @(Get-BuildFileCopy -SourceDirectory ([System.IO.Path]::Combine($SourceRoot,
-            '.scriptanalyzer')) -TargetPath '.scriptanalyzer' -SourceRoot $SourceRoot -Index $Index -ExcludeDirectory 'tests')) {
+                        '.scriptanalyzer')) -TargetPath '.scriptanalyzer' -SourceRoot $SourceRoot -Index $Index -ExcludeDirectory 'tests')) {
             $entries.Add($copy)
         }
     }
@@ -98,7 +98,7 @@ function Get-ModuleBuildPlan {
                 continue
             }
             foreach ($copy in @(Get-BuildFileCopy -SourceDirectory ([System.IO.Path]::Combine($vendorRoot,
-                $vendorName)) -TargetPath ".vendor/$vendorName" -SourceRoot $SourceRoot -Index $Index)) {
+                            $vendorName)) -TargetPath ".vendor/$vendorName" -SourceRoot $SourceRoot -Index $Index)) {
                 $entries.Add($copy)
             }
         }

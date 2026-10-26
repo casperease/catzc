@@ -70,7 +70,7 @@ Describe 'Test-Terminology' -Tag 'L0', 'logic' {
             [System.IO.File]::WriteAllText($path, $file.Value)
         }
         Mock Get-GitTrackedPath -ModuleName Catzc.Base.QualityGates { @('widgets/spin.md', 'Widgets/Turn.md',
-            'gadgets/turn.md', 'gadgets/gizmos.md', 'gadgets/gone.md') }
+                'gadgets/turn.md', 'gadgets/gizmos.md', 'gadgets/gone.md') }
 
         $r = Test-Terminology -OutputFolder $script:reportBase -PassThru
         $r.IssueCount | Should -Be 1

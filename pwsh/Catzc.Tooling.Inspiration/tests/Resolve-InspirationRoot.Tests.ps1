@@ -6,8 +6,6 @@ catzc:
 ---
 #>
 
-# The root is fed in both shells' views of the same folder, so the anchor resolving differently per shell would fail
-# here.
 Describe 'Resolve-InspirationRoot' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:workspace = [IO.Path]::GetFullPath((Join-Path $TestDrive 'widgets'))

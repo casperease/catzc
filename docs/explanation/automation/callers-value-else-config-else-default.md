@@ -42,8 +42,8 @@ content:
     - { id: r-wait, kind: result, label: one bounded wait, in: band-consumers }
   edges:
     - { from: g-caller, to: g-config, kind: flow, label: "" }
-    - { from: g-config, to: g-default, kind: flow, label: "" }
-    - { from: g-default, to: g-ceiling, kind: flow, label: "" }
+    - { from: g-config, to: g-default, kind: flow, label: else }
+    - { from: g-default, to: g-ceiling, kind: flow, label: then }
     - { from: g-ceiling, to: r-wait, kind: flow, label: "" }
   markers:
     - { at: g-caller, number: 1 }

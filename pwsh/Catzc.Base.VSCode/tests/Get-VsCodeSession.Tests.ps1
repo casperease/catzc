@@ -24,7 +24,7 @@ Describe 'Get-VsCodeSession' -Tag 'L0', 'logic' {
         Mock Get-FileLockingProcess -ModuleName Catzc.Base.VSCode {
             if ($Path -like '*widget01*') {
                 [Catzc.Base.Files.FileLockingProcess]::new(42, 'pwsh.exe', 'pwsh', [datetime]::new(2026, 1, 1, 10, 0,
-                    0), $null, $null)
+                        0), $null, $null)
             }
         }
     }

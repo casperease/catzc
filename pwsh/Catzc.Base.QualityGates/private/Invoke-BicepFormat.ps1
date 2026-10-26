@@ -35,7 +35,7 @@ function Invoke-BicepFormat {
             [System.IO.File]::Copy($File[$index], $copies[$index])
         }
         foreach ($extension in @($copies | ForEach-Object { [System.IO.Path]::GetExtension($_) } |
-            Sort-Object -Unique)) {
+                    Sort-Object -Unique)) {
             $pattern = (Join-Path $folder "*$extension") -replace '\\', '/'
             $result = Invoke-Executable "`"$($bicep.Path)`" format --pattern `"$pattern`"" -PassThru -NoAssert -Silent
             if ($result.ExitCode -ne 0) {

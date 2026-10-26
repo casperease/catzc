@@ -62,3 +62,21 @@ Above `$checkedMatch = [regex]::Match($result.Full, 'Files checked:\s*(?<n>\d+)'
 cspell prints a summary ("Files checked: N, Issues found: M in K file(s)"). cspell globs are relative to the
 working directory (the repo root here), so an empty match means a bad -Path.
 ```
+
+## comment:2
+
+Above `$command = (`, written with `#`.
+
+```text
+--dot spells the tracked files under a dot folder (.assets, .claude); --gitignore keeps the untracked ones
+under it out.
+```
+
+## comment:3
+
+Above `$issues = @($issues) + "Test-Spelling could not count the files checked:...`, written with `#`.
+
+```text
+A run whose files checked cannot be counted proves nothing either: the wording changed, or cspell stopped
+before its summary.
+```

@@ -20,7 +20,8 @@ Describe 'Get-WorldMap' -Tag 'L0', 'logic' {
         }
         $script:variants = [pscustomobject]@{
             aspects = @{ widgets = @([Catzc.Base.Variants.VariantAspect]::new('live', @('*.ps1')),
-                [Catzc.Base.Variants.VariantAspect]::new('tests', @('**'))) }
+                    [Catzc.Base.Variants.VariantAspect]::new('tests', @('**')))
+            }
         }
         $script:files = [pscustomobject]@{ modules = [ordered]@{ Alpha = [pscustomobject]@{ packages = [ordered]@{ entry = @('importer.ps1', 'widgets/x') } } } }
     }
@@ -28,9 +29,9 @@ Describe 'Get-WorldMap' -Tag 'L0', 'logic' {
     BeforeEach {
         InModuleScope Catzc.Base.Maps { $script:worldMapTextCache = $null }
         Mock Get-Track -ModuleName Catzc.Base.Maps { [Catzc.Base.Variants.VariantTrack]::new('widgets', @('widgets'),
-            'modules', $null, @('widget-script')) }
+                'modules', $null, @('widget-script')) }
         Mock Get-FileLanguage -ModuleName Catzc.Base.Maps { [Catzc.Base.Languages.FileLanguage]::new('widget-script',
-            @('.ps1'), $null, 'fixture', $null, $null, $null) }
+                @('.ps1'), $null, 'fixture', $null, $null, $null) }
         Mock Get-GitTrackedPath -ModuleName Catzc.Base.Maps { 'importer.ps1', 'widgets/Alpha/Get-Widget.ps1', 'widgets/Alpha/widget.json', 'widgets/Alpha/gone.ps1' }
         Mock Get-Aspect -ModuleName Catzc.Base.Maps { $script:variants.aspects[$Track] }
         Mock Test-AspectDeclaration -ModuleName Catzc.Base.Maps { $script:variants.aspects.ContainsKey($Track) }

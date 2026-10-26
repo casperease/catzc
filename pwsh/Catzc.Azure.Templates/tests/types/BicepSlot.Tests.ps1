@@ -17,7 +17,7 @@ Describe 'BicepSlot' -Tag 'L0', 'logic' {
 
     It 'rejects a config file that is neither yml nor bicepparam, and a missing one' {
         { [Catzc.Azure.Templates.BicepSlot]::new('dev', 'dev', '', 'widget-sub', '',
-            'C:\widget\configuration\dev.json') } |
+                'C:\widget\configuration\dev.json') } |
             Should -Throw '*must be a .yml or a .bicepparam config*'
         { [Catzc.Azure.Templates.BicepSlot]::new('dev', 'dev', '', 'widget-sub', '', '') } |
             Should -Throw '*BicepSlot.file is required*'

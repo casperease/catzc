@@ -83,7 +83,7 @@ catzc:
 
     It 'fills inline fields trimmed, and a block field once per paragraph without the template attributes' {
         $html = (& $render "$good`n`nA second paragraph.".Replace("## Notes`n`nSay it.`n`nA second paragraph.",
-            "A second paragraph.`n`n## Notes`n`nSay it.")).Html
+                "A second paragraph.`n`n## Notes`n`nSay it.")).Html
         $html | Should -Match '<p style="color:#ABCDEF">ADR-WIDGET-GADGET-SPIN</p>'
         $html | Should -Match '<h2 style="font-size:72px">The widget spins</h2>'
         $html | Should -Match '<div><p>A widget spins when wound.</p><p>A second paragraph.</p></div>'

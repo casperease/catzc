@@ -1,5 +1,11 @@
-# LinkEdge is one relation the link walk recognised; it always names the file it is written in and the file it points
-# at.
+<#
+---
+catzc:
+  docs: "../../../../docs/references/pwsh/catzc-base-quality-gates/tests/types/LinkEdge.Tests.ps1.md"
+  header: "generated"
+---
+#>
+
 Describe 'LinkEdge' -Tag 'L0', 'logic', 'ADR-REPO-LINKS-EVERYLINKHASADIRECTION' {
     It 'keeps where it is written, its relation and its target, with no code for a plain link' {
         $edge = [Catzc.Base.QualityGates.LinkEdge]::new('docs/widget/part.md', 3, 7, 'MarkdownLink',

@@ -14,3 +14,12 @@ nothing. The shipped configs' load is the quality gate Test-ShippedConfigs; a bi
 is a KeyHandlerBinding construction rule. Neutral fixture names
 ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```
+
+## comment:2
+
+Above `Describe 'Import-PsReadLineKeyHandlerSet'`, written with `#`.
+
+```text
+Real config types built from fixture data, so a binding is supported exactly when the allow-list names its function,
+and nothing runs.
+```

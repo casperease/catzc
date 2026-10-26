@@ -48,3 +48,21 @@ The head keys in writing order. Default: the shipped generated-head.yml.
 ```powershell
 Format-GeneratedFileHead -Text $content -Path .gitignore -Carrier dotfile
 ```
+
+## comment:1
+
+Above `$tracked = @(Get-GitTrackedPath $relative) -contains $relative`, written with `#`.
+
+```text
+While git tracks the file, the head also carries the hash of the body it is immutable with; an untracked file
+carries the warning only.
+```
+
+## comment:2
+
+Above `$body = switch ($entry.carrier) {`, written with `#`.
+
+```text
+The body is what sits below the head the carrier holds, so a second run over the written file finds the same
+hash.
+```

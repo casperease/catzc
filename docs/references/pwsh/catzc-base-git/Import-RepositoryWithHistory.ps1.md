@@ -69,3 +69,12 @@ Import-RepositoryWithHistory -Source https://example.com/gadget.git -Name gadget
 ```powershell
 Import-RepositoryWithHistory -Source C:\projects\widget-tools -DryRun
 ```
+
+## comment:1
+
+Above ``$git = "git -C `"$root`""``, written with `#`.
+
+```text
+The history move: fetch the source ref, read its tree in under the address, and record one merge commit with both
+parents.
+```

@@ -363,7 +363,7 @@ function Measure-PersistentWriteThroughSeam {
         param($node)
         if ($node -is [System.Management.Automation.Language.InvokeMemberExpressionAst]) {
             if (-not ($node.Static -and
-                $node.Expression -is [System.Management.Automation.Language.TypeExpressionAst])) {
+                    $node.Expression -is [System.Management.Automation.Language.TypeExpressionAst])) {
                 return $null
             }
             if ($node.Expression.TypeName.FullName -notin $environmentTypes -or

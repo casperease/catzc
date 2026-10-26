@@ -89,13 +89,13 @@ Describe 'Get-BicepParameterModel' -Tag 'L0', 'logic' {
     Context 'a malformed main.json' {
         It 'throws naming the template and the parameter for an unknown type' {
             { [Catzc.Azure.Templates.BicepParameterModel]::Parse('widget',
-                '{"parameters":{"gadgetName":{"type":"gizmo"}}}') } |
+                    '{"parameters":{"gadgetName":{"type":"gizmo"}}}') } |
                 Should -Throw '*widget*gadgetName*gizmo*'
         }
 
         It 'throws for a $ref to a definition main.json does not declare' {
             { [Catzc.Azure.Templates.BicepParameterModel]::Parse('widget',
-                '{"parameters":{"gadgetName":{"$ref":"#/definitions/missing"}}}') } |
+                    '{"parameters":{"gadgetName":{"$ref":"#/definitions/missing"}}}') } |
                 Should -Throw '*gadgetName*missing*'
         }
 
@@ -120,7 +120,7 @@ Describe 'Get-BicepParameterModel' -Tag 'L0', 'logic' {
         It 'builds the template when main.json is older than one of its inputs' {
             Write-FixtureBuild
             [System.IO.File]::SetLastWriteTimeUtc($script:mainJson, [datetime]::new(2000, 1, 1, 0, 0, 0,
-                [System.DateTimeKind]::Utc))
+                    [System.DateTimeKind]::Utc))
             Get-BicepParameterModel sample | Out-Null
             Should -Invoke Build-Bicep -ModuleName Catzc.Azure.Templates -Times 1 -Exactly
         }

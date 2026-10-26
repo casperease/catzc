@@ -11,3 +11,12 @@ Above `$null = New-Item -ItemType Directory -Force -Path $script:outputDirectory
 Stand in for `dotnet publish`: copy this host's own executable to where the real publish puts the
 program, so it carries the platform's real executable extension and resolves as an application.
 ```
+
+## comment:2
+
+Above `It 'lists no package feed from the hook folder <name>' -ForEach @(`, written with `#`.
+
+```text
+NuGet reads its config from the project's folder up, so each hook folder must see the generated root config's
+cleared feeds alone.
+```

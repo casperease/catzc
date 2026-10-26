@@ -163,7 +163,7 @@ Describe 'Update-DrsCitation' -Tag 'L0', 'logic' {
         It 'moves a one-segment folder''s path mentions and leaves its bare name in prose alone' {
             $header = @('old_code', 'new_code', 'old_path', 'new_path', 'kind') -join "`t"
             $codeMap = & $script:writeText 'maps/folder-code-map.tsv' ($header + "`n" + (@('-', '-', 'gadgets/index.md',
-                'gizmos/index.md', 'folder') -join "`t") + "`n")
+                        'gizmos/index.md', 'folder') -join "`t") + "`n")
             & $script:writeText 'docs/drs/gadgets/index.md' "# Gadgets`n" | Out-Null
             $text = "Three gadgets share one fragment, so gadgets need a folder: gadgets/ holds them, see gadgets/index.md.`n"
             $full = & $script:writeText 'docs/drs/widget/folder-word.md' $text
@@ -175,8 +175,8 @@ Describe 'Update-DrsCitation' -Tag 'L0', 'logic' {
         It 'leaves a path of a same-named folder outside docs/drs alone, such as a module path' {
             $header = @('old_code', 'new_code', 'old_path', 'new_path', 'kind') -join "`t"
             $codeMap = & $script:writeText 'maps/module-folder-code-map.tsv' ($header + "`n" + (@('-', '-',
-                "$(Split-Path (Get-CatzcModulesRoot) -Leaf)/index.md", 'automation/pwsh/index.md',
-                'folder') -join "`t") + "`n")
+                        "$(Split-Path (Get-CatzcModulesRoot) -Leaf)/index.md", 'automation/pwsh/index.md',
+                        'folder') -join "`t") + "`n")
             $text = "The loader reads pwsh/Catzc.Widget/x.ps1 and pwsh/Catzc.Widget/ before any module.`n"
             $full = & $script:writeText 'docs/references/widget-loader.md' $text
             Update-DrsCitation -Path $full -CodeMap $codeMap -RuleMap $script:ruleMap -RepositoryRoot $script:root -InformationAction SilentlyContinue | Out-Null
@@ -186,8 +186,8 @@ Describe 'Update-DrsCitation' -Tag 'L0', 'logic' {
         It 'inside docs/drs, moves a real page of the folder and leaves a module path of the same name alone' {
             $header = @('old_code', 'new_code', 'old_path', 'new_path', 'kind') -join "`t"
             $codeMap = & $script:writeText 'maps/module-folder-in-adr-code-map.tsv' ($header + "`n" + (@('-', '-',
-                "$(Split-Path (Get-CatzcModulesRoot) -Leaf)/index.md", 'automation/pwsh/index.md',
-                'folder') -join "`t") + "`n")
+                        "$(Split-Path (Get-CatzcModulesRoot) -Leaf)/index.md", 'automation/pwsh/index.md',
+                        'folder') -join "`t") + "`n")
             & $script:writeText 'docs/drs/automation/pwsh/widget-rules.md' "# Widget rules`n" | Out-Null
             $text = "The loader reads pwsh/Catzc.Widget/x.ps1, and pwsh/widget-rules.md says why.`n"
             $full = & $script:writeText 'docs/drs/widget/module-paths.md' $text
@@ -201,7 +201,7 @@ Describe 'Update-DrsCitation' -Tag 'L0', 'logic' {
         BeforeAll {
             $header = @('old_code', 'new_code', 'old_path', 'new_path', 'kind') -join "`t"
             $script:rootMap = & $script:writeText 'maps/root-code-map.tsv' ($header + "`n" + (@('-', '-', 'docs/drs',
-                'docs/gadgets', 'root') -join "`t") + "`n")
+                        'docs/gadgets', 'root') -join "`t") + "`n")
             $script:moveRoot = {
                 param([string] $Relative, [string] $Text, [string] $CodeMap = $script:rootMap)
                 $full = & $script:writeText $Relative $Text
@@ -244,7 +244,7 @@ Describe 'Update-DrsCitation' -Tag 'L0', 'logic' {
         ) {
             $header = @('old_code', 'new_code', 'old_path', 'new_path', 'kind') -join "`t"
             $codeMap = & $script:writeText "maps/bad-root-$($From -replace '/', '-').tsv" ($header + "`n" + (@('-', '-',
-                $From, $To, 'root') -join "`t") + "`n")
+                        $From, $To, 'root') -join "`t") + "`n")
             { & $script:moveRoot 'notes/refused.md' "text`n" $codeMap } | Should -Throw $Error
         }
     }
@@ -289,7 +289,7 @@ Describe 'Update-DrsCitation' -Tag 'L0', 'logic' {
             $full = & $script:writeBytes 'docs/bom.md' ([byte[]] (@(0xEF, 0xBB, 0xBF) + $body))
             Update-DrsCitation -Path $full -CodeMap $script:codeMap -RuleMap $script:ruleMap -RepositoryRoot $script:root | Out-Null
             $expected = [System.Convert]::ToBase64String([byte[]] (@(0xEF, 0xBB,
-                0xBF) + $script:utf8.GetBytes("ADR-GIZMO-GADGET-FOLD`r`n- a widget`r`n")))
+                        0xBF) + $script:utf8.GetBytes("ADR-GIZMO-GADGET-FOLD`r`n- a widget`r`n")))
             [System.Convert]::ToBase64String([System.IO.File]::ReadAllBytes($full)) | Should -BeExactly $expected
         }
 
@@ -319,7 +319,7 @@ Describe 'Update-DrsCitation' -Tag 'L0', 'logic' {
 
         It 'fails on a map whose header is not the expected one' {
             $full = & $script:writeText 'maps/bad-code-map.tsv' ((@('old',
-                'new') -join "`t") + "`n" + (@('ADR-WIDGET-GADGET', 'ADR-GIZMO-GADGET') -join "`t") + "`n")
+                        'new') -join "`t") + "`n" + (@('ADR-WIDGET-GADGET', 'ADR-GIZMO-GADGET') -join "`t") + "`n")
             $target = & $script:writeText 'maps/target.md' 'text'
             { Update-DrsCitation -Path $target -CodeMap $full -RuleMap $script:ruleMap -RepositoryRoot $script:root } |
                 Should -Throw '*header*'

@@ -14,7 +14,8 @@ Describe 'Catzc.Base.VSCode.VscodeExtensionsConfig' -Tag 'L0', 'logic' {
 
     It 'accepts a well-formed registry' {
         $config = [Catzc.Base.VSCode.VscodeExtensionsConfig]::new([ordered]@{ recommendations = @('acme.tool-one',
-            'globex.tool-two') })
+                    'globex.tool-two')
+            })
         $config.recommendations | Should -Be @('acme.tool-one', 'globex.tool-two')
     }
 

@@ -44,7 +44,7 @@ function Get-LocalModuleViolation {
             "${RelativePath}/${relative}: a local module carries no types/; a bundle compiles no C#"
         }
         elseif (-not (($segments.Count -eq 2 -and $segments[0] -ceq 'configs' -and $relative.EndsWith('.yml',
-            [System.StringComparison]::Ordinal)) -or
+                        [System.StringComparison]::Ordinal)) -or
                 ($segments.Count -ge 2 -and $segments[0] -cin 'assets', 'tests'))) {
             "${RelativePath}/${relative}: not part of a module; a local module holds <Function>.ps1, $privateFolderName/<Function>.ps1, configs/<config>.yml, assets/<path> and tests/<path>"
         }

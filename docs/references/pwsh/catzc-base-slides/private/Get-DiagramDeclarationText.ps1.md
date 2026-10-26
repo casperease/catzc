@@ -41,3 +41,12 @@ Above `$source = Join-Path $RepositoryRoot "$Stem.drawio.yml"`, written with `#`
 The carrier is what is on disk: the yml beside the png (a diagram with both is a finding the drift check reports, and reads as the
 file), else the article carrier.
 ```
+
+## comment:2
+
+Above `$name = $Stem.Substring($Stem.LastIndexOf('/') + 1)`, written with `#`.
+
+```text
+The article carrier: the one `yml drawio` block, in a page beside the diagram's .assets, directly above the image
+of its png.
+```

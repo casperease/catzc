@@ -30,7 +30,7 @@ function Build-DrsCodeDictionary {
     }
     foreach ($file in $files) {
         foreach ($match in [regex]::Matches([System.IO.File]::ReadAllText($file),
-            "(?m)^### Rule (?<rule>$($adrs.CodeForm.Rule))\s*$")) {
+                "(?m)^### Rule (?<rule>$($adrs.CodeForm.Rule))\s*$")) {
             $codes.Add($match.Groups['rule'].Value)
         }
     }

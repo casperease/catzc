@@ -26,3 +26,12 @@ The value to unwrap; null is allowed.
 ```powershell
 $plain = ConvertTo-BclValue @{ widget = @('gadget', 'sprocket' | ForEach-Object { $_ }) }
 ```
+
+## comment:1
+
+Above `$copy = $Object.Clone()`, written with `#`.
+
+```text
+Clone keeps the table's key comparer; the values are then replaced on the copy, never on the caller's
+table.
+```

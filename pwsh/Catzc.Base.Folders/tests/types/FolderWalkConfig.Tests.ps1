@@ -6,8 +6,6 @@ catzc:
 ---
 #>
 
-# The type is the only place a folder-walk default lives, so an omitted key and its default must be indistinguishable to
-# every walker.
 Describe 'FolderWalkConfig' -Tag 'L0', 'logic' {
     It 'takes the declared defaults for every omitted key' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
         $config = [Catzc.Base.Folders.FolderWalkConfig]::new(@{})

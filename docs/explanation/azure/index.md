@@ -34,10 +34,10 @@ Infrastructure code is of three kinds, each placed by the infrastructure track
 - **operations**: [A new template is one folder in the templates place, found through the track and named in the pipelines that deploy
   it][add-template]
 - **operations**: [A new configuration slot is one new file; discovery finds it, one subscription must fit it, and it deploys a new resource
-  group][add-slot]
+  group][add-env]
 
 [kinds]: three-kinds-of-infrastructure-code.md
 [one-slot]: change-one-configuration-slot.md
 [fan-out]: a-module-change-fans-out-to-its-templates.md
 [add-template]: add-a-template.md
-[add-slot]: add-an-environment-slot.md
+[add-env]: add-an-environment-slot.md

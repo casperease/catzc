@@ -73,3 +73,39 @@ Test-Plans
 ```powershell
 (Test-Plans -PassThru).Issues
 ```
+
+## comment:1
+
+Above `$readLines = {`, written with `#`.
+
+```text
+A plan is three parts: its file, its row in the value overlay and its chunk line in the master; the two overlays
+are read whole.
+```
+
+## comment:2
+
+Above `$verbs = [System.Collections.Generic.HashSet[string]]::new([string[]]...`, written with `#`.
+
+```text
+A check names a command by its Verb-Noun; one that no module exports cannot prove the step, so the gate names it
+before a worker runs it.
+```
+
+## comment:3
+
+Above `$assertCount = {`, written with `#`.
+
+```text
+A step count an overlay states ("three steps", "one step left") is the plan's open steps, or it has drifted;
+Format-Code rewrites it.
+```
+
+## comment:4
+
+Above `$check = [regex]::Match($item.Text,...`, written with `#`.
+
+```text
+The check is the text after the step's last standalone `check:`, so a name such as `catzc-check:` in the
+step is not read as one.
+```

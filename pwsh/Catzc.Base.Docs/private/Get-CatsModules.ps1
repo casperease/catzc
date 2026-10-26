@@ -13,8 +13,6 @@ function Get-CatsModules {
         [string] $ModulesRoot = (Get-CatzcModulesRoot)
     )
 
-    # A cats module is a folder of the modules root that a module of the same name is loaded from; the walker lists the
-    # folders.
     $loaded = foreach ($folder in @(Get-ChildPath -Path $ModulesRoot -Depth 1 -Directory)) {
         $name = [System.IO.Path]::GetFileName("$folder".TrimEnd('\', '/'))
         if ($name.StartsWith('.')) {

@@ -90,8 +90,6 @@ function Get-RepositoryFilter {
                         & $owned $match
                     }
                     'kind' {
-                        # A file kind's globs as file-kinds.yml declares them, its subkinds' included
-                        # ([ADR-REPO-FILEMETA-METAKIND](/docs/drs/repository/file-meta.md#rule-adr-repo-filemeta-metakind)).
                         $kinds ??= (Get-Config -Config file-kinds).kinds
                         $match = @($kinds.Where({ $_.role -ceq $argument -and -not $_.subkind }))
                         if ($match.Count -eq 0) {

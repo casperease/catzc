@@ -42,3 +42,12 @@ Return the data as JSON in the minimap contract's shape instead of the object.
 ```powershell
 (Get-LifecyclePositionMinimapData FDR-CD).Lit
 ```
+
+## comment:1
+
+Above `$rungs = @(Get-Rung)`, written with `#`.
+
+```text
+The rungs in climbing order; a subject file lights a rung when it cites one of the rung's rules, or the ADR that
+holds the rule.
+```

@@ -85,7 +85,7 @@ function Get-Config {
         }
         $fragment = Get-Content $fragmentPath -Raw | ConvertFrom-Yaml -Ordered
         Assert-True ($raw -is [System.Collections.IDictionary] -and ($null -eq $fragment -or
-            $fragment -is [System.Collections.IDictionary])) -ErrorText "Overlay fragment $fragmentPath cannot merge onto config '$($entry.Name)': a fragment and its config must both be maps."
+                $fragment -is [System.Collections.IDictionary])) -ErrorText "Overlay fragment $fragmentPath cannot merge onto config '$($entry.Name)': a fragment and its config must both be maps."
         if ($null -ne $fragment) {
             $raw = Merge-ConfigFragment -Base $raw -Fragment $fragment
         }

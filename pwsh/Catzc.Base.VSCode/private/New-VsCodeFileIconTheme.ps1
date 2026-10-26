@@ -19,15 +19,11 @@ function New-VsCodeFileIconTheme {
 
         [Catzc.Base.VSCode.FileIconsConfig] $Config = (Get-Config -Config file-icons),
 
-        # The folders a glyph is looked up in, in order: the icon theme's own glyphs (<glyph>.svg), then the lamp glyphs
-        # (<glyph>-on.svg).
         [string[]] $GlyphDirectory = @(
             (Join-Path (Get-RepositoryRoot) "$(Get-TrackPlace -Track js -TrackKind extensions)/catzc-file-icons/assets")
             (Join-Path (Get-RepositoryRoot) "$(Get-TrackPlace -Track js -TrackKind extensions)/catzc-track-lamps/assets")
         ),
 
-        # The language system an icon's 'language' names; each language's extensions come from here, never restated in
-        # file-icons.yml.
         $Languages = (Get-Config -Config languages).languages
     )
 
@@ -35,8 +31,8 @@ function New-VsCodeFileIconTheme {
     $stroke = '(?<=<svg [^>]*\bstroke=")#[0-9a-fA-F]{6}'
     $null = New-Item -ItemType Directory -Path $MediaDirectory -Force
     $write = { param([string] $Name,
-        [string] $Svg) [System.IO.File]::WriteAllText((Join-Path $MediaDirectory "$Name.svg"), $Svg.TrimEnd() + "`n",
-        $utf8) }
+            [string] $Svg) [System.IO.File]::WriteAllText((Join-Path $MediaDirectory "$Name.svg"), $Svg.TrimEnd() + "`n",
+            $utf8) }
     $labelSvg = {
         param([string] $Text, [string] $Color, [string] $Style)
         $size = @{ 1 = 11; 2 = 9; 3 = 6.5; 4 = 5 }[$Text.Length]
@@ -110,8 +106,6 @@ $under
         }
     }
 
-    # A file no icon marks is a leaf, one dot. The theme names no folder icon, so a folder is marked by the Explorer's
-    # own chevron alone.
     & $write '_file' "<svg xmlns=`"http://www.w3.org/2000/svg`" width=`"16`" height=`"16`" viewBox=`"0 0 16 16`">`n  <path d=`"M8 8h0`" stroke=`"$($Config.file)`" stroke-width=`"2.4`" stroke-linecap=`"round`"/>`n</svg>"
     $definitions['_file'] = [ordered]@{ iconPath = './_file.svg' }
     $theme = [ordered]@{

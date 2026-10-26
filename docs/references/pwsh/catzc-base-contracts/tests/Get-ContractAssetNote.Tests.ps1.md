@@ -13,3 +13,12 @@ A contract asset's note is the header comment its file can carry without changin
 a schema's "$comment", and nothing for every other asset. Fixtures are a widget repository in TestDrive
 ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```
+
+## comment:2
+
+Above `$manifest = Join-Path $script:root 'contracts/widget/0.1.0/contract.yml'`, written with `#`.
+
+```text
+Every fixture written so far stays named, so a second note in the same test still finds the first
+bound.
+```

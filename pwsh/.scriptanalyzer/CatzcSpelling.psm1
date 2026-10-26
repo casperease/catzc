@@ -1,11 +1,17 @@
+<#
+---
+catzc:
+  docs: "../../docs/references/pwsh/scriptanalyzer/CatzcSpelling.psm1.md"
+  header: "generated"
+---
+#>
+
 [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '',
     Justification = 'The check module loads nested in this rule module, inside the analyzer engine; nothing in the session changes, so there is no state to announce')]
 param()
 
 Set-StrictMode -Version Latest   # this module's scope: the entry rule runs strict inside the analyzer engine
 
-# The spelling check reads the dictionaries, so it is its own entry rule: a dictionary edit re-runs this rule alone
-# ([ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS](/docs/drs/automation/caching.md#rule-adr-auto-cache-checkedfilesacrosssessions)).
 $script:measure = $null
 
 function Measure-CatzcSpelling {

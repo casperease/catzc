@@ -33,7 +33,9 @@ Describe 'FiltersConfig' -Tag 'L0', 'logic' {
         @{ Case = 'an empty selection'; Filter = [ordered]@{ name = 'widgets'; select = @() }; Message = '*must select a non-empty list*' }
         @{ Case = 'a name not in lower snake case'; Filter = [ordered]@{ name = 'Widgets'; select = @('generated') }; Message = '*lower snake case*' }
         @{ Case = 'a title that is no string'; Filter = [ordered]@{ name = 'widgets'; title = @('a',
-            'b'); select = @('generated') }; Message = '*title must be a string*' }
+                    'b'); select = @('generated')
+            }; Message = '*title must be a string*'
+        }
     ) {
         { [Catzc.Base.Globs.FiltersConfig]::new([ordered]@{ filters = @($Filter) }) } |
             Should -Throw -ExpectedMessage $Message

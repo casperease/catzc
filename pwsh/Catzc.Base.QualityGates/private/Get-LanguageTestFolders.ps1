@@ -34,18 +34,14 @@ function Get-LanguageTestFolders {
     $unmatched = [System.Collections.Generic.List[string]]::new()
     $records = [System.Collections.Generic.List[pscustomobject]]::new()
     foreach ($language in $languages) {
-        # The track's own test holder: one folder per catzc module, named for it in the language's folder case, testing
-        # it from outside.
         $testsRoot = [System.IO.Path]::GetFullPath([System.IO.Path]::Combine($repositoryRoot, $language.Root,
-            $testFolderName))
+                $testFolderName))
         if ([System.IO.Directory]::Exists($testsRoot)) {
             foreach ($folder in Get-ChildPath $testsRoot -Depth 1 -Directory -Exclude @() -PruneVendor $false) {
                 $name = [System.IO.Path]::GetFileName($folder)
                 if ($name.StartsWith('.')) {
                     continue
                 }
-                # A module folder holds its test files directly or in a package one level down; the third level is
-                # headroom.
                 if (-not @(Get-ChildPath $folder -File -Filter $language.Pattern -Depth 3).Count) {
                     continue
                 }
@@ -72,7 +68,7 @@ function Get-LanguageTestFolders {
                 continue
             }
             $own = [System.IO.Path]::GetFullPath([System.IO.Path]::Combine($repositoryRoot, $module.root,
-                $testFolderName))
+                    $testFolderName))
             if (-not [System.IO.Directory]::Exists($own) -or
                 -not @(Get-ChildPath $own -File -Filter $language.Pattern -Depth 3).Count) {
                 continue

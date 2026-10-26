@@ -29,3 +29,12 @@ head in the `msbuild-project` carrier. See [ADR-REPO-ROOTCFG](../../../drs/repos
 ```powershell
 New-DotnetBuildProps
 ```
+
+## comment:1
+
+Above `@"`, written with `#`.
+
+```text
+The one target framework is the SDK the tooling installs, so a project never names a framework whose reference
+pack must be downloaded.
+```

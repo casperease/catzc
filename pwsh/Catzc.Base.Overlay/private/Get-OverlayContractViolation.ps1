@@ -39,7 +39,7 @@ function Get-OverlayContractViolation {
                 $attribute.TypeName.GetReflectionType() -eq [System.Management.Automation.ParameterAttribute]) {
                 foreach ($argument in $attribute.NamedArguments) {
                     if ($argument.ArgumentName -ieq 'Mandatory' -and ($argument.ExpressionOmitted -or
-                        "$($argument.Argument.SafeGetValue())" -ieq 'True')) {
+                            "$($argument.Argument.SafeGetValue())" -ieq 'True')) {
                         return $true
                     }
                 }

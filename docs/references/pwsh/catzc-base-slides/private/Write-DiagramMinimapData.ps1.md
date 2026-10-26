@@ -54,3 +54,39 @@ Above `$shown = $null`, written with `#`.
 The declaration lists only the inputs: each shown minimap is an id, or { id: { exclude: [cells] } } naming the lit cells its
 author rejects as their at values joined by '/'; a declaration that lists none shows its kind's defaults.
 ```
+
+## comment:3
+
+Above `$worldMap = Get-WorldMap`, written with `#`.
+
+```text
+The world map is built once for every folder of the call; a minimap that draws on it is handed it rather than
+building its own.
+```
+
+## comment:4
+
+Above `$glyphs = @(if ($content -and $content.Contains('glyphs') -and...`, written with `#`.
+
+```text
+The drawing's own glyphs, handed to the minimaps that place them: the labels as written, resolved by the maps
+module, never stored.
+```
+
+## comment:5
+
+Above `$subjectPaths = foreach ($entry in $declared) {`, written with `#`.
+
+```text
+The file facts of every folder's subject are read in one call; a minimap that draws on them is handed them rather
+than reading its own.
+```
+
+## comment:6
+
+Above `$excluded = $entry.Excluded[$id]`, written with `#`.
+
+```text
+The drawn data is the computed one less the cells the author excludes; nothing computed is written back to
+the declaration.
+```

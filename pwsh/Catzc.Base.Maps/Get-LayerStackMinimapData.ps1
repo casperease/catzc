@@ -28,7 +28,7 @@ function Get-LayerStackMinimapData {
     foreach ($item in @(Get-MinimapSubject -Adr $Adr -WorldMap $WorldMap -Facts $Facts)) {
         $ruleSet = $ruleSets |
             Where-Object { $item.Requested -ceq $_.External -or $item.Requested.StartsWith("$($_.External)-",
-            [System.StringComparison]::Ordinal) } |
+                    [System.StringComparison]::Ordinal) } |
             Select-Object -First 1
         if (-not $ruleSet) {
             continue

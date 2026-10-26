@@ -32,7 +32,7 @@ function Get-EngineSetFinding {
         param([int] $Offset)
         $line = 1
         for ($index = $Text.IndexOf("`n"); $index -ge 0 -and $index -lt $Offset; $index = $Text.IndexOf("`n",
-            $index + 1)) {
+                $index + 1)) {
             $line++
         }
         $line

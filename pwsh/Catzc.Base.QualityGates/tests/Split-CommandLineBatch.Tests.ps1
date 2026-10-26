@@ -1,10 +1,16 @@
+<#
+---
+catzc:
+  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/Split-CommandLineBatch.Tests.ps1.md"
+  header: "generated"
+---
+#>
+
 Describe 'Split-CommandLineBatch' -Tag 'L0', 'logic' {
     It 'keeps every batch under the limit, counting the quotes and the separator, in order' {
         $batches = InModuleScope Catzc.Base.QualityGates {
             @(Split-CommandLineBatch -Item @('widget', 'gadget', 'sprocket', 'gizmo') -MaxLength 20)
         }
-        # widget and gadget cost 9 each (18); sprocket (11) would pass 20, so it opens the next batch, which gizmo (8)
-        # joins.
         $batches | Should -HaveCount 2
         $batches[0] | Should -Be @('widget', 'gadget')
         $batches[1] | Should -Be @('sprocket', 'gizmo')

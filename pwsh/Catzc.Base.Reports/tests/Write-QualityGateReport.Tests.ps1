@@ -6,8 +6,6 @@ catzc:
 ---
 #>
 
-# The real settings type over a mocked file, so the shape every gate's report shares is pinned without writing outside
-# the test drive.
 Describe 'Write-QualityGateReport' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Get-Config -ModuleName Catzc.Base.Reports -ParameterFilter { $Config -eq 'reports' } -MockWith {
@@ -29,7 +27,7 @@ Describe 'Write-QualityGateReport' -Tag 'L0', 'logic' {
 
     It 'throws once with every issue and the report path' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
         $thrown = { Write-QualityGateReport -Subject widget -Title Test-Widget -Issues @('first problem',
-            'second problem') } |
+                'second problem') } |
             Should -Throw -PassThru
         $thrown.Exception.Message | Should -BeLike 'Test-Widget failed: 2 issue(s) — see *'
         $thrown.Exception.Message | Should -Match 'first problem'

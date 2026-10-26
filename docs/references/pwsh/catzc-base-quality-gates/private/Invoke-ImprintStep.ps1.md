@@ -55,3 +55,30 @@ Above `$moved = @(Export-Comments -Path $File -RepositoryRoot $root -DryRun:$Dry
 The step writes a file and its comment page, so the page is a companion of the file, not a second subject of the step.
 The paths stay absolute: the link scope resolves a relative -Path against the current location, which is not the root.
 ```
+
+## comment:3
+
+Above `$commentPages = Get-Config -Config comment-pages`, written with `#`.
+
+```text
+The help is the ## help section of the file's comment page, so the step only reports what a person must
+settle and changes no file.
+```
+
+## comment:4
+
+Above `$plans = Get-Config -Config plans`, written with `#`.
+
+```text
+The counts are derived from the plans beside each overlay, so each folder the files sit in is rewritten
+once.
+```
+
+## comment:5
+
+Above `if (-not $DryRun -and $outcome.Changed.Count -gt 0) {`, written with `#`.
+
+```text
+A rewritten overlay can lie outside -Path, past the formatter's pass, so the step formats what it wrote
+itself.
+```

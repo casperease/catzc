@@ -11,3 +11,12 @@ Above `Describe 'Invoke-ImprintStep'`, written with `#`.
 Invoke-ImprintStep with its seams mocked: the registries (Get-Config) and the C# namespace command (Format-Types), over fixture files
 in $TestDrive. Neutral fixture names ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```
+
+## comment:2
+
+Above `InModuleScope Catzc.Base.QualityGates {`, written with `#`.
+
+```text
+A fixture kind with a fixture processor, so the step is proven on a fact of its own, whatever kinds the
+shipped registry holds.
+```

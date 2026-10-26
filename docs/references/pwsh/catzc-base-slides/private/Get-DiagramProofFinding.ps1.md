@@ -36,3 +36,21 @@ The root about.proves resolves against.
 ### outputs
 
 `[string[]]` One finding per fault; nothing when the diagram is a band diagram or proven.
+
+## comment:1
+
+Above `$action = $content['action']`, written with `#`.
+
+```text
+The action and an executing effect are any contracted command, mutating included: each fits its contract, not the
+proof file.
+```
+
+## comment:2
+
+Above `$drawn = [System.Collections.Generic.List[object]]::new()`, written with `#`.
+
+```text
+An effect is a state change (proves, run by the proof file) or an execution (call, held to its contract), never
+both.
+```

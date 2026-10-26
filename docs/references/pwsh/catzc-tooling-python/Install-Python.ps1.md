@@ -48,3 +48,12 @@ shims into its bin dir. --default is still behind uv's preview flag, so opt in e
 --preview-features to keep it (and silence uv's experimental warning, which WarningPreference=Stop
 would otherwise turn into a halt). --reinstall replaces an existing build of the same version under -Force.
 ```
+
+## comment:2
+
+Above `$reinstall = if ($Force) {`, written with `#`.
+
+```text
+The preview opt-in is explicit, so the shims stay and uv's experimental warning never halts a run that stops on
+warnings.
+```

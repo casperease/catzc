@@ -99,7 +99,8 @@ jobs:
         run: |
           Set-StrictMode -Version Latest
           if ([string]::IsNullOrWhiteSpace($env:PSGALLERY_API_KEY)) {
-            Write-Host '::warning::PSGALLERY_API_KEY is empty — skipping the PSGallery publish. The .nupkg and manifest are still built and uploaded.'
+            $skipped = 'PSGALLERY_API_KEY is empty — skipping the PSGallery publish. The .nupkg and manifest are still built and uploaded.'
+            Write-Host "::warning::$skipped"
             exit 0
           }
           . ./importer.ps1

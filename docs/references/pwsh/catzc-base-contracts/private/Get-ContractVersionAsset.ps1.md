@@ -45,3 +45,12 @@ group and only when the group holds one.
 ```powershell
 Get-ContractVersionAsset -Root widget -Version 0.1.0 -Folder $versionFolder -RepositoryRoot $root
 ```
+
+## comment:1
+
+Above `$tracked = @{ Paths = $null }`, written with `#`.
+
+```text
+The tracked files are listed only once an asset asks for its globs to be matched: nothing is enumerated
+speculatively.
+```

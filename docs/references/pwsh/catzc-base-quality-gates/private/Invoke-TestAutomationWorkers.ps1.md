@@ -212,3 +212,12 @@ Every shard finished: record each file's measured duration for the next run's sc
 path. A shard without its files sidecar contributes nothing; the history keeps the file's last measurement.
 The same entries, with their working-folder paths, are the run's Files: a file's own outcome and error.
 ```
+
+## comment:13
+
+Above `$greedyCaps = [System.Collections.Generic.List[string[]]]::new()`, written with `#`.
+
+```text
+A greedy file counts against the greedy cap; one the policy keeps apart (it runs real builds) also against the
+one-at-a-time cap.
+```

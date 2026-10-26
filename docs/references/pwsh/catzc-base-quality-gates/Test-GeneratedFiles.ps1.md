@@ -91,3 +91,12 @@ Above `$checkedWriters = @(if (-not $StampOnly) {`, written with `#`.
 Each registered writer is run by its check; the registry (generated-files.yml) says which check and, for a file result, which property holds the path.
 @() around the whole if: an empty list must stay an array under strict mode.
 ```
+
+## comment:2
+
+Above `$dueNames =...`, written with `#`.
+
+```text
+With -Changed only the writers Get-GeneratedWriterDue names run their dry run: the one reading of the inputs and
+outputs lists.
+```

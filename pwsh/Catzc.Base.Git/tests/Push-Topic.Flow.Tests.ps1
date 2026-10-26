@@ -1,5 +1,11 @@
-# A scratch server and clones are made and driven with real git (clone, rebase, push, rev-parse), so the point of the
-# file is the launch: L2.
+<#
+---
+catzc:
+  docs: "../../../docs/references/pwsh/catzc-base-git/tests/Push-Topic.Flow.Tests.ps1.md"
+  header: "generated"
+---
+#>
+
 Describe 'The git topic flow over a scratch server' -Tag 'L2', 'logic', 'FDR-GIT-USERRUNSGIT' {
     BeforeAll {
         $script:skip = if (Get-Command git -ErrorAction Ignore) {
@@ -43,8 +49,6 @@ Describe 'The git topic flow over a scratch server' -Tag 'L2', 'logic', 'FDR-GIT
         if ($script:skip) {
             return
         }
-        # Every flow command names its clone; a git call that fell back to the loaded repository would land here and
-        # fail.
         $script:nowhere = Join-Path $TestDrive 'not-a-repository'
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.Git { $script:nowhere }
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.Execution { $script:nowhere }

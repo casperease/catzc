@@ -55,6 +55,6 @@ function Get-AdoPipelineDefinitions {
 
         [Catzc.Azure.DevOps.PipelineDefinition]::new(
             $definition.id, $definition.name, $definition.path, $yamlPath, $fileName, $repoName, $definition.revision,
-                $definition._links.web.href)
+            $definition._links.web.href)
     }
 }

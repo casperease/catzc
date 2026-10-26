@@ -23,7 +23,7 @@ function Update-DocSnapshot {
 
     foreach ($relative in @($Path | ForEach-Object { $_.Replace('\', '/') })) {
         Assert-True ($relative.StartsWith("$watch/",
-            [StringComparison]::Ordinal)) -ErrorText "Update-DocSnapshot: '$relative' is not under the watched folder '$watch'."
+                [StringComparison]::Ordinal)) -ErrorText "Update-DocSnapshot: '$relative' is not under the watched folder '$watch'."
         $live = Join-Path $root $relative
         $seen = Join-Path (Join-Path $Session 'seen') $relative.Substring($watch.Length + 1)
         if ([System.IO.File]::Exists($live)) {

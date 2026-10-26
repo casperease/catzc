@@ -80,3 +80,30 @@ Wrap a cell in backticks when Markdown would mangle it:
    Covers FQDNs/wildcards/www; IPs, CIDRs, ports, tags, and categories don't match.
 A code span is exactly MD034's recommended fix for a bare URL.
 ```
+
+## comment:4
+
+Above `$protocols = @()`, written with `#`.
+
+```text
+Protocols paired with their ports; an application rule carries its port inside the protocol already,
+so it passes through.
+```
+
+## comment:5
+
+Above `$values = foreach ($candidate in $column.Candidates) {`, written with `#`.
+
+```text
+Values kept in candidate order, because a rule may fill several and the firewall unions them group by
+group.
+```
+
+## comment:6
+
+Above `if ($cell -match...`, written with `#`.
+
+```text
+A code span where Markdown would read emphasis or a bare URL, so a rule value renders exactly as the
+firewall holds it.
+```

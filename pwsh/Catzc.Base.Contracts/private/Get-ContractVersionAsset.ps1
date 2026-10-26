@@ -32,8 +32,6 @@ function Get-ContractVersionAsset {
     $versionFiles = @($versionFiles | Where-Object { $_ -cne '.frozen' })
 
     $appliesTo = (Read-ContractManifest -Folder $Folder).applies_to
-    # The tracked files are listed only once an asset asks for its globs to be matched: nothing is enumerated
-    # speculatively.
     $tracked = @{ Paths = $null }
     $used = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
 

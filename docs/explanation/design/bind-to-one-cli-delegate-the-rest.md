@@ -41,7 +41,7 @@ content:
   edges:
     - { from: a-developer, to: c-surface, kind: flow, label: "" }
     - { from: c-surface, to: x-tooling, kind: flow, label: "" }
-    - { from: x-tooling, to: e-vendor, kind: flow, label: "" }
+    - { from: x-tooling, to: e-vendor, kind: flow, label: calls }
   markers:
     - { at: a-developer, number: 1 }
     - { at: c-surface, number: 2 }

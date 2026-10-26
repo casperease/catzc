@@ -63,7 +63,7 @@ Describe 'ValueChainMap' -Tag 'L0', 'logic' {
 
     It 'throws on a repeated ADR code, a repeated axis name, an empty axis, or an item that is not an ADR' {
         { [Catzc.Base.Maps.ValueChainMap]::Build($script:rows, $script:columns,
-            @((& $script:adr 'ADR-WIDGET-COG' 'TOP' @('alpha')), (& $script:adr 'ADR-WIDGET-COG' 'TOP' @('beta')))) } |
+                @((& $script:adr 'ADR-WIDGET-COG' 'TOP' @('alpha')), (& $script:adr 'ADR-WIDGET-COG' 'TOP' @('beta')))) } |
             Should -Throw "*the ADR code 'ADR-WIDGET-COG' is empty or repeated*"
         { [Catzc.Base.Maps.ValueChainMap]::Build(@('TOP', 'TOP'), $script:columns, @()) } |
             Should -Throw "*row of the value-chain stack 'TOP' is empty or repeated*"

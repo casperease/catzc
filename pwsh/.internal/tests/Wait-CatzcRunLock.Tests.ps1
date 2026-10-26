@@ -9,8 +9,6 @@ catzc:
 BeforeAll {
     $script:waiter = Join-Path $PSScriptRoot '../assets/Wait-CatzcRunLock.ps1'
     . $script:waiter
-    # Waits for the lock on another thread, the way another run would; on taking it, records its name in the shared
-    # order and lets go.
     function script:Start-Waiter {
         param([string] $Name, [string] $Waiter, [System.Collections.Concurrent.ConcurrentQueue[string]] $Order)
         $shell = [powershell]::Create().AddScript({
@@ -34,8 +32,6 @@ BeforeAll {
         $null = $Waiter.Shell.EndInvoke($Waiter.Handle)
         $Waiter.Shell.Dispose()
     }
-    # Holds the lock on another thread for the given milliseconds; with -RecordSeconds it writes the holder record a
-    # plain run writes.
     function script:Start-LockHolder {
         param([string] $Name, [int] $Milliseconds, [System.Threading.EventWaitHandle] $Burst, [int] $RecordSeconds)
         $taken = [System.Threading.ManualResetEventSlim]::new($false)
@@ -155,8 +151,6 @@ Describe 'Wait-CatzcRunLock' -Tag 'L0', 'logic' {
     }
 
     It 'waits past its own wait while a live plain holder is inside its deadline, and takes the lock once it is let go' -Tag 'ADR-AUTO-FAILFAST-BOUNDEVERYWAIT' {
-        # The holder keeps the lock 2.5 s, past the waiter's 1 s, and its record says it will be done within 30 s,
-        # inside the 60 s budget.
         $holder = Start-LockHolder -Name $script:lockName -Milliseconds 2500 -RecordSeconds 30
         try {
             $holder.Taken | Should -BeTrue
@@ -174,8 +168,6 @@ Describe 'Wait-CatzcRunLock' -Tag 'L0', 'logic' {
     }
 
     It 'waits for a freshly started holder whose deadline is still its budget, not yet declared, and takes the lock once it is let go' -Tag 'ADR-AUTO-FAILFAST-BOUNDEVERYWAIT' {
-        # The holder has just taken the lock: its record says 120 s, past the waiter's 10 s budget, but that is only its
-        # budget, no promise.
         $holder = Start-LockHolder -Name $script:lockName -Milliseconds 1500 -RecordSeconds 120
         try {
             $holder.Taken | Should -BeTrue
@@ -205,8 +197,6 @@ Describe 'Wait-CatzcRunLock' -Tag 'L0', 'logic' {
     }
 
     It 'waits for a live holder whose declared deadline lies past its own budget, and takes the lock once it is let go inside the budget' -Tag 'ADR-AUTO-FAILFAST-BOUNDEVERYWAIT' {
-        # The holder declares 120 s, past the waiter's 5 s budget, but lets go after 1.5 s: a deadline is a limit, never
-        # when it ends.
         $holder = Start-LockHolder -Name $script:lockName -Milliseconds 1500 -RecordSeconds 120
         try {
             $holder.Taken | Should -BeTrue
@@ -220,8 +210,6 @@ Describe 'Wait-CatzcRunLock' -Tag 'L0', 'logic' {
     }
 
     It 'never stops for a plain holder whose process is gone, though its record runs past its own budget' -Tag 'ADR-AUTO-FAILFAST-BOUNDEVERYWAIT' {
-        # The record names a dead process declared until 120 s from now, past the waiter's 5 s budget; the lock itself
-        # falls free in 1.5 s.
         $holder = Start-LockHolder -Name $script:lockName -Milliseconds 1500
         try {
             $holder.Taken | Should -BeTrue
@@ -370,8 +358,6 @@ Describe 'Wait-CatzcRunLock — with a real caller process' -Tag 'L2', 'logic' {
     }
 
     It 'counts a live holder as gone once the caller that started it is gone, and stops waiting for it' -Tag 'ADR-AUTO-FAILFAST-BOUNDEVERYWAIT' {
-        # The holder's own process lives and its record runs 120 s, but the caller named in the record is killed: an
-        # orphan holds no one.
         $caller = Start-Process -FilePath (Get-Process -Id $PID).Path -ArgumentList '-NoProfile', '-Command', 'Start-Sleep -Seconds 30' -PassThru -WindowStyle Hidden
         $holder = Start-LockHolder -Name $script:lockName -Milliseconds 3000
         try {

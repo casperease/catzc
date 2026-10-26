@@ -36,7 +36,9 @@ Describe 'Invoke-TestFile' -Tag 'L0', 'logic' {
         Should -Invoke Exit-TestRunLocation -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly
     }
 
-    It 'leaves out the opt-in L4 tests by default, and runs them with -MaxLevel 4 (<maxLevel>)' -ForEach @(
+    It 'leaves out every tier above -MaxLevel, L4 by default and all but L0 at 0 (<maxLevel>)' -ForEach @(
+        @{ maxLevel = 0; expected = @('L4', 'L3', 'L2', 'L1') }
+        @{ maxLevel = 1; expected = @('L4', 'L3', 'L2') }
         @{ maxLevel = 3; expected = @('L4') }
         @{ maxLevel = 4; expected = @() }
     ) {

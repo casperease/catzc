@@ -28,7 +28,7 @@ Describe 'Copy-CatzcModule' -Tag 'L0', 'logic' {
             }
         }
         Mock Get-Track -ModuleName Catzc.Base.ModuleSystem { [Catzc.Base.Variants.VariantTrack]::new('widgets',
-            @($script:modules), 'modules', $null, @()) }
+                @($script:modules), 'modules', $null, @()) }
         Mock Get-Config -ModuleName Catzc.Base.ModuleSystem -ParameterFilter { $Config -eq 'files' } {
             [Catzc.Base.ModuleSystem.FilesConfig]::new([ordered]@{ modules = [ordered]@{
                         '.internal'             = [ordered]@{ packages = [ordered]@{ entrypoint = @('importer.ps1') } }

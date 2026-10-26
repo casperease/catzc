@@ -13,43 +13,43 @@ Describe 'Add-SessionLearning' -Tag 'L0', 'logic' {
             [string[]] $files = @([System.IO.Directory]::GetFiles($folder, 'learned*.md') | Sort-Object {
                     $line = [System.IO.File]::ReadAllLines($_) | Where-Object { $_.StartsWith('Started ') } |
                         Select-Object -First 1
-                    [DateTimeOffset]::Parse($line.Substring(8).TrimEnd('.'), [cultureinfo]::InvariantCulture)
-                })
-            , $files
+                        [DateTimeOffset]::Parse($line.Substring(8).TrimEnd('.'), [cultureinfo]::InvariantCulture)
+                    })
+                , $files
+            }
         }
-    }
 
-    BeforeEach {
-        $script:root = Join-Path $TestDrive ('repo-' + [guid]::NewGuid().ToString('N').Substring(0, 8))
-    }
+        BeforeEach {
+            $script:root = Join-Path $TestDrive ('repo-' + [guid]::NewGuid().ToString('N').Substring(0, 8))
+        }
 
-    It 'appends each sentence as one dated line to a new, short-named file headed by its start time' {
-        $written = @(Add-SessionLearning 'The widget turns.', ' The gadget holds. ' -Date $script:date)
-        $written.Count | Should -Be 1
-        [System.IO.Path]::GetFileName($written[0]) | Should -Match '^learned[0-9a-f]{6}\.md$'
-        $sha = [System.IO.Path]::GetFileNameWithoutExtension($written[0]).Substring('learned'.Length)
-        $lines = [System.IO.File]::ReadAllLines($written[0])
-        $lines[0] | Should -BeExactly "# Session learnings $sha"
-        $lines[2] | Should -BeLike 'Started 20??-*.'
-        @($lines | Select-Object -Skip 4) | Should -Be @('- 2026-10-21: The widget turns.',
-            '- 2026-10-21: The gadget holds.')
-    }
+        It 'appends each sentence as one dated line to a new, short-named file headed by its start time' {
+            $written = @(Add-SessionLearning 'The widget turns.', ' The gadget holds. ' -Date $script:date)
+            $written.Count | Should -Be 1
+            [System.IO.Path]::GetFileName($written[0]) | Should -Match '^learned[0-9a-f]{6}\.md$'
+            $sha = [System.IO.Path]::GetFileNameWithoutExtension($written[0]).Substring('learned'.Length)
+            $lines = [System.IO.File]::ReadAllLines($written[0])
+            $lines[0] | Should -BeExactly "# Session learnings $sha"
+            $lines[2] | Should -BeLike 'Started 20??-*.'
+            @($lines | Select-Object -Skip 4) | Should -Be @('- 2026-10-21: The widget turns.',
+                '- 2026-10-21: The gadget holds.')
+        }
 
-    It 'appends to another log under its own folder, prefix and title, the learnings log untouched' {
-        $written = @(Add-SessionLearning 'If only the widget had turned.' -Log hindsight -Date $script:date)
-        $written.Count | Should -Be 1
-        $written[0] | Should -BeLike (Join-Path $script:root '.claude/hindsight/hindsight??????.md')
-        $sha = [System.IO.Path]::GetFileNameWithoutExtension($written[0]).Substring('hindsight'.Length)
-        $lines = [System.IO.File]::ReadAllLines($written[0])
-        $lines[0] | Should -BeExactly "# Hindsight $sha"
-        $lines[4] | Should -BeExactly '- 2026-10-21: If only the widget had turned.'
-        [System.IO.Directory]::Exists((Join-Path $script:root '.claude/learnings')) | Should -BeFalse
-    }
+        It 'appends to another log under its own folder, prefix and title, the learnings log untouched' {
+            $written = @(Add-SessionLearning 'If only the widget had turned.' -Log hindsight -Date $script:date)
+            $written.Count | Should -Be 1
+            $written[0] | Should -BeLike (Join-Path $script:root '.claude/hindsight/hindsight??????.md')
+            $sha = [System.IO.Path]::GetFileNameWithoutExtension($written[0]).Substring('hindsight'.Length)
+            $lines = [System.IO.File]::ReadAllLines($written[0])
+            $lines[0] | Should -BeExactly "# Hindsight $sha"
+            $lines[4] | Should -BeExactly '- 2026-10-21: If only the widget had turned.'
+            [System.IO.Directory]::Exists((Join-Path $script:root '.claude/learnings')) | Should -BeFalse
+        }
 
-    It 'signs a line with the author when one is given' {
-        $written = @(Add-SessionLearning 'If only the widget had turned.' -Log hindsight -Author Jack -Date $script:date)
-        [System.IO.File]::ReadAllLines($written[0])[4] |
-            Should -BeExactly '- 2026-10-21 Jack: If only the widget had turned.'
+        It 'signs a line with the author when one is given' {
+            $written = @(Add-SessionLearning 'If only the widget had turned.' -Log hindsight -Author Jack -Date $script:date)
+            [System.IO.File]::ReadAllLines($written[0])[4] |
+                Should -BeExactly '- 2026-10-21 Jack: If only the widget had turned.'
         $written = @(Add-SessionLearning 'The widget is on the board.' -Log hindsight -Author 'Susan from HR' -Date $script:date)
         [System.IO.File]::ReadAllLines($written[0])[5] |
             Should -BeExactly '- 2026-10-21 Susan from HR: The widget is on the board.'

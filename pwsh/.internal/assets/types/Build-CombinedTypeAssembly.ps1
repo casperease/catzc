@@ -70,7 +70,7 @@ function Build-CombinedTypeAssembly {
         $carriers = [System.IO.Path]::Combine('Catzc.Base.Languages', 'configs', 'file-carriers.yml')
         if ([System.IO.File]::Exists([System.IO.Path]::Combine($ModulesRoot, $carriers))) {
             [System.IO.Directory]::CreateDirectory([System.IO.Path]::Combine($frozenRoot, 'Catzc.Base.Languages',
-                'configs')) | Out-Null
+                    'configs')) | Out-Null
             [System.IO.File]::Copy([System.IO.Path]::Combine($ModulesRoot, $carriers),
                 [System.IO.Path]::Combine($frozenRoot, $carriers))
         }
@@ -93,7 +93,7 @@ function Build-CombinedTypeAssembly {
                     $message = $_.Exception.Message
                     foreach ($file in $hashResult.Files) {
                         $message = $message.Replace([System.IO.Path]::Combine($frozenRoot, $file.Module, 'types',
-                            "$($file.Base).cs"), $file.Path)
+                                "$($file.Base).cs"), $file.Path)
                     }
                     throw $message
                 }

@@ -56,14 +56,10 @@ function Convert-FirewallCsvToYaml {
             $YamlPath = Join-Path $OutputFolder $yamlName
         }
 
-        # Filled in the body, not as a default: a piped path binds after the defaults are evaluated, so a default would
-        # never see it.
         if (-not $SourceName) {
             $SourceName = Split-Path -Path $CsvPath -Leaf
         }
 
-        # Asserted in both modes, so a wrong path to the source CSV fails here by name and never as a raw CSV read
-        # error.
         Assert-PathExist $CsvPath -PathType Leaf
 
         $rules = Import-Csv -Path $CsvPath | ForEach-Object {
@@ -89,8 +85,6 @@ function Convert-FirewallCsvToYaml {
 
         $yaml = ConvertTo-Yaml -Data $rules
 
-        # Provenance as YAML comments, so a reader sees it and a parser never does: the parsed shape stays a plain list
-        # of rules.
         $header = [System.Collections.Generic.List[string]]::new()
         $header.Add("# Source: $SourceName")
         if ($null -ne $GeneratedAt) {

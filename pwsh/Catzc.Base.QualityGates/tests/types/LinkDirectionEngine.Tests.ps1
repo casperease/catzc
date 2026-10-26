@@ -10,7 +10,7 @@ Describe 'LinkDirectionEngine' -Tag 'L0', 'logic', 'ADR-REPO-LINKS-DIRECTIONSARE
     BeforeAll {
         $script:endpoints = [System.Collections.Generic.Dictionary[string, Catzc.Base.QualityGates.LinkEndpoint]]::new()
         foreach ($pair in @(('mods/Widget/Get-Widget.ps1', 'code'), ('docs/drs/widget.md', 'adr'),
-            ('docs/how-to/gadget.md', 'how-to'))) {
+                ('docs/how-to/gadget.md', 'how-to'))) {
             $endpoints[$pair[0]] = [Catzc.Base.QualityGates.LinkEndpoint]::new($pair[0], $pair[1], '', '', '', '')
         }
         $script:edge = {
@@ -29,7 +29,7 @@ Describe 'LinkDirectionEngine' -Tag 'L0', 'logic', 'ADR-REPO-LINKS-DIRECTIONSARE
                 })
         }
         $script:judge = { param([object[]] $Edges,
-            $Config = (& $script:config)) @([Catzc.Base.QualityGates.LinkDirectionEngine]::Judge([Catzc.Base.QualityGates.LinkEdge[]] $Edges, $script:endpoints, $Config)) }
+                $Config = (& $script:config)) @([Catzc.Base.QualityGates.LinkDirectionEngine]::Judge([Catzc.Base.QualityGates.LinkEdge[]] $Edges, $script:endpoints, $Config)) }
     }
 
     It 'lets the first matching row decide: an allowed relation is no finding, a denied one names its row and rule' {
@@ -59,15 +59,16 @@ Describe 'LinkDirectionEngine' -Tag 'L0', 'logic', 'ADR-REPO-LINKS-DIRECTIONSARE
         BeforeAll {
             $script:required = [System.Collections.Generic.Dictionary[string, Catzc.Base.QualityGates.LinkEndpoint]]::new()
             foreach ($pair in @(('mods/a.ps1', 'code'), ('mods/b.ps1', 'code'), ('mods/c.ps1', 'code'),
-                ('docs/how-to/gadget.md', 'how-to'),
+                    ('docs/how-to/gadget.md', 'how-to'),
                     ('pages/a.ps1.md', 'comment-page'), ('pages/b.ps1.md', 'comment-page'), ('pages/gadget.md.md',
-                    'comment-page'))) {
+                        'comment-page'))) {
                 $required[$pair[0]] = [Catzc.Base.QualityGates.LinkEndpoint]::new($pair[0], $pair[1], '', '', '', '')
             }
             $script:requireConfig = [Catzc.Base.QualityGates.LinkDirectionsConfig]::new([ordered]@{
                     rows = @(
                         @{ relations = @('docs_edge',
-                            'convention'); to = @{ classes = @('comment-page') }; verdict = 'allow'; because = 'ADR-WIDGET-ONE' }
+                                'convention'); to = @{ classes = @('comment-page') }; verdict = 'allow'; because = 'ADR-WIDGET-ONE'
+                        }
                         @{ relations = @('docs_edge'); when = @('convention'); from = @{ classes = @('code') }; to = @{ classes = @('comment-page') }
                             verdict = 'require'; because = 'ADR-WIDGET-PAGED'
                         }
@@ -78,7 +79,7 @@ Describe 'LinkDirectionEngine' -Tag 'L0', 'logic', 'ADR-REPO-LINKS-DIRECTIONSARE
 
         It 'passes a selected file that has the required edge' {
             @(& $judgeRequired @((& $edge 'mods/a.ps1' 'pages/a.ps1.md' 'Convention'),
-                (& $edge 'mods/a.ps1' 'pages/a.ps1.md' 'DocsEdge'))) | Should -HaveCount 0
+                    (& $edge 'mods/a.ps1' 'pages/a.ps1.md' 'DocsEdge'))) | Should -HaveCount 0
         }
 
         It 'reports a selected file whose condition holds and that misses the required edge, naming the row and its rule' {

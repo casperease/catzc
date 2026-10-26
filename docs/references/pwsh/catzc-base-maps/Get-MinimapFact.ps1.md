@@ -28,3 +28,12 @@ The repository-relative paths of the subject files; repeats are read once.
 ```powershell
 Get-MinimapFact -Path pwsh/Catzc.Base.Maps/Get-WorldMap.ps1
 ```
+
+## comment:1
+
+Above `$languages = Get-Config -Config languages`, written with `#`.
+
+```text
+A file's place is read from where it sits, never from its head: its track, the module that holds it and its
+language.
+```

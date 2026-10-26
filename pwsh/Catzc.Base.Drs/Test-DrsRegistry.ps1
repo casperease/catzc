@@ -50,8 +50,6 @@ function Test-DrsRegistry {
         }
     }
 
-    # The key the file index gave each page, so a page under a domain folder that points into another domain's folder is
-    # checked against its own domain.
     $keyOfPath = @{}
     foreach ($entry in $index.ByKey.GetEnumerator()) {
         foreach ($path in $entry.Value) {
@@ -98,8 +96,6 @@ function Test-DrsRegistry {
             $issues.AddRange($check.Findings)
             continue
         }
-        # A check reporting on its own writes under the caller's folder when one is given, else under its subject's
-        # default.
         $checkFolder = if ($OutputFolder) {
             Join-Path $OutputFolder "drs-$($check.Name)"
         }

@@ -56,9 +56,13 @@ Describe 'FileLimitsConfig' -Tag 'L0', 'logic' {
         $config.languages['widget'].length | Should -BeNullOrEmpty
     }
 
+    It 'has no width mode: width is measured, never enforced, so the key is unknown' {
+        { [Catzc.Base.FileLimits.FileLimitsConfig]::new(@{ width_mode = @{ code = 'fail' } }) } | Should -Throw "*unknown key 'width_mode'*"
+    }
+
     It 'rejects an unknown key at every level, naming the allowed set' {
         { [Catzc.Base.FileLimits.FileLimitsConfig]::new(@{ gadget = 1 }) } |
-            Should -Throw '*unknown key ''gadget''*bounds, classes, defaults, exempt, extensions, function_body_length, languages, string_overflow, width_mode*'
+            Should -Throw '*unknown key ''gadget''*bounds, classes, defaults, exempt, extensions, function_body_length, languages, string_overflow*'
         { [Catzc.Base.FileLimits.FileLimitsConfig]::new(@{ defaults = @{ gadget = @{} } }) } |
             Should -Throw '*code, config, prose*'
         { [Catzc.Base.FileLimits.FileLimitsConfig]::new(@{ languages = @{ widget = @{ depth = 1 } } }) } |

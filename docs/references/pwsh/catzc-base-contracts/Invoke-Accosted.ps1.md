@@ -38,3 +38,12 @@ output.
 ```powershell
 Invoke-Accosted pwsh/Catzc.Widget/tests/widget.accosted.yml -Engine pwsh | Where-Object ExitCode -ne 0
 ```
+
+## comment:1
+
+Above `$calls = @(foreach ($command in $run.commands) {`, written with `#`.
+
+```text
+The engine prefixes the first command; each later one in the run takes the prefix itself, and && stops at
+a failure.
+```

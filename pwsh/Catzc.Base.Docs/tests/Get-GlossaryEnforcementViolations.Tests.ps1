@@ -29,8 +29,6 @@ Describe 'Get-GlossaryEnforcementViolations' -Tag 'L0', 'logic' {
             [Catzc.Base.Docs.GlossaryEntry]::new($concept, 'Catzc.Widget', 'widgets/Catzc.Widget/configs/glossary.yml',
                 [Catzc.Base.Docs.GlossaryOptions]::new($options))
         }
-        # ADR-TST-WIDGET-TESTED is cited by a test, ADR-TST-WIDGET-ANALYZED by an analyzer, ADR-TST-WIDGET-BARE by
-        # nothing.
         $script:enforcer = @{
             'ADR-TST-WIDGET-TESTED'   = [pscustomobject]@{ Analyzers = @(); Tests = @('widgets/Catzc.Widget/tests/Get-Widget.Tests.ps1') }
             'ADR-TST-WIDGET-ANALYZED' = [pscustomobject]@{ Analyzers = @('Measure-Widget'); Tests = @() }
@@ -72,7 +70,7 @@ Describe 'Get-GlossaryEnforcementViolations' -Tag 'L0', 'logic' {
 
     It 'skips a source that opts out of the enforced check' -Tag 'ADR-REPO-VOCAB-GLOSSARYSOURCE' {
         & $script:violations @(& $script:entry 'widget suite' 'ADR-TST-WIDGET-FOLDED' 'tag' @('anchored', 'single',
-            'avoid')) | Should -BeNullOrEmpty
+                'avoid')) | Should -BeNullOrEmpty
     }
 
     It 'reads the repository glossary by default' -Tag 'ADR-REPO-VOCAB-REALIZEDBY' {

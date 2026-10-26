@@ -47,7 +47,7 @@ content:
     - { from: s-automation, to: r-automation, kind: flow, label: feeds }
     - { from: s-infrastructure, to: r-infrastructure, kind: flow, label: feeds }
     - { from: s-units, to: r-unit, kind: flow, label: feeds }
-    - { from: s-foundation, to: s-units, kind: thick, label: "" }
+    - { from: s-units, to: s-foundation, kind: thick, label: composes }
     - { from: r-unit, to: r-extends, kind: flow, label: calls }
   markers:
     - { at: f-registry, number: 1 }

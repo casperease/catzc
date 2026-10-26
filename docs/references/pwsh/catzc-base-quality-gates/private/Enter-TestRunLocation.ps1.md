@@ -93,3 +93,12 @@ Non-interactive, from the engine model
 prompt here, so one fails at
 once instead of waiting out the time limit.
 ```
+
+## comment:3
+
+Above `$logFolder = Join-Path (Get-OutputRoot) 'test-snapshot-priming'`, written with `#`.
+
+```text
+The failed import's output is the cause: it is kept in a log under out/, with the snapshot left for a look,
+and its tail is thrown.
+```

@@ -145,8 +145,6 @@ function Format-Code {
             })
         $stamp = Get-FormatEngineStamp -Engine "imprint:$step" -Settings @($config.steps[$step].settings) -RepositoryRoot $root
 
-        # A step has its own cache file: one file passes through an engine and several steps, and the cache keeps one
-        # slot per file.
         $stepCachePath = Join-Path (Get-OutputRoot) "cache/format-code-$step.json"
         $stepCache = if ($NoCache) {
             @{}
@@ -159,8 +157,6 @@ function Format-Code {
             Get-FileMetaInputStamp -File $candidates -RepositoryRoot $root
         }
         elseif ($step -ceq 'plan-counts') {
-            # The plan-counts step's verdict reads the open steps of the plans beside each overlay, so their counts join
-            # its key.
             $stamps = @{}
             foreach ($candidate in $candidates) {
                 $counts = Get-PlanOpenStepCount ([System.IO.Path]::GetDirectoryName($candidate)) -Config (Get-Config -Config plans)
@@ -219,8 +215,8 @@ function Format-Code {
         }
         Write-Message "${name}: $($languageOutcome.Changed.Count) of $($languageOutcome.Files.Count) file(s) $($DryRun ? 'would change' : 'changed')$kinds."
         $results.Add([Catzc.Base.QualityGates.FormatResult]::new($name, $languageOutcome.Engine,
-            [string[]] $languageOutcome.Files, $languageOutcome.Changed.ToArray(), [bool] $DryRun,
-            $languageOutcome.Unfixable))
+                [string[]] $languageOutcome.Files, $languageOutcome.Changed.ToArray(), [bool] $DryRun,
+                $languageOutcome.Unfixable))
     }
     Save-ResultCache -Path $cachePath -Cache $cache
 

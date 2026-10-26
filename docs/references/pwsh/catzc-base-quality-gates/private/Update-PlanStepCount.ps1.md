@@ -31,3 +31,21 @@ Report the files that would change, and write none.
 ### outputs
 
 `[string[]]` the overlay files changed, or that would change.
+
+## comment:1
+
+Above `$rewrite = {`, written with `#`.
+
+```text
+The stated phrase becomes the plan's count, its first letter's case kept; a text that states none is left as it
+is.
+```
+
+## comment:2
+
+Above `$master = Join-Path $Folder $Config.master_file`, written with `#`.
+
+```text
+A chunk line of the master names its plan after '->'; the phrase is read across the item's lines, so a count
+Prettier wrapped is found.
+```

@@ -22,8 +22,6 @@ function Get-DiagramDeclarationText {
     if ([System.IO.File]::Exists($source)) {
         return [System.IO.File]::ReadAllText($source)
     }
-    # The article carrier: the one `yml drawio` block, in a page beside the diagram's .assets, directly above the image
-    # of its png.
     $name = $Stem.Substring($Stem.LastIndexOf('/') + 1)
     $assets = $Stem.Substring(0, [Math]::Max(0, $Stem.LastIndexOf('/')))
     $pageFolder = Join-Path $RepositoryRoot $assets.Substring(0, [Math]::Max(0, $assets.LastIndexOf('/')))
@@ -32,7 +30,7 @@ function Get-DiagramDeclarationText {
             $text = [System.IO.File]::ReadAllText($page)
             # The image is inline, or a reference whose definition names the same png.
             $labels = @((Get-DiagramImageReference -Text $text).GetEnumerator() | Where-Object { $_.Value -ceq $name } |
-                ForEach-Object { [regex]::Escape($_.Key) })
+                    ForEach-Object { [regex]::Escape($_.Key) })
             $image = '\((?:\./)?\.assets/' + [regex]::Escape($name) + '\.drawio\.png\)'
             if ($labels.Count) {
                 $image += '|\[(?i:' + ($labels -join '|') + ')\]'

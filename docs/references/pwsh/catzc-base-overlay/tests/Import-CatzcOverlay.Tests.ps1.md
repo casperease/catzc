@@ -11,3 +11,12 @@ Above `Mock Get-ConfigOverlayRoot -ModuleName Catzc.Base.Config -MockWith {...`,
 Config discovery and the content lookup reach the fixture overlay through their own seams; the config
 index is rebuilt so it scans the fixture.
 ```
+
+## comment:2
+
+Above `Mock Get-ConfigOverlayRoot -ModuleName Catzc.Base.Config -MockWith {...`, written with `#`.
+
+```text
+Discovery reaches the fixture overlay only through its own seams, so the test can never read a real
+consumer's overlay.
+```

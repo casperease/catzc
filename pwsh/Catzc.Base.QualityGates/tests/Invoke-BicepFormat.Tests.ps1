@@ -19,7 +19,7 @@ Describe 'Invoke-BicepFormat' -Tag 'L0', 'logic' {
         Mock Invoke-Executable -ModuleName Catzc.Base.QualityGates {
             if ($Command -match 'format --pattern "([^"]+)"') {
                 foreach ($copy in [System.IO.Directory]::GetFiles([System.IO.Path]::GetDirectoryName($Matches[1]),
-                    [System.IO.Path]::GetFileName($Matches[1]))) {
+                        [System.IO.Path]::GetFileName($Matches[1]))) {
                     [System.IO.File]::WriteAllText($copy, ([System.IO.File]::ReadAllText($copy) -replace ' {2,}', ' '))
                 }
             }

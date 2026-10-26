@@ -22,7 +22,8 @@ Describe 'New-GitAttributes' -Tag 'L0', 'logic' {
                             }
                             files      = @('widgets/**', 'extras/**')
                             git        = @{ attributes = @('catzc-widget',
-                                'eol=lf'); why = 'Widgets are data on purpose.' }
+                                    'eol=lf'); why     = 'Widgets are data on purpose.'
+                            }
                         }
                         sprocket = [ordered]@{ definition = 'A sprocket.'; files = @('sprockets/**') }
                     }

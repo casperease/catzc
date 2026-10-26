@@ -1,3 +1,11 @@
+<#
+---
+catzc:
+  docs: "../../../docs/references/pwsh/internal/tests/Invoke-ImporterJanitors.Tests.ps1.md"
+  header: "generated"
+---
+#>
+
 [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '',
     Justification = 'Tests lift $global:__PesterRunning to verify writer output; that flag is the writers'' test-suppression interface, set by Test-Automation')]
 param()
@@ -73,8 +81,6 @@ Describe 'the build janitors and the writers lists' -Tag 'L0', 'logic' {
             'Build-DrsCodeDictionary', 'Build-RootConfig') {
             Mock $name { } -ModuleName Catzc.Internal.Importer
         }
-        # The registry the janitor reads: the eight at-import writers in the order the import runs them, and one writer
-        # the import leaves alone.
         $script:writers = [ordered]@{}
         foreach ($name in 'Build-DrsIndex', 'Build-Glossary', 'Build-ContractReference', 'Build-Readme',
             'Build-GitKeep', 'Build-TerminologyDictionary', 'Build-DrsCodeDictionary', 'Build-RootConfig') {

@@ -23,7 +23,17 @@ function Get-DrsUsageRow {
         [Parameter(Mandatory)]
         [Catzc.Base.CodeMeta.CommentPagesConfig] $Pages,
 
-        [Catzc.Base.CodeMeta.HeadForm] $Form
+        [Catzc.Base.CodeMeta.HeadForm] $Form,
+
+        # The drs config's constants, which a caller over many files resolves once and passes in.
+        [string] $RepositoryRoot = (Get-RepositoryRoot),
+
+        $CodeForm = (Get-Config -Config drs).CodeForm,
+
+        [AllowEmptyCollection()]
+        [string[]] $DomainClasses = (Get-Config -Config drs).DomainClasses,
+
+        [string] $FileClass = (Get-FileKind $Path).Class
     )
 
     # The rows come from the file's text through the processors the imprint uses, never from its head.
@@ -34,13 +44,23 @@ function Get-DrsUsageRow {
     else {
         Get-MarkdownMetaState -Text $Text
     }
-    $adrs = @(Get-DrsCitation -State $state -Path $Path)
+    $citation = @{
+        State          = $state
+        Path           = $Path
+        DomainClasses  = $DomainClasses
+        RepositoryRoot = $RepositoryRoot
+        Map            = $Map
+        Pages          = $Pages
+        Form           = $CodeForm
+        FileClass      = $FileClass
+    }
+    $adrs = @(Get-DrsCitation @citation)
     $links = @(if ($isCode) {
             @()
         }
         else {
             @([Catzc.Base.QualityGates.DocumentLinks]::Of($state.Body, $Path,
-                (Get-CommentPage -Path $Path -Config $Pages)))
+                    (Get-CommentPage -Path $Path -Config $Pages)))
         })
 
     foreach ($citation in $adrs) {

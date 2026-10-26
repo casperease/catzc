@@ -24,3 +24,12 @@ The extension's contributes block as the config declares it.
 ### outputs
 
 `[System.Collections.Specialized.OrderedDictionary]` The contributes block with every repeating entry written out.
+
+## comment:1
+
+Above `$sources = @{}`, written with `#`.
+
+```text
+Each source: the declared leading items, the items of a config's list, then the declared trailing items, as {
+value, title, position }.
+```

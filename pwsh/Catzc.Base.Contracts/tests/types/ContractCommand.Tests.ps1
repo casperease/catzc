@@ -187,7 +187,7 @@ Describe 'ContractCommand.ToAssetText' -Tag 'L0', 'logic' {
         $text = $command.ToAssetText([Func[string, string]] { param($name) $name.ToLowerInvariant() })
         $text |
             Should -BeExactly ("parameters:`n  path: string!`n  count: int = 3`n  items: catzc.base.widgets.gadget[]! pipeline`n" +
-            "  quiet: switch in byid,byname`noutput: catzc.base.widgets.widget[]`ndefault_set: byid`n")
+                "  quiet: switch in byid,byname`noutput: catzc.base.widgets.widget[]`ndefault_set: byid`n")
     }
 
     It 'leaves out a void output and an absent default set, and writes nothing for an empty contract' {

@@ -49,7 +49,7 @@ function Get-RelativeEdgeCandidate {
                 # A rule without classes applies to every file the kind selects.
                 if ($rule.Contains('classes') -and
                     -not [Catzc.Base.QualityGates.FileMetaKind]::InClasses([string[]] @($rule['classes']),
-                    $fileClass)) {
+                        $fileClass)) {
                     continue
                 }
                 foreach ($template in @($rule['paths'])) {

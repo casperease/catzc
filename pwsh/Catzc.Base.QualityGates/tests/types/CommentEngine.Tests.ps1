@@ -101,9 +101,9 @@ Describe 'CommentEngine' -Tag 'L0', 'logic' {
         $text = "# A widget suite note`n# on two lines.`nDescribe 'Get-Widget' -Tag 'L0', 'logic' {`n}`n"
         $result = & $export $text
         $result.PageText.Contains("Above ``Describe 'Get-Widget'``, written with ``#``.") | Should -BeTrue
-        $retiered = $result.Text -replace "'L0', 'logic'", "'L2', 'integration'"
-        [Catzc.Base.QualityGates.CommentEngine]::Orphans($retiered, $result.PageText).Count | Should -Be 0
-        [Catzc.Base.QualityGates.CommentEngine]::View($retiered, '.ps1',
+        $moved = $result.Text -replace "'L0', 'logic'", "'L2', 'integration'"
+        [Catzc.Base.QualityGates.CommentEngine]::Orphans($moved, $result.PageText).Count | Should -Be 0
+        [Catzc.Base.QualityGates.CommentEngine]::View($moved, '.ps1',
             $result.PageText).Contains('# A widget suite note') | Should -BeTrue
     }
 

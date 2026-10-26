@@ -33,7 +33,7 @@ Describe 'Get-ToolsStatus' -Tag 'L0', 'logic' {
 
     It 'reports a found probed tool from the probe record' {
         Mock Test-Tool { [Catzc.Base.Execution.ExecutableProbe]::new('widget', '/opt/widget', 'probe', '5.2.37', '5',
-            $true, 1, 1, 'Person') } -ModuleName Catzc.Tooling.Provisioning
+                $true, 1, 1, 'Person') } -ModuleName Catzc.Tooling.Provisioning
         $status = Get-ToolsStatus
         $status.Tool | Should -Be 'widget'
         "$($status.Status)" | Should -Be 'OK'
@@ -44,7 +44,7 @@ Describe 'Get-ToolsStatus' -Tag 'L0', 'logic' {
 
     It 'reports a missing platform-provided tool with the platform remedy' {
         Mock Test-Tool { [Catzc.Base.Execution.ExecutableProbe]::new('widget', $null, 'none', $null, '5', $false, 1, 0,
-            'Person') } -ModuleName Catzc.Tooling.Provisioning
+                'Person') } -ModuleName Catzc.Tooling.Provisioning
         $status = Get-ToolsStatus
         "$($status.Status)" | Should -Be 'Missing'
         $status.Action | Should -BeLike 'Provided by the platform*'
@@ -60,7 +60,7 @@ Describe 'Get-ToolsStatus' -Tag 'L0', 'logic' {
             })
         Mock Get-Config { $msys2Tools } -ModuleName Catzc.Tooling.Provisioning -ParameterFilter { $Config -eq 'tools' }
         Mock Test-Tool { [Catzc.Base.Execution.ExecutableProbe]::new('gadget', '/opt/gadget', 'probe', '5.9', '5',
-            $true, 1, 1, 'Person') } -ModuleName Catzc.Tooling.Provisioning
+                $true, 1, 1, 'Person') } -ModuleName Catzc.Tooling.Provisioning
         $status = Get-ToolsStatus
         "$($status.Status)" | Should -Be 'OK'
         $status.Manager | Should -Be ($IsWindows ? 'msys2' : 'system')
@@ -70,7 +70,7 @@ Describe 'Get-ToolsStatus' -Tag 'L0', 'logic' {
     It 'reports an MSYS2-package tool that declares an apt package under the manager of the running platform' {
         Mock Get-Config { $script:twoMechanismTools } -ModuleName Catzc.Tooling.Provisioning -ParameterFilter { $Config -eq 'tools' }
         Mock Test-Tool { [Catzc.Base.Execution.ExecutableProbe]::new('gadget', '/opt/gadget', 'probe', '5.9', '5',
-            $true, 1, 1, 'Person') } -ModuleName Catzc.Tooling.Provisioning
+                $true, 1, 1, 'Person') } -ModuleName Catzc.Tooling.Provisioning
         $expected = if ($IsWindows) {
             'msys2'
         }
@@ -88,7 +88,7 @@ Describe 'Get-ToolsStatus' -Tag 'L0', 'logic' {
     It 'names the installer, not the platform, for a missing MSYS2-package tool where it declares a manager' {
         Mock Get-Config { $script:twoMechanismTools } -ModuleName Catzc.Tooling.Provisioning -ParameterFilter { $Config -eq 'tools' }
         Mock Test-Tool { [Catzc.Base.Execution.ExecutableProbe]::new('gadget', $null, 'none', $null, '5', $false, 1, 0,
-            'Person') } -ModuleName Catzc.Tooling.Provisioning
+                'Person') } -ModuleName Catzc.Tooling.Provisioning
         $status = Get-ToolsStatus
         "$($status.Status)" | Should -Be 'Missing'
         $status.Action |

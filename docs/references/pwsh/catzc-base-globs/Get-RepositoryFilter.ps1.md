@@ -49,3 +49,12 @@ Above `if (@($filter.extensions).Count -gt 0) {`, written with `#`.
 A filter with extensions is that part of its sets: a tree include ('<folder>/**', '**') keeps only those extensions below it, a
 file include ('<folder>/*.ps1', a literal path) stays when its extension is one of them, and the excludes stay as they are.
 ```
+
+## comment:4
+
+Above `$kinds ??= (Get-Config -Config file-kinds).kinds`, written with `#`.
+
+```text
+A file kind's globs as file-kinds.yml declares them, its subkinds' included
+([ADR-REPO-FILEMETA-METAKIND](/docs/drs/repository/file-meta.md#rule-adr-repo-filemeta-metakind)).
+```

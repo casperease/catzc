@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "6b898641d6aa"
+#     with_body_sha: "073cd40d3776"
 #     warning: "Do Not Edit, this file is generated"
 # ---
 
@@ -15,6 +15,13 @@ tmp
 *.bkp
 *.dtmp
 bash.exe.stackdump
+
+# ── TypeScript declarations ─────────────────────────────────────────────────────────────────────────────────────────
+# The type declarations the js track's types gate checks against (@types/node, @types/vscode) are installed by
+# Install-TypeScript into the repository-relative folder javascript.yml declares, so the generated jsconfig.json names
+# the same relative type root on every machine; they are per-machine tool output, never committed
+# (ADR-AUTO-JS-TYPESGATE).
+/.typescript/
 
 # ── Output directory ────────────────────────────────────────────────────────────────────────────────────────────────
 # All generated artifacts land in out/ (see docs/drs/repository/dedicated-output-directory.md). The folder itself is
@@ -47,7 +54,7 @@ pwsh/**/*.psd1
 /.editorconfig
 /.vscode/settings.json
 /jsconfig.json
-/jsconfig.strict.json
+/jsconfig.lenient.json
 /.vscode/extensions.json
 /.vscode/launch.json
 /.vscode/tasks.json

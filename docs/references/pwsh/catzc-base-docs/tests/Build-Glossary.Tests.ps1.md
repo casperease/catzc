@@ -23,3 +23,12 @@ The real glossary page against the real sources. The importer's janitor material
 [glossary](/docs/drs/glossary.md) (committed and rebuilt, like the ADR index), so a current page means the generator, the sources, and the ADR citations agree. Reads only the
 repository's files — the same answer in both run modes, so the build run skips it.
 ```
+
+## comment:3
+
+Above `$script:longRule =...`, written with `#`.
+
+```text
+A rule whose link is longer than a line: the page wraps it the way Prettier does, so the formatter leaves it
+unchanged.
+```

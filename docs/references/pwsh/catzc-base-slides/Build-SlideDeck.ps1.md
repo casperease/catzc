@@ -58,3 +58,21 @@ Build-SlideDeck docs/explanation/thesis/product-thesis
 ```powershell
 $result = Build-SlideDeck docs/explanation/thesis/product-thesis -PassThru; $result.Faults
 ```
+
+## comment:1
+
+Above `if ([string]::IsNullOrWhiteSpace($OutputFolder)) {`, written with `#`.
+
+```text
+Filled in here, not as a default: it is relative to -RepositoryRoot, declared after it, and to the kit config
+loaded above.
+```
+
+## comment:2
+
+Above `$slideRelative = [System.IO.Path]::GetRelativePath($RepositoryRoot,...`, written with `#`.
+
+```text
+An image the slide shows sits beside its slide file; it lands at the same relative path beside the slide's
+HTML.
+```

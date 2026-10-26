@@ -124,7 +124,7 @@ function Test-BuildArtifact {
                                 }
                             }
                             foreach ($name in @($loaded.Keys | Where-Object { $_ -notin $builtModules } |
-                                Sort-Object)) {
+                                        Sort-Object)) {
                                 $issues.Add("[load] $name loads but was not built")
                             }
                             foreach ($base in @($observed.InternalBases)) {

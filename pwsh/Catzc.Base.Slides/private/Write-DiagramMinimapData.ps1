@@ -19,8 +19,6 @@ function Write-DiagramMinimapData {
 
     # Writes out/minimaps/<folder>/<id>.json and minimaps.json; the kit's put only draws them.
     $maps = Get-Config -Config maps
-    # The world map is built once for every folder of the call; a minimap that draws on it is handed it rather than
-    # building its own.
     $worldMap = Get-WorldMap
     $declared = foreach ($folderPath in $Stem) {
         $text = Get-DiagramDeclarationText -Stem $folderPath -RepositoryRoot $RepositoryRoot
@@ -60,7 +58,7 @@ function Write-DiagramMinimapData {
                         $id = "$($entry.Keys | Select-Object -First 1)"
                         $inputs = $entry[$id]
                         $excluded[$id] = [string[]] @(if ($inputs -is [System.Collections.IDictionary] -and
-                            $inputs.Contains('exclude')) {
+                                $inputs.Contains('exclude')) {
                                 $inputs['exclude']
                             })
                         $id
@@ -81,15 +79,11 @@ function Write-DiagramMinimapData {
             $excluded[$id] = [System.Collections.Generic.HashSet[string]]::new($excluded[$id],
                 [System.StringComparer]::Ordinal)
         }
-        # The drawing's own glyphs, handed to the minimaps that place them: the labels as written, resolved by the maps
-        # module, never stored.
         $glyphs = @(if ($content -and $content.Contains('glyphs') -and $content['glyphs']) {
                 @($content['glyphs']) | Where-Object { $_ -is [System.Collections.IDictionary] }
             })
         [pscustomobject]@{ Folder = $folderPath; Adr = $adrs; Glyph = $glyphs; Ids = $ids; Excluded = $excluded }
     }
-    # The file facts of every folder's subject are read in one call; a minimap that draws on them is handed them rather
-    # than reading its own.
     $subjectPaths = foreach ($entry in $declared) {
         if (@($entry.Ids | Where-Object { (Get-Command $maps.minimap_data[$_]).Parameters.ContainsKey('Facts') }).Count -gt 0) {
             foreach ($cell in (Get-WorldMapHighlight -Adr $entry.Adr -WorldMap $worldMap).Cells) {
@@ -123,8 +117,6 @@ function Write-DiagramMinimapData {
                 $draw.TrackedPath = $trackedPaths
             }
             $data = & $maps.minimap_data[$id] @draw
-            # The drawn data is the computed one less the cells the author excludes; nothing computed is written back to
-            # the declaration.
             $excluded = $entry.Excluded[$id]
             if ($excluded.Count -gt 0) {
                 $kept = [Catzc.Base.Maps.MinimapCell[]] @($data.Lit | Where-Object { -not $excluded.Contains($_.At -join '/') })

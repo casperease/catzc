@@ -20,14 +20,12 @@ function Build-VsCodeExtension {
     $manifestPath = Join-Path $folder 'package.json'
     Assert-PathExist $manifestPath
     $text = Get-Content -LiteralPath $manifestPath -Raw
-    # Every rendered manifest is held against the extension manifest contract before it is packed; a mismatch stops the
-    # build.
     $repositoryRoot = Get-RepositoryRoot
     $contract = @(Get-Contract catzc -Group catzc.base.vs_code -Path package.schema.json -RepositoryRoot $repositoryRoot)
     Assert-True ($contract.Count -eq 1) -ErrorText 'Build-VsCodeExtension: the extension manifest contract (contracts/catzc/0.1.0/catzc.base.vs_code/package.schema.json) is missing.'
     $schema = ConvertTo-BclValue ([System.IO.File]::ReadAllText((Join-Path $repositoryRoot $contract[0].AssetPath)) | ConvertFrom-Json -AsHashtable -NoEnumerate)
     $findings = @([Catzc.Base.Contracts.ContractSchema]::Validate($schema,
-        (ConvertTo-BclValue ($text | ConvertFrom-Json -AsHashtable -NoEnumerate))))
+            (ConvertTo-BclValue ($text | ConvertFrom-Json -AsHashtable -NoEnumerate))))
     Assert-True ($findings.Count -eq 0) -ErrorText "Build-VsCodeExtension: '$manifestPath' breaks the extension manifest contract:`n$($findings -join "`n")"
     $manifest = $text | ConvertFrom-Json
     # The manifest is read under strict mode, so an absent field is looked up, never dotted.
@@ -42,7 +40,7 @@ function Build-VsCodeExtension {
     $files = @(Get-ChildPath $folder -File -Depth 16 -Exclude @() -PruneVendor $false)
     $contentTypes = @{ '.vsixmanifest' = 'text/xml'; '.json' = 'application/json'; '.js' = 'application/javascript'; '.md' = 'text/markdown'; '.svg' = 'image/svg+xml' }
     $extensions = @($files | ForEach-Object { [System.IO.Path]::GetExtension($_).ToLowerInvariant() } |
-        Where-Object { $_ } | Sort-Object -Unique) + '.vsixmanifest' | Sort-Object -Unique
+            Where-Object { $_ } | Sort-Object -Unique) + '.vsixmanifest' | Sort-Object -Unique
     $defaults = foreach ($extension in $extensions) {
         $type = if ($contentTypes.ContainsKey($extension)) {
             $contentTypes[$extension]

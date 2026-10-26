@@ -33,3 +33,12 @@ The repository root.
 ### outputs
 
 `[string]` A hex SHA-256.
+
+## comment:1
+
+Above `$value = 'missing'`, written with `#`.
+
+```text
+A missing file or key hashes as missing, so adding or removing the input changes the stamp like any other
+input.
+```

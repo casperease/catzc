@@ -94,3 +94,12 @@ ShellCheck does not read zsh, so a *.zsh file takes zsh's own syntax check: -n p
 skips the startup files. zsh checks one script per call; exit 1 means a parse error, anything above it means zsh
 could not check the file.
 ```
+
+## comment:4
+
+Above `$issue = if ($line.StartsWith("${script}:",...`, written with `#`.
+
+```text
+zsh names the file as it was given ('<file>:<line>: <message>'); a line without it gets the file
+prefixed.
+```

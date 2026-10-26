@@ -25,7 +25,8 @@ function Test-FileLimits {
         $Path
     }
     else {
-        @(Get-GitTrackedPath '.')
+        # A tracked file deleted on disk but not yet committed has nothing to measure; the next commit drops it from the index.
+        @(Get-GitTrackedPath '.').Where({ [System.IO.File]::Exists($_) })
     }
     $authored = @(foreach ($page in (Get-Config -Config comment-pages).pages) {
             ($page.docs -replace '\{[^}]+\}', '*') + '/*'
@@ -42,7 +43,7 @@ function Test-FileLimits {
     $widthReports = [System.Collections.Generic.List[string]]::new()
     $exempted = 0
     foreach ($file in $inScope) {
-        $limit = try {
+        $null = try {
             Get-FileLimit -Path $file
         }
         catch {
@@ -50,7 +51,8 @@ function Test-FileLimits {
             continue
         }
         foreach ($finding in @(Test-FileShape -Path $file)) {
-            if ($finding.Check -eq 'width' -and $config.width_mode[$limit.file_class] -ne 'fail') {
+            # Width is measured and reported, never enforced: a wide line informs, only a long file fails the gate.
+            if ($finding.Check -eq 'width') {
                 $widthReports.Add($finding.Message)
             }
             elseif ($config.exempt.ContainsKey(($file -replace '\\', '/'))) {

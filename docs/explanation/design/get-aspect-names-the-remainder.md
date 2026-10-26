@@ -51,9 +51,9 @@ content:
     - { from: f-variants, to: c-code-aspect, kind: flow, label: feeds }
     - { from: f-variants, to: c-deployment-aspect, kind: flow, label: feeds }
     - { from: c-code-aspect, to: s-code-live, kind: thick, label: "" }
-    - { from: s-code-live, to: s-code-tests, kind: thick, label: "" }
+    - { from: s-code-live, to: s-code-tests, kind: thick, label: else }
     - { from: c-deployment-aspect, to: s-deployment-tests, kind: thick, label: "" }
-    - { from: s-deployment-tests, to: s-deployment-live, kind: thick, label: "" }
+    - { from: s-deployment-tests, to: s-deployment-live, kind: thick, label: else }
   markers:
     - { at: f-variants, number: 1 }
     - { at: f-last-aspect, number: 2 }

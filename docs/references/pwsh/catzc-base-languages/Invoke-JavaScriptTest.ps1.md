@@ -11,3 +11,12 @@ Above `$relative = if ($Folder) {`, written with `#`.
 The test folder: the one named, else the module's own tests/ (a js module is its kebab folder, js/<module>/tests), else the module's
 folder under the root's test holder.
 ```
+
+## comment:2
+
+Above `$jsRelative = (Get-Config -Config javascript).ResolveRoot($root)`, written with `#`.
+
+```text
+The JavaScript root from javascript.yml (JavaScriptConfig.ResolveRoot: the declared root, else js/ when present,
+else .js/).
+```

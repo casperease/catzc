@@ -62,3 +62,21 @@ Above `$configured = @(`, written with `#`.
 The configured checks: one mode setting each, the same handling for both
 ([PDR-CONFIG-VARYINGBEHAVIOURISCONFIG](/docs/drs/principles/configure-not-program.md#rule-pdr-config-varyingbehaviourisconfig)).
 ```
+
+## comment:2
+
+Above `$keyOfPath = @{}`, written with `#`.
+
+```text
+The key the file index gave each page, so a page under a domain folder that points into another domain's folder is
+checked against its own domain.
+```
+
+## comment:3
+
+Above `$checkFolder = if ($OutputFolder) {`, written with `#`.
+
+```text
+A check reporting on its own writes under the caller's folder when one is given, else under its subject's
+default.
+```

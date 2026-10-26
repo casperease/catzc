@@ -31,7 +31,8 @@ Describe 'GlobsConfig' -Tag 'L0', 'logic' {
         It 'constructs and exposes the sets with lookup' {
             $c = & $script:make @{
                 'widget' = @{ description = 'the widget surface'; layer = 'loose-fileset'; include = @('src/**',
-                    'main.ps1') }
+                        'main.ps1')
+                }
                 'gadget' = @{ description = 'the gadget unit'; layer = 'deployable-unit'; include = @('lib/**'); exclude = @('**/*.md') }
             }
             $c.globsets.Count | Should -Be 2
@@ -89,10 +90,9 @@ Describe 'GlobsConfig' -Tag 'L0', 'logic' {
                 'leaf' = @{ description = 'd'; layer = 'deployable-unit'; include = @('leaf/**') }
                 'mid'  = @{ description = 'd'; layer = 'deployable-unit'; compose = @('leaf'); include = @('mid/**') }
                 'top'  = @{ description = 'd'; layer = 'deployable-unit'; compose = @('mid',
-                    'leaf'); include = @('top/**') }
+                        'leaf'); include = @('top/**')
+                }
             }
-            # top composes [mid, leaf]; mid already pulls leaf. Raw: +leaf,+mid,+leaf,+top -> dedupe-last:
-            # +mid,+leaf,+top
             (& $script:program $c.Get('top')) | Should -Be @('+ mid/**', '+ leaf/**', '+ top/**')
         }
 

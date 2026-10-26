@@ -13,7 +13,8 @@ Describe 'Get-ChangedGlobSet' -Tag 'L0', 'logic' {
                     'widget' = @{ description = 'the widget surface'; layer = 'loose-fileset'; include = @('src/**') }
                     'gadget' = @{ description = 'the gadget unit'; layer = 'deployable-unit'; include = @('lib/**'); exclude = @('lib/gen/**') }
                     'report' = @{ description = 'the report scope'; layer = 'loose-fileset'; include = @('src/**',
-                        'docs/**') }
+                            'docs/**')
+                    }
                 }
             })
     }

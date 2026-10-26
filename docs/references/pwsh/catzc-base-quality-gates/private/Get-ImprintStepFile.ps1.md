@@ -40,3 +40,21 @@ Above `$scope = Get-FormatScope -RepositoryRoot $root -Path $Path`, written with
 The formatter's own scope, so vendored code is never rewritten, narrowed to the PowerShell code files.
 Get-FormatScope returns its paths as one array: assign it, so the filter walks the paths, not the array.
 ```
+
+## comment:2
+
+Above `if ($Path) {`, written with `#`.
+
+```text
+Format-Code -Path also formats files outside the repository, which no step's scope covers: they are left out, not
+refused.
+```
+
+## comment:3
+
+Above `$plans = Get-Config -Config plans`, written with `#`.
+
+```text
+The step rewrites the master and the value overlay; it is in scope with no -Path, or one in, or above, the
+plans folder.
+```

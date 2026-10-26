@@ -45,3 +45,21 @@ Reports what would change and writes nothing.
 ```powershell
 Rename-CodeName @{ 'Get-WidgetSet' = 'Get-GadgetSet'; 'WidgetConfig' = 'GadgetConfig' } -Path pwsh -DryRun
 ```
+
+## comment:1
+
+Above `$alternation = (@($lookup.Keys) | Sort-Object { $_.Length } -Descending |`, written with `#`.
+
+```text
+Longest first, so a name that contains another is replaced whole; a name matches only as a token, never inside a
+longer one.
+```
+
+## comment:2
+
+Above `$within = [regex]::new("[\w-]*(?:$alternation)[\w-]*")`, written with `#`.
+
+```text
+The longer tokens a name sits inside, such as an id `g-<name>`, are skipped by design; each is reported so the
+caller decides.
+```

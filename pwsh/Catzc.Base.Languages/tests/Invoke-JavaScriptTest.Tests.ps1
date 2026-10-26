@@ -1,8 +1,14 @@
+<#
+---
+catzc:
+  docs: "../../../docs/references/pwsh/catzc-base-languages/tests/Invoke-JavaScriptTest.Tests.ps1.md"
+  header: "generated"
+---
+#>
+
 Describe 'Invoke-JavaScriptTest' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:root = Join-Path $TestDrive 'repo'
-        # A js module is its kebab folder with its own tests/; a module without one is looked for under the root's test
-        # holder.
         $script:own = Join-Path $script:root 'js/catzc-widget/tests'
         $null = New-Item -ItemType Directory -Path $script:own -Force
         Set-Content -LiteralPath (Join-Path $script:own 'spin.test.js') -Value 'test("spins", () => {});'

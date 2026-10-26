@@ -74,7 +74,7 @@ function Measure-PrimaryArgumentPosition {
     )
 
     if (-not (Test-ModuleFunctionFile $ScriptBlockAst) -or $ScriptBlockAst.Extent.File.Replace('\',
-        '/') -match '/private/') {
+            '/') -match '/private/') {
         return @()
     }
     $results = [System.Collections.Generic.List[Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord]]::new()

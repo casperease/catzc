@@ -29,7 +29,7 @@ function Get-FileLockingProcess {
     $filter = ($holders | ForEach-Object { "ProcessId=$($_.ProcessId)" }) -join ' OR '
     $processes = @{}
     foreach ($process in (Get-CimInstance -ClassName Win32_Process -Filter $filter -Property ProcessId, Name,
-        CommandLine, ParentProcessId)) {
+            CommandLine, ParentProcessId)) {
         $processes[[int] $process.ProcessId] = $process
     }
 

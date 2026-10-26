@@ -50,3 +50,12 @@ Above `if ($Present.Count -gt 0) {`, written with `#`.
 Trim candidates to fields the CSV actually has. A requested column with none left is a schema
 mismatch — fail rather than silently drop it from the output.
 ```
+
+## comment:2
+
+Above `if ($Present.Count -gt 0) {`, written with `#`.
+
+```text
+A requested column with none of its fields present is a schema mismatch, so it fails and is never dropped from the
+table.
+```

@@ -26,7 +26,7 @@ function Build-GitKeep {
     # The bounded walker lists every .gitkeep below the root; out/ is pruned, so its own keep file is added by hand.
     $found = [System.Collections.Generic.List[string]]::new()
     foreach ($keepPath in Get-ChildPath $repositoryRoot -Depth 32 -File -Filter '.gitkeep' -Exclude @('.git', '.vendor',
-        'out') -PruneVendor $true) {
+            'out') -PruneVendor $true) {
         $found.Add((ConvertTo-RepoRelativePath $keepPath))
     }
     $outputKeep = [System.IO.Path]::Combine($repositoryRoot, 'out', '.gitkeep')

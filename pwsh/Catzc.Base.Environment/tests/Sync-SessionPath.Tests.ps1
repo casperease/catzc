@@ -11,8 +11,6 @@ Describe 'Sync-SessionPath' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:originalPath = $env:PATH
 
-        # The persistent PATH is read through its seam, so every case is deterministic and none reads the machine's
-        # registry.
         $script:regUser = ''
         $script:regMachine = ''
         Mock Get-EnvironmentPath -ModuleName Catzc.Base.Environment -ParameterFilter { $Scope -eq 'User' } -MockWith { $script:regUser }

@@ -1,3 +1,11 @@
+<#
+---
+catzc:
+  docs: "../../../docs/references/pwsh/catzc-base-modules/tests/Get-CatzcModule.Tests.ps1.md"
+  header: "generated"
+---
+#>
+
 # Rests on [ADR-AUTO-TEST](/docs/drs/automation/test-automation.md).
 Describe 'Get-CatzcModule' -Tag 'L0', 'logic', 'ADR-AUTO-MODULE-DEPLOYABLETRACKMODULE' {
     BeforeAll {
@@ -5,15 +13,13 @@ Describe 'Get-CatzcModule' -Tag 'L0', 'logic', 'ADR-AUTO-MODULE-DEPLOYABLETRACKM
         $script:second = [Catzc.Base.Engines.ExecutionEngines]::Names[1]
         $script:tracks = [Catzc.Base.Variants.VariantsConfig]::new([ordered]@{
                 tracks = [ordered]@{
-                    widgets        = [ordered]@{ places = @('widgetry'); type = 'widget-works'; languages = @('widget-script', 'widget-data')
+                    widgets        = [ordered]@{ members = @('widgetry'); type = 'widget-works'; languages = @('widget-script', 'widget-data')
                         execution_engines = @($script:first); module_execution_engines = [ordered]@{ Gadget = @($script:first, $script:second) }
                     }
-                    gizmos         = [ordered]@{ places = @('gizmo'); type = 'gizmo-shelf'; languages = @('gizmo-script') }
-                    notes          = [ordered]@{ places = @('notes'); type = 'note-pile'; languages = @('widget-data') }
-                    # A third language's track, the shape every language track takes: folder modules, the track's own
-                    # test holder, a nested vendor track.
-                    shelves        = [ordered]@{ places = @('shelf'); type = 'shelf-works'; languages = @('shelf-script') }
-                    'shelf-vendor' = [ordered]@{ places = @('shelf/.vendor'); type = 'note-pile'; languages = @('shelf-script') }
+                    gizmos         = [ordered]@{ members = @('gizmo'); type = 'gizmo-shelf'; languages = @('gizmo-script') }
+                    notes          = [ordered]@{ members = @('notes'); type = 'note-pile'; languages = @('widget-data') }
+                    shelves        = [ordered]@{ members = @('shelf'); type = 'shelf-works'; languages = @('shelf-script') }
+                    'shelf-vendor' = [ordered]@{ members = @('shelf/.vendor'); type = 'note-pile'; languages = @('shelf-script') }
                 }
             }).tracks
         $script:trackTypes = [Catzc.Base.Variants.TrackTypesConfig]::new(@{
@@ -57,7 +63,7 @@ Describe 'Get-CatzcModule' -Tag 'L0', 'logic', 'ADR-AUTO-MODULE-DEPLOYABLETRACKM
 
         $script:root = Join-Path $TestDrive 'tree'
         $touch = { param($Path) $full = Join-Path $script:root $Path; New-Item -ItemType File -Path $full -Force |
-            Out-Null }
+                Out-Null }
         'widgetry/Gadget/Gadget.wdg', 'widgetry/Gadget/inner/Cog.wdg', 'widgetry/Gadget/tests/Gadget.Tests.wdg', 'widgetry/Gadget/assets/a/b.wdd',
         'widgetry/Sprocket/Sprocket.wdg', 'widgetry/Sprocket/stray.wdd', 'widgetry/Sprocket/oddity/Cog.wdg', 'widgetry/.hidden/Cog.wdg',
         'widgetry/.core/Widget.Core.Kit.wdg', 'widgetry/.core/tests/Cog.wdg', 'widgetry/loose.wdg', 'gizmo/Doodad/Doodad.gzm', 'notes/Memo/Memo.wdd',
@@ -70,7 +76,7 @@ Describe 'Get-CatzcModule' -Tag 'L0', 'logic', 'ADR-AUTO-MODULE-DEPLOYABLETRACKM
         Mock Get-Config -ModuleName Catzc.Base.Modules -ParameterFilter { $Config -eq 'languages' } { $script:languages }
         Mock Get-Track -ModuleName Catzc.Base.Modules { $script:tracks }
         Mock Get-Track -ModuleName Catzc.Base.Modules -ParameterFilter { $Name } { $script:tracks |
-            Where-Object { $Name -contains $_.name } }
+                Where-Object { $Name -contains $_.name } }
     }
 
     It 'returns the modules of the deployable tracks only, as Module values, ordinal by name inside a track in declared track order' {
@@ -202,7 +208,7 @@ Describe 'Get-CatzcModule on the repository' -Tag 'L1', 'integrity', 'ADR-AUTO-M
         foreach ($module in $script:modules) {
             $places = (Get-Track -Name $module.track).places
             ($places | Where-Object { $module.root -ceq $_ -or $module.root.StartsWith("$_/",
-                [System.StringComparison]::Ordinal) }) | Should -Not -BeNullOrEmpty -Because $module.name
+                    [System.StringComparison]::Ordinal) }) | Should -Not -BeNullOrEmpty -Because $module.name
         }
     }
 
@@ -225,7 +231,7 @@ Describe 'Get-CatzcModule on the repository' -Tag 'L1', 'integrity', 'ADR-AUTO-M
         $root = Get-RepositoryRoot
         $templates = @([System.IO.Directory]::EnumerateDirectories((Join-Path $root 'infrastructure/templates')).ForEach({ [System.IO.Path]::GetFileName($_) }))
         $bicepModules = @([System.IO.Directory]::EnumerateFiles((Join-Path $root 'infrastructure/modules'),
-            '*.bicep').ForEach({ [System.IO.Path]::GetFileNameWithoutExtension($_) }))
+                '*.bicep').ForEach({ [System.IO.Path]::GetFileNameWithoutExtension($_) }))
         $names = @(Get-CatzcModule -TrackType infrastructure).ForEach({ $_.name })
         $templates.Count | Should -BeGreaterThan 0
         $bicepModules.Count | Should -BeGreaterThan 0

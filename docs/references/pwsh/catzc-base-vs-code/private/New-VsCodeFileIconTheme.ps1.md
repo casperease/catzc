@@ -1,6 +1,6 @@
 # pwsh/Catzc.Base.VSCode/private/New-VsCodeFileIconTheme.ps1
 
-<!-- cspell:ignore Segoe linejoin linecap -->
+<!-- cspell:ignore Segoe linejoin linecap dasharray -->
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -42,4 +42,31 @@ Above `$labelSvg = {`, written with `#`.
 ```text
 A label's size shrinks with its length so four characters still fit the 16-pixel square; the prompt style underlines it with a
 console chevron and a cursor instead of a plain bar.
+```
+
+## comment:2
+
+Above `[string[]] $GlyphDirectory = @(`, written with `#`.
+
+```text
+The folders a glyph is looked up in, in order: the icon theme's own glyphs (<glyph>.svg), then the lamp glyphs
+(<glyph>-on.svg).
+```
+
+## comment:3
+
+Above `$Languages = (Get-Config -Config languages).languages`, written with `#`.
+
+```text
+The language system an icon's 'language' names; each language's extensions come from here, never restated in
+file-icons.yml.
+```
+
+## comment:4
+
+Above ``& $write '_file' "<svg xmlns=`"http://www.w3.org/2000/svg`" width=`"16`"...``, written with `#`.
+
+```text
+A file no icon marks is a leaf, one dot. The theme names no folder icon, so a folder is marked by the Explorer's
+own chevron alone.
 ```

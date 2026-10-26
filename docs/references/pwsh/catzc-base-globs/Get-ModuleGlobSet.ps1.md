@@ -136,3 +136,12 @@ Above `foreach ($track in @(Get-Track).Where({ $_.name -cne $codeTrack.name -and
 Every other laid-out track's folder modules partition by that track's convention; its root holder is no unit, because the black-box
 tests it holds already belong to the module they test (the code track's tests aspects above).
 ```
+
+## comment:9
+
+Above `$codeTrack = Get-Track -Path (Get-CatzcModulesFolder)`, written with `#`.
+
+```text
+The code track is the one whose place is the catzc modules folder; its first place is the root every module and
+infra folder sits under.
+```

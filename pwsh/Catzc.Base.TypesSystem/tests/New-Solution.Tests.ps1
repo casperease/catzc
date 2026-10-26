@@ -20,7 +20,7 @@ Describe 'New-Solution' -Tag 'L0', 'logic' {
 
     It 'keeps the ids the solution has always carried' {
         Mock Get-AgentHookName -ModuleName Catzc.Base.TypesSystem { , [string[]] @('Assert-BashTimeout',
-            'Record-AgentWrite') }
+                'Record-AgentWrite') }
         $solution = New-Solution
         foreach ($sentence in 'catzc types project', 'assert bash timeout hook project',
             'record agent write hook project', 'claude hooks folder') {

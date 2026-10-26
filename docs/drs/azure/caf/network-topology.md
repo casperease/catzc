@@ -383,7 +383,7 @@ Not adopted: there is no Virtual Network Manager, and no management group or ten
 
 Not adopted: there is no Virtual Network Manager instance and no connectivity subscription apart from the shared ones.
 
-[][r60]
+- [60 — A Virtual Network Manager instance in the connectivity subscription][toc60]
 
 ### Rule ADR-AZ-CAF-NETTOP-NETWORKGROUPSSEGMENTATION
 
@@ -2052,4 +2052,4 @@ IPv6, or virtual machines is not adopted, each for its stated reason.
 - One region, no hybrid link, and no IPv6 keep most of Microsoft's topology recommendations out of reach; each of those would reopen the
   rules that name it.
 
-[r60]: 
+[toc60]: #60--a-virtual-network-manager-instance-in-the-connectivity-subscription

@@ -47,3 +47,21 @@ Above `if (($env:PATH -split [System.IO.Path]::PathSeparator) -notcontains...`, 
 The uv tool-bin is normally on the persistent PATH already
 ([ADR-AUTO-UVPY](/docs/drs/automation/uv-python-handler.md)); make it resolve in this session.
 ```
+
+## comment:4
+
+Above `$release = $releases | Where-Object { ($_.tag_name -replace '^v', '') -match...`, written with `#`.
+
+```text
+Select-Object -First 1 is $null on no match (indexing an empty array throws under strict), so the assert reports
+it
+```
+
+## comment:5
+
+Above `$asset = $release.assets | Where-Object { $_.name -eq $assetName } |...`, written with `#`.
+
+```text
+Select-Object -First 1 is $null on no match (indexing an empty array throws under strict), so the assert reports
+it
+```

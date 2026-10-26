@@ -26,3 +26,12 @@ One readme.yml mapping as Get-ReadmeMappings returns it ({ folder; source }, rep
 ### outputs
 
 `[string]` The README's content (LF line endings).
+
+## comment:1
+
+Above `$body = Format-LongMarkdownLines -Text...`, written with `#`.
+
+```text
+The rebased links are longer than the source's, so a line the source wrapped at the width can pass it here; wrap
+those blocks again.
+```

@@ -29,8 +29,6 @@ function Get-ChangeCheckPlan {
             continue
         }
         foreach ($check in $language.checks) {
-            # A check that governs a folder takes only the changed files under it; the language's check_scopes names the
-            # folder by its config address.
             if ($language.check_scopes.ContainsKey($check)) {
                 $address = $language.check_scopes[$check]
                 if (-not $folders.ContainsKey($address)) {

@@ -63,26 +63,11 @@ one is the glyph legend. A comment's target is therefore usually an article's bl
       redraws and reports "I spotted: ..." with what changed; the next pasted name is the acceptance, a sentence from the user overrides the
       decision it names. Check: each landed fix leaves its slide re-rendered and looked at, the kit suite green, and `Test-Diagrams` clean
       over every diagram redrawn.
-- [ ] Edge labels too long for a pill stay unboxed and collide with a node: in `state-changes.drawio.png` `L3-vertical-AT` and `release-uat`
-      are plain while `PR`, `BVT`, `main-UAT` and `release` are boxed, and `L3-vertical-AT` touches its yellow commit node (seen comparing
-      2d6e24d30 with its parent, catzc-ed, 2026-10-26; the label pills and the side panel's blue palette were accepted as the intended
-      change). Check: every edge label of the diagram boxed or placed clear of its nodes, and `Test-Diagrams` clean on it.
 - [ ] Haiku review rounds of every rendered png, batches of 10 in repository order, skipping the glyph legend: one haiku per png reports (a)
       straight vs diagonal arrows and which box to move, (b) the "Where does it live?" rows verbatim, drawn boxes with no row, rows that
       match nothing drawn, and order; the dotted row form is fixed, so reviewers never propose full paths. Batch 1 (10) ran before the six
       minimap/router fixes; restart from batch 1 on the fresh renders. Check: a per-diagram list per batch, and each next batch's brief
       sharpened from the last.
-- [ ] Edge-audit sweep wave 3: the 43 ambiguous and 4 reverse edges left in `out/edge-audit.md` (run
-      `python/catzc_diagrams/edge_audit.py`) have no truthful word in `edge-labels` (calls, reads, writes, feeds, failed). Decide the
-      words first, then sweep: promotion chains between environments (`four-domains-promote-one-artifact`, the azure subscription→group
-      pairs), the zoom ladder's `zooms in`, else-chains (`callers-value-else-config-else-default`), glob-set remainder and composition
-      (`each-track-picks-its-catch-all`, `get-aspect-names-the-remainder`, `units-not-tracks-own-the-pipelines`,
-      `names-are-pure-and-never-truncated`), result→result sequences (`one-program-two-vendor-dialects`,
-      `drift-is-gated-generation-is-drs-only`, `the-step-is-named-after-its-command`), descriptor hand-offs (`bicep-template-is-a-folder`,
-      `bcl-language`'s `compiles`, `plain values`, `default pair`), and the vendor exits (`every-vendor-call-leaves-through-az`). The 4
-      reverse edges are result→env on the two climb diagrams (`one-artifact-climbs-unchanged`, `pipeline-kinds-keyed-by-one-artifact`), whose
-      `relation` opt-out the rule keeps; either the audit excuses an opted-out diagram's edges, or the climb is redrawn. Check: the
-      audit's ambiguous and reverse counts fall to what the decision leaves, each swept diagram puts clean, and `Test-Diagrams` is 0.
 - [ ] Move the article-carried diagrams off a diagram-level `relation`, to labelled arrows in the default reading (`feeds`, `calls`,
       `reads`, `writes`, `else` where a word is needed) or reworked as true state diagrams, since DDR-VISUAL-ARROWSPOINTATWHATTHEYDEPENDON
       keeps the opt-out for state and commit diagrams only. About 150 remain, declared in "yml drawio" blocks of the markdown under

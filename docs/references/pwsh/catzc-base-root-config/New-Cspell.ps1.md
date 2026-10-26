@@ -29,3 +29,12 @@ The template to fill. Default: assets/root/cspell-template.yml of this module.
 ### outputs
 
 `[string]` The rendered cspell.yml content (LF-joined; the writer canonicalises).
+
+## comment:1
+
+Above `$thirdParty = Get-GlobSet -Name 'third-party'`, written with `#`.
+
+```text
+The third-party glob set is the one declaration of what is not authored here; the spelling check skips exactly its
+includes.
+```

@@ -44,3 +44,12 @@ The MinimapReason list of each lit cell, keyed the same way.
 ```powershell
 New-MinimapData -Id ([Catzc.Base.Maps.MinimapData]::CodeLocations) -Axes $axes -Cells $cells -Count $count -Reasons $reasons
 ```
+
+## comment:1
+
+Above `$axisList = [Catzc.Base.Maps.MinimapAxis[]] @(foreach ($name in $Axes.Keys) {`, written with `#`.
+
+```text
+Each cell is keyed by its place joined with a tab: Count holds what it holds, Reasons the MinimapReason list that
+lights it.
+```

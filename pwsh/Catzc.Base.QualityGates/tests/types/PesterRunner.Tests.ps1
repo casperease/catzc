@@ -136,7 +136,7 @@ while (-not (Test-Path '$gadgetMarker')) {
 
         It 'rejects a worker cap that capLimits does not declare' {
             { [Catzc.Base.QualityGates.PesterRunner]::Run(@('a.ps1'), @('a'), [string[][]] @(, @('gizmo')),
-                @{}, 1, $null, 60, $true) } |
+                    @{}, 1, $null, 60, $true) } |
                 Should -Throw "*names the cap 'gizmo'*"
         }
 

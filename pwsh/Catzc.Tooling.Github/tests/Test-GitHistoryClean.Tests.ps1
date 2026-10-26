@@ -112,7 +112,7 @@ Describe 'Test-GitHistoryClean' -Tag 'L2', 'logic' {
 
     It 'skips a binary file, as git grep -I does' {
         [System.IO.File]::WriteAllBytes((Join-Path $script:repo 'gadget.bin'), [byte[]] (@(0, 1,
-            2) + [System.Text.Encoding]::ASCII.GetBytes('binary-marker')))
+                    2) + [System.Text.Encoding]::ASCII.GetBytes('binary-marker')))
         & git -C $script:repo add -A *> $null
         & git -C $script:repo commit -m 'binary drop' *> $null
         try {

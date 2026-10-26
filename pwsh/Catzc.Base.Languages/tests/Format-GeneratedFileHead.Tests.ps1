@@ -1,3 +1,11 @@
+<#
+---
+catzc:
+  docs: "../../../docs/references/pwsh/catzc-base-languages/tests/Format-GeneratedFileHead.Tests.ps1.md"
+  header: "generated"
+---
+#>
+
 Describe 'Format-GeneratedFileHead' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-COMPOSEDFILES' {
     BeforeAll {
         $script:languages = [Catzc.Base.Languages.LanguagesConfig]::new(@{
@@ -23,8 +31,6 @@ Describe 'Format-GeneratedFileHead' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-COMPO
     }
 
     BeforeEach {
-        # Whether git tracks the path: a tracked path comes back from the index read, an untracked one does not; a
-        # fixture stands for it here.
         $script:tracked = $true
         Mock Get-GitTrackedPath -ModuleName Catzc.Base.Languages { if ($script:tracked) {
                 $Path
@@ -80,8 +86,6 @@ Describe 'Format-GeneratedFileHead' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-COMPO
     It 'hashes the body only, which the head itself and the line endings never move' {
         $arguments = @{ Path = 'docs/gen.wdg' } + $script:arguments
         $once = Format-GeneratedFileHead -Text "body`n" @arguments
-        # The block renderer quotes a value YAML would not read back as the same string, so a hash that opens with a
-        # digit is quoted.
         $once | Should -BeLike "*#     with_body_sha: `"9e2ec912af5d`"`n*"
         Format-GeneratedFileHead -Text $once @arguments | Should -BeLike '*with_body_sha: "9e2ec912af5d"*'
         Format-GeneratedFileHead -Text "body`r`n" @arguments | Should -BeLike '*with_body_sha: "9e2ec912af5d"*'

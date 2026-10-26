@@ -1,3 +1,11 @@
+<#
+---
+catzc:
+  docs: "../../../docs/references/pwsh/catzc-azure-dev-ops/tests/Assert-AdoDeploymentHistory.Tests.ps1.md"
+  header: "generated"
+---
+#>
+
 Describe 'Assert-AdoDeploymentHistory' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:assert = {
@@ -9,8 +17,6 @@ Describe 'Assert-AdoDeploymentHistory' -Tag 'L0', 'logic' {
     }
 
     BeforeEach {
-        # Run 10 is the CI run that built commit aaa; run 11 built bbb. Runs 20 and 21 are DEPLOY runs naming a CI run;
-        # run 30 is a CD run.
         $script:runs = @{
             '10' = [pscustomobject]@{ sourceVersion = 'aaa' }
             '11' = [pscustomobject]@{ sourceVersion = 'bbb' }

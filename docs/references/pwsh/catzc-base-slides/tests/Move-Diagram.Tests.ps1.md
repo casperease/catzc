@@ -11,3 +11,12 @@ Above `Describe 'Move-Diagram — an article-carried diagram'`, written with `#`
 The fixture repository is made and the diagram moved with real git (git init, git mv, git ls-files), and the carrier re-key runs the
 kit's own editor (declaration.py rekey) through uv, so this tier is L2: the repository's kit edits the fixture tree's drawio.yml.
 ```
+
+## comment:2
+
+Above `Describe 'Move-Diagram'`, written with `#`.
+
+```text
+A fixture repository is made and moved in with real git (git init, git mv, git ls-files), so the point of the file is
+the launch: L2.
+```

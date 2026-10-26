@@ -24,3 +24,12 @@ the importer did not finish resolves it once from the configuration, with no cal
 ```powershell
 (Get-ImportMix).engines
 ```
+
+## comment:1
+
+Above `$recorded =...`, written with `#`.
+
+```text
+The record the importer set for the session; a session the importer did not finish resolves it from the
+configuration once.
+```

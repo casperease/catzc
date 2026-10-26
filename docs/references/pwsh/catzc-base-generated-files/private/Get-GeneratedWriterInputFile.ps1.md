@@ -41,3 +41,21 @@ Above `$files =...`, written with `#`.
 Only a glob with no literal folder needs the repository root walked; every other glob walks its own folder, and a folder an
 ancestor's walk already reaches is not walked twice.
 ```
+
+## comment:3
+
+Above `$files =...`, written with `#`.
+
+```text
+Only a glob with no literal folder walks the root, so a narrow writer pays only for the folders its own globs
+reach.
+```
+
+## comment:4
+
+Above `$root = [System.IO.Path]::GetFullPath($RepositoryRoot)`, written with `#`.
+
+```text
+One walk per folder lists its files and folders apart, already relative to the root, so nothing is cut per path
+here.
+```

@@ -32,7 +32,7 @@ function Assert-BicepParamSlot {
     }
     $target = [System.IO.Path]::GetFullPath((Join-Path ([System.IO.Path]::GetDirectoryName($File)) $using.Groups['path'].Value))
     if (-not [string]::Equals($target, [System.IO.Path]::GetFullPath($Main),
-        [System.StringComparison]::OrdinalIgnoreCase)) {
+            [System.StringComparison]::OrdinalIgnoreCase)) {
         throw "Template '$Template': $name uses '$($using.Groups['path'].Value)', which is not the template's main.bicep."
     }
 }

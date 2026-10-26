@@ -129,8 +129,6 @@ function Invoke-TestAutomationWorkers {
     else {
         1
     }
-    # A greedy file counts against the greedy cap; one the policy keeps apart (it runs real builds) also against the
-    # one-at-a-time cap.
     $greedyCaps = [System.Collections.Generic.List[string[]]]::new()
     $nextShardIndex = $workerCount
     foreach ($greedyFile in $GreedyFiles) {
@@ -174,7 +172,7 @@ function Invoke-TestAutomationWorkers {
         $poolSize = Get-TestPoolSize -ParallelShardCount $shards.Count -GreedyFileCount $greedyShards.Count -GreedyGroupSize $greedyGroupSize
         $runner = [Catzc.Base.QualityGates.PesterRunner]::Run(
             [string[]] @($pooled.ScriptPath), [string[]] @($pooled.Label), $caps,
-                @{ greedy = $greedyGroupSize; apart = 1 },
+            @{ greedy = $greedyGroupSize; apart = 1 },
             $poolSize, $WorkerEnvironment, $TimeoutSeconds, $false)
         $workerResults.AddRange($runner.Results)
         $allShards.AddRange([object[]] $pooled)

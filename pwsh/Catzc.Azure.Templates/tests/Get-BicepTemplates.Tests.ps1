@@ -134,10 +134,10 @@ Describe 'Get-BicepTemplates' -Tag 'L0', 'logic' {
 
         It 'discovers the customer-subfolder slots tagged with the customer and the resolved customer subscription' {
             $acmeSlots = @($sc.slots | Where-Object { $_.customer -eq 'acme' } | ForEach-Object { $_.name } |
-                Sort-Object)
+                    Sort-Object)
             $acmeSlots | Should -Be @('alpha', 'alpha-001')
             @($sc.slots | Where-Object { $_.customer -eq 'acme' } | ForEach-Object { $_.subscription } |
-                Select-Object -Unique) | Should -Be @('acme_lower')
+                    Select-Object -Unique) | Should -Be @('acme_lower')
         }
 
         It 'treats the root and customer alpha as distinct slots (same config-name, different coordinate)' {
@@ -155,7 +155,7 @@ Describe 'Get-BicepTemplates' -Tag 'L0', 'logic' {
             # sample-customer ships acme/alpha.yml (no slot) AND acme/alpha-001.yml (slot 001).
             $sc = (Get-BicepTemplates) | Where-Object { $_.name -eq 'sample-customer' } | Select-Object -First 1
             $acmeSlots = @($sc.slots | Where-Object { $_.customer -eq 'acme' } | ForEach-Object { $_.slot } |
-                Sort-Object)
+                    Sort-Object)
             $acmeSlots | Should -Be @('', '001')
         }
 
@@ -226,7 +226,7 @@ Describe 'Get-BicepTemplates' -Tag 'L0', 'logic' {
                 Should -BeFalse -Because 'a reset cache rebuilds a fresh result'
             @($second | ForEach-Object { $_.name } | Sort-Object) |
                 Should -Be @($first | ForEach-Object { $_.name } |
-                Sort-Object) -Because 'same on-disk inputs yield the same templates'
+                        Sort-Object) -Because 'same on-disk inputs yield the same templates'
         }
     }
 }

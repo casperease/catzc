@@ -72,3 +72,12 @@ Above `if ($results.Count -eq 0 -or ($run.ExitCode -ne 0 -and -not @($results |.
 bats exits 1 when a test failed; a non-zero exit with no failing test, or no test at all, means it failed around
 the tests (a .bats file that does not parse, a failing setup_file).
 ```
+
+## comment:2
+
+Above `$relative = if ($Folder) {`, written with `#`.
+
+```text
+The test folder: the one named, a module's own tests/ or the holder's, else the module's folder under the holder's
+tests/ in bash's folder case.
+```

@@ -46,3 +46,12 @@ The stamp of every file on disk a writer's inputs match, committed, changed or i
 changes it as surely as an edit; salted with the folders a wildcard glob's leaf could be written into, so a new folder that should
 receive a generated file makes the writer due before the file exists. The files and folders are the shared walk's.
 ```
+
+## comment:2
+
+Above `$prefix = $RepositoryRoot.TrimEnd('\', '/') +...`, written with `#`.
+
+```text
+Every matching file on disk counts, committed or ignored, so a pull or a hand-drifted file changes the stamp as
+surely as an edit.
+```

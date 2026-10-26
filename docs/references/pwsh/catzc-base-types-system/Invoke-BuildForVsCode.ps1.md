@@ -59,3 +59,12 @@ Above ``$result = Invoke-Executable "dotnet build `"$project`" --configuration..
 The stamp task's "stamped version …" line and any analyzer diagnostics stream through. A non-zero exit
 (a stale committed DLL, an analyzer error) throws via Invoke-Executable.
 ```
+
+## comment:2
+
+Above ``$result = Invoke-Executable "dotnet build `"$project`" --configuration...``, written with `#`.
+
+```text
+Analyzer diagnostics stream through, and a stale committed DLL or an analyzer error fails the build by its exit
+code.
+```

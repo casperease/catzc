@@ -108,7 +108,7 @@ Describe 'Deploy-Bicep (sample-subscription sub create)' -Tag 'L0', 'logic' {
                 # the production record: no PrePost.psm1 for this template, so prepost_module is null
                 artifacts   = [Catzc.Azure.Templates.BicepArtifacts]::new(
                     $true, $tempFolder, (Join-Path $tempFolder 'main.json'),
-                        (Join-Path $tempFolder 'parameters.alpha.json'), $null)
+                    (Join-Path $tempFolder 'parameters.alpha.json'), $null)
                 environment = [ordered]@{
                     name         = 'alpha'
                     region       = 'westeurope'

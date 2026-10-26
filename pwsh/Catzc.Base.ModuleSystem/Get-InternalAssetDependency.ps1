@@ -31,7 +31,7 @@ function Get-InternalAssetDependency {
         $match = @($helperParameters.Values | Where-Object { $_.Name -ieq $Name -or $_.Aliases -icontains $Name })
         if ($match.Count -eq 0) {
             $match = @($helperParameters.Values | Where-Object { $_.Name.StartsWith($Name,
-                [System.StringComparison]::OrdinalIgnoreCase) })
+                        [System.StringComparison]::OrdinalIgnoreCase) })
         }
         if ($match.Count -eq 1) {
             return $match[0]
@@ -58,7 +58,7 @@ function Get-InternalAssetDependency {
         }
         $privateDirectory = Join-Path $moduleDirectory $privateFolderName
         foreach ($path in [Catzc.Base.Folders.PathSet]::new($walk).AddPattern($privateDirectory, '*.ps1',
-            1).ToArray()) {
+                1).ToArray()) {
             $files.Add([pscustomobject]@{ Path = $path; Relative = "$modulesFolder/$moduleName/$privateFolderName/$([System.IO.Path]::GetFileName($path))" })
         }
 

@@ -45,3 +45,12 @@ Above `$patterns = @{`, written with `#`.
 How each language defines a function or a type is mechanism, one reader per language: PowerShell by its parser, Python and Go by
 their definition keywords at the start of a line.
 ```
+
+## comment:2
+
+Above `[pscustomobject]@{ Path = $relative; Kind = 'function'; Name =...`, written with `#`.
+
+```text
+A scope qualifier sits outside the case, as a hidden folder's dot does: script:New-Widget is a
+verb-noun name.
+```

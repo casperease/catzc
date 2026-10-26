@@ -33,3 +33,12 @@ The run's per-file entries from the files sidecars (New-TestAutomationShardScrip
 ```powershell
 Write-TestRunFailures -Rows $rows -Files $files
 ```
+
+## comment:1
+
+Above `$byMessage = [ordered]@{}`, written with `#`.
+
+```text
+Rows that share a message share a cause: each is named, and the message is written once, in the order it first
+failed.
+```

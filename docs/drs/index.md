@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "561650007412"
+    with_body_sha: dbe60ff433bd
     warning: "Do Not Edit, this file is generated"
 ---
 
@@ -27,7 +27,8 @@ normative summary plus internal links to the prose that justifies it). The gramm
   `automation/pwsh/error-handling.md#rule-adr-pwsh-error-thrownotwriteerror`.
 - A code selects everything below it: a kind is every record of that kind, `ADR-PWSH` every ADR of the domain, `ADR-PWSH-ERROR` every rule
   of the ADR (ADR-REPO-DRSCODE-CODEISSELECTOR). There is no group or range spelling; a list of rules is the list of their codes
-  (ADR-REPO-DRSCODE-NOSUBSETSPELLING).
+  (ADR-REPO-DRSCODE-NOSUBSETSPELLING). The index lists records, never rule codes: `Test-DrsRegistry` reads a record's rules from the record
+  itself.
 - A name is unique under its parent and never reused once retired; the tables below are the authoritative code ↔ ADR mapping.
 
 ## Codes

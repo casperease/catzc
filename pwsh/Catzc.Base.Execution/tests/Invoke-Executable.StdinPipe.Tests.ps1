@@ -27,8 +27,6 @@ BeforeAll {
         $child = [System.Diagnostics.Process]::Start($startInfo)
         [pscustomobject]@{ Process = $child; Output = $child.StandardOutput.ReadToEndAsync(); Errors = $child.StandardError.ReadToEndAsync() }
     }
-    # Only a run that blocks every launch ('1') keeps the child from starting; 'tier' arms the L0 and L1 Describes
-    # alone.
     $script:inputPipeChild = if ($env:CATZC_BLOCK_REAL_PROCESS -ne '1') {
         Start-InputPipeChild
     }

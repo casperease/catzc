@@ -48,8 +48,6 @@ function Get-FirewallCsv {
     $common = "--subscription $SubscriptionId --account-name $StorageAccountName --container-name $ContainerName --auth-mode login"
 
     try {
-        # Every blob is listed, because the day-first names never sort by date; the newest is picked from the names
-        # below.
         $cli = Invoke-AzCli "storage blob list $common --num-results * -o json" -PassThru -Silent
     }
     catch {
@@ -71,7 +69,7 @@ function Get-FirewallCsv {
         $stamp = $Matches[0]
         $dateTime = [datetime]::MinValue
         if (-not [datetime]::TryParseExact($stamp, $TimestampFormat,
-            [System.Globalization.CultureInfo]::InvariantCulture, $utcStyles, [ref]$dateTime)) {
+                [System.Globalization.CultureInfo]::InvariantCulture, $utcStyles, [ref]$dateTime)) {
             throw "Blob '$Name' has a timestamp-shaped segment '$stamp' that won't parse as '$TimestampFormat' — refusing to guess."
         }
         $dateTime
@@ -101,8 +99,6 @@ function Get-FirewallCsv {
 
         Write-Verbose "Downloading $ruleType : $blobName (generated $($pick.Generated.ToString('u'))) -> $destination"
         try {
-            # Name and file are quoted, because either may hold spaces; the download stays loud because it is a real
-            # action.
             Invoke-AzCli "storage blob download $common --name `"$blobName`" --file `"$destination`" --overwrite true -o none"
         }
         catch {

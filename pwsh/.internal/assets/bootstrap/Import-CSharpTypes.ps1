@@ -168,9 +168,9 @@ function Import-CSharpTypes {
     else {
         $null
     }
-    # Git keeps only the manifest in .compiled; the DLL is a per-machine build in the shadow root
-    # ([ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD](/docs/drs/automation/caching.md#rule-adr-auto-cache-compiledtypeprebuild)).
-    # A bundle ships its DLL beside the manifest and never compiles.
+    # The DLL and its manifest are a per-machine build in the shadow root, keyed by the source hash, and git keeps no file
+    # under .compiled ([ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD](/docs/drs/automation/caching.md#rule-adr-auto-cache-compiledtypeprebuild)).
+    # A bundle ships its DLL beside the manifest in its .compiled and never compiles.
     $compiledDir = [System.IO.Path]::Combine($ModulesRoot, '.compiled')
     $buildDir = if ($PrebuiltOnly) {
         $compiledDir
@@ -212,16 +212,14 @@ function Import-CSharpTypes {
         Write-TypesAssemblyManifest -Path $dll | Out-Null
     }
 
-    # The committed manifest is the shadow build's copy; one manifest, the current hash's, stays in .compiled.
-    if (-not $PrebuiltOnly) {
-        $committedManifest = [System.IO.Path]::Combine($compiledDir, [System.IO.Path]::GetFileName($manifest))
-        if (-not [System.IO.File]::Exists($committedManifest)) {
-            [System.IO.Directory]::CreateDirectory($compiledDir) | Out-Null
-            [System.IO.File]::Copy($manifest, $committedManifest, $true)
-            foreach ($old in [System.IO.Directory]::EnumerateFiles($compiledDir, 'Catzc.Types.*.json')) {
-                if ($old -ne $committedManifest) {
-                    [System.IO.File]::Delete($old)
-                }
+    # What a consumer binds to, the types surface, is the provided contract under contracts/catzc: a compile on a devbox
+    # rewrites it when the surface moved, and a pipeline or a bundle only checks it (Test-BuildArtifact -Facet Types).
+    if ($didCompile -and -not $PrebuiltOnly -and -not (Test-IsRunningInPipeline)) {
+        $repositoryRoot = [System.IO.Path]::GetDirectoryName([System.IO.Path]::GetFullPath($ModulesRoot))
+        if ([System.IO.Directory]::Exists([System.IO.Path]::Combine($repositoryRoot, 'contracts', 'catzc'))) {
+            $contract = Write-TypesContract -Path $dll -RepositoryRoot $repositoryRoot
+            if ($contract.Written) {
+                Write-ImporterMessage "Wrote the types contract $($contract.Path)"
             }
         }
     }

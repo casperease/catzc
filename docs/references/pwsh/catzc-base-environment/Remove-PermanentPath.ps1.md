@@ -52,3 +52,12 @@ Above `if ($IsWindows) {`, written with `#`.
 Get-EnvironmentPath / Set-EnvironmentPath are the registry seam — kept thin so tests Mock them instead
 of touching the real machine PATH. See their help.
 ```
+
+## comment:2
+
+Above `if ($IsWindows) {`, written with `#`.
+
+```text
+The persistent PATH goes through a thin read and write seam, so a test can stand in for it and never touch the
+machine's.
+```

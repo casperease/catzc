@@ -1,7 +1,13 @@
+<#
+---
+catzc:
+  docs: "../../../../docs/references/pwsh/catzc-base-code-meta/tests/types/PropertyHead.Tests.ps1.md"
+  header: "generated"
+---
+#>
+
 Describe 'Catzc.Base.CodeMeta.PropertyHead' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRINTEDPARTS' {
     BeforeAll {
-        # '~' stands for a real line end in the single-quoted JSON below, so a JSON '\n' escape stays a backslash and an
-        # n.
         function Get-Lines {
             param([string] $Template, [string] $NewLine = "`n")
             $Template -replace '~', $NewLine

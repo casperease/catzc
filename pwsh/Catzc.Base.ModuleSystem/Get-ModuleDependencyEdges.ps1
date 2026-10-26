@@ -22,7 +22,7 @@ function Get-ModuleDependencyEdges {
             foreach ($member in $members.Keys) {
                 foreach ($dependency in @($members[$member])) {
                     $edges.Add([Catzc.Base.ModuleSystem.ModuleDependencyEdge]::new($member, $dependency, 'declared', 0,
-                        @()))
+                            @()))
                 }
             }
         }
@@ -32,7 +32,7 @@ function Get-ModuleDependencyEdges {
         foreach ($module in $modules.Keys) {
             foreach ($dependency in @($modules[$module])) {
                 $edges.Add([Catzc.Base.ModuleSystem.ModuleDependencyEdge]::new($module, $dependency, 'declared', 0,
-                    @()))
+                        @()))
             }
         }
     }

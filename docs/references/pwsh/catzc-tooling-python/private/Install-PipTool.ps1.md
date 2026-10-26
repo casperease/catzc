@@ -61,3 +61,30 @@ A pip-installed library may expose no PATH executable (PySpark's launcher lives 
 confirm it through the version probe (an import/metadata read against the managed Python) rather than
 asserting a command on PATH.
 ```
+
+## comment:4
+
+Above `$pythonVersion = (Get-ToolConfig -Tool 'python').version`, written with `#`.
+
+```text
+The interpreter is pinned, so a library lands in the managed Python the toolchain probes and never drifts to a
+stray one.
+```
+
+## comment:5
+
+Above `Invoke-Pip "install --python $pythonVersion --system --break-system-packages...`, written with `#`.
+
+```text
+A non-virtual install into the managed site-packages, so the bare interpreter can import the library and no venv
+traps it.
+```
+
+## comment:6
+
+Above `$actualVersion = Get-ToolVersion -Config $config`, written with `#`.
+
+```text
+A library may put nothing on PATH, so it is confirmed through the version probe, never by asserting a command
+exists.
+```

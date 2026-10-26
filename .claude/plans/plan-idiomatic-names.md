@@ -9,7 +9,7 @@ plan:
       pwsh/Catzc.Base.Languages,
       pwsh/Catzc.Base.QualityGates,
       pwsh/Catzc.Base.Contracts,
-      contracts/catzc/0.0.0,
+      contracts/catzc/0.1.0,
       python,
       go,
       docs/drs/automation/idiomatic-names.md,
@@ -21,7 +21,7 @@ plan:
 Each source language names its files, folders, functions and types in its own idiom: PowerShell `Get-CommandContract.ps1` in
 `Catzc.Base.Contracts/`, Python `get_command_contract` in `catzc_diagrams/`, Go `GetCommandContract` in `catzcbaserepository/`. Under the
 idioms sits one **repository normal form**, configured as `snake`; each idiom is a rendering of it, and the command contracts in
-`contracts/catzc/0.0.0` are written in it.
+`contracts/catzc/0.1.0` are written in it.
 
 ## Why its value is high
 
@@ -41,7 +41,7 @@ Every decision is a rule of [idiomatic-names](../../docs/drs/automation/idiomati
 - The normal form is a configured case, the best of all worlds even when it is one language's idiom: `snake` (ADR-AUTO-IDIOM-NORMALFORM);
   every name round-trips (ADR-AUTO-IDIOM-ROUNDTRIP); an acronym is one ordinary word, never a list (ADR-AUTO-IDIOM-ACRONYMISWORD).
 - A test folder is its module's normal form in its language's folder case (ADR-AUTO-IDIOM-TESTFOLDERBYIDIOM).
-- Contracts in `0.0.0` use the normal form for the command file name, the module folder, parameters, sets and types; `cats` takes the POSIX
+- Contracts in `0.1.0` use the normal form for the command file name, the module folder, parameters, sets and types; `cats` takes the POSIX
   rendering, kebab (ADR-REPO-CMDCONTRACT-CONTRACTLANGUAGE, -NOPLACEMENTFACTS, -CHECKERPERLANGUAGE, -ONEREADER, ADR-REPO-CONTRACT-LAYOUT). No
   `catzc` version is released, so the draft changes in place with every caller (PDR-ONELIVE).
 

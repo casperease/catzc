@@ -40,3 +40,12 @@ Above `$pattern = '(?m)^```yml drawio[ \t]*\r?\n(?:(?!```)[^\r\n]*\r?\n)*```[...
 The stems of the diagrams an article declares: each `yml drawio` block directly above an image embedding `.assets/<name>.drawio.png`,
 as `<page folder>/.assets/<name>`. A slide is never a carrier, so a block in one names nothing.
 ```
+
+## comment:2
+
+Above `$name = if ($match.Groups[1].Success) {`, written with `#`.
+
+```text
+An inline image names its png; a reference names it through its definition, and one naming no diagram is
+no stem.
+```

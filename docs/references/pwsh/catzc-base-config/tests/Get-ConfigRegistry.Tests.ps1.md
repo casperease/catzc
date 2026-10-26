@@ -25,3 +25,21 @@ Reads the SHIPPED configs.yml through the real lookup (nothing mocked), so it ru
 and the build run and proves the registry resolves inside the loaded module
 ([ADR-AUTO-ASSETDEP-COVEREDBYREALTEST](/docs/drs/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-coveredbyrealtest)).
 ```
+
+## comment:3
+
+Above `Describe 'Get-ConfigRegistry'`, written with `#`.
+
+```text
+Private, so reached through the module; the session's cache entry is reset around each case, so a fixture registry
+never leaks.
+```
+
+## comment:4
+
+Above `Describe 'Get-ConfigRegistry — shipped configs.yml'`, written with `#`.
+
+```text
+The shipped registry through the real lookup, nothing mocked, so it proves the registry resolves inside a loaded build
+too.
+```

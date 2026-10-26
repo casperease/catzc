@@ -23,3 +23,12 @@ and only the two Visual Studio type ids are registered in guids.yml. The RootCon
 ```powershell
 New-Solution | Set-Content out/catzc.sln.new -NoNewline
 ```
+
+## comment:1
+
+Above `$csharpType = '9A19103F-16F7-4668-BE54-9A1E7A4F7556'`, written with `#`.
+
+```text
+Every project id is minted from a sentence of its path, so a new hook enters the solution with its id the moment
+its folder exists.
+```

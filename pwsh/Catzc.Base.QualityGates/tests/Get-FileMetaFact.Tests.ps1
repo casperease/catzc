@@ -1,8 +1,14 @@
+<#
+---
+catzc:
+  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/Get-FileMetaFact.Tests.ps1.md"
+  header: "generated"
+---
+#>
+
 Describe 'Get-FileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-SUBSCRIBEBYFUNCTION' {
     BeforeAll {
         $script:state = Get-MarkdownMetaState -Text "# docs/widget.md`n`nA gadget tint.`n"
-        # Two fixture kinds with fixture processors: a fixed shade, and a tint read from the file's body, never from its
-        # head.
         InModuleScope Catzc.Base.QualityGates {
             function script:Get-WidgetShadeFileMetaFact {
                 [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '',
@@ -24,8 +30,6 @@ Describe 'Get-FileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-SUBSCRIBEBYFU
             }
         }
 
-        # A fixture registry: the `classes` of a test's raw config become the kinds the file-kinds registry names, and
-        # none leaves every file other.
         $script:kinds = [Catzc.Base.Globs.FileKindsConfig]::new(@{})
         Mock Get-Config -ModuleName Catzc.Base.Globs -ParameterFilter { $Config -eq 'file-kinds' } { $script:kinds }
 

@@ -52,8 +52,6 @@ function Get-Widget {
 
     Context 'a local module' {
         BeforeEach {
-            # Discovery reaches the fixture overlay only through its own seams, so the test can never read a real
-            # consumer's overlay.
             Mock Get-ConfigOverlayRoot -ModuleName Catzc.Base.Config -MockWith { $overlayRoot }
             Mock Get-CatzcOverlayRoot -ModuleName Catzc.Base.Repository -MockWith { $overlayRoot }
             & (Get-Module Catzc.Base.Config) { $script:configIndex = $null; $script:configCache = $null }
@@ -87,7 +85,7 @@ function Get-Widget {
             Get-Local | Should -Be 'local-core:overridden:7'
             @((Get-Module Widget.Local).ExportedFunctions.Keys) | Should -Be @('Get-Local')
             Get-CatzcModuleRoot -Module Widget.Local | Should -Be ([System.IO.Path]::Combine($overlayRoot,
-                'Widget.Local'))
+                    'Widget.Local'))
         }
 
         It 'replaces the module a previous load built' {

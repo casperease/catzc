@@ -45,7 +45,7 @@ content:
     - { id: c-sanitize, kind: code, label: sanitize, in: band-runner }
     - { id: c-invoke-command, kind: code, label: Invoke-Command, in: band-runner }
   edges:
-    - { from: f-ci-automation, to: f-template, kind: flow, label: "" }
+    - { from: f-ci-automation, to: f-template, kind: flow, label: calls }
     - { from: f-template, to: g-inline-guard, kind: flow, label: "" }
     - { from: g-inline-guard, to: x-throw, kind: fail, label: "" }
     - { from: g-inline-guard, to: c-importer, kind: flow, label: calls }

@@ -12,3 +12,12 @@ FolderWalkConfig maps folder-walk.yml and is the one declaration of its sensible
 ([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/drs/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)): an omitted key behaves exactly like the
 default, and a malformed value fails at construction with every violation named.
 ```
+
+## comment:2
+
+Above `Describe 'FolderWalkConfig'`, written with `#`.
+
+```text
+The type is the only place a folder-walk default lives, so an omitted key and its default must be indistinguishable to
+every walker.
+```

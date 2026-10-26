@@ -1,5 +1,11 @@
-# Rests on
-# [ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS](/docs/drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-isolatethroughseams).
+<#
+---
+catzc:
+  docs: "../../../docs/references/pwsh/catzc-base-vs-code/tests/Install-VSCodeExtension.Tests.ps1.md"
+  header: "generated"
+---
+#>
+
 Describe 'Install-VsCodeExtension' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:root = Join-Path $TestDrive 'extensions'

@@ -12,3 +12,12 @@ The protected-glob skip ([ADR-REPO-PROTGLOB](/docs/drs/repository/protected-glob
 repeated green scan over an unchanged
 globset; hash-before-scan via the pending-promote handshake; completely ignored in pipelines.
 ```
+
+## comment:2
+
+Above `Protect-GlobSet -Test 'suite' -Name 'Some.Module' -Hash ('d' * 64)`, written with `#`.
+
+```text
+pending wins
+([ADR-REPO-PROTGLOB-PROTECTIONKEY](/docs/drs/repository/protected-globs.md#rule-adr-repo-protglob-protectionkey))
+```

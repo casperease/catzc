@@ -34,3 +34,12 @@ Above `$c = & $script:make @{`, written with `#`.
 Neutral fixture globset names (widget/gadget), not the real loose-fileset/deployable-unit names
 ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```
+
+## comment:4
+
+Above `(& $script:program $c.Get('top')) | Should -Be @('+ mid/**', '+ leaf/**', '+...`, written with `#`.
+
+```text
+top composes [mid, leaf]; mid already pulls leaf. Raw: +leaf,+mid,+leaf,+top -> dedupe-last:
++mid,+leaf,+top
+```

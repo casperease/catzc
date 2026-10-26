@@ -36,3 +36,12 @@ Above `$isDiskRoot = {`, written with `#`.
 Never enumerate a whole drive: neither the repository root nor a -Path may be a disk root (C:\, /, a UNC
 share root). A relative -Path resolves against the current location, so '.' run from C:\ would be all of C:.
 ```
+
+## comment:2
+
+Above `Get-ChildPath $full -File -Depth 10`, written with `#`.
+
+```text
+A scope as wide as the repository: tracked files reach nine levels below the root, so ten leaves one
+level of headroom.
+```

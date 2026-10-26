@@ -54,9 +54,9 @@ const extensionOf = (/** @type {string} */ place) => {
 
 // The entries that hide what the tree does not show, as few as the shown files allow, since the editor hands files.exclude to the
 // processes it spawns and a long list overflows their command line. A folder that shows no file is written whole, as its topmost such
-// folder (so a dead folder, emptied by the lamps or empty on disk, leaves the tree too). A hidden file in a shown folder rides on its
-// extension where no shown file shares it: '**/*<ext>' when none does anywhere, else '<folder>/**/*<ext>' for its topmost folder holding
-// none; otherwise it is written itself, in its on-disk spelling.
+// folder (so a folder the lamps emptied leaves the tree too; one empty on disk stays, as no lamp claims it). A hidden file in a shown
+// folder rides on its extension where no shown file shares it: '**/*<ext>' when none does anywhere, else '<folder>/**/*<ext>' for its
+// topmost folder holding none; otherwise it is written itself, in its on-disk spelling.
 /**
  * @param {string[]} files
  * @param {string[]} folders

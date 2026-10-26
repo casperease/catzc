@@ -1,3 +1,11 @@
+<#
+---
+catzc:
+  docs: "../../../docs/references/pwsh/catzc-tooling-core/tests/Get-EngineCaseTable.Tests.ps1.md"
+  header: "generated"
+---
+#>
+
 Describe 'Get-EngineCaseTable' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:table = Join-Path $TestDrive 'widget-cases.yml'
@@ -55,8 +63,6 @@ Describe 'Get-EngineCaseTable — every shipped engine case table' -Tag 'L1', 'i
     BeforeDiscovery {
         # Every per-engine fixture table in the repository: tests/assets/engine-cases/*.yml in any module.
         $root = Get-CatzcModulesRoot
-        # A case table sits five levels below pwsh/ (module, tests, assets, engine-cases, file); vendored modules are
-        # pruned by the walk.
         $script:tables = @(Get-ChildPath $root -File -Filter '*.yml' -Depth 5 |
                 Where-Object {
                     $folder = [System.IO.Path]::GetDirectoryName($_)

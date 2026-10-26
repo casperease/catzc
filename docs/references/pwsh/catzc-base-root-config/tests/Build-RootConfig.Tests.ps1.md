@@ -55,3 +55,21 @@ Above `$script:writers =...`, written with `#`.
 The warm-run skip reads the one writer memo: the fixture declares the writer's inputs (its source and both targets), and the memo
 stays inside the fake root.
 ```
+
+## comment:7
+
+Above `$script:headed = {`, written with `#`.
+
+```text
+The pattern of the generated head a generator's file carries, over the content the generator rendered; the
+body hash is any 12 hex digits.
+```
+
+## comment:8
+
+Above `if (-not $script:skip) {`, written with `#`.
+
+```text
+-DryRun composes every opted-in target's content — a source file that is missing, or an unknown generator,
+throws.
+```

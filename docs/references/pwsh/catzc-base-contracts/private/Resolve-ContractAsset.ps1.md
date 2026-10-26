@@ -67,3 +67,12 @@ A holder the first glob match fills with the tracked files, shared across one ve
 ```powershell
 Resolve-ContractAsset -Root widget -Version 0.1.0 -Group gadgets -Path gadget.yml -File $file -AppliesTo $appliesTo -Tracked @{}
 ```
+
+## comment:1
+
+Above `if (-not $isNamed) {`, written with `#`.
+
+```text
+A presence asset, a fragment, or a schema with no sample beside it binds the files its applies_to entry names, and
+only those.
+```

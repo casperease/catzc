@@ -57,8 +57,8 @@ content:
     - { from: c-azure-cli, to: f-configuration, kind: flow, label: "" }
     - { from: c-azure-cli, to: c-tooling, kind: flow, label: calls }
     - { from: c-azure-cli, to: x-command, kind: flow, label: "" }
-    - { from: x-command, to: x-bicep, kind: flow, label: "" }
-    - { from: x-command, to: e-azure, kind: flow, label: the single exit }
+    - { from: x-command, to: x-bicep, kind: flow, label: calls }
+    - { from: x-command, to: e-azure, kind: flow, label: calls }
   markers:
     - { at: c-templates, number: 1 }
     - { at: f-configuration, number: 2 }

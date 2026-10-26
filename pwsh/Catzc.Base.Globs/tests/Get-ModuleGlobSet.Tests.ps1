@@ -101,9 +101,9 @@ Describe 'Get-ModuleGlobSet' -Tag 'L1', 'logic' {
     It 'returns every derived set exactly once when no name is given' {
         $all = @(Get-ModuleGlobSet)
         ($all.Name | Sort-Object) | Should -Be (@('catzc-base-alpha-live', 'catzc-base-alpha-tests',
-            'catzc-fake-beta-live', 'catzc-fake-beta-tests', 'catzc-internal-alpha', 'catzc-internal-beta', 'compiled',
-            'internal', 'internal-live', 'internal-tests', 'module-leftovers', 'scriptanalyzer', 'scriptanalyzer-live',
-            'scriptanalyzer-tests', 'vendor'))
+                'catzc-fake-beta-live', 'catzc-fake-beta-tests', 'catzc-internal-alpha', 'catzc-internal-beta', 'compiled',
+                'internal', 'internal-live', 'internal-tests', 'module-leftovers', 'scriptanalyzer', 'scriptanalyzer-live',
+                'scriptanalyzer-tests', 'vendor'))
     }
 
     It 'partitions each reserved code scope: its root modules and runtime folders live, the rest tests, a single-file module in neither (DDR-ASPECT-ASPECTISAGLOBSET)' {

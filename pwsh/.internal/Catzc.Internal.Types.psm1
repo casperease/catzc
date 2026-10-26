@@ -15,6 +15,7 @@ Set-StrictMode -Version Latest   # this module's scope: every function here runs
 . (Join-Path $PSScriptRoot 'assets/types/Build-CombinedTypeAssembly.ps1')
 . (Join-Path $PSScriptRoot 'assets/types/Get-TypesAssemblyManifest.ps1')
 . (Join-Path $PSScriptRoot 'assets/types/Write-TypesAssemblyManifest.ps1')
+. (Join-Path $PSScriptRoot 'assets/types/Write-TypesContract.ps1')
 
 function Get-TypesShadowRoot {
     [OutputType([string])]
@@ -386,4 +387,4 @@ function Enable-DeferredTypesLoad {
     }
 }
 
-Export-ModuleMember -Function Get-TypeSourceBody, Get-CombinedTypeHash, Get-LoadedTypeDrift, Build-CombinedTypeAssembly, Get-TypesShadowRoot, Get-TypesStampPath, Import-TypesAssembly, Test-TypesAssemblyContent, Get-TypesAssemblyManifest, Write-TypesAssemblyManifest, Get-TypesLoadPolicy, Register-DeferredTypes, Initialize-Types, Enable-DeferredTypesLoad
+Export-ModuleMember -Function Get-TypeSourceBody, Get-CombinedTypeHash, Get-LoadedTypeDrift, Build-CombinedTypeAssembly, Get-TypesShadowRoot, Get-TypesStampPath, Import-TypesAssembly, Test-TypesAssemblyContent, Get-TypesAssemblyManifest, Write-TypesAssemblyManifest, Write-TypesContract, Get-TypesLoadPolicy, Register-DeferredTypes, Initialize-Types, Enable-DeferredTypesLoad

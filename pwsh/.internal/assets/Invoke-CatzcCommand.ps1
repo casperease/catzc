@@ -101,6 +101,10 @@ if (-not $owned) {
 
 $failed = 0
 try {
+    # Inside a burst its import is the one the swap is for, so Wait-ImportBurst lets it through.
+    if ($InBurst) {
+        $env:CATZC_IN_BURST = '1'
+    }
     . $Importer
 
     # Imported, the run knows its commands' time limits, so the holder record's deadline moves from the budget to their
@@ -128,7 +132,7 @@ try {
         }
         if (-not $undeclared -and $limit -gt 0) {
             Set-CatzcRunLockHolder -LockName $LockName -Seconds ([Math]::Min($limit,
-                $BudgetSeconds)) -Holding "Invoke-CatzcCommand $($Command -join '; ')"
+                    $BudgetSeconds)) -Holding "Invoke-CatzcCommand $($Command -join '; ')"
         }
     }
 
@@ -178,6 +182,9 @@ try {
     }
 }
 finally {
+    if ($InBurst) {
+        $env:CATZC_IN_BURST = $null
+    }
     if ($lock) {
         Remove-CatzcRunLockHolder -LockName $LockName
         $lock.ReleaseMutex()

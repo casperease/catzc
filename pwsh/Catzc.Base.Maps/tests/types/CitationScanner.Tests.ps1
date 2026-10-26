@@ -86,7 +86,7 @@ Describe 'CitationScanner' -Tag 'L0', 'logic' {
     It 'places each citation on its line, as header help, a passing comment or text' {
         $sites = { param([string] $Path, [string[]] $Lines)
             @([Catzc.Base.Maps.CitationScanner]::Sites($Path, ($Lines -join "`n"),
-                $script:index) | ForEach-Object { "$($_.Line) $($_.Kind) $($_.Citation)" })
+                    $script:index) | ForEach-Object { "$($_.Line) $($_.Kind) $($_.Citation)" })
         }
         & $sites 'widgets/Get-Widget.ps1' @(
             '# ADR-WIDGET-GADGET-TURN'

@@ -59,7 +59,7 @@ Describe 'MinimapData' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT-PROVENBYTESTS' {
         { [Catzc.Base.Maps.MinimapData]::new('grid', $axes, @(), @([Catzc.Base.Maps.MinimapCell]::new(@('a'), 1))) } |
             Should -Throw '*has no reason*'
         { [Catzc.Base.Maps.MinimapData]::new('grid', $axes, @([Catzc.Base.Maps.MinimapCell]::new(@('a', 'b'), 1)),
-            @()) } | Should -Throw '*names 2 axis values, but the minimap has 1 axes*'
+                @()) } | Should -Throw '*names 2 axis values, but the minimap has 1 axes*'
     }
 
     It 'the schema rejects a minimap whose lit cell has no reasons' {

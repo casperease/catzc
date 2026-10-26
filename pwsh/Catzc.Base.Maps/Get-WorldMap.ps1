@@ -19,8 +19,6 @@ function Get-WorldMap {
 
     $aspects = [ordered]@{}
     foreach ($track in $tracks) {
-        # A laid-out track derives its aspects from the layout; any other track has them only when variants.yml declares
-        # them.
         if ($languages.IsLaidOut($track.languages) -or (Test-AspectDeclaration -Track $track.name)) {
             $aspects[$track.name] = @(Get-Aspect -Track $track.name)
         }

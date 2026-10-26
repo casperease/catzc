@@ -29,3 +29,12 @@ The most greedy files that run at once (`greedy_group_size` in the test policy).
 ### outputs
 
 `[int]` the number of workers in the pool.
+
+## comment:1
+
+Above `[Math]::Max($ParallelShardCount + [Math]::Min($GreedyGroupSize,...`, written with `#`.
+
+```text
+Every parallel shard starts with the run; the greedy files get workers of their own, up to the group size, so the
+longest start with it too.
+```

@@ -70,7 +70,7 @@ Describe 'Get-RepoStatus against real git' -Tag 'L2', 'logic' {
         [void][System.IO.Directory]::CreateDirectory($script:remote)
         [void][System.IO.Directory]::CreateDirectory($script:repo)
         $git = { param([string] $Arguments,
-            [string] $In) Invoke-Executable "git $Arguments" -WorkingDirectory $In -Silent }
+                [string] $In) Invoke-Executable "git $Arguments" -WorkingDirectory $In -Silent }
         & $git 'init -q --bare' $script:remote
         & $git 'init -q' $script:repo
         & $git 'config user.email widget@example.invalid' $script:repo

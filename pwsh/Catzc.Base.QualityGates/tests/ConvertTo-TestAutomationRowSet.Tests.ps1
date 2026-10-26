@@ -52,7 +52,7 @@ Describe 'ConvertTo-TestAutomationRowSet' -Tag 'L0', 'logic' {
                     -File 'C:\x\Wide.Tests.ps1' -Line 30
                 New-FakeTest -Path 'Mod.Cited enforces a rule' -Result 'Passed' -Ms 3 `
                     -Tags @('L1', 'logic', 'ADR-WIDGET-GADGET-SPIN',
-                        'ADR-WIDGET-GADGET-TURN') -File 'C:\x\Cited.Tests.ps1' -Line 8
+                    'ADR-WIDGET-GADGET-TURN') -File 'C:\x\Cited.Tests.ps1' -Line 8
             )
         }
 

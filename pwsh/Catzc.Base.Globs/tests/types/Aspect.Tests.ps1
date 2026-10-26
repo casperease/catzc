@@ -19,7 +19,7 @@ Describe 'Aspect / AspectPartition' -Tag 'L0', 'logic' {
             $list = [System.Collections.Generic.List[Catzc.Base.Globs.GlobSet]]::new()
             foreach ($c in $compiled) {
                 $list.Add([Catzc.Base.Globs.GlobSet]::new("m-$($c.Name)", 'd', 'module', $c.Include, $c.Exclude, @(),
-                    @(), -1, $null))
+                        @(), -1, $null))
             }
             , $list
         }

@@ -17,7 +17,7 @@ function Test-GitHistoryClean {
         [string] $RepositoryPath = (Get-RepositoryRoot),
 
         [string[]] $ExcludePath = @([System.IO.Path]::GetRelativePath((Get-RepositoryRoot),
-            (Join-Path (Get-CatzcModulesRoot) '.vendor')) -replace '\\', '/')
+                (Join-Path (Get-CatzcModulesRoot) '.vendor')) -replace '\\', '/')
     )
 
     Assert-PathExist $RepositoryPath -PathType Container

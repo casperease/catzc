@@ -54,3 +54,12 @@ Above `$moduleConfigs = Get-ChildPath (Join-Path $root (Get-CatzcModulesFolder))
 A module's configs sit three levels below pwsh/ (module, configs, file); an infrastructure place's ymls reach four
 (template, configuration, customer, file).
 ```
+
+## comment:2
+
+Above `$terminology = 'configs/terminology/*'`, written with `#`.
+
+```text
+A config is one file or a folder of parts (configs/<name>/*.yml); the terminology parts declare the fixture
+tokens themselves.
+```

@@ -1,3 +1,11 @@
+<#
+---
+catzc:
+  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/Get-DrsDefinedRule.Tests.ps1.md"
+  header: "generated"
+---
+#>
+
 Describe 'Get-DrsDefinedRule' -Tag 'L0', 'logic', 'ADR-REPO-LINK-ONECITATIONSPELLING' {
     BeforeAll {
         function script:Get-Defined {
@@ -25,8 +33,6 @@ Describe 'Get-DrsDefinedRule' -Tag 'L0', 'logic', 'ADR-REPO-LINK-ONECITATIONSPEL
     }
 
     It 'takes a citation in prose, a numbered heading and a deeper heading for no definition' {
-        # The numbered heading is built from two strings, so the string-citation check reads no numbered citation in
-        # this file.
         $text = "## Rules: ADR-WIDGET-PART`n`nSee ADR-WIDGET-PART-TURN.`n`n### Rule ADR-WIDGET-PART" + ":2`n`n#### Rule ADR-WIDGET-PART-SPIN`n"
         (Get-Defined $text).Count | Should -Be 0
     }

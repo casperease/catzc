@@ -55,3 +55,12 @@ Above `$pythonVersion = "$(Get-ConfigValue -Address 'global.tools.python.version
 The one Python version: the python tool's tools.yml pin, read by address (reading config is global access,
 [ADR-CONF-ADDRESSING](/docs/drs/configuration/config-value-addressing.md)).
 ```
+
+## comment:2
+
+Above `$members = @(foreach ($folder in $folders) {`, written with `#`.
+
+```text
+The members: the test holder's folders, each named by its folder, then the modules, each named by its name in
+kebab case.
+```

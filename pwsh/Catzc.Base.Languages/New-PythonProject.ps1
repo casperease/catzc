@@ -11,7 +11,7 @@ function New-PythonProject {
     [OutputType([Catzc.Base.Languages.PythonWorkspaceFile])]
     param(
         # The ruff line length, from the caller: the width file-limits declares for .py files.
-        [Parameter(Mandatory)]
+        [Parameter(Mandatory, Position = 0)]
         [ValidateRange(1, 1000)]
         [int] $LineLength,
 
@@ -91,10 +91,8 @@ function New-PythonProject {
     $workspace.Add("pythonVersion = `"$pythonVersion`"")
     $workspace.Add("typeCheckingMode = `"$($config.type_checking)`"")
     $files.Add([Catzc.Base.Languages.PythonWorkspaceFile]::new("$pythonRoot/pyproject.toml",
-        ($workspace -join "`n") + "`n"))
+            ($workspace -join "`n") + "`n"))
 
-    # The members: the test holder's folders, each named by its folder, then the modules, each named by its name in
-    # kebab case.
     $members = @(foreach ($folder in $folders) {
             [pscustomobject]@{ Name = $folder; Folder = "tests/$folder" }
         }) +
@@ -117,7 +115,7 @@ function New-PythonProject {
         $member.Add('[tool.uv]')
         $member.Add('package = false')
         $files.Add([Catzc.Base.Languages.PythonWorkspaceFile]::new("$pythonRoot/$($entry.Folder)/pyproject.toml",
-            ($member -join "`n") + "`n"))
+                ($member -join "`n") + "`n"))
     }
 
     foreach ($file in $files) {

@@ -41,8 +41,6 @@ function Test-GeneratedFiles {
         })
 
     $issues = [System.Collections.Generic.List[string]]::new()
-    # With -Changed only the writers Get-GeneratedWriterDue names run their dry run: the one reading of the inputs and
-    # outputs lists.
     $dueNames = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
     # A stamp-only check runs no writer, so it reads no due rows (the import's janitor has its own).
     if ($Changed -and -not $StampOnly) {

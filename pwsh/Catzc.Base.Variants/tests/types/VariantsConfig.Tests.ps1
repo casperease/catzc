@@ -1,7 +1,13 @@
+<#
+---
+catzc:
+  docs: "../../../../docs/references/pwsh/catzc-base-variants/tests/types/VariantsConfig.Tests.ps1.md"
+  header: "generated"
+---
+#>
+
 Describe 'VariantsConfig' -Tag 'L0' {
     BeforeAll {
-        # tracks is required, so a fixture that is about another key gets one neutral track; a fixture that states
-        # tracks keeps its own.
         $script:make = {
             param([System.Collections.IDictionary] $raw)
             $full = [ordered]@{}
@@ -145,7 +151,8 @@ Describe 'VariantsConfig' -Tag 'L0' {
             $config = & $script:make ([ordered]@{ tracks = [ordered]@{
                         widget    = [ordered]@{ members = @('widget'); type = 'widget-works'; languages = @('widget-lang', 'gadget-lang') }
                         '.gadget' = [ordered]@{ members = @('.gadget',
-                            '.gadget/deep'); type = 'gadget-shelf'; vendor = 'gizmo' }
+                                '.gadget/deep'); type = 'gadget-shelf'; vendor = 'gizmo'
+                        }
                     }
                 })
             $config.tracks.name | Should -Be @('widget', '.gadget')
@@ -161,8 +168,9 @@ Describe 'VariantsConfig' -Tag 'L0' {
 
         It 'reads a plain member as authored and committed, and a map member with the facts it states' -Tag 'DDR-TRACK-TRACKISPLACEDCLUSTER' {
             $config = & $script:make ([ordered]@{ tracks = [ordered]@{
-                        widget = [ordered]@{ members = @('widget',
-                            [ordered]@{ path = 'widget.cache'; generated = $true; committed = $false }); type = 'widget-works' }
+                        widget = [ordered]@{ members                                                              = @('widget',
+                                [ordered]@{ path = 'widget.cache'; generated = $true; committed = $false }); type = 'widget-works'
+                        }
                     }
                 })
             $members = $config.tracks[0].members
@@ -193,7 +201,10 @@ Describe 'VariantsConfig' -Tag 'L0' {
             @{ Path = 'gadget/a.txt'; Length = -1 }
         ) {
             $config = & $script:make ([ordered]@{ tracks = [ordered]@{ widget = [ordered]@{ members = @('widget',
-                'widget/deep'); type = 'widget-works' } } })
+                                'widget/deep'); type                                                = 'widget-works'
+                        }
+                    }
+                })
             $config.tracks[0].PlaceLengthOf($Path) | Should -Be $Length
         }
 
@@ -239,7 +250,8 @@ Describe 'VariantsConfig' -Tag 'L0' {
         It 'throws on an unknown track key, a bad language name, and a duplicate language' {
             $config = [ordered]@{ tracks = [ordered]@{
                     widget = [ordered]@{ members = @('widget'); type = 'widget-works'; languages = @('Gadget',
-                        'widget-lang', 'widget-lang'); colour = 'blue' }
+                            'widget-lang', 'widget-lang'); colour = 'blue'
+                    }
                 }
             }
             $err = { & $script:make $config } | Should -Throw -PassThru

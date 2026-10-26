@@ -12,3 +12,12 @@ The shipped inspiration.yml through the real Get-Config and the real repository 
 presence: on a machine without eac the default inspiration is reported unavailable, and the test still passes
 ([ADR-REPO-INSPIRE-SIBLINGFORIDEAS](/docs/drs/repository/inspiration.md#rule-adr-repo-inspire-siblingforideas)).
 ```
+
+## comment:2
+
+Above `Describe 'Get-Inspiration over the shipped inspiration.yml'`, written with `#`.
+
+```text
+Consistency, never presence: on a machine without the sibling checkout it is reported unavailable and the test still
+passes.
+```

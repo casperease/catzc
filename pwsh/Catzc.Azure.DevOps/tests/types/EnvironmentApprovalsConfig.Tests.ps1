@@ -34,7 +34,8 @@ Describe 'Catzc.Azure.DevOps.EnvironmentApprovalsConfig' -Tag 'L0' {
 
         It 'derives each unit''s release-gate environments from the rungs registry, then the prod tier' -Tag 'FDR-CD-RUNGSREGISTRY' {
             $config = [Catzc.Azure.DevOps.EnvironmentApprovalsConfig]::new([ordered]@{ units = @('widget',
-                'gadget'); prod_environments = @('widget-psub') })
+                        'gadget'); prod_environments                                         = @('widget-psub')
+                })
             $config.Environments($ladder) | Should -Be @('widget-gadget-uat', 'widget-gizmo-stage', 'gadget-gadget-uat',
                 'gadget-gizmo-stage', 'widget-psub')
         }
@@ -76,7 +77,9 @@ Describe 'Catzc.Azure.DevOps.EnvironmentApprovalsConfig' -Tag 'L0' {
 
         It 'throws on a member listed twice' {
             Get-ViolationMessage ([ordered]@{ approver_group = [ordered]@{ members = @('a@widget.test',
-                'A@widget.test') }; units = @('widget') }) |
+                            'A@widget.test')
+                    }; units                                 = @('widget')
+                }) |
                 Should -BeLike "*members lists 'A@widget.test' twice*"
         }
 
@@ -88,7 +91,8 @@ Describe 'Catzc.Azure.DevOps.EnvironmentApprovalsConfig' -Tag 'L0' {
             Get-ViolationMessage ([ordered]@{ units = @('widget', 'Widget') }) |
                 Should -BeLike "*units lists 'Widget' twice*"
             Get-ViolationMessage ([ordered]@{ units = @('widget'); prod_environments = @('widget-psub',
-                'WIDGET-psub') }) |
+                        'WIDGET-psub')
+                }) |
                 Should -BeLike "*prod_environments lists 'WIDGET-psub' twice*"
         }
 

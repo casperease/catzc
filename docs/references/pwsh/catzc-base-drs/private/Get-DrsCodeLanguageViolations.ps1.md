@@ -31,3 +31,12 @@ The docs/drs/ file index (Get-DrsFileIndex).
 ### outputs
 
 `[string[]]` One finding per code, domain, rule heading, or ADR file with numbered rule headings, each ending with the rule it breaks.
+
+## comment:1
+
+Above `$prefix = $domain.Kind`, written with `#`.
+
+```text
+A domain code of several segments is one finding; its ADRs are held to its first segment. A kind one domain
+owns has no domain code.
+```

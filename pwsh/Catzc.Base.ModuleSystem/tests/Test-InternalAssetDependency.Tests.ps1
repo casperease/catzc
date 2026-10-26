@@ -25,7 +25,8 @@ Describe 'Test-InternalAssetDependency' -Tag 'L0', 'logic' {
         }
         Mock Get-UncoveredInternalAssetDependency -ModuleName Catzc.Base.ModuleSystem {
             [pscustomobject]@{ Module = 'Gadget'; Function = 'Get-Gadget'; ChildPath = @('assets/a.txt',
-                'assets/b.txt'); Reason = 'no test cites ADR-WIDGET-GADGET-SPINS' }
+                    'assets/b.txt'); Reason = 'no test cites ADR-WIDGET-GADGET-SPINS'
+            }
         }
         $thrown = { Test-InternalAssetDependency -OutputFolder $out } | Should -Throw -PassThru
         $message = $thrown.Exception.Message

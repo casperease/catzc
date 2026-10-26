@@ -36,11 +36,11 @@ content:
     - { id: s-unit, kind: set, label: Deployable-unit, in: band-units }
     - { id: r-pipeline, kind: runner, label: Pipeline, in: band-pipelines }
   edges:
-    - { from: s-track, to: s-unit, kind: thick, label: "" }
+    - { from: s-unit, to: s-track, kind: thick, label: composes }
     - { from: s-unit, to: r-pipeline, kind: flow, label: feeds }
   markers:
     - { at: s-track, number: 1 }
-    - { at: s-track->s-unit, number: 2 }
+    - { at: s-unit->s-track, number: 2 }
     - { at: s-unit, number: 3 }
     - { at: s-unit->r-pipeline, number: 4 }
     - { at: r-pipeline, number: 5 }

@@ -74,3 +74,12 @@ Above `$identityParameters = 'Environment', 'Env', 'Shortcode'`, written with `#
 Position pass — an ambiguous identity (an environment name or shortcode, like 'test'/'dev') is flagged
 ONLY when bound to an identity parameter (-Environment / -Env / -Shortcode), never as a prose literal.
 ```
+
+## comment:5
+
+Above `$parent = $literal.Parent`, written with `#`.
+
+```text
+A hashtable key names a parameter or a property (a splat's `Discovery = …`), never a value, so it is no
+identity.
+```

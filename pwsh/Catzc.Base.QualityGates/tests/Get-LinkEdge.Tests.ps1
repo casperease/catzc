@@ -3,7 +3,7 @@ Describe 'Get-LinkEdge' -Tag 'L0', 'logic', 'ADR-REPO-LINKS-CONVENTIONSAREDERIVE
     BeforeEach {
         InModuleScope Catzc.Base.QualityGates {
             $edge = { param([string] $From, [string] $Target,
-                [string] $Relation) [Catzc.Base.QualityGates.LinkEdge]::new($From, 1, 1, $Relation, $Target, '') }
+                    [string] $Relation) [Catzc.Base.QualityGates.LinkEdge]::new($From, 1, 1, $Relation, $Target, '') }
             Mock Assert-SourceTree { }
             Mock Get-LinkScope { @('mods/Widget/Get-Widget.ps1') }
             Mock Invoke-LinkEngine {

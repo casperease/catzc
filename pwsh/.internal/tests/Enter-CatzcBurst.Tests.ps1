@@ -1,11 +1,17 @@
+<#
+---
+catzc:
+  docs: "../../../docs/references/pwsh/internal/tests/Enter-CatzcBurst.Tests.ps1.md"
+  header: "generated"
+---
+#>
+
 Describe 'Enter-CatzcBurst' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:enter = Join-Path $PSScriptRoot '../assets/Enter-CatzcBurst.ps1'
         $script:exit = Join-Path $PSScriptRoot '../assets/Exit-CatzcBurst.ps1'
         $script:entry = Join-Path $PSScriptRoot '../assets/Invoke-CatzcCommand.ps1'
         $script:importer = Join-Path $TestDrive 'importer.ps1'
-        # The run shows a command's output through Write-Message, so the stand-in importer defines it as the real import
-        # does.
         [System.IO.File]::WriteAllText($script:importer,
             "function Get-Widget { 'widget' }`nfunction Write-Message { param([AllowEmptyString()] [string] `$Message, [switch] `$NoHeader) Write-Information `$Message -InformationAction Continue }`n")
         # Runs a burst on another thread, the way a session's background call would, and waits until it holds the lock.
@@ -68,8 +74,6 @@ Describe 'Enter-CatzcBurst' -Tag 'L0', 'logic' {
     It 'holds the lock against every other run until Exit-CatzcBurst ends the burst' -Tag 'ADR-AUTO-FAILFAST-BOUNDEVERYWAIT' {
         $burst = Start-Burst -Name $script:lockName -Seconds 5
         $run = Start-Run -Name $script:lockName -LockSeconds 1
-        # Past the run's own 1 s wait it still waits, since the burst holds the lock, and runs only after the burst
-        # ends.
         Start-Sleep -Milliseconds 1500
         $run.Handle.IsCompleted | Should -BeFalse
         & $script:exit -LockName $script:lockName |
@@ -181,8 +185,6 @@ Describe 'Enter-CatzcBurst — in a child pwsh process' -Tag 'L2', 'logic' {
         $script:enter = Join-Path $PSScriptRoot '../assets/Enter-CatzcBurst.ps1'
         $script:entry = Join-Path $PSScriptRoot '../assets/Invoke-CatzcCommand.ps1'
         $script:importer = Join-Path $TestDrive 'importer.ps1'
-        # The run shows a command's output through Write-Message, so the stand-in importer defines it as the real import
-        # does.
         [System.IO.File]::WriteAllText($script:importer,
             "function Get-Widget { 'widget' }`nfunction Write-Message { param([AllowEmptyString()] [string] `$Message, [switch] `$NoHeader) Write-Information `$Message -InformationAction Continue }`n")
     }

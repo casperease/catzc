@@ -37,3 +37,12 @@ Above `$fragmentRoot = [System.IO.Path]::GetFullPath((Join-Path (Get-RepositoryR
 Source mode reads only this repository's own config fragments, under .catzc/<the modules folder>
 ([PDR-CATS-FOLDERSUSECATZC](/docs/drs/principles/cats-and-catzc.md#rule-pdr-cats-foldersusecatzc)).
 ```
+
+## comment:3
+
+Above `$fragmentRoot = [System.IO.Path]::GetFullPath((Join-Path (Get-RepositoryRoot)...`, written with `#`.
+
+```text
+A source run reads only this repository's own fragments, so a consumer's overlay can never leak into the
+source tree.
+```

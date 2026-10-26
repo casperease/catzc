@@ -156,7 +156,7 @@ Describe 'MarkdownDocument' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-HEADPOLICY' {
     It 'does not count the blank line after written front matter, so a second imprint records the same hash' {
         $first = [Catzc.Base.MarkdownMeta.MarkdownDocument]::Parse($script:plain)
         $written = [Catzc.Base.MarkdownMeta.MarkdownDocument]::Parse($first.WithMetaBlock([string[]] @('catzc:',
-            '  immutable:', '    kind: gadget')))
+                    '  immutable:', '    kind: gadget')))
         $written.Body | Should -BeExactly "`n$($script:plain)"
         $written.BodyHash() | Should -BeExactly $first.BodyHash()
     }

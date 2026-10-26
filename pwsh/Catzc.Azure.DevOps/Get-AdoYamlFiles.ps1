@@ -28,8 +28,6 @@ function Get-AdoYamlFiles {
 
     Write-Message "Scanning for YAML files in: $scanRoot"
 
-    # The bounded walker prunes the folder-walk config's folders (.git, node_modules, .terraform, …); the depth is the
-    # inventory's.
     $ret = @(Get-ChildPath $scanRoot -File -Filter '*.yml', '*.yaml' -Depth $Depth)
 
     Write-Message "Found $($ret.Count) YAML files"

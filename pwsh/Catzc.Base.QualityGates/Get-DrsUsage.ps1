@@ -26,6 +26,7 @@ function Get-DrsUsage {
     $map = Get-DrsCitationMap -RepositoryRoot $RepositoryRoot
     $config = Get-Config -Config file-meta
     $pages = Get-Config -Config comment-pages
+    $drs = Get-Config -Config drs
     $rows = foreach ($entry in Get-FileMetaScope -RepositoryRoot $RepositoryRoot -Path $Path -Config $config) {
         $carrier = $entry.Carrier.carrier
         if ($carrier -eq [Catzc.Base.Languages.CarrierKind]::Property) {
@@ -36,7 +37,16 @@ function Get-DrsUsage {
             continue
         }
         $text = [System.IO.File]::ReadAllText($file)
-        $arguments = @{ Text = $text; Path = $entry.Path; Map = $map; Pages = $pages }
+        $arguments = @{
+            Text           = $text
+            Path           = $entry.Path
+            Map            = $map
+            Pages          = $pages
+            RepositoryRoot = $RepositoryRoot
+            CodeForm       = $drs.CodeForm
+            DomainClasses  = $drs.DomainClasses
+            FileClass      = $entry.Class
+        }
         if ($carrier -eq [Catzc.Base.Languages.CarrierKind]::CommentHead) {
             $arguments['Form'] = $entry.Carrier.Form()
         }

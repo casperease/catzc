@@ -76,3 +76,12 @@ Above `$memoPath = Join-Path (Get-OutputRoot) 'cache/session-tools.json'`, writt
 The pass probes every tool on disk, so its outcome is remembered per machine under the key of what it read: the tool registry
 and the session's PATH as it stood. The same key gets the same outcome, the PATH the pass left, re-applied without a probe.
 ```
+
+## comment:5
+
+Above `if ($memo -is [hashtable] -and @($memo['keys']) -ccontains $key -and...`, written with `#`.
+
+```text
+The memo answers to the PATH the pass started from and to the PATH it left, so a second pass in the same session
+hits too.
+```

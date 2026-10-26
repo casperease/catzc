@@ -38,3 +38,12 @@ The docs/drs/ file index (Get-DrsFileIndex).
 
 `[string[]]` One finding per violation: '`<file>:<line>`: `<rule>` (`<domain>`) cites `<reference>` (`<domain>`); `<domain>` depends on:
 ...'.
+
+## comment:1
+
+Above `$folders = @($Adrs.Domains | Sort-Object -Property { $_.Folder.Length }...`, written with `#`.
+
+```text
+A link's domain is the one with the longest folder that holds its target, so a domain folder nested in another
+keeps its own links.
+```

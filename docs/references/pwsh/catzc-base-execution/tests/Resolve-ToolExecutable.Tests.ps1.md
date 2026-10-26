@@ -13,3 +13,12 @@ The mapping from a tools.yml entry to the probe's plain inputs: the tools config
 and session actor hands it. Fixture tokens are neutral
 ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```
+
+## comment:2
+
+Above `$script:tools = [Catzc.Base.Execution.ToolsConfig]::new([ordered]@{`, written with `#`.
+
+```text
+The typed registry the real Get-Config returns, so the function reads typed properties as it does in
+production.
+```

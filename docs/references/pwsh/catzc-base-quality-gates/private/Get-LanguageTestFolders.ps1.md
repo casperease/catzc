@@ -62,3 +62,21 @@ Above `$languagesConfig = Get-Config -Config languages`, written with `#`.
 Each language with a test runner: its root from its own config, named for the language, its test-file pattern from the registry,
 and every catzc module by the test folder that names it in the language's folder case.
 ```
+
+## comment:3
+
+Above `$testsRoot =...`, written with `#`.
+
+```text
+The track's own test holder: one folder per catzc module, named for it in the language's folder case, testing
+it from outside.
+```
+
+## comment:4
+
+Above `if (-not @(Get-ChildPath $folder -File -Filter $language.Pattern -Depth...`, written with `#`.
+
+```text
+A module folder holds its test files directly or in a package one level down; the third level is
+headroom.
+```

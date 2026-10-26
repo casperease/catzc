@@ -2,9 +2,9 @@ Describe 'PlaceRows' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:places = [Catzc.Base.Maps.MapsMinimapPlaces]::Default()
         $script:cell = { param([string] $Track, [string] $Module,
-            [string] $Folder) [Catzc.Base.Maps.MinimapCell]::new([string[]] @($Track, $Module, $Folder), 1,
-            [Catzc.Base.Maps.MinimapReason[]] @([Catzc.Base.Maps.MinimapReason]::new("$Track/$Module/$Folder/x",
-            'citation', 'ADR-WIDGET', $null))) }
+                [string] $Folder) [Catzc.Base.Maps.MinimapCell]::new([string[]] @($Track, $Module, $Folder), 1,
+                [Catzc.Base.Maps.MinimapReason[]] @([Catzc.Base.Maps.MinimapReason]::new("$Track/$Module/$Folder/x",
+                        'citation', 'ADR-WIDGET', $null))) }
         $script:cells = { param([object[]] $Places) [Catzc.Base.Maps.MinimapCell[]] @($Places | ForEach-Object { & $script:cell $_[0] $_[1] $_[2] }) }
         $script:rowsOf = { param([object[]] $Places) [Catzc.Base.Maps.PlaceRows]::From([Catzc.Base.Maps.MinimapCell[]] @(& $script:cells $Places), $script:places) }
     }

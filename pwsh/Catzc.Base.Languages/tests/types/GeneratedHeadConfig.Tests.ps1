@@ -8,15 +8,18 @@ Describe 'Catzc.Base.Languages.GeneratedHeadConfig' -Tag 'L0', 'logic' {
 
     It 'rejects an unknown key, a repeated key, a missing required key and an unknown top-level key' {
         { [Catzc.Base.Languages.GeneratedHeadConfig]::new([ordered]@{ keys = @('warning', 'with_body_sha',
-            'widget') }) } | Should -Throw '*unknown head key ''widget''*'
+                        'widget')
+                }) } | Should -Throw '*unknown head key ''widget''*'
         { [Catzc.Base.Languages.GeneratedHeadConfig]::new([ordered]@{ keys = @('warning', 'with_body_sha',
-            'warning') }) } | Should -Throw '*listed once*'
+                        'warning')
+                }) } | Should -Throw '*listed once*'
         { [Catzc.Base.Languages.GeneratedHeadConfig]::new([ordered]@{ keys = @('warning') }) } |
             Should -Throw '*''with_body_sha'' is required*'
         { [Catzc.Base.Languages.GeneratedHeadConfig]::new([ordered]@{ keys = @('with_body_sha') }) } |
             Should -Throw '*''warning'' is required*'
         { [Catzc.Base.Languages.GeneratedHeadConfig]::new([ordered]@{ keys = @('warning',
-            'with_body_sha'); widget = 1 }) } | Should -Throw '*unknown top-level key*'
+                        'with_body_sha'); widget                           = 1
+                }) } | Should -Throw '*unknown top-level key*'
     }
 
     It 'rejects every fact a generated head no longer carries, since each is derived on demand' -Tag 'ADR-REPO-FILEMETA-COMPOSEDFILES' -ForEach @(

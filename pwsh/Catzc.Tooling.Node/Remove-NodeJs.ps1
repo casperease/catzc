@@ -20,8 +20,6 @@ function Remove-NodeJs {
         throw 'Node.js is managed by the tooling system. Use Uninstall-NodeJs instead.'
     }
 
-    # An off-config install leaves by the mechanism that placed it, so elevation is that mechanism's, never asserted
-    # here.
     if ($IsLinux -or $IsMacOS) {
         if (-not $Force) {
             Write-Message 'Would evict an off-config Node.js (native package / uv-Python pip / stray binary). Run with -Force to execute.'

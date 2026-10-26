@@ -35,3 +35,12 @@ Every page that embeds a diagram, by the diagram's stem: each tracked markdown p
 resolved from the page's own folder, or from the repository root for a link that starts with '/'. Any number of pages may
 embed one diagram; the diagram names none of them.
 ```
+
+## comment:2
+
+Above `$embedders = @{}`, written with `#`.
+
+```text
+Stem to embedding pages: links resolve from the page's folder, or the root for '/'; a diagram names none of its
+pages.
+```

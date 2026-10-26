@@ -76,8 +76,6 @@ function Read-CommandSignature {
                     $hasParameterAttribute = $true
                 }
             }
-            # A parameter with no [Parameter()], or one without a set name, belongs to every set, as PowerShell binds
-            # it.
             $inEverySet = $withoutSet -or -not $hasParameterAttribute
             $mandatory = $mandatoryBySet.Count -gt 0 -and $mandatoryBySet[0]
             if (@($mandatoryBySet | Select-Object -Unique).Count -gt 1) {
@@ -112,7 +110,7 @@ function Read-CommandSignature {
             }
             [string[]] $memberOf = $inEverySet ? @() : $sets.ToArray()
             $parameters.Add([Catzc.Base.Contracts.ContractParameter]::new($parameter.Name.VariablePath.UserPath, $type,
-                $isList, $mandatory, $default, $pipeline, $memberOf))
+                    $isList, $mandatory, $default, $pipeline, $memberOf))
         }
 
         foreach ($attribute in $block.Attributes) {

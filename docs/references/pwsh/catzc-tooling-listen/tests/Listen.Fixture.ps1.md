@@ -20,3 +20,21 @@ Above `Mock Get-ListenDiff -ModuleName Catzc.Tooling.Listen {`, written with `#`
 Get-ListenDiff launches git (git diff --no-index), which the fast tiers never do (ADR-AUTO-TEST-PROCESSTRIPWIRE): this stand-in diffs
 the two sides' lines in memory and yields the same shape, the one hunk from its header on, empty when the sides are equal.
 ```
+
+## comment:3
+
+Above `function Write-ListenFixtureFile {`, written with `#`.
+
+```text
+A watched docs folder in TestDrive with short timings, so a listen test never touches the real tree or waits on real
+timers.
+```
+
+## comment:4
+
+Above `Mock New-RepositorySnapshot -ModuleName Catzc.Tooling.Listen {`, written with `#`.
+
+```text
+The committed reference: the fixture's files as committed, plus a code file and a binary one outside the watched
+folder.
+```

@@ -31,3 +31,12 @@ Above `$config = Get-ToolConfig -Tool 'uv'`, written with `#`.
 Install-Uv treats a uv on PATH outside the winget root (its standalone/user bin) as a managed,
 self-updating install, so the janitor must agree rather than flag it foreign.
 ```
+
+## comment:4
+
+Above `Mock Get-ScriptInstallDir { 'C:\Users\me\AppData\Local\Gadget' }`, written with `#`.
+
+```text
+Neutral fixture
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+```

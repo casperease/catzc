@@ -6,8 +6,6 @@ catzc:
 ---
 #>
 
-# Every load-time rejection is pinned, so a root in any but the portable stored form can never slip into a loaded
-# config.
 Describe 'Catzc.Tooling.Inspiration.InspirationConfig' -Tag 'L0', 'logic', 'ADR-REPO-INSPIRE-DECLAREDINSPIRATION' {
     BeforeAll {
         function New-Entry {
@@ -40,7 +38,8 @@ Describe 'Catzc.Tooling.Inspiration.InspirationConfig' -Tag 'L0', 'logic', 'ADR-
             $widget = New-Entry
             $widget['paths'] = @('docs', 'specs/widget')
             $config = [Catzc.Tooling.Inspiration.InspirationConfig]::new([ordered]@{ inspirations = @($widget,
-                (New-Entry -Id 'gadget' -Root 'gadget/home')) })
+                        (New-Entry -Id 'gadget' -Root 'gadget/home'))
+                })
 
             @($config.inspirations.id) | Should -Be @('widget', 'gadget')
             @($config.inspirations.root) | Should -Be @('{workspace}/widget', 'gadget/home')

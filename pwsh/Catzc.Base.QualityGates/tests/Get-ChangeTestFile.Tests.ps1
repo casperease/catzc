@@ -30,8 +30,8 @@ Describe 'Get-ChangeTestFile' -Tag 'L0', 'logic' {
         & $script:map @('widget-modules/Catzc.Widget/Get-Widget.ps1',
             'widget-modules/Catzc.Widget/private/Set-Gadget.ps1', 'widget-modules/Catzc.Widget/types/Sprocket.cs') |
             Should -Be @('widget-modules/Catzc.Widget/tests/Get-Widget.Tests.ps1',
-            'widget-modules/Catzc.Widget/tests/Set-Gadget.Tests.ps1',
-            'widget-modules/Catzc.Widget/tests/types/Sprocket.Tests.ps1')
+                'widget-modules/Catzc.Widget/tests/Set-Gadget.Tests.ps1',
+                'widget-modules/Catzc.Widget/tests/types/Sprocket.Tests.ps1')
     }
 
     It 'keeps a changed test file as itself, once, even when its function changed too' {
@@ -42,7 +42,7 @@ Describe 'Get-ChangeTestFile' -Tag 'L0', 'logic' {
 
     It 'returns nothing for a function with no test file, a dot folder, or a file no convention covers' {
         @(& $script:map @('widget-modules/Catzc.Widget/Get-Gizmo.ps1', 'widget-modules/.internal/Get-Widget.ps1',
-            'docs/widget.md')) | Should -HaveCount 0
+                'docs/widget.md')) | Should -HaveCount 0
     }
 
     It 'with -Module, brings in every test file of each touched module, and none for a dot folder or a file outside the modules folder' {

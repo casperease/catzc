@@ -2,7 +2,7 @@
 Describe 'Get-LinkEndpoint' -Tag 'L0', 'logic', 'ADR-REPO-LINKS-ENDPOINTSAREFACETS' {
     BeforeAll {
         $script:inModule = { param([scriptblock] $Body,
-            [hashtable] $With = @{}) InModuleScope Catzc.Base.QualityGates -Parameters $With $Body }
+                [hashtable] $With = @{}) InModuleScope Catzc.Base.QualityGates -Parameters $With $Body }
     }
 
     BeforeEach {
@@ -25,14 +25,14 @@ Describe 'Get-LinkEndpoint' -Tag 'L0', 'logic', 'ADR-REPO-LINKS-ENDPOINTSAREFACE
             $track = { param([string] $Name, [string] $Type, [string] $Place)
                 [pscustomobject] @{ name = $Name; type = $Type; place = $Place } |
                     Add-Member -PassThru ScriptMethod PlaceLengthOf {
-                    param($Path)
-                    if ($Path -eq $this.place -or $Path.StartsWith($this.place + '/')) {
-                        $this.place.Length
+                        param($Path)
+                        if ($Path -eq $this.place -or $Path.StartsWith($this.place + '/')) {
+                            $this.place.Length
+                        }
+                        else {
+                            -1
+                        }
                     }
-                    else {
-                        -1
-                    }
-                }
             }
             Mock Get-Config -ParameterFilter { $Config -eq 'file-kinds' } { $kinds }.GetNewClosure()
             Mock Get-Config -ParameterFilter { $Config -eq 'module-types' } { $modules }.GetNewClosure()

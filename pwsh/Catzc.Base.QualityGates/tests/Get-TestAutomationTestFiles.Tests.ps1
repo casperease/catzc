@@ -27,7 +27,8 @@ Describe 'Get-TestAutomationTestFiles' -Tag 'L0', 'logic' {
 
     It 'lists each language test folder as one run file, in its place' {
         $files = InModuleScope Catzc.Base.QualityGates -Parameters @{ P = @($script:widgetGo, $script:widgetPython,
-            $script:gadget) } {
+                $script:gadget)
+        } {
             param($P)
             Get-TestAutomationTestFiles -TestPath $P
         }

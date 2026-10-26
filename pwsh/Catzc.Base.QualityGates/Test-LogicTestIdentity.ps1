@@ -30,8 +30,6 @@ function Test-LogicTestIdentity {
         # The default set is every test file of the catzc source tree — tests never ship in a build.
         Assert-SourceTree
         $modulesRoot = Get-CatzcModulesRoot
-        # Test files reach four levels below pwsh/ (module, tests, types, file); vendored modules are pruned by the
-        # walk.
         $files = Get-ChildPath $modulesRoot -File -Filter '*.Tests.ps1' -Depth 4 -PruneVendor $true |
             Sort-Object
     }

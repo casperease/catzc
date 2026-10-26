@@ -1,5 +1,11 @@
-# Get-ConventionEdge derives the relations no file writes: a test to its subject, a file to its comment page, a module
-# to its dependencies.
+<#
+---
+catzc:
+  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/Get-ConventionEdge.Tests.ps1.md"
+  header: "generated"
+---
+#>
+
 Describe 'Get-ConventionEdge' -Tag 'L0', 'logic', 'ADR-REPO-LINKS-CONVENTIONSAREDERIVED' {
     BeforeEach {
         InModuleScope Catzc.Base.QualityGates {

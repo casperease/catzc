@@ -11,3 +11,21 @@ Above `$script:roots = $null`, written with `#`.
 The modules track's places and the exempt globs, read once per analyzer session
 ([ADR-AUTO-LAYERS](/docs/drs/automation/layers.md)).
 ```
+
+## comment:2
+
+Above `$script:roots = @(foreach ($track in $variants['tracks'].Values) {`, written with `#`.
+
+```text
+The relocatable modules root (Get-CatzcModulesRoot) holds the track whose modules run under this engine, pwsh; its
+places are the ones no string may spell.
+```
+
+## comment:3
+
+Above `$parent = $node.Parent`, written with `#`.
+
+```text
+The bare place is also a word with other senses (an ADR domain, a layer), so alone it counts only where a path
+is built.
+```

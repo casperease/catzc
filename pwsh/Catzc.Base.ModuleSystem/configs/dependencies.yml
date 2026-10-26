@@ -230,7 +230,6 @@ groups:
       ]
     Catzc.Base.QualityGates:
       [
-        Catzc.Base.FileLimits,
         Catzc.Base.GeneratedFiles,
         Catzc.Base.Drs,
         Catzc.Base.Contracts,
@@ -281,6 +280,7 @@ groups:
         Catzc.Base.QualityGates,
         Catzc.Base.Execution,
         Catzc.Base.Files,
+        Catzc.Base.Folders,
         Catzc.Base.Globs,
         Catzc.Base.Languages,
         Catzc.Base.CodeMeta,

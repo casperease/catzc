@@ -1,3 +1,11 @@
+<#
+---
+catzc:
+  docs: "../../../../docs/references/pwsh/catzc-base-code-meta/tests/types/CodeMetaHead.Tests.ps1.md"
+  header: "generated"
+---
+#>
+
 # CodeMetaHead over short widget/gadget texts: the proofs are the byte-identical second run and the lossless removal.
 Describe 'CodeMetaHead' -Tag 'L0', 'logic', 'ADR-REPO-CODEMETA-CODEFILEHEAD', 'ADR-REPO-FILEMETA-IMPRINTEDPARTS' {
     BeforeAll {
@@ -17,7 +25,7 @@ Describe 'CodeMetaHead' -Tag 'L0', 'logic', 'ADR-REPO-CODEMETA-CODEFILEHEAD', 'A
             $block = [Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::Render($script:facts, [ordered]@{}, [string[]] @())
             [Catzc.Base.CodeMeta.CodeMetaHead]::Wrap($block, $script:block) | Should -Be @(
                 '/*', '---', 'catzc:', '  immutable:', '    path: widgets/Widget/Get-Gadget.ps1', '    kind: function',
-                    '    module: Widget', '---', '*/')
+                '    module: Widget', '---', '*/')
         }
 
         It 'wraps it in a line prefix, one space in, for a language without block comments' {
@@ -31,7 +39,7 @@ Describe 'CodeMetaHead' -Tag 'L0', 'logic', 'ADR-REPO-CODEMETA-CODEFILEHEAD', 'A
         It 'puts the head above a file without one, with one blank line between' {
             $text = & $script:lf 'function Get-Gadget {', '}', ''
             & $script:head $text | Should -BeExactly ($script:written + "`n`n" + (& $script:lf 'function Get-Gadget {',
-                '}', ''))
+                    '}', ''))
         }
 
         It 'changes nothing on a second run, and reads the keys back' {
@@ -61,7 +69,7 @@ Describe 'CodeMetaHead' -Tag 'L0', 'logic', 'ADR-REPO-CODEMETA-CODEFILEHEAD', 'A
         It 'rewrites a stale value and collapses the blank lines after the head, keeping the rest as written' {
             $stale = & $script:lf '/*', '---', 'catzc:', '  immutable:', '    path: pwsh/Old/Get-Gadget.ps1', '    module: Old', '---', '*/', '', '', '// The insight.', 'class Gadget { }', ''
             & $script:head $stale | Should -BeExactly ($script:written + "`n`n" + (& $script:lf '// The insight.',
-                'class Gadget { }', ''))
+                    'class Gadget { }', ''))
         }
 
         It 'keeps the authored config lines and removes the head only when nothing is left to write' {
@@ -76,7 +84,7 @@ Describe 'CodeMetaHead' -Tag 'L0', 'logic', 'ADR-REPO-CODEMETA-CODEFILEHEAD', 'A
         It 'keeps CRLF line endings' {
             $result = & $script:head "function Get-Gadget {`r`n}`r`n"
             $result | Should -BeExactly (($script:written -replace "`n",
-                "`r`n") + "`r`n`r`nfunction Get-Gadget {`r`n}`r`n")
+                    "`r`n") + "`r`n`r`nfunction Get-Gadget {`r`n}`r`n")
             & $script:head $result | Should -BeExactly $result
         }
 
@@ -118,7 +126,7 @@ Describe 'CodeMetaHead' -Tag 'L0', 'logic', 'ADR-REPO-CODEMETA-CODEFILEHEAD', 'A
             $old = & $script:lf '// catzc:', '//   path: pwsh/Old/Get-Gadget.ps1', '//   module: Old', '', '// The insight.', 'class Gadget { }', ''
             $result = & $script:head $old $form
             $result | Should -BeExactly ($script:written + "`n`n" + (& $script:lf '// The insight.', 'class Gadget { }',
-                ''))
+                    ''))
             & $script:head $result $form | Should -BeExactly $result
         }
 
@@ -138,7 +146,7 @@ Describe 'CodeMetaHead' -Tag 'L0', 'logic', 'ADR-REPO-CODEMETA-CODEFILEHEAD', 'A
             $text = & $script:lf '#!/usr/bin/env python3', '# -*- coding: utf-8 -*-', 'import widget', ''
             & $script:head $text $form ([ordered]@{ path = 'a/b.py' }) |
                 Should -BeExactly (& $script:lf '#!/usr/bin/env python3', '# -*- coding: utf-8 -*-', '# ---',
-                '# catzc:', '#   immutable:', '#     path: a/b.py', '# ---', '', 'import widget', '')
+                    '# catzc:', '#   immutable:', '#     path: a/b.py', '# ---', '', 'import widget', '')
         }
 
         It 'puts a block head after the XML declaration and the doctype' {
@@ -175,7 +183,7 @@ Describe 'CodeMetaHead' -Tag 'L0', 'logic', 'ADR-REPO-CODEMETA-CODEFILEHEAD', 'A
             $text = & $script:lf '/*', '---', 'catzc:', '  immutable:', '    path: a/b.cs', '  config:', '    synopsis: Gets.', '---', '*/', '', 'class B { }', ''
             [Catzc.Base.CodeMeta.CodeMetaHead]::Parse($text, $script:block).WithoutConfig() |
                 Should -BeExactly (& $script:lf '/*', '---', 'catzc:', '  immutable:', '    path: a/b.cs', '---', '*/',
-                '', 'class B { }', '')
+                    '', 'class B { }', '')
         }
 
         It 'removes a head that held nothing but config, and leaves a file without a head as it is' {
@@ -188,8 +196,6 @@ Describe 'CodeMetaHead' -Tag 'L0', 'logic', 'ADR-REPO-CODEMETA-CODEFILEHEAD', 'A
     }
 }
 
-# The types hash strips the head before the types load, so it cannot call CodeMetaHead; this proves the two read every
-# real type the same.
 Describe 'CodeMetaHead and the types hash agree on every C# type' -Tag 'L2', 'integrity', 'source-only', 'ADR-REPO-CODEMETA-CODEFILEHEAD' {
     It 'gives the same body as Get-TypeSourceBody for every tracked types/*.cs, under the bcl form file-carriers.yml declares' {
         if (-not (Test-Command 'git')) {

@@ -47,7 +47,7 @@ content:
   edges:
     - { from: s-powershell, to: r-automation, kind: flow, label: feeds }
     - { from: s-infrastructure, to: r-infrastructure, kind: flow, label: feeds }
-    - { from: s-infrastructure, to: s-units, kind: thick, label: "" }
+    - { from: s-units, to: s-infrastructure, kind: thick, label: composes }
     - { from: s-units, to: r-unit, kind: flow, label: feeds }
     - { from: g-drift, to: f-drifted, kind: fail, label: "" }
   markers:

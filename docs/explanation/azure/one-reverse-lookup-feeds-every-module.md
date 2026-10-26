@@ -46,7 +46,7 @@ content:
     - { id: g-tree, kind: file, label: configuration tree, in: band-templates }
     - { id: r-group, kind: result, label: resource-group name, in: band-templates }
   edges:
-    - { from: x-connection, to: x-session, kind: flow, label: "" }
+    - { from: x-connection, to: x-session, kind: flow, label: then }
     - { from: g-cli, to: x-session, kind: flow, label: "" }
     - { from: g-cli, to: g-azure-file, kind: flow, label: reads }
     - { from: g-cli, to: g-azure, kind: flow, label: calls }

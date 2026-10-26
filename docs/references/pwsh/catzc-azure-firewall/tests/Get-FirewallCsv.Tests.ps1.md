@@ -23,3 +23,21 @@ Above `Mock Invoke-AzCli -ModuleName Catzc.Azure.Firewall {`, written with `#`.
 Default happy-path az mock: list returns the JSON above; download copies the matching fixture
 to --file so the emitted Path points at a real CSV (nothing ever calls live ARM).
 ```
+
+## comment:3
+
+Above `$script:blobJson = @'`, written with `#`.
+
+```text
+Day-first names whose string order is not their date order, so only a pick by the name's own timestamp finds
+the newest.
+```
+
+## comment:4
+
+Above `Mock Invoke-AzCli -ModuleName Catzc.Azure.Firewall {`, written with `#`.
+
+```text
+The download copies a fixture to the requested file, so the emitted path is a real CSV and nothing ever
+reaches the cloud.
+```

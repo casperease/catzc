@@ -15,7 +15,7 @@ content:
     - { id: band-host, label: ITS USE INSIDE THE PWSH HOST }
   glyphs:
     - id: g-types
-      kind: type
+      kind: file
       label: "types/*.cs
 
         334 sources"
@@ -49,9 +49,7 @@ content:
     - { id: g-gate, kind: gate, label: Test-BclReferences, in: band-host }
   edges:
     - { from: g-types, to: g-library, kind: flow, label: references }
-    - { from: g-bcl-yml, to: g-projects, kind: flow, label: default pair }
-    - { from: g-import, to: g-types, kind: flow, label: compiles }
-    - { from: g-unwrap, to: g-types, kind: flow, label: plain values }
+    - { from: g-import, to: g-types, kind: flow }
     - { from: g-types, to: g-sma, kind: flow, label: only by a row }
     - { from: g-bcl-yml, to: g-gate, kind: flow, label: rows }
     - { from: g-gate, to: g-sma, kind: flow, label: checks }

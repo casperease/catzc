@@ -80,3 +80,48 @@ other; pass a fixture tree to isolate a logic test.
 ```powershell
 Get-CatzcModule | Where-Object { $_.unplaced }       # -> the modules with a file in no layout row
 ```
+
+## comment:1
+
+Above `$engine = [Catzc.Base.Engines.ExecutionEngines]::Pwsh.Name`, written with `#`.
+
+```text
+The engine this resolver runs in: the track whose modules run under it is the one the relocatable modules root
+holds.
+```
+
+## comment:2
+
+Above `$nestedPlaces = @($allTracks.Where({ $_.name -cne $trackEntry.name }) |...`, written with `#`.
+
+```text
+A place of another track nested under this track's places holds its own files
+([DDR-TRACKTYPE-LONGESTPLACEWINS](/docs/drs/design/track-types.md#rule-ddr-tracktype-longestplacewins)).
+```
+
+## comment:3
+
+Above `$prefixLength = $entry.Folder.TrimEnd('\', '/').Length + 1`, written with `#`.
+
+```text
+A whole module tree is listed on purpose, a named exception to the bounded walk: tests nest
+fixtures up to six levels below the module.
+```
+
+## comment:4
+
+Above `$full = "$($entry.Root)/$relative"`, written with `#`.
+
+```text
+The track's own module holds what no other place of the track names, no nested track
+holds, and no dot folder caches.
+```
+
+## comment:5
+
+Above `$language = $null -eq $row -or $row.live ? $languages.ForPath($file) : $null`, written with `#`.
+
+```text
+The languages of a module are those of its live files: a test, or a README, is no second
+tech-stack.
+```

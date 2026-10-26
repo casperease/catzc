@@ -18,18 +18,18 @@ function Test-PlaceRows {
         return
     }
     $places = (Get-Config -Config maps).minimap_places
-    foreach ($file in @(Get-ChildItem -LiteralPath $Path -Recurse -Filter 'code-locations.json' -File)) {
-        $data = Get-Content -LiteralPath $file.FullName -Raw | ConvertFrom-Json
+    foreach ($file in @(Get-ChildPath $Path -File -Filter 'code-locations.json')) {
+        $data = Get-Content -LiteralPath $file -Raw | ConvertFrom-Json
         if (-not $data.PSObject.Properties['place_rows']) {
             continue
         }
         foreach ($row in @($data.place_rows.rows)) {
             if (-not [Catzc.Base.Maps.PlaceRows]::IsNormal($row, $places)) {
-                "$($file.FullName): row '$row' is not in the place normal form"
+                "$($file): row '$row' is not in the place normal form"
             }
         }
         if ($data.place_rows.counters.Length -gt $places.row_chars) {
-            "$($file.FullName): counters '$($data.place_rows.counters)' are longer than $($places.row_chars) characters"
+            "$($file): counters '$($data.place_rows.counters)' are longer than $($places.row_chars) characters"
         }
     }
 }

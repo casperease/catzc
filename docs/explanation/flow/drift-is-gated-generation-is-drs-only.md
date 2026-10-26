@@ -45,8 +45,8 @@ content:
     - { id: g-ado-gate, kind: gate, label: Test-AdoPipelineTriggerGlob, in: band-checked }
     - { id: g-coverage-gate, kind: gate, label: Test-GlobSetTriggerCoverage, in: band-checked }
   edges:
-    - { from: r-flattened, to: r-github, kind: flow, label: "" }
-    - { from: r-flattened, to: r-ado, kind: flow, label: "" }
+    - { from: r-flattened, to: r-github, kind: flow, label: then }
+    - { from: r-flattened, to: r-ado, kind: flow, label: then }
     - { from: r-ado, to: a-generated, kind: adr, label: "" }
     - { from: r-github, to: g-github-gate, kind: flow, label: "" }
     - { from: r-ado, to: g-ado-gate, kind: flow, label: "" }

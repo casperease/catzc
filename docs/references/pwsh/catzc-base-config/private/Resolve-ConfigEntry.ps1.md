@@ -48,3 +48,21 @@ Above `$registry = Get-ConfigRegistry`, written with `#`.
 A registered type with no shipped file is a config too: its type's namespace names the module, and it builds from {} plus the
 repository's fragment, so every key takes the default the type declares.
 ```
+
+## comment:3
+
+Above `$sources = @([System.IO.Directory]::EnumerateFiles($configsDir,`, written with `#`.
+
+```text
+A config is one file, or a folder of disjoint parts (configs/<name>/*.yml) when one file would pass the
+length cap.
+```
+
+## comment:4
+
+Above `$registry = Get-ConfigRegistry`, written with `#`.
+
+```text
+A registered type with no shipped file is still a config, built from an empty map, so every key takes its
+declared default.
+```

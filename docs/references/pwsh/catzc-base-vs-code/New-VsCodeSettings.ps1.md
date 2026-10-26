@@ -100,3 +100,39 @@ Above `if ($config.carried.Count -gt 0 -and (Test-Path -LiteralPath $CurrentPath
 A carried map keeps the rows another writer added (the lamps' files.exclude), as listed under that writer's owner key on disk; a row
 the registry authors stays the registry's.
 ```
+
+## comment:5
+
+Above `[System.Collections.IDictionary] $RepositoryFilter = @{},`, written with `#`.
+
+```text
+The repository's filters, name to the include/exclude sets each claims by, in lamp order
+(Get-RepositoryFilter).
+```
+
+## comment:6
+
+Above `[string] $CurrentPath = (Join-Path (Get-RepositoryRoot)...`, written with `#`.
+
+```text
+The settings file on disk, read for the rows another writer owns (the carried settings of
+vscode-settings.yml).
+```
+
+## comment:7
+
+Above `[string] $EditorConfigPath = (Join-Path (Get-RepositoryRoot) '.editorconfig')`, written with `#`.
+
+```text
+The .editorconfig whose sections render into the editor settings (vscode-settings.yml editorconfig maps them
+to languages).
+```
+
+## comment:8
+
+Above `if (Test-Path -LiteralPath $EditorConfigPath -PathType Leaf) {`, written with `#`.
+
+```text
+The .editorconfig baseline, so the editor follows it with no extension; an authored setting wins over a rendered
+one.
+```

@@ -79,7 +79,8 @@ Describe 'MarkdownMetaBlock' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRINTEDPAR
 
     It 'reads ADR and rule codes back from a rendered list edge' {
         $lines = $script:block::Render([ordered]@{}, [ordered]@{ cites = [string[]] @('ADR-WIDGET-GADGET',
-            'ADR-WIDGET-LONE-RE02') }, $script:none)
+                    'ADR-WIDGET-LONE-RE02')
+            }, $script:none)
         $script:block::EdgeList($lines, 'cites') | Should -Be @('ADR-WIDGET-GADGET', 'ADR-WIDGET-LONE-RE02')
     }
 
@@ -87,7 +88,7 @@ Describe 'MarkdownMetaBlock' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRINTEDPAR
         $config = [string[]] @('    gadgets:', '      widget: { gates: [Test-Widget] }')
         $script:block::Render([ordered]@{ kind = 'gadget' }, [ordered]@{}, $config) | Should -Be @(
             'catzc:', '  immutable:', '    kind: gadget', '  config:', '    gadgets:',
-                '      widget: { gates: [Test-Widget] }'
+            '      widget: { gates: [Test-Widget] }'
         )
     }
 

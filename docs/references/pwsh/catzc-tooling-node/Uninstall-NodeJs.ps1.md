@@ -52,3 +52,12 @@ proceeds, without -Remove it propagates
 ([ADR-AUTO-ONEJOB-CALLERHANDLESERRORS](/docs/drs/automation/single-responsibility-functions.md#rule-adr-auto-onejob-callerhandleserrors),
 [ADR-AUTO-REMOVE-ONECALLESCALATION](/docs/drs/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-onecallescalation)).
 ```
+
+## comment:2
+
+Above `try {`, written with `#`.
+
+```text
+With -Remove a failure means a foreign install the escalation still removes, so it is logged; alone, it
+propagates.
+```

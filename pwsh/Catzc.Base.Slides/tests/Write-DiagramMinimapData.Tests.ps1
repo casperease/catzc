@@ -25,7 +25,7 @@ Describe 'Write-DiagramMinimapData' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-MINIMAP
                     [Catzc.Base.Maps.MinimapCell]::new([string[]] @($layer), 1, @($reason))
                 })
             [Catzc.Base.Maps.MinimapData]::new('layer-stack', @([Catzc.Base.Maps.MinimapAxis]::new('layer',
-                [string[]] @('automation', 'contract', 'pipeline'))), $cells, $cells)
+                        [string[]] @('automation', 'contract', 'pipeline'))), $cells, $cells)
         }
         function script:Get-DrawnLit {
             param([string] $Stem)

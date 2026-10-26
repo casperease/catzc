@@ -62,7 +62,8 @@ Describe 'Get-GlossaryFormViolations' -Tag 'L0', 'logic' {
 
     It 'reports a hyphenated or line-wrapped qualifier, and the verb forms' -Tag 'ADR-REPO-VOCAB-FAMILYFORMS' {
         $found = & $script:scan @{ 'docs/alpha.md' = @('A pre-sprocket widget, a sprocket-widget, a sprocket',
-            'widget; it is widgeted, double-widgeting.') }
+                'widget; it is widgeted, double-widgeting.')
+        }
         $found | Should -HaveCount 4
         $found | Should -Contain "docs/alpha.md:1 says `"sprocket widget`" — $script:tail"
         $found | Should -Contain "docs/alpha.md:1 says `"sprocket-widget`" — $script:tail"
@@ -102,7 +103,8 @@ Describe 'Get-GlossaryFormViolations' -Tag 'L0', 'logic' {
 
     It 'reads PowerShell comments through the parser' -Tag 'ADR-REPO-VOCAB-FAMILYFORMS' {
         $found = & $script:scan @{ 'widgets/Catzc.Widget/Get-Widget.ps1' = @('# the sprocket widget',
-            'function Get-Widget { }') }
+                'function Get-Widget { }')
+        }
         $found | Should -Be @("widgets/Catzc.Widget/Get-Widget.ps1:1 says `"sprocket widget`" — $script:tail")
     }
 
@@ -122,7 +124,8 @@ Describe 'Get-GlossaryFormViolations' -Tag 'L0', 'logic' {
             'widgets/Catzc.Gadget/configs/glossary.yml',
             [Catzc.Base.Docs.GlossaryOptions]::new(@{}))
         $parameters = @{ Entries = @((& $script:entry),
-            $defined); Files = [string[]] @($relative); Root = [string] $TestDrive }
+                $defined); Files = [string[]] @($relative); Root = [string] $TestDrive
+        }
         $found = @(InModuleScope Catzc.Base.Docs -Parameters $parameters {
                 Get-GlossaryFormViolations -Entry $Entries -TrackedFile $Files -Root $Root
             })
@@ -131,7 +134,8 @@ Describe 'Get-GlossaryFormViolations' -Tag 'L0', 'logic' {
 
     It 'skips a source that opts out of the forms check' -Tag 'ADR-REPO-VOCAB-GLOSSARYSOURCE' {
         & $script:scan @{ 'docs/alpha.md' = @('The sprocket widget runs.') } @{ checks = @('anchored', 'single',
-            'avoid', 'enforced') } |
+                'avoid', 'enforced')
+        } |
             Should -BeNullOrEmpty
     }
 
@@ -150,7 +154,7 @@ Describe 'Get-GlossaryFormViolations' -Tag 'L0', 'logic' {
         @($parameters.Table.Keys) | Should -Be @($relative)
 
         $parameters.Table[$relative] = @([Catzc.Base.Docs.GlossarySegment]::new('markdown', 1,
-            'The sprocket widget runs.'))
+                'The sprocket widget runs.'))
         @(InModuleScope Catzc.Base.Docs -Parameters $parameters $check) |
             Should -Be @("docs/alpha.md:1 says `"sprocket widget`" — $script:tail")
     }

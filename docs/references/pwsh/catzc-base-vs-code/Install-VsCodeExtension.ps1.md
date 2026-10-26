@@ -60,3 +60,21 @@ Above `if (-not $renderedNow -and (Test-Path -LiteralPath $installed)) {`, writt
 A current stamp is only ever stored after every extension installed cleanly, so an unchanged folder with its copy present
 is that copy; the file-by-file comparison is for a folder rendered now.
 ```
+
+## comment:2
+
+Above `$current = -not $Force -and -not @(Get-GeneratedWriterDue -Name...`, written with `#`.
+
+```text
+The folders are judged once for every extension, so one rendered extension never makes the next look current while
+it is stale.
+```
+
+## comment:3
+
+Above `$manifestText = { param([string] $Path) $json = Get-Content -LiteralPath...`, written with `#`.
+
+```text
+The editor writes its own __metadata into the installed package.json, so the manifest is compared without
+it.
+```

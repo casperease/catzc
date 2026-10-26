@@ -115,7 +115,7 @@ Not adopted, because no template deploys a public IP address; the landing zone's
 
 Not adopted, because no workload is global or reached from the internet.
 
-[][r18]
+- [18 — Use Front Door with a web application firewall for global applications][toc18]
 
 ### Rule ADR-AZ-CAF-NETCON-REVIEWGLOBALROUTINGREDUNDANCYBEFORERELYINGFRONTDOOR
 
@@ -127,7 +127,7 @@ Not adopted, because Front Door is not used.
 
 Not adopted, because neither Front Door nor Application Gateway is used.
 
-[][r20]
+- [20 — Combine Front Door and Application Gateway with the firewall at Front Door][toc20]
 
 ### Rule ADR-AZ-CAF-NETCON-USETRAFFICMANAGERGLOBALNONHTTPAPPLICATIONS
 
@@ -321,7 +321,7 @@ Not adopted, because there is neither a Bastion nor private connectivity to keep
 
 Partly realised, as rule 39: no template gives a virtual machine a public IP address, but the unused `vm.bicep` does.
 
-[][r51]
+- [51 — Allow no remote access to virtual machines over public IP addresses][toc51]
 
 ### Rule ADR-AZ-CAF-NETCON-RELYIPSECVPNCONNECTIONS
 
@@ -352,7 +352,7 @@ Not adopted, because there is neither Virtual WAN nor ExpressRoute.
 
 Not adopted, because there is no ExpressRoute connection to encrypt.
 
-[][r56]
+- [56 — Choose an encryption option over ExpressRoute outside Virtual WAN][toc56]
 
 ### Rule ADR-AZ-CAF-NETCON-FALLBACKPARTNERAPPLIANCESENCRYPTION
 
@@ -1795,7 +1795,7 @@ follow-up of ADR-AZ-WAF-SE-SE06); default outbound access off on every subnet (r
 - A link from a customer's sites, a firewall, or a Bastion lands in a reserved or planned hub subnet without renumbering any network.
 - Every planned network control lives in `discovery`, so a workload template stays free of network resources.
 
-[r18]: 
-[r20]: 
-[r51]: 
-[r56]: 
+[toc18]: #18--use-front-door-with-a-web-application-firewall-for-global-applications
+[toc20]: #20--combine-front-door-and-application-gateway-with-the-firewall-at-front-door
+[toc51]: #51--allow-no-remote-access-to-virtual-machines-over-public-ip-addresses
+[toc56]: #56--choose-an-encryption-option-over-expressroute-outside-virtual-wan

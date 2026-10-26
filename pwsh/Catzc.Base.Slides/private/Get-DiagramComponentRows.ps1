@@ -47,7 +47,7 @@ function Get-DiagramComponentRows {
         $modules = @(Get-CatzcModule -RepositoryRoot $RepositoryRoot)
         $self = @($modules | Where-Object { "$($_.root)".Replace('\', '/').Trim('/') -ceq $point })
         $within = @($modules | Where-Object { "$($_.root)".Replace('\', '/').StartsWith("$point/",
-            [System.StringComparison]::Ordinal) })
+                    [System.StringComparison]::Ordinal) })
         if ($self.Count -or $within.Count) {
             $dependencies = @(Get-ModuleDependencyEdges | Sort-Object From, To)
             if ($self.Count) {

@@ -30,7 +30,7 @@ function Test-ConfigValidators {
 
         # piped, not member-enumerated: .Name over an empty result throws in a strict scope
         $validators = @(& $module { Get-Item Function:\Assert-*Config -ErrorAction Ignore |
-            Select-Object -ExpandProperty Name })
+                    Select-Object -ExpandProperty Name })
         if ($validators.Count -eq 0) {
             continue
         }

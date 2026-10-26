@@ -37,6 +37,10 @@ edge-labels: # the words an edge may carry to say something other than the defau
   writes: tail
   feeds: tail
   failed: tail
+  else: tail # the tail is tried first; the head is used only when the tail yields nothing
+  composes: tail # the tail, a whole, is built from the head, its part
+  then: tail # the head comes after the tail: the next rung, the next step, or the form derived from it
+  in: tail # the tail lives inside the head, its container
 edge-rank: # the rank of a glyph kind as an end of an arrow, lowest first, each rank with its kinds: the lower rank acts on the higher, so an edge between cells of different rank runs from the lower to the higher
   actor: actor, cause
   code: code, runner, private, callsite, action, type, gate

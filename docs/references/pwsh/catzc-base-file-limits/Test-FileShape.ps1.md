@@ -27,3 +27,12 @@ The files to check.
 ```powershell
 Test-FileShape -Path pwsh/Catzc.Base.Folders/Get-ChildPath.ps1
 ```
+
+## comment:1
+
+Above `$text = [System.IO.File]::ReadAllText($file)`, written with `#`.
+
+```text
+A line whose overflow lies wholly inside one string literal passes, so the width is the widest line
+that is not one.
+```

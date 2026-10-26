@@ -26,8 +26,6 @@ function Build-EnglishDictionary {
     Assert-NotNullOrWhitespace $nodeRoot
 
     $triePaths = foreach ($trieName in 'en_US.trie.gz', 'en_GB.trie.gz') {
-        # The trie sits five levels down (cspell, node_modules, @cspell, package, file); the walk must enter
-        # node_modules.
         $found = Get-ChildPath $nodeRoot -File -Filter $trieName -Depth 5 -Exclude @() -PruneVendor $false |
             Select-Object -First 1
         if (-not $found) {

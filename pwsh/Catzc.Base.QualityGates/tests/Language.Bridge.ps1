@@ -51,8 +51,6 @@ BeforeDiscovery {
 Describe "$Language tests of $($script:languageSuite.Module)" -Tag 'L2', 'greedy' -ForEach @(@{
         Language = $Language; Module = $script:languageSuite.Module; Cases = $script:languageSuite.Cases; Entry = $EntryScript; Tool = $Executable
         Folder      = $TestFolder
-        # A Bash test is Bash, so it runs under the bash engine only; a JavaScript test runs in node, once; every other
-        # language's under each.
         Engines     = if ($Language -eq 'bash') {
             @([Catzc.Base.Engines.ExecutionEngines]::Bash.Name)
         }

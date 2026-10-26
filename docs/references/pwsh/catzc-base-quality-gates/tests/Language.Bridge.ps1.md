@@ -52,3 +52,12 @@ Above `$script:languageErrors = @{}`, written with `#`.
 A run that throws (a ruff or pytest error, a sync that fails) fails each of its cases with its message, so the results name the
 cause instead of one BeforeAll failure hiding it; the other engines still run.
 ```
+
+## comment:5
+
+Above `Engines     = if ($Language -eq 'bash') {`, written with `#`.
+
+```text
+A Bash test is Bash, so it runs under the bash engine only; a JavaScript test runs in node, once; every other
+language's under each.
+```

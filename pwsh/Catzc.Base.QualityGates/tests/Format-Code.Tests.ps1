@@ -119,7 +119,7 @@ Describe 'Format-Code engine grouping and result cache' -Tag 'L0', 'logic' {
         Mock Get-OutputRoot -ModuleName Catzc.Base.QualityGates { $script:outRoot }
         Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'languages' } { $script:languages }
         Mock Get-FormatScope -ModuleName Catzc.Base.QualityGates { , [string[]] @($script:widgetFile,
-            $script:gadgetFile) }
+                $script:gadgetFile) }
         # The fake engine finds every file it is handed formatted.
         Mock Invoke-FormatterEngine -ModuleName Catzc.Base.QualityGates {
             foreach ($file in $File) {
@@ -222,8 +222,9 @@ Describe 'Format-Code imprint steps' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT-CONFIG
         }
         [System.IO.File]::WriteAllText($script:settingsFile, 'one')
         Remove-Item -LiteralPath $script:outRoot -Recurse -Force -ErrorAction Ignore
-        $script:stepFiles = @{ 'file-meta' = @($script:widgetFile,
-            $script:gadgetFile); 'bcl-namespace' = @($script:widgetFile) }
+        $script:stepFiles = @{ 'file-meta'           = @($script:widgetFile,
+                $script:gadgetFile); 'bcl-namespace' = @($script:widgetFile)
+        }
         $script:stepChanged = @{ 'file-meta' = @(); 'bcl-namespace' = @() }
         $script:stepUnfixable = @{ 'file-meta' = @{}; 'bcl-namespace' = @{} }
         $script:stepRuns = [System.Collections.Generic.List[string]]::new()
@@ -233,7 +234,7 @@ Describe 'Format-Code imprint steps' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT-CONFIG
         Mock Get-OutputRoot -ModuleName Catzc.Base.QualityGates { $script:outRoot }
         Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'languages' } { $script:languages }
         Mock Get-FormatScope -ModuleName Catzc.Base.QualityGates { , [string[]] @($script:widgetFile,
-            $script:gadgetFile) }
+                $script:gadgetFile) }
         Mock Invoke-FormatterEngine -ModuleName Catzc.Base.QualityGates { , [string[]] @() }
         Mock Get-ImprintStepFile -ModuleName Catzc.Base.QualityGates { , [string[]] @($script:stepFiles[$Step]) }
         Mock Invoke-ImprintStep -ModuleName Catzc.Base.QualityGates {
@@ -265,7 +266,7 @@ Describe 'Format-Code imprint steps' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT-CONFIG
 
     It 'asks each step for its own files and hands it only the ones its covered languages own' {
         Mock Get-ImprintStepFile -ModuleName Catzc.Base.QualityGates { , [string[]] @($script:widgetFile,
-            $script:gadgetFile, (Join-Path $script:root 'notes/a.txt')) }
+                $script:gadgetFile, (Join-Path $script:root 'notes/a.txt')) }
         $null = Format-Code -DryRun
         $script:stepRuns[0] | Should -Be 'file-meta|a.wdg,a.gdg'
     }
@@ -319,8 +320,6 @@ Describe 'Format-Code engines' -Tag 'L0', 'integrity' {
         $root = Get-RepositoryRoot
         foreach ($engine in (Get-Config -Config languages).formatters.Values) {
             foreach ($settingsFile in $engine.settings) {
-                # An entry may end in #key: the file is what must exist here, the key is checked by the stamp's own
-                # tests.
                 Join-Path $root ($settingsFile -split '#', 2)[0] |
                     Should -Exist -Because "engines.$($engine.name).settings in languages.yml"
             }

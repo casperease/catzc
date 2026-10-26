@@ -56,8 +56,6 @@ function Test-Plans {
         $Config.folder
     }
 
-    # A plan is three parts: its file, its row in the value overlay and its chunk line in the master; the two overlays
-    # are read whole.
     $readLines = {
         param([string] $Name)
         $file = Join-Path $folder $Name
@@ -68,8 +66,6 @@ function Test-Plans {
     $masterLines = @(& $readLines $Config.master_file)
     $valueLines = @(& $readLines $Config.value_file)
 
-    # A check names a command by its Verb-Noun; one that no module exports cannot prove the step, so the gate names it
-    # before a worker runs it.
     $verbs = [System.Collections.Generic.HashSet[string]]::new([string[]] @((Get-Verb).Verb),
         [System.StringComparer]::OrdinalIgnoreCase)
     $commandPattern = '(?<![\w./\\-])(?<verb>[A-Z][a-z]+)-[A-Z][A-Za-z0-9]+(?![\w-]|\.\w)'
@@ -129,7 +125,7 @@ function Test-Plans {
         $hasHeading = {
             param([string] $Prefix)
             @($headings | Where-Object { $_.Text.StartsWith($Prefix,
-                [System.StringComparison]::OrdinalIgnoreCase) }).Count -gt 0
+                        [System.StringComparison]::OrdinalIgnoreCase) }).Count -gt 0
         }
 
         $isMaster = $name -ceq $Config.master_file
@@ -210,7 +206,7 @@ function Test-Plans {
                     & $add 1 'ADR-REPO-PLANS-PLANHEAD'"status '$status' is not one of: $($Config.statuses -join ', ')"
                 }
                 elseif ($status -ceq 'blocked' -and -not ($block.Contains('blocked_on') -or
-                    $block.Contains('waits_on'))) {
+                        $block.Contains('waits_on'))) {
                     & $add 1 'ADR-REPO-PLANS-PLANHEAD'"a blocked plan names what blocks it in 'blocked_on' or 'waits_on'"
                 }
             }
@@ -233,8 +229,6 @@ function Test-Plans {
 
         $items = @(Get-MarkdownListItem -Line $lines)
         $openCount = [int] $openCounts[$name]
-        # A step count an overlay states ("three steps", "one step left") is the plan's open steps, or it has drifted;
-        # Format-Code rewrites it.
         $assertCount = {
             param([string] $Text, [string] $Overlay)
             $stated = Resolve-PlanStepCount -Text $Text
@@ -261,6 +255,17 @@ function Test-Plans {
         else {
             $state = @($valueRow.Trim().Trim('|') -split '\|')[-1]
             & $assertCount $state "its row in $($Config.value_file)"
+            # A row holds as many cells as its table's header, so a cell lost or added never shifts the columns unseen.
+            # The header is the first line of the row's own table, the unbroken run of table lines it sits in.
+            $at = [array]::IndexOf($valueLines, $valueRow)
+            while ($at -gt 0 -and $valueLines[$at - 1] -match '^\s*\|') {
+                $at--
+            }
+            $header = $valueLines[$at]
+            $cells = { param([string] $Text) @($Text.Trim().Trim('|') -split '(?<!\\)\|').Count }
+            if ($header -and (& $cells $valueRow) -ne (& $cells $header)) {
+                & $add 1 'ADR-REPO-PLANS-THREEPARTS' "its row in $($Config.value_file) has $(& $cells $valueRow) cell(s), but the table's header has $(& $cells $header)"
+            }
         }
 
         foreach ($section in $Config.sections_required) {
@@ -289,8 +294,6 @@ function Test-Plans {
                 & $add $item.LineNumber 'ADR-REPO-PLANS-OPENSTEP' "the open step names no check: `"$($item.Text.Trim())`""
                 continue
             }
-            # The check is the text after the step's last standalone `check:`, so a name such as `catzc-check:` in the
-            # step is not read as one.
             $check = [regex]::Match($item.Text, '(?is)^.*(?<![\w-])check:(?<check>.*)$').Groups['check'].Value
             foreach ($match in [regex]::Matches($check, $commandPattern)) {
                 if ($verbs.Contains($match.Groups['verb'].Value) -and -not (& $isKnown $match.Value)) {

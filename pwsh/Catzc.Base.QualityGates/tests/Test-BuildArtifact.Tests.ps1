@@ -46,7 +46,8 @@ Describe 'Test-BuildArtifact' -Tag 'L0', 'logic' {
         Mock Get-CommittedTypesDrift -ModuleName Catzc.Base.QualityGates { }
         Mock Build-Modules -ModuleName Catzc.Base.QualityGates {
             [pscustomobject]@{ BuildRoot = $script:buildRoot; Modules = @('Catzc.Base.Config',
-                'Catzc.Gadget'); TypesHash = 'abcd1234' }
+                    'Catzc.Gadget'); TypesHash = 'abcd1234'
+            }
         }
         Mock Invoke-BuildArtifactProbe -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ ExitCode = 0; Output = ''; Observed = $script:observation } }
         Mock Get-ModuleSourceFunctions -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Name -eq 'Catzc.Base.Config' } {
@@ -95,7 +96,7 @@ Describe 'Test-BuildArtifact' -Tag 'L0', 'logic' {
     It 'turns each violation of a failed build into one issue' {
         Mock Build-Modules -ModuleName Catzc.Base.QualityGates {
             throw (@("Catzc build at 'x' is invalid:", 'missing build.json',
-                "module 'Catzc.Gadget' is missing its manifest") -join "`n")
+                    "module 'Catzc.Gadget' is missing its manifest") -join "`n")
         }
 
         $result = Test-BuildArtifact -PassThru -OutputFolder $script:reportFolder
@@ -169,48 +170,57 @@ Describe 'Test-BuildArtifact' -Tag 'L0', 'logic' {
 Describe 'Get-CommittedTypesDrift' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:root = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
-        [System.IO.Directory]::CreateDirectory((Join-Path $script:root 'widget-modules/.compiled')) | Out-Null
+        $script:shadow = Join-Path $script:root 'shadow'
+        [System.IO.Directory]::CreateDirectory($script:shadow) | Out-Null
+        [System.IO.File]::WriteAllText((Join-Path $script:shadow 'Catzc.Types.abcd1234.dll'), 'widget')
+        $script:contract = Join-Path $script:root 'contracts/catzc/0.1.0/catzc.internal.types/types.sample.json'
+        [System.IO.Directory]::CreateDirectory((Split-Path $script:contract)) | Out-Null
+        $script:surface = @(
+            [pscustomobject]@{ Name = 'Catzc.Gadgets.Gadget'; Aliases = @(); Display = @('Name') },
+            [pscustomobject]@{ Name = 'Catzc.Widgets.Widget'; Aliases = @('Catzc.Widget'); Display = @() }
+        )
+        $script:writeContract = {
+            param([object[]] $Types)
+            $json = ConvertTo-Json -InputObject @{ types = @($Types | ForEach-Object { [ordered]@{ name = $_.Name; aliases = @($_.Aliases); display = @($_.Display) } }) } -Depth 4
+            [System.IO.File]::WriteAllText($script:contract, $json)
+        }
         Mock Import-InternalModule -ModuleName Catzc.Base.QualityGates { }
         Mock Get-CatzcModulesFolder -ModuleName Catzc.Base.QualityGates { 'widget-modules' }
         Mock Get-CombinedTypeHash -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ CombinedHash = 'abcd1234' } }
+        Mock Get-TypesShadowRoot -ModuleName Catzc.Base.QualityGates { $script:shadow }
+        Mock Get-TypesAssemblyManifest -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ Types = $script:surface } }
         Mock Test-GitPathChanged -ModuleName Catzc.Base.QualityGates { $false }
     }
 
-    It 'reports nothing for exactly the current manifest' {
-        [System.IO.File]::WriteAllText((Join-Path $script:root 'widget-modules/.compiled/Catzc.Types.abcd1234.json'),
-            '{}')
+    It 'reports nothing while the committed contract is the current build''s surface' {
+        & $script:writeContract $script:surface
         InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:root } {
             @(Get-CommittedTypesDrift -RepositoryRoot $Root) | Should -BeNullOrEmpty
         }
     }
 
-    It 'reports a missing manifest' {
+    It 'names every added, removed and changed type when the surface moved' {
+        & $script:writeContract @(
+            [pscustomobject]@{ Name = 'Catzc.Gadgets.Gadget'; Aliases = @(); Display = @('Name', 'Size') },
+            [pscustomobject]@{ Name = 'Catzc.Sprockets.Sprocket'; Aliases = @(); Display = @() }
+        )
         InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:root } {
             Get-CommittedTypesDrift -RepositoryRoot $Root |
-                Should -BeLike 'widget-modules/.compiled holds 0 Catzc.Types.*.json*expected exactly Catzc.Types.abcd1234.json*'
+                Should -BeLike '*differs from the current build''s surface: added `[Catzc.Widgets.Widget`], removed `[Catzc.Sprockets.Sprocket`], changed `[Catzc.Gadgets.Gadget`]*'
         }
     }
 
-    It 'reports a manifest that is not the current one, and pending git changes' {
-        [System.IO.File]::WriteAllText((Join-Path $script:root 'widget-modules/.compiled/Catzc.Types.0000ffff.json'),
-            '{}')
+    It 'reports a missing contract, a missing build, and pending git changes' {
         Mock Test-GitPathChanged -ModuleName Catzc.Base.QualityGates { $true }
         InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:root } {
             $reasons = @(Get-CommittedTypesDrift -RepositoryRoot $Root)
             $reasons | Should -HaveCount 2
-            $reasons[0] |
-                Should -BeLike 'widget-modules/.compiled holds 1 Catzc.Types.*.json (Catzc.Types.0000ffff.json)*'
-            $reasons[1] | Should -BeLike 'widget-modules/.compiled has pending git changes*'
+            $reasons[0] | Should -BeLike '*types.sample.json is missing*'
+            $reasons[1] | Should -BeLike '*types.sample.json has pending git changes*'
         }
-    }
-
-    It 'ignores a per-machine DLL left in .compiled, which git ignores' {
-        [System.IO.File]::WriteAllText((Join-Path $script:root 'widget-modules/.compiled/Catzc.Types.0000ffff.dll'),
-            'widget')
-        [System.IO.File]::WriteAllText((Join-Path $script:root 'widget-modules/.compiled/Catzc.Types.abcd1234.json'),
-            '{}')
+        Remove-Item -LiteralPath (Join-Path $script:shadow 'Catzc.Types.abcd1234.dll')
         InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:root } {
-            @(Get-CommittedTypesDrift -RepositoryRoot $Root) | Should -BeNullOrEmpty
+            Get-CommittedTypesDrift -RepositoryRoot $Root | Should -BeLike 'no build of the current type sources (abcd1234)*'
         }
     }
 }

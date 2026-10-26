@@ -38,8 +38,6 @@ function Test-AgentDefinitions {
             Get-ChildPath $skillsRoot -Depth 2 -File -Filter 'SKILL.md' | ForEach-Object { [string]$_ } | Sort-Object
         })
     $floors = @{}
-    # A user skill is invoked by the user and a brief skill is named in a brief; neither is preloaded, and the registry
-    # says which are.
     $userSkills = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
     $briefSkills = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
     $readOnlySkills = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
@@ -54,8 +52,6 @@ function Test-AgentDefinitions {
             [void]$readOnlySkills.Add($entry.name)
         }
     }
-    # The carrier registry says where a capability's catzc head nests, under the file kind's class; the gate never fixes
-    # the key itself.
     $carriers = Get-Config -Config file-carriers
     $fileKinds = Get-Config -Config file-kinds
     foreach ($file in $capabilityFiles) {
@@ -97,8 +93,6 @@ function Test-AgentDefinitions {
         elseif ($readOnlySkills.Contains($name) -and [string]$frontMatter['allowed-tools'] -match '\b(Write|Edit)\b') {
             $issues.Add("${relative}: a read_only skill's allowed-tools must hold no Write or Edit")
         }
-        # The floor is the author's one line in the catzc head's config part, beside the imprinted parts, so it survives
-        # every imprint.
         $floor = $null
         $authored = $frontMatter
         foreach ($segment in @('metadata', 'catzc', 'config')) {
@@ -124,7 +118,7 @@ function Test-AgentDefinitions {
         }
         $number = 0
         foreach ($line in ([Catzc.Base.MarkdownMeta.MarkdownDocument]::Parse([System.IO.File]::ReadAllText($file),
-            $key).Body -split "`r?`n")) {
+                    $key).Body -split "`r?`n")) {
             $number++
             if ($line.Length -gt $columnRoof) {
                 $issues.Add("${relative}: body line $number has $($line.Length) columns, the roof is $columnRoof")
@@ -218,7 +212,7 @@ function Test-AgentDefinitions {
         }
         $number = 0
         foreach ($line in ([Catzc.Base.MarkdownMeta.MarkdownDocument]::Parse([System.IO.File]::ReadAllText($file),
-            [Catzc.Base.MarkdownMeta.MarkdownDocument]::MetaKey).Body -split "`r?`n")) {
+                    [Catzc.Base.MarkdownMeta.MarkdownDocument]::MetaKey).Body -split "`r?`n")) {
             $number++
             if ($line.Length -gt $columnRoof) {
                 $issues.Add("${relative}: body line $number has $($line.Length) columns, the roof is $columnRoof")

@@ -61,8 +61,6 @@ function Get-ModuleProtectionIdentity {
         $widen = $true
     }
     elseif ($OutsideModulesFolder) {
-        # a module of another language track running its own tests: no derived globset of its own; its read set is the
-        # repo
         $widen = $true
     }
     else {

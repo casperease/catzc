@@ -83,6 +83,8 @@ $burst = [System.Threading.EventWaitHandle]::new($false, [System.Threading.Event
     "$LockName-burst")
 $failed = $false
 try {
+    # The burst's own steps, and the processes they start, import inside the swap; every other import waits it out (Wait-ImportBurst).
+    $env:CATZC_IN_BURST = '1'
     if ($Run) {
         "[Enter-CatzcBurst] holding the run lock for up to $Seconds s; running $($Run.Count) -Run steps"
         $limit = [datetime]::UtcNow.AddSeconds($Seconds)
@@ -122,6 +124,7 @@ try {
     }
 }
 finally {
+    $env:CATZC_IN_BURST = $null
     $burst.Dispose()
     Remove-CatzcRunLockHolder -LockName $LockName
     $lock.ReleaseMutex()

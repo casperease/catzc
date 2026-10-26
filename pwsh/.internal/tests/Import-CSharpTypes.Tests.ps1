@@ -49,8 +49,6 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
         Mock Get-TypesShadowRoot { $shadowRoot }.GetNewClosure() -ModuleName Catzc.Internal.Types
         Mock Get-TypesShadowRoot { $shadowRoot }.GetNewClosure() -ModuleName Catzc.Internal.Bootstrap
         $script:shadowRoot = $shadowRoot
-        # A run from a VS Code terminal carries its mark; every case here is a plain devbox unless it sets the mark
-        # itself.
         $script:originalTerminalProgram = $env:TERM_PROGRAM
         $env:TERM_PROGRAM = ''
     }
@@ -70,7 +68,7 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
             @([System.IO.Directory]::EnumerateFiles($compiled, 'Catzc.Types.*.dll')).Count | Should -Be 0
             @([System.IO.Directory]::EnumerateFiles($compiled, 'Catzc.Types.*.json')).Count | Should -Be 1
             $hash = [System.IO.Path]::GetFileNameWithoutExtension(([System.IO.Directory]::EnumerateFiles($compiled,
-                'Catzc.Types.*.json') | Select-Object -First 1))
+                        'Catzc.Types.*.json') | Select-Object -First 1))
             [System.IO.File]::Exists((Join-Path $script:shadowRoot "$hash.dll")) | Should -BeTrue
         }
 

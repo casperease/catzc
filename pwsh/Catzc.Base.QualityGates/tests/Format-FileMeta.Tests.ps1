@@ -1,11 +1,17 @@
+<#
+---
+catzc:
+  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/Format-FileMeta.Tests.ps1.md"
+  header: "generated"
+---
+#>
+
 [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '',
     Justification = 'The fixture fact processors keep the State, Path and Kind parameters the engine passes by name, though they read fewer')]
 param()
 
 Describe 'Format-FileMeta and Test-FileMeta' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRINTEDPARTS', 'ADR-REPO-FORMAT-METAIMPRINT' {
     BeforeAll {
-        # Fixture kinds with fixture processors: a role from the file's class, and a tint read from its body, never from
-        # its head.
         InModuleScope Catzc.Base.QualityGates {
             function script:Get-WidgetRoleFileMetaFact {
                 param($State, $Path, $Kind)

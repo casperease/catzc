@@ -29,3 +29,12 @@ head in the `nuget-config` carrier. Assert-DotnetOffline checks the written file
 ```powershell
 New-NuGetConfig
 ```
+
+## comment:1
+
+Above `@'`, written with `#`.
+
+```text
+Package and audit feeds are cleared, so no dotnet run in the repository reaches a package manager; the allowed set
+is empty today.
+```

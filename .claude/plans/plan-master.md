@@ -53,10 +53,7 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
 - vscode-extensions -> plan-vscode-extensions.md: trim the recommendations, then the cats file icon theme, then fold editorconfig,
   regex-robin and the ANSI pair into cats extensions or generated settings
 - repo-filters -> plan-repo-filters.md: the filters landed (sets from the model, union of lit lamps, coverage asserted, docs and out lamps);
-  two steps left: the user's look at the lamps in VS Code (the `pipelines` and `infrastructure` lamps landed)
-- file-limits -> plan-file-limits.md: one declared length and width per file class, the Catzc.Base.FileLimits toolkit and gate, the tool
-  width configs generated from it; every tracked file limited in length and width, markdown included; five steps workers, then bounded in
-  timeouts.yml; one step
+  one step left: the user's look at the lamps in VS Code (the `pipelines` and `infrastructure` lamps landed)
 - track-model -> plan-track-model.md: tracks as members with generated and committed facts, catch-up vendor tracks and `out` for the root,
   globsets derived from tracks, a DDR-VENDOR for the vendor umbrella, normal-form track names, filter lamps per aspect plus a language
   field, minimaps and lamps out of the ADRs; eighteen steps, the first waiting on the user's example names

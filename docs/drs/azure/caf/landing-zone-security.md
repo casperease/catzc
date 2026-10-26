@@ -35,7 +35,7 @@ Operating system patch tracking is not adopted, because no template deploys a vi
 
 Policy-deployed virtual machine extensions are not adopted, because no template deploys a virtual machine.
 
-[][r5]
+- [5 — Virtual machine configuration through policy-deployed extensions][toc5]
 
 ### Rule ADR-AZ-CAF-SEC-VIRTUALMACHINESECURITYDRIFT
 
@@ -1472,4 +1472,4 @@ names the module, template, or config that the change touches.
 - Each item cites Microsoft's page and a retrieval date; when the vendor guidance changes, the summary and the takeaways are revisited
   together.
 
-[r5]: 
+[toc5]: #5--virtual-machine-configuration-through-policy-deployed-extensions

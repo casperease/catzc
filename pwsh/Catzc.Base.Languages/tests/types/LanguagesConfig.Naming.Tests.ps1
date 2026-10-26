@@ -1,3 +1,11 @@
+<#
+---
+catzc:
+  docs: "../../../../docs/references/pwsh/catzc-base-languages/tests/types/LanguagesConfig.Naming.Tests.ps1.md"
+  header: "generated"
+---
+#>
+
 Describe 'LanguagesConfig naming and layout' -Tag 'L0' {
     BeforeAll {
         $script:make = { param([System.Collections.IDictionary] $raw) [Catzc.Base.Languages.LanguagesConfig]::new($raw) }
@@ -39,7 +47,7 @@ Describe 'LanguagesConfig naming and layout' -Tag 'L0' {
 
         It 'takes the longest leading approved verb, and throws when the words start with none' -Tag 'ADR-AUTO-IDIOM-ROUNDTRIP' {
             [Catzc.Base.Objects.NameCase]::Join('verb-noun', [string[][]] @(, [string[]] @('convert', 'from',
-                'gadget'))) | Should -BeExactly 'ConvertFrom-Gadget'
+                        'gadget'))) | Should -BeExactly 'ConvertFrom-Gadget'
             { [Catzc.Base.Objects.NameCase]::Join('verb-noun', [string[][]] @(, [string[]] @('gadget', 'part'))) } |
                 Should -Throw '*no approved verb*'
             { [Catzc.Base.Objects.NameCase]::Join('verb-noun', [string[][]] @(, [string[]] @('get'))) } |
@@ -153,8 +161,6 @@ Describe 'LanguagesConfig naming and layout' -Tag 'L0' {
             $config.IsLaidOut(@('bash')) | Should -BeTrue
             $config.IsLaidOut(@('javascript')) | Should -BeTrue
             $config.IsLaidOut(@('markdown', 'asset')) | Should -BeFalse
-            # The editor extension's folder and the run-list folder are laid out but neither live nor shipped, like the
-            # shared tests folder.
             $config.LayoutFolders() | Should -Be @('private', 'extension', 'types', 'configs', 'accosted', 'assets',
                 'tests')
             $config.ShippedFolders() | Should -Be @('types', 'configs', 'assets')

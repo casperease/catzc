@@ -76,3 +76,12 @@ A file's catzc head is derived from its citations, never read back as them
 file cites from
 its body and its comment page, the same source the head is built from.
 ```
+
+## comment:3
+
+Above `if ($languages.IsLaidOut($track.languages) -or (Test-AspectDeclaration -Track...`, written with `#`.
+
+```text
+A laid-out track derives its aspects from the layout; any other track has them only when variants.yml declares
+them.
+```

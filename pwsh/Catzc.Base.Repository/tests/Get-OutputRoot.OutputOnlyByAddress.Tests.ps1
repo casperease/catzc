@@ -14,7 +14,7 @@ Describe 'Get-OutputRoot — no default reaches the output track' -Tag 'L1', 'in
                 $intoOutput = $default.Find({
                         param($node)
                         ($node -is [System.Management.Automation.Language.CommandAst] -and
-                            $node.GetCommandName() -eq 'Get-OutputRoot') -or
+                        $node.GetCommandName() -eq 'Get-OutputRoot') -or
                         ($node -is [System.Management.Automation.Language.StringConstantExpressionAst] -and
                         $node.Value -match '^out([\\/]|$)')
                     }, $true)
@@ -25,6 +25,7 @@ Describe 'Get-OutputRoot — no default reaches the output track' -Tag 'L1', 'in
         }
         function script:Test-WidgetOutput {
             param([string] $Path = (Join-Path (Get-RepositoryRoot) 'out/widgets'))
+            $Path
         }
     }
 

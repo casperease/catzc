@@ -30,7 +30,8 @@ Describe 'LanguagesConfig' -Tag 'L0' {
         It 'reads languages in declared order: a formatter engine or the reason for none, and adr_folder defaulting to none' -Tag 'PDR-CONFIG-EXCEPTIONISCONFIGENTRY' {
             $config = & $script:make ([ordered]@{ languages = [ordered]@{
                         widget = [ordered]@{ extensions = @('.wdg',
-                            '.widget'); formatter = 'prettier'; adr_folder = 'widgets/core' }
+                                '.widget'); formatter = 'prettier'; adr_folder = 'widgets/core'
+                        }
                         gadget = [ordered]@{ extensions = @('.gdg'); no_formatter = 'binary gadgets' }
                     }
                 })
@@ -102,7 +103,9 @@ Describe 'LanguagesConfig' -Tag 'L0' {
         It 'reads an engine''s settings files, and throws on one that is not a repository-relative path' -Tag 'ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS' {
             $config = & $script:make ([ordered]@{
                     formatters = [ordered]@{ prettier = [ordered]@{ settings = @('widget/widget-settings.yml',
-                        '.editorconfig') } }
+                                '.editorconfig')
+                        }
+                    }
                     languages  =[ordered]@{ widget = [ordered]@{ extensions = @('.wdg'); formatter = 'prettier' } }
                 })
             $config.formatters['prettier'].settings | Should -Be @('widget/widget-settings.yml', '.editorconfig')
@@ -115,7 +118,9 @@ Describe 'LanguagesConfig' -Tag 'L0' {
         It 'accepts a settings entry that names one top-level key of a file, and throws on a key that is empty or doubled' -Tag 'ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS' {
             $config = & $script:make ([ordered]@{
                     formatters = [ordered]@{ prettier = [ordered]@{ settings = @('widget/tools.yml#widget',
-                        'widget/tools.yml#gadget_two') } }
+                                'widget/tools.yml#gadget_two')
+                        }
+                    }
                     languages  =[ordered]@{ widget = [ordered]@{ extensions = @('.wdg'); formatter = 'prettier' } }
                 })
             $config.formatters['prettier'].settings | Should -Be @('widget/tools.yml#widget',
@@ -202,7 +207,9 @@ Describe 'LanguagesConfig' -Tag 'L0' {
             $config = & $script:make ([ordered]@{
                     imprint   = @('file-meta')
                     steps     = [ordered]@{ 'file-meta' = [ordered]@{ settings = @('configs/file-meta.yml',
-                        'configs/file-carriers.yml') } }
+                                'configs/file-carriers.yml')
+                        }
+                    }
                     languages = [ordered]@{
                         widget = [ordered]@{ extensions = @('.wdg'); formatter = 'prettier'; imprint = @('bcl-namespace') }
                         gadget = [ordered]@{ extensions = @('.gdg'); no_formatter = 'gadgets are never formatted' }
@@ -226,7 +233,7 @@ Describe 'LanguagesConfig' -Tag 'L0' {
 
         It 'throws on an unknown step, a duplicate, a step both global and a language''s own, and malformed steps' -Tag 'PDR-CONFIG-NEWINSTANCEISCONFIGCHANGE' {
             { & $script:make ([ordered]@{ imprint = @('shine') }) } |
-                Should -Throw "*imprint: unknown imprint step 'shine' (one of: file-meta, bcl-namespace, comments, ps-help, wrap-powershell, plan-counts)*"
+                Should -Throw "*imprint: unknown imprint step 'shine' (one of: file-meta, bcl-namespace, comments, ps-help, plan-counts)*"
             { & $script:make ([ordered]@{ imprint = @('file-meta', 'file-meta') }) } |
                 Should -Throw "*imprint: duplicate imprint step 'file-meta'*"
             { & $script:make ([ordered]@{ imprint = 'file-meta' }) } |
@@ -245,7 +252,7 @@ Describe 'LanguagesConfig' -Tag 'L0' {
 
         It 'names the steps it may list, each with an adapter in Format-Code' -Tag 'integrity' {
             [Catzc.Base.Languages.LanguagesConfig]::ImprintSteps | Should -Be @('file-meta', 'bcl-namespace',
-                'comments', 'ps-help', 'wrap-powershell', 'plan-counts')
+                'comments', 'ps-help', 'plan-counts')
         }
 
         It 'is empty for an empty file' {
@@ -333,7 +340,8 @@ Describe 'LanguagesConfig' -Tag 'L0' {
 
         It 'throws on a check that is not a quality-gate name, on a duplicate check, and on checks that are not a list' {
             $err = { & $script:one ([ordered]@{ extensions = @('.wdg'); checks = @('Format-Widget', 'Test-Spelling',
-                'Test-Spelling') }) } |
+                            'Test-Spelling')
+                    }) } |
                 Should -Throw -PassThru
             $err.Exception.Message | Should -BeLike "*invalid check 'Format-Widget'*"
             $err.Exception.Message | Should -BeLike "*duplicate check 'Test-Spelling'*"
@@ -488,7 +496,7 @@ Describe 'LanguagesConfig' -Tag 'L0' {
         It 'reads go''s flat folders and snake files, and rejects an unknown case, an unknown key, and a naming without cases' -Tag 'ADR-AUTO-IDIOM-LANGUAGEIDIOM' {
             $config = & $script:one ([ordered]@{ extensions = @('.wdg'); naming = [ordered]@{ folder = 'flat'; file = 'snake' } })
             $config.MisnamedPaths([string[]] @('widgets/catzc-widget/widget_test.wdg',
-                'widgets/catzcwidget/widget_test.wdg')) |
+                    'widgets/catzcwidget/widget_test.wdg')) |
                 Should -Be @('widgets/catzc-widget/: the folder is not flat (widget)')
             { & $script:one ([ordered]@{ extensions = @('.wdg'); naming = [ordered]@{ file = 'title' } }) } |
                 Should -Throw "*unknown case 'title'*"

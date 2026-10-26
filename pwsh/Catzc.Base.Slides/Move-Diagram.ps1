@@ -115,7 +115,7 @@ function Move-Diagram {
         $imageOf = {
             param([string] $Name, [string] $Text)
             $labels = @((Get-DiagramImageReference -Text $Text).GetEnumerator() | Where-Object { $_.Value -ceq $Name } |
-                ForEach-Object { [regex]::Escape($_.Key) })
+                    ForEach-Object { [regex]::Escape($_.Key) })
             $reference = ''
             if ($labels.Count) {
                 $reference = '|\[(?i:' + ($labels -join '|') + ')\]'
@@ -171,8 +171,6 @@ function Move-Diagram {
         $placed = $target.Insert([regex]::Match($target, '(?m)^' + (& $imageOf $toName $target)).Index,
             $holders[0].Block)
         foreach ($change in @([pscustomobject]@{ Page = $holders[0].Page; Text = $stripped }, [pscustomobject]@{ Page = $targets[0].Page; Text = $placed })) {
-            # A page whose links were re-pointed already has an entry; the block-moved text replaces it, and a page with
-            # none is simply added.
             $prior = $edits | Where-Object { $_.Page -ceq $change.Page } | Select-Object -First 1
             if ($null -ne $prior) {
                 $edits.Remove($prior) | Out-Null
@@ -180,8 +178,6 @@ function Move-Diagram {
             $edits.Add($change)
         }
     }
-    # A stem's role entry follows it, so drawio.yml keeps naming the diagram after the move; the kit's one editor
-    # re-keys it.
     $rekey = $false
     if ($null -ne $configText) {
         $config = ConvertFrom-Yaml -Yaml $configText -Ordered
@@ -191,7 +187,7 @@ function Move-Diagram {
                 }
             })
         $rekey = @($keys | Where-Object { "$_" -ceq $from -or "$_".StartsWith("$from/",
-            [System.StringComparison]::Ordinal) }).Count -gt 0
+                    [System.StringComparison]::Ordinal) }).Count -gt 0
     }
 
     if ($DryRun) {
@@ -223,8 +219,6 @@ function Move-Diagram {
             Assert-True $tool.Found -ErrorText 'Move-Diagram: uv is not installed (no managed uv found). Run Install-Uv.'
             Invoke-Executable "`"$($tool.Path)`" run --project `"$($kitCode.Folder)`" python `"$($kitCode.Declaration)`" rekey `"$from`" `"$to`" `"$kitConfig`"" -WorkingDirectory $root -Silent | Out-Null
         }
-        # A re-pointed link changes its line's length, so every rewritten page is formatted again, as the repository
-        # formats it.
         $pages = @(foreach ($edit in $edits) {
                 if ($edit.Page.EndsWith('.md', [System.StringComparison]::OrdinalIgnoreCase)) {
                     [System.IO.Path]::GetFullPath((Join-Path $root $edit.Page))

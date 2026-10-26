@@ -19,10 +19,10 @@ function Get-SlideOrderFinding {
     )
 
     $orders = @($Slide | Where-Object { $_.Order -is [int] -or $_.Order -is [long] } |
-        ForEach-Object { [long] $_.Order })
+            ForEach-Object { [long] $_.Order })
     foreach ($group in ($orders | Group-Object | Where-Object Count -GT 1)) {
         $names = @($Slide | Where-Object { "$($_.Order)" -eq $group.Name } | Sort-Object Id |
-            ForEach-Object Id) -join ', '
+                ForEach-Object Id) -join ', '
         [Catzc.Base.Slides.SlideFault]::new($Deck, 'order',
             "the order $($group.Name) is held by $($group.Count) slides: $names")
     }

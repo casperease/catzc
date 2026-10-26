@@ -31,3 +31,12 @@ Above `function Get-WidgetCore {`, written with `#`.
 .SYNOPSIS
     The fixture module's private function.
 ```
+
+## comment:4
+
+Above `$script:fixtureRoot = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))`, written with `#`.
+
+```text
+A real dynamic module with neutral names, so its functions and contracts behave as bundled code does without naming
+any real one.
+```

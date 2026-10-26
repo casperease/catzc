@@ -1,5 +1,11 @@
-# The widths are rendered from file-limits.yml, so this pins them to the formatters' widths before the declared widths
-# existed.
+<#
+---
+catzc:
+  docs: "../../../docs/references/pwsh/catzc-base-file-limits/tests/Build-WidthConfigs.Tests.ps1.md"
+  header: "generated"
+---
+#>
+
 Describe 'Build-WidthConfigs' -Tag 'L1', 'integrity', 'ADR-REPO-FORMAT-CONFIGUREDFORMATTERS' {
     It 'renders .editorconfig with ps1 at 120 and md and py at 140, and leaves no token' {
         $text = Build-WidthConfigs -Target '.editorconfig'

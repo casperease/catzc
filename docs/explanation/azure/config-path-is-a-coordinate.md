@@ -47,7 +47,7 @@ content:
     - { from: g-root, to: g-one, kind: flow, label: "" }
     - { from: g-customer, to: g-one, kind: flow, label: "" }
     - { from: g-one, to: e-subscription, kind: flow, label: "" }
-    - { from: e-subscription, to: e-group, kind: flow, label: "" }
+    - { from: e-group, to: e-subscription, kind: flow, label: in }
   markers:
     - { at: g-root, number: 1 }
     - { at: g-customer, number: 2 }

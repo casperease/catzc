@@ -6,7 +6,7 @@ Describe 'Get-EnabledCustomers' -Tag 'L0', 'logic' {
     }
 
     It 'returns an empty set when have_customers is unset' {
-        Mock Get-Config -ModuleName Catzc.Base.Variants -ParameterFilter { $Config -eq 'variants' } { [Catzc.Base.Variants.VariantsConfig]::new([ordered]@{ tracks = [ordered]@{ widgets = [ordered]@{ places = @('widgetry'); type = 'modules' } } }) }
+        Mock Get-Config -ModuleName Catzc.Base.Variants -ParameterFilter { $Config -eq 'variants' } { [Catzc.Base.Variants.VariantsConfig]::new([ordered]@{ tracks = [ordered]@{ widgets = [ordered]@{ members = @('widgetry'); type = 'modules' } } }) }
         Get-EnabledCustomers | Should -BeNullOrEmpty
     }
 

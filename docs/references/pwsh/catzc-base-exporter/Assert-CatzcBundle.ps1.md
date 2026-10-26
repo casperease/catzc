@@ -59,3 +59,22 @@ Above `$staging = [System.IO.Path]::Combine([System.IO.Path]::GetTempPath(),...`
 Stage the sources build.json records in the one layout Get-CombinedTypeHash reads (<Module>/types/<File>.cs), so the
 hash comes from the one implementation rather than a second copy of its recipe.
 ```
+
+## comment:3
+
+Above `$leaked = @($files | Where-Object { -not $_.StartsWith('.vendor/') -and "/$_"...`, written with `#`.
+
+```text
+No test folder ships: tests/ is never live by the layout
+([ADR-AUTO-MODULE-EXISTSBYLAYOUT](/docs/drs/automation/module-model.md#rule-adr-auto-module-existsbylayout)).
+Vendored modules are verbatim copies (powershell-yaml carries its own Tests/).
+```
+
+## comment:4
+
+Above `$carriers = [System.IO.Path]::Combine($root, 'Catzc.Base.Languages',...`, written with `#`.
+
+```text
+The hash leaves each file's meta head out and reads the head's delimiters from the carriers
+config, so the build's own copy rides along.
+```

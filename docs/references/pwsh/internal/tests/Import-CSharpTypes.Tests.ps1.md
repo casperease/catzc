@@ -1,5 +1,7 @@
 # pwsh/.internal/tests/Import-CSharpTypes.Tests.ps1
 
+<!-- cspell:ignore importcs dlllock -->
+
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
 
@@ -114,4 +116,13 @@ Above `$root = Join-Path $script:fixtureRoot ([guid]::NewGuid().ToString('N'))` 
 ```text
 Bypass New-FixtureRoot's auto-prepend by writing the source directly, so the file genuinely lacks
 a namespace — the loader must reject it rather than silently produce a type in the global namespace.
+```
+
+## comment:12
+
+Above `$script:originalTerminalProgram = $env:TERM_PROGRAM`, written with `#`.
+
+```text
+A run from a VS Code terminal carries its mark; every case here is a plain devbox unless it sets the mark
+itself.
 ```

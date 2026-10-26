@@ -20,3 +20,12 @@ Above `$script:inputPipeChild = if ($env:CATZC_BLOCK_REAL_PROCESS -ne '1') {`, w
 The child's import takes seconds, so it starts here and the rest of the file runs meanwhile; a run that blocks every real process
 ('1') starts none.
 ```
+
+## comment:3
+
+Above `$script:inputPipeChild = if ($env:CATZC_BLOCK_REAL_PROCESS -ne '1') {`, written with `#`.
+
+```text
+Only a run that blocks every launch ('1') keeps the child from starting; 'tier' arms the L0 and L1 Describes
+alone.
+```

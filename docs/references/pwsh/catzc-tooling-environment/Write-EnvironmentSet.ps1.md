@@ -91,3 +91,12 @@ Above `$scoped = -not $Persist`, written with `#`.
 3) Apply. Scoped snapshots each target's current value, sets all, invokes the block, and restores in a
    finally; Persist just sets all and leaves them. Both share one set+log loop.
 ```
+
+## comment:3
+
+Above `$scoped = -not $Persist`, written with `#`.
+
+```text
+Scoped restores every target in a finally, so a throwing block never leaves a variable changed; Persist leaves
+them set.
+```

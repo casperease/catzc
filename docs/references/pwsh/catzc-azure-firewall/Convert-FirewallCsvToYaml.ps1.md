@@ -99,3 +99,30 @@ Above `$header = [System.Collections.Generic.List[string]]::new()`, written with
 Provenance as a YAML comment header — visible to readers, ignored by parsers, so the parsed
 shape stays a plain list of rules. Times are UTC; conversion time is taken now in UTC.
 ```
+
+## comment:4
+
+Above `if (-not $SourceName) {`, written with `#`.
+
+```text
+Filled in the body, not as a default: a piped path binds after the defaults are evaluated, so a default would
+never see it.
+```
+
+## comment:5
+
+Above `Assert-PathExist $CsvPath -PathType Leaf`, written with `#`.
+
+```text
+Asserted in both modes, so a wrong path to the source CSV fails here by name and never as a raw CSV read
+error.
+```
+
+## comment:6
+
+Above `$header = [System.Collections.Generic.List[string]]::new()`, written with `#`.
+
+```text
+Provenance as YAML comments, so a reader sees it and a parser never does: the parsed shape stays a plain list
+of rules.
+```

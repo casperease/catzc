@@ -70,3 +70,12 @@ parameter name is in the source). Every other file cannot match and is skipped p
 is the whole cost, and ~95% of the tree contains no live token at all, so this is a cheap text scan for
 them. Word boundaries keep 2-char shortcodes (ap/nv/de/…) from matching inside ordinary words.
 ```
+
+## comment:2
+
+Above `$files = Get-ChildPath $modulesRoot -File -Filter '*.Tests.ps1' -Depth 4...`, written with `#`.
+
+```text
+Test files reach four levels below pwsh/ (module, tests, types, file); vendored modules are pruned by the
+walk.
+```

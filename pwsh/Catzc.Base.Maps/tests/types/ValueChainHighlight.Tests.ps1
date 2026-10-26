@@ -30,14 +30,14 @@ Describe 'ValueChainHighlight' -Tag 'L0', 'logic' {
 
     It 'lights a rule''s cells as its ADR''s, in either citation form' -Tag 'DDR-TRACK-LITCELL' {
         $highlight = [Catzc.Base.Maps.ValueChainHighlight]::ForAdr($script:map, @('ADR-WIDGET-SPROCKET-FOLD',
-            'ADR-WIDGET-COG-SPIN'))
+                'ADR-WIDGET-COG-SPIN'))
         $highlight.Requested | Should -Be @('ADR-WIDGET-SPROCKET-FOLD', 'ADR-WIDGET-COG-SPIN')
         & $script:cellNames $highlight | Should -Be @('TOP x gamma', 'BOTTOM x beta')
     }
 
     It 'lists in a lit cell only the requested ADRs that light it, once each' -Tag 'DDR-TRACK-LITCELL' {
         $highlight = [Catzc.Base.Maps.ValueChainHighlight]::ForAdr($script:map, @('ADR-WIDGET-COG',
-            'ADR-WIDGET-GADGET-TURN', 'ADR-WIDGET-COG-LIFT'))
+                'ADR-WIDGET-GADGET-TURN', 'ADR-WIDGET-COG-LIFT'))
         $highlight.Requested | Should -Be @('ADR-WIDGET-COG', 'ADR-WIDGET-GADGET-TURN', 'ADR-WIDGET-COG-LIFT')
         & $script:cellNames $highlight | Should -Be @('TOP x alpha', 'TOP x gamma')
         $highlight.Cells[1].Adrs | Should -Be @('ADR-WIDGET-COG', 'ADR-WIDGET-GADGET')
@@ -50,7 +50,7 @@ Describe 'ValueChainHighlight' -Tag 'L0', 'logic' {
 
     It 'throws once, naming every reference that is not an ADR code of the map' {
         { [Catzc.Base.Maps.ValueChainHighlight]::ForAdr($script:map, @('ADR-WIDGET-GIZMO', 'widget',
-            'ADR-WIDGET-COG')) } |
+                    'ADR-WIDGET-COG')) } |
             Should -Throw "*value-chain highlight: 'ADR-WIDGET-GIZMO' is not an ADR code of the adrs registry; 'widget' is not an ADR code of the adrs registry*"
     }
 

@@ -43,3 +43,21 @@ Above `It 'accepts a valid registry (one type per entry)' {`, written with `#`.
 Validator logic on inline (synthetic) registries — independent of any shipped configs.yml
 ([ADR-AUTO-TEST-LOGICANDINTEGRITY](/docs/drs/automation/test-automation.md#rule-adr-auto-test-logicandintegrity)).
 ```
+
+## comment:5
+
+Above `It 'discovers and loads a shipped config from its owning module' {`, written with `#`.
+
+```text
+A real shipped config, so discovery in its owning module is proven; the raw default is pinned on a fixture
+below.
+```
+
+## comment:6
+
+Above `BeforeEach {`, written with `#`.
+
+```text
+A bundled config and an overlay, both fixtures behind their seams, so a merge is tested without a real
+consumer.
+```

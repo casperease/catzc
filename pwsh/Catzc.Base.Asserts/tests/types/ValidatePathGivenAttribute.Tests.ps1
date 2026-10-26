@@ -39,7 +39,7 @@ Describe 'ValidatePathGiven on the whole-tree commands' -Tag 'L1', 'integrity' {
     # Each of these runs over the whole tree when -Path is left out, so an empty -Path is refused before its body runs.
     It '<_> refuses an empty -Path' -ForEach @(
         'Format-Code', 'Format-FileMeta', 'Format-Links', 'Format-MarkdownTitle', 'Format-Types', 'Export-Comments',
-            'Build-CommentView',
+        'Build-CommentView',
         'Rename-CodeName', 'Invoke-GitCommit', 'Test-Links', 'Test-FileMeta', 'Test-Formatting', 'Test-Comments',
         'Test-MarkdownTitle',
         'Test-ScriptAnalyzer', 'Test-Plans', 'Test-ConfigIdentityHygiene', 'Test-LogicTestIdentity', 'Build-Diagrams',

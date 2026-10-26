@@ -35,7 +35,8 @@ Describe 'ImportMix' -Tag 'L0', 'logic' {
 
     It 'leaves out a module with a code language outside the mix' -Tag 'ADR-AUTO-IMPORTER-CODELANGUAGESSELECTMODULES' {
         $code = [ordered]@{ 'Widget.Beta' = [string[]] @('widget',
-            'gadget'); 'Widget.Alpha' = [string[]] @('widget'); 'Widget.Gamma' = [string[]] @() }
+                'gadget'); 'Widget.Alpha' = [string[]] @('widget'); 'Widget.Gamma' = [string[]] @()
+        }
         $mix = [Catzc.Base.ModuleSystem.ImportMix]::Resolve($auto, [string[]] @('widget'), $null, [string[]] @('pwsh'),
             $code, $known, $executable, $handled)
         $mix.modules | Should -Be @('Widget.Alpha', 'Widget.Gamma')
@@ -61,19 +62,19 @@ Describe 'ImportMix' -Tag 'L0', 'logic' {
 
     It 'stops on an explicit engine whose executable is not present' {
         { [Catzc.Base.ModuleSystem.ImportMix]::Resolve($auto, $null, [string[]] @('zsh'), [string[]] @('pwsh'),
-            $modules, $known, $executable, $handled) } |
+                $modules, $known, $executable, $handled) } |
             Should -Throw '*names the engine ''zsh'', but its executable is not present*'
     }
 
     It 'stops on an explicit engine outside the engine model' {
         { [Catzc.Base.ModuleSystem.ImportMix]::Resolve($auto, $null, [string[]] @('gadget'), [string[]] @('pwsh'),
-            $modules, $known, $executable, $handled) } |
+                $modules, $known, $executable, $handled) } |
             Should -Throw '*''gadget'' is not an execution engine*'
     }
 
     It 'stops on an explicit language the languages configuration does not know, naming the known ones' {
         { [Catzc.Base.ModuleSystem.ImportMix]::Resolve($auto, [string[]] @('gizmo'), $null, [string[]] @('pwsh'),
-            $modules, $known, $executable, $handled) } |
+                $modules, $known, $executable, $handled) } |
             Should -Throw '*''gizmo'' is not a language*(one of: widget, gadget, sprocket, doodad)*'
     }
 

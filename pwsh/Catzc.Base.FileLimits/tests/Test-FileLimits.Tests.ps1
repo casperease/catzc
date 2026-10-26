@@ -1,5 +1,4 @@
-# The gate fails on length now, reports width until a class flips to fail, and names every file no language or extension
-# declares.
+# The gate fails on length, only measures and reports width, and names every file no language or extension declares.
 Describe 'Test-FileLimits' -Tag 'L0', 'logic' {
     BeforeAll {
         Mock Assert-SourceTree -ModuleName Catzc.Base.FileLimits {}
@@ -10,15 +9,23 @@ Describe 'Test-FileLimits' -Tag 'L0', 'logic' {
         [System.IO.File]::WriteAllText($script:unknown, "a`n")
     }
 
-    It 'fails a length breach and only reports a width breach in report mode' {
+    It 'fails a length breach and only reports a width breach' {
         $result = Test-FileLimits -Path $script:long -OutputFolder (Join-Path $TestDrive 'out1') -PassThru
         @($result.Issues).Count | Should -Be 1
-        @($result.Issues)[0] | Should -BeLike '*401 lines*'
+        $result.Issues | Select-Object -First 1 | Should -BeLike '*401 lines*'
+    }
+
+    It 'never fails on width: a wide file within its length passes and its width is reported' {
+        $wide = Join-Path $TestDrive 'wide.ps1'
+        [System.IO.File]::WriteAllText($wide, ('x' * 300) + "`n")
+        $result = Test-FileLimits -Path $wide -OutputFolder (Join-Path $TestDrive 'out5') -PassThru
+        @($result.Issues).Count | Should -Be 0
+        $result.Facts.WidthReported | Should -Be 1
     }
 
     It 'fails a file no language or extension declares, naming it' {
         $result = Test-FileLimits -Path $script:unknown -OutputFolder (Join-Path $TestDrive 'out2') -PassThru
-        @($result.Issues)[0] | Should -BeLike '*gadget.unclassified: unclassified*'
+        $result.Issues | Select-Object -First 1 | Should -BeLike '*gadget.unclassified: unclassified*'
     }
 
     It 'measures a comment page as authored prose, though its root is a generated target, and leaves other generated files out' {
@@ -35,7 +42,7 @@ Describe 'Test-FileLimits' -Tag 'L0', 'logic' {
     }
 
     It 'leaves the vendor folder out of scope' {
-        $result = Test-FileLimits -Path 'pwsh/.vendor/widget/gadget.unclassified' -OutputFolder (Join-Path $TestDrive 'out3') -PassThru
+        $result = Test-FileLimits -Path ((Get-CatzcModulesFolder) + '/.vendor/widget/gadget.unclassified') -OutputFolder (Join-Path $TestDrive 'out3') -PassThru
         @($result.Issues).Count | Should -Be 0
     }
 }

@@ -25,7 +25,7 @@ function Get-DefinedName {
     foreach ($relative in $Path) {
         $language = $config.ForPath($relative)
         if ($null -eq $language -or $null -eq $language.naming -or ($language.naming.function.Count -eq 0 -and
-            $language.naming.type.Count -eq 0)) {
+                $language.naming.type.Count -eq 0)) {
             continue
         }
         $full = Join-Path $RepositoryRoot $relative
@@ -35,8 +35,6 @@ function Get-DefinedName {
         if ($language.name -ceq 'powershell') {
             $ast = [System.Management.Automation.Language.Parser]::ParseFile($full, [ref] $null, [ref] $null)
             foreach ($definition in $ast.FindAll({ param($node) $node -is [System.Management.Automation.Language.FunctionDefinitionAst] }, $true)) {
-                # A scope qualifier sits outside the case, as a hidden folder's dot does: script:New-Widget is a
-                # verb-noun name.
                 [pscustomobject]@{ Path = $relative; Kind = 'function'; Name = [Catzc.Base.Repository.SyntaxSearch]::BareName($definition) }
             }
             foreach ($definition in $ast.FindAll({ param($node) $node -is [System.Management.Automation.Language.TypeDefinitionAst] }, $true)) {

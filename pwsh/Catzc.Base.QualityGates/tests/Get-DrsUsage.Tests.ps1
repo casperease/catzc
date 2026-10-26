@@ -1,3 +1,11 @@
+<#
+---
+catzc:
+  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/Get-DrsUsage.Tests.ps1.md"
+  header: "generated"
+---
+#>
+
 Describe 'Get-DrsUsage (repository)' -Tag 'L2', 'integrity', 'source-only' {
     BeforeAll {
         $script:gitMissing = -not (Get-Command git -ErrorAction Ignore)
@@ -63,8 +71,6 @@ Describe 'Get-DrsUsage (repository)' -Tag 'L2', 'integrity', 'source-only' {
             Set-ItResult -Skipped -Because 'tool_git_missing'; return
         }
         $path = 'docs/drs/repository/file-meta.md'
-        # An absolute path: a relative one resolves against the process location, which a test worker does not hold at
-        # the root.
         $one = @(Get-DrsUsage -Path (Join-Path (Get-RepositoryRoot) $path))
         $one.Count | Should -BeGreaterThan 0
         @($one.Path | Sort-Object -Unique) | Should -Be @($path)
@@ -82,8 +88,13 @@ Describe 'Get-DrsUsage' -Tag 'L0', 'logic' {
             [Catzc.Base.Drs.DrsCitationMap]::new(@{ 'ADR-GADGET' = @{ path = 'docs/drs/gadget.md'; rules = [string[]] @('ADR-GADGET-SPIN') } }, @())
         }
         Mock Get-FileMetaScope -ModuleName Catzc.Base.QualityGates {
-            [pscustomobject]@{ Path = 'docs/widget-deleted.md'; Carrier = [pscustomobject]@{ carrier = [Catzc.Base.Languages.CarrierKind]::FrontMatter } }
-            [pscustomobject]@{ Path = 'docs/widget.md'; Carrier = [pscustomobject]@{ carrier = [Catzc.Base.Languages.CarrierKind]::FrontMatter } }
+            foreach ($path in 'docs/widget-deleted.md', 'docs/widget.md') {
+                [pscustomobject]@{
+                    Path    = $path
+                    Carrier = [pscustomobject]@{ carrier = [Catzc.Base.Languages.CarrierKind]::FrontMatter }
+                    Class   = (Get-FileKind $path).Class
+                }
+            }
         }
         $kept = @(Get-DrsUsage -RepositoryRoot $root)
         $kept.Count | Should -BeGreaterThan 0

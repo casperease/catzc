@@ -3,7 +3,7 @@ Describe 'Test-TrackMemberCommitted' -Tag 'L0', 'logic', 'DDR-TRACK-TRACKISPLACE
         function script:New-Member {
             param([string] $Path, [bool] $Committed = $true)
             [Catzc.Base.Variants.TrackMember]::new('widget', [Catzc.Base.Variants.VariantMember]::new($Path, $false,
-                $Committed))
+                    $Committed))
         }
     }
 

@@ -26,8 +26,9 @@ Describe 'Assert-LinkDirectionsConfig' -Tag 'L0', 'logic', 'ADR-CONF-LOADING-POW
     It 'passes a row whose every value is declared' {
         $row = @{
             from = @{ classes = @('code'); aspects = @('live'); tracks = @('mods'); track_types = @('widgets'); modules = @('Catzc.Base.QualityGates') }
-            to = @{ classes = @('reference/gadget', 'reference',
-                'ref*') }; verdict = 'allow'; because = 'ADR-WIDGET-ONE'
+            to   = @{ classes = @('reference/gadget', 'reference',
+                    'ref*')
+            }; verdict = 'allow'; because = 'ADR-WIDGET-ONE'
         }
         { & $assert $row } | Should -Not -Throw
     }

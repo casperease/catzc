@@ -94,7 +94,7 @@ function Get-CombinedTypeHash {
     # culture-aware — cross-platform ADR — so use an ordinal comparer over the keys).
     $sortedFiles = [object[]]$files.ToArray()
     [System.Array]::Sort($sortedFiles, [System.Comparison[object]] { param($a,
-        $b) [System.StringComparer]::Ordinal.Compare($a.Key, $b.Key) })
+                $b) [System.StringComparer]::Ordinal.Compare($a.Key, $b.Key) })
 
     $stamped = @{}
     if ($StampPath -and [System.IO.File]::Exists($StampPath)) {

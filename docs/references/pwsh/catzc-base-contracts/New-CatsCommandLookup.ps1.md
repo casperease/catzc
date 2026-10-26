@@ -33,3 +33,12 @@ The repository root that holds contracts/. Default: the loaded repository root.
 ```powershell
 New-CatsCommandLookup
 ```
+
+## comment:1
+
+Above `$languages = Get-Config -Config languages`, written with `#`.
+
+```text
+Every name is keyed by its normal form and carries its two renderings: kebab, as cats takes it, and PowerShell's,
+as pwsh binds it.
+```

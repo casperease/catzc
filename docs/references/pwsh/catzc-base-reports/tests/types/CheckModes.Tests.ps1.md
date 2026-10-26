@@ -12,3 +12,12 @@ CheckModes — the one parser of a check's mode setting, shared by every check c
 once on CheckMode, and an unknown one gets the one error text. Neutral fixture values
 ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```
+
+## comment:2
+
+Above `Describe 'CheckModes'`, written with `#`.
+
+```text
+Every check config parses its mode through this one function, so a second spelling or error text would show here
+first.
+```

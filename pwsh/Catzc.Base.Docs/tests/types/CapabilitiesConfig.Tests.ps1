@@ -1,5 +1,11 @@
-# Rests on
-# [ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities) and [ADR-REPO-AGENTS-NOORPHANNOGHOST](/docs/drs/repository/agent-definitions.md#rule-adr-repo-agents-noorphannoghost).
+<#
+---
+catzc:
+  docs: "../../../../docs/references/pwsh/catzc-base-docs/tests/types/CapabilitiesConfig.Tests.ps1.md"
+  header: "generated"
+---
+#>
+
 Describe 'CapabilitiesConfig' -Tag 'L0', 'logic', 'ADR-REPO-AGENTS-CAPABILITYREGISTERED' {
     BeforeAll {
         $script:widget = [ordered]@{ name = 'widget-spin'; supported_by = @('ADR-WIDGET-ONE-TURN'); checks = @('Test-Widget') }

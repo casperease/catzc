@@ -45,8 +45,6 @@ function Build-ContractReference {
                 }
             }
             catch {
-                # One unreadable contract fails the root's read, so each asset is read on its own and only the broken
-                # one shows none.
                 foreach ($asset in @($rootAssets | Where-Object { $_.Kind -eq [Catzc.Base.Contracts.ContractAssetKind]::Command })) {
                     try {
                         $one = Get-CommandContract -Root ([WildcardPattern]::Escape($asset.Root)) -Version ([WildcardPattern]::Escape($asset.Version)) `
@@ -129,7 +127,7 @@ function Build-ContractReference {
                     'none'
                 }
                 $rows.Add([string[]] @("``$($asset.Group)``", $assetCell, $target, $direction,
-                    $kindText["$($asset.Kind)"], $signature))
+                        $kindText["$($asset.Kind)"], $signature))
             }
 
             # Aligned as Prettier aligns a table, so the page is formatter-stable.

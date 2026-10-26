@@ -12,8 +12,9 @@ Describe 'Get-CatsModules' -Tag 'L0', 'logic' {
         $outsideRoot = Join-Path $TestDrive 'elsewhere'
         $fixtures = @(
             @{ Root = $script:modulesRoot; Name = 'Catzc.Widget.Reader'; Body = @('function Get-WidgetReport {}',
-                'function Set-WidgetReport {}', 'function Get-WidgetHelper {}',
-                'Export-ModuleMember -Function Set-WidgetReport, Get-WidgetReport') -join "`n" }
+                    'function Set-WidgetReport {}', 'function Get-WidgetHelper {}',
+                    'Export-ModuleMember -Function Set-WidgetReport, Get-WidgetReport') -join "`n"
+            }
             @{ Root = $script:modulesRoot; Name = 'Catzc.Gadget.Writer'; Body = "function Invoke-GadgetBackup {}`nExport-ModuleMember -Function Invoke-GadgetBackup" }
             @{ Root = $script:modulesRoot; Name = '.widget'; Body = "function Get-HiddenWidget {}`nExport-ModuleMember -Function Get-HiddenWidget" }
             @{ Root = $outsideRoot; Name = 'Catzc.Gadget.Outside'; Body = "function Get-OutsideGadget {}`nExport-ModuleMember -Function Get-OutsideGadget" }

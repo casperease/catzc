@@ -14,3 +14,12 @@ boundary. The {workspace} anchor resolves to the parent of the repository root
 ([ADR-AUTO-PATH-WORKSPACEANCHOR](/docs/drs/automation/path-representation.md#rule-adr-auto-path-workspaceanchor)), the same from pwsh's and
 Git Bash's view of that root, and the result is a normalized absolute path.
 ```
+
+## comment:2
+
+Above `Describe 'Resolve-InspirationRoot'`, written with `#`.
+
+```text
+The root is fed in both shells' views of the same folder, so the anchor resolving differently per shell would fail
+here.
+```

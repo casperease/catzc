@@ -39,7 +39,7 @@ function Complete-DocNote {
 
     $reason = $FactCheckReason.Trim()
     Assert-True ($reason.Trim('.',
-        ' ') -cne $FactCheck) -ErrorText "Complete-DocNote: the reason for '$FactCheck' only repeats the verdict; give what supports it, with its path:line."
+            ' ') -cne $FactCheck) -ErrorText "Complete-DocNote: the reason for '$FactCheck' only repeats the verdict; give what supports it, with its path:line."
     foreach ($value in $reason, $Pattern, $Plan) {
         Assert-True (-not $value.Contains('|') -and
             -not $value.Contains("`n")) -ErrorText "Complete-DocNote: '$value' holds a '|' or a line break, which the ledger line cannot carry."

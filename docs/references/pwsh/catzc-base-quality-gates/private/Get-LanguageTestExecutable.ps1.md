@@ -50,3 +50,21 @@ The engines other than the running pwsh, which every language's tests also run u
 a restated list): each located once here, since a build run's worker cannot locate it (its tools.yml entry is
 not in the build).
 ```
+
+## comment:2
+
+Above `$toolLanguages = @((Get-Config -Config languages).languages | Where-Object {...`, written with `#`.
+
+```text
+The languages whose tests need tools come from the registry; a language that is an engine resolves with the
+engines below.
+```
+
+## comment:3
+
+Above `$resolved = @(foreach ($tool in $language.tests.tools) {`, written with `#`.
+
+```text
+Every tool the entry names must resolve at its locked version; the first one's path is the one the runner
+takes.
+```

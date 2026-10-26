@@ -19,7 +19,7 @@
   <PropertyGroup Label="catzc">
     <CatzcMeta><![CDATA[catzc:
   immutable:
-    with_body_sha: "9afb4e3876a2"
+    with_body_sha: df9c7019a945
     warning: "Do Not Edit, this file is generated"]]></CatzcMeta>
   </PropertyGroup>
 
@@ -63,7 +63,8 @@
       <Output TaskParameter="ExitCode" PropertyName="CatzcPwshExitCode" />
     </Exec>
     <Error Condition="'$(CatzcPwshExitCode)' != '0' Or !Exists('$(CatzcSmaPath)')"
-           Text="Catzc.Types: could not resolve System.Management.Automation.dll from the pwsh on PATH (exit $(CatzcPwshExitCode), path '$(CatzcSmaPath)'). The IDE build references SMA from the PowerShell 7 host (no NuGet in this toolset) — install pwsh 7.4+ and ensure it is on PATH." />
+           Text="Catzc.Types: could not resolve System.Management.Automation.dll from the pwsh on PATH (exit $(CatzcPwshExitCode), path '$(CatzcSmaPath)'). The IDE build references SMA from the PowerShell 7 host (no NuGet in this toolset) — install pwsh 7.4+ and ensure it is on PATH."
+    />
     <ItemGroup>
       <Reference Include="System.Management.Automation">
         <HintPath>$(CatzcSmaPath)</HintPath>
@@ -100,7 +101,8 @@
       <Output TaskParameter="ExitCode" PropertyName="CatzcHashExitCode" />
     </Exec>
     <Error Condition="'$(CatzcHashExitCode)' != '0' Or '$(CatzcTypesHash)' == ''"
-           Text="Catzc.Types: Get-CombinedTypeHash gave no hash (exit $(CatzcHashExitCode), output '$(CatzcTypesHash)'). The stamp asks the loader at pwsh/.internal through the pwsh on PATH — install pwsh 7.4+ and ensure it is on PATH." />
+           Text="Catzc.Types: Get-CombinedTypeHash gave no hash (exit $(CatzcHashExitCode), output '$(CatzcTypesHash)'). The stamp asks the loader at pwsh/.internal through the pwsh on PATH — install pwsh 7.4+ and ensure it is on PATH."
+    />
     <!-- What the index will commit under pwsh/.compiled. No git (or not a work tree): no hygiene warning. -->
     <Exec Command="git -C &quot;$(MSBuildProjectDirectory)/../..&quot; ls-files -- .compiled"
           ConsoleToMSBuild="true" EchoOff="true" StandardOutputImportance="low" StandardErrorImportance="low" IgnoreExitCode="true">
@@ -116,7 +118,8 @@
     </PropertyGroup>
     <!-- Commit hygiene, as a warning only: what the index will commit must be exactly the current build. -->
     <Warning Condition="'$(CatzcGitExitCode)' == '0' And '$(CatzcTrackedTypesNames)' != 'Catzc.Types.$(CatzcTypesHash).dll'"
-             Text="Catzc.Types: the git index's .compiled holds $(CatzcTrackedTypesNames), but a commit of these sources needs exactly Catzc.Types.$(CatzcTypesHash).dll. Dot-source ./importer.ps1, then stage .compiled in the modules folder (the editor build itself is unaffected)." />
+             Text="Catzc.Types: the git index's .compiled holds $(CatzcTrackedTypesNames), but a commit of these sources needs exactly Catzc.Types.$(CatzcTypesHash).dll. Dot-source ./importer.ps1, then stage .compiled in the modules folder (the editor build itself is unaffected)."
+      />
     <PropertyGroup>
       <Version>1.0.0-$(CatzcTypesHash)</Version>
       <InformationalVersion>$(CatzcTypesHash)</InformationalVersion>

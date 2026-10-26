@@ -6,8 +6,6 @@ catzc:
 ---
 #>
 
-# Real config types built from fixture data, so a binding is supported exactly when the allow-list names its function,
-# and nothing runs.
 Describe 'Import-PsReadLineKeyHandlerSet' -Tag 'L0', 'logic' {
     BeforeAll {
         $sequence = [System.Collections.Generic.List[object]]::new()

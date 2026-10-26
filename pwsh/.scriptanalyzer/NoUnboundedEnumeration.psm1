@@ -1,3 +1,11 @@
+<#
+---
+catzc:
+  docs: "../../docs/references/pwsh/scriptanalyzer/NoUnboundedEnumeration.psm1.md"
+  header: "generated"
+---
+#>
+
 Set-StrictMode -Version Latest   # this module's scope: the rule runs strict inside the analyzer engine
 
 <#
@@ -40,8 +48,6 @@ function Measure-NoUnboundedEnumeration {
         if (-not $name -or $name -notin $listingCommands) {
             continue
         }
-        # A literal provider path (env:, function:, HKLM:) lists a provider, not the filesystem; a drive name of one
-        # letter is a filesystem drive.
         $providerPath = $false
         foreach ($element in @($command.CommandElements | Select-Object -Skip 1)) {
             if ($element -is [System.Management.Automation.Language.StringConstantExpressionAst] -and

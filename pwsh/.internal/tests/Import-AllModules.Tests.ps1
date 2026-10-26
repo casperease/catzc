@@ -206,7 +206,7 @@ Describe 'Run-mode eviction across code roots' -Tag 'L2', 'logic', 'greedy' {
             $languagesConfigs = [System.IO.Directory]::CreateDirectory((Join-Path $modulesRoot 'Catzc.Base.Languages/configs')).FullName
             Copy-Item -Path (Join-Path (Get-CatzcModulesRoot) 'Catzc.Base.Languages/configs/languages.yml') -Destination $languagesConfigs
             foreach ($entry in @(@($OnlyModule, $OnlyFunction, $OnlyBody), @('Catzc.Shared', 'Get-SharedOrigin',
-                "'$Label'"))) {
+                        "'$Label'"))) {
                 $folder = Join-Path $modulesRoot $entry[0]
                 [System.IO.Directory]::CreateDirectory($folder) | Out-Null
                 [System.IO.File]::WriteAllText((Join-Path $folder "$($entry[1]).ps1"),

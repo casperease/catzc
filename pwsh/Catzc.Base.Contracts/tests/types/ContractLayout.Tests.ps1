@@ -1,5 +1,11 @@
-# ContractLayout lists one level of the contracts tree through the bounded walker: folders, file names and entry names,
-# in ordinal order.
+<#
+---
+catzc:
+  docs: "../../../../docs/references/pwsh/catzc-base-contracts/tests/types/ContractLayout.Tests.ps1.md"
+  header: "generated"
+---
+#>
+
 Describe 'ContractLayout' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT-LAYOUT' {
     BeforeAll {
         $root = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
@@ -17,7 +23,7 @@ Describe 'ContractLayout' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT-LAYOUT' {
         @($script:layout.Folders($script:unit) | ForEach-Object { [System.IO.Path]::GetFileName($_) }) |
             Should -Be @('0.0.0', '1.2.0')
         $script:layout.Folders($script:unit) | ForEach-Object { [System.IO.Path]::IsPathFullyQualified($_) |
-            Should -BeTrue }
+                Should -BeTrue }
     }
 
     It 'lists the names of the files directly in a folder, in ordinal order' {

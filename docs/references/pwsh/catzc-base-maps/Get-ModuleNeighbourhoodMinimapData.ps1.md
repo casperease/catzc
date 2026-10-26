@@ -42,3 +42,12 @@ Return the data as JSON in the minimap contract's shape instead of the object.
 ```powershell
 (Get-ModuleNeighbourhoodMinimapData ADR-AUTO-DEPM).Cells
 ```
+
+## comment:1
+
+Above `$dependencies = Get-Config -Config dependencies`, written with `#`.
+
+```text
+The subject's modules, the modules they depend on, and the modules that depend on them, from the module dependency
+registry.
+```

@@ -122,8 +122,9 @@ content:
     - { from: g-build, to: g-templates, kind: flow, label: calls }
     - { from: g-templates, to: g-options, kind: flow, label: "" }
     - { from: g-options, to: t-short-name, kind: flow, label: "" }
-    - { from: t-short-name, to: t-template, kind: flow, label: "" }
-    - { from: t-template, to: g-addresses, kind: flow, label: "" }
+    - { from: g-templates, to: t-short-name, kind: flow, label: calls }
+    - { from: g-templates, to: t-template, kind: flow, label: calls }
+    - { from: g-build, to: g-addresses, kind: flow, label: calls }
     - { from: g-addresses, to: g-invoke, kind: flow, label: calls }
   markers:
     - { at: g-templates, number: 1 }
@@ -139,12 +140,12 @@ layout:
   band-entry: { x: 20, y: 84, w: 190, h: 160 }
   band-folder: { x: 230, y: 84, w: 1050, h: 250 }
   band-slot: { x: 230, y: 354, w: 1050, h: 190 }
-  g-build: { x: 40, y: 120, w: 150, h: 40 }
-  g-templates: { x: 40, y: 182, w: 150, h: 40 }
-  g-options: { x: 262, y: 162, w: 290, h: 80 }
-  f-options-yml: { x: 365, y: 262, w: 110, h: 52 }
-  t-short-name: { x: 640, y: 180, w: 150, h: 44 }
-  t-template: { x: 900, y: 180, w: 150, h: 44 }
+  g-build: { x: 40, y: 182, w: 150, h: 40 }
+  g-templates: { x: 40, y: 120, w: 150, h: 40 }
+  g-options: { x: 560, y: 100, w: 290, h: 80 }
+  f-options-yml: { x: 740, y: 230, w: 110, h: 52 }
+  t-short-name: { x: 470, y: 210, w: 150, h: 44 }
+  t-template: { x: 290, y: 272, w: 150, h: 44 }
   g-addresses: { x: 290, y: 410, w: 240, h: 44 }
   f-parameters: { x: 560, y: 470, w: 210, h: 52 }
   grp-cli: { x: 980, y: 378, w: 280, h: 140 }

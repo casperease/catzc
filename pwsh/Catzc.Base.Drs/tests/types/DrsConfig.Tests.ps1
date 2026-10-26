@@ -31,7 +31,8 @@ Describe 'DrsConfig' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMODEL' {
                         stack = 'AUTO'; concern = @('automation')
                         rulesets = [ordered]@{
                             'thing-two'   = [ordered]@{ external = 'ADR-BE-TWO'; concern = @('access',
-                                'release') } # concern override
+                                    'release')
+                            } # concern override
                             'thing-three' = [ordered]@{ external = 'ADR-AL-THREE'; code = 'AL' } # leaf override to alpha's code
                         }
                     }

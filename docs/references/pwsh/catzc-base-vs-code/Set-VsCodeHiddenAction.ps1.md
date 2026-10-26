@@ -30,3 +30,12 @@ The editor's process; the command stops while it runs. Default: `Code`.
 ### outputs
 
 `[hashtable]` menu id to the command ids hidden there, as written.
+
+## comment:1
+
+Above `$key = 'menu.hiddenCommands'`, written with `#`.
+
+```text
+The editor's own value: menu id -> the command ids hidden there. The declared ones join it; what the user hid by
+hand stays.
+```

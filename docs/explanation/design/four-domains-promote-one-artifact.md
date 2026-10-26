@@ -72,10 +72,10 @@ content:
     - { from: c-main, to: g-engine, kind: flow, label: feeds }
     - { from: g-engine, to: c-bvt, kind: flow, label: "" }
     - { from: c-bvt, to: g-on-demand, kind: flow, label: "" }
-    - { from: g-on-demand, to: g-main-uat, kind: flow, label: "" }
-    - { from: g-main-uat, to: g-release-uat, kind: flow, label: "" }
-    - { from: g-release-uat, to: g-pre-prod, kind: flow, label: "" }
-    - { from: g-pre-prod, to: g-production, kind: flow, label: "" }
+    - { from: g-on-demand, to: g-main-uat, kind: flow, label: then }
+    - { from: g-main-uat, to: g-release-uat, kind: flow, label: then }
+    - { from: g-release-uat, to: g-pre-prod, kind: flow, label: then }
+    - { from: g-pre-prod, to: g-production, kind: flow, label: then }
     - { from: g-engine, to: s-artifact, kind: flow, label: "" }
   markers:
     - { at: band-git, number: 1, corner: top-right }

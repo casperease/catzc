@@ -29,8 +29,6 @@ function Invoke-PythonTest {
     $python = Get-Config -Config python
     $pythonRelative = $python.ResolveRoot($root)
     $pythonRoot = Join-Path $root $pythonRelative
-    # The test folder: the one named, a module's own tests/ or the holder's, else the module's folder under the holder's
-    # tests/ in python's folder case.
     $relative = if ($Folder) {
         [System.IO.Path]::GetRelativePath($root, [System.IO.Path]::GetFullPath($Folder, $root)).Replace('\',
             '/').TrimEnd('/')
@@ -130,7 +128,7 @@ function Invoke-PythonTest {
     }
 
     if ($run.ExitCode -ne 0 -and -not ($run.ExitCode -eq 1 -and
-        @($results | Where-Object { $_.Outcome -eq 'fail' }).Count)) {
+            @($results | Where-Object { $_.Outcome -eq 'fail' }).Count)) {
         throw "pytest failed in $relative/ (exit $($run.ExitCode)) with no failing test:`n$($run.Full)"
     }
 

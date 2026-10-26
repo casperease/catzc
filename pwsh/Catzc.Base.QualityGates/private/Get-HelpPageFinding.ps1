@@ -102,7 +102,7 @@ function Get-HelpPageFinding {
                     param([string] $Value)
                     $name = $Value.Trim().Trim("'", '"')
                     if ($name.StartsWith('[', [System.StringComparison]::Ordinal) -and $name.EndsWith(']',
-                        [System.StringComparison]::Ordinal)) {
+                            [System.StringComparison]::Ordinal)) {
                         $name = $name.Substring(1, $name.Length - 2)
                     }
                     (($name -replace '\s+', '') -replace '(?:[A-Za-z0-9_]+\.)+', '').ToLowerInvariant()

@@ -20,8 +20,6 @@ function ConvertTo-TestAutomationRowSet {
         $errorStack = ''
         if ($test.Result -eq 'Failed') {
             $records = @($test.ErrorRecord)
-            # A test a failed setup never ran carries no error of its own: the nearest block above it that holds one
-            # names the cause.
             $block = $test.PSObject.Properties['Block'] ? $test.Block : $null
             while (-not $records.Count -and $block) {
                 $records = @($block.PSObject.Properties['ErrorRecord'] ? $block.ErrorRecord : @())

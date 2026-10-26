@@ -24,12 +24,12 @@ Describe 'shipped C# types' -Tag 'L0', 'integrity' {
     }
 }
 
-Describe 'combined types assembly is committed and current' -Tag 'integrity' {
+Describe 'combined types surface matches its contract' -Tag 'integrity' {
     BeforeAll {
         $script:currentHash = (Get-CombinedTypeHash (Get-CatzcModulesRoot)).CombinedHash
     }
 
-    It 'is exactly one committed manifest whose hash matches the current sources (Test-BuildArtifact)' -Tag 'L2', 'source-only' {
+    It 'commits the current build''s types surface as its contract (Test-BuildArtifact)' -Tag 'L2', 'source-only' {
         if (-not (Get-Command git -ErrorAction Ignore)) {
             Set-ItResult -Skipped -Because 'tool_git_missing'; return
         }

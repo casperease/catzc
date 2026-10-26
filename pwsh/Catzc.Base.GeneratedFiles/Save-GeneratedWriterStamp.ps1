@@ -17,8 +17,6 @@ function Save-GeneratedWriterStamp {
         [string] $MemoPath = (Join-Path (Get-OutputRoot) 'cache/generated-writers.json')
     )
 
-    # Taken after the run, so a file the writer both reads and writes is in the stored stamp and never makes it due
-    # again by itself.
     $writer = (Get-Config -Config generated-files).writers[$Name]
     if ($null -eq $writer) {
         throw "Save-GeneratedWriterStamp: '$Name' is not a writer in generated-files.yml."

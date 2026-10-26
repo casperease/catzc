@@ -69,7 +69,7 @@ function Write-ModuleBuildOutput {
         [System.IO.Directory]::CreateDirectory($bundleCompiled) | Out-Null
         foreach ($file in $built.Path, $built.Manifest) {
             [void] (Copy-BuildFileIfChanged -Source $file -Destination ([System.IO.Path]::Combine($bundleCompiled,
-                [System.IO.Path]::GetFileName($file))) -Normalize:$false)
+                        [System.IO.Path]::GetFileName($file))) -Normalize:$false)
         }
         $built
     }

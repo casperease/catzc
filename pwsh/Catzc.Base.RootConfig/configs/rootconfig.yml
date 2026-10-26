@@ -47,7 +47,8 @@ files:
       - pwsh/Catzc.Base.Globs/configs/filters.yml
     carrier: jsonc
     optIn: true
-  # The js track's types gate reads this; its type roots are the machine's npm global root, so it is gitignored and rendered per machine.
+  # The project the editor and the js track's types gate read; its type root is the repository-relative folder Install-TypeScript fills, so
+  # it is the same on every machine.
   - target: jsconfig.json
     generator: New-JsConfig
     sources:
@@ -55,8 +56,9 @@ files:
       - pwsh/Catzc.Base.Execution/configs/tools.yml
     carrier: jsonc
     optIn: true
-  # The modules javascript.yml's strict list raises, checked strictly; it extends jsconfig.json, which leaves them out.
-  - target: jsconfig.strict.json
+  # The modules javascript.yml's strict list does not raise yet, checked leniently; it extends jsconfig.json, and holds no file once every
+  # module is raised.
+  - target: jsconfig.lenient.json
     generator: New-JsConfig
     sources:
       - pwsh/Catzc.Base.Languages/configs/javascript.yml

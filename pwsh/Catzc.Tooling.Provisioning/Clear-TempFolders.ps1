@@ -18,7 +18,7 @@ function Clear-TempFolders {
     $folders = $Path |
         Where-Object { $_ } |
         ForEach-Object { $_.TrimEnd([System.IO.Path]::DirectorySeparatorChar,
-        [System.IO.Path]::AltDirectorySeparatorChar) } |
+                [System.IO.Path]::AltDirectorySeparatorChar) } |
         Select-Object -Unique
 
     $totalRemoved = 0

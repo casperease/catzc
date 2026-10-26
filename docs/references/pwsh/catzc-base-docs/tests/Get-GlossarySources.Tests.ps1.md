@@ -15,3 +15,12 @@ so every source still loads through Get-Config and the GlossaryConfig type; git 
 The fixture owners are loaded modules (Get-Config resolves validation in the owner's scope); the fixture terms
 are neutral (widget/gadget, [ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```
+
+## comment:2
+
+Above `Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter {...`, written with `#`.
+
+```text
+A mock defines only the parameters its caller passed, so -All / -Module are probed, not read bare (strict
+mode).
+```

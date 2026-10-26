@@ -1,3 +1,11 @@
+<#
+---
+catzc:
+  docs: "../../../../docs/references/pwsh/catzc-base-languages/tests/types/BclConfig.Tests.ps1.md"
+  header: "generated"
+---
+#>
+
 Describe 'BclConfig' -Tag 'L0' {
 
     Context 'integrity (shipped bcl.yml and the tracked solutions and projects)' -Tag 'integrity' {
@@ -5,8 +13,6 @@ Describe 'BclConfig' -Tag 'L0' {
             $script:config = Get-Config -Config bcl
             $script:root = Get-RepositoryRoot
             $script:tracked = @(Get-GitTrackedPath '.' | Where-Object { $_ -match '\.csproj$' -and $_ -notmatch '(^|/)\.vendor/' })
-            # The one solution is rendered (New-Solution) and gitignored, so its text is the generator's, never a
-            # tracked file's.
             $script:solutions = @{ 'catzc.sln' = New-Solution }
         }
 

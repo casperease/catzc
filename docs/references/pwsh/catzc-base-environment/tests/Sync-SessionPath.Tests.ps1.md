@@ -13,3 +13,12 @@ Above `$script:regUser = ''`, written with `#`.
 The persistent PATH is read through the Get-EnvironmentPath seam — mock it so these tests are
 deterministic and never read the real machine registry. Each test sets $script:regUser/$regMachine.
 ```
+
+## comment:2
+
+Above `$script:regUser = ''`, written with `#`.
+
+```text
+The persistent PATH is read through its seam, so every case is deterministic and none reads the machine's
+registry.
+```

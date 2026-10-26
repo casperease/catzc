@@ -10,14 +10,9 @@ function New-JsConfig {
     [CmdletBinding()]
     [OutputType([string])]
     param(
-        # The folder of the installed type declarations (npm's global root's @types); none when node is not installed,
-        # so the gate says so.
-        [AllowEmptyString()]
-        [string] $TypeRoot,
-
-        # jsconfig.json, every module not yet raised, or jsconfig.strict.json, the modules javascript.yml's strict list
-        # names.
-        [ValidateSet('jsconfig.json', 'jsconfig.strict.json')]
+        # jsconfig.json, the project the editor reads, or jsconfig.lenient.json, the modules javascript.yml's strict list does not
+        # name yet.
+        [ValidateSet('jsconfig.json', 'jsconfig.lenient.json')]
         [string] $Target = 'jsconfig.json',
 
         [string] $RepositoryRoot = (Get-RepositoryRoot)
@@ -27,12 +22,16 @@ function New-JsConfig {
     $javascript = Get-Config -Config javascript
     $root = $javascript.ResolveRoot($RepositoryRoot)
     $raised = @($javascript.strict | ForEach-Object { "$root/$_/**/*.js" })
-    $config = if ($Target -eq 'jsconfig.strict.json') {
+    # The editor reads only jsconfig.json, so it always covers files: the raised modules, strictly, or every module, leniently, while none
+    # is raised. The lenient project extends it with whatever is left, which is nothing once every module is raised.
+    $config = if ($Target -eq 'jsconfig.lenient.json') {
         [ordered]@{
             extends         = './jsconfig.json'
-            compilerOptions = [ordered]@{ strict = $true }
-            include         = $raised
-            exclude         = @()
+            compilerOptions = [ordered]@{ strict = $false }
+            include         = @(if ($raised.Count -gt 0) {
+                    "$root/**/*.js"
+                })
+            exclude         = $raised
         }
     }
     else {
@@ -41,18 +40,21 @@ function New-JsConfig {
                 allowJs          = $true
                 checkJs          = $true
                 noEmit           = $true
-                strict           = $false
+                strict           = $raised.Count -gt 0
                 module           = 'node16'
                 target           = 'es2022'
                 moduleResolution = 'node16'
                 skipLibCheck     = $true
-                typeRoots        = @(if ($TypeRoot) {
-                        $TypeRoot
-                    })
+                # Relative to this file at the repository root, where Install-TypeScript puts the declarations: the same on every machine.
+                typeRoots        = @("./$($javascript.types_folder)/node_modules/@types")
                 types            = @('node', 'vscode')
             }
-            include         = @("$root/**/*.js")
-            exclude         = $raised
+            include         = if ($raised.Count -gt 0) {
+                $raised
+            }
+            else {
+                @("$root/**/*.js")
+            }
         }
     }
     (ConvertTo-Json -InputObject $config -Depth 4) + "`n"

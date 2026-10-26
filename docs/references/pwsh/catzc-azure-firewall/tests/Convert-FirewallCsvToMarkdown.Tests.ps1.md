@@ -20,3 +20,21 @@ Above `$order[0] | Should -Be 'Allow_DNS'`, written with `#`.
 rcg-baseline(100): Allow_DNS(200), Allow_NTP(210) | rcg-app(200): starts at Allow_OnPrem_SQL(300)
 | rcg-shared(300): Allow_Ping_Mgmt(400) ... Deny_All_Network(3100) last.
 ```
+
+## comment:3
+
+Above `$script:groupPriority = @{ 'rcg-baseline' = 100; 'rcg-app' = 200;...`, written with `#`.
+
+```text
+The fixture groups are unknown to the default priorities, so they are supplied here and the order under test
+means something.
+```
+
+## comment:4
+
+Above `$order[0] | Should -Be 'Allow_DNS'`, written with `#`.
+
+```text
+Group priority dominates collection priority, so the lowest group's first rule leads and the catch-all
+deny comes last.
+```

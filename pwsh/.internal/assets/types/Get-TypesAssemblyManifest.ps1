@@ -103,6 +103,6 @@ function Get-TypesAssemblyManifest {
     }
     $sorted = [object[]] @($types)
     [System.Array]::Sort($sorted, [System.Comparison[object]] { param($a,
-        $b) [System.StringComparer]::Ordinal.Compare($a.Name, $b.Name) })
+                $b) [System.StringComparer]::Ordinal.Compare($a.Name, $b.Name) })
     [pscustomobject]@{ Types = $sorted }
 }

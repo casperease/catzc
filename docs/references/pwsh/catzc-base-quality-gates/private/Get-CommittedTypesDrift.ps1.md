@@ -7,34 +7,26 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Reports why the committed combined types assembly is not the current one.
+Reports why the committed types contract is not the current build's surface.
 
 ### description
 
-The build ships the committed `pwsh/.compiled/Catzc.Types.<hash>.dll` by copy, so that file must be the assembly of the current type
-sources: exactly one `Catzc.Types.*.dll`, named for the combined hash of the sources (Get-CombinedTypeHash, the one implementation the
-loader and the janitor share), and no pending git change under pwsh/.compiled — the importer rebuilds the DLL when a `types/*.cs` changes,
-and a rebuild that was not committed shows there. Each failure is one reason; none means the committed assembly is current.
+What a consumer binds to, the types surface (each public type's name, aliases and display), is the provided contract
+`contracts/catzc/0.1.0/catzc.internal.types/types.sample.json`; the source hash that names a build is a local cache key. The surface is read
+from the build of the current type sources in the shadow root (named for the combined hash Get-CombinedTypeHash computes) and held against
+the committed contract: a missing build, a missing contract, every added, removed or changed type, and a pending git change of the contract
+are one reason each. None means the committed contract is the current surface.
 
 ### parameter `RepositoryRoot`
 
-The repository whose pwsh/.compiled is checked.
+The repository whose types contract is checked.
 
 ### outputs
 
-`[string[]]` One reason per drift found; nothing when the committed assembly is current.
+`[string[]]` One reason per drift found; nothing when the committed contract is the current surface.
 
 ### example 1
 
 ```powershell
 Get-CommittedTypesDrift -RepositoryRoot (Get-RepositoryRoot)
-```
-
-## comment:1
-
-Above `$compiledRoot = Join-Path $RepositoryRoot $compiled`, written with `#`.
-
-```text
-Git keeps only the manifest; the DLL is a per-machine build in the shadow root
-([ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD](/docs/drs/automation/caching.md#rule-adr-auto-cache-compiledtypeprebuild)).
 ```

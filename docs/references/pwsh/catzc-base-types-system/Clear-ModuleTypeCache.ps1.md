@@ -108,3 +108,12 @@ The builds are a per-machine cache in the shadow root
 ([ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD](/docs/drs/automation/caching.md#rule-adr-auto-cache-compiledtypeprebuild));
 git keeps only the manifest.
 ```
+
+## comment:7
+
+Above `if ($failed.Count -and -not $Silent) {`, written with `#`.
+
+```text
+A build another process still holds is that process's own until it exits: a fact to name, never an error or a
+wait.
+```

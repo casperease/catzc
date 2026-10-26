@@ -28,6 +28,14 @@ Describe 'JavaScriptConfig' -Tag 'L0', 'logic' {
             Should -Throw "*lists 'gadget' twice*"
     }
 
+    It 'installs the declarations into .typescript unless a types_folder is declared, and refuses one that is no relative folder' {
+        ([Catzc.Base.Languages.JavaScriptConfig]::new($null)).types_folder | Should -Be '.typescript'
+        ([Catzc.Base.Languages.JavaScriptConfig]::new([ordered]@{ types_folder = 'tools/types' })).types_folder | Should -Be 'tools/types'
+        foreach ($folder in '/types', 'C:	ypes', '../types') {
+            { [Catzc.Base.Languages.JavaScriptConfig]::new([ordered]@{ types_folder = $folder }) } | Should -Throw '*invalid types_folder*'
+        }
+    }
+
     It 'refuses an unknown key and a root that is not a repository-relative folder' {
         { [Catzc.Base.Languages.JavaScriptConfig]::new([ordered]@{ gadget = 1 }) } |
             Should -Throw "*unknown key 'gadget'*"

@@ -6,14 +6,10 @@ catzc:
 ---
 #>
 
-# The one test of the real round trip: a per-run scratch variable no tool uses, so overlapping runs never share it and
-# it is always removed.
 Describe 'Set-PermanentEnvironmentVariable / Get-PermanentEnvironmentVariable (real user environment)' -Tag 'L3', 'logic', 'ADR-AUTO-TEST-NAMEDSCRATCHRESOURCES' {
     BeforeAll {
         $script:name = 'CATZC_L3_WIDGET_' + [guid]::NewGuid().ToString('N')
         Mock Write-Message { } -ModuleName Catzc.Base.Environment
-        # Removed means gone from the registry key — an empty value would read back as '' and pass a null-or-empty
-        # check.
         $script:isInUserEnvironment = {
             $key = [Microsoft.Win32.Registry]::CurrentUser.OpenSubKey('Environment')
             try {

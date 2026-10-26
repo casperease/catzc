@@ -14,7 +14,7 @@ Describe 'Catzc.Tooling.Listen.WriteLedger' -Tag 'L0', 'logic', 'ADR-REPO-AI-EDI
                 [int] $NowSecond = 1000)
             [Catzc.Tooling.Listen.WriteLedger]::SourceOf(
                 [Catzc.Tooling.Listen.WriteLedgerEntry[]] @($Agent),
-                    [Catzc.Tooling.Listen.WriteLedgerEntry[]] @($Editor),
+                [Catzc.Tooling.Listen.WriteLedgerEntry[]] @($Editor),
                 'docs/widget.md', $Hash, $WrittenAt, 360, $script:t0.AddSeconds($NowSecond))
         }
     }

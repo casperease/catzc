@@ -19,8 +19,6 @@ function Invoke-JavaScriptTest {
     )
 
     $root = Get-RepositoryRoot
-    # The JavaScript root from javascript.yml (JavaScriptConfig.ResolveRoot: the declared root, else js/ when present,
-    # else .js/).
     $jsRelative = (Get-Config -Config javascript).ResolveRoot($root)
     $relative = if ($Folder) {
         [System.IO.Path]::GetRelativePath($root, [System.IO.Path]::GetFullPath($Folder, $root)).Replace('\',
@@ -78,7 +76,7 @@ function Invoke-JavaScriptTest {
     }
 
     if ($results.Count -eq 0 -or ($run.ExitCode -ne 0 -and
-        -not @($results | Where-Object { $_.Outcome -eq 'fail' }).Count)) {
+            -not @($results | Where-Object { $_.Outcome -eq 'fail' }).Count)) {
         throw "node --test failed in $relative/ (exit $($run.ExitCode)) with no failing test:`n$($run.Full)"
     }
 

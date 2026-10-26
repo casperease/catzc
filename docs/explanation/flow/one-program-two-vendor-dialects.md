@@ -39,10 +39,10 @@ content:
     - { id: r-github-paths, kind: result, label: GitHub paths, in: band-projection }
     - { id: r-ado-filters, kind: result, label: ADO include and exclude, in: band-projection }
   edges:
-    - { from: s-base-unit, to: s-configured-unit, kind: flow, label: "" }
+    - { from: s-configured-unit, to: s-base-unit, kind: flow, label: composes }
     - { from: s-configured-unit, to: r-program, kind: flow, label: "" }
-    - { from: r-program, to: r-github-paths, kind: flow, label: "" }
-    - { from: r-program, to: r-ado-filters, kind: flow, label: "" }
+    - { from: r-program, to: r-github-paths, kind: flow, label: then }
+    - { from: r-program, to: r-ado-filters, kind: flow, label: then }
   markers:
     - { at: s-base-unit, number: 1 }
     - { at: s-configured-unit, number: 2 }

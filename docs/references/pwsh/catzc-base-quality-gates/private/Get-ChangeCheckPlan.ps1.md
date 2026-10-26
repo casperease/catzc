@@ -35,3 +35,12 @@ The repository root the paths are relative to.
 ```powershell
 Get-ChangeCheckPlan -Path 'docs/index.md' -RepositoryRoot (Get-RepositoryRoot)
 ```
+
+## comment:1
+
+Above `if ($language.check_scopes.ContainsKey($check)) {`, written with `#`.
+
+```text
+A check that governs a folder takes only the changed files under it; the language's check_scopes names the
+folder by its config address.
+```

@@ -25,8 +25,6 @@ Describe 'catzc-track-lamps' -Tag 'L0', 'logic' {
         }
     }
 
-    # The engine-core cases run in node: js/catzc-track-lamps/tests/ (Invoke-JavaScriptTest); the shared vectors stay
-    # here, read from yml.
     It 'answers every shared vector of the lamp language: the files shown, the files no lamp claims, each lamp''s condition' {
         $vectors = Get-Content -LiteralPath (Join-Path $PSScriptRoot '../../Catzc.Base.Globs/tests/assets/lamp-vectors.yml') -Raw | ConvertFrom-Yaml -Ordered
         $vectors.cases.Count | Should -BeGreaterThan 0
@@ -74,8 +72,6 @@ Describe 'catzc-track-lamps — the real repository' -Tag 'L1', 'integrity', 'so
     }
 
     It 'puts in the tests aspect every tracked file a module or the internal modules'' folder keeps in its tests folder' {
-        # Aspects belong to units, so only a unit's tests are in scope; vendored code is no unit, its test folders are
-        # tools.
         $modules = Get-CatzcModulesFolder
         $tests = $script:tracked.Where({ $_ -clike "$modules/*/tests/*" -and $_ -notlike "$modules/.vendor/*" })
         $tests.Where({ $_ -like "$modules/.internal/tests/*" }).Count | Should -BeGreaterThan 0
@@ -83,7 +79,8 @@ Describe 'catzc-track-lamps — the real repository' -Tag 'L1', 'integrity', 'so
     }
 
     It 'marks every real config live: each module''s configs, the python modules'' and the internal modules''' {
-        $configs = $script:tracked.Where({ $_ -like 'pwsh/*/configs/*.yml' -or $_ -like 'python/*/configs/*.yml' }) + @('pwsh/.internal/assets/types-load.yml')
+        $modules = Get-CatzcModulesFolder
+        $configs = $script:tracked.Where({ $_ -like "$modules/*/configs/*.yml" -or $_ -like 'python/*/configs/*.yml' }) + @("$modules/.internal/assets/types-load.yml")
         $configs.Where({ $_ -like 'python/*' }).Count | Should -BeGreaterThan 0
         $configs.Where({ -not (& $script:inAspect $_ 'live') }) | Should -BeNullOrEmpty
     }
@@ -91,7 +88,7 @@ Describe 'catzc-track-lamps — the real repository' -Tag 'L1', 'integrity', 'so
     It 'renders into the editor settings the filters the repository has now' {
         $settings = Get-Content -LiteralPath (Join-Path (Get-RepositoryRoot) '.vscode/settings.json') -Raw
         $rendered = (($settings -split "`n").Where({ $_ -notmatch '^\s*//' }) -join "`n" |
-            ConvertFrom-Json -AsHashtable)['catzc.trackLamps.filters']
+                ConvertFrom-Json -AsHashtable)['catzc.trackLamps.filters']
         @($rendered.Keys) | Should -Be $script:declared -Because 'the lamps follow the declaration order'
         foreach ($filter in Get-RepositoryFilter) {
             ConvertTo-Json -InputObject @($rendered[$filter.name]) -Depth 6 -Compress |
@@ -167,7 +164,7 @@ Describe 'catzc-track-lamps — the real repository' -Tag 'L1', 'integrity', 'so
         }
         foreach ($command in $orchestrator) {
             ([xml](Get-Content -LiteralPath (Join-Path $folder ($command['icon']['dark'] -replace '^media/',
-                '')) -Raw)).DocumentElement.LocalName | Should -Be 'svg'
+                        '')) -Raw)).DocumentElement.LocalName | Should -Be 'svg'
             @($menu.Where({ $_['command'] -ceq $command['command'] -and $_['group'] -ceq 'navigation@0' })) |
                 Should -HaveCount 1 -Because "$($command['command']) shows leftmost, once"
         }
@@ -175,8 +172,6 @@ Describe 'catzc-track-lamps — the real repository' -Tag 'L1', 'integrity', 'so
             @($menu.Where({ $_['command'] -ceq $command['command'] })) |
                 Should -HaveCount 1 -Because "$($command['command']) shows in the title row once"
         }
-        # Every tagged language of the languages config is a lamp of its own, lang-<name>, with a lamp's commands,
-        # rendered icons and menu items.
         $tagged = @((Get-Config -Config languages).languages | Where-Object tag | ForEach-Object name)
         $tagged.Count | Should -BeGreaterThan 0
         $languageIcons = @($languageCommands.ForEach({ $_['icon']['dark'] }))
@@ -205,7 +200,7 @@ Describe 'catzc-track-lamps — the real repository' -Tag 'L1', 'integrity', 'so
             Should -HaveCount 1 -Because 'the languages button shows once'
         foreach ($command in $next) {
             $svg = [xml](Get-Content -LiteralPath (Join-Path $folder ($command['icon']['dark'] -replace '^media/',
-                '')) -Raw)
+                        '')) -Raw)
             $invisible = $command['command'] -ceq 'catzc.lamps.open.next.empty'
             ($svg.DocumentElement.GetAttribute('opacity') -eq '0') |
                 Should -Be $invisible -Because "only the open lamp's empty icon is invisible ($($command['command']))"

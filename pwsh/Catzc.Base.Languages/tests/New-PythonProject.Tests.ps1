@@ -85,20 +85,20 @@ Describe 'New-PythonProject' -Tag 'L0', 'logic' {
     It 'renders each member named for its folder, at the python pin, with the pinned dependencies in name order' {
         (New-PythonProject -LineLength 140 -Target 'python/tests/catzc_widget/pyproject.toml').Content |
             Should -BeExactly ((@(
-                    '[project]'
-                    'name = "catzc_widget"'
-                    'version = "0.0.0"'
-                    'requires-python = "==3.13.*"'
-                    'dependencies = ['
-                    '    "pyright==1.1.414",'
-                    '    "pytest==9.1.1",'
-                    '    "ruff==0.17.0",'
-                    '    "widget-kit==1.2",'
-                    ']'
-                    ''
-                    '[tool.uv]'
-                    'package = false'
-                ) -join "`n") + "`n")
+                        '[project]'
+                        'name = "catzc_widget"'
+                        'version = "0.0.0"'
+                        'requires-python = "==3.13.*"'
+                        'dependencies = ['
+                        '    "pyright==1.1.414",'
+                        '    "pytest==9.1.1",'
+                        '    "ruff==0.17.0",'
+                        '    "widget-kit==1.2",'
+                        ']'
+                        ''
+                        '[tool.uv]'
+                        'package = false'
+                    ) -join "`n") + "`n")
     }
 
     It 'renders under the declared root' {

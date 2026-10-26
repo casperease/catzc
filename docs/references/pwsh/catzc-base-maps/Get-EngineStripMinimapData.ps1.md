@@ -42,3 +42,12 @@ Return the data as JSON in the minimap contract's shape instead of the object.
 ```powershell
 (Get-EngineStripMinimapData ADR-AUTO-ENGINE).Lit
 ```
+
+## comment:1
+
+Above `$languages = @(Get-FileLanguage)`, written with `#`.
+
+```text
+Each execution engine beside the file languages it runs: a language whose extensions include one of the engine's
+script extensions.
+```

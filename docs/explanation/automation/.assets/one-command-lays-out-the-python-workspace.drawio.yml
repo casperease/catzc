@@ -15,48 +15,54 @@ content:
   kind: explanation
   cause: { label: A maintainer adds a Python folder }
   action:
-    call: { new_python_project }
+    call: { new_python_project: { line_length: 140 } }
   effects:
     - id: effect-root
       zone: 1
       where: local
+      show: words
       says: The workspace root is rendered, naming every member and the pinned interpreter
       proves: { get_repository_file: { path: python/pyproject.toml } }
     - id: effect-member
       zone: 1
       where: local
+      show: words
       says: The diagram kit's member file is rendered beside its code
       proves: { get_repository_file: { path: python/catzc_diagrams/pyproject.toml } }
     - id: effect-kind
       zone: 2
       where: local
+      show: words
       says: The root file is a known file kind
       proves: { get_path_file_type: { path: python/pyproject.toml } }
       after: effect-root
     - id: effect-language
       zone: 2
       where: local
+      show: words
       says: The member file belongs to the Python language
       proves: { get_file_language: { path: python/catzc_diagrams/pyproject.toml } }
       after: effect-member
     - id: effect-drift
-      zone: 3
+      zone: 2
       where: local
       show: words
       says: Test-GeneratedFiles sees no drift for the root configs
       proves: { test_generated_files: { generator: Build-RootConfig } }
       after: effect-root
     - id: effect-types
-      zone: 3
+      zone: 2
       where: local
       show: words
       says: Test-PythonTypes passes over the whole workspace
       proves: { test_python_types }
-      after: effect-language
+      after: effect-member
     - id: effect-format
-      zone: 3
+      zone: 2
       where: local
       show: words
       says: Test-Formatting passes for the Python language
       proves: { test_formatting: { language: python } }
-      after: effect-kind
+      after: effect-member
+layout:
+  frame: { x: 20, y: 108, w: 1260, h: 620 }

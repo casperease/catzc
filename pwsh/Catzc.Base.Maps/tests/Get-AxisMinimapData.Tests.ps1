@@ -13,7 +13,10 @@ Describe 'Get-AxisMinimapData' -Tag 'L0', 'logic' {
             ))
         $rows = [ordered]@{ UPPER = @('TOP', 'SIDE'); LOWER = @('BOTTOM') }
         $script:config = [Catzc.Base.Maps.MapsConfig]::new(@{ minimaps = @{ axis = @{ rows = $rows; columns = @('alpha',
-            'beta') } } })
+                            'beta')
+                    }
+                }
+            })
     }
 
     BeforeEach {

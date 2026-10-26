@@ -31,3 +31,12 @@ The arguments, in order; may be empty.
 ```powershell
 ConvertTo-CommandLineText -Executable pwsh -Argument '-NoProfile', '-Command', 'Get-Widget'
 ```
+
+## comment:1
+
+Above `@(foreach ($item in @($Executable) + $Argument) {`, written with `#`.
+
+```text
+The command line CliRunner splits back into the same arguments: each in double quotes, an inner quote escaped as
+\".
+```

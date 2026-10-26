@@ -13,7 +13,7 @@ Describe 'New-Cspell' -Tag 'L0', 'logic' {
         }
 
         Mock Get-GlobSet -ModuleName Catzc.Base.RootConfig { New-WidgetSet -Include @('**/gadgets/**',
-            'widgets/spare.*') }
+                'widgets/spare.*') }
     }
 
     It 'replaces the placeholder with a comment and one quoted ignore path per include of the glob set, in set order' {

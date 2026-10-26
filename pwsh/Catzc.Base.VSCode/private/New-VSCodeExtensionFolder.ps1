@@ -21,8 +21,6 @@ function New-VsCodeExtensionFolder {
         [string] $AssetDirectory = (Join-Path (Get-RepositoryRoot) (Get-TrackPlace -Track js -TrackKind extensions))
     )
 
-    # Each extension is a module of the js track: <name>/extension.js, its own files in <name>/assets/, shipped as
-    # media/.
     $script = Join-Path $AssetDirectory "$($Extension.name)/extension.js"
     Assert-PathExist $script -ErrorText "New-VsCodeExtensionFolder: extension '$($Extension.name)' has no script at '$script'."
 
@@ -94,46 +92,40 @@ function New-VsCodeExtensionFolder {
         }
     }
     $bases = @(if (Test-Path -LiteralPath $rendered) {
-            Get-ChildItem -LiteralPath $rendered -Filter '*-on.svg' -File
+            Get-ChildPath $rendered -File -Filter '*-on.svg' -Depth 1
         })
     if ($bases.Count -gt 0) {
         $palette = (Get-Config -Config lamp-palette).ranges
         $stroke = '(?<=<svg [^>]*\bstroke=")#[0-9a-fA-F]{6}|(?<=<text [^>]*\bfill=")#[0-9a-fA-F]{6}'
-        # A base glyph whose top-right corner is drawn on declares data-badge="bottom"; its badge then sits
-        # bottom-right.
         $corner = ' data-badge="bottom"'
-        # A base glyph that declares data-empty="hidden" is drawn fully transparent while its lamp claims nothing,
-        # keeping its place in the row.
         $hidden = ' data-empty="hidden"'
-        $badges = @{
-            staged   = { param($c, $lit,
-                $low) "  <rect x=`"11.3`" y=`"$(if ($low) { '11' } else { '0.8' })`" width=`"3.8`" height=`"3.8`" rx=`"0.8`" fill=`"$c`" stroke=`"none`"/>`n" }
-            unstaged = { param($c, $lit,
-                $low) "  <rect x=`"11.3`" y=`"$(if ($low) { '11' } else { '0.8' })`" width=`"3.8`" height=`"3.8`" rx=`"0.8`" fill=`"$c`" stroke=`"none`"/>`n" }
-            failed   = {
-                param($c, $lit, $low)
-                $cy = if ($low) {
-                    '12.8'
-                }
-                else {
-                    '2.8'
-                }
-                if ($lit) {
-                    "  <circle cx=`"13.2`" cy=`"$cy`" r=`"2.2`" fill=`"$c`" stroke=`"none`"/>`n"
-                }
-                else {
-                    "  <circle cx=`"13.2`" cy=`"$cy`" r=`"2.2`" fill=`"$c`" stroke=`"none`">`n    <animate attributeName=`"opacity`" values=`"1;0.2;1`" dur=`"0.6s`" repeatCount=`"indefinite`"/>`n  </circle>`n"
-                }
+        # The staged and unstaged badge is a square, the failed one a dot that blinks while the lamp is unlit; the empty condition has none.
+        $square = {
+            param($Colour, $Low)
+            "  <rect x=`"11.3`" y=`"$(if ($Low) { '11' } else { '0.8' })`" width=`"3.8`" height=`"3.8`" rx=`"0.8`" fill=`"$Colour`" stroke=`"none`"/>`n"
+        }
+        $dot = {
+            param($Colour, $Lit, $Low)
+            $centreY = if ($Low) {
+                '12.8'
             }
-            empty    = { param($c, $lit, $low) '' }
+            else {
+                '2.8'
+            }
+            if ($Lit) {
+                "  <circle cx=`"13.2`" cy=`"$centreY`" r=`"2.2`" fill=`"$Colour`" stroke=`"none`"/>`n"
+            }
+            else {
+                "  <circle cx=`"13.2`" cy=`"$centreY`" r=`"2.2`" fill=`"$Colour`" stroke=`"none`">`n    <animate attributeName=`"opacity`" values=`"1;0.2;1`" dur=`"0.6s`" repeatCount=`"indefinite`"/>`n  </circle>`n"
+            }
         }
         foreach ($base in $bases) {
-            $lamp = $base.Name -replace '-on\.svg$', ''
+            $lamp = [System.IO.Path]::GetFileName($base) -replace '-on\.svg$', ''
             $offPath = Join-Path $rendered "$lamp-off.svg"
             if (-not (Test-Path -LiteralPath $offPath)) {
                 continue
             }
-            $glyphs = @{ on = [System.IO.File]::ReadAllText($base.FullName); off = [System.IO.File]::ReadAllText($offPath) }
+            $glyphs = @{ on = [System.IO.File]::ReadAllText($base); off = [System.IO.File]::ReadAllText($offPath) }
             foreach ($state in 'on', 'off') {
                 $lit = $state -eq 'on'
                 $shade = if ($lit) {
@@ -146,11 +138,21 @@ function New-VsCodeExtensionFolder {
                 $vanish = $glyphs[$state].Contains($hidden)
                 $glyph = $glyphs[$state].Replace($corner, '').Replace($hidden, '')
                 [System.IO.File]::WriteAllText((Join-Path $rendered "$lamp-$state.svg"), ($glyph -replace $stroke,
-                    $palette['committed'].$shade), $utf8)
+                        $palette['committed'].$shade), $utf8)
                 foreach ($condition in 'staged', 'unstaged', 'failed', 'empty') {
                     $range = $palette[$condition]
-                    $svg = ($glyph -replace $stroke,
-                        $range.$shade) -replace '</svg>\s*$', ((& $badges[$condition] $range.badge $lit $low) + '</svg>')
+                    $badge = switch ($condition) {
+                        'failed' {
+                            & $dot $range.badge $lit $low
+                        }
+                        'empty' {
+                            ''
+                        }
+                        default {
+                            & $square $range.badge $low
+                        }
+                    }
+                    $svg = ($glyph -replace $stroke, $range.$shade) -replace '</svg>\s*$', ($badge + '</svg>')
                     if ($vanish -and $condition -eq 'empty') {
                         $svg = $svg -replace '^<svg ', '<svg opacity="0" '
                     }

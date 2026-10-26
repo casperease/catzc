@@ -23,7 +23,5 @@ function Get-TestPoolSize {
         [int] $GreedyGroupSize
     )
 
-    # Every parallel shard starts with the run; the greedy files get workers of their own, up to the group size, so the
-    # longest start with it too.
     [Math]::Max($ParallelShardCount + [Math]::Min($GreedyGroupSize, $GreedyFileCount), 1)
 }

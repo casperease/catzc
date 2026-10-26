@@ -116,7 +116,7 @@ Describe 'Build-ContractReference' -Tag 'L0', 'logic' {
 
         @($lines | Where-Object { -not $_.StartsWith('|') -and $_.Length -gt 140 }) | Should -BeNullOrEmpty
         $tables = @(([regex]::Matches((Read-Page),
-            '(?m)(?:^\|.*\n)+')) | ForEach-Object { , @($_.Value.TrimEnd("`n") -split "`n") })
+                    '(?m)(?:^\|.*\n)+')) | ForEach-Object { , @($_.Value.TrimEnd("`n") -split "`n") })
         $tables.Count | Should -Be 3
         foreach ($table in $tables) {
             @($table | ForEach-Object { $_.Length } | Select-Object -Unique).Count | Should -Be 1

@@ -134,3 +134,57 @@ Above `$rowsPath = Join-Path (Get-OutputRoot -EnsureExists) 'diagrams/query-rows
 The query rows go to an address named here, never a default
 ([DDR-VISUAL-ZOOMISANAXIS](/docs/drs/design/visual-design.md#rule-ddr-visual-zoomisanaxis)).
 ```
+
+## comment:6
+
+Above `$stalePaths = @((Test-Diagrams -Kit $Kit -RepositoryRoot $root...`, written with `#`.
+
+```text
+The stale set is checked before it becomes -Path, whose ValidatePathGiven refuses an empty list on assignment
+too.
+```
+
+## comment:7
+
+Above `$found = @($candidates | Where-Object { $_ -cmatch...`, written with `#`.
+
+```text
+A diagram is the pair <article-folder>/.assets/<name>.drawio.png and .yml, named by its stem
+<article-folder>/.assets/<name>.
+```
+
+## comment:8
+
+Above `$found = @($found) + @(Get-DiagramArticleStem -RepositoryRoot $root...`, written with `#`.
+
+```text
+A diagram in the article carrier has no yml beside its png, and before its first put no png either: its block
+names it.
+```
+
+## comment:9
+
+Above `$embedders = Get-DiagramEmbedder -Tracked $tracked -RepositoryRoot $root`, written with `#`.
+
+```text
+Every article and slide that embeds a diagram's png, wherever it sits; each one's Supports line is held against
+the yml.
+```
+
+## comment:10
+
+Above `$index = 0`, written with `#`.
+
+```text
+One call builds the world map once for every diagram; each diagram's target streams back as its data is
+written.
+```
+
+## comment:11
+
+Above `$run.Status = switch ($run.ExitCode) {`, written with `#`.
+
+```text
+The renderer's exit codes: 0 clean, 2 findings (errors) with every artifact delivered, 3 nothing to
+render; no row is a failure.
+```

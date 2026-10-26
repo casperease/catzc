@@ -23,7 +23,7 @@ function Get-Glossary {
     foreach ($source in @(Get-GlossarySources)) {
         foreach ($concept in $source.Config.concepts) {
             $entries.Add([Catzc.Base.Docs.GlossaryEntry]::new($concept, $source.Owner, $source.Path,
-                $source.Config.options))
+                    $source.Config.options))
         }
     }
 

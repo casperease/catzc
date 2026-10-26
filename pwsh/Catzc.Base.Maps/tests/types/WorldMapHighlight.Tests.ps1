@@ -22,12 +22,12 @@ Describe 'WorldMapHighlight' -Tag 'L0', 'logic' {
         }
         $paths = @(
             'widgets/Alpha/Get-Widget.ps1', 'widgets/Alpha/Set-Widget.ps1', 'widgets/Beta/Get-Gizmo.ps1',
-                'docs/drs/widgetry/widget-gadget.md',
+            'docs/drs/widgetry/widget-gadget.md',
             'docs/drs/widgetry/widget-sprocket.md', 'docs/drs/gizmos/gizmo-cog.md', 'docs/guide.md',
             'pipelines/ci-widgets.yaml', 'importer.ps1', 'README.md'
         )
         $globSets = @([Catzc.Base.Globs.GlobSet]::new('widgets-set', 'The widgets.', 'loose-fileset',
-            @('widgets/Beta/**'), @(), @(), @(), -1, 'ci-widgets'))
+                @('widgets/Beta/**'), @(), @(), @(), -1, 'ci-widgets'))
         $script:map = [Catzc.Base.Maps.WorldMapBuilder]::Build($tracks, $languages, ($paths | Sort-Object -Descending),
             [ordered]@{},
             [ordered]@{ 'ADR-WIDGET-GADGET' = 'widgetry'; 'ADR-WIDGET-SPROCKET' = 'widgetry'; 'ADR-GIZMO-COG' = 'gizmos' },
@@ -36,7 +36,7 @@ Describe 'WorldMapHighlight' -Tag 'L0', 'logic' {
             }, $texts,
             [ordered]@{ 'importer.ps1' = 'widgets/Alpha' }, $globSets)
         $script:pin = { param([string] $Adr, [string] $Track,
-            [string] $FileLanguage) [Catzc.Base.Maps.MapsPin]::new($Adr, $Track, $FileLanguage, 'reviewed') }
+                [string] $FileLanguage) [Catzc.Base.Maps.MapsPin]::new($Adr, $Track, $FileLanguage, 'reviewed') }
         $script:forAdr = {
             param([string[]] $Adr, $Pins = @(), $Exceptions = @())
             [Catzc.Base.Maps.WorldMapHighlight]::ForAdr($script:map, $Adr, $Pins, $Exceptions)
@@ -78,7 +78,7 @@ Describe 'WorldMapHighlight' -Tag 'L0', 'logic' {
             $docs = (& $script:forAdr 'ADR-WIDGET-GADGET', 'ADR-WIDGET-SPROCKET').Cells | Where-Object Track -EQ 'docs'
             @($docs.Reasons | Where-Object Basis -EQ 'adr-file' | ForEach-Object { "$($_.Path) $($_.Requested)" }) |
                 Should -Be @('docs/drs/widgetry/widget-gadget.md ADR-WIDGET-GADGET',
-                'docs/drs/widgetry/widget-sprocket.md ADR-WIDGET-SPROCKET')
+                    'docs/drs/widgetry/widget-sprocket.md ADR-WIDGET-SPROCKET')
         }
 
         It 'narrows a rule request to its rule and the codes above it' {
@@ -133,7 +133,7 @@ Describe 'WorldMapHighlight' -Tag 'L0', 'logic' {
             $widgets = $highlight.Cells[1].Reasons
             @($widgets | ForEach-Object { "$($_.Path) $($_.Basis) $($_.Requested)" }) |
                 Should -Be @('widgets/Alpha/Get-Widget.ps1 citations ADR-WIDGET-GADGET',
-                'widgets/Alpha/Set-Widget.ps1 citations ADR-WIDGET-GADGET')
+                    'widgets/Alpha/Set-Widget.ps1 citations ADR-WIDGET-GADGET')
             @($widgets[0].Sites | ForEach-Object { "$($_.Path):$($_.Line) $($_.Kind) $($_.Citation)" }) |
                 Should -Be @('widgets/Alpha/Get-Widget.ps1:1 help ADR-WIDGET-GADGET-SPIN')
             $widgets[0].Mention | Should -BeFalse
@@ -163,7 +163,7 @@ Describe 'WorldMapHighlight' -Tag 'L0', 'logic' {
 
         It 'gives a requested file the path basis' {
             $reason = ([Catzc.Base.Maps.WorldMapHighlight]::ForPaths($script:map,
-                @('docs/guide.md'))).Cells[0].Reasons[0]
+                    @('docs/guide.md'))).Cells[0].Reasons[0]
             "$($reason.Path) $($reason.Basis)" | Should -Be 'docs/guide.md path'
         }
     }
@@ -171,7 +171,7 @@ Describe 'WorldMapHighlight' -Tag 'L0', 'logic' {
     Context 'files' {
         It 'lights the cells the files sit in' {
             $highlight = [Catzc.Base.Maps.WorldMapHighlight]::ForPaths($script:map, @('README.md',
-                'widgets\Beta\Get-Gizmo.ps1', 'docs/guide.md'))
+                    'widgets\Beta\Get-Gizmo.ps1', 'docs/guide.md'))
             $highlight.Kind | Should -Be 'path'
             $highlight.Requested | Should -Be @('README.md', 'widgets/Beta/Get-Gizmo.ps1', 'docs/guide.md')
             & $script:cellNames $highlight | Should -Be @('docs x notes', 'widgets x widget-script',

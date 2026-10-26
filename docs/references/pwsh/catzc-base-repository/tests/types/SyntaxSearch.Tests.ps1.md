@@ -11,3 +11,12 @@ Above `Describe 'SyntaxSearch'`, written with `#`.
 The compiled searches return what a PowerShell predicate over FindAll returned. Neutral fixture names
 ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```
+
+## comment:2
+
+Above `Describe 'SyntaxSearch'`, written with `#`.
+
+```text
+Each compiled search must return exactly what a PowerShell predicate over FindAll returns, so swapping one for the
+other changes nothing.
+```

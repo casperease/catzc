@@ -64,6 +64,9 @@ settings:
   powershell.codeFormatting.useCorrectCasing: false
   powershell.codeFormatting.alignPropertyValuePairs: true
   powershell.codeFormatting.ignoreOneLineBlock: false
+  # XML is never reformatted: no engine formats it (languages.yml), and the editor's XML formatter rewraps element text,
+  # which broke a project's <HintPath> once. Width is measured, never forced, so nothing needs the rewrap.
+  xml.format.enabled: false
   git.decorations.enabled: true
   workbench.editor.decorations.colors: true
   workbench.editor.decorations.badges: true

@@ -29,8 +29,6 @@ function Initialize-TrackRootLiteralData {
         Import-Module (Join-Path ($versions | Sort-Object | Select-Object -Last 1) 'powershell-yaml.psd1')
     }
     $variants = ConvertFrom-Yaml ([System.IO.File]::ReadAllText((Join-Path $modulesRoot 'Catzc.Base.Variants/configs/variants.yml')))
-    # The relocatable modules root (Get-CatzcModulesRoot) holds the track whose modules run under this engine, pwsh; its
-    # places are the ones no string may spell.
     $script:roots = @(foreach ($track in $variants['tracks'].Values) {
             if (@($track['execution_engines']) -ccontains 'pwsh') {
                 # A member is a plain path or a map whose path it names.
@@ -87,8 +85,6 @@ function Measure-NoTrackRootLiteral {
             continue
         }
         $value = $node.Value -replace '\\', '/'
-        # The bare place is also a word with other senses (an ADR domain, a layer), so alone it counts only where a path
-        # is built.
         $parent = $node.Parent
         while ($parent -is [System.Management.Automation.Language.CommandParameterAst] -or
             $parent -is [System.Management.Automation.Language.ParenExpressionAst] -or

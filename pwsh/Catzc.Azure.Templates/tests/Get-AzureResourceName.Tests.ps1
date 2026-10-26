@@ -91,9 +91,9 @@ Describe 'Get-AzureResourceName' -Tag 'L0', 'logic' {
         }
 
         It 'long / standard' { Get-AzureResourceName @parts -Type rg                |
-            Should -Be 'alpha-weu-tst-smpl-rg' }
+                Should -Be 'alpha-weu-tst-smpl-rg' }
         It 'long / classic' { Get-AzureResourceName @parts -Type rg -Order classic |
-            Should -Be 'rg-tst-smpl-alpha-weu' }
+                Should -Be 'rg-tst-smpl-alpha-weu' }
         It 'kv / standard' { Get-AzureResourceName @parts -Type kv                | Should -Be 'al-weu-tst-smpl-kv' }
         It 'kv / classic' { Get-AzureResourceName @parts -Type kv -Order classic | Should -Be 'kv-tst-smpl-al-weu' }
         It 'storage / standard' { Get-AzureResourceName @parts -Type st                | Should -Be 'alweutstsmplst' }

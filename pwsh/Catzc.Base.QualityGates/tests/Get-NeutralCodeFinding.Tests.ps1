@@ -12,7 +12,7 @@ Describe 'Get-NeutralCodeFinding' -Tag 'L0', 'logic' {
             param([string] $Text)
             $ast = [System.Management.Automation.Language.Parser]::ParseInput($Text, [ref]$null, [ref]$null)
             $real = [System.Collections.Generic.HashSet[string]]::new([string[]] @('ADR-WIDGET-GADGET',
-                'ADR-WIDGET-GADGET-TURN', 'ADR-WIDGET-GADGET-SPIN', 'ADR-WIDGET-GADGET-ROLL', 'ADR-WIDGET-GADGET-STOP'))
+                    'ADR-WIDGET-GADGET-TURN', 'ADR-WIDGET-GADGET-SPIN', 'ADR-WIDGET-GADGET-ROLL', 'ADR-WIDGET-GADGET-STOP'))
             & (Get-Module Catzc.Base.QualityGates) {
                 Get-NeutralCodeFinding -Path 'src/tests/Get-Widget.Tests.ps1' -Ast $args[0] -Code $args[1]
             } $ast $real

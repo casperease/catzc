@@ -55,7 +55,7 @@ Describe 'Get-FirewallMarkdownTable' -Tag 'L0', 'logic' {
         $out = & $script:render @{
             Rows             = @([pscustomobject]@{ Name = 'r1'; Protocols = 'TCP'; DestinationPorts = '443' })
             Columns          = @((New-Column 'Name' 'Name'), (New-Column 'Protocol/Port' @('Protocols',
-                'DestinationPorts') -Render 'protoport'))
+                        'DestinationPorts') -Render 'protoport'))
             MultiValueFields = @('Protocols', 'DestinationPorts')
             IpGroupColumns   = @()
         }

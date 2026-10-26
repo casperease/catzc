@@ -35,6 +35,11 @@ writers:
     at_import: true
     inputs: [docs/drs/**, pwsh/Catzc.Base.Drs/**]
     outputs: [.cspell/drs-codes.txt]
+  # The types surface, written by the importer after a compile on a devbox (Import-CSharpTypes); Test-BuildArtifact -Facet Types checks it.
+  Write-TypesContract:
+    check: none
+    inputs: [pwsh/*/types/**, pwsh/.internal/assets/types/**]
+    outputs: [contracts/catzc/0.1.0/catzc.internal.types/types.sample.json]
   Build-EnglishDictionary:
     check: english-dictionary
     inputs: [pwsh/Catzc.Base.Execution/configs/tools.yml, pwsh/Catzc.Base.QualityGates/**]

@@ -83,3 +83,12 @@ Above `$stamp = Get-FormatEngineStamp -Engine 'imprint:file-meta' -Settings...`,
 The cache is Format-Code's own for its file-meta step: one verdict, one cache, so either command skips what the other found clean.
 A head also reads the files beside its own (the comment page, the relations' candidates), so each file's key carries their stamp too.
 ```
+
+## comment:3
+
+Above `$unfixable = @($saved.Unowned | ForEach-Object {...`, written with `#`.
+
+```text
+A file a person must still repair, or one the run would change, is never recorded as clean, so the next run
+reports it again.
+```

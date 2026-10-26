@@ -42,3 +42,12 @@ The function's name, Verb-Noun.
 ```powershell
 Read-CommandSignature -Path $file -Name Get-Widget
 ```
+
+## comment:1
+
+Above `$inEverySet = $withoutSet -or -not $hasParameterAttribute`, written with `#`.
+
+```text
+A parameter with no [Parameter()], or one without a set name, belongs to every set, as PowerShell binds
+it.
+```

@@ -18,7 +18,7 @@ Describe 'FolderWalker' -Tag 'L0', 'logic' {
         $script:walk = {
             param([int] $Depth, $Patterns = @('*'), [bool] $Files = $true, [bool] $Directories = $true, $Exclude = @())
             & $script:relative ([Catzc.Base.Folders.FolderWalker]::Walk($script:root, $Depth, [string[]] $Patterns,
-                $Files, $Directories, [string[]] $Exclude))
+                    $Files, $Directories, [string[]] $Exclude))
         }
     }
 
@@ -65,7 +65,7 @@ Describe 'FolderWalker' -Tag 'L0', 'logic' {
             'widget/gadget/sprocket/deep.txt')
         $found[1] | Should -Be @('widget/.vendor', 'widget/gadget', 'widget/gadget/sprocket')
         $separate = & $script:relative ([Catzc.Base.Folders.FolderWalker]::Walk($widget, 3, [string[]] @('*'), $true,
-            $true, [string[]] @('node_modules')))
+                $true, [string[]] @('node_modules')))
         @($found[0]) + @($found[1]) | Sort-Object { $_ } -Culture '' |
             Should -Be @($separate | Sort-Object { $_ } -Culture '')
         { [Catzc.Base.Folders.FolderWalker]::WalkRelative((Join-Path $script:root 'absent'), 1, $null, $script:root) } |

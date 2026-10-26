@@ -41,7 +41,7 @@ function Get-AdrRuleText {
             continue
         }
         if ($line.StartsWith('#', [System.StringComparison]::Ordinal) -or $line.StartsWith('- [',
-            [System.StringComparison]::Ordinal)) {
+                [System.StringComparison]::Ordinal)) {
             break
         }
         $paragraph.Add($line.Trim())

@@ -29,3 +29,21 @@ The name of the calling command, for the refusal message.
 ### outputs
 
 `[string[]]` repository-relative, '/'-separated paths, or '.' for the whole repository.
+
+## comment:1
+
+Above `$here = (Get-Location).ProviderPath`, written with `#`.
+
+```text
+A relative path is the caller's own when they stand inside this repository, else the repository's: a snapshot run
+stands elsewhere.
+```
+
+## comment:2
+
+Above `if (-not (Test-Path -LiteralPath $full)) {`, written with `#`.
+
+```text
+A path the index lists but the working tree has lost, a deletion not yet staged, stays in scope; the reader
+skips it.
+```

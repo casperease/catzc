@@ -20,8 +20,6 @@ function Get-MinimapPlace {
     )
 
     $track = "$($Facts['track'])"
-    # A module that only repeats its track (`.claude` in `.claude`) is no module: the place is the track and the folder
-    # the file sits in.
     $module = if ($Facts['module'] -and "$($Facts['module'])" -ne $track) {
         "$($Facts['module'])"
     }

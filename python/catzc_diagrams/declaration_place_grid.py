@@ -17,6 +17,9 @@ from declaration_constants import (
     BAND_TITLE_HEIGHT,
     BAND_TITLE_INSET,
     COL_GAP,
+    EDGE_DEADZONE,
+    LABEL_HEAD_CLEAR,
+    LABEL_TAIL_CLEAR,
     COMMIT_BOX,
     COMMIT_BOX_SIZE,
     COMMIT_STATES,
@@ -39,7 +42,7 @@ from declaration_constants import (
     TRUNK,
     TRUNK_LABEL,
 )
-from declaration_routes import LABEL_RECT, commit_style, diamond_fit
+from declaration_routes import LABEL_RECT, WORD_MARGIN, commit_style, diamond_fit
 from declaration_vocabulary import LIB, DeclarationError
 
 
@@ -118,12 +121,19 @@ def place_grid(declaration):
         n, _, drop = rest.partition("-")
         if not n.isdigit():
             return None
-        return {"x": origin_x + int(n) * ROW_PITCH, "y": origin_y + (ROW_DROP if drop else 0), "w": w, "h": h}
+        return {"x": origin_x + int(n) * row_pitch(holder_id), "y": origin_y + (ROW_DROP if drop else 0), "w": w, "h": h}
+
+    def row_pitch(holder_id):
+        """A row's dot pitch: ROW_PITCH, or wider where a step's word would not fit as a pill on the line between two dots, so every
+        step word is boxed clear of its dots rather than left bare against them."""
+        dot = glyph_lib["commit"]["size"][0]
+        widest = max((6.2 * len(str(step)) + 2 * WORD_MARGIN for step in rows[holder_id]["steps"]), default=0)
+        return max(ROW_PITCH, math.ceil(dot + 2 * EDGE_DEADZONE + widest + LABEL_TAIL_CLEAR + LABEL_HEAD_CLEAR))
 
     def grid_size(holder_id, width=None):
         if holder_id in rows:  # its dots in a line, its drops in the line under it
             dot = glyph_lib["commit"]["size"]
-            return len(rows[holder_id]["steps"]) * ROW_PITCH + dot[0], ROW_DROP + dot[1]
+            return len(rows[holder_id]["steps"]) * row_pitch(holder_id) + dot[0], ROW_DROP + dot[1]
         if holder_id in lanes:  # a lane's height is fixed: its trunk and a branch row above and below it
             return 0, LANE_HEIGHT - LABEL_ROW - PAD
         if holder_id in ladders:  # a ladder's rungs in one row, the last standing rise px per rung above the first

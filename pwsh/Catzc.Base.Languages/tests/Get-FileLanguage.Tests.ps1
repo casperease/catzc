@@ -11,7 +11,8 @@ Describe 'Get-FileLanguage' -Tag 'L0', 'logic' {
         $script:fixture = [Catzc.Base.Languages.LanguagesConfig]::new([ordered]@{
                 languages = [ordered]@{
                     widget = [ordered]@{ extensions = @('.wdg',
-                        '.widget'); formatter = 'prettier'; adr_folder = 'widgets' }
+                            '.widget'); formatter = 'prettier'; adr_folder = 'widgets'
+                    }
                     gadget = [ordered]@{ extensions = @('.gdg'); no_formatter = 'binary gadgets' }
                 }
             })
@@ -127,10 +128,8 @@ Describe 'Get-FileLanguage — the real repository' -Tag 'L1', 'integrity', 'sou
     }
 
     It 'places every folder git tracks a file in inside a track, except out/' {
-        # A track's places may sit below its root folder (infrastructure/templates), so the folders are checked, not the
-        # root folders.
         $folders = @($script:tracked | Where-Object { $_.Contains('/') } | ForEach-Object { $_.Substring(0,
-            $_.LastIndexOf('/')) } |
+                    $_.LastIndexOf('/')) } |
                 Sort-Object -Unique | Where-Object { $_.Split('/')[0] -ne 'out' })
         $folders.Count | Should -BeGreaterThan 0
         $undeclared = @($folders | Where-Object { $null -eq (Get-Track -Path $_) })

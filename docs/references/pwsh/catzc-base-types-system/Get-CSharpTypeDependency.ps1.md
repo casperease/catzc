@@ -75,3 +75,12 @@ own module, never a cross-module reference, and its token would otherwise mis-ma
 known-module prefix: 'namespace Catzc.Azure.Templates;' has no 'Catzc.Azure.Templates.' continuation,
 so it would resolve to the parent module Catzc.Azure and fabricate a false Templates -> Azure edge.
 ```
+
+## comment:4
+
+Above `$roots = @($modules | ForEach-Object { [regex]::Escape($_.Split('.')[0]) } |...`, written with `#`.
+
+```text
+Only a token that starts with a module name's first segment can name a module, so the scan leaves every other
+dotted name unmatched.
+```

@@ -135,3 +135,12 @@ Above `if ($run.ExitCode -ne 0 -and -not ($run.ExitCode -eq 1 -and @($results |.
 pytest exits 1 when a test failed; any other non-zero exit, or 1 with no failing test, means it failed around
 the tests (a usage or collection error, or no tests collected: exit 5).
 ```
+
+## comment:5
+
+Above `$relative = if ($Folder) {`, written with `#`.
+
+```text
+The test folder: the one named, a module's own tests/ or the holder's, else the module's folder under the holder's
+tests/ in python's folder case.
+```

@@ -28,3 +28,12 @@ The repository root. Default: the loaded repository.
 ### outputs
 
 `[Catzc.Base.QualityGates.LinkEdge]`
+
+## comment:1
+
+Above `[Parameter(Mandatory)]`, written with `#`.
+
+```text
+The repository path whose incoming relations are wanted; a folder takes every relation into what lies under
+it.
+```

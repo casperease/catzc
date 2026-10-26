@@ -39,3 +39,12 @@ Above `$text = Get-DiagramDeclarationText -Stem $Stem -RepositoryRoot $Repositor
 Each embedding page's `Supports <codes> (<lens> lens)` lines against the diagram's yml: a page passes when one of its lines
 names the yml's ADR codes and lens, and a page with no Supports line is not checked. One finding, an error, per page that disagrees.
 ```
+
+## comment:2
+
+Above ``$lines = @([regex]::Matches($text, '(?m)^Supports ([^()`]+?) \((\w+)...``, written with `#`.
+
+```text
+A Supports line may wrap onto the next lines of its fence; its codes hold no parenthesis or backtick, so a
+match never leaves it.
+```

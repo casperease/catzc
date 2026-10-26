@@ -24,7 +24,7 @@ Describe 'WorldMapPdf' -Tag 'L0', 'logic' {
         $script:lines = { param([Catzc.Base.Maps.PdfPage] $page) @($page.Content -split "`n" | Where-Object { $_ -ne '' }) }
         $script:fill = { param([string] $hex) [Catzc.Base.Maps.PdfPage]::new(1, 1).SetFillColor($hex).Content.Trim() }
         $script:stroke = { param([string] $hex) [Catzc.Base.Maps.PdfPage]::new(1,
-            1).SetStrokeColor($hex).Content.Trim() }
+                1).SetStrokeColor($hex).Content.Trim() }
         $script:rect = {
             param([double] $x, [double] $y, [double] $w, [double] $h, [string] $op)
             '{0} {1} {2} {3} {4}' -f ([Catzc.Base.Maps.PdfNumber]::Format($x)), ([Catzc.Base.Maps.PdfNumber]::Format($y)),

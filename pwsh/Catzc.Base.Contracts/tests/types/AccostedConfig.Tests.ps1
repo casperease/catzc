@@ -9,7 +9,8 @@ Describe 'AccostedConfig' -Tag 'L0', 'logic' {
 
     It 'takes a configured verb list, sorted and without duplicates, and a configured timeout key' {
         $config = [Catzc.Base.Contracts.AccostedConfig]::new(@{ harmless_verbs = @('spin', 'get',
-            'spin'); run_timeout = 'widget_run' })
+                    'spin'); run_timeout                                       = 'widget_run'
+            })
         $config.harmless_verbs | Should -Be @('get', 'spin')
         $config.run_timeout | Should -Be 'widget_run'
     }

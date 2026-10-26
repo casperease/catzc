@@ -85,9 +85,6 @@ one resolver, makes every new view a config line, and moving the extra units int
        conditions, and the counter's signature matrix; each remark lands here as its own step (check: the counter reads "everything is
        accounted for" with each lamp off in turn; a vetoed lamp shows no staged, unstaged or failed condition colour, which is
        `catzc-track-lamps.js` behaviour not yet checked; the user looks).
-2. [ ] `js/catzc-track-lamps/tree.js` (or `engine.js`): drop the hide-empty-folders branch so empty-on-disk folders show, update the lamp
-       vectors and the tests that expect them hidden. Check: `Invoke-TestFile` on `catzc-track-lamps.Tests.ps1` and the lamp-vectors test
-       green, the counter's single-lamp states about 40 to 600 entries.
 
 ## Refs
 

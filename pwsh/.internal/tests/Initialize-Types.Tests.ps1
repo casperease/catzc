@@ -19,8 +19,6 @@ Describe 'Initialize-Types'-Tag 'L1', 'logic' {
         $script:savedRecord = Get-Variable -Name '__CatzcDeferredTypes' -Scope Global -ValueOnly -ErrorAction Ignore
         $script:savedHook = $ExecutionContext.InvokeCommand.PreCommandLookupAction
 
-        # A fixture with a manifest written by hand, as the builder would: one type with an alias and a display set, one
-        # plain.
         function script:New-FixtureAssembly {
             param([bool] $WithManifest = $true)
             $run = 'r' + [guid]::NewGuid().ToString('N').Substring(0, 8)
@@ -137,8 +135,6 @@ Describe 'Enable-DeferredTypesLoad' -Tag 'L1', 'logic' {
         $script:savedRecord = Get-Variable -Name '__CatzcDeferredTypes' -Scope Global -ValueOnly -ErrorAction Ignore
         $script:savedHook = $ExecutionContext.InvokeCommand.PreCommandLookupAction
 
-        # Each case gets its own assembly: a loaded type cannot be unloaded, so a shared one would be loaded by the
-        # first case.
         function script:New-PendingFixture {
             $run = 'r' + [guid]::NewGuid().ToString('N').Substring(0, 8)
             $space = "CatzcEnableWidget$run"
@@ -146,7 +142,7 @@ Describe 'Enable-DeferredTypesLoad' -Tag 'L1', 'logic' {
             Add-Type -TypeDefinition "namespace $space { public class Widget { } }" -OutputAssembly $dll -OutputType Library
             [System.IO.File]::WriteAllText([System.IO.Path]::ChangeExtension($dll, 'json'),
                 (@{ hash = $run; types = @(@{ name = "$space.Widget"; aliases = @(); display = @() }) } |
-                ConvertTo-Json -Depth 5))
+                    ConvertTo-Json -Depth 5))
             $global:__CatzcDeferredTypes = @{}
             Register-DeferredTypes -RootKey 'root-a' -Path $dll -ShadowCopy $false
             $space

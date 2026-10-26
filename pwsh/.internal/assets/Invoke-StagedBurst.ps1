@@ -82,7 +82,7 @@ if ($Stage) {
     # Through pwsh -File a list arrives as one comma-joined string, or its later paths land among the commands, which
     # staging never runs.
     $Stage = @(@($Stage) + @($Command) | ForEach-Object { $_ -split ',' } | ForEach-Object { $_.Trim() } |
-        Where-Object { $_ })
+            Where-Object { $_ })
     $stageRoot = [System.IO.Path]::GetFullPath($RepositoryRoot)
     $stageFolder = if ([System.IO.Path]::IsPathRooted($StagedFolder)) {
         [System.IO.Path]::GetFullPath($StagedFolder)
@@ -234,7 +234,7 @@ try {
     foreach ($relative in $relatives) {
         if ($relative.EndsWith($deleteSuffix, [System.StringComparison]::Ordinal)) {
             Remove-Item -LiteralPath (Join-Path $root $relative.Substring(0,
-                $relative.Length - $deleteSuffix.Length)) -Force
+                    $relative.Length - $deleteSuffix.Length)) -Force
             continue
         }
         $target = Join-Path $root $relative

@@ -6,7 +6,7 @@ Describe 'Invoke-Go' -Tag 'L0', 'logic' {
     It 'asserts the tool, then runs the executable the check located' {
         Mock Assert-Tool { } -ModuleName Catzc.Tooling.Toolchain
         Mock Test-Tool { [Catzc.Base.Execution.ExecutableProbe]::new('go', '/opt/widget/go/bin/go', 'probe', '1.27.2',
-            '1.27', $true, 1, 0, 'Person') } -ModuleName Catzc.Tooling.Toolchain
+                '1.27', $true, 1, 0, 'Person') } -ModuleName Catzc.Tooling.Toolchain
         Mock Invoke-Executable { } -ModuleName Catzc.Tooling.Toolchain
         Invoke-Go 'env GOROOT' -PassThru
         Should -Invoke Assert-Tool -ModuleName Catzc.Tooling.Toolchain -Times 1 -Exactly -ParameterFilter { $Tool -eq 'go' }

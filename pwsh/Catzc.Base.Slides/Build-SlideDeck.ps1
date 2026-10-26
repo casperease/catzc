@@ -30,8 +30,6 @@ function Build-SlideDeck {
     $kitLoaded = Get-SlidesKit -Kit $Kit -RepositoryRoot $RepositoryRoot
     $kitLoaded.Config = $kitLoaded.Config.ForTheme($Theme)
     $deckName = Split-Path $deckFolder -Leaf
-    # Filled in here, not as a default: it is relative to -RepositoryRoot, declared after it, and to the kit config
-    # loaded above.
     if ([string]::IsNullOrWhiteSpace($OutputFolder)) {
         $themed = if ($Theme -ceq [Catzc.Base.Slides.SlidesConfig]::DefaultTheme) {
             $deckName
@@ -57,7 +55,7 @@ function Build-SlideDeck {
     }
     if (-not $deckSource.Title) {
         $faults.Add([Catzc.Base.Slides.SlideFault]::new($deckRelative, 'title',
-            'the deck file has a level-one heading, the title of the deck'))
+                'the deck file has a level-one heading, the title of the deck'))
     }
     $sections = [ordered]@{}
     if ($deckSource.Fields.ContainsKey('sections')) {
@@ -68,7 +66,7 @@ function Build-SlideDeck {
             }
             else {
                 $faults.Add([Catzc.Base.Slides.SlideFault]::new($deckRelative, 'sections',
-                    "a section is '<first slide id>: <one sentence>'; found '$item'"))
+                        "a section is '<first slide id>: <one sentence>'; found '$item'"))
             }
         }
     }
@@ -98,7 +96,7 @@ function Build-SlideDeck {
     foreach ($start in $sections.Keys) {
         if (-not ($ordered | Where-Object Id -EQ $start)) {
             $faults.Add([Catzc.Base.Slides.SlideFault]::new($deckRelative, 'sections',
-                "the section '$($sections[$start])' starts on '$start', and no slide has that id"))
+                    "the section '$($sections[$start])' starts on '$start', and no slide has that id"))
         }
     }
 
@@ -109,8 +107,6 @@ function Build-SlideDeck {
         if ($entry.Html) {
             [System.IO.File]::WriteAllText((Join-Path $slidesFolder "$($entry.Slide.Id).html"), $entry.Html + "`n",
                 $utf8)
-            # An image the slide shows sits beside its slide file; it lands at the same relative path beside the slide's
-            # HTML.
             $slideRelative = [System.IO.Path]::GetRelativePath($RepositoryRoot, $entry.Slide.Path).Replace('\', '/')
             foreach ($match in [regex]::Matches($entry.Html, 'src="([^"]+)"')) {
                 $asset = $match.Groups[1].Value
@@ -119,13 +115,13 @@ function Build-SlideDeck {
                 }
                 if ([System.IO.Path]::IsPathRooted($asset) -or @($asset -split '[\\/]') -contains '..') {
                     $faults.Add([Catzc.Base.Slides.SlideFault]::new($slideRelative, 'image',
-                        "the image '$asset' must sit beside the slide file, a relative path with no '..'"))
+                            "the image '$asset' must sit beside the slide file, a relative path with no '..'"))
                     continue
                 }
                 $assetSource = Join-Path (Split-Path $entry.Slide.Path -Parent) $asset
                 if (-not [System.IO.File]::Exists($assetSource)) {
                     $faults.Add([Catzc.Base.Slides.SlideFault]::new($slideRelative, 'image',
-                        "the image '$asset' does not exist beside the slide file"))
+                            "the image '$asset' does not exist beside the slide file"))
                     continue
                 }
                 $assetTarget = Join-Path $slidesFolder $asset
@@ -150,7 +146,8 @@ function Build-SlideDeck {
     $index = [ordered]@{
         v              = 4
         createdOnFiles = [ordered]@{ v = 1; at = [DateTime]::UtcNow.ToString('yyyy-MM-ddTHH:mm:ssZ',
-            [System.Globalization.CultureInfo]::InvariantCulture) }
+                [System.Globalization.CultureInfo]::InvariantCulture)
+        }
         lists          = 'css'
         title          = $title
         order          = [string[]] @($rendered | ForEach-Object { $_.Slide.Id })
@@ -184,7 +181,7 @@ function Build-SlideDeck {
             @($faults | ForEach-Object { "- $_" })
         })
     [System.IO.File]::WriteAllText((Join-Path $OutputFolder "$deckName.faults.md"), (@("# Faults of $deckName",
-        '') + $faultLines -join "`n") + "`n", $utf8)
+                '') + $faultLines -join "`n") + "`n", $utf8)
 
     Write-Message "[Build-SlideDeck] ${deckName}: $($rendered.Count) slide(s) rendered to $OutputFolder, $($faults.Count) fault(s)."
     if ($PassThru) {

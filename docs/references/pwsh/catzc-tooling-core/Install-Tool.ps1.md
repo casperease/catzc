@@ -67,3 +67,12 @@ on no PATH at all. When it is still unresolved after the registry sync, recover 
 Packages tree and prepend its directory to the session PATH. (Enabling Developer Mode lets winget do this
 itself and is the cleaner fix.)
 ```
+
+## comment:5
+
+Above `$exe = Get-ChildPath $pkgRoot -File -Filter "$($config.command).exe" -Depth 5...`, written with `#`.
+
+```text
+Installed commands sit at most three levels below the packages folder; the walk must enter every package
+folder.
+```

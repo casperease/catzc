@@ -127,13 +127,13 @@ Describe 'Get-ContentStamp' -Tag 'L0', 'logic', 'ADR-AUTO-CACHE-CHECKEDFILESACRO
             }
         }
         [System.IO.File]::WriteAllLines($rule, [string[]] @('# cites ADR-AUTO-WIDGET-TURN',
-            "function Measure-Widget { 'flagged' }"))
+                "function Measure-Widget { 'flagged' }"))
         $first = & $stamp
         [System.IO.File]::WriteAllLines($rule, [string[]] @('# cites ADR-PWSH-WIDGET-TURN, reworded', '<# help #>',
-            "function Measure-Widget { 'flagged' } # trailing"))
+                "function Measure-Widget { 'flagged' } # trailing"))
         & $stamp | Should -Be $first -Because 'only comments changed'
         [System.IO.File]::WriteAllLines($rule, [string[]] @('# cites ADR-PWSH-WIDGET-TURN',
-            "function Measure-Widget { 'clean' }"))
+                "function Measure-Widget { 'clean' }"))
         & $stamp | Should -Not -Be $first -Because 'the rule''s code changed'
     }
 

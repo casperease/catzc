@@ -166,7 +166,8 @@ Describe 'Catzc.Base.Reports.OutputFormatsConfig' -Tag 'L0', 'logic' {
     It 'rejects a malformed pattern' -Tag 'ADR-REPO-OUTFMT-OUTPUTFORMAT' {
         $message = Get-LoadError @{ formats = @{
                 'widget-png' = (New-Format @{ patterns = @('widgets/a**/*.png', 'widgets/{run}/*.png',
-                    'widgets//x.png') })
+                            'widgets//x.png')
+                    })
             }
         }
         $message | Should -Match "'\*\*' must be a whole segment"

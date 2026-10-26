@@ -45,3 +45,21 @@ Rewrite the session PATH only when an entry arrives or leaves, and say which
 ([ADR-AUTO-CONSOLE-ANNOUNCELASTINGCHANGES](/docs/drs/automation/console-output-matters.md#rule-adr-auto-console-announcelastingchanges)) — on a
 clean devbox nothing changes, so the import stays quiet.
 ```
+
+## comment:3
+
+Above `$seen = [System.Collections.Generic.HashSet[string]]::new(`, written with `#`.
+
+```text
+Wrapped in @() so an empty set of kept entries is an empty array, which the set's constructor accepts where it
+rejects null.
+```
+
+## comment:4
+
+Above `$added = @($newPaths)`, written with `#`.
+
+```text
+The session PATH is rewritten and announced only when an entry arrives or leaves, so a settled machine imports in
+silence.
+```

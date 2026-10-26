@@ -111,3 +111,21 @@ Above `if ($item.Job.State -ne 'Completed') {`, written with `#`.
 A silently-failed shard would drop its files' diagnostics and let violations pass unnoticed —
 fail loudly instead.
 ```
+
+## comment:7
+
+Above `$settings = Import-PowerShellDataFile $settingsPath`, written with `#`.
+
+```text
+The settings are read here, not passed in: a job's arguments are serialized, and the settings parser wants its
+own types back.
+```
+
+## comment:8
+
+Above `$jobs = [System.Collections.Generic.List[object]]::new()`, written with `#`.
+
+```text
+Each batch gets its share of the shard budget by file count, at least one shard; round-robin spreads the heavy
+modules.
+```

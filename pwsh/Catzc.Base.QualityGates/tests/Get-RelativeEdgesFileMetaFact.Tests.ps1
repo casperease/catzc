@@ -1,3 +1,11 @@
+<#
+---
+catzc:
+  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/Get-RelativeEdgesFileMetaFact.Tests.ps1.md"
+  header: "generated"
+---
+#>
+
 Describe 'Get-RelativeEdgesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-FEWLINKS', 'PDR-CONFIG-VARYINGBEHAVIOURISCONFIG' {
     BeforeAll {
         $script:kinds = [Catzc.Base.Globs.FileKindsConfig]::new(@{
@@ -12,7 +20,9 @@ Describe 'Get-RelativeEdgesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-
             @{ name = 'docs'; link = '[{leaf}]({relative_path})'; rules = @(@{ paths = @('{page}') }) }
             @{ name = 'test'; rules = @(@{ classes = @('widget-function'); paths = @('widgets/{module}/tests/{stem}.Tests.ps1') }) }
             @{ name = 'source'; rules = @(@{ classes = @('widget-test'); paths = @('widgets/{module}/{stem}.ps1',
-                'widgets/{module}/private/{stem}.ps1') }) }
+                            'widgets/{module}/private/{stem}.ps1')
+                    })
+            }
         )
 
         function script:Get-Kind {
@@ -28,13 +38,10 @@ Describe 'Get-RelativeEdgesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-
                 param($Kind, $Path, $Root)
                 $mockRoot = $Root
                 Mock Get-RepositoryRoot { $mockRoot }
-                # The fixture modules live under widgets/, which is no track of the shipped registry; the resolver's own
-                # tests prove the real rule.
                 Mock Get-PathModule { [pscustomobject]@{ name = (($Path -replace '\\',
-                    '/') -split '/')[1]; type = 'widget-folder' } }
+                                '/') -split '/')[1]; type     = 'widget-folder'
+                    } }
                 Mock Get-CommentPage { [Catzc.Base.CodeMeta.CommentPagesConfig]::new(@{ pages = @(@{ source = 'widgets/*'; docs = 'docs/{kebab}' }) }).PageFor($Path) }
-                # An edge no rule fills is an empty string, which the block leaves out; these cases look at the edges
-                # that are there.
                 $edges = Get-RelativeEdgesFileMetaFact -State ([pscustomobject]@{}) -Path $Path -Kind $Kind
                 $found = [ordered]@{}
                 foreach ($key in $edges.Keys) {

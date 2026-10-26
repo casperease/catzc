@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: ecf9daf65917
+#     with_body_sha: b53059f0f154
 #     warning: "Do Not Edit, this file is generated"
 # ---
 
@@ -75,6 +75,7 @@ pwsh/.compiled/** linguist-generated
 **/.gitkeep linguist-generated
 /.cspell/*.txt linguist-generated
 /.cspell/drs-codes.txt linguist-generated
+/contracts/catzc/0.1.0/catzc.internal.types/types.sample.json linguist-generated
 /pwsh/Catzc.Base.QualityGates/assets/english.* linguist-generated
 /importer.ps1 linguist-generated
 /importer.sh linguist-generated

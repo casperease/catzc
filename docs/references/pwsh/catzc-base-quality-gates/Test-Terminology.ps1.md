@@ -82,3 +82,12 @@ Above `foreach ($term in $config.terms) {`, written with `#`.
 One bulk scan of the spell-checked corpus (minus the registry and its generated dictionaries, which the config names as its defining
 files and where every term trivially appears), then look each term up against it — not one grep per term.
 ```
+
+## comment:5
+
+Above `$reserved = @($config.terms | Where-Object { $_.category -ceq 'reserved' })`, written with `#`.
+
+```text
+A reserved term names one thing, so it may stand only in the files its category's scope lists; the scope
+ignores case, as the term does.
+```

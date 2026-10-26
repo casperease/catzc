@@ -7,11 +7,11 @@ catzc:
 #>
 
 function Resolve-LampPaletteShade {
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-ParameterFillIn', '',
+        Justification = 'The palette loads on the first palette reference only, so a tree without one never reads it (ADR-PWSH-PARAM-RESOLUTIONORDER)')]
     [CmdletBinding()]
     [OutputType([object])]
     param(
-        # A settings or manifest tree; every string 'palette.<range>.<shade>' in it, optionally '/<aa>' to set the
-        # alpha, becomes its hex.
         [AllowNull()]
         [object] $InputObject,
 

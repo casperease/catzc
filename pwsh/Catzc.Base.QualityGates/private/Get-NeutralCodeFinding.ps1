@@ -53,8 +53,6 @@ function Get-NeutralCodeFinding {
             else {
                 $null
             }
-            # A value belongs to the parameter before it (-Tag 'x', or -Tag:'x'), or is positional: the first is the
-            # title.
             $value = $element
             if ($parameter) {
                 if ($parameter -notin $valued) {

@@ -22,7 +22,7 @@ Describe 'Get-ModuleProfile' -Tag 'L0', 'logic' {
         # Used only for the empty-seed (full) path: every named module.
         Mock Get-CatzcModule -ModuleName Catzc.Base.ModuleSystem {
             'Catzc.Alpha', 'Catzc.Beta' | ForEach-Object { [Catzc.Base.Modules.Module]::new($_, 'widgets',
-                'widget-folder', 'widgetry', "widgetry/$_", 'folder', $null, $null, $null, $null) }
+                    'widget-folder', 'widgetry', "widgetry/$_", 'folder', $null, $null, $null, $null) }
         }
     }
 

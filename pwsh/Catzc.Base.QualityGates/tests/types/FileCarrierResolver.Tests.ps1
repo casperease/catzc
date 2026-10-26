@@ -12,7 +12,8 @@ Describe 'FileCarrierResolver' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-KINDSCOPE'
                     widget   = @{ carrier = 'comment-head'; line = '#'; exclude = @{ '**/tests/**' = 'a test carries no head' } }
                     gadget   = @{ carrier = 'front-matter' }
                     sprocket = @{ files = @('docs/special/**',
-                        '**/*.wdg.keep'); carrier = 'none'; reason = 'kept verbatim' }
+                            '**/*.wdg.keep'); carrier = 'none'; reason = 'kept verbatim'
+                    }
                 }
             })
         $script:resolver = [Catzc.Base.QualityGates.FileCarrierResolver]::new($script:carriers, $script:languages)

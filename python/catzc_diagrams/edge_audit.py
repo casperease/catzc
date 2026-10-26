@@ -9,7 +9,8 @@ read from edge_rules, the one source declaration.py reads too. An edge whose lab
 label's initiating end fixes its direction. Any other edge, unlabelled or with free text, is oriented by the rank of its two ends: the
 tail must rank below the head; a tail above the head is `reverse`, two ends of one rank are `ambiguous` (between two code blocks it
 needs `calls`, an actor or a decision), an end of a trusted kind (a gate) keeps its declared direction as `declared`, and an end at no
-rank is `not-judged`. An edge of a diagram with its own `relation` is audited like any other and also listed as `relation-opt-out`. The
+rank is `not-judged`. An edge of a state diagram (`states: true`, the rule's declared opt-out) is `excused`, needing no edit. An edge of
+any other diagram with its own `relation` is audited like any other and also listed as `relation-opt-out`. The
 labels are read as the author wrote them, so a label the kit derives from the kind pair is not counted as one.
 
 usage (repo root):
@@ -115,6 +116,8 @@ def audit(root=REPO, needle=""):
             edge = {**edge, "label": held.pop(0) if held else ""}
             tail_kind, head_kind = kind_of(content, edge["from"]), kind_of(content, edge["to"])
             word = edge_rules.judge(tail_kind, head_kind, edge["label"], edge.get("kind", "flow"), labels)
+            if content.get("states") is True:  # a state diagram's arrows are its own transitions, the rule's declared opt-out
+                word = "excused"
             default = ""
             if word == "ok" and not edge["label"] and edge.get("kind", "flow") == "flow":
                 default = edge_rules.default_label(tail_kind, head_kind)

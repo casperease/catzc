@@ -30,6 +30,7 @@ function Resolve-MinimapGlyphPath {
         $byLeaf[$leaf].Add($path)
     }
     $tracked = [System.Collections.Generic.HashSet[string]]::new($TrackedPath, [System.StringComparer]::Ordinal)
+    $modules = Get-CatzcModulesFolder
     foreach ($drawn in $Glyph) {
         if ($drawn['kind'] -notin @('code', 'private', 'runner', 'type', 'file')) {
             continue
@@ -40,7 +41,7 @@ function Resolve-MinimapGlyphPath {
                 $byLeaf["$($Matches[1]).ps1"]
             }
             elseif ($label -cmatch '^Catzc(?:\.[A-Z][A-Za-z0-9]*)+$') {
-                $manifest = "pwsh/$label/$label.psd1"
+                $manifest = "$modules/$label/$label.psd1"
                 if ($tracked.Contains($manifest)) {
                     $manifest
                 }

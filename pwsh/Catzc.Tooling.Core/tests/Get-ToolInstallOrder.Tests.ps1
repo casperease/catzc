@@ -26,7 +26,7 @@ Describe 'Get-ToolInstallOrder' -Tag 'L0' {
             foreach ($pair in @(@('base', 'mid1'), @('base', 'mid2'), @('mid1', 'top'), @('mid2', 'top'))) {
                 [array]::IndexOf($order, $pair[0]) |
                     Should -BeLessThan ([array]::IndexOf($order,
-                    $pair[1])) -Because "$($pair[0]) must precede $($pair[1])"
+                            $pair[1])) -Because "$($pair[0]) must precede $($pair[1])"
             }
         }
 
@@ -70,7 +70,7 @@ Describe 'Get-ToolInstallOrder' -Tag 'L0' {
                     foreach ($dependencyName in @($dependency)) {
                         [array]::IndexOf($order, $dependencyName) |
                             Should -BeLessThan ([array]::IndexOf($order,
-                            $name)) -Because "$name depends on $dependencyName"
+                                    $name)) -Because "$name depends on $dependencyName"
                     }
                 }
             }

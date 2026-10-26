@@ -36,7 +36,8 @@ Describe 'Test-AdoPipelineTriggerGlob' -Tag 'L0', 'logic' {
         Mock Test-Path -ParameterFilter { $LiteralPath -like '*cd-widget.yaml' } { $false } -ModuleName Catzc.Base.Globs
         Mock Get-PipelineTrigger {
             [pscustomobject]@{ TriggerInclude = @('lib/**',
-                'oops/**'); TriggerExclude = @('lib/gen/**'); PrInclude = @('lib/**'); PrExclude = @('lib/gen/**') }
+                    'oops/**'); TriggerExclude = @('lib/gen/**'); PrInclude = @('lib/**'); PrExclude = @('lib/gen/**')
+            }
         } -ModuleName Catzc.Base.Globs
 
         $thrown = { Test-AdoPipelineTriggerGlob -OutputFolder (Join-Path $TestDrive 'ado') } | Should -Throw -PassThru

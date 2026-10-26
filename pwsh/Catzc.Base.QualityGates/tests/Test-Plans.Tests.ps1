@@ -61,7 +61,7 @@ Describe 'Test-Plans' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
     It 'reports a head without the plan block, a missing key, a foreign key, a bad status, a bad rank and a missing target' -Tag 'ADR-REPO-PLANS-PLANHEAD' {
         Write-Plan 'plan-gadget.md' (@('---', 'gadget:', '  status: active', '---', '') + $script:goodBody)
         Write-Plan 'plan-sprocket.md' (@('---', 'plan:', '  status: pending', '  value: huge', '  colour: blue',
-            '  targets: [nowhere]', '---', '') + $script:goodBody)
+                '  targets: [nowhere]', '---', '') + $script:goodBody)
         $result = Invoke-Gate
         $result.Issues |
             Should -Contain "plans/plan-gadget.md:1 [ADR-REPO-PLANS-PLANHEAD] the head has no 'plan:' block"
@@ -78,7 +78,7 @@ Describe 'Test-Plans' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
 
     It 'requires a blocked plan to name what blocks it' -Tag 'ADR-REPO-PLANS-PLANHEAD' {
         Write-Plan 'plan-gadget.md' (@('---', 'plan:', '  status: blocked', '  value: low', '  reviewed: 2026-10-17',
-            '  targets: [widgets]', '---', '') + $script:goodBody)
+                '  targets: [widgets]', '---', '') + $script:goodBody)
         $result = Invoke-Gate
         $result.Issues |
             Should -Be @("plans/plan-gadget.md:1 [ADR-REPO-PLANS-PLANHEAD] a blocked plan names what blocks it in 'blocked_on' or 'waits_on'")
@@ -93,7 +93,7 @@ Describe 'Test-Plans' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
 
     It 'reports an open step that names no check, at its line, and reads a wrapped step whole' -Tag 'ADR-REPO-PLANS-OPENSTEP' {
         Write-Plan 'plan-gadget.md' ($script:goodHead + @('# Gadget', '', '## Open steps', '', '- [ ] Spin the gadget.',
-            '- [ ] Oil it', '      (check: no squeak).', '- [x] Done already.'))
+                '- [ ] Oil it', '      (check: no squeak).', '- [x] Done already.'))
         $result = Invoke-Gate
         $result.Issues |
             Should -Be @('plans/plan-gadget.md:13 [ADR-REPO-PLANS-OPENSTEP] the open step names no check: "- [ ] Spin the gadget."')
@@ -101,8 +101,8 @@ Describe 'Test-Plans' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
 
     It 'names a command in a check that no module exports, and passes one that resolves' -Tag 'ADR-REPO-PLANS-OPENSTEP' {
         Write-Plan 'plan-gadget.md' ($script:goodHead + @('# Gadget', '', '## Open steps', '',
-            '- [ ] Oil it; gadget-check: Test-Absent is prose (check: Test-Nonexistent at 0,',
-            '      Get-ChildItem lists it, Pre-Spin holds, Test-Gadget.Tests.ps1 green).'))
+                '- [ ] Oil it; gadget-check: Test-Absent is prose (check: Test-Nonexistent at 0,',
+                '      Get-ChildItem lists it, Pre-Spin holds, Test-Gadget.Tests.ps1 green).'))
         $result = Invoke-Gate
         $result.Issues |
             Should -Be @("plans/plan-gadget.md:13 [ADR-REPO-PLANS-OPENSTEP] the check names 'Test-Nonexistent', which no module exports")
@@ -110,8 +110,8 @@ Describe 'Test-Plans' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
 
     It 'reads a numbered open step like a bulleted one, and reports a numbered step without a checkbox' -Tag 'ADR-REPO-PLANS-OPENSTEP' {
         Write-Plan 'plan-gadget.md' ($script:goodHead + @('# Gadget', '', '## Open steps', '',
-            '1. [ ] Spin the gadget.', '2. Oil it (check: no squeak).', '3. [ ] Turn it,',
-            '       slowly (check: it turns).', '', '## Refs', '', '1. A numbered ref.'))
+                '1. [ ] Spin the gadget.', '2. Oil it (check: no squeak).', '3. [ ] Turn it,',
+                '       slowly (check: it turns).', '', '## Refs', '', '1. A numbered ref.'))
         $result = Invoke-Gate
         $result.Issues | Should -Be @(
             'plans/plan-gadget.md:14 [ADR-REPO-PLANS-OPENSTEP] the open step has no checkbox: "2. Oil it (check: no squeak)."',
@@ -130,15 +130,33 @@ Describe 'Test-Plans' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
 
     It 'reports a step count in the master or the value overlay that differs from the plan''s open steps' -Tag 'ADR-REPO-PLANS-THREEPARTS' {
         Write-Plan 'plan-master.md' ($script:master[0..16] + @('- widget -> plan-widget.md: three steps,', '  spin it.',
-            '- gadget -> plan-gadget.md: oil it.', '- sprocket -> plan-sprocket.md: turn it.'))
-        Write-Plan 'value-of-plan.md' ($script:value[0..3] + @('| medium | plan-widget | 2 steps |',
-            '| low | plan-gadget | one step left |', '| low | plan-sprocket |'))
+                '- gadget -> plan-gadget.md: oil it.', '- sprocket -> plan-sprocket.md: turn it.'))
+        Write-Plan 'value-of-plan.md' (@('# Value', '', '| Value | Plan | State |', '| --- | --- | --- |') + @('| medium | plan-widget | 2 steps |',
+                '| low | plan-gadget | one step left |', '| low | plan-sprocket | |'))
         Write-Plan 'plan-gadget.md' ($script:goodHead + @('# Gadget', '', '## Open steps', '',
-            '- [ ] Oil (check: no squeak).', '- [x] Done already.'))
+                '- [ ] Oil (check: no squeak).', '- [x] Done already.'))
         $result = Invoke-Gate
         $result.Issues | Should -Be @(
             'plans/plan-widget.md:1 [ADR-REPO-PLANS-THREEPARTS] its chunk line in plan-master.md says 3 step(s), but the plan has 2 open step(s)'
         )
+    }
+
+    It 'reports a value row with fewer or more cells than its table''s header' -Tag 'ADR-REPO-PLANS-THREEPARTS' {
+        $head = @('# Value', '', '| Value | Plan | State |', '| --- | --- | --- |')
+        Write-Plan 'value-of-plan.md' ($head + @('| medium | plan-widget |'))
+        (Invoke-Gate).Issues | Should -Contain "plans/plan-widget.md:1 [ADR-REPO-PLANS-THREEPARTS] its row in value-of-plan.md has 2 cell(s), but the table's header has 3"
+        Write-Plan 'value-of-plan.md' ($head + @('| medium | plan-widget | open | extra |'))
+        (Invoke-Gate).Issues | Should -Contain "plans/plan-widget.md:1 [ADR-REPO-PLANS-THREEPARTS] its row in value-of-plan.md has 4 cell(s), but the table's header has 3"
+        Write-Plan 'value-of-plan.md' ($head + @('| medium | plan-widget | open |'))
+        @((Invoke-Gate).Issues | Where-Object { $_ -like '*cell(s)*' }) | Should -BeNullOrEmpty
+    }
+
+    It 'measures each table''s rows against its own header, so two tables of different widths both pass' -Tag 'ADR-REPO-PLANS-THREEPARTS' {
+        Write-Plan 'value-of-plan.md' (@('# Value', '', '| Value | Plan | Why | Docs |', '| --- | --- | --- | --- |',
+                '| medium | plan-widget | spins | none |', '', '## Features', '', '| Value | Plan |', '| --- | --- |',
+                '| low | plan-gadget |', '| low | plan-sprocket |'))
+        $result = Invoke-Gate
+        @($result.Issues | Where-Object { $_ -like '*cell(s)*' }) | Should -BeNullOrEmpty
     }
 
     It 'finds both overlays missing when the folder has neither file' -Tag 'ADR-REPO-PLANS-THREEPARTS' {
@@ -165,7 +183,7 @@ Describe 'Test-Plans' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
     It 'never accepts a numbered task name, and names a line that points at a task by a number' -Tag 'ADR-REPO-PLANS-MASTERANDTASKS', 'ADR-REPO-FOLDERS-STABLEFILENAMES' {
         Write-Plan 'task002.md' $script:task
         Write-Plan 'plan-gadget.md' ($script:goodHead + @('# Gadget', '', '## Open steps', '',
-            '- [ ] Spin after task002 and T003 (check: spins).'))
+                '- [ ] Spin after task002 and T003 (check: spins).'))
         $result = Invoke-Gate
         $result.Issues |
             Should -Contain 'plans/task002.md:1 [ADR-REPO-PLANS-ONETOPICONEFILE] the name is not one the plans folder accepts (plan-<topic>.md, prompt-<topic>-continue.md, task-<topic>.md, …); a name never carries an order (ADR-REPO-FOLDERS-STABLEFILENAMES)'

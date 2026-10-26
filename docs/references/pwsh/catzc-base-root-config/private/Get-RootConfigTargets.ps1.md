@@ -31,3 +31,12 @@ committed generated file reads the mix-independent list, so its content never de
 ### outputs
 
 `[object[]]` The opted-in RootConfigFile entries, in registry order.
+
+## comment:1
+
+Above `$mixEngines = $null`, written with `#`.
+
+```text
+An engine's importer entry follows the session's mix: it is managed only when one of the engines it serves is in
+the mix.
+```

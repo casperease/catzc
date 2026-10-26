@@ -46,8 +46,8 @@ content:
   edges:
     - { from: s-automation, to: r-ci-automation, kind: flow, label: feeds }
     - { from: s-infrastructure, to: r-ci-infrastructure, kind: flow, label: feeds }
-    - { from: s-infrastructure, to: s-base, kind: thick, label: "" }
-    - { from: s-base, to: s-units, kind: thick, label: "" }
+    - { from: s-base, to: s-infrastructure, kind: thick, label: composes }
+    - { from: s-units, to: s-base, kind: thick, label: composes }
     - { from: s-units, to: r-cd, kind: flow, label: feeds }
     - { from: s-infrastructure, to: s-automation, kind: adr, label: "" }
   markers:

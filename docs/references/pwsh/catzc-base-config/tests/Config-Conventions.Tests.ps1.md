@@ -21,3 +21,12 @@ The quality gate (Test-ShippedConfigs, in Catzc.Base.QualityGates: Catzc.Base.Re
 Catzc.Base.Config, so the gate cannot live here) lists every issue over the loaded code root
 ([ADR-AUTO-TEST-QUALITYGATE](/docs/drs/automation/test-automation.md#rule-adr-auto-test-qualitygate)).
 ```
+
+## comment:3
+
+Above `Describe 'Config conventions'`, written with `#`.
+
+```text
+A backstop for the registry: every shipped config must have a registered type and load through it, or the run fails
+here.
+```

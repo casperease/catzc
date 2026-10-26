@@ -39,7 +39,7 @@ function Get-FunctionDependencyTree {
         }
 
         $callerExists = $adjacency.ContainsKey($Function) -or ($all | Where-Object { $_.TargetFunction -eq $Function } |
-            Select-Object -First 1)
+                Select-Object -First 1)
         Assert-True ([bool]$callerExists) -ErrorText "Function '$Function' not found in dependency graph"
 
         # BFS

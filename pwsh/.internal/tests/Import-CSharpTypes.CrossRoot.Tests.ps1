@@ -47,8 +47,6 @@ Describe 'Import-CSharpTypes cross-root types guard' -Tag 'L0' {
         Mock Write-ImporterMessage { } -ModuleName Catzc.Internal.Bootstrap
         $shadowRoot = Join-Path $script:fixtureRoot 'shadow'
         Mock Get-TypesShadowRoot { $shadowRoot }.GetNewClosure() -ModuleName Catzc.Internal.Types
-        # A run from a VS Code terminal carries its mark; every case here is a plain devbox unless it sets the mark
-        # itself.
         $script:originalTerminalProgram = $env:TERM_PROGRAM
         $env:TERM_PROGRAM = ''
     }

@@ -77,7 +77,7 @@ function Get-BicepTemplates {
                 ForEach-Object { [pscustomobject]@{ path = $_; customer = [System.IO.Path]::GetFileName($_) } })
         foreach ($configFolder in $configFolders) {
             $files = @([Catzc.Base.Folders.PathSet]::new($walk).AddPattern($configFolder.path, '*.yml',
-                1).AddPattern($configFolder.path, '*.bicepparam', 1).ToArray())
+                    1).AddPattern($configFolder.path, '*.bicepparam', 1).ToArray())
             $relativeFolder = if ($configFolder.customer) {
                 "configuration/$($configFolder.customer)"
             }
@@ -85,7 +85,7 @@ function Get-BicepTemplates {
                 'configuration'
             }
             foreach ($pair in @($files | Group-Object { [System.IO.Path]::GetFileNameWithoutExtension($_) } |
-                Where-Object Count -GT 1)) {
+                        Where-Object Count -GT 1)) {
                 throw "Template '$name' has both $relativeFolder/$($pair.Name).yml and $relativeFolder/$($pair.Name).bicepparam for one coordinate; keep one."
             }
             foreach ($file in $files) {
@@ -133,7 +133,7 @@ function Get-BicepTemplates {
             $subscription = Get-BicepConfigSubscriptionCandidates -Customer $entry.customer -Environment $resolved.environment -AzureConfig $azure |
                 Select-Object -First 1
             $slots.Add([Catzc.Azure.Templates.BicepSlot]::new($configName, $resolved.environment, $resolved.slot,
-                $subscription, $entry.customer, $entry.file))
+                    $subscription, $entry.customer, $entry.file))
         }
         $environments = @($slots | ForEach-Object { $_.environment } | Select-Object -Unique)
         $subscriptions = @($slots | ForEach-Object { $_.subscription } | Select-Object -Unique)
@@ -175,7 +175,7 @@ function Get-BicepTemplates {
         $resourcesFolder = Join-Path $folderPath 'resources'
         if (Test-Path $resourcesFolder -PathType Container) {
             $template['resources'] = @([Catzc.Base.Folders.PathSet]::new($walk).AddPattern($resourcesFolder, '*',
-                1).ToArray())
+                    1).ToArray())
         }
 
         $templates.Add([Catzc.Azure.Templates.BicepTemplate]::new($template))

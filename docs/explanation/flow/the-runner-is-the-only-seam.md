@@ -43,7 +43,7 @@ content:
     - { id: c-importer, kind: code, label: importer.ps1, in: band-powershell }
     - { id: a-developer, kind: actor, label: developer, in: band-developer }
   edges:
-    - { from: f-pipeline-yaml, to: f-template, kind: flow, label: "" }
+    - { from: f-pipeline-yaml, to: f-template, kind: flow, label: calls }
     - { from: f-template, to: r-task, kind: flow, label: feeds }
     - { from: r-task, to: c-runner, kind: flow, label: calls }
     - { from: c-runner, to: c-importer, kind: flow, label: calls }

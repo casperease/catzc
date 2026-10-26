@@ -115,7 +115,7 @@ content:
   edges:
     - { from: g-invoke, to: g-timeout, kind: flow, label: calls }
     - { from: g-timeout, to: g-streamed, kind: flow, label: feeds }
-    - { from: g-streamed, to: t-runner, kind: flow, label: "" }
+    - { from: g-streamed, to: t-runner, kind: flow, label: calls }
     - { from: t-runner, to: f-kill, kind: fail, label: "" }
     - { from: g-invoke, to: g-direct, kind: flow, label: calls }
     - { from: g-direct, to: g-expression, kind: flow, label: calls }

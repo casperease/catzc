@@ -93,8 +93,6 @@ function Enter-TestRunLocation {
     $priming = Invoke-Executable "pwsh $start -File `"$(Join-Path $location.Snapshot.Path 'importer.ps1')`"" `
         -WorkingDirectory $location.Snapshot.Path -PassThru -Silent -NoAssert
     if ($priming.ExitCode -ne 0) {
-        # The failed import's output is the cause: it is kept in a log under out/, with the snapshot left for a look,
-        # and its tail is thrown.
         $logFolder = Join-Path (Get-OutputRoot) 'test-snapshot-priming'
         [void] [System.IO.Directory]::CreateDirectory($logFolder)
         $log = Join-Path $logFolder "$([System.IO.Path]::GetFileName($location.Snapshot.Path)).log"

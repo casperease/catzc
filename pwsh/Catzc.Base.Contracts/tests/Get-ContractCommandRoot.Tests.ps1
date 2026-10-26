@@ -12,7 +12,8 @@ Describe 'Get-ContractCommandRoot' -Tag 'L0', 'logic', 'ADR-REPO-CMDCONTRACT-NOP
     It 'renders the normal-form folder to the module name and returns the root the one resolver finds' {
         Mock -ModuleName Catzc.Base.Contracts Get-CatzcModule {
             [pscustomobject]@{ name = 'Catzc.WidgetGadget'; root = 'widgets/Catzc.WidgetGadget'; languages = @('bcl',
-                'powershell') }
+                    'powershell')
+            }
         }
         Get-Root 'catzc.widget_gadget' | Should -Be 'widgets/Catzc.WidgetGadget'
         Should -Invoke -ModuleName Catzc.Base.Contracts Get-CatzcModule -Times 1 -Exactly -ParameterFilter { $Name -ceq 'Catzc.WidgetGadget' -and $EngineTrack }

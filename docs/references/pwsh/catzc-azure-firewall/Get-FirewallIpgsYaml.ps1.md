@@ -101,3 +101,39 @@ Above `if ($allIpgs.Contains($g.name)) {`, written with `#`.
 IP Group names are unique within a source but not necessarily across sources — guard the
 shared 'ipgs' map so one source's group can't silently overwrite another's.
 ```
+
+## comment:5
+
+Above `Assert-AzCliExtension 'ip-group'`, written with `#`.
+
+```text
+The extension is asserted once, but no connection: each target names its own subscription, so a missing
+session fails its call.
+```
+
+## comment:6
+
+Above `$addressSortKey = {`, written with `#`.
+
+```text
+Each byte padded to three digits, so a string sort of addresses is a numeric one; an unparseable address sorts
+as text.
+```
+
+## comment:7
+
+Above `if ($allSources.Contains($ResourceGroupName)) {`, written with `#`.
+
+```text
+Sources are keyed by resource group, so two targets that share one across subscriptions collide loudly instead
+of overwriting.
+```
+
+## comment:8
+
+Above `if ($allIpgs.Contains($g.name)) {`, written with `#`.
+
+```text
+Group names are unique within one source only, so a clash across sources is surfaced and never silently
+replaced.
+```

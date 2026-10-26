@@ -37,8 +37,6 @@ function New-DocSnapshot {
     }
     [System.IO.File]::WriteAllText((Join-Path $session 'manifest.json'), (ConvertTo-Json -InputObject $manifest),
         [System.Text.UTF8Encoding]::new($false))
-    # seen.json is what makes a folder a session, so it is written last: a start that fails half way leaves no session
-    # behind.
     Write-ListenIndex (Join-Path $session 'baseline.json') -Index $index
     Write-ListenIndex (Join-Path $session 'seen.json') -Index $index
 

@@ -1,7 +1,7 @@
 Describe 'BicepParamWriter' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:write = { param($Parameters) [Catzc.Azure.Templates.BicepParamWriter]::Write('../main.bicep',
-            $Parameters) }
+                $Parameters) }
         $script:vault = '/subscriptions/a2000000-7e57-50b0-0000-000000000000/resourceGroups/widget-rg/providers/Microsoft.KeyVault/vaults/widget-kv'
     }
 
@@ -24,11 +24,13 @@ Describe 'BicepParamWriter' -Tag 'L0', 'logic' {
     It 'writes nested objects and arrays two spaces per level, quoting a key that is not an identifier' {
         $text = & $script:write ([ordered]@{
                 tags = @{ value = [ordered]@{ owner = 'widget'; 'cost-center' = 'gadget'; zones = @('1',
-                    '2'); empty = @() } }
+                            '2'); empty = @()
+                    }
+                }
             })
         $text |
             Should -BeExactly ("using '../main.bicep'`n`nparam tags = {`n  owner: 'widget'`n  'cost-center': 'gadget'`n  zones: [`n    '1'`n" +
-            "    '2'`n  ]`n  empty: []`n}`n")
+                "    '2'`n  ]`n  empty: []`n}`n")
     }
 
     It 'escapes a backslash, a quote, an interpolation and a newline in a string' {

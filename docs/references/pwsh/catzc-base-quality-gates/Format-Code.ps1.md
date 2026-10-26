@@ -103,3 +103,21 @@ Above `$inScope = @(if ($Language) {`, written with `#`.
 Imprint steps run after every formatter, so a step never works on text a formatter is about to rewrite: a global step runs over
 every language in scope, a language's own step over that language only.
 ```
+
+## comment:4
+
+Above `$stepCachePath = Join-Path (Get-OutputRoot) "cache/format-code-$step.json"`, written with `#`.
+
+```text
+A step has its own cache file: one file passes through an engine and several steps, and the cache keeps one
+slot per file.
+```
+
+## comment:5
+
+Above `$stamps = @{}`, written with `#`.
+
+```text
+The plan-counts step's verdict reads the open steps of the plans beside each overlay, so their counts join
+its key.
+```

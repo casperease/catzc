@@ -177,7 +177,7 @@ Describe 'Enter-TestRunLocation' -Tag 'L1', 'logic' {
             Should -BeLike '*went to a snapshot, but priming the snapshot failed (exit 1)*the gadget type failed to compile*'
         Should -Invoke Remove-RepositorySnapshot -ModuleName Catzc.Base.QualityGates -Times 0
         $log = @([System.IO.Directory]::GetFiles((Join-Path $script:outRoot 'test-snapshot-priming'),
-            'catzc-run-*.log'))
+                'catzc-run-*.log'))
         $log | Should -HaveCount 1
         [System.IO.File]::ReadAllText($log[0]) | Should -BeExactly "loading widgets`nthe gadget type failed to compile"
         $thrown | Should -BeLike "*$($log[0])*"

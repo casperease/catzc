@@ -14,7 +14,7 @@ Describe 'Format-MarkdownTitle and Test-MarkdownTitle' -Tag 'L0', 'logic', 'ADR-
             "# docs/widget.md`r`n`r`n``Widget```r`n`r`nBody.`r`n")
         [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/gadget.md'), "# Gadget`n")
         Mock Get-MarkdownScope { , [string[]] @('docs/widget.md',
-            'docs/gadget.md') } -ModuleName Catzc.Base.QualityGates
+                'docs/gadget.md') } -ModuleName Catzc.Base.QualityGates
         Mock Write-Message { } -ModuleName Catzc.Base.QualityGates
         Mock Write-Message { } -ModuleName Catzc.Base.Reports
         $script:reportBase = Join-Path $script:widgetRoot 'reports'
@@ -83,7 +83,7 @@ Describe 'Format-MarkdownTitle and Test-MarkdownTitle — headings' -Tag 'L0', '
         [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/gadget.md'),
             "# Gadget`n`nSee [validation](widget.md#validation-assert-widget).`n")
         Mock Get-MarkdownScope { , [string[]] @('docs/widget.md',
-            'docs/gadget.md') } -ModuleName Catzc.Base.QualityGates
+                'docs/gadget.md') } -ModuleName Catzc.Base.QualityGates
         Mock Write-Message { } -ModuleName Catzc.Base.QualityGates
         Mock Write-Message { } -ModuleName Catzc.Base.Reports
         $script:reportBase = Join-Path $script:widgetRoot 'reports'

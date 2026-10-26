@@ -108,3 +108,12 @@ A status line is one solid line, not a rule, so a rainbow input side-grades to i
 shared resolver flattens a ConsoleColor, its name, a 'rainbow'/'<base>-rainbow' bareword, or a
 RainbowColor profile to one ConsoleColor. Passing a rainbow to Write-Message therefore just works.
 ```
+
+## comment:4
+
+Above `if ($Warning) {`, written with `#`.
+
+```text
+Yellow on the information stream, never the warning stream; the parameter sets keep it apart from
+-ForegroundColor.
+```

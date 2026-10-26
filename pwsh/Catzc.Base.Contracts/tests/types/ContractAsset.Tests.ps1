@@ -37,19 +37,19 @@ Describe 'ContractAsset' -Tag 'L0', 'logic' {
         @{ Value = 'C:/gadget.md' }
     ) {
         { [Catzc.Base.Contracts.ContractAsset]::new('widget', '0.1.0', 'gadgets', 'a.md', $script:fragment, $Value,
-            $script:dependedOn) } |
+                $script:dependedOn) } |
             Should -Throw '*contract asset*'
     }
 
     It 'rejects a version that is not a three-part version, and a root, group or path of more than one name' -Tag 'ADR-REPO-CONTRACT-LAYOUT' {
         { [Catzc.Base.Contracts.ContractAsset]::new('widget', 'v1', 'gadgets', 'a.md', $script:fragment, 'a.md',
-            $script:dependedOn) } | Should -Throw "*version 'v1'*"
+                $script:dependedOn) } | Should -Throw "*version 'v1'*"
         { [Catzc.Base.Contracts.ContractAsset]::new('widget/gadget', '0.1.0', 'gadgets', 'a.md', $script:fragment,
-            'a.md', $script:dependedOn) } | Should -Throw '*one folder or file name*'
+                'a.md', $script:dependedOn) } | Should -Throw '*one folder or file name*'
         { [Catzc.Base.Contracts.ContractAsset]::new('widget', '0.1.0', 'gadget/s', 'a.md', $script:fragment, 'a.md',
-            $script:dependedOn) } | Should -Throw '*one folder or file name*'
+                $script:dependedOn) } | Should -Throw '*one folder or file name*'
         { [Catzc.Base.Contracts.ContractAsset]::new('widget', '0.1.0', 'gadgets', 'x/a.md', $script:fragment, 'a.md',
-            $script:dependedOn) } | Should -Throw '*one folder or file name*'
+                $script:dependedOn) } | Should -Throw '*one folder or file name*'
     }
 
     It 'gives a sample payload no target, and every other kind one' -Tag 'ADR-REPO-CONTRACT-CONTRACTASSET' {
@@ -58,8 +58,8 @@ Describe 'ContractAsset' -Tag 'L0', 'logic' {
         [Catzc.Base.Contracts.ContractAsset]::new('widget', '0.1.0', 'gadgets', 'g.sample.json', $sample, $null,
             $provided).Target | Should -BeNullOrEmpty
         { [Catzc.Base.Contracts.ContractAsset]::new('widget', '0.1.0', 'gadgets', 'g.sample.json', $sample, 'g.json',
-            $provided) } | Should -Throw '*has no target*'
+                $provided) } | Should -Throw '*has no target*'
         { [Catzc.Base.Contracts.ContractAsset]::new('widget', '0.1.0', 'gadgets', 'a.md', $script:fragment, $null,
-            $script:dependedOn) } | Should -Throw "*target ''*"
+                $script:dependedOn) } | Should -Throw "*target ''*"
     }
 }

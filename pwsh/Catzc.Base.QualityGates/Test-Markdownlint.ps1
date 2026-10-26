@@ -50,8 +50,6 @@ function Test-Markdownlint {
         }
         $command = "markdownlint-cli2 $(@($quotedPaths) + $exclusions -join ' ')"
 
-        # -Silent: capture markdownlint-cli2's output instead of streaming it to the console; the report prints the
-        # issues.
         $result = Invoke-Executable $command -PassThru -NoAssert -Silent
 
         # markdownlint-cli2 exit codes: 0 = clean, 1 = lint violations found, >1 = tool error.

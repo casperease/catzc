@@ -17,8 +17,6 @@ function Write-TestResultMarker {
         [Parameter(Mandatory)]
         [string] $RunDirectory,
 
-        # A run filtered to some tests says nothing of the others, so it only records failures and never clears a
-        # marker.
         [switch] $KeepPassing,
 
         [string] $RepositoryRoot = (Get-RepositoryRoot),

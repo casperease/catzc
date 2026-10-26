@@ -1,5 +1,11 @@
-# The provided head contract names the keys of a file's meta head; this proves they are the keys the code writes, so
-# neither can drift.
+<#
+---
+catzc:
+  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/Format-FileMeta.Contract.Tests.ps1.md"
+  header: "generated"
+---
+#>
+
 Describe 'The provided head contract' -Tag 'L1', 'integrity', 'source-only', 'ADR-REPO-CONTRACT-PROVENBYTESTS' {
     BeforeAll {
         $folder = Join-Path (Get-RepositoryRoot) 'contracts/catzc/0.1.0/catzc.base.quality_gates'
@@ -8,8 +14,6 @@ Describe 'The provided head contract' -Tag 'L1', 'integrity', 'source-only', 'AD
             ConvertFrom-Json -AsHashtable
         $registry = Get-Config -Config file-meta
         $composed = (Get-Config -Config generated-head).order
-        # The generated-file head holds place facts only, under immutable; the imprint kinds write the edges at the
-        # block's first level.
         $script:writtenImmutable = @($composed | Sort-Object -Unique)
         $script:writtenEdges = @($registry.ImprintKeys() | Sort-Object -Unique)
         $script:parts = $script:schema['properties']['catzc']['properties']

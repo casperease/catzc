@@ -53,9 +53,9 @@ Describe 'New-VsCodeSettings' -Tag 'L0', 'logic' {
                     editorconfig = [ordered]@{ '*.wdg' = @('widget', 'gadget') }
                 })
         }
-        $editorconfig = Join-Path $TestDrive '.editorconfig'
-        Set-Content -LiteralPath $editorconfig -Value "root = true`n[*]`nindent_style = space`nindent_size = 4`nend_of_line = lf`ntrim_trailing_whitespace = true`n[*.wdg]`nindent_style = tab`nindent_size = 2`nmax_line_length = 100`n[*.cs]`ndotnet_style_widget = false"
-        $json = (New-VsCodeSettings -EditorConfigPath $editorconfig -CurrentPath (Join-Path $TestDrive 'none.json')) |
+        $editorConfigPath = Join-Path $TestDrive '.editorconfig'
+        Set-Content -LiteralPath $editorConfigPath -Value "root = true`n[*]`nindent_style = space`nindent_size = 4`nend_of_line = lf`ntrim_trailing_whitespace = true`n[*.wdg]`nindent_style = tab`nindent_size = 2`nmax_line_length = 100`n[*.cs]`ndotnet_style_widget = false"
+        $json = (New-VsCodeSettings -EditorConfigPath $editorConfigPath -CurrentPath (Join-Path $TestDrive 'none.json')) |
             ConvertFrom-Json -AsHashtable
         $json['editor.insertSpaces'] | Should -BeTrue
         $json['editor.tabSize'] | Should -Be 4
@@ -72,7 +72,9 @@ Describe 'New-VsCodeSettings' -Tag 'L0', 'logic' {
 
     It 'renders the tagged languages the lamps offer, each with its tag and extensions, in the order given' {
         $languages = [ordered]@{ widget = @{ tag = 'wdg'; extensions = @('.wdg',
-            '.wdgx') }; gadget = @{ tag = 'gdg'; extensions = @('.gdg') } }
+                    '.wdgx')
+            }; gadget                   = @{ tag = 'gdg'; extensions = @('.gdg') }
+        }
         $json = (New-VsCodeSettings -LampLanguage $languages -CurrentPath (Join-Path $TestDrive 'none.json')) |
             ConvertFrom-Json -AsHashtable
         @($json['catzc.trackLamps.languages'].Keys) | Should -Be @('widget', 'gadget')
@@ -172,8 +174,6 @@ Describe 'New-VsCodeSettings — real vscode-settings.yml' -Tag 'L1', 'integrity
         foreach ($key in 'files.exclude', 'search.exclude', 'files.watcherExclude') {
             if ($json.Contains($key)) {
                 foreach ($glob in @($json[$key].Keys | Where-Object { $json[$key][$_] -eq $true })) {
-                    # A VS Code glob as a -like pattern ('**' and '*' both span '/'), on the path and its leading '**/'
-                    # form.
                     $pattern = $glob -replace '\*\*', '*'
                     $source | Should -Not -BeLike $pattern -Because "$key '$glob' would hide $source"
                     "x/$source" | Should -Not -BeLike $pattern -Because "$key '$glob' would hide $source"

@@ -27,3 +27,12 @@ Above `$aspectSet = [ordered]@{}`, written with `#`.
 Aspect name to the globsets of that aspect, from the aspect model alone: Get-ModuleGlobSet's module-layer aspect sets and each
 aspect-declaring track's, one unit per place.
 ```
+
+## comment:2
+
+Above `$singleFile = @(Get-CatzcModule -Track $codeTrack.name...`, written with `#`.
+
+```text
+A single-file module's set is the degenerate one-aspect partition: live
+([DDR-ASPECT-ASPECTISAGLOBSET](/docs/drs/design/module-aspects.md#rule-ddr-aspect-aspectisaglobset)).
+```

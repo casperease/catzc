@@ -47,3 +47,12 @@ Return { Path; Changed; DryRun; ConceptCount } instead of the path.
 ```powershell
 Build-Glossary -DryRun -PassThru
 ```
+
+## comment:1
+
+Above `$contrasts = [System.Collections.Generic.Dictionary[string,...`, written with `#`.
+
+```text
+A contrast is declared once, on either term, and shows on both entries; a term's own declaration wins over the
+mirrored one.
+```

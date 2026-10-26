@@ -136,7 +136,8 @@ Describe 'Get-GlossaryPhrasingViolations' -Tag 'L0', 'logic' {
 
         It 'skips a source that opts out of the avoid check' -Tag 'ADR-REPO-VOCAB-GLOSSARYSOURCE' {
             & $script:scan @{ 'docs/alpha.md' = @('the widget bundle') } @{ checks = @('anchored', 'single', 'enforced',
-                'forms') } | Should -BeNullOrEmpty
+                    'forms')
+            } | Should -BeNullOrEmpty
         }
 
         It 'reads no file type that is not a surface' -Tag 'ADR-REPO-VOCAB-GLOSSARYSOURCE' {

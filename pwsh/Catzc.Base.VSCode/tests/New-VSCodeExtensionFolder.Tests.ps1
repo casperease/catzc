@@ -1,5 +1,11 @@
-# Rests on
-# [ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS](/docs/drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-isolatethroughseams).
+<#
+---
+catzc:
+  docs: "../../../docs/references/pwsh/catzc-base-vs-code/tests/New-VSCodeExtensionFolder.Tests.ps1.md"
+  header: "generated"
+---
+#>
+
 Describe 'New-VsCodeExtensionFolder' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:assets = Join-Path $TestDrive 'assets'
@@ -85,13 +91,10 @@ Describe 'New-VsCodeExtensionFolder — real vscode-extensions.yml' -Tag 'L1', '
             $manifest.name | Should -Be $entry.name
             (Get-Item -LiteralPath (Join-Path $folder 'extension.js')).Length | Should -BeGreaterThan 0
             Build-VsCodeExtension -Path $folder -OutputDirectory (Join-Path $TestDrive 'vsix') | Should -Exist
-            $commands = if ($manifest.PSObject.Properties['contributes'] -and
-                $manifest.contributes.PSObject.Properties['commands']) {
-                @($manifest.contributes.commands)
-            }
-            else {
-                @()
-            }
+            $commands = @(if ($manifest.PSObject.Properties['contributes'] -and
+                    $manifest.contributes.PSObject.Properties['commands']) {
+                    $manifest.contributes.commands
+                })
             foreach ($command in $commands) {
                 if (-not $command.PSObject.Properties['icon']) {
                     continue

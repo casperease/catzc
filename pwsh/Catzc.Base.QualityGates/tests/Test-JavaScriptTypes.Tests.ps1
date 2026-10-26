@@ -3,6 +3,7 @@ Describe 'Test-JavaScriptTypes' -Tag 'L0', 'logic' {
         $script:root = Join-Path $TestDrive 'repo'
         $null = New-Item -ItemType Directory -Path $script:root -Force
         Set-Content -LiteralPath (Join-Path $script:root 'jsconfig.json') -Value '{}'
+        Set-Content -LiteralPath (Join-Path $script:root 'jsconfig.lenient.json') -Value '{}'
         Mock Assert-SourceTree -ModuleName Catzc.Base.QualityGates { }
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.QualityGates { $script:root }
         Mock Resolve-ToolExecutable -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ Found = $true; Path = 'C:/tools/tsc.cmd' } }
@@ -19,6 +20,10 @@ Describe 'Test-JavaScriptTypes' -Tag 'L0', 'logic' {
         Mock Invoke-Executable -ModuleName Catzc.Base.QualityGates {
             $script:command = $Command
             $script:commands.Add($Command)
+            # The scripted answer is the editor's project's; the lenient project beside it checks clean.
+            if ($Command -like '*jsconfig.lenient.json"*') {
+                return [pscustomobject]@{ ExitCode = 0; Output = ''; Full = '' }
+            }
             [pscustomobject]@{ ExitCode = $script:exit; Output = $script:output; Full = $script:output }
         }
     }
@@ -26,7 +31,7 @@ Describe 'Test-JavaScriptTypes' -Tag 'L0', 'logic' {
     It 'checks the generated jsconfig.json with tsc and passes when it reports nothing' {
         $result = Test-JavaScriptTypes -OutputFolder (Join-Path $TestDrive 'clean') -PassThru
         $result.Issues | Should -HaveCount 0
-        $script:command | Should -BeLike '"C:/tools/tsc.cmd" --noEmit --pretty false -p "*jsconfig.json"'
+        $script:commands[0] | Should -BeLike '"C:/tools/tsc.cmd" --noEmit --pretty false -p "*jsconfig.json"'
     }
 
     It 'reports every tsc error as one issue at its repository path, line and column' {
@@ -39,16 +44,14 @@ Describe 'Test-JavaScriptTypes' -Tag 'L0', 'logic' {
             Should -Be @("js/catzc-widget/extension.js:4:7: error TS2339 Property 'spin' does not exist on type 'Widget'.")
     }
 
-    It 'checks the strict project too, once a module is raised, and asks for it when it is missing' {
-        $script:strict = @('catzc-widget')
-        { Test-JavaScriptTypes -OutputFolder (Join-Path $TestDrive 'no-strict') } |
-            Should -Throw '*jsconfig.strict.json is missing*'
-        Set-Content -LiteralPath (Join-Path $script:root 'jsconfig.strict.json') -Value '{}'
-        $script:commands.Clear()
-        $result = Test-JavaScriptTypes -OutputFolder (Join-Path $TestDrive 'strict') -PassThru
+    It 'checks the lenient project beside the editor''s, and asks for it when it is missing' {
+        $result = Test-JavaScriptTypes -OutputFolder (Join-Path $TestDrive 'both') -PassThru
         $result.Issues | Should -HaveCount 0
         $script:commands | Should -HaveCount 2
-        $script:commands[1] | Should -BeLike '*-p "*jsconfig.strict.json"'
+        $script:commands[1] | Should -BeLike '*-p "*jsconfig.lenient.json"'
+        Remove-Item -LiteralPath (Join-Path $script:root 'jsconfig.lenient.json')
+        { Test-JavaScriptTypes -OutputFolder (Join-Path $TestDrive 'no-lenient') } | Should -Throw '*jsconfig.lenient.json is missing*'
+        Set-Content -LiteralPath (Join-Path $script:root 'jsconfig.lenient.json') -Value '{}'
     }
 
     It 'takes a project left with no files, every module raised out of it, as nothing to check' {

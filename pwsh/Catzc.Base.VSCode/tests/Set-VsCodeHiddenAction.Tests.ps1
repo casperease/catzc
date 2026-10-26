@@ -24,7 +24,7 @@ Describe 'Set-VsCodeHiddenAction' -Tag 'L0', 'logic' {
             ConvertFrom-Json -AsHashtable
         @($stored['Widget']) | Should -Be @('widget.add', 'widget.remove')
         [Catzc.Base.VSCode.VscodeStateStore]::Read($store, 'gadget.other') | Should -Be 'kept'
-        @(Get-ChildItem -LiteralPath $backups -Filter 'state.vscdb.*.bak') | Should -HaveCount 1
+        @(Get-ChildPath $backups -File -Filter 'state.vscdb.*.bak' -Depth 1) | Should -HaveCount 1
     }
 
     It 'keeps what was hidden by hand and adds each declared action once' {

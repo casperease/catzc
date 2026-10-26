@@ -83,3 +83,30 @@ Above `$entry = @((Get-Config -Config languages).languages | Where-Object { $_.n
 The language registry names the runner; a language without a tests entry has no test artifacts to run
 ([ADR-AUTO-MODULE-CHECKSBYLANGUAGE](/docs/drs/automation/module-model.md#rule-adr-auto-module-checksbylanguage)).
 ```
+
+## comment:2
+
+Above `[string] $Folder`, written with `#`.
+
+```text
+The test folder the discovery named, a module's own tests/ or the holder's; the runner finds the holder's when
+it is empty.
+```
+
+## comment:3
+
+Above `$run.Remove('Engine')`, written with `#`.
+
+```text
+A language that is an engine runs its tests under that engine only, with the executable the source session
+located.
+```
+
+## comment:4
+
+Above `$declared = (Get-Command $tests.runner).Parameters`, written with `#`.
+
+```text
+A runner whose tests run in no engine (JavaScript's, in node) declares no engine parameters, so it gets only those
+it declares.
+```

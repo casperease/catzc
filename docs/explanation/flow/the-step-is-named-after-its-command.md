@@ -43,8 +43,8 @@ content:
     - { id: a-developer, kind: actor, label: developer, in: band-developer }
   edges:
     - { from: r-step, to: r-label, kind: flow, label: "" }
-    - { from: r-label, to: r-invoke, kind: flow, label: "" }
-    - { from: r-invoke, to: r-echo, kind: flow, label: "" }
+    - { from: r-label, to: r-invoke, kind: flow, label: then }
+    - { from: r-invoke, to: r-echo, kind: flow, label: then }
     - { from: r-step, to: x-guard, kind: fail, label: "" }
     - { from: r-echo, to: x-exception, kind: fail, label: "" }
     - { from: r-label, to: a-developer, kind: adr, label: "" }

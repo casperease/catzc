@@ -14,6 +14,7 @@ $script:modulesFolder = 'pwsh'
 . (Join-Path $PSScriptRoot 'assets/importer/Invoke-ImporterJanitors.ps1')
 . (Join-Path $PSScriptRoot 'assets/importer/Get-DueWriterRow.ps1')
 . (Join-Path $PSScriptRoot 'assets/importer/Test-WriterDue.ps1')
+. (Join-Path $PSScriptRoot 'assets/importer/Wait-ImportBurst.ps1')
 
 function Invoke-Importer {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingWriteHost', '',
@@ -45,6 +46,9 @@ function Invoke-Importer {
 
     # Strict mode
     Set-StrictMode -Version Latest
+
+    # Before any file is read: a burst mid-swap is waited out, so the import never loads a half-applied change.
+    Wait-ImportBurst
 
     $stack = Get-PSCallStack
     $callerScriptName = if ($stack.Count -gt 2) {

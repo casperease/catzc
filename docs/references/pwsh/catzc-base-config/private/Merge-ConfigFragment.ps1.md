@@ -27,3 +27,12 @@ The parsed bundled config.
 ### parameter `Fragment`
 
 The parsed overlay fragment.
+
+## comment:1
+
+Above `[switch] $Disjoint`, written with `#`.
+
+```text
+The parts of one split config are disjoint: a key two parts both set as a value is an error, never an
+override.
+```

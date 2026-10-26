@@ -21,8 +21,6 @@ function Get-GeneratedWriterStamp {
         [string] $RepositoryRoot
     )
 
-    # Every matching file on disk counts, committed or ignored, so a pull or a hand-drifted file changes the stamp as
-    # surely as an edit.
     $prefix = $RepositoryRoot.TrimEnd('\', '/') + [System.IO.Path]::DirectorySeparatorChar
     $stamps = @{}
     $names = [System.Collections.Generic.List[string]]::new()

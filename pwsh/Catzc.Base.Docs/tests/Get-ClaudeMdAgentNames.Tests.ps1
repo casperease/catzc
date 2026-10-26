@@ -19,7 +19,7 @@ Describe 'Get-ClaudeMdAgentNames' -Tag 'L0', 'logic', 'ADR-REPO-AGENTS-LISTEDINC
     It 'returns the bold-code bullets of the Sub-agents section only, in file order' {
         $path = Write-ClaudeMdFixture (@(
                 '# Claude', '', '- **`gizmo`** — before the section.', '', '## Sub-agents', '',
-                    'Prose naming **`gizmo`**.', '',
+                'Prose naming **`gizmo`**.', '',
                 '- **`widget`** — the standard agent,', '  continued **`gizmo`**.',
                 '- **`gadget`** — the gadget agent.', '',
                 '### Detail', '', '- **`sprocket`** — under a subheading.', '', '## Rules', '',

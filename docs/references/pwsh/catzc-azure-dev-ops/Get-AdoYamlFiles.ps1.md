@@ -46,3 +46,12 @@ ADO template expressions (${{ if }}, ${{ each }}, ${{ parameters.x }})
 are not valid YAML. Neutralize them so the parser can extract top-level keys.
 Each replacement must be unique to avoid duplicate-key errors.
 ```
+
+## comment:2
+
+Above `$ret = @(Get-ChildPath $scanRoot -File -Filter '*.yml', '*.yaml' -Depth $Depth)`, written with `#`.
+
+```text
+The bounded walker prunes the folder-walk config's folders (.git, node_modules, .terraform, …); the depth is the
+inventory's.
+```

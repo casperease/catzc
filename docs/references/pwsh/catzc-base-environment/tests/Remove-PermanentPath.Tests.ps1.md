@@ -12,3 +12,12 @@ Keep the persistent (Windows User-registry) PATH entirely IN-MEMORY via the Get-
 seam, so NOTHING here mutates the real machine PATH or broadcasts WM_SETTINGCHANGE. Every Windows run
 of Remove-PermanentPath hits this branch (not just the persistence context), so the mocks are global.
 ```
+
+## comment:2
+
+Above `$script:fakeUserPath = $null`, written with `#`.
+
+```text
+The persistent PATH lives in memory behind its seam, so no run mutates the machine's PATH or broadcasts a
+settings change.
+```

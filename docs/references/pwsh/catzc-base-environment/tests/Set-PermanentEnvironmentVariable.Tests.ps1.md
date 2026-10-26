@@ -14,3 +14,21 @@ working folder itself, never in a snapshot location. It is the one test that pro
 L1 by mocking Get-/Set-PermanentEnvironmentVariable. It owns a scratch variable no tool uses, named per run so two
 overlapping runs on the machine never share it, and removes it whatever happens.
 ```
+
+## comment:2
+
+Above `Describe 'Set-PermanentEnvironmentVariable / Get-PermanentEnvironmentVariable...`, written with `#`.
+
+```text
+The one test of the real round trip: a per-run scratch variable no tool uses, so overlapping runs never share it and
+it is always removed.
+```
+
+## comment:3
+
+Above `$script:isInUserEnvironment = {`, written with `#`.
+
+```text
+Removed means gone from the registry key — an empty value would read back as '' and pass a null-or-empty
+check.
+```

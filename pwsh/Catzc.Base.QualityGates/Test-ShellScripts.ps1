@@ -58,7 +58,7 @@ function Test-ShellScripts {
     # The vendored bats-core runner: the LF check only (third-party code, run but not owned).
     $batsFolder = "$((Get-Config -Config bash).ResolveRoot($repositoryRoot))/$([Catzc.Base.Languages.BashConfig]::BatsFolder)/"
     $vendoredRunner = @($tracked | Where-Object { $_.StartsWith($batsFolder, [System.StringComparison]::Ordinal) } |
-        Sort-Object)
+            Sort-Object)
     foreach ($file in $vendoredRunner) {
         $full = Join-Path $repositoryRoot $file
         if ((Test-Path -LiteralPath $full -PathType Leaf) -and ([System.IO.File]::ReadAllBytes($full) -contains 13)) {
@@ -110,8 +110,6 @@ function Test-ShellScripts {
                 if (-not $line.Trim()) {
                     continue
                 }
-                # zsh names the file as it was given ('<file>:<line>: <message>'); a line without it gets the file
-                # prefixed.
                 $issue = if ($line.StartsWith("${script}:", [System.StringComparison]::Ordinal)) {
                     $line
                 }

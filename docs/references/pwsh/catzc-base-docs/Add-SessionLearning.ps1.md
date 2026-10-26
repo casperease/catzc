@@ -65,3 +65,12 @@ Above ``$parts = $text.Split('`')``, written with `#`.
 Wrapped as the markdown formatter wraps a list item (prettier, printWidth 140), so formatting never rewrites the log.
 A '<' outside a code span would read as inline HTML to the lint (MD033), so it is escaped there.
 ```
+
+## comment:2
+
+Above `$dated = @(foreach ($file in $config.FilesIn($folder)) {`, written with `#`.
+
+```text
+A file's start time is its 'Started <time>.' line, not its name or its file time, so the order survives a
+clone.
+```

@@ -31,10 +31,8 @@ public sealed class FileLimitsConfig
 
     private static readonly string[] AllowedKeys =
     {
-        "bounds", "classes", "defaults", "exempt", "extensions", "function_body_length", "languages", "string_overflow", "width_mode",
+        "bounds", "classes", "defaults", "exempt", "extensions", "function_body_length", "languages", "string_overflow",
     };
-    private static readonly string[] WidthModes = { "report", "fail" };
-    public const string DefaultWidthMode = "report";
 
     // Whether a line whose part past the width lies wholly inside one string literal breaches (breach) or passes (exempt).
     private static readonly string[] StringOverflowModes = { "exempt", "breach" };
@@ -98,7 +96,6 @@ public sealed class FileLimitsConfig
     public IReadOnlyDictionary<string, FileLimit> languages { get; }
     public IReadOnlyDictionary<string, string> classes { get; }
     public IReadOnlyDictionary<string, string> extensions { get; }
-    public IReadOnlyDictionary<string, string> width_mode { get; }
     public IReadOnlyDictionary<string, string> exempt { get; }
     public int function_body_length { get; } = DefaultFunctionBodyLength;
     public string string_overflow { get; } = DefaultStringOverflow;
@@ -126,12 +123,6 @@ public sealed class FileLimitsConfig
         Dictionary<string, FileLimit> defaultsValue = new Dictionary<string, FileLimit>(DefaultLimits, StringComparer.Ordinal);
         Dictionary<string, FileLimit> languagesValue = new Dictionary<string, FileLimit>(StringComparer.Ordinal);
         Dictionary<string, string> classesValue = new Dictionary<string, string>(DefaultClasses, StringComparer.Ordinal);
-        Dictionary<string, string> widthModeValue = new Dictionary<string, string>(StringComparer.Ordinal);
-        foreach (string name in Classes)
-        {
-            widthModeValue[name] = DefaultWidthMode;
-        }
-
         Dictionary<string, string> exemptValue = new Dictionary<string, string>(StringComparer.Ordinal);
         Dictionary<string, string> extensionsValue = new Dictionary<string, string>(DefaultExtensions, StringComparer.OrdinalIgnoreCase);
 
@@ -203,27 +194,6 @@ public sealed class FileLimitsConfig
                     else
                     {
                         extensionsValue[name] = value;
-                    }
-                }
-            }
-
-            IDictionary widthModeRaw = Section(raw, "width_mode", errors);
-            if (widthModeRaw != null)
-            {
-                CheckKeys(widthModeRaw, Classes, "width_mode", errors);
-                foreach (string name in Classes)
-                {
-                    if (widthModeRaw.Contains(name) && widthModeRaw[name] != null)
-                    {
-                        string mode = widthModeRaw[name] as string;
-                        if (mode == null || Array.IndexOf(WidthModes, mode) < 0)
-                        {
-                            errors.Add(string.Format(CultureInfo.InvariantCulture, "width_mode.{0} '{1}' must be one of {2}", name, widthModeRaw[name], string.Join(", ", WidthModes)));
-                        }
-                        else
-                        {
-                            widthModeValue[name] = mode;
-                        }
                     }
                 }
             }
@@ -300,7 +270,6 @@ public sealed class FileLimitsConfig
         languages = languagesValue;
         classes = classesValue;
         extensions = extensionsValue;
-        width_mode = widthModeValue;
         exempt = exemptValue;
     }
 

@@ -77,7 +77,7 @@ Describe 'Get-ModuleOrder on the repository' -Tag 'L1', 'integrity', 'ADR-AUTO-M
         foreach ($name in $order) {
             foreach ($dependency in $map[$name]) {
                 [array]::IndexOf($order, $dependency) | Should -BeLessThan ([array]::IndexOf($order,
-                    $name)) -Because "$name depends on $dependency"
+                        $name)) -Because "$name depends on $dependency"
             }
         }
     }

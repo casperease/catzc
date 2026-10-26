@@ -1,4 +1,4 @@
-# ADR: The JavaScript track — the editor extensions as modules, node's own runner, a types gate, no package in the repository
+# ADR: The JavaScript track — the editor extensions as modules, node's own runner, a types check, no package in the repository
 
 ## Rules: ADR-AUTO-JS
 
@@ -36,7 +36,7 @@ installed by the tooling into its own folder, which `jsconfig.json` names as its
 editor version the extension manifests declare. Nothing is installed into the repository, and no lint tool beside the compiler and the
 formatter is added.
 
-- [The types gate](#the-types-gate)
+- [The types check](#the-types-check)
 
 ### Rule ADR-AUTO-JS-LANGUAGEBRIDGE
 
@@ -73,7 +73,7 @@ directly. What only the editor can show (activation, the queue of presses, the s
 editor API in a node process of its own, one scenario per process. node's junit report names each case's file, which is how a failure is
 placed and how a file that does not load is told from a failing test.
 
-### The types gate
+### The types check
 
 The TypeScript compiler checks JavaScript through JSDoc and inference with no build step and no source change, the same role pyright plays
 for Python. It needs the type declarations of node's modules and of the editor's API, which are packages; they are tools like the compiler,
@@ -101,5 +101,5 @@ declarations, and run by `Test-Automation` through the bridge.
 ## Consequences
 
 - An extension's logic is testable without an editor only as far as it is written as pure parts; the editor-facing entry stays thin.
-- The types gate checks what JSDoc and inference reach; a module raises its own strictness as its JSDoc grows.
+- The types check reaches what JSDoc and inference reach; a module raises its own strictness as its JSDoc grows.
 - A new extension is a folder with `extension.js`, an entry in the extensions registry, and its `tests/`.

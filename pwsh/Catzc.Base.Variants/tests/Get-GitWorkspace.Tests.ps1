@@ -6,7 +6,7 @@ Describe 'Get-GitWorkspace' -Tag 'L0', 'logic' {
     }
 
     It 'defaults to main-direct when the variant is unset' {
-        Mock Get-Config -ModuleName Catzc.Base.Variants -ParameterFilter { $Config -eq 'variants' } { [Catzc.Base.Variants.VariantsConfig]::new([ordered]@{ tracks = [ordered]@{ widgets = [ordered]@{ places = @('widgetry'); type = 'modules' } } }) }
+        Mock Get-Config -ModuleName Catzc.Base.Variants -ParameterFilter { $Config -eq 'variants' } { [Catzc.Base.Variants.VariantsConfig]::new([ordered]@{ tracks = [ordered]@{ widgets = [ordered]@{ members = @('widgetry'); type = 'modules' } } }) }
         Get-GitWorkspace | Should -Be 'main-direct'
     }
 }

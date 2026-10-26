@@ -60,7 +60,7 @@ function ConvertFrom-NodeTestJunit {
         $null = [double]::TryParse($case.GetAttribute('time'), [System.Globalization.NumberStyles]::Float,
             [System.Globalization.CultureInfo]::InvariantCulture, [ref] $seconds)
         $results.Add([Catzc.Base.Languages.JavaScriptTestResult]::new($package, $name.Trim(), $outcome, $seconds,
-            ($output -join "`n")))
+                ($output -join "`n")))
     }
 
     if ($outsideTests.Count -gt 0) {

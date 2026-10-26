@@ -103,3 +103,12 @@ The build is named for the hash of the working-tree type sources. While any of t
 another session's in-flight edit — committing it would leave HEAD carrying a build its own sources do not
 produce. Hold .compiled back until the sources are committed.
 ```
+
+## comment:4
+
+Above `$modulesFolder = Get-CatzcModulesFolder`, written with `#`.
+
+```text
+The generated paths the janitor owns, each with the commit-message subject naming it; the modules folder comes
+from its resolver.
+```

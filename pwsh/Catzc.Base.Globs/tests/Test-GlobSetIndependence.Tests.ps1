@@ -26,7 +26,7 @@ Describe 'Test-GlobSetIndependence' -Tag 'L0', 'logic' {
         Mock Get-GlobSet -ModuleName Catzc.Base.Globs { $script:sets }
         Mock Get-ModuleGlobSet -ModuleName Catzc.Base.Globs { @() }
         Mock Get-TrackedFile -ModuleName Catzc.Base.Globs { @('widget/a.ps1', 'widget/b.ps1', 'gadget/c.ps1',
-            'shared/d.md') }
+                'shared/d.md') }
         Mock Write-Message -ModuleName Catzc.Base.Reports { }
     }
 

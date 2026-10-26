@@ -77,8 +77,6 @@ function Build-AgentHook {
 
         $configuration = (Get-Config -Config bcl).configuration
         Assert-DotnetOffline $csproj
-        # No build server may outlive the publish: one would hold the caller's output pipe open for minutes after it
-        # ends.
         Invoke-Executable "dotnet publish `"$csproj`" --configuration $configuration --output `"$OutputDirectory`" --verbosity quiet --disable-build-servers -p:CatzcModulesFolder=$modulesFolder" -Silent
         $program = & $findProgram
         Assert-NotNullOrWhitespace $program -ErrorText "dotnet publish succeeded but produced no runnable '$assemblyName' program in $OutputDirectory."

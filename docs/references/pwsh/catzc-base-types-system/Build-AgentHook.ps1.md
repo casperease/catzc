@@ -84,3 +84,12 @@ Above ``Invoke-Executable "dotnet publish `"$csproj`" --configuration $configura
 inherit this call's output pipe and hold it open for its whole idle lifetime (minutes), so the caller — the
 importer, or a test run priming a snapshot — would wait on that pipe long after dotnet itself exited.
 ```
+
+## comment:4
+
+Above ``Invoke-Executable "dotnet publish `"$csproj`" --configuration $configuration...``, written with `#`.
+
+```text
+No build server may outlive the publish: one would hold the caller's output pipe open for minutes after it
+ends.
+```

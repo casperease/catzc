@@ -79,3 +79,30 @@ Above `$imageOf = {`, written with `#`.
 The block declares the png below it only from a page beside its .assets, so it moves to the one page there that embeds the png.
 An image of the png is inline, or a reference whose definition on the same page names it.
 ```
+
+## comment:4
+
+Above `$prior = $edits | Where-Object { $_.Page -ceq $change.Page } | Select-Object...`, written with `#`.
+
+```text
+A page whose links were re-pointed already has an entry; the block-moved text replaces it, and a page with
+none is simply added.
+```
+
+## comment:5
+
+Above `$rekey = $false`, written with `#`.
+
+```text
+A stem's role entry follows it, so drawio.yml keeps naming the diagram after the move; the kit's one editor
+re-keys it.
+```
+
+## comment:6
+
+Above `$pages = @(foreach ($edit in $edits) {`, written with `#`.
+
+```text
+A re-pointed link changes its line's length, so every rewritten page is formatted again, as the repository
+formats it.
+```

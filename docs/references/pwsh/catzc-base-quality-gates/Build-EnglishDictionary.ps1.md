@@ -117,3 +117,12 @@ Above `$existing = $null`, written with `#`.
 Idempotency is decided on the DECOMPRESSED content (gzip container bytes are not the contract), so a
 re-run with an unchanged dictionary is a no-op and the drift test compares like with like.
 ```
+
+## comment:8
+
+Above `$found = Get-ChildPath $nodeRoot -File -Filter $trieName -Depth 5 -Exclude...`, written with `#`.
+
+```text
+The trie sits five levels down (cspell, node_modules, @cspell, package, file); the walk must enter
+node_modules.
+```

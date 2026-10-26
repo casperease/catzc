@@ -38,3 +38,12 @@ Get-ModuleFunction
 ```powershell
 Get-ModuleFunction -NotUsedInternally
 ```
+
+## comment:1
+
+Above `$moduleNames = (Get-CatzcModule -EngineTrack).name`, written with `#`.
+
+```text
+[System.IO] enumeration
+([ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS](/docs/drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-systemioonhotpaths))
+```

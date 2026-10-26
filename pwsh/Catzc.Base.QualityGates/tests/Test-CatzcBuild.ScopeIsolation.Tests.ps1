@@ -17,7 +17,7 @@ Describe 'Module script scopes are never shared' -Tag 'DDR-RUNMODE-OWNSCRIPTSCOP
             $values = @('widget', 'gadget')
             for ($index = 0; $index -lt $modules.Count; $index++) {
                 & $modules[$index] { param($Name,
-                    $Value) Set-Variable -Scope Script -Name $Name -Value $Value } $ProbeName $values[$index]
+                        $Value) Set-Variable -Scope Script -Name $Name -Value $Value } $ProbeName $values[$index]
             }
             $observed = foreach ($module in $modules) {
                 [pscustomobject]@{

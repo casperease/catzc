@@ -1,13 +1,9 @@
 <!--
-  The Claude Code hook that reminds an agent session of the checks an edit owes (Program.cs).
-Build-AgentHook publishes it,
-  framework-dependent, to .claude/hooks/bin/ whenever its sources change; obj/bin here and the
-published output are gitignored.
+  The Claude Code hook that reminds an agent session of the checks an edit owes (Program.cs). Build-AgentHook publishes it,
+  framework-dependent, to .claude/hooks/bin/ whenever its sources change; obj/bin here and the published output are gitignored.
 
-  The path-to-reminder map is the Catzc.Base.QualityGates module's own type and config
-(edit-reminders.yml), compiled in from its source
-  file, so the hook and the config gates can never drift apart. YAML is read with the YamlDotNet the
-vendored powershell-yaml module ships.
+  The path-to-reminder map is the Catzc.Base.QualityGates module's own type and config (edit-reminders.yml), compiled in from its source
+  file, so the hook and the config gates can never drift apart. YAML is read with the YamlDotNet the vendored powershell-yaml module ships.
 -->
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
@@ -42,8 +38,7 @@ vendored powershell-yaml module ships.
   </ItemGroup>
   <ItemGroup>
     <Reference Include="YamlDotNet">
-      <HintPath>
-        ../../../$(CatzcModulesFolder)/.vendor/powershell-yaml/0.4.12/lib/netstandard2.1/YamlDotNet.dll</HintPath>
+      <HintPath>../../../$(CatzcModulesFolder)/.vendor/powershell-yaml/0.4.12/lib/netstandard2.1/YamlDotNet.dll</HintPath>
     </Reference>
   </ItemGroup>
   <Target Name="RequireCatzcModulesFolder" BeforeTargets="BeforeBuild"

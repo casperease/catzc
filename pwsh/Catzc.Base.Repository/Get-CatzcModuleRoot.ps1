@@ -27,7 +27,7 @@ function Get-CatzcModuleRoot {
     $isBundled = [System.IO.Directory]::Exists($moduleRoot)
     $overlayRoot = Get-CatzcOverlayRoot
     if (-not $isBundled -and $overlayRoot -and [System.IO.Directory]::Exists([System.IO.Path]::Combine($overlayRoot,
-        $moduleName))) {
+                $moduleName))) {
         # A consumer's local module: its folder is the overlay's, and nothing there overrides it.
         $moduleRoot = [System.IO.Path]::Combine($overlayRoot, $moduleName)
     }
@@ -37,7 +37,7 @@ function Get-CatzcModuleRoot {
         return $moduleRoot
     }
     if ($isBundled -and $overlayRoot -and $ChildPath.Replace('\', '/').StartsWith('assets/',
-        [System.StringComparison]::Ordinal)) {
+            [System.StringComparison]::Ordinal)) {
         $override = [System.IO.Path]::Combine($overlayRoot, $moduleName, $ChildPath)
         if ([System.IO.File]::Exists($override)) {
             return $override

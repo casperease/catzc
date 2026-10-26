@@ -195,7 +195,7 @@ Describe 'GitIndex' -Tag 'L0', 'logic' {
     Context 'Under (the ls-files pathspec)' {
         BeforeAll {
             $script:index = [Catzc.Base.Git.GitIndex]::Parse((New-GitIndexBytes @('a.txt', 'widget/gadget.yml',
-                'widget/sub/x.md', 'widgets/y.md')))
+                        'widget/sub/x.md', 'widgets/y.md')))
         }
 
         It "returns every path for '.' (and its spellings)" {

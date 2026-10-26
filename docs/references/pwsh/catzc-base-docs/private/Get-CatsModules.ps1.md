@@ -40,3 +40,12 @@ lists the folders one level deep and a dot-prefixed one is skipped as infrastruc
 file as well (one per function in source mode, the merged <Module>.ps1 in build mode), so only the entry whose path sits directly in the
 folder and is not a .ps1 file counts.
 ```
+
+## comment:2
+
+Above `$loaded = foreach ($folder in @(Get-ChildPath -Path $ModulesRoot -Depth 1...`, written with `#`.
+
+```text
+A cats module is a folder of the modules root that a module of the same name is loaded from; the walker lists the
+folders.
+```

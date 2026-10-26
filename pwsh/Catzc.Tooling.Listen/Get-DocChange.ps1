@@ -28,7 +28,7 @@ function Get-DocChange {
 
     $wanted = if ($Path) {
         [System.Collections.Generic.HashSet[string]]::new([string[]] @($Path | ForEach-Object { $_.Replace('\',
-            '/') }), [System.StringComparer]::Ordinal)
+                        '/') }), [System.StringComparer]::Ordinal)
     }
     else {
         $null

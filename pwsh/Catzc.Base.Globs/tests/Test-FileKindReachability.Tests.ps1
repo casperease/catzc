@@ -17,7 +17,7 @@ Describe 'The file-kinds registry against the tracked files' -Tag 'L2', 'logic',
     It 'a tracked file is placed in <Class>, so the kind is reachable' -ForEach $declared {
         # A kind that holds only subkinds is reached through them: its class is the prefix of theirs.
         $reached = $script:claimed.Contains($Class) -or @($script:claimed | Where-Object { $_.StartsWith("$Class/",
-            [System.StringComparison]::Ordinal) }).Count -gt 0
+                    [System.StringComparison]::Ordinal) }).Count -gt 0
         $reached |
             Should -BeTrue -Because "no tracked file resolves to '$Class': its globs match nothing, or an earlier kind takes every file"
     }

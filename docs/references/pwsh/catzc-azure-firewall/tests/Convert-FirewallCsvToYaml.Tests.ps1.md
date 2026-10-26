@@ -11,3 +11,12 @@ Above `(Get-Content $out -Raw) | Should -Match '# CSV generated: 2026-06-16 10:3
 Literal ':' guards against the locale separator regression — the function formats with
 InvariantCulture, so every machine renders 10:32 (a da-DK box without it would render 10.32).
 ```
+
+## comment:2
+
+Above `(Get-Content $out -Raw) | Should -Match '# CSV generated: 2026-06-16 10:32 UTC'`, written with `#`.
+
+```text
+The literal colon guards the invariant culture, so a machine whose locale writes a dot never changes the
+header.
+```

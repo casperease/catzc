@@ -41,9 +41,9 @@ content:
     - { id: s-deployment-live, kind: set, label: live, in: band-deployment }
   edges:
     - { from: f-tracked, to: s-code-live, kind: flow, label: "" }
-    - { from: s-code-live, to: s-code-tests, kind: flow, label: "" }
+    - { from: s-code-live, to: s-code-tests, kind: flow, label: else }
     - { from: f-tracked, to: s-deployment-tests, kind: flow, label: "" }
-    - { from: s-deployment-tests, to: s-deployment-live, kind: flow, label: "" }
+    - { from: s-deployment-tests, to: s-deployment-live, kind: flow, label: else }
   markers:
     - { at: f-tracked, number: 1 }
     - { at: s-code-live, number: 2 }

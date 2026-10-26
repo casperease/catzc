@@ -55,7 +55,7 @@ content:
     - { from: g-module, to: g-main, kind: flow, label: feeds }
     - { from: g-options, to: g-main, kind: flow, label: feeds }
     - { from: g-main, to: g-slot, kind: flow, label: "" }
-    - { from: g-slot, to: e-group, kind: flow, label: "" }
+    - { from: g-slot, to: e-group, kind: flow, label: in }
   markers:
     - { at: g-module, number: 1 }
     - { at: g-main, number: 2 }

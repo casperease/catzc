@@ -35,3 +35,12 @@ The repository root whose generated `nuget.config` keeps dotnet offline. Default
 ```powershell
 Assert-DotnetOffline .claude/hooks/Record-AgentWrite/Record-AgentWrite.csproj
 ```
+
+## comment:1
+
+Above `$names = 'nuget.config', 'NuGet.config', 'NuGet.Config'`, written with `#`.
+
+```text
+NuGet reads these names in every folder from the project up; the root's one clears what the user's and the
+machine's configs add.
+```

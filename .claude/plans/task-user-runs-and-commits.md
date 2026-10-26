@@ -137,7 +137,12 @@ final full run last.
     `docs/references/pwsh/CLAUDE.md` line 136 to read "2. Add an item to the list in `index.md` (module name, one-line summary), keeping the
     foundation-first order." Check: `grep -n "Add an item to the list" docs/references/pwsh/CLAUDE.md` finds line 136.
 
-27. The final full run, in a fresh session, when the chunks in plan-master have landed. Once it is green and committed, the work is done and
+27. plan-types-contract: commit the new types contract `contracts/catzc/0.1.0/catzc.internal.types/` (`types.schema.json` and the generated
+    `types.sample.json`), and untrack the old hash-named manifest (`git rm --cached pwsh/.compiled/Catzc.Types.*.json`; the file stays on
+    disk until the gitignore step of the same plan ignores the whole folder). Check: `git ls-files pwsh/.compiled` prints nothing, and
+    `Test-BuildArtifact -Facet Types` reports no issues.
+
+28. The final full run, in a fresh session, when the chunks in plan-master have landed. Once it is green and committed, the work is done and
     every plan, task and prompt in `.claude/plans` is deleted (the user, 2026-10-20). Check: `.claude/plans` is empty.
 
 ## Report

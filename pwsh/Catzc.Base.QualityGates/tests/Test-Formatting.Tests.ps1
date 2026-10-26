@@ -49,7 +49,7 @@ Describe 'Test-Formatting' -Tag 'L0', 'logic' {
             [Catzc.Base.QualityGates.FormatResult]::new('widget', 'prettier', [string[]] @($script:widgetFile),
                 [string[]] @($script:widgetFile), $true)
             [Catzc.Base.QualityGates.FormatResult]::new('gadget', 'gofmt', [string[]] @($script:gadgetFile,
-                $script:typeFile, $script:blockFile), [string[]] @($script:gadgetFile, $script:typeFile), $true,
+                    $script:typeFile, $script:blockFile), [string[]] @($script:gadgetFile, $script:typeFile), $true,
                 @{ $script:blockFile = "block-scoped namespace — rewrite it as the file-scoped 'namespace <Module>;'" })
         }
 
@@ -95,7 +95,7 @@ Describe 'Test-Formatting' -Tag 'L0', 'logic' {
         $widget = $script:widgetFile
         $type = $script:typeFile
         Mock Get-FormatScope -ModuleName Catzc.Base.QualityGates { , [string[]] @($widget, $loose, $type,
-            $placeholder) }.GetNewClosure()
+                $placeholder) }.GetNewClosure()
 
         $result = Test-Formatting -PassThru -OutputFolder $script:reportFolder
         $result.Issues | Should -Be @(
