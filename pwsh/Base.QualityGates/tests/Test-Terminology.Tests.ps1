@@ -14,6 +14,7 @@ Describe 'Test-Terminology' -Tag 'L0', 'logic' {
         # The source-tree guard is its own unit; here the fixture stands in for the source tree in either run mode.
         Mock Assert-SourceTree -ModuleName Catzc.Base.QualityGates { }
 
+        # Both mocks return the production shapes, so the default path is the happy one.
         Mock Get-Config -ModuleName Catzc.Base.QualityGates {
             [Catzc.Base.QualityGates.TerminologyConfig]::new([ordered]@{
                     categories = [ordered]@{ widget = [ordered]@{ description = 'widget vocabulary' } }

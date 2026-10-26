@@ -8,6 +8,7 @@ catzc:
 
 Describe 'Select-RuleTaggedFiles' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-PROVENANCETAGS' {
     BeforeAll {
+        # Built here as plain data with a block chain the resolver walks, then passed into module scope.
         function New-FakeTest {
             param([string] $File, [string[]] $Tags)
             $root = [pscustomobject]@{ IsRoot = $true; Tag = @(); Parent = $null }

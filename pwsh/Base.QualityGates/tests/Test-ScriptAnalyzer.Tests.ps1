@@ -8,9 +8,11 @@ catzc:
 
 Describe 'Test-ScriptAnalyzer' -Tag 'L0', 'logic' {
     BeforeAll {
+        # A real file so Resolve-Path resolves; the helper is mocked, so its contents are irrelevant.
         $script:targetFile = Join-Path $TestDrive 'subject.ps1'
         Set-Content -Path $script:targetFile -Value 'function Get-Thing { }' -Encoding utf8
 
+        # The seam is the helper, since Start-Job processes cannot see Pester mocks.
         Mock Get-ScriptAnalyzerDiagnostics -ModuleName Catzc.Base.QualityGates { $script:diagnostics }
         Mock Write-Message -ModuleName Catzc.Base.QualityGates { }
         Mock Write-Message -ModuleName Catzc.Base.Reports { }

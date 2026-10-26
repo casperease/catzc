@@ -152,6 +152,7 @@ Describe 'Test-GeneratedFiles' -Tag 'L0', 'logic' {
 
     Context 'with -Changed' {
         BeforeEach {
+            # Get-GeneratedWriterDue decides which writers are due; each case names them here.
             $script:due = @('Build-DrsIndex')
             Mock Get-GeneratedWriterDue -ModuleName Catzc.Base.QualityGates {
                 foreach ($name in (Get-Config -Config generated-files).writers.Keys) {

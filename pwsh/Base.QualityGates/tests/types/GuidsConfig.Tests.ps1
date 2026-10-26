@@ -8,6 +8,7 @@ catzc:
 
 Describe 'Catzc.Base.QualityGates.GuidsConfig' -Tag 'L0', 'logic' {
     BeforeAll {
+        # Built at runtime, since the all-zeros GUID is denied as a tracked literal.
         $script:zeroGuid = "$([guid]::Empty)"
 
         function New-GuidsConfig {

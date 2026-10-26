@@ -14,6 +14,7 @@ Describe 'Write-TestAutomationSkipReport' -Tag 'L0', 'logic' {
     BeforeAll {
         $global:__PesterRunning = $false
 
+        # Rows are the plain per-test shape the reducer produces, with SkipReason already resolved.
         function New-Row {
             param($Path, $Result, $Tier, $Category, $SkipReason = '')
             [pscustomobject]@{

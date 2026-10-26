@@ -17,6 +17,7 @@ function Test-TrackNamespace {
 
     Assert-SourceTree
 
+    # A path under a track drops its track's namespace unless the track exempts it.
     $tracked = @(Get-GitTrackedPath '.')
     $tracks = @(Get-Track | Where-Object { $_.namespace })
     $found = [System.Collections.Generic.SortedSet[string]]::new([System.StringComparer]::Ordinal)

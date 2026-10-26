@@ -8,6 +8,7 @@ catzc:
 
 Describe 'Write-TestAutomationReport' -Tag 'L0', 'logic' {
     BeforeAll {
+        # Rows are the plain per-test shape the reducer produces; the report never sees a live Pester object.
         function New-Row {
             param($Path, $Result, $Ms, $Level, $File, $Line, $Message, $Stack, $Rules = '')
             [pscustomobject]@{

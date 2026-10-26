@@ -8,6 +8,7 @@ catzc:
 
 Describe 'Test-CatzcBuild' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-SAMETESTSBOTHRUNS' {
     BeforeAll {
+        # Build-Modules is the mocked boundary, so the wiring is proved without a real build.
         $script:harness = 'Catzc.Base.QualityGates'
     }
 

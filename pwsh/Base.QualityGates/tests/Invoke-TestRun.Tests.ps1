@@ -8,6 +8,7 @@ catzc:
 
 Describe 'Invoke-TestRun' -Tag 'L0', 'logic' {
     BeforeAll {
+        # Widget mixes a source-only test with a runnable one; gadget is source-only throughout.
         $script:testsDir = Join-Path $TestDrive 'widget/tests'
         [void][System.IO.Directory]::CreateDirectory($script:testsDir)
         $script:widgetFile = Join-Path $script:testsDir 'Get-Widget.Tests.ps1'

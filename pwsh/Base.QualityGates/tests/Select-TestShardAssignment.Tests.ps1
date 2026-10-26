@@ -40,6 +40,7 @@ Describe 'Select-TestShardAssignment' -Tag 'L0', 'logic' {
             'widgets/Catzc.Widget/tests/widget.Tests.ps1' = 9000
             'widgets/Catzc.Widget/tests/gadget.Tests.ps1' = 1000
         }
+        # The median of 1 s and 9 s is 9 s, so sprocket ties widget and keeps its given order.
         $shards = & $script:assign $files 3 $durations
         $shards[0] | Should -Be @(& $script:path 'widget')
         $shards[1] | Should -Be @(& $script:path 'sprocket')

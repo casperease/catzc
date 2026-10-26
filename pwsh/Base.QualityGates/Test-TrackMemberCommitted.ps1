@@ -17,8 +17,10 @@ function Test-TrackMemberCommitted {
 
     Assert-SourceTree
 
+    # A member's declared committed fact must agree with the git index.
     $root = Get-RepositoryRoot
     $members = @(Get-TrackMember)
+    # A generator's member takes generated from that generator's target, never from its own declaration too.
     $targets = @(Get-GeneratedTarget)
     $issues = @(foreach ($member in $members) {
             if ($member.generated) {

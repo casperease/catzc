@@ -26,6 +26,7 @@ Describe 'WorkerParentWatch' -Tag 'logic' {
 
     Context 'starting a watch' -Tag 'L0' {
         BeforeAll {
+            # Under the harness these hold the real parent, so only the absent and malformed cases run here.
             $script:savedPid = $env:CATZC_TEST_PARENT_PID
             $script:savedStart = $env:CATZC_TEST_PARENT_START
         }

@@ -71,6 +71,7 @@ Describe 'Get-DrsUsage (repository)' -Tag 'L2', 'integrity', 'source-only' {
             Set-ItResult -Skipped -Because 'tool_git_missing'; return
         }
         $path = 'docs/drs/repository/file-meta.md'
+        # Absolute, since a relative path resolves against the process location, which a worker does not hold at the root.
         $one = @(Get-DrsUsage -Path (Join-Path (Get-RepositoryRoot) $path))
         $one.Count | Should -BeGreaterThan 0
         @($one.Path | Sort-Object -Unique) | Should -Be @($path)

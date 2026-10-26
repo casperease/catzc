@@ -109,9 +109,11 @@ Describe 'Get-TestTagViolations' -Tag 'L0', 'logic' {
 
     Context 'the optional ADR provenance axis' -Tag 'ADR-AUTO-TEST-PROVENANCETAGS' {
         BeforeAll {
+            # A fixture rule-id set keeps the validation off the shipped ADR tree.
             Mock Get-CatsDrsRuleIds { @('ADR-WIDGET-GADGET-TURN',
                     'ADR-WIDGET-SPROCKET-COG') } -ModuleName Catzc.Base.QualityGates
 
+            # Built here and passed in via -Parameters, since a function defined here is invisible in the module's session state.
             function New-Discovery {
                 param([string] $Name, [string[]] $Tags)
                 $root = [pscustomobject]@{ IsRoot = $true; Tag = @(); Parent = $null }

@@ -67,12 +67,14 @@ Describe 'SpellingOracle.CoinedFragments (shipped dictionary)' -Tag 'L1', 'integ
     }
 
     It 'accepts a fixture term only in test scope (ADR-AUTO-SPELL-CATEGORYANDMEANING)' {
+        # 'capi' is test-only vocabulary: coined in production scope, known when fixtures are included.
         [Catzc.Base.QualityGates.SpellingOracle]::CoinedFragments('capi', $false) | Should -Be @('capi')
         [Catzc.Base.QualityGates.SpellingOracle]::CoinedFragments('capi', $true) | Should -BeNullOrEmpty
     }
 
     It 'IsKnown is true for a real word and false for a coinage' {
         [Catzc.Base.QualityGates.SpellingOracle]::IsKnown('collection') | Should -BeTrue
+        # Three characters, below cspell's minWordLength, so Test-Spelling does not flag the literal.
         [Catzc.Base.QualityGates.SpellingOracle]::IsKnown('zzq') | Should -BeFalse
     }
 }

@@ -9,6 +9,7 @@ catzc:
 BeforeAll {
     $rulePath = Join-Path -Path $PSScriptRoot -ChildPath '..\..' -AdditionalChildPath '.scriptanalyzer', 'NoForEachObjectControlFlow.psm1' | Resolve-Path
     Import-Module $rulePath -Force
+    # Explicit settings stop PSSA auto-discovering the settings file, which would invoke this rule twice.
     $script:emptySettings = @{ IncludeRules = @('Measure-NoForEachObjectControlFlow') }
 }
 

@@ -8,6 +8,7 @@ catzc:
 
 Describe 'Get-TestSkipReason' -Tag 'L0', 'logic' {
     BeforeAll {
+        # A discovery It -Skip records nothing, so -NoRecord builds that shape.
         function New-FakeSkip {
             param([string] $Message, [switch] $NoRecord)
             $records = @(if ($NoRecord) {

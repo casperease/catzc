@@ -53,6 +53,7 @@ Describe 'New-TestAutomationShardScript' {
         }
 
         It 'watches its parent once the modules are loaded, before Pester runs' {
+            # The watch type comes from the loaded types, so it starts after the entry line and before Pester.
             $entry = $script:content.IndexOf("importer.ps1' -SkipJanitors")
             $watch = $script:content.IndexOf('[Catzc.Base.QualityGates.WorkerParentWatch]::Start(')
             $pester = $script:content.IndexOf('Invoke-Pester')
@@ -155,6 +156,7 @@ Describe 'New-TestAutomationShardScript' {
 
     Context 'worker execution (real pwsh through PesterRunner)' -Tag 'L2', 'integrity', 'greedy', 'ADR-AUTO-ASSETDEP-COVEREDBYREALTEST' {
         It 'runs a generated shard end to end: results.xml, rows sidecar, and a green exit code' {
+            # The walking skeleton: one real worker through generator, runner, importer, Pester and row sidecar.
             $runDirectory = Join-Path $TestDrive 'live-run'
             [void][System.IO.Directory]::CreateDirectory($runDirectory)
 

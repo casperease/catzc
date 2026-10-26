@@ -60,6 +60,7 @@ Describe 'PesterRunner' -Tag 'logic' {
         }
 
         It 'runs workers concurrently up to maxParallel' {
+            # Each worker waits for the other's marker, so only a concurrent pool passes and no timing is asserted.
             $firstMarker = Join-Path $TestDrive 'first.marker'
             $secondMarker = Join-Path $TestDrive 'second.marker'
             $first = Join-Path $TestDrive 'first.ps1'
@@ -141,6 +142,7 @@ while (-not (Test-Path '$gadgetMarker')) {
         }
 
         It 'replays a buffered worker after the live worker, preserving submission order on the console' {
+            # A file handshake, not a sleep, holds worker 0 until worker 1 has written its output.
             $fastDone = Join-Path $TestDrive 'fast-done.marker'
             $slow = Join-Path $TestDrive 'slow.ps1'
             $fast = Join-Path $TestDrive 'fast.ps1'
@@ -185,6 +187,7 @@ Write-Output 'ALPHA-MARK'
             $environment = @{ CATZC_TEST_PARENT_PID = '1'; CATZC_TEST_PARENT_START = '1' }
             $runner = [Catzc.Base.QualityGates.PesterRunner]::Run(@($echo), @('echo'), 1, $environment, 120, $true)
 
+            # Compared through the watch's tolerant check, since the start time can differ by milliseconds on Linux.
             $runner.Results[0].Stdout -match "pid=$PID start=(\d+)" | Should -BeTrue -Because $runner.Results[0].Stdout
             [Catzc.Base.QualityGates.WorkerParentWatch]::IsAlive($PID, [long]$Matches[1]) | Should -BeTrue
         }

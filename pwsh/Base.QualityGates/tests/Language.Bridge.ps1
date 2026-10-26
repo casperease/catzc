@@ -22,6 +22,7 @@ param(
     # The managed tool the run's source session located (Get-LanguageTestExecutable); empty when there is none.
     [string] $Executable,
 
+    # An empty or missing entry means that engine's run of the tests skips.
     [hashtable] $EngineExecutable = @{}
 )
 
@@ -51,6 +52,7 @@ BeforeDiscovery {
 Describe "$Language tests of $($script:languageSuite.Module)" -Tag 'L2', 'greedy' -ForEach @(@{
         Language = $Language; Module = $script:languageSuite.Module; Cases = $script:languageSuite.Cases; Entry = $EntryScript; Tool = $Executable
         Folder      = $TestFolder
+        # A Bash test is Bash, so it runs under the bash engine only.
         Engines     = if ($Language -eq 'bash') {
             @([Catzc.Base.Engines.ExecutionEngines]::Bash.Name)
         }
@@ -63,7 +65,9 @@ Describe "$Language tests of $($script:languageSuite.Module)" -Tag 'L2', 'greedy
         EngineTools = $EngineExecutable
     }) {
     BeforeAll {
+        # Every test runs once per execution engine: the same test, a different contract.
         $script:languageOutcomes = @{}
+        # A run that throws fails each of its cases with its message, so one BeforeAll failure hides nothing.
         $script:languageErrors = @{}
         foreach ($engineName in $Engines) {
             try {

@@ -10,6 +10,7 @@ Describe 'Module script scopes are never shared' -Tag 'DDR-RUNMODE-OWNSCRIPTSCOP
     BeforeAll {
         $script:probeName = 'catzcScopeIsolationProbe'
 
+        # Self-contained, so it also runs in a child pwsh.
         $script:probeBlock = {
             param([string] $ProbeName)
             $modules = @(Get-Module 'Catzc.*' | Where-Object { $_.Name -notlike 'Catzc.Internal.*' -and $_.Name -ne 'Catzc' } |

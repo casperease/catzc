@@ -19,6 +19,7 @@ Describe 'Write-TestAutomationVerdict' -Tag 'L0', 'logic', 'ADR-AUTO-CONSOLE-SPA
             $Text -replace "`e\[[0-9;]*m", ''
         }
 
+        # Returns the raw banner with ANSI intact, so a caller asserts on colour or strips it for text.
         function Get-VerdictRaw {
             param($Result, $Summary, $PassedCount = 0, $FailedCount = 0, $SkippedCount = 0, $DurationSeconds = 0,
                 $ReportPath = '')

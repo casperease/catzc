@@ -16,6 +16,7 @@ Describe 'Invoke-BicepFormat' -Tag 'L0', 'logic' {
         Mock Resolve-ToolExecutable -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Tool -eq 'bicep' } {
             [pscustomobject]@{ Found = $true; VersionOk = $true; Path = 'C:\tools\bicep.exe'; Version = '0.48.1'; Required = '0.48' }
         }
+        # The fake collapses runs of spaces in place, as bicep format --pattern does.
         Mock Invoke-Executable -ModuleName Catzc.Base.QualityGates {
             if ($Command -match 'format --pattern "([^"]+)"') {
                 foreach ($copy in [System.IO.Directory]::GetFiles([System.IO.Path]::GetDirectoryName($Matches[1]),

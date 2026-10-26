@@ -86,7 +86,7 @@ function Get-CodeLocationsMinimapData {
     }
     $data = New-MinimapData -Id ([Catzc.Base.Maps.MinimapData]::CodeLocations) -Axes $axes -Cells ([string[][]] $sorted) -Count $count -Reasons $reasons
     # The rows the place list draws are computed here, from the place triples, so the drawing only draws them.
-    $first =[System.Collections.Generic.HashSet[string]]::new([string[]] @($primary | ForEach-Object { $_ -join "`t" }), [System.StringComparer]::Ordinal)
+    $first = [System.Collections.Generic.HashSet[string]]::new([string[]] @($primary | ForEach-Object { $_ -join "`t" }), [System.StringComparer]::Ordinal)
     $primaryCells = [Catzc.Base.Maps.MinimapCell[]] @($data.Lit | Where-Object { $first.Contains($_.At -join "`t") })
     $secondaryCells = [Catzc.Base.Maps.MinimapCell[]] @($data.Lit | Where-Object { -not $first.Contains($_.At -join "`t") })
     $data = $data.WithPlaceRows([Catzc.Base.Maps.PlaceRows]::From($primaryCells, $secondaryCells,

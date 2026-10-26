@@ -74,6 +74,7 @@ Describe 'Invoke-TestFile (real worker)' -Tag 'L2', 'integrity', 'greedy' {
     BeforeAll {
         Mock Write-Message -ModuleName Catzc.Base.QualityGates { }
 
+        # The same strict-hostile read, bare and behind the local opt-out, plus a passing test.
         $script:fixture = Join-Path $TestDrive 'StrictHostile.Tests.ps1'
         $fixtureContent = @'
 Describe 'StrictHostile' -Tag 'L0', 'logic' {

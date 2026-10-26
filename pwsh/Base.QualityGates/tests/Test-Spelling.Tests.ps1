@@ -160,6 +160,7 @@ Describe 'Test-Spelling (real cspell)' -Tag 'L2', 'logic' {
             Set-ItResult -Skipped -Because 'tool_cspell_missing'
             return
         }
+        # cspell globs are relative to the repository root, so the fixture is passed repo-relative.
         $fixture = ConvertTo-RepoRelativePath (Join-Path (Get-CatzcModuleRoot -Module Catzc.Base.QualityGates) 'tests/assets/spelling/clean.md')
         $result = Test-Spelling -Path $fixture -OutputFolder (Join-Path $TestDrive 'reports') -PassThru
         $result.IssueCount | Should -Be 0
@@ -169,6 +170,7 @@ Describe 'Test-Spelling (real cspell)' -Tag 'L2', 'logic' {
 
 Describe 'Repository spelling integrity' -Tag 'L2', 'integrity', 'source-only' {
     It 'the repository globset covers every tracked file the spelling scan reads' -Tag 'ADR-REPO-PROTGLOB-INCLUDESOWNCONFIG' {
+        # A tracked file of these types outside the globset could change the scan without re-keying protection.
         $spelledExtensions = @((Get-Config -Config languages).ExtensionsCheckedBy('Test-Spelling'))
         $spelled = foreach ($file in (Get-GitTrackedPath '.')) {
             if ($file.StartsWith("$(Get-CatzcModulesFolder)/.vendor/")) {

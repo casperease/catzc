@@ -8,6 +8,7 @@ catzc:
 
 Describe 'Write-TestAutomationRuleCoverage' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-COVERAGEREPORTEDONLY' {
     BeforeAll {
+        # A fake rule universe keeps the writer a pure function of its inputs.
         $script:allRuleIds = @('ADR-FAKE-TURN', 'ADR-FAKE-PULL', 'ADR-FAKE-FOLD', 'ADR-FAKE-SPIN', 'ADR-FAKE-TWIST')
         $script:rows = @(
             [pscustomobject]@{ ExpandedPath = 'M.a cites error'; Rules = 'ADR-FAKE-TURN' }
