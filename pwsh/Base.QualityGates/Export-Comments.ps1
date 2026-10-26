@@ -26,6 +26,7 @@ function Export-Comments {
 
     $config = Get-Config -Config comments
     $utf8NoBom = [System.Text.UTF8Encoding]::new($false)
+    $pageWidth = Get-MarkdownWidth
 
     # Several files may share a page only by configuration error; each page is read once and carried forward.
     $pageTexts = @{}
@@ -59,7 +60,7 @@ function Export-Comments {
         $text = [System.IO.File]::ReadAllText($filePath)
         $result = [Catzc.Base.QualityGates.CommentEngine]::Export($text, $entry.Extension, $entry.Language, $entry.File,
             $entry.Page,
-            $pageTexts[$entry.Page], $config)
+            $pageTexts[$entry.Page], $config, $pageWidth)
         if (-not $result.Changed) {
             continue
         }

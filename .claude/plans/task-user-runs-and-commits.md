@@ -177,7 +177,16 @@ final full run last.
     `pwsh/Azure.Templates/tests/Build-Bicep.L2.Tests.ps1` and `pwsh/Azure.Templates/tests/Build-Bicep.Integrity.Tests.ps1`. Check:
     `git status --short pwsh/Base.QualityGates pwsh/Azure.Templates/tests pwsh/.internal/tests docs/references` lists these files.
 
-31. The final full run, in a fresh session, when the chunks in plan-master have landed. Once it is green and committed, the work is done and
+31. Commit the contracts `arm/` folder (catzc-98, 2026-10-26): `contracts/catzc/0.1.0/pwsh.azure.templates/main.json.schema.json` moved to
+    `pwsh.azure.templates/arm/main.json.schema.json`; `contracts/catzc/0.1.0/contract.yml` and
+    `pwsh/Base.VSCode/configs/vscode-settings.yml` re-pointed; `docs/drs/repository/api-contracts.md` (ADR-REPO-CONTRACT-LAYOUT: one sorting
+    folder per group); in `pwsh/Base.Contracts` `private/Get-ContractVersionAsset.ps1`, `private/Resolve-ContractAsset.ps1`,
+    `types/ContractAsset.cs`, `types/ContractManifest.cs` and the tests `types/ContractAsset.Tests.ps1`, `types/ContractManifest.Tests.ps1`,
+    `Get-Contract.Tests.ps1`, `Publish-ContractRelease.Tests.ps1`, `Test-Contracts.Tests.ps1`; and the regenerated
+    `docs/references/contracts/catzc.md`. Check: `Test-Contracts` reports no issues and `git status --short contracts` shows the move as a
+    rename.
+
+32. The final full run, in a fresh session, when the chunks in plan-master have landed. Once it is green and committed, the work is done and
     every plan, task and prompt in `.claude/plans` is deleted (the user, 2026-10-20). Check: `.claude/plans` is empty.
 
 ## Report

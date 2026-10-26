@@ -1,3 +1,11 @@
+/*
+---
+catzc:
+  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/types/CommentEngine.cs.md"
+  header: "generated"
+---
+*/
+
 // Pure functions over text, so the move and its inverse are provable on fixtures and each comment keeps one living copy.
 
 using System;
@@ -202,7 +210,7 @@ public static class CommentEngine
 
     // A moved comment leaves nothing in the file: its page section names the code line it sat above, and the view puts it back there.
     public static CommentFileResult Export(string text, string extension, string language, string repoRelativePath, string pagePath,
-        string existingPageText, CommentsConfig config)
+        string existingPageText, CommentsConfig config, int pageWidth)
     {
         if (string.IsNullOrEmpty(repoRelativePath)) { throw new ArgumentException("comment engine: the file path is required"); }
         if (string.IsNullOrEmpty(pagePath)) { throw new ArgumentException("comment engine: the page path is required"); }
@@ -243,15 +251,30 @@ public static class CommentEngine
         }
 
         string newText = lines.Join(output);
-        string newPage = page.With(sections, repoRelativePath, IgnoredWords(text, extension));
+        string newPage = page.With(sections, repoRelativePath, IgnoredWords(text, extension), pageWidth);
         return new CommentFileResult(repoRelativePath, pagePath, newText, newPage, blocks);
     }
 
-    // The opening of a page the exporter or the help move writes for the first time: its title and the line that says what it holds.
-    public static string FreshPage(string repoRelativePath) =>
+    public static string FreshPage(string repoRelativePath, int width) =>
         "# " + repoRelativePath + "\n\n"
-        + "The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its\n"
-        + "comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.\n";
+        + Wrap("The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its"
+            + " comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.", width);
+
+    // Prose filled greedily to the width, as prettier's proseWrap fills it; a word longer than the width stands on its own line.
+    static string Wrap(string prose, int width)
+    {
+        if (width < 1) { throw new ArgumentException("comment engine: the page width must be positive"); }
+        var builder = new StringBuilder();
+        int column = 0;
+        foreach (string word in prose.Split(' ', StringSplitOptions.RemoveEmptyEntries))
+        {
+            if (column > 0 && column + 1 + word.Length > width) { builder.Append('\n'); column = 0; }
+            else if (column > 0) { builder.Append(' '); column++; }
+            builder.Append(word);
+            column += word.Length;
+        }
+        return builder.Append('\n').ToString();
+    }
 
     // The page ignores these words too, or moved prose would fail a spell check the file itself passed.
     public static IReadOnlyList<string> IgnoredWords(string text, string extension)

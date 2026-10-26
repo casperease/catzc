@@ -63,7 +63,7 @@ function Move-FunctionHelp {
         [System.IO.File]::ReadAllText($pageFull)
     }
     else {
-        [Catzc.Base.QualityGates.CommentEngine]::FreshPage($Path)
+        [Catzc.Base.QualityGates.CommentEngine]::FreshPage($Path, (Get-MarkdownWidth))
     }
     if ($RestsOn.Count -gt 0) {
         $list = if ($RestsOn.Count -eq 1) {

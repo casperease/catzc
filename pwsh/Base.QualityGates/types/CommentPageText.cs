@@ -142,11 +142,11 @@ public static class CommentPageText
         }
 
         // The page text with the new sections appended: an existing page keeps its text as written.
-        public string With(IEnumerable<string> newSections, string repoRelativePath, IReadOnlyList<string> ignoredWords)
+        public string With(IEnumerable<string> newSections, string repoRelativePath, IReadOnlyList<string> ignoredWords, int width)
         {
             var builder = new StringBuilder();
             bool fresh = Sections.Count == 0 && Prefix.Trim().Length == 0;
-            string prefix = fresh ? FreshPage(repoRelativePath) : Prefix.TrimEnd('\n') + "\n";
+            string prefix = fresh ? CommentEngine.FreshPage(repoRelativePath, width) : Prefix.TrimEnd('\n') + "\n";
             builder.Append(WithIgnoreLine(prefix, repoRelativePath, ignoredWords).TrimEnd('\n')).Append("\n\n");
             if (!fresh)
             {

@@ -10,7 +10,7 @@ Describe 'CommentEngine' -Tag 'L0', 'logic' {
                 [string] $PageText = $null)
             [Catzc.Base.QualityGates.CommentEngine]::Export($Text, $Extension, $Language,
                 'widgets/Catzc.Widget/Get-Widget.ps1',
-                $script:page, $PageText, $script:config)
+                $script:page, $PageText, $script:config, 140)
         }
         $script:source = @(
             'function Get-Widget {'
@@ -45,6 +45,24 @@ Describe 'CommentEngine' -Tag 'L0', 'logic' {
         $section = "## comment:1`n`nAbove ``" + '$widgets = Get-Gadget | Sort-Object   # a trailing note stays' + "``, written with ``#``.`n`n" + '```text' + "`nSorted first, so the gadget order is stable`nacross runs and the cache key never changes.`n" + '```'
         $result.PageText.Contains($section) |
             Should -BeTrue -Because 'a section names its code line and fences the prose, indent stripped'
+    }
+
+    It 'wraps a fresh page''s opening at the markdown width it is given, every line filled to it and none past it' -Tag 'ADR-REPO-COMMENTS-ONELINEOFINSIGHT' {
+        foreach ($width in 60, 140) {
+            $lines = [Catzc.Base.QualityGates.CommentEngine]::FreshPage('widgets/Get-Widget.ps1', $width).TrimEnd("`n") -split "`n"
+            $lines[0] | Should -Be '# widgets/Get-Widget.ps1'
+            $prose = $lines[2..($lines.Count - 1)]
+            ($prose -join ' ') |
+                Should -Be ('The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code ' +
+                    'line its comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.')
+            foreach ($index in 0..($prose.Count - 1)) {
+                $prose[$index].Length | Should -BeLessOrEqual $width
+                if ($index -lt $prose.Count - 1) {
+                    ($prose[$index].Length + 1 + $prose[$index + 1].Split(' ')[0].Length) |
+                        Should -BeGreaterThan $width -Because 'a line breaks only when the next word would pass the width'
+                }
+            }
+        }
     }
 
     It 'puts every section back above its code line in the view' -Tag 'ADR-REPO-COMMENTS-INLINEVIEWGENERATED' {
@@ -205,7 +223,7 @@ Describe 'CommentEngine' -Tag 'L0', 'logic' {
         $blocks.Count | Should -Be 1
         $blocks[0].StartLine | Should -Be 4
         $moved = [Catzc.Base.QualityGates.CommentEngine]::Export($yaml, '.yml', 'yaml',
-            'widgets/Catzc.Widget/widget.yml', $script:page, $null, $head)
+            'widgets/Catzc.Widget/widget.yml', $script:page, $null, $head, 140)
         $moved.MovedCount | Should -Be 1
         $moved.Text.StartsWith("# catzc:`n#   path: docs/widget.yml`n#   module: Catzc.Widget`n`n") | Should -BeTrue
     }
