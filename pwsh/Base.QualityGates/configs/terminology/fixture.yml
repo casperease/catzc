@@ -107,6 +107,8 @@ terms:
       meaning: "placeholder Go module or Python package name 'catzcgadget' (catzc + gadget) in language test-workspace tests"
     - term: catzcleftover
       meaning: "placeholder name of a stale workspace member 'catzcleftover' in New-GoWorkspace tests"
+    - term: gadgetsspin
+      meaning: "placeholder module-name join 'gadgetsspin' (namespace gadgets + folder spin, no separator) in Resolve-ModuleName tests"
     - term: widgetgadget
       meaning: "placeholder name 'widgetgadget' (widget + gadget joined) in LanguagesConfig naming tests"
     - term: widgetbasegadgetparts

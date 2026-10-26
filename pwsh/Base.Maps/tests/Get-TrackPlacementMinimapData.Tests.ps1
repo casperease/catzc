@@ -1,6 +1,6 @@
 Describe 'Get-TrackPlacementMinimapData' -Tag 'L0', 'logic' {
     BeforeAll {
-        $script:schema = [System.IO.File]::ReadAllText((Join-Path (Get-RepositoryRoot) 'contracts/catzc/0.1.0/catzc.base.maps/minimap.schema.json'))
+        $script:schema = [System.IO.File]::ReadAllText((Join-Path (Get-RepositoryRoot) 'contracts/catzc/0.1.0/pwsh.base.maps/minimap.schema.json'))
         Mock Get-Track -ModuleName Catzc.Base.Maps {
             [Catzc.Base.Variants.VariantTrack]::new('widgets', @('widgets'), 'modules', $null, @('widget-script'))
             [Catzc.Base.Variants.VariantTrack]::new('gadgets', @('gadgets'), 'modules', 'gizmo', @('widget-script'))

@@ -94,7 +94,12 @@ function New-PythonProject {
             ($workspace -join "`n") + "`n"))
 
     $track = Get-Track -Path $pythonRoot
-    $fullName = { param([string] $Folder) if ($null -ne $track) { $track.FullNameOf($Folder) } else { $Folder } }
+    $fullName = { param([string] $Folder) if ($null -ne $track) {
+            $track.FullNameOf($Folder)
+        }
+        else {
+            $Folder
+        } }
     $members = @(foreach ($folder in $folders) {
             [pscustomobject]@{ Name = (& $fullName $folder); Folder = "tests/$folder" }
         }) +

@@ -20,7 +20,7 @@ public sealed class SlidesConfig
     public const string DefaultTheme = "dark";
     public const int DefaultRenderParallel = 3;
 
-    private static readonly string[] AllowedKeys = { "kit", "drawio_kit", "theme", "render_parallel", "name_mentions" };
+    private static readonly string[] AllowedKeys = { "kit", "drawio_kit", "theme", "render_parallel" };
 
     public string kit { get; }
 
@@ -33,10 +33,6 @@ public sealed class SlidesConfig
     // The worker processes a diagram build splits its renders across, each with a disjoint slice of the diagrams.
     public int render_parallel { get; }
 
-    // The diagrams (by stem) and slides (by path) whose naming of catzc or cats is a declared contrast, each with its reason
-    // (DDR-VISUAL-NONAMEINPICTURE); empty when none is declared.
-    public IReadOnlyDictionary<string, string> name_mentions { get; }
-
     public SlidesConfig(IDictionary raw)
     {
         List<string> errors = new List<string>();
@@ -44,7 +40,6 @@ public sealed class SlidesConfig
         string drawioValue = DefaultDrawioKit;
         string themeValue = DefaultTheme;
         int parallelValue = DefaultRenderParallel;
-        Dictionary<string, string> mentions = new Dictionary<string, string>(StringComparer.Ordinal);
 
         if (raw != null)
         {
@@ -82,33 +77,6 @@ public sealed class SlidesConfig
                     parallelValue = parsed;
                 }
             }
-            if (raw.Contains("name_mentions") && raw["name_mentions"] != null)
-            {
-                if (!(raw["name_mentions"] is IDictionary declared))
-                {
-                    errors.Add("name_mentions must map a diagram stem or a slide path to the reason its mention is a contrast");
-                }
-                else
-                {
-                    foreach (object key in declared.Keys)
-                    {
-                        string path = Convert.ToString(key, CultureInfo.InvariantCulture);
-                        string reason = Convert.ToString(declared[key], CultureInfo.InvariantCulture);
-                        if (string.IsNullOrWhiteSpace(path) || path.Contains('\\') || path.StartsWith("/", StringComparison.Ordinal) || path.Contains(".."))
-                        {
-                            errors.Add(string.Format(CultureInfo.InvariantCulture, "name_mentions key '{0}' must be a repository-relative path in communication form", path));
-                        }
-                        else if (string.IsNullOrWhiteSpace(reason))
-                        {
-                            errors.Add(string.Format(CultureInfo.InvariantCulture, "name_mentions['{0}'] must say why its mention is a contrast", path));
-                        }
-                        else
-                        {
-                            mentions[path] = reason.Trim();
-                        }
-                    }
-                }
-            }
         }
 
         if (errors.Count > 0)
@@ -120,7 +88,6 @@ public sealed class SlidesConfig
         drawio_kit = drawioValue;
         theme = themeValue;
         render_parallel = parallelValue;
-        name_mentions = mentions;
     }
 
     static string Folder(IDictionary raw, string key, string fallback, List<string> errors)

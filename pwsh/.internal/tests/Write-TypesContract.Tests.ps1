@@ -21,7 +21,7 @@ Describe 'Write-TypesContract' -Tag 'L0', 'logic' {
     It 'writes the surface, sorted by name, with no hash, to the contract under the catzc root' {
         $first = & $script:write $script:surface
         $first.Written | Should -BeTrue
-        $first.Path | Should -BeLike '*contracts*catzc*0.1.0*catzc.internal.types*types.sample.json'
+        $first.Path | Should -BeLike '*contracts*catzc*0.1.0*pwsh.internal.types*types.sample.json'
         $text = [System.IO.File]::ReadAllText($first.Path)
         $text | Should -Not -Match "`r"
         $text.EndsWith("`n") | Should -BeTrue

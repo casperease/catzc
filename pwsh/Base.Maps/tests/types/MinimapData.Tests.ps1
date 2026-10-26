@@ -1,6 +1,6 @@
 Describe 'MinimapData' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT-PROVENBYTESTS' {
     BeforeAll {
-        $schemaPath = Join-Path (Get-RepositoryRoot) 'contracts/catzc/0.1.0/catzc.base.maps/minimap.schema.json'
+        $schemaPath = Join-Path (Get-RepositoryRoot) 'contracts/catzc/0.1.0/pwsh.base.maps/minimap.schema.json'
         $script:schema = [System.IO.File]::ReadAllText($schemaPath)
         $script:conforms = { param([string] $Json) Test-Json -Json $Json -Schema $script:schema -ErrorAction SilentlyContinue }
 

@@ -6,21 +6,3 @@
 
 # Only a deviation from SlidesConfig's default; the kit's patterns and style guide are read from this folder.
 kit: python/diagrams/assets/slides
-
-# The pictures whose naming of catzc or cats is a contrast or the thing itself, each with why (DDR-VISUAL-NONAMEINPICTURE).
-name_mentions:
-  docs/explanation/repository/.assets/building-the-contract-reference-writes-one-page-per-unit: the catzc contract unit is one of the units drawn
-  docs/explanation/thesis/product-thesis/.assets/truth-stores: the system itself is a node among the stores it holds
-  docs/explanation/automation/.assets/build-then-place-with-one-command: the bundle is named Catzc in what the build prints
-  docs/explanation/design/.assets/a-sibling-is-an-idea-never-a-reference: catzc is drawn against its sibling
-  docs/explanation/design/.assets/deploy-bicep-delegates-to-az: the CATZC platform band is drawn against AZURE
-  docs/explanation/design/.assets/every-vendor-call-leaves-through-az: the CATZC platform band is drawn against AZURE
-  docs/explanation/design/.assets/same-deploy-bicep-on-both-sides: the CATZC platform band is drawn against AZURE
-  docs/explanation/design/.assets/what-keeps-the-platform-thin: the CATZC platform band is drawn against AZURE
-  docs/explanation/design/.assets/one-entry-script-per-mode: Import-Module Catzc names the bundle module
-  docs/explanation/flow/.assets/globs-asks-loader-for-context-and-git-for-diff: the OUTSIDE CATS band is the contrast the picture draws
-  docs/explanation/thesis/.assets/eac-normal-form: the catzc bundle is the thing the normal form is drawn against
-  docs/explanation/thesis/product-thesis/cover.slide.md: the cover names the product
-  docs/explanation/thesis/product-thesis/product.slide.md: the slide names the product
-  docs/explanation/thesis/product-thesis/pokayoke.slide.md: cats is drawn against jidoka
-  docs/explanation/thesis/product-thesis/problem.slide.md: the slide quotes TDR-ONETRUTH-ONESTOREDECIDES as the registry holds it

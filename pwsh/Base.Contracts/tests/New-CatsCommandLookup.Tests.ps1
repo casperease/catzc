@@ -12,11 +12,11 @@ Describe 'New-CatsCommandLookup — the real contracts' -Tag 'L1', 'integrity', 
 
     It 'writes one row per contracted parameter, keyed by the normal form, with its kebab and PowerShell renderings' {
         $script:rows |
-            Should -Contain ("get_path_file_type`tpath`tstring`t0`t1`t0`tcontracts/catzc/0.1.0/catzc.base.languages/get_path_file_type.command.yml`t`t`tget-path-file-type`tpath`tGet-PathFileType`tPath")
+            Should -Contain ("get_path_file_type`tpath`tstring`t0`t1`t0`tcontracts/catzc/0.1.0/pwsh.base.languages/get_path_file_type.command.yml`t`t`tget-path-file-type`tpath`tGet-PathFileType`tPath")
         $script:rows |
-            Should -Contain ("get_contract_check_results`tasset`tcatzc.base.contracts.contract_asset`t1`t0`t1`tcontracts/catzc/0.1.0/catzc.base.contracts/get_contract_check_results.command.yml`t`t`tget-contract-check-results`tasset`tGet-ContractCheckResults`tAsset")
+            Should -Contain ("get_contract_check_results`tasset`tcatzc.base.contracts.contract_asset`t1`t0`t1`tcontracts/catzc/0.1.0/pwsh.base.contracts/get_contract_check_results.command.yml`t`t`tget-contract-check-results`tasset`tGet-ContractCheckResults`tAsset")
         $script:rows |
-            Should -Contain ("get_inspiration`tcount`tint`t0`t1`t0`tcontracts/catzc/0.1.0/catzc.tooling.inspiration/get_inspiration.command.yml`trandom`tall`tget-inspiration`tcount`tGet-Inspiration`tCount")
+            Should -Contain ("get_inspiration`tcount`tint`t0`t1`t0`tcontracts/catzc/0.1.0/pwsh.tooling.inspiration/get_inspiration.command.yml`trandom`tall`tget-inspiration`tcount`tGet-Inspiration`tCount")
     }
 
     It 'renders every command to a function the module system exports' {

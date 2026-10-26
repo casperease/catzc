@@ -1,6 +1,6 @@
 Describe 'Get-GridMinimapData' -Tag 'L1', 'integrity', 'source-only' {
     BeforeAll {
-        $script:schema = [System.IO.File]::ReadAllText((Join-Path (Get-RepositoryRoot) 'contracts/catzc/0.1.0/catzc.base.maps/minimap.schema.json'))
+        $script:schema = [System.IO.File]::ReadAllText((Join-Path (Get-RepositoryRoot) 'contracts/catzc/0.1.0/pwsh.base.maps/minimap.schema.json'))
     }
 
     It 'is the world map''s grid of the tree, lit with reasons by the files that cite a code, in the minimap contract' {

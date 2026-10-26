@@ -1,6 +1,6 @@
 Describe 'Get-LifecyclePositionMinimapData' -Tag 'L0', 'logic', 'FDR-CD-RUNGSREGISTRY' {
     BeforeAll {
-        $script:schema = [System.IO.File]::ReadAllText((Join-Path (Get-RepositoryRoot) 'contracts/catzc/0.1.0/catzc.base.maps/minimap.schema.json'))
+        $script:schema = [System.IO.File]::ReadAllText((Join-Path (Get-RepositoryRoot) 'contracts/catzc/0.1.0/pwsh.base.maps/minimap.schema.json'))
         $script:subject = { param([string] $Path,
                 [string[]] $Citations) [pscustomobject]@{ Path = $Path; Requested = 'ADR-WIDGET'; Citations = $Citations; Facts = $null } }
         Mock Get-Rung -ModuleName Catzc.Base.Maps {

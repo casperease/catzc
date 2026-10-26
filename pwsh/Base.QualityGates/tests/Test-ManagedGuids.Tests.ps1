@@ -21,7 +21,7 @@ Describe 'Test-ManagedGuids' -Tag 'L0', 'logic' {
         Mock Write-Message -ModuleName Catzc.Base.Reports { }
         Mock Get-GuidScanFiles -ModuleName Catzc.Base.QualityGates { @('docs/widget.md', 'docs/gadget.md') }
         Mock Get-GlobSetFile -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Name -eq 'repository' } {
-            @('docs/widget.md', 'docs/gadget.md', "$(Get-CatzcModulesFolder)/Catzc.Base.QualityGates/configs/guids.yml")
+            @('docs/widget.md', 'docs/gadget.md', "$(Get-CatzcModulesFolder)/Base.QualityGates/configs/guids.yml")
         }
         Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'guids' } {
             [pscustomobject]@{

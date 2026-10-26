@@ -1,6 +1,6 @@
 Describe 'Get-CodeLocationsMinimapData' -Tag 'L0', 'logic' {
     BeforeAll {
-        $script:schema = [System.IO.File]::ReadAllText((Join-Path (Get-RepositoryRoot) 'contracts/catzc/0.1.0/catzc.base.maps/minimap.schema.json'))
+        $script:schema = [System.IO.File]::ReadAllText((Join-Path (Get-RepositoryRoot) 'contracts/catzc/0.1.0/pwsh.base.maps/minimap.schema.json'))
         Mock Get-MinimapSubject -ModuleName Catzc.Base.Maps {
             [pscustomobject]@{ Path = 'widgets/Catzc.Widget/private/Get-Cog.ps1'; Requested = 'ADR-WIDGET'; Citations = @(); Facts = @{ track = 'widgets'; module = 'Catzc.Widget' } }
             [pscustomobject]@{ Path = 'widgets/Catzc.Widget/private/Get-Sprocket.ps1'; Requested = 'ADR-WIDGET'; Citations = @(); Facts = @{ track = 'widgets'; module = 'Catzc.Widget' } }

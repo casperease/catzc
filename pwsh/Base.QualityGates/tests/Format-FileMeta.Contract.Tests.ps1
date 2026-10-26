@@ -8,7 +8,7 @@ catzc:
 
 Describe 'The provided head contract' -Tag 'L1', 'integrity', 'source-only', 'ADR-REPO-CONTRACT-PROVENBYTESTS' {
     BeforeAll {
-        $folder = Join-Path (Get-RepositoryRoot) 'contracts/catzc/0.1.0/catzc.base.quality_gates'
+        $folder = Join-Path (Get-RepositoryRoot) 'contracts/catzc/0.1.0/pwsh.base.quality_gates'
         $script:sample = Get-Content -LiteralPath (Join-Path $folder 'head.sample.yml') -Raw | ConvertFrom-Yaml -Ordered
         $script:schema = Get-Content -LiteralPath (Join-Path $folder 'head.schema.json') -Raw |
             ConvertFrom-Json -AsHashtable

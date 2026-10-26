@@ -33,21 +33,21 @@ Describe 'Build-ContractReference' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:root = Join-Path $TestDrive ([guid]::NewGuid().ToString('n'))
         $null = New-Item -ItemType Directory -Force -Path $script:root
-        $appliesTo = "applies_to:`n  catzc.widget/build.yml: ['widgets/build.yml']`n  catzc.widget/README.md: ['widgets/README.md']`n"
-        Add-File 'contracts/catzc/0.1.0/catzc.widget/build.yml' ((@('# The keys the gadget host reads, per [ADR-TST-WIDGET-TURN](/docs/drs/repository/widget-thing.md#rule-adr-tst-widget-turn).', 'widget:') -join "`n") + "`n")
-        Add-File 'contracts/catzc/0.1.0/catzc.widget/README.md' ''
-        Add-File 'contracts/catzc/0.1.0/catzc.gadget/gadget.sample.json' '{ "gadget": 1 }'
-        Add-File 'contracts/catzc/0.1.0/catzc.widget/get_widget.command.yml' "parameters:`n  path: string!`n  strict: switch`noutput: string`n"
+        $appliesTo = "applies_to:`n  pwsh.widget/build.yml: ['widgets/build.yml']`n  pwsh.widget/README.md: ['widgets/README.md']`n"
+        Add-File 'contracts/catzc/0.1.0/pwsh.widget/build.yml' ((@('# The keys the gadget host reads, per [ADR-TST-WIDGET-TURN](/docs/drs/repository/widget-thing.md#rule-adr-tst-widget-turn).', 'widget:') -join "`n") + "`n")
+        Add-File 'contracts/catzc/0.1.0/pwsh.widget/README.md' ''
+        Add-File 'contracts/catzc/0.1.0/pwsh.gadget/gadget.sample.json' '{ "gadget": 1 }'
+        Add-File 'contracts/catzc/0.1.0/pwsh.widget/get_widget.command.yml' "parameters:`n  path: string!`n  strict: switch`noutput: string`n"
         Add-File 'contracts/catzc/0.1.0/contract.yml' $appliesTo
         foreach ($release in '1.2.0', '1.10.0') {
-            Add-File "contracts/catzc/$release/catzc.widget/README.md" ''
-            Add-File "contracts/catzc/$release/contract.yml" "applies_to:`n  catzc.widget/README.md: ['widgets/README.md']`n"
+            Add-File "contracts/catzc/$release/pwsh.widget/README.md" ''
+            Add-File "contracts/catzc/$release/contract.yml" "applies_to:`n  pwsh.widget/README.md: ['widgets/README.md']`n"
         }
     }
 
     It 'writes one page per root, with a section per version folder: the current version first, then the releases newest first' -Tag 'ADR-REPO-CONTRACT-LAYOUT' {
-        Add-File 'contracts/gadget/0.1.0/catzc.gadget/README.md' ''
-        Add-File 'contracts/gadget/0.1.0/contract.yml' "applies_to:`n  catzc.gadget/README.md: ['widgets/README.md']`n"
+        Add-File 'contracts/gadget/0.1.0/pwsh.gadget/README.md' ''
+        Add-File 'contracts/gadget/0.1.0/contract.yml' "applies_to:`n  pwsh.gadget/README.md: ['widgets/README.md']`n"
 
         $paths = @(Build-ContractReference -RepositoryRoot $script:root -Silent)
         $paths | Should -Be @('docs/references/contracts/catzc.md', 'docs/references/contracts/gadget.md')
@@ -67,9 +67,9 @@ Describe 'Build-ContractReference' -Tag 'L0', 'logic' {
                 , @($_.Trim().Trim('|') -split ' \| ' | ForEach-Object { $_.Trim() })
             })
 
-        $rows[0] | Should -Be @('`catzc.gadget`', '`gadget.sample.json`', 'none', 'provided', 'sample payload', 'none')
-        $rows[1] | Should -Be @('`catzc.widget`', '`README.md`', '`widgets/README.md`', 'provided', 'presence', 'none')
-        $rows[2] | Should -Be @('`catzc.widget`', '`build.yml`', '`widgets/build.yml`', 'provided', 'fragment', 'none')
+        $rows[0] | Should -Be @('`pwsh.gadget`', '`gadget.sample.json`', 'none', 'provided', 'sample payload', 'none')
+        $rows[1] | Should -Be @('`pwsh.widget`', '`README.md`', '`widgets/README.md`', 'provided', 'presence', 'none')
+        $rows[2] | Should -Be @('`pwsh.widget`', '`build.yml`', '`widgets/build.yml`', 'provided', 'fragment', 'none')
     }
 
     It 'shows a command contract''s signature in its own column, from the one reader' -Tag 'ADR-REPO-CMDCONTRACT-ONEREADER' {
@@ -77,12 +77,12 @@ Describe 'Build-ContractReference' -Tag 'L0', 'logic' {
         $rows = @((Read-Page) -split "`n" | Where-Object { $_.StartsWith('| `catzc.') } | ForEach-Object {
                 , @($_.Trim().Trim('|') -split ' \| ' | ForEach-Object { $_.Trim() })
             })
-        $rows[3] | Should -Be @('`catzc.widget`', '`get_widget.command.yml`', '`widgets/Catzc.Widget/Get-Widget.ps1`',
+        $rows[3] | Should -Be @('`pwsh.widget`', '`get_widget.command.yml`', '`widgets/Catzc.Widget/Get-Widget.ps1`',
             'provided', 'command contract', '`path: string!, strict: switch -> string`')
     }
 
     It 'marks a command contract that does not read, and still writes the page' -Tag 'ADR-REPO-CMDCONTRACT-ONEREADER' {
-        Add-File 'contracts/catzc/0.1.0/catzc.widget/get_widget.command.yml' "parameters:`n  path: text`n"
+        Add-File 'contracts/catzc/0.1.0/pwsh.widget/get_widget.command.yml' "parameters:`n  path: text`n"
         Build-ContractReference -RepositoryRoot $script:root -Silent | Out-Null
         (Read-Page) |
             Should -Match '(?m)^\| `catzc\.widget` +\| `get_widget\.command\.yml` .*\| not readable \(Test-Contracts reports it\) +\|$'
@@ -91,7 +91,7 @@ Describe 'Build-ContractReference' -Tag 'L0', 'logic' {
     It 'lists the notes under the table, one item per asset that carries one' -Tag 'ADR-REPO-CONTRACT-HEADERSAYSWHATITPINS' {
         Build-ContractReference -RepositoryRoot $script:root -Silent | Out-Null
         $lines = (Read-Page) -split "`n"
-        $first = [array]::IndexOf($lines, '- `catzc.widget/build.yml`: The keys the gadget host reads, per')
+        $first = [array]::IndexOf($lines, '- `pwsh.widget/build.yml`: The keys the gadget host reads, per')
 
         @($lines | Where-Object { $_.StartsWith('- ') }).Count | Should -Be 1
         $first | Should -BeGreaterThan 0
@@ -102,7 +102,7 @@ Describe 'Build-ContractReference' -Tag 'L0', 'logic' {
 
     It 'fills a long note across lines at the prose width' -Tag 'ADR-REPO-FORMAT-GENERATEDARTIFACTSFORMATTED' {
         $long = (@('widget gadget') * 20) -join ' '
-        Add-File 'contracts/catzc/0.1.0/catzc.widget/build.yml' ((@("# $long.", 'widget:') -join "`n") + "`n")
+        Add-File 'contracts/catzc/0.1.0/pwsh.widget/build.yml' ((@("# $long.", 'widget:') -join "`n") + "`n")
         Build-ContractReference -RepositoryRoot $script:root -Silent | Out-Null
         $lines = (Read-Page) -split "`n"
 

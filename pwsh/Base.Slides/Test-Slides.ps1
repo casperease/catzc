@@ -61,12 +61,7 @@ function Test-Slides {
 
     $issues = [System.Collections.Generic.List[string]]::new()
     $read = @{}
-    $nameExempt = @((Get-Config -Config slides).name_mentions.Keys)
     foreach ($file in $files) {
-        $relative = [System.IO.Path]::GetRelativePath($RepositoryRoot, $file).Replace('\', '/')
-        foreach ($finding in @(Get-NameMentionFinding -Path $relative -Text ([System.IO.File]::ReadAllText($file)) -Exempt $nameExempt)) {
-            $issues.Add($finding)
-        }
         $slide = Read-SlideFile -Path $file
         $read[$file] = $slide
         $page = if ($slide.Order -is [int] -or $slide.Order -is [long]) {

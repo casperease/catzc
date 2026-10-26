@@ -160,7 +160,7 @@ Describe 'Test-Spelling (real cspell)' -Tag 'L2', 'logic' {
             Set-ItResult -Skipped -Because 'tool_cspell_missing'
             return
         }
-        $fixture = "$(Get-CatzcModulesFolder)/Catzc.Base.QualityGates/tests/assets/spelling/clean.md"
+        $fixture = ConvertTo-RepoRelativePath (Join-Path (Get-CatzcModuleRoot -Module Catzc.Base.QualityGates) 'tests/assets/spelling/clean.md')
         $result = Test-Spelling -Path $fixture -OutputFolder (Join-Path $TestDrive 'reports') -PassThru
         $result.IssueCount | Should -Be 0
         (Join-Path $result.ReportPath 'spelling.md') | Should -Exist

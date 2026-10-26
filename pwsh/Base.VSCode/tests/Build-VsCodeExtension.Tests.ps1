@@ -10,7 +10,7 @@ Describe 'Build-VsCodeExtension' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:folder = Join-Path $TestDrive 'widget-ext'
         $null = New-Item -ItemType Directory -Path (Join-Path $script:folder 'lib') -Force
-        Set-Content -LiteralPath (Join-Path $script:folder 'package.json') -Value '{ "name": "widget-ext", "displayName": "Widget <ext>", "description": "A widget.", "version": "1.2.3", "publisher": "acme", "engines": { "vscode": "^1.90.0" }, "main": "./extension.js", "activationEvents": ["onStartupFinished"] }'
+        Set-Content -LiteralPath (Join-Path $script:folder 'package.json') -Value '{ "name": "widget-ext", "displayName": "Widget <ext>", "description": "A widget.", "version": "1.2.3", "publisher": "acme", "engines": { "vscode": "^1.90.0" }, "main": "./extension.js", "activationEvents": ["onStartupFinished"], "catzc": { "source": "js/widget-ext" } }'
         Set-Content -LiteralPath (Join-Path $script:folder 'extension.js') -Value 'module.exports = {};'
         Set-Content -LiteralPath (Join-Path $script:folder 'lib/gadget.js') -Value 'module.exports = 1;'
         $script:out = Join-Path $TestDrive 'vsix'

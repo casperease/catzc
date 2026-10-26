@@ -68,13 +68,9 @@ function Test-Diagrams {
         if ($declared.Count -gt 0) {
             $null = Write-DiagramMinimapData -Stem $declared -RepositoryRoot $root
         }
-        $nameExempt = @((Get-Config -Config slides).name_mentions.Keys)
         foreach ($stem in $declared) {
             $declarationText = Get-DiagramDeclarationText -Stem $stem -RepositoryRoot $root
             foreach ($finding in @(Get-DiagramProofFinding -Stem $stem -Text $declarationText -RepositoryRoot $root)) {
-                $issues.Add($finding)
-            }
-            foreach ($finding in @(Get-NameMentionFinding -Path $stem -Text $declarationText -Exempt $nameExempt)) {
                 $issues.Add($finding)
             }
         }
