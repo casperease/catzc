@@ -40,7 +40,7 @@ function Get-LanguageTestFolders {
     $records = [System.Collections.Generic.List[pscustomobject]]::new()
     foreach ($language in $languages) {
         # The track's test holder: one folder per module, testing it from outside.
-        $testsRoot =[System.IO.Path]::GetFullPath([System.IO.Path]::Combine($repositoryRoot, $language.Root,
+        $testsRoot = [System.IO.Path]::GetFullPath([System.IO.Path]::Combine($repositoryRoot, $language.Root,
                 $testFolderName))
         if ([System.IO.Directory]::Exists($testsRoot)) {
             foreach ($folder in Get-ChildPath $testsRoot -Depth 1 -Directory -Exclude @() -PruneVendor $false) {

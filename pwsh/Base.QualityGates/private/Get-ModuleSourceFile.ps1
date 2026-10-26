@@ -38,7 +38,7 @@ function Get-ModuleSourceFile {
         $testsPath = Join-Path $moduleDir $testFolderName
         if (Test-Path $testsPath) {
             # Nested test code counts too; tests/assets/ holds no test files.
-            foreach ($script in Get-ChildPath $testsPath-File -Filter '*.Tests.ps1' -Depth 3) {
+            foreach ($script in Get-ChildPath $testsPath -File -Filter '*.Tests.ps1' -Depth 3) {
                 $files.Add($script)
             }
         }

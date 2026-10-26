@@ -27,7 +27,7 @@ function Get-MarkdownScope {
     }
 
     # Assigned, so the set holds the paths, not the one array.
-    $exemptPaths =Get-ContentExemptPath -RepositoryRoot $root -Path $markdown
+    $exemptPaths = Get-ContentExemptPath -RepositoryRoot $root -Path $markdown
     $exempt = [System.Collections.Generic.HashSet[string]]::new([string[]] @($exemptPaths))
     $attributes = if ($OptOut) {
         Get-GitAttributeValue -RepositoryRoot $root -Path $markdown -Attribute $OptOut

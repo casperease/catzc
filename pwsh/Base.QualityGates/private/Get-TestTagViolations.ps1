@@ -45,7 +45,7 @@ function Get-TestTagViolations {
         }
 
         # Provenance axis: every tag with the reserved 'ADR-' marker across the block chain, then classified.
-        $candidates =[System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
+        $candidates = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
         foreach ($tag in $test.Tag) {
             if ($tag -cmatch $citationTag) {
                 [void]$candidates.Add($tag)

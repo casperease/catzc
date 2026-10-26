@@ -14,6 +14,7 @@ function Get-CatsRuleEnforcers {
     # The test citations are read from the source tree's *.Tests.ps1 files, which a built package does not ship.
     Assert-SourceTree
 
+    # The strict-clean probe of a lazy cache entry (ADR-PWSH-CACHE-STRICTSAFEPROBE).
     $cached = $ExecutionContext.SessionState.PSVariable.GetValue('script:catsRuleEnforcersCache')
     if ($null -ne $cached) {
         return $cached
@@ -40,6 +41,7 @@ function Get-CatsRuleEnforcers {
     }
 
     $form = (Get-Config -Config drs).CodeForm
+    # Test enforcers are the -Tag citations, read by AST so a citation-shaped fixture string is never taken for a tag.
     $isCommand = { param($node) $node -is [System.Management.Automation.Language.CommandAst] }
     $isString = { param($node) $node -is [System.Management.Automation.Language.StringConstantExpressionAst] }
     $modulesRoot = Get-CatzcModulesRoot

@@ -132,7 +132,7 @@ function Get-LogicTestIdentityFinding {
     }
 
     # Position pass: an ambiguous identity counts only when bound to an identity parameter.
-    $identityParameters ='Environment', 'Env', 'Shortcode'
+    $identityParameters = 'Environment', 'Env', 'Shortcode'
     foreach ($command in $commands) {
         $elements = $command.CommandElements
         for ($i = 0; $i -lt $elements.Count - 1; $i++) {

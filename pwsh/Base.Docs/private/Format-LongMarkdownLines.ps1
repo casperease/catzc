@@ -16,6 +16,7 @@ function Format-LongMarkdownLines {
         [int] $Width = 140
     )
 
+    # Only a block with a line past the width is re-wrapped, so a copy that fits stays byte for byte; fences, tables and headings never.
     $skip = '^\s*(\||#|---|\*\*\*|<|```|~~~)'
     $marker = '^\s*(?:[-*+]|\d+\.)\s+'
 
